@@ -4,6 +4,8 @@ var structhmi_1_1LayersPanel_1_1Widgets =
     [ "addDecorButton", "structhmi_1_1LayersPanel_1_1Widgets.html#a1882f7093740b5aa715e8874fc6d8eda", null ],
     [ "addGroundButton", "structhmi_1_1LayersPanel_1_1Widgets.html#a782709673de6d037923e4ffea8f3fafe", null ],
     [ "dimCheck", "structhmi_1_1LayersPanel_1_1Widgets.html#ab7accf77ac1a12427528ce32ff20c462", null ],
+    [ "floorLabel", "structhmi_1_1LayersPanel_1_1Widgets.html#a7bd42ccf8d6ccbf5c0304a09409bc34f", null ],
+    [ "floorSpin", "structhmi_1_1LayersPanel_1_1Widgets.html#afa7209fc82e3441dfc0cfe49681183bd", null ],
     [ "layerList", "structhmi_1_1LayersPanel_1_1Widgets.html#af415615505e74f8faaf2d5c0c3195dfb", null ],
     [ "lockCheck", "structhmi_1_1LayersPanel_1_1Widgets.html#a0cc99dd7e2b85b7b5fe6a59b482959b1", null ],
     [ "moveBackwardButton", "structhmi_1_1LayersPanel_1_1Widgets.html#a409c22450371237295b24d4a875848df", null ],

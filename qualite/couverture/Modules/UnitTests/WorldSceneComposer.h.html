@@ -22,6 +22,7 @@
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
 #include "HMI/Graphics/ComposedScene.h"
@@ -66,14 +67,26 @@ namespace hmi {
 
 class PlaceAppearance;
 
-/// @brief Rang d'une piÃ¨ce dans une mÃªme profondeur : le relief, puis la figurine posÃ©e dessus.
+/**
+ * @brief Rang d'une piÃ¨ce dans une mÃªme profondeur : le relief, la figurine posÃ©e dessus, puis les
+ *        Ã©tages de la case, du premier au dernier (`LOT-129`) â le rang de l'Ã©tage `n` est
+ *        `Storey + n - 1`.
+ */
 enum class WorldDepthSlot : std::int32_t {
     Relief = 0,
     Figure,
+    Storey,
 };
 
-/// Nombre de rangs par profondeur.
-inline constexpr std::int32_t WORLD_DEPTH_SLOTS = 2;
+/// Nombre de rangs par profondeur : le relief, la figurine, et un rang par Ã©tage.
+inline constexpr std::int32_t WORLD_DEPTH_SLOTS =
+    static_cast&lt;std::int32_t&gt;(WorldDepthSlot::Storey) + core::MAX_STOREY_FLOOR;
+
+/// OpacitÃ© d'une piÃ¨ce d'Ã©tage qui masque le hÃ©ros (`LOT-129`) : on le voit Ã  travers le toit.
+inline constexpr float STOREY_SEE_THROUGH_OPACITY = 0.35F;
+
+/// Hauteur d'Ã©tage d'un lieu dont le manifeste n'en dÃ©clare pas, en largeurs de case (`LOT-129`).
+inline constexpr float DEFAULT_STOREY_TILES = 1.0F;
 
 /// Hauteur de la vue, en largeurs de case (`EX-REN-013`) : une case occupe Ã  l'Ã©cran la hauteur de
 /// la fenÃªtre divisÃ©e par 10,8 â 100 px Ã  1080p, 200 px Ã  2160p. Toutes les dÃ©finitions cadrent
@@ -145,6 +158,8 @@ struct WorldFigureSnapshot {
     /// ses images, c'est lui qui choisit l'image, et non @ref frame â la cadence est une donnÃ©e de
     /// l'art (`EX-REN-005`), pas du code.
     float seconds = -1.0F;
+    /// Le hÃ©ros : un Ã©tage qui le masque s'efface (`LOT-129`).
+    bool hero = false;
 
     [[nodiscard]] bool operator==(const WorldFigureSnapshot&amp;) const = default;
 };
@@ -212,6 +227,20 @@ struct MaquetteMarks {
  * planche du lieu, vide si la case ne dessine rien. `footprints` donne l'emprise des piÃ¨ces de
  * relief plus grandes qu'une case : la composition les trie au pied de leur emprise.
  */
+/**
+ * @brief Une couche d'**Ã©tage** (`LOT-129`, `EX-LVL-025`) : les piÃ¨ces d'une couche de dÃ©cor Ã 
+ *        l'Ã©tage `floor`, une entrÃ©e par case, ligne par ligne.
+ */
+struct WorldStoreySnapshot {
+    int floor = 1;
+    std::vector&lt;std::string&gt; relief;
+    /// Le type de chaque case de la couche : sans piÃ¨ce nommÃ©e, un mur s'y extrude en maquette,
+    /// comme au rez (`LOT-128`).
+    std::vector&lt;core::TileType&gt; types;
+
+    [[nodiscard]] bool operator==(const WorldStoreySnapshot&amp;) const = default;
+};
+
 struct WorldSceneSnapshot {
     float diamondRatio = core::ARENA_DIAMOND_RATIO;
     int columns = 0;
@@ -230,6 +259,11 @@ struct WorldSceneSnapshot {
     /// souvent que sur le sol, et il doit s'y extruder pareillement.
     std::vector&lt;core::TileType&gt; reliefTypes;
     std::map&lt;std::string, core::PieceFootprint, std::less&lt;&gt;&gt; footprints;
+    /// Les couches d'Ã©tage, de la plus basse Ã  la plus haute (`LOT-129`).
+    std::vector&lt;WorldStoreySnapshot&gt; storeys;
+    /// Le fichier, relatif au dossier du lieu, des piÃ¨ces citÃ©es qui ne sont pas `&lt;nom&gt;.png` Ã  plat
+    /// (`hmi::PlaceAppearance::pieceFile`) : un kit rangÃ© en sous-dossiers.
+    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; pieceFiles;
     std::vector&lt;WorldFigureSnapshot&gt; figures;
     /// Les jetons et les tracÃ©s de maquette (`LOT-128`), dÃ©jÃ  choisis par `maquetteMarks`.
     MaquetteMarks marks;

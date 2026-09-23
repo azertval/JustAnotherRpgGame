@@ -166,6 +166,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a4664bdd4c3b2d290c04650416ad10d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orientation : <span class="tt">None</span> pour une figurine qui n'a qu'une bande par animation.  <br /></td></tr>
 <tr class="memitem:ae5ce7c1bb8990ed76fe11dee5835eff4" id="r_ae5ce7c1bb8990ed76fe11dee5835eff4"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae5ce7c1bb8990ed76fe11dee5835eff4">seconds</a> = -1.0F</td></tr>
 <tr class="memdesc:ae5ce7c1bb8990ed76fe11dee5835eff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps écoulé, en secondes : s'il est connu (positif ou nul) et que la bande dit la durée de ses images, c'est lui qui choisit l'image, et non <a class="el" href="#a2462c509344833ce0e38c6f4e08ee04e" title="frame">frame</a> — la cadence est une donnée de l'art (<span class="tt">EX-REN-005</span>), pas du code.  <br /></td></tr>
+<tr class="memitem:ae19137a03918daf51d2159985052ab10" id="r_ae19137a03918daf51d2159985052ab10"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae19137a03918daf51d2159985052ab10">hero</a> = false</td></tr>
+<tr class="memdesc:ae19137a03918daf51d2159985052ab10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros : un étage qui le masque s'efface (<span class="tt">LOT-129</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une figurine à dessiner sur la carte : sa planche, son image, où elle est. </p>
@@ -257,6 +259,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Image de la bande, ramenée dans la bande par la composition. </p>
+
+</div>
+</div>
+<a id="ae19137a03918daf51d2159985052ab10" name="ae19137a03918daf51d2159985052ab10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae19137a03918daf51d2159985052ab10">&#9670;&#160;</a></span>hero</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldFigureSnapshot::hero = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le héros : un étage qui le masque s'efface (<span class="tt">LOT-129</span>). </p>
 
 </div>
 </div>

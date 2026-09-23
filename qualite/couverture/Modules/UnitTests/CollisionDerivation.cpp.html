@@ -108,8 +108,9 @@ public:
 <span style = "background-color:#dfd">    }</span>
 
     // Ajoute ce que la couche @p layer apporte, si elle est visuelle et de la taille de la carte.
-<span style = "background-color:#dfd">    void addLayer(const TileLayer&amp; layer) {
-        if (!isVisualLayerKind(layer.kind) || layer.tiles.width() != _width ||</span>
+<span style = "background-color:#dfd">    void addLayer(const TileLayer&amp; layer) {</span>
+        // Un Ã©tage ne dit rien du sol : la collision est celle du rez (`LOT-129`).
+<span style = "background-color:#dfd">        if (!isVisualLayerKind(layer.kind) || layer.floor != 0 || layer.tiles.width() != _width ||</span>
             layer.tiles.height() != _height) {
 <span style = "background-color:#dfd">            return;</span>
         }

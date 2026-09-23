@@ -14,6 +14,7 @@
 
 #include "Editor/Ui/SceneImages.h"
 
+#include &lt;algorithm&gt;
 #include &lt;utility&gt;
 
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
@@ -23,7 +24,6 @@
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
-#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 
@@ -44,37 +44,96 @@ namespace {
         .convertToFormat(QImage::Format_ARGB32_Premultiplied);
 <span style = "background-color:#dfd">}</span>
 
-<span style = "background-color:#dfd">[[nodiscard]] const QImage&amp; solidImage() {
-    static const QImage solid = [] {
-        QImage image(1, 1, QImage::Format_ARGB32_Premultiplied);
-        image.fill(Qt::white);
-        return image;
-    }();
-    return solid;
+<span style = "background-color:#dfd">[[nodiscard]] std::size_t bytesOf(const QImage&amp; image) noexcept {
+    return image.isNull() ? 0 : static_cast&lt;std::size_t&gt;(image.sizeInBytes());
 }</span>
-
-<span style = "background-color:#dfd">[[nodiscard]] SceneTexture textureOf(const QImage&amp; image, int frameWidth) {
-    return SceneTexture{.texture = sceneImageHandle(&amp;image),</span>
-                        .width = image.width(),
-                        .height = image.height(),
-                        .frameWidth = frameWidth};
-<span style = "background-color:#dfd">}</span>
 
 }  // namespace
 
-SceneImages::SceneImages(std::filesystem::path assetsDirectory)
-<span style = "background-color:#dfd">    : _directory(std::move(assetsDirectory)) {
-    const ProceduralAtlasImage checker = buildMissingTextureImage();
-    _missing = fromRgba8(checker.width, checker.height, checker.pixels);
-    _textures.missing = textureOf(_missing, 0);</span>
-    // L'aplat du rendu de maquette (LOT-128) : l'image statique, jamais rechargee.
-<span style = "background-color:#dfd">    _textures.solid = textureOf(solidImage(), 0);
-    const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
-    _atlas = fromRgba8(atlas.width, atlas.height, atlas.pixels);
+<span style = "background-color:#dfd">QImage SceneImage::level(int level) {
+    if (_levels.empty() || _levels.front().isNull()) {
+        if (_owner == nullptr || _path.empty()) {</span>
+<span style = "background-color:#fdd">            return {};</span>
+        }
+<span style = "background-color:#dfd">        QImage full = _owner-&gt;readFile(_path);
+        if (full.isNull()) {</span>
+<span style = "background-color:#fdd">            return {};</span>
+        }
+<span style = "background-color:#dfd">        _levels.assign(1, std::move(full));
+        _owner-&gt;account(static_cast&lt;std::ptrdiff_t&gt;(bytesOf(_levels.front())));
+    }
+    const int wanted = std::clamp(level, 0, levelCount() - 1);</span>
+    // Chaque niveau se tire du prÃ©cÃ©dent, rÃ©duit de moitiÃ© : la moyenne de quatre texels, ce que
+    // fait la gÃ©nÃ©ration de mipmaps du GPU.
+<span style = "background-color:#dfd">    while (static_cast&lt;int&gt;(_levels.size()) &lt;= wanted) {
+        const QImage&amp; previous = _levels.back();
+        QImage next =</span>
+            previous.scaled(std::max(1, previous.width() / 2), std::max(1, previous.height() / 2),
+                            Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+<span style = "background-color:#dfd">        _levels.push_back(std::move(next));
+        if (_owner != nullptr &amp;&amp; !_path.empty()) {
+            _owner-&gt;account(static_cast&lt;std::ptrdiff_t&gt;(bytesOf(_levels.back())));</span>
+        }
+<span style = "background-color:#dfd">    }
+    QImage result = _levels[static_cast&lt;std::size_t&gt;(wanted)];
+    if (_owner != nullptr &amp;&amp; !_path.empty()) {
+        _owner-&gt;touch(*this);</span>
+    }
+<span style = "background-color:#dfd">    return result;
 }</span>
 
-<span style = "background-color:#fdd">TextureHandle SceneImages::solid() noexcept {
-    return sceneImageHandle(&amp;solidImage());
+<span style = "background-color:#dfd">int SceneImage::levelCount() const noexcept {
+    if (!_smooth) {
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    int count = 1;
+    for (int side = std::max(_width, _height); side &gt; 1; side /= 2) {
+        ++count;
+    }
+    return count;
+}</span>
+
+SceneImages::SceneImages(std::filesystem::path assetsDirectory, std::size_t budgetBytes)
+<span style = "background-color:#dfd">    : _directory(std::move(assetsDirectory)), _budget(budgetBytes) {
+    const ProceduralAtlasImage checker = buildMissingTextureImage();
+    pin(_missing, fromRgba8(checker.width, checker.height, checker.pixels));
+    _textures.missing = SceneTexture{.texture = sceneImageHandle(&amp;_missing),</span>
+                                     .width = _missing.width(),
+                                     .height = _missing.height()};
+    // L'aplat du rendu de maquette (LOT-128) : l'image statique, jamais rechargee.
+<span style = "background-color:#dfd">    _textures.solid = SceneTexture{.texture = solid(), .width = 1, .height = 1};
+    const ProceduralAtlasImage atlas = buildProceduralAtlasImage();
+    pin(_atlas, fromRgba8(atlas.width, atlas.height, atlas.pixels));
+}</span>
+
+<span style = "background-color:#dfd">std::shared_ptr&lt;SceneImages&gt; SceneImages::shared(const std::filesystem::path&amp; assetsDirectory) {</span>
+    // Le fil de l'interface seul : aucun verrou (voir la classe).
+<span style = "background-color:#dfd">    static std::map&lt;std::filesystem::path, std::weak_ptr&lt;SceneImages&gt;&gt; instances;
+    std::error_code error;
+    std::filesystem::path key = std::filesystem::weakly_canonical(assetsDirectory, error);
+    if (error) {</span>
+<span style = "background-color:#fdd">        key = assetsDirectory.lexically_normal();</span>
+    }
+<span style = "background-color:#dfd">    if (std::shared_ptr&lt;SceneImages&gt; alive = instances[key].lock()) {
+        return alive;
+    }
+    auto created = std::make_shared&lt;SceneImages&gt;(assetsDirectory);
+    instances[key] = created;
+    return created;
+}</span>
+
+<span style = "background-color:#dfd">TextureHandle SceneImages::solid() noexcept {
+    static const SceneImage solidImage = [] {
+        SceneImage image;
+        QImage white(1, 1, QImage::Format_ARGB32_Premultiplied);
+        white.fill(Qt::white);
+        image._width = 1;
+        image._height = 1;
+        image._solid = true;
+        image._levels.assign(1, std::move(white));
+        return image;
+    }();
+    return sceneImageHandle(&amp;solidImage);
 }</span>
 
 <span style = "background-color:#fdd">QColor SceneImages::tileColor(core::TileType type) {</span>
@@ -84,60 +143,115 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory)
     return QColor::fromRgbF(tint.r, tint.g, tint.b);
 }</span>
 
-<span style = "background-color:#fdd">const QImage* SceneImages::marker(const std::string&amp; key) {
+<span style = "background-color:#dfd">const SceneImage* SceneImages::marker(const std::string&amp; key) {
     const auto found = _markers.find(key);
-    if (found != _markers.end()) {
-        return found-&gt;second.isNull() ? nullptr : &amp;found-&gt;second;</span>
+    if (found != _markers.end()) {</span>
+<span style = "background-color:#fdd">        return found-&gt;second.pinned().isNull() ? nullptr : &amp;found-&gt;second;</span>
     }
-<span style = "background-color:#fdd">    const core::MarkerImage image =</span>
+<span style = "background-color:#dfd">    const core::MarkerImage image =</span>
         core::assetMarker(key, ENTITY_MARKER_SIZE_PIXELS, ENTITY_MARKER_SIZE_PIXELS);
-<span style = "background-color:#fdd">    QImage&amp; stored = _markers[key];
-    if (!image.isEmpty()) {
-        stored = fromRgba8(image.width, image.height, markerPixelsRgba8(image));</span>
-    }
-<span style = "background-color:#fdd">    return stored.isNull() ? nullptr : &amp;stored;
+<span style = "background-color:#dfd">    SceneImage&amp; stored = _markers[key];
+    pin(stored, image.isEmpty() ? QImage{}</span>
+                                : fromRgba8(image.width, image.height, markerPixelsRgba8(image)));
+<span style = "background-color:#dfd">    return stored.pinned().isNull() ? nullptr : &amp;stored;
 }</span>
 
-<span style = "background-color:#fdd">const QImage* SceneImages::image(const std::string&amp; path) {
+<span style = "background-color:#dfd">SceneImage* SceneImages::image(const std::string&amp; path) {
     ensure({path});
     const auto found = _images.find(path);
     return found == _images.end() ? nullptr : &amp;found-&gt;second;
 }</span>
 
+<span style = "background-color:#dfd">void SceneImages::pin(SceneImage&amp; target, QImage image) {
+    target._width = image.width();
+    target._height = image.height();
+    target._levels.assign(1, std::move(image));
+}</span>
+
+<span style = "background-color:#dfd">QImage SceneImages::readFile(const std::string&amp; path) const {
+    QImage loaded(QString::fromStdWString((_directory / path).wstring()));
+    return loaded.isNull() ? loaded : loaded.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+}</span>
+
+<span style = "background-color:#dfd">void SceneImages::account(std::ptrdiff_t bytes) {
+    _resident = static_cast&lt;std::size_t&gt;(static_cast&lt;std::ptrdiff_t&gt;(_resident) + bytes);
+}</span>
+
+<span style = "background-color:#dfd">void SceneImages::touch(SceneImage&amp; image) {
+    if (image._listed) {
+        _recent.splice(_recent.begin(), _recent, image._recent);
+    } else {
+        _recent.push_front(&amp;image);
+        image._recent = _recent.begin();
+        image._listed = true;</span>
+    }
+<span style = "background-color:#dfd">    evictBeyondBudget(image);
+}</span>
+
+<span style = "background-color:#dfd">void SceneImages::evictBeyondBudget(const SceneImage&amp; keep) {</span>
+    // La moins rÃ©cemment peinte d'abord ; jamais celle qu'on est en train de peindre.
+<span style = "background-color:#dfd">    while (_resident &gt; _budget &amp;&amp; !_recent.empty() &amp;&amp; _recent.back() != &amp;keep) {
+        SceneImage* const oldest = _recent.back();
+        _recent.pop_back();
+        oldest-&gt;_listed = false;
+        for (const QImage&amp; level : oldest-&gt;_levels) {
+            account(-static_cast&lt;std::ptrdiff_t&gt;(bytesOf(level)));
+        }
+        oldest-&gt;_levels.clear();
+    }
+}</span>
+
 <span style = "background-color:#dfd">void SceneImages::ensure(const std::vector&lt;std::string&gt;&amp; paths) {
     for (const std::string&amp; path : paths) {
-        if (!_requested.insert(path).second) {</span>
-<span style = "background-color:#fdd">            continue;</span>
+        if (!_requested.insert(path).second) {
+            continue;</span>
         }
         // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
         // pixel pres, que celle que le jeu televerse.
 <span style = "background-color:#dfd">        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
             !token.isEmpty()) {
-            QImage&amp; stored = _images[path] =</span>
-                fromRgba8(token.width, token.height, markerPixelsRgba8(token));
-<span style = "background-color:#dfd">            _textures.byPath[path] = textureOf(stored, 0);
-            continue;
+            SceneImage&amp; stored = _images[path];
+            pin(stored, fromRgba8(token.width, token.height, markerPixelsRgba8(token)));
+            _textures.byPath[path] = SceneTexture{.texture = sceneImageHandle(&amp;stored),</span>
+                                                  .width = stored.width(),
+                                                  .height = stored.height()};
+<span style = "background-color:#dfd">            continue;
         }
-        QImage loaded(QString::fromStdWString((_directory / path).wstring()));
-        if (!loaded.isNull()) {
-            QImage&amp; stored = _images[path] =</span>
-                loaded.convertToFormat(QImage::Format_ARGB32_Premultiplied);
-            // Decoupe, echelle et ancre : les memes traits que le jeu lit (LOT-103).
-<span style = "background-color:#dfd">            _textures.byPath[path] = textureOf(stored, 0);
-            applySceneTextureTraits(_textures.byPath[path],</span>
-                                    readSceneTextureTraits(_directory, path));
-<span style = "background-color:#dfd">            continue;</span>
+        QImage loaded = readFile(path);
+        if (!loaded.isNull()) {</span>
+            // L'art peint : lissÃ© et rÃ©duit par niveaux, comme le GPU (`TextureFiltering::Smooth`),
+            // et ses pixels comptÃ©s au budget.
+<span style = "background-color:#dfd">            SceneImage&amp; stored = _images[path];
+            stored._owner = this;
+            stored._path = path;
+            stored._smooth = true;
+            stored._width = loaded.width();
+            stored._height = loaded.height();
+            stored._levels.assign(1, std::move(loaded));
+            account(static_cast&lt;std::ptrdiff_t&gt;(bytesOf(stored._levels.front())));
+            touch(stored);</span>
+            // Decoupe, echelle et ancre : les memes traits que le jeu lit (LOT-103), chaque
+            // manifeste lu une fois (LOT-125).
+<span style = "background-color:#dfd">            SceneTexture&amp; texture = _textures.byPath[path] =</span>
+                SceneTexture{.texture = sceneImageHandle(&amp;stored),
+                             .width = stored.width(),
+                             .height = stored.height()};
+<span style = "background-color:#dfd">            applySceneTextureTraits(texture, readSceneTextureTraits(_directory, path, &amp;_manifests));
+            continue;</span>
         }
         // Une figurine sans image se dessine par son marqueur, comme en jeu (LOT-39, LOT-96).
-<span style = "background-color:#fdd">        const std::string key = figureMarkerKey(path);
+<span style = "background-color:#dfd">        const std::string key = figureMarkerKey(path);
         if (!key.empty()) {
             const core::MarkerImage marker =</span>
                 core::assetMarker(key, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
-<span style = "background-color:#fdd">            if (!marker.isEmpty()) {
-                QImage&amp; stored = _images[path] =</span>
-                    fromRgba8(marker.width, marker.height, markerPixelsRgba8(marker));
-<span style = "background-color:#fdd">                _textures.byPath[path] = textureOf(stored, stored.width());
-                continue;</span>
+<span style = "background-color:#dfd">            if (!marker.isEmpty()) {
+                SceneImage&amp; stored = _images[path];
+                pin(stored, fromRgba8(marker.width, marker.height, markerPixelsRgba8(marker)));
+                _textures.byPath[path] = SceneTexture{.texture = sceneImageHandle(&amp;stored),</span>
+                                                      .width = stored.width(),
+                                                      .height = stored.height(),
+                                                      .frameWidth = stored.width()};
+<span style = "background-color:#dfd">                continue;</span>
             }
 <span style = "background-color:#fdd">        }</span>
         // La composition retombe sur le damier : une piÃ¨ce manquante se voit, sans planter.

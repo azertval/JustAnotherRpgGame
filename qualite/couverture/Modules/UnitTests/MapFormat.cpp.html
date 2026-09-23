@@ -299,11 +299,16 @@ void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, co
 }</span>
 
 <span style = "background-color:#dfd">void checkHeightReserve(const core::Level&amp; level, Findings&amp; findings) {
-    for (const core::TileLayer&amp; layer : level.layers()) {
-        if (layer.floor != 0) {</span>
-<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Warning, "layer \"" + layer.name + "\" is on floor " +</span>
-                                                        std::to_string(layer.floor) +
-                                                        ": reserved, not played yet");
+    for (const core::TileLayer&amp; layer : level.layers()) {</span>
+        // Un Ã©tage se joue sur une couche de dÃ©cor, de 1 Ã  MAX_STOREY_FLOOR (LOT-129) ; ailleurs,
+        // il est gardÃ© mais ignorÃ©.
+<span style = "background-color:#dfd">        const bool playedFloor = layer.kind == core::LayerKind::Decor &amp;&amp; layer.floor &gt;= 0 &amp;&amp;</span>
+                                 layer.floor &lt;= core::MAX_STOREY_FLOOR;
+<span style = "background-color:#dfd">        if (layer.floor != 0 &amp;&amp; !playedFloor) {</span>
+<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Warning,</span>
+                         "layer \"" + layer.name + "\" is on floor " + std::to_string(layer.floor) +
+                             ": only a decor layer rises, from floor 1 to " +
+                             std::to_string(core::MAX_STOREY_FLOOR) + "; ignored");
         }
 <span style = "background-color:#dfd">        std::vector&lt;core::GridPosition&gt; raised;
         for (int row = 0; row &lt; layer.tiles.height(); ++row) {

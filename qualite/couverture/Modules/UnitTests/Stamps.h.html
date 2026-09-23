@@ -97,6 +97,8 @@ struct StampLayer {
     /// Le nom de la couche d'oÃ¹ elle vient : la pose cherche ce nom d'abord.
     std::string name;
     core::LayerKind kind = core::LayerKind::Ground;
+    /// L'Ã©tage de la couche (`LOT-129`) : un toit reste un toit une fois posÃ©.
+    int floor = 0;
     /// Les types, denses, ligne par ligne (`width` Ã `height`).
     std::vector&lt;core::TileType&gt; types;
     /// Les piÃ¨ces ancrÃ©es dans le tampon, dans l'ordre oÃ¹ la carte les range.

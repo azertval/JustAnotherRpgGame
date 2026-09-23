@@ -154,6 +154,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a425e655732fbc0f27996712e53091365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adopte les anciens noms et les emprises des pièces d'un manifeste.  <br /></td></tr>
 <tr class="memitem:acbb59fa899535efdd3dfaae9e54caed7" id="r_acbb59fa899535efdd3dfaae9e54caed7"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#acbb59fa899535efdd3dfaae9e54caed7">canonicalPiece</a> (std::string_view name) const</td></tr>
 <tr class="memitem:a6af0c067714cc6a22c8370e1b819c1c4" id="r_a6af0c067714cc6a22c8370e1b819c1c4"><td class="memItemLeft"><a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6af0c067714cc6a22c8370e1b819c1c4">pieceFootprint</a> (std::string_view name) const</td></tr>
+<tr class="memitem:a051315857796da96ef2fdd784a6a400d" id="r_a051315857796da96ef2fdd784a6a400d"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a051315857796da96ef2fdd784a6a400d">pieceFile</a> (std::string_view name) const</td></tr>
+<tr class="memdesc:a051315857796da96ef2fdd784a6a400d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier de la pièce <code class="param">name</code> (nom courant), relatif au dossier du lieu, quand il n'est pas <span class="tt">&lt;name&gt;.png</span> à plat — une pièce rangée dans un sous-dossier (<span class="tt">roofs/l/d3/roof-l-d3-ne-c0r0.png</span>, <span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:a0d4246e6bc7472127ffce2ffc6b73e05" id="r_a0d4246e6bc7472127ffce2ffc6b73e05"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0d4246e6bc7472127ffce2ffc6b73e05">place</a> () const noexcept</td></tr>
 <tr class="memitem:a9e95a464541a22fef06b33455773645f" id="r_a9e95a464541a22fef06b33455773645f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a9e95a464541a22fef06b33455773645f">diamondRatio</a> () const noexcept</td></tr>
 <tr class="memitem:acc91a094a349d947bd427f942a2b797c" id="r_acc91a094a349d947bd427f942a2b797c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acc91a094a349d947bd427f942a2b797c">maximumRise</a> () const noexcept</td></tr>
@@ -196,6 +198,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ad1c91d434a1680b8129ec6aca5246cab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ancien nom -&gt; nom courant (<span class="tt">aliases</span> du manifeste).  <br /></td></tr>
 <tr class="memitem:a1c4f8e44f18b0de3a332f42577805e0b" id="r_a1c4f8e44f18b0de3a332f42577805e0b"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1c4f8e44f18b0de3a332f42577805e0b">_footprints</a></td></tr>
 <tr class="memdesc:a1c4f8e44f18b0de3a332f42577805e0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom courant -&gt; emprise, pour les seules pièces plus grandes qu'une case.  <br /></td></tr>
+<tr class="memitem:a882d7264d7583942f3c51796cf292fe0" id="r_a882d7264d7583942f3c51796cf292fe0"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a882d7264d7583942f3c51796cf292fe0">_files</a></td></tr>
+<tr class="memdesc:a882d7264d7583942f3c51796cf292fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers des pièces qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">pieceFile</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La table d'un lieu : type de tuile → pièces, pour le sol et pour le relief. </p>
@@ -458,6 +462,34 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a051315857796da96ef2fdd784a6a400d" name="a051315857796da96ef2fdd784a6a400d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a051315857796da96ef2fdd784a6a400d">&#9670;&#160;</a></span>pieceFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::PlaceAppearance::pieceFile </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le fichier de la pièce <code class="param">name</code> (nom courant), relatif au dossier du lieu, quand il n'est pas <span class="tt">&lt;name&gt;.png</span> à plat — une pièce rangée dans un sous-dossier (<span class="tt">roofs/l/d3/roof-l-d3-ne-c0r0.png</span>, <span class="tt">LOT-129</span>). </p>
+<p>Vide sinon. </p>
+
+</div>
+</div>
 <a id="a6af0c067714cc6a22c8370e1b819c1c4" name="a6af0c067714cc6a22c8370e1b819c1c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6af0c067714cc6a22c8370e1b819c1c4">&#9670;&#160;</a></span>pieceFootprint()</h2>
 
@@ -643,6 +675,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a882d7264d7583942f3c51796cf292fe0" name="a882d7264d7583942f3c51796cf292fe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a882d7264d7583942f3c51796cf292fe0">&#9670;&#160;</a></span>_files</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::string, std::less&lt;&gt; &gt; hmi::PlaceAppearance::_files</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les fichiers des pièces qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">pieceFile</a></span>). </p>
 
 </div>
 </div>

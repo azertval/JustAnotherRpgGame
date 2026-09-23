@@ -21,12 +21,12 @@
 <h2 id="le-principe-du-markdown-nu-un-seul-moteur">Le principe : du Markdown nu, un seul moteur</h2>
 <p>Une page est un fichier Markdown <strong>lisible tel quel</strong> dans le dépôt et sur la forge : pas une commande Doxygen, des liens relatifs ordinaires. Le site n'ajoute que la mise en forme.</p>
 <figure><a href="figures/site-parties.svg"><img src="figures/site-parties.svg" alt="Les quatre parties du site publié, et qui engendre chacune" loading="lazy"></a><figcaption>Les quatre parties du site publié, et qui engendre chacune</figcaption></figure>
-<div class="table-wrap"><table><thead><tr><th>Partie du site</th><th>Source</th><th>Générateur</th></tr></thead><tbody><tr><td>Accueil, guide, spécifications, cahier de test</td><td><code>Documentation/</code></td><td><code>Documentation/outils/build_docs_site.py</code></td></tr><tr><td>Planification (versions, lots, référentiels)</td><td><code>Planning/</code></td><td><code>Planning/outils/build_planning_site.py</code></td></tr><tr><td>Qualité (couverture, performances)</td><td>mesures de la CI</td><td><code>scripts/build_quality_site.py</code></td></tr><tr><td>Référence du code — l'annexe du guide</td><td>commentaires de <code>Source/</code></td><td>Doxygen, par <code>scripts/build_docs.py</code></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Partie du site</th><th>Source</th><th>Générateur</th></tr></thead><tbody><tr><td>Accueil, guide, spécifications, cahier de test</td><td><code>Documentation/</code></td><td><code>Documentation/outils/build_docs_site.py</code></td></tr><tr><td>Planification (versions, lots, référentiels)</td><td><code>Planning/</code></td><td><code>Planning/outils/build_planning_site.py</code></td></tr><tr><td>Qualité (couverture, performances)</td><td>mesures de la CI</td><td><code>scripts/docs/build_quality_site.py</code></td></tr><tr><td>Référence du code — l'annexe du guide</td><td>commentaires de <code>Source/</code></td><td>Doxygen, par <code>scripts/docs/build_docs.py</code></td></tr></tbody></table></div>
 <p>Les deux premiers partagent le moteur Markdown (<code>Planning/outils/mini_markdown.py</code>, sans dépendance) ; les quatre partagent la charte de <code>Site/</code> — aucune couleur ne s'écrit ailleurs que dans <code>Site/tokens.css</code>.</p>
 <blockquote class="callout note"><p><strong>Note</strong> — Avant la refonte, toutes ces pages passaient par Doxygen (<code>@page</code>, <code>@subpage</code>, <code>@ref</code>, <code>\anchor</code>). Doxygen ne lit plus que le code : une commande Doxygen restée dans une page fait échouer <code>lint_docs.py</code>.</p></blockquote>
 <h2 id="où-ranger-une-page">Où ranger une page</h2>
 <div class="table-wrap"><table><thead><tr><th>Je veux écrire…</th><th>Je crée…</th><th>Et je la cite dans…</th></tr></thead><tbody><tr><td>une page du guide</td><td><code>Documentation/Guide/guide-&lt;sujet&gt;.md</code></td><td>le plan de <code>Guide/README.md</code></td></tr><tr><td>une page du manuel</td><td><code>Documentation/Guide/Manuel/&lt;sujet&gt;.md</code></td><td><code>Guide/Manuel/README.md</code></td></tr><tr><td>une spécification</td><td><code>Documentation/Specification/&lt;sujet&gt;.md</code></td><td>la liste de <code>Specification/README.md</code></td></tr><tr><td>un lot</td><td><code>Planning/versions/&lt;version&gt;/lots/LOT-NNN-&lt;objet&gt;.md</code></td><td>rien : le site le trouve</td></tr></tbody></table></div>
-<p>L'<strong>ordre de lecture</strong> d'une partie est celui où son <code>README.md</code> cite ses pages ; le menu latéral et les liens « précédent / suivant » en découlent. Une page que rien ne cite est une erreur de lint (<em>page orpheline</em>). Le cahier de test ne s'écrit pas : il est engendré (<code>scripts/generate_cahier_test.py</code>).</p>
+<p>L'<strong>ordre de lecture</strong> d'une partie est celui où son <code>README.md</code> cite ses pages ; le menu latéral et les liens « précédent / suivant » en découlent. Une page que rien ne cite est une erreur de lint (<em>page orpheline</em>). Le cahier de test ne s'écrit pas : il est engendré (<code>scripts/docs/generate_cahier_test.py</code>).</p>
 <h2 id="les-conventions-décriture">Les conventions d'écriture</h2>
 <h3 id="titres-et-ancres">Titres et ancres</h3>
 <p>Un seul titre <code>#</code> par page : c'est son nom dans le menu. Les titres <code>##</code> forment le sommaire de la page. Une ancre se déduit du titre ; pour une ancre <strong>stable</strong>, que d'autres pages citent, l'écrire :</p>
@@ -42,7 +42,7 @@
 <h3 id="exigences">Exigences</h3>
 <p>Une exigence se <strong>déclare</strong> par une puce qui s'ouvre sur son identifiant en gras, dans une page de <code>Documentation/Specification/</code> — et nulle part ailleurs :</p>
 <pre><code>- **EX-CBT-020** — Le déplacement d&#x27;un tour est borné par une portée en cases…</code></pre>
-<p><code>scripts/lint_exigences.py</code> vérifie qu'elle est déclarée une fois, et citée au moins une fois ailleurs ; <code>--next</code> donne le prochain numéro libre. Le site en tire l'<a href="../Specification/index.html">index des exigences</a>, avec le code et les tests qui citent chacune.</p>
+<p><code>scripts/checks/lint_exigences.py</code> vérifie qu'elle est déclarée une fois, et citée au moins une fois ailleurs ; <code>--next</code> donne le prochain numéro libre. Le site en tire l'<a href="../Specification/index.html">index des exigences</a>, avec le code et les tests qui citent chacune.</p>
 <h3 id="figures-captures-et-maquettes">Figures, captures et maquettes</h3>
 <p>Une image <strong>seule dans son paragraphe</strong> devient une figure, légendée par son texte alternatif — qui doit donc dire ce qu'on regarde, pas « capture 3 » :</p>
 <pre><code>![L&#x27;écran d&#x27;options, onglet Graphismes, à 1280 × 720](captures/jeu-options.jpg)</code></pre>
@@ -64,10 +64,10 @@
 <p>La génération échoue au <strong>moindre avertissement</strong> : un <code>@param</code> oublié casse la CI. Le guide, lui, explique <em>pourquoi</em> et <em>comment les pièces s'assemblent</em> — il ne recopie pas la référence, il y renvoie.</p>
 <h2 id="vérifier-avant-de-pousser">Vérifier avant de pousser</h2>
 <pre><code>python Documentation/outils/lint_docs.py          # liens, ancres, pages orphelines, lots cités
-python scripts/lint_exigences.py                  # exigences déclarées une fois, citées
-python scripts/generate_cahier_test.py --check    # cahier de test à jour
+python scripts/checks/lint_exigences.py                  # exigences déclarées une fois, citées
+python scripts/docs/generate_cahier_test.py --check    # cahier de test à jour
 python Planning/outils/lint_planning.py           # fiches de lots
-python scripts/build_docs.py                      # la référence du code (Doxygen, sans avertissement)
+python scripts/docs/build_docs.py                      # la référence du code (Doxygen, sans avertissement)
 python Documentation/outils/build_docs_site.py --out build/site                       # les pages
 python Planning/outils/build_planning_site.py --out build/site/planning --docs-url ../</code></pre>
 <p><code>uv run scripts/check.py</code> rejoue d'un coup tous les contrôles du job de lint de la CI. Le site se lit ensuite en ouvrant <code>build/site/index.html</code> ; la recherche demande un serveur local (<code>python -m http.server -d build/site</code>).</p>
@@ -75,7 +75,7 @@ python Planning/outils/build_planning_site.py --out build/site/planning --docs-u
 <p><code>docs.yml</code> publie à chaque poussée sur <code>main</code> : les pages à la racine, la référence sous <code>reference/</code>, la planification sous <code>planning/</code>, la qualité sous <code>qualite/</code>. La branche <code>gh-pages</code> est remplacée en entier : rien ne s'y édite.</p></article><nav class="pager"><a class="prev" href="guide-ecs.html"><span>Précédent</span>ECS : entités, composants, systèmes</a><a class="next" href="guide-entrees.html"><span>Suivant</span>Entrées et actions logiques</a></nav><p class="source">Source : <code>Documentation/Guide/guide-documentation.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-23 · <code>6a02407ba</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-23 · <code>776e4bf13</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

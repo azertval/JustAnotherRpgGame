@@ -11,7 +11,7 @@ var searchData=
   ['backspace_8',['Backspace',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef',1,'hmi']]],
   ['backtosetup_9',['backToSetup',['../classhmi_1_1ArenaModel.html#a8e5cef0bf17e7d6355fb2ddf4e8e3eb5',1,'hmi::ArenaModel']]],
   ['badge_10',['badge',['../structhmi_1_1WorldGraphEdgeGeometry.html#a7f6b4f3c9d5b2e7ec7b3b4e1feb2e1c2',1,'hmi::WorldGraphEdgeGeometry']]],
-  ['bandopacity_11',['bandOpacity',['../namespacehmi.html#a5c3feb328546df191be2e5083903d357',1,'hmi']]],
+  ['bandopacity_11',['bandOpacity',['../namespacehmi.html#ac0dd913553a0a5628f939841d167cd98',1,'hmi::bandOpacity(const IsoBandOpacity &amp;bands, const ComposedQuad &amp;quad) noexcept'],['../namespacehmi.html#a5c3feb328546df191be2e5083903d357',1,'hmi::bandOpacity(const IsoBandOpacity &amp;bands, RenderLayer layer) noexcept']]],
   ['bands_12',['bands',['../structhmi_1_1MapRenderOptions.html#aaf97b067de12124283d26926eefa4d75',1,'hmi::MapRenderOptions::bands'],['../structhmi_1_1AssetGalleryLayout.html#aa7ab706ffe1c88ffeb248ea0b31528fd',1,'hmi::AssetGalleryLayout::bands'],['../classhmi_1_1AssetGalleryItem.html#a1ff68ad5d10eb9172f87892c14824aad',1,'hmi::AssetGalleryItem::bands'],['../classhmi_1_1AssetGalleryItem.html#a2fd230475343a07c80de5248a32ed1da',1,'hmi::AssetGalleryItem::bands() const']]],
   ['bannerspot_13',['BannerSpot',['../namespacehmi.html#a9da4795fe7ae9a1a208f6f8a3348ae8da4f827dd784b5493dcfb54d285bd2652c',1,'hmi']]],
   ['base_14',['base',['../structcore_1_1LevelData.html#a5871ca36b16a3d283d1b8b121e9f51f7',1,'core::LevelData::base'],['../classcore_1_1Level.html#aacf0835d90f20472e7dadc3289845b25',1,'core::Level::base()']]],

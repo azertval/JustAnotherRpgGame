@@ -221,7 +221,8 @@ private:
     // Ce que fait EditorViewport::setActivePiece : la piÃ¨ce va sur sa couche, montrÃ©e active.
 <span style = "background-color:#dfd">    void armPiece(const std::string&amp; piece, bool floor) {
         _state.brush = pieceBrush(appearance(), piece, floor);
-        if (const std::optional&lt;std::size_t&gt; layer = pieceTargetLayer(_draft.layers(), floor)) {
+        if (const std::optional&lt;std::size_t&gt; layer =
+                pieceTargetLayer(_draft.layers(), floor, _state.activeLayer)) {
             setActiveLayer(*layer);</span>
         }
 <span style = "background-color:#dfd">    }</span>

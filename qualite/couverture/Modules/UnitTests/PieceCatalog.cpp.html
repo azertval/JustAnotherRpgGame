@@ -58,28 +58,50 @@ constexpr std::array&lt;std::pair&lt;core::ScenePieceClass, std::string_view&gt;
 <span style = "background-color:#fdd">    return "other";</span>
 <span style = "background-color:#dfd">}</span>
 
-// Les groupes des piÃ¨ces du manifeste, une par classe ; un groupe vide n'est pas rendu.
+<span style = "background-color:#dfd">[[nodiscard]] PieceCatalogEntry entryOf(const core::ScenePiece&amp; piece) {
+    return PieceCatalogEntry{.name = piece.name,</span>
+                             .file = piece.file,
+                             .pieceClass = piece.pieceClass,
+                             .footprint = piece.footprint(),
+                             .tactical = piece.tactical,
+                             .missing = false,
+                             .floor = piece.pieceClass == core::ScenePieceClass::Floor};
+<span style = "background-color:#dfd">}</span>
+
+/// @return Le dossier de @p file relatif au lieu (`roofs/l/d3`), vide pour un fichier Ã  plat.
+<span style = "background-color:#dfd">[[nodiscard]] std::string folderOf(std::string_view file) {
+    const std::size_t slash = file.rfind('/');
+    return slash == std::string_view::npos ? std::string{} : std::string{file.substr(0, slash)};
+}</span>
+
+// Les groupes des piÃ¨ces du manifeste. Un kit rangÃ© en sous-dossiers se groupe par dossier, dans
+// l'ordre alphabÃ©tique (`floors`, `roofs/l/d2`â¦) : c'est l'arborescence que l'auteur a choisie, et
+// six cents toits n'ont pas de sens dans un seul groupe (LOT-129). Les piÃ¨ces Ã  plat, elles, se
+// groupent par classe, un groupe vide n'Ã©tant pas rendu.
 <span style = "background-color:#dfd">std::vector&lt;PieceCatalogGroup&gt; manifestGroups(const core::ScenePieceManifest&amp; manifest) {
     std::vector&lt;PieceCatalogGroup&gt; groups;
+    std::map&lt;std::string, PieceCatalogGroup&gt; folders;
+    for (const core::ScenePiece&amp; piece : manifest.pieces()) {
+        if (std::string folder = folderOf(piece.file); !folder.empty()) {
+            PieceCatalogGroup&amp; group = folders[folder];
+            group.label = folder;
+            group.pieces.push_back(entryOf(piece));
+        }
+    }
     for (const auto&amp; [pieceClass, label] : CLASS_GROUPS) {
         PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
         for (const core::ScenePiece&amp; piece : manifest.pieces()) {
-            if (piece.pieceClass != pieceClass) {
-                continue;</span>
+            if (piece.pieceClass == pieceClass &amp;&amp; folderOf(piece.file).empty()) {
+                group.pieces.push_back(entryOf(piece));</span>
             }
-<span style = "background-color:#dfd">            group.pieces.push_back(</span>
-                PieceCatalogEntry{.name = piece.name,
-                                  .file = piece.file,
-                                  .pieceClass = piece.pieceClass,
-                                  .footprint = piece.footprint(),
-                                  .tactical = piece.tactical,
-                                  .missing = false,
-                                  .floor = piece.pieceClass == core::ScenePieceClass::Floor});
 <span style = "background-color:#dfd">        }
         if (!group.pieces.empty()) {
             groups.push_back(std::move(group));</span>
         }
 <span style = "background-color:#dfd">    }
+    for (auto&amp; [folder, group] : folders) {
+        groups.push_back(std::move(group));
+    }
     return groups;
 }</span>
 
@@ -153,10 +175,17 @@ std::vector&lt;PieceCatalogGroup&gt; filterPieceCatalog(const std::vector&lt;Pie
            ", " + core::pieceTacticalName(entry.tactical);
 <span style = "background-color:#dfd">}</span>
 
-std::optional&lt;std::size_t&gt; pieceTargetLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers,
-<span style = "background-color:#dfd">                                            bool floor) {
-    const core::LayerKind wanted = floor ? core::LayerKind::Ground : core::LayerKind::Decor;
-    const auto found = std::ranges::find(layers, wanted, &amp;core::TileLayer::kind);
+std::optional&lt;std::size_t&gt; pieceTargetLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers, bool floor,
+<span style = "background-color:#dfd">                                            LayerSlot active) {
+    const core::LayerKind wanted = floor ? core::LayerKind::Ground : core::LayerKind::Decor;</span>
+    // La couche de decor qu'on peint, quand c'en est une : un etage se peint comme le rez
+    // (LOT-129).
+<span style = "background-color:#dfd">    if (!floor &amp;&amp; active &amp;&amp; *active &lt; layers.size() &amp;&amp; layers[*active].kind == wanted) {
+        return *active;</span>
+    }
+<span style = "background-color:#dfd">    const auto found = std::ranges::find_if(layers, [wanted](const core::TileLayer&amp; layer) {
+        return layer.kind == wanted &amp;&amp; layer.floor == 0;
+    });
     if (found == layers.end()) {
         return std::nullopt;</span>
     }

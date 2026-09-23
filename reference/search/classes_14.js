@@ -25,6 +25,7 @@ var searchData=
   ['worldscenerenderer_22',['WorldSceneRenderer',['../classhmi_1_1WorldSceneRenderer.html',1,'hmi']]],
   ['worldscenesnapshot_23',['WorldSceneSnapshot',['../structhmi_1_1WorldSceneSnapshot.html',1,'hmi']]],
   ['worldscenesource_24',['WorldSceneSource',['../structhmi_1_1WorldSceneSource.html',1,'hmi']]],
-  ['worldtravel_25',['WorldTravel',['../classcore_1_1WorldTravel.html',1,'core']]],
-  ['worldviewportitem_26',['WorldViewportItem',['../classhmi_1_1WorldViewportItem.html',1,'hmi']]]
+  ['worldstoreysnapshot_25',['WorldStoreySnapshot',['../structhmi_1_1WorldStoreySnapshot.html',1,'hmi']]],
+  ['worldtravel_26',['WorldTravel',['../classcore_1_1WorldTravel.html',1,'core']]],
+  ['worldviewportitem_27',['WorldViewportItem',['../classhmi_1_1WorldViewportItem.html',1,'hmi']]]
 ];

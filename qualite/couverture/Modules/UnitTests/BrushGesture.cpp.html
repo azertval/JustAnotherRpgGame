@@ -50,10 +50,10 @@ namespace {
 
 constexpr const char* LOCKED_LAYER = "The active layer is locked.";
 
-BrushResult applyPiece(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush,
+BrushResult applyPiece(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush, LayerSlot active,
                        const LayerViewState&amp; view, core::GridPosition first,
 <span style = "background-color:#dfd">                       core::GridPosition last, bool continuing) {
-    const std::optional&lt;std::size_t&gt; layer = pieceTargetLayer(draft.layers(), brush.floor);
+    const std::optional&lt;std::size_t&gt; layer = pieceTargetLayer(draft.layers(), brush.floor, active);
     if (!layer) {
         return refused(brush.floor ? "This map has no ground layer: add one in the Layers panel."</span>
                                    : "This map has no decor layer: add one in the Layers panel.");
@@ -158,7 +158,7 @@ BrushResult applyBrush(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush
 <span style = "background-color:#dfd">                       core::GridPosition last, bool continuing) {
     switch (brush.kind) {</span>
         case BrushKind::Piece:
-<span style = "background-color:#dfd">            return applyPiece(draft, brush, view, first, last, continuing);</span>
+<span style = "background-color:#dfd">            return applyPiece(draft, brush, active, view, first, last, continuing);</span>
         case BrushKind::Eraser:
 <span style = "background-color:#dfd">            return applyEraser(draft, active, view, first, last);</span>
         case BrushKind::Type:

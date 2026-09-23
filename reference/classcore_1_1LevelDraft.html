@@ -203,6 +203,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3f45174b2fe91d89f6d0856a58d5b32c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la couche visuelle au rang <code class="param">index</code>. Un nom identique n'empile rien.  <br /></td></tr>
 <tr class="memitem:a90471e4d217d3e369c3c08872a2a25ee" id="r_a90471e4d217d3e369c3c08872a2a25ee"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a90471e4d217d3e369c3c08872a2a25ee">setLayerKind</a> (std::size_t index, <a class="el" href="namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d">LayerKind</a> kind)</td></tr>
 <tr class="memdesc:a90471e4d217d3e369c3c08872a2a25ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change le rôle (sol ↔ décor) de la couche visuelle au rang <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a3bc2bc72a4284ff78ed9ac6d604d70ef" id="r_a3bc2bc72a4284ff78ed9ac6d604d70ef"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3bc2bc72a4284ff78ed9ac6d604d70ef">setLayerFloor</a> (std::size_t index, int floor)</td></tr>
+<tr class="memdesc:a3bc2bc72a4284ff78ed9ac6d604d70ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met la couche de décor au rang <code class="param">index</code> à l'étage <code class="param">floor</code> (0 : le rez ; 1 à <span class="tt"><a class="el" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb" title="Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).">MAX_STOREY_FLOOR</a></span> : un étage, <span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:a3068ff19e9083535520cdb0dc01e6ddf" id="r_a3068ff19e9083535520cdb0dc01e6ddf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3068ff19e9083535520cdb0dc01e6ddf">setLayerProperty</a> (std::size_t index, const std::string &amp;key, <a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a> value)</td></tr>
 <tr class="memdesc:a3068ff19e9083535520cdb0dc01e6ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigne la propriété <code class="param">key</code> de la couche visuelle au rang <code class="param">index</code> — par exemple le lieu dont elle prend les pièces (<span class="tt">scene</span>, <span class="tt">LOT-EDITOR-06</span>).  <br /></td></tr>
 <tr class="memitem:ab3a5f821f3978837e9273b428f22bc29" id="r_ab3a5f821f3978837e9273b428f22bc29"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab3a5f821f3978837e9273b428f22bc29">moveLayer</a> (std::size_t index, bool forward)</td></tr>
@@ -1906,6 +1908,30 @@ La collision suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class
 </div><div class="memdoc">
 
 <p>Logique de <span class="tt"><a class="el" href="#ad27c800742bff5e3bd6f4c04e9780d25" title="Place l&#39;entrée en (column, row) ; déplace l&#39;occurrence existante s&#39;il y en avait une (unicité,...">setEntry</a></span>, sans <span class="tt"><a class="el" href="#a949cfb0148244f0ba05257d4f523f51d" title="Empile l&#39;état courant sur la pile d&#39;annulation ; à appeler avant toute mutation undoable.">pushUndo()</a></span>. </p>
+
+</div>
+</div>
+<a id="a3bc2bc72a4284ff78ed9ac6d604d70ef" name="a3bc2bc72a4284ff78ed9ac6d604d70ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bc2bc72a4284ff78ed9ac6d604d70ef">&#9670;&#160;</a></span>setLayerFloor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::LevelDraft::setLayerFloor </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>floor</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Met la couche de décor au rang <code class="param">index</code> à l'étage <code class="param">floor</code> (0 : le rez ; 1 à <span class="tt"><a class="el" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb" title="Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).">MAX_STOREY_FLOOR</a></span> : un étage, <span class="tt">LOT-129</span>). </p>
+<p>La collision de toute la carte suit : un étage n'y compte pas. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> (rien d'empilé) pour une couche qui n'est pas de décor, un étage hors bornes ou inchangé. </dd></dl>
 
 </div>
 </div>

@@ -458,6 +458,7 @@ var hierarchy =
     [ "hmi::WorldSceneRenderer", "classhmi_1_1WorldSceneRenderer.html", null ],
     [ "hmi::WorldSceneSnapshot", "structhmi_1_1WorldSceneSnapshot.html", null ],
     [ "hmi::WorldSceneSource", "structhmi_1_1WorldSceneSource.html", null ],
+    [ "hmi::WorldStoreySnapshot", "structhmi_1_1WorldStoreySnapshot.html", null ],
     [ "core::WorldTravel", "classcore_1_1WorldTravel.html", null ],
     [ "core::BattleGrid::Zone", "structcore_1_1BattleGrid_1_1Zone.html", null ]
 ];

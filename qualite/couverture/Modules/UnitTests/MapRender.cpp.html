@@ -22,11 +22,11 @@
 #include &lt;array&gt;
 #include &lt;cmath&gt;
 #include &lt;cstdint&gt;
-#include &lt;set&gt;
-#include &lt;vector&gt;
 #include &lt;functional&gt;
 #include &lt;memory&gt;
+#include &lt;set&gt;
 #include &lt;utility&gt;
+#include &lt;vector&gt;
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelDraft.h"
@@ -41,8 +41,8 @@
 #include "Editor/Ui/ScenePainter.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
-#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/EntityMarkers.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -52,6 +52,12 @@ namespace hmi {
 namespace {
 
 constexpr double MAX_SCALE = 4.0;
+
+/// La dÃ©finition de rÃ©fÃ©rence de `--render` : l'Ã©chelle 1 est la carte vue Ã  1080p (`LOT-125`).
+constexpr int REFERENCE_VIEW_HEIGHT = 1080;
+
+/// Le vide laissÃ© autour de ce qui est peint, en largeurs de case.
+constexpr double FRAME_PADDING_TILES = 0.25;
 
 <span style = "background-color:#dfd">[[nodiscard]] QPolygonF diamondOf(const core::IsoProjection&amp; projection, core::GridPosition cell) {
     const std::array&lt;core::Vector2, 4&gt; vertices = isoCellDiamond(projection, cell);
@@ -92,6 +98,12 @@ void paintDiamonds(QPainter&amp; painter, const core::IsoProjection&amp; project
 
 }  // namespace
 
+<span style = "background-color:#dfd">double renderPixelsPerUnit(double scale) {
+    return std::clamp(scale, 1.0 / 64.0, MAX_SCALE) *</span>
+           static_cast&lt;double&gt;(worldTilePixels(REFERENCE_VIEW_HEIGHT)) /
+           static_cast&lt;double&gt;(core::ARENA_TILE_WIDTH_UNITS);
+<span style = "background-color:#dfd">}</span>
+
 <span style = "background-color:#dfd">std::optional&lt;IsoBandOpacity&gt; parseRenderLayers(std::string_view list) {
     IsoBandOpacity bands{.floors = 0.0F, .relief = 0.0F, .figures = 0.0F, .collision = 0.0F};
     std::size_t start = 0;
@@ -125,7 +137,10 @@ QImage renderStamp(const Stamp&amp; stamp, const std::filesystem::path&amp; data
     bool namedPlace = false;
     for (const StampLayer&amp; layer : stamp.layers) {
         const std::optional&lt;std::size_t&gt; added = draft.addLayer(layer.kind, layer.name);
-        if (added &amp;&amp; !namedPlace &amp;&amp; layer.kind == core::LayerKind::Ground &amp;&amp; !place.empty()) {
+        if (added &amp;&amp; layer.floor != 0) {
+            draft.setLayerFloor(*added, layer.floor);  // un toit reste a l'etage (LOT-129)</span>
+        }
+<span style = "background-color:#fdd">        if (added &amp;&amp; !namedPlace &amp;&amp; layer.kind == core::LayerKind::Ground &amp;&amp; !place.empty()) {
             draft.setLayerProperty(*added, std::string{SCENE_PLACE_PROPERTY}, place);
             namedPlace = true;</span>
         }
@@ -148,8 +163,12 @@ QImage renderStamp(const Stamp&amp; stamp, const std::filesystem::path&amp; data
     }
 <span style = "background-color:#fdd">    QImage image =</span>
         renderMap(*level.level, dataRoot,
-                  MapRenderOptions{
-                      .bands = IsoBandOpacity{}, .scale = 1.0, .background = QColor(0, 0, 0, 0)});
+                  MapRenderOptions{.bands = IsoBandOpacity{},
+                                   .scale = 1.0,
+                                   // Deux fois la vignette au plus : la rÃ©duction lisse le reste,
+                                   // sans peindre une image de plein format pour la jeter.
+                                   .maxSide = 2 * maxSide,
+                                   .background = QColor(0, 0, 0, 0)});
 <span style = "background-color:#fdd">    if (image.isNull()) {
         return image;</span>
     }
@@ -260,36 +279,41 @@ QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; 
     const core::IsoProjection projection(snapshot.columns, snapshot.rows,</span>
                                          core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
 
-<span style = "background-color:#dfd">    SceneImages images(dataRoot / "Assets");
-    images.ensure(worldTexturePaths(snapshot));
+<span style = "background-color:#dfd">    const std::shared_ptr&lt;SceneImages&gt; images = SceneImages::shared(dataRoot / "Assets");
+    images-&gt;ensure(worldTexturePaths(snapshot));
     ComposedScene scene;
-    composeWorldScene(scene, snapshot, projection, images.textures(),</span>
+    composeWorldScene(scene, snapshot, projection, images-&gt;textures(),</span>
                       WorldComposeOptions{.flatBlocks = options.plan});
 <span style = "background-color:#dfd">    scene.sort();</span>
 
-    // Le cadre du canevas : la carte et une marge d'un losange, oÃ¹ dÃ©passent les reliefs.
-<span style = "background-color:#dfd">    const core::Vector2 size = projection.sceneSize();
-    const double margin = projection.tileWidth();
-    const double scale = static_cast&lt;double&gt;(Camera2D::PIXELS_PER_UNIT) *</span>
-                         std::clamp(options.scale, 1.0 / 64.0, MAX_SCALE);
-<span style = "background-color:#dfd">    const int width = std::max(</span>
-        1, static_cast&lt;int&gt;(std::ceil((static_cast&lt;double&gt;(size.x) + (2 * margin)) * scale)));
-<span style = "background-color:#dfd">    const int height = std::max(</span>
-        1, static_cast&lt;int&gt;(std::ceil((static_cast&lt;double&gt;(size.y) + (2 * margin)) * scale)));
+    // Le cadre : ce qui est peint, reliefs compris, et un peu de vide autour (`LOT-125`).
+    const core::Rect painted =
+<span style = "background-color:#dfd">        composedSceneBounds(scene, core::Rect{{0.0F, 0.0F}, projection.sceneSize()});
+    const double padding = FRAME_PADDING_TILES * static_cast&lt;double&gt;(projection.tileWidth());
+    const double left = static_cast&lt;double&gt;(painted.position.x) - padding;
+    const double top = static_cast&lt;double&gt;(painted.position.y) - padding;
+    const double worldWidth = static_cast&lt;double&gt;(painted.size.x) + (2 * padding);
+    const double worldHeight = static_cast&lt;double&gt;(painted.size.y) + (2 * padding);
+    const double scale = std::min(</span>
+        renderPixelsPerUnit(options.scale),
+        static_cast&lt;double&gt;(std::max(1, options.maxSide)) / std::max(worldWidth, worldHeight));
+<span style = "background-color:#dfd">    const int width = std::clamp(static_cast&lt;int&gt;(std::ceil(worldWidth * scale)), 1,</span>
+                                 std::max(1, options.maxSide));
+<span style = "background-color:#dfd">    const int height = std::clamp(static_cast&lt;int&gt;(std::ceil(worldHeight * scale)), 1,</span>
+                                  std::max(1, options.maxSide));
 
 <span style = "background-color:#dfd">    QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
     image.fill(options.background);
     QPainter painter(&amp;image);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
     painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setTransform(QTransform(scale, 0.0, 0.0, scale, margin * scale, margin * scale));</span>
+    painter.setTransform(QTransform(scale, 0.0, 0.0, scale, -left * scale, -top * scale));</span>
 
     // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
     // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
 <span style = "background-color:#dfd">    const IsoBandOpacity&amp; bands = options.bands;
-    paintComposedScene(painter, scene, std::nullopt, [&amp;bands](const ComposedQuad&amp; quad) {
-        return bandOpacity(bands, quad.layer);
-    });
+    paintComposedScene(painter, scene, std::nullopt,
+                       [&amp;bands](const ComposedQuad&amp; quad) { return bandOpacity(bands, quad); });
     if (bands.collision &gt; 0.0F) {</span>
         // Le masque du canevas : rouge ce qui arrÃªte, vert l'entrÃ©e.
 <span style = "background-color:#dfd">        paintDiamonds(painter, projection, draft.tileMap(), [&amp;bands](core::TileType type) {

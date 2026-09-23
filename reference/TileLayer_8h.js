@@ -11,5 +11,6 @@ var TileLayer_8h =
     [ "core::isVisualLayerTileType", "namespacecore.html#a96f9c5663954e6157f2593864bad5840", null ],
     [ "core::layerKindName", "namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd", null ],
     [ "core::resizedLayer", "namespacecore.html#aea16e632b4af252c9fa88d8ce4731b0d", null ],
-    [ "core::LAYER_KIND_COUNT", "namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374", null ]
+    [ "core::LAYER_KIND_COUNT", "namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374", null ],
+    [ "core::MAX_STOREY_FLOOR", "namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb", null ]
 ];

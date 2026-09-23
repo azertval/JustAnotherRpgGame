@@ -5,6 +5,7 @@ var structhmi_1_1WorldFigureSnapshot =
     [ "facing", "structhmi_1_1WorldFigureSnapshot.html#a4664bdd4c3b2d290c04650416ad10d90", null ],
     [ "figure", "structhmi_1_1WorldFigureSnapshot.html#aeff19cbc04fa665fcb6838cb0964f9d1", null ],
     [ "frame", "structhmi_1_1WorldFigureSnapshot.html#a2462c509344833ce0e38c6f4e08ee04e", null ],
+    [ "hero", "structhmi_1_1WorldFigureSnapshot.html#ae19137a03918daf51d2159985052ab10", null ],
     [ "point", "structhmi_1_1WorldFigureSnapshot.html#a765cc286fa6496a8a8184ea2fcd1fdec", null ],
     [ "seconds", "structhmi_1_1WorldFigureSnapshot.html#ae5ce7c1bb8990ed76fe11dee5835eff4", null ]
 ];

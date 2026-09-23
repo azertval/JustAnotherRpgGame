@@ -7,6 +7,7 @@ var classhmi_1_1LayersPanel =
     [ "activeLayerRequested", "classhmi_1_1LayersPanel.html#ae8aac9373ec88198d8b90f659371377e", null ],
     [ "addRequested", "classhmi_1_1LayersPanel.html#a1c67762a3963bd8a5aa70360c9d7b7f1", null ],
     [ "dimRequested", "classhmi_1_1LayersPanel.html#a305e8ee967b815fd31e3f6ae6c1e8dba", null ],
+    [ "floorRequested", "classhmi_1_1LayersPanel.html#a41a8c0d70342d5b54785bbc6d96b3a52", null ],
     [ "lockRequested", "classhmi_1_1LayersPanel.html#a19f65588e2a76e603936ee8682f88da8", null ],
     [ "moveRequested", "classhmi_1_1LayersPanel.html#aed925815678bbf9a981f628006ad0c58", null ],
     [ "onItemChanged", "classhmi_1_1LayersPanel.html#a5d00f58611e80e4d133c103be137b18e", null ],

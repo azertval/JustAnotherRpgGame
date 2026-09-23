@@ -12,7 +12,7 @@
       "titre": "Démo basique",
       "nature": "detaillee",
       "lots": 30,
-      "livres": 9
+      "livres": 10
     },
     {
       "id": "0.0.2",
@@ -763,7 +763,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 107,
+      "debloque": 106,
       "prerequis": []
     },
     {
@@ -772,7 +772,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 102,
+      "debloque": 101,
       "prerequis": [
         "LOT-100"
       ]
@@ -783,7 +783,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 101,
+      "debloque": 100,
       "prerequis": [
         "LOT-100",
         "LOT-123"
@@ -795,7 +795,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 99,
+      "debloque": 98,
       "prerequis": [
         "LOT-101"
       ]
@@ -806,7 +806,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 100,
+      "debloque": 99,
       "prerequis": [
         "LOT-101",
         "LOT-102"
@@ -818,7 +818,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 96,
+      "debloque": 95,
       "prerequis": [
         "LOT-104"
       ]
@@ -828,7 +828,7 @@
       "titre": "Assets HD — Arena of Fate (donjon d'Arenarea)",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 7,
+      "rang": 6,
       "debloque": 90,
       "prerequis": [
         "LOT-105",
@@ -841,7 +841,7 @@
       "titre": "Carte — Arena of Fate (donjon d'Arenarea)",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 10,
+      "rang": 9,
       "debloque": 89,
       "prerequis": [
         "LOT-106",
@@ -855,8 +855,8 @@
       "id": "LOT-108",
       "titre": "Assets HD — Arenarea",
       "version": "0.0.1",
-      "etat": "en-attente",
-      "rang": 4,
+      "etat": "pret",
+      "rang": 3,
       "debloque": 92,
       "prerequis": [
         "LOT-105",
@@ -868,7 +868,7 @@
       "titre": "Carte — Arenarea",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 11,
+      "rang": 10,
       "debloque": 89,
       "prerequis": [
         "LOT-108",
@@ -882,8 +882,8 @@
       "id": "LOT-110",
       "titre": "Assets HD — Martpart",
       "version": "0.0.1",
-      "etat": "en-attente",
-      "rang": 8,
+      "etat": "pret",
+      "rang": 7,
       "debloque": 90,
       "prerequis": [
         "LOT-105",
@@ -895,7 +895,7 @@
       "titre": "Carte — Martpart",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 12,
+      "rang": 11,
       "debloque": 89,
       "prerequis": [
         "LOT-110",
@@ -921,7 +921,7 @@
       "titre": "PNJ — Arena of Fate (donjon d'Arenarea)",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 13,
+      "rang": 12,
       "debloque": 88,
       "prerequis": [
         "LOT-104",
@@ -933,7 +933,7 @@
       "titre": "PNJ — Arenarea",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 14,
+      "rang": 13,
       "debloque": 88,
       "prerequis": [
         "LOT-104",
@@ -946,7 +946,7 @@
       "titre": "PNJ — Martpart",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 15,
+      "rang": 14,
       "debloque": 88,
       "prerequis": [
         "LOT-104",
@@ -958,7 +958,7 @@
       "titre": "Quêtes et drapeaux de monde",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 5,
+      "rang": 4,
       "debloque": 92,
       "prerequis": [
         "LOT-100"
@@ -969,7 +969,7 @@
       "titre": "Un jet de compétence dans un dialogue",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 16,
+      "rang": 15,
       "debloque": 88,
       "prerequis": [
         "LOT-100"
@@ -980,7 +980,7 @@
       "titre": "Le combat sur la carte",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 17,
+      "rang": 16,
       "debloque": 88,
       "prerequis": [
         "LOT-103",
@@ -992,7 +992,7 @@
       "titre": "Les écrans de fin : mort et fin de démo",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 18,
+      "rang": 17,
       "debloque": 88,
       "prerequis": [
         "LOT-100"
@@ -1003,7 +1003,7 @@
       "titre": "La quête « Des pommes pour l'arène »",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 19,
+      "rang": 18,
       "debloque": 87,
       "prerequis": [
         "LOT-107",
@@ -1024,7 +1024,7 @@
       "titre": "L'onglet « Carte » : le plan de la Capitale",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 20,
+      "rang": 19,
       "debloque": 87,
       "prerequis": [
         "LOT-107",
@@ -1037,7 +1037,7 @@
       "titre": "Recette et version 0.0.1",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 21,
+      "rang": 20,
       "debloque": 86,
       "prerequis": [
         "LOT-120",
@@ -1050,7 +1050,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 102,
+      "debloque": 101,
       "prerequis": [
         "LOT-100"
       ]
@@ -1059,8 +1059,8 @@
       "id": "LOT-124",
       "titre": "L'éditeur et l'arborescence par niveaux",
       "version": "0.0.1",
-      "etat": "pret",
-      "rang": 3,
+      "etat": "prochain",
+      "rang": 1,
       "debloque": 93,
       "prerequis": [
         "LOT-102",
@@ -1072,8 +1072,8 @@
       "titre": "Le canevas de l'éditeur en HD",
       "version": "0.0.1",
       "etat": "en-cours",
-      "rang": 1,
-      "debloque": 97,
+      "rang": 2,
+      "debloque": 93,
       "prerequis": [
         "LOT-103",
         "LOT-123"
@@ -1084,7 +1084,7 @@
       "titre": "Ce que la quête demande aux cartes",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 6,
+      "rang": 5,
       "debloque": 91,
       "prerequis": [
         "LOT-116"
@@ -1095,7 +1095,7 @@
       "titre": "La recette de l'éditeur, à la main",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 9,
+      "rang": 8,
       "debloque": 90,
       "prerequis": [
         "LOT-104",
@@ -1118,13 +1118,12 @@
       "id": "LOT-129",
       "titre": "Les étages et les toits de la scène",
       "version": "0.0.1",
-      "etat": "en-attente",
-      "rang": 2,
+      "etat": "livre",
+      "rang": 0,
       "debloque": 95,
       "prerequis": [
         "LOT-103",
-        "LOT-105",
-        "LOT-125"
+        "LOT-105"
       ]
     },
     {
@@ -1132,7 +1131,7 @@
       "titre": "Les quatre fiches préfabriquées, en données",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 22,
+      "rang": 21,
       "debloque": 85,
       "prerequis": [
         "LOT-122"
@@ -1143,7 +1142,7 @@
       "titre": "Le socle de classe simplifiée",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 23,
+      "rang": 22,
       "debloque": 82,
       "prerequis": [
         "LOT-130"
@@ -1154,7 +1153,7 @@
       "titre": "Classe — Brawler",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 24,
+      "rang": 23,
       "debloque": 77,
       "prerequis": [
         "LOT-131"
@@ -1165,7 +1164,7 @@
       "titre": "Classe — Mage",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 25,
+      "rang": 24,
       "debloque": 77,
       "prerequis": [
         "LOT-131"
@@ -1176,7 +1175,7 @@
       "titre": "Classe — Priest",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 26,
+      "rang": 25,
       "debloque": 77,
       "prerequis": [
         "LOT-131"
@@ -1187,7 +1186,7 @@
       "titre": "Classe — Scoundrel",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 27,
+      "rang": 26,
       "debloque": 77,
       "prerequis": [
         "LOT-131"
@@ -1198,7 +1197,7 @@
       "titre": "Assets des quatre classes",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 31,
+      "rang": 30,
       "debloque": 73,
       "prerequis": [
         "LOT-130"
@@ -1209,7 +1208,7 @@
       "titre": "États, agonie et mort",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 29,
+      "rang": 28,
       "debloque": 76,
       "prerequis": [
         "LOT-131"
@@ -1220,7 +1219,7 @@
       "titre": "Le groupe de quatre",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 28,
+      "rang": 27,
       "debloque": 77,
       "prerequis": [
         "LOT-130"
@@ -1231,7 +1230,7 @@
       "titre": "Le combat de groupe",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 30,
+      "rang": 29,
       "debloque": 75,
       "prerequis": [
         "LOT-137",
@@ -1247,7 +1246,7 @@
       "titre": "L'interface de combat, à jour",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 32,
+      "rang": 31,
       "debloque": 73,
       "prerequis": [
         "LOT-139"
@@ -1258,7 +1257,7 @@
       "titre": "La fiche et l'écran de groupe",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 33,
+      "rang": 32,
       "debloque": 73,
       "prerequis": [
         "LOT-138",
@@ -1273,7 +1272,7 @@
       "titre": "Recette et version 0.0.2",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 35,
+      "rang": 34,
       "debloque": 72,
       "prerequis": [
         "LOT-140",
@@ -1287,7 +1286,7 @@
       "titre": "Éditeur — des zones de combat pour un groupe",
       "version": "0.0.2",
       "etat": "en-attente",
-      "rang": 34,
+      "rang": 33,
       "debloque": 73,
       "prerequis": [
         "LOT-139"
@@ -1298,7 +1297,7 @@
       "titre": "La sauvegarde",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 38,
+      "rang": 37,
       "debloque": 64,
       "prerequis": [
         "LOT-142"
@@ -1309,7 +1308,7 @@
       "titre": "Assets HD — le kit de la Capitale, complété",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 36,
+      "rang": 35,
       "debloque": 68,
       "prerequis": [
         "LOT-142"
@@ -1320,7 +1319,7 @@
       "titre": "Zone — Downtown et Palacedomain",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 39,
+      "rang": 38,
       "debloque": 64,
       "prerequis": [
         "LOT-151",
@@ -1332,7 +1331,7 @@
       "titre": "Zone — Dweomer et Scholarnest",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 40,
+      "rang": 39,
       "debloque": 64,
       "prerequis": [
         "LOT-151",
@@ -1344,7 +1343,7 @@
       "titre": "Zone — Uptown et Artisansquare",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 41,
+      "rang": 40,
       "debloque": 64,
       "prerequis": [
         "LOT-151",
@@ -1356,7 +1355,7 @@
       "titre": "La quête « Les enfants de Martpart »",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 42,
+      "rang": 41,
       "debloque": 63,
       "prerequis": [
         "LOT-150",
@@ -1370,7 +1369,7 @@
       "titre": "Recette et version 0.0.3",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 44,
+      "rang": 43,
       "debloque": 62,
       "prerequis": [
         "LOT-155",
@@ -1382,7 +1381,7 @@
       "titre": "Donjon — les catacombes du colisée",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 45,
+      "rang": 44,
       "debloque": 0,
       "prerequis": [
         "LOT-107",
@@ -1394,7 +1393,7 @@
       "titre": "Éditeur — peupler une zone",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 37,
+      "rang": 36,
       "debloque": 67,
       "prerequis": [
         "LOT-142"
@@ -1405,7 +1404,7 @@
       "titre": "Éditeur — l'onglet « Carte » depuis l'éditeur",
       "version": "0.0.3",
       "etat": "en-attente",
-      "rang": 43,
+      "rang": 42,
       "debloque": 63,
       "prerequis": [
         "LOT-142"
@@ -1416,7 +1415,7 @@
       "titre": "Assets HD — le kit des faubourgs",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 46,
+      "rang": 45,
       "debloque": 60,
       "prerequis": [
         "LOT-156"
@@ -1427,7 +1426,7 @@
       "titre": "Zone — Sloghood et Bloomburgs",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 47,
+      "rang": 46,
       "debloque": 56,
       "prerequis": [
         "LOT-160"
@@ -1438,7 +1437,7 @@
       "titre": "Zone — Oldtown et les docks",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 48,
+      "rang": 47,
       "debloque": 56,
       "prerequis": [
         "LOT-160"
@@ -1449,7 +1448,7 @@
       "titre": "Zone — Neckoffoods et Braves Arena",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 49,
+      "rang": 48,
       "debloque": 56,
       "prerequis": [
         "LOT-160"
@@ -1460,7 +1459,7 @@
       "titre": "Zone — Illu Die Arena",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 50,
+      "rang": 49,
       "debloque": 56,
       "prerequis": [
         "LOT-160"
@@ -1471,7 +1470,7 @@
       "titre": "Recette et version 0.0.4",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 52,
+      "rang": 51,
       "debloque": 55,
       "prerequis": [
         "LOT-161",
@@ -1486,7 +1485,7 @@
       "titre": "Éditeur — les dettes de l'atelier",
       "version": "0.0.4",
       "etat": "en-attente",
-      "rang": 51,
+      "rang": 50,
       "debloque": 56,
       "prerequis": [
         "LOT-156"
@@ -1497,7 +1496,7 @@
       "titre": "Éditeur — les grandes cartes de plein air",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 54,
+      "rang": 53,
       "debloque": 50,
       "prerequis": [
         "LOT-165"
@@ -1508,7 +1507,7 @@
       "titre": "Éditeur — le semis assisté",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 56,
+      "rang": 55,
       "debloque": 48,
       "prerequis": [
         "LOT-167",
@@ -1520,7 +1519,7 @@
       "titre": "Éditeur — horaires et trajets",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 57,
+      "rang": 56,
       "debloque": 48,
       "prerequis": [
         "LOT-171"
@@ -1531,7 +1530,7 @@
       "titre": "Assets HD — le kit de nature",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 53,
+      "rang": 52,
       "debloque": 51,
       "prerequis": [
         "LOT-165"
@@ -1542,7 +1541,7 @@
       "titre": "Le voyage et la carte de région",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 55,
+      "rang": 54,
       "debloque": 50,
       "prerequis": [
         "LOT-165"
@@ -1553,7 +1552,7 @@
       "titre": "PNJ — les animaux de l'Empire",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 58,
+      "rang": 57,
       "debloque": 48,
       "prerequis": [
         "LOT-170"
@@ -1564,7 +1563,7 @@
       "titre": "Zone — Phantom Fortress",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 59,
+      "rang": 58,
       "debloque": 48,
       "prerequis": [
         "LOT-170",
@@ -1577,7 +1576,7 @@
       "titre": "Recette et version 0.0.5",
       "version": "0.0.5",
       "etat": "en-attente",
-      "rang": 60,
+      "rang": 59,
       "debloque": 47,
       "prerequis": [
         "LOT-172",
@@ -1591,7 +1590,7 @@
       "titre": "Zone — Skybell City",
       "version": "0.0.6",
       "etat": "en-attente",
-      "rang": 61,
+      "rang": 60,
       "debloque": 34,
       "prerequis": [
         "LOT-174"
@@ -1602,7 +1601,7 @@
       "titre": "Zone — O'Myre",
       "version": "0.0.6",
       "etat": "en-attente",
-      "rang": 62,
+      "rang": 61,
       "debloque": 34,
       "prerequis": [
         "LOT-174"
@@ -1613,7 +1612,7 @@
       "titre": "Zone — Cursed Ground",
       "version": "0.0.6",
       "etat": "en-attente",
-      "rang": 63,
+      "rang": 62,
       "debloque": 34,
       "prerequis": [
         "LOT-174"
@@ -1624,7 +1623,7 @@
       "titre": "Recette et version 0.0.6",
       "version": "0.0.6",
       "etat": "en-attente",
-      "rang": 64,
+      "rang": 63,
       "debloque": 33,
       "prerequis": [
         "LOT-175",
@@ -1637,7 +1636,7 @@
       "titre": "Zone — Western Bak et Ancient Heargs",
       "version": "0.0.7",
       "etat": "en-attente",
-      "rang": 65,
+      "rang": 64,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1648,7 +1647,7 @@
       "titre": "Zone — Eastern Bak et Bak Swamp",
       "version": "0.0.7",
       "etat": "en-attente",
-      "rang": 66,
+      "rang": 65,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1659,7 +1658,7 @@
       "titre": "Zone — Lake Plavo et ses villages",
       "version": "0.0.7",
       "etat": "en-attente",
-      "rang": 67,
+      "rang": 66,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1670,7 +1669,7 @@
       "titre": "Recette et version 0.0.7",
       "version": "0.0.7",
       "etat": "en-attente",
-      "rang": 68,
+      "rang": 67,
       "debloque": 32,
       "prerequis": [
         "LOT-180",
@@ -1683,7 +1682,7 @@
       "titre": "Zone — Hajal City",
       "version": "0.0.8",
       "etat": "en-attente",
-      "rang": 69,
+      "rang": 68,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1694,7 +1693,7 @@
       "titre": "Zone — Les hautes terres du nord",
       "version": "0.0.8",
       "etat": "en-attente",
-      "rang": 70,
+      "rang": 69,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1705,7 +1704,7 @@
       "titre": "Recette et version 0.0.8",
       "version": "0.0.8",
       "etat": "en-attente",
-      "rang": 71,
+      "rang": 70,
       "debloque": 32,
       "prerequis": [
         "LOT-185",
@@ -1717,7 +1716,7 @@
       "titre": "Zone — Odraz Monastery",
       "version": "0.0.9",
       "etat": "en-attente",
-      "rang": 72,
+      "rang": 71,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1728,7 +1727,7 @@
       "titre": "Zone — Threshold Forests et les villages de l'ouest",
       "version": "0.0.9",
       "etat": "en-attente",
-      "rang": 73,
+      "rang": 72,
       "debloque": 33,
       "prerequis": [
         "LOT-174"
@@ -1739,7 +1738,7 @@
       "titre": "Recette et version 0.0.9",
       "version": "0.0.9",
       "etat": "en-attente",
-      "rang": 74,
+      "rang": 73,
       "debloque": 32,
       "prerequis": [
         "LOT-190",
@@ -1751,7 +1750,7 @@
       "titre": "Revue des PNJ nommés de l'Empire",
       "version": "0.1.0",
       "etat": "en-attente",
-      "rang": 75,
+      "rang": 74,
       "debloque": 31,
       "prerequis": [
         "LOT-156",
@@ -1767,7 +1766,7 @@
       "titre": "Revue des hostiles : emoguns, Ironhand, culte",
       "version": "0.1.0",
       "etat": "en-attente",
-      "rang": 76,
+      "rang": 75,
       "debloque": 31,
       "prerequis": [
         "LOT-178"
@@ -1778,7 +1777,7 @@
       "titre": "Équilibrage et contrôle de cohérence",
       "version": "0.1.0",
       "etat": "en-attente",
-      "rang": 77,
+      "rang": 76,
       "debloque": 30,
       "prerequis": [
         "LOT-195",
@@ -1790,7 +1789,7 @@
       "titre": "Recette et version 0.1.0",
       "version": "0.1.0",
       "etat": "en-attente",
-      "rang": 78,
+      "rang": 77,
       "debloque": 29,
       "prerequis": [
         "LOT-197"
@@ -1801,7 +1800,7 @@
       "titre": "Expérience et progression",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 79,
+      "rang": 78,
       "debloque": 22,
       "prerequis": [
         "LOT-198"
@@ -1812,7 +1811,7 @@
       "titre": "Économie : butin, marchands, prix",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 82,
+      "rang": 81,
       "debloque": 17,
       "prerequis": [
         "LOT-198"
@@ -1823,7 +1822,7 @@
       "titre": "Repos et campement",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 83,
+      "rang": 82,
       "debloque": 17,
       "prerequis": [
         "LOT-198"
@@ -1834,7 +1833,7 @@
       "titre": "Calendrier et lune",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 84,
+      "rang": 83,
       "debloque": 17,
       "prerequis": [
         "LOT-198"
@@ -1845,7 +1844,7 @@
       "titre": "L'équipe : style, points de carrière, niveau",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 80,
+      "rang": 79,
       "debloque": 20,
       "prerequis": [
         "LOT-200"
@@ -1856,7 +1855,7 @@
       "titre": "La Guilde des Aventuriers : rangs et contrats",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 85,
+      "rang": 84,
       "debloque": 17,
       "prerequis": [
         "LOT-204"
@@ -1867,7 +1866,7 @@
       "titre": "Le quartier général",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 81,
+      "rang": 80,
       "debloque": 18,
       "prerequis": [
         "LOT-204"
@@ -1878,7 +1877,7 @@
       "titre": "Récompenses légendaires et dons d'équipe",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 86,
+      "rang": 85,
       "debloque": 17,
       "prerequis": [
         "LOT-206"
@@ -1889,7 +1888,7 @@
       "titre": "La Marque héroïque",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 87,
+      "rang": 86,
       "debloque": 17,
       "prerequis": [
         "LOT-200"
@@ -1900,7 +1899,7 @@
       "titre": "Factions et réputation",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 88,
+      "rang": 87,
       "debloque": 17,
       "prerequis": [
         "LOT-198"
@@ -1911,7 +1910,7 @@
       "titre": "Audio et effets",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 89,
+      "rang": 88,
       "debloque": 17,
       "prerequis": [
         "LOT-198"
@@ -1922,7 +1921,7 @@
       "titre": "Options, accessibilité, manette",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 90,
+      "rang": 89,
       "debloque": 17,
       "prerequis": [
         "LOT-198"
@@ -1933,7 +1932,7 @@
       "titre": "Recette et version 0.2.0",
       "version": "0.2.0",
       "etat": "en-attente",
-      "rang": 91,
+      "rang": 90,
       "debloque": 16,
       "prerequis": [
         "LOT-201",
@@ -1952,7 +1951,7 @@
       "titre": "Le socle d'espèces et les neuf races du Manuel",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 94,
+      "rang": 93,
       "debloque": 5,
       "prerequis": [
         "LOT-212"
@@ -1963,7 +1962,7 @@
       "titre": "Les espèces de Tanares",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 95,
+      "rang": 94,
       "debloque": 3,
       "prerequis": [
         "LOT-300"
@@ -1974,7 +1973,7 @@
       "titre": "Le Cirrus : deux fiches en une",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 100,
+      "rang": 99,
       "debloque": 1,
       "prerequis": [
         "LOT-301"
@@ -1985,7 +1984,7 @@
       "titre": "Assets des espèces",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 101,
+      "rang": 100,
       "debloque": 1,
       "prerequis": [
         "LOT-300"
@@ -1996,7 +1995,7 @@
       "titre": "Le socle de classe complet",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 92,
+      "rang": 91,
       "debloque": 11,
       "prerequis": [
         "LOT-212"
@@ -2007,7 +2006,7 @@
       "titre": "Les sorts du Manuel",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 93,
+      "rang": 92,
       "debloque": 6,
       "prerequis": [
         "LOT-304"
@@ -2018,7 +2017,7 @@
       "titre": "Les classes martiales",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 96,
+      "rang": 95,
       "debloque": 3,
       "prerequis": [
         "LOT-304"
@@ -2029,7 +2028,7 @@
       "titre": "Les lanceurs divins et de nature",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 97,
+      "rang": 96,
       "debloque": 3,
       "prerequis": [
         "LOT-305"
@@ -2040,7 +2039,7 @@
       "titre": "Les lanceurs arcaniques",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 98,
+      "rang": 97,
       "debloque": 3,
       "prerequis": [
         "LOT-305"
@@ -2051,7 +2050,7 @@
       "titre": "Les sous-classes de Tanares",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 102,
+      "rang": 101,
       "debloque": 1,
       "prerequis": [
         "LOT-306",
@@ -2064,7 +2063,7 @@
       "titre": "Dragonblade et Redeemer",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 103,
+      "rang": 102,
       "debloque": 1,
       "prerequis": [
         "LOT-304"
@@ -2075,7 +2074,7 @@
       "titre": "L'Elementalist",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 104,
+      "rang": 103,
       "debloque": 1,
       "prerequis": [
         "LOT-305"
@@ -2086,7 +2085,7 @@
       "titre": "Le Madwalker",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 105,
+      "rang": 104,
       "debloque": 1,
       "prerequis": [
         "LOT-304"
@@ -2097,7 +2096,7 @@
       "titre": "Historiques et dons",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 99,
+      "rang": 98,
       "debloque": 2,
       "prerequis": [
         "LOT-304"
@@ -2108,7 +2107,7 @@
       "titre": "La création de personnage",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 106,
+      "rang": 105,
       "debloque": 1,
       "prerequis": [
         "LOT-301",
@@ -2123,7 +2122,7 @@
       "titre": "Recette et version 0.3.0",
       "version": "0.3.0",
       "etat": "en-attente",
-      "rang": 107,
+      "rang": 106,
       "debloque": 0,
       "prerequis": [
         "LOT-302",

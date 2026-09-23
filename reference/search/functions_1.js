@@ -4,7 +4,7 @@ var searchData=
   ['backpack_1',['backpack',['../classhmi_1_1InventoryModel.html#ac72f840c0c390b176cc6113d98eab0bd',1,'hmi::InventoryModel']]],
   ['backpackcells_2',['backpackCells',['../namespacehmi.html#a155d659b488b9c7a4898db4deed6300a',1,'hmi']]],
   ['backtosetup_3',['backToSetup',['../classhmi_1_1ArenaModel.html#a8e5cef0bf17e7d6355fb2ddf4e8e3eb5',1,'hmi::ArenaModel']]],
-  ['bandopacity_4',['bandOpacity',['../namespacehmi.html#a5c3feb328546df191be2e5083903d357',1,'hmi']]],
+  ['bandopacity_4',['bandOpacity',['../namespacehmi.html#ac0dd913553a0a5628f939841d167cd98',1,'hmi::bandOpacity(const IsoBandOpacity &amp;bands, const ComposedQuad &amp;quad) noexcept'],['../namespacehmi.html#a5c3feb328546df191be2e5083903d357',1,'hmi::bandOpacity(const IsoBandOpacity &amp;bands, RenderLayer layer) noexcept']]],
   ['bands_5',['bands',['../classhmi_1_1AssetGalleryItem.html#a2fd230475343a07c80de5248a32ed1da',1,'hmi::AssetGalleryItem']]],
   ['base_6',['base',['../classcore_1_1Level.html#aacf0835d90f20472e7dadc3289845b25',1,'core::Level']]],
   ['batchcount_7',['batchCount',['../classhmi_1_1ComposedScene.html#a751bbaba08ad6bd4f8104723af3b95df',1,'hmi::ComposedScene']]],

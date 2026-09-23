@@ -177,6 +177,15 @@ public:
     /// Change le rÃ´le (sol â dÃ©cor) de la couche visuelle au rang @p index.
     bool setLayerKind(std::size_t index, LayerKind kind);
 
+    /**
+     * @brief Met la couche de dÃ©cor au rang @p index Ã  l'Ã©tage @p floor (0 : le rez ; 1 Ã 
+     *        `MAX_STOREY_FLOOR` : un Ã©tage, `LOT-129`). La collision de toute la carte suit : un
+     *        Ã©tage n'y compte pas.
+     * @return `false` (rien d'empilÃ©) pour une couche qui n'est pas de dÃ©cor, un Ã©tage hors bornes
+     *         ou inchangÃ©.
+     */
+    bool setLayerFloor(std::size_t index, int floor);
+
     /// Assigne la propriÃ©tÃ© @p key de la couche visuelle au rang @p index â par exemple le lieu
     /// dont elle prend les piÃ¨ces (`scene`, `LOT-EDITOR-06`). Une valeur identique n'empile rien.
     bool setLayerProperty(std::size_t index, const std::string&amp; key, PropertyValue value);

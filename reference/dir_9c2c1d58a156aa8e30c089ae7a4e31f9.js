@@ -22,8 +22,10 @@ var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
     [ "test_quad_recorder.cpp", "test__quad__recorder_8cpp.html", "test__quad__recorder_8cpp" ],
     [ "test_render_culling.cpp", "test__render__culling_8cpp.html", "test__render__culling_8cpp" ],
     [ "test_rhi_offscreen.cpp", "test__rhi__offscreen_8cpp.html", "test__rhi__offscreen_8cpp" ],
+    [ "test_scene_folders.cpp", "test__scene__folders_8cpp.html", "test__scene__folders_8cpp" ],
     [ "test_texture_atlas.cpp", "test__texture__atlas_8cpp.html", "test__texture__atlas_8cpp" ],
     [ "test_tile_visuals.cpp", "test__tile__visuals_8cpp.html", null ],
     [ "test_world_scene_composer.cpp", "test__world__scene__composer_8cpp.html", "test__world__scene__composer_8cpp" ],
-    [ "test_world_scene_renderer.cpp", "test__world__scene__renderer_8cpp.html", "test__world__scene__renderer_8cpp" ]
+    [ "test_world_scene_renderer.cpp", "test__world__scene__renderer_8cpp.html", "test__world__scene__renderer_8cpp" ],
+    [ "test_world_storeys.cpp", "test__world__storeys_8cpp.html", "test__world__storeys_8cpp" ]
 ];

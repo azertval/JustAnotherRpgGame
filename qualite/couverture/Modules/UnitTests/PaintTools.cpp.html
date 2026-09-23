@@ -297,7 +297,7 @@ std::vector&lt;core::GridPosition&gt; floodRegion(const core::LevelDraft&amp; dr
 LayerSlot brushTargetLayer(const core::LevelDraft&amp; draft, const CanvasBrush&amp; brush,
 <span style = "background-color:#dfd">                           LayerSlot active) {
     if (brush.kind == BrushKind::Piece) {
-        return pieceTargetLayer(draft.layers(), brush.floor);</span>
+        return pieceTargetLayer(draft.layers(), brush.floor, active);</span>
     }
 <span style = "background-color:#fdd">    return active;</span>
 <span style = "background-color:#dfd">}</span>

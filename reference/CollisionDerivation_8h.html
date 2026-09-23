@@ -185,6 +185,7 @@ La règle, case par case</h2>
 <li>chaque case de couche visuelle <b>sans pièce</b> (ou dont la pièce est absente du manifeste) mais d'un type non vide : la règle du type — mur et matière pleine arrêtent la vue, eau profonde et falaise arrêtent le pas, le reste passe ;</li>
 <li>une case que <b>rien</b> ne couvre — ni type, ni pièce, sur aucune couche — est du vide : elle arrête la vue. On ne se tient pas là où il n'y a pas de sol.</li>
 </ol>
+<p>Une couche d'<b>étage</b> (<span class="tt">floor</span> non nul, <span class="tt">LOT-129</span>) ne contribue pas : un étage de mur ou un toit se tient au-dessus du rez, et c'est le rez qui dit si l'on passe.</p>
 <p>La contribution s'écrit dans le vocabulaire de la grille de collision que le jeu lit déjà : <span class="tt">wall</span> (arrête la vue), <span class="tt">cliff</span> (arrête le pas), vide sinon. La gêne et l'abri se déduisent vides : aucune règle du jeu ne les joue encore depuis une pièce, et la déduction les relève (<span class="tt">CollisionDerivation::unplayed</span>) pour que le contrôle le dise.</p>
 <p>L'entrée n'est pas déduite : elle est un repère posé dans la grille, et l'appelant la replace. </p>
 </div></div><!-- contents -->

@@ -66,6 +66,9 @@ struct SceneTexture {
 <span style = "background-color:#dfd">    std::optional&lt;float&gt; groundLine{};</span>
     /// DurÃ©e d'une image de la bande, en secondes (`.anim.json`) ; 0 si la bande n'en dit rien.
 <span style = "background-color:#dfd">    float frameDuration = 0.0F;</span>
+    /// Hauteur d'un Ã©tage du lieu, en pixels d'art (`storey` du manifeste, `LOT-129`) : ce dont une
+    /// piÃ¨ce posÃ©e sur la couche d'Ã©tage `floor = n` s'Ã©lÃ¨ve, n fois.
+<span style = "background-color:#dfd">    std::optional&lt;float&gt; storeyHeight{};</span>
 };
 
 /**
@@ -76,7 +79,7 @@ struct SceneTexture {
  * d'animation **une case de haut** â sa cellule est commune Ã  toutes ses bandes, lÃ  oÃ¹ sa largeur
  * double pour une attaque, et elle vaut une case dans l'ancien standard (64 pour 68) comme dans le
  * nouveau (256 pour 256). Un lieu livrÃ© dÃ©clare toujours son losange
- * (`scripts/check_hd_assets.py`).
+ * (`scripts/checks/check_hd_assets.py`).
  */
 <span style = "background-color:#dfd">[[nodiscard]] inline float artTileWidth(const SceneTexture&amp; texture) noexcept {
     if (texture.artTile.x &gt; 0.0F) {

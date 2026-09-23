@@ -41,14 +41,14 @@
 <p>Une maquette est un <strong>dessin d'intention</strong> : ce qu'un écran ou une mécanique <strong>doit</strong> être, avant que le code ne le fasse — et donc ce contre quoi on juge le résultat. Elles vivent dans <code>Documentation/Specification/maquettes/</code>, en SVG écrit à la main, et la page du domaine les montre là où une phrase ne suffit pas à cadrer une disposition : la <a href="combat.html">grille de combat</a>, le <a href="interface-ihm.html">HUD et les écrans</a>, la <a href="rendu-technique.html">projection isométrique</a>, les <a href="niveaux.html">couches d'une carte</a>, l'<a href="exploration.html">enchaînement portail → rencontre</a> et la <a href="editeur-niveaux.html">fenêtre de l'éditeur</a>.</p>
 <blockquote class="callout warning"><p><strong>Attention</strong> — Une maquette n'est pas une capture : elle montre l'<strong>intention</strong>, pas l'état du code. Ce que le jeu affiche réellement se photographie, et ces captures-là sont dans le <a href="../Guide/index.html">guide</a>. Aucune image du corpus (les livres de Tanares) ne s'affiche ni ne se décalque ici.</p></blockquote>
 <h2 id="vérifier">Vérifier</h2>
-<pre><code>python scripts/lint_exigences.py          # déclarée une fois, citée au moins une fois ailleurs
-python scripts/lint_exigences.py --next   # le prochain numéro libre d&#x27;une famille
+<pre><code>python scripts/checks/lint_exigences.py          # déclarée une fois, citée au moins une fois ailleurs
+python scripts/checks/lint_exigences.py --next   # le prochain numéro libre d&#x27;une famille
 python Documentation/outils/lint_docs.py  # liens, ancres, images, pages orphelines</code></pre>
 <p>Ajouter une exigence, c'est donc : la déclarer dans la page de son domaine avec le prochain numéro libre, et la <strong>citer</strong> là où elle s'applique — un lot, une autre exigence, une page du guide. Une exigence que rien ne cite est une exigence que rien ne réalise : le lint la refuse.</p>
 <p>Retirer une exigence, c'est la déplacer dans <a href="exigences-retirees.html">les exigences retirées</a> avec la raison de son abandon. Son numéro reste mort : le réemployer ferait pointer d'anciens lots et d'anciens tests vers une règle qui n'est plus la leur.</p></article><nav class="pager"><a class="next" href="vision.html"><span>Suivant</span>Vision &amp;amp; périmètre</a></nav><p class="source">Source : <code>Documentation/Specification/README.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-23 · <code>6a02407ba</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-23 · <code>776e4bf13</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

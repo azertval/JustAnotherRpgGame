@@ -189,7 +189,7 @@ Functions</h2></td></tr>
 Où va le geste</h2>
 <ul>
 <li>Un <b>type</b> se peint sur la couche active (la collision ou une couche visuelle).</li>
-<li>Une <b>pièce</b> va sur <b>sa</b> couche, quelle que soit la couche active : un sol sur la première couche de sol, le reste sur la première de décor (<span class="tt"><a class="el" href="namespacehmi.html#aabb6d90483bf13d7b93dc031ac1cdfb0">hmi::pieceTargetLayer</a></span>). Elle écrit sa pièce, le type de sa case et la collision de son emprise.</li>
+<li>Une <b>pièce</b> va sur <b>sa</b> couche, quelle que soit la couche active : un sol sur la première couche de sol, le reste sur la première de décor (<span class="tt"><a class="el" href="namespacehmi.html#ac23f07810e5349118b131e49993da35a">hmi::pieceTargetLayer</a></span>). Elle écrit sa pièce, le type de sa case et la collision de son emprise.</li>
 <li>La <b>gomme</b> vise la couche active : sur une couche visuelle, elle retire la pièce entière qui couvre la case, ou son type ; sur la collision, elle <b>libère</b> les cases forcées, qui reprennent la déduction.</li>
 </ul>
 <p>Une couche verrouillée refuse tout geste (<span class="tt">EX-EDIT-061</span>). </p>

@@ -76,6 +76,27 @@ tile is exactly ONE ground diamond seen from the isometric camera, perfectly
 FLAT: no thickness, no side faces, no raised rim, no shadow. Draw the row as
 large as the canvas allows.</code></pre>
 <p>La ligne <code>OUTPUT</code> devient celle d'une bande : <code>landscape canvas, as wide as available, PNG with alpha.</code> Né du <code>LOT-105</code> : les sols du Colisée (<code>LOT-104</code>) étaient déjà livrés en planches de six.</p>
+<h3 id="le-cas-dune-matière-surface-et-élévation">Le cas d'une matière : surface et élévation</h3>
+<p>La V4 du <code>LOT-105</code>, référence acceptée, n'a pas fait dessiner ses sols, ses murs, ses balustrades ni ses haies en isométrie : elle a fait peindre leur <strong>matière à plat</strong>, puis un script l'a projetée sur une géométrie exacte — même phase à chaque case, angles construits par union des volumes. C'est ce qui donne des joints alignés et de vrais angles, ce qu'aucun générateur ne tient sur douze cases. Une pièce <strong>modulaire</strong> (sol, mur, balustrade, grille, haie) se commande donc ainsi ; une pièce <strong>unique</strong> (fontaine, bâtiment, porte, statue) reste dessinée en isométrie.</p>
+<p>Deux cadrages remplacent alors le bloc B entier. La <strong>surface</strong> — une matière vue de face, qui se répète dans les deux sens :</p>
+<pre><code>VIEW (material surface): straight-on orthographic view of a flat material,
+seen exactly face on — no isometric projection, no perspective, no visible
+side or top plane. An OPAQUE square texture that fills the whole canvas edge
+to edge: no margin, no frame, no border, no rim. It repeats seamlessly: the
+left edge continues the right edge, the top edge continues the bottom edge.
+Even lighting over the whole square: no vignette, no global gradient.
+
+OUTPUT: square canvas, at least 1024 px, opaque PNG.</code></pre>
+<p>L'<strong>élévation</strong> — une bande vue de face, qui se répète en longueur, ajourée si la pièce l'est :</p>
+<pre><code>VIEW (elevation): exact orthographic FRONT elevation of one straight run, seen
+face on — no isometric projection, no perspective, no visible top or side
+plane. The run is a horizontal band on a FULLY TRANSPARENT background; where
+the piece is open (between balusters, between bars) the background shows
+through. It repeats seamlessly along its length: the left end continues the
+right end, nothing closes either end.
+
+OUTPUT: landscape canvas, as wide as available, PNG with alpha.</code></pre>
+<p>Le script de la zone projette ces images ; ses pièces sont décrites au descripteur comme les autres. Écrit pour la toiture du <code>LOT-129</code> (et la commande d'Arenarea, <code>LOT-108</code>) : la règle que la V4 avait appliquée.</p>
 <h3 id="les-pièces-dun-même-kit">Les pièces d'un même kit</h3>
 <p>Une pièce qui doit s'accorder à une autre déjà produite — une fenêtre au mur plein, une haie d'angle à la haie droite — la joint après la planche de référence, et son bloc C commence par :</p>
 <pre><code>REFERENCE: the image attached after the reference sheet shows another piece of
@@ -98,7 +119,7 @@ number.</code></pre>
 <pre><code>REFERENCE: the attached strip shows THIS character — same face, same hair,
 same colours, same equipment, same proportions. Draw him again, only the pose
 and the direction change.</code></pre>
-<p>Une bande d'une autre orientation joint en plus la même animation vue du sud-est. La commande du héros (<code>Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md</code>) est l'exemple complet, et <code>scripts/prepare_envois_figure.py</code> en tire les envois prêts à copier.</p>
+<p>Une bande d'une autre orientation joint en plus la même animation vue du sud-est. La commande du héros (<code>Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md</code>) est l'exemple complet, et <code>scripts/assetsGeneration/prepare_envois_figure.py</code> en tire les envois prêts à copier.</p>
 <h3 id="le-cas-dun-portrait">Le cas d'un portrait</h3>
 <p>Le portrait (512 × 512, standard §5) garde le bloc A et remplace le bloc B entier :</p>
 <pre><code>FRAMING (portrait): ONE character, head and shoulders, three-quarter view
@@ -126,7 +147,7 @@ VARIANTS: none.</code></pre>
 <ol><li><strong>« une pièce par image »</strong> — la planche livre ses pièces par panneaux de trois ou quatre ; les séparer ensuite coûte un détourage par pièce et laisse des franges.</li><li><strong>« pas de plaque de sol sous la pièce »</strong> — les sols de la planche sont des dalles <strong>avec leur épaisseur</strong> : posées côte à côte, elles se marchent dessus.</li><li><strong>« dessine-la aussi grande que possible »</strong> — les pièces de la planche tiennent dans un losange de 136 px, soit la moitié de ce que le standard demande.</li></ol></article>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>6a02407ba</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>776e4bf13</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

@@ -1626,6 +1626,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a3d0539dc27a6ab16c279522c6a60e76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une zone rectangle : sa largeur, en cases.  <br /></td></tr>
 <tr class="memitem:a444fa8848bf1762434e629e734038e20" id="r_a444fa8848bf1762434e629e734038e20"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a444fa8848bf1762434e629e734038e20">ZONE_HEIGHT_PROPERTY</a> = &quot;height&quot;</td></tr>
 <tr class="memdesc:a444fa8848bf1762434e629e734038e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une zone rectangle : sa hauteur, en cases.  <br /></td></tr>
+<tr class="memitem:a71ba5ff46298b3aa173af1f1071ae3eb" id="r_a71ba5ff46298b3aa173af1f1071ae3eb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a71ba5ff46298b3aa173af1f1071ae3eb">MAX_STOREY_FLOOR</a> = 4</td></tr>
+<tr class="memdesc:a71ba5ff46298b3aa173af1f1071ae3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus haut étage qu'une couche de décor peut occuper (<span class="tt">EX-LVL-025</span>, <span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:a1639bde29cbf10d2ed8629a0fe495374" id="r_a1639bde29cbf10d2ed8629a0fe495374"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1639bde29cbf10d2ed8629a0fe495374">LAYER_KIND_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#ab0cf50b7ad0dce1357c85662e0fb7e5da0cc0a0507cf3d31e5089f420a4cf8b4b">LayerKind::Legacy</a>) + 1</td></tr>
 <tr class="memdesc:a1639bde29cbf10d2ed8629a0fe495374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#ab0cf50b7ad0dce1357c85662e0fb7e5d" title="Rôle d&#39;une couche de tuiles dans une carte.">core::LayerKind</a></span> — même convention que <span class="tt"><a class="el" href="#a319e1d0258052359525fdc83ee93f269" title="Nombre de valeurs de core::TileType — seule source de vérité de la fin de l&#39;énumération.">core::TILE_TYPE_COUNT</a></span> : toute valeur ajoutée doit l'être <b>avant</b> le dernier énumérateur.  <br /></td></tr>
 <tr class="memitem:a319e1d0258052359525fdc83ee93f269" id="r_a319e1d0258052359525fdc83ee93f269"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a319e1d0258052359525fdc83ee93f269">TILE_TYPE_COUNT</a> = static_cast&lt;int&gt;(<a class="el" href="#ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e">TileType::Lava</a>) + 1</td></tr>
@@ -1876,7 +1878,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une des six caractéristiques d'un personnage ou d'une créature (<span class="tt">EX-REG-010</span>). </p>
-<p>Ensemble <b>fermé</b> : six valeurs, fixées par les règles. Les noms textuels sont ceux du lexique (<span class="tt">LOT-30</span>) et de <span class="tt">common.schema.json</span>, et <span class="tt">scripts/check_rpg_data.py</span> vérifie que les trois listes coïncident. </p>
+<p>Ensemble <b>fermé</b> : six valeurs, fixées par les règles. Les noms textuels sont ceux du lexique (<span class="tt">LOT-30</span>) et de <span class="tt">common.schema.json</span>, et <span class="tt">scripts/checks/check_rpg_data.py</span> vérifie que les trois listes coïncident. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a" name="a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a"></a>Strength&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a97f31c7914a6cfc54cc026a77da58fd1aa8747f5acdc2352d39f455bdd1689273" name="a97f31c7914a6cfc54cc026a77da58fd1aa8747f5acdc2352d39f455bdd1689273"></a>Dexterity&#160;</td><td class="fielddoc"></td></tr>
@@ -2650,7 +2652,7 @@ Variables</h2></td></tr>
 
 <p>Type de dégâts infligés (<span class="tt">EX-CBT-032</span>, <span class="tt">EX-CNT-011</span>). </p>
 <p>Ensemble <b>fermé</b> : treize valeurs, fixées par les règles et non par le corpus. Les trois premières sont les dégâts <em>physiques</em> — contondant, perforant, tranchant — dont dépend la résistance des créatures aux armes non magiques ; les dix autres sont élémentaires ou surnaturels. Un type inconnu du moteur ne doit <b>jamais</b> tomber dans un cas par défaut silencieux (<span class="tt">EX-CBT-032</span>) — d'où le <span class="tt">switch</span> exhaustif de <span class="tt"><a class="el" href="RpgEnumNames_8h.html" title="Correspondance entre les énumérations RPG et leurs noms textuels (EX-CNT-011).">Core/Rpg/RpgEnumNames.h</a></span>.</p>
-<p>Les noms textuels sont ceux du lexique de traduction (<span class="tt">LOT-30</span>), catégorie <em>type de dégâts</em> : <span class="tt">scripts/check_rpg_data.py</span> vérifie que les treize valeurs de cette énumération sont exactement les treize termes anglais que le lexique porte sous cette catégorie. Le moteur, les schémas et la table d'autorité de traduction disent donc le même mot pour la même chose, ou la CI échoue. </p>
+<p>Les noms textuels sont ceux du lexique de traduction (<span class="tt">LOT-30</span>), catégorie <em>type de dégâts</em> : <span class="tt">scripts/checks/check_rpg_data.py</span> vérifie que les treize valeurs de cette énumération sont exactement les treize termes anglais que le lexique porte sous cette catégorie. Le moteur, les schémas et la table d'autorité de traduction disent donc le même mot pour la même chose, ou la CI échoue. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aae5ed49bedbf68049f008e4efac2edfdaed84f0285a129390ef34774e525b9b9e" name="aae5ed49bedbf68049f008e4efac2edfdaed84f0285a129390ef34774e525b9b9e"></a>Acid&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed" name="aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed"></a>Bludgeoning&#160;</td><td class="fielddoc"></td></tr>
@@ -12238,6 +12240,30 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Clé de la <b>région</b> du monde où se trouve la carte, telle que <span class="tt">world-maps.json</span> la nomme (<span class="tt">central-empire</span>) : une propriété de carte, pas un champ du format (<span class="tt">LOT-EDITOR-09</span>). </p>
+
+</div>
+</div>
+<a id="a71ba5ff46298b3aa173af1f1071ae3eb" name="a71ba5ff46298b3aa173af1f1071ae3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71ba5ff46298b3aa173af1f1071ae3eb">&#9670;&#160;</a></span>MAX_STOREY_FLOOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::MAX_STOREY_FLOOR = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le plus haut étage qu'une couche de décor peut occuper (<span class="tt">EX-LVL-025</span>, <span class="tt">LOT-129</span>). </p>
 
 </div>
 </div>

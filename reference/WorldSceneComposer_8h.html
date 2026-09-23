@@ -153,6 +153,7 @@ $(function(){initNavTree('WorldSceneComposer_8h.html','',''); });
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PieceFootprint_8h_source.html">Core/Levels/PieceFootprint.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
@@ -172,8 +173,9 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>tracé</b> de maquette : le contour d'une zone, ou le trajet d'un PNJ.  <a href="structhmi_1_1MaquetteTraceSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMaquetteMarks" id="r_hmi_3A_3AMaquetteMarks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteMarks.html">hmi::MaquetteMarks</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques de maquette d'une carte : ses jetons et ses tracés.  <a href="structhmi_1_1MaquetteMarks.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AWorldStoreySnapshot" id="r_hmi_3A_3AWorldStoreySnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStoreySnapshot.html">hmi::WorldStoreySnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldStoreySnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneSnapshot" id="r_hmi_3A_3AWorldSceneSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldSceneSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneSource" id="r_hmi_3A_3AWorldSceneSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSource.html">hmi::WorldSceneSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la composition lit d'une carte : sa grille racine, ses couches et ses entités.  <a href="structhmi_1_1WorldSceneSource.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldComposeOptions" id="r_hmi_3A_3AWorldComposeOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldComposeOptions.html">hmi::WorldComposeOptions</a></td></tr>
@@ -189,8 +191,9 @@ Namespaces</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a71e0c7e2c54951699d44b5c6f88f63ca" id="r_a71e0c7e2c54951699d44b5c6f88f63ca"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca">hmi::WorldDepthSlot</a> : std::int32_t { <a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92">hmi::Relief</a> = 0
 , <a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">hmi::Figure</a>
+, <a class="el" href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::Storey</a>
  }</td></tr>
-<tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, puis la figurine posée dessus.  <a href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
+<tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, la figurine posée dessus, puis les étages de la case, du premier au dernier (<span class="tt">LOT-129</span>) — le rang de l'étage <span class="tt">n</span> est <span class="tt">Storey + n - 1</span>.  <a href="namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
 <tr class="memitem:ac35af7f8a75d64ff0600ed46bb08ea2d" id="r_ac35af7f8a75d64ff0600ed46bb08ea2d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">hmi::FigureFacing</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">hmi::None</a>
 , <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">hmi::SouthEast</a>
@@ -239,8 +242,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7156a1bc50d513bacc4cf9f6bd64916b" id="r_a7156a1bc50d513bacc4cf9f6bd64916b"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7156a1bc50d513bacc4cf9f6bd64916b">hmi::WORLD_DEPTH_SLOTS</a> = 2</td></tr>
-<tr class="memdesc:a7156a1bc50d513bacc4cf9f6bd64916b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de rangs par profondeur.  <br /></td></tr>
+<tr class="memitem:a7156a1bc50d513bacc4cf9f6bd64916b" id="r_a7156a1bc50d513bacc4cf9f6bd64916b"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7156a1bc50d513bacc4cf9f6bd64916b">hmi::WORLD_DEPTH_SLOTS</a></td></tr>
+<tr class="memdesc:a7156a1bc50d513bacc4cf9f6bd64916b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage.  <br /></td></tr>
+<tr class="memitem:ab0a2cd2527096877037eac485411c28f" id="r_ab0a2cd2527096877037eac485411c28f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab0a2cd2527096877037eac485411c28f">hmi::STOREY_SEE_THROUGH_OPACITY</a> = 0.35F</td></tr>
+<tr class="memdesc:ab0a2cd2527096877037eac485411c28f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité d'une pièce d'étage qui masque le héros (<span class="tt">LOT-129</span>) : on le voit à travers le toit.  <br /></td></tr>
+<tr class="memitem:a8434f71a989c8056288d38787955107e" id="r_a8434f71a989c8056288d38787955107e"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a8434f71a989c8056288d38787955107e">hmi::DEFAULT_STOREY_TILES</a> = 1.0F</td></tr>
+<tr class="memdesc:a8434f71a989c8056288d38787955107e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'étage d'un lieu dont le manifeste n'en déclare pas, en largeurs de case (<span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:a00f1d57e59825bdaab90daa68edbd08b" id="r_a00f1d57e59825bdaab90daa68edbd08b"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a00f1d57e59825bdaab90daa68edbd08b">hmi::WORLD_VIEW_HEIGHT_IN_TILES</a> = 10.8F</td></tr>
 <tr class="memdesc:a00f1d57e59825bdaab90daa68edbd08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la vue, en largeurs de case (<span class="tt">EX-REN-013</span>) : une case occupe à l'écran la hauteur de la fenêtre divisée par 10,8 — 100 px à 1080p, 200 px à 2160p.  <br /></td></tr>
 <tr class="memitem:a344f40841fd17a0ce2a36213b84514c9" id="r_a344f40841fd17a0ce2a36213b84514c9"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a344f40841fd17a0ce2a36213b84514c9">hmi::WORLD_FIGURE_BOTTOM_MARGIN</a> = 0.42F</td></tr>
@@ -262,7 +269,7 @@ Ce qui va où</h2>
 <p>case | | relief (pièce nommée à la case, ou type de la couche « décor ») | <span class="tt">RenderLayer::Object</span> | pied de la case | | figurine (héros, PNJ) | <span class="tt">RenderLayer::Player</span> | pied de sa case |</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md93"></a>
 Par instantané, comme l'arène</h2>
-<p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
+<p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

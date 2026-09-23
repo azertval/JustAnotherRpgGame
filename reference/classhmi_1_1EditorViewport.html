@@ -198,7 +198,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af352a355f15f2844e6c2755cf5da4452" id="r_af352a355f15f2844e6c2755cf5da4452"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af352a355f15f2844e6c2755cf5da4452">setActiveTile</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 <tr class="memdesc:af352a355f15f2844e6c2755cf5da4452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme le pinceau d'un type de tuile (palette des types) : il peint la couche active.  <br /></td></tr>
 <tr class="memitem:a25a54d0ec31cb6f2b1bd4fe3a6524fdb" id="r_a25a54d0ec31cb6f2b1bd4fe3a6524fdb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25a54d0ec31cb6f2b1bd4fe3a6524fdb">setActivePiece</a> (const std::string &amp;piece, bool floor)</td></tr>
-<tr class="memdesc:a25a54d0ec31cb6f2b1bd4fe3a6524fdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme le pinceau d'une pièce (palette des pièces) : elle va sur sa couche, qui devient la couche active (<span class="tt"><a class="el" href="namespacehmi.html#aabb6d90483bf13d7b93dc031ac1cdfb0">hmi::pieceTargetLayer</a></span>).  <br /></td></tr>
+<tr class="memdesc:a25a54d0ec31cb6f2b1bd4fe3a6524fdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme le pinceau d'une pièce (palette des pièces) : elle va sur sa couche, qui devient la couche active (<span class="tt"><a class="el" href="namespacehmi.html#ac23f07810e5349118b131e49993da35a">hmi::pieceTargetLayer</a></span>).  <br /></td></tr>
 <tr class="memitem:a09b32876e54292849826a1eb0a86978c" id="r_a09b32876e54292849826a1eb0a86978c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a09b32876e54292849826a1eb0a86978c">setMirror</a> (bool enabled)</td></tr>
 <tr class="memdesc:a09b32876e54292849826a1eb0a86978c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le miroir (<span class="tt">LOT-EDITOR-04</span>) : actif, chaque geste se reflète de l'autre côté d'un axe vertical de l'écran, qui passe par la case survolée à l'activation (le centre de la carte sans case survolée).  <br /></td></tr>
 <tr class="memitem:a20e045b51857cdc042a0e11cfe354e6e" id="r_a20e045b51857cdc042a0e11cfe354e6e"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structhmi_1_1MirrorAxis.html">MirrorAxis</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a20e045b51857cdc042a0e11cfe354e6e">mirror</a> () const noexcept</td></tr>
@@ -293,6 +293,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a77bde09adcbc6b7327f62bde896433be" id="r_a77bde09adcbc6b7327f62bde896433be"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a77bde09adcbc6b7327f62bde896433be">removeMapLayer</a> (std::size_t index)</td></tr>
 <tr class="memitem:a72f789aaef13b3b524d4c94395d42966" id="r_a72f789aaef13b3b524d4c94395d42966"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a72f789aaef13b3b524d4c94395d42966">moveMapLayer</a> (std::size_t index, bool forward)</td></tr>
 <tr class="memitem:a4c945db76ffa6d2f924f9fc8d38e65ec" id="r_a4c945db76ffa6d2f924f9fc8d38e65ec"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4c945db76ffa6d2f924f9fc8d38e65ec">renameMapLayer</a> (std::size_t index, const std::string &amp;name)</td></tr>
+<tr class="memitem:a73f308d7ce820d2ee0c54a89140ce732" id="r_a73f308d7ce820d2ee0c54a89140ce732"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a73f308d7ce820d2ee0c54a89140ce732">setMapLayerFloor</a> (std::size_t index, int floor)</td></tr>
+<tr class="memdesc:a73f308d7ce820d2ee0c54a89140ce732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met la couche de décor <code class="param">index</code> à l'étage <code class="param">floor</code> (<span class="tt">LOT-129</span>), par l'historique.  <br /></td></tr>
 <tr class="memitem:ac17aedbbe599cec960afb76d23659304" id="r_ac17aedbbe599cec960afb76d23659304"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac17aedbbe599cec960afb76d23659304">setEditorReferences</a> (const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> *references)</td></tr>
 <tr class="memdesc:ac17aedbbe599cec960afb76d23659304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogues que les entités référencent (non possédés), relus par la fenêtre.  <br /></td></tr>
 <tr class="memitem:a8dcbbb92e48f801422696e49d7cd12ac" id="r_a8dcbbb92e48f801422696e49d7cd12ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8dcbbb92e48f801422696e49d7cd12ac">setEntityKindToPlace</a> (std::string type)</td></tr>
@@ -3795,7 +3797,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Arme le pinceau d'une pièce (palette des pièces) : elle va sur sa couche, qui devient la couche active (<span class="tt"><a class="el" href="namespacehmi.html#aabb6d90483bf13d7b93dc031ac1cdfb0">hmi::pieceTargetLayer</a></span>). </p>
+<p>Arme le pinceau d'une pièce (palette des pièces) : elle va sur sa couche, qui devient la couche active (<span class="tt"><a class="el" href="namespacehmi.html#ac23f07810e5349118b131e49993da35a">hmi::pieceTargetLayer</a></span>). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">piece</td><td>Le nom court de la pièce. </td></tr>
@@ -3966,6 +3968,29 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73f308d7ce820d2ee0c54a89140ce732" name="a73f308d7ce820d2ee0c54a89140ce732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f308d7ce820d2ee0c54a89140ce732">&#9670;&#160;</a></span>setMapLayerFloor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setMapLayerFloor </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>floor</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Met la couche de décor <code class="param">index</code> à l'étage <code class="param">floor</code> (<span class="tt">LOT-129</span>), par l'historique. </p>
 
 </div>
 </div>

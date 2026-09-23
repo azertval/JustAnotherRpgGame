@@ -31,8 +31,8 @@ constexpr int MANIFEST_VERSION = 1;
 [[nodiscard]] const nlohmann::json* entryOf(const nlohmann::json&amp; manifest,
 <span style = "background-color:#dfd">                                            std::string_view filename) {
     const auto textures = manifest.find("textures");
-    if (!manifest.is_object() || textures == manifest.end() || !textures-&gt;is_object()) {</span>
-<span style = "background-color:#fdd">        return nullptr;</span>
+    if (!manifest.is_object() || textures == manifest.end() || !textures-&gt;is_object()) {
+        return nullptr;</span>
     }
 <span style = "background-color:#dfd">    for (const nlohmann::json&amp; entry : *textures) {
         const auto file = entry.find("file");
@@ -45,7 +45,7 @@ constexpr int MANIFEST_VERSION = 1;
 }</span>
 
 /// Le manifeste de @p directory, s'il se lit.
-<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;nlohmann::json&gt; manifestOf(const std::filesystem::path&amp; directory) {
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;nlohmann::json&gt; readManifest(const std::filesystem::path&amp; directory) {
     std::error_code error;
     const std::filesystem::path path = directory / "manifest.json";
     if (!std::filesystem::is_regular_file(path, error)) {
@@ -58,14 +58,34 @@ constexpr int MANIFEST_VERSION = 1;
 <span style = "background-color:#dfd">    return std::move(document.root);
 }</span>
 
-/// La ligne de sol que dÃ©clare @p manifest (`ground`), rien si elle n'est pas un nombre fini positif.
-<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;float&gt; manifestGroundLine(const nlohmann::json&amp; manifest) {
-    const auto ground = manifest.is_object() ? manifest.find("ground") : manifest.end();
-    if (ground == manifest.end() || !ground-&gt;is_number()) {
+/// Le manifeste de @p directory, lu une seule fois quand @p cache est donnÃ©.
+[[nodiscard]] std::optional&lt;nlohmann::json&gt; manifestOf(const std::filesystem::path&amp; directory,
+<span style = "background-color:#dfd">                                                       ManifestCache* cache) {
+    if (cache == nullptr) {
+        return readManifest(directory);</span>
+    }
+<span style = "background-color:#dfd">    const auto found = cache-&gt;find(directory);
+    if (found != cache-&gt;end()) {
+        return found-&gt;second;</span>
+    }
+<span style = "background-color:#dfd">    return cache-&gt;emplace(directory, readManifest(directory)).first-&gt;second;
+}</span>
+
+/// Le nombre fini positif que @p manifest dÃ©clare sous @p key, rien sinon.
+[[nodiscard]] std::optional&lt;float&gt; manifestLength(const nlohmann::json&amp; manifest,
+<span style = "background-color:#dfd">                                                  std::string_view key) {
+    const auto found = manifest.is_object() ? manifest.find(key) : manifest.end();
+    if (found == manifest.end() || !found-&gt;is_number()) {
         return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    const auto value = ground-&gt;get&lt;float&gt;();
+<span style = "background-color:#dfd">    const auto value = found-&gt;get&lt;float&gt;();
     return std::isfinite(value) &amp;&amp; value &gt; 0.0F ? std::optional&lt;float&gt;{value} : std::nullopt;
+}</span>
+
+/// La ligne de sol que dÃ©clare @p manifest (`ground`), rien si elle n'est pas un nombre fini
+/// positif.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;float&gt; manifestGroundLine(const nlohmann::json&amp; manifest) {
+    return manifestLength(manifest, "ground");
 }</span>
 
 }  // namespace
@@ -118,7 +138,7 @@ std::optional&lt;float&gt; scenePieceDepthOffset(const nlohmann::json&amp; manif
 }</span>
 
 SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; assetsDirectory,
-<span style = "background-color:#dfd">                                          std::string_view path) {
+<span style = "background-color:#dfd">                                          std::string_view path, ManifestCache* manifests) {
     SceneTextureTraits traits;
     const std::filesystem::path file = assetsDirectory / std::filesystem::path(path);</span>
 
@@ -139,20 +159,41 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
     // La piÃ¨ce : son manifeste est dans son dossier. La figurine : plus haut, dans celui de
     // l'atelier qui la range (`Characters/`, `Npc/`) â un ou plusieurs dossiers au-dessus, car un
     // hÃ©ros se range par classe (`Characters/Heroes/brawler/`).
-<span style = "background-color:#dfd">    const std::string filename = file.filename().string();
-    if (const std::optional&lt;nlohmann::json&gt; manifest = manifestOf(file.parent_path())) {
+    // Une piÃ¨ce peut aussi Ãªtre rangÃ©e dans un sous-dossier de son lieu (`roofs/l/d3/â¦`, LOT-129) :
+    // son manifeste est alors plus haut, et la cite par son chemin relatif Ã  lui. Le premier
+    // manifeste qui la cite, en remontant, est le sien.
+<span style = "background-color:#dfd">    std::string filename = file.filename().string();
+    std::optional&lt;nlohmann::json&gt; manifest;
+    const std::filesystem::path relative{path};
+    for (std::filesystem::path owner = relative.parent_path(); !owner.empty();
+         owner = owner.parent_path()) {
+        std::optional&lt;nlohmann::json&gt; candidate = manifestOf(assetsDirectory / owner, manifests);
+        const std::string key = relative.lexically_relative(owner).generic_string();
+        if (candidate &amp;&amp; entryOf(*candidate, key) != nullptr) {
+            manifest = std::move(candidate);
+            filename = key;
+            break;</span>
+        }
+<span style = "background-color:#dfd">        if (owner == relative.parent_path() &amp;&amp; candidate) {</span>
+<span style = "background-color:#fdd">            manifest = std::move(candidate);  // le dossier de l'image, Ã  dÃ©faut : figurines, sols.</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (manifest) {
         traits.artTile = manifestArtTile(*manifest);
         traits.anchor = scenePieceAnchor(*manifest, filename);
         traits.depthOffset = scenePieceDepthOffset(*manifest, filename);
-        traits.groundLine = manifestGroundLine(*manifest);
-    }</span>
+        traits.groundLine = manifestGroundLine(*manifest);</span>
+        // La hauteur d'un Ã©tage : une donnÃ©e du lieu, que son manifeste dÃ©clare (`LOT-129`).
+<span style = "background-color:#dfd">        traits.storeyHeight = manifestLength(*manifest, "storey");</span>
+    }
     // Les ancÃªtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
 <span style = "background-color:#dfd">    std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
     for (; traits.artTile.x &lt;= 0.0F &amp;&amp; !ancestor.empty(); ancestor = ancestor.parent_path()) {
-        if (const std::optional&lt;nlohmann::json&gt; manifest = manifestOf(assetsDirectory / ancestor)) {
-            traits.artTile = manifestArtTile(*manifest);
+        if (const std::optional&lt;nlohmann::json&gt; above =</span>
+                manifestOf(assetsDirectory / ancestor, manifests)) {
+<span style = "background-color:#dfd">            traits.artTile = manifestArtTile(*above);
             if (!traits.groundLine) {
-                traits.groundLine = manifestGroundLine(*manifest);</span>
+                traits.groundLine = manifestGroundLine(*above);</span>
             }
 <span style = "background-color:#dfd">        }
     }
@@ -167,6 +208,7 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
     texture.depthOffset = traits.depthOffset;
     texture.groundLine = traits.groundLine;
     texture.frameDuration = traits.frameDuration;
+    texture.storeyHeight = traits.storeyHeight;
 }</span>
 
 }  // namespace hmi</pre>

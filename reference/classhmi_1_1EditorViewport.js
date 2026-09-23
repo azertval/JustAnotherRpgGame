@@ -139,6 +139,7 @@ var classhmi_1_1EditorViewport =
     [ "setEntityProperty", "classhmi_1_1EditorViewport.html#a3ebbf9c3080e460aab9f6797777352fd", null ],
     [ "setEntitySelection", "classhmi_1_1EditorViewport.html#a8f9275db18d12724e0a94f78a5c29c26", null ],
     [ "setMapLayerDimmed", "classhmi_1_1EditorViewport.html#aff2c5ce800456e6f5d9b3dc935c13aa6", null ],
+    [ "setMapLayerFloor", "classhmi_1_1EditorViewport.html#a73f308d7ce820d2ee0c54a89140ce732", null ],
     [ "setMapLayerLocked", "classhmi_1_1EditorViewport.html#aabad1329f68e1b4d59bdeb9f595a7674", null ],
     [ "setMapLayerOpacity", "classhmi_1_1EditorViewport.html#a5503c981c3e849756ef8a8db584d9858", null ],
     [ "setMapLayerVisible", "classhmi_1_1EditorViewport.html#a8aa3553dbee5c49f62538be9307b324b", null ],

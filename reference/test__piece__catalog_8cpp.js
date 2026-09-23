@@ -5,5 +5,6 @@ var test__piece__catalog_8cpp =
     [ "TEST", "test__piece__catalog_8cpp.html#aaf705840771563b0fc28728505aae2e1", null ],
     [ "TEST", "test__piece__catalog_8cpp.html#a1ed511b5783eb7ca73960f527340fb33", null ],
     [ "TEST", "test__piece__catalog_8cpp.html#afff44576b304fa6b82a9c41f03f1295d", null ],
-    [ "TEST", "test__piece__catalog_8cpp.html#a37b72c3541ad1f19edfea11b1bf67730", null ]
+    [ "TEST", "test__piece__catalog_8cpp.html#a37b72c3541ad1f19edfea11b1bf67730", null ],
+    [ "TEST", "test__piece__catalog_8cpp.html#a47350c42ba23fb2a5de5ab50679b9da4", null ]
 ];

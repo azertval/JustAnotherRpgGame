@@ -279,6 +279,26 @@ namespace {
     return true;
 }</span>
 
+<span style = "background-color:#dfd">bool LevelDraft::setLayerFloor(std::size_t index, int floor) {</span>
+    if (!isVisualLayerIndex(index) || _layers[index].kind != LayerKind::Decor || floor &lt; 0 ||
+<span style = "background-color:#dfd">        floor &gt; MAX_STOREY_FLOOR || _layers[index].floor == floor) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    pushUndo();
+    _layers[index].floor = floor;</span>
+    // La couche entre dans la collision, ou en sort : toutes ses cases se redÃ©duisent.
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; cells;
+    cells.reserve(static_cast&lt;std::size_t&gt;(_tileMap.width()) *</span>
+                  static_cast&lt;std::size_t&gt;(_tileMap.height()));
+<span style = "background-color:#dfd">    for (int row = 0; row &lt; _tileMap.height(); ++row) {
+        for (int column = 0; column &lt; _tileMap.width(); ++column) {
+            cells.push_back({.column = column, .row = row});
+        }
+    }
+    followCollision(cells);
+    return true;
+}</span>
+
 <span style = "background-color:#dfd">bool LevelDraft::setLayerProperty(std::size_t index, const std::string&amp; key, PropertyValue value) {
     if (!isVisualLayerIndex(index) || key.empty()) {
         return false;</span>

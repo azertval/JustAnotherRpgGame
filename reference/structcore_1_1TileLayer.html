@@ -170,11 +170,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:acfa350d1bf9ee7cf8495b4cd760224cb" id="r_acfa350d1bf9ee7cf8495b4cd760224cb"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#acfa350d1bf9ee7cf8495b4cd760224cb">properties</a> {}</td></tr>
 <tr class="memdesc:acfa350d1bf9ee7cf8495b4cd760224cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres (<span class="tt"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>), y compris les clés que le chargeur n'a pas reconnues — elles sont réémises telles quelles à l'écriture.  <br /></td></tr>
 <tr class="memitem:a05efcf8e0a2cbc6a1553ff67b7b1ec3c" id="r_a05efcf8e0a2cbc6a1553ff67b7b1ec3c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a05efcf8e0a2cbc6a1553ff67b7b1ec3c">floor</a> = 0</td></tr>
-<tr class="memdesc:a05efcf8e0a2cbc6a1553ff67b7b1ec3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étage de la couche.  <br /></td></tr>
+<tr class="memdesc:a05efcf8e0a2cbc6a1553ff67b7b1ec3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Étage de la couche (<span class="tt">EX-LVL-025</span>, <span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:a0cdb34b3f33328678990793c5cea22a0" id="r_a0cdb34b3f33328678990793c5cea22a0"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0cdb34b3f33328678990793c5cea22a0">pieces</a> {}</td></tr>
 <tr class="memdesc:a0cdb34b3f33328678990793c5cea22a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pièce nommée par case, ligne par ligne ; vide si aucune case n'en nomme.  <br /></td></tr>
 <tr class="memitem:a9cc67efb1790cc2399581223768f8122" id="r_a9cc67efb1790cc2399581223768f8122"><td class="memItemLeft">std::vector&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9cc67efb1790cc2399581223768f8122">elevations</a> {}</td></tr>
-<tr class="memdesc:a9cc67efb1790cc2399581223768f8122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur par case, ligne par ligne ; vide si toutes valent 0. <b>Réservée</b> comme <span class="tt"><a class="el" href="#a05efcf8e0a2cbc6a1553ff67b7b1ec3c" title="Étage de la couche.">floor</a></span>.  <br /></td></tr>
+<tr class="memdesc:a9cc67efb1790cc2399581223768f8122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur par case, ligne par ligne ; vide si toutes valent 0. <b>Réservée</b> comme <span class="tt"><a class="el" href="#a05efcf8e0a2cbc6a1553ff67b7b1ec3c" title="Étage de la couche (EX-LVL-025, LOT-129).">floor</a></span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une couche de tuiles : son rôle, sa grille, ses pièces, et ses propriétés libres. </p>
@@ -366,7 +366,7 @@ Une case = un type et une pièce (format v4, <span class="tt">LOT-EDITOR-12</spa
       </table>
 </div><div class="memdoc">
 
-<p>Hauteur par case, ligne par ligne ; vide si toutes valent 0. <b>Réservée</b> comme <span class="tt"><a class="el" href="#a05efcf8e0a2cbc6a1553ff67b7b1ec3c" title="Étage de la couche.">floor</a></span>. </p>
+<p>Hauteur par case, ligne par ligne ; vide si toutes valent 0. <b>Réservée</b> comme <span class="tt"><a class="el" href="#a05efcf8e0a2cbc6a1553ff67b7b1ec3c" title="Étage de la couche (EX-LVL-025, LOT-129).">floor</a></span>. </p>
 
 </div>
 </div>
@@ -382,9 +382,8 @@ Une case = un type et une pièce (format v4, <span class="tt">LOT-EDITOR-12</spa
       </table>
 </div><div class="memdoc">
 
-<p>Étage de la couche. </p>
-<p><b>Réservé</b> (décision D11, <span class="tt">EX-LVL-024</span>) : lu, gardé et réécrit, mais ni le jeu ni l'éditeur ne s'en servent ; toute valeur non nulle est signalée par <span class="tt">LevelEditor
---check</span>. </p>
+<p>Étage de la couche (<span class="tt">EX-LVL-025</span>, <span class="tt">LOT-129</span>). </p>
+<p>Une couche de <b>décor</b> à l'étage <span class="tt">n</span> (1 à <span class="tt"><a class="el" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb" title="Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).">MAX_STOREY_FLOOR</a></span>) se dessine élevée de <span class="tt">n</span> hauteurs d'étage, que déclare le manifeste de son lieu : un étage de mur posé sur le rez, une toiture au sommet. Elle ne compte pas dans la collision, qui ne dit que le sol. Toute autre valeur non nulle est signalée par <span class="tt">LevelEditor --check</span>, et ignorée. </p>
 
 </div>
 </div>

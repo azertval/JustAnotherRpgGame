@@ -27,11 +27,14 @@ namespace hmi {
     rows.push_back(</span>
         LayerRow{.slot = std::nullopt,
                  .kind = hasVisual ? core::LayerKind::Collision : core::LayerKind::Legacy,
-                 .name = {}});
+                 .name = {},
+                 .floor = 0});
 <span style = "background-color:#dfd">    for (std::size_t index = 0; index &lt; layers.size(); ++index) {
         if (core::isVisualLayerKind(layers[index].kind)) {
-            rows.push_back(</span>
-                LayerRow{.slot = index, .kind = layers[index].kind, .name = layers[index].name});
+            rows.push_back(LayerRow{.slot = index,</span>
+                                    .kind = layers[index].kind,
+                                    .name = layers[index].name,
+                                    .floor = layers[index].floor});
         }
 <span style = "background-color:#dfd">    }
     return rows;
@@ -108,8 +111,8 @@ namespace hmi {
 }</span>
 
 <span style = "background-color:#dfd">LayerDisplay&amp; LayerViewState::at(std::size_t index) {
-    if (index &gt;= _layers.size()) {</span>
-<span style = "background-color:#fdd">        _layers.resize(index + 1);</span>
+    if (index &gt;= _layers.size()) {
+        _layers.resize(index + 1);</span>
     }
 <span style = "background-color:#dfd">    return _layers[index];
 }</span>

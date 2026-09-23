@@ -101,6 +101,13 @@ public:
     /// pas.
     [[nodiscard]] core::PieceFootprint pieceFootprint(std::string_view name) const;
 
+    /**
+     * @brief Le fichier de la piÃ¨ce @p name (nom courant), relatif au dossier du lieu, quand il
+     *        n'est pas `&lt;name&gt;.png` Ã  plat â une piÃ¨ce rangÃ©e dans un sous-dossier
+     *        (`roofs/l/d3/roof-l-d3-ne-c0r0.png`, `LOT-129`). Vide sinon.
+     */
+    [[nodiscard]] std::string_view pieceFile(std::string_view name) const;
+
     /// @return L'identifiant du lieu (`coliseum`), vide pour une table vide.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; place() const noexcept {
         return _place;
@@ -165,6 +172,8 @@ private:
     std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; _aliases;
     /// Nom courant -&gt; emprise, pour les seules piÃ¨ces plus grandes qu'une case.
     std::map&lt;std::string, core::PieceFootprint, std::less&lt;&gt;&gt; _footprints;
+    /// Les fichiers des piÃ¨ces qui ne sont pas `&lt;nom&gt;.png` Ã  plat (`pieceFile`).
+    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; _files;
 };
 
 /// @brief RÃ©sultat d'une lecture : la table, et ce qui a Ã©chouÃ©.

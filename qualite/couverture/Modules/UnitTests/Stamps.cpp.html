@@ -157,8 +157,8 @@ struct Rect {
 // Les pieces ancrees dans le rectangle l'agrandissent jusqu'a leur emprise entiere : un etal
 // 2 x 1 choisi au bord ne perd pas sa moitie droite (voir l'en-tete).
 void growRectForAnchoredPieces(const core::LevelDraft&amp; draft,
-                                const std::vector&lt;core::TileLayer&gt;&amp; layers,
-<span style = "background-color:#dfd">                                const core::TileMap&amp; root, Rect&amp; rect) {
+                               const std::vector&lt;core::TileLayer&gt;&amp; layers,
+<span style = "background-color:#dfd">                               const core::TileMap&amp; root, Rect&amp; rect) {
     for (const core::TileLayer&amp; layer : layers) {
         if (!core::isVisualLayerKind(layer.kind)) {
             continue;</span>
@@ -180,12 +180,13 @@ void growRectForAnchoredPieces(const core::LevelDraft&amp; draft,
 }</span>
 
 [[nodiscard]] StampLayer extractLayer(const core::TileLayer&amp; layer, const Rect&amp; rect,
-<span style = "background-color:#dfd">                                       core::GridPosition origin, int width, int height) {
+<span style = "background-color:#dfd">                                      core::GridPosition origin, int width, int height) {
     StampLayer taken;
     taken.name = layer.name;
     taken.kind = layer.kind;
+    taken.floor = layer.floor;
     taken.types.assign(static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height),</span>
-                        core::TileType::Empty);
+                       core::TileType::Empty);
 <span style = "background-color:#dfd">    for (int row = rect.top; row &lt;= rect.bottom; ++row) {
         for (int column = rect.left; column &lt;= rect.right; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
@@ -204,8 +205,8 @@ void growRectForAnchoredPieces(const core::LevelDraft&amp; draft,
 }</span>
 
 [[nodiscard]] std::vector&lt;core::MapEntity&gt; extractEntities(const core::LevelDraft&amp; draft,
-                                                             const Rect&amp; rect,
-<span style = "background-color:#dfd">                                                             core::GridPosition origin) {
+                                                           const Rect&amp; rect,
+<span style = "background-color:#dfd">                                                           core::GridPosition origin) {
     std::vector&lt;core::MapEntity&gt; taken;
     for (const core::MapEntity&amp; entity : draft.entities()) {
         if (!rect.contains(entity.position)) {
@@ -225,9 +226,9 @@ void growRectForAnchoredPieces(const core::LevelDraft&amp; draft,
 }</span>
 
 [[nodiscard]] std::vector&lt;StampForcedCell&gt; extractForced(const core::LevelDraft&amp; draft,
-                                                          const core::TileMap&amp; root,
-                                                          const Rect&amp; rect,
-<span style = "background-color:#dfd">                                                          core::GridPosition origin) {
+                                                         const core::TileMap&amp; root,
+                                                         const Rect&amp; rect,
+<span style = "background-color:#dfd">                                                         core::GridPosition origin) {
     std::vector&lt;StampForcedCell&gt; taken;
     for (const core::GridPosition forced : draft.forcedCollision()) {</span>
 <span style = "background-color:#fdd">        if (!rect.contains(forced)) {
@@ -297,6 +298,7 @@ void growRectForAnchoredPieces(const core::LevelDraft&amp; draft,
         StampLayer taken;
         taken.name = layer.name;
         taken.kind = layer.kind;
+        taken.floor = layer.floor;
         taken.types.assign(layer.types.size(), core::TileType::Empty);
         for (int row = 0; row &lt; stamp.height; ++row) {
             for (int column = 0; column &lt; stamp.width; ++column) {
@@ -344,17 +346,20 @@ void growRectForAnchoredPieces(const core::LevelDraft&amp; draft,
 
 namespace {
 
-// La couche de la carte qui recoit celle du tampon : meme nom d'abord, meme role ensuite.
+// La couche de la carte qui recoit celle du tampon : meme nom d'abord, meme role et meme etage
+// ensuite -- un toit ne se pose jamais au rez (LOT-129).
 [[nodiscard]] std::optional&lt;std::size_t&gt; targetLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers,
 <span style = "background-color:#dfd">                                                     const StampLayer&amp; stamped) {
     for (std::size_t index = 0; index &lt; layers.size(); ++index) {
-        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; layers[index].name == stamped.name) {
-            return index;</span>
+        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; layers[index].name == stamped.name &amp;&amp;</span>
+            layers[index].floor == stamped.floor) {
+<span style = "background-color:#dfd">            return index;</span>
         }
 <span style = "background-color:#dfd">    }
     for (std::size_t index = 0; index &lt; layers.size(); ++index) {
-        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; layers[index].kind == stamped.kind) {</span>
-<span style = "background-color:#fdd">            return index;</span>
+        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; layers[index].kind == stamped.kind &amp;&amp;</span>
+            layers[index].floor == stamped.floor) {
+<span style = "background-color:#dfd">            return index;</span>
         }
 <span style = "background-color:#dfd">    }
     return std::nullopt;
@@ -388,9 +393,8 @@ struct PasteTargets {
     return result;
 }</span>
 
-[[nodiscard]] bool pasteLayers(core::LevelDraft&amp; draft, const Stamp&amp; stamp,
-                               core::GridPosition at, const core::TileMap&amp; root,
-<span style = "background-color:#dfd">                               const std::vector&lt;std::size_t&gt;&amp; targets) {
+[[nodiscard]] bool pasteLayers(core::LevelDraft&amp; draft, const Stamp&amp; stamp, core::GridPosition at,
+<span style = "background-color:#dfd">                               const core::TileMap&amp; root, const std::vector&lt;std::size_t&gt;&amp; targets) {
     bool changed = false;
     for (std::size_t index = 0; index &lt; stamp.layers.size(); ++index) {
         const StampLayer&amp; layer = stamp.layers[index];
@@ -422,8 +426,8 @@ struct PasteTargets {
     return changed;
 }</span>
 
-[[nodiscard]] bool pasteEntities(core::LevelDraft&amp; draft, const Stamp&amp; stamp,
-                                 core::GridPosition at, const core::TileMap&amp; root,
+[[nodiscard]] bool pasteEntities(core::LevelDraft&amp; draft, const Stamp&amp; stamp, core::GridPosition at,
+                                 const core::TileMap&amp; root,
 <span style = "background-color:#dfd">                                 std::vector&lt;std::size_t&gt;&amp; placedIndices) {
     bool changed = false;
     for (const core::MapEntity&amp; entity : stamp.entities) {
@@ -509,7 +513,9 @@ StampPasteResult pasteStamp(core::LevelDraft&amp; draft, const Stamp&amp; stamp,
     }
     std::string label = std::to_string(stamp.width) + " Ã " + std::to_string(stamp.height);
     if (pieces &gt; 0) {
-        label.append(" Â· ").append(std::to_string(pieces)).append(pieces == 1 ? " piece" : " pieces");</span>
+        label.append(" Â· ")</span>
+            .append(std::to_string(pieces))
+            .append(pieces == 1 ? " piece" : " pieces");
     }
 <span style = "background-color:#fdd">    if (!stamp.entities.empty()) {
         label.append(" Â· ")</span>
@@ -535,7 +541,10 @@ StampPasteResult pasteStamp(core::LevelDraft&amp; draft, const Stamp&amp; stamp,
         Json layerJson;
         layerJson["name"] = layer.name;
         layerJson["kind"] = core::layerKindName(layer.kind);
-        Json types = Json::array();
+        if (layer.floor != 0) {
+            layerJson["floor"] = layer.floor;</span>
+        }
+<span style = "background-color:#dfd">        Json types = Json::array();
         for (const core::TileType type : layer.types) {
             types.push_back(core::tileTypeName(type));
         }
@@ -596,9 +605,16 @@ namespace {
     layer.name = layerJson.value("name", std::string{});
     const std::string kind = layerJson.value("kind", std::string{"ground"});
     layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
-    const auto types = layerJson.find("types");
+    layer.floor = layerJson.value("floor", 0);
+    if (layer.floor &lt; 0 || layer.floor &gt; core::MAX_STOREY_FLOOR ||</span>
+        (layer.floor != 0 &amp;&amp; layer.kind != core::LayerKind::Decor)) {
+<span style = "background-color:#dfd">        throw StampInvalid("layer \"" + layer.name + "\": \"floor\" is 0, or 1 to " +</span>
+                           std::to_string(core::MAX_STOREY_FLOOR) + " on a decor layer");
+    }
+<span style = "background-color:#dfd">    const auto types = layerJson.find("types");
     if (types == layerJson.end() || !types-&gt;is_array() || types-&gt;size() != cells) {</span>
-<span style = "background-color:#fdd">        throw StampInvalid("layer \"" + layer.name + "\": \"types\" must hold width Ã height names");</span>
+<span style = "background-color:#fdd">        throw StampInvalid("layer \"" + layer.name +</span>
+                           "\": \"types\" must hold width Ã height names");
     }
 <span style = "background-color:#dfd">    for (const Json&amp; type : *types) {
         layer.types.push_back(typeOf(type));
@@ -635,8 +651,8 @@ namespace {
 <span style = "background-color:#dfd">[[nodiscard]] core::MapEntity entityFromJson(const Json&amp; entityJson) {
     core::MapEntity entity;
     entity.type = entityJson.value("type", std::string{});
-    entity.position = core::GridPosition{.column = entityJson.value("x", 0),</span>
-                                         .row = entityJson.value("y", 0)};
+    entity.position =</span>
+        core::GridPosition{.column = entityJson.value("x", 0), .row = entityJson.value("y", 0)};
 <span style = "background-color:#dfd">    entity.elevation = entityJson.value("elevation", 0);
     const auto cellList = entityJson.find("cells");
     if (cellList != entityJson.end() &amp;&amp; cellList-&gt;is_array()) {</span>
@@ -717,11 +733,11 @@ namespace {
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
     try {
-<span style = "background-color:#dfd">        return stampBodyFromJson(json);</span>
-<span style = "background-color:#fdd">    } catch (const std::exception&amp; invalid) {
+<span style = "background-color:#dfd">        return stampBodyFromJson(json);
+    } catch (const std::exception&amp; invalid) {
         error = invalid.what();
-        return std::nullopt;
-    }</span>
+        return std::nullopt;</span>
+<span style = "background-color:#fdd">    }</span>
 <span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">bool isValidPrefabName(std::string_view name) {

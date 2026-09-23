@@ -29,6 +29,9 @@
 
 namespace core {
 
+/// Le plus haut Ã©tage qu'une couche de dÃ©cor peut occuper (`EX-LVL-025`, `LOT-129`).
+inline constexpr int MAX_STOREY_FLOOR = 4;
+
 /**
  * @brief RÃ´le d'une couche de tuiles dans une carte.
  *
@@ -174,11 +177,13 @@ struct TileLayer {
     TileMap tiles;
     /// PropriÃ©tÃ©s libres (`core::PropertyMap`), y compris les clÃ©s que le chargeur n'a pas
     /// reconnues â elles sont rÃ©Ã©mises telles quelles Ã  l'Ã©criture.
-    PropertyMap properties{};
-    /// Ãtage de la couche. **RÃ©servÃ©** (dÃ©cision D11, `EX-LVL-024`) : lu, gardÃ© et rÃ©Ã©crit, mais ni
-    /// le jeu ni l'Ã©diteur ne s'en servent ; toute valeur non nulle est signalÃ©e par `LevelEditor
-    /// --check`.
-    int floor = 0;
+<span style = "background-color:#dfd">    PropertyMap properties{};</span>
+    /// Ãtage de la couche (`EX-LVL-025`, `LOT-129`). Une couche de **dÃ©cor** Ã  l'Ã©tage `n` (1 Ã 
+    /// `MAX_STOREY_FLOOR`) se dessine Ã©levÃ©e de `n` hauteurs d'Ã©tage, que dÃ©clare le manifeste de
+    /// son lieu : un Ã©tage de mur posÃ© sur le rez, une toiture au sommet. Elle ne compte pas dans
+    /// la collision, qui ne dit que le sol. Toute autre valeur non nulle est signalÃ©e par
+    /// `LevelEditor --check`, et ignorÃ©e.
+<span style = "background-color:#dfd">    int floor = 0;</span>
     /// PiÃ¨ce nommÃ©e par case, ligne par ligne ; vide si aucune case n'en nomme.
 <span style = "background-color:#dfd">    std::vector&lt;std::string&gt; pieces{};</span>
     /// Hauteur par case, ligne par ligne ; vide si toutes valent 0. **RÃ©servÃ©e** comme `floor`.

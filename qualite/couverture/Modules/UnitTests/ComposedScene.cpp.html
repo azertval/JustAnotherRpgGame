@@ -18,7 +18,6 @@
 #include &lt;cmath&gt;
 #include &lt;utility&gt;
 
-
 namespace hmi {
 
 // Vide la scene (capacite conservee) et remet les compteurs a zero. Le cadrage est conserve.
@@ -28,7 +27,6 @@ namespace hmi {
     _considered = 0;
     _culled = 0;
 }</span>
-
 
 // Restreint la composition aux primitives visibles dans un cadrage donne (EX-NFR-005). Le
 // rectangle elargi de la marge est calcule une fois ici, et non a chaque primitive testee.
@@ -72,7 +70,7 @@ namespace hmi {
 // Ajoute un rectangle texture a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-<span style = "background-color:#dfd">                              const SpriteQuad&amp; quad) {
+<span style = "background-color:#dfd">                              const SpriteQuad&amp; quad, int storey) {
     ++_considered;
     if (!isVisible(spriteQuadBounds(quad))) {
         ++_culled;
@@ -85,6 +83,7 @@ bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Sprite;
     composed.sprite = quad;
+    composed.storey = storey;
     _quads.push_back(composed);
     return true;
 }</span>
@@ -112,7 +111,7 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
 // Ajoute un quadrilatere a quatre sommets libres a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-<span style = "background-color:#dfd">                            const PolyQuad&amp; quad) {
+<span style = "background-color:#dfd">                            const PolyQuad&amp; quad, int storey) {
     ++_considered;
     if (!isVisible(polyQuadBounds(quad))) {
         ++_culled;
@@ -125,6 +124,7 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Poly;
     composed.poly = quad;
+    composed.storey = storey;
     _quads.push_back(composed);
     return true;
 }</span>

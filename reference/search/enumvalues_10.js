@@ -36,6 +36,7 @@ var searchData=
   ['starting_33',['Starting',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840ac2efe4bbd13e6cb0db293e72884273c0',1,'core']]],
   ['startmap_34',['StartMap',['../classhmi_1_1EditorViewport.html#ac34150056be14016dd3afb032a281739a43a02013697f5209f29ef495026dda28',1,'hmi::EditorViewport']]],
   ['startquest_35',['StartQuest',['../namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2',1,'core']]],
-  ['strength_36',['Strength',['../namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a',1,'core']]],
-  ['stunned_37',['Stunned',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aeb8ab7d98634514cc61c2b0a0c8d93a2',1,'core']]]
+  ['storey_36',['Storey',['../namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301',1,'hmi']]],
+  ['strength_37',['Strength',['../namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a',1,'core']]],
+  ['stunned_38',['Stunned',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aeb8ab7d98634514cc61c2b0a0c8d93a2',1,'core']]]
 ];

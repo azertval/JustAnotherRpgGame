@@ -16,9 +16,12 @@
 
 #include &lt;QColor&gt;
 #include &lt;QImage&gt;
+#include &lt;cstddef&gt;
 #include &lt;cstdint&gt;
 #include &lt;filesystem&gt;
+#include &lt;list&gt;
 #include &lt;map&gt;
+#include &lt;memory&gt;
 #include &lt;set&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
@@ -26,6 +29,7 @@
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/ScenePieces.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 
 /**
  * @file Editor/Ui/SceneImages.h
@@ -38,37 +42,122 @@
  * tombe sur le damier (`EX-NFR-040`). La largeur d'image d'une bande d'animation se lit dans son
  * `.anim.json`.
  *
- * L'identitÃ© de texture que la composition manipule (`hmi::TextureHandle`) est ici l'adresse d'un
- * `QImage` que ce cache possÃ¨de : `hmi::paintComposedScene` la reconvertit. Les images vivent dans
- * des `std::map`, dont les Ã©lÃ©ments ne bougent pas quand on en ajoute : une adresse donnÃ©e Ã  une
- * scÃ¨ne composÃ©e reste valide tant que le cache vit.
+ * L'identitÃ© de texture que la composition manipule (`hmi::TextureHandle`) est ici l'adresse d'une
+ * `hmi::SceneImage` que ce cache possÃ¨de : `hmi::paintComposedScene` la reconvertit. Les images
+ * vivent dans des `std::map`, dont les Ã©lÃ©ments ne bougent pas quand on en ajoute : une adresse
+ * donnÃ©e Ã  une scÃ¨ne composÃ©e reste valide tant que le cache vit.
+ *
+ * Depuis le `LOT-125`, le cache est **bornÃ©** et **partagÃ©**. Une piÃ¨ce HD pÃ¨se seize fois une
+ * piÃ¨ce de l'ancienne planche : sans borne, un kit coÃ»te des centaines de mÃ©bioctets, et chaque
+ * onglet, chaque vignette le rechargeait. L'identitÃ© d'une image ne meurt donc plus avec ses pixels
+ * : ceux d'une piÃ¨ce lue sur disque peuvent Ãªtre **Ã©vincÃ©s** (la moins rÃ©cemment peinte d'abord) et
+ * relus Ã  la prochaine peinture ; ses dimensions, elles, restent â la composition n'en lit pas
+ * d'autre. `hmi::SceneImages::shared` rend l'instance unique d'un dossier d'assets, que les
+ * onglets, les vignettes et `--render` se partagent.
  */
 
 namespace hmi {
 
+class SceneImages;
+
+/**
+ * @brief Une image du cache : l'identitÃ© stable qu'une scÃ¨ne composÃ©e adresse, et ses **niveaux
+ *        rÃ©duits**.
+ *
+ * `QPainter` n'a pas de mipmaps : rÃ©duire une piÃ¨ce de 256 px Ã  30, mÃªme en bilinÃ©aire, ne lit
+ * qu'un texel sur huit et crÃ©nelle. Le niveau `k` est l'image rÃ©duite de moitiÃ© `k` fois, calculÃ©e
+ * Ã  la premiÃ¨re demande (`LOT-125`) â ce que le GPU fait pour le jeu (`TextureFiltering::Smooth`).
+ * Une image **engendrÃ©e** (marqueur, jeton, atlas, damier, aplat) se peint au plus proche, comme
+ * en jeu, et n'a que son niveau 0.
+ */
+class SceneImage {
+public:
+    /// @return La largeur de l'image pleine, connue mÃªme quand ses pixels sont Ã©vincÃ©s.
+<span style = "background-color:#dfd">    [[nodiscard]] int width() const noexcept {
+        return _width;
+    }</span>
+    /// @return Sa hauteur.
+<span style = "background-color:#dfd">    [[nodiscard]] int height() const noexcept {
+        return _height;
+    }</span>
+    /// @return Vrai pour l'art peint, lissÃ© et rÃ©duit par niveaux ; faux pour une image engendrÃ©e.
+<span style = "background-color:#dfd">    [[nodiscard]] bool smooth() const noexcept {
+        return _smooth;
+    }</span>
+    /// @return Vrai pour l'aplat : un quad qui le porte se peint de sa teinte (`LOT-128`).
+<span style = "background-color:#dfd">    [[nodiscard]] bool solid() const noexcept {
+        return _solid;
+    }</span>
+
+    /**
+     * @brief Le niveau @p level de l'image, relu sur disque si ses pixels ont Ã©tÃ© Ã©vincÃ©s.
+     *
+     * Rendu par valeur : `QImage` est partagÃ©e implicitement, et la copie reste valide mÃªme si le
+     * cache Ã©vince l'image pendant qu'on la peint. Un niveau au-delÃ  du dernier rend le dernier (un
+     * pixel de cÃ´tÃ©).
+     */
+    [[nodiscard]] QImage level(int level);
+
+    /// @return Le nombre de niveaux : 1 pour une image engendrÃ©e, jusqu'Ã  un pixel de cÃ´tÃ© sinon.
+    [[nodiscard]] int levelCount() const noexcept;
+
+    /// @return L'image pleine d'une image engendrÃ©e, jamais Ã©vincÃ©e (marqueurs, atlas).
+<span style = "background-color:#dfd">    [[nodiscard]] const QImage&amp; pinned() const noexcept {
+        return _levels.front();
+    }</span>
+
+private:
+    friend class SceneImages;
+
+    SceneImages* _owner = nullptr;
+    std::string _path;
+    std::vector&lt;QImage&gt; _levels;
+    int _width = 0;
+    int _height = 0;
+    bool _smooth = false;
+    bool _solid = false;
+    std::list&lt;SceneImage*&gt;::iterator _recent;
+    bool _listed = false;
+};
+
 /// @return L'image que dÃ©signe une identitÃ© de texture de ce cache.
-<span style = "background-color:#dfd">[[nodiscard]] inline const QImage* sceneImageOf(TextureHandle handle) noexcept {
-    return static_cast&lt;const QImage*&gt;(handle);
+<span style = "background-color:#dfd">[[nodiscard]] inline SceneImage* sceneImageOf(TextureHandle handle) noexcept {
+    return static_cast&lt;SceneImage*&gt;(handle);
 }</span>
 
 /// @return L'identitÃ© de texture de @p image, l'inverse de `sceneImageOf`. L'identitÃ© est opaque
-///         (`void*`) et personne n'Ã©crit Ã  travers : le retrait du `const` est sans effet.
-<span style = "background-color:#dfd">[[nodiscard]] inline TextureHandle sceneImageHandle(const QImage* image) noexcept {</span>
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast): identitÃ© opaque, jamais Ã©crite.
-<span style = "background-color:#dfd">    return const_cast&lt;QImage*&gt;(image);
+///         (`void*`) : le retrait du `const` ne sert qu'au cache, qui calcule ses niveaux.
+<span style = "background-color:#dfd">[[nodiscard]] inline TextureHandle sceneImageHandle(const SceneImage* image) noexcept {</span>
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast): identitÃ© opaque, niveaux paresseux.
+<span style = "background-color:#dfd">    return const_cast&lt;SceneImage*&gt;(image);
 }</span>
+
+/// Budget par dÃ©faut des pixels Ã©vinÃ§ables, en octets (`LOT-125`, README du module).
+inline constexpr std::size_t SCENE_IMAGES_DEFAULT_BUDGET_BYTES = std::size_t{256} * 1024 * 1024;
 
 /**
  * @brief Le cache des images du canevas : ce que `hmi::paintComposedScene` peint, et ce que
  *        `hmi::composeWorldScene` adresse par chemin.
+ *
+ * Il ne se partage qu'entre objets du **mÃªme fil** (celui de l'interface) : le canevas, les
+ * vignettes et `--render` y vivent tous.
  */
 class SceneImages {
 public:
     /// @param assetsDirectory Le dossier des assets (`Assets/`), oÃ¹ se rÃ©solvent les chemins.
-    explicit SceneImages(std::filesystem::path assetsDirectory);
+    /// @param budgetBytes     Le plafond des pixels Ã©vinÃ§ables, niveaux rÃ©duits compris.
+    explicit SceneImages(std::filesystem::path assetsDirectory,
+                         std::size_t budgetBytes = SCENE_IMAGES_DEFAULT_BUDGET_BYTES);
 
     SceneImages(const SceneImages&amp;) = delete;
     SceneImages&amp; operator=(const SceneImages&amp;) = delete;
+
+    /**
+     * @brief L'instance partagÃ©e du dossier @p assetsDirectory : la mÃªme pour tous les onglets, les
+     *        vignettes et les prÃ©fabriquÃ©s, tant que l'un d'eux la tient.
+     */
+    [[nodiscard]] static std::shared_ptr&lt;SceneImages&gt; shared(
+        const std::filesystem::path&amp; assetsDirectory);
 
     /// @brief Charge les images de @p paths qui ne l'ont pas encore Ã©tÃ© (une seule tentative par
     ///        chemin : une piÃ¨ce absente n'est pas redemandÃ©e Ã  chaque image).
@@ -83,7 +172,7 @@ public:
     [[nodiscard]] static TextureHandle solid() noexcept;
 
     /// @return L'atlas procÃ©dural des types de tuile (la vue Ã  plat).
-    [[nodiscard]] const QImage&amp; atlas() const noexcept {
+    [[nodiscard]] const SceneImage&amp; atlas() const noexcept {
         return _atlas;
     }
 
@@ -91,18 +180,45 @@ public:
     [[nodiscard]] static QColor tileColor(core::TileType type);
 
     /// @return Le marqueur de la clÃ© d'asset @p key (`LOT-39`), `nullptr` si la clÃ© est refusÃ©e.
-    [[nodiscard]] const QImage* marker(const std::string&amp; key);
+    [[nodiscard]] const SceneImage* marker(const std::string&amp; key);
 
     /// @return L'image du dossier des assets Ã  @p path, chargÃ©e au besoin ; `nullptr` si absente.
-    [[nodiscard]] const QImage* image(const std::string&amp; path);
+    [[nodiscard]] SceneImage* image(const std::string&amp; path);
+
+    /// @return Les octets de pixels Ã©vinÃ§ables tenus en mÃ©moire, niveaux rÃ©duits compris.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t residentBytes() const noexcept {
+        return _resident;
+    }</span>
+    /// @return Le plafond de ces octets.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t budgetBytes() const noexcept {
+        return _budget;
+    }</span>
+    /// @return Le nombre de manifestes lus sur disque depuis la crÃ©ation du cache.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t manifestReads() const noexcept {
+        return _manifests.size();
+    }</span>
 
 private:
+    friend class SceneImage;
+
+    /// Une image lue ou relue : comptÃ©e, placÃ©e en tÃªte des plus rÃ©centes, et le budget tenu.
+    void touch(SceneImage&amp; image);
+    void account(std::ptrdiff_t bytes);
+    void evictBeyondBudget(const SceneImage&amp; keep);
+    [[nodiscard]] QImage readFile(const std::string&amp; path) const;
+    /// Une image engendrÃ©e : peinte au plus proche, jamais Ã©vincÃ©e, un seul niveau.
+    static void pin(SceneImage&amp; target, QImage image);
+
     std::filesystem::path _directory;
-    std::map&lt;std::string, QImage&gt; _images;
-    std::map&lt;std::string, QImage&gt; _markers;
+    std::size_t _budget;
+<span style = "background-color:#dfd">    std::size_t _resident = 0;</span>
+    std::list&lt;SceneImage*&gt; _recent;
+    std::map&lt;std::string, SceneImage&gt; _images;
+    std::map&lt;std::string, SceneImage&gt; _markers;
     std::set&lt;std::string&gt; _requested;
-    QImage _missing;
-    QImage _atlas;
+    ManifestCache _manifests;
+    SceneImage _missing;
+    SceneImage _atlas;
     ScenePieceTextures _textures;
 };
 

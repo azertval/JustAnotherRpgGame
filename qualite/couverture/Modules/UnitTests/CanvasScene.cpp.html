@@ -51,11 +51,35 @@ IsoBandOpacity isoBandOpacity(const std::vector&lt;core::TileLayer&gt;&amp; laye
 <span style = "background-color:#dfd">        bands.collision = !active ? root.effectiveOpacity() * COLLISION_MASK_OPACITY : 0.0F;</span>
     }
 <span style = "background-color:#dfd">    const LayerSlot decor = firstLayerOf(layers, core::LayerKind::Decor);
-    bands.relief = decor ? view.display(decor, hasVisual).effectiveOpacity() : 1.0F;
+    bands.relief = decor ? view.display(decor, hasVisual).effectiveOpacity() : 1.0F;</span>
+    // Chaque etage, par sa premiere couche (LOT-129) : la cacher cache l'etage.
+<span style = "background-color:#dfd">    std::array&lt;bool, core::MAX_STOREY_FLOOR&gt; seen{};
+    for (std::size_t index = 0; index &lt; layers.size(); ++index) {
+        const core::TileLayer&amp; layer = layers[index];
+        if (layer.kind != core::LayerKind::Decor || layer.floor &lt; 1 ||</span>
+            layer.floor &gt; core::MAX_STOREY_FLOOR) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto rank = static_cast&lt;std::size_t&gt;(layer.floor - 1);
+        if (!seen[rank]) {
+            seen[rank] = true;
+            bands.storeys[rank] = view.display(LayerSlot{index}, hasVisual).effectiveOpacity();</span>
+        }
+<span style = "background-color:#dfd">    }
     if (seeThroughRelief) {
-        bands.relief *= SEE_THROUGH_RELIEF_OPACITY;</span>
+        bands.relief *= SEE_THROUGH_RELIEF_OPACITY;
+        for (float&amp; storey : bands.storeys) {
+            storey *= SEE_THROUGH_RELIEF_OPACITY;
+        }</span>
     }
 <span style = "background-color:#dfd">    return bands;
+}</span>
+
+<span style = "background-color:#dfd">float bandOpacity(const IsoBandOpacity&amp; bands, const ComposedQuad&amp; quad) noexcept {
+    if (quad.storey &gt;= 1 &amp;&amp; quad.storey &lt;= core::MAX_STOREY_FLOOR) {
+        return bands.storeys[static_cast&lt;std::size_t&gt;(quad.storey - 1)];</span>
+    }
+<span style = "background-color:#dfd">    return bandOpacity(bands, quad.layer);
 }</span>
 
 <span style = "background-color:#dfd">float bandOpacity(const IsoBandOpacity&amp; bands, RenderLayer layer) noexcept {

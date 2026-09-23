@@ -38,7 +38,7 @@
 <hr>
 <h2 id="1-le-corpus-nest-pas-versionné">1. Le corpus n'est pas versionné</h2>
 <p><code>Documentation/SourceBook/</code> est exclu <strong>en entier</strong> par le <code>.gitignore</code>. La raison est désormais la taille : <strong>785 Mo</strong> de binaires, dont deux images de plus de 100 Mo, que git versionne mal — chaque clone les traîne, et aucune de leurs révisions ne se compresse. (280 Mo jusqu'au 7 septembre 2026 ; les neuf ressources de table virtuelle du §2 ont presque triplé le volume, ce qui ne change pas la règle mais en renforce le motif.)</p>
-<blockquote><p><strong>Cette phrase a été fausse jusqu'au <a href="../../lots/lot-30.html">LOT-30</a>.</strong> La règle d'exclusion n'était pas dans le <code>.gitignore</code> du dépôt : elle vivait comme modification locale non commitée, sur un seul poste. Sur un clone neuf, un <code>git add -A</code> embarquait les 280 Mo. <code>scripts/check_glossary.py</code> vérifie désormais l'exclusion en intégration continue — une affirmation que rien ne vérifie finit par devenir fausse, et celle-ci l'était depuis le début.</p></blockquote>
+<blockquote><p><strong>Cette phrase a été fausse jusqu'au <a href="../../lots/lot-30.html">LOT-30</a>.</strong> La règle d'exclusion n'était pas dans le <code>.gitignore</code> du dépôt : elle vivait comme modification locale non commitée, sur un seul poste. Sur un clone neuf, un <code>git add -A</code> embarquait les 280 Mo. <code>scripts/checks/check_glossary.py</code> vérifie désormais l'exclusion en intégration continue — une affirmation que rien ne vérifie finit par devenir fausse, et celle-ci l'était depuis le début.</p></blockquote>
 <p>Deux conséquences pratiques, à retenir avant d'écrire quoi que ce soit dans ce dossier :</p>
 <ul><li><strong>Rien de ce qu'on y dépose ne sera versionné</strong>, pas même un fichier texte. Le manifeste du <code>LOT-30</code> vit donc dans <code>scripts/sourcebook/corpus.toml</code>, avec l'outil qui le lit, et non à côté des PDF qu'il décrit.</li><li>Le corpus texte intermédiaire produit par l'extraction n'est pas versionné non plus. Il se régénère à la demande depuis les PDF locaux ; ce sont les <strong>données finales</strong>, elles, qui entrent dans le dépôt.</li></ul>
 <hr>
@@ -373,9 +373,9 @@ Touché : 4 (1d4 + 2) dégâts tranchants.</code></pre>
 scripts/sourcebook/
   corpus.toml               ← manifeste : empreintes, pagination, provenance (LOT-30, livré)
   *.py                      ← chaîne d&#x27;extraction, sur PyMuPDF (LOT-30, livré)
-scripts/check_rpg_data.py, check_glossary.py, check_asset_keys.py   ← livrés
+scripts/checks/check_rpg_data.py, check_glossary.py, check_asset_keys.py   ← livrés
 scripts/lint_lots.py        ← contrôle du graphe de lots de cette page (LOT-78, livré)
-scripts/check_assets_brief.py, receive_ui_assets.py   ← cahier et réception des images (LOT-87)
+scripts/checks/check_assets_brief.py, receive_ui_assets.py   ← cahier et réception des images (LOT-87)
 
 Source/Elements/Rpg/
   schema/*.schema.json      ← contrats, 23 schémas (LOT-32, livré)
@@ -454,7 +454,7 @@ Documentation/Lot/LOT-87-charte-v2/
 <p>Cette page a été confrontée à l'état réel du code et des spécifications. Cinq constats la dépassent et conditionnent son exécution.</p>
 <h3 id="91-cinq-familles-dexigences-sont-fantômes-le-lint-le-dit-désormais">9.1 Cinq familles d'exigences sont fantômes — le lint le dit désormais</h3>
 <p>Le dépôt compte <strong>13 familles réelles pour 269 exigences</strong> (<code>EX-ARCH</code>, <code>EX-BUILD</code>, <code>EX-CTRL</code>, <code>EX-DEC</code>, <code>EX-EDIT</code>, <code>EX-EXP</code>, <code>EX-GP</code>, <code>EX-IA</code>, <code>EX-IHM</code>, <code>EX-LVL</code>, <code>EX-NFR</code>, <code>EX-REN</code>, <code>EX-VIS</code>). Cinq autres sont référencées par une vingtaine d'epics et <strong>n'existent pas</strong> : <code>EX-REG-*</code>, <code>EX-RPG-*</code>, <code>EX-INV-*</code>, <code>EX-CBT-*</code> et <code>EX-CNT-*</code>. Les documents censés les porter — <code>regles-d20.md</code>, <code>combat.md</code>, <code>rpg.md</code>, <code>contenu.md</code> — sont absents.</p>
-<p><strong>Le garde-fou, lui, est réparé.</strong> Il ne l'était pas : <code>scripts/lint_exigences.py</code> ne filtrait que sur <code>EX-[A-Z]+-[0-9]+</code>, si bien qu'un <code>EX-REG-*</code> n'était <strong>ni</strong> une déclaration <strong>ni</strong> une référence, et que la CI passait au vert sur cinq familles inexistantes. Une seconde expression, <code>FAMILY_REF_RE = re.compile(r&#x27;EX-([A-Z]+)-\*&#x27;)</code>, capte désormais les références de famille entière et le lint <strong>échoue</strong> sur les cinq.</p>
+<p><strong>Le garde-fou, lui, est réparé.</strong> Il ne l'était pas : <code>scripts/checks/lint_exigences.py</code> ne filtrait que sur <code>EX-[A-Z]+-[0-9]+</code>, si bien qu'un <code>EX-REG-*</code> n'était <strong>ni</strong> une déclaration <strong>ni</strong> une référence, et que la CI passait au vert sur cinq familles inexistantes. Une seconde expression, <code>FAMILY_REF_RE = re.compile(r&#x27;EX-([A-Z]+)-\*&#x27;)</code>, capte désormais les références de famille entière et le lint <strong>échoue</strong> sur les cinq.</p>
 <p>Cet échec était <strong>voulu</strong>, et c'était le seul mécanisme empêchant la dette de grossir en silence. Il est <strong>éteint</strong> : le <a href="../../lots/lot-77.html">LOT-77</a> a écrit <code>regles-d20.md</code>, <code>rpg.md</code>, <code>combat.md</code>, <code>inventaire.md</code> et <code>contenu.md</code>, soit <strong>69 exigences</strong> qui portent les cinq familles, et a posé la rubrique « Exigences couvertes » sur les 25 lots qui les implémentent. Le lint comptait alors <strong>339 exigences déclarées et 339 référencées</strong>, sans aucune entrée ajoutée à la liste des exceptions ; il en compte 352 le 14 septembre 2026, les <code>LOT-86</code> et <code>LOT-87</code> ayant ajouté les leurs (<code>EX-IHM-100</code> à <code>EX-IHM-105</code>, la charte v2).</p>
 <p>Écrire la moitié RPG de la spécification était le vrai chantier de fond, celui dont dépendait tout le reste — d'où un lot dédié plutôt qu'une ligne dans « à trancher ».</p>
 <h3 id="92-six-mécaniques-étaient-consommées-sans-être-produites">9.2 Six mécaniques étaient consommées sans être produites</h3>
@@ -599,7 +599,7 @@ Documentation/Lot/LOT-87-charte-v2/
 <h5 id="équilibrage">Équilibrage</h5>
 <p>Passe de réglage sur les données du slice : PV, CA, dégâts, seuils d'expérience, prix. Tout est en JSON depuis la phase C — aucune recompilation.</p>
 <h5 id="clôture">Clôture</h5>
-<ul><li>Régénération du <strong>cahier de test</strong> (<code>scripts/generate_cahier_test.py</code>).</li><li>Le lint de provenance du <a href="../../lots/lot-94.html">LOT-94</a> est vert : la version ne contient <strong>aucune image du corpus</strong>.</li><li>Mise en cohérence documentaire globale : specs, guides, manuel.</li><li><code>project(VERSION 0.0.1)</code> dans le <code>CMakeLists.txt</code> racine — <strong>seul endroit</strong> où la version s'écrit — puis tag <code>v0.0.1</code>. Dans ce programme, <code>0.1.0</code> est le bac à sable complet, et le slice est son premier <code>0.0.x</code>.</li></ul>
+<ul><li>Régénération du <strong>cahier de test</strong> (<code>scripts/docs/generate_cahier_test.py</code>).</li><li>Le lint de provenance du <a href="../../lots/lot-94.html">LOT-94</a> est vert : la version ne contient <strong>aucune image du corpus</strong>.</li><li>Mise en cohérence documentaire globale : specs, guides, manuel.</li><li><code>project(VERSION 0.0.1)</code> dans le <code>CMakeLists.txt</code> racine — <strong>seul endroit</strong> où la version s'écrit — puis tag <code>v0.0.1</code>. Dans ce programme, <code>0.1.0</code> est le bac à sable complet, et le slice est son premier <code>0.0.x</code>.</li></ul>
 <h4 id="note-de-méthode">Note de méthode</h4>
 <p>La documentation de chaque domaine est mise à jour <strong>par le lot qui le livre</strong>, pas ici. Ce lot ne fait que la cohérence d'ensemble et la régénération. Un lot fourre-tout de fin de programme n'est jamais fini : c'est le risque à éviter.</p>
 <h4 id="exigences-couvertes">Exigences couvertes</h4>
@@ -624,7 +624,7 @@ Documentation/Lot/LOT-87-charte-v2/
 <ul><li>Un combat à <strong>4 alliés contre 4 ennemis</strong> se déroule en headless jusqu'à une condition de fin.</li><li><strong>Aucune régression</strong> du jeu à un personnage : le contenu du <code>LOT-27</code> reste jouable tel quel.</li><li>Les suiveurs ne restent pas coincés dans le décor ni ne bloquent le héros dans un passage étroit.</li><li>Le bandeau d'initiative reste lisible à huit combattants.</li></ul></article>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>6a02407ba</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>776e4bf13</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../../assets/site.js"></script>
 </body>
 </html>

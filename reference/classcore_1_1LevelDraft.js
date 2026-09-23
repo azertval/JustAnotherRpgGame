@@ -56,6 +56,7 @@ var classcore_1_1LevelDraft =
     [ "setEntityProperty", "classcore_1_1LevelDraft.html#a3593196bd271ce43b79cb83e5daad217", null ],
     [ "setEntry", "classcore_1_1LevelDraft.html#ad27c800742bff5e3bd6f4c04e9780d25", null ],
     [ "setEntryInternal", "classcore_1_1LevelDraft.html#a9d039adf33432c729620cd113ee8b5fb", null ],
+    [ "setLayerFloor", "classcore_1_1LevelDraft.html#a3bc2bc72a4284ff78ed9ac6d604d70ef", null ],
     [ "setLayerKind", "classcore_1_1LevelDraft.html#a90471e4d217d3e369c3c08872a2a25ee", null ],
     [ "setLayerProperty", "classcore_1_1LevelDraft.html#a3068ff19e9083535520cdb0dc01e6ddf", null ],
     [ "setName", "classcore_1_1LevelDraft.html#af06a5338ba049934b8b217c6e0345546", null ],

@@ -6,5 +6,6 @@ var structhmi_1_1SceneTextureTraits =
     [ "frameDuration", "structhmi_1_1SceneTextureTraits.html#abaadf841632dad1daf20a68ab307ac01", null ],
     [ "frameHeight", "structhmi_1_1SceneTextureTraits.html#aedcade86d1c5b97bd7debceffafcbc41", null ],
     [ "frameWidth", "structhmi_1_1SceneTextureTraits.html#a2dc1ead5b982039007f23fb1df9f5e9b", null ],
-    [ "groundLine", "structhmi_1_1SceneTextureTraits.html#a3c7f13b1aca0e224dacbfb2cb253e999", null ]
+    [ "groundLine", "structhmi_1_1SceneTextureTraits.html#a3c7f13b1aca0e224dacbfb2cb253e999", null ],
+    [ "storeyHeight", "structhmi_1_1SceneTextureTraits.html#aa975b1f3ec3535bfa2eb390fae01df53", null ]
 ];

@@ -3159,6 +3159,7 @@
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="LayerView_8h" name="LayerView.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LayerView.h</includes>
     <class kind="struct">hmi::PieceCatalogEntry</class>
     <class kind="struct">hmi::PieceCatalogGroup</class>
     <namespace>hmi</namespace>
@@ -4476,6 +4477,7 @@
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
+    <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
@@ -4486,6 +4488,7 @@
     <class kind="struct">hmi::MaquetteTokenSnapshot</class>
     <class kind="struct">hmi::MaquetteTraceSnapshot</class>
     <class kind="struct">hmi::MaquetteMarks</class>
+    <class kind="struct">hmi::WorldStoreySnapshot</class>
     <class kind="struct">hmi::WorldSceneSnapshot</class>
     <class kind="struct">hmi::WorldSceneSource</class>
     <class kind="struct">hmi::WorldComposeOptions</class>
@@ -7474,6 +7477,20 @@
       <anchor>afc04215e2967a933770e2b2df4eb58ad</anchor>
       <arglist>(LevelDraftPiecesTest, ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__draft__pieces_8cpp.html</anchorfile>
+      <anchor>a6ff44b70558899017f24cc9f572ca0af</anchor>
+      <arglist>(LevelDraftPiecesTest, UnEtageNeBloqueAucuneCase)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__draft__pieces_8cpp.html</anchorfile>
+      <anchor>a4cefa4ed56a1989bbefb48a3f0c87f3a</anchor>
+      <arglist>(LevelDraftPiecesTest, SeulUnDecorMonteEtPasAuDelaDuDernierEtage)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_level_loader.cpp</name>
@@ -10313,6 +10330,13 @@
       <anchor>a1ed511b5783eb7ca73960f527340fb33</anchor>
       <arglist>(PieceCatalogTest, LeTypeDUnePieceVientDeLaTableDuLieu)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__piece__catalog_8cpp.html</anchorfile>
+      <anchor>a47350c42ba23fb2a5de5ab50679b9da4</anchor>
+      <arglist>(PieceCatalogTest, UnKitRangeSeGroupeParDossier)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_scene_images.cpp</name>
@@ -10512,6 +10536,58 @@
       <anchorfile>test__stamps_8cpp.html</anchorfile>
       <anchor>a2497fb6a89d2304f82269aaef2e4cc53</anchor>
       <arglist>(StampsTest, UnModeleNeNommeAucunePiece)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_storey_editing.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__storey__editing_8cpp.html</filename>
+    <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
+    <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
+    <includes id="CanvasScene_8h" name="CanvasScene.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasScene.h</includes>
+    <includes id="LayerView_8h" name="LayerView.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LayerView.h</includes>
+    <includes id="PieceCatalog_8h" name="PieceCatalog.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PieceCatalog.h</includes>
+    <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__storey__editing_8cpp.html</anchorfile>
+      <anchor>a339d8e18442d6117e70640f556a53b6d</anchor>
+      <arglist>(StoreyEditingTest, UnePieceSePeintSurLEtageActif)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__storey__editing_8cpp.html</anchorfile>
+      <anchor>ab769259c7d3080239de0bf6d0c3b6000</anchor>
+      <arglist>(StoreyEditingTest, CacherUneCoucheDEtageCacheSonEtage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__storey__editing_8cpp.html</anchorfile>
+      <anchor>a17cc381a7119737e03f78d3081d3e40a</anchor>
+      <arglist>(StoreyEditingTest, UnPrefabriqueGardeSesEtages)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_storey_render.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__storey__render_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
+    <includes id="SceneImages_8h" name="SceneImages.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneImages.h</includes>
+    <includes id="ScenePainter_8h" name="ScenePainter.h" local="yes" import="no" module="no" objc="no">Editor/Ui/ScenePainter.h</includes>
+    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__storey__render_8cpp.html</anchorfile>
+      <anchor>a21ae281aeaa6f887da1e3f2091547ef0</anchor>
+      <arglist>(StoreyRenderTest, OnVoitLeHerosATraversLEtageEtLeToit)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11843,6 +11919,32 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_scene_folders.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__scene__folders_8cpp.html</filename>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__folders_8cpp.html</anchorfile>
+      <anchor>a783ed38a3eee7f1c53f315ba496f2519</anchor>
+      <arglist>(SceneFoldersTest, UnePieceRangeeSeRetrouveParSonChemin)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__folders_8cpp.html</anchorfile>
+      <anchor>ae2f1a9fdc9020930e36e3beb19b5c470</anchor>
+      <arglist>(SceneFoldersTest, LAncreDUnePieceRangeeSeLitDansLeManifesteDuLieu)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_texture_atlas.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__texture__atlas_8cpp.html</filename>
@@ -12099,6 +12201,70 @@
       <anchorfile>test__world__scene__renderer_8cpp.html</anchorfile>
       <anchor>aa8d8ba6842a7b15d3a2f27b9b777d765</anchor>
       <arglist>(WorldSceneRendererTest, TousLesPortailsSeTraversent)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_world_storeys.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__world__storeys_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
+    <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>a9f235ac97a2480354dbf4e28389f64a1</anchor>
+      <arglist>(WorldStoreysTest, LesEtagesEntrentDansLInstantaneRangesParEtage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>a5920b8cd6befa02e6e8bfd9b00cdc0c9</anchor>
+      <arglist>(WorldStoreysTest, UnEtageSEleveDeLaHauteurDeclareeParSonLieu)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>ad6649add8ad3eb3f3799c084c72edf41</anchor>
+      <arglist>(WorldStoreysTest, UnEtageSeTrieAuDessusDuRezDeSaCase)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>a5e65233a066a81a66f19b41f46431979</anchor>
+      <arglist>(WorldStoreysTest, UnEtageQuiMasqueLeHerosSEfface)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>a0eb0f459d60f620f0ab5aba2d5ba878e</anchor>
+      <arglist>(WorldStoreysTest, UnEtageHorsBornesNEstPasJoue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>a73a3f848f1dc08db623b6efbba5c30a9</anchor>
+      <arglist>(WorldStoreysTest, UnEtagePasseApresLaPieceLargeQuiLePorte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__storeys_8cpp.html</anchorfile>
+      <anchor>a70fc9c6c5cf004def11d5dd361f91edf</anchor>
+      <arglist>(WorldStoreysTest, EnMaquetteUnEtagePeintSeVoit)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -21323,6 +21489,13 @@
       <anchor>a25aff1d8e81c4d84ebd30143884b6cc9</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>storey</name>
+      <anchorfile>structhmi_1_1ComposedQuad.html</anchorfile>
+      <anchor>a37238749d10cab15704ad2e255e6a0ff</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::ComposedScene</name>
@@ -21366,8 +21539,8 @@
       <type>bool</type>
       <name>addSprite</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a24314ca8a9469380b010d79d9e1eb604</anchor>
-      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad)</arglist>
+      <anchor>a00944ba9a1b321db44b0e6c4554ff8d5</anchor>
+      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -21380,8 +21553,8 @@
       <type>bool</type>
       <name>addPoly</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>abb3918ab48d60da10aa29c112bba55f4</anchor>
-      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const PolyQuad &amp;quad)</arglist>
+      <anchor>a6afbe9dfa8c821b7b9b8e90053199c59</anchor>
+      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const PolyQuad &amp;quad, int storey=0)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -24706,6 +24879,13 @@
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>a4c945db76ffa6d2f924f9fc8d38e65ec</anchor>
       <arglist>(std::size_t index, const std::string &amp;name)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMapLayerFloor</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a73f308d7ce820d2ee0c54a89140ce732</anchor>
+      <arglist>(std::size_t index, int floor)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -29304,6 +29484,13 @@
       <anchor>ada11f509e952c5a9d8fb75a657c79549</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::array&lt; float, core::MAX_STOREY_FLOOR &gt;</type>
+      <name>storeys</name>
+      <anchorfile>structhmi_1_1IsoBandOpacity.html</anchorfile>
+      <anchor>a20e660cfdccf747c6ffe3c97ba289ff2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::IsoProjection</name>
@@ -29834,6 +30021,13 @@
       <anchor>a1389451d5613d5e845e47d56eb2f469d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>floor</name>
+      <anchorfile>structhmi_1_1LayerRow.html</anchorfile>
+      <anchor>a4fe0ecae5358c7c47cd300295d6083ab</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::LayersPanel</name>
@@ -29902,6 +30096,13 @@
       <anchorfile>classhmi_1_1LayersPanel.html</anchorfile>
       <anchor>a3106f92bc8a2ba0d96a2d13147d28edb</anchor>
       <arglist>(std::size_t index, const QString &amp;name)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>floorRequested</name>
+      <anchorfile>classhmi_1_1LayersPanel.html</anchorfile>
+      <anchor>a41a8c0d70342d5b54785bbc6d96b3a52</anchor>
+      <arglist>(std::size_t index, int floor)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -30676,6 +30877,13 @@
     </member>
     <member kind="function">
       <type>bool</type>
+      <name>setLayerFloor</name>
+      <anchorfile>classcore_1_1LevelDraft.html</anchorfile>
+      <anchor>a3bc2bc72a4284ff78ed9ac6d604d70ef</anchor>
+      <arglist>(std::size_t index, int floor)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
       <name>setLayerProperty</name>
       <anchorfile>classcore_1_1LevelDraft.html</anchorfile>
       <anchor>a3068ff19e9083535520cdb0dc01e6ddf</anchor>
@@ -31121,6 +31329,13 @@
       <anchorfile>classcore_1_1LevelDraft.html</anchorfile>
       <anchor>a90471e4d217d3e369c3c08872a2a25ee</anchor>
       <arglist>(std::size_t index, LayerKind kind)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>setLayerFloor</name>
+      <anchorfile>classcore_1_1LevelDraft.html</anchorfile>
+      <anchor>a3bc2bc72a4284ff78ed9ac6d604d70ef</anchor>
+      <arglist>(std::size_t index, int floor)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -34953,6 +35168,13 @@
       <arglist>(std::string_view name) const</arglist>
     </member>
     <member kind="function">
+      <type>std::string_view</type>
+      <name>pieceFile</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a051315857796da96ef2fdd784a6a400d</anchor>
+      <arglist>(std::string_view name) const</arglist>
+    </member>
+    <member kind="function">
       <type>const std::string &amp;</type>
       <name>place</name>
       <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
@@ -35090,6 +35312,13 @@
       <name>_footprints</name>
       <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
       <anchor>a1c4f8e44f18b0de3a332f42577805e0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>_files</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a882d7264d7583942f3c51796cf292fe0</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -37156,6 +37385,13 @@
       <anchor>a623e6b74bf876a1f0ec1720c95bb9cd2</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>storeyHeight</name>
+      <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
+      <anchor>a97ffb26e27c7a86af49b746288996baf</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::SceneTextureTraits</name>
@@ -37207,6 +37443,13 @@
       <name>frameDuration</name>
       <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
       <anchor>abaadf841632dad1daf20a68ab307ac01</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>storeyHeight</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>aa975b1f3ec3535bfa2eb390fae01df53</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -38478,6 +38721,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>int</type>
+      <name>floor</name>
+      <anchorfile>structhmi_1_1StampLayer.html</anchorfile>
+      <anchor>a07713217ed1b30c3ec263957309781cc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; core::TileType &gt;</type>
       <name>types</name>
       <anchorfile>structhmi_1_1StampLayer.html</anchorfile>
@@ -39685,6 +39935,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>QLabel *</type>
+      <name>floorLabel</name>
+      <anchorfile>structhmi_1_1LayersPanel_1_1Widgets.html</anchorfile>
+      <anchor>a7bd42ccf8d6ccbf5c0304a09409bc34f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpinBox *</type>
+      <name>floorSpin</name>
+      <anchorfile>structhmi_1_1LayersPanel_1_1Widgets.html</anchorfile>
+      <anchor>afa7209fc82e3441dfc0cfe49681183bd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>QPushButton *</type>
       <name>addGroundButton</name>
       <anchorfile>structhmi_1_1LayersPanel_1_1Widgets.html</anchorfile>
@@ -39999,6 +40263,13 @@
       <name>seconds</name>
       <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
       <anchor>ae5ce7c1bb8990ed76fe11dee5835eff4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>hero</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>ae19137a03918daf51d2159985052ab10</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41772,6 +42043,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::vector&lt; WorldStoreySnapshot &gt;</type>
+      <name>storeys</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>a3827d39966f52c2bb08eb43df4b934e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>pieceFiles</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>aec9fa73fbf00d2d46b033cc69d1d0043</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
       <name>figures</name>
       <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
@@ -41808,6 +42093,38 @@
       <name>entities</name>
       <anchorfile>structhmi_1_1WorldSceneSource.html</anchorfile>
       <anchor>ae07f3241de6be7a67f14494f1dd8dd17</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::WorldStoreySnapshot</name>
+    <filename>structhmi_1_1WorldStoreySnapshot.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1WorldStoreySnapshot.html</anchorfile>
+      <anchor>ab021eacb7bbf364b295abaad4d65d462</anchor>
+      <arglist>(const WorldStoreySnapshot &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>floor</name>
+      <anchorfile>structhmi_1_1WorldStoreySnapshot.html</anchorfile>
+      <anchor>a73b25367fb73fd4bfd1110ef48f5be14</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>relief</name>
+      <anchorfile>structhmi_1_1WorldStoreySnapshot.html</anchorfile>
+      <anchor>ad75d4a84017d33e7a4b39ec60ebbd04a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; core::TileType &gt;</type>
+      <name>types</name>
+      <anchorfile>structhmi_1_1WorldStoreySnapshot.html</anchorfile>
+      <anchor>a40629062d506feff7433a9da36c3ab5f</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44981,6 +45298,13 @@
     </member>
     <member kind="variable">
       <type>constexpr int</type>
+      <name>MAX_STOREY_FLOOR</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a71ba5ff46298b3aa173af1f1071ae3eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
       <name>LAYER_KIND_COUNT</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a1639bde29cbf10d2ed8629a0fe495374</anchor>
@@ -45459,6 +45783,7 @@
     <class kind="struct">hmi::MaquetteTokenSnapshot</class>
     <class kind="struct">hmi::MaquetteTraceSnapshot</class>
     <class kind="struct">hmi::MaquetteMarks</class>
+    <class kind="struct">hmi::WorldStoreySnapshot</class>
     <class kind="struct">hmi::WorldSceneSnapshot</class>
     <class kind="struct">hmi::WorldSceneSource</class>
     <class kind="struct">hmi::WorldComposeOptions</class>
@@ -45894,6 +46219,7 @@
       <arglist></arglist>
       <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92">Relief</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">Figure</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">Storey</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -46175,6 +46501,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a22b690a46d0fbaf833709811650ec91c</anchor>
       <arglist>(const std::vector&lt; core::TileLayer &gt; &amp;layers, const LayerViewState &amp;view, LayerSlot active, bool seeThroughRelief)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>bandOpacity</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac0dd913553a0a5628f939841d167cd98</anchor>
+      <arglist>(const IsoBandOpacity &amp;bands, const ComposedQuad &amp;quad) noexcept</arglist>
     </member>
     <member kind="function">
       <type>float</type>
@@ -46978,8 +47311,8 @@
       <type>std::optional&lt; std::size_t &gt;</type>
       <name>pieceTargetLayer</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aabb6d90483bf13d7b93dc031ac1cdfb0</anchor>
-      <arglist>(const std::vector&lt; core::TileLayer &gt; &amp;layers, bool floor)</arglist>
+      <anchor>ac23f07810e5349118b131e49993da35a</anchor>
+      <arglist>(const std::vector&lt; core::TileLayer &gt; &amp;layers, bool floor, LayerSlot active)</arglist>
     </member>
     <member kind="function">
       <type>core::TileType</type>
@@ -48558,6 +48891,20 @@
     </member>
     <member kind="variable">
       <type>constexpr float</type>
+      <name>STOREY_SEE_THROUGH_OPACITY</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab0a2cd2527096877037eac485411c28f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr float</type>
+      <name>DEFAULT_STOREY_TILES</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a8434f71a989c8056288d38787955107e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr float</type>
       <name>WORLD_VIEW_HEIGHT_IN_TILES</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a00f1d57e59825bdaab90daa68edbd08b</anchor>
@@ -49031,6 +49378,8 @@
     <file>test_scene_painter.cpp</file>
     <file>test_shipped_maps.cpp</file>
     <file>test_stamps.cpp</file>
+    <file>test_storey_editing.cpp</file>
+    <file>test_storey_render.cpp</file>
     <file>test_thumbnail_geometry.cpp</file>
     <file>test_tile_taxonomy.cpp</file>
     <file>test_world_graph_layout.cpp</file>
@@ -49182,10 +49531,12 @@
     <file>test_quad_recorder.cpp</file>
     <file>test_render_culling.cpp</file>
     <file>test_rhi_offscreen.cpp</file>
+    <file>test_scene_folders.cpp</file>
     <file>test_texture_atlas.cpp</file>
     <file>test_tile_visuals.cpp</file>
     <file>test_world_scene_composer.cpp</file>
     <file>test_world_scene_renderer.cpp</file>
+    <file>test_world_storeys.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI</name>

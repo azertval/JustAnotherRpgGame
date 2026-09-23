@@ -452,8 +452,9 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>tracé</b> de maquette : le contour d'une zone, ou le trajet d'un PNJ.  <a href="structhmi_1_1MaquetteTraceSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaquetteMarks" id="r_MaquetteMarks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques de maquette d'une carte : ses jetons et ses tracés.  <a href="structhmi_1_1MaquetteMarks.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldStoreySnapshot" id="r_WorldStoreySnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStoreySnapshot.html">WorldStoreySnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldStoreySnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneSnapshot" id="r_WorldSceneSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldSceneSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneSource" id="r_WorldSceneSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la composition lit d'une carte : sa grille racine, ses couches et ses entités.  <a href="structhmi_1_1WorldSceneSource.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldComposeOptions" id="r_WorldComposeOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td></tr>
@@ -832,8 +833,9 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a30e21236d068bfdc0078d392e42b752d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment une texture s'échantillonne : la <b>nature</b> de l'image (<span class="tt">EX-ARCH-022</span>).  <a href="#a30e21236d068bfdc0078d392e42b752d">More...</a><br /></td></tr>
 <tr class="memitem:a71e0c7e2c54951699d44b5c6f88f63ca" id="r_a71e0c7e2c54951699d44b5c6f88f63ca"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63ca">WorldDepthSlot</a> : std::int32_t { <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92">Relief</a> = 0
 , <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">Figure</a>
+, <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">Storey</a>
  }</td></tr>
-<tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, puis la figurine posée dessus.  <a href="#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
+<tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, la figurine posée dessus, puis les étages de la case, du premier au dernier (<span class="tt">LOT-129</span>) — le rang de l'étage <span class="tt">n</span> est <span class="tt">Storey + n - 1</span>.  <a href="#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
 <tr class="memitem:ac35af7f8a75d64ff0600ed46bb08ea2d" id="r_ac35af7f8a75d64ff0600ed46bb08ea2d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">SouthEast</a>
@@ -1009,6 +1011,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2eb7bedaec311c381db30e1e55ebdf63" id="r_a2eb7bedaec311c381db30e1e55ebdf63"><td class="memItemLeft"><a class="el" href="structhmi_1_1CellRange.html">CellRange</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2eb7bedaec311c381db30e1e55ebdf63">flatCellsCovering</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;world, int columns, int rows) noexcept</td></tr>
 <tr class="memitem:a22b690a46d0fbaf833709811650ec91c" id="r_a22b690a46d0fbaf833709811650ec91c"><td class="memItemLeft"><a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a>&#160;</td><td class="memItemRight"><a class="el" href="#a22b690a46d0fbaf833709811650ec91c">isoBandOpacity</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;view, <a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active, bool seeThroughRelief)</td></tr>
 <tr class="memdesc:a22b690a46d0fbaf833709811650ec91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les opacités des bandes iso, d'après les réglages des couches.  <br /></td></tr>
+<tr class="memitem:ac0dd913553a0a5628f939841d167cd98" id="r_ac0dd913553a0a5628f939841d167cd98"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac0dd913553a0a5628f939841d167cd98">bandOpacity</a> (const <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &amp;bands, const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memitem:a5c3feb328546df191be2e5083903d357" id="r_a5c3feb328546df191be2e5083903d357"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5c3feb328546df191be2e5083903d357">bandOpacity</a> (const <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &amp;bands, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) noexcept</td></tr>
 <tr class="memitem:a01862c75838661af7e844574901cfa47" id="r_a01862c75838661af7e844574901cfa47"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a01862c75838661af7e844574901cfa47">canvasSnapshot</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance)</td></tr>
 <tr class="memdesc:a01862c75838661af7e844574901cfa47"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros.  <br /></td></tr>
@@ -1180,7 +1183,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aecbe4c4d16394d8fcbd7b6ccffeb1da6" id="r_aecbe4c4d16394d8fcbd7b6ccffeb1da6"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aecbe4c4d16394d8fcbd7b6ccffeb1da6">filterPieceCatalog</a> (const std::vector&lt; <a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> &gt; &amp;catalog, std::string_view query)</td></tr>
 <tr class="memdesc:aecbe4c4d16394d8fcbd7b6ccffeb1da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue réduit aux pièces dont le nom ou la classe contient <code class="param">query</code>, sans égard à la casse ; les groupes vidés disparaissent.  <br /></td></tr>
 <tr class="memitem:a886aa8303d2fee185b1413e5c425896f" id="r_a886aa8303d2fee185b1413e5c425896f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a886aa8303d2fee185b1413e5c425896f">pieceDescription</a> (const <a class="el" href="structhmi_1_1PieceCatalogEntry.html">PieceCatalogEntry</a> &amp;entry)</td></tr>
-<tr class="memitem:aabb6d90483bf13d7b93dc031ac1cdfb0" id="r_aabb6d90483bf13d7b93dc031ac1cdfb0"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aabb6d90483bf13d7b93dc031ac1cdfb0">pieceTargetLayer</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, bool floor)</td></tr>
+<tr class="memitem:ac23f07810e5349118b131e49993da35a" id="r_ac23f07810e5349118b131e49993da35a"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac23f07810e5349118b131e49993da35a">pieceTargetLayer</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, bool floor, <a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active)</td></tr>
 <tr class="memitem:a2959b61f0394085789d35563568aac2d" id="r_a2959b61f0394085789d35563568aac2d"><td class="memItemLeft"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2959b61f0394085789d35563568aac2d">pieceCellType</a> (const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> *appearance, std::string_view piece, bool floor)</td></tr>
 <tr class="memdesc:a2959b61f0394085789d35563568aac2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le type qu'écrit la case d'ancrage d'une pièce posée à la main (décision D3 : le type garde le sens de règle de la case).  <br /></td></tr>
 <tr class="memitem:a86891f5de291d0a457c7dee889e9e9ed" id="r_a86891f5de291d0a457c7dee889e9e9ed"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#a86891f5de291d0a457c7dee889e9e9ed">cutStamp</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> first, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> last)</td></tr>
@@ -1592,8 +1595,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
 <tr class="memitem:ac8defcd53d2643e64d9985a898796481" id="r_ac8defcd53d2643e64d9985a898796481"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ac8defcd53d2643e64d9985a898796481">FLOOR_SEAM_OVERLAP</a> = 1.0F / 256.0F</td></tr>
 <tr class="memdesc:ac8defcd53d2643e64d9985a898796481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Débord d'une dalle de sol au-delà de son losange, de chaque côté, en largeurs de case.  <br /></td></tr>
-<tr class="memitem:a7156a1bc50d513bacc4cf9f6bd64916b" id="r_a7156a1bc50d513bacc4cf9f6bd64916b"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a7156a1bc50d513bacc4cf9f6bd64916b">WORLD_DEPTH_SLOTS</a> = 2</td></tr>
-<tr class="memdesc:a7156a1bc50d513bacc4cf9f6bd64916b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de rangs par profondeur.  <br /></td></tr>
+<tr class="memitem:a7156a1bc50d513bacc4cf9f6bd64916b" id="r_a7156a1bc50d513bacc4cf9f6bd64916b"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a7156a1bc50d513bacc4cf9f6bd64916b">WORLD_DEPTH_SLOTS</a></td></tr>
+<tr class="memdesc:a7156a1bc50d513bacc4cf9f6bd64916b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage.  <br /></td></tr>
+<tr class="memitem:ab0a2cd2527096877037eac485411c28f" id="r_ab0a2cd2527096877037eac485411c28f"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ab0a2cd2527096877037eac485411c28f">STOREY_SEE_THROUGH_OPACITY</a> = 0.35F</td></tr>
+<tr class="memdesc:ab0a2cd2527096877037eac485411c28f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité d'une pièce d'étage qui masque le héros (<span class="tt">LOT-129</span>) : on le voit à travers le toit.  <br /></td></tr>
+<tr class="memitem:a8434f71a989c8056288d38787955107e" id="r_a8434f71a989c8056288d38787955107e"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a8434f71a989c8056288d38787955107e">DEFAULT_STOREY_TILES</a> = 1.0F</td></tr>
+<tr class="memdesc:a8434f71a989c8056288d38787955107e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'étage d'un lieu dont le manifeste n'en déclare pas, en largeurs de case (<span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:a00f1d57e59825bdaab90daa68edbd08b" id="r_a00f1d57e59825bdaab90daa68edbd08b"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a00f1d57e59825bdaab90daa68edbd08b">WORLD_VIEW_HEIGHT_IN_TILES</a> = 10.8F</td></tr>
 <tr class="memdesc:a00f1d57e59825bdaab90daa68edbd08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur de la vue, en largeurs de case (<span class="tt">EX-REN-013</span>) : une case occupe à l'écran la hauteur de la fenêtre divisée par 10,8 — 100 px à 1080p, 200 px à 2160p.  <br /></td></tr>
 <tr class="memitem:a344f40841fd17a0ce2a36213b84514c9" id="r_a344f40841fd17a0ce2a36213b84514c9"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a344f40841fd17a0ce2a36213b84514c9">WORLD_FIGURE_BOTTOM_MARGIN</a> = 0.42F</td></tr>
@@ -1761,7 +1768,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une des six caractéristiques d'un personnage ou d'une créature (<span class="tt">EX-REG-010</span>). </p>
-<p>Ensemble <b>fermé</b> : six valeurs, fixées par les règles. Les noms textuels sont ceux du lexique (<span class="tt">LOT-30</span>) et de <span class="tt">common.schema.json</span>, et <span class="tt">scripts/check_rpg_data.py</span> vérifie que les trois listes coïncident. </p>
+<p>Ensemble <b>fermé</b> : six valeurs, fixées par les règles. Les noms textuels sont ceux du lexique (<span class="tt">LOT-30</span>) et de <span class="tt">common.schema.json</span>, et <span class="tt">scripts/checks/check_rpg_data.py</span> vérifie que les trois listes coïncident. </p>
 
 </div>
 </div>
@@ -3081,10 +3088,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Rang d'une pièce dans une même profondeur : le relief, puis la figurine posée dessus. </p>
+<p>Rang d'une pièce dans une même profondeur : le relief, la figurine posée dessus, puis les étages de la case, du premier au dernier (<span class="tt">LOT-129</span>) — le rang de l'étage <span class="tt">n</span> est <span class="tt">Storey + n - 1</span>. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92" name="a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92"></a>Relief&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769" name="a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769"></a>Figure&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301" name="a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"></a>Storey&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -3784,7 +3792,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La largeur, en pixels d'art, d'une case de la projection : ce que le manifeste déclare. </p>
-<p>À défaut, l'image se mesure à elle-même, sans supposer aucune taille d'art : une pièce se suppose <b>une case de large</b> (une pièce d'une case a la largeur de son losange), une bande d'animation <b>une case de haut</b> — sa cellule est commune à toutes ses bandes, là où sa largeur double pour une attaque, et elle vaut une case dans l'ancien standard (64 pour 68) comme dans le nouveau (256 pour 256). Un lieu livré déclare toujours son losange (<span class="tt">scripts/check_hd_assets.py</span>). </p>
+<p>À défaut, l'image se mesure à elle-même, sans supposer aucune taille d'art : une pièce se suppose <b>une case de large</b> (une pièce d'une case a la largeur de son losange), une bande d'animation <b>une case de haut</b> — sa cellule est commune à toutes ses bandes, là où sa largeur double pour une attaque, et elle vaut une case dans l'ancien standard (64 pour 68) comme dans le nouveau (256 pour 256). Un lieu livré déclare toujours son losange (<span class="tt">scripts/checks/check_hd_assets.py</span>). </p>
 
 </div>
 </div>
@@ -4206,8 +4214,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac0dd913553a0a5628f939841d167cd98" name="ac0dd913553a0a5628f939841d167cd98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0dd913553a0a5628f939841d167cd98">&#9670;&#160;</a></span>bandOpacity() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::bandOpacity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bands</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'opacité de <code class="param">quad</code> : celle de son étage s'il en a un (<span class="tt">LOT-129</span>), de son calque sinon. </dd></dl>
+
+</div>
+</div>
 <a id="a5c3feb328546df191be2e5083903d357" name="a5c3feb328546df191be2e5083903d357"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c3feb328546df191be2e5083903d357">&#9670;&#160;</a></span>bandOpacity()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c3feb328546df191be2e5083903d357">&#9670;&#160;</a></span>bandOpacity() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10149,7 +10187,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le catalogue d'un lieu. </p>
-<p>Groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide », « Other » (une classe que l'éditeur ne connaît pas), puis <span class="tt"><a class="el" href="#a5df9b58a558cb32ba554bcb3bff09c45" title="Titre du groupe des pièces que la carte cite et que la planche n&#39;a pas.">MISSING_PIECES_GROUP</a></span> — les noms que <code class="param">layers</code> citent et que <code class="param">manifest</code> ne connaît ni par leur nom ni par un alias, triés. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide », « Other » (une classe que l'éditeur ne connaît pas) pour les pièces à plat ; un groupe par sous-dossier du lieu, nommé par son chemin (<span class="tt">roofs/l/d3</span>), dans l'ordre alphabétique, pour un kit rangé en arborescence (<span class="tt">LOT-129</span>) ; puis <span class="tt"><a class="el" href="#a5df9b58a558cb32ba554bcb3bff09c45" title="Titre du groupe des pièces que la carte cite et que la planche n&#39;a pas.">MISSING_PIECES_GROUP</a></span> — les noms que <code class="param">layers</code> citent et que <code class="param">manifest</code> ne connaît ni par leur nom ni par un alias, triés. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">manifest</td><td>Le manifeste du lieu, <span class="tt">nullptr</span> sans lieu : seules restent les pièces absentes. </td></tr>
     <tr><td class="paramname">layers</td><td>Les couches de la carte. </td></tr>
@@ -10264,8 +10302,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aabb6d90483bf13d7b93dc031ac1cdfb0" name="aabb6d90483bf13d7b93dc031ac1cdfb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabb6d90483bf13d7b93dc031ac1cdfb0">&#9670;&#160;</a></span>pieceTargetLayer()</h2>
+<a id="ac23f07810e5349118b131e49993da35a" name="ac23f07810e5349118b131e49993da35a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac23f07810e5349118b131e49993da35a">&#9670;&#160;</a></span>pieceTargetLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10281,7 +10319,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>floor</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>floor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a></td>          <td class="paramname"><span class="paramname"><em>active</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -10290,7 +10333,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La couche que vise une pièce : la première couche de sol pour un sol (<code class="param">floor</code>), la première couche de décor sinon — celles que la composition du jeu lit. <span class="tt">std::nullopt</span> si la carte n'en a pas. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La couche que vise une pièce : la première couche de sol au rez pour un sol (<code class="param">floor</code>) ; pour un relief, la couche de décor <code class="param">active</code> si c'en est une — un étage se peint comme le rez (<span class="tt">LOT-129</span>) —, la première couche de décor au rez sinon. Ce sont celles que la composition du jeu lit. <span class="tt">std::nullopt</span> si la carte n'en a pas. </dd></dl>
 
 </div>
 </div>
@@ -11762,7 +11805,7 @@ Variables</h2></td></tr>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md118"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
-<p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
+<p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>Clé du catalogue (« rpg.ability.strength »). </td></tr>
@@ -13868,6 +13911,30 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a8434f71a989c8056288d38787955107e" name="a8434f71a989c8056288d38787955107e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8434f71a989c8056288d38787955107e">&#9670;&#160;</a></span>DEFAULT_STOREY_TILES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::DEFAULT_STOREY_TILES = 1.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hauteur d'étage d'un lieu dont le manifeste n'en déclare pas, en largeurs de case (<span class="tt">LOT-129</span>). </p>
+
+</div>
+</div>
 <a id="a0591a2b20237a29c762b324a7ce0d7db" name="a0591a2b20237a29c762b324a7ce0d7db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0591a2b20237a29c762b324a7ce0d7db">&#9670;&#160;</a></span>DEPTH_SUBDIVISIONS_PER_UNIT</h2>
 
@@ -14859,6 +14926,30 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="ab0a2cd2527096877037eac485411c28f" name="ab0a2cd2527096877037eac485411c28f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a2cd2527096877037eac485411c28f">&#9670;&#160;</a></span>STOREY_SEE_THROUGH_OPACITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::STOREY_SEE_THROUGH_OPACITY = 0.35F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Opacité d'une pièce d'étage qui masque le héros (<span class="tt">LOT-129</span>) : on le voit à travers le toit. </p>
+
+</div>
+</div>
 <a id="a7156a1bc50d513bacc4cf9f6bd64916b" name="a7156a1bc50d513bacc4cf9f6bd64916b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7156a1bc50d513bacc4cf9f6bd64916b">&#9670;&#160;</a></span>WORLD_DEPTH_SLOTS</h2>
 
@@ -14869,7 +14960,7 @@ template&lt;class Map&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::int32_t hmi::WORLD_DEPTH_SLOTS = 2</td>
+          <td class="memname">std::int32_t hmi::WORLD_DEPTH_SLOTS</td>
         </tr>
       </table>
   </td>
@@ -14878,8 +14969,12 @@ template&lt;class Map&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Nombre de rangs par profondeur. </p>
+<b>Initial value:</b><div class="fragment"><div class="line">                                            =</div>
+<div class="line"><span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">WorldDepthSlot::Storey</a>) + <a class="code hl_variable" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div>
+<div class="ttc" id="anamespacecore_html_a71ba5ff46298b3aa173af1f1071ae3eb"><div class="ttname"><a href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div><div class="ttdeci">constexpr int MAX_STOREY_FLOOR</div><div class="ttdoc">Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).</div><div class="ttdef"><b>Definition</b> TileLayer.h:22</div></div>
+<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:67</div></div>
+</div><!-- fragment -->
+<p>Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage. </p>
 
 </div>
 </div>

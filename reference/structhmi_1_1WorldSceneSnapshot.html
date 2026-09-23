@@ -143,9 +143,6 @@ $(function(){initNavTree('structhmi_1_1WorldSceneSnapshot.html','','structhmi_1_
 </div><!--header-->
 <div class="contents">
 
-<p>Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  
- <a href="#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="WorldSceneComposer_8h_source.html">WorldSceneComposer.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -172,14 +169,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab45a159d8d5c079335271f789aabd2df" id="r_ab45a159d8d5c079335271f789aabd2df"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab45a159d8d5c079335271f789aabd2df">reliefTypes</a></td></tr>
 <tr class="memdesc:ab45a159d8d5c079335271f789aabd2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le type de chaque case de la couche <b>décor</b>, même disposition.  <br /></td></tr>
 <tr class="memitem:ae4f535da56bbd58b7c4308f19566bf39" id="r_ae4f535da56bbd58b7c4308f19566bf39"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae4f535da56bbd58b7c4308f19566bf39">footprints</a></td></tr>
+<tr class="memitem:a3827d39966f52c2bb08eb43df4b934e7" id="r_a3827d39966f52c2bb08eb43df4b934e7"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldStoreySnapshot.html">WorldStoreySnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3827d39966f52c2bb08eb43df4b934e7">storeys</a></td></tr>
+<tr class="memdesc:a3827d39966f52c2bb08eb43df4b934e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les couches d'étage, de la plus basse à la plus haute (<span class="tt">LOT-129</span>).  <br /></td></tr>
+<tr class="memitem:aec9fa73fbf00d2d46b033cc69d1d0043" id="r_aec9fa73fbf00d2d46b033cc69d1d0043"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aec9fa73fbf00d2d46b033cc69d1d0043">pieceFiles</a></td></tr>
+<tr class="memdesc:aec9fa73fbf00d2d46b033cc69d1d0043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier, relatif au dossier du lieu, des pièces citées qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">hmi::PlaceAppearance::pieceFile</a></span>) : un kit rangé en sous-dossiers.  <br /></td></tr>
 <tr class="memitem:a37330b8f96036726b4e3ea1030de098d" id="r_a37330b8f96036726b4e3ea1030de098d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a37330b8f96036726b4e3ea1030de098d">figures</a></td></tr>
 <tr class="memitem:a575f623efd821f68adab02944b81eebf" id="r_a575f623efd821f68adab02944b81eebf"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a575f623efd821f68adab02944b81eebf">marks</a></td></tr>
 <tr class="memdesc:a575f623efd821f68adab02944b81eebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons et les tracés de maquette (<span class="tt">LOT-128</span>), déjà choisis par <span class="tt"><a class="el" href="namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f" title="Les marques que entities méritent.">maquetteMarks</a></span>.  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre. </p>
-<p><span class="tt"><a class="el" href="#a07a1eb5f4f5b3137b943484975173f06">floors</a></span> et <span class="tt"><a class="el" href="#a213f244b1a103b590845ed397e41ee24">relief</a></span> portent une entrée par case, ligne par ligne : le <b>nom</b> de la pièce de la planche du lieu, vide si la case ne dessine rien. <span class="tt"><a class="el" href="#ae4f535da56bbd58b7c4308f19566bf39">footprints</a></span> donne l'emprise des pièces de relief plus grandes qu'une case : la composition les trie au pied de leur emprise. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a2b717139245b148aa15cf831e841731d" name="a2b717139245b148aa15cf831e841731d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b717139245b148aa15cf831e841731d">&#9670;&#160;</a></span>floorAt()</h2>
 
@@ -412,6 +410,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aec9fa73fbf00d2d46b033cc69d1d0043" name="aec9fa73fbf00d2d46b033cc69d1d0043"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec9fa73fbf00d2d46b033cc69d1d0043">&#9670;&#160;</a></span>pieceFiles</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::string, std::less&lt;&gt; &gt; hmi::WorldSceneSnapshot::pieceFiles</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le fichier, relatif au dossier du lieu, des pièces citées qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">hmi::PlaceAppearance::pieceFile</a></span>) : un kit rangé en sous-dossiers. </p>
+
+</div>
+</div>
 <a id="a5853266b18d8062e8cbe6287485f8e80" name="a5853266b18d8062e8cbe6287485f8e80"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5853266b18d8062e8cbe6287485f8e80">&#9670;&#160;</a></span>place</h2>
 
@@ -470,6 +484,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3827d39966f52c2bb08eb43df4b934e7" name="a3827d39966f52c2bb08eb43df4b934e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3827d39966f52c2bb08eb43df4b934e7">&#9670;&#160;</a></span>storeys</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1WorldStoreySnapshot.html">WorldStoreySnapshot</a>&gt; hmi::WorldSceneSnapshot::storeys</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les couches d'étage, de la plus basse à la plus haute (<span class="tt">LOT-129</span>). </p>
 
 </div>
 </div>

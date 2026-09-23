@@ -162,6 +162,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a7f66d8e4b08b5b9b35067e2ade2733c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines (<span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a636da1d35e805b00eae0fcd8333f9234" title="Personnage joueur.">RenderLayer::Player</a></span>).  <br /></td></tr>
 <tr class="memitem:ada11f509e952c5a9d8fb75a657c79549" id="r_ada11f509e952c5a9d8fb75a657c79549"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ada11f509e952c5a9d8fb75a657c79549">collision</a> = 0.0F</td></tr>
 <tr class="memdesc:ada11f509e952c5a9d8fb75a657c79549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le masque de collision, par-dessus le lieu.  <br /></td></tr>
+<tr class="memitem:a20e660cfdccf747c6ffe3c97ba289ff2" id="r_a20e660cfdccf747c6ffe3c97ba289ff2"><td class="memItemLeft">std::array&lt; float, <a class="el" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a20e660cfdccf747c6ffe3c97ba289ff2">storeys</a> = {1.0F, 1.0F, 1.0F, 1.0F}</td></tr>
+<tr class="memdesc:a20e660cfdccf747c6ffe3c97ba289ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque étage, du premier au dernier, réglé par sa couche (<span class="tt">LOT-129</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'opacité de chaque bande de la scène iso ; 0 : la bande n'est pas peinte. </p>
@@ -253,6 +255,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le relief (<span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a497031794414a552435f90151ac3b54b" title="Décor et objets posés sur la carte : tout ce qui partage la profondeur du personnage (LOT-07).">RenderLayer::Object</a></span>), réglé par la première couche de décor. </p>
+
+</div>
+</div>
+<a id="a20e660cfdccf747c6ffe3c97ba289ff2" name="a20e660cfdccf747c6ffe3c97ba289ff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e660cfdccf747c6ffe3c97ba289ff2">&#9670;&#160;</a></span>storeys</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;float, <a class="el" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a>&gt; hmi::IsoBandOpacity::storeys = {1.0F, 1.0F, 1.0F, 1.0F}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque étage, du premier au dernier, réglé par sa couche (<span class="tt">LOT-129</span>). </p>
 
 </div>
 </div>

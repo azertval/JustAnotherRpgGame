@@ -41,7 +41,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     _heroFigure = std::move(figure);</span>
     // Une figurine est orientee si sa bande de repos vers le sud-est existe : c'est la premiere que
     // l'atelier produit, et une figurine a moitie orientee se verrait plus mal qu'une qui ne l'est
-    // pas (`scripts/check_hd_assets.py` exige les quatre).
+    // pas (`scripts/checks/check_hd_assets.py` exige les quatre).
 <span style = "background-color:#dfd">    std::error_code erreur;
     _heroOriented = std::filesystem::is_regular_file(</span>
         _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
@@ -134,7 +134,8 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
                             .frame = frame,
                             .facing = heroFacing(),
-                            .seconds = _elapsed});
+                            .seconds = _elapsed,
+                            .hero = true});
 <span style = "background-color:#dfd">    return figures;
 }</span>
 

@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CanvasScene.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;array&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/TacticalTerrain.h"
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/TileLayer.h"
+#include "Editor/Logic/LayerView.h"
+#include "HMI/Graphics/RenderLayer.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
+
+/**
+ * @file Editor/Logic/CanvasScene.h
+ * @brief Ce que le canevas iso montre du brouillon : l'instantanÃ© que la composition du jeu
+ *        dessine, et l'opacitÃ© de chacune de ses bandes (`LOT-EDITOR-02`).
+ *
+ * ## La mÃªme scÃ¨ne que le jeu
+ *
+ * Le canevas compose le brouillon par `hmi::snapshotWorldScene` et `hmi::composeWorldScene`, les
+ * fonctions mÃªmes du jeu : `canvasSnapshot` n'ajoute que ce que l'Ã©diteur choisit de montrer â
+ * les PNJ par leur figurine, sans le hÃ©ros. Un test compare sa liste de primitives Ã  celle du jeu
+ * sur Martpart (`test_canvas_scene.cpp`).
+ *
+ * ## Les couches, dans une scÃ¨ne fondue
+ *
+ * La composition fond les couches en bandes de dessin : le sol de la premiÃ¨re couche Â« sol Â»
+ * (`RenderLayer::Tile`), le relief de la premiÃ¨re couche Â« dÃ©cor Â» (`RenderLayer::Object`), les
+ * figurines (`RenderLayer::Player`). Masquer, griser ou rÃ©gler l'opacitÃ© d'une couche agit donc
+ * sur sa bande. La collision n'a pas d'image dans le jeu : en iso, son masque ne se montre que
+ * quand on la peint â ailleurs, il couvrirait le lieu qu'on vient voir (dÃ©cision D1 : la vue Ã  plat
+ * sert Ã  lire la collision).
+ */
+
+namespace core {
+class LevelDraft;
+}
+
+namespace hmi {
+
+class PlaceAppearance;
+
+/// @brief OpacitÃ© des reliefs **en transparence** : on voit Ã  travers un mur ce qu'on pointe.
+inline constexpr float SEE_THROUGH_RELIEF_OPACITY = 0.35F;
+
+/// @brief OpacitÃ© du masque de collision en iso, relative Ã  celle de la couche : la moitiÃ© de la
+/// vue
+///        Ã  plat, pour que les murs gardent leur image sous la teinte.
+inline constexpr float COLLISION_MASK_OPACITY = 0.3F;
+
+/// @brief L'opacitÃ© de chaque bande de la scÃ¨ne iso ; 0 : la bande n'est pas peinte.
+struct IsoBandOpacity {
+    /// Le sol (`RenderLayer::Tile`), rÃ©glÃ© par la premiÃ¨re couche de sol.
+    float floors = 1.0F;
+    /// Le relief (`RenderLayer::Object`), rÃ©glÃ© par la premiÃ¨re couche de dÃ©cor.
+    float relief = 1.0F;
+    /// Les figurines (`RenderLayer::Player`).
+    float figures = 1.0F;
+    /// Le masque de collision, par-dessus le lieu.
+    float collision = 0.0F;
+    /// Chaque Ã©tage, du premier au dernier, rÃ©glÃ© par sa couche (`LOT-129`).
+<span style = "background-color:#dfd">    std::array&lt;float, core::MAX_STOREY_FLOOR&gt; storeys = {1.0F, 1.0F, 1.0F, 1.0F};</span>
+
+    [[nodiscard]] bool operator==(const IsoBandOpacity&amp;) const = default;
+};
+static_assert(core::MAX_STOREY_FLOOR == 4, "IsoBandOpacity::storeys s'initialise un Ã©tage par un");
+
+/**
+ * @brief Les opacitÃ©s des bandes iso, d'aprÃ¨s les rÃ©glages des couches.
+ * @param layers           Les couches du brouillon.
+ * @param view             VisibilitÃ©, opacitÃ©, grisÃ© de chaque couche.
+ * @param active           La couche qu'on peint.
+ * @param seeThroughRelief Reliefs en transparence (`SEE_THROUGH_RELIEF_OPACITY`).
+ */
+[[nodiscard]] IsoBandOpacity isoBandOpacity(const std::vector&lt;core::TileLayer&gt;&amp; layers,
+                                            const LayerViewState&amp; view, LayerSlot active,
+                                            bool seeThroughRelief);
+
+/// @return L'opacitÃ© d'une primitive du calque @p layer.
+[[nodiscard]] float bandOpacity(const IsoBandOpacity&amp; bands, RenderLayer layer) noexcept;
+
+/// @return L'opacitÃ© de @p quad : celle de son Ã©tage s'il en a un (`LOT-129`), de son calque sinon.
+[[nodiscard]] float bandOpacity(const IsoBandOpacity&amp; bands, const ComposedQuad&amp; quad) noexcept;
+
+/**
+ * @brief L'instantanÃ© que le canevas compose : celui du jeu, avec les PNJ et sans le hÃ©ros.
+ *
+ * Le brouillon n'a pas Ã  Ãªtre valide : une carte en cours de tracÃ© se montre telle qu'elle est.
+ */
+[[nodiscard]] WorldSceneSnapshot canvasSnapshot(const core::LevelDraft&amp; draft,
+                                                const PlaceAppearance&amp; appearance);
+
+/**
+ * @brief Les figurines de la formation d'une rencontre (`LOT-EDITOR-05`) : chaque combattant sur sa
+ *        case, par la figurine de l'atelier des monstres qui porte l'identifiant de sa crÃ©ature
+ *        (`Monsters/&lt;crÃ©ature&gt;`, `LOT-93`, `EX-EDIT-071`).
+ *
+ * Un combattant sans figurine n'en reÃ§oit pas : le canevas montre sa case, comme avant.
+ *
+ * @param terrain Le terrain de la rencontre (`core::analyzeEncounterTerrain`).
+ * @param figures Les figurines connues (`hmi::EditorReferences::figures`), triÃ©es.
+ */
+[[nodiscard]] std::vector&lt;WorldFigureSnapshot&gt; formationFigures(
+    const core::EncounterTerrain&amp; terrain, const std::vector&lt;std::string&gt;&amp; figures);
+
+/**
+ * @brief Les piÃ¨ces d'une case, pour la barre d'Ã©tat : `street Â· wall-left`, `street`, ou rien.
+ */
+[[nodiscard]] std::string cellPieces(const WorldSceneSnapshot&amp; snapshot, core::GridPosition cell);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

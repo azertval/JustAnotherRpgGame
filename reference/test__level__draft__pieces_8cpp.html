@@ -187,12 +187,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5c0e06233bbe56b77c23394f1eb88ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un remplacement dont une emprise déborderait est refusé en entier, et un remplacement qui ne change rien n'empile rien.  <br /></td></tr>
 <tr class="memitem:afc04215e2967a933770e2b2df4eb58ad" id="r_afc04215e2967a933770e2b2df4eb58ad"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afc04215e2967a933770e2b2df4eb58ad">TEST</a> (LevelDraftPiecesTest, ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision)</td></tr>
 <tr class="memdesc:afc04215e2967a933770e2b2df4eb58ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changer de planche nomme le lieu, traduit les pièces par la table, et redéduit toute la collision par le nouveau manifeste, en un pas (<span class="tt">LOT-EDITOR-14</span>, <span class="tt">EX-EDIT-084</span>).  <br /></td></tr>
+<tr class="memitem:a6ff44b70558899017f24cc9f572ca0af" id="r_a6ff44b70558899017f24cc9f572ca0af"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ff44b70558899017f24cc9f572ca0af">TEST</a> (LevelDraftPiecesTest, UnEtageNeBloqueAucuneCase)</td></tr>
+<tr class="memdesc:a6ff44b70558899017f24cc9f572ca0af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un étage ne compte pas dans la collision : mettre une couche à l'étage libère ses cases, une pièce posée à l'étage n'arrête rien (<span class="tt">LOT-129</span>, <span class="tt">EX-LVL-025</span>).  <br /></td></tr>
+<tr class="memitem:a4cefa4ed56a1989bbefb48a3f0c87f3a" id="r_a4cefa4ed56a1989bbefb48a3f0c87f3a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4cefa4ed56a1989bbefb48a3f0c87f3a">TEST</a> (LevelDraftPiecesTest, SeulUnDecorMonteEtPasAuDelaDuDernierEtage)</td></tr>
+<tr class="memdesc:a4cefa4ed56a1989bbefb48a3f0c87f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Seule une couche de décor monte, et pas au-delà du dernier étage ; un étage inchangé n'empile rien.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la pose des pièces dans le brouillon, et de la collision qui suit les gestes (<span class="tt">LOT-EDITOR-03</span>, <span class="tt">EX-EDIT-064</span>, <span class="tt">EX-EDIT-065</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="afc04215e2967a933770e2b2df4eb58ad" name="afc04215e2967a933770e2b2df4eb58ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc04215e2967a933770e2b2df4eb58ad">&#9670;&#160;</a></span>TEST() <span class="overload">[1/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afc04215e2967a933770e2b2df4eb58ad">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +227,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac10f62f34cc2294d5ca55c6576629446" name="ac10f62f34cc2294d5ca55c6576629446"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac10f62f34cc2294d5ca55c6576629446">&#9670;&#160;</a></span>TEST() <span class="overload">[2/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac10f62f34cc2294d5ca55c6576629446">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +256,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac7e1e9914d7b23d18a67f291319ccd5f" name="ac7e1e9914d7b23d18a67f291319ccd5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7e1e9914d7b23d18a67f291319ccd5f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e1e9914d7b23d18a67f291319ccd5f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -282,7 +286,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abfce817ad3a44d7396ca47a658bd2fd9" name="abfce817ad3a44d7396ca47a658bd2fd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfce817ad3a44d7396ca47a658bd2fd9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abfce817ad3a44d7396ca47a658bd2fd9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +316,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a23a04051b81787f618b4343d590498a5" name="a23a04051b81787f618b4343d590498a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23a04051b81787f618b4343d590498a5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a04051b81787f618b4343d590498a5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,7 +346,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a64cf32c123313f2b177af9e078324f00" name="a64cf32c123313f2b177af9e078324f00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64cf32c123313f2b177af9e078324f00">&#9670;&#160;</a></span>TEST() <span class="overload">[6/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a64cf32c123313f2b177af9e078324f00">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,7 +379,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a35f7ee72a81d7d01077eb1c16e6c60e9" name="a35f7ee72a81d7d01077eb1c16e6c60e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35f7ee72a81d7d01077eb1c16e6c60e9">&#9670;&#160;</a></span>TEST() <span class="overload">[7/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f7ee72a81d7d01077eb1c16e6c60e9">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -403,8 +407,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a4cefa4ed56a1989bbefb48a3f0c87f3a" name="a4cefa4ed56a1989bbefb48a3f0c87f3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cefa4ed56a1989bbefb48a3f0c87f3a">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SeulUnDecorMonteEtPasAuDelaDuDernierEtage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Seule une couche de décor monte, et pas au-delà du dernier étage ; un étage inchangé n'empile rien. </p>
+<p><b>Cas de test :</b> <b>Seul un decor monte, de 1 au dernier etage.</b><br  />
+ <b>Categorie :</b> Unitaire · Pieces du brouillon · Etages<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ Demander l'etage 1 pour le sol, l'etage MAX_STOREY_FLOOR + 1 et l'etage -1 pour le decor, puis l'etage 0 qu'il a deja.<br  />
+ <b>Resultat attendu :</b> Quatre refus, et aucun pas d'annulation. </p>
+
+</div>
+</div>
 <a id="abc5813a756301b12dc7da2cbc8c42045" name="abc5813a756301b12dc7da2cbc8c42045"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc5813a756301b12dc7da2cbc8c42045">&#9670;&#160;</a></span>TEST() <span class="overload">[8/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5813a756301b12dc7da2cbc8c42045">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,7 +468,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aacb3f802abc3a896f8da26154a18bcc8" name="aacb3f802abc3a896f8da26154a18bcc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacb3f802abc3a896f8da26154a18bcc8">&#9670;&#160;</a></span>TEST() <span class="overload">[9/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb3f802abc3a896f8da26154a18bcc8">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -464,7 +497,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a280c8958910025e934597c7b446a323b" name="a280c8958910025e934597c7b446a323b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a280c8958910025e934597c7b446a323b">&#9670;&#160;</a></span>TEST() <span class="overload">[10/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a280c8958910025e934597c7b446a323b">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -493,7 +526,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af6c90ca26e7609270dbbef2fa1536ce6" name="af6c90ca26e7609270dbbef2fa1536ce6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6c90ca26e7609270dbbef2fa1536ce6">&#9670;&#160;</a></span>TEST() <span class="overload">[11/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af6c90ca26e7609270dbbef2fa1536ce6">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,8 +555,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6ff44b70558899017f24cc9f572ca0af" name="a6ff44b70558899017f24cc9f572ca0af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff44b70558899017f24cc9f572ca0af">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelDraftPiecesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEtageNeBloqueAucuneCase</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un étage ne compte pas dans la collision : mettre une couche à l'étage libère ses cases, une pièce posée à l'étage n'arrête rien (<span class="tt">LOT-129</span>, <span class="tt">EX-LVL-025</span>). </p>
+<p><b>Cas de test :</b> <b>Un etage ne bloque aucune case.</b><br  />
+ <b>Categorie :</b> Unitaire · Pieces du brouillon · Etages<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un pilier en (2, 1) du decor, qui arrete la vue.<br  />
+</p><ol type="1">
+<li>Mettre le decor a l'etage 1, puis defaire.<br  />
+</li>
+<li>A l'etage 1, poser un pilier en (1, 1).<br  />
+ <b>Resultat attendu :</b> A l'etage, la case (2, 1) redevient libre ; defaire rend le mur ; le pilier de l'etage laisse sa case libre. </li>
+</ol>
+
+</div>
+</div>
 <a id="aa86f4a525bab87dea76057aab99a3228" name="aa86f4a525bab87dea76057aab99a3228"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa86f4a525bab87dea76057aab99a3228">&#9670;&#160;</a></span>TEST() <span class="overload">[12/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86f4a525bab87dea76057aab99a3228">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -553,7 +620,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5c0e06233bbe56b77c23394f1eb88ed2" name="a5c0e06233bbe56b77c23394f1eb88ed2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c0e06233bbe56b77c23394f1eb88ed2">&#9670;&#160;</a></span>TEST() <span class="overload">[13/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c0e06233bbe56b77c23394f1eb88ed2">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -584,7 +651,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abc672751d3d88ddf9e5dc404acf2b140" name="abc672751d3d88ddf9e5dc404acf2b140"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc672751d3d88ddf9e5dc404acf2b140">&#9670;&#160;</a></span>TEST() <span class="overload">[14/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abc672751d3d88ddf9e5dc404acf2b140">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -365,6 +365,7 @@ var annotated_dup =
       [ "MaquetteTokenSnapshot", "structhmi_1_1MaquetteTokenSnapshot.html", "structhmi_1_1MaquetteTokenSnapshot" ],
       [ "MaquetteTraceSnapshot", "structhmi_1_1MaquetteTraceSnapshot.html", "structhmi_1_1MaquetteTraceSnapshot" ],
       [ "MaquetteMarks", "structhmi_1_1MaquetteMarks.html", "structhmi_1_1MaquetteMarks" ],
+      [ "WorldStoreySnapshot", "structhmi_1_1WorldStoreySnapshot.html", "structhmi_1_1WorldStoreySnapshot" ],
       [ "WorldSceneSnapshot", "structhmi_1_1WorldSceneSnapshot.html", "structhmi_1_1WorldSceneSnapshot" ],
       [ "WorldSceneSource", "structhmi_1_1WorldSceneSource.html", "structhmi_1_1WorldSceneSource" ],
       [ "WorldComposeOptions", "structhmi_1_1WorldComposeOptions.html", "structhmi_1_1WorldComposeOptions" ],
