@@ -166,7 +166,11 @@ PORTRAIT = 512
 JETON = 128
 ORIENTATIONS = {"se", "sw", "ne", "nw"}
 CHAMPS_FIGURE = {"name", "strips", "portrait", "token"}
-CHAMPS_BANDE = {"source", "clip", "facing", "frames", "frameDuration", "loop", "wide", "standingFrame", "scale"}
+CHAMPS_BANDE = {"source", "clip", "facing", "frames", "frameDuration", "loop", "wide", "standingFrame", "scale",
+                "recentre"}
+# La bande du bassin, en hauteurs de figurine au-dessus du sol : ce qu'une image recentrée pose au
+# milieu de sa cellule. Les bras et la hache bougent, les pieds font un pas ; le bassin reste.
+BASSIN = (0.30, 0.55)
 # Un dossier de figurine : des dossiers de rangement (`Heroes`), puis le nom de la figurine.
 DOSSIER = re.compile(r"^[A-Za-z0-9]+(-[a-z0-9]+)*$")
 CLIP = re.compile(r"^[a-z]+$")
@@ -210,6 +214,9 @@ class StripSpec:
     loop: bool = True
     wide: bool = False
     standing_frame: int = 0
+    # Chaque image recentrée sur son bassin : la figurine reste sur sa case au lieu de suivre la
+    # dérive du générateur d'une image à l'autre.
+    recentre: bool = False
     scale: float | None = None
 
     @property
@@ -379,6 +386,10 @@ def read_strip(raw, where: str) -> StripSpec:
         if isinstance(scale, bool) or not isinstance(scale, (int, float)) or not 0 < scale <= 1:
             raise DescriptorError(f"{where} : `scale` dans ]0, 1] (l'art n'est jamais agrandi)")
         spec.scale = float(scale)
+    if "recentre" in raw:
+        if not isinstance(raw["recentre"], bool):
+            raise DescriptorError(f"{where} : `recentre` est un booléen")
+        spec.recentre = raw["recentre"]
     return spec
 
 
@@ -875,8 +886,8 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
     # Une pose plus haute que la cellule (la hache levée au-dessus de la tête) réduit toute la bande
     # juste assez pour tenir : quelques pour-cent de moins se voient moins qu'une lame coupée net.
     extents = [np.nonzero(image[..., 3].any(axis=1))[0] for image in images]
-    lowest = max(int(e.max()) for e in extents)
-    tallest = max(lowest + 1 - int(e.min()) for e in extents)
+    feet = float(np.median([int(e.max()) for e in extents]))
+    tallest = max(feet + 1 - int(e.min()) for e in extents)
     if spec.scale is None and tallest * scale > ground:
         fitted = (ground - 1) / tallest
         split = f"{split}, échelle réduite de {100 * (1 - fitted / scale):.0f} % pour tenir"
@@ -893,11 +904,12 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
         parts.append((resize_premultiplied(image[y0:y1, x0:x1], size), round(x0 * scale), round(y0 * scale)))
     slots = [c * scale for c in centres]
 
-    # Le décalage de toute la bande. En hauteur : le pied le plus BAS de la bande sur le sol — un
-    # appui d'une autre image descend souvent de quelques pixels sous celui de l'image de repos (le
-    # générateur ne tient pas sa ligne de sol au pixel), et poser l'image de repos ferait passer cet
-    # appui sous le sol, hors de la cellule. Un saut ou un accroupissement restent au-dessus. En
-    # largeur : le milieu de la boîte de l'image de repos au milieu de la cellule.
+    # Le décalage de toute la bande. En hauteur : les pieds de la plupart des images — la médiane de
+    # leurs points bas — sur le sol. Ni l'image de repos seule (le générateur ne tient pas sa ligne
+    # de sol au pixel), ni le point le plus bas de la bande : une lame qui plonge devant les pieds
+    # soulevait toute l'attaque de 13 px. Ce qui descend sous le sol — cette lame, un corps allongé
+    # vers l'œil — agrandit la cellule vers le bas. En largeur : le milieu de la boîte de l'image de
+    # repos au milieu de la cellule, ou, recentrée, chaque image par son bassin.
     lowest = []
     for part, _, top in parts:
         opaque = np.nonzero((part[..., 3] >= OPAQUE).any(axis=1))[0]
@@ -905,7 +917,7 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
             lowest.append(top + int(opaque.max()))
     if not lowest:
         raise DescriptorError(f"{where} : aucune image opaque après réduction")
-    dy = ground - max(lowest)
+    dy = ground - round(float(np.median(lowest)))
     part, left, _ = parts[standing]
     xs = np.nonzero((part[..., 3] >= OPAQUE).any(axis=0))[0]
     if len(xs) == 0:
@@ -913,11 +925,22 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
     box_centre = left + (xs.min() + xs.max() + 1) / 2.0
 
     cell_w, cell_h = cell
+    # La cellule s'allonge vers le bas, par pas de 8 px, pour ce qui passe sous le sol : le moteur lit
+    # sa hauteur dans le `.anim.json` et pose la ligne de sol depuis le haut, rien d'autre ne change.
+    below = max(top + int(np.nonzero(part[..., 3] > 0)[0].max()) + 1 + dy for part, _, top in parts)
+    cell_h = max(cell_h, -(-below // 8) * 8)
+    hips = (ground - round(BASSIN[1] * HAUTEUR_FIGURINE), ground - round(BASSIN[0] * HAUTEUR_FIGURINE))
     strip = np.zeros((cell_h, cell_w * spec.frames, 4), np.uint8)
     measures: list[FrameMeasure] = []
     for i, (part, left, top) in enumerate(parts):
         # La colonne u de la bande réduite tombe en u + ox dans la cellule.
         ox = round(cell_w / 2.0 - box_centre + slots[standing] - slots[i])
+        if spec.recentre:
+            band = part[max(0, hips[0] - dy - top):max(0, hips[1] - dy - top), :, 3] >= OPAQUE
+            columns = np.nonzero(band)[1]
+            if len(columns) == 0:
+                raise DescriptorError(f"{where} : l'image {i + 1} n'a rien à hauteur de bassin à recentrer")
+            ox = round(cell_w / 2.0 - (left + float(columns.mean())))
         ys, xs = np.nonzero(part[..., 3] > 0)
         x0, x1 = left + int(xs.min()) + ox, left + int(xs.max()) + 1 + ox
         y0, y1 = top + int(ys.min()) + dy, top + int(ys.max()) + 1 + dy
@@ -939,7 +962,8 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
         "clips": {spec.clip: {"frames": list(range(spec.frames)), "frameDuration": spec.frame_duration,
                               "loop": spec.loop}},
     }
-    return InstalledStrip(spec=spec, image=strip, anim=anim, scale=scale, cell=cell, frames=measures, split=split)
+    return InstalledStrip(spec=spec, image=strip, anim=anim, scale=scale, cell=(cell_w, cell_h), frames=measures,
+                          split=split)
 
 
 def square(rgba: np.ndarray, side: int, where: str) -> np.ndarray:

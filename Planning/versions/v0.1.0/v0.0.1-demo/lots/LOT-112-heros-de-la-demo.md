@@ -151,8 +151,14 @@ du portrait.
 Les vingt bandes acceptées par l'auteur (`Tools/AssetsHD/Common/Characters/Heroes/brawler/selection-acceptee.json`)
 sont installées dans `Common/Characters/Heroes/brawler/` avec le portrait et le jeton : 4,3 Mio.
 
-- **Le pied le plus bas de toute la bande** se pose sur 252, pas celui de l'image de repos : le
-  générateur ne tient pas sa ligne de sol au pixel, et un appui d'une autre image passait sous le sol.
+- **Les pieds de la plupart des images** — la médiane de leurs points bas — se posent sur 252 : ni
+  l'image de repos seule (le générateur ne tient pas sa ligne de sol au pixel), ni le point le plus
+  bas de la bande (la lame de l'attaque, qui plonge devant les pieds, soulevait tout de 13 px). Ce qui
+  passe sous le sol agrandit la cellule vers le bas, par pas de 8 px (272 pour l'attaque vue du
+  sud-est) ; le moteur pose la ligne de sol depuis le haut de la cellule et n'en sait rien de plus.
+- **L'attaque vue du sud-est est recentrée** (`"recentre": true`, demande de l'auteur) : le
+  générateur faisait glisser le corps de 70 px d'une image à l'autre ; chaque image pose désormais son
+  bassin au milieu de la cellule, et l'attaque tient sur sa case.
 - **La découpe rend chaque morceau entier à son image** ; des corps qui se touchent se partagent en
   croissant depuis le milieu de leur image. Couper aux bornes tranchait les haches.
 - **Une pose plus haute que la cellule** (la hache levée) réduit toute la bande juste assez pour

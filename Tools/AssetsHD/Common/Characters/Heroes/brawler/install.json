@@ -29,7 +29,8 @@
           "frames": 8,
           "frameDuration": 0.08,
           "loop": false,
-          "wide": true
+          "wide": true,
+          "recentre": true
         },
         {
           "source": "hit-se-candidat-01.png",
