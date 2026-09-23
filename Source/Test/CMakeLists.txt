@@ -185,6 +185,8 @@ if(Qt6_FOUND)
         Unit/Editor/test_scene_painter.cpp
         ../Editor/Ui/ScenePainter.cpp
         ../Editor/Ui/SceneImages.cpp
+        # Le cache d'images du canevas (LOT-125) : partage entre onglets, borne, lu une fois.
+        Unit/Editor/test_scene_images.cpp
         # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
         # (LOT-129).
         Unit/Editor/test_storey_render.cpp

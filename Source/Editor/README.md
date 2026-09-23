@@ -136,7 +136,7 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 | `LevelEditor --data Source/Elements --check` | Contrôle le format et le contenu de toutes les cartes ; sort en 1 s'il y a une erreur (`EX-EDIT-062`, `EX-EDIT-079`). |
 | `LevelEditor --migrate [carte…] [--output f]` | Convertit en v4 canonique (`EX-EDIT-062`). |
 | `LevelEditor --apply gestes.json [carte] [--output f]` | Rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`). |
-| `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). |
+| `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). L'échelle 1 est la carte vue à 1080p (une case à 100 pixels), 2 à 2160p ; le cadre est ce qui est peint, reliefs hauts compris ; l'image ne dépasse jamais 8 192 pixels de côté, l'échelle se réduisant pour y tenir (`LOT-125`). |
 | `LevelEditor --list-prefabs [lieu…]` | Liste les préfabriqués d'un lieu, de tous les lieux à défaut (`EX-EDIT-086`). |
 | `LevelEditor --save-prefab <carte> <nom> --from <c,r> --to <c,r>` | Découpe le rectangle et l'écrit comme préfabriqué du lieu de la carte (`EX-EDIT-086`). |
 | `LevelEditor --link-maps <carte> <carte>` | Relie deux cartes : le portail et le point d'arrivée des deux côtés ; refusé, n'écrit rien (`EX-EDIT-089`). |
@@ -154,6 +154,34 @@ l'appui (`at`), le glisser (`path`, ou `from` et `to`), et ce qu'on arme entre d
 `type`, `layer`, `lock`, `mirror`, `kind`, `select`). Le format complet est dans l'en-tête de
 `Logic/GestureScript.h` ; un exemple par outil dans `Source/Test/Fixtures/Gestures/`, et une rue de
 Martpart entière dans `martpart-rue.json`.
+
+## Le canevas en HD
+
+Depuis le `LOT-125`, le canevas, les vignettes et `--render` peignent l'art HD comme le jeu :
+
+- **Lissé** : l'art peint se lit en bilinéaire, sur le **niveau réduit** que l'échelle demande
+  (`hmi::SceneImage::level`, la moitié de l'image à chaque niveau) — `QPainter` n'a pas de
+  mipmaps. Les images engendrées (marqueurs, jetons, atlas, damier) restent au plus proche, comme
+  en jeu. La parité exacte avec le GPU n'est plus promise : il mêle deux niveaux (trilinéaire), le
+  peintre n'en lit qu'un. `test_scene_painter.cpp` en écrit les seuils, mesurés.
+- **Entier** : le cadre du canevas, des vignettes et de `--render` se mesure sur ce qui est peint
+  (`hmi::composedSceneBounds`), et non sur une marge d'un losange.
+- **Borné** : un seul cache d'images par dossier d'assets (`hmi::SceneImages::shared`), que les
+  onglets, les vignettes de la liste des cartes et celles des préfabriqués se partagent. Chaque
+  manifeste s'y lit une fois.
+
+### La borne de mémoire
+
+**Les pixels de l'art peint, niveaux réduits compris, tiennent en 256 Mio**
+(`SCENE_IMAGES_DEFAULT_BUDGET_BYTES`), quel que soit le nombre d'onglets ouverts : au-delà, la
+pièce la moins récemment peinte est évincée, et se relit sur disque à la peinture suivante. Seules
+les images engendrées, de quelques kibioctets chacune, restent hors budget. Un kit de zone HD pèse
+moins de 40 Mio installé (budget de zone du `LOT-104`) ; décompressé en mémoire, il tient
+largement dans la borne. `test_scene_images.cpp` prouve le partage, le budget et la relecture.
+
+Mesure de la peinture : `CanvasBenchmarks` (`Source/Benchmark/bench_canvas_paint.cpp`), publiée
+chaque nuit. Sur le poste de référence, en Release, la maquette HD se peint en 11,5 ms à 1080p et
+en 4,8 ms dézoomée (une case à 25 pixels), le 23 septembre 2026.
 
 ## Fichiers du poste
 

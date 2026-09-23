@@ -19,8 +19,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   « élévation » des matières peintes à plat. Le kit de la Capitale se **range en sous-dossiers** —
   `floors/`, `walls/`, `roofs/l/d3/`… — sous un seul manifeste qui cite chaque pièce par son chemin :
   le rendu, la palette de l'éditeur (groupée par dossier), l'installateur (règle `folders`) et le
-  contrôle HD suivent, sans qu'aucune carte change.
+  contrôle HD suivent, sans qu'aucune carte change. La bibliothèque commune s'agrandit de 73 pièces,
+  rangées de même : sols de terre, d'herbe, d'eau et de planches, allées de jardin, murs à porte, à
+  volets et de boutique, quais, remparts et soutènements, corniches, pilastres et auvents, accès,
+  escaliers, ponts et pontons, et un mobilier de place et de port (fontaine, puits, statue, barque).
 
+- **LOT-125 — Le canevas de l'éditeur en HD.** Le canevas, l'essai immédiat, les vignettes et
+  `--render` peignent l'art HD comme le jeu : lissé, lu sur des **niveaux réduits** calculés à la
+  demande (`QPainter` n'a pas de mipmaps), les images engendrées restant au plus proche. Le cadre se
+  mesure sur ce qui est peint : une pièce haute n'est plus rognée. `--render` : l'échelle 1 est la
+  carte vue à 1080p, et l'image ne dépasse jamais 8 192 pixels de côté. Un seul cache d'images par
+  dossier d'assets, partagé par les onglets et les vignettes, borné à 256 Mio de pixels et qui ne lit
+  plus un manifeste par image. La parité avec le rendu du jeu se mesure désormais sur la maquette HD
+  du LOT-101, et le seuil des cartes d'essai redescend de 2,5 % à 0,5 %. Une nouvelle mesure,
+  `CanvasBenchmarks`, suit chaque nuit le coût de la peinture.
+  
 - **Planning — LOT-129, les étages et les toits de la scène.** Nouveau lot moteur de la démo, entrant
   du `LOT-108` : un décor se bâtit en niveaux modulaires (un étage de mur sur un autre, une toiture
   au sommet, sur la couche `floor` réservée par le format v4), ce qui masque le héros s'efface, et la
@@ -32,9 +45,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   pavés et dallages de fond en trois variantes et bordures de trottoir, murs de calcaire pleins et à
   fenêtre dans les deux sens de la grille avec leurs angles, balustrades, haies, cyprès, massif,
   lampadaire, bancs, vasque, tonneau, caisse et étal nu ; dans `Regions/central-empire/Common/Scene/`,
-  le kit impérial au lion couronné (bannière sur mât, murs à bannière, colonne). La commande
-  (`Tools/AssetsHD/…/capital/Common/commande.md`) passe les dix familles en revue, et
-  `prepare_envois_scene.py` en tire les envois au générateur ; la consigne gagne la planche de sols
+  le kit impérial au lion couronné (bannière sur mât, murs à bannière, colonne). La commande du
+  kit passe les dix familles en revue, et `prepare_envois_scene.py` en tire les envois au
+  générateur ; la consigne gagne la planche de sols
   et la référence d'un même kit. Les sources sont recalées sur la grille par
   `rectify_capital_kit.py` et `build_capital_v4.py`, avec l'accord de l'auteur. `region.json`
   reçoit la palette et les matières de l'Empire. Un test rend par le moteur une rue de douze cases
@@ -108,7 +121,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 - **LOT-104 — La chaîne de production des assets HD.** Du brut du générateur à l'asset installé,
   une commande et rien à la main : `scripts/install_hd_asset.py` lit le descripteur `install.json`
-  posé à côté des sources (`Tools/AssetsHD/`, désormais versionné, les images restant hors du dépôt),
+  posé à côté des sources,
   **détoure** (voile d'alpha effacé, intérieur remis à 255, îlots retirés), **découpe** une planche
   en ses morceaux et les nomme dans l'ordre de lecture, **réduit** à l'échelle du standard en alpha
   prémultiplié — jamais agrandi —, **ancre** chaque pièce debout à ses deux pointes de socle lues sur
@@ -370,7 +383,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 - **`scripts/` de nouveau versionné.** Le dossier avait été supprimé (#92) alors que la CI, les
   hooks pre-commit et les workflows de release en dépendent ; il est restauré et retiré du
-  `.gitignore`. `Tools/AssetFactory` et `editor-captures` restent supprimés.
+  `.gitignore`. `editor-captures` reste supprimé.
 
 - **Alertes Code scanning (clang-tidy) corrigées.** Une centaine d’alertes de l’analyse de
   `main` : champs de structures initialisés par défaut, fonctions trop denses découpées
@@ -483,8 +496,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   Préparation A+B+C, mémoire par asset, réception, reprises ciblées, contrôles bloquants,
   comparaisons et journaux en ligne de commande, avec génération dans le chat local.
   39 tours sur les cinq PNJ du pilote ; aucun remplacement des assets livrés : échelle,
-  palette et animation restent insuffisantes pour valider le pilote. Bilan dans
-  `Tools/AssetFactory/bilan-poc.md`.
+  palette et animation restent insuffisantes pour valider le pilote.
 
 - **L'éditeur montre le lieu tel qu'on le jouera (LOT-EDITOR-02).**
   - **Vue iso par défaut** : le canevas peint les pièces des planches comme le jeu, même liste,

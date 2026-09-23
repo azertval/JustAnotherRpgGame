@@ -4,6 +4,7 @@
 #pragma once
 
 #include <filesystem>
+#include <map>
 #include <optional>
 #include <string_view>
 
@@ -57,13 +58,22 @@ struct SceneTextureTraits {
 };
 
 /**
+ * @brief Les manifestes déjà lus, par dossier ; `std::nullopt` pour un dossier sans manifeste
+ *        lisible. Qui lit les traits de nombreuses images d'un même lieu le passe à
+ *        `readSceneTextureTraits`, qui ne relit plus un manifeste par image (`LOT-125`).
+ */
+using ManifestCache = std::map<std::filesystem::path, std::optional<nlohmann::json>>;
+
+/**
  * @brief Lit les traits de l'image @p path.
  * @param assetsDirectory Racine des chemins d'image.
  * @param path            Chemin de l'image, relatif à @p assetsDirectory (`Scene/bourg/wall.png`,
  *                        `Npc/figurant/idle.png`, `../Scene/bourg/sand.png`).
+ * @param manifests       Les manifestes déjà lus, complétés au passage ; absent : tout se relit.
  */
 [[nodiscard]] SceneTextureTraits readSceneTextureTraits(
-    const std::filesystem::path& assetsDirectory, std::string_view path);
+    const std::filesystem::path& assetsDirectory, std::string_view path,
+    ManifestCache* manifests = nullptr);
 
 /**
  * @brief Le losange d'art déclaré par un manifeste (`tile`), (0, 0) s'il n'en déclare pas.

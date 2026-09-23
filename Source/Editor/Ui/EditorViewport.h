@@ -503,7 +503,8 @@ private:
 
     QGraphicsScene* _canvasScene;
     CanvasItem* _item;
-    std::unique_ptr<SceneImages> _images;
+    /// Le cache d'images partagé avec les autres onglets et les vignettes (`LOT-125`).
+    std::shared_ptr<SceneImages> _images;
     std::unique_ptr<DraftRenderer> _flat;
     hmi::EditorKeyBindings _editorBindings;
 
@@ -518,6 +519,8 @@ private:
     std::shared_ptr<const core::ScenePieceManifest> _manifest;
     WorldSceneSnapshot _snapshot;
     ComposedScene _isoScene;
+    /// Ce qu'occupe la scène composée, reliefs compris : le cadre du canevas (`LOT-125`).
+    core::Rect _isoBounds;
 
     bool _rightDragging = false;
     QPoint _rightDragLast;
@@ -561,6 +564,8 @@ private:
     core::FixedTimestep _timestep;
     WorldSceneSnapshot _playSnapshot;
     ComposedScene _playScene;
+    /// Ce qu'occupe la scène de l'essai.
+    core::Rect _playBounds;
     /// Touches de déplacement enfoncées (codes `Qt::Key`).
     std::set<int> _heldKeys;
     /// Interaction demandée depuis le dernier pas.

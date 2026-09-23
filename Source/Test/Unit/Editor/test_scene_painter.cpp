@@ -12,10 +12,11 @@
  * images pixel à pixel, à une tolérance près. Les deux images sont écrites à côté de l'exécutable
  * (`editor-captures/`) pour être relues à l'œil.
  *
- * La tolérance est celle de deux rasteriseurs qui ne filtrent pas pareil : le GPU lisse l'art peint
- * (`LOT-103`), le peintre de l'éditeur l'échantillonne encore au plus proche (`LOT-125`), et
- * l'arête de chaque pièce en porte un liseré. Une ancre fausse, une échelle fausse ou un ordre de
- * dessin faux, eux, déplacent des pans entiers de l'image et dépassent la tolérance.
+ * La tolérance est celle de deux rasteriseurs qui ne filtrent pas tout à fait pareil : depuis le
+ * `LOT-125`, les deux lissent l'art peint, mais le GPU mêle deux niveaux de mipmap (trilinéaire) là
+ * où le peintre n'en lit qu'un. Une ancre fausse, une échelle fausse, un ordre de dessin faux — ou
+ * un peintre qui cesse de lisser — déplacent ou crénellent des pans entiers et dépassent les
+ * seuils. La parité exacte n'est plus promise.
  *
  * Les cartes sont celles de la racine d'essai de l'éditeur (`LOT-123`) ; c'étaient les cartes
  * **livrées**, que la table rase du `LOT-102` emporte.
@@ -24,9 +25,11 @@
 #include <QColor>
 #include <QDir>
 #include <QImage>
+#include <algorithm>
 #include <cstddef>
 #include <cstdlib>
 #include <filesystem>
+#include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -47,6 +50,7 @@
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
+#include "Test/Support/HdMockupScene.h"
 
 namespace {
 
@@ -63,14 +67,23 @@ constexpr float CLEAR[4] = {1.0F, 0.0F, 1.0F, 1.0F};
 
 /// Écart par canal au-delà duquel deux pixels diffèrent vraiment.
 constexpr int CHANNEL_TOLERANCE = 48;
-/// Part des pixels qui peuvent différer : les arêtes des quads (voir l'en-tête du fichier). Mesuré
-/// le 18 septembre 2026 : 0,06 % au pire, quand les deux rendus échantillonnaient au plus proche.
-/// Depuis le `LOT-103`, le GPU lisse l'art peint (bilinéaire, mipmaps) et le peintre de l'éditeur
-/// pas encore (`LOT-125`) : chaque arête de pièce porte un liseré d'un pixel qui diffère, et rien
-/// d'autre — mesuré le 22 septembre 2026, 1,29 % au pire (la place, centre). Une ancre, une échelle
-/// ou un ordre faux déplacent des pans entiers et dépassent toujours ce seuil ; le `LOT-125`, qui
-/// lisse le canevas, le fera redescendre.
-constexpr double DIFFERING_PIXELS_TOLERANCE = 0.025;
+/**
+ * Part des pixels qui peuvent différer, et écart moyen admis par canal (0-255).
+ *
+ * | Mesure | Cartes d'essai | Maquette HD, 1080p |
+ * |---|---:|---:|
+ * | au plus proche (avant le `LOT-125`) | 1,56 % · 1,55 | 2,92 % · 6,30 |
+ * | lissé, par niveaux (`LOT-125`, 23 septembre 2026) | 0 % · 0,22 | 0 % · 1,87 |
+ *
+ * Les seuils passent entre les deux lignes : un peintre qui cesse de lisser, une ancre ou une
+ * échelle fausse les dépassent.
+ */
+constexpr double DIFFERING_PIXELS_TOLERANCE = 0.005;
+constexpr double MEAN_ERROR_TOLERANCE = 0.75;
+
+/// L'écart moyen admis sur la maquette HD : le trilinéaire du GPU y pèse davantage (voir le
+/// tableau).
+constexpr double HD_MOCKUP_MEAN_ERROR_TOLERANCE = 3.5;
 
 [[nodiscard]] std::filesystem::path dataRoot() {
     return std::filesystem::path(JADG_TEST_DATA_DIR);
@@ -96,8 +109,8 @@ struct OffscreenTarget {
     std::unique_ptr<QRhiTextureRenderTarget> renderTarget;
     std::unique_ptr<QRhiRenderPassDescriptor> pass;
 
-    explicit OffscreenTarget(QRhi& rhi)
-        : texture(rhi.newTexture(QRhiTexture::RGBA8, QSize(TARGET_WIDTH, TARGET_HEIGHT), 1,
+    OffscreenTarget(QRhi& rhi, QSize size)
+        : texture(rhi.newTexture(QRhiTexture::RGBA8, size, 1,
                                  QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource)) {
         EXPECT_TRUE(texture->create());
         renderTarget.reset(rhi.newTextureRenderTarget({{texture.get()}}));
@@ -137,6 +150,8 @@ struct Comparison {
     std::size_t differing = 0;
     std::size_t painted = 0;
     std::size_t total = 0;
+    /// Écart absolu moyen par canal, en niveaux (0-255), sur toute l'image.
+    double meanError = 0.0;
 };
 
 [[nodiscard]] Comparison compare(const QImage& gpu, const QImage& painter) {
@@ -149,6 +164,8 @@ struct Comparison {
             if (a != QColor(255, 0, 255)) {
                 ++result.painted;
             }
+            result.meanError += std::abs(a.red() - b.red()) + std::abs(a.green() - b.green()) +
+                                std::abs(a.blue() - b.blue());
             if (std::abs(a.red() - b.red()) > CHANNEL_TOLERANCE ||
                 std::abs(a.green() - b.green()) > CHANNEL_TOLERANCE ||
                 std::abs(a.blue() - b.blue()) > CHANNEL_TOLERANCE) {
@@ -156,6 +173,7 @@ struct Comparison {
             }
         }
     }
+    result.meanError /= 3.0 * static_cast<double>(std::max<std::size_t>(result.total, 1));
     return result;
 }
 
@@ -172,29 +190,38 @@ struct Comparison {
                                    hmi::npcFigures(map.level->entities(), 0));
 }
 
+/// Un cadrage : la racine des assets, la définition de la cible, la taille d'une case à l'écran.
+struct Framing {
+    std::filesystem::path assets;
+    QSize size{TARGET_WIDTH, TARGET_HEIGHT};
+    float tilePixels = TILE_PIXELS;
+};
+
 /// Rend @p snapshot des deux façons, cadré sur @p focus (en cases), et compare.
 void expectSamePicture(QRhi& rhi, const hmi::WorldSceneSnapshot& snapshot, core::Vector2 focus,
-                       const std::string& name) {
-    OffscreenTarget target(rhi);
-    hmi::WorldSceneRenderer renderer(assets());
+                       const std::string& name, const Framing& framing = Framing{assets()},
+                       double meanErrorTolerance = MEAN_ERROR_TOLERANCE) {
+    OffscreenTarget target(rhi, framing.size);
+    hmi::WorldSceneRenderer renderer(framing.assets);
     ASSERT_TRUE(renderer.ensureResources(&rhi));
     renderer.setSnapshot(snapshot);
     renderer.setFocus(focus);
-    renderer.setTilePixels(TILE_PIXELS);
+    renderer.setTilePixels(framing.tilePixels);
     const QImage gpu = renderWithGpu(rhi, renderer, target);
-    ASSERT_EQ(gpu.size(), QSize(TARGET_WIDTH, TARGET_HEIGHT));
+    ASSERT_EQ(gpu.size(), framing.size);
 
     const core::IsoProjection projection(snapshot.columns, snapshot.rows,
                                          core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
-    const hmi::Camera2D camera = hmi::worldCamera(projection, projection.gridToWorld(focus),
-                                                  TARGET_WIDTH, TARGET_HEIGHT, TILE_PIXELS);
-    hmi::SceneImages images(assets());
+    const hmi::Camera2D camera =
+        hmi::worldCamera(projection, projection.gridToWorld(focus), framing.size.width(),
+                         framing.size.height(), framing.tilePixels);
+    hmi::SceneImages images(framing.assets);
     images.ensure(hmi::worldTexturePaths(snapshot));
     const hmi::ComposedScene scene =
         hmi::composeWorldScene(snapshot, projection, images.textures());
-    const QImage painted =
-        hmi::renderComposedScene(scene, camera, TARGET_WIDTH, TARGET_HEIGHT, QColor(255, 0, 255))
-            .convertToFormat(QImage::Format_RGBA8888);
+    const QImage painted = hmi::renderComposedScene(scene, camera, framing.size.width(),
+                                                    framing.size.height(), QColor(255, 0, 255))
+                               .convertToFormat(QImage::Format_RGBA8888);
 
     const QDir captures(QDir::current().filePath(QStringLiteral("editor-captures")));
     QDir().mkpath(captures.path());
@@ -202,7 +229,12 @@ void expectSamePicture(QRhi& rhi, const hmi::WorldSceneSnapshot& snapshot, core:
     painted.save(captures.filePath(QString::fromStdString(name + "-editeur.png")));
 
     const Comparison result = compare(gpu, painted);
+    // La mesure, publiée à chaque passage : c'est d'elle que le seuil ci-dessus est tiré.
+    std::cout << name << " : "
+              << (100.0 * static_cast<double>(result.differing) / static_cast<double>(result.total))
+              << " % des pixels different, ecart moyen " << result.meanError << "\n";
     EXPECT_GT(result.painted, result.total / 2) << name << " : l'image n'est pas que le fond";
+    EXPECT_LT(result.meanError, meanErrorTolerance) << name << " : ecart moyen par canal";
     EXPECT_LT(static_cast<double>(result.differing) / static_cast<double>(result.total),
               DIFFERING_PIXELS_TOLERANCE)
         << name << " : " << result.differing << " pixels sur " << result.total
@@ -220,8 +252,8 @@ void expectSamePicture(QRhi& rhi, const hmi::WorldSceneSnapshot& snapshot, core:
  *          2. La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand-
  *             place, coin nord, porte est).<br/>
  *          3. La peindre par le peintre QPainter de l'editeur avec la meme camera.<br/>
- * \tattendu Pour chaque cadrage, moins de 2,5 % des pixels different de plus de 48 sur un canal ;
- *           l'image est peinte sur plus de la moitie de sa surface.
+ * \tattendu Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal,
+ * l'ecart moyen reste sous 0,75 ; l'image est peinte sur plus de la moitie de sa surface.
  * }
  */
 TEST(ScenePainterTest, UneCartePeinteEgaleLeRenduDuJeu) {
@@ -242,7 +274,7 @@ TEST(ScenePainterTest, UneCartePeinteEgaleLeRenduDuJeu) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Composer le donjon.<br/>
  *          2. Le rendre par le jeu et par l'editeur, cadre sur sa porte.<br/>
- * \tattendu Moins de 2,5 % des pixels different au-dela de la tolerance.
+ * \tattendu Moins de 0,5 % des pixels different au-dela de la tolerance ; ecart moyen sous 0,75.
  * }
  */
 TEST(ScenePainterTest, LaSecondeCartePeinteEgaleLeRenduDuJeu) {
@@ -308,7 +340,7 @@ namespace {
  * entites.<br/>2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de
  * l'editeur.<br/>
  * \tattendu L'image est peinte sur plus de la moitie de sa surface -- rien n'est reste vide --, et
- * moins de 2,5 % des pixels different entre les deux rendus.
+ * moins de 0,5 % des pixels different entre les deux rendus.
  * }
  */
 TEST(ScenePainterTest, UneCarteSansAucuneImageSeVoitDansLesDeuxRendus) {
@@ -323,4 +355,37 @@ TEST(ScenePainterTest, UneCarteSansAucuneImageSeVoitDansLesDeuxRendus) {
         EXPECT_TRUE(hmi::parseMaquetteTokenPath(path).has_value()) << path;
     }
     expectSamePicture(*rhi, maquette, {6.0F, 4.0F}, "maquette-centre");
+}
+
+/**
+ * @brief La maquette du standard 2D HD (`LOT-101`), peinte par l'éditeur à 1080p, est conforme à
+ *        son rendu par le jeu (`LOT-125`).
+ *
+ * La parité exacte n'est plus promise : le GPU lit l'art en trilinéaire, mêlant deux niveaux de
+ * mipmap, et le peintre n'en lit qu'un, lissé en bilinéaire. Le seuil dit ce que cela coûte.
+ * \castest{<b>L'editeur peint la maquette HD comme le jeu.</b><br/>
+ * \tcat Unitaire · Editeur · Canevas<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Lire la scene de Fixtures/HdMockup et ses pieces installees.<br/>
+ *          2. La rendre hors ecran par le jeu en 1920 x 1080, une case a 100 pixels.<br/>
+ *          3. La peindre par l'editeur avec la meme camera.<br/>
+ * \tattendu Moins de 0,5 % des pixels different de plus de 48 sur un canal, et l'ecart moyen
+ *           par canal reste sous HD_MOCKUP_MEAN_ERROR_TOLERANCE.
+ * }
+ */
+TEST(ScenePainterTest, LaMaquetteHdPeinteEgaleLeRenduDuJeu) {
+    const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
+    if (!rhi) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    const std::filesystem::path directory(JADG_HD_MOCKUP_DIR);
+    const nlohmann::json scene = test_support::readHdMockupJson(directory / "scene.json");
+    ASSERT_FALSE(scene.is_discarded());
+    constexpr int height = 1080;
+    expectSamePicture(*rhi, test_support::hdMockupSnapshot(scene, directory),
+                      test_support::hdMockupFocus(scene), "maquette-hd-1080",
+                      Framing{.assets = directory,
+                              .size = QSize(1920, height),
+                              .tilePixels = hmi::worldTilePixels(height)},
+                      HD_MOCKUP_MEAN_ERROR_TOLERANCE);
 }

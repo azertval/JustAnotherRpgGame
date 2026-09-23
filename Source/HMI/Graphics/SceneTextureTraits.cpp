@@ -34,7 +34,7 @@ constexpr int MANIFEST_VERSION = 1;
 }
 
 /// Le manifeste de @p directory, s'il se lit.
-[[nodiscard]] std::optional<nlohmann::json> manifestOf(const std::filesystem::path& directory) {
+[[nodiscard]] std::optional<nlohmann::json> readManifest(const std::filesystem::path& directory) {
     std::error_code error;
     const std::filesystem::path path = directory / "manifest.json";
     if (!std::filesystem::is_regular_file(path, error)) {
@@ -45,6 +45,19 @@ constexpr int MANIFEST_VERSION = 1;
         return std::nullopt;
     }
     return std::move(document.root);
+}
+
+/// Le manifeste de @p directory, lu une seule fois quand @p cache est donné.
+[[nodiscard]] std::optional<nlohmann::json> manifestOf(const std::filesystem::path& directory,
+                                                       ManifestCache* cache) {
+    if (cache == nullptr) {
+        return readManifest(directory);
+    }
+    const auto found = cache->find(directory);
+    if (found != cache->end()) {
+        return found->second;
+    }
+    return cache->emplace(directory, readManifest(directory)).first->second;
 }
 
 /// Le nombre fini positif que @p manifest déclare sous @p key, rien sinon.
@@ -114,7 +127,7 @@ std::optional<float> scenePieceDepthOffset(const nlohmann::json& manifest,
 }
 
 SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDirectory,
-                                          std::string_view path) {
+                                          std::string_view path, ManifestCache* manifests) {
     SceneTextureTraits traits;
     const std::filesystem::path file = assetsDirectory / std::filesystem::path(path);
 
@@ -143,7 +156,7 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
     const std::filesystem::path relative{path};
     for (std::filesystem::path owner = relative.parent_path(); !owner.empty();
          owner = owner.parent_path()) {
-        std::optional<nlohmann::json> candidate = manifestOf(assetsDirectory / owner);
+        std::optional<nlohmann::json> candidate = manifestOf(assetsDirectory / owner, manifests);
         const std::string key = relative.lexically_relative(owner).generic_string();
         if (candidate && entryOf(*candidate, key) != nullptr) {
             manifest = std::move(candidate);
@@ -165,7 +178,8 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
     // Les ancêtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
     std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
     for (; traits.artTile.x <= 0.0F && !ancestor.empty(); ancestor = ancestor.parent_path()) {
-        if (const std::optional<nlohmann::json> above = manifestOf(assetsDirectory / ancestor)) {
+        if (const std::optional<nlohmann::json> above =
+                manifestOf(assetsDirectory / ancestor, manifests)) {
             traits.artTile = manifestArtTile(*above);
             if (!traits.groundLine) {
                 traits.groundLine = manifestGroundLine(*above);

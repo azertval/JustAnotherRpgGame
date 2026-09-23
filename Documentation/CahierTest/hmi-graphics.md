@@ -1796,7 +1796,7 @@ Les pixels du marqueur sont empaquetes au format de createTexture.
 
 ### HdMockupRender.MatchesTheHandMadeMockupAt1080p
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:268`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:220`
 
 Le moteur rend la maquette du standard 2D HD a 1080p.
 
@@ -1812,7 +1812,7 @@ Le moteur rend la maquette du standard 2D HD a 1080p.
 
 ### HdMockupRender.MatchesTheHandMadeMockupAt2160p
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:284`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:236`
 
 Le moteur rend la maquette du standard 2D HD a 2160p.
 
@@ -1828,7 +1828,7 @@ Le moteur rend la maquette du standard 2D HD a 2160p.
 
 ### HdMockupRender.WritesASlowTravellingForTheAuthor
 
-*Mineur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:306`
+*Mineur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:258`
 
 Le travelling de la maquette s'ecrit pour le controle visuel.
 

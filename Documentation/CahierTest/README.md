@@ -1,6 +1,6 @@
 # Cahier de test
 
-**962 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc.
+**968 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc.
 
 ## Lire une fiche
 
@@ -29,7 +29,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Core · Rpg](core-rpg.md) | Tests unitaires | 82 | 3 | 45 | 33 | 1 |
 | [Core · Time](core-time.md) | Tests unitaires | 7 | — | 1 | 6 | — |
 | [Core · World](core-world.md) | Tests unitaires | 53 | 1 | 26 | 23 | 3 |
-| [Editor](editor.md) | Tests unitaires | 184 | 18 | 43 | 96 | 27 |
+| [Editor](editor.md) | Tests unitaires | 190 | 20 | 43 | 100 | 27 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 6 | — | 1 | 3 | 2 |
 | [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 186 | 36 | 59 | 83 | 8 |
@@ -41,7 +41,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 3 | — | 1 | 2 | — |
 | [Tests d'intégration](integration.md) | Tests d'intégration | 2 | — | 1 | 1 | — |
 | [Tests système](systeme.md) | Tests système | 1 | — | 1 | — | — |
-| **Total** | | **962** | **101** | **291** | **494** | **76** |
+| **Total** | | **968** | **103** | **291** | **498** | **76** |
 
 ## Lancer les tests
 
