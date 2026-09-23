@@ -6,6 +6,11 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le jeu s'affiche toujours en 16:9.** Quelle que soit la forme de la fenêtre, la scène est le
+  plus grand rectangle 16:9 qui y tient, centré au pixel près ; le reste est peint en noir —
+  bandes latérales pour une fenêtre plus large, horizontales pour une plus haute. Les deux
+  facteurs d'échelle se lisent désormais sur la scène et non sur la fenêtre.
+
 - **Le guide poussé à fond, le manuel remis d'aplomb, le cahier de test navigable.** Les treize
   pages déjà refondues du guide reçoivent trente figures SVG — l'accumulateur du pas de temps fixe,
   le *sparse set* de l'ECS, la pile du routeur, le cycle d'un tour, l'évaluation de l'IA, la ligne
