@@ -6,6 +6,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Planning — LOT-129, les étages et les toits de la scène.** Nouveau lot moteur de la démo, entrant
+  du `LOT-108` : un décor se bâtit en niveaux modulaires (un étage de mur sur un autre, une toiture
+  au sommet, sur la couche `floor` réservée par le format v4), ce qui masque le héros s'efface, et la
+  toiture commune de la Capitale est produite. Il devient prérequis des assets d'Arenarea
+  (`LOT-108`, production suspendue), de l'Arena of Fate (`LOT-106`) et de Martpart (`LOT-110`).
+
 - **LOT-105 — Le kit commun de la Capitale.** Trente-huit pièces HD que Martpart, Arenarea et
   l'Arena of Fate prendront telles quelles : dans `Regions/central-empire/capital/Common/Scene/`,
   pavés et dallages de fond en trois variantes et bordures de trottoir, murs de calcaire pleins et à

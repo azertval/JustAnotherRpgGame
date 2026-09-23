@@ -6,7 +6,7 @@ filiere = "assets"
 statut = "a-faire"
 taille = "L"
 resume = "Les pièces propres à Martpart, produites au standard et installées dans `capital/martpart/Scene/`."
-prerequis = ["LOT-105"]
+prerequis = ["LOT-105", "LOT-129"]
 livrables = [
   "`Regions/central-empire/capital/martpart/Scene/` : pièces, `manifest.json`, `appearance.json`.",
   "La commande de la zone (`Tools/AssetsHD/`) : les dix familles passées en revue, ce qui vient du kit, ce qui est propre.",
