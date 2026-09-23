@@ -289,10 +289,15 @@ void checkEntities(const core::Level& level, Findings& findings) {
 
 void checkHeightReserve(const core::Level& level, Findings& findings) {
     for (const core::TileLayer& layer : level.layers()) {
-        if (layer.floor != 0) {
-            findings.add(MapCheckSeverity::Warning, "layer \"" + layer.name + "\" is on floor " +
-                                                        std::to_string(layer.floor) +
-                                                        ": reserved, not played yet");
+        // Un étage se joue sur une couche de décor, de 1 à MAX_STOREY_FLOOR (LOT-129) ; ailleurs,
+        // il est gardé mais ignoré.
+        const bool playedFloor = layer.kind == core::LayerKind::Decor && layer.floor >= 0 &&
+                                 layer.floor <= core::MAX_STOREY_FLOOR;
+        if (layer.floor != 0 && !playedFloor) {
+            findings.add(MapCheckSeverity::Warning,
+                         "layer \"" + layer.name + "\" is on floor " + std::to_string(layer.floor) +
+                             ": only a decor layer rises, from floor 1 to " +
+                             std::to_string(core::MAX_STOREY_FLOOR) + "; ignored");
         }
         std::vector<core::GridPosition> raised;
         for (int row = 0; row < layer.tiles.height(); ++row) {

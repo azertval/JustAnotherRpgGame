@@ -3,10 +3,10 @@ id = "LOT-129"
 titre = "Les étages et les toits de la scène"
 version = "0.0.1"
 filiere = "moteur"
-statut = "a-faire"
+statut = "en-cours"
 taille = "L"
 resume = "Le décor se bâtit en niveaux modulaires — un étage de mur posé sur un autre, une toiture au sommet — et ce qui masque le héros s'efface quand il passe derrière."
-prerequis = ["LOT-103", "LOT-105", "LOT-125"]
+prerequis = ["LOT-103", "LOT-105"]
 livrables = [
   "Le rendu d'une couche de décor à son `floor` : ses pièces sont élevées d'une hauteur d'étage que déclare le manifeste de la scène.",
   "L'effacement : une pièce d'étage qui masque le héros devient translucide, et redevient opaque quand il en sort.",
@@ -67,3 +67,39 @@ Le format le permet déjà : le `LOT-EDITOR-12` a **réservé** la hauteur (`"fl
 - L'effacement : toute la pièce, ou un disque autour du héros ? À trancher sur l'essai.
 - La hauteur d'étage est-elle la même pour le Colisée et pour une maison ? Si non, elle se déclare
   par scène, ce que le manifeste permet.
+
+## Réalisation — 23 septembre 2026
+
+Branche `lot-129-etages-et-toits`.
+
+### Le moteur et l'éditeur — faits
+
+- **Format** (`EX-LVL-025`, qui remplace la réserve de `floor` dans `EX-LVL-024`) : une couche de
+  décor à l'étage 1 à 4 est un étage ; ailleurs, `floor` est gardé, ignoré et signalé par `--check`.
+- **Hauteur d'étage** : `"storey"` au manifeste du lieu, en pixels d'art, lu comme `tile` avec les
+  traits de chaque pièce. **196** pour le kit de la Capitale et celui de l'Empire : la hauteur de
+  leurs murs au-dessus du sommet de leur case.
+- **Composition** : l'instantané porte les couches d'étage ; une pièce d'étage s'élève de n
+  hauteurs d'étage, se trie avec sa case au-dessus du rez et de la figurine (un rang de profondeur
+  par étage), et porte son étage (`ComposedQuad::storey`).
+- **Effacement** : une pièce d'étage dessinée après le héros et qui le recouvre prend l'opacité
+  0,35 — **la pièce entière** (question ouverte tranchée : le disque est écarté, une pièce entière
+  se lit mieux et ne coûte rien). Le rez, lui, ne s'efface pas.
+- **Collision** : un étage n'y contribue pas ; mettre une couche à l'étage redéduit toute la
+  carte.
+- **Éditeur** : `LevelDraft::setLayerFloor`, par l'historique ; le panneau des couches règle l'étage
+  (« Floor ») ; le pinceau à pièces peint la couche d'étage active ; chaque étage suit la visibilité
+  et l'opacité de sa couche ; un préfabriqué garde l'étage de ses couches.
+- **Tests** : `test_world_storeys.cpp` (instantané, élévation, tri, effacement), deux tests de
+  `test_level_draft_pieces.cpp` (collision, bornes), `test_storey_editing.cpp` (pinceau, visibilité,
+  préfabriqués), et `test_storey_render.cpp` : un bâtiment de murs du kit sur deux niveaux, coiffé
+  d'un toit, rendu ; le héros derrière se voit sur 37 500 pixels, un PNJ au même endroit sur 2 779.
+  Les cartes sans étage se rendent comme avant : 963 tests CTest verts, images de référence
+  comprises.
+
+### La toiture — à produire
+
+Le toit du test de rendu est **provisoire** : une pyramide peinte par le test. La toiture de la
+Capitale se commande au générateur (commande dans
+`Tools/AssetsHD/Regions/central-empire/capital/Common/Toitures/`), puis s'installe ; la carte
+d'essai de `Source/Test/Fixtures/` se dessine alors avec elle. Pas de PR avant.

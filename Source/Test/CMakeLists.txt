@@ -96,6 +96,8 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_asset_gallery.cpp
     Unit/HMI/Graphics/test_arena_scene_composer.cpp
     Unit/HMI/Graphics/test_world_scene_composer.cpp
+    # Les etages de la scene (LOT-129) : elevation, tri, effacement devant le heros.
+    Unit/HMI/Graphics/test_world_storeys.cpp
     Unit/HMI/Graphics/test_arena_animation_driver.cpp
     Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Graphics/test_entity_markers.cpp
@@ -128,6 +130,8 @@ add_executable(UnitTests
     Unit/Editor/test_content_check.cpp
     Unit/Editor/test_map_refactor.cpp
     Unit/Editor/test_stamps.cpp
+    # Les etages dans l'editeur (LOT-129) : pinceau, visibilite, prefabriques.
+    Unit/Editor/test_storey_editing.cpp
     Unit/Editor/test_piece_catalog.cpp
     Unit/Editor/test_brush_gesture.cpp
     Unit/Editor/test_paint_tools.cpp
@@ -179,6 +183,9 @@ if(Qt6_FOUND)
         Unit/Editor/test_scene_painter.cpp
         ../Editor/Ui/ScenePainter.cpp
         ../Editor/Ui/SceneImages.cpp
+        # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
+        # (LOT-129).
+        Unit/Editor/test_storey_render.cpp
         # LevelEditor --render (LOT-EDITOR-13) : une carte livree rendue en PNG, sans fenetre.
         Unit/Editor/test_map_render.cpp
         ../Editor/Ui/MapRender.cpp

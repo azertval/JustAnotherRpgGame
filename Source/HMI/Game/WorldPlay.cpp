@@ -123,7 +123,8 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
                             .frame = frame,
                             .facing = heroFacing(),
-                            .seconds = _elapsed});
+                            .seconds = _elapsed,
+                            .hero = true});
     return figures;
 }
 

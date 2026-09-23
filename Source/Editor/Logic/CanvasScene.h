@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <array>
 #include <string>
 #include <vector>
 
@@ -61,9 +62,12 @@ struct IsoBandOpacity {
     float figures = 1.0F;
     /// Le masque de collision, par-dessus le lieu.
     float collision = 0.0F;
+    /// Chaque étage, du premier au dernier, réglé par sa couche (`LOT-129`).
+    std::array<float, core::MAX_STOREY_FLOOR> storeys = {1.0F, 1.0F, 1.0F, 1.0F};
 
     [[nodiscard]] bool operator==(const IsoBandOpacity&) const = default;
 };
+static_assert(core::MAX_STOREY_FLOOR == 4, "IsoBandOpacity::storeys s'initialise un étage par un");
 
 /**
  * @brief Les opacités des bandes iso, d'après les réglages des couches.
@@ -78,6 +82,9 @@ struct IsoBandOpacity {
 
 /// @return L'opacité d'une primitive du calque @p layer.
 [[nodiscard]] float bandOpacity(const IsoBandOpacity& bands, RenderLayer layer) noexcept;
+
+/// @return L'opacité de @p quad : celle de son étage s'il en a un (`LOT-129`), de son calque sinon.
+[[nodiscard]] float bandOpacity(const IsoBandOpacity& bands, const ComposedQuad& quad) noexcept;
 
 /**
  * @brief L'instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros.

@@ -142,10 +142,17 @@ std::string pieceDescription(const PieceCatalogEntry& entry) {
            ", " + core::pieceTacticalName(entry.tactical);
 }
 
-std::optional<std::size_t> pieceTargetLayer(const std::vector<core::TileLayer>& layers,
-                                            bool floor) {
+std::optional<std::size_t> pieceTargetLayer(const std::vector<core::TileLayer>& layers, bool floor,
+                                            LayerSlot active) {
     const core::LayerKind wanted = floor ? core::LayerKind::Ground : core::LayerKind::Decor;
-    const auto found = std::ranges::find(layers, wanted, &core::TileLayer::kind);
+    // La couche de decor qu'on peint, quand c'en est une : un etage se peint comme le rez
+    // (LOT-129).
+    if (!floor && active && *active < layers.size() && layers[*active].kind == wanted) {
+        return *active;
+    }
+    const auto found = std::ranges::find_if(layers, [wanted](const core::TileLayer& layer) {
+        return layer.kind == wanted && layer.floor == 0;
+    });
     if (found == layers.end()) {
         return std::nullopt;
     }

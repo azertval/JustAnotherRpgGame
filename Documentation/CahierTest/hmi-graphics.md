@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **177 cas** (28 bloquants, 59 critiques, 82 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **182 cas** (32 bloquants, 59 critiques, 83 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -31,6 +31,7 @@ Tests unitaires — **177 cas** (28 bloquants, 59 critiques, 82 majeurs, 8 mineu
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
 | [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 32 | 4 | 14 | 14 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
+| [`test_world_storeys.cpp`](#test-world-storeyscpp) | 5 | 4 | - | 1 | - |
 
 ## test_animation_catalog.cpp
 
@@ -3443,3 +3444,96 @@ Tous les portails des cartes se traversent.
 - Vérifie que `travel.cross(entity.position, flags)` vaut `core::TravelResult::Moved`.
 - Vérifie que `core::isSolid(travel.currentMap()->tileMap().tile(pos.column, pos.row))` est faux.
 - Vérifie que `core::portalAt(*travel.currentMap(), pos).has_value()` est faux.
+
+## test_world_storeys.cpp
+
+### WorldStoreysTest.LesEtagesEntrentDansLInstantaneRangesParEtage
+
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:127`
+
+Les couches d'etage entrent dans l'instantane, rangees par etage.
+
+**Étapes**
+
+1. Batir une carte dont les couches de decor sont declarees toit, etage, rez.
+2. En tirer l'instantane.
+
+**Résultat attendu**
+
+- Vérifie que `snapshot.reliefAt({.column = 1, .row = 1})` vaut `"wall"`.
+- Vérifie que `snapshot.storeys.size()` vaut `2U`.
+- Vérifie que `snapshot.storeys[0].floor` vaut `1`.
+- Vérifie que `snapshot.storeys[1].floor` vaut `2`.
+- Vérifie que `snapshot.storeys[0].relief[4]` vaut `"wall-upper"`.
+- Vérifie que `snapshot.storeys[1].relief[4]` vaut `"roof"`.
+- Vérifie que `std::ranges::find(paths, "Scene/haut/roof.png")` diffère de `paths.end()`.
+
+### WorldStoreysTest.UnEtageSEleveDeLaHauteurDeclareeParSonLieu
+
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:151`
+
+Un etage s'eleve de la hauteur declaree par son lieu.
+
+**Étapes**
+
+1. Composer l'ilot avec une hauteur d'etage de 196 pixels d'art, puis sans.
+
+**Résultat attendu**
+
+- Vérifie que `declared.byStorey[static_cast<std::size_t>(storey)]` diffère de `nullptr`.
+- Vérifie que `declared.byStorey[static_cast<std::size_t>(storey)]->storey` vaut `storey`.
+- Vérifie que `declared.byStorey[0]->sprite.y - declared.byStorey[1]->sprite.y` vaut `step`, à `1e-3F` près.
+- Vérifie que `declared.byStorey[1]->sprite.y - declared.byStorey[2]->sprite.y` vaut `step`, à `1e-3F` près.
+- Vérifie que `declared.byStorey[0]->sprite.x` vaut `declared.byStorey[2]->sprite.x` (comparaison flottante).
+- Vérifie que `undeclared.byStorey[0]->sprite.y - undeclared.byStorey[1]->sprite.y` vaut `hmi::DEFAULT_STOREY_TILES * projection.tileWidth()`, à `1e-3F` près.
+
+### WorldStoreysTest.UnEtageSeTrieAuDessusDuRezDeSaCase
+
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:181`
+
+Un etage se trie au-dessus du rez de sa case.
+
+**Étapes**
+
+1. Composer l'ilot, un heros sur la case devant le batiment.
+
+**Résultat attendu**
+
+- Vérifie que `composed.hero` diffère de `nullptr`.
+- Vérifie que `composed.byStorey[0]->sortOrder` est strictement inférieur à `composed.byStorey[1]->sortOrder`.
+- Vérifie que `composed.byStorey[1]->sortOrder` est strictement inférieur à `composed.byStorey[2]->sortOrder`.
+- Vérifie que `composed.hero->sortOrder` est strictement supérieur à `composed.byStorey[2]->sortOrder`.
+
+### WorldStoreysTest.UnEtageQuiMasqueLeHerosSEfface
+
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:201`
+
+Un etage qui masque le heros s'efface.
+
+**Étapes**
+
+1. Poser le heros derriere le batiment, sur la case (1, 0).
+2. Le poser devant, sur la case (2, 2).
+3. Poser un PNJ derriere, sans heros.
+
+**Résultat attendu**
+
+- Vérifie que `behind.byStorey[0]->sprite.a` vaut `1.0F` (comparaison flottante).
+- Vérifie que `behind.byStorey[1]->sprite.a` vaut `hmi::STOREY_SEE_THROUGH_OPACITY` (comparaison flottante).
+- Vérifie que `behind.byStorey[2]->sprite.a` vaut `hmi::STOREY_SEE_THROUGH_OPACITY` (comparaison flottante).
+- Vérifie que `quad->sprite.a` vaut `1.0F` (comparaison flottante).
+- Vérifie que `quad->sprite.a` vaut `1.0F` (comparaison flottante).
+
+### WorldStoreysTest.UnEtageHorsBornesNEstPasJoue
+
+*Majeur · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:235`
+
+Un etage hors bornes n'est pas joue.
+
+**Étapes**
+
+1. Ajouter une couche de decor a l'etage 9 et une couche de sol a l'etage 1.
+
+**Résultat attendu**
+
+- Vérifie que `snapshot.storeys.size()` vaut `2U`.

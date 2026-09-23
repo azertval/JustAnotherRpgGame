@@ -98,7 +98,8 @@ public:
 
     // Ajoute ce que la couche @p layer apporte, si elle est visuelle et de la taille de la carte.
     void addLayer(const TileLayer& layer) {
-        if (!isVisualLayerKind(layer.kind) || layer.tiles.width() != _width ||
+        // Un étage ne dit rien du sol : la collision est celle du rez (`LOT-129`).
+        if (!isVisualLayerKind(layer.kind) || layer.floor != 0 || layer.tiles.width() != _width ||
             layer.tiles.height() != _height) {
             return;
         }

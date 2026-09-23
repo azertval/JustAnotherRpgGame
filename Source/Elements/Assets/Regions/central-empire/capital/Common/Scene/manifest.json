@@ -5,6 +5,7 @@
     256,
     159
   ],
+  "storey": 196,
   "textures": {
     "scene/capital/floor-paving-01": {
       "file": "floor-paving-01.png",

@@ -56,6 +56,8 @@ signals:
     void removeRequested(std::size_t index);
     void moveRequested(std::size_t index, bool forward);
     void renameRequested(std::size_t index, const QString& name);
+    /// Mettre une couche de décor à un étage (`LOT-129`) : 0 au rez.
+    void floorRequested(std::size_t index, int floor);
 
 private:
     /// Ce que la liste affiche, pour ne la reconstruire que s'il a changé.

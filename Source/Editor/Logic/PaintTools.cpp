@@ -286,7 +286,7 @@ std::vector<core::GridPosition> floodRegion(const core::LevelDraft& draft, Layer
 LayerSlot brushTargetLayer(const core::LevelDraft& draft, const CanvasBrush& brush,
                            LayerSlot active) {
     if (brush.kind == BrushKind::Piece) {
-        return pieceTargetLayer(draft.layers(), brush.floor);
+        return pieceTargetLayer(draft.layers(), brush.floor, active);
     }
     return active;
 }

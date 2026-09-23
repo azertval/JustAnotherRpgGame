@@ -552,9 +552,8 @@ void EditorViewport::paintIso(QPainter& painter, const QRectF& exposed) {
     const CellRange cells = isoCellsCovering(iso, visible);
     const IsoBandOpacity bands =
         isoBandOpacity(_draft.layers(), _layerView, _activeLayer, _seeThroughRelief);
-    paintComposedScene(painter, _isoScene, visible, [&bands](const ComposedQuad& quad) {
-        return bandOpacity(bands, quad.layer);
-    });
+    paintComposedScene(painter, _isoScene, visible,
+                       [&bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
     paintIsoOverlays(painter, cells, bands);
 }
 
@@ -924,7 +923,9 @@ void EditorViewport::setActiveTile(core::TileType type) {
 void EditorViewport::setActivePiece(const std::string& piece, bool floor) {
     _brush = pieceBrush(&_appearance, piece, floor);
     // La pièce va sur sa couche : on la montre active, verrou et opacité compris.
-    if (const std::optional<std::size_t> layer = pieceTargetLayer(_draft.layers(), floor)) {
+    // Une couche d'étage active le reste : un toit se choisit en peignant l'étage (LOT-129).
+    if (const std::optional<std::size_t> layer =
+            pieceTargetLayer(_draft.layers(), floor, _activeLayer)) {
         setActiveLayer(*layer);
     }
     if (!paintsWithBrush(_tool)) {
@@ -1718,6 +1719,12 @@ void EditorViewport::moveMapLayer(std::size_t index, bool forward) {
 
 void EditorViewport::renameMapLayer(std::size_t index, const std::string& name) {
     if (!name.empty() && _draft.renameLayer(index, name)) {
+        markDraftMutated();
+    }
+}
+
+void EditorViewport::setMapLayerFloor(std::size_t index, int floor) {
+    if (_draft.setLayerFloor(index, floor)) {
         markDraftMutated();
     }
 }

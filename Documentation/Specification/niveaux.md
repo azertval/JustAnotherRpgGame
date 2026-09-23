@@ -94,9 +94,16 @@ La seule révision de format du module éditeur, faite tant qu'il n'y avait que 
   elle ne porte aucune case, reprend celles de sa base, change de planche (`"scene"`) et porte ses
   propres entités. Sa base se cherche du dossier de la variante vers la racine ; une base elle-même
   variante est refusée.
-- **EX-LVL-024** — La **hauteur** est réservée : `"floor"` par couche,
-  `"elevation"` par case de couche et par entité, lus, gardés et réécrits ; ni le jeu ni l'éditeur
-  ne s'en servent, et le contrôle signale toute valeur non nulle.
+- **EX-LVL-024** — La **hauteur par case** est réservée : `"elevation"` par case de couche et par
+  entité, lue, gardée et réécrite ; ni le jeu ni l'éditeur ne s'en servent, et le contrôle signale
+  toute valeur non nulle. `"floor"` par couche, réservé jusqu'au `LOT-129`, est joué par
+  `EX-LVL-025`.
+- **EX-LVL-025** — Une couche de **décor** à l'étage `"floor"` n (1 à 4) est un **étage** : ses
+  pièces se dessinent élevées de n hauteurs d'étage, que déclare le manifeste de leur lieu
+  (`"storey"`, en pixels d'art), triées au-dessus du rez de leur case ; un étage qui masque le héros
+  se dessine translucide. Un étage ne compte pas dans la collision, qui ne dit que le rez. Un étage
+  sur une couche de sol, ou hors de 0 à 4, est gardé mais ignoré, et le contrôle le signale
+  (`LOT-129`).
 
 ### Format retenu (JSON, liste de tuiles-objets)
 

@@ -18,6 +18,9 @@
 
 namespace core {
 
+/// Le plus haut étage qu'une couche de décor peut occuper (`EX-LVL-025`, `LOT-129`).
+inline constexpr int MAX_STOREY_FLOOR = 4;
+
 /**
  * @brief Rôle d'une couche de tuiles dans une carte.
  *
@@ -164,9 +167,11 @@ struct TileLayer {
     /// Propriétés libres (`core::PropertyMap`), y compris les clés que le chargeur n'a pas
     /// reconnues — elles sont réémises telles quelles à l'écriture.
     PropertyMap properties{};
-    /// Étage de la couche. **Réservé** (décision D11, `EX-LVL-024`) : lu, gardé et réécrit, mais ni
-    /// le jeu ni l'éditeur ne s'en servent ; toute valeur non nulle est signalée par `LevelEditor
-    /// --check`.
+    /// Étage de la couche (`EX-LVL-025`, `LOT-129`). Une couche de **décor** à l'étage `n` (1 à
+    /// `MAX_STOREY_FLOOR`) se dessine élevée de `n` hauteurs d'étage, que déclare le manifeste de
+    /// son lieu : un étage de mur posé sur le rez, une toiture au sommet. Elle ne compte pas dans
+    /// la collision, qui ne dit que le sol. Toute autre valeur non nulle est signalée par
+    /// `LevelEditor --check`, et ignorée.
     int floor = 0;
     /// Pièce nommée par case, ligne par ligne ; vide si aucune case n'en nomme.
     std::vector<std::string> pieces{};

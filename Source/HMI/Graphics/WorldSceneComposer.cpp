@@ -56,10 +56,10 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
     return path;
 }
 
-/// @return La premiere couche de role @p kind, ou `nullptr` si la carte n'en declare pas.
+/// @return La premiere couche de role @p kind au rez, ou `nullptr` si la carte n'en declare pas.
 [[nodiscard]] const core::TileLayer* layerOf(const WorldSceneSource& source, core::LayerKind kind) {
     for (const core::TileLayer& couche : source.layers) {
-        if (couche.kind == kind) {
+        if (couche.kind == kind && couche.floor == 0) {
             return &couche;
         }
     }
@@ -327,6 +327,62 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                     floorQuad(projection.tileBounds(cell)));
 }
 
+/// Ce qui masque le héros, s'il y en a un : son image, et son rang de dessin.
+struct HeroPlacement {
+    core::Rect bounds;
+    std::int32_t sortOrder = 0;
+};
+
+// Pose une piece de relief a sa case ; sur une couche d'etage (@p storey > 0), elevee de @p storey
+// hauteurs d'etage, triee au-dessus du rez de sa case, et effacee si elle masque le heros.
+void composeStandingPiece(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                          const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                          core::GridPosition cell, std::string_view piece, int storey,
+                          const std::optional<HeroPlacement>& hero) {
+    const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
+    if (texture.texture == nullptr) {
+        return;
+    }
+    // Posee par son ancre, le sommet haut du losange de sa case ; triee au pied de son EMPRISE
+    // (`core::footprintFootCorner`), pour qu'une piece plus haute ou plus large que sa case reste
+    // derriere ce qui se tient devant n'importe laquelle de ses cases.
+    core::Vector2 topVertex = projection.gridToWorld(
+        gridPoint(static_cast<float>(cell.column), static_cast<float>(cell.row)));
+    const auto emprise = snapshot.footprints.find(piece);
+    const core::GridPosition pied = core::footprintFootCorner(
+        cell, emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second);
+    const float footY =
+        texture.depthOffset
+            ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
+            : projection
+                  .gridToWorld(
+                      gridPoint(static_cast<float>(pied.column), static_cast<float>(pied.row)))
+                  .y;
+    // Un etage s'eleve de la hauteur que le manifeste de son lieu declare, a l'echelle de l'art ;
+    // son pied, lui, reste celui de sa case : il se trie avec elle (LOT-129).
+    if (storey > 0) {
+        const float storeyWorld =
+            texture.storeyHeight
+                ? *texture.storeyHeight * projection.tileWidth() / artTileWidth(texture)
+                : DEFAULT_STOREY_TILES * projection.tileWidth();
+        topVertex.y -= static_cast<float>(storey) * storeyWorld;
+    }
+    // A l'echelle de son lieu : le losange que son manifeste declare occupe celui de la case.
+    SpriteQuad quad = standingPieceQuad(texture, topVertex, projection.tileWidth(),
+                                        projection.tileHeight() / projection.tileWidth());
+    const WorldDepthSlot slot =
+        storey > 0 ? static_cast<WorldDepthSlot>(static_cast<std::int32_t>(WorldDepthSlot::Storey) +
+                                                 std::min(storey, core::MAX_STOREY_FLOOR) - 1)
+                   : WorldDepthSlot::Relief;
+    const std::int32_t sortOrder = worldDepthSortOrder(footY, slot);
+    // Un etage dessine APRES le heros et qui le recouvre le cache : on le voit a travers.
+    if (storey > 0 && hero && sortOrder > hero->sortOrder &&
+        spriteQuadBounds(quad).intersects(hero->bounds)) {
+        quad.a *= STOREY_SEE_THROUGH_OPACITY;
+    }
+    scene.addSprite(RenderLayer::Object, texture.texture, sortOrder, quad, storey);
+}
+
 void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                    const core::IsoProjection& projection, const ScenePieceTextures& textures,
                    core::GridPosition cell, bool flatBlocks) {
@@ -342,41 +398,26 @@ void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         }
         return;
     }
-    const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
-    if (texture.texture == nullptr) {
-        return;
-    }
-    // Posee par son ancre, le sommet haut du losange de sa case ; triee au pied de son EMPRISE
-    // (`core::footprintFootCorner`), pour qu'une piece plus haute ou plus large que sa case reste
-    // derriere ce qui se tient devant n'importe laquelle de ses cases.
-    const core::Vector2 topVertex = projection.gridToWorld(
-        gridPoint(static_cast<float>(cell.column), static_cast<float>(cell.row)));
-    const auto emprise = snapshot.footprints.find(piece);
-    const core::GridPosition pied = core::footprintFootCorner(
-        cell, emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second);
-    const float footY =
-        texture.depthOffset
-            ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
-            : projection
-                  .gridToWorld(
-                      gridPoint(static_cast<float>(pied.column), static_cast<float>(pied.row)))
-                  .y;
-    // A l'echelle de son lieu : le losange que son manifeste declare occupe celui de la case.
-    const SpriteQuad quad = standingPieceQuad(texture, topVertex, projection.tileWidth(),
-                                              projection.tileHeight() / projection.tileWidth());
-    scene.addSprite(RenderLayer::Object, texture.texture,
-                    worldDepthSortOrder(footY, WorldDepthSlot::Relief), quad);
+    composeStandingPiece(scene, snapshot, projection, textures, cell, piece, 0, std::nullopt);
 }
 
-void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
-                   const ScenePieceTextures& textures, const WorldFigureSnapshot& figure) {
+/// Une figurine posee : sa texture, son image, son rang de dessin.
+struct FigurePlacement {
+    TextureHandle texture = nullptr;
+    SpriteQuad quad{};
+    std::int32_t sortOrder = 0;
+};
+
+[[nodiscard]] std::optional<FigurePlacement> placeFigure(const core::IsoProjection& projection,
+                                                         const ScenePieceTextures& textures,
+                                                         const WorldFigureSnapshot& figure) {
     if (figure.figure.empty()) {
-        return;
+        return std::nullopt;
     }
     const SceneTexture& texture =
         textures.resolve(figureStripPath(figure.figure, figure.clip, figure.facing));
     if (texture.texture == nullptr) {
-        return;
+        return std::nullopt;
     }
     // La bande dit sa propre decoupe : sa cellule, et avec sa largeur totale son nombre d'images.
     // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture. Sa cadence
@@ -398,9 +439,17 @@ void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
             ? center.y + ((static_cast<float>(frameHeightOf(texture)) - *texture.groundLine) *
                           projection.tileWidth() / artTileWidth(texture))
             : footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN);
-    const SpriteQuad quad = figureQuad(texture, frame, center.x, bottomY, projection.tileWidth());
-    scene.addSprite(RenderLayer::Player, texture.texture,
-                    worldDepthSortOrder(footY, WorldDepthSlot::Figure), quad);
+    return FigurePlacement{
+        .texture = texture.texture,
+        .quad = figureQuad(texture, frame, center.x, bottomY, projection.tileWidth()),
+        .sortOrder = worldDepthSortOrder(footY, WorldDepthSlot::Figure)};
+}
+
+void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
+                   const ScenePieceTextures& textures, const WorldFigureSnapshot& figure) {
+    if (const std::optional<FigurePlacement> placed = placeFigure(projection, textures, figure)) {
+        scene.addSprite(RenderLayer::Player, placed->texture, placed->sortOrder, placed->quad);
+    }
 }
 
 }  // namespace
@@ -665,6 +714,36 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
             }
         }
     }
+    // Les couches d'etage : les decors d'etage 1 a MAX_STOREY_FLOOR, du plus bas au plus haut, a
+    // la taille de la carte (LOT-129). Une autre valeur est gardee par le format, et ignoree ici.
+    for (const core::TileLayer& couche : source.layers) {
+        if (couche.kind != core::LayerKind::Decor || couche.floor < 1 ||
+            couche.floor > core::MAX_STOREY_FLOOR || couche.tiles.width() != snapshot.columns ||
+            couche.tiles.height() != snapshot.rows) {
+            continue;
+        }
+        WorldStoreySnapshot storey{.floor = couche.floor, .relief = {}};
+        storey.relief.assign(cases, std::string{});
+        for (int row = 0; row < snapshot.rows; ++row) {
+            for (int column = 0; column < snapshot.columns; ++column) {
+                const core::GridPosition cell{.column = column, .row = row};
+                const std::size_t index = indexOf(cell, snapshot.columns);
+                // Un etage ne se deduit pas du type : seule une piece nommee s'y pose.
+                storey.relief[index] = std::string{couche.pieceAt(column, row)};
+                if (storey.relief[index].empty()) {
+                    continue;
+                }
+                storey.relief[index] = std::string{appearance.canonicalPiece(storey.relief[index])};
+                const core::PieceFootprint emprise =
+                    appearance.pieceFootprint(storey.relief[index]);
+                if (emprise != core::PieceFootprint{}) {
+                    snapshot.footprints.insert_or_assign(storey.relief[index], emprise);
+                }
+            }
+        }
+        snapshot.storeys.push_back(std::move(storey));
+    }
+    std::ranges::stable_sort(snapshot.storeys, {}, &WorldStoreySnapshot::floor);
     return snapshot;
 }
 
@@ -763,7 +842,11 @@ std::string figureMarkerKey(std::string_view path) {
 
 std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     std::set<std::string> uniques;
-    for (const std::vector<std::string>* couche : {&snapshot.floors, &snapshot.relief}) {
+    std::vector<const std::vector<std::string>*> couches{&snapshot.floors, &snapshot.relief};
+    for (const WorldStoreySnapshot& storey : snapshot.storeys) {
+        couches.push_back(&storey.relief);
+    }
+    for (const std::vector<std::string>* couche : couches) {
         for (const std::string& piece : *couche) {
             if (!piece.empty()) {
                 uniques.insert(piecePath(snapshot.place, piece));
@@ -790,11 +873,30 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
 void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                        const core::IsoProjection& projection, const ScenePieceTextures& textures,
                        WorldComposeOptions options) {
+    // Le heros d'abord mesure : un etage qui le masque s'efface (LOT-129).
+    std::optional<HeroPlacement> hero;
+    for (const WorldFigureSnapshot& figure : snapshot.figures) {
+        if (!figure.hero) {
+            continue;
+        }
+        if (const std::optional<FigurePlacement> placed =
+                placeFigure(projection, textures, figure)) {
+            hero = HeroPlacement{.bounds = spriteQuadBounds(placed->quad),
+                                 .sortOrder = placed->sortOrder};
+        }
+    }
     for (int row = 0; row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
             composeFloor(scene, snapshot, projection, textures, cell, options.flatBlocks);
             composeRelief(scene, snapshot, projection, textures, cell, options.flatBlocks);
+            const std::size_t index = indexOf(cell, snapshot.columns);
+            for (const WorldStoreySnapshot& storey : snapshot.storeys) {
+                if (index < storey.relief.size() && !storey.relief[index].empty()) {
+                    composeStandingPiece(scene, snapshot, projection, textures, cell,
+                                         storey.relief[index], storey.floor, hero);
+                }
+            }
         }
     }
     for (const WorldFigureSnapshot& figure : snapshot.figures) {

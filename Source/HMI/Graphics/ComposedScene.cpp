@@ -7,7 +7,6 @@
 #include <cmath>
 #include <utility>
 
-
 namespace hmi {
 
 // Vide la scene (capacite conservee) et remet les compteurs a zero. Le cadrage est conserve.
@@ -17,7 +16,6 @@ void ComposedScene::clear() noexcept {
     _considered = 0;
     _culled = 0;
 }
-
 
 // Restreint la composition aux primitives visibles dans un cadrage donne (EX-NFR-005). Le
 // rectangle elargi de la marge est calcule une fois ici, et non a chaque primitive testee.
@@ -61,7 +59,7 @@ bool ComposedScene::isVisible(const core::Rect& bounds) const {
 // Ajoute un rectangle texture a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                              const SpriteQuad& quad) {
+                              const SpriteQuad& quad, int storey) {
     ++_considered;
     if (!isVisible(spriteQuadBounds(quad))) {
         ++_culled;
@@ -74,6 +72,7 @@ bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Sprite;
     composed.sprite = quad;
+    composed.storey = storey;
     _quads.push_back(composed);
     return true;
 }

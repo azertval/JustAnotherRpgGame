@@ -41,10 +41,34 @@ IsoBandOpacity isoBandOpacity(const std::vector<core::TileLayer>& layers,
     }
     const LayerSlot decor = firstLayerOf(layers, core::LayerKind::Decor);
     bands.relief = decor ? view.display(decor, hasVisual).effectiveOpacity() : 1.0F;
+    // Chaque etage, par sa premiere couche (LOT-129) : la cacher cache l'etage.
+    std::array<bool, core::MAX_STOREY_FLOOR> seen{};
+    for (std::size_t index = 0; index < layers.size(); ++index) {
+        const core::TileLayer& layer = layers[index];
+        if (layer.kind != core::LayerKind::Decor || layer.floor < 1 ||
+            layer.floor > core::MAX_STOREY_FLOOR) {
+            continue;
+        }
+        const auto rank = static_cast<std::size_t>(layer.floor - 1);
+        if (!seen[rank]) {
+            seen[rank] = true;
+            bands.storeys[rank] = view.display(LayerSlot{index}, hasVisual).effectiveOpacity();
+        }
+    }
     if (seeThroughRelief) {
         bands.relief *= SEE_THROUGH_RELIEF_OPACITY;
+        for (float& storey : bands.storeys) {
+            storey *= SEE_THROUGH_RELIEF_OPACITY;
+        }
     }
     return bands;
+}
+
+float bandOpacity(const IsoBandOpacity& bands, const ComposedQuad& quad) noexcept {
+    if (quad.storey >= 1 && quad.storey <= core::MAX_STOREY_FLOOR) {
+        return bands.storeys[static_cast<std::size_t>(quad.storey - 1)];
+    }
+    return bandOpacity(bands, quad.layer);
 }
 
 float bandOpacity(const IsoBandOpacity& bands, RenderLayer layer) noexcept {

@@ -110,7 +110,9 @@ Faire une carte de bout en bout : le
   rencontres, cartes, figurines, drapeaux, lieux, objets, `carte#id`), et les avertissements rendus
   en anglais, verdict des zones de combat compris (`EX-EDIT-071`, `EX-EDIT-073`).
 - `LayerView` — les couches telles que l'éditeur les montre : visibles, opacité, grisées,
-  verrouillées (`EX-EDIT-061`).
+  verrouillées (`EX-EDIT-061`), et l'étage d'une couche de décor (`EX-LVL-025`, `LOT-129`) : le
+  panneau des couches le règle (« Floor »), le pinceau à pièces peint la couche d'étage active, et
+  un préfabriqué garde l'étage de ses couches.
 - `CanvasPicking` — le pointage du canevas, iso et à plat : la case sous un point, par son losange,
   hauteur en paramètre ; les cases visibles d'un cadrage (`EX-EDIT-060`).
 - `CanvasScene` — l'instantané que le canevas compose (celui du jeu, PNJ compris, sans héros) et

@@ -13,6 +13,7 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Editor/Logic/LayerView.h"
 
 /**
  * @file Editor/Logic/PieceCatalog.h
@@ -83,12 +84,13 @@ inline constexpr std::string_view MISSING_PIECES_GROUP = "Missing from the sheet
 [[nodiscard]] std::string pieceDescription(const PieceCatalogEntry& entry);
 
 /**
- * @return La couche que vise une pièce : la première couche de sol pour un sol (@p floor), la
- *         première couche de décor sinon — celles que la composition du jeu lit. `std::nullopt` si
- *         la carte n'en a pas.
+ * @return La couche que vise une pièce : la première couche de sol au rez pour un sol (@p floor) ;
+ *         pour un relief, la couche de décor @p active si c'en est une — un étage se peint comme
+ *         le rez (`LOT-129`) —, la première couche de décor au rez sinon. Ce sont celles que la
+ *         composition du jeu lit. `std::nullopt` si la carte n'en a pas.
  */
 [[nodiscard]] std::optional<std::size_t> pieceTargetLayer(
-    const std::vector<core::TileLayer>& layers, bool floor);
+    const std::vector<core::TileLayer>& layers, bool floor, LayerSlot active = {});
 
 /**
  * @brief Le type qu'écrit la case d'ancrage d'une pièce posée à la main (décision D3 : le type
