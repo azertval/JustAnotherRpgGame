@@ -19,4 +19,10 @@ exclude_path = [
 # Le corpus (Documentation/SourceBook/) reste hors du dépôt (.gitignore) : les renvois vers ses PDF
 # ne se résolvent que sur le poste de l'auteur. Ils sont exclus comme cibles ; les documents qui les
 # portent restent vérifiés.
-exclude = ["/Documentation/SourceBook/"]
+#
+# La référence du code (Documentation/reference/, annotated.html…) n'existe que sur le site publié :
+# Doxygen l'engendre au déploiement (docs.yml), aucune page HTML n'est versionnée sous Documentation/.
+exclude = [
+  "/Documentation/SourceBook/",
+  "/Documentation/.*\\.html$",
+]

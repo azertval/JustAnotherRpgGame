@@ -363,8 +363,9 @@ jobs:
             $code = $LASTEXITCODE
             $output | ForEach-Object { Write-Host $_ }
             Write-Host '::endgroup::'
-            $runs = ($output | Select-String 'stat::number_of_executed_units:\s*(\d+)' |
-              Select-Object -Last 1).Matches.Groups[1].Value
+            # Absentes quand libFuzzer refuse de démarrer (amorce manquante, option invalide).
+            $stat = $output | Select-String 'stat::number_of_executed_units:\s*(\d+)' | Select-Object -Last 1
+            $runs = if ($stat) { $stat.Matches[0].Groups[1].Value } else { '—' }
             $size = @(Get-ChildItem $corpus -File).Count
             if ($code -ne 0) { $failed += $target }
             $verdict = if ($code -eq 0) { '✅' } else { "❌ code $code" }

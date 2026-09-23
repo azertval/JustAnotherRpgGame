@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **La nightly repasse au vert.** Le fuzzing de `fuzz_level` refusait de démarrer : son amorce
+  `Source/Elements/Levels/capital` a disparu avec la table rase du `LOT-102` ; il part désormais des
+  cartes de la racine d'essai (`Fixtures/GameData/Levels`, `Fixtures/Levels`), et CMake refuse une
+  amorce absente au lieu de laisser le job échouer dix minutes plus tard sur une erreur PowerShell.
+  Le job `links` rougissait sur les renvois vers la référence Doxygen, qui n'existe que sur le site
+  publié : `lychee.toml` exclut ces pages comme cibles.
+
 - **Le guide poussé à fond, le manuel remis d'aplomb, le cahier de test navigable.** Les treize
   pages déjà refondues du guide reçoivent trente figures SVG — l'accumulateur du pas de temps fixe,
   le *sparse set* de l'ECS, la pile du routeur, le cycle d'un tour, l'évaluation de l'IA, la ligne
