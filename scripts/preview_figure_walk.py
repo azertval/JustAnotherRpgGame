@@ -43,7 +43,7 @@ TILE_ON_SCREEN = 100.0
 VIEW_CENTER = (3.5, 3.5)
 SCREEN = (1920, 1080)
 # La vitesse de marche du jeu (`core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND`).
-WALK_SPEED = 4.0
+WALK_SPEED = 2.0
 FPS = 30
 # La boucle : trois cases par côté, dans le coin sud de la place, où rien ne se dresse.
 LOOP = [((5.0, 5.0), (8.0, 5.0), "se"), ((8.0, 5.0), (8.0, 8.0), "sw"),

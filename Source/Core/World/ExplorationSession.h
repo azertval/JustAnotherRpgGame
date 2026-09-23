@@ -96,8 +96,10 @@ struct ExplorationEvent {
  */
 class ExplorationSession {
 public:
-    /// Vitesse de marche, en cases par seconde.
-    static constexpr float WALK_SPEED_CELLS_PER_SECOND = 4.0F;
+    /// Vitesse de marche, en cases par seconde : 3 m/s, une marche vive. Un cycle de marche couvre
+    /// une case, si bien que la cadence de la figurine en découle — sans quoi ses pieds glissent
+    /// (`LOT-112`, décision de l'auteur ; 4 cases par seconde étaient une course).
+    static constexpr float WALK_SPEED_CELLS_PER_SECOND = 2.0F;
     /// Demi-côté du gabarit du héros, en cases : il ne tient pas tout à fait une case, si bien
     /// qu'un couloir d'une case se franchit sans frotter les deux murs.
     static constexpr float HERO_HALF_SIZE_CELLS = 0.3F;

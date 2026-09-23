@@ -62,3 +62,85 @@ Ce qu'on regarde, dans cet ordre :
 
 Le garde de l'essai n'est pas le héros : c'est volontaire. L'essai tranche une **cadence**, et un
 personnage secondaire suffit à la montrer ; le héros, lui, se dessine une fois la valeur connue.
+
+La commande assemblée, le descripteur de l'essai (`previewOnly` : il se mesure, il ne s'installe
+pas) et la marche à suivre sont dans `Tools/AssetsHD/Essais/lot-112-cadence/`. Les deux marches se
+jugent par `scripts/preview_figure_walk.py`, qui les fait marcher sur la vue 1080 de la maquette,
+à la vitesse du jeu.
+
+## Décisions de réalisation
+
+### D1 — Le héros est la fiche du livre, telle quelle
+
+Décision de l'auteur : le héros est la fiche pré-tirée du Brawler (*Player's Guide to Tanares*,
+p. 195), sans retouche — demi-orc, Dragon Hunter, For 16 Dex 13 Con 16 Int 10 Sag 12 Cha 8, 15 PV.
+Le livre ne le nomme pas : il s'appelle **Grom Tranche-Écaille** (`Rpg/characters/heros-brawler.json`),
+un nom proposé qui se change sans rien casser.
+
+Conséquence voulue : la fiche d'origine visait **Persuasion +5** ; celle du livre a **−1**. Le
+critère passe de « deux fois sur cinq » à « **une fois sur dix** » à DD 18 (un 19 ou un 20 au dé), et
+la [quête](../quete-demo.md) est avertie : son DD, ou sa voie pacifique, se reprend au `LOT-120`.
+
+### D2 — Il remplace Brenna, et reste provisoire avec sa classe
+
+Le héros devient le personnage que chargent la fiche, les dialogues et l'arène
+(`hmi::loadDemonstrationState`) ; `demonstration-brenna.json` part, comme son critère de retrait le
+prévoyait. Sa classe est l'une des quatre classes simplifiées, déclarées provisoires : la fiche
+l'est aussi, avec le même critère (le garde-fou `LesClassesProvisoiresNeSontReferenceesParRien`
+l'exige).
+
+**Écart connu** : la CA du livre (14) vient de *Tough as Nails*, sans armure 10 + Dex + Con. Les
+capacités de classe arrivent en `0.0.2` ; d'ici là le moteur affiche 11.
+
+### D3 — Quatre orientations peintes, une bande chacune
+
+Décision de l'auteur : quatre orientations **peintes**, pas deux plus un miroir (l'arme changerait de
+main). Une bande par animation et par diagonale : `walk-se.png`, `walk-sw.png`, `walk-ne.png`,
+`walk-nw.png`, chacune avec son `.anim.json`. Le format de bande du moteur ne change pas.
+
+- Avancer d'une colonne descend vers le **sud-est** de l'écran, d'une ligne vers le **sud-ouest** :
+  les quatre flèches sont exactement les quatre diagonales (`hmi::figureFacingFor`).
+- Deux flèches enfoncées tombent **entre** deux diagonales : la figurine garde la sienne si elle
+  convient, plutôt que de basculer d'une image à l'autre.
+- Une figurine est orientée si sa bande `idle-se.png` existe ; `check_hd_assets.py` refuse une
+  animation orientée à moitié, et exige le repos et la marche.
+
+### D4 — La ligne de sol est une donnée, les pieds vont au centre du losange
+
+Le moteur posait le **bas de la cellule** un peu au-dessus de la pointe sud (marge de 0,42
+losange, héritée des figurines 48 × 64) : les pieds tombaient 8,7 px d'art sous le centre du
+losange, là où la maquette du `LOT-101` les met. Les manifestes `Characters/` déclarent désormais
+`"ground": 252`, et une figurine qui le déclare a sa ligne de sol **exactement** sur le point de sa
+position. Sans ligne de sol, l'ancien placement reste. L'échelle et le sol se lisent dans le premier
+manifeste **ancêtre** : un héros est rangé par classe (`Characters/Heroes/brawler/`).
+
+### D5 — La vitesse de marche tombe à 2 cases par seconde
+
+Un cycle de marche (deux pas) couvre une case. À 4 cases par seconde — 6 m/s, une course —, des
+pieds qui ne glissent pas demandaient quatre cycles par seconde, soit une image toutes les 31 ms à
+huit images. Décision de l'auteur : **2 cases par seconde**, 3 m/s, une marche vive. Le cycle dure
+une demi-seconde : **62 ms** par image à huit, **83 ms** à six. La cadence est lue dans la bande
+(`frameDuration`), plus dans une constante du code.
+
+### D6 — L'installateur a un mode figurine
+
+`install_hd_asset.py` installe une planche de marche comme il installe une pièce : il la détoure, la
+découpe en N images (colonnes vides, sinon parts égales), la met à l'échelle du **cadre debout**
+(170 px), pose ses pieds sur la ligne 252 et centre la figurine dans sa cellule — un seul décalage
+pour toute la bande, si bien qu'une fente ou un accroupissement dessinés restent. Il produit aussi le
+portrait (512²) et le jeton (128², détouré en rond), et inscrit la figurine dans `npcs`.
+
+- La marge de 8 px du standard tient **à gauche et à droite** de chaque cellule : c'est là que la
+  voisine est, et que le mipmap bave. En bas, le bord adouci d'un pied posé sur 252 descend à 254.
+- Un descripteur `previewOnly` se mesure et s'aperçoit mais ne s'écrit pas : l'essai de cadence ne
+  peut pas atterrir dans les assets par mégarde.
+
+## Ce qui reste
+
+- **L'essai** : les deux envois de `Tools/AssetsHD/Essais/lot-112-cadence/commande.md` (auteur), les
+  deux aperçus, le verdict ; puis le §5 du standard dit **un** nombre.
+- **Le héros** : les vingt et un envois de `Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md`
+  (auteur), son `install.json`, l'installation, la galerie.
+- **Le critère 1** : l'aperçu du héros aux quatre orientations, et le jeu lui-même.
+- **La consigne** : y reporter le cadrage du portrait, la ligne `OUTPUT` d'une planche et la ligne
+  `REFERENCE` des envois qui suivent le premier — le gabarit que les PNJ reprendront.

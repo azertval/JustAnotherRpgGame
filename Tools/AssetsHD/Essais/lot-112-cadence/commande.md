@@ -96,9 +96,11 @@ python scripts/preview_figure_walk.py Tools/AssetsHD/Essais/lot-112-cadence/inst
 python scripts/preview_figure_walk.py Tools/AssetsHD/Essais/lot-112-cadence/install.json --figure essai-8 --loops 4 --out build/lot-112/marche-8.webp
 ```
 
-Le garde marche vers le sud-est, sur la vue 1080 de la maquette, à la vitesse du jeu (4 cases par
-seconde), les pieds au centre du losange. `--frame-duration` essaie une autre cadence sans rien
-toucher. Les trois questions de la [fiche](../../../../Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) :
+Le garde marche vers le sud-est, sur la vue 1080 de la maquette, à la vitesse du jeu (2 cases par
+seconde), les pieds au centre du losange. Un cycle de marche couvrant une case, il dure une
+demi-seconde : le descripteur donne donc 83 ms par image à six, 62 ms à huit. Si le dessin fait un
+pas plus long ou plus court, les pieds glissent ; `--frame-duration` essaie une autre cadence sans
+rien toucher, et `--measure` donne les appuis de chaque image pour la calculer. Les trois questions de la [fiche](../../../../Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) :
 la marche à six **saccade-t-elle** ? à huit, est-ce **le même personnage** d'une image à l'autre ?
 le quart de coût en plus, sur tout le jeu, se paie-t-il ?
 
