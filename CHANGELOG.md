@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **La nightly repasse au vert.** Le fuzzing de `fuzz_level` refusait de démarrer : son amorce
+  `Source/Elements/Levels/capital` a disparu avec la table rase du `LOT-102` ; il part désormais des
+  cartes de la racine d'essai (`Fixtures/GameData/Levels`, `Fixtures/Levels`), et CMake refuse une
+  amorce absente au lieu de laisser le job échouer dix minutes plus tard sur une erreur PowerShell.
+  Le job `links` rougissait sur les renvois vers la référence Doxygen, qui n'existe que sur le site
+  publié : `lychee.toml` exclut ces pages comme cibles.
+  
 - **LOT-103 — livré.** L'auteur a fait le contrôle visuel du travelling, dernier critère du lot :
   la maquette ne scintille pas. La fiche passe à `livre`.
 

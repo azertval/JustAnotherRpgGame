@@ -27,9 +27,11 @@ endif()
 # premières secondes le code qui suit l'enveloppe JSON. Le job de nuit les lit à côté du corpus
 # qu'il conserve d'une nuit à l'autre.
 set(JADG_FUZZ_SEEDS_json "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Json;${PROJECT_SOURCE_DIR}/Source/Elements/Rpg/rules")
-# Les cartes livrées (v4), et une carte de chaque version passée : le chargeur lit les deux formats
-# (LOT-EDITOR-12), et une amorce v3 seule laisserait la v4 à la chance.
-set(JADG_FUZZ_SEEDS_level "${PROJECT_SOURCE_DIR}/Source/Elements/Levels;${PROJECT_SOURCE_DIR}/Source/Elements/Levels/capital;${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Levels;${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Levels/variante/quartier")
+# Les cartes v4 de la racine d'essai, et une carte de chaque version passée : le chargeur lit les deux
+# formats (LOT-EDITOR-12), et une amorce v3 seule laisserait la v4 à la chance. Le jeu ne livre plus
+# de carte depuis la table rase (LOT-102). libFuzzer parcourt les sous-dossiers de chaque amorce, et
+# refuse de démarrer si l'une manque.
+set(JADG_FUZZ_SEEDS_level "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData/Levels;${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Levels")
 set(JADG_FUZZ_SEEDS_dialogue "${PROJECT_SOURCE_DIR}/Source/Elements/World/dialogues")
 set(JADG_FUZZ_SEEDS_localization "${PROJECT_SOURCE_DIR}/Source/Elements/Localization")
 
@@ -41,6 +43,11 @@ function(jadg_add_fuzzer name)
     target_compile_options(fuzz_${name} PRIVATE /fsanitize=fuzzer)
     add_custom_command(TARGET fuzz_${name} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${JADG_ASAN_DLL}" "$<TARGET_FILE_DIR:fuzz_${name}>")
+    foreach(_jadg_seed IN LISTS JADG_FUZZ_SEEDS_${name})
+        if(NOT IS_DIRECTORY "${_jadg_seed}")
+            message(FATAL_ERROR "Amorce de fuzz_${name} introuvable : ${_jadg_seed}")
+        endif()
+    endforeach()
     string(REPLACE ";" "\n" _jadg_seeds "${JADG_FUZZ_SEEDS_${name}}")
     file(WRITE "${CMAKE_BINARY_DIR}/fuzz/${name}.seeds" "${_jadg_seeds}\n")
 endfunction()
