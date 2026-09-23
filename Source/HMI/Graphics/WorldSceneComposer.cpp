@@ -8,6 +8,7 @@
 #include <cctype>
 #include <cmath>
 #include <cstddef>
+#include <limits>
 #include <optional>
 #include <set>
 #include <utility>
@@ -334,14 +335,18 @@ struct HeroPlacement {
 };
 
 // Pose une piece de relief a sa case ; sur une couche d'etage (@p storey > 0), elevee de @p storey
-// hauteurs d'etage, triee au-dessus du rez de sa case, et effacee si elle masque le heros.
-void composeStandingPiece(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                          const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                          core::GridPosition cell, std::string_view piece, int storey,
-                          const std::optional<HeroPlacement>& hero) {
+// hauteurs d'etage, triee au-dessus du rez de sa case, et effacee si elle masque le heros. Son pied
+// ne passe jamais avant @p minimumFootY : le pied le plus avance de ce qui la porte.
+// @return Le pied retenu pour le tri, rien si la piece n'a pas de texture.
+std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                                          const core::IsoProjection& projection,
+                                          const ScenePieceTextures& textures,
+                                          core::GridPosition cell, std::string_view piece,
+                                          int storey, const std::optional<HeroPlacement>& hero,
+                                          float minimumFootY) {
     const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
     if (texture.texture == nullptr) {
-        return;
+        return std::nullopt;
     }
     // Posee par son ancre, le sommet haut du losange de sa case ; triee au pied de son EMPRISE
     // (`core::footprintFootCorner`), pour qu'une piece plus haute ou plus large que sa case reste
@@ -351,13 +356,13 @@ void composeStandingPiece(ComposedScene& scene, const WorldSceneSnapshot& snapsh
     const auto emprise = snapshot.footprints.find(piece);
     const core::GridPosition pied = core::footprintFootCorner(
         cell, emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second);
-    const float footY =
-        texture.depthOffset
-            ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
-            : projection
-                  .gridToWorld(
-                      gridPoint(static_cast<float>(pied.column), static_cast<float>(pied.row)))
-                  .y;
+    const float footY = std::max(
+        minimumFootY, texture.depthOffset
+                          ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
+                          : projection
+                                .gridToWorld(gridPoint(static_cast<float>(pied.column),
+                                                       static_cast<float>(pied.row)))
+                                .y);
     // Un etage s'eleve de la hauteur que le manifeste de son lieu declare, a l'echelle de l'art ;
     // son pied, lui, reste celui de sa case : il se trie avec elle (LOT-129).
     if (storey > 0) {
@@ -381,11 +386,29 @@ void composeStandingPiece(ComposedScene& scene, const WorldSceneSnapshot& snapsh
         quad.a *= STOREY_SEE_THROUGH_OPACITY;
     }
     scene.addSprite(RenderLayer::Object, texture.texture, sortOrder, quad, storey);
+    return footY;
 }
 
-void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                   const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                   core::GridPosition cell, bool flatBlocks) {
+// Le pied le plus avance qui porte chaque case : celui de la piece dont l'emprise la couvre. Un
+// etage s'y trie au plus tot : un mur de deux cases se trie au pied de sa seconde, et le toit de sa
+// premiere doit passer apres lui, sans quoi le mur en recouvre l'egout (LOT-129).
+void coverCells(std::vector<float>& cover, const WorldSceneSnapshot& snapshot,
+                core::GridPosition cell, std::string_view piece, float footY) {
+    const auto emprise = snapshot.footprints.find(piece);
+    const core::PieceFootprint footprint =
+        emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second;
+    for (const core::GridPosition covered : core::footprintCells(cell, footprint)) {
+        if (inGrid(covered, snapshot.columns, snapshot.rows)) {
+            float& foot = cover[indexOf(covered, snapshot.columns)];
+            foot = std::max(foot, footY);
+        }
+    }
+}
+
+std::optional<float> composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                                   const core::IsoProjection& projection,
+                                   const ScenePieceTextures& textures, core::GridPosition cell,
+                                   bool flatBlocks) {
     const std::string_view piece = snapshot.reliefAt(cell);
     if (piece.empty()) {
         // Un mur se peint aussi souvent sur la couche decor que sur le sol : il doit s'y extruder
@@ -396,9 +419,10 @@ void composeRelief(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         if (textures.solid.texture != nullptr && maquetteExtrudes(type) && !flatBlocks) {
             composeMaquetteBlock(scene, projection, textures, cell, type);
         }
-        return;
+        return std::nullopt;
     }
-    composeStandingPiece(scene, snapshot, projection, textures, cell, piece, 0, std::nullopt);
+    return composeStandingPiece(scene, snapshot, projection, textures, cell, piece, 0, std::nullopt,
+                                -std::numeric_limits<float>::infinity());
 }
 
 /// Une figurine posee : sa texture, son image, son rang de dessin.
@@ -885,19 +909,37 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                                  .sortOrder = placed->sortOrder};
         }
     }
+    std::vector<float> cover(
+        static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows),
+        -std::numeric_limits<float>::infinity());
     for (int row = 0; row < snapshot.rows; ++row) {
         for (int column = 0; column < snapshot.columns; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
             composeFloor(scene, snapshot, projection, textures, cell, options.flatBlocks);
-            composeRelief(scene, snapshot, projection, textures, cell, options.flatBlocks);
-            const std::size_t index = indexOf(cell, snapshot.columns);
-            for (const WorldStoreySnapshot& storey : snapshot.storeys) {
-                if (index < storey.relief.size() && !storey.relief[index].empty()) {
-                    composeStandingPiece(scene, snapshot, projection, textures, cell,
-                                         storey.relief[index], storey.floor, hero);
+            if (const std::optional<float> foot = composeRelief(
+                    scene, snapshot, projection, textures, cell, options.flatBlocks)) {
+                coverCells(cover, snapshot, cell, snapshot.reliefAt(cell), *foot);
+            }
+        }
+    }
+    // Les etages, du plus bas au plus haut : chacun se trie au plus tot au pied de ce qui le porte.
+    for (const WorldStoreySnapshot& storey : snapshot.storeys) {
+        std::vector<float> next = cover;
+        for (int row = 0; row < snapshot.rows; ++row) {
+            for (int column = 0; column < snapshot.columns; ++column) {
+                const core::GridPosition cell{.column = column, .row = row};
+                const std::size_t index = indexOf(cell, snapshot.columns);
+                if (index >= storey.relief.size() || storey.relief[index].empty()) {
+                    continue;
+                }
+                if (const std::optional<float> foot = composeStandingPiece(
+                        scene, snapshot, projection, textures, cell, storey.relief[index],
+                        storey.floor, hero, cover[index])) {
+                    coverCells(next, snapshot, cell, storey.relief[index], *foot);
                 }
             }
         }
+        cover = std::move(next);
     }
     for (const WorldFigureSnapshot& figure : snapshot.figures) {
         composeFigure(scene, projection, textures, figure);

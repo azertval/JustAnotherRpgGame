@@ -104,6 +104,46 @@ large as the canvas allows.
 La ligne `OUTPUT` devient celle d'une bande : `landscape canvas, as wide as available, PNG with alpha.`
 Né du `LOT-105` : les sols du Colisée (`LOT-104`) étaient déjà livrés en planches de six.
 
+### Le cas d'une matière : surface et élévation
+
+La V4 du `LOT-105`, référence acceptée, n'a pas fait dessiner ses sols, ses murs, ses balustrades
+ni ses haies en isométrie : elle a fait peindre leur **matière à plat**, puis un script l'a projetée
+sur une géométrie exacte — même phase à chaque case, angles construits par union des volumes.
+C'est ce qui donne des joints alignés et de vrais angles, ce qu'aucun générateur ne tient sur
+douze cases. Une pièce **modulaire** (sol, mur, balustrade, grille, haie) se commande donc ainsi ;
+une pièce **unique** (fontaine, bâtiment, porte, statue) reste dessinée en isométrie.
+
+Deux cadrages remplacent alors le bloc B entier. La **surface** — une matière vue de face, qui se
+répète dans les deux sens :
+
+```
+VIEW (material surface): straight-on orthographic view of a flat material,
+seen exactly face on — no isometric projection, no perspective, no visible
+side or top plane. An OPAQUE square texture that fills the whole canvas edge
+to edge: no margin, no frame, no border, no rim. It repeats seamlessly: the
+left edge continues the right edge, the top edge continues the bottom edge.
+Even lighting over the whole square: no vignette, no global gradient.
+
+OUTPUT: square canvas, at least 1024 px, opaque PNG.
+```
+
+L'**élévation** — une bande vue de face, qui se répète en longueur, ajourée si la pièce l'est :
+
+```
+VIEW (elevation): exact orthographic FRONT elevation of one straight run, seen
+face on — no isometric projection, no perspective, no visible top or side
+plane. The run is a horizontal band on a FULLY TRANSPARENT background; where
+the piece is open (between balusters, between bars) the background shows
+through. It repeats seamlessly along its length: the left end continues the
+right end, nothing closes either end.
+
+OUTPUT: landscape canvas, as wide as available, PNG with alpha.
+```
+
+Le script de la zone projette ces images ; ses pièces sont décrites au descripteur comme les
+autres. Écrit pour la toiture du `LOT-129` (et la commande d'Arenarea, `LOT-108`) : la règle que
+la V4 avait appliquée.
+
 ### Les pièces d'un même kit
 
 Une pièce qui doit s'accorder à une autre déjà produite — une fenêtre au mur plein, une haie

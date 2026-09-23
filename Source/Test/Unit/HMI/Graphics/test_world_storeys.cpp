@@ -20,6 +20,7 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/Level.h"
+#include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
@@ -31,7 +32,7 @@
 namespace {
 
 /// La hauteur d'étage du lieu d'essai, en pixels d'art : celle des murs du kit de la Capitale.
-constexpr float STOREY_PIXELS = 196.0F;
+constexpr float STOREY_PIXELS = 224.0F;
 
 [[nodiscard]] hmi::PlaceAppearance table() {
     hmi::PlaceAppearanceResult read = hmi::PlaceAppearance::loadFromString(
@@ -151,8 +152,8 @@ TEST(WorldStoreysTest, LesEtagesEntrentDansLInstantaneRangesParEtage) {
  * \castest{<b>Un etage s'eleve de la hauteur declaree par son lieu.</b><br/>
  * \tcat Unitaire · Lieu compose · Etages<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Composer l'ilot avec une hauteur d'etage de 196 pixels d'art, puis sans.<br/>
- * \tattendu Chaque etage monte de 196 pixels d'art a l'echelle du lieu au-dessus du precedent ;
+ * \tetapes 1. Composer l'ilot avec une hauteur d'etage de 224 pixels d'art, puis sans.<br/>
+ * \tattendu Chaque etage monte de 224 pixels d'art a l'echelle du lieu au-dessus du precedent ;
  * sans hauteur declaree, d'une largeur de case ; chaque piece porte son etage.
  * }
  */
@@ -209,21 +210,24 @@ TEST(WorldStoreysTest, UnEtageSeTrieAuDessusDuRezDeSaCase) {
  * }
  */
 TEST(WorldStoreysTest, UnEtageQuiMasqueLeHerosSEfface) {
+    // Des étages bas : l'étage et le toit de l'îlot recouvrent alors le héros posé juste derrière.
+    constexpr float lowStorey = 120.0F;
     const Composed behind =
-        compose(hmi::snapshotWorldScene(island(), table(), {hero({1.5F, 0.5F})}));
+        compose(hmi::snapshotWorldScene(island(), table(), {hero({1.5F, 0.5F})}), lowStorey);
     EXPECT_FLOAT_EQ(behind.byStorey[0]->sprite.a, 1.0F);
     EXPECT_FLOAT_EQ(behind.byStorey[1]->sprite.a, hmi::STOREY_SEE_THROUGH_OPACITY);
     EXPECT_FLOAT_EQ(behind.byStorey[2]->sprite.a, hmi::STOREY_SEE_THROUGH_OPACITY);
 
     const Composed inFront =
-        compose(hmi::snapshotWorldScene(island(), table(), {hero({2.5F, 2.5F})}));
+        compose(hmi::snapshotWorldScene(island(), table(), {hero({2.5F, 2.5F})}), lowStorey);
     for (const hmi::ComposedQuad* quad : inFront.byStorey) {
         EXPECT_FLOAT_EQ(quad->sprite.a, 1.0F);
     }
 
     hmi::WorldFigureSnapshot npc = hero({1.5F, 0.5F});
     npc.hero = false;
-    const Composed npcBehind = compose(hmi::snapshotWorldScene(island(), table(), {npc}));
+    const Composed npcBehind =
+        compose(hmi::snapshotWorldScene(island(), table(), {npc}), lowStorey);
     for (const hmi::ComposedQuad* quad : npcBehind.byStorey) {
         EXPECT_FLOAT_EQ(quad->sprite.a, 1.0F);
     }
@@ -251,4 +255,36 @@ TEST(WorldStoreysTest, UnEtageHorsBornesNEstPasJoue) {
     const hmi::WorldSceneSnapshot snapshot =
         hmi::snapshotWorldScene(core::Level{std::move(data)}, table(), {});
     EXPECT_EQ(snapshot.storeys.size(), 2U);
+}
+
+/**
+ * @brief Un étage posé sur la première case d'une pièce large du rez passe après elle : il se trie
+ *        au pied de ce qui le porte, et non de sa seule case.
+ * \castest{<b>Un etage passe apres la piece large qui le porte.</b><br/>
+ * \tcat Unitaire · Lieu compose · Etages<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser au rez un mur de 2 x 1 ancre en (0, 1), et un toit a l'etage 1 sur la case
+ *             (0, 1), la premiere du mur.<br/>
+ *          2. Composer.<br/>
+ * \tattendu Le toit se dessine apres le mur, dont le pied est la case (1, 1) : le mur ne recouvre
+ *           pas son egout.
+ * }
+ */
+TEST(WorldStoreysTest, UnEtagePasseApresLaPieceLargeQuiLePorte) {
+    core::LevelData data{.name = "mur", .tileMap = core::TileMap{3, 3}};
+    data.layers.push_back(core::TileLayer{.name = "sol",
+                                          .kind = core::LayerKind::Ground,
+                                          .tiles = core::TileMap{3, 3},
+                                          .properties = {{"scene", std::string{"haut"}}}});
+    data.layers.push_back(decor("rez", 0, "wall-wide", {.column = 0, .row = 1}));
+    data.layers.push_back(decor("toit", 1, "roof", {.column = 0, .row = 1}));
+    hmi::WorldSceneSnapshot snapshot =
+        hmi::snapshotWorldScene(core::Level{std::move(data)}, table(), {});
+    snapshot.footprints.insert_or_assign("wall-wide",
+                                         core::PieceFootprint{.columns = 2, .rows = 1});
+
+    const Composed composed = compose(snapshot);
+    ASSERT_NE(composed.byStorey[0], nullptr);
+    ASSERT_NE(composed.byStorey[1], nullptr);
+    EXPECT_GT(composed.byStorey[1]->sortOrder, composed.byStorey[0]->sortOrder);
 }

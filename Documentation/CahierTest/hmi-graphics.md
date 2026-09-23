@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **182 cas** (32 bloquants, 59 critiques, 83 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **183 cas** (33 bloquants, 59 critiques, 83 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -31,7 +31,7 @@ Tests unitaires — **182 cas** (32 bloquants, 59 critiques, 83 majeurs, 8 mineu
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
 | [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 32 | 4 | 14 | 14 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
-| [`test_world_storeys.cpp`](#test-world-storeyscpp) | 5 | 4 | - | 1 | - |
+| [`test_world_storeys.cpp`](#test-world-storeyscpp) | 6 | 5 | - | 1 | - |
 
 ## test_animation_catalog.cpp
 
@@ -3449,7 +3449,7 @@ Tous les portails des cartes se traversent.
 
 ### WorldStoreysTest.LesEtagesEntrentDansLInstantaneRangesParEtage
 
-*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:127`
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:128`
 
 Les couches d'etage entrent dans l'instantane, rangees par etage.
 
@@ -3470,13 +3470,13 @@ Les couches d'etage entrent dans l'instantane, rangees par etage.
 
 ### WorldStoreysTest.UnEtageSEleveDeLaHauteurDeclareeParSonLieu
 
-*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:151`
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:152`
 
 Un etage s'eleve de la hauteur declaree par son lieu.
 
 **Étapes**
 
-1. Composer l'ilot avec une hauteur d'etage de 196 pixels d'art, puis sans.
+1. Composer l'ilot avec une hauteur d'etage de 224 pixels d'art, puis sans.
 
 **Résultat attendu**
 
@@ -3489,7 +3489,7 @@ Un etage s'eleve de la hauteur declaree par son lieu.
 
 ### WorldStoreysTest.UnEtageSeTrieAuDessusDuRezDeSaCase
 
-*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:181`
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:182`
 
 Un etage se trie au-dessus du rez de sa case.
 
@@ -3506,7 +3506,7 @@ Un etage se trie au-dessus du rez de sa case.
 
 ### WorldStoreysTest.UnEtageQuiMasqueLeHerosSEfface
 
-*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:201`
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:202`
 
 Un etage qui masque le heros s'efface.
 
@@ -3526,7 +3526,7 @@ Un etage qui masque le heros s'efface.
 
 ### WorldStoreysTest.UnEtageHorsBornesNEstPasJoue
 
-*Majeur · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:235`
+*Majeur · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:239`
 
 Un etage hors bornes n'est pas joue.
 
@@ -3537,3 +3537,20 @@ Un etage hors bornes n'est pas joue.
 **Résultat attendu**
 
 - Vérifie que `snapshot.storeys.size()` vaut `2U`.
+
+### WorldStoreysTest.UnEtagePasseApresLaPieceLargeQuiLePorte
+
+*Bloquant · Unitaire · Lieu compose · Etages* — `Source/Test/Unit/HMI/Graphics/test_world_storeys.cpp:263`
+
+Un etage passe apres la piece large qui le porte.
+
+**Étapes**
+
+1. Poser au rez un mur de 2 x 1 ancre en (0, 1), et un toit a l'etage 1 sur la case (0, 1), la premiere du mur.
+2. Composer.
+
+**Résultat attendu**
+
+- Vérifie que `composed.byStorey[0]` diffère de `nullptr`.
+- Vérifie que `composed.byStorey[1]` diffère de `nullptr`.
+- Vérifie que `composed.byStorey[1]->sortOrder` est strictement supérieur à `composed.byStorey[0]->sortOrder`.

@@ -232,7 +232,7 @@ rencontrer :
 - **Étages** — `floor` par couche de décor (`EX-LVL-025`, `LOT-129`). Un bâtiment se monte en
   couches : les murs du rez sur la couche de décor à l'étage 0, un étage de mur sur une couche à
   l'étage 1, le toit sur une couche au-dessus. La hauteur d'un étage est une donnée du lieu (le
-  `"storey"` de son manifeste : 196 pixels d'art pour les murs du kit de la Capitale) ; la
+  `"storey"` de son manifeste : 224 pixels d'art pour les murs du kit de la Capitale) ; la
   collision ne lit que le rez ; un étage qui cache le héros s'efface pendant qu'il passe derrière.
 - **Hauteur par case réservée** — `elevation` par case et par entité. Les champs sont lus, écrits et
   préservés, mais **aucune règle ne les joue** (`EX-LVL-024`) : un personnage ne monte pas encore

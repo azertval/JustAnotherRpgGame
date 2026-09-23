@@ -15,7 +15,8 @@ A et B de la consigne (`Planning/standards/consigne-2d-hd.md`), et écrit pour c
 
 Une pièce de la commande est un titre `#### <envoi>` suivi d'un bloc de code (le bloc C) et d'une
 ligne de champs : `Pièces : …. Emprise : C × R. … Source : `<chemin>`. Référence : `<envoi>`, ….`
-Deux lignes du bloc C sont des marqueurs : `FRAMING: <N>` (une planche de N sols) et `REFERENCE`.
+Deux lignes du bloc C sont des marqueurs : `FRAMING: <N>` (une planche de N sols ; `SURFACE` ou
+`ELEVATION` pour une matière peinte à plat, LOT-108) et `REFERENCE`.
 
     python scripts/prepare_envois_scene.py Tools/AssetsHD/Regions/central-empire/capital/Common/commande.md
     python scripts/prepare_envois_scene.py COMMANDE --seulement wall-limestone-v --suffixe reprise
@@ -36,6 +37,9 @@ CONSIGNE = ROOT / "Planning" / "standards" / "consigne-2d-hd.md"
 PLANCHE = ROOT / "Tools" / "AssetsHD" / "Arenarea" / "arenarea-planche-reference-v2.png"
 LOSANGE = (256, 159)
 MOTS = {"TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5, "SIX": 6}
+# Une matière peinte à plat, que le script de la zone projette (consigne, « le cas d'une matière »).
+MATIERES = {"SURFACE": "VIEW (material surface)", "ELEVATION": "VIEW (elevation)"}
+CLES = ("STYLE", "VIEW:", "FRAMING (floor sheet)", "REFERENCE: the image attached", *MATIERES.values())
 
 
 class CommandeError(Exception):
@@ -60,10 +64,10 @@ def consigne() -> dict[str, str]:
     """Les blocs de la consigne dont le script a besoin, par leur premier mot."""
     trouves = {}
     for bloc in blocs(CONSIGNE.read_text(encoding="utf-8")):
-        for cle in ("STYLE", "VIEW:", "FRAMING (floor sheet)", "REFERENCE: the image attached"):
+        for cle in CLES:
             if bloc.startswith(cle) and cle not in trouves:
                 trouves[cle] = bloc.rstrip()
-    manquants = {"STYLE", "VIEW:", "FRAMING (floor sheet)", "REFERENCE: the image attached"} - trouves.keys()
+    manquants = set(CLES) - trouves.keys()
     if manquants:
         raise CommandeError(f"{CONSIGNE} : blocs introuvables : {sorted(manquants)}")
     return trouves
@@ -90,7 +94,9 @@ def lire_commande(page: Path) -> list[Envoi]:
             references=re.findall(r"`([^`]+)`", references.group(1)) if references else []))
     noms = {e.nom for e in envois}
     for envoi in envois:
-        inconnues = [r for r in envoi.references if r not in noms]
+        # Une référence est un envoi de la commande, ou une image déjà produite, par son chemin
+        # relatif à la commande (`../V4/Sources/wall-surface.png`, LOT-129).
+        inconnues = [r for r in envoi.references if r not in noms and not r.endswith(".png")]
         if inconnues:
             raise CommandeError(f"{page} : `{envoi.nom}` se réfère à des envois inconnus : {inconnues}")
     return envois
@@ -103,7 +109,10 @@ def assembler(envoi: Envoi, textes: dict[str, str]) -> str:
     corps = []
     for ligne in lignes:
         planche = re.fullmatch(r"FRAMING: (\w+)", ligne)
-        if planche:
+        if planche and planche.group(1) in MATIERES:
+            # Une matière n'a ni losange ni emprise : son cadrage remplace le bloc B entier.
+            vue = textes[MATIERES[planche.group(1)]]
+        elif planche:
             n = planche.group(1)
             if MOTS.get(n) != len(envoi.pieces):
                 raise CommandeError(f"`{envoi.nom}` : planche de {n} sols pour {len(envoi.pieces)} pièces")
@@ -151,7 +160,8 @@ def preparer(page: Path, seulement: set[str] | None, suffixe: str) -> list[Path]
     for rang, envoi in enumerate(envois, start=1):
         if seulement and envoi.nom not in seulement:
             continue
-        references = [par_nom[r].source for r in envoi.references]
+        references = [par_nom[r].source if r in par_nom else (page.parent / r).resolve()
+                      for r in envoi.references]
         jointes = [PLANCHE] + [r for r in references if r.is_file()]
         a_joindre = [r for r in references if not r.is_file()]
         sortie = envoi.source.with_name(f"{envoi.source.stem}{fin}{envoi.source.suffix}")

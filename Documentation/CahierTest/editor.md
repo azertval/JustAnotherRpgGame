@@ -3126,7 +3126,7 @@ On voit le heros a travers l'etage et le toit.
 
 **Étapes**
 
-1. Batir un batiment de 3 x 3 en murs du kit, au rez et a l'etage 1, coiffe d'un toit a l'etage 2 ; manifeste a 196 pixels d'etage.
+1. Batir un batiment de 3 x 3 en murs du kit, au rez et a l'etage 1, coiffe d'un toit a l'etage 2 ; manifeste a 224 pixels d'etage.
 2. Rendre la scene avec le heros juste derriere, puis sans lui.
 
 **Résultat attendu**

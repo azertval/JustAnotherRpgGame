@@ -123,7 +123,7 @@ void placeWalls(core::LevelDraft& draft, std::size_t layer) {
  * \tcat Unitaire · Editeur · Etages<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Batir un batiment de 3 x 3 en murs du kit, au rez et a l'etage 1, coiffe d'un toit a
- *             l'etage 2 ; manifeste a 196 pixels d'etage.<br/>
+ *             l'etage 2 ; manifeste a 224 pixels d'etage.<br/>
  *          2. Rendre la scene avec le heros juste derriere, puis sans lui.<br/>
  * \tattendu Les deux images different la ou le heros se tient : il se voit a travers ce qui le
  *           masque. La collision ne dit que le rez.

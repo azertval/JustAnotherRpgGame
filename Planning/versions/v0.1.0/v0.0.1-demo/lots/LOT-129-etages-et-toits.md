@@ -77,7 +77,7 @@ Branche `lot-129-etages-et-toits`.
 - **Format** (`EX-LVL-025`, qui remplace la réserve de `floor` dans `EX-LVL-024`) : une couche de
   décor à l'étage 1 à 4 est un étage ; ailleurs, `floor` est gardé, ignoré et signalé par `--check`.
 - **Hauteur d'étage** : `"storey"` au manifeste du lieu, en pixels d'art, lu comme `tile` avec les
-  traits de chaque pièce. **196** pour le kit de la Capitale et celui de l'Empire : la hauteur de
+  traits de chaque pièce. **224** pour le kit de la Capitale et celui de l'Empire : la hauteur de
   leurs murs au-dessus du sommet de leur case.
 - **Composition** : l'instantané porte les couches d'étage ; une pièce d'étage s'élève de n
   hauteurs d'étage, se trie avec sa case au-dessus du rez et de la figurine (un rang de profondeur
@@ -97,9 +97,21 @@ Branche `lot-129-etages-et-toits`.
   Les cartes sans étage se rendent comme avant : 963 tests CTest verts, images de référence
   comprises.
 
-### La toiture — à produire
+- **Tri** : une pièce d'étage se trie au plus tôt au pied de ce qui la porte. Un mur de deux cases
+  se trie au pied de sa seconde ; le toit posé sur sa première passait avant lui, et le mur en
+  recouvrait l'égout. Trouvé en rendant la toiture, corrigé dans la composition, testé.
 
-Le toit du test de rendu est **provisoire** : une pyramide peinte par le test. La toiture de la
-Capitale se commande au générateur (commande dans
-`Tools/AssetsHD/Regions/central-empire/capital/Common/Toitures/`), puis s'installe ; la carte
-d'essai de `Source/Test/Fixtures/` se dessine alors avec elle. Pas de PR avant.
+### La toiture — géométrie faite, matières à produire
+
+Tranché par l'auteur le 23 septembre : toits **à deux pans, pignons de pierre**, « style romain »,
+**profondeur libre**. La commande (`Tools/AssetsHD/Regions/central-empire/capital/Common/Toitures/
+commande.md`) demande au générateur **quatre matières** peintes à plat — tuiles, faîtage, rive
+d'égout, corniche de pignon — et reprend la pierre des murs de la V4 pour le pignon.
+`scripts/build_capital_roofs.py` les projette en **112 pièces** d'une case (deux sens, profondeur 2
+à 5, quatre positions le long du faîtage) ; la méthode « surface et élévation » est écrite dans la
+consigne. Avec des matières provisoires, `scripts/validate_capital_roofs.py` rend par le moteur deux
+îlots de murs du kit sur deux étages, coiffés : pièces jointives, pignons, égouts, ordre de tracé
+validés.
+
+Reste : les quatre images du générateur (envois prêts dans `Toitures/envois/`), l'installation, la
+carte d'essai de `Source/Test/Fixtures/` dessinée avec la vraie toiture. Pas de PR avant.
