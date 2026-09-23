@@ -53,6 +53,21 @@ Ce que la planche de référence montre, et que toute commande d'asset doit repr
 - **Une pièce tient seule** : fond transparent, pas de sol sous un mur, pas de décor autour d'un
   meuble.
 
+### Critères de qualité validés par l’utilisateur
+
+Préférences durables confirmées le **23 septembre 2026**, après validation du LOT-105 V4 et de sa reprise du relief. Elles s’appliquent aux prochains lots d’assets de décor.
+
+- **Fidélité au style d’origine** : conserver la facture peinte et les références approuvées ; éviter les variantes génériques. Reprendre précisément l’emblème du lieu depuis sa référence, sans en inventer un autre. Pour la Capitale, la bannière doit rester dans la famille visuelle du lampadaire v1.
+- **Grille et tailles standard** : sol de 256 × 159 px, emprises en cases entières, échelle cohérente et ancres exactes. Aucun ajustement manuel par placement pour masquer une mauvaise calibration.
+- **Continuité entre modules** : les textures de deux pièces voisines d’une même catégorie doivent se prolonger, y compris entre variantes. Garder des joints alignés, une phase commune et des bords compatibles ; éviter les coutures visibles et l’effet de damier entre tuiles.
+- **Vraies pièces d’angle** : employer et vérifier les angles rentrants et sortants des murs, balustrades et haies. Pas de coins abîmés, trous, chevauchements parasites ou étirements de texture.
+- **Matière propre, mais relief lisible** : pas de bruit, grain aléatoire ou microdétails parasites. Ne pas confondre cette propreté avec un aplat lisse : les sols doivent montrer la pierre taillée, ses facettes, ses biseaux et ses joints creux, avec des variations maîtrisées.
+- **Volume réel dans l’image** : petits piliers des balustrades et buissons doivent présenter une épaisseur, des côtés visibles et des ombres propres cohérentes. Éviter les éléments de face simplement plaqués sur un plan incliné. Balustres modelés ; haies avec dessus arrondi et raccords continus jusque dans les angles. La livraison reste en PNG isométriques.
+- **Validation en assemblage** : fournir une map réunissant tous les assets, avec répétitions de sols et raccords droits/angles des différentes familles. Utiliser le moteur pour vérifier le chargement et inspecter le rendu à plusieurs échelles ; une planche de pièces isolées ne suffit pas. Distinguer validation visuelle et essai de gameplay.
+- **Retouches ciblées et réversibles** : préserver le reste d’un kit déjà validé, garder les versions précédentes ainsi que les sources et les prompts. Le recalage géométrique précis par script a été explicitement autorisé ; il complète la génération des images pour garantir les dimensions, la projection et les raccords.
+
+Référence acceptée : `Tools/AssetsHD/Regions/central-empire/capital/Common/V4/`, **après reprise du relief**, et ses rendus moteur. Les premières versions de ce lot ne constituent pas la référence qualité.
+
 ### La palette de l'Empire central
 
 Relevée sur la planche. Chaque région aura la sienne, écrite dans son référentiel.
