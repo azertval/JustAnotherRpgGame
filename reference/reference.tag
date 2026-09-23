@@ -8127,6 +8127,7 @@
     <includes id="RpgActor_8h" name="RpgActor.h" local="yes" import="no" module="no" objc="no">Core/Ecs/Components/RpgActor.h</includes>
     <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
     <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
     <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
     <member kind="function">
@@ -8170,6 +8171,13 @@
       <anchorfile>test__character__sheet_8cpp.html</anchorfile>
       <anchor>a7ad905d23f1470389313987c2080252c</anchor>
       <arglist>(CharacterSheetTest, LeModificateurDeCompetenceVientDuCatalogue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__sheet_8cpp.html</anchorfile>
+      <anchor>af182015e4b67d0d4b78d2b3bbc56ecb2</anchor>
+      <arglist>(CharacterSheetTest, LeHerosDeLaDemoEstLaFicheDuLivre)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -11051,6 +11059,13 @@
       <anchor>a2be843154aabf3dd5680a730677072da</anchor>
       <arglist>(AssetGalleryTest, FigurinesDeMonstres)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
+      <anchor>affebaa5b26189b422ba3394463411723</anchor>
+      <arglist>(AssetGalleryTest, UnHerosOrienteRangeParClasse)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_asset_gallery_renderer.cpp</name>
@@ -11872,6 +11887,41 @@
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
       <anchor>af52962bde3a465f576bb566d156ff90c</anchor>
       <arglist>(MaquetteRenderTest, LesCheminsContiennentLesJetons)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>ab52ac43bc6139598c360f8978a13dac3</anchor>
+      <arglist>(WorldSceneComposerTest, UneFigurineSeTourneVersLUneDesQuatreDiagonales)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>a6319428e187457c01d6ba155e821bebe</anchor>
+      <arglist>(WorldSceneComposerTest, UneFigurineOrienteeLitLaBandeDeSonOrientation)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>aba9b2babea2a0e1ccd484abce668e1ed</anchor>
+      <arglist>(WorldSceneComposerTest, LesPiedsDuHerosTombentAuCentreDeSaCase)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>a55a565b81064b51d72de5120fc4b030a</anchor>
+      <arglist>(WorldSceneComposerTest, LaCadenceEstCelleQueDitLaBande)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>a92a1444dd46ad643454829760cc23347</anchor>
+      <arglist>(WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -36731,6 +36781,20 @@
       <anchor>afa5dd9e332869d52fbf30f56f45cc97f</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>groundLine</name>
+      <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
+      <anchor>af856af7e668f6e54537bc5b99b527919</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>frameDuration</name>
+      <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
+      <anchor>a623e6b74bf876a1f0ec1720c95bb9cd2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::SceneTextureTraits</name>
@@ -36768,6 +36832,20 @@
       <name>depthOffset</name>
       <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
       <anchor>ac9331d65bf9badf18f6e56c547bd97e1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>groundLine</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>a3c7f13b1aca0e224dacbfb2cb253e999</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>frameDuration</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>abaadf841632dad1daf20a68ab307ac01</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -39548,6 +39626,20 @@
       <anchor>a2462c509344833ce0e38c6f4e08ee04e</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>FigureFacing</type>
+      <name>facing</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>a4664bdd4c3b2d290c04650416ad10d90</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>seconds</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>ae5ce7c1bb8990ed76fe11dee5835eff4</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::WorldFlags</name>
@@ -40813,6 +40905,13 @@
       <arglist>(std::string figure)</arglist>
     </member>
     <member kind="function">
+      <type>FigureFacing</type>
+      <name>heroFacing</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ab359b28cfd1ae307fc8a93ef215e6f04</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
       <name>figures</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
@@ -40873,6 +40972,20 @@
       <name>_heroFigure</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>ade28d0bca4fd0c4f43b087f68512195e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_heroOriented</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ab088dac9f46b3719a0ed59c3e9173dac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>FigureFacing</type>
+      <name>_heroFacing</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a0729d639a27a4412f44f3b68caa21da1</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -45415,6 +45528,18 @@
     </member>
     <member kind="enumeration">
       <type></type>
+      <name>FigureFacing</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac35af7f8a75d64ff0600ed46bb08ea2d</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">SouthEast</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592">SouthWest</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e">NorthEast</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b">NorthWest</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
       <name>MaquetteTraceShape</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ac92a2fbe73cf9a4cb73991b10456e28c</anchor>
@@ -47300,11 +47425,25 @@
       <arglist>(const WorldSceneSource &amp;source, const PlaceAppearance &amp;appearance, std::vector&lt; WorldFigureSnapshot &gt; figures)</arglist>
     </member>
     <member kind="function">
+      <type>std::string_view</type>
+      <name>figureFacingSuffix</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>adff4a6359d340fc8a1811857e49ac036</anchor>
+      <arglist>(FigureFacing facing) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>FigureFacing</type>
+      <name>figureFacingFor</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a42508ae8f53d38fa43dc350b10ab0553</anchor>
+      <arglist>(core::Vector2 move, FigureFacing previous) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::string</type>
       <name>figureStripPath</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ab7381540071701283f2f87b282a68eb5</anchor>
-      <arglist>(std::string_view figure, std::string_view clip)</arglist>
+      <anchor>a193118424306eba40e5743a9e8e70dc2</anchor>
+      <arglist>(std::string_view figure, std::string_view clip, FigureFacing facing=FigureFacing::None)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>

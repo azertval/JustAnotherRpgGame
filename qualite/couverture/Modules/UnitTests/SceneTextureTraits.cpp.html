@@ -58,6 +58,16 @@ constexpr int MANIFEST_VERSION = 1;
 <span style = "background-color:#dfd">    return std::move(document.root);
 }</span>
 
+/// La ligne de sol que dÃ©clare @p manifest (`ground`), rien si elle n'est pas un nombre fini positif.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;float&gt; manifestGroundLine(const nlohmann::json&amp; manifest) {
+    const auto ground = manifest.is_object() ? manifest.find("ground") : manifest.end();
+    if (ground == manifest.end() || !ground-&gt;is_number()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto value = ground-&gt;get&lt;float&gt;();
+    return std::isfinite(value) &amp;&amp; value &gt; 0.0F ? std::optional&lt;float&gt;{value} : std::nullopt;
+}</span>
+
 }  // namespace
 
 <span style = "background-color:#dfd">core::Vector2 manifestArtTile(const nlohmann::json&amp; manifest) {
@@ -121,23 +131,32 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
         read.ok()) {
         traits.frameWidth = read.description-&gt;frameWidth;
         traits.frameHeight = read.description-&gt;frameHeight;
-    }</span>
+        if (read.description-&gt;clips.clipCount() &gt; 0) {
+            traits.frameDuration = read.description-&gt;clips.clipAt(0).frameDuration;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
 
-    // La piÃ¨ce : son manifeste est dans son dossier. La figurine : un dossier plus haut, celui de
-    // l'atelier qui la range (`Characters/`, `Npc/`).
+    // La piÃ¨ce : son manifeste est dans son dossier. La figurine : plus haut, dans celui de
+    // l'atelier qui la range (`Characters/`, `Npc/`) â un ou plusieurs dossiers au-dessus, car un
+    // hÃ©ros se range par classe (`Characters/Heroes/brawler/`).
 <span style = "background-color:#dfd">    const std::string filename = file.filename().string();
     if (const std::optional&lt;nlohmann::json&gt; manifest = manifestOf(file.parent_path())) {
         traits.artTile = manifestArtTile(*manifest);
         traits.anchor = scenePieceAnchor(*manifest, filename);
         traits.depthOffset = scenePieceDepthOffset(*manifest, filename);
+        traits.groundLine = manifestGroundLine(*manifest);
+    }</span>
+    // Les ancÃªtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
+<span style = "background-color:#dfd">    std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
+    for (; traits.artTile.x &lt;= 0.0F &amp;&amp; !ancestor.empty(); ancestor = ancestor.parent_path()) {
+        if (const std::optional&lt;nlohmann::json&gt; manifest = manifestOf(assetsDirectory / ancestor)) {
+            traits.artTile = manifestArtTile(*manifest);
+            if (!traits.groundLine) {
+                traits.groundLine = manifestGroundLine(*manifest);</span>
+            }
+<span style = "background-color:#dfd">        }
     }
-    if (traits.artTile.x &lt;= 0.0F) {
-        if (const std::optional&lt;nlohmann::json&gt; parent =</span>
-                manifestOf(file.parent_path().parent_path())) {
-<span style = "background-color:#dfd">            traits.artTile = manifestArtTile(*parent);
-        }</span>
-    }
-<span style = "background-color:#dfd">    return traits;
+    return traits;
 }</span>
 
 <span style = "background-color:#dfd">void applySceneTextureTraits(SceneTexture&amp; texture, const SceneTextureTraits&amp; traits) {
@@ -146,6 +165,8 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
     texture.artTile = traits.artTile;
     texture.anchor = traits.anchor;
     texture.depthOffset = traits.depthOffset;
+    texture.groundLine = traits.groundLine;
+    texture.frameDuration = traits.frameDuration;
 }</span>
 
 }  // namespace hmi</pre>

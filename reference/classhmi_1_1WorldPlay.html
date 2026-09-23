@@ -156,14 +156,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4da6a24453ad49e3737754441f0655fa" id="r_a4da6a24453ad49e3737754441f0655fa"><td class="memItemLeft">const <a class="el" href="classcore_1_1ExplorationSession.html">core::ExplorationSession</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4da6a24453ad49e3737754441f0655fa">session</a> () const noexcept</td></tr>
 <tr class="memitem:a9ae5c3165df10c8f1f3624b613ecc40e" id="r_a9ae5c3165df10c8f1f3624b613ecc40e"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9ae5c3165df10c8f1f3624b613ecc40e">heroFigure</a> () const noexcept</td></tr>
 <tr class="memitem:ade46c5a042fb26bca54746333c47a98b" id="r_ade46c5a042fb26bca54746333c47a98b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade46c5a042fb26bca54746333c47a98b">setHeroFigure</a> (std::string figure)</td></tr>
+<tr class="memitem:ab359b28cfd1ae307fc8a93ef215e6f04" id="r_ab359b28cfd1ae307fc8a93ef215e6f04"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab359b28cfd1ae307fc8a93ef215e6f04">heroFacing</a> () const noexcept</td></tr>
 <tr class="memitem:acbef06d44780edb3de38785805e3a10c" id="r_acbef06d44780edb3de38785805e3a10c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acbef06d44780edb3de38785805e3a10c">figures</a> () const</td></tr>
 <tr class="memitem:ab4512757a117f9523f0345cb1e89d68b" id="r_ab4512757a117f9523f0345cb1e89d68b"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4512757a117f9523f0345cb1e89d68b">snapshot</a> () const</td></tr>
 <tr class="memitem:a8285cae2cd0e6313ffe80a56f0669620" id="r_a8285cae2cd0e6313ffe80a56f0669620"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8285cae2cd0e6313ffe80a56f0669620">diamondRatio</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:add75f1e9b82d622c77675f3a9583885c" id="r_add75f1e9b82d622c77675f3a9583885c"><td class="memItemLeft">static constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#add75f1e9b82d622c77675f3a9583885c">DEFAULT_HERO_FIGURE</a> = &quot;jade&quot;</td></tr>
-<tr class="memdesc:add75f1e9b82d622c77675f3a9583885c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Figurine du héros tant que l'appelant n'en nomme pas d'autre.  <br /></td></tr>
+<tr class="memitem:add75f1e9b82d622c77675f3a9583885c" id="r_add75f1e9b82d622c77675f3a9583885c"><td class="memItemLeft">static constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#add75f1e9b82d622c77675f3a9583885c">DEFAULT_HERO_FIGURE</a> = &quot;Common/Characters/Heroes/brawler&quot;</td></tr>
+<tr class="memdesc:add75f1e9b82d622c77675f3a9583885c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Figurine du héros tant que l'appelant n'en nomme pas d'autre : le Brawler pré-tiré, héros de la démo (<span class="tt">LOT-112</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -176,6 +177,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a7a4e9c64171086a04e227fa385fd3242" id="r_a7a4e9c64171086a04e227fa385fd3242"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a7a4e9c64171086a04e227fa385fd3242">_assetsDirectory</a></td></tr>
 <tr class="memitem:a3b95b14bb7f9cbf784916a63aae8ee97" id="r_a3b95b14bb7f9cbf784916a63aae8ee97"><td class="memItemLeft"><a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3b95b14bb7f9cbf784916a63aae8ee97">_appearance</a></td></tr>
 <tr class="memitem:ade28d0bca4fd0c4f43b087f68512195e" id="r_ade28d0bca4fd0c4f43b087f68512195e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ade28d0bca4fd0c4f43b087f68512195e">_heroFigure</a> {<a class="el" href="#add75f1e9b82d622c77675f3a9583885c">DEFAULT_HERO_FIGURE</a>}</td></tr>
+<tr class="memitem:ab088dac9f46b3719a0ed59c3e9173dac" id="r_ab088dac9f46b3719a0ed59c3e9173dac"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab088dac9f46b3719a0ed59c3e9173dac">_heroOriented</a> = false</td></tr>
+<tr class="memdesc:ab088dac9f46b3719a0ed59c3e9173dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine du héros a ses quatre orientations (<span class="tt">idle-se.png</span>…) : relu quand elle change, pas à chaque image.  <br /></td></tr>
+<tr class="memitem:a0729d639a27a4412f44f3b68caa21da1" id="r_a0729d639a27a4412f44f3b68caa21da1"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0729d639a27a4412f44f3b68caa21da1">_heroFacing</a> = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></td></tr>
+<tr class="memdesc:a0729d639a27a4412f44f3b68caa21da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernière orientation du héros : il la garde à l'arrêt.  <br /></td></tr>
 <tr class="memitem:a665d463a7132ae8b6ce4185861c9728f" id="r_a665d463a7132ae8b6ce4185861c9728f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a665d463a7132ae8b6ce4185861c9728f">_elapsed</a> = 0.0F</td></tr>
 <tr class="memdesc:a665d463a7132ae8b6ce4185861c9728f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps écoulé sur la carte : l'image des bandes de figurine en dépend.  <br /></td></tr>
 <tr class="memitem:a2ff668f3c939a7bed7948b1345889295" id="r_a2ff668f3c939a7bed7948b1345889295"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2ff668f3c939a7bed7948b1345889295">_walking</a> = false</td></tr>
@@ -286,6 +291,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab359b28cfd1ae307fc8a93ef215e6f04" name="ab359b28cfd1ae307fc8a93ef215e6f04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab359b28cfd1ae307fc8a93ef215e6f04">&#9670;&#160;</a></span>heroFacing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> hmi::WorldPlay::heroFacing </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'orientation du héros ; <span class="tt">None</span> si sa figurine n'a pas de bandes orientées. </dd></dl>
+
+</div>
+</div>
 <a id="a9ae5c3165df10c8f1f3624b613ecc40e" name="a9ae5c3165df10c8f1f3624b613ecc40e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ae5c3165df10c8f1f3624b613ecc40e">&#9670;&#160;</a></span>heroFigure()</h2>
 
@@ -393,9 +424,6 @@ Private Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void hmi::WorldPlay::setHeroFigure </td>
@@ -404,11 +432,6 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -531,6 +554,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0729d639a27a4412f44f3b68caa21da1" name="a0729d639a27a4412f44f3b68caa21da1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0729d639a27a4412f44f3b68caa21da1">&#9670;&#160;</a></span>_heroFacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> hmi::WorldPlay::_heroFacing = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dernière orientation du héros : il la garde à l'arrêt. </p>
+
+</div>
+</div>
 <a id="ade28d0bca4fd0c4f43b087f68512195e" name="ade28d0bca4fd0c4f43b087f68512195e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade28d0bca4fd0c4f43b087f68512195e">&#9670;&#160;</a></span>_heroFigure</h2>
 
@@ -550,6 +597,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab088dac9f46b3719a0ed59c3e9173dac" name="ab088dac9f46b3719a0ed59c3e9173dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab088dac9f46b3719a0ed59c3e9173dac">&#9670;&#160;</a></span>_heroOriented</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldPlay::_heroOriented = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La figurine du héros a ses quatre orientations (<span class="tt">idle-se.png</span>…) : relu quand elle change, pas à chaque image. </p>
 
 </div>
 </div>
@@ -609,7 +680,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string_view hmi::WorldPlay::DEFAULT_HERO_FIGURE = &quot;jade&quot;</td>
+          <td class="memname">std::string_view hmi::WorldPlay::DEFAULT_HERO_FIGURE = &quot;Common/Characters/Heroes/brawler&quot;</td>
         </tr>
       </table>
   </td>
@@ -619,7 +690,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Figurine du héros tant que l'appelant n'en nomme pas d'autre. </p>
+<p>Figurine du héros tant que l'appelant n'en nomme pas d'autre : le Brawler pré-tiré, héros de la démo (<span class="tt">LOT-112</span>). </p>
 
 </div>
 </div>

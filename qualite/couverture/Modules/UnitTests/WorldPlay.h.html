@@ -49,8 +49,9 @@ struct WorldPlayStep {
 
 class WorldPlay {
 public:
-    /// Figurine du hÃ©ros tant que l'appelant n'en nomme pas d'autre.
-    static constexpr std::string_view DEFAULT_HERO_FIGURE = "jade";
+    /// Figurine du hÃ©ros tant que l'appelant n'en nomme pas d'autre : le Brawler prÃ©-tirÃ©, hÃ©ros
+    /// de la dÃ©mo (`LOT-112`).
+    static constexpr std::string_view DEFAULT_HERO_FIGURE = "Common/Characters/Heroes/brawler";
 
     /**
      * @param loader          Chargeur des cartes (`core::WorldTravel::directoryLoader` en jeu ; en
@@ -79,9 +80,12 @@ public:
     [[nodiscard]] const std::string&amp; heroFigure() const noexcept {
         return _heroFigure;
     }
-    void setHeroFigure(std::string figure) {
-        _heroFigure = std::move(figure);
-    }
+    void setHeroFigure(std::string figure);
+
+    /// @return L'orientation du hÃ©ros ; `None` si sa figurine n'a pas de bandes orientÃ©es.
+<span style = "background-color:#dfd">    [[nodiscard]] FigureFacing heroFacing() const noexcept {
+        return _heroOriented ? _heroFacing : FigureFacing::None;
+    }</span>
 
     /// @return Les figurines de la carte courante : les PNJ, puis le hÃ©ros, qui passe devant.
     [[nodiscard]] std::vector&lt;WorldFigureSnapshot&gt; figures() const;
@@ -100,6 +104,11 @@ private:
     std::filesystem::path _assetsDirectory;
     PlaceAppearance _appearance;
 <span style = "background-color:#dfd">    std::string _heroFigure{DEFAULT_HERO_FIGURE};</span>
+    /// La figurine du hÃ©ros a ses quatre orientations (`idle-se.png`â¦) : relu quand elle change,
+    /// pas Ã  chaque image.
+<span style = "background-color:#dfd">    bool _heroOriented = false;</span>
+    /// DerniÃ¨re orientation du hÃ©ros : il la garde Ã  l'arrÃªt.
+<span style = "background-color:#dfd">    FigureFacing _heroFacing = FigureFacing::SouthEast;</span>
     /// Temps Ã©coulÃ© sur la carte : l'image des bandes de figurine en dÃ©pend.
 <span style = "background-color:#dfd">    float _elapsed = 0.0F;</span>
     /// Le hÃ©ros marche : sa bande est `walk`, sinon `idle`.

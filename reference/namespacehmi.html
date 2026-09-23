@@ -830,6 +830,16 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">Figure</a>
  }</td></tr>
 <tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, puis la figurine posée dessus.  <a href="#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
+<tr class="memitem:ac35af7f8a75d64ff0600ed46bb08ea2d" id="r_ac35af7f8a75d64ff0600ed46bb08ea2d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">SouthEast</a>
+, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592">SouthWest</a>
+, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e">NorthEast</a>
+, <br />
+&#160;&#160;<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b">NorthWest</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ac35af7f8a75d64ff0600ed46bb08ea2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'orientation d'une figurine : l'une des quatre diagonales de l'isométrie (<span class="tt">LOT-112</span>).  <a href="#ac35af7f8a75d64ff0600ed46bb08ea2d">More...</a><br /></td></tr>
 <tr class="memitem:ac92a2fbe73cf9a4cb73991b10456e28c" id="r_ac92a2fbe73cf9a4cb73991b10456e28c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28c">MaquetteTraceShape</a> { <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f">Outline</a>
 , <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b">Path</a>
  }</td></tr>
@@ -1375,8 +1385,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8e3a1dcd14a5132e99f15be875c38936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, pour une carte validée.  <br /></td></tr>
 <tr class="memitem:abc96b05b9f94854936ee3d8541390286" id="r_abc96b05b9f94854936ee3d8541390286"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc96b05b9f94854936ee3d8541390286">snapshotWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a> &amp;source, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance, std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memdesc:abc96b05b9f94854936ee3d8541390286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tire de <code class="param">level</code> l'instantané que la composition dessine.  <br /></td></tr>
-<tr class="memitem:ab7381540071701283f2f87b282a68eb5" id="r_ab7381540071701283f2f87b282a68eb5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab7381540071701283f2f87b282a68eb5">figureStripPath</a> (std::string_view figure, std::string_view clip)</td></tr>
-<tr class="memdesc:ab7381540071701283f2f87b282a68eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin d'une bande de figurine, relatif au dossier des assets.  <br /></td></tr>
+<tr class="memitem:adff4a6359d340fc8a1811857e49ac036" id="r_adff4a6359d340fc8a1811857e49ac036"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#adff4a6359d340fc8a1811857e49ac036">figureFacingSuffix</a> (<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing) noexcept</td></tr>
+<tr class="memitem:a42508ae8f53d38fa43dc350b10ab0553" id="r_a42508ae8f53d38fa43dc350b10ab0553"><td class="memItemLeft"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a42508ae8f53d38fa43dc350b10ab0553">figureFacingFor</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> move, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> previous) noexcept</td></tr>
+<tr class="memdesc:a42508ae8f53d38fa43dc350b10ab0553"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'orientation d'une figurine qui se déplace de <code class="param">move</code>, en cases.  <br /></td></tr>
+<tr class="memitem:a193118424306eba40e5743a9e8e70dc2" id="r_a193118424306eba40e5743a9e8e70dc2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a193118424306eba40e5743a9e8e70dc2">figureStripPath</a> (std::string_view figure, std::string_view clip, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing=<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">FigureFacing::None</a>)</td></tr>
+<tr class="memdesc:a193118424306eba40e5743a9e8e70dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin d'une bande de figurine, relatif au dossier des assets.  <br /></td></tr>
 <tr class="memitem:a1c839cebf18adf167ae9ac5452d179b6" id="r_a1c839cebf18adf167ae9ac5452d179b6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1c839cebf18adf167ae9ac5452d179b6">figureMarkerKey</a> (std::string_view path)</td></tr>
 <tr class="memdesc:a1c839cebf18adf167ae9ac5452d179b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du marqueur d'une figurine qui n'a pas d'image (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>).  <br /></td></tr>
 <tr class="memitem:a07929611bf03ab59a2de588feb90ad7d" id="r_a07929611bf03ab59a2de588feb90ad7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07929611bf03ab59a2de588feb90ad7d">worldTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
@@ -2216,6 +2229,38 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a406a41b256977e2be0da3b64f976cce1a2d03c2d5a7ec65ef4619e0582c272ec2" name="a406a41b256977e2be0da3b64f976cce1a2d03c2d5a7ec65ef4619e0582c272ec2"></a>Draw&#160;</td><td class="fielddoc"><p>Tirer une entité à forme (rectangle, zone, trajet) depuis <span class="tt">cell</span>. </p>
 </td></tr>
+</table>
+
+</div>
+</div>
+<a id="ac35af7f8a75d64ff0600ed46bb08ea2d" name="ac35af7f8a75d64ff0600ed46bb08ea2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac35af7f8a75d64ff0600ed46bb08ea2d">&#9670;&#160;</a></span>FigureFacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">hmi::FigureFacing</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'orientation d'une figurine : l'une des quatre diagonales de l'isométrie (<span class="tt">LOT-112</span>). </p>
+<p>Une case de la grille se voit en losange : avancer d'une colonne descend vers le <b>sud-est</b> de l'écran, avancer d'une ligne vers le <b>sud-ouest</b>. Les quatre directions de la grille sont donc les quatre diagonales de l'écran, et une figurine en a une bande peinte chacune (<span class="tt">walk-se.png</span>…). <span class="tt">None</span> : la figurine n'a qu'une bande par animation (<span class="tt">walk.png</span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754" name="ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190" name="ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190"></a>SouthEast&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592" name="ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592"></a>SouthWest&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e" name="ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e"></a>NorthEast&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b" name="ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b"></a>NorthWest&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -6330,6 +6375,64 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a42508ae8f53d38fa43dc350b10ab0553" name="a42508ae8f53d38fa43dc350b10ab0553"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42508ae8f53d38fa43dc350b10ab0553">&#9670;&#160;</a></span>figureFacingFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> hmi::figureFacingFor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>move</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>previous</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'orientation d'une figurine qui se déplace de <code class="param">move</code>, en cases. </p>
+<p>L'axe dominant l'emporte. À égalité — deux touches enfoncées, un pas droit vers le bas de l'écran —, deux diagonales conviennent : la figurine <b>garde</b> <code class="param">previous</code> si elle en est une, plutôt que de basculer d'une image à l'autre ; sinon, la première des deux dans l'ordre sud-est, sud-ouest, nord-est, nord-ouest. Un déplacement nul rend <code class="param">previous</code>. </p>
+
+</div>
+</div>
+<a id="adff4a6359d340fc8a1811857e49ac036" name="adff4a6359d340fc8a1811857e49ac036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adff4a6359d340fc8a1811857e49ac036">&#9670;&#160;</a></span>figureFacingSuffix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::figureFacingSuffix </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le suffixe de fichier de <code class="param">facing</code> (<span class="tt">se</span>, <span class="tt">sw</span>, <span class="tt">ne</span>, <span class="tt">nw</span>), vide pour <span class="tt">None</span>. </dd></dl>
+
+</div>
+</div>
 <a id="a1c839cebf18adf167ae9ac5452d179b6" name="a1c839cebf18adf167ae9ac5452d179b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c839cebf18adf167ae9ac5452d179b6">&#9670;&#160;</a></span>figureMarkerKey()</h2>
 
@@ -6357,11 +6460,11 @@ Variables</h2></td></tr>
 <p>Une figurine nommée par une carte avant que son atelier (<span class="tt">LOT-91</span>, <span class="tt">LOT-93</span>) ne l'ait produite se dessine par son <b>marqueur</b>, comme toute clé d'asset sans image (<span class="tt">EX-CNT-041</span>) : on la voit, on lui parle, et on ne la prend pas pour une illustration.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>Un chemin de bande de figurine, tel que la composition l'écrit (<span class="tt">Npc/&lt;slug&gt;/idle.png</span>, <span class="tt">Monsters/&lt;slug&gt;/idle.png</span>). </td></tr>
+    <tr><td class="paramname">path</td><td>Un chemin de bande de figurine, tel que la composition l'écrit (<span class="tt">Npc/&lt;slug&gt;/idle.png</span>, <span class="tt">Monsters/&lt;slug&gt;/idle.png</span>, <span class="tt">Common/Characters/Heroes/brawler/idle-se.png</span>). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">npc/&lt;slug&gt;</span> ou <span class="tt">monsters/&lt;slug&gt;</span>, ou une chaîne vide si <code class="param">path</code> n'est pas celui d'une figurine. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">npc/&lt;slug&gt;</span>, <span class="tt">monsters/&lt;slug&gt;</span>, <span class="tt">characters/&lt;dossier&gt;</span> (<span class="tt">characters/heroes/brawler</span>), ou une chaîne vide si <code class="param">path</code> n'est pas celui d'une figurine. </dd></dl>
 
 </div>
 </div>
@@ -6422,8 +6525,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab7381540071701283f2f87b282a68eb5" name="ab7381540071701283f2f87b282a68eb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7381540071701283f2f87b282a68eb5">&#9670;&#160;</a></span>figureStripPath()</h2>
+<a id="a193118424306eba40e5743a9e8e70dc2" name="a193118424306eba40e5743a9e8e70dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a193118424306eba40e5743a9e8e70dc2">&#9670;&#160;</a></span>figureStripPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6439,7 +6542,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>clip</em></span>&#160;)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">FigureFacing::None</a></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -6454,10 +6562,11 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">figure</td><td>Le nom que la carte donne (<span class="tt"><a class="el" href="structhmi_1_1WorldFigureSnapshot.html#aeff19cbc04fa665fcb6838cb0964f9d1" title="Figurine : un slug de l&#39;atelier des PNJ (anariel, jade…, dossier Assets/Npc/&lt;slug&gt;),...">WorldFigureSnapshot::figure</a></span>). </td></tr>
     <tr><td class="paramname">clip</td><td>La bande (<span class="tt">idle</span>, <span class="tt">walk</span>) ; vide : <span class="tt">idle</span>. </td></tr>
+    <tr><td class="paramname">facing</td><td>L'orientation ; <span class="tt">None</span> : la bande sans suffixe. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">Npc/&lt;figure&gt;/&lt;clip&gt;.png</span> pour un slug, <span class="tt">&lt;figure&gt;/&lt;clip&gt;.png</span> pour un dossier. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">Npc/&lt;figure&gt;/&lt;clip&gt;.png</span> pour un slug, <span class="tt">&lt;figure&gt;/&lt;clip&gt;.png</span> pour un dossier ; <span class="tt">&lt;clip&gt;-se.png</span>… pour une figurine orientée. </dd></dl>
 
 </div>
 </div>

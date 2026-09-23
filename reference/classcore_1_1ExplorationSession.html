@@ -173,8 +173,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a61a51d1501e6ffc4b5bbd230ee851d16" id="r_a61a51d1501e6ffc4b5bbd230ee851d16"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a61a51d1501e6ffc4b5bbd230ee851d16">WALK_SPEED_CELLS_PER_SECOND</a> = 4.0F</td></tr>
-<tr class="memdesc:a61a51d1501e6ffc4b5bbd230ee851d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de marche, en cases par seconde.  <br /></td></tr>
+<tr class="memitem:a61a51d1501e6ffc4b5bbd230ee851d16" id="r_a61a51d1501e6ffc4b5bbd230ee851d16"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a61a51d1501e6ffc4b5bbd230ee851d16">WALK_SPEED_CELLS_PER_SECOND</a> = 2.0F</td></tr>
+<tr class="memdesc:a61a51d1501e6ffc4b5bbd230ee851d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de marche, en cases par seconde : 3 m/s, une marche vive.  <br /></td></tr>
 <tr class="memitem:a769e298bd9b04ff98be332a4e383cb00" id="r_a769e298bd9b04ff98be332a4e383cb00"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a769e298bd9b04ff98be332a4e383cb00">HERO_HALF_SIZE_CELLS</a> = 0.3F</td></tr>
 <tr class="memdesc:a769e298bd9b04ff98be332a4e383cb00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demi-côté du gabarit du héros, en cases : il ne tient pas tout à fait une case, si bien qu'un couloir d'une case se franchit sans frotter les deux murs.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -944,7 +944,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND = 4.0F</td>
+          <td class="memname">float core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND = 2.0F</td>
         </tr>
       </table>
   </td>
@@ -954,7 +954,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Vitesse de marche, en cases par seconde. </p>
+<p>Vitesse de marche, en cases par seconde : 3 m/s, une marche vive. </p>
+<p>Un cycle de marche couvre une case, si bien que la cadence de la figurine en découle — sans quoi ses pieds glissent (<span class="tt">LOT-112</span>, décision de l'auteur ; 4 cases par seconde étaient une course). </p>
 
 </div>
 </div>

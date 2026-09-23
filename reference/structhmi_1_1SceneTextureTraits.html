@@ -159,6 +159,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:aa19a25181ae8c7d58eb94aa04a0c4a91"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ancre de la pièce (<span class="tt"><a class="el" href="#aa19a25181ae8c7d58eb94aa04a0c4a91" title="L&#39;ancre de la pièce (anchor du manifeste), en pixels de l&#39;image.">anchor</a></span> du manifeste), en pixels de l'image.  <br /></td></tr>
 <tr class="memitem:ac9331d65bf9badf18f6e56c547bd97e1" id="r_ac9331d65bf9badf18f6e56c547bd97e1"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac9331d65bf9badf18f6e56c547bd97e1">depthOffset</a></td></tr>
 <tr class="memdesc:ac9331d65bf9badf18f6e56c547bd97e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décalage de profondeur de la pièce (<span class="tt"><a class="el" href="#ac9331d65bf9badf18f6e56c547bd97e1" title="Décalage de profondeur de la pièce (depthOffset du manifeste), en cases.">depthOffset</a></span> du manifeste), en cases.  <br /></td></tr>
+<tr class="memitem:a3c7f13b1aca0e224dacbfb2cb253e999" id="r_a3c7f13b1aca0e224dacbfb2cb253e999"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3c7f13b1aca0e224dacbfb2cb253e999">groundLine</a></td></tr>
+<tr class="memdesc:a3c7f13b1aca0e224dacbfb2cb253e999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ligne de sol d'une figurine (<span class="tt">ground</span> du manifeste de son atelier), en pixels depuis le haut de la cellule : la ligne où tombent les pieds (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memitem:abaadf841632dad1daf20a68ab307ac01" id="r_abaadf841632dad1daf20a68ab307ac01"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#abaadf841632dad1daf20a68ab307ac01">frameDuration</a> = 0.0F</td></tr>
+<tr class="memdesc:abaadf841632dad1daf20a68ab307ac01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée d'une image de la bande, en secondes (<span class="tt"><a class="el" href="#abaadf841632dad1daf20a68ab307ac01" title="Durée d&#39;une image de la bande, en secondes (frameDuration de son premier clip) ; 0 si la bande n&#39;en d...">frameDuration</a></span> de son premier clip) ; 0 si la bande n'en dit rien.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les traits d'une image, lus à côté d'elle. Un trait absent reste à sa valeur nulle. </p>
@@ -211,6 +215,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="abaadf841632dad1daf20a68ab307ac01" name="abaadf841632dad1daf20a68ab307ac01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaadf841632dad1daf20a68ab307ac01">&#9670;&#160;</a></span>frameDuration</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SceneTextureTraits::frameDuration = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Durée d'une image de la bande, en secondes (<span class="tt"><a class="el" href="#abaadf841632dad1daf20a68ab307ac01" title="Durée d&#39;une image de la bande, en secondes (frameDuration de son premier clip) ; 0 si la bande n&#39;en d...">frameDuration</a></span> de son premier clip) ; 0 si la bande n'en dit rien. </p>
+
+</div>
+</div>
 <a id="aedcade86d1c5b97bd7debceffafcbc41" name="aedcade86d1c5b97bd7debceffafcbc41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aedcade86d1c5b97bd7debceffafcbc41">&#9670;&#160;</a></span>frameHeight</h2>
 
@@ -238,6 +258,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Largeur et hauteur d'une image de la bande (<span class="tt">.anim.json</span>) ; 0 pour une image fixe. </p>
+
+</div>
+</div>
+<a id="a3c7f13b1aca0e224dacbfb2cb253e999" name="a3c7f13b1aca0e224dacbfb2cb253e999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c7f13b1aca0e224dacbfb2cb253e999">&#9670;&#160;</a></span>groundLine</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; hmi::SceneTextureTraits::groundLine</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ligne de sol d'une figurine (<span class="tt">ground</span> du manifeste de son atelier), en pixels depuis le haut de la cellule : la ligne où tombent les pieds (<span class="tt">LOT-112</span>). </p>
 
 </div>
 </div>

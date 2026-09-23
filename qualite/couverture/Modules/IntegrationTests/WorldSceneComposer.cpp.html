@@ -17,6 +17,7 @@
 #include &lt;algorithm&gt;
 #include &lt;array&gt;
 #include &lt;cctype&gt;
+#include &lt;cmath&gt;
 #include &lt;cstddef&gt;
 #include &lt;optional&gt;
 #include &lt;set&gt;
@@ -328,8 +329,8 @@ void composeFloor(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapsh
         return;</span>
     }
 <span style = "background-color:#dfd">    const SceneTexture&amp; texture = textures.resolve(piecePath(snapshot.place, piece));
-    if (texture.texture == nullptr) {</span>
-<span style = "background-color:#fdd">        return;</span>
+    if (texture.texture == nullptr) {
+        return;</span>
     }
     // Le sol est etire sur la boite du losange, un peu elargie pour couvrir la couture
     // (`floorQuad`, LOT-103).
@@ -353,8 +354,8 @@ void composeRelief(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snaps
 <span style = "background-color:#dfd">        return;</span>
     }
 <span style = "background-color:#dfd">    const SceneTexture&amp; texture = textures.resolve(piecePath(snapshot.place, piece));
-    if (texture.texture == nullptr) {</span>
-<span style = "background-color:#fdd">        return;</span>
+    if (texture.texture == nullptr) {
+        return;</span>
     }
     // Posee par son ancre, le sommet haut du losange de sa case ; triee au pied de son EMPRISE
     // (`core::footprintFootCorner`), pour qu'une piece plus haute ou plus large que sa case reste
@@ -383,22 +384,33 @@ void composeFigure(ComposedScene&amp; scene, const core::IsoProjection&amp; proj
     if (figure.figure.empty()) {</span>
 <span style = "background-color:#fdd">        return;</span>
     }
-<span style = "background-color:#dfd">    const SceneTexture&amp; texture = textures.resolve(figureStripPath(figure.figure, figure.clip));
-    if (texture.texture == nullptr) {</span>
+<span style = "background-color:#dfd">    const SceneTexture&amp; texture =</span>
+        textures.resolve(figureStripPath(figure.figure, figure.clip, figure.facing));
+<span style = "background-color:#dfd">    if (texture.texture == nullptr) {</span>
 <span style = "background-color:#fdd">        return;</span>
     }
     // La bande dit sa propre decoupe : sa cellule, et avec sa largeur totale son nombre d'images.
-    // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture.
+    // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture. Sa cadence
+    // aussi, quand elle la dit et que l'instantane porte le temps.
 <span style = "background-color:#dfd">    const int frameCount = frameCountOf(texture);
-    const int frame = ((figure.frame % frameCount) + frameCount) % frameCount;</span>
+    const int rang = figure.seconds &gt;= 0.0F &amp;&amp; texture.frameDuration &gt; 0.0F</span>
+                         ? static_cast&lt;int&gt;(figure.seconds / texture.frameDuration)
+                         : figure.frame;
+<span style = "background-color:#dfd">    const int frame = ((rang % frameCount) + frameCount) % frameCount;</span>
 
 <span style = "background-color:#dfd">    const core::Vector2 center = projection.gridToWorld(figure.point);
     const float footY =</span>
         projection.gridToWorld(gridPoint(figure.point.x + 0.5F, figure.point.y + 0.5F)).y;
-<span style = "background-color:#dfd">    const SpriteQuad quad = figureQuad(</span>
-        texture, frame, center.x, footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN),
-        projection.tileWidth());
-<span style = "background-color:#dfd">    scene.addSprite(RenderLayer::Player, texture.texture,</span>
+    // Une figurine qui declare sa ligne de sol la pose au CENTRE du losange de sa position : c'est
+    // la que la maquette du LOT-101 met les pieds. Sans elle, l'ancienne marge : le bas de la
+    // cellule un peu au-dessus de la pointe sud.
+<span style = "background-color:#dfd">    const float bottomY =</span>
+        texture.groundLine
+            ? center.y + ((static_cast&lt;float&gt;(frameHeightOf(texture)) - *texture.groundLine) *
+                          projection.tileWidth() / artTileWidth(texture))
+            : footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN);
+<span style = "background-color:#dfd">    const SpriteQuad quad = figureQuad(texture, frame, center.x, bottomY, projection.tileWidth());
+    scene.addSprite(RenderLayer::Player, texture.texture,</span>
                     worldDepthSortOrder(footY, WorldDepthSlot::Figure), quad);
 <span style = "background-color:#dfd">}</span>
 
@@ -667,19 +679,80 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource&amp; source,
     return snapshot;
 }</span>
 
-<span style = "background-color:#dfd">std::string figureStripPath(std::string_view figure, std::string_view clip) {</span>
+<span style = "background-color:#dfd">std::string_view figureFacingSuffix(FigureFacing facing) noexcept {
+    switch (facing) {</span>
+        case FigureFacing::SouthEast:
+<span style = "background-color:#dfd">            return "se";</span>
+        case FigureFacing::SouthWest:
+<span style = "background-color:#dfd">            return "sw";</span>
+        case FigureFacing::NorthEast:
+<span style = "background-color:#dfd">            return "ne";</span>
+        case FigureFacing::NorthWest:
+<span style = "background-color:#dfd">            return "nw";</span>
+        case FigureFacing::None:
+            break;
+    }
+<span style = "background-color:#fdd">    return {};</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept {
+    const float enX = std::abs(move.x);
+    const float enY = std::abs(move.y);
+    if (enX == 0.0F &amp;&amp; enY == 0.0F) {
+        return previous;</span>
+    }
+    // Colonne : sud-est en avancant, nord-ouest en reculant. Ligne : sud-ouest, nord-est.
+<span style = "background-color:#dfd">    const FigureFacing parX = move.x &gt; 0.0F ? FigureFacing::SouthEast : FigureFacing::NorthWest;
+    const FigureFacing parY = move.y &gt; 0.0F ? FigureFacing::SouthWest : FigureFacing::NorthEast;</span>
+    // Une egalite a l'arrondi pres : une diagonale normalisee n'a pas deux composantes
+    // rigoureusement egales apres une division par sa longueur.
+<span style = "background-color:#dfd">    constexpr float EGALITE = 1.0e-4F;
+    if (std::abs(enX - enY) &lt;= EGALITE * std::max(enX, enY)) {
+        if (previous == parX || previous == parY) {
+            return previous;</span>
+        }
+<span style = "background-color:#dfd">        return std::min(parX, parY);</span>
+    }
+<span style = "background-color:#dfd">    return enX &gt; enY ? parX : parY;
+}</span>
+
+<span style = "background-color:#dfd">std::string figureStripPath(std::string_view figure, std::string_view clip, FigureFacing facing) {</span>
     // Un nom sans barre est un PNJ de l'atelier ; avec, un dossier depuis la racine des assets.
 <span style = "background-color:#dfd">    std::string path =</span>
         figure.find('/') == std::string_view::npos ? std::string{FIGURE_ROOT} : std::string{};
 <span style = "background-color:#dfd">    path.append(figure);
     path.push_back('/');
     path.append(clip.empty() ? std::string_view{"idle"} : clip);
-    path.append(".png");
+    if (facing != FigureFacing::None) {
+        path.push_back('-');
+        path.append(figureFacingSuffix(facing));</span>
+    }
+<span style = "background-color:#dfd">    path.append(".png");
     return path;
 }</span>
 
-<span style = "background-color:#dfd">std::string figureMarkerKey(std::string_view path) {
-    for (const std::string_view dossier : FIGURE_DIRECTORIES) {
+<span style = "background-color:#dfd">std::string figureMarkerKey(std::string_view path) {</span>
+    // L'arborescence 2D HD range les figurines dans un dossier `Characters/`, a n'importe quel
+    // niveau (`Common/`, une region, une zone) : la cle est ce qui suit, sans le fichier.
+<span style = "background-color:#dfd">    constexpr std::string_view PERSONNAGES = "Characters/";
+    for (std::size_t debut = path.find(PERSONNAGES); debut != std::string_view::npos;
+         debut = path.find(PERSONNAGES, debut + 1)) {
+        if (debut != 0 &amp;&amp; path[debut - 1] != '/') {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string_view reste = path.substr(debut + PERSONNAGES.size());
+        const std::size_t barre = reste.rfind('/');
+        if (barre == 0 || barre == std::string_view::npos || barre + 1 == reste.size() ||</span>
+            reste.find("//") != std::string_view::npos) {
+<span style = "background-color:#dfd">            return {};</span>
+        }
+<span style = "background-color:#dfd">        std::string cle = "characters/";
+        for (const char lettre : reste.substr(0, barre)) {
+            cle.push_back(static_cast&lt;char&gt;(std::tolower(static_cast&lt;unsigned char&gt;(lettre))));
+        }
+        return cle;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    for (const std::string_view dossier : FIGURE_DIRECTORIES) {
         if (!path.starts_with(dossier)) {
             continue;</span>
         }
@@ -714,8 +787,8 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource&amp; source,
         }
         // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
         // charger une texture au milieu d'une image.
-<span style = "background-color:#dfd">        uniques.insert(figureStripPath(figure.figure, "idle"));
-        uniques.insert(figureStripPath(figure.figure, "walk"));
+<span style = "background-color:#dfd">        uniques.insert(figureStripPath(figure.figure, "idle", figure.facing));
+        uniques.insert(figureStripPath(figure.figure, "walk", figure.facing));
     }</span>
     // Les jetons s'adressent comme des planches : un chemin de plus, que le rendu peindra au lieu
     // de le charger (LOT-128, decision D2).

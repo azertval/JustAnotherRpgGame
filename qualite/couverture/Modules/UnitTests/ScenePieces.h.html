@@ -61,6 +61,11 @@ struct SceneTexture {
 <span style = "background-color:#dfd">    std::optional&lt;float&gt; depthOffset{};</span>
     /// Le losange de sol de l'art, en pixels (`tile` du manifeste) ; (0, 0) s'il n'est pas dÃ©clarÃ©.
 <span style = "background-color:#dfd">    core::Vector2 artTile{};</span>
+    /// Ligne de sol d'une figurine, en pixels depuis le haut de sa cellule (`LOT-112`) ; sans elle,
+    /// la figurine se pose par le bas de sa cellule.
+<span style = "background-color:#dfd">    std::optional&lt;float&gt; groundLine{};</span>
+    /// DurÃ©e d'une image de la bande, en secondes (`.anim.json`) ; 0 si la bande n'en dit rien.
+<span style = "background-color:#dfd">    float frameDuration = 0.0F;</span>
 };
 
 /**

@@ -148,11 +148,13 @@ $(function(){initNavTree('test__character__sheet_8cpp.html','',''); });
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="RpgActor_8h_source.html">Core/Ecs/Components/RpgActor.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CharacterOptions_8h_source.html">Core/Rpg/CharacterOptions.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Check_8h_source.html">Core/Rpg/Check.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Scale_8h_source.html">Core/Rpg/Scale.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Skill_8h_source.html">Core/Rpg/Skill.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -170,6 +172,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a666759acd1eef8092eb91fef87710878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux montees successives donnent le meme resultat qu'une seule du meme total.  <br /></td></tr>
 <tr class="memitem:a7ad905d23f1470389313987c2080252c" id="r_a7ad905d23f1470389313987c2080252c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7ad905d23f1470389313987c2080252c">TEST</a> (CharacterSheetTest, LeModificateurDeCompetenceVientDuCatalogue)</td></tr>
 <tr class="memdesc:a7ad905d23f1470389313987c2080252c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur de competence vient du catalogue, pas d'un switch.  <br /></td></tr>
+<tr class="memitem:af182015e4b67d0d4b78d2b3bbc56ecb2" id="r_af182015e4b67d0d4b78d2b3bbc56ecb2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af182015e4b67d0d4b78d2b3bbc56ecb2">TEST</a> (CharacterSheetTest, LeHerosDeLaDemoEstLaFicheDuLivre)</td></tr>
+<tr class="memdesc:af182015e4b67d0d4b78d2b3bbc56ecb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le heros de la demo est la fiche pre-tiree du Brawler, chiffre pour chiffre (LOT-112).  <br /></td></tr>
 <tr class="memitem:ada86962c641981b587c56539d59e9321" id="r_ada86962c641981b587c56539d59e9321"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ada86962c641981b587c56539d59e9321">TEST</a> (CharacterSheetTest, LaVitesseSeLitEnCases)</td></tr>
 <tr class="memdesc:ada86962c641981b587c56539d59e9321"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vitesse de la fiche se convertit en cases avec l'echelle du LOT-12.  <br /></td></tr>
 <tr class="memitem:ad58455842de35ead1074926d962b839c" id="r_ad58455842de35ead1074926d962b839c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad58455842de35ead1074926d962b839c">TEST</a> (CharacterSheetTest, LeComposantDistingueLAbsenceDeFiche)</td></tr>
@@ -182,7 +186,7 @@ Functions</h2></td></tr>
 <p>L'acceptation du lot tient en quatre phrases : trois classes definies en JSON se chargent et donnent les bons modificateurs ; la montee de niveau est reproductible et testee AUX BORNES ; aucune valeur de regle n'est codee en dur ; et un test construit QUATRE fiches independantes, parce que rien ne doit supposer l'unicite du personnage. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="acad31b1c88c3e2a41f7fc5771de2d217" name="acad31b1c88c3e2a41f7fc5771de2d217"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acad31b1c88c3e2a41f7fc5771de2d217">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acad31b1c88c3e2a41f7fc5771de2d217">&#9670;&#160;</a></span>TEST() <span class="overload">[1/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +218,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a666759acd1eef8092eb91fef87710878" name="a666759acd1eef8092eb91fef87710878"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a666759acd1eef8092eb91fef87710878">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a666759acd1eef8092eb91fef87710878">&#9670;&#160;</a></span>TEST() <span class="overload">[2/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +247,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a93c0873543d9e75598fea4fd66ed87f5" name="a93c0873543d9e75598fea4fd66ed87f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93c0873543d9e75598fea4fd66ed87f5">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c0873543d9e75598fea4fd66ed87f5">&#9670;&#160;</a></span>TEST() <span class="overload">[3/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,7 +276,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ada86962c641981b587c56539d59e9321" name="ada86962c641981b587c56539d59e9321"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada86962c641981b587c56539d59e9321">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ada86962c641981b587c56539d59e9321">&#9670;&#160;</a></span>TEST() <span class="overload">[4/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +305,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad58455842de35ead1074926d962b839c" name="ad58455842de35ead1074926d962b839c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad58455842de35ead1074926d962b839c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad58455842de35ead1074926d962b839c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,8 +333,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af182015e4b67d0d4b78d2b3bbc56ecb2" name="af182015e4b67d0d4b78d2b3bbc56ecb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af182015e4b67d0d4b78d2b3bbc56ecb2">&#9670;&#160;</a></span>TEST() <span class="overload">[6/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CharacterSheetTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeHerosDeLaDemoEstLaFicheDuLivre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le heros de la demo est la fiche pre-tiree du Brawler, chiffre pour chiffre (LOT-112). </p>
+<p><b>Cas de test :</b> <b>La fiche du heros redonne les nombres du livre, et sa Persuasion a DD 18 reussit une fois sur dix.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiche de personnage<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Rpg/characters/heros-brawler.json.<br  />
+2. Comparer caracteristiques, points de vie, sauvegardes et competences a la fiche du Player's Guide to Tanares, p. 195.<br  />
+</p><ol type="1">
+<li>Compter les faces du d20 qui font reussir la Persuasion a DD 18.<br  />
+ <b>Resultat attendu :</b> For 16, Dex 13, Con 16, Int 10, Sag 12, Cha 8 ; 15 PV ; For et Con +5 ; les cinq competences maitrisees du livre a leur valeur ; Persuasion -1, donc deux faces sur vingt. </li>
+</ol>
+
+</div>
+</div>
 <a id="a7ad905d23f1470389313987c2080252c" name="a7ad905d23f1470389313987c2080252c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ad905d23f1470389313987c2080252c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ad905d23f1470389313987c2080252c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -362,7 +399,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad7c77c71ca72cf72ed6cb77de37fa1b6" name="ad7c77c71ca72cf72ed6cb77de37fa1b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7c77c71ca72cf72ed6cb77de37fa1b6">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7c77c71ca72cf72ed6cb77de37fa1b6">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -391,7 +428,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab91c9f387e2080d695fd7921ae8d3842" name="ab91c9f387e2080d695fd7921ae8d3842"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab91c9f387e2080d695fd7921ae8d3842">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab91c9f387e2080d695fd7921ae8d3842">&#9670;&#160;</a></span>TEST() <span class="overload">[9/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +460,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae5c0a3d7f71e27c3ccc8e9caeae3b7db" name="ae5c0a3d7f71e27c3ccc8e9caeae3b7db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5c0a3d7f71e27c3ccc8e9caeae3b7db">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c0a3d7f71e27c3ccc8e9caeae3b7db">&#9670;&#160;</a></span>TEST() <span class="overload">[10/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -272,8 +272,8 @@ LoadedCharacterSheet loadCharacterSheet(const std::filesystem::path&amp; path,
         // qu'une partie empruntera, donc les memes points de vie et le meme bonus de maitrise.
 <span style = "background-color:#dfd">        const int cible = niveau-&gt;get&lt;int&gt;();
         const int seuil = table.thresholdAt(cible);
-        if (seuil &gt; resultat.sheet.experiencePoints) {
-            gainExperience(resultat.sheet, table, classe-&gt;hitDie,</span>
+        if (seuil &gt; resultat.sheet.experiencePoints) {</span>
+<span style = "background-color:#fdd">            gainExperience(resultat.sheet, table, classe-&gt;hitDie,</span>
                            seuil - resultat.sheet.experiencePoints);
         }
     }

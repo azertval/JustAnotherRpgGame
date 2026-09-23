@@ -162,6 +162,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a765cc286fa6496a8a8184ea2fcd1fdec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position <b>continue</b>, en cases : <span class="tt">{1.5, 2.5}</span> est le centre de la case (1, 2).  <br /></td></tr>
 <tr class="memitem:a2462c509344833ce0e38c6f4e08ee04e" id="r_a2462c509344833ce0e38c6f4e08ee04e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2462c509344833ce0e38c6f4e08ee04e">frame</a> = 0</td></tr>
 <tr class="memdesc:a2462c509344833ce0e38c6f4e08ee04e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image de la bande, ramenée dans la bande par la composition.  <br /></td></tr>
+<tr class="memitem:a4664bdd4c3b2d290c04650416ad10d90" id="r_a4664bdd4c3b2d290c04650416ad10d90"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4664bdd4c3b2d290c04650416ad10d90">facing</a> = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">FigureFacing::None</a></td></tr>
+<tr class="memdesc:a4664bdd4c3b2d290c04650416ad10d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orientation : <span class="tt">None</span> pour une figurine qui n'a qu'une bande par animation.  <br /></td></tr>
+<tr class="memitem:ae5ce7c1bb8990ed76fe11dee5835eff4" id="r_ae5ce7c1bb8990ed76fe11dee5835eff4"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae5ce7c1bb8990ed76fe11dee5835eff4">seconds</a> = -1.0F</td></tr>
+<tr class="memdesc:ae5ce7c1bb8990ed76fe11dee5835eff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps écoulé, en secondes : s'il est connu (positif ou nul) et que la bande dit la durée de ses images, c'est lui qui choisit l'image, et non <a class="el" href="#a2462c509344833ce0e38c6f4e08ee04e" title="frame">frame</a> — la cadence est une donnée de l'art (<span class="tt">EX-REN-005</span>), pas du code.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une figurine à dessiner sur la carte : sa planche, son image, où elle est. </p>
@@ -205,6 +209,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bande d'animation : <span class="tt">idle</span>, <span class="tt">walk</span>. </p>
+
+</div>
+</div>
+<a id="a4664bdd4c3b2d290c04650416ad10d90" name="a4664bdd4c3b2d290c04650416ad10d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4664bdd4c3b2d290c04650416ad10d90">&#9670;&#160;</a></span>facing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> hmi::WorldFigureSnapshot::facing = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">FigureFacing::None</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Orientation : <span class="tt">None</span> pour une figurine qui n'a qu'une bande par animation. </p>
 
 </div>
 </div>
@@ -253,6 +273,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Position <b>continue</b>, en cases : <span class="tt">{1.5, 2.5}</span> est le centre de la case (1, 2). </p>
+
+</div>
+</div>
+<a id="ae5ce7c1bb8990ed76fe11dee5835eff4" name="ae5ce7c1bb8990ed76fe11dee5835eff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ce7c1bb8990ed76fe11dee5835eff4">&#9670;&#160;</a></span>seconds</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::WorldFigureSnapshot::seconds = -1.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Temps écoulé, en secondes : s'il est connu (positif ou nul) et que la bande dit la durée de ses images, c'est lui qui choisit l'image, et non <a class="el" href="#a2462c509344833ce0e38c6f4e08ee04e" title="frame">frame</a> — la cadence est une donnée de l'art (<span class="tt">EX-REN-005</span>), pas du code. </p>
 
 </div>
 </div>

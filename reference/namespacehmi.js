@@ -337,6 +337,13 @@ var namespacehmi =
       [ "Place", "namespacehmi.html#a406a41b256977e2be0da3b64f976cce1a7b9cf007806ed854cd12ab800c8a982b", null ],
       [ "Draw", "namespacehmi.html#a406a41b256977e2be0da3b64f976cce1a2d03c2d5a7ec65ef4619e0582c272ec2", null ]
     ] ],
+    [ "FigureFacing", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d", [
+      [ "None", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "SouthEast", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190", null ],
+      [ "SouthWest", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592", null ],
+      [ "NorthEast", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e", null ],
+      [ "NorthWest", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b", null ]
+    ] ],
     [ "GamepadButton", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88", [
       [ "Up", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa", null ],
       [ "Down", "namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53", null ],
@@ -617,9 +624,11 @@ var namespacehmi =
     [ "equipFromBackpack", "namespacehmi.html#a73d5e9b5f9b64f3dcc6c132b37c00106", null ],
     [ "executableDirectory", "namespacehmi.html#a18648161d8a6c752202b6034613a947b", null ],
     [ "familyOf", "namespacehmi.html#a89796b899c720539ddf54502a57788b0", null ],
+    [ "figureFacingFor", "namespacehmi.html#a42508ae8f53d38fa43dc350b10ab0553", null ],
+    [ "figureFacingSuffix", "namespacehmi.html#adff4a6359d340fc8a1811857e49ac036", null ],
     [ "figureMarkerKey", "namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6", null ],
     [ "figureQuad", "namespacehmi.html#a851ee9d5cbca4f7ee5fd39dd24d02110", null ],
-    [ "figureStripPath", "namespacehmi.html#ab7381540071701283f2f87b282a68eb5", null ],
+    [ "figureStripPath", "namespacehmi.html#a193118424306eba40e5743a9e8e70dc2", null ],
     [ "filterEntities", "namespacehmi.html#aa9bc383870e52d4d94f97981c63c4a62", null ],
     [ "filterPieceCatalog", "namespacehmi.html#aecbe4c4d16394d8fcbd7b6ccffeb1da6", null ],
     [ "fingerprintFile", "namespacehmi.html#ab32c2b7569b2dd624b5195deffa3ddd0", null ],

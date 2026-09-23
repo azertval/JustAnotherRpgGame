@@ -8,5 +8,6 @@ var test__asset__gallery_8cpp =
     [ "TEST", "test__asset__gallery_8cpp.html#a3f9a0e7894d28c3283380f6fb5e4be6f", null ],
     [ "TEST", "test__asset__gallery_8cpp.html#a217d5f0ac54cef93b5435b73f9a6d394", null ],
     [ "TEST", "test__asset__gallery_8cpp.html#a1762eb3b718c4991319cf69063fa6fe6", null ],
+    [ "TEST", "test__asset__gallery_8cpp.html#affebaa5b26189b422ba3394463411723", null ],
     [ "TEST", "test__asset__gallery_8cpp.html#a498bd9d6928467a94424f63f3d18574f", null ]
 ];

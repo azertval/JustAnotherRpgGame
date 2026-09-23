@@ -14,6 +14,7 @@
 
 #include "HMI/Game/WorldPlay.h"
 
+#include &lt;system_error&gt;
 #include &lt;utility&gt;
 #include &lt;variant&gt;
 
@@ -26,13 +27,25 @@ namespace hmi {
 
 namespace {
 
-/// DurÃ©e d'une image des bandes de figurine, en secondes (`idle.anim.json`, `frameDuration`).
+/// DurÃ©e d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
 
 }  // namespace
 
 WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path assetsDirectory)
-<span style = "background-color:#dfd">    : _session(std::move(loader)), _assetsDirectory(std::move(assetsDirectory)) {}</span>
+<span style = "background-color:#dfd">    : _session(std::move(loader)), _assetsDirectory(std::move(assetsDirectory)) {
+    setHeroFigure(std::string{DEFAULT_HERO_FIGURE});
+}</span>
+
+<span style = "background-color:#dfd">void WorldPlay::setHeroFigure(std::string figure) {
+    _heroFigure = std::move(figure);</span>
+    // Une figurine est orientee si sa bande de repos vers le sud-est existe : c'est la premiere que
+    // l'atelier produit, et une figurine a moitie orientee se verrait plus mal qu'une qui ne l'est
+    // pas (`scripts/check_hd_assets.py` exige les quatre).
+<span style = "background-color:#dfd">    std::error_code erreur;
+    _heroOriented = std::filesystem::is_regular_file(</span>
+        _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
+<span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     if (!_session.start(mapId, arrival)) {</span>
@@ -57,6 +70,13 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     if (walking != _walking) {
         _walking = walking;
         result.sceneChanged = true;</span>
+    }
+<span style = "background-color:#dfd">    if (walking) {
+        const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
+        if (facing != _heroFacing) {</span>
+<span style = "background-color:#fdd">            _heroFacing = facing;
+            result.sceneChanged = true;</span>
+        }
     }
     // Un hÃ©ros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
     // la scÃ¨ne doit se redessiner autant que s'il avait bougÃ©.
@@ -112,7 +132,9 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
         WorldFigureSnapshot{.figure = _heroFigure,
                             .clip = _walking ? "walk" : "idle",
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
-                            .frame = frame});
+                            .frame = frame,
+                            .facing = heroFacing(),
+                            .seconds = _elapsed});
 <span style = "background-color:#dfd">    return figures;
 }</span>
 

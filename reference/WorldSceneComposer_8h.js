@@ -7,6 +7,13 @@ var WorldSceneComposer_8h =
     [ "hmi::WorldSceneSnapshot", "structhmi_1_1WorldSceneSnapshot.html", "structhmi_1_1WorldSceneSnapshot" ],
     [ "hmi::WorldSceneSource", "structhmi_1_1WorldSceneSource.html", "structhmi_1_1WorldSceneSource" ],
     [ "hmi::WorldComposeOptions", "structhmi_1_1WorldComposeOptions.html", "structhmi_1_1WorldComposeOptions" ],
+    [ "hmi::FigureFacing", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d", [
+      [ "hmi::FigureFacing::None", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "hmi::FigureFacing::SouthEast", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190", null ],
+      [ "hmi::FigureFacing::SouthWest", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592", null ],
+      [ "hmi::FigureFacing::NorthEast", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e", null ],
+      [ "hmi::FigureFacing::NorthWest", "namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b", null ]
+    ] ],
     [ "hmi::MaquetteTraceShape", "namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28c", [
       [ "hmi::MaquetteTraceShape::Outline", "namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f", null ],
       [ "hmi::MaquetteTraceShape::Path", "namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b", null ]
@@ -17,8 +24,10 @@ var WorldSceneComposer_8h =
     ] ],
     [ "hmi::composeWorldScene", "namespacehmi.html#a888058bfce2a151c10776afeaabbb179", null ],
     [ "hmi::composeWorldScene", "namespacehmi.html#a5878150edf69cce4f7f785e2fb4be5f1", null ],
+    [ "hmi::figureFacingFor", "namespacehmi.html#a42508ae8f53d38fa43dc350b10ab0553", null ],
+    [ "hmi::figureFacingSuffix", "namespacehmi.html#adff4a6359d340fc8a1811857e49ac036", null ],
     [ "hmi::figureMarkerKey", "namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6", null ],
-    [ "hmi::figureStripPath", "namespacehmi.html#ab7381540071701283f2f87b282a68eb5", null ],
+    [ "hmi::figureStripPath", "namespacehmi.html#a193118424306eba40e5743a9e8e70dc2", null ],
     [ "hmi::maquetteMarks", "namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f", null ],
     [ "hmi::npcFigures", "namespacehmi.html#a7a8f2888417ba2cd0c8440905f9e209a", null ],
     [ "hmi::scenePlaceOf", "namespacehmi.html#abbf2a2d38ba582981388654fde028bae", null ],

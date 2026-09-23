@@ -147,6 +147,8 @@ $(function(){initNavTree('test__world__scene__composer_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -205,12 +207,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:a63371f8a0021934134423ad30e3411b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons se posent toujours ; les tracés et la flèche du portail ne paraissent qu'en maquette — une carte finie ne montre pas ses déclencheurs.  <br /></td></tr>
 <tr class="memitem:af52962bde3a465f576bb566d156ff90c" id="r_af52962bde3a465f576bb566d156ff90c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af52962bde3a465f576bb566d156ff90c">TEST</a> (MaquetteRenderTest, LesCheminsContiennentLesJetons)</td></tr>
 <tr class="memdesc:af52962bde3a465f576bb566d156ff90c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un jeton se demande par un chemin, comme une planche : le rendu n'a rien de neuf à apprendre, il voit un chemin de plus.  <br /></td></tr>
+<tr class="memitem:ab52ac43bc6139598c360f8978a13dac3" id="r_ab52ac43bc6139598c360f8978a13dac3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab52ac43bc6139598c360f8978a13dac3">TEST</a> (WorldSceneComposerTest, UneFigurineSeTourneVersLUneDesQuatreDiagonales)</td></tr>
+<tr class="memdesc:ab52ac43bc6139598c360f8978a13dac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine se tourne vers l'une des quatre diagonales de l'ecran, et la garde a l'egalite (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memitem:a6319428e187457c01d6ba155e821bebe" id="r_a6319428e187457c01d6ba155e821bebe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6319428e187457c01d6ba155e821bebe">TEST</a> (WorldSceneComposerTest, UneFigurineOrienteeLitLaBandeDeSonOrientation)</td></tr>
+<tr class="memdesc:a6319428e187457c01d6ba155e821bebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine orientee lit la bande de son orientation, et la composition la charge (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memitem:aba9b2babea2a0e1ccd484abce668e1ed" id="r_aba9b2babea2a0e1ccd484abce668e1ed"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aba9b2babea2a0e1ccd484abce668e1ed">TEST</a> (WorldSceneComposerTest, LesPiedsDuHerosTombentAuCentreDeSaCase)</td></tr>
+<tr class="memdesc:aba9b2babea2a0e1ccd484abce668e1ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine qui declare sa ligne de sol a les pieds au centre du losange de sa position (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memitem:a55a565b81064b51d72de5120fc4b030a" id="r_a55a565b81064b51d72de5120fc4b030a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a55a565b81064b51d72de5120fc4b030a">TEST</a> (WorldSceneComposerTest, LaCadenceEstCelleQueDitLaBande)</td></tr>
+<tr class="memdesc:a55a565b81064b51d72de5120fc4b030a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La cadence d'une figurine est celle que dit sa bande, pas une constante du code (<span class="tt">LOT-112</span>, <span class="tt">EX-REN-005</span>).  <br /></td></tr>
+<tr class="memitem:a92a1444dd46ad643454829760cc23347" id="r_a92a1444dd46ad643454829760cc23347"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a92a1444dd46ad643454829760cc23347">TEST</a> (WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier)</td></tr>
+<tr class="memdesc:a92a1444dd46ad643454829760cc23347"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'echelle et la ligne de sol d'un heros se lisent dans le manifeste de son atelier, deux dossiers plus haut (<span class="tt">LOT-112</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la composition d'un lieu parcouru (LOT-09) : le sol vient du type de tuile, le relief de la piece nommee a la case, et la figurine se pose au pied de sa case. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a5a0af25b3dc5caaaf8af528a6eea3506" name="a5a0af25b3dc5caaaf8af528a6eea3506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a0af25b3dc5caaaf8af528a6eea3506">&#9670;&#160;</a></span>TEST() <span class="overload">[1/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0af25b3dc5caaaf8af528a6eea3506">&#9670;&#160;</a></span>TEST() <span class="overload">[1/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,7 +252,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afcbc974d7d7f9fcec82934247d2bd185" name="afcbc974d7d7f9fcec82934247d2bd185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[2/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[2/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,7 +282,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a12c3a8d5de9df25cf5a65ac5b27640fe" name="a12c3a8d5de9df25cf5a65ac5b27640fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[3/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[3/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,7 +311,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af52962bde3a465f576bb566d156ff90c" name="af52962bde3a465f576bb566d156ff90c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -329,7 +341,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a63371f8a0021934134423ad30e3411b0" name="a63371f8a0021934134423ad30e3411b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,7 +370,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a684b74bee119ab5f78057e124ed31e99" name="a684b74bee119ab5f78057e124ed31e99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[6/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[6/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -387,7 +399,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae8cd32e1e6942aa912e6f9033548c020" name="ae8cd32e1e6942aa912e6f9033548c020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[7/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[7/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -416,7 +428,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="affa200f8d415b074c029ffd8c93422d2" name="affa200f8d415b074c029ffd8c93422d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affa200f8d415b074c029ffd8c93422d2">&#9670;&#160;</a></span>TEST() <span class="overload">[8/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#affa200f8d415b074c029ffd8c93422d2">&#9670;&#160;</a></span>TEST() <span class="overload">[8/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -445,7 +457,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4cd27ffc67925c9d6bef6551ebc9d1e1" name="a4cd27ffc67925c9d6bef6551ebc9d1e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[9/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[9/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -474,7 +486,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aeb89fab5296bd03b69dd87113352de18" name="aeb89fab5296bd03b69dd87113352de18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[10/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[10/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -504,7 +516,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aafd2a49e40673331a3c61dbd242f9dd7" name="aafd2a49e40673331a3c61dbd242f9dd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[11/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[11/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -532,8 +544,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a55a565b81064b51d72de5120fc4b030a" name="a55a565b81064b51d72de5120fc4b030a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55a565b81064b51d72de5120fc4b030a">&#9670;&#160;</a></span>TEST() <span class="overload">[12/23]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCadenceEstCelleQueDitLaBande</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La cadence d'une figurine est celle que dit sa bande, pas une constante du code (<span class="tt">LOT-112</span>, <span class="tt">EX-REN-005</span>). </p>
+<p><b>Cas de test :</b> <b>L'image affichee suit la duree que declare la bande.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu HD<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la marche du heros (0,1 s par image) a 0,25 s, 0,75 s et 0,85 s.<br  />
+</p><ol type="1">
+<li>La composer sans temps connu, a l'image 5.<br  />
+ <b>Resultat attendu :</b> Troisieme image a 0,25 s, huitieme a 0,75 s, premiere a 0,85 s ; sans temps, l'image demandee. </li>
+</ol>
+
+</div>
+</div>
 <a id="a5ee72efc0163defc5a481d004b6b43c3" name="a5ee72efc0163defc5a481d004b6b43c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[12/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[13/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -562,7 +606,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7556eaa6accbc6c4a13f5424eb93cc77" name="a7556eaa6accbc6c4a13f5424eb93cc77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[13/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[14/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +636,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aadbe4639439ea45a431150c3697e021b" name="aadbe4639439ea45a431150c3697e021b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[14/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[15/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -623,8 +667,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aba9b2babea2a0e1ccd484abce668e1ed" name="aba9b2babea2a0e1ccd484abce668e1ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba9b2babea2a0e1ccd484abce668e1ed">&#9670;&#160;</a></span>TEST() <span class="overload">[16/23]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesPiedsDuHerosTombentAuCentreDeSaCase</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine qui declare sa ligne de sol a les pieds au centre du losange de sa position (<span class="tt">LOT-112</span>). </p>
+<p><b>Cas de test :</b> <b>Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu HD<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser la bande de marche du heros (cellule 192 x 256, sol a 252, losange de 256) au centre d'une case, puis a mi-chemin entre deux cases.<br  />
+ <b>Resultat attendu :</b> La ligne 252 de la cellule tombe exactement sur le point de la figurine, en unites monde, et le quad est centre sur lui : la figurine ne flotte pas et ne s'enfonce pas. </p>
+
+</div>
+</div>
 <a id="ad2ad8454eec9aafefe119b74cc7788e5" name="ad2ad8454eec9aafefe119b74cc7788e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[15/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[17/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -655,8 +728,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6319428e187457c01d6ba155e821bebe" name="a6319428e187457c01d6ba155e821bebe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6319428e187457c01d6ba155e821bebe">&#9670;&#160;</a></span>TEST() <span class="overload">[18/23]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFigurineOrienteeLitLaBandeDeSonOrientation</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine orientee lit la bande de son orientation, et la composition la charge (<span class="tt">LOT-112</span>). </p>
+<p><b>Cas de test :</b> <b>Une figurine orientee a une bande par orientation.</b><br  />
+ <b>Categorie :</b> Unitaire · Scene du monde<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander les chemins de bande du heros, sans orientation puis vers chaque diagonale.<br  />
+2. Tirer les chemins d'un instantane ou il regarde le nord-ouest.<br  />
+ <b>Resultat attendu :</b> <span class="tt">walk.png</span> sans orientation, <span class="tt">walk-se.png</span>… avec ; l'instantane demande les bandes de repos et de marche de SON orientation. </p>
+
+</div>
+</div>
 <a id="ab30cbd95fc4caaa26ca67d77523819db" name="ab30cbd95fc4caaa26ca67d77523819db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[16/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[19/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -685,7 +788,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1700c5de254e103b6545603cbbfcaeb5" name="a1700c5de254e103b6545603cbbfcaeb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[17/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[20/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -713,8 +816,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ab52ac43bc6139598c360f8978a13dac3" name="ab52ac43bc6139598c360f8978a13dac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab52ac43bc6139598c360f8978a13dac3">&#9670;&#160;</a></span>TEST() <span class="overload">[21/23]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFigurineSeTourneVersLUneDesQuatreDiagonales</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine se tourne vers l'une des quatre diagonales de l'ecran, et la garde a l'egalite (<span class="tt">LOT-112</span>). </p>
+<p><b>Cas de test :</b> <b>L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.</b><br  />
+ <b>Categorie :</b> Unitaire · Scene du monde<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander l'orientation d'un pas le long de chaque axe de la grille.<br  />
+</p><ol type="1">
+<li>Demander celle d'un pas en diagonale de la grille, depuis une orientation voisine, puis depuis une orientation opposee.<br  />
+3. Demander celle d'un pas nul.<br  />
+ <b>Resultat attendu :</b> Colonne : sud-est / nord-ouest ; ligne : sud-ouest / nord-est. En diagonale, la figurine garde son orientation si elle convient, sinon la premiere des deux. Un pas nul ne la change pas. </li>
+</ol>
+
+</div>
+</div>
 <a id="a635e2755bc4cfa9ee321162ebe959f1f" name="a635e2755bc4cfa9ee321162ebe959f1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[18/18]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[22/23]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -742,6 +878,37 @@ Functions</h2></td></tr>
 <li>Composer les deux.<br  />
  <b>Resultat attendu :</b> L'étal se trie après le mur : son pied est plus bas à l'écran. </li>
 </ol>
+
+</div>
+</div>
+<a id="a92a1444dd46ad643454829760cc23347" name="a92a1444dd46ad643454829760cc23347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92a1444dd46ad643454829760cc23347">&#9670;&#160;</a></span>TEST() <span class="overload">[23/23]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnHerosLitLEchelleEtLeSolDeSonAtelier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'echelle et la ligne de sol d'un heros se lisent dans le manifeste de son atelier, deux dossiers plus haut (<span class="tt">LOT-112</span>). </p>
+<p><b>Cas de test :</b> <b>Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu HD<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire <span class="tt">Common/Characters/manifest.json</span> (losange 256 x 159, sol 252) et la description de <span class="tt">Heroes/brawler/walk-se.png</span> (192 x 256, 0,1 s).<br  />
+2. Lire les traits de la bande.<br  />
+3. Lire ceux d'une image hors de tout atelier.<br  />
+ <b>Resultat attendu :</b> Losange 256 x 159, sol 252, cellule 192 x 256, 0,1 s ; l'image hors atelier n'a ni losange ni sol. </p>
 
 </div>
 </div>

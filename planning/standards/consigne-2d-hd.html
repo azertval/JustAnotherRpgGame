@@ -76,6 +76,24 @@ frame is the same size, evenly spaced, with 8 px of margin between frames and
 around the strip. No shadow, no base plate, no separating line, no frame
 number.</code></pre>
 <p>La marge de 8 px est celle du <a href="style-2d-hd.html">standard</a> : sans elle, le niveau de mipmap d'une image déborde sur sa voisine.</p>
+<p>L'essai de cadence du <a href="../lots/lot-112.html">LOT-112</a> a ajouté deux choses à cette variante. La phrase « Draw it as large as the canvas allows » se <strong>garde</strong> à la fin du cadrage : c'est la règle « réduit, jamais agrandi ». Et la ligne <code>OUTPUT</code> du bloc B, qui demande un canevas carré, devient :</p>
+<pre><code>OUTPUT: landscape canvas, as wide as available, PNG with alpha.</code></pre>
+<p>Une image de la bande doit sortir à 192 px de large au moins (384 pour l'attaque et le sort) : huit images demandent un canevas de 1600 px. Le standard fixe <strong>huit images</strong> par animation.</p>
+<h3 id="les-envois-qui-suivent-le-premier">Les envois qui suivent le premier</h3>
+<p>Une figurine se commande en <strong>plusieurs</strong> envois — une bande par animation et par orientation — et chacun redessine le personnage. Le premier envoi fixe le personnage ; tous les suivants joignent sa bande et commencent leur bloc C par :</p>
+<pre><code>REFERENCE: the attached strip shows THIS character — same face, same hair,
+same colours, same equipment, same proportions. Draw him again, only the pose
+and the direction change.</code></pre>
+<p>Une bande d'une autre orientation joint en plus la même animation vue du sud-est. La commande du héros (<code>Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md</code>) est l'exemple complet, et <code>scripts/prepare_envois_figure.py</code> en tire les envois prêts à copier.</p>
+<h3 id="le-cas-dun-portrait">Le cas d'un portrait</h3>
+<p>Le portrait (512 × 512, standard §5) garde le bloc A et remplace le bloc B entier :</p>
+<pre><code>FRAMING (portrait): ONE character, head and shoulders, three-quarter view
+facing the lower left, centred in a square canvas. A plain, softly lit
+background in dark bronze (#5c4a2a) fading to warm grey (#9c948a) — no scenery,
+no border, no text. The face and the upper chest fill most of the canvas.
+
+OUTPUT: square canvas, at least 1024 px, PNG.</code></pre>
+<p>Il se commande <strong>avant</strong> les bandes : c'est lui que joint le premier envoi de bande.</p>
 <h2 id="bloc-c-la-pièce">Bloc C — la pièce</h2>
 <p>Un gabarit, à remplir pour chaque commande. Une pièce par envoi.</p>
 <pre><code>PIECE: {objet, en une phrase : ce que c&#x27;est, en quoi c&#x27;est fait, ce qu&#x27;il porte}.
@@ -94,7 +112,7 @@ VARIANTS: none.</code></pre>
 <ol><li><strong>« une pièce par image »</strong> — la planche livre ses pièces par panneaux de trois ou quatre ; les séparer ensuite coûte un détourage par pièce et laisse des franges.</li><li><strong>« pas de plaque de sol sous la pièce »</strong> — les sols de la planche sont des dalles <strong>avec leur épaisseur</strong> : posées côte à côte, elles se marchent dessus.</li><li><strong>« dessine-la aussi grande que possible »</strong> — les pièces de la planche tiennent dans un losange de 136 px, soit la moitié de ce que le standard demande.</li></ol></article>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>f69c27832</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>fd96a844a</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

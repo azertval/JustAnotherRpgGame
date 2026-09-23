@@ -48,8 +48,8 @@ using json = nlohmann::json;
 <span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; stringList(const json&amp; root, const char* key) {
     std::vector&lt;std::string&gt; values;
     const auto found = root.find(key);
-    if (found == root.end() || !found-&gt;is_array()) {</span>
-<span style = "background-color:#fdd">        return values;</span>
+    if (found == root.end() || !found-&gt;is_array()) {
+        return values;</span>
     }
 <span style = "background-color:#dfd">    for (const json&amp; value : *found) {
         if (value.is_string()) {
@@ -134,6 +134,10 @@ bool readAnimatedEntry(AssetGalleryEntry&amp; entry, const std::filesystem::path
  * `.anim.json`. Une animation absente d'un modÃ¨le â le `cast` d'une bÃªte sans sort â ne fait pas
  * d'entrÃ©e, et ce n'est pas une erreur. La taille de la cellule est celle de chaque `.anim.json` :
  * une figurine Grande (96 Ã 96) s'affiche comme une Moyenne (48 Ã 64), sans cas particulier.
+ *
+ * Une figurine **orientÃ©e** (`LOT-112`) a une bande par animation et par diagonale
+ * (`walk-se.png`â¦) : chacune fait son entrÃ©e. Un modÃ¨le rangÃ© plus bas que l'atelier
+ * (`Characters/Heroes/brawler`) est trouvÃ© par la liste `npcs` du manifeste.
  */
 void readFigures(const std::filesystem::path&amp; root, const std::string&amp; directory,
 <span style = "background-color:#dfd">                 const std::string&amp; title, AssetGalleryCatalog&amp; catalog) {
@@ -152,35 +156,48 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
             models.push_back(item.path().filename().string());
         }
     }
+    for (const std::string&amp; npc : stringList(document.root, "npcs")) {
+        if (npc.find('/') != std::string::npos) {
+            models.push_back(npc);
+        }
+    }
     std::ranges::sort(models);
+    models.erase(std::ranges::unique(models).begin(), models.end());
     const std::vector&lt;std::string&gt; animations = stringList(document.root, "animations");
     const auto tile = static_cast&lt;int&gt;(manifestArtTile(document.root).x);
     for (const std::string&amp; model : models) {
         const std::string folder = std::string{directory}.append("/").append(model).append("/");
-        for (const std::string&amp; animation : animations) {
-            AssetGalleryEntry entry{.family = family.title,
-                                    .model = model,
-                                    .form = animation,
-                                    .path = folder + animation + ".png",
-                                    .frames = {},
-                                    .tilePixels = tile};
-            if (readAnimatedEntry(entry, root / directory / model / (animation + ".anim.json"),</span>
-                                  catalog.errors)) {
-<span style = "background-color:#dfd">                family.entries.push_back(std::move(entry));</span>
+        for (const std::string&amp; animation : animations) {</span>
+            // La bande sans orientation, puis une par diagonale : `walk`, `walk-se`...
+<span style = "background-color:#dfd">            for (const std::string_view facing : {"", "-se", "-sw", "-ne", "-nw"}) {
+                const std::string strip = animation + std::string{facing};
+                AssetGalleryEntry entry{.family = family.title,
+                                        .model = model,
+                                        .form = strip,
+                                        .path = folder + strip + ".png",
+                                        .frames = {},
+                                        .tilePixels = tile};
+                if (readAnimatedEntry(entry, root / directory / model / (strip + ".anim.json"),</span>
+                                      catalog.errors)) {
+<span style = "background-color:#dfd">                    family.entries.push_back(std::move(entry));</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+        for (const char* still : {"portrait", "token"}) {
+            const std::string file = std::string{still} + ".png";
+            const auto [width, height] = pngSize(root / directory / model / file);
+            if (width &gt; 0) {
+                family.entries.push_back(AssetGalleryEntry{.family = family.title,</span>
+                                                           .model = model,
+                                                           .form = still,
+                                                           .path = folder + file,
+                                                           .frameWidth = width,
+                                                           .frameHeight = height,
+                                                           .frames = {},
+                                                           .tilePixels = tile});
             }
 <span style = "background-color:#dfd">        }
-        const auto [width, height] = pngSize(root / directory / model / "portrait.png");
-        if (width &gt; 0) {
-            family.entries.push_back(AssetGalleryEntry{.family = family.title,</span>
-                                                       .model = model,
-                                                       .form = "portrait",
-                                                       .path = folder + "portrait.png",
-                                                       .frameWidth = width,
-                                                       .frameHeight = height,
-                                                       .frames = {},
-                                                       .tilePixels = tile});
-        }
-<span style = "background-color:#dfd">    }
+    }
     if (!family.entries.empty()) {
         catalog.families.push_back(std::move(family));</span>
     }
