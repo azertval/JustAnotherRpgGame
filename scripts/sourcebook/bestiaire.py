@@ -717,7 +717,7 @@ def produire(corpus: Corpus, lexique: list, racine, cache=None) -> tuple[list, l
     """Écrit les 94 créatures sous ``racine``. Renvoie (fichiers écrits, signalements).
 
     **Un fichier par créature**, nommé par son identifiant : c'est la forme que
-    `scripts/check_rpg_data.py` valide, et celle qui rend un conflit de fusion lisible.
+    `scripts/checks/check_rpg_data.py` valide, et celle qui rend un conflit de fusion lisible.
     """
     tables = {
         'degats': index_lexique(lexique, 'type de dégâts'),

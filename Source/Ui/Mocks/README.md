@@ -12,5 +12,5 @@ et pas seulement les formulaires.
 Le jeu ne les voit jamais : CMake ne connaît pas ce dossier, et `Jadg.Runtime` y est le vrai module.
 
 Règle de maintenance : une propriété ajoutée à un type de `Source/HMI/Runtime/` s'ajoute à sa
-doublure. `scripts/check_qml_designer_compat.py` vérifie que chaque type nommé par un jumeau existe
+doublure. `scripts/checks/check_qml_designer_compat.py` vérifie que chaque type nommé par un jumeau existe
 ici, et que chaque propriété `Q_PROPERTY` et chaque `Q_INVOKABLE` du C++ a son pendant.

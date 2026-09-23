@@ -299,7 +299,7 @@ artefact. Une modification **voulue** d'un écran se valide en régénérant sa 
 Le cahier de test (`Documentation/CahierTest/`) **ne s'écrit pas**. Chaque test porte au-dessus de
 lui un bloc de commentaire Doxygen `\castest{…}` : l'objet en gras, la catégorie (`\tcat`), la
 criticité (`\tcrit`, de Bloquant à Mineur), les étapes (`\tetapes`) et le résultat attendu
-(`\tattendu`). [`scripts/generate_cahier_test.py`](../../scripts/generate_cahier_test.py) les
+(`\tattendu`). [`scripts/docs/generate_cahier_test.py`](../../scripts/docs/generate_cahier_test.py) les
 collecte et les range : une page par domaine de `Source/Test/` (`core-combat.md`,
 `hmi-graphics.md`, `integration.md`…), un cas par fiche avec son identifiant GoogleTest
 (`Suite.Nom`, celui que `ctest` imprime) et son emplacement `fichier:ligne`, et un `README.md` de
@@ -364,8 +364,16 @@ pour qu'aucun seuil ne soit écrit à deux endroits.
 
 ### Un contrôle, un script, un refus
 
-Tous vivent dans [`scripts/`](../../scripts) ; le job `lint-exigences` les enchaîne, et
-`check.py` les rejoue sur le poste. La colonne « Refuse » dit ce qui fait passer le code de sortie à
+`scripts/` se range par usage : à la racine, les points d'entrée du poste (`build.ps1`,
+`setup_dev.ps1`, `coverage.ps1`, `check.py`) ; `checks/`, les contrôles du contenu ; `ci/`, ce que
+seule la chaîne d'intégration appelle (résumés, SARIF, épinglages, message de commit, changelog) ;
+`docs/`, la documentation et le site ; `release/`, les archives publiées ; `assetsGeneration/`, la
+production et l'installation des assets ; `i18n/`, les traductions ; `sourcebook/`, l'extraction du
+corpus. Un script à usage unique ne s'y garde pas : il se supprime une fois son travail fait.
+
+Les contrôles vivent dans [`scripts/checks/`](../../scripts/checks) et
+[`scripts/ci/`](../../scripts/ci) ; le job `lint-exigences` les enchaîne, et `check.py` les rejoue
+sur le poste. La colonne « Refuse » dit ce qui fait passer le code de sortie à
 1.
 
 | Script | Refuse | Où il tourne |
@@ -419,9 +427,9 @@ Qt, LLVM ou Doxygen, et passent par `build.ps1` et `build_docs.py`.
 
 Deux écritures d'un même fait finissent par diverger sans que rien ne le signale. Le numéro de
 version a divergé pendant quatre jalons entre le `Doxyfile` et CMake, avant que `build_docs.py` ne
-lise `project()`. [`check_qt_version_pin.py`](../../scripts/check_qt_version_pin.py) ferme le même
+lise `project()`. [`check_qt_version_pin.py`](../../scripts/ci/check_qt_version_pin.py) ferme le même
 défaut pour Qt (`QT_VERSION_MINIMUM` contre `env.QT_VERSION` de chaque workflow) et
-[`check_tool_pins.py`](../../scripts/check_tool_pins.py) pour les outils : clang-format dans
+[`check_tool_pins.py`](../../scripts/ci/check_tool_pins.py) pour les outils : clang-format dans
 `ci.yml` et dans le tag `mirrors-clang-format` des hooks (deux versions majeures ne formatent pas
 pareil : le hook reformaterait un fichier que la CI refuse), Doxygen entre `ci.yml` et `docs.yml`,
 LLVM et sccache entre `ci.yml` et `nightly.yml`, aqtinstall et OpenCppCoverage partout où ils
@@ -432,7 +440,7 @@ apparaissent.
 Les écrans écrivent leurs textes en français dans le QML (`qsTr("Nouvelle partie")`) et
 `jadg_en.ts` en porte la traduction ; `lupdate` ajoute une chaîne nouvelle en `unfinished`,
 `lrelease` la compile quand même, et le jeu en anglais affichait du français sans que personne ne
-le voie. [`check_translations.py`](../../scripts/check_translations.py) tourne sur le catalogue
+le voie. [`check_translations.py`](../../scripts/checks/check_translations.py) tourne sur le catalogue
 **versionné** (job `lint-exigences`, sans Qt), puis, dans `build-ninja`, **après**
 `--target update_translations` : `lupdate` a relu le code, donc une chaîne nouvelle y apparaît
 inachevée. Seul ce second passage prouve que le catalogue est à jour du code. Le `.ts` réécrit sur
@@ -440,8 +448,8 @@ le runner n'est pas poussé : c'est au poste de le mettre à jour et de le tradu
 
 ### La séparation conception / code
 
-[`check_ui_layers.py`](../../scripts/check_ui_layers.py) et
-[`check_qml_designer_compat.py`](../../scripts/check_qml_designer_compat.py) gardent ce que le
+[`check_ui_layers.py`](../../scripts/checks/check_ui_layers.py) et
+[`check_qml_designer_compat.py`](../../scripts/checks/check_qml_designer_compat.py) gardent ce que le
 `LOT-86` et le `LOT-87` ont séparé : ce qu'un artiste modifie (`Source/Ui`, en QML déclaratif) de
 ce qu'un développeur écrit (`Source/HMI`, `Source/App/Game/Qml`). Cette séparation se perd par de
 petits gestes défendables un à un : un `include` de Quick « juste » pour lire une propriété, une
@@ -495,28 +503,23 @@ ceux des builds dans le job `test-report`.
 
 Quelques scripts ne contrôlent rien : ils **fabriquent**, sur le poste.
 
-- [`build_docs.py`](../../scripts/build_docs.py) : Doxygen se place dans `Documentation/` (ses
+- [`build_docs.py`](../../scripts/docs/build_docs.py) : Doxygen se place dans `Documentation/` (ses
   chemins sont relatifs au répertoire courant, pas au `Doxyfile`), lit la `VERSION` du `project()`
   et l'injecte en `PROJECT_NUMBER` par l'entrée standard. `WARN_AS_ERROR = FAIL_ON_WARNINGS` : un
   `@param` oublié fait échouer la commande, en local comme en CI.
-- [`build_hd_mockup.py`](../../scripts/build_hd_mockup.py) (`LOT-101`) monte la maquette de
+- [`build_hd_mockup.py`](../../scripts/assetsGeneration/build_hd_mockup.py) (`LOT-101`) monte la maquette de
   validation du standard 2D HD, huit cases sur huit à 1080p et 2160p, depuis une planche de
   référence que `Tools/` ne versionne pas ; `--check` vérifie que les images sont à jour, et le
   test associé n'éprouve que la géométrie et le détourage, sur une planche synthétique.
-- [`measure_mockup_palette.py`](../../scripts/measure_mockup_palette.py) (`LOT-87`) : une couleur
-  se **relève** sur une maquette, elle ne se choisit pas à vue ; trois mesures (surface, trait,
-  lumière) et `--check` échoue si `Tokens.qml` diverge du relevé.
-- [`receive_ui_assets.py`](../../scripts/receive_ui_assets.py) (`LOT-87`) réceptionne les images
+- [`receive_ui_assets.py`](../../scripts/assetsGeneration/receive_ui_assets.py) (`LOT-87`) réceptionne les images
   produites pour la charte v2 : clé du cahier, dimensions, canal alpha vérifiés, puis installation
   sous `Assets/UI/`, entrée `provenance: "produced"` dans `illustrations.json`, table `Artwork.qml`
   réécrite. Ce qu'il ne juge pas (lettres incrustées, matière) reste une relecture humaine.
-- [`seed_translations.py`](../../scripts/seed_translations.py) (`LOT-86`) : outil de migration,
+- [`seed_translations.py`](../../scripts/i18n/seed_translations.py) (`LOT-86`) : outil de migration,
   appelé une fois, qui a amorcé `jadg_en.ts` depuis `en.lang` sans rien deviner.
-- [`list_pending_bindings.py`](../../scripts/list_pending_bindings.py) (`LOT-86`) relève dans le
+- [`list_pending_bindings.py`](../../scripts/i18n/list_pending_bindings.py) (`LOT-86`) relève dans le
   QML les champs des écrans dessinés avant leurs données (ancre `hmi::PendingData`) : un inventaire
   dérivé, jamais une liste à tenir.
-- [`open-arena-editor.ps1`](../../scripts/open-arena-editor.ps1) ouvre l'éditeur sur l'arène de la
-  capitale, avec `Source/Elements` pour racine de données (construire `LevelEditor` d'abord).
 
 ## Les workflows, job par job
 
@@ -671,17 +674,17 @@ PR. Hors de portée des deux robots : les versions du bloc `env:` de `ci.yml`, s
 À chaque push sur `main`, le job `rolling-debug` construit un Debug **autonome** (`BUILD_TESTING=OFF`,
 générateur Visual Studio, runtime MSVC dynamique : les DLL Qt officielles sont en `/MD`), puis :
 
-1. [`package_release.ps1`](../../scripts/package_release.ps1) empaquette **tout le dossier de
+1. [`package_release.ps1`](../../scripts/release/package_release.ps1) empaquette **tout le dossier de
    l'exécutable** (l'exe, les DLL Qt et `platforms/` déposés par windeployqt, le runtime, les
    assets) en `<Nom>.zip`, et déplace les `.pdb` dans `<Nom>-symbols.zip` : sans le `.pdb` de la
    version **exacte**, un minidump est illisible, et l'archive du joueur n'a pas à les porter. Les
    `.ilk` sont écartés, et surtout `Logs/` et `Crashes/`, qu'un lancement depuis le dossier de
    build y laisse : l'archive livrerait sinon les journaux du poste qui l'a construite. Aucun `.pdb`
    trouvé est une **erreur** : une release sans symboles ne se rattrape pas après coup.
-2. [`write_sha256sums.ps1`](../../scripts/write_sha256sums.ps1) écrit `SHA256SUMS` au format de
+2. [`write_sha256sums.ps1`](../../scripts/release/write_sha256sums.ps1) écrit `SHA256SUMS` au format de
    `sha256sum` (empreinte, deux espaces, nom seul), en LF sans BOM : `sha256sum -c` refuse un BOM
    et lit mal un CR.
-3. [`smoke_test_release.ps1`](../../scripts/smoke_test_release.ps1) décompresse l'archive dans un
+3. [`smoke_test_release.ps1`](../../scripts/release/smoke_test_release.ps1) décompresse l'archive dans un
    dossier **neuf**, sans Qt ni dossier de build, et lance `JustAnotherRpgGame.exe --screenshot=<png>`
    (le mode qui charge l'interface, rend une image et quitte seul). Il exige un code de sortie 0
    dans le délai, une image écrite qui n'est **pas d'une seule couleur** (une fenêtre noire n'est
@@ -711,7 +714,7 @@ transformé `## [Non publié]` en `## [X.Y.Z] - date`) déclenche deux jobs en s
   `.pdb` sans changer le code ; `/DEBUG` à l'édition de liens désactiverait `/OPT:REF` et
   `/OPT:ICF`, remis explicitement pour que l'exécutable reste celui d'un Release ordinaire),
   empaquette les deux, teste les deux archives, atteste, puis tire les notes du CHANGELOG par
-  [`extract_release_notes.py`](../../scripts/extract_release_notes.py), qui **échoue** si la section
+  [`extract_release_notes.py`](../../scripts/release/extract_release_notes.py), qui **échoue** si la section
   manque, volontairement **avant** la publication : une release aux notes vides ne se corrige pas
   proprement. `--generate-notes` de GitHub aurait donné une liste brute de messages de commit,
   illisible pour le non-développeur à qui la release est destinée. Sur un tag, le groupe de
@@ -736,7 +739,7 @@ autres parties viennent se poser dedans.
 
 ## La page Qualité
 
-[`scripts/build_quality_site.py`](../../scripts/build_quality_site.py) réunit sous `qualite/` ce
+[`scripts/docs/build_quality_site.py`](../../scripts/docs/build_quality_site.py) réunit sous `qualite/` ce
 que la chaîne produisait déjà mais qu'il fallait télécharger, artefact par artefact :
 
 | Chemin | Contenu | Source |

@@ -35,7 +35,7 @@ endif()
 # --- Version de référence (EX-BUILD-010) ---
 # Seul endroit où la version de Qt est écrite dans le CMake : la CI (`.github/workflows/ci.yml`,
 # `release.yml`) l'installe explicitement à cette même valeur (`env.QT_VERSION`), vérifié
-# automatiquement par `scripts/check_qt_version_pin.py` (job `lint-exigences`) pour que les deux
+# automatiquement par `scripts/ci/check_qt_version_pin.py` (job `lint-exigences`) pour que les deux
 # ne divergent jamais silencieusement.
 set(QT_VERSION_MINIMUM "6.11.2")
 

@@ -142,5 +142,6 @@ pixels et ancres, à celles d'avant le rangement.
 ## Livraison
 
 Livré le 23 septembre 2026, **PR #121**, sur décision de l'auteur. 968 tests CTest et 158 tests des
-scripts verts. L'éditeur ne lit pas encore les lieux rangés sous `Regions/` : on y peint les toits
-par la racine d'essai `validate_capital_roofs.py --sandbox` jusqu'au `LOT-124`.
+scripts verts. L'éditeur ne lit pas encore les lieux rangés sous `Regions/` : il y peindra les toits
+au `LOT-124`. Les scripts de fabrication et de validation des toitures, à usage unique, ont été
+retirés du dépôt à la livraison.

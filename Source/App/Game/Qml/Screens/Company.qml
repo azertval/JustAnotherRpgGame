@@ -8,7 +8,7 @@ import Jadg.Runtime
     Remplace les jumeaux de la feuille d'equipe et du tableau de la Guilde. Seuls les MEMBRES ont
     une source : les personnages existants, c'est-a-dire le personnage de demonstration, et des
     places libres autour de lui. Tout le reste attend les lots de la compagnie (`LOT-45`, `LOT-83`)
-    et porte une CLE D'ATTRIBUTION `company.*`, que `python scripts/list_pending_bindings.py` releve.
+    et porte une CLE D'ATTRIBUTION `company.*`, que `python scripts/i18n/list_pending_bindings.py` releve.
 
     Onglets : `PageUp` et `PageDown`, ou le pointeur.
 */

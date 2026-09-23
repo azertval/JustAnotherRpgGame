@@ -93,7 +93,7 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
    `Tools/AssetsHD/`, rangés **sous le même arbre**. Rien n'en est versionné (`.gitignore`, décision
    de l'auteur du 23 septembre 2026, qui retire l'exception du `LOT-104`). Le dépôt ne reçoit que
    l'asset **installé** : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste —
-   par `scripts/install_hd_asset.py`, jamais à la main.
+   par `scripts/assetsGeneration/install_hd_asset.py`, jamais à la main.
 
 ## Le budget
 

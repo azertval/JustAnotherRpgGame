@@ -7,7 +7,7 @@ name: Release
 #   ET Release, chacun autonome -- seulement si le tag est sur main et que les tests passent sur
 #   ce commit (job test-tag).
 # Chaque release porte, à côté des zips du jeu, un zip de symboles (.pdb) par configuration et un
-# fichier SHA256SUMS (scripts/package_release.ps1, scripts/write_sha256sums.ps1).
+# fichier SHA256SUMS (scripts/release/package_release.ps1, scripts/release/write_sha256sums.ps1).
 #
 # L'unique application `JustAnotherRpgGame` est une app **Qt** : le job installe Qt
 # (comme la CI), construit avec le **runtime MSVC dynamique** (les DLL Qt officielles sont en /MD ;
@@ -37,7 +37,7 @@ permissions:
 env:
   # Version de Qt épinglée (EX-BUILD-010), identique à `QT_VERSION_MINIMUM` dans
   # `Source/HMI/CMakeLists.txt` et à `env.QT_VERSION` de `ci.yml` — vérifié automatiquement par
-  # `scripts/check_qt_version_pin.py` (job lint-exigences de ci.yml) pour que les trois écritures
+  # `scripts/ci/check_qt_version_pin.py` (job lint-exigences de ci.yml) pour que les trois écritures
   # ne divergent jamais silencieusement.
   QT_VERSION: '6.11.2'
   # aqtinstall publie sur PyPI (3.3.0) ne sait PAS installer Qt >= 6.11 : Qt a change la
@@ -91,18 +91,18 @@ jobs:
       - name: Package (jeu, symboles, empreintes)
         shell: pwsh
         # Tout le dossier de l'exécutable (exe, DLL Qt + platforms/ par windeployqt, runtime, assets),
-        # les .pdb dans une archive à part : voir scripts/package_release.ps1.
+        # les .pdb dans une archive à part : voir scripts/release/package_release.ps1.
         run: |
-          ./scripts/package_release.ps1 -BinDir build-release/bin/Debug -Name JustAnotherRpgGame-debug -OutDir dist
+          ./scripts/release/package_release.ps1 -BinDir build-release/bin/Debug -Name JustAnotherRpgGame-debug -OutDir dist
           Push-Location dist
-          ../scripts/write_sha256sums.ps1 -Path JustAnotherRpgGame-debug.zip, JustAnotherRpgGame-debug-symbols.zip
+          ../scripts/release/write_sha256sums.ps1 -Path JustAnotherRpgGame-debug.zip, JustAnotherRpgGame-debug-symbols.zip
           Pop-Location
 
       # L'archive, décompressée ailleurs, doit lancer le jeu et rendre une image (phase 3) : sinon
       # debug-latest garde la version précédente, qui elle fonctionnait.
       - name: Test de fumee de l'archive
         shell: pwsh
-        run: ./scripts/smoke_test_release.ps1 -Zip dist/JustAnotherRpgGame-debug.zip
+        run: ./scripts/release/smoke_test_release.ps1 -Zip dist/JustAnotherRpgGame-debug.zip
 
       # Prouve que chaque fichier publié sort de CE workflow sur CE commit :
       # `gh attestation verify JustAnotherRpgGame-debug.zip --repo <propriétaire>/JustAnotherRpgGame`.
@@ -250,10 +250,10 @@ jobs:
         env:
           VERSION: ${{ github.ref_name }}
         run: |
-          ./scripts/package_release.ps1 -BinDir build-debug/bin/Debug -Name "JustAnotherRpgGame-$env:VERSION-debug" -OutDir dist
-          ./scripts/package_release.ps1 -BinDir build-prod/bin/Release -Name "JustAnotherRpgGame-$env:VERSION-release" -OutDir dist
+          ./scripts/release/package_release.ps1 -BinDir build-debug/bin/Debug -Name "JustAnotherRpgGame-$env:VERSION-debug" -OutDir dist
+          ./scripts/release/package_release.ps1 -BinDir build-prod/bin/Release -Name "JustAnotherRpgGame-$env:VERSION-release" -OutDir dist
           Push-Location dist
-          ../scripts/write_sha256sums.ps1 -Path (Get-ChildItem -Filter *.zip | Sort-Object Name).Name
+          ../scripts/release/write_sha256sums.ps1 -Path (Get-ChildItem -Filter *.zip | Sort-Object Name).Name
           Pop-Location
 
       # Les deux archives jouables, avant la publication : une version publiée ne se remplace pas.
@@ -262,8 +262,8 @@ jobs:
         env:
           VERSION: ${{ github.ref_name }}
         run: |
-          ./scripts/smoke_test_release.ps1 -Zip "dist/JustAnotherRpgGame-$env:VERSION-debug.zip"
-          ./scripts/smoke_test_release.ps1 -Zip "dist/JustAnotherRpgGame-$env:VERSION-release.zip"
+          ./scripts/release/smoke_test_release.ps1 -Zip "dist/JustAnotherRpgGame-$env:VERSION-debug.zip"
+          ./scripts/release/smoke_test_release.ps1 -Zip "dist/JustAnotherRpgGame-$env:VERSION-release.zip"
 
       - name: Attestation de provenance
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
@@ -278,7 +278,7 @@ jobs:
       - name: Notes de release depuis le CHANGELOG
         env:
           VERSION: ${{ github.ref_name }}
-        run: python scripts/extract_release_notes.py "$env:VERSION" -o release-notes.md
+        run: python scripts/release/extract_release_notes.py "$env:VERSION" -o release-notes.md
 
       - name: Publish versioned release
         shell: pwsh

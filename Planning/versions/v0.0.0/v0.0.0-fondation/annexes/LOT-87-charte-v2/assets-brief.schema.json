@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "assets-brief.schema.json",
   "title": "Cahier des assets de la charte v2 (LOT-87, T2.4)",
-  "description": "Contrat de forme du cahier. Ce que JSON Schema ne sait pas dire -- une zone hors de sa maquette, un jeton absent de Tokens.qml, des marges qui se chevauchent, une cle en double -- est verifie par scripts/check_assets_brief.py.",
+  "description": "Contrat de forme du cahier. Ce que JSON Schema ne sait pas dire -- une zone hors de sa maquette, un jeton absent de Tokens.qml, des marges qui se chevauchent, une cle en double -- est verifie par scripts/checks/check_assets_brief.py.",
   "type": "object",
   "additionalProperties": false,
   "required": ["version", "lot", "designResolution", "installRoot", "references", "tokens", "materials", "prompt", "pieces", "excluded"],

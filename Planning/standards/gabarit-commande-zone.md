@@ -21,7 +21,7 @@ et suit chaque pièce de la commande d'image à l'asset installé. Livrée par l
 | 1. **Commander** | Claude écrit le bloc C, avec les blocs A et B de [la consigne](consigne-2d-hd.md) | la commande, dans la page |
 | 2. **Générer** | l'auteur l'envoie au générateur, avec la planche de référence | la source, dans le dossier de la zone |
 | 3. **Décrire** | Claude ajoute la pièce au descripteur : nom, famille, emprise, type tactique | une entrée d'`install.json` |
-| 4. **Installer** | `python scripts/install_hd_asset.py <dossier>/install.json` | l'image et son entrée de manifeste, dans `Source/Elements/Assets/…/Scene/` |
+| 4. **Installer** | `python scripts/assetsGeneration/install_hd_asset.py <dossier>/install.json` | l'image et son entrée de manifeste, dans `Source/Elements/Assets/…/Scene/` |
 | 5. **Voir** | la galerie de débug, `--screen=AssetGallery` | la pièce à l'échelle, dans son emprise |
 
 La commande ne dessine pas et ne retouche rien : une pièce qui ne s'installe pas se **recommande**

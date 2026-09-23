@@ -12,9 +12,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   héros devient translucide, et aucun étage ne compte dans la collision (`EX-LVL-025`). L'éditeur
   règle l'étage d'une couche (« Floor »), peint la couche d'étage active, montre ou cache chaque
   étage, et ses préfabriqués gardent leurs étages. La Capitale reçoit sa **toiture** : toits romains
-  à deux pans et pignons de pierre, quatre matières générées puis projetées par
-  `build_capital_roofs.py` en 112 pièces d'une case (deux sens, profondeur 2 à 5), validées par le
-  moteur (`validate_capital_roofs.py`, cartes d'essai `Fixtures/Storeys/`), complétées de 486 raccords
+  à deux pans et pignons de pierre, quatre matières générées puis projetées en 112 pièces d'une case
+  (deux sens, profondeur 2 à 5), validées par le moteur (cartes d'essai `Fixtures/Storeys/`), complétées de 486 raccords
   en L, en T et en croix (598 toits). La consigne du générateur gagne les cadrages « surface » et
   « élévation » des matières peintes à plat. Le kit de la Capitale se **range en sous-dossiers** —
   `floors/`, `walls/`, `roofs/l/d3/`… — sous un seul manifeste qui cite chaque pièce par son chemin :
@@ -23,6 +22,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   rangées de même : sols de terre, d'herbe, d'eau et de planches, allées de jardin, murs à porte, à
   volets et de boutique, quais, remparts et soutènements, corniches, pilastres et auvents, accès,
   escaliers, ponts et pontons, et un mobilier de place et de port (fontaine, puits, statue, barque).
+  Les **scripts du dépôt se rangent par usage** — `scripts/checks/`, `ci/`, `docs/`, `release/`,
+  `assetsGeneration/`, `i18n/`, les points d'entrée du poste restant à la racine — et les scripts à
+  usage unique (fabrication du kit de la Capitale et de ses toitures, relevé de palette du `LOT-87`,
+  lanceur de l'ancienne arène) sont retirés.
 
 - **LOT-125 — Le canevas de l'éditeur en HD.** Le canevas, l'essai immédiat, les vignettes et
   `--render` peignent l'art HD comme le jeu : lissé, lu sur des **niveaux réduits** calculés à la
@@ -114,13 +117,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   marqueur) reste au plus proche. Le **zoom est libre** : une case occupe la hauteur de la fenêtre
   divisée par 10,8 (100 px à 1080p, 200 à 2160p, la même étendue de monde), et `fitZoom` ne
   s'arrondit plus. Les dalles débordent d'1/256 de case, sans quoi leur bord adouci dessinait un
-  treillis sombre sur tout le sol. `scripts/build_hd_mockup.py` installe la maquette du `LOT-101` en
+  treillis sombre sur tout le sol. `scripts/assetsGeneration/build_hd_mockup.py` installe la maquette du `LOT-101` en
   données d'essai, et `test_hd_mockup_render` la fait rendre par le moteur à 1080p et à 2160p, puis
   la compare aux deux vues montées à la main, sous un seuil qui attrape chaque défaut provoqué ;
   un travelling s'écrit à la demande pour le contrôle visuel du scintillement.
 
 - **LOT-104 — La chaîne de production des assets HD.** Du brut du générateur à l'asset installé,
-  une commande et rien à la main : `scripts/install_hd_asset.py` lit le descripteur `install.json`
+  une commande et rien à la main : `scripts/assetsGeneration/install_hd_asset.py` lit le descripteur `install.json`
   posé à côté des sources,
   **détoure** (voile d'alpha effacé, intérieur remis à 255, îlots retirés), **découpe** une planche
   en ses morceaux et les nomme dans l'ordre de lecture, **réduit** à l'échelle du standard en alpha
@@ -129,7 +132,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   famille et l'empreinte de sa source (`--check` rejoue et compare, `--measure` n'écrit rien). Les
   **18 pièces du Colisée** (sable, pavé, bordures, murs à arcades U et V, angles rentrant et sortant)
   s'installent ainsi dans `arena-of-fate/Scene/` sans une retouche, à un arc par case dans les murs
-  comme dans les angles. En CI, `scripts/check_hd_assets.py` refuse toute image qu'aucun manifeste ne
+  comme dans les angles. En CI, `scripts/checks/check_hd_assets.py` refuse toute image qu'aucun manifeste ne
   cite, tout fichier cité absent, toute pièce hors des bornes du standard (PNG RGBA 8 bits, taille
   déclarée, 4096 px, dalle au losange exact, ancre dans l'image), et toute zone au-delà de **40 Mio**
   — le poids de chaque zone s'écrit dans le résumé du job. La **galerie de débug** lit désormais
@@ -360,7 +363,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   seuls le sable et le niveau −1 se parcourent, et le plan de principe est redessiné.
 
 - **Le standard 2D HD devient normatif (LOT-101).** Le style qui remplace le pixel art est chiffré
-  et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/build_hd_mockup.py`
+  et éprouvé : une maquette de huit cases sur huit d'Arenarea, montée par `scripts/assetsGeneration/build_hd_mockup.py`
   depuis la planche de référence et cadrée à 1080p et à 2160p, sert désormais de référence de
   non-régression au rendu HD. Trois exigences sont réécrites — `EX-VIS-008` (la scène peinte,
   losange de 256 × 159, figurine de 170 px, alpha continu, échelle de l'art donnée par le lieu),
@@ -663,7 +666,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     pour retoucher le relevé.
   - **Données et outil** : `Source/Elements/Assets/Maps/` (seize JPEG, 15,9 Mo, et leur
     manifeste de provenance `author`), `Source/Elements/Maps/world-maps.json` (les positions, à
-    part de l'atlas) ; `scripts/check_map_assets.py` les recoupe en intégration continue avec
+    part de l'atlas) ; `scripts/checks/check_map_assets.py` les recoupe en intégration continue avec
     l'atlas.
   - **Le fond du menu principal est produit** (`ui/background/menu-scene`) ; les captures de
     référence du menu et des crédits sont régénérées.
@@ -782,7 +785,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     avertissement, les boutons et cases de la charte v2 déduisent le bon état, et les **15 écrans
     sont comparés à leur capture de référence** (rendu logiciel, identique sur le poste et le
     runner). Une couleur de jeton changée fait échouer 12 écrans sur 15.
-  - **Traductions vérifiées** (`scripts/check_translations.py`) : aucune traduction inachevée ou
+  - **Traductions vérifiées** (`scripts/checks/check_translations.py`) : aucune traduction inachevée ou
     disparue, marqueurs `%1` identiques ; `build-ninja` relance `lupdate` pour prouver que le
     catalogue est à jour du code. Deux chaînes qu'il manquait déjà (l'aide souris de l'arène, une
     étiquette de la galerie de l'atelier) traduites, trois entrées mortes retirées.
@@ -810,7 +813,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     abri, tour d'IA, chargement de niveau ; historique dans la branche `benchmarks`, alerte au-delà
     de 150 %.
   - **CodeQL** (`codeql.yml`) sur chaque PR : C++ sans build, Python et workflows.
-  - **Archives lancées avant publication** (`scripts/smoke_test_release.ps1`) et **attestation de
+  - **Archives lancées avant publication** (`scripts/release/smoke_test_release.ps1`) et **attestation de
     provenance** de chaque fichier publié (`gh attestation verify`).
   - Six liens relatifs cassés de la documentation réparés, trouvés par le nouveau contrôle.
   - **Premier défaut trouvé par le fuzzing** : un nombre JSON hors de portée (`1e400`) faisait lever
@@ -833,7 +836,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     perdrait des dépendances d'en-têtes ; CMake le détecte et s'en passe.
   - **Garde-fou binaires** : aucun fichier au-delà de 5 Mio, et un binaire doit appartenir à une
     famille déclarée `binary` dans `.gitattributes`.
-  - **Versions croisées vérifiées** (`scripts/check_tool_pins.py`) : clang-format dans `ci.yml` et
+  - **Versions croisées vérifiées** (`scripts/ci/check_tool_pins.py`) : clang-format dans `ci.yml` et
     dans les hooks, Doxygen dans `ci.yml` et `docs.yml`.
   - **`.clangd`** pour les diagnostics clang-tidy dans l'éditeur ; **`build.ps1 -Label`** pour ne
     lancer qu'un étage de tests.
@@ -848,11 +851,11 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     bloquant reste celui de `ci.yml`.
   - **Annotations sur la ligne** : avertissements MSVC, assertions GoogleTest en échec, écarts
     `clang-format`, et tous les diagnostics `clang-tidy` — bloquants ou non — convertis en SARIF
-    (`scripts/clang_tidy_sarif.py`) et visibles dans *Code scanning*.
+    (`scripts/ci/clang_tidy_sarif.py`) et visibles dans *Code scanning*.
   - **Un résumé en tête de chaque job** : nombre de tests et les plus lents, couverture, taille des
     exécutables, diagnostics `clang-tidy` par famille, verdict de chaque contrôle du référentiel.
     Ces contrôles s'exécutent désormais tous, même après un premier échec.
-  - **CHANGELOG vérifié en PR** (`changelog.yml`, `scripts/check_changelog.py`) : une ligne ajoutée
+  - **CHANGELOG vérifié en PR** (`changelog.yml`, `scripts/ci/check_changelog.py`) : une ligne ajoutée
     à cette section, ou le label `no-changelog`.
 
 - **CI : plus vite, plus propre** (refonte de la chaîne d'outillage, phase 0).
@@ -1181,7 +1184,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     compétences viennent du catalogue de règles, les caractéristiques du lexique, qui garantit une
     seule traduction par terme.
   - **Le garde-fou est le cœur du lot, pas la bascule QML.** Une refonte qui ne produit que du QML
-    redérive. `scripts/check_ui_layers.py` vérifie six règles (`EX-IHM-100` à `EX-IHM-105`) et
+    redérive. `scripts/checks/check_ui_layers.py` vérifie six règles (`EX-IHM-100` à `EX-IHM-105`) et
     **verrouille** en outre `EX-ARCH-001`/`EX-NFR-010` — `Core` sans un seul en-tête Qt, vrai depuis
     le `LOT-01`, qu'un seul `QString` suffirait à rendre faux — sans les redéclarer. Les six règles
     ont été vérifiées **en mordant** : une violation injectée dans chacune, le contrôle rouge à
@@ -1249,7 +1252,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     ferait rogner.
   - **Le jeu est traduisible, et le français est sa langue source.** Les 101 chaînes des écrans QML
     n'étaient portées par aucun catalogue. 89 traductions anglaises sont **reprises** du catalogue
-    maison par `scripts/seed_translations.py`, qui ne devine rien : une source sans correspondance
+    maison par `scripts/i18n/seed_translations.py`, qui ne devine rien : une source sans correspondance
     exacte reste à traduire et il la signale. Il a d'ailleurs trouvé une vraie ambiguïté du corpus —
     « Bourse » traduit **Purse** (l'argent) et **Pouch** (l'emplacement) — et a refusé de choisir.
     Les libellés à clé **calculée** (caractéristiques, emplacements) restent au lexique, dont
@@ -1274,7 +1277,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     `fr.lang`, mot pour mot. Chacun de leurs **41 champs** porte une **clé d'attribution** nommée
     qui aboutit à l'ancre `hmi::PendingData`. Le jour où un lot fonctionnel livre sa donnée, il
     remplace `PendingData` par sa vraie vue-modèle dans le fichier de **câblage** : le formulaire
-    ne bouge pas. `python scripts/list_pending_bindings.py` en donne l'inventaire — **dérivé du
+    ne bouge pas. `python scripts/i18n/list_pending_bindings.py` en donne l'inventaire — **dérivé du
     QML**, donc toujours exact, là où une liste écrite à côté aurait cessé d'être vraie au premier
     écran branché.
   - **Des tirets cadratins, jamais de fausses données.** Un écran rempli de valeurs plausibles se
@@ -1830,7 +1833,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     terme ne s'y trouve pas — un complément tapé de mémoire est une donnée inventée qui a
     l'apparence d'une donnée extraite. Au passage, le lexique fige un faux ami : l'école
     `conjuration` se dit **« invocation »**.
-  - **`scripts/check_glossary.py`, en CI, s'auto-teste avant de se prononcer.** Aucune clé de règle
+  - **`scripts/checks/check_glossary.py`, en CI, s'auto-teste avant de se prononcer.** Aucune clé de règle
     n'existe encore : le contrôle serait vert par vacuité, et personne ne saurait s'il fonctionne —
     la panne exacte du `LOT-78`. Six catalogues fictifs le mettent à l'épreuve à chaque appel. La
     comparaison des traductions ignore la casse mais **pas les accents** : une table d'autorité

@@ -152,7 +152,7 @@ Le travail avance par **lots** (un incrément livrable par lot), décrits dans
 - **Tests** : toute logique de `Core` est couverte par des tests (unitaires et, au besoin,
   d'intégration). `CHANGELOG.md` est tenu à jour.
 - **Traçabilité** : les exigences `EX-…` (spécifications) sont des identifiants stables,
-  vérifiés en CI (`scripts/lint_exigences.py`).
+  vérifiés en CI (`scripts/checks/lint_exigences.py`).
 
 Détails dans [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -161,10 +161,10 @@ Détails dans [`CONTRIBUTING.md`](CONTRIBUTING.md).
 Les mêmes contrôles qu'en intégration continue, tous lançables **depuis la racine du dépôt** :
 
 ```sh
-python scripts/lint_exigences.py           # identifiants EX-… : ni doublon, ni orphelin
-python scripts/lint_exigences.py --next    # prochain numéro libre, par catégorie
-python scripts/generate_cahier_test.py --check   # cahier de test à jour
-python scripts/build_docs.py               # référence du code, Doxygen (WARN_AS_ERROR)
+python scripts/checks/lint_exigences.py           # identifiants EX-… : ni doublon, ni orphelin
+python scripts/checks/lint_exigences.py --next    # prochain numéro libre, par catégorie
+python scripts/docs/generate_cahier_test.py --check   # cahier de test à jour
+python scripts/docs/build_docs.py               # référence du code, Doxygen (WARN_AS_ERROR)
 python Documentation/outils/build_docs_site.py --out build/site   # les pages du site
 ```
 

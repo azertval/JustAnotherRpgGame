@@ -174,7 +174,7 @@ l'accompagnent :
 - `core::allAbilities()` — les six dans l'ordre, pour balayer une énumération sans coder en dur sa
   dernière valeur.
 
-Les noms sont ceux du lexique du `LOT-30` et de `common.schema.json` ; `scripts/check_rpg_data.py`
+Les noms sont ceux du lexique du `LOT-30` et de `common.schema.json` ; `scripts/checks/check_rpg_data.py`
 vérifie en CI que les trois listes coïncident (`EX-CNT-011`).
 
 ## Les compétences : `core::SkillCatalog` {#competences}

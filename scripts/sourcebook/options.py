@@ -566,7 +566,7 @@ def produire(corpus: Corpus, lexique: list, racine, cache=None) -> tuple[list, l
     """Écrit les quatre catalogues sous ``racine``. Renvoie (fichiers écrits, pertes recoupées).
 
     **Un fichier par entrée**, nommé par son identifiant. C'est la forme que
-    `scripts/check_rpg_data.py` valide, et celle qui rend un conflit de fusion lisible : un
+    `scripts/checks/check_rpg_data.py` valide, et celle qui rend un conflit de fusion lisible : un
     catalogue en un seul tableau JSON ferait tenir quarante-deux dons dans un fichier, où deux
     ajouts simultanés se marchent dessus. Le multiclassage fait exception — c'est **une** règle,
     pas une collection, et la scinder n'aurait rien à séparer.

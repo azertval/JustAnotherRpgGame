@@ -5,7 +5,7 @@
 > réfèrent, et un numéro réutilisé ferait mentir leur histoire. Les exigences retirées une à une,
 > dans une famille qui vit encore, restent à la fin de leur propre spécification.
 >
-> Une exigence retirée n'est citée par aucun code : `scripts/lint_exigences.py` le vérifie.
+> Une exigence retirée n'est citée par aucun code : `scripts/checks/lint_exigences.py` le vérifie.
 
 ## Solveur d'apprentissage automatique (`EX-IA-*`)
 

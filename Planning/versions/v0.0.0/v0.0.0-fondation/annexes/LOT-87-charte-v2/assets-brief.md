@@ -1,7 +1,7 @@
 # LOT-87 — Cahier des assets de la charte v2
 
 > Tâche **T2.4** du [LOT-87](../../lots/LOT-87-charte-v2.md). Source : `assets-brief.json`, son contrat
-> `assets-brief.schema.json`, son garde-fou `scripts/check_assets_brief.py`.
+> `assets-brief.schema.json`, son garde-fou `scripts/checks/check_assets_brief.py`.
 > Exigences servies : [`EX-IHM-075`](../../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-075) (ornements produits, décrits par ce cahier),
 > [`EX-IHM-076`](../../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-076) (provenance « produite »), [`EX-IHM-053`](../../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-053)
 > (icônes, refondue par cette tâche).
@@ -39,9 +39,9 @@ Un prompt n'est **pas recopié** dans le JSON : il est **assemblé** au moment d
 palette qu'il impose soit toujours celle de `Tokens.qml`.
 
 ```
-python scripts/check_assets_brief.py --prompt ui/button/menu/hover   # une variante
-python scripts/check_assets_brief.py --prompt ui/icon/skill          # toutes celles d'une pièce
-python scripts/check_assets_brief.py --prompt all                    # le cahier entier
+python scripts/checks/check_assets_brief.py --prompt ui/button/menu/hover   # une variante
+python scripts/checks/check_assets_brief.py --prompt ui/icon/skill          # toutes celles d'une pièce
+python scripts/checks/check_assets_brief.py --prompt all                    # le cahier entier
 ```
 
 L'assemblage met bout à bout, dans cet ordre : le **style** commun ; la **matière** de la pièce
@@ -112,7 +112,7 @@ Pour chaque pièce :
 Les zones ont été relevées sur les maquettes puis contrôlées une à une en les dessinant dessus :
 
 ```
-python scripts/check_assets_brief.py --annotate <dossier>
+python scripts/checks/check_assets_brief.py --annotate <dossier>
 ```
 
 Le script écrit dans `<dossier>` chaque maquette avec ses rectangles et le nom de la pièce ; c'est
@@ -133,7 +133,7 @@ jour — et sort en erreur à la première faute.
 
 ## Le cahier
 
-<!-- DEBUT DES TABLES ENGENDREES : scripts/check_assets_brief.py --write -->
+<!-- DEBUT DES TABLES ENGENDREES : scripts/checks/check_assets_brief.py --write -->
 
 Le cahier compte **80 pièces**, qui engendrent **214 images** (une par état ou par membre).
 

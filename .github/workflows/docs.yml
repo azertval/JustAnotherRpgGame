@@ -35,7 +35,7 @@ env:
   # échouer au déploiement. Voir le commentaire de ci.yml.
   DOXYGEN_VERSION: 1.16.1
   # Mêmes Qt, aqtinstall et OpenCppCoverage que le job build-test-coverage de ci.yml
-  # (scripts/check_qt_version_pin.py, scripts/check_tool_pins.py).
+  # (scripts/ci/check_qt_version_pin.py, scripts/ci/check_tool_pins.py).
   QT_VERSION: '6.11.2'
   AQT_SOURCE: 'git+https://github.com/miurahr/aqtinstall.git@16db45a70b5905ad596941b223469bc86a56901e'
   OPENCPPCOVERAGE_VERSION: 0.9.9.0
@@ -70,7 +70,7 @@ jobs:
         run: doxygen --version
 
       - name: Generate documentation
-        run: python3 scripts/build_docs.py
+        run: python3 scripts/docs/build_docs.py
 
       - name: Conserver la documentation
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -187,7 +187,7 @@ jobs:
           COMMIT: ${{ github.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          python3 scripts/build_quality_site.py --site site \
+          python3 scripts/docs/build_quality_site.py --site site \
             --coverage coverage/coverage.xml --coverage-html coverage/coverage-html \
             --benchmarks "$RUNNER_TEMP/benchmarks/dev/bench" \
             --commit "$COMMIT" --run-url "$RUN_URL"

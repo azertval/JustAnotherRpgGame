@@ -9,10 +9,10 @@ resume = "Les écrans du jeu tiennent sur la charte v2 tirée des dix maquettes 
 prerequis = ["LOT-86", "LOT-39"]
 livrables = [
   "Trois modules QML — `Jadg.Ui` (`Source/Ui`), `Jadg.Runtime` (`Source/HMI/Runtime`), `Jadg.App` (`Source/App`) — et les doublures `Source/Ui/Mocks/Jadg/Runtime/` : Qt Design Studio ouvre chaque `*Form.ui.qml`.",
-  "`scripts/check_qml_designer_compat.py` réécrit en **contrat** de neuf règles ; `check_ui_layers.py` et `check_qt_version_pin.py` suivent la nouvelle arborescence.",
+  "`scripts/checks/check_qml_designer_compat.py` réécrit en **contrat** de neuf règles ; `check_ui_layers.py` et `check_qt_version_pin.py` suivent la nouvelle arborescence.",
   "La charte v2 : `Source/Ui/Theme/Tokens.qml` (dix rôles relevés, `uiScale`, familles `Cinzel` et `IM Fell English`, échelle typographique) et `scripts/measure_mockup_palette.py`.",
-  "Le cahier des assets : `assets-brief.md`, `assets-brief.json`, `assets-brief.schema.json`, validés par `scripts/check_assets_brief.py` (80 pièces, 214 images).",
-  "Le manifeste étendu aux images produites (`illustrations.json`, provenance `produced`), `scripts/check_ui_assets.py`, `scripts/receive_ui_assets.py` et `Source/Ui/Theme/Artwork.qml`.",
+  "Le cahier des assets : `assets-brief.md`, `assets-brief.json`, `assets-brief.schema.json`, validés par `scripts/checks/check_assets_brief.py` (80 pièces, 214 images).",
+  "Le manifeste étendu aux images produites (`illustrations.json`, provenance `produced`), `scripts/checks/check_ui_assets.py`, `scripts/assetsGeneration/receive_ui_assets.py` et `Source/Ui/Theme/Artwork.qml`.",
   "Les briques de `Source/Ui/Controls/` (`PanelFrame`, `OrnateButton`, `StatMedallion`, `ItemSlot`, `Gauge`, `HudFrame`, `ScreenPage`…) et la galerie `DesignStudio/Main.ui.qml` (`--screen=Gallery`).",
   "Huit écrans transcrits (menu, options, crédits, fiche, inventaire, carte, compagnie, sorts), quatre restylés (pause, dialogue, marchand, journal) et le cadre du HUD (`GameViewForm`, `CombatHudForm`).",
   "Les 213 images produites reçues le 18 septembre 2026 (`Source/Elements/Assets/UI/`), documentées sous `images-produites/` ; l'ancienne charte (treize contrôles, jetons v1) retirée.",
@@ -147,7 +147,7 @@ ressource :
   `PendingData`, `CharacterSheetModel`, `InventoryModel`, `GameViewport`) aux mêmes noms et
   propriétés que le C++ ; le `.qmlproject` les place dans ses `importPaths` et déclare les jumeaux
   dans ses `QmlFiles`. CMake ne connaît pas ce dossier.
-- `scripts/check_qml_designer_compat.py` réécrit : un **contrat** en neuf règles (imports et
+- `scripts/checks/check_qml_designer_compat.py` réécrit : un **contrat** en neuf règles (imports et
   motifs des formulaires, aucun type C++ dans un formulaire, doublures complètes — chaque
   `Q_PROPERTY` et `Q_INVOKABLE` a son pendant —, jumeaux appareillés, chaque fichier QML listé
   par son CMake, aucun alias ni désactivation de `qmldir` engendré, `qmldir` de conception
@@ -353,7 +353,7 @@ mise en page inchangées. Le journal ne le signale pas : il ne dit qu'un fichier
 ### T2.4 — Le cahier des assets
 
 Le cahier est une page à part, [LOT-87 — Cahier des assets de la charte v2](../annexes/LOT-87-charte-v2/assets-brief.md), et son jumeau machine
-`assets-brief.json`, validé contre `assets-brief.schema.json` par `scripts/check_assets_brief.py`.
+`assets-brief.json`, validé contre `assets-brief.schema.json` par `scripts/checks/check_assets_brief.py`.
 **80 pièces, 214 images** (une par état ou par membre d'un jeu d'icônes), en onze familles ; chacune
 porte sa clé au format du `LOT-39` (`ui/<famille>/<pièce>`), sa taille de production à 1080p, ses
 marges 9-patch ou sa taille fixe, son fond, ses états, sa description, son prompt, les zones de
@@ -392,7 +392,7 @@ tel qu'assemblé et envoyé (`prompt`), la date (`date`), et pour une pièce 9-p
 (`sha256`, `bytes`, `size`) restent communs aux deux provenances : une image produite se vérifie
 comme une image extraite, seule sa provenance et ce qu'elle cite diffèrent.
 
-`scripts/check_ui_assets.py` garde ses trois contrôles (empreinte, dimensions, orphelin — étendu à
+`scripts/checks/check_ui_assets.py` garde ses trois contrôles (empreinte, dimensions, orphelin — étendu à
 `UI.rglob()` pour suivre les images produites dans leurs sous-dossiers de famille), et en gagne
 deux :
 
@@ -414,7 +414,7 @@ couvertes — chacune fait échouer `check_ui_assets.py` avec un message qui nom
 
 ### T2.6 — La réception des images produites
 
-`scripts/receive_ui_assets.py` : un dossier de PNG livrés par le générateur, chacun nommé par la
+`scripts/assetsGeneration/receive_ui_assets.py` : un dossier de PNG livrés par le générateur, chacun nommé par la
 clé du cahier qu'il porte (`ui/frame/panel-dark.png` → `ui__frame__panel-dark.png`, une variante
 `ui/button/apply/hover` → `ui__button__apply__hover.png`). Pour chaque fichier : la clé existe dans
 le cahier et n'a pas déjà été reçue, les dimensions et la présence d'un canal alpha (octet de type
@@ -1071,7 +1071,7 @@ Rappel de la phase 0 :
   branches distantes correspondantes restent à retirer (nécessite une confirmation explicite, hors
   de portée de l'automatisation).
 - `main` avancé sur `origin/main`, les trois worktrees obsolètes purgés.
-- `lot/LOT-87-charte-v2` ouverte depuis `main` ; `scripts/check_qml_designer_compat.py` et
+- `lot/LOT-87-charte-v2` ouverte depuis `main` ; `scripts/checks/check_qml_designer_compat.py` et
   `Source/Ui/DesignStudio/Main.ui.qml` récupérés depuis `archive/fix/qt-designer-6.8.7-compatibility`
   pour la phase 1.
 - Les dix maquettes déplacées dans `references/`.

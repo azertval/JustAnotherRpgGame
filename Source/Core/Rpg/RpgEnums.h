@@ -20,7 +20,7 @@ namespace core {
  * silencieux (`EX-CBT-032`) — d'où le `switch` exhaustif de `Core/Rpg/RpgEnumNames.h`.
  *
  * Les noms textuels sont ceux du lexique de traduction (`LOT-30`), catégorie *type de dégâts* :
- * `scripts/check_rpg_data.py` vérifie que les treize valeurs de cette énumération sont exactement
+ * `scripts/checks/check_rpg_data.py` vérifie que les treize valeurs de cette énumération sont exactement
  * les treize termes anglais que le lexique porte sous cette catégorie. Le moteur, les schémas et
  * la table d'autorité de traduction disent donc le même mot pour la même chose, ou la CI échoue.
  */

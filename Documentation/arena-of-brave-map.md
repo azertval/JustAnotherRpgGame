@@ -14,7 +14,8 @@ L'accès au combat se fait toujours par le menu de l'arène ou le dialogue du h�
 
 ## Ouvrir et modifier
 
-Lancer `scripts/open-arena-editor.ps1`. La carte s'ouvre dans **LevelEditor** et les sauvegardes
+Lancer `LevelEditor --data Source/Elements --map=capital/arena-of-brave`. La carte s'ouvre dans
+**LevelEditor** et les sauvegardes
 écrivent directement dans `Source/Elements/Levels`, sans passer par une copie de test.
 
 - Carte principale : `Source/Elements/Levels/capital/arena-of-brave.json` (88 × 88).

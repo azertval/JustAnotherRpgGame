@@ -68,7 +68,7 @@
 
   <!-- Frontière -->
   <path d="M440,50 L440,330" stroke="#8a2233" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
-  <text x="446" y="345" font-size="12" fill="#8a2233">frontière vérifiée par scripts/check_ui_layers.py (EX-IHM-100 à 105)</text>
+  <text x="446" y="345" font-size="12" fill="#8a2233">frontière vérifiée par scripts/checks/check_ui_layers.py (EX-IHM-100 à 105)</text>
 
   <!-- Atelier -->
   <rect x="20" y="370" width="840" height="50" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>

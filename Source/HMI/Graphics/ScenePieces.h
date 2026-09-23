@@ -68,7 +68,7 @@ struct SceneTexture {
  * d'animation **une case de haut** — sa cellule est commune à toutes ses bandes, là où sa largeur
  * double pour une attaque, et elle vaut une case dans l'ancien standard (64 pour 68) comme dans le
  * nouveau (256 pour 256). Un lieu livré déclare toujours son losange
- * (`scripts/check_hd_assets.py`).
+ * (`scripts/checks/check_hd_assets.py`).
  */
 [[nodiscard]] inline float artTileWidth(const SceneTexture& texture) noexcept {
     if (texture.artTile.x > 0.0F) {

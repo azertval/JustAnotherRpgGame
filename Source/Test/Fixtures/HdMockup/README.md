@@ -8,7 +8,7 @@ Le test `test_hd_mockup_render.cpp` en fait une carte, la rend par le moteur à 
 et compare les deux images aux références sans texte de
 `Planning/versions/v0.1.0/v0.0.1-demo/maquettes/` (`LOT-103`).
 
-**Rien ne s'y retouche à la main.** Tout est écrit par `scripts/build_hd_mockup.py` depuis la
+**Rien ne s'y retouche à la main.** Tout est écrit par `scripts/assetsGeneration/build_hd_mockup.py` depuis la
 planche de référence (`Tools/AssetsHD/`, non versionnée), du même geste que les maquettes ;
 `--fixture` n'écrit que ces données, `--check` vérifie qu'elles sont à jour.
 

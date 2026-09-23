@@ -75,9 +75,8 @@ QtObject {
     //
     // Les roles du parchemin, de l'or et du grenat ci-dessus sont GARDES : ils viennent du corpus,
     // et les maquettes ne les contredisent pas (parchemin mesure #e4d4ac contre #e0d0b0). Ceux-ci
-    // sont NOUVEAUX, et chacun est releve par `scripts/measure_mockup_palette.py` sur une zone
-    // nommee d'une maquette -- la table complete est dans l'epic du LOT-87. `--check` echoue si
-    // l'une de ces valeurs s'ecarte du releve.
+    // sont NOUVEAUX, et chacun a ete releve sur une zone nommee d'une maquette -- la table
+    // complete est dans l'epic du LOT-87.
 
     // Panneaux sombres : menu, options, credits, carte, HUD.
     readonly property color panel: "#0c0c0c"          // fond du panneau des credits (07)

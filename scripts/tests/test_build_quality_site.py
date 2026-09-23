@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-"""Assemblage du site qualité (scripts/build_quality_site.py)."""
+"""Assemblage du site qualité (scripts/docs/build_quality_site.py)."""
 import json
 import subprocess
 import sys
@@ -79,7 +79,7 @@ def test_script_complet(tmp_path, root):
     (tmp_path / 'bench' / 'data.js').write_text(BENCHMARKS, encoding='utf-8')
     (tmp_path / 'bench' / 'index.html').write_text('<html></html>', encoding='utf-8')
     site = tmp_path / 'site'
-    subprocess.run([sys.executable, str(root / 'scripts' / 'build_quality_site.py'),
+    subprocess.run([sys.executable, str(root / 'scripts' / 'docs' / 'build_quality_site.py'),
                     '--site', str(site), '--coverage', str(tmp_path / 'coverage.xml'),
                     '--coverage-html', str(tmp_path / 'html'), '--benchmarks', str(tmp_path / 'bench'),
                     '--commit', '0123456789abcdef'], check=True)

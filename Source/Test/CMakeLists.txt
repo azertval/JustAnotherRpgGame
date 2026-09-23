@@ -270,7 +270,7 @@ target_compile_definitions(UnitTests PRIVATE
     # contenu mais des MECANISMES. Voir Fixtures/GameData/README.md.
     JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData"
     # La maquette du LOT-101 installee comme une zone livree, et ses deux images de reference :
-    # le rendu HD du LOT-103 se juge contre elles (scripts/build_hd_mockup.py ecrit les deux).
+    # le rendu HD du LOT-103 se juge contre elles (scripts/assetsGeneration/build_hd_mockup.py ecrit les deux).
     JADG_HD_MOCKUP_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/HdMockup"
     JADG_MOCKUP_REFERENCE_DIR="${PROJECT_SOURCE_DIR}/Planning/versions/v0.1.0/v0.0.1-demo/maquettes"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"

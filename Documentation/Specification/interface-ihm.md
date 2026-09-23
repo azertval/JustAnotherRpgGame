@@ -159,8 +159,8 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   Les **teintes sont relevées, jamais choisies à vue** : une couleur inventée ressemble à la source
   sans en venir, et rien ne le dit jamais. Le parchemin, l'encre, l'or et le grenat restent relevés
   sur le **corpus** (`LOT-66`) ; les rôles propres à la v2 — panneaux sombres, texte sur panneau,
-  plaques d'action — sont relevés sur les **maquettes de référence** du lot, par un relevé rejouable
-  (`scripts/measure_mockup_palette.py`) qui nomme, pour chaque rôle, la maquette et la zone mesurée.
+  plaques d'action — ont été relevés sur les **maquettes de référence** du lot, rôle par rôle, la
+  maquette et la zone mesurée consignées dans la fiche du `LOT-87`.
   Les grandeurs de l'habillage suivent un facteur d'agrandissement **réel**, rapport de la fenêtre à
   la définition de conception de 1920 × 1080. Le viewport de la scène suit sa propre règle, lui
   aussi à facteur réel (`EX-REN-013`).
@@ -433,7 +433,7 @@ se souvenir de ce qui avait été relevé, coûterait bien plus que de la conser
 
 ### Ce qui rend ces exigences autre chose que des intentions
 
-`scripts/check_ui_layers.py` les vérifie toutes à chaque *Pull Request*, et vérifie en outre
+`scripts/checks/check_ui_layers.py` les vérifie toutes à chaque *Pull Request*, et vérifie en outre
 qu'`EX-ARCH-001` et `EX-NFR-010` restent vraies — `Core` sans un seul en-tête Qt. Il ne **crée** pas
 cette dernière règle, il la **verrouille** : elle est tenue depuis le `LOT-01`, et un seul `QString`
 suffirait à la rendre fausse sans que rien d'autre ne le signale.

@@ -6,7 +6,7 @@ import Jadg.Runtime
     Competences et sorts -- CABLAGE, cote developpeur (LOT-87, T3.8).
 
     Aucune donnee avant le lot des sorts (`LOT-35`) : chaque liaison porte une CLE D'ATTRIBUTION
-    `skills.*`, que `python scripts/list_pending_bindings.py` releve. Le jour ou le lot arrive, il
+    `skills.*`, que `python scripts/i18n/list_pending_bindings.py` releve. Le jour ou le lot arrive, il
     remplace ici `PendingData` par sa vue-modele ; le formulaire ne bouge pas.
 
     Ouvert depuis la fiche de personnage ; le bouton Fiche y ramene. Les fleches designent une

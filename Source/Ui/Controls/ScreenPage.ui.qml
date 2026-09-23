@@ -11,7 +11,7 @@ import Jadg.Ui
     `Item`, sous la plaque de titre.
 
     `pending` affiche, au pied, que l'ecran est dessine sans etre alimente : un ecran pas encore
-    branche ressemble sinon a un ecran casse (`scripts/list_pending_bindings.py` en fait l'inventaire).
+    branche ressemble sinon a un ecran casse (`scripts/i18n/list_pending_bindings.py` en fait l'inventaire).
 */
 Item {
     id: root

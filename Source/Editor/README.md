@@ -215,7 +215,7 @@ d'éprouver la reprise.
 | `Ctrl+Maj+S` | enregistrer la sélection comme préfabriqué |
 | `P` · `Shift+P` | essai depuis l'entrée, depuis la case survolée |
 
-Pour ouvrir le nouveau Colisée, utiliser `scripts/open-arena-editor.ps1` ou
+Pour ouvrir le nouveau Colisée, utiliser
 `LevelEditor --data <Source/Elements> --map=capital/arena-of-brave` (`--map=` remplace la carte de
 départ dans l'onglet du démarrage).
 `--screenshot=<fichier.png>` capture la fenêtre puis quitte.

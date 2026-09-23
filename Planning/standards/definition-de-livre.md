@@ -6,7 +6,7 @@ les conditions de sa filière le sont. Un lot « presque fini » est `en-cours`.
 ## Pour tout lot
 
 - La PR est fusionnée sur `main`, CI verte, entrée au `CHANGELOG.md`.
-- `uv run scripts/check.py` et `scripts/build_docs.py` passent en local avant la PR.
+- `uv run scripts/check.py` et `scripts/docs/build_docs.py` passent en local avant la PR.
 - La fiche porte le numéro de la PR et, s'il y en a, ses **décisions de réalisation**.
 - Ce que le lot n'a pas fait et devait faire est **écrit** : dans un autre lot, ou dans une question ouverte.
 

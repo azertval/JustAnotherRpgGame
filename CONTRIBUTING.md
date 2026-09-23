@@ -15,8 +15,8 @@ Le poste exécute les mêmes outils que la CI, aux mêmes versions, lues dans `e
 - **Python des scripts** (`pyproject.toml`, `uv.lock`) : `uv sync --locked` crée `.venv/` avec
   exactement les dépendances du runner (jsonschema, pytest). Tests des scripts : `uv run pytest`.
 - **Hooks** (`.pre-commit-config.yaml`) : avant chaque commit, clang-format, ruff, actionlint,
-  zizmor, gitleaks, conflits de fusion et de casse, YAML, JSON (`scripts/check_json_files.py`) et
-  garde-fou binaires (`scripts/check_binary_files.py`) ; à la rédaction du message, son format. À
+  zizmor, gitleaks, conflits de fusion et de casse, YAML, JSON (`scripts/checks/check_json_files.py`) et
+  garde-fou binaires (`scripts/checks/check_binary_files.py`) ; à la rédaction du message, son format. À
   installer **dans chaque worktree** : `pre-commit install`. Tout rejouer :
   `pre-commit run --all-files`. Le job `pre-commit` de la CI les rejoue sur tout le dépôt.
 - **Tous les contrôles du référentiel en une commande** : `uv run scripts/check.py`. Il lit les
@@ -36,7 +36,7 @@ Le poste exécute les mêmes outils que la CI, aux mêmes versions, lues dans `e
   diff. En cas d'écart, la capture et l'image des différences sont dans `build/<preset>/qml-captures`.
 - **Traductions** : une chaîne ajoutée à un écran se traduit dans la même PR.
   `cmake --build --preset ninja --target update_translations` met `jadg_en.ts` à jour du code (les
-  chaînes retirées en sortent), Qt Linguist le traduit, `scripts/check_translations.py` le vérifie —
+  chaînes retirées en sortent), Qt Linguist le traduit, `scripts/checks/check_translations.py` le vérifie —
   le job `build-ninja` rejoue les deux premiers.
 - **Assertions en Debug** : une assertion de la bibliothèque standard ou de la CRT s'écrit sur la
   **sortie d'erreur** (fichier et ligne), au lieu d'ouvrir une boîte modale qui bloquerait un
@@ -61,7 +61,7 @@ Le poste exécute les mêmes outils que la CI, aux mêmes versions, lues dans `e
 ## Messages de commit — Conventional Commits
 Format : `<type>(<portée facultative>): <description à l'impératif>`, ou, sur une branche de lot,
 `LOT-NN — <description>` (tiret cadratin). Vérifié par le hook `commit-msg`
-(`scripts/check_commit_message.py`) ; les messages de fusion, `Revert` et `fixup!` sont admis.
+(`scripts/ci/check_commit_message.py`) ; les messages de fusion, `Revert` et `fixup!` sont admis.
 
 Types :
 | Type | Usage |
@@ -101,7 +101,7 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
   porte aussi un zip de **symboles** (`.pdb`) par configuration, sans lequel un plantage de la
   version livrée est illisible, et un fichier **`SHA256SUMS`** (`sha256sum -c SHA256SUMS`).
   Avant toute publication, chaque archive jouable est **décompressée et lancée**
-  (`scripts/smoke_test_release.ps1` : le jeu doit rendre une image et quitter seul), et chaque
+  (`scripts/release/smoke_test_release.ps1` : le jeu doit rendre une image et quitter seul), et chaque
   fichier reçoit une **attestation de provenance** :
   `gh attestation verify <archive>.zip --repo azertval/JustAnotherRpgGame` prouve qu'il sort de ce
   workflow et de ce commit.
@@ -131,13 +131,13 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
 
 ## Publier une version
 1. Bumper `VERSION` dans le `project()` du `CMakeLists.txt` racine — **seul** endroit où le numéro
-   est écrit : il alimente `core::Engine::version()` à la compilation, et `scripts/build_docs.py`
+   est écrit : il alimente `core::Engine::version()` à la compilation, et `scripts/docs/build_docs.py`
    l'injecte dans la documentation générée. Rien d'autre à aligner à la main.
 2. Dans `CHANGELOG.md`, transformer `## [Non publié]` en `## [X.Y.Z] - AAAA-MM-JJ`, lui ajouter un
    chapeau de jalon, et rouvrir un `## [Non publié]` vide au-dessus. Cette PR n'ajoute rien à la
    section : lui poser le label `no-changelog`.
 3. Vérifier les notes que produira la release :
-   `python scripts/extract_release_notes.py vX.Y.Z` — le workflow lit **cette** section du
+   `python scripts/release/extract_release_notes.py vX.Y.Z` — le workflow lit **cette** section du
    CHANGELOG (`--notes-file`) et **échoue** si elle est absente.
 4. Merger, puis poser le tag sur le commit de merge : `git tag vX.Y.Z && git push origin vX.Y.Z`.
 - **Documentation et site qualité** (`docs.yml`) : à chaque merge, publie sur **`gh-pages`**
@@ -171,7 +171,7 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    (`changelog.yml`) ; sinon, label `no-changelog`.
 7. Si `QT_VERSION_MINIMUM` (`Source/HMI/CMakeLists.txt`) a changé, `env.QT_VERSION` de `ci.yml` et
    `release.yml` doit être bumpé à l'identique — vérifié automatiquement par
-   `python scripts/check_qt_version_pin.py` (job `lint-exigences`), pas seulement par relecture.
+   `python scripts/ci/check_qt_version_pin.py` (job `lint-exigences`), pas seulement par relecture.
    Depuis le `LOT-69`, la CI installe Qt avec un `aqtinstall` pris **depuis git à un commit
    épinglé** (`env.AQT_SOURCE`), la version PyPI ne sachant pas installer Qt ≥ 6.11 : dès
    qu'`aqtinstall 3.3.1` paraît, remplacer `aqtsource` par `aqtversion: '==3.3.1'` et supprimer

@@ -192,7 +192,7 @@ pas la règle mais en renforce le motif.)
 
 > **Cette phrase a été fausse jusqu'au [LOT-30](../../versions/v0.0.0/v0.0.0-fondation/lots/LOT-30-chaine-extraction-corpus.md).** La règle d'exclusion n'était pas
 > dans le `.gitignore` du dépôt : elle vivait comme modification locale non commitée, sur un seul
-> poste. Sur un clone neuf, un `git add -A` embarquait les 280 Mo. `scripts/check_glossary.py`
+> poste. Sur un clone neuf, un `git add -A` embarquait les 280 Mo. `scripts/checks/check_glossary.py`
 > vérifie désormais l'exclusion en intégration continue — une affirmation que rien ne vérifie finit
 > par devenir fausse, et celle-ci l'était depuis le début.
 
@@ -1626,9 +1626,9 @@ Documentation/SourceBook/   ← les PDF et les ressources VTT, exclus du dépôt
 scripts/sourcebook/
   corpus.toml               ← manifeste : empreintes, pagination, provenance (LOT-30, livré)
   *.py                      ← chaîne d'extraction, sur PyMuPDF (LOT-30, livré)
-scripts/check_rpg_data.py, check_glossary.py, check_asset_keys.py   ← livrés
+scripts/checks/check_rpg_data.py, check_glossary.py, check_asset_keys.py   ← livrés
 scripts/lint_lots.py        ← contrôle du graphe de lots de cette page (LOT-78, livré)
-scripts/check_assets_brief.py, receive_ui_assets.py   ← cahier et réception des images (LOT-87)
+scripts/checks/check_assets_brief.py, receive_ui_assets.py   ← cahier et réception des images (LOT-87)
 
 Source/Elements/Rpg/
   schema/*.schema.json      ← contrats, 23 schémas (LOT-32, livré)
@@ -1878,7 +1878,7 @@ Cinq autres sont référencées par une vingtaine d'epics et **n'existent pas** 
 `EX-RPG-*`, `EX-INV-*`, `EX-CBT-*` et `EX-CNT-*`. Les documents censés les porter — `regles-d20.md`,
 `combat.md`, `rpg.md`, `contenu.md` — sont absents.
 
-**Le garde-fou, lui, est réparé.** Il ne l'était pas : `scripts/lint_exigences.py` ne filtrait que
+**Le garde-fou, lui, est réparé.** Il ne l'était pas : `scripts/checks/lint_exigences.py` ne filtrait que
 sur `EX-[A-Z]+-[0-9]+`, si bien qu'un `EX-REG-*` n'était **ni** une déclaration **ni** une
 référence, et que la CI passait au vert sur cinq familles inexistantes. Une seconde expression,
 `FAMILY_REF_RE = re.compile(r'EX-([A-Z]+)-\*')`, capte désormais les références de famille entière
@@ -2530,7 +2530,7 @@ JSON depuis la phase C — aucune recompilation.
 
 ##### Clôture
 
-- Régénération du **cahier de test** (`scripts/generate_cahier_test.py`).
+- Régénération du **cahier de test** (`scripts/docs/generate_cahier_test.py`).
 - Le lint de provenance du [LOT-94](../../versions/v0.0.0/v0.0.0-fondation/lots/LOT-94-cartes-de-l-auteur.md) est vert : la version ne contient **aucune image du corpus**.
 - Mise en cohérence documentaire globale : specs, guides, manuel.
 - `project(VERSION 0.0.1)` dans le `CMakeLists.txt` racine — **seul endroit** où la version

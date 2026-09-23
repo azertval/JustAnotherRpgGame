@@ -3,7 +3,7 @@
 
 """Réglages communs des tests des scripts (refonte de la chaîne d'outillage, phase 4).
 
-Le dossier `scripts/` est sur le chemin d'import (`pythonpath` de pyproject.toml) : un test importe
+Les dossiers de `scripts/` sont sur le chemin d'import (`pythonpath` de pyproject.toml) : un test importe
 un script comme un module. Aucun script n'agit à l'import, tout passe par `main()`.
 """
 from pathlib import Path

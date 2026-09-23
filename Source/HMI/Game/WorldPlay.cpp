@@ -30,7 +30,7 @@ void WorldPlay::setHeroFigure(std::string figure) {
     _heroFigure = std::move(figure);
     // Une figurine est orientee si sa bande de repos vers le sud-est existe : c'est la premiere que
     // l'atelier produit, et une figurine a moitie orientee se verrait plus mal qu'une qui ne l'est
-    // pas (`scripts/check_hd_assets.py` exige les quatre).
+    // pas (`scripts/checks/check_hd_assets.py` exige les quatre).
     std::error_code erreur;
     _heroOriented = std::filesystem::is_regular_file(
         _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);

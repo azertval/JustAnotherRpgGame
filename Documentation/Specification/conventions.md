@@ -231,6 +231,6 @@ Mise en œuvre :
   `- **EX-CAT-NNN** — …`. Le site en fait une ancre : elle se cite par un lien
   (`[EX-CAT-NNN](combat.md#EX-CAT-NNN)`) ou, plus simplement, en code (`` `EX-CAT-NNN` ``), que le
   site relie de lui-même à la déclaration. Un lien cassé fait échouer `lint_docs.py`.
-- Le script `scripts/lint_exigences.py` vérifie en CI l'**unicité** des
+- Le script `scripts/checks/lint_exigences.py` vérifie en CI l'**unicité** des
   déclarations et l'absence de **référence orpheline** ; `python
-  scripts/lint_exigences.py --next` affiche le prochain numéro libre par catégorie.
+  scripts/checks/lint_exigences.py --next` affiche le prochain numéro libre par catégorie.

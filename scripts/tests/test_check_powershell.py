@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-"""Lint PowerShell (scripts/check_powershell.py) : ce qui se vérifie sans PowerShell.
+"""Lint PowerShell (scripts/ci/check_powershell.py) : ce qui se vérifie sans PowerShell.
 
 L'analyse elle-même est rejouée par le job lint-exigences, qui installe le module.
 """

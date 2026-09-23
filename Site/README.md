@@ -5,9 +5,9 @@ Le site publié sur `gh-pages` a quatre parties, engendrées par trois outils di
 | Adresse | Ce qu'elle porte | Qui l'engendre |
 |---|---|---|
 | `/` | Les pages : accueil, guide, spécifications, cahier de test | [`Documentation/outils/build_docs_site.py`](../Documentation/outils/build_docs_site.py) |
-| `/reference/` | La référence de code, annexe du guide | Doxygen, par [`scripts/build_docs.py`](../scripts/build_docs.py) |
+| `/reference/` | La référence de code, annexe du guide | Doxygen, par [`scripts/docs/build_docs.py`](../scripts/docs/build_docs.py) |
 | `/planning/` | La planification : versions, lots, référentiels | [`Planning/outils/build_planning_site.py`](../Planning/outils/build_planning_site.py) |
-| `/qualite/` | Couverture de code et mesures de performance | [`scripts/build_quality_site.py`](../scripts/build_quality_site.py) |
+| `/qualite/` | Couverture de code et mesures de performance | [`scripts/docs/build_quality_site.py`](../scripts/docs/build_quality_site.py) |
 
 Quatre parties, mais **un seul site** : ce dossier tient ce qu'ils ont en commun — la palette, les
 fontes et la barre d'en-tête. Aucun des trois ne choisit une couleur ; chacun emprunte un jeton.
@@ -40,11 +40,11 @@ deux endroits à relire.
 ## Voir le résultat sans publier
 
 ```
-python scripts/build_docs.py                                          # la référence de code
+python scripts/docs/build_docs.py                                          # la référence de code
 python Documentation/outils/build_docs_site.py --out build/site \
     --tagfile Documentation/generated/html/reference.tag              # les pages (remplace build/site)
 python Planning/outils/build_planning_site.py --out build/site/planning --docs-url ../
-python scripts/build_quality_site.py --site build/site               # la page qualité
+python scripts/docs/build_quality_site.py --site build/site               # la page qualité
 ```
 
 La référence se pose ensuite sous `build/site/reference/` (copie de `Documentation/generated/html/`).

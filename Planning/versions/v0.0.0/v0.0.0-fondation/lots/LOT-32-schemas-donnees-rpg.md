@@ -9,7 +9,7 @@ resume = "Le contrat des données RPG existe avant les données : onze schémas,
 prerequis = ["LOT-30", "LOT-79"]
 livrables = [
   "Onze schémas sous `Source/Elements/Rpg/schema/`, dont `common.schema.json`.",
-  "`scripts/check_rpg_data.py`, exécuté en CI, auto-testé sur `scripts/fixtures/rpg/` (trois fixtures valides, dix invalides).",
+  "`scripts/checks/check_rpg_data.py`, exécuté en CI, auto-testé sur `scripts/fixtures/rpg/` (trois fixtures valides, dix invalides).",
   "`core::DamageType` (13 valeurs), `core::Condition` (15), `core::MagicSchool` (8), et leur correspondance nom ↔ valeur par `switch` exhaustif.",
   "`Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp` : cinq tests, dont celui qui relie le C++ aux schémas.",
 ]
@@ -39,7 +39,7 @@ arme, armure, sort, espèce, classe, historique, état, type de dégâts — plu
 qui porte ce que toutes réutilisent. Une définition écrite deux fois diverge ; c'est la leçon des
 six lecteurs JSON du [LOT-79](LOT-79-socle-chargement-donnees.md), transposée aux contrats.
 
-**`scripts/check_rpg_data.py`**, exécuté en CI, qui valide tout `Source/Elements/Rpg/**/*.json`.
+**`scripts/checks/check_rpg_data.py`**, exécuté en CI, qui valide tout `Source/Elements/Rpg/**/*.json`.
 
 **Trois énumérations C++** — `core::DamageType` (13 valeurs), `core::Condition` (15),
 `core::MagicSchool` (8) — et leur correspondance nom ↔ valeur par `switch` **exhaustif et sans
@@ -72,7 +72,7 @@ qui doivent rester identiques, et qui n'ont aucune raison de le rester toutes se
 | Arête | Contrôlée par | Comment |
 |---|---|---|
 | moteur ↔ contrat | `test_rpg_enums.cpp` (`ctest`) | le test **lit le schéma livré** et compare aux noms produits par le C++ |
-| contrat ↔ lexique | `scripts/check_rpg_data.py` (CI) | les valeurs du schéma sont exactement les termes anglais du lexique sous la catégorie correspondante |
+| contrat ↔ lexique | `scripts/checks/check_rpg_data.py` (CI) | les valeurs du schéma sont exactement les termes anglais du lexique sous la catégorie correspondante |
 | moteur ↔ lexique | *aucun* | par transitivité des deux précédents |
 
 La troisième arête est **délibérément non contrôlée**. Un troisième contrôle serait redondant,

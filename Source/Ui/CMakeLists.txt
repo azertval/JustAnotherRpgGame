@@ -117,7 +117,7 @@ qt_add_qml_module(JadgUi
 # cherche, c'est-à-dire `/qt/qml/Jadg/Elements/Assets/UI/`. `BASE` est le mécanisme prévu par
 # qt_add_resources pour cela -- pas un alias par fichier.
 #
-# Rangées par famille sous `UI/<famille>/` par scripts/receive_ui_assets.py, elles sont ramassées
+# Rangées par famille sous `UI/<famille>/` par scripts/assetsGeneration/receive_ui_assets.py, elles sont ramassées
 # par motif et non listées : la liste qui fait foi est le manifeste (`illustrations.json`), et
 # `check_ui_assets.py` refuse déjà tout fichier qu'il ne déclare pas -- une seconde liste ici serait
 # une troisième copie à tenir. `CONFIGURE_DEPENDS` : une livraison est vue à la construction

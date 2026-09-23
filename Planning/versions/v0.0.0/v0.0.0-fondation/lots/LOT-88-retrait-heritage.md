@@ -140,8 +140,8 @@ Aucune release GitHub ne s'y rattachait.
 ## Vérification
 
 - Construction et tests : `scripts/build.ps1 -Preset ninja -Test`.
-- Lints : `py -3.13 scripts/lint_exigences.py`, `py -3.13 scripts/lint_lots.py`,
-  `py -3.13 scripts/check_translations.py`, `py -3.13 scripts/build_docs.py`.
+- Lints : `py -3.13 scripts/checks/lint_exigences.py`, `py -3.13 scripts/lint_lots.py`,
+  `py -3.13 scripts/checks/check_translations.py`, `py -3.13 scripts/docs/build_docs.py`.
 
 ## Texte d'origine (feuille de route, second audit)
 

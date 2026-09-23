@@ -2,7 +2,7 @@ name: CHANGELOG
 
 # Chaque PR consigne ce qu'elle apporte dans la section « ## [Non publié] » de CHANGELOG.md, ou
 # porte le label `no-changelog` (refonte de la CI, phase 1). Détail et motif :
-# scripts/check_changelog.py.
+# scripts/ci/check_changelog.py.
 #
 # Un workflow à part plutôt qu'un job de ci.yml : il doit se relancer quand on pose ou retire le
 # label (`labeled`, `unlabeled`), et ces événements dans ci.yml relanceraient aussi les quatre
@@ -39,11 +39,11 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           if [ "$EXEMPT" = true ]; then
-            python3 scripts/check_changelog.py --auto-test
+            python3 scripts/ci/check_changelog.py --auto-test
             echo "::notice::PR exemptée (label no-changelog ou Dependabot) : CHANGELOG non vérifié."
             # shellcheck disable=SC2016 # backticks Markdown littéraux, pas une substitution
             printf '### CHANGELOG\n\nPR exemptée (label `no-changelog` ou Dependabot).\n' >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
-          python3 scripts/check_changelog.py "$BASE_SHA" "$HEAD_SHA"
+          python3 scripts/ci/check_changelog.py "$BASE_SHA" "$HEAD_SHA"
           printf '### CHANGELOG\n\nLa PR consigne son apport dans « ## [Non publié] ».\n' >> "$GITHUB_STEP_SUMMARY"

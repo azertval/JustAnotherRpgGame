@@ -16,7 +16,7 @@ livrables = [
   "La rubrique « Exigences couvertes » posée sur les 25 lots qui les implémentent, et les cinq documents insérés dans l'ordre de lecture de `specifications.md`.",
 ]
 criteres = [
-  "`python scripts/lint_exigences.py` passe au vert **sans entrée ajoutée** à `UNREFERENCED_ALLOWED` — 339 exigences déclarées, 339 référencées.",
+  "`python scripts/checks/lint_exigences.py` passe au vert **sans entrée ajoutée** à `UNREFERENCED_ALLOWED` — 339 exigences déclarées, 339 référencées.",
   "Chaque exigence déclarée est citée par **au moins un lot** ou par une autre spécification.",
   "Les cinq documents figurent dans l'ordre de lecture de `specifications.md`.",
   "Aucune exigence nouvelle ne décrit un mécanisme que la feuille de route déclare hors périmètre.",
@@ -83,4 +83,4 @@ de chargement (`LOT-79`).
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : `scripts/lint_exigences.py` vert sans exception ajoutée, `scripts/lint_lots.py` vert, Doxygen vert ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Ce lot est prérequis de toute la filière contenu, à commencer par le `LOT-30`.
+Statut : **fait**. Vérification automatisée : `scripts/checks/lint_exigences.py` vert sans exception ajoutée, `scripts/lint_lots.py` vert, Doxygen vert ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Ce lot est prérequis de toute la filière contenu, à commencer par le `LOT-30`.

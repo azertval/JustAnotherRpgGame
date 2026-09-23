@@ -53,7 +53,7 @@ rien**. Un écran lui demande *ce que le jeu sait dire*, jamais *comment le mont
 d'IHM qui y entrerait signalerait que la logique de vue a commencé à redescendre dans la couche de
 données — et c'est ainsi que `MainWindow.cpp` s'était épaissi.
 
-`scripts/check_ui_layers.py` vérifie les six règles de cette séparation à chaque *Pull Request*.
+`scripts/checks/check_ui_layers.py` vérifie les six règles de cette séparation à chaque *Pull Request*.
 Elles sont écrites en `EX-IHM-100` à `EX-IHM-105`. **Une règle qui n'est pas vérifiée n'est pas une
 règle : c'est une intention** — le dépôt l'a appris deux fois, avec un défaut de taille d'écran
 corrigé *trois* fois et une palette écrite *deux* fois.
@@ -78,7 +78,7 @@ remplace par les doublures de `Source/Ui/Mocks/`. Quant au « là » : `qt_add_q
 chemin de ressource de chaque fichier relativement au CMakeLists.txt qui l'appelle. Un module
 déclaré depuis un autre répertoire oblige à réécrire ces chemins un par un, par des alias, et c'est
 cette plomberie qui a coûté 125 commits à une branche abandonnée. **Aucun alias de ressource dans
-ce dépôt**, et `scripts/check_qml_designer_compat.py` le vérifie.
+ce dépôt**, et `scripts/checks/check_qml_designer_compat.py` le vérifie.
 
 La découverte de Qt et `QT_VERSION_MINIMUM` vivent dans `Source/CMakeLists.txt` : les cibles
 importées d'un `find_package` ne sont visibles que sous le répertoire qui l'a appelé, et trois
@@ -150,7 +150,7 @@ Cinq règles, dont plusieurs se paient par un mode *Design* vide plutôt que par
 
 Aucune version de Qt n'est écrite dans le `.qmlproject`, et c'est délibéré. Le projet se construit
 avec la version épinglée par `QT_VERSION_MINIMUM` (`Source/CMakeLists.txt`), que
-`scripts/check_qt_version_pin.py` tient identique en CMake et en CI. Design Studio, lui, dessine
+`scripts/ci/check_qt_version_pin.py` tient identique en CMake et en CI. Design Studio, lui, dessine
 toujours avec le Qt qu'il **embarque** (6.8.7 sur le poste de référence, `qmlpuppet-4.8.3.exe`),
 quel que soit le Qt installé : un numéro de plus dans le fichier de conception ne commanderait ni
 l'un ni l'autre. Tous les imports du module étant sans version, le choix ne se pose pas.
@@ -210,7 +210,7 @@ d'attribution** nommée qui aboutit ici ; le jour où le lot fonctionnel arrive,
 `PendingData` par sa vraie vue-modèle dans le jumeau, et **le formulaire ne bouge pas**.
 
 - `hmi::PendingData::value(key)` — le tiret cadratin, quelle que soit la clé. La clé n'est pas
-  ignorée pour autant : c'est elle que `scripts/list_pending_bindings.py` relève dans le QML — un
+  ignorée pour autant : c'est elle que `scripts/i18n/list_pending_bindings.py` relève dans le QML — un
   inventaire **dérivé du code**, donc toujours exact.
 - `hmi::PendingData::image(key)` — une URL **vide**. Distincte de `value`, et ce n'est pas un
   détail : affecter un tiret à la source d'une image fait chercher un fichier nommé « — ».
@@ -266,7 +266,7 @@ l'identifiant que le modèle rend), et `qsTr` exige une chaîne littérale.
   défaut).
 
 Ces termes sont un **lexique** : `Source/Elements/Localization/rpg.glossary.csv` garantit une
-seule traduction par terme dans tout le jeu, et `scripts/check_glossary.py` le vérifie.
+seule traduction par terme dans tout le jeu, et `scripts/checks/check_glossary.py` le vérifie.
 
 ### `hmi::CharacterSheetModel` et `hmi::InventoryModel` — le personnage
 

@@ -199,7 +199,7 @@ and the direction change.
 
 Une bande d'une autre orientation joint en plus la même animation vue du sud-est. La commande du
 héros (`Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md`) est l'exemple complet, et
-`scripts/prepare_envois_figure.py` en tire les envois prêts à copier.
+`scripts/assetsGeneration/prepare_envois_figure.py` en tire les envois prêts à copier.
 
 ### Le cas d'un portrait
 

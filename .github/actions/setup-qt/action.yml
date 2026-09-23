@@ -4,7 +4,7 @@ description: >
   l'installation, partagée par ci.yml et release.yml : la prochaine montée de Qt ou le prochain
   module se changent ici, et nulle part ailleurs.
 
-# La VERSION n'est pas écrite ici mais reçue en entrée : `scripts/check_qt_version_pin.py` lit
+# La VERSION n'est pas écrite ici mais reçue en entrée : `scripts/ci/check_qt_version_pin.py` lit
 # `env.QT_VERSION` dans chaque workflow et le compare à `QT_VERSION_MINIMUM` (EX-BUILD-010). Déplacer
 # la version dans ce fichier retirerait ce contrôle sans le remplacer.
 inputs:

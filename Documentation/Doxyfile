@@ -3,7 +3,7 @@
 # Les options non spécifiées gardent les valeurs par défaut de Doxygen.
 
 PROJECT_NAME           = "JustAnotherRpgGame"
-# PROJECT_NUMBER n'est pas écrit ici : scripts/build_docs.py l'injecte depuis project(VERSION)
+# PROJECT_NUMBER n'est pas écrit ici : scripts/docs/build_docs.py l'injecte depuis project(VERSION)
 # du CMakeLists.txt racine (source unique de vérité), sur l'entrée standard de Doxygen. Lancer
 # `doxygen Doxyfile` directement (sans passer par le script) produit un numéro vide, pas périmé.
 PROJECT_NUMBER         =
@@ -79,7 +79,7 @@ WARN_AS_ERROR          = FAIL_ON_WARNINGS
 # Formate le cas directement dans la doc du test (pas d'agregation via \xrefitem : la page
 # "Cahier de test" agregee sur un seul niveau, illisible au-dela de quelques dizaines de cas,
 # est desormais reconstruite - une page par domaine, un cas par fiche - par
-# scripts/generate_cahier_test.py a partir de ces memes blocs, dans Documentation/CahierTest/).
+# scripts/docs/generate_cahier_test.py a partir de ces memes blocs, dans Documentation/CahierTest/).
 # Sous-commandes pour structurer le contenu (categorie, criticite, etapes, resultat attendu).
 ALIASES += "castest{1}=<b>Cas de test :</b> \1"
 ALIASES += "tcat=<b>Categorie :</b> "

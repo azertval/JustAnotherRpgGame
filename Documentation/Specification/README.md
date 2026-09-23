@@ -112,8 +112,8 @@ l'[enchaînement portail → rencontre](exploration.md) et la
 ## Vérifier
 
 ```
-python scripts/lint_exigences.py          # déclarée une fois, citée au moins une fois ailleurs
-python scripts/lint_exigences.py --next   # le prochain numéro libre d'une famille
+python scripts/checks/lint_exigences.py          # déclarée une fois, citée au moins une fois ailleurs
+python scripts/checks/lint_exigences.py --next   # le prochain numéro libre d'une famille
 python Documentation/outils/lint_docs.py  # liens, ancres, images, pages orphelines
 ```
 
