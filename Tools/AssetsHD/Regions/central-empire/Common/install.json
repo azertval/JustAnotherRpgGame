@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "target": "Regions/central-empire/Common/Scene",
+  "pieces": [
+    {
+      "source": "Bannieres/prop-banner-lion.png",
+      "family": "08",
+      "name": "prop-banner-lion",
+      "tactical": "obstacle"
+    },
+    {
+      "source": "Bannieres/wall-limestone-banner-u.png",
+      "family": "02",
+      "name": "wall-limestone-banner-u",
+      "footprint": [2, 1],
+      "tactical": "solid",
+      "align": "north"
+    },
+    {
+      "source": "Bannieres/wall-limestone-banner-v.png",
+      "family": "02",
+      "name": "wall-limestone-banner-v",
+      "footprint": [1, 2],
+      "tactical": "solid",
+      "align": "north"
+    },
+    {
+      "source": "Bannieres/column-lion-emblem.png",
+      "family": "03",
+      "name": "column-lion-emblem",
+      "tactical": "obstacle"
+    }
+  ]
+}

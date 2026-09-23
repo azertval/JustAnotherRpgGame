@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "target": "Regions/central-empire/capital/Common/Scene",
+  "pieces": [
+    {
+      "source": "Sols/floor-paving.png",
+      "family": "01",
+      "sheet": [
+        "floor-paving-01",
+        "floor-paving-02",
+        "floor-paving-03"
+      ],
+      "tactical": "open"
+    },
+    {
+      "source": "Sols/floor-flagstone.png",
+      "family": "01",
+      "sheet": [
+        "floor-flagstone-01",
+        "floor-flagstone-02",
+        "floor-flagstone-03"
+      ],
+      "tactical": "open"
+    },
+    {
+      "source": "Sols/floor-paving-edge.png",
+      "family": "01",
+      "sheet": [
+        "floor-paving-edge-nw",
+        "floor-paving-edge-ne",
+        "floor-paving-edge-se",
+        "floor-paving-edge-sw"
+      ],
+      "tactical": "open"
+    },
+    {
+      "source": "Facades/wall-limestone-u.png",
+      "family": "02",
+      "name": "wall-limestone-u",
+      "footprint": [2, 1],
+      "tactical": "solid",
+      "align": "north"
+    },
+    {
+      "source": "Facades/wall-limestone-v.png",
+      "family": "02",
+      "name": "wall-limestone-v",
+      "footprint": [1, 2],
+      "tactical": "solid",
+      "align": "north"
+    },
+    {
+      "source": "Facades/wall-limestone-window-u.png",
+      "family": "02",
+      "name": "wall-limestone-window-u",
+      "footprint": [2, 1],
+      "tactical": "solid",
+      "align": "north"
+    },
+    {
+      "source": "Facades/wall-limestone-window-v.png",
+      "family": "02",
+      "name": "wall-limestone-window-v",
+      "footprint": [1, 2],
+      "tactical": "solid",
+      "align": "north"
+    },
+    {
+      "source": "Facades/wall-limestone-corner-inner.png",
+      "family": "02",
+      "name": "wall-limestone-corner-inner",
+      "tactical": "solid"
+    },
+    {
+      "source": "Facades/wall-limestone-corner-outer.png",
+      "family": "02",
+      "name": "wall-limestone-corner-outer",
+      "tactical": "solid"
+    },
+    {
+      "source": "Balustrades/balustrade-limestone-u.png",
+      "family": "05",
+      "name": "balustrade-limestone-u",
+      "footprint": [2, 1],
+      "tactical": "cover"
+    },
+    {
+      "source": "Balustrades/balustrade-limestone-v.png",
+      "family": "05",
+      "name": "balustrade-limestone-v",
+      "footprint": [1, 2],
+      "tactical": "cover"
+    },
+    {
+      "source": "Balustrades/balustrade-limestone-pillar.png",
+      "family": "05",
+      "name": "balustrade-limestone-pillar",
+      "tactical": "obstacle"
+    },
+    {
+      "source": "Vegetal/plant-cypress.png",
+      "family": "07",
+      "name": "plant-cypress",
+      "tactical": "obstacle"
+    },
+    {
+      "source": "Vegetal/plant-hedge-u.png",
+      "family": "07",
+      "name": "plant-hedge-u",
+      "footprint": [2, 1],
+      "tactical": "cover"
+    },
+    {
+      "source": "Vegetal/plant-hedge-v.png",
+      "family": "07",
+      "name": "plant-hedge-v",
+      "footprint": [1, 2],
+      "tactical": "cover"
+    },
+    {
+      "source": "Vegetal/plant-hedge-corner.png",
+      "family": "07",
+      "name": "plant-hedge-corner",
+      "tactical": "cover"
+    },
+    {
+      "source": "Vegetal/plant-flowerbed.png",
+      "family": "07",
+      "name": "plant-flowerbed",
+      "tactical": "difficult"
+    },
+    {
+      "source": "Mobilier/prop-lamppost.png",
+      "family": "08",
+      "name": "prop-lamppost",
+      "tactical": "obstacle"
+    },
+    {
+      "source": "Mobilier/prop-bench-u.png",
+      "family": "08",
+      "name": "prop-bench-u",
+      "tactical": "cover"
+    },
+    {
+      "source": "Mobilier/prop-bench-v.png",
+      "family": "08",
+      "name": "prop-bench-v",
+      "tactical": "cover"
+    },
+    {
+      "source": "Mobilier/prop-planter.png",
+      "family": "08",
+      "name": "prop-planter",
+      "tactical": "cover"
+    },
+    {
+      "source": "Mobilier/prop-barrel.png",
+      "family": "08",
+      "name": "prop-barrel",
+      "tactical": "cover"
+    },
+    {
+      "source": "Mobilier/prop-crate.png",
+      "family": "08",
+      "name": "prop-crate",
+      "tactical": "cover"
+    },
+    {
+      "source": "Mobilier/prop-stall-empty.png",
+      "family": "08",
+      "name": "prop-stall-empty",
+      "tactical": "obstacle"
+    }
+  ]
+}

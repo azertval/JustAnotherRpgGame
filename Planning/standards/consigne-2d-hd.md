@@ -83,6 +83,36 @@ OUTPUT: square canvas, at least 1024 px, PNG with alpha.
 > « l'art est toujours réduit, jamais agrandi », et la maquette du `LOT-101` montre ce qu'il en coûte
 > de l'enfreindre.
 
+### Le cas d'une planche de sols
+
+Les variantes d'une dalle de fond (standard, §4) se commandent **ensemble**, sur une planche : une
+par envoi, trois dalles « du même pavé » sortent de trois teintes. C'est l'exception à « une pièce
+par image », et la seule : l'installateur découpe la planche dans l'ordre de lecture et réduit
+chaque morceau au losange exact du lieu. La commande remplace le paragraphe `FRAMING` du bloc B par
+celui-ci, `{N}` étant le nombre de dalles :
+
+```
+FRAMING (floor sheet): {N} floor tiles in a single horizontal row, on a FULLY
+TRANSPARENT background, with a clear transparent gap between two tiles. Each
+tile is exactly ONE ground diamond seen from the isometric camera, perfectly
+FLAT: no thickness, no side faces, no raised rim, no shadow. Draw the row as
+large as the canvas allows.
+```
+
+La ligne `OUTPUT` devient celle d'une bande : `landscape canvas, as wide as available, PNG with alpha.`
+Né du `LOT-105` : les sols du Colisée (`LOT-104`) étaient déjà livrés en planches de six.
+
+### Les pièces d'un même kit
+
+Une pièce qui doit s'accorder à une autre déjà produite — une fenêtre au mur plein, une haie
+d'angle à la haie droite — la joint après la planche de référence, et son bloc C commence par :
+
+```
+REFERENCE: the image attached after the reference sheet shows another piece of
+the SAME kit. Match its stone, its colours, its outline and its light exactly;
+draw only the piece described below.
+```
+
 ### Le cas d'une planche d'animation
 
 Une animation se commande en **une seule fois**, en planche : demander les images une par une, c'est

@@ -2,7 +2,7 @@
   "version": 1,
   "id": "central-empire",
   "name": "L'Empire central",
-  "comment": "Palette et credits a ecrire par le LOT-105 (kit commun de la Capitale).",
+  "comment": "Palette et matieres de l'Empire central, relevees sur la planche de reference (standard 2D HD, section 3) ; ecrites par le LOT-105.",
   "tile": [
     256,
     159
@@ -17,6 +17,57 @@
       256
     ]
   },
-  "palette": [],
-  "credits": []
+  "palette": [
+    {
+      "name": "ivory",
+      "hex": "#efe6d2",
+      "use": "marbre, enduits, lumiere"
+    },
+    {
+      "name": "sand",
+      "hex": "#d9c7a3",
+      "use": "pierre calcaire, sols"
+    },
+    {
+      "name": "warm-grey",
+      "hex": "#9c948a",
+      "use": "ombres de pierre, paves"
+    },
+    {
+      "name": "deep-bronze",
+      "hex": "#5c4a2a",
+      "use": "contours, ferronnerie, bois sombre"
+    },
+    {
+      "name": "burgundy",
+      "hex": "#8e2335",
+      "use": "l'accent imperial : bannieres, tuiles, auvents"
+    },
+    {
+      "name": "old-gold",
+      "hex": "#c9a45c",
+      "use": "emblemes, chapiteaux, dorures"
+    },
+    {
+      "name": "foliage",
+      "hex": "#3f6b34",
+      "use": "cypres, haies, jardins"
+    },
+    {
+      "name": "still-water",
+      "hex": "#2f7f86",
+      "use": "fontaines, bassins"
+    }
+  ],
+  "credits": [
+    "Art genere a partir des commandes du depot (Tools/AssetsHD/Regions/central-empire/), direction artistique de Valentin Eloy ; aucune image du corpus."
+  ],
+  "materials": [
+    "marbre ivoire veine",
+    "pierre calcaire en assises reglees",
+    "pavage noble a bordure geometrique",
+    "bronze patine vert-bleu a aretes dorees",
+    "bois sombre huile",
+    "feuillage vert profond"
+  ]
 }
