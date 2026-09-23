@@ -6,6 +6,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le jeu s'affiche toujours en 16:9.** Quelle que soit la forme de la fenêtre, la scène est le
+  plus grand rectangle 16:9 qui y tient, centré au pixel près ; le reste est peint en noir —
+  bandes latérales pour une fenêtre plus large, horizontales pour une plus haute. Les deux
+  facteurs d'échelle se lisent désormais sur la scène et non sur la fenêtre.
 - **LOT-112 — Le héros de la démo.** Le personnage joué est la **fiche pré-tirée du
   Brawler** du *Player's Guide to Tanares* (p. 195), reprise telle quelle sur décision de l'auteur :
   Grom Tranche-Écaille, demi-orc, Dragon Hunter, grande hache (`Rpg/characters/heros-brawler.json`).
