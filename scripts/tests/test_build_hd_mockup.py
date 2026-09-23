@@ -132,5 +132,6 @@ def test_la_consigne_du_generateur_porte_ses_trois_blocs(root):
         assert titre in texte
     assert 'arenarea-planche-reference-v2.png' in texte
     # Les trous du bloc B se remplissent depuis la commande : aucun ne doit rester sans emploi.
+    # `N` est le nombre de dalles d'une planche de sols (LOT-105, prepare_envois_scene.py).
     trous = set(re.findall(r'\{([A-Z_]+)\}', texte))
-    assert trous == {'LOSANGE_L', 'LOSANGE_H', 'EMPRISE_L', 'EMPRISE_H'}
+    assert trous == {'LOSANGE_L', 'LOSANGE_H', 'EMPRISE_L', 'EMPRISE_H', 'N'}
