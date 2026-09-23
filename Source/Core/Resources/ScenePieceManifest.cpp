@@ -160,6 +160,12 @@ ScenePieceManifestResult ScenePieceManifest::fromDocument(const JsonDocument& do
         disposition != document.root.end() && disposition->is_string()) {
         result.manifest._place = disposition->get<std::string>();
     }
+    // L'échelle de l'art est une donnée du lieu (LOT-103) : un losange non positif ne dit rien.
+    if (const auto [width, height] = intPair(document.root, "tile", {0, 0});
+        width > 0 && height > 0) {
+        result.manifest._tileWidth = width;
+        result.manifest._tileHeight = height;
+    }
     for (const auto& [key, value] : textures->items()) {
         // Une entrée sans image est ignorée, pas fatale : les autres pièces restent utilisables.
         if (!value.is_object() || !value.contains("file") || !value["file"].is_string()) {

@@ -37,10 +37,11 @@ const std::filesystem::path ASSETS{std::filesystem::path(JADG_TEST_DATA_DIR) / "
  * pieces.</b><br/>
  * \tcat Unitaire · Plan de la ville<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Cadrer un ilot de 10 x 8 cases, puis un de 20 x 16, sur une carte de 48 x 40.<br/>
+ * \tetapes 1. Cadrer un ilot de 10 x 8 cases, puis un de 20 x 16, sur une carte de 48 x 40, pour
+ * un lieu dont la piece la plus haute s'eleve d'une case et demie.<br/>
  * \tattendu Le point suivi est au centre de l'ilot, decale vers le haut par la hauteur des pieces ;
- * l'image du grand ilot est deux fois plus large que celle du petit, et plus haute que son seul
- * losange (LOT-96).
+ * l'image du grand ilot est deux fois plus large que celle du petit ; a 100 pixels par case, la
+ * hauteur est celle du losange plus l'elevation lue dans le manifeste (LOT-96, LOT-103).
  * }
  */
 TEST(CityBlockRenderTest, LeCadrageContientLIlot) {
@@ -48,14 +49,22 @@ TEST(CityBlockRenderTest, LeCadrageContientLIlot) {
     const core::CityBlock petit{.name = "petit", .origin = {10, 10}, .columns = 10, .rows = 8};
     const core::CityBlock grand{.name = "grand", .origin = {10, 10}, .columns = 20, .rows = 16};
 
-    const hmi::CityBlockFraming cadrePetit = hmi::cityBlockFraming(projection, petit);
-    const hmi::CityBlockFraming cadreGrand = hmi::cityBlockFraming(projection, grand);
+    // La piece la plus haute du lieu s'eleve d'une case et demie au-dessus de la sienne.
+    constexpr float ELEVATION = 1.5F;
+    const hmi::CityBlockFraming cadrePetit = hmi::cityBlockFraming(projection, petit, ELEVATION);
+    const hmi::CityBlockFraming cadreGrand = hmi::cityBlockFraming(projection, grand, ELEVATION);
 
     EXPECT_GT(cadrePetit.pixelWidth, 0);
     EXPECT_EQ(cadreGrand.pixelWidth, 2 * cadrePetit.pixelWidth);
+    // A 100 pixels par case (CITY_BLOCK_TILE_PIXELS), le losange de l'ilot, plus l'elevation.
+    const float pixelsParUnite = hmi::CITY_BLOCK_TILE_PIXELS / projection.tileWidth();
     const float losange = static_cast<float>(petit.columns + petit.rows) * projection.tileHeight() /
-                          2.0F * hmi::Camera2D::PIXELS_PER_UNIT;
-    EXPECT_GT(static_cast<float>(cadrePetit.pixelHeight), losange);
+                          2.0F * pixelsParUnite;
+    EXPECT_NEAR(static_cast<float>(cadrePetit.pixelHeight),
+                losange + (ELEVATION * hmi::CITY_BLOCK_TILE_PIXELS), 1.0F);
+    EXPECT_NEAR(static_cast<float>(cadrePetit.pixelWidth),
+                static_cast<float>(petit.columns + petit.rows) / 2.0F * hmi::CITY_BLOCK_TILE_PIXELS,
+                1.0F);
 
     // Le centre de l'ilot est (15, 14) ; la hauteur des pieces remonte le point suivi.
     EXPECT_LT(cadrePetit.focus.x + cadrePetit.focus.y, 15.0F + 14.0F);
@@ -90,8 +99,11 @@ TEST(CityBlockRenderTest, UnIlotDevientUneImage) {
     if (image.isNull()) {
         GTEST_SKIP() << "Aucune interface QRhi hors ecran sur cette machine.";
     }
-    const hmi::CityBlockFraming cadrage =
-        hmi::cityBlockFraming(core::IsoProjection(instantane.columns, instantane.rows), *place);
+    EXPECT_GT(instantane.maximumRise, 0.0F) << "l'elevation des pieces se lit dans le manifeste";
+    const hmi::CityBlockFraming cadrage = hmi::cityBlockFraming(
+        core::IsoProjection(instantane.columns, instantane.rows, core::ARENA_TILE_WIDTH_UNITS,
+                            instantane.diamondRatio),
+        *place, instantane.maximumRise);
     EXPECT_EQ(image.width(), cadrage.pixelWidth);
     EXPECT_EQ(image.height(), cadrage.pixelHeight);
 

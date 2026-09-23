@@ -11,6 +11,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -18,8 +19,9 @@
 
 namespace {
 
+/// Une forme d'un lieu qui déclare un losange de @p tile pixels d'art (68 : l'ancienne planche).
 hmi::AssetGalleryEntry entry(const std::string& model, int width, int height, int columns = 1,
-                             int rows = 1) {
+                             int rows = 1, int tile = 68) {
     hmi::AssetGalleryEntry value;
     value.family = "essai";
     value.model = model;
@@ -29,6 +31,7 @@ hmi::AssetGalleryEntry entry(const std::string& model, int width, int height, in
     value.frameHeight = height;
     value.footprintColumns = columns;
     value.footprintRows = rows;
+    value.tilePixels = tile;
     return value;
 }
 
@@ -88,6 +91,33 @@ TEST(AssetGalleryTest, FormeDesBlocs) {
     const hmi::AssetGalleryBloc piece = hmi::assetGalleryBlocShape(entry("piece", 435, 255));
     EXPECT_EQ(piece.columns, 9);
     EXPECT_EQ(piece.rows, 6);
+}
+
+/**
+ * @brief Une case de la galerie vaut le losange **du lieu** de la forme : une figurine HD tient
+ *        dans le même bloc qu'une figurine de l'ancienne planche (`LOT-103`).
+ * \castest{<b>La galerie mesure chaque forme au losange de son lieu.</b><br/>
+ * \tcat Unitaire · Galerie des assets<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Calculer le bloc d'une figurine 192 x 256 et d'une creature 384 x 384 a un losange
+ * de 256, puis d'une figurine 192 x 256 sans losange declare.<br/>
+ * \tattendu 3 x 3, 4 x 4 ; sans losange, la figurine se suppose d'une case de large.
+ * }
+ */
+TEST(AssetGalleryTest, UneCaseVautLeLosangeDuLieu) {
+    const hmi::AssetGalleryBloc figure =
+        hmi::assetGalleryBlocShape(entry("figure", 192, 256, 1, 1, 256));
+    EXPECT_EQ(figure.columns, 3);
+    EXPECT_EQ(figure.rows, 3);
+
+    const hmi::AssetGalleryBloc creature =
+        hmi::assetGalleryBlocShape(entry("creature", 384, 384, 1, 1, 256));
+    EXPECT_EQ(creature.columns, 4);
+    EXPECT_EQ(creature.rows, 4);
+
+    const hmi::AssetGalleryEntry sansLosange = entry("figure", 192, 256, 1, 1, 0);
+    EXPECT_EQ(sansLosange.tileWidthPixels(), 192);
+    EXPECT_EQ(hmi::assetGalleryBlocShape(sansLosange).columns, 3);
 }
 
 /**
@@ -248,6 +278,57 @@ TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
     EXPECT_FALSE(
         hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png"));
     EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/figurant/portrait.png"));
+}
+
+/**
+ * @brief L'arborescence par niveaux paraît dans la galerie : un dossier `Scene/` de zone est une
+ *        famille nommée par son lieu, et un manifeste encore vide n'en fait pas (LOT-104).
+ * \castest{<b>Les pièces de l'arborescence par niveaux paraissent dans la galerie.</b><br/>
+ * \tcat Unitaire · Galerie des assets<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Écrire `Regions/r/ville/zone/Scene/manifest.json` avec un mur 3 × 1, et
+ * `Common/Terrain/manifest.json` sans pièce. 2. Lire le catalogue. 3. Chercher les images non
+ * listées.<br/>
+ * \tattendu Une famille « Scène · r/ville/zone » ; le mur à son chemin, sa taille, son emprise et
+ * son ancre ; aucune famille pour le commun vide ; aucune erreur, aucune image non listée.
+ * }
+ */
+TEST(AssetGalleryTest, ArborescenceParNiveaux) {
+    const std::filesystem::path root =
+        std::filesystem::temp_directory_path() / "jadg_asset_gallery_tree";
+    std::filesystem::remove_all(root);
+    const std::filesystem::path scene = root / "Regions" / "r" / "ville" / "zone" / "Scene";
+    std::filesystem::create_directories(scene);
+    std::filesystem::create_directories(root / "Common" / "Terrain");
+    std::ofstream(scene / "manifest.json")
+        << R"({"version": 1, "disposition": "zone", "tile": [256, 159], "textures": {)"
+           R"("scene/zone/wall-arcade-u": {"file": "wall-arcade-u.png", "class": "wide",)"
+           R"( "footprint": [3, 1], "size": [426, 539], "anchor": [6, 295]}}})";
+    std::ofstream(scene / "wall-arcade-u.png") << "png";
+    std::ofstream(root / "Common" / "Terrain" / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "textures": {}})";
+
+    const hmi::AssetGalleryCatalog catalog = hmi::AssetGalleryCatalog::load(root);
+    const std::vector<std::string> unlisted = hmi::assetGalleryUnlisted(root, catalog);
+    std::filesystem::remove_all(root);
+
+    EXPECT_TRUE(catalog.errors.empty());
+    EXPECT_TRUE(unlisted.empty());
+    ASSERT_EQ(catalog.families.size(), 1U);
+    const hmi::AssetGalleryFamily& family = catalog.families.front();
+    EXPECT_EQ(family.title, "Scène · r/ville/zone");
+    EXPECT_EQ(family.directory, "Regions/r/ville/zone/Scene");
+    ASSERT_EQ(family.entries.size(), 1U);
+    const hmi::AssetGalleryEntry& wall = family.entries.front();
+    EXPECT_EQ(wall.form, "wall-arcade-u");
+    EXPECT_EQ(wall.model, "wide");
+    EXPECT_EQ(wall.path, "Regions/r/ville/zone/Scene/wall-arcade-u.png");
+    EXPECT_EQ(wall.frameWidth, 426);
+    EXPECT_EQ(wall.frameHeight, 539);
+    EXPECT_EQ(wall.footprintColumns, 3);
+    EXPECT_EQ(wall.footprintRows, 1);
+    EXPECT_EQ(wall.anchorX, 6);
+    EXPECT_EQ(wall.anchorY, 295);
 }
 
 /**

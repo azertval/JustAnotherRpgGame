@@ -26,9 +26,16 @@ Ce qu'il ecrit, sous `Planning/versions/v0.1.0/v0.0.1-demo/maquettes/` :
   192 x 256 et sa jauge de 170 px, echelle. C'est la planche de LECTURE ; les deux premieres sont
   les references de non-regression du rendu du LOT-103, et ne portent aucun texte.
 
+Il ecrit aussi, sous `Source/Test/Fixtures/HdMockup/`, la meme scene en DONNEES D'ESSAI du moteur :
+les pieces installees comme la chaine HD les installe, et leur disposition. Le test
+`test_hd_mockup_render` en tire une carte, la rend par le moteur et la compare aux deux vues
+(LOT-103).
+
 Usage :
-    python scripts/build_hd_mockup.py            # monte la maquette
-    python scripts/build_hd_mockup.py --check    # verifie que les images sont a jour
+    python scripts/build_hd_mockup.py              # monte la maquette et les donnees d'essai
+    python scripts/build_hd_mockup.py --fixture    # les donnees d'essai seules
+    python scripts/build_hd_mockup.py --check      # verifie que tout est a jour
+    python scripts/build_hd_mockup.py --travelling DOSSIER   # assemble le travelling du test
 
 Dependances : Pillow et numpy (outil de production, pas de CI).
 """
@@ -37,6 +44,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import sys
 from pathlib import Path
 
@@ -139,13 +147,15 @@ def cut(sheet: np.ndarray, box: tuple[int, int, int, int]) -> Image.Image:
     return piece.resize((round(piece.width * SCALE), round(piece.height * SCALE)), Image.LANCZOS)
 
 
-def cut_floor(sheet: np.ndarray, center: tuple[float, float, float, float, float]) -> Image.Image:
+def cut_floor(sheet: np.ndarray, center: tuple[float, float, float, float, float],
+              size: tuple[int, int] = (TILE_W + 2, TILE_H + 2)) -> Image.Image:
     """Le dessus d'une dalle, ramene au losange du standard.
 
     On ne decoupe pas la boite de la dalle -- elle porte son epaisseur et la pointe de sa voisine --
-    mais le losange lui-meme, par un masque. Le resultat est mis exactement a 256 x 159 : c'est la
-    tuile que le moteur etire sur le losange projete. Un retrait inferieur a 1 ne garde que le coeur
-    de la dalle, ce qui en fait un fond sans bordure.
+    mais le losange lui-meme, par un masque. Le montage le met a 258 x 161, un pixel de plus de
+    chaque cote pour recouvrir la couture ; les donnees d'essai du moteur, a 256 x 159, la taille
+    exacte du standard, puisque c'est le moteur qui les pose. Un retrait inferieur a 1 ne garde que
+    le coeur de la dalle, ce qui en fait un fond sans bordure.
     """
     cx, cy, half_w, half_h, inset = center
     half_w, half_h = half_w * inset, half_h * inset
@@ -160,7 +170,7 @@ def cut_floor(sheet: np.ndarray, center: tuple[float, float, float, float, float
         fill=255,
     )
     piece.putalpha(mask)
-    return piece.resize((TILE_W + 2, TILE_H + 2), Image.LANCZOS)
+    return piece.resize(size, Image.LANCZOS)
 
 
 # --- Montage ---------------------------------------------------------------------------------------
@@ -311,17 +321,133 @@ def plate(draw: ImageDraw.ImageDraw, at: tuple[float, float],
         y += height
 
 
+# --- Les donnees d'essai du moteur (LOT-103) -------------------------------------------------------
+#
+# Le rendu du LOT-103 doit reproduire les deux vues sans texte. Il ne peut pas lire la planche --
+# elle n'est pas versionnee -- ni reprendre le montage ci-dessus, qui colle des images. On lui donne
+# donc ce qu'une zone livree lui donnerait : les memes pieces, installees comme la chaine HD les
+# installe (une image par piece, un manifeste qui dit l'echelle, l'emprise et l'ancre), et la
+# disposition de la scene. Le test hors ecran en tire une carte et compare le rendu aux deux vues.
+
+FIXTURE = ROOT / "Source" / "Test" / "Fixtures" / "HdMockup"
+FIXTURE_PLACE = "arenarea-maquette"
+
+
+def anchor_of(image: Image.Image, spec: dict) -> list[int]:
+    """L'ancre d'une piece -- le sommet haut du losange de son emprise, en pixels de l'image.
+
+    C'est le point ou `compose` la pose, relu dans l'image : la piece se place par son coin sud
+    (plus le decalage mesure), le moteur par son coin nord. Les deux disent la meme chose.
+    """
+    span_c, span_r = spec["span"]
+    offset_x, offset_y = spec["offset"]
+    x = -(span_c - 1) * TILE_W / 2 + (span_r - 1) * TILE_W / 2 + image.width / 2 - offset_x
+    y = -(span_c + span_r - 2) * TILE_H / 2 - TILE_H + image.height - offset_y
+    return [round(x), round(y)]
+
+
+def fixture_layout() -> tuple[dict, tuple[int, int]]:
+    """La disposition de la scene en cases d'une carte : sans case negative, la place decalee."""
+    cells = tiles_in(art_extent())
+    first_c = min(c for c, _ in cells)
+    first_r = min(r for _, r in cells)
+    columns = max(c for c, _ in cells) - first_c + 1
+    rows = max(r for _, r in cells) - first_r + 1
+    # Une carte carree : le rendu ne connait que des grilles, et l'etendue cadree est un losange.
+    side = max(columns, rows)
+    offset = (-first_c, -first_r)
+    floor_rows = []
+    for row in range(side):
+        line = []
+        for column in range(side):
+            c, r = column - offset[0], row - offset[1]
+            inside = 0 <= c < GRID and 0 <= r < GRID
+            edge = inside and (c in (0, GRID - 1) or r in (0, GRID - 1))
+            line.append("b" if edge else ".")
+        floor_rows.append("".join(line))
+    layout = {
+        "version": 1,
+        "comment": "Engendre par scripts/build_hd_mockup.py : la maquette du LOT-101 en carte.",
+        "place": FIXTURE_PLACE,
+        "diamondRatio": TILE_H / TILE_W,
+        "columns": side,
+        "rows": side,
+        "legend": {"b": "floor-panel", ".": "floor-plain"},
+        "floors": floor_rows,
+        "pieces": [{"piece": name, "column": c + offset[0], "row": r + offset[1]}
+                   for name, c, r in SCENE],
+        "focus": [VIEW_CENTER[0] + 0.5 + offset[0], VIEW_CENTER[1] + 0.5 + offset[1]],
+        "background": list(SCENE_BG),
+        "views": {name: {"size": list(spec["size"]),
+                         **({"window": list(spec["window"])} if "window" in spec else {}),
+                         "reference": f"maquette-2d-hd-{name}.png"}
+                  for name, spec in VIEWS.items()},
+    }
+    return layout, offset
+
+
+def fixture_outputs(sheet: np.ndarray) -> tuple[dict[Path, Image.Image], dict[Path, str]]:
+    """Les images et les deux fichiers JSON des donnees d'essai."""
+    directory = FIXTURE / "Scene" / FIXTURE_PLACE
+    images: dict[Path, Image.Image] = {}
+    textures: dict[str, dict] = {}
+    for name, center in SOURCE_FLOORS.items():
+        images[directory / f"{name}.png"] = cut_floor(sheet, center, (TILE_W, TILE_H))
+        textures[f"scene/{FIXTURE_PLACE}/{name}"] = {
+            "file": f"{name}.png", "class": "floor", "footprint": [1, 1],
+            "size": [TILE_W, TILE_H], "anchor": [TILE_W // 2, 0], "tactical": "open"}
+    for name, spec in SOURCE_PIECES.items():
+        image = cut(sheet, spec["box"])
+        images[directory / f"{name}.png"] = image
+        textures[f"scene/{FIXTURE_PLACE}/{name}"] = {
+            "file": f"{name}.png", "class": "wide" if spec["span"] != (1, 1) else "tall",
+            "footprint": list(spec["span"]), "size": [image.width, image.height],
+            "anchor": anchor_of(image, spec), "tactical": "solid"}
+    manifest = {"version": 1, "disposition": FIXTURE_PLACE, "tile": [TILE_W, TILE_H],
+                "textures": textures}
+    layout, _ = fixture_layout()
+    texts = {directory / "manifest.json": json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+             FIXTURE / "scene.json": json.dumps(layout, indent=2, ensure_ascii=False) + "\n"}
+    return images, texts
+
+
 # --- Commande --------------------------------------------------------------------------------------
 
 
-def outputs() -> dict[Path, Image.Image]:
+def load_sheet() -> np.ndarray:
     if not PLANCHE.exists():
         raise SystemExit(f"planche de reference absente : {PLANCHE}")
-    sheet = np.asarray(Image.open(PLANCHE).convert("RGB")).astype(float)
+    return np.asarray(Image.open(PLANCHE).convert("RGB")).astype(float)
+
+
+def outputs(sheet: np.ndarray) -> dict[Path, Image.Image]:
     art, origin = compose(sheet)
     images = {MAQUETTES / f"maquette-2d-hd-{name}.png": view(art, name) for name in VIEWS}
     images[MAQUETTES / "maquette-2d-hd-reperes.png"] = landmarks(art, origin)
     return images
+
+
+def travelling(directory: Path) -> int:
+    """Assemble le travelling que le test du moteur a ecrit, pour le controle visuel (LOT-103).
+
+    `test_hd_mockup_render` ecrit `travelling-NNN.png` quand `JADG_TRAVELLING_DIR` nomme un
+    dossier. On n'en garde qu'une fenetre de 960 x 540 au pixel pres, au centre : le scintillement
+    ne se juge qu'a l'echelle 1, et une animation plein cadre pese trop pour s'ouvrir d'un clic.
+    """
+    frames = sorted(directory.glob("travelling-*.png"))
+    if not frames:
+        print(f"aucune image travelling-*.png dans {directory}", file=sys.stderr)
+        return 1
+    window = []
+    for path in frames:
+        image = Image.open(path).convert("RGB")
+        left, top = (image.width - 960) // 2, (image.height - 540) // 2
+        window.append(image.crop((left, top, left + 960, top + 540)))
+    output = directory / "travelling.webp"
+    window[0].save(output, save_all=True, append_images=window[1:], duration=33, loop=0,
+                   lossless=True)
+    print(f"{output}  {len(window)} images, {output.stat().st_size / 1024 / 1024:.1f} Mio")
+    return 0
 
 
 def digest(image: Image.Image) -> str:
@@ -331,9 +457,18 @@ def digest(image: Image.Image) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check", action="store_true", help="verifie que les images sont a jour")
+    parser.add_argument("--fixture", action="store_true",
+                        help="n'ecrit que les donnees d'essai du moteur, pas les maquettes")
+    parser.add_argument("--travelling", type=Path, metavar="DOSSIER",
+                        help="assemble le travelling ecrit par le test du moteur (LOT-103)")
     args = parser.parse_args()
+    if args.travelling is not None:
+        return travelling(args.travelling)
 
-    images = outputs()
+    sheet = load_sheet()
+    images = {} if args.fixture and not args.check else outputs(sheet)
+    fixture_images, texts = fixture_outputs(sheet)
+    images.update(fixture_images)
     if args.check:
         stale = []
         for path, image in images.items():
@@ -341,18 +476,25 @@ def main() -> int:
                 stale.append(f"{path.relative_to(ROOT)} : absente")
             elif digest(Image.open(path).convert(image.mode)) != digest(image):
                 stale.append(f"{path.relative_to(ROOT)} : differe du montage")
+        for path, text in texts.items():
+            if not path.exists() or path.read_text(encoding="utf-8") != text:
+                stale.append(f"{path.relative_to(ROOT)} : differe du montage")
         for line in stale:
             print(line, file=sys.stderr)
         if stale:
             print("relancer : python scripts/build_hd_mockup.py", file=sys.stderr)
             return 1
-        print(f"{len(images)} image(s) a jour")
+        print(f"{len(images) + len(texts)} fichier(s) a jour")
         return 0
 
-    MAQUETTES.mkdir(parents=True, exist_ok=True)
     for path, image in images.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
         image.save(path, optimize=True)
         print(f"{path.relative_to(ROOT)}  {image.width} x {image.height}  {path.stat().st_size / 1024:.0f} Kio")
+    for path, text in texts.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding="utf-8", newline="\n")
+        print(f"{path.relative_to(ROOT)}")
     return 0
 
 

@@ -89,12 +89,18 @@ SpriteBatch::SpriteBatch(QRhi* rhi) : _rhi(rhi) {
     initial->uploadStaticBuffer(_indexBuffer.get(), indices.data());
     _pendingIndexUpload = initial;
 
-    // Echantillonnage *nearest* (pixel art net), bords fixes : l'invariant de nettete du portage
-    // (EX-ARCH-022). Aucun mipmap -- une texture de pixel art ne se filtre pas.
-    _sampler.reset(_rhi->newSampler(QRhiSampler::Nearest, QRhiSampler::Nearest, QRhiSampler::None,
-                                    QRhiSampler::ClampToEdge, QRhiSampler::ClampToEdge));
-    if (!_sampler->create()) {
-        throw std::runtime_error("SpriteBatch : echec de creation de l'echantillonneur");
+    // Deux echantillonneurs, selon la nature de l'image (EX-ARCH-022), bords fixes l'un et l'autre.
+    // Au plus proche, sans mipmap : une image engendree dont chaque pixel est voulu (damier, aplat,
+    // marqueur). Bilineaire entre les niveaux de mipmaps : l'art peint, toujours reduit a l'ecran,
+    // qui scintillerait au plus proche (EX-VIS-008, LOT-103).
+    _sharpSampler.reset(_rhi->newSampler(QRhiSampler::Nearest, QRhiSampler::Nearest,
+                                         QRhiSampler::None, QRhiSampler::ClampToEdge,
+                                         QRhiSampler::ClampToEdge));
+    _smoothSampler.reset(_rhi->newSampler(QRhiSampler::Linear, QRhiSampler::Linear,
+                                          QRhiSampler::Linear, QRhiSampler::ClampToEdge,
+                                          QRhiSampler::ClampToEdge));
+    if (!_sharpSampler->create() || !_smoothSampler->create()) {
+        throw std::runtime_error("SpriteBatch : echec de creation des echantillonneurs");
     }
 
     _uniformStride = _rhi->ubufAligned(PROJECTION_BYTES);
@@ -152,12 +158,17 @@ QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
     if (found != _bindings.end()) {
         return found->second.get();
     }
+    // La texture dit sa nature : `hmi::createTexture` ne donne une chaine de mipmaps qu'a l'art
+    // peint (`TextureFiltering::Smooth`).
+    QRhiSampler* const sampler = texture->flags().testFlag(QRhiTexture::MipMapped)
+                                     ? _smoothSampler.get()
+                                     : _sharpSampler.get();
     auto bindings = std::unique_ptr<QRhiShaderResourceBindings>(_rhi->newShaderResourceBindings());
     bindings->setBindings({
         QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
             0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
         QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
-                                                  texture, _sampler.get()),
+                                                  texture, sampler),
     });
     if (!bindings->create()) {
         GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de ressources");
@@ -183,7 +194,7 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
             QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
                 0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
             QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
-                                                      nullptr, _sampler.get()),
+                                                      nullptr, _sharpSampler.get()),
         });
         if (!_layoutBindings->create()) {
             GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de reference");
@@ -214,10 +225,11 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
     pipeline->setDepthTest(false);
     pipeline->setDepthWrite(false);
 
-    // Fusion alpha, alpha NON premultiplie -- meme equation que l'etat Direct3D 11 d'origine.
+    // Fusion alpha PREMULTIPLIE (EX-VIS-008) : toute texture l'est au televersement, et le shader
+    // premultiplie la teinte. Un bord adouci et ses mipmaps se melangent alors sans frange sombre.
     QRhiGraphicsPipeline::TargetBlend blend;
     blend.enable = true;
-    blend.srcColor = QRhiGraphicsPipeline::SrcAlpha;
+    blend.srcColor = QRhiGraphicsPipeline::One;
     blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
     blend.opColor = QRhiGraphicsPipeline::Add;
     blend.srcAlpha = QRhiGraphicsPipeline::One;

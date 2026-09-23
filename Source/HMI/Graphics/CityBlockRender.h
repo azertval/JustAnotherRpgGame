@@ -35,16 +35,26 @@ struct CityBlockFraming {
     int pixelHeight = 0;
 };
 
+/// Largeur d'une case dans l'image d'un îlot, en pixels : celle d'une case à 1080p
+/// (`hmi::worldTilePixels`). Une définition d'image, que l'écran « Carte » réduit en la lissant.
+inline constexpr float CITY_BLOCK_TILE_PIXELS = 100.0F;
+
 /**
  * @brief Cadre l'îlot @p block de la carte que @p projection projette.
  *
- * L'image couvre le losange englobant de l'îlot, à l'agrandissement 1 du lieu
- * (`Camera2D::PIXELS_PER_UNIT`), plus, en haut, la hauteur des pièces les plus hautes de l'atelier :
- * un mur posé au fond de l'îlot se dresse au-dessus de sa case, et le couper ferait un plan
- * décapité.
+ * L'image couvre le losange englobant de l'îlot, à @p tilePixels pixels par case, plus, en haut,
+ * l'élévation de la pièce la plus haute du lieu (@p maximumRise, lue dans son manifeste par
+ * `hmi::PlaceAppearance::maximumRise`) : un mur posé au fond de l'îlot se dresse au-dessus de sa
+ * case, et le couper ferait un plan décapité.
+ *
+ * @param projection  La projection de la carte.
+ * @param block       L'îlot.
+ * @param maximumRise Élévation de la pièce la plus haute au-dessus de sa case, en largeurs de case.
+ * @param tilePixels  Largeur d'une case dans l'image, en pixels.
  */
 [[nodiscard]] CityBlockFraming cityBlockFraming(const core::IsoProjection& projection,
-                                                const core::CityBlock& block);
+                                                const core::CityBlock& block, float maximumRise,
+                                                float tilePixels = CITY_BLOCK_TILE_PIXELS);
 
 /**
  * @brief Dessine @p snapshot cadré sur @p block, hors écran.

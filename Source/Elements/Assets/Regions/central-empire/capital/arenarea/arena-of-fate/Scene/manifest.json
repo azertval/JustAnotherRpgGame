@@ -1,10 +1,400 @@
 {
   "version": 1,
   "disposition": "arena-of-fate",
-  "comment": "Vide : le Colisee de l'Arena of Fate, sous-zone d'Arenarea (LOT-106).",
   "tile": [
     256,
     159
   ],
-  "textures": {}
+  "textures": {
+    "scene/arena-of-fate/floor-sand-01": {
+      "file": "floor-sand-01.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-001.png",
+        "sha256": "2eb6f66651531925ca6a74ad1d2f7dc408d1faa1313dda946e13eb4f24a73fe7"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-02": {
+      "file": "floor-sand-02.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-001.png",
+        "sha256": "2eb6f66651531925ca6a74ad1d2f7dc408d1faa1313dda946e13eb4f24a73fe7"
+      }
+    },
+    "scene/arena-of-fate/floor-paving-01": {
+      "file": "floor-paving-01.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-001.png",
+        "sha256": "2eb6f66651531925ca6a74ad1d2f7dc408d1faa1313dda946e13eb4f24a73fe7"
+      }
+    },
+    "scene/arena-of-fate/floor-paving-02": {
+      "file": "floor-paving-02.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-001.png",
+        "sha256": "2eb6f66651531925ca6a74ad1d2f7dc408d1faa1313dda946e13eb4f24a73fe7"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-edge-nw-01": {
+      "file": "floor-sand-edge-nw-01.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-001.png",
+        "sha256": "2eb6f66651531925ca6a74ad1d2f7dc408d1faa1313dda946e13eb4f24a73fe7"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-edge-ne-01": {
+      "file": "floor-sand-edge-ne-01.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-001.png",
+        "sha256": "2eb6f66651531925ca6a74ad1d2f7dc408d1faa1313dda946e13eb4f24a73fe7"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-03": {
+      "file": "floor-sand-03.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-002.png",
+        "sha256": "d0f3e2d342f754b5005c78091ab059ef0a693f996a0d965088f61070cc93bca0"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-04": {
+      "file": "floor-sand-04.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-002.png",
+        "sha256": "d0f3e2d342f754b5005c78091ab059ef0a693f996a0d965088f61070cc93bca0"
+      }
+    },
+    "scene/arena-of-fate/floor-paving-03": {
+      "file": "floor-paving-03.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-002.png",
+        "sha256": "d0f3e2d342f754b5005c78091ab059ef0a693f996a0d965088f61070cc93bca0"
+      }
+    },
+    "scene/arena-of-fate/floor-paving-04": {
+      "file": "floor-paving-04.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-002.png",
+        "sha256": "d0f3e2d342f754b5005c78091ab059ef0a693f996a0d965088f61070cc93bca0"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-edge-nw-02": {
+      "file": "floor-sand-edge-nw-02.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-002.png",
+        "sha256": "d0f3e2d342f754b5005c78091ab059ef0a693f996a0d965088f61070cc93bca0"
+      }
+    },
+    "scene/arena-of-fate/floor-sand-edge-ne-02": {
+      "file": "floor-sand-edge-ne-02.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Colisee/Sols/source-002.png",
+        "sha256": "d0f3e2d342f754b5005c78091ab059ef0a693f996a0d965088f61070cc93bca0"
+      }
+    },
+    "scene/arena-of-fate/wall-arcade-u": {
+      "file": "wall-arcade-u.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        3,
+        1
+      ],
+      "size": [
+        426,
+        539
+      ],
+      "anchor": [
+        6,
+        295
+      ],
+      "source": {
+        "file": "Colisee/Murs/mur-U-clean.png",
+        "sha256": "4c021f3a9b9306f590a7964a10c9c4fbd72d316b36a7fcb53ec1f9d60e729d03"
+      }
+    },
+    "scene/arena-of-fate/wall-arcade-u-worn": {
+      "file": "wall-arcade-u-worn.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        3,
+        1
+      ],
+      "size": [
+        425,
+        536
+      ],
+      "anchor": [
+        4,
+        293
+      ],
+      "source": {
+        "file": "Colisee/Murs/mur-U.png",
+        "sha256": "f14a0b1babc91bf971464de37620738bebce588cd93f4a252eace56732c7a43f"
+      }
+    },
+    "scene/arena-of-fate/wall-arcade-v": {
+      "file": "wall-arcade-v.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        1,
+        3
+      ],
+      "size": [
+        430,
+        540
+      ],
+      "anchor": [
+        423,
+        298
+      ],
+      "source": {
+        "file": "Colisee/Murs/mur-V-clean.png",
+        "sha256": "cad80e984f5853302f5f8cd5034f8b23ce4b12b33537239b17a78a0ed096fc7f"
+      }
+    },
+    "scene/arena-of-fate/wall-arcade-v-worn": {
+      "file": "wall-arcade-v-worn.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        1,
+        3
+      ],
+      "size": [
+        428,
+        538
+      ],
+      "anchor": [
+        423,
+        297
+      ],
+      "source": {
+        "file": "Colisee/Murs/mur-V.png",
+        "sha256": "21ef93d4dc3e030a12be8d8f2e701f0d80d900d985999323011706ab1cca99db"
+      }
+    },
+    "scene/arena-of-fate/wall-angle-inner": {
+      "file": "wall-angle-inner.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        2,
+        2
+      ],
+      "size": [
+        594,
+        495
+      ],
+      "anchor": [
+        297,
+        329
+      ],
+      "source": {
+        "file": "Colisee/Murs/angle-inner.png",
+        "sha256": "c2b45fb8c9bd66a93f3a7d6b6138f3c1ea63e232076d5b76c87f88d03505084e"
+      }
+    },
+    "scene/arena-of-fate/wall-angle-outer": {
+      "file": "wall-angle-outer.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        2,
+        2
+      ],
+      "size": [
+        516,
+        520
+      ],
+      "anchor": [
+        258,
+        189
+      ],
+      "source": {
+        "file": "Colisee/Murs/angle-outer.png",
+        "sha256": "f501bfac5c86bc71895da50f13fd95819786587cb2ab0688b0653fb4bf218dbe"
+      }
+    }
+  }
 }

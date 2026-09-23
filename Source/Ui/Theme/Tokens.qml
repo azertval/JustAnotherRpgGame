@@ -27,14 +27,12 @@ QtObject {
     // l'echelle typographique ci-dessous.
     property real uiScale: 1
 
-    // --- Facteur d'agrandissement ENTIER : viewport ---------------------------------------------
+    // --- Facteur d'agrandissement ENTIER : l'ancien viewport ----------------------------------
     //
-    // ENTIER, borne a [1, 3]. Ne sert plus qu'au viewport de la scene, en pixel art : ses tuiles
-    // sont des pixels, que la charte v2 -- ses cadres 9-patch echantillonnes a tout facteur -- n'a
-    // plus besoin de proteger.
-    //
-    // Fractionnaire, il corromprait silencieusement les tuiles d'un pixel du viewport -- c'est la
-    // raison pour laquelle il ne sera jamais un reel.
+    // ENTIER, borne a [1, 3]. Il servait au viewport de la scene en pixel art ; depuis le LOT-103,
+    // la scene se cadre elle-meme, a un facteur libre tire de la definition (une case = hauteur de
+    // la fenetre / 10,8, EX-REN-013), et plus rien ne se regle sur lui. Il ne reste affiche que par
+    // le panneau de diagnostic.
     //
     // L'application ecrit cette valeur au demarrage, calculee depuis la hauteur de la fenetre. La
     // valeur par defaut 2 est celle de la CONCEPTION : c'est ce que Qt Design Studio affiche, et

@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "disposition": "arenarea-maquette",
+  "tile": [
+    256,
+    159
+  ],
+  "textures": {
+    "scene/arenarea-maquette/floor-panel": {
+      "file": "floor-panel.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open"
+    },
+    "scene/arenarea-maquette/floor-plain": {
+      "file": "floor-plain.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open"
+    },
+    "scene/arenarea-maquette/wall-ivy-window": {
+      "file": "wall-ivy-window.png",
+      "class": "wide",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        328,
+        288
+      ],
+      "anchor": [
+        18,
+        26
+      ],
+      "tactical": "solid"
+    },
+    "scene/arenarea-maquette/wall-window": {
+      "file": "wall-window.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        162,
+        277
+      ],
+      "anchor": [
+        81,
+        94
+      ],
+      "tactical": "solid"
+    },
+    "scene/arenarea-maquette/colonnade": {
+      "file": "colonnade.png",
+      "class": "wide",
+      "footprint": [
+        3,
+        1
+      ],
+      "size": [
+        277,
+        288
+      ],
+      "anchor": [
+        -128,
+        -60
+      ],
+      "tactical": "solid"
+    },
+    "scene/arenarea-maquette/fountain": {
+      "file": "fountain.png",
+      "class": "wide",
+      "footprint": [
+        3,
+        3
+      ],
+      "size": [
+        442,
+        395
+      ],
+      "anchor": [
+        221,
+        -88
+      ],
+      "tactical": "solid"
+    },
+    "scene/arenarea-maquette/lamppost": {
+      "file": "lamppost.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        88,
+        356
+      ],
+      "anchor": [
+        44,
+        187
+      ],
+      "tactical": "solid"
+    },
+    "scene/arenarea-maquette/bench": {
+      "file": "bench.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        183,
+        156
+      ],
+      "anchor": [
+        92,
+        -9
+      ],
+      "tactical": "solid"
+    }
+  }
+}

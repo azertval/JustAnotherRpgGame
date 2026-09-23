@@ -11,15 +11,14 @@ La page traite chaque en-tête de `Source/HMI/Graphics`, du plus bas niveau (le 
 haut (les scènes, la galerie, le rendu de maquette), puis les éléments Qt Quick de
 `Source/HMI/Runtime` qui hébergent ce rendu.
 
-> **Attention** — Le rendu est en **transition** entre le pixel art d'origine et le standard 2D HD
-> du `LOT-101`. Plusieurs constantes et choix décrits ici (16 pixels par unité, échantillonnage au
-> plus proche voisin, zoom entier, planches de 68 × 42 pixels) sont ceux du **code d'aujourd'hui** ;
-> la spécification (`EX-ARCH-022`, `EX-REN-013`) ne les demande plus, et c'est le `LOT-103` qui
-> met le rendu à l'exigence. De même, la table rase du `LOT-102` a supprimé toutes les planches de
-> scène et de figurines : les chemins que le code écrit (`Scene/<lieu>/…`, `Npc/<slug>/…`,
-> `Coliseum/…`) ne désignent plus aucun fichier du dépôt, et le rendu retombe sur ses replis
-> (damier, marqueur, maquette) jusqu'aux premières pièces HD du `LOT-105`. Chaque écart est signalé
-> à l'endroit où il compte.
+> **Attention** — Depuis le `LOT-103`, le rendu suit le standard 2D HD du `LOT-101` : l'échelle
+> de l'art se lit dans le manifeste du lieu (`"tile": [256, 159]`), une figurine se découpe par sa
+> cellule entière, l'art peint se filtre en bilinéaire avec mipmaps et en alpha prémultiplié, et la
+> caméra cadre une case à la hauteur de la fenêtre divisée par 10,8. Reste un écart : la table rase
+> du `LOT-102` a vidé l'ancienne arborescence, et les chemins que le code écrit (`Scene/<lieu>/…`,
+> `Npc/<slug>/…`, `Coliseum/…`) ne désignent plus aucun fichier livré — la résolution par niveaux
+> (`Regions/…`, `Common/…`) est au `LOT-124`. D'ici là, le rendu retombe sur ses replis (damier,
+> marqueur, maquette) hors des données d'essai.
 
 ## Vocabulaire de base : GPU, swap chain, back buffer
 
@@ -170,29 +169,25 @@ projet, la même que celle des cartes.
 
 `hmi::Camera2D::fitZoom(availableWidth, availableHeight, contentWidth, contentHeight, margin)`
 calcule le zoom qui fait tenir un rectangle donné (en unités monde) dans une surface disponible (en
-pixels), sans jamais laisser de zone hors champ : zoom **entier** (`std::floor`) tant que le
-facteur brut est supérieur ou égal à 1, fractionnaire seulement si nécessaire pour englober un
-contenu plus grand que la surface. `margin` (1 par défaut) s'applique avant l'arrondi, pour laisser
-une marge visuelle. Fonction pure, partagée par le canevas de l'éditeur (`EX-EDIT-013`) et
-l'arène : aucune règle dupliquée entre les deux.
+pixels), sans jamais laisser de zone hors champ : le plus petit des deux rapports, multiplié par
+`margin` (1 par défaut) pour laisser une marge visuelle, **sans arrondi**. Il s'arrondissait à
+l'entier pour la netteté du pixel art ; l'art peint et filtré par mipmaps n'a plus de grille à
+protéger (`EX-ARCH-022`, `LOT-103`). Fonction pure, partagée par le canevas de l'éditeur
+(`EX-EDIT-013`) et l'arène : aucune règle dupliquée entre les deux.
 
 Les deux scènes du jeu ont chacune **une** fonction de cadrage, qui est la seule géométrie de la
 scène à l'écran :
 
 - `hmi::arenaCamera(projection, pixelWidth, pixelHeight)` (`ArenaSceneRenderer.h`) cadre le
-  Colisée **entier**, centré, au zoom arrondi à l'entier par `fitZoom` ;
-- `hmi::worldCamera(projection, focus, pixelWidth, pixelHeight)` (`WorldSceneRenderer.h`)
-  **suit** le héros dans le lieu qu'on parcourt (`EX-REN-013`) : agrandissement entier (l'art est
-  dessiné pour `hmi::WORLD_ART_HEIGHT_PIXELS` = 720 lignes ; au-delà, on double), centré sur le
-  point suivi, puis ramené dans la scène — sur un axe où la scène est plus petite que la vue, la
-  caméra reste centrée, faute de quoi la carte collerait à un bord.
-
-> **Écart avec la spécification, ouvert depuis le `LOT-101`.** `EX-REN-013` ne demande plus
-> d'agrandissement entier : elle veut un facteur libre, déduit de la définition de la fenêtre (une
-> case = hauteur de la fenêtre / 10,8), et `EX-ARCH-022` ne contraint plus le zoom aux entiers.
-> Ce que décrit ce paragraphe est le code **d'aujourd'hui**, hérité du pixel art ; c'est le
-> `LOT-103` qui le met à l'exigence, en même temps qu'il donne à `SpriteBatch` un échantillonneur
-> bilinéaire avec mipmaps.
+  Colisée **entier**, centré, par `fitZoom` ;
+- `hmi::worldCamera(projection, focus, pixelWidth, pixelHeight, tilePixels)`
+  (`WorldSceneRenderer.h`) **suit** le héros dans le lieu qu'on parcourt (`EX-REN-013`) : une case
+  occupe à l'écran la hauteur de la surface divisée par `hmi::WORLD_VIEW_HEIGHT_IN_TILES` = 10,8
+  (`hmi::worldTilePixels` : 100 px à 1080p, 200 px à 2160p, donc la même étendue de monde aux deux
+  définitions), centrée sur le point suivi, puis ramenée dans la scène — sur un axe où la scène est
+  plus petite que la vue, la caméra reste centrée, faute de quoi la carte collerait à un bord.
+  `tilePixels`, nul par défaut, impose une autre taille de case : c'est ce que fait l'image d'un
+  îlot (`hmi::CITY_BLOCK_TILE_PIXELS`).
 
 L'élément Qt Quick publie ce cadrage à son calque d'interface QML et s'en sert pour traduire le
 pointeur en case : deux cadrages recalculés chacun de leur côté ne tombent jamais au même pixel.
@@ -267,16 +262,26 @@ petits programmes qui s'exécutent **sur le GPU** lui-même :
   couvert par les triangles, en échantillonnant la texture à la coordonnée UV interpolée et en la
   multipliant par la couleur du sommet.
 
-L'échantillonnage utilise aujourd'hui le mode ***nearest*** : il choisit le pixel de texture le
-**plus proche** de la coordonnée demandée, sans mélanger ses voisins — le choix du pixel art, dont
-il préserve les contours nets. `EX-ARCH-022` et `EX-REN-041` demandent désormais un filtrage **par
-nature d'asset** (au plus proche pour une image dont les pixels sont signifiants, interpolé pour
-une illustration peinte) : c'est le `LOT-103` qui ajoute l'échantillonneur bilinéaire avec mipmaps
-et l'alpha prémultiplié.
+L'échantillonnage suit la **nature de l'image** (`EX-ARCH-022`, `EX-REN-041`), que la texture
+porte depuis sa création (`hmi::TextureFiltering`) :
 
-Le pipeline gère la **transparence** (mélange `SrcAlpha`/`OneMinusSrcAlpha`) : sans un état de
-*blending* configuré, le canal alpha d'un quad serait ignoré et chaque sprite dessinerait un
-rectangle plein — une figurine n'aurait plus de silhouette.
+- l'**art peint**, tout ce qui vient d'un fichier (`hmi::loadTextureFromFile`), est `Smooth` : la
+  texture reçoit sa chaîne de **mipmaps** — des copies d'elle-même deux, quatre, huit fois plus
+  petites, que le GPU engendre au téléversement — et s'échantillonne en **bilinéaire** entre ses
+  niveaux. L'art de scène est toujours réduit à l'écran (256 pixels d'art pour 100 à 1080p) : au
+  plus proche, chaque pixel d'écran ne retiendrait qu'un texel sur trois, un autre à la moindre
+  fraction de déplacement, et l'image **scintillerait** ;
+- une image **engendrée** — damier de repli, aplat blanc, marqueur, atlas procédural — est `Sharp` :
+  sans mipmap, au **plus proche**, ses pixels étant voulus un à un.
+
+`SpriteBatch` reconnaît la nature d'une texture à son drapeau `MipMapped` et lui lie l'échantillonneur
+qui convient.
+
+Le pipeline gère la **transparence** en alpha **prémultiplié** (mélange `One`/`OneMinusSrcAlpha`) :
+toute texture est prémultipliée au téléversement, et le shader prémultiplie la teinte. Sans
+prémultiplication, un bord adouci filtré mêlerait la couleur de ses voisins transparents — souvent
+noirs — et chaque pièce porterait une frange sombre ; ses mipmaps aussi, moyennées sur de l'alpha
+droit, se fonceraient à chaque niveau.
 
 ### `hmi::screenProjectionMatrix` : dessiner en pixels
 
@@ -325,20 +330,22 @@ pièces d'un lieu et les bandes d'animation des figurines. Le chargement (`Textu
 déroule en deux étapes :
 
 1. **Décodage** — `hmi::decodeImageFile(path)` renvoie `std::optional<hmi::DecodedImage>`
-   (largeur, hauteur, pixels `RGBA8` **non prémultipliés**) ou `nullopt` si le fichier est absent,
-   illisible ou d'un format non supporté (erreur récupérable, `EX-NFR-040`, jamais d'exception).
-   Le non-prémultiplié est cohérent avec le mélange `SrcAlpha`/`OneMinusSrcAlpha` du pipeline : un
-   format prémultiplié donnerait des bords transparents assombris ;
-2. **Upload GPU** — `hmi::createTexture(context, width, height, pixels)` crée la texture par
-   `QRhi::newTexture` et dépose ses pixels dans `RhiContext::updates` ; le téléversement est
-   **différé** jusqu'à la soumission du lot, contrainte de QRhi et non choix d'optimisation. Elle
-   renvoie `std::optional<hmi::LoadedTexture>`, texture RAII au pointeur **partagé** (le cache range
-   ses entrées dans un registre qui les copie, et une même texture peut servir plusieurs
-   consommateurs le temps d'une image) ; `hmi::LoadedTexture::handle` en donne l'identité opaque.
-   L'atlas procédural, les marqueurs et les jetons passent par la même fonction : il n'existe qu'un
-   seul endroit qui crée une texture sur le GPU.
+   (largeur, hauteur, pixels `RGBA8` à alpha **droit**, l'image telle que le fichier la porte) ou
+   `nullopt` si le fichier est absent, illisible ou d'un format non supporté (erreur récupérable,
+   `EX-NFR-040`, jamais d'exception) ;
+2. **Upload GPU** — `hmi::createTexture(context, width, height, pixels, filtering)` crée la texture
+   par `QRhi::newTexture`, **prémultiplie** ses pixels et les dépose dans `RhiContext::updates` ;
+   une texture `hmi::TextureFiltering::Smooth` y reçoit en plus sa chaîne de mipmaps, engendrée par
+   le GPU dans le même lot. Le téléversement est **différé** jusqu'à la soumission du lot,
+   contrainte de QRhi et non choix d'optimisation. Elle renvoie `std::optional<hmi::LoadedTexture>`,
+   texture RAII au pointeur **partagé** (le cache range ses entrées dans un registre qui les copie,
+   et une même texture peut servir plusieurs consommateurs le temps d'une image) ;
+   `hmi::LoadedTexture::handle` en donne l'identité opaque. L'atlas procédural, les marqueurs et les
+   jetons passent par la même fonction, en `Sharp` par défaut : il n'existe qu'un seul endroit qui
+   crée une texture sur le GPU.
 
-`hmi::loadTextureFromFile(context, path)` enchaîne les deux. `hmi::encodeImageFile(path, image)`
+`hmi::loadTextureFromFile(context, path)` enchaîne les deux, en `Smooth` : tout fichier que le
+rendu charge est de l'art peint. `hmi::encodeImageFile(path, image)`
 est le symétrique du décodage : il écrit un PNG depuis une `DecodedImage`, de façon **atomique**
 (fichier temporaire du même dossier puis `rename`) pour qu'une interruption ne laisse jamais un
 fichier tronqué — décoder puis réencoder restitue exactement les mêmes pixels, alpha compris. Il
@@ -474,40 +481,45 @@ bande de `wallRise · L` est réservée en haut de la scène pour les murs du fo
 
 ![La projection isométrique : une case de la grille devient un losange dont le sommet haut est l'ancre et le sommet bas le pied, les formules affines de gridToWorld, et la pose d'une pièce PNG par son ancre avec standingPieceQuad](figures/rendu-projection-iso.svg)
 
-`ScenePieces.h` fixe la géométrie des **pièces de l'atelier des textures** (`LOT-92`), commune au
-Colisée (`LOT-50`) et aux lieux qu'on parcourt (`LOT-09`) — la garder en deux copies ferait de
-leur égalité une coïncidence :
+`ScenePieces.h` fixe la géométrie des **pièces de scène**, commune au Colisée (`LOT-50`) et aux
+lieux qu'on parcourt (`LOT-09`) — la garder en deux copies ferait de leur égalité une coïncidence.
+Elle n'écrit **aucune taille d'art** (`LOT-103`) : l'échelle d'une pièce est une donnée de son lieu.
 
-- `hmi::SCENE_TILE_WIDTH_PIXELS` = 68, `SCENE_HALF_TILE_WIDTH_PIXELS` = 34,
-  `SCENE_TILE_HEIGHT_PIXELS` = 42 : le losange en pixels d'art, qui occupe le **bas** d'une pièce
-  d'une case ; ce qui dépasse monte au-dessus de la case ;
-- `hmi::FIGURE_FRAME_WIDTH_PIXELS` = 48, `FIGURE_FRAME_HEIGHT_PIXELS` = 64, `FIGURE_SCALE` =
-  1,25 : une image de bande de figurine et son agrandissement ;
-- `hmi::SceneTexture` : une texture liable et ses dimensions, plus `frameWidth` (largeur d'image si
-  c'est une bande, 0 sinon), et deux valeurs optionnelles lues d'un manifeste : `anchor` (origine
-  explicite d'une pièce modulaire, en pixels d'art) et `depthOffset` (décalage du pied de tri, en
-  cases) ;
+- `hmi::SceneTexture` : une texture liable et ses dimensions, plus ce que ses fichiers voisins
+  disent d'elle — `frameWidth` et `frameHeight` (la cellule d'une bande, 0 pour une image fixe),
+  `artTile` (le losange de sol que déclare le manifeste de son dossier, `"tile": [256, 159]`), et
+  deux valeurs optionnelles : `anchor` (origine de la pièce, en pixels d'art) et `depthOffset`
+  (décalage du pied de tri, en cases). `hmi::ArenaTexture` en est un simple alias ;
+- `hmi::artTileWidth(texture)` : les pixels d'art d'une largeur de case — le losange déclaré, à
+  défaut la hauteur de la cellule d'une bande, à défaut la largeur de l'image (une pièce sans
+  échelle se suppose d'une case de large). C'est lui qui ramène l'art à la projection : une pièce
+  dont le lieu déclare 256 pixels occupe exactement une case, et un lieu livré deux fois plus fin
+  se dessine à la même taille ;
 - `hmi::ScenePieceTextures` : les textures d'un lieu adressées par leur **chemin** tel que la
   composition l'écrit, avec un comparateur transparent (recherche sans chaîne temporaire).
   `resolve(path)` rend la texture ou le damier `missing` ; `find(path)` rend `nullptr` **sans**
   repli, pour ce qui n'a de sens que dessiné juste (un jeton de maquette : un damier à sa place se
   ferait passer pour une pièce manquante) ; `solid` est l'aplat blanc 1 × 1 des primitives de
   couleur (`LOT-128`) ;
-- `hmi::standingPieceQuad(texture, topVertex, unitsPerScenePixel)` pose une pièce **debout** par
-  son ancre : le quad a la taille de la texture, décalé pour que l'ancre — par défaut (34, hauteur −
-  42), sinon celle du manifeste — tombe sur le sommet haut du losange de la case. Sa texture est
-  nulle si la pièce ne se dessine pas.
+- `hmi::standingPieceQuad(texture, topVertex, tileWidth, ratio)` pose une pièce **debout** par
+  son ancre, à l'échelle de son lieu : le quad a la taille de la texture ramenée par
+  `artTileWidth`, décalé pour que l'ancre — celle du manifeste, à défaut le milieu du losange du bas
+  de l'image — tombe sur le sommet haut du losange de la case ;
+- `hmi::figureQuad(texture, frame, centerX, bottomY, tileWidth)` pose une **figurine** : l'image
+  `frame` de sa bande, sa cellule **entière** (une figurine de 192 × 256 comme une créature de
+  384 × 384), sans agrandissement — l'art est livré à sa taille finale (`EX-VIS-008`) ;
+- `hmi::floorQuad(bounds)` : la boîte du losange d'une dalle, élargie de `FLOOR_SEAM_OVERLAP`
+  (1/256 de case de chaque côté). Une dalle HD a le bord adouci : deux losanges jointifs à l'arête
+  près laisseraient passer le fond sous la couture, un treillis sombre sur tout le sol.
 
-`ScenePiecePlacement.h` lit ces deux valeurs dans le manifeste d'une planche :
-`hmi::scenePieceAnchor(root, filename)` et `hmi::scenePieceDepthOffset(root, filename)` ne
-répondent que si le manifeste déclare `placementVersion: 1` — un **opt-in**, pour que les manifestes
-historiques ne modifient pas le placement des cartes livrées — et rendent `nullopt` pour toute
-valeur absente, non numérique ou non finie.
-
-> **Note** — Ces constantes en pixels d'art sont celles du pixel art. Le `LOT-103` lit l'échelle
-> de l'art dans le manifeste du lieu (`"tile": [256, 159]`), ajoute `frameHeight` à
-> `SceneTexture` et retire `FIGURE_SCALE` : « aucune constante du rendu ne porte plus une taille
-> d'art en pixels » est un de ses critères.
+`SceneTextureTraits.h` lit ce que les fichiers voisins d'une image disent d'elle, une fois, pour le
+jeu, l'arène et l'éditeur : `hmi::readSceneTextureTraits(assets, path)` rend la cellule de son
+`.anim.json`, le losange (`hmi::manifestArtTile`) du manifeste de son dossier — ou de celui du
+dossier parent pour une figurine (`Characters/<pnj>/idle.png`) —, son ancre
+(`hmi::scenePieceAnchor`) et son décalage de profondeur (`hmi::scenePieceDepthOffset`), qui rendent
+`nullopt` pour toute valeur absente, non numérique ou non finie ; `hmi::applySceneTextureTraits`
+les reporte sur une `SceneTexture`. L'ancre se lit **sans condition** depuis le `LOT-103` : l'opt-in
+`placementVersion` protégeait des cartes que la table rase du `LOT-102` a emportées.
 
 ## Composer, puis soumettre
 
@@ -912,10 +924,13 @@ manifeste des PNJ voisin peut mettre un PNJ à la place d'un héros (`applyNpcMa
 Décision de l'auteur du 18 septembre 2026 (`LOT-96`) : l'îlot n'a pas d'image à lui ; l'écran
 « Carte » le montre par le **même** rendu que le lieu, hors écran, sur un `QRhi` sans fenêtre —
 rien à peindre, et un plan qui ne peut pas diverger du terrain. `hmi::cityBlockFraming(projection,
-block)` (`CityBlockRender.h`) rend un `hmi::CityBlockFraming` (point suivi, taille d'image) : le
-losange englobant de l'îlot à l'agrandissement 1, plus, en haut, la hauteur des pièces les plus
-hautes — un mur au fond de l'îlot se dresse au-dessus de sa case, et le couper ferait un plan
-décapité. `hmi::renderCityBlock(assetsDirectory, snapshot, block)` peint et rend une `QImage`,
+block, maximumRise, tilePixels)` (`CityBlockRender.h`) rend un `hmi::CityBlockFraming` (point suivi,
+taille d'image) : le losange englobant de l'îlot à `hmi::CITY_BLOCK_TILE_PIXELS` = 100 pixels par
+case, plus, en haut, l'élévation de la pièce la plus haute du lieu — un mur au fond de l'îlot se
+dresse au-dessus de sa case, et le couper ferait un plan décapité. Cette élévation se **lit** dans
+le manifeste (`hmi::PlaceAppearance::maximumRise`, reportée dans `WorldSceneSnapshot::maximumRise`,
+en largeurs de case) : elle ne vaut plus les 135 pixels de la plus haute pièce de l'ancienne planche
+(`LOT-103`). L'écran « Carte » réduit l'image lissée (`smooth` et `mipmap` de `BlockMapForm`). `hmi::renderCityBlock(assetsDirectory, snapshot, block)` peint et rend une `QImage`,
 nulle si aucune interface QRhi n'est disponible : l'écran le dit plutôt que de planter.
 
 ### Le canevas de l'éditeur : composition partagée, peinture `QPainter`
@@ -937,12 +952,16 @@ toutes leurs animations. Tout asset livré doit y paraître (`EX-CNT-042`), et u
 
 - `hmi::AssetGalleryEntry` : une **forme** d'un modèle (un clip d'une figure, une variante de
   texture, une pièce) — famille, modèle (une ligne), forme (une colonne), chemin, taille d'image,
-  indices d'images, durée, bouclé ou non, emprise au sol, ancre du manifeste ; `frameCount()`. Tout
+  indices d'images, durée, bouclé ou non, emprise au sol, ancre du manifeste, et `tilePixels`, le
+  losange que déclare le manifeste (`tileWidthPixels()` en donne un à défaut) ; `frameCount()`. Tout
   ce qui sert à disposer un asset est lu dans les manifestes : la galerie place sans charger, ce
   qui lui permet de ne charger que ce qui est à l'écran ;
 - `hmi::AssetGalleryFamily` et `hmi::AssetGalleryCatalog::load(assetsRoot)` : l'inventaire, lu
-  dans les manifestes existants (PNJ, monstres, Colisée, scènes), chacun seulement s'il existe ; un
-  manifeste illisible est une erreur **nommée** dans `errors`, jamais un arrêt ; `entryCount()` ;
+  dans les manifestes existants (PNJ, monstres, Colisée, scènes), chacun seulement s'il existe,
+  puis dans l'**arborescence par niveaux** où la chaîne HD installe (`LOT-104`) : chaque
+  `manifest.json` sous `Common/` et `Regions/`, un dossier `Scene/` en une famille
+  `Scène · <lieu>`, un dossier `Characters/` en `Figurines · <dossier>` ; un manifeste illisible
+  est une erreur **nommée** dans `errors`, jamais un arrêt ; `entryCount()` ;
 - `hmi::assetGalleryExcludes(path)` : les images livrées qui ne sont pas des assets à montrer, par
   règle nommée — l'interface (`UI/`), les cartes plein écran (`Maps/`, que l'écran « Carte » montre
   déjà), les polices (`Fonts/`) ; `hmi::assetGalleryUnlisted(assetsRoot, catalog)` : les images
@@ -959,12 +978,15 @@ toutes leurs animations. Tout asset livré doit y paraître (`EX-CNT-042`), et u
   `hmi::ASSET_GALLERY_RING_CELLS` = 3 ;
 - `hmi::assetGalleryFrameRank(entry, seconds)` : l'image jouée au temps donné, en boucle ou jouée
   une fois puis tenue `hmi::ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS` = 0,6 s ;
-  `hmi::ASSET_GALLERY_CELL_PIXELS` = 68.
+  `hmi::ASSET_GALLERY_CELL_PIXELS` = 100, la case à l'écran au zoom 1 — une taille d'écran, pas
+  d'art : chaque forme s'y ramène par le losange de **son** lieu, si bien qu'une figurine HD et une
+  planche de l'ancien style tiennent dans le même bloc (`LOT-103`).
 
 `hmi::AssetGalleryRenderer` (`AssetGalleryRenderer.h`) est le pendant GPU, même cycle de vie que
 les autres renderers (`ensureResources`, `setFrame`, `render`). Il reçoit une `hmi::AssetGalleryFrame`
 **en valeurs** — les `hmi::AssetGalleryDrawnBloc` déjà placés en pixels de la cible, la liste des
-textures `wanted`, `cellPixels`, `artScale`, grille et emprises — et ne fait que charger ce qu'on
+textures `wanted`, `cellPixels`, `pixelScale` (l'épaisseur d'un trait), grille et emprises, et pour
+chaque bloc le losange de son art (`tilePixels`) — et ne fait que charger ce qu'on
 lui demande de garder et dessiner ce qu'on lui demande de dessiner. Son cache charge au plus
 `UPLOADS_PER_FRAME` = 24 textures par image (un grand saut de caméra étale ses chargements au lieu
 de figer une image), libère une texture qui n'est plus voulue après `EVICTION_SECONDS` = 2 s (un

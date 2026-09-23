@@ -72,6 +72,8 @@ add_library(HmiLib STATIC
     Graphics/QuadRecorder.cpp
     # Marqueurs d'entite de carte (LOT-11) : cle d'asset et pixels, sans GPU.
     Graphics/EntityMarkers.cpp
+    # Ce que les fichiers voisins d'une image disent d'elle : decoupe, echelle, ancre (LOT-103).
+    Graphics/SceneTextureTraits.cpp
     # Entrées : état, mapping, remappage persistant.
     Input/InputState.cpp
     # Localisation, journal de session.

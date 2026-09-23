@@ -20,9 +20,10 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
 
 ![Maquette de la projection isométrique : le losange de 256 × 159 pixels d'art et les deux formules qui donnent le centre d'une case, la figurine de 170 px posée par le pied dans sa cellule de 192 × 256, et la même étendue de monde cadrée à 1080p comme à 2160p avec l'art toujours réduit, jamais agrandi](maquettes/rendu-technique-projection-iso.svg)
 
-> **Note** — Cette maquette dessine la **cible** du standard 2D HD, pas l'état du code : le rendu
-> porte encore le losange de 68 × 42 px et le zoom entier hérités du pixel art. Le `LOT-103` lit
-> l'échelle dans le manifeste du lieu et libère le zoom.
+> **Note** — Depuis le `LOT-103`, le code suit cette maquette : l'échelle de l'art se lit dans le
+> manifeste du lieu (`"tile": [256, 159]`), la figurine se découpe par sa cellule entière, et le
+> zoom est libre. La maquette du `LOT-101`, rendue par le moteur, est comparée à la maquette montée
+> à la main par `test_hd_mockup_render.cpp`.
 
 - **EX-REN-010** — Le rendu doit dessiner une carte à partir des **pièces de la
   planche de son lieu** (`EX-VIS-008`) : une pièce de sol par case, une pièce de relief là où la

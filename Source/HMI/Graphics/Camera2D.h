@@ -20,8 +20,8 @@ namespace hmi {
  *
  * La caméra est centrée sur une position **en unités monde** et applique l'échelle
  * **16 pixels/unité** (`EX-ARCH-021`), avec l'origine écran en haut-gauche et l'axe Y vers
- * le bas (convention du projet). Un facteur de **zoom** (de préférence entier pour la
- * netteté du pixel art, `EX-ARCH-022`) multiplie cette échelle. La caméra est un objet de
+ * le bas (convention du projet). Un facteur de **zoom**, libre (`EX-ARCH-022`, `EX-REN-013`),
+ * multiplie cette échelle. La caméra est un objet de
  * **présentation** : elle lit des positions monde mais ne modifie jamais l'ECS.
  */
 class Camera2D {
@@ -51,7 +51,7 @@ public:
 
     /**
      * @brief Règle le facteur de zoom.
-     * @param zoom Multiplicateur d'échelle (> 0 ; entier recommandé).
+     * @param zoom Multiplicateur d'échelle (> 0).
      */
     void setZoom(float zoom);
 
@@ -99,11 +99,10 @@ public:
     /**
      * @brief Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.
      *
-     * Entier (`std::floor`) tant que le facteur brut est supérieur ou égal à 1 — netteté pixel
-     * art, `EX-ARCH-022` (préférence, pas une règle absolue) ; **fractionnaire** uniquement
-     * lorsque nécessaire pour que le contenu entier tienne dans la surface disponible
-     * (`EX-REN-013`, `EX-EDIT-013`) : sans cette exception, un contenu plus grand que la surface
-     * resterait partiellement hors champ, faute de pouvoir descendre sous le zoom ×1.
+     * Le facteur est celui qui fait tenir le contenu, **sans arrondi** (`EX-REN-013`,
+     * `EX-EDIT-013`). Il s'arrondissait à l'entier au-dessus de 1 pour la netteté du pixel art ;
+     * l'art de scène est désormais peint et filtré par mipmaps (`EX-ARCH-022`, `LOT-103`), et
+     * l'arrondi ne faisait plus que laisser des bords vides.
      *
      * Fonction **pure**, partagée par le cadrage automatique de l'éditeur et celui du jeu (aucune
      * règle dupliquée entre les deux écrans, LOT-16).

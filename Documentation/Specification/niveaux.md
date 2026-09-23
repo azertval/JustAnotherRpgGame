@@ -102,8 +102,19 @@ La seule révision de format du module éditeur, faite tant qu'il n'y avait que 
 
 Types de tuiles : `entry` (entrée, point d'arrivée par défaut), `solid` (matière pleine), et le
 terrain du RPG (`EX-EXP-005`) — `grass`, `dirt`, `sand`, `water`, `deepWater` (sols ; l'eau profonde
-bloque), `wall`, `cliff` (obstacles), `bridge`, `stairs` (passages). Une case **vide** n'est pas
-listée (absence = vide).
+bloque), `wall`, `cliff` (obstacles), `bridge`, `stairs` (passages). Le vocabulaire de la
+maquette les étoffe, pour qu'une carte sans texture se dessine avec précision :
+
+| Famille | Types | Pas |
+|---|---|---|
+| Sols | `pavement`, `alley`, `planks`, `flagstone`, `snow` | traversables |
+| Terrain difficile | `mud`, `rubble`, `bush` | traversables (la gêne n'est pas encore jouée ; `--check` avertit) |
+| Abri | `lowWall` | traversable (l'abri n'est pas encore joué ; `--check` avertit) |
+| Passage | `door` | traversable |
+| Arrêtent le pas, pas la vue | `rock`, `fence`, `stall`, `crate`, `pit`, `lava` | déduits en `cliff` |
+| Arrêtent le pas et la vue | `tree`, `column`, `roof`, `tiers` | déduits en `wall` |
+
+Une case **vide** n'est pas listée (absence = vide).
 
 Une case de couche peut nommer sa **pièce** (`"piece"`, `EX-LVL-019`), la pièce de la planche du
 lieu (`EX-VIS-008`) dessinée sur cette case. Une carte v3 portait cette pièce sur la grille racine

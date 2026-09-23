@@ -28,8 +28,10 @@ Choix retenu : **ECS**, hébergé dans `Core`, pour les objets posés sur une ca
   > jeu n'a de pixels signifiants. L'art de scène s'échantillonne donc en **bilinéaire avec
   > mipmaps**, alpha prémultiplié (`EX-VIS-008`) — le plus proche voisin le ferait scintiller dès
   > qu'il est réduit, ce qu'il est toujours — et les images de la charte v2 restent interpolées
-  > (`EX-VIS-009`). Le zoom de la caméra devient libre (`EX-REN-013`). Le code, lui, échantillonne
-  > encore au plus proche voisin : c'est le `LOT-103` qui met l'exigence en œuvre.
+  > (`EX-VIS-009`). Le zoom de la caméra devient libre (`EX-REN-013`). **Mise en œuvre au
+  > `LOT-103`** : toute texture est prémultipliée au chargement ; celle d'un fichier — l'art peint —
+  > reçoit ses mipmaps et s'échantillonne en bilinéaire, et seule une image **engendrée** (damier de
+  > repli, aplat, marqueur) reste au plus proche (`hmi::TextureFiltering`).
   > **Précisée au `LOT-92`** *(caduque)* — la scène y était du pixel art échantillonné au plus
   > proche voisin.
   > **Refondue au `LOT-66`.** Elle imposait « rendu **pixel art** : *nearest-neighbor*, zoom de préférence en facteurs entiers », et c'est d'elle que **dix autres exigences** tenaient leur justification — la racine devait tomber la première, sans quoi chaque feuille aurait pu citer une règle abandonnée sans que rien ne le signale.

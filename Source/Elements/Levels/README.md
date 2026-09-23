@@ -36,7 +36,10 @@ Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
   pièces posées (`EX-LVL-020`). Les cases **vides** ne sont pas listées (absence = vide). Là où
   l'auteur veut s'écarter de la déduction, la case figure dans **`forced`**.
 - Types de tuiles : `empty`, `solid`, `entry`, et le terrain du RPG (`LOT-08`) : `grass`, `dirt`,
-  `sand`, `water`, `deepWater`, `wall`, `cliff`, `bridge`, `stairs`. Une carte porte **exactement
+  `sand`, `water`, `deepWater`, `wall`, `cliff`, `bridge`, `stairs` ; et le vocabulaire de la
+  maquette : `pavement`, `alley`, `planks`, `flagstone`, `snow`, `mud`, `rubble`, `door`, `bush`,
+  `tree`, `rock`, `fence`, `lowWall`, `stall`, `crate`, `column`, `roof`, `tiers`, `pit`, `lava`
+  (leur règle de pas : `Documentation/Specification/niveaux.md`). Une carte porte **exactement
   une** case `entry`, le point d'arrivée par défaut du héros.
 - `"layers"` : couches visibles `{ "name", "kind", …, "tiles" }` (`kind` : `ground`, `decor`), dont
   chaque case `{ "x", "y", "type", "piece" }` nomme la **pièce** de la planche du lieu qu'on y voit

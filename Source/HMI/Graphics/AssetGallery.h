@@ -20,8 +20,10 @@
 
 namespace hmi {
 
-/// Largeur d'une case de la galerie, en pixels d'art : celle du losange des scènes (LOT-92).
-inline constexpr int ASSET_GALLERY_CELL_PIXELS = 68;
+/// Largeur d'une case de la galerie à l'écran, au zoom 1, en pixels de l'élément : celle d'une
+/// case du jeu à 1080p (`hmi::worldTilePixels`). Une taille d'écran, pas d'art : chaque forme s'y
+/// ramène par le losange que déclare son manifeste (`AssetGalleryEntry::tilePixels`, `LOT-103`).
+inline constexpr int ASSET_GALLERY_CELL_PIXELS = 100;
 
 /// Temps de tenue, en secondes, d'un clip joué une fois sur sa dernière image avant de reprendre.
 inline constexpr double ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS = 0.6;
@@ -56,6 +58,18 @@ struct AssetGalleryEntry {
     /// Ancre du manifeste des scènes, en pixels de texture ; (-1, -1) si le manifeste n'en a pas.
     int anchorX = -1;
     int anchorY = -1;
+    /// Largeur d'une case, en pixels d'art : le losange que déclare le manifeste (`tile`) ; 0 s'il
+    /// n'en déclare pas, et la forme se suppose d'une case de large (`tileWidthPixels`).
+    int tilePixels = 0;
+
+    /// @return La largeur d'une case en pixels d'art, jamais nulle.
+    [[nodiscard]] int tileWidthPixels() const noexcept {
+        if (tilePixels > 0) {
+            return tilePixels;
+        }
+        const int columns = footprintColumns > 0 ? footprintColumns : 1;
+        return frameWidth > 0 ? (frameWidth + columns - 1) / columns : 1;
+    }
 
     /// @return Le nombre d'images jouées (au moins 1).
     [[nodiscard]] int frameCount() const noexcept {
@@ -80,7 +94,11 @@ struct AssetGalleryFamily {
  * - `Monsters/manifest.json` : les figurines de l'atelier des monstres (LOT-93), de même forme ;
  *   une bête sans sort n'a pas de `cast`, et une Grande a ses cellules de 96 × 96 ;
  * - `Coliseum/manifest.json` : héros × animations, gladiateurs, puis les pièces de la planche ;
- * - `Scene/<disposition>/manifest.json` : les textures de l'atelier (LOT-92), par classe.
+ * - `Scene/<disposition>/manifest.json` : les textures de l'atelier (LOT-92), par classe ;
+ * - l'arborescence par niveaux (LOT-102), où la chaîne HD installe (LOT-104) : chaque
+ *   `manifest.json` sous `Common/` et `Regions/`, dans l'ordre de son chemin — les `textures` d'un
+ *   dossier `Scene/` en une famille titrée par son lieu (« Scène · central-empire/capital/arenarea
+ * »), les PNJ d'un dossier `Characters/` en une famille « Figurines · » suivie du dossier.
  *
  * Tout asset livré doit y paraître (`EX-CNT-042`) : `hmi::assetGalleryUnlisted` nomme ceux qui n'y
  * sont pas, et un test l'exige vide.

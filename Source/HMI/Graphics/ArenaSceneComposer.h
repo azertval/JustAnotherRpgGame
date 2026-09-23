@@ -88,25 +88,8 @@ namespace hmi {
 class ArenaAppearanceCatalog;
 struct ArenaAnimationState;
 
-/// Largeur d'une image des bandes d'animation de la planche, en pixels (`manifest.json`, `frame`),
-/// quand la bande n'en déclare pas d'autre (`ArenaTexture::frameWidth`). La géométrie des planches
-/// de l'atelier est commune à l'arène et aux lieux qu'on parcourt : elle vit dans
-/// `HMI/Graphics/ScenePieces.h` (`LOT-09`), et ces noms la désignent.
-inline constexpr int ARENA_FIGURE_FRAME_WIDTH_PIXELS = FIGURE_FRAME_WIDTH_PIXELS;
-/// Hauteur d'une image des bandes d'animation, en pixels.
-inline constexpr int ARENA_FIGURE_FRAME_HEIGHT_PIXELS = FIGURE_FRAME_HEIGHT_PIXELS;
-/// Agrandissement de la figurine par rapport à la planche (`ArenaTile.ui.qml`, `1.25`).
-inline constexpr float ARENA_FIGURE_SCALE = FIGURE_SCALE;
 /// Opacité d'un ennemi à terre (`ArenaTile.ui.qml`, `0.45`).
 inline constexpr float ARENA_DOWN_ENEMY_ALPHA = 0.45f;
-/// Largeur du losange des textures de scène de l'atelier (`LOT-92`), en pixels d'art : 68 × 42, le
-/// rapport 0,62 d'`core::IsoProjection`. Une pièce se pose par son ancre, le sommet haut de son
-/// emprise (`anchor` de `Assets/Scene/<lieu>/manifest.json`).
-inline constexpr int ARENA_SCENE_TILE_WIDTH_PIXELS = SCENE_TILE_WIDTH_PIXELS;
-/// Demi-largeur de ce losange : l'abscisse de l'ancre d'une pièce d'une case.
-inline constexpr int ARENA_SCENE_HALF_TILE_WIDTH_PIXELS = SCENE_HALF_TILE_WIDTH_PIXELS;
-/// Hauteur de ce losange, en pixels d'art : il occupe le bas d'une pièce d'une case.
-inline constexpr int ARENA_SCENE_TILE_HEIGHT_PIXELS = SCENE_TILE_HEIGHT_PIXELS;
 
 /**
  * @brief Rang d'une pièce à l'intérieur d'une même profondeur : l'ordre d'empilement de la brique
@@ -129,15 +112,14 @@ inline constexpr std::int32_t ARENA_DEPTH_SLOTS = 4;
  */
 [[nodiscard]] std::int32_t arenaDepthSortOrder(float footWorldY, ArenaDepthSlot slot) noexcept;
 
-/// @brief Une texture liable et ses dimensions en pixels (pour normaliser les UV).
-struct ArenaTexture {
-    TextureHandle texture = nullptr;
-    int width = 0;
-    int height = 0;
-    /// Largeur d'une image si la texture est une bande d'animation (`frameWidth` de son
-    /// `.anim.json`) ; 0 sinon, et la composition suppose `ARENA_FIGURE_FRAME_WIDTH_PIXELS`.
-    int frameWidth = 0;
-};
+/**
+ * @brief Une texture de l'arène : la même que celle d'un lieu (`hmi::SceneTexture`).
+ *
+ * Elles étaient deux, et celle de l'arène ne savait ni sa hauteur d'image ni son échelle : une
+ * figurine y était rognée à 64 pixels et grossie d'un quart. L'arène et le lieu lisent maintenant
+ * les mêmes traits (`hmi::readSceneTextureTraits`, `LOT-103`).
+ */
+using ArenaTexture = SceneTexture;
 
 /**
  * @brief Les textures du Colisée, adressées par leur chemin relatif à

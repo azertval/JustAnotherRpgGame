@@ -39,6 +39,7 @@ namespace {
 std::vector<std::string> worldRegionIds(const std::filesystem::path& dataRoot) {
     std::vector<std::string> ids;
     const WorldMaps maps = readWorldMaps(readText(dataRoot / "Maps" / "world-maps.json"));
+    ids.reserve(maps.regions.size());
     for (const auto& [id, region] : maps.regions) {
         ids.push_back(id);
     }
