@@ -440,3 +440,31 @@ def test_un_essai_se_mesure_mais_ne_s_installe_pas(characters, capsys):
     assert not (target / 'essai-6').exists()
     manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
     assert manifest['npcs'] == []
+
+
+def test_une_hache_qui_touche_la_voisine_reste_a_sa_main(characters):
+    """Des images serrées : la hache de la première touche le corps de la deuxième. Les deux forment
+    un seul morceau ; il se partage en faisant croître chaque corps depuis le milieu de son image.
+    La hache revient à la main qui la tient — seul le point de contact se départage, là où la
+    matière est réellement collée : une commande qui serre ses images se refait."""
+    target, sources = characters
+    image = figure_strip(3)
+    draw = ImageDraw.Draw(image)
+    # La hache de l'image 1 : un manche de la main jusqu'au flanc de l'image 2.
+    cx0, cx1 = 20 + PITCH / 2, 20 + PITCH * 1.5
+    draw.rectangle((cx0, 300, cx1 - 45, 312), fill=(60, 120, 200, 253))
+    image.save(sources / 'attack-se.png')
+    descriptor = figure_descriptor(sources, [{'name': 'guard', 'strips': [
+        {'source': 'attack-se.png', 'clip': 'attack', 'facing': 'se', 'frames': 3, 'wide': True}]}])
+    assert M.main([str(descriptor)]) == 0
+    strip = np.asarray(Image.open(target / 'guard' / 'attack-se.png'))
+    width = strip.shape[1] // 3
+
+    def first(cell):
+        visible = cell[cell[..., 3] >= M.OPAQUE].astype(int)
+        return int(((visible[:, 0] < 75) & (visible[:, 2] > 185)).sum())
+
+    kept, leaked = first(strip[:, :width]), first(strip[:, width:2 * width])
+    assert kept > 0
+    # Tranchée à la borne, la moitié du manche passait chez la voisine ; il n'y reste que le contact.
+    assert leaked < 0.05 * kept, (kept, leaked)

@@ -784,49 +784,134 @@ def measure_frame(cell: np.ndarray) -> FrameMeasure:
                         bottom=bottom, contact=(int(feet.min()), int(feet.max())))
 
 
+def frame_images(rgba: np.ndarray, bounds: list[int], where: str) -> list[np.ndarray]:
+    """Les images d'une bande, chacune à sa place dans la source, le reste transparent.
+
+    Chaque morceau d'un seul tenant revient **entier** à l'image où tombe son centre : la hache que
+    tient une main part avec elle, même quand sa lame passe la borne de la voisine — couper aux
+    bornes la tranchait, et un bout de lame s'invitait chez la voisine. Un morceau qui touche le tiers
+    central de plusieurs images est fait de corps qui se touchent (la lame de l'un sur l'épaule de l'autre) : il
+    se partage en faisant **croître** chaque corps depuis le milieu de son image, à travers la
+    matière (`grow`) — la lame revient à la main qui la tient par son manche.
+    """
+    height, width = rgba.shape[:2]
+    count = len(bounds) - 1
+    images = [np.zeros_like(rgba) for _ in range(count)]
+    step = (bounds[-1] - bounds[0]) / count
+    for fragment in fragments(rgba):
+        x0, y0, x1, y1 = fragment.box
+        alpha = fragment.image[..., 3].astype(np.float64)
+        visible = fragment.image[..., 3] > 0
+        columns_used = visible.any(axis=0)
+        cores = sum(1 for i in range(count)
+                    if columns_used[max(0, round(bounds[i] + step / 3) - x0):
+                                    max(0, round(bounds[i + 1] - step / 3) - x0)].any())
+        if cores > 1:
+            owners = grow(visible, [b - x0 for b in bounds])
+        else:
+            columns = alpha.sum(axis=0)
+            centre = x0 + float((columns * np.arange(x1 - x0)).sum() / max(columns.sum(), 1.0))
+            owner = min(count - 1, max(0, int(np.searchsorted(bounds, centre, side="right")) - 1))
+            owners = np.full(visible.shape, owner, np.int32)
+        for owner in range(count):
+            mine = visible & (owners == owner)
+            images[owner][y0:y1, x0:x1][mine] = fragment.image[mine]
+    for i, image in enumerate(images):
+        if not image[..., 3].any():
+            raise DescriptorError(f"{where} : l'image {i + 1} est vide après découpe")
+    return images
+
+
+def grow(mask: np.ndarray, bounds: list[float]) -> np.ndarray:
+    """Partage un morceau fait de plusieurs corps : l'image de chaque pixel, -1 hors du masque.
+
+    Chaque image sème le tiers central de sa part ; les graines croissent ensemble, à travers le
+    masque, sur une grille de `ETIQUETAGE` px, et un bloc revient à la première qui l'atteint — la
+    plus proche **en suivant la matière**, pas à vol d'oiseau.
+    """
+    height, width = mask.shape
+    count = len(bounds) - 1
+    step = ETIQUETAGE
+    padded = np.zeros(((height + step - 1) // step * step, (width + step - 1) // step * step), bool)
+    padded[:height, :width] = mask
+    blocks = padded.reshape(padded.shape[0] // step, step, padded.shape[1] // step, step).any(axis=(1, 3))
+    rows, cols = blocks.shape
+    owner = np.full(blocks.shape, -1, np.int32)
+    queue: deque = deque()
+    for i in range(count):
+        third = (bounds[i + 1] - bounds[i]) / 3.0
+        c0 = max(0, int((bounds[i] + third) // step))
+        c1 = min(cols, max(0, int((bounds[i + 1] - third) // step) + 1))
+        if c1 <= c0:
+            continue
+        for y, x in zip(*np.nonzero(blocks[:, c0:c1])):
+            if owner[y, x + c0] < 0:
+                owner[y, x + c0] = i
+                queue.append((y, x + c0))
+    while queue:
+        y, x = queue.popleft()
+        for yy, xx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
+            if 0 <= yy < rows and 0 <= xx < cols and blocks[yy, xx] and owner[yy, xx] < 0:
+                owner[yy, xx] = owner[y, x]
+                queue.append((yy, xx))
+    full = np.repeat(np.repeat(owner, step, axis=0), step, axis=1)[:height, :width]
+    # Un bloc qu'aucune graine n'atteint (le masque n'y passe pas) revient à la part de sa colonne.
+    columns = np.clip(np.searchsorted(bounds, np.arange(width) + 0.5, side="right") - 1, 0, count - 1)
+    return np.where(full >= 0, full, np.broadcast_to(columns, (height, width)))
+
+
 def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], ground: int,
                   where: str) -> InstalledStrip:
     """Une bande du générateur devient une bande du moteur : N cellules jointives, une échelle et
-    un décalage pour toutes, l'image de repos posée sur le sol au milieu de sa cellule."""
+    un décalage pour toutes — le pied le plus bas de la bande sur le sol, l'image de repos au milieu
+    de sa cellule."""
     clean = detoured(rgba)
-    alpha = clean[..., 3]
-    bounds, centres, split = split_strip(alpha > 0, spec.frames, where)
+    bounds, centres, split = split_strip(clean[..., 3] > 0, spec.frames, where)
+    images = frame_images(rgba, bounds, where)
 
     standing = spec.standing_frame
-    rows = np.nonzero(alpha[:, bounds[standing]:bounds[standing + 1]].any(axis=1))[0]
+    rows = np.nonzero(images[standing][..., 3].any(axis=1))[0]
     scale = spec.scale if spec.scale is not None else HAUTEUR_FIGURINE / (rows.max() + 1 - rows.min())
     if scale > 1.0:
         raise DescriptorError(f"{where} : il faudrait agrandir la bande × {scale:.2f} ; la refaire plus grande")
 
-    height, width = alpha.shape
-    size = (max(1, round(width * scale)), max(1, round(height * scale)))
-    reduced = resize_premultiplied(clean, size)
-    sx = size[0] / width
-    edges = [round(b * sx) for b in bounds]
-    edges[-1] = size[0]
-    slots = [c * sx for c in centres]
+    # Chaque image réduite à la même échelle, posée à sa place dans la bande réduite.
+    parts: list[tuple[np.ndarray, int, int]] = []
+    for image in images:
+        ys, xs = np.nonzero(image[..., 3] > 0)
+        x0, x1, y0, y1 = int(xs.min()), int(xs.max()) + 1, int(ys.min()), int(ys.max()) + 1
+        size = (max(1, round((x1 - x0) * scale)), max(1, round((y1 - y0) * scale)))
+        parts.append((resize_premultiplied(image[y0:y1, x0:x1], size), round(x0 * scale), round(y0 * scale)))
+    slots = [c * scale for c in centres]
 
-    # Le décalage de toute la bande, lu sur l'image de repos : son pied sur le sol, le milieu de sa
-    # boîte au milieu de la cellule.
-    visible = reduced[:, edges[standing]:edges[standing + 1], 3] >= OPAQUE
-    ys, xs = np.nonzero(visible)
-    if len(ys) == 0:
+    # Le décalage de toute la bande. En hauteur : le pied le plus BAS de la bande sur le sol — un
+    # appui d'une autre image descend souvent de quelques pixels sous celui de l'image de repos (le
+    # générateur ne tient pas sa ligne de sol au pixel), et poser l'image de repos ferait passer cet
+    # appui sous le sol, hors de la cellule. Un saut ou un accroupissement restent au-dessus. En
+    # largeur : le milieu de la boîte de l'image de repos au milieu de la cellule.
+    lowest = []
+    for part, _, top in parts:
+        opaque = np.nonzero((part[..., 3] >= OPAQUE).any(axis=1))[0]
+        if len(opaque):
+            lowest.append(top + int(opaque.max()))
+    if not lowest:
+        raise DescriptorError(f"{where} : aucune image opaque après réduction")
+    dy = ground - max(lowest)
+    part, left, _ = parts[standing]
+    xs = np.nonzero((part[..., 3] >= OPAQUE).any(axis=0))[0]
+    if len(xs) == 0:
         raise DescriptorError(f"{where} : l'image de repos {standing + 1} est vide")
-    dy = ground - int(ys.max())
-    box_centre = edges[standing] + (xs.min() + xs.max() + 1) / 2.0
+    box_centre = left + (xs.min() + xs.max() + 1) / 2.0
 
     cell_w, cell_h = cell
     strip = np.zeros((cell_h, cell_w * spec.frames, 4), np.uint8)
     measures: list[FrameMeasure] = []
-    for i in range(spec.frames):
-        part = reduced[:, edges[i]:edges[i + 1]]
-        ys, xs = np.nonzero(part[..., 3] > 0)
-        if len(ys) == 0:
-            raise DescriptorError(f"{where} : l'image {i + 1} est vide après réduction")
+    for i, (part, left, top) in enumerate(parts):
         # La colonne u de la bande réduite tombe en u + ox dans la cellule.
         ox = round(cell_w / 2.0 - box_centre + slots[standing] - slots[i])
-        x0, x1 = edges[i] + int(xs.min()) + ox, edges[i] + int(xs.max()) + 1 + ox
-        y0, y1 = int(ys.min()) + dy, int(ys.max()) + 1 + dy
+        ys, xs = np.nonzero(part[..., 3] > 0)
+        x0, x1 = left + int(xs.min()) + ox, left + int(xs.max()) + 1 + ox
+        y0, y1 = top + int(ys.min()) + dy, top + int(ys.max()) + 1 + dy
         # La marge ne vaut qu'à gauche et à droite : c'est là que sont les voisines, et c'est d'elles
         # que le mipmap bave. En bas, elle contredirait le sol à 4 px du bord (le bord adouci d'un
         # pied posé sur y = 252 descend plus bas) ; le haut et le bas n'ont qu'à tenir dans la cellule.
@@ -835,7 +920,7 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
                                   f"dans sa cellule de {cell_w} × {cell_h} avec {MARGE_CELLULE} px de marge "
                                   "à gauche et à droite")
         target = strip[:, i * cell_w:(i + 1) * cell_w]
-        target[y0:y1, x0:x1] = part[y0 - dy:y1 - dy, x0 - ox - edges[i]:x1 - ox - edges[i]]
+        target[y0:y1, x0:x1] = part[int(ys.min()):int(ys.max()) + 1, int(xs.min()):int(xs.max()) + 1]
         measures.append(measure_frame(target))
 
     anim = {

@@ -4,7 +4,6 @@
     256,
     159
   ],
-  "comment": "Vide : heros, peuples, betes et monstres sans region (LOT-102).",
   "frame": [
     192,
     256
@@ -22,5 +21,97 @@
     "death",
     "cast"
   ],
-  "npcs": []
+  "npcs": [
+    "Heroes/brawler"
+  ],
+  "sources": {
+    "Heroes/brawler/attack-ne.png": {
+      "file": "Common/Characters/Heroes/brawler/attack-ne.png",
+      "sha256": "2cac482fac004a68bbd9bfc436eecf76976e5eddacd361575347db302142b717"
+    },
+    "Heroes/brawler/attack-nw.png": {
+      "file": "Common/Characters/Heroes/brawler/attack-nw-v2.png",
+      "sha256": "4c7794267c0d33f8c13ac3bb1972d640398ebac0efe3ea4a3171c6fcff58d2ef"
+    },
+    "Heroes/brawler/attack-se.png": {
+      "file": "Common/Characters/Heroes/brawler/attack-se-candidat-02.png",
+      "sha256": "a2dbb2d25d0adf5e4c0fb0f20b8e03621a00c4ab2844e33f657b0f7993396a0c"
+    },
+    "Heroes/brawler/attack-sw.png": {
+      "file": "Common/Characters/Heroes/brawler/attack-sw-v2.png",
+      "sha256": "7102a0f4205397a64065bdc54000f50f6811275766430357155d190d01c6b6ff"
+    },
+    "Heroes/brawler/death-ne.png": {
+      "file": "Common/Characters/Heroes/brawler/death-ne.png",
+      "sha256": "b2d8c21fce63180b04a3f428c2c291f3207c9723fd161050d0ee0d571985075a"
+    },
+    "Heroes/brawler/death-nw.png": {
+      "file": "Common/Characters/Heroes/brawler/death-nw-v2.png",
+      "sha256": "95518296d113558f892fe1018d9d6c435e5585368572ba5f67f868a20399bb60"
+    },
+    "Heroes/brawler/death-se.png": {
+      "file": "Common/Characters/Heroes/brawler/death-se-candidat-01.png",
+      "sha256": "3fefd655b96ed950c30a44ea881c4cac451d5d2d393130b858297ab74b020376"
+    },
+    "Heroes/brawler/death-sw.png": {
+      "file": "Common/Characters/Heroes/brawler/death-sw.png",
+      "sha256": "3e00f5e485dbb238c6c42d07dcd34a2845d9765a2374cdea70bb628da19c68e1"
+    },
+    "Heroes/brawler/hit-ne.png": {
+      "file": "Common/Characters/Heroes/brawler/hit-ne.png",
+      "sha256": "5c8c5e4bf84d267ff86b9d51f5f61f438f9b89c539c8a9b678c4ff3fc5b56d37"
+    },
+    "Heroes/brawler/hit-nw.png": {
+      "file": "Common/Characters/Heroes/brawler/hit-nw-v2.png",
+      "sha256": "6a4816de17141015abe2fbb410d04db2c42f80579b04a9d4d75574a98f48697c"
+    },
+    "Heroes/brawler/hit-se.png": {
+      "file": "Common/Characters/Heroes/brawler/hit-se-candidat-01.png",
+      "sha256": "ab99db1e508b86af737ae071af304737c2910e87ef03a770a39a3f405932f389"
+    },
+    "Heroes/brawler/hit-sw.png": {
+      "file": "Common/Characters/Heroes/brawler/hit-sw.png",
+      "sha256": "3675ae9e23355d4aad9fd12a470993f6cb2befbcdca9b0e27ab0ee192cc10fbe"
+    },
+    "Heroes/brawler/idle-ne.png": {
+      "file": "Common/Characters/Heroes/brawler/idle-ne.png",
+      "sha256": "abcbc92659ef68f6ee45cfeddaf2bd687daabf6838f910bd68050d6573c9f56f"
+    },
+    "Heroes/brawler/idle-nw.png": {
+      "file": "Common/Characters/Heroes/brawler/idle-nw-v2.png",
+      "sha256": "1f4c9e29435be6c677bef440e36339838f7088602edf12fe5857c102b700d1f6"
+    },
+    "Heroes/brawler/idle-se.png": {
+      "file": "Common/Characters/Heroes/brawler/idle-se.png",
+      "sha256": "270f103345dbc34b895f9d0a01bdb200ebc90facdcceee6f0fe06133372e8257"
+    },
+    "Heroes/brawler/idle-sw.png": {
+      "file": "Common/Characters/Heroes/brawler/idle-sw-candidat-02.png",
+      "sha256": "32dde305f15ea79f78406e1e4a0ee32420e16c0375d43addde9fdd7f83a83387"
+    },
+    "Heroes/brawler/portrait.png": {
+      "file": "Common/Characters/Heroes/brawler/portrait.png",
+      "sha256": "afd793c8970117e06d3b82028b63e1c7e7c0395ce4939bdef91bfb1bbc62aded"
+    },
+    "Heroes/brawler/token.png": {
+      "file": "Common/Characters/Heroes/brawler/portrait.png",
+      "sha256": "afd793c8970117e06d3b82028b63e1c7e7c0395ce4939bdef91bfb1bbc62aded"
+    },
+    "Heroes/brawler/walk-ne.png": {
+      "file": "Common/Characters/Heroes/brawler/walk-ne-v4.png",
+      "sha256": "a60e54e84ebc5f88c4f26936a0c098af241a3d3cceabb106994c5f51ac0258c5"
+    },
+    "Heroes/brawler/walk-nw.png": {
+      "file": "Common/Characters/Heroes/brawler/walk-nw-v3.png",
+      "sha256": "fe75c6bf60c3cccc39b0020f2f9e4d136ca6d1efc46c80b226aef79399c70c33"
+    },
+    "Heroes/brawler/walk-se.png": {
+      "file": "Common/Characters/Heroes/brawler/walk-se-v4.png",
+      "sha256": "e882cec6df2bfccad528098e95144941c211f953447afe830718b0b9de9e1913"
+    },
+    "Heroes/brawler/walk-sw.png": {
+      "file": "Common/Characters/Heroes/brawler/walk-sw-v2.png",
+      "sha256": "df249d6d6e6514b3f3515e9aaa2ec62e885cfefdb00522928bfb3cfe4b81b562"
+    }
+  }
 }
