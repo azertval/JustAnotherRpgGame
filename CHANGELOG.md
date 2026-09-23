@@ -15,6 +15,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   plus un manifeste par image. La parité avec le rendu du jeu se mesure désormais sur la maquette HD
   du LOT-101, et le seuil des cartes d'essai redescend de 2,5 % à 0,5 %. Une nouvelle mesure,
   `CanvasBenchmarks`, suit chaque nuit le coût de la peinture.
+  
+- **Planning — LOT-129, les étages et les toits de la scène.** Nouveau lot moteur de la démo, entrant
+  du `LOT-108` : un décor se bâtit en niveaux modulaires (un étage de mur sur un autre, une toiture
+  au sommet, sur la couche `floor` réservée par le format v4), ce qui masque le héros s'efface, et la
+  toiture commune de la Capitale est produite. Il devient prérequis des assets d'Arenarea
+  (`LOT-108`, production suspendue), de l'Arena of Fate (`LOT-106`) et de Martpart (`LOT-110`).
 
 - **LOT-105 — Le kit commun de la Capitale.** Trente-huit pièces HD que Martpart, Arenarea et
   l'Arena of Fate prendront telles quelles : dans `Regions/central-empire/capital/Common/Scene/`,

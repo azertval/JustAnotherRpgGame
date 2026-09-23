@@ -6,7 +6,7 @@ filiere = "assets"
 statut = "a-faire"
 taille = "L"
 resume = "Les pièces propres à Arena of Fate, produites au standard et installées dans `capital/arenarea/arena-of-fate/Scene/`."
-prerequis = ["LOT-105", "LOT-108"]
+prerequis = ["LOT-105", "LOT-108", "LOT-129"]
 livrables = [
   "`Regions/central-empire/capital/arenarea/arena-of-fate/Scene/` : pièces, `manifest.json`, `appearance.json`.",
   "La commande de la zone (`Tools/AssetsHD/`) : les dix familles passées en revue, ce qui vient du kit, ce qui est propre.",
