@@ -300,6 +300,7 @@ var annotated_dup =
       [ "PieceReplacementChoice", "structhmi_1_1PieceReplacementChoice.html", "structhmi_1_1PieceReplacementChoice" ],
       [ "SceneChangeChoice", "structhmi_1_1SceneChangeChoice.html", "structhmi_1_1SceneChangeChoice" ],
       [ "RunInGameChoice", "structhmi_1_1RunInGameChoice.html", "structhmi_1_1RunInGameChoice" ],
+      [ "SceneImage", "classhmi_1_1SceneImage.html", "classhmi_1_1SceneImage" ],
       [ "SceneImages", "classhmi_1_1SceneImages.html", "classhmi_1_1SceneImages" ],
       [ "WorldGraphView", "classhmi_1_1WorldGraphView.html", "classhmi_1_1WorldGraphView" ],
       [ "AudioEngine", "classhmi_1_1AudioEngine.html", "classhmi_1_1AudioEngine" ],

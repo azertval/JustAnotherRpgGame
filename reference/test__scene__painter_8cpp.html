@@ -148,9 +148,11 @@ $(function(){initNavTree('test__scene__painter_8cpp.html','',''); });
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
 <code>#include &lt;QDir&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;stdexcept&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -169,6 +171,7 @@ $(function(){initNavTree('test__scene__painter_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="HdMockupScene_8h_source.html">Test/Support/HdMockupScene.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -178,15 +181,51 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab431c4ccbea8cd004a24c4e75c33d163"><td class="mdescLeft">&#160;</td><td class="mdescRight">La seconde carte, et ses pièces larges et miroirs, peinte comme dans le jeu.  <br /></td></tr>
 <tr class="memitem:a1df04479d9f5e2d6b937c013b686eebb" id="r_a1df04479d9f5e2d6b937c013b686eebb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1df04479d9f5e2d6b937c013b686eebb">TEST</a> (ScenePainterTest, UneCarteSansAucuneImageSeVoitDansLesDeuxRendus)</td></tr>
 <tr class="memdesc:a1df04479d9f5e2d6b937c013b686eebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte <b>sans un seul fichier d'image</b> se voit, dans le jeu comme dans l'éditeur, et les deux en donnent la même image (<span class="tt">EX-EXP-005</span>, <span class="tt">LOT-128</span>).  <br /></td></tr>
+<tr class="memitem:a3e51e82266e6366c33c41c4984721ede" id="r_a3e51e82266e6366c33c41c4984721ede"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3e51e82266e6366c33c41c4984721ede">TEST</a> (ScenePainterTest, LaMaquetteHdPeinteEgaleLeRenduDuJeu)</td></tr>
+<tr class="memdesc:a3e51e82266e6366c33c41c4984721ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">La maquette du standard 2D HD (<span class="tt">LOT-101</span>), peinte par l'éditeur à 1080p, est conforme à son rendu par le jeu (<span class="tt">LOT-125</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le canevas de l'éditeur peint le lieu comme le jeu le dessine (<span class="tt">LOT-EDITOR-02</span>). </p>
 <p>Comparer les listes de primitives ne prouve pas que <span class="tt">QPainter</span> pose les ancres, l'échelle des pièces et leurs miroirs comme le GPU (acceptation du lot) : ce test rend <b>la même carte, avec la même caméra</b>, une fois par le rendu QRhi du jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, hors écran), une fois par le peintre de l'éditeur (<span class="tt"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b" title="Rend scene hors écran, cadrée par camera, sur un fond clear — l&#39;image que le jeu dessinerait avec la ...">hmi::renderComposedScene</a></span>), et compare les deux images pixel à pixel, à une tolérance près. Les deux images sont écrites à côté de l'exécutable (<span class="tt">editor-captures/</span>) pour être relues à l'œil.</p>
-<p>La tolérance est celle de deux rasteriseurs qui ne filtrent pas pareil : le GPU lisse l'art peint (<span class="tt">LOT-103</span>), le peintre de l'éditeur l'échantillonne encore au plus proche (<span class="tt">LOT-125</span>), et l'arête de chaque pièce en porte un liseré. Une ancre fausse, une échelle fausse ou un ordre de dessin faux, eux, déplacent des pans entiers de l'image et dépassent la tolérance.</p>
+<p>La tolérance est celle de deux rasteriseurs qui ne filtrent pas tout à fait pareil : depuis le <span class="tt">LOT-125</span>, les deux lissent l'art peint, mais le GPU mêle deux niveaux de mipmap (trilinéaire) là où le peintre n'en lit qu'un. Une ancre fausse, une échelle fausse, un ordre de dessin faux — ou un peintre qui cesse de lisser — déplacent ou crénellent des pans entiers et dépassent les seuils. La parité exacte n'est plus promise.</p>
 <p>Les cartes sont celles de la racine d'essai de l'éditeur (<span class="tt">LOT-123</span>) ; c'étaient les cartes <b>livrées</b>, que la table rase du <span class="tt">LOT-102</span> emporte. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a3e51e82266e6366c33c41c4984721ede" name="a3e51e82266e6366c33c41c4984721ede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e51e82266e6366c33c41c4984721ede">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePainterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaMaquetteHdPeinteEgaleLeRenduDuJeu</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La maquette du standard 2D HD (<span class="tt">LOT-101</span>), peinte par l'éditeur à 1080p, est conforme à son rendu par le jeu (<span class="tt">LOT-125</span>). </p>
+<p>La parité exacte n'est plus promise : le GPU lit l'art en trilinéaire, mêlant deux niveaux de mipmap, et le peintre n'en lit qu'un, lissé en bilinéaire. Le seuil dit ce que cela coûte. <b>Cas de test :</b> <b>L'editeur peint la maquette HD comme le jeu.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Canevas<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire la scene de Fixtures/HdMockup et ses pieces installees.<br  />
+</p><ol type="1">
+<li>La rendre hors ecran par le jeu en 1920 x 1080, une case a 100 pixels.<br  />
+</li>
+<li>La peindre par l'editeur avec la meme camera.<br  />
+ <b>Resultat attendu :</b> Moins de 0,5 % des pixels different de plus de 48 sur un canal, et l'ecart moyen par canal reste sous HD_MOCKUP_MEAN_ERROR_TOLERANCE. </li>
+</ol>
+
+</div>
+</div>
 <a id="ab431c4ccbea8cd004a24c4e75c33d163" name="ab431c4ccbea8cd004a24c4e75c33d163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab431c4ccbea8cd004a24c4e75c33d163">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab431c4ccbea8cd004a24c4e75c33d163">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,13 +251,13 @@ Functions</h2></td></tr>
  1. Composer le donjon.<br  />
 </p><ol type="1">
 <li>Le rendre par le jeu et par l'editeur, cadre sur sa porte.<br  />
- <b>Resultat attendu :</b> Moins de 2,5 % des pixels different au-dela de la tolerance. </li>
+ <b>Resultat attendu :</b> Moins de 0,5 % des pixels different au-dela de la tolerance ; ecart moyen sous 0,75. </li>
 </ol>
 
 </div>
 </div>
 <a id="afaa7b37a2a0fe201d74afd14cf8a1fe9" name="afaa7b37a2a0fe201d74afd14cf8a1fe9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaa7b37a2a0fe201d74afd14cf8a1fe9">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa7b37a2a0fe201d74afd14cf8a1fe9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,13 +285,13 @@ Functions</h2></td></tr>
 <li>La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand- place, coin nord, porte est).<br  />
 </li>
 <li>La peindre par le peintre QPainter de l'editeur avec la meme camera.<br  />
- <b>Resultat attendu :</b> Pour chaque cadrage, moins de 2,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface. </li>
+ <b>Resultat attendu :</b> Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal, l'ecart moyen reste sous 0,75 ; l'image est peinte sur plus de la moitie de sa surface. </li>
 </ol>
 
 </div>
 </div>
 <a id="a1df04479d9f5e2d6b937c013b686eebb" name="a1df04479d9f5e2d6b937c013b686eebb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1df04479d9f5e2d6b937c013b686eebb">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df04479d9f5e2d6b937c013b686eebb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,7 +316,7 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.<br  />
 2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de l'editeur.<br  />
- <b>Resultat attendu :</b> L'image est peinte sur plus de la moitie de sa surface &ndash; rien n'est reste vide &ndash;, et moins de 2,5 % des pixels different entre les deux rendus. </p>
+ <b>Resultat attendu :</b> L'image est peinte sur plus de la moitie de sa surface &ndash; rien n'est reste vide &ndash;, et moins de 0,5 % des pixels different entre les deux rendus. </p>
 
 </div>
 </div>

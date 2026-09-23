@@ -1,0 +1,262 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/HdMockupScene.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('HdMockupScene_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">HdMockupScene.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="HdMockupScene_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="TileType_8h.html">Core/Levels/TileType.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="ScenePieceManifest_8h.html">Core/Resources/ScenePieceManifest.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="WorldSceneComposer_8h.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="namespacetest__support.html">   29</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacetest__support.html">test_support</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacetest__support.html#ad7bf252b739580065525433e1ec5266d">   32</a></span><span class="keyword">inline</span> nlohmann::json <a class="code hl_function" href="namespacetest__support.html#ad7bf252b739580065525433e1ec5266d">readHdMockupJson</a>(<span class="keyword">const</span> std::filesystem::path&amp; path) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    std::ifstream stream(path);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> nlohmann::json::parse(stream, <span class="keyword">nullptr</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacetest__support.html#ae0504ed11cf8afe35cfc6a85ba8cd353">   43</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a> <a class="code hl_function" href="namespacetest__support.html#ae0504ed11cf8afe35cfc6a85ba8cd353">hdMockupSnapshot</a>(<span class="keyword">const</span> nlohmann::json&amp; scene,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                                <span class="keyword">const</span> std::filesystem::path&amp; directory) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_struct" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a> snapshot;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a5853266b18d8062e8cbe6287485f8e80">place</a> = scene[<span class="stringliteral">&quot;place&quot;</span>].get&lt;std::string&gt;();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a2e70b069e4cd32d82c7c783cb530053e">diamondRatio</a> = scene[<span class="stringliteral">&quot;diamondRatio&quot;</span>].get&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626">columns</a> = scene[<span class="stringliteral">&quot;columns&quot;</span>].get&lt;<span class="keywordtype">int</span>&gt;();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a4743f05edf51069ee2f6a2e693b646be">rows</a> = scene[<span class="stringliteral">&quot;rows&quot;</span>].get&lt;<span class="keywordtype">int</span>&gt;();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <span class="keyword">auto</span> cells =</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626">columns</a>) * <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a4743f05edf51069ee2f6a2e693b646be">rows</a>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a07a1eb5f4f5b3137b943484975173f06">floors</a>.assign(cells, std::string{});</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a213f244b1a103b590845ed397e41ee24">relief</a>.assign(cells, std::string{});</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#ae0f651c3b0f53c67f6ab6c7c711a0616">types</a>.assign(cells, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#ab45a159d8d5c079335271f789aabd2df">reliefTypes</a>.assign(cells, <a class="code hl_enumvalue" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">const</span> nlohmann::json&amp; legend = scene[<span class="stringliteral">&quot;legend&quot;</span>];</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> nlohmann::json&amp; floors = scene[<span class="stringliteral">&quot;floors&quot;</span>];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> row = 0; row &lt; snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a4743f05edf51069ee2f6a2e693b646be">rows</a>; ++row) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keyword">const</span> std::string line = floors[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(row)].get&lt;std::string&gt;();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> column = 0; column &lt; snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626">columns</a>; ++column) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keyword">const</span> std::string symbol(1, line[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(column)]);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a07a1eb5f4f5b3137b943484975173f06">floors</a>[(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(row) * snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626">columns</a>) + column] =</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                legend[symbol].get&lt;std::string&gt;();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ScenePieceManifestResult.html">core::ScenePieceManifestResult</a> manifest = <a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22">core::ScenePieceManifest::loadFromFile</a>(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        directory / <span class="stringliteral">&quot;Scene&quot;</span> / snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a5853266b18d8062e8cbe6287485f8e80">place</a> / <span class="stringliteral">&quot;manifest.json&quot;</span>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Un manifeste illisible laisse les pièces sans emprise : la comparaison d&#39;images le verra.</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> nlohmann::json&amp; piece : scene[<span class="stringliteral">&quot;pieces&quot;</span>]) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">const</span> std::string name = piece[<span class="stringliteral">&quot;piece&quot;</span>].get&lt;std::string&gt;();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> column = piece[<span class="stringliteral">&quot;column&quot;</span>].get&lt;<span class="keywordtype">int</span>&gt;();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> row = piece[<span class="stringliteral">&quot;row&quot;</span>].get&lt;<span class="keywordtype">int</span>&gt;();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a213f244b1a103b590845ed397e41ee24">relief</a>[(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(row) * snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626">columns</a>) + column] = name;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">if</span> (<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ScenePiece.html">core::ScenePiece</a>* <span class="keyword">const</span> declared =</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                manifest.<a class="code hl_function" href="structcore_1_1ScenePieceManifestResult.html#a9fb450ea46f4f822a30698242f7363b4">ok</a>() ? manifest.<a class="code hl_variable" href="structcore_1_1ScenePieceManifestResult.html#af36c89a67bcff9fb0515c6da5f9daecb">manifest</a>.<a class="code hl_function" href="classcore_1_1ScenePieceManifest.html#adef82b97ddbffdc57811c0a9bcf22caf">find</a>(name) : <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            snapshot.<a class="code hl_variable" href="structhmi_1_1WorldSceneSnapshot.html#ae4f535da56bbd58b7c4308f19566bf39">footprints</a>.insert_or_assign(name, declared-&gt;footprint());</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">return</span> snapshot;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span></div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a48a656f190a8d0b31c9e337b2c0437c1">   85</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_function" href="namespacetest__support.html#a48a656f190a8d0b31c9e337b2c0437c1">hdMockupFocus</a>(<span class="keyword">const</span> nlohmann::json&amp; scene) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> {scene[<span class="stringliteral">&quot;focus&quot;</span>][0].get&lt;<span class="keywordtype">float</span>&gt;(), scene[<span class="stringliteral">&quot;focus&quot;</span>][1].get&lt;float&gt;()};</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}  <span class="comment">// namespace test_support</span></div>
+</div>
+<div class="ttc" id="aScenePieceManifest_8h_html"><div class="ttname"><a href="ScenePieceManifest_8h.html">ScenePieceManifest.h</a></div><div class="ttdoc">Le manifeste des pièces d&#39;un lieu : ce que l&#39;atelier des textures (LOT-92) déclare de chaque pièce de...</div></div>
+<div class="ttc" id="aTileType_8h_html"><div class="ttname"><a href="TileType_8h.html">TileType.h</a></div><div class="ttdoc">Types de tuiles d&#39;une carte et utilitaires associés.</div></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="aWorldSceneComposer_8h_html"><div class="ttname"><a href="WorldSceneComposer_8h.html">WorldSceneComposer.h</a></div><div class="ttdoc">Un lieu qu&#39;on parcourt composé en primitives, sans GPU : le jumeau d&#39;hmi::ArenaSceneComposer pour la ...</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_a6979cb457d32c2be9d8a6587068d7f22"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#a6979cb457d32c2be9d8a6587068d7f22">core::ScenePieceManifest::loadFromFile</a></div><div class="ttdeci">static ScenePieceManifestResult loadFromFile(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:129</div></div>
+<div class="ttc" id="aclasscore_1_1ScenePieceManifest_html_adef82b97ddbffdc57811c0a9bcf22caf"><div class="ttname"><a href="classcore_1_1ScenePieceManifest.html#adef82b97ddbffdc57811c0a9bcf22caf">core::ScenePieceManifest::find</a></div><div class="ttdeci">const ScenePiece * find(std::string_view name) const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.cpp:133</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ace2c8aed9c2fa0cfbed56cbda4d8bf07">core::TileType::Empty</a></div><div class="ttdeci">@ Empty</div><div class="ttdef"><b>Definition</b> TileType.h:28</div></div>
+<div class="ttc" id="anamespacecore_html_ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa"><div class="ttname"><a href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ae41480b6bbfbf7407974a88d3d34f4fa">core::TileType::Solid</a></div><div class="ttdeci">@ Solid</div><div class="ttdef"><b>Definition</b> TileType.h:29</div></div>
+<div class="ttc" id="anamespacetest__support_html"><div class="ttname"><a href="namespacetest__support.html">test_support</a></div><div class="ttdef"><b>Definition</b> HdMockupScene.h:29</div></div>
+<div class="ttc" id="anamespacetest__support_html_a48a656f190a8d0b31c9e337b2c0437c1"><div class="ttname"><a href="namespacetest__support.html#a48a656f190a8d0b31c9e337b2c0437c1">test_support::hdMockupFocus</a></div><div class="ttdeci">core::Vector2 hdMockupFocus(const nlohmann::json &amp;scene)</div><div class="ttdef"><b>Definition</b> HdMockupScene.h:85</div></div>
+<div class="ttc" id="anamespacetest__support_html_ad7bf252b739580065525433e1ec5266d"><div class="ttname"><a href="namespacetest__support.html#ad7bf252b739580065525433e1ec5266d">test_support::readHdMockupJson</a></div><div class="ttdeci">nlohmann::json readHdMockupJson(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> HdMockupScene.h:32</div></div>
+<div class="ttc" id="anamespacetest__support_html_ae0504ed11cf8afe35cfc6a85ba8cd353"><div class="ttname"><a href="namespacetest__support.html#ae0504ed11cf8afe35cfc6a85ba8cd353">test_support::hdMockupSnapshot</a></div><div class="ttdeci">hmi::WorldSceneSnapshot hdMockupSnapshot(const nlohmann::json &amp;scene, const std::filesystem::path &amp;directory)</div><div class="ttdoc">La scène de scene.json, en instantané : les sols par la légende, les pièces à leur case.</div><div class="ttdef"><b>Definition</b> HdMockupScene.h:43</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html">core::ScenePieceManifestResult</a></div><div class="ttdoc">Résultat d&#39;une lecture : le manifeste, et ce qui a échoué.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:176</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html_a9fb450ea46f4f822a30698242f7363b4"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html#a9fb450ea46f4f822a30698242f7363b4">core::ScenePieceManifestResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:182</div></div>
+<div class="ttc" id="astructcore_1_1ScenePieceManifestResult_html_af36c89a67bcff9fb0515c6da5f9daecb"><div class="ttname"><a href="structcore_1_1ScenePieceManifestResult.html#af36c89a67bcff9fb0515c6da5f9daecb">core::ScenePieceManifestResult::manifest</a></div><div class="ttdeci">ScenePieceManifest manifest</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:177</div></div>
+<div class="ttc" id="astructcore_1_1ScenePiece_html"><div class="ttname"><a href="structcore_1_1ScenePiece.html">core::ScenePiece</a></div><div class="ttdoc">Une pièce de la planche d&#39;un lieu.</div><div class="ttdef"><b>Definition</b> ScenePieceManifest.h:81</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></div><div class="ttdoc">Le lieu en valeurs : ce que la composition lit, et rien d&#39;autre.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:204</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_a07a1eb5f4f5b3137b943484975173f06"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#a07a1eb5f4f5b3137b943484975173f06">hmi::WorldSceneSnapshot::floors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; floors</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:213</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_a213f244b1a103b590845ed397e41ee24"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#a213f244b1a103b590845ed397e41ee24">hmi::WorldSceneSnapshot::relief</a></div><div class="ttdeci">std::vector&lt; std::string &gt; relief</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:214</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_a2e70b069e4cd32d82c7c783cb530053e"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#a2e70b069e4cd32d82c7c783cb530053e">hmi::WorldSceneSnapshot::diamondRatio</a></div><div class="ttdeci">float diamondRatio</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:205</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_a4743f05edf51069ee2f6a2e693b646be"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#a4743f05edf51069ee2f6a2e693b646be">hmi::WorldSceneSnapshot::rows</a></div><div class="ttdeci">int rows</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:207</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_a5853266b18d8062e8cbe6287485f8e80"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#a5853266b18d8062e8cbe6287485f8e80">hmi::WorldSceneSnapshot::place</a></div><div class="ttdeci">std::string place</div><div class="ttdoc">Le lieu, qui nomme le dossier de planches : Assets/Scene/&lt;place&gt;/.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:209</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_a95e88a2e9b961547d3a734ccc985b626"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#a95e88a2e9b961547d3a734ccc985b626">hmi::WorldSceneSnapshot::columns</a></div><div class="ttdeci">int columns</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:206</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_ab45a159d8d5c079335271f789aabd2df"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#ab45a159d8d5c079335271f789aabd2df">hmi::WorldSceneSnapshot::reliefTypes</a></div><div class="ttdeci">std::vector&lt; core::TileType &gt; reliefTypes</div><div class="ttdoc">Le type de chaque case de la couche décor, même disposition.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:220</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_ae0f651c3b0f53c67f6ab6c7c711a0616"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#ae0f651c3b0f53c67f6ab6c7c711a0616">hmi::WorldSceneSnapshot::types</a></div><div class="ttdeci">std::vector&lt; core::TileType &gt; types</div><div class="ttdoc">Le type de chaque case, une entrée par case, ligne par ligne : ce que le rendu de maquette dessine là...</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:217</div></div>
+<div class="ttc" id="astructhmi_1_1WorldSceneSnapshot_html_ae4f535da56bbd58b7c4308f19566bf39"><div class="ttname"><a href="structhmi_1_1WorldSceneSnapshot.html#ae4f535da56bbd58b7c4308f19566bf39">hmi::WorldSceneSnapshot::footprints</a></div><div class="ttdeci">std::map&lt; std::string, core::PieceFootprint, std::less&lt;&gt; &gt; footprints</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:221</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_78aafe4118443ed4a6fae9c8d163dfdb.html">Support</a></li><li class="navelem"><a href="HdMockupScene_8h.html">HdMockupScene.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

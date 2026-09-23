@@ -1,0 +1,610 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::SceneImage Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1SceneImage.html','','classhmi_1_1SceneImage-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::SceneImage Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Une image du cache : l'identité stable qu'une scène composée adresse, et ses <b>niveaux réduits</b>.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="SceneImages_8h_source.html">SceneImages.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a85b0770bdb2ba57d2296956cabad1246" id="r_a85b0770bdb2ba57d2296956cabad1246"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a85b0770bdb2ba57d2296956cabad1246">width</a> () const noexcept</td></tr>
+<tr class="memitem:a55a49364695b042ed24d702d19ec7cd5" id="r_a55a49364695b042ed24d702d19ec7cd5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a55a49364695b042ed24d702d19ec7cd5">height</a> () const noexcept</td></tr>
+<tr class="memitem:a337eef077a99e065be8b9772125ae486" id="r_a337eef077a99e065be8b9772125ae486"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a337eef077a99e065be8b9772125ae486">smooth</a> () const noexcept</td></tr>
+<tr class="memitem:a4184896a249658e05e82a1958bc8ef99" id="r_a4184896a249658e05e82a1958bc8ef99"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4184896a249658e05e82a1958bc8ef99">solid</a> () const noexcept</td></tr>
+<tr class="memitem:ad61445b27eff136ea8f0eb96d1496df5" id="r_ad61445b27eff136ea8f0eb96d1496df5"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#ad61445b27eff136ea8f0eb96d1496df5">level</a> (int level)</td></tr>
+<tr class="memdesc:ad61445b27eff136ea8f0eb96d1496df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau <code class="param">level</code> de l'image, relu sur disque si ses pixels ont été évincés.  <br /></td></tr>
+<tr class="memitem:a272d4d0635d91d496488de764a913b81" id="r_a272d4d0635d91d496488de764a913b81"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a272d4d0635d91d496488de764a913b81">levelCount</a> () const noexcept</td></tr>
+<tr class="memitem:adf6b4abc73238007c67ac924035272d0" id="r_adf6b4abc73238007c67ac924035272d0"><td class="memItemLeft">const QImage &amp;&#160;</td><td class="memItemRight"><a class="el" href="#adf6b4abc73238007c67ac924035272d0">pinned</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7f0bbd6c971feb94e25a8c6628e3620f" id="r_a7f0bbd6c971feb94e25a8c6628e3620f"><td class="memItemLeft"><a class="el" href="#abbd4707a880b72717a82fa3b32497722">SceneImages</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7f0bbd6c971feb94e25a8c6628e3620f">_owner</a> = nullptr</td></tr>
+<tr class="memitem:a2da519a4cafbdb3db1a803233878f3fa" id="r_a2da519a4cafbdb3db1a803233878f3fa"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a2da519a4cafbdb3db1a803233878f3fa">_path</a></td></tr>
+<tr class="memitem:a02bae209aa9a36af1a3e0418a2df701c" id="r_a02bae209aa9a36af1a3e0418a2df701c"><td class="memItemLeft">std::vector&lt; QImage &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a02bae209aa9a36af1a3e0418a2df701c">_levels</a></td></tr>
+<tr class="memitem:af893fad7cc73ddb68e41d11761f53a92" id="r_af893fad7cc73ddb68e41d11761f53a92"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af893fad7cc73ddb68e41d11761f53a92">_width</a> = 0</td></tr>
+<tr class="memitem:aa464c6ce793ebf952b20a8446bbb77c6" id="r_aa464c6ce793ebf952b20a8446bbb77c6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa464c6ce793ebf952b20a8446bbb77c6">_height</a> = 0</td></tr>
+<tr class="memitem:af0d9369d2bd1d5ac09183ff7dc48546d" id="r_af0d9369d2bd1d5ac09183ff7dc48546d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af0d9369d2bd1d5ac09183ff7dc48546d">_smooth</a> = false</td></tr>
+<tr class="memitem:aa44d04d4ee4f11c9ac7f4f30d404214a" id="r_aa44d04d4ee4f11c9ac7f4f30d404214a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa44d04d4ee4f11c9ac7f4f30d404214a">_solid</a> = false</td></tr>
+<tr class="memitem:a7bccbc40a5c4c20e8c3898dd7a1f1503" id="r_a7bccbc40a5c4c20e8c3898dd7a1f1503"><td class="memItemLeft">std::list&lt; <a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> * &gt;::iterator&#160;</td><td class="memItemRight"><a class="el" href="#a7bccbc40a5c4c20e8c3898dd7a1f1503">_recent</a></td></tr>
+<tr class="memitem:a09eab9f95269cd43948509511882b94e" id="r_a09eab9f95269cd43948509511882b94e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a09eab9f95269cd43948509511882b94e">_listed</a> = false</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:abbd4707a880b72717a82fa3b32497722" id="r_abbd4707a880b72717a82fa3b32497722"><td class="memItemLeft">class&#160;</td><td class="memItemRight"><a class="el" href="#abbd4707a880b72717a82fa3b32497722">SceneImages</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Une image du cache : l'identité stable qu'une scène composée adresse, et ses <b>niveaux réduits</b>. </p>
+<p><span class="tt">QPainter</span> n'a pas de mipmaps : réduire une pièce de 256 px à 30, même en bilinéaire, ne lit qu'un texel sur huit et crénelle. Le niveau <span class="tt">k</span> est l'image réduite de moitié <span class="tt">k</span> fois, calculée à la première demande (<span class="tt">LOT-125</span>) — ce que le GPU fait pour le jeu (<span class="tt"><a class="el" href="namespacehmi.html#a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4" title="Bilinéaire avec mipmaps : l&#39;art peint, toujours réduit à l&#39;écran, qui scintillerait au plus proche (E...">TextureFiltering::Smooth</a></span>). Une image <b>engendrée</b> (marqueur, jeton, atlas, damier, aplat) se peint au plus proche, comme en jeu, et n'a que son niveau 0. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a55a49364695b042ed24d702d19ec7cd5" name="a55a49364695b042ed24d702d19ec7cd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55a49364695b042ed24d702d19ec7cd5">&#9670;&#160;</a></span>height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneImage::height </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Sa hauteur. </dd></dl>
+
+</div>
+</div>
+<a id="ad61445b27eff136ea8f0eb96d1496df5" name="ad61445b27eff136ea8f0eb96d1496df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad61445b27eff136ea8f0eb96d1496df5">&#9670;&#160;</a></span>level()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QImage hmi::SceneImage::level </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le niveau <code class="param">level</code> de l'image, relu sur disque si ses pixels ont été évincés. </p>
+<p>Rendu par valeur : <span class="tt">QImage</span> est partagée implicitement, et la copie reste valide même si le cache évince l'image pendant qu'on la peint. Un niveau au-delà du dernier rend le dernier (un pixel de côté). </p>
+
+</div>
+</div>
+<a id="a272d4d0635d91d496488de764a913b81" name="a272d4d0635d91d496488de764a913b81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a272d4d0635d91d496488de764a913b81">&#9670;&#160;</a></span>levelCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneImage::levelCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de niveaux : 1 pour une image engendrée, jusqu'à un pixel de côté sinon. </dd></dl>
+
+</div>
+</div>
+<a id="adf6b4abc73238007c67ac924035272d0" name="adf6b4abc73238007c67ac924035272d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf6b4abc73238007c67ac924035272d0">&#9670;&#160;</a></span>pinned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QImage &amp; hmi::SceneImage::pinned </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'image pleine d'une image engendrée, jamais évincée (marqueurs, atlas). </dd></dl>
+
+</div>
+</div>
+<a id="a337eef077a99e065be8b9772125ae486" name="a337eef077a99e065be8b9772125ae486"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a337eef077a99e065be8b9772125ae486">&#9670;&#160;</a></span>smooth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SceneImage::smooth </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai pour l'art peint, lissé et réduit par niveaux ; faux pour une image engendrée. </dd></dl>
+
+</div>
+</div>
+<a id="a4184896a249658e05e82a1958bc8ef99" name="a4184896a249658e05e82a1958bc8ef99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4184896a249658e05e82a1958bc8ef99">&#9670;&#160;</a></span>solid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SceneImage::solid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai pour l'aplat : un quad qui le porte se peint de sa teinte (<span class="tt">LOT-128</span>). </dd></dl>
+
+</div>
+</div>
+<a id="a85b0770bdb2ba57d2296956cabad1246" name="a85b0770bdb2ba57d2296956cabad1246"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85b0770bdb2ba57d2296956cabad1246">&#9670;&#160;</a></span>width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneImage::width </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La largeur de l'image pleine, connue même quand ses pixels sont évincés. </dd></dl>
+
+</div>
+</div>
+<a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="abbd4707a880b72717a82fa3b32497722" name="abbd4707a880b72717a82fa3b32497722"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbd4707a880b72717a82fa3b32497722">&#9670;&#160;</a></span>SceneImages</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class SceneImages</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aa464c6ce793ebf952b20a8446bbb77c6" name="aa464c6ce793ebf952b20a8446bbb77c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa464c6ce793ebf952b20a8446bbb77c6">&#9670;&#160;</a></span>_height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneImage::_height = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02bae209aa9a36af1a3e0418a2df701c" name="a02bae209aa9a36af1a3e0418a2df701c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02bae209aa9a36af1a3e0418a2df701c">&#9670;&#160;</a></span>_levels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;QImage&gt; hmi::SceneImage::_levels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09eab9f95269cd43948509511882b94e" name="a09eab9f95269cd43948509511882b94e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09eab9f95269cd43948509511882b94e">&#9670;&#160;</a></span>_listed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SceneImage::_listed = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f0bbd6c971feb94e25a8c6628e3620f" name="a7f0bbd6c971feb94e25a8c6628e3620f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f0bbd6c971feb94e25a8c6628e3620f">&#9670;&#160;</a></span>_owner</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#abbd4707a880b72717a82fa3b32497722">SceneImages</a>* hmi::SceneImage::_owner = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2da519a4cafbdb3db1a803233878f3fa" name="a2da519a4cafbdb3db1a803233878f3fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2da519a4cafbdb3db1a803233878f3fa">&#9670;&#160;</a></span>_path</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::SceneImage::_path</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7bccbc40a5c4c20e8c3898dd7a1f1503" name="a7bccbc40a5c4c20e8c3898dd7a1f1503"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bccbc40a5c4c20e8c3898dd7a1f1503">&#9670;&#160;</a></span>_recent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt;<a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a>*&gt;::iterator hmi::SceneImage::_recent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0d9369d2bd1d5ac09183ff7dc48546d" name="af0d9369d2bd1d5ac09183ff7dc48546d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d9369d2bd1d5ac09183ff7dc48546d">&#9670;&#160;</a></span>_smooth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SceneImage::_smooth = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa44d04d4ee4f11c9ac7f4f30d404214a" name="aa44d04d4ee4f11c9ac7f4f30d404214a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa44d04d4ee4f11c9ac7f4f30d404214a">&#9670;&#160;</a></span>_solid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SceneImage::_solid = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af893fad7cc73ddb68e41d11761f53a92" name="af893fad7cc73ddb68e41d11761f53a92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af893fad7cc73ddb68e41d11761f53a92">&#9670;&#160;</a></span>_width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::SceneImage::_width = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="SceneImages_8h_source.html">SceneImages.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="SceneImages_8cpp.html">SceneImages.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1SceneImage.html">SceneImage</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

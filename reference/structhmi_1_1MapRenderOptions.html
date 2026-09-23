@@ -153,7 +153,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aaf97b067de12124283d26926eefa4d75" id="r_aaf97b067de12124283d26926eefa4d75"><td class="memItemLeft"><a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaf97b067de12124283d26926eefa4d75">bands</a></td></tr>
 <tr class="memdesc:aaf97b067de12124283d26926eefa4d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bandes peintes ; par défaut, ce que le jeu montre, sans la collision.  <br /></td></tr>
 <tr class="memitem:a12c1d3a694fd0c7e9f54032dfcc2eeb0" id="r_a12c1d3a694fd0c7e9f54032dfcc2eeb0"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a12c1d3a694fd0c7e9f54032dfcc2eeb0">scale</a> = 1.0</td></tr>
-<tr class="memdesc:a12c1d3a694fd0c7e9f54032dfcc2eeb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels d'image par pixel d'art, dans ]0, 4].  <br /></td></tr>
+<tr class="memdesc:a12c1d3a694fd0c7e9f54032dfcc2eeb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'échelle, dans ]0, 4] : 1 est la carte vue à 1080p, 2 à 2160p.  <br /></td></tr>
+<tr class="memitem:ac13657b840e148757059941435251fd8" id="r_ac13657b840e148757059941435251fd8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac13657b840e148757059941435251fd8">maxSide</a> = <a class="el" href="namespacehmi.html#aeb0082433e6f2272d8c1d754ee3d499a">MAP_RENDER_MAX_SIDE</a></td></tr>
+<tr class="memdesc:ac13657b840e148757059941435251fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté de l'image, en pixels : au-delà, l'échelle se réduit pour y tenir.  <br /></td></tr>
 <tr class="memitem:a89f063238dbb63764ecc40b0c4e5ba30" id="r_a89f063238dbb63764ecc40b0c4e5ba30"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#a89f063238dbb63764ecc40b0c4e5ba30">background</a> = QColor(24, 26, 30)</td></tr>
 <tr class="memdesc:a89f063238dbb63764ecc40b0c4e5ba30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fond, autour du losange de la carte.  <br /></td></tr>
 <tr class="memitem:a5bfa8ff702b85bebff36a8aa13a78203" id="r_a5bfa8ff702b85bebff36a8aa13a78203"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5bfa8ff702b85bebff36a8aa13a78203">plan</a> = false</td></tr>
@@ -194,6 +196,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac13657b840e148757059941435251fd8" name="ac13657b840e148757059941435251fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac13657b840e148757059941435251fd8">&#9670;&#160;</a></span>maxSide</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MapRenderOptions::maxSide = <a class="el" href="namespacehmi.html#aeb0082433e6f2272d8c1d754ee3d499a">MAP_RENDER_MAX_SIDE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le plus grand côté de l'image, en pixels : au-delà, l'échelle se réduit pour y tenir. </p>
+
+</div>
+</div>
 <a id="a5bfa8ff702b85bebff36a8aa13a78203" name="a5bfa8ff702b85bebff36a8aa13a78203"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bfa8ff702b85bebff36a8aa13a78203">&#9670;&#160;</a></span>plan</h2>
 
@@ -223,7 +241,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pixels d'image par pixel d'art, dans ]0, 4]. </p>
+<p>L'échelle, dans ]0, 4] : 1 est la carte vue à 1080p, 2 à 2160p. </p>
 
 </div>
 </div>

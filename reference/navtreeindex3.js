@@ -1,5 +1,12 @@
 var NAVTREEINDEX3 =
 {
+"classcore_1_1ArenaSession.html#a4097fc9d82d9d56ad1a4de748467df80":[2,0,1,12,9],
+"classcore_1_1ArenaSession.html#a4097fc9d82d9d56ad1a4de748467df80":[3,0,0,12,9],
+"classcore_1_1ArenaSession.html#a41369bfd25b9893cb93efe2c41c37a10":[2,0,1,12,32],
+"classcore_1_1ArenaSession.html#a41369bfd25b9893cb93efe2c41c37a10":[3,0,0,12,32],
+"classcore_1_1ArenaSession.html#a45f1c1142a60869b468722fdab337e42":[2,0,1,12,33],
+"classcore_1_1ArenaSession.html#a45f1c1142a60869b468722fdab337e42":[3,0,0,12,33],
+"classcore_1_1ArenaSession.html#a5cbf0850da02037f7c3fc71e202f6425":[2,0,1,12,27],
 "classcore_1_1ArenaSession.html#a5cbf0850da02037f7c3fc71e202f6425":[3,0,0,12,27],
 "classcore_1_1ArenaSession.html#a5fc4ae039fa18816d42b39cfaa381e76":[2,0,1,12,26],
 "classcore_1_1ArenaSession.html#a5fc4ae039fa18816d42b39cfaa381e76":[3,0,0,12,26],
@@ -242,12 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1CombatState.html#a5557696fbddc8315807720401570adea":[2,0,1,33,59],
 "classcore_1_1CombatState.html#a5557696fbddc8315807720401570adea":[3,0,0,33,59],
 "classcore_1_1CombatState.html#a584829bfc15c2dbdf718d30c37ffccd2":[2,0,1,33,30],
-"classcore_1_1CombatState.html#a584829bfc15c2dbdf718d30c37ffccd2":[3,0,0,33,30],
-"classcore_1_1CombatState.html#a5882ba9f52bd6f27c182605457552795":[2,0,1,33,38],
-"classcore_1_1CombatState.html#a5882ba9f52bd6f27c182605457552795":[3,0,0,33,38],
-"classcore_1_1CombatState.html#a5a289b285839c868daa30cde9077e020":[2,0,1,33,33],
-"classcore_1_1CombatState.html#a5a289b285839c868daa30cde9077e020":[3,0,0,33,33],
-"classcore_1_1CombatState.html#a5b6c2527f4086d3e128ecccf78889768":[2,0,1,33,45],
-"classcore_1_1CombatState.html#a5b6c2527f4086d3e128ecccf78889768":[3,0,0,33,45],
-"classcore_1_1CombatState.html#a5c0db7c9ec1ab1853757e9f047a968cc":[2,0,1,33,11]
+"classcore_1_1CombatState.html#a584829bfc15c2dbdf718d30c37ffccd2":[3,0,0,33,30]
 };

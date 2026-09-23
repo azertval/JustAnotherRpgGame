@@ -386,6 +386,7 @@ var hierarchy =
     [ "hmi::RunInGameChoice", "structhmi_1_1RunInGameChoice.html", null ],
     [ "hmi::AudioEngine::Sample", "structhmi_1_1AudioEngine_1_1Sample.html", null ],
     [ "hmi::SceneChangeChoice", "structhmi_1_1SceneChangeChoice.html", null ],
+    [ "hmi::SceneImage", "classhmi_1_1SceneImage.html", null ],
     [ "hmi::SceneImages", "classhmi_1_1SceneImages.html", null ],
     [ "core::ScenePiece", "structcore_1_1ScenePiece.html", null ],
     [ "core::ScenePieceManifest", "classcore_1_1ScenePieceManifest.html", null ],

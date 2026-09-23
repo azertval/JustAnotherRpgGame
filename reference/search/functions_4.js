@@ -74,11 +74,12 @@ var searchData=
   ['errors_71',['errors',['../classhmi_1_1AssetGalleryItem.html#a869a4265115a598add20c352480ee2f5',1,'hmi::AssetGalleryItem']]],
   ['escapable_72',['escapable',['../classcore_1_1CombatState.html#a21d4d4efd3e42a1249a8218338578ebf',1,'core::CombatState']]],
   ['event_73',['event',['../classhmi_1_1CityMapView.html#a7d3cd0f7c41c1894b7227c15d4051393',1,'hmi::CityMapView::event()'],['../classhmi_1_1PalettePanel.html#a6a63719ecec98fdc59f3728d58ff8ccd',1,'hmi::PalettePanel::event()'],['../classhmi_1_1WorldGraphView.html#a32aa0408b7bce015c35800fe770b6c15',1,'hmi::WorldGraphView::event()']]],
-  ['executabledirectory_74',['executableDirectory',['../namespacehmi.html#a18648161d8a6c752202b6034613a947b',1,'hmi']]],
-  ['expectedassetkeys_75',['expectedAssetKeys',['../namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1',1,'core']]],
-  ['expecteddamage_76',['expectedDamage',['../namespacecore.html#acbf44083989292fcedfb7dfaad861317',1,'core']]],
-  ['experience_77',['experience',['../classhmi_1_1CharacterSheetModel.html#ae5f45d402e6d8a3013560a0130cd3e30',1,'hmi::CharacterSheetModel']]],
-  ['expire_78',['expire',['../classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c',1,'core::ImmunityLedger']]],
-  ['explorationreach_79',['ExplorationReach',['../classcore_1_1ExplorationReach.html#a8f6297abe82afb0fa3a73e7db824197c',1,'core::ExplorationReach']]],
-  ['explorationsession_80',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]]
+  ['evictbeyondbudget_74',['evictBeyondBudget',['../classhmi_1_1SceneImages.html#ae6b870703b696f88946a3791c20ba28c',1,'hmi::SceneImages']]],
+  ['executabledirectory_75',['executableDirectory',['../namespacehmi.html#a18648161d8a6c752202b6034613a947b',1,'hmi']]],
+  ['expectedassetkeys_76',['expectedAssetKeys',['../namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1',1,'core']]],
+  ['expecteddamage_77',['expectedDamage',['../namespacecore.html#acbf44083989292fcedfb7dfaad861317',1,'core']]],
+  ['experience_78',['experience',['../classhmi_1_1CharacterSheetModel.html#ae5f45d402e6d8a3013560a0130cd3e30',1,'hmi::CharacterSheetModel']]],
+  ['expire_79',['expire',['../classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c',1,'core::ImmunityLedger']]],
+  ['explorationreach_80',['ExplorationReach',['../classcore_1_1ExplorationReach.html#a8f6297abe82afb0fa3a73e7db824197c',1,'core::ExplorationReach']]],
+  ['explorationsession_81',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]]
 ];

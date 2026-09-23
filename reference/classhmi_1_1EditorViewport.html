@@ -416,7 +416,8 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ac117e03d5d98f88401828a26f5126815" id="r_ac117e03d5d98f88401828a26f5126815"><td class="memItemLeft">QGraphicsScene *&#160;</td><td class="memItemRight"><a class="el" href="#ac117e03d5d98f88401828a26f5126815">_canvasScene</a></td></tr>
 <tr class="memitem:a9b36bd19d0e9ec038c68723d036c24e8" id="r_a9b36bd19d0e9ec038c68723d036c24e8"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorViewport_1_1CanvasItem.html">CanvasItem</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a9b36bd19d0e9ec038c68723d036c24e8">_item</a></td></tr>
-<tr class="memitem:a1d2774cc806ed3d0ca8db5221f8cf0aa" id="r_a1d2774cc806ed3d0ca8db5221f8cf0aa"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1d2774cc806ed3d0ca8db5221f8cf0aa">_images</a></td></tr>
+<tr class="memitem:a12b80f0d936f71a8fa078f15a9b689f0" id="r_a12b80f0d936f71a8fa078f15a9b689f0"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a12b80f0d936f71a8fa078f15a9b689f0">_images</a></td></tr>
+<tr class="memdesc:a12b80f0d936f71a8fa078f15a9b689f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache d'images partagé avec les autres onglets et les vignettes (<span class="tt">LOT-125</span>).  <br /></td></tr>
 <tr class="memitem:a4874ecef5dbc9e9a61e691bc24943441" id="r_a4874ecef5dbc9e9a61e691bc24943441"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1DraftRenderer.html">DraftRenderer</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4874ecef5dbc9e9a61e691bc24943441">_flat</a></td></tr>
 <tr class="memitem:aa5dd308a6e093e15e88f2f9a2094b566" id="r_aa5dd308a6e093e15e88f2f9a2094b566"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorKeyBindings.html">hmi::EditorKeyBindings</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa5dd308a6e093e15e88f2f9a2094b566">_editorBindings</a></td></tr>
 <tr class="memitem:a4b7a7550dd2cfc2863e954b39600e26a" id="r_a4b7a7550dd2cfc2863e954b39600e26a"><td class="memItemLeft"><a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b7a7550dd2cfc2863e954b39600e26a">_draft</a></td></tr>
@@ -430,6 +431,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a9c2170adab7584035c79b74d183933fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le manifeste des pièces du lieu : le brouillon en tire emprises et collision.  <br /></td></tr>
 <tr class="memitem:a06665bd62f61b914f22be6dc4208b6e6" id="r_a06665bd62f61b914f22be6dc4208b6e6"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a06665bd62f61b914f22be6dc4208b6e6">_snapshot</a></td></tr>
 <tr class="memitem:a3a3886441a9b32e5819a30cae64a7201" id="r_a3a3886441a9b32e5819a30cae64a7201"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3a3886441a9b32e5819a30cae64a7201">_isoScene</a></td></tr>
+<tr class="memitem:a30766748dfa293eae6724c2ae9f0a53b" id="r_a30766748dfa293eae6724c2ae9f0a53b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a30766748dfa293eae6724c2ae9f0a53b">_isoBounds</a></td></tr>
+<tr class="memdesc:a30766748dfa293eae6724c2ae9f0a53b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'occupe la scène composée, reliefs compris : le cadre du canevas (<span class="tt">LOT-125</span>).  <br /></td></tr>
 <tr class="memitem:a8501ccbf6069198b9632f58b189d3a76" id="r_a8501ccbf6069198b9632f58b189d3a76"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8501ccbf6069198b9632f58b189d3a76">_rightDragging</a> = false</td></tr>
 <tr class="memitem:a892cb197cb3589c6a5ddb1d05c380ce3" id="r_a892cb197cb3589c6a5ddb1d05c380ce3"><td class="memItemLeft">QPoint&#160;</td><td class="memItemRight"><a class="el" href="#a892cb197cb3589c6a5ddb1d05c380ce3">_rightDragLast</a></td></tr>
 <tr class="memitem:aac7a636be58f4b53b6c4dc87316da291" id="r_aac7a636be58f4b53b6c4dc87316da291"><td class="memItemLeft"><a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a>&#160;</td><td class="memItemRight"><a class="el" href="#aac7a636be58f4b53b6c4dc87316da291">_brush</a></td></tr>
@@ -469,6 +472,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:af99b26c86b6ab66c0230dfded2c7b254" id="r_af99b26c86b6ab66c0230dfded2c7b254"><td class="memItemLeft"><a class="el" href="classcore_1_1FixedTimestep.html">core::FixedTimestep</a>&#160;</td><td class="memItemRight"><a class="el" href="#af99b26c86b6ab66c0230dfded2c7b254">_timestep</a></td></tr>
 <tr class="memitem:a27c5e02deb9cc4633e64ff193b4a958f" id="r_a27c5e02deb9cc4633e64ff193b4a958f"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27c5e02deb9cc4633e64ff193b4a958f">_playSnapshot</a></td></tr>
 <tr class="memitem:aa631928cf0d7230974023be5bbf58712" id="r_aa631928cf0d7230974023be5bbf58712"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa631928cf0d7230974023be5bbf58712">_playScene</a></td></tr>
+<tr class="memitem:a33dacd049bb902b90902d319f59a43f9" id="r_a33dacd049bb902b90902d319f59a43f9"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a33dacd049bb902b90902d319f59a43f9">_playBounds</a></td></tr>
+<tr class="memdesc:a33dacd049bb902b90902d319f59a43f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'occupe la scène de l'essai.  <br /></td></tr>
 <tr class="memitem:a9bcfcdc1be7e262ea5976fc23e93d64d" id="r_a9bcfcdc1be7e262ea5976fc23e93d64d"><td class="memItemLeft">std::set&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9bcfcdc1be7e262ea5976fc23e93d64d">_heldKeys</a></td></tr>
 <tr class="memdesc:a9bcfcdc1be7e262ea5976fc23e93d64d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Touches de déplacement enfoncées (codes <span class="tt">Qt::Key</span>).  <br /></td></tr>
 <tr class="memitem:ad24b060742e57ed6ac8f94f585621062" id="r_ad24b060742e57ed6ac8f94f585621062"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad24b060742e57ed6ac8f94f585621062">_interactRequested</a> = false</td></tr>
@@ -5178,8 +5183,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1d2774cc806ed3d0ca8db5221f8cf0aa" name="a1d2774cc806ed3d0ca8db5221f8cf0aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d2774cc806ed3d0ca8db5221f8cf0aa">&#9670;&#160;</a></span>_images</h2>
+<a id="a12b80f0d936f71a8fa078f15a9b689f0" name="a12b80f0d936f71a8fa078f15a9b689f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12b80f0d936f71a8fa078f15a9b689f0">&#9670;&#160;</a></span>_images</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5188,7 +5193,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a>&gt; hmi::EditorViewport::_images</td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a>&gt; hmi::EditorViewport::_images</td>
         </tr>
       </table>
   </td>
@@ -5197,6 +5202,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le cache d'images partagé avec les autres onglets et les vignettes (<span class="tt">LOT-125</span>). </p>
 
 </div>
 </div>
@@ -5221,6 +5228,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Interaction demandée depuis le dernier pas. </p>
+
+</div>
+</div>
+<a id="a30766748dfa293eae6724c2ae9f0a53b" name="a30766748dfa293eae6724c2ae9f0a53b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30766748dfa293eae6724c2ae9f0a53b">&#9670;&#160;</a></span>_isoBounds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::EditorViewport::_isoBounds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'occupe la scène composée, reliefs compris : le cadre du canevas (<span class="tt">LOT-125</span>). </p>
 
 </div>
 </div>
@@ -5495,6 +5526,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a33dacd049bb902b90902d319f59a43f9" name="a33dacd049bb902b90902d319f59a43f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33dacd049bb902b90902d319f59a43f9">&#9670;&#160;</a></span>_playBounds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::EditorViewport::_playBounds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'occupe la scène de l'essai. </p>
 
 </div>
 </div>

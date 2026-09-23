@@ -147,20 +147,26 @@ $(function(){initNavTree('SceneImages_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneTextureTraits_8h_source.html">HMI/Graphics/SceneTextureTraits.h</a>&quot;</code><br />
 </div>
 <p><a href="SceneImages_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3ASceneImage" id="r_hmi_3A_3ASceneImage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImage.html">hmi::SceneImage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une image du cache : l'identité stable qu'une scène composée adresse, et ses <b>niveaux réduits</b>.  <a href="classhmi_1_1SceneImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASceneImages" id="r_hmi_3A_3ASceneImages"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImages.html">hmi::SceneImages</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -170,13 +176,19 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab7a286078c3b760b7c7bcd400c3efc93" id="r_ab7a286078c3b760b7c7bcd400c3efc93"><td class="memItemLeft">const QImage *&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab7a286078c3b760b7c7bcd400c3efc93">hmi::sceneImageOf</a> (<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
-<tr class="memitem:a71762428929f463c938cf50568054832" id="r_a71762428929f463c938cf50568054832"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a71762428929f463c938cf50568054832">hmi::sceneImageHandle</a> (const QImage *image) noexcept</td></tr>
+<tr class="memitem:af371615628977cf8d19ec3b53afafc0b" id="r_af371615628977cf8d19ec3b53afafc0b"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af371615628977cf8d19ec3b53afafc0b">hmi::sceneImageOf</a> (<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
+<tr class="memitem:aaaf1677389a57f473864df3a499e630f" id="r_aaaf1677389a57f473864df3a499e630f"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aaaf1677389a57f473864df3a499e630f">hmi::sceneImageHandle</a> (const <a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *image) noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ab755222165119a686d183acf69b1d440" id="r_ab755222165119a686d183acf69b1d440"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab755222165119a686d183acf69b1d440">hmi::SCENE_IMAGES_DEFAULT_BUDGET_BYTES</a> = std::size_t{256} * 1024 * 1024</td></tr>
+<tr class="memdesc:ab755222165119a686d183acf69b1d440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Budget par défaut des pixels évinçables, en octets (<span class="tt">LOT-125</span>, README du module).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les images que le canevas peint : pièces des planches et figurines chargées à la demande, atlas des types, marqueurs, damier — en <span class="tt">QImage</span>, sans GPU (<span class="tt">LOT-EDITOR-02</span>). </p>
 <p>C'est le pendant, pour <span class="tt">QPainter</span>, du chargement de <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> : <b>mêmes règles</b>, dans le même ordre. Un chemin se résout en image lue sur disque ; à défaut, une figurine prend son marqueur (<span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a></span>, <span class="tt">EX-CNT-041</span>) ; à défaut, la composition tombe sur le damier (<span class="tt">EX-NFR-040</span>). La largeur d'image d'une bande d'animation se lit dans son <span class="tt">.anim.json</span>.</p>
-<p>L'identité de texture que la composition manipule (<span class="tt"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d" title="Identité opaque d&#39;une texture liée, du point de vue de la composition.">hmi::TextureHandle</a></span>) est ici l'adresse d'un <span class="tt">QImage</span> que ce cache possède : <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> la reconvertit. Les images vivent dans des <span class="tt">std::map</span>, dont les éléments ne bougent pas quand on en ajoute : une adresse donnée à une scène composée reste valide tant que le cache vit. </p>
+<p>L'identité de texture que la composition manipule (<span class="tt"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d" title="Identité opaque d&#39;une texture liée, du point de vue de la composition.">hmi::TextureHandle</a></span>) est ici l'adresse d'une <span class="tt"><a class="el" href="classhmi_1_1SceneImage.html" title="Une image du cache : l&#39;identité stable qu&#39;une scène composée adresse, et ses niveaux réduits.">hmi::SceneImage</a></span> que ce cache possède : <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> la reconvertit. Les images vivent dans des <span class="tt">std::map</span>, dont les éléments ne bougent pas quand on en ajoute : une adresse donnée à une scène composée reste valide tant que le cache vit.</p>
+<p>Depuis le <span class="tt">LOT-125</span>, le cache est <b>borné</b> et <b>partagé</b>. Une pièce HD pèse seize fois une pièce de l'ancienne planche : sans borne, un kit coûte des centaines de mébioctets, et chaque onglet, chaque vignette le rechargeait. L'identité d'une image ne meurt donc plus avec ses pixels : ceux d'une pièce lue sur disque peuvent être <b>évincés</b> (la moins récemment peinte d'abord) et relus à la prochaine peinture ; ses dimensions, elles, restent — la composition n'en lit pas d'autre. <span class="tt"><a class="el" href="classhmi_1_1SceneImages.html#abecfbad6a1ba0b38fd5f828443e764e6" title="L&#39;instance partagée du dossier assetsDirectory : la même pour tous les onglets, les vignettes et les ...">hmi::SceneImages::shared</a></span> rend l'instance unique d'un dossier d'assets, que les onglets, les vignettes et <span class="tt">--render</span> se partagent. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

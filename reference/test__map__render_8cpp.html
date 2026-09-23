@@ -150,17 +150,22 @@ $(function(){initNavTree('test__map__render_8cpp.html','',''); });
 <code>#include &lt;QRect&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CanvasScene_8h_source.html">Editor/Logic/CanvasScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapRender_8h_source.html">Editor/Ui/MapRender.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a05bcc0659f58a73f6f4f0fa62ddb77cb" id="r_a05bcc0659f58a73f6f4f0fa62ddb77cb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">TEST</a> (MapRenderTest, UneCarteSeRendSansFenetre)</td></tr>
 <tr class="memdesc:a05bcc0659f58a73f6f4f0fa62ddb77cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'essai se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand demande.  <br /></td></tr>
+<tr class="memitem:ad5aa63a60f1ff4e71b694edfdbeb643c" id="r_ad5aa63a60f1ff4e71b694edfdbeb643c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5aa63a60f1ff4e71b694edfdbeb643c">TEST</a> (MapRenderTest, UnePieceHauteNEstPasRognee)</td></tr>
+<tr class="memdesc:ad5aa63a60f1ff4e71b694edfdbeb643c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce de quatre cases de haut, posée sur la case la plus haute de la carte, n'est rognée par <span class="tt">--render</span> (<span class="tt">LOT-125</span>) — ni en vignette, qui passe par le même cadre (<span class="tt"><a class="el" href="namespacehmi.html#ae7f247079ad6dfe5c32dcc3dbc814f84" title="La vignette d&#39;un préfabriqué (LOT-EDITOR-08) : le tampon posé sur une carte de sa taille,...">hmi::renderStamp</a></span>, la liste des cartes).  <br /></td></tr>
 <tr class="memitem:aa546d760541f1d8a0c046e774184092a" id="r_aa546d760541f1d8a0c046e774184092a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa546d760541f1d8a0c046e774184092a">TEST</a> (MapRenderTest, LesBandesSeLisentParLeurNom)</td></tr>
 <tr class="memdesc:aa546d760541f1d8a0c046e774184092a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bandes de <span class="tt">--layers</span> se lisent par leur nom ; un nom inconnu est refusé.  <br /></td></tr>
 <tr class="memitem:a213928bdfe720281e215d07270b1fb43" id="r_a213928bdfe720281e215d07270b1fb43"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a213928bdfe720281e215d07270b1fb43">TEST</a> (MapRenderTest, RenderEcritUneImageParCarte)</td></tr>
@@ -172,7 +177,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests de <span class="tt">LevelEditor --render</span> (<span class="tt">LOT-EDITOR-13</span>) : une carte livrée rendue hors écran, sans fenêtre, par le peintre du canevas. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ab2ccc50483654b01e4a026af0b858638" name="ab2ccc50483654b01e4a026af0b858638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2ccc50483654b01e4a026af0b858638">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ccc50483654b01e4a026af0b858638">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +206,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa546d760541f1d8a0c046e774184092a" name="aa546d760541f1d8a0c046e774184092a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa546d760541f1d8a0c046e774184092a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa546d760541f1d8a0c046e774184092a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +235,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a213928bdfe720281e215d07270b1fb43" name="a213928bdfe720281e215d07270b1fb43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,7 +264,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a05bcc0659f58a73f6f4f0fa62ddb77cb" name="a05bcc0659f58a73f6f4f0fa62ddb77cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +290,41 @@ Functions</h2></td></tr>
  1. Rendre la Place au quart de l'échelle, bandes par défaut.<br  />
 </p><ol type="1">
 <li>La rendre avec la collision en plus.<br  />
- <b>Resultat attendu :</b> Une image de la taille du cadre (989 × 648), peinte sur plus du cinquième de sa surface (le losange de la carte en couvre la moitié, moins les îlots vides) ; la collision change l'image. </li>
+ <b>Resultat attendu :</b> Une image de la taille du cadre (1113 × 716), peinte sur plus du cinquième de sa surface (le losange de la carte en couvre la moitié, moins les îlots vides) ; la collision change l'image. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad5aa63a60f1ff4e71b694edfdbeb643c" name="ad5aa63a60f1ff4e71b694edfdbeb643c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5aa63a60f1ff4e71b694edfdbeb643c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnePieceHauteNEstPasRognee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une pièce de quatre cases de haut, posée sur la case la plus haute de la carte, n'est rognée par <span class="tt">--render</span> (<span class="tt">LOT-125</span>) — ni en vignette, qui passe par le même cadre (<span class="tt"><a class="el" href="namespacehmi.html#ae7f247079ad6dfe5c32dcc3dbc814f84" title="La vignette d&#39;un préfabriqué (LOT-EDITOR-08) : le tampon posé sur une carte de sa taille,...">hmi::renderStamp</a></span>, la liste des cartes). </p>
+<p><b>Cas de test :</b> <b>Le cadre de &ndash;render tient les pièces hautes.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire un lieu HD d'une seule pièce, une tour rouge de 256 × 1024.<br  />
+</p><ol type="1">
+<li>La poser sur la case (0, 0) d'une carte de 3 × 3, la plus haute à l'écran.<br  />
+</li>
+<li>Rendre la carte au demi.<br  />
+ <b>Resultat attendu :</b> La tour se voit entière : autant de pixels rouges que son aire à l'échelle, et aucun sur le bord de l'image. </li>
 </ol>
 
 </div>
