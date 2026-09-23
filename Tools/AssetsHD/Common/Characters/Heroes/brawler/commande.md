@@ -4,12 +4,11 @@ Le héros de la démo est la fiche pré-tirée du Brawler (*Player's Guide to Ta
 demi-orc, Dragon Hunter, grande hache. Le livre est une **référence de costume, en mots** : son
 illustration n'est jamais jointe au générateur, ni décalquée (standard 2D HD, §6).
 
-> **À envoyer après l'essai de cadence** (`Tools/AssetsHD/Essais/lot-112-cadence/`). `{N}` ci-dessous
-> est le nombre d'images qu'il aura fixé ; il vaut pour les cinq animations.
+> L'essai de cadence a fixé **huit images** par animation : `{N}` vaut `EIGHT` pour les cinq.
 
 ## L'ordre des envois
 
-`python scripts/prepare_envois_figure.py heros --images {N}` écrit les vingt et un envois prêts à
+`python scripts/prepare_envois_figure.py heros --images 8` écrit les vingt et un envois prêts à
 copier dans `envois/` : le texte assemblé, les pièces jointes déjà là, celles à ajouter et le nom de
 la sortie.
 

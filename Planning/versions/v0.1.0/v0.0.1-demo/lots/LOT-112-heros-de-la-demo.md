@@ -135,12 +135,19 @@ portrait (512²) et le jeton (128², détouré en rond), et inscrit la figurine 
 - Un descripteur `previewOnly` se mesure et s'aperçoit mais ne s'écrit pas : l'essai de cadence ne
   peut pas atterrir dans les assets par mégarde.
 
+### D7 — Huit images par animation
+
+Les deux marches du garde, reçues le 23 septembre, ont tourné sur la maquette à 2 cases par seconde
+(`build/lot-112/marche-6.webp`, `marche-8.webp`). Les mesures de l'installateur tranchaient déjà :
+à six, l'image 4 décolle (sol à 244 au lieu de 252) et la silhouette dérive de 12 px vers l'avant
+avant de revenir d'un coup à la reprise ; à huit, le sol reste entre 248 et 252, le bord de la
+silhouette entre 65 et 71, et c'est le même garde d'un bout à l'autre. Verdict de l'auteur :
+**huit**, pour toutes les animations. Le §5 du standard le dit, et la consigne reçoit ce que l'essai
+a confirmé : la ligne `OUTPUT` d'une planche, la ligne `REFERENCE` des envois suivants, le cadrage
+du portrait.
+
 ## Ce qui reste
 
-- **L'essai** : les deux envois de `Tools/AssetsHD/Essais/lot-112-cadence/commande.md` (auteur), les
-  deux aperçus, le verdict ; puis le §5 du standard dit **un** nombre.
 - **Le héros** : les vingt et un envois de `Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md`
   (auteur), son `install.json`, l'installation, la galerie.
 - **Le critère 1** : l'aperçu du héros aux quatre orientations, et le jeu lui-même.
-- **La consigne** : y reporter le cadrage du portrait, la ligne `OUTPUT` d'une planche et la ligne
-  `REFERENCE` des envois qui suivent le premier — le gabarit que les PNJ reprendront.
