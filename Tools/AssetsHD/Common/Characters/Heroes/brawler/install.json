@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "target": "Common/Characters",
+  "figures": [
+    {
+      "name": "Heroes/brawler",
+      "portrait": "portrait.png",
+      "strips": [
+        {
+          "source": "idle-se.png",
+          "clip": "idle",
+          "facing": "se",
+          "frames": 8,
+          "frameDuration": 0.125,
+          "loop": true
+        },
+        {
+          "source": "walk-se.png",
+          "clip": "walk",
+          "facing": "se",
+          "frames": 8,
+          "frameDuration": 0.0625,
+          "loop": true
+        },
+        {
+          "source": "attack-se.png",
+          "clip": "attack",
+          "facing": "se",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false,
+          "wide": true
+        },
+        {
+          "source": "hit-se.png",
+          "clip": "hit",
+          "facing": "se",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false
+        },
+        {
+          "source": "death-se.png",
+          "clip": "death",
+          "facing": "se",
+          "frames": 8,
+          "frameDuration": 0.1,
+          "loop": false
+        },
+        {
+          "source": "idle-sw.png",
+          "clip": "idle",
+          "facing": "sw",
+          "frames": 8,
+          "frameDuration": 0.125,
+          "loop": true
+        },
+        {
+          "source": "walk-sw.png",
+          "clip": "walk",
+          "facing": "sw",
+          "frames": 8,
+          "frameDuration": 0.0625,
+          "loop": true
+        },
+        {
+          "source": "attack-sw.png",
+          "clip": "attack",
+          "facing": "sw",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false,
+          "wide": true
+        },
+        {
+          "source": "hit-sw.png",
+          "clip": "hit",
+          "facing": "sw",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false
+        },
+        {
+          "source": "death-sw.png",
+          "clip": "death",
+          "facing": "sw",
+          "frames": 8,
+          "frameDuration": 0.1,
+          "loop": false
+        },
+        {
+          "source": "idle-ne.png",
+          "clip": "idle",
+          "facing": "ne",
+          "frames": 8,
+          "frameDuration": 0.125,
+          "loop": true
+        },
+        {
+          "source": "walk-ne.png",
+          "clip": "walk",
+          "facing": "ne",
+          "frames": 8,
+          "frameDuration": 0.0625,
+          "loop": true
+        },
+        {
+          "source": "attack-ne.png",
+          "clip": "attack",
+          "facing": "ne",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false,
+          "wide": true
+        },
+        {
+          "source": "hit-ne.png",
+          "clip": "hit",
+          "facing": "ne",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false
+        },
+        {
+          "source": "death-ne.png",
+          "clip": "death",
+          "facing": "ne",
+          "frames": 8,
+          "frameDuration": 0.1,
+          "loop": false
+        },
+        {
+          "source": "idle-nw.png",
+          "clip": "idle",
+          "facing": "nw",
+          "frames": 8,
+          "frameDuration": 0.125,
+          "loop": true
+        },
+        {
+          "source": "walk-nw.png",
+          "clip": "walk",
+          "facing": "nw",
+          "frames": 8,
+          "frameDuration": 0.0625,
+          "loop": true
+        },
+        {
+          "source": "attack-nw.png",
+          "clip": "attack",
+          "facing": "nw",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false,
+          "wide": true
+        },
+        {
+          "source": "hit-nw.png",
+          "clip": "hit",
+          "facing": "nw",
+          "frames": 8,
+          "frameDuration": 0.08,
+          "loop": false
+        },
+        {
+          "source": "death-nw.png",
+          "clip": "death",
+          "facing": "nw",
+          "frames": 8,
+          "frameDuration": 0.1,
+          "loop": false
+        }
+      ]
+    }
+  ]
+}
