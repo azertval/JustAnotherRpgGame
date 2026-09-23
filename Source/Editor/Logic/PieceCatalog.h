@@ -65,7 +65,9 @@ inline constexpr std::string_view MISSING_PIECES_GROUP = "Missing from the sheet
  * @brief Le catalogue d'un lieu.
  *
  * Groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide »,
- * « Other » (une classe que l'éditeur ne connaît pas), puis `MISSING_PIECES_GROUP` — les noms
+ * « Other » (une classe que l'éditeur ne connaît pas) pour les pièces à plat ; un groupe par
+ * sous-dossier du lieu, nommé par son chemin (`roofs/l/d3`), dans l'ordre alphabétique, pour un kit
+ * rangé en arborescence (`LOT-129`) ; puis `MISSING_PIECES_GROUP` — les noms
  * que @p layers citent et que @p manifest ne connaît ni par leur nom ni par un alias, triés.
  * @param manifest Le manifeste du lieu, `nullptr` sans lieu : seules restent les pièces absentes.
  * @param layers   Les couches de la carte.

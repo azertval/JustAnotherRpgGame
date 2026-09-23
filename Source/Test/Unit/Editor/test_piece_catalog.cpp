@@ -204,3 +204,37 @@ TEST(PieceCatalogTest, LeTypeDUnePieceVientDeLaTableDuLieu) {
     EXPECT_EQ(hmi::pieceCellType(&table.appearance, "old-wall", false), core::TileType::Solid);
     EXPECT_EQ(hmi::pieceCellType(nullptr, "street", true), core::TileType::Empty);
 }
+
+/**
+ * @brief Un kit rangé en sous-dossiers se groupe par dossier dans la palette ; ses pièces à plat
+ *        gardent leur groupe de classe (`LOT-129`).
+ * \castest{<b>La palette se groupe par dossier du kit.</b><br/>
+ * \tcat Unitaire · Editeur · Palette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes Lire le catalogue d'un manifeste dont des toits et un sol sont ranges en sous-dossiers,
+ *          un tonneau a plat.<br/>
+ * \tattendu « Standing » pour le tonneau, puis « floors », « roofs/l/d3 », « roofs/t/d2 » dans
+ *           l'ordre alphabetique, chacun avec ses pieces.
+ * }
+ */
+TEST(PieceCatalogTest, UnKitRangeSeGroupeParDossier) {
+    const core::ScenePieceManifestResult read = core::ScenePieceManifest::loadFromString(R"({
+      "version": 1, "disposition": "ville",
+      "textures": {
+        "scene/ville/roof-t-d2-n-c0r0": {"file": "roofs/t/d2/roof-t-d2-n-c0r0.png", "class": "tall"},
+        "scene/ville/floor-paving-01": {"file": "floors/floor-paving-01.png", "class": "floor"},
+        "scene/ville/roof-l-d3-ne-c0r0": {"file": "roofs/l/d3/roof-l-d3-ne-c0r0.png", "class": "tall"},
+        "scene/ville/roof-l-d3-ne-c1r0": {"file": "roofs/l/d3/roof-l-d3-ne-c1r0.png", "class": "tall"},
+        "scene/ville/prop-barrel": {"file": "prop-barrel.png", "class": "tall"}
+      }
+    })");
+    ASSERT_TRUE(read.ok()) << read.message;
+    const std::vector<hmi::PieceCatalogGroup> catalog = hmi::pieceCatalog(&read.manifest, {});
+    std::vector<std::string> labels;
+    for (const hmi::PieceCatalogGroup& group : catalog) {
+        labels.push_back(group.label);
+    }
+    EXPECT_EQ(labels, (std::vector<std::string>{"Standing", "floors", "roofs/l/d3", "roofs/t/d2"}));
+    EXPECT_EQ(catalog[2].pieces.size(), 2U);
+    EXPECT_TRUE(catalog[1].pieces.front().floor);
+}

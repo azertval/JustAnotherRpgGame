@@ -74,6 +74,12 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
    qui liste ses pièces : clé, fichier, emprise, ancre, type tactique. Un fichier que le manifeste
    ne cite pas fait échouer la CI (`EX-CNT-042`, inchangée : tout asset livré paraît dans la
    galerie de débug).
+   Un kit volumineux se **range en sous-dossiers** sous son `Scene/`, sans second manifeste : le
+   manifeste du dossier cite chaque pièce par son chemin (`"file": "roofs/l/d3/roof-l-d3-ne-c0r0.png"`),
+   la clé ne change pas, les cartes non plus. Les sous-dossiers suivent les familles, en anglais :
+   `floors/`, `walls/`, `columns/`, `balustrades/`, `plants/`, `props/`, `roofs/<sorte>/d<largeur>/`.
+   Le rangement s'écrit dans le descripteur (`"folders"`, règles sur le nom de la pièce) : une
+   réinstallation le garde. Le kit de la Capitale est le premier rangé ainsi (`LOT-129`).
 4. **Les noms.** Identifiants en anglais, minuscules, tirets : `arena-of-fate`, `wall-arcade-u`.
    Les noms de lieux sont ceux de l'atlas (`World/locations/`), sans leur préfixe de région.
    Une pièce se nomme `<famille>-<objet>[-<variante>]` : `floor-sand-01`, `wall-arcade-u`,

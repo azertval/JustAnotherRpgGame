@@ -77,10 +77,10 @@ void writeProvisionalRoof(const std::filesystem::path& scene) {
 [[nodiscard]] std::filesystem::path installPlace(const std::filesystem::path& root) {
     const std::filesystem::path scene = root / "Assets" / "Scene" / "capital";
     std::filesystem::create_directories(scene);
-    for (const auto& entry : std::filesystem::directory_iterator(kitScene())) {
-        std::filesystem::copy_file(entry.path(), scene / entry.path().filename(),
-                                   std::filesystem::copy_options::overwrite_existing);
-    }
+    // Le kit est rangé en sous-dossiers (LOT-129) : il se copie entier.
+    std::filesystem::copy(kitScene(), scene,
+                          std::filesystem::copy_options::recursive |
+                              std::filesystem::copy_options::overwrite_existing);
     writeProvisionalRoof(scene);
     std::ifstream in(scene / "manifest.json");
     nlohmann::json manifest = nlohmann::json::parse(in);

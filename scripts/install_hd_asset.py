@@ -244,6 +244,9 @@ class Descriptor:
     # Un essai (la cadence du LOT-112) se mesure et s'aperçoit, il ne s'installe jamais : ses
     # figurines n'ont rien à faire dans le dépôt.
     preview_only: bool = False
+    # Le rangement d'un kit en sous-dossiers (LOT-129) : la première règle dont le motif prend le
+    # nom de la pièce donne son dossier, relatif à `target` (`roofs/l/d\1`).
+    folders: list[tuple[re.Pattern, str]] = field(default_factory=list)
 
     @property
     def source_dir(self) -> Path:
@@ -280,6 +283,18 @@ def read_descriptor(path: Path) -> Descriptor:
     if not isinstance(preview_only, bool):
         raise DescriptorError(f"{path} : `previewOnly` est un booléen")
     descriptor = Descriptor(path=path, target=target, preview_only=preview_only)
+    for index, rule in enumerate(data.get("folders", [])):
+        where = f"{path.name}, règle de dossier {index + 1}"
+        if not isinstance(rule, dict) or not isinstance(rule.get("match"), str) \
+                or not isinstance(rule.get("folder"), str):
+            raise DescriptorError(f"{where} : `match` et `folder` attendus")
+        folder = rule["folder"]
+        if not folder or folder.startswith("/") or ".." in folder.split("/"):
+            raise DescriptorError(f"{where} : `folder` est un chemin relatif sous `target`")
+        try:
+            descriptor.folders.append((re.compile(rule["match"]), folder))
+        except re.error as error:
+            raise DescriptorError(f"{where} : motif illisible ({error})") from error
     if descriptor.is_characters:
         if "pieces" in data:
             raise DescriptorError(f"{path} : un dossier Characters/ reçoit des `figures`, pas des `pieces`")
@@ -662,6 +677,18 @@ def install_standing(spec: PieceSpec, name: str, fragment: Fragment, tile: tuple
     return Installed(name=name, image=canvas, entry=entry, scale=scale, note=note)
 
 
+def folder_of(descriptor: Descriptor, name: str) -> str:
+    """Le sous-dossier de la pièce `name` sous `target`, vide pour une pièce à plat."""
+    for pattern, folder in descriptor.folders:
+        match = pattern.match(name)
+        if match:
+            expanded = match.expand(folder)
+            if "\\" in expanded or ".." in expanded.split("/") or expanded.startswith("/"):
+                raise DescriptorError(f"{name} : dossier {expanded!r} hors de `target`")
+            return expanded
+    return ""
+
+
 def build(descriptor: Descriptor, only: str | None = None) -> list[Installed]:
     """Toutes les pièces du descripteur (ou la seule `only`), prêtes à écrire."""
     tile = place_tile(descriptor)
@@ -682,6 +709,8 @@ def build(descriptor: Descriptor, only: str | None = None) -> list[Installed]:
             if only is not None and name != only:
                 continue
             installed = (install_floor if spec.is_floor else install_standing)(spec, name, fragment, tile)
+            if folder := folder_of(descriptor, name):
+                installed.entry["file"] = f"{folder}/{name}.png"
             if spec.tactical is not None:
                 installed.entry["tactical"] = spec.tactical
             installed.entry["source"] = {
@@ -1152,7 +1181,15 @@ def write(descriptor: Descriptor, ready: list[Installed]) -> None:
     textures = manifest.setdefault("textures", {})
     prefix = key_prefix(manifest, descriptor)
     for installed in ready:
-        (descriptor.target_dir / installed.entry["file"]).write_bytes(encode_png(installed.image))
+        path = descriptor.target_dir / installed.entry["file"]
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(encode_png(installed.image))
+        # Une pièce qui change de dossier ne laisse pas son ancien fichier derrière elle.
+        previous = textures.get(prefix + installed.name, {}).get("file")
+        if isinstance(previous, str) and previous != installed.entry["file"]:
+            old = (descriptor.target_dir / previous).resolve()
+            if old.is_relative_to(descriptor.target_dir.resolve()) and old.is_file():
+                old.unlink()
         textures[prefix + installed.name] = installed.entry
     # Le commentaire d'un dossier créé vide (« Vide : … », LOT-102) ne dit plus vrai.
     if str(manifest.get("comment", "")).startswith("Vide"):

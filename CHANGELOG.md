@@ -14,8 +14,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   étage, et ses préfabriqués gardent leurs étages. La Capitale reçoit sa **toiture** : toits romains
   à deux pans et pignons de pierre, quatre matières générées puis projetées par
   `build_capital_roofs.py` en 112 pièces d'une case (deux sens, profondeur 2 à 5), validées par le
-  moteur (`validate_capital_roofs.py`, cartes d'essai `Fixtures/Storeys/`). La consigne du générateur
-  gagne les cadrages « surface » et « élévation » des matières peintes à plat.
+  moteur (`validate_capital_roofs.py`, cartes d'essai `Fixtures/Storeys/`), complétées de 486 raccords
+  en L, en T et en croix (598 toits). La consigne du générateur gagne les cadrages « surface » et
+  « élévation » des matières peintes à plat. Le kit de la Capitale se **range en sous-dossiers** —
+  `floors/`, `walls/`, `roofs/l/d3/`… — sous un seul manifeste qui cite chaque pièce par son chemin :
+  le rendu, la palette de l'éditeur (groupée par dossier), l'installateur (règle `folders`) et le
+  contrôle HD suivent, sans qu'aucune carte change.
 
 - **Planning — LOT-129, les étages et les toits de la scène.** Nouveau lot moteur de la démo, entrant
   du `LOT-108` : un décor se bâtit en niveaux modulaires (un étage de mur sur un autre, une toiture

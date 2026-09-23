@@ -48,10 +48,16 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
     return cell.column >= 0 && cell.row >= 0 && cell.column < columns && cell.row < rows;
 }
 
-[[nodiscard]] std::string piecePath(std::string_view place, std::string_view piece) {
+// Le chemin de l'image d'une piece : `Scene/<lieu>/<fichier>`, le fichier que le manifeste lui
+// donne s'il est range dans un sous-dossier, `<piece>.png` sinon.
+[[nodiscard]] std::string piecePath(const WorldSceneSnapshot& snapshot, std::string_view piece) {
     std::string path{SCENE_ROOT};
-    path.append(place);
+    path.append(snapshot.place);
     path.push_back('/');
+    if (const auto found = snapshot.pieceFiles.find(piece); found != snapshot.pieceFiles.end()) {
+        path.append(found->second);
+        return path;
+    }
     path.append(piece);
     path.append(".png");
     return path;
@@ -355,7 +361,7 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         composeMaquetteCell(scene, snapshot, projection, textures, cell, flatBlocks);
         return;
     }
-    const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
+    const SceneTexture& texture = textures.resolve(piecePath(snapshot, piece));
     if (texture.texture == nullptr) {
         return;
     }
@@ -375,7 +381,7 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
                                           core::GridPosition cell, std::string_view piece,
                                           int storey, const std::optional<HeroPlacement>& hero,
                                           float minimumFootY) {
-    const SceneTexture& texture = textures.resolve(piecePath(snapshot.place, piece));
+    const SceneTexture& texture = textures.resolve(piecePath(snapshot, piece));
     if (texture.texture == nullptr) {
         return std::nullopt;
     }
@@ -802,6 +808,20 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
         snapshot.storeys.push_back(std::move(storey));
     }
     std::ranges::stable_sort(snapshot.storeys, {}, &WorldStoreySnapshot::floor);
+    // Le fichier de chaque piece citee, quand le kit la range en sous-dossier.
+    const auto recordFile = [&snapshot, &appearance](const std::string& piece) {
+        if (piece.empty() || snapshot.pieceFiles.contains(piece)) {
+            return;
+        }
+        if (const std::string_view file = appearance.pieceFile(piece); !file.empty()) {
+            snapshot.pieceFiles.emplace(piece, std::string{file});
+        }
+    };
+    std::ranges::for_each(snapshot.floors, recordFile);
+    std::ranges::for_each(snapshot.relief, recordFile);
+    for (const WorldStoreySnapshot& storey : snapshot.storeys) {
+        std::ranges::for_each(storey.relief, recordFile);
+    }
     return snapshot;
 }
 
@@ -907,7 +927,7 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     for (const std::vector<std::string>* couche : couches) {
         for (const std::string& piece : *couche) {
             if (!piece.empty()) {
-                uniques.insert(piecePath(snapshot.place, piece));
+                uniques.insert(piecePath(snapshot, piece));
             }
         }
     }

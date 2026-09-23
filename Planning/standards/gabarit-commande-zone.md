@@ -52,6 +52,7 @@ La commande ne dessine pas et ne retouche rien : une pièce qui ne s'installe pa
 | `tactical` | `open`, `difficult`, `cover`, `obstacle`, `solid` ; à défaut, un sol passe et une pièce debout arrête la vue |
 | `align` | `centre` (défaut) ou `north` : sur l'axe qu'il ne remplit pas, le socle est centré dans son emprise ou collé à son bord nord — celui d'un mur qui doit rejoindre un angle rentrant |
 | `scale`, `anchorOffset` | corrections, quand la pièce ne touche pas ses pointes (un lampadaire, une statue au bras tendu) |
+| `folders` (au niveau du descripteur) | le rangement en sous-dossiers : `[{"match": "^roof-l-d(\d)", "folder": "roofs/l/d\1"}]`, la première règle dont le motif prend le nom de la pièce donne son dossier sous `target` (`LOT-129`) |
 
 ## La page
 

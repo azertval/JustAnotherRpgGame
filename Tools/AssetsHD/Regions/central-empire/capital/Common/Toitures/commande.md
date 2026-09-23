@@ -126,3 +126,7 @@ Pièces : `gable-cornice`. Emprise : 1 × 1. Type : open. Source : `Sources/gabl
 ## Budget
 
 À mesurer à l'installation, avec le kit de la Capitale (≈ 2,6 Mio avant la toiture) : sous 40 Mio.
+
+## Extension demandée : L, T et croisements
+
+Les quatre matières sont réutilisées sans nouvelle génération. La géométrie du kit ajoute les noues, les quatre orientations de L et de T et le croisement à quatre branches, sur des carrés de raccord de largeur 2 à 5. Catalogue et placement : `JONCTIONS.md`. Le total passe à 598 pièces ; les 112 modules droits sont conservés.

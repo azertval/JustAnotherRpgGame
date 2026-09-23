@@ -1,6 +1,28 @@
 {
   "version": 1,
   "target": "Regions/central-empire/capital/Common/Scene",
+  "folders": [
+    {
+      "match": "^floor-",
+      "folder": "floors"
+    },
+    {
+      "match": "^wall-",
+      "folder": "walls"
+    },
+    {
+      "match": "^balustrade-",
+      "folder": "balustrades"
+    },
+    {
+      "match": "^plant-",
+      "folder": "plants"
+    },
+    {
+      "match": "^prop-",
+      "folder": "props"
+    }
+  ],
   "pieces": [
     {
       "source": "V4/Calibres/floor-paving-01.png",

@@ -1,6 +1,24 @@
 {
   "version": 1,
   "target": "Regions/central-empire/capital/Common/Scene",
+  "folders": [
+    {
+      "match": "^roof-[uv]-d(\\d)",
+      "folder": "roofs/straight/d\\1"
+    },
+    {
+      "match": "^roof-l-d(\\d)",
+      "folder": "roofs/l/d\\1"
+    },
+    {
+      "match": "^roof-t-d(\\d)",
+      "folder": "roofs/t/d\\1"
+    },
+    {
+      "match": "^roof-x-d(\\d)",
+      "folder": "roofs/x/d\\1"
+    }
+  ],
   "pieces": [
     {
       "source": "Calibres/roof-u-d2-r0-start.png",
@@ -1680,6 +1698,7296 @@
       "anchorOffset": [
         -60,
         -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-ne-c0r0.png",
+      "name": "roof-l-d2-ne-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        12,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-ne-c1r0.png",
+      "name": "roof-l-d2-ne-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -42,
+        -6
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-ne-c0r1.png",
+      "name": "roof-l-d2-ne-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-ne-c1r1.png",
+      "name": "roof-l-d2-ne-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -69
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-nw-c0r0.png",
+      "name": "roof-l-d2-nw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        30,
+        52
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-nw-c1r0.png",
+      "name": "roof-l-d2-nw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        10,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-nw-c0r1.png",
+      "name": "roof-l-d2-nw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -10,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-nw-c1r1.png",
+      "name": "roof-l-d2-nw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-se-c0r0.png",
+      "name": "roof-l-d2-se-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        48
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-se-c1r0.png",
+      "name": "roof-l-d2-se-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        -11
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-se-c0r1.png",
+      "name": "roof-l-d2-se-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-se-c1r1.png",
+      "name": "roof-l-d2-se-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        52,
+        -27
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-sw-c0r0.png",
+      "name": "roof-l-d2-sw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        20,
+        59
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-sw-c1r0.png",
+      "name": "roof-l-d2-sw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-sw-c0r1.png",
+      "name": "roof-l-d2-sw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        58,
+        -23
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d2-sw-c1r1.png",
+      "name": "roof-l-d2-sw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c0r0.png",
+      "name": "roof-l-d3-ne-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c1r0.png",
+      "name": "roof-l-d3-ne-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c2r0.png",
+      "name": "roof-l-d3-ne-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -42,
+        -6
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c0r1.png",
+      "name": "roof-l-d3-ne-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c1r1.png",
+      "name": "roof-l-d3-ne-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c2r1.png",
+      "name": "roof-l-d3-ne-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        -3
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c0r2.png",
+      "name": "roof-l-d3-ne-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c1r2.png",
+      "name": "roof-l-d3-ne-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-ne-c2r2.png",
+      "name": "roof-l-d3-ne-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -69
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c0r0.png",
+      "name": "roof-l-d3-nw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        42,
+        72
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c1r0.png",
+      "name": "roof-l-d3-nw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c2r0.png",
+      "name": "roof-l-d3-nw-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c0r1.png",
+      "name": "roof-l-d3-nw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        71
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c1r1.png",
+      "name": "roof-l-d3-nw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c2r1.png",
+      "name": "roof-l-d3-nw-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c0r2.png",
+      "name": "roof-l-d3-nw-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        61
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c1r2.png",
+      "name": "roof-l-d3-nw-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-nw-c2r2.png",
+      "name": "roof-l-d3-nw-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c0r0.png",
+      "name": "roof-l-d3-se-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c1r0.png",
+      "name": "roof-l-d3-se-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        65
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c2r0.png",
+      "name": "roof-l-d3-se-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -26,
+        -12
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c0r1.png",
+      "name": "roof-l-d3-se-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c1r1.png",
+      "name": "roof-l-d3-se-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c2r1.png",
+      "name": "roof-l-d3-se-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        -3
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c0r2.png",
+      "name": "roof-l-d3-se-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c1r2.png",
+      "name": "roof-l-d3-se-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-se-c2r2.png",
+      "name": "roof-l-d3-se-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        52,
+        -27
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c0r0.png",
+      "name": "roof-l-d3-sw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        86
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c1r0.png",
+      "name": "roof-l-d3-sw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        65
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c2r0.png",
+      "name": "roof-l-d3-sw-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c0r1.png",
+      "name": "roof-l-d3-sw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        88,
+        17
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c1r1.png",
+      "name": "roof-l-d3-sw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c2r1.png",
+      "name": "roof-l-d3-sw-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c0r2.png",
+      "name": "roof-l-d3-sw-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        58,
+        -23
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c1r2.png",
+      "name": "roof-l-d3-sw-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d3-sw-c2r2.png",
+      "name": "roof-l-d3-sw-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c0r0.png",
+      "name": "roof-l-d4-ne-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c1r0.png",
+      "name": "roof-l-d4-ne-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c2r0.png",
+      "name": "roof-l-d4-ne-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c3r0.png",
+      "name": "roof-l-d4-ne-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -42,
+        -6
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c0r1.png",
+      "name": "roof-l-d4-ne-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c1r1.png",
+      "name": "roof-l-d4-ne-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c2r1.png",
+      "name": "roof-l-d4-ne-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c3r1.png",
+      "name": "roof-l-d4-ne-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c0r2.png",
+      "name": "roof-l-d4-ne-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c1r2.png",
+      "name": "roof-l-d4-ne-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c2r2.png",
+      "name": "roof-l-d4-ne-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c3r2.png",
+      "name": "roof-l-d4-ne-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        -3
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c0r3.png",
+      "name": "roof-l-d4-ne-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c1r3.png",
+      "name": "roof-l-d4-ne-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c2r3.png",
+      "name": "roof-l-d4-ne-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-ne-c3r3.png",
+      "name": "roof-l-d4-ne-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -69
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c0r0.png",
+      "name": "roof-l-d4-nw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        42,
+        72
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c1r0.png",
+      "name": "roof-l-d4-nw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c2r0.png",
+      "name": "roof-l-d4-nw-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c3r0.png",
+      "name": "roof-l-d4-nw-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c0r1.png",
+      "name": "roof-l-d4-nw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        106
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c1r1.png",
+      "name": "roof-l-d4-nw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c2r1.png",
+      "name": "roof-l-d4-nw-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c3r1.png",
+      "name": "roof-l-d4-nw-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c0r2.png",
+      "name": "roof-l-d4-nw-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        46,
+        42
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c1r2.png",
+      "name": "roof-l-d4-nw-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c2r2.png",
+      "name": "roof-l-d4-nw-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c3r2.png",
+      "name": "roof-l-d4-nw-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c0r3.png",
+      "name": "roof-l-d4-nw-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        61
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c1r3.png",
+      "name": "roof-l-d4-nw-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c2r3.png",
+      "name": "roof-l-d4-nw-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-nw-c3r3.png",
+      "name": "roof-l-d4-nw-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c0r0.png",
+      "name": "roof-l-d4-se-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c1r0.png",
+      "name": "roof-l-d4-se-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c2r0.png",
+      "name": "roof-l-d4-se-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c3r0.png",
+      "name": "roof-l-d4-se-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -26,
+        -12
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c0r1.png",
+      "name": "roof-l-d4-se-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c1r1.png",
+      "name": "roof-l-d4-se-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        106
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c2r1.png",
+      "name": "roof-l-d4-se-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c3r1.png",
+      "name": "roof-l-d4-se-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c0r2.png",
+      "name": "roof-l-d4-se-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c1r2.png",
+      "name": "roof-l-d4-se-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c2r2.png",
+      "name": "roof-l-d4-se-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c3r2.png",
+      "name": "roof-l-d4-se-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        -3
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c0r3.png",
+      "name": "roof-l-d4-se-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c1r3.png",
+      "name": "roof-l-d4-se-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c2r3.png",
+      "name": "roof-l-d4-se-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-se-c3r3.png",
+      "name": "roof-l-d4-se-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        52,
+        -27
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c0r0.png",
+      "name": "roof-l-d4-sw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        86
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c1r0.png",
+      "name": "roof-l-d4-sw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c2r0.png",
+      "name": "roof-l-d4-sw-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c3r0.png",
+      "name": "roof-l-d4-sw-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c0r1.png",
+      "name": "roof-l-d4-sw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        107
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c1r1.png",
+      "name": "roof-l-d4-sw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        106
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c2r1.png",
+      "name": "roof-l-d4-sw-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c3r1.png",
+      "name": "roof-l-d4-sw-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c0r2.png",
+      "name": "roof-l-d4-sw-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        88,
+        17
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c1r2.png",
+      "name": "roof-l-d4-sw-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c2r2.png",
+      "name": "roof-l-d4-sw-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c3r2.png",
+      "name": "roof-l-d4-sw-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c0r3.png",
+      "name": "roof-l-d4-sw-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        58,
+        -23
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c1r3.png",
+      "name": "roof-l-d4-sw-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c2r3.png",
+      "name": "roof-l-d4-sw-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d4-sw-c3r3.png",
+      "name": "roof-l-d4-sw-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c0r0.png",
+      "name": "roof-l-d5-ne-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c1r0.png",
+      "name": "roof-l-d5-ne-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c2r0.png",
+      "name": "roof-l-d5-ne-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c3r0.png",
+      "name": "roof-l-d5-ne-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c4r0.png",
+      "name": "roof-l-d5-ne-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -42,
+        -6
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c0r1.png",
+      "name": "roof-l-d5-ne-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c1r1.png",
+      "name": "roof-l-d5-ne-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c2r1.png",
+      "name": "roof-l-d5-ne-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c3r1.png",
+      "name": "roof-l-d5-ne-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c4r1.png",
+      "name": "roof-l-d5-ne-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c0r2.png",
+      "name": "roof-l-d5-ne-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c1r2.png",
+      "name": "roof-l-d5-ne-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        121
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c2r2.png",
+      "name": "roof-l-d5-ne-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        21
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c3r2.png",
+      "name": "roof-l-d5-ne-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c4r2.png",
+      "name": "roof-l-d5-ne-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c0r3.png",
+      "name": "roof-l-d5-ne-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c1r3.png",
+      "name": "roof-l-d5-ne-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c2r3.png",
+      "name": "roof-l-d5-ne-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c3r3.png",
+      "name": "roof-l-d5-ne-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c4r3.png",
+      "name": "roof-l-d5-ne-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        -3
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c0r4.png",
+      "name": "roof-l-d5-ne-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c1r4.png",
+      "name": "roof-l-d5-ne-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c2r4.png",
+      "name": "roof-l-d5-ne-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c3r4.png",
+      "name": "roof-l-d5-ne-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-ne-c4r4.png",
+      "name": "roof-l-d5-ne-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -69
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c0r0.png",
+      "name": "roof-l-d5-nw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        42,
+        72
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c1r0.png",
+      "name": "roof-l-d5-nw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c2r0.png",
+      "name": "roof-l-d5-nw-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c3r0.png",
+      "name": "roof-l-d5-nw-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c4r0.png",
+      "name": "roof-l-d5-nw-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c0r1.png",
+      "name": "roof-l-d5-nw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        48,
+        126
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c1r1.png",
+      "name": "roof-l-d5-nw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c2r1.png",
+      "name": "roof-l-d5-nw-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c3r1.png",
+      "name": "roof-l-d5-nw-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c4r1.png",
+      "name": "roof-l-d5-nw-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c0r2.png",
+      "name": "roof-l-d5-nw-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        88,
+        75
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c1r2.png",
+      "name": "roof-l-d5-nw-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        121
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c2r2.png",
+      "name": "roof-l-d5-nw-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        21
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c3r2.png",
+      "name": "roof-l-d5-nw-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c4r2.png",
+      "name": "roof-l-d5-nw-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c0r3.png",
+      "name": "roof-l-d5-nw-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        46,
+        42
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c1r3.png",
+      "name": "roof-l-d5-nw-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c2r3.png",
+      "name": "roof-l-d5-nw-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c3r3.png",
+      "name": "roof-l-d5-nw-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c4r3.png",
+      "name": "roof-l-d5-nw-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c0r4.png",
+      "name": "roof-l-d5-nw-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        61
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c1r4.png",
+      "name": "roof-l-d5-nw-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c2r4.png",
+      "name": "roof-l-d5-nw-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c3r4.png",
+      "name": "roof-l-d5-nw-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-nw-c4r4.png",
+      "name": "roof-l-d5-nw-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c0r0.png",
+      "name": "roof-l-d5-se-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c1r0.png",
+      "name": "roof-l-d5-se-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c2r0.png",
+      "name": "roof-l-d5-se-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c3r0.png",
+      "name": "roof-l-d5-se-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c4r0.png",
+      "name": "roof-l-d5-se-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -26,
+        -12
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c0r1.png",
+      "name": "roof-l-d5-se-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c1r1.png",
+      "name": "roof-l-d5-se-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        132
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c2r1.png",
+      "name": "roof-l-d5-se-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        123
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c3r1.png",
+      "name": "roof-l-d5-se-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c4r1.png",
+      "name": "roof-l-d5-se-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c0r2.png",
+      "name": "roof-l-d5-se-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c1r2.png",
+      "name": "roof-l-d5-se-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c2r2.png",
+      "name": "roof-l-d5-se-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c3r2.png",
+      "name": "roof-l-d5-se-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c4r2.png",
+      "name": "roof-l-d5-se-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c0r3.png",
+      "name": "roof-l-d5-se-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c1r3.png",
+      "name": "roof-l-d5-se-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c2r3.png",
+      "name": "roof-l-d5-se-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c3r3.png",
+      "name": "roof-l-d5-se-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c4r3.png",
+      "name": "roof-l-d5-se-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        -3
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c0r4.png",
+      "name": "roof-l-d5-se-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c1r4.png",
+      "name": "roof-l-d5-se-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c2r4.png",
+      "name": "roof-l-d5-se-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c3r4.png",
+      "name": "roof-l-d5-se-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-se-c4r4.png",
+      "name": "roof-l-d5-se-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        52,
+        -27
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c0r0.png",
+      "name": "roof-l-d5-sw-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        86
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c1r0.png",
+      "name": "roof-l-d5-sw-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c2r0.png",
+      "name": "roof-l-d5-sw-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c3r0.png",
+      "name": "roof-l-d5-sw-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c4r0.png",
+      "name": "roof-l-d5-sw-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c0r1.png",
+      "name": "roof-l-d5-sw-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        46,
+        128
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c1r1.png",
+      "name": "roof-l-d5-sw-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        132
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c2r1.png",
+      "name": "roof-l-d5-sw-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        123
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c3r1.png",
+      "name": "roof-l-d5-sw-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c4r1.png",
+      "name": "roof-l-d5-sw-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c0r2.png",
+      "name": "roof-l-d5-sw-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        88,
+        75
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c1r2.png",
+      "name": "roof-l-d5-sw-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c2r2.png",
+      "name": "roof-l-d5-sw-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c3r2.png",
+      "name": "roof-l-d5-sw-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c4r2.png",
+      "name": "roof-l-d5-sw-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c0r3.png",
+      "name": "roof-l-d5-sw-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        88,
+        17
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c1r3.png",
+      "name": "roof-l-d5-sw-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c2r3.png",
+      "name": "roof-l-d5-sw-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c3r3.png",
+      "name": "roof-l-d5-sw-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c4r3.png",
+      "name": "roof-l-d5-sw-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c0r4.png",
+      "name": "roof-l-d5-sw-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        58,
+        -23
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c1r4.png",
+      "name": "roof-l-d5-sw-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c2r4.png",
+      "name": "roof-l-d5-sw-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c3r4.png",
+      "name": "roof-l-d5-sw-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-l-d5-sw-c4r4.png",
+      "name": "roof-l-d5-sw-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-n-c0r0.png",
+      "name": "roof-t-d2-n-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        48
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-n-c1r0.png",
+      "name": "roof-t-d2-n-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-n-c0r1.png",
+      "name": "roof-t-d2-n-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-n-c1r1.png",
+      "name": "roof-t-d2-n-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-e-c0r0.png",
+      "name": "roof-t-d2-e-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -12,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-e-c1r0.png",
+      "name": "roof-t-d2-e-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-e-c0r1.png",
+      "name": "roof-t-d2-e-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -10,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-e-c1r1.png",
+      "name": "roof-t-d2-e-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-s-c0r0.png",
+      "name": "roof-t-d2-s-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        12,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-s-c1r0.png",
+      "name": "roof-t-d2-s-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        10,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-s-c0r1.png",
+      "name": "roof-t-d2-s-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-s-c1r1.png",
+      "name": "roof-t-d2-s-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-w-c0r0.png",
+      "name": "roof-t-d2-w-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        48
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-w-c1r0.png",
+      "name": "roof-t-d2-w-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-w-c0r1.png",
+      "name": "roof-t-d2-w-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d2-w-c1r1.png",
+      "name": "roof-t-d2-w-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d2-all-c0r0.png",
+      "name": "roof-x-d2-all-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        48
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d2-all-c1r0.png",
+      "name": "roof-x-d2-all-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d2-all-c0r1.png",
+      "name": "roof-x-d2-all-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        36
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d2-all-c1r1.png",
+      "name": "roof-x-d2-all-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c0r0.png",
+      "name": "roof-t-d3-n-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c1r0.png",
+      "name": "roof-t-d3-n-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        65
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c2r0.png",
+      "name": "roof-t-d3-n-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c0r1.png",
+      "name": "roof-t-d3-n-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c1r1.png",
+      "name": "roof-t-d3-n-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c2r1.png",
+      "name": "roof-t-d3-n-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c0r2.png",
+      "name": "roof-t-d3-n-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c1r2.png",
+      "name": "roof-t-d3-n-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-n-c2r2.png",
+      "name": "roof-t-d3-n-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c0r0.png",
+      "name": "roof-t-d3-e-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c1r0.png",
+      "name": "roof-t-d3-e-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c2r0.png",
+      "name": "roof-t-d3-e-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c0r1.png",
+      "name": "roof-t-d3-e-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c1r1.png",
+      "name": "roof-t-d3-e-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c2r1.png",
+      "name": "roof-t-d3-e-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c0r2.png",
+      "name": "roof-t-d3-e-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c1r2.png",
+      "name": "roof-t-d3-e-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-e-c2r2.png",
+      "name": "roof-t-d3-e-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c0r0.png",
+      "name": "roof-t-d3-s-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c1r0.png",
+      "name": "roof-t-d3-s-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c2r0.png",
+      "name": "roof-t-d3-s-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c0r1.png",
+      "name": "roof-t-d3-s-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c1r1.png",
+      "name": "roof-t-d3-s-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c2r1.png",
+      "name": "roof-t-d3-s-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c0r2.png",
+      "name": "roof-t-d3-s-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c1r2.png",
+      "name": "roof-t-d3-s-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-s-c2r2.png",
+      "name": "roof-t-d3-s-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c0r0.png",
+      "name": "roof-t-d3-w-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c1r0.png",
+      "name": "roof-t-d3-w-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c2r0.png",
+      "name": "roof-t-d3-w-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c0r1.png",
+      "name": "roof-t-d3-w-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        65
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c1r1.png",
+      "name": "roof-t-d3-w-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c2r1.png",
+      "name": "roof-t-d3-w-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c0r2.png",
+      "name": "roof-t-d3-w-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c1r2.png",
+      "name": "roof-t-d3-w-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d3-w-c2r2.png",
+      "name": "roof-t-d3-w-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c0r0.png",
+      "name": "roof-x-d3-all-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c1r0.png",
+      "name": "roof-x-d3-all-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        65
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c2r0.png",
+      "name": "roof-x-d3-all-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c0r1.png",
+      "name": "roof-x-d3-all-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        65
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c1r1.png",
+      "name": "roof-x-d3-all-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c2r1.png",
+      "name": "roof-x-d3-all-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c0r2.png",
+      "name": "roof-x-d3-all-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c1r2.png",
+      "name": "roof-x-d3-all-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d3-all-c2r2.png",
+      "name": "roof-x-d3-all-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c0r0.png",
+      "name": "roof-t-d4-n-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c1r0.png",
+      "name": "roof-t-d4-n-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c2r0.png",
+      "name": "roof-t-d4-n-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c3r0.png",
+      "name": "roof-t-d4-n-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c0r1.png",
+      "name": "roof-t-d4-n-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c1r1.png",
+      "name": "roof-t-d4-n-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        106
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c2r1.png",
+      "name": "roof-t-d4-n-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c3r1.png",
+      "name": "roof-t-d4-n-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c0r2.png",
+      "name": "roof-t-d4-n-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c1r2.png",
+      "name": "roof-t-d4-n-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c2r2.png",
+      "name": "roof-t-d4-n-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c3r2.png",
+      "name": "roof-t-d4-n-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c0r3.png",
+      "name": "roof-t-d4-n-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c1r3.png",
+      "name": "roof-t-d4-n-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c2r3.png",
+      "name": "roof-t-d4-n-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-n-c3r3.png",
+      "name": "roof-t-d4-n-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c0r0.png",
+      "name": "roof-t-d4-e-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c1r0.png",
+      "name": "roof-t-d4-e-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c2r0.png",
+      "name": "roof-t-d4-e-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c3r0.png",
+      "name": "roof-t-d4-e-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c0r1.png",
+      "name": "roof-t-d4-e-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c1r1.png",
+      "name": "roof-t-d4-e-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c2r1.png",
+      "name": "roof-t-d4-e-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c3r1.png",
+      "name": "roof-t-d4-e-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c0r2.png",
+      "name": "roof-t-d4-e-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c1r2.png",
+      "name": "roof-t-d4-e-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c2r2.png",
+      "name": "roof-t-d4-e-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c3r2.png",
+      "name": "roof-t-d4-e-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c0r3.png",
+      "name": "roof-t-d4-e-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c1r3.png",
+      "name": "roof-t-d4-e-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c2r3.png",
+      "name": "roof-t-d4-e-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-e-c3r3.png",
+      "name": "roof-t-d4-e-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c0r0.png",
+      "name": "roof-t-d4-s-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c1r0.png",
+      "name": "roof-t-d4-s-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c2r0.png",
+      "name": "roof-t-d4-s-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c3r0.png",
+      "name": "roof-t-d4-s-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c0r1.png",
+      "name": "roof-t-d4-s-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c1r1.png",
+      "name": "roof-t-d4-s-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c2r1.png",
+      "name": "roof-t-d4-s-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c3r1.png",
+      "name": "roof-t-d4-s-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c0r2.png",
+      "name": "roof-t-d4-s-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c1r2.png",
+      "name": "roof-t-d4-s-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c2r2.png",
+      "name": "roof-t-d4-s-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c3r2.png",
+      "name": "roof-t-d4-s-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c0r3.png",
+      "name": "roof-t-d4-s-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c1r3.png",
+      "name": "roof-t-d4-s-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c2r3.png",
+      "name": "roof-t-d4-s-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-s-c3r3.png",
+      "name": "roof-t-d4-s-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c0r0.png",
+      "name": "roof-t-d4-w-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c1r0.png",
+      "name": "roof-t-d4-w-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c2r0.png",
+      "name": "roof-t-d4-w-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c3r0.png",
+      "name": "roof-t-d4-w-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c0r1.png",
+      "name": "roof-t-d4-w-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c1r1.png",
+      "name": "roof-t-d4-w-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        106
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c2r1.png",
+      "name": "roof-t-d4-w-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c3r1.png",
+      "name": "roof-t-d4-w-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c0r2.png",
+      "name": "roof-t-d4-w-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c1r2.png",
+      "name": "roof-t-d4-w-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c2r2.png",
+      "name": "roof-t-d4-w-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c3r2.png",
+      "name": "roof-t-d4-w-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c0r3.png",
+      "name": "roof-t-d4-w-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c1r3.png",
+      "name": "roof-t-d4-w-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c2r3.png",
+      "name": "roof-t-d4-w-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d4-w-c3r3.png",
+      "name": "roof-t-d4-w-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c0r0.png",
+      "name": "roof-x-d4-all-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c1r0.png",
+      "name": "roof-x-d4-all-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c2r0.png",
+      "name": "roof-x-d4-all-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c3r0.png",
+      "name": "roof-x-d4-all-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c0r1.png",
+      "name": "roof-x-d4-all-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        96
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c1r1.png",
+      "name": "roof-x-d4-all-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        106
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c2r1.png",
+      "name": "roof-x-d4-all-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c3r1.png",
+      "name": "roof-x-d4-all-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c0r2.png",
+      "name": "roof-x-d4-all-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c1r2.png",
+      "name": "roof-x-d4-all-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c2r2.png",
+      "name": "roof-x-d4-all-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c3r2.png",
+      "name": "roof-x-d4-all-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c0r3.png",
+      "name": "roof-x-d4-all-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c1r3.png",
+      "name": "roof-x-d4-all-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c2r3.png",
+      "name": "roof-x-d4-all-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d4-all-c3r3.png",
+      "name": "roof-x-d4-all-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c0r0.png",
+      "name": "roof-t-d5-n-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c1r0.png",
+      "name": "roof-t-d5-n-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c2r0.png",
+      "name": "roof-t-d5-n-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c3r0.png",
+      "name": "roof-t-d5-n-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c4r0.png",
+      "name": "roof-t-d5-n-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c0r1.png",
+      "name": "roof-t-d5-n-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c1r1.png",
+      "name": "roof-t-d5-n-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        132
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c2r1.png",
+      "name": "roof-t-d5-n-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        123
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c3r1.png",
+      "name": "roof-t-d5-n-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c4r1.png",
+      "name": "roof-t-d5-n-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c0r2.png",
+      "name": "roof-t-d5-n-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c1r2.png",
+      "name": "roof-t-d5-n-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c2r2.png",
+      "name": "roof-t-d5-n-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c3r2.png",
+      "name": "roof-t-d5-n-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c4r2.png",
+      "name": "roof-t-d5-n-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c0r3.png",
+      "name": "roof-t-d5-n-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c1r3.png",
+      "name": "roof-t-d5-n-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c2r3.png",
+      "name": "roof-t-d5-n-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c3r3.png",
+      "name": "roof-t-d5-n-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c4r3.png",
+      "name": "roof-t-d5-n-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c0r4.png",
+      "name": "roof-t-d5-n-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c1r4.png",
+      "name": "roof-t-d5-n-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c2r4.png",
+      "name": "roof-t-d5-n-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c3r4.png",
+      "name": "roof-t-d5-n-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-n-c4r4.png",
+      "name": "roof-t-d5-n-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c0r0.png",
+      "name": "roof-t-d5-e-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c1r0.png",
+      "name": "roof-t-d5-e-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c2r0.png",
+      "name": "roof-t-d5-e-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c3r0.png",
+      "name": "roof-t-d5-e-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c4r0.png",
+      "name": "roof-t-d5-e-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c0r1.png",
+      "name": "roof-t-d5-e-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c1r1.png",
+      "name": "roof-t-d5-e-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c2r1.png",
+      "name": "roof-t-d5-e-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        121
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c3r1.png",
+      "name": "roof-t-d5-e-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c4r1.png",
+      "name": "roof-t-d5-e-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c0r2.png",
+      "name": "roof-t-d5-e-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c1r2.png",
+      "name": "roof-t-d5-e-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c2r2.png",
+      "name": "roof-t-d5-e-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        21
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c3r2.png",
+      "name": "roof-t-d5-e-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c4r2.png",
+      "name": "roof-t-d5-e-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c0r3.png",
+      "name": "roof-t-d5-e-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c1r3.png",
+      "name": "roof-t-d5-e-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c2r3.png",
+      "name": "roof-t-d5-e-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c3r3.png",
+      "name": "roof-t-d5-e-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c4r3.png",
+      "name": "roof-t-d5-e-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c0r4.png",
+      "name": "roof-t-d5-e-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c1r4.png",
+      "name": "roof-t-d5-e-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c2r4.png",
+      "name": "roof-t-d5-e-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c3r4.png",
+      "name": "roof-t-d5-e-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-e-c4r4.png",
+      "name": "roof-t-d5-e-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c0r0.png",
+      "name": "roof-t-d5-s-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c1r0.png",
+      "name": "roof-t-d5-s-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c2r0.png",
+      "name": "roof-t-d5-s-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c3r0.png",
+      "name": "roof-t-d5-s-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c4r0.png",
+      "name": "roof-t-d5-s-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c0r1.png",
+      "name": "roof-t-d5-s-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c1r1.png",
+      "name": "roof-t-d5-s-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c2r1.png",
+      "name": "roof-t-d5-s-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c3r1.png",
+      "name": "roof-t-d5-s-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c4r1.png",
+      "name": "roof-t-d5-s-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c0r2.png",
+      "name": "roof-t-d5-s-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c1r2.png",
+      "name": "roof-t-d5-s-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        121
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c2r2.png",
+      "name": "roof-t-d5-s-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        21
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c3r2.png",
+      "name": "roof-t-d5-s-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c4r2.png",
+      "name": "roof-t-d5-s-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c0r3.png",
+      "name": "roof-t-d5-s-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c1r3.png",
+      "name": "roof-t-d5-s-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c2r3.png",
+      "name": "roof-t-d5-s-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c3r3.png",
+      "name": "roof-t-d5-s-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c4r3.png",
+      "name": "roof-t-d5-s-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c0r4.png",
+      "name": "roof-t-d5-s-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c1r4.png",
+      "name": "roof-t-d5-s-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c2r4.png",
+      "name": "roof-t-d5-s-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c3r4.png",
+      "name": "roof-t-d5-s-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-s-c4r4.png",
+      "name": "roof-t-d5-s-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c0r0.png",
+      "name": "roof-t-d5-w-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c1r0.png",
+      "name": "roof-t-d5-w-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c2r0.png",
+      "name": "roof-t-d5-w-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c3r0.png",
+      "name": "roof-t-d5-w-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c4r0.png",
+      "name": "roof-t-d5-w-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c0r1.png",
+      "name": "roof-t-d5-w-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c1r1.png",
+      "name": "roof-t-d5-w-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        132
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c2r1.png",
+      "name": "roof-t-d5-w-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c3r1.png",
+      "name": "roof-t-d5-w-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c4r1.png",
+      "name": "roof-t-d5-w-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c0r2.png",
+      "name": "roof-t-d5-w-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c1r2.png",
+      "name": "roof-t-d5-w-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        123
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c2r2.png",
+      "name": "roof-t-d5-w-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c3r2.png",
+      "name": "roof-t-d5-w-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c4r2.png",
+      "name": "roof-t-d5-w-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c0r3.png",
+      "name": "roof-t-d5-w-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c1r3.png",
+      "name": "roof-t-d5-w-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c2r3.png",
+      "name": "roof-t-d5-w-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c3r3.png",
+      "name": "roof-t-d5-w-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c4r3.png",
+      "name": "roof-t-d5-w-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c0r4.png",
+      "name": "roof-t-d5-w-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c1r4.png",
+      "name": "roof-t-d5-w-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c2r4.png",
+      "name": "roof-t-d5-w-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c3r4.png",
+      "name": "roof-t-d5-w-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-t-d5-w-c4r4.png",
+      "name": "roof-t-d5-w-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c0r0.png",
+      "name": "roof-x-d5-all-c0r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        74
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c1r0.png",
+      "name": "roof-x-d5-all-c1r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c2r0.png",
+      "name": "roof-x-d5-all-c2r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c3r0.png",
+      "name": "roof-x-d5-all-c3r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c4r0.png",
+      "name": "roof-x-d5-all-c4r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c0r1.png",
+      "name": "roof-x-d5-all-c0r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        116
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c1r1.png",
+      "name": "roof-x-d5-all-c1r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        132
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c2r1.png",
+      "name": "roof-x-d5-all-c2r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        14,
+        123
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c3r1.png",
+      "name": "roof-x-d5-all-c3r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c4r1.png",
+      "name": "roof-x-d5-all-c4r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c0r2.png",
+      "name": "roof-x-d5-all-c0r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c1r2.png",
+      "name": "roof-x-d5-all-c1r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -14,
+        123
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c2r2.png",
+      "name": "roof-x-d5-all-c2r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        21
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c3r2.png",
+      "name": "roof-x-d5-all-c3r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c4r2.png",
+      "name": "roof-x-d5-all-c4r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c0r3.png",
+      "name": "roof-x-d5-all-c0r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        36,
+        35
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c1r3.png",
+      "name": "roof-x-d5-all-c1r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        115
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c2r3.png",
+      "name": "roof-x-d5-all-c2r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        62
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c3r3.png",
+      "name": "roof-x-d5-all-c3r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -37
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c4r3.png",
+      "name": "roof-x-d5-all-c4r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c0r4.png",
+      "name": "roof-x-d5-all-c0r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        57
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c1r4.png",
+      "name": "roof-x-d5-all-c1r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c2r4.png",
+      "name": "roof-x-d5-all-c2r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c3r4.png",
+      "name": "roof-x-d5-all-c3r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -66,
+        4
+      ]
+    },
+    {
+      "source": "Calibres/roof-x-d5-all-c4r4.png",
+      "name": "roof-x-d5-all-c4r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        0,
+        -79
       ]
     }
   ]

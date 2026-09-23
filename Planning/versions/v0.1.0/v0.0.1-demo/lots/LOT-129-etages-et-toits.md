@@ -3,7 +3,7 @@ id = "LOT-129"
 titre = "Les étages et les toits de la scène"
 version = "0.0.1"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Le décor se bâtit en niveaux modulaires — un étage de mur posé sur un autre, une toiture au sommet — et ce qui masque le héros s'efface quand il passe derrière."
 prerequis = ["LOT-103", "LOT-105"]
@@ -117,4 +117,30 @@ Les quatre matières ont été produites avec imagegen intégré, puis installé
 
 Contrôles : six tests Python réussis, 112 images installées identiques pixel par pixel à la scène testée, ancres identiques, 34 entrées du kit antérieur préservées, budget Capitale de 7,9 Mio. Cartes `Source/Test/Fixtures/Storeys/roofs.json` (deux bâtiments à deux niveaux) et `roofs-all.json` (les 112 modules en 16 assemblages), rendues à deux échelles. Contrôle moteur sans erreur ; avertissement de catalogue de traduction absent dans la racine isolée de test. Il s’agit d’une validation de chargement et de rendu, pas d’un essai de gameplay.
 
-La livraison couvre les toits rectangulaires à deux pans décrits par la commande ; les intersections en L et noues ne sont pas produites. La validation artistique finale reste à l’auteur.
+La livraison initiale couvre les toits rectangulaires à deux pans. L’extension demandée ensuite par l’auteur ajoute les intersections ci-dessous ; la validation artistique finale reste à l’auteur.
+
+### Extension des plans — L, T et X
+
+Le catalogue comporte désormais 598 modules : les 112 droites préservées, 216 L, 216 T et 54 croisements. Chaque raccord occupe un carré de D × D cases, D allant de 2 à 5 ; il relie des ailes de même largeur et hauteur. Les L et T sont disponibles dans quatre orientations. Leur combinaison avec les tronçons droits permet des U, H et plans à plusieurs ailes. Les diagonales et raccords de largeurs différentes ne sont pas couverts.
+
+Les matériaux peints sont réutilisés. Les pans situés à l’intérieur de l’union des volumes sont supprimés : ils ne peuvent plus ressortir sous le pignon d’une autre aile. Les PNG antérieurs des L et les scripts sont sauvegardés dans `Toitures/BeforeJunctions/`.
+
+20 tests Python ciblés passent. Les cartes `roofs-l` et `roofs-junctions` couvrent toutes les variantes ; `roofs-buildings` présente les L et T sur deux niveaux de façades de contrôle dans une racine moteur autonome `Toitures/EngineJunctions/`. Mode d’emploi : `Toitures/JONCTIONS.md`.
+
+### L'import dans le projet : une arborescence
+
+598 toits et le kit : 632 fichiers à plat dans `capital/Common/Scene/`. Choix de l'auteur, le kit se
+range **par famille**, les toits **par sorte puis par largeur** — `floors/`, `walls/`,
+`balustrades/`, `plants/`, `props/`, `roofs/{straight,l,t,x}/d2…d5/` ; le kit impérial en `walls/`,
+`props/`, `columns/`. Un seul manifeste par `Scene/`, qui cite chaque pièce par son chemin : les
+clés, donc les cartes, ne changent pas. Le moteur prend le chemin dans le manifeste
+(`PlaceAppearance::pieceFile`), lit l'ancre d'une image rangée dans le manifeste du lieu, la palette
+de l'éditeur se groupe par dossier ; l'installateur range d'après une règle `folders` du
+descripteur, que le standard d'arborescence décrit. Les 636 images installées sont identiques,
+pixels et ancres, à celles d'avant le rangement.
+
+## Livraison
+
+Livré le 23 septembre 2026, **PR #121**, sur décision de l'auteur. 968 tests CTest et 158 tests des
+scripts verts. L'éditeur ne lit pas encore les lieux rangés sous `Regions/` : on y peint les toits
+par la racine d'essai `validate_capital_roofs.py --sandbox` jusqu'au `LOT-124`.

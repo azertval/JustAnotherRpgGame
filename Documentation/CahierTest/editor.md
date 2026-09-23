@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **183 cas** (18 bloquants, 43 critiques, 95 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **184 cas** (18 bloquants, 43 critiques, 96 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -28,7 +28,7 @@ Tests unitaires — **183 cas** (18 bloquants, 43 critiques, 95 majeurs, 27 mine
 | [`test_map_render.cpp`](#test-map-rendercpp) | 4 | - | - | 3 | 1 |
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
-| [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 6 | - | 1 | 4 | 1 |
+| [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 7 | - | 1 | 5 | 1 |
 | [`test_scene_painter.cpp`](#test-scene-paintercpp) | 3 | 2 | - | 1 | - |
 | [`test_shipped_maps.cpp`](#test-shipped-mapscpp) | 4 | 4 | - | - | - |
 | [`test_stamps.cpp`](#test-stampscpp) | 9 | - | 2 | 6 | 1 |
@@ -2740,6 +2740,23 @@ Le type d'une pièce vient de la table du lieu.
 - Vérifie que `hmi::pieceCellType(&table.appearance, "cobble", true)` vaut `core::TileType::Empty`.
 - Vérifie que `hmi::pieceCellType(&table.appearance, "old-wall", false)` vaut `core::TileType::Solid`.
 - Vérifie que `hmi::pieceCellType(nullptr, "street", true)` vaut `core::TileType::Empty`.
+
+### PieceCatalogTest.UnKitRangeSeGroupeParDossier
+
+*Majeur · Unitaire · Editeur · Palette* — `Source/Test/Unit/Editor/test_piece_catalog.cpp:211`
+
+La palette se groupe par dossier du kit.
+
+**Étapes**
+
+1. Lire le catalogue d'un manifeste dont des toits et un sol sont ranges en sous-dossiers, un tonneau a plat.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `labels` vaut `(std::vector<std::string>{"Standing", "floors", "roofs/l/d3", "roofs/t/d2"})`.
+- Vérifie que `catalog[2].pieces.size()` vaut `2U`.
+- Vérifie que `catalog[1].pieces.front().floor` est vrai.
 
 ## test_scene_painter.cpp
 

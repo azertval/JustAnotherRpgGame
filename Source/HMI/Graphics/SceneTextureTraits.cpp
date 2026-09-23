@@ -135,8 +135,26 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
     // La pièce : son manifeste est dans son dossier. La figurine : plus haut, dans celui de
     // l'atelier qui la range (`Characters/`, `Npc/`) — un ou plusieurs dossiers au-dessus, car un
     // héros se range par classe (`Characters/Heroes/brawler/`).
-    const std::string filename = file.filename().string();
-    if (const std::optional<nlohmann::json> manifest = manifestOf(file.parent_path())) {
+    // Une pièce peut aussi être rangée dans un sous-dossier de son lieu (`roofs/l/d3/…`, LOT-129) :
+    // son manifeste est alors plus haut, et la cite par son chemin relatif à lui. Le premier
+    // manifeste qui la cite, en remontant, est le sien.
+    std::string filename = file.filename().string();
+    std::optional<nlohmann::json> manifest;
+    const std::filesystem::path relative{path};
+    for (std::filesystem::path owner = relative.parent_path(); !owner.empty();
+         owner = owner.parent_path()) {
+        std::optional<nlohmann::json> candidate = manifestOf(assetsDirectory / owner);
+        const std::string key = relative.lexically_relative(owner).generic_string();
+        if (candidate && entryOf(*candidate, key) != nullptr) {
+            manifest = std::move(candidate);
+            filename = key;
+            break;
+        }
+        if (owner == relative.parent_path() && candidate) {
+            manifest = std::move(candidate);  // le dossier de l'image, à défaut : figurines, sols.
+        }
+    }
+    if (manifest) {
         traits.artTile = manifestArtTile(*manifest);
         traits.anchor = scenePieceAnchor(*manifest, filename);
         traits.depthOffset = scenePieceDepthOffset(*manifest, filename);
@@ -147,10 +165,10 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
     // Les ancêtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
     std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
     for (; traits.artTile.x <= 0.0F && !ancestor.empty(); ancestor = ancestor.parent_path()) {
-        if (const std::optional<nlohmann::json> manifest = manifestOf(assetsDirectory / ancestor)) {
-            traits.artTile = manifestArtTile(*manifest);
+        if (const std::optional<nlohmann::json> above = manifestOf(assetsDirectory / ancestor)) {
+            traits.artTile = manifestArtTile(*above);
             if (!traits.groundLine) {
-                traits.groundLine = manifestGroundLine(*manifest);
+                traits.groundLine = manifestGroundLine(*above);
             }
         }
     }

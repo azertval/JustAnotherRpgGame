@@ -1,6 +1,20 @@
 {
   "version": 1,
   "target": "Regions/central-empire/Common/Scene",
+  "folders": [
+    {
+      "match": "^wall-",
+      "folder": "walls"
+    },
+    {
+      "match": "^prop-",
+      "folder": "props"
+    },
+    {
+      "match": "^column-",
+      "folder": "columns"
+    }
+  ],
   "pieces": [
     {
       "source": "../capital/Common/V4/Calibres/prop-banner-lion.png",

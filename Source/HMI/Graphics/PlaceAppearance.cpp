@@ -125,6 +125,10 @@ void PlaceAppearance::adoptManifest(const core::ScenePieceManifest& manifest) {
         if (piece.footprintColumns > 1 || piece.footprintRows > 1) {
             _footprints.insert_or_assign(piece.name, piece.footprint());
         }
+        // Une pièce rangée ailleurs qu'à plat : le rendu doit la chercher sous son vrai chemin.
+        if (!piece.file.empty() && piece.file != piece.name + ".png") {
+            _files.insert_or_assign(piece.name, piece.file);
+        }
         // Ce qui monte au-dessus du sommet haut de l'emprise : l'ancre, a defaut le haut de
         // l'image au-dessus du losange de sa case. En largeurs de case, au losange du lieu -- a
         // defaut la largeur de la piece sur son emprise, comme le rendu le suppose.
@@ -156,6 +160,11 @@ std::string_view PlaceAppearance::canonicalPiece(std::string_view name) const {
 core::PieceFootprint PlaceAppearance::pieceFootprint(std::string_view name) const {
     const auto found = _footprints.find(name);
     return found == _footprints.end() ? core::PieceFootprint{} : found->second;
+}
+
+std::string_view PlaceAppearance::pieceFile(std::string_view name) const {
+    const auto found = _files.find(name);
+    return found == _files.end() ? std::string_view{} : std::string_view{found->second};
 }
 
 PlaceAppearanceResult PlaceAppearance::fromDocument(const core::JsonDocument& document) {

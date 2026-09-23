@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **184 cas** (34 bloquants, 59 critiques, 83 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **186 cas** (36 bloquants, 59 critiques, 83 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -28,6 +28,7 @@ Tests unitaires — **184 cas** (34 bloquants, 59 critiques, 83 majeurs, 8 mineu
 | [`test_quad_recorder.cpp`](#test-quad-recordercpp) | 7 | - | 3 | 3 | 1 |
 | [`test_render_culling.cpp`](#test-render-cullingcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_rhi_offscreen.cpp`](#test-rhi-offscreencpp) | 4 | 2 | 1 | 1 | - |
+| [`test_scene_folders.cpp`](#test-scene-folderscpp) | 2 | 2 | - | - | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
 | [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 32 | 4 | 14 | 14 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
@@ -2652,6 +2653,47 @@ La teinte multiplie la texture et l'effacement subsiste hors du quad.
 - Vérifie que `outside.red()` vaut `0`.
 - Vérifie que `outside.green()` vaut `0`.
 - Vérifie que `outside.blue()` vaut `255`.
+
+## test_scene_folders.cpp
+
+### SceneFoldersTest.UnePieceRangeeSeRetrouveParSonChemin
+
+*Bloquant · Unitaire · Lieu compose · Arborescence* — `Source/Test/Unit/HMI/Graphics/test_scene_folders.cpp:47`
+
+Une piece rangee en sous-dossier se retrouve par son chemin.
+
+**Étapes**
+
+1. Adopter un manifeste dont un sol et un toit sont ranges en sous-dossiers, un tonneau a plat.
+2. Tirer l'instantane d'une carte qui les pose, et ses chemins d'images.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `manifest.ok()` est vrai.
+- Vérifie que `read.appearance.pieceFile("roof-l-d3-ne-c0r0")` vaut `"roofs/l/d3/roof-l-d3-ne-c0r0.png"`.
+- Vérifie que `read.appearance.pieceFile("prop-barrel").empty()` est vrai.
+- Vérifie que `paths` vaut `(std::vector<std::string>{"Scene/ville/floors/floor-paving-01.png", "Scene/ville/prop-barrel.png", "Scene/ville/roofs/l/d3/roof-l-d3-ne-c0r0.png"})`.
+
+### SceneFoldersTest.LAncreDUnePieceRangeeSeLitDansLeManifesteDuLieu
+
+*Bloquant · Unitaire · Lieu compose · Arborescence* — `Source/Test/Unit/HMI/Graphics/test_scene_folders.cpp:97`
+
+L'ancre d'une piece rangee se lit dans le manifeste du lieu.
+
+**Étapes**
+
+1. Ecrire le manifeste d'un lieu, et un toit sous roofs/l/d3/.
+2. Lire les traits de l'image du toit.
+
+**Résultat attendu**
+
+- Vérifie que `traits.anchor.has_value()` est vrai.
+- Vérifie que `traits.anchor->x` vaut `97.0F` (comparaison flottante).
+- Vérifie que `traits.anchor->y` vaut `40.0F` (comparaison flottante).
+- Vérifie que `traits.artTile.x` vaut `256.0F` (comparaison flottante).
+- Vérifie que `traits.storeyHeight.has_value()` est vrai.
+- Vérifie que `*traits.storeyHeight` vaut `224.0F` (comparaison flottante).
 
 ## test_texture_atlas.cpp
 

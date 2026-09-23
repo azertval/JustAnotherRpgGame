@@ -468,3 +468,39 @@ def test_une_hache_qui_touche_la_voisine_reste_a_sa_main(characters):
     assert kept > 0
     # Tranchée à la borne, la moitié du manche passait chez la voisine ; il n'y reste que le contact.
     assert leaked < 0.05 * kept, (kept, leaked)
+
+
+def test_un_kit_se_range_en_sous_dossiers_et_le_controle_le_suit(zone):
+    """LOT-129 : une règle `folders` range chaque pièce d'après son nom ; réinstallée ailleurs, une
+    pièce ne laisse pas son ancien fichier ; la CI accepte l'arborescence."""
+    assets, scene, sources = zone
+    Image.fromarray(prism(1.6, 1, 1, 300)[0], 'RGBA').save(sources / 'toit.png')
+    Image.fromarray(prism(1.6, 1, 1, 200)[0], 'RGBA').save(sources / 'tonneau.png')
+    pieces = [{'source': 'toit.png', 'name': 'roof-l-d3-ne-c0r0', 'family': '09'},
+              {'source': 'tonneau.png', 'name': 'prop-barrel', 'family': '08'}]
+    assert M.main([str(write_descriptor(sources, pieces))]) == 0
+    assert (scene / 'roof-l-d3-ne-c0r0.png').is_file()
+
+    path = sources / 'install.json'
+    data = json.loads(path.read_text(encoding='utf-8'))
+    data['folders'] = [{'match': r'^roof-l-d(\d)', 'folder': r'roofs/l/d\1'}]
+    path.write_text(json.dumps(data), encoding='utf-8')
+    assert M.main([str(path)]) == 0
+
+    manifest = json.loads((scene / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['textures']['scene/zone/roof-l-d3-ne-c0r0']['file'] == 'roofs/l/d3/roof-l-d3-ne-c0r0.png'
+    assert manifest['textures']['scene/zone/prop-barrel']['file'] == 'prop-barrel.png'
+    assert (scene / 'roofs' / 'l' / 'd3' / 'roof-l-d3-ne-c0r0.png').is_file()
+    assert not (scene / 'roof-l-d3-ne-c0r0.png').exists()
+    report = check_hd_assets.check(root=assets, maps_text='')
+    assert report.errors == []
+
+
+@pytest.mark.parametrize('folder', ['../dehors', '/racine', ''])
+def test_un_dossier_hors_de_la_cible_est_refuse(tmp_path, folder):
+    path = write_descriptor(tmp_path, [])
+    data = json.loads(path.read_text(encoding='utf-8'))
+    data['folders'] = [{'match': '^roof-', 'folder': folder}]
+    path.write_text(json.dumps(data), encoding='utf-8')
+    with pytest.raises(M.DescriptorError, match='dossier'):
+        M.read_descriptor(path)

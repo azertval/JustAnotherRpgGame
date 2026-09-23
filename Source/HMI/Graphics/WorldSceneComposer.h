@@ -250,6 +250,9 @@ struct WorldSceneSnapshot {
     std::map<std::string, core::PieceFootprint, std::less<>> footprints;
     /// Les couches d'étage, de la plus basse à la plus haute (`LOT-129`).
     std::vector<WorldStoreySnapshot> storeys;
+    /// Le fichier, relatif au dossier du lieu, des pièces citées qui ne sont pas `<nom>.png` à plat
+    /// (`hmi::PlaceAppearance::pieceFile`) : un kit rangé en sous-dossiers.
+    std::map<std::string, std::string, std::less<>> pieceFiles;
     std::vector<WorldFigureSnapshot> figures;
     /// Les jetons et les tracés de maquette (`LOT-128`), déjà choisis par `maquetteMarks`.
     MaquetteMarks marks;

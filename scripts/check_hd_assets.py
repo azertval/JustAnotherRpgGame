@@ -244,7 +244,10 @@ def check(root: Path = ASSETS, maps_text: str | None = None) -> Report:
             if manifest is None:
                 continue
             if "textures" in manifest:
-                cited[directory] = check_scene(directory, manifest, root, report)
+                # Un kit rangé en sous-dossiers (LOT-129) : chaque image est citée dans le sien.
+                for file in check_scene(directory, manifest, root, report):
+                    image = directory / file
+                    cited.setdefault(image.parent, set()).add(image.name)
             elif "npcs" in manifest:
                 cited.update(check_characters(directory, manifest, root, report))
 

@@ -8,7 +8,7 @@
   "storey": 224,
   "textures": {
     "scene/central-empire/prop-banner-lion": {
-      "file": "prop-banner-lion.png",
+      "file": "props/prop-banner-lion.png",
       "class": "tall",
       "family": "08",
       "footprint": [
@@ -30,7 +30,7 @@
       }
     },
     "scene/central-empire/wall-limestone-banner-u": {
-      "file": "wall-limestone-banner-u.png",
+      "file": "walls/wall-limestone-banner-u.png",
       "class": "wide",
       "family": "02",
       "footprint": [
@@ -52,7 +52,7 @@
       }
     },
     "scene/central-empire/wall-limestone-banner-v": {
-      "file": "wall-limestone-banner-v.png",
+      "file": "walls/wall-limestone-banner-v.png",
       "class": "wide",
       "family": "02",
       "footprint": [
@@ -74,7 +74,7 @@
       }
     },
     "scene/central-empire/column-lion-emblem": {
-      "file": "column-lion-emblem.png",
+      "file": "columns/column-lion-emblem.png",
       "class": "tall",
       "family": "03",
       "footprint": [
