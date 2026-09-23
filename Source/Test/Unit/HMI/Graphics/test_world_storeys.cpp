@@ -10,7 +10,9 @@
  * hauteur d'étage déclarée comme le manifeste d'un lieu la déclare.
  */
 
+#include <algorithm>
 #include <cstdint>
+#include <limits>
 #include <optional>
 #include <string>
 #include <utility>
@@ -287,4 +289,66 @@ TEST(WorldStoreysTest, UnEtagePasseApresLaPieceLargeQuiLePorte) {
     ASSERT_NE(composed.byStorey[0], nullptr);
     ASSERT_NE(composed.byStorey[1], nullptr);
     EXPECT_GT(composed.byStorey[1]->sortOrder, composed.byStorey[0]->sortOrder);
+}
+
+/**
+ * @brief En maquette, un mur peint sur une couche d'étage s'extrude en bloc, élevé d'une hauteur de
+ *        bloc au-dessus de celui du rez — ce que l'auteur voit en peignant un étage sur une carte
+ *        sans lieu.
+ * \castest{<b>En maquette, un etage peint se voit.</b><br/>
+ * \tcat Unitaire · Lieu compose · Etages<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Batir une carte sans lieu : un mur peint au rez en (1, 1), un mur peint sur une
+ *             couche d'etage 1 a la meme case, sans piece.<br/>
+ *          2. Composer.<br/>
+ * \tattendu Des faces de bloc marquees de l'etage 1, plus hautes a l'ecran que celles du rez, et
+ *           dessinees apres elles.
+ * }
+ */
+TEST(WorldStoreysTest, EnMaquetteUnEtagePeintSeVoit) {
+    core::LevelData data{.name = "maquette", .tileMap = core::TileMap{3, 3}};
+    data.layers.push_back(core::TileLayer{
+        .name = "sol", .kind = core::LayerKind::Ground, .tiles = core::TileMap{3, 3}});
+    for (int floor = 0; floor < 2; ++floor) {
+        core::TileLayer layer{.name = floor == 0 ? "rez" : "etage",
+                              .kind = core::LayerKind::Decor,
+                              .tiles = core::TileMap{3, 3},
+                              .properties = {},
+                              .floor = floor};
+        layer.tiles.setTile(1, 1, core::TileType::Wall);
+        data.layers.push_back(std::move(layer));
+    }
+    hmi::PlaceAppearanceResult blank = hmi::PlaceAppearance::loadFromString(
+        R"({"version": 1, "place": "", "floors": {}, "relief": {}})");
+    const hmi::WorldSceneSnapshot snapshot = hmi::snapshotWorldScene(
+        core::Level{std::move(data)}, blank.ok() ? blank.appearance : hmi::PlaceAppearance{}, {});
+    ASSERT_EQ(snapshot.storeys.size(), 1U);
+
+    hmi::ScenePieceTextures solid;
+    solid.solid = hmi::SceneTexture{.texture = handle(1), .width = 1, .height = 1};
+    const hmi::ComposedScene scene =
+        hmi::composeWorldScene(snapshot, core::IsoProjection{3, 3}, solid);
+    float rezTop = std::numeric_limits<float>::infinity();
+    float storeyTop = std::numeric_limits<float>::infinity();
+    std::int32_t rezOrder = 0;
+    std::int32_t storeyOrder = 0;
+    std::size_t storeyFaces = 0;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        if (quad.kind != hmi::QuadKind::Poly || quad.layer != hmi::RenderLayer::Object) {
+            continue;
+        }
+        const float top =
+            std::min({quad.poly.y[0], quad.poly.y[1], quad.poly.y[2], quad.poly.y[3]});
+        if (quad.storey == 1) {
+            ++storeyFaces;
+            storeyTop = std::min(storeyTop, top);
+            storeyOrder = quad.sortOrder;
+        } else {
+            rezTop = std::min(rezTop, top);
+            rezOrder = quad.sortOrder;
+        }
+    }
+    EXPECT_EQ(storeyFaces, 3U);
+    EXPECT_LT(storeyTop, rezTop);
+    EXPECT_GT(storeyOrder, rezOrder);
 }

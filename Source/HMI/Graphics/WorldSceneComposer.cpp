@@ -147,32 +147,67 @@ void composeMaquetteDiamond(ComposedScene& scene, const core::IsoProjection& pro
 // Sur le calque du DECOR, et trie au pied de la case comme une piece de relief : c'est ce qui le
 // fait masquer ce qui est derriere lui, figurines comprises. Un bloc pose sur le calque des tuiles
 // passerait sous le heros quel que soit leur ordre, et le mur cesserait d'etre un mur.
-void composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& projection,
-                          const ScenePieceTextures& textures, core::GridPosition cell,
-                          core::TileType type) {
+/// L'élévation d'un étage de maquette : la hauteur d'un bloc de mur, pour que les blocs s'empilent.
+[[nodiscard]] float maquetteStoreyHeight(const core::IsoProjection& projection) {
+    return projection.tileHeight() * maquetteShape(core::TileType::Wall).height;
+}
+
+/// Ce qui masque le héros, s'il y en a un : son image, et son rang de dessin.
+struct HeroPlacement {
+    core::Rect bounds;
+    std::int32_t sortOrder = 0;
+};
+
+// Un bloc de maquette ; sur un etage (@p storey > 0), eleve de @p storey hauteurs de bloc, trie au
+// rang de l'etage, jamais avant @p minimumFootY, et efface s'il masque le heros (LOT-129).
+// @return Le pied retenu pour le tri.
+float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& projection,
+                           const ScenePieceTextures& textures, core::GridPosition cell,
+                           core::TileType type, int storey = 0,
+                           float minimumFootY = -std::numeric_limits<float>::infinity(),
+                           const std::optional<HeroPlacement>& hero = std::nullopt) {
     const core::Rect bounds = projection.tileBounds(cell);
     const MaquetteShape shape = maquetteShape(type);
-    const DiamondVertices base = shrunk(diamondOf(bounds), shape.footprint);
+    const float elevation = static_cast<float>(storey) * maquetteStoreyHeight(projection);
+    DiamondVertices base = shrunk(diamondOf(bounds), shape.footprint);
+    for (float& y : base.y) {
+        y -= elevation;
+    }
     const float height = bounds.size.y * shape.height;  // en hauteurs de losange
-    const MaquetteColor tint = maquetteColor(type);
-    const float footY =
+    MaquetteColor tint = maquetteColor(type);
+    const float footY = std::max(
+        minimumFootY,
         projection
             .gridToWorld(gridPoint(static_cast<float>(cell.column), static_cast<float>(cell.row)))
-            .y;
-    const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Relief);
+            .y);
+    const WorldDepthSlot slot =
+        storey > 0 ? static_cast<WorldDepthSlot>(static_cast<std::int32_t>(WorldDepthSlot::Storey) +
+                                                 std::min(storey, core::MAX_STOREY_FLOOR) - 1)
+                   : WorldDepthSlot::Relief;
+    const std::int32_t order = worldDepthSortOrder(footY, slot);
     const auto raised = [height](float y) { return y - height; };
+    float alpha = 1.0F;
+    if (storey > 0 && hero && order > hero->sortOrder) {
+        const core::Rect block{{bounds.position.x, bounds.position.y - elevation - height},
+                               {bounds.size.x, bounds.size.y + height}};
+        if (block.intersects(hero->bounds)) {
+            alpha = STOREY_SEE_THROUGH_OPACITY;
+        }
+    }
 
     // Face gauche : arete gauche -> bas, puis les deux memes sommets remontes.
     PolyQuad leftFace = tintedQuad(tint, BLOCK_LEFT_LIGHT);
     leftFace.x = {base.x[3], base.x[2], base.x[2], base.x[3]};
     leftFace.y = {base.y[3], base.y[2], raised(base.y[2]), raised(base.y[3])};
-    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace);
+    leftFace.a *= alpha;
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace, storey);
 
     // Face droite : bas -> arete droite.
     PolyQuad rightFace = tintedQuad(tint, BLOCK_RIGHT_LIGHT);
     rightFace.x = {base.x[2], base.x[1], base.x[1], base.x[2]};
     rightFace.y = {base.y[2], base.y[1], raised(base.y[1]), raised(base.y[2])};
-    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace);
+    rightFace.a *= alpha;
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace, storey);
 
     // Dessus : le losange de la case, remonte d'une hauteur.
     PolyQuad topFace = tintedQuad(tint, BLOCK_TOP_LIGHT);
@@ -180,7 +215,9 @@ void composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proje
     for (std::size_t i = 0; i < 4; ++i) {
         topFace.y[i] = raised(base.y[i]);
     }
-    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace);
+    topFace.a *= alpha;
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace, storey);
+    return footY;
 }
 
 // Epaisseur d'un trace de maquette, en hauteurs de losange : assez fin pour ne pas couvrir le sol,
@@ -328,12 +365,6 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                     floorQuad(projection.tileBounds(cell)));
 }
 
-/// Ce qui masque le héros, s'il y en a un : son image, et son rang de dessin.
-struct HeroPlacement {
-    core::Rect bounds;
-    std::int32_t sortOrder = 0;
-};
-
 // Pose une piece de relief a sa case ; sur une couche d'etage (@p storey > 0), elevee de @p storey
 // hauteurs d'etage, triee au-dessus du rez de sa case, et effacee si elle masque le heros. Son pied
 // ne passe jamais avant @p minimumFootY : le pied le plus avance de ce qui la porte.
@@ -417,7 +448,7 @@ std::optional<float> composeRelief(ComposedScene& scene, const WorldSceneSnapsho
         // plat n'a, lui, pas de forme a prendre.
         const core::TileType type = snapshot.reliefTypeAt(cell);
         if (textures.solid.texture != nullptr && maquetteExtrudes(type) && !flatBlocks) {
-            composeMaquetteBlock(scene, projection, textures, cell, type);
+            return composeMaquetteBlock(scene, projection, textures, cell, type);
         }
         return std::nullopt;
     }
@@ -746,13 +777,16 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
             couche.tiles.height() != snapshot.rows) {
             continue;
         }
-        WorldStoreySnapshot storey{.floor = couche.floor, .relief = {}};
+        WorldStoreySnapshot storey{.floor = couche.floor, .relief = {}, .types = {}};
         storey.relief.assign(cases, std::string{});
+        storey.types.assign(cases, core::TileType::Empty);
         for (int row = 0; row < snapshot.rows; ++row) {
             for (int column = 0; column < snapshot.columns; ++column) {
                 const core::GridPosition cell{.column = column, .row = row};
                 const std::size_t index = indexOf(cell, snapshot.columns);
-                // Un etage ne se deduit pas du type : seule une piece nommee s'y pose.
+                // Un etage ne se deduit pas du type : seule une piece nommee s'y pose ; sans elle,
+                // le type s'extrude en maquette.
+                storey.types[index] = couche.tiles.tile(column, row);
                 storey.relief[index] = std::string{couche.pieceAt(column, row)};
                 if (storey.relief[index].empty()) {
                     continue;
@@ -929,7 +963,20 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
             for (int column = 0; column < snapshot.columns; ++column) {
                 const core::GridPosition cell{.column = column, .row = row};
                 const std::size_t index = indexOf(cell, snapshot.columns);
-                if (index >= storey.relief.size() || storey.relief[index].empty()) {
+                if (index >= storey.relief.size()) {
+                    continue;
+                }
+                if (storey.relief[index].empty()) {
+                    // Sans pièce nommée, un mur d'étage s'extrude en maquette, comme au rez.
+                    const core::TileType type =
+                        index < storey.types.size() ? storey.types[index] : core::TileType::Empty;
+                    if (textures.solid.texture != nullptr && maquetteExtrudes(type) &&
+                        !options.flatBlocks) {
+                        float& foot = next[index];
+                        foot = std::max(
+                            foot, composeMaquetteBlock(scene, projection, textures, cell, type,
+                                                       storey.floor, cover[index], hero));
+                    }
                     continue;
                 }
                 if (const std::optional<float> foot = composeStandingPiece(

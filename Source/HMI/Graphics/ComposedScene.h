@@ -189,10 +189,11 @@ public:
      * @param texture   Texture liée (l'aplat blanc, en pratique).
      * @param sortOrder Tri fin à l'intérieur du calque et de la texture.
      * @param quad      Primitive à composer (unités monde).
+     * @param storey    Étage de la pièce (`LOT-129`), 0 au rez.
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                 const PolyQuad& quad);
+                 const PolyQuad& quad, int storey = 0);
 
     /// Ordonne la scène (calque, puis texture, puis `sortOrder`), de façon **stable**.
     void sort();

@@ -100,7 +100,7 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
 // Ajoute un quadrilatere a quatre sommets libres a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                            const PolyQuad& quad) {
+                            const PolyQuad& quad, int storey) {
     ++_considered;
     if (!isVisible(polyQuadBounds(quad))) {
         ++_culled;
@@ -113,6 +113,7 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Poly;
     composed.poly = quad;
+    composed.storey = storey;
     _quads.push_back(composed);
     return true;
 }

@@ -223,6 +223,9 @@ struct MaquetteMarks {
 struct WorldStoreySnapshot {
     int floor = 1;
     std::vector<std::string> relief;
+    /// Le type de chaque case de la couche : sans pièce nommée, un mur s'y extrude en maquette,
+    /// comme au rez (`LOT-128`).
+    std::vector<core::TileType> types;
 
     [[nodiscard]] bool operator==(const WorldStoreySnapshot&) const = default;
 };
