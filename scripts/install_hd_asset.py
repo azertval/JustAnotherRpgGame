@@ -46,11 +46,54 @@ Le descripteur (`install.json`) :
       ]
     }
 
+## Les figurines (LOT-112)
+
+Un descripteur dont la cible est un dossier `Characters/` installe des **figurines** au lieu de
+pièces. Chaque source est une **bande d'animation** du générateur : N images côte à côte, sur fond
+transparent (la variante « planche d'animation » de la consigne).
+
+1. **Détourer**, comme une pièce : voile à 0, intérieur à 255, îlots effacés.
+2. **Découper** en exactement N images : par les colonnes vides qui les séparent ; si leur compte
+   ne tombe pas juste (deux images qui se touchent, une lance qui dépasse), l'étendue de l'art se
+   partage en N parts égales, et une part vide est une erreur. Les centres des images se
+   régularisent sur un pas constant : c'est la grille que le générateur a dessinée, et ce qu'une
+   image s'en écarte (une fente, un recul) est du mouvement, à garder.
+3. **Réduire** toute la bande d'**une seule** échelle : celle qui donne à l'image de repos
+   (`standingFrame`, la première par défaut) la hauteur du standard, 170 px — ou `scale`.
+4. **Poser** chaque image dans sa cellule (192 × 256, 384 × 256 si `wide` ; `frame`, `wideFrame`
+   et `ground` du manifeste s'il les déclare) : un seul décalage pour toute la bande, calculé sur
+   l'image de repos — sa ligne visible la plus basse sur le sol (y = 252), le milieu de sa boîte au
+   milieu de la cellule. Une image qui ne laisse pas 4 px transparents à gauche et à droite de sa
+   cellule est refusée : les cellules sont jointives dans la bande (le moteur l'exige), la marge de
+   8 px entre deux images du standard est donc à l'intérieur. En haut et en bas, l'image n'a qu'à
+   tenir : aucune voisine n'y est, et le sol est à 4 px du bord.
+5. **Inscrire** : `<nom>/<clip>-<orientation>.png` (ou `<clip>.png` sans orientation) et son
+   `.anim.json`, au format du moteur (`hmi::AnimationCatalog`) ; le portrait (512 × 512) et le
+   jeton (128 × 128, détouré en rond) si une source de portrait est donnée ; le nom dans `npcs` du
+   manifeste, les sources et leur empreinte dans son objet `sources`.
+
+    {
+      "version": 1,
+      "target": "Common/Characters",
+      "figures": [
+        {"name": "Heroes/brawler", "portrait": "brawler/portrait.png",
+         "strips": [
+           {"source": "brawler/walk-se.png", "clip": "walk", "facing": "se", "frames": 8,
+            "frameDuration": 0.1, "loop": true},
+           {"source": "brawler/attack-se.png", "clip": "attack", "facing": "se", "frames": 6,
+            "wide": true, "loop": false, "standingFrame": 0}
+         ]}
+      ]
+    }
+
 Usage :
     python scripts/install_hd_asset.py Tools/AssetsHD/Colisee/install.json
     python scripts/install_hd_asset.py DESCRIPTEUR --piece wall-arcade-u   # une seule pièce
+    python scripts/install_hd_asset.py DESCRIPTEUR --piece Heroes/brawler  # une seule figurine
     python scripts/install_hd_asset.py DESCRIPTEUR --check   # l'installé est-il à jour des sources ?
     python scripts/install_hd_asset.py DESCRIPTEUR --measure # mesures seules, rien n'est écrit
+                                                             # (figurines : image par image, boîte,
+                                                             # ligne basse, appuis au sol)
 
 Dépendances : Pillow et numpy (outil de production, pas de CI : les sources n'y sont pas).
 """
@@ -106,6 +149,28 @@ CHAMPS = {"source", "name", "sheet", "family", "footprint", "class", "tactical",
 # Le nom d'une pièce (arborescence, règle 4) : minuscules, chiffres, tirets.
 NOM = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
+# --- Les figurines (standard 2D HD, §2 et §5) -----------------------------------------------------
+# La cellule d'une image, la cellule large (attaque, sort), la ligne de sol et la hauteur d'une
+# figurine humanoïde, en px installés. Le manifeste de la cible peut déclarer les trois premières.
+CELLULE = (192, 256)
+CELLULE_LARGE = (384, 256)
+SOL = 252
+HAUTEUR_FIGURINE = 170
+# La marge transparente de chaque côté d'une cellule : la moitié des 8 px entre deux images.
+MARGE_CELLULE = 4
+# Un pixel « visible » pour les mesures d'une figurine (sol, boîte, appuis).
+OPAQUE = 128
+# Les rangées au-dessus de la plus basse où un pixel compte encore comme un appui au sol.
+APPUI = 3
+PORTRAIT = 512
+JETON = 128
+ORIENTATIONS = {"se", "sw", "ne", "nw"}
+CHAMPS_FIGURE = {"name", "strips", "portrait", "token"}
+CHAMPS_BANDE = {"source", "clip", "facing", "frames", "frameDuration", "loop", "wide", "standingFrame", "scale"}
+# Un dossier de figurine : des dossiers de rangement (`Heroes`), puis le nom de la figurine.
+DOSSIER = re.compile(r"^[A-Za-z0-9]+(-[a-z0-9]+)*$")
+CLIP = re.compile(r"^[a-z]+$")
+
 
 class DescriptorError(ValueError):
     """Un descripteur qui ne dit pas assez, ou pas juste, ce que devient une source."""
@@ -134,10 +199,41 @@ class PieceSpec:
 
 
 @dataclass
+class StripSpec:
+    """Une bande d'animation d'une figurine, lue dans le descripteur."""
+
+    source: str
+    clip: str
+    frames: int
+    facing: str | None = None
+    frame_duration: float = 0.1
+    loop: bool = True
+    wide: bool = False
+    standing_frame: int = 0
+    scale: float | None = None
+
+    @property
+    def stem(self) -> str:
+        """Le nom du fichier installé, sans extension : `walk-se`, ou `walk` sans orientation."""
+        return self.clip if self.facing is None else f"{self.clip}-{self.facing}"
+
+
+@dataclass
+class FigureSpec:
+    """Une figurine : ses bandes, et la source de son portrait (et de son jeton)."""
+
+    name: str
+    strips: list[StripSpec]
+    portrait: str | None = None
+    token: str | None = None
+
+
+@dataclass
 class Descriptor:
     path: Path
     target: str
     pieces: list[PieceSpec] = field(default_factory=list)
+    figures: list[FigureSpec] = field(default_factory=list)
 
     @property
     def source_dir(self) -> Path:
@@ -146,6 +242,10 @@ class Descriptor:
     @property
     def target_dir(self) -> Path:
         return ASSETS / self.target
+
+    @property
+    def is_characters(self) -> bool:
+        return self.target.endswith("/Characters") or self.target == "Characters"
 
 
 def _pair(value, what: str) -> tuple[int, int]:
@@ -164,9 +264,18 @@ def read_descriptor(path: Path) -> Descriptor:
     if data.get("version") != DESCRIPTOR_VERSION:
         raise DescriptorError(f"{path} : version {data.get('version')!r}, attendu {DESCRIPTOR_VERSION}")
     target = data.get("target")
-    if not isinstance(target, str) or not target.endswith("/Scene") or ".." in target:
-        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ sous les assets")
+    if not isinstance(target, str) or ".." in target:
+        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ ou Characters/ sous les assets")
     descriptor = Descriptor(path=path, target=target)
+    if descriptor.is_characters:
+        if "pieces" in data:
+            raise DescriptorError(f"{path} : un dossier Characters/ reçoit des `figures`, pas des `pieces`")
+        descriptor.figures = read_figures(path, data.get("figures", []))
+        return descriptor
+    if not target.endswith("/Scene"):
+        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ ou Characters/ sous les assets")
+    if "figures" in data:
+        raise DescriptorError(f"{path} : un dossier Scene/ reçoit des `pieces`, pas des `figures`")
     seen: set[str] = set()
     for index, raw in enumerate(data.get("pieces", [])):
         where = f"{path.name}, pièce {index + 1}"
@@ -219,6 +328,92 @@ def read_descriptor(path: Path) -> Descriptor:
     if not descriptor.pieces:
         raise DescriptorError(f"{path} : aucune pièce")
     return descriptor
+
+
+def _positive_int(value) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value > 0
+
+
+def read_strip(raw, where: str) -> StripSpec:
+    """Une bande du descripteur ; toute faute est nommée."""
+    if not isinstance(raw, dict):
+        raise DescriptorError(f"{where} : une bande est un objet")
+    unknown = set(raw) - CHAMPS_BANDE
+    if unknown:
+        raise DescriptorError(f"{where} : champ(s) inconnu(s) {sorted(unknown)}")
+    source, clip, frames = raw.get("source"), raw.get("clip"), raw.get("frames")
+    if not isinstance(source, str):
+        raise DescriptorError(f"{where} : `source` manquante")
+    if not isinstance(clip, str) or not CLIP.match(clip):
+        raise DescriptorError(f"{where} : `clip` {clip!r} (minuscules : idle, walk, attack…)")
+    if not _positive_int(frames):
+        raise DescriptorError(f"{where} : `frames`, le nombre d'images, est un entier positif")
+    spec = StripSpec(source=source, clip=clip, frames=frames)
+    if "facing" in raw:
+        if raw["facing"] not in ORIENTATIONS:
+            raise DescriptorError(f"{where} : `facing` vaut {', '.join(sorted(ORIENTATIONS))}")
+        spec.facing = raw["facing"]
+    if "frameDuration" in raw:
+        duration = raw["frameDuration"]
+        if isinstance(duration, bool) or not isinstance(duration, (int, float)) or duration <= 0:
+            raise DescriptorError(f"{where} : `frameDuration` en secondes, positive")
+        spec.frame_duration = float(duration)
+    for key, attribute in (("loop", "loop"), ("wide", "wide")):
+        if key in raw:
+            if not isinstance(raw[key], bool):
+                raise DescriptorError(f"{where} : `{key}` vaut true ou false")
+            setattr(spec, attribute, raw[key])
+    if "standingFrame" in raw:
+        standing = raw["standingFrame"]
+        if isinstance(standing, bool) or not isinstance(standing, int) or not 0 <= standing < frames:
+            raise DescriptorError(f"{where} : `standingFrame` est le rang d'une image, de 0 à {frames - 1}")
+        spec.standing_frame = standing
+    if "scale" in raw:
+        scale = raw["scale"]
+        if isinstance(scale, bool) or not isinstance(scale, (int, float)) or not 0 < scale <= 1:
+            raise DescriptorError(f"{where} : `scale` dans ]0, 1] (l'art n'est jamais agrandi)")
+        spec.scale = float(scale)
+    return spec
+
+
+def read_figures(path: Path, raws) -> list[FigureSpec]:
+    """Les figurines d'un descripteur dont la cible est un dossier Characters/."""
+    if not isinstance(raws, list) or not raws:
+        raise DescriptorError(f"{path} : aucune figurine")
+    figures: list[FigureSpec] = []
+    names: set[str] = set()
+    for index, raw in enumerate(raws):
+        where = f"{path.name}, figurine {index + 1}"
+        if not isinstance(raw, dict):
+            raise DescriptorError(f"{where} : une figurine est un objet")
+        unknown = set(raw) - CHAMPS_FIGURE
+        if unknown:
+            raise DescriptorError(f"{where} : champ(s) inconnu(s) {sorted(unknown)}")
+        name = raw.get("name")
+        parts = name.split("/") if isinstance(name, str) else []
+        if not parts or not all(DOSSIER.match(p) for p in parts[:-1]) or not NOM.match(parts[-1]):
+            raise DescriptorError(f"{where} : nom {name!r} (dossiers de rangement, puis minuscules et tirets)")
+        if name in names:
+            raise DescriptorError(f"{where} : `{name}` nommée deux fois")
+        names.add(name)
+        strips_raw = raw.get("strips")
+        if not isinstance(strips_raw, list) or not strips_raw:
+            raise DescriptorError(f"{where} : `strips`, la liste des bandes, manque")
+        strips = [read_strip(s, f"{where}, bande {n + 1}") for n, s in enumerate(strips_raw)]
+        stems = [s.stem for s in strips]
+        doubles = sorted({s for s in stems if stems.count(s) > 1})
+        if doubles:
+            raise DescriptorError(f"{where} : {', '.join(doubles)} installée(s) deux fois")
+        figure = FigureSpec(name=name, strips=strips)
+        for key in ("portrait", "token"):
+            if key in raw:
+                if not isinstance(raw[key], str):
+                    raise DescriptorError(f"{where} : `{key}` nomme une source")
+                setattr(figure, key, raw[key])
+        if figure.token is not None and figure.portrait is None:
+            raise DescriptorError(f"{where} : un jeton sans portrait")
+        figures.append(figure)
+    return figures
 
 
 # --- Détourage et découpe ------------------------------------------------------------------------
@@ -482,6 +677,319 @@ def build(descriptor: Descriptor, only: str | None = None) -> list[Installed]:
     return ready
 
 
+# --- Les figurines -------------------------------------------------------------------------------
+
+
+@dataclass
+class FrameMeasure:
+    """Une image installée, mesurée dans sa cellule (px installés, pixels visibles ≥ `OPAQUE`)."""
+
+    box: tuple[int, int, int, int]  # x0, y0, x1, y1 (x1, y1 exclus)
+    bottom: int  # la rangée visible la plus basse
+    contact: tuple[int, int]  # x du premier et du dernier appui au sol
+
+
+@dataclass
+class InstalledStrip:
+    """Une bande prête : l'image (cellules jointives), son `.anim.json`, ses mesures."""
+
+    spec: StripSpec
+    image: np.ndarray
+    anim: dict
+    scale: float
+    cell: tuple[int, int]
+    frames: list[FrameMeasure]
+    split: str  # comment la bande s'est découpée : « colonnes vides » ou « parts égales »
+
+
+@dataclass
+class InstalledFigure:
+    """Une figurine prête : ses bandes, son portrait et son jeton, ses sources."""
+
+    name: str
+    strips: list[InstalledStrip]
+    portrait: np.ndarray | None = None
+    token: np.ndarray | None = None
+    sources: dict = field(default_factory=dict)
+
+    def files(self) -> dict[str, np.ndarray]:
+        """Les images à écrire dans le dossier de la figurine, par nom de fichier."""
+        images = {f"{s.spec.stem}.png": s.image for s in self.strips}
+        if self.portrait is not None:
+            images["portrait.png"] = self.portrait
+        if self.token is not None:
+            images["token.png"] = self.token
+        return images
+
+
+def detoured(rgba: np.ndarray) -> np.ndarray:
+    """La source entière détourée comme une pièce (voile, intérieur, îlots), à sa place."""
+    canvas = np.zeros_like(rgba)
+    for fragment in fragments(rgba):
+        x0, y0, x1, y1 = fragment.box
+        visible = fragment.image[..., 3] > 0
+        canvas[y0:y1, x0:x1][visible] = fragment.image[visible]
+    return canvas
+
+
+def runs(columns: np.ndarray) -> list[tuple[int, int]]:
+    """Les suites de colonnes pleines d'un profil booléen, en [début, fin)."""
+    edges = np.diff(np.concatenate(([0], columns.astype(np.int8), [0])))
+    return list(zip(np.nonzero(edges == 1)[0].tolist(), np.nonzero(edges == -1)[0].tolist()))
+
+
+def split_strip(alpha: np.ndarray, count: int, where: str) -> tuple[list[int], list[float], str]:
+    """Les bornes des `count` images d'une bande, les centres de leur grille, et la méthode.
+
+    Par les colonnes vides d'abord ; à défaut, `count` parts égales de l'étendue de l'art. Les
+    centres sont ceux d'une grille **régulière** : le générateur dessine à pas constant, et ce
+    qu'une image s'en écarte est du mouvement.
+    """
+    width = alpha.shape[1]
+    groups = runs(alpha.any(axis=0))
+    if not groups:
+        raise DescriptorError(f"{where} : bande vide après détourage")
+    if len(groups) == count:
+        # Des médianes, pas des moindres carrés : une image en fente tirerait toute la grille à elle.
+        centres = np.array([(a + b) / 2.0 for a, b in groups])
+        index = np.arange(count, dtype=float)
+        pitch = float(np.median(np.diff(centres))) if count > 1 else 0.0
+        origin = float(np.median(centres - pitch * index))
+        bounds = [0, *[(groups[i][1] + groups[i + 1][0]) // 2 for i in range(count - 1)], width]
+        return bounds, [float(origin + pitch * i) for i in range(count)], "colonnes vides"
+    start, end = groups[0][0], groups[-1][1]
+    step = (end - start) / count
+    bounds = [start + round(step * i) for i in range(count)] + [end]
+    for i in range(count):
+        if not alpha[:, bounds[i]:bounds[i + 1]].any():
+            raise DescriptorError(f"{where} : {len(groups)} groupe(s) de colonnes pour {count} images, et "
+                                  f"le partage en {count} parts égales laisse l'image {i + 1} vide")
+    return bounds, [start + step * (i + 0.5) for i in range(count)], "parts égales"
+
+
+def measure_frame(cell: np.ndarray) -> FrameMeasure:
+    visible = cell[..., 3] >= OPAQUE
+    ys, xs = np.nonzero(visible)
+    if len(ys) == 0:
+        return FrameMeasure(box=(0, 0, 0, 0), bottom=-1, contact=(-1, -1))
+    bottom = int(ys.max())
+    feet = xs[ys >= bottom - APPUI]
+    return FrameMeasure(box=(int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1),
+                        bottom=bottom, contact=(int(feet.min()), int(feet.max())))
+
+
+def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], ground: int,
+                  where: str) -> InstalledStrip:
+    """Une bande du générateur devient une bande du moteur : N cellules jointives, une échelle et
+    un décalage pour toutes, l'image de repos posée sur le sol au milieu de sa cellule."""
+    clean = detoured(rgba)
+    alpha = clean[..., 3]
+    bounds, centres, split = split_strip(alpha > 0, spec.frames, where)
+
+    standing = spec.standing_frame
+    rows = np.nonzero(alpha[:, bounds[standing]:bounds[standing + 1]].any(axis=1))[0]
+    scale = spec.scale if spec.scale is not None else HAUTEUR_FIGURINE / (rows.max() + 1 - rows.min())
+    if scale > 1.0:
+        raise DescriptorError(f"{where} : il faudrait agrandir la bande × {scale:.2f} ; la refaire plus grande")
+
+    height, width = alpha.shape
+    size = (max(1, round(width * scale)), max(1, round(height * scale)))
+    reduced = resize_premultiplied(clean, size)
+    sx = size[0] / width
+    edges = [round(b * sx) for b in bounds]
+    edges[-1] = size[0]
+    slots = [c * sx for c in centres]
+
+    # Le décalage de toute la bande, lu sur l'image de repos : son pied sur le sol, le milieu de sa
+    # boîte au milieu de la cellule.
+    visible = reduced[:, edges[standing]:edges[standing + 1], 3] >= OPAQUE
+    ys, xs = np.nonzero(visible)
+    if len(ys) == 0:
+        raise DescriptorError(f"{where} : l'image de repos {standing + 1} est vide")
+    dy = ground - int(ys.max())
+    box_centre = edges[standing] + (xs.min() + xs.max() + 1) / 2.0
+
+    cell_w, cell_h = cell
+    strip = np.zeros((cell_h, cell_w * spec.frames, 4), np.uint8)
+    measures: list[FrameMeasure] = []
+    for i in range(spec.frames):
+        part = reduced[:, edges[i]:edges[i + 1]]
+        ys, xs = np.nonzero(part[..., 3] > 0)
+        if len(ys) == 0:
+            raise DescriptorError(f"{where} : l'image {i + 1} est vide après réduction")
+        # La colonne u de la bande réduite tombe en u + ox dans la cellule.
+        ox = round(cell_w / 2.0 - box_centre + slots[standing] - slots[i])
+        x0, x1 = edges[i] + int(xs.min()) + ox, edges[i] + int(xs.max()) + 1 + ox
+        y0, y1 = int(ys.min()) + dy, int(ys.max()) + 1 + dy
+        # La marge ne vaut qu'à gauche et à droite : c'est là que sont les voisines, et c'est d'elles
+        # que le mipmap bave. En bas, elle contredirait le sol à 4 px du bord (le bord adouci d'un
+        # pied posé sur y = 252 descend plus bas) ; le haut et le bas n'ont qu'à tenir dans la cellule.
+        if x0 < MARGE_CELLULE or x1 > cell_w - MARGE_CELLULE or y0 < 0 or y1 > cell_h:
+            raise DescriptorError(f"{where} : l'image {i + 1} occupe x {x0}-{x1}, y {y0}-{y1} ; elle ne tient pas "
+                                  f"dans sa cellule de {cell_w} × {cell_h} avec {MARGE_CELLULE} px de marge "
+                                  "à gauche et à droite")
+        target = strip[:, i * cell_w:(i + 1) * cell_w]
+        target[y0:y1, x0:x1] = part[y0 - dy:y1 - dy, x0 - ox - edges[i]:x1 - ox - edges[i]]
+        measures.append(measure_frame(target))
+
+    anim = {
+        "version": 1,
+        "frameWidth": cell_w,
+        "frameHeight": cell_h,
+        "clips": {spec.clip: {"frames": list(range(spec.frames)), "frameDuration": spec.frame_duration,
+                              "loop": spec.loop}},
+    }
+    return InstalledStrip(spec=spec, image=strip, anim=anim, scale=scale, cell=cell, frames=measures, split=split)
+
+
+def square(rgba: np.ndarray, side: int, where: str) -> np.ndarray:
+    """Le carré central d'une image, réduit à `side` : jamais agrandi."""
+    height, width = rgba.shape[:2]
+    edge = min(width, height)
+    if edge < side:
+        raise DescriptorError(f"{where} : {width} × {height} px, trop petit pour {side} × {side} "
+                              "(l'art n'est jamais agrandi)")
+    x0, y0 = (width - edge) // 2, (height - edge) // 2
+    return resize_premultiplied(rgba[y0:y0 + edge, x0:x0 + edge], (side, side))
+
+
+def round_token(rgba: np.ndarray, where: str) -> np.ndarray:
+    """Le jeton : le carré central à `JETON` px, détouré en rond, bord adouci d'un pixel."""
+    token = square(rgba, JETON, where)
+    centre = JETON / 2.0
+    ys, xs = np.mgrid[0:JETON, 0:JETON]
+    distance = np.hypot(xs + 0.5 - centre, ys + 0.5 - centre)
+    coverage = np.clip(centre - 0.5 - distance + 0.5, 0.0, 1.0)
+    token[..., 3] = np.rint(token[..., 3] * coverage).astype(np.uint8)
+    token[token[..., 3] == 0] = 0
+    return token
+
+
+def figure_cells(manifest: dict) -> tuple[tuple[int, int], tuple[int, int], int]:
+    """La cellule, la cellule large et la ligne de sol : celles du manifeste s'il les déclare."""
+    where = "manifest.json de la cible"
+    frame = _pair(manifest["frame"], f"{where}, frame") if "frame" in manifest else CELLULE
+    wide = _pair(manifest["wideFrame"], f"{where}, wideFrame") if "wideFrame" in manifest else CELLULE_LARGE
+    ground = manifest.get("ground", SOL)
+    if isinstance(ground, bool) or not isinstance(ground, int) or not 0 < ground < frame[1]:
+        raise DescriptorError(f"{where} : `ground` est une rangée de la cellule, lu {ground!r}")
+    return frame, wide, ground
+
+
+def source_entry(descriptor: Descriptor, relative: str) -> tuple[Path, dict]:
+    source = descriptor.source_dir / relative
+    if not source.is_file():
+        raise DescriptorError(f"{relative} : source absente de {descriptor.source_dir}")
+    return source, {
+        "file": source.relative_to(SOURCES).as_posix() if source.is_relative_to(SOURCES) else relative,
+        "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+    }
+
+
+def load_rgba(path: Path) -> np.ndarray:
+    return np.asarray(Image.open(path).convert("RGBA")).copy()
+
+
+def build_figures(descriptor: Descriptor, only: str | None = None) -> list[InstalledFigure]:
+    """Toutes les figurines du descripteur (ou la seule `only`), prêtes à écrire."""
+    frame, wide, ground = figure_cells(read_manifest(descriptor))
+    ready: list[InstalledFigure] = []
+    for figure in descriptor.figures:
+        if only is not None and figure.name != only:
+            continue
+        installed = InstalledFigure(name=figure.name, strips=[])
+        for spec in figure.strips:
+            source, entry = source_entry(descriptor, spec.source)
+            where = f"{figure.name}/{spec.stem}"
+            installed.strips.append(install_strip(spec, load_rgba(source), wide if spec.wide else frame,
+                                                  ground, where))
+            installed.sources[f"{figure.name}/{spec.stem}.png"] = entry
+        if figure.portrait is not None:
+            source, entry = source_entry(descriptor, figure.portrait)
+            portrait = load_rgba(source)
+            installed.portrait = square(portrait, PORTRAIT, f"{figure.name}/portrait")
+            installed.sources[f"{figure.name}/portrait.png"] = entry
+            if figure.token is not None:
+                source, entry = source_entry(descriptor, figure.token)
+                portrait = load_rgba(source)
+            installed.token = round_token(portrait, f"{figure.name}/token")
+            installed.sources[f"{figure.name}/token.png"] = entry
+        ready.append(installed)
+    if only is not None and not ready:
+        raise DescriptorError(f"{only} : aucune figurine de ce nom au descripteur")
+    return ready
+
+
+def anim_text(anim: dict) -> str:
+    return json.dumps(anim, indent=2, ensure_ascii=False) + "\n"
+
+
+def figure_manifest(descriptor: Descriptor, ready: list[InstalledFigure]) -> dict:
+    """Le manifeste de la cible, avec les figurines de `ready` inscrites."""
+    manifest = read_manifest(descriptor)
+    npcs = manifest.get("npcs", [])
+    manifest["npcs"] = sorted(set(npcs) | {figure.name for figure in ready})
+    sources = dict(manifest.get("sources", {}))
+    for figure in ready:
+        sources.update(figure.sources)
+    manifest["sources"] = dict(sorted(sources.items()))
+    if str(manifest.get("comment", "")).startswith("Vide"):
+        del manifest["comment"]
+    return manifest
+
+
+def write_figures(descriptor: Descriptor, ready: list[InstalledFigure]) -> None:
+    for figure in ready:
+        folder = descriptor.target_dir / figure.name
+        folder.mkdir(parents=True, exist_ok=True)
+        for filename, image in figure.files().items():
+            (folder / filename).write_bytes(encode_png(image))
+        for strip in figure.strips:
+            (folder / f"{strip.spec.stem}.anim.json").write_bytes(anim_text(strip.anim).encode("utf-8"))
+    manifest = figure_manifest(descriptor, ready)
+    (descriptor.target_dir / "manifest.json").write_bytes(manifest_text(manifest).encode("utf-8"))
+
+
+def stale_figures(descriptor: Descriptor, ready: list[InstalledFigure]) -> list[str]:
+    """Ce qui, dans les figurines installées, n'est plus ce que la commande produirait."""
+    manifest = read_manifest(descriptor)
+    problems = []
+    for figure in ready:
+        if figure.name not in manifest.get("npcs", []):
+            problems.append(f"{figure.name} : absente de `npcs`")
+        recorded = manifest.get("sources", {})
+        for key, entry in figure.sources.items():
+            if recorded.get(key) != entry:
+                problems.append(f"{key} : source absente de `sources`, ou d'une autre empreinte")
+        folder = descriptor.target_dir / figure.name
+        for filename, image in figure.files().items():
+            path = folder / filename
+            if not path.is_file():
+                problems.append(f"{figure.name}/{filename} : absent")
+            elif not np.array_equal(np.asarray(Image.open(path).convert("RGBA")), image):
+                problems.append(f"{figure.name}/{filename} : diffère de ce que donne la source")
+        for strip in figure.strips:
+            path = folder / f"{strip.spec.stem}.anim.json"
+            if not path.is_file() or path.read_text(encoding="utf-8") != anim_text(strip.anim):
+                problems.append(f"{figure.name}/{path.name} : absent ou différent")
+    return problems
+
+
+def print_figures(ready: list[InstalledFigure], measure: bool) -> None:
+    for figure in ready:
+        for strip in figure.strips:
+            print(f"{figure.name}/{strip.spec.stem:12} {strip.spec.frames} image(s)  cellule "
+                  f"{strip.cell[0]} × {strip.cell[1]}  échelle {strip.scale:.3f}  ({strip.split})")
+            if not measure:
+                continue
+            for i, frame in enumerate(strip.frames):
+                x0, y0, x1, y1 = frame.box
+                print(f"    image {i + 1:2}  boîte x {x0:3}-{x1:<3} y {y0:3}-{y1:<3}  ligne basse {frame.bottom:3}  "
+                      f"appuis x {frame.contact[0]:3} … {frame.contact[1]:<3}")
+        if figure.portrait is not None:
+            print(f"{figure.name}/portrait     {PORTRAIT} × {PORTRAIT}, jeton {JETON} × {JETON}")
+
+
 # --- Le manifeste --------------------------------------------------------------------------------
 
 
@@ -554,7 +1062,7 @@ def stale(descriptor: Descriptor, ready: list[Installed]) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("descriptor", type=Path, help="le install.json d'un dossier de sources")
-    parser.add_argument("--piece", help="n'installer que cette pièce")
+    parser.add_argument("--piece", help="n'installer que cette pièce (ou cette figurine)")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true", help="vérifier que l'installé est à jour")
     mode.add_argument("--measure", action="store_true", help="afficher les mesures sans rien écrire")
@@ -562,6 +1070,8 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         descriptor = read_descriptor(args.descriptor.resolve())
+        if descriptor.is_characters:
+            return main_figures(args, descriptor)
         ready = build(descriptor, args.piece)
     except DescriptorError as error:
         print(f"install_hd_asset : {error}", file=sys.stderr)
@@ -585,6 +1095,26 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     write(descriptor, ready)
     print(f"{len(ready)} pièce(s) installée(s) dans {descriptor.target}")
+    return 0
+
+
+def main_figures(args: argparse.Namespace, descriptor: Descriptor) -> int:
+    """La commande pour un dossier Characters/ : mêmes modes que pour les pièces."""
+    ready = build_figures(descriptor, args.piece)
+    print_figures(ready, args.measure)
+    if args.measure:
+        return 0
+    if args.check:
+        problems = stale_figures(descriptor, ready)
+        for problem in problems:
+            print(problem, file=sys.stderr)
+        if problems:
+            print(f"relancer : python scripts/install_hd_asset.py {args.descriptor}", file=sys.stderr)
+            return 1
+        print(f"{len(ready)} figurine(s) à jour dans {descriptor.target}")
+        return 0
+    write_figures(descriptor, ready)
+    print(f"{len(ready)} figurine(s) installée(s) dans {descriptor.target}")
     return 0
 
 

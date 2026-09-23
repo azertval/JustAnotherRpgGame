@@ -371,3 +371,70 @@ TEST(AssetGalleryTest, FigurinesDeMonstres) {
     EXPECT_EQ(idle.frameCount(), 6);
     EXPECT_TRUE(idle.loop);
 }
+
+namespace {
+
+/// Les 24 premiers octets d'un PNG de @p cote pixels de cote : tout ce que la galerie en lit.
+void enTetePng(const std::filesystem::path& chemin, unsigned char cote) {
+    std::ofstream(chemin, std::ios::binary)
+        << std::string{"\x89PNG\r\n\x1a\n", 8} << std::string{"\0\0\0\rIHDR", 8}
+        << std::string{"\0\0\0", 3} << static_cast<char>(cote) << std::string{"\0\0\0", 3}
+        << static_cast<char>(cote);
+}
+
+}  // namespace
+
+/**
+ * @brief Un heros range par classe parait dans la galerie, une entree par orientation, avec son
+ *        portrait et son jeton (`LOT-112`, `EX-CNT-042`).
+ * \castest{<b>Les bandes orientees du heros et son jeton paraissent dans la galerie.</b><br/>
+ * \tcat Unitaire · Galerie des assets<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire `Common/Characters/manifest.json`, qui nomme `Heroes/brawler` dans `npcs`,
+ * et deux bandes de marche orientees, un portrait et un jeton.<br/>2. Lire le catalogue.<br/>
+ * 3. Chercher les images non listees.<br/>
+ * \tattendu Le modele `Heroes/brawler` a ses entrees `walk-se` et `walk-sw`, en 192 x 256 et huit
+ * images, son portrait et son jeton ; aucune image non listee, aucune erreur.
+ * }
+ */
+TEST(AssetGalleryTest, UnHerosOrienteRangeParClasse) {
+    const std::filesystem::path root =
+        std::filesystem::temp_directory_path() / "jadg_asset_gallery_hero";
+    std::filesystem::remove_all(root);
+    const std::filesystem::path characters = root / "Common" / "Characters";
+    const std::filesystem::path heros = characters / "Heroes" / "brawler";
+    std::filesystem::create_directories(heros);
+    std::ofstream(characters / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "animations": ["idle", "walk"],)"
+           R"( "npcs": ["Heroes/brawler"]})";
+    for (const char* sens : {"se", "sw"}) {
+        std::ofstream(heros / (std::string{"walk-"} + sens + ".anim.json"))
+            << R"({"version": 1, "frameWidth": 192, "frameHeight": 256, "clips": {"walk": )"
+               R"({"frames": [0, 1, 2, 3, 4, 5, 6, 7], "frameDuration": 0.1, "loop": true}}})";
+        std::ofstream(heros / (std::string{"walk-"} + sens + ".png")) << "png";
+    }
+    enTetePng(heros / "portrait.png", 200);
+    enTetePng(heros / "token.png", 128);
+
+    const hmi::AssetGalleryCatalog catalog = hmi::AssetGalleryCatalog::load(root);
+    const std::vector<std::string> unlisted = hmi::assetGalleryUnlisted(root, catalog);
+    std::filesystem::remove_all(root);
+
+    EXPECT_TRUE(catalog.errors.empty());
+    const hmi::AssetGalleryFamily* const figurines =
+        familyNamed(catalog, "Figurines · Common/Characters");
+    ASSERT_NE(figurines, nullptr);
+    std::vector<std::string> formes;
+    for (const hmi::AssetGalleryEntry& entry : figurines->entries) {
+        EXPECT_EQ(entry.model, "Heroes/brawler");
+        formes.push_back(entry.form);
+        if (entry.form == "walk-se") {
+            EXPECT_EQ(entry.path, "Common/Characters/Heroes/brawler/walk-se.png");
+            EXPECT_EQ(entry.frameWidth, 192);
+            EXPECT_EQ(entry.frameHeight, 256);
+            EXPECT_EQ(entry.frameCount(), 8);
+        }
+    }
+    EXPECT_EQ(formes, (std::vector<std::string>{"walk-se", "walk-sw", "portrait", "token"}));
+    EXPECT_TRUE(unlisted.empty()) << unlisted.front();
+}

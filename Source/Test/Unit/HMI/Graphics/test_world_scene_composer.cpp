@@ -9,6 +9,8 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <filesystem>
+#include <fstream>
 #include <limits>
 #include <string>
 #include <vector>
@@ -423,6 +425,14 @@ TEST(WorldSceneComposerTest, UneFigurineSansImageAUneCleDeMarqueur) {
     EXPECT_EQ(hmi::figureMarkerKey("Npc/jade"), "");
     EXPECT_EQ(hmi::figureMarkerKey("Monsters/ironhand-soldier/idle.png"),
               "monsters/ironhand-soldier");
+    // L'arborescence 2D HD : un dossier `Characters/` a n'importe quel niveau (LOT-112).
+    EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/Heroes/brawler/idle-se.png"),
+              "characters/heroes/brawler");
+    EXPECT_EQ(hmi::figureMarkerKey("Regions/central-empire/capital/Common/Characters/guard/walk.png"),
+              "characters/guard");
+    EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/manifest.json"), "");
+    EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/Heroes/brawler/"), "");
+    EXPECT_EQ(hmi::figureMarkerKey("Common/OtherCharacters/x/idle.png"), "");
 }
 
 /**
@@ -932,4 +942,219 @@ TEST(MaquetteRenderTest, LesCheminsContiennentLesJetons) {
     EXPECT_NE(
         std::ranges::find(chemins, hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
         chemins.end());
+}
+
+/**
+ * @brief Une figurine se tourne vers l'une des quatre diagonales de l'ecran, et la garde a
+ *        l'egalite (`LOT-112`).
+ * \castest{<b>L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.</b><br/>
+ * \tcat Unitaire · Scene du monde<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Demander l'orientation d'un pas le long de chaque axe de la grille.<br/>
+ * 2. Demander celle d'un pas en diagonale de la grille, depuis une orientation voisine, puis depuis
+ * une orientation opposee.<br/>3. Demander celle d'un pas nul.<br/>
+ * \tattendu Colonne : sud-est / nord-ouest ; ligne : sud-ouest / nord-est. En diagonale, la figurine
+ * garde son orientation si elle convient, sinon la premiere des deux. Un pas nul ne la change pas.
+ * }
+ */
+TEST(WorldSceneComposerTest, UneFigurineSeTourneVersLUneDesQuatreDiagonales) {
+    using hmi::FigureFacing;
+    const FigureFacing avant = FigureFacing::NorthEast;
+    EXPECT_EQ(hmi::figureFacingFor({1.0F, 0.0F}, avant), FigureFacing::SouthEast);
+    EXPECT_EQ(hmi::figureFacingFor({-1.0F, 0.0F}, avant), FigureFacing::NorthWest);
+    EXPECT_EQ(hmi::figureFacingFor({0.0F, 1.0F}, avant), FigureFacing::SouthWest);
+    EXPECT_EQ(hmi::figureFacingFor({0.0F, -1.0F}, avant), FigureFacing::NorthEast);
+    EXPECT_EQ(hmi::figureFacingFor({0.8F, -0.6F}, avant), FigureFacing::SouthEast)
+        << "l'axe dominant l'emporte";
+
+    // Droit vers le bas de l'ecran : sud-est ou sud-ouest conviennent.
+    constexpr float DEMI = 0.70710678F;
+    EXPECT_EQ(hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::SouthWest), FigureFacing::SouthWest)
+        << "a l'egalite, la figurine garde son orientation plutot que de basculer";
+    EXPECT_EQ(hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::SouthEast), FigureFacing::SouthEast);
+    EXPECT_EQ(hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::NorthWest), FigureFacing::SouthEast);
+    EXPECT_EQ(hmi::figureFacingFor({-DEMI, -DEMI}, FigureFacing::SouthEast),
+              FigureFacing::NorthEast);
+
+    EXPECT_EQ(hmi::figureFacingFor({0.0F, 0.0F}, FigureFacing::NorthWest), FigureFacing::NorthWest);
+}
+
+/**
+ * @brief Une figurine orientee lit la bande de son orientation, et la composition la charge
+ *        (`LOT-112`).
+ * \castest{<b>Une figurine orientee a une bande par orientation.</b><br/>
+ * \tcat Unitaire · Scene du monde<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Demander les chemins de bande du heros, sans orientation puis vers chaque
+ * diagonale.<br/>2. Tirer les chemins d'un instantane ou il regarde le nord-ouest.<br/>
+ * \tattendu `walk.png` sans orientation, `walk-se.png`… avec ; l'instantane demande les bandes de
+ * repos et de marche de SON orientation.
+ * }
+ */
+TEST(WorldSceneComposerTest, UneFigurineOrienteeLitLaBandeDeSonOrientation) {
+    const std::string heros = "Common/Characters/Heroes/brawler";
+    EXPECT_EQ(hmi::figureStripPath(heros, "walk"), heros + "/walk.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "walk", hmi::FigureFacing::SouthEast),
+              heros + "/walk-se.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "walk", hmi::FigureFacing::SouthWest),
+              heros + "/walk-sw.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "idle", hmi::FigureFacing::NorthEast),
+              heros + "/idle-ne.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "", hmi::FigureFacing::NorthWest),
+              heros + "/idle-nw.png");
+
+    const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+        carte(), table(),
+        {hmi::WorldFigureSnapshot{.figure = heros,
+                                  .clip = "walk",
+                                  .point = {1.5F, 1.5F},
+                                  .facing = hmi::FigureFacing::NorthWest}});
+    const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
+    EXPECT_NE(std::ranges::find(chemins, heros + "/idle-nw.png"), chemins.end());
+    EXPECT_NE(std::ranges::find(chemins, heros + "/walk-nw.png"), chemins.end());
+    EXPECT_EQ(std::ranges::find(chemins, heros + "/walk.png"), chemins.end());
+}
+
+namespace {
+
+/// La bande de marche du heros, telle que l'installe l'atelier : huit cellules de 192 x 256, a
+/// l'echelle d'un losange de 256, ligne de sol a 252, une image tous les dixiemes de seconde.
+[[nodiscard]] hmi::ScenePieceTextures bandeDuHeros(const std::string& chemin) {
+    hmi::ScenePieceTextures resolues;
+    resolues.byPath.emplace(
+        chemin, hmi::SceneTexture{.texture = reinterpret_cast<hmi::TextureHandle>(
+                                      static_cast<std::uintptr_t>(1)),
+                                  .width = 8 * 192,
+                                  .height = 256,
+                                  .frameWidth = 192,
+                                  .frameHeight = 256,
+                                  .artTile = {256.0F, 159.0F},
+                                  .groundLine = 252.0F,
+                                  .frameDuration = 0.1F});
+    return resolues;
+}
+
+/// Le quad de la seule figurine de @p scene.
+[[nodiscard]] hmi::SpriteQuad quadDeLaFigurine(const hmi::ComposedScene& scene) {
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        if (quad.layer == hmi::RenderLayer::Player) {
+            return quad.sprite;
+        }
+    }
+    ADD_FAILURE() << "aucune figurine composee";
+    return {};
+}
+
+}  // namespace
+
+/**
+ * @brief Une figurine qui declare sa ligne de sol a les pieds au centre du losange de sa position
+ *        (`LOT-112`).
+ * \castest{<b>Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser la bande de marche du heros (cellule 192 x 256, sol a 252, losange de 256) au
+ * centre d'une case, puis a mi-chemin entre deux cases.<br/>
+ * \tattendu La ligne 252 de la cellule tombe exactement sur le point de la figurine, en unites
+ * monde, et le quad est centre sur lui : la figurine ne flotte pas et ne s'enfonce pas.
+ * }
+ */
+TEST(WorldSceneComposerTest, LesPiedsDuHerosTombentAuCentreDeSaCase) {
+    const std::string chemin = "Common/Characters/Heroes/brawler/walk-se.png";
+    for (const core::Vector2 point : {core::Vector2{1.5F, 1.5F}, core::Vector2{2.0F, 1.25F}}) {
+        const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+            carte(), table(),
+            {hmi::WorldFigureSnapshot{.figure = "Common/Characters/Heroes/brawler",
+                                      .clip = "walk",
+                                      .point = point,
+                                      .facing = hmi::FigureFacing::SouthEast}});
+        const core::IsoProjection projection{instantane.columns, instantane.rows};
+        const hmi::SpriteQuad quad = quadDeLaFigurine(
+            hmi::composeWorldScene(instantane, projection, bandeDuHeros(chemin)));
+
+        const float unitesParPixel = projection.tileWidth() / 256.0F;
+        const core::Vector2 sol = projection.gridToWorld(point);
+        EXPECT_NEAR(quad.y + (252.0F * unitesParPixel), sol.y, 1.0e-3F)
+            << "la ligne de sol est sur le point de la figurine";
+        EXPECT_NEAR(quad.x + (quad.width / 2.0F), sol.x, 1.0e-3F);
+        EXPECT_NEAR(quad.height, 256.0F * unitesParPixel, 1.0e-3F);
+    }
+}
+
+/**
+ * @brief La cadence d'une figurine est celle que dit sa bande, pas une constante du code
+ *        (`LOT-112`, `EX-REN-005`).
+ * \castest{<b>L'image affichee suit la duree que declare la bande.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer la marche du heros (0,1 s par image) a 0,25 s, 0,75 s et 0,85 s.<br/>
+ * 2. La composer sans temps connu, a l'image 5.<br/>
+ * \tattendu Troisieme image a 0,25 s, huitieme a 0,75 s, premiere a 0,85 s ; sans temps, l'image
+ * demandee.
+ * }
+ */
+TEST(WorldSceneComposerTest, LaCadenceEstCelleQueDitLaBande) {
+    const std::string heros = "Common/Characters/Heroes/brawler";
+    const hmi::ScenePieceTextures bande = bandeDuHeros(heros + "/walk-se.png");
+    const auto imageA = [&](float secondes, int image) {
+        const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+            carte(), table(),
+            {hmi::WorldFigureSnapshot{.figure = heros,
+                                      .clip = "walk",
+                                      .point = {1.5F, 1.5F},
+                                      .frame = image,
+                                      .facing = hmi::FigureFacing::SouthEast,
+                                      .seconds = secondes}});
+        const core::IsoProjection projection{instantane.columns, instantane.rows};
+        const hmi::SpriteQuad quad =
+            quadDeLaFigurine(hmi::composeWorldScene(instantane, projection, bande));
+        return static_cast<int>((quad.u0 * 8.0F) + 0.5F);
+    };
+    EXPECT_EQ(imageA(0.25F, 0), 2);
+    EXPECT_EQ(imageA(0.75F, 0), 7);
+    EXPECT_EQ(imageA(0.85F, 0), 0) << "la marche boucle";
+    EXPECT_EQ(imageA(-1.0F, 5), 5);
+}
+
+/**
+ * @brief L'echelle et la ligne de sol d'un heros se lisent dans le manifeste de son atelier, deux
+ *        dossiers plus haut (`LOT-112`).
+ * \castest{<b>Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire `Common/Characters/manifest.json` (losange 256 x 159, sol 252) et la
+ * description de `Heroes/brawler/walk-se.png` (192 x 256, 0,1 s).<br/>2. Lire les traits de la
+ * bande.<br/>3. Lire ceux d'une image hors de tout atelier.<br/>
+ * \tattendu Losange 256 x 159, sol 252, cellule 192 x 256, 0,1 s ; l'image hors atelier n'a ni
+ * losange ni sol.
+ * }
+ */
+TEST(WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier) {
+    const std::filesystem::path racine =
+        std::filesystem::temp_directory_path() / "jadg_hero_figure_traits";
+    std::filesystem::remove_all(racine);
+    const std::filesystem::path heros = racine / "Common" / "Characters" / "Heroes" / "brawler";
+    std::filesystem::create_directories(heros);
+    std::ofstream(racine / "Common" / "Characters" / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "frame": [192, 256], "ground": 252, "npcs": []})";
+    std::ofstream(heros / "walk-se.anim.json")
+        << R"({"version": 1, "frameWidth": 192, "frameHeight": 256, "clips": {"walk":)"
+           R"( {"frames": [0, 1, 2, 3, 4, 5], "frameDuration": 0.1, "loop": true}}})";
+    std::filesystem::create_directories(racine / "Ailleurs");
+
+    const hmi::SceneTextureTraits traits =
+        hmi::readSceneTextureTraits(racine, "Common/Characters/Heroes/brawler/walk-se.png");
+    const hmi::SceneTextureTraits ailleurs =
+        hmi::readSceneTextureTraits(racine, "Ailleurs/walk.png");
+    std::filesystem::remove_all(racine);
+
+    EXPECT_FLOAT_EQ(traits.artTile.x, 256.0F);
+    EXPECT_FLOAT_EQ(traits.artTile.y, 159.0F);
+    ASSERT_TRUE(traits.groundLine.has_value());
+    EXPECT_FLOAT_EQ(*traits.groundLine, 252.0F);
+    EXPECT_EQ(traits.frameWidth, 192);
+    EXPECT_EQ(traits.frameHeight, 256);
+    EXPECT_FLOAT_EQ(traits.frameDuration, 0.1F);
+    EXPECT_FLOAT_EQ(ailleurs.artTile.x, 0.0F);
+    EXPECT_FALSE(ailleurs.groundLine.has_value());
 }

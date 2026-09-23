@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <cmath>
 #include <cstddef>
 #include <optional>
 #include <set>
@@ -372,21 +373,32 @@ void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
     if (figure.figure.empty()) {
         return;
     }
-    const SceneTexture& texture = textures.resolve(figureStripPath(figure.figure, figure.clip));
+    const SceneTexture& texture =
+        textures.resolve(figureStripPath(figure.figure, figure.clip, figure.facing));
     if (texture.texture == nullptr) {
         return;
     }
     // La bande dit sa propre decoupe : sa cellule, et avec sa largeur totale son nombre d'images.
-    // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture.
+    // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture. Sa cadence
+    // aussi, quand elle la dit et que l'instantane porte le temps.
     const int frameCount = frameCountOf(texture);
-    const int frame = ((figure.frame % frameCount) + frameCount) % frameCount;
+    const int rang = figure.seconds >= 0.0F && texture.frameDuration > 0.0F
+                         ? static_cast<int>(figure.seconds / texture.frameDuration)
+                         : figure.frame;
+    const int frame = ((rang % frameCount) + frameCount) % frameCount;
 
     const core::Vector2 center = projection.gridToWorld(figure.point);
     const float footY =
         projection.gridToWorld(gridPoint(figure.point.x + 0.5F, figure.point.y + 0.5F)).y;
-    const SpriteQuad quad = figureQuad(
-        texture, frame, center.x, footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN),
-        projection.tileWidth());
+    // Une figurine qui declare sa ligne de sol la pose au CENTRE du losange de sa position : c'est
+    // la que la maquette du LOT-101 met les pieds. Sans elle, l'ancienne marge : le bas de la
+    // cellule un peu au-dessus de la pointe sud.
+    const float bottomY =
+        texture.groundLine
+            ? center.y + ((static_cast<float>(frameHeightOf(texture)) - *texture.groundLine) *
+                          projection.tileWidth() / artTileWidth(texture))
+            : footY - (projection.tileHeight() * WORLD_FIGURE_BOTTOM_MARGIN);
+    const SpriteQuad quad = figureQuad(texture, frame, center.x, bottomY, projection.tileWidth());
     scene.addSprite(RenderLayer::Player, texture.texture,
                     worldDepthSortOrder(footY, WorldDepthSlot::Figure), quad);
 }
@@ -656,18 +668,79 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     return snapshot;
 }
 
-std::string figureStripPath(std::string_view figure, std::string_view clip) {
+std::string_view figureFacingSuffix(FigureFacing facing) noexcept {
+    switch (facing) {
+        case FigureFacing::SouthEast:
+            return "se";
+        case FigureFacing::SouthWest:
+            return "sw";
+        case FigureFacing::NorthEast:
+            return "ne";
+        case FigureFacing::NorthWest:
+            return "nw";
+        case FigureFacing::None:
+            break;
+    }
+    return {};
+}
+
+FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept {
+    const float enX = std::abs(move.x);
+    const float enY = std::abs(move.y);
+    if (enX == 0.0F && enY == 0.0F) {
+        return previous;
+    }
+    // Colonne : sud-est en avancant, nord-ouest en reculant. Ligne : sud-ouest, nord-est.
+    const FigureFacing parX = move.x > 0.0F ? FigureFacing::SouthEast : FigureFacing::NorthWest;
+    const FigureFacing parY = move.y > 0.0F ? FigureFacing::SouthWest : FigureFacing::NorthEast;
+    // Une egalite a l'arrondi pres : une diagonale normalisee n'a pas deux composantes
+    // rigoureusement egales apres une division par sa longueur.
+    constexpr float EGALITE = 1.0e-4F;
+    if (std::abs(enX - enY) <= EGALITE * std::max(enX, enY)) {
+        if (previous == parX || previous == parY) {
+            return previous;
+        }
+        return std::min(parX, parY);
+    }
+    return enX > enY ? parX : parY;
+}
+
+std::string figureStripPath(std::string_view figure, std::string_view clip, FigureFacing facing) {
     // Un nom sans barre est un PNJ de l'atelier ; avec, un dossier depuis la racine des assets.
     std::string path =
         figure.find('/') == std::string_view::npos ? std::string{FIGURE_ROOT} : std::string{};
     path.append(figure);
     path.push_back('/');
     path.append(clip.empty() ? std::string_view{"idle"} : clip);
+    if (facing != FigureFacing::None) {
+        path.push_back('-');
+        path.append(figureFacingSuffix(facing));
+    }
     path.append(".png");
     return path;
 }
 
 std::string figureMarkerKey(std::string_view path) {
+    // L'arborescence 2D HD range les figurines dans un dossier `Characters/`, a n'importe quel
+    // niveau (`Common/`, une region, une zone) : la cle est ce qui suit, sans le fichier.
+    constexpr std::string_view PERSONNAGES = "Characters/";
+    for (std::size_t debut = path.find(PERSONNAGES); debut != std::string_view::npos;
+         debut = path.find(PERSONNAGES, debut + 1)) {
+        if (debut != 0 && path[debut - 1] != '/') {
+            continue;
+        }
+        const std::string_view reste = path.substr(debut + PERSONNAGES.size());
+        const std::size_t barre = reste.rfind('/');
+        if (barre == 0 || barre == std::string_view::npos || barre + 1 == reste.size() ||
+            reste.find("//") != std::string_view::npos) {
+            return {};
+        }
+        std::string cle = "characters/";
+        for (const char lettre : reste.substr(0, barre)) {
+            cle.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(lettre))));
+        }
+        return cle;
+    }
     for (const std::string_view dossier : FIGURE_DIRECTORIES) {
         if (!path.starts_with(dossier)) {
             continue;
@@ -703,8 +776,8 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
         }
         // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
         // charger une texture au milieu d'une image.
-        uniques.insert(figureStripPath(figure.figure, "idle"));
-        uniques.insert(figureStripPath(figure.figure, "walk"));
+        uniques.insert(figureStripPath(figure.figure, "idle", figure.facing));
+        uniques.insert(figureStripPath(figure.figure, "walk", figure.facing));
     }
     // Les jetons s'adressent comme des planches : un chemin de plus, que le rendu peindra au lieu
     // de le charger (LOT-128, decision D2).

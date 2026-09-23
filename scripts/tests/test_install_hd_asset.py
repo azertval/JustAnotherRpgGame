@@ -228,3 +228,199 @@ def test_une_planche_dont_le_compte_ne_tombe_pas_juste_est_refusee(zone):
         {'source': 'sols.png', 'family': '01', 'sheet': ['floor-sand-01', 'floor-sand-02']}]))
     with pytest.raises(M.DescriptorError, match='1 morceau'):
         M.build(descriptor)
+
+
+# --- Les figurines (LOT-112) ---------------------------------------------------------------------
+
+PITCH = 300          # le pas des images dans la bande du générateur, en px de source
+GROUND_SRC = 450     # la ligne de sol de la bande du générateur
+BODY_H = 340         # hauteur d'une figurine debout dans la source : échelle 170 / 340 = 0,5
+
+
+def figure_strip(count, lift=None, shift=None, pitch=PITCH, width=90, spear=0):
+    """Une bande synthétique : `count` figurines (corps en gélule, tête, deux pieds) à pas constant.
+
+    `lift` {rang: px} lève une image (le haut d'une foulée), `shift` {rang: px} la décale dans sa
+    case (une fente) ; `spear` ajoute une lance horizontale de cette longueur de chaque côté.
+    """
+    lift, shift = lift or {}, shift or {}
+    image = Image.new('RGBA', (pitch * count + 40, 520), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    for i in range(count):
+        cx = 20 + pitch * i + pitch / 2 + shift.get(i, 0)
+        bottom = GROUND_SRC - lift.get(i, 0)
+        top = bottom - BODY_H
+        colour = (60 + 30 * i, 120, 200 - 20 * i, 253)
+        draw.rounded_rectangle((cx - width / 2, top + 60, cx + width / 2, bottom - 30), radius=30, fill=colour)
+        draw.ellipse((cx - 35, top, cx + 35, top + 70), fill=colour)
+        draw.ellipse((cx - width / 2, bottom - 40, cx - 5, bottom), fill=colour)   # pied gauche
+        draw.ellipse((cx + 5, bottom - 40, cx + width / 2, bottom), fill=colour)   # pied droit
+        if spear:
+            draw.rectangle((cx - spear, top + 150, cx + spear, top + 160), fill=colour)
+    return image
+
+
+@pytest.fixture
+def characters(tmp_path, monkeypatch):
+    """Un dossier Characters/ vide, comme la table rase les a laissés, et son dossier de sources."""
+    assets = tmp_path / 'Assets'
+    target = assets / 'Common' / 'Characters'
+    target.mkdir(parents=True)
+    (target / 'manifest.json').write_text(json.dumps({
+        'version': 1, 'tile': list(TILE), 'comment': 'Vide : héros (LOT-102).',
+        'frame': [192, 256], 'wideFrame': [384, 256],
+        'animations': ['idle', 'walk', 'attack', 'hit', 'death', 'cast'], 'npcs': []}), encoding='utf-8')
+    sources = tmp_path / 'Tools' / 'AssetsHD' / 'Heros'
+    sources.mkdir(parents=True)
+    monkeypatch.setattr(M, 'ASSETS', assets)
+    monkeypatch.setattr(M, 'SOURCES', tmp_path / 'Tools' / 'AssetsHD')
+    return target, sources
+
+
+def figure_descriptor(folder, figures, target='Common/Characters'):
+    path = folder / 'install.json'
+    path.write_text(json.dumps({'version': 1, 'target': target, 'figures': figures}), encoding='utf-8')
+    return path
+
+
+def lowest_row(cell):
+    return int(np.nonzero((cell[..., 3] >= M.OPAQUE).any(axis=1))[0].max())
+
+
+def box_centre(cell):
+    xs = np.nonzero((cell[..., 3] >= M.OPAQUE).any(axis=0))[0]
+    return (xs.min() + xs.max() + 1) / 2
+
+
+def test_une_bande_devient_des_cellules_posees_sur_le_sol(characters):
+    target, sources = characters
+    figure_strip(6, lift={2: 20}, shift={4: 40}).save(sources / 'walk-se.png')
+    Image.new('RGBA', (700, 900), (140, 60, 50, 255)).save(sources / 'portrait.png')
+    descriptor = figure_descriptor(sources, [{
+        'name': 'Heroes/brawler', 'portrait': 'portrait.png',
+        'strips': [{'source': 'walk-se.png', 'clip': 'walk', 'facing': 'se', 'frames': 6,
+                    'frameDuration': 0.12}]}])
+
+    assert M.main([str(descriptor)]) == 0
+    folder = target / 'Heroes' / 'brawler'
+    strip = np.asarray(Image.open(folder / 'walk-se.png'))
+    assert strip.shape == (256, 6 * 192, 4)
+    cells = [strip[:, i * 192:(i + 1) * 192] for i in range(6)]
+
+    # L'image de repos : pied sur le sol, 170 px de haut, au milieu de sa cellule.
+    assert lowest_row(cells[0]) == 252
+    rows = np.nonzero((cells[0][..., 3] >= M.OPAQUE).any(axis=1))[0]
+    assert abs((rows.max() + 1 - rows.min()) - 170) <= 2
+    assert abs(box_centre(cells[0]) - 96) <= 1
+    # Le mouvement du générateur est gardé, à l'échelle : levée de 20 px, fente de 40 px.
+    assert abs(lowest_row(cells[2]) - (252 - 10)) <= 1
+    assert abs(box_centre(cells[4]) - (96 + 20)) <= 1
+    for i in (1, 3, 5):
+        assert lowest_row(cells[i]) == 252
+        assert abs(box_centre(cells[i]) - 96) <= 1
+    # La marge de chaque cellule reste transparente.
+    for cell in cells:
+        assert cell[:, :M.MARGE_CELLULE, 3].max() == 0
+        assert cell[:, -M.MARGE_CELLULE:, 3].max() == 0
+    # Un alpha continu : le bord garde sa pente.
+    assert len(np.unique(strip[..., 3])) > 10
+
+    anim = json.loads((folder / 'walk-se.anim.json').read_text(encoding='utf-8'))
+    assert anim == {'version': 1, 'frameWidth': 192, 'frameHeight': 256,
+                    'clips': {'walk': {'frames': [0, 1, 2, 3, 4, 5], 'frameDuration': 0.12, 'loop': True}}}
+
+    assert Image.open(folder / 'portrait.png').size == (512, 512)
+    token = np.asarray(Image.open(folder / 'token.png'))
+    assert token.shape == (128, 128, 4)
+    assert token[0, 0, 3] == token[0, -1, 3] == token[-1, 0, 3] == token[-1, -1, 3] == 0
+    assert token[64, 64, 3] == 255
+
+    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == ['Heroes/brawler']
+    assert 'comment' not in manifest
+    assert manifest['frame'] == [192, 256]
+    assert set(manifest['sources']) == {'Heroes/brawler/walk-se.png', 'Heroes/brawler/portrait.png',
+                                        'Heroes/brawler/token.png'}
+    assert manifest['sources']['Heroes/brawler/walk-se.png']['file'] == 'Heros/walk-se.png'
+
+    # À jour, puis plus à jour dès qu'une bande est retouchée à la main.
+    assert M.main([str(descriptor), '--check']) == 0
+    Image.new('RGBA', (4, 4)).save(folder / 'walk-se.png')
+    assert M.main([str(descriptor), '--check']) == 1
+
+
+def test_des_images_qui_se_touchent_se_partagent_en_parts_egales(characters):
+    _, sources = characters
+    figure_strip(4, pitch=100, width=110).save(sources / 'idle.png')
+    descriptor = M.read_descriptor(figure_descriptor(sources, [{
+        'name': 'guard', 'strips': [{'source': 'idle.png', 'clip': 'idle', 'frames': 4}]}]))
+    (figure,) = M.build_figures(descriptor)
+    (strip,) = figure.strips
+    assert strip.split == 'parts égales'
+    assert strip.image.shape == (256, 4 * 192, 4)
+    assert all(frame.bottom == 252 for frame in strip.frames)
+
+
+def test_une_attaque_prend_la_cellule_large(characters):
+    _, sources = characters
+    figure_strip(3, spear=150).save(sources / 'attack.png')
+    descriptor = M.read_descriptor(figure_descriptor(sources, [{
+        'name': 'guard', 'strips': [{'source': 'attack.png', 'clip': 'attack', 'facing': 'ne', 'frames': 3,
+                                     'wide': True, 'loop': False}]}]))
+    (strip,) = M.build_figures(descriptor)[0].strips
+    assert strip.image.shape == (256, 3 * 384, 4)
+    assert strip.anim['frameWidth'] == 384
+    assert strip.anim['clips']['attack']['loop'] is False
+
+
+def test_une_figurine_trop_large_pour_sa_cellule_est_refusee(characters):
+    _, sources = characters
+    figure_strip(3, spear=200, pitch=500).save(sources / 'walk.png')
+    descriptor = M.read_descriptor(figure_descriptor(sources, [{
+        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 3}]}]))
+    with pytest.raises(M.DescriptorError, match='ne tient pas'):
+        M.build_figures(descriptor)
+
+
+def test_une_bande_qu_il_faudrait_agrandir_est_refusee(characters):
+    _, sources = characters
+    figure_strip(2).resize((250, 200)).save(sources / 'walk.png')
+    descriptor = M.read_descriptor(figure_descriptor(sources, [{
+        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 2}]}]))
+    with pytest.raises(M.DescriptorError, match='agrandir'):
+        M.build_figures(descriptor)
+
+
+def test_la_mesure_n_ecrit_rien_et_donne_les_appuis(characters, capsys):
+    target, sources = characters
+    figure_strip(2).save(sources / 'walk.png')
+    descriptor = figure_descriptor(sources, [{
+        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 2}]}])
+    assert M.main([str(descriptor), '--measure']) == 0
+    assert 'appuis' in capsys.readouterr().out
+    assert not (target / 'guard').exists()
+
+
+@pytest.mark.parametrize('figure, message', [
+    ({'name': 'Guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6}]}, 'nom'),
+    ({'name': 'guard', 'strips': []}, 'strips'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 0}]}, 'frames'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'facing': 's'}]}, 'facing'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'standingFrame': 6}]},
+     'standingFrame'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6},
+                                  {'source': 'b.png', 'clip': 'walk', 'frames': 8}]}, 'deux fois'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'fps': 8}]}, 'inconnu'),
+    ({'name': 'guard', 'token': 't.png', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6}]},
+     'sans portrait'),
+])
+def test_un_descripteur_de_figurine_fautif_est_refuse_et_nomme(tmp_path, figure, message):
+    with pytest.raises(M.DescriptorError, match=message):
+        M.read_descriptor(figure_descriptor(tmp_path, [figure]))
+
+
+def test_des_pieces_dans_un_dossier_characters_sont_refusees(tmp_path):
+    path = tmp_path / 'install.json'
+    path.write_text(json.dumps({'version': 1, 'target': 'Common/Characters', 'pieces': []}), encoding='utf-8')
+    with pytest.raises(M.DescriptorError, match='figures'):
+        M.read_descriptor(path)
