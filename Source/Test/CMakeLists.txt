@@ -163,6 +163,9 @@ if(Qt6_FOUND)
         # La maquette du standard 2D HD (LOT-101), rendue par le moteur a 1080p et 2160p et
         # comparee a la maquette montee a la main (LOT-103).
         Unit/HMI/Graphics/test_hd_mockup_render.cpp
+        # Le kit commun de la Capitale (LOT-105) : une rue de douze cases composee de ses seules
+        # pieces, rendue par le moteur et ecrite pour l'oeil de l'auteur.
+        Unit/HMI/Graphics/test_capital_kit_render.cpp
         # La scene du Colisee rendue hors ecran (LOT-86 Phase 5) : creation, recreation sur une autre
         # interface QRhi, liberation, et une image qui n'est pas que le fond.
         Unit/HMI/Graphics/test_arena_scene_renderer.cpp

@@ -3,63 +3,57 @@
   "target": "Regions/central-empire/Common/Scene",
   "pieces": [
     {
-      "source": "../capital/Common/V4/Calibres/prop-banner-lion.png",
-      "name": "prop-banner-lion",
+      "source": "Calibres/prop-banner-lion.png",
       "family": "08",
-      "footprint": [
-        1,
-        1
-      ],
+      "name": "prop-banner-lion",
       "tactical": "obstacle",
       "scale": 0.5,
       "anchorOffset": [
         1,
-        0
+        -2
       ]
     },
     {
-      "source": "../capital/Common/V4/Calibres/wall-limestone-banner-u.png",
-      "name": "wall-limestone-banner-u",
+      "source": "Calibres/wall-limestone-banner-u.png",
       "family": "02",
+      "name": "wall-limestone-banner-u",
       "footprint": [
         2,
         1
       ],
       "tactical": "solid",
+      "align": "north",
       "scale": 0.5,
       "anchorOffset": [
-        0,
-        0
+        56,
+        -35
       ]
     },
     {
-      "source": "../capital/Common/V4/Calibres/wall-limestone-banner-v.png",
-      "name": "wall-limestone-banner-v",
+      "source": "Calibres/wall-limestone-banner-v.png",
       "family": "02",
+      "name": "wall-limestone-banner-v",
       "footprint": [
         1,
         2
       ],
       "tactical": "solid",
+      "align": "north",
       "scale": 0.5,
       "anchorOffset": [
-        0,
-        0
+        -56,
+        -35
       ]
     },
     {
-      "source": "../capital/Common/V4/Calibres/column-lion-emblem.png",
-      "name": "column-lion-emblem",
+      "source": "Calibres/column-lion-emblem.png",
       "family": "03",
-      "footprint": [
-        1,
-        1
-      ],
+      "name": "column-lion-emblem",
       "tactical": "obstacle",
       "scale": 0.5,
       "anchorOffset": [
         0,
-        -11
+        1
       ]
     }
   ]

@@ -22,6 +22,8 @@ chaque envoi comme image de référence : elle vaut mieux que trois paragraphes 
 
 ## Bloc A — le style
 
+Pour chaque prochain lot, intégrer aussi les [critères de qualité validés par l’utilisateur](style-2d-hd.md#critères-de-qualité-validés-par-lutilisateur) : matières propres sans grain, relief lisible, volumes des balustres et buissons, grille exacte et continuité des modules jusque dans les angles. La référence acceptée est le LOT-105 V4 après sa reprise du relief. Ces contraintes complètent les blocs de commande ci-dessous et se vérifient dans une map rendue par le moteur.
+
 Invariant pour tout l'Empire central. Une autre région change **la palette et les matières**, rien
 d'autre.
 

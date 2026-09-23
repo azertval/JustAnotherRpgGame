@@ -11,6 +11,10 @@ Martpart, Arenarea et l'Arena of Fate le prennent tel quel et ne produisent que 
 propre. Une pièce de ce kit ne porte donc **rien qui nomme un quartier** : ni enseigne, ni
 marchandise, ni couleur de faction.
 
+## Révision artistique du 23 septembre 2026
+
+Pour les bannières, la référence prioritaire est désormais `References/lampadaire-v1.png` : tête de lion couronnée de profil avec feuillage, broderie or sur bourgogne. Cette consigne remplace le lion rampant des envois initiaux ci-dessous. Le recalage géométrique par script est explicitement autorisé par l’auteur. Voir `generation-suivi.md` et `generation-prompts-v2.json`.
+
 ## Inventaire
 
 | # | Famille | Du commun | Propre au kit | État |
@@ -474,3 +478,8 @@ Pièces : `column-lion-emblem`. Emprise : 1 × 1. Type : obstacle. Source : `../
 
 À mesurer à l'installation (résumé du job `hd_assets`) : 40 Mio par niveau, le kit de la Capitale
 et le kit impérial comptés à part.
+
+
+## Révision V4 demandée
+
+Priorité : angles propres, continuité des textures entre modules de même catégorie, dimensions et ancres standardisées sur 256 × 159, surfaces sans grain ajouté. Inclut balustrades et buissons. Les références actives et la validation moteur sont dans [V4/README.md](V4/README.md).

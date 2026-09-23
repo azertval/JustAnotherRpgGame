@@ -6,6 +6,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-105 — Le kit commun de la Capitale.** Trente-huit pièces HD que Martpart, Arenarea et
+  l'Arena of Fate prendront telles quelles : dans `Regions/central-empire/capital/Common/Scene/`,
+  pavés et dallages de fond en trois variantes et bordures de trottoir, murs de calcaire pleins et à
+  fenêtre dans les deux sens de la grille avec leurs angles, balustrades, haies, cyprès, massif,
+  lampadaire, bancs, vasque, tonneau, caisse et étal nu ; dans `Regions/central-empire/Common/Scene/`,
+  le kit impérial au lion couronné (bannière sur mât, murs à bannière, colonne). La commande
+  (`Tools/AssetsHD/…/capital/Common/commande.md`) passe les dix familles en revue, et
+  `prepare_envois_scene.py` en tire les envois au générateur ; la consigne gagne la planche de sols
+  et la référence d'un même kit. Les sources sont recalées sur la grille par
+  `rectify_capital_kit.py` et `build_capital_v4.py`, avec l'accord de l'auteur. `region.json`
+  reçoit la palette et les matières de l'Empire. Un test rend par le moteur une rue de douze cases
+  composée du seul kit (`test_capital_kit_render.cpp`) ; le moteur ne résolvant pas encore l'arbre
+  `Regions/`, il copie le kit sous un lieu temporaire.
 - **Le jeu s'affiche toujours en 16:9.** Quelle que soit la forme de la fenêtre, la scène est le
   plus grand rectangle 16:9 qui y tient, centré au pixel près ; le reste est peint en noir —
   bandes latérales pour une fenêtre plus large, horizontales pour une plus haute. Les deux

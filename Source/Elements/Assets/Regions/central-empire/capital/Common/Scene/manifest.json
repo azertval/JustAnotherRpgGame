@@ -1,10 +1,758 @@
 {
   "version": 1,
   "disposition": "capital",
-  "comment": "Vide : le kit de la Capitale -- pavage, lampadaires, fontaines (LOT-105).",
   "tile": [
     256,
     159
   ],
-  "textures": {}
+  "textures": {
+    "scene/capital/floor-paving-01": {
+      "file": "floor-paving-01.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-01.png",
+        "sha256": "ca21d2c709bc6401f97ed96d7f7d114c8ce30d2ad86bb212c4fd018b8073efa6"
+      }
+    },
+    "scene/capital/floor-paving-02": {
+      "file": "floor-paving-02.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-02.png",
+        "sha256": "dbe1098d0f7ef25910534082f457fae89f43c9b8ed3894861f11d432a991ed2b"
+      }
+    },
+    "scene/capital/floor-paving-03": {
+      "file": "floor-paving-03.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-03.png",
+        "sha256": "3f66ef662e33aa8aa1533b9ddd7cd0963a1e4f62bfa8aa1047c21b84fcb482e0"
+      }
+    },
+    "scene/capital/floor-flagstone-01": {
+      "file": "floor-flagstone-01.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-flagstone-01.png",
+        "sha256": "7f468cbd5124b713c60ee7be3282bac69c3d352be30d2cfea7732fd63faffd9e"
+      }
+    },
+    "scene/capital/floor-flagstone-02": {
+      "file": "floor-flagstone-02.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-flagstone-02.png",
+        "sha256": "b1e15f5959e5ba15e144a4f8d380f13e6b2aff3a1e5dd7ca6a64bd4774de42f4"
+      }
+    },
+    "scene/capital/floor-flagstone-03": {
+      "file": "floor-flagstone-03.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-flagstone-03.png",
+        "sha256": "43f2061049efd448b3261dfee48f04081b0b0b583ab76658822b15f4041f2a48"
+      }
+    },
+    "scene/capital/floor-paving-edge-nw": {
+      "file": "floor-paving-edge-nw.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-edge-nw.png",
+        "sha256": "df349fc055c13a5503c043528a1ab3af32b85b3c4b016be6b075a510812db646"
+      }
+    },
+    "scene/capital/floor-paving-edge-ne": {
+      "file": "floor-paving-edge-ne.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-edge-ne.png",
+        "sha256": "5088c116fec3f67e9d5c10b338f005c61e35d8eb575d661cc45482f695fa16f9"
+      }
+    },
+    "scene/capital/floor-paving-edge-se": {
+      "file": "floor-paving-edge-se.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-edge-se.png",
+        "sha256": "dfee824a3de712bf4237edf51fe928674afc97fcb8622fc79cb62018b08c213a"
+      }
+    },
+    "scene/capital/floor-paving-edge-sw": {
+      "file": "floor-paving-edge-sw.png",
+      "class": "floor",
+      "family": "01",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        159
+      ],
+      "anchor": [
+        128,
+        0
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/floor-paving-edge-sw.png",
+        "sha256": "57472f6e188594f9a56fed485c80fb9c1eefc60de772a23b37c08f6da19c6988"
+      }
+    },
+    "scene/capital/wall-limestone-u": {
+      "file": "wall-limestone-u.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        291,
+        406
+      ],
+      "anchor": [
+        81,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/wall-limestone-u.png",
+        "sha256": "79b939b1e9d2a3f727aab9432f24419b1b57d7853dc89fe0aebea47614802319"
+      }
+    },
+    "scene/capital/wall-limestone-v": {
+      "file": "wall-limestone-v.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        1,
+        2
+      ],
+      "size": [
+        291,
+        406
+      ],
+      "anchor": [
+        210,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/wall-limestone-v.png",
+        "sha256": "2d7e9809769f0087bec3107e7304d1abd1e86fdd2a0224ceb1b032e7b8c385be"
+      }
+    },
+    "scene/capital/wall-limestone-window-u": {
+      "file": "wall-limestone-window-u.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        291,
+        406
+      ],
+      "anchor": [
+        81,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/wall-limestone-window-u.png",
+        "sha256": "d4c662eda7a914b7f83d76903775ca080c33d654eb267da511d6cb2b1a76f7c7"
+      }
+    },
+    "scene/capital/wall-limestone-window-v": {
+      "file": "wall-limestone-window-v.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        1,
+        2
+      ],
+      "size": [
+        291,
+        406
+      ],
+      "anchor": [
+        210,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/wall-limestone-window-v.png",
+        "sha256": "838ac0b13cd82ce6234ad388b9a181d911044c9a2907e154f268a000166ec379"
+      }
+    },
+    "scene/capital/wall-limestone-corner-inner": {
+      "file": "wall-limestone-corner-inner.png",
+      "class": "tall",
+      "family": "02",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        163,
+        296
+      ],
+      "anchor": [
+        82,
+        166
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/wall-limestone-corner-inner.png",
+        "sha256": "1057b93dd680f1ad305b705b1739df12a20eae5720691e576e1816d2b2709bc6"
+      }
+    },
+    "scene/capital/wall-limestone-corner-outer": {
+      "file": "wall-limestone-corner-outer.png",
+      "class": "tall",
+      "family": "02",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        163,
+        296
+      ],
+      "anchor": [
+        82,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/wall-limestone-corner-outer.png",
+        "sha256": "25f792dbbf2680e90fb08af7fd4f533072255c52b26ca08f242203d06d05cc37"
+      }
+    },
+    "scene/capital/balustrade-limestone-u": {
+      "file": "balustrade-limestone-u.png",
+      "class": "wide",
+      "family": "05",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        286,
+        278
+      ],
+      "anchor": [
+        79,
+        70
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/balustrade-limestone-u.png",
+        "sha256": "57f7657c483d1dba266345c988be36567daa6ac821ef94c56a4ada710cde83fd"
+      }
+    },
+    "scene/capital/balustrade-limestone-v": {
+      "file": "balustrade-limestone-v.png",
+      "class": "wide",
+      "family": "05",
+      "footprint": [
+        1,
+        2
+      ],
+      "size": [
+        286,
+        278
+      ],
+      "anchor": [
+        207,
+        70
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/balustrade-limestone-v.png",
+        "sha256": "8d3f5c0d8dc701df9df347250630eb57bb624a2df7b18599525bc039717fa758"
+      }
+    },
+    "scene/capital/balustrade-limestone-pillar": {
+      "file": "balustrade-limestone-pillar.png",
+      "class": "tall",
+      "family": "05",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        56,
+        124
+      ],
+      "anchor": [
+        27,
+        25
+      ],
+      "tactical": "obstacle",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/balustrade-limestone-pillar.png",
+        "sha256": "976af957f3b4602568498eda94a0dc7c813c9714adf6468f833e90d06f8ef3ff"
+      }
+    },
+    "scene/capital/plant-cypress": {
+      "file": "plant-cypress.png",
+      "class": "tall",
+      "family": "07",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        128,
+        404
+      ],
+      "anchor": [
+        63,
+        315
+      ],
+      "tactical": "obstacle",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-cypress.png",
+        "sha256": "599583e62edb3cc62f34fdf5906a3d84413746454eed4d9c467e427188af20e3"
+      }
+    },
+    "scene/capital/plant-hedge-u": {
+      "file": "plant-hedge-u.png",
+      "class": "wide",
+      "family": "07",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        314,
+        272
+      ],
+      "anchor": [
+        93,
+        54
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-hedge-u.png",
+        "sha256": "0733581441fc334bac674bca025f89b1fbf8696ab417d9726ba648015bc458f8"
+      }
+    },
+    "scene/capital/plant-hedge-v": {
+      "file": "plant-hedge-v.png",
+      "class": "wide",
+      "family": "07",
+      "footprint": [
+        1,
+        2
+      ],
+      "size": [
+        314,
+        272
+      ],
+      "anchor": [
+        221,
+        54
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-hedge-v.png",
+        "sha256": "9da19d69c5f2cddae629d8525878e435497aa38dca0a17f8f1983d7d431be959"
+      }
+    },
+    "scene/capital/plant-hedge-corner": {
+      "file": "plant-hedge-corner.png",
+      "class": "tall",
+      "family": "07",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        186,
+        160
+      ],
+      "anchor": [
+        93,
+        22
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-hedge-corner.png",
+        "sha256": "607a5b45c0d7bfc9efff1fa87ead1230000e75a1be87d5f503d0dcc0c19b2b7b"
+      }
+    },
+    "scene/capital/plant-flowerbed": {
+      "file": "plant-flowerbed.png",
+      "class": "tall",
+      "family": "07",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        278,
+        242
+      ],
+      "anchor": [
+        138,
+        87
+      ],
+      "tactical": "difficult",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-flowerbed.png",
+        "sha256": "4cb359647f882f9c57afb63f596e7deb39cdfc6c3b183d6358d368ee72a2b848"
+      }
+    },
+    "scene/capital/prop-lamppost": {
+      "file": "prop-lamppost.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        132,
+        354
+      ],
+      "anchor": [
+        33,
+        256
+      ],
+      "tactical": "obstacle",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-lamppost.png",
+        "sha256": "5a229937c0b0d8a28833793b1427e0ca7a89b929dce0f8276d158cba537af93f"
+      }
+    },
+    "scene/capital/prop-bench-u": {
+      "file": "prop-bench-u.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        178,
+        193
+      ],
+      "anchor": [
+        88,
+        61
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-bench-u.png",
+        "sha256": "22fbb23b783a4155d93c04a9fd3d3509d132849fb2a2e771cfe8639bade8a858"
+      }
+    },
+    "scene/capital/prop-bench-v": {
+      "file": "prop-bench-v.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        171,
+        222
+      ],
+      "anchor": [
+        86,
+        90
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-bench-v.png",
+        "sha256": "8b51598208fc2e378043b31c96527b4999ca277e358fc86220f406c2cfa5a3f6"
+      }
+    },
+    "scene/capital/prop-planter": {
+      "file": "prop-planter.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        88,
+        149
+      ],
+      "anchor": [
+        44,
+        45
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-planter.png",
+        "sha256": "2abd237060768f8ff2ae4fafe2edc6f56024951bae248db5686d919ceff3e08c"
+      }
+    },
+    "scene/capital/prop-barrel": {
+      "file": "prop-barrel.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        69,
+        103
+      ],
+      "anchor": [
+        34,
+        1
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-barrel.png",
+        "sha256": "e593e3db336c03f2c8e268153f62226a9c023cd34e75dd660672c9a646bc6535"
+      }
+    },
+    "scene/capital/prop-crate": {
+      "file": "prop-crate.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        80,
+        112
+      ],
+      "anchor": [
+        38,
+        0
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-crate.png",
+        "sha256": "5b05394502b5006a26491491fcc554cbbdd63949210debea0483b8ae10822990"
+      }
+    },
+    "scene/capital/prop-stall-empty": {
+      "file": "prop-stall-empty.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        193,
+        307
+      ],
+      "anchor": [
+        98,
+        172
+      ],
+      "tactical": "obstacle",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-stall-empty.png",
+        "sha256": "4b7fc738039264df2e0f27d8a39db12fa36de876d212122276ee4f47f5e12002"
+      }
+    },
+    "scene/capital/balustrade-limestone-corner-inner": {
+      "file": "balustrade-limestone-corner-inner.png",
+      "class": "tall",
+      "family": "05",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        158,
+        167
+      ],
+      "anchor": [
+        79,
+        38
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/balustrade-limestone-corner-inner.png",
+        "sha256": "127f1de14459faa8c2410b7ab0df2e6dec76313f6ae6636f14b8792d7e952dea"
+      }
+    },
+    "scene/capital/balustrade-limestone-corner-outer": {
+      "file": "balustrade-limestone-corner-outer.png",
+      "class": "tall",
+      "family": "05",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        158,
+        167
+      ],
+      "anchor": [
+        79,
+        70
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/balustrade-limestone-corner-outer.png",
+        "sha256": "7b0a4e5857d3098080b3260c8aec024a896e9df4900e96f04ebd9094ed4f3824"
+      }
+    },
+    "scene/capital/plant-hedge-corner-outer": {
+      "file": "plant-hedge-corner-outer.png",
+      "class": "tall",
+      "family": "07",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        186,
+        168
+      ],
+      "anchor": [
+        93,
+        54
+      ],
+      "tactical": "cover",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-hedge-corner-outer.png",
+        "sha256": "81cc0446f2d366d62543415d9c18d6ee6d80550bdac0f18111d1d21b6bd0b525"
+      }
+    }
+  }
 }

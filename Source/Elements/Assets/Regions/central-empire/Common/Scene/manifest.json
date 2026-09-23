@@ -1,10 +1,98 @@
 {
   "version": 1,
   "disposition": "central-empire",
-  "comment": "Vide : le kit imperial -- architecture, mobilier, bannieres (LOT-105).",
   "tile": [
     256,
     159
   ],
-  "textures": {}
+  "textures": {
+    "scene/central-empire/prop-banner-lion": {
+      "file": "prop-banner-lion.png",
+      "class": "tall",
+      "family": "08",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        124,
+        394
+      ],
+      "anchor": [
+        64,
+        294
+      ],
+      "tactical": "obstacle",
+      "source": {
+        "file": "Regions/central-empire/Common/../capital/Common/V4/Calibres/prop-banner-lion.png",
+        "sha256": "cfed875f74af3a2a5a9bfe2f9be6827aadb898718f7db4f378f2b8cfd67a2065"
+      }
+    },
+    "scene/central-empire/wall-limestone-banner-u": {
+      "file": "wall-limestone-banner-u.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        291,
+        406
+      ],
+      "anchor": [
+        81,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/Common/../capital/Common/V4/Calibres/wall-limestone-banner-u.png",
+        "sha256": "fa016b582fd508adf44b302c48ef1f03adf7cc4eeacd2037ef4845dcd915323c"
+      }
+    },
+    "scene/central-empire/wall-limestone-banner-v": {
+      "file": "wall-limestone-banner-v.png",
+      "class": "wide",
+      "family": "02",
+      "footprint": [
+        1,
+        2
+      ],
+      "size": [
+        291,
+        406
+      ],
+      "anchor": [
+        210,
+        196
+      ],
+      "tactical": "solid",
+      "source": {
+        "file": "Regions/central-empire/Common/../capital/Common/V4/Calibres/wall-limestone-banner-v.png",
+        "sha256": "f93c3735a7427e5e661c54b75041f00f5e277fe858c298e4f93f294ebec0a36d"
+      }
+    },
+    "scene/central-empire/column-lion-emblem": {
+      "file": "column-lion-emblem.png",
+      "class": "tall",
+      "family": "03",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        102,
+        344
+      ],
+      "anchor": [
+        50,
+        229
+      ],
+      "tactical": "obstacle",
+      "source": {
+        "file": "Regions/central-empire/Common/../capital/Common/V4/Calibres/column-lion-emblem.png",
+        "sha256": "69f965f63c18c4411b35d4de56521e8d894acb30eeb2468fbbd03daa818e40f6"
+      }
+    }
+  }
 }
