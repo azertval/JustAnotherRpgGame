@@ -5,6 +5,7 @@
 
 #include <QPainter>
 #include <QPolygonF>
+#include <algorithm>
 #include <cmath>
 #include <numbers>
 
@@ -20,20 +21,38 @@ namespace {
            a.position.y < b.position.y + b.size.y && b.position.y < a.position.y + a.size.y;
 }
 
-[[nodiscard]] bool isSolid(const QImage* image) noexcept {
-    // L'aplat : une image 1 × 1 blanche, celle que `SceneImages::solid` désigne.
-    return image != nullptr && image->width() == 1 && image->height() == 1 &&
-           image->pixel(0, 0) == 0xFFFFFFFFU;
-}
-
 [[nodiscard]] QColor tintOf(float r, float g, float b, float a) {
     return QColor::fromRgbF(r, g, b, a);
 }
 
-void paintSprite(QPainter& painter, const SpriteQuad& quad, const QImage* image, float opacity) {
+/**
+ * Le niveau réduit à lire pour peindre @p source de l'image dans @p target : le logarithme du
+ * nombre de texels par pixel d'écran, arrondi — le niveau que le GPU pèse le plus en trilinéaire.
+ */
+[[nodiscard]] int mipLevel(const QPainter& painter, const QRectF& target, const QRectF& source,
+                           int levelCount) {
+    if (levelCount <= 1) {
+        return 0;
+    }
+    const QTransform& device = painter.combinedTransform();
+    const double scale = std::hypot(device.m11(), device.m12());
+    const double pixelsWide = std::abs(target.width()) * scale;
+    const double pixelsTall = std::abs(target.height()) * scale;
+    if (pixelsWide <= 0.0 || pixelsTall <= 0.0) {
+        return 0;
+    }
+    const double texelsPerPixel =
+        std::max(std::abs(source.width()) / pixelsWide, std::abs(source.height()) / pixelsTall);
+    if (texelsPerPixel <= 1.0) {
+        return 0;
+    }
+    return std::clamp(static_cast<int>(std::lround(std::log2(texelsPerPixel))), 0, levelCount - 1);
+}
+
+void paintSprite(QPainter& painter, const SpriteQuad& quad, SceneImage& image, float opacity) {
     const QRectF target(quad.x, quad.y, quad.width, quad.height);
-    const auto width = static_cast<float>(image->width());
-    const auto height = static_cast<float>(image->height());
+    const auto width = static_cast<float>(image.width());
+    const auto height = static_cast<float>(image.height());
     const QRectF source(quad.u0 * width, quad.v0 * height, (quad.u1 - quad.u0) * width,
                         (quad.v1 - quad.v0) * height);
     if (source.width() == 0.0 || source.height() == 0.0) {
@@ -46,17 +65,35 @@ void paintSprite(QPainter& painter, const SpriteQuad& quad, const QImage* image,
         painter.rotate(static_cast<double>(quad.rotation) * 180.0 / std::numbers::pi);
         painter.translate(-target.center());
     }
-    if (isSolid(image)) {
+    if (image.solid()) {
         painter.fillRect(target, tintOf(quad.r, quad.g, quad.b, quad.a * opacity));
+    } else if (image.smooth()) {
+        // L'art peint : bilinéaire sur le niveau réduit que l'échelle demande, comme le GPU le lit
+        // en trilinéaire avec mipmaps (`LOT-125`). `drawImage` borne l'échantillonnage à l'image,
+        // comme le `ClampToEdge` du jeu ; un pinceau texturé, lui, la répéterait.
+        const int level = mipLevel(painter, target, source, image.levelCount());
+        const QImage pixels = image.level(level);
+        if (!pixels.isNull()) {
+            const double fx = static_cast<double>(pixels.width()) / static_cast<double>(width);
+            const double fy = static_cast<double>(pixels.height()) / static_cast<double>(height);
+            const QRectF reduced(source.x() * fx, source.y() * fy, source.width() * fx,
+                                 source.height() * fy);
+            painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+            painter.setOpacity(static_cast<double>(quad.a * opacity));
+            painter.drawImage(target, pixels, reduced);
+            painter.setOpacity(1.0);
+            painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
+        }
     } else {
-        // Un remplissage texturé plutôt que `drawImage` : le moteur raster échantillonne alors au
-        // centre de chaque pixel couvert, comme le GPU, là où l'agrandissement de `drawImage`
-        // décale d'un demi-pixel et ouvre des jours entre les losanges du sol.
+        // Une image engendrée, au plus proche. Un remplissage texturé plutôt que `drawImage` : le
+        // moteur raster échantillonne alors au centre de chaque pixel couvert, comme le GPU, là où
+        // l'agrandissement de `drawImage` décale d'un demi-pixel et ouvre des jours entre les
+        // losanges du sol.
         QTransform mapping;
         mapping.translate(target.x(), target.y());
         mapping.scale(target.width() / source.width(), target.height() / source.height());
         mapping.translate(-source.x(), -source.y());
-        QBrush brush(*image);
+        QBrush brush(image.pinned());
         brush.setTransform(mapping);
         painter.setOpacity(static_cast<double>(quad.a * opacity));
         painter.fillRect(target, brush);
@@ -99,11 +136,12 @@ void paintPoly(QPainter& painter, const PolyQuad& quad, float opacity) {
 
 void paintComposedScene(QPainter& painter, const ComposedScene& scene,
                         const std::optional<core::Rect>& visible, const QuadOpacity& opacity) {
-    // Au plus proche, comme le sampler du jeu (`hmi::SpriteBatch`) : lisser brouillerait l'art.
+    // Au plus proche par défaut, comme le sampler des images engendrées ; l'art peint se lisse au
+    // cas par cas (`paintSprite`).
     painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
     for (const ComposedQuad& quad : scene.quads()) {
-        const QImage* const image = sceneImageOf(quad.texture);
-        if (image == nullptr || image->isNull()) {
+        SceneImage* const image = sceneImageOf(quad.texture);
+        if (image == nullptr || image->width() <= 0 || image->height() <= 0) {
             continue;  // primitive sans texture liée : rien à dessiner, comme en jeu.
         }
         const float extra = opacity ? opacity(quad) : 1.0F;
@@ -115,7 +153,7 @@ void paintComposedScene(QPainter& painter, const ComposedScene& scene,
                 if (visible && !intersects(*visible, spriteQuadBounds(quad.sprite))) {
                     continue;
                 }
-                paintSprite(painter, quad.sprite, image, extra);
+                paintSprite(painter, quad.sprite, *image, extra);
                 break;
             case QuadKind::Line:
                 if (visible && !intersects(*visible, lineQuadBounds(quad.line))) {
@@ -131,6 +169,32 @@ void paintComposedScene(QPainter& painter, const ComposedScene& scene,
                 break;
         }
     }
+}
+
+core::Rect composedSceneBounds(const ComposedScene& scene, const core::Rect& base) {
+    float left = base.position.x;
+    float top = base.position.y;
+    float right = base.position.x + base.size.x;
+    float bottom = base.position.y + base.size.y;
+    for (const ComposedQuad& quad : scene.quads()) {
+        core::Rect bounds;
+        switch (quad.kind) {
+            case QuadKind::Sprite:
+                bounds = spriteQuadBounds(quad.sprite);
+                break;
+            case QuadKind::Line:
+                bounds = lineQuadBounds(quad.line);
+                break;
+            case QuadKind::Poly:
+                bounds = polyQuadBounds(quad.poly);
+                break;
+        }
+        left = std::min(left, bounds.position.x);
+        top = std::min(top, bounds.position.y);
+        right = std::max(right, bounds.position.x + bounds.size.x);
+        bottom = std::max(bottom, bounds.position.y + bounds.size.y);
+    }
+    return core::Rect{{left, top}, {right - left, bottom - top}};
 }
 
 QTransform cameraTransform(const Camera2D& camera) {

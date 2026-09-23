@@ -28,3 +28,23 @@ target_compile_definitions(Benchmarks PRIVATE
     # une carte LIVREE en dur, que la table rase du LOT-102 emporte. Elles mesurent desormais la
     # carte d'essai, qui ne bouge pas -- et une serie se compare d'une version a l'autre.
     JADG_TEST_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData")
+
+# La peinture du canevas de l'éditeur sur de l'art HD (LOT-125) : elle lie Qt Gui (QPainter), que
+# les mesures ci-dessus évitent. Construite seulement là où Qt se trouve ; le job `benchmarks` de la
+# nuit installe Qt pour elle et publie sa série à part.
+#   cmake --build build/bench --target CanvasBenchmarks
+#   build/bench/bin/CanvasBenchmarks.exe
+find_package(Qt6 QUIET COMPONENTS Gui)
+if(TARGET Qt6::Gui)
+    add_executable(CanvasBenchmarks
+        bench_canvas_paint.cpp
+        ${PROJECT_SOURCE_DIR}/Source/Editor/Ui/ScenePainter.cpp
+        ${PROJECT_SOURCE_DIR}/Source/Editor/Ui/SceneImages.cpp
+    )
+    target_link_libraries(CanvasBenchmarks PRIVATE
+        HmiLib Qt6::Gui benchmark::benchmark_main project_warnings)
+    target_compile_definitions(CanvasBenchmarks PRIVATE
+        JADG_HD_MOCKUP_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/HdMockup")
+else()
+    message(STATUS "CanvasBenchmarks : Qt6::Gui introuvable -- mesure de peinture ignoree.")
+endif()

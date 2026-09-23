@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **179 cas** (15 bloquants, 43 critiques, 94 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **185 cas** (17 bloquants, 43 critiques, 98 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -25,11 +25,12 @@ Tests unitaires — **179 cas** (15 bloquants, 43 critiques, 94 majeurs, 27 mine
 | [`test_map_documents.cpp`](#test-map-documentscpp) | 3 | - | - | 2 | 1 |
 | [`test_map_format.cpp`](#test-map-formatcpp) | 8 | - | 5 | 2 | 1 |
 | [`test_map_refactor.cpp`](#test-map-refactorcpp) | 9 | - | 5 | 3 | 1 |
-| [`test_map_render.cpp`](#test-map-rendercpp) | 4 | - | - | 3 | 1 |
+| [`test_map_render.cpp`](#test-map-rendercpp) | 5 | - | - | 4 | 1 |
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
 | [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 6 | - | 1 | 4 | 1 |
-| [`test_scene_painter.cpp`](#test-scene-paintercpp) | 3 | 2 | - | 1 | - |
+| [`test_scene_images.cpp`](#test-scene-imagescpp) | 4 | 1 | - | 3 | - |
+| [`test_scene_painter.cpp`](#test-scene-paintercpp) | 4 | 3 | - | 1 | - |
 | [`test_shipped_maps.cpp`](#test-shipped-mapscpp) | 4 | 4 | - | - | - |
 | [`test_stamps.cpp`](#test-stampscpp) | 9 | - | 2 | 6 | 1 |
 | [`test_thumbnail_geometry.cpp`](#test-thumbnail-geometrycpp) | 3 | - | 2 | - | 1 |
@@ -2312,7 +2313,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.UneCarteSeRendSansFenetre
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:52`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:55`
 
 --render peint une carte hors écran.
 
@@ -2324,14 +2325,37 @@ Une table de correspondance mal formée est refusée.
 **Résultat attendu**
 
 - Vérifie que `carte.ok()` est vrai.
-- Vérifie que `lieu.width()` vaut `989`.
-- Vérifie que `lieu.height()` vaut `648`.
+- Vérifie que `lieu.width()` vaut `1113`.
+- Vérifie que `lieu.height()` vaut `716`.
 - Vérifie que `peinte(lieu, options.background)` est strictement supérieur à `1.0 / 5.0`.
 - Vérifie que `collision` diffère de `lieu`.
 
+### MapRenderTest.UnePieceHauteNEstPasRognee
+
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:119`
+
+Le cadre de --render tient les pièces hautes.
+
+**Étapes**
+
+1. Écrire un lieu HD d'une seule pièce, une tour rouge de 256 × 1024.
+2. La poser sur la case (0, 0) d'une carte de 3 × 3, la plus haute à l'écran.
+3. Rendre la carte au demi.
+
+**Résultat attendu**
+
+- Vérifie que `ground && decor` est vrai.
+- Vérifie que `draft.setLayerProperty(*ground, std::string{hmi::SCENE_PLACE_PROPERTY}, "haut")` est vrai.
+- Vérifie que `draft.placePiece(*decor, {.column = 0, .row = 0}, "tower", core::TileType::Wall)` est vrai.
+- Vérifie que `level.ok()` est vrai.
+- Vérifie que `image.isNull()` est faux.
+- Vérifie que `static_cast<double>(tower)` est strictement supérieur à `0.9 * expected`.
+- Vérifie que `static_cast<double>(tower)` est strictement inférieur à `1.1 * expected`.
+- Vérifie que `onEdge` vaut `0U`.
+
 ### MapRenderTest.LesBandesSeLisentParLeurNom
 
-*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:81`
+*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:177`
 
 --layers lit les bandes du canevas.
 
@@ -2347,7 +2371,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.RenderEcritUneImageParCarte
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:98`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:194`
 
 --render écrit une image par carte.
 
@@ -2365,7 +2389,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.LePlanCoucheLesBlocsEtLegende
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:126`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:222`
 
 --plan couche les blocs et ajoute une legende.
 
@@ -2739,11 +2763,93 @@ Le type d'une pièce vient de la table du lieu.
 - Vérifie que `hmi::pieceCellType(&table.appearance, "old-wall", false)` vaut `core::TileType::Solid`.
 - Vérifie que `hmi::pieceCellType(nullptr, "street", true)` vaut `core::TileType::Empty`.
 
+## test_scene_images.cpp
+
+### SceneImagesTest.LesOngletsPartagentUnSeulCache
+
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:50`
+
+Le cache d'images est partage entre onglets.
+
+**Étapes**
+
+1. Demander trois fois le cache partage du dossier de la maquette, comme trois onglets.
+2. Relacher les onglets un a un.
+
+**Résultat attendu**
+
+- Vérifie que `first.get()` vaut `second.get()`.
+- Vérifie que `first.get()` vaut `third.get()`.
+- Vérifie que `first.use_count()` vaut `3`.
+- Vérifie que `first->residentBytes()` est strictement supérieur à `0U`.
+- Vérifie que `watched.expired()` est faux.
+- Vérifie que `watched.expired()` est vrai.
+
+### SceneImagesTest.LeBudgetEstTenuEtUneImageEvinceeSeRelit
+
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:81`
+
+Le cache d'images tient son budget.
+
+**Étapes**
+
+1. Creer un cache dont le budget tient la plus grosse piece de la maquette, pas toutes.
+2. Charger toutes les pieces, puis peindre (lire) chacune.
+3. Relire la premiere.
+
+**Résultat attendu**
+
+- Vérifie que `paths.size()` est supérieur ou égal à `3U`.
+- Vérifie que `image` diffère de `nullptr`.
+- Vérifie que `image` diffère de `nullptr`.
+- Vérifie que `images.residentBytes()` est inférieur ou égal à `images.budgetBytes() + bytesOf(pixels)`.
+- Vérifie que `first->width()` vaut `firstPixels.width()`.
+- Vérifie que `first->level(0)` vaut `firstPixels`.
+
+### SceneImagesTest.UnePiecePeinteASesNiveauxReduits
+
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:126`
+
+Une piece peinte a ses niveaux reduits.
+
+**Étapes**
+
+1. Charger une piece de la maquette et lire son niveau 1 et son dernier niveau.
+2. Lire un marqueur d'entite.
+
+**Résultat attendu**
+
+- Vérifie que `paths.empty()` est faux.
+- Vérifie que `piece` diffère de `nullptr`.
+- Vérifie que `piece->smooth()` est vrai.
+- Vérifie que `half.width()` vaut `std::max(1, piece->width() / 2)`.
+- Vérifie que `half.height()` vaut `std::max(1, piece->height() / 2)`.
+- Vérifie que `std::min(last.width(), last.height())` est inférieur ou égal à `1`.
+- Vérifie que `marker` diffère de `nullptr`.
+- Vérifie que `marker->smooth()` est faux.
+- Vérifie que `marker->levelCount()` vaut `1`.
+
+### SceneImagesTest.UnManifesteSeLitUneFois
+
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:157`
+
+Un manifeste se lit une fois.
+
+**Étapes**
+
+1. Charger toutes les pieces de la maquette, rangees dans un seul dossier.
+
+**Résultat attendu**
+
+- Vérifie que `paths.size()` est supérieur ou égal à `3U`.
+- Vérifie que `images.manifestReads()` est inférieur ou égal à `3U`.
+- Vérifie que `images.manifestReads()` est strictement inférieur à `paths.size()`.
+
 ## test_scene_painter.cpp
 
 ### ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:216`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:248`
 
 Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
@@ -2755,11 +2861,11 @@ Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
 **Résultat attendu**
 
-- Pour chaque cadrage, moins de 2,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface.
+- Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal, l'ecart moyen reste sous 0,75 ; l'image est peinte sur plus de la moitie de sa surface.
 
 ### ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:240`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:272`
 
 Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
@@ -2770,11 +2876,11 @@ Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
 **Résultat attendu**
 
-- Moins de 2,5 % des pixels different au-dela de la tolerance.
+- Moins de 0,5 % des pixels different au-dela de la tolerance ; ecart moyen sous 0,75.
 
 ### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
 
-*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:303`
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:335`
 
 Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 
@@ -2787,6 +2893,22 @@ Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 
 - Vérifie que `maquette.place.empty()` est vrai.
 - Vérifie que `hmi::parseMaquetteTokenPath(path).has_value()` est vrai.
+
+### ScenePainterTest.LaMaquetteHdPeinteEgaleLeRenduDuJeu
+
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:366`
+
+L'editeur peint la maquette HD comme le jeu.
+
+**Étapes**
+
+1. Lire la scene de Fixtures/HdMockup et ses pieces installees.
+2. La rendre hors ecran par le jeu en 1920 x 1080, une case a 100 pixels.
+3. La peindre par l'editeur avec la meme camera.
+
+**Résultat attendu**
+
+- Vérifie que `scene.is_discarded()` est faux.
 
 ## test_shipped_maps.cpp
 

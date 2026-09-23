@@ -367,7 +367,9 @@ jobs:
         shell: pwsh
         # LOT-EDITOR-13 : une carte se relit en diff, mais une image dit d'un coup d'oeil ce que la
         # PR a change. Chaque carte modifiee ou ajoutee sous Source/Elements/Levels est rendue en
-        # isometrie, sans fenetre, par le peintre du canevas (demi-echelle), et publiee en artefact.
+        # isometrie, sans fenetre, par le peintre du canevas, et publiee en artefact. Demi-echelle :
+        # la carte vue a 540p, une case a 50 pixels -- lisible, et une carte de 48 x 40 tient dans
+        # 2 200 pixels de large (LOT-125 ; l'image ne depasse jamais 8 192 pixels de cote).
         run: |
           $maps = @(git diff --name-only --diff-filter=AMR HEAD^1 HEAD -- 'Source/Elements/Levels/' |
             Where-Object { $_ -like '*.json' -and $_ -notlike '*.editor.json' -and (Split-Path $_ -Leaf) -notlike 'sequence-*' })

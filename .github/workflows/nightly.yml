@@ -422,6 +422,13 @@ jobs:
       - name: Install Ninja
         run: choco install ninja -y --no-progress
 
+      # La peinture du canevas de l'éditeur (LOT-125) lie Qt Gui : les autres mesures s'en passent.
+      - name: Install Qt
+        uses: ./.github/actions/setup-qt
+        with:
+          version: ${{ env.QT_VERSION }}
+          aqtsource: ${{ env.AQT_SOURCE }}
+
       - name: Build et mesures (Release)
         shell: cmd  # zizmor: ignore[misfeature] -- vcvars64.bat et CMake doivent partager un processus
         run: |
@@ -429,8 +436,12 @@ jobs:
             call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           )
           cmake -S . -B build/bench -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKS=ON -DBUILD_TESTING=OFF -DBUILD_EDITOR_QT=OFF || exit /b 1
-          cmake --build build/bench --target Benchmarks || exit /b 1
+          cmake --build build/bench --target Benchmarks CanvasBenchmarks || exit /b 1
           build\bench\bin\Benchmarks.exe --benchmark_min_time=1s --benchmark_format=json --benchmark_out=benchmarks.json || exit /b 1
+          build\bench\bin\CanvasBenchmarks.exe --benchmark_min_time=1s --benchmark_format=json --benchmark_out=canvas-benchmarks.json || exit /b 1
+        env:
+          # install-qt-action exporte QT_ROOT_DIR : find_package(Qt6) y résout CanvasBenchmarks.
+          CMAKE_PREFIX_PATH: ${{ env.QT_ROOT_DIR }}
 
       # L'action bascule sur la branche d'historique dans le checkout, même quand on lui interdit de
       # la télécharger (PR) : elle doit exister localement. Dépôt public, donc sans jeton.
@@ -443,6 +454,22 @@ jobs:
           name: Combat et niveaux (Release, windows-2022)
           tool: googlecpp
           output-file-path: benchmarks.json
+          gh-pages-branch: benchmarks
+          benchmark-data-dir-path: dev/bench
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          alert-threshold: '150%'
+          comment-on-alert: true
+          fail-on-alert: false
+          summary-always: true
+
+      # La peinture du canevas sur de l'art HD (LOT-125, bench_canvas_paint.cpp), sa propre série.
+      - name: Historique et alerte (peinture du canevas)
+        uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc # v1.22.2
+        with:
+          name: Peinture du canevas de l'editeur (Release, windows-2022)
+          tool: googlecpp
+          output-file-path: canvas-benchmarks.json
           gh-pages-branch: benchmarks
           benchmark-data-dir-path: dev/bench
           github-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **176 cas** (27 bloquants, 59 critiques, 82 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **177 cas** (28 bloquants, 59 critiques, 82 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -15,6 +15,7 @@ Tests unitaires — **176 cas** (27 bloquants, 59 critiques, 82 majeurs, 8 mineu
 | [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
 | [`test_cache_registry.cpp`](#test-cache-registrycpp) | 5 | - | 5 | - | - |
 | [`test_camera2d.cpp`](#test-camera2dcpp) | 10 | - | - | 9 | 1 |
+| [`test_capital_kit_render.cpp`](#test-capital-kit-rendercpp) | 1 | 1 | - | - | - |
 | [`test_city_block_render.cpp`](#test-city-block-rendercpp) | 2 | - | - | 2 | - |
 | [`test_depth_sort.cpp`](#test-depth-sortcpp) | 5 | - | 4 | 1 | - |
 | [`test_entity_markers.cpp`](#test-entity-markerscpp) | 5 | - | 1 | 4 | - |
@@ -1539,6 +1540,33 @@ fitZoom applique la marge telle quelle.
 - Vérifie que `zoomSansMarge` vaut `5.0f` (comparaison flottante).
 - Vérifie que `zoomAvecMarge` vaut `4.25f` (comparaison flottante).
 
+## test_capital_kit_render.cpp
+
+### CapitalKitRender.AStreetOfTwelveCellsIsComposedWithTheKitAlone
+
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_capital_kit_render.cpp:127`
+
+Le moteur rend une rue de douze cases composee du seul kit de la Capitale.
+
+**Étapes**
+
+1. Copier le Scene/ installe du kit sous une racine temporaire.
+2. Composer douze cases sur cinq : facades, chaussee bordee, dallage et mobilier.
+3. La rendre hors ecran en 1920 x 1080 et ecrire l'image.
+
+**Résultat attendu**
+
+- Vérifie que `manifest.ok()` est vrai.
+- Vérifie que `manifest.manifest.find(placed.piece)` diffère de `nullptr`.
+- Vérifie que `manifest.manifest.find(streetFloor(column, row))` diffère de `nullptr`.
+- Vérifie que `texture->create()` est vrai.
+- Vérifie que `target->create()` est vrai.
+- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
+- Vérifie que `rhi->beginOffscreenFrame(&commandBuffer)` vaut `QRhi::FrameOpSuccess`.
+- Vérifie que `rhi->endOffscreenFrame()` vaut `QRhi::FrameOpSuccess`.
+- Vérifie que `rendered.size()` vaut `size`.
+- Vérifie que `share` est strictement supérieur à `0.08`.
+
 ## test_city_block_render.cpp
 
 ### CityBlockRenderTest.LeCadrageContientLIlot
@@ -1766,7 +1794,7 @@ Les pixels du marqueur sont empaquetes au format de createTexture.
 
 ### HdMockupRender.MatchesTheHandMadeMockupAt1080p
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:268`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:220`
 
 Le moteur rend la maquette du standard 2D HD a 1080p.
 
@@ -1782,7 +1810,7 @@ Le moteur rend la maquette du standard 2D HD a 1080p.
 
 ### HdMockupRender.MatchesTheHandMadeMockupAt2160p
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:284`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:236`
 
 Le moteur rend la maquette du standard 2D HD a 2160p.
 
@@ -1798,7 +1826,7 @@ Le moteur rend la maquette du standard 2D HD a 2160p.
 
 ### HdMockupRender.WritesASlowTravellingForTheAuthor
 
-*Mineur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:306`
+*Mineur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:258`
 
 Le travelling de la maquette s'ecrit pour le controle visuel.
 

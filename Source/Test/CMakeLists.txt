@@ -179,6 +179,8 @@ if(Qt6_FOUND)
         Unit/Editor/test_scene_painter.cpp
         ../Editor/Ui/ScenePainter.cpp
         ../Editor/Ui/SceneImages.cpp
+        # Le cache d'images du canevas (LOT-125) : partage entre onglets, borne, lu une fois.
+        Unit/Editor/test_scene_images.cpp
         # LevelEditor --render (LOT-EDITOR-13) : une carte livree rendue en PNG, sans fenetre.
         Unit/Editor/test_map_render.cpp
         ../Editor/Ui/MapRender.cpp

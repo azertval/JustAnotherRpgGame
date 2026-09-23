@@ -21,9 +21,11 @@ class QPainter;
  *
  * Le jeu soumet la scène composée à `hmi::SpriteBatch` ; l'éditeur la parcourt ici, quad par quad,
  * dans le même ordre. Ce qui compte pour ressembler au jeu, et qui est fait ici comme le GPU le
- * fait : l'échantillonnage **au plus proche** (aucun lissage : c'est du pixel art), la région
- * d'image tirée des UV, l'opacité du quad, la rotation autour de son centre. La comparaison
- * d'image avec le rendu hors écran du jeu en est la preuve (`test_scene_painter.cpp`).
+ * fait : l'échantillonnage — l'art peint **lissé**, lu sur le niveau réduit que demande l'échelle,
+ * les images engendrées **au plus proche** (`LOT-125`) —, la région d'image tirée des UV,
+ * l'opacité du quad, la rotation autour de son centre. La comparaison d'image avec le rendu hors
+ * écran du jeu en est la preuve (`test_scene_painter.cpp`) ; elle se fait à un seuil, car le GPU
+ * mêle deux niveaux (trilinéaire) là où le peintre n'en lit qu'un.
  *
  * Une différence assumée : la **teinte** RVB d'un quad texturé n'est pas appliquée (le jeu ne
  * teinte aucune pièce de lieu) ; seul un quad à teinte unie (`hmi::SceneImages::solid`) se peint
@@ -53,6 +55,15 @@ using QuadOpacity = std::function<float(const ComposedQuad&)>;
 void paintComposedScene(QPainter& painter, const ComposedScene& scene,
                         const std::optional<core::Rect>& visible = std::nullopt,
                         const QuadOpacity& opacity = {});
+
+/**
+ * @brief Le rectangle qu'occupe @p scene, réuni à @p base : chaque primitive compte, reliefs et
+ *        figurines qui montent au-dessus de leur case compris.
+ *
+ * Le cadre du canevas, des vignettes et de `--render` (`LOT-125`) : il se mesure sur ce qui est
+ * peint, et non sur une marge supposée — une pièce de quatre cases de haut n'y est jamais rognée.
+ */
+[[nodiscard]] core::Rect composedSceneBounds(const ComposedScene& scene, const core::Rect& base);
 
 /// @return La transformation d'un cadrage du jeu : unités monde vers pixels de la surface.
 [[nodiscard]] QTransform cameraTransform(const Camera2D& camera);

@@ -3,7 +3,7 @@ id = "LOT-125"
 titre = "Le canevas de l'éditeur en HD"
 version = "0.0.1"
 filiere = "editeur"
-statut = "a-faire"
+statut = "en-cours"
 taille = "M"
 resume = "Le canevas, les vignettes et `--render` montrent une carte HD comme le jeu la montre : à la bonne taille, lissée, entière, sans saturer la mémoire."
 prerequis = ["LOT-103", "LOT-123"]
@@ -40,3 +40,46 @@ et la mini-carte ne bougent pas : ils travaillent en unités du monde.
 
 - Le bilinéaire logiciel de `QPainter` sur une grande carte peut coûter cher : c'est pourquoi la
   mesure de peinture est un livrable, et le cache par palier de zoom la parade.
+
+## Réalisation — 23 septembre 2026
+
+Branche `lot-125-canevas-hd`. Plusieurs constats de l'[audit](../../../../standards/audit-editeur.md)
+avaient déjà été levés par le [LOT-103](LOT-103-rendu-hd.md) : la constante de 86 px est devenue une
+convention du repère (`ARENA_TILE_WIDTH_UNITS`, H2), l'essai immédiat cadre déjà au zoom libre du jeu
+(hauteur / 10,8, H3), et le marqueur de figurine absente se dessine une case de large quelle que soit
+l'échelle du lieu. Ce que le lot a fait du reste :
+
+| Livrable | Ce qui est fait |
+|---|---|
+| Lissage et images réduites en cache (H1) | `hmi::SceneImage` garde les **niveaux réduits** de chaque pièce, la moitié de la précédente, calculés à la première demande ; le peintre lit en bilinéaire celui que l'échelle demande. Les images engendrées (marqueurs, jetons, atlas, damier) restent au plus proche, comme le sampler du jeu. |
+| Plus de taille d'art (H4) | Le cadre du canevas, de l'essai, des vignettes et de `--render` se mesure sur ce qui est peint (`hmi::composedSceneBounds`), et non sur une marge d'un losange. |
+| Zoom libre de l'essai (H3) | Déjà fait par le LOT-103 ; vérifié. |
+| `--render` (H5) | L'échelle 1 est la carte à 1080p (une case à 100 px) ; un plafond de **8 192 px** de côté remplace le plafond d'échelle ; la CI rend à la demi-échelle, une case à 50 px. Les vignettes des cartes et des préfabriqués se peignent directement à deux fois leur taille, et non plus en plein format. |
+| `SceneImages` partagé et borné (H6) | Une instance par dossier d'assets (`SceneImages::shared`) pour les onglets, les vignettes et `--render` ; un budget de **256 Mio** de pixels, tenu par éviction de la pièce la moins récemment peinte, qui se relit à la peinture suivante ; chaque manifeste lu une fois (`ManifestCache`, partagé avec le jeu par `readSceneTextureTraits`). |
+| La peinture mesurée (H7) | `CanvasBenchmarks` (`bench_canvas_paint.cpp`), une cible à part parce qu'elle lie Qt Gui ; le job de nuit installe Qt et publie sa série. |
+
+### Critères
+
+- **Parité avec le jeu** ✔ — `ScenePainterTest.LaMaquetteHdPeinteEgaleLeRenduDuJeu` : la maquette
+  du LOT-101 peinte à 1080p. Seuils écrits dans `test_scene_painter.cpp`, avec la mesure qui les
+  justifie :
+
+  | | Cartes d'essai | Maquette HD |
+  |---|---:|---:|
+  | au plus proche (avant) | 1,56 % · écart 1,55 | 2,92 % · écart 6,30 |
+  | lissé, par niveaux | 0 % · écart 0,22 | 0 % · écart 1,87 |
+  | seuil | 0,5 % · 0,75 | 0,5 % · 3,5 |
+
+  Le seuil des cartes d'essai redescend de 2,5 % à 0,5 %, comme le LOT-103 l'annonçait. La parité
+  exacte n'est plus promise : le GPU mêle deux niveaux de mipmap, le peintre n'en lit qu'un.
+- **Travelling et zoom fluides** — mesure publiée ✔ : la maquette HD se peint en 11,5 ms à 1080p
+  et en 4,8 ms dézoomée (Release, poste local). **Le contrôle à la main de l'auteur reste à faire.**
+- **Trois onglets, mémoire bornée** ✔ — la borne est écrite dans le README du module (256 Mio de
+  pixels d'art, quel que soit le nombre d'onglets) ; `test_scene_images.cpp` prouve le partage, le
+  budget et la relecture. Mesure d'appoint : trois rendus de la carte de validation du LOT-105
+  (38 pièces HD) à l'échelle 2160p dans un même processus plafonnent à 100 Mio, image de
+  5 100 × 3 376 comprise. L'éditeur n'ouvre qu'une carte par la ligne de commande : l'essai à trois
+  onglets se fait à la main.
+- **Une pièce de quatre cases n'est pas rognée** ✔ — `MapRenderTest.UnePieceHauteNEstPasRognee` :
+  une tour de 256 × 1024 sur la case la plus haute de la carte, entière dans l'image. Les vignettes
+  passent par le même cadre ; le canevas aussi.
