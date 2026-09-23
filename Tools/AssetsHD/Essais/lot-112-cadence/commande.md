@@ -85,6 +85,23 @@ VARIANTS: EIGHT frames — one full walk cycle that loops, the contact,
 down, passing and up poses evenly spread over the strip.
 ```
 
+## Juger : les deux marches sur la maquette
+
+Le descripteur `install.json` de ce dossier est un **essai** (`previewOnly`) : il se mesure et
+s'aperçoit, il ne s'installe jamais. Une fois les deux images enregistrées :
+
+```
+python scripts/install_hd_asset.py Tools/AssetsHD/Essais/lot-112-cadence/install.json --measure
+python scripts/preview_figure_walk.py Tools/AssetsHD/Essais/lot-112-cadence/install.json --figure essai-6 --loops 4 --out build/lot-112/marche-6.webp
+python scripts/preview_figure_walk.py Tools/AssetsHD/Essais/lot-112-cadence/install.json --figure essai-8 --loops 4 --out build/lot-112/marche-8.webp
+```
+
+Le garde marche vers le sud-est, sur la vue 1080 de la maquette, à la vitesse du jeu (4 cases par
+seconde), les pieds au centre du losange. `--frame-duration` essaie une autre cadence sans rien
+toucher. Les trois questions de la [fiche](../../../../Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) :
+la marche à six **saccade-t-elle** ? à huit, est-ce **le même personnage** d'une image à l'autre ?
+le quart de coût en plus, sur tout le jeu, se paie-t-il ?
+
 ## Deux écarts à la consigne, et pourquoi
 
 - **`OUTPUT`** : le bloc B dit « square canvas », ce qui contredit une planche en bande. La variante

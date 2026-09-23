@@ -234,6 +234,9 @@ class Descriptor:
     target: str
     pieces: list[PieceSpec] = field(default_factory=list)
     figures: list[FigureSpec] = field(default_factory=list)
+    # Un essai (la cadence du LOT-112) se mesure et s'aperçoit, il ne s'installe jamais : ses
+    # figurines n'ont rien à faire dans le dépôt.
+    preview_only: bool = False
 
     @property
     def source_dir(self) -> Path:
@@ -266,7 +269,10 @@ def read_descriptor(path: Path) -> Descriptor:
     target = data.get("target")
     if not isinstance(target, str) or ".." in target:
         raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ ou Characters/ sous les assets")
-    descriptor = Descriptor(path=path, target=target)
+    preview_only = data.get("previewOnly", False)
+    if not isinstance(preview_only, bool):
+        raise DescriptorError(f"{path} : `previewOnly` est un booléen")
+    descriptor = Descriptor(path=path, target=target, preview_only=preview_only)
     if descriptor.is_characters:
         if "pieces" in data:
             raise DescriptorError(f"{path} : un dossier Characters/ reçoit des `figures`, pas des `pieces`")
@@ -1113,6 +1119,10 @@ def main_figures(args: argparse.Namespace, descriptor: Descriptor) -> int:
             return 1
         print(f"{len(ready)} figurine(s) à jour dans {descriptor.target}")
         return 0
+    if descriptor.preview_only:
+        print(f"install_hd_asset : {args.descriptor} est un essai (`previewOnly`) : il se mesure "
+              "(--measure) et s'aperçoit (preview_figure_walk.py), il ne s'installe pas", file=sys.stderr)
+        return 1
     write_figures(descriptor, ready)
     print(f"{len(ready)} figurine(s) installée(s) dans {descriptor.target}")
     return 0

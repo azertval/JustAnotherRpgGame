@@ -424,3 +424,19 @@ def test_des_pieces_dans_un_dossier_characters_sont_refusees(tmp_path):
     path.write_text(json.dumps({'version': 1, 'target': 'Common/Characters', 'pieces': []}), encoding='utf-8')
     with pytest.raises(M.DescriptorError, match='figures'):
         M.read_descriptor(path)
+
+
+def test_un_essai_se_mesure_mais_ne_s_installe_pas(characters, capsys):
+    target, sources = characters
+    figure_strip(2).save(sources / 'walk.png')
+    descriptor = sources / 'install.json'
+    descriptor.write_text(json.dumps({'version': 1, 'target': 'Common/Characters', 'previewOnly': True,
+                                      'figures': [{'name': 'essai-6', 'strips': [
+                                          {'source': 'walk.png', 'clip': 'walk', 'frames': 2}]}]}),
+                          encoding='utf-8')
+    assert M.main([str(descriptor), '--measure']) == 0
+    assert M.main([str(descriptor)]) == 1
+    assert 'ne s\'installe pas' in capsys.readouterr().err
+    assert not (target / 'essai-6').exists()
+    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == []
