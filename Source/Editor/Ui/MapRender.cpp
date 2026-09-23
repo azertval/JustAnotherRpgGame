@@ -126,6 +126,9 @@ QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
     bool namedPlace = false;
     for (const StampLayer& layer : stamp.layers) {
         const std::optional<std::size_t> added = draft.addLayer(layer.kind, layer.name);
+        if (added && layer.floor != 0) {
+            draft.setLayerFloor(*added, layer.floor);  // un toit reste a l'etage (LOT-129)
+        }
         if (added && !namedPlace && layer.kind == core::LayerKind::Ground && !place.empty()) {
             draft.setLayerProperty(*added, std::string{SCENE_PLACE_PROPERTY}, place);
             namedPlace = true;
@@ -298,9 +301,8 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
     // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
     // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
     const IsoBandOpacity& bands = options.bands;
-    paintComposedScene(painter, scene, std::nullopt, [&bands](const ComposedQuad& quad) {
-        return bandOpacity(bands, quad.layer);
-    });
+    paintComposedScene(painter, scene, std::nullopt,
+                       [&bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
     if (bands.collision > 0.0F) {
         // Le masque du canevas : rouge ce qui arrête, vert l'entrée.
         paintDiamonds(painter, projection, draft.tileMap(), [&bands](core::TileType type) {

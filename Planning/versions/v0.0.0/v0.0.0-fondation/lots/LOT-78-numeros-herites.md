@@ -97,4 +97,4 @@ faudrait le refaire en entier, puisque rien ne dirait lesquels des renvois ont d
 
 ## Bilan
 
-Statut : **fait**. Vérification automatisée : `scripts/lint_lots.py` vert, règle 12 comprise ; `scripts/lint_exigences.py` vert ; Doxygen vert ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Ce lot est prérequis du démarrage de tout lot de la filière.
+Statut : **fait**. Vérification automatisée : `scripts/lint_lots.py` vert, règle 12 comprise ; `scripts/checks/lint_exigences.py` vert ; Doxygen vert ; tous les critères d'acceptation sont cochés dans l'epic d'origine. Ce lot est prérequis du démarrage de tout lot de la filière.

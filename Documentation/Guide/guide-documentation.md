@@ -15,8 +15,8 @@ commande Doxygen, des liens relatifs ordinaires. Le site n'ajoute que la mise en
 |---|---|---|
 | Accueil, guide, spécifications, cahier de test | `Documentation/` | `Documentation/outils/build_docs_site.py` |
 | Planification (versions, lots, référentiels) | `Planning/` | `Planning/outils/build_planning_site.py` |
-| Qualité (couverture, performances) | mesures de la CI | `scripts/build_quality_site.py` |
-| Référence du code — l'annexe du guide | commentaires de `Source/` | Doxygen, par `scripts/build_docs.py` |
+| Qualité (couverture, performances) | mesures de la CI | `scripts/docs/build_quality_site.py` |
+| Référence du code — l'annexe du guide | commentaires de `Source/` | Doxygen, par `scripts/docs/build_docs.py` |
 
 Les deux premiers partagent le moteur Markdown (`Planning/outils/mini_markdown.py`, sans
 dépendance) ; les quatre partagent la charte de `Site/` — aucune couleur ne s'écrit ailleurs que
@@ -38,7 +38,7 @@ dans `Site/tokens.css`.
 L'**ordre de lecture** d'une partie est celui où son `README.md` cite ses pages ; le menu latéral
 et les liens « précédent / suivant » en découlent. Une page que rien ne cite est une erreur de lint
 (*page orpheline*). Le cahier de test ne s'écrit pas : il est engendré
-(`scripts/generate_cahier_test.py`).
+(`scripts/docs/generate_cahier_test.py`).
 
 ## Les conventions d'écriture
 
@@ -79,7 +79,7 @@ Une exigence se **déclare** par une puce qui s'ouvre sur son identifiant en gra
 - **EX-CBT-020** — Le déplacement d'un tour est borné par une portée en cases…
 ```
 
-`scripts/lint_exigences.py` vérifie qu'elle est déclarée une fois, et citée au moins une fois
+`scripts/checks/lint_exigences.py` vérifie qu'elle est déclarée une fois, et citée au moins une fois
 ailleurs ; `--next` donne le prochain numéro libre. Le site en tire l'[index des
 exigences](../Specification/README.md), avec le code et les tests qui citent chacune.
 
@@ -139,10 +139,10 @@ renvoie.
 
 ```
 python Documentation/outils/lint_docs.py          # liens, ancres, pages orphelines, lots cités
-python scripts/lint_exigences.py                  # exigences déclarées une fois, citées
-python scripts/generate_cahier_test.py --check    # cahier de test à jour
+python scripts/checks/lint_exigences.py                  # exigences déclarées une fois, citées
+python scripts/docs/generate_cahier_test.py --check    # cahier de test à jour
 python Planning/outils/lint_planning.py           # fiches de lots
-python scripts/build_docs.py                      # la référence du code (Doxygen, sans avertissement)
+python scripts/docs/build_docs.py                      # la référence du code (Doxygen, sans avertissement)
 python Documentation/outils/build_docs_site.py --out build/site                       # les pages
 python Planning/outils/build_planning_site.py --out build/site/planning --docs-url ../
 ```

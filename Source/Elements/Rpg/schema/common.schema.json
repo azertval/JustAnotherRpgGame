@@ -56,7 +56,7 @@
     },
 
     "damageType": {
-      "description": "Type de degats. Les treize valeurs sont celles de `core::DamageType` ; la coincidence est verifiee par test (EX-CNT-011) et par scripts/check_rpg_data.py.",
+      "description": "Type de degats. Les treize valeurs sont celles de `core::DamageType` ; la coincidence est verifiee par test (EX-CNT-011) et par scripts/checks/check_rpg_data.py.",
       "type": "string",
       "enum": ["acid", "bludgeoning", "cold", "fire", "force", "lightning", "necrotic",
                "piercing", "poison", "psychic", "radiant", "slashing", "thunder"]

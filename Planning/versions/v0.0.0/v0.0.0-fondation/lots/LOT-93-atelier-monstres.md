@@ -11,7 +11,7 @@ livrables = [
   "`Source/Elements/Assets/Monsters/<slug>/` pour `lion`, `wolf` et `ironhand-soldier` : bandes, `.anim.json`, `portrait.png` ; `Monsters/manifest.json` avec ses deux gabarits.",
   "L'atelier du lot : `atelier/prompts/` (dispositions Moyen et Grand, corps, marche, `cast.txt`, `sans_cast.txt`, `portrait_creature.txt`), `atelier/ancres/planche_grand.png`, `atelier/monstres/index.json` (173 blocs), `atelier/monstres/<slug>/`, `atelier/scripts/` (`prompts.py`, `chatgpt.py`, `integre.py`).",
   "Les scripts communs du LOT-91 étendus : `normalise.py --gabarit grand`, `--vides`, `--garde-finale`, `scinder`, `par_la_grille` ; `compose.py --travail` ; `palette.py` avec dossier des fiches.",
-  "`scripts/check_asset_keys.py` valide les figurines, avec ses tests `scripts/tests/test_check_asset_keys.py`.",
+  "`scripts/checks/check_asset_keys.py` valide les figurines, avec ses tests `scripts/tests/test_check_asset_keys.py`.",
   "La galerie des assets lit `Monsters/` (`readFigures`, `AssetGalleryTest.FigurinesDeMonstres`).",
   "Les dix sentinelles de Martpart et d'Arenarea portent la figurine `Monsters/ironhand-soldier` (`hmi::figureStripPath`).",
 ]
@@ -112,7 +112,7 @@ Les créatures d'une série passent **ensemble, étape par étape**, comme les P
 | **M — Marche** *(si besoin)* | Si « walk bouge peu » ou si l'œil la juge figée : `chatgpt.py marche <K> <slugs>` ; `NORMALISER.txt`. | Code 0 ; huit silhouettes distinctes. |
 | **X — Passe par animation** *(si besoin)* | Une seule animation fausse : `chatgpt.py <anim> <K> <slugs>` ; `NORMALISER.txt`. | Code 0 ; revue de cette animation. |
 | **A — Assemblage** | `py -3.13 ..\..\..\LOT-91-atelier-pnj\atelier\scripts\compose.py <slug> <tour S> [<anim>=<tour> …] --travail <dossier de travail>`. | Code 0. |
-| **I — Intégration** | `integre.py <slug>` : bandes, `.anim.json` et `portrait.png` dans `Assets/Monsters/<slug>/`, entrée au manifeste, **case cochée ci-dessous** ; puis `scripts/check_asset_keys.py`, et la créature se regarde dans la galerie. | `check_asset_keys.py` rend 0 ; la revue, animation par animation, dans la galerie. |
+| **I — Intégration** | `integre.py <slug>` : bandes, `.anim.json` et `portrait.png` dans `Assets/Monsters/<slug>/`, entrée au manifeste, **case cochée ci-dessous** ; puis `scripts/checks/check_asset_keys.py`, et la créature se regarde dans la galerie. | `check_asset_keys.py` rend 0 ; la revue, animation par animation, dans la galerie. |
 
 Les règles du LOT-91 valent ici : on corrige le prompt, jamais l'image ; une animation fausse se
 refait seule ; au plus trois tours par étape.

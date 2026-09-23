@@ -284,7 +284,7 @@ def ecrire_csv(entrees: list[Entree]) -> str:
 
 
 def lire_csv(contenu: str) -> list[Entree]:
-    """Relit le lexique produit — utilisé par ``scripts/check_glossary.py``."""
+    """Relit le lexique produit — utilisé par ``scripts/checks/check_glossary.py``."""
     lignes = [l for l in contenu.splitlines() if not l.startswith('#')]
     lecteur = csv.reader(lignes, delimiter=';')
     entrees = []

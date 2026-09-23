@@ -68,7 +68,7 @@
   dynamiques requises à côté de l'exécutable, ex. `windeployqt`). La version est **épinglée**
   (`EX-NFR-031`) et la licence documentée. Le poste local déclare une
   version minimale (`QT_VERSION_MINIMUM`, `Source/HMI/CMakeLists.txt`) alignée sur celle de la CI
-  et vérifiée automatiquement contre elle (`scripts/check_qt_version_pin.py`) ; un écart local
+  et vérifiée automatiquement contre elle (`scripts/ci/check_qt_version_pin.py`) ; un écart local
   produit un avertissement explicite plutôt qu'une divergence silencieuse. L'exigence de
   reproductibilité porte aussi sur l'**outil de provisionnement lui-même** : lorsqu'il doit être
   pris ailleurs que sur son dépôt de paquets habituel — cas d'`aqtinstall`, dont la version publiée

@@ -74,9 +74,12 @@ constexpr int CHANNEL_TOLERANCE = 48;
  * |---|---:|---:|
  * | au plus proche (avant le `LOT-125`) | 1,56 % · 1,55 | 2,92 % · 6,30 |
  * | lissé, par niveaux (`LOT-125`, 23 septembre 2026) | 0 % · 0,22 | 0 % · 1,87 |
+ * | lissé, rendu logiciel WARP (runner de CI, 24 septembre 2026) | — | 1,64 % · 4,69 |
  *
- * Les seuils passent entre les deux lignes : un peintre qui cesse de lisser, une ancre ou une
- * échelle fausse les dépassent.
+ * Les seuils passent entre les deux premières lignes : un peintre qui cesse de lisser, une ancre
+ * ou une échelle fausse les dépassent. Sans GPU, Direct3D rend par WARP, qui échantillonne
+ * autrement les jointures des dalles de la maquette HD (le bord bas de chaque losange) : ses
+ * seuils propres restent sous la ligne « au plus proche ».
  */
 constexpr double DIFFERING_PIXELS_TOLERANCE = 0.005;
 constexpr double MEAN_ERROR_TOLERANCE = 0.75;
@@ -84,6 +87,10 @@ constexpr double MEAN_ERROR_TOLERANCE = 0.75;
 /// L'écart moyen admis sur la maquette HD : le trilinéaire du GPU y pèse davantage (voir le
 /// tableau).
 constexpr double HD_MOCKUP_MEAN_ERROR_TOLERANCE = 3.5;
+
+/// Les seuils de la maquette HD quand le jeu rend par un périphérique logiciel (voir le tableau).
+constexpr double HD_MOCKUP_SOFTWARE_DIFFERING_PIXELS_TOLERANCE = 0.022;
+constexpr double HD_MOCKUP_SOFTWARE_MEAN_ERROR_TOLERANCE = 5.5;
 
 [[nodiscard]] std::filesystem::path dataRoot() {
     return std::filesystem::path(JADG_TEST_DATA_DIR);
@@ -200,7 +207,8 @@ struct Framing {
 /// Rend @p snapshot des deux façons, cadré sur @p focus (en cases), et compare.
 void expectSamePicture(QRhi& rhi, const hmi::WorldSceneSnapshot& snapshot, core::Vector2 focus,
                        const std::string& name, const Framing& framing = Framing{assets()},
-                       double meanErrorTolerance = MEAN_ERROR_TOLERANCE) {
+                       double meanErrorTolerance = MEAN_ERROR_TOLERANCE,
+                       double differingTolerance = DIFFERING_PIXELS_TOLERANCE) {
     OffscreenTarget target(rhi, framing.size);
     hmi::WorldSceneRenderer renderer(framing.assets);
     ASSERT_TRUE(renderer.ensureResources(&rhi));
@@ -236,7 +244,7 @@ void expectSamePicture(QRhi& rhi, const hmi::WorldSceneSnapshot& snapshot, core:
     EXPECT_GT(result.painted, result.total / 2) << name << " : l'image n'est pas que le fond";
     EXPECT_LT(result.meanError, meanErrorTolerance) << name << " : ecart moyen par canal";
     EXPECT_LT(static_cast<double>(result.differing) / static_cast<double>(result.total),
-              DIFFERING_PIXELS_TOLERANCE)
+              differingTolerance)
         << name << " : " << result.differing << " pixels sur " << result.total
         << " different au-dela de la tolerance";
 }
@@ -370,7 +378,8 @@ TEST(ScenePainterTest, UneCarteSansAucuneImageSeVoitDansLesDeuxRendus) {
  *          2. La rendre hors ecran par le jeu en 1920 x 1080, une case a 100 pixels.<br/>
  *          3. La peindre par l'editeur avec la meme camera.<br/>
  * \tattendu Moins de 0,5 % des pixels different de plus de 48 sur un canal, et l'ecart moyen
- *           par canal reste sous HD_MOCKUP_MEAN_ERROR_TOLERANCE.
+ *           par canal reste sous HD_MOCKUP_MEAN_ERROR_TOLERANCE ; par un rendu logiciel (WARP),
+ *           moins de 2,2 % et sous HD_MOCKUP_SOFTWARE_MEAN_ERROR_TOLERANCE.
  * }
  */
 TEST(ScenePainterTest, LaMaquetteHdPeinteEgaleLeRenduDuJeu) {
@@ -382,10 +391,21 @@ TEST(ScenePainterTest, LaMaquetteHdPeinteEgaleLeRenduDuJeu) {
     const nlohmann::json scene = test_support::readHdMockupJson(directory / "scene.json");
     ASSERT_FALSE(scene.is_discarded());
     constexpr int height = 1080;
+    // WARP ne se déclare pas toujours périphérique CPU (runner de CI) : son nom et ses
+    // identifiants (Microsoft, 0x8c) le trahissent.
+    const QRhiDriverInfo driver = rhi->driverInfo();
+    const bool software = driver.deviceType == QRhiDriverInfo::CpuDevice ||
+                          driver.deviceName.contains("Basic Render") ||
+                          (driver.vendorId == 0x1414 && driver.deviceId == 0x8c);
+    std::cout << "pilote : " << driver.deviceName.constData() << (software ? " (logiciel)" : "")
+              << "\n";
     expectSamePicture(*rhi, test_support::hdMockupSnapshot(scene, directory),
                       test_support::hdMockupFocus(scene), "maquette-hd-1080",
                       Framing{.assets = directory,
                               .size = QSize(1920, height),
                               .tilePixels = hmi::worldTilePixels(height)},
-                      HD_MOCKUP_MEAN_ERROR_TOLERANCE);
+                      software ? HD_MOCKUP_SOFTWARE_MEAN_ERROR_TOLERANCE
+                               : HD_MOCKUP_MEAN_ERROR_TOLERANCE,
+                      software ? HD_MOCKUP_SOFTWARE_DIFFERING_PIXELS_TOLERANCE
+                               : DIFFERING_PIXELS_TOLERANCE);
 }

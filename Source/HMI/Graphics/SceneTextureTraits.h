@@ -53,6 +53,8 @@ struct SceneTextureTraits {
     /// Durée d'une image de la bande, en secondes (`frameDuration` de son premier clip) ; 0 si la
     /// bande n'en dit rien.
     float frameDuration = 0.0F;
+    /// Hauteur d'un étage du lieu (`storey` du manifeste), en pixels d'art (`LOT-129`).
+    std::optional<float> storeyHeight;
 };
 
 /**

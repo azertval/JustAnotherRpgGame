@@ -11,7 +11,7 @@
 #   SCCACHE_VERSION, PRE_COMMIT_VERSION, UV_VERSION, PSSCRIPTANALYZER_VERSION) — seulement du texte,
 #   suivi à la main ;
 # - les hooks de .pre-commit-config.yaml — `pre-commit autoupdate --freeze`, puis
-#   `scripts/check_tool_pins.py` pour clang-format.
+#   `scripts/ci/check_tool_pins.py` pour clang-format.
 version: 2
 updates:
   - package-ecosystem: github-actions

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "comment": "Engendre par scripts/build_hd_mockup.py : la maquette du LOT-101 en carte.",
+  "comment": "Engendre par scripts/assetsGeneration/build_hd_mockup.py : la maquette du LOT-101 en carte.",
   "place": "arenarea-maquette",
   "diamondRatio": 0.62109375,
   "columns": 40,

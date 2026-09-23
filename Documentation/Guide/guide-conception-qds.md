@@ -62,7 +62,7 @@ Design Studio sait relire *et réenregistrer* sans l'abîmer. Ce qu'il n'y compr
 n'écrivez jamais de fonction, de bloc de code ni de gestionnaire impératif dans un `Form`. Si vous
 avez besoin de logique, c'est le jumeau qu'il faut, et donc un développeur.
 
-`scripts/check_ui_layers.py` le vérifie à chaque *Pull Request* (`EX-IHM-103`).
+`scripts/checks/check_ui_layers.py` le vérifie à chaque *Pull Request* (`EX-IHM-103`).
 
 ## Les jetons : le seul endroit où s'écrit une couleur
 
@@ -120,7 +120,7 @@ tiret cadratin plutôt que de fausses valeurs. Un écran rempli de valeurs plaus
 vende toujours les mêmes trois objets.
 
 Vous pouvez **les dessiner entièrement** dès maintenant : le jour où le lot fonctionnel arrive, seul
-le jumeau change. `python scripts/list_pending_bindings.py` en donne l'inventaire.
+le jumeau change. `python scripts/i18n/list_pending_bindings.py` en donne l'inventaire.
 
 ## Les contrôles Qt prennent la couleur des jetons
 
@@ -153,7 +153,7 @@ résout pas du tout, le projet n'a pas été configuré : lancer `scripts/build.
 Uniquement ceux que connaissent **à la fois** Qt et Design Studio : `QtQuick`, `QtQuick.Controls`,
 `QtQuick.Layouts`, `QtQuick.Shapes`, `QtQuick.Effects`, et `Jadg.Ui`. **Jamais `Jadg.Runtime`** :
 un formulaire qui nommerait un type C++ s'ouvrirait dans le jeu et resterait irrésolu dans
-l'atelier. `scripts/check_qml_designer_compat.py` le refuse.
+l'atelier. `scripts/checks/check_qml_designer_compat.py` le refuse.
 
 Design Studio livre les siens (`QtQuick.Studio.*`), absents d'une installation Qt ordinaire : un
 formulaire qui en importerait s'ouvrirait parfaitement chez vous et **casserait le jeu** — le pire

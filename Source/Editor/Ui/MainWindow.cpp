@@ -660,6 +660,8 @@ void MainWindow::connectMapPanels() {
             [this](std::size_t index, const QString& name) {
                 _viewport->renameMapLayer(index, name.toStdString());
             });
+    connect(_layers, &LayersPanel::floorRequested, this,
+            [this](std::size_t index, int floor) { _viewport->setMapLayerFloor(index, floor); });
 
     // Mini-carte : l'image suit le brouillon, le cadre suit la vue, un clic ramène la vue.
     connect(_miniMap, &MiniMap::centerRequested, this,

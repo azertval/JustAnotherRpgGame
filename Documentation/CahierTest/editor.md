@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **185 cas** (17 bloquants, 43 critiques, 98 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **190 cas** (20 bloquants, 43 critiques, 100 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -28,11 +28,13 @@ Tests unitaires — **185 cas** (17 bloquants, 43 critiques, 98 majeurs, 27 mine
 | [`test_map_render.cpp`](#test-map-rendercpp) | 5 | - | - | 4 | 1 |
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
-| [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 6 | - | 1 | 4 | 1 |
+| [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 7 | - | 1 | 5 | 1 |
 | [`test_scene_images.cpp`](#test-scene-imagescpp) | 4 | 1 | - | 3 | - |
 | [`test_scene_painter.cpp`](#test-scene-paintercpp) | 4 | 3 | - | 1 | - |
 | [`test_shipped_maps.cpp`](#test-shipped-mapscpp) | 4 | 4 | - | - | - |
 | [`test_stamps.cpp`](#test-stampscpp) | 9 | - | 2 | 6 | 1 |
+| [`test_storey_editing.cpp`](#test-storey-editingcpp) | 3 | 2 | - | 1 | - |
+| [`test_storey_render.cpp`](#test-storey-rendercpp) | 1 | 1 | - | - | - |
 | [`test_thumbnail_geometry.cpp`](#test-thumbnail-geometrycpp) | 3 | - | 2 | - | 1 |
 | [`test_tile_taxonomy.cpp`](#test-tile-taxonomycpp) | 2 | - | - | 2 | - |
 | [`test_world_graph_layout.cpp`](#test-world-graph-layoutcpp) | 16 | - | - | 8 | 8 |
@@ -2763,6 +2765,23 @@ Le type d'une pièce vient de la table du lieu.
 - Vérifie que `hmi::pieceCellType(&table.appearance, "old-wall", false)` vaut `core::TileType::Solid`.
 - Vérifie que `hmi::pieceCellType(nullptr, "street", true)` vaut `core::TileType::Empty`.
 
+### PieceCatalogTest.UnKitRangeSeGroupeParDossier
+
+*Majeur · Unitaire · Editeur · Palette* — `Source/Test/Unit/Editor/test_piece_catalog.cpp:211`
+
+La palette se groupe par dossier du kit.
+
+**Étapes**
+
+1. Lire le catalogue d'un manifeste dont des toits et un sol sont ranges en sous-dossiers, un tonneau a plat.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `labels` vaut `(std::vector<std::string>{"Standing", "floors", "roofs/l/d3", "roofs/t/d2"})`.
+- Vérifie que `catalog[2].pieces.size()` vaut `2U`.
+- Vérifie que `catalog[1].pieces.front().floor` est vrai.
+
 ## test_scene_images.cpp
 
 ### SceneImagesTest.LesOngletsPartagentUnSeulCache
@@ -2849,7 +2868,7 @@ Un manifeste se lit une fois.
 
 ### ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:248`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:256`
 
 Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
@@ -2865,7 +2884,7 @@ Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
 ### ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:272`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:280`
 
 Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
@@ -2880,7 +2899,7 @@ Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
 ### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
 
-*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:335`
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:343`
 
 Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 
@@ -2896,7 +2915,7 @@ Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 
 ### ScenePainterTest.LaMaquetteHdPeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:366`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:374`
 
 L'editeur peint la maquette HD comme le jeu.
 
@@ -3171,6 +3190,97 @@ Un modèle qui nomme une pièce est refusé.
 
 - Vérifie que `hmi::mapTemplateFromJson(json, error).has_value()` est faux.
 - Vérifie que `error.find("piece")` diffère de `std::string::npos`.
+
+## test_storey_editing.cpp
+
+### StoreyEditingTest.UnePieceSePeintSurLEtageActif
+
+*Bloquant · Unitaire · Editeur · Etages* — `Source/Test/Unit/Editor/test_storey_editing.cpp:46`
+
+Une piece se peint sur l'etage actif.
+
+**Étapes**
+
+1. Viser une piece de relief, la couche d'etage active.
+2. La meme, sans couche active, puis le sol active.
+
+**Résultat attendu**
+
+- Vérifie que `building.draft.moveLayer(building.roof, /*forward=*/false)` est vrai.
+- Vérifie que `roof && rez` est vrai.
+- Vérifie que `*roof` est strictement inférieur à `*rez`.
+- Vérifie que `hmi::pieceTargetLayer(layers, false, roof)` vaut `roof`.
+- Vérifie que `hmi::pieceTargetLayer(layers, false, std::nullopt)` vaut `rez`.
+- Vérifie que `hmi::pieceTargetLayer(layers, false, building.ground)` vaut `rez`.
+
+### StoreyEditingTest.CacherUneCoucheDEtageCacheSonEtage
+
+*Majeur · Unitaire · Editeur · Etages* — `Source/Test/Unit/Editor/test_storey_editing.cpp:77`
+
+Cacher une couche d'etage cache son etage.
+
+**Étapes**
+
+1. Cacher la couche de l'etage 1.
+2. Lire l'opacite d'une piece de l'etage 1, du rez.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::bandOpacity(bands, storey)` vaut `0.0F` (comparaison flottante).
+- Vérifie que `hmi::bandOpacity(bands, ground)` vaut `1.0F` (comparaison flottante).
+- Vérifie que `hmi::bandOpacity(bands, second)` vaut `1.0F` (comparaison flottante).
+
+### StoreyEditingTest.UnPrefabriqueGardeSesEtages
+
+*Bloquant · Unitaire · Editeur · Etages* — `Source/Test/Unit/Editor/test_storey_editing.cpp:107`
+
+Un prefabrique garde ses etages.
+
+**Étapes**
+
+1. Poser un toit a l'etage 1, decouper le batiment, l'ecrire puis le relire.
+2. Le poser sur un autre batiment dont les couches portent d'autres noms.
+3. Relire un prefabrique dont la couche de sol pretend etre a l'etage 1.
+
+**Résultat attendu**
+
+- Vérifie que `source.draft.placePiece(source.roof, {.column = 1, .row = 1}, "roof", core::TileType::Wall)` est vrai.
+- Vérifie que `read.has_value()` est vrai.
+- Vérifie que `*read` vaut `cut`.
+- Vérifie que `stampedRoof` diffère de `read->layers.end()`.
+- Vérifie que `target.draft.renameLayer(target.rez, "bas")` est vrai.
+- Vérifie que `target.draft.renameLayer(target.roof, "haut")` est vrai.
+- Vérifie que `pasted.refusal.empty()` est vrai.
+- Vérifie que `target.draft.layers()[target.roof].pieceAt(1, 1)` vaut `"roof"`.
+- Vérifie que `target.draft.layers()[target.rez].pieceAt(1, 1).empty()` est vrai.
+- Vérifie que `hmi::stampFromJson(forged, error).has_value()` est faux.
+
+## test_storey_render.cpp
+
+### StoreyRenderTest.OnVoitLeHerosATraversLEtageEtLeToit
+
+*Bloquant · Unitaire · Editeur · Etages* — `Source/Test/Unit/Editor/test_storey_render.cpp:122`
+
+On voit le heros a travers l'etage et le toit.
+
+**Étapes**
+
+1. Batir un batiment de 3 x 3 en murs du kit, au rez et a l'etage 1, coiffe d'un toit a l'etage 2 ; manifeste a 224 pixels d'etage.
+2. Rendre la scene avec le heros juste derriere, puis sans lui.
+
+**Résultat attendu**
+
+- Vérifie que `appearance.ok()` est vrai.
+- Vérifie que `manifest.ok()` est vrai.
+- Vérifie que `draft.setLayerProperty(ground, std::string{hmi::SCENE_PLACE_PROPERTY}, "capital")` est vrai.
+- Vérifie que `draft.placePiece(ground, {.column = column, .row = row}, "floor-paving-0" + std::to_string(((row + column) % 3) + 1), core::TileType::Pavement)` est vrai.
+- Vérifie que `draft.setLayerFloor(upper, 1)` est vrai.
+- Vérifie que `draft.setLayerFloor(roof, 2)` est vrai.
+- Vérifie que `draft.placePiece(roof, {.column = 1, .row = 1}, "roof-test", core::TileType::Wall)` est vrai.
+- Vérifie que `draft.tileMap().tile(2, 3)` vaut `core::TileType::Wall`.
+- Vérifie que `draft.tileMap().tile(2, 2)` diffère de `core::TileType::Wall`.
+- Vérifie que `heroPixels` est strictement supérieur à `2 * npcPixels`.
+- Vérifie que `heroPixels` est strictement supérieur à `1000U`.
 
 ## test_thumbnail_geometry.cpp
 

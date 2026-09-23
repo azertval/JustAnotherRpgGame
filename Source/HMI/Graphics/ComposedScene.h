@@ -57,6 +57,9 @@ struct ComposedQuad {
     LineQuad line{};
     /// Primitive à quatre sommets libres, valide si `kind == QuadKind::Poly`.
     PolyQuad poly{};
+    /// L'étage de la pièce (`LOT-129`) : 0 au rez, `n` sur la couche d'étage `floor = n`. L'éditeur
+    /// en tire l'opacité de la couche, le jeu l'effacement devant le héros.
+    int storey = 0;
 };
 
 /**
@@ -163,10 +166,11 @@ public:
      * @param texture   Texture liée (identité opaque).
      * @param sortOrder Tri fin à l'intérieur du calque et de la texture.
      * @param quad      Primitive à composer (unités monde).
+     * @param storey    Étage de la pièce (`LOT-129`), 0 au rez.
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                   const SpriteQuad& quad);
+                   const SpriteQuad& quad, int storey = 0);
 
     /**
      * @brief Ajoute un segment épais à la scène, s'il est visible.
@@ -185,10 +189,11 @@ public:
      * @param texture   Texture liée (l'aplat blanc, en pratique).
      * @param sortOrder Tri fin à l'intérieur du calque et de la texture.
      * @param quad      Primitive à composer (unités monde).
+     * @param storey    Étage de la pièce (`LOT-129`), 0 au rez.
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                 const PolyQuad& quad);
+                 const PolyQuad& quad, int storey = 0);
 
     /// Ordonne la scène (calque, puis texture, puis `sortOrder`), de façon **stable**.
     void sort();

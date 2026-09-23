@@ -434,3 +434,54 @@ TEST(LevelDraftPiecesTest, ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision
     EXPECT_EQ(draft.layers()[SOL].pieceAt(3, 2), "street");
     EXPECT_EQ(collision(draft, 2, 1), TileType::Wall);
 }
+
+/**
+ * @brief Un étage ne compte pas dans la collision : mettre une couche à l'étage libère ses cases,
+ *        une pièce posée à l'étage n'arrête rien (`LOT-129`, `EX-LVL-025`).
+ * \castest{<b>Un etage ne bloque aucune case.</b><br/>
+ * \tcat Unitaire · Pieces du brouillon · Etages<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser un pilier en (2, 1) du decor, qui arrete la vue.<br/>
+ *          2. Mettre le decor a l'etage 1, puis defaire.<br/>
+ *          3. A l'etage 1, poser un pilier en (1, 1).<br/>
+ * \tattendu A l'etage, la case (2, 1) redevient libre ; defaire rend le mur ; le pilier de l'etage
+ *           laisse sa case libre.
+ * }
+ */
+TEST(LevelDraftPiecesTest, UnEtageNeBloqueAucuneCase) {
+    LevelDraft draft = brouillon();
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 2, .row = 1}, "pillar", TileType::Wall));
+    ASSERT_EQ(collision(draft, 2, 1), TileType::Wall);
+
+    ASSERT_TRUE(draft.setLayerFloor(DECOR, 1));
+    EXPECT_EQ(draft.layers()[DECOR].floor, 1);
+    EXPECT_EQ(collision(draft, 2, 1), TileType::Empty);
+
+    ASSERT_TRUE(draft.undo());
+    EXPECT_EQ(draft.layers()[DECOR].floor, 0);
+    EXPECT_EQ(collision(draft, 2, 1), TileType::Wall);
+
+    ASSERT_TRUE(draft.setLayerFloor(DECOR, 1));
+    ASSERT_TRUE(draft.placePiece(DECOR, {.column = 1, .row = 1}, "pillar", TileType::Wall));
+    EXPECT_EQ(collision(draft, 1, 1), TileType::Empty);
+}
+
+/**
+ * @brief Seule une couche de décor monte, et pas au-delà du dernier étage ; un étage inchangé
+ *        n'empile rien.
+ * \castest{<b>Seul un decor monte, de 1 au dernier etage.</b><br/>
+ * \tcat Unitaire · Pieces du brouillon · Etages<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes Demander l'etage 1 pour le sol, l'etage MAX_STOREY_FLOOR + 1 et l'etage -1 pour le
+ *          decor, puis l'etage 0 qu'il a deja.<br/>
+ * \tattendu Quatre refus, et aucun pas d'annulation.
+ * }
+ */
+TEST(LevelDraftPiecesTest, SeulUnDecorMonteEtPasAuDelaDuDernierEtage) {
+    LevelDraft draft = brouillon();
+    EXPECT_FALSE(draft.setLayerFloor(SOL, 1));
+    EXPECT_FALSE(draft.setLayerFloor(DECOR, core::MAX_STOREY_FLOOR + 1));
+    EXPECT_FALSE(draft.setLayerFloor(DECOR, -1));
+    EXPECT_FALSE(draft.setLayerFloor(DECOR, 0));
+    EXPECT_EQ(draft.undoDepth(), 0U);
+}

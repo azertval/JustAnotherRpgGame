@@ -34,6 +34,9 @@
  * 3. une case que **rien** ne couvre — ni type, ni pièce, sur aucune couche — est du vide : elle
  *    arrête la vue. On ne se tient pas là où il n'y a pas de sol.
  *
+ * Une couche d'**étage** (`floor` non nul, `LOT-129`) ne contribue pas : un étage de mur ou un toit
+ * se tient au-dessus du rez, et c'est le rez qui dit si l'on passe.
+ *
  * La contribution s'écrit dans le vocabulaire de la grille de collision que le jeu lit déjà :
  * `wall` (arrête la vue), `cliff` (arrête le pas), vide sinon. La gêne et l'abri se déduisent
  * vides : aucune règle du jeu ne les joue encore depuis une pièce, et la déduction les relève

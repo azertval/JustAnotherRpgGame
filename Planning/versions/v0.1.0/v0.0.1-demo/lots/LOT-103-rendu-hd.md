@@ -102,7 +102,7 @@ se pose à 0,65 case. Les commentaires « pixel art » de l'éditeur (`ScenePain
 **D-103-9 — Le travelling s'écrit à la demande.** Le critère du scintillement est un contrôle
 visuel, et aucune carte HD ne se joue encore (les chemins sont au LOT-124). `JADG_TRAVELLING_DIR`
 fait écrire au test 96 images de la maquette, la caméra glissant d'un quart de pixel par image, et
-`scripts/build_hd_mockup.py --travelling <dossier>` les assemble en animation de 960 × 540 à
+`scripts/assetsGeneration/build_hd_mockup.py --travelling <dossier>` les assemble en animation de 960 × 540 à
 l'échelle 1.
 
 Livré le 22 septembre 2026, **PR #112**. Le contrôle visuel du travelling (critère 3) a été fait
@@ -112,7 +112,7 @@ par l'auteur le même jour : la maquette ne scintille pas.
 
 - Pour refaire le travelling : `$env:JADG_TRAVELLING_DIR = "build\lot-103-travelling"`, lancer
   `UnitTests.exe --gtest_filter=HdMockupRender.WritesASlowTravellingForTheAuthor`, puis
-  `python scripts/build_hd_mockup.py --travelling build\lot-103-travelling`.
+  `python scripts/assetsGeneration/build_hd_mockup.py --travelling build\lot-103-travelling`.
 - Les mesures de performance nocturnes : les mipmaps ajoutent un tiers de mémoire par texture
   chargée ; aucune série ne porte encore d'art HD (`bench_canvas` compose les données d'essai).
 - `hmi::ArenaViewportItem` et le rendu de l'arène cadrent au rapport 0,62 ; une arène dont la carte

@@ -11,7 +11,7 @@ import Jadg.Runtime
     jour ou le lot fonctionnel arrive, il remplace ici `PendingData` par sa vraie vue-modele :
     le formulaire ne bouge pas, et la mise en page decidee aujourd'hui est conservee telle quelle.
 
-    `python scripts/list_pending_bindings.py` releve ces cles depuis le QML : l'inventaire de ce
+    `python scripts/i18n/list_pending_bindings.py` releve ces cles depuis le QML : l'inventaire de ce
     qu'il reste a brancher est DERIVE du code, donc toujours exact.
 */
 JournalForm {

@@ -10,9 +10,9 @@ et suit chaque pièce de la commande d'image à l'asset installé. Livrée par l
 
 À côté des sources qu'elle commande, **sous le même arbre** que la zone :
 `Tools/AssetsHD/Regions/<région>/<ville>/<zone>/commande.md`, avec le descripteur d'installation
-`install.json` du même dossier. Les deux sont **versionnés** ; les images du dossier ne le sont pas
-(`.gitignore`, exception du LOT-104). Le dossier `Tools/AssetsHD/Colisee/`, antérieur à la règle,
-garde son nom : son descripteur dit où il installe.
+`install.json` du même dossier. Comme tout `Tools/`, ils restent **locaux** : rien n'y est livré
+(décision de l'auteur, 23 septembre 2026, qui retire l'exception du LOT-104). Le dossier
+`Tools/AssetsHD/Colisee/`, antérieur à la règle, garde son nom : son descripteur dit où il installe.
 
 ## Le chemin d'une pièce
 
@@ -21,7 +21,7 @@ garde son nom : son descripteur dit où il installe.
 | 1. **Commander** | Claude écrit le bloc C, avec les blocs A et B de [la consigne](consigne-2d-hd.md) | la commande, dans la page |
 | 2. **Générer** | l'auteur l'envoie au générateur, avec la planche de référence | la source, dans le dossier de la zone |
 | 3. **Décrire** | Claude ajoute la pièce au descripteur : nom, famille, emprise, type tactique | une entrée d'`install.json` |
-| 4. **Installer** | `python scripts/install_hd_asset.py <dossier>/install.json` | l'image et son entrée de manifeste, dans `Source/Elements/Assets/…/Scene/` |
+| 4. **Installer** | `python scripts/assetsGeneration/install_hd_asset.py <dossier>/install.json` | l'image et son entrée de manifeste, dans `Source/Elements/Assets/…/Scene/` |
 | 5. **Voir** | la galerie de débug, `--screen=AssetGallery` | la pièce à l'échelle, dans son emprise |
 
 La commande ne dessine pas et ne retouche rien : une pièce qui ne s'installe pas se **recommande**
@@ -52,6 +52,7 @@ La commande ne dessine pas et ne retouche rien : une pièce qui ne s'installe pa
 | `tactical` | `open`, `difficult`, `cover`, `obstacle`, `solid` ; à défaut, un sol passe et une pièce debout arrête la vue |
 | `align` | `centre` (défaut) ou `north` : sur l'axe qu'il ne remplit pas, le socle est centré dans son emprise ou collé à son bord nord — celui d'un mur qui doit rejoindre un angle rentrant |
 | `scale`, `anchorOffset` | corrections, quand la pièce ne touche pas ses pointes (un lampadaire, une statue au bras tendu) |
+| `folders` (au niveau du descripteur) | le rangement en sous-dossiers : `[{"match": "^roof-l-d(\d)", "folder": "roofs/l/d\1"}]`, la première règle dont le motif prend le nom de la pièce donne son dossier sous `target` (`LOT-129`) |
 
 ## La page
 

@@ -13,6 +13,7 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Editor/Logic/LayerView.h"
 
 /**
  * @file Editor/Logic/PieceCatalog.h
@@ -64,7 +65,9 @@ inline constexpr std::string_view MISSING_PIECES_GROUP = "Missing from the sheet
  * @brief Le catalogue d'un lieu.
  *
  * Groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide »,
- * « Other » (une classe que l'éditeur ne connaît pas), puis `MISSING_PIECES_GROUP` — les noms
+ * « Other » (une classe que l'éditeur ne connaît pas) pour les pièces à plat ; un groupe par
+ * sous-dossier du lieu, nommé par son chemin (`roofs/l/d3`), dans l'ordre alphabétique, pour un kit
+ * rangé en arborescence (`LOT-129`) ; puis `MISSING_PIECES_GROUP` — les noms
  * que @p layers citent et que @p manifest ne connaît ni par leur nom ni par un alias, triés.
  * @param manifest Le manifeste du lieu, `nullptr` sans lieu : seules restent les pièces absentes.
  * @param layers   Les couches de la carte.
@@ -83,12 +86,13 @@ inline constexpr std::string_view MISSING_PIECES_GROUP = "Missing from the sheet
 [[nodiscard]] std::string pieceDescription(const PieceCatalogEntry& entry);
 
 /**
- * @return La couche que vise une pièce : la première couche de sol pour un sol (@p floor), la
- *         première couche de décor sinon — celles que la composition du jeu lit. `std::nullopt` si
- *         la carte n'en a pas.
+ * @return La couche que vise une pièce : la première couche de sol au rez pour un sol (@p floor) ;
+ *         pour un relief, la couche de décor @p active si c'en est une — un étage se peint comme
+ *         le rez (`LOT-129`) —, la première couche de décor au rez sinon. Ce sont celles que la
+ *         composition du jeu lit. `std::nullopt` si la carte n'en a pas.
  */
 [[nodiscard]] std::optional<std::size_t> pieceTargetLayer(
-    const std::vector<core::TileLayer>& layers, bool floor);
+    const std::vector<core::TileLayer>& layers, bool floor, LayerSlot active = {});
 
 /**
  * @brief Le type qu'écrit la case d'ancrage d'une pièce posée à la main (décision D3 : le type

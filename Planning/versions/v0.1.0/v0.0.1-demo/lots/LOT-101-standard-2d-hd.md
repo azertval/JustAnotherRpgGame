@@ -10,7 +10,7 @@ prerequis = ["LOT-100"]
 reprend = ["LOT-92 (style de scène)", "LOT-66 (charte visuelle, pour la scène)"]
 livrables = [
   "[`standards/style-2d-hd.md`](../../../../standards/style-2d-hd.md) passé de « proposé » à « normatif », avec ce que la maquette a mesuré.",
-  "Une **maquette de validation** : huit cases sur huit d'Arenarea (sol, deux façades, une colonnade, la fontaine, un lampadaire, un banc), montée à l'échelle du standard et cadrée à 1080p et à 2160p — [`maquettes/`](../maquettes/), montée par `scripts/build_hd_mockup.py`.",
+  "Une **maquette de validation** : huit cases sur huit d'Arenarea (sol, deux façades, une colonnade, la fontaine, un lampadaire, un banc), montée à l'échelle du standard et cadrée à 1080p et à 2160p — [`maquettes/`](../maquettes/), montée par `scripts/assetsGeneration/build_hd_mockup.py`.",
   "`EX-VIS-008`, `EX-VIS-009` et `EX-REN-013` réécrites pour la 2D HD.",
   "La consigne de style du générateur en trois blocs : [`standards/consigne-2d-hd.md`](../../../../standards/consigne-2d-hd.md), avec la planche de référence d'Arenarea pour ancre, et son cadrage de planche d'animation.",
 ]
@@ -56,7 +56,7 @@ dépend ni du LOT-102 ni du LOT-103. Elle est ensuite la **référence de non-r�
 
 **D-101-1 — La maquette est découpée dans la planche de référence, pas générée.** Aucune pièce HD
 de production n'existe encore, et attendre une génération aurait bloqué le lot qui bloque tout le
-reste. `scripts/build_hd_mockup.py` découpe les panneaux 01 à 10 de la planche, détoure chaque
+reste. `scripts/assetsGeneration/build_hd_mockup.py` découpe les panneaux 01 à 10 de la planche, détoure chaque
 pièce du fond sombre (alpha continu, couleur redressée), ramène les sols au losange du standard et
 monte la place. Le montage est **reproductible** : `--check` échoue si les images déposées diffèrent
 de ce que le script produit.

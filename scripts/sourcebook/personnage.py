@@ -1346,7 +1346,7 @@ def produire(corpus: Corpus, lexique: list, racine, cache=None) -> tuple[list, l
     """Écrit les trois catalogues sous ``racine``. Renvoie (fichiers écrits, signalements).
 
     **Un fichier par entrée**, nommé par son identifiant : c'est la forme que
-    `scripts/check_rpg_data.py` valide, et celle qui rend un conflit de fusion lisible.
+    `scripts/checks/check_rpg_data.py` valide, et celle qui rend un conflit de fusion lisible.
 
     L'ordre compte : les espèces françaises d'abord, parce que les sous-espèces de Tanares
     **héritent** de leur taille et de leur vitesse, que le *Player's Guide* ne répète pas.

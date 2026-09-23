@@ -146,8 +146,8 @@ struct Rect {
 // Les pieces ancrees dans le rectangle l'agrandissent jusqu'a leur emprise entiere : un etal
 // 2 x 1 choisi au bord ne perd pas sa moitie droite (voir l'en-tete).
 void growRectForAnchoredPieces(const core::LevelDraft& draft,
-                                const std::vector<core::TileLayer>& layers,
-                                const core::TileMap& root, Rect& rect) {
+                               const std::vector<core::TileLayer>& layers,
+                               const core::TileMap& root, Rect& rect) {
     for (const core::TileLayer& layer : layers) {
         if (!core::isVisualLayerKind(layer.kind)) {
             continue;
@@ -169,12 +169,13 @@ void growRectForAnchoredPieces(const core::LevelDraft& draft,
 }
 
 [[nodiscard]] StampLayer extractLayer(const core::TileLayer& layer, const Rect& rect,
-                                       core::GridPosition origin, int width, int height) {
+                                      core::GridPosition origin, int width, int height) {
     StampLayer taken;
     taken.name = layer.name;
     taken.kind = layer.kind;
+    taken.floor = layer.floor;
     taken.types.assign(static_cast<std::size_t>(width) * static_cast<std::size_t>(height),
-                        core::TileType::Empty);
+                       core::TileType::Empty);
     for (int row = rect.top; row <= rect.bottom; ++row) {
         for (int column = rect.left; column <= rect.right; ++column) {
             const core::GridPosition cell{.column = column, .row = row};
@@ -193,8 +194,8 @@ void growRectForAnchoredPieces(const core::LevelDraft& draft,
 }
 
 [[nodiscard]] std::vector<core::MapEntity> extractEntities(const core::LevelDraft& draft,
-                                                             const Rect& rect,
-                                                             core::GridPosition origin) {
+                                                           const Rect& rect,
+                                                           core::GridPosition origin) {
     std::vector<core::MapEntity> taken;
     for (const core::MapEntity& entity : draft.entities()) {
         if (!rect.contains(entity.position)) {
@@ -214,9 +215,9 @@ void growRectForAnchoredPieces(const core::LevelDraft& draft,
 }
 
 [[nodiscard]] std::vector<StampForcedCell> extractForced(const core::LevelDraft& draft,
-                                                          const core::TileMap& root,
-                                                          const Rect& rect,
-                                                          core::GridPosition origin) {
+                                                         const core::TileMap& root,
+                                                         const Rect& rect,
+                                                         core::GridPosition origin) {
     std::vector<StampForcedCell> taken;
     for (const core::GridPosition forced : draft.forcedCollision()) {
         if (!rect.contains(forced)) {
@@ -286,6 +287,7 @@ Stamp mirrorStamp(const Stamp& stamp, const core::ScenePieceManifest* manifest) 
         StampLayer taken;
         taken.name = layer.name;
         taken.kind = layer.kind;
+        taken.floor = layer.floor;
         taken.types.assign(layer.types.size(), core::TileType::Empty);
         for (int row = 0; row < stamp.height; ++row) {
             for (int column = 0; column < stamp.width; ++column) {
@@ -333,16 +335,19 @@ Stamp mirrorStamp(const Stamp& stamp, const core::ScenePieceManifest* manifest) 
 
 namespace {
 
-// La couche de la carte qui recoit celle du tampon : meme nom d'abord, meme role ensuite.
+// La couche de la carte qui recoit celle du tampon : meme nom d'abord, meme role et meme etage
+// ensuite -- un toit ne se pose jamais au rez (LOT-129).
 [[nodiscard]] std::optional<std::size_t> targetLayer(const std::vector<core::TileLayer>& layers,
                                                      const StampLayer& stamped) {
     for (std::size_t index = 0; index < layers.size(); ++index) {
-        if (core::isVisualLayerKind(layers[index].kind) && layers[index].name == stamped.name) {
+        if (core::isVisualLayerKind(layers[index].kind) && layers[index].name == stamped.name &&
+            layers[index].floor == stamped.floor) {
             return index;
         }
     }
     for (std::size_t index = 0; index < layers.size(); ++index) {
-        if (core::isVisualLayerKind(layers[index].kind) && layers[index].kind == stamped.kind) {
+        if (core::isVisualLayerKind(layers[index].kind) && layers[index].kind == stamped.kind &&
+            layers[index].floor == stamped.floor) {
             return index;
         }
     }
@@ -377,9 +382,8 @@ struct PasteTargets {
     return result;
 }
 
-[[nodiscard]] bool pasteLayers(core::LevelDraft& draft, const Stamp& stamp,
-                               core::GridPosition at, const core::TileMap& root,
-                               const std::vector<std::size_t>& targets) {
+[[nodiscard]] bool pasteLayers(core::LevelDraft& draft, const Stamp& stamp, core::GridPosition at,
+                               const core::TileMap& root, const std::vector<std::size_t>& targets) {
     bool changed = false;
     for (std::size_t index = 0; index < stamp.layers.size(); ++index) {
         const StampLayer& layer = stamp.layers[index];
@@ -411,8 +415,8 @@ struct PasteTargets {
     return changed;
 }
 
-[[nodiscard]] bool pasteEntities(core::LevelDraft& draft, const Stamp& stamp,
-                                 core::GridPosition at, const core::TileMap& root,
+[[nodiscard]] bool pasteEntities(core::LevelDraft& draft, const Stamp& stamp, core::GridPosition at,
+                                 const core::TileMap& root,
                                  std::vector<std::size_t>& placedIndices) {
     bool changed = false;
     for (const core::MapEntity& entity : stamp.entities) {
@@ -498,7 +502,9 @@ std::string stampLabel(const Stamp& stamp) {
     }
     std::string label = std::to_string(stamp.width) + " × " + std::to_string(stamp.height);
     if (pieces > 0) {
-        label.append(" · ").append(std::to_string(pieces)).append(pieces == 1 ? " piece" : " pieces");
+        label.append(" · ")
+            .append(std::to_string(pieces))
+            .append(pieces == 1 ? " piece" : " pieces");
     }
     if (!stamp.entities.empty()) {
         label.append(" · ")
@@ -524,6 +530,9 @@ nlohmann::json stampToJson(const Stamp& stamp) {
         Json layerJson;
         layerJson["name"] = layer.name;
         layerJson["kind"] = core::layerKindName(layer.kind);
+        if (layer.floor != 0) {
+            layerJson["floor"] = layer.floor;
+        }
         Json types = Json::array();
         for (const core::TileType type : layer.types) {
             types.push_back(core::tileTypeName(type));
@@ -585,9 +594,16 @@ namespace {
     layer.name = layerJson.value("name", std::string{});
     const std::string kind = layerJson.value("kind", std::string{"ground"});
     layer.kind = kind == "decor" ? core::LayerKind::Decor : core::LayerKind::Ground;
+    layer.floor = layerJson.value("floor", 0);
+    if (layer.floor < 0 || layer.floor > core::MAX_STOREY_FLOOR ||
+        (layer.floor != 0 && layer.kind != core::LayerKind::Decor)) {
+        throw StampInvalid("layer \"" + layer.name + "\": \"floor\" is 0, or 1 to " +
+                           std::to_string(core::MAX_STOREY_FLOOR) + " on a decor layer");
+    }
     const auto types = layerJson.find("types");
     if (types == layerJson.end() || !types->is_array() || types->size() != cells) {
-        throw StampInvalid("layer \"" + layer.name + "\": \"types\" must hold width × height names");
+        throw StampInvalid("layer \"" + layer.name +
+                           "\": \"types\" must hold width × height names");
     }
     for (const Json& type : *types) {
         layer.types.push_back(typeOf(type));
@@ -624,8 +640,8 @@ namespace {
 [[nodiscard]] core::MapEntity entityFromJson(const Json& entityJson) {
     core::MapEntity entity;
     entity.type = entityJson.value("type", std::string{});
-    entity.position = core::GridPosition{.column = entityJson.value("x", 0),
-                                         .row = entityJson.value("y", 0)};
+    entity.position =
+        core::GridPosition{.column = entityJson.value("x", 0), .row = entityJson.value("y", 0)};
     entity.elevation = entityJson.value("elevation", 0);
     const auto cellList = entityJson.find("cells");
     if (cellList != entityJson.end() && cellList->is_array()) {

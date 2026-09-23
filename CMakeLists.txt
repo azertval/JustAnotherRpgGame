@@ -12,7 +12,7 @@ if(POLICY CMP0141)
 endif()
 
 # VERSION est la **source unique de vérité** du numéro de version : `core::Engine::version()` le
-# reçoit par définition de compilation (Source/Core/CMakeLists.txt), et `scripts/build_docs.py`
+# reçoit par définition de compilation (Source/Core/CMakeLists.txt), et `scripts/docs/build_docs.py`
 # l'injecte dans le `PROJECT_NUMBER` de Doxygen à la génération (le Doxyfile versionné ne le porte
 # pas). Bumper ici, et nulle part ailleurs, avant de poser le tag `vX.Y.Z`.
 project(JustAnotherRpgGame

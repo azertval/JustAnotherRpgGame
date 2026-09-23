@@ -44,7 +44,7 @@ target_link_libraries(JustAnotherRpgGame PRIVATE
 )
 
 # Écrans : chaque jumeau porte le nom du formulaire sans le suffixe `Form`, dans le même
-# sous-dossier. `python scripts/list_pending_bindings.py` donne l'inventaire des liaisons en
+# sous-dossier. `python scripts/i18n/list_pending_bindings.py` donne l'inventaire des liaisons en
 # attente, dérivé de ces fichiers.
 qt_add_qml_module(JustAnotherRpgGame
     URI Jadg.App
@@ -114,7 +114,7 @@ if(Qt6LinguistTools_FOUND)
         TS_FILES ${PROJECT_SOURCE_DIR}/Source/Elements/Localization/jadg_en.ts
         RESOURCE_PREFIX "/i18n"
         # Une chaîne retirée du code quitte le catalogue : gardée en `vanished`, elle ferait croire
-        # le catalogue plus complet qu'il n'est (scripts/check_translations.py la refuse).
+        # le catalogue plus complet qu'il n'est (scripts/checks/check_translations.py la refuse).
         LUPDATE_OPTIONS -no-obsolete
     )
 else()

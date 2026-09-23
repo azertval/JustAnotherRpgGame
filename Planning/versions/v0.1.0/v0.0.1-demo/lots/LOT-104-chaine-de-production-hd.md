@@ -14,7 +14,7 @@ reprend = [
   "LOT-CREATION-ASSETS",
 ]
 livrables = [
-  "`scripts/install_hd_asset.py` : détourage (alpha continu, frange nettoyée), réduction à l'échelle du standard, mesure de l'ancre, écriture du manifeste.",
+  "`scripts/assetsGeneration/install_hd_asset.py` : détourage (alpha continu, frange nettoyée), réduction à l'échelle du standard, mesure de l'ancre, écriture du manifeste.",
   "Le contrôle en CI : tout fichier cité par un manifeste existe, tout fichier d'image est cité, dimensions et poids dans les bornes du standard, **budget de 40 Mio par zone**.",
   "La galerie de débug (`--screen=AssetGallery`) qui lit la nouvelle arborescence (`EX-CNT-042` inchangée).",
   "Le gabarit de **commande d'une zone** : les dix familles du standard, ce qui vient du commun, ce qui est propre — une page par zone dans `Tools/AssetsHD/`.",

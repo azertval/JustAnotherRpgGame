@@ -10,7 +10,7 @@ prerequis = ["LOT-87", "LOT-39", "LOT-37"]
 livrables = [
   "`check_ui_assets.py` refuse toute illustration d'interface dont la provenance n'est pas `produced` ; les deux cartes du corpus et la commande `sourcebook illustrations` retirées.",
   "Le fond du menu principal, produit : `ui/background/menu-scene` (`Source/Elements/Assets/UI/background/`, `illustrations.json`, `Artwork.qml`).",
-  "Les seize cartes de l'auteur, `Source/Elements/Assets/Maps/` et leur `manifest.json` (provenance `author`), contrôlées par `scripts/check_map_assets.py` en CI.",
+  "Les seize cartes de l'auteur, `Source/Elements/Assets/Maps/` et leur `manifest.json` (provenance `author`), contrôlées par `scripts/checks/check_map_assets.py` en CI.",
   "`Source/Elements/Maps/world-maps.json` : repères et cadres des régions, 61 lieux placés, 19 entrées `omitted`, 103 noms de géographie, quartiers de la Capitale et sites de Fisherman's Wharf.",
   "`hmi::readWorldMaps`, `hmi::joinWorldMaps` (`Source/HMI/Presentation/WorldMaps.*`), `hmi::WorldMapModel` ; `RpgScreenId::WorldMap` et `ScreenRouter.WorldMap` rétablis.",
   "L'écran à trois niveaux : briques `MapCanvas`, `MapHud`, `MapSidePanel`, `MapMarker` ; `WorldMapForm`, `RegionMapForm`, `CityMapForm` et leurs jumeaux ; `--map-region=<id>`, `--map-city=<id>`.",
@@ -68,7 +68,7 @@ jamais sur une image du corpus, règle qui reste entière (`EX-IHM-076`).
   référence du menu principal et des crédits sont régénérées.
 - **Les seize cartes de l'auteur** (`Source/Elements/Assets/Maps/`) : seize JPEG à la qualité 88,
   convertis depuis les PNG de l'auteur (15,9 Mo au lieu de 66), et un `manifest.json` — provenance
-  `author`, fichier source, date, taille, empreinte SHA-256. `scripts/check_map_assets.py`, en CI
+  `author`, fichier source, date, taille, empreinte SHA-256. `scripts/checks/check_map_assets.py`, en CI
   (étape `map_assets`), recoupe les images, le manifeste, `world-maps.json` et l'atlas.
 - **Les positions, à part de l'atlas** (`Source/Elements/Maps/world-maps.json`) : le repère et le
   cadre approché de chaque région sur le monde ; **61 lieux** de l'atlas placés sur les cartes de

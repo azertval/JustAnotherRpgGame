@@ -85,7 +85,7 @@
   <text x="34" y="230" font-weight="600" fill="#3f6b34">Le manifeste est dérivé, jamais tenu à la main</text>
   <text x="34" y="254" font-size="12" fill="#25201a">core::expectedAssetKeys balaie les dossiers de catalogue que</text>
   <text x="34" y="272" font-size="12" fill="#25201a">la table nomme et rend une clé par entrée (ExpectedAssetKey).</text>
-  <text x="34" y="300" font-size="12" fill="#25201a">scripts/check_asset_keys.py, en CI, sur la même règle :</text>
+  <text x="34" y="300" font-size="12" fill="#25201a">scripts/checks/check_asset_keys.py, en CI, sur la même règle :</text>
   <text x="48" y="322" font-size="12" fill="#8a2233">échoue — dérogation malformée, famille inconnue,</text>
   <text x="48" y="338" font-size="12" fill="#8a2233">image livrée qu'aucune donnée n'attend ;</text>
   <text x="48" y="362" font-size="12" fill="#3f6b34">liste sans échouer — les clés encore servies par</text>

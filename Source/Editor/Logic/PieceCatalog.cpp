@@ -47,27 +47,49 @@ constexpr std::array<std::pair<core::ScenePieceClass, std::string_view>, 4> CLAS
     return "other";
 }
 
-// Les groupes des pièces du manifeste, une par classe ; un groupe vide n'est pas rendu.
+[[nodiscard]] PieceCatalogEntry entryOf(const core::ScenePiece& piece) {
+    return PieceCatalogEntry{.name = piece.name,
+                             .file = piece.file,
+                             .pieceClass = piece.pieceClass,
+                             .footprint = piece.footprint(),
+                             .tactical = piece.tactical,
+                             .missing = false,
+                             .floor = piece.pieceClass == core::ScenePieceClass::Floor};
+}
+
+/// @return Le dossier de @p file relatif au lieu (`roofs/l/d3`), vide pour un fichier à plat.
+[[nodiscard]] std::string folderOf(std::string_view file) {
+    const std::size_t slash = file.rfind('/');
+    return slash == std::string_view::npos ? std::string{} : std::string{file.substr(0, slash)};
+}
+
+// Les groupes des pièces du manifeste. Un kit rangé en sous-dossiers se groupe par dossier, dans
+// l'ordre alphabétique (`floors`, `roofs/l/d2`…) : c'est l'arborescence que l'auteur a choisie, et
+// six cents toits n'ont pas de sens dans un seul groupe (LOT-129). Les pièces à plat, elles, se
+// groupent par classe, un groupe vide n'étant pas rendu.
 std::vector<PieceCatalogGroup> manifestGroups(const core::ScenePieceManifest& manifest) {
     std::vector<PieceCatalogGroup> groups;
+    std::map<std::string, PieceCatalogGroup> folders;
+    for (const core::ScenePiece& piece : manifest.pieces()) {
+        if (std::string folder = folderOf(piece.file); !folder.empty()) {
+            PieceCatalogGroup& group = folders[folder];
+            group.label = folder;
+            group.pieces.push_back(entryOf(piece));
+        }
+    }
     for (const auto& [pieceClass, label] : CLASS_GROUPS) {
         PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
         for (const core::ScenePiece& piece : manifest.pieces()) {
-            if (piece.pieceClass != pieceClass) {
-                continue;
+            if (piece.pieceClass == pieceClass && folderOf(piece.file).empty()) {
+                group.pieces.push_back(entryOf(piece));
             }
-            group.pieces.push_back(
-                PieceCatalogEntry{.name = piece.name,
-                                  .file = piece.file,
-                                  .pieceClass = piece.pieceClass,
-                                  .footprint = piece.footprint(),
-                                  .tactical = piece.tactical,
-                                  .missing = false,
-                                  .floor = piece.pieceClass == core::ScenePieceClass::Floor});
         }
         if (!group.pieces.empty()) {
             groups.push_back(std::move(group));
         }
+    }
+    for (auto& [folder, group] : folders) {
+        groups.push_back(std::move(group));
     }
     return groups;
 }
@@ -142,10 +164,17 @@ std::string pieceDescription(const PieceCatalogEntry& entry) {
            ", " + core::pieceTacticalName(entry.tactical);
 }
 
-std::optional<std::size_t> pieceTargetLayer(const std::vector<core::TileLayer>& layers,
-                                            bool floor) {
+std::optional<std::size_t> pieceTargetLayer(const std::vector<core::TileLayer>& layers, bool floor,
+                                            LayerSlot active) {
     const core::LayerKind wanted = floor ? core::LayerKind::Ground : core::LayerKind::Decor;
-    const auto found = std::ranges::find(layers, wanted, &core::TileLayer::kind);
+    // La couche de decor qu'on peint, quand c'en est une : un etage se peint comme le rez
+    // (LOT-129).
+    if (!floor && active && *active < layers.size() && layers[*active].kind == wanted) {
+        return *active;
+    }
+    const auto found = std::ranges::find_if(layers, [wanted](const core::TileLayer& layer) {
+        return layer.kind == wanted && layer.floor == 0;
+    });
     if (found == layers.end()) {
         return std::nullopt;
     }

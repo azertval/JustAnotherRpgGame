@@ -10,7 +10,7 @@
  * deux définitions où le jeu se joue ; ses deux images sans texte sont les références de ce test.
  * Les pièces qu'il a découpées sont installées dans `Fixtures/HdMockup` comme la chaîne HD les
  * installe — une image par pièce, un manifeste qui déclare le losange de l'art, l'emprise et
- * l'ancre — avec la disposition de la scène (`scene.json`) : `scripts/build_hd_mockup.py` écrit
+ * l'ancre — avec la disposition de la scène (`scene.json`) : `scripts/assetsGeneration/build_hd_mockup.py` écrit
  * les deux d'un même geste, et `--check` garde l'un et l'autre à jour.
  *
  * Ce que le test prouve est tout ce que le lot change : une pièce se met à l'échelle de son lieu
@@ -253,7 +253,7 @@ TEST(HdMockupRender, MatchesTheHandMadeMockupAt2160p) {
  * Sauté sauf si la variable d'environnement `JADG_TRAVELLING_DIR` nomme un dossier : il y écrit
  * `travelling-000.png` et suivantes, en 1920 × 1080, la caméra glissant le long d'une rangée d'un
  * quart de largeur de pixel d'écran par image — un pas plus fin que le pixel, où le plus proche
- * voisin, lui, scintillait. `scripts/build_hd_mockup.py --travelling <dossier>` en fait une
+ * voisin, lui, scintillait. `scripts/assetsGeneration/build_hd_mockup.py --travelling <dossier>` en fait une
  * animation.
  * \castest{<b>Le travelling de la maquette s'ecrit pour le controle visuel.</b><br/>
  * \tcat Unitaire · Rendu HD<br/>

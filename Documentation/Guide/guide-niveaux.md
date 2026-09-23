@@ -229,9 +229,14 @@ rencontrer :
   **écarts**. Une place de marché le jour et la nuit sont la même carte à deux habillages : les
   dupliquer, c'est prendre le risque d'en corriger une seule. Une variante ne peut pas avoir pour
   base une autre variante — une chaîne de différences ne se relit plus.
-- **Hauteur réservée** — `floor` par couche, `elevation` par case et par entité. Les champs sont
-  lus, écrits et préservés, mais **aucune règle ne les joue** (`EX-LVL-024`). Ils sont là pour que
-  les cartes dessinées aujourd'hui n'aient pas à être reprises le jour où le relief comptera.
+- **Étages** — `floor` par couche de décor (`EX-LVL-025`, `LOT-129`). Un bâtiment se monte en
+  couches : les murs du rez sur la couche de décor à l'étage 0, un étage de mur sur une couche à
+  l'étage 1, le toit sur une couche au-dessus. La hauteur d'un étage est une donnée du lieu (le
+  `"storey"` de son manifeste : 224 pixels d'art pour les murs du kit de la Capitale) ; la
+  collision ne lit que le rez ; un étage qui cache le héros s'efface pendant qu'il passe derrière.
+- **Hauteur par case réservée** — `elevation` par case et par entité. Les champs sont lus, écrits et
+  préservés, mais **aucune règle ne les joue** (`EX-LVL-024`) : un personnage ne monte pas encore
+  sur une terrasse ou un rempart.
 - **Écriture canonique** (`core::LevelWriter`, `EX-LVL-005`) — charger puis réenregistrer une carte
   intacte rend le **même fichier, octet pour octet** : champs dans un ordre fixe, une case par
   ligne. Sans cela, chaque ouverture dans l'éditeur produirait un diff, et une revue de carte

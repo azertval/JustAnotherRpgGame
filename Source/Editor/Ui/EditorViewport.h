@@ -325,6 +325,8 @@ public:
     void removeMapLayer(std::size_t index);
     void moveMapLayer(std::size_t index, bool forward);
     void renameMapLayer(std::size_t index, const std::string& name);
+    /// Met la couche de décor @p index à l'étage @p floor (`LOT-129`), par l'historique.
+    void setMapLayerFloor(std::size_t index, int floor);
 
     /// Catalogues que les entités référencent (non possédés), relus par la fenêtre.
     void setEditorReferences(const EditorReferences* references);

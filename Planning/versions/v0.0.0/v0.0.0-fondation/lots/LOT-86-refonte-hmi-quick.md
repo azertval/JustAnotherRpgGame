@@ -15,7 +15,7 @@ livrables = [
   "Les écrans du jeu en `.ui.qml` sous `Source/Ui/`, ouvrables dans Qt Design Studio par `Source/Ui/JadgUi.qmlproject`.",
   "`Source/Ui/Theme/Tokens.qml` : les jetons à un seul endroit ; les ornements tracés en `Shape` QML.",
   "La surface de rendu du jeu en `QQuickRhiItem` (QRhi, Direct3D 11).",
-  "`scripts/check_ui_layers.py` (six règles) et les exigences `EX-IHM-100` à `EX-IHM-105`.",
+  "`scripts/checks/check_ui_layers.py` (six règles) et les exigences `EX-IHM-100` à `EX-IHM-105`.",
   "Le sélecteur d'écrans de développement `Logic/ScreenProbe.qml`.",
   "La documentation : `interface-ihm.md` §11, `architecture.md`, les guides IHM et le nouveau `guide-conception-qds`.",
   "Le retrait de `.design-mockups/` et de l'ancienne couche Qt Widgets du jeu.",
@@ -24,7 +24,7 @@ criteres = [
   "**Test de l'artiste** — ouvrir `Source/Ui/JadgUi.qmlproject` dans Qt Design Studio, y déplacer un bloc d'un écran, changer une couleur dans `Tokens.qml`, remplacer un ornement par un autre SVG ; relancer le jeu avec `JADG_QML_FROM_SOURCE=1` et voir les trois changements, **sans qu'aucun compilateur C++ n'ait été lancé**.",
   "**Test du développeur** — le `git diff` du test précédent ne touche que `Source/Ui/**` et `Source/Elements/**`. Aucun `.cpp`, aucun `.h`, aucun fichier engendré.",
   "Deux exécutables : `JustAnotherRpgGame` (Qt Quick, ne lie pas `Qt6::Widgets`) et `LevelEditor`.",
-  "`scripts/check_ui_layers.py` vert, et les quatre garde-fous devenus sans objet retirés.",
+  "`scripts/checks/check_ui_layers.py` vert, et les quatre garde-fous devenus sans objet retirés.",
   "Build `/W4 /WX` sans avertissement",
   "`ctest` : **1011/1011**",
   "`qmllint` sans un seul avertissement sur les fichiers QML",
@@ -127,7 +127,7 @@ Gardées pour ne pas refaire le débat dans six mois.
 
 ## Exigences couvertes
 
-Nouvelles, toutes vérifiées par `scripts/check_ui_layers.py` — c'est la condition pour qu'elles
+Nouvelles, toutes vérifiées par `scripts/checks/check_ui_layers.py` — c'est la condition pour qu'elles
 soient des règles et non des intentions :
 
 - [`EX-IHM-100`](../../../../../Documentation/Specification/interface-ihm.md#EX-IHM-100) — une modification purement visuelle, sans toucher au C++ ;
@@ -185,7 +185,7 @@ Qt, vrai depuis le `LOT-01` et qu'un seul `QString` suffirait à rendre faux.
 
 ## Vérification
 
-Dans l'epic d'origine, les quatre premiers critères — test de l'artiste, test du développeur, deux exécutables, `scripts/check_ui_layers.py` vert avec retrait des quatre garde-fous devenus sans objet — ne portent pas de coche ; tous les suivants sont cochés (✔).
+Dans l'epic d'origine, les quatre premiers critères — test de l'artiste, test du développeur, deux exécutables, `scripts/checks/check_ui_layers.py` vert avec retrait des quatre garde-fous devenus sans objet — ne portent pas de coche ; tous les suivants sont cochés (✔).
 
 ## Bilan
 

@@ -96,6 +96,10 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_asset_gallery.cpp
     Unit/HMI/Graphics/test_arena_scene_composer.cpp
     Unit/HMI/Graphics/test_world_scene_composer.cpp
+    # Les etages de la scene (LOT-129) : elevation, tri, effacement devant le heros.
+    Unit/HMI/Graphics/test_world_storeys.cpp
+    # Un kit range en sous-dossiers (LOT-129) : le rendu suit le fichier du manifeste.
+    Unit/HMI/Graphics/test_scene_folders.cpp
     Unit/HMI/Graphics/test_arena_animation_driver.cpp
     Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Graphics/test_entity_markers.cpp
@@ -128,6 +132,8 @@ add_executable(UnitTests
     Unit/Editor/test_content_check.cpp
     Unit/Editor/test_map_refactor.cpp
     Unit/Editor/test_stamps.cpp
+    # Les etages dans l'editeur (LOT-129) : pinceau, visibilite, prefabriques.
+    Unit/Editor/test_storey_editing.cpp
     Unit/Editor/test_piece_catalog.cpp
     Unit/Editor/test_brush_gesture.cpp
     Unit/Editor/test_paint_tools.cpp
@@ -181,6 +187,9 @@ if(Qt6_FOUND)
         ../Editor/Ui/SceneImages.cpp
         # Le cache d'images du canevas (LOT-125) : partage entre onglets, borne, lu une fois.
         Unit/Editor/test_scene_images.cpp
+        # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
+        # (LOT-129).
+        Unit/Editor/test_storey_render.cpp
         # LevelEditor --render (LOT-EDITOR-13) : une carte livree rendue en PNG, sans fenetre.
         Unit/Editor/test_map_render.cpp
         ../Editor/Ui/MapRender.cpp
@@ -261,7 +270,7 @@ target_compile_definitions(UnitTests PRIVATE
     # contenu mais des MECANISMES. Voir Fixtures/GameData/README.md.
     JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData"
     # La maquette du LOT-101 installee comme une zone livree, et ses deux images de reference :
-    # le rendu HD du LOT-103 se juge contre elles (scripts/build_hd_mockup.py ecrit les deux).
+    # le rendu HD du LOT-103 se juge contre elles (scripts/assetsGeneration/build_hd_mockup.py ecrit les deux).
     JADG_HD_MOCKUP_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/HdMockup"
     JADG_MOCKUP_REFERENCE_DIR="${PROJECT_SOURCE_DIR}/Planning/versions/v0.1.0/v0.0.1-demo/maquettes"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"

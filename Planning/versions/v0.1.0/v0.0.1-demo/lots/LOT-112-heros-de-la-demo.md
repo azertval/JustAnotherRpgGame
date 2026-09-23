@@ -65,7 +65,7 @@ personnage secondaire suffit à la montrer ; le héros, lui, se dessine une fois
 
 La commande assemblée, le descripteur de l'essai (`previewOnly` : il se mesure, il ne s'installe
 pas) et la marche à suivre sont dans `Tools/AssetsHD/Essais/lot-112-cadence/`. Les deux marches se
-jugent par `scripts/preview_figure_walk.py`, qui les fait marcher sur la vue 1080 de la maquette,
+jugent par `scripts/assetsGeneration/preview_figure_walk.py`, qui les fait marcher sur la vue 1080 de la maquette,
 à la vitesse du jeu.
 
 ## Décisions de réalisation

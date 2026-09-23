@@ -16,11 +16,14 @@ std::vector<LayerRow> layerRows(const std::vector<core::TileLayer>& layers) {
     rows.push_back(
         LayerRow{.slot = std::nullopt,
                  .kind = hasVisual ? core::LayerKind::Collision : core::LayerKind::Legacy,
-                 .name = {}});
+                 .name = {},
+                 .floor = 0});
     for (std::size_t index = 0; index < layers.size(); ++index) {
         if (core::isVisualLayerKind(layers[index].kind)) {
-            rows.push_back(
-                LayerRow{.slot = index, .kind = layers[index].kind, .name = layers[index].name});
+            rows.push_back(LayerRow{.slot = index,
+                                    .kind = layers[index].kind,
+                                    .name = layers[index].name,
+                                    .floor = layers[index].floor});
         }
     }
     return rows;

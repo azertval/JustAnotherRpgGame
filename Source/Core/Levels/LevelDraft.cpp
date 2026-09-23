@@ -268,6 +268,26 @@ bool LevelDraft::setLayerKind(std::size_t index, LayerKind kind) {
     return true;
 }
 
+bool LevelDraft::setLayerFloor(std::size_t index, int floor) {
+    if (!isVisualLayerIndex(index) || _layers[index].kind != LayerKind::Decor || floor < 0 ||
+        floor > MAX_STOREY_FLOOR || _layers[index].floor == floor) {
+        return false;
+    }
+    pushUndo();
+    _layers[index].floor = floor;
+    // La couche entre dans la collision, ou en sort : toutes ses cases se redéduisent.
+    std::vector<GridPosition> cells;
+    cells.reserve(static_cast<std::size_t>(_tileMap.width()) *
+                  static_cast<std::size_t>(_tileMap.height()));
+    for (int row = 0; row < _tileMap.height(); ++row) {
+        for (int column = 0; column < _tileMap.width(); ++column) {
+            cells.push_back({.column = column, .row = row});
+        }
+    }
+    followCollision(cells);
+    return true;
+}
+
 bool LevelDraft::setLayerProperty(std::size_t index, const std::string& key, PropertyValue value) {
     if (!isVisualLayerIndex(index) || key.empty()) {
         return false;

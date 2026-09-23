@@ -12,6 +12,7 @@
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QSlider>
+#include <QSpinBox>
 #include <QVBoxLayout>
 #include <algorithm>
 #include <cmath>
@@ -41,6 +42,8 @@ struct LayersPanel::Widgets {
     QLabel* opacityValue;
     QCheckBox* dimCheck;
     QCheckBox* lockCheck;
+    QLabel* floorLabel;
+    QSpinBox* floorSpin;
     QPushButton* addGroundButton;
     QPushButton* addDecorButton;
     QPushButton* moveForwardButton;
@@ -54,6 +57,8 @@ struct LayersPanel::Widgets {
           opacityValue(new QLabel(QStringLiteral("100 %"), panel)),
           dimCheck(new QCheckBox(QStringLiteral("Dimmed"), panel)),
           lockCheck(new QCheckBox(QStringLiteral("Locked"), panel)),
+          floorLabel(new QLabel(QStringLiteral("Floor"), panel)),
+          floorSpin(new QSpinBox(panel)),
           addGroundButton(new QPushButton(QStringLiteral("Add ground"), panel)),
           addDecorButton(new QPushButton(QStringLiteral("Add decor"), panel)),
           moveForwardButton(new QPushButton(QStringLiteral("Move up"), panel)),
@@ -69,6 +74,10 @@ struct LayersPanel::Widgets {
         opacityValue->setMinimumWidth(36);
         dimCheck->setToolTip(QStringLiteral("Show the layer faded, to read another one over it"));
         lockCheck->setToolTip(QStringLiteral("Keep the layer visible but refuse to paint it"));
+        floorSpin->setRange(0, core::MAX_STOREY_FLOOR);
+        floorSpin->setToolTip(
+            QStringLiteral("Storey of a decor layer: 0 is the ground floor; 1 and up rise by the "
+                           "storey height of the place, and never block a cell"));
 
         auto* const opacityRow = new QHBoxLayout;
         opacityRow->addWidget(opacityLabel);
@@ -78,6 +87,8 @@ struct LayersPanel::Widgets {
         stateRow->addWidget(dimCheck);
         stateRow->addWidget(lockCheck);
         stateRow->addStretch();
+        stateRow->addWidget(floorLabel);
+        stateRow->addWidget(floorSpin);
         auto* const buttons = new QGridLayout;
         buttons->addWidget(addGroundButton, 0, 0);
         buttons->addWidget(addDecorButton, 0, 1);
@@ -123,6 +134,14 @@ LayersPanel::LayersPanel(QWidget* parent) : QWidget(parent), _ui(std::make_uniqu
     connect(_ui->lockCheck, &QCheckBox::toggled, this, [this](bool checked) {
         if (!_rebuilding && _ui->layerList->currentItem() != nullptr) {
             emit lockRequested(slotOf(_ui->layerList->currentItem()), checked);
+        }
+    });
+    connect(_ui->floorSpin, &QSpinBox::valueChanged, this, [this](int floor) {
+        if (_rebuilding) {
+            return;
+        }
+        if (const LayerSlot slot = slotOf(_ui->layerList->currentItem())) {
+            emit floorRequested(*slot, floor);
         }
     });
     connect(_ui->addGroundButton, &QPushButton::clicked, this,
@@ -187,7 +206,8 @@ void LayersPanel::rebuild() {
         item->setCheckState(_snapshot.displays[position].visible ? Qt::Checked : Qt::Unchecked);
         QString kindLabel = rowLabel(row);
         if (row.kind == core::LayerKind::Decor) {
-            kindLabel = QStringLiteral("Decor");
+            kindLabel = row.floor > 0 ? QStringLiteral("Decor, floor %1").arg(row.floor)
+                                      : QStringLiteral("Decor");
         } else if (row.kind == core::LayerKind::Ground) {
             kindLabel = QStringLiteral("Ground");
         }
@@ -230,6 +250,12 @@ void LayersPanel::updateButtons() {
                               _snapshot.displays[static_cast<std::size_t>(position)].dimmed);
     _ui->lockCheck->setChecked(hasRow &&
                                _snapshot.displays[static_cast<std::size_t>(position)].locked);
+    // L'étage ne se règle que sur une couche de décor (LOT-129).
+    const bool decor =
+        hasRow && _snapshot.rows[static_cast<std::size_t>(position)].kind == core::LayerKind::Decor;
+    _ui->floorSpin->setEnabled(decor);
+    _ui->floorLabel->setEnabled(decor);
+    _ui->floorSpin->setValue(decor ? _snapshot.rows[static_cast<std::size_t>(position)].floor : 0);
     _rebuilding = previous;
 }
 

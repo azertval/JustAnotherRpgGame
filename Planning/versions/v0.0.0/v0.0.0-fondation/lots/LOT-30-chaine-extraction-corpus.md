@@ -13,7 +13,7 @@ livrables = [
   "`scripts/sourcebook/extraction.py` : texte, tableaux par coordonnée, images par rendu clippé, cache disque.",
   "`scripts/sourcebook/glossaire.py` et `Source/Elements/Localization/rpg.glossary.csv` : 2 084 entrées.",
   "`scripts/sourcebook/__main__.py` : la ligne de commande.",
-  "`scripts/check_glossary.py`, auto-testé, exécuté en CI.",
+  "`scripts/checks/check_glossary.py`, auto-testé, exécuté en CI.",
 ]
 criteres = [
   "Deux exécutions successives produisent un fichier identique (`EX-CNT-020`).",
@@ -61,7 +61,7 @@ lexique, `anglais;français;catégorie`, **2 084 entrées**.
 **`scripts/sourcebook/__main__.py`** — la ligne de commande : `info`, `verifier`, `texte`,
 `tableau`, `image`, `regions`, `stats`, `glossaire`.
 
-**`scripts/check_glossary.py`**, exécuté en CI.
+**`scripts/checks/check_glossary.py`**, exécuté en CI.
 
 ### Ce que le lot ne fait pas
 
@@ -133,7 +133,7 @@ dit **« invocation »** en français, pas « conjuration ».
 
 ### Ce que le contrôle vérifie, et pourquoi il s'auto-teste
 
-`scripts/check_glossary.py` vérifie que le lexique est bien formé — pas de doublon de couple
+`scripts/checks/check_glossary.py` vérifie que le lexique est bien formé — pas de doublon de couple
 (anglais, catégorie), pas de terme vide, et les trois ensembles fermés au complet : 8 écoles,
 15 conditions, 13 types de dégâts. Ces nombres sont fixés par les règles du jeu, pas par le corpus ;
 s'ils bougent, c'est l'extraction qui a régressé.

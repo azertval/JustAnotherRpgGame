@@ -30,6 +30,8 @@ struct LayerRow {
     LayerSlot slot;
     core::LayerKind kind = core::LayerKind::Legacy;
     std::string name;
+    /// L'étage de la couche (`LOT-129`) : 0 au rez.
+    int floor = 0;
 
     [[nodiscard]] bool operator==(const LayerRow&) const = default;
 };

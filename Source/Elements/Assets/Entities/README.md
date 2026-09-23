@@ -30,5 +30,5 @@ le prenne jamais pour une illustration définitive. Le jeu tourne donc **complet
 illustration n'existe (`EX-CNT-041`), et la production graphique devient un remplacement progressif
 plutôt qu'un préalable bloquant.
 
-`scripts/check_asset_keys.py` **échoue** sur une clé orpheline, et se contente de **lister** les
+`scripts/checks/check_asset_keys.py` **échoue** sur une clé orpheline, et se contente de **lister** les
 clés encore servies par un marqueur : c'est un état d'avancement, pas un défaut.

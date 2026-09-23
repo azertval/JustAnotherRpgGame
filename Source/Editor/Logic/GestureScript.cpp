@@ -210,7 +210,8 @@ private:
     // Ce que fait EditorViewport::setActivePiece : la pièce va sur sa couche, montrée active.
     void armPiece(const std::string& piece, bool floor) {
         _state.brush = pieceBrush(appearance(), piece, floor);
-        if (const std::optional<std::size_t> layer = pieceTargetLayer(_draft.layers(), floor)) {
+        if (const std::optional<std::size_t> layer =
+                pieceTargetLayer(_draft.layers(), floor, _state.activeLayer)) {
             setActiveLayer(*layer);
         }
     }

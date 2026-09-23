@@ -10,7 +10,7 @@ namespace core {
 std::string Engine::version() {
     // JADG_VERSION est défini par Source/Core/CMakeLists.txt depuis PROJECT_VERSION :
     // le numéro n'existe qu'à un seul endroit (le `project()` racine), d'où il alimente aussi le
-    // Doxyfile (contrôlé par scripts/build_docs.py) et le tag de release.
+    // Doxyfile (contrôlé par scripts/docs/build_docs.py) et le tag de release.
     return JADG_VERSION;
 }
 

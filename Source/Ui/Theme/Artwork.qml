@@ -17,7 +17,7 @@ import QtQuick
     la vraie -- un fichier livre puis perdu -- s'y cacherait.
 
     La table `delivered` est ENGENDREE depuis `illustrations.json` (les entrees `produced`) par
-    `scripts/receive_ui_assets.py`, et `scripts/check_ui_assets.py` echoue si elle ne le suit
+    `scripts/assetsGeneration/receive_ui_assets.py`, et `scripts/checks/check_ui_assets.py` echoue si elle ne le suit
     plus. Ne pas l'editer a la main : c'est le manifeste qui fait foi.
 
     **Une table et une propriete, pas de fonction.** Qt Design Studio refuse tout appel de fonction

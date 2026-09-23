@@ -39,10 +39,10 @@ namespace {
 
 constexpr const char* LOCKED_LAYER = "The active layer is locked.";
 
-BrushResult applyPiece(core::LevelDraft& draft, const CanvasBrush& brush,
+BrushResult applyPiece(core::LevelDraft& draft, const CanvasBrush& brush, LayerSlot active,
                        const LayerViewState& view, core::GridPosition first,
                        core::GridPosition last, bool continuing) {
-    const std::optional<std::size_t> layer = pieceTargetLayer(draft.layers(), brush.floor);
+    const std::optional<std::size_t> layer = pieceTargetLayer(draft.layers(), brush.floor, active);
     if (!layer) {
         return refused(brush.floor ? "This map has no ground layer: add one in the Layers panel."
                                    : "This map has no decor layer: add one in the Layers panel.");
@@ -147,7 +147,7 @@ BrushResult applyBrush(core::LevelDraft& draft, const CanvasBrush& brush, LayerS
                        core::GridPosition last, bool continuing) {
     switch (brush.kind) {
         case BrushKind::Piece:
-            return applyPiece(draft, brush, view, first, last, continuing);
+            return applyPiece(draft, brush, active, view, first, last, continuing);
         case BrushKind::Eraser:
             return applyEraser(draft, active, view, first, last);
         case BrushKind::Type:

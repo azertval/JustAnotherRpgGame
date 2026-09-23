@@ -11,7 +11,7 @@
 # Chaque dépôt est épinglé par SHA de commit, le tag en commentaire (même règle que les actions de
 # ci.yml, phase 0) : un tag se réécrit, un commit non. `pre-commit autoupdate --freeze` les monte.
 # La version de clang-format DOIT être celle de `LLVM_VERSION` dans ci.yml : vérifié par
-# `scripts/check_tool_pins.py`.
+# `scripts/ci/check_tool_pins.py`.
 #
 # Écartés, avec leur raison :
 # - `ruff-format` : ~10 000 lignes réécrites dans 41 scripts, sans rien corriger (voir ruff.toml).
@@ -19,7 +19,7 @@
 #   `Component { id: x; X {} }` en quatre lignes, sur 55 des 79 fichiers QML, même réglé en
 #   largeur 100. Il dégraderait le code qu'il est censé unifier ; à réévaluer avec Qt 6.12.
 # - `pretty-format-json` : les JSON écrits à la main gardent leurs tableaux sur une ligne (voir
-#   scripts/check_json_files.py).
+#   scripts/checks/check_json_files.py).
 default_install_hook_types: [ pre-commit, commit-msg ]
 default_stages: [ pre-commit ]
 minimum_pre_commit_version: '4.6.0'
@@ -79,17 +79,17 @@ repos:
     hooks:
       - id: check-json-files
         name: JSON valides, sans clé en double ni BOM
-        entry: python scripts/check_json_files.py
+        entry: python scripts/checks/check_json_files.py
         language: python
         types: [ json ]
 
       - id: check-binary-files
         name: Garde-fou binaires (taille, familles déclarées)
-        entry: python scripts/check_binary_files.py
+        entry: python scripts/checks/check_binary_files.py
         language: python
 
       - id: check-commit-message
         name: Message de commit (CONTRIBUTING.md)
-        entry: python scripts/check_commit_message.py
+        entry: python scripts/ci/check_commit_message.py
         language: python
         stages: [ commit-msg ]

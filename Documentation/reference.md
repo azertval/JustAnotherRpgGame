@@ -36,4 +36,4 @@ Le sens des dépendances est `hmi → core`, jamais l'inverse
 ```
 
 La génération échoue au moindre avertissement (`WARN_AS_ERROR`) : un `@param` oublié ou en conflit
-casse le job `docs` de la CI. La lancer avant d'ouvrir une PR : `python scripts/build_docs.py`.
+casse le job `docs` de la CI. La lancer avant d'ouvrir une PR : `python scripts/docs/build_docs.py`.

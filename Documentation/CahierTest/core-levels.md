@@ -1,6 +1,6 @@
 # Core · Levels
 
-Tests unitaires — **119 cas** (24 critiques, 78 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **121 cas** (1 bloquant, 24 critiques, 79 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,7 +11,7 @@ Tests unitaires — **119 cas** (24 critiques, 78 majeurs, 17 mineurs). [Retour 
 | [`test_level.cpp`](#test-levelcpp) | 6 | - | - | 6 | - |
 | [`test_level_draft.cpp`](#test-level-draftcpp) | 25 | - | 1 | 21 | 3 |
 | [`test_level_draft_editing.cpp`](#test-level-draft-editingcpp) | 14 | - | 1 | 7 | 6 |
-| [`test_level_draft_pieces.cpp`](#test-level-draft-piecescpp) | 14 | - | 6 | 7 | 1 |
+| [`test_level_draft_pieces.cpp`](#test-level-draft-piecescpp) | 16 | 1 | 6 | 8 | 1 |
 | [`test_level_loader.cpp`](#test-level-loadercpp) | 5 | - | 1 | 4 | - |
 | [`test_level_writer.cpp`](#test-level-writercpp) | 4 | - | - | 3 | 1 |
 | [`test_map_layers.cpp`](#test-map-layerscpp) | 14 | - | - | 12 | 2 |
@@ -1661,6 +1661,50 @@ Changer de planche : lieu, pièces et collision en un pas.
 - Vérifie que `draft.layers()[SOL].properties.count("scene")` vaut `0U`.
 - Vérifie que `draft.layers()[SOL].pieceAt(3, 2)` vaut `"street"`.
 - Vérifie que `collision(draft, 2, 1)` vaut `TileType::Wall`.
+
+### LevelDraftPiecesTest.UnEtageNeBloqueAucuneCase
+
+*Bloquant · Unitaire · Pieces du brouillon · Etages* — `Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:441`
+
+Un etage ne bloque aucune case.
+
+**Étapes**
+
+1. Poser un pilier en (2, 1) du decor, qui arrete la vue.
+2. Mettre le decor a l'etage 1, puis defaire.
+3. A l'etage 1, poser un pilier en (1, 1).
+
+**Résultat attendu**
+
+- Vérifie que `draft.placePiece(DECOR, {.column = 2, .row = 1}, "pillar", TileType::Wall)` est vrai.
+- Vérifie que `collision(draft, 2, 1)` vaut `TileType::Wall`.
+- Vérifie que `draft.setLayerFloor(DECOR, 1)` est vrai.
+- Vérifie que `draft.layers()[DECOR].floor` vaut `1`.
+- Vérifie que `collision(draft, 2, 1)` vaut `TileType::Empty`.
+- Vérifie que `draft.undo()` est vrai.
+- Vérifie que `draft.layers()[DECOR].floor` vaut `0`.
+- Vérifie que `collision(draft, 2, 1)` vaut `TileType::Wall`.
+- Vérifie que `draft.setLayerFloor(DECOR, 1)` est vrai.
+- Vérifie que `draft.placePiece(DECOR, {.column = 1, .row = 1}, "pillar", TileType::Wall)` est vrai.
+- Vérifie que `collision(draft, 1, 1)` vaut `TileType::Empty`.
+
+### LevelDraftPiecesTest.SeulUnDecorMonteEtPasAuDelaDuDernierEtage
+
+*Majeur · Unitaire · Pieces du brouillon · Etages* — `Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:472`
+
+Seul un decor monte, de 1 au dernier etage.
+
+**Étapes**
+
+1. Demander l'etage 1 pour le sol, l'etage MAX_STOREY_FLOOR + 1 et l'etage -1 pour le decor, puis l'etage 0 qu'il a deja.
+
+**Résultat attendu**
+
+- Vérifie que `draft.setLayerFloor(SOL, 1)` est faux.
+- Vérifie que `draft.setLayerFloor(DECOR, core::MAX_STOREY_FLOOR + 1)` est faux.
+- Vérifie que `draft.setLayerFloor(DECOR, -1)` est faux.
+- Vérifie que `draft.setLayerFloor(DECOR, 0)` est faux.
+- Vérifie que `draft.undoDepth()` vaut `0U`.
 
 ## test_level_loader.cpp
 

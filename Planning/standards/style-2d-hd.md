@@ -132,7 +132,7 @@ tout le champ. Les deux sols de la planche de référence sont des panneaux : il
 
 La maquette du `LOT-101` monte huit cases sur huit d'Arenarea — sol, deux façades, une colonnade, la
 fontaine, un lampadaire, un banc — à l'échelle du standard, et les cadre aux deux définitions. Elle
-se reconstruit par `python scripts/build_hd_mockup.py`, et vit dans
+se reconstruit par `python scripts/assetsGeneration/build_hd_mockup.py`, et vit dans
 [`maquettes/`](../versions/v0.1.0/v0.0.1-demo/maquettes/) :
 
 | Image | Ce qu'elle montre |

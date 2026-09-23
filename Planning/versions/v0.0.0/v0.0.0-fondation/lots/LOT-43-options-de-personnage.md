@@ -13,7 +13,7 @@ livrables = [
   "**77 fichiers de données** sous `Source/Elements/Rpg/` : `skills/` (18), `languages/` (16), `feats/` (42), `rules/multiclassing.json`, et quatre schémas.",
   "`scripts/sourcebook/options.py` et la sous-commande `python scripts/sourcebook options`.",
   "`core::multiclassCasterLevel` (`Source/Core/Rpg/Multiclassing.{h,cpp}`) et six tests.",
-  "Un contrôle de référence croisée dans `scripts/check_rpg_data.py` : toute langue citée par une créature ou une espèce existe au catalogue.",
+  "Un contrôle de référence croisée dans `scripts/checks/check_rpg_data.py` : toute langue citée par une créature ou une espèce existe au catalogue.",
 ]
 criteres = [
   "Un personnage multiclassé calcule ses emplacements conformément à la table, **vérifié sur trois combinaisons** — rôdeur 4/magicien 3 (l'exemple du livre), paladin 3/rôdeur 3, sorcier 5/magicien 3 — plus guerrier 5/roublard 5 et deux cas limites.",
@@ -45,7 +45,7 @@ les régénèrent depuis le corpus.
 
 **`core::multiclassCasterLevel`** (`Source/Core/Rpg/Multiclassing.{h,cpp}`), et six tests.
 
-**Un contrôle de référence croisée** dans `scripts/check_rpg_data.py` : toute langue citée par une
+**Un contrôle de référence croisée** dans `scripts/checks/check_rpg_data.py` : toute langue citée par une
 créature ou une espèce doit exister au catalogue.
 
 ## Conception

@@ -24,8 +24,8 @@ permissions:
   contents: read
 
 env:
-  # Mêmes versions que ci.yml, vérifiées par scripts/check_qt_version_pin.py et
-  # scripts/check_tool_pins.py : la nuit analyse le code que la PR a construit, pas un voisin.
+  # Mêmes versions que ci.yml, vérifiées par scripts/ci/check_qt_version_pin.py et
+  # scripts/ci/check_tool_pins.py : la nuit analyse le code que la PR a construit, pas un voisin.
   QT_VERSION: '6.11.2'
   AQT_SOURCE: 'git+https://github.com/miurahr/aqtinstall.git@16db45a70b5905ad596941b223469bc86a56901e'
   LLVM_VERSION: 20.1.8
@@ -115,7 +115,7 @@ jobs:
         env:
           ANALYSED: ${{ steps.tidy.outputs.analysed }}
         run: >-
-          python scripts/clang_tidy_sarif.py clang-tidy.log -o clang-tidy-nightly.sarif
+          python scripts/ci/clang_tidy_sarif.py clang-tidy.log -o clang-tidy-nightly.sarif
           --root "$env:GITHUB_WORKSPACE" --analysed "$env:ANALYSED"
           --clang-tidy-version "$env:LLVM_VERSION" --summary "$env:GITHUB_STEP_SUMMARY"
 
@@ -208,7 +208,7 @@ jobs:
     # L'analyseur statique de Microsoft : déjà sur le runner, gratuit, et bon sur ce que clang-tidy
     # connaît mal (annotations SAL, API Windows). Core et HmiLib seulement, sans Qt ni tests : le code
     # du jeu que rien d'autre n'analyse en profondeur. Sortie SARIF native, un fichier par unité de
-    # compilation, fusionnés par scripts/merge_sarif.py. Ne bloque pas.
+    # compilation, fusionnés par scripts/ci/merge_sarif.py. Ne bloque pas.
     runs-on: windows-2022
     timeout-minutes: 90
     permissions:
@@ -242,7 +242,7 @@ jobs:
       - name: Fusion des rapports SARIF
         if: ${{ !cancelled() }}
         run: >-
-          python scripts/merge_sarif.py build/analyze -o msvc-analyze.sarif
+          python scripts/ci/merge_sarif.py build/analyze -o msvc-analyze.sarif
           --root "$env:GITHUB_WORKSPACE" --title "MSVC /analyze (Core, HmiLib)"
           --summary "$env:GITHUB_STEP_SUMMARY"
 
@@ -296,7 +296,7 @@ jobs:
       - name: Fusion et resume
         if: ${{ !cancelled() && hashFiles('cppcheck.sarif') != '' }}
         run: >-
-          python scripts/merge_sarif.py cppcheck.sarif -o cppcheck-merged.sarif
+          python scripts/ci/merge_sarif.py cppcheck.sarif -o cppcheck-merged.sarif
           --root "$env:GITHUB_WORKSPACE" --title "cppcheck $env:CPPCHECK_VERSION (Core, HmiLib)"
           --summary "$env:GITHUB_STEP_SUMMARY"
 
@@ -481,7 +481,7 @@ jobs:
 
   smoke:
     # L'archive Release que publie un tag n'était jamais lancée avant sa publication : release.yml
-    # lance désormais chaque archive (scripts/smoke_test_release.ps1). Ce job fait de même chaque
+    # lance désormais chaque archive (scripts/release/smoke_test_release.ps1). Ce job fait de même chaque
     # nuit sur la configuration Release avec symboles, que seul un tag construisait, pour que la
     # panne se voie avant le jour de la version. La capture part en artefact.
     runs-on: windows-2022
@@ -515,8 +515,8 @@ jobs:
       - name: Package et lancement de l'archive
         shell: pwsh
         run: |
-          ./scripts/package_release.ps1 -BinDir build-prod/bin/Release -Name JustAnotherRpgGame-nightly-release -OutDir dist
-          ./scripts/smoke_test_release.ps1 -Zip dist/JustAnotherRpgGame-nightly-release.zip -Screenshot smoke/release.png
+          ./scripts/release/package_release.ps1 -BinDir build-prod/bin/Release -Name JustAnotherRpgGame-nightly-release -OutDir dist
+          ./scripts/release/smoke_test_release.ps1 -Zip dist/JustAnotherRpgGame-nightly-release.zip -Screenshot smoke/release.png
 
       - name: Conserver la capture
         if: ${{ !cancelled() }}

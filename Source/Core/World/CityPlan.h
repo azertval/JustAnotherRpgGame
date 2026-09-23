@@ -19,7 +19,7 @@
  *
  * Le fichier ne redécrit rien : ni le quartier (sa fiche d'atlas), ni sa position (le plan,
  * `world-maps.json`), ni ses rues (sa carte). Il les **relie**, et c'est ce que les contrôles de
- * données (`scripts/check_rpg_data.py`) vérifient.
+ * données (`scripts/checks/check_rpg_data.py`) vérifient.
  */
 
 namespace core {

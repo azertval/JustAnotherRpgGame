@@ -22,7 +22,7 @@ permissions:
 env:
   # Version de Qt épinglée (EX-BUILD-010), identique à `QT_VERSION_MINIMUM` dans
   # `Source/HMI/CMakeLists.txt` — vérifié automatiquement par
-  # `scripts/check_qt_version_pin.py` (job lint-exigences) pour que les deux ne divergent jamais
+  # `scripts/ci/check_qt_version_pin.py` (job lint-exigences) pour que les deux ne divergent jamais
   # silencieusement.
   QT_VERSION: '6.11.2'
   # aqtinstall publie sur PyPI (3.3.0) ne sait PAS installer Qt >= 6.11 : Qt a change la
@@ -209,7 +209,7 @@ jobs:
       - name: Resume du job
         if: ${{ !cancelled() }}
         run: >-
-          python scripts/ci_summary.py --title "Debug (preset vs)"
+          python scripts/ci/ci_summary.py --title "Debug (preset vs)"
           --junit test-results/junit-debug.xml
           --coverage coverage.xml --threshold ${{ env.COVERAGE_THRESHOLD_PERCENT }}
           --file build/vs/bin/Debug/JustAnotherRpgGame.exe
@@ -276,7 +276,7 @@ jobs:
       - name: Resume du job
         if: ${{ !cancelled() }}
         run: >-
-          python scripts/ci_summary.py --title "Release (preset vs-release)"
+          python scripts/ci/ci_summary.py --title "Release (preset vs-release)"
           --junit test-results/junit-release.xml
           --file build/vs/bin/Release/JustAnotherRpgGame.exe
 
@@ -341,7 +341,7 @@ jobs:
           rem chaine ajoutee sans traduction y apparait inachevee et le controle la refuse. Le .ts
           rem reecrit ici n'est pas pousse : c'est au poste de le mettre a jour et de le traduire.
           cmake --build --preset ninja --target update_translations || exit /b 1
-          python scripts\check_translations.py || exit /b 1
+          python scripts\checks\check_translations.py || exit /b 1
 
       - name: Verifier que l'executable est bien produit
         shell: pwsh
@@ -409,7 +409,7 @@ jobs:
       - name: Resume du job
         if: ${{ !cancelled() }}
         run: >-
-          python scripts/ci_summary.py --title "Ninja (preset ninja) et qmllint"
+          python scripts/ci/ci_summary.py --title "Ninja (preset ninja) et qmllint"
           --junit test-results/junit-ninja.xml
           --file build/ninja/bin/JustAnotherRpgGame.exe
           --file build/ninja/bin/LevelEditor.exe
@@ -591,7 +591,7 @@ jobs:
         env:
           ANALYSED: ${{ steps.tidy.outputs.analysed }}
         run: >-
-          python scripts/clang_tidy_sarif.py clang-tidy.log -o clang-tidy.sarif
+          python scripts/ci/clang_tidy_sarif.py clang-tidy.log -o clang-tidy.sarif
           --root "$env:GITHUB_WORKSPACE" --analysed "$env:ANALYSED"
           --clang-tidy-version "$env:LLVM_VERSION" --summary "$env:GITHUB_STEP_SUMMARY"
 
@@ -683,7 +683,7 @@ jobs:
       - name: Lint des identifiants d'exigences
         id: exigences
         if: ${{ !cancelled() }}
-        run: python3 scripts/lint_exigences.py
+        run: python3 scripts/checks/lint_exigences.py
 
       # La planification (Planning/) est la source de TOUS les lots : ceux a venir, et, depuis la
       # refonte de la documentation, les lots livres (version 0.0.0) ; les deux anciennes feuilles de
@@ -698,7 +698,7 @@ jobs:
       - name: Version de Qt coherente CMake / CI (EX-BUILD-010)
         id: qt_pin
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_qt_version_pin.py
+        run: python3 scripts/ci/check_qt_version_pin.py
 
       # Garde-fou de la separation conception / code (LOT-86). Le depot a deja paye deux fois le
       # prix d'une regle non verifiee : le plancher de taille des ecrans, corrige TROIS fois, et
@@ -707,14 +707,14 @@ jobs:
       - name: Separation conception / code (EX-IHM-100 a EX-IHM-105)
         id: ui_layers
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_ui_layers.py
+        run: python3 scripts/checks/check_ui_layers.py
 
       - name: Contrat des formulaires avec Qt Design Studio (LOT-87)
         # Ce qu'un formulaire nomme doit se resoudre SANS le jeu, et chaque type C++ a sa doublure
         # pour l'atelier. Textuel, sans Qt.
         id: designer
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_qml_designer_compat.py
+        run: python3 scripts/checks/check_qml_designer_compat.py
 
       # Les pages (guide, specifications, cahier de test) sont du Markdown nu que rend
       # Documentation/outils/build_docs_site.py. Ce lint refuse une commande Doxygen restee dans une
@@ -728,7 +728,7 @@ jobs:
       - name: Cahier de test a jour
         id: cahier
         if: ${{ !cancelled() }}
-        run: python3 scripts/generate_cahier_test.py --check
+        run: python3 scripts/docs/generate_cahier_test.py --check
 
       # Table d'autorite des termes de regle (LOT-30). Le lexique est une donnee VERSIONNEE ; les
       # PDF dont il sort ne le sont pas (EX-CNT-023), donc le runner n'a rien a extraire. Le
@@ -737,7 +737,7 @@ jobs:
       - name: Lexique de regles respecte par les catalogues de traduction
         id: glossary
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_glossary.py
+        run: python3 scripts/checks/check_glossary.py
 
       # Manifeste du corpus (LOT-30, etendu aux ressources VTT au LOT-38). Les PDF ne sont pas sur
       # le runner et ne le seront pas (EX-CNT-023) : ce controle ne verifie donc PAS les empreintes
@@ -747,7 +747,7 @@ jobs:
       - name: Manifeste du corpus bien forme (EX-CNT-020)
         id: corpus
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_corpus_manifest.py
+        run: python3 scripts/checks/check_corpus_manifest.py
 
       # Illustrations d'interface (LOT-87, LOT-94) : toutes PRODUITES depuis le cahier des assets ;
       # une provenance extraite du corpus est refusee. Le controle porte sur ce qui est versionne --
@@ -756,7 +756,7 @@ jobs:
       - name: Illustrations produites et conformes a leur manifeste (EX-IHM-076)
         id: ui_assets
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_ui_assets.py
+        run: python3 scripts/checks/check_ui_assets.py
 
       # Cartes de l'ecran « Carte » (LOT-94, LOT-95) : peintes par l'auteur, jamais extraites du
       # corpus. Le controle recoupe les images, leur manifeste, world-maps.json et l'atlas : une
@@ -765,7 +765,7 @@ jobs:
       - name: Cartes conformes a leur manifeste et a l'atlas (EX-IHM-076, EX-IHM-107)
         id: map_assets
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_map_assets.py
+        run: python3 scripts/checks/check_map_assets.py
 
       # Assets HD installés (LOT-104) : sous Common/ et Regions/, tout fichier cité par un manifeste
       # existe, toute image est citée (EX-CNT-042), chaque pièce tient dans les bornes du standard
@@ -774,7 +774,7 @@ jobs:
       - name: Assets HD conformes a leur manifeste et au budget par zone (EX-CNT-042)
         id: hd_assets
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_hd_assets.py
+        run: python3 scripts/checks/check_hd_assets.py
 
       # Les cles d'assets d'ENTITE (LOT-39). Ce controle echoue sur une cle orpheline -- une
       # derogation malformee, ou qui nomme une famille inconnue (EX-CNT-040) -- mais se contente de
@@ -784,7 +784,7 @@ jobs:
       - name: Cles d'assets d'entite (EX-CNT-040, EX-CNT-041)
         id: asset_keys
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_asset_keys.py
+        run: python3 scripts/checks/check_asset_keys.py
 
       # Contrats des catalogues RPG (LOT-32). jsonschema est la seule dependance externe de la
       # filiere contenu ; elle est EPINGLEE (uv.lock), meme raison que Qt, Doxygen et LLVM ailleurs
@@ -794,7 +794,7 @@ jobs:
       - name: Catalogues RPG valides contre leurs schemas (EX-CNT-010)
         id: rpg_data
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_rpg_data.py
+        run: python3 scripts/checks/check_rpg_data.py
 
       # Cahier des assets de la charte v2 (LOT-87, T2.4). Dans ce job parce qu'il lui faut le meme
       # jsonschema epingle. Au-dela du schema : chaque jeton que ses prompts imposent existe dans
@@ -803,7 +803,7 @@ jobs:
       - name: Cahier des assets conforme (EX-IHM-075, EX-IHM-053)
         id: assets_brief
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_assets_brief.py
+        run: python3 scripts/checks/check_assets_brief.py
 
       # Catalogue de traduction versionné (phase 4) : aucune traduction inachevée ou disparue,
       # marqueurs %1 identiques. Le job build-ninja rejoue ce contrôle après lupdate, qui seul sait
@@ -811,7 +811,7 @@ jobs:
       - name: Traductions achevees et coherentes
         id: translations
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_translations.py
+        run: python3 scripts/checks/check_translations.py
 
       # Lint des scripts PowerShell (phase 4). pwsh est sur l'image ; le module s'installe à la
       # version de ce fichier, et le script refuse toute autre version.
@@ -823,26 +823,26 @@ jobs:
       - name: Scripts PowerShell (PSScriptAnalyzer)
         id: powershell
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_powershell.py
+        run: python3 scripts/ci/check_powershell.py
 
       # Parité du poste (phase 2). Un outil épinglé à deux endroits l'est à la même version :
       # clang-format dans ce fichier et dans .pre-commit-config.yaml, Doxygen ici et dans docs.yml.
       - name: Versions d'outils coherentes CI / hooks / docs
         id: tool_pins
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_tool_pins.py
+        run: python3 scripts/ci/check_tool_pins.py
 
       # Mêmes scripts que les hooks du poste, mais sur TOUT le dépôt : un commit passé avec
       # --no-verify, ou d'avant les hooks, est rattrapé ici.
       - name: Garde-fou binaires (taille, familles declarees dans .gitattributes)
         id: binaries
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_binary_files.py --all
+        run: python3 scripts/checks/check_binary_files.py --all
 
       - name: JSON valides, sans cle en double ni BOM
         id: json_files
         if: ${{ !cancelled() }}
-        run: python3 scripts/check_json_files.py --all
+        run: python3 scripts/checks/check_json_files.py --all
 
       # Les tests des scripts (phase 4), dont les auto-tests qui étaient ici une étape chacun : le
       # convertisseur clang-tidy et la fusion des SARIF (qui ne tournent que sur une PR C++ ou la
@@ -981,7 +981,7 @@ jobs:
 
       - name: Generate documentation
         id: doxygen
-        run: python3 scripts/build_docs.py
+        run: python3 scripts/docs/build_docs.py
 
       # Les pages : le meme generateur que la publication, pour qu'une page qui ne se rend pas
       # casse la PR et non le site.

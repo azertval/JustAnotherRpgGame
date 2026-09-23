@@ -1,0 +1,11 @@
+# Toitures de la Capitale — LOT-129
+
+`roofs.json` : deux îlots de murs sur deux niveaux, toitures dans les deux orientations.
+
+`roofs-all.json` : les 112 modules en 16 assemblages, deux axes, profondeurs 2 à 5, longueurs 5 et 1. Les toits sont présentés seuls à l’étage 1 pour examiner toutes les extrémités.
+
+Cartes construites par les gestes de LevelEditor, avec collisions calculées par l’éditeur. Utilisent la scène `capital` installée. Les rendus de contrôle restent sur le poste de l’auteur, hors du dépôt.
+
+`roofs-l.json` : les quatre orientations de L, de largeur 2 à 5.
+
+`roofs-junctions.json` : les quatre orientations de T et les croisements, de largeur 2 à 5.

@@ -1,6 +1,6 @@
 # Cahier de test
 
-**952 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc.
+**968 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc.
 
 ## Lire une fiche
 
@@ -23,16 +23,16 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Core · Diagnostics](core-diagnostics.md) | Tests unitaires | 22 | — | — | 19 | 3 |
 | [Core · Ecs](core-ecs.md) | Tests unitaires | 35 | — | 5 | 30 | — |
 | [Core · Gameplay](core-gameplay.md) | Tests unitaires | 9 | — | 5 | 3 | 1 |
-| [Core · Levels](core-levels.md) | Tests unitaires | 119 | — | 24 | 78 | 17 |
+| [Core · Levels](core-levels.md) | Tests unitaires | 121 | 1 | 24 | 79 | 17 |
 | [Core · Math](core-math.md) | Tests unitaires | 26 | 4 | — | 18 | 4 |
 | [Core · Resources](core-resources.md) | Tests unitaires | 12 | 2 | 6 | 4 | — |
 | [Core · Rpg](core-rpg.md) | Tests unitaires | 82 | 3 | 45 | 33 | 1 |
 | [Core · Time](core-time.md) | Tests unitaires | 7 | — | 1 | 6 | — |
 | [Core · World](core-world.md) | Tests unitaires | 53 | 1 | 26 | 23 | 3 |
-| [Editor](editor.md) | Tests unitaires | 185 | 17 | 43 | 98 | 27 |
+| [Editor](editor.md) | Tests unitaires | 190 | 20 | 43 | 100 | 27 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 6 | — | 1 | 3 | 2 |
-| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 177 | 28 | 59 | 82 | 8 |
+| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 186 | 36 | 59 | 83 | 8 |
 | [HMI · Input](hmi-input.md) | Tests unitaires | 25 | 1 | 3 | 19 | 2 |
 | [HMI · Interface](hmi-interface.md) | Tests unitaires | 29 | 2 | 10 | 16 | 1 |
 | [HMI · Localization](hmi-localization.md) | Tests unitaires | 9 | — | — | 9 | — |
@@ -41,7 +41,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 3 | — | 1 | 2 | — |
 | [Tests d'intégration](integration.md) | Tests d'intégration | 2 | — | 1 | 1 | — |
 | [Tests système](systeme.md) | Tests système | 1 | — | 1 | — | — |
-| **Total** | | **952** | **91** | **291** | **494** | **76** |
+| **Total** | | **968** | **103** | **291** | **498** | **76** |
 
 ## Lancer les tests
 
