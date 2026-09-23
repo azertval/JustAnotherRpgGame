@@ -14,6 +14,10 @@ unique des textes — et écrit, pour chaque envoi, un dossier `envois/NN-<nom>/
 
     python scripts/prepare_envois_figure.py essai
     python scripts/prepare_envois_figure.py heros --images 8
+    python scripts/prepare_envois_figure.py heros --images 8 --seulement attack-se,death-nw --suffixe reprise
+
+`--seulement` ne prépare que ces bandes (une reprise), et `--suffixe` ajoute un mot au nom de la
+sortie (`attack-se-reprise.png`) : une source acceptée n'est jamais écrasée.
 
 Les dossiers `envois/` ne sont pas versionnés (seuls les `.md` et `install.json` le sont sous
 `Tools/AssetsHD/`) : ils se régénèrent.
@@ -21,6 +25,7 @@ Les dossiers `envois/` ne sont pas versionnés (seuls les `.md` et `install.json
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import shutil
 import sys
@@ -62,6 +67,17 @@ def prompt_essai() -> str:
     raise CommandeError(f"{ESSAI / 'commande.md'} : pas d'envoi assemblé à six images")
 
 
+def source_acceptee(stem: str) -> Path:
+    """La source acceptée d'une bande : celle que nomme `selection-acceptee.json` (le choix de
+    l'auteur parmi les versions), sinon `<bande>.png`."""
+    selection = HEROS / "selection-acceptee.json"
+    if selection.is_file():
+        nom = json.loads(selection.read_text(encoding="utf-8")).get("sources", {}).get(stem)
+        if nom:
+            return HEROS / nom
+    return HEROS / f"{stem}.png"
+
+
 def ecrire(dossier: Path, prompt: str, jointes: list[Path], a_joindre: list[str], sortie: str) -> None:
     if dossier.exists():
         shutil.rmtree(dossier)
@@ -89,7 +105,7 @@ def essai() -> list[Path]:
     return dossiers
 
 
-def heros(images: int) -> list[Path]:
+def heros(images: int, seulement: set[str] | None = None, suffixe: str = "") -> list[Path]:
     page = HEROS / "commande.md"
     six = prompt_essai()
     style = six[:six.index("VIEW:")].rstrip()
@@ -105,11 +121,16 @@ def heros(images: int) -> list[Path]:
         raise CommandeError(f"{page} : lignes absentes des tableaux : {manquants}")
 
     envois = HEROS / "envois"
-    dossiers = [envois / "01-portrait"]
-    ecrire(dossiers[0], f"{style}\n\n{portrait}", [PLANCHE], [], str(HEROS / "portrait.png"))
+    dossiers = []
+    if seulement is None:
+        dossiers.append(envois / "01-portrait")
+        ecrire(dossiers[0], f"{style}\n\n{portrait}", [PLANCHE], [], str(HEROS / "portrait.png"))
+    fin = f"-{suffixe}" if suffixe else ""
 
     ordre = [(a, "se") for a in ANIMATIONS] + [(a, f) for f in FACINGS[1:] for a in ANIMATIONS]
     for rang, (animation, facing) in enumerate(ordre, start=2):
+        if seulement is not None and f"{animation}-{facing}" not in seulement:
+            continue
         nom, timing = animations[animation]
         corps = (gabarit.replace("{ANIMATION}", nom).replace("{DIRECTION}", directions[facing][0])
                  .replace("{N}", MOTS[images]).replace("{TIMING}", timing))
@@ -118,12 +139,13 @@ def heros(images: int) -> list[Path]:
                                   "REFERENCE: the attached portrait shows THIS character.\n\n")
             a_joindre = [f"portrait.png ({HEROS / 'portrait.png'})"]
         else:
-            a_joindre = [f"idle-se.png ({HEROS / 'idle-se.png'})"]
+            references = [source_acceptee("idle-se")]
             if facing != "se" and animation != "idle":
-                a_joindre.append(f"{animation}-se.png ({HEROS / f'{animation}-se.png'})")
-        dossier = envois / f"{rang:02d}-{animation}-{facing}"
+                references.append(source_acceptee(f"{animation}-se"))
+            a_joindre = [f"{r.name} ({r})" for r in references]
+        dossier = envois / f"{rang:02d}-{animation}-{facing}{fin}"
         ecrire(dossier, f"{style}\n\n{vue}\n\n{corps}", [PLANCHE], a_joindre,
-               str(HEROS / f"{animation}-{facing}.png"))
+               str(HEROS / f"{animation}-{facing}{fin}.png"))
         dossiers.append(dossier)
     return dossiers
 
@@ -132,6 +154,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("quoi", choices=("essai", "heros"))
     parser.add_argument("--images", type=int, choices=sorted(MOTS), help="images par animation (héros)")
+    parser.add_argument("--seulement", help="bandes à préparer seules, `attack-se,death-nw` (une reprise)")
+    parser.add_argument("--suffixe", default="", help="mot ajouté au nom de la sortie (`reprise`)")
     args = parser.parse_args(argv)
     try:
         if args.quoi == "essai":
@@ -139,7 +163,8 @@ def main(argv: list[str] | None = None) -> int:
         elif args.images is None:
             parser.error("le héros attend --images, le nombre fixé par l'essai")
         else:
-            dossiers = heros(args.images)
+            seulement = set(args.seulement.split(",")) if args.seulement else None
+            dossiers = heros(args.images, seulement, args.suffixe)
     except CommandeError as error:
         print(f"prepare_envois_figure : {error}", file=sys.stderr)
         return 1

@@ -74,7 +74,15 @@ always held in his RIGHT hand.
 FAMILY: figure — humanoid, 170 px tall, ground line at the bottom of each frame.
 PLACE: none — a wanderer from beyond the Central Empire; accent burgundy.
 VARIANTS: {N} frames — {TIMING}.
+SPACING: every frame stands in its own column of the strip. Nothing of one
+frame — the axe, the hair, a fallen body — may cross into the next frame's
+column or touch the next figure; leave a clear transparent gap between
+frames. If a pose does not fit, draw the whole strip smaller.
 ```
+
+> **Pourquoi `SPACING`.** Sept des vingt premières bandes dessinaient des images qui se chevauchent :
+> la lame d'une attaque sur la jambe de la voisine, un corps qui tombe sur le suivant. L'installateur
+> départage ce qui se touche à peine, pas ce qui est collé ; la commande se corrige.
 
 L'envoi 2 n'a pas encore de bande à joindre : il omet la ligne `REFERENCE` et joint le portrait,
 avec `REFERENCE: the attached portrait shows THIS character.` à la place.
