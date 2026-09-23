@@ -3,7 +3,7 @@ id = "LOT-105"
 titre = "Assets HD — le kit commun de la Capitale"
 version = "0.0.1"
 filiere = "assets"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Ce que tous les quartiers partagent est produit une fois : pavages, pierre calcaire, mobilier urbain, végétal, bannières de l'Empire."
 prerequis = ["LOT-104"]
@@ -57,3 +57,11 @@ Angles des murs, balustrades et haies sur cases entières ; trois pièces d’an
 ### V4 — reprise complète du kit (23 septembre 2026)
 
 38 pièces refaites et installées ; angles communs pour murs, balustrades et haies, matériaux continus et sols à joints réguliers. La carte de validation couvre les 38 pièces en 359 placements. Chargement et rendu réalisés avec LevelEditor aux échelles 1 et 2 : zéro erreur de contrôle, avertissements existants de gameplay difficult/cover. Installations et budgets HD conformes. Les fichiers installés sont identiques aux images testées dans le moteur. Sources, prompts, rendus et limites du contrôle : `Tools/AssetsHD/Regions/central-empire/capital/Common/V4/README.md`. Validation artistique utilisateur et essai de déplacement restent distincts de ce contrôle visuel.
+
+## Livraison
+
+Livré le 23 septembre 2026, **PR #118**, sur décision de l'auteur. Le critère 1 est tenu par le moteur
+(`test_capital_kit_render.cpp`, rue de douze cases sur cinq, kit seul) ; le critère 2 par la relecture
+de l'auteur, qui a fait de la V4 la référence des critères de qualité du standard ; le critère 3 par
+`check_hd_assets.py` (≈ 2,6 Mio). Aucune carte du jeu ne montre encore le kit : le moteur ne résout
+pas l'arbre `Regions/`, ce que les lots de zone demanderont.
