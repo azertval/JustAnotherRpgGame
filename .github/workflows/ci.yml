@@ -198,7 +198,7 @@ jobs:
       # Pas de Dependabot ici : ses PR n'ont pas de jeton OIDC et ne touchent pas au C++.
       - name: Envoyer la couverture a Codecov
         if: ${{ !cancelled() && hashFiles('coverage.xml') != '' && github.actor != 'dependabot[bot]' }}
-        uses: codecov/codecov-action@0b35c9ecc4f0529d0eb674914510c22f85b196b4 # v7.1.0
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           files: coverage.xml
           disable_search: true
