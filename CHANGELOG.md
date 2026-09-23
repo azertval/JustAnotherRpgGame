@@ -19,8 +19,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   pieds glissaient. `install_hd_asset.py` installe une planche de marche (découpe, échelle au cadre
   debout, pieds sur 252, portrait et jeton), `check_hd_assets.py` et la galerie connaissent les
   bandes orientées et les héros rangés par classe, et `preview_figure_walk.py` fait marcher une
-  figurine sur la maquette pour juger sa cadence. Les commandes de l'essai six / huit images et du
-  héros sont prêtes ; les images restent à produire.
+  figurine sur la maquette pour juger sa cadence. L'essai a fixé **huit images** par animation
+  (le standard le dit), et le héros est installé : vingt bandes (cinq animations en quatre
+  orientations), portrait et jeton, dans `Common/Characters/Heroes/brawler/`. La mort passe en
+  cellule large, et l'installateur pose le pied le plus bas de la bande sur le sol, découpe par
+  morceaux entiers au lieu de trancher aux bornes, et réduit une pose trop haute pour qu'elle
+  tienne.
 
 - **La nightly repasse au vert.** Le fuzzing de `fuzz_level` refusait de démarrer : son amorce
   `Source/Elements/Levels/capital` a disparu avec la table rase du `LOT-102` ; il part désormais des

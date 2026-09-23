@@ -872,6 +872,15 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
     standing = spec.standing_frame
     rows = np.nonzero(images[standing][..., 3].any(axis=1))[0]
     scale = spec.scale if spec.scale is not None else HAUTEUR_FIGURINE / (rows.max() + 1 - rows.min())
+    # Une pose plus haute que la cellule (la hache levée au-dessus de la tête) réduit toute la bande
+    # juste assez pour tenir : quelques pour-cent de moins se voient moins qu'une lame coupée net.
+    extents = [np.nonzero(image[..., 3].any(axis=1))[0] for image in images]
+    lowest = max(int(e.max()) for e in extents)
+    tallest = max(lowest + 1 - int(e.min()) for e in extents)
+    if spec.scale is None and tallest * scale > ground:
+        fitted = (ground - 1) / tallest
+        split = f"{split}, échelle réduite de {100 * (1 - fitted / scale):.0f} % pour tenir"
+        scale = fitted
     if scale > 1.0:
         raise DescriptorError(f"{where} : il faudrait agrandir la bande × {scale:.2f} ; la refaire plus grande")
 

@@ -28,7 +28,7 @@ ce qu'elle a appris à la commande d'images est dans [la consigne du générateu
 | Règle | Valeur | Pourquoi |
 |---|---|---|
 | Losange de sol | **256 × 159 px** | à 1080p une case occupe ~100 px d'écran, à 2160p ~200 : l'art est **toujours réduit, jamais agrandi** |
-| Figurine humanoïde | **170 px** de haut, dans une cellule de **192 × 256** ; cellule large **384 × 256** pour l'attaque et le sort | quatre fois la cellule actuelle (48 × 64) : les ancres et le sol (`y = 252`) se transposent |
+| Figurine humanoïde | **170 px** de haut, dans une cellule de **192 × 256** ; cellule large **384 × 256** pour l'attaque, le sort et la mort (un corps allongé ne tient pas dans 192 px, `LOT-112`) | quatre fois la cellule actuelle (48 × 64) : les ancres et le sol (`y = 252`) se transposent |
 | Grande créature | cellule de **384 × 384** | |
 | Alpha | **continu** (8 bits), bords adoucis, **prémultiplié** au chargement | le détourage binaire est ce qui signe le pixel art |
 | Couleur | sRGB, 8 bits par canal, **pas de palette imposée** par image | la cohérence vient de la palette du lieu (§3), pas d'une quantification |

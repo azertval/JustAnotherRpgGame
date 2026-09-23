@@ -146,8 +146,27 @@ silhouette entre 65 et 71, et c'est le même garde d'un bout à l'autre. Verdict
 a confirmé : la ligne `OUTPUT` d'une planche, la ligne `REFERENCE` des envois suivants, le cadrage
 du portrait.
 
+### D8 — Le héros installé, et ce que ses planches ont appris à l'installateur
+
+Les vingt bandes acceptées par l'auteur (`Tools/AssetsHD/Common/Characters/Heroes/brawler/selection-acceptee.json`)
+sont installées dans `Common/Characters/Heroes/brawler/` avec le portrait et le jeton : 4,3 Mio.
+
+- **Le pied le plus bas de toute la bande** se pose sur 252, pas celui de l'image de repos : le
+  générateur ne tient pas sa ligne de sol au pixel, et un appui d'une autre image passait sous le sol.
+- **La découpe rend chaque morceau entier à son image** ; des corps qui se touchent se partagent en
+  croissant depuis le milieu de leur image. Couper aux bornes tranchait les haches.
+- **Une pose plus haute que la cellule** (la hache levée) réduit toute la bande juste assez pour
+  tenir, et l'installateur le dit : 6 % pour l'attaque vue du sud-est, 2 % du nord-est.
+- **La mort passe en cellule large** (384 × 256), comme l'attaque : un corps allongé ne tient pas
+  dans 192 px. Le standard le dit.
+- **Sept bandes ont été recommandées** : leurs images se chevauchaient, et aucune découpe ne départage
+  ce qui est collé. La commande a gagné une ligne `SPACING` ; les reprises se découpent par colonnes
+  vides, sans deviner.
+
 ## Ce qui reste
 
-- **Le héros** : les vingt et un envois de `Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md`
-  (auteur), son `install.json`, l'installation, la galerie.
-- **Le critère 1** : l'aperçu du héros aux quatre orientations, et le jeu lui-même.
+- **Le critère 1 en jeu, sur une vraie carte** : le héros marche aux quatre orientations dans le jeu
+  et sur la maquette (`build/lot-112/heros-marche.webp`), mais aucune carte HD de la démo n'existe
+  encore (`LOT-107` à `LOT-111`) ; la carte d'essai montre son sol en damier.
+- **L'attaque, le touché et la mort** sont installés sans être joués : le monde ne sait que repos et
+  marche, le combat sur la carte est au `LOT-118`.

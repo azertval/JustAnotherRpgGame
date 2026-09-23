@@ -26,16 +26,16 @@
   ],
   "sources": {
     "Heroes/brawler/attack-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/attack-ne.png",
-      "sha256": "2cac482fac004a68bbd9bfc436eecf76976e5eddacd361575347db302142b717"
+      "file": "Common/Characters/Heroes/brawler/attack-ne-reprise.png",
+      "sha256": "282cd4eb17a18289aaa8c83a44e6eee259195f2062dccf544ba9fd870365bcad"
     },
     "Heroes/brawler/attack-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/attack-nw-v2.png",
-      "sha256": "4c7794267c0d33f8c13ac3bb1972d640398ebac0efe3ea4a3171c6fcff58d2ef"
+      "file": "Common/Characters/Heroes/brawler/attack-nw-reprise-v2.png",
+      "sha256": "e0c9913239ad5ccd94955bb7d2e6fc871b3836944333be114c4ca5e7cdd733c3"
     },
     "Heroes/brawler/attack-se.png": {
-      "file": "Common/Characters/Heroes/brawler/attack-se-candidat-02.png",
-      "sha256": "a2dbb2d25d0adf5e4c0fb0f20b8e03621a00c4ab2844e33f657b0f7993396a0c"
+      "file": "Common/Characters/Heroes/brawler/attack-se-reprise.png",
+      "sha256": "7f6cb8ef256e0e89e05fbe1d51ec5e10b57eca315d3aeb3d0b19770630fa384f"
     },
     "Heroes/brawler/attack-sw.png": {
       "file": "Common/Characters/Heroes/brawler/attack-sw-v2.png",
@@ -46,20 +46,20 @@
       "sha256": "b2d8c21fce63180b04a3f428c2c291f3207c9723fd161050d0ee0d571985075a"
     },
     "Heroes/brawler/death-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/death-nw-v2.png",
-      "sha256": "95518296d113558f892fe1018d9d6c435e5585368572ba5f67f868a20399bb60"
+      "file": "Common/Characters/Heroes/brawler/death-nw-reprise-v2.png",
+      "sha256": "c262d11b38c3fdee68f0493117b3fe3f1807a29fe2d36261601b28ba342242eb"
     },
     "Heroes/brawler/death-se.png": {
-      "file": "Common/Characters/Heroes/brawler/death-se-candidat-01.png",
-      "sha256": "3fefd655b96ed950c30a44ea881c4cac451d5d2d393130b858297ab74b020376"
+      "file": "Common/Characters/Heroes/brawler/death-se-reprise.png",
+      "sha256": "4c2190ca9ba46a781b3b79ae4f79ae72cdb025737acde7c35f9bf0042015b246"
     },
     "Heroes/brawler/death-sw.png": {
-      "file": "Common/Characters/Heroes/brawler/death-sw.png",
-      "sha256": "3e00f5e485dbb238c6c42d07dcd34a2845d9765a2374cdea70bb628da19c68e1"
+      "file": "Common/Characters/Heroes/brawler/death-sw-reprise.png",
+      "sha256": "f0acd1c4dea5ada14884b6572cc1962150e2afa9ca83341b071b065e32f03536"
     },
     "Heroes/brawler/hit-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/hit-ne.png",
-      "sha256": "5c8c5e4bf84d267ff86b9d51f5f61f438f9b89c539c8a9b678c4ff3fc5b56d37"
+      "file": "Common/Characters/Heroes/brawler/hit-ne-reprise-v2.png",
+      "sha256": "b288d8f834b10d5d27251551fa6041295182726a687754f73f00e2f0ea4cafd8"
     },
     "Heroes/brawler/hit-nw.png": {
       "file": "Common/Characters/Heroes/brawler/hit-nw-v2.png",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "frameWidth": 192,
+  "frameWidth": 384,
   "frameHeight": 256,
   "clips": {
     "death": {

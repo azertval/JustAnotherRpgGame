@@ -23,7 +23,7 @@
           "loop": true
         },
         {
-          "source": "attack-se-candidat-02.png",
+          "source": "attack-se-reprise.png",
           "clip": "attack",
           "facing": "se",
           "frames": 8,
@@ -40,12 +40,13 @@
           "loop": false
         },
         {
-          "source": "death-se-candidat-01.png",
+          "source": "death-se-reprise.png",
           "clip": "death",
           "facing": "se",
           "frames": 8,
           "frameDuration": 0.1,
-          "loop": false
+          "loop": false,
+          "wide": true
         },
         {
           "source": "idle-sw-candidat-02.png",
@@ -81,12 +82,13 @@
           "loop": false
         },
         {
-          "source": "death-sw.png",
+          "source": "death-sw-reprise.png",
           "clip": "death",
           "facing": "sw",
           "frames": 8,
           "frameDuration": 0.1,
-          "loop": false
+          "loop": false,
+          "wide": true
         },
         {
           "source": "idle-ne.png",
@@ -105,7 +107,7 @@
           "loop": true
         },
         {
-          "source": "attack-ne.png",
+          "source": "attack-ne-reprise.png",
           "clip": "attack",
           "facing": "ne",
           "frames": 8,
@@ -114,7 +116,7 @@
           "wide": true
         },
         {
-          "source": "hit-ne.png",
+          "source": "hit-ne-reprise-v2.png",
           "clip": "hit",
           "facing": "ne",
           "frames": 8,
@@ -127,7 +129,8 @@
           "facing": "ne",
           "frames": 8,
           "frameDuration": 0.1,
-          "loop": false
+          "loop": false,
+          "wide": true
         },
         {
           "source": "idle-nw-v2.png",
@@ -146,7 +149,7 @@
           "loop": true
         },
         {
-          "source": "attack-nw-v2.png",
+          "source": "attack-nw-reprise-v2.png",
           "clip": "attack",
           "facing": "nw",
           "frames": 8,
@@ -163,12 +166,13 @@
           "loop": false
         },
         {
-          "source": "death-nw-v2.png",
+          "source": "death-nw-reprise-v2.png",
           "clip": "death",
           "facing": "nw",
           "frames": 8,
           "frameDuration": 0.1,
-          "loop": false
+          "loop": false,
+          "wide": true
         }
       ]
     }

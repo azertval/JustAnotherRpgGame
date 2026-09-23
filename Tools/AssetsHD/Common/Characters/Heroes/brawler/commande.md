@@ -111,5 +111,5 @@ avec `REFERENCE: the attached portrait shows THIS character.` à la place.
 Le descripteur `install.json` de ce dossier se remplit quand les sources arrivent (le nombre
 d'images de chaque bande est celui de l'essai) : `scripts/install_hd_asset.py` les découpe, les pose
 sur la ligne de sol, et installe le tout dans `Source/Elements/Assets/Common/Characters/Heroes/brawler/`.
-La mort est prévue en cellule normale ; si le corps allongé n'y tient pas, l'installateur le dit et
-la bande passe en cellule large.
+La mort passe en cellule large (384 × 256), comme l'attaque : le corps allongé de la mort vue du
+sud-est ne tenait pas dans 192 px.
