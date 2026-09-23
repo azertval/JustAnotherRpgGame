@@ -38,8 +38,9 @@ struct WorldPlayStep {
 
 class WorldPlay {
 public:
-    /// Figurine du héros tant que l'appelant n'en nomme pas d'autre.
-    static constexpr std::string_view DEFAULT_HERO_FIGURE = "jade";
+    /// Figurine du héros tant que l'appelant n'en nomme pas d'autre : le Brawler pré-tiré, héros
+    /// de la démo (`LOT-112`).
+    static constexpr std::string_view DEFAULT_HERO_FIGURE = "Common/Characters/Heroes/brawler";
 
     /**
      * @param loader          Chargeur des cartes (`core::WorldTravel::directoryLoader` en jeu ; en
@@ -68,8 +69,11 @@ public:
     [[nodiscard]] const std::string& heroFigure() const noexcept {
         return _heroFigure;
     }
-    void setHeroFigure(std::string figure) {
-        _heroFigure = std::move(figure);
+    void setHeroFigure(std::string figure);
+
+    /// @return L'orientation du héros ; `None` si sa figurine n'a pas de bandes orientées.
+    [[nodiscard]] FigureFacing heroFacing() const noexcept {
+        return _heroOriented ? _heroFacing : FigureFacing::None;
     }
 
     /// @return Les figurines de la carte courante : les PNJ, puis le héros, qui passe devant.
@@ -89,6 +93,11 @@ private:
     std::filesystem::path _assetsDirectory;
     PlaceAppearance _appearance;
     std::string _heroFigure{DEFAULT_HERO_FIGURE};
+    /// La figurine du héros a ses quatre orientations (`idle-se.png`…) : relu quand elle change,
+    /// pas à chaque image.
+    bool _heroOriented = false;
+    /// Dernière orientation du héros : il la garde à l'arrêt.
+    FigureFacing _heroFacing = FigureFacing::SouthEast;
     /// Temps écoulé sur la carte : l'image des bandes de figurine en dépend.
     float _elapsed = 0.0F;
     /// Le héros marche : sa bande est `walk`, sinon `idle`.

@@ -111,8 +111,10 @@ franchi ferait faire au héros un pas sur la carte d'arrivée avec l'intention q
 
 **Marcher (`walk`).** Si l'intention est nulle, rien ; sinon l'orientation prend la direction
 demandée (`EX-EXP-004` : elle est **conservée à l'arrêt**) et le héros avance de
-`WALK_SPEED_CELLS_PER_SECOND × seconds` (4 cases par seconde, soit environ 6 m/s aux 1,5 m de la
-case — le pas d'un jeu d'action, pas d'un marcheur). Le déplacement est résolu **axe par axe** :
+`WALK_SPEED_CELLS_PER_SECOND × seconds` (2 cases par seconde, soit 3 m/s aux 1,5 m de la case —
+une marche vive). La vitesse fixe la cadence de la figurine : un cycle de marche couvre une case,
+il dure donc une demi-seconde, et une marche plus rapide que son dessin fait glisser les pieds
+(`LOT-112` ; la vitesse était de 4 cases par seconde, une course). Le déplacement est résolu **axe par axe** :
 d'abord la composante X, si le gabarit tient à l'arrivée ; puis la composante Y. C'est ce qui fait
 qu'un mur pris en biais fait **glisser** le long au lieu d'arrêter net (`EX-EXP-003`,
 `EX-GP-014`) — la différence entre un couloir jouable et un couloir où l'on s'accroche.

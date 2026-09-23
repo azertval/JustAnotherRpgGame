@@ -14,6 +14,7 @@
 #include <array>
 #include <filesystem>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -21,6 +22,7 @@
 #include "Core/Ecs/Components/RpgActor.h"
 #include "Core/Rpg/CharacterOptions.h"
 #include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/Check.h"
 #include "Core/Rpg/Scale.h"
 #include "Core/Rpg/Skill.h"
 
@@ -308,6 +310,59 @@ TEST(CharacterSheetTest, LeModificateurDeCompetenceVientDuCatalogue) {
     EXPECT_FALSE(inconnue.found)
         << "une competence inconnue est signalee, jamais devinee : un modificateur nu rendu en "
            "silence passerait pour une maitrise absente";
+}
+
+/**
+ * @brief Le heros de la demo est la fiche pre-tiree du Brawler, chiffre pour chiffre (LOT-112).
+ * \castest{<b>La fiche du heros redonne les nombres du livre, et sa Persuasion a DD 18 reussit
+ * une fois sur dix.</b><br/>
+ * \tcat Unitaire · Fiche de personnage<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Charger Rpg/characters/heros-brawler.json.<br/>2. Comparer caracteristiques, points
+ * de vie, sauvegardes et competences a la fiche du Player's Guide to Tanares, p. 195.<br/>
+ * 3. Compter les faces du d20 qui font reussir la Persuasion a DD 18.<br/>
+ * \tattendu For 16, Dex 13, Con 16, Int 10, Sag 12, Cha 8 ; 15 PV ; For et Con +5 ; les cinq
+ * competences maitrisees du livre a leur valeur ; Persuasion -1, donc deux faces sur vingt.
+ * }
+ */
+TEST(CharacterSheetTest, LeHerosDeLaDemoEstLaFicheDuLivre) {
+    const Catalogues& lus = catalogues();
+    const core::LoadedCharacterSheet charge = core::loadCharacterSheet(
+        RPG / "characters" / "heros-brawler.json", lus.options, lus.rules, lus.experience);
+    ASSERT_TRUE(charge.errors.empty()) << charge.errors.front();
+    const core::CharacterSheet& heros = charge.sheet;
+
+    EXPECT_EQ(heros.level, 1);
+    EXPECT_EQ(heros.abilities, (std::array<int, 6>{16, 13, 16, 10, 12, 8}))
+        << "valeurs du livre, augmentation du demi-orc comprise";
+    EXPECT_EQ(heros.maximumHitPoints, 15) << "12 au de de vie du Brawler, +3 de Constitution";
+    EXPECT_EQ(core::savingThrowModifier(heros, lus.experience, core::Ability::Strength), 5);
+    EXPECT_EQ(core::savingThrowModifier(heros, lus.experience, core::Ability::Constitution), 5);
+
+    // Les pastilles pleines de la fiche du livre, et la valeur inscrite en face.
+    const std::vector<std::pair<std::string, int>> maitrisees = {
+        {"animal-handling", 3}, {"athletics", 5}, {"intimidation", 1},
+        {"investigation", 2},   {"nature", 2},
+    };
+    for (const auto& [competence, valeur] : maitrisees) {
+        const core::SkillCheckModifier calcul =
+            core::skillModifier(heros, lus.experience, lus.skills, competence);
+        EXPECT_TRUE(calcul.proficient) << competence;
+        EXPECT_EQ(calcul.value, valeur) << competence;
+    }
+
+    // La Persuasion n'est pas maitrisee : Charisme 8, -1. La quete de la demo la demande a DD 18
+    // (LOT-120), il faut donc un 19 ou un 20 au de.
+    const core::SkillCheckModifier persuasion =
+        core::skillModifier(heros, lus.experience, lus.skills, "persuasion");
+    EXPECT_FALSE(persuasion.proficient);
+    EXPECT_EQ(persuasion.value, -1);
+    constexpr int DD_DU_GARDE = 18;
+    int faces = 0;
+    for (int de = 1; de <= core::D20_FACES; ++de) {
+        faces += de + persuasion.value >= DD_DU_GARDE ? 1 : 0;
+    }
+    EXPECT_EQ(faces, 2) << "une fois sur dix";
 }
 
 /**

@@ -147,9 +147,37 @@ def check_scene(directory: Path, manifest: dict, root: Path, report: Report) -> 
     return cited
 
 
+# Les quatre orientations d'une figurine, suffixe de ses bandes (`walk-se.png`, LOT-112).
+FACINGS = ("se", "sw", "ne", "nw")
+# Les animations qu'une figurine ne peut pas omettre : elle attend et elle marche. Les autres
+# dépendent de ce qu'elle fait — un Brawler n'a pas de sort.
+REQUIRED_ANIMATIONS = ("idle", "walk")
+
+
+def check_figure(folder: Path, animations: list, root: Path, report: Report) -> None:
+    """Une figurine : ses bandes présentes ont leur `.anim.json`, une animation orientée l'est dans
+    les quatre sens (une figurine à moitié tournée se verrait plus mal qu'une qui ne l'est pas), et
+    le repos comme la marche existent."""
+    where = relative(folder, root)
+    for animation in animations:
+        oriented = [f for f in FACINGS if (folder / f"{animation}-{f}.png").is_file()]
+        if oriented and len(oriented) != len(FACINGS):
+            missing = ", ".join(f"{animation}-{f}.png" for f in FACINGS if f not in oriented)
+            report.fail(f"{where} : `{animation}` orientée à moitié, il manque {missing}")
+        strips = [f"{animation}-{f}" for f in oriented]
+        if (folder / f"{animation}.png").is_file():
+            strips.append(animation)
+        for strip in strips:
+            if not (folder / f"{strip}.anim.json").is_file():
+                report.fail(f"{where} : `{strip}.png` sans `{strip}.anim.json`")
+        if animation in REQUIRED_ANIMATIONS and not strips:
+            report.fail(f"{where} : pas de bande `{animation}`")
+
+
 def check_characters(directory: Path, manifest: dict, root: Path, report: Report) -> dict[Path, set[str]]:
     """Les figurines d'un dossier `Characters/` : `<pnj>/portrait.png`, `token.png`, une bande par
-    animation (arborescence, règle 5). Rend, par dossier de PNJ, les noms d'images cités."""
+    animation, ou une par animation et par orientation (arborescence, règle 5). Un PNJ peut être
+    rangé plus bas (`Heroes/brawler`). Rend, par dossier de PNJ, les noms d'images cités."""
     where = relative(directory / "manifest.json", root)
     animations = manifest.get("animations", [])
     npcs = manifest.get("npcs", [])
@@ -161,7 +189,9 @@ def check_characters(directory: Path, manifest: dict, root: Path, report: Report
         if not isinstance(npc, str) or not (directory / npc).is_dir():
             report.fail(f"{where} : PNJ {npc!r} sans dossier")
             continue
-        cited[directory / npc] = {f"{stem}.png" for stem in ["portrait", "token", *animations]}
+        strips = [*animations, *(f"{a}-{f}" for a in animations for f in FACINGS)]
+        cited[directory / npc] = {f"{stem}.png" for stem in ["portrait", "token", *strips]}
+        check_figure(directory / npc, animations, root, report)
     return cited
 
 

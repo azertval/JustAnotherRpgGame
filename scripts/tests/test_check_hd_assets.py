@@ -116,9 +116,52 @@ def test_les_images_d_un_pnj_sont_citees_par_le_manifeste_des_figurines(assets):
     write(characters / 'manifest.json', {'version': 1, 'animations': ['idle'], 'npcs': ['mere']})
     png(characters / 'mere' / 'portrait.png', 512, 512)
     png(characters / 'mere' / 'idle.png', 1200, 272)
+    write(characters / 'mere' / 'idle.anim.json', {'version': 1})
     assert errors(root) == []
     png(characters / 'mere' / 'danse.png', 192, 256)
     assert any('danse.png' in e for e in errors(root))
+
+
+def heros(root, facings=C.FACINGS, clips=('idle', 'walk', 'attack')):
+    """Un héros rangé par classe, sous `Common/Characters/Heroes/brawler`, orienté dans @p facings."""
+    characters = root / 'Common' / 'Characters'
+    folder = characters / 'Heroes' / 'brawler'
+    folder.mkdir(parents=True)
+    write(characters / 'manifest.json', {'version': 1, 'animations': ['idle', 'walk', 'attack', 'cast'],
+                                         'npcs': ['Heroes/brawler']})
+    png(folder / 'portrait.png', 512, 512)
+    png(folder / 'token.png', 128, 128)
+    for clip in clips:
+        for facing in facings:
+            png(folder / f'{clip}-{facing}.png', 8 * 192, 256)
+            write(folder / f'{clip}-{facing}.anim.json', {'version': 1})
+    return folder
+
+
+def test_un_heros_oriente_range_par_classe_passe(assets):
+    root, _, _ = assets
+    heros(root)
+    assert errors(root) == [], "quatre orientations, pas de sort : un Brawler est complet"
+
+
+def test_une_animation_orientee_a_moitie_echoue(assets):
+    root, _, _ = assets
+    folder = heros(root)
+    (folder / 'attack-nw.png').unlink()
+    assert any('`attack` orientée à moitié' in e and 'attack-nw.png' in e for e in errors(root))
+
+
+def test_une_bande_sans_sa_description_echoue(assets):
+    root, _, _ = assets
+    folder = heros(root)
+    (folder / 'walk-sw.anim.json').unlink()
+    assert any('walk-sw.anim.json' in e for e in errors(root))
+
+
+def test_une_figurine_sans_marche_echoue(assets):
+    root, _, _ = assets
+    heros(root, clips=('idle',))
+    assert any('pas de bande `walk`' in e for e in errors(root))
 
 
 def test_un_dossier_scene_sans_manifeste_echoue(assets):

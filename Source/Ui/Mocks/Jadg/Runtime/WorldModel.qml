@@ -17,7 +17,7 @@ QtObject {
     readonly property int rows: 40
     readonly property real heroColumn: 20.5
     readonly property real heroRow: 15.5
-    property string heroFigure: "jade"
+    property string heroFigure: "Common/Characters/Heroes/brawler"
     property bool frozen: false
     readonly property string cityLocation: "central-empire-the-capital-city"
     readonly property string districtId: "central-empire-the-capital-city-martpart"

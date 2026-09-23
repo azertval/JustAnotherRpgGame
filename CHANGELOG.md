@@ -6,6 +6,26 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-112 — Le héros de la démo.** Le personnage joué est la **fiche pré-tirée du
+  Brawler** du *Player's Guide to Tanares* (p. 195), reprise telle quelle sur décision de l'auteur :
+  Grom Tranche-Écaille, demi-orc, Dragon Hunter, grande hache (`Rpg/characters/heros-brawler.json`).
+  Il remplace Brenna ; sa Persuasion vaut −1, si bien que le jet à DD 18 de la quête réussit une fois
+  sur dix, et le `LOT-120` en est averti. Le moteur reçoit le **gabarit de figurine HD** que les PNJ
+  suivront : **quatre orientations** peintes, une bande par animation et par diagonale
+  (`walk-se.png`…), choisies d'après le déplacement (`hmi::figureFacingFor`) ; une **ligne de sol**
+  déclarée par les manifestes `Characters/` (`"ground": 252`), qui pose les pieds au centre du
+  losange comme la maquette du `LOT-101` ; une **cadence lue dans la bande** (`frameDuration`). La
+  marche ralentit de 4 à **2 cases par seconde** (3 m/s) : un cycle couvre une case, et plus vite les
+  pieds glissaient. `install_hd_asset.py` installe une planche de marche (découpe, échelle au cadre
+  debout, pieds sur 252, portrait et jeton), `check_hd_assets.py` et la galerie connaissent les
+  bandes orientées et les héros rangés par classe, et `preview_figure_walk.py` fait marcher une
+  figurine sur la maquette pour juger sa cadence. L'essai a fixé **huit images** par animation
+  (le standard le dit), et le héros est installé : vingt bandes (cinq animations en quatre
+  orientations), portrait et jeton, dans `Common/Characters/Heroes/brawler/`. La mort passe en
+  cellule large, et l'installateur pose le pied le plus bas de la bande sur le sol, découpe par
+  morceaux entiers au lieu de trancher aux bornes, et réduit une pose trop haute pour qu'elle
+  tienne.
+
 - **La nightly repasse au vert.** Le fuzzing de `fuzz_level` refusait de démarrer : son amorce
   `Source/Elements/Levels/capital` a disparu avec la table rase du `LOT-102` ; il part désormais des
   cartes de la racine d'essai (`Fixtures/GameData/Levels`, `Fixtures/Levels`), et CMake refuse une

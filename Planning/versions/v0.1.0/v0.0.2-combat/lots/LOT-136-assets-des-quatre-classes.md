@@ -29,4 +29,6 @@ sources = [
 | Priest | Hill Dwarf, écailles, bouclier, marteau | trapue, bouclier, symbole sacré |
 | Scoundrel | Human, cuir, rapière, arc court | fine, capuche, deux lames |
 
-Le héros de la démo (LOT-112) devient le Brawler, ou part.
+Le héros de la démo **est** le Brawler : le [LOT-112](../../v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md)
+livre `Heroes/brawler/` (sans l'animation de sort, qu'un Brawler n'a pas). Ce lot produit les trois
+autres.

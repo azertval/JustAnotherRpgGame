@@ -50,6 +50,11 @@ struct SceneTexture {
     std::optional<float> depthOffset{};
     /// Le losange de sol de l'art, en pixels (`tile` du manifeste) ; (0, 0) s'il n'est pas déclaré.
     core::Vector2 artTile{};
+    /// Ligne de sol d'une figurine, en pixels depuis le haut de sa cellule (`LOT-112`) ; sans elle,
+    /// la figurine se pose par le bas de sa cellule.
+    std::optional<float> groundLine{};
+    /// Durée d'une image de la bande, en secondes (`.anim.json`) ; 0 si la bande n'en dit rien.
+    float frameDuration = 0.0F;
 };
 
 /**

@@ -25,8 +25,9 @@
  *
  * Le manifeste d'un dossier de pièces déclare `"tile": [largeur, hauteur]`, le losange de sol en
  * pixels d'art (`EX-VIS-008`) : c'est de lui que le rendu tire la taille à l'écran de chaque pièce,
- * et non d'une constante. Une figurine vit un dossier plus bas (`Characters/<pnj>/idle.png`) : son
- * échelle se lit dans le manifeste du dossier **parent** quand le sien n'en a pas.
+ * et non d'une constante. Une figurine vit plus bas (`Characters/<pnj>/idle.png`,
+ * `Characters/Heroes/brawler/walk-se.png`) : son échelle et sa ligne de sol se lisent dans le
+ * premier manifeste **ancêtre** qui déclare un losange, celui de l'atelier qui la range.
  *
  * Logique pure, sans GPU ni Qt ; aucune lecture ne lève (`EX-NFR-040`) : un fichier absent laisse
  * le trait inconnu, et le rendu en déduit un défaut (`hmi::artTileWidth`).
@@ -45,6 +46,12 @@ struct SceneTextureTraits {
     std::optional<core::Vector2> anchor;
     /// Décalage de profondeur de la pièce (`depthOffset` du manifeste), en cases.
     std::optional<float> depthOffset;
+    /// Ligne de sol d'une figurine (`ground` du manifeste de son atelier), en pixels depuis le haut
+    /// de la cellule : la ligne où tombent les pieds (`LOT-112`).
+    std::optional<float> groundLine;
+    /// Durée d'une image de la bande, en secondes (`frameDuration` de son premier clip) ; 0 si la
+    /// bande n'en dit rien.
+    float frameDuration = 0.0F;
 };
 
 /**

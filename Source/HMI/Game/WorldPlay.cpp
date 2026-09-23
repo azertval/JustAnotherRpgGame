@@ -3,6 +3,7 @@
 
 #include "HMI/Game/WorldPlay.h"
 
+#include <system_error>
 #include <utility>
 #include <variant>
 
@@ -15,13 +16,25 @@ namespace hmi {
 
 namespace {
 
-/// Durée d'une image des bandes de figurine, en secondes (`idle.anim.json`, `frameDuration`).
+/// Durée d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
 
 }  // namespace
 
 WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path assetsDirectory)
-    : _session(std::move(loader)), _assetsDirectory(std::move(assetsDirectory)) {}
+    : _session(std::move(loader)), _assetsDirectory(std::move(assetsDirectory)) {
+    setHeroFigure(std::string{DEFAULT_HERO_FIGURE});
+}
+
+void WorldPlay::setHeroFigure(std::string figure) {
+    _heroFigure = std::move(figure);
+    // Une figurine est orientee si sa bande de repos vers le sud-est existe : c'est la premiere que
+    // l'atelier produit, et une figurine a moitie orientee se verrait plus mal qu'une qui ne l'est
+    // pas (`scripts/check_hd_assets.py` exige les quatre).
+    std::error_code erreur;
+    _heroOriented = std::filesystem::is_regular_file(
+        _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
+}
 
 bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     if (!_session.start(mapId, arrival)) {
@@ -46,6 +59,13 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
     if (walking != _walking) {
         _walking = walking;
         result.sceneChanged = true;
+    }
+    if (walking) {
+        const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
+        if (facing != _heroFacing) {
+            _heroFacing = facing;
+            result.sceneChanged = true;
+        }
     }
     // Un héros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
     // la scène doit se redessiner autant que s'il avait bougé.
@@ -101,7 +121,9 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
         WorldFigureSnapshot{.figure = _heroFigure,
                             .clip = _walking ? "walk" : "idle",
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
-                            .frame = frame});
+                            .frame = frame,
+                            .facing = heroFacing(),
+                            .seconds = _elapsed});
     return figures;
 }
 

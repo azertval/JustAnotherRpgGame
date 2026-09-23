@@ -123,6 +123,10 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
  * `.anim.json`. Une animation absente d'un modèle — le `cast` d'une bête sans sort — ne fait pas
  * d'entrée, et ce n'est pas une erreur. La taille de la cellule est celle de chaque `.anim.json` :
  * une figurine Grande (96 × 96) s'affiche comme une Moyenne (48 × 64), sans cas particulier.
+ *
+ * Une figurine **orientée** (`LOT-112`) a une bande par animation et par diagonale
+ * (`walk-se.png`…) : chacune fait son entrée. Un modèle rangé plus bas que l'atelier
+ * (`Characters/Heroes/brawler`) est trouvé par la liste `npcs` du manifeste.
  */
 void readFigures(const std::filesystem::path& root, const std::string& directory,
                  const std::string& title, AssetGalleryCatalog& catalog) {
@@ -141,33 +145,46 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
             models.push_back(item.path().filename().string());
         }
     }
+    for (const std::string& npc : stringList(document.root, "npcs")) {
+        if (npc.find('/') != std::string::npos) {
+            models.push_back(npc);
+        }
+    }
     std::ranges::sort(models);
+    models.erase(std::ranges::unique(models).begin(), models.end());
     const std::vector<std::string> animations = stringList(document.root, "animations");
     const auto tile = static_cast<int>(manifestArtTile(document.root).x);
     for (const std::string& model : models) {
         const std::string folder = std::string{directory}.append("/").append(model).append("/");
         for (const std::string& animation : animations) {
-            AssetGalleryEntry entry{.family = family.title,
-                                    .model = model,
-                                    .form = animation,
-                                    .path = folder + animation + ".png",
-                                    .frames = {},
-                                    .tilePixels = tile};
-            if (readAnimatedEntry(entry, root / directory / model / (animation + ".anim.json"),
-                                  catalog.errors)) {
-                family.entries.push_back(std::move(entry));
+            // La bande sans orientation, puis une par diagonale : `walk`, `walk-se`...
+            for (const std::string_view facing : {"", "-se", "-sw", "-ne", "-nw"}) {
+                const std::string strip = animation + std::string{facing};
+                AssetGalleryEntry entry{.family = family.title,
+                                        .model = model,
+                                        .form = strip,
+                                        .path = folder + strip + ".png",
+                                        .frames = {},
+                                        .tilePixels = tile};
+                if (readAnimatedEntry(entry, root / directory / model / (strip + ".anim.json"),
+                                      catalog.errors)) {
+                    family.entries.push_back(std::move(entry));
+                }
             }
         }
-        const auto [width, height] = pngSize(root / directory / model / "portrait.png");
-        if (width > 0) {
-            family.entries.push_back(AssetGalleryEntry{.family = family.title,
-                                                       .model = model,
-                                                       .form = "portrait",
-                                                       .path = folder + "portrait.png",
-                                                       .frameWidth = width,
-                                                       .frameHeight = height,
-                                                       .frames = {},
-                                                       .tilePixels = tile});
+        for (const char* still : {"portrait", "token"}) {
+            const std::string file = std::string{still} + ".png";
+            const auto [width, height] = pngSize(root / directory / model / file);
+            if (width > 0) {
+                family.entries.push_back(AssetGalleryEntry{.family = family.title,
+                                                           .model = model,
+                                                           .form = still,
+                                                           .path = folder + file,
+                                                           .frameWidth = width,
+                                                           .frameHeight = height,
+                                                           .frames = {},
+                                                           .tilePixels = tile});
+            }
         }
     }
     if (!family.entries.empty()) {

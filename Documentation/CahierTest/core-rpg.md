@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **81 cas** (3 bloquants, 44 critiques, 33 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **82 cas** (3 bloquants, 45 critiques, 33 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -8,7 +8,7 @@ Tests unitaires — **81 cas** (3 bloquants, 44 critiques, 33 majeurs, 1 mineur)
 |---|---|---|---|---|---|
 | [`test_bestiary.cpp`](#test-bestiarycpp) | 6 | - | 3 | 3 | - |
 | [`test_character_options.cpp`](#test-character-optionscpp) | 9 | - | 5 | 4 | - |
-| [`test_character_sheet.cpp`](#test-character-sheetcpp) | 9 | - | 5 | 4 | - |
+| [`test_character_sheet.cpp`](#test-character-sheetcpp) | 10 | - | 6 | 4 | - |
 | [`test_check.cpp`](#test-checkcpp) | 5 | - | 4 | 1 | - |
 | [`test_dialogue.cpp`](#test-dialoguecpp) | 12 | 3 | 4 | 5 | - |
 | [`test_dice.cpp`](#test-dicecpp) | 9 | - | 5 | 4 | - |
@@ -292,7 +292,7 @@ Les competences citees par un historique existent au catalogue.
 
 ### CharacterSheetTest.LesTablesDeReglesSeChargent
 
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:67`
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:69`
 
 La table d'experience et les constantes de creation se chargent depuis la donnee.
 
@@ -311,7 +311,7 @@ La table d'experience et les constantes de creation se chargent depuis la donnee
 
 ### CharacterSheetTest.QuatreFichesIndependantes
 
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:98`
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:100`
 
 Quatre fiches de personnage coexistent, chacune avec ses propres valeurs.
 
@@ -338,7 +338,7 @@ Quatre fiches de personnage coexistent, chacune avec ses propres valeurs.
 
 ### CharacterSheetTest.TroisClassesDonnentLesBonsModificateurs
 
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:143`
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:145`
 
 Trois classes chargees depuis JSON produisent les bons points de vie et jets de sauvegarde.
 
@@ -359,7 +359,7 @@ Trois classes chargees depuis JSON produisent les bons points de vie et jets de 
 
 ### CharacterSheetTest.LaMonteeDeNiveauEstTesteeAuxBornes
 
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:194`
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:196`
 
 La montee de niveau franchit le seuil exact, le depassement et plusieurs niveaux d'un coup.
 
@@ -388,7 +388,7 @@ La montee de niveau franchit le seuil exact, le depassement et plusieurs niveaux
 
 ### CharacterSheetTest.LaMonteeDeNiveauEstReproductible
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:253`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:255`
 
 La montee de niveau est reproductible : le chemin ne change pas le resultat.
 
@@ -405,7 +405,7 @@ La montee de niveau est reproductible : le chemin ne change pas le resultat.
 
 ### CharacterSheetTest.LeModificateurDeCompetenceVientDuCatalogue
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:280`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:282`
 
 Un jet de competence emploie la caracteristique que le catalogue lui donne.
 
@@ -423,9 +423,35 @@ Un jet de competence emploie la caracteristique que le catalogue lui donne.
 - Vérifie que `calcul.value` vaut `moine.modifier(competence->ability) + core::proficiencyBonus(moine, lus.experience)`.
 - Vérifie que `inconnue.found` est faux.
 
+### CharacterSheetTest.LeHerosDeLaDemoEstLaFicheDuLivre
+
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:317`
+
+La fiche du heros redonne les nombres du livre, et sa Persuasion a DD 18 reussit une fois sur dix.
+
+**Étapes**
+
+1. Charger Rpg/characters/heros-brawler.json.
+2. Comparer caracteristiques, points de vie, sauvegardes et competences a la fiche du Player's Guide to Tanares, p. 195.
+3. Compter les faces du d20 qui font reussir la Persuasion a DD 18.
+
+**Résultat attendu**
+
+- Vérifie que `charge.errors.empty()` est vrai.
+- Vérifie que `heros.level` vaut `1`.
+- Vérifie que `heros.abilities` vaut `(std::array<int, 6>{16, 13, 16, 10, 12, 8})`.
+- Vérifie que `heros.maximumHitPoints` vaut `15`.
+- Vérifie que `core::savingThrowModifier(heros, lus.experience, core::Ability::Strength)` vaut `5`.
+- Vérifie que `core::savingThrowModifier(heros, lus.experience, core::Ability::Constitution)` vaut `5`.
+- Vérifie que `calcul.proficient` est vrai.
+- Vérifie que `calcul.value` vaut `valeur`.
+- Vérifie que `persuasion.proficient` est faux.
+- Vérifie que `persuasion.value` vaut `-1`.
+- Vérifie que `faces` vaut `2`.
+
 ### CharacterSheetTest.LaVitesseSeLitEnCases
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:315`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:370`
 
 La vitesse d'un personnage se lit en cases via l'echelle unique du projet.
 
@@ -442,7 +468,7 @@ La vitesse d'un personnage se lit en cases via l'echelle unique du projet.
 
 ### CharacterSheetTest.LeComposantDistingueLAbsenceDeFiche
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:334`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:389`
 
 Une entite sans fiche ne se confond pas avec une entite liee a la fiche zero.
 
@@ -458,7 +484,7 @@ Une entite sans fiche ne se confond pas avec une entite liee a la fiche zero.
 
 ### CharacterSheetTest.AucuneValeurDeRegleNEstEcriteDansLeCpp
 
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:354`
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/Core/Rpg/test_character_sheet.cpp:409`
 
 La classe d'armure sans armure et le plafond de caracteristique viennent de la donnee.
 
@@ -838,19 +864,19 @@ La fiche ecoute un PNJ : langues et modificateurs.
 
 **Résultat attendu**
 
-- Vérifie que `brenna.errors.empty()` est vrai.
+- Vérifie que `heros.errors.empty()` est vrai.
 - Vérifie que `auditeur.speaks("common")` est vrai.
-- Vérifie que `auditeur.speaks("elvish")` est vrai.
-- Vérifie que `auditeur.speaks("dwarvish")` est vrai.
-- Vérifie que `auditeur.speaks("orc")` est faux.
+- Vérifie que `auditeur.speaks("orc")` est vrai.
+- Vérifie que `auditeur.speaks("draconic")` est vrai.
+- Vérifie que `auditeur.speaks("elvish")` est faux.
 - Vérifie que `persuasion.size()` vaut `1U`.
 - Vérifie que `persuasion.front().source` vaut `"charisma"`.
-- Vérifie que `persuasion.front().value` vaut `brenna.sheet.modifier(core::Ability::Charisma)`.
+- Vérifie que `persuasion.front().value` vaut `heros.sheet.modifier(core::Ability::Charisma)`.
 - Vérifie que `athletisme.size()` vaut `2U`.
 - Vérifie que `athletisme[1].source` vaut `"maitrise"`.
-- Vérifie que `athletisme[0].value + athletisme[1].value` vaut `core::skillModifier(brenna.sheet, experience, competences, "athletics").value`.
+- Vérifie que `athletisme[0].value + athletisme[1].value` vaut `core::skillModifier(heros.sheet, experience, competences, "athletics").value`.
 - Vérifie que `auditeur.skillModifiers("inexistante").empty()` est vrai.
-- Vérifie que `std::ranges::any_of(brenna.inventory.backpack, [](const core::InventoryStack& s) { return s.itemId == "corde-en-soie-15-m"; })` est vrai.
+- Vérifie que `std::ranges::any_of(heros.inventory.backpack, [](const core::InventoryStack& s) { return s.itemId == "corde-en-soie-15-m"; })` est vrai.
 
 ### DialogueTest.UnPnjDeCarteOuvreSonDialogue
 

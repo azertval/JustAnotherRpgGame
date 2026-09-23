@@ -10,9 +10,9 @@ montée aux deux définitions où le jeu se joue, et en a réécrit les exigence
 `EX-VIS-009` et `EX-REN-013`. Ce que la maquette a mesuré est au [§7](#7-ce-que-la-maquette-a-mesuré) ;
 ce qu'elle a appris à la commande d'images est dans [la consigne du générateur](consigne-2d-hd.md).
 
-> **Le standard de la scène est complet.** La seule valeur encore ouverte tient à la figurine — le
-> nombre d'images par animation (§5) — et elle se fixe au [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md),
-> sur la première figurine produite. Tout ce qui concerne la scène se produit dès maintenant.
+> **Le standard est complet.** Sa dernière valeur ouverte — le nombre d'images par animation
+> (§5) — a été fixée par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md),
+> sur la première figurine produite : **huit**.
 
 ## 1. La géométrie — ce qui ne change pas
 
@@ -28,7 +28,7 @@ ce qu'elle a appris à la commande d'images est dans [la consigne du générateu
 | Règle | Valeur | Pourquoi |
 |---|---|---|
 | Losange de sol | **256 × 159 px** | à 1080p une case occupe ~100 px d'écran, à 2160p ~200 : l'art est **toujours réduit, jamais agrandi** |
-| Figurine humanoïde | **170 px** de haut, dans une cellule de **192 × 256** ; cellule large **384 × 256** pour l'attaque et le sort | quatre fois la cellule actuelle (48 × 64) : les ancres et le sol (`y = 252`) se transposent |
+| Figurine humanoïde | **170 px** de haut, dans une cellule de **192 × 256** ; cellule large **384 × 256** pour l'attaque, le sort et la mort (un corps allongé ne tient pas dans 192 px, `LOT-112`) | quatre fois la cellule actuelle (48 × 64) : les ancres et le sol (`y = 252`) se transposent |
 | Grande créature | cellule de **384 × 384** | |
 | Alpha | **continu** (8 bits), bords adoucis, **prémultiplié** au chargement | le détourage binaire est ce qui signe le pixel art |
 | Couleur | sRGB, 8 bits par canal, **pas de palette imposée** par image | la cohérence vient de la palette du lieu (§3), pas d'une quantification |
@@ -99,7 +99,10 @@ tout le champ. Les deux sols de la planche de référence sont des panneaux : il
 |---|---|
 | Orientations | **quatre** (les diagonales de l'isométrie), comme aujourd'hui |
 | Animations | repos, marche, attaque, sort, touché, mort |
-| Images par animation | **six ou huit**, fixé par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) sur la première figurine : la même marche commandée deux fois, même personnage, même consigne. Une cadence se juge à côté de son ancre et de son sol, pas sur une place vide. L'écart de coût est d'un quart sur **chaque** PNJ du jeu |
+| Images par animation | **huit**, pour toutes les animations. Tranché par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) : la même marche commandée deux fois, à six et à huit images, et jugée sur la maquette à la vitesse du jeu. À six, la planche décollait de 8 px et dérivait de 12 px d'une image à l'autre ; à huit, le générateur a tenu le même personnage, les pieds au sol. Le quart de coût en plus sur chaque PNJ est accepté |
+| Cadence | un cycle de marche couvre **une case** ; à 2 cases par seconde il dure une demi-seconde, soit **62 ms par image**. La durée est écrite dans le `.anim.json` de chaque bande, jamais dans le code |
+| Fichiers | une bande par animation **et par orientation** : `walk-se.png`, `walk-sw.png`, `walk-ne.png`, `walk-nw.png`, chacune avec son `.anim.json` ; une animation orientée l'est dans les quatre sens |
+| Ligne de sol | **252** dans la cellule de 256, déclarée par le manifeste `Characters/` (`"ground"`) ; le moteur la pose au centre du losange de la position |
 | Portrait | 512 × 512, même facture, pour les dialogues et la fiche |
 | Jeton | 128 × 128, détouré en rond, pour la piste d'initiative |
 

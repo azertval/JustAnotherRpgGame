@@ -47,6 +47,16 @@ constexpr int MANIFEST_VERSION = 1;
     return std::move(document.root);
 }
 
+/// La ligne de sol que déclare @p manifest (`ground`), rien si elle n'est pas un nombre fini positif.
+[[nodiscard]] std::optional<float> manifestGroundLine(const nlohmann::json& manifest) {
+    const auto ground = manifest.is_object() ? manifest.find("ground") : manifest.end();
+    if (ground == manifest.end() || !ground->is_number()) {
+        return std::nullopt;
+    }
+    const auto value = ground->get<float>();
+    return std::isfinite(value) && value > 0.0F ? std::optional<float>{value} : std::nullopt;
+}
+
 }  // namespace
 
 core::Vector2 manifestArtTile(const nlohmann::json& manifest) {
@@ -110,20 +120,29 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
         read.ok()) {
         traits.frameWidth = read.description->frameWidth;
         traits.frameHeight = read.description->frameHeight;
+        if (read.description->clips.clipCount() > 0) {
+            traits.frameDuration = read.description->clips.clipAt(0).frameDuration;
+        }
     }
 
-    // La pièce : son manifeste est dans son dossier. La figurine : un dossier plus haut, celui de
-    // l'atelier qui la range (`Characters/`, `Npc/`).
+    // La pièce : son manifeste est dans son dossier. La figurine : plus haut, dans celui de
+    // l'atelier qui la range (`Characters/`, `Npc/`) — un ou plusieurs dossiers au-dessus, car un
+    // héros se range par classe (`Characters/Heroes/brawler/`).
     const std::string filename = file.filename().string();
     if (const std::optional<nlohmann::json> manifest = manifestOf(file.parent_path())) {
         traits.artTile = manifestArtTile(*manifest);
         traits.anchor = scenePieceAnchor(*manifest, filename);
         traits.depthOffset = scenePieceDepthOffset(*manifest, filename);
+        traits.groundLine = manifestGroundLine(*manifest);
     }
-    if (traits.artTile.x <= 0.0F) {
-        if (const std::optional<nlohmann::json> parent =
-                manifestOf(file.parent_path().parent_path())) {
-            traits.artTile = manifestArtTile(*parent);
+    // Les ancêtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
+    std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
+    for (; traits.artTile.x <= 0.0F && !ancestor.empty(); ancestor = ancestor.parent_path()) {
+        if (const std::optional<nlohmann::json> manifest = manifestOf(assetsDirectory / ancestor)) {
+            traits.artTile = manifestArtTile(*manifest);
+            if (!traits.groundLine) {
+                traits.groundLine = manifestGroundLine(*manifest);
+            }
         }
     }
     return traits;
@@ -135,6 +154,8 @@ void applySceneTextureTraits(SceneTexture& texture, const SceneTextureTraits& tr
     texture.artTile = traits.artTile;
     texture.anchor = traits.anchor;
     texture.depthOffset = traits.depthOffset;
+    texture.groundLine = traits.groundLine;
+    texture.frameDuration = traits.frameDuration;
 }
 
 }  // namespace hmi
