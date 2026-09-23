@@ -105,17 +105,10 @@ __pycache__/
 # plus haut.
 *.qtds
 
-# Fabrique : références envoyées au générateur, strictement locales.
-# Seuls leurs chemins et empreintes sont versionnés dans request.json.
-# Exception (LOT-104) : sous Tools/AssetsHD/, le descripteur d'installation (`install.json`) et la
-# commande d'une zone (`*.md`) sont versionnés -- ce sont eux qui disent ce que devient chaque
-# source ; les images, elles, restent hors du dépôt.
-/Tools/*
-!/Tools/AssetsHD/
-/Tools/AssetsHD/**
-!/Tools/AssetsHD/**/
-!/Tools/AssetsHD/**/install.json
-!/Tools/AssetsHD/**/*.md
+# Fabrique : répertoire de travail LOCAL de l'auteur -- sources du générateur, commandes,
+# descripteurs d'installation, aperçus. Rien n'y est jamais livré (décision de l'auteur, 23
+# septembre 2026, qui revient sur l'exception du LOT-104) : le dépôt ne reçoit que l'asset installé.
+/Tools/
 
 # Captures du test de parite peintre / GPU (test_scene_painter) : deux images par cadrage, ecrites
 # a cote de l'executable pour etre relues a l'oeil. Une sortie de test, regeneree a chaque

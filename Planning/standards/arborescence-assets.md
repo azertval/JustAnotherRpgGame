@@ -87,12 +87,13 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
 5. **Un PNJ, un dossier** : `<pnj>/portrait.png`, `<pnj>/token.png`, une planche et un
    `.anim.json` par animation. Un PNJ **nommé** vit dans la zone où on le rencontre ; un
    archétype (citadin, marchande, garde) vit dans le commun de sa ville ou de sa région.
-6. **Les sources ne sont pas versionnées.** Les sorties brutes du générateur, les planches de
-   référence et les masters en pleine définition vivent dans `Tools/AssetsHD/` (ignoré par git),
-   sous **le même arbre**. Le dépôt ne reçoit que l'asset **installé** : détouré, réduit à
-   l'échelle du standard, ancré, inscrit au manifeste — par `scripts/install_hd_asset.py`, jamais à
-   la main. Deux fichiers texte y font exception et sont versionnés : le descripteur
-   `install.json`, qui dit ce que devient chaque source, et la [commande de la zone](gabarit-commande-zone.md).
+6. **`Tools/` n'est jamais livré.** C'est le répertoire de travail **local** de l'auteur : sorties
+   brutes du générateur, planches de référence, masters en pleine définition, et aussi la
+   [commande de la zone](gabarit-commande-zone.md) et le descripteur `install.json` — sous
+   `Tools/AssetsHD/`, rangés **sous le même arbre**. Rien n'en est versionné (`.gitignore`, décision
+   de l'auteur du 23 septembre 2026, qui retire l'exception du `LOT-104`). Le dépôt ne reçoit que
+   l'asset **installé** : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste —
+   par `scripts/install_hd_asset.py`, jamais à la main.
 
 ## Le budget
 

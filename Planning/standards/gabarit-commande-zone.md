@@ -10,9 +10,9 @@ et suit chaque pièce de la commande d'image à l'asset installé. Livrée par l
 
 À côté des sources qu'elle commande, **sous le même arbre** que la zone :
 `Tools/AssetsHD/Regions/<région>/<ville>/<zone>/commande.md`, avec le descripteur d'installation
-`install.json` du même dossier. Les deux sont **versionnés** ; les images du dossier ne le sont pas
-(`.gitignore`, exception du LOT-104). Le dossier `Tools/AssetsHD/Colisee/`, antérieur à la règle,
-garde son nom : son descripteur dit où il installe.
+`install.json` du même dossier. Comme tout `Tools/`, ils restent **locaux** : rien n'y est livré
+(décision de l'auteur, 23 septembre 2026, qui retire l'exception du LOT-104). Le dossier
+`Tools/AssetsHD/Colisee/`, antérieur à la règle, garde son nom : son descripteur dit où il installe.
 
 ## Le chemin d'une pièce
 
