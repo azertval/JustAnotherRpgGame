@@ -9,6 +9,10 @@ illustration n'est jamais jointe au générateur, ni décalquée (standard 2D HD
 
 ## L'ordre des envois
 
+`python scripts/prepare_envois_figure.py heros --images {N}` écrit les vingt et un envois prêts à
+copier dans `envois/` : le texte assemblé, les pièces jointes déjà là, celles à ajouter et le nom de
+la sortie.
+
 La consigne du `LOT-91` tient : **le portrait d'abord**, puis une première bande qui fixe le
 personnage, puis les autres **avec elle en référence** — demander vingt bandes sans référence, c'est
 obtenir vingt demi-orcs.

@@ -3,7 +3,9 @@
 Deux envois, **identiques à un mot près** (`SIX` / `EIGHT`). Chacun joint la planche de référence
 `Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`, et rien d'autre.
 
-Les sorties s'enregistrent ici, sous ces noms exacts :
+`python scripts/prepare_envois_figure.py essai` écrit les deux envois prêts à copier dans
+`envois/` (texte, pièce jointe, nom de sortie). Les sorties s'enregistrent ici, sous ces noms
+exacts :
 
 | Envoi | Fichier |
 |---|---|
