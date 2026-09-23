@@ -68,10 +68,8 @@ core::Level piste() {
         carte.setTile(4, y, core::TileType::Wall);
     }
     carte.setTile(0, 2, core::TileType::Empty);
-    return core::Level(core::LevelData{.name = "piste",
-                                       .tileMap = std::move(carte),
-                                       .entities = {},
-                                       .entry = {1, 1}});
+    return core::Level(core::LevelData{
+        .name = "piste", .tileMap = std::move(carte), .entities = {}, .entry = {1, 1}});
 }
 
 constexpr int FLOOR_QUADS = 20;
@@ -117,12 +115,16 @@ hmi::ArenaSceneTextures textures(const hmi::ArenaAppearanceCatalog& appearance) 
     const auto add = [&](const std::string& path, int width, int height) {
         result.byPath[path] = hmi::ArenaTexture{handle(next++), width, height};
     };
-    for (const char* floor : {"sand", "sand-2", "sand-3", "sand-blood", "stone-slab", "gate-threshold"}) {
+    for (const char* floor :
+         {"sand", "sand-2", "sand-3", "sand-blood", "stone-slab", "gate-threshold"}) {
         add(scenePiece(floor), 68, 42);
     }
-    for (const char* piece : {"wall-corner", "pillar", "wall-left", "wall-right", "banner-left",
-                              "banner-right", "torch-left", "torch-right", "arch-left", "arch-right"}) {
+    for (const char* piece :
+         {"wall-corner", "pillar", "wall-left", "wall-right", "banner-left", "banner-right",
+          "torch-left", "torch-right", "arch-left", "arch-right"}) {
         add(scenePiece(piece), 68, STANDING_HEIGHT);
+        // Le losange que le manifeste du lieu declare (LOT-103).
+        result.byPath[scenePiece(piece)].artTile = {68.0f, 42.0f};
     }
     for (const std::string& hero : appearance.heroes()) {
         const std::string directory = appearance.sheetDirectory(hero, CombatSide::Allies);
@@ -303,7 +305,8 @@ TEST_F(ArenaSceneComposerTest, ProfondeurAuPiedDeLaCase) {
 
 /**
  * @brief Chaque piece de l'atelier se pose par son ancre et se dresse contre l'arete du fond
- *        parallele a son bord : pans et arche orientes, angle du fond, piliers, seuil sous la porte.
+ *        parallele a son bord : pans et arche orientes, angle du fond, piliers, seuil sous la
+ * porte.
  * \castest{<b>Le decor de l'atelier des textures (LOT-92) est pose par son ancre, dans le bon
  * sens.</b><br/>
  * \tcat Unitaire · Composeur de la scene de l'arene<br/>
@@ -317,11 +320,11 @@ TEST_F(ArenaSceneComposerTest, ProfondeurAuPiedDeLaCase) {
  */
 TEST_F(ArenaSceneComposerTest, LeDecorSePoseParSonAncreDansLeBonSens) {
     const hmi::ComposedScene composed = compose();
-    const float unitsPerArtPixel =
-        projection.tileWidth() / static_cast<float>(hmi::ARENA_SCENE_TILE_WIDTH_PIXELS);
+    // Le losange de 68 pixels que declare le lieu occupe la largeur de la case (LOT-103).
+    const float unitsPerArtPixel = projection.tileWidth() / 68.0f;
     const auto pieceAt = [&](core::GridPosition cell, RenderLayer layer) {
-        const core::Vector2 top = projection.gridToWorld(
-            {static_cast<float>(cell.column), static_cast<float>(cell.row)});
+        const core::Vector2 top =
+            projection.gridToWorld({static_cast<float>(cell.column), static_cast<float>(cell.row)});
         const auto found = std::find_if(
             composed.quads().begin(), composed.quads().end(), [&](const hmi::ComposedQuad& quad) {
                 return quad.layer == layer &&
@@ -615,8 +618,9 @@ TEST_F(ArenaSceneComposerTest, UneFigurineDeRemplacementSuitSaPropreDecoupe) {
     ASSERT_TRUE(appearance.replaceHero(sheet, "../Npc/anariel"));
     const hmi::TextureHandle idle = handle(7001);
     const hmi::TextureHandle death = handle(7002);
-    sceneTextures.byPath["../Npc/anariel/idle.png"] = hmi::ArenaTexture{idle, 288, 64, 48};
-    sceneTextures.byPath["../Npc/anariel/death.png"] = hmi::ArenaTexture{death, 576, 64, 96};
+    // La cellule complete, comme le `.anim.json` la declare : 64 de haut dans les deux bandes.
+    sceneTextures.byPath["../Npc/anariel/idle.png"] = hmi::ArenaTexture{idle, 288, 64, 48, 64};
+    sceneTextures.byPath["../Npc/anariel/death.png"] = hmi::ArenaTexture{death, 576, 64, 96, 64};
 
     ASSERT_TRUE(session.start());
     const CombatantId bram = idOf(session, "Bram");

@@ -18,6 +18,7 @@
 #include "Core/Data/JsonDocument.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/AnimationCatalog.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 
 namespace hmi {
 
@@ -122,6 +123,10 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
  * `.anim.json`. Une animation absente d'un modèle — le `cast` d'une bête sans sort — ne fait pas
  * d'entrée, et ce n'est pas une erreur. La taille de la cellule est celle de chaque `.anim.json` :
  * une figurine Grande (96 × 96) s'affiche comme une Moyenne (48 × 64), sans cas particulier.
+ *
+ * Une figurine **orientée** (`LOT-112`) a une bande par animation et par diagonale
+ * (`walk-se.png`…) : chacune fait son entrée. Un modèle rangé plus bas que l'atelier
+ * (`Characters/Heroes/brawler`) est trouvé par la liste `npcs` du manifeste.
  */
 void readFigures(const std::filesystem::path& root, const std::string& directory,
                  const std::string& title, AssetGalleryCatalog& catalog) {
@@ -140,30 +145,46 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
             models.push_back(item.path().filename().string());
         }
     }
+    for (const std::string& npc : stringList(document.root, "npcs")) {
+        if (npc.find('/') != std::string::npos) {
+            models.push_back(npc);
+        }
+    }
     std::ranges::sort(models);
+    models.erase(std::ranges::unique(models).begin(), models.end());
     const std::vector<std::string> animations = stringList(document.root, "animations");
+    const auto tile = static_cast<int>(manifestArtTile(document.root).x);
     for (const std::string& model : models) {
         const std::string folder = std::string{directory}.append("/").append(model).append("/");
         for (const std::string& animation : animations) {
-            AssetGalleryEntry entry{.family = family.title,
-                                    .model = model,
-                                    .form = animation,
-                                    .path = folder + animation + ".png",
-                                    .frames = {}};
-            if (readAnimatedEntry(entry, root / directory / model / (animation + ".anim.json"),
-                                  catalog.errors)) {
-                family.entries.push_back(std::move(entry));
+            // La bande sans orientation, puis une par diagonale : `walk`, `walk-se`...
+            for (const std::string_view facing : {"", "-se", "-sw", "-ne", "-nw"}) {
+                const std::string strip = animation + std::string{facing};
+                AssetGalleryEntry entry{.family = family.title,
+                                        .model = model,
+                                        .form = strip,
+                                        .path = folder + strip + ".png",
+                                        .frames = {},
+                                        .tilePixels = tile};
+                if (readAnimatedEntry(entry, root / directory / model / (strip + ".anim.json"),
+                                      catalog.errors)) {
+                    family.entries.push_back(std::move(entry));
+                }
             }
         }
-        const auto [width, height] = pngSize(root / directory / model / "portrait.png");
-        if (width > 0) {
-            family.entries.push_back(AssetGalleryEntry{.family = family.title,
-                                                       .model = model,
-                                                       .form = "portrait",
-                                                       .path = folder + "portrait.png",
-                                                       .frameWidth = width,
-                                                       .frameHeight = height,
-                                                       .frames = {}});
+        for (const char* still : {"portrait", "token"}) {
+            const std::string file = std::string{still} + ".png";
+            const auto [width, height] = pngSize(root / directory / model / file);
+            if (width > 0) {
+                family.entries.push_back(AssetGalleryEntry{.family = family.title,
+                                                           .model = model,
+                                                           .form = still,
+                                                           .path = folder + file,
+                                                           .frameWidth = width,
+                                                           .frameHeight = height,
+                                                           .frames = {},
+                                                           .tilePixels = tile});
+            }
         }
     }
     if (!family.entries.empty()) {
@@ -242,56 +263,112 @@ void readColiseum(const std::filesystem::path& root, AssetGalleryCatalog& catalo
     return textureClass == "wide" ? 2 : 3;
 }
 
+/**
+ * @brief Les pièces d'un manifeste de scène, en une famille rangée par classe.
+ * @param directory Dossier du manifeste, relatif à la racine des assets, séparateurs `/`.
+ */
+void readSceneFamily(const std::filesystem::path& root, const std::string& directory,
+                     const std::string& title, AssetGalleryCatalog& catalog) {
+    // Le manifeste des pièces se lit dans Core depuis le LOT-EDITOR-02 (constat A9) : la galerie,
+    // l'éditeur et demain la collision déduite lisent la même emprise.
+    const std::filesystem::path path = root / directory / "manifest.json";
+    const core::ScenePieceManifestResult read = core::ScenePieceManifest::loadFromFile(path);
+    if (!read.ok()) {
+        if (read.error != core::ScenePieceManifestError::FileNotFound) {
+            catalog.errors.push_back(path.generic_string() + " : " + read.message);
+        }
+        return;
+    }
+    AssetGalleryFamily family{.title = title, .directory = directory, .entries = {}};
+    for (const core::ScenePiece& piece : read.manifest.pieces()) {
+        family.entries.push_back(AssetGalleryEntry{
+            .family = family.title,
+            .model = piece.className.empty() ? std::string("autre") : piece.className,
+            .form = piece.name,
+            .path = directory + "/" + piece.file,
+            .frameWidth = piece.width,
+            .frameHeight = piece.height,
+            .frames = {},
+            .footprintColumns = piece.footprintColumns,
+            .footprintRows = piece.footprintRows,
+            .anchorX = piece.anchorX,
+            .anchorY = piece.anchorY,
+            .tilePixels = read.manifest.tileWidth()});
+    }
+    std::ranges::stable_sort(family.entries,
+                             [](const AssetGalleryEntry& left, const AssetGalleryEntry& right) {
+                                 return classRank(left.model) < classRank(right.model);
+                             });
+    if (!family.entries.empty()) {
+        catalog.families.push_back(std::move(family));
+    }
+}
+
 void readScenes(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
-    std::vector<std::filesystem::path> dispositions;
+    std::vector<std::string> dispositions;
     std::error_code error;
     for (const auto& item : std::filesystem::directory_iterator(root / "Scene", error)) {
         if (item.is_directory()) {
-            dispositions.push_back(item.path());
+            dispositions.push_back(item.path().filename().string());
         }
     }
     std::ranges::sort(dispositions);
-    for (const std::filesystem::path& directory : dispositions) {
-        // Le manifeste des pièces se lit dans Core depuis le LOT-EDITOR-02 (constat A9) : la
-        // galerie, l'éditeur et demain la collision déduite lisent la même emprise.
-        const core::ScenePieceManifestResult read =
-            core::ScenePieceManifest::loadFromFile(directory / "manifest.json");
-        if (!read.ok()) {
-            if (read.error != core::ScenePieceManifestError::FileNotFound) {
-                catalog.errors.push_back((directory / "manifest.json").generic_string() + " : " +
-                                         read.message);
+    for (const std::string& name : dispositions) {
+        readSceneFamily(root, "Scene/" + name, "Scène · " + name, catalog);
+    }
+}
+
+/**
+ * @brief L'arborescence par niveaux : chaque `manifest.json` sous `Common/` et `Regions/`, dans
+ *        l'ordre de son chemin.
+ *
+ * Un manifeste qui déclare des `textures` est un dossier `Scene/` ; un manifeste qui déclare des
+ * `animations` est un dossier `Characters/`, dont les PNJ ont la forme de l'atelier
+ * (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune famille.
+ */
+void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
+    std::vector<std::filesystem::path> manifests;
+    for (const char* tree : {"Common", "Regions"}) {
+        std::error_code error;
+        for (auto it = std::filesystem::recursive_directory_iterator(root / tree, error);
+             !error && it != std::filesystem::recursive_directory_iterator(); it.increment(error)) {
+            if (it->is_regular_file() && it->path().filename() == "manifest.json") {
+                manifests.push_back(it->path());
             }
+        }
+    }
+    std::ranges::sort(manifests, [](const auto& left, const auto& right) {
+        return left.generic_string() < right.generic_string();
+    });
+    for (const std::filesystem::path& path : manifests) {
+        const core::JsonDocument document = readManifest(path, catalog.errors);
+        if (!document.ok()) {
             continue;
         }
-        const std::string name = directory.filename().string();
-        AssetGalleryFamily family{
-            .title = "Scène · " + name, .directory = "Scene/" + name, .entries = {}};
-        for (const core::ScenePiece& piece : read.manifest.pieces()) {
-            family.entries.push_back(AssetGalleryEntry{
-                .family = family.title,
-                .model = piece.className.empty() ? std::string("autre") : piece.className,
-                .form = piece.name,
-                .path = family.directory + "/" + piece.file,
-                .frameWidth = piece.width,
-                .frameHeight = piece.height,
-                .frames = {},
-                .footprintColumns = piece.footprintColumns,
-                .footprintRows = piece.footprintRows,
-                .anchorX = piece.anchorX,
-                .anchorY = piece.anchorY});
-        }
-        std::ranges::stable_sort(family.entries,
-                                 [](const AssetGalleryEntry& left, const AssetGalleryEntry& right) {
-                                     return classRank(left.model) < classRank(right.model);
-                                 });
-        if (!family.entries.empty()) {
-            catalog.families.push_back(std::move(family));
+        const std::filesystem::path directory = path.parent_path();
+        const std::string relative = std::filesystem::relative(directory, root).generic_string();
+        if (document.root.contains("textures")) {
+            // Le lieu, sans le préfixe `Regions/` ni le dossier `Scene` : ce qui le nomme dans
+            // l'atlas (« Scène · central-empire/capital/arenarea/arena-of-fate »). Le commun du
+            // monde range ses pièces par sorte (« Scène · Common/Terrain »).
+            std::string place = relative;
+            if (place.ends_with("/Scene")) {
+                place.erase(place.size() - std::string_view("/Scene").size());
+            }
+            if (place.starts_with("Regions/")) {
+                place.erase(0, std::string_view("Regions/").size());
+            }
+            readSceneFamily(root, relative, "Scène · " + place, catalog);
+        } else if (document.root.contains("animations")) {
+            readFigures(root, relative, "Figurines · " + relative, catalog);
         }
     }
 }
 
-[[nodiscard]] int ceilCells(int pixels) {
-    return pixels <= 0 ? 0 : (pixels + ASSET_GALLERY_CELL_PIXELS - 1) / ASSET_GALLERY_CELL_PIXELS;
+/// Le nombre de cases que couvrent @p pixels d'art, une case valant @p tilePixels.
+[[nodiscard]] int ceilCells(int pixels, int tilePixels) {
+    const int tile = std::max(1, tilePixels);
+    return pixels <= 0 ? 0 : (pixels + tile - 1) / tile;
 }
 
 }  // namespace
@@ -302,6 +379,7 @@ AssetGalleryCatalog AssetGalleryCatalog::load(const std::filesystem::path& asset
     readFigures(assetsRoot, "Monsters", "Monstres", catalog);
     readColiseum(assetsRoot, catalog);
     readScenes(assetsRoot, catalog);
+    readTree(assetsRoot, catalog);
     return catalog;
 }
 
@@ -346,8 +424,9 @@ AssetGalleryBloc assetGalleryBlocShape(const AssetGalleryEntry& entry) {
     const int footprintColumns = std::max(1, entry.footprintColumns);
     const int footprintRows = std::max(1, entry.footprintRows);
     // Le dessin monte au-dessus du bas de l'emprise ; en largeur, il est centré sur elle.
-    const int inner = std::max(footprintColumns, ceilCells(entry.frameWidth));
-    const int above = std::max(footprintRows, ceilCells(entry.frameHeight));
+    const int tile = entry.tileWidthPixels();
+    const int inner = std::max(footprintColumns, ceilCells(entry.frameWidth, tile));
+    const int above = std::max(footprintRows, ceilCells(entry.frameHeight, tile));
     AssetGalleryBloc bloc;
     bloc.columns = inner + 2;
     bloc.rows = above + 2;

@@ -9,6 +9,8 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <filesystem>
+#include <fstream>
 #include <limits>
 #include <string>
 #include <vector>
@@ -21,53 +23,98 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Levels/TileTypeName.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/RenderLayer.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
 #include "HMI/Graphics/ScenePieces.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace {
 
+/// Rapport du losange de la projection par défaut.
+constexpr float RATIO = core::ARENA_DIAMOND_RATIO;
+
 /**
- * @brief Le placement historique reste inchangé.
- * \castest{<b>Le placement historique reste inchangé.</b><br/>
- * \tcat Unitaire · Rendu du Colisée<br/>
- * \tcrit Critique<br/>
- * \tetapes Lire un manifeste sans placementVersion et composer une pièce.<br/>
- * \tattendu Aucune ancre explicite et coordonnées historiques conservées.
+ * @brief Une pièce se met à l'échelle de **son lieu** : le losange que déclare son manifeste occupe
+ *        celui de la case (`LOT-103`).
+ * \castest{<b>Une piece prend l'echelle que son lieu declare.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser une piece de 512 x 400 d'un lieu qui declare un losange de 256 x 159, sur une
+ * case de 100 unites.<br/>
+ * \tattendu La piece mesure 200 x 156,25 unites ; son ancre par defaut est le milieu du losange du
+ * bas.
  * }
  */
-TEST(ScenePiecePlacement, PreservesLegacyPlacementWithoutOptIn) {
-    const nlohmann::json manifest = {
-        {"textures", {{"wall", {{"file", "wall.png"}, {"anchor", {128, 162.5}}}}}}};
-    EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "wall.png"));
-    const hmi::SceneTexture texture{.width = 256, .height = 256};
-    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 2);
-    EXPECT_FLOAT_EQ(quad.x, 32);
-    EXPECT_FLOAT_EQ(quad.y, -228);
+TEST(ScenePiecePlacement, APieceTakesTheScaleItsPlaceDeclares) {
+    const hmi::SceneTexture texture{.width = 512, .height = 400, .artTile = {256.0F, 159.0F}};
+    const auto quad = hmi::standingPieceQuad(texture, {1000, 500}, 100.0F, RATIO);
+    EXPECT_FLOAT_EQ(quad.width, 200.0F);
+    EXPECT_FLOAT_EQ(quad.height, 156.25F);
+    // Ancre par défaut : (128, 400 - 159) pixels, soit (50, 94,140625) unités.
+    EXPECT_FLOAT_EQ(quad.x, 1000.0F - 50.0F);
+    EXPECT_FLOAT_EQ(quad.y, 500.0F - (241.0F * 100.0F / 256.0F));
 }
 
 /**
- * @brief Une ancre fractionnaire aligne la pièce.
+ * @brief Le même lieu livré deux fois plus fin se dessine à la même taille : l'échelle est une
+ *        donnée, pas une constante.
+ * \castest{<b>Un lieu plus fin se dessine a la meme taille.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser la meme piece a 256 px de losange, puis a 512 px, deux fois plus grande.<br/>
+ * \tattendu Les deux quads sont identiques.
+ * }
+ */
+TEST(ScenePiecePlacement, AFinerPlaceDrawsAtTheSameSize) {
+    const hmi::SceneTexture coarse{.width = 256, .height = 300, .artTile = {256.0F, 159.0F}};
+    const hmi::SceneTexture fine{.width = 512, .height = 600, .artTile = {512.0F, 318.0F}};
+    const auto a = hmi::standingPieceQuad(coarse, {10, 20}, 5.375F, RATIO);
+    const auto b = hmi::standingPieceQuad(fine, {10, 20}, 5.375F, RATIO);
+    EXPECT_FLOAT_EQ(a.x, b.x);
+    EXPECT_FLOAT_EQ(a.y, b.y);
+    EXPECT_FLOAT_EQ(a.width, b.width);
+    EXPECT_FLOAT_EQ(a.height, b.height);
+}
+
+/**
+ * @brief Sans échelle déclarée, une pièce se suppose d'une case de large.
+ * \castest{<b>Une piece sans echelle declaree a la largeur d'une case.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser une piece de 256 x 256 sans losange declare, sur une case de 512 unites.<br/>
+ * \tattendu Elle occupe exactement la largeur de la case.
+ * }
+ */
+TEST(ScenePiecePlacement, WithoutADeclaredScaleAPieceIsOneCellWide) {
+    const hmi::SceneTexture texture{.width = 256, .height = 256};
+    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 512.0F, RATIO);
+    EXPECT_FLOAT_EQ(quad.width, 512.0F);
+    EXPECT_FLOAT_EQ(quad.x, 100.0F - 256.0F);
+}
+
+/**
+ * @brief Une ancre fractionnaire aligne la pièce, et se lit **sans** opt-in depuis le `LOT-103`.
  * \castest{<b>Une ancre fractionnaire aligne la pièce.</b><br/>
  * \tcat Unitaire · Rendu du Colisée<br/>
  * \tcrit Critique<br/>
- * \tetapes Lire une origine fractionnaire puis composer la pièce.<br/>
+ * \tetapes Lire une origine fractionnaire d'un manifeste sans placementVersion puis composer la
+ * pièce.<br/>
  * \tattendu Ancrage exact et dimensions inchangées.
  * }
  */
 TEST(ScenePiecePlacement, AlignsFractionalOriginWithoutChangingDimensions) {
     const nlohmann::json manifest = {
-        {"placementVersion", 1},
         {"textures", {{"corner", {{"file", "corner.png"}, {"anchor", {128, 162.5}}}}}}};
     const auto anchor = hmi::scenePieceAnchor(manifest, "corner.png");
     ASSERT_TRUE(anchor);
-    const hmi::SceneTexture texture{.width = 256, .height = 256, .anchor = anchor};
-    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 2);
+    const hmi::SceneTexture texture{
+        .width = 256, .height = 256, .anchor = anchor, .artTile = {256.0F, 159.0F}};
+    const auto quad = hmi::standingPieceQuad(texture, {100, 200}, 512.0F, RATIO);
     EXPECT_FLOAT_EQ(quad.x + anchor->x * 2, 100);
     EXPECT_FLOAT_EQ(quad.y + anchor->y * 2, 200);
     EXPECT_FLOAT_EQ(quad.width, 512);
@@ -86,9 +133,77 @@ TEST(ScenePiecePlacement, AlignsFractionalOriginWithoutChangingDimensions) {
  */
 TEST(ScenePiecePlacement, RejectsMalformedAnchor) {
     const nlohmann::json manifest = {
-        {"placementVersion", 1},
         {"textures", {{"wall", {{"file", "wall.png"}, {"anchor", {"128", 162}}}}}}};
     EXPECT_FALSE(hmi::scenePieceAnchor(manifest, "wall.png"));
+}
+
+/**
+ * @brief Le losange d'art se lit dans le manifeste, et un losange mal formé ne dit rien.
+ * \castest{<b>Le losange d'art se lit dans le manifeste.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes Lire `tile` d'un manifeste valide, absent, nul et non numerique.<br/>
+ * \tattendu (256, 159) pour le premier, (0, 0) pour les trois autres.
+ * }
+ */
+TEST(ScenePiecePlacement, ReadsTheArtTileOfAManifest) {
+    const core::Vector2 tile = hmi::manifestArtTile(nlohmann::json::parse(R"({"tile":[256,159]})"));
+    EXPECT_FLOAT_EQ(tile.x, 256.0F);
+    EXPECT_FLOAT_EQ(tile.y, 159.0F);
+    for (const char* text : {R"({})", R"({"tile":[0,159]})", R"({"tile":["a",1]})"}) {
+        EXPECT_FLOAT_EQ(hmi::manifestArtTile(nlohmann::json::parse(text)).x, 0.0F) << text;
+    }
+}
+
+/**
+ * @brief Une figurine de 192 × 256 s'affiche **entière**, à l'échelle de son art (`LOT-103`).
+ * \castest{<b>Une figurine de 192 x 256 s'affiche entiere.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser l'image 2 d'une bande de six cellules de 192 x 256, a l'echelle d'un losange de
+ * 256, sur une case de 100 unites.<br/>
+ * \tattendu Le quad lit toute la hauteur de la cellule (v de 0 a 1), mesure 75 x 100 unites et
+ * lit la troisieme cellule.
+ * }
+ */
+TEST(ScenePiecePlacement, AFigureOf192By256IsDrawnWhole) {
+    const hmi::SceneTexture band{.width = 192 * 6,
+                                 .height = 256,
+                                 .frameWidth = 192,
+                                 .frameHeight = 256,
+                                 .artTile = {256.0F, 159.0F}};
+    ASSERT_EQ(hmi::frameCountOf(band), 6);
+    const auto quad = hmi::figureQuad(band, 2, 500.0F, 400.0F, 100.0F);
+    EXPECT_FLOAT_EQ(quad.v0, 0.0F);
+    EXPECT_FLOAT_EQ(quad.v1, 1.0F);
+    EXPECT_FLOAT_EQ(quad.width, 75.0F);
+    EXPECT_FLOAT_EQ(quad.height, 100.0F);
+    EXPECT_FLOAT_EQ(quad.u0, 2.0F / 6.0F);
+    EXPECT_FLOAT_EQ(quad.u1, 3.0F / 6.0F);
+    EXPECT_FLOAT_EQ(quad.y + quad.height, 400.0F);
+    EXPECT_FLOAT_EQ(quad.x + (quad.width / 2.0F), 500.0F);
+}
+
+/**
+ * @brief Une grande créature de 384 × 384 s'affiche entière, une fois et demie une case.
+ * \castest{<b>Une creature de 384 x 384 s'affiche entiere.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser une bande de quatre cellules de 384 x 384 a l'echelle d'un losange de 256.<br/>
+ * \tattendu Le quad lit toute la cellule et mesure 1,5 case de cote.
+ * }
+ */
+TEST(ScenePiecePlacement, ACreatureOf384By384IsDrawnWhole) {
+    const hmi::SceneTexture band{.width = 384 * 4,
+                                 .height = 384,
+                                 .frameWidth = 384,
+                                 .frameHeight = 384,
+                                 .artTile = {256.0F, 159.0F}};
+    const auto quad = hmi::figureQuad(band, 3, 0.0F, 0.0F, 100.0F);
+    EXPECT_FLOAT_EQ(quad.v1, 1.0F);
+    EXPECT_FLOAT_EQ(quad.u1, 1.0F);
+    EXPECT_FLOAT_EQ(quad.width, 150.0F);
+    EXPECT_FLOAT_EQ(quad.height, 150.0F);
 }
 
 /**
@@ -310,6 +425,14 @@ TEST(WorldSceneComposerTest, UneFigurineSansImageAUneCleDeMarqueur) {
     EXPECT_EQ(hmi::figureMarkerKey("Npc/jade"), "");
     EXPECT_EQ(hmi::figureMarkerKey("Monsters/ironhand-soldier/idle.png"),
               "monsters/ironhand-soldier");
+    // L'arborescence 2D HD : un dossier `Characters/` a n'importe quel niveau (LOT-112).
+    EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/Heroes/brawler/idle-se.png"),
+              "characters/heroes/brawler");
+    EXPECT_EQ(hmi::figureMarkerKey("Regions/central-empire/capital/Common/Characters/guard/walk.png"),
+              "characters/guard");
+    EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/manifest.json"), "");
+    EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/Heroes/brawler/"), "");
+    EXPECT_EQ(hmi::figureMarkerKey("Common/OtherCharacters/x/idle.png"), "");
 }
 
 /**
@@ -403,22 +526,21 @@ TEST(WorldSceneComposerTest, UnePieceLargeSeTrieAuPiedDeSonEmprise) {
 }
 
 /**
- * @brief La profondeur exige un manifeste de placement valide.
- * \castest{<b>La profondeur exige un manifeste de placement valide.</b><br/>
+ * @brief La profondeur exige une ancre valide.
+ * \castest{<b>La profondeur exige une ancre valide.</b><br/>
  * \tcat Unitaire · Rendu du Colisée<br/>
  * \tcrit Critique<br/>
- * \tetapes Lire une pièce valide, une inconnue et un manifeste historique.<br/>
+ * \tetapes Lire une pièce valide, une inconnue et une pièce sans ancre.<br/>
  * \tattendu Profondeur présente uniquement pour la pièce valide.
  * }
  */
-TEST(ScenePiecePlacement, DepthRequiresOptInAndValidAnchor) {
-    const auto manifest = nlohmann::json::parse(R"({"placementVersion":1,"textures":{
-        "bad":{"file":3},"gate":{"file":"gate.png","anchor":[12,96],"depthOffset":4.5}}})");
+TEST(ScenePiecePlacement, DepthRequiresAValidAnchor) {
+    const auto manifest = nlohmann::json::parse(R"({"textures":{
+        "bad":{"file":3},"gate":{"file":"gate.png","anchor":[12,96],"depthOffset":4.5},
+        "loose":{"file":"loose.png","depthOffset":2}}})");
     EXPECT_EQ(hmi::scenePieceDepthOffset(manifest, "gate.png"), 4.5F);
     EXPECT_FALSE(hmi::scenePieceDepthOffset(manifest, "unknown.png"));
-    auto legacy = manifest;
-    legacy.erase("placementVersion");
-    EXPECT_FALSE(hmi::scenePieceDepthOffset(legacy, "gate.png"));
+    EXPECT_FALSE(hmi::scenePieceDepthOffset(manifest, "loose.png"));
 }
 
 // --- Le rendu de maquette (LOT-128) ---------------------------------------------------------
@@ -613,6 +735,92 @@ TEST(MaquetteRenderTest, LEauProfondeNeSExtrudePas) {
 }
 
 /**
+ * @brief Le vocabulaire de la maquette se distingue sans texture : deux types ne partagent jamais
+ *        une teinte, et la fosse et la lave restent plates comme l'eau profonde.
+ * \castest{<b>Deux types de tuile ne partagent jamais une teinte de maquette.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Relever la teinte de maquette de chaque type, hors case vide.<br/>2. Interroger la
+ * forme de la fosse, de la lave, de la colonne et de la palissade.<br/>
+ * \tattendu Les teintes sont toutes distinctes ; fosse et lave sont plates ; la colonne est plus
+ * haute et plus etroite qu'un mur, la palissade plus basse.
+ * }
+ */
+TEST(MaquetteRenderTest, ChaqueTypeASaTeinteEtSaForme) {
+    std::vector<hmi::MaquetteColor> vues;
+    for (int raw = 0; raw < core::TILE_TYPE_COUNT; ++raw) {
+        const auto type = static_cast<core::TileType>(raw);
+        if (type == core::TileType::Empty) {
+            continue;
+        }
+        const hmi::MaquetteColor teinte = hmi::maquetteColor(type);
+        // L'entree n'est jamais une couche visuelle : elle partage a dessein le pave des plans.
+        if (type != core::TileType::Entry) {
+            EXPECT_EQ(std::find(vues.begin(), vues.end(), teinte), vues.end())
+                << core::tileTypeName(type) << " partage sa teinte";
+            vues.push_back(teinte);
+        }
+    }
+
+    EXPECT_FALSE(hmi::maquetteExtrudes(core::TileType::Pit));
+    EXPECT_FALSE(hmi::maquetteExtrudes(core::TileType::Lava));
+    const hmi::MaquetteShape mur = hmi::maquetteShape(core::TileType::Wall);
+    const hmi::MaquetteShape colonne = hmi::maquetteShape(core::TileType::Column);
+    const hmi::MaquetteShape palissade = hmi::maquetteShape(core::TileType::Fence);
+    EXPECT_GT(colonne.height, mur.height);
+    EXPECT_LT(colonne.footprint, mur.footprint);
+    EXPECT_GT(palissade.height, 0.0F);
+    EXPECT_LT(palissade.height, mur.height);
+}
+
+/**
+ * @brief Une colonne se compose en bloc etroit de deux cases de haut, sur un socle qui couvre sa
+ *        case : sans lui, un trou entourerait le bloc.
+ * \castest{<b>Une colonne se compose en bloc etroit, sur son socle.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer une carte d'une seule case de colonne, sans lieu.<br/>
+ * \tattendu Un socle sur le calque des tuiles, trois faces sur le calque du decor ; le sommet
+ * monte de deux hauteurs de losange, et le bloc tient dans la case sans en toucher les pointes.
+ * }
+ */
+TEST(MaquetteRenderTest, UneColonneSeComposeEnBlocEtroitSurSonSocle) {
+    core::TileMap collision{1, 1};
+    collision.setTile(0, 0, core::TileType::Column);
+    const core::Level carte{core::LevelData{.name = "colonne", .tileMap = std::move(collision)}};
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carte, hmi::PlaceAppearance{}, {});
+    const core::IsoProjection projection = projectionDe(instantane);
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+    const hmi::ComposedScene scene = hmi::composeWorldScene(instantane, projection, resolues);
+
+    ASSERT_EQ(scene.size(), 4U);
+    int socles = 0;
+    const core::Rect bounds = projection.tileBounds({.column = 0, .row = 0});
+    float plusHaut = bounds.position.y;
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        if (quad.layer == hmi::RenderLayer::Tile) {
+            ++socles;
+            continue;
+        }
+        EXPECT_EQ(quad.layer, hmi::RenderLayer::Object);
+        for (std::size_t i = 0; i < 4; ++i) {
+            EXPECT_GT(quad.poly.x[i], bounds.position.x);
+            EXPECT_LT(quad.poly.x[i], bounds.position.x + bounds.size.x);
+            plusHaut = std::min(plusHaut, quad.poly.y[i]);
+        }
+    }
+    EXPECT_EQ(socles, 1);
+    const float hauteur = bounds.size.y * hmi::maquetteShape(core::TileType::Column).height;
+    const float dessusDuSommet =
+        bounds.position.y +
+        (bounds.size.y / 2.0F) * (1.0F - hmi::maquetteShape(core::TileType::Column).footprint);
+    EXPECT_FLOAT_EQ(plusHaut, dessusDuSommet - hauteur);
+}
+
+/**
  * @brief La couleur d'un jeton se déduit de ce que le format dit déjà, sans propriété nouvelle
  *        (décision D3) : le dialogue fait le jaune, la rencontre le rouge, le camp d'une entrée
  *        d'arène l'un ou l'autre.
@@ -722,16 +930,231 @@ TEST(MaquetteRenderTest, LesCheminsContiennentLesJetons) {
     collision.setTile(0, 0, core::TileType::Grass);
     collision.setTile(1, 0, core::TileType::Grass);
     core::LevelData donnees{.name = "maquette", .tileMap = std::move(collision)};
-    donnees.entities.push_back(core::MapEntity{.type = "encounter",
-                                               .position = {.column = 1, .row = 0},
-                                               .properties = {{"encounterId",
-                                                               std::string{"wolves"}}}});
+    donnees.entities.push_back(
+        core::MapEntity{.type = "encounter",
+                        .position = {.column = 1, .row = 0},
+                        .properties = {{"encounterId", std::string{"wolves"}}}});
 
     const hmi::WorldSceneSnapshot instantane =
         hmi::snapshotWorldScene(core::Level{std::move(donnees)}, hmi::PlaceAppearance{}, {});
     const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
 
-    EXPECT_NE(std::ranges::find(chemins,
-                                hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
-              chemins.end());
+    EXPECT_NE(
+        std::ranges::find(chemins, hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W')),
+        chemins.end());
+}
+
+/**
+ * @brief Une figurine se tourne vers l'une des quatre diagonales de l'ecran, et la garde a
+ *        l'egalite (`LOT-112`).
+ * \castest{<b>L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.</b><br/>
+ * \tcat Unitaire · Scene du monde<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Demander l'orientation d'un pas le long de chaque axe de la grille.<br/>
+ * 2. Demander celle d'un pas en diagonale de la grille, depuis une orientation voisine, puis depuis
+ * une orientation opposee.<br/>3. Demander celle d'un pas nul.<br/>
+ * \tattendu Colonne : sud-est / nord-ouest ; ligne : sud-ouest / nord-est. En diagonale, la figurine
+ * garde son orientation si elle convient, sinon la premiere des deux. Un pas nul ne la change pas.
+ * }
+ */
+TEST(WorldSceneComposerTest, UneFigurineSeTourneVersLUneDesQuatreDiagonales) {
+    using hmi::FigureFacing;
+    const FigureFacing avant = FigureFacing::NorthEast;
+    EXPECT_EQ(hmi::figureFacingFor({1.0F, 0.0F}, avant), FigureFacing::SouthEast);
+    EXPECT_EQ(hmi::figureFacingFor({-1.0F, 0.0F}, avant), FigureFacing::NorthWest);
+    EXPECT_EQ(hmi::figureFacingFor({0.0F, 1.0F}, avant), FigureFacing::SouthWest);
+    EXPECT_EQ(hmi::figureFacingFor({0.0F, -1.0F}, avant), FigureFacing::NorthEast);
+    EXPECT_EQ(hmi::figureFacingFor({0.8F, -0.6F}, avant), FigureFacing::SouthEast)
+        << "l'axe dominant l'emporte";
+
+    // Droit vers le bas de l'ecran : sud-est ou sud-ouest conviennent.
+    constexpr float DEMI = 0.70710678F;
+    EXPECT_EQ(hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::SouthWest), FigureFacing::SouthWest)
+        << "a l'egalite, la figurine garde son orientation plutot que de basculer";
+    EXPECT_EQ(hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::SouthEast), FigureFacing::SouthEast);
+    EXPECT_EQ(hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::NorthWest), FigureFacing::SouthEast);
+    EXPECT_EQ(hmi::figureFacingFor({-DEMI, -DEMI}, FigureFacing::SouthEast),
+              FigureFacing::NorthEast);
+
+    EXPECT_EQ(hmi::figureFacingFor({0.0F, 0.0F}, FigureFacing::NorthWest), FigureFacing::NorthWest);
+}
+
+/**
+ * @brief Une figurine orientee lit la bande de son orientation, et la composition la charge
+ *        (`LOT-112`).
+ * \castest{<b>Une figurine orientee a une bande par orientation.</b><br/>
+ * \tcat Unitaire · Scene du monde<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Demander les chemins de bande du heros, sans orientation puis vers chaque
+ * diagonale.<br/>2. Tirer les chemins d'un instantane ou il regarde le nord-ouest.<br/>
+ * \tattendu `walk.png` sans orientation, `walk-se.png`… avec ; l'instantane demande les bandes de
+ * repos et de marche de SON orientation.
+ * }
+ */
+TEST(WorldSceneComposerTest, UneFigurineOrienteeLitLaBandeDeSonOrientation) {
+    const std::string heros = "Common/Characters/Heroes/brawler";
+    EXPECT_EQ(hmi::figureStripPath(heros, "walk"), heros + "/walk.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "walk", hmi::FigureFacing::SouthEast),
+              heros + "/walk-se.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "walk", hmi::FigureFacing::SouthWest),
+              heros + "/walk-sw.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "idle", hmi::FigureFacing::NorthEast),
+              heros + "/idle-ne.png");
+    EXPECT_EQ(hmi::figureStripPath(heros, "", hmi::FigureFacing::NorthWest),
+              heros + "/idle-nw.png");
+
+    const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+        carte(), table(),
+        {hmi::WorldFigureSnapshot{.figure = heros,
+                                  .clip = "walk",
+                                  .point = {1.5F, 1.5F},
+                                  .facing = hmi::FigureFacing::NorthWest}});
+    const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
+    EXPECT_NE(std::ranges::find(chemins, heros + "/idle-nw.png"), chemins.end());
+    EXPECT_NE(std::ranges::find(chemins, heros + "/walk-nw.png"), chemins.end());
+    EXPECT_EQ(std::ranges::find(chemins, heros + "/walk.png"), chemins.end());
+}
+
+namespace {
+
+/// La bande de marche du heros, telle que l'installe l'atelier : huit cellules de 192 x 256, a
+/// l'echelle d'un losange de 256, ligne de sol a 252, une image tous les dixiemes de seconde.
+[[nodiscard]] hmi::ScenePieceTextures bandeDuHeros(const std::string& chemin) {
+    hmi::ScenePieceTextures resolues;
+    resolues.byPath.emplace(
+        chemin, hmi::SceneTexture{.texture = reinterpret_cast<hmi::TextureHandle>(
+                                      static_cast<std::uintptr_t>(1)),
+                                  .width = 8 * 192,
+                                  .height = 256,
+                                  .frameWidth = 192,
+                                  .frameHeight = 256,
+                                  .artTile = {256.0F, 159.0F},
+                                  .groundLine = 252.0F,
+                                  .frameDuration = 0.1F});
+    return resolues;
+}
+
+/// Le quad de la seule figurine de @p scene.
+[[nodiscard]] hmi::SpriteQuad quadDeLaFigurine(const hmi::ComposedScene& scene) {
+    for (const hmi::ComposedQuad& quad : scene.quads()) {
+        if (quad.layer == hmi::RenderLayer::Player) {
+            return quad.sprite;
+        }
+    }
+    ADD_FAILURE() << "aucune figurine composee";
+    return {};
+}
+
+}  // namespace
+
+/**
+ * @brief Une figurine qui declare sa ligne de sol a les pieds au centre du losange de sa position
+ *        (`LOT-112`).
+ * \castest{<b>Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Poser la bande de marche du heros (cellule 192 x 256, sol a 252, losange de 256) au
+ * centre d'une case, puis a mi-chemin entre deux cases.<br/>
+ * \tattendu La ligne 252 de la cellule tombe exactement sur le point de la figurine, en unites
+ * monde, et le quad est centre sur lui : la figurine ne flotte pas et ne s'enfonce pas.
+ * }
+ */
+TEST(WorldSceneComposerTest, LesPiedsDuHerosTombentAuCentreDeSaCase) {
+    const std::string chemin = "Common/Characters/Heroes/brawler/walk-se.png";
+    for (const core::Vector2 point : {core::Vector2{1.5F, 1.5F}, core::Vector2{2.0F, 1.25F}}) {
+        const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+            carte(), table(),
+            {hmi::WorldFigureSnapshot{.figure = "Common/Characters/Heroes/brawler",
+                                      .clip = "walk",
+                                      .point = point,
+                                      .facing = hmi::FigureFacing::SouthEast}});
+        const core::IsoProjection projection{instantane.columns, instantane.rows};
+        const hmi::SpriteQuad quad = quadDeLaFigurine(
+            hmi::composeWorldScene(instantane, projection, bandeDuHeros(chemin)));
+
+        const float unitesParPixel = projection.tileWidth() / 256.0F;
+        const core::Vector2 sol = projection.gridToWorld(point);
+        EXPECT_NEAR(quad.y + (252.0F * unitesParPixel), sol.y, 1.0e-3F)
+            << "la ligne de sol est sur le point de la figurine";
+        EXPECT_NEAR(quad.x + (quad.width / 2.0F), sol.x, 1.0e-3F);
+        EXPECT_NEAR(quad.height, 256.0F * unitesParPixel, 1.0e-3F);
+    }
+}
+
+/**
+ * @brief La cadence d'une figurine est celle que dit sa bande, pas une constante du code
+ *        (`LOT-112`, `EX-REN-005`).
+ * \castest{<b>L'image affichee suit la duree que declare la bande.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer la marche du heros (0,1 s par image) a 0,25 s, 0,75 s et 0,85 s.<br/>
+ * 2. La composer sans temps connu, a l'image 5.<br/>
+ * \tattendu Troisieme image a 0,25 s, huitieme a 0,75 s, premiere a 0,85 s ; sans temps, l'image
+ * demandee.
+ * }
+ */
+TEST(WorldSceneComposerTest, LaCadenceEstCelleQueDitLaBande) {
+    const std::string heros = "Common/Characters/Heroes/brawler";
+    const hmi::ScenePieceTextures bande = bandeDuHeros(heros + "/walk-se.png");
+    const auto imageA = [&](float secondes, int image) {
+        const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+            carte(), table(),
+            {hmi::WorldFigureSnapshot{.figure = heros,
+                                      .clip = "walk",
+                                      .point = {1.5F, 1.5F},
+                                      .frame = image,
+                                      .facing = hmi::FigureFacing::SouthEast,
+                                      .seconds = secondes}});
+        const core::IsoProjection projection{instantane.columns, instantane.rows};
+        const hmi::SpriteQuad quad =
+            quadDeLaFigurine(hmi::composeWorldScene(instantane, projection, bande));
+        return static_cast<int>((quad.u0 * 8.0F) + 0.5F);
+    };
+    EXPECT_EQ(imageA(0.25F, 0), 2);
+    EXPECT_EQ(imageA(0.75F, 0), 7);
+    EXPECT_EQ(imageA(0.85F, 0), 0) << "la marche boucle";
+    EXPECT_EQ(imageA(-1.0F, 5), 5);
+}
+
+/**
+ * @brief L'echelle et la ligne de sol d'un heros se lisent dans le manifeste de son atelier, deux
+ *        dossiers plus haut (`LOT-112`).
+ * \castest{<b>Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire `Common/Characters/manifest.json` (losange 256 x 159, sol 252) et la
+ * description de `Heroes/brawler/walk-se.png` (192 x 256, 0,1 s).<br/>2. Lire les traits de la
+ * bande.<br/>3. Lire ceux d'une image hors de tout atelier.<br/>
+ * \tattendu Losange 256 x 159, sol 252, cellule 192 x 256, 0,1 s ; l'image hors atelier n'a ni
+ * losange ni sol.
+ * }
+ */
+TEST(WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier) {
+    const std::filesystem::path racine =
+        std::filesystem::temp_directory_path() / "jadg_hero_figure_traits";
+    std::filesystem::remove_all(racine);
+    const std::filesystem::path heros = racine / "Common" / "Characters" / "Heroes" / "brawler";
+    std::filesystem::create_directories(heros);
+    std::ofstream(racine / "Common" / "Characters" / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "frame": [192, 256], "ground": 252, "npcs": []})";
+    std::ofstream(heros / "walk-se.anim.json")
+        << R"({"version": 1, "frameWidth": 192, "frameHeight": 256, "clips": {"walk":)"
+           R"( {"frames": [0, 1, 2, 3, 4, 5], "frameDuration": 0.1, "loop": true}}})";
+    std::filesystem::create_directories(racine / "Ailleurs");
+
+    const hmi::SceneTextureTraits traits =
+        hmi::readSceneTextureTraits(racine, "Common/Characters/Heroes/brawler/walk-se.png");
+    const hmi::SceneTextureTraits ailleurs =
+        hmi::readSceneTextureTraits(racine, "Ailleurs/walk.png");
+    std::filesystem::remove_all(racine);
+
+    EXPECT_FLOAT_EQ(traits.artTile.x, 256.0F);
+    EXPECT_FLOAT_EQ(traits.artTile.y, 159.0F);
+    ASSERT_TRUE(traits.groundLine.has_value());
+    EXPECT_FLOAT_EQ(*traits.groundLine, 252.0F);
+    EXPECT_EQ(traits.frameWidth, 192);
+    EXPECT_EQ(traits.frameHeight, 256);
+    EXPECT_FLOAT_EQ(traits.frameDuration, 0.1F);
+    EXPECT_FLOAT_EQ(ailleurs.artTile.x, 0.0F);
+    EXPECT_FALSE(ailleurs.groundLine.has_value());
 }

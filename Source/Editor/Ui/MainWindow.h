@@ -44,6 +44,7 @@ struct MapEntity;
 namespace hmi {
 
 class AutosaveStore;
+struct AutosaveRecord;
 class EditorActions;
 class EditorViewport;
 class PalettePanel;
@@ -229,6 +230,8 @@ private:
     void writeAutosave();
     /// Au démarrage : propose de reprendre les brouillons laissés par une session interrompue.
     void offerRecovery();
+    /// Propose la reprise d'un unique brouillon (offerRecovery, un par cycle de boucle).
+    void offerRecoveryFor(const AutosaveRecord& record);
     /// Surveille les fichiers de **toutes** les cartes ouvertes (à refaire après un remplacement
     /// de fichier, une ouverture ou un renommage).
     void watchLevelFile();

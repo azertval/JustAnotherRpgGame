@@ -407,10 +407,12 @@ Un emplacement d'équipement inconnu est signalé et ignoré. Ne lève jamais (`
 
 ![La fiche de personnage à l'écran : Brenna Vaugris, demi-elfe brawler de niveau 3, ses six caractéristiques avec modificateur, 32 points de vie, CA 15, vitesse 9 m, maîtrise +2, Perception passive 13, et les dix-huit compétences dont quatre maîtrisées](captures/jeu-charactersheet.jpg)
 
-Le personnage affiché est `demonstration-brenna.json`, déclaré **provisoire** avec son critère de
-retrait (`EX-CNT-032`) : il disparaît le jour où une partie fournit un personnage réel. Chaque nombre
-de la capture se retrace par la figure précédente ; la classe d'armure de 15 vient de l'équipement
-porté, et non de la fiche construite (11).
+Le personnage affiché est le héros de la démo, `heros-brawler.json` (`LOT-112`) : la fiche
+pré-tirée du Brawler du *Player's Guide to Tanares* (p. 195), reprise telle quelle. Il remplace
+Brenna Vaugris, la fiche provisoire de la capture, que son critère de retrait (`EX-CNT-032`) faisait
+disparaître au premier personnage réel. Un écart reste connu : la fiche du livre affiche une CA de
+14, qui vient de *Tough as Nails* (10 + Dextérité + Constitution, sans armure) ; les capacités de
+classe arrivent en `0.0.2`, et d'ici là le jeu affiche la CA sans armure du moteur, 11.
 
 ## Le multiclassage : `core::multiclassCasterLevel` {#multiclassage}
 

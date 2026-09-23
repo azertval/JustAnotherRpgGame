@@ -17,7 +17,7 @@
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/PlaceAppearance.h"
-#include "HMI/Graphics/ScenePiecePlacement.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -74,8 +74,6 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
             message += error;
             GRAPHICS_LOG_WARNING(message);
         }
-        _bandFrameWidths[directory + "/idle.png"] = load.idleFrameWidth;
-        _bandFrameWidths[directory + "/death.png"] = load.deathFrameWidth;
         _animation.setFigureAnimations(sheet, std::move(load.clips));
     };
     for (const std::string& hero : _catalog.heroes()) {
@@ -103,13 +101,18 @@ void ArenaSceneRenderer::loadBattlefield() {
         GRAPHICS_LOG_WARNING("Arena battlefield: aucune arene ne nomme une carte et sa zone.");
         return;
     }
-    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition->map);
+    loadBattlefieldFrom(*definition);
+}
+
+void ArenaSceneRenderer::loadBattlefieldFrom(const core::Arena& definition) {
+    const auto data = _directory.parent_path().parent_path();
+    const auto level = core::LevelLoader::loadFromFile(data / "Levels" / definition.map);
     if (!level.ok()) {
         GRAPHICS_LOG_WARNING("Arena battlefield: " + level.error);
         return;
     }
     const auto zones = core::combatZonesOf(*level.level);
-    const auto* zone = core::findCombatZone(zones, definition->zone);
+    const auto* zone = core::findCombatZone(zones, definition.zone);
     if (zone == nullptr) {
         GRAPHICS_LOG_WARNING("Arena battlefield: unknown combat zone");
         return;
@@ -169,12 +172,10 @@ void ArenaSceneRenderer::loadTextures() {
             GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;
         }
-        const auto band = _bandFrameWidths.find(path);
-        _textures.byPath[path] =
-            ArenaTexture{.texture = texture->handle(),
-                         .width = texture->width,
-                         .height = texture->height,
-                         .frameWidth = band != _bandFrameWidths.end() ? band->second : 0};
+        // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
+        ArenaTexture& loaded = _textures.byPath[path] = ArenaTexture{
+            .texture = texture->handle(), .width = texture->width, .height = texture->height};
+        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
         _loaded.push_back(std::move(*texture));
     }
     if (_battlefield) {
@@ -192,11 +193,7 @@ void ArenaSceneRenderer::loadBattlefieldTextures(const RhiContext& context) {
         }
         SceneTexture descriptor{
             .texture = texture->handle(), .width = texture->width, .height = texture->height};
-        const auto manifest = core::readJsonObjectFromFile(file.parent_path() / "manifest.json", 1);
-        if (manifest.ok()) {
-            descriptor.anchor = scenePieceAnchor(manifest.root, file.filename().string());
-            descriptor.depthOffset = scenePieceDepthOffset(manifest.root, file.filename().string());
-        }
+        applySceneTextureTraits(descriptor, readSceneTextureTraits(_directory.parent_path(), path));
         _battlefieldTextures.byPath[path] = descriptor;
         _loaded.push_back(std::move(*texture));
     }

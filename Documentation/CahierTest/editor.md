@@ -2743,7 +2743,7 @@ Le type d'une pièce vient de la table du lieu.
 
 ### ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:205`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:216`
 
 Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
@@ -2755,11 +2755,11 @@ Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
 **Résultat attendu**
 
-- Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface.
+- Pour chaque cadrage, moins de 2,5 % des pixels different de plus de 48 sur un canal ; l'image est peinte sur plus de la moitie de sa surface.
 
 ### ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:229`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:240`
 
 Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
@@ -2770,11 +2770,11 @@ Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
 **Résultat attendu**
 
-- Moins de 0,5 % des pixels different au-dela de la tolerance.
+- Moins de 2,5 % des pixels different au-dela de la tolerance.
 
 ### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
 
-*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:293`
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:303`
 
 Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 

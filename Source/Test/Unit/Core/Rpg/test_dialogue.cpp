@@ -554,7 +554,7 @@ TEST(DialogueTest, LesDegresDeDifficulteSeChargent) {
  * \tetapes 1. Charger la fiche de demonstration.<br/>2. L'envelopper dans CharacterListener.<br/>
  * 3. Interroger ses langues, ses modificateurs de Persuasion et d'Athletisme.<br/>4. Lui donner un
  * objet.<br/>
- * \tattendu Commun et elfique (espece) et nain (choisi) ; pas l'orc. Persuasion : un seul
+ * \tattendu Commun et orc (espece) et draconique (choisi) ; pas l'elfique. Persuasion : un seul
  * modificateur, de Charisme ; Athletisme : Force puis maitrise. L'objet arrive dans le sac.
  * }
  */
@@ -566,30 +566,30 @@ TEST(DialogueTest, LaFicheEcouteUnPnjAvecSesLanguesEtSesModificateurs) {
         core::loadExperienceTable(RPG / "rules" / "experience.json");
     const core::CharacterCreationRules regles =
         core::loadCharacterCreationRules(RPG / "rules" / "character-creation.json");
-    core::LoadedCharacterSheet brenna = core::loadCharacterSheet(
-        RPG / "characters" / "demonstration-brenna.json", options, regles, experience);
-    ASSERT_TRUE(brenna.errors.empty()) << brenna.errors.front();
+    core::LoadedCharacterSheet heros = core::loadCharacterSheet(
+        RPG / "characters" / "heros-brawler.json", options, regles, experience);
+    ASSERT_TRUE(heros.errors.empty()) << heros.errors.front();
 
-    core::CharacterListener auditeur(brenna.sheet, brenna.inventory, experience, competences);
+    core::CharacterListener auditeur(heros.sheet, heros.inventory, experience, competences);
     EXPECT_TRUE(auditeur.speaks("common"));
-    EXPECT_TRUE(auditeur.speaks("elvish"));
-    EXPECT_TRUE(auditeur.speaks("dwarvish")) << "langue choisie par la fiche";
-    EXPECT_FALSE(auditeur.speaks("orc"));
+    EXPECT_TRUE(auditeur.speaks("orc"));
+    EXPECT_TRUE(auditeur.speaks("draconic")) << "langue choisie par la fiche";
+    EXPECT_FALSE(auditeur.speaks("elvish"));
 
     const std::vector<core::Modifier> persuasion = auditeur.skillModifiers("persuasion");
     ASSERT_EQ(persuasion.size(), 1U);
     EXPECT_EQ(persuasion.front().source, "charisma");
-    EXPECT_EQ(persuasion.front().value, brenna.sheet.modifier(core::Ability::Charisma));
+    EXPECT_EQ(persuasion.front().value, heros.sheet.modifier(core::Ability::Charisma));
 
     const std::vector<core::Modifier> athletisme = auditeur.skillModifiers("athletics");
     ASSERT_EQ(athletisme.size(), 2U);
     EXPECT_EQ(athletisme[1].source, "maitrise");
     EXPECT_EQ(athletisme[0].value + athletisme[1].value,
-              core::skillModifier(brenna.sheet, experience, competences, "athletics").value);
+              core::skillModifier(heros.sheet, experience, competences, "athletics").value);
     EXPECT_TRUE(auditeur.skillModifiers("inexistante").empty());
 
     auditeur.receiveItem("corde-en-soie-15-m", 1);
-    EXPECT_TRUE(std::ranges::any_of(brenna.inventory.backpack, [](const core::InventoryStack& s) {
+    EXPECT_TRUE(std::ranges::any_of(heros.inventory.backpack, [](const core::InventoryStack& s) {
         return s.itemId == "corde-en-soie-15-m";
     }));
 }

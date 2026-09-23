@@ -44,6 +44,9 @@ struct AssetGalleryDrawnBloc {
     /// Rang de l'image dans la bande (pas dans le clip).
     int frameIndex = 0;
     bool selected = false;
+    /// Largeur d'une case en pixels d'art (`AssetGalleryEntry::tileWidthPixels`) : l'art s'y
+    /// ramène à la case de la galerie.
+    int tilePixels = 1;
 };
 
 /**
@@ -55,9 +58,9 @@ struct AssetGalleryDrawnBloc {
  */
 struct AssetGalleryFrame {
     /// Pixels de la cible par case.
-    float cellPixels = 68.0f;
-    /// Pixels de la cible par pixel d'art.
-    float artScale = 1.0f;
+    float cellPixels = 100.0f;
+    /// Pixels de la cible par pixel de l'élément, zoom compris : l'épaisseur d'un trait.
+    float pixelScale = 1.0f;
     std::vector<AssetGalleryDrawnBloc> drawn;
     /// Textures à garder en mémoire : celles des blocs dessinés et préchargés.
     std::vector<std::string> wanted;

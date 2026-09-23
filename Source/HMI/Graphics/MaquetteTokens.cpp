@@ -30,47 +30,52 @@ struct Glyph {
 };
 
 constexpr std::array<Glyph, 37> GLYPHS = {{
-    {'A', {0x0E, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}},
-    {'B', {0x1E, 0x11, 0x11, 0x1E, 0x11, 0x11, 0x1E}},
-    {'C', {0x0E, 0x11, 0x10, 0x10, 0x10, 0x11, 0x0E}},
-    {'D', {0x1E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1E}},
-    {'E', {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x1F}},
-    {'F', {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x10}},
-    {'G', {0x0E, 0x11, 0x10, 0x17, 0x11, 0x11, 0x0F}},
-    {'H', {0x11, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}},
-    {'I', {0x0E, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0E}},
-    {'J', {0x01, 0x01, 0x01, 0x01, 0x01, 0x11, 0x0E}},
-    {'K', {0x11, 0x12, 0x14, 0x18, 0x14, 0x12, 0x11}},
-    {'L', {0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x1F}},
-    {'M', {0x11, 0x1B, 0x15, 0x15, 0x11, 0x11, 0x11}},
-    {'N', {0x11, 0x19, 0x15, 0x13, 0x11, 0x11, 0x11}},
-    {'O', {0x0E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}},
-    {'P', {0x1E, 0x11, 0x11, 0x1E, 0x10, 0x10, 0x10}},
-    {'Q', {0x0E, 0x11, 0x11, 0x11, 0x15, 0x12, 0x0D}},
-    {'R', {0x1E, 0x11, 0x11, 0x1E, 0x14, 0x12, 0x11}},
-    {'S', {0x0F, 0x10, 0x10, 0x0E, 0x01, 0x01, 0x1E}},
-    {'T', {0x1F, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04}},
-    {'U', {0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}},
-    {'V', {0x11, 0x11, 0x11, 0x11, 0x11, 0x0A, 0x04}},
-    {'W', {0x11, 0x11, 0x11, 0x15, 0x15, 0x1B, 0x11}},
-    {'X', {0x11, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x11}},
-    {'Y', {0x11, 0x11, 0x0A, 0x04, 0x04, 0x04, 0x04}},
-    {'Z', {0x1F, 0x01, 0x02, 0x04, 0x08, 0x10, 0x1F}},
-    {'0', {0x0E, 0x11, 0x13, 0x15, 0x19, 0x11, 0x0E}},
-    {'1', {0x04, 0x0C, 0x04, 0x04, 0x04, 0x04, 0x0E}},
-    {'2', {0x0E, 0x11, 0x01, 0x02, 0x04, 0x08, 0x1F}},
-    {'3', {0x1F, 0x02, 0x04, 0x02, 0x01, 0x11, 0x0E}},
-    {'4', {0x02, 0x06, 0x0A, 0x12, 0x1F, 0x02, 0x02}},
-    {'5', {0x1F, 0x10, 0x1E, 0x01, 0x01, 0x11, 0x0E}},
-    {'6', {0x06, 0x08, 0x10, 0x1E, 0x11, 0x11, 0x0E}},
-    {'7', {0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08}},
-    {'8', {0x0E, 0x11, 0x11, 0x0E, 0x11, 0x11, 0x0E}},
-    {'9', {0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C}},
-    {'?', {0x0E, 0x11, 0x01, 0x02, 0x04, 0x00, 0x04}},
+    {.character = 'A', .rows = {0x0E, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}},
+    {.character = 'B', .rows = {0x1E, 0x11, 0x11, 0x1E, 0x11, 0x11, 0x1E}},
+    {.character = 'C', .rows = {0x0E, 0x11, 0x10, 0x10, 0x10, 0x11, 0x0E}},
+    {.character = 'D', .rows = {0x1E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x1E}},
+    {.character = 'E', .rows = {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x1F}},
+    {.character = 'F', .rows = {0x1F, 0x10, 0x10, 0x1E, 0x10, 0x10, 0x10}},
+    {.character = 'G', .rows = {0x0E, 0x11, 0x10, 0x17, 0x11, 0x11, 0x0F}},
+    {.character = 'H', .rows = {0x11, 0x11, 0x11, 0x1F, 0x11, 0x11, 0x11}},
+    {.character = 'I', .rows = {0x0E, 0x04, 0x04, 0x04, 0x04, 0x04, 0x0E}},
+    {.character = 'J', .rows = {0x01, 0x01, 0x01, 0x01, 0x01, 0x11, 0x0E}},
+    {.character = 'K', .rows = {0x11, 0x12, 0x14, 0x18, 0x14, 0x12, 0x11}},
+    {.character = 'L', .rows = {0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x1F}},
+    {.character = 'M', .rows = {0x11, 0x1B, 0x15, 0x15, 0x11, 0x11, 0x11}},
+    {.character = 'N', .rows = {0x11, 0x19, 0x15, 0x13, 0x11, 0x11, 0x11}},
+    {.character = 'O', .rows = {0x0E, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}},
+    {.character = 'P', .rows = {0x1E, 0x11, 0x11, 0x1E, 0x10, 0x10, 0x10}},
+    {.character = 'Q', .rows = {0x0E, 0x11, 0x11, 0x11, 0x15, 0x12, 0x0D}},
+    {.character = 'R', .rows = {0x1E, 0x11, 0x11, 0x1E, 0x14, 0x12, 0x11}},
+    {.character = 'S', .rows = {0x0F, 0x10, 0x10, 0x0E, 0x01, 0x01, 0x1E}},
+    {.character = 'T', .rows = {0x1F, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04}},
+    {.character = 'U', .rows = {0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x0E}},
+    {.character = 'V', .rows = {0x11, 0x11, 0x11, 0x11, 0x11, 0x0A, 0x04}},
+    {.character = 'W', .rows = {0x11, 0x11, 0x11, 0x15, 0x15, 0x1B, 0x11}},
+    {.character = 'X', .rows = {0x11, 0x11, 0x0A, 0x04, 0x0A, 0x11, 0x11}},
+    {.character = 'Y', .rows = {0x11, 0x11, 0x0A, 0x04, 0x04, 0x04, 0x04}},
+    {.character = 'Z', .rows = {0x1F, 0x01, 0x02, 0x04, 0x08, 0x10, 0x1F}},
+    {.character = '0', .rows = {0x0E, 0x11, 0x13, 0x15, 0x19, 0x11, 0x0E}},
+    {.character = '1', .rows = {0x04, 0x0C, 0x04, 0x04, 0x04, 0x04, 0x0E}},
+    {.character = '2', .rows = {0x0E, 0x11, 0x01, 0x02, 0x04, 0x08, 0x1F}},
+    {.character = '3', .rows = {0x1F, 0x02, 0x04, 0x02, 0x01, 0x11, 0x0E}},
+    {.character = '4', .rows = {0x02, 0x06, 0x0A, 0x12, 0x1F, 0x02, 0x02}},
+    {.character = '5', .rows = {0x1F, 0x10, 0x1E, 0x01, 0x01, 0x11, 0x0E}},
+    {.character = '6', .rows = {0x06, 0x08, 0x10, 0x1E, 0x11, 0x11, 0x0E}},
+    {.character = '7', .rows = {0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08}},
+    {.character = '8', .rows = {0x0E, 0x11, 0x11, 0x0E, 0x11, 0x11, 0x0E}},
+    {.character = '9', .rows = {0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C}},
+    {.character = '?', .rows = {0x0E, 0x11, 0x01, 0x02, 0x04, 0x00, 0x04}},
 }};
 
 /// Ecart entre deux lettres, en pixels de glyphe.
 constexpr int GLYPH_SPACING = 1;
+
+[[nodiscard]] std::size_t pixelIndex(int y, int width, int x) {
+    return (static_cast<std::size_t>(y) * static_cast<std::size_t>(width)) +
+           static_cast<std::size_t>(x);
+}
 
 [[nodiscard]] const std::array<std::uint8_t, GLYPH_ROWS>& glyphOf(char character) {
     for (const Glyph& glyph : GLYPHS) {
@@ -85,7 +90,9 @@ constexpr int GLYPH_SPACING = 1;
                                               std::uint8_t alpha) {
     const auto channel = [light](float value) {
         const float scaled = value * light * 255.0F;
-        return static_cast<std::uint8_t>(scaled < 0.0F ? 0.0F : (scaled > 255.0F ? 255.0F : scaled));
+        const float clampedLow = scaled < 0.0F ? 0.0F : scaled;
+        const float clamped = clampedLow > 255.0F ? 255.0F : clampedLow;
+        return static_cast<std::uint8_t>(clamped);
     };
     return core::MarkerColor{
         .r = channel(color.r), .g = channel(color.g), .b = channel(color.b), .a = alpha};
@@ -177,6 +184,55 @@ std::optional<MaquetteTokenRequest> parseMaquetteTokenPath(std::string_view path
     return std::nullopt;
 }
 
+/// Le disque, cerne : le cercle plein se lit a toute taille, le cerne le detache d'un sol de
+/// teinte voisine.
+static void paintDisc(core::MarkerImage& image, int size, core::MarkerColor disc,
+                       core::MarkerColor rim) {
+    const float centre = static_cast<float>(size - 1) / 2.0F;
+    const float radius = static_cast<float>(size) / 2.0F;
+    const float rimRadius = radius - (static_cast<float>(size) * 0.14F);
+    for (int y = 0; y < size; ++y) {
+        for (int x = 0; x < size; ++x) {
+            const float dx = static_cast<float>(x) - centre;
+            const float dy = static_cast<float>(y) - centre;
+            const float distance = (dx * dx) + (dy * dy);
+            if (distance > radius * radius) {
+                continue;
+            }
+            image.pixels[pixelIndex(y, size, x)] = distance > rimRadius * rimRadius ? rim : disc;
+        }
+    }
+}
+
+/// La lettre, au plus grand entier qui tienne dans le disque.
+static void paintLetter(core::MarkerImage& image, int size, char letterChar,
+                         core::MarkerColor letterColor) {
+    const int scale = std::max(1, size / 11);
+    const int glyphWidth = GLYPH_COLUMNS * scale;
+    const int glyphHeight = GLYPH_ROWS * scale;
+    const int originX = (size - glyphWidth) / 2;
+    const int originY = (size - glyphHeight) / 2;
+    const std::array<std::uint8_t, GLYPH_ROWS>& rows = glyphOf(letterChar);
+    for (int row = 0; row < GLYPH_ROWS; ++row) {
+        for (int column = 0; column < GLYPH_COLUMNS; ++column) {
+            const auto bit = static_cast<std::uint8_t>(1U << (GLYPH_COLUMNS - 1 - column));
+            if ((rows[static_cast<std::size_t>(row)] & bit) == 0) {
+                continue;
+            }
+            for (int dy = 0; dy < scale; ++dy) {
+                for (int dx = 0; dx < scale; ++dx) {
+                    const int x = originX + (column * scale) + dx;
+                    const int y = originY + (row * scale) + dy;
+                    if (x < 0 || y < 0 || x >= size || y >= size) {
+                        continue;
+                    }
+                    image.pixels[pixelIndex(y, size, x)] = letterColor;
+                }
+            }
+        }
+    }
+}
+
 core::MarkerImage maquetteTokenImage(const MaquetteTokenRequest& request, int size) {
     if (size <= 0) {
         return {};
@@ -192,49 +248,8 @@ core::MarkerImage maquetteTokenImage(const MaquetteTokenRequest& request, int si
     image.pixels.assign(static_cast<std::size_t>(size) * static_cast<std::size_t>(size),
                         core::MarkerColor{.r = 0, .g = 0, .b = 0, .a = 0});
 
-    // Le disque, cerne : le cercle plein se lit a toute taille, le cerne le detache d'un sol de
-    // teinte voisine.
-    const float centre = static_cast<float>(size - 1) / 2.0F;
-    const float radius = static_cast<float>(size) / 2.0F;
-    const float rimRadius = radius - (static_cast<float>(size) * 0.14F);
-    for (int y = 0; y < size; ++y) {
-        for (int x = 0; x < size; ++x) {
-            const float dx = static_cast<float>(x) - centre;
-            const float dy = static_cast<float>(y) - centre;
-            const float distance = (dx * dx) + (dy * dy);
-            if (distance > radius * radius) {
-                continue;
-            }
-            image.pixels[static_cast<std::size_t>((y * size) + x)] =
-                distance > rimRadius * rimRadius ? rim : disc;
-        }
-    }
-
-    // La lettre, au plus grand entier qui tienne dans le disque.
-    const int scale = std::max(1, size / 11);
-    const int glyphWidth = GLYPH_COLUMNS * scale;
-    const int glyphHeight = GLYPH_ROWS * scale;
-    const int originX = (size - glyphWidth) / 2;
-    const int originY = (size - glyphHeight) / 2;
-    const std::array<std::uint8_t, GLYPH_ROWS>& rows = glyphOf(request.letter);
-    for (int row = 0; row < GLYPH_ROWS; ++row) {
-        for (int column = 0; column < GLYPH_COLUMNS; ++column) {
-            const auto bit = static_cast<std::uint8_t>(1U << (GLYPH_COLUMNS - 1 - column));
-            if ((rows[static_cast<std::size_t>(row)] & bit) == 0) {
-                continue;
-            }
-            for (int dy = 0; dy < scale; ++dy) {
-                for (int dx = 0; dx < scale; ++dx) {
-                    const int x = originX + (column * scale) + dx;
-                    const int y = originY + (row * scale) + dy;
-                    if (x < 0 || y < 0 || x >= size || y >= size) {
-                        continue;
-                    }
-                    image.pixels[static_cast<std::size_t>((y * size) + x)] = letter;
-                }
-            }
-        }
-    }
+    paintDisc(image, size, disc, rim);
+    paintLetter(image, size, request.letter, letter);
     return image;
 }
 
@@ -270,7 +285,7 @@ core::MarkerImage maquetteTextImage(std::string_view text, int scale,
                     for (int dx = 0; dx < step; ++dx) {
                         const int x = originX + (column * step) + dx;
                         const int y = (row * step) + dy;
-                        image.pixels[static_cast<std::size_t>((y * image.width) + x)] = color;
+                        image.pixels[pixelIndex(y, image.width, x)] = color;
                     }
                 }
             }

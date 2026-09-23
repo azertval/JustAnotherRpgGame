@@ -1,0 +1,46 @@
+{
+  "id": "heros-brawler",
+  "name": "Grom Tranche-Écaille",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "heros de la demo (LOT-112) : la fiche pre-tiree du Brawler, p. 195 du Player's Guide to Tanares, reprise telle quelle. Sa classe est l'une des quatre classes simplifiees, provisoires tant que le systeme complet de classes n'est pas livre.",
+    "retraitSi": "la classe brawler est retiree (son propre critere) ; ou une partie fournit le personnage joue (creation, groupe, sauvegarde) et la demo n'a plus de heros pre-tire"
+  },
+  "speciesId": "demi-orc",
+  "classId": "brawler",
+  "backgroundId": "dragon-hunter",
+  "baseAbilities": {
+    "strength": 14,
+    "dexterity": 13,
+    "constitution": 15,
+    "intelligence": 10,
+    "wisdom": 12,
+    "charisma": 8
+  },
+  "level": 1,
+  "skillProficiencies": [
+    "animal-handling",
+    "athletics",
+    "intimidation"
+  ],
+  "languages": [
+    "draconic"
+  ],
+  "inventory": {
+    "equipped": {
+      "main-hand": "hache-a-deux-mains"
+    },
+    "backpack": [
+      {
+        "itemId": "hachette",
+        "quantity": 2
+      },
+      {
+        "itemId": "javeline",
+        "quantity": 4
+      }
+    ],
+    "purseCopper": 0
+  }
+}

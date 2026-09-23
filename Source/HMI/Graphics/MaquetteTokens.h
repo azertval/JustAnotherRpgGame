@@ -59,8 +59,13 @@ enum class MaquetteTokenKind {
     Portal,
 };
 
-/// @brief Côté d'un jeton, en pixels d'art de planche (le losange en fait 68, `ScenePieces.h`).
+/// @brief Côté de l'**image** engendrée d'un jeton, en pixels : sa définition, pas sa taille à
+///        l'écran (`MAQUETTE_TOKEN_TILE_FRACTION`).
 inline constexpr int MAQUETTE_TOKEN_SIZE_PIXELS = 44;
+
+/// @brief Côté d'un jeton à l'écran, en largeurs de case : il tient dans son losange sans le
+///        couvrir (`LOT-103` ; il valait 44 pixels d'un losange de 68).
+inline constexpr float MAQUETTE_TOKEN_TILE_FRACTION = 0.65F;
 
 /// @brief La teinte d'une nature de jeton.
 [[nodiscard]] MaquetteColor maquetteTokenColor(MaquetteTokenKind kind) noexcept;
@@ -85,7 +90,7 @@ struct MaquetteTokenRequest {
     char letter = '?';
 
     [[nodiscard]] friend bool operator==(const MaquetteTokenRequest&,
-                                          const MaquetteTokenRequest&) noexcept = default;
+                                         const MaquetteTokenRequest&) noexcept = default;
 };
 
 /// @brief Lit un chemin de jeton (`Token/hostile/W.png`).

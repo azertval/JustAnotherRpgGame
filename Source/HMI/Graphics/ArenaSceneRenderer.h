@@ -26,6 +26,10 @@ class QRhiCommandBuffer;
 class QRhiRenderTarget;
 class QRhiResourceUpdateBatch;
 
+namespace core {
+struct Arena;
+}  // namespace core
+
 /**
  * @file HMI/Graphics/ArenaSceneRenderer.h
  * @brief Le rendu QRhi de la scène de combat du Colisée, côté **fil de rendu** (`LOT-86` Phase 5).
@@ -39,8 +43,8 @@ namespace hmi {
  *
  * La **seule** géométrie de l'arène à l'écran : le rendu la soumet, et l'élément Qt Quick
  * (`hmi::ArenaViewportItem`) s'en sert pour poser le calque d'interface et traduire le pointeur en
- * case. Deux cadrages recalculés chacun de leur côté ne tombent jamais au même pixel — le zoom est
- * arrondi à l'entier (`Camera2D::fitZoom`).
+ * case. Deux cadrages recalculés chacun de leur côté ne tombent jamais au même pixel. Le zoom est
+ * celui qui fait tenir la scène, **sans arrondi** (`Camera2D::fitZoom`, `LOT-103`).
  */
 [[nodiscard]] Camera2D arenaCamera(const core::IsoProjection& projection, int pixelWidth,
                                    int pixelHeight);
@@ -168,6 +172,8 @@ private:
     /// @param context Le contexte QRhi où créer les textures.
     void loadBattlefieldTextures(const RhiContext& context);
     void loadBattlefield();
+    /// La suite de loadBattlefield, une fois l'arène jouable trouvée.
+    void loadBattlefieldFrom(const core::Arena& definition);
     std::optional<WorldSceneSnapshot> _battlefield;
     core::GridPosition _battlefieldOrigin{};
     ScenePieceTextures _battlefieldTextures;
@@ -175,9 +181,6 @@ private:
 
     std::filesystem::path _directory;
     ArenaAppearanceCatalog _catalog;
-    /// Largeur d'image des bandes dessinées (`idle.png`, `death.png`), par chemin sous
-    /// `_directory`, lue avec leurs clips : `ArenaTexture::frameWidth` à la création des textures.
-    std::map<std::string, int> _bandFrameWidths;
     ArenaAnimationDriver _animation;
     ArenaSceneSnapshot _snapshot;
     /// Les combattants dont l'animation est pilotée : ceux de l'instantané courant.

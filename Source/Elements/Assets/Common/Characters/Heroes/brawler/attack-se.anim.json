@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "frameWidth": 384,
+  "frameHeight": 272,
+  "clips": {
+    "attack": {
+      "frames": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "frameDuration": 0.08,
+      "loop": false
+    }
+  }
+}

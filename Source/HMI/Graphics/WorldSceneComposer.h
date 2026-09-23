@@ -64,9 +64,19 @@ enum class WorldDepthSlot : std::int32_t {
 /// Nombre de rangs par profondeur.
 inline constexpr std::int32_t WORLD_DEPTH_SLOTS = 2;
 
-/// Hauteur d'écran pour laquelle l'art est dessiné : l'agrandissement est 1 jusque-là, 2 au double
-/// (`hmi::worldCamera`). Ici plutôt qu'avec le rendu GPU : l'essai de l'éditeur cadre comme le jeu.
-inline constexpr int WORLD_ART_HEIGHT_PIXELS = 720;
+/// Hauteur de la vue, en largeurs de case (`EX-REN-013`) : une case occupe à l'écran la hauteur de
+/// la fenêtre divisée par 10,8 — 100 px à 1080p, 200 px à 2160p. Toutes les définitions cadrent
+/// donc la même étendue de monde : un écran plus fin montre le même jeu, plus finement.
+inline constexpr float WORLD_VIEW_HEIGHT_IN_TILES = 10.8F;
+
+/**
+ * @brief La largeur d'une case à l'écran, en pixels, pour une vue de @p pixelHeight de haut.
+ *
+ * Ici plutôt qu'avec le rendu GPU : l'essai de l'éditeur cadre comme le jeu.
+ */
+[[nodiscard]] inline float worldTilePixels(int pixelHeight) noexcept {
+    return static_cast<float>(pixelHeight > 0 ? pixelHeight : 1) / WORLD_VIEW_HEIGHT_IN_TILES;
+}
 
 /// Marge basse d'une figurine, en hauteurs de losange — la même que dans l'arène.
 inline constexpr float WORLD_FIGURE_BOTTOM_MARGIN = 0.42F;
@@ -76,6 +86,35 @@ inline constexpr std::string_view SCENE_PLACE_PROPERTY = "scene";
 
 /// @brief Ordre de tri d'une pièce du lieu.
 [[nodiscard]] std::int32_t worldDepthSortOrder(float footWorldY, WorldDepthSlot slot) noexcept;
+
+/**
+ * @brief L'orientation d'une figurine : l'une des quatre diagonales de l'isométrie (`LOT-112`).
+ *
+ * Une case de la grille se voit en losange : avancer d'une colonne descend vers le **sud-est** de
+ * l'écran, avancer d'une ligne vers le **sud-ouest**. Les quatre directions de la grille sont donc
+ * les quatre diagonales de l'écran, et une figurine en a une bande peinte chacune
+ * (`walk-se.png`…). `None` : la figurine n'a qu'une bande par animation (`walk.png`).
+ */
+enum class FigureFacing : std::uint8_t {
+    None,
+    SouthEast,
+    SouthWest,
+    NorthEast,
+    NorthWest,
+};
+
+/// @return Le suffixe de fichier de @p facing (`se`, `sw`, `ne`, `nw`), vide pour `None`.
+[[nodiscard]] std::string_view figureFacingSuffix(FigureFacing facing) noexcept;
+
+/**
+ * @brief L'orientation d'une figurine qui se déplace de @p move, en cases.
+ *
+ * L'axe dominant l'emporte. À égalité — deux touches enfoncées, un pas droit vers le bas de
+ * l'écran —, deux diagonales conviennent : la figurine **garde** @p previous si elle en est une,
+ * plutôt que de basculer d'une image à l'autre ; sinon, la première des deux dans l'ordre
+ * sud-est, sud-ouest, nord-est, nord-ouest. Un déplacement nul rend @p previous.
+ */
+[[nodiscard]] FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept;
 
 /// @brief Une figurine à dessiner sur la carte : sa planche, son image, où elle est.
 struct WorldFigureSnapshot {
@@ -89,6 +128,12 @@ struct WorldFigureSnapshot {
     core::Vector2 point{};
     /// Image de la bande, ramenée dans la bande par la composition.
     int frame = 0;
+    /// Orientation : `None` pour une figurine qui n'a qu'une bande par animation.
+    FigureFacing facing = FigureFacing::None;
+    /// Temps écoulé, en secondes : s'il est connu (positif ou nul) et que la bande dit la durée de
+    /// ses images, c'est lui qui choisit l'image, et non @ref frame — la cadence est une donnée de
+    /// l'art (`EX-REN-005`), pas du code.
+    float seconds = -1.0F;
 
     [[nodiscard]] bool operator==(const WorldFigureSnapshot&) const = default;
 };
@@ -162,6 +207,9 @@ struct WorldSceneSnapshot {
     int rows = 0;
     /// Le lieu, qui nomme le dossier de planches : `Assets/Scene/<place>/`.
     std::string place;
+    /// La plus haute élévation d'une pièce du lieu au-dessus du losange de sa case, en largeurs de
+    /// case (`hmi::PlaceAppearance::maximumRise`) : ce qu'un cadrage doit réserver au-dessus.
+    float maximumRise = 0.0F;
     std::vector<std::string> floors;
     std::vector<std::string> relief;
     /// Le **type** de chaque case, une entrée par case, ligne par ligne : ce que le rendu de
@@ -258,9 +306,10 @@ template <class Map>
  * (`EX-CNT-041`) : on la voit, on lui parle, et on ne la prend pas pour une illustration.
  *
  * @param path Un chemin de bande de figurine, tel que la composition l'écrit
- * (`Npc/<slug>/idle.png`, `Monsters/<slug>/idle.png`).
- * @return `npc/<slug>` ou `monsters/<slug>`, ou une chaîne vide si @p path n'est pas celui d'une
- *         figurine.
+ * (`Npc/<slug>/idle.png`, `Monsters/<slug>/idle.png`,
+ * `Common/Characters/Heroes/brawler/idle-se.png`).
+ * @return `npc/<slug>`, `monsters/<slug>`, `characters/<dossier>` (`characters/heroes/brawler`),
+ *         ou une chaîne vide si @p path n'est pas celui d'une figurine.
  */
 [[nodiscard]] std::string figureMarkerKey(std::string_view path);
 
@@ -269,9 +318,12 @@ template <class Map>
  *
  * @param figure Le nom que la carte donne (`WorldFigureSnapshot::figure`).
  * @param clip   La bande (`idle`, `walk`) ; vide : `idle`.
- * @return `Npc/<figure>/<clip>.png` pour un slug, `<figure>/<clip>.png` pour un dossier.
+ * @param facing L'orientation ; `None` : la bande sans suffixe.
+ * @return `Npc/<figure>/<clip>.png` pour un slug, `<figure>/<clip>.png` pour un dossier ;
+ *         `<clip>-se.png`… pour une figurine orientée.
  */
-[[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip);
+[[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip,
+                                          FigureFacing facing = FigureFacing::None);
 
 /// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés.
 [[nodiscard]] std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot);

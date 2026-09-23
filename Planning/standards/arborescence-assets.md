@@ -84,14 +84,16 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
 6. **Les sources ne sont pas versionnées.** Les sorties brutes du générateur, les planches de
    référence et les masters en pleine définition vivent dans `Tools/AssetsHD/` (ignoré par git),
    sous **le même arbre**. Le dépôt ne reçoit que l'asset **installé** : détouré, réduit à
-   l'échelle du standard, ancré, inscrit au manifeste.
+   l'échelle du standard, ancré, inscrit au manifeste — par `scripts/install_hd_asset.py`, jamais à
+   la main. Deux fichiers texte y font exception et sont versionnés : le descripteur
+   `install.json`, qui dit ce que devient chaque source, et la [commande de la zone](gabarit-commande-zone.md).
 
 ## Le budget
 
 | Garde-fou | Valeur | État |
 |---|---|---|
 | Taille d'un fichier binaire | 5 Mio | contrôlé (`check_binary_files.py`) |
-| Poids d'une zone | **40 Mio** visés | à contrôler — [LOT-104](../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md) |
+| Poids d'une zone | **40 Mio** | contrôlé (`check_hd_assets.py`, [LOT-104](../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md)) : chaque zone et chaque sous-zone, sans ses sous-zones ; le poids s'affiche dans le résumé du job CI |
 | Poids du dépôt | question ouverte au-delà de **1 Gio** : Git LFS, ou dépôt d'assets à part | à trancher avant la `0.1.0`, voir [les risques](../vision/risques.md) |
 
 À quarante mébioctets par zone, l'Empire central (vingt zones) pèse 800 Mio et le monde complet

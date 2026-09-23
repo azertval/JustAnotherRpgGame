@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "target": "Common/Characters",
+  "previewOnly": true,
+  "figures": [
+    {
+      "name": "essai-6",
+      "strips": [
+        {
+          "source": "walk-6.png",
+          "clip": "walk",
+          "facing": "se",
+          "frames": 6,
+          "frameDuration": 0.0833
+        }
+      ]
+    },
+    {
+      "name": "essai-8",
+      "strips": [
+        {
+          "source": "walk-8.png",
+          "clip": "walk",
+          "facing": "se",
+          "frames": 8,
+          "frameDuration": 0.0625
+        }
+      ]
+    }
+  ]
+}

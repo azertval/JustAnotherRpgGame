@@ -83,8 +83,9 @@ void addGrid(ComposedScene& scene, TextureHandle white, const AssetGalleryDrawnB
 // Le quad de l'image courante d'un bloc, posé sur son emprise. Une texture en échec (le damier
 // de remplacement) se montre entière, sans découpe en images.
 [[nodiscard]] SpriteQuad artQuad(const LoadedTexture& texture, bool failed,
-                                 const AssetGalleryDrawnBloc& bloc, float artScale,
-                                 Area footprint) {
+                                 const AssetGalleryDrawnBloc& bloc, float cell, Area footprint) {
+    // L'art a l'echelle de son lieu : le losange que son manifeste declare occupe une case.
+    const float artScale = cell / static_cast<float>(std::max(1, bloc.tilePixels));
     const int frameWidth =
         failed || bloc.frameWidth <= 0 ? texture.width : std::min(bloc.frameWidth, texture.width);
     const int frameHeight = failed || bloc.frameHeight <= 0
@@ -197,7 +198,7 @@ void AssetGalleryRenderer::compose() {
     _composed.clear();
     const TextureHandle white = _white.handle();
     const float cell = std::max(1.0F, _frame.cellPixels);
-    const float line = std::max(1.0F, std::floor(_frame.artScale));
+    const float line = std::max(1.0F, std::floor(_frame.pixelScale));
 
     std::int32_t order = 0;
     for (const AssetGalleryDrawnBloc& bloc : _frame.drawn) {
@@ -224,7 +225,7 @@ void AssetGalleryRenderer::compose() {
             const bool failed = cached->second.failed || cached->second.texture.texture == nullptr;
             const LoadedTexture& texture = failed ? _missing : cached->second.texture;
             if (texture.texture != nullptr && texture.width > 0 && texture.height > 0) {
-                const SpriteQuad quad = artQuad(texture, failed, bloc, _frame.artScale,
+                const SpriteQuad quad = artQuad(texture, failed, bloc, cell,
                                                 Area{.x = footprintX,
                                                      .y = footprintY,
                                                      .width = footprintWidth,

@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "tile": [
+    256,
+    159
+  ],
   "comment": "Vide : les PNJ nommes de le quartier de l'arène (LOT-108).",
   "frame": [
     192,
@@ -9,6 +13,7 @@
     384,
     256
   ],
+  "ground": 252,
   "animations": [
     "idle",
     "walk",

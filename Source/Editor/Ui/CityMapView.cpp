@@ -150,6 +150,8 @@ bool CityMapView::event(QEvent* event) {
     if (event->type() != QEvent::ToolTip) {
         return QWidget::event(event);
     }
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-static-cast-downcast): QEvent::ToolTip garantit le
+    // type dynamique QHelpEvent, verifie juste au-dessus (idiome Qt courant).
     auto* const help = static_cast<QHelpEvent*>(event);
     const std::optional<std::size_t> district = districtUnder(help->pos());
     if (!district) {

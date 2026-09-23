@@ -1,5 +1,9 @@
 {
   "version": 1,
+  "tile": [
+    256,
+    159
+  ],
   "comment": "Vide : gardes, soldats Ironhand, fonctionnaires de l'Empire (LOT-105).",
   "frame": [
     192,
@@ -9,6 +13,7 @@
     384,
     256
   ],
+  "ground": 252,
   "animations": [
     "idle",
     "walk",

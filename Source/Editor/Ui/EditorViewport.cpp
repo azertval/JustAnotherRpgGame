@@ -1197,9 +1197,9 @@ void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
     _timestep = core::FixedTimestep{};
     _previousFrame = Clock::now();
     setBackgroundBrush(PLAYTEST_BACKGROUND);
-    // L'agrandissement du jeu : entier, 1 jusqu'à 720 lignes, 2 au double (`hmi::worldCamera`).
-    const double scale = static_cast<double>(Camera2D::PIXELS_PER_UNIT) *
-                         std::max(1, viewport()->height() / WORLD_ART_HEIGHT_PIXELS);
+    // Le cadrage du jeu : une case à la hauteur de la vue divisée par 10,8 (`hmi::worldCamera`).
+    const double scale = static_cast<double>(worldTilePixels(viewport()->height())) /
+                         static_cast<double>(core::ARENA_TILE_WIDTH_UNITS);
     setTransform(QTransform::fromScale(scale, scale));
     stepPlaytest();
     _playTimer.start();

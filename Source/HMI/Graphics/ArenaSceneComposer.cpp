@@ -69,17 +69,10 @@ struct Composer {
     ComposedScene& scene;
     const core::IsoProjection& projection;
     const ArenaSceneTextures& textures;
-    /// Unites monde par pixel de planche : une tuile de 86 px occupe la largeur du losange.
-    float unitsPerPixel;
-    /// Unites monde par pixel d'art de l'atelier : un losange de 68 px occupe sa largeur.
-    float unitsPerScenePixel;
 
     /**
-     * @brief Une piece de scene d'une case, posee par son ancre : le sommet haut du losange de sa
-     *        case tombe sur le pixel (34, hauteur - 42) de la texture.
-     *
-     * C'est l'`anchor` du manifeste de l'atelier (LOT-92) pour une emprise d'une case : la texture
-     * a la largeur du losange, le losange en occupe les 42 pixels du bas, le reste monte au-dessus.
+     * @brief Une piece de scene d'une case, posee par son ancre et a l'echelle de son lieu : le
+     *        losange que son manifeste declare occupe celui de la case (`hmi::standingPieceQuad`).
      */
     void addStanding(RenderLayer layer, std::string_view path, core::Vector2 topVertex,
                      std::int32_t sortOrder) const {
@@ -87,15 +80,9 @@ struct Composer {
         if (texture.texture == nullptr) {
             return;
         }
-        const auto height = static_cast<float>(texture.height);
-        SpriteQuad quad;
-        quad.x = topVertex.x -
-                 (static_cast<float>(ARENA_SCENE_HALF_TILE_WIDTH_PIXELS) * unitsPerScenePixel);
-        quad.y = topVertex.y - ((height - static_cast<float>(ARENA_SCENE_TILE_HEIGHT_PIXELS)) *
-                                unitsPerScenePixel);
-        quad.width = static_cast<float>(texture.width) * unitsPerScenePixel;
-        quad.height = height * unitsPerScenePixel;
-        scene.addSprite(layer, texture.texture, sortOrder, quad);
+        scene.addSprite(layer, texture.texture, sortOrder,
+                        standingPieceQuad(texture, topVertex, projection.tileWidth(),
+                                          projection.tileHeight() / projection.tileWidth()));
     }
 };
 
@@ -126,13 +113,8 @@ void composeTile(const Composer& composer, const ArenaAppearanceCatalog& catalog
         scenePath(catalog, path, SAND);
     }
     if (const ArenaTexture& floor = composer.textures.resolve(path); floor.texture != nullptr) {
-        SpriteQuad quad;
-        quad.x = bounds.position.x;
-        quad.y = bounds.position.y;
-        quad.width = bounds.size.x;
-        quad.height = tileHeight;
         composer.scene.addSprite(RenderLayer::Tile, floor.texture, core::IsoProjection::depth(cell),
-                                 quad);
+                                 floorQuad(bounds));
     }
 
     // --- L'enceinte : une piece debout par case, triee au pied de la case --------------------
@@ -183,21 +165,21 @@ void composeFigure(const Composer& composer, const ArenaAppearanceCatalog& catal
         return;
     }
 
-    // La bande dit sa propre decoupe : sa largeur d'image (48 par defaut, 96 pour les bandes
-    // larges des PNJ de l'atelier) et, avec sa largeur totale, son nombre d'images. Le compte du
-    // manifeste ne sert que si la texture est inconnue.
-    const int frameWidthPixels =
-        texture.frameWidth > 0 ? texture.frameWidth : ARENA_FIGURE_FRAME_WIDTH_PIXELS;
-    const int frameCount = texture.width > 0 ? std::max(1, texture.width / frameWidthPixels)
-                                             : std::max(1, figure.frameCount);
+    // La bande dit sa propre decoupe : sa cellule (`.anim.json`) et, avec sa largeur totale, son
+    // nombre d'images. Une bande sans description se decoupe au compte du manifeste.
+    ArenaTexture band = texture;
+    if (band.frameWidth <= 0 && figure.frameCount > 1 && band.width > 0) {
+        band.frameWidth = std::max(1, band.width / figure.frameCount);
+    }
+    const int frameCount = frameCountOf(band);
 
     // A terre, la figurine s'arrete sur la derniere image ; debout, elle suit l'animation, ramenee
     // dans sa bande.
     const int frame =
         down ? frameCount - 1 : std::clamp(animation.frameOf(combatant.id), 0, frameCount - 1);
 
-    // Une emprise de n cases : une figurine centree dessus, n fois plus grande, au pied de
-    // l'emprise.
+    // Une emprise de n cases : une figurine centree dessus, au pied de l'emprise. Elle n'est plus
+    // agrandie n fois : une grande creature est livree a sa taille (384 x 384, EX-VIS-008).
     const core::GridPosition anchor = combatant.anchor;
     const int footprint = std::max(1, combatant.footprint);
     const auto extent = static_cast<float>(footprint);
@@ -210,22 +192,9 @@ void composeFigure(const Composer& composer, const ArenaAppearanceCatalog& catal
             .y;
     const float tileHeight = composer.projection.tileHeight();
 
-    // Une image plus large que 48 px garde son pied au centre de sa cellule : le quad s'elargit
-    // autour du meme centre.
-    const float scale = composer.unitsPerPixel * ARENA_FIGURE_SCALE * extent;
-    SpriteQuad quad;
-    quad.width = static_cast<float>(frameWidthPixels) * scale;
-    quad.height = static_cast<float>(ARENA_FIGURE_FRAME_HEIGHT_PIXELS) * scale;
-    quad.x = center.x - (quad.width / 2.0F);
-    quad.y = footY - (tileHeight * FIGURE_BOTTOM_MARGIN * extent) - quad.height;
-    if (texture.width > 0 && texture.height > 0) {
-        const auto frameWidth = static_cast<float>(frameWidthPixels);
-        quad.u0 = static_cast<float>(frame) * frameWidth / static_cast<float>(texture.width);
-        quad.u1 = static_cast<float>(frame + 1) * frameWidth / static_cast<float>(texture.width);
-        quad.v0 = 0.0F;
-        quad.v1 = std::min(1.0F, static_cast<float>(ARENA_FIGURE_FRAME_HEIGHT_PIXELS) /
-                                     static_cast<float>(texture.height));
-    }
+    SpriteQuad quad =
+        figureQuad(band, frame, center.x, footY - (tileHeight * FIGURE_BOTTOM_MARGIN * extent),
+                   composer.projection.tileWidth());
     if (down && !ally) {
         quad.a = ARENA_DOWN_ENEMY_ALPHA;
     }
@@ -321,13 +290,7 @@ void composeArenaScene(ComposedScene& scene, const ArenaSceneSnapshot& snapshot,
                        const ArenaAppearanceCatalog& catalog, const ArenaAnimationState& animation,
                        const core::IsoProjection& projection, const ArenaSceneTextures& textures,
                        bool scenery) {
-    const Composer composer{
-        .scene = scene,
-        .projection = projection,
-        .textures = textures,
-        .unitsPerPixel = projection.tileWidth() / core::ARENA_SHEET_TILE_WIDTH_PIXELS,
-        .unitsPerScenePixel =
-            projection.tileWidth() / static_cast<float>(ARENA_SCENE_TILE_WIDTH_PIXELS)};
+    const Composer composer{.scene = scene, .projection = projection, .textures = textures};
     // Un seul tampon de chemin pour toute la scene : apres la premiere image, plus d'allocation.
     std::string path;
 

@@ -22,8 +22,8 @@ namespace hmi {
 
 struct RhiContext;
 
-/// Pixels RGBA décodés d'un fichier image, alpha **non prémultiplié** (cohérent avec le mélange
-/// du pipeline de `SpriteBatch`, `SrcAlpha`/`OneMinusSrcAlpha`), au format `RGBA8`.
+/// Pixels RGBA décodés d'un fichier image, alpha **droit**, au format `RGBA8` : l'image telle que
+/// le fichier la porte. `createTexture` la prémultiplie au téléversement.
 struct DecodedImage {
     int width = 0;
     int height = 0;
@@ -78,24 +78,46 @@ struct LoadedTexture {
 [[nodiscard]] bool encodeImageFile(const std::filesystem::path& path, const DecodedImage& image);
 
 /**
+ * @brief Comment une texture s'échantillonne : la **nature** de l'image (`EX-ARCH-022`).
+ */
+enum class TextureFiltering : std::uint8_t {
+    /// Au plus proche, sans mipmap : une image **engendrée** dont chaque pixel est voulu — le
+    /// damier
+    /// de repli, l'aplat, un marqueur, l'atlas procédural de l'éditeur.
+    Sharp,
+    /// Bilinéaire avec **mipmaps** : l'art peint, toujours réduit à l'écran, qui scintillerait au
+    /// plus proche (`EX-VIS-008`, `LOT-103`).
+    Smooth,
+};
+
+/**
  * @brief Crée une texture GPU à partir de pixels RGBA déjà décodés.
  *
  * Le téléversement des pixels est **différé** : il est déposé dans le lot de mises à jour de
  * l'image en cours (`hmi::RhiContext::updates`), que l'appelant soumet avant d'ouvrir sa passe de
  * rendu. C'est la contrainte de QRhi qui l'impose, pas un choix d'optimisation — un téléversement
  * ne peut pas avoir lieu au milieu d'une passe.
- * @param context Interface de rendu et lot de mises à jour de l'image courante.
- * @param width   Largeur en pixels (doit être strictement positive).
- * @param height  Hauteur en pixels (doit être strictement positive).
- * @param pixels  Pixels `RGBA8`, taille attendue `width * height`.
+ *
+ * Les pixels sont **prémultipliés** au chargement (`EX-VIS-008`) : le pipeline de `SpriteBatch`
+ * mélange en `One`/`OneMinusSrcAlpha`, et un bord adouci filtré sans prémultiplication tirerait
+ * vers la couleur, souvent noire, des pixels transparents voisins. Une texture `Smooth` reçoit en
+ * plus sa chaîne de mipmaps, engendrée par le GPU dans le même lot ; `SpriteBatch` la reconnaît à
+ * son drapeau `MipMapped` et l'échantillonne en bilinéaire.
+ *
+ * @param context   Interface de rendu et lot de mises à jour de l'image courante.
+ * @param width     Largeur en pixels (doit être strictement positive).
+ * @param height    Hauteur en pixels (doit être strictement positive).
+ * @param pixels    Pixels `RGBA8` à alpha droit, taille attendue `width * height`.
+ * @param filtering La nature de l'image ; `Sharp` par défaut, pour les images engendrées.
  * @return La texture chargée, ou `std::nullopt` en cas d'échec de création côté GPU.
  */
-[[nodiscard]] std::optional<LoadedTexture> createTexture(const RhiContext& context, int width,
-                                                         int height,
-                                                         const std::vector<std::uint32_t>& pixels);
+[[nodiscard]] std::optional<LoadedTexture> createTexture(
+    const RhiContext& context, int width, int height, const std::vector<std::uint32_t>& pixels,
+    TextureFiltering filtering = TextureFiltering::Sharp);
 
 /**
- * @brief Décode un fichier image puis crée la texture GPU correspondante.
+ * @brief Décode un fichier image puis crée la texture GPU correspondante, **lissée** : tout
+ *        fichier que le rendu charge est de l'art peint (`TextureFiltering::Smooth`).
  * @param context Interface de rendu et lot de mises à jour de l'image courante.
  * @param path    Chemin du fichier image.
  * @return La texture chargée, ou `std::nullopt` si le décodage ou la création GPU échoue.

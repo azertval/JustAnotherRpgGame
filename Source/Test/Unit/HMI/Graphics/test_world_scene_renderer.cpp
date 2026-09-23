@@ -233,23 +233,27 @@ TEST(WorldSceneRendererTest, UnLieuDevientDesPixels) {
 
 /**
  * @brief La caméra suit le héros et ne sort pas de la carte.
- * \castest{<b>Le cadrage d'un lieu suit le heros, borne a la scene, a un agrandissement
- * entier.</b><br/>
+ * \castest{<b>Le cadrage d'un lieu suit le heros, borne a la scene, une case a la hauteur de la
+ * vue divisee par 10,8.</b><br/>
  * \tcat Unitaire · Rendu QRhi d'un lieu<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Cadrer une grande carte sur son centre, puis sur un coin.<br/>
  *          2. Cadrer une carte plus petite que la vue.<br/>
+ *          3. Cadrer la meme carte a 1080p et a 2160p.<br/>
  * \tattendu Au centre, la camera est sur le heros ; au coin, elle s'arrete au bord de la scene ;
- *           une petite carte reste centree. L'agrandissement est entier -- le pixel art ne se met
- *           pas a l'echelle 0,62.
+ *           une petite carte reste centree. Une case occupe 720 / 10,8 pixels a 720p, 100 a 1080p,
+ *           200 a 2160p, et les deux dernieres vues cadrent la meme etendue (EX-REN-013).
  * }
  */
 TEST(WorldSceneRendererTest, LaCameraSuitLeHerosSansSortirDeLaCarte) {
     const core::IsoProjection grande{40, 34};
     const core::Vector2 centre = grande.gridToWorld({20.0F, 17.0F});
+    const auto casesAlEcran = [](const hmi::Camera2D& camera, const core::IsoProjection& vue) {
+        return camera.zoom() * hmi::Camera2D::PIXELS_PER_UNIT * vue.tileWidth();
+    };
 
     const hmi::Camera2D suivie = hmi::worldCamera(grande, centre, 1280, 720);
-    EXPECT_FLOAT_EQ(suivie.zoom(), 1.0F);
+    EXPECT_NEAR(casesAlEcran(suivie, grande), 720.0F / 10.8F, 0.01F);
     EXPECT_NEAR(suivie.center().x, centre.x, 0.001F);
     EXPECT_NEAR(suivie.center().y, centre.y, 0.001F);
 
@@ -262,13 +266,20 @@ TEST(WorldSceneRendererTest, LaCameraSuitLeHerosSansSortirDeLaCarte) {
     EXPECT_LE(bornee.visibleBounds().position.x + bornee.visibleBounds().size.x,
               grande.sceneSize().x + 0.001F);
 
-    // Une carte plus petite que la vue reste centree, et l'ecran double au-dela de 720 lignes.
+    // Une carte plus petite que la vue reste centree.
     const core::IsoProjection petite{4, 3};
     const hmi::Camera2D petiteVue =
         hmi::worldCamera(petite, petite.gridToWorld({0.0F, 0.0F}), 1280, 1440);
-    EXPECT_FLOAT_EQ(petiteVue.zoom(), 2.0F);
     EXPECT_NEAR(petiteVue.center().x, petite.sceneSize().x / 2.0F, 0.001F);
     EXPECT_NEAR(petiteVue.center().y, petite.sceneSize().y / 2.0F, 0.001F);
+
+    // 1080p et 2160p : 100 puis 200 pixels par case, et la meme etendue de monde.
+    const hmi::Camera2D hd = hmi::worldCamera(grande, centre, 1920, 1080);
+    const hmi::Camera2D uhd = hmi::worldCamera(grande, centre, 3840, 2160);
+    EXPECT_NEAR(casesAlEcran(hd, grande), 100.0F, 0.01F);
+    EXPECT_NEAR(casesAlEcran(uhd, grande), 200.0F, 0.01F);
+    EXPECT_NEAR(hd.visibleBounds().size.x, uhd.visibleBounds().size.x, 0.001F);
+    EXPECT_NEAR(hd.visibleBounds().size.y, uhd.visibleBounds().size.y, 0.001F);
 }
 
 /**

@@ -101,6 +101,49 @@ number.
 La marge de 8 px est celle du [standard](style-2d-hd.md) : sans elle, le niveau de mipmap d'une
 image déborde sur sa voisine.
 
+L'essai de cadence du [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) a
+ajouté deux choses à cette variante. La phrase « Draw it as large as the canvas allows » se **garde**
+à la fin du cadrage : c'est la règle « réduit, jamais agrandi ». Et la ligne `OUTPUT` du bloc B, qui
+demande un canevas carré, devient :
+
+```
+OUTPUT: landscape canvas, as wide as available, PNG with alpha.
+```
+
+Une image de la bande doit sortir à 192 px de large au moins (384 pour l'attaque et le sort) : huit
+images demandent un canevas de 1600 px. Le standard fixe **huit images** par animation.
+
+### Les envois qui suivent le premier
+
+Une figurine se commande en **plusieurs** envois — une bande par animation et par orientation — et
+chacun redessine le personnage. Le premier envoi fixe le personnage ; tous les suivants joignent sa
+bande et commencent leur bloc C par :
+
+```
+REFERENCE: the attached strip shows THIS character — same face, same hair,
+same colours, same equipment, same proportions. Draw him again, only the pose
+and the direction change.
+```
+
+Une bande d'une autre orientation joint en plus la même animation vue du sud-est. La commande du
+héros (`Tools/AssetsHD/Common/Characters/Heroes/brawler/commande.md`) est l'exemple complet, et
+`scripts/prepare_envois_figure.py` en tire les envois prêts à copier.
+
+### Le cas d'un portrait
+
+Le portrait (512 × 512, standard §5) garde le bloc A et remplace le bloc B entier :
+
+```
+FRAMING (portrait): ONE character, head and shoulders, three-quarter view
+facing the lower left, centred in a square canvas. A plain, softly lit
+background in dark bronze (#5c4a2a) fading to warm grey (#9c948a) — no scenery,
+no border, no text. The face and the upper chest fill most of the canvas.
+
+OUTPUT: square canvas, at least 1024 px, PNG.
+```
+
+Il se commande **avant** les bandes : c'est lui que joint le premier envoi de bande.
+
 ## Bloc C — la pièce
 
 Un gabarit, à remplir pour chaque commande. Une pièce par envoi.
