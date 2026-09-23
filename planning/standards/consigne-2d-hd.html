@@ -22,6 +22,7 @@
 <p>La <strong>planche de référence</strong> <code>Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png</code> est jointe à chaque envoi comme image de référence : elle vaut mieux que trois paragraphes de plus.</p>
 <blockquote><p><strong>Le générateur reste un outil manuel.</strong> Aucune génération ne tourne en CI, et Claude ne dessine pas : il écrit la commande, l'auteur l'envoie, la chaîne du <a href="../lots/lot-104.html">LOT-104</a> installe le résultat. Règle du <code>LOT-91</code>, inchangée.</p></blockquote>
 <h2 id="bloc-a-le-style">Bloc A — le style</h2>
+<p>Pour chaque prochain lot, intégrer aussi les <a href="style-2d-hd.html#critères-de-qualité-validés-par-lutilisateur">critères de qualité validés par l’utilisateur</a> : matières propres sans grain, relief lisible, volumes des balustres et buissons, grille exacte et continuité des modules jusque dans les angles. La référence acceptée est le LOT-105 V4 après sa reprise du relief. Ces contraintes complètent les blocs de commande ci-dessous et se vérifient dans une map rendue par le moteur.</p>
 <p>Invariant pour tout l'Empire central. Une autre région change <strong>la palette et les matières</strong>, rien d'autre.</p>
 <pre><code>STYLE (match the attached reference sheet): hand-painted 2D game art for an
 isometric RPG. Painted, not pixel art: modelled flat colours, soft gradients,
@@ -67,6 +68,19 @@ allows: the piece is reduced when it is installed, never enlarged.
 
 OUTPUT: square canvas, at least 1024 px, PNG with alpha.</code></pre>
 <blockquote><p><strong>Pourquoi « dessine-la aussi grande que possible ».</strong> Le standard veut un losange de 256 px ; les générateurs rendent une pièce dans un canevas carré où l'art flotte. Une pièce dessinée grande puis <strong>réduite</strong> est nette ; une pièce dessinée petite puis agrandie ne l'est jamais. C'est la règle « l'art est toujours réduit, jamais agrandi », et la maquette du <code>LOT-101</code> montre ce qu'il en coûte de l'enfreindre.</p></blockquote>
+<h3 id="le-cas-dune-planche-de-sols">Le cas d'une planche de sols</h3>
+<p>Les variantes d'une dalle de fond (standard, §4) se commandent <strong>ensemble</strong>, sur une planche : une par envoi, trois dalles « du même pavé » sortent de trois teintes. C'est l'exception à « une pièce par image », et la seule : l'installateur découpe la planche dans l'ordre de lecture et réduit chaque morceau au losange exact du lieu. La commande remplace le paragraphe <code>FRAMING</code> du bloc B par celui-ci, <code>{N}</code> étant le nombre de dalles :</p>
+<pre><code>FRAMING (floor sheet): {N} floor tiles in a single horizontal row, on a FULLY
+TRANSPARENT background, with a clear transparent gap between two tiles. Each
+tile is exactly ONE ground diamond seen from the isometric camera, perfectly
+FLAT: no thickness, no side faces, no raised rim, no shadow. Draw the row as
+large as the canvas allows.</code></pre>
+<p>La ligne <code>OUTPUT</code> devient celle d'une bande : <code>landscape canvas, as wide as available, PNG with alpha.</code> Né du <code>LOT-105</code> : les sols du Colisée (<code>LOT-104</code>) étaient déjà livrés en planches de six.</p>
+<h3 id="les-pièces-dun-même-kit">Les pièces d'un même kit</h3>
+<p>Une pièce qui doit s'accorder à une autre déjà produite — une fenêtre au mur plein, une haie d'angle à la haie droite — la joint après la planche de référence, et son bloc C commence par :</p>
+<pre><code>REFERENCE: the image attached after the reference sheet shows another piece of
+the SAME kit. Match its stone, its colours, its outline and its light exactly;
+draw only the piece described below.</code></pre>
 <h3 id="le-cas-dune-planche-danimation">Le cas d'une planche d'animation</h3>
 <p>Une animation se commande en <strong>une seule fois</strong>, en planche : demander les images une par une, c'est garantir que le personnage dérive. La commande remplace alors les deux premières phrases du cadrage ci-dessus par celles-ci, et rien d'autre du bloc B ne bouge :</p>
 <pre><code>FRAMING (animation strip): ONE character, drawn once per frame, in a single
@@ -112,7 +126,7 @@ VARIANTS: none.</code></pre>
 <ol><li><strong>« une pièce par image »</strong> — la planche livre ses pièces par panneaux de trois ou quatre ; les séparer ensuite coûte un détourage par pièce et laisse des franges.</li><li><strong>« pas de plaque de sol sous la pièce »</strong> — les sols de la planche sont des dalles <strong>avec leur épaisseur</strong> : posées côte à côte, elles se marchent dessus.</li><li><strong>« dessine-la aussi grande que possible »</strong> — les pièces de la planche tiennent dans un losange de 136 px, soit la moitié de ce que le standard demande.</li></ol></article>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>11bd0da5b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>dfb500a69</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

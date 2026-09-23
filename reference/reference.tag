@@ -11206,6 +11206,21 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_capital_kit_render.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__capital__kit__render_8cpp.html</filename>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__capital__kit__render_8cpp.html</anchorfile>
+      <anchor>a2c2811293e798874ea5e52251b72b94c</anchor>
+      <arglist>(CapitalKitRender, AStreetOfTwelveCellsIsComposedWithTheKitAlone)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_city_block_render.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__city__block__render_8cpp.html</filename>
@@ -48745,6 +48760,7 @@
     <file>test_asset_gallery_renderer.cpp</file>
     <file>test_cache_registry.cpp</file>
     <file>test_camera2d.cpp</file>
+    <file>test_capital_kit_render.cpp</file>
     <file>test_city_block_render.cpp</file>
     <file>test_depth_sort.cpp</file>
     <file>test_entity_markers.cpp</file>

@@ -11,8 +11,8 @@
       "id": "0.0.1",
       "titre": "Démo basique",
       "nature": "detaillee",
-      "lots": 29,
-      "livres": 8
+      "lots": 30,
+      "livres": 9
     },
     {
       "id": "0.0.2",
@@ -795,7 +795,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 95,
+      "debloque": 99,
       "prerequis": [
         "LOT-101"
       ]
@@ -816,9 +816,9 @@
       "id": "LOT-105",
       "titre": "Assets HD — le kit commun de la Capitale",
       "version": "0.0.1",
-      "etat": "prochain",
-      "rang": 1,
-      "debloque": 95,
+      "etat": "livre",
+      "rang": 0,
+      "debloque": 96,
       "prerequis": [
         "LOT-104"
       ]
@@ -832,7 +832,8 @@
       "debloque": 90,
       "prerequis": [
         "LOT-105",
-        "LOT-108"
+        "LOT-108",
+        "LOT-129"
       ]
     },
     {
@@ -858,7 +859,8 @@
       "rang": 4,
       "debloque": 92,
       "prerequis": [
-        "LOT-105"
+        "LOT-105",
+        "LOT-129"
       ]
     },
     {
@@ -884,7 +886,8 @@
       "rang": 8,
       "debloque": 90,
       "prerequis": [
-        "LOT-105"
+        "LOT-105",
+        "LOT-129"
       ]
     },
     {
@@ -1057,7 +1060,7 @@
       "titre": "L'éditeur et l'arborescence par niveaux",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 2,
+      "rang": 3,
       "debloque": 93,
       "prerequis": [
         "LOT-102",
@@ -1068,9 +1071,9 @@
       "id": "LOT-125",
       "titre": "Le canevas de l'éditeur en HD",
       "version": "0.0.1",
-      "etat": "pret",
-      "rang": 3,
-      "debloque": 93,
+      "etat": "prochain",
+      "rang": 1,
+      "debloque": 97,
       "prerequis": [
         "LOT-103",
         "LOT-123"
@@ -1109,6 +1112,19 @@
       "debloque": 93,
       "prerequis": [
         "LOT-100"
+      ]
+    },
+    {
+      "id": "LOT-129",
+      "titre": "Les étages et les toits de la scène",
+      "version": "0.0.1",
+      "etat": "en-attente",
+      "rang": 2,
+      "debloque": 95,
+      "prerequis": [
+        "LOT-103",
+        "LOT-105",
+        "LOT-125"
       ]
     },
     {

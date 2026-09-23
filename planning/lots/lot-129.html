@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-129 — Les étages et les toits de la scène — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-1.html">0.0.1 — Démo basique</a></p><h1><span class="vid">LOT-129</span> Les étages et les toits de la scène</h1><p class="lede">Le décor se bâtit en niveaux modulaires — un étage de mur posé sur un autre, une toiture au sommet — et ce qui masque le héros s'efface quand il passe derrière.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-en-attente">en attente</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-moteur">Moteur</span></dd></div><div><dt>Taille</dt><dd>L</dd></div><div><dt>Ordre calculé</dt><dd>2</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-103.html">LOT-103</a> <a class="ref" href="lot-105.html">LOT-105</a> <a class="ref" href="lot-125.html">LOT-125</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-106.html">LOT-106</a> <a class="ref" href="lot-108.html">LOT-108</a> <a class="ref" href="lot-110.html">LOT-110</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li>Le rendu d'une couche de décor à son <code>floor</code> : ses pièces sont élevées d'une hauteur d'étage que déclare le manifeste de la scène.</li><li>L'effacement : une pièce d'étage qui masque le héros devient translucide, et redevient opaque quand il en sort.</li><li>Dans l'éditeur, une couche d'étage se peint comme les autres, et le canevas montre ou cache les étages.</li><li><code>Regions/central-empire/capital/Common/Scene/</code> : la toiture de tuiles bourgogne de la Capitale — pans dans les deux sens, faîtage, rive, angles rentrants et sortants.</li><li>Une carte d'essai dans <code>Source/Test/Fixtures/</code> : un îlot de murs du kit sur deux étages, coiffé de sa toiture, angles compris.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Un mur posé sur la couche <code>floor = 1</code> prolonge le mur de la couche <code>floor = 0</code> sans décalage manuel par pièce : la hauteur vient du manifeste.</li><li>Une toiture se pose au-dessus du dernier étage, quel qu'en soit le nombre, et ses angles raccordent ceux des murs.</li><li>Le héros qui passe derrière un étage ou un toit reste visible : un test de rendu le montre à travers.</li><li>La collision ne lit que la grille racine : ni un étage ni un toit ne bloquent une case.</li><li>Une carte sans couche d'étage se rend comme avant, octet pour octet sur les références PNG.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>C'est un <strong>entrant du <a href="lot-108.html">LOT-108</a></strong> : en ouvrant la commande d'Arenarea, le besoin de <strong>toits</strong> est apparu, et le moteur ne sait pas en poser. Une pièce se pose sur une case au sol ; un toit se pose <strong>au-dessus</strong> d'un mur. Sans étage, un bâtiment n'existe que comme pièce unique, dessinée d'un bloc avec son toit : cela suffit pour une boutique, pas pour un îlot de manoirs de longueur quelconque. La production du LOT-108 est suspendue jusqu'à ce lot.</p>
+<p>Les trois zones de la démo en ont besoin : les manoirs d'Arenarea, la halle et les maisons de Martpart (<a href="lot-110.html">LOT-110</a>), et le Colisée, dont l'enceinte monte <strong>trois ordres d'arcades superposés</strong> (<a href="lot-106.html">LOT-106</a>) — trois étages du même mur, et non trois pièces hautes.</p>
+<p>Le format le permet déjà : le <code>LOT-EDITOR-12</code> a <strong>réservé</strong> la hauteur (<code>&quot;floor&quot;</code> par couche, <code>&quot;elevation&quot;</code> par case et par entité) ; elle survit aux allers-retours et sort en avertissement du <code>--check</code>. Ce lot fait servir <code>floor</code>.</p>
+<h2 id="périmètre">Périmètre</h2>
+<ul><li><strong>Dedans</strong> : l'élévation d'une couche de décor par son étage, l'ordre de tracé entre étages, l'effacement devant le héros, l'éditeur (peindre, montrer, cacher un étage), l'avertissement du <code>--check</code> levé pour <code>floor</code> ; la toiture commune de la Capitale, sans laquelle rien ne se vérifie.</li><li><strong>Pas dedans</strong> : un personnage qui <strong>monte</strong> à l'étage (terrasses, remparts, coursives praticables) — l'<code>elevation</code> par case reste réservée ; le Colisée garde ses niveaux jouables en cartes distinctes (<a href="lot-107.html">LOT-107</a>, « deux cartes, pas deux étages »). Les étages <strong>propres</strong> à une zone (arcades du Colisée, étage de manoir, halle de Martpart) restent aux lots de zone.</li></ul>
+<h2 id="conception">Conception</h2>
+<ul><li>La hauteur d'un étage est une <strong>donnée du lieu</strong> : le manifeste de la scène la déclare, en pixels d'art, comme il déclare déjà <code>&quot;tile&quot;</code>. Elle se mesure sur les murs du kit de la Capitale (<a href="lot-105.html">LOT-105</a>).</li><li>Une pièce d'étage se trie avec les autres par la clé de profondeur du composeur, sa rangée étant celle de sa case au sol : un toit passe devant ce qui est derrière l'îlot, derrière ce qui est devant.</li><li>La toiture suit la méthode et les critères de la V4 du LOT-105 : deux sens sans miroir, vrais angles rentrants et sortants, tuiles en phase d'une pièce à l'autre.</li></ul>
+<h2 id="risques-et-questions-ouvertes">Risques et questions ouvertes</h2>
+<ul><li>L'effacement : toute la pièce, ou un disque autour du héros ? À trancher sur l'essai.</li><li>La hauteur d'étage est-elle la même pour le Colisée et pour une maison ? Si non, elle se déclare par scène, ce que le manifeste permet.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-129-etages-et-toits.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-23 · <code>dfb500a69</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>
