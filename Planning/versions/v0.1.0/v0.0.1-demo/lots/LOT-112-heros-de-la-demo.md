@@ -3,7 +3,7 @@ id = "LOT-112"
 titre = "Le héros de la démo"
 version = "0.0.1"
 filiere = "pnj"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Le personnage que l'on joue : la fiche pré-tirée du Brawler, une figurine HD animée, un portrait."
 prerequis = ["LOT-104"]
@@ -169,10 +169,13 @@ sont installées dans `Common/Characters/Heroes/brawler/` avec le portrait et le
   ce qui est collé. La commande a gagné une ligne `SPACING` ; les reprises se découpent par colonnes
   vides, sans deviner.
 
-## Ce qui reste
+## Livraison
 
-- **Le critère 1 en jeu, sur une vraie carte** : le héros marche aux quatre orientations dans le jeu
-  et sur la maquette (`build/lot-112/heros-marche.webp`), mais aucune carte HD de la démo n'existe
-  encore (`LOT-107` à `LOT-111`) ; la carte d'essai montre son sol en damier.
-- **L'attaque, le touché et la mort** sont installés sans être joués : le monde ne sait que repos et
-  marche, le combat sur la carte est au `LOT-118`.
+Livré le 23 septembre 2026, **PR #116**, sur décision de l'auteur. Le critère 1 est tenu sur la
+maquette du `LOT-101` (`build/lot-112/heros-marche.webp`, quatre orientations) et en jeu sur une
+carte d'essai ; deux vérifications passent à des lots suivants :
+
+- **la marche sur une vraie carte de la démo**, qui n'existe pas encore — elle se voit dès les cartes
+  des `LOT-107` à `LOT-111` ;
+- **l'attaque, le touché et la mort**, installés mais pas joués : le monde ne connaît que le repos et
+  la marche, et le combat sur la carte est au `LOT-118`.

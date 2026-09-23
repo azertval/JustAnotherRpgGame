@@ -6,7 +6,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
-- **LOT-112 — Le héros de la démo (en cours).** Le personnage joué est la **fiche pré-tirée du
+- **LOT-112 — Le héros de la démo.** Le personnage joué est la **fiche pré-tirée du
   Brawler** du *Player's Guide to Tanares* (p. 195), reprise telle quelle sur décision de l'auteur :
   Grom Tranche-Écaille, demi-orc, Dragon Hunter, grande hache (`Rpg/characters/heros-brawler.json`).
   Il remplace Brenna ; sa Persuasion vaut −1, si bien que le jet à DD 18 de la quête réussit une fois
