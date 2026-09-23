@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790060348385,
+  "lastUpdate": 1790131173055,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -808,6 +808,70 @@ window.BENCHMARK_DATA = {
             "value": 550.9304539975998,
             "unit": "us/iter",
             "extra": "iterations: 2489\ncpu: 552.4306950582563 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "33de88bc169b6ab01d6850112ca0b76f4ad9538d",
+          "message": "docs(planning) : LOT-103 livré (#114)\n\nLe contrôle visuel du travelling, dernier critère du lot, est fait par\nl'auteur : la maquette ne scintille pas. La fiche passe à `livre` et ne\ndit plus que la PR #112 est un brouillon.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+          "timestamp": "2026-09-22T20:57:36Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/33de88bc169b6ab01d6850112ca0b76f4ad9538d"
+        },
+        "date": 1790131170070,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 158083.30357143877,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 158691.40625 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 214497.5937500071,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 214843.75 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57099.40535979689,
+            "unit": "ns/iter",
+            "extra": "iterations: 24889\ncpu: 57128.65121137852 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 162915.23634131948,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 164978.51442602824 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1112723.1249999702,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1123046.875 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2687333.5341367535,
+            "unit": "ns/iter",
+            "extra": "iterations: 498\ncpu: 2698293.172690763 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 538.6701171875341,
+            "unit": "us/iter",
+            "extra": "iterations: 2560\ncpu: 537.109375 us\nthreads: 1"
           }
         ]
       }
