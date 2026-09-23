@@ -754,6 +754,2470 @@
         "file": "Regions/central-empire/capital/Common/V4/Calibres/plant-hedge-corner-outer.png",
         "sha256": "81cc0446f2d366d62543415d9c18d6ee6d80550bdac0f18111d1d21b6bd0b525"
       }
+    },
+    "scene/capital/roof-u-d2-r0-start": {
+      "file": "roof-u-d2-r0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        148
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r0-start.png",
+        "sha256": "898f2a153c6f5e91a0594f2ce0654e2e9a8f670c25587a9b623d1508c20c20ab"
+      }
+    },
+    "scene/capital/roof-u-d2-r0": {
+      "file": "roof-u-d2-r0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        141
+      ],
+      "anchor": [
+        138,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r0.png",
+        "sha256": "f299eccc4f340ca6e45f0c61b6117fecce1095c622e09734669a26b033e160a0"
+      }
+    },
+    "scene/capital/roof-u-d2-r0-gable": {
+      "file": "roof-u-d2-r0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        138,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r0-gable.png",
+        "sha256": "a01f96c78961bb97ad719c2073c2fc9ee895d4b7c51a1508c1a42c47aac08428"
+      }
+    },
+    "scene/capital/roof-u-d2-r0-single": {
+      "file": "roof-u-d2-r0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r0-single.png",
+        "sha256": "ce29bd71f3f0b3ece9cc3150997ddf07f07be34299b5992c999632f00d808d99"
+      }
+    },
+    "scene/capital/roof-u-d2-r1-start": {
+      "file": "roof-u-d2-r1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r1-start.png",
+        "sha256": "f7bcfaaf9bf3f93e63934229e8748c5bdfb246027e4f606d1a7035188c6313ea"
+      }
+    },
+    "scene/capital/roof-u-d2-r1": {
+      "file": "roof-u-d2-r1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r1.png",
+        "sha256": "77fb6216cfc3441bae2a48350d7a33993abccd3c4c39742e7aba30ceac1a17b2"
+      }
+    },
+    "scene/capital/roof-u-d2-r1-gable": {
+      "file": "roof-u-d2-r1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r1-gable.png",
+        "sha256": "3eb871b0ae4a6d66f15a38bd8346407d39d41fbc09448e4180f782bd1c3847a9"
+      }
+    },
+    "scene/capital/roof-u-d2-r1-single": {
+      "file": "roof-u-d2-r1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d2-r1-single.png",
+        "sha256": "69fa8b680613d03b5f8986eb85f3428096ec99921c1773b1bb05538480492dab"
+      }
+    },
+    "scene/capital/roof-u-d3-r0-start": {
+      "file": "roof-u-d3-r0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        122
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r0-start.png",
+        "sha256": "8ef9133f145a845841f33d73af2857ed4dc012a51ceaa56418ff9e26fabe5dac"
+      }
+    },
+    "scene/capital/roof-u-d3-r0": {
+      "file": "roof-u-d3-r0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        114
+      ],
+      "anchor": [
+        137,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r0.png",
+        "sha256": "f90d3a8d2a796e8c2309ee5b2a1adbb056969d6599dab7611461bee740cf83dc"
+      }
+    },
+    "scene/capital/roof-u-d3-r0-gable": {
+      "file": "roof-u-d3-r0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        138,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r0-gable.png",
+        "sha256": "a5272ddd3fe37521b8819c43bc0ef10290fb01db274c3420e3386431a140ba1a"
+      }
+    },
+    "scene/capital/roof-u-d3-r0-single": {
+      "file": "roof-u-d3-r0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r0-single.png",
+        "sha256": "72daa8f8a3c6d5e4776d523139b0f8c96d571ec3775fcd45ec2aa4685cfe94c5"
+      }
+    },
+    "scene/capital/roof-u-d3-r1-start": {
+      "file": "roof-u-d3-r1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        210
+      ],
+      "anchor": [
+        149,
+        87
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r1-start.png",
+        "sha256": "4f5d3ce6a44b77bf134a26940874bb9e40fb0c8457b10598c2cea08b07c3229a"
+      }
+    },
+    "scene/capital/roof-u-d3-r1": {
+      "file": "roof-u-d3-r1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        206
+      ],
+      "anchor": [
+        137,
+        84
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r1.png",
+        "sha256": "0674f3bb2f0979f0131cf6c75e2e3b8de8f192ff088fd40c97befd72196496f0"
+      }
+    },
+    "scene/capital/roof-u-d3-r1-gable": {
+      "file": "roof-u-d3-r1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        214
+      ],
+      "anchor": [
+        137,
+        84
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r1-gable.png",
+        "sha256": "03629b06d8d8340ee09e6acfc51b73a3023e51fad3601bb5f52b9d35c18902c9"
+      }
+    },
+    "scene/capital/roof-u-d3-r1-single": {
+      "file": "roof-u-d3-r1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        218
+      ],
+      "anchor": [
+        149,
+        87
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r1-single.png",
+        "sha256": "ab005931948eab1393aae2f873bfb1483032a7f41a1416e78681bdc72d903482"
+      }
+    },
+    "scene/capital/roof-u-d3-r2-start": {
+      "file": "roof-u-d3-r2-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r2-start.png",
+        "sha256": "f6ad92da16eb0f0cabf86226e3d3087e92d9f525e1f185b068fa140b2885084a"
+      }
+    },
+    "scene/capital/roof-u-d3-r2": {
+      "file": "roof-u-d3-r2.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r2.png",
+        "sha256": "3ed84edcd603de505cb3ab1db38b828a2dddbf69b85e44b9ca3262755fca1269"
+      }
+    },
+    "scene/capital/roof-u-d3-r2-gable": {
+      "file": "roof-u-d3-r2-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r2-gable.png",
+        "sha256": "7dd79bdc215a532a82791db27b51dae3af47e5d30c2d0c793de8ce5facd285ff"
+      }
+    },
+    "scene/capital/roof-u-d3-r2-single": {
+      "file": "roof-u-d3-r2-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d3-r2-single.png",
+        "sha256": "60200b3266eb30121d0141c3bab0a55793d2a405289e8a7aabb37bf4dcda57cd"
+      }
+    },
+    "scene/capital/roof-u-d4-r0-start": {
+      "file": "roof-u-d4-r0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        122
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r0-start.png",
+        "sha256": "93a2ab643014f0d3f1389da2a866cbb9b2531f9116ff2308024e075ad5438a94"
+      }
+    },
+    "scene/capital/roof-u-d4-r0": {
+      "file": "roof-u-d4-r0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        114
+      ],
+      "anchor": [
+        137,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r0.png",
+        "sha256": "cac3610e8e45657cf8912b19da3de289d8a18e1756a2ea8d6868e1d57b75dc85"
+      }
+    },
+    "scene/capital/roof-u-d4-r0-gable": {
+      "file": "roof-u-d4-r0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        138,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r0-gable.png",
+        "sha256": "6ac9ada51a61a2052f0fcd5da551e6b630446baf223231ee792dc6c2df2ba5ee"
+      }
+    },
+    "scene/capital/roof-u-d4-r0-single": {
+      "file": "roof-u-d4-r0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r0-single.png",
+        "sha256": "9384a37220a4308314abecfc21158821d06cd9c09d060ba0a595724ee09fbd19"
+      }
+    },
+    "scene/capital/roof-u-d4-r1-start": {
+      "file": "roof-u-d4-r1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        145
+      ],
+      "anchor": [
+        149,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r1-start.png",
+        "sha256": "c00de0666907c899feebea1adddd57d98b254a2b8c4fa7937e629e4277af7e80"
+      }
+    },
+    "scene/capital/roof-u-d4-r1": {
+      "file": "roof-u-d4-r1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        138
+      ],
+      "anchor": [
+        138,
+        73
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r1.png",
+        "sha256": "70055c8f91d62600dc290fbf19ac7dcf73dd20bfd32b625e8dbf0c219784c538"
+      }
+    },
+    "scene/capital/roof-u-d4-r1-gable": {
+      "file": "roof-u-d4-r1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        204
+      ],
+      "anchor": [
+        137,
+        74
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r1-gable.png",
+        "sha256": "d1f4809e6953c950ed6dc713d99ef05a001e66108757e5b54e807110c17cb059"
+      }
+    },
+    "scene/capital/roof-u-d4-r1-single": {
+      "file": "roof-u-d4-r1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        211
+      ],
+      "anchor": [
+        149,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r1-single.png",
+        "sha256": "e80a4d72a29506e3928f88087fe3185f7ea9df96ca53ace024c9e477de2fb144"
+      }
+    },
+    "scene/capital/roof-u-d4-r2-start": {
+      "file": "roof-u-d4-r2-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        240
+      ],
+      "anchor": [
+        149,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r2-start.png",
+        "sha256": "529f513ae418c383f8889431561198463d2be45b5059fa31f87c9587f2e17c68"
+      }
+    },
+    "scene/capital/roof-u-d4-r2": {
+      "file": "roof-u-d4-r2.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        234
+      ],
+      "anchor": [
+        137,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r2.png",
+        "sha256": "9395b68afb5192bc09b0e1d927a57158c6e749701d18faca6164788fe7ed5f5d"
+      }
+    },
+    "scene/capital/roof-u-d4-r2-gable": {
+      "file": "roof-u-d4-r2-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        242
+      ],
+      "anchor": [
+        137,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r2-gable.png",
+        "sha256": "e441e8d7109520bd91ff521d661a0daa232c6744f1f57b32722092751a46d291"
+      }
+    },
+    "scene/capital/roof-u-d4-r2-single": {
+      "file": "roof-u-d4-r2-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        248
+      ],
+      "anchor": [
+        149,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r2-single.png",
+        "sha256": "237b759698703e883ef819eefb1186bc5888227a1dffa7898e69cf623521e139"
+      }
+    },
+    "scene/capital/roof-u-d4-r3-start": {
+      "file": "roof-u-d4-r3-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r3-start.png",
+        "sha256": "39269338d3abb1c1865a444525cba5dda7372dad0a330fc2fabaab079ac3561e"
+      }
+    },
+    "scene/capital/roof-u-d4-r3": {
+      "file": "roof-u-d4-r3.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r3.png",
+        "sha256": "ed093bf90076d7d9576d8abd3f3d819a4d2d24891ee5a580b6f28d464e0b07b4"
+      }
+    },
+    "scene/capital/roof-u-d4-r3-gable": {
+      "file": "roof-u-d4-r3-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r3-gable.png",
+        "sha256": "d24ce289f164f73722738c9a6acddfa4c62893885ce2fd54f5b044fa55b6a33b"
+      }
+    },
+    "scene/capital/roof-u-d4-r3-single": {
+      "file": "roof-u-d4-r3-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d4-r3-single.png",
+        "sha256": "3b69ec10ffc6439a7b4ae71090f3c5b24295e40c745cd4d2b49d5be2825835bb"
+      }
+    },
+    "scene/capital/roof-u-d5-r0-start": {
+      "file": "roof-u-d5-r0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        122
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r0-start.png",
+        "sha256": "e70fab5716f012071003cc85712e7db1e03b68df2e35ffa45295d1cab61f6aff"
+      }
+    },
+    "scene/capital/roof-u-d5-r0": {
+      "file": "roof-u-d5-r0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        114
+      ],
+      "anchor": [
+        137,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r0.png",
+        "sha256": "f457efe619f8decf0fff00f7fb658a0878db991c3447c3285bf5a1d6e27478f6"
+      }
+    },
+    "scene/capital/roof-u-d5-r0-gable": {
+      "file": "roof-u-d5-r0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        138,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r0-gable.png",
+        "sha256": "da43b57f64af911e4b84d231056f90e973f1c230e22ebc5169f7c623b57622b8"
+      }
+    },
+    "scene/capital/roof-u-d5-r0-single": {
+      "file": "roof-u-d5-r0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        149,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r0-single.png",
+        "sha256": "5059e083d1fab4d27febaf53990b5ca0647a36e1aef27f0dc6b59642435673ff"
+      }
+    },
+    "scene/capital/roof-u-d5-r1-start": {
+      "file": "roof-u-d5-r1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        118
+      ],
+      "anchor": [
+        149,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r1-start.png",
+        "sha256": "4cf18baec5d5519da64e54d2b1abab20b0ebcdfe7837d98ac91538e8542d90bb"
+      }
+    },
+    "scene/capital/roof-u-d5-r1": {
+      "file": "roof-u-d5-r1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        111
+      ],
+      "anchor": [
+        137,
+        73
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r1.png",
+        "sha256": "c0770df55b50d0012b52380fe2b8dca8bd7ea16052fff147fa30dc0b9cb8fe3d"
+      }
+    },
+    "scene/capital/roof-u-d5-r1-gable": {
+      "file": "roof-u-d5-r1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        204
+      ],
+      "anchor": [
+        137,
+        74
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r1-gable.png",
+        "sha256": "35ec23240579b43f03bcd4615ceec1435702bfed5dca5a26ef808358f31a6eda"
+      }
+    },
+    "scene/capital/roof-u-d5-r1-single": {
+      "file": "roof-u-d5-r1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        211
+      ],
+      "anchor": [
+        149,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r1-single.png",
+        "sha256": "a93c0bcfb1fdcc6cce207c9f918b0540d23284ebbd3e79ecf2e18d3648386199"
+      }
+    },
+    "scene/capital/roof-u-d5-r2-start": {
+      "file": "roof-u-d5-r2-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        210
+      ],
+      "anchor": [
+        149,
+        145
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r2-start.png",
+        "sha256": "a4fd083d3bc61a961c1057c499c972f3a0ad43f84b576caa966b78c2e176dcfe"
+      }
+    },
+    "scene/capital/roof-u-d5-r2": {
+      "file": "roof-u-d5-r2.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        206
+      ],
+      "anchor": [
+        137,
+        142
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r2.png",
+        "sha256": "ee6917e4c63978675d4ee8fc47634273b710351c3dd9ebd65b44ff0d98752ab0"
+      }
+    },
+    "scene/capital/roof-u-d5-r2-gable": {
+      "file": "roof-u-d5-r2-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        272
+      ],
+      "anchor": [
+        137,
+        142
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r2-gable.png",
+        "sha256": "d67078df0f545ddab5d60eff223762067203c5df8e286fd47de09803f5acc662"
+      }
+    },
+    "scene/capital/roof-u-d5-r2-single": {
+      "file": "roof-u-d5-r2-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        276
+      ],
+      "anchor": [
+        149,
+        145
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r2-single.png",
+        "sha256": "bd0691932dbfcf8b37133e9aa91528a23726e3c702aa48aca35d5949eac13482"
+      }
+    },
+    "scene/capital/roof-u-d5-r3-start": {
+      "file": "roof-u-d5-r3-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        240
+      ],
+      "anchor": [
+        149,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r3-start.png",
+        "sha256": "9cc02b320507c74bdca9da6fa8e3ddf60abdda5c7053d0bf44f7eb95e90b6663"
+      }
+    },
+    "scene/capital/roof-u-d5-r3": {
+      "file": "roof-u-d5-r3.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        234
+      ],
+      "anchor": [
+        137,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r3.png",
+        "sha256": "a4a09dcd133205dae7af411ec2a13f868dfeb81323566ece983d4ba944ff7f2a"
+      }
+    },
+    "scene/capital/roof-u-d5-r3-gable": {
+      "file": "roof-u-d5-r3-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        242
+      ],
+      "anchor": [
+        137,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r3-gable.png",
+        "sha256": "2546214a6cb46fe84c0a2359a6424f28efd818fe4c7e2124e10632cba97e04ba"
+      }
+    },
+    "scene/capital/roof-u-d5-r3-single": {
+      "file": "roof-u-d5-r3-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        248
+      ],
+      "anchor": [
+        149,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r3-single.png",
+        "sha256": "16d5d70eee6d13269c98a233472f103c60b3af0a34cbe4968c2dbf7498673b53"
+      }
+    },
+    "scene/capital/roof-u-d5-r4-start": {
+      "file": "roof-u-d5-r4-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r4-start.png",
+        "sha256": "769d4fcfc020bf2faf866541ff45b5aea75d6977ab0b917993d01a9b5b11ad1e"
+      }
+    },
+    "scene/capital/roof-u-d5-r4": {
+      "file": "roof-u-d5-r4.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r4.png",
+        "sha256": "c10c53064ed85b0568ad2488d908fb120644e84c2014d07c6d1b4600643e973d"
+      }
+    },
+    "scene/capital/roof-u-d5-r4-gable": {
+      "file": "roof-u-d5-r4-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        104,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r4-gable.png",
+        "sha256": "544ea8edef220d947601e6f2e253c053e9cf251f538cd7edb0ed2be33addaccc"
+      }
+    },
+    "scene/capital/roof-u-d5-r4-single": {
+      "file": "roof-u-d5-r4-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        116,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-u-d5-r4-single.png",
+        "sha256": "d4397d853d40363d985135808f9b1aac469e5f1352b3f026711b4d04b04caa9c"
+      }
+    },
+    "scene/capital/roof-v-d2-c0-start": {
+      "file": "roof-v-d2-c0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        148
+      ],
+      "anchor": [
+        157,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c0-start.png",
+        "sha256": "088c91268b3d988066a49279fdc15faeaaae4ca93be7fc165890374cbe12b279"
+      }
+    },
+    "scene/capital/roof-v-d2-c0": {
+      "file": "roof-v-d2-c0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        141
+      ],
+      "anchor": [
+        156,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c0.png",
+        "sha256": "f064ff4272e4d80d0f3246f01b22c0007162bc1a21ce12b8771ed140a950db5c"
+      }
+    },
+    "scene/capital/roof-v-d2-c0-gable": {
+      "file": "roof-v-d2-c0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        116,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c0-gable.png",
+        "sha256": "8e5e9420edf88e82556ee91987b2f6c0cf521c3eb4fa7d2f42c8d1055f20b3e7"
+      }
+    },
+    "scene/capital/roof-v-d2-c0-single": {
+      "file": "roof-v-d2-c0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        116,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c0-single.png",
+        "sha256": "39ddf3edf8c24adb7ed704252fd2cd3356f9dd58daf745279932e15fd344b054"
+      }
+    },
+    "scene/capital/roof-v-d2-c1-start": {
+      "file": "roof-v-d2-c1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        137,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c1-start.png",
+        "sha256": "15348cf514327a4f718546bc8352875dedece9bc72f1d66c1c1e43c909130b16"
+      }
+    },
+    "scene/capital/roof-v-d2-c1": {
+      "file": "roof-v-d2-c1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        138,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c1.png",
+        "sha256": "ae4e0f229b43c2c8fa9599939dfdbad14f1c2243b828cc1d64e0163807ccde7f"
+      }
+    },
+    "scene/capital/roof-v-d2-c1-gable": {
+      "file": "roof-v-d2-c1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        96,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c1-gable.png",
+        "sha256": "be1e320e3c1f8fd5852bce375043d2b761b6498b48654b1cd4a7246dc384a0a7"
+      }
+    },
+    "scene/capital/roof-v-d2-c1-single": {
+      "file": "roof-v-d2-c1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        97,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d2-c1-single.png",
+        "sha256": "02bfc815ffc0c5e527ac5c197a185eabe4fdd646cc7ee4dbec1ca6b716ec79f7"
+      }
+    },
+    "scene/capital/roof-v-d3-c0-start": {
+      "file": "roof-v-d3-c0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        122
+      ],
+      "anchor": [
+        156,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c0-start.png",
+        "sha256": "7ac3ce99b5a62089ad7e2148d25887eedd52588ee754071493115023add9462d"
+      }
+    },
+    "scene/capital/roof-v-d3-c0": {
+      "file": "roof-v-d3-c0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        114
+      ],
+      "anchor": [
+        157,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c0.png",
+        "sha256": "c525adf52987a6da2bf37ebd483fde4cb4248df452693d6189ec34aa49896fdc"
+      }
+    },
+    "scene/capital/roof-v-d3-c0-gable": {
+      "file": "roof-v-d3-c0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        116,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c0-gable.png",
+        "sha256": "d1ac40d84baccd071a73bea10a5e49e4f8d2dde81ed394938cdc1c7dc47c65ae"
+      }
+    },
+    "scene/capital/roof-v-d3-c0-single": {
+      "file": "roof-v-d3-c0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        116,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c0-single.png",
+        "sha256": "af59306ae1fec1a4ae715c2a21461281786ae5d07d8d1297a8bab60da2b1dc95"
+      }
+    },
+    "scene/capital/roof-v-d3-c1-start": {
+      "file": "roof-v-d3-c1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        210
+      ],
+      "anchor": [
+        138,
+        87
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c1-start.png",
+        "sha256": "7ed482e412bed4dd15d1b63036af208cec60d199d48b190b344d34231fe95e58"
+      }
+    },
+    "scene/capital/roof-v-d3-c1": {
+      "file": "roof-v-d3-c1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        206
+      ],
+      "anchor": [
+        138,
+        84
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c1.png",
+        "sha256": "1885b4de39784476021ca2f36a010b167b6629e1ae8695d0affb978accca206c"
+      }
+    },
+    "scene/capital/roof-v-d3-c1-gable": {
+      "file": "roof-v-d3-c1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        214
+      ],
+      "anchor": [
+        97,
+        84
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c1-gable.png",
+        "sha256": "8d2275038a4510a467a6ad979f82808c7f76f064ab3de8ce44dfbff91a094bd5"
+      }
+    },
+    "scene/capital/roof-v-d3-c1-single": {
+      "file": "roof-v-d3-c1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        218
+      ],
+      "anchor": [
+        97,
+        87
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c1-single.png",
+        "sha256": "11f72d8cb9ef647ec3dc7a4c399be92cf27ec9a2c2141b3006c418d4ca936aee"
+      }
+    },
+    "scene/capital/roof-v-d3-c2-start": {
+      "file": "roof-v-d3-c2-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        137,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c2-start.png",
+        "sha256": "01381ad17604cadd26e195d3a74a7a396aeba3182535e58b180da4ddb4d7d188"
+      }
+    },
+    "scene/capital/roof-v-d3-c2": {
+      "file": "roof-v-d3-c2.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        138,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c2.png",
+        "sha256": "a886907c1310acdb48ea529c2b781612e9e26b21bde878507665da587c2bd083"
+      }
+    },
+    "scene/capital/roof-v-d3-c2-gable": {
+      "file": "roof-v-d3-c2-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        96,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c2-gable.png",
+        "sha256": "7a999f93d55b822bf0154983afdd755781479e7c6aa83ac507714f3d51c356af"
+      }
+    },
+    "scene/capital/roof-v-d3-c2-single": {
+      "file": "roof-v-d3-c2-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        97,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d3-c2-single.png",
+        "sha256": "8b3833276598648d2504e2adf5ce9fbdcc99425364c7954f226b81c3684ccc02"
+      }
+    },
+    "scene/capital/roof-v-d4-c0-start": {
+      "file": "roof-v-d4-c0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        122
+      ],
+      "anchor": [
+        156,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c0-start.png",
+        "sha256": "fc833581f2756bba9d88cdc328b3469d34b1dc68946de5b8e46c464e94c2ef65"
+      }
+    },
+    "scene/capital/roof-v-d4-c0": {
+      "file": "roof-v-d4-c0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        114
+      ],
+      "anchor": [
+        157,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c0.png",
+        "sha256": "f5ccb86140bb60acb777fb9118161244b30ee5f4bd71545b22409a20bb3e1efa"
+      }
+    },
+    "scene/capital/roof-v-d4-c0-gable": {
+      "file": "roof-v-d4-c0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        116,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c0-gable.png",
+        "sha256": "095fca6bb374732fb6992c77e31a857a5de995720ed54b405247a4c518f64b64"
+      }
+    },
+    "scene/capital/roof-v-d4-c0-single": {
+      "file": "roof-v-d4-c0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        116,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c0-single.png",
+        "sha256": "91295e8975492339598d0bb6de766a7b3822cd522d1b2b320f5e718e0930ca96"
+      }
+    },
+    "scene/capital/roof-v-d4-c1-start": {
+      "file": "roof-v-d4-c1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        145
+      ],
+      "anchor": [
+        137,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c1-start.png",
+        "sha256": "d11efef11c8d0df50ac0525a9c6dd28406854226b2556096c5d791a7546da730"
+      }
+    },
+    "scene/capital/roof-v-d4-c1": {
+      "file": "roof-v-d4-c1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        138
+      ],
+      "anchor": [
+        137,
+        73
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c1.png",
+        "sha256": "571013e8602a16d5b2e12ff7bcbde378ba9463aefc658e67517f3255d6af8c85"
+      }
+    },
+    "scene/capital/roof-v-d4-c1-gable": {
+      "file": "roof-v-d4-c1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        204
+      ],
+      "anchor": [
+        97,
+        74
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c1-gable.png",
+        "sha256": "3c23aa2969e2fc2e544f9df91eef2034fde83b08ef2a811a75127e7eaa13a4b2"
+      }
+    },
+    "scene/capital/roof-v-d4-c1-single": {
+      "file": "roof-v-d4-c1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        211
+      ],
+      "anchor": [
+        97,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c1-single.png",
+        "sha256": "1a5ec7b0da67d347e9a0be9b630c09d38126af890113a098306c4e010d84dc5c"
+      }
+    },
+    "scene/capital/roof-v-d4-c2-start": {
+      "file": "roof-v-d4-c2-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        240
+      ],
+      "anchor": [
+        138,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c2-start.png",
+        "sha256": "b921c4af2307d89ad8a35fb38a9958b589db5dead396b11a1638fd6ab8a3a3e2"
+      }
+    },
+    "scene/capital/roof-v-d4-c2": {
+      "file": "roof-v-d4-c2.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        234
+      ],
+      "anchor": [
+        138,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c2.png",
+        "sha256": "b15ab063d967bc8884cf4b25bd50d75e2ab56ea5741a16dc6ed0406f37dfd46e"
+      }
+    },
+    "scene/capital/roof-v-d4-c2-gable": {
+      "file": "roof-v-d4-c2-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        242
+      ],
+      "anchor": [
+        97,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c2-gable.png",
+        "sha256": "376dd58dfa27de737602381ff5ea54845f134297eec382452d6a0d3c431b5233"
+      }
+    },
+    "scene/capital/roof-v-d4-c2-single": {
+      "file": "roof-v-d4-c2-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        248
+      ],
+      "anchor": [
+        97,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c2-single.png",
+        "sha256": "b2af1a14acafde5fdaea3fe90d62546d8a65735524d725e452e38ee7c62c33d3"
+      }
+    },
+    "scene/capital/roof-v-d4-c3-start": {
+      "file": "roof-v-d4-c3-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        137,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c3-start.png",
+        "sha256": "26b3d3ac94f8ba8962016d84b1a4a31e09a455b6fd2f991b3e50b39ed5d1e2ad"
+      }
+    },
+    "scene/capital/roof-v-d4-c3": {
+      "file": "roof-v-d4-c3.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        138,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c3.png",
+        "sha256": "4d894206f313ac96da03674767ca02a280bc29f3336f8007eb7797ee7d01779d"
+      }
+    },
+    "scene/capital/roof-v-d4-c3-gable": {
+      "file": "roof-v-d4-c3-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        96,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c3-gable.png",
+        "sha256": "4dee2a69ffc3c84ffe14646c65c85cab4c2388d3745f98dc653d1733e8828483"
+      }
+    },
+    "scene/capital/roof-v-d4-c3-single": {
+      "file": "roof-v-d4-c3-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        97,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d4-c3-single.png",
+        "sha256": "3403696fbbc5b4eaa125529ccc969fa84e40814e024158f68fe6bf247fef9010"
+      }
+    },
+    "scene/capital/roof-v-d5-c0-start": {
+      "file": "roof-v-d5-c0-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        306,
+        122
+      ],
+      "anchor": [
+        156,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c0-start.png",
+        "sha256": "74234cb0f90709a7a4e0107d1e3f93c5e9ef75c77df4e68d9b9e0cf9e4895365"
+      }
+    },
+    "scene/capital/roof-v-d5-c0": {
+      "file": "roof-v-d5-c0.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        294,
+        114
+      ],
+      "anchor": [
+        157,
+        18
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c0.png",
+        "sha256": "78738f34bdf2e384ee83058c69e8d0ee33b7bb35e6927204b4a2899aff8db5ee"
+      }
+    },
+    "scene/capital/roof-v-d5-c0-gable": {
+      "file": "roof-v-d5-c0-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        149
+      ],
+      "anchor": [
+        116,
+        19
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c0-gable.png",
+        "sha256": "c902a8cc415c96ff213b94ef14f1cd0edf86459ae3bff87fb70efc591e46b952"
+      }
+    },
+    "scene/capital/roof-v-d5-c0-single": {
+      "file": "roof-v-d5-c0-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        265,
+        156
+      ],
+      "anchor": [
+        116,
+        26
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c0-single.png",
+        "sha256": "f86c75171d558e5b831ad0c75a5497ecd2e0a385249541fdb4194593c926dbe7"
+      }
+    },
+    "scene/capital/roof-v-d5-c1-start": {
+      "file": "roof-v-d5-c1-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        118
+      ],
+      "anchor": [
+        137,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c1-start.png",
+        "sha256": "67ca0733b5a0c252ce5c013cb904ebf6ba1e533370867f3fca3d5f3dfcefc9c9"
+      }
+    },
+    "scene/capital/roof-v-d5-c1": {
+      "file": "roof-v-d5-c1.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        111
+      ],
+      "anchor": [
+        138,
+        73
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c1.png",
+        "sha256": "122fdfe4d55c428bb52ae77df485b11f2d79649105613eb22b0a5fffc6ebcb7e"
+      }
+    },
+    "scene/capital/roof-v-d5-c1-gable": {
+      "file": "roof-v-d5-c1-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        204
+      ],
+      "anchor": [
+        97,
+        74
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c1-gable.png",
+        "sha256": "739c2df3dc36e7fe198c76d283058bc29bac5554a88d65b8ad7b569ce020896e"
+      }
+    },
+    "scene/capital/roof-v-d5-c1-single": {
+      "file": "roof-v-d5-c1-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        211
+      ],
+      "anchor": [
+        97,
+        81
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c1-single.png",
+        "sha256": "fd020f6ec50bf5e088760e6972620b44878c4deac1b589b01609fba5d0b3b195"
+      }
+    },
+    "scene/capital/roof-v-d5-c2-start": {
+      "file": "roof-v-d5-c2-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        210
+      ],
+      "anchor": [
+        138,
+        145
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c2-start.png",
+        "sha256": "62679f5109914ede1699157310f578a8a472d7ab805bf5b5c340f52430773d11"
+      }
+    },
+    "scene/capital/roof-v-d5-c2": {
+      "file": "roof-v-d5-c2.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        206
+      ],
+      "anchor": [
+        138,
+        142
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c2.png",
+        "sha256": "162941b3210c3576f4ea700456edaa28c3cb25d0de9b70bbc043fc12c263a1f3"
+      }
+    },
+    "scene/capital/roof-v-d5-c2-gable": {
+      "file": "roof-v-d5-c2-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        272
+      ],
+      "anchor": [
+        97,
+        142
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c2-gable.png",
+        "sha256": "ba0784c3900cf687963d6f317218f1eb8c6b31032a1b9ef8153cfe25076a7dea"
+      }
+    },
+    "scene/capital/roof-v-d5-c2-single": {
+      "file": "roof-v-d5-c2-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        276
+      ],
+      "anchor": [
+        97,
+        145
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c2-single.png",
+        "sha256": "241af75b9e0d77bacc65634a7b57c700e8a4d68c8d9878585e641ae5bd447f69"
+      }
+    },
+    "scene/capital/roof-v-d5-c3-start": {
+      "file": "roof-v-d5-c3-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        286,
+        240
+      ],
+      "anchor": [
+        138,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c3-start.png",
+        "sha256": "1e8d0636e249aa04338d0b391d7ec6b646ba0e966a2649d4573812dd5bb35fad"
+      }
+    },
+    "scene/capital/roof-v-d5-c3": {
+      "file": "roof-v-d5-c3.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        275,
+        234
+      ],
+      "anchor": [
+        138,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c3.png",
+        "sha256": "4953c857b069639f02b9e96d8a553a7d41c54121b3ead015a421e8bd1d48e6b3"
+      }
+    },
+    "scene/capital/roof-v-d5-c3-gable": {
+      "file": "roof-v-d5-c3-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        234,
+        242
+      ],
+      "anchor": [
+        97,
+        111
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c3-gable.png",
+        "sha256": "6cc568bd7080b69883bcb07cb45e50bdc91a4b3b0072f2437572a72d5bd8d33e"
+      }
+    },
+    "scene/capital/roof-v-d5-c3-single": {
+      "file": "roof-v-d5-c3-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        246,
+        248
+      ],
+      "anchor": [
+        97,
+        118
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c3-single.png",
+        "sha256": "420169e7fbe42e2bb2c70dffcd2a6fe59c4b6ed27a11c74409875bd24ddd9573"
+      }
+    },
+    "scene/capital/roof-v-d5-c4-start": {
+      "file": "roof-v-d5-c4-start.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        254,
+        221
+      ],
+      "anchor": [
+        137,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c4-start.png",
+        "sha256": "195cc5ca20244ca89f8bfd52adc31c1b0bf2e4443367c6cadc7655a4a59d211c"
+      }
+    },
+    "scene/capital/roof-v-d5-c4": {
+      "file": "roof-v-d5-c4.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        242,
+        214
+      ],
+      "anchor": [
+        138,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c4.png",
+        "sha256": "1b58718897f15ced7dec07d85aa671bb5a0eb6f24f65a204e1516e86215ac353"
+      }
+    },
+    "scene/capital/roof-v-d5-c4-gable": {
+      "file": "roof-v-d5-c4-gable.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        201,
+        188
+      ],
+      "anchor": [
+        96,
+        53
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c4-gable.png",
+        "sha256": "7a39fd52fe8fbd2359ffee50b321369c12f6632e2f1b20dcc8df69c0a3c50c61"
+      }
+    },
+    "scene/capital/roof-v-d5-c4-single": {
+      "file": "roof-v-d5-c4-single.png",
+      "class": "tall",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        212,
+        196
+      ],
+      "anchor": [
+        97,
+        60
+      ],
+      "tactical": "open",
+      "source": {
+        "file": "Regions/central-empire/capital/Common/Toitures/Calibres/roof-v-d5-c4-single.png",
+        "sha256": "da201216b2c098ce3c8309197edfe85f2eb5b162e570169e5292af21f76145af"
+      }
     }
   }
 }

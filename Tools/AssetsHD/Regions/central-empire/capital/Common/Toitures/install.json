@@ -1,0 +1,1686 @@
+{
+  "version": 1,
+  "target": "Regions/central-empire/capital/Common/Scene",
+  "pieces": [
+    {
+      "source": "Calibres/roof-u-d2-r0-start.png",
+      "name": "roof-u-d2-r0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        23,
+        48
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r0.png",
+      "name": "roof-u-d2-r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        12,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r0-gable.png",
+      "name": "roof-u-d2-r0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r0-single.png",
+      "name": "roof-u-d2-r0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r1-start.png",
+      "name": "roof-u-d2-r1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r1.png",
+      "name": "roof-u-d2-r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r1-gable.png",
+      "name": "roof-u-d2-r1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        54,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d2-r1-single.png",
+      "name": "roof-u-d2-r1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        61,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r0-start.png",
+      "name": "roof-u-d3-r0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        34,
+        68
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r0.png",
+      "name": "roof-u-d3-r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r0-gable.png",
+      "name": "roof-u-d3-r0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r0-single.png",
+      "name": "roof-u-d3-r0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r1-start.png",
+      "name": "roof-u-d3-r1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        80,
+        12
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r1.png",
+      "name": "roof-u-d3-r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r1-gable.png",
+      "name": "roof-u-d3-r1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r1-single.png",
+      "name": "roof-u-d3-r1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -15,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r2-start.png",
+      "name": "roof-u-d3-r2-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r2.png",
+      "name": "roof-u-d3-r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r2-gable.png",
+      "name": "roof-u-d3-r2-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        54,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d3-r2-single.png",
+      "name": "roof-u-d3-r2-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        61,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r0-start.png",
+      "name": "roof-u-d4-r0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        34,
+        68
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r0.png",
+      "name": "roof-u-d4-r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r0-gable.png",
+      "name": "roof-u-d4-r0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r0-single.png",
+      "name": "roof-u-d4-r0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r1-start.png",
+      "name": "roof-u-d4-r1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        29,
+        102
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r1.png",
+      "name": "roof-u-d4-r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r1-gable.png",
+      "name": "roof-u-d4-r1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r1-single.png",
+      "name": "roof-u-d4-r1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -15,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r2-start.png",
+      "name": "roof-u-d4-r2-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        80,
+        12
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r2.png",
+      "name": "roof-u-d4-r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r2-gable.png",
+      "name": "roof-u-d4-r2-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r2-single.png",
+      "name": "roof-u-d4-r2-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -15,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r3-start.png",
+      "name": "roof-u-d4-r3-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r3.png",
+      "name": "roof-u-d4-r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r3-gable.png",
+      "name": "roof-u-d4-r3-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        54,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d4-r3-single.png",
+      "name": "roof-u-d4-r3-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        61,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r0-start.png",
+      "name": "roof-u-d5-r0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        34,
+        68
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r0.png",
+      "name": "roof-u-d5-r0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r0-gable.png",
+      "name": "roof-u-d5-r0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r0-single.png",
+      "name": "roof-u-d5-r0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r1-start.png",
+      "name": "roof-u-d5-r1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        40,
+        122
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r1.png",
+      "name": "roof-u-d5-r1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r1-gable.png",
+      "name": "roof-u-d5-r1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r1-single.png",
+      "name": "roof-u-d5-r1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -15,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r2-start.png",
+      "name": "roof-u-d5-r2-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        80,
+        70
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r2.png",
+      "name": "roof-u-d5-r2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r2-gable.png",
+      "name": "roof-u-d5-r2-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r2-single.png",
+      "name": "roof-u-d5-r2-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -15,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r3-start.png",
+      "name": "roof-u-d5-r3-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        80,
+        12
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r3.png",
+      "name": "roof-u-d5-r3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r3-gable.png",
+      "name": "roof-u-d5-r3-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r3-single.png",
+      "name": "roof-u-d5-r3-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -15,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r4-start.png",
+      "name": "roof-u-d5-r4-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r4.png",
+      "name": "roof-u-d5-r4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r4-gable.png",
+      "name": "roof-u-d5-r4-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        54,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-u-d5-r4-single.png",
+      "name": "roof-u-d5-r4-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        61,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c0-start.png",
+      "name": "roof-v-d2-c0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        48
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c0.png",
+      "name": "roof-v-d2-c0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -12,
+        40
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c0-gable.png",
+      "name": "roof-v-d2-c0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c0-single.png",
+      "name": "roof-v-d2-c0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c1-start.png",
+      "name": "roof-v-d2-c1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c1.png",
+      "name": "roof-v-d2-c1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c1-gable.png",
+      "name": "roof-v-d2-c1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -56,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d2-c1-single.png",
+      "name": "roof-v-d2-c1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -60,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c0-start.png",
+      "name": "roof-v-d3-c0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        68
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c0.png",
+      "name": "roof-v-d3-c0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c0-gable.png",
+      "name": "roof-v-d3-c0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c0-single.png",
+      "name": "roof-v-d3-c0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c1-start.png",
+      "name": "roof-v-d3-c1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -80,
+        12
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c1.png",
+      "name": "roof-v-d3-c1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c1-gable.png",
+      "name": "roof-v-d3-c1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c1-single.png",
+      "name": "roof-v-d3-c1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c2-start.png",
+      "name": "roof-v-d3-c2-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c2.png",
+      "name": "roof-v-d3-c2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c2-gable.png",
+      "name": "roof-v-d3-c2-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -56,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d3-c2-single.png",
+      "name": "roof-v-d3-c2-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -60,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c0-start.png",
+      "name": "roof-v-d4-c0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        68
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c0.png",
+      "name": "roof-v-d4-c0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c0-gable.png",
+      "name": "roof-v-d4-c0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c0-single.png",
+      "name": "roof-v-d4-c0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c1-start.png",
+      "name": "roof-v-d4-c1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -30,
+        102
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c1.png",
+      "name": "roof-v-d4-c1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -18,
+        94
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c1-gable.png",
+      "name": "roof-v-d4-c1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c1-single.png",
+      "name": "roof-v-d4-c1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c2-start.png",
+      "name": "roof-v-d4-c2-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -80,
+        12
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c2.png",
+      "name": "roof-v-d4-c2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c2-gable.png",
+      "name": "roof-v-d4-c2-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c2-single.png",
+      "name": "roof-v-d4-c2-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c3-start.png",
+      "name": "roof-v-d4-c3-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c3.png",
+      "name": "roof-v-d4-c3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c3-gable.png",
+      "name": "roof-v-d4-c3-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -56,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d4-c3-single.png",
+      "name": "roof-v-d4-c3-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -60,
+        -21
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c0-start.png",
+      "name": "roof-v-d5-c0-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -34,
+        68
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c0.png",
+      "name": "roof-v-d5-c0",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -22,
+        60
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c0-gable.png",
+      "name": "roof-v-d5-c0-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c0-single.png",
+      "name": "roof-v-d5-c0-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        39,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c1-start.png",
+      "name": "roof-v-d5-c1-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -40,
+        122
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c1.png",
+      "name": "roof-v-d5-c1",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -28,
+        114
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c1-gable.png",
+      "name": "roof-v-d5-c1-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c1-single.png",
+      "name": "roof-v-d5-c1-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -4
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c2-start.png",
+      "name": "roof-v-d5-c2-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -80,
+        70
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c2.png",
+      "name": "roof-v-d5-c2",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        63
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c2-gable.png",
+      "name": "roof-v-d5-c2-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c2-single.png",
+      "name": "roof-v-d5-c2-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c3-start.png",
+      "name": "roof-v-d5-c3-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -80,
+        12
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c3.png",
+      "name": "roof-v-d5-c3",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -68,
+        5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c3-gable.png",
+      "name": "roof-v-d5-c3-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c3-single.png",
+      "name": "roof-v-d5-c3-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        16,
+        -5
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c4-start.png",
+      "name": "roof-v-d5-c4-start",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -50,
+        -28
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c4.png",
+      "name": "roof-v-d5-c4",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -38,
+        -35
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c4-gable.png",
+      "name": "roof-v-d5-c4-gable",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -56,
+        -25
+      ]
+    },
+    {
+      "source": "Calibres/roof-v-d5-c4-single.png",
+      "name": "roof-v-d5-c4-single",
+      "family": "09",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "open",
+      "scale": 0.5,
+      "anchorOffset": [
+        -60,
+        -21
+      ]
+    }
+  ]
+}

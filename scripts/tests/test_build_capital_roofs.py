@@ -5,11 +5,24 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import build_capital_roofs as roofs  # noqa: E402
 import install_hd_asset as hd  # noqa: E402
+
+
+def test_les_marges_invisibles_ne_reduisent_pas_la_corniche(tmp_path, monkeypatch):
+    monkeypatch.setattr(roofs, "SOURCES", tmp_path)
+    image = Image.new("RGBA", (64, 64))
+    image.paste((230, 220, 200, 255), (0, 20, 64, 40))
+    image.putpixel((3, 0), (255, 0, 0, 1))
+    image.putpixel((3, 19), (230, 220, 200, 90))
+    image.save(tmp_path / "gable-cornice.png")
+    band = roofs.load("gable-cornice")
+    assert band.size == (64, 24)
+    assert band.getpixel((3, 1))[3] == 90
 
 
 def test_les_pieces_couvrent_chaque_profondeur_dans_les_deux_sens():

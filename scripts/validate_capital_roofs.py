@@ -10,7 +10,7 @@ murs au rez et à l'étage 1, toit à l'étage 2. `LevelEditor --render` la rend
 `Toitures/apercus/`, la carte avec, pour relecture. La même carte, une fois la toiture installée,
 est celle des données d'essai (`Source/Test/Fixtures/Storeys/`).
 
-    python scripts/validate_capital_roofs.py [--scale 1] [--map-only DOSSIER]
+    python scripts/validate_capital_roofs.py [--scale 1|2] [--all]
 """
 from __future__ import annotations
 
@@ -28,6 +28,7 @@ ROOFS = ROOT / "Tools/AssetsHD/Regions/central-empire/capital/Common/Toitures"
 EDITOR = ROOT / "build/ninja/bin/LevelEditor.exe"
 WIDTH, HEIGHT = 14, 12
 STOREYS = 2
+ASSEMBLIES_ONLY = False
 
 # (colonne, rangée) du coin nord, longueur le long du faîtage, profondeur, sens du faîtage.
 BUILDINGS = [(1, 1, 5, 3, "u"), (8, 3, 3, 5, "v")]
@@ -72,8 +73,9 @@ def level() -> dict:
     for c0, r0, length, depth, axis in BUILDINGS:
         columns, rows = (length, depth) if axis == "u" else (depth, length)
         for x, y, piece in walls(c0, r0, columns, rows):
-            rez.append({"x": x, "y": y, "type": "wall", "piece": piece})
-            upper.append({"x": x, "y": y, "type": "wall", "piece": piece})
+            if not ASSEMBLIES_ONLY:
+                rez.append({"x": x, "y": y, "type": "wall", "piece": piece})
+                upper.append({"x": x, "y": y, "type": "wall", "piece": piece})
         for x, y, piece in roof(c0, r0, length, depth, axis):
             top.append({"x": x, "y": y, "type": "wall", "piece": piece})
     return {
@@ -105,19 +107,53 @@ def data_root(root: Path) -> None:
 
 
 def main(argv=None) -> int:
+    global WIDTH, HEIGHT, BUILDINGS, STOREYS, ASSEMBLIES_ONLY
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--scale", default="1")
+    parser.add_argument("--all", action="store_true", help="les 112 modules assemblés")
     args = parser.parse_args(argv)
+    if args.all:
+        WIDTH, HEIGHT = 34, 30
+        STOREYS = 1
+        ASSEMBLIES_ONLY = True  # Les murs sont testés sur la carte à deux îlots.
+        BUILDINGS = [(1 + (depth - 2) * 8, 1 + group * 7, length, depth, axis)
+                     for group, (axis, length) in enumerate((("u", 5), ("v", 5), ("u", 1), ("v", 1)))
+                     for depth in range(2, 6)]
+    stem = ("roofs-all" if args.all else "roofs") + ("-2x" if args.scale == "2" else "")
     out = ROOFS / "apercus"
     out.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="jadg-roofs-") as temporary:
         root = Path(temporary)
         data_root(root)
-        shutil.copy2(root / "Levels" / "roofs.json", out / "roofs.json")
+        gestures = root / "normalize.json"
+        map_path = root / "Levels" / "roofs.json"
+        seed = json.loads(map_path.read_text(encoding="utf-8"))
+        strokes = []
+        for layer in seed["layers"]:
+            strokes.extend({"layer": layer["name"], "piece": tile["piece"],
+                            "tool": "paint", "path": [[tile["x"], tile["y"]]]}
+                           for tile in layer["tiles"])
+            layer["tiles"] = []
+        map_path.write_text(json.dumps(seed), encoding="utf-8")
+        gestures.write_text(json.dumps({"format": "jadg-editor-gestures", "version": 1,
+                                       "map": "roofs", "gestures": strokes}), encoding="utf-8")
+        applied = subprocess.run([str(EDITOR), "--data", str(root), "--apply", str(gestures)],
+                                 capture_output=True, text=True, check=False)
+        if applied.returncode:
+            print(applied.stdout + applied.stderr)
+            return applied.returncode
+        shutil.copy2(root / "Levels" / "roofs.json", out / f"{stem}.json")
+        checked = subprocess.run([str(EDITOR), "--data", str(root), "--check"],
+                                 capture_output=True, text=True, check=False)
+        (out / f"{stem}-check.log").write_text(checked.stdout + checked.stderr, encoding="utf-8")
+        if checked.returncode:
+            print(checked.stdout + checked.stderr)
+            return checked.returncode
         result = subprocess.run([str(EDITOR), "--data", str(root), "--render", "roofs",
-                                 "--scale", args.scale, "--output", str(out / "roofs.png")],
+                                 "--scale", args.scale, "--output", str(out / f"{stem}.png")],
                                 capture_output=True, text=True, check=False)
         print(result.stdout.strip().splitlines()[-1] if result.stdout.strip() else result.stderr)
+        (out / f"{stem}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         return result.returncode
 
 

@@ -41,7 +41,7 @@ façades vues au sud et à l'est.
 `python scripts/build_capital_roofs.py --provisional` projette des matières de remplacement, et
 `python scripts/validate_capital_roofs.py --scale 2` rend par le moteur deux îlots de murs du kit sur
 deux étages, coiffés de leur toit, faîtage dans les deux sens (`apercus/roofs.png`). Validé le
-23 septembre 2026 : pièces jointives, pignons, égouts, ordre de tracé. Il ne reste que les matières.
+23 septembre 2026 : pièces jointives, pignons, égouts, ordre de tracé. Les matières ont ensuite été produites et installées ; voir `README.md` et `prompts.json`.
 
 ## L'ordre des envois
 
@@ -71,7 +71,7 @@ PLACE: the Capital of the Central Empire, every quarter; accent burgundy.
 VARIANTS: none.
 ```
 
-Pièces : `roof-tiles`. Emprise : 1 × 1. Type : open. Source : `Sources/roof-tiles.png`. Référence : `../V4/Sources/wall-surface.png`. État : commandé.
+Pièces : `roof-tiles`. Emprise : 1 × 1. Type : open. Source : `Sources/roof-tiles.png`. Référence : `../V4/Sources/wall-surface.png`. État : produit et installé le 23 septembre 2026 (imagegen intégré).
 
 #### roof-ridge
 
@@ -87,7 +87,7 @@ PLACE: the Capital of the Central Empire, every quarter; accent burgundy.
 VARIANTS: none.
 ```
 
-Pièces : `roof-ridge`. Emprise : 1 × 1. Type : open. Source : `Sources/roof-ridge.png`. Référence : `roof-tiles`. État : commandé.
+Pièces : `roof-ridge`. Emprise : 1 × 1. Type : open. Source : `Sources/roof-ridge.png`. Référence : `roof-tiles`. État : produit et installé le 23 septembre 2026 (imagegen intégré).
 
 #### roof-eave
 
@@ -104,7 +104,7 @@ PLACE: the Capital of the Central Empire, every quarter; accent burgundy.
 VARIANTS: none.
 ```
 
-Pièces : `roof-eave`. Emprise : 1 × 1. Type : open. Source : `Sources/roof-eave.png`. Référence : `roof-tiles`, `../V4/Sources/wall-surface.png`. État : commandé.
+Pièces : `roof-eave`. Emprise : 1 × 1. Type : open. Source : `Sources/roof-eave.png`. Référence : `roof-tiles`, `../V4/Sources/wall-surface.png`. État : produit et installé le 23 septembre 2026 (imagegen intégré).
 
 #### gable-cornice
 
@@ -121,7 +121,7 @@ PLACE: the Capital of the Central Empire, every quarter; accent burgundy.
 VARIANTS: none.
 ```
 
-Pièces : `gable-cornice`. Emprise : 1 × 1. Type : open. Source : `Sources/gable-cornice.png`. Référence : `../V4/Sources/wall-surface.png`, `roof-tiles`. État : commandé.
+Pièces : `gable-cornice`. Emprise : 1 × 1. Type : open. Source : `Sources/gable-cornice.png`. Référence : `../V4/Sources/wall-surface.png`, `roof-tiles`. État : produit et installé le 23 septembre 2026 (imagegen intégré).
 
 ## Budget
 

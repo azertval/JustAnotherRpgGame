@@ -6,6 +6,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-129 — Les étages et les toits de la scène.** Une couche de décor à l'étage 1 à 4 se dessine
+  élevée d'autant de hauteurs d'étage, déclarées par le manifeste du lieu (`"storey"`, 224 pixels
+  d'art pour le kit de la Capitale), triée au-dessus de ce qui la porte ; un étage qui masque le
+  héros devient translucide, et aucun étage ne compte dans la collision (`EX-LVL-025`). L'éditeur
+  règle l'étage d'une couche (« Floor »), peint la couche d'étage active, montre ou cache chaque
+  étage, et ses préfabriqués gardent leurs étages. La Capitale reçoit sa **toiture** : toits romains
+  à deux pans et pignons de pierre, quatre matières générées puis projetées par
+  `build_capital_roofs.py` en 112 pièces d'une case (deux sens, profondeur 2 à 5), validées par le
+  moteur (`validate_capital_roofs.py`, cartes d'essai `Fixtures/Storeys/`). La consigne du générateur
+  gagne les cadrages « surface » et « élévation » des matières peintes à plat.
+
 - **Planning — LOT-129, les étages et les toits de la scène.** Nouveau lot moteur de la démo, entrant
   du `LOT-108` : un décor se bâtit en niveaux modulaires (un étage de mur sur un autre, une toiture
   au sommet, sur la couche `floor` réservée par le format v4), ce qui masque le héros s'efface, et la

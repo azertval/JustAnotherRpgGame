@@ -101,7 +101,7 @@ Branche `lot-129-etages-et-toits`.
   se trie au pied de sa seconde ; le toit posé sur sa première passait avant lui, et le mur en
   recouvrait l'égout. Trouvé en rendant la toiture, corrigé dans la composition, testé.
 
-### La toiture — géométrie faite, matières à produire
+### La toiture — matières produites et installées
 
 Tranché par l'auteur le 23 septembre : toits **à deux pans, pignons de pierre**, « style romain »,
 **profondeur libre**. La commande (`Tools/AssetsHD/Regions/central-empire/capital/Common/Toitures/
@@ -113,5 +113,8 @@ consigne. Avec des matières provisoires, `scripts/validate_capital_roofs.py` re
 îlots de murs du kit sur deux étages, coiffés : pièces jointives, pignons, égouts, ordre de tracé
 validés.
 
-Reste : les quatre images du générateur (envois prêts dans `Toitures/envois/`), l'installation, la
-carte d'essai de `Source/Test/Fixtures/` dessinée avec la vraie toiture. Pas de PR avant.
+Les quatre matières ont été produites avec imagegen intégré, puis installées en 112 pièces. Sources, prompts et version provisoire conservés dans `Toitures/`. La référence panoramique de la Capitale fournie par l’auteur sert à l’ambiance architecturale ; la facture suit Arenarea et la V4.
+
+Contrôles : six tests Python réussis, 112 images installées identiques pixel par pixel à la scène testée, ancres identiques, 34 entrées du kit antérieur préservées, budget Capitale de 7,9 Mio. Cartes `Source/Test/Fixtures/Storeys/roofs.json` (deux bâtiments à deux niveaux) et `roofs-all.json` (les 112 modules en 16 assemblages), rendues à deux échelles. Contrôle moteur sans erreur ; avertissement de catalogue de traduction absent dans la racine isolée de test. Il s’agit d’une validation de chargement et de rendu, pas d’un essai de gameplay.
+
+La livraison couvre les toits rectangulaires à deux pans décrits par la commande ; les intersections en L et noues ne sont pas produites. La validation artistique finale reste à l’auteur.

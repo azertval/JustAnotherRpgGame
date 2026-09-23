@@ -66,7 +66,17 @@ OVERLAP = 0.03
 
 
 def load(name: str) -> Image.Image:
-    return Image.open(SOURCES / f"{name}.png").convert("RGBA")
+    image = Image.open(SOURCES / f"{name}.png").convert("RGBA")
+    if name != "roof-tiles":
+        # Les élévations générées gardent une marge transparente verticale.
+        # La hauteur géométrique décrit la bande, pas son canevas.
+        # Ignorer les pixels presque invisibles laissés loin de la bande ;
+        # conserver l'alpha original et deux pixels d'anticrénelage au bord.
+        box = image.getchannel("A").point(lambda a: 255 if a > 128 else 0).getbbox()
+        if box is None:
+            raise ValueError(f"{name} : élévation vide")
+        image = image.crop((0, max(0, box[1] - 2), image.width, min(image.height, box[3] + 2)))
+    return image
 
 
 def provisional() -> dict[str, Image.Image]:
