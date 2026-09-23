@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-22 21:16 UTC",
+  "generated": "2026-09-23 05:29 UTC",
   "commit": "33de88bc1",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35783625563",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/35822573028",
   "coverage": {
     "percent": 90.55,
     "covered": 27136,
@@ -138,51 +138,51 @@
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 13,
-    "date": "2026-09-22 06:59 UTC",
-    "commit": "711ae9f51",
+    "runs": 14,
+    "date": "2026-09-23 02:39 UTC",
+    "commit": "33de88bc1",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 156815.93749999732,
+        "value": 158083.30357143877,
         "unit": "ns/iter",
-        "change_percent": 54.5
+        "change_percent": 0.8
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 217657.1532211364,
+        "value": 214497.5937500071,
         "unit": "ns/iter",
-        "change_percent": 57.0
+        "change_percent": -1.5
       },
       {
         "name": "LineOfSightAcrossGrid",
-        "value": 57173.06085139341,
+        "value": 57099.40535979689,
         "unit": "ns/iter",
-        "change_percent": 51.3
+        "change_percent": -0.1
       },
       {
         "name": "CoverFromWithInterposed",
-        "value": 163074.9888392862,
+        "value": 162915.23634131948,
         "unit": "ns/iter",
-        "change_percent": 55.8
+        "change_percent": -0.1
       },
       {
         "name": "PlanTurnFourVersusFour",
-        "value": 1180887.9687499995,
+        "value": 1112723.1249999702,
         "unit": "ns/iter",
-        "change_percent": 69.0
+        "change_percent": -5.8
       },
       {
         "name": "LoadTestLevel",
-        "value": 2671517.5847457102,
+        "value": 2687333.5341367535,
         "unit": "ns/iter",
-        "change_percent": 75.4
+        "change_percent": 0.6
       },
       {
         "name": "ComposeTestMap",
-        "value": 550.9304539975998,
+        "value": 538.6701171875341,
         "unit": "us/iter",
-        "change_percent": 81.9
+        "change_percent": -2.2
       }
     ]
   },
