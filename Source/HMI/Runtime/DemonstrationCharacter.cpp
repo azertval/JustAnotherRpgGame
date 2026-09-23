@@ -19,8 +19,10 @@
 namespace hmi {
 namespace {
 
-/// Fichier du personnage de démonstration, dans `Rpg/characters/`.
-constexpr const char* DEMONSTRATION_CHARACTER_FILE = "demonstration-brenna.json";
+/// Fichier du personnage joué, dans `Rpg/characters/` : le héros de la démo, la fiche pré-tirée du
+/// Brawler (`LOT-112`). La démo n'a pas de création de personnage ; le groupe et la sauvegarde
+/// fourniront le leur.
+constexpr const char* DEMONSTRATION_CHARACTER_FILE = "heros-brawler.json";
 
 /// Le même signe que les autres écrans posent sur un champ sans source.
 constexpr const char* EMPTY_MARK = "—";

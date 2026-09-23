@@ -61,6 +61,11 @@ que le combat sait déjà faire, sur cent combats simulés.
 Le DD 18 de la Persuasion est voulu haut : avec +5, un joueur réussit **deux fois sur cinq**. La
 voie pacifique est une chance, la voie de l'arène est le chemin attendu.
 
+> **À rééquilibrer au [LOT-120](lots/LOT-120-quete-des-pommes-pour-l-arene.md).** Le héros de la démo
+> est devenu la fiche pré-tirée du Brawler ([LOT-112](lots/LOT-112-heros-de-la-demo.md), décision de
+> l'auteur) : Charisme 8, Persuasion −1, donc **une fois sur dix** à DD 18. Le « +5 » ci-dessus
+> supposait une fiche bâtie pour la quête ; le DD, ou la voie pacifique, se reprend avec la quête.
+
 ## Ce que la quête ne contient pas
 
 Pas de récompense en objets, pas d'expérience, pas de marchand, pas de sauvegarde en cours de

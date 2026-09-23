@@ -3,19 +3,19 @@ id = "LOT-112"
 titre = "Le héros de la démo"
 version = "0.0.1"
 filiere = "pnj"
-statut = "a-faire"
+statut = "en-cours"
 taille = "M"
-resume = "Le personnage que l'on joue : une fiche de niveau 1, une figurine HD animée, un portrait."
+resume = "Le personnage que l'on joue : la fiche pré-tirée du Brawler, une figurine HD animée, un portrait."
 prerequis = ["LOT-104"]
 livrables = [
-  "`Common/Characters/Heroes/` : la figurine du héros (repos, marche, attaque, touché, mort ; quatre orientations), portrait, jeton.",
-  "Sa fiche de niveau 1, avec **Persuasion** maîtrisée et un Charisme qui donne +5 au jet.",
+  "`Common/Characters/Heroes/brawler/` : la figurine du héros (repos, marche, attaque, touché, mort ; quatre orientations), portrait, jeton.",
+  "Sa fiche de niveau 1, `Rpg/characters/heros-brawler.json` : la fiche pré-tirée du Brawler (*Player's Guide to Tanares*, p. 195), reprise telle quelle ; elle remplace le personnage de démonstration.",
   "Le gabarit de figurine HD, qui sert ensuite à tous les PNJ.",
   "Le **nombre d'images par animation**, tranché sur un essai de marche en six et en huit images, puis écrit au [§5 du standard](../../../../standards/style-2d-hd.md) (déféré par le LOT-101, D-101-8).",
 ]
 criteres = [
   "Le héros marche sur la maquette du LOT-101 sans glisser ni flotter : ancre et sol justes aux quatre orientations.",
-  "Avec sa fiche, la Persuasion à DD 18 réussit deux fois sur cinq.",
+  "Sa fiche redonne les nombres du livre, et sa Persuasion à DD 18 réussit une fois sur dix (Charisme 8, non maîtrisée).",
   "Le §5 du standard ne dit plus « six ou huit » : il dit un nombre, et le héros l'applique.",
 ]
 +++
@@ -27,8 +27,10 @@ passe avant les PNJ.
 
 ## Périmètre
 
-Un seul héros, **préfabriqué** : pas de création de personnage dans la démo. Les quatre classes
-arrivent en `0.0.2` ; ce héros est un combattant simple, que la fiche du Brawler remplacera.
+Un seul héros, **préfabriqué** : pas de création de personnage dans la démo. C'est le Brawler
+pré-tiré du *Player's Guide* (demi-orc, Dragon Hunter, grande hache), le premier des quatre héros
+de la `0.0.2` : le [LOT-136](../../v0.0.2-combat/lots/LOT-136-assets-des-quatre-classes.md) n'a plus
+que les trois autres à produire.
 
 ## L'essai : six ou huit images
 

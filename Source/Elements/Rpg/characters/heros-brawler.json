@@ -1,0 +1,41 @@
+{
+  "id": "heros-brawler",
+  "name": "Grom Tranche-Écaille",
+  "source": "tanares",
+  "speciesId": "demi-orc",
+  "classId": "brawler",
+  "backgroundId": "dragon-hunter",
+  "baseAbilities": {
+    "strength": 14,
+    "dexterity": 13,
+    "constitution": 15,
+    "intelligence": 10,
+    "wisdom": 12,
+    "charisma": 8
+  },
+  "level": 1,
+  "skillProficiencies": [
+    "animal-handling",
+    "athletics",
+    "intimidation"
+  ],
+  "languages": [
+    "draconic"
+  ],
+  "inventory": {
+    "equipped": {
+      "main-hand": "hache-a-deux-mains"
+    },
+    "backpack": [
+      {
+        "itemId": "hachette",
+        "quantity": 2
+      },
+      {
+        "itemId": "javeline",
+        "quantity": 4
+      }
+    ],
+    "purseCopper": 0
+  }
+}
