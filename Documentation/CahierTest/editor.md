@@ -2868,7 +2868,7 @@ Un manifeste se lit une fois.
 
 ### ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:248`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:256`
 
 Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
@@ -2884,7 +2884,7 @@ Le canevas de l'editeur peint une carte comme le jeu la dessine.
 
 ### ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:272`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:280`
 
 Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
@@ -2899,7 +2899,7 @@ Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 
 ### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
 
-*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:335`
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:343`
 
 Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 
@@ -2915,7 +2915,7 @@ Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 
 ### ScenePainterTest.LaMaquetteHdPeinteEgaleLeRenduDuJeu
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:366`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:374`
 
 L'editeur peint la maquette HD comme le jeu.
 

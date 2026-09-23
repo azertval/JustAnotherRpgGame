@@ -26,6 +26,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   `assetsGeneration/`, `i18n/`, les points d'entrée du poste restant à la racine — et les scripts à
   usage unique (fabrication du kit de la Capitale et de ses toitures, relevé de palette du `LOT-87`,
   lanceur de l'ancienne arène) sont retirés.
+  La comparaison du peintre de l'éditeur au rendu du jeu sur la maquette HD (`LOT-125`) reçoit
+  les seuils du rendu logiciel WARP de la CI, qui échantillonne autrement les jointures des dalles.
 
 - **LOT-125 — Le canevas de l'éditeur en HD.** Le canevas, l'essai immédiat, les vignettes et
   `--render` peignent l'art HD comme le jeu : lissé, lu sur des **niveaux réduits** calculés à la
