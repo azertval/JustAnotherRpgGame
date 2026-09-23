@@ -391,7 +391,14 @@ TEST(ScenePainterTest, LaMaquetteHdPeinteEgaleLeRenduDuJeu) {
     const nlohmann::json scene = test_support::readHdMockupJson(directory / "scene.json");
     ASSERT_FALSE(scene.is_discarded());
     constexpr int height = 1080;
-    const bool software = rhi->driverInfo().deviceType == QRhiDriverInfo::CpuDevice;
+    // WARP ne se déclare pas toujours périphérique CPU (runner de CI) : son nom et ses
+    // identifiants (Microsoft, 0x8c) le trahissent.
+    const QRhiDriverInfo driver = rhi->driverInfo();
+    const bool software = driver.deviceType == QRhiDriverInfo::CpuDevice ||
+                          driver.deviceName.contains("Basic Render") ||
+                          (driver.vendorId == 0x1414 && driver.deviceId == 0x8c);
+    std::cout << "pilote : " << driver.deviceName.constData() << (software ? " (logiciel)" : "")
+              << "\n";
     expectSamePicture(*rhi, test_support::hdMockupSnapshot(scene, directory),
                       test_support::hdMockupFocus(scene), "maquette-hd-1080",
                       Framing{.assets = directory,
