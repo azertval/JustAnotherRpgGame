@@ -11,6 +11,13 @@ murs au rez et à l'étage 1, toit à l'étage 2. `LevelEditor --render` la rend
 est celle des données d'essai (`Source/Test/Fixtures/Storeys/`).
 
     python scripts/validate_capital_roofs.py [--scale 1|2] [--all]
+    python scripts/validate_capital_roofs.py --sandbox DOSSIER
+
+`--sandbox` écrit une racine d'essai **durable** pour l'éditeur, à ouvrir par
+`LevelEditor --data DOSSIER` : le lieu `capital` (kit et toiture), la carte des deux bâtiments, et
+`atelier`, une carte vierge pavée dont les couches rez, étage 1 et toit (étage 2) attendent qu'on les
+peigne. L'éditeur ne lit pas encore les lieux sous `Assets/Regions/` (LOT-124) : sans cette racine,
+les pièces de la Capitale ne s'y peignent pas.
 """
 from __future__ import annotations
 
@@ -106,12 +113,52 @@ def data_root(root: Path) -> None:
     (root / "Levels" / "roofs.json").write_text(json.dumps(level(), indent=1), encoding="utf-8")
 
 
+def workshop() -> dict:
+    """Une carte vierge pavée, ses couches prêtes : on y peint un bâtiment et son toit."""
+    size = 16
+    ground = [{"x": x, "y": y, "type": "pavement", "piece": f"floor-paving-0{((x * 7 + y * 3) % 3) + 1}"}
+              for y in range(size) for x in range(size)]
+    return {
+        "version": 4, "name": "atelier", "width": size, "height": size, "nextEntityId": 1,
+        "tiles": [{"x": 0, "y": size - 1, "type": "entry"}],
+        "layers": [
+            {"name": "sol", "kind": "ground", "scene": "capital", "tiles": ground},
+            {"name": "rez", "kind": "decor", "tiles": []},
+            {"name": "etage", "kind": "decor", "floor": 1, "tiles": []},
+            {"name": "toit", "kind": "decor", "floor": 2, "tiles": []},
+        ],
+        "entities": [],
+    }
+
+
+def sandbox(directory: Path) -> int:
+    """La racine d'essai de l'éditeur, contrôlée par `--check` avant d'être rendue à l'auteur."""
+    if directory.exists():
+        shutil.rmtree(directory)
+    data_root(directory)
+    # Les cartes passent par l'éditeur : la carte d'essai déjà construite par ses gestes, et
+    # l'atelier normalisé par `--migrate` (écriture canonique, collision déduite).
+    shutil.copy2(ROOT / "Source/Test/Fixtures/Storeys/roofs.json", directory / "Levels" / "roofs.json")
+    (directory / "Levels" / "atelier.json").write_text(json.dumps(workshop(), indent=1),
+                                                       encoding="utf-8")
+    subprocess.run([str(EDITOR), "--data", str(directory), "--migrate", "atelier"],
+                   capture_output=True, text=True, check=False)
+    checked = subprocess.run([str(EDITOR), "--data", str(directory), "--check"],
+                             capture_output=True, text=True, check=False)
+    print(checked.stdout.strip().splitlines()[-1] if checked.stdout.strip() else checked.stderr)
+    print(f"Ouvrir : {EDITOR} --data {directory}")
+    return checked.returncode
+
+
 def main(argv=None) -> int:
     global WIDTH, HEIGHT, BUILDINGS, STOREYS, ASSEMBLIES_ONLY
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--scale", default="1")
     parser.add_argument("--all", action="store_true", help="les 112 modules assemblés")
+    parser.add_argument("--sandbox", type=Path, help="écrire une racine d'essai pour l'éditeur")
     args = parser.parse_args(argv)
+    if args.sandbox:
+        return sandbox(args.sandbox.resolve())
     if args.all:
         WIDTH, HEIGHT = 34, 30
         STOREYS = 1
