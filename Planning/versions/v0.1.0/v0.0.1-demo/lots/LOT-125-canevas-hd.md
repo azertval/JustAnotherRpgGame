@@ -3,7 +3,7 @@ id = "LOT-125"
 titre = "Le canevas de l'éditeur en HD"
 version = "0.0.1"
 filiere = "editeur"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Le canevas, les vignettes et `--render` montrent une carte HD comme le jeu la montre : à la bonne taille, lissée, entière, sans saturer la mémoire."
 prerequis = ["LOT-103", "LOT-123"]
@@ -72,14 +72,17 @@ l'échelle du lieu. Ce que le lot a fait du reste :
 
   Le seuil des cartes d'essai redescend de 2,5 % à 0,5 %, comme le LOT-103 l'annonçait. La parité
   exacte n'est plus promise : le GPU mêle deux niveaux de mipmap, le peintre n'en lit qu'un.
-- **Travelling et zoom fluides** — mesure publiée ✔ : la maquette HD se peint en 11,5 ms à 1080p
-  et en 4,8 ms dézoomée (Release, poste local). **Le contrôle à la main de l'auteur reste à faire.**
+- **Travelling et zoom fluides** ✔ — la maquette HD se peint en 11,5 ms à 1080p et en 4,8 ms
+  dézoomée (Release, poste local) ; l'auteur a contrôlé à la main que le travelling et le zoom
+  restent fluides.
 - **Trois onglets, mémoire bornée** ✔ — la borne est écrite dans le README du module (256 Mio de
   pixels d'art, quel que soit le nombre d'onglets) ; `test_scene_images.cpp` prouve le partage, le
   budget et la relecture. Mesure d'appoint : trois rendus de la carte de validation du LOT-105
   (38 pièces HD) à l'échelle 2160p dans un même processus plafonnent à 100 Mio, image de
-  5 100 × 3 376 comprise. L'éditeur n'ouvre qu'une carte par la ligne de commande : l'essai à trois
-  onglets se fait à la main.
+  5 100 × 3 376 comprise. L'essai à trois onglets, à la main, a été fait par l'auteur.
 - **Une pièce de quatre cases n'est pas rognée** ✔ — `MapRenderTest.UnePieceHauteNEstPasRognee` :
   une tour de 256 × 1024 sur la case la plus haute de la carte, entière dans l'image. Les vignettes
   passent par le même cadre ; le canevas aussi.
+
+Réalisé le 23 septembre 2026, **PR #120**. Livré le 24 septembre 2026 : l'auteur a fait les
+contrôles à la main (travelling et zoom fluides, trois onglets HD).

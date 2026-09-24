@@ -30,7 +30,7 @@
     Où conserver la capture (utile en artefact). Par défaut : dans le dossier temporaire, supprimée.
 
 .PARAMETER TimeoutSeconds
-    Délai au-delà duquel le processus est tué. Le jeu s'arrête seul à 15 s ; la marge couvre un
+    Délai au-delà duquel le processus est tué. Le jeu s'arrête seul à 45 s ; la marge couvre un
     premier lancement lent (cache de shaders, antivirus du runner).
 #>
 [CmdletBinding()]

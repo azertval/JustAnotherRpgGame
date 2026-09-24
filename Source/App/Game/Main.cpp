@@ -150,6 +150,7 @@ void scheduleWindowCapture(QObject* root, const QString& path) {
         QCoreApplication::exit(1);
         return;
     }
+    HMI_LOG_INFO("Capture : interface chargee, image dans 1,2 s.");
     QTimer::singleShot(1200, window, [window, path]() {
         const bool saved = window->grabWindow().save(path);
         HMI_LOG_INFO((saved ? "Capture ecrite : " : "Echec de la capture : ") + path.toStdString());
@@ -159,7 +160,9 @@ void scheduleWindowCapture(QObject* root, const QString& path) {
 
 /// @brief Sortie de secours du mode capture, quand aucune image n'a ete produite a temps.
 void abortScreenshotOnTimeout() {
-    HMI_LOG_ERROR("Capture : delai depasse, aucune image produite.");
+    HMI_LOG_ERROR(
+        "Capture : delai depasse, aucune image produite (voir si l'interface a ete "
+        "chargee, ligne precedente).");
     QCoreApplication::exit(2);
 }
 
@@ -190,7 +193,11 @@ void armScreenshot(int argc, char** argv, QQmlApplicationEngine& engine,
     // Filet de securite : en mode capture, le programme ne doit JAMAIS rester ouvert. Sans
     // cette sortie, un echec de chargement de la fenetre laisserait un processus vivant qu'il
     // faudrait tuer a la main -- et, en integration continue, un travail suspendu.
-    QTimer::singleShot(15000, &application, &abortScreenshotOnTimeout);
+    //
+    // 45 s et non 15 : le build Debug, sur un runner charge, a depasse 15 s environ une fois sur
+    // dix (Release du 21, du 23 et du 24 septembre 2026), sans rien de casse -- une reussite y
+    // prend moins de 10 s. Le script de fumee tue le processus a 90 s ; ce filet reste en dessous.
+    QTimer::singleShot(45000, &application, &abortScreenshotOnTimeout);
 }
 
 /**
