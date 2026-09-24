@@ -50,7 +50,7 @@ l'éditeur par un mode à elles, le [LOT-144](../../v0.0.2-combat/lots/LOT-144-m
 
 ## Décisions de réalisation
 
-Réalisé le 24 septembre 2026, branche `lot-126-quete-cartes`. La fiche reste `en-cours` jusqu'à la
+Réalisé le 24 septembre 2026, branche `lot-126-quete-cartes`, **PR #128**. La fiche reste `en-cours` jusqu'à la
 vérification à la main de l'auteur (inspecteur, « World state… », graphe en pointillé).
 
 1. **La présence est une propriété commune, pas une propriété de chaque famille.**
