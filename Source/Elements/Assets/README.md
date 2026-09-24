@@ -25,15 +25,22 @@ commune sous la même clé) ; **un dossier, un manifeste** — un fichier qu'auc
 fait échouer la CI. Le détail, les noms et le poids :
 [l'arborescence](../../../Planning/standards/arborescence-assets.md).
 
+**Les images ne sont pas suivies par Git** (`LOT-108`) : `Common/`, `Regions/`, `Maps/` et `UI/`
+viennent d'archives publiées sur les releases du dépôt, dont `kits.lock.json` donne l'empreinte.
+Après un clone ou un `git pull` qui change le verrou : `python scripts/fetch_assets.py`
+(`setup_dev.ps1` et `build.ps1` le font d'eux-mêmes ; CMake refuse de configurer sans). Une
+retouche d'image se **publie** — `python scripts/release/publish_asset_kit.py <chemin du kit>` —
+et le nouveau verrou se commite ; l'image elle-même, jamais (`check_binary_files.py` la refuse).
+Le détail : [le stockage](../../../Planning/standards/arborescence-assets.md#le-stockage).
+
 Les **sources** ne sont pas versionnées : masters, planches de référence et sorties brutes du
 générateur vivent dans `Tools/AssetsHD/` (ignoré par git), sous le même arbre. Le dépôt ne reçoit
 que l'asset **installé** : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste.
 
 ## Contenu
 
-- `Common/`, `Regions/` — l'arborescence ci-dessus. Encore vide : la table rase du `LOT-102` a
-  emporté tout l'art de scène de l'ancien style, et les premières pièces 2D HD arrivent au
-  `LOT-105`.
+- `Common/`, `Regions/` — l'arborescence ci-dessus : le kit de la Capitale (`LOT-105`, `LOT-129`,
+  `LOT-108`), Arenarea (`LOT-108`), le héros de la démo (`LOT-112`).
 - `Entities/` — familles des illustrations d'entité et leur contrat de dimensions
   (`families.json`, `core::loadAssetFamilies`) ; une donnée désigne son image par une **clé**, et
   un marqueur en tient lieu tant qu'aucune n'existe (voir `Entities/README.md`).

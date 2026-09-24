@@ -1,0 +1,30 @@
+name: Installer les kits d'assets
+description: >
+  Les images de Source/Elements/Assets/{Common,Regions,Maps,UI} ne sont pas suivies par Git
+  (LOT-108) : elles viennent d'archives publiées sur les releases du dépôt, dont
+  Source/Elements/Assets/kits.lock.json donne l'empreinte. Cette action les installe, depuis le
+  cache d'Actions quand le verrou n'a pas changé. Unique définition, partagée par les workflows
+  qui lisent les assets (build, tests, contrôles d'assets).
+
+runs:
+  using: composite
+  steps:
+    # Clé = empreinte du verrou : un deuxième run sur le même verrou ne retélécharge rien.
+    - name: Cache des archives
+      # Épinglé par SHA (tag v6.1.0), comme les autres usages du dépôt.
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ${{ runner.temp }}/JadgAssets
+        key: jadg-assets-${{ hashFiles('Source/Elements/Assets/kits.lock.json') }}
+
+    # Le téléchargement vérifie l'empreinte de chaque archive contre le verrou : une archive
+    # absente de la release ou altérée fait échouer le job ici, pas plus loin dans le build.
+    - name: Installer les kits
+      shell: bash
+      env:
+        JADG_ASSETS_CACHE: ${{ runner.temp }}/JadgAssets
+      # `python3` sur Ubuntu, `python` sur les runners Windows.
+      run: |
+        py="$(command -v python3 || command -v python)"
+        "$py" scripts/fetch_assets.py
+        "$py" scripts/fetch_assets.py --check

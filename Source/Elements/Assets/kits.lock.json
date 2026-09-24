@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "kits": [
+    {
+      "id": "Common@1",
+      "path": "Common",
+      "release": "assets-common",
+      "asset": "common-1.zip",
+      "sha256": "b36d091439372bdfdfaa4c7a7d9cccda340b64744ec48856befb419a0ed157e1",
+      "bytes": 4367883,
+      "files": 22
+    },
+    {
+      "id": "Maps@1",
+      "path": "Maps",
+      "release": "assets-maps",
+      "asset": "maps-1.zip",
+      "sha256": "8da7d40608d8e01e32a96742e565bde46f0c4de1a3d86c50a05be4bec3f0cf55",
+      "bytes": 16246957,
+      "files": 16
+    },
+    {
+      "id": "Regions/central-empire/Common@1",
+      "path": "Regions/central-empire/Common",
+      "release": "assets-central-empire",
+      "asset": "regions-central-empire-common-1.zip",
+      "sha256": "8b8e6072f138124fec8d4c0b44c5838d322fa24813263a387a0be6980d08a212",
+      "bytes": 342964,
+      "files": 4
+    },
+    {
+      "id": "Regions/central-empire/capital/Common@1",
+      "path": "Regions/central-empire/capital/Common",
+      "release": "assets-central-empire",
+      "asset": "regions-central-empire-capital-common-1.zip",
+      "sha256": "176dba0bec5121aabd8e7facda9c6d6fb407961eb1de04133440e76cf88d905a",
+      "bytes": 106263354,
+      "files": 1734
+    },
+    {
+      "id": "Regions/central-empire/capital/arenarea@1",
+      "path": "Regions/central-empire/capital/arenarea",
+      "release": "assets-central-empire",
+      "asset": "regions-central-empire-capital-arenarea-1.zip",
+      "sha256": "2b879b3817c7c7f0ca7cc1f7c625c922e37d00cbf79e5b269202b66f326900a2",
+      "bytes": 60235945,
+      "files": 462
+    },
+    {
+      "id": "Regions/central-empire/capital/arenarea/arena-of-fate@1",
+      "path": "Regions/central-empire/capital/arenarea/arena-of-fate",
+      "release": "assets-central-empire",
+      "asset": "regions-central-empire-capital-arenarea-arena-of-fate-1.zip",
+      "sha256": "15c9d300ef8aef9ae111ba9eff2f62ddf94b91065015f18f5d3ea7b4876b787c",
+      "bytes": 2320053,
+      "files": 18
+    },
+    {
+      "id": "UI@1",
+      "path": "UI",
+      "release": "assets-ui",
+      "asset": "ui-1.zip",
+      "sha256": "4390a3631473dc58589ef532c4147b32078a2a367615067a9d0e4a506301cacd",
+      "bytes": 10992721,
+      "files": 214
+    }
+  ]
+}

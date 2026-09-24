@@ -91,6 +91,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       - name: Install Qt
         uses: ./.github/actions/setup-qt
         with:

@@ -331,6 +331,19 @@ if ($PSCmdlet.ShouldProcess($repoRoot, 'uv sync --locked (.venv)')) {
     }
 }
 
+# Les images des kits d'assets, hors de Git (LOT-108) : téléchargées d'après kits.lock.json, dans
+# un cache partagé par les clones et worktrees du poste (%LOCALAPPDATA%\JadgAssets).
+if ($PSCmdlet.ShouldProcess($repoRoot, 'scripts/fetch_assets.py (kits d''assets)')) {
+    Push-Location $repoRoot
+    try {
+        & $py -3 scripts/fetch_assets.py
+        if ($LASTEXITCODE -ne 0) { throw "fetch_assets.py : échec ($LASTEXITCODE)." }
+    }
+    finally {
+        Pop-Location
+    }
+}
+
 # Les hooks s'installent par clone ET par worktree : chacun a son propre dossier .git/hooks effectif.
 if ($PSCmdlet.ShouldProcess($repoRoot, 'pre-commit install (hooks pre-commit et commit-msg)')) {
     Push-Location $repoRoot

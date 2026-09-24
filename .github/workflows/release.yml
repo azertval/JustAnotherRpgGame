@@ -71,6 +71,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       # Qt est nécessaire pour construire l'application (cf. ci.yml).
       - name: Install Qt
         uses: ./.github/actions/setup-qt
@@ -162,6 +166,10 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       # CONTRIBUTING : le tag se pose sur le commit de merge. Un tag sur une branche de travail
       # publierait un code qui n'est jamais passé par la CI d'une PR.
       - name: Le tag désigne un commit de main
@@ -210,6 +218,10 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
 
       - name: Install Qt
         uses: ./.github/actions/setup-qt

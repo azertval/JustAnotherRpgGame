@@ -98,6 +98,12 @@ Emprise : C × R. Type tactique : … Source : `<fichier>` (reçue le …). Inst
 ## Poids
 
 <poids de la zone, tel que le résumé du job CI l'affiche> — pour mémoire : une zone n'a pas de budget (D-23).
+
+## Publication
+
+Dernière étape de la zone, après la revue de l'auteur : `python scripts/release/publish_asset_kit.py
+Regions/<région>/<ville>/<zone>` publie le kit et met à jour `kits.lock.json` ; les images ne se
+commitent pas (`Planning/standards/arborescence-assets.md`, « Le stockage »).
 ````
 
 ## Les états d'une pièce

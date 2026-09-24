@@ -91,6 +91,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       # Avertissements MSVC et assertions GoogleTest en annotations sur la ligne du diff (phase 1) :
       # /WX bloquait déjà, mais le message était enfoui dans le log. Actif pour toutes les étapes
       # suivantes du job ; définition unique dans .github/problem-matchers/msvc.json.
@@ -228,6 +232,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       - name: Annotations du compilateur et des tests
         run: echo "::add-matcher::.github/problem-matchers/msvc.json"
 
@@ -298,6 +306,10 @@ jobs:
           # Deux commits : le commit de fusion de la PR et son premier parent, la base -- ce qui
           # dit quelles cartes la PR change (etape --render, LOT-EDITOR-13).
           fetch-depth: 2
+
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
 
       # Cache de compilation (phase 2), stocké dans le cache GitHub Actions. Le CMakeLists racine
       # l'active dès que `sccache` est dans le PATH. Le cache d'une PR ne sert qu'à cette PR (la CI
@@ -430,6 +442,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       # Cache de compilation (phase 2), stocké dans le cache GitHub Actions. Le CMakeLists racine
       # l'active dès que `sccache` est dans le PATH. Le cache d'une PR ne sert qu'à cette PR (la CI
       # ne tourne pas sur main) : le gain vient au deuxième push. Statistiques en fin de job.
@@ -499,6 +515,10 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
 
       # Cache de compilation (phase 2), stocké dans le cache GitHub Actions. Le CMakeLists racine
       # l'active dès que `sccache` est dans le PATH. Le cache d'une PR ne sert qu'à cette PR (la CI
@@ -665,6 +685,10 @@ jobs:
         with:
           persist-credentials: false
 
+      # Images hors de Git (LOT-108) : installées d'après kits.lock.json, avant toute lecture des assets.
+      - name: Kits d'assets
+        uses: ./.github/actions/fetch-assets
+
       # Environnement Python des scripts (phase 4) : les versions de uv.lock, celles du poste. Le
       # dossier .venv/bin passe en tête du PATH, donc chaque `python3 scripts/…` ci-dessous s'exécute
       # avec ces dépendances — et scripts/check.py lit toujours ces lignes telles quelles.
@@ -769,9 +793,9 @@ jobs:
 
       # Assets HD installés (LOT-104) : sous Common/ et Regions/, tout fichier cité par un manifeste
       # existe, toute image est citée (EX-CNT-042), chaque pièce tient dans les bornes du standard
-      # 2D HD, et chaque zone sous son budget de 40 Mio -- dont le poids s'écrit dans le résumé du
-      # job. Les sources ne sont pas sur le runner : c'est l'installé qu'on contrôle. Sans dépendance.
-      - name: Assets HD conformes a leur manifeste et au budget par zone (EX-CNT-042)
+      # 2D HD ; le poids de chaque zone s'écrit dans le résumé du job, sans budget (décision de
+      # l'auteur, 24 septembre 2026). Les sources ne sont pas sur le runner : c'est l'installé qu'on contrôle. Sans dépendance.
+      - name: Assets HD conformes a leur manifeste et au standard (EX-CNT-042)
         id: hd_assets
         if: ${{ !cancelled() }}
         run: python3 scripts/checks/check_hd_assets.py
@@ -880,7 +904,7 @@ jobs:
             Manifeste du corpus=${{ steps.corpus.outcome }}
             Illustrations et manifeste=${{ steps.ui_assets.outcome }}
             Cartes, manifeste et atlas=${{ steps.map_assets.outcome }}
-            Assets HD et budget par zone=${{ steps.hd_assets.outcome }}
+            Assets HD et manifestes=${{ steps.hd_assets.outcome }}
             Clés d'assets d'entité=${{ steps.asset_keys.outcome }}
             Catalogues RPG=${{ steps.rpg_data.outcome }}
             Cahier des assets=${{ steps.assets_brief.outcome }}
