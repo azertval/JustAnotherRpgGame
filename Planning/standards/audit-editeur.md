@@ -102,8 +102,11 @@ canevas (déjà libre), la mini-carte, les vignettes de pièces (déjà lissées
 | `0.2.0` | le quartier général, « une carte qui change avec les points posés » (LOT-206) | le décor conditionné du LOT-126 | — |
 | `0.17.0` | le plan pénombral : la même carte sous une autre planche | les variantes existent au format et au contrôle, **pas à la souris** | à planifier avec la version |
 
-Ce que l'éditeur ne fera **pas**, et c'est voulu : écrire les dialogues et les quêtes (des données,
-contrôlées par `--check` aux LOT-116 et LOT-117), dessiner les planches, régler les rencontres.
+Ce que l'éditeur ne fera **pas**, et c'est voulu : écrire les dialogues (des données, contrôlées
+par `--check` aux LOT-116 et LOT-117), dessiner les planches, régler les rencontres. Les **quêtes**
+en sont sorties le 24 septembre 2026 : elles s'écriront dans un mode de l'éditeur, le
+[LOT-144](../versions/v0.1.0/v0.0.2-combat/lots/LOT-144-mode-quetes-de-l-editeur.md)
+([D-24](../vision/decisions.md)).
 
 ### Le mode sans texture
 
@@ -152,6 +155,7 @@ le reprend comme un **outil de dessin** — un semis à graine sur une sélectio
 | [LOT-126](../versions/v0.1.0/v0.0.1-demo/lots/LOT-126-ce-que-la-quete-demande-aux-cartes.md) | `0.0.1` | Présence conditionnée, décor conditionné, portail condamné, déclencheurs | LOT-107, LOT-114, LOT-120 |
 | [LOT-127](../versions/v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) | `0.0.1` | La recette à la main, due depuis huit lots | LOT-107 |
 | [LOT-143](../versions/v0.1.0/v0.0.2-combat/lots/LOT-143-zones-de-combat-pour-un-groupe.md) | `0.0.2` | Le verdict d'une zone de combat pour un groupe | LOT-142 |
+| [LOT-144](../versions/v0.1.0/v0.0.2-combat/lots/LOT-144-mode-quetes-de-l-editeur.md) | `0.0.2` | Le mode Quêtes : écrire une quête à côté de ses cartes (ajouté le 24 sept., D-24) | LOT-155 |
 | [LOT-158](../versions/v0.1.0/v0.0.3-capitale-intra-muros/lots/LOT-158-peupler-une-zone.md) | `0.0.3` | Peupler une zone : foule, édition à plusieurs, lasso | les zones |
 | [LOT-159](../versions/v0.1.0/v0.0.3-capitale-intra-muros/lots/LOT-159-onglet-carte-depuis-l-editeur.md) | `0.0.3` | L'onglet « Carte » depuis l'éditeur | LOT-156 |
 | [LOT-166](../versions/v0.1.0/v0.0.4-faubourgs/lots/LOT-166-dettes-de-l-atelier.md) | `0.0.4` | Les dettes de l'atelier | LOT-165 |
