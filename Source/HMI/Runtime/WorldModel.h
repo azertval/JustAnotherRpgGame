@@ -162,7 +162,11 @@ public:
         return _visitedDistricts;
     }
 
-    /// @return L'instantané que la surface de rendu dessine : des **valeurs**, sans pointeur.
+    /// @return La carte que la surface de rendu dessine, partagée (`hmi::WorldPlay::scene`).
+    [[nodiscard]] std::shared_ptr<const WorldSceneSnapshot> scene() const;
+    /// @return Les figurines de l'image : les PNJ présents, puis le héros.
+    [[nodiscard]] std::vector<WorldFigureSnapshot> figures() const;
+    /// @return La carte et ses figurines en une valeur (`hmi::WorldPlay::snapshot`).
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
     [[nodiscard]] float diamondRatio() const;
 
@@ -184,9 +188,16 @@ public:
         return _play->session().quests();
     }
 
-    /// @return Le numéro de la scène : il avance à chaque pas qui change ce qui se dessine.
+    /// @return Le numéro de la **carte** : il avance quand elle est à recomposer — entrée sur une
+    ///         carte, drapeau qui change ce qui s'y dessine, figurine du héros.
     [[nodiscard]] quint64 sceneRevision() const noexcept {
         return _sceneRevision;
+    }
+
+    /// @return Le numéro des **figurines** : il avance à chaque pas qui change leur dessin — le
+    ///         héros bouge, part, s'arrête, se tourne.
+    [[nodiscard]] quint64 figuresRevision() const noexcept {
+        return _figuresRevision;
     }
 
 signals:
@@ -194,6 +205,9 @@ signals:
     void changed();
     /// Le héros a bougé : la caméra suit, la scène se redessine.
     void heroMoved();
+    /// Les figurines ou la carte ont changé sans que le héros bouge — il s'arrête, se tourne, un
+    /// drapeau fait paraître un PNJ : la scène se redessine.
+    void figuresChanged();
     /// Le héros est entré sur une carte (`mapId`).
     void mapEntered(const QString& mapId);
     /// Il faut ouvrir le dialogue nommé — c'est l'écran qui l'ouvre, pas le modèle.
@@ -234,6 +248,7 @@ private:
     core::Vector2 _move{};
     bool _interact = false;
     quint64 _sceneRevision = 1;
+    quint64 _figuresRevision = 1;
 };
 
 }  // namespace hmi

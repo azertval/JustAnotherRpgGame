@@ -6,6 +6,22 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Affichage d'un lieu — un quartier entier à 60 images/s.** L'audit de l'affichage d'un lieu
+  (`Planning/standards/audit-affichage-lieu.md`) a établi que le rendu recomposait et triait
+  **toute** la carte à chaque image, refaisait son instantané à chaque pas du héros et relisait le
+  manifeste de 862 Kio de la planche pour chaque texture. Les changements :
+  - la carte se compose une fois dans une scène indexée (`hmi::StaticWorldScene`), découpée à la
+    vue à chaque image, où les figurines se fusionnent ; jeu, essai de l'éditeur, canevas et tests
+    partagent ce chemin ;
+  - l'instantané de la carte est partagé et ne se refait qu'au changement de carte ou de drapeaux ;
+  - les manifestes sont lus une fois et indexés ;
+  - les PNG se décodent sur tous les cœurs ;
+  - une seule matrice de projection est téléversée par image ;
+  - une passe de plus de 16 384 quads se découpe au lieu d'être tronquée.
+
+  Sur Arenarea, une image passe de 11 ms à 0,07 ms de CPU et l'ouverture en Debug de 82 s à 5 s.
+  Nouveau banc : `bench_world_frame.cpp`.
+
 - **LOT-109 — Arenarea, le quartier entier.** Première carte 2D HD du jeu :
   `Levels/central-empire/capital/arenarea.json`, 128 × 88 cases, d'après le Sourcebook et le plan
   de la Capitale. On y trouve :
@@ -20,8 +36,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   La carte est dessinée par `LevelEditor --apply`, avec les assemblages validés du LOT-108 et les
   pièces livrées, sans en produire aucune. Les portails vers Martpart, l'Arena of Fate, Oldtown et
   les Docks sont condamnés, en attendant leurs cartes. `--check` ne relève aucune erreur. **Reste
-  à faire :** tenir les 60 images/s (le rendu du lieu compose toute la carte à chaque image) et
-  peindre l'image de l'onglet « Carte ».
+  à faire :** peindre l'image de l'onglet « Carte ».
 
 - **LOT-126 — Ce que la quête demande aux cartes.** Tout ce que « Des pommes pour l'arène » pose
   sur une carte s'écrit à l'inspecteur de l'éditeur, sans toucher au JSON. La **condition de

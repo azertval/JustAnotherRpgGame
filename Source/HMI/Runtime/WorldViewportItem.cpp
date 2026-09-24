@@ -34,8 +34,9 @@ public:
 
 private:
     WorldSceneRenderer _world;
-    /// Numéro de la scène copiée : 0 tant qu'aucun instantané n'a été pris.
+    /// Numéros de la carte et des figurines reprises : 0 tant que rien n'a été pris.
     quint64 _sceneRevision = 0;
+    quint64 _figuresRevision = 0;
     QColor _clearColor;
 };
 
@@ -57,6 +58,7 @@ void WorldViewportRenderer::synchronize(QQuickRhiItem* item) {
     const WorldModel* const model = viewport->model();
     if (model == nullptr) {
         _sceneRevision = 0;
+        _figuresRevision = 0;
         _world.setSnapshot(WorldSceneSnapshot{});
         return;
     }
@@ -64,11 +66,16 @@ void WorldViewportRenderer::synchronize(QQuickRhiItem* item) {
     // scène, et c'est une paire de flottants, pas une scène à recomposer.
     _world.setFocus(
         {static_cast<float>(model->heroColumn()), static_cast<float>(model->heroRow())});
-    if (model->sceneRevision() == _sceneRevision) {
-        return;
+    // La carte : un pointeur partagé, pris seulement quand elle a changé — jamais recopiée.
+    if (model->sceneRevision() != _sceneRevision) {
+        _sceneRevision = model->sceneRevision();
+        _world.setScene(model->scene());
     }
-    _sceneRevision = model->sceneRevision();
-    _world.setSnapshot(model->snapshot());
+    // Les figurines : quelques valeurs, prises à chaque pas qui les change.
+    if (model->figuresRevision() != _figuresRevision) {
+        _figuresRevision = model->figuresRevision();
+        _world.setFigures(model->figures());
+    }
 }
 
 void WorldViewportRenderer::render(QRhiCommandBuffer* commandBuffer) {
@@ -161,6 +168,7 @@ void WorldViewportItem::setModel(WorldModel* model) {
     }
     disconnect(_modelChangedConnection);
     disconnect(_modelMovedConnection);
+    disconnect(_modelFiguresConnection);
     disconnect(_modelDestroyedConnection);
     _model = model;
     if (model != nullptr) {
@@ -169,6 +177,8 @@ void WorldViewportItem::setModel(WorldModel* model) {
         // Le héros bouge à chaque pas : la caméra suit, et la scène se redessine.
         _modelMovedConnection =
             connect(model, &WorldModel::heroMoved, this, &WorldViewportItem::onSceneChanged);
+        _modelFiguresConnection =
+            connect(model, &WorldModel::figuresChanged, this, &WorldViewportItem::onSceneChanged);
         // Le QPointer se vide seul ; il reste à redessiner une scène vide.
         _modelDestroyedConnection =
             connect(model, &QObject::destroyed, this, &WorldViewportItem::onSceneChanged);

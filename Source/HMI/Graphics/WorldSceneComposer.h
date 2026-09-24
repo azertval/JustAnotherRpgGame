@@ -4,6 +4,8 @@
 #pragma once
 #include <cstdint>
 #include <map>
+#include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -375,6 +377,16 @@ template <class Map>
 /// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés.
 [[nodiscard]] std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot);
 
+/**
+ * @return Les chemins de texture des figurines @p figures — leurs bandes `idle` et `walk` —, sans
+ *         doublon, triés ; leur dossier se lit dans @p snapshot.
+ *
+ * Ce que le rendu doit charger quand seules les figurines changent : la carte, elle, a déjà ses
+ * textures.
+ */
+[[nodiscard]] std::vector<std::string> worldFigureTexturePaths(
+    const WorldSceneSnapshot& snapshot, std::span<const WorldFigureSnapshot> figures);
+
 /// @brief Ce que l'appelant peut changer à la composition — rien, par défaut.
 struct WorldComposeOptions {
     /**
@@ -390,14 +402,52 @@ struct WorldComposeOptions {
 };
 
 /**
- * @brief Compose le lieu dans un tampon réutilisé.
+ * @brief Compose le lieu dans un tampon réutilisé, figurines comprises (`snapshot.figures`).
  *
- * Le tampon n'est **ni vidé ni trié** : même contrat qu'`hmi::composeArenaScene`, l'appelant
- * enchaîne `clear()`, les compositions, puis `sort()`.
+ * Les briques de l'image du jeu (`hmi::StaticWorldScene`) : la carte (`composeWorldStatics`), les
+ * figurines (`composeWorldFigures`), puis l'effacement des étages devant le héros. Le tampon n'est
+ * **ni vidé ni trié** : même contrat qu'`hmi::composeArenaScene`, l'appelant enchaîne `clear()`,
+ * les compositions, puis `sort()`. Un cadrage de @p scene (`ComposedScene::setVisibleBounds`)
+ * écarte ce qu'il ne montre pas.
  */
 void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                        const core::IsoProjection& projection, const ScenePieceTextures& textures,
                        WorldComposeOptions options = {});
+
+/// @brief Ce qui masque le héros : son image, et son rang de dessin (`LOT-129`).
+struct WorldHeroPlacement {
+    core::Rect bounds;
+    std::int32_t sortOrder = 0;
+};
+
+/**
+ * @brief Le héros parmi @p figures, placé et mesuré ; rien s'il n'y en a pas, ou s'il n'a pas
+ *        d'image.
+ *
+ * Une pièce d'étage dessinée après lui et qui recouvre son image s'efface
+ * (`STOREY_SEE_THROUGH_OPACITY`) : c'est ce qu'on compare à `ComposedQuad::occlusion`.
+ */
+[[nodiscard]] std::optional<WorldHeroPlacement> placeWorldHero(
+    const WorldSceneSnapshot& snapshot, std::span<const WorldFigureSnapshot> figures,
+    const core::IsoProjection& projection, const ScenePieceTextures& textures);
+
+/**
+ * @brief Compose ce qui ne dépend **que de la carte** : sols, reliefs, étages, jetons et tracés,
+ *        dans l'ordre de composition, sans trier.
+ *
+ * Aucune figurine, aucun effacement devant le héros : les pièces d'étage portent seulement ce
+ * qu'elles masquent (`ComposedQuad::occlusion`). C'est la part qu'une image n'a pas à refaire.
+ */
+void composeWorldStatics(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                         const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                         WorldComposeOptions options = {});
+
+/**
+ * @brief Compose les figurines @p figures, sans trier ; leur dossier se lit dans @p snapshot.
+ */
+void composeWorldFigures(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                         std::span<const WorldFigureSnapshot> figures,
+                         const core::IsoProjection& projection, const ScenePieceTextures& textures);
 
 /// @brief Compose le lieu dans une scène neuve, **triée** — commodité des tests et des captures.
 [[nodiscard]] ComposedScene composeWorldScene(const WorldSceneSnapshot& snapshot,

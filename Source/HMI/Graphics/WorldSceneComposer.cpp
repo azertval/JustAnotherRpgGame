@@ -29,6 +29,7 @@
 #include "Core/World/EntityPresence.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/StaticWorldScene.h"
 
 namespace hmi {
 
@@ -71,6 +72,17 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
         return found->second;
     }
     return core::fallbackScenePiecePath(snapshot.place, piece);
+}
+
+// La texture d'une piece : par son fichier, sans copier le chemin quand le catalogue le connait --
+// ce qui se fait une fois par case et par couche (audit de l'affichage).
+[[nodiscard]] const SceneTexture& pieceTexture(const WorldSceneSnapshot& snapshot,
+                                               const ScenePieceTextures& textures,
+                                               std::string_view piece) {
+    if (const auto found = snapshot.pieceFiles.find(piece); found != snapshot.pieceFiles.end()) {
+        return textures.resolve(found->second);
+    }
+    return textures.resolve(core::fallbackScenePiecePath(snapshot.place, piece));
 }
 
 // Le dossier d'une figurine, sous le niveau qui la range (LOT-124), a defaut elle-meme.
@@ -178,20 +190,14 @@ void composeMaquetteDiamond(ComposedScene& scene, const core::IsoProjection& pro
     return projection.tileHeight() * maquetteShape(core::TileType::Wall).height;
 }
 
-/// Ce qui masque le héros, s'il y en a un : son image, et son rang de dessin.
-struct HeroPlacement {
-    core::Rect bounds;
-    std::int32_t sortOrder = 0;
-};
-
 // Un bloc de maquette ; sur un etage (@p storey > 0), eleve de @p storey hauteurs de bloc, trie au
-// rang de l'etage, jamais avant @p minimumFootY, et efface s'il masque le heros (LOT-129).
+// rang de l'etage, jamais avant @p minimumFootY. Sur un etage, il porte ce qu'il masque : c'est au
+// moment de dessiner l'image qu'on l'efface devant le heros (LOT-129, `StaticWorldScene`).
 // @return Le pied retenu pour le tri.
 float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& projection,
                            const ScenePieceTextures& textures, core::GridPosition cell,
                            core::TileType type, int storey = 0,
-                           float minimumFootY = -std::numeric_limits<float>::infinity(),
-                           const std::optional<HeroPlacement>& hero = std::nullopt) {
+                           float minimumFootY = -std::numeric_limits<float>::infinity()) {
     const core::Rect bounds = projection.tileBounds(cell);
     const MaquetteShape shape = maquetteShape(type);
     const float elevation = static_cast<float>(storey) * maquetteStoreyHeight(projection);
@@ -209,28 +215,22 @@ float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proj
     const WorldDepthSlot slot = storeyDepthSlot(storey);
     const std::int32_t order = worldDepthSortOrder(footY, slot);
     const auto raised = [height](float y) { return y - height; };
-    float alpha = 1.0F;
-    if (storey > 0 && hero && order > hero->sortOrder) {
-        const core::Rect block{{bounds.position.x, bounds.position.y - elevation - height},
-                               {bounds.size.x, bounds.size.y + height}};
-        if (block.intersects(hero->bounds)) {
-            alpha = STOREY_SEE_THROUGH_OPACITY;
-        }
-    }
+    const core::Rect occlusion =
+        storey > 0 ? core::Rect{{bounds.position.x, bounds.position.y - elevation - height},
+                                {bounds.size.x, bounds.size.y + height}}
+                   : core::Rect{};
 
     // Face gauche : arete gauche -> bas, puis les deux memes sommets remontes.
     PolyQuad leftFace = tintedQuad(tint, BLOCK_LEFT_LIGHT);
     leftFace.x = {base.x[3], base.x[2], base.x[2], base.x[3]};
     leftFace.y = {base.y[3], base.y[2], raised(base.y[2]), raised(base.y[3])};
-    leftFace.a *= alpha;
-    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace, storey);
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace, storey, occlusion);
 
     // Face droite : bas -> arete droite.
     PolyQuad rightFace = tintedQuad(tint, BLOCK_RIGHT_LIGHT);
     rightFace.x = {base.x[2], base.x[1], base.x[1], base.x[2]};
     rightFace.y = {base.y[2], base.y[1], raised(base.y[1]), raised(base.y[2])};
-    rightFace.a *= alpha;
-    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace, storey);
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace, storey, occlusion);
 
     // Dessus : le losange de la case, remonte d'une hauteur.
     PolyQuad topFace = tintedQuad(tint, BLOCK_TOP_LIGHT);
@@ -238,8 +238,7 @@ float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proj
     for (std::size_t i = 0; i < 4; ++i) {
         topFace.y[i] = raised(base.y[i]);
     }
-    topFace.a *= alpha;
-    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace, storey);
+    scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace, storey, occlusion);
     return footY;
 }
 
@@ -378,7 +377,7 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         composeMaquetteCell(scene, snapshot, projection, textures, cell, flatBlocks);
         return;
     }
-    const SceneTexture& texture = textures.resolve(piecePath(snapshot, piece));
+    const SceneTexture& texture = pieceTexture(snapshot, textures, piece);
     if (texture.texture == nullptr) {
         return;
     }
@@ -389,16 +388,16 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
 }
 
 // Pose une piece de relief a sa case ; sur une couche d'etage (@p storey > 0), elevee de @p storey
-// hauteurs d'etage, triee au-dessus du rez de sa case, et effacee si elle masque le heros. Son pied
-// ne passe jamais avant @p minimumFootY : le pied le plus avance de ce qui la porte.
+// hauteurs d'etage, triee au-dessus du rez de sa case, et portant ce qu'elle masque (son image)
+// pour s'effacer devant le heros. Son pied ne passe jamais avant @p minimumFootY : le pied le plus
+// avance de ce qui la porte.
 // @return Le pied retenu pour le tri, rien si la piece n'a pas de texture.
 std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                                           const core::IsoProjection& projection,
                                           const ScenePieceTextures& textures,
                                           core::GridPosition cell, std::string_view piece,
-                                          int storey, const std::optional<HeroPlacement>& hero,
-                                          float minimumFootY) {
-    const SceneTexture& texture = textures.resolve(piecePath(snapshot, piece));
+                                          int storey, float minimumFootY) {
+    const SceneTexture& texture = pieceTexture(snapshot, textures, piece);
     if (texture.texture == nullptr) {
         return std::nullopt;
     }
@@ -431,12 +430,8 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
                                         projection.tileHeight() / projection.tileWidth());
     const WorldDepthSlot slot = storeyDepthSlot(storey);
     const std::int32_t sortOrder = worldDepthSortOrder(footY, slot);
-    // Un etage dessine APRES le heros et qui le recouvre le cache : on le voit a travers.
-    if (storey > 0 && hero && sortOrder > hero->sortOrder &&
-        spriteQuadBounds(quad).intersects(hero->bounds)) {
-        quad.a *= STOREY_SEE_THROUGH_OPACITY;
-    }
-    scene.addSprite(RenderLayer::Object, texture.texture, sortOrder, quad, storey);
+    scene.addSprite(RenderLayer::Object, texture.texture, sortOrder, quad, storey,
+                    storey > 0 ? spriteQuadBounds(quad) : core::Rect{});
     return footY;
 }
 
@@ -472,7 +467,7 @@ std::optional<float> composeRelief(ComposedScene& scene, const WorldSceneSnapsho
         }
         return std::nullopt;
     }
-    return composeStandingPiece(scene, snapshot, projection, textures, cell, piece, 0, std::nullopt,
+    return composeStandingPiece(scene, snapshot, projection, textures, cell, piece, 0,
                                 -std::numeric_limits<float>::infinity());
 }
 
@@ -989,6 +984,22 @@ std::string figureMarkerKey(std::string_view path) {
     return {};
 }
 
+std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snapshot,
+                                                 std::span<const WorldFigureSnapshot> figures) {
+    std::set<std::string> uniques;
+    for (const WorldFigureSnapshot& figure : figures) {
+        if (figure.figure.empty()) {
+            continue;
+        }
+        // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
+        // charger une texture au milieu d'une image.
+        const std::string directory = figureDirectoryIn(snapshot, figure.figure);
+        uniques.insert(figureStripPath(directory, "idle", figure.facing));
+        uniques.insert(figureStripPath(directory, "walk", figure.facing));
+    }
+    return {uniques.begin(), uniques.end()};
+}
+
 std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     std::set<std::string> uniques;
     std::vector<const std::vector<std::string>*> couches{&snapshot.floors, &snapshot.relief};
@@ -1002,15 +1013,8 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
             }
         }
     }
-    for (const WorldFigureSnapshot& figure : snapshot.figures) {
-        if (figure.figure.empty()) {
-            continue;
-        }
-        // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
-        // charger une texture au milieu d'une image.
-        const std::string directory = figureDirectoryIn(snapshot, figure.figure);
-        uniques.insert(figureStripPath(directory, "idle", figure.facing));
-        uniques.insert(figureStripPath(directory, "walk", figure.facing));
+    for (std::string& path : worldFigureTexturePaths(snapshot, snapshot.figures)) {
+        uniques.insert(std::move(path));
     }
     // Les jetons s'adressent comme des planches : un chemin de plus, que le rendu peindra au lieu
     // de le charger (LOT-128, decision D2).
@@ -1020,25 +1024,25 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     return {uniques.begin(), uniques.end()};
 }
 
-namespace {
-
-// Le heros de la scene, place et mesure ; aucun si la scene n'en porte pas.
-[[nodiscard]] std::optional<HeroPlacement> placeHero(const WorldSceneSnapshot& snapshot,
-                                                     const core::IsoProjection& projection,
-                                                     const ScenePieceTextures& textures) {
-    std::optional<HeroPlacement> hero;
-    for (const WorldFigureSnapshot& figure : snapshot.figures) {
+std::optional<WorldHeroPlacement> placeWorldHero(const WorldSceneSnapshot& snapshot,
+                                                 std::span<const WorldFigureSnapshot> figures,
+                                                 const core::IsoProjection& projection,
+                                                 const ScenePieceTextures& textures) {
+    std::optional<WorldHeroPlacement> hero;
+    for (const WorldFigureSnapshot& figure : figures) {
         if (!figure.hero) {
             continue;
         }
         if (const std::optional<FigurePlacement> placed =
                 placeFigure(snapshot, projection, textures, figure)) {
-            hero = HeroPlacement{.bounds = spriteQuadBounds(placed->quad),
-                                 .sortOrder = placed->sortOrder};
+            hero = WorldHeroPlacement{.bounds = spriteQuadBounds(placed->quad),
+                                      .sortOrder = placed->sortOrder};
         }
     }
     return hero;
 }
+
+namespace {
 
 // Ce que toutes les cases d'un etage partagent.
 struct StoreyContext {
@@ -1047,7 +1051,6 @@ struct StoreyContext {
     const core::IsoProjection& projection;
     const ScenePieceTextures& textures;
     WorldComposeOptions options;
-    const std::optional<HeroPlacement>& hero;
 };
 
 // Une case d'etage : sa piece nommee, ou a defaut son type extrude en maquette. Elle se trie au
@@ -1068,24 +1071,22 @@ void composeStoreyCell(const StoreyContext& context, const WorldStoreySnapshot& 
             float& foot = next[index];
             foot = std::max(
                 foot, composeMaquetteBlock(context.scene, context.projection, context.textures,
-                                           cell, type, storey.floor, cover[index], context.hero));
+                                           cell, type, storey.floor, cover[index]));
         }
         return;
     }
     if (const std::optional<float> foot = composeStandingPiece(
             context.scene, context.snapshot, context.projection, context.textures, cell,
-            storey.relief[index], storey.floor, context.hero, cover[index])) {
+            storey.relief[index], storey.floor, cover[index])) {
         coverCells(next, context.snapshot, cell, storey.relief[index], *foot);
     }
 }
 
 }  // namespace
 
-void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                       WorldComposeOptions options) {
-    // Le heros d'abord mesure : un etage qui le masque s'efface (LOT-129).
-    const std::optional<HeroPlacement> hero = placeHero(snapshot, projection, textures);
+void composeWorldStatics(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                         const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                         WorldComposeOptions options) {
     std::vector<float> cover(
         static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows),
         -std::numeric_limits<float>::infinity());
@@ -1106,8 +1107,7 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                                     .snapshot = snapshot,
                                     .projection = projection,
                                     .textures = textures,
-                                    .options = options,
-                                    .hero = hero};
+                                    .options = options};
         for (int row = 0; row < snapshot.rows; ++row) {
             for (int column = 0; column < snapshot.columns; ++column) {
                 composeStoreyCell(context, storey, core::GridPosition{.column = column, .row = row},
@@ -1116,15 +1116,37 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         }
         cover = std::move(next);
     }
-    for (const WorldFigureSnapshot& figure : snapshot.figures) {
-        composeFigure(scene, snapshot, projection, textures, figure);
-    }
+    // Les jetons et les traces : des marques sur le plan, d'une autre bande que les figurines ; ils
+    // ne dependent que de la carte.
     for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
         composeToken(scene, projection, textures, token);
     }
     for (const MaquetteTraceSnapshot& trace : snapshot.marks.traces) {
         composeTrace(scene, projection, textures, trace);
     }
+}
+
+void composeWorldFigures(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                         std::span<const WorldFigureSnapshot> figures,
+                         const core::IsoProjection& projection,
+                         const ScenePieceTextures& textures) {
+    for (const WorldFigureSnapshot& figure : figures) {
+        composeFigure(scene, snapshot, projection, textures, figure);
+    }
+}
+
+void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                       WorldComposeOptions options) {
+    // Les memes briques que l'image du jeu (`StaticWorldScene`) : la carte, puis les figurines, et
+    // l'effacement des etages devant le heros -- une regle de rang et de recouvrement, qui ne
+    // depend pas de l'ordre de la liste. Le tri reste a l'appelant, comme toujours.
+    composeWorldStatics(scene, snapshot, projection, textures, options);
+    composeWorldFigures(scene, snapshot, snapshot.figures, projection, textures);
+    std::vector<ComposedQuad> quads;
+    scene.swapQuads(quads, 0, 0);
+    fadeStoreysOverHero(quads, placeWorldHero(snapshot, snapshot.figures, projection, textures));
+    scene.swapQuads(quads, 0, 0);
 }
 
 ComposedScene composeWorldScene(const WorldSceneSnapshot& snapshot,

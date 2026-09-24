@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "Core/Math/Rect.h"
@@ -60,6 +61,11 @@ struct ComposedQuad {
     /// L'étage de la pièce (`LOT-129`) : 0 au rez, `n` sur la couche d'étage `floor = n`. L'éditeur
     /// en tire l'opacité de la couche, le jeu l'effacement devant le héros.
     int storey = 0;
+    /// Ce qu'une pièce d'étage **masque** à l'écran, en unités monde : le rectangle que l'on
+    /// compare à l'image du héros pour l'effacer devant lui (`LOT-129`). Vide (taille nulle) pour
+    /// tout le reste. Porté par la primitive pour qu'une scène composée une fois
+    /// (`hmi::StaticWorldScene`) sache l'effacer à chaque image sans rien recomposer.
+    core::Rect occlusion{};
 };
 
 /**
@@ -167,10 +173,11 @@ public:
      * @param sortOrder Tri fin à l'intérieur du calque et de la texture.
      * @param quad      Primitive à composer (unités monde).
      * @param storey    Étage de la pièce (`LOT-129`), 0 au rez.
+     * @param occlusion Ce que la pièce masque, pour l'effacer devant le héros (`ComposedQuad`).
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                   const SpriteQuad& quad, int storey = 0);
+                   const SpriteQuad& quad, int storey = 0, const core::Rect& occlusion = {});
 
     /**
      * @brief Ajoute un segment épais à la scène, s'il est visible.
@@ -190,13 +197,47 @@ public:
      * @param sortOrder Tri fin à l'intérieur du calque et de la texture.
      * @param quad      Primitive à composer (unités monde).
      * @param storey    Étage de la pièce (`LOT-129`), 0 au rez.
+     * @param occlusion Ce que la pièce masque, pour l'effacer devant le héros (`ComposedQuad`).
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                 const PolyQuad& quad, int storey = 0);
+                 const PolyQuad& quad, int storey = 0, const core::Rect& occlusion = {});
 
     /// Ordonne la scène (calque, puis texture, puis `sortOrder`), de façon **stable**.
     void sort();
+
+    /**
+     * @brief L'ordre de dessin, comparateur **strict** de `sort()` : vrai si @p lhs se dessine
+     * avant
+     *        @p rhs.
+     *
+     * Exposé pour qu'une liste déjà triée se **fusionne** avec une autre sans rien retrier
+     * (`hmi::StaticWorldScene`) : même règle, donc même image.
+     */
+    [[nodiscard]] static bool drawsBefore(const ComposedQuad& lhs,
+                                          const ComposedQuad& rhs) noexcept;
+
+    /**
+     * @brief Inscrit @p texture dans la table des rangs, si elle n'y est pas déjà.
+     * @return Son rang de première apparition.
+     */
+    int registerTexture(TextureHandle texture);
+
+    /// @return Les textures dans l'ordre de leur rang : `textureOrder()[rang]`.
+    [[nodiscard]] const std::vector<TextureHandle>& textureOrder() const noexcept {
+        return _textureOrder;
+    }
+
+    /**
+     * @brief Échange les primitives avec @p quads, et ajoute @p considered et @p culled aux
+     *        compteurs.
+     *
+     * Pour qui compose d'avance ou retouche une liste (`hmi::StaticWorldScene`) : les rangs de
+     * texture de @p quads doivent venir de cette scène (`registerTexture`), et l'appelant répond
+     * de l'ordre — une liste déjà triée le reste. @p quads reçoit l'ancienne liste, dont la
+     * capacité reste réutilisable.
+     */
+    void swapQuads(std::vector<ComposedQuad>& quads, int considered, int culled) noexcept;
 
     /// @return Les primitives composées, dans l'ordre de dessin après `sort()`.
     [[nodiscard]] const std::vector<ComposedQuad>& quads() const noexcept {
@@ -215,13 +256,14 @@ public:
     [[nodiscard]] SceneStatistics statistics() const noexcept;
 
 private:
-    /// Rang de première apparition d'une texture, ajoutée à la table si elle est nouvelle.
-    [[nodiscard]] int textureRank(TextureHandle texture);
     /// @return `true` si la boîte englobante est visible (ou si le culling est désactivé).
     [[nodiscard]] bool isVisible(const core::Rect& bounds) const;
 
     std::vector<ComposedQuad> _quads;
     std::vector<TextureHandle> _textureOrder;
+    /// Rang de chaque texture déjà vue. Une carte HD en cite des centaines : une recherche
+    /// linéaire par primitive coûtait plus que la composition elle-même (audit de l'affichage, A4).
+    std::unordered_map<TextureHandle, int> _textureRanks;
     /// Cadrage **marge comprise**, calculé une fois par `setVisibleBounds` : c'est le rectangle
     /// comparé à chaque primitive, sur un chemin parcouru des centaines de fois par image.
     std::optional<core::Rect> _visibleBounds;

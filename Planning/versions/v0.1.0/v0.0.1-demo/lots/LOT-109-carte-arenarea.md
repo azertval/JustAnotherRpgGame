@@ -93,12 +93,11 @@ reste le cœur : Herofate Avenue, le parvis, les manoirs, le casino.
   jouées ; les deux points d'arrivée qu'aucun portail ne nomme encore).
 - Le jeu ouvre la carte : `--map=central-empire/capital/arenarea`, avec `--levels=` sur les
   sources.
-- **Critère des 60 images par seconde : non tenu en l'état du moteur.** Le rendu du lieu
-  recompose et trie **toute** la carte à chaque image, sans rien découper à la vue
-  (`WorldSceneRenderer::render`, `composeWorldScene`). `ComposedScene::setVisibleBounds` n'est
-  appelé que par l'éditeur. À l'ouverture, le manifeste de la planche est relu pour chaque
-  texture (`readSceneTextureTraits` sans `ManifestCache`). En Debug, la première image arrive
-  après 82 s, contre 4 s pour une carte de 8 × 6. Il faut un correctif de moteur : découpe à la
-  vue, cache du manifeste, scène composée gardée d'une révision à l'autre.
+- **Critère des 60 images par seconde : tenu.** Le premier rendu recomposait toute la carte à
+  chaque image : 82 s avant la première image en Debug, 11 ms de CPU par image en Release.
+  L'[audit de l'affichage d'un lieu](../../../../standards/audit-affichage-lieu.md) en a fait une
+  scène composée une fois et découpée à la vue (`hmi::StaticWorldScene`). La carte s'ouvre
+  maintenant en 5 s en Debug. Une image coûte 0,07 ms de CPU, et le jeu tourne à 165 ips à
+  1920 × 1080, soit la fréquence de l'écran, dans le build Debug.
 - **À faire** : l'image de la zone pour l'onglet « Carte », peinte par l'auteur comme les seize
   cartes de `Assets/Maps/`, et son entrée dans `world-maps.json`. La revue de l'auteur.
