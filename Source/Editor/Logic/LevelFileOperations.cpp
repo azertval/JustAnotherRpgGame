@@ -13,6 +13,7 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/LevelNameValidation.h"
@@ -66,6 +67,13 @@ void LevelFileOperations::addNameTranslation(const std::filesystem::path& file,
                                      text, copyFrom));
 }
 
+std::string levelFolderOf(std::string_view place) {
+    if (!core::isValidScenePlace(place) || core::isFlatScenePlace(place)) {
+        return {};
+    }
+    return std::string{place.substr(0, place.rfind('/'))};
+}
+
 std::filesystem::path LevelFileOperations::pathForName(const std::string& name) const {
     return _dir / (name + ".json");
 }
@@ -106,11 +114,15 @@ FileOperationResult LevelFileOperations::create(const std::string& name, int wid
     if (width < 1 || height < 1) {
         return FileOperationResult::failure("Dimensions trop petites (une case au minimum).");
     }
-    const std::filesystem::path target = pathForName(trimmed);
+    // Une carte se range sous le chemin de son lieu (LOT-124) : un quartier de la Capitale sous
+    // `Levels/central-empire/capital/`, son donjon sous `…/capital/arenarea/`.
+    const std::filesystem::path target =
+        _dir / std::filesystem::path(levelFolderOf(place)) / (trimmed + ".json");
     std::error_code error;
     if (std::filesystem::exists(target, error)) {
         return FileOperationResult::failure("Un niveau porte déjà ce nom.");
     }
+    std::filesystem::create_directories(target.parent_path(), error);
     // Niveau minimal valide : grille vide + une entrée (coin bas gauche).
     core::LevelDraft draft = core::LevelDraft::empty(nameKeyFor(target), width, height);
     if (model != nullptr) {
@@ -156,11 +168,11 @@ FileOperationResult LevelFileOperations::create(const std::string& name, int wid
     draft.addLayer(core::LayerKind::Decor, "relief");
     // La collision est celle que la déduction donne à une carte pleine : le mur arrête la vue
     // (décision D10 de l'éditeur).
-    draft.paintRegion(0, 0,
-                      std::vector<std::vector<core::TileType>>(
-                          static_cast<std::size_t>(height),
-                          std::vector<core::TileType>(static_cast<std::size_t>(width),
-                                                      core::TileType::Wall)));
+    draft.paintRegion(
+        0, 0,
+        std::vector<std::vector<core::TileType>>(
+            static_cast<std::size_t>(height),
+            std::vector<core::TileType>(static_cast<std::size_t>(width), core::TileType::Wall)));
     // L'entrée ne se tient pas dans le vide : sa case reçoit un sol de terre, que la table du lieu
     // traduit en pièce, et que la maquette peint en couleur.
     draft.paintLayerTile(*ground, 0, height - 1, core::TileType::Dirt);

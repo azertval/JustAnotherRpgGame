@@ -27,9 +27,9 @@
 
 #include "Editor/Logic/ThumbnailGeometry.h"
 #include "Editor/Logic/TileTaxonomy.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/ProceduralAtlas.h"
-#include "HMI/Graphics/MaquettePalette.h"
 
 namespace hmi {
 
@@ -79,12 +79,18 @@ constexpr int PREFAB_THUMBNAIL_SIZE = 72;
     return item;
 }
 
-// Libellé d'une pièce : son nom, et son emprise si elle couvre plus d'une case.
+// Libellé d'une pièce : son nom, son emprise si elle couvre plus d'une case, et ce qu'elle masque
+// ou ce qui la masque (LOT-124).
 [[nodiscard]] QString pieceLabel(const PieceCatalogEntry& entry) {
     QString label = QString::fromStdString(entry.name);
     if (entry.footprint.columns != 1 || entry.footprint.rows != 1) {
         label +=
             QStringLiteral("  (%1 × %2)").arg(entry.footprint.columns).arg(entry.footprint.rows);
+    }
+    if (!entry.masks.empty()) {
+        label += QStringLiteral("  ⚠ masks %1").arg(QString::fromStdString(entry.masks));
+    } else if (!entry.maskedBy.empty()) {
+        label += QStringLiteral("  (masked by %1)").arg(QString::fromStdString(entry.maskedBy));
     }
     return label;
 }
@@ -174,13 +180,13 @@ void PalettePanel::buildModel() {
 }
 
 void PalettePanel::setPieceCatalog(std::vector<PieceCatalogGroup> catalog,
-                                   const std::filesystem::path& placeDirectory) {
-    if (catalog == _catalog && placeDirectory == _placeDirectory) {
+                                   const std::filesystem::path& imagesDirectory) {
+    if (catalog == _catalog && imagesDirectory == _imagesDirectory) {
         return;
     }
     const bool hadPieces = !_catalog.empty();
     _catalog = std::move(catalog);
-    _placeDirectory = placeDirectory;
+    _imagesDirectory = imagesDirectory;
     buildPieceModel();
     const bool hasPieces = !_catalog.empty();
     _tabs->setTabEnabled(0, hasPieces);
@@ -227,7 +233,10 @@ void PalettePanel::onPrefabChosen(const QModelIndex& current) {
 void PalettePanel::buildPieceModel() {
     const QSignalBlocker blocker(_pieceTree->selectionModel());
     _pieceModel->clear();
-    QModelIndex reselect;
+    // Un en-tête par niveau (LOT-124), ses groupes dessous ; un groupe sans niveau (un manifeste
+    // lu seul, les pièces absentes) reste au premier rang.
+    QStandardItem* levelHeader = nullptr;
+    std::string currentLevel;
     for (const PieceCatalogGroup& group :
          filterPieceCatalog(_catalog, _search->text().toStdString())) {
         QStandardItem* const header = makeHeader(QString::fromStdString(group.label));
@@ -236,25 +245,36 @@ void PalettePanel::buildPieceModel() {
             leaf->setEditable(false);
             leaf->setIcon(QIcon(pieceThumbnail(entry)));
             leaf->setToolTip(QString::fromStdString(pieceDescription(entry)));
-            leaf->setData(QString::fromStdString(entry.name), PIECE_NAME_ROLE);
-            leaf->setData(entry.floor, PIECE_FLOOR_ROLE);
+            if (entry.maskedBy.empty()) {
+                leaf->setData(QString::fromStdString(entry.name), PIECE_NAME_ROLE);
+                leaf->setData(entry.floor, PIECE_FLOOR_ROLE);
+            } else {
+                // Masquée : la poser poserait la pièce propre de même nom. Montrée, pas posable.
+                leaf->setFlags(Qt::NoItemFlags);
+            }
             header->appendRow(leaf);
         }
-        _pieceModel->appendRow(header);
+        if (group.level.empty()) {
+            levelHeader = nullptr;
+            _pieceModel->appendRow(header);
+            continue;
+        }
+        if (levelHeader == nullptr || group.level != currentLevel) {
+            levelHeader = makeHeader(QString::fromStdString(group.level));
+            currentLevel = group.level;
+            _pieceModel->appendRow(levelHeader);
+        }
+        levelHeader->appendRow(header);
     }
     _pieceTree->expandAll();
     // La pièce choisie reste choisie d'une recherche à l'autre, si elle y paraît encore.
-    for (int groupRow = 0; groupRow < _pieceModel->rowCount() && !reselect.isValid(); ++groupRow) {
-        const QStandardItem* const header = _pieceModel->item(groupRow);
-        for (int row = 0; row < header->rowCount(); ++row) {
-            if (header->child(row)->data(PIECE_NAME_ROLE).toString() == _selectedPiece) {
-                reselect = header->child(row)->index();
-                break;
-            }
-        }
-    }
-    if (reselect.isValid()) {
-        _pieceTree->selectionModel()->setCurrentIndex(reselect,
+    const QModelIndexList found =
+        _selectedPiece.isEmpty()
+            ? QModelIndexList{}
+            : _pieceModel->match(_pieceModel->index(0, 0), PIECE_NAME_ROLE, _selectedPiece, 1,
+                                 Qt::MatchExactly | Qt::MatchRecursive);
+    if (!found.isEmpty()) {
+        _pieceTree->selectionModel()->setCurrentIndex(found.front(),
                                                       QItemSelectionModel::ClearAndSelect);
     }
 }
@@ -275,7 +295,7 @@ QPixmap PalettePanel::pieceThumbnail(const PieceCatalogEntry& entry) const {
     const int side = thumbnailPixelSize(PIECE_THUMBNAIL_SIZE, scale);
     QImage source;
     if (!entry.missing && !entry.file.empty()) {
-        source.load(QString::fromStdWString((_placeDirectory / entry.file).wstring()));
+        source.load(QString::fromStdWString((_imagesDirectory / entry.file).wstring()));
     }
     if (source.isNull()) {
         // Une pièce absente se montre comme le canevas la montre : en damier (EX-NFR-040).

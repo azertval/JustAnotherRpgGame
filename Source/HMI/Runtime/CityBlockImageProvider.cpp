@@ -61,8 +61,8 @@ QImage CityBlockImageProvider::requestImage(const QString& id, QSize* size,
         return {};
     }
 
-    const PlaceAppearanceResult table = PlaceAppearance::loadFromFile(
-        _data / "Assets" / "Scene" / scenePlaceOf(carte) / "appearance.json");
+    const PlaceAppearanceResult table =
+        PlaceAppearance::loadForPlace(_data / "Assets", scenePlaceOf(carte));
 
     // Le lieu tel qu'on le parcourt : ses PNJ, puis le heros s'il est dans ce quartier.
     std::vector<WorldFigureSnapshot> figurines;
@@ -71,24 +71,22 @@ QImage CityBlockImageProvider::requestImage(const QString& id, QSize* size,
         if (objet.type != core::NPC_ENTITY_TYPE || figurine.empty()) {
             continue;
         }
-        figurines.push_back(WorldFigureSnapshot{
-            .figure = std::move(figurine),
-            .clip = "idle",
-            .point = {static_cast<float>(objet.position.column) + 0.5F,
-                      static_cast<float>(objet.position.row) + 0.5F},
-            .frame = 0});
+        figurines.push_back(
+            WorldFigureSnapshot{.figure = std::move(figurine),
+                                .clip = "idle",
+                                .point = {static_cast<float>(objet.position.column) + 0.5F,
+                                          static_cast<float>(objet.position.row) + 0.5F},
+                                .frame = 0});
     }
     if (!champs[2].isEmpty()) {
-        figurines.push_back(WorldFigureSnapshot{
-            .figure = champs[2].toStdString(),
-            .clip = "idle",
-            .point = {champs[3].toFloat(), champs[4].toFloat()},
-            .frame = 0});
+        figurines.push_back(WorldFigureSnapshot{.figure = champs[2].toStdString(),
+                                                .clip = "idle",
+                                                .point = {champs[3].toFloat(), champs[4].toFloat()},
+                                                .frame = 0});
     }
 
-    QImage image = renderCityBlock(_data / "Assets",
-                                   snapshotWorldScene(carte, table.appearance, std::move(figurines)),
-                                   *ilot);
+    QImage image = renderCityBlock(
+        _data / "Assets", snapshotWorldScene(carte, table.appearance, std::move(figurines)), *ilot);
     if (!image.isNull() && requestedSize.isValid()) {
         image = image.scaled(requestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }

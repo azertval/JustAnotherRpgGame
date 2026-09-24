@@ -6,6 +6,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-124 — L'éditeur et l'arborescence par niveaux.** Une carte puise dans son lieu **et** dans
+  ses niveaux communs : son lieu est un chemin (`central-empire/capital/arenarea`), et ses pièces se
+  cherchent dans la zone, puis la ville, la région et le monde (`core::sceneLevelCandidates`). Le
+  catalogue résolu (`core::ScenePieceManifest::resolve`) empile les manifestes du plus propre au
+  plus commun ; chaque pièce garde son dossier d'origine et son fichier vient du champ `file` du
+  manifeste. Le brouillon, la déduction de collision, `--check`, le rendu du jeu et de l'éditeur le
+  lisent ; les tables d'apparence s'empilent de même, la plus propre gagnant par type. La palette
+  groupe les pièces par niveau et signale la pièce propre qui en masque une commune ; « New map »
+  propose l'arbre des lieux et range la carte sous le même chemin dans `Levels/` ;
+  `--who-cites piece` et `--replace-piece --level` suivent le niveau d'où une carte tient sa pièce,
+  si bien que promouvoir une pièce au commun ne réécrit que les cartes qui changent vraiment. Les
+  préfabriqués se rangent au plus bas niveau qui voit toutes leurs pièces et, avec les modèles,
+  servent tout lieu qui en descend. Les **figurines** suivent la même règle : un PNJ se cherche dans
+  le `Characters/` de sa zone, puis de sa ville, de sa région et du monde, et l'éditeur ne propose un
+  PNJ nommé qu'aux cartes de sa zone. Racine d'essai `Source/Test/Fixtures/LevelTree` et scénario
+  `--apply` `niveaux.json`.
+
 - **Nightly et Code scanning au vert.** Le chargeur de carte refuse un côté de plus de 1024 cases
   (`MAX_LEVEL_SIDE`) avant d'allouer la grille : le fuzzing de `fuzz_level` y trouvait une carte
   de dix gigaoctets. Les quinze alertes ouvertes sont corrigées : déplacements sans effet dans

@@ -17,6 +17,7 @@
 
 #include "Core/Data/JsonDocument.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/ScenePlace.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
 
@@ -306,16 +307,11 @@ void readSceneFamily(const std::filesystem::path& root, const std::string& direc
 }
 
 void readScenes(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
-    std::vector<std::string> dispositions;
-    std::error_code error;
-    for (const auto& item : std::filesystem::directory_iterator(root / "Scene", error)) {
-        if (item.is_directory()) {
-            dispositions.push_back(item.path().filename().string());
+    // Les lieux d'essai a plat ; l'arborescence par niveaux est lue par readTree.
+    for (const std::string& name : core::scenePlaces(root)) {
+        if (core::isFlatScenePlace(name)) {
+            readSceneFamily(root, core::ownSceneDirectory(name), "Scène · " + name, catalog);
         }
-    }
-    std::ranges::sort(dispositions);
-    for (const std::string& name : dispositions) {
-        readSceneFamily(root, "Scene/" + name, "Scène · " + name, catalog);
     }
 }
 

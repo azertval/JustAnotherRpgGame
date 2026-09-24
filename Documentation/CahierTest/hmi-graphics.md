@@ -2671,13 +2671,13 @@ Une piece rangee en sous-dossier se retrouve par son chemin.
 
 - Vérifie que `read.ok()` est vrai.
 - Vérifie que `manifest.ok()` est vrai.
-- Vérifie que `read.appearance.pieceFile("roof-l-d3-ne-c0r0")` vaut `"roofs/l/d3/roof-l-d3-ne-c0r0.png"`.
-- Vérifie que `read.appearance.pieceFile("prop-barrel").empty()` est vrai.
+- Vérifie que `read.appearance.pieceFile("roof-l-d3-ne-c0r0")` vaut `"Scene/ville/roofs/l/d3/roof-l-d3-ne-c0r0.png"`.
+- Vérifie que `read.appearance.pieceFile("prop-barrel")` vaut `"Scene/ville/prop-barrel.png"`.
 - Vérifie que `paths` vaut `(std::vector<std::string>{"Scene/ville/floors/floor-paving-01.png", "Scene/ville/prop-barrel.png", "Scene/ville/roofs/l/d3/roof-l-d3-ne-c0r0.png"})`.
 
 ### SceneFoldersTest.LAncreDUnePieceRangeeSeLitDansLeManifesteDuLieu
 
-*Bloquant · Unitaire · Lieu compose · Arborescence* — `Source/Test/Unit/HMI/Graphics/test_scene_folders.cpp:97`
+*Bloquant · Unitaire · Lieu compose · Arborescence* — `Source/Test/Unit/HMI/Graphics/test_scene_folders.cpp:100`
 
 L'ancre d'une piece rangee se lit dans le manifeste du lieu.
 

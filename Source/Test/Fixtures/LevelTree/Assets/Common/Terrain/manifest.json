@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "disposition": "common-terrain",
+  "comment": "Monde : un sol naturel.",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {
+    "scene/common-terrain/grass": {
+      "file": "grass.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        0
+      ]
+    }
+  }
+}

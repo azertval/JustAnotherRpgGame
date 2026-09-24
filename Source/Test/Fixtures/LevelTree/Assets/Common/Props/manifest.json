@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "disposition": "common-props",
+  "comment": "Monde : un objet commun.",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {
+    "scene/common-props/crate": {
+      "file": "crate.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ],
+      "tactical": "obstacle"
+    }
+  }
+}

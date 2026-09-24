@@ -11,6 +11,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/Resources/ScenePlace.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/Rpg/Inventory.h"
 
@@ -55,7 +56,12 @@ namespace {
             }
         }
     }
+    // Les figurines du monde (`Common/Characters`, LOT-124) : celles que toute carte peut poser.
+    for (const auto& [slug, directory] : core::resolveFigures(assets, {})) {
+        figures.push_back(slug);
+    }
     std::ranges::sort(figures);
+    figures.erase(std::ranges::unique(figures).begin(), figures.end());
     return figures;
 }
 
@@ -118,7 +124,8 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
         }
         std::ranges::sort(references.items);
     }
-    references.figures = loadFigures(root / "Assets");
+    references.assets = root / "Assets";
+    references.figures = loadFigures(references.assets);
     if (const std::filesystem::path encounters = root / "Rpg" / "encounters";
         isDirectory(encounters)) {
         references.encounters = core::loadEncounters(encounters);
@@ -133,13 +140,21 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
 
 core::EntityReferenceContext referenceContext(const EditorReferences& references,
                                               std::string_view editedMapId,
-                                              const std::vector<core::MapEntity>& editedEntities) {
+                                              const std::vector<core::MapEntity>& editedEntities,
+                                              std::string_view place) {
     core::EntityReferenceContext context;
     context.dialogues.insert(references.dialogues.begin(), references.dialogues.end());
     for (const core::Encounter& encounter : references.encounters.encounters) {
         context.encounters.insert(encounter.id);
     }
     context.figures.insert(references.figures.begin(), references.figures.end());
+    // Les figurines du lieu et de ses niveaux communs (LOT-124) : un PNJ nommé d'une zone ne se
+    // propose qu'aux cartes qui en descendent.
+    if (!place.empty() && !references.assets.empty()) {
+        for (const auto& [slug, directory] : core::resolveFigures(references.assets, place)) {
+            context.figures.insert(slug);
+        }
+    }
     context.flags.insert(references.flags.begin(), references.flags.end());
     context.locations.insert(references.locations.begin(), references.locations.end());
     context.items.insert(references.items.begin(), references.items.end());

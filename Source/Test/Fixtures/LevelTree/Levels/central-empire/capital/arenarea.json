@@ -1,0 +1,107 @@
+{
+  "version": 4,
+  "name": "map.central-empire.capital.arenarea.name",
+  "width": 8,
+  "height": 6,
+  "nextEntityId": 4,
+  "tiles": [
+    {"x": 1, "y": 1, "type": "cliff"},
+    {"x": 6, "y": 1, "type": "wall"},
+    {"x": 4, "y": 2, "type": "cliff"},
+    {"x": 2, "y": 3, "type": "wall"},
+    {"x": 3, "y": 3, "type": "wall"},
+    {"x": 6, "y": 3, "type": "cliff"},
+    {"x": 0, "y": 4, "type": "entry"}
+  ],
+  "layers": [
+    {
+      "name": "sol",
+      "kind": "ground",
+      "scene": "central-empire/capital/arenarea",
+      "tiles": [
+        {"x": 0, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 1, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 2, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 3, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 4, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 5, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 6, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 7, "y": 0, "type": "flagstone", "piece": "cobbles"},
+        {"x": 0, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 6, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 7, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 6, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 7, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 6, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 7, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 6, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 7, "y": 4, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 1, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 2, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 3, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 4, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 5, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 6, "y": 5, "type": "grass", "piece": "grass"},
+        {"x": 7, "y": 5, "type": "grass", "piece": "grass"}
+      ]
+    },
+    {
+      "name": "relief",
+      "kind": "decor",
+      "tiles": [
+        {"x": 1, "y": 1, "type": "wall", "piece": "banner-lion"},
+        {"x": 6, "y": 1, "type": "wall", "piece": "wall-arcade"},
+        {"x": 4, "y": 2, "type": "wall", "piece": "fountain"},
+        {"x": 2, "y": 3, "type": "wall", "piece": "stall"},
+        {"x": 6, "y": 3, "type": "wall", "piece": "crate"}
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "id": "e1",
+      "type": "npc",
+      "x": 1,
+      "y": 2,
+      "figure": "anariel"
+    },
+    {
+      "id": "e2",
+      "type": "npc",
+      "x": 5,
+      "y": 4,
+      "figure": "citizen"
+    },
+    {
+      "id": "e3",
+      "type": "npc",
+      "x": 7,
+      "y": 4,
+      "figure": "Peoples/human/guard"
+    }
+  ]
+}

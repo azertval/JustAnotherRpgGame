@@ -29,7 +29,7 @@
 
 namespace {
 
-/// Le lieu de la carte d'essai, et le dossier de sa planche.
+/// Le lieu de la carte d'essai.
 constexpr const char* PLACE = "bourg";
 
 }  // namespace
@@ -38,13 +38,12 @@ constexpr const char* PLACE = "bourg";
 /// pinceau.
 static void ComposeTestMap(benchmark::State& state) {
     const std::filesystem::path dataRoot(JADG_TEST_DATA_DIR);
-    const std::filesystem::path scene = dataRoot / "Assets" / "Scene" / PLACE;
     const core::LevelLoadResult map =
         core::LevelLoader::loadFromFile(dataRoot / "Levels" / PLACE / "place.json");
     const hmi::PlaceAppearanceResult appearance =
-        hmi::PlaceAppearance::loadFromFile(scene / "appearance.json");
+        hmi::PlaceAppearance::loadForPlace(dataRoot / "Assets", PLACE);
     const core::ScenePieceManifestResult manifest =
-        core::ScenePieceManifest::loadFromFile(scene / "manifest.json");
+        core::ScenePieceManifest::resolve(dataRoot / "Assets", PLACE);
     if (!map.ok() || !appearance.ok() || !manifest.ok()) {
         state.SkipWithError("carte d'essai illisible");
         return;
@@ -53,7 +52,7 @@ static void ComposeTestMap(benchmark::State& state) {
     std::vector<std::uint8_t> identities(manifest.manifest.pieces().size());
     for (std::size_t index = 0; index < identities.size(); ++index) {
         const core::ScenePiece& piece = manifest.manifest.pieces()[index];
-        textures.byPath[std::string{"Scene/"} + PLACE + "/" + piece.file] = hmi::SceneTexture{
+        textures.byPath[piece.path()] = hmi::SceneTexture{
             .texture = &identities[index], .width = piece.width, .height = piece.height};
     }
     hmi::ComposedScene composed;

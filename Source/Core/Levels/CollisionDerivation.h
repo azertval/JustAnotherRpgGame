@@ -68,8 +68,9 @@ struct CollisionDerivation {
  * @param layers   Les couches de la carte ; seules les couches visuelles comptent.
  * @param width    Largeur de la carte, en cases.
  * @param height   Hauteur de la carte, en cases.
- * @param manifest Le manifeste des pièces du lieu, ou `nullptr` : toute pièce compte alors comme
- *                 inconnue, et la case suit la règle de son type.
+ * @param manifest Le manifeste des pièces du lieu — son catalogue résolu, niveaux communs compris
+ *                 (`LOT-124`) —, ou `nullptr` : toute pièce compte alors comme inconnue, et la
+ *                 case suit la règle de son type.
  */
 [[nodiscard]] CollisionDerivation deriveCollision(const std::vector<TileLayer>& layers, int width,
                                                   int height, const ScenePieceManifest* manifest);

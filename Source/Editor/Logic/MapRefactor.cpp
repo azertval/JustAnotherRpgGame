@@ -20,6 +20,7 @@
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/MapEntity.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/EntityKinds.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
@@ -371,23 +372,40 @@ void writeMaps(RefactorPlan& plan, const Project& project, const std::set<std::s
     return cells;
 }
 
+// La table d'apparence propre au lieu @p place : celle qu'on écrit.
 [[nodiscard]] std::filesystem::path appearanceFile(const std::filesystem::path& dataRoot,
                                                    std::string_view place) {
-    return dataRoot / "Assets" / "Scene" / std::string{place} / "appearance.json";
+    return dataRoot / "Assets" / std::filesystem::path(core::ownSceneDirectory(place)) /
+           "appearance.json";
+}
+
+// La table la plus propre que @p place lit, à l'un de ses niveaux (LOT-124) ; vide s'il n'en a
+// aucune.
+[[nodiscard]] std::filesystem::path readableAppearanceFile(const std::filesystem::path& dataRoot,
+                                                           std::string_view place) {
+    for (const core::SceneLevel& level : core::sceneLevelCandidates(place)) {
+        std::filesystem::path file =
+            dataRoot / "Assets" / std::filesystem::path(level.directory) / "appearance.json";
+        std::error_code error;
+        if (std::filesystem::is_regular_file(file, error)) {
+            return file;
+        }
+    }
+    return {};
 }
 
 // La table d'apparence de @p to, faite de celle de @p from traduite par @p table ; rien si @p to
-// en a déjà une ou si @p from n'en a pas.
+// en lit déjà une, à son niveau ou à un niveau commun, ou si @p from n'en lit aucune.
 [[nodiscard]] std::optional<std::string> translatedAppearance(const std::filesystem::path& dataRoot,
                                                               std::string_view from,
                                                               std::string_view to,
                                                               const core::PieceRenaming& table) {
-    std::error_code error;
-    if (from.empty() || std::filesystem::exists(appearanceFile(dataRoot, to), error)) {
+    const std::filesystem::path source = readableAppearanceFile(dataRoot, from);
+    if (from.empty() || source.empty() || !readableAppearanceFile(dataRoot, to).empty()) {
         return std::nullopt;
     }
-    nlohmann::ordered_json json = nlohmann::ordered_json::parse(
-        readText(appearanceFile(dataRoot, from)), nullptr, /*allow_exceptions=*/false);
+    nlohmann::ordered_json json =
+        nlohmann::ordered_json::parse(readText(source), nullptr, /*allow_exceptions=*/false);
     if (!json.is_object()) {
         return std::nullopt;
     }
@@ -479,7 +497,10 @@ std::vector<Citation> citationsOfEntity(const std::filesystem::path& dataRoot,
 namespace {
 
 // Une citation par couche visuelle de @p map qui place @p piece.
-std::vector<Citation> pieceCitationsIn(const ProjectMap& map, std::string_view piece) {
+// Les citations de @p piece dans @p map ; @p origin, s'il est connu, dit de quel niveau la carte la
+// tient (LOT-124).
+std::vector<Citation> pieceCitationsIn(const ProjectMap& map, std::string_view piece,
+                                       std::string_view origin = {}) {
     std::vector<Citation> citations;
     for (const core::TileLayer& layer : map.data.layers) {
         if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
@@ -487,25 +508,50 @@ std::vector<Citation> pieceCitationsIn(const ProjectMap& map, std::string_view p
         }
         const std::vector<core::GridPosition> cells = cellsOf(layer, piece);
         if (!cells.empty()) {
-            citations.push_back(Citation{.file = map.file,
-                                         .mapId = map.id,
-                                         .cell = cells.front(),
-                                         .what = "layer " + layer.name + ": " +
-                                                 std::to_string(cells.size()) +
-                                                 (cells.size() == 1 ? " cell" : " cells")});
+            std::string what = "layer " + layer.name + ": " + std::to_string(cells.size()) +
+                               (cells.size() == 1 ? " cell" : " cells");
+            if (!origin.empty()) {
+                what.append(", from ").append(origin);
+            }
+            citations.push_back(Citation{
+                .file = map.file, .mapId = map.id, .cell = cells.front(), .what = std::move(what)});
         }
     }
     return citations;
 }
 
+// Le dossier, relatif a Assets/, du niveau dont @p map tient @p piece (LOT-124) : le catalogue de
+// SON lieu la resout, pas celui d'une autre carte. Vide si la piece y manque.
+[[nodiscard]] std::string pieceOrigin(const std::filesystem::path& dataRoot, const ProjectMap& map,
+                                      std::string_view piece) {
+    const PlaceAssets assets = placeOf(dataRoot, map.data);
+    const core::ScenePiece* found = assets.manifest ? assets.manifest->find(piece) : nullptr;
+    return found == nullptr ? std::string{} : found->directory;
+}
+
+// Vrai si @p level (un dossier de niveau) est vide ou designe @p origin, barre finale ignoree.
+[[nodiscard]] bool sameLevel(std::string_view level, std::string_view origin) {
+    while (level.ends_with('/')) {
+        level.remove_suffix(1);
+    }
+    return level.empty() || level == origin;
+}
+
 }  // namespace
 
 std::vector<Citation> citationsOfPiece(const std::filesystem::path& dataRoot,
-                                       std::string_view piece) {
+                                       std::string_view piece, std::string_view level) {
     std::vector<Citation> citations;
     Project project = loadProject(dataRoot);
     for (const ProjectMap& map : project.maps) {
-        std::vector<Citation> found = pieceCitationsIn(map, piece);
+        if (!citedPieces(map.data.layers).contains(piece)) {
+            continue;
+        }
+        const std::string origin = pieceOrigin(dataRoot, map, piece);
+        if (!sameLevel(level, origin)) {
+            continue;
+        }
+        std::vector<Citation> found = pieceCitationsIn(map, piece, origin);
         citations.insert(citations.end(), std::make_move_iterator(found.begin()),
                          std::make_move_iterator(found.end()));
     }
@@ -813,7 +859,7 @@ std::optional<std::string> replacePieceInMap(const std::filesystem::path& dataRo
     if (!validated.ok()) {
         return map.id + " would not be valid: " + validated.error;
     }
-    std::vector<Citation> cited = pieceCitationsIn(map, from);
+    std::vector<Citation> cited = pieceCitationsIn(map, from, previous ? previous->directory : "");
     plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),
                         std::make_move_iterator(cited.end()));
     plan.edits.push_back(
@@ -824,7 +870,8 @@ std::optional<std::string> replacePieceInMap(const std::filesystem::path& dataRo
 }  // namespace
 
 RefactorPlan planReplacePiece(const std::filesystem::path& dataRoot, std::string_view from,
-                              std::string_view to, const std::vector<std::string>& maps) {
+                              std::string_view to, const std::vector<std::string>& maps,
+                              std::string_view level) {
     if (from.empty() || to.empty()) {
         return refused("name the piece to replace and the one that replaces it");
     }
@@ -845,13 +892,19 @@ RefactorPlan planReplacePiece(const std::filesystem::path& dataRoot, std::string
         if (!citedPieces(map.data.layers).contains(from)) {
             continue;
         }
+        // Un niveau nomme : seules les cartes qui tiennent la piece de CE niveau changent
+        // (LOT-124). Une autre zone qui a sa propre piece de meme nom ne bouge pas.
+        if (!sameLevel(level, pieceOrigin(dataRoot, map, from))) {
+            continue;
+        }
         if (const std::optional<std::string> refusal =
                 replacePieceInMap(dataRoot, map, from, to, plan)) {
             return refused(*refusal);
         }
     }
     if (plan.edits.empty()) {
-        return refused("no map places \"" + std::string{from} + "\"");
+        return refused("no map places \"" + std::string{from} + "\"" +
+                       (level.empty() ? std::string{} : " from " + std::string{level}));
     }
     return plan;
 }
@@ -908,8 +961,7 @@ RefactorPlan planChangeScene(const std::filesystem::path& dataRoot, std::string_
     }
     const PlaceAssets target = loadPlaceAssets(dataRoot, place);
     if (!target.manifest) {
-        return refused("no sheet \"" + std::string{place} + "\" (Assets/Scene/" +
-                       std::string{place} + "/manifest.json)");
+        return refused("no sheet \"" + std::string{place} + "\" (" + target.manifestError + ")");
     }
     core::PieceRenaming merged = proposedPieceTable(map->data.layers, *target.manifest);
     for (const auto& [from, to] : table) {
@@ -1034,12 +1086,14 @@ namespace {
     if (what == "entity" && values.size() == 3) {
         return listCitations(citationsOfEntity(dataRoot, values[1], values[2]), dataRoot, output);
     }
-    if (what == "piece" && values.size() == 2) {
-        return listCitations(citationsOfPiece(dataRoot, values[1]), dataRoot, output);
+    if (what == "piece" && (values.size() == 2 || values.size() == 3)) {
+        return listCitations(
+            citationsOfPiece(dataRoot, values[1], values.size() == 3 ? values[2] : std::string{}),
+            dataRoot, output);
     }
     output +=
         "usage: --who-cites map <map> | arrival <map> <point> | entity <map> <id> | "
-        "piece <piece>\n";
+        "piece <piece> [<level directory>]\n";
     return 2;
 }
 
@@ -1100,12 +1154,14 @@ std::optional<int> runRefactorCommand(const std::vector<std::string>& arguments,
                         output);
     }
     if (const auto piece = valuesOf(arguments, "--replace-piece")) {
-        if (piece->size() < 2) {
-            return usage("--replace-piece <old> <new> [map...]");
+        const auto level = valuesOf(arguments, "--level");
+        if (piece->size() < 2 || (level && level->size() != 1)) {
+            return usage("--replace-piece <old> <new> [map...] [--level <level directory>]");
         }
         const std::vector<std::string> maps(std::next(piece->begin(), 2), piece->end());
-        return carryOut(planReplacePiece(dataRoot, (*piece)[0], (*piece)[1], maps), dataRoot,
-                        output);
+        return carryOut(planReplacePiece(dataRoot, (*piece)[0], (*piece)[1], maps,
+                                         level ? level->front() : std::string{}),
+                        dataRoot, output);
     }
     if (const auto scene = valuesOf(arguments, "--change-scene")) {
         const auto tableFile = valuesOf(arguments, "--table");

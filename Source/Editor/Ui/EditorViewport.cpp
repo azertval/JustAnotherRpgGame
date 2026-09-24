@@ -463,9 +463,13 @@ void EditorViewport::invalidateScene() {
 
 void EditorViewport::loadPlaceAssets(const std::string& place) {
     _appearancePlace = place;
+    _placeAssetsLoaded = true;
     _appearance = PlaceAppearance{};
     _manifest.reset();
     if (place.empty()) {
+        // Une maquette : ni pièce ni table, mais ses PNJ prennent les figurines du monde.
+        _appearance = hmi::loadPlaceAssets(hmi::editorDataRoot(), place)
+                          .appearance.value_or(PlaceAppearance{});
         return;
     }
     // Ce que --check lit, lu de la même façon : la table et le manifeste du lieu.
@@ -487,7 +491,7 @@ void EditorViewport::ensureIsoScene() {
         return;
     }
     const std::string place = scenePlaceOf(_draft.layers());
-    if (place != _appearancePlace) {
+    if (!_placeAssetsLoaded || place != _appearancePlace) {
         loadPlaceAssets(place);
     }
     // Un brouillon remplacé (ouverture, reprise) repart sans manifeste : on le lui redonne.
@@ -955,9 +959,8 @@ std::vector<PieceCatalogGroup> EditorViewport::pieceCatalog() const {
     return hmi::pieceCatalog(_manifest.get(), _draft.layers());
 }
 
-std::filesystem::path EditorViewport::placeDirectory() const {
-    return _appearancePlace.empty() ? std::filesystem::path{}
-                                    : assetsDirectory() / "Scene" / _appearancePlace;
+std::filesystem::path EditorViewport::pieceImagesDirectory() const {
+    return _appearancePlace.empty() ? std::filesystem::path{} : assetsDirectory();
 }
 
 bool EditorViewport::hoveredCellForced() const {
@@ -1665,7 +1668,8 @@ void EditorViewport::refreshDiagnostics() {
     static const hmi::EditorReferences emptyReferences;
     const hmi::EditorReferences& references =
         _references != nullptr ? *_references : emptyReferences;
-    _referenceContext = hmi::referenceContext(references, _mapId, _draft.entities());
+    _referenceContext =
+        hmi::referenceContext(references, _mapId, _draft.entities(), scenePlaceOf(_draft.layers()));
     const std::vector<core::EntityIssue> issues =
         core::validateMapEntities(_draft.entities(), _referenceContext);
     _terrains = core::analyzeEncounterTerrain(_draft.tileMap(), _draft.entities(),

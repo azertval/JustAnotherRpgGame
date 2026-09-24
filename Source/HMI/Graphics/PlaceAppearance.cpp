@@ -7,11 +7,13 @@
 #include <cmath>
 #include <optional>
 #include <set>
+#include <system_error>
 #include <utility>
 
 #include "Core/Data/JsonDocument.h"
 #include "Core/Levels/TileTypeName.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/ScenePlace.h"
 
 namespace hmi {
 
@@ -117,7 +119,60 @@ PlaceAppearanceResult PlaceAppearance::loadFromFile(const std::filesystem::path&
     return result;
 }
 
+PlaceAppearanceResult PlaceAppearance::loadForPlace(const std::filesystem::path& assetsDirectory,
+                                                    std::string_view place) {
+    PlaceAppearanceResult result;
+    result.appearance._place = std::string{place};
+    bool found = false;
+    for (const core::SceneLevel& level : core::sceneLevelCandidates(place)) {
+        const std::filesystem::path file =
+            assetsDirectory / std::filesystem::path(level.directory) / "appearance.json";
+        std::error_code error;
+        if (!std::filesystem::is_regular_file(file, error)) {
+            continue;
+        }
+        const PlaceAppearanceResult table =
+            fromDocument(core::readJsonObjectFromFile(file, FORMAT_VERSION));
+        if (!table.ok()) {
+            return failure(level.directory + "/appearance.json: " + table.message, table.error);
+        }
+        // Le plus propre gagne : son rapport du losange, et chaque type qu'il traduit.
+        if (!found) {
+            result.appearance._diamondRatio = table.appearance._diamondRatio;
+        }
+        found = true;
+        result.appearance.fillFrom(table.appearance);
+    }
+    const core::ScenePieceManifestResult manifest =
+        core::ScenePieceManifest::resolve(assetsDirectory, place);
+    if (manifest.ok()) {
+        result.appearance.adoptManifest(manifest.manifest);
+        found = true;
+    } else if (manifest.error != core::ScenePieceManifestError::FileNotFound) {
+        return failure(manifest.message, PlaceAppearanceError::MalformedStructure);
+    }
+    result.appearance._figures = core::resolveFigures(assetsDirectory, place);
+    if (!found && result.appearance._figures.empty()) {
+        return failure("no appearance table nor piece manifest for place " + std::string{place},
+                       PlaceAppearanceError::FileNotFound);
+    }
+    return result;
+}
+
+void PlaceAppearance::fillFrom(const PlaceAppearance& other) {
+    for (const auto& [type, pieces] : other._floors) {
+        _floors.try_emplace(type, pieces);
+    }
+    for (const auto& [type, pieces] : other._relief) {
+        _relief.try_emplace(type, pieces);
+    }
+}
+
 void PlaceAppearance::adoptManifest(const core::ScenePieceManifest& manifest) {
+    _manifest = std::make_shared<const core::ScenePieceManifest>(manifest);
+    // Un manifeste lu seul ne dit pas son dossier : c'est celui, propre, du lieu que la table
+    // nomme.
+    const std::string ownDirectory = core::ownSceneDirectory(_place);
     for (const core::ScenePiece& piece : manifest.pieces()) {
         for (const std::string& alias : piece.aliases) {
             _aliases.emplace(alias, piece.name);
@@ -125,9 +180,11 @@ void PlaceAppearance::adoptManifest(const core::ScenePieceManifest& manifest) {
         if (piece.footprintColumns > 1 || piece.footprintRows > 1) {
             _footprints.insert_or_assign(piece.name, piece.footprint());
         }
-        // Une pièce rangée ailleurs qu'à plat : le rendu doit la chercher sous son vrai chemin.
-        if (!piece.file.empty() && piece.file != piece.name + ".png") {
-            _files.insert_or_assign(piece.name, piece.file);
+        // Le fichier de la piece, relatif a Assets/ : le rendu la cherche sous son niveau.
+        if (!piece.directory.empty()) {
+            _files.insert_or_assign(piece.name, piece.path());
+        } else if (!ownDirectory.empty()) {
+            _files.insert_or_assign(piece.name, ownDirectory + "/" + piece.file);
         }
         // Ce qui monte au-dessus du sommet haut de l'emprise : l'ancre, a defaut le haut de
         // l'image au-dessus du losange de sa case. En largeurs de case, au losange du lieu -- a
@@ -162,9 +219,9 @@ core::PieceFootprint PlaceAppearance::pieceFootprint(std::string_view name) cons
     return found == _footprints.end() ? core::PieceFootprint{} : found->second;
 }
 
-std::string_view PlaceAppearance::pieceFile(std::string_view name) const {
+std::string PlaceAppearance::pieceFile(std::string_view name) const {
     const auto found = _files.find(name);
-    return found == _files.end() ? std::string_view{} : std::string_view{found->second};
+    return found == _files.end() ? core::fallbackScenePiecePath(_place, name) : found->second;
 }
 
 PlaceAppearanceResult PlaceAppearance::fromDocument(const core::JsonDocument& document) {

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "place": "common-terrain",
+  "floors": {
+    "grass": [
+      "grass"
+    ],
+    "pavement": [
+      "grass"
+    ]
+  }
+}

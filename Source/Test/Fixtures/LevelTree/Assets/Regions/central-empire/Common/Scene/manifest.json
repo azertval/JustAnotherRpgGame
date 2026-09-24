@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "disposition": "central-empire",
+  "comment": "Région : la bannière au lion.",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {
+    "scene/central-empire/banner-lion": {
+      "file": "props/banner-lion.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ],
+      "tactical": "obstacle"
+    }
+  }
+}

@@ -5,6 +5,7 @@
 
 #include <filesystem>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "Editor/Logic/FileOperationResult.h"
@@ -16,6 +17,14 @@
  */
 
 namespace hmi {
+
+/**
+ * @brief Le dossier, relatif à `Levels/`, où se range une carte du lieu @p place (`LOT-124`) : le
+ *        chemin du lieu sans son dernier segment — `central-empire/capital` pour
+ *        `central-empire/capital/arenarea`, dont la carte est `arenarea.json`. Vide pour un lieu à
+ *        plat ou sans lieu : la carte va à la racine.
+ */
+[[nodiscard]] std::string levelFolderOf(std::string_view place);
 
 /**
  * @brief Opérations sur les fichiers de niveaux d'un dossier, **sans dépendance Qt/GPU**.
@@ -55,6 +64,8 @@ public:
      *
      * Son nom est la clé `map.<identifiant>.name` (`LOT-EDITOR-07`), que chaque catalogue de
      * traduction reçoit avec @p name pour texte : la carte passe le contrôle telle quelle.
+     *
+     * Elle se range sous le chemin de son lieu (`hmi::levelFolderOf`, `LOT-124`).
      */
     [[nodiscard]] FileOperationResult create(const std::string& name, int width, int height,
                                              const std::string& place = {},

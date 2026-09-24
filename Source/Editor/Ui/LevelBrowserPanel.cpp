@@ -10,6 +10,7 @@
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QLabel>
 #include <QLineEdit>
 #include <QListView>
 #include <QMessageBox>
@@ -24,11 +25,13 @@
 #include <QVBoxLayout>
 #include <cstddef>
 #include <string>
+#include <string_view>
 #include <system_error>
 #include <utility>
 #include <vector>
 
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/CityView.h"
 #include "Editor/Logic/EditorSidecar.h"
@@ -286,6 +289,30 @@ std::filesystem::path LevelBrowserPanel::selectedPath() const {
     return {pathData.toString().toStdString()};
 }
 
+namespace {
+
+// Le chemin d'un lieu pour l'œil : « Central Empire › Capital › Arenarea » (LOT-124).
+[[nodiscard]] std::string placeTreeLabel(std::string_view place) {
+    std::string label;
+    std::size_t start = 0;
+    while (start <= place.size()) {
+        const std::size_t slash = place.find('/', start);
+        const std::string_view segment = place.substr(
+            start, slash == std::string_view::npos ? std::string_view::npos : slash - start);
+        if (!label.empty()) {
+            label += " › ";
+        }
+        label += core::scenePlaceLabel(segment);
+        if (slash == std::string_view::npos) {
+            break;
+        }
+        start = slash + 1;
+    }
+    return label;
+}
+
+}  // namespace
+
 void LevelBrowserPanel::onNew() {
     // Nom, taille et lieu (LOT-EDITOR-06) : sans lieu, la palette n'aurait que les types en
     // couleurs, et aucune pièce à poser.
@@ -299,23 +326,48 @@ void LevelBrowserPanel::onNew() {
     }
     widthSpin->setValue(NEW_MAP_WIDTH);
     heightSpin->setValue(NEW_MAP_HEIGHT);
+    // L'arbre des lieux (LOT-124) : chaque zone et sous-zone, sous son chemin lisible
+    // (« Central Empire › Capital › Arenarea »). La carte se range sous le même chemin.
     auto* const placeCombo = new QComboBox(&dialog);
     for (const std::string& place : scenePlaces(_dir.parent_path())) {
-        placeCombo->addItem(QString::fromStdString(place), QString::fromStdString(place));
+        placeCombo->addItem(QString::fromStdString(placeTreeLabel(place)),
+                            QString::fromStdString(place));
+        placeCombo->setItemData(placeCombo->count() - 1, QString::fromStdString(place),
+                                Qt::ToolTipRole);
     }
     placeCombo->addItem(QStringLiteral("(none: colored tile types)"), QString());
+    auto* const whereLabel = new QLabel(&dialog);
     // Le modèle (LOT-EDITOR-08) : ses couches, son tampon, son entrée. Le choisir reprend sa
-    // taille ; l'auteur peut encore l'agrandir, et ce que le modèle ne couvre pas reste plein.
-    const std::vector<MapTemplate> models = mapTemplates(_dir.parent_path());
+    // taille ; l'auteur peut encore l'agrandir, et ce que le modèle ne couvre pas reste plein. Les
+    // modèles proposés sont ceux du lieu et de ses niveaux communs (LOT-124).
+    std::vector<MapTemplate> models;
     auto* const templateCombo = new QComboBox(&dialog);
-    templateCombo->addItem(QStringLiteral("(none: an empty map)"), -1);
-    for (std::size_t index = 0; index < models.size(); ++index) {
-        templateCombo->addItem(QString::fromStdString(models[index].label),
-                               static_cast<int>(index));
-        templateCombo->setItemData(templateCombo->count() - 1,
-                                   QString::fromStdString(models[index].description),
-                                   Qt::ToolTipRole);
-    }
+    const auto fillTemplates = [&] {
+        const std::string place = placeCombo->currentData().toString().toStdString();
+        models = mapTemplates(_dir.parent_path(), place);
+        const QSignalBlocker blocker(templateCombo);
+        templateCombo->clear();
+        templateCombo->addItem(QStringLiteral("(none: an empty map)"), -1);
+        for (std::size_t index = 0; index < models.size(); ++index) {
+            templateCombo->addItem(QString::fromStdString(models[index].label),
+                                   static_cast<int>(index));
+            templateCombo->setItemData(templateCombo->count() - 1,
+                                       QString::fromStdString(models[index].description),
+                                       Qt::ToolTipRole);
+        }
+        // Où ira la carte : sous le chemin de son lieu, nommée comme lui par défaut.
+        const std::string folder = levelFolderOf(place);
+        if (!nameEdit->isModified()) {
+            nameEdit->setText(QString::fromStdString(core::isFlatScenePlace(place)
+                                                         ? std::string{}
+                                                         : place.substr(place.rfind('/') + 1)));
+        }
+        whereLabel->setText(
+            QStringLiteral("Levels/%1")
+                .arg(QString::fromStdString(folder.empty() ? std::string{} : folder + "/")));
+    };
+    fillTemplates();
+    connect(placeCombo, &QComboBox::currentIndexChanged, &dialog, [&](int) { fillTemplates(); });
     connect(templateCombo, &QComboBox::currentIndexChanged, &dialog, [&](int) {
         const int chosen = templateCombo->currentData().toInt();
         if (chosen >= 0 && std::cmp_less(chosen, models.size())) {
@@ -332,6 +384,7 @@ void LevelBrowserPanel::onNew() {
     form->addRow(QStringLiteral("Width (cells)"), widthSpin);
     form->addRow(QStringLiteral("Height (cells)"), heightSpin);
     form->addRow(QStringLiteral("Place (piece sheet)"), placeCombo);
+    form->addRow(QStringLiteral("Saved under"), whereLabel);
     form->addRow(QStringLiteral("Template"), templateCombo);
     form->addRow(buttons);
     if (dialog.exec() != QDialog::Accepted || nameEdit->text().isEmpty()) {

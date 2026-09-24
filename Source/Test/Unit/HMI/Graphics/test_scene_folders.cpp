@@ -62,8 +62,11 @@ TEST(SceneFoldersTest, UnePieceRangeeSeRetrouveParSonChemin) {
         core::ScenePieceManifest::loadFromString(MANIFEST);
     ASSERT_TRUE(manifest.ok()) << manifest.message;
     read.appearance.adoptManifest(manifest.manifest);
-    EXPECT_EQ(read.appearance.pieceFile("roof-l-d3-ne-c0r0"), "roofs/l/d3/roof-l-d3-ne-c0r0.png");
-    EXPECT_TRUE(read.appearance.pieceFile("prop-barrel").empty());
+    // Le fichier est relatif a Assets/ (LOT-124) : un manifeste lu seul vit dans le dossier propre
+    // du lieu que la table nomme.
+    EXPECT_EQ(read.appearance.pieceFile("roof-l-d3-ne-c0r0"),
+              "Scene/ville/roofs/l/d3/roof-l-d3-ne-c0r0.png");
+    EXPECT_EQ(read.appearance.pieceFile("prop-barrel"), "Scene/ville/prop-barrel.png");
 
     core::LevelData data{.name = "ville", .tileMap = core::TileMap{2, 1}};
     core::TileLayer ground{.name = "sol",

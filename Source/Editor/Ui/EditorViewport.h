@@ -133,8 +133,9 @@ public:
     }
     /// @return Le catalogue des pièces du lieu de la carte ouverte (`hmi::pieceCatalog`).
     [[nodiscard]] std::vector<PieceCatalogGroup> pieceCatalog() const;
-    /// @return Le dossier des images du lieu (`Assets/Scene/<lieu>`), vide sans lieu.
-    [[nodiscard]] std::filesystem::path placeDirectory() const;
+    /// @return Le dossier auquel les fichiers du catalogue sont relatifs (`Assets/`, `LOT-124`),
+    ///         vide sans lieu.
+    [[nodiscard]] std::filesystem::path pieceImagesDirectory() const;
     /// @return Le lieu de la carte ouverte (`scene`), vide pour une carte sans lieu.
     [[nodiscard]] const std::string& place() const noexcept {
         return _appearancePlace;
@@ -515,6 +516,8 @@ private:
     bool _isoSceneDirty = true;
     PlaceAppearance _appearance;
     std::string _appearancePlace;
+    /// Vrai une fois le lieu lu : une carte sans lieu lit aussi les figurines du monde.
+    bool _placeAssetsLoaded = false;
     /// Le manifeste des pièces du lieu : le brouillon en tire emprises et collision.
     std::shared_ptr<const core::ScenePieceManifest> _manifest;
     WorldSceneSnapshot _snapshot;

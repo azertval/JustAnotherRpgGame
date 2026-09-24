@@ -1,0 +1,18 @@
+{
+  "format": "jadg-editor-gestures",
+  "version": 1,
+  "map": "central-empire/capital/arenarea",
+  "note": "LOT-124 : l'Arenarea de la racine d'essai LevelTree, effacée puis reposée pièce à pièce — le gazon du monde, le pavage et l'arcade de la ville, la bannière de l'Empire, les pavés, la fontaine et l'étal de la zone, la caisse du monde. Le fichier doit revenir octet pour octet.",
+  "gestures": [
+    {"layer": "sol", "tool": "selection", "from": [0, 0], "to": [7, 5], "then": "delete"},
+    {"layer": "relief", "tool": "selection", "from": [0, 0], "to": [7, 5], "then": "delete"},
+    {"piece": "paving", "tool": "rectangle", "from": [0, 1], "to": [7, 4]},
+    {"piece": "cobbles", "tool": "line", "from": [0, 0], "to": [7, 0]},
+    {"piece": "grass", "tool": "line", "from": [0, 5], "to": [7, 5]},
+    {"piece": "banner-lion", "tool": "paint", "path": [[1, 1]]},
+    {"piece": "wall-arcade", "tool": "paint", "path": [[6, 1]]},
+    {"piece": "fountain", "tool": "paint", "path": [[4, 2]]},
+    {"piece": "stall", "tool": "paint", "path": [[2, 3]]},
+    {"piece": "crate", "tool": "paint", "path": [[6, 3]]}
+  ]
+}

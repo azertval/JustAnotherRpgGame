@@ -34,9 +34,13 @@ struct EditorReferences {
     /// Pour l'emprise des créatures d'une rencontre (`core::analyzeEncounterTerrain`).
     core::Bestiary bestiary;
     core::WorldGraph world;
-    /// Les figurines des ateliers, triées : les slugs de `Assets/Npc/manifest.json`, puis
-    /// `Monsters/<slug>` pour chaque monstre de `Assets/Monsters/manifest.json`.
+    /// Les figurines que toute carte peut poser, triées : les slugs de `Assets/Npc/manifest.json`,
+    /// `Monsters/<slug>` pour chaque monstre de `Assets/Monsters/manifest.json`, et les slugs du
+    /// monde (`Assets/Common/Characters`, `LOT-124`). Celles d'un lieu s'y ajoutent carte par carte
+    /// (`referenceContext`).
     std::vector<std::string> figures;
+    /// Le dossier `Assets/` où se cherchent les figurines d'un lieu ; vide sans données.
+    std::filesystem::path assets;
     /// Les drapeaux qu'un dialogue accepté pose (`SetFlag`, et le drapeau d'une quête démarrée),
     /// triés.
     std::vector<std::string> flags;
@@ -66,10 +70,12 @@ struct EditorReferences {
  * @param references      Les catalogues.
  * @param editedMapId     L'identifiant de la carte éditée (le nom de son fichier, sans extension).
  * @param editedEntities  Les entités du brouillon.
+ * @param place           Le lieu de la carte : ses figurines, et celles de ses niveaux communs,
+ *                        s'ajoutent à celles de toute carte (`core::resolveFigures`, `LOT-124`).
  */
 [[nodiscard]] core::EntityReferenceContext referenceContext(
     const EditorReferences& references, std::string_view editedMapId,
-    const std::vector<core::MapEntity>& editedEntities);
+    const std::vector<core::MapEntity>& editedEntities, std::string_view place = {});
 
 /// @return `carte#id` : l'entité @p entityId de la carte @p mapId (décision D8).
 [[nodiscard]] std::string entityRef(std::string_view mapId, std::string_view entityId);
