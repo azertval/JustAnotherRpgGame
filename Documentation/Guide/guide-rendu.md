@@ -595,7 +595,7 @@ l'ordre vient de la profondeur et non du calque. Un personnage et un arbre n'aya
 texture, aucun ordre de calque ne rendrait les deux cas justes : seule la profondeur le peut, au
 prix de passes de dessin supplémentaires.
 
-![L'ordre de dessin d'une scène composée : les sept calques et leur bande unique de profondeur, les deux règles de tri à l'intérieur d'une bande, et l'exemple de deux murs et d'un héros ordonnés par leur pied](figures/rendu-ordre-de-tri.svg)
+![L'ordre de dessin d'une scène composée : les sept calques et leur bande unique de profondeur, la clé profondeur × 6 + rang avec ses six rangs, l'exemple d'un mur, d'une figurine et d'un étage translucide au-dessus du héros ordonnés par leur pied, et les jetons de maquette hors de la bande](figures/rendu-ordre-de-tri.svg)
 
 La profondeur se lit au **pied** du quad — le point de contact avec le sol —, pas à son coin haut :
 deux sprites de hauteurs différentes posés sur la même case doivent s'ordonner de la même façon.
@@ -604,8 +604,8 @@ départager deux pieds distants de moins d'un pixel ne ferait que les faire scin
 arrondis flottants. Un Y plus grand (plus bas à l'écran) donne un ordre plus grand, donc un dessin
 plus tard, donc devant. Les compositeurs y ajoutent un **rang** qui départage les pièces d'une même
 case (`hmi::arenaDepthSortOrder`, `hmi::worldDepthSortOrder` : `depthSortOrder(pied) × rangs +
-rang`) — le relief, puis la figurine posée dessus ; laissé à égalité, le tri trancherait par rang
-de texture, qui dépend de la première case composée.
+rang`) — le relief, puis la figurine posée dessus, puis les étages de la case ; laissé à égalité,
+le tri trancherait par rang de texture, qui dépend de la première case composée.
 
 Le tri de la scène composée (`ComposedScene::sort`) est donc d'abord la **bande de calque**. Dans
 la bande de profondeur, la **profondeur** tranche, puis la **texture** (regroupement, dans l'ordre
@@ -667,8 +667,29 @@ La composition d'un lieu (`WorldSceneComposer.h`, `LOT-09`) ne lit qu'un **insta
 `hmi::WorldSceneSnapshot` : aucun pointeur vers la carte ni vers la session, ce qui lui permet de
 tourner sur le fil de rendu de Qt Quick. Ce qui va où : le sol sur `Tile` (profondeur de case), le
 relief sur `Object` (pied de la case, rang `hmi::WorldDepthSlot::Relief`), les figurines sur
-`Player` (pied de leur case, rang `Figure`) ; `hmi::WORLD_DEPTH_SLOTS` = 2 est le multiplicateur de
-`hmi::worldDepthSortOrder(footWorldY, slot)`.
+`Player` (pied de leur case, rang `Figure`), les pièces d'étage sur `Object` encore, au rang de leur
+étage (`Storey`, `Storey2`, `Storey3`, `Storey4` — le rang de l'étage `n` est `Storey + n − 1`).
+
+`hmi::WorldDepthSlot` compte donc **six** rangs, et `hmi::WORLD_DEPTH_SLOTS` = 6 est le
+multiplicateur de `hmi::worldDepthSortOrder(footWorldY, slot)` :
+
+```
+clé = depthSortOrder(pied) × WORLD_DEPTH_SLOTS + rang        WORLD_DEPTH_SLOTS = 2 + MAX_STOREY_FLOOR = 6
+      Relief = 0 · Figure = 1 · Storey = 2 · Storey2 = 3 · Storey3 = 4 · Storey4 = 5
+```
+
+Un `static_assert` tient l'énumération et `core::MAX_STOREY_FLOOR` d'accord : ajouter un étage au
+format sans lui donner un rang ne compile pas. À profondeur égale — la même case —, le relief passe
+sous la figurine, qui passe sous l'étage 1, qui passe sous l'étage 2 : c'est ce qui fait qu'un toit
+recouvre le héros qui marche derrière l'îlot, et qu'un étage recouvre le mur du rez qui le porte.
+Une pièce élevée au-delà du dernier étage nommé se range avec lui.
+
+Les **jetons** de maquette (`LOT-128`) ne sont pas dans cette bande. Posés d'abord au rang de la
+figurine qu'ils remplacent, ils se faisaient couper en deux par le premier mur d'en face — un point
+d'apparition contre le bord de la carte devenait illisible. Depuis la décision D7 du `LOT-128`, un
+jeton est une **marque sur un plan**, pas un objet du monde : il se compose sur `RenderLayer::UI`,
+comme les tracés, où il ne peut être caché par rien de la scène. Il garde une clé de profondeur
+(celle de sa case, au rang `Figure`), mais elle ne sert qu'à l'ordonner parmi les jetons.
 
 ### L'instantané et sa source
 
@@ -676,14 +697,37 @@ relief sur `Object` (pied de la case, rang `hmi::WorldDepthSlot::Relief`), les f
 **nom** de la pièce de la planche, vide si la case ne dessine rien), `types` et `reliefTypes` (le
 type de chaque case du sol et du décor, ce que la maquette dessine là où aucune pièce n'est nommée),
 `footprints` (emprises des pièces de relief plus grandes qu'une case, triées au pied de leur
-emprise), `figures` (les `hmi::WorldFigureSnapshot`), `marks` (jetons et tracés de maquette), plus
-`place` (le lieu, qui nomme le dossier de planches) et `diamondRatio`. `floorAt`, `reliefAt`,
-`typeAt`, `reliefTypeAt` répondent pour une case, hors grille compris (vide ou `Empty`).
+emprise), `storeys` (les couches d'étage, des `hmi::WorldStoreySnapshot`, de la plus basse à la
+plus haute), `figures` (les `hmi::WorldFigureSnapshot`), `marks` (jetons et tracés de maquette),
+plus `place` (le lieu, qui nomme le dossier de planches), `diamondRatio` et `maximumRise` (la plus
+haute élévation d'une pièce du lieu au-dessus du losange de sa case, en largeurs de case : ce qu'un
+cadrage doit réserver au-dessus de la dernière rangée, `hmi::PlaceAppearance::maximumRise`).
+`floorAt`, `reliefAt`, `typeAt`, `reliefTypeAt` répondent pour une case, hors grille compris (vide
+ou `Empty`).
 
-`hmi::WorldFigureSnapshot` décrit une figurine : `figure` (un slug de l'atelier des PNJ, ou, s'il
-contient une barre, un dossier relatif aux assets — une figurine de l'atelier des monstres,
-`LOT-93`), `clip` (`idle`, `walk`), `point` (position **continue** en cases : `{1.5, 2.5}` est le
-centre de la case (1, 2)), `frame` (image de la bande, ramenée dans la bande par la composition).
+Deux tables disent **où sont les fichiers**, pour que la composition ne touche jamais au disque :
+`pieceFiles` donne, pour chaque pièce citée, son fichier relatif au dossier des assets sous le
+niveau qui la déclare (`hmi::PlaceAppearance::pieceFile`, `LOT-124`) — une pièce absente de la
+table se cherche en `<nom>.png` dans le dossier propre du lieu (`core::fallbackScenePiecePath`) ;
+`figureDirectories` donne, pour chaque figurine posée, le dossier `Characters/` qui la range
+(`hmi::PlaceAppearance::figureDirectory`), à défaut la figurine elle-même.
+
+`hmi::WorldStoreySnapshot` est une couche de décor à l'étage `floor` (1 à 4), à la taille de la
+carte : `relief`, la pièce nommée par case, et `types`, le type de chaque case — sans pièce nommée,
+un mur d'étage s'extrude en maquette comme au rez. Un étage ne se **déduit** pas de la table du lieu
+: seule une pièce nommée s'y pose. `snapshotWorldScene` ne retient que les couches de décor dont
+`floor` est dans `1..MAX_STOREY_FLOOR` et aux dimensions de la carte, puis les trie par étage.
+
+`hmi::WorldFigureSnapshot` décrit une figurine : `figure` (un slug cherché dans les `Characters/`
+du lieu et de ses niveaux communs — `citizen`, `Heroes/brawler` —, à défaut un dossier relatif aux
+assets s'il contient une barre, ou un PNJ de l'atelier à plat, `Npc/<slug>`), `clip` (`idle`,
+`walk`), `point` (position **continue** en cases : `{1.5, 2.5}` est le centre de la case (1, 2)),
+`frame` (image de la bande, ramenée dans la bande par la composition), `facing` (l'orientation,
+`hmi::FigureFacing`, voir plus bas ; `None` pour une figurine qui n'a qu'une bande par animation),
+`seconds` (le temps écoulé : s'il est connu — positif ou nul — et que la bande dit la durée de ses
+images dans son `.anim.json`, c'est lui qui choisit l'image et non `frame`, la cadence étant une
+donnée de l'art, `EX-REN-005`) et `hero` (vrai pour le héros, et lui seul : c'est devant lui qu'un
+étage s'efface).
 
 L'instantané se tire d'une `hmi::WorldSceneSource` — trois références : la grille racine (`root`,
 collision et sol d'une carte sans couche visuelle), les couches (`layers` : la première de sol donne
@@ -701,12 +745,44 @@ la composition n'a qu'**un** chemin (`LOT-EDITOR-02`). Puis :
 - `hmi::npcFigures(entities, frame)` : les figurines des PNJ, dans l'ordre des entités ; un PNJ
   sans propriété `figure` ne se dessine pas. Le jeu y ajoute le héros (`hmi::WorldPlay::figures`),
   l'éditeur les montre telles quelles ;
-- `hmi::figureStripPath(figure, clip)` : le chemin d'une bande, `Npc/<slug>/<clip>.png` pour un
-  slug, `<dossier>/<clip>.png` pour un dossier ; `hmi::figureMarkerKey(path)` en tire la clé du
-  marqueur (`npc/<slug>`, `monsters/<slug>`) d'une figurine qui n'a pas encore d'image
-  (`EX-CNT-041`) : on la voit, on lui parle, et on ne la prend pas pour une illustration ;
+- `hmi::figureStripPath(figure, clip, facing)` : le chemin d'une bande, `<dossier>/<clip>.png`
+  pour un dossier relatif aux assets, `Npc/<slug>/<clip>.png` pour un slug seul (cherché à plat,
+  `core::figureDirectory`), et `<clip>-se.png`, `<clip>-sw.png`, `<clip>-ne.png` ou `<clip>-nw.png`
+  dès que `facing` n'est pas `None` (`hmi::figureFacingSuffix`) ; `hmi::figureMarkerKey(path)` en
+  tire la clé du marqueur (`npc/<slug>`, `monsters/<slug>`, `characters/<dossier>`) d'une figurine
+  qui n'a pas encore d'image (`EX-CNT-041`) : on la voit, on lui parle, et on ne la prend pas pour
+  une illustration ;
 - `hmi::worldTexturePaths(snapshot)` : tous les chemins que l'instantané demandera, sans doublon,
-  triés — ce que le rendu doit charger, ni une pièce oubliée, ni une de trop.
+  triés — ce que le rendu doit charger, ni une pièce oubliée, ni une de trop : les pièces du sol, du
+  relief et de chaque étage, les bandes `idle` **et** `walk` de chaque figurine dans son orientation
+  (le rendu ne doit pas charger une texture au milieu d'une image), et les chemins de jeton.
+
+### L'orientation des figurines : quatre diagonales
+
+Une figurine du standard 2D HD est peinte dans **quatre** orientations (`LOT-112`), et le moteur
+doit choisir laquelle montrer. `core::ExplorationSession::facing` garde la dernière direction non
+nulle que le héros a prise, en cases : `(dx, dy)`, `dx` le long des colonnes, `dy` le long des
+lignes. Or une case de la grille se voit en losange : avancer d'une **colonne** descend vers le
+**sud-est** de l'écran, avancer d'une **ligne** vers le **sud-ouest**. Les quatre directions de la
+grille sont donc les quatre diagonales de l'écran, et c'est ce que nomme `hmi::FigureFacing` :
+`SouthEast`, `SouthWest`, `NorthEast`, `NorthWest`, plus `None` pour une figurine qui n'a qu'une
+bande par animation (`walk.png`).
+
+![Le losange isométrique et les quatre orientations d'une figurine : +colonne mène au sud-est, +ligne au sud-ouest, et chaque diagonale nomme sa bande, walk-se.png, walk-sw.png, walk-ne.png, walk-nw.png](figures/rendu-figurine-orientations.svg)
+
+`hmi::figureFacingFor(move, previous)` fait la conversion : l'**axe dominant** l'emporte — `dx > 0`
+donne `SouthEast`, `dx < 0` `NorthWest`, `dy > 0` `SouthWest`, `dy < 0` `NorthEast`. À égalité
+des deux axes — deux touches enfoncées, un pas droit vers le bas de l'écran —, deux diagonales
+conviennent aussi bien, et basculer de l'une à l'autre à chaque pas ferait trembler la figurine :
+elle **garde** `previous` si c'est l'une des deux, sinon prend la première des deux dans l'ordre de
+l'énumération (sud-est, sud-ouest, nord-est, nord-ouest). L'égalité se juge à 10<sup>−4</sup> près,
+parce qu'une diagonale normalisée n'a pas deux composantes rigoureusement égales après division
+par sa longueur. Un déplacement nul rend `previous`. `hmi::WorldPlay` l'appelle à chaque pas où le
+héros marche, avec l'intention de déplacement, et ne signale la scène changée que si l'orientation
+a changé ; il ne le fait que si la figurine est **orientée**, ce qu'il décide une fois pour toutes en
+cherchant sa bande `idle-se.png` (la première que l'atelier produit ; `check_hd_assets.py` exige
+les quatre). `hmi::figureFacingSuffix(facing)` rend `se`, `sw`, `ne`, `nw` — vide pour `None` —,
+le suffixe que `figureStripPath` colle au nom de la bande.
 
 ### Composer
 
@@ -718,6 +794,46 @@ plans de principe (`LevelEditor --render --plan`, `LOT-128`) : un plan dit ce qu
 et comment on y circule, et l'extrusion, faite pour jouer, y cacherait ce qu'on vient lire. La
 marge basse d'une figurine, `hmi::WORLD_FIGURE_BOTTOM_MARGIN` = 0,42 hauteur de losange, est la
 même qu'à l'arène.
+
+La composition parcourt la carte ligne par ligne : le sol et le relief du rez de chaque case, puis
+les étages du plus bas au plus haut, puis les figurines, puis les jetons et les tracés. Une bande de
+figurine se lit par ses propres traits (`hmi::SceneTexture`) : `frameWidth` et `frameHeight`, sa
+cellule, viennent de son `.anim.json`, et `hmi::frameWidthOf`, `hmi::frameHeightOf` (la texture
+entière pour une image fixe) et `hmi::frameCountOf` (largeur totale divisée par la cellule, au
+moins 1) en tirent la découpe — une image demandée hors bande est ramenée dedans plutôt que lue à
+côté de la texture. `hmi::artTileWidth` et `hmi::artTileHeight(texture, ratio)` donnent le losange
+de l'art (`"tile"` du manifeste, à défaut mesuré sur l'image), l'échelle à laquelle toute pièce se
+ramène à la largeur d'une case de la projection.
+
+### Les étages : élevés, triés au-dessus, effacés devant le héros
+
+Une pièce d'une couche d'étage se pose comme une pièce de relief, à deux différences près
+(`LOT-129`). Son **sommet** est remonté de `n` hauteurs d'étage : `SceneTexture::storeyHeight`, le
+`"storey"` du manifeste du lieu en pixels d'art (224 pour la Capitale), converti à l'échelle de la
+projection par `storey × tileWidth / artTileWidth` ; un lieu qui n'en déclare pas s'élève de
+`hmi::DEFAULT_STOREY_TILES` = 1 largeur de case par étage. Son **pied**, lui, reste celui de sa
+case : elle se trie avec elle, au rang de son étage — et jamais avant le pied de ce qui la porte.
+Un mur de deux cases se trie au pied de sa seconde case ; le toit posé sur sa première, trié au
+pied de la première, passait avant lui et le mur en recouvrait l'égout. La composition tient donc,
+case par case, le pied le plus avancé de ce qui couvre la case (`coverCells`, sur l'emprise de la
+pièce), et chaque étage s'y trie au plus tôt. En maquette, une case d'étage sans pièce nommée
+s'extrude en bloc élevé d'autant de hauteurs de bloc (`hmi::maquetteShape` du mur), pour que les
+blocs s'empilent.
+
+L'**effacement** : le héros derrière un îlot doit rester visible. Avant de composer quoi que ce
+soit, la composition **place le héros** (`hero == true` dans l'instantané) et retient deux choses :
+la boîte englobante de son quad (`hmi::spriteQuadBounds`) et sa clé de tri. Ensuite, chaque pièce
+d'étage — jamais une pièce du rez — dont la clé est **plus grande** que celle du héros (elle se
+dessine après lui, donc devant) et dont la boîte **intersecte** la sienne prend l'opacité
+`hmi::STOREY_SEE_THROUGH_OPACITY` = 0,35 : on le voit à travers le toit. Un bloc de maquette
+d'étage fait de même, avec la boîte de son bloc élevé. Le test porte sur la **pièce entière** et
+non sur la seule case du héros, question ouverte du lot tranchée à l'essai : un disque découpé
+autour du héros se lit moins bien qu'une pièce translucide, et coûte un masque de plus, là que
+multiplier l'alpha d'un quad ne coûte rien. Le rez ne s'efface pas : un mur devant le héros le cache
+pour de bon, c'est le sens d'un mur. Un PNJ n'efface rien non plus, et c'est voulu — le test de
+rendu du lot montre le héros à travers sur 37 500 pixels, un PNJ au même endroit sur 2 779. Chaque
+quad porte son étage (`hmi::ComposedQuad::storey`) : le jeu s'en sert pour cet effacement,
+l'éditeur pour l'opacité et la visibilité de la couche d'étage.
 
 ### La table du lieu : `hmi::PlaceAppearance`
 
@@ -735,6 +851,26 @@ tomber sur un damier sur sept mille cases.
   `UnsupportedVersion`, `MalformedStructure` — et un message technique ; `ok()`). `loadFromFile`
   lit aussi le **manifeste** voisin (`manifest.json`) par `adoptManifest(core::ScenePieceManifest)` :
   les anciens noms des pièces (`aliases`) et leurs emprises ;
+- `hmi::PlaceAppearance::loadForPlace(assetsDirectory, place)` est ce que le jeu et l'éditeur
+  lisent réellement depuis le `LOT-124` : la table du lieu **et de ses niveaux communs**. Un lieu
+  est un chemin (`central-empire/capital/arenarea`), et `core::sceneLevelCandidates(place)` en
+  énumère les niveaux du plus propre au plus commun — la zone, la ville, la région, le monde ; ce
+  que chaque niveau range est décrit dans [Données, corpus et ressources](guide-donnees.md).
+  `loadForPlace` lit la table `appearance.json` de **chaque** niveau et les empile par
+  `fillFrom` : pour un type de tuile, la table **la plus propre** qui le traduit l'emporte, et un
+  niveau plus commun ne fournit que les types que les niveaux au-dessus ignorent. Les pièces sont
+  celles du catalogue résolu (`core::ScenePieceManifest::resolve`), chacune sous son dossier
+  d'origine ; les figurines, celles des `Characters/` de ses niveaux (`core::resolveFigures`).
+  `FileNotFound` n'est rendu que si **aucun** niveau n'a ni table, ni manifeste, ni figurine — un
+  lieu vide a encore celles du monde, et c'est ainsi qu'une carte de maquette pose ses PNJ ;
+- `hmi::PlaceAppearance::pieceFile(name)` rend le fichier d'une pièce, **relatif à `Assets/`**,
+  sous le niveau qui la déclare (`Regions/…/Common/Scene/floors/floor-01.png`) ; à défaut
+  `<nom>.png` dans le dossier propre du lieu, vide sans lieu. `figureDirectory(figure)` rend de
+  même le dossier d'une figurine, par slug, à défaut par `core::figureDirectory`. C'est de ces deux
+  méthodes que l'instantané remplit `pieceFiles` et `figureDirectories`, une fois, pour que la
+  composition n'ait plus qu'à consulter une table ; `maximumRise()` est l'élévation maximale des
+  pièces du manifeste, 0 sans manifeste ou pour un lieu de pièces plates ; `pieceManifest()` rend le
+  catalogue adopté, partagé entre les copies de la table ;
 - `hmi::PlaceAppearance::floorPiece(type, cell)` et `reliefPiece(type, cell)` rendent le nom de la
   pièce (`sand-2`), vide si le type n'a aucune pièce dans ce lieu. La variante est choisie par la
   case : `(colonne × 7 + ligne × 13) % nombre de variantes` — un tirage aléatoire ferait scintiller
@@ -825,7 +961,19 @@ où une case ne nomme aucune pièce, la composition dessine son **type** en coul
   travail ;
 - `hmi::maquetteExtrudes(type)` : `Wall`, `Solid` et `Cliff` se dessinent en **bloc extrudé**
   (matière pleine, qui masque ce qui est derrière) ; `DeepWater` bloque le pas mais reste un losange
-  plat, plus sombre, qu'on voit par-dessus.
+  plat, plus sombre, qu'on voit par-dessus ;
+- `hmi::maquetteShape(type)` rend la **forme** d'un type en maquette, un `hmi::MaquetteShape` :
+  `height`, la hauteur du bloc en hauteurs de losange (`0` : un losange plat, sans bloc), et
+  `footprint`, la fraction du losange qu'occupe la base du bloc, centrée (`1` : toute la case). Un
+  bloc d'une case de côté et d'une case de haut dit « mur » ; il ne dit ni une colonne, ni une
+  palissade, ni un arbre — la hauteur et l'emprise sont ce qui les distingue d'un coup d'œil, sans
+  texture. Un mur, une matière pleine et une falaise font `1` de haut sur toute la case ; un arbre
+  `2` sur 0,6 ; une colonne `2` sur 0,45 ; un toit et un gradin `1,5` sur toute la case ; un étal
+  `0,7` sur 0,9 ; un rocher `0,6` sur 0,75 ; une caisse `0,5` sur 0,7 ; une palissade `0,45` et un
+  muret `0,4` sur toute la case ; un buisson `0,35` sur 0,85 ; les sols restent plats. Le bloc se
+  dessine en trois faces — dessus, gauche, droite — éclairées différemment, sans quoi trois quads de
+  la même teinte redonneraient une tache plate, et un bloc étroit reçoit un socle au sol. C'est
+  aussi la hauteur du mur (`1`) qui sert d'élévation à un étage de maquette.
 
 Les **jetons** (`MaquetteTokens.h`, décision D2) tiennent lieu de figurine : un disque de couleur
 cerné, sa lettre au centre. Il n'existe aucun rendu de texte en scène côté jeu ; plutôt que d'en
@@ -1069,13 +1217,20 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
   `EX-REN-018`, `EX-REN-043`, `EX-NFR-004`, `EX-NFR-005`).
 - `core::IsoProjection`, `hmi::standingPieceQuad`, `hmi::ScenePieceTextures`,
   `hmi::scenePieceAnchor` — la géométrie des pièces.
-- `hmi::composeWorldScene`, `hmi::WorldSceneSnapshot`, `hmi::snapshotWorldScene`,
-  `hmi::WorldSceneRenderer`, `hmi::worldCamera`, `hmi::PlaceAppearance` — le lieu qu'on parcourt
-  (`EX-REN-010`, `EX-REN-011`, `EX-REN-013`).
+- `hmi::composeWorldScene`, `hmi::WorldSceneSnapshot`, `hmi::WorldStoreySnapshot`,
+  `hmi::WorldFigureSnapshot`, `hmi::snapshotWorldScene`, `hmi::WorldDepthSlot`,
+  `hmi::WORLD_DEPTH_SLOTS`, `hmi::worldDepthSortOrder`, `hmi::STOREY_SEE_THROUGH_OPACITY`,
+  `hmi::DEFAULT_STOREY_TILES`, `hmi::FigureFacing`, `hmi::figureFacingFor`,
+  `hmi::figureFacingSuffix`, `hmi::figureStripPath`, `hmi::WorldSceneRenderer`,
+  `hmi::worldCamera`, `hmi::PlaceAppearance` — le lieu qu'on parcourt (`EX-REN-010`,
+  `EX-REN-011`, `EX-REN-013`, `EX-LVL-025`).
+- `hmi::SceneTexture`, `hmi::artTileWidth`, `hmi::artTileHeight`, `hmi::frameCountOf`,
+  `hmi::frameWidthOf`, `hmi::frameHeightOf`, `hmi::figureQuad` — les traits d'une texture de scène.
 - `hmi::composeArenaScene`, `hmi::ArenaSceneSnapshot`, `hmi::ArenaSceneRenderer`,
   `hmi::arenaCamera`, `hmi::ArenaAppearanceCatalog` — le Colisée.
-- `hmi::maquetteColor`, `hmi::maquetteExtrudes`, `hmi::maquetteTokenImage`, `hmi::maquetteMarks`
-  — le rendu de maquette (`LOT-128`, `EX-EXP-005`).
+- `hmi::maquetteColor`, `hmi::maquetteExtrudes`, `hmi::maquetteShape`, `hmi::MaquetteShape`,
+  `hmi::maquetteTokenImage`, `hmi::maquetteMarks` — le rendu de maquette (`LOT-128`,
+  `EX-EXP-005`).
 - `hmi::paintComposedScene`, `hmi::SceneImages`, `hmi::DraftRenderer`, `hmi::regionForTile`,
   `hmi::buildProceduralAtlasImage` — le canevas de l'éditeur, peint par `QPainter`.
 - `hmi::decodeImageFile`, `hmi::encodeImageFile`, `hmi::createTexture`, `hmi::loadTextureFromFile`,

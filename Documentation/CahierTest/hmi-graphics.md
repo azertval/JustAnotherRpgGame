@@ -34,6 +34,18 @@ Tests unitaires — **186 cas** (36 bloquants, 59 critiques, 83 majeurs, 8 mineu
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
 | [`test_world_storeys.cpp`](#test-world-storeyscpp) | 7 | 6 | - | 1 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](#assetgallerytestunherosorienterangeparclasse) |
+| `EX-NFR-040` | [`ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte`](#proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte) |
+| `EX-REN-005` | [`WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande`](#worldscenecomposertestlacadenceestcellequeditlabande) |
+| `EX-REN-014` | [`TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande`](#triparprofondeurtestlaprofondeurnedebordepasdesabande), [`QuadRecorderTest.OrdonnancementDeclare`](#quadrecordertestordonnancementdeclare) |
+| `EX-REN-018` | [`TriParProfondeurTest.TroisPrimitivesSortentParPiedCroissant`](#triparprofondeurtesttroisprimitivessortentparpiedcroissant), [`TriParProfondeurTest.PersonnageEntreDeuxObjets`](#triparprofondeurtestpersonnageentredeuxobjets), [`TriParProfondeurTest.PiedEgalConserveLOrdreDeComposition`](#triparprofondeurtestpiedegalconservelordredecomposition), [`TriParProfondeurTest.QuantificationAuPixel`](#triparprofondeurtestquantificationaupixel) |
+
 ## test_animation_catalog.cpp
 
 ### AnimationCatalogTest.RoundTripClipsMultiplesDureeParDefautEtOneShot
@@ -1161,6 +1173,8 @@ La galerie lit les assets d'une racine.
 
 *Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:256`
 
+Exigences : `EX-CNT-042`
+
 Aucun asset livré n'échappe à la galerie.
 
 **Étapes**
@@ -1230,6 +1244,8 @@ Une figurine Grande sans sort paraît dans la galerie.
 ### AssetGalleryTest.UnHerosOrienteRangeParClasse
 
 *Critique · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:390`
+
+Exigences : `EX-CNT-042`
 
 Les bandes orientees du heros et son jeton paraissent dans la galerie.
 
@@ -1617,6 +1633,8 @@ Un ilot d'un lieu se dessine hors ecran, a la taille de son cadrage.
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:46`
 
+Exigences : `EX-REN-018`
+
 Trois primitives a Y croissants sortent dans l'ordre de leur pied.
 
 **Étapes**
@@ -1634,6 +1652,8 @@ Trois primitives a Y croissants sortent dans l'ordre de leur pied.
 ### TriParProfondeurTest.PersonnageEntreDeuxObjets
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:73`
+
+Exigences : `EX-REN-018`
 
 Le personnage passe derriere un objet plus bas et devant un objet plus haut.
 
@@ -1654,6 +1674,8 @@ Le personnage passe derriere un objet plus bas et devant un objet plus haut.
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:101`
 
+Exigences : `EX-REN-018`
+
 A pied egal, l'ordre de composition est preserve : aucun scintillement.
 
 **Étapes**
@@ -1672,6 +1694,8 @@ A pied egal, l'ordre de composition est preserve : aucun scintillement.
 
 *Majeur · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:137`
 
+Exigences : `EX-REN-018`
+
 Un ecart inferieur au pixel ne departage pas deux profondeurs.
 
 **Étapes**
@@ -1688,6 +1712,8 @@ Un ecart inferieur au pixel ne departage pas deux profondeurs.
 ### TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:155`
+
+Exigences : `EX-REN-014`
 
 La profondeur ne deborde pas de sa bande.
 
@@ -2254,6 +2280,8 @@ La dernière tuile de la grille contient des pixels opaques et transparents (dam
 
 *Critique · Unitaire · Atlas procedural* — `Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:107`
 
+Exigences : `EX-NFR-040`
+
 Chaque type de tuile a une couleur de repli visible et distincte.
 
 **Étapes**
@@ -2382,6 +2410,8 @@ Segments et rectangles cohabitent dans la meme scene ordonnee.
 ### QuadRecorderTest.OrdonnancementDeclare
 
 *Critique · Unitaire · Quad Recorder* — `Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:208`
+
+Exigences : `EX-REN-014`
 
 L'ordonnancement place l'interface au-dessus du personnage.
 
@@ -3297,6 +3327,8 @@ Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.
 ### WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande
 
 *Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1087`
+
+Exigences : `EX-REN-005`
 
 L'image affichee suit la duree que declare la bande.
 

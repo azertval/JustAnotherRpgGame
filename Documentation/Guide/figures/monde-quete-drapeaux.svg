@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="600" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+    <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a2233"/>
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f7f86"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Le circuit des drapeaux : de la quête déclarée au journal relu (LOT-116)</text>
+
+  <!-- Le fichier de quête -->
+  <rect x="315" y="44" width="250" height="78" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="327" y="64" font-family="Consolas, monospace" font-weight="600" fill="#25201a">World/quests/&lt;id&gt;.json</text>
+  <text x="327" y="84" font-size="12" fill="#25201a">flags : id, values, initial</text>
+  <text x="327" y="101" font-size="12" fill="#25201a">steps : when, effects, outcome</text>
+  <text x="327" y="116" font-size="11" fill="#6a6152">lu par core::loadQuests au démarrage</text>
+  <path d="M440,122 L440,148" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="448" y="140" font-family="Consolas, monospace" font-size="11" fill="#9a7420">core::declareQuestFlags</text>
+
+  <!-- L'ensemble des drapeaux -->
+  <rect x="315" y="150" width="250" height="215" rx="8" fill="#ece4d1" stroke="#9a7420" stroke-width="2"/>
+  <text x="327" y="176" font-family="Consolas, monospace" font-weight="600" fill="#25201a">core::WorldFlags</text>
+  <text x="327" y="198" font-size="12" fill="#25201a">un seul ensemble par partie —</text>
+  <text x="327" y="214" font-size="12" fill="#25201a">celui de core::ExplorationSession,</text>
+  <text x="327" y="230" font-size="12" fill="#25201a">il survit au changement de carte</text>
+  <text x="327" y="258" font-family="Consolas, monospace" font-size="12" fill="#25201a">set · setValue · clear · declare</text>
+  <text x="327" y="286" font-family="Consolas, monospace" font-size="12" fill="#25201a">revision() : +1 à chaque</text>
+  <text x="327" y="302" font-family="Consolas, monospace" font-size="12" fill="#25201a">changement, jamais sur un refus</text>
+  <text x="327" y="330" font-size="12" fill="#6a6152">rien ne s'abonne : chaque lecteur</text>
+  <text x="327" y="346" font-size="12" fill="#6a6152">compare la révision à la dernière vue</text>
+
+  <!-- Écrivains (gauche) -->
+  <text x="20" y="140" font-size="12" font-weight="600" fill="#8a2233">Qui écrit</text>
+  <g fill="#fbf8f0" stroke="#8a2233">
+    <rect x="20" y="150" width="178" height="50" rx="6"/>
+    <rect x="20" y="232" width="178" height="50" rx="6"/>
+    <rect x="20" y="314" width="178" height="50" rx="6"/>
+  </g>
+  <text x="30" y="167" font-size="12" font-weight="600" fill="#25201a">Dialogue</text>
+  <text x="30" y="181" font-family="Consolas, monospace" font-size="10" fill="#25201a">DialogueRunner, action</text>
+  <text x="30" y="195" font-family="Consolas, monospace" font-size="10" fill="#25201a">SetFlag/value, ClearFlag</text>
+  <text x="30" y="249" font-size="12" font-weight="600" fill="#25201a">Effet d'une étape</text>
+  <text x="30" y="263" font-family="Consolas, monospace" font-size="10" fill="#25201a">core::QuestEffect</text>
+  <text x="30" y="277" font-family="Consolas, monospace" font-size="10" fill="#25201a">SetFlag, ClearFlag</text>
+  <text x="30" y="331" font-size="12" font-weight="600" fill="#25201a">Zone déclencheuse</text>
+  <text x="30" y="345" font-family="Consolas, monospace" font-size="10" fill="#25201a">enterZones : triggerFlag</text>
+  <text x="30" y="359" font-family="Consolas, monospace" font-size="10" fill="#25201a">+ triggerValue</text>
+  <g stroke="#8a2233" stroke-width="2" fill="none">
+    <path d="M198,175 L313,175" marker-end="url(#aw)"/>
+    <path d="M198,257 L313,257" marker-end="url(#aw)"/>
+    <path d="M198,339 L313,339" marker-end="url(#aw)"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#8a2233">
+    <text x="202" y="170" font-size="10">set, setValue</text>
+    <text x="202" y="252" font-size="10">set, setValue, clear</text>
+    <text x="202" y="334" font-size="10">set, setValue</text>
+  </g>
+
+  <!-- Lecteurs (droite) -->
+  <text x="695" y="140" font-size="12" font-weight="600" fill="#2f7f86">Qui lit</text>
+  <g fill="#fbf8f0" stroke="#2f7f86">
+    <rect x="688" y="150" width="172" height="50" rx="6"/>
+    <rect x="688" y="205" width="172" height="50" rx="6"/>
+    <rect x="688" y="260" width="172" height="50" rx="6"/>
+    <rect x="688" y="315" width="172" height="50" rx="6"/>
+  </g>
+  <text x="696" y="167" font-size="12" font-weight="600" fill="#25201a">Condition de dialogue</text>
+  <text x="696" y="181" font-family="Consolas, monospace" font-size="10" fill="#25201a">réponse conditionnelle,</text>
+  <text x="696" y="195" font-family="Consolas, monospace" font-size="10" fill="#25201a">nœud Condition</text>
+  <text x="696" y="222" font-size="12" font-weight="600" fill="#25201a">Étape de quête</text>
+  <text x="696" y="236" font-family="Consolas, monospace" font-size="10" fill="#25201a">when : toutes tiennent,</text>
+  <text x="696" y="250" font-family="Consolas, monospace" font-size="10" fill="#25201a">pose quest/&lt;q&gt;/step/&lt;s&gt;</text>
+  <text x="696" y="277" font-size="12" font-weight="600" fill="#25201a">Présence d'une entité</text>
+  <text x="696" y="291" font-family="Consolas, monospace" font-size="10" fill="#25201a">presenceFlag, presenceTest</text>
+  <text x="696" y="305" font-family="Consolas, monospace" font-size="10" fill="#25201a">et presenceValue</text>
+  <text x="696" y="332" font-size="12" font-weight="600" fill="#25201a">Zone déclencheuse</text>
+  <text x="696" y="346" font-family="Consolas, monospace" font-size="10" fill="#25201a">triggerOnce : le fait</text>
+  <text x="696" y="360" font-family="Consolas, monospace" font-size="10" fill="#25201a">keyForEntity(zone)</text>
+  <g stroke="#2f7f86" stroke-width="2" fill="none">
+    <path d="M565,175 L686,175" marker-end="url(#ar)"/>
+    <path d="M565,230 L686,230" marker-end="url(#ar)"/>
+    <path d="M565,285 L686,285" marker-end="url(#ar)"/>
+    <path d="M565,340 L686,340" marker-end="url(#ar)"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#2f7f86">
+    <text x="567" y="170" font-size="10">FlagCondition::holds</text>
+    <text x="567" y="225" font-size="10">advanceQuests</text>
+    <text x="567" y="280" font-size="10">isEntityPresent</text>
+    <text x="567" y="335" font-size="10">isSet(keyForEntity)</text>
+  </g>
+
+  <!-- Ce que la révision déclenche -->
+  <path d="M380,365 L380,398" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="386" y="387" font-family="Consolas, monospace" font-size="11" fill="#9a7420">revision()</text>
+  <path d="M540,365 L540,398" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="546" y="387" font-family="Consolas, monospace" font-size="11" fill="#9a7420">flags()</text>
+
+  <rect x="20" y="400" width="380" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="420" font-size="12" font-weight="600" fill="#25201a">Le cœur tire les conséquences, sans relire la carte</text>
+  <text x="32" y="438" font-family="Consolas, monospace" font-size="10" fill="#25201a">ExplorationSession::refreshFromFlags</text>
+  <text x="32" y="453" font-size="12" fill="#25201a">revision() ≠ _seenRevision : advanceQuests,</text>
+  <text x="32" y="468" font-size="12" fill="#25201a">rebuildInteractables ; un QuestAdvanced par étape</text>
+  <text x="32" y="486" font-family="Consolas, monospace" font-size="10" fill="#25201a">WorldPlay::step : revision() ≠ _drawnFlags → sceneChanged</text>
+
+  <path d="M400,448 L498,448" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="405" y="443" font-family="Consolas, monospace" font-size="11" fill="#9a7420">QuestAdvanced</text>
+  <text x="407" y="462" font-family="Consolas, monospace" font-size="11" fill="#9a7420">sceneChanged</text>
+
+  <rect x="500" y="400" width="360" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="512" y="420" font-size="12" font-weight="600" fill="#25201a">L'interface recompose et relit</text>
+  <text x="512" y="438" font-family="Consolas, monospace" font-size="10" fill="#25201a">hmi::WorldModel::step : ++sceneRevision,</text>
+  <text x="512" y="453" font-family="Consolas, monospace" font-size="10" fill="#25201a">émet questAdvanced(quête, étape)</text>
+  <text x="512" y="471" font-family="Consolas, monospace" font-size="10" fill="#25201a">hmi::QuestJournalModel::refresh</text>
+  <text x="512" y="486" font-size="12" fill="#25201a">→ questJournalValues(quests, flags, choisie, texte)</text>
+
+  <!-- Légende -->
+  <text x="20" y="528" font-size="12" fill="#6a6152">Un seul ensemble de drapeaux par partie, et aucun autre état de quête : l'avancement se relit dans les drapeaux, la</text>
+  <text x="20" y="545" font-size="12" fill="#6a6152">sauvegarde n'aura qu'eux à écrire. Le cœur n'a ni signal ni abonnement : chacun compare la révision à celle qu'il a vue,</text>
+  <text x="20" y="562" font-size="12" fill="#6a6152">ce qui laisse un dialogue poser un drapeau sans connaître la carte. En bourgogne les écrivains, en eau les lecteurs ;</text>
+  <text x="20" y="579" font-size="12" fill="#6a6152">l'étape de quête est les deux : advanceQuests lit ses conditions et pose son fait, jusqu'à ce que plus rien ne bouge.</text>
+</svg>

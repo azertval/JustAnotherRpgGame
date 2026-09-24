@@ -185,7 +185,12 @@ connaît pas ces écrans un par un.
 
 `Source/HMI/Game/WorldPlay.h` réunit ce qu'il faut pour **parcourir** une carte et la **dessiner**,
 sans Qt : une `core::ExplorationSession`, la table d'apparence du lieu (`hmi::PlaceAppearance`,
-lue sous `Scene/<lieu>/appearance.json`) et les figurines qu'on pose dessus. Le jeu
+résolue par `hmi::PlaceAppearance::loadForPlace` le long de l'arborescence des lieux, `LOT-124` :
+la carte nomme son lieu par un chemin, `central-empire/capital/arenarea/arena-of-fate`, et les
+tables `appearance.json` rangées à côté des manifestes se lisent à chaque niveau —
+`Regions/<chemin>/Scene`, le `Common/Scene` de la ville, celui de la région, puis le monde —, la
+table **la plus propre** l'emportant pour chaque type de tuile ; une carte sans lieu se joue en
+maquette, avec les seules figurines du monde) et les figurines qu'on pose dessus. Le jeu
 (`hmi::WorldModel`) et l'essai immédiat de l'éditeur (`hmi::EditorViewport`, `EX-EDIT-055`) le
 partagent : deux copies de cette mise en scène divergeraient au premier réglage, et l'essai
 montrerait une carte que le jeu ne montre pas — exactement ce qu'un essai ne doit jamais faire.
@@ -206,8 +211,10 @@ montrerait une carte que le jeu ne montre pas — exactement ce qu'un essai ne d
   `hmi::WorldSceneRenderer` dessine, vide hors carte ; `hmi::WorldPlay::diamondRatio()` — le
   rapport du losange isométrique du lieu.
 - `hmi::WorldPlay::heroFigure()` / `setHeroFigure` — la figurine du héros
-  (`WorldPlay::DEFAULT_HERO_FIGURE`, `jade`, tant que la création de personnage n'en nomme pas
-  une autre) ; `hmi::WorldPlay::session()` — la session, en lecture ou en écriture.
+  (`WorldPlay::DEFAULT_HERO_FIGURE`, `Common/Characters/Heroes/brawler` : le Brawler pré-tiré,
+  héros de la démo, `LOT-112`, tant que la création de personnage n'en nomme pas une autre) ;
+  `hmi::WorldPlay::heroFacing()` — son orientation, `None` si sa figurine n'a pas de bandes
+  orientées ; `hmi::WorldPlay::session()` — la session, en lecture ou en écriture.
 
 ## Pause
 
@@ -238,7 +245,10 @@ n'ont en commun que `HmiLib`.
   valeur n'est pas deux entiers positifs séparés par une virgule : le jeu s'ouvre quand même, à
   l'entrée de la carte (`EX-NFR-040`).
 - `hmi::parseWorldFlags(value)` — les drapeaux de `--flags=a,b,c`, dans l'ordre, sans les vides ni
-  les doublons.
+  les doublons. Un élément peut s'écrire `drapeau=valeur` pour un drapeau à valeurs qu'une quête
+  déclare (`LOT-116`) : la fonction le transporte tel quel, c'est `hmi::WorldModel::setStartFlags`
+  qui sépare au `=` et passe par `core::WorldFlags::setValue` — une valeur refusée est journalisée,
+  jamais fatale.
 - `hmi::parseLevelDirectories(value)` — les dossiers de `--levels=<dossier>;<dossier>`. Le
   séparateur est `hmi::LAUNCH_PATH_SEPARATOR` (`;`) et non la virgule de
   `hmi::LAUNCH_LIST_SEPARATOR` : une virgule couperait un chemin qui en porte une, et le
@@ -246,10 +256,21 @@ n'ont en commun que `HmiLib`.
 
 Côté jeu (`Source/App/Game/Main.cpp`), `--map=<carte>[@<arrivée>]` remplace la carte où
 « Nouvelle partie » ouvre (`hmi::WorldModel::setStartOverride`), `--levels=` pose les brouillons
-devant les cartes du binaire (`setLevelDirectories`), `--at=` et `--flags=` disent où et dans
-quel état (`setStartCell`, `setStartFlags`). Le jeu s'ouvre alors sur l'écran que le **routeur**
-désigne — pas un écran forcé —, si bien que dialogue, pause et Colisée fonctionnent pendant
-l'essai. Ces options n'existent que dans un build de développement.
+devant les cartes du binaire (`setLevelDirectories`, **avant** tout le reste : la session est
+refaite), `--at=` et `--flags=` disent où et dans quel état (`setStartCell`, `setStartFlags`), et
+`--hero-figure=<dossier>` remplace la figurine du héros (`hmi::WorldModel::setHeroFigure`, un
+dossier depuis `Assets/`, comme `WorldPlay::DEFAULT_HERO_FIGURE`) — pour voir une figurine de
+l'atelier marcher sans attendre la création de personnage. Le jeu s'ouvre alors sur l'écran que
+le **routeur** désigne — pas un écran forcé —, si bien que dialogue, pause et Colisée fonctionnent
+pendant l'essai. Ces options n'existent que dans un build de développement, et toutes
+s'accrochent à `--map=` : sans carte imposée, aucune n'est lue. `--hero-figure=` n'a pas de champ
+dans `hmi::GameLaunchOptions` : l'éditeur ne la passe pas, elle se tape à la main.
+
+L'écran « Carte » lit de même quatre options, en QML (`Screens/WorldMap.qml`, `LOT-96`) : ouvert
+avec `--map-region=<région>`, il montre la région ; avec `--map-city=<lieu>` la ville, puis
+`--map-district=<quartier>` le quartier et `--map-block=<îlot>` l'îlot — chaque niveau supposant le
+précédent, et un identifiant inconnu arrêtant la descente là où elle est. C'est ce qui permet de
+vérifier ou de capturer une vue sans la parcourir.
 
 ## Ce que le `LOT-67` a retiré
 
@@ -262,7 +283,7 @@ et `EX-IHM-004`, elles, sont **refondues** — elles avaient un objet au-delà d
 
 Le passage d'une carte à l'autre est le **graphe de cartes** du `LOT-09` (`core::WorldGraph`,
 `core::WorldTravel`, [Monde et exploration](guide-monde.md)). Ce qu'on retrouve en revenant sera
-la **sauvegarde** du `LOT-17`, et « Continuer » reviendra au menu avec elle — pas avant : une
+la **sauvegarde** du `LOT-150` (`0.0.3`), et « Continuer » reviendra au menu avec elle — pas avant : une
 entrée de menu qui ne mène nulle part coûte plus de confiance qu'elle n'apporte d'information
 (`EX-IHM-072`). C'est pourquoi « Continuer » et « Charger une partie » sont grisées sur la capture
 du menu.

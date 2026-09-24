@@ -18,6 +18,12 @@ dans [`rpg.md`](rpg.md).
 
 ## 1. Le jet
 
+![Maquette du jet : le d20 auquel s'ajoutent des modificateurs portant chacun leur origine, comparé au seuil, et sa restitution en une ligne ; la table de l'avantage et du désavantage, qui ne se cumulent pas et s'annulent ; les trois jets, test, sauvegarde et attaque, qui partagent le mécanisme et non leurs modificateurs, et l'échelle nommée de difficulté lue dans les données](maquettes/regles-d20-jet.svg)
+
+Trois choses sur ce dessin sont des **engagements**, pas des illustrations : la ligne de
+restitution, qui existe pour chaque jet ; la table d'annulation, qui rend inutile tout arbitrage
+de piles de bonus ; et l'absence de tout nombre nu — chaque seuil a un nom.
+
 - **EX-REG-001** — Toute résolution incertaine passe par un **d20 auquel
   s'ajoutent des modificateurs**, comparé à un **seuil de difficulté** ; le résultat est une
   réussite si le total **atteint ou dépasse** le seuil. Un seul mécanisme, réutilisé par les tests,

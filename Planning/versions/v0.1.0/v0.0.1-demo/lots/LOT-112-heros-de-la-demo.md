@@ -179,3 +179,10 @@ carte d'essai ; deux vérifications passent à des lots suivants :
   des `LOT-107` à `LOT-111` ;
 - **l'attaque, le touché et la mort**, installés mais pas joués : le monde ne connaît que le repos et
   la marche, et le combat sur la carte est au `LOT-118`.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-EXP-011` — deux cases par seconde, un cycle par case, la diagonale peinte choisie par l'orientation.
+- `EX-REN-012` — quatre orientations, huit images, la cellule large pour l'attaque et la mort.

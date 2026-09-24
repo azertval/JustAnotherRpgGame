@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+  </defs>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">L'empilement des couches d'une carte, vu de côté, et ce que la collision en retient</text>
+
+  <!-- ===== Gauche : l'empilement ===== -->
+  <text x="20" y="52" font-weight="600" fill="#6a6152">1. Les couches, de la grille racine aux étages</text>
+
+  <!-- Étages 4 à 1 : élevés de n × storey au-dessus du rez -->
+  <g stroke="#2f7f86" stroke-width="1.5">
+    <rect x="40" y="94" width="380" height="28" fill="#2f7f86" fill-opacity="0.12"/>
+    <rect x="40" y="152" width="380" height="28" fill="#2f7f86" fill-opacity="0.12"/>
+    <rect x="40" y="210" width="380" height="28" fill="#2f7f86" fill-opacity="0.12"/>
+    <rect x="40" y="268" width="380" height="28" fill="#2f7f86" fill-opacity="0.12"/>
+  </g>
+  <g fill="#25201a">
+    <text x="50" y="113">étage 4 — <tspan font-family="Consolas, monospace">decor</tspan>, <tspan font-family="Consolas, monospace">floor = 4</tspan> : élevé de 4 × storey</text>
+    <text x="50" y="171">étage 3 — <tspan font-family="Consolas, monospace">decor</tspan>, <tspan font-family="Consolas, monospace">floor = 3</tspan> : élevé de 3 × storey</text>
+    <text x="50" y="229">étage 2 — <tspan font-family="Consolas, monospace">decor</tspan>, <tspan font-family="Consolas, monospace">floor = 2</tspan> : élevé de 2 × storey</text>
+    <text x="50" y="287">étage 1 — <tspan font-family="Consolas, monospace">decor</tspan>, <tspan font-family="Consolas, monospace">floor = 1</tspan> : élevé de 1 × storey</text>
+  </g>
+  <text x="40" y="138" font-size="11" fill="#2f7f86">hors de 1..4, ou sur une couche de sol : gardé, ignoré, signalé par --check</text>
+
+  <!-- Le rez : décor et sol -->
+  <rect x="40" y="326" width="380" height="28" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="50" y="345" fill="#25201a">décor — <tspan font-family="Consolas, monospace">decor</tspan>, <tspan font-family="Consolas, monospace">floor = 0</tspan> : le rez (murs, mobilier)</text>
+  <rect x="40" y="362" width="380" height="28" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="50" y="381" fill="#25201a">sol — <tspan font-family="Consolas, monospace">ground</tspan>, <tspan font-family="Consolas, monospace">floor = 0</tspan> : sous les pieds</text>
+
+  <!-- La collision, déduite -->
+  <rect x="40" y="410" width="380" height="28" fill="#fbf8f0" stroke="#8a2233" stroke-width="2"/>
+  <text x="50" y="429" fill="#8a2233">collision — grille racine <tspan font-family="Consolas, monospace">tiles</tspan>, déduite, écrite</text>
+
+  <!-- Flèches de déduction : seul le rez contribue -->
+  <path d="M430,340 C470,340 470,424 432,424" fill="none" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M430,376 C452,376 452,424 432,424" fill="none" stroke="#9a7420" stroke-width="2"/>
+  <text x="180" y="404" font-size="11" fill="#9a7420"><tspan font-family="Consolas, monospace">core::deriveCollision</tspan> — le rez seulement</text>
+
+  <!-- Accolade de la hauteur d'étage -->
+  <path d="M28,326 L22,326 L22,268 L28,268" fill="none" stroke="#2f7f86" stroke-width="1.5"/>
+  <text x="40" y="312" font-size="11" fill="#2f7f86">1 × storey : la hauteur d'étage du manifeste, en pixels d'art (224, Capitale)</text>
+
+  <!-- Rappel sous la collision -->
+  <text x="40" y="460" font-size="12" fill="#8a2233">La collision ne connaît que le rez : une couche à <tspan font-family="Consolas, monospace">floor ≠ 0</tspan> n'y contribue pas — un toit ne bloque pas.</text>
+
+  <!-- ===== Droite : la déduction case par case ===== -->
+  <text x="520" y="52" font-weight="600" fill="#6a6152">2. La déduction, sur quatre cases</text>
+
+  <!-- En-têtes de colonnes -->
+  <g font-size="11" fill="#6a6152" text-anchor="middle">
+    <text x="622" y="80">case A</text>
+    <text x="687" y="80">case B</text>
+    <text x="752" y="80">case C</text>
+    <text x="817" y="80">case D</text>
+  </g>
+  <!-- Étiquettes de lignes -->
+  <g font-size="11" fill="#6a6152">
+    <text x="520" y="104">étage 1</text>
+    <text x="520" y="116" font-size="10">(ignoré)</text>
+    <text x="520" y="146">décor</text>
+    <text x="520" y="186">sol</text>
+    <text x="520" y="228">plus forte</text>
+    <text x="520" y="268">écrite</text>
+  </g>
+
+  <!-- Ligne étage 1 : ignorée -->
+  <g stroke="#2f7f86" stroke-opacity="0.5" fill="#2f7f86" fill-opacity="0.08">
+    <rect x="590" y="90" width="65" height="26"/><rect x="655" y="90" width="65" height="26"/>
+    <rect x="720" y="90" width="65" height="26"/><rect x="785" y="90" width="65" height="26"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#6a6152" text-anchor="middle">
+    <text x="622" y="107">roof</text><text x="687" y="107">roof</text><text x="752" y="107">roof</text><text x="817" y="107">roof</text>
+  </g>
+
+  <!-- Ligne décor -->
+  <g stroke="#d6c9a8" fill="#ece4d1">
+    <rect x="590" y="130" width="65" height="26"/><rect x="655" y="130" width="65" height="26"/>
+    <rect x="720" y="130" width="65" height="26" fill="#fbf8f0"/><rect x="785" y="130" width="65" height="26"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a" text-anchor="middle">
+    <text x="622" y="147">wall-left</text><text x="687" y="147">bush</text><text x="752" y="147">—</text><text x="817" y="147">crate</text>
+  </g>
+  <!-- Ligne sol -->
+  <g stroke="#d6c9a8" fill="#ece4d1">
+    <rect x="590" y="170" width="65" height="26"/><rect x="655" y="170" width="65" height="26"/>
+    <rect x="720" y="170" width="65" height="26" fill="#fbf8f0"/><rect x="785" y="170" width="65" height="26"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a" text-anchor="middle">
+    <text x="622" y="187">dirt</text><text x="687" y="187">grass</text><text x="752" y="187">—</text><text x="817" y="187">dirt</text>
+  </g>
+
+  <!-- Flèches vers la contribution la plus forte -->
+  <g stroke="#9a7420" stroke-width="2" fill="none">
+    <path d="M622,198 L622,208" marker-end="url(#a)"/>
+    <path d="M687,198 L687,208" marker-end="url(#a)"/>
+    <path d="M752,198 L752,208" marker-end="url(#a)"/>
+    <path d="M817,198 L817,208" marker-end="url(#a)"/>
+  </g>
+
+  <!-- Ligne contribution la plus forte -->
+  <g stroke="#d6c9a8" fill="#fbf8f0">
+    <rect x="590" y="212" width="65" height="26"/><rect x="655" y="212" width="65" height="26"/>
+    <rect x="720" y="212" width="65" height="26"/><rect x="785" y="212" width="65" height="26"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" text-anchor="middle">
+    <text x="622" y="229" fill="#8a2233">solid</text>
+    <text x="687" y="229" fill="#9a7420">difficult</text>
+    <text x="752" y="229" fill="#8a2233">vide</text>
+    <text x="817" y="229" fill="#8a2233">obstacle</text>
+  </g>
+
+  <!-- Ligne collision écrite -->
+  <g stroke="#8a2233" stroke-width="1.5" fill="#fbf8f0">
+    <rect x="590" y="252" width="65" height="26"/><rect x="655" y="252" width="65" height="26"/>
+    <rect x="720" y="252" width="65" height="26"/><rect x="785" y="252" width="65" height="26" stroke="#9a7420" stroke-width="2.5"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a" text-anchor="middle">
+    <text x="622" y="269">wall</text><text x="687" y="269">(vide)</text><text x="752" y="269">wall</text><text x="817" y="269">(vide)</text>
+  </g>
+
+  <!-- Notes sous chaque case -->
+  <g font-size="10" fill="#6a6152" text-anchor="middle">
+    <text x="622" y="296">le mur bat</text>
+    <text x="622" y="308">la terre</text>
+    <text x="687" y="296">gêne : pas</text>
+    <text x="687" y="308">jouée, dans</text>
+    <text x="687" y="320">unplayed</text>
+    <text x="752" y="296">rien ne</text>
+    <text x="752" y="308">couvre : du</text>
+    <text x="752" y="320">vide → mur</text>
+    <text x="817" y="296" fill="#9a7420">forcée :</text>
+    <text x="817" y="308" fill="#9a7420">l'auteur a</text>
+    <text x="817" y="320" fill="#9a7420">dernier mot</text>
+  </g>
+
+  <!-- L'échelle des forces -->
+  <rect x="520" y="334" width="340" height="64" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="532" y="354" font-weight="600" fill="#25201a">Le plus fort gagne (<tspan font-family="Consolas, monospace">core::PieceTactical</tspan>)</text>
+  <text x="532" y="374" font-family="Consolas, monospace" font-size="12" fill="#25201a">open &lt; difficult &lt; cover &lt; obstacle &lt; solid</text>
+  <text x="532" y="391" font-size="11" fill="#6a6152">écrit : solid → wall, obstacle → cliff, le reste → vide</text>
+
+  <!-- Légende -->
+  <g font-size="12" fill="#25201a">
+    <text x="20" y="490">À gauche, l'empilement : la grille racine porte la collision, écrite dans le fichier ; le sol et le décor du rez sont ce que</text>
+    <text x="20" y="508">la déduction lit ; chaque étage est une couche de décor de plus, élevée de n hauteurs d'étage au rendu, sans effet au sol.</text>
+    <text x="20" y="526">À droite, quatre cases : chacune reçoit la contribution la plus forte de tout ce qui la couvre au rez — jamais la dernière</text>
+    <text x="20" y="544">écrite, pour qu'aucune couche ne puisse affaiblir un mur —, et seule une case forcée (D) laisse l'auteur passer devant.</text>
+  </g>
+</svg>

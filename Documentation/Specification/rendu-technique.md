@@ -31,7 +31,13 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
 - **EX-REN-011** — Le rendu doit dessiner les **figurines** — héros et PNJ — avec
   transparence, posées sur leur case par le pied.
 - **EX-REN-012** — Une figurine doit s'animer par **bandes d'images** nommées
-  (`idle`, `walk`), dont le découpage est décrit par des données (`EX-REN-005`).
+  (`idle`, `walk`, `attack`, `hit`, `death`), dont le découpage est décrit par des données
+  (`EX-REN-005`). Depuis le `LOT-112`, une bande existe par **diagonale isométrique** — quatre
+  orientations peintes, `walk-se`, `walk-sw`, `walk-ne`, `walk-nw` —, une animation compte
+  **huit images** dans une cellule de 192 × 256 dont la ligne de sol est déclarée (`ground`), et
+  l'attaque comme la mort occupent la cellule large de 384 × 256 (`EX-VIS-008`). L'orientation de
+  la session (`EX-EXP-004`) choisit la bande ; la cadence (`frameDuration`) est lue dans la bande,
+  jamais dans le code (`EX-EXP-011`).
 - **EX-REN-005** — Les **animations** doivent être décrites par des **données**
   (clip nommé, suite d'images, durée par image, bouclé ou joué une fois) et non codées en dur. Un
   asset sans description d'animation est affiché comme une **image fixe**.
@@ -41,13 +47,23 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
   fenêtre** : la largeur d'une case à l'écran vaut la hauteur de la fenêtre divisée par **10,8**,
   soit 100 px à 1080p et 200 px à 2160p. Toutes les définitions cadrent donc la **même étendue de
   monde** — 19,2 losanges de large, 17,4 de haut — et un écran plus fin montre le même jeu plus
-  finement, jamais plus de jeu.
+  finement, jamais plus de jeu. La « fenêtre » est ici la **scène 16:9** qu'`EX-REN-019` y
+  inscrit.
+- **EX-REN-019** — La scène du jeu est **toujours au format 16:9** : dans une fenêtre d'un autre
+  format, le plus grand rectangle 16:9 qui tient y est inscrit, **centré au pixel**, et la fenêtre
+  peint le reste en **noir** — des bandes sur les côtés pour une fenêtre plus large, en haut et en
+  bas pour une plus haute. Les facteurs d'échelle de l'interface et de la scène se lisent sur ce
+  **rectangle**, jamais sur la fenêtre. Laisser un écran se recomposer dans n'importe quel format
+  donnerait un jeu conçu à 1920 × 1080 qui n'est jamais vu tel qu'il est dessiné, et une scène posée
+  à un demi-pixel flouterait tout ce qu'elle contient.
+
+![Maquette du cadre 16:9 : la scène inscrite et centrée dans trois fenêtres, sans bande à 1280 × 720, avec des bandes en haut et en bas dans une fenêtre plus haute, sur les côtés dans une fenêtre plus large, et les facteurs d'échelle lus sur le rectangle de la scène](maquettes/rendu-technique-cadre-16-9.svg)
 
 Les deux exigences qui suivent décident **qui passe devant qui**. Elles se complètent : le calque
 tranche entre familles (le curseur est toujours au-dessus du sol), la profondeur tranche à
 l'intérieur de la famille où le monde se dessine.
 
-![Maquette de l'ordre de dessin : la pile de calques du fond vers l'interface, la bande de profondeur qui réunit sol, objets et figurines, un mur, un arbre et un héros triés par la hauteur de leur pied à l'écran, et la clé de tri qui multiplie la profondeur par quatre pour y loger le rang de la pièce](maquettes/rendu-technique-ordre-de-tri.svg)
+![Maquette de l'ordre de dessin : la pile de calques du fond vers l'interface, la bande de profondeur qui réunit relief, figurines et étages, un mur, un héros et un étage translucide triés par la hauteur de leur pied à l'écran, et la clé de tri qui multiplie la profondeur par six pour y loger le rang, relief, figurine ou étage un à quatre](maquettes/rendu-technique-ordre-de-tri.svg)
 
 - **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **calques**,
   défini par un **ordonnancement unique et explicite** (`hmi::RenderLayer`) dont aucun calque
@@ -59,14 +75,38 @@ l'intérieur de la famille où le monde se dessine.
   une **bande de profondeur** commune, à l'intérieur de laquelle le tri par profondeur passe
   **avant** le regroupement par texture. Le tri doit rester **stable** et quantifié au pixel : à
   profondeur égale, deux sprites gardent un ordre constant d'une image à l'autre. Hors de cette
-  bande, l'ordre des calques reste souverain (`EX-REN-014`). Concrétisé en `LOT-07`.
+  bande, l'ordre des calques reste souverain (`EX-REN-014`). Concrétisé en `LOT-07`. Depuis le
+  `LOT-129`, la bande compte **six rangs** par profondeur — le relief, la figurine, puis les étages
+  un à quatre (`EX-LVL-025`) — et les jetons de maquette n'y sont plus : ils renseignent, donc
+  ils sont de l'interface en scène (`EX-REN-023`).
+
+### Le rendu de maquette : une carte sans texture (`LOT-128`)
+
+Une carte se dessine et se **joue** avant d'être habillée (décision D-22). Le rendu doit donc
+avoir un mode où **rien** ne vient d'un fichier : ni sol, ni mur, ni figurine.
+
+![Maquette du rendu sans texture : la case sans pièce dessinée en losange plat de la couleur de son type, le mur extrudé en bloc à trois faces d'une case de haut, les jetons ronds à lettre dont la couleur se déduit de ce que le format dit déjà, la flèche d'or du portail barrée s'il est condamné, la zone en pointillé, et la table de la palette qui vit dans le code](maquettes/rendu-technique-maquette-sans-texture.svg)
+
+- **EX-REN-023** — Une case qui **ne nomme aucune pièce** se dessine en **losange plat** de la
+  couleur de son type — une couleur par type, distincte de ses voisines —, et un type qui arrête le
+  pas s'**extrude** en bloc à trois faces d'une case de haut ; les entités sont des **jetons**
+  ronds à lettre dont la couleur se **déduit** du format (vert le joueur, jaune le PNJ qui parle ou
+  qu'un drapeau conditionne, rouge l'hostile, gris le muet ; flèche d'or pour un portail, barrée
+  s'il est condamné ; pointillé pour une zone). La **palette vit dans le code** : une maquette doit
+  se dessiner quand aucun fichier d'asset n'est présent, et une palette chargée du disque
+  réintroduirait la dépendance que le mode supprime. Le repli se déclenche sur « cette case n'a
+  nommé aucune pièce », **pas** sur « la carte n'a pas de lieu » : la carte sans lieu et la pièce
+  que le lieu ne couvre pas — l'eau du Colisée — se referment du même geste. Le jeu et l'éditeur
+  montrent la **même image**, jetons compris (`EX-EDIT-059`, `LevelEditor --render --plan`).
 - **EX-REN-041** — Le rendu doit **charger ses textures depuis des fichiers
   image** (PNG au minimum), décodés en pixels RGBA puis créés en texture GPU. Le filtrage suit la
   **nature de l'asset** (`EX-ARCH-022`) — refondu au `LOT-66` : figer le plus proche voisin aurait
   rendu crénelée toute illustration peinte.
 - **EX-REN-042** — Les **assets graphiques** doivent être **externalisés en
   fichiers** éditables hors code (remplacer le fichier suffit à changer l'apparence), copiés à côté
-  de l'exécutable comme les cartes et les traductions.
+  de l'exécutable comme les cartes et les traductions. Les images des kits viennent du **verrou**
+  et non de Git (`EX-CNT-070`) : « remplacer le fichier » se fait par une publication, jamais par
+  un commit.
 - **EX-REN-043** — Le rendu doit pouvoir dessiner, en une seule image, des
   primitives provenant de **plusieurs textures distinctes**, selon l'ordonnancement de calques
   unique de `EX-REN-014`.

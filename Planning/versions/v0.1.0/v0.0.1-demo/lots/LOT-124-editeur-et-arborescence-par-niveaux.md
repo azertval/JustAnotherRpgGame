@@ -118,3 +118,10 @@ plat : c'est un mécanisme du kit d'arène, pas d'une carte.
 ## Livraison
 
 Livré le 24 septembre 2026, sur décision de l'auteur, figurines comprises.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-LVL-029` — le lieu est un chemin, les pièces se cherchent du plus propre au plus commun.
+- `EX-EDIT-099` — l'arbre des lieux à la création, et le suivi du niveau par `--who-cites` et `--replace-piece`.

@@ -64,8 +64,9 @@ joueur, et son échelle est celle de la fenêtre. La frontière entre les deux e
   palette du lieu et les **dix familles de pièces** dont une zone fait l'inventaire. Une pièce
   **tient seule** : fond transparent, pas de sol sous un mur, pas de décor autour d'un meuble.
   Les figurines de l'atelier des PNJ (`LOT-91`) sont de la scène, à l'échelle de son sol.
-  > **Ce que l'exigence ne dit pas encore.** Le nombre d'images par animation reste ouvert : il se
-  > tranche sur l'essai de marche du `LOT-101`, et aucune figurine ne se produit en série avant.
+  > **Tranché au `LOT-112`.** Une animation compte **huit images** — l'essai de marche en six et
+  > en huit l'a décidé —, une bande par diagonale isométrique, et la marche va à deux cases par
+  > seconde (`EX-REN-012`, `EX-EXP-011`). Aucune figurine ne se produit hors de ce gabarit.
 - **EX-VIS-009** — L'**interface** — écrans, panneaux, HUD, et tout ce qui
   **renseigne le joueur par-dessus la scène** (curseur, chemin, portées, texte ancré) — doit porter
   la **charte v2** (`EX-IHM-070`) : images produites à 1080p et échantillonnées à tout facteur,

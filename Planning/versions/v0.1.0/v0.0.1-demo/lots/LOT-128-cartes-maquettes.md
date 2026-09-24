@@ -242,3 +242,9 @@ que D2 contourne.
 - `WorldSceneSnapshot` gagne deux champs (types, jetons) : c'est une structure de **valeurs**
   comparée par `operator==` et prise dans `synchronize()`, donc sans risque de fil, mais les
   instantanés de test existants sont à relire.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-REN-023` — le rendu sans texture : losanges, blocs, jetons, palette dans le code.

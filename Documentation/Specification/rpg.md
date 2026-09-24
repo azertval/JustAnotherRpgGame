@@ -13,6 +13,11 @@ dernier point étant la condition pour que **seize classes** soient tenables par
 
 ## 1. La fiche
 
+![Maquette de la fiche comme agrégat dérivé : à gauche les sources, espèce, classes et sous-classe, historique, options, équipement et niveau ; au centre le calcul, une règle par valeur, tout recalculé au moindre changement de source ; à droite les valeurs affichées, modificateurs, classe d'armure, points de vie, maîtrises, vitesse, emplacements ; en dessous la classe en données, sa table de vingt niveaux et sa ressource générique](maquettes/rpg-fiche-agregat.svg)
+
+Le dessin dit où passe la frontière : **rien à droite n'est saisi**, et **rien à gauche n'est en
+C++**. Une valeur qui violerait l'un ou l'autre se voit sur ce schéma avant de se voir en jeu.
+
 - **EX-RPG-001** — La fiche de personnage est un **agrégat dérivé** : espèce,
   classes, historique, options et équipement portés en sont les **sources**, et toute valeur
   affichée (modificateurs, classe d'armure, points de vie maximaux, maîtrises, vitesse) en est

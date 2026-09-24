@@ -145,3 +145,9 @@ Livré le 22 septembre 2026, **PR #111**.
 - La mesure automatique de l'ancre sur un canevas carré où l'art flotte : prévoir une
   correction manuelle dans le descripteur. **Tenu** : `scale`, `anchorOffset` et `align` ; aucune
   n'a servi au Colisée hors `align`.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-CNT-072` — le contrôle des assets HD et l'installation par descripteur.

@@ -66,3 +66,9 @@ l'étape.
   comme `--rename-map`.
 - Le champ `at` : faut-il un **lieu** (une carte) plutôt qu'une entité, pour une étape qui se joue
   partout ? À trancher en réalisant ; l'entité suffit à la quête de la démo.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-EDIT-100` — le mode Quêtes écrit la même donnée que le jeu lit.

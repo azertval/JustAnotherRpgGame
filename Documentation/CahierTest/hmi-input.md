@@ -11,6 +11,15 @@ Tests unitaires — **25 cas** (1 bloquant, 3 critiques, 19 majeurs, 2 mineurs).
 | [`test_input_state.cpp`](#test-input-statecpp) | 16 | - | - | 15 | 1 |
 | [`test_qt_key_map.cpp`](#test-qt-key-mapcpp) | 5 | 1 | - | 3 | 1 |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-CTRL-002` | [`InputStateTest.ManetteSeuleActiveLaTouche`](#inputstatetestmanetteseuleactivelatouche) |
+| `EX-EDIT-009` | [`InputStateTest.CaracteresTapesAccumulesEtVides`](#inputstatetestcaracterestapesaccumulesetvides) |
+
 ## test_button_repeat.cpp
 
 ### ButtonRepeatTest.UnAppuiPuisUneRepetitionReguliere
@@ -213,6 +222,8 @@ Les incréments de molette d'une frame s'additionnent et repartent de zéro ensu
 
 *Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:189`
 
+Exigences : `EX-EDIT-009`
+
 Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.
 
 **Étapes**
@@ -232,6 +243,8 @@ Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame su
 ### InputStateTest.ManetteSeuleActiveLaTouche
 
 *Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:218`
+
+Exigences : `EX-CTRL-002`
 
 Un bouton manette seul rend `keyDown`/`keyPressed` vrais, comme au clavier.
 

@@ -1,47 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" font-family="Georgia, serif" font-size="13">
-  <rect width="880" height="470" fill="#fbf8f0"/>
-  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — l'ordre de dessin : calques souverains, bande de profondeur triée au pied</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="550" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — l'ordre de dessin : calques souverains, bande de profondeur à six rangs, triée au pied</text>
 
   <g transform="translate(20,50)">
     <g font-size="12" fill="#25201a">
-      <rect x="0" y="0" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="17">Editor — aides d'édition</text>
-      <rect x="0" y="30" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="47">UI — curseur, chemin, portées</text>
-      <rect x="0" y="60" width="200" height="56" fill="#9a7420" fill-opacity="0.25" stroke="#9a7420" stroke-width="2"/>
+      <rect x="0" y="0" width="230" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="17">EditorOverlay — aides d'édition</text>
+      <rect x="0" y="30" width="230" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="47">UI — curseur, tracés, jetons (D7)</text>
+      <rect x="0" y="60" width="230" height="56" fill="#9a7420" fill-opacity="0.25" stroke="#9a7420" stroke-width="2"/>
       <text x="8" y="77">Player</text><text x="8" y="107">Object</text>
-      <text x="70" y="92" font-size="11" fill="#8a2233">bande de profondeur</text>
-      <rect x="0" y="120" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="137">Tile — le sol</text>
-      <rect x="0" y="150" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="167">Shadow</text>
-      <rect x="0" y="180" width="200" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="197">Background</text>
+      <text x="80" y="92" font-size="11" fill="#8a2233">une seule bande de profondeur</text>
+      <rect x="0" y="120" width="230" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="137">Tile — le sol</text>
+      <rect x="0" y="150" width="230" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="167">Shadow — ombres portées</text>
+      <rect x="0" y="180" width="230" height="26" fill="#ece4d1" stroke="#d6c9a8"/><text x="8" y="197">Background — fond</text>
     </g>
-    <text x="210" y="17" font-size="11" fill="#6a6152">dessiné en dernier, par-dessus tout</text>
-    <text x="210" y="197" font-size="11" fill="#6a6152">dessiné en premier</text>
-    <text x="0" y="226" font-size="11" fill="#25201a">hmi::RenderLayer, ordre unique et explicite (EX-REN-014)</text>
+    <text x="240" y="17" font-size="11" fill="#6a6152">dessiné en dernier, par-dessus tout</text>
+    <text x="240" y="47" font-size="11" fill="#6a6152">les jetons de maquette vivent ici</text>
+    <text x="240" y="92" font-size="11" fill="#6a6152">renderBand(Player) = Object</text>
+    <text x="240" y="197" font-size="11" fill="#6a6152">dessiné en premier</text>
+    <text x="0" y="228" font-size="11" fill="#25201a"><tspan font-family="Consolas, monospace">hmi::RenderLayer</tspan> : l'ordre de déclaration est l'ordre de dessin,</text>
+    <text x="0" y="244" font-size="11" fill="#25201a">unique et explicite (EX-REN-014). Hors de la bande, le calque seul décide.</text>
   </g>
 
-  <g transform="translate(400,50)">
+  <g transform="translate(450,50)">
     <g stroke="#d6c9a8" fill="none">
       <path d="M180,0 l150,93 l-150,93 l-150,-93 z"/>
       <path d="M105,46 l75,47 M255,46 l-75,47 M30,93 l75,46 M330,93 l-75,46 M105,140 l75,-47 M255,140 l-75,-47"/>
     </g>
-    <rect x="96" y="40" width="46" height="64" fill="#6a6152" stroke="#25201a"/><text x="100" y="76" font-size="9" fill="#fbf8f0">arbre</text>
-    <path d="M118,104 L118,112" stroke="#8a2233" stroke-width="2"/><text x="124" y="114" font-size="9" fill="#8a2233">pied : y = 104</text>
-    <rect x="164" y="76" width="32" height="56" fill="#9a7420" stroke="#25201a"/><text x="166" y="108" font-size="9" fill="#25201a">héros</text>
-    <path d="M180,132 L180,140" stroke="#8a2233" stroke-width="2"/><text x="186" y="142" font-size="9" fill="#8a2233">pied : y = 132</text>
-    <rect x="212" y="20" width="60" height="70" fill="#2f7f86" stroke="#25201a"/><text x="218" y="60" font-size="9" fill="#fbf8f0">mur (2 × 1)</text>
-    <path d="M242,90 L242,98" stroke="#8a2233" stroke-width="2"/><text x="248" y="100" font-size="9" fill="#8a2233">pied de l'emprise : y = 90</text>
-    <text x="0" y="214" font-size="12" fill="#25201a">Ordre dans la bande : mur (90) → arbre (104) → héros (132).</text>
-    <text x="0" y="232" font-size="12" fill="#25201a">Le héros passe devant l'arbre parce que son pied est plus bas</text>
-    <text x="0" y="250" font-size="12" fill="#25201a">à l'écran ; une pièce large se trie au pied de son emprise</text>
-    <text x="0" y="268" font-size="12" fill="#25201a">(core::footprintCells, EX-LVL-019).</text>
+    <rect x="212" y="20" width="60" height="70" fill="#2f7f86" stroke="#25201a"/><text x="218" y="60" font-size="9" fill="#fbf8f0">mur</text>
+    <path d="M242,90 L242,98" stroke="#8a2233" stroke-width="2"/><text x="248" y="100" font-size="9" fill="#8a2233">pied : 90 · Relief</text>
+    <rect x="164" y="48" width="32" height="56" fill="#9a7420" stroke="#25201a"/><text x="166" y="80" font-size="9" fill="#25201a">héros</text>
+    <path d="M180,104 L180,112" stroke="#8a2233" stroke-width="2"/><text x="126" y="122" font-size="9" fill="#8a2233">pied : 104 · Figure</text>
+    <rect x="136" y="8" width="88" height="52" fill="#8a2233" fill-opacity="0.35" stroke="#8a2233" stroke-dasharray="3 2"/>
+    <text x="140" y="22" font-size="9" fill="#25201a">étage 1 (Storey)</text>
+    <text x="140" y="34" font-size="9" fill="#25201a">même case : pied 104</text>
+    <text x="140" y="46" font-size="9" fill="#25201a">α = 0,35 sur le héros</text>
+    <text x="0" y="214" font-size="12" fill="#25201a">Ordre dans la bande : mur (540) → héros (625) → étage (626).</text>
+    <text x="0" y="232" font-size="12" fill="#25201a">Le héros passe devant le mur parce que son pied est plus bas ;</text>
+    <text x="0" y="250" font-size="12" fill="#25201a">l'étage, trié au pied de sa case, passe après lui par son rang,</text>
+    <text x="0" y="268" font-size="12" fill="#25201a">et devient translucide dès qu'il le recouvre (LOT-129).</text>
   </g>
 
   <g fill="#25201a" font-size="12">
-    <text x="20" y="330" font-weight="600">La clé de tri d'une primitive de la bande (LOT-86)</text>
-    <text x="20" y="352" font-family="Consolas, monospace" font-size="12">clé = profondeur(pied, au pixel) × 4 + rang</text>
-    <text x="20" y="374">rang : 0 sol, 1 relief, 2 figurine posée dessus, 3 jeton — deux pièces sur la même case gardent un ordre constant</text>
-    <text x="20" y="392">d'une image à l'autre (tri stable, EX-REN-018). Le tri par profondeur passe avant le regroupement par texture : une image</text>
-    <text x="20" y="410">peut mêler plusieurs textures (EX-REN-043). Hors de la bande, le calque seul décide.</text>
+    <text x="20" y="330" font-weight="600">La clé de tri d'une primitive de la bande (<tspan font-family="Consolas, monospace">hmi::worldDepthSortOrder</tspan>, LOT-129)</text>
+    <text x="20" y="352" font-family="Consolas, monospace">clé = depthSortOrder(pied) × WORLD_DEPTH_SLOTS + rang     (6 rangs ; depthSortOrder = lround(pied.y × 16))</text>
+    <text x="20" y="374">rang (<tspan font-family="Consolas, monospace">hmi::WorldDepthSlot</tspan>) : Relief 0 · Figure 1 · Storey 2 · Storey2 3 · Storey3 4 · Storey4 5 (MAX_STOREY_FLOOR = 4).</text>
+    <text x="20" y="392">mur : 90 × 6 + 0 = 540 · héros : 104 × 6 + 1 = 625 · étage 1 de la case du héros : 104 × 6 + 2 = 626 — dessiné après lui,</text>
+    <text x="20" y="410">et translucide (STOREY_SEE_THROUGH_OPACITY = 0,35) s'il le recouvre. Tri stable, quantifié au pixel (EX-REN-018) ; la profondeur</text>
+    <text x="20" y="428">passe avant le regroupement par texture (EX-REN-043). Les jetons de maquette ne sont plus dans la bande : ils renseignent, donc</text>
+    <text x="20" y="446">ils vont sur RenderLayer::UI avec les tracés (LOT-128 D7, EX-REN-023).</text>
   </g>
-  <text x="20" y="444" font-size="11" fill="#6a6152">La même composition (hmi::composeWorldScene) est lue par le GPU du jeu (SpriteBatch sur QRhi) et par le QPainter de l'éditeur :</text>
-  <text x="20" y="460" font-size="11" fill="#6a6152">un test compare les deux listes de primitives, jetons compris (EX-NFR-004, EX-EDIT-059).</text>
+  <g font-size="11" fill="#6a6152">
+    <text x="20" y="478">Le calque décide entre bandes (EX-REN-014) ; dans la bande Object + Player, seul le pied décide, et le rang ne départage que deux</text>
+    <text x="20" y="494">pièces d'une même profondeur. Six rangs parce qu'un étage se trie au pied de sa case, mais doit passer après le relief et la figurine</text>
+    <text x="20" y="510">posés dessous, sans quoi le mur en recouvrirait l'égout. La même composition (hmi::composeWorldScene) nourrit le SpriteBatch du jeu</text>
+    <text x="20" y="526">et le QPainter de l'éditeur : un test compare les deux listes de primitives (EX-NFR-004, EX-EDIT-059).</text>
+  </g>
 </svg>

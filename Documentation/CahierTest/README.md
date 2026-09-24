@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1018 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc.
+**1018 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -42,6 +42,26 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Tests d'intégration](integration.md) | Tests d'intégration | 4 | — | 3 | 1 | — |
 | [Tests système](systeme.md) | Tests système | 1 | — | 1 | — | — |
 | **Total** | | **1018** | **111** | **308** | **522** | **77** |
+
+## Trois étages de vérification
+
+Le dépôt vérifie à trois hauteurs, et le cahier range chaque cas à la sienne : la colonne *Type* de la synthèse vient du dossier du test (`Source/Test/Unit`, `Integration`, `Systeme`).
+
+| Étage | Ce qu'il prouve | Ce qu'il ne prouve pas | Où |
+|---|---|---|---|
+| **Unitaire** | Une fonction ou une classe tient son contrat, seule, sans fenêtre ni GPU (`EX-NFR-010`) : un jet, une grille, un chargeur, une vue-modèle. | Que les pièces s'assemblent. | `Source/Test/Unit/<Core, HMI, Editor>/<domaine>/` |
+| **Intégration** | Plusieurs modules jouent ensemble sur des données réelles du dépôt : une carte livrée se charge, se compose et se parcourt. | Que l'exécutable démarre. | `Source/Test/Integration/` |
+| **Système** | Un parcours **de bout en bout**, tel qu'un utilisateur le ferait — l'auteur dessine une carte dans l'éditeur, puis le jeu la joue —, sans fenêtre. | Le ressenti : fluidité, lisibilité, plaisir. | `Source/Test/Systeme/` ; l'archive publiée a son test de fumée (`scripts/release/smoke_test_release.ps1`) et la [recette manuelle](recette-manuelle.md) le reste |
+
+Les écrans Qt Quick ont en plus leurs tests de référence (`Source/Test/Qml/`, images comparées pixel à pixel) et les scripts Python les leurs (`scripts/tests/`, pytest) ; ni les uns ni les autres ne sont des cas GoogleTest, et ils sont décrits dans [Build, tests et intégration continue](../Guide/guide-outils.md#les-suites-de-tests).
+
+## Ce que chaque exigence a pour garde
+
+La [matrice de traçabilité](couverture-exigences.md) donne, pour chaque exigence en vigueur des spécifications, les cas de test qui la citent — et laisse visibles celles qu'aucun test ne cite. Chaque fiche porte de même ses exigences, et chaque page de domaine récapitule celles qu'elle vérifie.
+
+## Ce que les tests ne remplacent pas
+
+La [recette manuelle](recette-manuelle.md) est la seule page du cahier écrite à la main : les contrôles qu'un humain fait avant de dire « livré » — fluidité, lisibilité, son, manette — avec, pour chacun, ce qu'on regarde et ce qui doit se voir.
 
 ## Lancer les tests
 

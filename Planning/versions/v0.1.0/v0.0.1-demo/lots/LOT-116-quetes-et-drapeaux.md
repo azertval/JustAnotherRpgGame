@@ -74,3 +74,8 @@ Livré le 24 septembre 2026, **PR #127**, sur décision de l'auteur après véri
 - Le panneau « Problems » de la fenêtre de l'éditeur ne montre que les constats par carte ; le
   contrôle du récit (quêtes, dialogues) passe par `LevelEditor --check`.
 
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-EXP-012` — l'avancement recalculé depuis les drapeaux et leur révision.

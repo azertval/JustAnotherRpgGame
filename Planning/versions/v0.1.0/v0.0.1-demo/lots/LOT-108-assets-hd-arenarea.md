@@ -125,3 +125,10 @@ T1-T6, précautions et critères — est dans
 `Source/Elements/Assets/kits.lock.json` ; `scripts/fetch_assets.py` les installe (poste, build,
 CI) ; les images de `Common/`, `Regions/`, `Maps/` et `UI/` ne sont plus suivies. Les images du
 LOT-108 ne sont jamais entrées dans l'historique.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-CNT-070` — les kits hors Git, publiés et verrouillés.
+- `EX-CNT-071` — pas de budget de poids par kit (D-23), 5 Mio par fichier.

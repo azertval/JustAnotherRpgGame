@@ -33,6 +33,12 @@ ou « retour », jamais à une touche en particulier.
 - **EX-CTRL-022** — **Interagir** doit être une commande dédiée (E ou Espace)
   qui déclenche l'entité placée devant le héros — dialogue, coffre, portail (`EX-EXP-004`).
 
+![Maquette de la chaîne des entrées : du périphérique à la touche ou au bouton, puis à la commande nommée et à l'intention que reçoit la simulation ; la chronologie d'un bouton sur cinq relevés, pressé, maintenu, relâché, et la répétition à cadence choisie ; la latence d'un pas au plus entre l'appui et son effet](maquettes/controles-chaine-entrees.svg)
+
+Le dessin montre pourquoi la chaîne a **quatre** maillons et non deux : la commande nommée est ce
+qui permet à une touche et à un bouton de mener au même endroit, et l'intention est ce qui permet
+à `Core` de ne rien savoir des périphériques.
+
 ## 3. Réactivité
 - **EX-CTRL-020** — La latence entre une entrée et son effet ne doit pas
   dépasser **un pas** de simulation : une touche enfoncée est lue au pas suivant, jamais perdue

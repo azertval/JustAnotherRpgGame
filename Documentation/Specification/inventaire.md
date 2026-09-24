@@ -12,6 +12,8 @@ par marchand.
 
 ## 1. Porter
 
+![Maquette de l'inventaire et des emplacements : la silhouette et ses emplacements typés, l'arme à deux mains qui occupe les deux mains et interdit le bouclier, l'inventaire comme liste d'identifiants de catalogue avec quantité et état, et les deux valeurs dérivées, la classe d'armure recalculée depuis l'armure déclarée et l'encombrement visible avant d'être contraignant](maquettes/inventaire-emplacements.svg)
+
 - **EX-INV-001** — L'inventaire est une liste d'**identifiants de catalogue**
   accompagnés d'une quantité et d'un état, jamais une copie des propriétés de l'objet. Corriger le
   prix d'une épée doit corriger toutes les épées du monde, y compris celles déjà ramassées et

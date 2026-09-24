@@ -347,6 +347,17 @@ qui se règle dans Qt Design Studio.
   depuis le jeu ou depuis une touche, un même écran doit se comporter de la même façon, et une règle
   décidée au point d'appel se contredit d'un appel à l'autre sans que rien ne le signale.
 
+### Le journal de quêtes {#ihm-journal}
+
+Premier écran du châssis à être **alimenté** par la partie (`LOT-116`), le journal montre ce que
+le châssis promet quand une donnée réelle le remplit.
+
+![Maquette du journal de quêtes dans le châssis des écrans du RPG : à gauche la liste des quêtes commencées avec leur état et la quête choisie marquée, à droite son titre, l'entrée de sa dernière étape atteinte et ses étapes cochées, l'issue sur la dernière ; le pied dit comment changer de quête et fermer](maquettes/interface-ihm-journal-quetes.svg)
+
+Ce que la maquette engage : l'écran se tire des **seuls drapeaux** (`EX-EXP-010`, `EX-EXP-012`),
+il n'a pas d'état à lui, et il se relit à chaque avancement — une quête qui progresse pendant
+qu'on lit le journal s'y voit sans le fermer.
+
 ## 10. La conception séparée du code (LOT-86) {#ihm-conception}
 
 > Statut : **en cours** (`LOT-86`). Cette section remplace, pour les écrans du **jeu**, ce que la

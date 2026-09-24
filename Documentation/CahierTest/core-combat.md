@@ -22,6 +22,16 @@ Tests unitaires — **112 cas** (33 bloquants, 48 critiques, 30 majeurs, 1 mineu
 | [`test_tactical_terrain.cpp`](#test-tactical-terraincpp) | 10 | - | 4 | 6 | - |
 | [`test_turn_order.cpp`](#test-turn-ordercpp) | 3 | 1 | 1 | 1 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-CBT-031` | [`DamageTest.LeCritiqueDoubleLesDesPasLeModificateur`](#damagetestlecritiquedoublelesdespaslemodificateur) |
+| `EX-CBT-050` | [`EnemyAiTest.LIaNeLitQueLEtatEnsanglante`](#enemyaitestlianelitqueletatensanglante) |
+| `EX-REG-003` | [`AttackTest.ChaqueJetProduitUneEntreeDeJournalComplete`](#attacktestchaquejetproduituneentreedejournalcomplete) |
+
 ## test_action_economy.cpp
 
 ### ActionEconomyTest.ChaqueRessourceUneFoisParTour
@@ -415,6 +425,8 @@ Un 1 naturel rate toujours, meme quand le total depasse la classe d'armure.
 ### AttackTest.ChaqueJetProduitUneEntreeDeJournalComplete
 
 *Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_attack.cpp:147`
+
+Exigences : `EX-REG-003`
 
 Une attaque touchee et une attaque ratee s'ecrivent au journal avec le de, chaque modificateur et son origine, la CA, l'issue, les des de degats, leur type et les PV.
 
@@ -1204,6 +1216,8 @@ Le montage pose le groupe puis les creatures de la rencontre, et nomme chaque re
 
 *Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_damage.cpp:72`
 
+Exigences : `EX-CBT-031`
+
 Un coup critique lance deux fois les des de degats et ajoute le modificateur une seule fois.
 
 **Étapes**
@@ -1692,6 +1706,8 @@ Les profils de comportement livres se chargent sans erreur, ne tolerent jamais t
 ### EnemyAiTest.LIaNeLitQueLEtatEnsanglante
 
 *Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:285`
+
+Exigences : `EX-CBT-050`
 
 Les points de vie d'un adversaire restent secrets : deux cibles qui ne different que par des points de vie au-dessus de la moitie sont indiscernables ; une cible ensanglantee est preferee.
 

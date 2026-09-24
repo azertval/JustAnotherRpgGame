@@ -1,68 +1,95 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="Georgia, serif" font-size="14">
-  <rect width="880" height="500" fill="#fbf8f0"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="620" fill="#fbf8f0"/>
   <defs>
-    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#6a6152"/>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
     </marker>
   </defs>
-  <text x="20" y="30" font-size="16" font-weight="600" fill="#25201a">L'ordre de dessin d'une scène composée : la clé de ComposedScene::sort</text>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">L'ordre de dessin d'une scène composée : la clé de ComposedScene::sort</text>
 
-  <!-- Bandes de calques -->
-  <text x="20" y="66" font-weight="600" fill="#6a6152">1. La bande de calque (renderBand)</text>
+  <!-- ===== 1. La bande de calque ===== -->
+  <text x="20" y="54" font-weight="600" fill="#6a6152">1. La bande de calque (<tspan font-family="Consolas, monospace">renderBand</tspan>)</text>
   <g stroke="#d6c9a8">
-    <rect x="20" y="80" width="110" height="44" fill="#ece4d1"/>
-    <rect x="130" y="80" width="110" height="44" fill="#ece4d1"/>
-    <rect x="240" y="80" width="110" height="44" fill="#ece4d1"/>
-    <rect x="350" y="80" width="220" height="44" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
-    <rect x="570" y="80" width="110" height="44" fill="#ece4d1"/>
-    <rect x="680" y="80" width="180" height="44" fill="#ece4d1"/>
+    <rect x="20" y="66" width="110" height="40" fill="#ece4d1"/>
+    <rect x="130" y="66" width="110" height="40" fill="#ece4d1"/>
+    <rect x="240" y="66" width="110" height="40" fill="#ece4d1"/>
+    <rect x="350" y="66" width="220" height="40" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+    <rect x="570" y="66" width="110" height="40" fill="#2f7f86" fill-opacity="0.12" stroke="#2f7f86"/>
+    <rect x="680" y="66" width="180" height="40" fill="#ece4d1"/>
   </g>
-  <g font-family="Consolas, monospace" font-size="13" fill="#25201a" text-anchor="middle">
-    <text x="75" y="106">Background</text>
-    <text x="185" y="106">Shadow</text>
-    <text x="295" y="106">Tile</text>
-    <text x="405" y="106">Object</text>
-    <text x="515" y="106">Player</text>
-    <text x="625" y="106">UI</text>
-    <text x="770" y="106">EditorOverlay</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#25201a" text-anchor="middle">
+    <text x="75" y="90">Background</text>
+    <text x="185" y="90">Shadow</text>
+    <text x="295" y="90">Tile</text>
+    <text x="405" y="90">Object</text>
+    <text x="515" y="90">Player</text>
+    <text x="625" y="90">UI</text>
+    <text x="770" y="90">EditorOverlay</text>
   </g>
-  <text x="350" y="142" font-size="13" fill="#9a7420">une seule bande de profondeur (sortsByDepth)</text>
-  <path d="M20,150 L860,150" stroke="#6a6152" stroke-width="1" marker-end="url(#f)"/>
-  <text x="20" y="168" font-size="13" fill="#6a6152">dessiné en premier (au fond)</text>
-  <text x="700" y="168" font-size="13" fill="#6a6152" text-anchor="end">dessiné en dernier (devant)</text>
+  <text x="350" y="122" font-size="11" fill="#9a7420">une seule bande de profondeur (<tspan font-family="Consolas, monospace">sortsByDepth</tspan>)</text>
+  <text x="640" y="122" font-size="11" fill="#2f7f86">jetons et tracés de maquette</text>
+  <path d="M20,132 L860,132" stroke="#9a7420" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="20" y="148" font-size="11" fill="#6a6152">dessiné en premier (au fond)</text>
+  <text x="860" y="148" font-size="11" fill="#6a6152" text-anchor="end">dessiné en dernier (devant)</text>
 
-  <!-- Deux règles -->
-  <text x="20" y="206" font-weight="600" fill="#6a6152">2. À l'intérieur d'une bande</text>
-  <rect x="20" y="220" width="400" height="120" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
-  <text x="32" y="242" font-weight="600" fill="#25201a">Calques ordinaires (Tile, UI…)</text>
-  <text x="32" y="266" font-size="13" fill="#25201a">a. rang de première apparition de la texture</text>
-  <text x="32" y="284" font-size="13" fill="#25201a">b. sortOrder (tri fin)</text>
-  <text x="32" y="310" font-size="13" fill="#6a6152">Regrouper d'abord : une passe begin/end</text>
-  <text x="32" y="328" font-size="13" fill="#6a6152">par texture, le minimum d'appels de dessin.</text>
+  <!-- ===== 2. À l'intérieur d'une bande ===== -->
+  <text x="20" y="180" font-weight="600" fill="#6a6152">2. À l'intérieur d'une bande</text>
+  <rect x="20" y="192" width="330" height="128" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="214" font-weight="600" fill="#25201a">Calques ordinaires (Tile, UI…)</text>
+  <text x="32" y="238" fill="#25201a">a. rang de première apparition de la texture</text>
+  <text x="32" y="256" fill="#25201a">b. <tspan font-family="Consolas, monospace">sortOrder</tspan> (tri fin)</text>
+  <text x="32" y="284" font-size="12" fill="#6a6152">Regrouper d'abord : une passe begin/end par</text>
+  <text x="32" y="300" font-size="12" fill="#6a6152">texture, le minimum d'appels de dessin.</text>
 
-  <rect x="460" y="220" width="400" height="120" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
-  <text x="472" y="242" font-weight="600" fill="#25201a">Bande de profondeur (Object + Player)</text>
-  <text x="472" y="266" font-size="13" fill="#25201a">a. sortOrder = profondeur du pied × rangs + rang</text>
-  <text x="472" y="284" font-size="13" fill="#25201a">b. rang de première apparition de la texture</text>
-  <text x="472" y="310" font-size="13" fill="#6a6152">La position tranche avant la texture : un mur</text>
-  <text x="472" y="328" font-size="13" fill="#6a6152">plus bas à l'écran passe devant la figurine.</text>
+  <rect x="370" y="192" width="490" height="128" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="382" y="214" font-weight="600" fill="#25201a">Bande de profondeur (Object + Player)</text>
+  <text x="382" y="238" fill="#25201a">a. <tspan font-family="Consolas, monospace">sortOrder = depthSortOrder(pied) × 6 + rang</tspan></text>
+  <text x="382" y="256" fill="#25201a">b. rang de première apparition de la texture</text>
+  <text x="382" y="280" font-family="Consolas, monospace" font-size="11" fill="#25201a">Relief 0 · Figure 1 · Storey 2 · Storey2 3 · Storey3 4 · Storey4 5</text>
+  <text x="382" y="298" font-size="12" fill="#6a6152">WORLD_DEPTH_SLOTS = 6 : le relief, la figurine, un rang par étage.</text>
+  <text x="382" y="313" font-size="12" fill="#6a6152">La position tranche avant la texture ; à même pied, le rang.</text>
 
-  <!-- Exemple visuel -->
-  <text x="20" y="378" font-weight="600" fill="#6a6152">3. Le pied décide, pas le coin haut</text>
-  <!-- mur haut (fond) -->
-  <rect x="60" y="400" width="60" height="80" fill="#6a6152"/>
-  <text x="60" y="496" font-size="12" fill="#6a6152">mur, pied y = 480</text>
-  <!-- figurine -->
-  <circle cx="150" cy="430" r="12" fill="#9a7420"/>
-  <rect x="140" y="442" width="20" height="30" fill="#9a7420"/>
-  <text x="130" y="496" font-size="12" fill="#9a7420">héros, pied y = 472</text>
-  <!-- mur bas (devant) -->
-  <rect x="180" y="420" width="60" height="70" fill="#25201a"/>
-  <text x="240" y="496" font-size="12" fill="#25201a" text-anchor="end">mur, pied y = 490</text>
+  <!-- ===== 3. L'exemple ===== -->
+  <text x="20" y="352" font-weight="600" fill="#6a6152">3. Le pied décide, puis le rang — et le jeton reste hors de la bande</text>
 
-  <text x="300" y="404" font-size="13" fill="#25201a">depthSortOrder lit le bord bas de chaque quad, pas son coin haut.</text>
-  <text x="300" y="424" font-size="13" fill="#25201a">Ordre de dessin, par pied croissant : héros (472), puis mur (480),</text>
-  <text x="300" y="442" font-size="13" fill="#25201a">puis mur (490). Un mur dont le pied est plus bas que celui du héros</text>
-  <text x="300" y="460" font-size="13" fill="#25201a">est dessiné après lui, donc devant, quelle que soit sa hauteur.</text>
-  <text x="300" y="484" font-size="13" fill="#6a6152">Quantifié au pixel (DEPTH_SUBDIVISIONS_PER_UNIT) : pas de scintillement à égalité.</text>
+  <!-- Étage 1 (toit) : dessiné en dernier, translucide parce qu'il recouvre le héros -->
+  <!-- mur du rez, pied y = 480, rang Relief -->
+  <rect x="60" y="400" width="70" height="80" fill="#6a6152"/>
+  <!-- héros, pied y = 472, rang Figure -->
+  <circle cx="160" cy="430" r="12" fill="#9a7420"/>
+  <rect x="150" y="442" width="20" height="30" fill="#9a7420"/>
+  <!-- toit à l'étage 1 sur la case du mur, pied y = 480, rang Storey, alpha 0,35 -->
+  <path d="M40,410 L95,376 L185,376 L130,410 z" fill="#8a2233" fill-opacity="0.35" stroke="#8a2233" stroke-opacity="0.6"/>
+  <rect x="40" y="410" width="90" height="30" fill="#8a2233" fill-opacity="0.35" stroke="#8a2233" stroke-opacity="0.6"/>
+  <path d="M130,410 L185,376 L185,406 L130,440 z" fill="#8a2233" fill-opacity="0.35" stroke="#8a2233" stroke-opacity="0.6"/>
+  <!-- jeton, calque UI -->
+  <circle cx="230" cy="452" r="14" fill="#2f7f86" stroke="#25201a" stroke-width="1.5"/>
+  <text x="230" y="457" font-size="12" font-weight="600" fill="#fbf8f0" text-anchor="middle">N</text>
+
+  <g font-size="11">
+    <text x="40" y="500" fill="#6a6152">mur, pied 480, rang 0</text>
+    <text x="40" y="514" fill="#9a7420">héros, pied 472, rang 1</text>
+    <text x="40" y="528" fill="#8a2233">toit (étage 1), pied 480, rang 2, alpha 0,35</text>
+    <text x="40" y="542" fill="#2f7f86">jeton : calque UI, jamais coupé</text>
+  </g>
+
+  <!-- Le calcul -->
+  <rect x="330" y="366" width="530" height="180" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="342" y="388" font-weight="600" fill="#25201a">Les clés, pied quantifié au pixel (<tspan font-family="Consolas, monospace">q</tspan>)</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#25201a">
+    <text x="342" y="412">héros  q(472) × 6 + 1  →  la plus petite : dessiné en premier</text>
+    <text x="342" y="430">mur    q(480) × 6 + 0  →  pied plus bas : devant le héros</text>
+    <text x="342" y="448">toit   q(480) × 6 + 2  →  même pied, rang d'étage : devant le mur</text>
+  </g>
+  <text x="342" y="474" font-size="12" fill="#25201a">Le toit se dessine après le héros et sa boîte recouvre la sienne : la pièce</text>
+  <text x="342" y="490" font-size="12" fill="#25201a">entière prend l'opacité <tspan font-family="Consolas, monospace">STOREY_SEE_THROUGH_OPACITY</tspan> = 0,35 (LOT-129).</text>
+  <text x="342" y="512" font-size="12" fill="#6a6152">Le jeton a une clé de profondeur, mais sur le calque UI : il s'ordonne parmi</text>
+  <text x="342" y="528" font-size="12" fill="#6a6152">les jetons, et aucun mur ne peut le couper (LOT-128, décision D7).</text>
+
+  <!-- Légende -->
+  <g font-size="12" fill="#25201a">
+    <text x="20" y="574">Le calque tranche d'abord ; dans la bande de profondeur, le pied du quad — le bord bas, quantifié au pixel</text>
+    <text x="20" y="592">(<tspan font-family="Consolas, monospace">DEPTH_SUBDIVISIONS_PER_UNIT</tspan>) — tranche ensuite, puis le rang départage ce qui partage une case : relief,</text>
+    <text x="20" y="610">figurine, étages. Un pied plus bas à l'écran passe devant, quelle que soit la hauteur de la pièce.</text>
+  </g>
 </svg>

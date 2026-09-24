@@ -10,7 +10,7 @@ Cette documentation tient en un seul site, et chaque partie répond à une quest
 |---|---|---|
 | [Guide](Guide/README.md) | **Comment** ça marche, et comment s'en servir ? Le manuel du joueur et de l'auteur de cartes, puis le moteur domaine par domaine. | `Documentation/Guide/` |
 | [Spécifications](Specification/README.md) | **Quoi**, et **pourquoi** ? Les exigences `EX-…`, tracées jusqu'au code et aux tests. | `Documentation/Specification/` |
-| [Cahier de test](CahierTest/README.md) | Qu'est-ce qui est **vérifié** ? Un cas par test automatisé. | engendré depuis `Source/Test/` |
+| [Cahier de test](CahierTest/README.md) | Qu'est-ce qui est **vérifié** ? Un cas par test automatisé, la matrice exigence → tests, et la recette manuelle. | engendré depuis `Source/Test/` et `Specification/` ; la recette s'écrit à la main |
 | [Planification](../Planning/README.md) | **Quand**, et dans quel ordre ? Les versions, les lots livrés et à venir. | `Planning/` |
 | [Référence du code](reference/index.html) | Que fait **ce symbole** ? L'annexe du guide, engendrée par Doxygen. | les commentaires de `Source/` |
 

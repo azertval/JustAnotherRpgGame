@@ -19,6 +19,8 @@ c'est le **temps**, pas le lieu.
 
 ## 1. Bascule
 
+![Maquette de la bascule et du tour : le passage exploration vers combat sur un déclencheur nommé et le retour quand plus aucun camp hostile n'est engagé, au même endroit de la même carte ; le cycle d'un tour avec ses quatre ressources consommables une fois, la réaction rendue au début du tour suivant de son porteur et la fin de tour explicite ; la piste d'agonie à trois réussites et trois échecs, remise à zéro par un soin](maquettes/combat-tour-et-agonie.svg)
+
 - **EX-CBT-001** — Le passage exploration ↔ combat est **explicite et
   réversible** : la partie entre en combat sur un déclencheur nommé, en sort quand plus aucun camp
   hostile n'est engagé, et le personnage reste **au même endroit de la même carte**. La grille

@@ -13,6 +13,14 @@ Tests unitaires — **35 cas** (5 critiques, 30 majeurs). [Retour à la synthès
 | [`test_view.cpp`](#test-viewcpp) | 5 | - | - | 5 | - |
 | [`test_world.cpp`](#test-worldcpp) | 7 | - | - | 7 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-NFR-040` | [`AnimationClipTest.ClipInexistantRepliDeterministe`](#animationcliptestclipinexistantreplideterministe) |
+
 ## test_animation_clip.cpp
 
 ### AnimationClipTest.ClipExistantResoluParNom
@@ -37,6 +45,8 @@ Un clip existant est résolu par son nom.
 ### AnimationClipTest.ClipInexistantRepliDeterministe
 
 *Critique · Unitaire · Clip d'animation* — `Source/Test/Unit/Core/Ecs/test_animation_clip.cpp:55`
+
+Exigences : `EX-NFR-040`
 
 Un nom inconnu ou un index hors bornes retombe sur le premier clip, sans plantage.
 

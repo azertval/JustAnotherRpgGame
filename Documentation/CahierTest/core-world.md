@@ -18,6 +18,15 @@ Tests unitaires — **63 cas** (1 bloquant, 32 critiques, 27 majeurs, 3 mineurs)
 | [`test_world_graph.cpp`](#test-world-graphcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_world_travel.cpp`](#test-world-travelcpp) | 7 | - | 4 | 3 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-CNT-011` | [`AtlasTest.LesNotesDuMoteurCoincidentAvecCellesDuSchema`](#atlastestlesnotesdumoteurcoincidentaveccellesduschema) |
+| `EX-EDIT-073` | [`FamillesDEntitesTest.ToutFamilleLueParLeJeuEstDansLaTable`](#famillesdentitestesttoutfamillelueparlejeuestdanslatable) |
+
 ## test_atlas.cpp
 
 ### AtlasTest.LesTreizeRegionsEtLeursLieuxChargentSansErreur
@@ -205,6 +214,8 @@ Le controle de connexite sait echouer.
 ### AtlasTest.LesNotesDuMoteurCoincidentAvecCellesDuSchema
 
 *Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:334`
+
+Exigences : `EX-CNT-011`
 
 Les notes et les axes du moteur coincident avec region.schema.json.
 
@@ -522,6 +533,8 @@ Un nom de point d'arrivee est unique dans la carte.
 ### FamillesDEntitesTest.ToutFamilleLueParLeJeuEstDansLaTable
 
 *Bloquant · Unitaire · Familles d'entites* — `Source/Test/Unit/Core/World/test_entity_kinds.cpp:217`
+
+Exigences : `EX-EDIT-073`
 
 Aucune famille lue par le jeu n'echappe a l'editeur.
 

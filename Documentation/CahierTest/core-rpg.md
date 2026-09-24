@@ -17,6 +17,19 @@ Tests unitaires — **82 cas** (3 bloquants, 45 critiques, 33 majeurs, 1 mineur)
 | [`test_multiclassing.cpp`](#test-multiclassingcpp) | 6 | - | 4 | 2 | - |
 | [`test_rpg_enums.cpp`](#test-rpg-enumscpp) | 5 | - | 3 | 2 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-CNT-011` | [`DiceTest.AllerRetourDesCaracteristiques`](#dicetestallerretourdescaracteristiques), [`RpgEnumsTest.UnNomInconnuEstRefuse`](#rpgenumstestunnominconnuestrefuse), [`RpgEnumsTest.LesEnumerationsCoincidentAvecLesSchemas`](#rpgenumstestlesenumerationscoincidentaveclesschemas) |
+| `EX-CNT-031` | [`BestiaryTest.LesMecanismesExigesSontAnnonces`](#bestiarytestlesmecanismesexigessontannonces), [`CharacterOptionsTest.LesMecanismesExigesSontAnnonces`](#characteroptionstestlesmecanismesexigessontannonces) |
+| `EX-CNT-032` | [`CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien`](#characteroptionstestlesclassesprovisoiresnesontreferenceesparrien) |
+| `EX-NFR-002` | [`DiceTest.RejouabiliteStricte`](#dicetestrejouabilitestricte) |
+| `EX-REG-003` | [`CheckTest.ModificateursEtRestitution`](#checktestmodificateursetrestitution) |
+| `EX-RPG-042` | [`DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune`](#dialoguetestundialogueestrefusefautedelanguecommune) |
+
 ## test_bestiary.cpp
 
 ### BestiaryTest.LesQuatreVingtQuatorzeProfilsChargent
@@ -98,6 +111,8 @@ Une creature sans vitesse de marche possede un autre mode de deplacement.
 ### BestiaryTest.LesMecanismesExigesSontAnnonces
 
 *Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:215`
+
+Exigences : `EX-CNT-031`
 
 Le bestiaire annonce les mecanismes que les creatures exigent du moteur.
 
@@ -227,6 +242,8 @@ Le bonus de maitrise des niveaux 1 a 5 est lu dans la table livree.
 
 *Majeur · Unitaire · Options de personnage* — `Source/Test/Unit/Core/Rpg/test_character_options.cpp:225`
 
+Exigences : `EX-CNT-031`
+
 Une espece qui exige un mecanisme absent le declare au chargement.
 
 **Étapes**
@@ -240,6 +257,8 @@ Une espece qui exige un mecanisme absent le declare au chargement.
 ### CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien
 
 *Critique · Unitaire · Options de personnage* — `Source/Test/Unit/Core/Rpg/test_character_options.cpp:243`
+
+Exigences : `EX-CNT-032`
 
 Les classes provisoires portent leur marque et ne sont referencees par aucune donnee definitive.
 
@@ -564,6 +583,8 @@ Un 1 ou 20 naturel se distingue d'un total de 1 ou 20.
 
 *Critique · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_check.cpp:139`
 
+Exigences : `EX-REG-003`
+
 Les modificateurs d'un jet s'appliquent et conservent leur origine.
 
 **Étapes**
@@ -712,6 +733,8 @@ Un echec de Persuasion ferme la reponse de retentative.
 ### DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune
 
 *Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:276`
+
+Exigences : `EX-RPG-042`
 
 Un dialogue est refuse faute de langue commune.
 
@@ -969,6 +992,8 @@ Un lancer de des reste dans ses bornes et conserve le detail de chaque de.
 
 *Critique · Unitaire · Des* — `Source/Test/Unit/Core/Rpg/test_dice.cpp:109`
 
+Exigences : `EX-NFR-002`
+
 Deux generateurs de meme graine produisent exactement la meme suite de des.
 
 **Étapes**
@@ -1042,6 +1067,8 @@ Le modificateur de caracteristique s'arrondit vers le bas, y compris en negatif.
 ### DiceTest.AllerRetourDesCaracteristiques
 
 *Majeur · Unitaire · Caracteristiques* — `Source/Test/Unit/Core/Rpg/test_dice.cpp:225`
+
+Exigences : `EX-CNT-011`
 
 Les six caracteristiques font l'aller-retour par leur nom sans perte.
 
@@ -1592,6 +1619,8 @@ Deux valeurs distinctes d'une enumeration RPG ne portent jamais le meme nom.
 
 *Majeur · Unitaire · Enumerations RPG* — `Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:129`
 
+Exigences : `EX-CNT-011`
+
 Un nom d'enumeration RPG inconnu est refuse au lieu d'etre devine.
 
 **Étapes**
@@ -1611,6 +1640,8 @@ Un nom d'enumeration RPG inconnu est refuse au lieu d'etre devine.
 ### RpgEnumsTest.LesEnumerationsCoincidentAvecLesSchemas
 
 *Critique · Unitaire · Enumerations RPG* — `Source/Test/Unit/Core/Rpg/test_rpg_enums.cpp:152`
+
+Exigences : `EX-CNT-011`
 
 Les enumerations partagees entre le C++ et les schemas JSON sont identiques.
 

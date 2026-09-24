@@ -38,7 +38,11 @@ dans `Site/tokens.css`.
 L'**ordre de lecture** d'une partie est celui où son `README.md` cite ses pages ; le menu latéral
 et les liens « précédent / suivant » en découlent. Une page que rien ne cite est une erreur de lint
 (*page orpheline*). Le cahier de test ne s'écrit pas : il est engendré
-(`scripts/docs/generate_cahier_test.py`).
+(`scripts/docs/generate_cahier_test.py`) — y compris sa [matrice de
+traçabilité](../CahierTest/couverture-exigences.md), tirée des exigences que les tests citent. Une
+seule de ses pages s'écrit à la main, la [recette manuelle](../CahierTest/recette-manuelle.md) : le
+générateur la laisse en place, la cite depuis le `README.md` du cahier, et refuse de tourner si
+elle manque.
 
 ## Les conventions d'écriture
 
@@ -81,7 +85,14 @@ Une exigence se **déclare** par une puce qui s'ouvre sur son identifiant en gra
 
 `scripts/checks/lint_exigences.py` vérifie qu'elle est déclarée une fois, et citée au moins une fois
 ailleurs ; `--next` donne le prochain numéro libre. Le site en tire l'[index des
-exigences](../Specification/README.md), avec le code et les tests qui citent chacune.
+exigences](../Specification/README.md), avec le code et les tests qui citent chacune, et le cahier
+de test sa [matrice de traçabilité](../CahierTest/couverture-exigences.md). Un test qui garde une
+exigence la **cite** dans son commentaire (`@brief … (EX-REG-003)`) : c'est ce lien, et lui seul,
+qui fait paraître le cas en face de l'exigence.
+
+Une exigence nouvelle pour une fonction **déjà livrée** se cite depuis la fiche du lot qui l'a
+livrée, dans une section « Exigences » de la fiche : le fil exigence → lot → code → test reste
+entier, même quand l'exigence a été écrite après le code.
 
 ### Figures, captures et maquettes
 
@@ -95,8 +106,8 @@ qui doit donc dire ce qu'on regarde, pas « capture 3 » :
 | Nature | Dossier | Fabrication |
 |---|---|---|
 | Capture du jeu ou de l'éditeur | `Guide/captures/` | `python Documentation/outils/capture_screens.py --bin build/ninja/bin` — jamais à la main : une capture se refait |
-| Schéma, diagramme | `Guide/figures/`, `Specification/figures/` | SVG écrit à la main |
-| Maquette d'écran (ce que l'écran **doit** être) | `Specification/maquettes/` | SVG écrit à la main ; les maquettes peintes de la charte v2 restent dans les annexes du `LOT-87` |
+| Schéma, diagramme du guide (ce que le code **fait**) | `Guide/figures/` | SVG écrit à la main |
+| Maquette de spécification (ce qu'un écran ou un mécanisme **doit** être) | `Specification/maquettes/` | SVG écrit à la main ; les maquettes peintes de la charte v2 restent dans les annexes du `LOT-87` |
 
 Un SVG porte son propre fond (il s'affiche aussi en thème sombre) et n'emploie que la palette de la
 charte : ivoire `#fbf8f0`, sable `#ece4d1`, filet `#d6c9a8`, encre `#25201a`, gris `#6a6152`,

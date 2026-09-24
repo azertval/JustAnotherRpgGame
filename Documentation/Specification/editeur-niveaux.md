@@ -1,8 +1,10 @@
 # Éditeur de cartes
 
-> Statut : **livré**. `LevelEditor` peint les trois couches d'une carte, pose et renseigne ses
-> entités, montre le graphe du monde, avertit d'un terrain tactique invalide, et joue la carte en
-> cours avec le moteur du jeu. Dépend de [`niveaux.md`](niveaux.md).
+> Statut : **livré**, un mode à venir. `LevelEditor` peint les couches d'une carte et ses étages,
+> pose et renseigne ses entités — jusqu'à ce qu'une quête y change (§21) —, puise ses pièces dans
+> l'arborescence des lieux (§22), montre le graphe du monde, avertit d'un terrain tactique
+> invalide, et joue la carte en cours avec le moteur du jeu, dans l'état de partie choisi. Le mode
+> Quêtes (§23, `LOT-144`) reste à faire. Dépend de [`niveaux.md`](niveaux.md).
 
 > **Refonte décidée le 18 septembre 2026.** L'éditeur est devenu un module à part, refait lot par
 > lot. Sa feuille de route propre a été **close le 21 septembre 2026** : ses quatorze lots
@@ -119,7 +121,9 @@ depuis le jeu, est l'**arène** du `LOT-50`.
   clavier, et des libellés sur les entrées de la palette.
 - **EX-EDIT-017** — L'éditeur doit permettre de **saisir directement** une
   largeur et une hauteur cibles, sous un **plafond généreux** qui reste configurable au niveau du
-  code, pas une limite arbitraire de `Core`.
+  code, pas une limite arbitraire de `Core`. Le chargeur porte en outre sa propre borne, dix fois
+  plus large (`EX-LVL-030`) : elle refuse un fichier aberrant, elle ne contraint aucune carte que
+  l'éditeur sait écrire.
 - **EX-EDIT-018** — La palette doit regrouper les types de tuiles en
   **catégories** (Tuile, Jalon, Sol, Obstacle, Passage) plutôt qu'en liste plate, et rester
   entièrement accessible par **défilement** quand tout est déplié. *Révisée au `LOT-EDITOR-03`* :
@@ -231,7 +235,10 @@ On pose ce que le jeu montrera, et la collision suit
   leur image, **groupées par classe** (sols, pièces debout, pièces larges) sous le nom court que la
   carte écrit, avec une **recherche** sur le nom et la classe. Une pièce que la carte cite et que la
   planche n'a pas y paraît à part, en damier, et se pose encore : elle n'est jamais retirée que par
-  un geste qui la vise. Une carte sans lieu retombe sur la palette des types.
+  un geste qui la vise. Une carte sans lieu retombe sur la palette des types. Depuis le `LOT-124`,
+  les pièces sont **groupées par niveau** de l'arborescence des lieux (`EX-LVL-029`) — la zone, la
+  ville, la région, le monde — et une pièce propre qui **masque** une commune du même nom le dit ;
+  depuis le `LOT-129`, un kit rangé en sous-dossiers se groupe **par dossier**.
 - **EX-EDIT-064** — Poser une pièce écrit, **en un geste** et un pas
   d'annulation, sa couche (la première de sol pour un sol, la première de décor sinon), sa pièce,
   le type de sa case et la **collision de son emprise**. Deux emprises ne se recouvrent pas sur une
@@ -293,7 +300,10 @@ Les zones se tirent à la souris, les entités montrent leur figurine et leurs l
   rencontre, carte, point d'arrivée, figurine, drapeau, lieu de l'atlas, objet, `carte#id`. Une
   valeur hors bornes ou absente de son catalogue avertit, sans empêcher d'enregistrer. **Contrat
   d'extension** : toute famille d'entité que le jeu lit est dans `core::knownEntityKinds`, et un
-  test bloquant le vérifie sur les sources du jeu et les cartes livrées.
+  test bloquant le vérifie sur les sources du jeu et les cartes livrées. Trois sources de choix
+  s'y ajoutent au `LOT-126` : les **pièces** du lieu (`prop`), les **drapeaux que quelqu'un pose**
+  et les **valeurs qu'une quête déclare** pour un drapeau ; la condition de présence est déclarée
+  pour **toute** famille (`core::commonEntityProperties`), et l'inspecteur la montre partout.
 
 ## 14. L'éditeur sans fenêtre (`LOT-EDITOR-13`)
 Ce que les scripts des cartes apportaient — l'édition en masse, rejouable, relue en diff —, sans
@@ -311,6 +321,9 @@ les scripts ([LOT-EDITOR-13](../../Planning/versions/v0.0.0/v0.0.0-fondation/lot
   en isométrie et **sans fenêtre**, par le peintre du canevas (`EX-EDIT-059`) : bandes au choix
   (sol, relief, figurines, masque de collision), échelle au choix, une image par carte nommée
   d'après son identifiant. La CI rend chaque carte qu'une PR ajoute ou change et publie les images.
+  `--plan` rend le **plan de principe** d'une carte maquette — losanges plats, pastilles, légende
+  (`LOT-128`) —, lisible comme le plan du planning sans s'y superposer ; l'échelle 1 vaut 1080p et
+  aucune image ne dépasse 8192 px de côté (`LOT-125`).
 - **EX-EDIT-076** — Chaque outil a **un scénario `--apply`**, rejoué sur une
   carte-témoin et comparé octet pour octet à un fichier attendu : c'est le test d'IHM du module
   (règle 4 de la feuille de route).
@@ -338,7 +351,9 @@ Une carte bien écrite (`EX-EDIT-062`) doit aussi se jouer ([LOT-EDITOR-07](../.
   de chaque case utile — portail, point d'arrivée, PNJ, coffre, panneau, rencontre, zone — depuis
   l'entrée ou un point d'arrivée nommé par un portail ou une ville, selon la règle de marche du jeu.
   Il avertit d'un portail sans retour, d'un point d'arrivée que rien ne nomme, d'une famille
-  d'entité inconnue. Une variante se contrôle sur les cases de sa base. Hors de toute carte, il
+  d'entité inconnue. Un **transfert** de zone (`EX-LVL-028`) est une arête comme un portail : son
+  point d'arrivée est un départ pour l'atteignabilité, et un portail **condamné** (`EX-LVL-027`)
+  n'est ni une erreur ni un chemin. Une variante se contrôle sur les cases de sa base. Hors de toute carte, il
   contrôle aussi **le récit** (`LOT-116`) : une quête refusée au chargement, une valeur de drapeau
   qu'aucune quête ne déclare, un drapeau qu'une condition de dialogue, d'étape de quête ou de
   présence d'entité **lit** sans qu'aucun dialogue ni aucune quête ne le **pose** (`EX-EXP-009`).
@@ -390,15 +405,18 @@ Ce qu'on a composé une fois se repose ailleurs, et se garde
   identifiant neuf ; `Ctrl+Maj+V` pose son reflet, pièces jumelles comprises. Une couche du tampon
   va à la couche de même nom, à défaut à la première de même rôle ; une couche absente ou
   verrouillée refuse la pose sans rien écrire.
-- **EX-EDIT-086** — Un tampon s'enregistre comme **préfabriqué** du lieu, dans
-  `Editor/Prefabs/<lieu>/<nom>.json` ; la palette en montre la bibliothèque, chacun avec une
+- **EX-EDIT-086** — Un tampon s'enregistre comme **préfabriqué**, dans
+  `Editor/Prefabs/<chemin du lieu>/<nom>.json` — au **plus bas niveau** de l'arborescence qui voit
+  toutes ses pièces (`EX-LVL-029`), d'où il sert tout lieu qui en descend, et en gardant les
+  **étages** de ses couches (`EX-LVL-025`) ; la palette en montre la bibliothèque, chacun avec une
   **vignette générée** de son propre contenu par le peintre du canevas (`EX-EDIT-059`), et le
   choisir arme le tampon. `LevelEditor --list-prefabs` et `--save-prefab <carte> <nom> --from <c,r>
   --to <c,r>` font de même sans fenêtre, par les mêmes fonctions (règle 4) ; `--check` nomme tout
   fichier de la bibliothèque que l'éditeur ne sait pas relire.
 - **EX-EDIT-087** — Une carte neuve part d'un **modèle** : ses couches, sa
   taille, son entrée et ce qu'il pose. Un modèle vit dans `Editor/Templates/<id>.json` et ne nomme
-  **aucune pièce** — il sert tous les lieux ; trois sont livrés : intérieur, rue, arène.
+  **aucune pièce** — il sert tous les lieux ; quatre sont livrés : intérieur, rue, arène, et la
+  **maquette** (`blockout`, `LOT-128`) dont part une carte qu'on dessine avant de l'habiller.
 
 ## 19. Le monde : onglets, portails, ville (`LOT-EDITOR-09`)
 Plusieurs cartes à la fois, un graphe qu'on écrit au geste, et de quoi savoir où en est le monde
@@ -430,8 +448,8 @@ Plusieurs cartes à la fois, un graphe qu'on écrit au geste, et de quoi savoir 
   pour une couche ou une entité). Les changer est un **pas d'annulation**. Le **lieu** de la carte
   se voit dans le même dialogue mais ne s'y édite pas : en changer repeint la carte
   (`EX-EDIT-084`).
-- **EX-EDIT-092** — L'annexe d'une carte dit **où elle en est** — générée,
-  retouchée, finie, ou rien de dit. Le navigateur l'affiche, **filtre** par état, et montre les
+- **EX-EDIT-092** — L'annexe d'une carte dit **où elle en est** — maquette
+  (`blockout`, `LOT-128`), générée, retouchée, finie, ou rien de dit. Le navigateur l'affiche, **filtre** par état, et montre les
   cartes en **vignettes** rendues par le peintre du canevas (`EX-EDIT-059`), gardées tant que le
   fichier ne change pas. L'état est une note d'auteur : il ne va jamais dans la carte.
 
@@ -448,13 +466,61 @@ Le vrai jeu, sur la carte ouverte, là où on veut et dans l'état qu'on veut
 - **EX-EDIT-094** — L'essai se lance dans un **état de partie** choisi : les
   drapeaux de monde cochés (`--flags=`) sont acquis avant le premier pas, ce qui montre la même
   carte avant et après une quête. La liste propose les drapeaux que les dialogues du jeu posent, et
-  accepte les autres à la main ; le choix sert aux essais suivants de la session.
+  accepte les autres à la main ; le choix sert aux essais suivants de la session. Un drapeau
+  **à valeurs** se passe `drapeau=valeur` ; l'état est celui de *Map › World state…*
+  (`EX-EDIT-096`).
 - **EX-EDIT-095** — Le jeu joue les **brouillons**, pas les fichiers : les
   cartes de **tous** les onglets sont écrites dans un dossier temporaire, hors du dépôt, que le jeu
   cherche avant ses propres cartes (`--levels=`, `core::WorldTravel::directoriesLoader`). Le
   dossier est vidé à chaque essai ; une carte qu'aucun onglet ne porte reste celle du dépôt ; une
   carte présente mais illisible fait échouer l'ouverture au lieu de retomber sur la version d'à
   côté. Un essai n'enregistre rien.
+
+## 21. L'état de partie, et ce que la quête pose (`LOT-126`)
+
+Une carte n'est plus une seule image dès qu'une quête la traverse : la porte est close ou ouverte,
+le PNJ est là ou parti. L'éditeur doit montrer la carte **dans un état**, et l'essai partir du
+même.
+
+![Maquette de l'état de partie dans l'éditeur : la boîte de dialogue qui règle chaque drapeau parmi les valeurs que la quête déclare, le canevas qui grise ce qui est absent sous cet état, et les deux sorties, l'essai immédiat et le jeu lancé avec les mêmes drapeaux](maquettes/editeur-etat-de-partie.svg)
+
+- **EX-EDIT-096** — *Map › World state…* règle l'**état de partie** de la session d'édition :
+  chaque drapeau que le récit pose, avec, pour un drapeau **déclaré**, la liste fermée de ses
+  valeurs (`EX-EXP-006`). Le canevas montre la carte **dans cet état** — ce qui est absent grisé,
+  jamais caché : on doit pouvoir le sélectionner pour le corriger —, et l'essai immédiat (`P`)
+  comme le jeu (`F5`, `--flags=`) en **partent**. Un canevas et un essai qui ne montreraient pas la
+  même carte rendraient toute condition de présence invérifiable sans jouer la quête entière.
+- **EX-EDIT-097** — Tout ce que la quête pose sur une carte s'écrit **à l'inspecteur**, sans
+  toucher au JSON : la condition de présence de toute entité, la pièce et l'emprise d'un `prop`
+  (`EX-LVL-026`), le scellement d'un portail (`EX-LVL-027`), les déclencheurs d'une zone
+  (`EX-LVL-028`). L'inspecteur **propose** — les drapeaux que quelqu'un pose, les valeurs qu'une
+  quête déclare, les pièces du lieu — et `--check` **refuse** ce qu'aucune quête ne déclare : une
+  valeur tapée à la main dans trois fichiers finit fausse dans l'un des trois.
+
+## 22. Les étages et l'arborescence des lieux (`LOT-124`, `LOT-129`)
+
+- **EX-EDIT-098** — Le panneau des couches règle l'**étage** d'une couche de décor (« Floor »,
+  0 à 4, `EX-LVL-025`), le pinceau peint la couche d'étage **active**, et chaque étage se **montre
+  ou se cache** un à un : on ne dessine pas un rez sous une toiture qu'on ne peut pas soulever. Le
+  canevas dessine l'étage comme le jeu — élevé, trié au-dessus, translucide sur ce qu'il masque —
+  par la composition partagée (`EX-EDIT-059`).
+- **EX-EDIT-099** — « New map » propose l'**arbre des lieux** et range la carte sous le même
+  chemin dans `Levels/` ; `--who-cites piece` et `--replace-piece --level` suivent le **niveau**
+  d'où une carte tient sa pièce (`EX-LVL-029`), si bien que **promouvoir** une pièce au commun ne
+  réécrit que les cartes qui changent vraiment. Renommer une pièce dans le manifeste de la ville
+  sans ce suivi réécrirait chaque carte de chaque quartier, y compris celles qui la masquent.
+
+## 23. Le mode Quêtes (`LOT-144`, à venir)
+
+Décision D-24 : une quête ne se relit pas sans les cartes qu'elle traverse, et ses valeurs se
+tapaient à trois endroits. Les quêtes s'écriront donc **dans l'éditeur** ; les dialogues restent
+des données écrites à la main.
+
+- **EX-EDIT-100** — Un mode **Quêtes** de l'éditeur écrit `World/quests/<id>.json`
+  (`EX-EXP-007`) : les drapeaux déclarés et leurs valeurs, les étapes et leurs conditions, les
+  effets, l'issue, et les textes du journal dans les deux langues ; il montre, pour chaque drapeau,
+  **qui le pose et qui le lit** sur les cartes ouvertes. Une quête écrite là est **la même donnée**
+  que celle que le jeu lit : le mode n'a pas de format à lui. Porté par le `LOT-144`.
 
 ## Exigences retirées {#edit-retirees}
 
