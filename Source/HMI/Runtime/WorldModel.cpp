@@ -138,6 +138,9 @@ void WorldModel::setStartFlags(const QStringList& flags) {
             HMI_LOG_WARNING("Monde : --flags=, valeur refusee : " + drapeau.toStdString());
         }
     }
+    // Les quetes avancent tout de suite, carte ouverte ou non : le journal le montre des
+    // l'ouverture.
+    static_cast<void>(_play->session().refreshFromFlags());
 }
 
 bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
