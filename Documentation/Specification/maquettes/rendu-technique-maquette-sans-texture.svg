@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
   <rect width="880" height="620" fill="#fbf8f0"/>
-  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le rendu sans texture : losange plat, bloc à trois faces, jetons, palette du code (LOT-128)</text>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le rendu sans texture : losange plat, bloc à trois faces, jetons et palette (LOT-128)</text>
 
   <text x="20" y="52" font-weight="600" fill="#25201a">1. La case et le bloc (D1, D6)</text>
   <text x="310" y="52" font-weight="600" fill="#25201a">2. Les jetons et les tracés (D2, D3, D7)</text>

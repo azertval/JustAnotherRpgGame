@@ -11,7 +11,7 @@
     <g fill="#fbf8f0"><rect x="20" y="20" width="220" height="160"/><rect x="240" y="140" width="140" height="40"/><rect x="260" y="40" width="120" height="80"/></g>
     <g stroke="#d6c9a8" fill="none"><path d="M0,20h400M0,40h400M0,60h400M0,80h400M0,100h400M0,120h400M0,140h400M0,160h400M0,180h400"/><path d="M20,0v200M40,0v200M60,0v200M80,0v200M100,0v200M120,0v200M140,0v200M160,0v200M180,0v200M200,0v200M220,0v200M240,0v200M260,0v200M280,0v200M300,0v200M320,0v200M340,0v200M360,0v200M380,0v200"/></g>
     <g fill="#6a6152"><rect x="240" y="20" width="160" height="20"/><rect x="240" y="40" width="20" height="100"/><rect x="380" y="40" width="20" height="100"/><rect x="260" y="120" width="40" height="20"/><rect x="340" y="120" width="40" height="20"/></g>
-    <text x="284" y="84" font-size="10" fill="#6a6152">arène (bâti : wall)</text>
+    <text x="272" y="84" font-size="10" fill="#6a6152">arène (bâti : wall)</text>
     <rect x="300" y="120" width="40" height="20" fill="#8a2233" fill-opacity="0.25" stroke="#8a2233" stroke-width="1.5"/>
     <path d="M300,130 L310,120 M300,140 L320,120 M310,140 L330,120 M320,140 L340,120 M330,140 L340,130" stroke="#8a2233"/>
     <text x="262" y="102" font-size="10" fill="#8a2233" font-weight="600">(a) prop « porte »</text>
@@ -21,10 +21,10 @@
     <text x="44" y="106" font-size="9" fill="#9a7420">sealed : true, sans cible</text>
     <g fill="#2f7f86" fill-opacity="0.25"><rect x="300" y="140" width="40" height="20"/><rect x="280" y="160" width="60" height="20"/></g>
     <path d="M300,140 h40 v40 h-60 v-20 h20 z" fill="none" stroke="#2f7f86" stroke-width="1.5" stroke-dasharray="4 3"/>
-    <text x="344" y="154" font-size="9" fill="#2f7f86" font-weight="600">(c) zone (cells)</text>
+    <text x="342" y="154" font-size="9" fill="#2f7f86" font-weight="600">(c) zone (cells)</text>
     <circle cx="230" cy="170" r="8" fill="#3f6b34"/><text x="226" y="174" font-size="8" fill="#fbf8f0">H</text>
     <path d="M240,170 L290,170" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
-    <text x="120" y="196" font-size="9" fill="#9a7420">le héros y entre : déclenché à l'entrée, pas à l'arrivée</text>
+    <text x="120" y="196" font-size="9" fill="#9a7420">déclenchée à l'entrée du héros, pas à son arrivée</text>
     <circle cx="110" cy="110" r="8" fill="#9a7420"/><text x="106" y="114" font-size="8" fill="#25201a">M</text>
     <text x="124" y="108" font-size="9" fill="#25201a">npc « enfant » : même</text><text x="124" y="118" font-size="9" fill="#25201a">condition de présence</text>
   </g>
@@ -58,7 +58,7 @@
   </g>
 
   <rect x="450" y="296" width="410" height="146" fill="#ece4d1" stroke="#d6c9a8"/>
-  <text x="458" y="312" font-size="11" font-weight="600" fill="#2f7f86">(c) Zone déclencheuse : cases peintes (<tspan font-family="Consolas, monospace">cells</tspan>), jusqu'à trois effets</text>
+  <text x="458" y="312" font-size="11" font-weight="600" fill="#2f7f86">(c) Zone déclencheuse (<tspan font-family="Consolas, monospace">cells</tspan>) : jusqu'à trois effets</text>
   <g font-size="10" fill="#25201a">
     <text x="458" y="332">1. <tspan font-family="Consolas, monospace">triggerFlag</tspan> + <tspan font-family="Consolas, monospace">triggerValue</tspan> → pose un drapeau (valeur déclarée)</text>
     <text x="458" y="348">2. <tspan font-family="Consolas, monospace">triggerDialogue</tspan> → ouvre un dialogue</text>
@@ -70,8 +70,8 @@
   </g>
 
   <rect x="20" y="454" width="840" height="50" fill="#fbf8f0" stroke="#9a7420"/>
-  <text x="30" y="472" font-size="11" fill="#25201a"><tspan font-weight="600">La condition de présence vaut pour toute famille</tspan> (<tspan font-family="Consolas, monospace">core::commonEntityProperties</tspan>) : <tspan font-family="Consolas, monospace">presenceFlag</tspan>, <tspan font-family="Consolas, monospace">presenceTest</tspan> (set, unset, equals,</text>
-  <text x="30" y="490" font-size="11" fill="#25201a">notEquals), <tspan font-family="Consolas, monospace">presenceValue</tspan> — PNJ, portail, décor, zone. L'inspecteur propose les valeurs que la quête déclare (<tspan font-family="Consolas, monospace">FlagValues</tspan>).</text>
+  <text x="30" y="472" font-size="11" fill="#25201a"><tspan font-weight="600">La condition de présence vaut pour toute famille</tspan> (<tspan font-family="Consolas, monospace">core::commonEntityProperties</tspan>) : <tspan font-family="Consolas, monospace">presenceFlag</tspan>, <tspan font-family="Consolas, monospace">presenceTest</tspan> (set, unset,</text>
+  <text x="30" y="490" font-size="11" fill="#25201a">equals, notEquals), <tspan font-family="Consolas, monospace">presenceValue</tspan> — PNJ, portail, décor, zone. L'inspecteur propose les valeurs que la quête déclare (<tspan font-family="Consolas, monospace">FlagValues</tspan>).</text>
 
   <g fill="#6a6152" font-size="12">
     <text x="20" y="532">Trois entités écrivent une quête sur la carte sans script : le décor qui paraît ou disparaît selon un drapeau, le portail que</text>

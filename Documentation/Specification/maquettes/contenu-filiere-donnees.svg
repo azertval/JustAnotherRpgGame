@@ -14,7 +14,7 @@
 
     <rect x="236" y="50" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
     <text x="244" y="66" font-size="12" font-weight="600">Extraction outillée</text>
-    <text x="244" y="82" font-family="Consolas, monospace">python scripts/sourcebook …</text>
+    <text x="244" y="82" font-family="Consolas, monospace">python scripts/sourcebook</text>
     <text x="244" y="96">bestiaire, equipement, atlas,</text>
     <text x="244" y="110">personnage, glossaire, options</text>
     <text x="244" y="124">reproductible ; tableau lu par</text>
@@ -31,10 +31,11 @@
 
     <rect x="668" y="50" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
     <text x="676" y="66" font-size="12" font-weight="600">Schéma JSON, gardé en CI</text>
-    <text x="676" y="82" font-family="Consolas, monospace">schema/&lt;famille&gt;.schema.json</text>
-    <text x="676" y="96">+ common.schema.json (allOf)</text>
-    <text x="676" y="110" font-family="Consolas, monospace">check_rpg_data.py</text>
-    <text x="676" y="124">additionalProperties: false</text>
+    <text x="676" y="82" font-family="Consolas, monospace">Elements/Rpg/schema/</text>
+    <text x="676" y="96" font-family="Consolas, monospace">&lt;famille&gt;.schema.json</text>
+    <text x="676" y="110">+ common.schema.json (allOf)</text>
+    <text x="676" y="124" font-family="Consolas, monospace">check_rpg_data.py</text>
+    <text x="676" y="137">additionalProperties: false</text>
     <text x="850" y="143" text-anchor="end" fill="#8a2233">EX-CNT-010 · 011</text>
   </g>
   <path d="M210,100 L234,100" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
@@ -46,14 +47,14 @@
     <rect x="20" y="196" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
     <text x="28" y="212" font-size="12" font-weight="600">Brique de lecture unique</text>
     <text x="28" y="228" font-family="Consolas, monospace">core::JsonDocument</text>
-    <text x="28" y="242" font-family="Consolas, monospace">core::readJsonObjectFromFile</text>
+    <text x="28" y="242" font-family="Consolas, monospace">readJsonObjectFromFile</text>
     <text x="28" y="256">(chemin, version attendue)</text>
     <text x="28" y="270">échec situé : fichier et ligne</text>
     <text x="202" y="289" text-anchor="end" fill="#8a2233">EX-CNT-012 · 010</text>
 
     <rect x="236" y="196" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
     <text x="244" y="212" font-size="12" font-weight="600">Agrégat typé</text>
-    <text x="244" y="228" font-family="Consolas, monospace">core::Bestiary, core::Skill,</text>
+    <text x="244" y="228" font-family="Consolas, monospace">core::Bestiary,</text>
     <text x="244" y="242" font-family="Consolas, monospace">core::CharacterOptions, …</text>
     <text x="244" y="256" font-family="Consolas, monospace">requiredMechanisms()</text>
     <text x="244" y="270">ce que la donnée exige</text>
@@ -90,7 +91,7 @@
     <text x="202" y="433" text-anchor="end" fill="#8a2233">EX-CNT-040</text>
 
     <rect x="236" y="340" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
-    <text x="244" y="356" font-size="12" font-weight="600">Image, ou marqueur généré</text>
+    <text x="244" y="356" font-size="12" font-weight="600">Image ou marqueur généré</text>
     <text x="244" y="372" font-family="Consolas, monospace">core::assetMarker</text>
     <text x="244" y="386">peint la clé sans image ; la CI</text>
     <text x="244" y="400">liste ces clés sans échouer :</text>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="500" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — l'état de partie de l'éditeur : World state…, le canevas grisé, les deux essais (LOT-126)</text>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker>
+  </defs>
+
+  <rect x="20" y="44" width="360" height="306" fill="#ece4d1" stroke="#25201a"/>
+  <rect x="20" y="44" width="360" height="18" fill="#d6c9a8"/>
+  <text x="28" y="57" font-size="10" font-weight="600" fill="#25201a">World state</text>
+  <text x="362" y="57" font-size="10" fill="#6a6152">×</text>
+  <g font-size="9" fill="#25201a">
+    <text x="30" y="78">The state the playtest (P) and Run in game (F5) start from.</text>
+    <text x="30" y="90">Shown on the canvas, entities it leaves absent are greyed.</text>
+  </g>
+  <rect x="30" y="98" width="9" height="9" fill="#fbf8f0" stroke="#25201a"/><text x="31" y="106" font-size="9" fill="#25201a">✓</text>
+  <text x="44" y="106" font-size="10" fill="#25201a">Show the map under this state</text>
+
+  <rect x="30" y="118" width="340" height="92" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="38" y="115" font-size="9" fill="#25201a">Quest flags</text>
+  <text x="38" y="140" font-size="10" fill="#25201a" font-family="Consolas, monospace">quete.pommes</text>
+  <rect x="150" y="128" width="130" height="16" fill="#fbf8f0" stroke="#6a6152"/>
+  <text x="156" y="140" font-size="10" fill="#25201a" font-family="Consolas, monospace">condamne</text><text x="266" y="140" font-size="9" fill="#6a6152">▾</text>
+  <rect x="150" y="146" width="130" height="58" fill="#fbf8f0" stroke="#6a6152"/>
+  <g font-size="9" font-family="Consolas, monospace" fill="#25201a">
+    <text x="156" y="158">inconnue (initial)</text>
+    <text x="156" y="171">acceptee</text>
+    <rect x="151" y="176" width="128" height="13" fill="#9a7420" fill-opacity="0.25"/><text x="156" y="186">condamne</text>
+    <text x="156" y="200">enfant-libere</text>
+  </g>
+  <text x="290" y="160" font-size="9" fill="#6a6152">les valeurs que</text><text x="290" y="172" font-size="9" fill="#6a6152">la quête déclare</text>
+  <text x="290" y="190" font-size="9" fill="#6a6152">(<tspan font-family="Consolas, monospace">core::QuestFlag</tspan>)</text>
+
+  <rect x="30" y="226" width="340" height="82" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="38" y="223" font-size="9" fill="#25201a">Facts</text>
+  <g font-size="10" fill="#25201a">
+    <rect x="38" y="234" width="9" height="9" fill="#fbf8f0" stroke="#25201a"/><text x="52" y="242" font-family="Consolas, monospace">pommes/recompense</text><text x="200" y="242" font-size="9" fill="#6a6152">set : coché</text>
+    <rect x="38" y="250" width="9" height="9" fill="#fbf8f0" stroke="#25201a"/><text x="52" y="258" font-family="Consolas, monospace">quest/pommes/step/acceptee</text>
+    <rect x="38" y="266" width="9" height="9" fill="#fbf8f0" stroke="#25201a"/><text x="52" y="274" font-family="Consolas, monospace">arene.porte-ouverte</text>
+  </g>
+  <rect x="38" y="284" width="324" height="16" fill="#fbf8f0" stroke="#6a6152"/>
+  <text x="44" y="296" font-size="9" fill="#6a6152">other flags, comma separated</text>
+
+  <rect x="248" y="318" width="56" height="20" fill="#d6c9a8" stroke="#25201a"/><text x="268" y="332" font-size="10" fill="#25201a">OK</text>
+  <rect x="312" y="318" width="56" height="20" fill="#ece4d1" stroke="#25201a"/><text x="322" y="332" font-size="10" fill="#25201a">Cancel</text>
+  <text x="30" y="332" font-size="9" fill="#6a6152">état rendu : <tspan font-family="Consolas, monospace">quete.pommes=condamne</tspan></text>
+
+  <rect x="400" y="44" width="460" height="306" fill="#25201a"/>
+  <rect x="400" y="44" width="110" height="16" fill="#6a6152"/><text x="406" y="56" font-size="9" fill="#fbf8f0">arenarea · state ●</text>
+  <g stroke="#6a6152" fill="none">
+    <path d="M630,100 l150,90 l-150,90 l-150,-90 z"/>
+    <path d="M580,130 l150,90 M530,160 l150,90 M680,130 l-150,90 M730,160 l-150,90"/>
+  </g>
+  <g stroke="#fbf8f0" fill="#d6c9a8">
+    <path d="M630,100 L780,190 L780,150 L630,60 z"/>
+    <path d="M630,100 L480,190 L480,150 L630,60 z"/>
+  </g>
+  <path d="M690,136 L730,160 L730,130 L690,106 z" fill="#8a2233" stroke="#fbf8f0"/>
+  <text x="700" y="178" font-size="9" fill="#8a2233" font-weight="600">prop « porte » : présente</text>
+  <text x="700" y="190" font-size="9" fill="#d6c9a8">(equals condamne)</text>
+  <circle cx="580" cy="220" r="9" fill="#9a7420" fill-opacity="0.3" stroke="#d6c9a8" stroke-dasharray="2 2"/>
+  <text x="576" y="224" font-size="8" fill="#d6c9a8">M</text>
+  <text x="596" y="216" font-size="9" fill="#d6c9a8">npc « enfant » : grisé, absent</text>
+  <text x="596" y="228" font-size="9" fill="#6a6152">sous cet état (opacité 0,3)</text>
+  <circle cx="660" cy="250" r="9" fill="#3f6b34" stroke="#fbf8f0"/><text x="656" y="254" font-size="8" fill="#fbf8f0">E</text>
+  <text x="674" y="254" font-size="9" fill="#d6c9a8">entrée</text>
+  <rect x="404" y="334" width="452" height="14" fill="#6a6152"/>
+  <text x="408" y="344" font-size="9" fill="#fbf8f0">World state: quete.pommes=condamne · preview on · 1 entity absent · Iso</text>
+  <text x="410" y="80" font-size="9" fill="#d6c9a8"><tspan font-family="Consolas, monospace">hmi::presenceUnder(entities, flags)</tspan> → grisé si faux</text>
+
+  <g stroke="#9a7420" stroke-width="2" fill="none">
+    <path d="M120,350 L120,372" marker-end="url(#a)"/><path d="M290,350 L290,372" marker-end="url(#a)"/>
+  </g>
+  <rect x="20" y="374" width="200" height="50" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="28" y="390" font-size="10" font-weight="600" fill="#25201a"><tspan font-family="Consolas, monospace">P</tspan> : essai immédiat (Playtest)</text>
+  <text x="28" y="404" font-size="9" fill="#25201a">dans le canevas, même état ;</text>
+  <text x="28" y="416" font-size="9" fill="#25201a">un portail condamné dit « sealed ».</text>
+  <rect x="230" y="374" width="250" height="50" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="238" y="390" font-size="10" font-weight="600" fill="#25201a"><tspan font-family="Consolas, monospace">F5</tspan> : Run in game → le jeu, même état</text>
+  <text x="238" y="404" font-size="9" fill="#25201a" font-family="Consolas, monospace">--flags=quete.pommes=condamne</text>
+  <text x="238" y="416" font-size="9" fill="#25201a">une forme, lue par <tspan font-family="Consolas, monospace">hmi::parseWorldFlags</tspan></text>
+  <g font-size="9" fill="#6a6152">
+    <text x="500" y="390">Ce que le sélecteur rend (<tspan font-family="Consolas, monospace">WorldStateEditor::entries</tspan>) :</text>
+    <text x="500" y="402">les valeurs qui diffèrent de l'initiale, puis les faits cochés,</text>
+    <text x="500" y="414">puis ceux écrits à la main ; hors déclaration : refusée.</text>
+  </g>
+
+  <g fill="#6a6152" font-size="12">
+    <text x="20" y="452">Une carte de quête n'a pas un seul aspect : l'auteur choisit sous quel état il la regarde et l'essaie, et l'éditeur grise ce que</text>
+    <text x="20" y="468">cet état rend absent au lieu de le cacher, pour que rien ne se perde. L'état s'écrit comme la ligne de commande du jeu le lit :</text>
+    <text x="20" y="484">une seule forme (<tspan font-family="Consolas, monospace">fait</tspan>, <tspan font-family="Consolas, monospace">drapeau=valeur</tspan>), de l'éditeur au jeu, et le même sélecteur sert « Run in game… » (Ctrl+F5).</text>
+  </g>
+</svg>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 516" font-family="Georgia, serif" font-size="13">
   <rect width="880" height="516" fill="#fbf8f0"/>
-  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le cadre 16:9 : scène inscrite et centrée, facteurs d'échelle lus sur la scène (EX-REN-019)</text>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le cadre 16:9 : scène inscrite, centrée, facteurs d'échelle lus sur elle (EX-REN-019)</text>
   <text x="20" y="48" font-size="11" fill="#6a6152">Trois fenêtres dessinées au huitième ; la scène (stage, Main.qml) en sable, les bandes noires en encre.</text>
 
   <text x="40" y="72" font-size="12" font-weight="600" fill="#25201a">1280 × 720 — déjà en 16:9</text>
@@ -52,7 +52,7 @@
   </g>
   <g font-size="11" fill="#6a6152">
     <text x="20" y="468">La fenêtre a la forme qu'on lui donne, la scène garde la sienne : le jeu est conçu à 1920 × 1080, et un écran qui se recomposerait</text>
-    <text x="20" y="484">dans un autre format ne serait jamais vu tel qu'il est dessiné. Arrondie à l'entier, centrée au pixel, rognée (clip) ; les facteurs se lisent</text>
-    <text x="20" y="500">sur stage, jamais sur la fenêtre, car les bandes noires ne portent rien à agrandir (EX-IHM-080, EX-IHM-081).</text>
+    <text x="20" y="484">dans un autre format ne serait jamais vu tel qu'il est dessiné. Arrondie à l'entier, centrée au pixel, rognée (clip) ; les facteurs</text>
+    <text x="20" y="500">se lisent sur stage, jamais sur la fenêtre, car les bandes noires ne portent rien à agrandir (EX-IHM-080, EX-IHM-081).</text>
   </g>
 </svg>

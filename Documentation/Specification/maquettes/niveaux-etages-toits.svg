@@ -29,12 +29,12 @@
       <text x="212" y="244" font-weight="600">sol (ground)</text>
       <text x="212" y="258" fill="#6a6152">jamais d'étage : <tspan font-family="Consolas, monospace">floor</tspan> y est ignoré</text>
       <text x="212" y="276" font-weight="600">collision (grille racine)</text>
-      <text x="212" y="290" fill="#6a6152">ne dit que le rez : la façade y est <tspan font-family="Consolas, monospace">wall</tspan></text>
+      <text x="212" y="290" fill="#6a6152">ne dit que le rez : la façade est <tspan font-family="Consolas, monospace">wall</tspan></text>
     </g>
     <g font-size="10" fill="#25201a">
       <text x="20" y="318"><tspan font-family="Consolas, monospace">floor 1..4</tspan> : <tspan font-family="Consolas, monospace">core::MAX_STOREY_FLOOR = 4</tspan>, sur une couche de <tspan font-weight="600">décor</tspan> seulement.</text>
-      <text x="20" y="334">Hauteur : <tspan font-weight="600">n × storey</tspan>, la hauteur d'étage du manifeste du lieu (<tspan font-family="Consolas, monospace">"storey": 224</tspan> px d'art</text>
-      <text x="20" y="350">pour le kit de la Capitale) ; sans déclaration, <tspan font-family="Consolas, monospace">hmi::DEFAULT_STOREY_TILES</tspan> = une largeur de case.</text>
+      <text x="20" y="334">Hauteur : <tspan font-weight="600">n × storey</tspan>, la hauteur d'étage que déclare le manifeste du lieu</text>
+      <text x="20" y="350">(<tspan font-family="Consolas, monospace">"storey": 224</tspan> px d'art pour le kit de la Capitale) ; sans déclaration, <tspan font-family="Consolas, monospace">hmi::DEFAULT_STOREY_TILES</tspan> = une largeur de case.</text>
       <text x="20" y="366">Tri : <tspan font-weight="600">au-dessus du rez de sa case</tspan>, rang <tspan font-family="Consolas, monospace">hmi::WorldDepthSlot::Storey…Storey4</tspan> (= <tspan font-family="Consolas, monospace">Storey + n − 1</tspan>),</text>
       <text x="20" y="382">après <tspan font-family="Consolas, monospace">Relief</tspan> et <tspan font-family="Consolas, monospace">Figure</tspan> : <tspan font-family="Consolas, monospace">hmi::worldDepthSortOrder(footWorldY, slot)</tspan>.</text>
     </g>
@@ -87,7 +87,7 @@
 
   <g fill="#6a6152" font-size="12">
     <text x="20" y="504">Un étage n'est qu'une couche de décor élevée : la carte reste une grille de sol, la collision une seule table, et la physique du</text>
-    <text x="20" y="520">rez ne change pas quand on pose une toiture (EX-LVL-025, LOT-129). Le rang de tri par étage garde le héros devant les façades du rez et</text>
-    <text x="20" y="536">derrière l'étage qui le surplombe ; c'est cet étage-là, et lui seul, que le rendu rend translucide pour ne jamais perdre la figurine.</text>
+    <text x="20" y="520">rez ne change pas quand on pose un toit (EX-LVL-025, LOT-129). Le rang de tri par étage garde le héros devant les façades du rez,</text>
+    <text x="20" y="536">derrière l'étage qui le surplombe ; cet étage-là, et lui seul, est rendu translucide pour ne jamais perdre la figurine.</text>
   </g>
 </svg>

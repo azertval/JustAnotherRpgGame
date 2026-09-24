@@ -35,8 +35,8 @@
     <text x="140" y="34" font-size="9" fill="#25201a">même case : pied 104</text>
     <text x="140" y="46" font-size="9" fill="#25201a">α = 0,35 sur le héros</text>
     <text x="0" y="214" font-size="12" fill="#25201a">Ordre dans la bande : mur (540) → héros (625) → étage (626).</text>
-    <text x="0" y="232" font-size="12" fill="#25201a">Le héros passe devant le mur parce que son pied est plus bas ;</text>
-    <text x="0" y="250" font-size="12" fill="#25201a">l'étage, trié au pied de sa case, passe après lui par son rang,</text>
+    <text x="0" y="232" font-size="12" fill="#25201a">Le héros passe devant le mur : son pied est plus bas ;</text>
+    <text x="0" y="250" font-size="12" fill="#25201a">l'étage, trié au pied de sa case, passe après par son rang,</text>
     <text x="0" y="268" font-size="12" fill="#25201a">et devient translucide dès qu'il le recouvre (LOT-129).</text>
   </g>
 
@@ -45,7 +45,7 @@
     <text x="20" y="352" font-family="Consolas, monospace">clé = depthSortOrder(pied) × WORLD_DEPTH_SLOTS + rang     (6 rangs ; depthSortOrder = lround(pied.y × 16))</text>
     <text x="20" y="374">rang (<tspan font-family="Consolas, monospace">hmi::WorldDepthSlot</tspan>) : Relief 0 · Figure 1 · Storey 2 · Storey2 3 · Storey3 4 · Storey4 5 (MAX_STOREY_FLOOR = 4).</text>
     <text x="20" y="392">mur : 90 × 6 + 0 = 540 · héros : 104 × 6 + 1 = 625 · étage 1 de la case du héros : 104 × 6 + 2 = 626 — dessiné après lui,</text>
-    <text x="20" y="410">et translucide (STOREY_SEE_THROUGH_OPACITY = 0,35) s'il le recouvre. Tri stable, quantifié au pixel (EX-REN-018) ; la profondeur</text>
+    <text x="20" y="410">et translucide (STOREY_SEE_THROUGH_OPACITY = 0,35) s'il le recouvre. Tri stable, au pixel (EX-REN-018) ; la profondeur</text>
     <text x="20" y="428">passe avant le regroupement par texture (EX-REN-043). Les jetons de maquette ne sont plus dans la bande : ils renseignent, donc</text>
     <text x="20" y="446">ils vont sur RenderLayer::UI avec les tracés (LOT-128 D7, EX-REN-023).</text>
   </g>
