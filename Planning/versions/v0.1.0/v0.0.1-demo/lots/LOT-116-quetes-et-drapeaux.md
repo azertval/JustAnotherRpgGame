@@ -3,7 +3,7 @@ id = "LOT-116"
 titre = "Quêtes et drapeaux de monde"
 version = "0.0.1"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Le jeu se souvient de ce que le joueur a fait : des drapeaux, un journal de quêtes, des PNJ présents ou absents selon l'avancement."
 prerequis = ["LOT-100"]
@@ -32,7 +32,7 @@ la porter.
 
 ## Décisions de réalisation
 
-Réalisé le 24 septembre 2026, **PR #127** (à fusionner ; la fiche passe à `livre` avec elle).
+Livré le 24 septembre 2026, **PR #127**, sur décision de l'auteur après vérification du journal en jeu.
 
 1. **« Typé » veut dire « à valeurs déclarées ».** La quête de la démo n'a qu'une mémoire à cinq
    valeurs ([fiche](../quete-demo.md)) : un drapeau reste un fait présent ou absent, sauf s'il est
