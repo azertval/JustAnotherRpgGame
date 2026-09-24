@@ -110,6 +110,9 @@ Une zone pèse ses dossiers `Scene/`, `Characters/` et `Map/`, sans ceux de ses 
 leur propre ligne et leur propre budget de 40 Mio : c'est le critère du LOT-106 pour l'Arena of
 Fate. Les communs sont pesés et affichés, sans budget.
 
+> **Levé le 24 septembre 2026** ([D-23](../../../../vision/decisions.md)) : plus aucune zone n'a de
+> budget ; la pesée par lieu demeure, pour mémoire.
+
 ### D8 — La galerie lit l'arborescence, et garde ses anciennes lectures
 
 Chaque `manifest.json` sous `Common/` et `Regions/` y fait une famille (« Scène · central-empire/

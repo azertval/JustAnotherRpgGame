@@ -95,9 +95,9 @@ VARIANTS: …
 
 Emprise : C × R. Type tactique : … Source : `<fichier>` (reçue le …). Installée : oui / non.
 
-## Budget
+## Poids
 
-<poids de la zone, tel que le résumé du job CI l'affiche> sur 40 Mio.
+<poids de la zone, tel que le résumé du job CI l'affiche> — pour mémoire : une zone n'a pas de budget (D-23).
 ````
 
 ## Les états d'une pièce

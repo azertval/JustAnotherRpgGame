@@ -15,7 +15,7 @@ livrables = [
 criteres = [
   "La zone se parcourt ; `LevelEditor --check` passe.",
   "Chaque PNJ nommé que le livre y place y est.",
-  "La zone pèse moins de 40 Mio ; rien n'y double le commun.",
+  "Rien n'y double le commun.",
 ]
 sources = ["Tanares Sourcebook, p. 90"]
 +++

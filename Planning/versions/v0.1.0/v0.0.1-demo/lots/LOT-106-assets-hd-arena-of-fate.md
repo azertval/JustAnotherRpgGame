@@ -17,7 +17,6 @@ criteres = [
   "Les 14 divinités reconnues ont chacune leur statue, et les 4 factions reçues chacune leur tribune et son drapeau : la galerie les montre nommées, et aucune ne manque.",
   "Aucune pièce du lot ne représente un Ungod ni le Culte de l'Aile d'Ombre : ces pièces sont au LOT-157.",
   "Aucune pièce ne double une pièce du kit commun.",
-  "La zone pèse moins de 40 Mio.",
 ]
 sources = [
   "Tanares Sourcebook, p. 91-92, 99 : seule arène où l'on conteste un décret impérial",

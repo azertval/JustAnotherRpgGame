@@ -22,7 +22,7 @@ Regions/<région>/<ville>/<zone>/         ce qu'on ne voit que là
 Trois règles s'ensuivent : un asset **naît propre et monte par promotion** (jamais copié) ; le
 moteur **résout une clé du plus propre au plus commun** (une zone peut donc remplacer une pièce
 commune sous la même clé) ; **un dossier, un manifeste** — un fichier qu'aucun manifeste ne cite
-fait échouer la CI. Le détail, les noms et le budget :
+fait échouer la CI. Le détail, les noms et le poids :
 [l'arborescence](../../../Planning/standards/arborescence-assets.md).
 
 Les **sources** ne sont pas versionnées : masters, planches de référence et sorties brutes du
