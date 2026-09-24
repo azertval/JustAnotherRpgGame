@@ -21,6 +21,7 @@
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
@@ -49,9 +50,6 @@ namespace {
     }
 }
 
-// Les planches de l'atelier, telles que le rendu les adresse : relatif au dossier des assets.
-constexpr std::string_view SCENE_ROOT = "Scene/";
-constexpr std::string_view FIGURE_ROOT = "Npc/";
 // Les dossiers de figurines qu'un marqueur peut remplacer : les PNJ (LOT-91), les monstres
 // (LOT-93).
 constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monsters/"};
@@ -65,19 +63,23 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
     return cell.column >= 0 && cell.row >= 0 && cell.column < columns && cell.row < rows;
 }
 
-// Le chemin de l'image d'une piece : `Scene/<lieu>/<fichier>`, le fichier que le manifeste lui
-// donne s'il est range dans un sous-dossier, `<piece>.png` sinon.
+// Le chemin de l'image d'une piece, relatif au dossier des assets : celui que le catalogue du lieu
+// lui donne sous son niveau (LOT-124), a defaut `<nom>.png` dans le dossier propre du lieu.
 [[nodiscard]] std::string piecePath(const WorldSceneSnapshot& snapshot, std::string_view piece) {
-    std::string path{SCENE_ROOT};
-    path.append(snapshot.place);
-    path.push_back('/');
     if (const auto found = snapshot.pieceFiles.find(piece); found != snapshot.pieceFiles.end()) {
-        path.append(found->second);
-        return path;
+        return found->second;
     }
-    path.append(piece);
-    path.append(".png");
-    return path;
+    return core::fallbackScenePiecePath(snapshot.place, piece);
+}
+
+// Le dossier d'une figurine, sous le niveau qui la range (LOT-124), a defaut elle-meme.
+[[nodiscard]] std::string figureDirectoryIn(const WorldSceneSnapshot& snapshot,
+                                            std::string_view figure) {
+    if (const auto found = snapshot.figureDirectories.find(figure);
+        found != snapshot.figureDirectories.end()) {
+        return found->second;
+    }
+    return std::string{figure};
 }
 
 /// @return La premiere couche de role @p kind au rez, ou `nullptr` si la carte n'en declare pas.
@@ -480,14 +482,15 @@ struct FigurePlacement {
     std::int32_t sortOrder = 0;
 };
 
-[[nodiscard]] std::optional<FigurePlacement> placeFigure(const core::IsoProjection& projection,
+[[nodiscard]] std::optional<FigurePlacement> placeFigure(const WorldSceneSnapshot& snapshot,
+                                                         const core::IsoProjection& projection,
                                                          const ScenePieceTextures& textures,
                                                          const WorldFigureSnapshot& figure) {
     if (figure.figure.empty()) {
         return std::nullopt;
     }
-    const SceneTexture& texture =
-        textures.resolve(figureStripPath(figure.figure, figure.clip, figure.facing));
+    const SceneTexture& texture = textures.resolve(
+        figureStripPath(figureDirectoryIn(snapshot, figure.figure), figure.clip, figure.facing));
     if (texture.texture == nullptr) {
         return std::nullopt;
     }
@@ -517,9 +520,11 @@ struct FigurePlacement {
         .sortOrder = worldDepthSortOrder(footY, WorldDepthSlot::Figure)};
 }
 
-void composeFigure(ComposedScene& scene, const core::IsoProjection& projection,
-                   const ScenePieceTextures& textures, const WorldFigureSnapshot& figure) {
-    if (const std::optional<FigurePlacement> placed = placeFigure(projection, textures, figure)) {
+void composeFigure(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                   const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                   const WorldFigureSnapshot& figure) {
+    if (const std::optional<FigurePlacement> placed =
+            placeFigure(snapshot, projection, textures, figure)) {
         scene.addSprite(RenderLayer::Player, placed->texture, placed->sortOrder, placed->quad);
     }
 }
@@ -832,15 +837,22 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
         snapshot.storeys.push_back(snapshotStorey(couche, appearance, snapshot));
     }
     std::ranges::stable_sort(snapshot.storeys, {}, &WorldStoreySnapshot::floor);
-    // Le fichier de chaque piece citee, quand le kit la range en sous-dossier.
+    // Le fichier de chaque piece citee, sous le niveau qui la declare (LOT-124).
     const auto recordFile = [&snapshot, &appearance](const std::string& piece) {
         if (piece.empty() || snapshot.pieceFiles.contains(piece)) {
             return;
         }
-        if (const std::string_view file = appearance.pieceFile(piece); !file.empty()) {
-            snapshot.pieceFiles.emplace(piece, std::string{file});
+        if (std::string file = appearance.pieceFile(piece); !file.empty()) {
+            snapshot.pieceFiles.emplace(piece, std::move(file));
         }
     };
+    // Le dossier de chaque figurine posee, sous le niveau qui la range (LOT-124).
+    for (const WorldFigureSnapshot& figure : snapshot.figures) {
+        if (!figure.figure.empty() && !snapshot.figureDirectories.contains(figure.figure)) {
+            snapshot.figureDirectories.emplace(figure.figure,
+                                               appearance.figureDirectory(figure.figure));
+        }
+    }
     std::ranges::for_each(snapshot.floors, recordFile);
     std::ranges::for_each(snapshot.relief, recordFile);
     for (const WorldStoreySnapshot& storey : snapshot.storeys) {
@@ -887,10 +899,8 @@ FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept
 }
 
 std::string figureStripPath(std::string_view figure, std::string_view clip, FigureFacing facing) {
-    // Un nom sans barre est un PNJ de l'atelier ; avec, un dossier depuis la racine des assets.
-    std::string path =
-        figure.find('/') == std::string_view::npos ? std::string{FIGURE_ROOT} : std::string{};
-    path.append(figure);
+    // Un dossier depuis la racine des assets ; un slug seul se cherche a plat.
+    std::string path = core::figureDirectory({}, figure);
     path.push_back('/');
     path.append(clip.empty() ? std::string_view{"idle"} : clip);
     if (facing != FigureFacing::None) {
@@ -961,8 +971,9 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
         }
         // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
         // charger une texture au milieu d'une image.
-        uniques.insert(figureStripPath(figure.figure, "idle", figure.facing));
-        uniques.insert(figureStripPath(figure.figure, "walk", figure.facing));
+        const std::string directory = figureDirectoryIn(snapshot, figure.figure);
+        uniques.insert(figureStripPath(directory, "idle", figure.facing));
+        uniques.insert(figureStripPath(directory, "walk", figure.facing));
     }
     // Les jetons s'adressent comme des planches : un chemin de plus, que le rendu peindra au lieu
     // de le charger (LOT-128, decision D2).
@@ -984,7 +995,7 @@ namespace {
             continue;
         }
         if (const std::optional<FigurePlacement> placed =
-                placeFigure(projection, textures, figure)) {
+                placeFigure(snapshot, projection, textures, figure)) {
             hero = HeroPlacement{.bounds = spriteQuadBounds(placed->quad),
                                  .sortOrder = placed->sortOrder};
         }
@@ -1069,7 +1080,7 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         cover = std::move(next);
     }
     for (const WorldFigureSnapshot& figure : snapshot.figures) {
-        composeFigure(scene, projection, textures, figure);
+        composeFigure(scene, snapshot, projection, textures, figure);
     }
     for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
         composeToken(scene, projection, textures, token);

@@ -612,7 +612,7 @@ void MainWindow::refreshMiniMap() {
 }
 
 void MainWindow::refreshPalettePanel() {
-    _palette->setPieceCatalog(_viewport->pieceCatalog(), _viewport->placeDirectory());
+    _palette->setPieceCatalog(_viewport->pieceCatalog(), _viewport->pieceImagesDirectory());
     refreshPrefabs();
 }
 
@@ -834,8 +834,12 @@ void MainWindow::replacePieceOnMaps() {
         }
         return;
     }
+    // « Toutes les cartes » : celles qui tiennent la pièce du MÊME niveau que celle-ci (LOT-124) ;
+    // une autre zone qui a sa propre pièce de même nom ne bouge pas.
+    const core::ScenePiece* const origin = sheet->find(choice->from);
     if (saveBeforeRefactor()) {
-        carryOutPlan(planReplacePiece(editorDataRoot(), choice->from, choice->to, {}),
+        carryOutPlan(planReplacePiece(editorDataRoot(), choice->from, choice->to, {},
+                                      origin != nullptr ? origin->directory : std::string{}),
                      QStringLiteral("Replace piece"));
     }
 }
@@ -975,9 +979,10 @@ void MainWindow::refreshPrefabs(bool force) {
         return;  // le brouillon change a chaque geste, pas la bibliotheque.
     }
     _prefabPlace = place;
-    const std::vector<std::string> names = prefabNames(root, place);
+    // Les siens et ceux de ses niveaux communs (LOT-124).
     std::vector<PalettePanel::PrefabItem> items;
-    for (const std::string& name : names) {
+    for (const PrefabEntry& prefab : availablePrefabs(root, place)) {
+        const std::string& name = prefab.name;
         std::string error;
         const std::optional<Stamp> stamp = readPrefab(root, place, name, error);
         if (!stamp) {
@@ -991,10 +996,14 @@ void MainWindow::refreshPrefabs(bool force) {
             const QImage image = renderStamp(*stamp, root, place, PREFAB_THUMBNAIL_SIDE);
             _prefabThumbnails[key] = QPixmap::fromImage(image);
         }
-        items.push_back(
-            PalettePanel::PrefabItem{.name = QString::fromStdString(name),
-                                     .detail = QString::fromStdString(stampLabel(*stamp)),
-                                     .thumbnail = _prefabThumbnails[key]});
+        items.push_back(PalettePanel::PrefabItem{
+            .name = QString::fromStdString(name),
+            .detail = QString::fromStdString(
+                stampLabel(*stamp) +
+                (prefab.level == place
+                     ? std::string{}
+                     : " · from " + (prefab.level.empty() ? std::string{"World"} : prefab.level))),
+            .thumbnail = _prefabThumbnails[key]});
     }
     _palette->setPrefabs(std::move(items));
 }
@@ -1017,7 +1026,10 @@ void MainWindow::saveSelectionAsPrefab() {
     }
     const std::filesystem::path& root = editorDataRoot();
     const std::string place = _viewport->place();
-    const std::string error = writePrefab(root, place, name.toStdString(), stamp);
+    // Au plus bas niveau qui voit toutes ses pieces (LOT-124) : fait du kit de la ville, il sert a
+    // tous ses quartiers.
+    const std::string level = prefabLevel(stamp, _viewport->draft().pieceManifest());
+    const std::string error = writePrefab(root, level, name.toStdString(), stamp);
     if (!error.empty()) {
         QMessageBox::warning(this, QStringLiteral("Save failed"), QString::fromStdString(error));
         return;
@@ -1025,9 +1037,11 @@ void MainWindow::saveSelectionAsPrefab() {
     // La vignette du nom repris est a refaire : le tampon a change.
     _prefabThumbnails.erase(place + "/" + name.toStdString());
     refreshPrefabs(true);
-    showTransientStatusMessage(QStringLiteral("Prefab \"%1\" saved (%2).")
-                                   .arg(name, QString::fromStdString(stampLabel(stamp))),
-                               5000);
+    showTransientStatusMessage(
+        QStringLiteral("Prefab \"%1\" saved (%2) under %3.")
+            .arg(name, QString::fromStdString(stampLabel(stamp)),
+                 level.empty() ? QStringLiteral("the world") : QString::fromStdString(level)),
+        5000);
 }
 
 void MainWindow::armPrefab(const QString& name) {

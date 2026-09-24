@@ -51,6 +51,7 @@ add_executable(UnitTests
     Unit/Core/Combat/test_tactical_terrain.cpp
     Unit/Core/Resources/test_asset_keys.cpp
     Unit/Core/Resources/test_scene_piece_manifest.cpp
+    Unit/Core/Resources/test_scene_place.cpp
     Unit/Core/Rpg/test_rpg_enums.cpp
     Unit/Core/Rpg/test_multiclassing.cpp
     Unit/Core/Rpg/test_bestiary.cpp
@@ -135,6 +136,7 @@ add_executable(UnitTests
     # Les etages dans l'editeur (LOT-129) : pinceau, visibilite, prefabriques.
     Unit/Editor/test_storey_editing.cpp
     Unit/Editor/test_piece_catalog.cpp
+    Unit/Editor/test_level_tree.cpp
     Unit/Editor/test_brush_gesture.cpp
     Unit/Editor/test_paint_tools.cpp
     Unit/Editor/test_editor_sidecar.cpp
@@ -395,7 +397,10 @@ target_link_libraries(IntegrationTests PRIVATE
 # Racine des données du test d'intégration « carte → scène » : la racine d'essai de l'éditeur
 # (LOT-123). Il ouvrait les cartes LIVRÉES, que la table rase du LOT-102 emporte.
 target_compile_definitions(IntegrationTests PRIVATE
-    JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData")
+    JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData"
+    # L'arborescence par niveaux (LOT-124) : une carte d'Arenarea qui cite une piece de chacun des
+    # quatre niveaux, jouee comme le jeu la joue. Voir Fixtures/LevelTree/README.md.
+    JADG_LEVEL_TREE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/LevelTree")
 
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests

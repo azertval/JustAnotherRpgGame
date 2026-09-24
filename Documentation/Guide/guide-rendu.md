@@ -14,11 +14,11 @@ haut (les scènes, la galerie, le rendu de maquette), puis les éléments Qt Qui
 > **Attention** — Depuis le `LOT-103`, le rendu suit le standard 2D HD du `LOT-101` : l'échelle
 > de l'art se lit dans le manifeste du lieu (`"tile": [256, 159]`), une figurine se découpe par sa
 > cellule entière, l'art peint se filtre en bilinéaire avec mipmaps et en alpha prémultiplié, et la
-> caméra cadre une case à la hauteur de la fenêtre divisée par 10,8. Reste un écart : la table rase
-> du `LOT-102` a vidé l'ancienne arborescence, et les chemins que le code écrit (`Scene/<lieu>/…`,
-> `Npc/<slug>/…`, `Coliseum/…`) ne désignent plus aucun fichier livré — la résolution par niveaux
-> (`Regions/…`, `Common/…`) est au `LOT-124`. D'ici là, le rendu retombe sur ses replis (damier,
-> marqueur, maquette) hors des données d'essai.
+> caméra cadre une case à la hauteur de la fenêtre divisée par 10,8. Depuis le `LOT-124`, une
+> pièce de scène se cherche dans le lieu de la carte **et** dans ses niveaux communs (`Regions/…`,
+> `Common/…`) : `hmi::PlaceAppearance::loadForPlace` donne à chaque pièce son chemin sous le niveau
+> qui la déclare, et à chaque figurine le dossier `Characters/` qui la range
+> (`hmi::PlaceAppearance::figureDirectory`). Une figurine introuvable se dessine par son marqueur.
 
 ## Vocabulaire de base : GPU, swap chain, back buffer
 

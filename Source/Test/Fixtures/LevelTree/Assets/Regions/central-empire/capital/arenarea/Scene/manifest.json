@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "disposition": "arenarea",
+  "comment": "Zone : ses pavés, sa fontaine (qui masque celle de la ville) et son étal.",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {
+    "scene/arenarea/cobbles": {
+      "file": "cobbles.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        0
+      ]
+    },
+    "scene/arenarea/fountain": {
+      "file": "fountain.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ],
+      "tactical": "obstacle"
+    },
+    "scene/arenarea/stall": {
+      "file": "stall.png",
+      "class": "wide",
+      "footprint": [
+        2,
+        1
+      ],
+      "size": [
+        102,
+        135
+      ],
+      "anchor": [
+        34,
+        72
+      ]
+    }
+  }
+}

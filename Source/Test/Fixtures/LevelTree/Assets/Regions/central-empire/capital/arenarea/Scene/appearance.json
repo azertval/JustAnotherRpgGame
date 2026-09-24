@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "place": "arenarea",
+  "floors": {
+    "flagstone": [
+      "cobbles"
+    ]
+  }
+}

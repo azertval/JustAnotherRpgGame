@@ -4,6 +4,7 @@
 #include "Core/Resources/ScenePieceManifest.h"
 
 #include <algorithm>
+#include <system_error>
 #include <tuple>
 #include <utility>
 
@@ -128,6 +129,50 @@ ScenePieceManifestResult ScenePieceManifest::loadFromString(std::string_view jso
 
 ScenePieceManifestResult ScenePieceManifest::loadFromFile(const std::filesystem::path& path) {
     return fromDocument(readJsonObjectFromFile(path, FORMAT_VERSION));
+}
+
+ScenePieceManifestResult ScenePieceManifest::resolve(const std::filesystem::path& assetsDirectory,
+                                                     std::string_view place) {
+    ScenePieceManifestResult result;
+    result.manifest._place = std::string{place};
+    for (const SceneLevel& level : sceneLevelCandidates(place)) {
+        const std::filesystem::path file =
+            assetsDirectory / std::filesystem::path(level.directory) / "manifest.json";
+        std::error_code error;
+        if (!std::filesystem::is_regular_file(file, error)) {
+            continue;
+        }
+        ScenePieceManifestResult read = loadFromFile(file);
+        if (!read.ok()) {
+            return ScenePieceManifestResult{
+                .manifest = {},
+                .error = read.error,
+                .message = level.directory + "/manifest.json: " + read.message};
+        }
+        ScenePieceManifest& merged = result.manifest;
+        merged._levels.push_back(level);
+        if (merged._tileWidth == 0 && read.manifest._tileWidth > 0) {
+            merged._tileWidth = read.manifest._tileWidth;
+            merged._tileHeight = read.manifest._tileHeight;
+        }
+        for (ScenePiece& piece : read.manifest._pieces) {
+            piece.directory = level.directory;
+            piece.level = level.label;
+            // Le plus propre gagne : une pièce commune de même nom est masquée, pas perdue.
+            if (const auto owner = std::ranges::find(merged._pieces, piece.name, &ScenePiece::name);
+                owner != merged._pieces.end()) {
+                merged._masked.push_back(
+                    MaskedScenePiece{.piece = std::move(piece), .by = owner->level});
+                continue;
+            }
+            merged._pieces.push_back(std::move(piece));
+        }
+    }
+    if (result.manifest._levels.empty()) {
+        result.error = ScenePieceManifestError::FileNotFound;
+        result.message = "no piece manifest for place \"" + std::string{place} + "\"";
+    }
+    return result;
 }
 
 const ScenePiece* ScenePieceManifest::find(std::string_view name) const noexcept {

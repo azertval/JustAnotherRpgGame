@@ -11,13 +11,14 @@
 #include <vector>
 
 #include "Core/Levels/PieceFootprint.h"
+#include "Core/Resources/ScenePlace.h"
 
 /**
  * @file Core/Resources/ScenePieceManifest.h
  * @brief Le **manifeste des pièces** d'un lieu : ce que l'atelier des textures (`LOT-92`) déclare
  *        de chaque pièce de sa planche — classe, emprise, ancre, taille, miroir.
  *
- * L'atelier écrit, à côté des images d'un lieu, un `Assets/Scene/<lieu>/manifest.json`. Jusqu'au
+ * L'atelier écrit, à côté des images d'un lieu, un `manifest.json`. Jusqu'au
  * `LOT-EDITOR-02`, seule la galerie des assets le lisait, dans `HMI` (constat A9 de la feuille de
  * route de l'éditeur) : aucune règle de carte ne pouvait donc s'appuyer sur l'emprise d'une pièce.
  * La lecture descend ici, sans Qt ni GPU, pour que `Core` puisse un jour en déduire l'occupation et
@@ -31,6 +32,16 @@
  * Le manifeste nomme une pièce par une clé d'atelier (`scene/martpart/wall-left`). Une carte, elle,
  * ne connaît que le **nom court** (`wall-left`), celui que la table d'apparence et l'assignation de
  * texture écrivent : le lecteur rend les deux.
+ *
+ * ## Le catalogue résolu d'un lieu (`LOT-124`)
+ *
+ * Une carte puise dans son lieu **et** dans ses niveaux communs (`core::sceneLevelCandidates`).
+ * `ScenePieceManifest::resolve` empile leurs manifestes, du plus propre au plus commun, en un seul
+ * manifeste : c'est lui que lisent la déduction de collision, le brouillon, la palette et le
+ * contrôle, qui n'ont donc qu'**une** question à poser — `find(nom)`. Chaque pièce y garde son
+ * dossier d'origine (`ScenePiece::directory`) et son niveau ; une pièce propre qui porte le nom
+ * d'une pièce commune la **masque**, et le catalogue garde la trace de la pièce masquée
+ * (`masked`).
  */
 
 namespace core {
@@ -105,6 +116,17 @@ struct ScenePiece {
     PieceTactical tactical = PieceTactical::Solid;
     /// Anciens noms courts sous lesquels une carte peut citer la pièce (`aliases`).
     std::vector<std::string> aliases;
+    /// Le dossier du manifeste qui la déclare, relatif à `Assets/`
+    /// (`Regions/central-empire/capital/Common/Scene`) ; vide pour un manifeste lu seul.
+    std::string directory;
+    /// Le niveau qui la déclare (`core::SceneLevel::label`) ; vide pour un manifeste lu seul.
+    std::string level;
+
+    /// @return Le fichier de l'image, relatif à `Assets/` : `<directory>/<file>` ; @ref file seul
+    ///         pour un manifeste lu seul.
+    [[nodiscard]] std::string path() const {
+        return directory.empty() ? file : directory + "/" + file;
+    }
 
     /// @return L'emprise de la pièce.
     [[nodiscard]] PieceFootprint footprint() const noexcept {
@@ -125,6 +147,16 @@ enum class ScenePieceManifestError : std::uint8_t {
 
 struct ScenePieceManifestResult;
 
+/// @brief Une pièce commune qu'une pièce plus propre, de même nom, masque (`LOT-124`).
+struct MaskedScenePiece {
+    /// La pièce masquée, telle que son niveau la déclare.
+    ScenePiece piece;
+    /// Le niveau de la pièce qui la masque.
+    std::string by;
+
+    [[nodiscard]] bool operator==(const MaskedScenePiece&) const = default;
+};
+
 /**
  * @brief Les pièces d'un lieu, dans l'ordre du manifeste.
  *
@@ -137,6 +169,22 @@ public:
 
     [[nodiscard]] static ScenePieceManifestResult loadFromString(std::string_view json);
     [[nodiscard]] static ScenePieceManifestResult loadFromFile(const std::filesystem::path& path);
+
+    /**
+     * @brief Le **catalogue résolu** du lieu @p place : les manifestes de ses niveaux
+     *        (`core::sceneLevelCandidates`), empilés du plus propre au plus commun.
+     *
+     * Un niveau sans manifeste est passé ; un manifeste qui ne se lit pas fait échouer la lecture,
+     * message préfixé de son dossier : une pièce qui disparaîtrait en silence d'un niveau commun
+     * ferait tomber la collision de toutes les cartes qui descendent de lui. Aucun manifeste :
+     * `FileNotFound`.
+     *
+     * Le losange (`tile`) est celui du niveau le plus propre qui en déclare un.
+     * @param assetsDirectory Le dossier `Assets/`.
+     * @param place           Le lieu (`central-empire/capital/arenarea`, ou `bourg` à plat).
+     */
+    [[nodiscard]] static ScenePieceManifestResult resolve(
+        const std::filesystem::path& assetsDirectory, std::string_view place);
 
     /// @return Le lieu (`disposition` du manifeste : `martpart`), vide s'il n'est pas donné.
     [[nodiscard]] const std::string& place() const noexcept {
@@ -154,9 +202,21 @@ public:
         return _tileHeight;
     }
 
-    /// @return Les pièces, dans l'ordre où le manifeste les écrit.
+    /// @return Les pièces, dans l'ordre où le manifeste les écrit ; pour un catalogue résolu,
+    ///         niveau par niveau, du plus propre au plus commun, sans les pièces masquées.
     [[nodiscard]] const std::vector<ScenePiece>& pieces() const noexcept {
         return _pieces;
+    }
+
+    /// @return Les niveaux dont un catalogue résolu a lu un manifeste, du plus propre au plus
+    ///         commun ; vide pour un manifeste lu seul.
+    [[nodiscard]] const std::vector<SceneLevel>& levels() const noexcept {
+        return _levels;
+    }
+
+    /// @return Les pièces communes qu'une pièce plus propre masque, dans l'ordre des niveaux.
+    [[nodiscard]] const std::vector<MaskedScenePiece>& masked() const noexcept {
+        return _masked;
     }
 
     /// @return La pièce de nom court @p name, ou dont @p name est un ancien nom (`aliases`) ;
@@ -170,6 +230,8 @@ private:
     int _tileWidth = 0;
     int _tileHeight = 0;
     std::vector<ScenePiece> _pieces;
+    std::vector<SceneLevel> _levels;
+    std::vector<MaskedScenePiece> _masked;
 };
 
 /// @brief Résultat d'une lecture : le manifeste, et ce qui a échoué.

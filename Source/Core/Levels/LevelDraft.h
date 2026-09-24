@@ -60,8 +60,10 @@ using PieceRenaming = std::map<std::string, std::string, std::less<>>;
  *   déduction, et la **libère** si elle s'y accorde ;
  * - `unforceCollision` rend des cases forcées à la déduction.
  *
- * La déduction lit le manifeste des pièces du lieu (`setPieceManifest`) ; sans manifeste, toute
- * pièce compte pour inconnue et la case suit la règle de son type, comme au contrôle.
+ * La déduction lit le manifeste des pièces du lieu (`setPieceManifest`) — son **catalogue résolu**,
+ * qui compte aussi les pièces de ses niveaux communs (`core::ScenePieceManifest::resolve`,
+ * `LOT-124`) ; sans manifeste, toute pièce compte pour inconnue et la case suit la règle de son
+ * type, comme au contrôle.
  *
  * Logique **pure**, sans dépendance rendu ni fenêtre — testable sans GPU (`EX-NFR-010`).
  */

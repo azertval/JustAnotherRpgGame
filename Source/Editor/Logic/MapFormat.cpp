@@ -19,6 +19,7 @@
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileTypeName.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/WorldGraph.h"
 #include "Core/World/WorldTravel.h"
 #include "Editor/Logic/ContentCheck.h"
@@ -176,8 +177,8 @@ void checkUncoveredTypes(const core::Level& level, const PlaceAssets& assets,
     for (const auto& [type, cells] : uncovered) {
         findings.addCells(MapCheckSeverity::Warning, cells,
                           "tile type \"" + core::tileTypeName(type) +
-                              "\" is not covered by Assets/Scene/" + place +
-                              "/appearance.json (shown as a mock-up)");
+                              "\" is not covered by the appearance tables of \"" + place +
+                              "\" (shown as a mock-up)");
     }
 }
 
@@ -202,10 +203,11 @@ void checkPieces(const core::Level& level, const PlaceAssets& assets, const std:
         }
     }
     const auto& [missing, aliased, overlapping] = scan;
-    const std::string manifestPath = place.empty() ? std::string{"(no scene declared)"}
-                                                   : "Assets/Scene/" + place + "/manifest.json";
+    const std::string sheet = place.empty()
+                                  ? std::string{"(no scene declared)"}
+                                  : "the pieces of \"" + place + "\" and its common levels";
     findings.addCells(MapCheckSeverity::Error, missing,
-                      "piece missing from " + manifestPath + " (shown as a checkerboard)");
+                      "piece missing from " + sheet + " (shown as a checkerboard)");
     for (const auto& [name, cells] : aliased) {
         findings.addCells(MapCheckSeverity::Warning, cells,
                           "piece \"" + name + "\" is cited by an old name (alias of \"" +
@@ -432,15 +434,22 @@ std::vector<std::filesystem::path> mapFiles(const std::filesystem::path& dataRoo
 PlaceAssets loadPlaceAssets(const std::filesystem::path& dataRoot, std::string_view place) {
     PlaceAssets assets;
     if (place.empty()) {
+        // Une maquette n'a ni pièce ni table ; ses PNJ prennent les figurines du monde (LOT-124).
+        PlaceAppearanceResult world = PlaceAppearance::loadForPlace(dataRoot / "Assets", {});
+        if (world.ok()) {
+            assets.appearance = std::move(world.appearance);
+        }
         return assets;
     }
-    const std::filesystem::path directory = dataRoot / "Assets" / "Scene" / std::string{place};
-    core::ScenePieceManifestResult manifest =
-        core::ScenePieceManifest::loadFromFile(directory / "manifest.json");
+    // Le catalogue RESOLU : le lieu et ses niveaux communs, du plus propre au monde (LOT-124).
+    const std::filesystem::path directory = dataRoot / "Assets";
+    core::ScenePieceManifestResult manifest = core::ScenePieceManifest::resolve(directory, place);
     if (manifest.ok()) {
         assets.manifest = std::move(manifest.manifest);
+    } else {
+        assets.manifestError = std::move(manifest.message);
     }
-    PlaceAppearanceResult appearance = PlaceAppearance::loadFromFile(directory / "appearance.json");
+    PlaceAppearanceResult appearance = PlaceAppearance::loadForPlace(directory, place);
     if (appearance.ok()) {
         assets.appearance = std::move(appearance.appearance);
     }
@@ -448,17 +457,7 @@ PlaceAssets loadPlaceAssets(const std::filesystem::path& dataRoot, std::string_v
 }
 
 std::vector<std::string> scenePlaces(const std::filesystem::path& dataRoot) {
-    std::vector<std::string> places;
-    std::error_code error;
-    for (auto it = std::filesystem::directory_iterator(dataRoot / "Assets" / "Scene", error);
-         !error && it != std::filesystem::directory_iterator(); it.increment(error)) {
-        if (it->is_directory(error) &&
-            std::filesystem::is_regular_file(it->path() / "manifest.json", error)) {
-            places.push_back(it->path().filename().string());
-        }
-    }
-    std::ranges::sort(places);
-    return places;
+    return core::scenePlaces(dataRoot / "Assets");
 }
 
 std::string formatFinding(const MapCheckFinding& finding) {
@@ -513,7 +512,7 @@ std::vector<MapCheckFinding> checkMapFile(std::string_view mapId, const std::fil
         const PlaceAssets assets = loadPlaceAssets(dataRoot, place);
         if (!place.empty() && !assets.manifest) {
             findings.add(MapCheckSeverity::Error,
-                         "scene \"" + place + "\" has no Assets/Scene/" + place + "/manifest.json");
+                         "scene \"" + place + "\": " + assets.manifestError);
         }
         checkPieces(level, assets, place, findings);
         checkCollision(level, assets, findings);

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "disposition": "martpart",
+  "comment": "Zone sans pièce propre : tout lui vient de la ville.",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {}
+}

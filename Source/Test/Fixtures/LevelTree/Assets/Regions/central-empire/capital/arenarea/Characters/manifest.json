@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "tile": [
+    68,
+    42
+  ],
+  "frame": [
+    48,
+    64
+  ],
+  "wideFrame": [
+    96,
+    64
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "hit",
+    "death",
+    "cast"
+  ],
+  "comment": "Zone : un PNJ nommé, et un citadin propre qui masque celui de la ville.",
+  "npcs": [
+    "anariel",
+    "citizen"
+  ]
+}

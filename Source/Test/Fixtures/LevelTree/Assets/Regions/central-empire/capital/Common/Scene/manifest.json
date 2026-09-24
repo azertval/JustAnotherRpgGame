@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "disposition": "capital",
+  "comment": "Ville : le pavage, l'arcade et une fontaine que l'Arenarea masque.",
+  "tile": [
+    68,
+    42
+  ],
+  "textures": {
+    "scene/capital/paving": {
+      "file": "floors/paving.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        42
+      ],
+      "anchor": [
+        34,
+        0
+      ]
+    },
+    "scene/capital/wall-arcade": {
+      "file": "walls/wall-arcade.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ]
+    },
+    "scene/capital/fountain": {
+      "file": "props/fountain.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        68,
+        100
+      ],
+      "anchor": [
+        34,
+        58
+      ],
+      "tactical": "obstacle"
+    }
+  }
+}

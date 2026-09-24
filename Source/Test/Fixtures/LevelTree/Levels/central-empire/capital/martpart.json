@@ -1,0 +1,62 @@
+{
+  "version": 4,
+  "name": "map.central-empire.capital.martpart.name",
+  "width": 6,
+  "height": 4,
+  "nextEntityId": 2,
+  "tiles": [
+    {"x": 2, "y": 1, "type": "cliff"},
+    {"x": 4, "y": 1, "type": "wall"},
+    {"x": 0, "y": 3, "type": "entry"}
+  ],
+  "layers": [
+    {
+      "name": "sol",
+      "kind": "ground",
+      "scene": "central-empire/capital/martpart",
+      "tiles": [
+        {"x": 0, "y": 0, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 0, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 0, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 0, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 0, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 0, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 1, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 2, "type": "pavement", "piece": "paving"},
+        {"x": 0, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 1, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 2, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 3, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 4, "y": 3, "type": "pavement", "piece": "paving"},
+        {"x": 5, "y": 3, "type": "pavement", "piece": "paving"}
+      ]
+    },
+    {
+      "name": "relief",
+      "kind": "decor",
+      "tiles": [
+        {"x": 2, "y": 1, "type": "wall", "piece": "fountain"},
+        {"x": 4, "y": 1, "type": "wall", "piece": "wall-arcade"}
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "id": "e1",
+      "type": "npc",
+      "x": 1,
+      "y": 2,
+      "figure": "citizen"
+    }
+  ]
+}

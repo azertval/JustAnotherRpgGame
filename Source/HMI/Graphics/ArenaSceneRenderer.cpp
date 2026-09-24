@@ -118,8 +118,8 @@ void ArenaSceneRenderer::loadBattlefieldFrom(const core::Arena& definition) {
         return;
     }
     // Le decor est celui que la carte declare, pas un lieu ecrit dans le moteur.
-    const auto appearance = PlaceAppearance::loadFromFile(
-        _directory.parent_path() / "Scene" / scenePlaceOf(*level.level) / "appearance.json");
+    const auto appearance =
+        PlaceAppearance::loadForPlace(_directory.parent_path(), scenePlaceOf(*level.level));
     if (!appearance.ok()) {
         GRAPHICS_LOG_WARNING("Arena battlefield appearance: " + appearance.message);
         return;

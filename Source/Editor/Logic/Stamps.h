@@ -187,9 +187,38 @@ inline constexpr int MAP_TEMPLATE_VERSION = 1;
 [[nodiscard]] std::filesystem::path prefabsDir(const std::filesystem::path& dataRoot,
                                                std::string_view place);
 
-/// @return Les noms des préfabriqués du lieu @p place, triés (vide si le dossier n'existe pas).
+/// @brief Un préfabriqué qu'un lieu peut poser : son nom, et le niveau qui le range.
+struct PrefabEntry {
+    std::string name;
+    /// Le lieu du niveau qui le range (`central-empire/capital`), vide pour le monde.
+    std::string level;
+
+    [[nodiscard]] bool operator==(const PrefabEntry&) const = default;
+};
+
+/**
+ * @brief Les préfabriqués que le lieu @p place peut poser (`LOT-124`) : les siens et ceux de chacun
+ *        de ses niveaux communs, jusqu'au monde (`<dataRoot>/Editor/Prefabs/*.json`). Un
+ *        préfabriqué propre masque un commun de même nom. Triés par nom.
+ */
+[[nodiscard]] std::vector<PrefabEntry> availablePrefabs(const std::filesystem::path& dataRoot,
+                                                        std::string_view place);
+
+/// @return Les noms des préfabriqués que le lieu @p place peut poser (`availablePrefabs`), triés.
 [[nodiscard]] std::vector<std::string> prefabNames(const std::filesystem::path& dataRoot,
                                                    std::string_view place);
+
+/**
+ * @brief Le niveau où ranger @p stamp : le plus bas qui voit **toutes** ses pièces — le niveau le
+ *        plus propre d'où vient l'une d'elles (`LOT-124`, règle 1 de l'arborescence). Un tampon
+ *        fait du seul kit de la Capitale se range sous `central-empire/capital` et sert à tous ses
+ *        quartiers.
+ * @param stamp    Le tampon.
+ * @param manifest Le catalogue résolu du lieu d'où il vient ; `nullptr` : son lieu.
+ * @return Un lieu, vide pour le monde ; le lieu du tampon s'il n'a aucune pièce, ou une pièce que
+ *         le catalogue ignore.
+ */
+[[nodiscard]] std::string prefabLevel(const Stamp& stamp, const core::ScenePieceManifest* manifest);
 
 /// @brief Écrit @p stamp comme préfabriqué @p name du lieu @p place, dossier créé au besoin.
 /// @return Le motif du refus (nom vide ou invalide, tampon vide, écriture impossible) ; vide si
@@ -197,9 +226,10 @@ inline constexpr int MAP_TEMPLATE_VERSION = 1;
 [[nodiscard]] std::string writePrefab(const std::filesystem::path& dataRoot, std::string_view place,
                                       std::string_view name, const Stamp& stamp);
 
-/// @brief Relit le préfabriqué @p name du lieu @p place.
+/// @brief Relit le préfabriqué @p name que le lieu @p place peut poser : le sien, à défaut celui du
+///        plus propre de ses niveaux communs qui en range un de ce nom.
 /// @param dataRoot La racine des données.
-/// @param place    Le lieu dont il vient.
+/// @param place    Le lieu qui le pose.
 /// @param name     Son nom, sans extension.
 /// @param error    Reçoit le motif du refus ; vide si la lecture a réussi.
 [[nodiscard]] std::optional<Stamp> readPrefab(const std::filesystem::path& dataRoot,
@@ -248,9 +278,12 @@ struct MapTemplate {
     [[nodiscard]] bool operator==(const MapTemplate&) const = default;
 };
 
-/// @return Les modèles de `<dataRoot>/Editor/Templates/*.json`, triés par identifiant ; les
-///         fichiers illisibles sont passés (`--check` les nomme).
-[[nodiscard]] std::vector<MapTemplate> mapTemplates(const std::filesystem::path& dataRoot);
+/// @return Les modèles de `<dataRoot>/Editor/Templates/*.json` et, pour un lieu @p place, ceux de
+///         `Editor/Templates/<niveau>/` pour chacun de ses niveaux (`LOT-124`), le plus propre
+///         masquant un commun de même identifiant ; triés par identifiant. Les fichiers illisibles
+///         sont passés (`--check` les nomme).
+[[nodiscard]] std::vector<MapTemplate> mapTemplates(const std::filesystem::path& dataRoot,
+                                                    std::string_view place = {});
 
 /// @brief Relit un modèle écrit dans le format `jadg-editor-map-template`.
 /// @param json  Le modèle, lu.
@@ -274,10 +307,11 @@ struct LibraryFinding {
  * @brief La bibliothèque **sans fenêtre** (`LOT-EDITOR-08`, règle 4 de la feuille de route) : les
  *        mêmes fonctions que la fenêtre, appelées en ligne de commande.
  *
- * - `--list-prefabs [lieu…]` : les préfabriqués d'un lieu, tous les lieux à défaut ;
+ * - `--list-prefabs [lieu…]` : les préfabriqués qu'un lieu peut poser, tous les lieux à défaut ;
  * - `--save-prefab <carte> <nom> --from <c,r> --to <c,r>` : découpe le rectangle de la carte et
- *   l'écrit comme préfabriqué du lieu de cette carte. C'est ce que fait « Save selection as
- *   prefab… », et c'est ainsi que se fabrique un préfabriqué livré.
+ *   l'écrit comme préfabriqué, au niveau le plus bas qui voit toutes ses pièces (`prefabLevel`).
+ *   C'est ce que fait « Save selection as prefab… », et c'est ainsi que se fabrique un préfabriqué
+ *   livré.
  *
  * @return Le code de sortie (0, 1 en cas d'échec, 2 si la ligne de commande est fausse), ou
  *         `std::nullopt` si aucune de ces commandes n'est demandée.

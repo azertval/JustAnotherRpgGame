@@ -37,6 +37,8 @@ add_library(Core STATIC
     Resources/AssetMarker.cpp
     # Le manifeste des pièces d'un lieu (LOT-EDITOR-02, constat A9) : lu ici, sans Qt ni GPU.
     Resources/ScenePieceManifest.cpp
+    # Les niveaux d'un lieu, du plus propre au monde (LOT-124).
+    Resources/ScenePlace.cpp
     Combat/CombatTransition.cpp
     Combat/BattleGrid.cpp
     Combat/Pathfinding.cpp

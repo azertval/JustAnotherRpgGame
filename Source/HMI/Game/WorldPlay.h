@@ -45,8 +45,8 @@ public:
     /**
      * @param loader          Chargeur des cartes (`core::WorldTravel::directoryLoader` en jeu ; en
      *                        essai, un chargeur qui sert d'abord le brouillon de l'éditeur).
-     * @param assetsDirectory Dossier des assets : les tables d'apparence s'y lisent sous
-     *                        `Scene/<lieu>/appearance.json`.
+     * @param assetsDirectory Dossier des assets : la table et les pièces du lieu s'y lisent, à
+     *                        chacun de ses niveaux (`hmi::PlaceAppearance::loadForPlace`).
      */
     WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path assetsDirectory);
 

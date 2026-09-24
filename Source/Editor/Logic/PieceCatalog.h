@@ -26,6 +26,11 @@
  * perdue : elle reste dans la carte, se dessine en damier, et la palette la liste à part pour
  * qu'on la voie et qu'on puisse encore la poser (règle 3 de la feuille de route).
  *
+ * Depuis le `LOT-124`, le lieu est **résolu** : ses pièces et celles de ses niveaux communs (la
+ * ville, la région, le monde, `core::ScenePieceManifest::resolve`). La palette les groupe par
+ * **niveau**, du plus propre au plus commun, et montre la pièce commune qu'une pièce propre de même
+ * nom **masque** — éteinte, puisque la carte qui la nomme obtient la pièce propre.
+ *
  * Logique pure, sans Qt : la palette n'en fait que l'image.
  */
 
@@ -37,7 +42,8 @@ class PlaceAppearance;
 struct PieceCatalogEntry {
     /// Nom court, celui que la carte écrit (`wall-left`).
     std::string name;
-    /// Fichier image, relatif au dossier du lieu ; vide pour une pièce absente de la planche.
+    /// Fichier image, relatif à `Assets/` (`core::ScenePiece::path`) ; vide pour une pièce absente
+    /// de la planche.
     std::string file;
     core::ScenePieceClass pieceClass = core::ScenePieceClass::Other;
     core::PieceFootprint footprint;
@@ -46,6 +52,11 @@ struct PieceCatalogEntry {
     bool missing = false;
     /// Se pose sur la couche de sol (un sol) ; sinon sur la couche de décor.
     bool floor = false;
+    /// Le niveau commun dont cette pièce masque une pièce de même nom (`LOT-124`), vide sinon.
+    std::string masks;
+    /// Pour une pièce commune masquée : le niveau de la pièce qui la masque. Elle ne se pose pas —
+    /// la carte qui la nommerait obtiendrait l'autre.
+    std::string maskedBy;
 
     [[nodiscard]] bool operator==(const PieceCatalogEntry&) const = default;
 };
@@ -53,6 +64,9 @@ struct PieceCatalogEntry {
 /// @brief Un groupe de la palette : un titre, ses pièces dans l'ordre du manifeste.
 struct PieceCatalogGroup {
     std::string label;
+    /// Le niveau du groupe (« Arenarea », « Capital », « World ») ; vide pour un manifeste lu seul
+    /// et pour les pièces absentes.
+    std::string level;
     std::vector<PieceCatalogEntry> pieces;
 
     [[nodiscard]] bool operator==(const PieceCatalogGroup&) const = default;
@@ -64,11 +78,13 @@ inline constexpr std::string_view MISSING_PIECES_GROUP = "Missing from the sheet
 /**
  * @brief Le catalogue d'un lieu.
  *
- * Groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide »,
+ * Niveau par niveau (`core::ScenePieceManifest::levels`), du plus propre au plus commun, des
+ * groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide »,
  * « Other » (une classe que l'éditeur ne connaît pas) pour les pièces à plat ; un groupe par
- * sous-dossier du lieu, nommé par son chemin (`roofs/l/d3`), dans l'ordre alphabétique, pour un kit
- * rangé en arborescence (`LOT-129`) ; puis `MISSING_PIECES_GROUP` — les noms
- * que @p layers citent et que @p manifest ne connaît ni par leur nom ni par un alias, triés.
+ * sous-dossier du niveau, nommé par son chemin (`roofs/l/d3`), dans l'ordre alphabétique, pour un
+ * kit rangé en arborescence (`LOT-129`). Les pièces masquées vont dans le groupe de leur niveau.
+ * Puis `MISSING_PIECES_GROUP` — les noms que @p layers citent et que @p manifest ne connaît ni par
+ * leur nom ni par un alias, triés.
  * @param manifest Le manifeste du lieu, `nullptr` sans lieu : seules restent les pièces absentes.
  * @param layers   Les couches de la carte.
  */
@@ -82,7 +98,8 @@ inline constexpr std::string_view MISSING_PIECES_GROUP = "Missing from the sheet
 [[nodiscard]] std::vector<PieceCatalogGroup> filterPieceCatalog(
     const std::vector<PieceCatalogGroup>& catalog, std::string_view query);
 
-/// @return La bulle d'aide d'une pièce : `front-left — wide, 2 × 1, solid`.
+/// @return La bulle d'aide d'une pièce : `front-left — wide, 2 × 1, solid · Capital`, et ce
+///         qu'elle masque ou ce qui la masque.
 [[nodiscard]] std::string pieceDescription(const PieceCatalogEntry& entry);
 
 /**

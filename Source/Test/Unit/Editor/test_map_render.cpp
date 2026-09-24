@@ -246,3 +246,37 @@ TEST(MapRenderTest, LePlanCoucheLesBlocsEtLegende) {
     EXPECT_GT(peinte(plan.copy(coin), options.background),
               peinte(ordinaire.copy(coin), options.background));
 }
+
+/**
+ * @brief `--render` montre une carte qui puise dans quatre niveaux (`LOT-124`) : chaque pièce est
+ *        trouvée sous son niveau, aucune ne tombe sur le damier des images manquantes.
+ * \castest{<b>--render montre une carte qui puise dans quatre niveaux.</b><br/>
+ * \tcat Unitaire · Editeur · Sans fenetre · Arborescence<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Rendre l'Arenarea de la racine LevelTree a l'echelle 1.<br/>
+ * \tattendu L'image est peinte sur plus du quart de sa surface, et aucun pixel n'est le magenta du
+ * damier des images manquantes.
+ * }
+ */
+TEST(MapRenderTest, UneCarteQuiPuiseDansQuatreNiveauxSeRend) {
+    const std::filesystem::path tree = std::filesystem::path(JADG_TEST_FIXTURES_DIR) / "LevelTree";
+    const core::LevelLoadResult carte = core::LevelLoader::loadFromFile(
+        tree / "Levels" / "central-empire" / "capital" / "arenarea.json");
+    ASSERT_TRUE(carte.ok()) << carte.error;
+
+    const hmi::MapRenderOptions options;
+    const QImage image = hmi::renderMap(*carte.level, tree, options);
+    ASSERT_FALSE(image.isNull());
+    EXPECT_GT(peinte(image, options.background), 1.0 / 4.0);
+    const QImage pixels = image.convertToFormat(QImage::Format_RGB32);
+    long long magenta = 0;
+    for (int y = 0; y < pixels.height(); ++y) {
+        for (int x = 0; x < pixels.width(); ++x) {
+            const QColor color = pixels.pixelColor(x, y);
+            if (color.red() > 200 && color.green() < 60 && color.blue() > 200) {
+                ++magenta;
+            }
+        }
+    }
+    EXPECT_EQ(magenta, 0);
+}

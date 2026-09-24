@@ -31,10 +31,13 @@ namespace hmi {
  *
  * Trois onglets :
  *
- * - **Pieces** — le catalogue du lieu (`hmi::pieceCatalog`) : vignettes groupées par classe, sous
- *   le nom court que la carte écrit, une recherche, et à part les pièces que la carte cite et que
- *   la planche n'a plus, en damier (`EX-EDIT-063`). Choisir une pièce arme le pinceau de pièce ;
- *   la pièce va d'elle-même sur sa couche.
+ * - **Pieces** — le catalogue du lieu et de ses niveaux communs (`hmi::pieceCatalog`,
+ *   `LOT-124`) : un en-tête par niveau (« Arenarea », « Capital », « World »), des vignettes
+ *   groupées par classe ou par dossier sous le nom court que la carte écrit, une recherche à
+ *   travers tous les niveaux, et à part les pièces que la carte cite et que la planche n'a plus,
+ *   en damier (`EX-EDIT-063`). Une pièce propre qui masque une pièce commune de même nom le dit ;
+ *   la pièce masquée paraît, éteinte. Choisir une pièce arme le pinceau de pièce ; la pièce va
+ *   d'elle-même sur sa couche.
  * - **Prefabs** — la bibliothèque du lieu (`LOT-EDITOR-08`) : un préfabriqué par ligne, sa
  *   vignette **générée** de son propre contenu, son étendue et ce qu'il porte. Le choisir arme le
  *   tampon ; `Ctrl+V` le pose, `Ctrl+Maj+V` son reflet.
@@ -59,11 +62,11 @@ public:
     /**
      * @brief Montre le catalogue d'un lieu. Sans effet si rien n'a changé : le modèle n'est refait
      *        (et la sélection perdue) que quand le lieu ou ses pièces changent.
-     * @param catalog        Le catalogue ; vide pour une carte sans lieu.
-     * @param placeDirectory Le dossier des images du lieu (`Assets/Scene/<lieu>`).
+     * @param catalog         Le catalogue ; vide pour une carte sans lieu.
+     * @param imagesDirectory Le dossier auquel ses fichiers sont relatifs (`Assets/`).
      */
     void setPieceCatalog(std::vector<PieceCatalogGroup> catalog,
-                         const std::filesystem::path& placeDirectory);
+                         const std::filesystem::path& imagesDirectory);
 
     /// @brief Un préfabriqué de la bibliothèque, tel que la palette le montre.
     struct PrefabItem {
@@ -117,7 +120,7 @@ private:
     std::vector<PrefabItem> _prefabs;
     core::TileType _selected = core::TileType::Solid;
     std::vector<PieceCatalogGroup> _catalog;
-    std::filesystem::path _placeDirectory;
+    std::filesystem::path _imagesDirectory;
     /// La pièce choisie, gardée d'une recherche à l'autre.
     QString _selectedPiece;
     bool _selectedPieceFloor = false;

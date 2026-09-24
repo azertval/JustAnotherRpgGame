@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **190 cas** (20 bloquants, 43 critiques, 100 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **203 cas** (24 bloquants, 44 critiques, 108 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -22,10 +22,11 @@ Tests unitaires — **190 cas** (20 bloquants, 43 critiques, 100 majeurs, 27 min
 | [`test_gesture_script.cpp`](#test-gesture-scriptcpp) | 5 | 1 | 2 | 2 | - |
 | [`test_level_file_operations.cpp`](#test-level-file-operationscpp) | 10 | 1 | 5 | 4 | - |
 | [`test_level_name_validation.cpp`](#test-level-name-validationcpp) | 5 | - | - | 3 | 2 |
+| [`test_level_tree.cpp`](#test-level-treecpp) | 12 | 4 | 1 | 7 | - |
 | [`test_map_documents.cpp`](#test-map-documentscpp) | 3 | - | - | 2 | 1 |
 | [`test_map_format.cpp`](#test-map-formatcpp) | 8 | - | 5 | 2 | 1 |
 | [`test_map_refactor.cpp`](#test-map-refactorcpp) | 9 | - | 5 | 3 | 1 |
-| [`test_map_render.cpp`](#test-map-rendercpp) | 5 | - | - | 4 | 1 |
+| [`test_map_render.cpp`](#test-map-rendercpp) | 6 | - | - | 5 | 1 |
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
 | [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 7 | - | 1 | 5 | 1 |
@@ -398,7 +399,7 @@ Le canevas iso compose une carte comme le jeu.
 
 ### CanvasSceneTest.LesReglagesDeCoucheAgissentSurLeurBande
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:145`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:146`
 
 Masquer, griser, voir a travers : chaque reglage agit sur sa bande.
 
@@ -420,7 +421,7 @@ Masquer, griser, voir a travers : chaque reglage agit sur sa bande.
 
 ### CanvasSceneTest.UneGrilleUniqueEstLImage
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:185`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:186`
 
 Une grille unique est l'image du canevas iso.
 
@@ -436,7 +437,7 @@ Une grille unique est l'image du canevas iso.
 
 ### CanvasSceneTest.GriserEtVerrouillerSontDesReglagesDEditeur
 
-*Majeur · Unitaire · Editeur · Couches* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:202`
+*Majeur · Unitaire · Editeur · Couches* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:203`
 
 Griser et verrouiller une couche, puis tout oublier.
 
@@ -455,7 +456,7 @@ Griser et verrouiller une couche, puis tout oublier.
 
 ### CanvasSceneTest.LesPiecesDUneCaseSeLisent
 
-*Mineur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:228`
+*Mineur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:229`
 
 Les pieces d'une case se lisent dans la barre d'etat.
 
@@ -1927,6 +1928,264 @@ trimLevelName retire les espaces de bord sans toucher au contenu.
 - Vérifie que `hmi::trimLevelName("Niveau 1")` vaut `"Niveau 1"`.
 - Vérifie que `hmi::trimLevelName(" ")` vaut `""`.
 
+## test_level_tree.cpp
+
+### LevelTreeTest.UneCarteQuiCiteQuatreNiveauxPasseLeControle
+
+*Bloquant · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:121`
+
+Une carte qui cite quatre niveaux passe --check.
+
+**Étapes**
+
+1. Controler toutes les cartes de la racine LevelTree.
+
+**Résultat attendu**
+
+- Vérifie que `report.maps` vaut `2U`.
+- Vérifie que `report.findings.empty()` est vrai.
+
+### LevelTreeTest.LaTableDUnLieuEmpileSesNiveaux
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:136`
+
+La table d'un lieu empile celles de ses niveaux.
+
+**Étapes**
+
+1. Lire la table de l'Arenarea.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `table.floorPiece(core::TileType::Flagstone, cell)` vaut `"cobbles"`.
+- Vérifie que `table.floorPiece(core::TileType::Pavement, cell)` vaut `"paving"`.
+- Vérifie que `table.floorPiece(core::TileType::Grass, cell)` vaut `"grass"`.
+- Vérifie que `table.reliefPiece(core::TileType::Wall, cell)` vaut `"wall-arcade"`.
+- Vérifie que `table.pieceFile("paving")` vaut `"Regions/central-empire/capital/Common/Scene/floors/paving.png"`.
+- Vérifie que `table.pieceFile("grass")` vaut `"Common/Terrain/grass.png"`.
+- Vérifie que `table.pieceFile("fountain")` vaut `"Regions/central-empire/capital/arenarea/Scene/fountain.png"`.
+- Vérifie que `table.pieceManifest()` diffère de `nullptr`.
+- Vérifie que `table.pieceManifest()->masked().size()` vaut `1U`.
+
+### LevelTreeTest.LaSceneChercheChaquePieceSousSonNiveau
+
+*Bloquant · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:165`
+
+La scene d'une carte cherche chaque piece sous son niveau.
+
+**Étapes**
+
+1. Tirer l'instantane de l'Arenarea avec sa table, puis ses chemins d'images.
+
+**Résultat attendu**
+
+- Vérifie que `map.ok()` est vrai.
+- Vérifie que `table.ok()` est vrai.
+- Vérifie que `std::ranges::any_of(paths, [prefix](const std::string& path) { return path.starts_with(prefix); })` est vrai.
+- Vérifie que `std::filesystem::is_regular_file(tree() / "Assets" / path)` est vrai.
+- Vérifie que `std::ranges::find(paths, std::string{ZONE_LEVEL} + "/fountain.png")` diffère de `paths.end()`.
+- Vérifie que `std::ranges::find(paths, std::string{CITY_LEVEL} + "/props/fountain.png")` vaut `paths.end()`.
+
+### LevelTreeTest.UnScenarioPoseDesPiecesCommunes
+
+*Critique · Unitaire · Editeur · Sans fenetre · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:200`
+
+--apply pose une piece commune.
+
+**Étapes**
+
+1. Rejouer `Fixtures/Gestures/niveaux.json` sur l'Arenarea de LevelTree : effacer le sol et le relief, puis poser le pavage de la ville, les paves de la zone, le gazon du monde, la banniere de l'Empire, l'arcade, la fontaine, l'etal et la caisse.
+
+**Résultat attendu**
+
+- Vérifie que `rendu.script.ok()` est vrai.
+- Vérifie que `rendu.mapId` vaut `ARENAREA`.
+- Vérifie que `rendu.script.gestures` vaut `10U`.
+- Vérifie que `rendu.script.steps` vaut `10U`.
+- Vérifie que `rendu.mapText` vaut `lire(mapFile)`.
+
+### LevelTreeTest.LaPaletteGroupeLesPiecesParNiveau
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:225`
+
+La palette groupe les pieces par niveau.
+
+**Étapes**
+
+1. Faire le catalogue de l'Arenarea.
+2. Le filtrer sur « fountain ».
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `levels` vaut `(std::vector<std::string>{"Arenarea", "Capital", "Central Empire", "World"})`.
+- Vérifie que `found.size()` vaut `2U`.
+- Vérifie que `found[0].level` vaut `"Arenarea"`.
+- Vérifie que `found[0].pieces.size()` vaut `1U`.
+- Vérifie que `found[0].pieces[0].masks` vaut `"Capital"`.
+- Vérifie que `found[0].pieces[0].file` vaut `std::string{ZONE_LEVEL} + "/fountain.png"`.
+- Vérifie que `found[1].level` vaut `"Capital"`.
+- Vérifie que `found[1].pieces.size()` vaut `1U`.
+- Vérifie que `found[1].pieces[0].maskedBy` vaut `"Arenarea"`.
+- Vérifie que `hmi::pieceDescription(found[1].pieces[0]).find("masked by the Arenarea")` diffère de `std::string::npos`.
+
+### Arborescence.PromouvoirSousSaCleNeChangeAucuneCarte
+
+*Bloquant · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:264`
+
+Promouvoir une piece sous sa cle ne change aucune carte.
+
+**Étapes**
+
+1. Deplacer les paves de l'Arenarea (manifeste et image) vers le kit de la Capitale.
+2. Controler les cartes, puis les migrer sans les ecrire.
+
+**Résultat attendu**
+
+- Vérifie que `report.ok()` est vrai.
+- Vérifie que `migration.ok()` est vrai.
+- Vérifie que `migration.text` vaut `lire(carte(id))`.
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.manifest.find("cobbles")` diffère de `nullptr`.
+- Vérifie que `read.manifest.find("cobbles")->directory` vaut `CITY_LEVEL`.
+
+### Arborescence.PromouvoirSousUneAutreCleNeRecritQueSesCartes
+
+*Bloquant · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:295`
+
+Promouvoir sous une autre cle ne recrit que les cartes concernees.
+
+**Étapes**
+
+1. Copier la fontaine de l'Arenarea dans le kit de la Capitale sous `fountain-arena`.
+2. Planifier `--replace-piece fountain fountain-arena` sans niveau, puis avec le niveau de la zone ; appliquer ce dernier.
+3. Retirer la fontaine de la zone ; controler.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::planReplacePiece(racine, "fountain", "fountain-arena", {}).edits.size()` vaut `2U`.
+- Vérifie que `plan.ok()` est vrai.
+- Vérifie que `plan.edits.size()` vaut `1U`.
+- Vérifie que `plan.edits.front().file` vaut `carte(ARENAREA)`.
+- Vérifie que `hmi::applyRefactorPlan(plan, error)` est vrai.
+- Vérifie que `report.ok()` est vrai.
+- Vérifie que `lire(carte(MARTPART))` vaut `martpart`.
+- Vérifie que `cited.size()` vaut `1U`.
+- Vérifie que `cited.front().mapId` vaut `MARTPART`.
+- Vérifie que `cited.front().what.find(CITY_LEVEL)` diffère de `std::string::npos`.
+
+### LevelTreeTest.QuiCiteUnePieceNiveauParNiveau
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:338`
+
+Qui cite une piece, niveau par niveau.
+
+**Étapes**
+
+1. Demander qui cite `fountain`, sans niveau, puis au niveau de la zone, puis de la ville, puis par la ligne de commande.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::citationsOfPiece(tree(), "fountain").size()` vaut `2U`.
+- Vérifie que `zone.size()` vaut `1U`.
+- Vérifie que `zone.front().mapId` vaut `ARENAREA`.
+- Vérifie que `city.size()` vaut `1U`.
+- Vérifie que `city.front().mapId` vaut `MARTPART`.
+- Vérifie que `hmi::runRefactorCommand({"--who-cites", "piece", "fountain", ZONE_LEVEL}, tree(), output)` vaut `0`.
+- Vérifie que `output.find(std::string{"from "} + ZONE_LEVEL)` diffère de `std::string::npos`.
+- Vérifie que `output.find(MARTPART)` vaut `std::string::npos`.
+
+### Arborescence.UneCarteNeuveSeRangeSousSonLieu
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:366`
+
+Une carte neuve se range sous le chemin de son lieu.
+
+**Étapes**
+
+1. Creer la carte `arena-of-fate` du lieu `…/arenarea/arena-of-fate`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::levelFolderOf("central-empire/capital/arenarea")` vaut `"central-empire/capital"`.
+- Vérifie que `hmi::levelFolderOf("bourg")` vaut `""`.
+- Vérifie que `hmi::levelFolderOf("")` vaut `""`.
+- Vérifie que `created.ok()` est vrai.
+- Vérifie que `created.path` vaut `file`.
+- Vérifie que `std::filesystem::is_regular_file(file)` est vrai.
+- Vérifie que `loaded.ok()` est vrai.
+- Vérifie que `hmi::scenePlaceOf(loaded.level->layers())` vaut `place`.
+- Vérifie que `std::ranges::none_of(findings, [](const hmi::MapCheckFinding& finding) { return finding.severity == hmi::MapCheckSeverity::Error; })` est vrai.
+
+### Arborescence.UnPrefabriqueSeRangeAuNiveauDeSesPieces
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:398`
+
+Un prefabrique se range au niveau de ses pieces.
+
+**Étapes**
+
+1. `--save-prefab` d'un rectangle du Martpart (pavage, fontaine et arcade de la ville).
+2. Le lister et le relire depuis l'Arenarea, puis depuis un lieu d'une autre ville.
+3. `--save-prefab` d'un rectangle de l'Arenarea qui prend son etal.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::runPrefabCommand( {"--save-prefab", MARTPART, "fontaine", "--from", "1,0", "--to", "4,2"}, racine, output)` vaut `0`.
+- Vérifie que `output.find("saved central-empire/capital/fontaine")` diffère de `std::string::npos`.
+- Vérifie que `std::filesystem::is_regular_file(racine / "Editor" / "Prefabs" / "central-empire" / "capital" / "fontaine.json")` est vrai.
+- Vérifie que `offered.size()` vaut `1U`.
+- Vérifie que `offered.front()` vaut `(hmi::PrefabEntry{.name = "fontaine", .level = "central-empire/capital"})`.
+- Vérifie que `hmi::readPrefab(racine, ARENAREA, "fontaine", error).has_value()` est vrai.
+- Vérifie que `hmi::availablePrefabs(racine, "central-empire/skybell-city/harbour").empty()` est vrai.
+- Vérifie que `hmi::runPrefabCommand({"--save-prefab", ARENAREA, "etal", "--from", "2,3", "--to", "3,3"}, racine, output)` vaut `0`.
+- Vérifie que `std::filesystem::is_regular_file(racine / "Editor" / "Prefabs" / "central-empire" / "capital" / "arenarea" / "etal.json")` est vrai.
+- Vérifie que `hmi::prefabNames(racine, MARTPART)` vaut `std::vector<std::string>{"fontaine"}`.
+
+### LevelTreeTest.LesModelesDUnNiveauServentSesDescendants
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:443`
+
+Les modeles d'un niveau servent les lieux qui en descendent.
+
+**Étapes**
+
+1. Lister les modeles sans lieu, pour l'Arenarea, puis pour un lieu d'une autre ville.
+
+**Résultat attendu**
+
+- Vérifie que `ids(hmi::mapTemplates(tree()))` vaut `std::vector<std::string>{"street"}`.
+- Vérifie que `ids(hmi::mapTemplates(tree(), ARENAREA))` vaut `(std::vector<std::string>{"plaza", "street"})`.
+- Vérifie que `ids(hmi::mapTemplates(tree(), "central-empire/skybell-city/harbour"))` vaut `std::vector<std::string>{"street"}`.
+- Vérifie que `hmi::checkEditorLibrary(tree()).empty()` est vrai.
+
+### LevelTreeTest.LesFiguresDUneCarteViennentDeSesNiveaux
+
+*Majeur · Unitaire · Editeur · Arborescence* — `Source/Test/Unit/Editor/test_level_tree.cpp:470`
+
+Les figurines d'une carte viennent de ses niveaux.
+
+**Étapes**
+
+1. Tirer l'instantane de l'Arenarea avec ses PNJ, puis les chemins de leurs bandes.
+2. Faire le contexte des references pour l'Arenarea, puis pour le Martpart.
+
+**Résultat attendu**
+
+- Vérifie que `map.ok()` est vrai.
+- Vérifie que `table.ok()` est vrai.
+- Vérifie que `snapshot.figures.size()` vaut `3U`.
+- Vérifie que `snapshot.figureDirectories.at("anariel")` vaut `"Regions/central-empire/capital/arenarea/Characters/anariel"`.
+- Vérifie que `snapshot.figureDirectories.at("citizen")` vaut `"Regions/central-empire/capital/arenarea/Characters/citizen"`.
+- Vérifie que `snapshot.figureDirectories.at("Peoples/human/guard")` vaut `"Common/Characters/Peoples/human/guard"`.
+- Vérifie que `std::filesystem::is_regular_file(tree() / "Assets" / path)` est vrai.
+- Vérifie que `arena.figures.contains("anariel")` est vrai.
+- Vérifie que `arena.figures.contains("Peoples/human/guard")` est vrai.
+- Vérifie que `mart.figures.contains("anariel")` est faux.
+- Vérifie que `mart.figures.contains("citizen")` est vrai.
+- Vérifie que `mart.figures.contains("Peoples/human/guard")` est vrai.
+
 ## test_map_documents.cpp
 
 ### CartesEnOnglets.UnOngletDitSaCarteEtSesModifications
@@ -2406,6 +2665,23 @@ Le cadre de --render tient les pièces hautes.
 - Vérifie que `plan.size()` vaut `ordinaire.size()`.
 - Vérifie que `plan` diffère de `ordinaire`.
 - Vérifie que `peinte(plan.copy(coin), options.background)` est strictement supérieur à `peinte(ordinaire.copy(coin), options.background)`.
+
+### MapRenderTest.UneCarteQuiPuiseDansQuatreNiveauxSeRend
+
+*Majeur · Unitaire · Editeur · Sans fenetre · Arborescence* — `Source/Test/Unit/Editor/test_map_render.cpp:253`
+
+--render montre une carte qui puise dans quatre niveaux.
+
+**Étapes**
+
+1. Rendre l'Arenarea de la racine LevelTree a l'echelle 1.
+
+**Résultat attendu**
+
+- Vérifie que `carte.ok()` est vrai.
+- Vérifie que `image.isNull()` est faux.
+- Vérifie que `peinte(image, options.background)` est strictement supérieur à `1.0 / 4.0`.
+- Vérifie que `magenta` vaut `0`.
 
 ## test_paint_tools.cpp
 

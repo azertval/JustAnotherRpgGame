@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iterator>
 #include <memory>
+#include <optional>
 #include <sstream>
 #include <stdexcept>
 #include <system_error>
@@ -21,6 +22,7 @@
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileTypeName.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/PaintTools.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -757,22 +759,76 @@ std::filesystem::path prefabsDir(const std::filesystem::path& dataRoot, std::str
     return dataRoot / "Editor" / "Prefabs" / std::filesystem::path(std::string{place});
 }
 
-std::vector<std::string> prefabNames(const std::filesystem::path& dataRoot,
-                                     std::string_view place) {
-    std::vector<std::string> names;
+namespace {
+
+// Les fichiers `*.json` de @p dir, sans ses sous-dossiers, par nom.
+[[nodiscard]] std::vector<std::filesystem::path> jsonFilesIn(const std::filesystem::path& dir) {
+    std::vector<std::filesystem::path> files;
     std::error_code error;
-    const std::filesystem::path dir = prefabsDir(dataRoot, place);
     if (!std::filesystem::is_directory(dir, error)) {
-        return names;
+        return files;
     }
     for (const std::filesystem::directory_entry& entry :
          std::filesystem::directory_iterator(dir, error)) {
         if (entry.is_regular_file() && entry.path().extension() == ".json") {
-            names.push_back(entry.path().stem().string());
+            files.push_back(entry.path());
         }
     }
-    std::ranges::sort(names);
+    std::ranges::sort(files);
+    return files;
+}
+
+}  // namespace
+
+std::vector<PrefabEntry> availablePrefabs(const std::filesystem::path& dataRoot,
+                                          std::string_view place) {
+    std::vector<PrefabEntry> prefabs;
+    // Du plus propre au monde : un préfabriqué propre masque un commun de même nom.
+    for (const std::string& level : core::scenePlaceAncestry(place)) {
+        for (const std::filesystem::path& file : jsonFilesIn(prefabsDir(dataRoot, level))) {
+            std::string name = file.stem().string();
+            if (std::ranges::find(prefabs, name, &PrefabEntry::name) == prefabs.end()) {
+                prefabs.push_back(PrefabEntry{.name = std::move(name), .level = level});
+            }
+        }
+    }
+    std::ranges::sort(prefabs, {}, &PrefabEntry::name);
+    return prefabs;
+}
+
+std::vector<std::string> prefabNames(const std::filesystem::path& dataRoot,
+                                     std::string_view place) {
+    std::vector<std::string> names;
+    for (PrefabEntry& prefab : availablePrefabs(dataRoot, place)) {
+        names.push_back(std::move(prefab.name));
+    }
     return names;
+}
+
+std::string prefabLevel(const Stamp& stamp, const core::ScenePieceManifest* manifest) {
+    if (manifest == nullptr || manifest->levels().empty()) {
+        return stamp.place;
+    }
+    // Le rang, dans les niveaux du lieu, de chaque pièce du tampon : le plus propre l'emporte, car
+    // c'est le plus bas niveau d'où toutes ses pièces se voient.
+    const std::vector<core::SceneLevel>& levels = manifest->levels();
+    std::optional<std::size_t> ownest;
+    for (const StampLayer& layer : stamp.layers) {
+        for (const StampPiece& piece : layer.pieces) {
+            const core::ScenePiece* found = manifest->find(piece.piece);
+            if (found == nullptr) {
+                return stamp.place;  // une pièce inconnue : on ne sait pas d'où elle se voit.
+            }
+            const auto level =
+                std::ranges::find(levels, found->directory, &core::SceneLevel::directory);
+            const auto rank = static_cast<std::size_t>(std::distance(levels.begin(), level));
+            ownest = std::min(ownest.value_or(rank), rank);
+        }
+    }
+    if (!ownest || *ownest >= levels.size()) {
+        return stamp.place;  // sans pièce, il sert là où il est né.
+    }
+    return levels[*ownest].place;
 }
 
 std::string writePrefab(const std::filesystem::path& dataRoot, std::string_view place,
@@ -803,7 +859,17 @@ std::string writePrefab(const std::filesystem::path& dataRoot, std::string_view 
 
 std::optional<Stamp> readPrefab(const std::filesystem::path& dataRoot, std::string_view place,
                                 std::string_view name, std::string& error) {
-    const std::filesystem::path file = prefabsDir(dataRoot, place) / (std::string{name} + ".json");
+    // Le plus propre des niveaux du lieu qui en range un de ce nom (LOT-124).
+    std::filesystem::path file = prefabsDir(dataRoot, place) / (std::string{name} + ".json");
+    for (const std::string& level : core::scenePlaceAncestry(place)) {
+        std::filesystem::path candidate =
+            prefabsDir(dataRoot, level) / (std::string{name} + ".json");
+        std::error_code missing;
+        if (std::filesystem::is_regular_file(candidate, missing)) {
+            file = std::move(candidate);
+            break;
+        }
+    }
     const Json json = Json::parse(readText(file), nullptr, false);
     if (json.is_discarded()) {
         error = file.string() + ": not a JSON file (or it cannot be read)";
@@ -883,25 +949,27 @@ namespace {
 
 }  // namespace
 
-std::vector<MapTemplate> mapTemplates(const std::filesystem::path& dataRoot) {
+std::vector<MapTemplate> mapTemplates(const std::filesystem::path& dataRoot,
+                                      std::string_view place) {
     std::vector<MapTemplate> models;
-    std::error_code error;
-    const std::filesystem::path dir = templatesDir(dataRoot);
-    if (!std::filesystem::is_directory(dir, error)) {
-        return models;
+    // Les modèles du lieu et de chacun de ses niveaux communs (LOT-124) ; le plus propre masque un
+    // commun de même identifiant.
+    std::vector<std::string> levels{std::string{}};
+    if (!place.empty()) {
+        levels = core::scenePlaceAncestry(place);
     }
-    for (const std::filesystem::directory_entry& entry :
-         std::filesystem::directory_iterator(dir, error)) {
-        if (!entry.is_regular_file() || entry.path().extension() != ".json") {
-            continue;
-        }
-        const Json json = Json::parse(readText(entry.path()), nullptr, false);
-        if (json.is_discarded()) {
-            continue;
-        }
-        std::string ignored;
-        if (std::optional<MapTemplate> model = mapTemplateFromJson(json, ignored)) {
-            models.push_back(std::move(*model));
+    for (const std::string& level : levels) {
+        for (const std::filesystem::path& file :
+             jsonFilesIn(templatesDir(dataRoot) / std::filesystem::path(level))) {
+            const Json json = Json::parse(readText(file), nullptr, false);
+            if (json.is_discarded()) {
+                continue;
+            }
+            std::string ignored;
+            std::optional<MapTemplate> model = mapTemplateFromJson(json, ignored);
+            if (model && std::ranges::find(models, model->id, &MapTemplate::id) == models.end()) {
+                models.push_back(std::move(*model));
+            }
         }
     }
     std::ranges::sort(models, [](const MapTemplate& left, const MapTemplate& right) {
@@ -993,10 +1061,15 @@ std::optional<int> runPrefabCommand(const std::vector<std::string>& arguments,
         }
         std::size_t total = 0;
         for (const std::string& place : wanted) {
-            for (const std::string& name : prefabNames(dataRoot, place)) {
+            for (const PrefabEntry& prefab : availablePrefabs(dataRoot, place)) {
                 std::string error;
-                const std::optional<Stamp> stamp = readPrefab(dataRoot, place, name, error);
-                output.append(place).append("/").append(name).append(": ");
+                const std::optional<Stamp> stamp =
+                    readPrefab(dataRoot, prefab.level, prefab.name, error);
+                output.append(place).append(": ");
+                if (!prefab.level.empty()) {
+                    output.append(prefab.level).append("/");
+                }
+                output.append(prefab.name).append(": ");
                 output.append(stamp ? stampLabel(*stamp) : "unreadable — " + error).append("\n");
                 ++total;
             }
@@ -1034,12 +1107,16 @@ std::optional<int> runPrefabCommand(const std::vector<std::string>& arguments,
         draft.setPieceManifest(std::make_shared<const core::ScenePieceManifest>(*assets.manifest));
     }
     const Stamp stamp = cutStamp(draft, *first, *last);
-    const std::string error = writePrefab(dataRoot, place, (*save)[1], stamp);
+    // Rangé au plus bas niveau qui voit toutes ses pièces (LOT-124) : fait du kit de la Capitale,
+    // il sert à tous ses quartiers.
+    const std::string level = prefabLevel(stamp, assets.manifest ? &*assets.manifest : nullptr);
+    const std::string error = writePrefab(dataRoot, level, (*save)[1], stamp);
     if (!error.empty()) {
         output += "error: " + error + "\n";
         return 1;
     }
-    output += "saved " + place + "/" + (*save)[1] + ": " + stampLabel(stamp) + "\n";
+    output += "saved " + (level.empty() ? std::string{"(world)"} : level) + "/" + (*save)[1] +
+              ": " + stampLabel(stamp) + "\n";
     return 0;
 }
 

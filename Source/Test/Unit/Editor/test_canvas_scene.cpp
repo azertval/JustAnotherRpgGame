@@ -50,8 +50,7 @@ namespace {
 }
 
 [[nodiscard]] hmi::PlaceAppearance appearanceOf(const std::string& place) {
-    hmi::PlaceAppearanceResult read =
-        hmi::PlaceAppearance::loadFromFile(assets() / "Scene" / place / "appearance.json");
+    hmi::PlaceAppearanceResult read = hmi::PlaceAppearance::loadForPlace(assets(), place);
     if (!read.ok()) {
         throw std::runtime_error(place + " : " + read.message);
     }
@@ -90,7 +89,8 @@ struct FakeTextures {
 }  // namespace
 
 /**
- * @brief La carte d'essai ouverte dans l'éditeur produit la même liste de primitives que dans le jeu.
+ * @brief La carte d'essai ouverte dans l'éditeur produit la même liste de primitives que dans le
+ * jeu.
  * \castest{<b>Le canevas iso compose une carte comme le jeu.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Bloquant<br/>
@@ -113,6 +113,7 @@ TEST(CanvasSceneTest, LaCarteDEssaiSeComposeCommeDansLeJeu) {
     ASSERT_FALSE(game.figures.empty());
     const hmi::WorldFigureSnapshot hero = game.figures.back();
     game.figures.pop_back();  // le héros : le jeu le pose, l'éditeur non.
+    game.figureDirectories.erase(hero.figure);
 
     EXPECT_EQ(editor.place, "bourg");
     EXPECT_EQ(editor, game);
