@@ -6,6 +6,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-125 — livré.** L'auteur a fait les contrôles à la main, derniers critères du lot : le
+  travelling et le zoom restent fluides, trois onglets HD ouverts. La fiche passe à `livre`.
+
 - **LOT-124 — L'éditeur et l'arborescence par niveaux.** Une carte puise dans son lieu **et** dans
   ses niveaux communs : son lieu est un chemin (`central-empire/capital/arenarea`), et ses pièces se
   cherchent dans la zone, puis la ville, la région et le monde (`core::sceneLevelCandidates`). Le
