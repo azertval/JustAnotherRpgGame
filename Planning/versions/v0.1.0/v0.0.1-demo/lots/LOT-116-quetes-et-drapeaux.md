@@ -32,7 +32,7 @@ la porter.
 
 ## Décisions de réalisation
 
-Réalisé le 24 septembre 2026.
+Réalisé le 24 septembre 2026, **PR #127** (à fusionner ; la fiche passe à `livre` avec elle).
 
 1. **« Typé » veut dire « à valeurs déclarées ».** La quête de la démo n'a qu'une mémoire à cinq
    valeurs ([fiche](../quete-demo.md)) : un drapeau reste un fait présent ou absent, sauf s'il est
