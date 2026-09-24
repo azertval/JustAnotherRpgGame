@@ -9,6 +9,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 - **LOT-125 — livré.** L'auteur a fait les contrôles à la main, derniers critères du lot : le
   travelling et le zoom restent fluides, trois onglets HD ouverts. La fiche passe à `livre`.
 
+- **CI — le test de fumée de l'archive Debug n'échoue plus par lenteur.** Le jeu en mode
+  `--screenshot=` abandonnait au bout de 15 s ; le build Debug, sur un runner chargé, les a dépassées
+  trois fois en trente publications (21, 23 et 24 septembre 2026), sans rien de cassé. Le filet passe
+  à 45 s, sous les 90 s du script, et le journal dit désormais si l'interface a été chargée avant
+  le délai.
+
 - **LOT-124 — L'éditeur et l'arborescence par niveaux.** Une carte puise dans son lieu **et** dans
   ses niveaux communs : son lieu est un chemin (`central-empire/capital/arenarea`), et ses pièces se
   cherchent dans la zone, puis la ville, la région et le monde (`core::sceneLevelCandidates`). Le
