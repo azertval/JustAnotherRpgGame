@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790217686934,
+  "lastUpdate": 1790217693221,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -936,6 +936,42 @@ window.BENCHMARK_DATA = {
             "value": 616.1646930779003,
             "unit": "us/iter",
             "extra": "iterations: 2297\ncpu: 612.2115803221593 us\nthreads: 1"
+          }
+        ]
+      }
+    ],
+    "Peinture du canevas de l'editeur (Release, windows-2022)": [
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "776e4bf13307d8387f16e15c4be859c0927ee362",
+          "message": "Merge pull request #121 from azertval/lot-129-etages-et-toits\n\nLOT-129 — Les étages et les toits de la scène",
+          "timestamp": "2026-09-23T22:40:43Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/776e4bf13307d8387f16e15c4be859c0927ee362"
+        },
+        "date": 1790217691009,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 14.080715000000055,
+            "unit": "ms/iter",
+            "extra": "iterations: 100\ncpu: 13.59375 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.220152272727319,
+            "unit": "ms/iter",
+            "extra": "iterations: 264\ncpu: 5.208333333333333 ms\nthreads: 1"
           }
         ]
       }
