@@ -6,6 +6,34 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-108 — Arenarea : le quartier extérieur complet.** 1 491 pièces HD installées d'après la
+  checklist de 102 postes validée par l'auteur : 1 029 dans le commun de la Capitale (raccords de
+  murs, portes et fenêtres de service, soubassements, corniches, accents et solins de toiture,
+  auvents, clôtures, grilles, murets, haies, bassins, bordures, caniveaux, seuils, berges, quais,
+  remparts, tours, écuries, mobilier de rue et de jardin) et 462 propres à Arenarea (dallage de
+  marbre et incrustations, médaillons, piste et équipements de l'hippodrome, Golden Chalice, Dusk
+  of Justice, Inlet's Bazaar, Cloaked Brewer, Arena Gate, Arching Bridge, extérieur du Colisée).
+  Les 705 pièces communes antérieures sont inchangées ; les nouvelles se rangent par famille sous
+  `Scene/`. `appearance.json` d'Arenarea donne ses variantes de marbre et de piste. Commun de la
+  Capitale : 101 Mio ; Arenarea : 57 Mio (sans budget, D-23). Les trois manoirs et les deux
+  parvis témoins sont des préfabriqués de l'éditeur (`Source/Elements/Editor/Prefabs/`).
+
+- **Les images des kits d'assets sortent de l'historique Git.** Celles de `Common/`, `Regions/`,
+  `Maps/` et `UI/` sont publiées en archives immuables sur les releases du dépôt ; Git ne garde
+  que les manifestes et le verrou `Source/Elements/Assets/kits.lock.json`. **Après le `git pull`
+  de ce changement, lancer `python scripts/fetch_assets.py`** (le pull retire les images de
+  l'arbre ; `build.ps1` et `setup_dev.ps1` l'appellent d'eux-mêmes, CMake refuse de configurer
+  sans). Une retouche se publie par `scripts/release/publish_asset_kit.py` et ne se commite jamais :
+  `check_binary_files.py` refuse une image suivie sous un kit verrouillé. L'historique n'est pas
+  réécrit.
+
+- **Assets HD — plus de budget de poids par zone (D-23).** Décision de l'auteur du 24 septembre
+  2026 : un jeu lourd mais riche et immersif plutôt que des kits bridés. `check_hd_assets.py` ne
+  borne plus une zone à 40 Mio ; il la pèse et publie son poids dans le résumé du job, pour
+  mémoire. Le plafond de 5 Mio par fichier (`check_binary_files.py`) demeure. Le critère de poids
+  quitte les fiches des lots d'assets à venir, l'arborescence et la définition de « livré » ;
+  le risque R-03 et la question du stockage (Q-08) en tiennent compte.
+
 - **LOT-125 — livré.** L'auteur a fait les contrôles à la main, derniers critères du lot : le
   travelling et le zoom restent fluides, trois onglets HD ouverts. La fiche passe à `livre`.
 

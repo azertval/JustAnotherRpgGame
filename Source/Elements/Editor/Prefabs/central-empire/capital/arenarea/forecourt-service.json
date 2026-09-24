@@ -1,0 +1,312 @@
+{
+  "forced": [
+    {
+      "at": [
+        0,
+        0
+      ],
+      "type": "entry"
+    }
+  ],
+  "format": "jadg-editor-prefab",
+  "height": 9,
+  "layers": [
+    {
+      "kind": "ground",
+      "name": "sol",
+      "types": [
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty"
+      ]
+    },
+    {
+      "kind": "decor",
+      "name": "decor",
+      "pieces": [
+        {
+          "at": [
+            2,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            1,
+            3
+          ],
+          "piece": "access-arena-triumph-open-v-raised64",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            5,
+            3
+          ],
+          "piece": "stairs-monument-w2-ne",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            6
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            6
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            6
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        }
+      ],
+      "types": [
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty"
+      ]
+    }
+  ],
+  "place": "central-empire/capital/arenarea",
+  "version": 1,
+  "width": 8
+}

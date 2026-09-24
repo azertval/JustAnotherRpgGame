@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "place": "central-empire/capital/arenarea",
+  "diamondRatio": 0.62109375,
+  "floors": {
+    "pavement": ["floor-marble-01", "floor-marble-02", "floor-marble-03", "floor-marble-04", "floor-marble-05", "floor-marble-06"],
+    "sand": ["floor-track-01", "floor-track-02", "floor-track-03"]
+  },
+  "relief": {}
+}
