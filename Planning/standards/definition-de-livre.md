@@ -14,7 +14,7 @@ les conditions de sa filière le sont. Un lot « presque fini » est `en-cours`.
 
 | Filière | Conditions |
 |---|---|
-| **Assets HD** | chaque image est au [standard](style-2d-hd.md), citée par un manifeste, visible dans la galerie de débug ; aucune n'est une image du corpus ; la zone tient son budget de poids ; les sources sont rangées dans `Tools/AssetsHD/` sous le même arbre |
+| **Assets HD** | chaque image est au [standard](style-2d-hd.md), citée par un manifeste, visible dans la galerie de débug ; aucune n'est une image du corpus ; les sources sont rangées dans `Tools/AssetsHD/` sous le même arbre ; le kit est **publié et verrouillé** (`publish_asset_kit.py`, [le stockage](arborescence-assets.md#le-stockage)), pas seulement installé |
 | **Cartes** | dessinée dans l'éditeur ; `LevelEditor --check` passe ; aucune case inatteignable ; le rendu de la carte est joint à la PR ; l'image de l'onglet « Carte » existe |
 | **PNJ** | figurine, portrait et jeton ; une fiche quand le PNJ peut combattre ; placé sur sa carte ; ses textes en français et en anglais |
 | **Quêtes et dialogues** | chaque issue se joue en test, sans fenêtre, à graine fixée ; aucun drapeau lu sans être posé ; textes dans les deux langues |

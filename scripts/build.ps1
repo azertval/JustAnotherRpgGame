@@ -185,6 +185,9 @@ if ($configurePreset -like 'ninja*') {
 
 Push-Location $repoRoot
 try {
+    # Les images des kits ne sont pas suivies par Git (LOT-108) : les installer avant CMake, qui
+    # globe UI/ et Maps/ à la configuration et refuse un kit absent.
+    Invoke-Step 'Kits d''assets' { py -3 scripts/fetch_assets.py }
     Invoke-Step 'Configuration (CMake)' { cmake --preset $configurePreset }
     if ($Target) {
         Invoke-Step "Construction ($Target)" { cmake --build --preset $Preset --target $Target }

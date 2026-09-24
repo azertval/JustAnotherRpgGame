@@ -95,14 +95,39 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
    l'asset **installé** : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste —
    par `scripts/assetsGeneration/install_hd_asset.py`, jamais à la main.
 
-## Le budget
+## Le poids
 
 | Garde-fou | Valeur | État |
 |---|---|---|
 | Taille d'un fichier binaire | 5 Mio | contrôlé (`check_binary_files.py`) |
-| Poids d'une zone | **40 Mio** | contrôlé (`check_hd_assets.py`, [LOT-104](../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md)) : chaque zone et chaque sous-zone, sans ses sous-zones ; le poids s'affiche dans le résumé du job CI |
-| Poids du dépôt | question ouverte au-delà de **1 Gio** : Git LFS, ou dépôt d'assets à part | à trancher avant la `0.1.0`, voir [les risques](../vision/risques.md) |
+| Poids d'une zone | **pas de budget** ([D-23](../vision/decisions.md)) | pesé, pas borné (`check_hd_assets.py`, [LOT-104](../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md)) : chaque zone et chaque sous-zone, sans ses sous-zones ; le poids s'affiche dans le résumé du job CI |
+| Poids du dépôt | les images des kits **hors de l'historique** (ci-dessous) | tranché au LOT-108 |
 
-À quarante mébioctets par zone, l'Empire central (vingt zones) pèse 800 Mio et le monde complet
-plusieurs gibioctets : la question du stockage **se posera**, et le découpage par région est ce
-qui permettra d'y répondre sans tout déplacer.
+**Un kit ne se bride pas pour tenir un poids** (décision de l'auteur, 24 septembre 2026) : un jeu
+lourd mais riche et immersif vaut mieux qu'une zone pauvre. Le commun de la Capitale pèse
+101 Mio après le LOT-108 ; l'Empire central dépassera le gibioctet, et la question du stockage (Q-08) **se posera
+tôt**. Le découpage par région est ce qui permettra d'y répondre sans tout déplacer.
+
+## Le stockage
+
+Tranché au [LOT-108](../versions/v0.1.0/v0.0.1-demo/lots/LOT-108-assets-hd-arenarea.md)
+([annexe](assets-hors-git-lot108.md)) : **les images d'un kit ne sont pas suivies par Git**. Elles
+partent en archive immuable sur une release du dépôt, et Git ne garde que ce qui se relit dans
+une PR.
+
+| Suivi par Git | Hors de Git |
+|---|---|
+| les manifestes (`manifest.json`, `appearance.json`, `Maps/manifest.json`, `UI/illustrations.json`), les `README.md`, `Fonts/`, `Entities/` | les images (`*.png`, `*.jpg`) de `Common/`, `Regions/`, `Maps/` et `UI/` |
+| le verrou `Source/Elements/Assets/kits.lock.json` : l'empreinte de chaque archive | les archives, une release par région (`assets-central-empire`), plus `assets-common`, `assets-maps`, `assets-ui` |
+
+Un **kit** est un dossier publié d'un seul tenant : un lieu (sans ses sous-lieux, qui sont d'autres
+kits), `Maps/` ou `UI/`. Son identifiant est son chemin suivi d'un numéro, `…/capital/arenarea@1` ;
+**une retouche est un nouveau numéro**, jamais une archive remplacée. L'archive est déterministe :
+reconstruite depuis le disque, elle prouve qu'un kit installé est intact.
+
+- **Installer** : `python scripts/fetch_assets.py` — `setup_dev.ps1` et `build.ps1` l'appellent,
+  la CI aussi (`.github/actions/fetch-assets`, avec cache) ; la configuration CMake refuse un kit
+  absent. Une image modifiée à la main n'est jamais écrasée sans `--force`.
+- **Publier** : `python scripts/release/publish_asset_kit.py <chemin>` — contrôle le kit, publie
+  l'archive, met le verrou à jour. C'est la dernière étape d'un lot d'assets.
+- **Garde-fou** : `check_binary_files.py` refuse toute image suivie sous un kit verrouillé.

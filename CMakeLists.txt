@@ -25,6 +25,50 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# --- Kits d'assets hors de Git (LOT-108) ---
+# Les images de Source/Elements/Assets/{Common,Regions,Maps,UI} ne sont pas suivies : elles viennent
+# d'archives publiées, installées par scripts/fetch_assets.py, qui laisse un témoin par kit dans
+# Source/Elements/Assets/.kits/. Sans eux, Source/Ui globerait un HUD vide et le jeu se construirait
+# sans image, sans erreur visible : on refuse ici, avec la commande à lancer, plutôt que de
+# télécharger en silence à la configuration.
+option(SKIP_ASSET_KITS_CHECK "Désactiver la vérification des kits d'assets installés" OFF)
+set(_jadg_assets "${PROJECT_SOURCE_DIR}/Source/Elements/Assets")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${_jadg_assets}/kits.lock.json")
+if(NOT SKIP_ASSET_KITS_CHECK AND EXISTS "${_jadg_assets}/kits.lock.json")
+    file(READ "${_jadg_assets}/kits.lock.json" _jadg_lock)
+    string(JSON _jadg_kit_count LENGTH "${_jadg_lock}" kits)
+    set(_jadg_missing "")
+    if(_jadg_kit_count GREATER 0)
+        math(EXPR _jadg_last "${_jadg_kit_count} - 1")
+        foreach(_i RANGE ${_jadg_last})
+            string(JSON _jadg_path GET "${_jadg_lock}" kits ${_i} path)
+            string(JSON _jadg_sha GET "${_jadg_lock}" kits ${_i} sha256)
+            string(REPLACE "/" "-" _jadg_slug "${_jadg_path}")
+            string(TOLOWER "${_jadg_slug}" _jadg_slug)
+            set(_jadg_witness "${_jadg_assets}/.kits/${_jadg_slug}.json")
+            set(_jadg_ok FALSE)
+            if(EXISTS "${_jadg_witness}")
+                file(READ "${_jadg_witness}" _jadg_witness_json)
+                string(JSON _jadg_witness_sha ERROR_VARIABLE _jadg_err GET "${_jadg_witness_json}" sha256)
+                if(_jadg_witness_sha STREQUAL _jadg_sha)
+                    set(_jadg_ok TRUE)
+                endif()
+                set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${_jadg_witness}")
+            endif()
+            if(NOT _jadg_ok)
+                list(APPEND _jadg_missing "${_jadg_path}")
+            endif()
+        endforeach()
+    endif()
+    if(_jadg_missing)
+        list(JOIN _jadg_missing "\n  " _jadg_missing_text)
+        message(FATAL_ERROR
+            "Kits d'assets absents ou périmés :\n  ${_jadg_missing_text}\n"
+            "Les installer : python scripts/fetch_assets.py (scripts/build.ps1 le fait avant la "
+            "configuration). Passer -DSKIP_ASSET_KITS_CHECK=ON pour outrepasser.")
+    endif()
+endif()
+
 # --- Cohérence de l'environnement MSVC (générateurs hors Visual Studio) ---
 # Les générateurs Ninja / Makefiles n'établissent pas l'environnement MSVC : ils héritent des
 # variables LIB et INCLUDE du terminal appelant. Or une invite « Developer PowerShell/Command

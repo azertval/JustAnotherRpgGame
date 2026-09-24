@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-"""Le contrôle des assets HD installés (LOT-104) : citations, bornes du standard, budget par zone.
+"""Le contrôle des assets HD installés (LOT-104) : citations, bornes du standard, poids par zone.
 
 Éprouvé sur des arborescences écrites en temporaire : un contrôle vert sur le seul dépôt, où la
 plupart des dossiers sont encore vides, ne prouverait rien (la panne du LOT-78).
@@ -92,10 +92,14 @@ def test_un_png_sans_alpha_echoue(assets):
     assert any('RGBA 8 bits' in e for e in errors(root))
 
 
-def test_une_zone_au_dela_du_budget_echoue(assets, monkeypatch):
+def test_une_zone_lourde_passe(assets):
+    # Pas de budget de poids par zone (décision de l'auteur, 24 septembre 2026) : une pièce de
+    # 50 Mio échoue par sa taille de fichier, jamais une zone par la somme de ses pièces.
     root, _, _ = assets
-    monkeypatch.setattr(C, 'ZONE_BUDGET', 10)
-    assert any('budget' in e for e in errors(root))
+    report = C.check(root=root, maps_text='')
+    assert report.errors == []
+    assert not hasattr(C, 'ZONE_BUDGET')
+    assert report.weights
 
 
 def test_une_sous_zone_se_pese_a_part(assets):

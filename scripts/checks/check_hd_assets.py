@@ -11,10 +11,10 @@ rend impossible l'écart SILENCIEUX entre les deux :
 - une image que son manifeste ne cite pas — déposée à la main, ou restée d'une pièce renommée ;
 - une pièce hors des bornes du standard (`Planning/standards/style-2d-hd.md`) : PNG 32 bits, taille
   égale à celle que le manifeste déclare, 4096 px de côté au plus, une dalle de sol exactement au
-  losange du lieu, une ancre dans l'image, un losange de lieu égal à celui de sa région ;
-- une zone de plus de **40 Mio**, le budget de l'arborescence.
+  losange du lieu, une ancre dans l'image, un losange de lieu égal à celui de sa région.
 
-Le poids de chaque zone s'affiche, et s'écrit dans le résumé du job quand `GITHUB_STEP_SUMMARY`
+Une zone n'a **pas de budget de poids** (décision de l'auteur, 24 septembre 2026 : un jeu lourd
+mais riche plutôt que des kits bridés). Son poids s'affiche, et s'écrit dans le résumé du job quand `GITHUB_STEP_SUMMARY`
 est défini. Les assets installés s'écrivent par `scripts/assetsGeneration/install_hd_asset.py` ; ce contrôle n'a
 pas besoin des sources, qui ne sont pas versionnées.
 
@@ -42,7 +42,6 @@ TREES = ("Common", "Regions")
 # Le losange du standard, pour le commun du monde qui n'a pas de région.
 STANDARD_TILE = [256, 159]
 MAX_SIDE = 4096
-ZONE_BUDGET = 40 * 1024 * 1024
 IMAGES = (".png", ".jpg", ".jpeg")
 # Les dossiers qui font d'un dossier un lieu (zone ou sous-zone).
 PLACE_PARTS = ("Scene", "Characters", "Map")
@@ -263,9 +262,6 @@ def check(root: Path = ASSETS, maps_text: str | None = None) -> Report:
             if level is not None:
                 weight = weigh(directory, level)
                 report.weights.append((relative(directory, root), level, weight))
-                if not level.startswith("commun") and weight > ZONE_BUDGET:
-                    report.fail(f"{relative(directory, root)} : {mib(weight)}, au-delà du budget de "
-                                f"{mib(ZONE_BUDGET)} par zone")
     return report
 
 
@@ -274,11 +270,10 @@ def mib(size: int) -> str:
 
 
 def summary(report: Report) -> str:
-    lines = ["### Poids des zones (budget : 40 Mio par zone)", "",
-             "| Lieu | Niveau | Poids | Part du budget |", "|---|---|---:|---:|"]
+    lines = ["### Poids des zones (sans budget, pour mémoire)", "",
+             "| Lieu | Niveau | Poids |", "|---|---|---:|"]
     for place, level, weight in report.weights:
-        share = "—" if level.startswith("commun") else f"{weight / ZONE_BUDGET:.0%}"
-        lines.append(f"| `{place}` | {level} | {mib(weight)} | {share} |")
+        lines.append(f"| `{place}` | {level} | {mib(weight)} |")
     return "\n".join(lines) + "\n"
 
 

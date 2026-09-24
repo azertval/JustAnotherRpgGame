@@ -1,0 +1,470 @@
+{
+  "forced": [
+    {
+      "at": [
+        0,
+        0
+      ],
+      "type": "entry"
+    }
+  ],
+  "format": "jadg-editor-prefab",
+  "height": 9,
+  "layers": [
+    {
+      "kind": "ground",
+      "name": "sol",
+      "types": [
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty"
+      ]
+    },
+    {
+      "kind": "decor",
+      "name": "decor",
+      "pieces": [
+        {
+          "at": [
+            4,
+            1
+          ],
+          "piece": "access-arena-triumph-open-u-raised64",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            5,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            6,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            7,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            8,
+            2
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            5,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            6,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            7,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            8,
+            3
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            5,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            6,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            7,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            8,
+            4
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            2,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            4,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            5,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            6,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            7,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            8,
+            5
+          ],
+          "piece": "terrace-marble-landing",
+          "type": "wall"
+        },
+        {
+          "at": [
+            3,
+            6
+          ],
+          "piece": "stairs-monument-w4-nw",
+          "type": "wall"
+        }
+      ],
+      "types": [
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "wall",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "empty"
+      ]
+    }
+  ],
+  "place": "central-empire/capital/arenarea",
+  "version": 1,
+  "width": 11
+}

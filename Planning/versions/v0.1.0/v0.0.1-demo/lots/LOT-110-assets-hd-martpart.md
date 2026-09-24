@@ -15,7 +15,6 @@ livrables = [
 criteres = [
   "Toutes les pièces de l'inventaire ci-dessous paraissent dans la galerie, à l'échelle du standard.",
   "Aucune pièce ne double une pièce du kit commun.",
-  "La zone pèse moins de 40 Mio.",
 ]
 sources = [
   "Tanares Sourcebook, p. 98-99 ; plan VTT (référence seule) : Municipal Market, Stravian Av, Market Gate",

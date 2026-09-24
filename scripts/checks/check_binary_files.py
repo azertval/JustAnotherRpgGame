@@ -15,6 +15,10 @@ commit (hook pre-commit, sur les fichiers indexés) et en CI (sur tout le dépô
    PDF du corpus, que `EX-CNT-023` interdit de versionner, un exécutable, une archive) est refusé,
    et l'admettre revient à le déclarer — une décision relue, pas un accident. Un fichier est
    binaire s'il contient un octet nul dans ses premiers 8 Kio, le critère de git lui-même.
+3. **Aucune image suivie sous un kit verrouillé** (LOT-108). Les images d'un dossier cité par
+   `Source/Elements/Assets/kits.lock.json` viennent d'archives publiées (`scripts/fetch_assets.py`) :
+   les suivre à nouveau les remettrait dans l'historique pour toujours. Une retouche se publie
+   (`scripts/release/publish_asset_kit.py`), elle ne se commite pas.
 
 Usage :
   python scripts/checks/check_binary_files.py FICHIER...   (fichiers passés par pre-commit)
@@ -22,6 +26,7 @@ Usage :
   python scripts/checks/check_binary_files.py --auto-test
 """
 import argparse
+import json
 import os
 import re
 import subprocess
@@ -31,6 +36,8 @@ import tempfile
 MAX_BYTES = 5 * 1024 * 1024
 SNIFF_BYTES = 8000
 GITATTRIBUTES = '.gitattributes'
+KITS_LOCK = 'Source/Elements/Assets/kits.lock.json'
+KIT_IMAGES = ('.png', '.jpg', '.jpeg')
 BINARY_PATTERN_RE = re.compile(r'^\*(\.[A-Za-z0-9]+)\s+(?:.*\s)?binary(?:\s|$)')
 
 
@@ -66,6 +73,28 @@ def violations(paths, extensions, max_bytes=MAX_BYTES):
     return found
 
 
+def locked_kit_paths(lock_text):
+    """Les dossiers des kits verrouillés, relatifs à la racine du dépôt."""
+    kits = json.loads(lock_text).get('kits', [])
+    return ['Source/Elements/Assets/' + kit['path'].strip('/') + '/' for kit in kits]
+
+
+def locked_image_violations(paths, kit_paths):
+    """Les images que @p paths suivrait sous un kit verrouillé (règle 3)."""
+    found = []
+    for path in paths:
+        normalised = path.replace(os.sep, '/')
+        if not normalised.lower().endswith(KIT_IMAGES):
+            continue
+        for kit in kit_paths:
+            if normalised.startswith(kit):
+                found.append("%s : image d'un kit verrouillé (%s) ; elle se publie par "
+                             'scripts/release/publish_asset_kit.py, elle ne se suit pas.'
+                             % (path, kit.rstrip('/')))
+                break
+    return found
+
+
 def auto_test():
     """Éprouve les deux règles sur des fichiers écrits en temporaire : un contrôle qui n'a jamais
     refusé quoi que ce soit ne prouve pas qu'il en est capable."""
@@ -87,6 +116,14 @@ def auto_test():
         assert len(violations([pdf], extensions, 1024)) == 1
         assert len(violations([big], extensions, 1024)) == 1
         assert violations([os.path.join(root, 'absent.png')], extensions, 1024) == []
+    kits = locked_kit_paths('{"version": 1, "kits": [{"path": "UI"}, {"path": "Regions/r/zone"}]}')
+    assert locked_image_violations(['Source/Elements/Assets/UI/hud/a.png',
+                                    'Source/Elements/Assets/Regions/r/zone/Scene/b.PNG'], kits) != []
+    assert len(locked_image_violations(['Source/Elements/Assets/UI/hud/a.png',
+                                        'Source/Elements/Assets/Regions/r/zone/Scene/b.PNG'], kits)) == 2
+    assert locked_image_violations(['Source/Elements/Assets/Regions/r/zone/Scene/manifest.json',
+                                    'Source/Elements/Assets/Fonts/x.png',
+                                    'Source/Elements/Assets/Regions/r/zoneB/c.png'], kits) == []
     print('OK : auto-test du garde-fou binaires.')
 
 
@@ -117,6 +154,14 @@ def main():
         paths = arguments.files
 
     found = violations(paths, extensions)
+    if os.path.exists(KITS_LOCK):
+        # Seules comptent les images de l'index : une image retirée du suivi reste sur le disque, et
+        # `pre-commit --from-ref` la passe encore comme fichier changé.
+        index = subprocess.run(['git', 'ls-files', '-z'], capture_output=True, check=True)
+        indexed = set(index.stdout.decode('utf-8').split('\0'))
+        with open(KITS_LOCK, encoding='utf-8') as handle:
+            found += locked_image_violations([p for p in paths if p.replace(os.sep, '/') in indexed],
+                                             locked_kit_paths(handle.read()))
     for message in found:
         print('ERREUR : ' + message)
     if found:

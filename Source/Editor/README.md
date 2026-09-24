@@ -175,9 +175,8 @@ Depuis le `LOT-125`, le canevas, les vignettes et `--render` peignent l'art HD c
 **Les pixels de l'art peint, niveaux réduits compris, tiennent en 256 Mio**
 (`SCENE_IMAGES_DEFAULT_BUDGET_BYTES`), quel que soit le nombre d'onglets ouverts : au-delà, la
 pièce la moins récemment peinte est évincée, et se relit sur disque à la peinture suivante. Seules
-les images engendrées, de quelques kibioctets chacune, restent hors budget. Un kit de zone HD pèse
-moins de 40 Mio installé (budget de zone du `LOT-104`) ; décompressé en mémoire, il tient
-largement dans la borne. `test_scene_images.cpp` prouve le partage, le budget et la relecture.
+les images engendrées, de quelques kibioctets chacune, restent hors budget. Un kit de zone HD n'a pas
+de budget de poids (D-23) : c'est cette borne, et non le poids installé, qui tient la mémoire. `test_scene_images.cpp` prouve le partage, le budget et la relecture.
 
 Mesure de la peinture : `CanvasBenchmarks` (`Source/Benchmark/bench_canvas_paint.cpp`), publiée
 chaque nuit. Sur le poste de référence, en Release, la maquette HD se peint en 11,5 ms à 1080p et
