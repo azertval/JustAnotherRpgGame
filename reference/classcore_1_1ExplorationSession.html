@@ -177,6 +177,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a335330a71db09257b636e34996be93d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gèle ou dégèle la carte (dialogue, combat).  <br /></td></tr>
 <tr class="memitem:aef08d7c2386bfb79b7b5fa8f69c8f6b7" id="r_aef08d7c2386bfb79b7b5fa8f69c8f6b7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a> () const noexcept</td></tr>
 <tr class="memitem:a91c0efcf0eab8c834155e00174a0b094" id="r_a91c0efcf0eab8c834155e00174a0b094"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a91c0efcf0eab8c834155e00174a0b094">interactables</a> () const noexcept</td></tr>
+<tr class="memitem:abed6b3bacd660694b021eae60af04870" id="r_abed6b3bacd660694b021eae60af04870"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#abed6b3bacd660694b021eae60af04870">blockedByProps</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -188,7 +189,13 @@ Static Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a39d384fd1e8c3dccb780aa04017592d0" id="r_a39d384fd1e8c3dccb780aa04017592d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a39d384fd1e8c3dccb780aa04017592d0">rebuildInteractables</a> ()</td></tr>
-<tr class="memdesc:a39d384fd1e8c3dccb780aa04017592d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit les entités interactives <b>présentes</b> de la carte courante (changement de carte, drapeau changé).  <br /></td></tr>
+<tr class="memdesc:a39d384fd1e8c3dccb780aa04017592d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit les entités interactives <b>présentes</b> de la carte courante (changement de carte, drapeau changé), et les cases que ses décors présents arrêtent.  <br /></td></tr>
+<tr class="memitem:a80c93fd1d3b8b24ceda252f6f2b4dfda" id="r_a80c93fd1d3b8b24ceda252f6f2b4dfda"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80c93fd1d3b8b24ceda252f6f2b4dfda">resetZones</a> ()</td></tr>
+<tr class="memdesc:a80c93fd1d3b8b24ceda252f6f2b4dfda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note les zones à déclencheur où se tient le héros, <b>sans</b> les déclencher : on n'entre pas dans une zone où l'on arrive — sans quoi un transfert qui dépose dans une zone bouclerait.  <br /></td></tr>
+<tr class="memitem:a87c71d85e7609835ef01b410ece4b649" id="r_a87c71d85e7609835ef01b410ece4b649"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87c71d85e7609835ef01b410ece4b649">enterZones</a> (std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;events)</td></tr>
+<tr class="memdesc:a87c71d85e7609835ef01b410ece4b649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclenche les zones où le héros vient d'entrer (<span class="tt">LOT-126</span>) : drapeau, dialogue, transfert.  <br /></td></tr>
+<tr class="memitem:a0defabeea6eb8a73a301d3cc6a8fe94d" id="r_a0defabeea6eb8a73a301d3cc6a8fe94d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0defabeea6eb8a73a301d3cc6a8fe94d">arrived</a> (std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;events)</td></tr>
+<tr class="memdesc:a0defabeea6eb8a73a301d3cc6a8fe94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le héros sur la carte courante après un passage (portail ou transfert).  <br /></td></tr>
 <tr class="memitem:a371e5175317dc045a3020c27f35eed8e" id="r_a371e5175317dc045a3020c27f35eed8e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a371e5175317dc045a3020c27f35eed8e">fits</a> (<a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> point) const</td></tr>
 <tr class="memitem:a809f6f2a0566700a8250e1139c3e4491" id="r_a809f6f2a0566700a8250e1139c3e4491"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a809f6f2a0566700a8250e1139c3e4491">walk</a> (<a class="el" href="structcore_1_1Vector2.html">Vector2</a> move, float seconds)</td></tr>
 <tr class="memdesc:a809f6f2a0566700a8250e1139c3e4491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas.  <br /></td></tr>
@@ -205,6 +212,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a84f9e59d668bef42b6d18b2548fbee91" id="r_a84f9e59d668bef42b6d18b2548fbee91"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a84f9e59d668bef42b6d18b2548fbee91">_seenRevision</a> = 0</td></tr>
 <tr class="memdesc:a84f9e59d668bef42b6d18b2548fbee91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Révision des drapeaux que la liste des interactifs et les quêtes reflètent.  <br /></td></tr>
 <tr class="memitem:ae60b3de301ac07787799979e93fee49e" id="r_ae60b3de301ac07787799979e93fee49e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae60b3de301ac07787799979e93fee49e">_interactables</a></td></tr>
+<tr class="memitem:a401dd38b295e1dcd339da557ea5c49c3" id="r_a401dd38b295e1dcd339da557ea5c49c3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a401dd38b295e1dcd339da557ea5c49c3">_blocked</a></td></tr>
+<tr class="memdesc:a401dd38b295e1dcd339da557ea5c49c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cases arrêtées par les décors présents.  <br /></td></tr>
+<tr class="memitem:a7e8c8d77c368edc94820890ca0422e87" id="r_a7e8c8d77c368edc94820890ca0422e87"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e8c8d77c368edc94820890ca0422e87">_insideZones</a></td></tr>
+<tr class="memdesc:a7e8c8d77c368edc94820890ca0422e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang, dans les entités de la carte, des zones à déclencheur où se tient le héros.  <br /></td></tr>
 <tr class="memitem:a78990bfe40fea6c6f66a3d3322afe532" id="r_a78990bfe40fea6c6f66a3d3322afe532"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a78990bfe40fea6c6f66a3d3322afe532">_hero</a> {}</td></tr>
 <tr class="memitem:a6aac839cf41db1a8821d50f4da65ad16" id="r_a6aac839cf41db1a8821d50f4da65ad16"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6aac839cf41db1a8821d50f4da65ad16">_facing</a> {0.0F, 1.0F}</td></tr>
 <tr class="memitem:a8de37f24a97f9319f841c471451aadb2" id="r_a8de37f24a97f9319f841c471451aadb2"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8de37f24a97f9319f841c471451aadb2">_lastCell</a> {}</td></tr>
@@ -267,6 +278,59 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0defabeea6eb8a73a301d3cc6a8fe94d" name="a0defabeea6eb8a73a301d3cc6a8fe94d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0defabeea6eb8a73a301d3cc6a8fe94d">&#9670;&#160;</a></span>arrived()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::arrived </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>events</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose le héros sur la carte courante après un passage (portail ou transfert). </p>
+
+</div>
+</div>
+<a id="abed6b3bacd660694b021eae60af04870" name="abed6b3bacd660694b021eae60af04870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed6b3bacd660694b021eae60af04870">&#9670;&#160;</a></span>blockedByProps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp; core::ExplorationSession::blockedByProps </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les cases que les décors présents arrêtent (<span class="tt"><a class="el" href="namespacecore.html#a6656d1d305c8badc24a7cecb8c9ffa5c" title="Type d&#39;entité d&#39;un décor qui change (LOT-126) : une pièce du lieu posée comme entité,...">core::PROP_ENTITY_TYPE</a></span>, <span class="tt">LOT-126</span>) : une porte close est un mur tant qu'elle est là. </dd></dl>
+
+</div>
+</div>
 <a id="a29ef9f7951615bed2866ab6902a6ae1e" name="a29ef9f7951615bed2866ab6902a6ae1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a29ef9f7951615bed2866ab6902a6ae1e">&#9670;&#160;</a></span>crossPortal()</h2>
 
@@ -291,6 +355,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Franchit le portail de la case du héros, s'il y en a un. </p>
+
+</div>
+</div>
+<a id="a87c71d85e7609835ef01b410ece4b649" name="a87c71d85e7609835ef01b410ece4b649"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c71d85e7609835ef01b410ece4b649">&#9670;&#160;</a></span>enterZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::enterZones </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>events</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Déclenche les zones où le héros vient d'entrer (<span class="tt">LOT-126</span>) : drapeau, dialogue, transfert. </p>
 
 </div>
 </div>
@@ -680,7 +771,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Relit les entités interactives <b>présentes</b> de la carte courante (changement de carte, drapeau changé). </p>
+<p>Relit les entités interactives <b>présentes</b> de la carte courante (changement de carte, drapeau changé), et les cases que ses décors présents arrêtent. </p>
 
 </div>
 </div>
@@ -702,6 +793,33 @@ Private Attributes</h2></td></tr>
 <p>Tire les conséquences des drapeaux changés depuis le dernier appel : les quêtes avancent, et les entités de la carte paraissent ou disparaissent <b>sans la recharger</b>. </p>
 <p><span class="tt"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3" title="Avance d&#39;un pas de seconds.">update</a></span> l'appelle à chaque pas, gelée ou non ; l'appeler soi-même sert à qui vient d'écrire un drapeau hors d'un pas — un dialogue qui se referme — et veut le voir aussitôt.</p>
 <dl class="section return"><dt>Returns</dt><dd>Une <span class="tt">QuestAdvanced</span> par étape atteinte ; vide si rien n'a changé. </dd></dl>
+
+</div>
+</div>
+<a id="a80c93fd1d3b8b24ceda252f6f2b4dfda" name="a80c93fd1d3b8b24ceda252f6f2b4dfda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80c93fd1d3b8b24ceda252f6f2b4dfda">&#9670;&#160;</a></span>resetZones()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::resetZones </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Note les zones à déclencheur où se tient le héros, <b>sans</b> les déclencher : on n'entre pas dans une zone où l'on arrive — sans quoi un transfert qui dépose dans une zone bouclerait. </p>
 
 </div>
 </div>
@@ -820,7 +938,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Avance d'un pas de <code class="param">seconds</code>. </p>
-<p>L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on interagit. Marcher après avoir franchi ferait faire au héros un pas sur la carte d'arrivée avec l'intention qui l'a fait entrer. </p>
+<p>L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on entre dans les zones à déclencheur (<span class="tt">LOT-126</span>), puis on interagit. Marcher après avoir franchi ferait faire au héros un pas sur la carte d'arrivée avec l'intention qui l'a fait entrer. </p>
 
 </div>
 </div>
@@ -856,6 +974,30 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a401dd38b295e1dcd339da557ea5c49c3" name="a401dd38b295e1dcd339da557ea5c49c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a401dd38b295e1dcd339da557ea5c49c3">&#9670;&#160;</a></span>_blocked</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&gt; core::ExplorationSession::_blocked</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cases arrêtées par les décors présents. </p>
+
+</div>
+</div>
 <a id="a6aac839cf41db1a8821d50f4da65ad16" name="a6aac839cf41db1a8821d50f4da65ad16"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6aac839cf41db1a8821d50f4da65ad16">&#9670;&#160;</a></span>_facing</h2>
 
@@ -941,6 +1083,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e8c8d77c368edc94820890ca0422e87" name="a7e8c8d77c368edc94820890ca0422e87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e8c8d77c368edc94820890ca0422e87">&#9670;&#160;</a></span>_insideZones</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::size_t&gt; core::ExplorationSession::_insideZones</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rang, dans les entités de la carte, des zones à déclencheur où se tient le héros. </p>
 
 </div>
 </div>

@@ -1,4 +1,4 @@
 var RunInGameDialog_8cpp =
 [
-    [ "hmi::askRunInGame", "namespacehmi.html#a3fd89c262750f06eba4c24704e2d6573", null ]
+    [ "hmi::askRunInGame", "namespacehmi.html#a39d6b60cc1783f750bc5e0a68017b9ae", null ]
 ];

@@ -70,8 +70,10 @@ struct WorldGraphLayoutEdge {
     /// Statut affichÃ© : le premier statut non rÃ©solu des portails, dans l'ordre de `portals`, ou
     /// `Resolved` si tous le sont.
     core::PortalLinkStatus status = core::PortalLinkStatus::Resolved;
-    /// Vrai si au moins un portail de la flÃ¨che n'est pas rÃ©solu.
+    /// Vrai si au moins un portail de la flÃ¨che n'est pas rÃ©solu â un portail condamnÃ© exceptÃ©.
     bool broken = false;
+    /// Vrai si au moins un portail de la flÃ¨che est condamnÃ© (`LOT-126`) : pointillÃ©, sans erreur.
+    bool sealed = false;
     /// Vrai si la flÃ¨che part d'une carte et y revient (portail vers sa propre carte).
     bool selfLoop = false;
     /// Indices des portails regroupÃ©s, dans `core::WorldGraph::portals`, dans leur ordre.

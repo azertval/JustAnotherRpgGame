@@ -170,6 +170,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a5c6c78ce272ddc584a28ed01bb2fff18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail exige un drapeau que la partie n'a pas (<span class="tt">flag</span>).  <br /></td></tr>
 <tr class="memitem:aa3ef96cd7fd6a36d234a4e633abce224" id="r_aa3ef96cd7fd6a36d234a4e633abce224"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa3ef96cd7fd6a36d234a4e633abce224">portalBroken</a> (const QString &amp;<a class="el" href="#ab5652e80c0a82a34c055391a09bf9383">mapId</a>)</td></tr>
 <tr class="memdesc:aa3ef96cd7fd6a36d234a4e633abce224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail ne mène nulle part : la carte ou le point d'arrivée manque.  <br /></td></tr>
+<tr class="memitem:a852e806d47fc1182ecd2cfec8ab6a528" id="r_a852e806d47fc1182ecd2cfec8ab6a528"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a852e806d47fc1182ecd2cfec8ab6a528">portalSealed</a> (const QString &amp;<a class="el" href="#ab5652e80c0a82a34c055391a09bf9383">mapId</a>)</td></tr>
+<tr class="memdesc:a852e806d47fc1182ecd2cfec8ab6a528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail est condamné (<span class="tt">LOT-126</span>) : il est là, il ne s'ouvre pas.  <br /></td></tr>
 <tr class="memitem:ab475b1b1da2ebf4bb6169abcdc93795f" id="r_ab475b1b1da2ebf4bb6169abcdc93795f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab475b1b1da2ebf4bb6169abcdc93795f">questAdvanced</a> (const QString &amp;quest, const QString &amp;<a class="el" href="#a3abef1c2c71454c345db59ef5dd3c892">step</a>)</td></tr>
 <tr class="memdesc:ab475b1b1da2ebf4bb6169abcdc93795f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête a atteint une étape (<span class="tt">quest</span>) : le journal se relit.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -1004,6 +1006,33 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Un portail exige un drapeau que la partie n'a pas (<span class="tt">flag</span>). </p>
+
+</div>
+</div>
+<a id="a852e806d47fc1182ecd2cfec8ab6a528" name="a852e806d47fc1182ecd2cfec8ab6a528"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a852e806d47fc1182ecd2cfec8ab6a528">&#9670;&#160;</a></span>portalSealed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::portalSealed </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un portail est condamné (<span class="tt">LOT-126</span>) : il est là, il ne s'ouvre pas. </p>
 
 </div>
 </div>

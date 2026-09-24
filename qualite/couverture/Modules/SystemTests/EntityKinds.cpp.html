@@ -57,14 +57,29 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
                               .defaultValue = std::string{}};
 <span style = "background-color:#dfd">}</span>
 
-<span style = "background-color:#dfd">[[nodiscard]] EntityPropertySpec boolean(std::string_view key) {
+<span style = "background-color:#dfd">[[nodiscard]] EntityPropertySpec boolean(std::string_view key, bool byDefault = false) {
     return EntityPropertySpec{.key = key,</span>
                               .kind = EntityPropertyKind::Boolean,
                               .source = EntityChoiceSource::Fixed,
                               .fixedChoices = {},
                               .required = false,
-                              .defaultValue = false};
+                              .defaultValue = byDefault};
 <span style = "background-color:#dfd">}</span>
+
+// Un choix qui depend d'une autre propriete de l'entite : la carte d'un point d'arrivee, le
+// drapeau de ses valeurs.
+[[nodiscard]] EntityPropertySpec related(std::string_view key, EntityChoiceSource source,
+<span style = "background-color:#dfd">                                         std::string_view relatedKey, bool required = false) {
+    EntityPropertySpec spec = choice(key, source, required);
+    spec.relatedKey = relatedKey;
+    return spec;
+}</span>
+
+// Requise, sauf quand le booleen @p waivedBy est vrai.
+<span style = "background-color:#dfd">[[nodiscard]] EntityPropertySpec waived(EntityPropertySpec spec, std::string_view waivedBy) {
+    spec.waivedBy = waivedBy;
+    return spec;
+}</span>
 
 // Un entier requis, borne par le bas, qui vaut son minimum a la creation.
 [[nodiscard]] EntityPropertySpec atLeast(std::string_view key, std::int64_t minimum,
@@ -94,8 +109,8 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const PropertyMap&amp; properties, std::string_view key) {
     const auto found = properties.find(std::string{key});
-    if (found == properties.end()) {</span>
-<span style = "background-color:#fdd">        return {};</span>
+    if (found == properties.end()) {
+        return {};</span>
     }
 <span style = "background-color:#dfd">    const auto* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
     return text != nullptr ? *text : std::string{};
@@ -135,14 +150,19 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
                                   boolean(ENCOUNTER_RESPAWNS_PROPERTY)},
                    .labelProperty = ENCOUNTER_ID_PROPERTY},
         // Portail et point d'arrivee (LOT-11, traverses au LOT-09). Le drapeau exige n'est pas
-        // requis : un portail ordinaire s'ouvre toujours.
+        // requis : un portail ordinaire s'ouvre toujours. Un portail condamne (LOT-126) n'a ni
+        // cible ni arrivee a nommer.
         EntityKind{.type = PORTAL_ENTITY_TYPE,
-                   .properties = {choice(PORTAL_TARGET_MAP_PROPERTY, EntityChoiceSource::Maps,
-                                         /*required=*/true),
-                                  choice(PORTAL_ARRIVAL_PROPERTY, EntityChoiceSource::ArrivalPoints,
-                                         /*required=*/true),
+                   .properties = {waived(choice(PORTAL_TARGET_MAP_PROPERTY,
+                                                EntityChoiceSource::Maps, /*required=*/true),
+                                         PORTAL_SEALED_PROPERTY),
+                                  waived(related(PORTAL_ARRIVAL_PROPERTY,
+                                                 EntityChoiceSource::ArrivalPoints,
+                                                 PORTAL_TARGET_MAP_PROPERTY, /*required=*/true),
+                                         PORTAL_SEALED_PROPERTY),
                                   choice(PORTAL_REQUIRED_FLAG_PROPERTY, EntityChoiceSource::Flags,
-                                         /*required=*/false)},
+                                         /*required=*/false),
+                                  boolean(PORTAL_SEALED_PROPERTY)},
                    .labelProperty = PORTAL_TARGET_MAP_PROPERTY},
         EntityKind{.type = SPAWN_POINT_ENTITY_TYPE,
                    .properties = {text(SPAWN_POINT_NAME_PROPERTY, /*required=*/true)},
@@ -164,13 +184,43 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
         // Zone de regles (D13, lue par BattleGrid) : un rectangle ou des cases peintes. Sa taille
         // n'est pas requise -- une zone peinte n'en a pas. Le nom n'est lu par personne : il sert a
         // la reconnaitre dans la liste.
-        EntityKind{.type = ZONE_ENTITY_TYPE,
-                   .properties = {text(ZONE_NAME_PROPERTY, /*required=*/false),
-                                  boolean(DIFFICULT_TERRAIN_PROPERTY),
-                                  atLeast(ZONE_WIDTH_PROPERTY, 1, /*required=*/false),
-                                  atLeast(ZONE_HEIGHT_PROPERTY, 1, /*required=*/false)},
-                   .shape = EntityShape::Area,
-                   .labelProperty = ZONE_NAME_PROPERTY},
+        // Ses declencheurs (LOT-126) : ce qu'elle fait quand le heros y entre -- un dialogue, un
+        // drapeau pose, un transfert. Aucun n'est requis : une zone de regles ne declenche rien.
+        EntityKind{
+            .type = ZONE_ENTITY_TYPE,
+            .properties = {text(ZONE_NAME_PROPERTY, /*required=*/false),
+                           boolean(DIFFICULT_TERRAIN_PROPERTY),
+                           atLeast(ZONE_WIDTH_PROPERTY, 1, /*required=*/false),
+                           atLeast(ZONE_HEIGHT_PROPERTY, 1, /*required=*/false),
+                           choice(ZONE_TRIGGER_DIALOGUE_PROPERTY, EntityChoiceSource::Dialogues,
+                                  /*required=*/false),
+                           choice(ZONE_TRIGGER_FLAG_PROPERTY, EntityChoiceSource::WrittenFlags,
+                                  /*required=*/false),
+<span style = "background-color:#dfd">                           [] {
+                               EntityPropertySpec value = related(ZONE_TRIGGER_VALUE_PROPERTY,</span>
+                                                                  EntityChoiceSource::FlagValues,
+                                                                  ZONE_TRIGGER_FLAG_PROPERTY);
+<span style = "background-color:#dfd">                               value.writesFlag = true;
+                               return value;
+                           }(),</span>
+                           choice(ZONE_TRIGGER_MAP_PROPERTY, EntityChoiceSource::Maps,
+                                  /*required=*/false),
+                           related(ZONE_TRIGGER_ARRIVAL_PROPERTY, EntityChoiceSource::ArrivalPoints,
+                                   ZONE_TRIGGER_MAP_PROPERTY),
+                           boolean(ZONE_TRIGGER_ONCE_PROPERTY)},
+            .shape = EntityShape::Area,
+            .labelProperty = ZONE_NAME_PROPERTY},
+        // Decor qui change (LOT-126) : une piece du lieu, son emprise en rectangle -- prise au
+        // manifeste quand on choisit la piece --, et le pas qu'elle arrete tant qu'elle est la.
+        EntityKind{
+            .type = PROP_ENTITY_TYPE,
+            .properties = {choice(PROP_PIECE_PROPERTY, EntityChoiceSource::Pieces,
+                                  /*required=*/true),
+                           boolean(PROP_BLOCKS_PROPERTY, /*byDefault=*/true),
+                           atLeast(SHAPE_WIDTH_PROPERTY, 1), atLeast(SHAPE_HEIGHT_PROPERTY, 1)},
+            .shape = EntityShape::Rectangle,
+            .labelProperty = PROP_PIECE_PROPERTY,
+            .pieceProperty = PROP_PIECE_PROPERTY},
         // Trajet (LOT-70, LOT-82) : ses horaires viendront avec l'horloge du LOT-70.
         EntityKind{.type = ROUTE_ENTITY_TYPE,
                    .properties = {text(ROUTE_NAME_PROPERTY, /*required=*/true),
@@ -191,6 +241,41 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
 <span style = "background-color:#dfd">    return familles;
 }</span>
 
+<span style = "background-color:#dfd">const std::vector&lt;EntityPropertySpec&gt;&amp; commonEntityProperties() {
+    static const std::vector&lt;EntityPropertySpec&gt; communes = {</span>
+        choice(PRESENCE_FLAG_PROPERTY, EntityChoiceSource::Flags, /*required=*/false),
+        EntityPropertySpec{.key = PRESENCE_TEST_PROPERTY,
+                           .kind = EntityPropertyKind::Choice,
+                           .source = EntityChoiceSource::Fixed,
+                           .fixedChoices = {"set", "unset", "equals", "notEquals"},
+                           .required = false,
+                           .defaultValue = std::string{}},
+        related(PRESENCE_VALUE_PROPERTY, EntityChoiceSource::FlagValues, PRESENCE_FLAG_PROPERTY),
+    };
+<span style = "background-color:#dfd">    return communes;
+}</span>
+
+<span style = "background-color:#fdd">std::vector&lt;const EntityPropertySpec*&gt; inspectedProperties(const EntityKind&amp; kind) {
+    std::vector&lt;const EntityPropertySpec*&gt; specs;
+    for (const EntityPropertySpec&amp; spec : kind.properties) {
+        specs.push_back(&amp;spec);
+    }
+    for (const EntityPropertySpec&amp; spec : commonEntityProperties()) {
+        if (kind.find(spec.key) == nullptr) {
+            specs.push_back(&amp;spec);</span>
+        }
+<span style = "background-color:#fdd">    }
+    return specs;
+}</span>
+
+<span style = "background-color:#dfd">const EntityPropertySpec* findInspectedProperty(const EntityKind&amp; kind, std::string_view key) {
+    if (const EntityPropertySpec* const own = kind.find(key)) {</span>
+<span style = "background-color:#fdd">        return own;</span>
+    }
+<span style = "background-color:#dfd">    const auto found = std::ranges::find(commonEntityProperties(), key, &amp;EntityPropertySpec::key);
+    return found != commonEntityProperties().end() ? &amp;*found : nullptr;
+}</span>
+
 <span style = "background-color:#dfd">const EntityKind* findEntityKind(std::string_view type) {
     const auto found = std::ranges::find(knownEntityKinds(), type, &amp;EntityKind::type);
     return found != knownEntityKinds().end() ? &amp;*found : nullptr;
@@ -202,6 +287,30 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
         entity.properties.emplace(std::string{spec.key}, spec.defaultValue);
     }
     return entity;
+}</span>
+
+<span style = "background-color:#dfd">std::set&lt;std::string, std::less&lt;&gt;&gt; flagsSetByEntities(const std::vector&lt;MapEntity&gt;&amp; entities) {
+    std::set&lt;std::string, std::less&lt;&gt;&gt; flags;
+    for (const MapEntity&amp; entity : entities) {
+        if (entity.type != ZONE_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (std::string flag = textOf(entity.properties, ZONE_TRIGGER_FLAG_PROPERTY);
+            !flag.empty()) {
+            flags.insert(std::move(flag));
+        }
+    }
+    return flags;
+}</span>
+
+<span style = "background-color:#dfd">bool isSealedPortal(const MapEntity&amp; entity) {
+    if (entity.type != PORTAL_ENTITY_TYPE) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto found = entity.properties.find(std::string{PORTAL_SEALED_PROPERTY});
+    const bool* const sealed =</span>
+        found != entity.properties.end() ? std::get_if&lt;bool&gt;(&amp;found-&gt;second) : nullptr;
+<span style = "background-color:#dfd">    return sealed != nullptr &amp;&amp; *sealed;
 }</span>
 
 <span style = "background-color:#dfd">std::set&lt;std::string, std::less&lt;&gt;&gt; arrivalPointNames(const std::vector&lt;MapEntity&gt;&amp; entities) {
@@ -219,6 +328,23 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
 }</span>
 
 namespace {
+
+// Vrai si une quete declare pour @p flag chacune des valeurs de @p text (`a|b`) -- une seule
+// valeur, telle quelle, si l'entite la POSE : on ne donne pas deux valeurs a un drapeau.
+[[nodiscard]] bool declaresValues(const EntityReferenceContext&amp; context, std::string_view flag,
+<span style = "background-color:#dfd">                                  std::string_view text, bool single) {
+    const auto declared = context.flagValues.find(flag);
+    if (declared == context.flagValues.end()) {
+        return false;  // aucune quete ne declare ce drapeau : il n'a pas de valeurs.</span>
+    }
+<span style = "background-color:#dfd">    if (single) {
+        return declared-&gt;second.contains(text);</span>
+    }
+<span style = "background-color:#fdd">    const std::vector&lt;std::string&gt; values = splitFlagValues(text);
+    return !values.empty() &amp;&amp; std::ranges::all_of(values, [&amp;declared](const std::string&amp; value) {
+        return declared-&gt;second.contains(value);
+    });</span>
+<span style = "background-color:#dfd">}</span>
 
 // Defaut d'une propriete de choix non vide : la valeur n'est pas dans la liste que la source
 // designe. Rien pour une valeur admise.
@@ -252,7 +378,8 @@ namespace {
             // Un point d'arrivee ne se juge que dans une carte connue : une carte inconnue
             // est deja signalee, et la signaler deux fois n'apprendrait rien.
 <span style = "background-color:#dfd">            const auto target = context.arrivalPointsByMap.find(</span>
-                textOf(entity.properties, PORTAL_TARGET_MAP_PROPERTY));
+                textOf(entity.properties,
+                       spec.relatedKey.empty() ? PORTAL_TARGET_MAP_PROPERTY : spec.relatedKey));
 <span style = "background-color:#dfd">            if (target != context.arrivalPointsByMap.end() &amp;&amp; !target-&gt;second.contains(text)) {
                 return EntityIssueCode::UnknownArrivalPoint;</span>
             }
@@ -282,9 +409,43 @@ namespace {
 <span style = "background-color:#fdd">            if (!context.entityRefs.contains(text)) {
                 return EntityIssueCode::UnknownEntityRef;</span>
             }
+<span style = "background-color:#fdd">            break;</span>
+        case EntityChoiceSource::FlagValues:
+<span style = "background-color:#dfd">            if (!declaresValues(context, textOf(entity.properties, spec.relatedKey), text,</span>
+                                spec.writesFlag)) {
+<span style = "background-color:#dfd">                return EntityIssueCode::UndeclaredFlagValue;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case EntityChoiceSource::WrittenFlags:
+<span style = "background-color:#fdd">            break;  // l'entite le pose : il n'a pas a l'etre ailleurs.</span>
+        case EntityChoiceSource::Pieces:
+            // Un lieu inconnu ne dit rien de ses pieces : c'est le lieu qui manque, pas elles.
+<span style = "background-color:#fdd">            if (!context.pieces.empty() &amp;&amp; !context.pieces.contains(text)) {
+                return EntityIssueCode::UnknownPiece;</span>
+            }
             break;
     }
 <span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+// Vrai si @p spec est requise sur @p entity : par sa declaration, sauf si son booleen de dispense
+// est vrai ; ou parce qu'elle donne sa valeur a un drapeau qu'une quete declare.
+[[nodiscard]] bool isRequired(const MapEntity&amp; entity, const EntityPropertySpec&amp; spec,
+<span style = "background-color:#dfd">                              const EntityReferenceContext&amp; context) {
+    if (spec.writesFlag &amp;&amp;</span>
+        context.flagValues.contains(textOf(entity.properties, spec.relatedKey))) {
+<span style = "background-color:#dfd">        return true;</span>
+    }
+<span style = "background-color:#dfd">    if (!spec.required) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (spec.waivedBy.empty()) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const auto waiver = entity.properties.find(std::string{spec.waivedBy});
+    const bool* const waived =</span>
+        waiver != entity.properties.end() ? std::get_if&lt;bool&gt;(&amp;waiver-&gt;second) : nullptr;
+<span style = "background-color:#dfd">    return waived == nullptr || !*waived;
 }</span>
 
 // Defaut d'une propriete de l'entite au regard de sa specification, avec la valeur a citer.
@@ -293,8 +454,9 @@ namespace {
     const MapEntity&amp; entity, const EntityPropertySpec&amp; spec,
 <span style = "background-color:#dfd">    const EntityReferenceContext&amp; context) {
     const auto found = entity.properties.find(std::string{spec.key});
+    const bool required = isRequired(entity, spec, context);
     if (found == entity.properties.end()) {
-        if (spec.required) {
+        if (required) {
             return std::pair{EntityIssueCode::MissingProperty, std::string{}};</span>
         }
 <span style = "background-color:#dfd">        return std::nullopt;</span>
@@ -313,7 +475,7 @@ namespace {
         return std::nullopt;  // booleen du bon type : rien d'autre a verifier.</span>
     }
 <span style = "background-color:#dfd">    if (text-&gt;empty()) {
-        if (spec.required) {
+        if (required) {
             return std::pair{EntityIssueCode::MissingProperty, std::string{}};</span>
         }
 <span style = "background-color:#dfd">        return std::nullopt;</span>
@@ -354,8 +516,19 @@ void presenceIssues(const MapEntity&amp; entity, const EntityReferenceContext&am
 <span style = "background-color:#fdd">            report(EntityIssueCode::InvalidPresence, PRESENCE_FLAG_PROPERTY, std::string{});
             return;</span>
     }
-<span style = "background-color:#dfd">    if (read.condition &amp;&amp; !context.flags.contains(read.condition-&gt;flag)) {
+<span style = "background-color:#dfd">    if (!read.condition) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (!context.flags.contains(read.condition-&gt;flag)) {
         report(EntityIssueCode::UnsetFlag, PRESENCE_FLAG_PROPERTY, read.condition-&gt;flag);</span>
+    }
+    // Une valeur qu'aucune quete ne declare pour ce drapeau (LOT-126) : `equals` ne tiendrait
+    // jamais, `notEquals` toujours -- une faute de frappe dans les deux cas.
+<span style = "background-color:#dfd">    const auto declared = context.flagValues.find(read.condition-&gt;flag);
+    for (const std::string&amp; value : read.condition-&gt;values) {
+        if (declared == context.flagValues.end() || !declared-&gt;second.contains(value)) {
+            report(EntityIssueCode::UndeclaredFlagValue, PRESENCE_VALUE_PROPERTY, value);</span>
+        }
     }
 <span style = "background-color:#dfd">}</span>
 

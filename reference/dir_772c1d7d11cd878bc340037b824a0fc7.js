@@ -66,5 +66,7 @@ var dir_772c1d7d11cd878bc340037b824a0fc7 =
     [ "WorldGraphLayout.cpp", "WorldGraphLayout_8cpp.html", "WorldGraphLayout_8cpp" ],
     [ "WorldGraphLayout.h", "WorldGraphLayout_8h.html", "WorldGraphLayout_8h" ],
     [ "WorldLinks.cpp", "WorldLinks_8cpp.html", "WorldLinks_8cpp" ],
-    [ "WorldLinks.h", "WorldLinks_8h.html", "WorldLinks_8h" ]
+    [ "WorldLinks.h", "WorldLinks_8h.html", "WorldLinks_8h" ],
+    [ "WorldState.cpp", "WorldState_8cpp.html", "WorldState_8cpp" ],
+    [ "WorldState.h", "WorldState_8h.html", "WorldState_8h" ]
 ];

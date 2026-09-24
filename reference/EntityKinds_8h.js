@@ -14,7 +14,10 @@ var EntityKinds_8h =
       [ "core::EntityChoiceSource::Flags", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a4ea7801f17a4e5485e8b050c052fb443", null ],
       [ "core::EntityChoiceSource::Locations", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37aeebd338ddbd547e41e4a1296de82963a", null ],
       [ "core::EntityChoiceSource::Items", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a9dea4016dbcc290b773ab2fae678aaa8", null ],
-      [ "core::EntityChoiceSource::EntityRefs", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06", null ]
+      [ "core::EntityChoiceSource::EntityRefs", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06", null ],
+      [ "core::EntityChoiceSource::FlagValues", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37aafb350ffb3189b8f2272554c4e8b6777", null ],
+      [ "core::EntityChoiceSource::WrittenFlags", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a06edcdba5ae085be3795de869b9a88d5", null ],
+      [ "core::EntityChoiceSource::Pieces", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a2785cd3dc5fd7af0107524e40e3e73c1", null ]
     ] ],
     [ "core::EntityIssueCode", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035e", [
       [ "core::EntityIssueCode::UnknownType", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea916c74f40cb3a7d245c9f9eefde044db", null ],
@@ -32,7 +35,9 @@ var EntityKinds_8h =
       [ "core::EntityIssueCode::UnknownLocation", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4", null ],
       [ "core::EntityIssueCode::UnknownItem", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af", null ],
       [ "core::EntityIssueCode::UnknownEntityRef", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f", null ],
-      [ "core::EntityIssueCode::InvalidPresence", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644", null ]
+      [ "core::EntityIssueCode::InvalidPresence", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644", null ],
+      [ "core::EntityIssueCode::UndeclaredFlagValue", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ead77aeb58096115840558f741fb7d8564", null ],
+      [ "core::EntityIssueCode::UnknownPiece", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea971d3169ef93ea76d456b7149e456ee1", null ]
     ] ],
     [ "core::EntityPropertyKind", "namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e", [
       [ "core::EntityPropertyKind::Text", "namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea9dffbf69ffba8bc38bc4e01abf4b1675", null ],
@@ -47,14 +52,23 @@ var EntityKinds_8h =
       [ "core::EntityShape::Path", "namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9aac70412e939d72a9234cdebb1af5867b", null ]
     ] ],
     [ "core::arrivalPointNames", "namespacecore.html#abc06c6673c9166f8a66a174e7b12b58f", null ],
+    [ "core::commonEntityProperties", "namespacecore.html#a3b401d6cc78df915d5a4dd0c8f7dbcc9", null ],
     [ "core::findEntityKind", "namespacecore.html#adac8d52fca402a3edb35f19ad4ee4af1", null ],
+    [ "core::findInspectedProperty", "namespacecore.html#a2ab292c1b06bcdd811a95aa86cb6b22e", null ],
+    [ "core::flagsSetByEntities", "namespacecore.html#a8758bf8ab1ee86c1bf25921336b283ce", null ],
+    [ "core::inspectedProperties", "namespacecore.html#a188546c2a734bbc4d40876346e4e5841", null ],
+    [ "core::isSealedPortal", "namespacecore.html#a1da815012585cb7698ce349cc20650e3", null ],
     [ "core::knownEntityKinds", "namespacecore.html#a3c877363f8258fc1ba137c48aa283397", null ],
     [ "core::makeEntity", "namespacecore.html#a88adb5289b8943d6a8f1f33b3d296e73", null ],
     [ "core::validateMapEntities", "namespacecore.html#a0482bd5ffd0165e722879709e592607e", null ],
     [ "core::PORTAL_ARRIVAL_PROPERTY", "namespacecore.html#a2bdd68935267992786c0b5e9fcb2b153", null ],
     [ "core::PORTAL_ENTITY_TYPE", "namespacecore.html#ae8c8163510cf5011c7db67f7f96ea761", null ],
     [ "core::PORTAL_REQUIRED_FLAG_PROPERTY", "namespacecore.html#a109d5133c9ae9af8f88a4c4b40267419", null ],
+    [ "core::PORTAL_SEALED_PROPERTY", "namespacecore.html#a5a0d6a2fada39a019016dc35541b0da0", null ],
     [ "core::PORTAL_TARGET_MAP_PROPERTY", "namespacecore.html#a01ea80a94b6d563987d5ff486a2dcd31", null ],
+    [ "core::PROP_BLOCKS_PROPERTY", "namespacecore.html#aa3c04bebcf0f92de3a74c90074ace3a2", null ],
+    [ "core::PROP_ENTITY_TYPE", "namespacecore.html#a6656d1d305c8badc24a7cecb8c9ffa5c", null ],
+    [ "core::PROP_PIECE_PROPERTY", "namespacecore.html#a8ba7a56f8466e0273ade4b58381e5b07", null ],
     [ "core::ROUTE_ENTITY_TYPE", "namespacecore.html#a0fe304f84c3b2f39219fd28296982945", null ],
     [ "core::ROUTE_LOOP_PROPERTY", "namespacecore.html#ac541942d62f7957cde3f8c36f9f02353", null ],
     [ "core::ROUTE_NAME_PROPERTY", "namespacecore.html#acb8dfe24f7b8464d68b8f1fd3cef1697", null ],
@@ -62,5 +76,11 @@ var EntityKinds_8h =
     [ "core::SHAPE_WIDTH_PROPERTY", "namespacecore.html#a63a25424abfa6e4563a86652fef27492", null ],
     [ "core::SPAWN_POINT_ENTITY_TYPE", "namespacecore.html#a14b37b629c559f3f0bcc2481f4178393", null ],
     [ "core::SPAWN_POINT_NAME_PROPERTY", "namespacecore.html#a4cd504e13e1cafd2e4759e9c0f3a9970", null ],
-    [ "core::ZONE_NAME_PROPERTY", "namespacecore.html#a0b994a5837bad127870719860ea34002", null ]
+    [ "core::ZONE_NAME_PROPERTY", "namespacecore.html#a0b994a5837bad127870719860ea34002", null ],
+    [ "core::ZONE_TRIGGER_ARRIVAL_PROPERTY", "namespacecore.html#a64556317e7c17619a71b035ed9a1bb14", null ],
+    [ "core::ZONE_TRIGGER_DIALOGUE_PROPERTY", "namespacecore.html#a1ad651b81526376d43068407463ffffd", null ],
+    [ "core::ZONE_TRIGGER_FLAG_PROPERTY", "namespacecore.html#a0cb273fff48ae92e4dc7183b9c16159a", null ],
+    [ "core::ZONE_TRIGGER_MAP_PROPERTY", "namespacecore.html#a14489582835f92b5ee87756dafb78aa0", null ],
+    [ "core::ZONE_TRIGGER_ONCE_PROPERTY", "namespacecore.html#a3c9b15b19f6ae204c944e5ac6e125217", null ],
+    [ "core::ZONE_TRIGGER_VALUE_PROPERTY", "namespacecore.html#a62425ac232b89016389b861948ee5139", null ]
 ];

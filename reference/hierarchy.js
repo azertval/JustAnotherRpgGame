@@ -383,7 +383,8 @@ var hierarchy =
       [ "hmi::MiniMap", "classhmi_1_1MiniMap.html", null ],
       [ "hmi::PalettePanel", "classhmi_1_1PalettePanel.html", null ],
       [ "hmi::ProblemsPanel", "classhmi_1_1ProblemsPanel.html", null ],
-      [ "hmi::WorldGraphView", "classhmi_1_1WorldGraphView.html", null ]
+      [ "hmi::WorldGraphView", "classhmi_1_1WorldGraphView.html", null ],
+      [ "hmi::WorldStateEditor", "classhmi_1_1WorldStateEditor.html", null ]
     ] ],
     [ "core::ReachableArea", "classcore_1_1ReachableArea.html", null ],
     [ "core::Rect", "structcore_1_1Rect.html", null ],
@@ -477,6 +478,9 @@ var hierarchy =
     [ "hmi::WorldSceneRenderer", "classhmi_1_1WorldSceneRenderer.html", null ],
     [ "hmi::WorldSceneSnapshot", "structhmi_1_1WorldSceneSnapshot.html", null ],
     [ "hmi::WorldSceneSource", "structhmi_1_1WorldSceneSource.html", null ],
+    [ "hmi::WorldStateChoice", "structhmi_1_1WorldStateChoice.html", null ],
+    [ "hmi::WorldStateEntry", "structhmi_1_1WorldStateEntry.html", null ],
+    [ "hmi::WorldStateFlags", "structhmi_1_1WorldStateFlags.html", null ],
     [ "hmi::WorldStoreySnapshot", "structhmi_1_1WorldStoreySnapshot.html", null ],
     [ "core::WorldTravel", "classcore_1_1WorldTravel.html", null ],
     [ "core::BattleGrid::Zone", "structcore_1_1BattleGrid_1_1Zone.html", null ]

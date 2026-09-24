@@ -7,6 +7,7 @@ var WorldTravel_8h =
       [ "core::TravelResult::Moved", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69", null ],
       [ "core::TravelResult::NoPortal", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487af0fcaa0b56785ac150159231cced69e4", null ],
       [ "core::TravelResult::Locked", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487ad0f2e5376298c880665077b565ffd7dd", null ],
+      [ "core::TravelResult::Sealed", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a9b965a5a6e503feba7eda0d4e32fc98c", null ],
       [ "core::TravelResult::UnreadableMap", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487ad6943dc979e8a23ad652b8f5b292b2b1", null ],
       [ "core::TravelResult::UnknownArrival", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a12f7ffd3e3b664dac8d73d3e586c17fd", null ]
     ] ],

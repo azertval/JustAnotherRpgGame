@@ -35,5 +35,7 @@ var dir_81129cf20409270d9237df2d6b07b076 =
     [ "ScenePainter.cpp", "ScenePainter_8cpp.html", "ScenePainter_8cpp" ],
     [ "ScenePainter.h", "ScenePainter_8h.html", "ScenePainter_8h" ],
     [ "WorldGraphView.cpp", "WorldGraphView_8cpp.html", null ],
-    [ "WorldGraphView.h", "WorldGraphView_8h.html", "WorldGraphView_8h" ]
+    [ "WorldGraphView.h", "WorldGraphView_8h.html", "WorldGraphView_8h" ],
+    [ "WorldStateEditor.cpp", "WorldStateEditor_8cpp.html", "WorldStateEditor_8cpp" ],
+    [ "WorldStateEditor.h", "WorldStateEditor_8h.html", "WorldStateEditor_8h" ]
 ];

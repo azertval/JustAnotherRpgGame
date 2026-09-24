@@ -7,10 +7,16 @@ var searchData=
   ['zone_5fentity_5ftype_4',['ZONE_ENTITY_TYPE',['../namespacecore.html#ac09dbc5848329505d30e5ab32b462538',1,'core']]],
   ['zone_5fheight_5fproperty_5',['ZONE_HEIGHT_PROPERTY',['../namespacecore.html#a444fa8848bf1762434e629e734038e20',1,'core']]],
   ['zone_5fname_5fproperty_6',['ZONE_NAME_PROPERTY',['../namespacecore.html#a0b994a5837bad127870719860ea34002',1,'core']]],
-  ['zone_5fwidth_5fproperty_7',['ZONE_WIDTH_PROPERTY',['../namespacecore.html#a3d0539dc27a6ab16c279522c6a60e76e',1,'core']]],
-  ['zonecells_8',['zoneCells',['../namespacecore.html#acdcfbe0879d84908d423e478039532c3',1,'core']]],
-  ['zonesat_9',['zonesAt',['../classcore_1_1BattleGrid.html#a0c816b168810ff9052c1f41225f44186',1,'core::BattleGrid']]],
-  ['zoom_10',['zoom',['../structhmi_1_1LevelStatusInfo.html#a952a592f66671fc3a835b8fd1158ea5b',1,'hmi::LevelStatusInfo::zoom'],['../classhmi_1_1AssetGalleryItem.html#a6c4e4bbfa297175d7d999f8defc69a87',1,'hmi::AssetGalleryItem::zoom'],['../classhmi_1_1EditorViewport.html#a3e80285d85514265aabfa8a95e28147e',1,'hmi::EditorViewport::zoom()'],['../classhmi_1_1Camera2D.html#a1397b9e7944fb98ea697948a5f2ca378',1,'hmi::Camera2D::zoom()'],['../classhmi_1_1AssetGalleryItem.html#a76cf16fca07843b325b3938cefa0adab',1,'hmi::AssetGalleryItem::zoom() const noexcept']]],
-  ['zoomat_11',['zoomAt',['../classhmi_1_1AssetGalleryItem.html#aa0d902cf5d710ce9f90afe56e861ace0',1,'hmi::AssetGalleryItem']]],
-  ['zoomchanged_12',['zoomChanged',['../classhmi_1_1EditorViewport.html#a3379743fc463db57477262b4f7f776be',1,'hmi::EditorViewport']]]
+  ['zone_5ftrigger_5farrival_5fproperty_7',['ZONE_TRIGGER_ARRIVAL_PROPERTY',['../namespacecore.html#a64556317e7c17619a71b035ed9a1bb14',1,'core']]],
+  ['zone_5ftrigger_5fdialogue_5fproperty_8',['ZONE_TRIGGER_DIALOGUE_PROPERTY',['../namespacecore.html#a1ad651b81526376d43068407463ffffd',1,'core']]],
+  ['zone_5ftrigger_5fflag_5fproperty_9',['ZONE_TRIGGER_FLAG_PROPERTY',['../namespacecore.html#a0cb273fff48ae92e4dc7183b9c16159a',1,'core']]],
+  ['zone_5ftrigger_5fmap_5fproperty_10',['ZONE_TRIGGER_MAP_PROPERTY',['../namespacecore.html#a14489582835f92b5ee87756dafb78aa0',1,'core']]],
+  ['zone_5ftrigger_5fonce_5fproperty_11',['ZONE_TRIGGER_ONCE_PROPERTY',['../namespacecore.html#a3c9b15b19f6ae204c944e5ac6e125217',1,'core']]],
+  ['zone_5ftrigger_5fvalue_5fproperty_12',['ZONE_TRIGGER_VALUE_PROPERTY',['../namespacecore.html#a62425ac232b89016389b861948ee5139',1,'core']]],
+  ['zone_5fwidth_5fproperty_13',['ZONE_WIDTH_PROPERTY',['../namespacecore.html#a3d0539dc27a6ab16c279522c6a60e76e',1,'core']]],
+  ['zonecells_14',['zoneCells',['../namespacecore.html#acdcfbe0879d84908d423e478039532c3',1,'core']]],
+  ['zonesat_15',['zonesAt',['../classcore_1_1BattleGrid.html#a0c816b168810ff9052c1f41225f44186',1,'core::BattleGrid']]],
+  ['zoom_16',['zoom',['../structhmi_1_1LevelStatusInfo.html#a952a592f66671fc3a835b8fd1158ea5b',1,'hmi::LevelStatusInfo::zoom'],['../classhmi_1_1AssetGalleryItem.html#a6c4e4bbfa297175d7d999f8defc69a87',1,'hmi::AssetGalleryItem::zoom'],['../classhmi_1_1EditorViewport.html#a3e80285d85514265aabfa8a95e28147e',1,'hmi::EditorViewport::zoom()'],['../classhmi_1_1Camera2D.html#a1397b9e7944fb98ea697948a5f2ca378',1,'hmi::Camera2D::zoom()'],['../classhmi_1_1AssetGalleryItem.html#a76cf16fca07843b325b3938cefa0adab',1,'hmi::AssetGalleryItem::zoom() const noexcept']]],
+  ['zoomat_17',['zoomAt',['../classhmi_1_1AssetGalleryItem.html#aa0d902cf5d710ce9f90afe56e861ace0',1,'hmi::AssetGalleryItem']]],
+  ['zoomchanged_18',['zoomChanged',['../classhmi_1_1EditorViewport.html#a3379743fc463db57477262b4f7f776be',1,'hmi::EditorViewport']]]
 ];

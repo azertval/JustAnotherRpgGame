@@ -82,8 +82,8 @@ private:
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const core::MapEntity&amp; entity, std::string_view key) {
     const auto found = entity.properties.find(std::string{key});
-    if (found == entity.properties.end()) {</span>
-<span style = "background-color:#fdd">        return {};</span>
+    if (found == entity.properties.end()) {
+        return {};</span>
     }
 <span style = "background-color:#dfd">    const std::string* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
     return text != nullptr ? *text : std::string{};
@@ -139,15 +139,56 @@ void addDiagnostics(const std::vector&lt;EditorDiagnostic&gt;&amp; diagnostics,
     }
 }</span>
 
+// L'emprise d'une entite qui pose une piece (`EntityKind::pieceProperty`, LOT-126) est celle de sa
+// piece au manifeste : sinon la porte n'arrete pas le pas la ou elle se dessine.
+void checkPieceFootprints(const core::Level&amp; level, const core::ScenePieceManifest* manifest,
+<span style = "background-color:#dfd">                          ContentFindings&amp; findings) {
+    if (manifest == nullptr) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (const core::MapEntity&amp; entity : level.entities()) {
+        const core::EntityKind* const kind = core::findEntityKind(entity.type);
+        if (kind == nullptr || kind-&gt;pieceProperty.empty() ||</span>
+            kind-&gt;shape != core::EntityShape::Rectangle) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#fdd">        const core::ScenePiece* const piece = manifest-&gt;find(textOf(entity, kind-&gt;pieceProperty));
+        if (piece == nullptr) {
+            continue;  // piece inconnue : dit par les references.</span>
+        }
+<span style = "background-color:#fdd">        const std::optional&lt;CellRect&gt; rect = entityRectangle(entity);
+        if (rect &amp;&amp;</span>
+            (rect-&gt;columns != piece-&gt;footprintColumns || rect-&gt;rows != piece-&gt;footprintRows)) {
+<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Warning,</span>
+                         describe(entity) + ": its extent is " + std::to_string(rect-&gt;columns) +
+                             " x " + std::to_string(rect-&gt;rows) + ", its piece's is " +
+                             std::to_string(piece-&gt;footprintColumns) + " x " +
+                             std::to_string(piece-&gt;footprintRows),
+                         entity.position, entity.id);
+        }
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">}</span>
+
 void checkEntities(std::string_view mapId, const core::Level&amp; level, const ContentContext&amp; context,
 <span style = "background-color:#dfd">                   ContentFindings&amp; findings) {
     const std::vector&lt;core::MapEntity&gt;&amp; entities = level.entities();
     const EditorReferences&amp; references = context.references;
     std::vector&lt;core::EntityIssue&gt; errors;
-    std::vector&lt;core::EntityIssue&gt; unknownKinds;
+    std::vector&lt;core::EntityIssue&gt; unknownKinds;</span>
+    // Le catalogue du lieu : ce qu'un decor peut nommer, et l'emprise de chaque piece (LOT-126).
+<span style = "background-color:#dfd">    const std::string place = scenePlaceOf(level.layers());
+    std::optional&lt;core::ScenePieceManifest&gt; manifest;
+    if (!place.empty() &amp;&amp; !references.assets.empty()) {
+        if (core::ScenePieceManifestResult read =</span>
+                core::ScenePieceManifest::resolve(references.assets, place);
+<span style = "background-color:#dfd">            read.ok()) {
+            manifest = std::move(read.manifest);
+        }</span>
+    }
+<span style = "background-color:#dfd">    const core::ScenePieceManifest* const pieces = manifest ? &amp;*manifest : nullptr;
+    checkPieceFootprints(level, pieces, findings);
     for (core::EntityIssue&amp; issue : core::validateMapEntities(</span>
-             entities,
-             referenceContext(references, mapId, entities, scenePlaceOf(level.layers())))) {
+             entities, referenceContext(references, mapId, entities, place, pieces))) {
 <span style = "background-color:#dfd">        if (issue.code == core::EntityIssueCode::UnknownType) {
             unknownKinds.push_back(std::move(issue));  // legal, transporte : une information.
         } else if (!saidByTheFormatCheck(issue.code)) {
@@ -247,7 +288,10 @@ void checkGraph(std::string_view mapId, const core::Level&amp; level, const Cont
             }
 <span style = "background-color:#dfd">        } else if (entity.type == core::PORTAL_ENTITY_TYPE) {
             const std::string target = textOf(entity, core::PORTAL_TARGET_MAP_PROPERTY);
-            if (target.empty() || target == mapId || world.find(target) == nullptr) {
+            if (core::isSealedPortal(entity)) {
+                continue;  // condamne : on n'en revient pas, puisqu'on n'y passe pas (LOT-126).</span>
+            }
+<span style = "background-color:#dfd">            if (target.empty() || target == mapId || world.find(target) == nullptr) {
                 continue;  // pas de cible, ou cible inconnue : dit par le controle du format.</span>
             }
 <span style = "background-color:#dfd">            const std::vector&lt;const core::WorldPortalLink*&gt; back = world.portalsFrom(target);
@@ -318,11 +362,15 @@ std::vector&lt;MapCheckFinding&gt; checkMapContent(std::string_view mapId, const
     for (const std::string&amp; misuse : core::validateFlagUses(quests, dialogues)) {</span>
 <span style = "background-color:#fdd">        error("flag misuse: " + misuse);</span>
 <span style = "background-color:#dfd">    }
-    const std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);
+    std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);</span>
+    // Les zones des cartes posent aussi des drapeaux (LOT-126).
+<span style = "background-color:#dfd">    for (const core::WorldMapNode&amp; map : core::loadWorldGraph(dataRoot / "Levels").maps) {
+        written.insert(map.triggerFlags.begin(), map.triggerFlags.end());
+    }
     for (const core::FlagRead&amp; read : core::flagsReadBy(quests, dialogues)) {
         if (!written.contains(read.flag)) {
             error(read.where + ": flag \"" + read.flag +</span>
-                  "\" is read but no dialogue or quest sets it");
+                  "\" is read but no dialogue, quest or zone sets it");
 <span style = "background-color:#dfd">        }
     }
     return findings;

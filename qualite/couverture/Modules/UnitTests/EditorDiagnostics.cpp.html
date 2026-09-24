@@ -39,7 +39,7 @@ namespace {
         case core::EntityIssueCode::UnknownType:
 <span style = "background-color:#dfd">            return R"(Entity kind "%1" is unknown to the editor.)";</span>
         case core::EntityIssueCode::MissingProperty:
-<span style = "background-color:#fdd">            return R"(%1: property "%2" must be filled in.)";</span>
+<span style = "background-color:#dfd">            return R"(%1: property "%2" must be filled in.)";</span>
         case core::EntityIssueCode::WrongValueType:
 <span style = "background-color:#fdd">            return R"(%1: property "%2" has the wrong value type.)";</span>
         case core::EntityIssueCode::InvalidChoice:
@@ -68,6 +68,10 @@ namespace {
 <span style = "background-color:#fdd">            return R"(%1: no map has an entity "%3".)";</span>
         case core::EntityIssueCode::InvalidPresence:
 <span style = "background-color:#fdd">            return R"(%1: presence condition is malformed at "%2" (flag, set|unset|equals|notEquals, values).)";</span>
+        case core::EntityIssueCode::UndeclaredFlagValue:
+<span style = "background-color:#fdd">            return R"(%1: no quest declares value "%3" for the flag that "%2" names.)";</span>
+        case core::EntityIssueCode::UnknownPiece:
+<span style = "background-color:#fdd">            return R"(%1: piece "%3" is not in the catalog of the map's place.)";</span>
     }
 <span style = "background-color:#fdd">    return R"(Entity kind "%1" is unknown to the editor.)";</span>
 <span style = "background-color:#dfd">}</span>

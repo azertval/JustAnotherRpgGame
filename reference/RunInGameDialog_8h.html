@@ -149,6 +149,7 @@ $(function(){initNavTree('RunInGameDialog_8h.html','',''); });
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="Quest_8h_source.html">Core/Gameplay/Quest.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 </div>
 <p><a href="RunInGameDialog_8h_source.html">Go to the source code of this file.</a></p>
@@ -164,8 +165,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3fd89c262750f06eba4c24704e2d6573" id="r_a3fd89c262750f06eba4c24704e2d6573"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3fd89c262750f06eba4c24704e2d6573">hmi::askRunInGame</a> (QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> bounds, const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;current)</td></tr>
-<tr class="memdesc:a3fd89c262750f06eba4c24704e2d6573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande où partir et quels drapeaux poser, puis rend le choix.  <br /></td></tr>
+<tr class="memitem:a39d6b60cc1783f750bc5e0a68017b9ae" id="r_a39d6b60cc1783f750bc5e0a68017b9ae"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a39d6b60cc1783f750bc5e0a68017b9ae">hmi::askRunInGame</a> (QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> bounds, const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;current)</td></tr>
+<tr class="memdesc:a39d6b60cc1783f750bc5e0a68017b9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande où partir et quels drapeaux poser, puis rend le choix.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le dialogue <b>« Run in game… »</b> (<span class="tt">LOT-EDITOR-10</span>, <span class="tt">EX-EDIT-094</span>) : d'où l'on part, et avec quels drapeaux de monde. </p>

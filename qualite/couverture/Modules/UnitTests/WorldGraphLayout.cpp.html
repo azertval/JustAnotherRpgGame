@@ -120,8 +120,8 @@ constexpr float LOOP_RADIUS_RATIO = 0.55F;
 <span style = "background-color:#dfd">    const auto indexOf = [&amp;](const std::string&amp; mapId, bool preferGhost) {
         if (!preferGhost) {
             if (const auto real = realIndex.find(mapId); real != realIndex.end()) {
-                return real-&gt;second;</span>
-<span style = "background-color:#fdd">            }</span>
+                return real-&gt;second;
+            }</span>
         }
 <span style = "background-color:#dfd">        return ghostIndex.at(mapId);
     };</span>
@@ -139,7 +139,9 @@ constexpr float LOOP_RADIUS_RATIO = 0.55F;
         }
 <span style = "background-color:#dfd">        WorldGraphLayoutEdge&amp; edge = layout.edges[it-&gt;second];
         edge.portals.push_back(p);
-        if (portal.status != core::PortalLinkStatus::Resolved &amp;&amp; !edge.broken) {
+        if (portal.status == core::PortalLinkStatus::Sealed) {
+            edge.sealed = true;
+        } else if (portal.status != core::PortalLinkStatus::Resolved &amp;&amp; !edge.broken) {
             edge.broken = true;
             edge.status = portal.status;</span>
         }

@@ -19,6 +19,7 @@ var EditorActions_8h =
       [ "hmi::EditorCommand::RunInGame", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013", null ],
       [ "hmi::EditorCommand::RunInGameHere", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a", null ],
       [ "hmi::EditorCommand::RunInGameOptions", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793", null ],
+      [ "hmi::EditorCommand::WorldState", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a7073b281d20adc42f2d2b7fb3a4597de", null ],
       [ "hmi::EditorCommand::Undo", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119", null ],
       [ "hmi::EditorCommand::Redo", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6", null ],
       [ "hmi::EditorCommand::ToggleGrid", "namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e", null ],

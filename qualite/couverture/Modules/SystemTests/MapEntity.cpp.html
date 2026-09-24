@@ -27,8 +27,8 @@ namespace {
 // combat, lue par ailleurs (`core::CombatZone`) : une zone dÃ©gÃ©nÃ©rÃ©e couvre au moins sa case.
 <span style = "background-color:#dfd">[[nodiscard]] int sideOf(const PropertyMap&amp; properties, std::string_view key) {
     const auto found = properties.find(std::string{key});
-    if (found == properties.end()) {</span>
-<span style = "background-color:#fdd">        return 1;</span>
+    if (found == properties.end()) {
+        return 1;</span>
     }
 <span style = "background-color:#dfd">    const auto* const value = std::get_if&lt;std::int64_t&gt;(&amp;found-&gt;second);
     return value == nullptr ? 1 : static_cast&lt;int&gt;(std::clamp&lt;std::int64_t&gt;(*value, 1, 1 &lt;&lt; 16));

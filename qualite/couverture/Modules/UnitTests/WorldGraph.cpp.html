@@ -32,8 +32,8 @@ namespace {
 // une saisie fautive, et la traiter comme vide la fait signaler plutot que deviner.
 <span style = "background-color:#dfd">[[nodiscard]] std::string texteDe(const MapEntity&amp; entite, std::string_view cle) {
     const auto trouvee = entite.properties.find(std::string{cle});
-    if (trouvee == entite.properties.end()) {</span>
-<span style = "background-color:#fdd">        return {};</span>
+    if (trouvee == entite.properties.end()) {
+        return {};</span>
     }
 <span style = "background-color:#dfd">    const std::string* texte = std::get_if&lt;std::string&gt;(&amp;trouvee-&gt;second);
     return texte != nullptr ? *texte : std::string{};
@@ -126,6 +126,7 @@ namespace {
     for (const WorldMapInput&amp; entree : maps) {
         std::set&lt;std::string, std::less&lt;&gt;&gt; points;
         std::set&lt;std::string, std::less&lt;&gt;&gt; identifiants;
+        const std::set&lt;std::string, std::less&lt;&gt;&gt; drapeaux = flagsSetByEntities(entree.entities);
         for (const MapEntity&amp; entite : entree.entities) {
             if (!entite.id.empty()) {
                 identifiants.insert(entite.id);</span>
@@ -143,21 +144,34 @@ namespace {
             .name = entree.name,
             .arrivalPoints = std::vector&lt;std::string&gt;(points.begin(), points.end()),
             .loadError = entree.loadError,
-            .entityIds = std::vector&lt;std::string&gt;(identifiants.begin(), identifiants.end())});
+            .entityIds = std::vector&lt;std::string&gt;(identifiants.begin(), identifiants.end()),
+            .triggerFlags = std::vector&lt;std::string&gt;(drapeaux.begin(), drapeaux.end())});
 <span style = "background-color:#dfd">    }</span>
 
     // Deux passes : un portail peut viser une carte triee apres la sienne.
 <span style = "background-color:#dfd">    for (const WorldMapInput&amp; entree : maps) {
         for (const MapEntity&amp; entite : entree.entities) {
-            if (entite.type != PORTAL_ENTITY_TYPE) {
-                continue;</span>
+            if (entite.type == PORTAL_ENTITY_TYPE) {
+                WorldPortalLink portail{.fromMap = entree.mapId,
+                                        .position = entite.position,
+                                        .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
+                                        .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};</span>
+                // Condamne, il est voulu tel : ni erreur, ni chemin (LOT-126).
+<span style = "background-color:#dfd">                portail.status =</span>
+                    isSealedPortal(entite) ? PortalLinkStatus::Sealed : statutDu(graphe, portail);
+<span style = "background-color:#dfd">                graphe.portals.push_back(std::move(portail));
+            } else if (entite.type == ZONE_ENTITY_TYPE) {
+                WorldPortalLink transfert{.fromMap = entree.mapId,
+                                          .position = entite.position,
+                                          .toMap = texteDe(entite, ZONE_TRIGGER_MAP_PROPERTY),
+                                          .arrival = texteDe(entite, ZONE_TRIGGER_ARRIVAL_PROPERTY),
+                                          .kind = WorldLinkKind::Transfer};
+                if (transfert.toMap.empty()) {
+                    continue;  // une zone sans transfert n'est pas une arete.</span>
+                }
+<span style = "background-color:#dfd">                transfert.status = statutDu(graphe, transfert);
+                graphe.portals.push_back(std::move(transfert));
             }
-<span style = "background-color:#dfd">            WorldPortalLink portail{.fromMap = entree.mapId,
-                                    .position = entite.position,
-                                    .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
-                                    .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};
-            portail.status = statutDu(graphe, portail);
-            graphe.portals.push_back(std::move(portail));
         }
     }
     return graphe;

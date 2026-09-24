@@ -232,6 +232,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9f13d18b7e5c97c8ada215ece2745577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue le brouillon avec le moteur du jeu (<span class="tt">EX-EDIT-008</span>, <span class="tt">EX-EDIT-055</span>).  <br /></td></tr>
 <tr class="memitem:a0377cf0a2cc7721aa592cc26a237b721" id="r_a0377cf0a2cc7721aa592cc26a237b721"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0377cf0a2cc7721aa592cc26a237b721">startPlaytestHere</a> ()</td></tr>
 <tr class="memdesc:a0377cf0a2cc7721aa592cc26a237b721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue le brouillon depuis la case survolée ; depuis l'entrée s'il n'y en a pas.  <br /></td></tr>
+<tr class="memitem:a7b25e73ff4f739d1121c5686ed579d73" id="r_a7b25e73ff4f739d1121c5686ed579d73"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7b25e73ff4f739d1121c5686ed579d73">setWorldState</a> (std::vector&lt; std::string &gt; entries, bool preview)</td></tr>
+<tr class="memdesc:a7b25e73ff4f739d1121c5686ed579d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état de partie (<span class="tt">LOT-126</span>, <span class="tt"><a class="el" href="WorldState_8h.html" title="L&#39;état de partie sous lequel l&#39;éditeur montre et essaie une carte (LOT-126).">Editor/Logic/WorldState.h</a></span>) : l'essai en part toujours ; le canevas grise ce qu'il rend absent si <code class="param">preview</code>.  <br /></td></tr>
 <tr class="memitem:a67c35916a9387bec4072d4df7d2f345b" id="r_a67c35916a9387bec4072d4df7d2f345b"><td class="memItemLeft">const <a class="el" href="structhmi_1_1EditorSidecar.html">EditorSidecar</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a67c35916a9387bec4072d4df7d2f345b">sidecar</a> () const noexcept</td></tr>
 <tr class="memitem:a97d46d6864c0f2b4c2781cf862dba0cc" id="r_a97d46d6864c0f2b4c2781cf862dba0cc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a97d46d6864c0f2b4c2781cf862dba0cc">setNote</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, const std::string &amp;text)</td></tr>
 <tr class="memdesc:a97d46d6864c0f2b4c2781cf862dba0cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit la note de <code class="param">cell</code>, retirée si <code class="param">text</code> est vide ; l'annexe s'écrit tout de suite.  <br /></td></tr>
@@ -501,6 +503,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a6b0330c776cfd4ce714af2a9fdc502a9" id="r_a6b0330c776cfd4ce714af2a9fdc502a9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6b0330c776cfd4ce714af2a9fdc502a9">_terrains</a></td></tr>
 <tr class="memitem:ab78d4e16f3f9d42c3748b701fef8a60b" id="r_ab78d4e16f3f9d42c3748b701fef8a60b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab78d4e16f3f9d42c3748b701fef8a60b">_zoneVerdicts</a></td></tr>
 <tr class="memitem:a86e3fac5b37c1a2cf7ad9724df3ad64a" id="r_a86e3fac5b37c1a2cf7ad9724df3ad64a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86e3fac5b37c1a2cf7ad9724df3ad64a">_diagnostics</a></td></tr>
+<tr class="memitem:a9802c47b1319cc77d266a399242f4d2b" id="r_a9802c47b1319cc77d266a399242f4d2b"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9802c47b1319cc77d266a399242f4d2b">_stateEntries</a></td></tr>
+<tr class="memitem:a6412b730caadc21c6ae7a2cc40ecc857" id="r_a6412b730caadc21c6ae7a2cc40ecc857"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6412b730caadc21c6ae7a2cc40ecc857">_statePreview</a> = false</td></tr>
+<tr class="memitem:a430924cf241b7dd8cac9e94b03dab1aa" id="r_a430924cf241b7dd8cac9e94b03dab1aa"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#a430924cf241b7dd8cac9e94b03dab1aa">_stateFlags</a></td></tr>
+<tr class="memdesc:a430924cf241b7dd8cac9e94b03dab1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de l'état, déclarations des quêtes comprises ; relus quand l'état ou les catalogues changent.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l'essai. </p>
@@ -4199,6 +4205,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7b25e73ff4f739d1121c5686ed579d73" name="a7b25e73ff4f739d1121c5686ed579d73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b25e73ff4f739d1121c5686ed579d73">&#9670;&#160;</a></span>setWorldState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setWorldState </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>entries</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>preview</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'état de partie (<span class="tt">LOT-126</span>, <span class="tt"><a class="el" href="WorldState_8h.html" title="L&#39;état de partie sous lequel l&#39;éditeur montre et essaie une carte (LOT-126).">Editor/Logic/WorldState.h</a></span>) : l'essai en part toujours ; le canevas grise ce qu'il rend absent si <code class="param">preview</code>. </p>
+
+</div>
+</div>
 <a id="a67c35916a9387bec4072d4df7d2f345b" name="a67c35916a9387bec4072d4df7d2f345b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67c35916a9387bec4072d4df7d2f345b">&#9670;&#160;</a></span>sidecar()</h2>
 
@@ -6063,6 +6092,74 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> hmi::EditorViewport::_snapshot</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9802c47b1319cc77d266a399242f4d2b" name="a9802c47b1319cc77d266a399242f4d2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9802c47b1319cc77d266a399242f4d2b">&#9670;&#160;</a></span>_stateEntries</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; hmi::EditorViewport::_stateEntries</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a430924cf241b7dd8cac9e94b03dab1aa" name="a430924cf241b7dd8cac9e94b03dab1aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a430924cf241b7dd8cac9e94b03dab1aa">&#9670;&#160;</a></span>_stateFlags</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> hmi::EditorViewport::_stateFlags</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les drapeaux de l'état, déclarations des quêtes comprises ; relus quand l'état ou les catalogues changent. </p>
+
+</div>
+</div>
+<a id="a6412b730caadc21c6ae7a2cc40ecc857" name="a6412b730caadc21c6ae7a2cc40ecc857"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6412b730caadc21c6ae7a2cc40ecc857">&#9670;&#160;</a></span>_statePreview</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::EditorViewport::_statePreview = false</td>
         </tr>
       </table>
   </td>

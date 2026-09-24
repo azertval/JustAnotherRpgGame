@@ -82,6 +82,9 @@ enum class ExplorationEventKind {
     PortalLocked,
     /// Un portail ne mÃ¨ne nulle part : la carte ou le point d'arrivÃ©e manque (`EX-NFR-040`).
     PortalBroken,
+    /// Un portail est condamnÃ© (`LOT-126`) : l'escalier est lÃ , il ne s'ouvre pas. `value` nomme
+    /// sa carte cible, s'il en nomme une.
+    PortalSealed,
     /// Il faut ouvrir un dialogue. `value` nomme le dialogue.
     Dialogue,
     /// Il faut engager une rencontre. `value` la nomme.
@@ -130,9 +133,9 @@ public:
     /**
      * @brief Avance d'un pas de @p seconds.
      *
-     * L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on
-     * interagit. Marcher aprÃ¨s avoir franchi ferait faire au hÃ©ros un pas sur la carte d'arrivÃ©e
-     * avec l'intention qui l'a fait entrer.
+     * L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on entre
+     * dans les zones Ã  dÃ©clencheur (`LOT-126`), puis on interagit. Marcher aprÃ¨s avoir franchi
+     * ferait faire au hÃ©ros un pas sur la carte d'arrivÃ©e avec l'intention qui l'a fait entrer.
      */
     std::vector&lt;ExplorationEvent&gt; update(const ExplorationIntent&amp; intent, float seconds);
 
@@ -216,10 +219,24 @@ public:
         return _interactables;
     }</span>
 
+    /// @return Les cases que les dÃ©cors prÃ©sents arrÃªtent (`core::PROP_ENTITY_TYPE`, `LOT-126`) :
+    ///         une porte close est un mur tant qu'elle est lÃ .
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;GridPosition&gt;&amp; blockedByProps() const noexcept {
+        return _blocked;
+    }</span>
+
 private:
     /// Relit les entitÃ©s interactives **prÃ©sentes** de la carte courante (changement de carte,
-    /// drapeau changÃ©).
+    /// drapeau changÃ©), et les cases que ses dÃ©cors prÃ©sents arrÃªtent.
     void rebuildInteractables();
+    /// Note les zones Ã  dÃ©clencheur oÃ¹ se tient le hÃ©ros, **sans** les dÃ©clencher : on n'entre
+    /// pas dans une zone oÃ¹ l'on arrive â sans quoi un transfert qui dÃ©pose dans une zone
+    /// bouclerait.
+    void resetZones();
+    /// DÃ©clenche les zones oÃ¹ le hÃ©ros vient d'entrer (`LOT-126`) : drapeau, dialogue, transfert.
+    void enterZones(std::vector&lt;ExplorationEvent&gt;&amp; events);
+    /// Pose le hÃ©ros sur la carte courante aprÃ¨s un passage (portail ou transfert).
+    void arrived(std::vector&lt;ExplorationEvent&gt;&amp; events);
     /// @return Vrai si le gabarit du hÃ©ros tient en @p point sans entrer dans du plein.
     [[nodiscard]] bool fits(CellPoint point) const;
     /// Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrÃªte pas.
@@ -235,6 +252,10 @@ private:
     /// RÃ©vision des drapeaux que la liste des interactifs et les quÃªtes reflÃ¨tent.
 <span style = "background-color:#dfd">    std::uint64_t _seenRevision = 0;</span>
     std::vector&lt;Interactable&gt; _interactables;
+    /// Cases arrÃªtÃ©es par les dÃ©cors prÃ©sents.
+    std::vector&lt;GridPosition&gt; _blocked;
+    /// Rang, dans les entitÃ©s de la carte, des zones Ã  dÃ©clencheur oÃ¹ se tient le hÃ©ros.
+    std::vector&lt;std::size_t&gt; _insideZones;
 <span style = "background-color:#dfd">    CellPoint _hero{};
     Vector2 _facing{0.0F, 1.0F};</span>
     /// Case du hÃ©ros au pas prÃ©cÃ©dent : un portail se franchit **en y arrivant**, pas Ã  chaque pas

@@ -28,6 +28,7 @@ var classhmi_1_1WorldModel =
     [ "placeHeroAtStartCell", "classhmi_1_1WorldModel.html#a4bcec9f85851d4fae27e2ca6d0cbcf28", null ],
     [ "portalBroken", "classhmi_1_1WorldModel.html#aa3ef96cd7fd6a36d234a4e633abce224", null ],
     [ "portalLocked", "classhmi_1_1WorldModel.html#a5c6c78ce272ddc584a28ed01bb2fff18", null ],
+    [ "portalSealed", "classhmi_1_1WorldModel.html#a852e806d47fc1182ecd2cfec8ab6a528", null ],
     [ "questAdvanced", "classhmi_1_1WorldModel.html#ab475b1b1da2ebf4bb6169abcdc93795f", null ],
     [ "quests", "classhmi_1_1WorldModel.html#ac4ed9f1827eeb9ba0daffc12c13e08b6", null ],
     [ "rows", "classhmi_1_1WorldModel.html#ac86f1bb3f3f3d8b51c1a5a868146d779", null ],

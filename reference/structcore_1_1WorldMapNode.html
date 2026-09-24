@@ -158,6 +158,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a7137b026e2cad25d08e36b1ed6cd0e61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message technique du chargeur, vide si la carte a été lue.  <br /></td></tr>
 <tr class="memitem:a9a4e8910820b067ff20c29734ccdfb83" id="r_a9a4e8910820b067ff20c29734ccdfb83"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9a4e8910820b067ff20c29734ccdfb83">entityIds</a></td></tr>
 <tr class="memdesc:a9a4e8910820b067ff20c29734ccdfb83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiants des entités de la carte (décision D8), triés : ce qu'un <span class="tt">carte#id</span> peut citer.  <br /></td></tr>
+<tr class="memitem:a8b33efc534f55114b27ecdba6587905d" id="r_a8b33efc534f55114b27ecdba6587905d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8b33efc534f55114b27ecdba6587905d">triggerFlags</a> {}</td></tr>
+<tr class="memdesc:a8b33efc534f55114b27ecdba6587905d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux que les zones de la carte posent à l'entrée (<span class="tt">LOT-126</span>), triés : ils comptent parmi ce qu'un PNJ, un portail ou un dialogue peut attendre.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un nœud du graphe : une carte, et les points d'arrivée qu'elle offre. </p>
@@ -236,6 +238,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b33efc534f55114b27ecdba6587905d" name="a8b33efc534f55114b27ecdba6587905d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b33efc534f55114b27ecdba6587905d">&#9670;&#160;</a></span>triggerFlags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::WorldMapNode::triggerFlags {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les drapeaux que les zones de la carte posent à l'entrée (<span class="tt">LOT-126</span>), triés : ils comptent parmi ce qu'un PNJ, un portail ou un dialogue peut attendre. </p>
 
 </div>
 </div>

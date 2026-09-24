@@ -161,6 +161,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8296d0eab4ee612330cfc037b7ffa7ad" id="r_a8296d0eab4ee612330cfc037b7ffa7ad"><td class="memItemLeft">std::int64_t&#160;</td><td class="memItemRight"><a class="el" href="#a8296d0eab4ee612330cfc037b7ffa7ad">minimum</a> = (std::numeric_limits&lt;std::int64_t&gt;::min)()</td></tr>
 <tr class="memdesc:a8296d0eab4ee612330cfc037b7ffa7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bornes d'une propriété <span class="tt">Integer</span>, incluses ; une valeur hors bornes est signalée.  <br /></td></tr>
 <tr class="memitem:a15d868598661f663abc460f45c41aced" id="r_a15d868598661f663abc460f45c41aced"><td class="memItemLeft">std::int64_t&#160;</td><td class="memItemRight"><a class="el" href="#a15d868598661f663abc460f45c41aced">maximum</a> = (std::numeric_limits&lt;std::int64_t&gt;::max)()</td></tr>
+<tr class="memitem:aa8ef382c9b934837c15349050f59a7ec" id="r_aa8ef382c9b934837c15349050f59a7ec"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#aa8ef382c9b934837c15349050f59a7ec">relatedKey</a> {}</td></tr>
+<tr class="memdesc:aa8ef382c9b934837c15349050f59a7ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">La propriété de la même entité dont dépendent les choix : la carte d'un point d'arrivée (<span class="tt">ArrivalPoints</span>, <span class="tt">targetMap</span> à défaut), le drapeau de ses valeurs (<span class="tt">FlagValues</span>).  <br /></td></tr>
+<tr class="memitem:aa0a978955e4d4251707a6e151b730c48" id="r_aa0a978955e4d4251707a6e151b730c48"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#aa0a978955e4d4251707a6e151b730c48">waivedBy</a> {}</td></tr>
+<tr class="memdesc:aa0a978955e4d4251707a6e151b730c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une propriété booléenne qui, vraie, lève <span class="tt"><a class="el" href="#ab8bd302a39d7affe2bbe1df720145543" title="Une propriété requise absente (ou texte vide) est signalée ; elle n&#39;empêche pas d&#39;enregistrer.">required</a></span> : un portail condamné n'a pas de cible.  <br /></td></tr>
+<tr class="memitem:a80f371f3c10cb870f0d4301b09199c45" id="r_a80f371f3c10cb870f0d4301b09199c45"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a80f371f3c10cb870f0d4301b09199c45">writesFlag</a> = false</td></tr>
+<tr class="memdesc:a80f371f3c10cb870f0d4301b09199c45"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">FlagValues</span> d'un drapeau que l'entité <b>pose</b> : une seule valeur, requise si une quête déclare le drapeau (<span class="tt"><a class="el" href="classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e" title="Marque le fait comme acquis.">core::WorldFlags::set</a></span> refuse un drapeau déclaré sans valeur).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une propriété qu'une famille d'entités déclare. </p>
@@ -253,6 +259,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa8ef382c9b934837c15349050f59a7ec" name="aa8ef382c9b934837c15349050f59a7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8ef382c9b934837c15349050f59a7ec">&#9670;&#160;</a></span>relatedKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::EntityPropertySpec::relatedKey {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La propriété de la même entité dont dépendent les choix : la carte d'un point d'arrivée (<span class="tt">ArrivalPoints</span>, <span class="tt">targetMap</span> à défaut), le drapeau de ses valeurs (<span class="tt">FlagValues</span>). </p>
+
+</div>
+</div>
 <a id="ab8bd302a39d7affe2bbe1df720145543" name="ab8bd302a39d7affe2bbe1df720145543"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8bd302a39d7affe2bbe1df720145543">&#9670;&#160;</a></span>required</h2>
 
@@ -280,6 +302,38 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa0a978955e4d4251707a6e151b730c48" name="aa0a978955e4d4251707a6e151b730c48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0a978955e4d4251707a6e151b730c48">&#9670;&#160;</a></span>waivedBy</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::EntityPropertySpec::waivedBy {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une propriété booléenne qui, vraie, lève <span class="tt"><a class="el" href="#ab8bd302a39d7affe2bbe1df720145543" title="Une propriété requise absente (ou texte vide) est signalée ; elle n&#39;empêche pas d&#39;enregistrer.">required</a></span> : un portail condamné n'a pas de cible. </p>
+
+</div>
+</div>
+<a id="a80f371f3c10cb870f0d4301b09199c45" name="a80f371f3c10cb870f0d4301b09199c45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f371f3c10cb870f0d4301b09199c45">&#9670;&#160;</a></span>writesFlag</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::EntityPropertySpec::writesFlag = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">FlagValues</span> d'un drapeau que l'entité <b>pose</b> : une seule valeur, requise si une quête déclare le drapeau (<span class="tt"><a class="el" href="classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e" title="Marque le fait comme acquis.">core::WorldFlags::set</a></span> refuse un drapeau déclaré sans valeur). </p>
 
 </div>
 </div>

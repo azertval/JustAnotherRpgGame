@@ -162,6 +162,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:ae2466bda4eedaa2278aa57f8074d9f65"><td class="mdescLeft">&#160;</td><td class="mdescRight">La propriété que le canevas écrit à côté d'elle (la carte cible d'un portail) ; vide : rien.  <br /></td></tr>
 <tr class="memitem:ac88c71c6d773f383926397a9ba41568c" id="r_ac88c71c6d773f383926397a9ba41568c"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ac88c71c6d773f383926397a9ba41568c">figureProperty</a> {}</td></tr>
 <tr class="memdesc:ac88c71c6d773f383926397a9ba41568c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La propriété qui nomme sa figurine (source <span class="tt">Figures</span>) : le canevas dessine la figurine à la place du marqueur quand elle existe.  <br /></td></tr>
+<tr class="memitem:a88c2c74f96273a50f65c68f13b90328a" id="r_a88c2c74f96273a50f65c68f13b90328a"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a88c2c74f96273a50f65c68f13b90328a">pieceProperty</a> {}</td></tr>
+<tr class="memdesc:a88c2c74f96273a50f65c68f13b90328a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La propriété qui nomme sa pièce (source <span class="tt">Pieces</span>, <span class="tt">LOT-126</span>) : la composition du jeu et du canevas pose la pièce à sa case, comme une pièce de couche, tant que l'entité est présente.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une famille d'entités : son type, les propriétés qu'elle déclare, et comment le canevas de l'éditeur la montre. </p>
@@ -222,6 +224,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La propriété que le canevas écrit à côté d'elle (la carte cible d'un portail) ; vide : rien. </p>
+
+</div>
+</div>
+<a id="a88c2c74f96273a50f65c68f13b90328a" name="a88c2c74f96273a50f65c68f13b90328a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c2c74f96273a50f65c68f13b90328a">&#9670;&#160;</a></span>pieceProperty</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::EntityKind::pieceProperty {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La propriété qui nomme sa pièce (source <span class="tt">Pieces</span>, <span class="tt">LOT-126</span>) : la composition du jeu et du canevas pose la pièce à sa case, comme une pièce de couche, tant que l'entité est présente. </p>
 
 </div>
 </div>

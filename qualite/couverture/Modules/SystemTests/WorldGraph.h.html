@@ -58,6 +58,9 @@ struct WorldMapNode {
     std::string loadError;
     /// Identifiants des entitÃ©s de la carte (dÃ©cision D8), triÃ©s : ce qu'un `carte#id` peut citer.
     std::vector&lt;std::string&gt; entityIds;
+    /// Les drapeaux que les zones de la carte posent Ã  l'entrÃ©e (`LOT-126`), triÃ©s : ils comptent
+    /// parmi ce qu'un PNJ, un portail ou un dialogue peut attendre.
+    std::vector&lt;std::string&gt; triggerFlags{};
 };
 
 /// @brief Ce que vaut un portail. `Core` n'Ã©crit pas de texte (`EX-NFR-011`) : l'Ã©diteur traduit.
@@ -74,6 +77,18 @@ enum class PortalLinkStatus {
     UnknownArrival,
     /// La carte cible existe mais n'a pas pu Ãªtre lue : ses points d'arrivÃ©e sont inconnaissables.
     TargetUnreadable,
+    /// Le portail est **condamnÃ©** (`core::PORTAL_SEALED_PROPERTY`, `LOT-126`) : voulu, il ne mÃ¨ne
+    /// nulle part â ni une erreur, ni un chemin.
+    Sealed,
+};
+
+/// @brief Ce qui fait passer d'une carte Ã  l'autre.
+enum class WorldLinkKind {
+    /// Un portail : on marche dessus.
+    Portal,
+    /// Le transfert d'une zone (`core::ZONE_TRIGGER_MAP_PROPERTY`, `LOT-126`) : on y entre, et
+    /// l'on est ailleurs. Un chemin comme un autre pour l'atteignabilitÃ©.
+    Transfer,
 };
 
 /// @brief Une arÃªte du graphe : un portail d'une carte, et ce qu'il atteint.
@@ -85,7 +100,8 @@ struct WorldPortalLink {
     std::string toMap;
     /// Point d'arrivÃ©e, tel que le portail le nomme.
     std::string arrival;
-<span style = "background-color:#dfd">    PortalLinkStatus status = PortalLinkStatus::Resolved;</span>
+<span style = "background-color:#dfd">    PortalLinkStatus status = PortalLinkStatus::Resolved;
+    WorldLinkKind kind = WorldLinkKind::Portal;</span>
 
     [[nodiscard]] bool operator==(const WorldPortalLink&amp;) const = default;
 };
@@ -131,8 +147,11 @@ struct WorldGraph {
  * type `core::SPAWN_POINT_ENTITY_TYPE` au nom texte non vide. Un portail vers sa propre carte est
  * lÃ©gal.
  *
- * Le statut se dÃ©cide dans cet ordre : cible vide, carte inconnue, carte illisible, arrivÃ©e vide,
- * arrivÃ©e inconnue â le premier qui s'applique l'emporte.
+ * Le statut se dÃ©cide dans cet ordre : portail condamnÃ©, cible vide, carte inconnue, carte
+ * illisible, arrivÃ©e vide, arrivÃ©e inconnue â le premier qui s'applique l'emporte.
+ *
+ * Une zone qui nomme une carte de transfert (`core::ZONE_TRIGGER_MAP_PROPERTY`) donne une arÃªte
+ * `WorldLinkKind::Transfer`, jugÃ©e comme un portail (`LOT-126`).
  */
 [[nodiscard]] WorldGraph buildWorldGraph(std::vector&lt;WorldMapInput&gt; maps);
 

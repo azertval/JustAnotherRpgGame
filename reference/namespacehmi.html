@@ -289,6 +289,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un lien pose sur une carte.  <a href="structhmi_1_1MapLinkEnd.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapLink" id="r_MapLink"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapLink.html">MapLink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lien posé, des deux côtés.  <a href="structhmi_1_1MapLink.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldStateEntry" id="r_WorldStateEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStateEntry.html">WorldStateEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée d'état lue : le drapeau, et sa valeur s'il en porte une.  <a href="structhmi_1_1WorldStateEntry.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldStateFlags" id="r_WorldStateFlags"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStateFlags.html">WorldStateFlags</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des drapeaux, et les entrées qu'ils ont refusées.  <a href="structhmi_1_1WorldStateFlags.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityMapView" id="r_CityMapView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CityMapView.html">CityMapView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint une <span class="tt"><a class="el" href="structhmi_1_1CityView.html" title="Une ville jouable, prête à peindre.">hmi::CityView</a></span> sur le plan de sa ville.  <a href="classhmi_1_1CityMapView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftTextures" id="r_DraftTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftTextures.html">DraftTextures</a></td></tr>
@@ -331,6 +335,9 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldGraphView" id="r_WorldGraphView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>.  <a href="classhmi_1_1WorldGraphView.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldStateEditor" id="r_WorldStateEditor"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldStateEditor.html">WorldStateEditor</a></td></tr>
+<tr class="memitem:WorldStateChoice" id="r_WorldStateChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état de partie du canevas, et s'il s'y montre.  <a href="structhmi_1_1WorldStateChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture d'échantillons courts à faible latence, avec volume global et repli muet.  <a href="classhmi_1_1AudioEngine.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameQuests" id="r_GameQuests"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GameQuests.html">GameQuests</a></td></tr>
@@ -728,21 +735,22 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a">RunInGameHere</a>
 , <br />
 &#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793">RunInGameOptions</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a7073b281d20adc42f2d2b7fb3a4597de">WorldState</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119">Undo</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6">Redo</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a34e806c94d1cf43980bb179a0376e173">ResetCamera</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f">IsoView</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a8799d4aba313f9fd9ec6f21f7f908b36">SeeThroughRelief</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">Mirror</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea">Copy</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2403def5083f02105e7802b3b315681e">Mirror</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea">Copy</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a36bb6559696dc9124986ae120515984f">Paste</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a7d8393a85811c22a219169498a94ea91">PasteMirrored</a>
-, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</a>
 , <br />
-&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</a>
+&#160;&#160;<a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</a>
+, <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</a>
 , <a class="el" href="#a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</a>
 <br />
  }</td></tr>
@@ -1029,8 +1037,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a22b690a46d0fbaf833709811650ec91c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les opacités des bandes iso, d'après les réglages des couches.  <br /></td></tr>
 <tr class="memitem:ac0dd913553a0a5628f939841d167cd98" id="r_ac0dd913553a0a5628f939841d167cd98"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac0dd913553a0a5628f939841d167cd98">bandOpacity</a> (const <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &amp;bands, const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;quad) noexcept</td></tr>
 <tr class="memitem:a5c3feb328546df191be2e5083903d357" id="r_a5c3feb328546df191be2e5083903d357"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5c3feb328546df191be2e5083903d357">bandOpacity</a> (const <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &amp;bands, <a class="el" href="#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) noexcept</td></tr>
-<tr class="memitem:a01862c75838661af7e844574901cfa47" id="r_a01862c75838661af7e844574901cfa47"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a01862c75838661af7e844574901cfa47">canvasSnapshot</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance)</td></tr>
-<tr class="memdesc:a01862c75838661af7e844574901cfa47"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros.  <br /></td></tr>
+<tr class="memitem:a6070de201a90f5c4e94d30874a2c3c04" id="r_a6070de201a90f5c4e94d30874a2c3c04"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6070de201a90f5c4e94d30874a2c3c04">canvasSnapshot</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance, const <a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> *state=nullptr)</td></tr>
+<tr class="memdesc:a6070de201a90f5c4e94d30874a2c3c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros.  <br /></td></tr>
 <tr class="memitem:a191e62e067f4684ef2f0d66f57a397ad" id="r_a191e62e067f4684ef2f0d66f57a397ad"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a191e62e067f4684ef2f0d66f57a397ad">formationFigures</a> (const <a class="el" href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a> &amp;terrain, const std::vector&lt; std::string &gt; &amp;figures)</td></tr>
 <tr class="memdesc:a191e62e067f4684ef2f0d66f57a397ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines de la formation d'une rencontre (<span class="tt">LOT-EDITOR-05</span>) : chaque combattant sur sa case, par la figurine de l'atelier des monstres qui porte l'identifiant de sa créature (<span class="tt">Monsters/&lt;créature&gt;</span>, <span class="tt">LOT-93</span>, <span class="tt">EX-EDIT-071</span>).  <br /></td></tr>
 <tr class="memitem:a271254d23a253fefeed273ecba888f0c" id="r_a271254d23a253fefeed273ecba888f0c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a271254d23a253fefeed273ecba888f0c">cellPieces</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
@@ -1097,8 +1105,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a080952a1a1d790dc8b26f71b2fcd00d6" id="r_a080952a1a1d790dc8b26f71b2fcd00d6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a080952a1a1d790dc8b26f71b2fcd00d6">entityRef</a> (std::string_view mapId, std::string_view entityId)</td></tr>
 <tr class="memitem:a9a7176a33d5205537d912eb3dbcbf61c" id="r_a9a7176a33d5205537d912eb3dbcbf61c"><td class="memItemLeft"><a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9a7176a33d5205537d912eb3dbcbf61c">loadEditorReferences</a> (const std::filesystem::path &amp;root)</td></tr>
 <tr class="memdesc:a9a7176a33d5205537d912eb3dbcbf61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les catalogues sous <code class="param">root</code>, la racine des éléments déployés à côté de l'exécutable : <span class="tt">World/dialogues</span>, <span class="tt">World/locations</span>, <span class="tt">Rpg/encounters</span>, <span class="tt">Rpg/creatures</span>, <span class="tt">Rpg/items</span>, les manifestes des figurines sous <span class="tt">Assets</span>, et <span class="tt">Levels</span>.  <br /></td></tr>
-<tr class="memitem:af4ea2cd1857b4816619f1b5c6ecdd969" id="r_af4ea2cd1857b4816619f1b5c6ecdd969"><td class="memItemLeft"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#af4ea2cd1857b4816619f1b5c6ecdd969">referenceContext</a> (const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &amp;references, std::string_view editedMapId, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;editedEntities, std::string_view place={})</td></tr>
-<tr class="memdesc:af4ea2cd1857b4816619f1b5c6ecdd969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contexte de validation des entités de la carte éditée.  <br /></td></tr>
+<tr class="memitem:ad8fcbd5ec81604aed9074cdb4dd65ba6" id="r_ad8fcbd5ec81604aed9074cdb4dd65ba6"><td class="memItemLeft"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad8fcbd5ec81604aed9074cdb4dd65ba6">referenceContext</a> (const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &amp;references, std::string_view editedMapId, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;editedEntities, std::string_view place={}, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest=nullptr)</td></tr>
+<tr class="memdesc:ad8fcbd5ec81604aed9074cdb4dd65ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contexte de validation des entités de la carte éditée.  <br /></td></tr>
 <tr class="memitem:a8e6e1ef57fdc109210a3e29802d85af9" id="r_a8e6e1ef57fdc109210a3e29802d85af9"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8e6e1ef57fdc109210a3e29802d85af9">entityChoices</a> (const <a class="el" href="structcore_1_1EntityPropertySpec.html">core::EntityPropertySpec</a> &amp;spec, const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &amp;entity, const <a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a> &amp;context)</td></tr>
 <tr class="memdesc:a8e6e1ef57fdc109210a3e29802d85af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les valeurs que le panneau propose pour la propriété <code class="param">spec</code> de <code class="param">entity</code>, triées.  <br /></td></tr>
 <tr class="memitem:a85003a18fc16ecb0133fc982181ff5ff" id="r_a85003a18fc16ecb0133fc982181ff5ff"><td class="memItemLeft"><a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9">core::EntityShape</a>&#160;</td><td class="memItemRight"><a class="el" href="#a85003a18fc16ecb0133fc982181ff5ff">entityShape</a> (const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &amp;entity)</td></tr>
@@ -1252,6 +1260,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:a97f64e29742cc46d264504042b991051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux cases où poser le portail et le point d'arrivée d'une carte.  <br /></td></tr>
 <tr class="memitem:a64455acf952fc368012a3ad74e8da8d4" id="r_a64455acf952fc368012a3ad74e8da8d4"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#a64455acf952fc368012a3ad74e8da8d4">planLinkMaps</a> (const std::filesystem::path &amp;dataRoot, std::string_view fromMap, std::string_view toMap, <a class="el" href="structhmi_1_1MapLink.html">MapLink</a> *link=nullptr)</td></tr>
 <tr class="memdesc:a64455acf952fc368012a3ad74e8da8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plan du lien <code class="param">fromMap</code> ↔ <code class="param">toMap</code> : le portail et le point d'arrivée des deux côtés.  <br /></td></tr>
+<tr class="memitem:a2002b4cd8aa0ef554e1d3d81f95bfddf" id="r_a2002b4cd8aa0ef554e1d3d81f95bfddf"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldStateEntry.html">WorldStateEntry</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2002b4cd8aa0ef554e1d3d81f95bfddf">parseWorldStateEntry</a> (std::string_view entry)</td></tr>
+<tr class="memitem:a19f2817e432f8daa129eb53793e6b250" id="r_a19f2817e432f8daa129eb53793e6b250"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a19f2817e432f8daa129eb53793e6b250">worldStateValue</a> (const std::vector&lt; std::string &gt; &amp;entries, std::string_view flag)</td></tr>
+<tr class="memitem:a67ef3b042f5d4f66873967e6fa56454c" id="r_a67ef3b042f5d4f66873967e6fa56454c"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldStateFlags.html">WorldStateFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#a67ef3b042f5d4f66873967e6fa56454c">worldStateFlags</a> (const std::vector&lt; std::string &gt; &amp;entries, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared)</td></tr>
+<tr class="memdesc:a67ef3b042f5d4f66873967e6fa56454c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de monde de <code class="param">entries</code> : ceux que les quêtes déclarent, à leur valeur initiale, puis chaque entrée dans l'ordre.  <br /></td></tr>
+<tr class="memitem:a9f726c468f44713e34767153aa6e5913" id="r_a9f726c468f44713e34767153aa6e5913"><td class="memItemLeft">std::vector&lt; bool &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9f726c468f44713e34767153aa6e5913">presenceUnder</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, const <a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> &amp;flags)</td></tr>
 <tr class="memitem:a88c087f223aac1680081a197c8e462f8" id="r_a88c087f223aac1680081a197c8e462f8"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1MapPropertiesChoice.html">MapPropertiesChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a88c087f223aac1680081a197c8e462f8">askMapProperties</a> (QWidget *parent, const QString &amp;mapId, const QString &amp;place, const std::vector&lt; std::string &gt; &amp;regions, const <a class="el" href="structhmi_1_1MapPropertiesChoice.html">MapPropertiesChoice</a> &amp;current)</td></tr>
 <tr class="memdesc:a88c087f223aac1680081a197c8e462f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre les propriétés de la carte et rend ce que l'auteur a choisi.  <br /></td></tr>
 <tr class="memitem:a615e8ce8a0c04cce11dd5c73e577f4c0" id="r_a615e8ce8a0c04cce11dd5c73e577f4c0"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a615e8ce8a0c04cce11dd5c73e577f4c0">renderPixelsPerUnit</a> (double scale)</td></tr>
@@ -1270,8 +1283,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae292dc37cec7c5ad714f84072475fd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande quelle pièce remplacer, et par laquelle.  <br /></td></tr>
 <tr class="memitem:a9340f6e1b3f43febd69dcc101434fb1d" id="r_a9340f6e1b3f43febd69dcc101434fb1d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1SceneChangeChoice.html">SceneChangeChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9340f6e1b3f43febd69dcc101434fb1d">askSceneChange</a> (QWidget *parent, const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const std::filesystem::path &amp;dataRoot, const std::string &amp;currentPlace)</td></tr>
 <tr class="memdesc:a9340f6e1b3f43febd69dcc101434fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige.  <br /></td></tr>
-<tr class="memitem:a3fd89c262750f06eba4c24704e2d6573" id="r_a3fd89c262750f06eba4c24704e2d6573"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3fd89c262750f06eba4c24704e2d6573">askRunInGame</a> (QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> bounds, const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;current)</td></tr>
-<tr class="memdesc:a3fd89c262750f06eba4c24704e2d6573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande où partir et quels drapeaux poser, puis rend le choix.  <br /></td></tr>
+<tr class="memitem:a39d6b60cc1783f750bc5e0a68017b9ae" id="r_a39d6b60cc1783f750bc5e0a68017b9ae"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a39d6b60cc1783f750bc5e0a68017b9ae">askRunInGame</a> (QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> bounds, const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;current)</td></tr>
+<tr class="memdesc:a39d6b60cc1783f750bc5e0a68017b9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande où partir et quels drapeaux poser, puis rend le choix.  <br /></td></tr>
 <tr class="memitem:af371615628977cf8d19ec3b53afafc0b" id="r_af371615628977cf8d19ec3b53afafc0b"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af371615628977cf8d19ec3b53afafc0b">sceneImageOf</a> (<a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
 <tr class="memitem:aaaf1677389a57f473864df3a499e630f" id="r_aaaf1677389a57f473864df3a499e630f"><td class="memItemLeft"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaaf1677389a57f473864df3a499e630f">sceneImageHandle</a> (const <a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *image) noexcept</td></tr>
 <tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13d39d2941050cdcde712bd03062a037">paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
@@ -1281,6 +1294,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a69e74e4f140af19416ff4a8a7dbd49a8" id="r_a69e74e4f140af19416ff4a8a7dbd49a8"><td class="memItemLeft">QTransform&#160;</td><td class="memItemRight"><a class="el" href="#a69e74e4f140af19416ff4a8a7dbd49a8">cameraTransform</a> (const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
 <tr class="memitem:a7e2e49094a1e633ea842459409c9c13b" id="r_a7e2e49094a1e633ea842459409c9c13b"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a7e2e49094a1e633ea842459409c9c13b">renderComposedScene</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, int width, int height, const QColor &amp;clear)</td></tr>
 <tr class="memdesc:a7e2e49094a1e633ea842459409c9c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra.  <br /></td></tr>
+<tr class="memitem:a6d2e0104481eacf1024ddce11e05491d" id="r_a6d2e0104481eacf1024ddce11e05491d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d2e0104481eacf1024ddce11e05491d">askWorldState</a> (QWidget *parent, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared, const <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &amp;current)</td></tr>
+<tr class="memdesc:a6d2e0104481eacf1024ddce11e05491d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue « World state… » ; <span class="tt">std::nullopt</span> si l'auteur renonce.  <br /></td></tr>
 <tr class="memitem:a9733b7c554d33e66e0e632ff456fac20" id="r_a9733b7c554d33e66e0e632ff456fac20"><td class="memItemLeft"><a class="el" href="structhmi_1_1GameQuests.html">GameQuests</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9733b7c554d33e66e0e632ff456fac20">loadGameQuests</a> (const std::filesystem::path &amp;root)</td></tr>
 <tr class="memdesc:a9733b7c554d33e66e0e632ff456fac20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit <span class="tt">World/quests</span> sous <code class="param">root</code> et confronte les quêtes aux dialogues de <span class="tt">World/dialogues</span>.  <br /></td></tr>
 <tr class="memitem:a9db9f6ee72f5136140540bc9b58f08d4" id="r_a9db9f6ee72f5136140540bc9b58f08d4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9db9f6ee72f5136140540bc9b58f08d4">gameLaunchArguments</a> (const <a class="el" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a> &amp;options)</td></tr>
@@ -1583,7 +1598,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a1ef72f4a347aa932d445d92e2cd5b2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance minimale entre les centres de deux cartes voisines sur le cercle : la largeur d'une étiquette (nom et identifiant, posés sous le disque) plus une marge.  <br /></td></tr>
 <tr class="memitem:aa58aa4e76a3cdd2fcbd55c22d52a4bd6" id="r_aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aa58aa4e76a3cdd2fcbd55c22d52a4bd6">WORLD_GRAPH_MIN_CIRCLE_RADIUS</a> = 120.0f</td></tr>
 <tr class="memdesc:aa58aa4e76a3cdd2fcbd55c22d52a4bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon plancher du cercle dès qu'il porte deux cartes ou plus.  <br /></td></tr>
-<tr class="memitem:a8419e0bc52afdaf288a539da747b1577" id="r_a8419e0bc52afdaf288a539da747b1577"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 30</td></tr>
+<tr class="memitem:a8419e0bc52afdaf288a539da747b1577" id="r_a8419e0bc52afdaf288a539da747b1577"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8419e0bc52afdaf288a539da747b1577">EDITOR_COMMAND_COUNT</a> = 31</td></tr>
 <tr class="memdesc:a8419e0bc52afdaf288a539da747b1577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.  <br /></td></tr>
 <tr class="memitem:aeb0082433e6f2272d8c1d754ee3d499a" id="r_aeb0082433e6f2272d8c1d754ee3d499a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aeb0082433e6f2272d8c1d754ee3d499a">MAP_RENDER_MAX_SIDE</a> = 8192</td></tr>
 <tr class="memdesc:aeb0082433e6f2272d8c1d754ee3d499a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté d'une image de <span class="tt">--render</span> par défaut, en pixels (<span class="tt">LOT-125</span>).  <br /></td></tr>
@@ -2173,6 +2188,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a" name="a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a"></a>RunInGameHere&#160;</td><td class="fielddoc"><p>L'essai complet qui part de la case survolée (LOT-EDITOR-10). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793" name="a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793"></a>RunInGameOptions&#160;</td><td class="fielddoc"><p>L'essai complet après avoir choisi la case et les drapeaux (LOT-EDITOR-10). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a7073b281d20adc42f2d2b7fb3a4597de" name="a576cb29b1af75dc6bda8abb048330f18a7073b281d20adc42f2d2b7fb3a4597de"></a>WorldState&#160;</td><td class="fielddoc"><p>L'état de partie du canevas et des essais (LOT-126). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119" name="a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119"></a>Undo&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6" name="a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6"></a>Redo&#160;</td><td class="fielddoc"></td></tr>
@@ -3932,8 +3949,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3fd89c262750f06eba4c24704e2d6573" name="a3fd89c262750f06eba4c24704e2d6573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fd89c262750f06eba4c24704e2d6573">&#9670;&#160;</a></span>askRunInGame()</h2>
+<a id="a39d6b60cc1783f750bc5e0a68017b9ae" name="a39d6b60cc1783f750bc5e0a68017b9ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39d6b60cc1783f750bc5e0a68017b9ae">&#9670;&#160;</a></span>askRunInGame()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3959,6 +3976,11 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>declared</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
         </tr>
         <tr>
@@ -3979,7 +4001,8 @@ Variables</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">parent</td><td>Fenêtre parente. </td></tr>
     <tr><td class="paramname">mapId</td><td>L'identifiant de la carte qui sera jouée, affiché. </td></tr>
-    <tr><td class="paramname">knownFlags</td><td>Les drapeaux que les dialogues du jeu posent (<span class="tt"><a class="el" href="structhmi_1_1EditorReferences.html#adfce73beec39e6122b2a340b5bb6ec41" title="Les drapeaux qu&#39;un dialogue accepté pose (SetFlag, et le drapeau d&#39;une quête démarrée),...">EditorReferences::flags</a></span>) : la liste à cocher. Un drapeau hors liste se saisit à la main — une quête peut précéder son dialogue. </td></tr>
+    <tr><td class="paramname">knownFlags</td><td>Les drapeaux que posent dialogues, quêtes et zones (<span class="tt"><a class="el" href="structhmi_1_1EditorReferences.html#adfce73beec39e6122b2a340b5bb6ec41" title="Les drapeaux que posent dialogues, quêtes et déclencheurs de zone (LOT-126), triés.">EditorReferences::flags</a></span>) : la liste à cocher. Un drapeau hors liste se saisit à la main — une quête peut précéder son dialogue. </td></tr>
+    <tr><td class="paramname">declared</td><td>Les drapeaux à valeurs des quêtes : une valeur chacun (<span class="tt">LOT-126</span>). </td></tr>
     <tr><td class="paramname">bounds</td><td>La taille de la carte : la case se borne à elle. </td></tr>
     <tr><td class="paramname">current</td><td>Le choix de départ, celui du dernier essai. </td></tr>
   </table>
@@ -4028,6 +4051,47 @@ Variables</h2></td></tr>
 
 <p>Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige. </p>
 <p>On ne valide qu'une table sans trou. </p>
+
+</div>
+</div>
+<a id="a6d2e0104481eacf1024ddce11e05491d" name="a6d2e0104481eacf1024ddce11e05491d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d2e0104481eacf1024ddce11e05491d">&#9670;&#160;</a></span>askWorldState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &gt; hmi::askWorldState </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>knownFlags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>declared</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>current</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dialogue « World state… » ; <span class="tt">std::nullopt</span> si l'auteur renonce. </p>
 
 </div>
 </div>
@@ -4529,8 +4593,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a01862c75838661af7e844574901cfa47" name="a01862c75838661af7e844574901cfa47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01862c75838661af7e844574901cfa47">&#9670;&#160;</a></span>canvasSnapshot()</h2>
+<a id="a6070de201a90f5c4e94d30874a2c3c04" name="a6070de201a90f5c4e94d30874a2c3c04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6070de201a90f5c4e94d30874a2c3c04">&#9670;&#160;</a></span>canvasSnapshot()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4546,7 +4610,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>appearance</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>appearance</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> *</td>          <td class="paramname"><span class="paramname"><em>state</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -4557,7 +4626,15 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>L'instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros. </p>
-<p>Le brouillon n'a pas à être valide : une carte en cours de tracé se montre telle qu'elle est. </p>
+<p>Le brouillon n'a pas à être valide : une carte en cours de tracé se montre telle qu'elle est.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">draft</td><td>Le brouillon. </td></tr>
+    <tr><td class="paramname">appearance</td><td>La table du lieu. </td></tr>
+    <tr><td class="paramname">state</td><td>Un état de partie (<span class="tt">LOT-126</span>), ou <span class="tt">nullptr</span> : sous un état, les entités qu'il rend absentes — un PNJ, un décor — ne se composent pas. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -10084,6 +10161,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2002b4cd8aa0ef554e1d3d81f95bfddf" name="a2002b4cd8aa0ef554e1d3d81f95bfddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2002b4cd8aa0ef554e1d3d81f95bfddf">&#9670;&#160;</a></span>parseWorldStateEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldStateEntry.html">WorldStateEntry</a> hmi::parseWorldStateEntry </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>entry</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><code class="param">entry</code> lu : <span class="tt">a</span> → <span class="tt">{a}</span>, <span class="tt">a=b</span> → <span class="tt">{a, b}</span>. </dd></dl>
+
+</div>
+</div>
 <a id="a22523d76b1fdd6565d1f3076d4f1355c" name="a22523d76b1fdd6565d1f3076d4f1355c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a22523d76b1fdd6565d1f3076d4f1355c">&#9670;&#160;</a></span>pasteStamp()</h2>
 
@@ -11001,6 +11104,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9f726c468f44713e34767153aa6e5913" name="a9f726c468f44713e34767153aa6e5913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f726c468f44713e34767153aa6e5913">&#9670;&#160;</a></span>presenceUnder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; bool &gt; hmi::presenceUnder </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entities</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Pour chaque entité de <code class="param">entities</code>, vrai si elle est présente sous <code class="param">flags</code> (<span class="tt"><a class="el" href="namespacecore.html#aba21a4dfa3200162f5b83c366719c6c9" title="Vrai si l&#39;entité est là sous ces drapeaux.">core::isEntityPresent</a></span>). </dd></dl>
+
+</div>
+</div>
 <a id="ad41bb1dd00388cd216ed0adc326d0e5e" name="ad41bb1dd00388cd216ed0adc326d0e5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad41bb1dd00388cd216ed0adc326d0e5e">&#9670;&#160;</a></span>previousRpgScreen()</h2>
 
@@ -11442,8 +11575,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="af4ea2cd1857b4816619f1b5c6ecdd969" name="af4ea2cd1857b4816619f1b5c6ecdd969"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4ea2cd1857b4816619f1b5c6ecdd969">&#9670;&#160;</a></span>referenceContext()</h2>
+<a id="ad8fcbd5ec81604aed9074cdb4dd65ba6" name="ad8fcbd5ec81604aed9074cdb4dd65ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8fcbd5ec81604aed9074cdb4dd65ba6">&#9670;&#160;</a></span>referenceContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11469,7 +11602,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *</td>          <td class="paramname"><span class="paramname"><em>manifest</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -11487,6 +11625,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">editedMapId</td><td>L'identifiant de la carte éditée (le nom de son fichier, sans extension). </td></tr>
     <tr><td class="paramname">editedEntities</td><td>Les entités du brouillon. </td></tr>
     <tr><td class="paramname">place</td><td>Le lieu de la carte : ses figurines, et celles de ses niveaux communs, s'ajoutent à celles de toute carte (<span class="tt"><a class="el" href="namespacecore.html#a03fbe375242fffeae3499c57aaa301bf" title="Les figurines que le lieu place peut poser : le slug de chaque entrée npcs des manifestes de ses nive...">core::resolveFigures</a></span>, <span class="tt">LOT-124</span>). </td></tr>
+    <tr><td class="paramname">manifest</td><td>Le catalogue résolu du lieu, ou <span class="tt">nullptr</span> : ses pièces sont ce qu'un décor peut nommer (<span class="tt">LOT-126</span>) ; sans lui, elles ne se contrôlent pas. </td></tr>
   </table>
   </dd>
 </dl>
@@ -13775,6 +13914,74 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a67ef3b042f5d4f66873967e6fa56454c" name="a67ef3b042f5d4f66873967e6fa56454c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67ef3b042f5d4f66873967e6fa56454c">&#9670;&#160;</a></span>worldStateFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldStateFlags.html">WorldStateFlags</a> hmi::worldStateFlags </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entries</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>declared</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les drapeaux de monde de <code class="param">entries</code> : ceux que les quêtes déclarent, à leur valeur initiale, puis chaque entrée dans l'ordre. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entries</td><td>L'état (<span class="tt">fait</span>, <span class="tt">drapeau=valeur</span>). </td></tr>
+    <tr><td class="paramname">declared</td><td>Les drapeaux que les quêtes déclarent (<span class="tt"><a class="el" href="structhmi_1_1EditorReferences.html#a7b4834b123acc323e7da67ea56f9b229" title="Les drapeaux à valeurs que les quêtes déclarent, dans l&#39;ordre des quêtes (LOT-116) : ce que l&#39;inspect...">EditorReferences::declaredFlags</a></span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19f2817e432f8daa129eb53793e6b250" name="a19f2817e432f8daa129eb53793e6b250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19f2817e432f8daa129eb53793e6b250">&#9670;&#160;</a></span>worldStateValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::string &gt; hmi::worldStateValue </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entries</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>flag</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La valeur que <code class="param">entries</code> donne à <code class="param">flag</code>, s'il lui en donne une. </dd></dl>
+
+</div>
+</div>
 <a id="a07929611bf03ab59a2de588feb90ad7d" name="a07929611bf03ab59a2de588feb90ad7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07929611bf03ab59a2de588feb90ad7d">&#9670;&#160;</a></span>worldTexturePaths()</h2>
 
@@ -14385,7 +14592,7 @@ template&lt;class Map&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t hmi::EDITOR_COMMAND_COUNT = 30</td>
+          <td class="memname">std::size_t hmi::EDITOR_COMMAND_COUNT = 31</td>
         </tr>
       </table>
   </td>

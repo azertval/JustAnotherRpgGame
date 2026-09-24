@@ -4,5 +4,5 @@ var EntityReferences_8h =
     [ "hmi::entityChoices", "namespacehmi.html#a8e6e1ef57fdc109210a3e29802d85af9", null ],
     [ "hmi::entityRef", "namespacehmi.html#a080952a1a1d790dc8b26f71b2fcd00d6", null ],
     [ "hmi::loadEditorReferences", "namespacehmi.html#a9a7176a33d5205537d912eb3dbcbf61c", null ],
-    [ "hmi::referenceContext", "namespacehmi.html#af4ea2cd1857b4816619f1b5c6ecdd969", null ]
+    [ "hmi::referenceContext", "namespacehmi.html#ad8fcbd5ec81604aed9074cdb4dd65ba6", null ]
 ];

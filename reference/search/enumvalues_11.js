@@ -34,12 +34,13 @@ var searchData=
   ['totalcover_31',['TotalCover',['../namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda62da737bbf89f486e90024dc099e2bc4',1,'core::TotalCover'],['../namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840a62da737bbf89f486e90024dc099e2bc4',1,'core::TotalCover']]],
   ['trace_32',['Trace',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3add4ec0ac4e58f7c32a01244ae91150b1',1,'core']]],
   ['track_33',['Track',['../namespacehmi.html#a0076ce0092efe8d8df165966481a5830a92ea731d3af6677905303c88689f5d55',1,'hmi']]],
-  ['transmutation_34',['Transmutation',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2af11fb43b55b4f3555e1be6f4a9917163',1,'core']]],
-  ['tree_35',['Tree',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3b0c14770e6bd663518496da60f524da',1,'core']]],
-  ['trinket_36',['Trinket',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a9ee4ab45b4b030348971997e4b6a4c37',1,'core']]],
-  ['turn_37',['Turn',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2a6b12be2513bab07567150f54467bc568',1,'core']]],
-  ['turnactive_38',['TurnActive',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840a5015d46b35dcee9bb9a0438bf3adf01f',1,'core']]],
-  ['turnend_39',['TurnEnd',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840add2a059ce5c2b0e39ede932ecb5af42f',1,'core::TurnEnd'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9add2a059ce5c2b0e39ede932ecb5af42f',1,'core::TurnEnd']]],
-  ['turnstart_40',['TurnStart',['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ab0a8a1979409102f824db0a1a8484802',1,'core']]],
-  ['type_41',['Type',['../namespacehmi.html#a4ec74e0d9a6397a4be1c28869622617faa1fa27779242b4902f7ae3bdd5c6d508',1,'hmi']]]
+  ['transfer_34',['Transfer',['../namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a6950810f0d2bba97a6f710c7b965b84e',1,'core']]],
+  ['transmutation_35',['Transmutation',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2af11fb43b55b4f3555e1be6f4a9917163',1,'core']]],
+  ['tree_36',['Tree',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a3b0c14770e6bd663518496da60f524da',1,'core']]],
+  ['trinket_37',['Trinket',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a9ee4ab45b4b030348971997e4b6a4c37',1,'core']]],
+  ['turn_38',['Turn',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2a6b12be2513bab07567150f54467bc568',1,'core']]],
+  ['turnactive_39',['TurnActive',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840a5015d46b35dcee9bb9a0438bf3adf01f',1,'core']]],
+  ['turnend_40',['TurnEnd',['../namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840add2a059ce5c2b0e39ede932ecb5af42f',1,'core::TurnEnd'],['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9add2a059ce5c2b0e39ede932ecb5af42f',1,'core::TurnEnd']]],
+  ['turnstart_41',['TurnStart',['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ab0a8a1979409102f824db0a1a8484802',1,'core']]],
+  ['type_42',['Type',['../namespacehmi.html#a4ec74e0d9a6397a4be1c28869622617faa1fa27779242b4902f7ae3bdd5c6d508',1,'hmi']]]
 ];

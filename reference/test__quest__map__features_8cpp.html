@@ -1,0 +1,419 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/test_quest_map_features.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__quest__map__features_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_quest_map_features.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de ce que la quête demande aux cartes (<span class="tt">LOT-126</span>) : valeurs de drapeau contrôlées, portail condamné, zone à déclencheur, décor qui change.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Quest_8h_source.html">Core/Gameplay/Quest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Dialogue_8h_source.html">Core/Rpg/Dialogue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EntityKinds_8h_source.html">Core/World/EntityKinds.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EntityPresence_8h_source.html">Core/World/EntityPresence.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ExplorationSession_8h_source.html">Core/World/ExplorationSession.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldGraph_8h_source.html">Core/World/WorldGraph.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldTravel_8h_source.html">Core/World/WorldTravel.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aee3f5d0f9e1c8c1dbae86a118697ced3" id="r_aee3f5d0f9e1c8c1dbae86a118697ced3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aee3f5d0f9e1c8c1dbae86a118697ced3">TEST</a> (QuestMapFeaturesTest, LaPresenceSeDeclarePourToutFamille)</td></tr>
+<tr class="memdesc:aee3f5d0f9e1c8c1dbae86a118697ced3"><td class="mdescLeft">&#160;</td><td class="mdescRight">La condition de présence est déclarée pour toute famille, et ses valeurs se proposent.  <br /></td></tr>
+<tr class="memitem:a25664883e13e8253fea633dfb58e281e" id="r_a25664883e13e8253fea633dfb58e281e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a25664883e13e8253fea633dfb58e281e">TEST</a> (QuestMapFeaturesTest, UneValeurQuAucuneQueteNeDeclareEstRelevee)</td></tr>
+<tr class="memdesc:a25664883e13e8253fea633dfb58e281e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une valeur qu'aucune quête ne déclare est relevée, qu'une entité la lise ou la pose.  <br /></td></tr>
+<tr class="memitem:a1b1c378ef1bffe099f01461d56a0effa" id="r_a1b1c378ef1bffe099f01461d56a0effa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1b1c378ef1bffe099f01461d56a0effa">TEST</a> (QuestMapFeaturesTest, UnPortailCondamneEstLegal)</td></tr>
+<tr class="memdesc:a1b1c378ef1bffe099f01461d56a0effa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail condamné n'exige ni cible ni arrivée, et le graphe ne le compte pas en faute.  <br /></td></tr>
+<tr class="memitem:adfdc47ef730c16b0ccd1ef3315c372c3" id="r_adfdc47ef730c16b0ccd1ef3315c372c3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adfdc47ef730c16b0ccd1ef3315c372c3">TEST</a> (QuestMapFeaturesTest, UnPortailCondamneNeSOuvrePas)</td></tr>
+<tr class="memdesc:adfdc47ef730c16b0ccd1ef3315c372c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">On marche sur un portail condamné : il le dit, et l'on reste.  <br /></td></tr>
+<tr class="memitem:a5674166e9a01bff2cd8dcbefb62906cf" id="r_a5674166e9a01bff2cd8dcbefb62906cf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5674166e9a01bff2cd8dcbefb62906cf">TEST</a> (QuestMapFeaturesTest, LaZoneDuParvisTransfereAuVestiaire)</td></tr>
+<tr class="memdesc:a5674166e9a01bff2cd8dcbefb62906cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une zone déclenche à l'entrée : drapeau posé, dialogue, transfert — une fois si voulu.  <br /></td></tr>
+<tr class="memitem:a29a5ae184a13f966d5033d7934c9df96" id="r_a29a5ae184a13f966d5033d7934c9df96"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a29a5ae184a13f966d5033d7934c9df96">TEST</a> (QuestMapFeaturesTest, UneZoneUneFoisNeSeDeclenchePasDeuxFois)</td></tr>
+<tr class="memdesc:a29a5ae184a13f966d5033d7934c9df96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une zone « une fois » ne redéclenche pas ; on n'entre pas dans une zone où l'on arrive.  <br /></td></tr>
+<tr class="memitem:ade5b592349e673d2c09b6b34ee6cf544" id="r_ade5b592349e673d2c09b6b34ee6cf544"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ade5b592349e673d2c09b6b34ee6cf544">TEST</a> (QuestMapFeaturesTest, LesPortesDeLAreneSontClosesSousCondamne)</td></tr>
+<tr class="memdesc:ade5b592349e673d2c09b6b34ee6cf544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un décor présent arrête le pas sur son emprise ; absent, on passe — sans recharger.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de ce que la quête demande aux cartes (<span class="tt">LOT-126</span>) : valeurs de drapeau contrôlées, portail condamné, zone à déclencheur, décor qui change. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aee3f5d0f9e1c8c1dbae86a118697ced3" name="aee3f5d0f9e1c8c1dbae86a118697ced3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee3f5d0f9e1c8c1dbae86a118697ced3">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaPresenceSeDeclarePourToutFamille</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La condition de présence est déclarée pour toute famille, et ses valeurs se proposent. </p>
+<p><b>Cas de test :</b> <b>La presence se declare au contrat des familles.</b><br  />
+ <b>Categorie :</b> Unitaire · Familles d'entites<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire les proprietes inspectees d'un PNJ et d'un coffre.<br  />
+ <b>Resultat attendu :</b> Les deux portent <span class="tt">presenceFlag</span> (drapeaux), <span class="tt">presenceTest</span> (quatre mots) et <span class="tt">presenceValue</span> (valeurs du drapeau que nomme <span class="tt">presenceFlag</span>) ; aucune n'est posee a la creation. </p>
+
+</div>
+</div>
+<a id="a5674166e9a01bff2cd8dcbefb62906cf" name="a5674166e9a01bff2cd8dcbefb62906cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5674166e9a01bff2cd8dcbefb62906cf">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaZoneDuParvisTransfereAuVestiaire</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une zone déclenche à l'entrée : drapeau posé, dialogue, transfert — une fois si voulu. </p>
+<p><b>Cas de test :</b> <b>La zone du parvis transfere au vestiaire A.</b><br  />
+ <b>Categorie :</b> Unitaire · Exploration<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un parvis dont la zone (3..4, 1) pose <span class="tt">quete.pommes = condamne</span>, ouvre le dialogue <span class="tt">garde</span> et transfere au point <span class="tt">vestiaire-a</span> de l'arene ; presente sous <span class="tt">acceptee</span> seulement. <br  />
+2. Marcher sur la zone sous <span class="tt">inconnue</span>, puis sous <span class="tt">acceptee</span>.<br  />
+3. Construire le graphe. <br  />
+ <b>Resultat attendu :</b> Sous <span class="tt">inconnue</span>, rien. Sous <span class="tt">acceptee</span> : le drapeau vaut <span class="tt">condamne</span>, un dialogue <span class="tt">garde</span>, le heros est au vestiaire A. Le graphe porte une arete <span class="tt">Transfer</span> resolue. </p>
+
+</div>
+</div>
+<a id="ade5b592349e673d2c09b6b34ee6cf544" name="ade5b592349e673d2c09b6b34ee6cf544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade5b592349e673d2c09b6b34ee6cf544">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesPortesDeLAreneSontClosesSousCondamne</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un décor présent arrête le pas sur son emprise ; absent, on passe — sans recharger. </p>
+<p><b>Cas de test :</b> <b>Les portes de l'arene sont closes sous condamne.</b><br  />
+ <b>Categorie :</b> Unitaire · Exploration<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un couloir barre en (3, 0..2) par une porte <span class="tt">prop</span> d'emprise 1 x 3, presente sous <span class="tt">condamne</span>.<br  />
+2. Poser <span class="tt">condamne</span> et marcher ; puis <span class="tt">enfant-libere</span> et marcher encore.<br  />
+ <b>Resultat attendu :</b> La porte arrete le heros avant la colonne 3 ; une fois ouverte, il la franchit. </p>
+
+</div>
+</div>
+<a id="a25664883e13e8253fea633dfb58e281e" name="a25664883e13e8253fea633dfb58e281e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25664883e13e8253fea633dfb58e281e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneValeurQuAucuneQueteNeDeclareEstRelevee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une valeur qu'aucune quête ne déclare est relevée, qu'une entité la lise ou la pose. </p>
+<p><b>Cas de test :</b> <b>Le controle refuse une valeur qu'aucune quete ne declare.</b><br  />
+ <b>Categorie :</b> Unitaire · Quetes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un PNJ present sous <span class="tt">acceptee|acepte</span>, une zone qui pose <span class="tt">quete.pommes</span> sans valeur, une zone qui pose <span class="tt">acceptee</span>, une zone qui donne une valeur a un fait.<br  />
+ <b>Resultat attendu :</b> <span class="tt">UndeclaredFlagValue</span> pour <span class="tt">acepte</span> et pour la valeur du fait ; <span class="tt">MissingProperty</span> pour la zone qui pose un drapeau declare sans valeur ; rien pour la zone juste. </p>
+
+</div>
+</div>
+<a id="a29a5ae184a13f966d5033d7934c9df96" name="a29a5ae184a13f966d5033d7934c9df96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29a5ae184a13f966d5033d7934c9df96">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneZoneUneFoisNeSeDeclenchePasDeuxFois</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une zone « une fois » ne redéclenche pas ; on n'entre pas dans une zone où l'on arrive. </p>
+<p><b>Cas de test :</b> <b>Une zone une fois ne se declenche qu'une fois.</b><br  />
+ <b>Categorie :</b> Unitaire · Exploration<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Un couloir dont l'entree est dans une zone a dialogue, et une zone <span class="tt">triggerOnce</span> en (3, 1).<br  />
+2. Demarrer ; marcher a travers la seconde, revenir, repasser.<br  />
+ <b>Resultat attendu :</b> Rien au depart ; un seul dialogue <span class="tt">annonce</span>. </p>
+
+</div>
+</div>
+<a id="a1b1c378ef1bffe099f01461d56a0effa" name="a1b1c378ef1bffe099f01461d56a0effa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b1c378ef1bffe099f01461d56a0effa">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPortailCondamneEstLegal</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un portail condamné n'exige ni cible ni arrivée, et le graphe ne le compte pas en faute. </p>
+<p><b>Cas de test :</b> <b>Un portail condamne est legal ; le meme, non condamne, est une faute.</b><br  />
+ <b>Categorie :</b> Unitaire · Graphe du monde<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une carte portant un escalier <span class="tt">sealed</span> sans cible.<br  />
+2. Valider ses entites et son graphe ; recommencer sans <span class="tt">sealed</span>.<br  />
+ <b>Resultat attendu :</b> Condamne : aucun probleme, statut <span class="tt">Sealed</span>, aucun defaut de graphe. Sans <span class="tt">sealed</span> : <span class="tt">targetMap</span> et <span class="tt">arrival</span> manquent, et le graphe releve <span class="tt">MissingTargetMap</span>. </p>
+
+</div>
+</div>
+<a id="adfdc47ef730c16b0ccd1ef3315c372c3" name="adfdc47ef730c16b0ccd1ef3315c372c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfdc47ef730c16b0ccd1ef3315c372c3">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestMapFeaturesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPortailCondamneNeSOuvrePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>On marche sur un portail condamné : il le dit, et l'on reste. </p>
+<p><b>Cas de test :</b> <b>Un portail condamne ne s'ouvre pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Exploration<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Un couloir dont la case (2, 1) porte un escalier condamne vers <span class="tt">catacombes</span>.<br  />
+</p><ol type="1">
+<li>Marcher dessus.<br  />
+ <b>Resultat attendu :</b> Un evenement <span class="tt">PortalSealed</span> qui nomme <span class="tt">catacombes</span> ; la carte ne change pas. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_5b9260db83130c4f37c3438064c80de4.html">World</a></li><li class="navelem"><a href="test__quest__map__features_8cpp.html">test_quest_map_features.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

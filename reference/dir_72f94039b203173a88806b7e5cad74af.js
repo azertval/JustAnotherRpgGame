@@ -24,6 +24,7 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_paint_tools.cpp", "test__paint__tools_8cpp.html", "test__paint__tools_8cpp" ],
     [ "test_panel_focus.cpp", "test__panel__focus_8cpp.html", "test__panel__focus_8cpp" ],
     [ "test_piece_catalog.cpp", "test__piece__catalog_8cpp.html", "test__piece__catalog_8cpp" ],
+    [ "test_quest_map_editor.cpp", "test__quest__map__editor_8cpp.html", "test__quest__map__editor_8cpp" ],
     [ "test_scene_images.cpp", "test__scene__images_8cpp.html", "test__scene__images_8cpp" ],
     [ "test_scene_painter.cpp", "test__scene__painter_8cpp.html", "test__scene__painter_8cpp" ],
     [ "test_shipped_maps.cpp", "test__shipped__maps_8cpp.html", "test__shipped__maps_8cpp" ],

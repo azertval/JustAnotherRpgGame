@@ -185,6 +185,12 @@ var NAVTREEINDEX2 =
 "WorldSceneRenderer_8cpp.html":[4,0,0,6,2,60],
 "WorldSceneRenderer_8h.html":[4,0,0,6,2,61],
 "WorldSceneRenderer_8h_source.html":[4,0,0,6,2,61],
+"WorldStateEditor_8cpp.html":[4,0,0,3,1,36],
+"WorldStateEditor_8h.html":[4,0,0,3,1,37],
+"WorldStateEditor_8h_source.html":[4,0,0,3,1,37],
+"WorldState_8cpp.html":[4,0,0,3,0,67],
+"WorldState_8h.html":[4,0,0,3,0,68],
+"WorldState_8h_source.html":[4,0,0,3,0,68],
 "WorldTravel_8cpp.html":[4,0,0,2,10,18],
 "WorldTravel_8h.html":[4,0,0,2,10,19],
 "WorldTravel_8h_source.html":[4,0,0,2,10,19],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "classcore_1_1ActionEconomy.html#afee146284186c1dd943667c68d3cb10c":[3,0,0,1,8],
 "classcore_1_1ArenaSession.html":[2,0,1,12],
 "classcore_1_1ArenaSession.html":[3,0,0,12],
-"classcore_1_1ArenaSession.html#a0267ab08d63cdd1e97c7aa776b16739e":[2,0,1,12,29],
-"classcore_1_1ArenaSession.html#a0267ab08d63cdd1e97c7aa776b16739e":[3,0,0,12,29],
-"classcore_1_1ArenaSession.html#a0b2e4d467ccf4fa2b267af8cc0a94ef8":[2,0,1,12,8],
-"classcore_1_1ArenaSession.html#a0b2e4d467ccf4fa2b267af8cc0a94ef8":[3,0,0,12,8],
-"classcore_1_1ArenaSession.html#a1018a38031516ac18d3a02af2f6f6df4":[2,0,1,12,31],
-"classcore_1_1ArenaSession.html#a1018a38031516ac18d3a02af2f6f6df4":[3,0,0,12,31],
-"classcore_1_1ArenaSession.html#a1499cabc1b8c1ba3c21a31446278c40f":[2,0,1,12,7]
+"classcore_1_1ArenaSession.html#a0267ab08d63cdd1e97c7aa776b16739e":[2,0,1,12,29]
 };

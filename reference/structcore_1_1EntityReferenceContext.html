@@ -154,7 +154,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad17fb12e7a2ab94c7152df5e278b8f1f" id="r_ad17fb12e7a2ab94c7152df5e278b8f1f"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad17fb12e7a2ab94c7152df5e278b8f1f">encounters</a></td></tr>
 <tr class="memitem:a3e49b5e95556e031730f85fb936dcc79" id="r_a3e49b5e95556e031730f85fb936dcc79"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3e49b5e95556e031730f85fb936dcc79">figures</a></td></tr>
 <tr class="memitem:af4677cc4bb996b1810296fd005241f80" id="r_af4677cc4bb996b1810296fd005241f80"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af4677cc4bb996b1810296fd005241f80">flags</a></td></tr>
-<tr class="memdesc:af4677cc4bb996b1810296fd005241f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux qu'un dialogue pose.  <br /></td></tr>
+<tr class="memdesc:af4677cc4bb996b1810296fd005241f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux qu'un dialogue, une quête ou un déclencheur de zone pose.  <br /></td></tr>
+<tr class="memitem:ae1bf36ec5f04458e842a8be55219705e" id="r_ae1bf36ec5f04458e842a8be55219705e"><td class="memItemLeft">std::map&lt; std::string, std::set&lt; std::string, std::less&lt;&gt; &gt;, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae1bf36ec5f04458e842a8be55219705e">flagValues</a></td></tr>
+<tr class="memdesc:ae1bf36ec5f04458e842a8be55219705e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux qu'une quête <b>déclare</b>, et leurs valeurs (<span class="tt">LOT-116</span>).  <br /></td></tr>
+<tr class="memitem:a4995ab553f65988e472ee9935c7c3375" id="r_a4995ab553f65988e472ee9935c7c3375"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4995ab553f65988e472ee9935c7c3375">pieces</a></td></tr>
+<tr class="memdesc:a4995ab553f65988e472ee9935c7c3375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pièces du lieu de la carte (source <span class="tt">Pieces</span>).  <br /></td></tr>
 <tr class="memitem:a8005301b505c4e171287694803c18cb2" id="r_a8005301b505c4e171287694803c18cb2"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8005301b505c4e171287694803c18cb2">locations</a></td></tr>
 <tr class="memitem:aeaee8ce43b4fb7ab67735274502b3036" id="r_aeaee8ce43b4fb7ab67735274502b3036"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aeaee8ce43b4fb7ab67735274502b3036">items</a></td></tr>
 <tr class="memitem:a5c0ef366614dd1d6c1dcadc97d4189b8" id="r_a5c0ef366614dd1d6c1dcadc97d4189b8"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5c0ef366614dd1d6c1dcadc97d4189b8">entityRefs</a></td></tr>
@@ -252,7 +256,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les drapeaux qu'un dialogue pose. </p>
+<p>Les drapeaux qu'un dialogue, une quête ou un déclencheur de zone pose. </p>
+
+</div>
+</div>
+<a id="ae1bf36ec5f04458e842a8be55219705e" name="ae1bf36ec5f04458e842a8be55219705e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1bf36ec5f04458e842a8be55219705e">&#9670;&#160;</a></span>flagValues</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::set&lt;std::string, std::less&lt;&gt; &gt;, std::less&lt;&gt; &gt; core::EntityReferenceContext::flagValues</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les drapeaux qu'une quête <b>déclare</b>, et leurs valeurs (<span class="tt">LOT-116</span>). </p>
 
 </div>
 </div>
@@ -281,6 +301,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4995ab553f65988e472ee9935c7c3375" name="a4995ab553f65988e472ee9935c7c3375"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4995ab553f65988e472ee9935c7c3375">&#9670;&#160;</a></span>pieces</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string, std::less&lt;&gt; &gt; core::EntityReferenceContext::pieces</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les pièces du lieu de la carte (source <span class="tt">Pieces</span>). </p>
+<p><b>Vide</b> : le lieu n'est pas connu (une maquette, un lieu sans manifeste), et les pièces ne se contrôlent pas. </p>
 
 </div>
 </div>

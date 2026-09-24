@@ -42,6 +42,7 @@ namespace {
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;WorldIssueCode&gt; defautDe(PortalLinkStatus statut) {
     switch (statut) {</span>
         case PortalLinkStatus::Resolved:
+        case PortalLinkStatus::Sealed:
 <span style = "background-color:#dfd">            return std::nullopt;</span>
         case PortalLinkStatus::MissingTarget:
 <span style = "background-color:#dfd">            return WorldIssueCode::MissingTargetMap;</span>
@@ -87,7 +88,8 @@ namespace {
         }
 <span style = "background-color:#dfd">        return PortalTarget{.map = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),</span>
                             .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY),
-                            .requiredFlag = texteDe(entite, PORTAL_REQUIRED_FLAG_PROPERTY)};
+                            .requiredFlag = texteDe(entite, PORTAL_REQUIRED_FLAG_PROPERTY),
+                            .sealed = isSealedPortal(entite)};
 <span style = "background-color:#fdd">    }</span>
 <span style = "background-color:#dfd">    return std::nullopt;
 }</span>
@@ -243,6 +245,9 @@ WorldTravel::MapLoader WorldTravel::directoriesLoader(
 <span style = "background-color:#dfd">    const std::optional&lt;PortalTarget&gt; portail = portalAt(*carte, from);
     if (!portail.has_value()) {
         return TravelResult::NoPortal;</span>
+    }
+<span style = "background-color:#dfd">    if (portail-&gt;sealed) {
+        return TravelResult::Sealed;</span>
     }
     // Le drapeau exige du monde, pas de la carte : la porte d'Arenarea s'ouvre quand la quete l'a
     // ouverte (LOT-16), et le portail se contente de le lire.

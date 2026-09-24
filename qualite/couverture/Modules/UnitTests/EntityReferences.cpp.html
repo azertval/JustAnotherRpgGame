@@ -114,6 +114,10 @@ namespace {
         const core::QuestCatalog quests = core::loadQuests(root / "World" / "quests");
         const std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);
         references.flags.assign(written.begin(), written.end());
+        for (const core::Quest&amp; quest : quests.quests) {
+            references.declaredFlags.insert(references.declaredFlags.end(), quest.flags.begin(),</span>
+                                            quest.flags.end());
+<span style = "background-color:#dfd">        }
     }
     if (const std::filesystem::path locations = root / "World" / "locations";
         isDirectory(locations)) {
@@ -136,14 +140,22 @@ namespace {
         isDirectory(creatures)) {
         references.bestiary = core::loadBestiary(creatures);
     }
-    references.world = core::loadWorldGraph(root / "Levels");
+    references.world = core::loadWorldGraph(root / "Levels");</span>
+    // Ce que posent les zones des cartes (LOT-126) : un PNJ peut attendre le drapeau qu'une zone
+    // pose, sans qu'aucun dialogue ne le pose.
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; flags(references.flags.begin(), references.flags.end());
+    for (const core::WorldMapNode&amp; map : references.world.maps) {
+        flags.insert(map.triggerFlags.begin(), map.triggerFlags.end());
+    }
+    references.flags.assign(flags.begin(), flags.end());
     return references;
 }</span>
 
 core::EntityReferenceContext referenceContext(const EditorReferences&amp; references,
                                               std::string_view editedMapId,
                                               const std::vector&lt;core::MapEntity&gt;&amp; editedEntities,
-<span style = "background-color:#dfd">                                              std::string_view place) {
+                                              std::string_view place,
+<span style = "background-color:#dfd">                                              const core::ScenePieceManifest* manifest) {
     core::EntityReferenceContext context;
     context.dialogues.insert(references.dialogues.begin(), references.dialogues.end());
     for (const core::Encounter&amp; encounter : references.encounters.encounters) {
@@ -158,7 +170,18 @@ core::EntityReferenceContext referenceContext(const EditorReferences&amp; refere
         }</span>
     }
 <span style = "background-color:#dfd">    context.flags.insert(references.flags.begin(), references.flags.end());
-    context.locations.insert(references.locations.begin(), references.locations.end());
+    for (const core::QuestFlag&amp; flag : references.declaredFlags) {
+        context.flagValues[flag.id].insert(flag.values.begin(), flag.values.end());
+    }</span>
+    // Les entites du brouillon posent leurs drapeaux avant d'etre enregistrees.
+<span style = "background-color:#dfd">    context.flags.merge(core::flagsSetByEntities(editedEntities));
+    if (manifest != nullptr) {
+        for (const core::ScenePiece&amp; piece : manifest-&gt;pieces()) {
+            context.pieces.insert(piece.name);
+            context.pieces.insert(piece.aliases.begin(), piece.aliases.end());
+        }</span>
+    }
+<span style = "background-color:#dfd">    context.locations.insert(references.locations.begin(), references.locations.end());
     context.items.insert(references.items.begin(), references.items.end());
     for (const core::WorldMapNode&amp; map : references.world.maps) {
         context.arrivalPointsByMap[map.mapId].insert(map.arrivalPoints.begin(),</span>
@@ -224,9 +247,33 @@ std::vector&lt;std::string&gt; entityChoices(const core::EntityPropertySpec&amp;
         case core::EntityChoiceSource::EntityRefs:
 <span style = "background-color:#fdd">            choices.assign(context.entityRefs.begin(), context.entityRefs.end());
             break;</span>
+        case core::EntityChoiceSource::WrittenFlags:
+<span style = "background-color:#fdd">            choices.assign(context.flags.begin(), context.flags.end());
+            for (const auto&amp; [flag, values] : context.flagValues) {
+                if (!context.flags.contains(flag)) {
+                    choices.push_back(flag);</span>
+                }
+<span style = "background-color:#fdd">            }
+            break;</span>
+        case core::EntityChoiceSource::Pieces:
+<span style = "background-color:#fdd">            choices.assign(context.pieces.begin(), context.pieces.end());
+            break;</span>
+        case core::EntityChoiceSource::FlagValues: {
+<span style = "background-color:#dfd">            const auto flag = entity.properties.find(std::string{spec.relatedKey});
+            const auto* const name =</span>
+                flag != entity.properties.end() ? std::get_if&lt;std::string&gt;(&amp;flag-&gt;second) : nullptr;
+<span style = "background-color:#dfd">            if (name == nullptr) {</span>
+<span style = "background-color:#fdd">                break;</span>
+            }
+<span style = "background-color:#dfd">            if (const auto values = context.flagValues.find(*name);
+                values != context.flagValues.end()) {
+                choices.assign(values-&gt;second.begin(), values-&gt;second.end());
+            }
+            break;</span>
+<span style = "background-color:#fdd">        }</span>
         case core::EntityChoiceSource::ArrivalPoints: {
-<span style = "background-color:#dfd">            const auto target =</span>
-                entity.properties.find(std::string{core::PORTAL_TARGET_MAP_PROPERTY});
+<span style = "background-color:#dfd">            const auto target = entity.properties.find(std::string{</span>
+                spec.relatedKey.empty() ? core::PORTAL_TARGET_MAP_PROPERTY : spec.relatedKey});
 <span style = "background-color:#dfd">            if (target == entity.properties.end()) {</span>
 <span style = "background-color:#fdd">                break;</span>
             }

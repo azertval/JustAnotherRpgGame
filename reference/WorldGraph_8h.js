@@ -10,7 +10,12 @@ var WorldGraph_8h =
       [ "core::PortalLinkStatus::UnknownMap", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfad3523923fdec87248e3c0c76d15f0cdd", null ],
       [ "core::PortalLinkStatus::MissingArrival", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfa46e439821cad2e9c44e621081377c986", null ],
       [ "core::PortalLinkStatus::UnknownArrival", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfa12f7ffd3e3b664dac8d73d3e586c17fd", null ],
-      [ "core::PortalLinkStatus::TargetUnreadable", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e", null ]
+      [ "core::PortalLinkStatus::TargetUnreadable", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e", null ],
+      [ "core::PortalLinkStatus::Sealed", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfa9b965a5a6e503feba7eda0d4e32fc98c", null ]
+    ] ],
+    [ "core::WorldLinkKind", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44", [
+      [ "core::WorldLinkKind::Portal", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a3e9b3ac6f082ec46a2d1d3f1f1647456", null ],
+      [ "core::WorldLinkKind::Transfer", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a6950810f0d2bba97a6f710c7b965b84e", null ]
     ] ],
     [ "core::buildWorldGraph", "namespacecore.html#a613ed3cc48dbcdf1ed1533b2bb6c9f9c", null ],
     [ "core::loadWorldGraph", "namespacecore.html#a3a51a927bbd51ec10f45120e41fcab27", null ],

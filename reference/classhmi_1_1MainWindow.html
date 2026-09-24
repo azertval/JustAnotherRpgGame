@@ -217,6 +217,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ae58dfac3b4b241974f322ffac9230283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance <span class="tt">JustAnotherRpgGame</span> sur la carte ouverte, au départ de <code class="param">at</code> (<span class="tt">EX-EDIT-093</span>, <span class="tt">EX-EDIT-095</span>).  <br /></td></tr>
 <tr class="memitem:a0736f19a870745f3e40135888af7ee3d" id="r_a0736f19a870745f3e40135888af7ee3d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0736f19a870745f3e40135888af7ee3d">openRunInGameDialog</a> ()</td></tr>
 <tr class="memdesc:a0736f19a870745f3e40135888af7ee3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Run in game… » : la case de départ et les drapeaux de monde, puis l'essai.  <br /></td></tr>
+<tr class="memitem:abf4ef837c78580b583d0a35767cdf7c6" id="r_abf4ef837c78580b583d0a35767cdf7c6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abf4ef837c78580b583d0a35767cdf7c6">openWorldStateDialog</a> ()</td></tr>
+<tr class="memdesc:abf4ef837c78580b583d0a35767cdf7c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">« World state… » : l'état de partie du canevas et des essais (<span class="tt">LOT-126</span>).  <br /></td></tr>
+<tr class="memitem:a6deb24ce7044edbf64faaa8dec96045d" id="r_a6deb24ce7044edbf64faaa8dec96045d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6deb24ce7044edbf64faaa8dec96045d">applyWorldState</a> ()</td></tr>
+<tr class="memdesc:a6deb24ce7044edbf64faaa8dec96045d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne l'état de partie à tous les onglets.  <br /></td></tr>
 <tr class="memitem:aa2b7066edcb640abeae9f9454f0c22d2" id="r_aa2b7066edcb640abeae9f9454f0c22d2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa2b7066edcb640abeae9f9454f0c22d2">stopRunningGame</a> ()</td></tr>
 <tr class="memdesc:aa2b7066edcb640abeae9f9454f0c22d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrête l'essai en cours, s'il y en a un (un second essai remplace le premier).  <br /></td></tr>
 <tr class="memitem:ab5fd27ff6544e711305b36ae6e9f2653" id="r_ab5fd27ff6544e711305b36ae6e9f2653"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab5fd27ff6544e711305b36ae6e9f2653">runContentCheck</a> ()</td></tr>
@@ -310,6 +314,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a63e1c1cd752453cb2d1b80986d0d94ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'essai complet en cours, s'il y en a un (<span class="tt">LOT-EDITOR-10</span>) : un seul à la fois.  <br /></td></tr>
 <tr class="memitem:ac34b14871777893b6f02885d2215e1e9" id="r_ac34b14871777893b6f02885d2215e1e9"><td class="memItemLeft"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac34b14871777893b6f02885d2215e1e9">_runChoice</a></td></tr>
 <tr class="memdesc:ac34b14871777893b6f02885d2215e1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants.  <br /></td></tr>
+<tr class="memitem:ab2141c7b628e5c668a5bf45283862087" id="r_ab2141c7b628e5c668a5bf45283862087"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab2141c7b628e5c668a5bf45283862087">_statePreview</a> = false</td></tr>
+<tr class="memdesc:ab2141c7b628e5c668a5bf45283862087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le canevas montre la carte sous l'état de partie (<span class="tt">_runChoice.flags</span>, <span class="tt">LOT-126</span>).  <br /></td></tr>
 <tr class="memitem:a9070cc10b7ea209e15e5c2ff9e623f50" id="r_a9070cc10b7ea209e15e5c2ff9e623f50"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1AutosaveStore.html">AutosaveStore</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9070cc10b7ea209e15e5c2ff9e623f50">_autosave</a></td></tr>
 <tr class="memitem:a053f67d2426ca6b7644aa68c43bbc285" id="r_a053f67d2426ca6b7644aa68c43bbc285"><td class="memItemLeft">QTimer *&#160;</td><td class="memItemRight"><a class="el" href="#a053f67d2426ca6b7644aa68c43bbc285">_autosaveTimer</a> = nullptr</td></tr>
 <tr class="memitem:a0238ff13db5d523b1872d7a9797be0d6" id="r_a0238ff13db5d523b1872d7a9797be0d6"><td class="memItemLeft">std::map&lt; <a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a> *, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0238ff13db5d523b1872d7a9797be0d6">_autosavedMapIds</a></td></tr>
@@ -525,6 +531,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6deb24ce7044edbf64faaa8dec96045d" name="a6deb24ce7044edbf64faaa8dec96045d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6deb24ce7044edbf64faaa8dec96045d">&#9670;&#160;</a></span>applyWorldState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyWorldState </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Donne l'état de partie à tous les onglets. </p>
 
 </div>
 </div>
@@ -1327,6 +1360,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf4ef837c78580b583d0a35767cdf7c6" name="abf4ef837c78580b583d0a35767cdf7c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf4ef837c78580b583d0a35767cdf7c6">&#9670;&#160;</a></span>openWorldStateDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openWorldStateDialog </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>« World state… » : l'état de partie du canevas et des essais (<span class="tt">LOT-126</span>). </p>
 
 </div>
 </div>
@@ -2700,6 +2760,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants. </p>
+
+</div>
+</div>
+<a id="ab2141c7b628e5c668a5bf45283862087" name="ab2141c7b628e5c668a5bf45283862087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2141c7b628e5c668a5bf45283862087">&#9670;&#160;</a></span>_statePreview</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MainWindow::_statePreview = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si le canevas montre la carte sous l'état de partie (<span class="tt">_runChoice.flags</span>, <span class="tt">LOT-126</span>). </p>
 
 </div>
 </div>

@@ -17,6 +17,7 @@
 #include &lt;algorithm&gt;
 #include &lt;array&gt;
 #include &lt;cmath&gt;
+#include &lt;iterator&gt;
 #include &lt;optional&gt;
 #include &lt;utility&gt;
 
@@ -50,12 +51,14 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
 <span style = "background-color:#dfd">    rebuildInteractables();
     _hero = cellCenter(_travel.position());
     _lastCell = _travel.position();
+    resetZones();
     return true;
 }</span>
 
 <span style = "background-color:#dfd">void ExplorationSession::placeHero(CellPoint point) noexcept {
     _hero = point;
     _lastCell = cellOf(point);
+    resetZones();
 }</span>
 
 <span style = "background-color:#fdd">GridPosition ExplorationSession::aimedCell() const {
@@ -64,6 +67,7 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
 
 <span style = "background-color:#dfd">void ExplorationSession::rebuildInteractables() {
     _interactables.clear();
+    _blocked.clear();
     const Level* carte = map();
     if (carte == nullptr) {
         _seenRevision = _flags.revision();
@@ -76,6 +80,17 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
         if (!isEntityPresent(objet, _flags)) {
             continue;</span>
         }
+<span style = "background-color:#dfd">        if (objet.type == PROP_ENTITY_TYPE) {</span>
+            // Un decor present arrete le pas sur son emprise, sauf s'il dit le contraire.
+<span style = "background-color:#dfd">            const auto arrete = objet.properties.find(std::string{PROP_BLOCKS_PROPERTY});
+            const bool* const valeur =</span>
+                arrete != objet.properties.end() ? std::get_if&lt;bool&gt;(&amp;arrete-&gt;second) : nullptr;
+<span style = "background-color:#dfd">            if (valeur == nullptr || *valeur) {
+                const std::vector&lt;GridPosition&gt; emprise = zoneCells(objet);
+                _blocked.insert(_blocked.end(), emprise.begin(), emprise.end());
+            }
+            continue;</span>
+<span style = "background-color:#fdd">        }</span>
 <span style = "background-color:#dfd">        const auto famille =</span>
             std::ranges::find(knownInteractableKinds(), objet.type, &amp;InteractableKind::type);
 <span style = "background-color:#dfd">        if (famille == knownInteractableKinds().end()) {
@@ -105,9 +120,10 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
     for (const float dx : cotes) {
         for (const float dy : cotes) {</span>
             const GridPosition coin =
-<span style = "background-color:#dfd">                cellOf(CellPoint{.column = point.column + dx, .row = point.row + dy});
-            if (!collision.inBounds(coin.column, coin.row) ||</span>
-                collision.isSolid(coin.column, coin.row)) {
+<span style = "background-color:#dfd">                cellOf(CellPoint{.column = point.column + dx, .row = point.row + dy});</span>
+            if (!collision.inBounds(coin.column, coin.row) ||
+<span style = "background-color:#dfd">                collision.isSolid(coin.column, coin.row) ||</span>
+                std::ranges::find(_blocked, coin) != _blocked.end()) {
 <span style = "background-color:#dfd">                return false;</span>
             }
 <span style = "background-color:#dfd">        }
@@ -149,12 +165,11 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
     }
 <span style = "background-color:#dfd">    switch (_travel.cross(ici, _flags)) {</span>
         case TravelResult::Moved:
-<span style = "background-color:#dfd">            rebuildInteractables();
-            _hero = cellCenter(_travel.position());
-            _lastCell = _travel.position();
-            events.push_back(ExplorationEvent{.kind = ExplorationEventKind::MapEntered,</span>
-                                              .value = mapId(),
-                                              .cell = _travel.position()});
+<span style = "background-color:#dfd">            arrived(events);
+            break;</span>
+        case TravelResult::Sealed:
+<span style = "background-color:#dfd">            events.push_back(ExplorationEvent{</span>
+                .kind = ExplorationEventKind::PortalSealed, .value = portail-&gt;map, .cell = ici});
 <span style = "background-color:#dfd">            break;</span>
         case TravelResult::Locked:
 <span style = "background-color:#fdd">            events.push_back(ExplorationEvent{.kind = ExplorationEventKind::PortalLocked,</span>
@@ -170,6 +185,120 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
             break;
     }
 <span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void ExplorationSession::arrived(std::vector&lt;ExplorationEvent&gt;&amp; events) {
+    rebuildInteractables();
+    _hero = cellCenter(_travel.position());
+    _lastCell = _travel.position();
+    resetZones();
+    events.push_back(ExplorationEvent{</span>
+        .kind = ExplorationEventKind::MapEntered, .value = mapId(), .cell = _travel.position()});
+<span style = "background-color:#dfd">}</span>
+
+namespace {
+
+// Vrai si la zone @p entity declenche quelque chose a l'entree (LOT-126).
+<span style = "background-color:#dfd">[[nodiscard]] bool hasTrigger(const MapEntity&amp; entity) {
+    if (entity.type != ZONE_ENTITY_TYPE) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return std::ranges::any_of(std::array{ZONE_TRIGGER_DIALOGUE_PROPERTY,</span>
+                                          ZONE_TRIGGER_FLAG_PROPERTY, ZONE_TRIGGER_MAP_PROPERTY},
+<span style = "background-color:#dfd">                               [&amp;entity](std::string_view key) {
+                                   const auto found = entity.properties.find(std::string{key});
+                                   const std::string* const text =</span>
+                                       found != entity.properties.end()
+                                           ? std::get_if&lt;std::string&gt;(&amp;found-&gt;second)
+                                           : nullptr;
+<span style = "background-color:#dfd">                                   return text != nullptr &amp;&amp; !text-&gt;empty();
+                               });
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const MapEntity&amp; entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    const std::string* const text =</span>
+        found != entity.properties.end() ? std::get_if&lt;std::string&gt;(&amp;found-&gt;second) : nullptr;
+<span style = "background-color:#dfd">    return text != nullptr ? *text : std::string{};
+}</span>
+
+// Les rangs des zones a declencheur, presentes, qui couvrent @p cell.
+[[nodiscard]] std::vector&lt;std::size_t&gt; triggerZonesAt(const Level&amp; map, GridPosition cell,
+<span style = "background-color:#dfd">                                                      const WorldFlags&amp; flags) {
+    std::vector&lt;std::size_t&gt; zones;
+    const std::vector&lt;MapEntity&gt;&amp; entities = map.entities();
+    for (std::size_t index = 0; index &lt; entities.size(); ++index) {
+        const MapEntity&amp; entity = entities[index];
+        if (!hasTrigger(entity) || !isEntityPresent(entity, flags)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::vector&lt;GridPosition&gt; cells = zoneCells(entity);
+        if (std::ranges::find(cells, cell) != cells.end()) {
+            zones.push_back(index);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return zones;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">void ExplorationSession::resetZones() {
+    const Level* carte = map();
+    _insideZones =</span>
+        carte != nullptr ? triggerZonesAt(*carte, heroCell(), _flags) : std::vector&lt;std::size_t&gt;{};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void ExplorationSession::enterZones(std::vector&lt;ExplorationEvent&gt;&amp; events) {
+    const Level* carte = map();
+    if (carte == nullptr) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const std::vector&lt;std::size_t&gt; ici = triggerZonesAt(*carte, heroCell(), _flags);
+    std::vector&lt;std::size_t&gt; entrees;
+    std::ranges::set_difference(ici, _insideZones, std::back_inserter(entrees));
+    _insideZones = ici;
+    for (const std::size_t rang : entrees) {</span>
+        // Copie : un transfert change la carte courante, et l'entite avec elle.
+<span style = "background-color:#dfd">        const MapEntity zone = carte-&gt;entities()[rang];</span>
+        // Une zone Â« une fois Â» garde sa trace dans un fait fabrique, comme un coffre ouvert.
+<span style = "background-color:#dfd">        const auto once = zone.properties.find(std::string{ZONE_TRIGGER_ONCE_PROPERTY});
+        const bool* const unique =</span>
+            once != zone.properties.end() ? std::get_if&lt;bool&gt;(&amp;once-&gt;second) : nullptr;
+<span style = "background-color:#dfd">        if (unique != nullptr &amp;&amp; *unique) {
+            const std::string fait =</span>
+                keyForEntity(mapId(), zone.type, zone.position.column, zone.position.row);
+<span style = "background-color:#dfd">            if (_flags.isSet(fait)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            _flags.set(fait);
+        }</span>
+        // Le drapeau d'abord : le dialogue qui s'ouvre, ou la carte d'arrivee, le voient deja.
+<span style = "background-color:#dfd">        if (const std::string drapeau = textOf(zone, ZONE_TRIGGER_FLAG_PROPERTY);
+            !drapeau.empty()) {
+            const std::string valeur = textOf(zone, ZONE_TRIGGER_VALUE_PROPERTY);
+            if (valeur.empty()) {</span>
+<span style = "background-color:#fdd">                _flags.set(drapeau);
+            } else {</span>
+<span style = "background-color:#dfd">                _flags.setValue(drapeau, valeur);</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (const std::string dialogue = textOf(zone, ZONE_TRIGGER_DIALOGUE_PROPERTY);
+            !dialogue.empty()) {
+            events.push_back(ExplorationEvent{</span>
+                .kind = ExplorationEventKind::Dialogue, .value = dialogue, .cell = heroCell()});
+<span style = "background-color:#dfd">        }
+        if (const std::string cible = textOf(zone, ZONE_TRIGGER_MAP_PROPERTY); !cible.empty()) {
+            const GridPosition depart = heroCell();
+            if (_travel.enter(cible, textOf(zone, ZONE_TRIGGER_ARRIVAL_PROPERTY)) ==</span>
+                TravelResult::Moved) {
+<span style = "background-color:#dfd">                arrived(events);
+            } else {</span>
+<span style = "background-color:#fdd">                events.push_back(ExplorationEvent{</span>
+                    .kind = ExplorationEventKind::PortalBroken, .value = cible, .cell = depart});
+            }
+<span style = "background-color:#dfd">            return;  // ailleurs : les autres zones de la case sont restees derriere.
+        }
+    }
+}</span>
 
 <span style = "background-color:#dfd">void ExplorationSession::resolveInteraction(std::vector&lt;ExplorationEvent&gt;&amp; events) {
     const Level* carte = map();
@@ -253,6 +382,7 @@ std::vector&lt;ExplorationEvent&gt; ExplorationSession::update(const Exploration
     }
 <span style = "background-color:#dfd">    walk(intent.move, seconds);
     crossPortal(events);
+    enterZones(events);
     if (intent.interact) {
         resolveInteraction(events);</span>
     }

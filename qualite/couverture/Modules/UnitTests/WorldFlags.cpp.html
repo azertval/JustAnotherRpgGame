@@ -57,7 +57,7 @@ bool WorldFlags::declare(std::string_view key, std::vector&lt;std::string&gt; va
     return true;
 }</span>
 
-<span style = "background-color:#fdd">const std::vector&lt;std::string&gt;* WorldFlags::declaredValues(std::string_view key) const {
+<span style = "background-color:#dfd">const std::vector&lt;std::string&gt;* WorldFlags::declaredValues(std::string_view key) const {
     const auto trouve = _declared.find(key);
     return trouve == _declared.end() ? nullptr : &amp;trouve-&gt;second.values;
 }</span>

@@ -8,6 +8,7 @@ var ExplorationSession_8h =
       [ "core::ExplorationEventKind::MapEntered", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb", null ],
       [ "core::ExplorationEventKind::PortalLocked", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835", null ],
       [ "core::ExplorationEventKind::PortalBroken", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a", null ],
+      [ "core::ExplorationEventKind::PortalSealed", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ac44f67d3a3494bbef49403a8a07f5b55", null ],
       [ "core::ExplorationEventKind::Dialogue", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812", null ],
       [ "core::ExplorationEventKind::Encounter", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0", null ],
       [ "core::ExplorationEventKind::Interacted", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82", null ],

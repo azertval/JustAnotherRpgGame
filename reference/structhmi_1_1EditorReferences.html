@@ -161,7 +161,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a834339912ce66c819e4507367fa6a94d" id="r_a834339912ce66c819e4507367fa6a94d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a834339912ce66c819e4507367fa6a94d">assets</a></td></tr>
 <tr class="memdesc:a834339912ce66c819e4507367fa6a94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier <span class="tt">Assets/</span> où se cherchent les figurines d'un lieu ; vide sans données.  <br /></td></tr>
 <tr class="memitem:adfce73beec39e6122b2a340b5bb6ec41" id="r_adfce73beec39e6122b2a340b5bb6ec41"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adfce73beec39e6122b2a340b5bb6ec41">flags</a></td></tr>
-<tr class="memdesc:adfce73beec39e6122b2a340b5bb6ec41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux qu'un dialogue accepté pose (<span class="tt">SetFlag</span>, et le drapeau d'une quête démarrée), triés.  <br /></td></tr>
+<tr class="memdesc:adfce73beec39e6122b2a340b5bb6ec41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux que posent dialogues, quêtes et déclencheurs de zone (<span class="tt">LOT-126</span>), triés.  <br /></td></tr>
+<tr class="memitem:a7b4834b123acc323e7da67ea56f9b229" id="r_a7b4834b123acc323e7da67ea56f9b229"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7b4834b123acc323e7da67ea56f9b229">declaredFlags</a></td></tr>
+<tr class="memdesc:a7b4834b123acc323e7da67ea56f9b229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux <b>à valeurs</b> que les quêtes déclarent, dans l'ordre des quêtes (<span class="tt">LOT-116</span>) : ce que l'inspecteur propose, et ce que l'état de partie du canevas sait régler.  <br /></td></tr>
 <tr class="memitem:a3a6c93884d9c63175d7748beccec956f" id="r_a3a6c93884d9c63175d7748beccec956f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3a6c93884d9c63175d7748beccec956f">locations</a></td></tr>
 <tr class="memdesc:a3a6c93884d9c63175d7748beccec956f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fiches de lieu de l'atlas (<span class="tt">World/locations/&lt;id&gt;.json</span>), triées.  <br /></td></tr>
 <tr class="memitem:a6c9c470eed8c3a6884cde93d5097dc9f" id="r_a6c9c470eed8c3a6884cde93d5097dc9f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6c9c470eed8c3a6884cde93d5097dc9f">items</a></td></tr>
@@ -199,6 +201,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pour l'emprise des créatures d'une rencontre (<span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>). </p>
+
+</div>
+</div>
+<a id="a7b4834b123acc323e7da67ea56f9b229" name="a7b4834b123acc323e7da67ea56f9b229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b4834b123acc323e7da67ea56f9b229">&#9670;&#160;</a></span>declaredFlags</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a>&gt; hmi::EditorReferences::declaredFlags</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les drapeaux <b>à valeurs</b> que les quêtes déclarent, dans l'ordre des quêtes (<span class="tt">LOT-116</span>) : ce que l'inspecteur propose, et ce que l'état de partie du canevas sait régler. </p>
 
 </div>
 </div>
@@ -246,7 +264,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les figurines que toute carte peut poser, triées : les slugs de <span class="tt">Assets/Npc/manifest.json</span>, <span class="tt">Monsters/&lt;slug&gt;</span> pour chaque monstre de <span class="tt">Assets/Monsters/manifest.json</span>, et les slugs du monde (<span class="tt">Assets/Common/Characters</span>, <span class="tt">LOT-124</span>). </p>
-<p>Celles d'un lieu s'y ajoutent carte par carte (<span class="tt"><a class="el" href="namespacehmi.html#af4ea2cd1857b4816619f1b5c6ecdd969" title="Le contexte de validation des entités de la carte éditée.">referenceContext</a></span>). </p>
+<p>Celles d'un lieu s'y ajoutent carte par carte (<span class="tt"><a class="el" href="namespacehmi.html#ad8fcbd5ec81604aed9074cdb4dd65ba6" title="Le contexte de validation des entités de la carte éditée.">referenceContext</a></span>). </p>
 
 </div>
 </div>
@@ -262,7 +280,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les drapeaux qu'un dialogue accepté pose (<span class="tt">SetFlag</span>, et le drapeau d'une quête démarrée), triés. </p>
+<p>Les drapeaux que posent dialogues, quêtes et déclencheurs de zone (<span class="tt">LOT-126</span>), triés. </p>
 
 </div>
 </div>

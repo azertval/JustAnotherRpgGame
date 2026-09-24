@@ -17,7 +17,9 @@
 #include &lt;algorithm&gt;
 #include &lt;optional&gt;
 
+#include "Core/Gameplay/WorldFlags.h"
 #include "Core/Levels/LevelDraft.h"
+#include "Core/World/EntityPresence.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
 namespace hmi {
@@ -95,10 +97,24 @@ IsoBandOpacity isoBandOpacity(const std::vector&lt;core::TileLayer&gt;&amp; laye
     }
 <span style = "background-color:#dfd">}</span>
 
-WorldSceneSnapshot canvasSnapshot(const core::LevelDraft&amp; draft,
-<span style = "background-color:#dfd">                                  const PlaceAppearance&amp; appearance) {</span>
-    // Une image fixe des bandes : le canevas n'anime pas les figurines.
-<span style = "background-color:#dfd">    return snapshotWorldScene(worldSceneSource(draft), appearance, npcFigures(draft.entities(), 0));
+WorldSceneSnapshot canvasSnapshot(const core::LevelDraft&amp; draft, const PlaceAppearance&amp; appearance,
+<span style = "background-color:#dfd">                                  const core::WorldFlags* state) {
+    if (state == nullptr) {</span>
+        // Une image fixe des bandes : le canevas n'anime pas les figurines.
+<span style = "background-color:#dfd">        return snapshotWorldScene(worldSceneSource(draft), appearance,</span>
+                                  npcFigures(draft.entities(), 0));
+    }
+    // Sous un etat de partie (LOT-126) : ce qu'il rend absent ne se compose pas, comme en jeu
+    // (`hmi::WorldPlay::snapshot`).
+<span style = "background-color:#dfd">    std::vector&lt;core::MapEntity&gt; present;
+    for (const core::MapEntity&amp; entity : draft.entities()) {
+        if (core::isEntityPresent(entity, *state)) {
+            present.push_back(entity);</span>
+        }
+<span style = "background-color:#dfd">    }
+    const WorldSceneSource source{</span>
+        .root = draft.tileMap(), .layers = draft.layers(), .entities = present};
+<span style = "background-color:#dfd">    return snapshotWorldScene(source, appearance, npcFigures(present, 0));
 }</span>
 
 std::vector&lt;WorldFigureSnapshot&gt; formationFigures(const core::EncounterTerrain&amp; terrain,

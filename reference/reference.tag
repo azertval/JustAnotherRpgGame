@@ -2396,7 +2396,9 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>CanvasScene_8cpp.html</filename>
     <includes id="CanvasScene_8h" name="CanvasScene.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasScene.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
     <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <namespace>hmi</namespace>
   </compound>
@@ -2614,7 +2616,9 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>EntityReferences_8h.html</filename>
     <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
     <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
@@ -3363,6 +3367,25 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>WorldState.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>WorldState_8cpp.html</filename>
+    <includes id="WorldState_8h" name="WorldState.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldState.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>WorldState.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>WorldState_8h.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <class kind="struct">hmi::WorldStateEntry</class>
+    <class kind="struct">hmi::WorldStateFlags</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>CityMapView.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>CityMapView_8cpp.html</filename>
@@ -3429,18 +3452,21 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>EditorViewport_8cpp.html</filename>
     <includes id="EditorViewport_8h" name="EditorViewport.h" local="yes" import="no" module="no" objc="no">Editor/Ui/EditorViewport.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
     <includes id="TileTypeName_8h" name="TileTypeName.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileTypeName.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
     <includes id="DataRoot_8h" name="DataRoot.h" local="yes" import="no" module="no" objc="no">Editor/Logic/DataRoot.h</includes>
     <includes id="EntityGesture_8h" name="EntityGesture.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityGesture.h</includes>
     <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
     <includes id="EntityShapes_8h" name="EntityShapes.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityShapes.h</includes>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="WorldState_8h" name="WorldState.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldState.h</includes>
     <includes id="DraftRenderer_8h" name="DraftRenderer.h" local="yes" import="no" module="no" objc="no">Editor/Ui/DraftRenderer.h</includes>
     <includes id="SceneImages_8h" name="SceneImages.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneImages.h</includes>
     <includes id="ScenePainter_8h" name="ScenePainter.h" local="yes" import="no" module="no" objc="no">Editor/Ui/ScenePainter.h</includes>
@@ -3458,6 +3484,7 @@
     <filename>EditorViewport_8h.html</filename>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="TacticalTerrain_8h" name="TacticalTerrain.h" local="yes" import="no" module="no" objc="no">Core/Combat/TacticalTerrain.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
     <includes id="LevelProperties_8h" name="LevelProperties.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelProperties.h</includes>
@@ -3588,6 +3615,7 @@
     <includes id="ProblemsPanel_8h" name="ProblemsPanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/ProblemsPanel.h</includes>
     <includes id="RefactorDialogs_8h" name="RefactorDialogs.h" local="yes" import="no" module="no" objc="no">Editor/Ui/RefactorDialogs.h</includes>
     <includes id="RunInGameDialog_8h" name="RunInGameDialog.h" local="yes" import="no" module="no" objc="no">Editor/Ui/RunInGameDialog.h</includes>
+    <includes id="WorldStateEditor_8h" name="WorldStateEditor.h" local="yes" import="no" module="no" objc="no">Editor/Ui/WorldStateEditor.h</includes>
     <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
@@ -3740,12 +3768,14 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>RunInGameDialog_8cpp.html</filename>
     <includes id="RunInGameDialog_8h" name="RunInGameDialog.h" local="yes" import="no" module="no" objc="no">Editor/Ui/RunInGameDialog.h</includes>
+    <includes id="WorldStateEditor_8h" name="WorldStateEditor.h" local="yes" import="no" module="no" objc="no">Editor/Ui/WorldStateEditor.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
     <name>RunInGameDialog.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>RunInGameDialog_8h.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <class kind="struct">hmi::RunInGameChoice</class>
     <namespace>hmi</namespace>
@@ -3809,6 +3839,23 @@
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="WorldGraphLayout_8h" name="WorldGraphLayout.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldGraphLayout.h</includes>
     <class kind="class">hmi::WorldGraphView</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>WorldStateEditor.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
+    <filename>WorldStateEditor_8cpp.html</filename>
+    <includes id="WorldStateEditor_8h" name="WorldStateEditor.h" local="yes" import="no" module="no" objc="no">Editor/Ui/WorldStateEditor.h</includes>
+    <includes id="WorldState_8h" name="WorldState.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldState.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>WorldStateEditor.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
+    <filename>WorldStateEditor_8h.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <class kind="class">hmi::WorldStateEditor</class>
+    <class kind="struct">hmi::WorldStateChoice</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -9387,6 +9434,72 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_quest_map_features.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/</path>
+    <filename>test__quest__map__features_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
+    <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>aee3f5d0f9e1c8c1dbae86a118697ced3</anchor>
+      <arglist>(QuestMapFeaturesTest, LaPresenceSeDeclarePourToutFamille)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>a25664883e13e8253fea633dfb58e281e</anchor>
+      <arglist>(QuestMapFeaturesTest, UneValeurQuAucuneQueteNeDeclareEstRelevee)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>a1b1c378ef1bffe099f01461d56a0effa</anchor>
+      <arglist>(QuestMapFeaturesTest, UnPortailCondamneEstLegal)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>adfdc47ef730c16b0ccd1ef3315c372c3</anchor>
+      <arglist>(QuestMapFeaturesTest, UnPortailCondamneNeSOuvrePas)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>a5674166e9a01bff2cd8dcbefb62906cf</anchor>
+      <arglist>(QuestMapFeaturesTest, LaZoneDuParvisTransfereAuVestiaire)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>a29a5ae184a13f966d5033d7934c9df96</anchor>
+      <arglist>(QuestMapFeaturesTest, UneZoneUneFoisNeSeDeclenchePasDeuxFois)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__features_8cpp.html</anchorfile>
+      <anchor>ade5b592349e673d2c09b6b34ee6cf544</anchor>
+      <arglist>(QuestMapFeaturesTest, LesPortesDeLAreneSontClosesSousCondamne)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_world_graph.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/</path>
     <filename>test__world__graph_8cpp.html</filename>
@@ -10807,6 +10920,68 @@
       <anchorfile>test__piece__catalog_8cpp.html</anchorfile>
       <anchor>a47350c42ba23fb2a5de5ab50679b9da4</anchor>
       <arglist>(PieceCatalogTest, UnKitRangeSeGroupeParDossier)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_quest_map_editor.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__quest__map__editor_8cpp.html</filename>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
+    <includes id="CanvasScene_8h" name="CanvasScene.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasScene.h</includes>
+    <includes id="ContentCheck_8h" name="ContentCheck.h" local="yes" import="no" module="no" objc="no">Editor/Logic/ContentCheck.h</includes>
+    <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="WorldGraphLayout_8h" name="WorldGraphLayout.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldGraphLayout.h</includes>
+    <includes id="WorldState_8h" name="WorldState.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldState.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__editor_8cpp.html</anchorfile>
+      <anchor>a317c13e62d11a28cb83c922299e30020</anchor>
+      <arglist>(QuestMapEditorTest, LEtatDePartieSeLitCommeLaLigneDeCommande)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__editor_8cpp.html</anchorfile>
+      <anchor>a07d3e9ee47eda0a2971e587df88c3ff3</anchor>
+      <arglist>(QuestMapEditorTest, LeCanevasGriseCeQueLEtatRendAbsent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__editor_8cpp.html</anchorfile>
+      <anchor>ae4e07069d3a2a4f19fa25d803fdd018b</anchor>
+      <arglist>(QuestMapEditorTest, LInspecteurProposeLesValeursDeclarees)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__editor_8cpp.html</anchorfile>
+      <anchor>ace812194dd2870d9e76252e2a297d9de</anchor>
+      <arglist>(QuestMapEditorTest, LeControleSuitLeTransfertEtAccepteLEscalierCondamne)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__editor_8cpp.html</anchorfile>
+      <anchor>af343d13c68865aea635b9f3a8ff84bcb</anchor>
+      <arglist>(QuestMapEditorTest, LeGrapheMontreLePortailCondamneEnPointille)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__map__editor_8cpp.html</anchorfile>
+      <anchor>a9637e57079e068e8bc0636edc1659402</anchor>
+      <arglist>(QuestMapEditorTest, LaPorteCloseSeVoitMemeEnMaquette)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -24658,6 +24833,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::vector&lt; core::QuestFlag &gt;</type>
+      <name>declaredFlags</name>
+      <anchorfile>structhmi_1_1EditorReferences.html</anchorfile>
+      <anchor>a7b4834b123acc323e7da67ea56f9b229</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; std::string &gt;</type>
       <name>locations</name>
       <anchorfile>structhmi_1_1EditorReferences.html</anchorfile>
@@ -25054,6 +25236,13 @@
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>a0377cf0a2cc7721aa592cc26a237b721</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWorldState</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a7b25e73ff4f739d1121c5686ed579d73</anchor>
+      <arglist>(std::vector&lt; std::string &gt; entries, bool preview)</arglist>
     </member>
     <member kind="function">
       <type>const EditorSidecar &amp;</type>
@@ -26371,6 +26560,27 @@
       <anchor>a86e3fac5b37c1a2cf7ad9724df3ad64a</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>_stateEntries</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a9802c47b1319cc77d266a399242f4d2b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_statePreview</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a6412b730caadc21c6ae7a2cc40ecc857</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::WorldFlags</type>
+      <name>_stateFlags</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a430924cf241b7dd8cac9e94b03dab1aa</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::Encounter</name>
@@ -26992,6 +27202,13 @@
       <anchor>ac88c71c6d773f383926397a9ba41568c</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>pieceProperty</name>
+      <anchorfile>structcore_1_1EntityKind.html</anchorfile>
+      <anchor>a88c2c74f96273a50f65c68f13b90328a</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::EntityManager</name>
@@ -27363,6 +27580,27 @@
       <anchor>a15d868598661f663abc460f45c41aced</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>relatedKey</name>
+      <anchorfile>structcore_1_1EntityPropertySpec.html</anchorfile>
+      <anchor>aa8ef382c9b934837c15349050f59a7ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>waivedBy</name>
+      <anchorfile>structcore_1_1EntityPropertySpec.html</anchorfile>
+      <anchor>aa0a978955e4d4251707a6e151b730c48</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>writesFlag</name>
+      <anchorfile>structcore_1_1EntityPropertySpec.html</anchorfile>
+      <anchor>a80f371f3c10cb870f0d4301b09199c45</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::EntityReferenceContext</name>
@@ -27393,6 +27631,20 @@
       <name>flags</name>
       <anchorfile>structcore_1_1EntityReferenceContext.html</anchorfile>
       <anchor>af4677cc4bb996b1810296fd005241f80</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, std::set&lt; std::string, std::less&lt;&gt; &gt;, std::less&lt;&gt; &gt;</type>
+      <name>flagValues</name>
+      <anchorfile>structcore_1_1EntityReferenceContext.html</anchorfile>
+      <anchor>ae1bf36ec5f04458e842a8be55219705e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::set&lt; std::string, std::less&lt;&gt; &gt;</type>
+      <name>pieces</name>
+      <anchorfile>structcore_1_1EntityReferenceContext.html</anchorfile>
+      <anchor>a4995ab553f65988e472ee9935c7c3375</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -27830,6 +28082,13 @@
       <anchor>a91c0efcf0eab8c834155e00174a0b094</anchor>
       <arglist>() const noexcept</arglist>
     </member>
+    <member kind="function">
+      <type>const std::vector&lt; GridPosition &gt; &amp;</type>
+      <name>blockedByProps</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>abed6b3bacd660694b021eae60af04870</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
     <member kind="variable" static="yes">
       <type>static constexpr float</type>
       <name>WALK_SPEED_CELLS_PER_SECOND</name>
@@ -27850,6 +28109,27 @@
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
       <anchor>a39d384fd1e8c3dccb780aa04017592d0</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>resetZones</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a80c93fd1d3b8b24ceda252f6f2b4dfda</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>enterZones</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a87c71d85e7609835ef01b410ece4b649</anchor>
+      <arglist>(std::vector&lt; ExplorationEvent &gt; &amp;events)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>arrived</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a0defabeea6eb8a73a301d3cc6a8fe94d</anchor>
+      <arglist>(std::vector&lt; ExplorationEvent &gt; &amp;events)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
@@ -27912,6 +28192,20 @@
       <name>_interactables</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
       <anchor>ae60b3de301ac07787799979e93fee49e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; GridPosition &gt;</type>
+      <name>_blocked</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a401dd38b295e1dcd339da557ea5c49c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::size_t &gt;</type>
+      <name>_insideZones</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a7e8c8d77c368edc94820890ca0422e87</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -33178,6 +33472,20 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>openWorldStateDialog</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>abf4ef837c78580b583d0a35767cdf7c6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyWorldState</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a6deb24ce7044edbf64faaa8dec96045d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>stopRunningGame</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>aa2b7066edcb640abeae9f9454f0c22d2</anchor>
@@ -33552,6 +33860,13 @@
       <name>_runChoice</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>ac34b14871777893b6f02885d2215e1e9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_statePreview</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>ab2141c7b628e5c668a5bf45283862087</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -36297,6 +36612,13 @@
       <name>requiredFlag</name>
       <anchorfile>structcore_1_1PortalTarget.html</anchorfile>
       <anchor>af33ec3d98bda62e2769fcfcbd0005901</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>sealed</name>
+      <anchorfile>structcore_1_1PortalTarget.html</anchorfile>
+      <anchor>ae106de8eaad25d43872b3d775e984d7a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41797,6 +42119,13 @@
     </member>
     <member kind="variable">
       <type>bool</type>
+      <name>sealed</name>
+      <anchorfile>structhmi_1_1WorldGraphLayoutEdge.html</anchorfile>
+      <anchor>a4f17e8ef353d2f07821f9b123e9b093f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
       <name>selfLoop</name>
       <anchorfile>structhmi_1_1WorldGraphLayoutEdge.html</anchorfile>
       <anchor>ad99da11eea24ed1a6d42448e5959ce5c</anchor>
@@ -42288,6 +42617,13 @@
       <anchor>a9a4e8910820b067ff20c29734ccdfb83</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>triggerFlags</name>
+      <anchorfile>structcore_1_1WorldMapNode.html</anchorfile>
+      <anchor>a8b33efc534f55114b27ecdba6587905d</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::WorldMaps</name>
@@ -42403,6 +42739,13 @@
       <name>portalBroken</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>aa3ef96cd7fd6a36d234a4e633abce224</anchor>
+      <arglist>(const QString &amp;mapId)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>portalSealed</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a852e806d47fc1182ecd2cfec8ab6a528</anchor>
       <arglist>(const QString &amp;mapId)</arglist>
     </member>
     <member kind="signal">
@@ -43075,6 +43418,13 @@
       <anchor>a0895b3fa3650d1544888341667d0ca4c</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>WorldLinkKind</type>
+      <name>kind</name>
+      <anchorfile>structcore_1_1WorldPortalLink.html</anchorfile>
+      <anchor>a654d1b3ef3a3f1fa33c7d2034ebc50c9</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::WorldSceneRenderer</name>
@@ -43470,6 +43820,120 @@
       <name>entities</name>
       <anchorfile>structhmi_1_1WorldSceneSource.html</anchorfile>
       <anchor>ae07f3241de6be7a67f14494f1dd8dd17</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::WorldStateChoice</name>
+    <filename>structhmi_1_1WorldStateChoice.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1WorldStateChoice.html</anchorfile>
+      <anchor>a3c649fe654d3c3b001d80ca488cf87b6</anchor>
+      <arglist>(const WorldStateChoice &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>entries</name>
+      <anchorfile>structhmi_1_1WorldStateChoice.html</anchorfile>
+      <anchor>acf06faf209ed9e6e4adadeca654a070f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>preview</name>
+      <anchorfile>structhmi_1_1WorldStateChoice.html</anchorfile>
+      <anchor>ae39893ff4808cf0cbd83ae7d311b62e7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::WorldStateEditor</name>
+    <filename>classhmi_1_1WorldStateEditor.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>changed</name>
+      <anchorfile>classhmi_1_1WorldStateEditor.html</anchorfile>
+      <anchor>a6232719be2ab134aefe68bbb9c3bf24e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>WorldStateEditor</name>
+      <anchorfile>classhmi_1_1WorldStateEditor.html</anchorfile>
+      <anchor>ab55b18fcec467915561da760ad5ab0f1</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; core::QuestFlag &gt; &amp;declared, const std::vector&lt; std::string &gt; &amp;entries, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>entries</name>
+      <anchorfile>classhmi_1_1WorldStateEditor.html</anchorfile>
+      <anchor>a04ba49042ab00e9c05d35689e24b0b73</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::pair&lt; core::QuestFlag, QComboBox * &gt; &gt;</type>
+      <name>_values</name>
+      <anchorfile>classhmi_1_1WorldStateEditor.html</anchorfile>
+      <anchor>af7a4f78957813377f13ce84cae1b44db</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QListWidget *</type>
+      <name>_facts</name>
+      <anchorfile>classhmi_1_1WorldStateEditor.html</anchorfile>
+      <anchor>a8eede83a371898793cf39c228e7cc5c1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QLineEdit *</type>
+      <name>_extra</name>
+      <anchorfile>classhmi_1_1WorldStateEditor.html</anchorfile>
+      <anchor>a7cf3ed6a4774d1b335dc91d239a6209d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::WorldStateEntry</name>
+    <filename>structhmi_1_1WorldStateEntry.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1WorldStateEntry.html</anchorfile>
+      <anchor>a4227238a039afbabfb920d3ec0f5391e</anchor>
+      <arglist>(const WorldStateEntry &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>flag</name>
+      <anchorfile>structhmi_1_1WorldStateEntry.html</anchorfile>
+      <anchor>a21fff2b271ce2a81b6e73e91d159ec65</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>value</name>
+      <anchorfile>structhmi_1_1WorldStateEntry.html</anchorfile>
+      <anchor>ae8ad0910ee3aff20b667af18231d12bf</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::WorldStateFlags</name>
+    <filename>structhmi_1_1WorldStateFlags.html</filename>
+    <member kind="variable">
+      <type>core::WorldFlags</type>
+      <name>flags</name>
+      <anchorfile>structhmi_1_1WorldStateFlags.html</anchorfile>
+      <anchor>a375fbf96494d74d4a0bc9d806459cc52</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>refused</name>
+      <anchorfile>structhmi_1_1WorldStateFlags.html</anchorfile>
+      <anchor>a9430bfd664bef9004d638f3cfcf17789</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44851,6 +45315,9 @@
       <enumvalue file="namespacecore.html" anchor="a26db7cfadc5ea47bb85e806bd8010f37aeebd338ddbd547e41e4a1296de82963a">Locations</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a26db7cfadc5ea47bb85e806bd8010f37a9dea4016dbcc290b773ab2fae678aaa8">Items</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06">EntityRefs</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a26db7cfadc5ea47bb85e806bd8010f37aafb350ffb3189b8f2272554c4e8b6777">FlagValues</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a26db7cfadc5ea47bb85e806bd8010f37a06edcdba5ae085be3795de869b9a88d5">WrittenFlags</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a26db7cfadc5ea47bb85e806bd8010f37a2785cd3dc5fd7af0107524e40e3e73c1">Pieces</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -44885,6 +45352,8 @@
       <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af">UnknownItem</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f">UnknownEntityRef</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644">InvalidPresence</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035ead77aeb58096115840558f741fb7d8564">UndeclaredFlagValue</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035ea971d3169ef93ea76d456b7149e456ee1">UnknownPiece</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -44907,6 +45376,7 @@
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb">MapEntered</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835">PortalLocked</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a">PortalBroken</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55ac44f67d3a3494bbef49403a8a07f5b55">PortalSealed</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812">Dialogue</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0">Encounter</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82">Interacted</enumvalue>
@@ -44924,6 +45394,16 @@
       <enumvalue file="namespacecore.html" anchor="af11c258a9c6ef53d57b7f409006e48dfa46e439821cad2e9c44e621081377c986">MissingArrival</enumvalue>
       <enumvalue file="namespacecore.html" anchor="af11c258a9c6ef53d57b7f409006e48dfa12f7ffd3e3b664dac8d73d3e586c17fd">UnknownArrival</enumvalue>
       <enumvalue file="namespacecore.html" anchor="af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e">TargetUnreadable</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="af11c258a9c6ef53d57b7f409006e48dfa9b965a5a6e503feba7eda0d4e32fc98c">Sealed</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>WorldLinkKind</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a053082c8cc529c0ae180f6cf7a7f0e44</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a053082c8cc529c0ae180f6cf7a7f0e44a3e9b3ac6f082ec46a2d1d3f1f1647456">Portal</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a053082c8cc529c0ae180f6cf7a7f0e44a6950810f0d2bba97a6f710c7b965b84e">Transfer</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -44951,6 +45431,7 @@
       <enumvalue file="namespacecore.html" anchor="a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69">Moved</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a2375e547c47a4b8a313cc967bdcac487af0fcaa0b56785ac150159231cced69e4">NoPortal</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a2375e547c47a4b8a313cc967bdcac487ad0f2e5376298c880665077b565ffd7dd">Locked</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a2375e547c47a4b8a313cc967bdcac487a9b965a5a6e503feba7eda0d4e32fc98c">Sealed</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a2375e547c47a4b8a313cc967bdcac487ad6943dc979e8a23ad652b8f5b292b2b1">UnreadableMap</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a2375e547c47a4b8a313cc967bdcac487a12f7ffd3e3b664dac8d73d3e586c17fd">UnknownArrival</enumvalue>
     </member>
@@ -46579,6 +47060,27 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
+      <type>const std::vector&lt; EntityPropertySpec &gt; &amp;</type>
+      <name>commonEntityProperties</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3b401d6cc78df915d5a4dd0c8f7dbcc9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; const EntityPropertySpec * &gt;</type>
+      <name>inspectedProperties</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a188546c2a734bbc4d40876346e4e5841</anchor>
+      <arglist>(const EntityKind &amp;kind)</arglist>
+    </member>
+    <member kind="function">
+      <type>const EntityPropertySpec *</type>
+      <name>findInspectedProperty</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a2ab292c1b06bcdd811a95aa86cb6b22e</anchor>
+      <arglist>(const EntityKind &amp;kind, std::string_view key)</arglist>
+    </member>
+    <member kind="function">
       <type>const EntityKind *</type>
       <name>findEntityKind</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -46591,6 +47093,20 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a88adb5289b8943d6a8f1f33b3d296e73</anchor>
       <arglist>(const EntityKind &amp;kind, GridPosition position)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::set&lt; std::string, std::less&lt;&gt; &gt;</type>
+      <name>flagsSetByEntities</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a8758bf8ab1ee86c1bf25921336b283ce</anchor>
+      <arglist>(const std::vector&lt; MapEntity &gt; &amp;entities)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isSealedPortal</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1da815012585cb7698ce349cc20650e3</anchor>
+      <arglist>(const MapEntity &amp;entity)</arglist>
     </member>
     <member kind="function">
       <type>std::set&lt; std::string, std::less&lt;&gt; &gt;</type>
@@ -47168,6 +47684,13 @@
     </member>
     <member kind="variable">
       <type>constexpr std::string_view</type>
+      <name>PORTAL_SEALED_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a5a0d6a2fada39a019016dc35541b0da0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
       <name>SPAWN_POINT_ENTITY_TYPE</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a14b37b629c559f3f0bcc2481f4178393</anchor>
@@ -47178,6 +47701,69 @@
       <name>SPAWN_POINT_NAME_PROPERTY</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a4cd504e13e1cafd2e4759e9c0f3a9970</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>PROP_ENTITY_TYPE</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a6656d1d305c8badc24a7cecb8c9ffa5c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>PROP_PIECE_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a8ba7a56f8466e0273ade4b58381e5b07</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>PROP_BLOCKS_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aa3c04bebcf0f92de3a74c90074ace3a2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ZONE_TRIGGER_DIALOGUE_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1ad651b81526376d43068407463ffffd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ZONE_TRIGGER_FLAG_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0cb273fff48ae92e4dc7183b9c16159a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ZONE_TRIGGER_VALUE_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a62425ac232b89016389b861948ee5139</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ZONE_TRIGGER_MAP_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a14489582835f92b5ee87756dafb78aa0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ZONE_TRIGGER_ARRIVAL_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a64556317e7c17619a71b035ed9a1bb14</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ZONE_TRIGGER_ONCE_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3c9b15b19f6ae204c944e5ac6e125217</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -47403,6 +47989,8 @@
     <class kind="struct">hmi::WorldGraphEdgeGeometry</class>
     <class kind="struct">hmi::MapLinkEnd</class>
     <class kind="struct">hmi::MapLink</class>
+    <class kind="struct">hmi::WorldStateEntry</class>
+    <class kind="struct">hmi::WorldStateFlags</class>
     <class kind="class">hmi::CityMapView</class>
     <class kind="struct">hmi::DraftTextures</class>
     <class kind="struct">hmi::DraftEntityOverlay</class>
@@ -47424,6 +48012,8 @@
     <class kind="class">hmi::SceneImage</class>
     <class kind="class">hmi::SceneImages</class>
     <class kind="class">hmi::WorldGraphView</class>
+    <class kind="class">hmi::WorldStateEditor</class>
+    <class kind="struct">hmi::WorldStateChoice</class>
     <class kind="class">hmi::AudioEngine</class>
     <class kind="struct">hmi::GameQuests</class>
     <class kind="struct">hmi::GameLaunchOptions</class>
@@ -47776,6 +48366,7 @@
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a5d0f2b7a44ba7eab9a517ad0879a7013">RunInGame</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a8c72e19b544dafaee39f74457161326a">RunInGameHere</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18afae381b00301b159758bf32c65f70793">RunInGameOptions</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a7073b281d20adc42f2d2b7fb3a4597de">WorldState</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119">Undo</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a5afeaba074ef570dc720caaa855d49f6">Redo</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a77bfa926518159e75c2c4b508a81f19e">ToggleGrid</enumvalue>
@@ -48230,8 +48821,8 @@
       <type>WorldSceneSnapshot</type>
       <name>canvasSnapshot</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a01862c75838661af7e844574901cfa47</anchor>
-      <arglist>(const core::LevelDraft &amp;draft, const PlaceAppearance &amp;appearance)</arglist>
+      <anchor>a6070de201a90f5c4e94d30874a2c3c04</anchor>
+      <arglist>(const core::LevelDraft &amp;draft, const PlaceAppearance &amp;appearance, const core::WorldFlags *state=nullptr)</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
@@ -48538,8 +49129,8 @@
       <type>core::EntityReferenceContext</type>
       <name>referenceContext</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>af4ea2cd1857b4816619f1b5c6ecdd969</anchor>
-      <arglist>(const EditorReferences &amp;references, std::string_view editedMapId, const std::vector&lt; core::MapEntity &gt; &amp;editedEntities, std::string_view place={})</arglist>
+      <anchor>ad8fcbd5ec81604aed9074cdb4dd65ba6</anchor>
+      <arglist>(const EditorReferences &amp;references, std::string_view editedMapId, const std::vector&lt; core::MapEntity &gt; &amp;editedEntities, std::string_view place={}, const core::ScenePieceManifest *manifest=nullptr)</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
@@ -49235,6 +49826,34 @@
       <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view fromMap, std::string_view toMap, MapLink *link=nullptr)</arglist>
     </member>
     <member kind="function">
+      <type>WorldStateEntry</type>
+      <name>parseWorldStateEntry</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2002b4cd8aa0ef554e1d3d81f95bfddf</anchor>
+      <arglist>(std::string_view entry)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>worldStateValue</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a19f2817e432f8daa129eb53793e6b250</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;entries, std::string_view flag)</arglist>
+    </member>
+    <member kind="function">
+      <type>WorldStateFlags</type>
+      <name>worldStateFlags</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a67ef3b042f5d4f66873967e6fa56454c</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;entries, const std::vector&lt; core::QuestFlag &gt; &amp;declared)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; bool &gt;</type>
+      <name>presenceUnder</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a9f726c468f44713e34767153aa6e5913</anchor>
+      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, const core::WorldFlags &amp;flags)</arglist>
+    </member>
+    <member kind="function">
       <type>std::optional&lt; MapPropertiesChoice &gt;</type>
       <name>askMapProperties</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -49308,8 +49927,8 @@
       <type>std::optional&lt; RunInGameChoice &gt;</type>
       <name>askRunInGame</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a3fd89c262750f06eba4c24704e2d6573</anchor>
-      <arglist>(QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, core::GridPosition bounds, const RunInGameChoice &amp;current)</arglist>
+      <anchor>a39d6b60cc1783f750bc5e0a68017b9ae</anchor>
+      <arglist>(QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; core::QuestFlag &gt; &amp;declared, core::GridPosition bounds, const RunInGameChoice &amp;current)</arglist>
     </member>
     <member kind="function">
       <type>SceneImage *</type>
@@ -49352,6 +49971,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a7e2e49094a1e633ea842459409c9c13b</anchor>
       <arglist>(const ComposedScene &amp;scene, const Camera2D &amp;camera, int width, int height, const QColor &amp;clear)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; WorldStateChoice &gt;</type>
+      <name>askWorldState</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a6d2e0104481eacf1024ddce11e05491d</anchor>
+      <arglist>(QWidget *parent, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; core::QuestFlag &gt; &amp;declared, const WorldStateChoice &amp;current)</arglist>
     </member>
     <member kind="function">
       <type>GameQuests</type>
@@ -51141,6 +51767,7 @@
     <file>test_paint_tools.cpp</file>
     <file>test_panel_focus.cpp</file>
     <file>test_piece_catalog.cpp</file>
+    <file>test_quest_map_editor.cpp</file>
     <file>test_scene_images.cpp</file>
     <file>test_scene_painter.cpp</file>
     <file>test_shipped_maps.cpp</file>
@@ -51508,6 +52135,8 @@
     <file>WorldGraphLayout.h</file>
     <file>WorldLinks.cpp</file>
     <file>WorldLinks.h</file>
+    <file>WorldState.cpp</file>
+    <file>WorldState.h</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Math</name>
@@ -51794,6 +52423,8 @@
     <file>ScenePainter.h</file>
     <file>WorldGraphView.cpp</file>
     <file>WorldGraphView.h</file>
+    <file>WorldStateEditor.cpp</file>
+    <file>WorldStateEditor.h</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit</name>
@@ -51840,6 +52471,7 @@
     <file>test_entity_presence.cpp</file>
     <file>test_exploration_reach.cpp</file>
     <file>test_exploration_session.cpp</file>
+    <file>test_quest_map_features.cpp</file>
     <file>test_world_graph.cpp</file>
     <file>test_world_travel.cpp</file>
   </compound>

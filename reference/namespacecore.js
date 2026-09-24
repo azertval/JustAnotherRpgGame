@@ -435,7 +435,10 @@ var namespacecore =
       [ "Flags", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a4ea7801f17a4e5485e8b050c052fb443", null ],
       [ "Locations", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37aeebd338ddbd547e41e4a1296de82963a", null ],
       [ "Items", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a9dea4016dbcc290b773ab2fae678aaa8", null ],
-      [ "EntityRefs", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06", null ]
+      [ "EntityRefs", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06", null ],
+      [ "FlagValues", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37aafb350ffb3189b8f2272554c4e8b6777", null ],
+      [ "WrittenFlags", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a06edcdba5ae085be3795de869b9a88d5", null ],
+      [ "Pieces", "namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a2785cd3dc5fd7af0107524e40e3e73c1", null ]
     ] ],
     [ "EntityIssueCode", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035e", [
       [ "UnknownType", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea916c74f40cb3a7d245c9f9eefde044db", null ],
@@ -453,7 +456,9 @@ var namespacecore =
       [ "UnknownLocation", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4", null ],
       [ "UnknownItem", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af", null ],
       [ "UnknownEntityRef", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f", null ],
-      [ "InvalidPresence", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644", null ]
+      [ "InvalidPresence", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644", null ],
+      [ "UndeclaredFlagValue", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ead77aeb58096115840558f741fb7d8564", null ],
+      [ "UnknownPiece", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea971d3169ef93ea76d456b7149e456ee1", null ]
     ] ],
     [ "EntityPropertyKind", "namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e", [
       [ "Text", "namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea9dffbf69ffba8bc38bc4e01abf4b1675", null ],
@@ -489,6 +494,7 @@ var namespacecore =
       [ "MapEntered", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb", null ],
       [ "PortalLocked", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835", null ],
       [ "PortalBroken", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ab1472f31cb834b2005fcc48a4717542a", null ],
+      [ "PortalSealed", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ac44f67d3a3494bbef49403a8a07f5b55", null ],
       [ "Dialogue", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812", null ],
       [ "Encounter", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0", null ],
       [ "Interacted", "namespacecore.html#a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82", null ],
@@ -571,7 +577,8 @@ var namespacecore =
       [ "UnknownMap", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfad3523923fdec87248e3c0c76d15f0cdd", null ],
       [ "MissingArrival", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfa46e439821cad2e9c44e621081377c986", null ],
       [ "UnknownArrival", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfa12f7ffd3e3b664dac8d73d3e586c17fd", null ],
-      [ "TargetUnreadable", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e", null ]
+      [ "TargetUnreadable", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e", null ],
+      [ "Sealed", "namespacecore.html#af11c258a9c6ef53d57b7f409006e48dfa9b965a5a6e503feba7eda0d4e32fc98c", null ]
     ] ],
     [ "PresenceIssue", "namespacecore.html#ae537d1e1e860c43127bcc7831ecc4fdc", [
       [ "None", "namespacecore.html#ae537d1e1e860c43127bcc7831ecc4fdca6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -675,6 +682,7 @@ var namespacecore =
       [ "Moved", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a95bfdefaaf01553cbf21ccd942855c69", null ],
       [ "NoPortal", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487af0fcaa0b56785ac150159231cced69e4", null ],
       [ "Locked", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487ad0f2e5376298c880665077b565ffd7dd", null ],
+      [ "Sealed", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a9b965a5a6e503feba7eda0d4e32fc98c", null ],
       [ "UnreadableMap", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487ad6943dc979e8a23ad652b8f5b292b2b1", null ],
       [ "UnknownArrival", "namespacecore.html#a2375e547c47a4b8a313cc967bdcac487a12f7ffd3e3b664dac8d73d3e586c17fd", null ]
     ] ],
@@ -701,6 +709,10 @@ var namespacecore =
       [ "CombatZoneDegenerate", "namespacecore.html#ab0838a20f00473e64466a4e3eb7cfd6aabd0578be017b64e9b8b6447a20c86f92", null ],
       [ "CombatZoneOutOfBounds", "namespacecore.html#ab0838a20f00473e64466a4e3eb7cfd6aa6426037b12ccc5e24602fc15399a5643", null ],
       [ "CombatZoneBlocked", "namespacecore.html#ab0838a20f00473e64466a4e3eb7cfd6aa031ef3377a5cf9a7c9496028db993eea", null ]
+    ] ],
+    [ "WorldLinkKind", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44", [
+      [ "Portal", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a3e9b3ac6f082ec46a2d1d3f1f1647456", null ],
+      [ "Transfer", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a6950810f0d2bba97a6f710c7b965b84e", null ]
     ] ],
     [ "abilityModifier", "namespacecore.html#ab1f3cc471902daa6c652cd68eee0bcef", null ],
     [ "abilityName", "namespacecore.html#ad539e41d55b3f90675658586d0d0b77e", null ],
@@ -749,6 +761,7 @@ var namespacecore =
     [ "combatantsInArea", "namespacecore.html#a4dfe01f34b52d84d20c9c6785eb464aa", null ],
     [ "combatZoneOf", "namespacecore.html#a2f5aee616c4afd984124b93ee026af37", null ],
     [ "combatZonesOf", "namespacecore.html#a7c047c5fef857528c6b8441b5a3155a4", null ],
+    [ "commonEntityProperties", "namespacecore.html#a3b401d6cc78df915d5a4dd0c8f7dbcc9", null ],
     [ "conditionName", "namespacecore.html#a987d60e4787ed087f78661162334cbdf", null ],
     [ "cornerOf", "namespacecore.html#ac3263c16f8b0e7a86c20b9e412e43ae9", null ],
     [ "coverBetween", "namespacecore.html#a9ca481bd627a473f4cddc6f5e14dd971", null ],
@@ -794,12 +807,14 @@ var namespacecore =
     [ "fileName", "namespacecore.html#aacd09bfbf70df9627195ed54b58a0297", null ],
     [ "findCombatZone", "namespacecore.html#aad245d7e0f83b0197bf751008f87bfe2", null ],
     [ "findEntityKind", "namespacecore.html#adac8d52fca402a3edb35f19ad4ee4af1", null ],
+    [ "findInspectedProperty", "namespacecore.html#a2ab292c1b06bcdd811a95aa86cb6b22e", null ],
     [ "findInteractionTarget", "namespacecore.html#a9d8c1764c03821f2f58f75d0e5795e7a", null ],
     [ "findPath", "namespacecore.html#ad018fcc5c0c0bcabf187d6ae09568067", null ],
     [ "findVariantBase", "namespacecore.html#adca42619f89f178b79220de95c7394ab", null ],
     [ "firstValidAttack", "namespacecore.html#aa16398d9f2424d88762163aa2bfe850e", null ],
     [ "flagsOf", "namespacecore.html#af66d5aadf3d1710e4239a912dd6e4481", null ],
     [ "flagsReadBy", "namespacecore.html#ad0b7ce7304ceb3f9a7afaa07a76d78be", null ],
+    [ "flagsSetByEntities", "namespacecore.html#a8758bf8ab1ee86c1bf25921336b283ce", null ],
     [ "flagsWrittenBy", "namespacecore.html#ac7eac2311479898ad88bfcc335029b0d", null ],
     [ "footprintCells", "namespacecore.html#ae5ef43ac4990d56ddac5719dd23eb279", null ],
     [ "footprintFootCorner", "namespacecore.html#ad7128ed31a6cefa3183c61467c636053", null ],
@@ -816,12 +831,14 @@ var namespacecore =
     [ "hasProperty", "namespacecore.html#ad0fe834d01c603c0df43af69133dc1e3", null ],
     [ "hitChance", "namespacecore.html#afedb4269a17e248656cb0dbe1fc7a21b", null ],
     [ "inReach", "namespacecore.html#a58f349d22c971141da56b91273d5d29d", null ],
+    [ "inspectedProperties", "namespacecore.html#a188546c2a734bbc4d40876346e4e5841", null ],
     [ "interact", "namespacecore.html#ade4da2a70cde1d986371a29343746637", null ],
     [ "isBloodied", "namespacecore.html#a4614784f31f78b56e87ec55af65262a8", null ],
     [ "isEntityPresent", "namespacecore.html#aba21a4dfa3200162f5b83c366719c6c9", null ],
     [ "isFlanked", "namespacecore.html#aa5addda291b02ded7b8439d8b16be3f8", null ],
     [ "isFlankedFrom", "namespacecore.html#a26d6a0a3082a3c9ce76ab6958711ac13", null ],
     [ "isFlatScenePlace", "namespacecore.html#aea20554f4ac58a2ae3fbe4f83198b153", null ],
+    [ "isSealedPortal", "namespacecore.html#a1da815012585cb7698ce349cc20650e3", null ],
     [ "isSightClear", "namespacecore.html#aef818c5b82795fc59c0d259e968762cd", null ],
     [ "isSolid", "namespacecore.html#a105a7f2ca0f25e01231a9bc1bbc36ebb", null ],
     [ "isValidAssetKey", "namespacecore.html#af313492482f82ad2391f0da874bfe2a7", null ],
@@ -1007,10 +1024,14 @@ var namespacecore =
     [ "PORTAL_ARRIVAL_PROPERTY", "namespacecore.html#a2bdd68935267992786c0b5e9fcb2b153", null ],
     [ "PORTAL_ENTITY_TYPE", "namespacecore.html#ae8c8163510cf5011c7db67f7f96ea761", null ],
     [ "PORTAL_REQUIRED_FLAG_PROPERTY", "namespacecore.html#a109d5133c9ae9af8f88a4c4b40267419", null ],
+    [ "PORTAL_SEALED_PROPERTY", "namespacecore.html#a5a0d6a2fada39a019016dc35541b0da0", null ],
     [ "PORTAL_TARGET_MAP_PROPERTY", "namespacecore.html#a01ea80a94b6d563987d5ff486a2dcd31", null ],
     [ "PRESENCE_FLAG_PROPERTY", "namespacecore.html#a0719f88f34852797241ae1aefe08ce8f", null ],
     [ "PRESENCE_TEST_PROPERTY", "namespacecore.html#a80df2d7fa204502a5140df138760b6d2", null ],
     [ "PRESENCE_VALUE_PROPERTY", "namespacecore.html#a15e781af46f3ae8ec71feb9974b9f139", null ],
+    [ "PROP_BLOCKS_PROPERTY", "namespacecore.html#aa3c04bebcf0f92de3a74c90074ace3a2", null ],
+    [ "PROP_ENTITY_TYPE", "namespacecore.html#a6656d1d305c8badc24a7cecb8c9ffa5c", null ],
+    [ "PROP_PIECE_PROPERTY", "namespacecore.html#a8ba7a56f8466e0273ade4b58381e5b07", null ],
     [ "REACTION_RESOURCE", "namespacecore.html#a7397c26065a22000f4167d104a2dc69c", null ],
     [ "ROUTE_ENTITY_TYPE", "namespacecore.html#a0fe304f84c3b2f39219fd28296982945", null ],
     [ "ROUTE_LOOP_PROPERTY", "namespacecore.html#ac541942d62f7957cde3f8c36f9f02353", null ],
@@ -1028,5 +1049,11 @@ var namespacecore =
     [ "ZONE_ENTITY_TYPE", "namespacecore.html#ac09dbc5848329505d30e5ab32b462538", null ],
     [ "ZONE_HEIGHT_PROPERTY", "namespacecore.html#a444fa8848bf1762434e629e734038e20", null ],
     [ "ZONE_NAME_PROPERTY", "namespacecore.html#a0b994a5837bad127870719860ea34002", null ],
+    [ "ZONE_TRIGGER_ARRIVAL_PROPERTY", "namespacecore.html#a64556317e7c17619a71b035ed9a1bb14", null ],
+    [ "ZONE_TRIGGER_DIALOGUE_PROPERTY", "namespacecore.html#a1ad651b81526376d43068407463ffffd", null ],
+    [ "ZONE_TRIGGER_FLAG_PROPERTY", "namespacecore.html#a0cb273fff48ae92e4dc7183b9c16159a", null ],
+    [ "ZONE_TRIGGER_MAP_PROPERTY", "namespacecore.html#a14489582835f92b5ee87756dafb78aa0", null ],
+    [ "ZONE_TRIGGER_ONCE_PROPERTY", "namespacecore.html#a3c9b15b19f6ae204c944e5ac6e125217", null ],
+    [ "ZONE_TRIGGER_VALUE_PROPERTY", "namespacecore.html#a62425ac232b89016389b861948ee5139", null ],
     [ "ZONE_WIDTH_PROPERTY", "namespacecore.html#a3d0539dc27a6ab16c279522c6a60e76e", null ]
 ];

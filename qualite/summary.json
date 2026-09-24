@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-24 18:51 UTC",
-  "commit": "e9b7ecf10",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36040903750",
+  "generated": "2026-09-24 20:05 UTC",
+  "commit": "47382fe62",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36049415865",
   "coverage": {
-    "percent": 91.17,
-    "covered": 30638,
-    "valid": 33605,
-    "files": 259,
+    "percent": 91.09,
+    "covered": 31203,
+    "valid": 34255,
+    "files": 260,
     "areas": [
       {
         "name": "Core",
@@ -40,15 +40,15 @@
       },
       {
         "name": "Core/Gameplay",
-        "covered": 592,
+        "covered": 596,
         "valid": 666,
-        "percent": 88.89
+        "percent": 89.49
       },
       {
         "name": "Core/Levels",
-        "covered": 1637,
+        "covered": 1638,
         "valid": 1700,
-        "percent": 96.29
+        "percent": 96.35
       },
       {
         "name": "Core/Math",
@@ -76,15 +76,15 @@
       },
       {
         "name": "Core/World",
-        "covered": 1050,
-        "valid": 1159,
-        "percent": 90.6
+        "covered": 1224,
+        "valid": 1357,
+        "percent": 90.2
       },
       {
         "name": "Editor/Logic",
-        "covered": 4385,
-        "valid": 5002,
-        "percent": 87.66
+        "covered": 4483,
+        "valid": 5116,
+        "percent": 87.63
       },
       {
         "name": "Editor/Ui",
@@ -106,9 +106,9 @@
       },
       {
         "name": "HMI/Graphics",
-        "covered": 3197,
-        "valid": 3594,
-        "percent": 88.95
+        "covered": 3214,
+        "valid": 3619,
+        "percent": 88.81
       },
       {
         "name": "HMI/Input",

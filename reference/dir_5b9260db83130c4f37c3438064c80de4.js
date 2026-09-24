@@ -8,6 +8,7 @@ var dir_5b9260db83130c4f37c3438064c80de4 =
     [ "test_entity_presence.cpp", "test__entity__presence_8cpp.html", "test__entity__presence_8cpp" ],
     [ "test_exploration_reach.cpp", "test__exploration__reach_8cpp.html", "test__exploration__reach_8cpp" ],
     [ "test_exploration_session.cpp", "test__exploration__session_8cpp.html", "test__exploration__session_8cpp" ],
+    [ "test_quest_map_features.cpp", "test__quest__map__features_8cpp.html", "test__quest__map__features_8cpp" ],
     [ "test_world_graph.cpp", "test__world__graph_8cpp.html", "test__world__graph_8cpp" ],
     [ "test_world_travel.cpp", "test__world__travel_8cpp.html", "test__world__travel_8cpp" ]
 ];
