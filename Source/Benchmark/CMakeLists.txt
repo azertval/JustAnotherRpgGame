@@ -19,6 +19,8 @@ add_executable(Benchmarks
     bench_levels.cpp
     # La composition d'un lieu, que le canevas de l'éditeur refait à chaque geste (LOT-EDITOR-02).
     bench_canvas.cpp
+    # Une image d'un grand lieu, le quartier d'Arenarea (LOT-109) : ce qu'il faut tenir en 16,7 ms.
+    bench_world_frame.cpp
 )
 target_link_libraries(Benchmarks PRIVATE
     Core SceneComposition benchmark::benchmark_main project_warnings)
@@ -27,7 +29,9 @@ target_compile_definitions(Benchmarks PRIVATE
     # Racine de donnees des tests de l'editeur (LOT-123) : les deux mesures de l'editeur chargeaient
     # une carte LIVREE en dur, que la table rase du LOT-102 emporte. Elles mesurent desormais la
     # carte d'essai, qui ne bouge pas -- et une serie se compare d'une version a l'autre.
-    JADG_TEST_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData")
+    JADG_TEST_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData"
+    # Les donnees livrees : la carte d'Arenarea et les manifestes de ses pieces, suivis par Git.
+    JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
 
 # La peinture du canevas de l'éditeur sur de l'art HD (LOT-125) : elle lie Qt Gui (QPainter), que
 # les mesures ci-dessus évitent. Construite seulement là où Qt se trouve ; le job `benchmarks` de la

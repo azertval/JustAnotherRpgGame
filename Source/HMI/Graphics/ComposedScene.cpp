@@ -13,6 +13,7 @@ namespace hmi {
 void ComposedScene::clear() noexcept {
     _quads.clear();
     _textureOrder.clear();
+    _textureRanks.clear();
     _considered = 0;
     _culled = 0;
 }
@@ -36,16 +37,14 @@ core::Rect ComposedScene::cullingBounds() const noexcept {
     return _visibleBounds.value_or(core::Rect{});
 }
 
-// Rang de premiere apparition d'une texture, ajoutee a la table si elle est nouvelle. Le nombre de
-// textures distinctes par image se compte sur les doigts d'une main : une recherche lineaire est
-// plus rapide (et bien plus simple) qu'une table de hachage.
-int ComposedScene::textureRank(TextureHandle texture) {
-    const auto found = std::ranges::find(_textureOrder, texture);
-    if (found != _textureOrder.end()) {
-        return static_cast<int>(std::distance(_textureOrder.begin(), found));
+// Rang de premiere apparition d'une texture, ajoutee a la table si elle est nouvelle.
+int ComposedScene::registerTexture(TextureHandle texture) {
+    const auto [found, inserted] =
+        _textureRanks.try_emplace(texture, static_cast<int>(_textureOrder.size()));
+    if (inserted) {
+        _textureOrder.push_back(texture);
     }
-    _textureOrder.push_back(texture);
-    return static_cast<int>(_textureOrder.size()) - 1;
+    return found->second;
 }
 
 // true si la boite englobante est visible (ou si le culling est desactive).
@@ -59,7 +58,7 @@ bool ComposedScene::isVisible(const core::Rect& bounds) const {
 // Ajoute un rectangle texture a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                              const SpriteQuad& quad, int storey) {
+                              const SpriteQuad& quad, int storey, const core::Rect& occlusion) {
     ++_considered;
     if (!isVisible(spriteQuadBounds(quad))) {
         ++_culled;
@@ -68,11 +67,12 @@ bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int
     ComposedQuad composed;
     composed.layer = layer;
     composed.texture = texture;
-    composed.textureRank = textureRank(texture);
+    composed.textureRank = registerTexture(texture);
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Sprite;
     composed.sprite = quad;
     composed.storey = storey;
+    composed.occlusion = occlusion;
     _quads.push_back(composed);
     return true;
 }
@@ -89,7 +89,7 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
     ComposedQuad composed;
     composed.layer = layer;
     composed.texture = texture;
-    composed.textureRank = textureRank(texture);
+    composed.textureRank = registerTexture(texture);
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Line;
     composed.line = quad;
@@ -100,7 +100,7 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
 // Ajoute un quadrilatere a quatre sommets libres a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                            const PolyQuad& quad, int storey) {
+                            const PolyQuad& quad, int storey, const core::Rect& occlusion) {
     ++_considered;
     if (!isVisible(polyQuadBounds(quad))) {
         ++_culled;
@@ -109,11 +109,12 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
     ComposedQuad composed;
     composed.layer = layer;
     composed.texture = texture;
-    composed.textureRank = textureRank(texture);
+    composed.textureRank = registerTexture(texture);
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Poly;
     composed.poly = quad;
     composed.storey = storey;
+    composed.occlusion = occlusion;
     _quads.push_back(composed);
     return true;
 }
@@ -135,23 +136,32 @@ void ComposedScene::sort() {
     //    un arbre plus haut, les deux n'ayant jamais la meme texture que lui (EX-REN-018) ;
     //  - partout ailleurs : la texture regroupe d'abord (une passe de dessin par groupe), le
     //    sortOrder ne departageant que l'interieur d'un groupe -- comportement d'avant le lot.
-    std::ranges::stable_sort(_quads, [](const ComposedQuad& lhs, const ComposedQuad& rhs) {
-        const std::int32_t leftBand = renderBand(lhs.layer);
-        const std::int32_t rightBand = renderBand(rhs.layer);
-        if (leftBand != rightBand) {
-            return leftBand < rightBand;
+    std::ranges::stable_sort(_quads, &ComposedScene::drawsBefore);
+}
+
+bool ComposedScene::drawsBefore(const ComposedQuad& lhs, const ComposedQuad& rhs) noexcept {
+    const std::int32_t leftBand = renderBand(lhs.layer);
+    const std::int32_t rightBand = renderBand(rhs.layer);
+    if (leftBand != rightBand) {
+        return leftBand < rightBand;
+    }
+    if (sortsByDepth(lhs.layer)) {
+        if (lhs.sortOrder != rhs.sortOrder) {
+            return lhs.sortOrder < rhs.sortOrder;
         }
-        if (sortsByDepth(lhs.layer)) {
-            if (lhs.sortOrder != rhs.sortOrder) {
-                return lhs.sortOrder < rhs.sortOrder;
-            }
-            return lhs.textureRank < rhs.textureRank;
-        }
-        if (lhs.textureRank != rhs.textureRank) {
-            return lhs.textureRank < rhs.textureRank;
-        }
-        return lhs.sortOrder < rhs.sortOrder;
-    });
+        return lhs.textureRank < rhs.textureRank;
+    }
+    if (lhs.textureRank != rhs.textureRank) {
+        return lhs.textureRank < rhs.textureRank;
+    }
+    return lhs.sortOrder < rhs.sortOrder;
+}
+
+void ComposedScene::swapQuads(std::vector<ComposedQuad>& quads, int considered,
+                              int culled) noexcept {
+    _quads.swap(quads);
+    _considered += considered;
+    _culled += culled;
 }
 
 // Le nombre de passes begin/end : groupes contigus de meme texture.

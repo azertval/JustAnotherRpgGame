@@ -57,6 +57,18 @@ struct LoadedTexture {
 [[nodiscard]] std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path);
 
 /**
+ * @brief Décode @p paths **en parallèle**, sur les cœurs de la machine : une entrée par chemin,
+ *        dans le même ordre, vide pour une image qui ne se décode pas.
+ *
+ * Ce qu'on paie en entrant dans une carte : des centaines de PNG, des dizaines de mégaoctets
+ * (audit de l'affichage, A5). Les fils de décodage ne journalisent rien ; chaque échec est signalé
+ * ensuite, sur le fil appelant, comme `decodeImageFile` le ferait. Jamais d'exception
+ * (`EX-NFR-040`).
+ */
+[[nodiscard]] std::vector<std::optional<DecodedImage>> decodeImageFiles(
+    const std::vector<std::filesystem::path>& paths);
+
+/**
  * @brief Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de
  *        `decodeImageFile`.
  *

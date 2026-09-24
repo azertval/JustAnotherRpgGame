@@ -18,6 +18,7 @@
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/SceneResources.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -177,6 +178,8 @@ private:
     std::optional<WorldSceneSnapshot> _battlefield;
     core::GridPosition _battlefieldOrigin{};
     ScenePieceTextures _battlefieldTextures;
+    /// Les manifestes des pièces, lus une fois pour toutes les textures (audit de l'affichage, A6).
+    ManifestCache _manifests;
     ComposedScene _battlefieldScene;
 
     std::filesystem::path _directory;

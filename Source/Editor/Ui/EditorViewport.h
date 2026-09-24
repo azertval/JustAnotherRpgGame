@@ -45,6 +45,7 @@
 #include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/StaticWorldScene.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 class QGraphicsScene;
@@ -572,7 +573,11 @@ private:
     QPointF _editCenter;
     Clock::time_point _previousFrame;
     core::FixedTimestep _timestep;
-    WorldSceneSnapshot _playSnapshot;
+    /// La carte jouée, partagée avec le moteur (`hmi::WorldPlay::scene`), et sa composition,
+    /// faite une fois par carte : un pas n'y fusionne que les figurines (audit de l'affichage).
+    std::shared_ptr<const WorldSceneSnapshot> _playMap;
+    StaticWorldScene _playStatics;
+    /// L'image de l'essai : ce que la vue montre de la carte, et les figurines.
     ComposedScene _playScene;
     /// Ce qu'occupe la scène de l'essai.
     core::Rect _playBounds;

@@ -5,8 +5,11 @@
 
 #include <QImage>
 #include <QString>
+#include <algorithm>
+#include <atomic>
 #include <cstring>
 #include <system_error>
+#include <thread>
 
 #include <rhi/qrhi.h>
 
@@ -15,12 +18,12 @@
 
 namespace hmi {
 
-// Décode un fichier image (PNG au minimum) en pixels RGBA.
-std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
+namespace {
+
+// Decode sans rien journaliser : ce qui tourne sur un fil de decodage ne touche pas au journal.
+[[nodiscard]] std::optional<DecodedImage> readImageFile(const std::filesystem::path& path) {
     QImage source(QString::fromStdWString(path.wstring()));
     if (source.isNull()) {
-        GRAPHICS_LOG_WARNING("TextureLoader : echec de decodage de l'image '" + path.string() +
-                             "'");
         return std::nullopt;
     }
     // Format_RGBA8888 : quatre octets R,G,B,A en mémoire, alpha droit — le même ordre mémoire que
@@ -37,6 +40,53 @@ std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
     for (int row = 0; row < decoded.height; ++row) {
         std::memcpy(decoded.pixels.data() + (static_cast<std::size_t>(row) * decoded.width),
                     image.constScanLine(row), rowBytes);
+    }
+    return decoded;
+}
+
+void warnUndecoded(const std::filesystem::path& path) {
+    GRAPHICS_LOG_WARNING("TextureLoader : echec de decodage de l'image '" + path.string() + "'");
+}
+
+}  // namespace
+
+// Décode un fichier image (PNG au minimum) en pixels RGBA.
+std::optional<DecodedImage> decodeImageFile(const std::filesystem::path& path) {
+    std::optional<DecodedImage> decoded = readImageFile(path);
+    if (!decoded) {
+        warnUndecoded(path);
+    }
+    return decoded;
+}
+
+// Décode une liste d'images sur les coeurs de la machine, dans l'ordre de la liste.
+std::vector<std::optional<DecodedImage>> decodeImageFiles(
+    const std::vector<std::filesystem::path>& paths) {
+    std::vector<std::optional<DecodedImage>> decoded(paths.size());
+    const unsigned cores = std::max(1U, std::thread::hardware_concurrency());
+    const std::size_t workers = std::min<std::size_t>(paths.size(), cores);
+    std::atomic<std::size_t> next{0};
+    const auto work = [&]() noexcept {
+        for (std::size_t index = next++; index < paths.size(); index = next++) {
+            try {
+                decoded[index] = readImageFile(paths[index]);
+            } catch (...) {
+                decoded[index].reset();  // une allocation refusee : l'image manque, rien ne tombe
+            }
+        }
+    };
+    {
+        std::vector<std::jthread> threads;
+        threads.reserve(workers > 0 ? workers - 1 : 0);
+        for (std::size_t thread = 1; thread < workers; ++thread) {
+            threads.emplace_back(work);
+        }
+        work();  // le fil appelant decode aussi
+    }
+    for (std::size_t index = 0; index < paths.size(); ++index) {
+        if (!decoded[index]) {
+            warnUndecoded(paths[index]);
+        }
     }
     return decoded;
 }

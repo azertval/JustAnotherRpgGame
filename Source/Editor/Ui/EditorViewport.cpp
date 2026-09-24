@@ -1107,7 +1107,8 @@ void EditorViewport::stepPlaytest() {
                                              .interact = _interactRequested};
         _interactRequested = false;
         const WorldPlayStep result = _play->step(intent, _timestep.fixedDeltaSeconds());
-        _playSceneDirty = _playSceneDirty || result.sceneChanged || result.heroMoved;
+        _playSceneDirty =
+            _playSceneDirty || result.sceneChanged || result.figuresChanged || result.heroMoved;
         for (const core::ExplorationEvent& event : result.events) {
             // L'éditeur n'ouvre ni dialogue ni combat : il dit ce que le jeu ferait, et l'essai
             // continue. C'est l'information qu'on vient chercher en essayant une carte.
@@ -1145,22 +1146,37 @@ void EditorViewport::stepPlaytest() {
         return;
     }
     _playSceneDirty = false;
-    const int previousColumns = _playSnapshot.columns;
-    const int previousRows = _playSnapshot.rows;
-    _playSnapshot = _play->snapshot();
-    _images->ensure(worldTexturePaths(_playSnapshot));
-    const core::IsoProjection played(_playSnapshot.columns, _playSnapshot.rows,
-                                     core::ARENA_TILE_WIDTH_UNITS, _playSnapshot.diamondRatio);
-    _playScene.clear();
-    composeWorldScene(_playScene, _playSnapshot, played, _images->textures());
-    _playScene.sort();
-    _playBounds = composedSceneBounds(_playScene, snapshotRect(_playSnapshot));
-    if (_playSnapshot.columns != previousColumns || _playSnapshot.rows != previousRows) {
-        refreshBounds();  // un portail a mené sur une autre carte.
+    // La carte : composée une fois, tant qu'elle ne change pas — comme dans le jeu
+    // (`hmi::WorldSceneRenderer`). Un portail, un drapeau la refont.
+    const std::shared_ptr<const WorldSceneSnapshot> map = _play->scene();
+    const core::IsoProjection played(map->columns, map->rows, core::ARENA_TILE_WIDTH_UNITS,
+                                     map->diamondRatio);
+    if (map != _playMap) {
+        const bool resized =
+            _playMap == nullptr || map->columns != _playMap->columns || map->rows != _playMap->rows;
+        _playMap = map;
+        _images->ensure(worldTexturePaths(*map));
+        _playStatics.build(*map, played, _images->textures());
+        _playScene.clear();
+        _playScene.clearVisibleBounds();
+        _playStatics.compose(_playScene, {}, _images->textures());
+        _playBounds = composedSceneBounds(_playScene, snapshotRect(*map));
+        if (resized) {
+            refreshBounds();  // un portail a mené sur une autre carte.
+        }
     }
     // La caméra suit le héros, comme en jeu (`hmi::worldCamera`).
     const core::CellPoint hero = _play->session().heroPoint();
     centerOn(toQt(played.gridToWorld({hero.column, hero.row})));
+    // L'image : ce que la vue montre de la carte, et les figurines de l'instant.
+    const std::vector<WorldFigureSnapshot> figures = _play->figures();
+    _images->ensure(worldFigureTexturePaths(*map, figures));
+    const QRectF shown = mapToScene(viewport()->rect()).boundingRect();
+    _playScene.clear();
+    _playScene.setVisibleBounds(
+        core::Rect{{static_cast<float>(shown.x()), static_cast<float>(shown.y())},
+                   {static_cast<float>(shown.width()), static_cast<float>(shown.height())}});
+    _playStatics.compose(_playScene, figures, _images->textures());
     viewport()->update();
 }
 
@@ -1236,7 +1252,8 @@ void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
     _editTransform = transform();
     _editCenter = mapToScene(viewport()->rect().center());
     _play = std::move(play);
-    _playSnapshot = WorldSceneSnapshot{};
+    _playMap.reset();
+    _playStatics.clear();
     _playSceneDirty = true;
     _heldKeys.clear();
     _interactRequested = false;
@@ -1264,7 +1281,10 @@ void EditorViewport::stopPlaytest() {
     }
     _playTimer.stop();
     _play.reset();
+    _playMap.reset();
+    _playStatics.clear();
     _playScene.clear();
+    _playScene.clearVisibleBounds();
     _heldKeys.clear();
     setBackgroundBrush(EDIT_BACKGROUND);
     refreshBounds();

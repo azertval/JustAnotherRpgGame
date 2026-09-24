@@ -175,7 +175,7 @@ void ArenaSceneRenderer::loadTextures() {
         // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
         ArenaTexture& loaded = _textures.byPath[path] = ArenaTexture{
             .texture = texture->handle(), .width = texture->width, .height = texture->height};
-        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
+        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path, &_manifests));
         _loaded.push_back(std::move(*texture));
     }
     if (_battlefield) {
@@ -193,7 +193,8 @@ void ArenaSceneRenderer::loadBattlefieldTextures(const RhiContext& context) {
         }
         SceneTexture descriptor{
             .texture = texture->handle(), .width = texture->width, .height = texture->height};
-        applySceneTextureTraits(descriptor, readSceneTextureTraits(_directory.parent_path(), path));
+        applySceneTextureTraits(
+            descriptor, readSceneTextureTraits(_directory.parent_path(), path, &_manifests));
         _battlefieldTextures.byPath[path] = descriptor;
         _loaded.push_back(std::move(*texture));
     }

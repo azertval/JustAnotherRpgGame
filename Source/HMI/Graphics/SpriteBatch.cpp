@@ -260,8 +260,14 @@ void SpriteBatch::begin(const DirectX::XMFLOAT4X4& projection, TextureHandle tex
     _current = Batch{};
     _current.texture = static_cast<QRhiTexture*>(texture);
     _current.firstQuad = _vertices.size() / 4;
-    _current.uniformOffset = static_cast<int>(_projections.size()) * _uniformStride;
-    _projections.push_back(projection);
+    // Une projection par image, en pratique : une passe ne pousse la sienne que si elle differe de
+    // la precedente. Des centaines de passes (une par texture de la bande de profondeur) ne
+    // televersent plus chacune la meme matrice (audit de l'affichage, A7).
+    if (_projections.empty() ||
+        std::memcmp(&_projections.back(), &projection, sizeof(projection)) != 0) {
+        _projections.push_back(projection);
+    }
+    _current.uniformOffset = static_cast<int>(_projections.size() - 1) * _uniformStride;
     _recording = true;
 }
 
@@ -435,14 +441,18 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
             const QRhiCommandBuffer::DynamicOffset offset{
                 0, static_cast<quint32>(batch.uniformOffset)};
             commandBuffer->setShaderResources(bindings, 1, &offset);
-            const auto vertexOffset = static_cast<quint32>(batch.firstQuad * 4 * sizeof(Vertex));
-            const QRhiCommandBuffer::VertexInput vertexInput(_vertexBuffer.get(), vertexOffset);
-            commandBuffer->setVertexInput(0, 1, &vertexInput, _indexBuffer.get(), 0,
-                                          QRhiCommandBuffer::IndexUInt16);
-            // Un appel de dessin ne peut couvrir plus de quads que n'en indexe le tampon
-            // d'indices (16 bits) : un lot plus gros est tronque plutot que de lire hors bornes.
-            const std::size_t drawnQuads = (std::min)(batch.quadCount, MAXIMUM_QUADS);
-            commandBuffer->drawIndexed(static_cast<quint32>(drawnQuads * 6));
+            // Un appel de dessin ne couvre pas plus de quads que n'en indexe le tampon d'indices
+            // (16 bits) : un lot plus gros se dessine en plusieurs appels, chacun decale dans le
+            // tampon de sommets. Il etait tronque en silence (audit de l'affichage, A8).
+            for (std::size_t first = 0; first < batch.quadCount; first += MAXIMUM_QUADS) {
+                const std::size_t drawnQuads = (std::min)(batch.quadCount - first, MAXIMUM_QUADS);
+                const auto vertexOffset =
+                    static_cast<quint32>((batch.firstQuad + first) * 4 * sizeof(Vertex));
+                const QRhiCommandBuffer::VertexInput vertexInput(_vertexBuffer.get(), vertexOffset);
+                commandBuffer->setVertexInput(0, 1, &vertexInput, _indexBuffer.get(), 0,
+                                              QRhiCommandBuffer::IndexUInt16);
+                commandBuffer->drawIndexed(static_cast<quint32>(drawnQuads * 6));
+            }
         }
     }
     commandBuffer->endPass();

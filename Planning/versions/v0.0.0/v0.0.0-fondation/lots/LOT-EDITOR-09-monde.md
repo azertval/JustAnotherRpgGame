@@ -155,7 +155,7 @@ Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-edite
 - **Les six cartes livrées restent canoniques et sans erreur** : `LevelEditor --check` (0 erreur,
   5 avertissements, ceux d'avant).
 
-**Vérification à la souris, due** : lancer l'éditeur, ouvrir Martpart depuis le navigateur — un
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : lancer l'éditeur, ouvrir Martpart depuis le navigateur — un
 onglet de plus, le premier reste. Peindre une case dans chacun, passer de l'un à l'autre : chaque
 carte garde son cadrage, son outil et son historique, et le titre d'onglet porte l'étoile.
 Onglet **Graph** du navigateur : tirer de `capital/martpart` à `coliseum` — la fenêtre montre les
@@ -171,6 +171,6 @@ Martpart seule, avec sa vignette. Fermer un onglet modifié : la question porte 
 **Livré le 21 septembre 2026** (ouvert le même jour), sur la branche `lot-editor-09-monde`.
 Vérification automatisée : construction `/W4 /WX` sans avertissement, 899 tests unitaires verts
 (Release), `--check` des six cartes livrées à 0 erreur, le critère d'acceptation éprouvé sur les
-données livrées. **Reste due** : la vérification à la souris.
+données livrées. **Faite au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md)** : la vérification à la souris.
 
 Exigences : `EX-EDIT-088` à `EX-EDIT-092` (nouvelles).

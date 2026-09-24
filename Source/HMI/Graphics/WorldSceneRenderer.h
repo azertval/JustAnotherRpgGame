@@ -5,6 +5,7 @@
 
 #include <filesystem>
 #include <map>
+#include <memory>
 #include <optional>
 #include <set>
 #include <string>
@@ -16,6 +17,8 @@
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/ScenePieces.h"
 #include "HMI/Graphics/SceneResources.h"
+#include "HMI/Graphics/SceneTextureTraits.h"
+#include "HMI/Graphics/StaticWorldScene.h"
 #include "HMI/Graphics/TextureLoader.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -34,10 +37,18 @@ class QRhiResourceUpdateBatch;
  * tourner sur un vrai `QRhi` sans fenêtre. L'élément Qt Quick (`hmi::WorldViewportItem`) ne relaie
  * que trois appels.
  *
- * Une différence avec l'arène, et une seule : **les textures ne sont pas connues d'avance**. Une
- * arène a son catalogue ; un lieu a les pièces de sa carte, et la carte change au passage d'un
- * portail. Les textures se chargent donc à la demande, quand l'instantané en réclame une que le
- * rendu n'a pas — sur le fil de rendu, dans le lot de l'image.
+ * Une différence avec l'arène : **les textures ne sont pas connues d'avance**. Une arène a son
+ * catalogue ; un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les
+ * textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil
+ * de rendu, dans le lot de l'image.
+ *
+ * ## Ce qu'une image refait, et ce qu'elle ne refait pas
+ *
+ * La carte (`setScene`) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître
+ * quelque chose : elle se compose **une fois**, dans une `hmi::StaticWorldScene`. Une image ne
+ * prend que ce que la caméra montre, et y fusionne les figurines (`setFigures`) — le héros qui
+ * marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille
+ * de la carte (audit de l'affichage d'un lieu, `Planning/standards/audit-affichage-lieu.md`).
  */
 
 namespace hmi {
@@ -98,11 +109,32 @@ public:
         return _rhi;
     }
 
-    /// @brief Remplace la scène à dessiner. Ne touche pas au GPU : appelable avant les ressources.
+    /**
+     * @brief Remplace la scène et ses figurines d'un coup (`snapshot.figures`). Ne touche pas au
+     *        GPU : appelable avant les ressources.
+     */
     void setSnapshot(WorldSceneSnapshot snapshot);
 
+    /**
+     * @brief Remplace la **carte** à dessiner : elle sera recomposée à la prochaine image.
+     *
+     * Partagée, jamais recopiée : le jeu la garde tant qu'elle ne change pas
+     * (`hmi::WorldPlay::scene`). Ses figurines éventuelles ne sont pas dessinées ; ce sont celles
+     * de `setFigures`.
+     */
+    void setScene(std::shared_ptr<const WorldSceneSnapshot> scene);
+
+    /// @brief Remplace les figurines de l'image, héros compris. Ne recompose pas la carte.
+    void setFigures(std::vector<WorldFigureSnapshot> figures);
+
+    /// @return La carte dessinée (vide tant qu'aucune n'a été donnée).
     [[nodiscard]] const WorldSceneSnapshot& snapshot() const noexcept {
-        return _snapshot;
+        return *_scene;
+    }
+
+    /// @return Les figurines de l'image.
+    [[nodiscard]] const std::vector<WorldFigureSnapshot>& figures() const noexcept {
+        return _figures;
     }
 
     /// @brief Le point suivi par la caméra, en cases (position continue du héros).
@@ -124,8 +156,14 @@ public:
     /// héros.
     void render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target, const float* clear);
 
+    /// @return La dernière image composée : ce que la caméra montrait, figurines comprises.
     [[nodiscard]] const ComposedScene& composed() const noexcept {
         return _composed;
+    }
+
+    /// @return La carte composée une fois, toute entière.
+    [[nodiscard]] const StaticWorldScene& statics() const noexcept {
+        return _statics;
     }
 
     [[nodiscard]] const ScenePieceTextures& textures() const noexcept {
@@ -145,12 +183,22 @@ private:
     [[nodiscard]] std::optional<LoadedTexture> figureMarker(const std::string& path);
 
     std::filesystem::path _directory;
-    WorldSceneSnapshot _snapshot;
+    /// La carte, partagée ; jamais nulle (une carte vide au départ).
+    std::shared_ptr<const WorldSceneSnapshot> _scene;
+    std::vector<WorldFigureSnapshot> _figures;
+    /// La carte a changé : ses textures et sa composition sont à refaire à la prochaine image.
+    bool _sceneDirty = true;
+    /// Les figurines ont changé : leurs bandes sont peut-être à charger.
+    bool _figuresDirty = true;
     core::Vector2 _focus{};
     float _tilePixels = 0.0F;
+    /// La carte composée une fois (`setScene`), et l'image composée à chaque `render`.
+    StaticWorldScene _statics;
     ComposedScene _composed;
     /// Chemins déjà tentés : une pièce absente ne doit pas être redemandée à chaque image.
     std::set<std::string> _requested;
+    /// Les manifestes des lieux, lus une fois pour toutes les textures (audit, A6).
+    ManifestCache _manifests;
 
     QRhi* _rhi = nullptr;
     QRhiResourceUpdateBatch* _pendingUploads = nullptr;

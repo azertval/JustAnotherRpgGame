@@ -149,7 +149,7 @@ autres.
   le menu ; un brouillon posé dans le dossier d'essai est bien servi **avant** la carte du dépôt
   (une carte volontairement cassée y fait échouer l'ouverture, au lieu de retomber en silence sur
   celle d'à côté).
-- **Reste due** : la vérification à la souris, comme pour les lots précédents du module.
+- **Faite au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md)** : la vérification à la souris, avec celle des lots précédents du module.
 
 ## Bilan
 
@@ -157,7 +157,7 @@ autres.
 Vérification automatisée : construction `/W4 /WX` sans avertissement, 923 tests verts (CTest,
 Debug), et le jeu lancé à la main sur `capital/martpart` avec `--map=`, `--at=`, `--flags=` et
 `--levels=` — il s'ouvre sur la carte, héros à la case demandée, et sert bien le brouillon du
-dossier d'essai avant la carte du dépôt. **Reste due** : la vérification à la souris (le bouton
+dossier d'essai avant la carte du dépôt. **Faite au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md)** : la vérification à la souris (le bouton
 *Run in game* et son dialogue).
 
 Exigences : `EX-EDIT-093` à `EX-EDIT-095` (nouvelles).

@@ -33,31 +33,59 @@ constexpr int MANIFEST_VERSION = 1;
     return nullptr;
 }
 
-/// Le manifeste de @p directory, s'il se lit.
-[[nodiscard]] std::optional<nlohmann::json> readManifest(const std::filesystem::path& directory) {
+/// Le manifeste de @p directory, lu et indexé, s'il se lit.
+[[nodiscard]] std::unique_ptr<const IndexedManifest> readManifest(
+    const std::filesystem::path& directory) {
     std::error_code error;
     const std::filesystem::path path = directory / "manifest.json";
     if (!std::filesystem::is_regular_file(path, error)) {
-        return std::nullopt;
+        return nullptr;
     }
     core::JsonDocument document = core::readJsonObjectFromFile(path, MANIFEST_VERSION);
     if (!document.ok()) {
-        return std::nullopt;
+        return nullptr;
     }
-    return std::move(document.root);
+    // Construit en place : l'index pointe dans le document, qui ne bougera plus.
+    auto manifest = std::make_unique<IndexedManifest>();
+    manifest->root = std::move(document.root);
+    const auto textures = manifest->root.find("textures");
+    if (textures != manifest->root.end() && textures->is_object()) {
+        for (const nlohmann::json& entry : *textures) {
+            const auto file = entry.is_object() ? entry.find("file") : entry.end();
+            if (file != entry.end() && file->is_string()) {
+                manifest->entries.try_emplace(file->get<std::string>(), &entry);
+            }
+        }
+    }
+    return manifest;
 }
 
-/// Le manifeste de @p directory, lu une seule fois quand @p cache est donné.
-[[nodiscard]] std::optional<nlohmann::json> manifestOf(const std::filesystem::path& directory,
-                                                       ManifestCache* cache) {
-    if (cache == nullptr) {
-        return readManifest(directory);
+/// L'ancre d'une entrée de manifeste, rien si elle n'est pas numérique.
+[[nodiscard]] std::optional<core::Vector2> anchorOf(const nlohmann::json& entry) {
+    const auto anchor = entry.find("anchor");
+    if (anchor == entry.end() || !anchor->is_array() || anchor->size() != 2 ||
+        !(*anchor)[0].is_number() || !(*anchor)[1].is_number()) {
+        return std::nullopt;
     }
-    const auto found = cache->find(directory);
-    if (found != cache->end()) {
-        return found->second;
+    const auto x = (*anchor)[0].get<float>();
+    const auto y = (*anchor)[1].get<float>();
+    if (!std::isfinite(x) || !std::isfinite(y)) {
+        return std::nullopt;
     }
-    return cache->emplace(directory, readManifest(directory)).first->second;
+    return core::Vector2{x, y};
+}
+
+/// Le `depthOffset` d'une entrée, rien sans ancre valide ou sans valeur finie.
+[[nodiscard]] std::optional<float> depthOffsetOf(const nlohmann::json& entry) {
+    if (!anchorOf(entry)) {
+        return std::nullopt;
+    }
+    const auto offset = entry.find("depthOffset");
+    if (offset == entry.end() || !offset->is_number()) {
+        return std::nullopt;
+    }
+    const auto value = offset->get<float>();
+    return std::isfinite(value) ? std::optional<float>{value} : std::nullopt;
 }
 
 /// Le nombre fini positif que @p manifest déclare sous @p key, rien sinon.
@@ -96,38 +124,34 @@ core::Vector2 manifestArtTile(const nlohmann::json& manifest) {
 std::optional<core::Vector2> scenePieceAnchor(const nlohmann::json& manifest,
                                               std::string_view filename) {
     const nlohmann::json* const entry = entryOf(manifest, filename);
-    if (entry == nullptr) {
-        return std::nullopt;
-    }
-    const auto anchor = entry->find("anchor");
-    if (anchor == entry->end() || !anchor->is_array() || anchor->size() != 2 ||
-        !(*anchor)[0].is_number() || !(*anchor)[1].is_number()) {
-        return std::nullopt;
-    }
-    const auto x = (*anchor)[0].get<float>();
-    const auto y = (*anchor)[1].get<float>();
-    if (!std::isfinite(x) || !std::isfinite(y)) {
-        return std::nullopt;
-    }
-    return core::Vector2{x, y};
+    return entry != nullptr ? anchorOf(*entry) : std::nullopt;
 }
 
 std::optional<float> scenePieceDepthOffset(const nlohmann::json& manifest,
                                            std::string_view filename) {
-    if (!scenePieceAnchor(manifest, filename)) {
-        return std::nullopt;
+    const nlohmann::json* const entry = entryOf(manifest, filename);
+    return entry != nullptr ? depthOffsetOf(*entry) : std::nullopt;
+}
+
+const nlohmann::json* IndexedManifest::entry(std::string_view filename) const {
+    const auto found = entries.find(std::string{filename});
+    return found != entries.end() ? found->second : nullptr;
+}
+
+const IndexedManifest* ManifestCache::find(const std::filesystem::path& directory) {
+    const auto found = _read.find(directory);
+    if (found != _read.end()) {
+        return found->second.get();
     }
-    const nlohmann::json& entry = *entryOf(manifest, filename);
-    const auto offset = entry.find("depthOffset");
-    if (offset == entry.end() || !offset->is_number()) {
-        return std::nullopt;
-    }
-    const auto value = offset->get<float>();
-    return std::isfinite(value) ? std::optional<float>{value} : std::nullopt;
+    return _read.emplace(directory, readManifest(directory)).first->second.get();
 }
 
 SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDirectory,
                                           std::string_view path, ManifestCache* manifests) {
+    // Sans cache fourni, un cache le temps de l'appel : la lecture est la même.
+    ManifestCache local;
+    ManifestCache& cache = manifests != nullptr ? *manifests : local;
+
     SceneTextureTraits traits;
     const std::filesystem::path file = assetsDirectory / std::filesystem::path(path);
 
@@ -151,38 +175,41 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
     // Une pièce peut aussi être rangée dans un sous-dossier de son lieu (`roofs/l/d3/…`, LOT-129) :
     // son manifeste est alors plus haut, et la cite par son chemin relatif à lui. Le premier
     // manifeste qui la cite, en remontant, est le sien.
-    std::string filename = file.filename().string();
-    std::optional<nlohmann::json> manifest;
+    const IndexedManifest* manifest = nullptr;
+    const nlohmann::json* entry = nullptr;
     const std::filesystem::path relative{path};
     for (std::filesystem::path owner = relative.parent_path(); !owner.empty();
          owner = owner.parent_path()) {
-        std::optional<nlohmann::json> candidate = manifestOf(assetsDirectory / owner, manifests);
+        const IndexedManifest* const candidate = cache.find(assetsDirectory / owner);
         const std::string key = relative.lexically_relative(owner).generic_string();
-        if (candidate && entryOf(*candidate, key) != nullptr) {
-            manifest = std::move(candidate);
-            filename = key;
-            break;
+        if (candidate != nullptr) {
+            if (const nlohmann::json* const cited = candidate->entry(key); cited != nullptr) {
+                manifest = candidate;
+                entry = cited;
+                break;
+            }
         }
-        if (owner == relative.parent_path() && candidate) {
-            manifest = std::move(candidate);  // le dossier de l'image, à défaut : figurines, sols.
+        if (owner == relative.parent_path() && candidate != nullptr) {
+            manifest = candidate;  // le dossier de l'image, à défaut : figurines, sols.
         }
     }
-    if (manifest) {
-        traits.artTile = manifestArtTile(*manifest);
-        traits.anchor = scenePieceAnchor(*manifest, filename);
-        traits.depthOffset = scenePieceDepthOffset(*manifest, filename);
-        traits.groundLine = manifestGroundLine(*manifest);
+    if (manifest != nullptr) {
+        traits.artTile = manifestArtTile(manifest->root);
+        if (entry != nullptr) {
+            traits.anchor = anchorOf(*entry);
+            traits.depthOffset = depthOffsetOf(*entry);
+        }
+        traits.groundLine = manifestGroundLine(manifest->root);
         // La hauteur d'un étage : une donnée du lieu, que son manifeste déclare (`LOT-129`).
-        traits.storeyHeight = manifestLength(*manifest, "storey");
+        traits.storeyHeight = manifestLength(manifest->root, "storey");
     }
     // Les ancêtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
     std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
     for (; traits.artTile.x <= 0.0F && !ancestor.empty(); ancestor = ancestor.parent_path()) {
-        if (const std::optional<nlohmann::json> above =
-                manifestOf(assetsDirectory / ancestor, manifests)) {
-            traits.artTile = manifestArtTile(*above);
+        if (const IndexedManifest* const above = cache.find(assetsDirectory / ancestor)) {
+            traits.artTile = manifestArtTile(above->root);
             if (!traits.groundLine) {
-                traits.groundLine = manifestGroundLine(*above);
+                traits.groundLine = manifestGroundLine(above->root);
             }
         }
     }

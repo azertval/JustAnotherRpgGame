@@ -147,7 +147,7 @@ scripts) et `LOT-EDITOR-09` (monde).
 - **Un test bloque toute famille lue par le jeu et absente de `EntityKinds`.** ✔
   `FamillesDEntitesTest.ToutFamilleLueParLeJeuEstDansLaTable`.
 
-**Vérification à la souris, due** : sur le Colisée, outil Entité (`O`), cliquer dans le sable puis
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : sur le Colisée, outil Entité (`O`), cliquer dans le sable puis
 tirer la poignée est de la zone vers l'ouest (le verdict passe au rouge sur les entrées ennemies),
 `Ctrl+Z` ; `Maj` + clic sur deux entrées d'arène puis les glisser ensemble ; choisir « zone » dans
 la liste des familles, tirer un rectangle, puis `Z` et peindre quelques cases, `Ctrl` + glisser
@@ -161,6 +161,6 @@ fenêtre n'atteignent pas Qt (`LOT-EDITOR-04`) : cette vérification demande la 
 **Livré le 19 septembre 2026** (ouvert le même jour), sur la branche
 `lot-editor-05-entites-zones`. Vérification automatisée : construction `/W4 /WX` sans
 avertissement, tests unitaires verts (838, dont deux ignorés comme avant), acceptation sur le
-Colisée. **Vérification à la souris due** (voir « Vérification »).
+Colisée. **Vérifié à la souris** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) (voir « Vérification »).
 
 Exigences : `EX-EDIT-070` à `EX-EDIT-073` (nouvelles) ; `EX-EDIT-050` révisée.

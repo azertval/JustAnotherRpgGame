@@ -137,7 +137,7 @@ Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-edite
   table : le modèle `quartier` donne à Arenarea les noms de pièces de Martpart. Le contrôle vert,
   relire le rendu (`--render capital/arenarea`) et l'îlot du plan.
 
-**Vérification à la souris, due** : ouvrir Martpart ; menu *Map* › *Who cites this map?* : le
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : ouvrir Martpart ; menu *Map* › *Who cites this map?* : le
 portail d'Arenarea, la ville, les deux clés ; double-cliquer le portail, Arenarea s'ouvre, le
 portail sélectionné. *Replace piece…* `street-2` → `street-3` sur la carte : un `Ctrl+Z` le
 défait. *Change sheet…* vers `coliseum` : la table montre les trous, *OK* reste grisé. *File* ›

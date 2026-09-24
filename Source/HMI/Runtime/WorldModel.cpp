@@ -94,7 +94,7 @@ void WorldModel::placeHeroAtStartCell() {
         return;
     }
     _play->session().placeHero(core::cellCenter(*_startCell));
-    ++_sceneRevision;
+    ++_figuresRevision;
     emit heroMoved();
 }
 
@@ -151,6 +151,7 @@ bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
         _status = tr("La carte « %1 » ne s'ouvre pas.").arg(mapId);
         _clock.stop();
         ++_sceneRevision;
+        ++_figuresRevision;
         emit changed();
         HMI_LOG_WARNING("Monde : la carte " + carte + " ne s'ouvre pas.");
         return false;
@@ -160,6 +161,7 @@ bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
     _interact = false;
     noteDistrictVisit();
     ++_sceneRevision;
+    ++_figuresRevision;
     _clock.start();
     emit changed();
     emit heroMoved();
@@ -184,12 +186,17 @@ void WorldModel::step() {
     _interact = false;
 
     const WorldPlayStep pas = _play->step(intention, seconds);
+    // La carte ne se recompose que si elle a changé ; un pas du heros ne touche qu'aux figurines.
     if (pas.sceneChanged) {
         ++_sceneRevision;
     }
+    if (pas.sceneChanged || pas.figuresChanged || pas.heroMoved) {
+        ++_figuresRevision;
+    }
     if (pas.heroMoved) {
-        ++_sceneRevision;
         emit heroMoved();
+    } else if (pas.sceneChanged || pas.figuresChanged) {
+        emit figuresChanged();  // rien n'a bouge, mais l'image a change : elle se redessine
     }
 
     for (const core::ExplorationEvent& evenement : pas.events) {
@@ -290,6 +297,7 @@ void WorldModel::setHeroFigure(const QString& figure) {
     }
     _play->setHeroFigure(figure.toStdString());
     ++_sceneRevision;
+    ++_figuresRevision;
     emit changed();
 }
 
@@ -303,6 +311,14 @@ void WorldModel::setFrozen(bool frozen) {
     }
     _play->session().freeze(frozen);
     emit changed();
+}
+
+std::shared_ptr<const WorldSceneSnapshot> WorldModel::scene() const {
+    return _play->scene();
+}
+
+std::vector<WorldFigureSnapshot> WorldModel::figures() const {
+    return _play->figures();
 }
 
 WorldSceneSnapshot WorldModel::snapshot() const {

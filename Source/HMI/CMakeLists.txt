@@ -27,6 +27,7 @@ add_library(SceneComposition STATIC
     Graphics/ComposedScene.cpp
     Graphics/MaquetteTokens.cpp
     Graphics/PlaceAppearance.cpp
+    Graphics/StaticWorldScene.cpp
     Graphics/WorldSceneComposer.cpp
 )
 target_include_directories(SceneComposition PUBLIC ${PROJECT_SOURCE_DIR}/Source)

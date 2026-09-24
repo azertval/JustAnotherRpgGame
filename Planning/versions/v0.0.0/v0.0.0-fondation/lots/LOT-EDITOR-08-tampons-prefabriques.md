@@ -130,7 +130,7 @@ Feuille de route : [éditeur](../../../../vision/archives/feuille-de-route-edite
   `DonneesPrefabriques.LesModelesLivresSeLisent` : intérieur, rue, arène, chacun avec ses couches
   et sa couche qui nomme le lieu ; `hmi::checkEditorLibrary` ne rend rien sur les données livrées.
 
-**Vérification à la souris, due** : ouvrir Martpart, outil **Sélection** (`S`), tirer autour de
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : ouvrir Martpart, outil **Sélection** (`S`), tirer autour de
 l'étal du marché ; `Ctrl+C` — la barre d'état dit `2 × 1 · 1 piece`. Survoler une rue vide,
 `Ctrl+V` : l'étal est là, un `Ctrl+Z` le retire. `Ctrl+Maj+V` : il est posé dans l'autre sens.
 *Edit* › *Save selection as prefab…*, le nommer `etal-du-marche` : l'onglet **Prefabs** de la
@@ -143,7 +143,7 @@ murs et sa porte, et le dock « Problems » reste à 0 erreur.
 **Livré le 20 septembre 2026** (ouvert le même jour), sur la branche
 `lot-editor-08-tampons-prefabriques`, sur `main` après le `LOT-EDITOR-14`. Vérification
 automatisée : construction `/W4 /WX` sans avertissement, tests unitaires du module verts, les
-deux critères d'acceptation éprouvés sur les données livrées. **Reste due** : la vérification à
+deux critères d'acceptation éprouvés sur les données livrées. **Faite au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md)** : la vérification à
 la souris.
 
 Exigences : `EX-EDIT-085`, `EX-EDIT-086`, `EX-EDIT-087` (nouvelles).

@@ -144,7 +144,7 @@ scripts) et `LOT-EDITOR-09` (monde).
   poste (`--render Source/Elements/Levels/capital/martpart.json` rend `capital-martpart.png`) ;
   **à voir tourner à la première PR qui touche une carte** — celle du lot n'en touche aucune.
 
-**Vérification à la souris, due** : les gestes que le canevas écrivait en ligne passent maintenant
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : les gestes que le canevas écrivait en ligne passent maintenant
 par les fonctions descendues. Sur Martpart : outil Entité, poser un coffre, le glisser, tirer une
 zone de combat, `Maj` + clic sur une deuxième entité et déplacer le groupe, `Suppr` ; outil
 Sélection, `Ctrl+C` puis `Ctrl+V` sur la collision ; choisir une pièce dans la palette (la couche
@@ -155,7 +155,7 @@ active suit). Chaque geste se défait d'un `Ctrl+Z`.
 **Livré le 19 septembre 2026** (ouvert le même jour), sur la branche
 `lot-editor-13-sans-fenetre`. Vérification automatisée : construction `/W4 /WX` sans
 avertissement, tests unitaires verts (848, dont deux ignorés comme avant), acceptation sur
-Martpart, rendu des trois cartes livrées relu à l'œil. **Vérification à la souris due** sur les
+Martpart, rendu des trois cartes livrées relu à l'œil. **Vérifié à la souris** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) sur les
 gestes d'entité et la copie (voir « Vérification ») ; **étape CI de rendu éprouvée à la première
 PR** qui change une carte.
 

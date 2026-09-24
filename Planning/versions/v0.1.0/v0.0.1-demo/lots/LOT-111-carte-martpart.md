@@ -5,17 +5,15 @@ version = "0.0.1"
 filiere = "cartes"
 statut = "a-faire"
 taille = "M"
-resume = "Martpart se parcourt, et figure dans l'onglet « Carte »."
+resume = "Martpart se parcourt."
 prerequis = ["LOT-110", "LOT-103", "LOT-124", "LOT-125", "LOT-128"]
 livrables = [
   "`Levels/central-empire/capital/martpart.json`, dessinée **dans l'éditeur**.",
-  "`capital/martpart/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
 ]
 criteres = [
   "`LevelEditor --check` passe : aucune case inatteignable, aucun portail sans arrivée, aucune référence morte.",
   "La carte tient 60 images par seconde à 1080p sur le poste de référence.",
-  "L'onglet « Carte » montre la zone et la position du joueur.",
 ]
 maquettes = ["../maquettes/plan-martpart.svg"]
 +++
