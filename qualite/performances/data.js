@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790131173055,
+  "lastUpdate": 1790217693221,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -872,6 +872,106 @@ window.BENCHMARK_DATA = {
             "value": 538.6701171875341,
             "unit": "us/iter",
             "extra": "iterations: 2560\ncpu: 537.109375 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "776e4bf13307d8387f16e15c4be859c0927ee362",
+          "message": "Merge pull request #121 from azertval/lot-129-etages-et-toits\n\nLOT-129 — Les étages et les toits de la scène",
+          "timestamp": "2026-09-23T22:40:43Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/776e4bf13307d8387f16e15c4be859c0927ee362"
+        },
+        "date": 1790217684342,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 157996.32812500012,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 156947.54464285713 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 214351.31250001406,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 212402.34375 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57714.76296663616,
+            "unit": "ns/iter",
+            "extra": "iterations: 24216\ncpu: 57425.87545424513 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 162271.7522321412,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 162179.1294642857 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1146633.593750046,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1147460.9375 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2652019.70338987,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2648305.084745763 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 616.1646930779003,
+            "unit": "us/iter",
+            "extra": "iterations: 2297\ncpu: 612.2115803221593 us\nthreads: 1"
+          }
+        ]
+      }
+    ],
+    "Peinture du canevas de l'editeur (Release, windows-2022)": [
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "776e4bf13307d8387f16e15c4be859c0927ee362",
+          "message": "Merge pull request #121 from azertval/lot-129-etages-et-toits\n\nLOT-129 — Les étages et les toits de la scène",
+          "timestamp": "2026-09-23T22:40:43Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/776e4bf13307d8387f16e15c4be859c0927ee362"
+        },
+        "date": 1790217691009,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 14.080715000000055,
+            "unit": "ms/iter",
+            "extra": "iterations: 100\ncpu: 13.59375 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.220152272727319,
+            "unit": "ms/iter",
+            "extra": "iterations: 264\ncpu: 5.208333333333333 ms\nthreads: 1"
           }
         ]
       }
