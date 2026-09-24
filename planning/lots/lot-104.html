@@ -38,6 +38,7 @@
 <p>Chaque entrée installée porte sa <code>family</code> et sa <code>source</code> (chemin sous <code>Tools/AssetsHD/</code> et empreinte SHA-256). <code>install_hd_asset.py --check</code> rejoue l'installation et compare, pixel à pixel : une image retouchée à la main se voit. Ce contrôle demande les sources, donc il est local ; celui de la CI, <code>check_hd_assets.py</code>, n'en a pas besoin.</p>
 <h3 id="d7-le-budget-se-pèse-par-lieu-sous-zone-à-part">D7 — Le budget se pèse par lieu, sous-zone à part</h3>
 <p>Une zone pèse ses dossiers <code>Scene/</code>, <code>Characters/</code> et <code>Map/</code>, sans ceux de ses sous-zones, qui ont leur propre ligne et leur propre budget de 40 Mio : c'est le critère du LOT-106 pour l'Arena of Fate. Les communs sont pesés et affichés, sans budget.</p>
+<blockquote><p><strong>Levé le 24 septembre 2026</strong> (<a href="../vision/decisions.html">D-23</a>) : plus aucune zone n'a de budget ; la pesée par lieu demeure, pour mémoire.</p></blockquote>
 <h3 id="d8-la-galerie-lit-larborescence-et-garde-ses-anciennes-lectures">D8 — La galerie lit l'arborescence, et garde ses anciennes lectures</h3>
 <p>Chaque <code>manifest.json</code> sous <code>Common/</code> et <code>Regions/</code> y fait une famille (« Scène · central-empire/ capital/arenarea/arena-of-fate »). Les lectures de l'ancienne forme (<code>Npc/</code>, <code>Monsters/</code>, <code>Coliseum/</code>, <code>Scene/&lt;lieu&gt;/</code>) restent : les données d'essai (<code>Fixtures/GameData</code>) les emploient encore. Leur retrait va avec celui de ces données.</p>
 <h2 id="ce-qui-a-été-installé">Ce qui a été installé</h2>
@@ -49,7 +50,7 @@
 <ul><li>La mesure automatique de l'ancre sur un canevas carré où l'art flotte : prévoir une correction manuelle dans le descripteur. <strong>Tenu</strong> : <code>scale</code>, <code>anchorOffset</code> et <code>align</code> ; aucune n'a servi au Colisée hors <code>align</code>.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-24 · <code>ca175315b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-24 · <code>d31fe10b9</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

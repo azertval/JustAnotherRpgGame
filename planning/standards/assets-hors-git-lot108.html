@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-108 — Les assets livrés sortent de l&#x27;historique Git — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="../lots/index.html">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="index.html" class="active">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell with-sidebar">
+<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0 active" href="assets-hors-git-lot108.html">LOT-108 — Les assets livrés sortent de l&#x27;historique Git</a><a class="depth-0" href="audit-capital-lot105-extension.html">LOT-105 — complément du commun de la Capitale</a><a class="depth-0" href="audit-editeur.html">Audit — l&#x27;éditeur face au planning : ce qu&#x27;il sait, ce qui lui manque</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="checklist-lot108-arenarea.html">LOT-108 — Checklist complète d’Arenarea à valider</a><a class="depth-0" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0" href="gabarit-commande-zone.html">Gabarit de la commande d&#x27;une zone</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="production-lot108.html">LOT-108 — Production coordonnée</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a></aside>
+<main>
+<article class="prose"><h1 id="lot-108-les-assets-livrés-sortent-de-lhistorique-git">LOT-108 — Les assets livrés sortent de l'historique Git</h1>
+<p>Tâche de <strong>fin de lot</strong> du <a href="../lots/lot-108.html">LOT-108</a>, demandée par l'auteur le 24 septembre 2026. Le LOT-108 est le premier lot qui fait vraiment grossir le volume d'images (102 postes pour un seul quartier) ; c'est donc à lui de changer la manière de les stocker, avant que les zones suivantes ne répètent le problème.</p>
+<h2 id="le-constat">Le constat</h2>
+<ul><li>Le pack Git pèse <strong>1,06 Gio</strong> pour 76 Mio d'assets présents dans l'arbre : chaque version intermédiaire d'une image reste dans l'historique pour toujours, et chaque clone la télécharge.</li><li>Un kit livré ne bouge plus. Le versionner fichier par fichier ne sert à rien : ce qui compte, c'est de savoir <strong>quel kit</strong> une version du jeu attend, et de le retrouver à l'octet près.</li><li>Volumes au 24 septembre : <code>Regions/</code> 44 Mio (742 fichiers), <code>Maps/</code> 16 Mio (17), <code>UI/</code> 12 Mio (215), <code>Common/</code> 4,3 Mio (48). Treize régions et une centaine de zones restent à produire.</li></ul>
+<h2 id="la-décision">La décision</h2>
+<p><strong>Les images d'un kit livré sont publiées en archive immuable, hors de l'historique ; Git ne garde que leurs manifestes et un fichier de verrouillage. L'installation les télécharge d'elle-même.</strong></p>
+<div class="table-wrap"><table><thead><tr><th>Reste suivi par Git</th><th>Sort de Git (archives)</th></tr></thead><tbody><tr><td>les manifestes : <code>manifest.json</code>, <code>appearance.json</code> de chaque <code>Scene/</code> et <code>Characters/</code>, <code>Maps/manifest.json</code>, <code>UI/illustrations.json</code></td><td>les images (<code>*.png</code>, <code>*.jpg</code>) de <code>Regions/</code>, <code>Common/</code>, <code>Maps/</code> et <code>UI/</code> (le HUD)</td></tr><tr><td><code>Fonts/</code>, <code>Entities/</code>, <code>CREDITS.md</code>, les <code>README.md</code></td><td>—</td></tr><tr><td>le verrou <code>Source/Elements/Assets/kits.lock.json</code></td><td>—</td></tr></tbody></table></div>
+<p>Les manifestes restent lisibles et diffables dans une PR ; ils portent déjà l'empreinte de chaque image (<code>check_map_assets.py</code>, <code>check_ui_assets.py</code>, <code>check_hd_assets.py</code>). Le verrou y ajoute l'empreinte de chaque archive.</p>
+<p>Écartés :</p>
+<ul><li><strong>Git LFS</strong> : garde chaque version (le problème reste entier) et son quota de bande passante serait consommé par la CI, qui tire tous les assets à chaque run ;</li><li><strong>un sous-module d'assets</strong> : l'historique grossit tout autant, ailleurs ;</li><li><strong>un stockage cloud tiers</strong> (DVC, rclone, bucket) : un service et des identifiants de plus, pour rien de mieux que les releases GitHub, déjà utilisées par la CI (tag roulant).</li></ul>
+<p><strong>On ne réécrit pas l'historique.</strong> Le 1,06 Gio déjà présent y reste : le réduire demanderait <code>git filter-repo</code> et un force-push, exclus. La tâche arrête la croissance, elle ne rembourse pas la dette.</p>
+<h2 id="le-format">Le format</h2>
+<h3 id="le-kit">Le kit</h3>
+<p>Un kit est <strong>un dossier d'assets publié d'un seul tenant</strong>, à la granularité de l'arborescence :</p>
+<ul><li>un dossier de lieu (<code>Regions/central-empire/capital/arenarea/</code>, <code>…/capital/Common/</code>, <code>Regions/central-empire/Common/</code>, <code>Common/</code>) — un kit par niveau, sans ses sous-lieux ;</li><li><code>Maps/</code> — un kit ;</li><li><code>UI/</code> — un kit.</li></ul>
+<p>Identifiant : son chemin sous <code>Assets/</code>, suivi d'un numéro de publication : <code>Regions/central-empire/capital/arenarea@1</code>, <code>UI@1</code>, <code>Maps@1</code>.</p>
+<p><strong>Une retouche est un nouveau numéro, jamais une archive remplacée.</strong> Une archive publiée n'est plus modifiée ni supprimée tant qu'un commit de <code>main</code> la cite.</p>
+<h3 id="larchive">L'archive</h3>
+<ul><li><code>.zip</code> <strong>déterministe</strong> : fichiers triés, dates fixées, sans attributs de poste ; deux publications du même contenu donnent le même SHA-256.</li><li>Ne contient que les images du kit, à leurs chemins relatifs au dossier du kit.</li><li>Publiée comme fichier attaché à une <strong>GitHub Release</strong> dont le tag porte la région : <code>assets/central-empire</code>, <code>assets/ui</code>, <code>assets/maps</code>. Une release admet 1 000 fichiers attachés ; une release par région tient le volume prévu. Pas de quota de bande passante, 2 Gio par fichier.</li></ul>
+<h3 id="le-verrou-kitslockjson">Le verrou <code>kits.lock.json</code></h3>
+<p>Une entrée par kit attendu par le commit courant :</p>
+<pre><code class="language-json">{
+  &quot;version&quot;: 1,
+  &quot;kits&quot;: [
+    {
+      &quot;id&quot;: &quot;Regions/central-empire/capital/arenarea@1&quot;,
+      &quot;path&quot;: &quot;Regions/central-empire/capital/arenarea&quot;,
+      &quot;release&quot;: &quot;assets/central-empire&quot;,
+      &quot;asset&quot;: &quot;arenarea-1.zip&quot;,
+      &quot;sha256&quot;: &quot;…&quot;,
+      &quot;bytes&quot;: 0,
+      &quot;files&quot;: 0
+    }
+  ]
+}</code></pre>
+<p>C'est le seul fichier qui change quand un kit est publié ou retouché.</p>
+<h2 id="le-travail">Le travail</h2>
+<p>Ordre imposé : <strong>on ne retire rien du suivi avant d'avoir prouvé qu'un clone neuf reconstruit l'arbre à l'identique.</strong></p>
+<h3 id="t1-publier">T1 — Publier</h3>
+<p><code>scripts/release/publish_asset_kit.py &lt;chemin&gt;</code> :</p>
+<ol><li>contrôle le kit (mêmes règles que <code>check_hd_assets.py</code>, <code>check_map_assets.py</code> et <code>check_ui_assets.py</code> selon le dossier) ;</li><li>construit l'archive déterministe, calcule SHA-256, taille et nombre de fichiers ;</li><li>refuse si l'identifiant existe déjà avec une autre empreinte (immuabilité) ;</li><li>téléverse par <code>gh release upload</code> (release créée si absente, jamais en <code>--clobber</code>) ;</li><li>met à jour <code>kits.lock.json</code>.</li></ol>
+<p>Les sources de production (<code>Tools/</code>) ne sont <strong>jamais</strong> archivées : l'archive part des pièces installées sous <code>Source/Elements/Assets/</code>.</p>
+<h3 id="t2-installer">T2 — Installer</h3>
+<p><code>scripts/fetch_assets.py</code> (point d'entrée du poste, à la racine de <code>scripts/</code>) :</p>
+<ul><li>lit le verrou, télécharge chaque archive manquante dans un cache hors de l'arbre (<code>%LOCALAPPDATA%\JadgAssets\&lt;sha256&gt;.zip</code>, surchargeable par <code>JADG_ASSETS_CACHE</code>), vérifie l'empreinte, extrait dans <code>Source/Elements/Assets/&lt;path&gt;/</code> ;</li><li>idempotent : un kit déjà en place et intact n'est ni retéléchargé ni réécrit (un témoin par kit, hors de l'arbre suivi) ;</li><li><strong>ne détruit pas le travail local</strong> : une image modifiée ou ajoutée à la main dans un kit verrouillé est signalée, et l'extraction s'arrête sans <code>--force</code> ;</li><li>dépôt privé : authentification par <code>gh auth token</code> sur le poste, <code>GITHUB_TOKEN</code> en CI ; message clair si aucune n'est disponible ;</li><li><code>--check</code> : vérifie sans télécharger (arbre conforme au verrou, sinon code non nul).</li></ul>
+<p>Branchements :</p>
+<ul><li><code>scripts/setup_dev.ps1</code> l'appelle après l'installation des outils ;</li><li><code>scripts/build.ps1</code> l'appelle <strong>avant la configuration CMake</strong> : <code>Source/Ui/CMakeLists.txt</code> globe <code>UI/*/*.png</code> et <code>Maps/*.jpg</code> à la configuration, un arbre incomplet donnerait un binaire sans HUD sans erreur visible ;</li><li>CMake, à la configuration, vérifie la présence des kits (témoins) et échoue avec la commande à lancer, plutôt que de télécharger en silence.</li></ul>
+<h3 id="t3-la-ci">T3 — La CI</h3>
+<ul><li>Un pas <code>fetch_assets.py</code> avant la configuration, dans chaque job qui lit les assets (build, tests, QmlTests et références PNG, galerie <code>EX-CNT-042</code>, <code>check_hd_assets.py</code>, <code>check_map_assets.py</code>, <code>check_ui_assets.py</code>).</li><li><code>actions/cache</code> sur le répertoire de cache, clé = <code>hashFiles(&#x27;Source/Elements/Assets/kits.lock.json&#x27;)</code>.</li><li><code>check_binary_files.py</code> : ajouter la règle <strong>aucune image suivie sous un dossier couvert par le verrou</strong> (le garde-fou qui empêche le retour en arrière, en pre-commit comme en CI).</li><li><code>fetch_assets.py --check</code> en CI : le verrou cite des archives qui existent et dont l'empreinte correspond.</li></ul>
+<h3 id="t4-publier-lexistant-et-prouver">T4 — Publier l'existant et prouver</h3>
+<ol><li>Publier <code>Common@1</code>, <code>Regions/central-empire/Common@1</code>, <code>…/capital/Common@1</code> (kit V4 du LOT-105), <code>…/capital/arena-of-fate@1</code> (si le LOT-106 est livré, sinon à sa livraison), <code>…/capital/arenarea@1</code> (ce lot), <code>Maps@1</code>, <code>UI@1</code>.</li><li><strong>Preuve</strong> : clone neuf dans un dossier temporaire, <code>setup_dev.ps1</code> puis <code>build.ps1</code> ; chaque image extraite a le même SHA-256 que le fichier suivi à <code>HEAD</code> (script de comparaison, résultat joint à la PR) ; la galerie et la scène d'Arenarea se rendent comme avant.</li></ol>
+<h3 id="t5-nettoyer-le-suivi">T5 — Nettoyer le suivi</h3>
+<p>Après la preuve seulement, dans <strong>un commit dédié</strong> :</p>
+<ol><li><code>git rm -r --cached</code> des images des dossiers verrouillés (les fichiers restent sur le disque) ;</li><li>règles <code>.gitignore</code> correspondantes, <strong>les manifestes JSON et <code>README.md</code> exceptés</strong> ;</li><li><code>git ls-files</code> ne cite plus aucun <code>*.png</code> ni <code>*.jpg</code> sous <code>Regions/</code>, <code>Common/</code>, <code>Maps/</code>, <code>UI/</code>.</li></ol>
+<p>Précautions :</p>
+<ul><li><strong>Chez les autres clones, le <code>git pull</code> de ce commit supprime les images de l'arbre de travail</strong> : lancer <code>fetch_assets.py</code> juste après. Le dire dans la PR et dans le <code>CHANGELOG.md</code>.</li><li>Une branche en cours qui modifie une de ces images entre en conflit modification/suppression. Faire la tâche <strong>après la fusion</strong> des branches d'assets ouvertes (LOT-106, LOT-110, travaux des agents de la <a href="production-lot108.html">production du LOT-108</a>) ; la publication de leurs kits suit alors le nouveau circuit.</li><li>Les worktrees sous <code>.claude/worktrees/</code> partagent le cache (<code>%LOCALAPPDATA%</code>) : un <code>fetch</code> par worktree ne retélécharge rien.</li></ul>
+<h3 id="t6-la-documentation">T6 — La documentation</h3>
+<ul><li><a href="arborescence-assets.html"><code>arborescence-assets.md</code></a> : section « Le stockage » (ce qui est suivi, ce qui est archivé, le verrou) ; la section « Le poids » y renvoie.</li><li><a href="definition-de-livre.html"><code>definition-de-livre.md</code></a> : un lot d'assets est livré quand ses kits sont <strong>publiés et verrouillés</strong>, pas seulement installés.</li><li><a href="gabarit-commande-zone.html"><code>gabarit-commande-zone.md</code></a> : dernière étape d'une zone = publication du kit.</li><li><code>Source/Elements/Assets/README.md</code> : comment obtenir les assets après un clone, comment publier.</li><li><code>CHANGELOG.md</code> sous « Non publié ».</li></ul>
+<h2 id="critères">Critères</h2>
+<ul><li>Un clone neuf, suivi de <code>setup_dev.ps1</code> puis <code>build.ps1</code>, lance le jeu, la galerie et la scène d'Arenarea à l'identique, sans étape manuelle autre que l'authentification <code>gh</code> déjà requise.</li><li>La CI est verte avec les assets tirés du cache, et le deuxième run ne retélécharge rien.</li><li>Aucune image de <code>Regions/</code>, <code>Common/</code>, <code>Maps/</code> ou <code>UI/</code> n'est suivie ; <code>check_binary_files.py</code> refuse d'en réintroduire une.</li><li>Chaque kit publié a une empreinte dans le verrou ; republier le même identifiant avec un autre contenu est refusé.</li><li>L'historique n'est pas réécrit.</li></ul></article>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-24 · <code>d31fe10b9</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

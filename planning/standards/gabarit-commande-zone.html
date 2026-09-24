@@ -13,7 +13,7 @@
   <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
 </header>
 <div class="shell with-sidebar">
-<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="audit-editeur.html">Audit — l&#x27;éditeur face au planning : ce qu&#x27;il sait, ce qui lui manque</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0 active" href="gabarit-commande-zone.html">Gabarit de la commande d&#x27;une zone</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a></aside>
+<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="assets-hors-git-lot108.html">LOT-108 — Les assets livrés sortent de l&#x27;historique Git</a><a class="depth-0" href="audit-capital-lot105-extension.html">LOT-105 — complément du commun de la Capitale</a><a class="depth-0" href="audit-editeur.html">Audit — l&#x27;éditeur face au planning : ce qu&#x27;il sait, ce qui lui manque</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="checklist-lot108-arenarea.html">LOT-108 — Checklist complète d’Arenarea à valider</a><a class="depth-0" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0 active" href="gabarit-commande-zone.html">Gabarit de la commande d&#x27;une zone</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="production-lot108.html">LOT-108 — Production coordonnée</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a></aside>
 <main>
 <article class="prose"><h1 id="gabarit-de-la-commande-dune-zone">Gabarit de la commande d'une zone</h1>
 <p>Un lot d'assets de zone commence par <strong>sa commande</strong> : une page qui passe en revue les dix familles du <a href="style-2d-hd.html#4-les-familles-de-pièces-dun-lieu">standard</a>, dit pour chacune ce qui vient du <strong>commun</strong> et ce que la zone produit en <strong>propre</strong> (voir l'<a href="arborescence-assets.html">arborescence</a>), et suit chaque pièce de la commande d'image à l'asset installé. Livrée par le <a href="../lots/lot-104.html">LOT-104</a>.</p>
@@ -67,14 +67,20 @@ raison**. La famille 01 livre d&#x27;abord sa dalle de fond répétable, en troi
 <pre><code>
 Emprise : C × R. Type tactique : … Source : `&lt;fichier&gt;` (reçue le …). Installée : oui / non.
 
-## Budget
+## Poids
 
-&lt;poids de la zone, tel que le résumé du job CI l&#x27;affiche&gt; sur 40 Mio.</code></pre>
+&lt;poids de la zone, tel que le résumé du job CI l&#x27;affiche&gt; — pour mémoire : une zone n&#x27;a pas de budget (D-23).
+
+## Publication
+
+Dernière étape de la zone, après la revue de l&#x27;auteur : `python scripts/release/publish_asset_kit.py
+Regions/&lt;région&gt;/&lt;ville&gt;/&lt;zone&gt;` publie le kit et met à jour `kits.lock.json` ; les images ne se
+commitent pas (`Planning/standards/arborescence-assets.md`, « Le stockage »).</code></pre>
 <h2 id="les-états-dune-pièce">Les états d'une pièce</h2>
 <p><code>commandé</code> (bloc C écrit) → <code>reçu</code> (source dans le dossier) → <code>installé</code> (dans le manifeste, vue dans la galerie) ; ou <code>écarté</code>, avec sa raison. Une pièce installée qui double une pièce du commun est une faute : elle se <strong>promeut</strong> ou se retire (arborescence, règle 1).</p></article>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-24 · <code>ca175315b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-24 · <code>d31fe10b9</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>
