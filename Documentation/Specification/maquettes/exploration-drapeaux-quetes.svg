@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="600" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — un seul ensemble de drapeaux par partie : écrivains et lecteurs (EX-EXP-006 → EX-EXP-010, LOT-116)</text>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker>
+  </defs>
+
+  <text x="20" y="52" font-weight="600" fill="#25201a">La donnée : une quête</text>
+  <rect x="20" y="60" width="270" height="250" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="28" y="74" font-size="9" fill="#6a6152"><tspan font-family="Consolas, monospace">World/quests/pommes.json</tspan> (forme de <tspan font-family="Consolas, monospace">quest.schema.json</tspan>)</text>
+  <g font-family="Consolas, monospace" font-size="9" fill="#25201a">
+    <text x="28" y="90">{ "id": "pommes",</text>
+    <text x="28" y="103">  "flags": [ { "id": "quete.pommes",</text>
+    <text x="28" y="116">    "values": [ "inconnue", "acceptee",</text>
+    <text x="28" y="129">                "condamne", "enfant-libere" ] } ],</text>
+    <text x="28" y="142">  "steps": [</text>
+    <text x="28" y="155">    { "id": "acceptee",</text>
+    <text x="28" y="168">      "when": [ { "flag": "quete.pommes",</text>
+    <text x="28" y="181">                  "equals": "acceptee" } ] },</text>
+    <text x="28" y="194">    { "id": "libere",</text>
+    <text x="28" y="207">      "when": [ { "flag": "quete.pommes",</text>
+    <text x="28" y="220">                  "equals": "enfant-libere" } ],</text>
+    <text x="28" y="233">      "effects": [ { "type": "setFlag",</text>
+    <text x="28" y="246">                     "flag": "pommes/recompense" } ],</text>
+    <text x="28" y="259">      "outcome": "success" } ] }</text>
+  </g>
+  <g font-size="9" fill="#25201a">
+    <text x="28" y="278"><tspan font-weight="600">Pas de texte dans la quête</tspan> : le journal lit les clés</text>
+    <text x="28" y="290"><tspan font-family="Consolas, monospace">quest.pommes.title</tspan>, <tspan font-family="Consolas, monospace">quest.pommes.libere</tspan>… dans</text>
+    <text x="28" y="302"><tspan font-family="Consolas, monospace">fr.lang</tspan> et <tspan font-family="Consolas, monospace">en.lang</tspan> (<tspan font-family="Consolas, monospace">core::questTextKeys</tspan>).</text>
+  </g>
+  <path d="M290,226 L398,226" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <text x="296" y="216" font-size="9" fill="#9a7420">déclare le drapeau :</text>
+  <text x="296" y="240" font-size="9" fill="#9a7420">type et initiale</text>
+  <text x="296" y="252" font-size="9" fill="#9a7420"><tspan font-family="Consolas, monospace">declareQuestFlags</tspan></text>
+
+  <text x="330" y="52" font-weight="600" fill="#25201a">Écrivains</text>
+  <g stroke="#3f6b34" fill="#3f6b34" fill-opacity="0.12">
+    <rect x="330" y="60" width="160" height="50"/><rect x="500" y="60" width="160" height="50"/><rect x="670" y="60" width="190" height="50"/>
+  </g>
+  <g font-size="10" fill="#25201a">
+    <text x="338" y="76" font-weight="600">dialogue (réponse choisie)</text>
+    <text x="338" y="90"><tspan font-family="Consolas, monospace">setFlag</tspan> + <tspan font-family="Consolas, monospace">value</tspan></text>
+    <text x="338" y="103" fill="#6a6152"><tspan font-family="Consolas, monospace">clearFlag</tspan> : valeur initiale</text>
+    <text x="508" y="76" font-weight="600">effet d'étape de quête</text>
+    <text x="508" y="90"><tspan font-family="Consolas, monospace">effects: setFlag / clearFlag</tspan></text>
+    <text x="508" y="103" fill="#6a6152"><tspan font-family="Consolas, monospace">advanceQuests</tspan>, jusqu'au repos</text>
+    <text x="678" y="76" font-weight="600">zone de carte, à l'entrée</text>
+    <text x="678" y="90"><tspan font-family="Consolas, monospace">triggerFlag</tspan> + <tspan font-family="Consolas, monospace">triggerValue</tspan></text>
+    <text x="678" y="103" fill="#6a6152">(<tspan font-family="Consolas, monospace">triggerOnce</tspan> : une seule fois)</text>
+  </g>
+  <g stroke="#9a7420" stroke-width="2" fill="none">
+    <path d="M410,110 L500,188" marker-end="url(#a)"/><path d="M580,110 L595,188" marker-end="url(#a)"/><path d="M765,110 L690,188" marker-end="url(#a)"/>
+  </g>
+  <text x="600" y="150" font-size="9" fill="#9a7420">écrit → revision + 1</text>
+
+  <rect x="400" y="190" width="460" height="78" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <text x="412" y="208" font-size="12" font-weight="600" fill="#25201a"><tspan font-family="Consolas, monospace">core::WorldFlags</tspan> — un seul ensemble par partie (EX-EXP-006)</text>
+  <g font-size="10" font-family="Consolas, monospace" fill="#25201a">
+    <text x="412" y="226">quete.pommes = enfant-libere   pommes/recompense</text>
+    <text x="412" y="240">quest/pommes/step/acceptee     quest/pommes/step/libere</text>
+  </g>
+  <text x="412" y="258" font-size="10" fill="#6a6152"><tspan font-family="Consolas, monospace">revision()</tspan> : +1 à chaque changement ; la carte compare, sans abonnement.</text>
+
+  <g stroke="#9a7420" stroke-width="2" fill="none">
+    <path d="M450,268 L400,318" marker-end="url(#a)"/><path d="M560,268 L535,318" marker-end="url(#a)"/><path d="M660,268 L665,318" marker-end="url(#a)"/><path d="M780,268 L800,318" marker-end="url(#a)"/>
+  </g>
+  <text x="330" y="304" font-weight="600" fill="#25201a">Lecteurs</text>
+  <g stroke="#2f7f86" fill="#2f7f86" fill-opacity="0.12">
+    <rect x="330" y="320" width="125" height="104"/><rect x="465" y="320" width="125" height="104"/><rect x="600" y="320" width="125" height="104"/><rect x="735" y="320" width="125" height="104"/>
+  </g>
+  <g font-size="9" fill="#25201a">
+    <text x="336" y="334" font-weight="600" font-size="10">condition de dialogue</text>
+    <text x="336" y="348"><tspan font-family="Consolas, monospace">equals</tspan> / <tspan font-family="Consolas, monospace">notEquals</tspan></text>
+    <text x="336" y="360">(<tspan font-family="Consolas, monospace">set</tspan> / <tspan font-family="Consolas, monospace">unset</tspan> : un fait)</text>
+    <text x="336" y="374">la réponse paraît ou non ;</text>
+    <text x="336" y="386">une valeur non déclarée</text>
+    <text x="336" y="398">est refusée au démarrage</text>
+    <text x="336" y="412" fill="#6a6152"><tspan font-family="Consolas, monospace">core::FlagCondition</tspan></text>
+
+    <text x="471" y="334" font-weight="600" font-size="10">étape de quête</text>
+    <text x="471" y="348">atteinte dès que toutes</text>
+    <text x="471" y="360">ses conditions tiennent,</text>
+    <text x="471" y="372">une seule fois, jamais</text>
+    <text x="471" y="384">défaite ; pose le fait</text>
+    <text x="471" y="396"><tspan font-family="Consolas, monospace">quest/&lt;q&gt;/step/&lt;s&gt;</tspan></text>
+    <text x="471" y="408">puis ses effets écrivent</text>
+    <text x="471" y="420" fill="#6a6152"><tspan font-family="Consolas, monospace">core::advanceQuests</tspan></text>
+
+    <text x="606" y="334" font-weight="600" font-size="10">présence d'entité</text>
+    <text x="606" y="348"><tspan font-family="Consolas, monospace">presenceFlag / Test /</tspan></text>
+    <text x="606" y="360"><tspan font-family="Consolas, monospace">Value</tspan> : le PNJ, la porte</text>
+    <text x="606" y="372">paraît ou disparaît</text>
+    <text x="606" y="384" font-weight="600">sans recharger la carte</text>
+    <text x="606" y="396">(la carte relit dès que</text>
+    <text x="606" y="408"><tspan font-family="Consolas, monospace">revision</tspan> a bougé)</text>
+    <text x="606" y="420" fill="#6a6152"><tspan font-family="Consolas, monospace">core::isEntityPresent</tspan></text>
+
+    <text x="741" y="334" font-weight="600" font-size="10">journal de quêtes</text>
+    <text x="741" y="348">état, dernière entrée,</text>
+    <text x="741" y="360">étapes cochées : lus</text>
+    <text x="741" y="372">dans les seuls drapeaux,</text>
+    <text x="741" y="384">jamais stockés à part</text>
+    <text x="741" y="396"><tspan font-family="Consolas, monospace">journal.status.*</tspan></text>
+    <text x="741" y="408" fill="#6a6152"><tspan font-family="Consolas, monospace">core::questProgress</tspan></text>
+    <text x="741" y="420" fill="#6a6152"><tspan font-family="Consolas, monospace">hmi::questJournalValues</tspan></text>
+  </g>
+
+  <rect x="20" y="440" width="840" height="64" fill="#fbf8f0" stroke="#8a2233"/>
+  <text x="30" y="456" font-size="11" font-weight="600" fill="#8a2233">Refusé au démarrage, fichier et ligne nommés (<tspan font-family="Consolas, monospace">quetes/pommes.json:14 : …</tspan>) — jamais découvert en jeu</text>
+  <g font-size="10" fill="#25201a">
+    <text x="30" y="474">• valeur hors liste, en condition ou en effet (<tspan font-family="Consolas, monospace">core::readQuest</tspan>, <tspan font-family="Consolas, monospace">validateFlagUses</tspan>)</text>
+    <text x="30" y="490">• étape sans condition, ou deux étapes de même identifiant</text>
+    <text x="470" y="474">• drapeau déclaré par deux quêtes (<tspan font-family="Consolas, monospace">core::loadQuests</tspan>)</text>
+    <text x="470" y="490">• drapeau lu que rien ne pose (<tspan font-family="Consolas, monospace">LevelEditor --check</tspan>, <tspan font-family="Consolas, monospace">flagsReadBy</tspan>)</text>
+  </g>
+
+  <g fill="#6a6152" font-size="12">
+    <text x="20" y="532">Un seul ensemble de drapeaux tient tout le récit : dialogues, zones et étapes y écrivent, et tout ce qui se voit — une réponse, un</text>
+    <text x="20" y="548">PNJ, le journal — s'en déduit à la lecture. Rien n'est stocké deux fois, donc rien ne se désynchronise ; la quête n'est qu'une grille</text>
+    <text x="20" y="564">de lecture de ces drapeaux, validée avant que le jeu ne parte, avec le fichier et la ligne de chaque faute.</text>
+  </g>
+</svg>

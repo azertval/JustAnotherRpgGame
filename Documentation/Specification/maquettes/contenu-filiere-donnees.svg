@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker></defs>
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Schéma — la filière des données, du corpus au moteur (EX-CNT-001 → EX-CNT-062)</text>
+
+  <g font-size="10" fill="#25201a">
+    <rect x="20" y="50" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="28" y="66" font-size="12" font-weight="600">Corpus (PDF), hors Git</text>
+    <text x="28" y="82" font-family="Consolas, monospace">Documentation/SourceBook/</text>
+    <text x="28" y="96">.gitignore, jamais lu en CI</text>
+    <text x="28" y="110" font-family="Consolas, monospace">sourcebook/corpus.toml</text>
+    <text x="28" y="124">manifeste : sha256, pages</text>
+    <text x="202" y="143" text-anchor="end" fill="#8a2233">EX-CNT-023</text>
+
+    <rect x="236" y="50" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="244" y="66" font-size="12" font-weight="600">Extraction outillée</text>
+    <text x="244" y="82" font-family="Consolas, monospace">python scripts/sourcebook …</text>
+    <text x="244" y="96">bestiaire, equipement, atlas,</text>
+    <text x="244" y="110">personnage, glossaire, options</text>
+    <text x="244" y="124">reproductible ; tableau lu par</text>
+    <text x="244" y="137">coordonnée ; image par région</text>
+    <text x="418" y="147" text-anchor="end" fill="#8a2233">EX-CNT-020 · 021 · 022</text>
+
+    <rect x="452" y="50" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="460" y="66" font-size="12" font-weight="600">JSON final, versionné</text>
+    <text x="460" y="82" font-family="Consolas, monospace">Rpg/&lt;famille&gt;/&lt;id&gt;.json</text>
+    <text x="460" y="96">source : srd, tanares, phb-fr,</text>
+    <text x="460" y="110">original — requis au schéma</text>
+    <text x="460" y="124">status : donnée provisoire</text>
+    <text x="634" y="143" text-anchor="end" fill="#8a2233">EX-CNT-001 · 002 · 032</text>
+
+    <rect x="668" y="50" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="676" y="66" font-size="12" font-weight="600">Schéma JSON, gardé en CI</text>
+    <text x="676" y="82" font-family="Consolas, monospace">schema/&lt;famille&gt;.schema.json</text>
+    <text x="676" y="96">+ common.schema.json (allOf)</text>
+    <text x="676" y="110" font-family="Consolas, monospace">check_rpg_data.py</text>
+    <text x="676" y="124">additionalProperties: false</text>
+    <text x="850" y="143" text-anchor="end" fill="#8a2233">EX-CNT-010 · 011</text>
+  </g>
+  <path d="M210,100 L234,100" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M426,100 L450,100" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M642,100 L666,100" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M763,150 L763,172 L115,172 L115,194" fill="none" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+
+  <g font-size="10" fill="#25201a">
+    <rect x="20" y="196" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="28" y="212" font-size="12" font-weight="600">Brique de lecture unique</text>
+    <text x="28" y="228" font-family="Consolas, monospace">core::JsonDocument</text>
+    <text x="28" y="242" font-family="Consolas, monospace">core::readJsonObjectFromFile</text>
+    <text x="28" y="256">(chemin, version attendue)</text>
+    <text x="28" y="270">échec situé : fichier et ligne</text>
+    <text x="202" y="289" text-anchor="end" fill="#8a2233">EX-CNT-012 · 010</text>
+
+    <rect x="236" y="196" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="244" y="212" font-size="12" font-weight="600">Agrégat typé</text>
+    <text x="244" y="228" font-family="Consolas, monospace">core::Bestiary, core::Skill,</text>
+    <text x="244" y="242" font-family="Consolas, monospace">core::CharacterOptions, …</text>
+    <text x="244" y="256" font-family="Consolas, monospace">requiredMechanisms()</text>
+    <text x="244" y="270">ce que la donnée exige</text>
+    <text x="418" y="289" text-anchor="end" fill="#8a2233">EX-CNT-030</text>
+
+    <rect x="452" y="196" width="190" height="100" fill="#fbf8f0" stroke="#8a2233" stroke-width="2"/>
+    <text x="460" y="212" font-size="12" font-weight="600">Refus dit par le moteur</text>
+    <text x="460" y="228">mécanisme absent : la donnée</text>
+    <text x="460" y="242">est listée au chargement et</text>
+    <text x="460" y="256">jamais jouée en silence ; la</text>
+    <text x="460" y="270">liste est un état d'avancement</text>
+    <text x="634" y="289" text-anchor="end" fill="#8a2233">EX-CNT-031</text>
+
+    <rect x="668" y="196" width="190" height="100" fill="#fbf8f0" stroke="#d6c9a8" stroke-dasharray="5 3"/>
+    <text x="676" y="212" font-size="12" font-weight="600">Atlas du monde (à part)</text>
+    <text x="676" y="228">statistiques régionales typées,</text>
+    <text x="676" y="242">à plusieurs valeurs possibles,</text>
+    <text x="676" y="256">graphe des régions connexe :</text>
+    <text x="676" y="270">rien d'inaccessible en silence</text>
+    <text x="850" y="289" text-anchor="end" fill="#8a2233">EX-CNT-060 · 061 · 062</text>
+  </g>
+  <path d="M210,246 L234,246" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M426,246 L450,246" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+
+  <text x="20" y="330" font-size="11" fill="#6a6152">En parallèle, depuis la donnée — l'illustration :</text>
+  <text x="668" y="330" font-size="11" fill="#6a6152">Sur les catalogues, en CI :</text>
+  <g font-size="10" fill="#25201a">
+    <rect x="20" y="340" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="28" y="356" font-size="12" font-weight="600">Clé d'asset</text>
+    <text x="28" y="372">jamais un chemin de fichier</text>
+    <text x="28" y="386" font-family="Consolas, monospace">assetKey = famille/id</text>
+    <text x="28" y="400" font-family="Consolas, monospace">core::isValidAssetKey</text>
+    <text x="28" y="414">même expression que le schéma</text>
+    <text x="202" y="433" text-anchor="end" fill="#8a2233">EX-CNT-040</text>
+
+    <rect x="236" y="340" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="244" y="356" font-size="12" font-weight="600">Image, ou marqueur généré</text>
+    <text x="244" y="372" font-family="Consolas, monospace">core::assetMarker</text>
+    <text x="244" y="386">peint la clé sans image ; la CI</text>
+    <text x="244" y="400">liste ces clés sans échouer :</text>
+    <text x="244" y="414">un état d'avancement</text>
+    <text x="418" y="433" text-anchor="end" fill="#8a2233">EX-CNT-041 · EX-REN-007</text>
+
+    <rect x="452" y="340" width="190" height="100" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="460" y="356" font-size="12" font-weight="600">Galerie des assets</text>
+    <text x="460" y="372" font-family="Consolas, monospace">--screen=AssetGallery</text>
+    <text x="460" y="386">toute image livrée y paraît,</text>
+    <text x="460" y="400">avec ses formes et animations ;</text>
+    <text x="460" y="414">absente d'ici : la CI échoue</text>
+    <text x="634" y="433" text-anchor="end" fill="#8a2233">EX-CNT-042</text>
+
+    <rect x="668" y="340" width="190" height="100" fill="#fbf8f0" stroke="#3f6b34" stroke-width="2"/>
+    <text x="676" y="356" font-size="12" font-weight="600">Contrôle de plausibilité</text>
+    <text x="676" y="372">bornes d'une valeur au regard</text>
+    <text x="676" y="386">des autres champs de l'entrée ;</text>
+    <text x="676" y="400">signalé, pas rejeté ; l'écart</text>
+    <text x="676" y="414">accepté s'écrit dans la donnée</text>
+    <text x="850" y="433" text-anchor="end" fill="#8a2233">EX-CNT-050</text>
+  </g>
+  <path d="M210,390 L234,390" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M426,390 L450,390" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+
+  <g font-size="11" fill="#6a6152">
+    <text x="20" y="474">Ce que montre le dessin : le chemin d'une donnée et les gardes posées à chaque étape. Pourquoi cet ordre : le contrat (schéma)</text>
+    <text x="20" y="490">précède la donnée ; la lecture passe par une seule brique pour qu'un échec nomme le fichier et la ligne ; et le moteur préfère</text>
+    <text x="20" y="506">lister ce qu'il ne sait pas faire plutôt que jouer une classe amputée. L'image n'est jamais un préalable : un marqueur généré</text>
+    <text x="20" y="522">tient sa place et la galerie dit ce qui existe. Rien du corpus ne s'affiche : tout s'extrait en données (guide-donnees.md).</text>
+  </g>
+</svg>

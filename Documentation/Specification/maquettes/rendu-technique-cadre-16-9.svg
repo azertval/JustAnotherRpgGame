@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 516" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="516" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le cadre 16:9 : scène inscrite et centrée, facteurs d'échelle lus sur la scène (EX-REN-019)</text>
+  <text x="20" y="48" font-size="11" fill="#6a6152">Trois fenêtres dessinées au huitième ; la scène (stage, Main.qml) en sable, les bandes noires en encre.</text>
+
+  <text x="40" y="72" font-size="12" font-weight="600" fill="#25201a">1280 × 720 — déjà en 16:9</text>
+  <rect x="40" y="80" width="160" height="90" fill="#ece4d1" stroke="#25201a"/>
+  <path d="M120,122.4 L124.2,125 L120,127.6 L115.8,125 z" fill="#9a7420"/>
+  <text x="46" y="94" font-size="9" fill="#6a6152">scène = fenêtre</text>
+
+  <text x="250" y="72" font-size="12" font-weight="600" fill="#25201a">1920 × 1200 — plus haute</text>
+  <rect x="250" y="80" width="240" height="150" fill="#25201a"/>
+  <rect x="250" y="87.5" width="240" height="135" fill="#ece4d1" stroke="#25201a"/>
+  <path d="M370,151.1 L376.2,155 L370,158.9 L363.8,155 z" fill="#9a7420"/>
+  <text x="256" y="101" font-size="9" fill="#6a6152">scène 1920 × 1080</text>
+  <text x="494" y="87" font-size="9" fill="#25201a">60 px</text>
+  <text x="494" y="230" font-size="9" fill="#25201a">60 px</text>
+
+  <text x="540" y="72" font-size="12" font-weight="600" fill="#25201a">2560 × 1080 — plus large</text>
+  <rect x="540" y="80" width="320" height="135" fill="#25201a"/>
+  <rect x="580" y="80" width="240" height="135" fill="#ece4d1" stroke="#25201a"/>
+  <path d="M700,143.6 L706.2,147.5 L700,151.4 L693.8,147.5 z" fill="#9a7420"/>
+  <text x="586" y="94" font-size="9" fill="#6a6152">scène 1920 × 1080</text>
+  <text x="546" y="152" font-size="9" fill="#fbf8f0">320</text>
+  <text x="826" y="152" font-size="9" fill="#fbf8f0">320</text>
+
+  <g font-size="11" fill="#25201a">
+    <text x="40" y="252">scène 1280 × 720 à (0, 0)</text>
+    <text x="40" y="268">bandes : aucune</text>
+    <text x="40" y="284">Tokens.scale = 2 · uiScale = 0,667</text>
+    <text x="40" y="300">une case : 720 / 10,8 = 66,7 px</text>
+    <text x="250" y="252">scène 1920 × 1080 à (0, 60)</text>
+    <text x="250" y="268">bandes en haut et en bas : 60 px</text>
+    <text x="250" y="284">Tokens.scale = 3 · uiScale = 1</text>
+    <text x="250" y="300">une case : 1080 / 10,8 = 100 px</text>
+    <text x="540" y="252">scène 1920 × 1080 à (320, 0)</text>
+    <text x="540" y="268">bandes à gauche et à droite : 320 px</text>
+    <text x="540" y="284">Tokens.scale = 3 · uiScale = 1</text>
+    <text x="540" y="300">une case : 1080 / 10,8 = 100 px</text>
+  </g>
+
+  <text x="20" y="332" font-size="12" font-weight="600" fill="#25201a">Main.qml — l'item stage, et les deux facteurs de Tokens.qml qui se lisent dessus (pas sur la fenêtre W × H)</text>
+  <g font-family="Consolas, monospace" font-size="12" fill="#25201a">
+    <text x="20" y="354">stage.width  = round(min(W, H × 16/9))      stage.x = floor((W − width) / 2)</text>
+    <text x="20" y="370">stage.height = round(min(H, W × 9/16))      stage.y = floor((H − height) / 2)</text>
+    <text x="20" y="390">Tokens.scale   = max(1, min(3, floor(stage.height / 360)))   entier de la charte v1 (hmi::identityScaleFor)</text>
+    <text x="20" y="406">Tokens.uiScale = max(0,5, stage.height / 1080)               réel de la charte v2, la scène rapportée à 1080p</text>
+  </g>
+  <g font-size="12" fill="#25201a">
+    <text x="20" y="428">Le monde se cadre lui-même sur la scène : une case = stage.height / 10,8 (WORLD_VIEW_HEIGHT_IN_TILES, EX-REN-013) ;</text>
+    <text x="20" y="444">Tokens.scale ne règle plus rien depuis le LOT-103 et ne reste affiché que par le panneau de diagnostic.</text>
+  </g>
+  <g font-size="11" fill="#6a6152">
+    <text x="20" y="468">La fenêtre a la forme qu'on lui donne, la scène garde la sienne : le jeu est conçu à 1920 × 1080, et un écran qui se recomposerait</text>
+    <text x="20" y="484">dans un autre format ne serait jamais vu tel qu'il est dessiné. Arrondie à l'entier, centrée au pixel, rognée (clip) ; les facteurs se lisent</text>
+    <text x="20" y="500">sur stage, jamais sur la fenêtre, car les bandes noires ne portent rien à agrandir (EX-IHM-080, EX-IHM-081).</text>
+  </g>
+</svg>

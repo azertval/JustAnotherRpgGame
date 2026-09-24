@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="620" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+  </defs>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la chaîne des entrées, du périphérique à l'intention ; les fronts et la latence</text>
+
+  <!-- 1. La chaîne -->
+  <text x="20" y="46" font-size="12" font-weight="600" fill="#25201a">1. La chaîne de traduction (EX-CTRL-001, EX-CTRL-002, EX-CTRL-010) — le gameplay ne voit jamais une touche</text>
+  <rect x="20" y="60" width="160" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="30" y="78" font-size="12" font-weight="600" fill="#25201a">Périphérique</text>
+  <g font-size="11" fill="#25201a">
+    <text x="30" y="96">clavier — tout s'y joue</text>
+    <text x="30" y="110">souris</text>
+    <text x="30" y="124">manette XInput</text>
+  </g>
+  <text x="30" y="146" font-size="10" fill="#6a6152">EX-CTRL-001, EX-CTRL-002</text>
+  <path d="M180,108 L208,108" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <rect x="210" y="60" width="200" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="220" y="78" font-size="12" font-weight="600" fill="#25201a">Touche ou bouton</text>
+  <g font-family="Consolas, monospace" font-size="10" fill="#25201a">
+    <text x="220" y="96">hmi::Key : E, Enter, Escape</text>
+    <text x="220" y="110">hmi::GamepadButton : A, B, Up</text>
+    <text x="220" y="124">hmi::MouseButton : Left, Right</text>
+  </g>
+  <text x="220" y="146" font-size="10" fill="#6a6152">codes physiques, remappables</text>
+  <path d="M410,108 L438,108" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <rect x="440" y="60" width="180" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="450" y="78" font-size="12" font-weight="600" fill="#25201a">Commande nommée</text>
+  <g font-size="11" fill="#25201a">
+    <text x="450" y="96">« se déplacer », « interagir »</text>
+    <text x="450" y="110">« naviguer », « valider »</text>
+    <text x="450" y="124">« retour », « pause »</text>
+  </g>
+  <text x="450" y="146" font-size="10" fill="#6a6152">le nom, jamais la touche</text>
+  <path d="M620,108 L648,108" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <rect x="650" y="60" width="210" height="96" rx="8" fill="#fbf8f0" stroke="#2f7f86" stroke-width="1.5"/>
+  <text x="660" y="78" font-size="12" font-weight="600" fill="#25201a">Intention (Source/Core)</text>
+  <g font-family="Consolas, monospace" font-size="10" fill="#25201a">
+    <text x="660" y="96">core::ExplorationIntent {</text>
+    <text x="660" y="110">  move : Vector2,</text>
+    <text x="660" y="124">  interact : bool }</text>
+  </g>
+  <text x="660" y="146" font-size="10" fill="#6a6152">ce qu'un pas de simulation reçoit</text>
+  <path d="M636,56 L636,160" stroke="#2f7f86" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="628" y="172" text-anchor="end" font-size="10" fill="#6a6152">Source/HMI</text>
+  <text x="644" y="172" font-size="10" fill="#2f7f86">Source/Core, sans dépendance inverse</text>
+
+  <text x="20" y="196" font-size="11" font-weight="600" fill="#25201a">Même commande, deux sources (EX-CTRL-010) :</text>
+  <rect x="330" y="180" width="70" height="18" rx="9" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="365" y="193" text-anchor="middle" font-size="10" fill="#25201a">Entrée</text>
+  <rect x="330" y="204" width="90" height="18" rx="9" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="375" y="217" text-anchor="middle" font-size="10" fill="#25201a">A (manette)</text>
+  <path d="M402,189 L478,198" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <path d="M422,213 L478,204" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <rect x="480" y="192" width="90" height="18" rx="9" fill="#ece4d1" stroke="#9a7420"/>
+  <text x="525" y="205" text-anchor="middle" font-size="10" font-weight="600" fill="#25201a">« valider »</text>
+  <text x="580" y="205" font-size="10" fill="#6a6152">→ un seul chemin vers l'écran, qui ignore la source</text>
+
+  <!-- 2. Chronologie d'un bouton -->
+  <text x="20" y="240" font-size="12" font-weight="600" fill="#25201a">2. La chronologie d'un bouton sur cinq relevés (EX-CTRL-011, <tspan font-family="Consolas, monospace">hmi::InputState</tspan>)</text>
+  <g font-size="11" font-weight="600" fill="#25201a" text-anchor="middle">
+    <text x="330" y="260">relevé 1</text><text x="440" y="260">relevé 2</text><text x="550" y="260">relevé 3</text>
+    <text x="660" y="260">relevé 4</text><text x="770" y="260">relevé 5</text>
+  </g>
+  <g stroke="#d6c9a8">
+    <path d="M275,266 L825,266"/>
+    <path d="M385,266v130M495,266v130M605,266v130M715,266v130"/>
+  </g>
+  <g font-size="12" fill="#25201a">
+    <text x="30" y="286">état physique</text>
+    <text x="30" y="312">pressé — front</text>
+    <text x="30" y="338">maintenu</text>
+    <text x="30" y="364">relâché — front</text>
+    <text x="30" y="390">repos</text>
+  </g>
+  <g font-family="Consolas, monospace" font-size="10" fill="#6a6152">
+    <text x="150" y="312">keyPressed()</text>
+    <text x="150" y="338">keyDown()</text>
+    <text x="150" y="364">keyReleased()</text>
+  </g>
+  <g stroke="#25201a" stroke-width="1">
+    <rect x="322" y="274" width="16" height="16" fill="#25201a"/>
+    <rect x="432" y="274" width="16" height="16" fill="#25201a"/>
+    <rect x="542" y="274" width="16" height="16" fill="#25201a"/>
+    <rect x="652" y="274" width="16" height="16" fill="#fbf8f0"/>
+    <rect x="762" y="274" width="16" height="16" fill="#fbf8f0"/>
+  </g>
+  <g font-size="9" fill="#6a6152" text-anchor="middle">
+    <text x="330" y="300">enfoncé</text><text x="440" y="300">enfoncé</text><text x="550" y="300">enfoncé</text>
+    <text x="660" y="300">levé</text><text x="770" y="300">levé</text>
+  </g>
+  <g font-size="14" font-weight="600" text-anchor="middle">
+    <text x="330" y="316" fill="#3f6b34">✓</text><text x="440" y="316" fill="#d6c9a8">·</text><text x="550" y="316" fill="#d6c9a8">·</text><text x="660" y="316" fill="#d6c9a8">·</text><text x="770" y="316" fill="#d6c9a8">·</text>
+    <text x="330" y="342" fill="#3f6b34">✓</text><text x="440" y="342" fill="#3f6b34">✓</text><text x="550" y="342" fill="#3f6b34">✓</text><text x="660" y="342" fill="#d6c9a8">·</text><text x="770" y="342" fill="#d6c9a8">·</text>
+    <text x="330" y="368" fill="#d6c9a8">·</text><text x="440" y="368" fill="#d6c9a8">·</text><text x="550" y="368" fill="#d6c9a8">·</text><text x="660" y="368" fill="#8a2233">✓</text><text x="770" y="368" fill="#d6c9a8">·</text>
+    <text x="330" y="394" fill="#d6c9a8">·</text><text x="440" y="394" fill="#d6c9a8">·</text><text x="550" y="394" fill="#d6c9a8">·</text><text x="660" y="394" fill="#d6c9a8">·</text><text x="770" y="394" fill="#6a6152">✓</text>
+  </g>
+  <text x="30" y="410" font-size="10" fill="#6a6152">un front se lit en comparant le relevé au précédent (beginFrame) ; « pressé » n'est vrai qu'une fois par appui</text>
+  <rect x="20" y="420" width="840" height="24" rx="4" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="30" y="436" font-size="11" fill="#25201a">Un appui maintenu ne déclenche qu'une fois (le front), ou se répète à une cadence choisie : <tspan font-family="Consolas, monospace">hmi::ButtonRepeat</tspan>, 350 ms puis 110 ms.</text>
+
+  <!-- 3. Latence -->
+  <text x="20" y="470" font-size="12" font-weight="600" fill="#25201a">3. Latence : une entrée est lue au pas suivant, jamais perdue entre deux (EX-CTRL-020)</text>
+  <path d="M40,512 L840,512" stroke="#25201a" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+  <g stroke="#25201a" stroke-width="1.5"><path d="M120,506v12M340,506v12M560,506v12"/></g>
+  <g font-size="10" fill="#25201a" text-anchor="middle">
+    <text x="120" y="534">pas n</text><text x="340" y="534">pas n+1</text><text x="560" y="534">pas n+2</text>
+    <text x="450" y="534" fill="#6a6152">16 ms</text>
+  </g>
+  <text x="840" y="534" text-anchor="end" font-size="10" fill="#6a6152">STEP_MILLISECONDS = 16</text>
+  <text x="230" y="482" text-anchor="middle" font-size="10" fill="#8a2233">E enfoncée entre deux pas</text>
+  <path d="M230,486 L230,504" stroke="#8a2233" stroke-width="2" fill="none"/>
+  <polygon points="225,502 235,502 230,510" fill="#8a2233"/>
+  <path d="M236,496 L332,496" stroke="#6a6152" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="284" y="493" text-anchor="middle" font-size="9" fill="#6a6152">≤ 1 pas</text>
+  <circle cx="340" cy="512" r="5" fill="#3f6b34"/>
+  <text x="340" y="550" text-anchor="middle" font-size="10" fill="#3f6b34">lue à ce pas : ExplorationIntent.interact = true</text>
+  <text x="40" y="568" font-size="11" fill="#25201a">L'appui est mémorisé par l'interface jusqu'au pas suivant (<tspan font-family="Consolas, monospace">WorldModel::interact</tspan>) : la simulation ne peut pas le manquer.</text>
+
+  <!-- Légende -->
+  <g fill="#6a6152" font-size="12">
+    <text x="20" y="584">Entre le périphérique et le gameplay, deux traductions : la touche devient une commande nommée, la commande devient une</text>
+    <text x="20" y="598">intention — pour qu'un clavier et une manette mènent au même geste, et qu'aucune touche n'entre dans Source/Core.</text>
+    <text x="20" y="612">Les fronts distinguent l'appui de la tenue, la répétition se règle en temps, et la lecture au pas suivant borne la latence.</text>
+  </g>
+</svg>

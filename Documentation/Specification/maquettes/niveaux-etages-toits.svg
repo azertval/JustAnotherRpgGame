@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — les étages d'une carte : décor élevé de n × storey, toit translucide, collision au rez seul</text>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker>
+  </defs>
+
+  <text x="20" y="52" font-weight="600" fill="#25201a">Vue de côté : quatre couches sur une case (EX-LVL-025)</text>
+  <g transform="translate(20,50)">
+    <g stroke="#25201a">
+      <rect x="100" y="250" width="100" height="20" fill="#6a6152"/>
+      <rect x="100" y="230" width="100" height="20" fill="#d6c9a8"/>
+      <rect x="100" y="150" width="100" height="80" fill="#ece4d1"/>
+      <rect x="100" y="70" width="100" height="80" fill="#ece4d1" fill-opacity="0.5" stroke-dasharray="4 2"/>
+      <path d="M100,70 L150,40 L200,70 z" fill="#8a2233" fill-opacity="0.6" stroke-dasharray="4 2"/>
+    </g>
+    <g font-size="10" fill="#25201a"><text x="104" y="98" font-family="Consolas, monospace">floor 2</text><text x="104" y="178" font-family="Consolas, monospace">floor 1</text><text x="104" y="216" font-family="Consolas, monospace">floor 0</text></g>
+    <text x="126" y="264" font-size="10" fill="#fbf8f0">wall</text>
+    <g stroke="#9a7420" stroke-width="2"><path d="M80,150 L80,72" marker-end="url(#a)"/><path d="M80,230 L80,152" marker-end="url(#a)"/></g>
+    <g stroke="#9a7420" stroke-dasharray="2 2"><path d="M76,230 H100 M76,150 H100 M76,70 H100"/></g>
+    <g font-size="10" fill="#9a7420"><text x="22" y="112">1 × storey</text><text x="22" y="192">1 × storey</text></g>
+    <g font-size="10" fill="#25201a">
+      <text x="212" y="60" font-weight="600">décor « toit », <tspan font-family="Consolas, monospace">floor 2</tspan></text>
+      <text x="212" y="74" fill="#6a6152">élevé de 2 × storey ; rang <tspan font-family="Consolas, monospace">Storey3</tspan></text>
+      <text x="212" y="126" font-weight="600">décor « étage », <tspan font-family="Consolas, monospace">floor 1</tspan></text>
+      <text x="212" y="140" fill="#6a6152">élevé de 1 × storey ; rang <tspan font-family="Consolas, monospace">Storey</tspan></text>
+      <text x="212" y="196" font-weight="600">décor « façade », <tspan font-family="Consolas, monospace">floor 0</tspan></text>
+      <text x="212" y="210" fill="#6a6152">posé sur le rez ; rang <tspan font-family="Consolas, monospace">Relief</tspan></text>
+      <text x="212" y="244" font-weight="600">sol (ground)</text>
+      <text x="212" y="258" fill="#6a6152">jamais d'étage : <tspan font-family="Consolas, monospace">floor</tspan> y est ignoré</text>
+      <text x="212" y="276" font-weight="600">collision (grille racine)</text>
+      <text x="212" y="290" fill="#6a6152">ne dit que le rez : la façade y est <tspan font-family="Consolas, monospace">wall</tspan></text>
+    </g>
+    <g font-size="10" fill="#25201a">
+      <text x="20" y="318"><tspan font-family="Consolas, monospace">floor 1..4</tspan> : <tspan font-family="Consolas, monospace">core::MAX_STOREY_FLOOR = 4</tspan>, sur une couche de <tspan font-weight="600">décor</tspan> seulement.</text>
+      <text x="20" y="334">Hauteur : <tspan font-weight="600">n × storey</tspan>, la hauteur d'étage du manifeste du lieu (<tspan font-family="Consolas, monospace">"storey": 224</tspan> px d'art</text>
+      <text x="20" y="350">pour le kit de la Capitale) ; sans déclaration, <tspan font-family="Consolas, monospace">hmi::DEFAULT_STOREY_TILES</tspan> = une largeur de case.</text>
+      <text x="20" y="366">Tri : <tspan font-weight="600">au-dessus du rez de sa case</tspan>, rang <tspan font-family="Consolas, monospace">hmi::WorldDepthSlot::Storey…Storey4</tspan> (= <tspan font-family="Consolas, monospace">Storey + n − 1</tspan>),</text>
+      <text x="20" y="382">après <tspan font-family="Consolas, monospace">Relief</tspan> et <tspan font-family="Consolas, monospace">Figure</tspan> : <tspan font-family="Consolas, monospace">hmi::worldDepthSortOrder(footWorldY, slot)</tspan>.</text>
+    </g>
+  </g>
+
+  <text x="440" y="52" font-weight="600" fill="#25201a">Vue isométrique : le héros passe sous l'étage</text>
+  <g transform="translate(440,50)">
+    <g stroke="#d6c9a8" fill="#ece4d1">
+      <path d="M160,150 l32,16 l-32,16 l-32,-16 z M192,166 l32,16 l-32,16 l-32,-16 z M224,182 l32,16 l-32,16 l-32,-16 z"/>
+      <path d="M128,166 l32,16 l-32,16 l-32,-16 z M160,182 l32,16 l-32,16 l-32,-16 z M192,198 l32,16 l-32,16 l-32,-16 z"/>
+      <path d="M96,182 l32,16 l-32,16 l-32,-16 z M128,198 l32,16 l-32,16 l-32,-16 z M160,214 l32,16 l-32,16 l-32,-16 z"/>
+    </g>
+    <g stroke="#25201a" fill="#d6c9a8">
+      <path d="M160,150 L256,198 L256,148 L160,100 z"/>
+      <path d="M160,150 L64,198 L64,148 L160,100 z"/>
+    </g>
+    <circle cx="160" cy="196" r="9" fill="#3f6b34" stroke="#25201a"/><text x="156" y="200" font-size="8" fill="#fbf8f0">H</text>
+    <g stroke="#25201a" fill="#ece4d1" fill-opacity="0.35">
+      <path d="M160,196 L256,148 L256,98 L160,146 z"/>
+      <path d="M64,148 L160,196 L160,146 L64,98 z"/>
+      <path d="M160,50 L256,98 L160,146 L64,98 z"/>
+    </g>
+    <g stroke="#25201a" fill="#8a2233" fill-opacity="0.8">
+      <path d="M64,98 L160,146 L160,68 z"/>
+      <path d="M160,146 L256,98 L160,68 z"/>
+    </g>
+    <g stroke="#9a7420" stroke-dasharray="3 2" fill="none"><path d="M268,76 L236,96"/><path d="M268,136 L240,140"/><path d="M268,196 L244,178"/></g>
+    <g font-size="10" fill="#25201a">
+      <text x="272" y="80" font-weight="600">toit — <tspan font-family="Consolas, monospace">floor 2</tspan></text>
+      <text x="272" y="93">opaque : il ne masque</text><text x="272" y="106">pas le héros</text>
+      <text x="272" y="140" font-weight="600">étage — <tspan font-family="Consolas, monospace">floor 1</tspan></text>
+      <text x="272" y="153">il masque le héros :</text><text x="272" y="166" font-family="Consolas, monospace">fill-opacity 0.35</text>
+      <text x="272" y="178" fill="#6a6152" font-size="8" font-family="Consolas, monospace">STOREY_SEE_THROUGH_OPACITY</text>
+      <text x="272" y="200" font-weight="600">façade — <tspan font-family="Consolas, monospace">floor 0</tspan></text>
+      <text x="272" y="213">le rez : compte dans</text><text x="272" y="226">la collision</text>
+    </g>
+
+    <text x="20" y="262" font-size="10" font-weight="600" fill="#25201a">La grille de collision, en dessous :</text>
+    <g transform="translate(20,270)">
+      <g stroke="#d6c9a8"><rect x="0" y="0" width="60" height="60" fill="#fbf8f0"/><path d="M0,20h60M0,40h60M20,0v60M40,0v60" fill="none"/></g>
+      <g fill="#6a6152"><rect x="0" y="0" width="60" height="20"/><rect x="0" y="20" width="20" height="40"/></g>
+      <circle cx="30" cy="30" r="6" fill="#3f6b34"/>
+    </g>
+    <g font-size="10" fill="#25201a"><text x="90" y="284">seuls les murs du rez (<tspan font-family="Consolas, monospace">floor 0</tspan>) : <tspan font-family="Consolas, monospace">wall</tspan></text><text x="90" y="298">la case du héros, sous l'étage : <tspan font-family="Consolas, monospace">open</tspan></text><text x="90" y="312" font-weight="600">un étage ne compte pas dans la collision</text><text x="90" y="326" fill="#6a6152">(<tspan font-family="Consolas, monospace">core::deriveCollision</tspan> ne lit que le rez)</text></g>
+  </g>
+
+  <rect x="20" y="446" width="840" height="34" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="30" y="460" font-size="11" fill="#25201a"><tspan font-weight="600">Gardé, ignoré, signalé.</tspan> <tspan font-family="Consolas, monospace">floor</tspan> sur une couche de <tspan font-weight="600">sol</tspan>, ou hors de 0..4 : la valeur est réécrite telle quelle, ne se joue pas, et</text>
+  <text x="30" y="474" font-size="11" fill="#25201a"><tspan font-family="Consolas, monospace">LevelEditor --check</tspan> l'annonce : « <tspan font-family="Consolas, monospace">layer "…" is on floor n: only a decor layer rises, from floor 1 to 4; ignored</tspan> ».</text>
+
+  <g fill="#6a6152" font-size="12">
+    <text x="20" y="504">Un étage n'est qu'une couche de décor élevée : la carte reste une grille de sol, la collision une seule table, et la physique du</text>
+    <text x="20" y="520">rez ne change pas quand on pose une toiture (EX-LVL-025, LOT-129). Le rang de tri par étage garde le héros devant les façades du rez et</text>
+    <text x="20" y="536">derrière l'étage qui le surplombe ; c'est cet étage-là, et lui seul, que le rendu rend translucide pour ne jamais perdre la figurine.</text>
+  </g>
+</svg>

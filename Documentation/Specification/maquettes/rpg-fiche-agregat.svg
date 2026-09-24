@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="620" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+  </defs>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la fiche comme agrégat dérivé de ses sources, et la classe comme donnée</text>
+
+  <!-- Sources -->
+  <rect x="20" y="52" width="230" height="236" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="30" y="72" font-size="12" font-weight="600" fill="#25201a">Sources — choisies ou portées</text>
+  <g font-size="12" fill="#25201a">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="30" y="84" width="210" height="22"/><rect x="30" y="112" width="210" height="22"/>
+      <rect x="30" y="140" width="210" height="22"/><rect x="30" y="168" width="210" height="22"/>
+      <rect x="30" y="196" width="210" height="22"/><rect x="30" y="224" width="210" height="22"/>
+      <rect x="30" y="252" width="210" height="22"/>
+    </g>
+    <text x="36" y="99">espèce</text>
+    <text x="36" y="127">classe(s), sous-classe</text>
+    <text x="36" y="155">historique</text>
+    <text x="36" y="183">options, dons</text>
+    <text x="36" y="211">équipement porté</text>
+    <text x="36" y="239">niveau, expérience</text>
+    <text x="36" y="267">valeurs de base (six)</text>
+    <g font-family="Consolas, monospace" font-size="10" fill="#6a6152" text-anchor="end">
+      <text x="234" y="99">speciesId</text>
+      <text x="234" y="127">classId</text>
+      <text x="234" y="155">backgroundId</text>
+      <text x="234" y="183">feats/</text>
+      <text x="234" y="211">Inventory</text>
+      <text x="234" y="239">level</text>
+      <text x="234" y="267">abilities</text>
+    </g>
+  </g>
+
+  <!-- Calcul -->
+  <path d="M250,170 L288,170" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <rect x="290" y="52" width="280" height="236" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="1.5"/>
+  <text x="300" y="72" font-size="12" font-weight="600" fill="#25201a">Le calcul — une seule règle par valeur</text>
+  <g font-size="11" fill="#25201a">
+    <text x="300" y="94">modificateur ← règle unique (EX-REG-010)</text>
+    <text x="300" y="110">CA ← formule de l'armure + bouclier</text>
+    <text x="300" y="126">PV max ← dé de vie × niveaux + Constitution</text>
+    <text x="300" y="142">maîtrise ← table d'expérience au niveau</text>
+    <text x="300" y="158">vitesse ← espèce, moins la charge</text>
+    <text x="300" y="174">sorts ← table de progression (spellSlots)</text>
+  </g>
+  <g font-size="11" font-weight="600" fill="#8a2233">
+    <text x="300" y="202">Jamais de delta : retirer l'armure, c'est</text>
+    <text x="300" y="216">recalculer la CA depuis ce qui reste porté,</text>
+    <text x="300" y="230">pas lui soustraire 2.</text>
+  </g>
+  <text x="300" y="256" font-size="10" fill="#6a6152">Aucune valeur saisie à la main ni codée en C++</text>
+  <text x="300" y="270" font-size="10" fill="#6a6152">(EX-RPG-001, EX-VIS-007).</text>
+  <path d="M570,170 L608,170" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <!-- Valeurs calculées -->
+  <rect x="610" y="52" width="250" height="236" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="620" y="72" font-size="12" font-weight="600" fill="#25201a">Valeurs calculées — affichées</text>
+  <g font-size="12" fill="#25201a">
+    <g fill="#fbf8f0" stroke="#d6c9a8">
+      <rect x="620" y="84" width="230" height="22"/><rect x="620" y="112" width="230" height="22"/>
+      <rect x="620" y="140" width="230" height="22"/><rect x="620" y="168" width="230" height="22"/>
+      <rect x="620" y="196" width="230" height="22"/><rect x="620" y="224" width="230" height="22"/>
+      <rect x="620" y="252" width="230" height="22"/>
+    </g>
+    <text x="626" y="99">modificateurs</text>
+    <text x="626" y="127">classe d'armure</text>
+    <text x="626" y="155">PV maximaux</text>
+    <text x="626" y="183">bonus de maîtrise</text>
+    <text x="626" y="211">maîtrises</text>
+    <text x="626" y="239">vitesse</text>
+    <text x="626" y="267">emplacements de sorts</text>
+    <g font-family="Consolas, monospace" font-size="10" fill="#6a6152" text-anchor="end">
+      <text x="844" y="99">modifier()</text>
+      <text x="844" y="127">armorClass</text>
+      <text x="844" y="155">maximumHitPoints</text>
+      <text x="844" y="183">proficiencyBonus</text>
+      <text x="844" y="211">skillModifier()</text>
+      <text x="844" y="239">speedMeters</text>
+      <text x="844" y="267">spellSlots</text>
+    </g>
+  </g>
+
+  <!-- Boucle de recalcul -->
+  <path d="M735,288 L735,312 L135,312 L135,292" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  <text x="440" y="332" text-anchor="middle" font-size="12" font-weight="600" fill="#9a7420">un changement de source → tout est recalculé, jamais corrigé par delta (EX-RPG-002)</text>
+
+  <!-- La classe en données -->
+  <text x="20" y="356" font-weight="600" fill="#25201a">La classe en données (EX-RPG-020, EX-RPG-021, EX-RPG-022) et l'invariant d'ajout (EX-RPG-023)</text>
+
+  <rect x="20" y="366" width="400" height="164" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="30" y="384" font-size="12" font-weight="600" fill="#25201a">Une classe = un fichier (<tspan font-family="Consolas, monospace">class.schema.json</tspan>)</text>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+    <text x="30" y="402">hitDie : 6 | 8 | 10 | 12</text>
+    <text x="30" y="416">savingThrowProficiencies : deux caractéristiques</text>
+    <text x="30" y="430">subclassLevel : niveau où se choisit la sous-classe</text>
+  </g>
+  <text x="30" y="450" font-size="11" fill="#25201a">progression — une ligne par niveau, relue, jamais un if :</text>
+  <g fill="#fbf8f0" stroke="#d6c9a8">
+    <rect x="30" y="458" width="18" height="18"/><rect x="49" y="458" width="18" height="18"/><rect x="68" y="458" width="18" height="18"/><rect x="87" y="458" width="18" height="18"/>
+    <rect x="106" y="458" width="18" height="18"/><rect x="125" y="458" width="18" height="18"/><rect x="144" y="458" width="18" height="18"/><rect x="163" y="458" width="18" height="18"/>
+    <rect x="182" y="458" width="18" height="18"/><rect x="201" y="458" width="18" height="18"/><rect x="220" y="458" width="18" height="18"/><rect x="239" y="458" width="18" height="18"/>
+    <rect x="258" y="458" width="18" height="18"/><rect x="277" y="458" width="18" height="18"/><rect x="296" y="458" width="18" height="18"/><rect x="315" y="458" width="18" height="18"/>
+    <rect x="334" y="458" width="18" height="18"/><rect x="353" y="458" width="18" height="18"/><rect x="372" y="458" width="18" height="18"/><rect x="391" y="458" width="18" height="18"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="10" fill="#25201a" text-anchor="middle">
+    <text x="39" y="471">2</text><text x="58" y="471">2</text><text x="77" y="471">2</text><text x="96" y="471">2</text>
+    <text x="115" y="471">3</text><text x="134" y="471">3</text><text x="153" y="471">3</text><text x="172" y="471">3</text>
+    <text x="191" y="471">4</text><text x="210" y="471">4</text><text x="229" y="471">4</text><text x="248" y="471">4</text>
+    <text x="267" y="471">5</text><text x="286" y="471">5</text><text x="305" y="471">5</text><text x="324" y="471">5</text>
+    <text x="343" y="471">6</text><text x="362" y="471">6</text><text x="381" y="471">6</text><text x="400" y="471">6</text>
+  </g>
+  <g font-size="9" fill="#6a6152" text-anchor="middle">
+    <text x="39" y="487">niv. 1</text><text x="115" y="487">5</text><text x="210" y="487">10</text><text x="305" y="487">15</text><text x="400" y="487">20</text>
+  </g>
+  <text x="30" y="506" font-size="10" fill="#6a6152">bonus de maîtrise lu dans la table ; chaque ligne porte aussi</text>
+  <text x="30" y="519" font-size="10" fill="#6a6152">features, spellSlots, resources (valeurs de brawler.json, Tanares).</text>
+
+  <rect x="440" y="366" width="200" height="164" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="450" y="384" font-size="12" font-weight="600" fill="#25201a">Ressource générique</text>
+  <text x="450" y="398" font-size="10" fill="#6a6152">(EX-RPG-021, EX-REG-031)</text>
+  <rect x="450" y="406" width="180" height="62" rx="4" fill="#ece4d1" stroke="#d6c9a8" stroke-dasharray="4 3"/>
+  <g font-family="Consolas, monospace" font-size="10" fill="#25201a">
+    <text x="456" y="420">quantité : par niveau</text>
+    <text x="456" y="434">recharge : short-rest |</text>
+    <text x="456" y="448">  long-rest | at-will | dawn</text>
+    <text x="456" y="462">alimente : une capacité</text>
+  </g>
+  <g font-size="11" fill="#25201a">
+    <text x="450" y="488">rage, ki, points de sorcellerie,</text>
+    <text x="450" y="502">second souffle : même structure,</text>
+    <text x="450" y="516">valeurs différentes.</text>
+  </g>
+
+  <rect x="660" y="366" width="200" height="164" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="670" y="384" font-size="12" font-weight="600" fill="#25201a">Sous-classe greffée</text>
+  <text x="670" y="398" font-size="10" fill="#6a6152">(EX-RPG-022)</text>
+  <g>
+    <rect x="672" y="406" width="70" height="96" fill="#ece4d1" stroke="#d6c9a8"/>
+    <g stroke="#d6c9a8"><path d="M672,422h70M672,438h70M672,454h70M672,470h70M672,486h70"/></g>
+    <g font-size="9" fill="#25201a">
+      <text x="676" y="418">niv. 1</text><text x="676" y="434">niv. 2</text><text x="676" y="450">niv. 3</text>
+      <text x="676" y="466">niv. 4</text><text x="676" y="482">niv. 5</text><text x="676" y="498">niv. 6</text>
+    </g>
+    <text x="707" y="512" text-anchor="middle" font-size="9" fill="#6a6152">classe mère</text>
+    <rect x="782" y="440" width="68" height="14" fill="#2f7f86" fill-opacity="0.25" stroke="#2f7f86"/>
+    <text x="816" y="451" text-anchor="middle" font-size="9" fill="#25201a">entrée niv. 3</text>
+    <rect x="782" y="488" width="68" height="14" fill="#2f7f86" fill-opacity="0.25" stroke="#2f7f86"/>
+    <text x="816" y="499" text-anchor="middle" font-size="9" fill="#25201a">entrée niv. 6</text>
+    <path d="M782,447 L748,447" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+    <path d="M782,495 L748,495" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+  </g>
+  <text x="670" y="524" font-size="10" fill="#6a6152">ajoute des entrées, sans recopier la table</text>
+
+  <rect x="20" y="540" width="840" height="24" rx="6" fill="#25201a"/>
+  <text x="30" y="556" font-size="12" fill="#fbf8f0">EX-RPG-023 — une classe de plus est un fichier de données de plus : aucun C++ existant modifié, hors sa mécanique propre.</text>
+
+  <!-- Légende -->
+  <g fill="#6a6152" font-size="12">
+    <text x="20" y="584">La fiche n'est qu'un résultat : chaque valeur affichée sort d'une règle appliquée aux sources, et changer une source rejoue</text>
+    <text x="20" y="598">tout le calcul — c'est ce qui empêche une classe d'armure de dériver en silence. La classe suit le même principe : sa table,</text>
+    <text x="20" y="612">ses ressources et sa sous-classe sont des données, pour que seize classes restent tenables sans toucher au moteur.</text>
+  </g>
+</svg>
