@@ -1,5 +1,9 @@
 var NAVTREEINDEX35 =
 {
+"structcore_1_1RegionSpeciesShare.html":[3,0,0,181],
+"structcore_1_1RegionSpeciesShare.html#a10931c8c5278bd4cac24347d1d3b0706":[2,0,1,181,1],
+"structcore_1_1RegionSpeciesShare.html#a10931c8c5278bd4cac24347d1d3b0706":[3,0,0,181,1],
+"structcore_1_1RegionSpeciesShare.html#a18813e636060825b867b4c11118c9130":[2,0,1,181,2],
 "structcore_1_1RegionSpeciesShare.html#a18813e636060825b867b4c11118c9130":[3,0,0,181,2],
 "structcore_1_1RegionSpeciesShare.html#ae422c8474f9184f1d286186359ddbbd8":[2,0,1,181,0],
 "structcore_1_1RegionSpeciesShare.html#ae422c8474f9184f1d286186359ddbbd8":[3,0,0,181,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX35 =
 "structcore_1_1Weapon.html":[3,0,0,166],
 "structcore_1_1Weapon.html#a1e7d7f051f4a90b0d1b831531dcb69fe":[2,0,1,166,3],
 "structcore_1_1Weapon.html#a1e7d7f051f4a90b0d1b831531dcb69fe":[3,0,0,166,3],
-"structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779":[2,0,1,166,5],
-"structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779":[3,0,0,166,5],
-"structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf":[2,0,1,166,10],
-"structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf":[3,0,0,166,10],
-"structcore_1_1Weapon.html#a4a1e89b89afd0a730d9c2741345647cb":[2,0,1,166,0]
+"structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779":[2,0,1,166,5]
 };

@@ -1,5 +1,9 @@
 var NAVTREEINDEX36 =
 {
+"structcore_1_1Weapon.html#a3cdec223de84b5b9b5157dc189bd6779":[3,0,0,166,5],
+"structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf":[2,0,1,166,10],
+"structcore_1_1Weapon.html#a3d22574944ce1bc272271a3f240d65bf":[3,0,0,166,10],
+"structcore_1_1Weapon.html#a4a1e89b89afd0a730d9c2741345647cb":[2,0,1,166,0],
 "structcore_1_1Weapon.html#a4a1e89b89afd0a730d9c2741345647cb":[3,0,0,166,0],
 "structcore_1_1Weapon.html#a5e4dd01ea65cf7138efbb5a507bbcfae":[2,0,1,166,4],
 "structcore_1_1Weapon.html#a5e4dd01ea65cf7138efbb5a507bbcfae":[3,0,0,166,4],
@@ -245,9 +249,5 @@ var NAVTREEINDEX36 =
 "structhmi_1_1ArenaViewportItem_1_1Framing.html#a1a2b25056c556872408b024b85020a6e":[3,0,1,191,0,1],
 "structhmi_1_1ArenaViewportItem_1_1Framing.html#a8c8f8a181cb321bac4cbe76e15c5bf38":[2,0,2,191,0,2],
 "structhmi_1_1ArenaViewportItem_1_1Framing.html#a8c8f8a181cb321bac4cbe76e15c5bf38":[3,0,1,191,0,2],
-"structhmi_1_1ArenaViewportItem_1_1Framing.html#abaf009b1c31a7bed1b3208e5444f8965":[2,0,2,191,0,3],
-"structhmi_1_1ArenaViewportItem_1_1Framing.html#abaf009b1c31a7bed1b3208e5444f8965":[3,0,1,191,0,3],
-"structhmi_1_1AssetGalleryBand.html":[2,0,2,118],
-"structhmi_1_1AssetGalleryBand.html":[3,0,1,118],
-"structhmi_1_1AssetGalleryBand.html#a7234a22b916587c0d3ba26c01aa9912d":[2,0,2,118,1]
+"structhmi_1_1ArenaViewportItem_1_1Framing.html#abaf009b1c31a7bed1b3208e5444f8965":[2,0,2,191,0,3]
 };

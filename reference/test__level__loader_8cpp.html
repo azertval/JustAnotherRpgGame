@@ -146,6 +146,7 @@ $(function(){initNavTree('test__level__loader_8cpp.html','',''); });
 <p>Tests unitaires du chargement de niveau (format JSON, erreurs récupérables).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
@@ -160,6 +161,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a75bfce8c1b98aca22e2b1964ec6d0a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau sans champ <span class="tt">"version"</span> se charge sans erreur ni avertissement, comme la version initiale du format (<span class="tt">EX-LVL-005</span>, rétrocompatibilité des niveaux antérieurs à ce champ).  <br /></td></tr>
 <tr class="memitem:aea53ffeadb806b0c33eb08fa5b8d1157" id="r_aea53ffeadb806b0c33eb08fa5b8d1157"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aea53ffeadb806b0c33eb08fa5b8d1157">TEST</a> (LevelLoaderTest, VersionSuperieureALaVersionGereeEchoueProprement)</td></tr>
 <tr class="memdesc:aea53ffeadb806b0c33eb08fa5b8d1157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau dont la version dépasse celle gérée échoue avec une erreur exploitable (<span class="tt">EX-LVL-005</span>), pas une lecture au mieux.  <br /></td></tr>
+<tr class="memitem:a610123371c8f2ceab61d7162dd90eeb7" id="r_a610123371c8f2ceab61d7162dd90eeb7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a610123371c8f2ceab61d7162dd90eeb7">TEST</a> (LevelLoaderTest, DimensionsAberrantesRefuseesSansAllouer)</td></tr>
+<tr class="memdesc:a610123371c8f2ceab61d7162dd90eeb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte aux dimensions aberrantes est refusée avant d'allouer sa grille.  <br /></td></tr>
 <tr class="memitem:a5dab79a0244d45df9c561ca640365f9b" id="r_a5dab79a0244d45df9c561ca640365f9b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5dab79a0244d45df9c561ca640365f9b">TEST</a> (LevelLoaderTest, UneCarteDoitPorterExactementUneEntree)</td></tr>
 <tr class="memdesc:a5dab79a0244d45df9c561ca640365f9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte sans entrée, ou qui en porte deux, est refusée avec une erreur exploitable.  <br /></td></tr>
 <tr class="memitem:a932cf81afd2a7f7eded781818324755b" id="r_a932cf81afd2a7f7eded781818324755b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a932cf81afd2a7f7eded781818324755b">TEST</a> (LevelLoaderTest, TypeDeTuileInconnuRefuse)</td></tr>
@@ -169,7 +172,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires du chargement de niveau (format JSON, erreurs récupérables). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="adafdf138dfda2dd039f068697ec7bcfa" name="adafdf138dfda2dd039f068697ec7bcfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adafdf138dfda2dd039f068697ec7bcfa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adafdf138dfda2dd039f068697ec7bcfa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,8 +201,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a610123371c8f2ceab61d7162dd90eeb7" name="a610123371c8f2ceab61d7162dd90eeb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610123371c8f2ceab61d7162dd90eeb7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LevelLoaderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DimensionsAberrantesRefuseesSansAllouer</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte aux dimensions aberrantes est refusée avant d'allouer sa grille. </p>
+<p><b>Cas de test :</b> <b>Une carte plus grande que MAX_LEVEL_SIDE est refusée.</b><br  />
+ <b>Categorie :</b> Unitaire · Level Loader<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger une carte de 100 000 × 100 000 cases.<br  />
+2. Charger une carte d'une case de plus que la borne en hauteur.<br  />
+ <b>Resultat attendu :</b> Les deux chargements échouent avec <span class="tt">LevelValidationError::ParseError</span>, sans allouer la grille. </p>
+
+</div>
+</div>
 <a id="a75bfce8c1b98aca22e2b1964ec6d0a0f" name="a75bfce8c1b98aca22e2b1964ec6d0a0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75bfce8c1b98aca22e2b1964ec6d0a0f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a75bfce8c1b98aca22e2b1964ec6d0a0f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,7 +262,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a932cf81afd2a7f7eded781818324755b" name="a932cf81afd2a7f7eded781818324755b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a932cf81afd2a7f7eded781818324755b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a932cf81afd2a7f7eded781818324755b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +291,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5dab79a0244d45df9c561ca640365f9b" name="a5dab79a0244d45df9c561ca640365f9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dab79a0244d45df9c561ca640365f9b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dab79a0244d45df9c561ca640365f9b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +321,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aea53ffeadb806b0c33eb08fa5b8d1157" name="aea53ffeadb806b0c33eb08fa5b8d1157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea53ffeadb806b0c33eb08fa5b8d1157">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aea53ffeadb806b0c33eb08fa5b8d1157">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

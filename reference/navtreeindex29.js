@@ -1,5 +1,9 @@
 var NAVTREEINDEX29 =
 {
+"structcore_1_1AttackProfile.html#a8614898d41279fc09685bb2a2ae92ece":[3,0,0,14,5],
+"structcore_1_1AttackProfile.html#ab3db8d1b3f2e69e95aeb55f50fb46050":[2,0,1,14,1],
+"structcore_1_1AttackProfile.html#ab3db8d1b3f2e69e95aeb55f50fb46050":[3,0,0,14,1],
+"structcore_1_1AttackProfile.html#ab7f66c284180a6ae9cce77e10129a643":[2,0,1,14,6],
 "structcore_1_1AttackProfile.html#ab7f66c284180a6ae9cce77e10129a643":[3,0,0,14,6],
 "structcore_1_1AttackProfile.html#adf9b7bddec260ed8a064e0574d8fd71e":[2,0,1,14,4],
 "structcore_1_1AttackProfile.html#adf9b7bddec260ed8a064e0574d8fd71e":[3,0,0,14,4],
@@ -245,9 +249,5 @@ var NAVTREEINDEX29 =
 "structcore_1_1CityBlock.html":[3,0,0,186],
 "structcore_1_1CityBlock.html#a04923ef6a99ace8215ec66ef57460a17":[2,0,1,186,5],
 "structcore_1_1CityBlock.html#a04923ef6a99ace8215ec66ef57460a17":[3,0,0,186,5],
-"structcore_1_1CityBlock.html#a2e0fd1148954a16920fa19d0386cd238":[2,0,1,186,3],
-"structcore_1_1CityBlock.html#a2e0fd1148954a16920fa19d0386cd238":[3,0,0,186,3],
-"structcore_1_1CityBlock.html#a4c436fc36d2c24fad3cfe491e95b46f2":[2,0,1,186,2],
-"structcore_1_1CityBlock.html#a4c436fc36d2c24fad3cfe491e95b46f2":[3,0,0,186,2],
-"structcore_1_1CityBlock.html#a53be95c225d9b2ac22cb371b0a46016e":[2,0,1,186,0]
+"structcore_1_1CityBlock.html#a2e0fd1148954a16920fa19d0386cd238":[2,0,1,186,3]
 };

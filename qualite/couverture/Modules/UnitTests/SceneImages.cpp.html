@@ -59,13 +59,14 @@ namespace {
         if (full.isNull()) {</span>
 <span style = "background-color:#fdd">            return {};</span>
         }
-<span style = "background-color:#dfd">        _levels.assign(1, std::move(full));
+<span style = "background-color:#dfd">        _levels.clear();
+        _levels.push_back(std::move(full));
         _owner-&gt;account(static_cast&lt;std::ptrdiff_t&gt;(bytesOf(_levels.front())));
     }
     const int wanted = std::clamp(level, 0, levelCount() - 1);</span>
     // Chaque niveau se tire du prÃ©cÃ©dent, rÃ©duit de moitiÃ© : la moyenne de quatre texels, ce que
     // fait la gÃ©nÃ©ration de mipmaps du GPU.
-<span style = "background-color:#dfd">    while (static_cast&lt;int&gt;(_levels.size()) &lt;= wanted) {
+<span style = "background-color:#dfd">    while (std::cmp_less_equal(_levels.size(), wanted)) {
         const QImage&amp; previous = _levels.back();
         QImage next =</span>
             previous.scaled(std::max(1, previous.width() / 2), std::max(1, previous.height() / 2),
@@ -130,7 +131,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory, std::size_t budg
         image._width = 1;
         image._height = 1;
         image._solid = true;
-        image._levels.assign(1, std::move(white));
+        image._levels.clear();
+        image._levels.push_back(std::move(white));
         return image;
     }();
     return sceneImageHandle(&amp;solidImage);
@@ -165,7 +167,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory, std::size_t budg
 <span style = "background-color:#dfd">void SceneImages::pin(SceneImage&amp; target, QImage image) {
     target._width = image.width();
     target._height = image.height();
-    target._levels.assign(1, std::move(image));
+    target._levels.clear();
+    target._levels.push_back(std::move(image));
 }</span>
 
 <span style = "background-color:#dfd">QImage SceneImages::readFile(const std::string&amp; path) const {
@@ -227,7 +230,8 @@ SceneImages::SceneImages(std::filesystem::path assetsDirectory, std::size_t budg
             stored._smooth = true;
             stored._width = loaded.width();
             stored._height = loaded.height();
-            stored._levels.assign(1, std::move(loaded));
+            stored._levels.clear();
+            stored._levels.push_back(std::move(loaded));
             account(static_cast&lt;std::ptrdiff_t&gt;(bytesOf(stored._levels.front())));
             touch(stored);</span>
             // Decoupe, echelle et ancre : les memes traits que le jeu lit (LOT-103), chaque

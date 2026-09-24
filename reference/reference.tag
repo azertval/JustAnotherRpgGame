@@ -7524,6 +7524,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__level__loader_8cpp.html</anchorfile>
+      <anchor>a610123371c8f2ceab61d7162dd90eeb7</anchor>
+      <arglist>(LevelLoaderTest, DimensionsAberrantesRefuseesSansAllouer)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__loader_8cpp.html</anchorfile>
       <anchor>a5dab79a0244d45df9c561ca640365f9b</anchor>
       <arglist>(LevelLoaderTest, UneCarteDoitPorterExactementUneEntree)</arglist>
     </member>
@@ -45269,6 +45276,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr int</type>
+      <name>MAX_LEVEL_SIDE</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aff7cabd42eecb0a07082477ad07869ff</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr std::string_view</type>
       <name>SCENE_LAYER_PROPERTY</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -46220,6 +46234,9 @@
       <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92">Relief</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769">Figure</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">Storey</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa2b4fc4cb4180775150c34c6cea85ff58">Storey2</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa82a004a8e728aa7ec27ccf0ba3011e07">Storey3</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a71e0c7e2c54951699d44b5c6f88f63caa280744e626662bbdc6d210a46c356bb5">Storey4</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>

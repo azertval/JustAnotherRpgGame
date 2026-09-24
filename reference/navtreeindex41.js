@@ -1,5 +1,9 @@
 var NAVTREEINDEX41 =
 {
+"structhmi_1_1MapLabel.html#aec998a7ae8951e954785611c25387b8a":[3,0,1,179,2],
+"structhmi_1_1MapLink.html":[2,0,2,70],
+"structhmi_1_1MapLink.html":[3,0,1,70],
+"structhmi_1_1MapLink.html#a9974e5f22c0d11413c56f434b20e5cac":[2,0,2,70,0],
 "structhmi_1_1MapLink.html#a9974e5f22c0d11413c56f434b20e5cac":[3,0,1,70,0],
 "structhmi_1_1MapLink.html#aee6282d118a7e298593e4a4039b4f4ef":[2,0,2,70,1],
 "structhmi_1_1MapLink.html#aee6282d118a7e298593e4a4039b4f4ef":[3,0,1,70,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX41 =
 "structhmi_1_1PieceCatalogEntry.html":[3,0,1,52],
 "structhmi_1_1PieceCatalogEntry.html#a0f8ed517d585b3a8587b808f7ad2d8cf":[2,0,2,52,3],
 "structhmi_1_1PieceCatalogEntry.html#a0f8ed517d585b3a8587b808f7ad2d8cf":[3,0,1,52,3],
-"structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f":[2,0,2,52,6],
-"structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f":[3,0,1,52,6],
-"structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e":[2,0,2,52,5],
-"structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e":[3,0,1,52,5],
-"structhmi_1_1PieceCatalogEntry.html#a940a4308985222a779824763a57171d8":[2,0,2,52,4]
+"structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f":[2,0,2,52,6]
 };

@@ -1,5 +1,9 @@
 var NAVTREEINDEX31 =
 {
+"structcore_1_1CreatureAttacks.html":[3,0,0,15],
+"structcore_1_1CreatureAttacks.html#a3d5c717b41ea86dbd502095306681a57":[2,0,1,15,1],
+"structcore_1_1CreatureAttacks.html#a3d5c717b41ea86dbd502095306681a57":[3,0,0,15,1],
+"structcore_1_1CreatureAttacks.html#a946292ced81ca6d75f8833dae2c5a2df":[2,0,1,15,0],
 "structcore_1_1CreatureAttacks.html#a946292ced81ca6d75f8833dae2c5a2df":[3,0,0,15,0],
 "structcore_1_1CreatureSpeed.html":[2,0,1,128],
 "structcore_1_1CreatureSpeed.html":[3,0,0,128],
@@ -245,9 +249,5 @@ var NAVTREEINDEX31 =
 "structcore_1_1DifficultyScale.html#a9d7a40e1340f8b555664bd71a2d68315":[3,0,0,148,2],
 "structcore_1_1DifficultyTier.html":[2,0,1,147],
 "structcore_1_1DifficultyTier.html":[3,0,0,147],
-"structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523":[2,0,1,147,1],
-"structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523":[3,0,0,147,1],
-"structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc":[2,0,1,147,2],
-"structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc":[3,0,0,147,2],
-"structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067":[2,0,1,147,0]
+"structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523":[2,0,1,147,1]
 };

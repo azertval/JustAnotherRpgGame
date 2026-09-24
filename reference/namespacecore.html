@@ -1618,6 +1618,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:afa94966b4ac589f39c5ce6240f9bf3c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de l'<b>ambiance</b> de la carte — ce que le <span class="tt">LOT-28</span> jouera en fond, et ce que l'éditeur montre dans les propriétés de carte (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
 <tr class="memitem:a29f56cd5e629fb74668126bbf151066e" id="r_a29f56cd5e629fb74668126bbf151066e"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a29f56cd5e629fb74668126bbf151066e">LEVEL_FORMAT_VERSION</a> = 4</td></tr>
 <tr class="memdesc:a29f56cd5e629fb74668126bbf151066e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version courante du format de niveau JSON (<span class="tt">EX-LVL-005</span>).  <br /></td></tr>
+<tr class="memitem:aff7cabd42eecb0a07082477ad07869ff" id="r_aff7cabd42eecb0a07082477ad07869ff"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aff7cabd42eecb0a07082477ad07869ff">MAX_LEVEL_SIDE</a> = 1024</td></tr>
+<tr class="memdesc:aff7cabd42eecb0a07082477ad07869ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plus grand côté de carte accepté au chargement, en cases.  <br /></td></tr>
 <tr class="memitem:a455104c902c36c4055632cff3653a4b7" id="r_a455104c902c36c4055632cff3653a4b7"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a455104c902c36c4055632cff3653a4b7">SCENE_LAYER_PROPERTY</a> = &quot;scene&quot;</td></tr>
 <tr class="memdesc:a455104c902c36c4055632cff3653a4b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété de couche qui nomme le lieu dont la carte porte les planches (<span class="tt">scene</span>).  <br /></td></tr>
 <tr class="memitem:ac09dbc5848329505d30e5ab32b462538" id="r_ac09dbc5848329505d30e5ab32b462538"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ac09dbc5848329505d30e5ab32b462538">ZONE_ENTITY_TYPE</a> = &quot;zone&quot;</td></tr>
@@ -12240,6 +12242,31 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Clé de la <b>région</b> du monde où se trouve la carte, telle que <span class="tt">world-maps.json</span> la nomme (<span class="tt">central-empire</span>) : une propriété de carte, pas un champ du format (<span class="tt">LOT-EDITOR-09</span>). </p>
+
+</div>
+</div>
+<a id="aff7cabd42eecb0a07082477ad07869ff" name="aff7cabd42eecb0a07082477ad07869ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff7cabd42eecb0a07082477ad07869ff">&#9670;&#160;</a></span>MAX_LEVEL_SIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::MAX_LEVEL_SIDE = 1024</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Plus grand côté de carte accepté au chargement, en cases. </p>
+<p>L'éditeur plafonne ses cartes à 100 cases de côté ; cette borne, dix fois plus large, ne sert qu'à refuser un fichier aberrant avant d'allouer sa grille (un côté de 100 000 cases réclame des gigaoctets). </p>
 
 </div>
 </div>

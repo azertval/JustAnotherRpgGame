@@ -533,7 +533,10 @@ var namespacehmi =
     [ "WorldDepthSlot", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca", [
       [ "Relief", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92", null ],
       [ "Figure", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769", null ],
-      [ "Storey", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301", null ]
+      [ "Storey", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301", null ],
+      [ "Storey2", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa2b4fc4cb4180775150c34c6cea85ff58", null ],
+      [ "Storey3", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa82a004a8e728aa7ec27ccf0ba3011e07", null ],
+      [ "Storey4", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa280744e626662bbdc6d210a46c356bb5", null ]
     ] ],
     [ "activeLanguage", "namespacehmi.html#a7d20e45b3534ac88b3b7a1ad870ddfeb", null ],
     [ "addTranslation", "namespacehmi.html#a074c259298bf074bde017244902797da", null ],

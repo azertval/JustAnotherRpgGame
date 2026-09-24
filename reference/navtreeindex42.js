@@ -1,5 +1,9 @@
 var NAVTREEINDEX42 =
 {
+"structhmi_1_1PieceCatalogEntry.html#a4ded16f111359a4a0944a367ddb13c2f":[3,0,1,52,6],
+"structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e":[2,0,2,52,5],
+"structhmi_1_1PieceCatalogEntry.html#a701f3528becc64780b532ee706275f5e":[3,0,1,52,5],
+"structhmi_1_1PieceCatalogEntry.html#a940a4308985222a779824763a57171d8":[2,0,2,52,4],
 "structhmi_1_1PieceCatalogEntry.html#a940a4308985222a779824763a57171d8":[3,0,1,52,4],
 "structhmi_1_1PieceCatalogEntry.html#a95b8a3728b601fb9e12819c2b67054a9":[2,0,2,52,1],
 "structhmi_1_1PieceCatalogEntry.html#a95b8a3728b601fb9e12819c2b67054a9":[3,0,1,52,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX42 =
 "structhmi_1_1ScreenState.html#acd2658e4556b00725a8f092e25916f07":[3,0,1,176,1],
 "structhmi_1_1ScreenState.html#afed814132576c82dfaa45e5f9d81c20c":[2,0,2,176,4],
 "structhmi_1_1ScreenState.html#afed814132576c82dfaa45e5f9d81c20c":[3,0,1,176,4],
-"structhmi_1_1ShapeGestureDecision.html":[2,0,2,23],
-"structhmi_1_1ShapeGestureDecision.html":[3,0,1,23],
-"structhmi_1_1ShapeGestureDecision.html#a5ec1f2eb2971e865ecf589f795b31020":[2,0,2,23,1],
-"structhmi_1_1ShapeGestureDecision.html#a5ec1f2eb2971e865ecf589f795b31020":[3,0,1,23,1],
-"structhmi_1_1ShapeGestureDecision.html#a91d432cf826791918ab37b06193e0f67":[2,0,2,23,0]
+"structhmi_1_1ShapeGestureDecision.html":[2,0,2,23]
 };

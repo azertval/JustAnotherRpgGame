@@ -14,5 +14,6 @@ var LevelLoader_8h =
       [ "core::LevelValidationError::DuplicateEntityId", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded", null ],
       [ "core::LevelValidationError::MissingBase", "namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ac47d91983ec7eede11379d041ecaac1b", null ]
     ] ],
-    [ "core::LEVEL_FORMAT_VERSION", "namespacecore.html#a29f56cd5e629fb74668126bbf151066e", null ]
+    [ "core::LEVEL_FORMAT_VERSION", "namespacecore.html#a29f56cd5e629fb74668126bbf151066e", null ],
+    [ "core::MAX_LEVEL_SIDE", "namespacecore.html#aff7cabd42eecb0a07082477ad07869ff", null ]
 ];

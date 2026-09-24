@@ -1,5 +1,9 @@
 var NAVTREEINDEX32 =
 {
+"structcore_1_1DifficultyTier.html#a4e202ef139bbd0a37d3485987371d523":[3,0,0,147,1],
+"structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc":[2,0,1,147,2],
+"structcore_1_1DifficultyTier.html#a6f20ce3fc88e83cb9832ab2de6c556cc":[3,0,0,147,2],
+"structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067":[2,0,1,147,0],
 "structcore_1_1DifficultyTier.html#af11e24ee15cef0f77241c382509ff067":[3,0,0,147,0],
 "structcore_1_1Encounter.html":[2,0,1,52],
 "structcore_1_1Encounter.html":[3,0,0,52],
@@ -245,9 +249,5 @@ var NAVTREEINDEX32 =
 "structcore_1_1ExplorationSnapshot.html#aed763efd480c62dac0fd4f5d960162a3":[3,0,0,37,1],
 "structcore_1_1FlagCondition.html":[2,0,1,149],
 "structcore_1_1FlagCondition.html":[3,0,0,149],
-"structcore_1_1FlagCondition.html#a65b6aab1bec27094d3f4d5fea9fe417e":[2,0,1,149,1],
-"structcore_1_1FlagCondition.html#a65b6aab1bec27094d3f4d5fea9fe417e":[3,0,0,149,1],
-"structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8":[2,0,1,149,0],
-"structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8":[3,0,0,149,0],
-"structcore_1_1FlagCondition.html#a7e384ba05f9f7f1aba0963586097c037":[2,0,1,149,2]
+"structcore_1_1FlagCondition.html#a65b6aab1bec27094d3f4d5fea9fe417e":[2,0,1,149,1]
 };

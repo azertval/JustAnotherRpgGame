@@ -923,6 +923,7 @@ var namespacecore =
     [ "LEVEL_FORMAT_VERSION", "namespacecore.html#a29f56cd5e629fb74668126bbf151066e", null ],
     [ "MAP_AMBIENCE_PROPERTY", "namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2", null ],
     [ "MAP_REGION_PROPERTY", "namespacecore.html#a47f6e001dc10a742e05ed01de586335f", null ],
+    [ "MAX_LEVEL_SIDE", "namespacecore.html#aff7cabd42eecb0a07082477ad07869ff", null ],
     [ "MAX_STOREY_FLOOR", "namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb", null ],
     [ "METERS_PER_TILE", "namespacecore.html#a511d502baab5befb28a3742b65ee1e61", null ],
     [ "MOVEMENT_RESOURCE", "namespacecore.html#a7ab9475b62f44395c8e5f7e30a3f32f5", null ],

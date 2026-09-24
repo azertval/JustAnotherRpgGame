@@ -1,5 +1,9 @@
 var NAVTREEINDEX30 =
 {
+"structcore_1_1CityBlock.html#a2e0fd1148954a16920fa19d0386cd238":[3,0,0,186,3],
+"structcore_1_1CityBlock.html#a4c436fc36d2c24fad3cfe491e95b46f2":[2,0,1,186,2],
+"structcore_1_1CityBlock.html#a4c436fc36d2c24fad3cfe491e95b46f2":[3,0,0,186,2],
+"structcore_1_1CityBlock.html#a53be95c225d9b2ac22cb371b0a46016e":[2,0,1,186,0],
 "structcore_1_1CityBlock.html#a53be95c225d9b2ac22cb371b0a46016e":[3,0,0,186,0],
 "structcore_1_1CityBlock.html#a8ca6cb1b0c55bd50a78cbe54b0eb17db":[2,0,1,186,1],
 "structcore_1_1CityBlock.html#a8ca6cb1b0c55bd50a78cbe54b0eb17db":[3,0,0,186,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX30 =
 "structcore_1_1CreatureAction.html#a70ac35b5427c032e7a8ecec9c22dd41c":[3,0,0,127,7],
 "structcore_1_1CreatureAction.html#a7d65a24e5f425e176ad41811483bdc2b":[2,0,1,127,4],
 "structcore_1_1CreatureAction.html#a7d65a24e5f425e176ad41811483bdc2b":[3,0,0,127,4],
-"structcore_1_1CreatureAttacks.html":[2,0,1,15],
-"structcore_1_1CreatureAttacks.html":[3,0,0,15],
-"structcore_1_1CreatureAttacks.html#a3d5c717b41ea86dbd502095306681a57":[2,0,1,15,1],
-"structcore_1_1CreatureAttacks.html#a3d5c717b41ea86dbd502095306681a57":[3,0,0,15,1],
-"structcore_1_1CreatureAttacks.html#a946292ced81ca6d75f8833dae2c5a2df":[2,0,1,15,0]
+"structcore_1_1CreatureAttacks.html":[2,0,1,15]
 };

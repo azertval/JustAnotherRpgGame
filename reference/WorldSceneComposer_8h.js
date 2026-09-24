@@ -22,7 +22,10 @@ var WorldSceneComposer_8h =
     [ "hmi::WorldDepthSlot", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63ca", [
       [ "hmi::WorldDepthSlot::Relief", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caabba4e0ae459283cbc5df0f8ac338fe92", null ],
       [ "hmi::WorldDepthSlot::Figure", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769", null ],
-      [ "hmi::WorldDepthSlot::Storey", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301", null ]
+      [ "hmi::WorldDepthSlot::Storey", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301", null ],
+      [ "hmi::WorldDepthSlot::Storey2", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa2b4fc4cb4180775150c34c6cea85ff58", null ],
+      [ "hmi::WorldDepthSlot::Storey3", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa82a004a8e728aa7ec27ccf0ba3011e07", null ],
+      [ "hmi::WorldDepthSlot::Storey4", "namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa280744e626662bbdc6d210a46c356bb5", null ]
     ] ],
     [ "hmi::composeWorldScene", "namespacehmi.html#a888058bfce2a151c10776afeaabbb179", null ],
     [ "hmi::composeWorldScene", "namespacehmi.html#a5878150edf69cce4f7f785e2fb4be5f1", null ],

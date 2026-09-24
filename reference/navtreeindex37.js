@@ -1,5 +1,9 @@
 var NAVTREEINDEX37 =
 {
+"structhmi_1_1ArenaViewportItem_1_1Framing.html#abaf009b1c31a7bed1b3208e5444f8965":[3,0,1,191,0,3],
+"structhmi_1_1AssetGalleryBand.html":[2,0,2,118],
+"structhmi_1_1AssetGalleryBand.html":[3,0,1,118],
+"structhmi_1_1AssetGalleryBand.html#a7234a22b916587c0d3ba26c01aa9912d":[2,0,2,118,1],
 "structhmi_1_1AssetGalleryBand.html#a7234a22b916587c0d3ba26c01aa9912d":[3,0,1,118,1],
 "structhmi_1_1AssetGalleryBand.html#abaa2d83347ba65129ac1731ba626fe32":[2,0,2,118,0],
 "structhmi_1_1AssetGalleryBand.html#abaa2d83347ba65129ac1731ba626fe32":[3,0,1,118,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX37 =
 "structhmi_1_1Citation.html#a0d0570c7aecc504c925f16b4420d8baa":[3,0,1,44,4],
 "structhmi_1_1Citation.html#a5f9cf83ee8e8f0ddcc6fa61dc04af509":[2,0,2,44,0],
 "structhmi_1_1Citation.html#a5f9cf83ee8e8f0ddcc6fa61dc04af509":[3,0,1,44,0],
-"structhmi_1_1Citation.html#a6fb04435f9a99f5474a991b3e0bb0e68":[2,0,2,44,5],
-"structhmi_1_1Citation.html#a6fb04435f9a99f5474a991b3e0bb0e68":[3,0,1,44,5],
-"structhmi_1_1Citation.html#a87d63fe33ab5223ac56bb9dd82b75ca8":[2,0,2,44,1],
-"structhmi_1_1Citation.html#a87d63fe33ab5223ac56bb9dd82b75ca8":[3,0,1,44,1],
-"structhmi_1_1Citation.html#a9128223fdb1964f6551b7e5fe3b48585":[2,0,2,44,2]
+"structhmi_1_1Citation.html#a6fb04435f9a99f5474a991b3e0bb0e68":[2,0,2,44,5]
 };

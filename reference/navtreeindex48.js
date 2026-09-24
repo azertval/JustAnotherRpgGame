@@ -1,5 +1,10 @@
 var NAVTREEINDEX48 =
 {
+"test__stamps_8cpp.html#ab8da5e3ef0b1d6f7447beecf15bb2d4e":[4,0,0,7,4,1,26,2],
+"test__stamps_8cpp.html#addcbab611a7a5b8fc0937f6ed674d92f":[4,0,0,7,4,1,26,4],
+"test__stamps_8cpp.html#af987ba418b25878f2d72e4a798c183fe":[4,0,0,7,4,1,26,8],
+"test__storey__editing_8cpp.html":[4,0,0,7,4,1,27],
+"test__storey__editing_8cpp.html#a17cc381a7119737e03f78d3081d3e40a":[4,0,0,7,4,1,27,2],
 "test__storey__editing_8cpp.html#a339d8e18442d6117e70640f556a53b6d":[4,0,0,7,4,1,27,1],
 "test__storey__editing_8cpp.html#ab769259c7d3080239de0bf6d0c3b6000":[4,0,0,7,4,1,27,0],
 "test__storey__render_8cpp.html":[4,0,0,7,4,1,28],

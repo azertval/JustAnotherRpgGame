@@ -357,6 +357,11 @@ struct TileParseState {
 <span style = "background-color:#fdd">        return failure("Dimensions invalides (width et height doivent etre &gt; 0)",</span>
                        LevelValidationError::ParseError);
     }
+<span style = "background-color:#dfd">    if (width &gt; MAX_LEVEL_SIDE || height &gt; MAX_LEVEL_SIDE) {
+        return failure("Dimensions invalides (width et height ne depassent pas " +</span>
+                           std::to_string(MAX_LEVEL_SIDE) + ")",
+                       LevelValidationError::ParseError);
+    }
 <span style = "background-color:#dfd">    return std::nullopt;
 }</span>
 
@@ -450,9 +455,9 @@ void adoptLegacyTextures(std::vector&lt;std::pair&lt;GridPosition, std::string&g
 <span style = "background-color:#dfd">[[nodiscard]] LevelLoadResult loadMap(const nlohmann::json&amp; root, int version) {
     int width = 0;
     int height = 0;
-    if (std::optional&lt;LevelLoadResult&gt; headerError = parseHeader(root, width, height)) {</span>
-<span style = "background-color:#fdd">        return std::move(*headerError);</span>
-<span style = "background-color:#dfd">    }</span>
+    if (std::optional&lt;LevelLoadResult&gt; headerError = parseHeader(root, width, height)) {
+        return std::move(*headerError);
+    }</span>
 
 <span style = "background-color:#dfd">    std::string name = root.value("name", std::string{});
     TileMap map(width, height);</span>

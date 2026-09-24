@@ -1,5 +1,9 @@
 var NAVTREEINDEX38 =
 {
+"structhmi_1_1Citation.html#a6fb04435f9a99f5474a991b3e0bb0e68":[3,0,1,44,5],
+"structhmi_1_1Citation.html#a87d63fe33ab5223ac56bb9dd82b75ca8":[2,0,2,44,1],
+"structhmi_1_1Citation.html#a87d63fe33ab5223ac56bb9dd82b75ca8":[3,0,1,44,1],
+"structhmi_1_1Citation.html#a9128223fdb1964f6551b7e5fe3b48585":[2,0,2,44,2],
 "structhmi_1_1Citation.html#a9128223fdb1964f6551b7e5fe3b48585":[3,0,1,44,2],
 "structhmi_1_1Citation.html#ad357a600bc3565cd953a831b3e0367b5":[2,0,2,44,3],
 "structhmi_1_1Citation.html#ad357a600bc3565cd953a831b3e0367b5":[3,0,1,44,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX38 =
 "structhmi_1_1EditorReferences.html#a6c9c470eed8c3a6884cde93d5097dc9f":[3,0,1,25,5],
 "structhmi_1_1EditorReferences.html#adfce73beec39e6122b2a340b5bb6ec41":[2,0,2,25,4],
 "structhmi_1_1EditorReferences.html#adfce73beec39e6122b2a340b5bb6ec41":[3,0,1,25,4],
-"structhmi_1_1EditorReferences.html#ae65812f5ec623b0414bc4f1abd217e8f":[2,0,2,25,3],
-"structhmi_1_1EditorReferences.html#ae65812f5ec623b0414bc4f1abd217e8f":[3,0,1,25,3],
-"structhmi_1_1EditorSidecar.html":[2,0,2,14],
-"structhmi_1_1EditorSidecar.html":[3,0,1,14],
-"structhmi_1_1EditorSidecar.html#a48be75302037d1e1b4483346b88b1bf7":[2,0,2,14,0]
+"structhmi_1_1EditorReferences.html#ae65812f5ec623b0414bc4f1abd217e8f":[2,0,2,25,3]
 };
