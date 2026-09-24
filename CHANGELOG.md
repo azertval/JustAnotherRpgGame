@@ -6,6 +6,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-127 — La recette de l'éditeur, à la main.** L'auteur a passé l'éditeur à la souris et au
+  clavier en construisant les cartes 2D HD, puis a essayé le résultat dans le jeu. Le cahier de
+  recette (`Planning/versions/v0.1.0/v0.0.1-demo/annexes/LOT-127-…/cahier-de-recette.md`) compte
+  48 gestes, des lots `LOT-EDITOR-03` à `10`, `13` et `14`, **tous OK**. Les fiches de l'éditeur
+  ne portent plus de « vérification à la souris due ».
+
 - **Affichage d'un lieu — un quartier entier à 60 images/s.** L'audit de l'affichage d'un lieu
   (`Planning/standards/audit-affichage-lieu.md`) a établi que le rendu recomposait et triait
   **toute** la carte à chaque image, refaisait son instantané à chaque pas du héros et relisait le

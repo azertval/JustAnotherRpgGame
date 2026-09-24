@@ -150,7 +150,7 @@ sol : les 634 cases franchissables, moins les deux piliers.
 - **Carte sans lieu : repli sur les types en couleurs.** ✔ l'onglet des pièces s'éteint (palette),
   le canevas peignait déjà les types en couleurs (`LOT-EDITOR-02`).
 
-**Vérification à la souris, due** : sur Martpart, choisir `feature-1`, le poser sur la place,
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : sur Martpart, choisir `feature-1`, le poser sur la place,
 glisser sur sa deuxième case (rien ne bouge), le gommer ; la collision active, peindre un mur sur
 une rue (case magenta), puis la gommer (le magenta part). Les clics postés n'atteignent pas Qt :
 cette vérification ne se fait pas sans la main de l'auteur.
@@ -160,7 +160,7 @@ cette vérification ne se fait pas sans la main de l'auteur.
 **Livré le 19 septembre 2026** (ouvert le même jour), sur la branche `lot-editor-03-pieces`.
 Vérification automatisée : construction `/W4 /WX` sans avertissement, tests unitaires verts (813),
 acceptation sur Martpart, `LevelEditor --check` vert ; capture de la fenêtre (palette des pièces,
-masque des cases forcées). **Vérification à la souris due** : poser, glisser et gommer dans le
+masque des cases forcées). **Vérifié à la souris** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) : poser, glisser et gommer dans le
 canevas (voir « Vérification »).
 
 Exigences : `EX-EDIT-063`, `EX-EDIT-064`, `EX-EDIT-065` (nouvelles) ; `EX-EDIT-002`,

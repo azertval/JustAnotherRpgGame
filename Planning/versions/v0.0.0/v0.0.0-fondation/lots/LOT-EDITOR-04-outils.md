@@ -129,7 +129,7 @@ et `LOT-EDITOR-08` (tampons).
 - **Notes d'auteur dans `<carte>.editor.json`.** ✔ `EditorSidecarTest` : nom de l'annexe, écriture
   canonique relue à l'identique, clé inconnue gardée, annexe ignorée par le navigateur.
 
-**Vérification au clavier et à la souris, due** : sur Martpart, `M` au-dessus d'un angle de rue,
+**Vérification au clavier et à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : sur Martpart, `M` au-dessus d'un angle de rue,
 `L` et une ligne de mur (le reflet paraît) ; `Alt` + clic sur une façade (la palette la montre) ;
 `G` sur la place avec `street-3`, puis un seul `Ctrl+Z` ; `D` entre deux lanternes ; `N` sur une
 case, puis rouvrir la carte (la pastille revient) ; `Shift+P` sur une rue. Les touches et les clics
@@ -141,7 +141,7 @@ fait dans la capture. Cette vérification ne se fait pas sans la main de l'auteu
 **Livré le 19 septembre 2026** (ouvert le même jour), sur la branche `lot-editor-04-outils`.
 Vérification automatisée : construction `/W4 /WX` sans avertissement, tests unitaires verts (826,
 dont deux ignorés comme avant), acceptation sur Martpart ; capture de la fenêtre (barre d'outils à
-dix outils et miroir, menu Tools). **Vérification au clavier et à la souris due** : les touches et
+dix outils et miroir, menu Tools). **Vérifié au clavier et à la souris** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) : les touches et
 les clics postés n'atteignent pas Qt (voir « Vérification »).
 
 Exigences : `EX-EDIT-066` à `EX-EDIT-069` (nouvelles) ; `EX-EDIT-014` révisée.
