@@ -35,10 +35,40 @@ inline constexpr std::string_view PORTAL_ARRIVAL_PROPERTY = "arrival";
 /// @brief Propriété d'un portail : le drapeau de monde qu'il exige pour s'ouvrir (`LOT-16` le
 ///        pose ; le `LOT-09` le lit). Absent ou vide, le portail est toujours franchissable.
 inline constexpr std::string_view PORTAL_REQUIRED_FLAG_PROPERTY = "requiresFlag";
+/// @brief Propriété d'un portail : vrai pour un portail **condamné** (`LOT-126`) — posé, montré,
+///        jamais franchi : l'escalier des catacombes que la `0.0.1` ferme. Il n'exige alors ni
+///        carte cible ni point d'arrivée ; s'il en nomme, le graphe les montre en pointillé.
+inline constexpr std::string_view PORTAL_SEALED_PROPERTY = "sealed";
 /// @brief Type d'entité d'un point d'arrivée nommé : là où l'on apparaît en entrant par un portail.
 inline constexpr std::string_view SPAWN_POINT_ENTITY_TYPE = "spawnPoint";
 /// @brief Propriété d'un point d'arrivée : son nom, unique dans la carte.
 inline constexpr std::string_view SPAWN_POINT_NAME_PROPERTY = "name";
+
+/// @brief Type d'entité d'un **décor qui change** (`LOT-126`) : une pièce du lieu posée comme
+///        entité, pour porter une condition de présence — les portes de l'arène, closes sous
+///        `condamne`. La règle : ce qui change en cours de partie est une entité, tout le reste une
+///        pièce de couche.
+inline constexpr std::string_view PROP_ENTITY_TYPE = "prop";
+/// @brief Propriété d'un décor : le nom court de sa pièce, dans le catalogue résolu du lieu.
+inline constexpr std::string_view PROP_PIECE_PROPERTY = "piece";
+/// @brief Propriété d'un décor : vrai (le défaut) s'il arrête le pas sur son emprise tant qu'il
+///        est présent.
+inline constexpr std::string_view PROP_BLOCKS_PROPERTY = "blocks";
+
+/// @brief Propriété d'une zone de règles : le dialogue qui s'ouvre quand le héros y entre
+///        (`LOT-126`).
+inline constexpr std::string_view ZONE_TRIGGER_DIALOGUE_PROPERTY = "triggerDialogue";
+/// @brief Propriété d'une zone : le drapeau qu'elle pose quand le héros y entre.
+inline constexpr std::string_view ZONE_TRIGGER_FLAG_PROPERTY = "triggerFlag";
+/// @brief Propriété d'une zone : la valeur qu'elle donne à ce drapeau, s'il est déclaré par une
+///        quête ; vide pour un fait booléen.
+inline constexpr std::string_view ZONE_TRIGGER_VALUE_PROPERTY = "triggerValue";
+/// @brief Propriété d'une zone : la carte vers laquelle elle **transfère** le héros.
+inline constexpr std::string_view ZONE_TRIGGER_MAP_PROPERTY = "triggerMap";
+/// @brief Propriété d'une zone : le point d'arrivée du transfert, sur `triggerMap`.
+inline constexpr std::string_view ZONE_TRIGGER_ARRIVAL_PROPERTY = "triggerArrival";
+/// @brief Propriété d'une zone : vrai si elle ne se déclenche qu'une fois par partie.
+inline constexpr std::string_view ZONE_TRIGGER_ONCE_PROPERTY = "triggerOnce";
 
 /// @brief Nature d'une propriété d'entité, qui décide du contrôle que l'éditeur lui donne.
 enum class EntityPropertyKind {
@@ -77,6 +107,14 @@ enum class EntityChoiceSource {
     Items,
     /// Une entité d'une carte, par `carte#id` (décision D8) : ce que quêtes et drapeaux citent.
     EntityRefs,
+    /// Les valeurs qu'une quête déclare pour le drapeau que nomme `relatedKey` de la **même**
+    /// entité (`LOT-126`). Plusieurs valeurs s'écrivent `a|b`.
+    FlagValues,
+    /// Un drapeau que l'entité **pose** : tout drapeau connu se propose, un nouveau s'écrit — il
+    /// n'a pas à être posé ailleurs, puisque c'est elle qui le pose.
+    WrittenFlags,
+    /// Les pièces du catalogue résolu du lieu de la carte (`core::ScenePieceManifest::resolve`).
+    Pieces,
 };
 
 /**
@@ -131,6 +169,14 @@ struct EntityPropertySpec {
     /// Bornes d'une propriété `Integer`, incluses ; une valeur hors bornes est signalée.
     std::int64_t minimum = (std::numeric_limits<std::int64_t>::min)();
     std::int64_t maximum = (std::numeric_limits<std::int64_t>::max)();
+    /// La propriété de la même entité dont dépendent les choix : la carte d'un point d'arrivée
+    /// (`ArrivalPoints`, `targetMap` à défaut), le drapeau de ses valeurs (`FlagValues`).
+    std::string_view relatedKey{};
+    /// Une propriété booléenne qui, vraie, lève `required` : un portail condamné n'a pas de cible.
+    std::string_view waivedBy{};
+    /// `FlagValues` d'un drapeau que l'entité **pose** : une seule valeur, requise si une quête
+    /// déclare le drapeau (`core::WorldFlags::set` refuse un drapeau déclaré sans valeur).
+    bool writesFlag = false;
 };
 
 /// @brief Une famille d'entités : son type, les propriétés qu'elle déclare, et comment le canevas
@@ -145,6 +191,9 @@ struct EntityKind {
     /// La propriété qui nomme sa figurine (source `Figures`) : le canevas dessine la figurine à la
     /// place du marqueur quand elle existe. Vide : la famille n'a pas de figurine.
     std::string_view figureProperty{};
+    /// La propriété qui nomme sa pièce (source `Pieces`, `LOT-126`) : la composition du jeu et du
+    /// canevas pose la pièce à sa case, comme une pièce de couche, tant que l'entité est présente.
+    std::string_view pieceProperty{};
 
     [[nodiscard]] const EntityPropertySpec* find(std::string_view key) const;
 };
@@ -153,7 +202,7 @@ struct EntityKind {
  * @brief Les familles que l'éditeur sait poser, dans l'ordre de sa liste.
  *
  * Coffre, panneau, PNJ, rencontre, portail, point d'arrivée, zone de combat, îlot, zone de règles,
- * trajet, entrée d'arène. Les types et leurs propriétés sont ceux que le jeu lit déjà
+ * décor, trajet, entrée d'arène. Les types et leurs propriétés sont ceux que le jeu lit déjà
  * (`core::knownInteractableKinds`, `core::dialogueTriggerFor`, `core::encounterTriggerFor`,
  * `core::arenaEntryPoints`, `core::BattleGrid`) : la table ne les invente pas, elle les rassemble.
  * Une seule exception, le **trajet**, que la feuille de route de l'éditeur demande avant que le jeu
@@ -164,6 +213,24 @@ struct EntityKind {
  * en montre les propriétés brutes.
  */
 [[nodiscard]] const std::vector<EntityKind>& knownEntityKinds();
+
+/**
+ * @brief Les propriétés que **toute** famille peut porter : la condition de présence du `LOT-116`
+ *        (`presenceFlag`, `presenceTest`, `presenceValue`), déclarée ici pour l'inspecteur
+ *        (`LOT-126`).
+ *
+ * Elles ne sont pas posées à la création (`makeEntity`) : une entité sans condition est toujours
+ * là. Leur contrôle est celui de `core::presenceConditionOf`, fait une fois par
+ * `validateMapEntities`.
+ */
+[[nodiscard]] const std::vector<EntityPropertySpec>& commonEntityProperties();
+
+/// @return Les propriétés que l'inspecteur montre pour @p kind : les siennes, puis les communes.
+[[nodiscard]] std::vector<const EntityPropertySpec*> inspectedProperties(const EntityKind& kind);
+
+/// @return La propriété @p key de @p kind, ou commune ; `nullptr` sinon.
+[[nodiscard]] const EntityPropertySpec* findInspectedProperty(const EntityKind& kind,
+                                                              std::string_view key);
 
 /// @return La famille de @p type, ou `nullptr` si elle n'est pas dans la table.
 [[nodiscard]] const EntityKind* findEntityKind(std::string_view type);
@@ -176,8 +243,13 @@ struct EntityReferenceContext {
     std::set<std::string, std::less<>> dialogues;
     std::set<std::string, std::less<>> encounters;
     std::set<std::string, std::less<>> figures;
-    /// Les drapeaux qu'un dialogue pose.
+    /// Les drapeaux qu'un dialogue, une quête ou un déclencheur de zone pose.
     std::set<std::string, std::less<>> flags;
+    /// Les drapeaux qu'une quête **déclare**, et leurs valeurs (`LOT-116`).
+    std::map<std::string, std::set<std::string, std::less<>>, std::less<>> flagValues;
+    /// Les pièces du lieu de la carte (source `Pieces`). **Vide** : le lieu n'est pas connu (une
+    /// maquette, un lieu sans manifeste), et les pièces ne se contrôlent pas.
+    std::set<std::string, std::less<>> pieces;
     std::set<std::string, std::less<>> locations;
     std::set<std::string, std::less<>> items;
     /// `carte#id` de chaque entité des cartes, la carte éditée comprise.
@@ -224,6 +296,11 @@ enum class EntityIssueCode {
     /// La condition de présence (`core::presenceConditionOf`, `LOT-116`) est mal formée. `key`
     /// nomme la propriété fautive, `value` ce qui ne va pas.
     InvalidPresence,
+    /// Une valeur de drapeau qu'aucune quête ne déclare pour ce drapeau (`LOT-126`) : un PNJ qui
+    /// ne paraîtrait jamais, un déclencheur que `core::WorldFlags` refuserait. `key` et `value`.
+    UndeclaredFlagValue,
+    /// La pièce nommée n'est pas dans le catalogue du lieu. `value`.
+    UnknownPiece,
 };
 
 /// @brief Un problème relevé sur l'entité de rang `entityIndex`.
@@ -248,6 +325,14 @@ struct EntityIssue {
  */
 [[nodiscard]] std::vector<EntityIssue> validateMapEntities(const std::vector<MapEntity>& entities,
                                                            const EntityReferenceContext& context);
+
+/// @return Les drapeaux que les entités de @p entities **posent** — le `triggerFlag` de leurs zones
+///         (`LOT-126`) —, sans doublon.
+[[nodiscard]] std::set<std::string, std::less<>> flagsSetByEntities(
+    const std::vector<MapEntity>& entities);
+
+/// @return Vrai si @p entity est un portail condamné (`sealed` vrai, `LOT-126`).
+[[nodiscard]] bool isSealedPortal(const MapEntity& entity);
 
 /// @return Les noms des points d'arrivée de @p entities, sans doublon.
 [[nodiscard]] std::set<std::string, std::less<>> arrivalPointNames(

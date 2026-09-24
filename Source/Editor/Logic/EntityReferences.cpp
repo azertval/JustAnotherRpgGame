@@ -103,6 +103,10 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
         const core::QuestCatalog quests = core::loadQuests(root / "World" / "quests");
         const std::set<std::string, std::less<>> written = core::flagsWrittenBy(quests, dialogues);
         references.flags.assign(written.begin(), written.end());
+        for (const core::Quest& quest : quests.quests) {
+            references.declaredFlags.insert(references.declaredFlags.end(), quest.flags.begin(),
+                                            quest.flags.end());
+        }
     }
     if (const std::filesystem::path locations = root / "World" / "locations";
         isDirectory(locations)) {
@@ -126,13 +130,21 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
         references.bestiary = core::loadBestiary(creatures);
     }
     references.world = core::loadWorldGraph(root / "Levels");
+    // Ce que posent les zones des cartes (LOT-126) : un PNJ peut attendre le drapeau qu'une zone
+    // pose, sans qu'aucun dialogue ne le pose.
+    std::set<std::string, std::less<>> flags(references.flags.begin(), references.flags.end());
+    for (const core::WorldMapNode& map : references.world.maps) {
+        flags.insert(map.triggerFlags.begin(), map.triggerFlags.end());
+    }
+    references.flags.assign(flags.begin(), flags.end());
     return references;
 }
 
 core::EntityReferenceContext referenceContext(const EditorReferences& references,
                                               std::string_view editedMapId,
                                               const std::vector<core::MapEntity>& editedEntities,
-                                              std::string_view place) {
+                                              std::string_view place,
+                                              const core::ScenePieceManifest* manifest) {
     core::EntityReferenceContext context;
     context.dialogues.insert(references.dialogues.begin(), references.dialogues.end());
     for (const core::Encounter& encounter : references.encounters.encounters) {
@@ -147,6 +159,17 @@ core::EntityReferenceContext referenceContext(const EditorReferences& references
         }
     }
     context.flags.insert(references.flags.begin(), references.flags.end());
+    for (const core::QuestFlag& flag : references.declaredFlags) {
+        context.flagValues[flag.id].insert(flag.values.begin(), flag.values.end());
+    }
+    // Les entites du brouillon posent leurs drapeaux avant d'etre enregistrees.
+    context.flags.merge(core::flagsSetByEntities(editedEntities));
+    if (manifest != nullptr) {
+        for (const core::ScenePiece& piece : manifest->pieces()) {
+            context.pieces.insert(piece.name);
+            context.pieces.insert(piece.aliases.begin(), piece.aliases.end());
+        }
+    }
     context.locations.insert(references.locations.begin(), references.locations.end());
     context.items.insert(references.items.begin(), references.items.end());
     for (const core::WorldMapNode& map : references.world.maps) {
@@ -213,9 +236,33 @@ std::vector<std::string> entityChoices(const core::EntityPropertySpec& spec,
         case core::EntityChoiceSource::EntityRefs:
             choices.assign(context.entityRefs.begin(), context.entityRefs.end());
             break;
+        case core::EntityChoiceSource::WrittenFlags:
+            choices.assign(context.flags.begin(), context.flags.end());
+            for (const auto& [flag, values] : context.flagValues) {
+                if (!context.flags.contains(flag)) {
+                    choices.push_back(flag);
+                }
+            }
+            break;
+        case core::EntityChoiceSource::Pieces:
+            choices.assign(context.pieces.begin(), context.pieces.end());
+            break;
+        case core::EntityChoiceSource::FlagValues: {
+            const auto flag = entity.properties.find(std::string{spec.relatedKey});
+            const auto* const name =
+                flag != entity.properties.end() ? std::get_if<std::string>(&flag->second) : nullptr;
+            if (name == nullptr) {
+                break;
+            }
+            if (const auto values = context.flagValues.find(*name);
+                values != context.flagValues.end()) {
+                choices.assign(values->second.begin(), values->second.end());
+            }
+            break;
+        }
         case core::EntityChoiceSource::ArrivalPoints: {
-            const auto target =
-                entity.properties.find(std::string{core::PORTAL_TARGET_MAP_PROPERTY});
+            const auto target = entity.properties.find(std::string{
+                spec.relatedKey.empty() ? core::PORTAL_TARGET_MAP_PROPERTY : spec.relatedKey});
             if (target == entity.properties.end()) {
                 break;
             }

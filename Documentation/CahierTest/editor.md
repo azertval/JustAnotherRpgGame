@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **204 cas** (24 bloquants, 45 critiques, 108 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **210 cas** (25 bloquants, 46 critiques, 111 majeurs, 28 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -30,6 +30,7 @@ Tests unitaires — **204 cas** (24 bloquants, 45 critiques, 108 majeurs, 27 min
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
 | [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 7 | - | 1 | 5 | 1 |
+| [`test_quest_map_editor.cpp`](#test-quest-map-editorcpp) | 6 | 1 | 1 | 3 | 1 |
 | [`test_scene_images.cpp`](#test-scene-imagescpp) | 4 | 1 | - | 3 | - |
 | [`test_scene_painter.cpp`](#test-scene-paintercpp) | 4 | 3 | - | 1 | - |
 | [`test_shipped_maps.cpp`](#test-shipped-mapscpp) | 4 | 4 | - | - | - |
@@ -3077,6 +3078,118 @@ La palette se groupe par dossier du kit.
 - Vérifie que `labels` vaut `(std::vector<std::string>{"Standing", "floors", "roofs/l/d3", "roofs/t/d2"})`.
 - Vérifie que `catalog[2].pieces.size()` vaut `2U`.
 - Vérifie que `catalog[1].pieces.front().floor` est vrai.
+
+## test_quest_map_editor.cpp
+
+### QuestMapEditorTest.LEtatDePartieSeLitCommeLaLigneDeCommande
+
+*Majeur · Unitaire · Editeur* — `Source/Test/Unit/Editor/test_quest_map_editor.cpp:137`
+
+L'etat de partie se lit comme la ligne de commande du jeu.
+
+**Étapes**
+
+1. Lire `vu`, `quete.pommes=acceptee`, `quete.pommes=faux`, `quete.pommes`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::parseWorldStateEntry("a=b")` vaut `(hmi::WorldStateEntry{.flag = "a", .value = std::string{"b"}})`.
+- Vérifie que `etat.flags.isSet("vu")` est vrai.
+- Vérifie que `etat.flags.value("quete.pommes")` vaut `"acceptee"`.
+- Vérifie que `etat.refused` vaut `(std::vector<std::string>{"quete.pommes=faux", "quete.pommes"})`.
+- Vérifie que `hmi::worldStateFlags({}, {POMMES}).flags.value("quete.pommes")` vaut `"inconnue"`.
+- Vérifie que `hmi::worldStateValue({"quete.pommes=acceptee", "vu"}, "quete.pommes")` vaut `"acceptee"`.
+
+### QuestMapEditorTest.LeCanevasGriseCeQueLEtatRendAbsent
+
+*Critique · Unitaire · Editeur* — `Source/Test/Unit/Editor/test_quest_map_editor.cpp:160`
+
+Le canevas montre la carte sous un etat de partie.
+
+**Étapes**
+
+1. Un brouillon portant le garde et l'enfant, presents sous `acceptee`.
+2. Composer le canevas sans etat, sous `acceptee`, puis sous `enfant-libere`.
+
+**Résultat attendu**
+
+- Vérifie que `brouillon.placeEntity(pnj({}, {1, 1}, "acceptee"))` est vrai.
+- Vérifie que `brouillon.placeEntity(pnj({}, {2, 1}, "acceptee|persuasion-echouee"))` est vrai.
+- Vérifie que `hmi::canvasSnapshot(brouillon, apparence).figures.size()` vaut `2U`.
+- Vérifie que `hmi::canvasSnapshot(brouillon, apparence, &acceptee.flags).figures.size()` vaut `2U`.
+- Vérifie que `hmi::canvasSnapshot(brouillon, apparence, &libere.flags).figures.empty()` est vrai.
+- Vérifie que `hmi::presenceUnder(brouillon.entities(), libere.flags)` vaut `(std::vector<bool>{false, false})`.
+
+### QuestMapEditorTest.LInspecteurProposeLesValeursDeclarees
+
+*Majeur · Unitaire · Editeur* — `Source/Test/Unit/Editor/test_quest_map_editor.cpp:187`
+
+L'inspecteur propose les valeurs declarees.
+
+**Étapes**
+
+1. Des references dont une quete declare `quete.pommes`.
+2. Demander les choix de `presenceValue` d'un PNJ conditionne, et le contexte d'un brouillon dont une zone pose `vu`.
+
+**Résultat attendu**
+
+- Vérifie que `contexte.flags.contains("vu")` est vrai.
+- Vérifie que `kind` diffère de `nullptr`.
+- Vérifie que `valeur` diffère de `nullptr`.
+- Vérifie que `hmi::entityChoices(*valeur, garde, contexte)` vaut `(std::vector<std::string>{"acceptee", "condamne", "enfant-libere", "inconnue"})`.
+
+### QuestMapEditorTest.LeControleSuitLeTransfertEtAccepteLEscalierCondamne
+
+*Bloquant · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_quest_map_editor.cpp:220`
+
+--check accepte un escalier condamne et suit un transfert.
+
+**Étapes**
+
+1. Un projet : la quete des pommes, le parvis (zone qui transfere au vestiaire A sous `acceptee`), l'arene (vestiaire A, un PNJ et l'escalier condamne derriere un mur).
+2. Lancer `--check` ; retirer `sealed` et relancer.
+
+**Résultat attendu**
+
+- Vérifie que `bilan.ok()` est vrai.
+- Vérifie que `bilan.count(MapCheckSeverity::Warning)` vaut `0U`.
+- Vérifie que `hmi::runMapCommand({"--check", "--data", projet.racine().string()}, {}, sortie)` vaut `1`.
+- Vérifie que `sortie.find("targetMap")` diffère de `std::string::npos`.
+
+### QuestMapEditorTest.LeGrapheMontreLePortailCondamneEnPointille
+
+*Mineur · Unitaire · Graphe du monde* — `Source/Test/Unit/Editor/test_quest_map_editor.cpp:247`
+
+Un portail condamne n'est pas une fleche cassee.
+
+**Étapes**
+
+1. Disposer le graphe d'une carte portant un escalier condamne sans cible.
+
+**Résultat attendu**
+
+- Vérifie que `disposition.edges.size()` vaut `1U`.
+- Vérifie que `disposition.edges[0].sealed` est vrai.
+- Vérifie que `disposition.edges[0].broken` est faux.
+
+### QuestMapEditorTest.LaPorteCloseSeVoitMemeEnMaquette
+
+*Majeur · Unitaire · Composition* — `Source/Test/Unit/Editor/test_quest_map_editor.cpp:268`
+
+La porte close se voit, meme en maquette.
+
+**Étapes**
+
+1. Un brouillon sans lieu portant une porte `prop` de 1 x 2, presente sous `condamne`.
+2. Composer le canevas sous `condamne`, puis sous `enfant-libere`.
+
+**Résultat attendu**
+
+- Vérifie que `brouillon.placeEntity(core::MapEntity{ .type = std::string{core::PROP_ENTITY_TYPE}, .position = {2, 1}, .properties = {{std::string{core::PROP_PIECE_PROPERTY}, std::string{"gate"}}, {std::string{core::SHAPE_WIDTH_PROPERTY}, std::int64_t{1}}, {std::string{core::SHAPE_HEIGHT_PROPERTY}, std::int64_t{2}}, {std::string{core::PRESENCE_FLAG_PROPERTY}, std::string{"quete.pommes"}}, {std::string{core::PRESENCE_VALUE_PROPERTY}, std::string{"condamne"}}}})` est vrai.
+- Vérifie que `fermee.reliefTypeAt({2, 1})` vaut `core::TileType::Wall`.
+- Vérifie que `fermee.reliefTypeAt({2, 2})` vaut `core::TileType::Wall`.
+- Vérifie que `fermee.reliefTypeAt({2, 3})` vaut `core::TileType::Empty`.
+- Vérifie que `hmi::canvasSnapshot(brouillon, apparence, &ouverte.flags).reliefTypeAt({2, 1})` vaut `core::TileType::Empty`.
 
 ## test_scene_images.cpp
 

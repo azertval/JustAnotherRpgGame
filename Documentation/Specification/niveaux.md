@@ -198,13 +198,14 @@ rassemblés dans `core::knownEntityKinds` (`Source/Core/World/EntityKinds.h`) :
 | `sign` | — | `core::knownInteractableKinds` (`LOT-10`) |
 | `npc` | `dialogue`, `figure` (figurine de l'atelier), `guards` (fiche de lieu du quartier gardé) | `core::dialogueTriggerFor` (`LOT-15`), rendu du lieu |
 | `encounter` | `encounterId` (requis), `respawns` (booléen) | `core::encounterTriggerFor` (`LOT-18`) |
-| `portal` | `targetMap`, `arrival` — requis ; `requiresFlag` | graphe du monde (`LOT-09`) |
+| `portal` | `targetMap`, `arrival` — requis, sauf portail **condamné** ; `requiresFlag` ; `sealed` (booléen : posé, jamais franchi) | graphe du monde (`LOT-09`, `LOT-126`) |
 | `spawnPoint` | `name` (requis, unique dans la carte) | graphe du monde (`LOT-09`) |
 | `combatZone` | `name`, `width`, `height` — requis | découpe de la grille de combat (`LOT-09`) |
 | `cityBlock` | `name`, `width`, `height` — requis | plan de ville (`LOT-96`) |
 | `arenaEntry` | `side` (`allies` ou `enemies`), `rank` (entier, au moins 1) | `core::arenaEntryPoints` (`LOT-50`) |
-| *toute famille* | `presenceFlag`, `presenceTest` (`set`, `unset`, `equals`, `notEquals`), `presenceValue` (`a\|b`) — la **condition de présence** | `core::isEntityPresent` (`LOT-116`, `EX-EXP-009`) ; déclarée à l'inspecteur au `LOT-126` |
-| `zone` | `width`, `height` (rectangle) ou `cells` (peinte) ; `name`, `difficultTerrain` | `core::BattleGrid::zonesAt` (`LOT-EDITOR-12`) |
+| *toute famille* | `presenceFlag`, `presenceTest` (`set`, `unset`, `equals`, `notEquals`), `presenceValue` (`a\|b`, des valeurs qu'une quête déclare) — la **condition de présence** | `core::isEntityPresent` (`LOT-116`, `EX-EXP-009`) ; déclarée au contrat (`core::commonEntityProperties`) au `LOT-126` |
+| `zone` | `width`, `height` (rectangle) ou `cells` (peinte) ; `name`, `difficultTerrain` ; ses **déclencheurs** : `triggerDialogue`, `triggerFlag` + `triggerValue`, `triggerMap` + `triggerArrival`, `triggerOnce` | `core::BattleGrid::zonesAt` (`LOT-EDITOR-12`), `core::ExplorationSession` (`LOT-126`) |
+| `prop` | `piece` (requis, une pièce du lieu), `blocks` (booléen, vrai par défaut), `width`, `height` — l'emprise de la pièce | `core::ExplorationSession`, `hmi::snapshotWorldScene` (`LOT-126`) |
 | `route` | `name` (requis), `loop` (booléen, une ronde) ; ses points dans `cells`, **dans l'ordre** | personne encore : le `LOT-70` et le `LOT-82` (`LOT-EDITOR-05`) |
 
 Chaque famille déclare aussi sa **forme** sur la carte — point, rectangle (`width` × `height`,

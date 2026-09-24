@@ -38,7 +38,8 @@
 
 namespace core {
 class LevelDraft;
-}
+class WorldFlags;
+}  // namespace core
 
 namespace hmi {
 
@@ -90,9 +91,15 @@ static_assert(core::MAX_STOREY_FLOOR == 4, "IsoBandOpacity::storeys s'initialise
  * @brief L'instantané que le canevas compose : celui du jeu, avec les PNJ et sans le héros.
  *
  * Le brouillon n'a pas à être valide : une carte en cours de tracé se montre telle qu'elle est.
+ *
+ * @param draft      Le brouillon.
+ * @param appearance La table du lieu.
+ * @param state      Un état de partie (`LOT-126`), ou `nullptr` : sous un état, les entités qu'il
+ *                   rend absentes — un PNJ, un décor — ne se composent pas.
  */
 [[nodiscard]] WorldSceneSnapshot canvasSnapshot(const core::LevelDraft& draft,
-                                                const PlaceAppearance& appearance);
+                                                const PlaceAppearance& appearance,
+                                                const core::WorldFlags* state = nullptr);
 
 /**
  * @brief Les figurines de la formation d'une rencontre (`LOT-EDITOR-05`) : chaque combattant sur sa

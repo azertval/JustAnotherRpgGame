@@ -34,7 +34,7 @@ constexpr qreal ARROW_ANGLE = 0.45;
 constexpr int LEGEND_ROW = 18;
 constexpr int LEGEND_PADDING = 8;
 constexpr int LEGEND_SAMPLE = 26;
-constexpr int LEGEND_ROWS = 5;
+constexpr int LEGEND_ROWS = 6;
 
 /// Les couleurs du graphe, tirées de la palette du widget (style Fusion) : l'éditeur n'a pas de
 /// charte (`LOT-EDITOR-01`).
@@ -128,6 +128,8 @@ QString WorldGraphView::statusText(core::PortalLinkStatus status) {
             return QStringLiteral("arrival point unknown on the target map");
         case core::PortalLinkStatus::TargetUnreadable:
             return QStringLiteral("target map unreadable");
+        case core::PortalLinkStatus::Sealed:
+            return QStringLiteral("sealed");
     }
     return {};
 }
@@ -307,7 +309,11 @@ void WorldGraphView::paintEdges(QPainter& painter) const {
         const WorldGraphEdgeGeometry geometry = worldGraphEdgeGeometry(_layout, i);
         const QColor color = edge.broken ? colors.error : colors.textMuted;
         const bool hovered = _hoveredEdge == i;
-        QPen pen(color, hovered ? 3.0 : 1.6, edge.broken ? Qt::DashLine : Qt::SolidLine);
+        // Condamné : voulu, il se montre en pointillé discret, pas en erreur (LOT-126).
+        const Qt::PenStyle style = edge.broken   ? Qt::DashLine
+                                   : edge.sealed ? Qt::DotLine
+                                                 : Qt::SolidLine;
+        QPen pen(color, hovered ? 3.0 : 1.6, style);
         painter.setPen(pen);
         painter.setBrush(Qt::NoBrush);
 
@@ -449,6 +455,10 @@ void WorldGraphView::paintLegend(QPainter& painter) const {
     painter.setPen(QPen(colors.error, 1.6, Qt::DashLine));
     painter.drawLine(QPointF(x, y), QPointF(x + LEGEND_SAMPLE, y));
     label(QStringLiteral("Broken portal"));
+
+    painter.setPen(QPen(colors.textMuted, 1.6, Qt::DotLine));
+    painter.drawLine(QPointF(x, y), QPointF(x + LEGEND_SAMPLE, y));
+    label(QStringLiteral("Sealed portal"));
 }
 
 }  // namespace hmi

@@ -218,6 +218,8 @@ TEST(EntityPresenceTest, LeControleReleveUnePresenceSurUnDrapeauJamaisPose) {
     core::EntityReferenceContext contexte;
     contexte.dialogues = {"garde"};
     contexte.flags = {"quete.pommes"};
+    // La quete declare la valeur que le premier attend (LOT-126 : sinon, elle serait relevee).
+    contexte.flagValues = {{"quete.pommes", {"acceptee"}}};
     const std::vector<core::MapEntity> entites = {
         garde({1, 1}, presence("quete.pommes", "", "acceptee")),
         garde({2, 1}, presence("jamais-pose", "", "")),

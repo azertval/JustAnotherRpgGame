@@ -9,7 +9,9 @@
 #include <vector>
 
 #include "Core/Combat/Encounter.h"
+#include "Core/Gameplay/Quest.h"
 #include "Core/Levels/MapEntity.h"
+#include "Core/Resources/ScenePieceManifest.h"
 #include "Core/Rpg/Bestiary.h"
 #include "Core/World/EntityKinds.h"
 #include "Core/World/WorldGraph.h"
@@ -41,9 +43,11 @@ struct EditorReferences {
     std::vector<std::string> figures;
     /// Le dossier `Assets/` où se cherchent les figurines d'un lieu ; vide sans données.
     std::filesystem::path assets;
-    /// Les drapeaux qu'un dialogue accepté pose (`SetFlag`, et le drapeau d'une quête démarrée),
-    /// triés.
+    /// Les drapeaux que posent dialogues, quêtes et déclencheurs de zone (`LOT-126`), triés.
     std::vector<std::string> flags;
+    /// Les drapeaux **à valeurs** que les quêtes déclarent, dans l'ordre des quêtes (`LOT-116`) :
+    /// ce que l'inspecteur propose, et ce que l'état de partie du canevas sait régler.
+    std::vector<core::QuestFlag> declaredFlags;
     /// Les fiches de lieu de l'atlas (`World/locations/<id>.json`), triées.
     std::vector<std::string> locations;
     /// Les objets du catalogue (`Rpg/items`), triés.
@@ -72,10 +76,13 @@ struct EditorReferences {
  * @param editedEntities  Les entités du brouillon.
  * @param place           Le lieu de la carte : ses figurines, et celles de ses niveaux communs,
  *                        s'ajoutent à celles de toute carte (`core::resolveFigures`, `LOT-124`).
+ * @param manifest        Le catalogue résolu du lieu, ou `nullptr` : ses pièces sont ce qu'un décor
+ *                        peut nommer (`LOT-126`) ; sans lui, elles ne se contrôlent pas.
  */
 [[nodiscard]] core::EntityReferenceContext referenceContext(
     const EditorReferences& references, std::string_view editedMapId,
-    const std::vector<core::MapEntity>& editedEntities, std::string_view place = {});
+    const std::vector<core::MapEntity>& editedEntities, std::string_view place = {},
+    const core::ScenePieceManifest* manifest = nullptr);
 
 /// @return `carte#id` : l'entité @p entityId de la carte @p mapId (décision D8).
 [[nodiscard]] std::string entityRef(std::string_view mapId, std::string_view entityId);

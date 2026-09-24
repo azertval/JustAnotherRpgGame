@@ -46,13 +46,28 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
                               .defaultValue = std::string{}};
 }
 
-[[nodiscard]] EntityPropertySpec boolean(std::string_view key) {
+[[nodiscard]] EntityPropertySpec boolean(std::string_view key, bool byDefault = false) {
     return EntityPropertySpec{.key = key,
                               .kind = EntityPropertyKind::Boolean,
                               .source = EntityChoiceSource::Fixed,
                               .fixedChoices = {},
                               .required = false,
-                              .defaultValue = false};
+                              .defaultValue = byDefault};
+}
+
+// Un choix qui depend d'une autre propriete de l'entite : la carte d'un point d'arrivee, le
+// drapeau de ses valeurs.
+[[nodiscard]] EntityPropertySpec related(std::string_view key, EntityChoiceSource source,
+                                         std::string_view relatedKey, bool required = false) {
+    EntityPropertySpec spec = choice(key, source, required);
+    spec.relatedKey = relatedKey;
+    return spec;
+}
+
+// Requise, sauf quand le booleen @p waivedBy est vrai.
+[[nodiscard]] EntityPropertySpec waived(EntityPropertySpec spec, std::string_view waivedBy) {
+    spec.waivedBy = waivedBy;
+    return spec;
 }
 
 // Un entier requis, borne par le bas, qui vaut son minimum a la creation.
@@ -124,14 +139,19 @@ const std::vector<EntityKind>& knownEntityKinds() {
                                   boolean(ENCOUNTER_RESPAWNS_PROPERTY)},
                    .labelProperty = ENCOUNTER_ID_PROPERTY},
         // Portail et point d'arrivee (LOT-11, traverses au LOT-09). Le drapeau exige n'est pas
-        // requis : un portail ordinaire s'ouvre toujours.
+        // requis : un portail ordinaire s'ouvre toujours. Un portail condamne (LOT-126) n'a ni
+        // cible ni arrivee a nommer.
         EntityKind{.type = PORTAL_ENTITY_TYPE,
-                   .properties = {choice(PORTAL_TARGET_MAP_PROPERTY, EntityChoiceSource::Maps,
-                                         /*required=*/true),
-                                  choice(PORTAL_ARRIVAL_PROPERTY, EntityChoiceSource::ArrivalPoints,
-                                         /*required=*/true),
+                   .properties = {waived(choice(PORTAL_TARGET_MAP_PROPERTY,
+                                                EntityChoiceSource::Maps, /*required=*/true),
+                                         PORTAL_SEALED_PROPERTY),
+                                  waived(related(PORTAL_ARRIVAL_PROPERTY,
+                                                 EntityChoiceSource::ArrivalPoints,
+                                                 PORTAL_TARGET_MAP_PROPERTY, /*required=*/true),
+                                         PORTAL_SEALED_PROPERTY),
                                   choice(PORTAL_REQUIRED_FLAG_PROPERTY, EntityChoiceSource::Flags,
-                                         /*required=*/false)},
+                                         /*required=*/false),
+                                  boolean(PORTAL_SEALED_PROPERTY)},
                    .labelProperty = PORTAL_TARGET_MAP_PROPERTY},
         EntityKind{.type = SPAWN_POINT_ENTITY_TYPE,
                    .properties = {text(SPAWN_POINT_NAME_PROPERTY, /*required=*/true)},
@@ -153,13 +173,43 @@ const std::vector<EntityKind>& knownEntityKinds() {
         // Zone de regles (D13, lue par BattleGrid) : un rectangle ou des cases peintes. Sa taille
         // n'est pas requise -- une zone peinte n'en a pas. Le nom n'est lu par personne : il sert a
         // la reconnaitre dans la liste.
-        EntityKind{.type = ZONE_ENTITY_TYPE,
-                   .properties = {text(ZONE_NAME_PROPERTY, /*required=*/false),
-                                  boolean(DIFFICULT_TERRAIN_PROPERTY),
-                                  atLeast(ZONE_WIDTH_PROPERTY, 1, /*required=*/false),
-                                  atLeast(ZONE_HEIGHT_PROPERTY, 1, /*required=*/false)},
-                   .shape = EntityShape::Area,
-                   .labelProperty = ZONE_NAME_PROPERTY},
+        // Ses declencheurs (LOT-126) : ce qu'elle fait quand le heros y entre -- un dialogue, un
+        // drapeau pose, un transfert. Aucun n'est requis : une zone de regles ne declenche rien.
+        EntityKind{
+            .type = ZONE_ENTITY_TYPE,
+            .properties = {text(ZONE_NAME_PROPERTY, /*required=*/false),
+                           boolean(DIFFICULT_TERRAIN_PROPERTY),
+                           atLeast(ZONE_WIDTH_PROPERTY, 1, /*required=*/false),
+                           atLeast(ZONE_HEIGHT_PROPERTY, 1, /*required=*/false),
+                           choice(ZONE_TRIGGER_DIALOGUE_PROPERTY, EntityChoiceSource::Dialogues,
+                                  /*required=*/false),
+                           choice(ZONE_TRIGGER_FLAG_PROPERTY, EntityChoiceSource::WrittenFlags,
+                                  /*required=*/false),
+                           [] {
+                               EntityPropertySpec value = related(ZONE_TRIGGER_VALUE_PROPERTY,
+                                                                  EntityChoiceSource::FlagValues,
+                                                                  ZONE_TRIGGER_FLAG_PROPERTY);
+                               value.writesFlag = true;
+                               return value;
+                           }(),
+                           choice(ZONE_TRIGGER_MAP_PROPERTY, EntityChoiceSource::Maps,
+                                  /*required=*/false),
+                           related(ZONE_TRIGGER_ARRIVAL_PROPERTY, EntityChoiceSource::ArrivalPoints,
+                                   ZONE_TRIGGER_MAP_PROPERTY),
+                           boolean(ZONE_TRIGGER_ONCE_PROPERTY)},
+            .shape = EntityShape::Area,
+            .labelProperty = ZONE_NAME_PROPERTY},
+        // Decor qui change (LOT-126) : une piece du lieu, son emprise en rectangle -- prise au
+        // manifeste quand on choisit la piece --, et le pas qu'elle arrete tant qu'elle est la.
+        EntityKind{
+            .type = PROP_ENTITY_TYPE,
+            .properties = {choice(PROP_PIECE_PROPERTY, EntityChoiceSource::Pieces,
+                                  /*required=*/true),
+                           boolean(PROP_BLOCKS_PROPERTY, /*byDefault=*/true),
+                           atLeast(SHAPE_WIDTH_PROPERTY, 1), atLeast(SHAPE_HEIGHT_PROPERTY, 1)},
+            .shape = EntityShape::Rectangle,
+            .labelProperty = PROP_PIECE_PROPERTY,
+            .pieceProperty = PROP_PIECE_PROPERTY},
         // Trajet (LOT-70, LOT-82) : ses horaires viendront avec l'horloge du LOT-70.
         EntityKind{.type = ROUTE_ENTITY_TYPE,
                    .properties = {text(ROUTE_NAME_PROPERTY, /*required=*/true),
@@ -180,6 +230,41 @@ const std::vector<EntityKind>& knownEntityKinds() {
     return familles;
 }
 
+const std::vector<EntityPropertySpec>& commonEntityProperties() {
+    static const std::vector<EntityPropertySpec> communes = {
+        choice(PRESENCE_FLAG_PROPERTY, EntityChoiceSource::Flags, /*required=*/false),
+        EntityPropertySpec{.key = PRESENCE_TEST_PROPERTY,
+                           .kind = EntityPropertyKind::Choice,
+                           .source = EntityChoiceSource::Fixed,
+                           .fixedChoices = {"set", "unset", "equals", "notEquals"},
+                           .required = false,
+                           .defaultValue = std::string{}},
+        related(PRESENCE_VALUE_PROPERTY, EntityChoiceSource::FlagValues, PRESENCE_FLAG_PROPERTY),
+    };
+    return communes;
+}
+
+std::vector<const EntityPropertySpec*> inspectedProperties(const EntityKind& kind) {
+    std::vector<const EntityPropertySpec*> specs;
+    for (const EntityPropertySpec& spec : kind.properties) {
+        specs.push_back(&spec);
+    }
+    for (const EntityPropertySpec& spec : commonEntityProperties()) {
+        if (kind.find(spec.key) == nullptr) {
+            specs.push_back(&spec);
+        }
+    }
+    return specs;
+}
+
+const EntityPropertySpec* findInspectedProperty(const EntityKind& kind, std::string_view key) {
+    if (const EntityPropertySpec* const own = kind.find(key)) {
+        return own;
+    }
+    const auto found = std::ranges::find(commonEntityProperties(), key, &EntityPropertySpec::key);
+    return found != commonEntityProperties().end() ? &*found : nullptr;
+}
+
 const EntityKind* findEntityKind(std::string_view type) {
     const auto found = std::ranges::find(knownEntityKinds(), type, &EntityKind::type);
     return found != knownEntityKinds().end() ? &*found : nullptr;
@@ -191,6 +276,30 @@ MapEntity makeEntity(const EntityKind& kind, GridPosition position) {
         entity.properties.emplace(std::string{spec.key}, spec.defaultValue);
     }
     return entity;
+}
+
+std::set<std::string, std::less<>> flagsSetByEntities(const std::vector<MapEntity>& entities) {
+    std::set<std::string, std::less<>> flags;
+    for (const MapEntity& entity : entities) {
+        if (entity.type != ZONE_ENTITY_TYPE) {
+            continue;
+        }
+        if (std::string flag = textOf(entity.properties, ZONE_TRIGGER_FLAG_PROPERTY);
+            !flag.empty()) {
+            flags.insert(std::move(flag));
+        }
+    }
+    return flags;
+}
+
+bool isSealedPortal(const MapEntity& entity) {
+    if (entity.type != PORTAL_ENTITY_TYPE) {
+        return false;
+    }
+    const auto found = entity.properties.find(std::string{PORTAL_SEALED_PROPERTY});
+    const bool* const sealed =
+        found != entity.properties.end() ? std::get_if<bool>(&found->second) : nullptr;
+    return sealed != nullptr && *sealed;
 }
 
 std::set<std::string, std::less<>> arrivalPointNames(const std::vector<MapEntity>& entities) {
@@ -208,6 +317,23 @@ std::set<std::string, std::less<>> arrivalPointNames(const std::vector<MapEntity
 }
 
 namespace {
+
+// Vrai si une quete declare pour @p flag chacune des valeurs de @p text (`a|b`) -- une seule
+// valeur, telle quelle, si l'entite la POSE : on ne donne pas deux valeurs a un drapeau.
+[[nodiscard]] bool declaresValues(const EntityReferenceContext& context, std::string_view flag,
+                                  std::string_view text, bool single) {
+    const auto declared = context.flagValues.find(flag);
+    if (declared == context.flagValues.end()) {
+        return false;  // aucune quete ne declare ce drapeau : il n'a pas de valeurs.
+    }
+    if (single) {
+        return declared->second.contains(text);
+    }
+    const std::vector<std::string> values = splitFlagValues(text);
+    return !values.empty() && std::ranges::all_of(values, [&declared](const std::string& value) {
+        return declared->second.contains(value);
+    });
+}
 
 // Defaut d'une propriete de choix non vide : la valeur n'est pas dans la liste que la source
 // designe. Rien pour une valeur admise.
@@ -241,7 +367,8 @@ namespace {
             // Un point d'arrivee ne se juge que dans une carte connue : une carte inconnue
             // est deja signalee, et la signaler deux fois n'apprendrait rien.
             const auto target = context.arrivalPointsByMap.find(
-                textOf(entity.properties, PORTAL_TARGET_MAP_PROPERTY));
+                textOf(entity.properties,
+                       spec.relatedKey.empty() ? PORTAL_TARGET_MAP_PROPERTY : spec.relatedKey));
             if (target != context.arrivalPointsByMap.end() && !target->second.contains(text)) {
                 return EntityIssueCode::UnknownArrivalPoint;
             }
@@ -272,8 +399,42 @@ namespace {
                 return EntityIssueCode::UnknownEntityRef;
             }
             break;
+        case EntityChoiceSource::FlagValues:
+            if (!declaresValues(context, textOf(entity.properties, spec.relatedKey), text,
+                                spec.writesFlag)) {
+                return EntityIssueCode::UndeclaredFlagValue;
+            }
+            break;
+        case EntityChoiceSource::WrittenFlags:
+            break;  // l'entite le pose : il n'a pas a l'etre ailleurs.
+        case EntityChoiceSource::Pieces:
+            // Un lieu inconnu ne dit rien de ses pieces : c'est le lieu qui manque, pas elles.
+            if (!context.pieces.empty() && !context.pieces.contains(text)) {
+                return EntityIssueCode::UnknownPiece;
+            }
+            break;
     }
     return std::nullopt;
+}
+
+// Vrai si @p spec est requise sur @p entity : par sa declaration, sauf si son booleen de dispense
+// est vrai ; ou parce qu'elle donne sa valeur a un drapeau qu'une quete declare.
+[[nodiscard]] bool isRequired(const MapEntity& entity, const EntityPropertySpec& spec,
+                              const EntityReferenceContext& context) {
+    if (spec.writesFlag &&
+        context.flagValues.contains(textOf(entity.properties, spec.relatedKey))) {
+        return true;
+    }
+    if (!spec.required) {
+        return false;
+    }
+    if (spec.waivedBy.empty()) {
+        return true;
+    }
+    const auto waiver = entity.properties.find(std::string{spec.waivedBy});
+    const bool* const waived =
+        waiver != entity.properties.end() ? std::get_if<bool>(&waiver->second) : nullptr;
+    return waived == nullptr || !*waived;
 }
 
 // Defaut d'une propriete de l'entite au regard de sa specification, avec la valeur a citer.
@@ -282,8 +443,9 @@ namespace {
     const MapEntity& entity, const EntityPropertySpec& spec,
     const EntityReferenceContext& context) {
     const auto found = entity.properties.find(std::string{spec.key});
+    const bool required = isRequired(entity, spec, context);
     if (found == entity.properties.end()) {
-        if (spec.required) {
+        if (required) {
             return std::pair{EntityIssueCode::MissingProperty, std::string{}};
         }
         return std::nullopt;
@@ -302,7 +464,7 @@ namespace {
         return std::nullopt;  // booleen du bon type : rien d'autre a verifier.
     }
     if (text->empty()) {
-        if (spec.required) {
+        if (required) {
             return std::pair{EntityIssueCode::MissingProperty, std::string{}};
         }
         return std::nullopt;
@@ -343,8 +505,19 @@ void presenceIssues(const MapEntity& entity, const EntityReferenceContext& conte
             report(EntityIssueCode::InvalidPresence, PRESENCE_FLAG_PROPERTY, std::string{});
             return;
     }
-    if (read.condition && !context.flags.contains(read.condition->flag)) {
+    if (!read.condition) {
+        return;
+    }
+    if (!context.flags.contains(read.condition->flag)) {
         report(EntityIssueCode::UnsetFlag, PRESENCE_FLAG_PROPERTY, read.condition->flag);
+    }
+    // Une valeur qu'aucune quete ne declare pour ce drapeau (LOT-126) : `equals` ne tiendrait
+    // jamais, `notEquals` toujours -- une faute de frappe dans les deux cas.
+    const auto declared = context.flagValues.find(read.condition->flag);
+    for (const std::string& value : read.condition->values) {
+        if (declared == context.flagValues.end() || !declared->second.contains(value)) {
+            report(EntityIssueCode::UndeclaredFlagValue, PRESENCE_VALUE_PROPERTY, value);
+        }
     }
 }
 

@@ -31,6 +31,7 @@ namespace {
 [[nodiscard]] std::optional<WorldIssueCode> defautDe(PortalLinkStatus statut) {
     switch (statut) {
         case PortalLinkStatus::Resolved:
+        case PortalLinkStatus::Sealed:
             return std::nullopt;
         case PortalLinkStatus::MissingTarget:
             return WorldIssueCode::MissingTargetMap;
@@ -76,7 +77,8 @@ std::optional<PortalTarget> portalAt(const Level& level, GridPosition position) 
         }
         return PortalTarget{.map = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
                             .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY),
-                            .requiredFlag = texteDe(entite, PORTAL_REQUIRED_FLAG_PROPERTY)};
+                            .requiredFlag = texteDe(entite, PORTAL_REQUIRED_FLAG_PROPERTY),
+                            .sealed = isSealedPortal(entite)};
     }
     return std::nullopt;
 }
@@ -232,6 +234,9 @@ TravelResult WorldTravel::cross(GridPosition from, const WorldFlags& flags) {
     const std::optional<PortalTarget> portail = portalAt(*carte, from);
     if (!portail.has_value()) {
         return TravelResult::NoPortal;
+    }
+    if (portail->sealed) {
+        return TravelResult::Sealed;
     }
     // Le drapeau exige du monde, pas de la carte : la porte d'Arenarea s'ouvre quand la quete l'a
     // ouverte (LOT-16), et le portail se contente de le lire.

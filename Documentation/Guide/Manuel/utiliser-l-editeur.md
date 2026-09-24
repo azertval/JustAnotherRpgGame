@@ -97,8 +97,27 @@ passe les portails, sans quitter la fenêtre. C'est l'outil de la marche et des 
 Pour le **vrai jeu**, *Map* › *Run in game* (**F5**) lance `JustAnotherRpgGame` sur la carte
 ouverte : il s'ouvre directement dessus, sans passer par ses menus, avec ses dialogues, ses écrans
 et son rendu. **Maj+F5** part de la case survolée ; **Ctrl+F5** ouvre d'abord un dialogue où l'on
-choisit la case de départ et les **drapeaux de monde** à poser — la même carte avant et après une
-quête.
+choisit la case de départ et l'**état de partie** — la même carte avant et après une quête.
+
+### L'état de partie
+
+*Map* › *World state…* règle l'état dont partent **P** et **F5** : une valeur pour chaque drapeau
+qu'une quête déclare (`quete.pommes` : `inconnue`, `acceptee`…), les faits acquis à cocher, et
+ceux qu'on écrit à la main. Coché *Show the map under this state*, le canevas montre la carte
+dans cet état : ce qui en est absent — le garde avant `acceptee`, la porte ouverte après
+`enfant-libere` — ne se dessine plus, et son marqueur est grisé. Rien n'est rechargé : on change
+d'état, la carte suit.
+
+Ce qu'une quête pose sur une carte s'écrit à l'inspecteur, sans toucher au JSON :
+
+- une **condition de présence** sur toute entité (`presenceFlag`, `presenceTest`,
+  `presenceValue`), dont les valeurs sont celles que la quête déclare ;
+- un **décor qui change** : la famille `prop`, une pièce du lieu posée comme entité — choisir sa
+  pièce lui donne son emprise, qui arrête le pas tant qu'elle est là ;
+- un **portail condamné** (`sealed`) : l'escalier est posé, il ne mène nulle part, et le graphe
+  le montre en pointillé ;
+- un **déclencheur** de zone : un dialogue, un drapeau posé, un transfert vers une carte et un
+  point d'arrivée, à l'entrée du héros.
 
 Ce qui est joué, ce sont les **brouillons** de tous les onglets ouverts, écrits dans un dossier
 temporaire hors du dépôt : la retouche qu'on vient de faire se voit sans enregistrer, et la carte

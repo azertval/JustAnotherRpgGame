@@ -48,6 +48,8 @@ struct PortalTarget {
     std::string arrival;
     /// Drapeau exigé, vide si le portail s'ouvre toujours.
     std::string requiredFlag;
+    /// Portail condamné (`LOT-126`) : il ne s'ouvre jamais.
+    bool sealed = false;
 
     [[nodiscard]] bool operator==(const PortalTarget&) const = default;
 };
@@ -124,6 +126,8 @@ enum class TravelResult {
     NoPortal,
     /// Le portail exige un drapeau que la partie n'a pas encore.
     Locked,
+    /// Le portail est condamné (`LOT-126`) : il ne s'ouvre pas, et c'est voulu.
+    Sealed,
     /// La carte cible n'existe pas, ou n'a pas pu être lue.
     UnreadableMap,
     /// La carte cible n'offre pas le point d'arrivée nommé.

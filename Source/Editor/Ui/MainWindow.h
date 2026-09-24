@@ -164,6 +164,10 @@ private:
     void runInGame(std::optional<core::GridPosition> at);
     /// « Run in game… » : la case de départ et les drapeaux de monde, puis l'essai.
     void openRunInGameDialog();
+    /// « World state… » : l'état de partie du canevas et des essais (`LOT-126`).
+    void openWorldStateDialog();
+    /// Donne l'état de partie à tous les onglets.
+    void applyWorldState();
     /// Arrête l'essai en cours, s'il y en a un (un second essai remplace le premier).
     void stopRunningGame();
 
@@ -283,6 +287,8 @@ private:
     QProcess* _game = nullptr;
     /// Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants.
     RunInGameChoice _runChoice;
+    /// Vrai si le canevas montre la carte sous l'état de partie (`_runChoice.flags`, `LOT-126`).
+    bool _statePreview = false;
 
     std::unique_ptr<AutosaveStore> _autosave;
     QTimer* _autosaveTimer = nullptr;

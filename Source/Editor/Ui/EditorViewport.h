@@ -20,6 +20,7 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Combat/TacticalTerrain.h"
+#include "Core/Gameplay/WorldFlags.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelProperties.h"
@@ -198,6 +199,12 @@ public:
     void startPlaytest(std::optional<core::GridPosition> from = std::nullopt);
     /// Joue le brouillon depuis la case survolée ; depuis l'entrée s'il n'y en a pas.
     void startPlaytestHere();
+
+    /**
+     * @brief L'état de partie (`LOT-126`, `Editor/Logic/WorldState.h`) : l'essai en part toujours ;
+     *        le canevas grise ce qu'il rend absent si @p preview.
+     */
+    void setWorldState(std::vector<std::string> entries, bool preview);
 
     // --- Notes d'auteur (LOT-EDITOR-04) ---
     /// @return L'annexe de la carte ouverte (`<carte>.editor.json`).
@@ -594,6 +601,13 @@ private:
     std::vector<core::EncounterTerrain> _terrains;
     std::vector<core::CombatZoneTerrain> _zoneVerdicts;
     std::vector<EditorDiagnostic> _diagnostics;
+
+    // --- État de partie (LOT-126) ---
+    std::vector<std::string> _stateEntries;
+    bool _statePreview = false;
+    /// Les drapeaux de l'état, déclarations des quêtes comprises ; relus quand l'état ou les
+    /// catalogues changent.
+    core::WorldFlags _stateFlags;
 };
 
 }  // namespace hmi

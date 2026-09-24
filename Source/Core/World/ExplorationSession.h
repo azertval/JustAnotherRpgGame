@@ -71,6 +71,9 @@ enum class ExplorationEventKind {
     PortalLocked,
     /// Un portail ne mène nulle part : la carte ou le point d'arrivée manque (`EX-NFR-040`).
     PortalBroken,
+    /// Un portail est condamné (`LOT-126`) : l'escalier est là, il ne s'ouvre pas. `value` nomme
+    /// sa carte cible, s'il en nomme une.
+    PortalSealed,
     /// Il faut ouvrir un dialogue. `value` nomme le dialogue.
     Dialogue,
     /// Il faut engager une rencontre. `value` la nomme.
@@ -119,9 +122,9 @@ public:
     /**
      * @brief Avance d'un pas de @p seconds.
      *
-     * L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on
-     * interagit. Marcher après avoir franchi ferait faire au héros un pas sur la carte d'arrivée
-     * avec l'intention qui l'a fait entrer.
+     * L'ordre compte : on marche, puis on franchit le portail de la case atteinte, puis on entre
+     * dans les zones à déclencheur (`LOT-126`), puis on interagit. Marcher après avoir franchi
+     * ferait faire au héros un pas sur la carte d'arrivée avec l'intention qui l'a fait entrer.
      */
     std::vector<ExplorationEvent> update(const ExplorationIntent& intent, float seconds);
 
@@ -205,10 +208,24 @@ public:
         return _interactables;
     }
 
+    /// @return Les cases que les décors présents arrêtent (`core::PROP_ENTITY_TYPE`, `LOT-126`) :
+    ///         une porte close est un mur tant qu'elle est là.
+    [[nodiscard]] const std::vector<GridPosition>& blockedByProps() const noexcept {
+        return _blocked;
+    }
+
 private:
     /// Relit les entités interactives **présentes** de la carte courante (changement de carte,
-    /// drapeau changé).
+    /// drapeau changé), et les cases que ses décors présents arrêtent.
     void rebuildInteractables();
+    /// Note les zones à déclencheur où se tient le héros, **sans** les déclencher : on n'entre
+    /// pas dans une zone où l'on arrive — sans quoi un transfert qui dépose dans une zone
+    /// bouclerait.
+    void resetZones();
+    /// Déclenche les zones où le héros vient d'entrer (`LOT-126`) : drapeau, dialogue, transfert.
+    void enterZones(std::vector<ExplorationEvent>& events);
+    /// Pose le héros sur la carte courante après un passage (portail ou transfert).
+    void arrived(std::vector<ExplorationEvent>& events);
     /// @return Vrai si le gabarit du héros tient en @p point sans entrer dans du plein.
     [[nodiscard]] bool fits(CellPoint point) const;
     /// Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas.
@@ -224,6 +241,10 @@ private:
     /// Révision des drapeaux que la liste des interactifs et les quêtes reflètent.
     std::uint64_t _seenRevision = 0;
     std::vector<Interactable> _interactables;
+    /// Cases arrêtées par les décors présents.
+    std::vector<GridPosition> _blocked;
+    /// Rang, dans les entités de la carte, des zones à déclencheur où se tient le héros.
+    std::vector<std::size_t> _insideZones;
     CellPoint _hero{};
     Vector2 _facing{0.0F, 1.0F};
     /// Case du héros au pas précédent : un portail se franchit **en y arrivant**, pas à chaque pas

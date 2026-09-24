@@ -47,6 +47,8 @@ enum class EditorCommand {
     RunInGameHere,
     /// L'essai complet après avoir choisi la case et les drapeaux (LOT-EDITOR-10).
     RunInGameOptions,
+    /// L'état de partie du canevas et des essais (LOT-126).
+    WorldState,
     Undo,
     Redo,
     ToggleGrid,
@@ -68,7 +70,7 @@ enum class EditorCommand {
 };
 
 /// Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.
-inline constexpr std::size_t EDITOR_COMMAND_COUNT = 30;
+inline constexpr std::size_t EDITOR_COMMAND_COUNT = 31;
 
 /**
  * @brief Construit et possède les `QAction` de l'éditeur : chaque outil et chaque commande

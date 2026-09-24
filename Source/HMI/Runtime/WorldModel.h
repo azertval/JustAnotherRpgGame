@@ -204,6 +204,8 @@ signals:
     void portalLocked(const QString& flag);
     /// Un portail ne mène nulle part : la carte ou le point d'arrivée manque.
     void portalBroken(const QString& mapId);
+    /// Un portail est condamné (`LOT-126`) : il est là, il ne s'ouvre pas.
+    void portalSealed(const QString& mapId);
     /// Une quête a atteint une étape (`quest`) : le journal se relit.
     void questAdvanced(const QString& quest, const QString& step);
 
