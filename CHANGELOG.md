@@ -6,6 +6,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-109 — Arenarea, le quartier entier.** Première carte 2D HD du jeu :
+  `Levels/central-empire/capital/arenarea.json`, 128 × 88 cases, d'après le Sourcebook et le plan
+  de la Capitale. On y trouve :
+  - l'enceinte sur la baie et la rivière, la Water Gate, l'Arena Gate et l'Arching Bridge ;
+  - le Natural Pool ;
+  - l'Arena of Fate (façade à quatre ordres), son parvis et la Dusk of Justice ;
+  - Herofate Avenue ;
+  - Inlet's Bazaar, le Golden Chalice Casino, la Cloaked Brewer, Mapleleaf Plaza, l'Hippodrome et
+    ses écuries ;
+  - des îlots de manoirs et de maisons.
+
+  La carte est dessinée par `LevelEditor --apply`, avec les assemblages validés du LOT-108 et les
+  pièces livrées, sans en produire aucune. Les portails vers Martpart, l'Arena of Fate, Oldtown et
+  les Docks sont condamnés, en attendant leurs cartes. `--check` ne relève aucune erreur. **Reste
+  à faire :** tenir les 60 images/s (le rendu du lieu compose toute la carte à chaque image) et
+  peindre l'image de l'onglet « Carte ».
+
 - **LOT-126 — Ce que la quête demande aux cartes.** Tout ce que « Des pommes pour l'arène » pose
   sur une carte s'écrit à l'inspecteur de l'éditeur, sans toucher au JSON. La **condition de
   présence** est déclarée pour toute famille (`core::commonEntityProperties`) et propose les
