@@ -5,17 +5,15 @@ version = "0.0.1"
 filiere = "cartes"
 statut = "a-faire"
 taille = "M"
-resume = "L'Arena of Fate se parcourt, et figure dans l'onglet « Carte » **à l'intérieur d'Arenarea**."
+resume = "L'Arena of Fate se parcourt, **à l'intérieur d'Arenarea**."
 prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127", "LOT-128"]
 livrables = [
   "`Levels/central-empire/capital/arenarea/arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json` (le niveau −1 : vestiaires et prison), dessinées **dans l'éditeur** et reliées par l'escalier de la porte du triomphe (décision D-21).",
-  "`capital/arenarea/arena-of-fate/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
 ]
 criteres = [
   "`LevelEditor --check` passe : aucune case inatteignable, aucun portail sans arrivée, aucune référence morte.",
   "La carte tient 60 images par seconde à 1080p sur le poste de référence.",
-  "L'onglet « Carte » montre la zone et la position du joueur.",
   "Les 14 statues et les 4 tribunes d'honneur sont posées et nommées ; `--check` ne relève aucune référence morte vers elles.",
   "Les vestiaires et la prison sont deux chemins distincts vers l'escalier de la porte du triomphe, tous deux atteignables ; l'escalier des catacombes est posé et condamné.",
 ]

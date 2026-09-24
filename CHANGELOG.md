@@ -41,8 +41,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
   La carte est dessinée par `LevelEditor --apply`, avec les assemblages validés du LOT-108 et les
   pièces livrées, sans en produire aucune. Les portails vers Martpart, l'Arena of Fate, Oldtown et
-  les Docks sont condamnés, en attendant leurs cartes. `--check` ne relève aucune erreur. **Reste
-  à faire :** peindre l'image de l'onglet « Carte ».
+  les Docks sont condamnés, en attendant leurs cartes. `--check` ne relève aucune erreur. L'image
+  de l'onglet « Carte » part au LOT-121, avec celles de Martpart et de l'Arena of Fate.
 
 - **LOT-126 — Ce que la quête demande aux cartes.** Tout ce que « Des pommes pour l'arène » pose
   sur une carte s'écrit à l'inspecteur de l'éditeur, sans toucher au JSON. La **condition de

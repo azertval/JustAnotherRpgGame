@@ -3,19 +3,17 @@ id = "LOT-109"
 titre = "Carte — Arenarea"
 version = "0.0.1"
 filiere = "cartes"
-statut = "a-faire"
+statut = "livre"
 taille = "M"
-resume = "Arenarea se parcourt, et figure dans l'onglet « Carte »."
+resume = "Arenarea se parcourt, le quartier entier."
 prerequis = ["LOT-108", "LOT-103", "LOT-124", "LOT-125", "LOT-128"]
 livrables = [
   "`Levels/central-empire/capital/arenarea.json`, dessinée **dans l'éditeur**.",
-  "`capital/arenarea/Map/` : l'image de la zone pour l'onglet « Carte », et son entrée dans `world-maps.json`.",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
 ]
 criteres = [
   "`LevelEditor --check` passe : aucune case inatteignable, aucun portail sans arrivée, aucune référence morte.",
   "La carte tient 60 images par seconde à 1080p sur le poste de référence.",
-  "L'onglet « Carte » montre la zone et la position du joueur.",
 ]
 maquettes = ["../maquettes/plan-arenarea.svg"]
 +++
@@ -99,5 +97,11 @@ reste le cœur : Herofate Avenue, le parvis, les manoirs, le casino.
   scène composée une fois et découpée à la vue (`hmi::StaticWorldScene`). La carte s'ouvre
   maintenant en 5 s en Debug. Une image coûte 0,07 ms de CPU, et le jeu tourne à 165 ips à
   1920 × 1080, soit la fréquence de l'écran, dans le build Debug.
-- **À faire** : l'image de la zone pour l'onglet « Carte », peinte par l'auteur comme les seize
-  cartes de `Assets/Maps/`, et son entrée dans `world-maps.json`. La revue de l'auteur.
+- **L'image de la zone pour l'onglet « Carte »** part au
+  [LOT-121](LOT-121-plan-de-la-capitale.md), avec celles de Martpart et de l'Arena of Fate. C'est
+  une décision de l'auteur du 24 septembre 2026 : toutes les cartes de l'onglet se font dans le même
+  lot.
+
+## Livré le 24 septembre 2026
+
+L'auteur a validé la carte et la correction de l'affichage : le lot est livré.
