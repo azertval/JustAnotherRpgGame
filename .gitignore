@@ -114,3 +114,20 @@ __pycache__/
 # a cote de l'executable pour etre relues a l'oeil. Une sortie de test, regeneree a chaque
 # execution -- deja supprimee du depot une fois (PR #91), elle y etait revenue.
 /editor-captures/
+
+# Kits d'assets hors de Git (LOT-108) : les images viennent d'archives publiées, installées par
+# scripts/fetch_assets.py d'après Source/Elements/Assets/kits.lock.json. Les manifestes JSON et les
+# README restent suivis ; seules les images sont ignorées, avec les témoins d'installation.
+/Source/Elements/Assets/.kits/
+/Source/Elements/Assets/Common/**/*.png
+/Source/Elements/Assets/Common/**/*.jpg
+/Source/Elements/Assets/Common/**/*.jpeg
+/Source/Elements/Assets/Regions/**/*.png
+/Source/Elements/Assets/Regions/**/*.jpg
+/Source/Elements/Assets/Regions/**/*.jpeg
+/Source/Elements/Assets/Maps/**/*.png
+/Source/Elements/Assets/Maps/**/*.jpg
+/Source/Elements/Assets/Maps/**/*.jpeg
+/Source/Elements/Assets/UI/**/*.png
+/Source/Elements/Assets/UI/**/*.jpg
+/Source/Elements/Assets/UI/**/*.jpeg
