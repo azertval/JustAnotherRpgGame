@@ -516,6 +516,57 @@ std::string stampLabel(const Stamp& stamp) {
 
 // --- La bibliotheque -----------------------------------------------------------------------------
 
+namespace {
+
+// Une couche du tampon, ses types puis ses pieces.
+[[nodiscard]] Json layerToJson(const StampLayer& layer) {
+    Json layerJson;
+    layerJson["name"] = layer.name;
+    layerJson["kind"] = core::layerKindName(layer.kind);
+    if (layer.floor != 0) {
+        layerJson["floor"] = layer.floor;
+    }
+    Json types = Json::array();
+    for (const core::TileType type : layer.types) {
+        types.push_back(core::tileTypeName(type));
+    }
+    layerJson["types"] = std::move(types);
+    if (!layer.pieces.empty()) {
+        Json pieces = Json::array();
+        for (const StampPiece& piece : layer.pieces) {
+            Json pieceJson;
+            pieceJson["at"] = cellJson(piece.anchor);
+            pieceJson["piece"] = piece.piece;
+            pieceJson["type"] = core::tileTypeName(piece.type);
+            pieces.push_back(std::move(pieceJson));
+        }
+        layerJson["pieces"] = std::move(pieces);
+    }
+    return layerJson;
+}
+
+// Une entite du tampon, a sa position relative, avec ses cases et ses proprietes.
+[[nodiscard]] Json entityToJson(const core::MapEntity& entity) {
+    Json entityJson;
+    entityJson["type"] = entity.type;
+    entityJson["x"] = entity.position.column;
+    entityJson["y"] = entity.position.row;
+    if (entity.elevation != 0) {
+        entityJson["elevation"] = entity.elevation;
+    }
+    if (!entity.cells.empty()) {
+        Json cells = Json::array();
+        for (const core::GridPosition cell : entity.cells) {
+            cells.push_back(cellJson(cell));
+        }
+        entityJson["cells"] = std::move(cells);
+    }
+    writeProperties(entity.properties, entityJson);
+    return entityJson;
+}
+
+}  // namespace
+
 nlohmann::json stampToJson(const Stamp& stamp) {
     Json json;
     json["format"] = std::string{PREFAB_FORMAT};
@@ -527,50 +578,13 @@ nlohmann::json stampToJson(const Stamp& stamp) {
     }
     Json layers = Json::array();
     for (const StampLayer& layer : stamp.layers) {
-        Json layerJson;
-        layerJson["name"] = layer.name;
-        layerJson["kind"] = core::layerKindName(layer.kind);
-        if (layer.floor != 0) {
-            layerJson["floor"] = layer.floor;
-        }
-        Json types = Json::array();
-        for (const core::TileType type : layer.types) {
-            types.push_back(core::tileTypeName(type));
-        }
-        layerJson["types"] = std::move(types);
-        if (!layer.pieces.empty()) {
-            Json pieces = Json::array();
-            for (const StampPiece& piece : layer.pieces) {
-                Json pieceJson;
-                pieceJson["at"] = cellJson(piece.anchor);
-                pieceJson["piece"] = piece.piece;
-                pieceJson["type"] = core::tileTypeName(piece.type);
-                pieces.push_back(std::move(pieceJson));
-            }
-            layerJson["pieces"] = std::move(pieces);
-        }
-        layers.push_back(std::move(layerJson));
+        layers.push_back(layerToJson(layer));
     }
     json["layers"] = std::move(layers);
     if (!stamp.entities.empty()) {
         Json entities = Json::array();
         for (const core::MapEntity& entity : stamp.entities) {
-            Json entityJson;
-            entityJson["type"] = entity.type;
-            entityJson["x"] = entity.position.column;
-            entityJson["y"] = entity.position.row;
-            if (entity.elevation != 0) {
-                entityJson["elevation"] = entity.elevation;
-            }
-            if (!entity.cells.empty()) {
-                Json cells = Json::array();
-                for (const core::GridPosition cell : entity.cells) {
-                    cells.push_back(cellJson(cell));
-                }
-                entityJson["cells"] = std::move(cells);
-            }
-            writeProperties(entity.properties, entityJson);
-            entities.push_back(std::move(entityJson));
+            entities.push_back(entityToJson(entity));
         }
         json["entities"] = std::move(entities);
     }
@@ -597,7 +611,7 @@ namespace {
     layer.floor = layerJson.value("floor", 0);
     if (layer.floor < 0 || layer.floor > core::MAX_STOREY_FLOOR ||
         (layer.floor != 0 && layer.kind != core::LayerKind::Decor)) {
-        throw StampInvalid("layer \"" + layer.name + "\": \"floor\" is 0, or 1 to " +
+        throw StampInvalid(R"(layer ")" + layer.name + R"(": "floor" is 0, or 1 to )" +
                            std::to_string(core::MAX_STOREY_FLOOR) + " on a decor layer");
     }
     const auto types = layerJson.find("types");
@@ -982,8 +996,8 @@ std::optional<int> runPrefabCommand(const std::vector<std::string>& arguments,
             for (const std::string& name : prefabNames(dataRoot, place)) {
                 std::string error;
                 const std::optional<Stamp> stamp = readPrefab(dataRoot, place, name, error);
-                output += place + "/" + name + ": " +
-                          (stamp ? stampLabel(*stamp) : "unreadable — " + error) + "\n";
+                output.append(place).append("/").append(name).append(": ");
+                output.append(stamp ? stampLabel(*stamp) : "unreadable — " + error).append("\n");
                 ++total;
             }
         }

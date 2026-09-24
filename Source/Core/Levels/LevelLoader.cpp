@@ -346,6 +346,11 @@ struct TileParseState {
         return failure("Dimensions invalides (width et height doivent etre > 0)",
                        LevelValidationError::ParseError);
     }
+    if (width > MAX_LEVEL_SIDE || height > MAX_LEVEL_SIDE) {
+        return failure("Dimensions invalides (width et height ne depassent pas " +
+                           std::to_string(MAX_LEVEL_SIDE) + ")",
+                       LevelValidationError::ParseError);
+    }
     return std::nullopt;
 }
 

@@ -32,6 +32,23 @@ namespace hmi {
 
 namespace {
 
+// Le rang d'une piece d'etage dans sa profondeur ; le sol (etage 0) est au rang du relief, et un
+// etage au-dela du dernier se range avec lui.
+[[nodiscard]] WorldDepthSlot storeyDepthSlot(int storey) noexcept {
+    switch (std::min(storey, core::MAX_STOREY_FLOOR)) {
+        case 1:
+            return WorldDepthSlot::Storey;
+        case 2:
+            return WorldDepthSlot::Storey2;
+        case 3:
+            return WorldDepthSlot::Storey3;
+        case 4:
+            return WorldDepthSlot::Storey4;
+        default:
+            return WorldDepthSlot::Relief;
+    }
+}
+
 // Les planches de l'atelier, telles que le rendu les adresse : relatif au dossier des assets.
 constexpr std::string_view SCENE_ROOT = "Scene/";
 constexpr std::string_view FIGURE_ROOT = "Npc/";
@@ -186,10 +203,7 @@ float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proj
         projection
             .gridToWorld(gridPoint(static_cast<float>(cell.column), static_cast<float>(cell.row)))
             .y);
-    const WorldDepthSlot slot =
-        storey > 0 ? static_cast<WorldDepthSlot>(static_cast<std::int32_t>(WorldDepthSlot::Storey) +
-                                                 std::min(storey, core::MAX_STOREY_FLOOR) - 1)
-                   : WorldDepthSlot::Relief;
+    const WorldDepthSlot slot = storeyDepthSlot(storey);
     const std::int32_t order = worldDepthSortOrder(footY, slot);
     const auto raised = [height](float y) { return y - height; };
     float alpha = 1.0F;
@@ -412,10 +426,7 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
     // A l'echelle de son lieu : le losange que son manifeste declare occupe celui de la case.
     SpriteQuad quad = standingPieceQuad(texture, topVertex, projection.tileWidth(),
                                         projection.tileHeight() / projection.tileWidth());
-    const WorldDepthSlot slot =
-        storey > 0 ? static_cast<WorldDepthSlot>(static_cast<std::int32_t>(WorldDepthSlot::Storey) +
-                                                 std::min(storey, core::MAX_STOREY_FLOOR) - 1)
-                   : WorldDepthSlot::Relief;
+    const WorldDepthSlot slot = storeyDepthSlot(storey);
     const std::int32_t sortOrder = worldDepthSortOrder(footY, slot);
     // Un etage dessine APRES le heros et qui le recouvre le cache : on le voit a travers.
     if (storey > 0 && hero && sortOrder > hero->sortOrder &&
@@ -724,6 +735,41 @@ WorldSceneSnapshot snapshotWorldScene(const core::Level& level, const PlaceAppea
     return snapshotWorldScene(worldSceneSource(level), appearance, std::move(figures));
 }
 
+namespace {
+
+// Une couche d'etage a la taille de la carte, ses pieces canoniques et leurs emprises relevees
+// dans le cliche (LOT-129).
+[[nodiscard]] WorldStoreySnapshot snapshotStorey(const core::TileLayer& couche,
+                                                 const PlaceAppearance& appearance,
+                                                 WorldSceneSnapshot& snapshot) {
+    const auto cases =
+        static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
+    WorldStoreySnapshot storey{.floor = couche.floor, .relief = {}, .types = {}};
+    storey.relief.assign(cases, std::string{});
+    storey.types.assign(cases, core::TileType::Empty);
+    for (int row = 0; row < snapshot.rows; ++row) {
+        for (int column = 0; column < snapshot.columns; ++column) {
+            const core::GridPosition cell{.column = column, .row = row};
+            const std::size_t index = indexOf(cell, snapshot.columns);
+            // Un etage ne se deduit pas du type : seule une piece nommee s'y pose ; sans elle, le
+            // type s'extrude en maquette.
+            storey.types[index] = couche.tiles.tile(column, row);
+            const std::string_view piece = couche.pieceAt(column, row);
+            if (piece.empty()) {
+                continue;
+            }
+            storey.relief[index] = std::string{appearance.canonicalPiece(piece)};
+            const core::PieceFootprint emprise = appearance.pieceFootprint(storey.relief[index]);
+            if (emprise != core::PieceFootprint{}) {
+                snapshot.footprints.insert_or_assign(storey.relief[index], emprise);
+            }
+        }
+    }
+    return storey;
+}
+
+}  // namespace
+
 WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
                                       const PlaceAppearance& appearance,
                                       std::vector<WorldFigureSnapshot> figures) {
@@ -783,29 +829,7 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
             couche.tiles.height() != snapshot.rows) {
             continue;
         }
-        WorldStoreySnapshot storey{.floor = couche.floor, .relief = {}, .types = {}};
-        storey.relief.assign(cases, std::string{});
-        storey.types.assign(cases, core::TileType::Empty);
-        for (int row = 0; row < snapshot.rows; ++row) {
-            for (int column = 0; column < snapshot.columns; ++column) {
-                const core::GridPosition cell{.column = column, .row = row};
-                const std::size_t index = indexOf(cell, snapshot.columns);
-                // Un etage ne se deduit pas du type : seule une piece nommee s'y pose ; sans elle,
-                // le type s'extrude en maquette.
-                storey.types[index] = couche.tiles.tile(column, row);
-                storey.relief[index] = std::string{couche.pieceAt(column, row)};
-                if (storey.relief[index].empty()) {
-                    continue;
-                }
-                storey.relief[index] = std::string{appearance.canonicalPiece(storey.relief[index])};
-                const core::PieceFootprint emprise =
-                    appearance.pieceFootprint(storey.relief[index]);
-                if (emprise != core::PieceFootprint{}) {
-                    snapshot.footprints.insert_or_assign(storey.relief[index], emprise);
-                }
-            }
-        }
-        snapshot.storeys.push_back(std::move(storey));
+        snapshot.storeys.push_back(snapshotStorey(couche, appearance, snapshot));
     }
     std::ranges::stable_sort(snapshot.storeys, {}, &WorldStoreySnapshot::floor);
     // Le fichier de chaque piece citee, quand le kit la range en sous-dossier.
@@ -948,10 +972,12 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     return {uniques.begin(), uniques.end()};
 }
 
-void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
-                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
-                       WorldComposeOptions options) {
-    // Le heros d'abord mesure : un etage qui le masque s'efface (LOT-129).
+namespace {
+
+// Le heros de la scene, place et mesure ; aucun si la scene n'en porte pas.
+[[nodiscard]] std::optional<HeroPlacement> placeHero(const WorldSceneSnapshot& snapshot,
+                                                     const core::IsoProjection& projection,
+                                                     const ScenePieceTextures& textures) {
     std::optional<HeroPlacement> hero;
     for (const WorldFigureSnapshot& figure : snapshot.figures) {
         if (!figure.hero) {
@@ -963,6 +989,55 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                                  .sortOrder = placed->sortOrder};
         }
     }
+    return hero;
+}
+
+// Ce que toutes les cases d'un etage partagent.
+struct StoreyContext {
+    ComposedScene& scene;
+    const WorldSceneSnapshot& snapshot;
+    const core::IsoProjection& projection;
+    const ScenePieceTextures& textures;
+    WorldComposeOptions options;
+    const std::optional<HeroPlacement>& hero;
+};
+
+// Une case d'etage : sa piece nommee, ou a defaut son type extrude en maquette. Elle se trie au
+// plus tot au pied de ce qui la porte (@p cover) et releve le sien pour l'etage suivant (@p next).
+void composeStoreyCell(const StoreyContext& context, const WorldStoreySnapshot& storey,
+                       core::GridPosition cell, const std::vector<float>& cover,
+                       std::vector<float>& next) {
+    const std::size_t index = indexOf(cell, context.snapshot.columns);
+    if (index >= storey.relief.size()) {
+        return;
+    }
+    if (storey.relief[index].empty()) {
+        // Sans pièce nommée, un mur d'étage s'extrude en maquette, comme au rez.
+        const core::TileType type =
+            index < storey.types.size() ? storey.types[index] : core::TileType::Empty;
+        if (context.textures.solid.texture != nullptr && maquetteExtrudes(type) &&
+            !context.options.flatBlocks) {
+            float& foot = next[index];
+            foot = std::max(
+                foot, composeMaquetteBlock(context.scene, context.projection, context.textures,
+                                           cell, type, storey.floor, cover[index], context.hero));
+        }
+        return;
+    }
+    if (const std::optional<float> foot = composeStandingPiece(
+            context.scene, context.snapshot, context.projection, context.textures, cell,
+            storey.relief[index], storey.floor, context.hero, cover[index])) {
+        coverCells(next, context.snapshot, cell, storey.relief[index], *foot);
+    }
+}
+
+}  // namespace
+
+void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                       const core::IsoProjection& projection, const ScenePieceTextures& textures,
+                       WorldComposeOptions options) {
+    // Le heros d'abord mesure : un etage qui le masque s'efface (LOT-129).
+    const std::optional<HeroPlacement> hero = placeHero(snapshot, projection, textures);
     std::vector<float> cover(
         static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows),
         -std::numeric_limits<float>::infinity());
@@ -979,31 +1054,16 @@ void composeWorldScene(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     // Les etages, du plus bas au plus haut : chacun se trie au plus tot au pied de ce qui le porte.
     for (const WorldStoreySnapshot& storey : snapshot.storeys) {
         std::vector<float> next = cover;
+        const StoreyContext context{.scene = scene,
+                                    .snapshot = snapshot,
+                                    .projection = projection,
+                                    .textures = textures,
+                                    .options = options,
+                                    .hero = hero};
         for (int row = 0; row < snapshot.rows; ++row) {
             for (int column = 0; column < snapshot.columns; ++column) {
-                const core::GridPosition cell{.column = column, .row = row};
-                const std::size_t index = indexOf(cell, snapshot.columns);
-                if (index >= storey.relief.size()) {
-                    continue;
-                }
-                if (storey.relief[index].empty()) {
-                    // Sans pièce nommée, un mur d'étage s'extrude en maquette, comme au rez.
-                    const core::TileType type =
-                        index < storey.types.size() ? storey.types[index] : core::TileType::Empty;
-                    if (textures.solid.texture != nullptr && maquetteExtrudes(type) &&
-                        !options.flatBlocks) {
-                        float& foot = next[index];
-                        foot = std::max(
-                            foot, composeMaquetteBlock(scene, projection, textures, cell, type,
-                                                       storey.floor, cover[index], hero));
-                    }
-                    continue;
-                }
-                if (const std::optional<float> foot = composeStandingPiece(
-                        scene, snapshot, projection, textures, cell, storey.relief[index],
-                        storey.floor, hero, cover[index])) {
-                    coverCells(next, snapshot, cell, storey.relief[index], *foot);
-                }
+                composeStoreyCell(context, storey, core::GridPosition{.column = column, .row = row},
+                                  cover, next);
             }
         }
         cover = std::move(next);

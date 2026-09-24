@@ -758,7 +758,7 @@ void EditorViewport::paintDragPreview(QPainter& painter, bool iso) {
 }
 
 QColor EditorViewport::tileColor(core::TileType type) const {
-    return _images->tileColor(type);
+    return SceneImages::tileColor(type);
 }
 
 std::string EditorViewport::hoveredPieces() const {
