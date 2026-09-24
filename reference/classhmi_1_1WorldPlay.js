@@ -14,6 +14,7 @@ var classhmi_1_1WorldPlay =
     [ "step", "classhmi_1_1WorldPlay.html#afa2ea16ef64baed70a86b50000d7e9a0", null ],
     [ "_appearance", "classhmi_1_1WorldPlay.html#a3b95b14bb7f9cbf784916a63aae8ee97", null ],
     [ "_assetsDirectory", "classhmi_1_1WorldPlay.html#a7a4e9c64171086a04e227fa385fd3242", null ],
+    [ "_drawnFlags", "classhmi_1_1WorldPlay.html#a995f23231d4f03abc7ccc15cd85874b4", null ],
     [ "_elapsed", "classhmi_1_1WorldPlay.html#a665d463a7132ae8b6ce4185861c9728f", null ],
     [ "_heroFacing", "classhmi_1_1WorldPlay.html#a0729d639a27a4412f44f3b68caa21da1", null ],
     [ "_heroFigure", "classhmi_1_1WorldPlay.html#ade28d0bca4fd0c4f43b087f68512195e", null ],

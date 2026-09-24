@@ -1,0 +1,227 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/FlagCondition.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('FlagCondition_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">FlagCondition.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="FlagCondition_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class </span><a class="code hl_class" href="classcore_1_1WorldFlags.html">WorldFlags</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="namespacecore.html#ae199fc30f29974fef45295646f9c280e">   24</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#ae199fc30f29974fef45295646f9c280e">FlagTest</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">   26</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">IsSet</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12">   28</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12">IsUnset</a>,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100">   30</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100">Equals</a>,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255">   32</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255">NotEquals</a>,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>};</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="};">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structcore_1_1FlagCondition.html">   42</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1FlagCondition.html">FlagCondition</a> {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structcore_1_1FlagCondition.html#a7e384ba05f9f7f1aba0963586097c037">   43</a></span>    std::string <a class="code hl_variable" href="structcore_1_1FlagCondition.html#a7e384ba05f9f7f1aba0963586097c037">flag</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1FlagCondition.html#a86c90d0b96c196d8e1cd3527f6876213">   44</a></span>    <a class="code hl_enumeration" href="namespacecore.html#ae199fc30f29974fef45295646f9c280e">FlagTest</a> <a class="code hl_variable" href="structcore_1_1FlagCondition.html#a86c90d0b96c196d8e1cd3527f6876213">test</a> = <a class="code hl_enumvalue" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">FlagTest::IsSet</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1FlagCondition.html#adcfe15b1540b8e3ee669d5dd54c83a5c">   46</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1FlagCondition.html#adcfe15b1540b8e3ee669d5dd54c83a5c">values</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8">holds</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1WorldFlags.html">WorldFlags</a>&amp; flags) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1FlagCondition.html#ab7d249bd7c1b2309d64920ecc1ea22c9">   51</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1FlagCondition.html#ab7d249bd7c1b2309d64920ecc1ea22c9">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1FlagCondition.html">FlagCondition</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a1fe7c8d4dbc2fe8759a922819280749a">describeFlagCondition</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1FlagCondition.html">FlagCondition</a>&amp; condition);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1FlagConditionRead.html">   58</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a> {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structcore_1_1FlagConditionRead.html#a14ca829a8d4ba2f65c416f69d9824bee">   59</a></span>    std::optional&lt;FlagCondition&gt; <a class="code hl_variable" href="structcore_1_1FlagConditionRead.html#a14ca829a8d4ba2f65c416f69d9824bee">condition</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structcore_1_1FlagConditionRead.html#ac2fe2fdea155f727323f951e2e464132">   60</a></span>    std::string <a class="code hl_variable" href="structcore_1_1FlagConditionRead.html#ac2fe2fdea155f727323f951e2e464132">error</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="namespacecore.html#a6e17fe4590d3f7f8beb22b016576512a">   74</a></span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a> <a class="code hl_function" href="namespacecore.html#a773d9de32f230befeab6465e4e3b4917">readFlagCondition</a>(<span class="keyword">const</span> nlohmann::json&amp; <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacecore.html#a59e9846af749656610281d2f82bc6fbe">splitFlagValues</a>(std::string_view text);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aclasscore_1_1WorldFlags_html"><div class="ttname"><a href="classcore_1_1WorldFlags.html">core::WorldFlags</a></div><div class="ttdoc">L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.</div><div class="ttdef"><b>Definition</b> WorldFlags.h:42</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a1fe7c8d4dbc2fe8759a922819280749a"><div class="ttname"><a href="namespacecore.html#a1fe7c8d4dbc2fe8759a922819280749a">core::describeFlagCondition</a></div><div class="ttdeci">std::string describeFlagCondition(const FlagCondition &amp;condition)</div><div class="ttdoc">quete.pommes == acceptee|condamne, !coffre — la forme lisible des traces et tests.</div><div class="ttdef"><b>Definition</b> FlagCondition.cpp:64</div></div>
+<div class="ttc" id="anamespacecore_html_a59e9846af749656610281d2f82bc6fbe"><div class="ttname"><a href="namespacecore.html#a59e9846af749656610281d2f82bc6fbe">core::splitFlagValues</a></div><div class="ttdeci">std::vector&lt; std::string &gt; splitFlagValues(std::string_view text)</div><div class="ttdoc">Sépare a|b|c en valeurs, sans les vides : la forme d&#39;une propriété de carte.</div><div class="ttdef"><b>Definition</b> FlagCondition.cpp:126</div></div>
+<div class="ttc" id="anamespacecore_html_a773d9de32f230befeab6465e4e3b4917"><div class="ttname"><a href="namespacecore.html#a773d9de32f230befeab6465e4e3b4917">core::readFlagCondition</a></div><div class="ttdeci">FlagConditionRead readFlagCondition(const Json &amp;object)</div><div class="ttdef"><b>Definition</b> FlagCondition.cpp:83</div></div>
+<div class="ttc" id="anamespacecore_html_ae199fc30f29974fef45295646f9c280e"><div class="ttname"><a href="namespacecore.html#ae199fc30f29974fef45295646f9c280e">core::FlagTest</a></div><div class="ttdeci">FlagTest</div><div class="ttdoc">Ce qu&#39;une condition teste.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:24</div></div>
+<div class="ttc" id="anamespacecore_html_ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100"><div class="ttname"><a href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100">core::FlagTest::Equals</a></div><div class="ttdeci">@ Equals</div><div class="ttdoc">La valeur du drapeau est l&#39;une de values — la valeur initiale d&#39;un drapeau déclaré compte.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255"><div class="ttname"><a href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255">core::FlagTest::NotEquals</a></div><div class="ttdeci">@ NotEquals</div><div class="ttdoc">La valeur du drapeau n&#39;est aucune de values.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:32</div></div>
+<div class="ttc" id="anamespacecore_html_ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43"><div class="ttname"><a href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">core::FlagTest::IsSet</a></div><div class="ttdeci">@ IsSet</div><div class="ttdoc">Le fait est acquis (drapeau booléen), ou le drapeau a reçu une valeur.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:26</div></div>
+<div class="ttc" id="anamespacecore_html_ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12"><div class="ttname"><a href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12">core::FlagTest::IsUnset</a></div><div class="ttdeci">@ IsUnset</div><div class="ttdoc">Le contraire.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:28</div></div>
+<div class="ttc" id="astructcore_1_1FlagConditionRead_html"><div class="ttname"><a href="structcore_1_1FlagConditionRead.html">core::FlagConditionRead</a></div><div class="ttdoc">Une condition lue, ou ce qui l&#39;en empêche.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:58</div></div>
+<div class="ttc" id="astructcore_1_1FlagConditionRead_html_a14ca829a8d4ba2f65c416f69d9824bee"><div class="ttname"><a href="structcore_1_1FlagConditionRead.html#a14ca829a8d4ba2f65c416f69d9824bee">core::FlagConditionRead::condition</a></div><div class="ttdeci">std::optional&lt; FlagCondition &gt; condition</div><div class="ttdef"><b>Definition</b> FlagCondition.h:59</div></div>
+<div class="ttc" id="astructcore_1_1FlagConditionRead_html_ac2fe2fdea155f727323f951e2e464132"><div class="ttname"><a href="structcore_1_1FlagConditionRead.html#ac2fe2fdea155f727323f951e2e464132">core::FlagConditionRead::error</a></div><div class="ttdeci">std::string error</div><div class="ttdef"><b>Definition</b> FlagCondition.h:60</div></div>
+<div class="ttc" id="astructcore_1_1FlagCondition_html"><div class="ttname"><a href="structcore_1_1FlagCondition.html">core::FlagCondition</a></div><div class="ttdoc">« Le drapeau flag est levé », « vaut acceptee », « ne vaut ni condamne ni enfant-libere »…</div><div class="ttdef"><b>Definition</b> FlagCondition.h:42</div></div>
+<div class="ttc" id="astructcore_1_1FlagCondition_html_a79b84d286e43fcd5a482e35bb4b30ac8"><div class="ttname"><a href="structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8">core::FlagCondition::holds</a></div><div class="ttdeci">bool holds(const WorldFlags &amp;flags) const</div><div class="ttdoc">Vrai si les drapeaux satisfont la condition.</div><div class="ttdef"><b>Definition</b> FlagCondition.cpp:48</div></div>
+<div class="ttc" id="astructcore_1_1FlagCondition_html_a7e384ba05f9f7f1aba0963586097c037"><div class="ttname"><a href="structcore_1_1FlagCondition.html#a7e384ba05f9f7f1aba0963586097c037">core::FlagCondition::flag</a></div><div class="ttdeci">std::string flag</div><div class="ttdef"><b>Definition</b> FlagCondition.h:43</div></div>
+<div class="ttc" id="astructcore_1_1FlagCondition_html_a86c90d0b96c196d8e1cd3527f6876213"><div class="ttname"><a href="structcore_1_1FlagCondition.html#a86c90d0b96c196d8e1cd3527f6876213">core::FlagCondition::test</a></div><div class="ttdeci">FlagTest test</div><div class="ttdef"><b>Definition</b> FlagCondition.h:44</div></div>
+<div class="ttc" id="astructcore_1_1FlagCondition_html_ab7d249bd7c1b2309d64920ecc1ea22c9"><div class="ttname"><a href="structcore_1_1FlagCondition.html#ab7d249bd7c1b2309d64920ecc1ea22c9">core::FlagCondition::operator==</a></div><div class="ttdeci">bool operator==(const FlagCondition &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1FlagCondition_html_adcfe15b1540b8e3ee669d5dd54c83a5c"><div class="ttname"><a href="structcore_1_1FlagCondition.html#adcfe15b1540b8e3ee669d5dd54c83a5c">core::FlagCondition::values</a></div><div class="ttdeci">std::vector&lt; std::string &gt; values</div><div class="ttdoc">Equals et NotEquals seulement : au moins une valeur.</div><div class="ttdef"><b>Definition</b> FlagCondition.h:46</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_adeee896fff163070c16c17abb9970bc.html">Gameplay</a></li><li class="navelem"><a href="FlagCondition_8h.html">FlagCondition.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

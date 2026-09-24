@@ -340,6 +340,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélection en lecture-écriture des entités possédant tous les composants demandés.  <a href="classcore_1_1View.html#details">More...</a><br /></td></tr>
 <tr class="memitem:World" id="r_World"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1World.html">World</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée unique de la simulation : possède les entités, les composants et les systèmes.  <a href="classcore_1_1World.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FlagCondition" id="r_FlagCondition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Le drapeau <code>flag</code> est levé », « vaut <span class="tt">acceptee</span> », « ne vaut ni <span class="tt">condamne</span> ni <span class="tt">enfant-libere</span> »…  <a href="structcore_1_1FlagCondition.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FlagConditionRead" id="r_FlagConditionRead"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une condition lue, ou ce qui l'en empêche.  <a href="structcore_1_1FlagConditionRead.html#details">More...</a><br /></td></tr>
 <tr class="memitem:InteractionCandidate" id="r_InteractionCandidate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1InteractionCandidate.html">InteractionCandidate</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une cible candidate : son composant et l'entité qui la porte.  <a href="structcore_1_1InteractionCandidate.html#details">More...</a><br /></td></tr>
 <tr class="memitem:InteractionTarget" id="r_InteractionTarget"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1InteractionTarget.html">InteractionTarget</a></td></tr>
@@ -348,6 +352,24 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une interaction a produit.  <a href="structcore_1_1InteractionOutcome.html#details">More...</a><br /></td></tr>
 <tr class="memitem:InteractableKind" id="r_InteractableKind"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1InteractableKind.html">InteractableKind</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les types d'entité que ce lot sait rendre <b>interactifs</b>, et ce qu'ils consomment.  <a href="structcore_1_1InteractableKind.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestFlag" id="r_QuestFlag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestFlag.html">QuestFlag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un drapeau <b>à valeurs</b> qu'une quête déclare : <span class="tt">quete.pommes</span>, de <span class="tt">inconnue</span> à <span class="tt">enfant-libere</span>.  <a href="structcore_1_1QuestFlag.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestEffect" id="r_QuestEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestEffect.html">QuestEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une étape fait au monde quand elle est atteinte.  <a href="structcore_1_1QuestEffect.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestStep" id="r_QuestStep"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestStep.html">QuestStep</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une étape : l'entrée du journal qu'elle ouvre, ce qui l'atteint, ce qu'elle déclenche.  <a href="structcore_1_1QuestStep.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Quest" id="r_Quest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Quest.html">Quest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête : ses drapeaux et ses étapes, dans l'ordre du récit.  <a href="structcore_1_1Quest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestLoad" id="r_QuestLoad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête lue, ou ce qui l'en empêche. Mal formée, elle n'est pas une quête.  <a href="structcore_1_1QuestLoad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestCatalog" id="r_QuestCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les quêtes d'un dossier, et ce qui a été refusé.  <a href="structcore_1_1QuestCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestEvent" id="r_QuestEvent"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestEvent.html">QuestEvent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une étape que <span class="tt"><a class="el" href="#a0bafb94d6d35e285407e7882345a8b60" title="Fait avancer les quêtes jusqu&#39;au repos.">advanceQuests</a></span> vient d'atteindre.  <a href="structcore_1_1QuestEvent.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuestProgress" id="r_QuestProgress"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestProgress.html">QuestProgress</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête vue du journal.  <a href="structcore_1_1QuestProgress.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FlagRead" id="r_FlagRead"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1FlagRead.html">FlagRead</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un drapeau qu'un dialogue ou une quête <b>lit</b>, et où.  <a href="structcore_1_1FlagRead.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldFlags" id="r_WorldFlags"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ensemble des faits <b>acquis</b> d'une partie : coffres ouverts, quêtes franchies, portes déverrouillées.  <a href="classcore_1_1WorldFlags.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CollisionDerivation" id="r_CollisionDerivation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CollisionDerivation.html">CollisionDerivation</a></td></tr>
@@ -450,8 +472,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un degré de difficulté nommé : « moyenne », 15.  <a href="structcore_1_1DifficultyTier.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DifficultyScale" id="r_DifficultyScale"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DifficultyScale.html">DifficultyScale</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'échelle des degrés de difficulté, telle que <span class="tt">rules/difficulty.json</span> la déclare (<span class="tt">EX-REG-021</span>, <span class="tt">LOT-15</span>).  <a href="structcore_1_1DifficultyScale.html#details">More...</a><br /></td></tr>
-<tr class="memitem:FlagCondition" id="r_FlagCondition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">« Le drapeau <code>flag</code> est levé » — ou, si <code>expected</code> est faux, « ne l'est pas ».  <a href="structcore_1_1FlagCondition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DialogueChoice" id="r_DialogueChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une réponse proposée au joueur.  <a href="structcore_1_1DialogueChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DialogueAction" id="r_DialogueAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DialogueAction.html">DialogueAction</a></td></tr>
@@ -544,6 +564,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une carte peut référencer hors d'elle-même : les catalogues et les autres cartes.  <a href="structcore_1_1EntityReferenceContext.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EntityIssue" id="r_EntityIssue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1EntityIssue.html">EntityIssue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un problème relevé sur l'entité de rang <span class="tt"><a class="el" href="structcore_1_1EntityIssue.html#af4363758e6018e574310baa3fd9dbd94">entityIndex</a></span>.  <a href="structcore_1_1EntityIssue.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PresenceRead" id="r_PresenceRead"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1PresenceRead.html">PresenceRead</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La condition lue sur une entité : aucune (toujours présente), ou la condition, ou le défaut qui l'empêche.  <a href="structcore_1_1PresenceRead.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ExplorationReach" id="r_ExplorationReach"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ExplorationReach.html">ExplorationReach</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cases atteintes depuis des départs, sur une grille de collision.  <a href="classcore_1_1ExplorationReach.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CellPoint" id="r_CellPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a></td></tr>
@@ -774,6 +796,23 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481">OneShot</a>
  }</td></tr>
 <tr class="memdesc:a71fba78b647ce3be2a8b78f79c84f522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manière dont un clip se termine à la dernière image.  <a href="#a71fba78b647ce3be2a8b78f79c84f522">More...</a><br /></td></tr>
+<tr class="memitem:ae199fc30f29974fef45295646f9c280e" id="r_ae199fc30f29974fef45295646f9c280e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ae199fc30f29974fef45295646f9c280e">FlagTest</a> { <a class="el" href="#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">IsSet</a>
+, <a class="el" href="#ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12">IsUnset</a>
+, <a class="el" href="#ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100">Equals</a>
+, <a class="el" href="#ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255">NotEquals</a>
+ }</td></tr>
+<tr class="memdesc:ae199fc30f29974fef45295646f9c280e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une condition teste.  <a href="#ae199fc30f29974fef45295646f9c280e">More...</a><br /></td></tr>
+<tr class="memitem:af64ba20e2728c8383cde689f8e1308f2" id="r_af64ba20e2728c8383cde689f8e1308f2"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af64ba20e2728c8383cde689f8e1308f2">QuestOutcome</a> { <a class="el" href="#af64ba20e2728c8383cde689f8e1308f2a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#af64ba20e2728c8383cde689f8e1308f2a505a83f220c02df2f85c3810cd9ceb38">Success</a>
+, <a class="el" href="#af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086">Failure</a>
+ }</td></tr>
+<tr class="memdesc:af64ba20e2728c8383cde689f8e1308f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une étape qui <b>clôt</b> la quête, et comment.  <a href="#af64ba20e2728c8383cde689f8e1308f2">More...</a><br /></td></tr>
+<tr class="memitem:a1c252a20a9f591109e789a58746652b1" id="r_a1c252a20a9f591109e789a58746652b1"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a1c252a20a9f591109e789a58746652b1">QuestStatus</a> { <a class="el" href="#a1c252a20a9f591109e789a58746652b1afa7be7845bc42b3491d9d0377958be94">NotStarted</a>
+, <a class="el" href="#a1c252a20a9f591109e789a58746652b1a4d3d769b812b6faa6b76e1a8abaece2d">Active</a>
+, <a class="el" href="#a1c252a20a9f591109e789a58746652b1a66d02c2f8a582446f8dd8752366002b5">Succeeded</a>
+, <a class="el" href="#a1c252a20a9f591109e789a58746652b1ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a>
+ }</td></tr>
+<tr class="memdesc:a1c252a20a9f591109e789a58746652b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où en est une quête, telle que le journal la montre.  <a href="#a1c252a20a9f591109e789a58746652b1">More...</a><br /></td></tr>
 <tr class="memitem:af2a63d18c9ef40479ebdc204e726e823" id="r_af2a63d18c9ef40479ebdc204e726e823"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af2a63d18c9ef40479ebdc204e726e823">LevelValidationError</a> { <br />
 &#160;&#160;<a class="el" href="#af2a63d18c9ef40479ebdc204e726e823a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#af2a63d18c9ef40479ebdc204e726e823ae41199faa7290c167f70f314c5e6c165">ParseError</a>
@@ -1097,9 +1136,20 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4">UnknownLocation</a>
 , <a class="el" href="#ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af">UnknownItem</a>
 , <a class="el" href="#ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f">UnknownEntityRef</a>
+, <a class="el" href="#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644">InvalidPresence</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ac1032ee70b0c730c8727b80822ab035e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui ne va pas dans une entité.  <a href="#ac1032ee70b0c730c8727b80822ab035e">More...</a><br /></td></tr>
+<tr class="memitem:ae537d1e1e860c43127bcc7831ecc4fdc" id="r_ae537d1e1e860c43127bcc7831ecc4fdc"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdc">PresenceIssue</a> { <br />
+&#160;&#160;<a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdca6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdcab7af0ce30d52dc67ec4d090184b78e3a">WrongValueType</a>
+, <a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdcaa6ce9bbecf44bea29f2d42f0dd314ac2">UnknownTest</a>
+, <a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdca1e5e4b43c87e3153f897a9734fbf5b35">MissingValue</a>
+, <br />
+&#160;&#160;<a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdca9776955fc5f3a978411328ffd117fd33">MissingFlag</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ae537d1e1e860c43127bcc7831ecc4fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui ne va pas dans une condition de présence. <span class="tt">Core</span> n'écrit pas de texte.  <a href="#ae537d1e1e860c43127bcc7831ecc4fdc">More...</a><br /></td></tr>
 <tr class="memitem:a90b12b036a2622c3cea570a4b860ec55" id="r_a90b12b036a2622c3cea570a4b860ec55"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a90b12b036a2622c3cea570a4b860ec55">ExplorationEventKind</a> { <br />
 &#160;&#160;<a class="el" href="#a90b12b036a2622c3cea570a4b860ec55a2ca45e962ad92edc24caae6182edf7cb">MapEntered</a>
 , <a class="el" href="#a90b12b036a2622c3cea570a4b860ec55af47c910b04b7f7d2491efba8cc3dd835">PortalLocked</a>
@@ -1108,6 +1158,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0">Encounter</a>
 , <a class="el" href="#a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82">Interacted</a>
+, <a class="el" href="#a90b12b036a2622c3cea570a4b860ec55a13b187ba2f0b2a8d7592af104cab4f48">QuestAdvanced</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a90b12b036a2622c3cea570a4b860ec55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un pas d'exploration a produit et que l'appelant doit jouer.  <a href="#a90b12b036a2622c3cea570a4b860ec55">More...</a><br /></td></tr>
@@ -1290,6 +1341,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aefbe58769e27637d475329aa7459e90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la place <code class="param">first</code> vient avant <code class="param">second</code> dans le round.  <br /></td></tr>
 <tr class="memitem:a569a17f14f76ba1b657c3d43521dd3cc" id="r_a569a17f14f76ba1b657c3d43521dd3cc"><td class="memItemLeft"><a class="el" href="structcore_1_1TextPosition.html">TextPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a569a17f14f76ba1b657c3d43521dd3cc">positionOf</a> (std::string_view text, std::size_t byteOffset)</td></tr>
 <tr class="memdesc:a569a17f14f76ba1b657c3d43521dd3cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un décalage en octets en ligne et colonne.  <br /></td></tr>
+<tr class="memitem:a8bf957f85230307ddf0ce1c07d9ebaa1" id="r_a8bf957f85230307ddf0ce1c07d9ebaa1"><td class="memItemLeft"><a class="el" href="structcore_1_1TextPosition.html">TextPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8bf957f85230307ddf0ce1c07d9ebaa1">positionOfPointer</a> (std::string_view text, const nlohmann::json::json_pointer &amp;pointer)</td></tr>
+<tr class="memdesc:a8bf957f85230307ddf0ce1c07d9ebaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La position où commence, dans le texte, la valeur que désigne un pointeur JSON.  <br /></td></tr>
 <tr class="memitem:acfecbe35ed7427415d02c52fcea70388" id="r_acfecbe35ed7427415d02c52fcea70388"><td class="memItemLeft"><a class="el" href="structcore_1_1JsonDocument.html">JsonDocument</a>&#160;</td><td class="memItemRight"><a class="el" href="#acfecbe35ed7427415d02c52fcea70388">readJsonObject</a> (std::string_view json, int supportedVersion, std::string_view origin={}, std::string_view versionField=&quot;version&quot;)</td></tr>
 <tr class="memdesc:acfecbe35ed7427415d02c52fcea70388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit l'enveloppe commune d'un catalogue : JSON bien formé, racine objet, garde de version.  <br /></td></tr>
 <tr class="memitem:a45b1f244e1cfa341eaae0df618418f8e" id="r_a45b1f244e1cfa341eaae0df618418f8e"><td class="memItemLeft"><a class="el" href="structcore_1_1JsonDocument.html">JsonDocument</a>&#160;</td><td class="memItemRight"><a class="el" href="#a45b1f244e1cfa341eaae0df618418f8e">readJsonObjectFromFile</a> (const std::filesystem::path &amp;path, int supportedVersion, std::string_view versionField=&quot;version&quot;)</td></tr>
@@ -1310,6 +1363,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:a44fc8d654b0e55558cf5e5a4258b5081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit un niveau en libellé lisible.  <br /></td></tr>
 <tr class="memitem:ae8ce294afb9bbebacf6676020a0e223a" id="r_ae8ce294afb9bbebacf6676020a0e223a"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aa9b5a444ee11933c91d5e3235aa5b5e3">LogLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae8ce294afb9bbebacf6676020a0e223a">parseLogLevel</a> (std::string_view text)</td></tr>
 <tr class="memdesc:ae8ce294afb9bbebacf6676020a0e223a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une chaîne en niveau de log (insensible à la casse).  <br /></td></tr>
+<tr class="memitem:a1fe7c8d4dbc2fe8759a922819280749a" id="r_a1fe7c8d4dbc2fe8759a922819280749a"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1fe7c8d4dbc2fe8759a922819280749a">describeFlagCondition</a> (const <a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a> &amp;condition)</td></tr>
+<tr class="memdesc:a1fe7c8d4dbc2fe8759a922819280749a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quete.pommes == acceptee|condamne</span>, <span class="tt">!coffre</span> — la forme lisible des traces et tests.  <br /></td></tr>
+<tr class="memitem:a773d9de32f230befeab6465e4e3b4917" id="r_a773d9de32f230befeab6465e4e3b4917"><td class="memItemLeft"><a class="el" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a>&#160;</td><td class="memItemRight"><a class="el" href="#a773d9de32f230befeab6465e4e3b4917">readFlagCondition</a> (const Json &amp;object)</td></tr>
+<tr class="memitem:a59e9846af749656610281d2f82bc6fbe" id="r_a59e9846af749656610281d2f82bc6fbe"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59e9846af749656610281d2f82bc6fbe">splitFlagValues</a> (std::string_view text)</td></tr>
+<tr class="memdesc:a59e9846af749656610281d2f82bc6fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sépare <span class="tt">a|b|c</span> en valeurs, sans les vides : la forme d'une propriété de carte.  <br /></td></tr>
+<tr class="memitem:a6e17fe4590d3f7f8beb22b016576512a" id="r_a6e17fe4590d3f7f8beb22b016576512a"><td class="memItemLeft"><a class="el" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6e17fe4590d3f7f8beb22b016576512a">readFlagCondition</a> (const nlohmann::json &amp;object)</td></tr>
+<tr class="memdesc:a6e17fe4590d3f7f8beb22b016576512a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une condition écrite en JSON.  <br /></td></tr>
 <tr class="memitem:a241c2143642b12472d6bddb921dac0fa" id="r_a241c2143642b12472d6bddb921dac0fa"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a241c2143642b12472d6bddb921dac0fa">aimedCell</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> from, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> facing)</td></tr>
 <tr class="memdesc:a241c2143642b12472d6bddb921dac0fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case que vise un personnage, d'après son orientation.  <br /></td></tr>
 <tr class="memitem:a9d8c1764c03821f2f58f75d0e5795e7a" id="r_a9d8c1764c03821f2f58f75d0e5795e7a"><td class="memItemLeft"><a class="el" href="structcore_1_1InteractionTarget.html">InteractionTarget</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9d8c1764c03821f2f58f75d0e5795e7a">findInteractionTarget</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> from, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> facing, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;map, const std::vector&lt; <a class="el" href="structcore_1_1InteractionCandidate.html">InteractionCandidate</a> &gt; &amp;candidates, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
@@ -1320,6 +1380,32 @@ Functions</h2></td></tr>
 <tr class="memdesc:a07f40df9fbe2a910d1e99b9756220fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les familles connues : coffre, panneau (<span class="tt">LOT-10</span>), PNJ (<span class="tt">LOT-15</span>).  <br /></td></tr>
 <tr class="memitem:adb2706947c6f0111c0cdd008fde5779e" id="r_adb2706947c6f0111c0cdd008fde5779e"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#adb2706947c6f0111c0cdd008fde5779e">spawnMapEntities</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, std::string_view mapName, const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;)&gt; &amp;onEntity={})</td></tr>
 <tr class="memdesc:adb2706947c6f0111c0cdd008fde5779e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></span> d'une <b>entité par objet</b> de la couche <span class="tt">objects</span>.  <br /></td></tr>
+<tr class="memitem:ab9156c67818b8a348e4deacfba98a72e" id="r_ab9156c67818b8a348e4deacfba98a72e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab9156c67818b8a348e4deacfba98a72e">questStepFlag</a> (std::string_view questId, std::string_view stepId)</td></tr>
+<tr class="memdesc:ab9156c67818b8a348e4deacfba98a72e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest/&lt;quête&gt;/step/&lt;étape&gt;</span> — le fait « cette étape a été atteinte ».  <br /></td></tr>
+<tr class="memitem:a5d7f2790b523d35912bf71153755498b" id="r_a5d7f2790b523d35912bf71153755498b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d7f2790b523d35912bf71153755498b">questTitleKey</a> (std::string_view questId)</td></tr>
+<tr class="memdesc:a5d7f2790b523d35912bf71153755498b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest.&lt;quête&gt;.title</span> — le titre de la quête dans le journal.  <br /></td></tr>
+<tr class="memitem:a7c47dbe53facb2a4e146fa74e3f4bd3d" id="r_a7c47dbe53facb2a4e146fa74e3f4bd3d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7c47dbe53facb2a4e146fa74e3f4bd3d">questStepKey</a> (std::string_view questId, std::string_view stepId)</td></tr>
+<tr class="memdesc:a7c47dbe53facb2a4e146fa74e3f4bd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest.&lt;quête&gt;.&lt;étape&gt;</span> — l'entrée du journal qu'ouvre une étape.  <br /></td></tr>
+<tr class="memitem:a3ebf2c787cfe94cf56cba364093f05c5" id="r_a3ebf2c787cfe94cf56cba364093f05c5"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3ebf2c787cfe94cf56cba364093f05c5">questTextKeys</a> (const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;quest)</td></tr>
+<tr class="memdesc:a3ebf2c787cfe94cf56cba364093f05c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les clés de traduction qu'une quête réclame : son titre, puis une par étape.  <br /></td></tr>
+<tr class="memitem:a11a13d88d62b9ed0ba9c505a4a507bf3" id="r_a11a13d88d62b9ed0ba9c505a4a507bf3"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a11a13d88d62b9ed0ba9c505a4a507bf3">readQuest</a> (std::string_view json, std::string_view origin)</td></tr>
+<tr class="memdesc:a11a13d88d62b9ed0ba9c505a4a507bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit et <b>valide</b> une quête.  <br /></td></tr>
+<tr class="memitem:afa41f919bb154ba5431520e47b8674da" id="r_afa41f919bb154ba5431520e47b8674da"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="#afa41f919bb154ba5431520e47b8674da">loadQuest</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:afa41f919bb154ba5431520e47b8674da"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#a11a13d88d62b9ed0ba9c505a4a507bf3" title="Lit et valide une quête.">readQuest</a></span> depuis un fichier.  <br /></td></tr>
+<tr class="memitem:a75c14c8a302648b21c37c8424273dbeb" id="r_a75c14c8a302648b21c37c8424273dbeb"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#a75c14c8a302648b21c37c8424273dbeb">loadQuests</a> (const std::filesystem::path &amp;directory)</td></tr>
+<tr class="memdesc:a75c14c8a302648b21c37c8424273dbeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les quêtes <span class="tt">*.json</span> de <code class="param">directory</code>, dans l'ordre des noms.  <br /></td></tr>
+<tr class="memitem:a116ff967f1d1006befab83aefbb3eb09" id="r_a116ff967f1d1006befab83aefbb3eb09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a116ff967f1d1006befab83aefbb3eb09">declareQuestFlags</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;catalog, <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a116ff967f1d1006befab83aefbb3eb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare à <code class="param">flags</code> les drapeaux à valeurs de toutes les quêtes du catalogue.  <br /></td></tr>
+<tr class="memitem:a0bafb94d6d35e285407e7882345a8b60" id="r_a0bafb94d6d35e285407e7882345a8b60"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1QuestEvent.html">QuestEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0bafb94d6d35e285407e7882345a8b60">advanceQuests</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;catalog, <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a0bafb94d6d35e285407e7882345a8b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer les quêtes jusqu'au repos.  <br /></td></tr>
+<tr class="memitem:a65fd043ff3badf928d4bd699b4bf72bd" id="r_a65fd043ff3badf928d4bd699b4bf72bd"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestProgress.html">QuestProgress</a>&#160;</td><td class="memItemRight"><a class="el" href="#a65fd043ff3badf928d4bd699b4bf72bd">questProgress</a> (const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;quest, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a65fd043ff3badf928d4bd699b4bf72bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'avancement d'une quête : lu dans les drapeaux, jamais stocké à part.  <br /></td></tr>
+<tr class="memitem:a66b4d783d58fedf1af25e7719b872833" id="r_a66b4d783d58fedf1af25e7719b872833"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a66b4d783d58fedf1af25e7719b872833">validateFlagUses</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;quests, const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;dialogues)</td></tr>
+<tr class="memdesc:a66b4d783d58fedf1af25e7719b872833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que dialogues et quêtes font d'un drapeau déclaré, confronté à sa déclaration.  <br /></td></tr>
+<tr class="memitem:ac7eac2311479898ad88bfcc335029b0d" id="r_ac7eac2311479898ad88bfcc335029b0d"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac7eac2311479898ad88bfcc335029b0d">flagsWrittenBy</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;quests, const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;dialogues)</td></tr>
+<tr class="memdesc:ac7eac2311479898ad88bfcc335029b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux que dialogues et quêtes <b>posent</b> : <span class="tt">setFlag</span>, le drapeau d'une quête démarrée, les effets des étapes, le fait de chaque étape atteinte — et les drapeaux que les quêtes déclarent, qui ont toujours une valeur, l'initiale.  <br /></td></tr>
+<tr class="memitem:ad0b7ce7304ceb3f9a7afaa07a76d78be" id="r_ad0b7ce7304ceb3f9a7afaa07a76d78be"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1FlagRead.html">FlagRead</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad0b7ce7304ceb3f9a7afaa07a76d78be">flagsReadBy</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;quests, const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;dialogues)</td></tr>
+<tr class="memdesc:ad0b7ce7304ceb3f9a7afaa07a76d78be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux que lisent les conditions des dialogues et des étapes de quête.  <br /></td></tr>
 <tr class="memitem:a1a6b22027beb38aaf525b6dff5d3d2b8" id="r_a1a6b22027beb38aaf525b6dff5d3d2b8"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1a6b22027beb38aaf525b6dff5d3d2b8">keyForEntity</a> (std::string_view mapName, std::string_view entityType, int column, int row)</td></tr>
 <tr class="memdesc:a1a6b22027beb38aaf525b6dff5d3d2b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé de drapeau d'une entité de carte : <span class="tt">"&lt;carte&gt;/&lt;type&gt;@&lt;colonne&gt;,&lt;ligne&gt;"</span>.  <br /></td></tr>
 <tr class="memitem:a54b64d433a22d60c2c1345b4aa840b6b" id="r_a54b64d433a22d60c2c1345b4aa840b6b"><td class="memItemLeft"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875">TileType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a54b64d433a22d60c2c1345b4aa840b6b">collisionTileOf</a> (<a class="el" href="#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> tactical) noexcept</td></tr>
@@ -1552,6 +1638,12 @@ Functions</h2></td></tr>
 <tr class="memitem:abc06c6673c9166f8a66a174e7b12b58f" id="r_abc06c6673c9166f8a66a174e7b12b58f"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abc06c6673c9166f8a66a174e7b12b58f">arrivalPointNames</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;entities)</td></tr>
 <tr class="memitem:a0482bd5ffd0165e722879709e592607e" id="r_a0482bd5ffd0165e722879709e592607e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1EntityIssue.html">EntityIssue</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0482bd5ffd0165e722879709e592607e">validateMapEntities</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;entities, const <a class="el" href="structcore_1_1EntityReferenceContext.html">EntityReferenceContext</a> &amp;context)</td></tr>
 <tr class="memdesc:a0482bd5ffd0165e722879709e592607e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relève ce que les entités de <code class="param">entities</code> référencent sans l'atteindre.  <br /></td></tr>
+<tr class="memitem:a889dd6a6cf159d83b002decef64f112b" id="r_a889dd6a6cf159d83b002decef64f112b"><td class="memItemLeft"><a class="el" href="structcore_1_1PresenceRead.html">PresenceRead</a>&#160;</td><td class="memItemRight"><a class="el" href="#a889dd6a6cf159d83b002decef64f112b">presenceConditionOf</a> (const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;entity)</td></tr>
+<tr class="memdesc:a889dd6a6cf159d83b002decef64f112b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit la condition de présence de <code class="param">entity</code>.  <br /></td></tr>
+<tr class="memitem:aba21a4dfa3200162f5b83c366719c6c9" id="r_aba21a4dfa3200162f5b83c366719c6c9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aba21a4dfa3200162f5b83c366719c6c9">isEntityPresent</a> (const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;entity, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:aba21a4dfa3200162f5b83c366719c6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'entité est là sous ces drapeaux.  <br /></td></tr>
+<tr class="memitem:a861bea53243fcc677d3332c0ca25777d" id="r_a861bea53243fcc677d3332c0ca25777d"><td class="memItemLeft">std::vector&lt; const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a861bea53243fcc677d3332c0ca25777d">presentEntities</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;entities, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a861bea53243fcc677d3332c0ca25777d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les entités de <code class="param">entities</code> présentes sous <code class="param">flags</code>, dans leur ordre.  <br /></td></tr>
 <tr class="memitem:abec69197693a1004c3a8752db040fff1" id="r_abec69197693a1004c3a8752db040fff1"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#abec69197693a1004c3a8752db040fff1">cellOf</a> (<a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> point) noexcept</td></tr>
 <tr class="memitem:a99be71340077821d583e53bf779c689d" id="r_a99be71340077821d583e53bf779c689d"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a99be71340077821d583e53bf779c689d">cellCenter</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) noexcept</td></tr>
 <tr class="memitem:a613ed3cc48dbcdf1ed1533b2bb6c9f9c" id="r_a613ed3cc48dbcdf1ed1533b2bb6c9f9c"><td class="memItemLeft"><a class="el" href="structcore_1_1WorldGraph.html">WorldGraph</a>&#160;</td><td class="memItemRight"><a class="el" href="#a613ed3cc48dbcdf1ed1533b2bb6c9f9c">buildWorldGraph</a> (std::vector&lt; <a class="el" href="structcore_1_1WorldMapInput.html">WorldMapInput</a> &gt; maps)</td></tr>
@@ -1723,6 +1815,12 @@ Variables</h2></td></tr>
 <tr class="memdesc:acb8dfe24f7b8464d68b8f1fd3cef1697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un trajet : son nom, unique dans la carte, que le PNJ citera.  <br /></td></tr>
 <tr class="memitem:ac541942d62f7957cde3f8c36f9f02353" id="r_ac541942d62f7957cde3f8c36f9f02353"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ac541942d62f7957cde3f8c36f9f02353">ROUTE_LOOP_PROPERTY</a> = &quot;loop&quot;</td></tr>
 <tr class="memdesc:ac541942d62f7957cde3f8c36f9f02353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un trajet : vrai pour une ronde, qui revient à son premier point.  <br /></td></tr>
+<tr class="memitem:a0719f88f34852797241ae1aefe08ce8f" id="r_a0719f88f34852797241ae1aefe08ce8f"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a0719f88f34852797241ae1aefe08ce8f">PRESENCE_FLAG_PROPERTY</a> = &quot;presenceFlag&quot;</td></tr>
+<tr class="memdesc:a0719f88f34852797241ae1aefe08ce8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le drapeau dont dépend la présence de l'entité.  <br /></td></tr>
+<tr class="memitem:a80df2d7fa204502a5140df138760b6d2" id="r_a80df2d7fa204502a5140df138760b6d2"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a80df2d7fa204502a5140df138760b6d2">PRESENCE_TEST_PROPERTY</a> = &quot;presenceTest&quot;</td></tr>
+<tr class="memdesc:a80df2d7fa204502a5140df138760b6d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le test : <span class="tt">set</span>, <span class="tt">unset</span>, <span class="tt">equals</span>, <span class="tt">notEquals</span>.  <br /></td></tr>
+<tr class="memitem:a15e781af46f3ae8ec71feb9974b9f139" id="r_a15e781af46f3ae8ec71feb9974b9f139"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a15e781af46f3ae8ec71feb9974b9f139">PRESENCE_VALUE_PROPERTY</a> = &quot;presenceValue&quot;</td></tr>
+<tr class="memdesc:a15e781af46f3ae8ec71feb9974b9f139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les valeurs de <span class="tt">equals</span>/<span class="tt">notEquals</span>, séparées par <span class="tt">|</span> : <span class="tt">acceptee|persuasion-echouee</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Espace de noms du moteur et de la logique de jeu. </p>
@@ -2976,13 +3074,17 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035eaba7196008331e807c37fa89af564f28a" name="ac1032ee70b0c730c8727b80822ab035eaba7196008331e807c37fa89af564f28a"></a>UnknownFigure&#160;</td><td class="fielddoc"><p>La figurine nommée n'est dans aucun atelier. <span class="tt">value</span>. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e" name="ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e"></a>UnsetFlag&#160;</td><td class="fielddoc"><p>Aucun dialogue ne pose ce drapeau. <span class="tt">value</span>. </p>
+<tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e" name="ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e"></a>UnsetFlag&#160;</td><td class="fielddoc"><p>Aucun dialogue ni aucune quête ne pose ce drapeau. </p>
+<p><span class="tt">key</span> nomme la propriété qui le lit (<span class="tt">requiresFlag</span>, <span class="tt">presenceFlag</span>…), <span class="tt">value</span> le drapeau. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4" name="ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4"></a>UnknownLocation&#160;</td><td class="fielddoc"><p>La fiche de lieu nommée n'est pas dans l'atlas. <span class="tt">value</span>. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af" name="ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af"></a>UnknownItem&#160;</td><td class="fielddoc"><p>L'objet nommé n'est pas dans le catalogue. <span class="tt">value</span>. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f" name="ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f"></a>UnknownEntityRef&#160;</td><td class="fielddoc"><p>Aucune carte n'a d'entité <span class="tt">carte#id</span>. <span class="tt">value</span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644" name="ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644"></a>InvalidPresence&#160;</td><td class="fielddoc"><p>La condition de présence (<span class="tt"><a class="el" href="#a889dd6a6cf159d83b002decef64f112b" title="Lit la condition de présence de entity.">core::presenceConditionOf</a></span>, <span class="tt">LOT-116</span>) est mal formée. </p>
+<p><span class="tt">key</span> nomme la propriété fautive, <span class="tt">value</span> ce qui ne va pas. </p>
 </td></tr>
 </table>
 
@@ -3131,6 +3233,42 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0" name="a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0"></a>Encounter&#160;</td><td class="fielddoc"><p>Il faut engager une rencontre. <span class="tt">value</span> la nomme. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82" name="a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82"></a>Interacted&#160;</td><td class="fielddoc"><p>Une interaction a eu lieu sans autre conséquence (coffre, panneau). <span class="tt">value</span> donne le type. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a90b12b036a2622c3cea570a4b860ec55a13b187ba2f0b2a8d7592af104cab4f48" name="a90b12b036a2622c3cea570a4b860ec55a13b187ba2f0b2a8d7592af104cab4f48"></a>QuestAdvanced&#160;</td><td class="fielddoc"><p>Une quête a atteint une étape (<span class="tt">LOT-116</span>). <span class="tt">value</span> vaut <span class="tt">&lt;quête&gt;/&lt;étape&gt;</span>. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ae199fc30f29974fef45295646f9c280e" name="ae199fc30f29974fef45295646f9c280e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae199fc30f29974fef45295646f9c280e">&#9670;&#160;</a></span>FlagTest</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ae199fc30f29974fef45295646f9c280e">core::FlagTest</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'une condition teste. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43" name="ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43"></a>IsSet&#160;</td><td class="fielddoc"><p>Le fait est acquis (drapeau booléen), ou le drapeau a reçu une valeur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12" name="ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12"></a>IsUnset&#160;</td><td class="fielddoc"><p>Le contraire. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100" name="ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100"></a>Equals&#160;</td><td class="fielddoc"><p>La valeur du drapeau est l'une de <span class="tt">values</span> — la valeur initiale d'un drapeau déclaré compte. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255" name="ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255"></a>NotEquals&#160;</td><td class="fielddoc"><p>La valeur du drapeau n'est aucune de <span class="tt">values</span>. </p>
 </td></tr>
 </table>
 
@@ -3506,6 +3644,100 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </td></tr>
 <tr><td class="fieldname"><a id="af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e" name="af11c258a9c6ef53d57b7f409006e48dfaf63e324c3b9429b1d3a84ad000690a5e"></a>TargetUnreadable&#160;</td><td class="fielddoc"><p>La carte cible existe mais n'a pas pu être lue : ses points d'arrivée sont inconnaissables. </p>
 </td></tr>
+</table>
+
+</div>
+</div>
+<a id="ae537d1e1e860c43127bcc7831ecc4fdc" name="ae537d1e1e860c43127bcc7831ecc4fdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae537d1e1e860c43127bcc7831ecc4fdc">&#9670;&#160;</a></span>PresenceIssue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ae537d1e1e860c43127bcc7831ecc4fdc">core::PresenceIssue</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qui ne va pas dans une condition de présence. <span class="tt">Core</span> n'écrit pas de texte. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae537d1e1e860c43127bcc7831ecc4fdca6adf97f83acf6453d4a6a4b1070f3754" name="ae537d1e1e860c43127bcc7831ecc4fdca6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae537d1e1e860c43127bcc7831ecc4fdcab7af0ce30d52dc67ec4d090184b78e3a" name="ae537d1e1e860c43127bcc7831ecc4fdcab7af0ce30d52dc67ec4d090184b78e3a"></a>WrongValueType&#160;</td><td class="fielddoc"><p>L'une des trois propriétés n'est pas un texte. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae537d1e1e860c43127bcc7831ecc4fdcaa6ce9bbecf44bea29f2d42f0dd314ac2" name="ae537d1e1e860c43127bcc7831ecc4fdcaa6ce9bbecf44bea29f2d42f0dd314ac2"></a>UnknownTest&#160;</td><td class="fielddoc"><p><span class="tt">presenceTest</span> n'est pas l'un des quatre mots. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae537d1e1e860c43127bcc7831ecc4fdca1e5e4b43c87e3153f897a9734fbf5b35" name="ae537d1e1e860c43127bcc7831ecc4fdca1e5e4b43c87e3153f897a9734fbf5b35"></a>MissingValue&#160;</td><td class="fielddoc"><p><span class="tt">equals</span>/<span class="tt">notEquals</span> sans valeur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae537d1e1e860c43127bcc7831ecc4fdca9776955fc5f3a978411328ffd117fd33" name="ae537d1e1e860c43127bcc7831ecc4fdca9776955fc5f3a978411328ffd117fd33"></a>MissingFlag&#160;</td><td class="fielddoc"><p>Un test ou des valeurs sans <span class="tt">presenceFlag</span>. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="af64ba20e2728c8383cde689f8e1308f2" name="af64ba20e2728c8383cde689f8e1308f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af64ba20e2728c8383cde689f8e1308f2">&#9670;&#160;</a></span>QuestOutcome</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#af64ba20e2728c8383cde689f8e1308f2">core::QuestOutcome</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une étape qui <b>clôt</b> la quête, et comment. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af64ba20e2728c8383cde689f8e1308f2a6adf97f83acf6453d4a6a4b1070f3754" name="af64ba20e2728c8383cde689f8e1308f2a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af64ba20e2728c8383cde689f8e1308f2a505a83f220c02df2f85c3810cd9ceb38" name="af64ba20e2728c8383cde689f8e1308f2a505a83f220c02df2f85c3810cd9ceb38"></a>Success&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086" name="af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086"></a>Failure&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a1c252a20a9f591109e789a58746652b1" name="a1c252a20a9f591109e789a58746652b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c252a20a9f591109e789a58746652b1">&#9670;&#160;</a></span>QuestStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a1c252a20a9f591109e789a58746652b1">core::QuestStatus</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Où en est une quête, telle que le journal la montre. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1c252a20a9f591109e789a58746652b1afa7be7845bc42b3491d9d0377958be94" name="a1c252a20a9f591109e789a58746652b1afa7be7845bc42b3491d9d0377958be94"></a>NotStarted&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1c252a20a9f591109e789a58746652b1a4d3d769b812b6faa6b76e1a8abaece2d" name="a1c252a20a9f591109e789a58746652b1a4d3d769b812b6faa6b76e1a8abaece2d"></a>Active&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1c252a20a9f591109e789a58746652b1a66d02c2f8a582446f8dd8752366002b5" name="a1c252a20a9f591109e789a58746652b1a66d02c2f8a582446f8dd8752366002b5"></a>Succeeded&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1c252a20a9f591109e789a58746652b1ad7c8c85bf79bbe1b7188497c32c3b0ca" name="a1c252a20a9f591109e789a58746652b1ad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -4148,6 +4380,31 @@ La règle de départage</h2>
 </div><div class="memdoc">
 
 <p>Ajoute <code class="param">quantity</code> exemplaires de <code class="param">itemId</code> au sac, en empilant si la ligne existe déjà. </p>
+
+</div>
+</div>
+<a id="a0bafb94d6d35e285407e7882345a8b60" name="a0bafb94d6d35e285407e7882345a8b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bafb94d6d35e285407e7882345a8b60">&#9670;&#160;</a></span>advanceQuests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1QuestEvent.html">QuestEvent</a> &gt; core::advanceQuests </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait avancer les quêtes jusqu'au repos. </p>
+<p>Chaque étape non atteinte d'une quête non close dont les conditions tiennent est atteinte : son fait <span class="tt"><a class="el" href="#ab9156c67818b8a348e4deacfba98a72e" title="quest/&lt;quête&gt;/step/&lt;étape&gt; — le fait « cette étape a été atteinte ».">questStepFlag</a></span> est posé, ses effets appliqués, un événement rendu. Un effet peut en atteindre une autre, d'où la répétition jusqu'à ce que rien ne bouge — ce qui termine toujours, puisqu'une étape n'est atteinte qu'une fois.</p>
+<p>À appeler après tout ce qui écrit un drapeau : un dialogue, une interaction, un combat. </p>
 
 </div>
 </div>
@@ -6049,6 +6306,29 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a116ff967f1d1006befab83aefbb3eb09" name="a116ff967f1d1006befab83aefbb3eb09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a116ff967f1d1006befab83aefbb3eb09">&#9670;&#160;</a></span>declareQuestFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::declareQuestFlags </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>catalog</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déclare à <code class="param">flags</code> les drapeaux à valeurs de toutes les quêtes du catalogue. </p>
+
+</div>
+</div>
 <a id="a511cc1f309ea0831c8af98b2df46b08a" name="a511cc1f309ea0831c8af98b2df46b08a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a511cc1f309ea0831c8af98b2df46b08a">&#9670;&#160;</a></span>defaultAssetKeyFor()</h2>
 
@@ -6258,6 +6538,33 @@ Déterministe, et c'est le point</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Une graine dérivée, propre à ce triplet. </dd></dl>
+
+</div>
+</div>
+<a id="a1fe7c8d4dbc2fe8759a922819280749a" name="a1fe7c8d4dbc2fe8759a922819280749a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fe7c8d4dbc2fe8759a922819280749a">&#9670;&#160;</a></span>describeFlagCondition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::describeFlagCondition </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>condition</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">quete.pommes == acceptee|condamne</span>, <span class="tt">!coffre</span> — la forme lisible des traces et tests. </p>
 
 </div>
 </div>
@@ -7123,6 +7430,68 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="ad0b7ce7304ceb3f9a7afaa07a76d78be" name="ad0b7ce7304ceb3f9a7afaa07a76d78be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0b7ce7304ceb3f9a7afaa07a76d78be">&#9670;&#160;</a></span>flagsReadBy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1FlagRead.html">FlagRead</a> &gt; core::flagsReadBy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quests</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dialogues</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les drapeaux que lisent les conditions des dialogues et des étapes de quête. </p>
+
+</div>
+</div>
+<a id="ac7eac2311479898ad88bfcc335029b0d" name="ac7eac2311479898ad88bfcc335029b0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7eac2311479898ad88bfcc335029b0d">&#9670;&#160;</a></span>flagsWrittenBy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt; std::string, std::less&lt;&gt; &gt; core::flagsWrittenBy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quests</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dialogues</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les drapeaux que dialogues et quêtes <b>posent</b> : <span class="tt">setFlag</span>, le drapeau d'une quête démarrée, les effets des étapes, le fait de chaque étape atteinte — et les drapeaux que les quêtes déclarent, qui ont toujours une valeur, l'initiale. </p>
+
+</div>
+</div>
 <a id="ae5ef43ac4990d56ddac5719dd23eb279" name="ae5ef43ac4990d56ddac5719dd23eb279"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5ef43ac4990d56ddac5719dd23eb279">&#9670;&#160;</a></span>footprintCells()</h2>
 
@@ -7725,6 +8094,38 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Vrai si le combattant a <b>moins de la moitié</b> de ses points de vie : ensanglanté, ce que le <em>Guide du Maître</em> laisse voir à la table. </p>
+
+</div>
+</div>
+<a id="aba21a4dfa3200162f5b83c366719c6c9" name="aba21a4dfa3200162f5b83c366719c6c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba21a4dfa3200162f5b83c366719c6c9">&#9670;&#160;</a></span>isEntityPresent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isEntityPresent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>entity</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si l'entité est là sous ces drapeaux. </p>
+<p>Une condition <b>mal formée</b> laisse l'entité présente : un PNJ qui disparaît à cause d'une faute de frappe ne se remarque pas, un PNJ toujours là se voit — et <span class="tt">LevelEditor --check</span> la refuse. </p>
 
 </div>
 </div>
@@ -8694,6 +9095,61 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Charge les objets depuis leur dossier (<span class="tt">Rpg/items/</span>). </p>
+
+</div>
+</div>
+<a id="afa41f919bb154ba5431520e47b8674da" name="afa41f919bb154ba5431520e47b8674da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa41f919bb154ba5431520e47b8674da">&#9670;&#160;</a></span>loadQuest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a> core::loadQuest </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt"><a class="el" href="#a11a13d88d62b9ed0ba9c505a4a507bf3" title="Lit et valide une quête.">readQuest</a></span> depuis un fichier. </p>
+
+</div>
+</div>
+<a id="a75c14c8a302648b21c37c8424273dbeb" name="a75c14c8a302648b21c37c8424273dbeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75c14c8a302648b21c37c8424273dbeb">&#9670;&#160;</a></span>loadQuests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> core::loadQuests </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>directory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit les quêtes <span class="tt">*.json</span> de <code class="param">directory</code>, dans l'ordre des noms. </p>
+<p>Refusées en plus de <span class="tt"><a class="el" href="#a11a13d88d62b9ed0ba9c505a4a507bf3" title="Lit et valide une quête.">readQuest</a></span> : un fichier dont le nom n'est pas l'identifiant, deux quêtes de même identifiant, un drapeau déclaré par deux quêtes. Un dossier <b>absent</b> donne un catalogue vide sans erreur : un jeu sans quête est un jeu. </p>
 
 </div>
 </div>
@@ -10031,6 +10487,104 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a8bf957f85230307ddf0ce1c07d9ebaa1" name="a8bf957f85230307ddf0ce1c07d9ebaa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bf957f85230307ddf0ce1c07d9ebaa1">&#9670;&#160;</a></span>positionOfPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1TextPosition.html">TextPosition</a> core::positionOfPointer </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>text</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const nlohmann::json::json_pointer &amp;</td>          <td class="paramname"><span class="paramname"><em>pointer</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La position où commence, dans le texte, la valeur que désigne un pointeur JSON. </p>
+<p>nlohmann/json (3.11) ne garde pas les positions de l'arbre qu'il construit : une erreur de <b>sens</b> (une étape sans condition, une valeur hors de sa liste) ne pourrait nommer que son chemin. Ce repérage relit le texte, en suivant le chemin, pour que le message nomme aussi la <b>ligne</b> (<span class="tt">LOT-116</span>, <span class="tt">EX-CNT-010</span>). Le texte est supposé bien formé : il vient d'être lu.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Le texte du document. </td></tr>
+    <tr><td class="paramname">pointer</td><td>Le chemin de la valeur, par exemple <span class="tt">/steps/2/when</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>La position, ou <span class="tt">{0, 0}</span> si le chemin ne mène à rien. </dd></dl>
+
+</div>
+</div>
+<a id="a889dd6a6cf159d83b002decef64f112b" name="a889dd6a6cf159d83b002decef64f112b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a889dd6a6cf159d83b002decef64f112b">&#9670;&#160;</a></span>presenceConditionOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1PresenceRead.html">PresenceRead</a> core::presenceConditionOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit la condition de présence de <code class="param">entity</code>. </p>
+
+</div>
+</div>
+<a id="a861bea53243fcc677d3332c0ca25777d" name="a861bea53243fcc677d3332c0ca25777d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a861bea53243fcc677d3332c0ca25777d">&#9670;&#160;</a></span>presentEntities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> * &gt; core::presentEntities </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entities</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les entités de <code class="param">entities</code> présentes sous <code class="param">flags</code>, dans leur ordre. </p>
+
+</div>
+</div>
 <a id="a331ece5830ae73d553faf88ddecc116c" name="a331ece5830ae73d553faf88ddecc116c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a331ece5830ae73d553faf88ddecc116c">&#9670;&#160;</a></span>previewAttack()</h2>
 
@@ -10194,6 +10748,37 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a65fd043ff3badf928d4bd699b4bf72bd" name="a65fd043ff3badf928d4bd699b4bf72bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65fd043ff3badf928d4bd699b4bf72bd">&#9670;&#160;</a></span>questProgress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1QuestProgress.html">QuestProgress</a> core::questProgress </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'avancement d'une quête : lu dans les drapeaux, jamais stocké à part. </p>
+
+</div>
+</div>
 <a id="acadb420f48a33466a637a863e9c8e814" name="acadb420f48a33466a637a863e9c8e814"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acadb420f48a33466a637a863e9c8e814">&#9670;&#160;</a></span>questStartedFlag()</h2>
 
@@ -10219,6 +10804,122 @@ Déterministe, et c'est le point</h2>
 
 <p><span class="tt">quest/&lt;quête&gt;/started</span> — le drapeau qu'une action « démarrer une quête » pose. </p>
 <p>Les quêtes lisent des drapeaux (<span class="tt">LOT-16</span>, note de conception) : démarrer une quête depuis un dialogue n'a donc besoin d'aucun objet quête, et le journal du <span class="tt">LOT-16</span> n'aura qu'à lire ce drapeau. Une clé fabriquée, pour que les deux lots ne puissent pas l'écrire différemment. </p>
+
+</div>
+</div>
+<a id="ab9156c67818b8a348e4deacfba98a72e" name="ab9156c67818b8a348e4deacfba98a72e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9156c67818b8a348e4deacfba98a72e">&#9670;&#160;</a></span>questStepFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::questStepFlag </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>questId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>stepId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">quest/&lt;quête&gt;/step/&lt;étape&gt;</span> — le fait « cette étape a été atteinte ». </p>
+
+</div>
+</div>
+<a id="a7c47dbe53facb2a4e146fa74e3f4bd3d" name="a7c47dbe53facb2a4e146fa74e3f4bd3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c47dbe53facb2a4e146fa74e3f4bd3d">&#9670;&#160;</a></span>questStepKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::questStepKey </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>questId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>stepId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">quest.&lt;quête&gt;.&lt;étape&gt;</span> — l'entrée du journal qu'ouvre une étape. </p>
+
+</div>
+</div>
+<a id="a3ebf2c787cfe94cf56cba364093f05c5" name="a3ebf2c787cfe94cf56cba364093f05c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ebf2c787cfe94cf56cba364093f05c5">&#9670;&#160;</a></span>questTextKeys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::questTextKeys </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quest</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les clés de traduction qu'une quête réclame : son titre, puis une par étape. </p>
+
+</div>
+</div>
+<a id="a5d7f2790b523d35912bf71153755498b" name="a5d7f2790b523d35912bf71153755498b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d7f2790b523d35912bf71153755498b">&#9670;&#160;</a></span>questTitleKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::questTitleKey </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>questId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">quest.&lt;quête&gt;.title</span> — le titre de la quête dans le journal. </p>
 
 </div>
 </div>
@@ -10263,6 +10964,62 @@ Déterministe, et c'est le point</h2>
   <table class="params">
     <tr><td class="paramname">json</td><td>Le texte du document. </td></tr>
     <tr><td class="paramname">origin</td><td>Le nom du fichier, pour les messages. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a773d9de32f230befeab6465e4e3b4917" name="a773d9de32f230befeab6465e4e3b4917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a773d9de32f230befeab6465e4e3b4917">&#9670;&#160;</a></span>readFlagCondition() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a> core::readFlagCondition </td>
+          <td>(</td>
+          <td class="paramtype">const Json &amp;</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e17fe4590d3f7f8beb22b016576512a" name="a6e17fe4590d3f7f8beb22b016576512a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e17fe4590d3f7f8beb22b016576512a">&#9670;&#160;</a></span>readFlagCondition() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1FlagConditionRead.html">FlagConditionRead</a> core::readFlagCondition </td>
+          <td>(</td>
+          <td class="paramtype">const nlohmann::json &amp;</td>          <td class="paramname"><span class="paramname"><em>object</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit une condition écrite en JSON. </p>
+<p>Trois formes, exclusives :</p>
+<ul>
+<li><span class="tt">{ "flag": "f" }</span>, <span class="tt">{ "flag": "f", "isSet": false }</span> — un fait acquis ou non (<span class="tt">LOT-15</span>) ;</li>
+<li><span class="tt">{ "flag": "f", "equals": "v" }</span> ou <span class="tt">"equals": ["v", "w"]</span> — la valeur est l'une d'elles ;</li>
+<li><span class="tt">{ "flag": "f", "notEquals": ... }</span> — elle n'en est aucune.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">object</td><td>Le nœud JSON de la condition. </td></tr>
   </table>
   </dd>
 </dl>
@@ -10364,6 +11121,45 @@ Déterministe, et c'est le point</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le document, ou l'échec décrit. Ne lève jamais. </dd></dl>
+
+</div>
+</div>
+<a id="a11a13d88d62b9ed0ba9c505a4a507bf3" name="a11a13d88d62b9ed0ba9c505a4a507bf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11a13d88d62b9ed0ba9c505a4a507bf3">&#9670;&#160;</a></span>readQuest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a> core::readQuest </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>json</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>origin</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit et <b>valide</b> une quête. </p>
+<p>Refusé au chargement : un JSON malformé, un champ manquant ou du mauvais type ; un drapeau déclaré sans valeur, avec une valeur en double ou une initiale hors de la liste ; deux étapes de même identifiant, une étape sans condition, une condition ou un effet qui compare ou pose une valeur qu'un drapeau <b>de la quête</b> ne déclare pas, une issue autre que <span class="tt">success</span>/<span class="tt">failure</span>. Toutes les erreurs sont listées d'un coup.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">json</td><td>Le texte du document. </td></tr>
+    <tr><td class="paramname">origin</td><td>Le nom du fichier, pour les messages. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -11236,6 +12032,33 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a59e9846af749656610281d2f82bc6fbe" name="a59e9846af749656610281d2f82bc6fbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59e9846af749656610281d2f82bc6fbe">&#9670;&#160;</a></span>splitFlagValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::splitFlagValues </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sépare <span class="tt">a|b|c</span> en valeurs, sans les vides : la forme d'une propriété de carte. </p>
+
+</div>
+</div>
 <a id="aabea08fea40eec17f439cef7c5a34e56" name="aabea08fea40eec17f439cef7c5a34e56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aabea08fea40eec17f439cef7c5a34e56">&#9670;&#160;</a></span>splitMix64()</h2>
 
@@ -11606,6 +12429,46 @@ Déterministe, et c'est le point</h2>
 
 <p>Les références d'un graphe que les catalogues ne connaissent pas. </p>
 <p>Une compétence mal orthographiée, un degré de difficulté inventé, un objet ou une langue inconnus : chacun ferait un jet contre rien ou un cadeau vide, ce qui se joue et ne se voit pas. </p>
+
+</div>
+</div>
+<a id="a66b4d783d58fedf1af25e7719b872833" name="a66b4d783d58fedf1af25e7719b872833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66b4d783d58fedf1af25e7719b872833">&#9670;&#160;</a></span>validateFlagUses()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::validateFlagUses </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quests</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>dialogues</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que dialogues et quêtes font d'un drapeau déclaré, confronté à sa déclaration. </p>
+<p>Un dialogue qui compare <span class="tt">quete.pommes</span> à <span class="tt">accepte</span> (sans <span class="tt">e</span>) serait une réponse qui ne paraît jamais ; qui pose <span class="tt">quete.pommes</span> sans valeur, un geste que <span class="tt"><a class="el" href="classcore_1_1WorldFlags.html" title="L&#39;ensemble des faits acquis d&#39;une partie : coffres ouverts, quêtes franchies, portes déverrouillées.">core::WorldFlags</a></span> refuse en silence. Les deux se refusent ici, au démarrage, fichier et nœud nommés.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">quests</td><td>Les quêtes, et leurs déclarations. </td></tr>
+    <tr><td class="paramname">dialogues</td><td>Les dialogues chargés. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Les erreurs, vides si tout est cohérent. </dd></dl>
 
 </div>
 </div>
@@ -12932,6 +13795,81 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Propriété d'un portail : la carte cible, nommée par son <b>identifiant</b> — le nom de son fichier dans <span class="tt">Source/Elements/Levels/</span>, sans extension. </p>
+
+</div>
+</div>
+<a id="a0719f88f34852797241ae1aefe08ce8f" name="a0719f88f34852797241ae1aefe08ce8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0719f88f34852797241ae1aefe08ce8f">&#9670;&#160;</a></span>PRESENCE_FLAG_PROPERTY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::PRESENCE_FLAG_PROPERTY = &quot;presenceFlag&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le drapeau dont dépend la présence de l'entité. </p>
+<p>Absent : l'entité est toujours là.</p>
+<p><b>Trois propriétés plates</b> plutôt qu'un objet : une propriété de carte ne tient qu'un scalaire (<span class="tt"><a class="el" href="#a9f79b235a73b6264aa3a97d51267919d" title="Valeur d&#39;une propriété libre : booléen, entier, réel ou chaîne.">core::PropertyValue</a></span>), et un objet serait jeté au chargement sans un mot. C'est aussi la forme que l'inspecteur de l'éditeur présente (drapeau, test, valeurs — <span class="tt">LOT-126</span>). </p>
+
+</div>
+</div>
+<a id="a80df2d7fa204502a5140df138760b6d2" name="a80df2d7fa204502a5140df138760b6d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80df2d7fa204502a5140df138760b6d2">&#9670;&#160;</a></span>PRESENCE_TEST_PROPERTY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::PRESENCE_TEST_PROPERTY = &quot;presenceTest&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le test : <span class="tt">set</span>, <span class="tt">unset</span>, <span class="tt">equals</span>, <span class="tt">notEquals</span>. </p>
+<p>Absent : <span class="tt">equals</span> si des valeurs sont données, <span class="tt">set</span> sinon. </p>
+
+</div>
+</div>
+<a id="a15e781af46f3ae8ec71feb9974b9f139" name="a15e781af46f3ae8ec71feb9974b9f139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15e781af46f3ae8ec71feb9974b9f139">&#9670;&#160;</a></span>PRESENCE_VALUE_PROPERTY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::PRESENCE_VALUE_PROPERTY = &quot;presenceValue&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les valeurs de <span class="tt">equals</span>/<span class="tt">notEquals</span>, séparées par <span class="tt">|</span> : <span class="tt">acceptee|persuasion-echouee</span>. </p>
 
 </div>
 </div>

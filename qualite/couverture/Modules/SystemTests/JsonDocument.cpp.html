@@ -14,9 +14,11 @@
 
 #include "Core/Data/JsonDocument.h"
 
+#include &lt;algorithm&gt;
 #include &lt;fstream&gt;
 #include &lt;sstream&gt;
 #include &lt;utility&gt;
+#include &lt;vector&gt;
 
 namespace core {
 
@@ -69,6 +71,159 @@ namespace {
         }
 <span style = "background-color:#dfd">    }
     return {.line = line, .column = column};
+}</span>
+
+namespace {
+
+/// Relit un texte JSON bien formÃ© en suivant un chemin, et note oÃ¹ commence la valeur visÃ©e.
+class Pisteur {
+public:
+<span style = "background-color:#dfd">    Pisteur(std::string_view texte, std::vector&lt;std::string&gt; chemin)
+        : _texte(texte), _chemin(std::move(chemin)) {}</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] TextPosition chercher() {
+        valeur(0);
+        return _trouve;
+    }</span>
+
+private:
+<span style = "background-color:#dfd">    void espaces() {
+        while (_i &lt; _texte.size() &amp;&amp; (_texte[_i] == ' ' || _texte[_i] == '\t' ||</span>
+                                      _texte[_i] == '\n' || _texte[_i] == '\r')) {
+<span style = "background-color:#dfd">            avancer();
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    void avancer() {
+        if (_texte[_i] == '\n') {
+            ++_ligne;
+            _colonne = 1;
+        } else {
+            ++_colonne;</span>
+        }
+<span style = "background-color:#dfd">        ++_i;
+    }</span>
+
+    /// Une chaÃ®ne, guillemets compris ; rend son contenu, Ã©chappements laissÃ©s bruts sauf `\"`.
+<span style = "background-color:#dfd">    std::string chaine() {
+        std::string contenu;
+        avancer();  // le guillemet ouvrant
+        while (_i &lt; _texte.size() &amp;&amp; _texte[_i] != '"') {
+            if (_texte[_i] == '\\' &amp;&amp; _i + 1 &lt; _texte.size()) {</span>
+<span style = "background-color:#fdd">                avancer();</span>
+            }
+<span style = "background-color:#dfd">            contenu += _texte[_i];
+            avancer();
+        }
+        if (_i &lt; _texte.size()) {
+            avancer();  // le guillemet fermant</span>
+        }
+<span style = "background-color:#dfd">        return contenu;
+    }</span>
+
+    /// Une valeur Ã  la profondeur @p profondeur du chemin courant.
+<span style = "background-color:#dfd">    void valeur(std::size_t profondeur) {
+        espaces();
+        if (_i &gt;= _texte.size() || _trouve.line &gt; 0) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        const bool surLeChemin = profondeur == _suivis &amp;&amp; _suivis == _chemin.size();
+        if (surLeChemin) {
+            _trouve = {.line = _ligne, .column = _colonne};
+            return;</span>
+        }
+<span style = "background-color:#dfd">        const char c = _texte[_i];
+        if (c == '{') {
+            conteneur(profondeur, true);
+        } else if (c == '[') {
+            conteneur(profondeur, false);
+        } else if (c == '"') {
+            chaine();
+        } else {</span>
+            while (_i &lt; _texte.size() &amp;&amp; _texte[_i] != ',' &amp;&amp; _texte[_i] != '}' &amp;&amp;
+                   _texte[_i] != ']' &amp;&amp; _texte[_i] != ' ' &amp;&amp; _texte[_i] != '\n' &amp;&amp;
+<span style = "background-color:#fdd">                   _texte[_i] != '\r' &amp;&amp; _texte[_i] != '\t') {
+                avancer();
+            }</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    void conteneur(std::size_t profondeur, bool objet) {
+        const char fermant = objet ? '}' : ']';
+        avancer();
+        std::size_t rang = 0;
+        while (_i &lt; _texte.size() &amp;&amp; _trouve.line == 0) {
+            espaces();
+            if (_i &gt;= _texte.size() || _texte[_i] == fermant) {
+                break;</span>
+            }
+<span style = "background-color:#dfd">            std::string nom;
+            if (objet) {
+                nom = chaine();
+                espaces();
+                if (_i &lt; _texte.size() &amp;&amp; _texte[_i] == ':') {
+                    avancer();</span>
+                }
+<span style = "background-color:#dfd">            } else {
+                nom = std::to_string(rang);</span>
+            }
+            // Le chemin ne descend dans un enfant que si tous les pas prÃ©cÃ©dents ont Ã©tÃ© suivis.
+<span style = "background-color:#dfd">            const bool suivi =</span>
+                profondeur == _suivis &amp;&amp; _suivis &lt; _chemin.size() &amp;&amp; _chemin[_suivis] == nom;
+<span style = "background-color:#dfd">            if (suivi) {
+                ++_suivis;</span>
+            }
+<span style = "background-color:#dfd">            valeur(profondeur + 1);
+            if (suivi &amp;&amp; _trouve.line == 0) {
+                --_suivis;</span>
+            }
+<span style = "background-color:#dfd">            espaces();
+            if (_i &lt; _texte.size() &amp;&amp; _texte[_i] == ',') {
+                avancer();</span>
+            }
+<span style = "background-color:#dfd">            ++rang;
+        }
+        if (_i &lt; _texte.size() &amp;&amp; _trouve.line == 0) {
+            avancer();</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    std::string_view _texte;
+    std::vector&lt;std::string&gt; _chemin;
+<span style = "background-color:#dfd">    std::size_t _i = 0;
+    std::size_t _suivis = 0;
+    int _ligne = 1;
+    int _colonne = 1;</span>
+    TextPosition _trouve;
+};
+
+/// Les pas d'un pointeur JSON, `~1` et `~0` rendus Ã  `/` et `~`.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; pasDuPointeur(const nlohmann::json::json_pointer&amp; pointeur) {
+    const std::string texte = pointeur.to_string();
+    std::vector&lt;std::string&gt; pas;
+    std::size_t debut = 1;
+    while (debut &lt;= texte.size() &amp;&amp; !texte.empty()) {
+        const std::size_t fin = std::min(texte.find('/', debut), texte.size());
+        std::string brut = texte.substr(debut, fin - debut);
+        std::string pasLu;
+        for (std::size_t i = 0; i &lt; brut.size(); ++i) {
+            if (brut[i] == '~' &amp;&amp; i + 1 &lt; brut.size()) {</span>
+<span style = "background-color:#fdd">                pasLu += brut[i + 1] == '1' ? '/' : '~';
+                ++i;
+            } else {</span>
+<span style = "background-color:#dfd">                pasLu += brut[i];</span>
+            }
+<span style = "background-color:#dfd">        }
+        pas.push_back(std::move(pasLu));
+        debut = fin + 1;
+    }
+    return pas;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">TextPosition positionOfPointer(std::string_view text, const nlohmann::json::json_pointer&amp; pointer) {
+    return Pisteur(text, pasDuPointeur(pointer)).chercher();
 }</span>
 
 JsonDocument readJsonObject(std::string_view json, int supportedVersion, std::string_view origin,

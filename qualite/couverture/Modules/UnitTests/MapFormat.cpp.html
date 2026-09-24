@@ -550,6 +550,9 @@ std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId, const st
             checkMapFile(core::mapIdOf(levels, file), file, dataRoot, context);
 <span style = "background-color:#dfd">        report.findings.insert(report.findings.end(), found.begin(), found.end());
     }</span>
+    // Le rÃ©cit, hors de toute carte (LOT-116) : un drapeau lu que rien ne pose.
+<span style = "background-color:#dfd">    std::vector&lt;MapCheckFinding&gt; story = checkStoryContent(dataRoot);
+    report.findings.insert(report.findings.end(), story.begin(), story.end());</span>
     // Les portails, d'une carte Ã  l'autre : ce qu'aucune carte seule ne voit.
 <span style = "background-color:#dfd">    for (const core::WorldIssue&amp; issue : core::validateWorldGraph(core::loadWorldGraph(levels))) {
         if (issue.code == core::WorldIssueCode::UnreadableMap) {</span>

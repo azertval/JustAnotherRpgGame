@@ -165,6 +165,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af2e543bbcc2b7987acb40f4f0cd2d367" id="r_af2e543bbcc2b7987acb40f4f0cd2d367"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#af2e543bbcc2b7987acb40f4f0cd2d367">aimedCell</a> () const</td></tr>
 <tr class="memitem:af53b61732272ba7cb69bf2ed5f1a4e79" id="r_af53b61732272ba7cb69bf2ed5f1a4e79"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af53b61732272ba7cb69bf2ed5f1a4e79">flags</a> () noexcept</td></tr>
 <tr class="memitem:ac6da465cb6cdc7a08d0631394df45eb9" id="r_ac6da465cb6cdc7a08d0631394df45eb9"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac6da465cb6cdc7a08d0631394df45eb9">flags</a> () const noexcept</td></tr>
+<tr class="memitem:ae5f69b7aa246623ce16406da08d831b6" id="r_ae5f69b7aa246623ce16406da08d831b6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae5f69b7aa246623ce16406da08d831b6">setQuests</a> (<a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> <a class="el" href="#a46e681a1725375612d92d31bebc05fd5">quests</a>)</td></tr>
+<tr class="memdesc:ae5f69b7aa246623ce16406da08d831b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne à la session les quêtes de la partie : leurs drapeaux sont déclarés, et celles dont les conditions tiennent déjà avancent (<span class="tt">LOT-116</span>).  <br /></td></tr>
+<tr class="memitem:a46e681a1725375612d92d31bebc05fd5" id="r_a46e681a1725375612d92d31bebc05fd5"><td class="memItemLeft">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a46e681a1725375612d92d31bebc05fd5">quests</a> () const noexcept</td></tr>
+<tr class="memitem:a3b97fb5728ef0139dea6d619247a7ccd" id="r_a3b97fb5728ef0139dea6d619247a7ccd"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3b97fb5728ef0139dea6d619247a7ccd">refreshFromFlags</a> ()</td></tr>
+<tr class="memdesc:a3b97fb5728ef0139dea6d619247a7ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tire les conséquences des drapeaux changés depuis le dernier appel : les quêtes avancent, et les entités de la carte paraissent ou disparaissent <b>sans la recharger</b>.  <br /></td></tr>
+<tr class="memitem:a07cd4be941a029a036b79b0b98c200f7" id="r_a07cd4be941a029a036b79b0b98c200f7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a07cd4be941a029a036b79b0b98c200f7">isPresent</a> (const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;entity) const</td></tr>
+<tr class="memdesc:a07cd4be941a029a036b79b0b98c200f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'entité <code class="param">entity</code> de la carte courante est présente sous les drapeaux.  <br /></td></tr>
 <tr class="memitem:ab1517d211c44200e50a9195dfb0ca2b0" id="r_ab1517d211c44200e50a9195dfb0ca2b0"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0">travel</a> () const noexcept</td></tr>
 <tr class="memitem:a335330a71db09257b636e34996be93d0" id="r_a335330a71db09257b636e34996be93d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a335330a71db09257b636e34996be93d0">freeze</a> (bool <a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>) noexcept</td></tr>
 <tr class="memdesc:a335330a71db09257b636e34996be93d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gèle ou dégèle la carte (dialogue, combat).  <br /></td></tr>
@@ -181,7 +188,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a39d384fd1e8c3dccb780aa04017592d0" id="r_a39d384fd1e8c3dccb780aa04017592d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a39d384fd1e8c3dccb780aa04017592d0">rebuildInteractables</a> ()</td></tr>
-<tr class="memdesc:a39d384fd1e8c3dccb780aa04017592d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit les entités interactives de la carte courante (changement de carte).  <br /></td></tr>
+<tr class="memdesc:a39d384fd1e8c3dccb780aa04017592d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit les entités interactives <b>présentes</b> de la carte courante (changement de carte, drapeau changé).  <br /></td></tr>
 <tr class="memitem:a371e5175317dc045a3020c27f35eed8e" id="r_a371e5175317dc045a3020c27f35eed8e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a371e5175317dc045a3020c27f35eed8e">fits</a> (<a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> point) const</td></tr>
 <tr class="memitem:a809f6f2a0566700a8250e1139c3e4491" id="r_a809f6f2a0566700a8250e1139c3e4491"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a809f6f2a0566700a8250e1139c3e4491">walk</a> (<a class="el" href="structcore_1_1Vector2.html">Vector2</a> move, float seconds)</td></tr>
 <tr class="memdesc:a809f6f2a0566700a8250e1139c3e4491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas.  <br /></td></tr>
@@ -194,6 +201,9 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a656c99045430e47cb75d3432c7771af7" id="r_a656c99045430e47cb75d3432c7771af7"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a>&#160;</td><td class="memItemRight"><a class="el" href="#a656c99045430e47cb75d3432c7771af7">_travel</a></td></tr>
 <tr class="memitem:aaf82af7c6c3eb86fff6d3ed106c52c3e" id="r_aaf82af7c6c3eb86fff6d3ed106c52c3e"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaf82af7c6c3eb86fff6d3ed106c52c3e">_flags</a></td></tr>
+<tr class="memitem:a0b73a6ccc6cea827e92cdf9dfe84240d" id="r_a0b73a6ccc6cea827e92cdf9dfe84240d"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0b73a6ccc6cea827e92cdf9dfe84240d">_quests</a></td></tr>
+<tr class="memitem:a84f9e59d668bef42b6d18b2548fbee91" id="r_a84f9e59d668bef42b6d18b2548fbee91"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a84f9e59d668bef42b6d18b2548fbee91">_seenRevision</a> = 0</td></tr>
+<tr class="memdesc:a84f9e59d668bef42b6d18b2548fbee91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Révision des drapeaux que la liste des interactifs et les quêtes reflètent.  <br /></td></tr>
 <tr class="memitem:ae60b3de301ac07787799979e93fee49e" id="r_ae60b3de301ac07787799979e93fee49e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae60b3de301ac07787799979e93fee49e">_interactables</a></td></tr>
 <tr class="memitem:a78990bfe40fea6c6f66a3d3322afe532" id="r_a78990bfe40fea6c6f66a3d3322afe532"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a78990bfe40fea6c6f66a3d3322afe532">_hero</a> {}</td></tr>
 <tr class="memitem:a6aac839cf41db1a8821d50f4da65ad16" id="r_a6aac839cf41db1a8821d50f4da65ad16"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6aac839cf41db1a8821d50f4da65ad16">_facing</a> {0.0F, 1.0F}</td></tr>
@@ -516,6 +526,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a07cd4be941a029a036b79b0b98c200f7" name="a07cd4be941a029a036b79b0b98c200f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07cd4be941a029a036b79b0b98c200f7">&#9670;&#160;</a></span>isPresent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ExplorationSession::isPresent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>entity</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si l'entité <code class="param">entity</code> de la carte courante est présente sous les drapeaux. </p>
+
+</div>
+</div>
 <a id="ad9f46abef16cd0037c4fe2d951ae3797" name="ad9f46abef16cd0037c4fe2d951ae3797"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad9f46abef16cd0037c4fe2d951ae3797">&#9670;&#160;</a></span>map()</h2>
 
@@ -595,6 +632,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a46e681a1725375612d92d31bebc05fd5" name="a46e681a1725375612d92d31bebc05fd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46e681a1725375612d92d31bebc05fd5">&#9670;&#160;</a></span>quests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp; core::ExplorationSession::quests </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a39d384fd1e8c3dccb780aa04017592d0" name="a39d384fd1e8c3dccb780aa04017592d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39d384fd1e8c3dccb780aa04017592d0">&#9670;&#160;</a></span>rebuildInteractables()</h2>
 
@@ -618,7 +680,28 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Relit les entités interactives de la carte courante (changement de carte). </p>
+<p>Relit les entités interactives <b>présentes</b> de la carte courante (changement de carte, drapeau changé). </p>
+
+</div>
+</div>
+<a id="a3b97fb5728ef0139dea6d619247a7ccd" name="a3b97fb5728ef0139dea6d619247a7ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b97fb5728ef0139dea6d619247a7ccd">&#9670;&#160;</a></span>refreshFromFlags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; core::ExplorationSession::refreshFromFlags </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tire les conséquences des drapeaux changés depuis le dernier appel : les quêtes avancent, et les entités de la carte paraissent ou disparaissent <b>sans la recharger</b>. </p>
+<p><span class="tt"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3" title="Avance d&#39;un pas de seconds.">update</a></span> l'appelle à chaque pas, gelée ou non ; l'appeler soi-même sert à qui vient d'écrire un drapeau hors d'un pas — un dialogue qui se referme — et veut le voir aussitôt.</p>
+<dl class="section return"><dt>Returns</dt><dd>Une <span class="tt">QuestAdvanced</span> par étape atteinte ; vide si rien n'a changé. </dd></dl>
 
 </div>
 </div>
@@ -646,6 +729,25 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Résout l'interaction demandée. </p>
+
+</div>
+</div>
+<a id="ae5f69b7aa246623ce16406da08d831b6" name="ae5f69b7aa246623ce16406da08d831b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f69b7aa246623ce16406da08d831b6">&#9670;&#160;</a></span>setQuests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::setQuests </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a></td>          <td class="paramname"><span class="paramname"><em>quests</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne à la session les quêtes de la partie : leurs drapeaux sont déclarés, et celles dont les conditions tiennent déjà avancent (<span class="tt">LOT-116</span>). </p>
 
 </div>
 </div>
@@ -885,6 +987,52 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Case du héros au pas précédent : un portail se franchit <b>en y arrivant</b>, pas à chaque pas où l'on reste dessus — sans quoi un portail qui ramène sur place bouclerait. </p>
+
+</div>
+</div>
+<a id="a0b73a6ccc6cea827e92cdf9dfe84240d" name="a0b73a6ccc6cea827e92cdf9dfe84240d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b73a6ccc6cea827e92cdf9dfe84240d">&#9670;&#160;</a></span>_quests</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> core::ExplorationSession::_quests</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a84f9e59d668bef42b6d18b2548fbee91" name="a84f9e59d668bef42b6d18b2548fbee91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f9e59d668bef42b6d18b2548fbee91">&#9670;&#160;</a></span>_seenRevision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t core::ExplorationSession::_seenRevision = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Révision des drapeaux que la liste des interactifs et les quêtes reflètent. </p>
 
 </div>
 </div>

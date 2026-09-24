@@ -20,8 +20,9 @@ var searchData=
   ['portaltarget_17',['PortalTarget',['../structcore_1_1PortalTarget.html',1,'core']]],
   ['prefabentry_18',['PrefabEntry',['../structhmi_1_1PrefabEntry.html',1,'hmi']]],
   ['prefabitem_19',['PrefabItem',['../structhmi_1_1PalettePanel_1_1PrefabItem.html',1,'hmi::PalettePanel']]],
-  ['problemspanel_20',['ProblemsPanel',['../classhmi_1_1ProblemsPanel.html',1,'hmi']]],
-  ['proceduralatlasimage_21',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
-  ['projectedit_22',['ProjectEdit',['../structhmi_1_1ProjectEdit.html',1,'hmi']]],
-  ['provisionalstatus_23',['ProvisionalStatus',['../structcore_1_1ProvisionalStatus.html',1,'core']]]
+  ['presenceread_20',['PresenceRead',['../structcore_1_1PresenceRead.html',1,'core']]],
+  ['problemspanel_21',['ProblemsPanel',['../classhmi_1_1ProblemsPanel.html',1,'hmi']]],
+  ['proceduralatlasimage_22',['ProceduralAtlasImage',['../structhmi_1_1ProceduralAtlasImage.html',1,'hmi']]],
+  ['projectedit_23',['ProjectEdit',['../structhmi_1_1ProjectEdit.html',1,'hmi']]],
+  ['provisionalstatus_24',['ProvisionalStatus',['../structcore_1_1ProvisionalStatus.html',1,'core']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zoom_0',['zoom',['../classhmi_1_1AssetGalleryItem.html#a6c4e4bbfa297175d7d999f8defc69a87',1,'hmi::AssetGalleryItem']]]
+  ['worldimage_0',['worldImage',['../classhmi_1_1WorldMapModel.html#aee6ca8709d02839954670e963bedee4e',1,'hmi::WorldMapModel']]]
 ];

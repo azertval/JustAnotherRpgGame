@@ -17,11 +17,12 @@ var searchData=
   ['entity_14',['Entity',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda1a434befae3f49ae09347ded52032f6f',1,'hmi']]],
   ['entityrefs_15',['EntityRefs',['../namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a6b26adcaf0f87640fe94cc398ed0dd06',1,'core']]],
   ['entry_16',['Entry',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ab948e8a02a7f8dc9f098c89e8df9892c',1,'core']]],
-  ['equipment_17',['Equipment',['../namespacehmi.html#a874cdf4b3785a41ee4cfc4ae882c2df5a9ccda2d50a1ee1b73ee1f048eb397aa8',1,'hmi']]],
-  ['erasecells_18',['EraseCells',['../namespacehmi.html#a89e362f40fcd08bc4c65661aff7fff62a654ff315ccc2a9f92b118c3905a9710e',1,'hmi']]],
-  ['eraser_19',['Eraser',['../namespacehmi.html#a4ec74e0d9a6397a4be1c28869622617fa1432aab1d005218c17376fbee5b3c894',1,'hmi::Eraser'],['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda1432aab1d005218c17376fbee5b3c894',1,'hmi::Eraser']]],
-  ['error_20',['Error',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd',1,'core::Error'],['../namespacehmi.html#a89e7b964e1125a35414c9694fad4fd64a902b0d55fddef6f8d651fe1035b7d4bd',1,'hmi::Error']]],
-  ['escape_21',['Escape',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224',1,'hmi']]],
-  ['evocation_22',['Evocation',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2a0f691fa093f9d70c7c69cc8b70ae8825',1,'core']]],
-  ['exhaustion_23',['Exhaustion',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a62d14822c1d9ee30cedbce5343ab2681',1,'core']]]
+  ['equals_17',['Equals',['../namespacecore.html#ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100',1,'core']]],
+  ['equipment_18',['Equipment',['../namespacehmi.html#a874cdf4b3785a41ee4cfc4ae882c2df5a9ccda2d50a1ee1b73ee1f048eb397aa8',1,'hmi']]],
+  ['erasecells_19',['EraseCells',['../namespacehmi.html#a89e362f40fcd08bc4c65661aff7fff62a654ff315ccc2a9f92b118c3905a9710e',1,'hmi']]],
+  ['eraser_20',['Eraser',['../namespacehmi.html#a4ec74e0d9a6397a4be1c28869622617fa1432aab1d005218c17376fbee5b3c894',1,'hmi::Eraser'],['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda1432aab1d005218c17376fbee5b3c894',1,'hmi::Eraser']]],
+  ['error_21',['Error',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd',1,'core::Error'],['../namespacehmi.html#a89e7b964e1125a35414c9694fad4fd64a902b0d55fddef6f8d651fe1035b7d4bd',1,'hmi::Error']]],
+  ['escape_22',['Escape',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224',1,'hmi']]],
+  ['evocation_23',['Evocation',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2a0f691fa093f9d70c7c69cc8b70ae8825',1,'core']]],
+  ['exhaustion_24',['Exhaustion',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a62d14822c1d9ee30cedbce5343ab2681',1,'core']]]
 ];

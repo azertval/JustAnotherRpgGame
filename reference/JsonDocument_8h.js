@@ -10,6 +10,7 @@ var JsonDocument_8h =
       [ "core::JsonReadError::MalformedStructure", "namespacecore.html#a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d", null ]
     ] ],
     [ "core::positionOf", "namespacecore.html#a569a17f14f76ba1b657c3d43521dd3cc", null ],
+    [ "core::positionOfPointer", "namespacecore.html#a8bf957f85230307ddf0ce1c07d9ebaa1", null ],
     [ "core::readJsonObject", "namespacecore.html#acfecbe35ed7427415d02c52fcea70388", null ],
     [ "core::readJsonObjectFromFile", "namespacecore.html#a45b1f244e1cfa341eaae0df618418f8e", null ]
 ];

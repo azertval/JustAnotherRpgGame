@@ -143,23 +143,27 @@ $(function(){initNavTree('structcore_1_1FlagCondition.html','','structcore_1_1Fl
 </div><!--header-->
 <div class="contents">
 
-<p>« Le drapeau <code>flag</code> est levé » — ou, si <code>expected</code> est faux, « ne l'est pas ».  
+<p>« Le drapeau <code>flag</code> est levé », « vaut <span class="tt">acceptee</span> », « ne vaut ni <span class="tt">condamne</span> ni <span class="tt">enfant-libere</span> »…  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="Dialogue_8h_source.html">Dialogue.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="FlagCondition_8h_source.html">FlagCondition.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a79b84d286e43fcd5a482e35bb4b30ac8" id="r_a79b84d286e43fcd5a482e35bb4b30ac8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a79b84d286e43fcd5a482e35bb4b30ac8">holds</a> (const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags) const</td></tr>
 <tr class="memdesc:a79b84d286e43fcd5a482e35bb4b30ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si les drapeaux satisfont la condition.  <br /></td></tr>
+<tr class="memitem:ab7d249bd7c1b2309d64920ecc1ea22c9" id="r_ab7d249bd7c1b2309d64920ecc1ea22c9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab7d249bd7c1b2309d64920ecc1ea22c9">operator==</a> (const <a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a> &amp;) const =default</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7e384ba05f9f7f1aba0963586097c037" id="r_a7e384ba05f9f7f1aba0963586097c037"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7e384ba05f9f7f1aba0963586097c037">flag</a></td></tr>
-<tr class="memitem:a65b6aab1bec27094d3f4d5fea9fe417e" id="r_a65b6aab1bec27094d3f4d5fea9fe417e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a65b6aab1bec27094d3f4d5fea9fe417e">expected</a> = true</td></tr>
+<tr class="memitem:a86c90d0b96c196d8e1cd3527f6876213" id="r_a86c90d0b96c196d8e1cd3527f6876213"><td class="memItemLeft"><a class="el" href="namespacecore.html#ae199fc30f29974fef45295646f9c280e">FlagTest</a>&#160;</td><td class="memItemRight"><a class="el" href="#a86c90d0b96c196d8e1cd3527f6876213">test</a> = <a class="el" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">FlagTest::IsSet</a></td></tr>
+<tr class="memitem:adcfe15b1540b8e3ee669d5dd54c83a5c" id="r_adcfe15b1540b8e3ee669d5dd54c83a5c"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adcfe15b1540b8e3ee669d5dd54c83a5c">values</a></td></tr>
+<tr class="memdesc:adcfe15b1540b8e3ee669d5dd54c83a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Equals</span> et <span class="tt">NotEquals</span> seulement : au moins une valeur.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>« Le drapeau <code>flag</code> est levé » — ou, si <code>expected</code> est faux, « ne l'est pas ». </p>
+<div class="textblock"><p>« Le drapeau <code>flag</code> est levé », « vaut <span class="tt">acceptee</span> », « ne vaut ni <span class="tt">condamne</span> ni <span class="tt">enfant-libere</span> »… </p>
+<p>Une seule forme pour trois lecteurs : une réponse de dialogue, une étape de quête et un PNJ conditionné ne doivent pas pouvoir comprendre le même drapeau de trois façons. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a79b84d286e43fcd5a482e35bb4b30ac8" name="a79b84d286e43fcd5a482e35bb4b30ac8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79b84d286e43fcd5a482e35bb4b30ac8">&#9670;&#160;</a></span>holds()</h2>
@@ -188,21 +192,32 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a65b6aab1bec27094d3f4d5fea9fe417e" name="a65b6aab1bec27094d3f4d5fea9fe417e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65b6aab1bec27094d3f4d5fea9fe417e">&#9670;&#160;</a></span>expected</h2>
+<a id="ab7d249bd7c1b2309d64920ecc1ea22c9" name="ab7d249bd7c1b2309d64920ecc1ea22c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d249bd7c1b2309d64920ecc1ea22c9">&#9670;&#160;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::FlagCondition::expected = true</td>
+          <td class="memname">bool core::FlagCondition::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a7e384ba05f9f7f1aba0963586097c037" name="a7e384ba05f9f7f1aba0963586097c037"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e384ba05f9f7f1aba0963586097c037">&#9670;&#160;</a></span>flag</h2>
 
@@ -217,9 +232,39 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a86c90d0b96c196d8e1cd3527f6876213" name="a86c90d0b96c196d8e1cd3527f6876213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86c90d0b96c196d8e1cd3527f6876213">&#9670;&#160;</a></span>test</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ae199fc30f29974fef45295646f9c280e">FlagTest</a> core::FlagCondition::test = <a class="el" href="namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">FlagTest::IsSet</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adcfe15b1540b8e3ee669d5dd54c83a5c" name="adcfe15b1540b8e3ee669d5dd54c83a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcfe15b1540b8e3ee669d5dd54c83a5c">&#9670;&#160;</a></span>values</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::FlagCondition::values</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">Equals</span> et <span class="tt">NotEquals</span> seulement : au moins une valeur. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/<a class="el" href="Dialogue_8h_source.html">Dialogue.h</a></li>
-<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/<a class="el" href="Dialogue_8cpp.html">Dialogue.cpp</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/<a class="el" href="FlagCondition_8h_source.html">FlagCondition.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/<a class="el" href="FlagCondition_8cpp.html">FlagCondition.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

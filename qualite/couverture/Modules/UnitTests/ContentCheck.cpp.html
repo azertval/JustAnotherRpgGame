@@ -22,6 +22,8 @@
 #include "Core/Combat/CombatTransition.h"
 #include "Core/Combat/TacticalTerrain.h"
 #include "Core/Gameplay/MapEntitySpawner.h"
+#include "Core/Gameplay/Quest.h"
+#include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CityPlan.h"
 #include "Core/World/CombatZone.h"
@@ -295,6 +297,35 @@ std::vector&lt;MapCheckFinding&gt; checkMapContent(std::string_view mapId, const
     checkReach(mapId, level, context, findings);
     checkGraph(mapId, level, context, findings);
     return findings.take();
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;MapCheckFinding&gt; checkStoryContent(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;MapCheckFinding&gt; findings;
+    const auto error = [&amp;findings](std::string message) {
+        findings.push_back(MapCheckFinding{.severity = MapCheckSeverity::Error,</span>
+                                           .mapId = "World",
+                                           .cell = std::nullopt,
+                                           .message = std::move(message),
+                                           .entityId = {}});
+<span style = "background-color:#dfd">    };
+    const core::QuestCatalog quests = core::loadQuests(dataRoot / "World" / "quests");
+    const core::DialogueCatalog dialogues = core::loadDialogues(dataRoot / "World" / "dialogues");</span>
+    // Les messages du chargement viennent de `core`, en francais : ce sont ceux que l'auteur des
+    // donnees lit aussi au demarrage du jeu, et ils nomment fichier et ligne.
+<span style = "background-color:#dfd">    for (const std::string&amp; rejected : quests.errors) {
+        error("quest rejected: " + rejected);
+    }
+    for (const std::string&amp; misuse : core::validateFlagUses(quests, dialogues)) {</span>
+<span style = "background-color:#fdd">        error("flag misuse: " + misuse);</span>
+<span style = "background-color:#dfd">    }
+    const std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);
+    for (const core::FlagRead&amp; read : core::flagsReadBy(quests, dialogues)) {
+        if (!written.contains(read.flag)) {
+            error(read.where + ": flag \"" + read.flag +</span>
+                  "\" is read but no dialogue or quest sets it");
+<span style = "background-color:#dfd">        }
+    }
+    return findings;
 }</span>
 
 }  // namespace hmi</pre>

@@ -10,6 +10,8 @@ var dir_c085377a8d45dfd2467facd710fb0ba3 =
     [ "CombatZone.h", "CombatZone_8h.html", "CombatZone_8h" ],
     [ "EntityKinds.cpp", "EntityKinds_8cpp.html", "EntityKinds_8cpp" ],
     [ "EntityKinds.h", "EntityKinds_8h.html", "EntityKinds_8h" ],
+    [ "EntityPresence.cpp", "EntityPresence_8cpp.html", "EntityPresence_8cpp" ],
+    [ "EntityPresence.h", "EntityPresence_8h.html", "EntityPresence_8h" ],
     [ "ExplorationReach.cpp", "ExplorationReach_8cpp.html", null ],
     [ "ExplorationReach.h", "ExplorationReach_8h.html", "ExplorationReach_8h" ],
     [ "ExplorationSession.cpp", "ExplorationSession_8cpp.html", "ExplorationSession_8cpp" ],

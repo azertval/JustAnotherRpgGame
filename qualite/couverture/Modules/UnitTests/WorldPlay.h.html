@@ -26,6 +26,7 @@
  * appelant garde sa cadence et ses signaux, et partage le reste.
  */
 
+#include &lt;cstdint&gt;
 #include &lt;filesystem&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
@@ -113,6 +114,8 @@ private:
 <span style = "background-color:#dfd">    float _elapsed = 0.0F;</span>
     /// Le hÃ©ros marche : sa bande est `walk`, sinon `idle`.
 <span style = "background-color:#dfd">    bool _walking = false;</span>
+    /// RÃ©vision des drapeaux de la derniÃ¨re scÃ¨ne annoncÃ©e : les PNJ conditionnÃ©s en dÃ©pendent.
+<span style = "background-color:#dfd">    std::uint64_t _drawnFlags = 0;</span>
 };
 
 }  // namespace hmi</pre>

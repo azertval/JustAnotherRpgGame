@@ -28,6 +28,8 @@ var dir_7eb0d0bc801e3eeb9c9e3cb238223789 =
     [ "OptionsModel.h", "OptionsModel_8h.html", "OptionsModel_8h" ],
     [ "PendingData.cpp", "PendingData_8cpp.html", null ],
     [ "PendingData.h", "PendingData_8h.html", "PendingData_8h" ],
+    [ "QuestJournalModel.cpp", "QuestJournalModel_8cpp.html", null ],
+    [ "QuestJournalModel.h", "QuestJournalModel_8h.html", "QuestJournalModel_8h" ],
     [ "RuleLabels.cpp", "RuleLabels_8cpp.html", "RuleLabels_8cpp" ],
     [ "RuleLabels.h", "RuleLabels_8h.html", "RuleLabels_8h" ],
     [ "ScreenRouter.cpp", "ScreenRouter_8cpp.html", null ],

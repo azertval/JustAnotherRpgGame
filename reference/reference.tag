@@ -1050,6 +1050,22 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>FlagCondition.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
+    <filename>FlagCondition_8cpp.html</filename>
+    <includes id="FlagCondition_8h" name="FlagCondition.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/FlagCondition.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>FlagCondition.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
+    <filename>FlagCondition_8h.html</filename>
+    <class kind="struct">core::FlagCondition</class>
+    <class kind="struct">core::FlagConditionRead</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>Interaction.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
     <filename>Interaction_8cpp.html</filename>
@@ -1093,6 +1109,32 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>Quest.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
+    <filename>Quest_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Quest.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
+    <filename>Quest_8h.html</filename>
+    <includes id="FlagCondition_8h" name="FlagCondition.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/FlagCondition.h</includes>
+    <class kind="struct">core::QuestFlag</class>
+    <class kind="struct">core::QuestEffect</class>
+    <class kind="struct">core::QuestStep</class>
+    <class kind="struct">core::Quest</class>
+    <class kind="struct">core::QuestLoad</class>
+    <class kind="struct">core::QuestCatalog</class>
+    <class kind="struct">core::QuestEvent</class>
+    <class kind="struct">core::QuestProgress</class>
+    <class kind="struct">core::FlagRead</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>WorldFlags.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
     <filename>WorldFlags_8cpp.html</filename>
@@ -1104,6 +1146,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
     <filename>WorldFlags_8h.html</filename>
     <class kind="class">core::WorldFlags</class>
+    <class kind="struct">core::WorldFlags::Declaration</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -1586,11 +1629,11 @@
     <name>Dialogue.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
     <filename>Dialogue_8h.html</filename>
+    <includes id="FlagCondition_8h" name="FlagCondition.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/FlagCondition.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
     <includes id="DeterministicRandom_8h" name="DeterministicRandom.h" local="yes" import="no" module="no" objc="no">Core/Math/DeterministicRandom.h</includes>
     <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
-    <class kind="struct">core::FlagCondition</class>
     <class kind="struct">core::DialogueChoice</class>
     <class kind="struct">core::DialogueAction</class>
     <class kind="struct">core::DialogueNode</class>
@@ -2165,6 +2208,7 @@
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -2178,6 +2222,23 @@
     <class kind="struct">core::EntityKind</class>
     <class kind="struct">core::EntityReferenceContext</class>
     <class kind="struct">core::EntityIssue</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EntityPresence.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>EntityPresence_8cpp.html</filename>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EntityPresence.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>EntityPresence_8h.html</filename>
+    <includes id="FlagCondition_8h" name="FlagCondition.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/FlagCondition.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <class kind="struct">core::PresenceRead</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -2208,6 +2269,7 @@
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -2215,6 +2277,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
     <filename>ExplorationSession_8h.html</filename>
     <includes id="Interactable_8h" name="Interactable.h" local="yes" import="no" module="no" objc="no">Core/Ecs/Components/Interactable.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
     <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
@@ -2377,6 +2440,8 @@
     <includes id="CombatTransition_8h" name="CombatTransition.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatTransition.h</includes>
     <includes id="TacticalTerrain_8h" name="TacticalTerrain.h" local="yes" import="no" module="no" objc="no">Core/Combat/TacticalTerrain.h</includes>
     <includes id="MapEntitySpawner_8h" name="MapEntitySpawner.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/MapEntitySpawner.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CityPlan_8h" name="CityPlan.h" local="yes" import="no" module="no" objc="no">Core/World/CityPlan.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
@@ -2538,6 +2603,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>EntityReferences_8cpp.html</filename>
     <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
@@ -3853,6 +3919,22 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>GameQuests.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>GameQuests_8cpp.html</filename>
+    <includes id="GameQuests_8h" name="GameQuests.h" local="yes" import="no" module="no" objc="no">HMI/Game/GameQuests.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>GameQuests.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>GameQuests_8h.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <class kind="struct">hmi::GameQuests</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>LaunchOptions.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
     <filename>LaunchOptions_8cpp.html</filename>
@@ -3875,6 +3957,7 @@
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <namespace>hmi</namespace>
   </compound>
@@ -4495,6 +4578,7 @@
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <namespace>hmi</namespace>
@@ -4786,6 +4870,24 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>QuestJournalScreen.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Presentation/</path>
+    <filename>QuestJournalScreen_8cpp.html</filename>
+    <includes id="QuestJournalScreen_8h" name="QuestJournalScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/QuestJournalScreen.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>QuestJournalScreen.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Presentation/</path>
+    <filename>QuestJournalScreen_8h.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="DialogueScreen_8h" name="DialogueScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/DialogueScreen.h</includes>
+    <class kind="struct">hmi::QuestJournalRow</class>
+    <class kind="struct">hmi::QuestJournalValues</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>RpgScreens.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Presentation/</path>
     <filename>RpgScreens_8cpp.html</filename>
@@ -5031,6 +5133,7 @@
     <includes id="DialogueScreen_8h" name="DialogueScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/DialogueScreen.h</includes>
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <class kind="struct">hmi::DialogueModel::Session</class>
     <namespace>hmi</namespace>
   </compound>
@@ -5130,6 +5233,25 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>QuestJournalModel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>QuestJournalModel_8cpp.html</filename>
+    <includes id="QuestJournalModel_8h" name="QuestJournalModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/QuestJournalModel.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>QuestJournalModel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>QuestJournalModel_8h.html</filename>
+    <includes id="QuestJournalScreen_8h" name="QuestJournalScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/QuestJournalScreen.h</includes>
+    <includes id="SheetRowModel_8h" name="SheetRowModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/SheetRowModel.h</includes>
+    <class kind="class">hmi::QuestJournalModel</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>RuleLabels.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>RuleLabels_8cpp.html</filename>
@@ -5203,6 +5325,7 @@
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
+    <includes id="GameQuests_8h" name="GameQuests.h" local="yes" import="no" module="no" objc="no">HMI/Game/GameQuests.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
@@ -5274,6 +5397,31 @@
       <anchorfile>test__exploration__carte_8cpp.html</anchorfile>
       <anchor>a796cf3dc980c4f4b1751510cb6a6a962</anchor>
       <arglist>(ExplorationCarteIntegration, UneCarteQuiPuiseDansQuatreNiveauxSeJoue)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_quete_trois_etapes.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
+    <filename>test__quete__trois__etapes_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="DeterministicRandom_8h" name="DeterministicRandom.h" local="yes" import="no" module="no" objc="no">Core/Math/DeterministicRandom.h</includes>
+    <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="GameQuests_8h" name="GameQuests.h" local="yes" import="no" module="no" objc="no">HMI/Game/GameQuests.h</includes>
+    <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
+    <includes id="QuestJournalScreen_8h" name="QuestJournalScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/QuestJournalScreen.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__trois__etapes_8cpp.html</anchorfile>
+      <anchor>ad9f173960d9adb08c4186e47d9587920</anchor>
+      <arglist>(QueteIntegration, UneQueteDeTroisEtapesSeJoueSansFenetre)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -6836,6 +6984,72 @@
       <anchorfile>test__interaction_8cpp.html</anchorfile>
       <anchor>a24e6a1f2c0e807fa0b482aa16d5dc3cd</anchor>
       <arglist>(InteractionTest, LesDrapeauxSeRelisentTries)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_quest.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Gameplay/</path>
+    <filename>test__quest_8cpp.html</filename>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="FlagCondition_8h" name="FlagCondition.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/FlagCondition.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>af8a9e3a946ce42d2e9fd1853bd7031bf</anchor>
+      <arglist>(QuestFlagsTest, UnDrapeauAValeursEstType)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>a47d7c0b118248d482f39cd4ec7bd4dbb</anchor>
+      <arglist>(QuestFlagsTest, UneConditionSurDrapeauSeLitEtSEvalue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>a6561a7a49f999aa01e329685780ec800</anchor>
+      <arglist>(QuestLoadTest, UnPointeurJsonDonneLaLigneDeSaValeur)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>a81420287737cf2247b2645f8905c7f2e</anchor>
+      <arglist>(QuestLoadTest, UneQueteBienFormeeSeLit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>a882466c77b048e8b6430197a972c8173</anchor>
+      <arglist>(QuestLoadTest, UneQueteMalFormeeEstRefuseeEnNommantLaLigne)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>a865b92300633957e3f7d8b02e949306b</anchor>
+      <arglist>(QuestLoadTest, LeCatalogueDesQuetesRefuseLesDoublons)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>ae16aca9fa4049908180fc36edcc126be</anchor>
+      <arglist>(QuestAdvanceTest, UneQueteDeTroisEtapesAvanceParLesDrapeaux)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>a89f06d11274022ef057728a425f7ce91</anchor>
+      <arglist>(QuestAdvanceTest, LesUsagesDeDrapeauxSontConfrontesAuxDeclarations)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -9065,6 +9279,43 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_entity_presence.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/</path>
+    <filename>test__entity__presence_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__entity__presence_8cpp.html</anchorfile>
+      <anchor>a59c1674ce6df49cb8e9288dbfa106d80</anchor>
+      <arglist>(EntityPresenceTest, LaConditionDePresenceSeLitSurTroisProprietes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__entity__presence_8cpp.html</anchorfile>
+      <anchor>a395e5255fe5817073f95e702679d4819</anchor>
+      <arglist>(EntityPresenceTest, UnPnjConditionneParaitEtDisparaitSansRechargerLaCarte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__entity__presence_8cpp.html</anchorfile>
+      <anchor>acc5d651b85e50d1c67abc96398f1064f</anchor>
+      <arglist>(EntityPresenceTest, LeControleReleveUnePresenceSurUnDrapeauJamaisPose)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_exploration_reach.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/</path>
     <filename>test__exploration__reach_8cpp.html</filename>
@@ -9551,6 +9802,13 @@
       <anchorfile>test__content__check_8cpp.html</anchorfile>
       <anchor>abe1deb01482dfff7caa8034d339f9d43</anchor>
       <arglist>(ContentCheckTest, UneCarteNeuveASonNomDansChaqueCatalogue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__content__check_8cpp.html</anchorfile>
+      <anchor>a8fdad2bbe63a806bdf70d4bc96bfdb3f</anchor>
+      <arglist>(ContentCheckTest, LeControleDuRecitRefuseUnDrapeauLuQueRienNePose)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13132,6 +13390,21 @@
       <anchorfile>test__inventory__screen_8cpp.html</anchorfile>
       <anchor>ae368ae8659f007c233714ecea2ee1d75</anchor>
       <arglist>(InventoryScreenTest, FicheDObjet)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_quest_journal_screen.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Presentation/</path>
+    <filename>test__quest__journal__screen_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="QuestJournalScreen_8h" name="QuestJournalScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/QuestJournalScreen.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__journal__screen_8cpp.html</anchorfile>
+      <anchor>a2c177af168a4e8ec03a71c06f0b234ea</anchor>
+      <arglist>(QuestJournalScreenTest, LeJournalSeLitDansLesDrapeaux)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -22678,6 +22951,24 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::WorldFlags::Declaration</name>
+    <filename>structcore_1_1WorldFlags_1_1Declaration.html</filename>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>values</name>
+      <anchorfile>structcore_1_1WorldFlags_1_1Declaration.html</anchorfile>
+      <anchor>a61a16c9d73576d8d99528cd379589f25</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>initial</name>
+      <anchorfile>structcore_1_1WorldFlags_1_1Declaration.html</anchorfile>
+      <anchor>a5e29e9de0174320c3b97fdf482e086b3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::DecodedImage</name>
     <filename>structhmi_1_1DecodedImage.html</filename>
     <member kind="variable">
@@ -22929,6 +23220,13 @@
       <name>quantity</name>
       <anchorfile>structcore_1_1DialogueAction.html</anchorfile>
       <anchor>a76e71ff4f90ee7071cd611638333c578</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>value</name>
+      <anchorfile>structcore_1_1DialogueAction.html</anchorfile>
+      <anchor>ae60b91aa039c918fa86c6d930025340c</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -27477,6 +27775,34 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setQuests</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>ae5f69b7aa246623ce16406da08d831b6</anchor>
+      <arglist>(QuestCatalog quests)</arglist>
+    </member>
+    <member kind="function">
+      <type>const QuestCatalog &amp;</type>
+      <name>quests</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a46e681a1725375612d92d31bebc05fd5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; ExplorationEvent &gt;</type>
+      <name>refreshFromFlags</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a3b97fb5728ef0139dea6d619247a7ccd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isPresent</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a07cd4be941a029a036b79b0b98c200f7</anchor>
+      <arglist>(const MapEntity &amp;entity) const</arglist>
+    </member>
+    <member kind="function">
       <type>const WorldTravel &amp;</type>
       <name>travel</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
@@ -27565,6 +27891,20 @@
       <name>_flags</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
       <anchor>aaf82af7c6c3eb86fff6d3ed106c52c3e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QuestCatalog</type>
+      <name>_quests</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a0b73a6ccc6cea827e92cdf9dfe84240d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint64_t</type>
+      <name>_seenRevision</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a84f9e59d668bef42b6d18b2548fbee91</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -27852,6 +28192,13 @@
       <anchor>a79b84d286e43fcd5a482e35bb4b30ac8</anchor>
       <arglist>(const WorldFlags &amp;flags) const</arglist>
     </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1FlagCondition.html</anchorfile>
+      <anchor>ab7d249bd7c1b2309d64920ecc1ea22c9</anchor>
+      <arglist>(const FlagCondition &amp;) const =default</arglist>
+    </member>
     <member kind="variable">
       <type>std::string</type>
       <name>flag</name>
@@ -27860,10 +28207,60 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>bool</type>
-      <name>expected</name>
+      <type>FlagTest</type>
+      <name>test</name>
       <anchorfile>structcore_1_1FlagCondition.html</anchorfile>
-      <anchor>a65b6aab1bec27094d3f4d5fea9fe417e</anchor>
+      <anchor>a86c90d0b96c196d8e1cd3527f6876213</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>values</name>
+      <anchorfile>structcore_1_1FlagCondition.html</anchorfile>
+      <anchor>adcfe15b1540b8e3ee669d5dd54c83a5c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::FlagConditionRead</name>
+    <filename>structcore_1_1FlagConditionRead.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; FlagCondition &gt;</type>
+      <name>condition</name>
+      <anchorfile>structcore_1_1FlagConditionRead.html</anchorfile>
+      <anchor>a14ca829a8d4ba2f65c416f69d9824bee</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>error</name>
+      <anchorfile>structcore_1_1FlagConditionRead.html</anchorfile>
+      <anchor>ac2fe2fdea155f727323f951e2e464132</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::FlagRead</name>
+    <filename>structcore_1_1FlagRead.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1FlagRead.html</anchorfile>
+      <anchor>a0376bcd7744b24458ae5ff066e8b7cb2</anchor>
+      <arglist>(const FlagRead &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>flag</name>
+      <anchorfile>structcore_1_1FlagRead.html</anchorfile>
+      <anchor>a8bc8dbab1e8b286ed84d0f26b7aef247</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>where</name>
+      <anchorfile>structcore_1_1FlagRead.html</anchorfile>
+      <anchor>a5175517f32e64d6f1ad5311e80ab3fa0</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -28119,6 +28516,24 @@
       <name>_lastProbe</name>
       <anchorfile>classhmi_1_1GamepadPoller.html</anchorfile>
       <anchor>ae33c922e03ea961b2b1a3bc5630f47f1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::GameQuests</name>
+    <filename>structhmi_1_1GameQuests.html</filename>
+    <member kind="variable">
+      <type>core::QuestCatalog</type>
+      <name>catalog</name>
+      <anchorfile>structhmi_1_1GameQuests.html</anchorfile>
+      <anchor>adb7c70aed2acbfdd5e4545d59b76416b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structhmi_1_1GameQuests.html</anchorfile>
+      <anchor>ad455a18f7920c158d0c484ed63e29314</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -35935,6 +36350,24 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>core::PresenceRead</name>
+    <filename>structcore_1_1PresenceRead.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; FlagCondition &gt;</type>
+      <name>condition</name>
+      <anchorfile>structcore_1_1PresenceRead.html</anchorfile>
+      <anchor>aff560b0c186538efaf400baa1d919c33</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>PresenceIssue</type>
+      <name>issue</name>
+      <anchorfile>structcore_1_1PresenceRead.html</anchorfile>
+      <anchor>abbc24d8291d9504d72726629b93192ba</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>hmi::ProblemsPanel</name>
     <filename>classhmi_1_1ProblemsPanel.html</filename>
@@ -36190,6 +36623,409 @@
       <name>_statistics</name>
       <anchorfile>classhmi_1_1QuadRecorder.html</anchorfile>
       <anchor>a619727deeab73edf775e9d5bcfb5061c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::Quest</name>
+    <filename>structcore_1_1Quest.html</filename>
+    <member kind="function">
+      <type>const QuestStep *</type>
+      <name>find</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>ab12afccd4dbb03e157282a9becf19d84</anchor>
+      <arglist>(std::string_view stepId) const</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>a7bff5b336a624ba78f09568a4bb0cb9e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; QuestFlag &gt;</type>
+      <name>flags</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>a3730399cb94bad76c8122b0c5ae88549</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; QuestStep &gt;</type>
+      <name>steps</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>af918042b01f106ca73e9738293b24877</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestCatalog</name>
+    <filename>structcore_1_1QuestCatalog.html</filename>
+    <member kind="function">
+      <type>const Quest *</type>
+      <name>find</name>
+      <anchorfile>structcore_1_1QuestCatalog.html</anchorfile>
+      <anchor>ad63a5cfe4e8fb590c6cf1ff2fada21e6</anchor>
+      <arglist>(std::string_view id) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const QuestFlag *</type>
+      <name>findFlag</name>
+      <anchorfile>structcore_1_1QuestCatalog.html</anchorfile>
+      <anchor>a7066cb48df133700570442e56a1ec460</anchor>
+      <arglist>(std::string_view flag) const</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Quest &gt;</type>
+      <name>quests</name>
+      <anchorfile>structcore_1_1QuestCatalog.html</anchorfile>
+      <anchor>a4811be72711b9e9f064922cf86a92a06</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structcore_1_1QuestCatalog.html</anchorfile>
+      <anchor>a5be8ebfd989f3618d2fcd47cf4bdb5a5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestEffect</name>
+    <filename>structcore_1_1QuestEffect.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>Kind</name>
+      <anchorfile>structcore_1_1QuestEffect.html</anchorfile>
+      <anchor>abe8957417cae5693c4af36c5b41fa619</anchor>
+      <arglist></arglist>
+      <enumvalue file="structcore_1_1QuestEffect.html" anchor="abe8957417cae5693c4af36c5b41fa619af7728eea36126ba401b5df30bb93f528">SetFlag</enumvalue>
+      <enumvalue file="structcore_1_1QuestEffect.html" anchor="abe8957417cae5693c4af36c5b41fa619ac23574157c4f45657c36e9ce5d40eab7">ClearFlag</enumvalue>
+    </member>
+    <member kind="variable">
+      <type>Kind</type>
+      <name>kind</name>
+      <anchorfile>structcore_1_1QuestEffect.html</anchorfile>
+      <anchor>a1b3e97803bb7ea747a48fae38f1eab88</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>flag</name>
+      <anchorfile>structcore_1_1QuestEffect.html</anchorfile>
+      <anchor>a0d56751da139db862b12151ea330b493</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>value</name>
+      <anchorfile>structcore_1_1QuestEffect.html</anchorfile>
+      <anchor>a591e0b7fb62937ed8beca2311820b447</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestEvent</name>
+    <filename>structcore_1_1QuestEvent.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1QuestEvent.html</anchorfile>
+      <anchor>a801da858676f5a275bbeca9123426ca3</anchor>
+      <arglist>(const QuestEvent &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>quest</name>
+      <anchorfile>structcore_1_1QuestEvent.html</anchorfile>
+      <anchor>a6781fa8d20841f5136faa12e84567de1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>step</name>
+      <anchorfile>structcore_1_1QuestEvent.html</anchorfile>
+      <anchor>aad4e77e1c83d66ae6f5132b7869ff6e2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QuestOutcome</type>
+      <name>outcome</name>
+      <anchorfile>structcore_1_1QuestEvent.html</anchorfile>
+      <anchor>a5f0242c2e3813b307dc2f82d4ba95b06</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestFlag</name>
+    <filename>structcore_1_1QuestFlag.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1QuestFlag.html</anchorfile>
+      <anchor>a5885fac564fdbe5bcc88c31373cadff9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>values</name>
+      <anchorfile>structcore_1_1QuestFlag.html</anchorfile>
+      <anchor>a352e1a9f774cdd680d327763c92f9ca0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>initial</name>
+      <anchorfile>structcore_1_1QuestFlag.html</anchorfile>
+      <anchor>a635065ac3342b945e0bac03f4eac7b13</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::QuestJournalModel</name>
+    <filename>classhmi_1_1QuestJournalModel.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>changed</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a6ef3ff61b1c401eae4d7c19f5a9d78e3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>QuestJournalModel</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>adc4fc2454528602282e011dde8c69d26</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractItemModel *</type>
+      <name>quests</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a89498070f88de33880b4d0b7867e754b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractItemModel *</type>
+      <name>objectives</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a2b35f6b1ba715f8fba90c11fc52793c2</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>detail</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a821b6570ab7f9439aaebc826fb872d20</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>selected</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>aa9d447c35e752f042c209aedb2373969</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>select</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a23871fe0a8968c113979c00f698cce73</anchor>
+      <arglist>(const QString &amp;questId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>selectNeighbour</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>af8da88ff3c855deb4df99dfb698401a3</anchor>
+      <arglist>(int step)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>refresh</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a145a9e6408b9282bc4b59b96cf4493c6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="property">
+      <type>QML_ELEMENTQAbstractItemModel *</type>
+      <name>quests</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>aafdd5a11ea98b724a480be8ef6a0d5c8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>detail</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a0228495f442a56c77ec1df8ecf7eace5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QAbstractItemModel *</type>
+      <name>objectives</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>ab0209c131c9dbbf0f353dd36878a24b4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>selected</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>ab8dfc79704271716085d1884942ee9c7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QuestJournalValues</type>
+      <name>_values</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a985b5a0de531c4841fcc3c4bba5880ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>SheetRowModel</type>
+      <name>_quests</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a6066eda23aa877efbbd36c20dee17afe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>SheetRowModel</type>
+      <name>_objectives</name>
+      <anchorfile>classhmi_1_1QuestJournalModel.html</anchorfile>
+      <anchor>a98c95258074fd4128d64e795ef688b2c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::QuestJournalRow</name>
+    <filename>structhmi_1_1QuestJournalRow.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1QuestJournalRow.html</anchorfile>
+      <anchor>ad643b905e8b2d1a64d02a12bc335977a</anchor>
+      <arglist>(const QuestJournalRow &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structhmi_1_1QuestJournalRow.html</anchorfile>
+      <anchor>a722e9c3dd209f5cdd4863d4a30d5a0cd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>label</name>
+      <anchorfile>structhmi_1_1QuestJournalRow.html</anchorfile>
+      <anchor>ae6aae0c6304e672d88daa67ef67fe7bd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>value</name>
+      <anchorfile>structhmi_1_1QuestJournalRow.html</anchorfile>
+      <anchor>a29ad3b74e7c8feeac8bec3ba7b5be21b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::QuestJournalValues</name>
+    <filename>structhmi_1_1QuestJournalValues.html</filename>
+    <member kind="variable">
+      <type>std::vector&lt; QuestJournalRow &gt;</type>
+      <name>quests</name>
+      <anchorfile>structhmi_1_1QuestJournalValues.html</anchorfile>
+      <anchor>a640eddc22a2f26f768de5a0309c7d900</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>selected</name>
+      <anchorfile>structhmi_1_1QuestJournalValues.html</anchorfile>
+      <anchor>a66f93677d3d5bb85ff9d1d8a65fd313d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>detail</name>
+      <anchorfile>structhmi_1_1QuestJournalValues.html</anchorfile>
+      <anchor>afe501522de5b6a924cc288d7d3c535ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; QuestJournalRow &gt;</type>
+      <name>objectives</name>
+      <anchorfile>structhmi_1_1QuestJournalValues.html</anchorfile>
+      <anchor>a48623e09e0047915b3cd1dc157bc1565</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestLoad</name>
+    <filename>structcore_1_1QuestLoad.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; Quest &gt;</type>
+      <name>quest</name>
+      <anchorfile>structcore_1_1QuestLoad.html</anchorfile>
+      <anchor>a5cf80d4df30d461f06e46d041f17ce2a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structcore_1_1QuestLoad.html</anchorfile>
+      <anchor>aefb8eb50b6c2906bd08d8b9fac4a9ba5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestProgress</name>
+    <filename>structcore_1_1QuestProgress.html</filename>
+    <member kind="variable">
+      <type>QuestStatus</type>
+      <name>status</name>
+      <anchorfile>structcore_1_1QuestProgress.html</anchorfile>
+      <anchor>a6018f14a3e85276a50c88825221441d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>reachedSteps</name>
+      <anchorfile>structcore_1_1QuestProgress.html</anchorfile>
+      <anchor>a0e35013a68e4c09b0c765c89f355fd14</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::QuestStep</name>
+    <filename>structcore_1_1QuestStep.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1QuestStep.html</anchorfile>
+      <anchor>af284790b920f654276ecb4ff753ccff2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; FlagCondition &gt;</type>
+      <name>when</name>
+      <anchorfile>structcore_1_1QuestStep.html</anchorfile>
+      <anchor>ab9c42c5ea29124e81e37647dfe6bb61a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; QuestEffect &gt;</type>
+      <name>effects</name>
+      <anchorfile>structcore_1_1QuestStep.html</anchorfile>
+      <anchor>ac352665a2f6652663c025271114fa9d0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QuestOutcome</type>
+      <name>outcome</name>
+      <anchorfile>structcore_1_1QuestStep.html</anchorfile>
+      <anchor>aeb2248df7a7db75a7cbf16a8c143de89</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -40711,6 +41547,7 @@
   <compound kind="class">
     <name>core::WorldFlags</name>
     <filename>classcore_1_1WorldFlags.html</filename>
+    <class kind="struct">core::WorldFlags::Declaration</class>
     <member kind="function">
       <type>bool</type>
       <name>isSet</name>
@@ -40733,6 +41570,34 @@
       <arglist>(std::string_view key)</arglist>
     </member>
     <member kind="function">
+      <type>bool</type>
+      <name>declare</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>a62ef8110eeb029b77bf7115bdacd38dd</anchor>
+      <arglist>(std::string_view key, std::vector&lt; std::string &gt; values, std::string_view initial)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; std::string &gt; *</type>
+      <name>declaredValues</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>a0ac0d9d875997794ed47dac010bb176d</anchor>
+      <arglist>(std::string_view key) const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>setValue</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>a01d2b4b40b963acf540d029c3bd786ce</anchor>
+      <arglist>(std::string_view key, std::string_view value)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>value</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>a04c9fb35647f10ac89cb463b11181993</anchor>
+      <arglist>(std::string_view key) const</arglist>
+    </member>
+    <member kind="function">
       <type>std::size_t</type>
       <name>size</name>
       <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
@@ -40746,11 +41611,39 @@
       <anchor>ab68d81336da31a6bb3626bb5a44f81ff</anchor>
       <arglist>() const</arglist>
     </member>
-    <member kind="variable" protection="private">
-      <type>std::set&lt; std::string, std::less&lt;&gt; &gt;</type>
-      <name>_flags</name>
+    <member kind="function">
+      <type>std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt;</type>
+      <name>entries</name>
       <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
-      <anchor>a03864513569d880c1d795f3d35bb33d3</anchor>
+      <anchor>a41c08fb5e06519d9dcf61b81868f428f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::uint64_t</type>
+      <name>revision</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>ada3af1270ee61d22889203ed8def3df5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>_values</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>a2524c2ca8b67f866631463f75cca1de9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, Declaration, std::less&lt;&gt; &gt;</type>
+      <name>_declared</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>a3797e8a077be4135863da9d417985327</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint64_t</type>
+      <name>_revision</name>
+      <anchorfile>classcore_1_1WorldFlags.html</anchorfile>
+      <anchor>ac7a76457650768293a3527dcacf9b03a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41512,6 +42405,13 @@
       <anchor>aa3ef96cd7fd6a36d234a4e633abce224</anchor>
       <arglist>(const QString &amp;mapId)</arglist>
     </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>questAdvanced</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ab475b1b1da2ebf4bb6169abcdc93795f</anchor>
+      <arglist>(const QString &amp;quest, const QString &amp;step)</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>WorldModel</name>
@@ -41709,11 +42609,32 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>core::WorldFlags &amp;</type>
+      <name>flags</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a14e589a9a79f090cd11e12278c24e761</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::QuestCatalog &amp;</type>
+      <name>quests</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ac4ed9f1827eeb9ba0daffc12c13e08b6</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>quint64</type>
       <name>sceneRevision</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a0a7036499a425b2fef0b03d14335ad8d</anchor>
       <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static WorldModel *</type>
+      <name>current</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a215e71e24d063d6198776c55e240d5e9</anchor>
+      <arglist>() noexcept</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr const char *</type>
@@ -41832,6 +42753,13 @@
       <name>placeHeroAtStartCell</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a4bcec9f85851d4fae27e2ca6d0cbcf28</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>installQuests</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>af41780c1c561d5a49d25358501b58ff9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
@@ -42067,6 +42995,13 @@
       <name>_walking</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>a2ff668f3c939a7bed7948b1345889295</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint64_t</type>
+      <name>_drawnFlags</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a995f23231d4f03abc7ccc15cd85874b4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -43052,10 +43987,21 @@
     <class kind="class">core::ISystem</class>
     <class kind="class">core::View</class>
     <class kind="class">core::World</class>
+    <class kind="struct">core::FlagCondition</class>
+    <class kind="struct">core::FlagConditionRead</class>
     <class kind="struct">core::InteractionCandidate</class>
     <class kind="struct">core::InteractionTarget</class>
     <class kind="struct">core::InteractionOutcome</class>
     <class kind="struct">core::InteractableKind</class>
+    <class kind="struct">core::QuestFlag</class>
+    <class kind="struct">core::QuestEffect</class>
+    <class kind="struct">core::QuestStep</class>
+    <class kind="struct">core::Quest</class>
+    <class kind="struct">core::QuestLoad</class>
+    <class kind="struct">core::QuestCatalog</class>
+    <class kind="struct">core::QuestEvent</class>
+    <class kind="struct">core::QuestProgress</class>
+    <class kind="struct">core::FlagRead</class>
     <class kind="class">core::WorldFlags</class>
     <class kind="struct">core::CollisionDerivation</class>
     <class kind="struct">core::GridPosition</class>
@@ -43107,7 +44053,6 @@
     <class kind="struct">core::CheckResult</class>
     <class kind="struct">core::DifficultyTier</class>
     <class kind="struct">core::DifficultyScale</class>
-    <class kind="struct">core::FlagCondition</class>
     <class kind="struct">core::DialogueChoice</class>
     <class kind="struct">core::DialogueAction</class>
     <class kind="struct">core::DialogueNode</class>
@@ -43154,6 +44099,7 @@
     <class kind="struct">core::EntityKind</class>
     <class kind="struct">core::EntityReferenceContext</class>
     <class kind="struct">core::EntityIssue</class>
+    <class kind="struct">core::PresenceRead</class>
     <class kind="class">core::ExplorationReach</class>
     <class kind="struct">core::CellPoint</class>
     <class kind="struct">core::ExplorationIntent</class>
@@ -43512,6 +44458,38 @@
       <arglist></arglist>
       <enumvalue file="namespacecore.html" anchor="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745">Loop</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481">OneShot</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>FlagTest</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ae199fc30f29974fef45295646f9c280e</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43">IsSet</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12">IsUnset</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae199fc30f29974fef45295646f9c280ea0ccb67e7eaae09d9e4078d161eeca100">Equals</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae199fc30f29974fef45295646f9c280ea34b5af77cc5bf3a5f2a999f11f578255">NotEquals</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>QuestOutcome</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>af64ba20e2728c8383cde689f8e1308f2</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="af64ba20e2728c8383cde689f8e1308f2a6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="af64ba20e2728c8383cde689f8e1308f2a505a83f220c02df2f85c3810cd9ceb38">Success</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086">Failure</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>QuestStatus</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1c252a20a9f591109e789a58746652b1</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a1c252a20a9f591109e789a58746652b1afa7be7845bc42b3491d9d0377958be94">NotStarted</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a1c252a20a9f591109e789a58746652b1a4d3d769b812b6faa6b76e1a8abaece2d">Active</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a1c252a20a9f591109e789a58746652b1a66d02c2f8a582446f8dd8752366002b5">Succeeded</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a1c252a20a9f591109e789a58746652b1ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -43906,6 +44884,19 @@
       <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4">UnknownLocation</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af">UnknownItem</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f">UnknownEntityRef</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644">InvalidPresence</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>PresenceIssue</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ae537d1e1e860c43127bcc7831ecc4fdc</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="ae537d1e1e860c43127bcc7831ecc4fdca6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae537d1e1e860c43127bcc7831ecc4fdcab7af0ce30d52dc67ec4d090184b78e3a">WrongValueType</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae537d1e1e860c43127bcc7831ecc4fdcaa6ce9bbecf44bea29f2d42f0dd314ac2">UnknownTest</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae537d1e1e860c43127bcc7831ecc4fdca1e5e4b43c87e3153f897a9734fbf5b35">MissingValue</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ae537d1e1e860c43127bcc7831ecc4fdca9776955fc5f3a978411328ffd117fd33">MissingFlag</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -43919,6 +44910,7 @@
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55a359928afdf6c973ee869e1698023a812">Dialogue</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55ad1e9f9f891de8f9a655739a01fbf68f0">Encounter</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55a2ef4b5d905788c7ba3d262d1fbcf8a82">Interacted</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a90b12b036a2622c3cea570a4b860ec55a13b187ba2f0b2a8d7592af104cab4f48">QuestAdvanced</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -44460,6 +45452,13 @@
       <arglist>(std::string_view text, std::size_t byteOffset)</arglist>
     </member>
     <member kind="function">
+      <type>TextPosition</type>
+      <name>positionOfPointer</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a8bf957f85230307ddf0ce1c07d9ebaa1</anchor>
+      <arglist>(std::string_view text, const nlohmann::json::json_pointer &amp;pointer)</arglist>
+    </member>
+    <member kind="function">
       <type>JsonDocument</type>
       <name>readJsonObject</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -44530,6 +45529,34 @@
       <arglist>(std::string_view text)</arglist>
     </member>
     <member kind="function">
+      <type>std::string</type>
+      <name>describeFlagCondition</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1fe7c8d4dbc2fe8759a922819280749a</anchor>
+      <arglist>(const FlagCondition &amp;condition)</arglist>
+    </member>
+    <member kind="function">
+      <type>FlagConditionRead</type>
+      <name>readFlagCondition</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a773d9de32f230befeab6465e4e3b4917</anchor>
+      <arglist>(const Json &amp;object)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>splitFlagValues</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a59e9846af749656610281d2f82bc6fbe</anchor>
+      <arglist>(std::string_view text)</arglist>
+    </member>
+    <member kind="function">
+      <type>FlagConditionRead</type>
+      <name>readFlagCondition</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a6e17fe4590d3f7f8beb22b016576512a</anchor>
+      <arglist>(const nlohmann::json &amp;object)</arglist>
+    </member>
+    <member kind="function">
       <type>GridPosition</type>
       <name>aimedCell</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -44563,6 +45590,97 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>adb2706947c6f0111c0cdd008fde5779e</anchor>
       <arglist>(World &amp;world, const Level &amp;level, std::string_view mapName, const std::function&lt; void(Entity, const MapEntity &amp;)&gt; &amp;onEntity={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>questStepFlag</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ab9156c67818b8a348e4deacfba98a72e</anchor>
+      <arglist>(std::string_view questId, std::string_view stepId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>questTitleKey</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a5d7f2790b523d35912bf71153755498b</anchor>
+      <arglist>(std::string_view questId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>questStepKey</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a7c47dbe53facb2a4e146fa74e3f4bd3d</anchor>
+      <arglist>(std::string_view questId, std::string_view stepId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>questTextKeys</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3ebf2c787cfe94cf56cba364093f05c5</anchor>
+      <arglist>(const Quest &amp;quest)</arglist>
+    </member>
+    <member kind="function">
+      <type>QuestLoad</type>
+      <name>readQuest</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a11a13d88d62b9ed0ba9c505a4a507bf3</anchor>
+      <arglist>(std::string_view json, std::string_view origin)</arglist>
+    </member>
+    <member kind="function">
+      <type>QuestLoad</type>
+      <name>loadQuest</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>afa41f919bb154ba5431520e47b8674da</anchor>
+      <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
+      <type>QuestCatalog</type>
+      <name>loadQuests</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a75c14c8a302648b21c37c8424273dbeb</anchor>
+      <arglist>(const std::filesystem::path &amp;directory)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>declareQuestFlags</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a116ff967f1d1006befab83aefbb3eb09</anchor>
+      <arglist>(const QuestCatalog &amp;catalog, WorldFlags &amp;flags)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; QuestEvent &gt;</type>
+      <name>advanceQuests</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0bafb94d6d35e285407e7882345a8b60</anchor>
+      <arglist>(const QuestCatalog &amp;catalog, WorldFlags &amp;flags)</arglist>
+    </member>
+    <member kind="function">
+      <type>QuestProgress</type>
+      <name>questProgress</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a65fd043ff3badf928d4bd699b4bf72bd</anchor>
+      <arglist>(const Quest &amp;quest, const WorldFlags &amp;flags)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>validateFlagUses</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a66b4d783d58fedf1af25e7719b872833</anchor>
+      <arglist>(const QuestCatalog &amp;quests, const DialogueCatalog &amp;dialogues)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::set&lt; std::string, std::less&lt;&gt; &gt;</type>
+      <name>flagsWrittenBy</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac7eac2311479898ad88bfcc335029b0d</anchor>
+      <arglist>(const QuestCatalog &amp;quests, const DialogueCatalog &amp;dialogues)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; FlagRead &gt;</type>
+      <name>flagsReadBy</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ad0b7ce7304ceb3f9a7afaa07a76d78be</anchor>
+      <arglist>(const QuestCatalog &amp;quests, const DialogueCatalog &amp;dialogues)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -45489,6 +46607,27 @@
       <arglist>(const std::vector&lt; MapEntity &gt; &amp;entities, const EntityReferenceContext &amp;context)</arglist>
     </member>
     <member kind="function">
+      <type>PresenceRead</type>
+      <name>presenceConditionOf</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a889dd6a6cf159d83b002decef64f112b</anchor>
+      <arglist>(const MapEntity &amp;entity)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isEntityPresent</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aba21a4dfa3200162f5b83c366719c6c9</anchor>
+      <arglist>(const MapEntity &amp;entity, const WorldFlags &amp;flags)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; const MapEntity * &gt;</type>
+      <name>presentEntities</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a861bea53243fcc677d3332c0ca25777d</anchor>
+      <arglist>(const std::vector&lt; MapEntity &gt; &amp;entities, const WorldFlags &amp;flags)</arglist>
+    </member>
+    <member kind="function">
       <type>GridPosition</type>
       <name>cellOf</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -46083,6 +47222,27 @@
       <anchor>ac541942d62f7957cde3f8c36f9f02353</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>PRESENCE_FLAG_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0719f88f34852797241ae1aefe08ce8f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>PRESENCE_TEST_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a80df2d7fa204502a5140df138760b6d2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>PRESENCE_VALUE_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a15e781af46f3ae8ec71feb9974b9f139</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function">
       <type>std::string</type>
       <name>damageTypeName</name>
@@ -46265,6 +47425,7 @@
     <class kind="class">hmi::SceneImages</class>
     <class kind="class">hmi::WorldGraphView</class>
     <class kind="class">hmi::AudioEngine</class>
+    <class kind="struct">hmi::GameQuests</class>
     <class kind="struct">hmi::GameLaunchOptions</class>
     <class kind="struct">hmi::WorldPlayStep</class>
     <class kind="class">hmi::WorldPlay</class>
@@ -46344,6 +47505,8 @@
     <class kind="struct">hmi::InventoryCell</class>
     <class kind="struct">hmi::ItemSheet</class>
     <class kind="struct">hmi::InventoryContext</class>
+    <class kind="struct">hmi::QuestJournalRow</class>
+    <class kind="struct">hmi::QuestJournalValues</class>
     <class kind="struct">hmi::RpgField</class>
     <class kind="struct">hmi::RpgContentBlock</class>
     <class kind="struct">hmi::RpgScreenLayout</class>
@@ -46377,6 +47540,7 @@
     <class kind="class">hmi::InventoryModel</class>
     <class kind="class">hmi::OptionsModel</class>
     <class kind="class">hmi::PendingData</class>
+    <class kind="class">hmi::QuestJournalModel</class>
     <class kind="class">hmi::ScreenRouter</class>
     <class kind="struct">hmi::SheetRow</class>
     <class kind="class">hmi::SheetRowModel</class>
@@ -47131,6 +48295,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a57bbb524f453684c3c946474ef6a3ea9</anchor>
       <arglist>(std::string_view mapId, const core::Level &amp;level, const ContentContext &amp;context)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; MapCheckFinding &gt;</type>
+      <name>checkStoryContent</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a5068cc7bc28c45d441eaa537cc474340</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
     </member>
     <member kind="function">
       <type>std::filesystem::path</type>
@@ -48183,6 +49354,13 @@
       <arglist>(const ComposedScene &amp;scene, const Camera2D &amp;camera, int width, int height, const QColor &amp;clear)</arglist>
     </member>
     <member kind="function">
+      <type>GameQuests</type>
+      <name>loadGameQuests</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a9733b7c554d33e66e0e632ff456fac20</anchor>
+      <arglist>(const std::filesystem::path &amp;root)</arglist>
+    </member>
+    <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
       <name>gameLaunchArguments</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -48958,6 +50136,27 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a4810fe71383c48ab7f7c445521b954d4</anchor>
       <arglist>(const InventoryContext &amp;context)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>questStatusKey</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ad050e2a23bf56279db085999bfc041a9</anchor>
+      <arglist>(core::QuestStatus status)</arglist>
+    </member>
+    <member kind="function">
+      <type>QuestJournalValues</type>
+      <name>questJournalValues</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a22dedb07b5de8ae58c89efa464da82fa</anchor>
+      <arglist>(const core::QuestCatalog &amp;catalog, const core::WorldFlags &amp;flags, std::string_view selected, const TextLookup &amp;text)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>neighbourQuest</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a123496b2fd0a65126349e4bcd8467daf</anchor>
+      <arglist>(const QuestJournalValues &amp;values, int step)</arglist>
     </member>
     <member kind="function">
       <type>std::span&lt; const RpgScreenDescriptor &gt;</type>
@@ -49978,6 +51177,8 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
     <filename>dir_e63fac7525d4addf9f5e759ec10d14ef.html</filename>
+    <file>GameQuests.cpp</file>
+    <file>GameQuests.h</file>
     <file>LaunchOptions.cpp</file>
     <file>LaunchOptions.h</file>
     <file>WorldPlay.cpp</file>
@@ -49993,10 +51194,14 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/</path>
     <filename>dir_adeee896fff163070c16c17abb9970bc.html</filename>
+    <file>FlagCondition.cpp</file>
+    <file>FlagCondition.h</file>
     <file>Interaction.cpp</file>
     <file>Interaction.h</file>
     <file>MapEntitySpawner.cpp</file>
     <file>MapEntitySpawner.h</file>
+    <file>Quest.cpp</file>
+    <file>Quest.h</file>
     <file>WorldFlags.cpp</file>
     <file>WorldFlags.h</file>
   </compound>
@@ -50005,6 +51210,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Gameplay/</path>
     <filename>dir_2bd8e2238356ff27fd9028d4cb092e2a.html</filename>
     <file>test_interaction.cpp</file>
+    <file>test_quest.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics</name>
@@ -50161,6 +51367,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
     <filename>dir_470d866d2aee15f42c1af4c2491482fa.html</filename>
     <file>test_exploration_carte.cpp</file>
+    <file>test_quete_trois_etapes.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Interface</name>
@@ -50353,6 +51560,8 @@
     <file>InventoryScreen.h</file>
     <file>InventoryValues.cpp</file>
     <file>InventoryValues.h</file>
+    <file>QuestJournalScreen.cpp</file>
+    <file>QuestJournalScreen.h</file>
     <file>RpgScreens.cpp</file>
     <file>RpgScreens.h</file>
     <file>ScreenFlow.cpp</file>
@@ -50366,6 +51575,7 @@
     <filename>dir_5a9ea702c5a773bcbf823ea0b93dccd3.html</filename>
     <file>test_credits_catalog.cpp</file>
     <file>test_inventory_screen.cpp</file>
+    <file>test_quest_journal_screen.cpp</file>
     <file>test_world_maps.cpp</file>
   </compound>
   <compound kind="dir">
@@ -50473,6 +51683,8 @@
     <file>OptionsModel.h</file>
     <file>PendingData.cpp</file>
     <file>PendingData.h</file>
+    <file>QuestJournalModel.cpp</file>
+    <file>QuestJournalModel.h</file>
     <file>RuleLabels.cpp</file>
     <file>RuleLabels.h</file>
     <file>ScreenRouter.cpp</file>
@@ -50605,6 +51817,8 @@
     <file>CombatZone.h</file>
     <file>EntityKinds.cpp</file>
     <file>EntityKinds.h</file>
+    <file>EntityPresence.cpp</file>
+    <file>EntityPresence.h</file>
     <file>ExplorationReach.cpp</file>
     <file>ExplorationReach.h</file>
     <file>ExplorationSession.cpp</file>
@@ -50623,6 +51837,7 @@
     <file>test_city_plan.cpp</file>
     <file>test_combat_zone.cpp</file>
     <file>test_entity_kinds.cpp</file>
+    <file>test_entity_presence.cpp</file>
     <file>test_exploration_reach.cpp</file>
     <file>test_exploration_session.cpp</file>
     <file>test_world_graph.cpp</file>

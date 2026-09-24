@@ -22,6 +22,7 @@
 
 #include &lt;nlohmann/json.hpp&gt;
 
+#include "Core/Gameplay/Quest.h"
 #include "Core/Resources/ScenePlace.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/Rpg/Inventory.h"
@@ -76,23 +77,6 @@ namespace {
     return figures;
 }</span>
 
-// Les drapeaux que posent les dialogues : un portail qui en exige un autre ne s'ouvrirait jamais.
-<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; flagsSetBy(const core::DialogueCatalog&amp; catalog) {
-    std::set&lt;std::string, std::less&lt;&gt;&gt; flags;
-    for (const core::DialogueGraph&amp; graph : catalog.dialogues) {
-        for (const core::DialogueNode&amp; node : graph.nodes) {
-            for (const core::DialogueAction&amp; action : node.actions) {
-                if (action.kind == core::DialogueActionKind::SetFlag) {
-                    flags.insert(action.target);
-                } else if (action.kind == core::DialogueActionKind::StartQuest) {
-                    flags.insert(core::questStartedFlag(action.target));</span>
-                }
-<span style = "background-color:#dfd">            }
-        }
-    }
-    return {flags.begin(), flags.end()};
-}</span>
-
 // Les fiches d'un dossier de l'atlas, par le nom de leur fichier.
 <span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; fileStems(const std::filesystem::path&amp; directory) {
     std::vector&lt;std::string&gt; stems;
@@ -122,7 +106,14 @@ namespace {
             references.dialogues.push_back(graph.id);
         }
         std::ranges::sort(references.dialogues);
-        references.flags = flagsSetBy(loaded);
+    }</span>
+    // Les drapeaux que posent dialogues ET quetes (LOT-116) : un portail ou un PNJ qui en attend
+    // un autre ne s'ouvrirait ou ne paraitrait jamais.
+    {
+<span style = "background-color:#dfd">        const core::DialogueCatalog dialogues = core::loadDialogues(root / "World" / "dialogues");
+        const core::QuestCatalog quests = core::loadQuests(root / "World" / "quests");
+        const std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);
+        references.flags.assign(written.begin(), written.end());
     }
     if (const std::filesystem::path locations = root / "World" / "locations";
         isDirectory(locations)) {

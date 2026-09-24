@@ -148,22 +148,40 @@ $(function(){initNavTree('classcore_1_1WorldFlags.html','','classcore_1_1WorldFl
 
 <p><code>#include &lt;<a class="el" href="WorldFlags_8h_source.html">WorldFlags.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Declaration" id="r_Declaration"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1WorldFlags_1_1Declaration.html">Declaration</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0fd00022ca39e40658084862fd4d5d4a" id="r_a0fd00022ca39e40658084862fd4d5d4a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0fd00022ca39e40658084862fd4d5d4a">isSet</a> (std::string_view key) const</td></tr>
-<tr class="memdesc:a0fd00022ca39e40658084862fd4d5d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le fait est acquis.  <br /></td></tr>
+<tr class="memdesc:a0fd00022ca39e40658084862fd4d5d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le fait est acquis — ou, pour un drapeau à valeurs, s'il a reçu une valeur.  <br /></td></tr>
 <tr class="memitem:ae2ec8ea0bd594024949a120cbb2eba0e" id="r_ae2ec8ea0bd594024949a120cbb2eba0e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae2ec8ea0bd594024949a120cbb2eba0e">set</a> (std::string_view key)</td></tr>
-<tr class="memdesc:ae2ec8ea0bd594024949a120cbb2eba0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque le fait comme acquis. Renvoie <span class="tt">false</span> s'il l'était déjà.  <br /></td></tr>
+<tr class="memdesc:ae2ec8ea0bd594024949a120cbb2eba0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque le fait comme acquis.  <br /></td></tr>
 <tr class="memitem:a47a2402515448a7113fbfb9792a75556" id="r_a47a2402515448a7113fbfb9792a75556"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a47a2402515448a7113fbfb9792a75556">clear</a> (std::string_view key)</td></tr>
-<tr class="memdesc:a47a2402515448a7113fbfb9792a75556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface un fait. Utile à un <span class="tt">LOT-16</span> qui rouvrirait une quête, et aux tests.  <br /></td></tr>
+<tr class="memdesc:a47a2402515448a7113fbfb9792a75556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface un fait. Un drapeau à valeurs revient à sa valeur initiale.  <br /></td></tr>
+<tr class="memitem:a62ef8110eeb029b77bf7115bdacd38dd" id="r_a62ef8110eeb029b77bf7115bdacd38dd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a62ef8110eeb029b77bf7115bdacd38dd">declare</a> (std::string_view key, std::vector&lt; std::string &gt; values, std::string_view initial)</td></tr>
+<tr class="memdesc:a62ef8110eeb029b77bf7115bdacd38dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare un drapeau <b>à valeurs</b> (<span class="tt">LOT-116</span>) : ses valeurs permises et l'initiale.  <br /></td></tr>
+<tr class="memitem:a0ac0d9d875997794ed47dac010bb176d" id="r_a0ac0d9d875997794ed47dac010bb176d"><td class="memItemLeft">const std::vector&lt; std::string &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#a0ac0d9d875997794ed47dac010bb176d">declaredValues</a> (std::string_view key) const</td></tr>
+<tr class="memdesc:a0ac0d9d875997794ed47dac010bb176d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les valeurs permises d'un drapeau déclaré, ou <span class="tt">nullptr</span> pour un drapeau booléen.  <br /></td></tr>
+<tr class="memitem:a01d2b4b40b963acf540d029c3bd786ce" id="r_a01d2b4b40b963acf540d029c3bd786ce"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a01d2b4b40b963acf540d029c3bd786ce">setValue</a> (std::string_view key, std::string_view <a class="el" href="#a04c9fb35647f10ac89cb463b11181993">value</a>)</td></tr>
+<tr class="memdesc:a01d2b4b40b963acf540d029c3bd786ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne une valeur à un drapeau déclaré.  <br /></td></tr>
+<tr class="memitem:a04c9fb35647f10ac89cb463b11181993" id="r_a04c9fb35647f10ac89cb463b11181993"><td class="memItemLeft">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a04c9fb35647f10ac89cb463b11181993">value</a> (std::string_view key) const</td></tr>
+<tr class="memdesc:a04c9fb35647f10ac89cb463b11181993"><td class="mdescLeft">&#160;</td><td class="mdescRight">La valeur d'un drapeau déclaré (posée, sinon l'initiale), <span class="tt">""</span> pour un fait booléen acquis, <span class="tt">std::nullopt</span> pour un fait absent.  <br /></td></tr>
 <tr class="memitem:a53fc6f03a30b6be46d9d9b67f36e6937" id="r_a53fc6f03a30b6be46d9d9b67f36e6937"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a53fc6f03a30b6be46d9d9b67f36e6937">size</a> () const</td></tr>
 <tr class="memdesc:a53fc6f03a30b6be46d9d9b67f36e6937"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de faits acquis.  <br /></td></tr>
 <tr class="memitem:ab68d81336da31a6bb3626bb5a44f81ff" id="r_ab68d81336da31a6bb3626bb5a44f81ff"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab68d81336da31a6bb3626bb5a44f81ff">all</a> () const</td></tr>
 <tr class="memdesc:ab68d81336da31a6bb3626bb5a44f81ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tous les faits acquis, triés — c'est la forme que la sauvegarde écrira.  <br /></td></tr>
+<tr class="memitem:a41c08fb5e06519d9dcf61b81868f428f" id="r_a41c08fb5e06519d9dcf61b81868f428f"><td class="memItemLeft">std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41c08fb5e06519d9dcf61b81868f428f">entries</a> () const</td></tr>
+<tr class="memdesc:a41c08fb5e06519d9dcf61b81868f428f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tous les faits acquis et leur valeur (<span class="tt">""</span> pour un booléen), triés par clé.  <br /></td></tr>
+<tr class="memitem:ada3af1270ee61d22889203ed8def3df5" id="r_ada3af1270ee61d22889203ed8def3df5"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#ada3af1270ee61d22889203ed8def3df5">revision</a> () const noexcept</td></tr>
+<tr class="memdesc:ada3af1270ee61d22889203ed8def3df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un compteur qui avance à <b>chaque</b> changement (pose, effacement, nouvelle valeur).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a03864513569d880c1d795f3d35bb33d3" id="r_a03864513569d880c1d795f3d35bb33d3"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03864513569d880c1d795f3d35bb33d3">_flags</a></td></tr>
+<tr class="memitem:a2524c2ca8b67f866631463f75cca1de9" id="r_a2524c2ca8b67f866631463f75cca1de9"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2524c2ca8b67f866631463f75cca1de9">_values</a></td></tr>
+<tr class="memitem:a3797e8a077be4135863da9d417985327" id="r_a3797e8a077be4135863da9d417985327"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structcore_1_1WorldFlags_1_1Declaration.html">Declaration</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3797e8a077be4135863da9d417985327">_declared</a></td></tr>
+<tr class="memitem:ac7a76457650768293a3527dcacf9b03a" id="r_ac7a76457650768293a3527dcacf9b03a"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#ac7a76457650768293a3527dcacf9b03a">_revision</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'ensemble des faits <b>acquis</b> d'une partie : coffres ouverts, quêtes franchies, portes déverrouillées. </p>
@@ -213,7 +231,91 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Efface un fait. Utile à un <span class="tt">LOT-16</span> qui rouvrirait une quête, et aux tests. </p>
+<p>Efface un fait. Un drapeau à valeurs revient à sa valeur initiale. </p>
+
+</div>
+</div>
+<a id="a62ef8110eeb029b77bf7115bdacd38dd" name="a62ef8110eeb029b77bf7115bdacd38dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62ef8110eeb029b77bf7115bdacd38dd">&#9670;&#160;</a></span>declare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::WorldFlags::declare </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>values</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>initial</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déclare un drapeau <b>à valeurs</b> (<span class="tt">LOT-116</span>) : ses valeurs permises et l'initiale. </p>
+<p>C'est ce qui rend le drapeau <b>typé</b> : <span class="tt"><a class="el" href="#a01d2b4b40b963acf540d029c3bd786ce" title="Donne une valeur à un drapeau déclaré.">setValue</a></span> refuse ensuite une valeur hors de la liste, et <span class="tt"><a class="el" href="#a04c9fb35647f10ac89cb463b11181993" title="La valeur d&#39;un drapeau déclaré (posée, sinon l&#39;initiale), &quot;&quot; pour un fait booléen acquis,...">value</a></span> rend l'initiale tant que rien n'a été posé. Les quêtes déclarent leurs drapeaux au chargement ; un drapeau jamais déclaré reste un fait présent ou absent.</p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si <code class="param">values</code> est vide, si <code class="param">initial</code> n'y est pas, ou si le drapeau était déjà déclaré autrement. </dd></dl>
+
+</div>
+</div>
+<a id="a0ac0d9d875997794ed47dac010bb176d" name="a0ac0d9d875997794ed47dac010bb176d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ac0d9d875997794ed47dac010bb176d">&#9670;&#160;</a></span>declaredValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::string &gt; * core::WorldFlags::declaredValues </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les valeurs permises d'un drapeau déclaré, ou <span class="tt">nullptr</span> pour un drapeau booléen. </p>
+
+</div>
+</div>
+<a id="a41c08fb5e06519d9dcf61b81868f428f" name="a41c08fb5e06519d9dcf61b81868f428f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c08fb5e06519d9dcf61b81868f428f">&#9670;&#160;</a></span>entries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; std::string, std::string &gt; &gt; core::WorldFlags::entries </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tous les faits acquis et leur valeur (<span class="tt">""</span> pour un booléen), triés par clé. </p>
 
 </div>
 </div>
@@ -240,7 +342,35 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Vrai si le fait est acquis. </p>
+<p>Vrai si le fait est acquis — ou, pour un drapeau à valeurs, s'il a reçu une valeur. </p>
+
+</div>
+</div>
+<a id="ada3af1270ee61d22889203ed8def3df5" name="ada3af1270ee61d22889203ed8def3df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada3af1270ee61d22889203ed8def3df5">&#9670;&#160;</a></span>revision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t core::WorldFlags::revision </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un compteur qui avance à <b>chaque</b> changement (pose, effacement, nouvelle valeur). </p>
+<p>C'est ainsi que la carte apprend qu'un PNJ doit paraître ou disparaître <b>sans recharger</b> (<span class="tt">LOT-116</span>) : elle compare la révision à celle de sa dernière image, sans abonnement ni signal — le cœur n'en a pas, et une quête pose ses drapeaux depuis un dialogue qui ignore la carte. </p>
 
 </div>
 </div>
@@ -259,7 +389,32 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Marque le fait comme acquis. Renvoie <span class="tt">false</span> s'il l'était déjà. </p>
+<p>Marque le fait comme acquis. </p>
+<p>Renvoie <span class="tt">false</span> s'il l'était déjà, ou si <code class="param">key</code> est un drapeau <b>déclaré à valeurs</b> : il ne se pose qu'avec l'une d'elles (<span class="tt"><a class="el" href="#a01d2b4b40b963acf540d029c3bd786ce" title="Donne une valeur à un drapeau déclaré.">setValue</a></span>). </p>
+
+</div>
+</div>
+<a id="a01d2b4b40b963acf540d029c3bd786ce" name="a01d2b4b40b963acf540d029c3bd786ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01d2b4b40b963acf540d029c3bd786ce">&#9670;&#160;</a></span>setValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::WorldFlags::setValue </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne une valeur à un drapeau déclaré. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si le drapeau n'est pas déclaré, ou si <code class="param">value</code> n'est pas l'une de ses valeurs : <b>refusé</b>, et rien ne change. Une valeur fautive écrite par un dialogue est refusée au chargement ; ce refus-ci est le dernier rempart, pas le premier. </dd></dl>
 
 </div>
 </div>
@@ -290,9 +445,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a03864513569d880c1d795f3d35bb33d3" name="a03864513569d880c1d795f3d35bb33d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03864513569d880c1d795f3d35bb33d3">&#9670;&#160;</a></span>_flags</h2>
+<a id="a04c9fb35647f10ac89cb463b11181993" name="a04c9fb35647f10ac89cb463b11181993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04c9fb35647f10ac89cb463b11181993">&#9670;&#160;</a></span>value()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +455,79 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::set&lt;std::string, std::less&lt;&gt; &gt; core::WorldFlags::_flags</td>
+          <td class="memname">std::optional&lt; std::string &gt; core::WorldFlags::value </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La valeur d'un drapeau déclaré (posée, sinon l'initiale), <span class="tt">""</span> pour un fait booléen acquis, <span class="tt">std::nullopt</span> pour un fait absent. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a3797e8a077be4135863da9d417985327" name="a3797e8a077be4135863da9d417985327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3797e8a077be4135863da9d417985327">&#9670;&#160;</a></span>_declared</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="structcore_1_1WorldFlags_1_1Declaration.html">Declaration</a>, std::less&lt;&gt; &gt; core::WorldFlags::_declared</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7a76457650768293a3527dcacf9b03a" name="ac7a76457650768293a3527dcacf9b03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7a76457650768293a3527dcacf9b03a">&#9670;&#160;</a></span>_revision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t core::WorldFlags::_revision = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2524c2ca8b67f866631463f75cca1de9" name="a2524c2ca8b67f866631463f75cca1de9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2524c2ca8b67f866631463f75cca1de9">&#9670;&#160;</a></span>_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::string, std::less&lt;&gt; &gt; core::WorldFlags::_values</td>
         </tr>
       </table>
   </td>

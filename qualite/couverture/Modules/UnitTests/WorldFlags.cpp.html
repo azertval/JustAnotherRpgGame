@@ -14,28 +14,96 @@
 
 #include "Core/Gameplay/WorldFlags.h"
 
+#include &lt;algorithm&gt;
+
 namespace core {
 
 <span style = "background-color:#dfd">bool WorldFlags::isSet(std::string_view key) const {
-    return _flags.find(key) != _flags.end();
+    return _values.find(key) != _values.end();
 }</span>
 
 <span style = "background-color:#dfd">bool WorldFlags::set(std::string_view key) {</span>
-    // `insert().second` dit si le fait etait NEUF. C'est cette valeur qui repond a &lt;&lt; le coffre
-    // a-t-il deja ete ouvert ? &gt;&gt;, et la rendre evite au gameplay de faire un `isSet` puis un
-    // `set` -- deux appels entre lesquels un autre pourrait se glisser.
-<span style = "background-color:#dfd">    return _flags.emplace(key).second;
+    // Le retour dit si le fait etait NEUF. C'est cette valeur qui repond a &lt;&lt; le coffre a-t-il deja
+    // ete ouvert ? &gt;&gt;, et la rendre evite au gameplay de faire un `isSet` puis un `set` -- deux
+    // appels entre lesquels un autre pourrait se glisser.
+<span style = "background-color:#dfd">    if (_declared.find(key) != _declared.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const bool neuf = _values.emplace(std::string(key), std::string()).second;
+    if (neuf) {
+        ++_revision;</span>
+    }
+<span style = "background-color:#dfd">    return neuf;
 }</span>
 
 <span style = "background-color:#dfd">void WorldFlags::clear(std::string_view key) {
-    const auto trouve = _flags.find(key);
-    if (trouve != _flags.end()) {
-        _flags.erase(trouve);</span>
+    const auto trouve = _values.find(key);
+    if (trouve != _values.end()) {
+        _values.erase(trouve);
+        ++_revision;</span>
     }
 <span style = "background-color:#dfd">}</span>
 
+bool WorldFlags::declare(std::string_view key, std::vector&lt;std::string&gt; values,
+<span style = "background-color:#dfd">                         std::string_view initial) {
+    if (values.empty() || std::find(values.begin(), values.end(), initial) == values.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto deja = _declared.find(key); deja != _declared.end()) {</span>
+<span style = "background-color:#fdd">        return deja-&gt;second.values == values &amp;&amp; deja-&gt;second.initial == initial;</span>
+<span style = "background-color:#dfd">    }
+    _declared.emplace(std::string(key), Declaration{std::move(values), std::string(initial)});
+    ++_revision;
+    return true;
+}</span>
+
+<span style = "background-color:#fdd">const std::vector&lt;std::string&gt;* WorldFlags::declaredValues(std::string_view key) const {
+    const auto trouve = _declared.find(key);
+    return trouve == _declared.end() ? nullptr : &amp;trouve-&gt;second.values;
+}</span>
+
+<span style = "background-color:#dfd">bool WorldFlags::setValue(std::string_view key, std::string_view value) {
+    const auto declaration = _declared.find(key);
+    if (declaration == _declared.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::vector&lt;std::string&gt;&amp; permises = declaration-&gt;second.values;
+    if (std::find(permises.begin(), permises.end(), value) == permises.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto trouve = _values.find(key);
+    if (trouve == _values.end()) {
+        _values.emplace(std::string(key), std::string(value));
+    } else if (trouve-&gt;second != value) {
+        trouve-&gt;second = value;
+    } else {</span>
+<span style = "background-color:#fdd">        return true;</span>
+    }
+<span style = "background-color:#dfd">    ++_revision;
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;std::string&gt; WorldFlags::value(std::string_view key) const {
+    if (const auto trouve = _values.find(key); trouve != _values.end()) {
+        return trouve-&gt;second;
+    }
+    if (const auto declaration = _declared.find(key); declaration != _declared.end()) {
+        return declaration-&gt;second.initial;</span>
+<span style = "background-color:#fdd">    }
+    return std::nullopt;</span>
+<span style = "background-color:#dfd">}</span>
+
 <span style = "background-color:#dfd">std::vector&lt;std::string&gt; WorldFlags::all() const {
-    return {_flags.begin(), _flags.end()};
+    std::vector&lt;std::string&gt; cles;
+    cles.reserve(_values.size());
+    for (const auto&amp; [cle, valeur] : _values) {
+        cles.push_back(cle);
+    }
+    return cles;
+}</span>
+
+<span style = "background-color:#fdd">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; WorldFlags::entries() const {
+    return {_values.begin(), _values.end()};
 }</span>
 
 std::string keyForEntity(std::string_view mapName, std::string_view entityType, int column,

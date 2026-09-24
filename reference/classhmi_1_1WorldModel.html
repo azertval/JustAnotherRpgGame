@@ -170,6 +170,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a5c6c78ce272ddc584a28ed01bb2fff18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail exige un drapeau que la partie n'a pas (<span class="tt">flag</span>).  <br /></td></tr>
 <tr class="memitem:aa3ef96cd7fd6a36d234a4e633abce224" id="r_aa3ef96cd7fd6a36d234a4e633abce224"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa3ef96cd7fd6a36d234a4e633abce224">portalBroken</a> (const QString &amp;<a class="el" href="#ab5652e80c0a82a34c055391a09bf9383">mapId</a>)</td></tr>
 <tr class="memdesc:aa3ef96cd7fd6a36d234a4e633abce224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail ne mène nulle part : la carte ou le point d'arrivée manque.  <br /></td></tr>
+<tr class="memitem:ab475b1b1da2ebf4bb6169abcdc93795f" id="r_ab475b1b1da2ebf4bb6169abcdc93795f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab475b1b1da2ebf4bb6169abcdc93795f">questAdvanced</a> (const QString &amp;quest, const QString &amp;<a class="el" href="#a3abef1c2c71454c345db59ef5dd3c892">step</a>)</td></tr>
+<tr class="memdesc:ab475b1b1da2ebf4bb6169abcdc93795f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête a atteint une étape (<span class="tt">quest</span>) : le journal se relit.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -185,8 +187,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9759d84f0662c6fb79b308769f496c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose les cartes du brouillon <b>devant</b> celles du binaire — l'essai complet de l'éditeur (<span class="tt">--levels=</span>, <span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
 <tr class="memitem:aa8471ce16a773ad1d77e3fa3873e0089" id="r_aa8471ce16a773ad1d77e3fa3873e0089"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa8471ce16a773ad1d77e3fa3873e0089">setStartCell</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
 <tr class="memdesc:aa8471ce16a773ad1d77e3fa3873e0089"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case où « Nouvelle partie » pose le héros, à la place de l'entrée de la carte (<span class="tt">--at=</span>, <span class="tt">LOT-EDITOR-10</span>) : l'endroit de la carte qu'on veut voir, tout de suite.  <br /></td></tr>
-<tr class="memitem:aa6c9dd581496acd75d2c0ecb94b5aa44" id="r_aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c9dd581496acd75d2c0ecb94b5aa44">setStartFlags</a> (const QStringList &amp;flags)</td></tr>
-<tr class="memdesc:aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de monde acquis avant le premier pas (<span class="tt">--flags=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer.  <br /></td></tr>
+<tr class="memitem:aa6c9dd581496acd75d2c0ecb94b5aa44" id="r_aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c9dd581496acd75d2c0ecb94b5aa44">setStartFlags</a> (const QStringList &amp;<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>)</td></tr>
+<tr class="memdesc:aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de monde acquis avant le premier pas (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer.  <br /></td></tr>
 <tr class="memitem:ab0f15d4cca95ae49757560bf0b30b3d7" id="r_ab0f15d4cca95ae49757560bf0b30b3d7"><td class="memItemLeft">Q_INVOKABLE QString&#160;</td><td class="memItemRight"><a class="el" href="#ab0f15d4cca95ae49757560bf0b30b3d7">mapOfDistrict</a> (const QString &amp;<a class="el" href="#a7aff4f8e9deb81cb1dd60d9747307a08">districtId</a>) const</td></tr>
 <tr class="memitem:a5c5d079b8d494c9ce9eb02cb7bb0e94d" id="r_a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5c5d079b8d494c9ce9eb02cb7bb0e94d">setMove</a> (qreal x, qreal y)</td></tr>
 <tr class="memdesc:a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La direction que le joueur demande, de longueur au plus 1.  <br /></td></tr>
@@ -209,7 +211,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e2ed6a1599df88493a0f92ff495cc5d" id="r_a9e2ed6a1599df88493a0f92ff495cc5d"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a9e2ed6a1599df88493a0f92ff495cc5d">visitedDistricts</a> () const</td></tr>
 <tr class="memitem:accf15fd100d418948ceff091692180f0" id="r_accf15fd100d418948ceff091692180f0"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#accf15fd100d418948ceff091692180f0">snapshot</a> () const</td></tr>
 <tr class="memitem:a8ace752c0cf112e49b79142b3c85290b" id="r_a8ace752c0cf112e49b79142b3c85290b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8ace752c0cf112e49b79142b3c85290b">diamondRatio</a> () const</td></tr>
+<tr class="memitem:a14e589a9a79f090cd11e12278c24e761" id="r_a14e589a9a79f090cd11e12278c24e761"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a> () noexcept</td></tr>
+<tr class="memitem:ac4ed9f1827eeb9ba0daffc12c13e08b6" id="r_ac4ed9f1827eeb9ba0daffc12c13e08b6"><td class="memItemLeft">const <a class="el" href="structcore_1_1QuestCatalog.html">core::QuestCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac4ed9f1827eeb9ba0daffc12c13e08b6">quests</a> () const noexcept</td></tr>
 <tr class="memitem:a0a7036499a425b2fef0b03d14335ad8d" id="r_a0a7036499a425b2fef0b03d14335ad8d"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#a0a7036499a425b2fef0b03d14335ad8d">sceneRevision</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a215e71e24d063d6198776c55e240d5e9" id="r_a215e71e24d063d6198776c55e240d5e9"><td class="memItemLeft">static <a class="el" href="#ad26c761aa266d35a60f559668b593baa">WorldModel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a215e71e24d063d6198776c55e240d5e9">current</a> () noexcept</td></tr>
+<tr class="memdesc:a215e71e24d063d6198776c55e240d5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La partie en cours, s'il y en a une : ce que le dialogue et le journal lisent et écrivent (<span class="tt">LOT-116</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -250,6 +259,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a3abef1c2c71454c345db59ef5dd3c892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pas fixe : avance la session, joue ses événements, publie ce qui a changé.  <br /></td></tr>
 <tr class="memitem:a4bcec9f85851d4fae27e2ca6d0cbcf28" id="r_a4bcec9f85851d4fae27e2ca6d0cbcf28"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4bcec9f85851d4fae27e2ca6d0cbcf28">placeHeroAtStartCell</a> ()</td></tr>
 <tr class="memdesc:a4bcec9f85851d4fae27e2ca6d0cbcf28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le héros sur la case de <span class="tt">--at=</span>, si elle est sur la carte (<span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
+<tr class="memitem:af41780c1c561d5a49d25358501b58ff9" id="r_af41780c1c561d5a49d25358501b58ff9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af41780c1c561d5a49d25358501b58ff9">installQuests</a> ()</td></tr>
+<tr class="memdesc:af41780c1c561d5a49d25358501b58ff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les quêtes de <span class="tt">World/quests</span> et les donne à la session (<span class="tt">LOT-116</span>).  <br /></td></tr>
 <tr class="memitem:adc66b2547875ba03914fe3186cd9e7c4" id="r_adc66b2547875ba03914fe3186cd9e7c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc66b2547875ba03914fe3186cd9e7c4">noteDistrictVisit</a> ()</td></tr>
 <tr class="memdesc:adc66b2547875ba03914fe3186cd9e7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient le quartier de la carte courante parmi les quartiers visités.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -321,7 +332,7 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel default">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -403,6 +414,34 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a215e71e24d063d6198776c55e240d5e9" name="a215e71e24d063d6198776c55e240d5e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a215e71e24d063d6198776c55e240d5e9">&#9670;&#160;</a></span>current()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad26c761aa266d35a60f559668b593baa">WorldModel</a> * hmi::WorldModel::current </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La partie en cours, s'il y en a une : ce que le dialogue et le journal lisent et écrivent (<span class="tt">LOT-116</span>). </p>
+<p>Le dernier <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">WorldModel</a></span> construit — un par moteur QML, un seul dans le jeu. </p>
 
 </div>
 </div>
@@ -533,6 +572,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a14e589a9a79f090cd11e12278c24e761" name="a14e589a9a79f090cd11e12278c24e761"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14e589a9a79f090cd11e12278c24e761">&#9670;&#160;</a></span>flags()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> &amp; hmi::WorldModel::flags </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les drapeaux de la partie : ceux de la session, qui survivent au changement de carte. </dd></dl>
+
+</div>
+</div>
 <a id="ac7706ff80de207cf72ec9a19983312ed" name="ac7706ff80de207cf72ec9a19983312ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac7706ff80de207cf72ec9a19983312ed">&#9670;&#160;</a></span>frozen()</h2>
 
@@ -657,6 +722,33 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="af41780c1c561d5a49d25358501b58ff9" name="af41780c1c561d5a49d25358501b58ff9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41780c1c561d5a49d25358501b58ff9">&#9670;&#160;</a></span>installQuests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::installQuests </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit les quêtes de <span class="tt">World/quests</span> et les donne à la session (<span class="tt">LOT-116</span>). </p>
 
 </div>
 </div>
@@ -915,6 +1007,63 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ab475b1b1da2ebf4bb6169abcdc93795f" name="ab475b1b1da2ebf4bb6169abcdc93795f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab475b1b1da2ebf4bb6169abcdc93795f">&#9670;&#160;</a></span>questAdvanced</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::questAdvanced </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>quest</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>step</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une quête a atteint une étape (<span class="tt">quest</span>) : le journal se relit. </p>
+
+</div>
+</div>
+<a id="ac4ed9f1827eeb9ba0daffc12c13e08b6" name="ac4ed9f1827eeb9ba0daffc12c13e08b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ed9f1827eeb9ba0daffc12c13e08b6">&#9670;&#160;</a></span>quests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1QuestCatalog.html">core::QuestCatalog</a> &amp; hmi::WorldModel::quests </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les quêtes de la partie, lues au démarrage (<span class="tt">World/quests</span>). </dd></dl>
+
+</div>
+</div>
 <a id="ac86f1bb3f3f3d8b51c1a5a868146d779" name="ac86f1bb3f3f3d8b51c1a5a868146d779"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac86f1bb3f3f3d8b51c1a5a868146d779">&#9670;&#160;</a></span>rows()</h2>
 
@@ -1078,7 +1227,7 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Les drapeaux de monde acquis avant le premier pas (<span class="tt">--flags=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer. </p>
+<p>Les drapeaux de monde acquis avant le premier pas (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer. </p>
 
 </div>
 </div>

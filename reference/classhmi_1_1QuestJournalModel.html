@@ -1,0 +1,590 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::QuestJournalModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1QuestJournalModel.html','','classhmi_1_1QuestJournalModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::QuestJournalModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Ce que l'écran « Journal de quêtes » lit.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="QuestJournalModel_8h_source.html">QuestJournalModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::QuestJournalModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1QuestJournalModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a6ef3ff61b1c401eae4d7c19f5a9d78e3" id="r_a6ef3ff61b1c401eae4d7c19f5a9d78e3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ef3ff61b1c401eae4d7c19f5a9d78e3">changed</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:adc4fc2454528602282e011dde8c69d26" id="r_adc4fc2454528602282e011dde8c69d26"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adc4fc2454528602282e011dde8c69d26">QuestJournalModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:a89498070f88de33880b4d0b7867e754b" id="r_a89498070f88de33880b4d0b7867e754b"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a89498070f88de33880b4d0b7867e754b">quests</a> ()</td></tr>
+<tr class="memitem:a2b35f6b1ba715f8fba90c11fc52793c2" id="r_a2b35f6b1ba715f8fba90c11fc52793c2"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a2b35f6b1ba715f8fba90c11fc52793c2">objectives</a> ()</td></tr>
+<tr class="memitem:a821b6570ab7f9439aaebc826fb872d20" id="r_a821b6570ab7f9439aaebc826fb872d20"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a821b6570ab7f9439aaebc826fb872d20">detail</a> () const</td></tr>
+<tr class="memitem:aa9d447c35e752f042c209aedb2373969" id="r_aa9d447c35e752f042c209aedb2373969"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa9d447c35e752f042c209aedb2373969">selected</a> () const</td></tr>
+<tr class="memitem:a23871fe0a8968c113979c00f698cce73" id="r_a23871fe0a8968c113979c00f698cce73"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a23871fe0a8968c113979c00f698cce73">select</a> (const QString &amp;questId)</td></tr>
+<tr class="memdesc:a23871fe0a8968c113979c00f698cce73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la quête <code class="param">questId</code>.  <br /></td></tr>
+<tr class="memitem:af8da88ff3c855deb4df99dfb698401a3" id="r_af8da88ff3c855deb4df99dfb698401a3"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#af8da88ff3c855deb4df99dfb698401a3">selectNeighbour</a> (int step)</td></tr>
+<tr class="memdesc:af8da88ff3c855deb4df99dfb698401a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit la quête suivante (<code class="param">step</code> = 1) ou précédente (-1) : les flèches.  <br /></td></tr>
+<tr class="memitem:a145a9e6408b9282bc4b59b96cf4493c6" id="r_a145a9e6408b9282bc4b59b96cf4493c6"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a145a9e6408b9282bc4b59b96cf4493c6">refresh</a> ()</td></tr>
+<tr class="memdesc:a145a9e6408b9282bc4b59b96cf4493c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit le journal dans les drapeaux de la partie.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:aafdd5a11ea98b724a480be8ef6a0d5c8" id="r_aafdd5a11ea98b724a480be8ef6a0d5c8"><td class="memItemLeft">QML_ELEMENTQAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#aafdd5a11ea98b724a480be8ef6a0d5c8">quests</a></td></tr>
+<tr class="memdesc:aafdd5a11ea98b724a480be8ef6a0d5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quêtes commencées : rôles <span class="tt">rowId</span>, <span class="tt">label</span> (le titre), <span class="tt">value</span> (l'état).  <br /></td></tr>
+<tr class="memitem:a0228495f442a56c77ec1df8ecf7eace5" id="r_a0228495f442a56c77ec1df8ecf7eace5"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a0228495f442a56c77ec1df8ecf7eace5">detail</a></td></tr>
+<tr class="memdesc:a0228495f442a56c77ec1df8ecf7eace5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée la plus récente de la quête choisie, ou « aucune quête ».  <br /></td></tr>
+<tr class="memitem:ab0209c131c9dbbf0f353dd36878a24b4" id="r_ab0209c131c9dbbf0f353dd36878a24b4"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#ab0209c131c9dbbf0f353dd36878a24b4">objectives</a></td></tr>
+<tr class="memdesc:ab0209c131c9dbbf0f353dd36878a24b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les étapes atteintes de la quête choisie.  <br /></td></tr>
+<tr class="memitem:ab8dfc79704271716085d1884942ee9c7" id="r_ab8dfc79704271716085d1884942ee9c7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab8dfc79704271716085d1884942ee9c7">selected</a></td></tr>
+<tr class="memdesc:ab8dfc79704271716085d1884942ee9c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'identifiant de la quête choisie, vide si le journal est vide.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a985b5a0de531c4841fcc3c4bba5880ec" id="r_a985b5a0de531c4841fcc3c4bba5880ec"><td class="memItemLeft"><a class="el" href="structhmi_1_1QuestJournalValues.html">QuestJournalValues</a>&#160;</td><td class="memItemRight"><a class="el" href="#a985b5a0de531c4841fcc3c4bba5880ec">_values</a></td></tr>
+<tr class="memitem:a6066eda23aa877efbbd36c20dee17afe" id="r_a6066eda23aa877efbbd36c20dee17afe"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6066eda23aa877efbbd36c20dee17afe">_quests</a></td></tr>
+<tr class="memitem:a98c95258074fd4128d64e795ef688b2c" id="r_a98c95258074fd4128d64e795ef688b2c"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#a98c95258074fd4128d64e795ef688b2c">_objectives</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Ce que l'écran « Journal de quêtes » lit. </p>
+<p>Il ne garde <b>aucun</b> état de quête : tout se relit dans les drapeaux de la partie (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a215e71e24d063d6198776c55e240d5e9" title="La partie en cours, s&#39;il y en a une : ce que le dialogue et le journal lisent et écrivent (LOT-116).">hmi::WorldModel::current</a></span>) par <span class="tt"><a class="el" href="namespacehmi.html#a22dedb07b5de8ae58c89efa464da82fa" title="Le journal tel que les drapeaux le disent.">hmi::questJournalValues</a></span>, à l'ouverture et à chaque étape atteinte. Sans partie (le designer), le journal est vide et le dit. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adc4fc2454528602282e011dde8c69d26" name="adc4fc2454528602282e011dde8c69d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc4fc2454528602282e011dde8c69d26">&#9670;&#160;</a></span>QuestJournalModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::QuestJournalModel::QuestJournalModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a6ef3ff61b1c401eae4d7c19f5a9d78e3" name="a6ef3ff61b1c401eae4d7c19f5a9d78e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ef3ff61b1c401eae4d7c19f5a9d78e3">&#9670;&#160;</a></span>changed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::QuestJournalModel::changed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a821b6570ab7f9439aaebc826fb872d20" name="a821b6570ab7f9439aaebc826fb872d20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a821b6570ab7f9439aaebc826fb872d20">&#9670;&#160;</a></span>detail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::QuestJournalModel::detail </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b35f6b1ba715f8fba90c11fc52793c2" name="a2b35f6b1ba715f8fba90c11fc52793c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b35f6b1ba715f8fba90c11fc52793c2">&#9670;&#160;</a></span>objectives()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel * hmi::QuestJournalModel::objectives </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a89498070f88de33880b4d0b7867e754b" name="a89498070f88de33880b4d0b7867e754b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89498070f88de33880b4d0b7867e754b">&#9670;&#160;</a></span>quests()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel * hmi::QuestJournalModel::quests </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a145a9e6408b9282bc4b59b96cf4493c6" name="a145a9e6408b9282bc4b59b96cf4493c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a145a9e6408b9282bc4b59b96cf4493c6">&#9670;&#160;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::QuestJournalModel::refresh </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Relit le journal dans les drapeaux de la partie. </p>
+
+</div>
+</div>
+<a id="a23871fe0a8968c113979c00f698cce73" name="a23871fe0a8968c113979c00f698cce73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23871fe0a8968c113979c00f698cce73">&#9670;&#160;</a></span>select()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::QuestJournalModel::select </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>questId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Choisit la quête <code class="param">questId</code>. </p>
+
+</div>
+</div>
+<a id="aa9d447c35e752f042c209aedb2373969" name="aa9d447c35e752f042c209aedb2373969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9d447c35e752f042c209aedb2373969">&#9670;&#160;</a></span>selected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::QuestJournalModel::selected </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8da88ff3c855deb4df99dfb698401a3" name="af8da88ff3c855deb4df99dfb698401a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8da88ff3c855deb4df99dfb698401a3">&#9670;&#160;</a></span>selectNeighbour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::QuestJournalModel::selectNeighbour </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Choisit la quête suivante (<code class="param">step</code> = 1) ou précédente (-1) : les flèches. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a98c95258074fd4128d64e795ef688b2c" name="a98c95258074fd4128d64e795ef688b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c95258074fd4128d64e795ef688b2c">&#9670;&#160;</a></span>_objectives</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::QuestJournalModel::_objectives</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6066eda23aa877efbbd36c20dee17afe" name="a6066eda23aa877efbbd36c20dee17afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6066eda23aa877efbbd36c20dee17afe">&#9670;&#160;</a></span>_quests</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::QuestJournalModel::_quests</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a985b5a0de531c4841fcc3c4bba5880ec" name="a985b5a0de531c4841fcc3c4bba5880ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a985b5a0de531c4841fcc3c4bba5880ec">&#9670;&#160;</a></span>_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1QuestJournalValues.html">QuestJournalValues</a> hmi::QuestJournalModel::_values</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a0228495f442a56c77ec1df8ecf7eace5" name="a0228495f442a56c77ec1df8ecf7eace5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0228495f442a56c77ec1df8ecf7eace5">&#9670;&#160;</a></span>detail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::QuestJournalModel::detail</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'entrée la plus récente de la quête choisie, ou « aucune quête ». </p>
+
+</div>
+</div>
+<a id="ab0209c131c9dbbf0f353dd36878a24b4" name="ab0209c131c9dbbf0f353dd36878a24b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0209c131c9dbbf0f353dd36878a24b4">&#9670;&#160;</a></span>objectives</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QAbstractItemModel* hmi::QuestJournalModel::objectives</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les étapes atteintes de la quête choisie. </p>
+
+</div>
+</div>
+<a id="aafdd5a11ea98b724a480be8ef6a0d5c8" name="aafdd5a11ea98b724a480be8ef6a0d5c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafdd5a11ea98b724a480be8ef6a0d5c8">&#9670;&#160;</a></span>quests</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_ELEMENTQAbstractItemModel* hmi::QuestJournalModel::quests</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les quêtes commencées : rôles <span class="tt">rowId</span>, <span class="tt">label</span> (le titre), <span class="tt">value</span> (l'état). </p>
+
+</div>
+</div>
+<a id="ab8dfc79704271716085d1884942ee9c7" name="ab8dfc79704271716085d1884942ee9c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8dfc79704271716085d1884942ee9c7">&#9670;&#160;</a></span>selected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::QuestJournalModel::selected</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'identifiant de la quête choisie, vide si le journal est vide. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="QuestJournalModel_8h_source.html">QuestJournalModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="QuestJournalModel_8cpp.html">QuestJournalModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1QuestJournalModel.html">QuestJournalModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

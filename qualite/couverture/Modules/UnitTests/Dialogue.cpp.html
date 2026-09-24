@@ -102,26 +102,6 @@ private:
 <span style = "background-color:#dfd">    return std::nullopt;
 }</span>
 
-/// Lit `{ "flag": ..., "isSet": ... }`. `isSet` absent vaut vrai : Â« si le drapeau est leve Â».
-<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;FlagCondition&gt; conditionDepuis(const Json&amp; objet) {
-    if (!objet.is_object()) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
-    }
-<span style = "background-color:#dfd">    const auto drapeau = texte(objet, "flag");
-    if (!drapeau) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
-    }
-<span style = "background-color:#dfd">    FlagCondition condition;
-    condition.flag = *drapeau;
-    if (const auto attendu = objet.find("isSet"); attendu != objet.end()) {
-        if (!attendu-&gt;is_boolean()) {</span>
-<span style = "background-color:#fdd">            return std::nullopt;</span>
-        }
-<span style = "background-color:#dfd">        condition.expected = attendu-&gt;get&lt;bool&gt;();
-    }
-    return condition;
-}</span>
-
 /// Exige un champ texte, et le nomme s'il manque.
 [[nodiscard]] std::string exiger(const Json&amp; objet, const char* champ, std::string_view noeud,
 <span style = "background-color:#dfd">                                 Rapport&amp; rapport) {
@@ -157,10 +137,10 @@ private:
     }
 <span style = "background-color:#dfd">    choix.next = exiger(reponse, "next", noeudId + "' / reponse '" + choix.id, rapport);
     if (const auto condition = reponse.find("condition"); condition != reponse.end()) {
-        choix.condition = conditionDepuis(*condition);
+        FlagConditionRead lue = readFlagCondition(*condition);
+        choix.condition = std::move(lue.condition);
         if (!choix.condition) {</span>
-<span style = "background-color:#fdd">            rapport.noeud(noeudId, "reponse '" + choix.id +</span>
-                                       "' : condition sans 'flag' ou 'isSet' non booleen.");
+<span style = "background-color:#fdd">            rapport.noeud(noeudId, "reponse '" + choix.id + "' : " + lue.error);</span>
         }
 <span style = "background-color:#dfd">    } else {
         uneSansCondition = true;
@@ -224,11 +204,11 @@ private:
 }</span>
 
 <span style = "background-color:#dfd">void lireCondition(const Json&amp; brut, DialogueNode&amp; noeud, Rapport&amp; rapport) {
-    const auto condition = conditionDepuis(brut);
-    if (!condition) {</span>
-<span style = "background-color:#fdd">        rapport.noeud(noeud.id, "condition sans 'flag', ou 'isSet' non booleen.");
+    FlagConditionRead lue = readFlagCondition(brut);
+    if (!lue.condition) {</span>
+<span style = "background-color:#fdd">        rapport.noeud(noeud.id, lue.error);
     } else {</span>
-<span style = "background-color:#dfd">        noeud.condition = *condition;</span>
+<span style = "background-color:#dfd">        noeud.condition = std::move(*lue.condition);</span>
     }
 <span style = "background-color:#dfd">    noeud.whenTrue = exiger(brut, "then", noeud.id, rapport);
     noeud.whenFalse = exiger(brut, "else", noeud.id, rapport);
@@ -262,7 +242,16 @@ private:
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    action.target = exiger(effet, champ, noeudId, rapport);
-    if (action.kind != DialogueActionKind::GiveItem) {
+    if (action.kind == DialogueActionKind::SetFlag) {
+        if (const auto valeur = effet.find("value"); valeur != effet.end()) {
+            if (!valeur-&gt;is_string() || valeur-&gt;get&lt;std::string&gt;().empty()) {</span>
+<span style = "background-color:#fdd">                rapport.noeud(noeudId, "'value' doit etre un texte non vide.");
+            } else {</span>
+<span style = "background-color:#dfd">                action.value = valeur-&gt;get&lt;std::string&gt;();</span>
+            }
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    if (action.kind != DialogueActionKind::GiveItem) {
         return action;</span>
     }
 <span style = "background-color:#dfd">    if (const auto quantite = effet.find("quantity"); quantite != effet.end()) {
@@ -486,10 +475,6 @@ void signalerLesImpasses(const DialogueGraph&amp; graphe, const IndicesDeNoeuds&
 }  // namespace
 
 // ---------------------------------------------------------------------------------------------
-
-<span style = "background-color:#dfd">bool FlagCondition::holds(const WorldFlags&amp; flags) const {
-    return flags.isSet(flag) == expected;
-}</span>
 
 <span style = "background-color:#dfd">const DialogueNode* DialogueGraph::find(std::string_view nodeId) const {
     const auto trouve = std::ranges::find(nodes, nodeId, &amp;DialogueNode::id);
@@ -780,8 +765,8 @@ std::vector&lt;std::string&gt; validateDialogueReferences(const DialogueGraph&am
 <span style = "background-color:#dfd">DialogueCatalog loadDialogues(const std::filesystem::path&amp; directory) {
     DialogueCatalog catalogue;
     std::error_code code;
-    if (!std::filesystem::is_directory(directory, code)) {</span>
-<span style = "background-color:#fdd">        catalogue.errors.push_back(directory.string() + " : dossier absent ou illisible.");
+    if (!std::filesystem::is_directory(directory, code)) {
+        catalogue.errors.push_back(directory.string() + " : dossier absent ou illisible.");
         return catalogue;</span>
     }
 <span style = "background-color:#dfd">    for (const std::filesystem::path&amp; chemin : fichiersJson(directory, code)) {
@@ -948,9 +933,17 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
 <span style = "background-color:#dfd">void DialogueRunner::apply(const DialogueAction&amp; action) {
     switch (action.kind) {</span>
         case DialogueActionKind::SetFlag:
-<span style = "background-color:#dfd">            _flags.set(action.target);
-            _journal.push_back("drapeau pose : " + action.target);
-            break;</span>
+<span style = "background-color:#dfd">            if (action.value.empty()) {
+                _flags.set(action.target);
+                _journal.push_back("drapeau pose : " + action.target);
+            } else if (_flags.setValue(action.target, action.value)) {
+                _journal.push_back("drapeau pose : " + action.target + " = " + action.value);
+            } else {</span>
+                // Une valeur hors de la declaration est refusee au chargement du catalogue
+                // (`validateFlagUses`) ; si elle arrive ici, la trace le dit plutot que de taire.
+<span style = "background-color:#fdd">                _journal.push_back("drapeau refuse : " + action.target + " = " + action.value);</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
         case DialogueActionKind::ClearFlag:
 <span style = "background-color:#dfd">            _flags.clear(action.target);
             _journal.push_back("drapeau retire : " + action.target);

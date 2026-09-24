@@ -1,0 +1,247 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay/Quest.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Quest_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Quest.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les quêtes : décrites en données (drapeaux déclarés, étapes, conditions, effets), lues et validées au démarrage, avancées par les drapeaux de monde (<span class="tt">LOT-116</span>, <span class="tt">EX-EXP-007</span>, <span class="tt">EX-EXP-008</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="FlagCondition_8h_source.html">Core/Gameplay/FlagCondition.h</a>&quot;</code><br />
+</div>
+<p><a href="Quest_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3AQuestFlag" id="r_core_3A_3AQuestFlag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un drapeau <b>à valeurs</b> qu'une quête déclare : <span class="tt">quete.pommes</span>, de <span class="tt">inconnue</span> à <span class="tt">enfant-libere</span>.  <a href="structcore_1_1QuestFlag.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuestEffect" id="r_core_3A_3AQuestEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestEffect.html">core::QuestEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une étape fait au monde quand elle est atteinte.  <a href="structcore_1_1QuestEffect.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuestStep" id="r_core_3A_3AQuestStep"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestStep.html">core::QuestStep</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une étape : l'entrée du journal qu'elle ouvre, ce qui l'atteint, ce qu'elle déclenche.  <a href="structcore_1_1QuestStep.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuest" id="r_core_3A_3AQuest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Quest.html">core::Quest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête : ses drapeaux et ses étapes, dans l'ordre du récit.  <a href="structcore_1_1Quest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuestLoad" id="r_core_3A_3AQuestLoad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestLoad.html">core::QuestLoad</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête lue, ou ce qui l'en empêche. Mal formée, elle n'est pas une quête.  <a href="structcore_1_1QuestLoad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuestCatalog" id="r_core_3A_3AQuestCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestCatalog.html">core::QuestCatalog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les quêtes d'un dossier, et ce qui a été refusé.  <a href="structcore_1_1QuestCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuestEvent" id="r_core_3A_3AQuestEvent"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestEvent.html">core::QuestEvent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une étape que <span class="tt"><a class="el" href="namespacecore.html#a0bafb94d6d35e285407e7882345a8b60" title="Fait avancer les quêtes jusqu&#39;au repos.">advanceQuests</a></span> vient d'atteindre.  <a href="structcore_1_1QuestEvent.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AQuestProgress" id="r_core_3A_3AQuestProgress"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1QuestProgress.html">core::QuestProgress</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête vue du journal.  <a href="structcore_1_1QuestProgress.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AFlagRead" id="r_core_3A_3AFlagRead"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1FlagRead.html">core::FlagRead</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un drapeau qu'un dialogue ou une quête <b>lit</b>, et où.  <a href="structcore_1_1FlagRead.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:af64ba20e2728c8383cde689f8e1308f2" id="r_af64ba20e2728c8383cde689f8e1308f2"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#af64ba20e2728c8383cde689f8e1308f2">core::QuestOutcome</a> { <a class="el" href="namespacecore.html#af64ba20e2728c8383cde689f8e1308f2a6adf97f83acf6453d4a6a4b1070f3754">core::None</a>
+, <a class="el" href="namespacecore.html#af64ba20e2728c8383cde689f8e1308f2a505a83f220c02df2f85c3810cd9ceb38">core::Success</a>
+, <a class="el" href="namespacecore.html#af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086">core::Failure</a>
+ }</td></tr>
+<tr class="memdesc:af64ba20e2728c8383cde689f8e1308f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une étape qui <b>clôt</b> la quête, et comment.  <a href="namespacecore.html#af64ba20e2728c8383cde689f8e1308f2">More...</a><br /></td></tr>
+<tr class="memitem:a1c252a20a9f591109e789a58746652b1" id="r_a1c252a20a9f591109e789a58746652b1"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a1c252a20a9f591109e789a58746652b1">core::QuestStatus</a> { <a class="el" href="namespacecore.html#a1c252a20a9f591109e789a58746652b1afa7be7845bc42b3491d9d0377958be94">core::NotStarted</a>
+, <a class="el" href="namespacecore.html#a1c252a20a9f591109e789a58746652b1a4d3d769b812b6faa6b76e1a8abaece2d">core::Active</a>
+, <a class="el" href="namespacecore.html#a1c252a20a9f591109e789a58746652b1a66d02c2f8a582446f8dd8752366002b5">core::Succeeded</a>
+, <a class="el" href="namespacecore.html#a1c252a20a9f591109e789a58746652b1ad7c8c85bf79bbe1b7188497c32c3b0ca">core::Failed</a>
+ }</td></tr>
+<tr class="memdesc:a1c252a20a9f591109e789a58746652b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où en est une quête, telle que le journal la montre.  <a href="namespacecore.html#a1c252a20a9f591109e789a58746652b1">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab9156c67818b8a348e4deacfba98a72e" id="r_ab9156c67818b8a348e4deacfba98a72e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ab9156c67818b8a348e4deacfba98a72e">core::questStepFlag</a> (std::string_view questId, std::string_view stepId)</td></tr>
+<tr class="memdesc:ab9156c67818b8a348e4deacfba98a72e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest/&lt;quête&gt;/step/&lt;étape&gt;</span> — le fait « cette étape a été atteinte ».  <br /></td></tr>
+<tr class="memitem:a5d7f2790b523d35912bf71153755498b" id="r_a5d7f2790b523d35912bf71153755498b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a5d7f2790b523d35912bf71153755498b">core::questTitleKey</a> (std::string_view questId)</td></tr>
+<tr class="memdesc:a5d7f2790b523d35912bf71153755498b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest.&lt;quête&gt;.title</span> — le titre de la quête dans le journal.  <br /></td></tr>
+<tr class="memitem:a7c47dbe53facb2a4e146fa74e3f4bd3d" id="r_a7c47dbe53facb2a4e146fa74e3f4bd3d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7c47dbe53facb2a4e146fa74e3f4bd3d">core::questStepKey</a> (std::string_view questId, std::string_view stepId)</td></tr>
+<tr class="memdesc:a7c47dbe53facb2a4e146fa74e3f4bd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest.&lt;quête&gt;.&lt;étape&gt;</span> — l'entrée du journal qu'ouvre une étape.  <br /></td></tr>
+<tr class="memitem:a3ebf2c787cfe94cf56cba364093f05c5" id="r_a3ebf2c787cfe94cf56cba364093f05c5"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a3ebf2c787cfe94cf56cba364093f05c5">core::questTextKeys</a> (const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;quest)</td></tr>
+<tr class="memdesc:a3ebf2c787cfe94cf56cba364093f05c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les clés de traduction qu'une quête réclame : son titre, puis une par étape.  <br /></td></tr>
+<tr class="memitem:a11a13d88d62b9ed0ba9c505a4a507bf3" id="r_a11a13d88d62b9ed0ba9c505a4a507bf3"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a11a13d88d62b9ed0ba9c505a4a507bf3">core::readQuest</a> (std::string_view json, std::string_view origin)</td></tr>
+<tr class="memdesc:a11a13d88d62b9ed0ba9c505a4a507bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit et <b>valide</b> une quête.  <br /></td></tr>
+<tr class="memitem:afa41f919bb154ba5431520e47b8674da" id="r_afa41f919bb154ba5431520e47b8674da"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestLoad.html">QuestLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#afa41f919bb154ba5431520e47b8674da">core::loadQuest</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:afa41f919bb154ba5431520e47b8674da"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="namespacecore.html#a11a13d88d62b9ed0ba9c505a4a507bf3" title="Lit et valide une quête.">readQuest</a></span> depuis un fichier.  <br /></td></tr>
+<tr class="memitem:a75c14c8a302648b21c37c8424273dbeb" id="r_a75c14c8a302648b21c37c8424273dbeb"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a75c14c8a302648b21c37c8424273dbeb">core::loadQuests</a> (const std::filesystem::path &amp;directory)</td></tr>
+<tr class="memdesc:a75c14c8a302648b21c37c8424273dbeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les quêtes <span class="tt">*.json</span> de <code class="param">directory</code>, dans l'ordre des noms.  <br /></td></tr>
+<tr class="memitem:a116ff967f1d1006befab83aefbb3eb09" id="r_a116ff967f1d1006befab83aefbb3eb09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a116ff967f1d1006befab83aefbb3eb09">core::declareQuestFlags</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;catalog, <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a116ff967f1d1006befab83aefbb3eb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare à <code class="param">flags</code> les drapeaux à valeurs de toutes les quêtes du catalogue.  <br /></td></tr>
+<tr class="memitem:a0bafb94d6d35e285407e7882345a8b60" id="r_a0bafb94d6d35e285407e7882345a8b60"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1QuestEvent.html">QuestEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0bafb94d6d35e285407e7882345a8b60">core::advanceQuests</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;catalog, <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a0bafb94d6d35e285407e7882345a8b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait avancer les quêtes jusqu'au repos.  <br /></td></tr>
+<tr class="memitem:a65fd043ff3badf928d4bd699b4bf72bd" id="r_a65fd043ff3badf928d4bd699b4bf72bd"><td class="memItemLeft"><a class="el" href="structcore_1_1QuestProgress.html">QuestProgress</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a65fd043ff3badf928d4bd699b4bf72bd">core::questProgress</a> (const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;quest, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a65fd043ff3badf928d4bd699b4bf72bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'avancement d'une quête : lu dans les drapeaux, jamais stocké à part.  <br /></td></tr>
+<tr class="memitem:a66b4d783d58fedf1af25e7719b872833" id="r_a66b4d783d58fedf1af25e7719b872833"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a66b4d783d58fedf1af25e7719b872833">core::validateFlagUses</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;quests, const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;dialogues)</td></tr>
+<tr class="memdesc:a66b4d783d58fedf1af25e7719b872833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que dialogues et quêtes font d'un drapeau déclaré, confronté à sa déclaration.  <br /></td></tr>
+<tr class="memitem:ac7eac2311479898ad88bfcc335029b0d" id="r_ac7eac2311479898ad88bfcc335029b0d"><td class="memItemLeft">std::set&lt; std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac7eac2311479898ad88bfcc335029b0d">core::flagsWrittenBy</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;quests, const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;dialogues)</td></tr>
+<tr class="memdesc:ac7eac2311479898ad88bfcc335029b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux que dialogues et quêtes <b>posent</b> : <span class="tt">setFlag</span>, le drapeau d'une quête démarrée, les effets des étapes, le fait de chaque étape atteinte — et les drapeaux que les quêtes déclarent, qui ont toujours une valeur, l'initiale.  <br /></td></tr>
+<tr class="memitem:ad0b7ce7304ceb3f9a7afaa07a76d78be" id="r_ad0b7ce7304ceb3f9a7afaa07a76d78be"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1FlagRead.html">FlagRead</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ad0b7ce7304ceb3f9a7afaa07a76d78be">core::flagsReadBy</a> (const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;quests, const <a class="el" href="structcore_1_1DialogueCatalog.html">DialogueCatalog</a> &amp;dialogues)</td></tr>
+<tr class="memdesc:ad0b7ce7304ceb3f9a7afaa07a76d78be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux que lisent les conditions des dialogues et des étapes de quête.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les quêtes : décrites en données (drapeaux déclarés, étapes, conditions, effets), lues et validées au démarrage, avancées par les drapeaux de monde (<span class="tt">LOT-116</span>, <span class="tt">EX-EXP-007</span>, <span class="tt">EX-EXP-008</span>). </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_adeee896fff163070c16c17abb9970bc.html">Gameplay</a></li><li class="navelem"><a href="Quest_8h.html">Quest.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

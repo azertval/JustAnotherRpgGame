@@ -59,13 +59,15 @@ namespace {
         case core::EntityIssueCode::UnknownFigure:
 <span style = "background-color:#fdd">            return R"(%1: figure "%3" is in no workshop.)";</span>
         case core::EntityIssueCode::UnsetFlag:
-<span style = "background-color:#dfd">            return R"(%1: no dialogue sets flag "%3".)";</span>
+<span style = "background-color:#dfd">            return R"(%1: no dialogue or quest sets flag "%3" (read by "%2").)";</span>
         case core::EntityIssueCode::UnknownLocation:
 <span style = "background-color:#fdd">            return R"(%1: location "%3" is not in the atlas.)";</span>
         case core::EntityIssueCode::UnknownItem:
 <span style = "background-color:#fdd">            return R"(%1: item "%3" does not exist.)";</span>
         case core::EntityIssueCode::UnknownEntityRef:
 <span style = "background-color:#fdd">            return R"(%1: no map has an entity "%3".)";</span>
+        case core::EntityIssueCode::InvalidPresence:
+<span style = "background-color:#fdd">            return R"(%1: presence condition is malformed at "%2" (flag, set|unset|equals|notEquals, values).)";</span>
     }
 <span style = "background-color:#fdd">    return R"(Entity kind "%1" is unknown to the editor.)";</span>
 <span style = "background-color:#dfd">}</span>

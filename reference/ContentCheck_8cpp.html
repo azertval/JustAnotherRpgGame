@@ -150,6 +150,8 @@ $(function(){initNavTree('ContentCheck_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="CombatTransition_8h_source.html">Core/Combat/CombatTransition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TacticalTerrain_8h_source.html">Core/Combat/TacticalTerrain.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapEntitySpawner_8h_source.html">Core/Gameplay/MapEntitySpawner.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Quest_8h_source.html">Core/Gameplay/Quest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Dialogue_8h_source.html">Core/Rpg/Dialogue.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CityBlock_8h_source.html">Core/World/CityBlock.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CityPlan_8h_source.html">Core/World/CityPlan.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CombatZone_8h_source.html">Core/World/CombatZone.h</a>&quot;</code><br />
@@ -168,6 +170,8 @@ Functions</h2></td></tr>
 <tr class="memitem:aa5077b41d16fae5444bba01296af35c2" id="r_aa5077b41d16fae5444bba01296af35c2"><td class="memItemLeft"><a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa5077b41d16fae5444bba01296af35c2">hmi::loadContentContext</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memitem:a57bbb524f453684c3c946474ef6a3ea9" id="r_a57bbb524f453684c3c946474ef6a3ea9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a57bbb524f453684c3c946474ef6a3ea9">hmi::checkMapContent</a> (std::string_view mapId, const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="structhmi_1_1ContentContext.html">ContentContext</a> &amp;context)</td></tr>
 <tr class="memdesc:a57bbb524f453684c3c946474ef6a3ea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle le contenu d'une carte lue.  <br /></td></tr>
+<tr class="memitem:a5068cc7bc28c45d441eaa537cc474340" id="r_a5068cc7bc28c45d441eaa537cc474340"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5068cc7bc28c45d441eaa537cc474340">hmi::checkStoryContent</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memdesc:a5068cc7bc28c45d441eaa537cc474340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle dialogues et quêtes de <code class="param">dataRoot</code>, hors de toute carte (<span class="tt">LOT-116</span>).  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,0 +1,594 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Quest.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Gameplay/Quest.h"
+
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;iterator&gt;
+#include &lt;set&gt;
+#include &lt;system_error&gt;
+
+#include "Core/Data/JsonDocument.h"
+#include "Core/Gameplay/WorldFlags.h"
+#include "Core/Rpg/Dialogue.h"
+
+namespace core {
+
+namespace {
+
+using Json = nlohmann::json;
+using Pointeur = Json::json_pointer;
+
+/// Aucune garde de version : le format naÃ®t avec ce lot, et un champ `version` absent ne dit rien.
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+/// Rassemble les erreurs d'un document, chacune prÃ©fixÃ©e de son fichier et de sa ligne.
+class Rapport {
+public:
+<span style = "background-color:#dfd">    Rapport(std::string_view texte, std::string_view origine) : _texte(texte), _origine(origine) {}</span>
+
+<span style = "background-color:#dfd">    void signaler(const Pointeur&amp; ou, const std::string&amp; message) {
+        const TextPosition position = positionOfPointer(_texte, ou);
+        std::string prefixe = _origine;
+        if (position.line &gt; 0) {
+            prefixe += ':' + std::to_string(position.line);</span>
+        }
+<span style = "background-color:#dfd">        _erreurs.push_back(prefixe + " : " + message);
+    }
+    [[nodiscard]] bool vide() const noexcept {
+        return _erreurs.empty();
+    }
+    [[nodiscard]] std::vector&lt;std::string&gt; extraire() {
+        return std::move(_erreurs);
+    }</span>
+
+private:
+    std::string_view _texte;
+    std::string _origine;
+    std::vector&lt;std::string&gt; _erreurs;
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::string&gt; texte(const Json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_string() || trouve-&gt;get&lt;std::string&gt;().empty()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return trouve-&gt;get&lt;std::string&gt;();
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool contient(const std::vector&lt;std::string&gt;&amp; valeurs, std::string_view valeur) {
+    return std::ranges::find(valeurs, valeur) != valeurs.end();
+}</span>
+
+<span style = "background-color:#dfd">void lireDrapeaux(const Json&amp; racine, Quest&amp; quete, Rapport&amp; rapport) {
+    const auto drapeaux = racine.find("flags");
+    if (drapeaux == racine.end()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (!drapeaux-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        rapport.signaler(Pointeur("/flags"), "'flags' doit etre un tableau.");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; vus;
+    for (std::size_t i = 0; i &lt; drapeaux-&gt;size(); ++i) {
+        const Json&amp; brut = (*drapeaux)[i];
+        const Pointeur ou = Pointeur("/flags") / i;
+        const auto id = brut.is_object() ? texte(brut, "id") : std::nullopt;
+        if (!id) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou, "drapeau sans 'id'.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        QuestFlag drapeau{.id = *id, .values = {}, .initial = {}};
+        if (!vus.insert(drapeau.id).second) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou, "drapeau '" + drapeau.id + "' declare deux fois.");</span>
+        }
+<span style = "background-color:#dfd">        const auto valeurs = brut.find("values");
+        if (valeurs == brut.end() || !valeurs-&gt;is_array() || valeurs-&gt;empty()) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou, "drapeau '" + drapeau.id + "' : 'values' absent ou vide.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (std::size_t v = 0; v &lt; valeurs-&gt;size(); ++v) {
+            const Json&amp; valeur = (*valeurs)[v];
+            if (!valeur.is_string() || valeur.get&lt;std::string&gt;().empty()) {</span>
+<span style = "background-color:#fdd">                rapport.signaler(ou / "values" / v,</span>
+                                 "drapeau '" + drapeau.id + "' : une valeur n'est pas un texte.");
+<span style = "background-color:#dfd">            } else if (contient(drapeau.values, valeur.get&lt;std::string&gt;())) {</span>
+<span style = "background-color:#fdd">                rapport.signaler(ou / "values" / v, "drapeau '" + drapeau.id + "' : valeur '" +</span>
+                                                        valeur.get&lt;std::string&gt;() + "' en double.");
+<span style = "background-color:#fdd">            } else {</span>
+<span style = "background-color:#dfd">                drapeau.values.push_back(valeur.get&lt;std::string&gt;());</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (const auto initiale = texte(brut, "initial")) {
+            drapeau.initial = *initiale;
+        } else if (!drapeau.values.empty()) {
+            drapeau.initial = drapeau.values.front();
+        }
+        if (!drapeau.values.empty() &amp;&amp; !contient(drapeau.values, drapeau.initial)) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou / "initial", "drapeau '" + drapeau.id + "' : initiale '" +</span>
+                                                 drapeau.initial + "' hors de ses valeurs.");
+        }
+<span style = "background-color:#dfd">        quete.flags.push_back(std::move(drapeau));
+    }
+}</span>
+
+/// Une valeur comparÃ©e ou posÃ©e doit Ãªtre l'une de celles que la quÃªte dÃ©clare pour ce drapeau.
+void verifierValeur(const Quest&amp; quete, std::string_view drapeau, std::string_view valeur,
+<span style = "background-color:#dfd">                    const Pointeur&amp; ou, Rapport&amp; rapport) {
+    const auto declaration = std::ranges::find(quete.flags, drapeau, &amp;QuestFlag::id);
+    if (declaration != quete.flags.end() &amp;&amp; !contient(declaration-&gt;values, valeur)) {
+        rapport.signaler(ou, "valeur '" + std::string(valeur) + "' que le drapeau '" +</span>
+                                 std::string(drapeau) + "' ne declare pas.");
+    }
+<span style = "background-color:#dfd">}</span>
+
+void lireConditions(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; quete, QuestStep&amp; etape,
+<span style = "background-color:#dfd">                    Rapport&amp; rapport) {
+    const auto conditions = brut.find("when");
+    if (conditions == brut.end() || !conditions-&gt;is_array() || conditions-&gt;empty()) {
+        rapport.signaler(ou, "etape '" + etape.id + "' : 'when' absent ou vide.");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (std::size_t c = 0; c &lt; conditions-&gt;size(); ++c) {
+        const Pointeur ici = ou / "when" / c;
+        FlagConditionRead lue = readFlagCondition((*conditions)[c]);
+        if (!lue.condition) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ici, "etape '" + etape.id + "' : " + lue.error);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const std::string&amp; valeur : lue.condition-&gt;values) {
+            verifierValeur(quete, lue.condition-&gt;flag, valeur, ici, rapport);
+        }
+        etape.when.push_back(std::move(*lue.condition));
+    }
+}</span>
+
+void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; quete, QuestStep&amp; etape,
+<span style = "background-color:#dfd">                Rapport&amp; rapport) {
+    const auto effets = brut.find("effects");
+    if (effets == brut.end()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (!effets-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        rapport.signaler(ou / "effects", "etape '" + etape.id + "' : 'effects' non tableau.");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (std::size_t e = 0; e &lt; effets-&gt;size(); ++e) {
+        const Json&amp; effet = (*effets)[e];
+        const Pointeur ici = ou / "effects" / e;
+        const auto type = effet.is_object() ? texte(effet, "type") : std::nullopt;
+        const auto drapeau = effet.is_object() ? texte(effet, "flag") : std::nullopt;
+        if (type != "setFlag" &amp;&amp; type != "clearFlag") {</span>
+<span style = "background-color:#fdd">            rapport.signaler(</span>
+                ici, "etape '" + etape.id + "' : effet de type inconnu (setFlag, clearFlag).");
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!drapeau) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ici, "etape '" + etape.id + "' : effet sans 'flag'.");
+            continue;</span>
+        }
+        QuestEffect lu{
+<span style = "background-color:#dfd">            .kind = type == "setFlag" ? QuestEffect::Kind::SetFlag : QuestEffect::Kind::ClearFlag,
+            .flag = *drapeau,
+            .value = {}};
+        if (const auto valeur = effet.find("value"); valeur != effet.end()) {</span>
+<span style = "background-color:#fdd">            if (lu.kind != QuestEffect::Kind::SetFlag || !valeur-&gt;is_string() ||</span>
+                valeur-&gt;get&lt;std::string&gt;().empty()) {
+<span style = "background-color:#fdd">                rapport.signaler(ici / "value",</span>
+                                 "etape '" + etape.id + "' : 'value' est un texte, pour setFlag.");
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#fdd">            lu.value = valeur-&gt;get&lt;std::string&gt;();
+            verifierValeur(quete, lu.flag, lu.value, ici / "value", rapport);</span>
+<span style = "background-color:#dfd">        } else if (lu.kind == QuestEffect::Kind::SetFlag &amp;&amp;</span>
+                   std::ranges::find(quete.flags, lu.flag, &amp;QuestFlag::id) != quete.flags.end()) {
+<span style = "background-color:#fdd">            rapport.signaler(ici, "etape '" + etape.id + "' : le drapeau '" + lu.flag +</span>
+                                      "' a des valeurs ; 'value' manque.");
+<span style = "background-color:#dfd">        }
+        etape.effects.push_back(std::move(lu));
+    }
+}</span>
+
+<span style = "background-color:#dfd">void lireEtapes(const Json&amp; racine, Quest&amp; quete, Rapport&amp; rapport) {
+    const auto etapes = racine.find("steps");
+    if (etapes == racine.end() || !etapes-&gt;is_array() || etapes-&gt;empty()) {</span>
+<span style = "background-color:#fdd">        rapport.signaler(Pointeur(), "'steps' absent, vide ou non tableau.");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; vus;
+    for (std::size_t i = 0; i &lt; etapes-&gt;size(); ++i) {
+        const Json&amp; brut = (*etapes)[i];
+        const Pointeur ou = Pointeur("/steps") / i;
+        const auto id = brut.is_object() ? texte(brut, "id") : std::nullopt;
+        if (!id) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou, "etape sans 'id'.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        QuestStep etape;
+        etape.id = *id;
+        if (!vus.insert(etape.id).second) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou, "etape '" + etape.id + "' en double.");</span>
+        }
+<span style = "background-color:#dfd">        lireConditions(brut, ou, quete, etape, rapport);
+        lireEffets(brut, ou, quete, etape, rapport);
+        if (const auto issue = brut.find("outcome"); issue != brut.end()) {
+            if (*issue == "success") {
+                etape.outcome = QuestOutcome::Success;</span>
+<span style = "background-color:#fdd">            } else if (*issue == "failure") {
+                etape.outcome = QuestOutcome::Failure;
+            } else {
+                rapport.signaler(ou / "outcome",</span>
+                                 "etape '" + etape.id + "' : issue inconnue (success, failure).");
+            }
+<span style = "background-color:#dfd">        }
+        quete.steps.push_back(std::move(etape));
+    }
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::string&gt; lireFichier(const std::filesystem::path&amp; chemin) {
+    std::ifstream flux(chemin, std::ios::binary);
+    if (!flux) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return std::string(std::istreambuf_iterator&lt;char&gt;(flux), std::istreambuf_iterator&lt;char&gt;());
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#fdd">const QuestStep* Quest::find(std::string_view stepId) const {
+    const auto trouve = std::ranges::find(steps, stepId, &amp;QuestStep::id);
+    return trouve == steps.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">std::string questStepFlag(std::string_view questId, std::string_view stepId) {
+    return "quest/" + std::string(questId) + "/step/" + std::string(stepId);
+}</span>
+
+<span style = "background-color:#dfd">std::string questTitleKey(std::string_view questId) {
+    return "quest." + std::string(questId) + ".title";
+}</span>
+
+<span style = "background-color:#dfd">std::string questStepKey(std::string_view questId, std::string_view stepId) {
+    return "quest." + std::string(questId) + '.' + std::string(stepId);
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; questTextKeys(const Quest&amp; quest) {
+    std::vector&lt;std::string&gt; cles{questTitleKey(quest.id)};
+    for (const QuestStep&amp; etape : quest.steps) {
+        cles.push_back(questStepKey(quest.id, etape.id));
+    }
+    return cles;
+}</span>
+
+<span style = "background-color:#dfd">QuestLoad readQuest(std::string_view json, std::string_view origin) {
+    QuestLoad resultat;
+    const JsonDocument document = readJsonObject(json, SANS_GARDE_DE_VERSION, origin);
+    if (!document.ok()) {</span>
+        // Le message de la brique commune porte dÃ©jÃ  `fichier:ligne:colonne`.
+<span style = "background-color:#dfd">        resultat.errors.push_back(document.message);
+        return resultat;</span>
+    }
+<span style = "background-color:#dfd">    Rapport rapport(json, origin);
+    const Json&amp; racine = document.root;</span>
+
+<span style = "background-color:#dfd">    Quest quete;
+    if (const auto id = texte(racine, "id")) {
+        quete.id = *id;
+    } else {</span>
+<span style = "background-color:#fdd">        rapport.signaler(Pointeur(), "champ 'id' absent ou vide.");</span>
+<span style = "background-color:#dfd">    }
+    lireDrapeaux(racine, quete, rapport);
+    lireEtapes(racine, quete, rapport);</span>
+
+<span style = "background-color:#dfd">    if (!rapport.vide()) {
+        resultat.errors = rapport.extraire();
+        return resultat;</span>
+    }
+<span style = "background-color:#dfd">    resultat.quest = std::move(quete);
+    return resultat;
+}</span>
+
+<span style = "background-color:#dfd">QuestLoad loadQuest(const std::filesystem::path&amp; path) {
+    const std::optional&lt;std::string&gt; contenu = lireFichier(path);
+    if (!contenu) {</span>
+<span style = "background-color:#fdd">        QuestLoad echec;
+        echec.errors.push_back(path.string() + " : fichier absent ou illisible.");
+        return echec;</span>
+    }
+    // Le texte d'origine, pas un arbre rÃ©Ã©crit : c'est lui qui porte les numÃ©ros de ligne.
+<span style = "background-color:#dfd">    return readQuest(*contenu, path.string());
+}</span>
+
+<span style = "background-color:#dfd">const Quest* QuestCatalog::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(quests, id, &amp;Quest::id);
+    return trouve == quests.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">const QuestFlag* QuestCatalog::findFlag(std::string_view flag) const {
+    for (const Quest&amp; quete : quests) {
+        const auto trouve = std::ranges::find(quete.flags, flag, &amp;QuestFlag::id);
+        if (trouve != quete.flags.end()) {
+            return &amp;*trouve;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return nullptr;
+}</span>
+
+<span style = "background-color:#dfd">QuestCatalog loadQuests(const std::filesystem::path&amp; directory) {
+    QuestCatalog catalogue;
+    std::error_code code;
+    if (!std::filesystem::is_directory(directory, code)) {
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; fichiers;
+    for (const auto&amp; entree : std::filesystem::directory_iterator(directory, code)) {
+        if (entree.is_regular_file() &amp;&amp; entree.path().extension() == ".json") {
+            fichiers.push_back(entree.path());
+        }
+    }
+    std::ranges::sort(fichiers);</span>
+
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; drapeaux;
+    for (const std::filesystem::path&amp; fichier : fichiers) {
+        QuestLoad lue = loadQuest(fichier);
+        if (!lue.quest) {
+            catalogue.errors.insert(catalogue.errors.end(), lue.errors.begin(), lue.errors.end());
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string attendu = fichier.stem().string();
+        if (lue.quest-&gt;id != attendu) {
+            catalogue.errors.push_back(fichier.string() + " : l'identifiant '" + lue.quest-&gt;id +</span>
+                                       "' n'est pas le nom du fichier ('" + attendu + "').");
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (catalogue.find(lue.quest-&gt;id) != nullptr) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(fichier.string() + " : quete '" + lue.quest-&gt;id +</span>
+                                       "' en double.");
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        bool doublon = false;
+        for (const QuestFlag&amp; drapeau : lue.quest-&gt;flags) {
+            if (drapeaux.contains(drapeau.id)) {
+                catalogue.errors.push_back(fichier.string() + " : le drapeau '" + drapeau.id +</span>
+                                           "' est deja declare par une autre quete.");
+<span style = "background-color:#dfd">                doublon = true;</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (doublon) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const QuestFlag&amp; drapeau : lue.quest-&gt;flags) {
+            drapeaux.insert(drapeau.id);
+        }
+        catalogue.quests.push_back(std::move(*lue.quest));
+    }
+    return catalogue;
+}</span>
+
+<span style = "background-color:#dfd">void declareQuestFlags(const QuestCatalog&amp; catalog, WorldFlags&amp; flags) {
+    for (const Quest&amp; quete : catalog.quests) {
+        for (const QuestFlag&amp; drapeau : quete.flags) {
+            flags.declare(drapeau.id, drapeau.values, drapeau.initial);
+        }
+    }
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;QuestEvent&gt; advanceQuests(const QuestCatalog&amp; catalog, WorldFlags&amp; flags) {
+    std::vector&lt;QuestEvent&gt; evenements;
+    bool bouge = true;
+    while (bouge) {
+        bouge = false;
+        for (const Quest&amp; quete : catalog.quests) {
+            const QuestStatus statut = questProgress(quete, flags).status;
+            if (statut == QuestStatus::Succeeded || statut == QuestStatus::Failed) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            for (const QuestStep&amp; etape : quete.steps) {
+                const std::string fait = questStepFlag(quete.id, etape.id);
+                if (flags.isSet(fait) ||
+                    !std::ranges::all_of(etape.when, [&amp;flags](const FlagCondition&amp; condition) {
+                        return condition.holds(flags);
+                    })) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                flags.set(fait);
+                for (const QuestEffect&amp; effet : etape.effects) {
+                    if (effet.kind == QuestEffect::Kind::ClearFlag) {</span>
+<span style = "background-color:#fdd">                        flags.clear(effet.flag);</span>
+<span style = "background-color:#dfd">                    } else if (effet.value.empty()) {
+                        flags.set(effet.flag);
+                    } else {</span>
+<span style = "background-color:#fdd">                        flags.setValue(effet.flag, effet.value);</span>
+                    }
+<span style = "background-color:#dfd">                }
+                evenements.push_back({quete.id, etape.id, etape.outcome});
+                bouge = true;
+                if (etape.outcome != QuestOutcome::None) {
+                    break;</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return evenements;
+}</span>
+
+<span style = "background-color:#dfd">QuestProgress questProgress(const Quest&amp; quest, const WorldFlags&amp; flags) {
+    QuestProgress avancement;
+    for (const QuestStep&amp; etape : quest.steps) {
+        if (!flags.isSet(questStepFlag(quest.id, etape.id))) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        avancement.reachedSteps.push_back(etape.id);
+        if (etape.outcome == QuestOutcome::Success) {
+            avancement.status = QuestStatus::Succeeded;
+        } else if (etape.outcome == QuestOutcome::Failure) {
+            avancement.status = QuestStatus::Failed;
+        } else if (avancement.status == QuestStatus::NotStarted) {
+            avancement.status = QuestStatus::Active;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return avancement;
+}</span>
+
+namespace {
+
+/// Confronte une valeur comparÃ©e ou posÃ©e Ã  la dÃ©claration du drapeau, s'il en a une.
+void verifierUsage(const QuestCatalog&amp; quetes, std::string_view drapeau,
+                   const std::vector&lt;std::string&gt;&amp; valeurs, bool poseSansValeur,
+<span style = "background-color:#dfd">                   const std::string&amp; ou, std::vector&lt;std::string&gt;&amp; erreurs) {
+    const QuestFlag* declaration = quetes.findFlag(drapeau);
+    if (declaration == nullptr) {
+        if (!valeurs.empty()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(ou + " : le drapeau '" + std::string(drapeau) +</span>
+                              "' n'est declare par aucune quete ; il n'a pas de valeurs.");
+        }
+<span style = "background-color:#dfd">        return;</span>
+    }
+<span style = "background-color:#dfd">    if (poseSansValeur) {
+        erreurs.push_back(ou + " : le drapeau '" + std::string(drapeau) +</span>
+                          "' a des valeurs ; il se pose avec 'value'.");
+    }
+<span style = "background-color:#dfd">    for (const std::string&amp; valeur : valeurs) {
+        if (!contient(declaration-&gt;values, valeur)) {
+            erreurs.push_back(ou + " : valeur '" + valeur + "' que le drapeau '" +</span>
+                              std::string(drapeau) + "' ne declare pas.");
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+}  // namespace
+
+std::vector&lt;std::string&gt; validateFlagUses(const QuestCatalog&amp; quests,
+<span style = "background-color:#dfd">                                          const DialogueCatalog&amp; dialogues) {
+    std::vector&lt;std::string&gt; erreurs;
+    for (const DialogueGraph&amp; graphe : dialogues.dialogues) {
+        for (const DialogueNode&amp; noeud : graphe.nodes) {
+            const std::string ou = "dialogue '" + graphe.id + "' : noeud '" + noeud.id + "'";
+            if (noeud.kind == DialogueNodeKind::Condition) {
+                verifierUsage(quests, noeud.condition.flag, noeud.condition.values, false, ou,</span>
+                              erreurs);
+            }
+<span style = "background-color:#dfd">            for (const DialogueChoice&amp; choix : noeud.choices) {
+                if (choix.condition) {
+                    verifierUsage(quests, choix.condition-&gt;flag, choix.condition-&gt;values, false,</span>
+                                  ou + " / reponse '" + choix.id + "'", erreurs);
+                }
+<span style = "background-color:#dfd">            }
+            for (const DialogueAction&amp; action : noeud.actions) {
+                if (action.kind != DialogueActionKind::SetFlag) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                std::vector&lt;std::string&gt; valeurs;
+                if (!action.value.empty()) {
+                    valeurs.push_back(action.value);</span>
+                }
+<span style = "background-color:#dfd">                verifierUsage(quests, action.target, valeurs, action.value.empty(), ou, erreurs);
+            }
+        }
+    }</span>
+    // Les quÃªtes entre elles : une Ã©tape peut lire ou poser le drapeau qu'une autre dÃ©clare.
+<span style = "background-color:#dfd">    for (const Quest&amp; quete : quests.quests) {
+        for (const QuestStep&amp; etape : quete.steps) {
+            const std::string ou = "quete '" + quete.id + "' : etape '" + etape.id + "'";
+            for (const FlagCondition&amp; condition : etape.when) {
+                verifierUsage(quests, condition.flag, condition.values, false, ou, erreurs);
+            }
+            for (const QuestEffect&amp; effet : etape.effects) {
+                if (effet.kind != QuestEffect::Kind::SetFlag) {</span>
+<span style = "background-color:#fdd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                std::vector&lt;std::string&gt; valeurs;
+                if (!effet.value.empty()) {</span>
+<span style = "background-color:#fdd">                    valeurs.push_back(effet.value);</span>
+                }
+<span style = "background-color:#dfd">                verifierUsage(quests, effet.flag, valeurs, effet.value.empty(), ou, erreurs);
+            }
+        }
+    }
+    return erreurs;
+}</span>
+
+std::set&lt;std::string, std::less&lt;&gt;&gt; flagsWrittenBy(const QuestCatalog&amp; quests,
+<span style = "background-color:#dfd">                                                  const DialogueCatalog&amp; dialogues) {
+    std::set&lt;std::string, std::less&lt;&gt;&gt; poses;
+    for (const DialogueGraph&amp; graphe : dialogues.dialogues) {
+        for (const DialogueNode&amp; noeud : graphe.nodes) {
+            for (const DialogueAction&amp; action : noeud.actions) {
+                if (action.kind == DialogueActionKind::SetFlag) {
+                    poses.insert(action.target);
+                } else if (action.kind == DialogueActionKind::StartQuest) {
+                    poses.insert(questStartedFlag(action.target));</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    for (const Quest&amp; quete : quests.quests) {
+        for (const QuestFlag&amp; drapeau : quete.flags) {
+            poses.insert(drapeau.id);
+        }
+        for (const QuestStep&amp; etape : quete.steps) {
+            poses.insert(questStepFlag(quete.id, etape.id));
+            for (const QuestEffect&amp; effet : etape.effects) {
+                if (effet.kind == QuestEffect::Kind::SetFlag) {
+                    poses.insert(effet.flag);</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return poses;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;FlagRead&gt; flagsReadBy(const QuestCatalog&amp; quests, const DialogueCatalog&amp; dialogues) {
+    std::vector&lt;FlagRead&gt; lus;
+    for (const DialogueGraph&amp; graphe : dialogues.dialogues) {
+        for (const DialogueNode&amp; noeud : graphe.nodes) {
+            const std::string ou = "dialogue '" + graphe.id + "' : noeud '" + noeud.id + "'";
+            if (noeud.kind == DialogueNodeKind::Condition) {
+                lus.push_back({noeud.condition.flag, ou});</span>
+            }
+<span style = "background-color:#dfd">            for (const DialogueChoice&amp; choix : noeud.choices) {
+                if (choix.condition) {
+                    lus.push_back({choix.condition-&gt;flag, ou + " / reponse '" + choix.id + "'"});</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    for (const Quest&amp; quete : quests.quests) {
+        for (const QuestStep&amp; etape : quete.steps) {
+            for (const FlagCondition&amp; condition : etape.when) {
+                lus.push_back(</span>
+                    {condition.flag, "quete '" + quete.id + "' : etape '" + etape.id + "'"});
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return lus;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -21,6 +21,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/World/EntityPresence.h"
 #include "HMI/HmiLog.h"
 
 namespace hmi {
@@ -29,6 +30,20 @@ namespace {
 
 /// DurÃ©e d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
+
+/// Les entitÃ©s de la carte courante que les drapeaux laissent paraÃ®tre (`LOT-116`) : une copie,
+/// que la carte, lue d'un fichier qui ignore la partie, ne peut pas Ãªtre.
+[[nodiscard]] std::vector&lt;core::MapEntity&gt; entitesPresentes(const core::ExplorationSession&amp; session,
+<span style = "background-color:#dfd">                                                            const core::Level&amp; map) {
+    std::vector&lt;core::MapEntity&gt; presentes;
+    presentes.reserve(map.entities().size());
+    for (const core::MapEntity&amp; entite : map.entities()) {
+        if (session.isPresent(entite)) {
+            presentes.push_back(entite);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return presentes;
+}</span>
 
 }  // namespace
 
@@ -53,6 +68,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     }
 <span style = "background-color:#dfd">    _elapsed = 0.0F;
     _walking = false;
+    _drawnFlags = _session.flags().revision();
     reloadAppearance();
     return true;
 }</span>
@@ -80,16 +96,22 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     }
     // Un hÃ©ros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
     // la scÃ¨ne doit se redessiner autant que s'il avait bougÃ©.
-<span style = "background-color:#dfd">    result.heroMoved = _session.heroPoint() != before || walking;
-    for (const core::ExplorationEvent&amp; event : result.events) {</span>
-<span style = "background-color:#fdd">        if (event.kind == core::ExplorationEventKind::MapEntered) {
-            _elapsed = 0.0F;
+<span style = "background-color:#dfd">    result.heroMoved = _session.heroPoint() != before || walking;</span>
+    // Un drapeau change -- un dialogue, une quete qui avance : un PNJ parait ou disparait, et la
+    // scene se recompose sans que la carte soit relue (`LOT-116`).
+<span style = "background-color:#dfd">    if (_session.flags().revision() != _drawnFlags) {
+        _drawnFlags = _session.flags().revision();
+        result.sceneChanged = true;</span>
+    }
+<span style = "background-color:#dfd">    for (const core::ExplorationEvent&amp; event : result.events) {
+        if (event.kind == core::ExplorationEventKind::MapEntered) {</span>
+<span style = "background-color:#fdd">            _elapsed = 0.0F;
             reloadAppearance();
             result.sceneChanged = true;
             result.heroMoved = true;</span>
         }
-<span style = "background-color:#fdd">    }</span>
-<span style = "background-color:#dfd">    return result;
+<span style = "background-color:#dfd">    }
+    return result;
 }</span>
 
 <span style = "background-color:#dfd">void WorldPlay::reloadAppearance() {
@@ -104,10 +126,10 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
         // ses types en couleurs, ses murs en blocs et ses entites en jetons. Ce n'est plus un
         // manque a signaler, c'est l'etat de depart normal d'une carte. Ses PNJ prennent les
         // figurines du monde (LOT-124).
-<span style = "background-color:#fdd">        _appearance = PlaceAppearance::loadForPlace(_assetsDirectory, {}).appearance;
+<span style = "background-color:#dfd">        _appearance = PlaceAppearance::loadForPlace(_assetsDirectory, {}).appearance;
         HMI_LOG_INFO("Monde : la carte " + _session.mapId() +</span>
                      " ne declare aucun lieu ; elle se joue en maquette.");
-<span style = "background-color:#fdd">        return;</span>
+<span style = "background-color:#dfd">        return;</span>
     }
 <span style = "background-color:#dfd">    PlaceAppearanceResult read = PlaceAppearance::loadForPlace(_assetsDirectory, place);
     if (!read.ok()) {</span>
@@ -127,7 +149,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">    const int frame = static_cast&lt;int&gt;(_elapsed / FIGURE_FRAME_SECONDS);</span>
 
     // Les PNJ d'abord, le hÃ©ros ensuite : Ã  Ã©galitÃ© de profondeur, c'est lui qui passe devant.
-<span style = "background-color:#dfd">    std::vector&lt;WorldFigureSnapshot&gt; figures = npcFigures(map-&gt;entities(), frame);
+<span style = "background-color:#dfd">    std::vector&lt;WorldFigureSnapshot&gt; figures = npcFigures(entitesPresentes(_session, *map), frame);
     figures.push_back(</span>
         WorldFigureSnapshot{.figure = _heroFigure,
                             .clip = _walking ? "walk" : "idle",
@@ -144,7 +166,10 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     if (map == nullptr) {</span>
 <span style = "background-color:#fdd">        return WorldSceneSnapshot{};</span>
     }
-<span style = "background-color:#dfd">    return snapshotWorldScene(*map, _appearance, figures());
+<span style = "background-color:#dfd">    const std::vector&lt;core::MapEntity&gt; presentes = entitesPresentes(_session, *map);
+    const WorldSceneSource source{</span>
+        .root = map-&gt;tileMap(), .layers = map-&gt;layers(), .entities = presentes};
+<span style = "background-color:#dfd">    return snapshotWorldScene(source, _appearance, figures());
 }</span>
 
 }  // namespace hmi</pre>

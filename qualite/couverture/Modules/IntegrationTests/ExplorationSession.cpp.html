@@ -26,6 +26,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/World/EntityPresence.h"
 
 namespace core {
 
@@ -64,13 +65,18 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
 <span style = "background-color:#dfd">void ExplorationSession::rebuildInteractables() {
     _interactables.clear();
     const Level* carte = map();
-    if (carte == nullptr) {</span>
-<span style = "background-color:#fdd">        return;</span>
+    if (carte == nullptr) {
+        _seenRevision = _flags.revision();
+        return;</span>
     }
     // Meme table et meme fabrique de cle que le peuplement ECS (`spawnMapEntities`) : la session du
     // jeu n'a pas d'ECS, mais elle ne peut pas avoir sa PROPRE idee de ce qui est interactif.
-<span style = "background-color:#dfd">    for (const MapEntity&amp; objet : carte-&gt;entities()) {
-        const auto famille =</span>
+<span style = "background-color:#dfd">    _seenRevision = _flags.revision();
+    for (const MapEntity&amp; objet : carte-&gt;entities()) {
+        if (!isEntityPresent(objet, _flags)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto famille =</span>
             std::ranges::find(knownInteractableKinds(), objet.type, &amp;InteractableKind::type);
 <span style = "background-color:#dfd">        if (famille == knownInteractableKinds().end()) {
             continue;</span>
@@ -178,8 +184,8 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
 <span style = "background-color:#dfd">    }</span>
     const InteractionTarget cible =
 <span style = "background-color:#dfd">        findInteractionTarget(heroCell(), _facing, carte-&gt;tileMap(), candidats, _flags);
-    if (!cible.found()) {</span>
-<span style = "background-color:#fdd">        return;</span>
+    if (!cible.found()) {
+        return;</span>
     }
 <span style = "background-color:#dfd">    const InteractionOutcome issue = interact(cible, _flags);
     if (!issue.happened) {</span>
@@ -189,8 +195,9 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
     // carte ; l'entite d'origine porte les proprietes (dialogue, rencontre) que la liste ne copie
     // pas. On la retrouve par sa case et son type, l'identite meme d'une entite de carte.
 <span style = "background-color:#dfd">    const GridPosition ou = _interactables[cible.index].position;
-    for (const MapEntity&amp; objet : carte-&gt;entities()) {
-        if (objet.position != ou || objet.type != issue.type) {
+    for (const MapEntity&amp; objet : carte-&gt;entities()) {</span>
+        // Une entite absente peut partager la case d'une presente : l'enfant rendu a sa mere.
+<span style = "background-color:#dfd">        if (objet.position != ou || objet.type != issue.type || !isEntityPresent(objet, _flags)) {
             continue;</span>
         }
 <span style = "background-color:#dfd">        if (const std::optional&lt;DialogueTrigger&gt; parole = dialogueTriggerFor(objet);
@@ -211,9 +218,36 @@ ExplorationSession::ExplorationSession(WorldTravel::MapLoader loader)
         .kind = ExplorationEventKind::Interacted, .value = issue.type, .cell = ou});
 <span style = "background-color:#fdd">}</span>
 
-std::vector&lt;ExplorationEvent&gt; ExplorationSession::update(const ExplorationIntent&amp; intent,
-<span style = "background-color:#dfd">                                                         float seconds) {
+<span style = "background-color:#dfd">void ExplorationSession::setQuests(QuestCatalog quests) {
+    _quests = std::move(quests);
+    declareQuestFlags(_quests, _flags);
+    advanceQuests(_quests, _flags);
+    rebuildInteractables();
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;ExplorationEvent&gt; ExplorationSession::refreshFromFlags() {
     std::vector&lt;ExplorationEvent&gt; events;
+    if (_flags.revision() == _seenRevision) {
+        return events;</span>
+    }
+<span style = "background-color:#dfd">    for (const QuestEvent&amp; etape : advanceQuests(_quests, _flags)) {
+        events.push_back(ExplorationEvent{.kind = ExplorationEventKind::QuestAdvanced,</span>
+                                          .value = etape.quest + "/" + etape.step,
+                                          .cell = heroCell()});
+<span style = "background-color:#dfd">    }
+    rebuildInteractables();
+    return events;
+}</span>
+
+<span style = "background-color:#dfd">bool ExplorationSession::isPresent(const MapEntity&amp; entity) const {
+    return isEntityPresent(entity, _flags);
+}</span>
+
+std::vector&lt;ExplorationEvent&gt; ExplorationSession::update(const ExplorationIntent&amp; intent,
+<span style = "background-color:#dfd">                                                         float seconds) {</span>
+    // Avant le gel : un dialogue ouvert a pu poser un drapeau, et la quete doit avancer meme si
+    // la carte attend que la conversation se referme.
+<span style = "background-color:#dfd">    std::vector&lt;ExplorationEvent&gt; events = refreshFromFlags();
     if (_frozen || map() == nullptr || seconds &lt;= 0.0F) {
         return events;</span>
     }
@@ -222,7 +256,11 @@ std::vector&lt;ExplorationEvent&gt; ExplorationSession::update(const Exploration
     if (intent.interact) {
         resolveInteraction(events);</span>
     }
-<span style = "background-color:#dfd">    return events;
+    // Une interaction a pu poser un drapeau (un coffre ouvert) : ses consequences, dans le meme
+    // pas.
+<span style = "background-color:#dfd">    std::vector&lt;ExplorationEvent&gt; suite = refreshFromFlags();
+    events.insert(events.end(), suite.begin(), suite.end());
+    return events;
 }</span>
 
 }  // namespace core</pre>

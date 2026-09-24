@@ -31,7 +31,8 @@ var EntityKinds_8h =
       [ "core::EntityIssueCode::UnsetFlag", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea21ee9ca42970897cbcacc79f34e6cb4e", null ],
       [ "core::EntityIssueCode::UnknownLocation", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacebd93e10fdff9ab8b4a4a84352cdfb4", null ],
       [ "core::EntityIssueCode::UnknownItem", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab94b40e5c60319f4fc15e8166bd8d2af", null ],
-      [ "core::EntityIssueCode::UnknownEntityRef", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f", null ]
+      [ "core::EntityIssueCode::UnknownEntityRef", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035eae56bd292e4050ea440d03f594711b42f", null ],
+      [ "core::EntityIssueCode::InvalidPresence", "namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644", null ]
     ] ],
     [ "core::EntityPropertyKind", "namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126e", [
       [ "core::EntityPropertyKind::Text", "namespacecore.html#a9d3c367e939d3d4dd488fbaf5bba126ea9dffbf69ffba8bc38bc4e01abf4b1675", null ],

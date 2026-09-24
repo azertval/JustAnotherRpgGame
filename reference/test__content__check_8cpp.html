@@ -174,12 +174,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1c36e2c90746750b7409f0945939eba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textes d'une carte : la clé de son nom, et les catalogues qu'on complète.  <br /></td></tr>
 <tr class="memitem:abe1deb01482dfff7caa8034d339f9d43" id="r_abe1deb01482dfff7caa8034d339f9d43"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abe1deb01482dfff7caa8034d339f9d43">TEST</a> (ContentCheckTest, UneCarteNeuveASonNomDansChaqueCatalogue)</td></tr>
 <tr class="memdesc:abe1deb01482dfff7caa8034d339f9d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte créée, renommée ou dupliquée porte son nom en clé, que les catalogues ont : elle passe le contrôle telle quelle (<span class="tt">EX-EDIT-077</span>, <span class="tt">LOT-EDITOR-07</span>).  <br /></td></tr>
+<tr class="memitem:a8fdad2bbe63a806bdf70d4bc96bfdb3f" id="r_a8fdad2bbe63a806bdf70d4bc96bfdb3f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8fdad2bbe63a806bdf70d4bc96bfdb3f">TEST</a> (ContentCheckTest, LeControleDuRecitRefuseUnDrapeauLuQueRienNePose)</td></tr>
+<tr class="memdesc:a8fdad2bbe63a806bdf70d4bc96bfdb3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le récit se contrôle hors de toute carte : drapeau lu jamais posé, quête mal formée.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du contrôle du contenu (<span class="tt">LOT-EDITOR-07</span>) : ce qu'une carte promet au joueur et ne tient pas, sur toutes les cartes, et les clés de traduction qu'elles citent. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a1ea359e1559d67015313f8ff81d42320" name="a1ea359e1559d67015313f8ff81d42320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ea359e1559d67015313f8ff81d42320">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ea359e1559d67015313f8ff81d42320">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,8 +210,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8fdad2bbe63a806bdf70d4bc96bfdb3f" name="a8fdad2bbe63a806bdf70d4bc96bfdb3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fdad2bbe63a806bdf70d4bc96bfdb3f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ContentCheckTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeControleDuRecitRefuseUnDrapeauLuQueRienNePose</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le récit se contrôle hors de toute carte : drapeau lu jamais posé, quête mal formée. </p>
+<p><b>Cas de test :</b> <b>Le controle du recit refuse un drapeau lu que rien ne pose.</b><br  />
+ <b>Categorie :</b> Unitaire · Controle du contenu<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire un dialogue dont une condition lit <span class="tt">jamais-pose</span> et qui pose <span class="tt">pose</span>.<br  />
+</p><ol type="1">
+<li>Ecrire une quete qui lit <span class="tt">pose</span>, et une quete mal formee.<br  />
+3. Controler le recit, puis <span class="tt">--check</span> sur le projet.<br  />
+ <b>Resultat attendu :</b> Deux erreurs sur <span class="tt">World</span> : <span class="tt">jamais-pose</span> est lu sans etre pose (le dialogue et son noeud nommes), la quete mal formee est refusee avec sa ligne ; <span class="tt">pose</span> ne dit rien ; <span class="tt">--check</span> rend 1. </li>
+</ol>
+
+</div>
+</div>
 <a id="a1c36e2c90746750b7409f0945939eba7" name="a1c36e2c90746750b7409f0945939eba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c36e2c90746750b7409f0945939eba7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c36e2c90746750b7409f0945939eba7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,7 +274,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe1deb01482dfff7caa8034d339f9d43" name="abe1deb01482dfff7caa8034d339f9d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe1deb01482dfff7caa8034d339f9d43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe1deb01482dfff7caa8034d339f9d43">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +306,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0bf94ceaa539c5aa0d73c3488af02218" name="a0bf94ceaa539c5aa0d73c3488af02218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bf94ceaa539c5aa0d73c3488af02218">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf94ceaa539c5aa0d73c3488af02218">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +336,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a99961c4cb6bd46dd9f8c92da6a590a35" name="a99961c4cb6bd46dd9f8c92da6a590a35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99961c4cb6bd46dd9f8c92da6a590a35">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a99961c4cb6bd46dd9f8c92da6a590a35">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

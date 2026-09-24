@@ -60,7 +60,7 @@ var searchData=
   ['entityselected_57',['entitySelected',['../classhmi_1_1EntityPanel.html#a11f1a1d750f7eb7f27bb9a6eec42bc33',1,'hmi::EntityPanel']]],
   ['entityselectionchanged_58',['entitySelectionChanged',['../classhmi_1_1EditorViewport.html#aed573b9d7abcbb17081aedb813bf0cd9',1,'hmi::EditorViewport']]],
   ['entityshape_59',['entityShape',['../namespacehmi.html#a85003a18fc16ecb0133fc982181ff5ff',1,'hmi']]],
-  ['entries_60',['entries',['../classcore_1_1TurnOrder.html#afa270b0e1cb457fb5b40ac8b370ea45a',1,'core::TurnOrder::entries()'],['../classcore_1_1MemoryLogSink.html#a34745d0fc5199fe9680d70e545232b17',1,'core::MemoryLogSink::entries()']]],
+  ['entries_60',['entries',['../classcore_1_1TurnOrder.html#afa270b0e1cb457fb5b40ac8b370ea45a',1,'core::TurnOrder::entries()'],['../classcore_1_1MemoryLogSink.html#a34745d0fc5199fe9680d70e545232b17',1,'core::MemoryLogSink::entries()'],['../classcore_1_1WorldFlags.html#a41c08fb5e06519d9dcf61b81868f428f',1,'core::WorldFlags::entries()']]],
   ['entry_61',['entry',['../classcore_1_1Level.html#a08c4420372462d6e7991956902906da5',1,'core::Level::entry()'],['../classcore_1_1LevelDraft.html#a7614f7f0cdaea145907831e56781182b',1,'core::LevelDraft::entry()']]],
   ['entrycount_62',['entryCount',['../structhmi_1_1AssetGalleryCatalog.html#ab498990ec3a189e80a78847766030886',1,'hmi::AssetGalleryCatalog']]],
   ['entryof_63',['entryOf',['../classhmi_1_1AssetGalleryItem.html#a05687ff5340c5da9602374b7e8e29a34',1,'hmi::AssetGalleryItem']]],

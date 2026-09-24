@@ -18,10 +18,13 @@ var searchData=
   ['invalidchoice_15',['InvalidChoice',['../namespacecore.html#ac1032ee70b0c730c8727b80822ab035eab3d59734e0024699c11b2c254ebd0bf4',1,'core']]],
   ['invalidcombatant_16',['InvalidCombatant',['../namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4af021923d144bbdd4e5742bcd1d4a4821',1,'core']]],
   ['invalidentrycount_17',['InvalidEntryCount',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a05ea747c9c1db8d4106f81293eec9bff',1,'core']]],
-  ['invalidtarget_18',['InvalidTarget',['../namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71',1,'core']]],
-  ['inventory_19',['Inventory',['../classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea4d604dd8f008145471dc845683399189',1,'hmi::ScreenRouter::Inventory'],['../namespacehmi.html#a86e4ce6097c7a029c683096302528e72a4d604dd8f008145471dc845683399189',1,'hmi::Inventory']]],
-  ['invisible_20',['Invisible',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a8bcda43732b0928d269955e0f09ff76f',1,'core']]],
-  ['iso_21',['Iso',['../namespacehmi.html#a78257412917b7881b3766489df80d4c4a3a631438d6f2eba0ef81c8cc070fe15f',1,'hmi']]],
-  ['isoview_22',['IsoView',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f',1,'hmi']]],
-  ['items_23',['Items',['../namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a9dea4016dbcc290b773ab2fae678aaa8',1,'core']]]
+  ['invalidpresence_18',['InvalidPresence',['../namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea0d20808ceab6b3a97a91280c360c2644',1,'core']]],
+  ['invalidtarget_19',['InvalidTarget',['../namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71',1,'core']]],
+  ['inventory_20',['Inventory',['../classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea4d604dd8f008145471dc845683399189',1,'hmi::ScreenRouter::Inventory'],['../namespacehmi.html#a86e4ce6097c7a029c683096302528e72a4d604dd8f008145471dc845683399189',1,'hmi::Inventory']]],
+  ['invisible_21',['Invisible',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a8bcda43732b0928d269955e0f09ff76f',1,'core']]],
+  ['iso_22',['Iso',['../namespacehmi.html#a78257412917b7881b3766489df80d4c4a3a631438d6f2eba0ef81c8cc070fe15f',1,'hmi']]],
+  ['isoview_23',['IsoView',['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18ae8de0394e2f02256b2ef89c94a67f84f',1,'hmi']]],
+  ['isset_24',['IsSet',['../namespacecore.html#ae199fc30f29974fef45295646f9c280ea4a82d05bf8b4a9012e4e0e74a03edc43',1,'core']]],
+  ['isunset_25',['IsUnset',['../namespacecore.html#ae199fc30f29974fef45295646f9c280ea5d56a912e284b62fde8c273d30b10e12',1,'core']]],
+  ['items_26',['Items',['../namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a9dea4016dbcc290b773ab2fae678aaa8',1,'core']]]
 ];

@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-24 17:15 UTC",
-  "commit": "d31fe10b9",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36030345663",
+  "generated": "2026-09-24 18:51 UTC",
+  "commit": "e9b7ecf10",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36040903750",
   "coverage": {
-    "percent": 91.32,
-    "covered": 28849,
-    "valid": 31591,
-    "files": 254,
+    "percent": 91.17,
+    "covered": 30638,
+    "valid": 33605,
+    "files": 259,
     "areas": [
       {
         "name": "Core",
@@ -22,9 +22,9 @@
       },
       {
         "name": "Core/Data",
-        "covered": 66,
-        "valid": 67,
-        "percent": 98.51
+        "covered": 167,
+        "valid": 176,
+        "percent": 94.89
       },
       {
         "name": "Core/Diagnostics",
@@ -40,9 +40,9 @@
       },
       {
         "name": "Core/Gameplay",
-        "covered": 102,
-        "valid": 106,
-        "percent": 96.23
+        "covered": 592,
+        "valid": 666,
+        "percent": 88.89
       },
       {
         "name": "Core/Levels",
@@ -64,9 +64,9 @@
       },
       {
         "name": "Core/Rpg",
-        "covered": 1970,
-        "valid": 2190,
-        "percent": 89.95
+        "covered": 1967,
+        "valid": 2185,
+        "percent": 90.02
       },
       {
         "name": "Core/Time",
@@ -76,15 +76,15 @@
       },
       {
         "name": "Core/World",
-        "covered": 960,
-        "valid": 1052,
-        "percent": 91.25
+        "covered": 1050,
+        "valid": 1159,
+        "percent": 90.6
       },
       {
         "name": "Editor/Logic",
-        "covered": 4373,
-        "valid": 4988,
-        "percent": 87.67
+        "covered": 4385,
+        "valid": 5002,
+        "percent": 87.66
       },
       {
         "name": "Editor/Ui",
@@ -100,14 +100,14 @@
       },
       {
         "name": "HMI/Game",
-        "covered": 140,
-        "valid": 160,
-        "percent": 87.5
+        "covered": 170,
+        "valid": 185,
+        "percent": 91.89
       },
       {
         "name": "HMI/Graphics",
-        "covered": 3196,
-        "valid": 3593,
+        "covered": 3197,
+        "valid": 3594,
         "percent": 88.95
       },
       {
@@ -130,9 +130,9 @@
       },
       {
         "name": "HMI/Presentation",
-        "covered": 597,
-        "valid": 651,
-        "percent": 91.71
+        "covered": 642,
+        "valid": 697,
+        "percent": 92.11
       }
     ]
   },

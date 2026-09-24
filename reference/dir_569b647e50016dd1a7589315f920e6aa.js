@@ -12,6 +12,8 @@ var dir_569b647e50016dd1a7589315f920e6aa =
     [ "InventoryScreen.h", "InventoryScreen_8h.html", "InventoryScreen_8h" ],
     [ "InventoryValues.cpp", "InventoryValues_8cpp.html", "InventoryValues_8cpp" ],
     [ "InventoryValues.h", "InventoryValues_8h.html", "InventoryValues_8h" ],
+    [ "QuestJournalScreen.cpp", "QuestJournalScreen_8cpp.html", "QuestJournalScreen_8cpp" ],
+    [ "QuestJournalScreen.h", "QuestJournalScreen_8h.html", "QuestJournalScreen_8h" ],
     [ "RpgScreens.cpp", "RpgScreens_8cpp.html", "RpgScreens_8cpp" ],
     [ "RpgScreens.h", "RpgScreens_8h.html", "RpgScreens_8h" ],
     [ "ScreenFlow.cpp", "ScreenFlow_8cpp.html", "ScreenFlow_8cpp" ],

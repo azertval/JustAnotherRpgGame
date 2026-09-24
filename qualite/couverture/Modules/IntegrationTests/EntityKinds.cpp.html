@@ -27,6 +27,7 @@
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
+#include "Core/World/EntityPresence.h"
 
 namespace core {
 
@@ -328,6 +329,38 @@ namespace {
 
 }  // namespace
 
+namespace {
+
+// La condition de presence d'une entite : bien formee, et sur un drapeau qu'un dialogue ou une
+// quete pose -- sans quoi le PNJ ne paraitrait (ou ne partirait) jamais.
+template &lt;class Report&gt;
+void presenceIssues(const MapEntity&amp; entity, const EntityReferenceContext&amp; context,
+<span style = "background-color:#dfd">                    Report&amp;&amp; report) {
+    const PresenceRead read = presenceConditionOf(entity);
+    switch (read.issue) {</span>
+        case PresenceIssue::None:
+<span style = "background-color:#fdd">            break;</span>
+        case PresenceIssue::WrongValueType:
+<span style = "background-color:#fdd">            report(EntityIssueCode::WrongValueType, PRESENCE_FLAG_PROPERTY, std::string{});
+            return;</span>
+        case PresenceIssue::UnknownTest:
+<span style = "background-color:#dfd">            report(EntityIssueCode::InvalidPresence, PRESENCE_TEST_PROPERTY,</span>
+                   textOf(entity.properties, PRESENCE_TEST_PROPERTY));
+<span style = "background-color:#dfd">            return;</span>
+        case PresenceIssue::MissingValue:
+<span style = "background-color:#fdd">            report(EntityIssueCode::InvalidPresence, PRESENCE_VALUE_PROPERTY, std::string{});
+            return;</span>
+        case PresenceIssue::MissingFlag:
+<span style = "background-color:#fdd">            report(EntityIssueCode::InvalidPresence, PRESENCE_FLAG_PROPERTY, std::string{});
+            return;</span>
+    }
+<span style = "background-color:#dfd">    if (read.condition &amp;&amp; !context.flags.contains(read.condition-&gt;flag)) {
+        report(EntityIssueCode::UnsetFlag, PRESENCE_FLAG_PROPERTY, read.condition-&gt;flag);</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
 std::vector&lt;EntityIssue&gt; validateMapEntities(const std::vector&lt;MapEntity&gt;&amp; entities,
 <span style = "background-color:#dfd">                                             const EntityReferenceContext&amp; context) {
     std::vector&lt;EntityIssue&gt; issues;
@@ -344,7 +377,13 @@ std::vector&lt;EntityIssue&gt; validateMapEntities(const std::vector&lt;MapEntit
 <span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; seenArrivals;</span>
 
 <span style = "background-color:#dfd">    for (std::size_t index = 0; index &lt; entities.size(); ++index) {
-        const MapEntity&amp; entity = entities[index];
+        const MapEntity&amp; entity = entities[index];</span>
+        // La condition de presence vaut pour TOUTE famille, connue ou non (LOT-116) : elle se
+        // controle ici, une fois, et non propriete par propriete dans la table.
+<span style = "background-color:#dfd">        presenceIssues(entity, context,
+                       [&amp;](EntityIssueCode code, std::string_view key, std::string value) {
+                           report(index, code, key, std::move(value));
+                       });
         const EntityKind* const kind = findEntityKind(entity.type);
         if (kind == nullptr) {
             report(index, EntityIssueCode::UnknownType, {}, entity.type);

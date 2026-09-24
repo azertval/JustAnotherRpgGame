@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>FlagCondition.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Gameplay/FlagCondition.h"
+
+#include &lt;algorithm&gt;
+
+#include "Core/Gameplay/WorldFlags.h"
+
+namespace core {
+
+namespace {
+
+using Json = nlohmann::json;
+
+/// `"v"` ou `["v", "w"]`, sans valeur vide ni doublon ; `std::nullopt` si la forme est autre.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::vector&lt;std::string&gt;&gt; valeursDepuis(const Json&amp; brut) {
+    std::vector&lt;std::string&gt; valeurs;
+    const auto ajouter = [&amp;valeurs](const Json&amp; valeur) {
+        if (!valeur.is_string() || valeur.get&lt;std::string&gt;().empty()) {</span>
+<span style = "background-color:#fdd">            return false;</span>
+        }
+<span style = "background-color:#dfd">        std::string texte = valeur.get&lt;std::string&gt;();
+        if (std::ranges::find(valeurs, texte) == valeurs.end()) {
+            valeurs.push_back(std::move(texte));</span>
+        }
+<span style = "background-color:#dfd">        return true;
+    };
+    if (brut.is_array()) {
+        if (brut.empty()) {
+            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        for (const Json&amp; valeur : brut) {
+            if (!ajouter(valeur)) {</span>
+<span style = "background-color:#fdd">                return std::nullopt;</span>
+<span style = "background-color:#dfd">            }
+        }
+        return valeurs;</span>
+    }
+<span style = "background-color:#dfd">    if (!ajouter(brut)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return valeurs;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool FlagCondition::holds(const WorldFlags&amp; flags) const {
+    switch (test) {</span>
+        case FlagTest::IsSet:
+<span style = "background-color:#dfd">            return flags.isSet(flag);</span>
+        case FlagTest::IsUnset:
+<span style = "background-color:#dfd">            return !flags.isSet(flag);</span>
+        case FlagTest::Equals:
+        case FlagTest::NotEquals: {
+<span style = "background-color:#dfd">            const std::optional&lt;std::string&gt; valeur = flags.value(flag);
+            const bool parmi = valeur &amp;&amp; std::ranges::find(values, *valeur) != values.end();
+            return test == FlagTest::Equals ? parmi : !parmi;</span>
+        }
+    }
+<span style = "background-color:#fdd">    return false;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::string describeFlagCondition(const FlagCondition&amp; condition) {
+    switch (condition.test) {</span>
+        case FlagTest::IsSet:
+<span style = "background-color:#fdd">            return condition.flag;</span>
+        case FlagTest::IsUnset:
+<span style = "background-color:#fdd">            return "!" + condition.flag;</span>
+        case FlagTest::Equals:
+        case FlagTest::NotEquals: {
+<span style = "background-color:#dfd">            std::string texte =</span>
+                condition.flag + (condition.test == FlagTest::Equals ? " == " : " != ");
+<span style = "background-color:#dfd">            for (std::size_t i = 0; i &lt; condition.values.size(); ++i) {
+                texte += (i == 0 ? "" : "|") + condition.values[i];
+            }
+            return texte;</span>
+        }
+    }
+<span style = "background-color:#fdd">    return condition.flag;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">FlagConditionRead readFlagCondition(const Json&amp; object) {
+    if (!object.is_object()) {</span>
+<span style = "background-color:#fdd">        return {std::nullopt, "une condition est un objet { \"flag\": ... }."};</span>
+    }
+<span style = "background-color:#dfd">    const auto drapeau = object.find("flag");
+    if (drapeau == object.end() || !drapeau-&gt;is_string() || drapeau-&gt;get&lt;std::string&gt;().empty()) {
+        return {std::nullopt, "condition sans 'flag'."};</span>
+    }
+<span style = "background-color:#dfd">    FlagCondition condition;
+    condition.flag = drapeau-&gt;get&lt;std::string&gt;();</span>
+
+<span style = "background-color:#dfd">    const auto estPose = object.find("isSet");
+    const auto egal = object.find("equals");
+    const auto different = object.find("notEquals");
+    const int formes = static_cast&lt;int&gt;(estPose != object.end()) +</span>
+                       static_cast&lt;int&gt;(egal != object.end()) +
+                       static_cast&lt;int&gt;(different != object.end());
+<span style = "background-color:#dfd">    if (formes &gt; 1) {
+        return {std::nullopt, "condition sur '" + condition.flag +</span>
+                                  "' : 'isSet', 'equals' et 'notEquals' s'excluent."};
+    }
+<span style = "background-color:#dfd">    if (estPose != object.end()) {
+        if (!estPose-&gt;is_boolean()) {
+            return {std::nullopt, "condition sur '" + condition.flag + "' : 'isSet' non booleen."};</span>
+        }
+<span style = "background-color:#dfd">        condition.test = estPose-&gt;get&lt;bool&gt;() ? FlagTest::IsSet : FlagTest::IsUnset;
+        return {condition, {}};</span>
+    }
+<span style = "background-color:#dfd">    if (egal == object.end() &amp;&amp; different == object.end()) {
+        return {condition, {}};</span>
+    }
+<span style = "background-color:#dfd">    const bool estEgal = egal != object.end();
+    auto valeurs = valeursDepuis(estEgal ? *egal : *different);
+    if (!valeurs) {
+        return {std::nullopt, "condition sur '" + condition.flag + "' : '" +</span>
+                                  (estEgal ? "equals" : "notEquals") +
+                                  "' attend une valeur ou une liste de valeurs non vides."};
+    }
+<span style = "background-color:#dfd">    condition.test = estEgal ? FlagTest::Equals : FlagTest::NotEquals;
+    condition.values = std::move(*valeurs);
+    return {condition, {}};</span>
+<span style = "background-color:#fdd">}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; splitFlagValues(std::string_view text) {
+    std::vector&lt;std::string&gt; valeurs;
+    std::size_t debut = 0;
+    while (debut &lt;= text.size()) {
+        const std::size_t fin = std::min(text.find('|', debut), text.size());
+        std::string_view morceau = text.substr(debut, fin - debut);
+        while (!morceau.empty() &amp;&amp; morceau.front() == ' ') {
+            morceau.remove_prefix(1);
+        }
+        while (!morceau.empty() &amp;&amp; morceau.back() == ' ') {
+            morceau.remove_suffix(1);
+        }
+        if (!morceau.empty() &amp;&amp; std::ranges::find(valeurs, morceau) == valeurs.end()) {
+            valeurs.emplace_back(morceau);</span>
+        }
+<span style = "background-color:#dfd">        debut = fin + 1;
+    }
+    return valeurs;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

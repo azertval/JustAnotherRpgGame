@@ -19,6 +19,7 @@
 #include &lt;vector&gt;
 
 #include "Core/Ecs/Components/Interactable.h"
+#include "Core/Gameplay/Quest.h"
 #include "Core/Gameplay/WorldFlags.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
@@ -87,6 +88,8 @@ enum class ExplorationEventKind {
     Encounter,
     /// Une interaction a eu lieu sans autre consÃ©quence (coffre, panneau). `value` donne le type.
     Interacted,
+    /// Une quÃªte a atteint une Ã©tape (`LOT-116`). `value` vaut `&lt;quÃªte&gt;/&lt;Ã©tape&gt;`.
+    QuestAdvanced,
 };
 
 /// @brief Un Ã©vÃ©nement du pas, et oÃ¹ il a eu lieu.
@@ -164,12 +167,37 @@ public:
     /// @return La case que le hÃ©ros regarde (`core::aimedCell`).
     [[nodiscard]] GridPosition aimedCell() const;
 
-    [[nodiscard]] WorldFlags&amp; flags() noexcept {
+<span style = "background-color:#dfd">    [[nodiscard]] WorldFlags&amp; flags() noexcept {
         return _flags;
-    }
+    }</span>
     [[nodiscard]] const WorldFlags&amp; flags() const noexcept {
         return _flags;
     }
+
+    /**
+     * @brief Donne Ã  la session les quÃªtes de la partie : leurs drapeaux sont dÃ©clarÃ©s, et celles
+     *        dont les conditions tiennent dÃ©jÃ  avancent (`LOT-116`).
+     */
+    void setQuests(QuestCatalog quests);
+
+<span style = "background-color:#dfd">    [[nodiscard]] const QuestCatalog&amp; quests() const noexcept {
+        return _quests;
+    }</span>
+
+    /**
+     * @brief Tire les consÃ©quences des drapeaux changÃ©s depuis le dernier appel : les quÃªtes
+     *        avancent, et les entitÃ©s de la carte paraissent ou disparaissent **sans la
+     * recharger**.
+     *
+     * `update` l'appelle Ã  chaque pas, gelÃ©e ou non ; l'appeler soi-mÃªme sert Ã  qui vient d'Ã©crire
+     * un drapeau hors d'un pas â un dialogue qui se referme â et veut le voir aussitÃ´t.
+     *
+     * @return Une `QuestAdvanced` par Ã©tape atteinte ; vide si rien n'a changÃ©.
+     */
+    std::vector&lt;ExplorationEvent&gt; refreshFromFlags();
+
+    /// @brief Vrai si l'entitÃ© @p entity de la carte courante est prÃ©sente sous les drapeaux.
+    [[nodiscard]] bool isPresent(const MapEntity&amp; entity) const;
 
     [[nodiscard]] const WorldTravel&amp; travel() const noexcept {
         return _travel;
@@ -184,12 +212,13 @@ public:
     }</span>
 
     /// @return Les entitÃ©s interactives de la carte courante, dans l'ordre des entitÃ©s.
-    [[nodiscard]] const std::vector&lt;Interactable&gt;&amp; interactables() const noexcept {
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;Interactable&gt;&amp; interactables() const noexcept {
         return _interactables;
-    }
+    }</span>
 
 private:
-    /// Relit les entitÃ©s interactives de la carte courante (changement de carte).
+    /// Relit les entitÃ©s interactives **prÃ©sentes** de la carte courante (changement de carte,
+    /// drapeau changÃ©).
     void rebuildInteractables();
     /// @return Vrai si le gabarit du hÃ©ros tient en @p point sans entrer dans du plein.
     [[nodiscard]] bool fits(CellPoint point) const;
@@ -202,6 +231,9 @@ private:
 
     WorldTravel _travel;
     WorldFlags _flags;
+    QuestCatalog _quests;
+    /// RÃ©vision des drapeaux que la liste des interactifs et les quÃªtes reflÃ¨tent.
+<span style = "background-color:#dfd">    std::uint64_t _seenRevision = 0;</span>
     std::vector&lt;Interactable&gt; _interactables;
 <span style = "background-color:#dfd">    CellPoint _hero{};
     Vector2 _facing{0.0F, 1.0F};</span>
