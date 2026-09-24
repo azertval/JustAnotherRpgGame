@@ -1,5 +1,6 @@
 var structhmi_1_1SpriteQuad =
 [
+    [ "operator==", "structhmi_1_1SpriteQuad.html#a5633ac582cc410824580899b327c29f2", null ],
     [ "a", "structhmi_1_1SpriteQuad.html#a93b181adcb81b4e6d1ecbb2c7965108f", null ],
     [ "b", "structhmi_1_1SpriteQuad.html#a047688b8ecad613da27164c6f84725a4", null ],
     [ "g", "structhmi_1_1SpriteQuad.html#af6ffdbfd89d0a7c964e9a99574ac5b4d", null ],

@@ -60,7 +60,9 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">    std::error_code erreur;
     _heroOriented = std::filesystem::is_regular_file(</span>
         _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
-<span style = "background-color:#dfd">}</span>
+    // Le dossier de la figurine du heros se lit dans la carte en valeurs.
+<span style = "background-color:#dfd">    invalidateScene();
+}</span>
 
 <span style = "background-color:#dfd">bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     if (!_session.start(mapId, arrival)) {</span>
@@ -85,13 +87,13 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">    const bool walking = !_session.frozen() &amp;&amp; (intent.move.x != 0.0F || intent.move.y != 0.0F);
     if (walking != _walking) {
         _walking = walking;
-        result.sceneChanged = true;</span>
+        result.figuresChanged = true;</span>
     }
 <span style = "background-color:#dfd">    if (walking) {
         const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
         if (facing != _heroFacing) {</span>
 <span style = "background-color:#fdd">            _heroFacing = facing;
-            result.sceneChanged = true;</span>
+            result.figuresChanged = true;</span>
         }
     }
     // Un hÃ©ros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
@@ -101,6 +103,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     // scene se recompose sans que la carte soit relue (`LOT-116`).
 <span style = "background-color:#dfd">    if (_session.flags().revision() != _drawnFlags) {
         _drawnFlags = _session.flags().revision();
+        invalidateScene();
         result.sceneChanged = true;</span>
     }
 <span style = "background-color:#dfd">    for (const core::ExplorationEvent&amp; event : result.events) {
@@ -115,6 +118,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 }</span>
 
 <span style = "background-color:#dfd">void WorldPlay::reloadAppearance() {
+    invalidateScene();
     const core::Level* const map = _session.map();
     if (map == nullptr) {</span>
 <span style = "background-color:#fdd">        _appearance = PlaceAppearance{};
@@ -161,15 +165,28 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">    return figures;
 }</span>
 
-<span style = "background-color:#dfd">WorldSceneSnapshot WorldPlay::snapshot() const {
-    const core::Level* const map = _session.map();
+<span style = "background-color:#dfd">std::shared_ptr&lt;const WorldSceneSnapshot&gt; WorldPlay::scene() const {
+    if (_scene != nullptr) {
+        return _scene;</span>
+    }
+<span style = "background-color:#dfd">    const core::Level* const map = _session.map();
     if (map == nullptr) {</span>
-<span style = "background-color:#fdd">        return WorldSceneSnapshot{};</span>
+<span style = "background-color:#fdd">        _scene = std::make_shared&lt;const WorldSceneSnapshot&gt;();
+        return _scene;</span>
     }
 <span style = "background-color:#dfd">    const std::vector&lt;core::MapEntity&gt; presentes = entitesPresentes(_session, *map);
     const WorldSceneSource source{</span>
         .root = map-&gt;tileMap(), .layers = map-&gt;layers(), .entities = presentes};
-<span style = "background-color:#dfd">    return snapshotWorldScene(source, _appearance, figures());
+    // Les figurines de l'instant y sont : c'est d'elles que la carte tire le dossier de chacune.
+<span style = "background-color:#dfd">    _scene = std::make_shared&lt;const WorldSceneSnapshot&gt;(</span>
+        snapshotWorldScene(source, _appearance, figures()));
+<span style = "background-color:#dfd">    return _scene;
+}</span>
+
+<span style = "background-color:#dfd">WorldSceneSnapshot WorldPlay::snapshot() const {
+    WorldSceneSnapshot snapshot = *scene();
+    snapshot.figures = figures();
+    return snapshot;
 }</span>
 
 }  // namespace hmi</pre>

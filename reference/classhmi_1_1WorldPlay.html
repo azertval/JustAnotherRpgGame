@@ -158,6 +158,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ade46c5a042fb26bca54746333c47a98b" id="r_ade46c5a042fb26bca54746333c47a98b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade46c5a042fb26bca54746333c47a98b">setHeroFigure</a> (std::string figure)</td></tr>
 <tr class="memitem:ab359b28cfd1ae307fc8a93ef215e6f04" id="r_ab359b28cfd1ae307fc8a93ef215e6f04"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab359b28cfd1ae307fc8a93ef215e6f04">heroFacing</a> () const noexcept</td></tr>
 <tr class="memitem:acbef06d44780edb3de38785805e3a10c" id="r_acbef06d44780edb3de38785805e3a10c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acbef06d44780edb3de38785805e3a10c">figures</a> () const</td></tr>
+<tr class="memitem:ac6f08ec64b8fd2fa0c0cb50982166a98" id="r_ac6f08ec64b8fd2fa0c0cb50982166a98"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac6f08ec64b8fd2fa0c0cb50982166a98">scene</a> () const</td></tr>
+<tr class="memdesc:ac6f08ec64b8fd2fa0c0cb50982166a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>carte</b> que <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> dessine, partagée ; vide hors carte.  <br /></td></tr>
 <tr class="memitem:ab4512757a117f9523f0345cb1e89d68b" id="r_ab4512757a117f9523f0345cb1e89d68b"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4512757a117f9523f0345cb1e89d68b">snapshot</a> () const</td></tr>
 <tr class="memitem:a8285cae2cd0e6313ffe80a56f0669620" id="r_a8285cae2cd0e6313ffe80a56f0669620"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8285cae2cd0e6313ffe80a56f0669620">diamondRatio</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
@@ -170,6 +172,8 @@ Static Public Attributes</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a05af7d965c7b1bb8871355f4a0e55fe5" id="r_a05af7d965c7b1bb8871355f4a0e55fe5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a05af7d965c7b1bb8871355f4a0e55fe5">reloadAppearance</a> ()</td></tr>
 <tr class="memdesc:a05af7d965c7b1bb8871355f4a0e55fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit la table d'apparence du lieu de la carte courante.  <br /></td></tr>
+<tr class="memitem:aa0238c49b3c92777bc3ce5c71fa2ea02" id="r_aa0238c49b3c92777bc3ce5c71fa2ea02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa0238c49b3c92777bc3ce5c71fa2ea02">invalidateScene</a> () noexcept</td></tr>
+<tr class="memdesc:aa0238c49b3c92777bc3ce5c71fa2ea02"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte est à refaire à la prochaine demande.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -187,6 +191,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a2ff668f3c939a7bed7948b1345889295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros marche : sa bande est <span class="tt">walk</span>, sinon <span class="tt">idle</span>.  <br /></td></tr>
 <tr class="memitem:a995f23231d4f03abc7ccc15cd85874b4" id="r_a995f23231d4f03abc7ccc15cd85874b4"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a995f23231d4f03abc7ccc15cd85874b4">_drawnFlags</a> = 0</td></tr>
 <tr class="memdesc:a995f23231d4f03abc7ccc15cd85874b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Révision des drapeaux de la dernière scène annoncée : les PNJ conditionnés en dépendent.  <br /></td></tr>
+<tr class="memitem:ad50072f254f350ab206b27f3ff367cdc" id="r_ad50072f254f350ab206b27f3ff367cdc"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad50072f254f350ab206b27f3ff367cdc">_scene</a></td></tr>
+<tr class="memdesc:ad50072f254f350ab206b27f3ff367cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte en valeurs, faite à la première demande après un changement ; nulle d'ici là.  <br /></td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af2211f66356d410034a5eec68fd1701c" name="af2211f66356d410034a5eec68fd1701c"></a>
@@ -344,6 +350,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa0238c49b3c92777bc3ce5c71fa2ea02" name="aa0238c49b3c92777bc3ce5c71fa2ea02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0238c49b3c92777bc3ce5c71fa2ea02">&#9670;&#160;</a></span>invalidateScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldPlay::invalidateScene </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte est à refaire à la prochaine demande. </p>
+
+</div>
+</div>
 <a id="a05af7d965c7b1bb8871355f4a0e55fe5" name="a05af7d965c7b1bb8871355f4a0e55fe5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a05af7d965c7b1bb8871355f4a0e55fe5">&#9670;&#160;</a></span>reloadAppearance()</h2>
 
@@ -368,6 +401,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Relit la table d'apparence du lieu de la carte courante. </p>
+
+</div>
+</div>
+<a id="ac6f08ec64b8fd2fa0c0cb50982166a98" name="ac6f08ec64b8fd2fa0c0cb50982166a98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6f08ec64b8fd2fa0c0cb50982166a98">&#9670;&#160;</a></span>scene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt; hmi::WorldPlay::scene </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La <b>carte</b> que <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> dessine, partagée ; vide hors carte. </p>
+<p>Refaite seulement quand elle change — entrée sur une carte, drapeau qui fait paraître ou disparaître quelque chose, figurine du héros —, jamais à un pas du héros : c'est ce qui rendait chaque pas aussi cher que la carte est grande (audit de l'affichage, A3). Ses figurines sont celles de l'instant où elle a été faite ; celles de l'image sont <span class="tt"><a class="el" href="#acbef06d44780edb3de38785805e3a10c">figures()</a></span>. </p>
 
 </div>
 </div>
@@ -460,7 +521,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>L'instantané que <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> dessine ; vide hors carte. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La carte <b>et</b> les figurines de l'instant, en une valeur : pour qui compose tout d'un coup (un test, une capture). </dd></dl>
 
 </div>
 </div>
@@ -647,6 +708,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La figurine du héros a ses quatre orientations (<span class="tt">idle-se.png</span>…) : relu quand elle change, pas à chaque image. </p>
+
+</div>
+</div>
+<a id="ad50072f254f350ab206b27f3ff367cdc" name="ad50072f254f350ab206b27f3ff367cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50072f254f350ab206b27f3ff367cdc">&#9670;&#160;</a></span>_scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&gt; hmi::WorldPlay::_scene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte en valeurs, faite à la première demande après un changement ; nulle d'ici là. </p>
 
 </div>
 </div>

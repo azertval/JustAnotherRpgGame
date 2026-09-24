@@ -154,7 +154,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a38a2011234fd4216f3ecef7f57daf2bf" id="r_a38a2011234fd4216f3ecef7f57daf2bf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a38a2011234fd4216f3ecef7f57daf2bf">heroMoved</a> = false</td></tr>
 <tr class="memdesc:a38a2011234fd4216f3ecef7f57daf2bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros a bougé, ou marche contre un mur : la caméra suit, la scène se redessine.  <br /></td></tr>
 <tr class="memitem:aa510f0f4dcaf30e22367894d5ffd7a27" id="r_aa510f0f4dcaf30e22367894d5ffd7a27"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa510f0f4dcaf30e22367894d5ffd7a27">sceneChanged</a> = false</td></tr>
-<tr class="memdesc:aa510f0f4dcaf30e22367894d5ffd7a27"><td class="mdescLeft">&#160;</td><td class="mdescRight">La scène doit être recomposée : carte changée, ou bande du héros basculée.  <br /></td></tr>
+<tr class="memdesc:aa510f0f4dcaf30e22367894d5ffd7a27"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>carte</b> a changé : on est entré ailleurs, ou un drapeau fait paraître ou disparaître un PNJ, une porte (<span class="tt">LOT-116</span>, <span class="tt">LOT-126</span>).  <br /></td></tr>
+<tr class="memitem:a83577845a4a69ed916370c373299155a" id="r_a83577845a4a69ed916370c373299155a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a83577845a4a69ed916370c373299155a">figuresChanged</a> = false</td></tr>
+<tr class="memdesc:a83577845a4a69ed916370c373299155a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les <b>figurines</b> ont changé sans que le héros bouge : sa bande a basculé (il part, il s'arrête), ou il s'est tourné.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce qu'un pas a changé à l'image, en plus des événements de la session. </p>
@@ -170,6 +172,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83577845a4a69ed916370c373299155a" name="a83577845a4a69ed916370c373299155a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83577845a4a69ed916370c373299155a">&#9670;&#160;</a></span>figuresChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldPlayStep::figuresChanged = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les <b>figurines</b> ont changé sans que le héros bouge : sa bande a basculé (il part, il s'arrête), ou il s'est tourné. </p>
+<p>La carte, elle, reste composée. </p>
 
 </div>
 </div>
@@ -201,7 +220,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>La scène doit être recomposée : carte changée, ou bande du héros basculée. </p>
+<p>La <b>carte</b> a changé : on est entré ailleurs, ou un drapeau fait paraître ou disparaître un PNJ, une porte (<span class="tt">LOT-116</span>, <span class="tt">LOT-126</span>). </p>
+<p>Elle est à recomposer. </p>
 
 </div>
 </div>

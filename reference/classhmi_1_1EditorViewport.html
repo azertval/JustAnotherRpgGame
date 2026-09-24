@@ -476,8 +476,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aade4152ca0b4264b069ba4cbbd17e250" id="r_aade4152ca0b4264b069ba4cbbd17e250"><td class="memItemLeft">QPointF&#160;</td><td class="memItemRight"><a class="el" href="#aade4152ca0b4264b069ba4cbbd17e250">_editCenter</a></td></tr>
 <tr class="memitem:a8f3fedd127538dda37aec67c867d2888" id="r_a8f3fedd127538dda37aec67c867d2888"><td class="memItemLeft">Clock::time_point&#160;</td><td class="memItemRight"><a class="el" href="#a8f3fedd127538dda37aec67c867d2888">_previousFrame</a></td></tr>
 <tr class="memitem:af99b26c86b6ab66c0230dfded2c7b254" id="r_af99b26c86b6ab66c0230dfded2c7b254"><td class="memItemLeft"><a class="el" href="classcore_1_1FixedTimestep.html">core::FixedTimestep</a>&#160;</td><td class="memItemRight"><a class="el" href="#af99b26c86b6ab66c0230dfded2c7b254">_timestep</a></td></tr>
-<tr class="memitem:a27c5e02deb9cc4633e64ff193b4a958f" id="r_a27c5e02deb9cc4633e64ff193b4a958f"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27c5e02deb9cc4633e64ff193b4a958f">_playSnapshot</a></td></tr>
+<tr class="memitem:a3e63e953a888241d559e3273d088caa5" id="r_a3e63e953a888241d559e3273d088caa5"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3e63e953a888241d559e3273d088caa5">_playMap</a></td></tr>
+<tr class="memdesc:a3e63e953a888241d559e3273d088caa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte jouée, partagée avec le moteur (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#ac6f08ec64b8fd2fa0c0cb50982166a98" title="La carte que hmi::WorldSceneRenderer dessine, partagée ; vide hors carte.">hmi::WorldPlay::scene</a></span>), et sa composition, faite une fois par carte : un pas n'y fusionne que les figurines (audit de l'affichage).  <br /></td></tr>
+<tr class="memitem:a9f1f22aefca06e3d875b7919b34801d8" id="r_a9f1f22aefca06e3d875b7919b34801d8"><td class="memItemLeft"><a class="el" href="classhmi_1_1StaticWorldScene.html">StaticWorldScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f1f22aefca06e3d875b7919b34801d8">_playStatics</a></td></tr>
 <tr class="memitem:aa631928cf0d7230974023be5bbf58712" id="r_aa631928cf0d7230974023be5bbf58712"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa631928cf0d7230974023be5bbf58712">_playScene</a></td></tr>
+<tr class="memdesc:aa631928cf0d7230974023be5bbf58712"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image de l'essai : ce que la vue montre de la carte, et les figurines.  <br /></td></tr>
 <tr class="memitem:a33dacd049bb902b90902d319f59a43f9" id="r_a33dacd049bb902b90902d319f59a43f9"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a33dacd049bb902b90902d319f59a43f9">_playBounds</a></td></tr>
 <tr class="memdesc:a33dacd049bb902b90902d319f59a43f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'occupe la scène de l'essai.  <br /></td></tr>
 <tr class="memitem:a9bcfcdc1be7e262ea5976fc23e93d64d" id="r_a9bcfcdc1be7e262ea5976fc23e93d64d"><td class="memItemLeft">std::set&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9bcfcdc1be7e262ea5976fc23e93d64d">_heldKeys</a></td></tr>
@@ -5633,6 +5636,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3e63e953a888241d559e3273d088caa5" name="a3e63e953a888241d559e3273d088caa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e63e953a888241d559e3273d088caa5">&#9670;&#160;</a></span>_playMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&gt; hmi::EditorViewport::_playMap</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte jouée, partagée avec le moteur (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#ac6f08ec64b8fd2fa0c0cb50982166a98" title="La carte que hmi::WorldSceneRenderer dessine, partagée ; vide hors carte.">hmi::WorldPlay::scene</a></span>), et sa composition, faite une fois par carte : un pas n'y fusionne que les figurines (audit de l'affichage). </p>
+
+</div>
+</div>
 <a id="aa631928cf0d7230974023be5bbf58712" name="aa631928cf0d7230974023be5bbf58712"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa631928cf0d7230974023be5bbf58712">&#9670;&#160;</a></span>_playScene</h2>
 
@@ -5652,6 +5679,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>L'image de l'essai : ce que la vue montre de la carte, et les figurines. </p>
 
 </div>
 </div>
@@ -5679,8 +5708,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a27c5e02deb9cc4633e64ff193b4a958f" name="a27c5e02deb9cc4633e64ff193b4a958f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27c5e02deb9cc4633e64ff193b4a958f">&#9670;&#160;</a></span>_playSnapshot</h2>
+<a id="a9f1f22aefca06e3d875b7919b34801d8" name="a9f1f22aefca06e3d875b7919b34801d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f1f22aefca06e3d875b7919b34801d8">&#9670;&#160;</a></span>_playStatics</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5689,7 +5718,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> hmi::EditorViewport::_playSnapshot</td>
+          <td class="memname"><a class="el" href="classhmi_1_1StaticWorldScene.html">StaticWorldScene</a> hmi::EditorViewport::_playStatics</td>
         </tr>
       </table>
   </td>

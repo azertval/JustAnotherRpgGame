@@ -43,7 +43,7 @@ var searchData=
   ['rightcolumn_40',['rightColumn',['../structhmi_1_1RpgScreenLayout.html#ac042f301b5b5fd544b7c7543eedfc29d',1,'hmi::RpgScreenLayout']]],
   ['role_41',['role',['../structhmi_1_1CreditLine.html#abbb1c94f4b710ebaa7d4d62488afe38f',1,'hmi::CreditLine']]],
   ['roll_42',['roll',['../structcore_1_1AttackOutcome.html#a38eb2e2b01611323b4992c268bd9ea8b',1,'core::AttackOutcome::roll'],['../structcore_1_1RolledDamage.html#a14b9fd265913f0697a03c2cc4f2df8fd',1,'core::RolledDamage::roll']]],
-  ['root_43',['root',['../structcore_1_1JsonDocument.html#aee2b7ee0780fca9c92445b2778a7baa1',1,'core::JsonDocument::root'],['../structhmi_1_1WorldSceneSource.html#a100f5fe49a0395756d617cc5ba270944',1,'hmi::WorldSceneSource::root']]],
+  ['root_43',['root',['../structcore_1_1JsonDocument.html#aee2b7ee0780fca9c92445b2778a7baa1',1,'core::JsonDocument::root'],['../structhmi_1_1IndexedManifest.html#a2267bc4ccfd16232abe03a077a52c57d',1,'hmi::IndexedManifest::root'],['../structhmi_1_1WorldSceneSource.html#a100f5fe49a0395756d617cc5ba270944',1,'hmi::WorldSceneSource::root']]],
   ['rotation_44',['rotation',['../structcore_1_1Transform.html#a445458d76abe4de694e70ad88441d93f',1,'core::Transform::rotation'],['../structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a',1,'hmi::SpriteQuad::rotation']]],
   ['round_45',['round',['../structcore_1_1CombatEvent.html#a97914f3398b74771f153eb64c622bf6b',1,'core::CombatEvent']]],
   ['route_5fentity_5ftype_46',['ROUTE_ENTITY_TYPE',['../namespacecore.html#a0fe304f84c3b2f39219fd28296982945',1,'core']]],

@@ -148,6 +148,10 @@ $(function(){initNavTree('structhmi_1_1PolyQuad.html','','structhmi_1_1PolyQuad-
 
 <p><code>#include &lt;<a class="el" href="Quad_8h_source.html">Quad.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9927008b954fec679d056f428036d24f" id="r_a9927008b954fec679d056f428036d24f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9927008b954fec679d056f428036d24f">operator==</a> (const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;) const =default</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0be92e8f3e9738cb22b0ba071ea68ea5" id="r_a0be92e8f3e9738cb22b0ba071ea68ea5"><td class="memItemLeft">std::array&lt; float, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0be92e8f3e9738cb22b0ba071ea68ea5">x</a> {}</td></tr>
@@ -165,7 +169,33 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Un quadrilatère à <b>quatre sommets libres</b>, en unités monde, d'une seule teinte — la primitive du <b>rendu de maquette</b> (<span class="tt">LOT-128</span>, décision D1). </p>
 <p>Un losange isométrique n'est ni un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">SpriteQuad</a></span> (rectangle aligné sur les axes) ni un <span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">LineQuad</a></span> (segment) : au rapport 0,62, ce n'est même pas un carré tourné, puisque sa hauteur et sa largeur ne sont pas dans le même rapport que ses côtés. Les faces d'un bloc extrudé sont, elles, des parallélogrammes. Un quad à sommets libres couvre les deux, et n'est <b>pas</b> un cas nouveau pour le GPU : un quad, ce sont déjà quatre sommets, et <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d" title="Ajoute un quad au lot courant.">SpriteBatch::draw</a>(const <a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">LineQuad</a>&amp;)</span> en produit déjà à des positions libres.</p>
 <p>Les sommets se donnent dans l'ordre du <b>pourtour</b> (sans croisement), même convention que les coins des deux autres primitives : le tampon d'indices attend un quadrilatère convexe cohérent. La texture liée est l'aplat blanc 1 × 1 (<span class="tt"><a class="el" href="classhmi_1_1SceneImages.html#a81100b0f242ad215cd4f81d6f74d9cd2">hmi::SceneImages::solid</a></span> côté éditeur), de sorte que la teinte seule décide de la couleur, et que le culling, le regroupement par texture et le tri restent ceux de toutes les autres primitives. </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a9927008b954fec679d056f428036d24f" name="a9927008b954fec679d056f428036d24f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9927008b954fec679d056f428036d24f">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::PolyQuad::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a658783ed443dab1defd60428b5019f0f" name="a658783ed443dab1defd60428b5019f0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a658783ed443dab1defd60428b5019f0f">&#9670;&#160;</a></span>a</h2>
 

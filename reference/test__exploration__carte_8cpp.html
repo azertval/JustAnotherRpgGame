@@ -147,6 +147,7 @@ $(function(){initNavTree('test__exploration__carte_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="ExplorationSession_8h_source.html">Core/World/ExplorationSession.h</a>&quot;</code><br />
@@ -160,6 +161,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa728c995df04c4d9254b4426232cec8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte du disque s'ouvre, nomme son lieu et se compose avec ses planches.  <br /></td></tr>
 <tr class="memitem:aadaa0b0edb31c0cd8af18f708a89e605" id="r_aadaa0b0edb31c0cd8af18f708a89e605"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aadaa0b0edb31c0cd8af18f708a89e605">TEST</a> (ExplorationCarteIntegration, LeHerosMarcheSurUneCarte)</td></tr>
 <tr class="memdesc:aadaa0b0edb31c0cd8af18f708a89e605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros marche : un pas d'intention le déplace, et sa bande passe à la marche.  <br /></td></tr>
+<tr class="memitem:ab30a2d70329504024cfad2633d3a65bc" id="r_ab30a2d70329504024cfad2633d3a65bc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab30a2d70329504024cfad2633d3a65bc">TEST</a> (ExplorationCarteIntegration, UnPasNeRefaitPasLaCarte)</td></tr>
+<tr class="memdesc:ab30a2d70329504024cfad2633d3a65bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pas du héros ne refait pas la carte : seul un drapeau qui change ce qui s'y dessine la refait (audit de l'affichage d'un lieu, A3).  <br /></td></tr>
 <tr class="memitem:a796cf3dc980c4f4b1751510cb6a6a962" id="r_a796cf3dc980c4f4b1751510cb6a6a962"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a796cf3dc980c4f4b1751510cb6a6a962">TEST</a> (ExplorationCarteIntegration, UneCarteQuiPuiseDansQuatreNiveauxSeJoue)</td></tr>
 <tr class="memdesc:a796cf3dc980c4f4b1751510cb6a6a962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte d'Arenarea qui cite une pièce de chacun des quatre niveaux se joue comme le jeu la joue (<span class="tt">LOT-124</span>) : chaque pièce se cherche sous le niveau qui la déclare.  <br /></td></tr>
 </table>
@@ -168,7 +171,7 @@ Functions</h2></td></tr>
 <p>Les cartes sont celles de la racine d'essai de l'éditeur (<span class="tt">Source/Test/Fixtures/GameData</span>). Jusqu'au <span class="tt">LOT-123</span> c'étaient les cartes <b>livrées</b> : la table rase du <span class="tt">LOT-102</span> les emporte, et ce test serait tombé avec elles. Ce qu'il éprouve ne change pas — une carte sur disque, son lieu, ses planches, et le héros qui y marche. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aadaa0b0edb31c0cd8af18f708a89e605" name="aadaa0b0edb31c0cd8af18f708a89e605"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadaa0b0edb31c0cd8af18f708a89e605">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadaa0b0edb31c0cd8af18f708a89e605">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +201,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a796cf3dc980c4f4b1751510cb6a6a962" name="a796cf3dc980c4f4b1751510cb6a6a962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a796cf3dc980c4f4b1751510cb6a6a962">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a796cf3dc980c4f4b1751510cb6a6a962">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +231,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa728c995df04c4d9254b4426232cec8d" name="aa728c995df04c4d9254b4426232cec8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa728c995df04c4d9254b4426232cec8d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa728c995df04c4d9254b4426232cec8d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,6 +257,37 @@ Functions</h2></td></tr>
  1. Entrer sur la carte <span class="tt">donjon</span> a son point d'arrivee.<br  />
 2. Prendre l'instantane de la scene.<br  />
  <b>Resultat attendu :</b> Le lieu est nomme, la grille a les dimensions de la carte, des pieces de sol sont dessinees et le heros figure parmi les figurines. </p>
+
+</div>
+</div>
+<a id="ab30a2d70329504024cfad2633d3a65bc" name="ab30a2d70329504024cfad2633d3a65bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30a2d70329504024cfad2633d3a65bc">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ExplorationCarteIntegration</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPasNeRefaitPasLaCarte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un pas du héros ne refait pas la carte : seul un drapeau qui change ce qui s'y dessine la refait (audit de l'affichage d'un lieu, A3). </p>
+<p><b>Cas de test :</b> <b>Marcher ne recompose pas la carte.</b><br  />
+ <b>Categorie :</b> Integration · Exploration · Rendu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Entrer sur <span class="tt">bourg/place</span> et prendre la carte en valeurs.<br  />
+2. Marcher une seconde, par pas de 1/60 s.<br  />
+3. Poser un drapeau, puis faire un pas.<br  />
+ <b>Resultat attendu :</b> Pendant la marche, aucun pas n'annonce une carte changee et la carte est la meme valeur partagee ; les figurines, elles, changent. Apres le drapeau, le pas annonce la carte changee et une nouvelle valeur est faite. </p>
 
 </div>
 </div>

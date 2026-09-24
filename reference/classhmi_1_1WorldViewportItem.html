@@ -206,15 +206,15 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a5112a47958544fe16e72cab7c3e76235" id="r_a5112a47958544fe16e72cab7c3e76235"><td class="memItemLeft">QPointer&lt; <a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5112a47958544fe16e72cab7c3e76235">_model</a></td></tr>
 <tr class="memitem:a831524774ca7f9bb0add35ac5c40139b" id="r_a831524774ca7f9bb0add35ac5c40139b"><td class="memItemLeft">QMetaObject::Connection&#160;</td><td class="memItemRight"><a class="el" href="#a831524774ca7f9bb0add35ac5c40139b">_modelChangedConnection</a></td></tr>
 <tr class="memitem:a9aaa6b22fb02410ef9bc2eab6330e1c3" id="r_a9aaa6b22fb02410ef9bc2eab6330e1c3"><td class="memItemLeft">QMetaObject::Connection&#160;</td><td class="memItemRight"><a class="el" href="#a9aaa6b22fb02410ef9bc2eab6330e1c3">_modelMovedConnection</a></td></tr>
+<tr class="memitem:af0bc42f17cc0aa9e2cf1f12cbf0c5b21" id="r_af0bc42f17cc0aa9e2cf1f12cbf0c5b21"><td class="memItemLeft">QMetaObject::Connection&#160;</td><td class="memItemRight"><a class="el" href="#af0bc42f17cc0aa9e2cf1f12cbf0c5b21">_modelFiguresConnection</a></td></tr>
 <tr class="memitem:aa56faa46cc0ccb5ec5fd2e6fb47b32ae" id="r_aa56faa46cc0ccb5ec5fd2e6fb47b32ae"><td class="memItemLeft">QMetaObject::Connection&#160;</td><td class="memItemRight"><a class="el" href="#aa56faa46cc0ccb5ec5fd2e6fb47b32ae">_modelDestroyedConnection</a></td></tr>
 <tr class="memitem:adfdc6f3c1cde80deb30ac77286470758" id="r_adfdc6f3c1cde80deb30ac77286470758"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#adfdc6f3c1cde80deb30ac77286470758">_clearColor</a> {0x10, 0x0d, 0x0a}</td></tr>
 <tr class="memdesc:adfdc6f3c1cde80deb30ac77286470758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nuit de pierre, jusqu'à ce que le QML en décide.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Surface QRhi de la carte courante : le jumeau d'<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span> pour le monde. </p>
-<p>Même frontière entre les fils, pour la même raison : le modèle et sa session vivent sur le fil graphique, le dessin sur le fil de rendu, et <span class="tt">synchronize()</span> — fil graphique bloqué — est le seul instant où les deux se parlent. Ne traversent que des <b>valeurs</b> : la couleur d'effacement, le point suivi par la caméra, et, si la scène a changé, l'instantané <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span>.</p>
-<p>« A changé » se compte : chaque pas qui modifie ce qui se dessine avance <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">WorldModel</a>::
-sceneRevision</span>, et le peintre ne reprend un instantané que si le numéro diffère du sien.</p>
+<p>Même frontière entre les fils, pour la même raison : le modèle et sa session vivent sur le fil graphique, le dessin sur le fil de rendu, et <span class="tt">synchronize()</span> — fil graphique bloqué — est le seul instant où les deux se parlent. Ne traversent que des <b>valeurs</b> : la couleur d'effacement, le point suivi par la caméra, la carte si elle a changé — un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span> partagé, immuable, jamais recopié —, et les figurines si elles ont changé.</p>
+<p>« A changé » se compte : <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a0a7036499a425b2fef0b03d14335ad8d">WorldModel::sceneRevision</a></span> avance quand la carte est à recomposer, <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#abad15ef15ccd907a75b62026549f720f">WorldModel::figuresRevision</a></span> à chaque pas qui change les figurines. Un pas du héros ne fait donc passer que quelques figurines, et le rendu ne recompose pas la carte.</p>
 <p>Le cadrage est publié comme celui de l'arène (<span class="tt"><a class="el" href="#a4f22e44bb5f3e72c61a85d0c1c74647b" title="Largeur du losange d&#39;une case.">tileWidth</a></span>, <span class="tt"><a class="el" href="#aeedf43417922577358d8680023747ca3" title="Coin haut-gauche de la boîte du losange de la case (0, 0).">originX</a></span>…) : le calque d'interface QML posé par-dessus et le pointeur lisent <b>ce</b> cadrage, jamais un recalcul — deux cadrages calculés chacun de leur côté ne tombent pas au même pixel. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a865935a6623517b332abd4546ee422f0" name="a865935a6623517b332abd4546ee422f0"></a>
@@ -706,6 +706,28 @@ sceneRevision</span>, et le peintre ne reprend un instantané que si le numéro 
       <table class="memname">
         <tr>
           <td class="memname">QMetaObject::Connection hmi::WorldViewportItem::_modelDestroyedConnection</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0bc42f17cc0aa9e2cf1f12cbf0c5b21" name="af0bc42f17cc0aa9e2cf1f12cbf0c5b21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0bc42f17cc0aa9e2cf1f12cbf0c5b21">&#9670;&#160;</a></span>_modelFiguresConnection</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QMetaObject::Connection hmi::WorldViewportItem::_modelFiguresConnection</td>
         </tr>
       </table>
   </td>

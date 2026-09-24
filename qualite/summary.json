@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-24 20:05 UTC",
-  "commit": "47382fe62",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36049415865",
+  "generated": "2026-09-24 22:13 UTC",
+  "commit": "a138dbe4b",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36063350639",
   "coverage": {
-    "percent": 91.09,
-    "covered": 31203,
-    "valid": 34255,
-    "files": 260,
+    "percent": 91.19,
+    "covered": 31696,
+    "valid": 34757,
+    "files": 263,
     "areas": [
       {
         "name": "Core",
@@ -82,9 +82,9 @@
       },
       {
         "name": "Editor/Logic",
-        "covered": 4483,
+        "covered": 4484,
         "valid": 5116,
-        "percent": 87.63
+        "percent": 87.65
       },
       {
         "name": "Editor/Ui",
@@ -100,15 +100,15 @@
       },
       {
         "name": "HMI/Game",
-        "covered": 170,
-        "valid": 185,
-        "percent": 91.89
+        "covered": 184,
+        "valid": 200,
+        "percent": 92.0
       },
       {
         "name": "HMI/Graphics",
-        "covered": 3214,
-        "valid": 3619,
-        "percent": 88.81
+        "covered": 3491,
+        "valid": 3902,
+        "percent": 89.47
       },
       {
         "name": "HMI/Input",

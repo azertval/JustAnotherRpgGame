@@ -1,7 +1,8 @@
 var SceneTextureTraits_8h =
 [
     [ "hmi::SceneTextureTraits", "structhmi_1_1SceneTextureTraits.html", "structhmi_1_1SceneTextureTraits" ],
-    [ "hmi::ManifestCache", "namespacehmi.html#a5d708cce89edd729538c85a212cad231", null ],
+    [ "hmi::IndexedManifest", "structhmi_1_1IndexedManifest.html", "structhmi_1_1IndexedManifest" ],
+    [ "hmi::ManifestCache", "classhmi_1_1ManifestCache.html", "classhmi_1_1ManifestCache" ],
     [ "hmi::applySceneTextureTraits", "namespacehmi.html#a6a1fc28e49220af6145d632ed9fe40bf", null ],
     [ "hmi::manifestArtTile", "namespacehmi.html#a9d953b4ec44e750589868717d7667f89", null ],
     [ "hmi::readSceneTextureTraits", "namespacehmi.html#ac476afa91f2afee49d8bdd868bb21b4b", null ],

@@ -270,9 +270,15 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     closeBatch();
     _current = Batch{};
     _current.texture = static_cast&lt;QRhiTexture*&gt;(texture);
-    _current.firstQuad = _vertices.size() / 4;
-    _current.uniformOffset = static_cast&lt;int&gt;(_projections.size()) * _uniformStride;
-    _projections.push_back(projection);
+    _current.firstQuad = _vertices.size() / 4;</span>
+    // Une projection par image, en pratique : une passe ne pousse la sienne que si elle differe de
+    // la precedente. Des centaines de passes (une par texture de la bande de profondeur) ne
+    // televersent plus chacune la meme matrice (audit de l'affichage, A7).
+<span style = "background-color:#dfd">    if (_projections.empty() ||</span>
+        std::memcmp(&amp;_projections.back(), &amp;projection, sizeof(projection)) != 0) {
+<span style = "background-color:#dfd">        _projections.push_back(projection);</span>
+    }
+<span style = "background-color:#dfd">    _current.uniformOffset = static_cast&lt;int&gt;(_projections.size() - 1) * _uniformStride;
     _recording = true;
 }</span>
 
@@ -445,15 +451,19 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
             }
 <span style = "background-color:#dfd">            const QRhiCommandBuffer::DynamicOffset offset{</span>
                 0, static_cast&lt;quint32&gt;(batch.uniformOffset)};
-<span style = "background-color:#dfd">            commandBuffer-&gt;setShaderResources(bindings, 1, &amp;offset);
-            const auto vertexOffset = static_cast&lt;quint32&gt;(batch.firstQuad * 4 * sizeof(Vertex));
-            const QRhiCommandBuffer::VertexInput vertexInput(_vertexBuffer.get(), vertexOffset);
-            commandBuffer-&gt;setVertexInput(0, 1, &amp;vertexInput, _indexBuffer.get(), 0,</span>
-                                          QRhiCommandBuffer::IndexUInt16);
-            // Un appel de dessin ne peut couvrir plus de quads que n'en indexe le tampon
-            // d'indices (16 bits) : un lot plus gros est tronque plutot que de lire hors bornes.
-<span style = "background-color:#dfd">            const std::size_t drawnQuads = (std::min)(batch.quadCount, MAXIMUM_QUADS);
-            commandBuffer-&gt;drawIndexed(static_cast&lt;quint32&gt;(drawnQuads * 6));
+<span style = "background-color:#dfd">            commandBuffer-&gt;setShaderResources(bindings, 1, &amp;offset);</span>
+            // Un appel de dessin ne couvre pas plus de quads que n'en indexe le tampon d'indices
+            // (16 bits) : un lot plus gros se dessine en plusieurs appels, chacun decale dans le
+            // tampon de sommets. Il etait tronque en silence (audit de l'affichage, A8).
+<span style = "background-color:#dfd">            for (std::size_t first = 0; first &lt; batch.quadCount; first += MAXIMUM_QUADS) {
+                const std::size_t drawnQuads = (std::min)(batch.quadCount - first, MAXIMUM_QUADS);
+                const auto vertexOffset =</span>
+                    static_cast&lt;quint32&gt;((batch.firstQuad + first) * 4 * sizeof(Vertex));
+<span style = "background-color:#dfd">                const QRhiCommandBuffer::VertexInput vertexInput(_vertexBuffer.get(), vertexOffset);
+                commandBuffer-&gt;setVertexInput(0, 1, &amp;vertexInput, _indexBuffer.get(), 0,</span>
+                                              QRhiCommandBuffer::IndexUInt16);
+<span style = "background-color:#dfd">                commandBuffer-&gt;drawIndexed(static_cast&lt;quint32&gt;(drawnQuads * 6));
+            }
         }</span>
     }
 <span style = "background-color:#dfd">    commandBuffer-&gt;endPass();

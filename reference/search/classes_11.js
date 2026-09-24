@@ -36,5 +36,6 @@ var searchData=
   ['stamppasteresult_33',['StampPasteResult',['../structhmi_1_1StampPasteResult.html',1,'hmi']]],
   ['stamppiece_34',['StampPiece',['../structhmi_1_1StampPiece.html',1,'hmi']]],
   ['state_35',['State',['../structcore_1_1LevelDraft_1_1State.html',1,'core::LevelDraft']]],
-  ['strokecontext_36',['StrokeContext',['../structhmi_1_1StrokeContext.html',1,'hmi']]]
+  ['staticworldscene_36',['StaticWorldScene',['../classhmi_1_1StaticWorldScene.html',1,'hmi']]],
+  ['strokecontext_37',['StrokeContext',['../structhmi_1_1StrokeContext.html',1,'hmi']]]
 ];

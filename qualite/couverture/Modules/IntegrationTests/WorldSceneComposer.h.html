@@ -15,6 +15,8 @@
 #pragma once
 #include &lt;cstdint&gt;
 #include &lt;map&gt;
+#include &lt;optional&gt;
+#include &lt;span&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
 #include &lt;vector&gt;
@@ -386,6 +388,16 @@ template &lt;class Map&gt;
 /// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triÃ©s.
 [[nodiscard]] std::vector&lt;std::string&gt; worldTexturePaths(const WorldSceneSnapshot&amp; snapshot);
 
+/**
+ * @return Les chemins de texture des figurines @p figures â leurs bandes `idle` et `walk` â, sans
+ *         doublon, triÃ©s ; leur dossier se lit dans @p snapshot.
+ *
+ * Ce que le rendu doit charger quand seules les figurines changent : la carte, elle, a dÃ©jÃ  ses
+ * textures.
+ */
+[[nodiscard]] std::vector&lt;std::string&gt; worldFigureTexturePaths(
+    const WorldSceneSnapshot&amp; snapshot, std::span&lt;const WorldFigureSnapshot&gt; figures);
+
 /// @brief Ce que l'appelant peut changer Ã  la composition â rien, par dÃ©faut.
 struct WorldComposeOptions {
     /**
@@ -401,14 +413,52 @@ struct WorldComposeOptions {
 };
 
 /**
- * @brief Compose le lieu dans un tampon rÃ©utilisÃ©.
+ * @brief Compose le lieu dans un tampon rÃ©utilisÃ©, figurines comprises (`snapshot.figures`).
  *
- * Le tampon n'est **ni vidÃ© ni triÃ©** : mÃªme contrat qu'`hmi::composeArenaScene`, l'appelant
- * enchaÃ®ne `clear()`, les compositions, puis `sort()`.
+ * Les briques de l'image du jeu (`hmi::StaticWorldScene`) : la carte (`composeWorldStatics`), les
+ * figurines (`composeWorldFigures`), puis l'effacement des Ã©tages devant le hÃ©ros. Le tampon n'est
+ * **ni vidÃ© ni triÃ©** : mÃªme contrat qu'`hmi::composeArenaScene`, l'appelant enchaÃ®ne `clear()`,
+ * les compositions, puis `sort()`. Un cadrage de @p scene (`ComposedScene::setVisibleBounds`)
+ * Ã©carte ce qu'il ne montre pas.
  */
 void composeWorldScene(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
                        const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
                        WorldComposeOptions options = {});
+
+/// @brief Ce qui masque le hÃ©ros : son image, et son rang de dessin (`LOT-129`).
+struct WorldHeroPlacement {
+    core::Rect bounds;
+    std::int32_t sortOrder = 0;
+};
+
+/**
+ * @brief Le hÃ©ros parmi @p figures, placÃ© et mesurÃ© ; rien s'il n'y en a pas, ou s'il n'a pas
+ *        d'image.
+ *
+ * Une piÃ¨ce d'Ã©tage dessinÃ©e aprÃ¨s lui et qui recouvre son image s'efface
+ * (`STOREY_SEE_THROUGH_OPACITY`) : c'est ce qu'on compare Ã  `ComposedQuad::occlusion`.
+ */
+[[nodiscard]] std::optional&lt;WorldHeroPlacement&gt; placeWorldHero(
+    const WorldSceneSnapshot&amp; snapshot, std::span&lt;const WorldFigureSnapshot&gt; figures,
+    const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures);
+
+/**
+ * @brief Compose ce qui ne dÃ©pend **que de la carte** : sols, reliefs, Ã©tages, jetons et tracÃ©s,
+ *        dans l'ordre de composition, sans trier.
+ *
+ * Aucune figurine, aucun effacement devant le hÃ©ros : les piÃ¨ces d'Ã©tage portent seulement ce
+ * qu'elles masquent (`ComposedQuad::occlusion`). C'est la part qu'une image n'a pas Ã  refaire.
+ */
+void composeWorldStatics(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
+                         const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
+                         WorldComposeOptions options = {});
+
+/**
+ * @brief Compose les figurines @p figures, sans trier ; leur dossier se lit dans @p snapshot.
+ */
+void composeWorldFigures(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
+                         std::span&lt;const WorldFigureSnapshot&gt; figures,
+                         const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures);
 
 /// @brief Compose le lieu dans une scÃ¨ne neuve, **triÃ©e** â commoditÃ© des tests et des captures.
 [[nodiscard]] ComposedScene composeWorldScene(const WorldSceneSnapshot&amp; snapshot,

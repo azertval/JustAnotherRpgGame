@@ -29,6 +29,7 @@ var classhmi_1_1ArenaSceneRenderer =
     [ "_composed", "classhmi_1_1ArenaSceneRenderer.html#a02dc2b80093547585c6b43efd8ced406", null ],
     [ "_directory", "classhmi_1_1ArenaSceneRenderer.html#aacf9fd0d70e452b3a64c103d384e06b1", null ],
     [ "_loaded", "classhmi_1_1ArenaSceneRenderer.html#af8355dd72e7a89c831316a04ec71176e", null ],
+    [ "_manifests", "classhmi_1_1ArenaSceneRenderer.html#a8b2ebed741f70aac11cf8315b035163e", null ],
     [ "_missing", "classhmi_1_1ArenaSceneRenderer.html#a15c68917f5b6d543d06b70af1e620b50", null ],
     [ "_pendingUploads", "classhmi_1_1ArenaSceneRenderer.html#a1c945d7cf491124dcd5626a6653f3a0e", null ],
     [ "_resources", "classhmi_1_1ArenaSceneRenderer.html#a2181ba95ba6e072456572eabbb56f47d", null ],

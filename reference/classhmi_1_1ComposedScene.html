@@ -159,18 +159,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a62f6cc07caaeef96393c6c8e2de233b9" id="r_a62f6cc07caaeef96393c6c8e2de233b9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a62f6cc07caaeef96393c6c8e2de233b9">isCullingEnabled</a> () const noexcept</td></tr>
 <tr class="memitem:a0a4e00be708093fbbf214379c1f73a99" id="r_a0a4e00be708093fbbf214379c1f73a99"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a4e00be708093fbbf214379c1f73a99">cullingBounds</a> () const noexcept</td></tr>
 <tr class="memdesc:a0a4e00be708093fbbf214379c1f73a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle réellement utilisé pour le culling : le cadrage élargi de la marge.  <br /></td></tr>
-<tr class="memitem:a00944ba9a1b321db44b0e6c4554ff8d5" id="r_a00944ba9a1b321db44b0e6c4554ff8d5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a00944ba9a1b321db44b0e6c4554ff8d5">addSprite</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad, int storey=0)</td></tr>
-<tr class="memdesc:a00944ba9a1b321db44b0e6c4554ff8d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un rectangle texturé à la scène, s'il est visible.  <br /></td></tr>
+<tr class="memitem:a1967932d41ebd5fe89fb77e6411da03c" id="r_a1967932d41ebd5fe89fb77e6411da03c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1967932d41ebd5fe89fb77e6411da03c">addSprite</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad, int storey=0, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;occlusion={})</td></tr>
+<tr class="memdesc:a1967932d41ebd5fe89fb77e6411da03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un rectangle texturé à la scène, s'il est visible.  <br /></td></tr>
 <tr class="memitem:a84dc1784abf8931b638de5929894ad54" id="r_a84dc1784abf8931b638de5929894ad54"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a84dc1784abf8931b638de5929894ad54">addLine</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;quad)</td></tr>
 <tr class="memdesc:a84dc1784abf8931b638de5929894ad54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un segment épais à la scène, s'il est visible.  <br /></td></tr>
-<tr class="memitem:a6afbe9dfa8c821b7b9b8e90053199c59" id="r_a6afbe9dfa8c821b7b9b8e90053199c59"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6afbe9dfa8c821b7b9b8e90053199c59">addPoly</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;quad, int storey=0)</td></tr>
-<tr class="memdesc:a6afbe9dfa8c821b7b9b8e90053199c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quadrilatère à quatre sommets libres à la scène, s'il est visible.  <br /></td></tr>
+<tr class="memitem:a0c47046f62c3e7fec88c4e28bfb649b8" id="r_a0c47046f62c3e7fec88c4e28bfb649b8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c47046f62c3e7fec88c4e28bfb649b8">addPoly</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;quad, int storey=0, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;occlusion={})</td></tr>
+<tr class="memdesc:a0c47046f62c3e7fec88c4e28bfb649b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quadrilatère à quatre sommets libres à la scène, s'il est visible.  <br /></td></tr>
 <tr class="memitem:a6c3bcd9889c444a2150dd1b3bd576a14" id="r_a6c3bcd9889c444a2150dd1b3bd576a14"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6c3bcd9889c444a2150dd1b3bd576a14">sort</a> ()</td></tr>
 <tr class="memdesc:a6c3bcd9889c444a2150dd1b3bd576a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordonne la scène (calque, puis texture, puis <span class="tt">sortOrder</span>), de façon <b>stable</b>.  <br /></td></tr>
+<tr class="memitem:a484a964df70d29ebbcf8331518e00f43" id="r_a484a964df70d29ebbcf8331518e00f43"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a484a964df70d29ebbcf8331518e00f43">registerTexture</a> (<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture)</td></tr>
+<tr class="memdesc:a484a964df70d29ebbcf8331518e00f43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inscrit <code class="param">texture</code> dans la table des rangs, si elle n'y est pas déjà.  <br /></td></tr>
+<tr class="memitem:acf1601c3f02d1bbe8fe9b7eda8343124" id="r_acf1601c3f02d1bbe8fe9b7eda8343124"><td class="memItemLeft">const std::vector&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acf1601c3f02d1bbe8fe9b7eda8343124">textureOrder</a> () const noexcept</td></tr>
+<tr class="memitem:a7c7a06b1d0d858962314fdb706efe024" id="r_a7c7a06b1d0d858962314fdb706efe024"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7c7a06b1d0d858962314fdb706efe024">swapQuads</a> (std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt; &amp;<a class="el" href="#ace294695fa499a5f2d899b449d647933">quads</a>, int considered, int culled) noexcept</td></tr>
+<tr class="memdesc:a7c7a06b1d0d858962314fdb706efe024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échange les primitives avec <code class="param">quads</code>, et ajoute <code class="param">considered</code> et <code class="param">culled</code> aux compteurs.  <br /></td></tr>
 <tr class="memitem:ace294695fa499a5f2d899b449d647933" id="r_ace294695fa499a5f2d899b449d647933"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ace294695fa499a5f2d899b449d647933">quads</a> () const noexcept</td></tr>
 <tr class="memitem:ac7a73465b2a0c743b86ccaa5db940e59" id="r_ac7a73465b2a0c743b86ccaa5db940e59"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ac7a73465b2a0c743b86ccaa5db940e59">size</a> () const noexcept</td></tr>
 <tr class="memitem:a751bbaba08ad6bd4f8104723af3b95df" id="r_a751bbaba08ad6bd4f8104723af3b95df"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a751bbaba08ad6bd4f8104723af3b95df">batchCount</a> () const noexcept</td></tr>
 <tr class="memitem:a43dde3d9e70aac31ab47a430e516124d" id="r_a43dde3d9e70aac31ab47a430e516124d"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneStatistics.html">SceneStatistics</a>&#160;</td><td class="memItemRight"><a class="el" href="#a43dde3d9e70aac31ab47a430e516124d">statistics</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a2229b70b3e44321b67cf7fc736732990" id="r_a2229b70b3e44321b67cf7fc736732990"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a2229b70b3e44321b67cf7fc736732990">drawsBefore</a> (const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;lhs, const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:a2229b70b3e44321b67cf7fc736732990"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ordre de dessin, comparateur <b>strict</b> de <span class="tt"><a class="el" href="#a6c3bcd9889c444a2150dd1b3bd576a14" title="Ordonne la scène (calque, puis texture, puis sortOrder), de façon stable.">sort()</a></span> : vrai si <code class="param">lhs</code> se dessine avant <code class="param">rhs</code>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -179,14 +189,14 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a86ce48e065a3f0541ae541f897b2fedd" id="r_a86ce48e065a3f0541ae541f897b2fedd"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a86ce48e065a3f0541ae541f897b2fedd">textureRank</a> (<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture)</td></tr>
-<tr class="memdesc:a86ce48e065a3f0541ae541f897b2fedd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang de première apparition d'une texture, ajoutée à la table si elle est nouvelle.  <br /></td></tr>
 <tr class="memitem:ad544319d48036199694098d8c61dfd05" id="r_ad544319d48036199694098d8c61dfd05"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad544319d48036199694098d8c61dfd05">isVisible</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds) const</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aaa9c9c3f70b554c719bcb6a3a5547e00" id="r_aaa9c9c3f70b554c719bcb6a3a5547e00"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaa9c9c3f70b554c719bcb6a3a5547e00">_quads</a></td></tr>
 <tr class="memitem:aa885de2ea8ce9908fe077a7b2bbfa65a" id="r_aa885de2ea8ce9908fe077a7b2bbfa65a"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa885de2ea8ce9908fe077a7b2bbfa65a">_textureOrder</a></td></tr>
+<tr class="memitem:aa2c90c7a877a60139f6f091b3714ffcd" id="r_aa2c90c7a877a60139f6f091b3714ffcd"><td class="memItemLeft">std::unordered_map&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>, int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa2c90c7a877a60139f6f091b3714ffcd">_textureRanks</a></td></tr>
+<tr class="memdesc:aa2c90c7a877a60139f6f091b3714ffcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang de chaque texture déjà vue.  <br /></td></tr>
 <tr class="memitem:af5712eaf613b13ccc223a1c903946ae3" id="r_af5712eaf613b13ccc223a1c903946ae3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af5712eaf613b13ccc223a1c903946ae3">_visibleBounds</a></td></tr>
 <tr class="memdesc:af5712eaf613b13ccc223a1c903946ae3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cadrage <b>marge comprise</b>, calculé une fois par <span class="tt"><a class="el" href="#a55f90d51ee8eb346b47163efd1b78301" title="Restreint la composition aux primitives visibles dans un cadrage donné (EX-NFR-005).">setVisibleBounds</a></span> : c'est le rectangle comparé à chaque primitive, sur un chemin parcouru des centaines de fois par image.  <br /></td></tr>
 <tr class="memitem:a26e1b7e6b9bad59ea9654f8b7c923262" id="r_a26e1b7e6b9bad59ea9654f8b7c923262"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a26e1b7e6b9bad59ea9654f8b7c923262">_considered</a> = 0</td></tr>
@@ -242,8 +252,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6afbe9dfa8c821b7b9b8e90053199c59" name="a6afbe9dfa8c821b7b9b8e90053199c59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6afbe9dfa8c821b7b9b8e90053199c59">&#9670;&#160;</a></span>addPoly()</h2>
+<a id="a0c47046f62c3e7fec88c4e28bfb649b8" name="a0c47046f62c3e7fec88c4e28bfb649b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c47046f62c3e7fec88c4e28bfb649b8">&#9670;&#160;</a></span>addPoly()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +281,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>storey</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>storey</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>occlusion</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -284,6 +299,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">sortOrder</td><td>Tri fin à l'intérieur du calque et de la texture. </td></tr>
     <tr><td class="paramname">quad</td><td>Primitive à composer (unités monde). </td></tr>
     <tr><td class="paramname">storey</td><td>Étage de la pièce (<span class="tt">LOT-129</span>), 0 au rez. </td></tr>
+    <tr><td class="paramname">occlusion</td><td>Ce que la pièce masque, pour l'effacer devant le héros (<span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html" title="Une primitive prête à soumettre, avec tout ce qui détermine quand la dessiner.">ComposedQuad</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -291,8 +307,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a00944ba9a1b321db44b0e6c4554ff8d5" name="a00944ba9a1b321db44b0e6c4554ff8d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00944ba9a1b321db44b0e6c4554ff8d5">&#9670;&#160;</a></span>addSprite()</h2>
+<a id="a1967932d41ebd5fe89fb77e6411da03c" name="a1967932d41ebd5fe89fb77e6411da03c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1967932d41ebd5fe89fb77e6411da03c">&#9670;&#160;</a></span>addSprite()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -320,7 +336,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>storey</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>storey</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>occlusion</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -333,6 +354,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">sortOrder</td><td>Tri fin à l'intérieur du calque et de la texture. </td></tr>
     <tr><td class="paramname">quad</td><td>Primitive à composer (unités monde). </td></tr>
     <tr><td class="paramname">storey</td><td>Étage de la pièce (<span class="tt">LOT-129</span>), 0 au rez. </td></tr>
+    <tr><td class="paramname">occlusion</td><td>Ce que la pièce masque, pour l'effacer devant le héros (<span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html" title="Une primitive prête à soumettre, avec tout ce qui détermine quand la dessiner.">ComposedQuad</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -449,6 +471,38 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2229b70b3e44321b67cf7fc736732990" name="a2229b70b3e44321b67cf7fc736732990"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2229b70b3e44321b67cf7fc736732990">&#9670;&#160;</a></span>drawsBefore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::ComposedScene::drawsBefore </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'ordre de dessin, comparateur <b>strict</b> de <span class="tt"><a class="el" href="#a6c3bcd9889c444a2150dd1b3bd576a14" title="Ordonne la scène (calque, puis texture, puis sortOrder), de façon stable.">sort()</a></span> : vrai si <code class="param">lhs</code> se dessine avant <code class="param">rhs</code>. </p>
+<p>Exposé pour qu'une liste déjà triée se <b>fusionne</b> avec une autre sans rien retrier (<span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html">hmi::StaticWorldScene</a></span>) : même règle, donc même image. </p>
+
+</div>
+</div>
 <a id="a62f6cc07caaeef96393c6c8e2de233b9" name="a62f6cc07caaeef96393c6c8e2de233b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62f6cc07caaeef96393c6c8e2de233b9">&#9670;&#160;</a></span>isCullingEnabled()</h2>
 
@@ -524,6 +578,26 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les primitives composées, dans l'ordre de dessin après <span class="tt"><a class="el" href="#a6c3bcd9889c444a2150dd1b3bd576a14" title="Ordonne la scène (calque, puis texture, puis sortOrder), de façon stable.">sort()</a></span>. </dd></dl>
+
+</div>
+</div>
+<a id="a484a964df70d29ebbcf8331518e00f43" name="a484a964df70d29ebbcf8331518e00f43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484a964df70d29ebbcf8331518e00f43">&#9670;&#160;</a></span>registerTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::ComposedScene::registerTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a></td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inscrit <code class="param">texture</code> dans la table des rangs, si elle n'y est pas déjà. </p>
+<dl class="section return"><dt>Returns</dt><dd>Son rang de première apparition. </dd></dl>
 
 </div>
 </div>
@@ -631,8 +705,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a86ce48e065a3f0541ae541f897b2fedd" name="a86ce48e065a3f0541ae541f897b2fedd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86ce48e065a3f0541ae541f897b2fedd">&#9670;&#160;</a></span>textureRank()</h2>
+<a id="a7c7a06b1d0d858962314fdb706efe024" name="a7c7a06b1d0d858962314fdb706efe024"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7a06b1d0d858962314fdb706efe024">&#9670;&#160;</a></span>swapQuads()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -641,20 +715,56 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int hmi::ComposedScene::textureRank </td>
+          <td class="memname">void hmi::ComposedScene::swapQuads </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a></td>          <td class="paramname"><span class="paramname"><em>texture</em></span></td><td>)</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>quads</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>considered</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>culled</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Rang de première apparition d'une texture, ajoutée à la table si elle est nouvelle. </p>
+<p>Échange les primitives avec <code class="param">quads</code>, et ajoute <code class="param">considered</code> et <code class="param">culled</code> aux compteurs. </p>
+<p>Pour qui compose d'avance ou retouche une liste (<span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html">hmi::StaticWorldScene</a></span>) : les rangs de texture de <code class="param">quads</code> doivent venir de cette scène (<span class="tt"><a class="el" href="#a484a964df70d29ebbcf8331518e00f43" title="Inscrit texture dans la table des rangs, si elle n&#39;y est pas déjà.">registerTexture</a></span>), et l'appelant répond de l'ordre — une liste déjà triée le reste. <code class="param">quads</code> reçoit l'ancienne liste, dont la capacité reste réutilisable. </p>
+
+</div>
+</div>
+<a id="acf1601c3f02d1bbe8fe9b7eda8343124" name="acf1601c3f02d1bbe8fe9b7eda8343124"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1601c3f02d1bbe8fe9b7eda8343124">&#9670;&#160;</a></span>textureOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> &gt; &amp; hmi::ComposedScene::textureOrder </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les textures dans l'ordre de leur rang : <span class="tt"><a class="el" href="#acf1601c3f02d1bbe8fe9b7eda8343124">textureOrder()</a>[rang]</span>. </dd></dl>
 
 </div>
 </div>
@@ -744,6 +854,31 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa2c90c7a877a60139f6f091b3714ffcd" name="aa2c90c7a877a60139f6f091b3714ffcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2c90c7a877a60139f6f091b3714ffcd">&#9670;&#160;</a></span>_textureRanks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>, int&gt; hmi::ComposedScene::_textureRanks</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rang de chaque texture déjà vue. </p>
+<p>Une carte HD en cite des centaines : une recherche linéaire par primitive coûtait plus que la composition elle-même (audit de l'affichage, A4). </p>
 
 </div>
 </div>

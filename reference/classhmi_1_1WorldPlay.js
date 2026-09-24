@@ -6,7 +6,9 @@ var classhmi_1_1WorldPlay =
     [ "figures", "classhmi_1_1WorldPlay.html#acbef06d44780edb3de38785805e3a10c", null ],
     [ "heroFacing", "classhmi_1_1WorldPlay.html#ab359b28cfd1ae307fc8a93ef215e6f04", null ],
     [ "heroFigure", "classhmi_1_1WorldPlay.html#a9ae5c3165df10c8f1f3624b613ecc40e", null ],
+    [ "invalidateScene", "classhmi_1_1WorldPlay.html#aa0238c49b3c92777bc3ce5c71fa2ea02", null ],
     [ "reloadAppearance", "classhmi_1_1WorldPlay.html#a05af7d965c7b1bb8871355f4a0e55fe5", null ],
+    [ "scene", "classhmi_1_1WorldPlay.html#ac6f08ec64b8fd2fa0c0cb50982166a98", null ],
     [ "session", "classhmi_1_1WorldPlay.html#a4da6a24453ad49e3737754441f0655fa", null ],
     [ "session", "classhmi_1_1WorldPlay.html#a3acd7347236c8e509811ea74124dc982", null ],
     [ "setHeroFigure", "classhmi_1_1WorldPlay.html#ade46c5a042fb26bca54746333c47a98b", null ],
@@ -19,6 +21,7 @@ var classhmi_1_1WorldPlay =
     [ "_heroFacing", "classhmi_1_1WorldPlay.html#a0729d639a27a4412f44f3b68caa21da1", null ],
     [ "_heroFigure", "classhmi_1_1WorldPlay.html#ade28d0bca4fd0c4f43b087f68512195e", null ],
     [ "_heroOriented", "classhmi_1_1WorldPlay.html#ab088dac9f46b3719a0ed59c3e9173dac", null ],
+    [ "_scene", "classhmi_1_1WorldPlay.html#ad50072f254f350ab206b27f3ff367cdc", null ],
     [ "_session", "classhmi_1_1WorldPlay.html#a1a27f41f8b7444eacf68002667d8c8e0", null ],
     [ "_walking", "classhmi_1_1WorldPlay.html#a2ff668f3c939a7bed7948b1345889295", null ],
     [ "DEFAULT_HERO_FIGURE", "classhmi_1_1WorldPlay.html#add75f1e9b82d622c77675f3a9583885c", null ]

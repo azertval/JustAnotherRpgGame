@@ -147,6 +147,7 @@ $(function(){initNavTree('WorldSceneRenderer_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -157,6 +158,8 @@ $(function(){initNavTree('WorldSceneRenderer_8h.html','',''); });
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SceneResources_8h_source.html">HMI/Graphics/SceneResources.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneTextureTraits_8h_source.html">HMI/Graphics/SceneTextureTraits.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="StaticWorldScene_8h_source.html">HMI/Graphics/StaticWorldScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TextureLoader_8h_source.html">HMI/Graphics/TextureLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 </div>
@@ -179,7 +182,10 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> : le jumeau d'<span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span> (<span class="tt">LOT-09</span>). </p>
 <p>Même découpage, pour la même raison : tout ce qui peut casser — l'ordre de création, l'ordre de libération, la recréation sur une autre interface QRhi — vit ici, où un test hors écran le fait tourner sur un vrai <span class="tt">QRhi</span> sans fenêtre. L'élément Qt Quick (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) ne relaie que trois appels.</p>
-<p>Une différence avec l'arène, et une seule : <b>les textures ne sont pas connues d'avance</b>. Une arène a son catalogue ; un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les textures se chargent donc à la demande, quand l'instantané en réclame une que le rendu n'a pas — sur le fil de rendu, dans le lot de l'image. </p>
+<p>Une différence avec l'arène : <b>les textures ne sont pas connues d'avance</b>. Une arène a son catalogue ; un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil de rendu, dans le lot de l'image.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md96"></a>
+Ce qu'une image refait, et ce qu'elle ne refait pas</h2>
+<p>La carte (<span class="tt">setScene</span>) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître quelque chose : elle se compose <b>une fois</b>, dans une <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html">hmi::StaticWorldScene</a></span>. Une image ne prend que ce que la caméra montre, et y fusionne les figurines (<span class="tt">setFigures</span>) — le héros qui marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille de la carte (audit de l'affichage d'un lieu, <span class="tt">Planning/standards/audit-affichage-lieu.md</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

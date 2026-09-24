@@ -143,7 +143,7 @@ $(function(){initNavTree('classhmi_1_1SceneImages.html','','classhmi_1_1SceneIma
 </div><!--header-->
 <div class="contents">
 
-<p>Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  
+<p>Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé, figurines comprises (snapshot.figures).">hmi::composeWorldScene</a></span> adresse par chemin.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="SceneImages_8h_source.html">SceneImages.h</a>&gt;</code></p>
@@ -192,7 +192,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ac4474bd63aaaae41dc4c23154c3bc37e" id="r_ac4474bd63aaaae41dc4c23154c3bc37e"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="#a49e6da3578200b0edcc69dbee76ae345">SceneImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac4474bd63aaaae41dc4c23154c3bc37e">_images</a></td></tr>
 <tr class="memitem:a693386753e52448124c080bd6ca9d8cf" id="r_a693386753e52448124c080bd6ca9d8cf"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="#a49e6da3578200b0edcc69dbee76ae345">SceneImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a693386753e52448124c080bd6ca9d8cf">_markers</a></td></tr>
 <tr class="memitem:a02c8754da2b7f06024b88451893b582f" id="r_a02c8754da2b7f06024b88451893b582f"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a02c8754da2b7f06024b88451893b582f">_requested</a></td></tr>
-<tr class="memitem:a39013d484ad0b42fe5b8e07415594ce3" id="r_a39013d484ad0b42fe5b8e07415594ce3"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a5d708cce89edd729538c85a212cad231">ManifestCache</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39013d484ad0b42fe5b8e07415594ce3">_manifests</a></td></tr>
+<tr class="memitem:a39013d484ad0b42fe5b8e07415594ce3" id="r_a39013d484ad0b42fe5b8e07415594ce3"><td class="memItemLeft"><a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39013d484ad0b42fe5b8e07415594ce3">_manifests</a></td></tr>
 <tr class="memitem:a2d604cd2b8cc476d6fccd42d52762a25" id="r_a2d604cd2b8cc476d6fccd42d52762a25"><td class="memItemLeft"><a class="el" href="#a49e6da3578200b0edcc69dbee76ae345">SceneImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2d604cd2b8cc476d6fccd42d52762a25">_missing</a></td></tr>
 <tr class="memitem:a9e2151e51a46cc5c91935fede535bfd4" id="r_a9e2151e51a46cc5c91935fede535bfd4"><td class="memItemLeft"><a class="el" href="#a49e6da3578200b0edcc69dbee76ae345">SceneImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e2151e51a46cc5c91935fede535bfd4">_atlas</a></td></tr>
 <tr class="memitem:ae1ef36be114f09217d661caa1ed5e075" id="r_ae1ef36be114f09217d661caa1ed5e075"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae1ef36be114f09217d661caa1ed5e075">_textures</a></td></tr>
@@ -202,7 +202,7 @@ Friends</h2></td></tr>
 <tr class="memitem:a49e6da3578200b0edcc69dbee76ae345" id="r_a49e6da3578200b0edcc69dbee76ae345"><td class="memItemLeft">class&#160;</td><td class="memItemRight"><a class="el" href="#a49e6da3578200b0edcc69dbee76ae345">SceneImage</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin. </p>
+<div class="textblock"><p>Le cache des images du canevas : ce que <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé, figurines comprises (snapshot.figures).">hmi::composeWorldScene</a></span> adresse par chemin. </p>
 <p>Il ne se partage qu'entre objets du <b>même fil</b> (celui de l'interface) : le canevas, les vignettes et <span class="tt">--render</span> y vivent tous. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab63d1dd9bff84e09a498281ce0ca7a44" name="ab63d1dd9bff84e09a498281ce0ca7a44"></a>
@@ -827,7 +827,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacehmi.html#a5d708cce89edd729538c85a212cad231">ManifestCache</a> hmi::SceneImages::_manifests</td>
+          <td class="memname"><a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a> hmi::SceneImages::_manifests</td>
         </tr>
       </table>
   </td>

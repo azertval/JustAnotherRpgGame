@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>SceneTextureTraits.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;map&gt;
+#include &lt;memory&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;unordered_map&gt;
+
+#include "Core/Data/JsonDocument.h"
+#include "Core/Math/Vector2.h"
+#include "HMI/Graphics/ScenePieces.h"
+
+/**
+ * @file HMI/Graphics/SceneTextureTraits.h
+ * @brief Ce que les fichiers **voisins** d'une image de scÃ¨ne disent d'elle : sa dÃ©coupe, son
+ *        Ã©chelle, son ancre (`LOT-103`).
+ *
+ * Une image ne sait rien d'elle-mÃªme : sa taille est tout ce que le dÃ©codeur rend. Le reste est
+ * Ã©crit Ã  cÃ´tÃ© â la dÃ©coupe d'une bande dans son `.anim.json`, l'Ã©chelle et l'ancre d'une piÃ¨ce
+ * dans le `manifest.json` de son dossier. Le jeu, l'arÃ¨ne et l'Ã©diteur lisaient ces trois choses
+ * chacun de leur cÃ´tÃ©, et chacun en oubliait une : la lecture est ici, une fois.
+ *
+ * ## L'Ã©chelle, une donnÃ©e du lieu
+ *
+ * Le manifeste d'un dossier de piÃ¨ces dÃ©clare `"tile": [largeur, hauteur]`, le losange de sol en
+ * pixels d'art (`EX-VIS-008`) : c'est de lui que le rendu tire la taille Ã  l'Ã©cran de chaque piÃ¨ce,
+ * et non d'une constante. Une figurine vit plus bas (`Characters/&lt;pnj&gt;/idle.png`,
+ * `Characters/Heroes/brawler/walk-se.png`) : son Ã©chelle et sa ligne de sol se lisent dans le
+ * premier manifeste **ancÃªtre** qui dÃ©clare un losange, celui de l'atelier qui la range.
+ *
+ * Logique pure, sans GPU ni Qt ; aucune lecture ne lÃ¨ve (`EX-NFR-040`) : un fichier absent laisse
+ * le trait inconnu, et le rendu en dÃ©duit un dÃ©faut (`hmi::artTileWidth`).
+ */
+
+namespace hmi {
+
+/// @brief Les traits d'une image, lus Ã  cÃ´tÃ© d'elle. Un trait absent reste Ã  sa valeur nulle.
+struct SceneTextureTraits {
+    /// Largeur et hauteur d'une image de la bande (`.anim.json`) ; 0 pour une image fixe.
+    int frameWidth = 0;
+    int frameHeight = 0;
+    /// Le losange de sol de l'art, en pixels (`tile` du manifeste) ; (0, 0) s'il n'est pas dÃ©clarÃ©.
+    core::Vector2 artTile{};
+    /// L'ancre de la piÃ¨ce (`anchor` du manifeste), en pixels de l'image.
+    std::optional&lt;core::Vector2&gt; anchor;
+    /// DÃ©calage de profondeur de la piÃ¨ce (`depthOffset` du manifeste), en cases.
+    std::optional&lt;float&gt; depthOffset;
+    /// Ligne de sol d'une figurine (`ground` du manifeste de son atelier), en pixels depuis le haut
+    /// de la cellule : la ligne oÃ¹ tombent les pieds (`LOT-112`).
+    std::optional&lt;float&gt; groundLine;
+    /// DurÃ©e d'une image de la bande, en secondes (`frameDuration` de son premier clip) ; 0 si la
+    /// bande n'en dit rien.
+    float frameDuration = 0.0F;
+    /// Hauteur d'un Ã©tage du lieu (`storey` du manifeste), en pixels d'art (`LOT-129`).
+    std::optional&lt;float&gt; storeyHeight;
+};
+
+/**
+ * @brief Un manifeste lu, et ses entrÃ©es **indexÃ©es par fichier** : la recherche d'une image ne
+ *        parcourt plus les milliers d'entrÃ©es d'un lieu (audit de l'affichage, A6).
+ */
+struct IndexedManifest {
+    nlohmann::json root;
+    /// L'entrÃ©e de chaque fichier citÃ© (`file`), qui pointe dans @ref root.
+    std::unordered_map&lt;std::string, const nlohmann::json*&gt; entries;
+
+    /// @return L'entrÃ©e qui cite @p filename, `nullptr` si aucune.
+    [[nodiscard]] const nlohmann::json* entry(std::string_view filename) const;
+};
+
+/**
+ * @brief Les manifestes dÃ©jÃ  lus, par dossier, chacun lu **une fois** et jamais recopiÃ©.
+ *
+ * Qui lit les traits de nombreuses images d'un mÃªme lieu le passe Ã  `readSceneTextureTraits`
+ * (`LOT-125`) : le rendu du lieu, celui de l'arÃ¨ne, les images de l'Ã©diteur. Un dossier sans
+ * manifeste lisible est retenu comme tel, et ne se relit pas non plus.
+ */
+class ManifestCache {
+public:
+    /// @return Le manifeste de @p directory, lu Ã  la premiÃ¨re demande ; `nullptr` s'il ne se lit
+    /// pas.
+    [[nodiscard]] const IndexedManifest* find(const std::filesystem::path&amp; directory);
+
+    /// @return Le nombre de dossiers dÃ©jÃ  demandÃ©s.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t size() const noexcept {
+        return _read.size();
+    }</span>
+
+private:
+    std::map&lt;std::filesystem::path, std::unique_ptr&lt;const IndexedManifest&gt;&gt; _read;
+};
+
+/**
+ * @brief Lit les traits de l'image @p path.
+ * @param assetsDirectory Racine des chemins d'image.
+ * @param path            Chemin de l'image, relatif Ã  @p assetsDirectory (`Scene/bourg/wall.png`,
+ *                        `Npc/figurant/idle.png`, `../Scene/bourg/sand.png`).
+ * @param manifests       Les manifestes dÃ©jÃ  lus, complÃ©tÃ©s au passage ; absent : tout se relit.
+ */
+[[nodiscard]] SceneTextureTraits readSceneTextureTraits(
+    const std::filesystem::path&amp; assetsDirectory, std::string_view path,
+    ManifestCache* manifests = nullptr);
+
+/**
+ * @brief Le losange d'art dÃ©clarÃ© par un manifeste (`tile`), (0, 0) s'il n'en dÃ©clare pas.
+ * @param manifest Racine du manifeste lu.
+ */
+[[nodiscard]] core::Vector2 manifestArtTile(const nlohmann::json&amp; manifest);
+
+/**
+ * @brief L'ancre que le manifeste donne Ã  l'image @p filename, en pixels de l'image.
+ *
+ * Lue sans condition depuis le `LOT-103` : l'opt-in `placementVersion` protÃ©geait les cartes
+ * livrÃ©es dans l'ancien style, que la table rase du `LOT-102` a emportÃ©es. Une ancre peut sortir de
+ * l'image â une fontaine plate ne monte pas jusqu'Ã  la pointe nord de son emprise.
+ * @return L'ancre, ou rien si l'image n'est pas citÃ©e ou si son ancre n'est pas numÃ©rique.
+ */
+[[nodiscard]] std::optional&lt;core::Vector2&gt; scenePieceAnchor(const nlohmann::json&amp; manifest,
+                                                            std::string_view filename);
+
+/// @return Le `depthOffset` de l'image @p filename, rien sans ancre valide ou sans valeur finie.
+[[nodiscard]] std::optional&lt;float&gt; scenePieceDepthOffset(const nlohmann::json&amp; manifest,
+                                                         std::string_view filename);
+
+/// @brief Reporte les traits @p traits sur @p texture (la texture garde sa poignÃ©e et sa taille).
+void applySceneTextureTraits(SceneTexture&amp; texture, const SceneTextureTraits&amp; traits);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

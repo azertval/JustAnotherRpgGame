@@ -332,7 +332,7 @@ Classes</h2></td></tr>
 <tr class="memitem:SceneImage" id="r_SceneImage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une image du cache : l'identité stable qu'une scène composée adresse, et ses <b>niveaux réduits</b>.  <a href="classhmi_1_1SceneImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneImages" id="r_SceneImages"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé.">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé, figurines comprises (snapshot.figures).">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldGraphView" id="r_WorldGraphView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>.  <a href="classhmi_1_1WorldGraphView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldStateEditor" id="r_WorldStateEditor"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldStateEditor.html">WorldStateEditor</a></td></tr>
@@ -445,8 +445,13 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.  <a href="classhmi_1_1SceneResources.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneTextureTraits" id="r_SceneTextureTraits"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTextureTraits.html">SceneTextureTraits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les traits d'une image, lus à côté d'elle. Un trait absent reste à sa valeur nulle.  <a href="structhmi_1_1SceneTextureTraits.html#details">More...</a><br /></td></tr>
+<tr class="memitem:IndexedManifest" id="r_IndexedManifest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IndexedManifest.html">IndexedManifest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un manifeste lu, et ses entrées <b>indexées par fichier</b> : la recherche d'une image ne parcourt plus les milliers d'entrées d'un lieu (audit de l'affichage, A6).  <a href="structhmi_1_1IndexedManifest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ManifestCache" id="r_ManifestCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les manifestes déjà lus, par dossier, chacun lu <b>une fois</b> et jamais recopié.  <a href="classhmi_1_1ManifestCache.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpriteBatch" id="r_SpriteBatch"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine des quads texturés au travers de QRhi, avec transparence <b>prémultipliée</b> et un échantillonnage qui suit la nature de chaque texture : bilinéaire avec mipmaps pour l'art peint, au plus proche pour une image engendrée (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>).  <a href="classhmi_1_1SpriteBatch.html#details">More...</a><br /></td></tr>
+<tr class="memitem:StaticWorldScene" id="r_StaticWorldScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1StaticWorldScene.html">StaticWorldScene</a></td></tr>
 <tr class="memitem:TextureAtlas" id="r_TextureAtlas"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture d'atlas <b>procédurale</b> et table de régions de tuiles (<span class="tt">EX-REN-041</span>/<span class="tt">EX-REN-042</span>).  <a href="classhmi_1_1TextureAtlas.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TextureCache" id="r_TextureCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a></td></tr>
@@ -470,6 +475,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la composition lit d'une carte : sa grille racine, ses couches et ses entités.  <a href="structhmi_1_1WorldSceneSource.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldComposeOptions" id="r_WorldComposeOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'appelant peut changer à la composition — rien, par défaut.  <a href="structhmi_1_1WorldComposeOptions.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldHeroPlacement" id="r_WorldHeroPlacement"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui masque le héros : son image, et son rang de dessin (<span class="tt">LOT-129</span>).  <a href="structhmi_1_1WorldHeroPlacement.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneRenderer" id="r_WorldSceneRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldSceneRenderer.html">WorldSceneRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène composée.  <a href="classhmi_1_1WorldSceneRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ButtonRepeat" id="r_ButtonRepeat"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ButtonRepeat.html">ButtonRepeat</a></td></tr>
@@ -593,8 +600,6 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a0ac25499fc66ce0fd6f586b705271ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture de l'arène : la même que celle d'un lieu (<span class="tt"><a class="el" href="structhmi_1_1SceneTexture.html" title="Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d&#39;elle.">hmi::SceneTexture</a></span>).  <br /></td></tr>
 <tr class="memitem:a979f7ffd7c87877cb1f65f0d08e4419d" id="r_a979f7ffd7c87877cb1f65f0d08e4419d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> = void*</td></tr>
 <tr class="memdesc:a979f7ffd7c87877cb1f65f0d08e4419d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identité <b>opaque</b> d'une texture liée, du point de vue de la composition.  <br /></td></tr>
-<tr class="memitem:a5d708cce89edd729538c85a212cad231" id="r_a5d708cce89edd729538c85a212cad231"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a5d708cce89edd729538c85a212cad231">ManifestCache</a> = std::map&lt;std::filesystem::path, std::optional&lt;nlohmann::json&gt;&gt;</td></tr>
-<tr class="memdesc:a5d708cce89edd729538c85a212cad231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les manifestes déjà lus, par dossier ; <span class="tt">std::nullopt</span> pour un dossier sans manifeste lisible.  <br /></td></tr>
 <tr class="memitem:a2b7a47650b075de634207cebdf6563e9" id="r_a2b7a47650b075de634207cebdf6563e9"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a2b7a47650b075de634207cebdf6563e9">TextLookup</a> = std::function&lt;std::string(std::string_view key)&gt;</td></tr>
 <tr class="memdesc:a2b7a47650b075de634207cebdf6563e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé de traduction, et le texte qu'elle donne dans la langue active.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -1406,7 +1411,7 @@ Functions</h2></td></tr>
 <tr class="memitem:af12e7bd41f7453be0b683a11740da4f0" id="r_af12e7bd41f7453be0b683a11740da4f0"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af12e7bd41f7453be0b683a11740da4f0">scenePieceAnchor</a> (const nlohmann::json &amp;manifest, std::string_view filename)</td></tr>
 <tr class="memdesc:af12e7bd41f7453be0b683a11740da4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ancre que le manifeste donne à l'image <code class="param">filename</code>, en pixels de l'image.  <br /></td></tr>
 <tr class="memitem:acb862d75330ab11fcab40122e0709c69" id="r_acb862d75330ab11fcab40122e0709c69"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acb862d75330ab11fcab40122e0709c69">scenePieceDepthOffset</a> (const nlohmann::json &amp;manifest, std::string_view filename)</td></tr>
-<tr class="memitem:ac476afa91f2afee49d8bdd868bb21b4b" id="r_ac476afa91f2afee49d8bdd868bb21b4b"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextureTraits.html">SceneTextureTraits</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac476afa91f2afee49d8bdd868bb21b4b">readSceneTextureTraits</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view path, <a class="el" href="#a5d708cce89edd729538c85a212cad231">ManifestCache</a> *manifests=nullptr)</td></tr>
+<tr class="memitem:ac476afa91f2afee49d8bdd868bb21b4b" id="r_ac476afa91f2afee49d8bdd868bb21b4b"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextureTraits.html">SceneTextureTraits</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac476afa91f2afee49d8bdd868bb21b4b">readSceneTextureTraits</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view path, <a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a> *manifests=nullptr)</td></tr>
 <tr class="memdesc:ac476afa91f2afee49d8bdd868bb21b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les traits de l'image <code class="param">path</code>.  <br /></td></tr>
 <tr class="memitem:a6a1fc28e49220af6145d632ed9fe40bf" id="r_a6a1fc28e49220af6145d632ed9fe40bf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a1fc28e49220af6145d632ed9fe40bf">applySceneTextureTraits</a> (<a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;texture, const <a class="el" href="structhmi_1_1SceneTextureTraits.html">SceneTextureTraits</a> &amp;traits)</td></tr>
 <tr class="memdesc:a6a1fc28e49220af6145d632ed9fe40bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reporte les traits <code class="param">traits</code> sur <code class="param">texture</code> (la texture garde sa poignée et sa taille).  <br /></td></tr>
@@ -1414,8 +1419,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a533df804a658915efda4f8f6c918496e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soumet une scène composée au pipeline de dessin, une passe par groupe de texture.  <br /></td></tr>
 <tr class="memitem:a9fbb2bf9b95887bf5bf16e14e750bac4" id="r_a9fbb2bf9b95887bf5bf16e14e750bac4"><td class="memItemLeft">DirectX::XMFLOAT4X4&#160;</td><td class="memItemRight"><a class="el" href="#a9fbb2bf9b95887bf5bf16e14e750bac4">screenProjectionMatrix</a> (int viewportWidth, int viewportHeight) noexcept</td></tr>
 <tr class="memdesc:a9fbb2bf9b95887bf5bf16e14e750bac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la projection <b>écran → clip</b>, indépendante de <span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">Camera2D</a></span>.  <br /></td></tr>
+<tr class="memitem:ab12d7276850e59be85957b10047b8728" id="r_ab12d7276850e59be85957b10047b8728"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab12d7276850e59be85957b10047b8728">hidesHero</a> (const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;quad, const std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt; &amp;hero) noexcept</td></tr>
+<tr class="memdesc:ab12d7276850e59be85957b10047b8728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">quad</code>, pièce d'étage dessinée après le héros, recouvre son image (<span class="tt">LOT-129</span>) : elle doit s'effacer (<span class="tt"><a class="el" href="#ab0a2cd2527096877037eac485411c28f" title="Opacité d&#39;une pièce d&#39;étage qui masque le héros (LOT-129) : on le voit à travers le toit.">STOREY_SEE_THROUGH_OPACITY</a></span>).  <br /></td></tr>
+<tr class="memitem:acd4e8e31191e807e49cfb1613f9166a9" id="r_acd4e8e31191e807e49cfb1613f9166a9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acd4e8e31191e807e49cfb1613f9166a9">fadeStoreysOverHero</a> (std::span&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt; quads, const std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt; &amp;hero) noexcept</td></tr>
+<tr class="memdesc:acd4e8e31191e807e49cfb1613f9166a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface, dans <code class="param">quads</code>, les pièces d'étage qui recouvrent le héros (<span class="tt"><a class="el" href="#ab12d7276850e59be85957b10047b8728" title="Vrai si quad, pièce d&#39;étage dessinée après le héros, recouvre son image (LOT-129) : elle doit s&#39;effac...">hidesHero</a></span>).  <br /></td></tr>
 <tr class="memitem:a22c3bcff9f77b4c4df7938a08c036dfd" id="r_a22c3bcff9f77b4c4df7938a08c036dfd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd">decodeImageFile</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a22c3bcff9f77b4c4df7938a08c036dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode un fichier image (PNG au minimum) en pixels RGBA.  <br /></td></tr>
+<tr class="memitem:adfff4e38b728514a48aac2df13bb1bd6" id="r_adfff4e38b728514a48aac2df13bb1bd6"><td class="memItemLeft">std::vector&lt; std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adfff4e38b728514a48aac2df13bb1bd6">decodeImageFiles</a> (const std::vector&lt; std::filesystem::path &gt; &amp;paths)</td></tr>
+<tr class="memdesc:adfff4e38b728514a48aac2df13bb1bd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décode <code class="param">paths</code> <b>en parallèle</b>, sur les cœurs de la machine : une entrée par chemin, dans le même ordre, vide pour une image qui ne se décode pas.  <br /></td></tr>
 <tr class="memitem:ae4e98112a456615557383e9b5d0d6252" id="r_ae4e98112a456615557383e9b5d0d6252"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae4e98112a456615557383e9b5d0d6252">encodeImageFile</a> (const std::filesystem::path &amp;path, const <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &amp;image)</td></tr>
 <tr class="memdesc:ae4e98112a456615557383e9b5d0d6252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit un fichier PNG depuis des pixels RGBA déjà en mémoire — symétrique de <span class="tt"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">decodeImageFile</a></span>.  <br /></td></tr>
 <tr class="memitem:abe2668cca55466d08f41f3c72f3dda5e" id="r_abe2668cca55466d08f41f3c72f3dda5e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abe2668cca55466d08f41f3c72f3dda5e">createTexture</a> (const <a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;context, int width, int height, const std::vector&lt; std::uint32_t &gt; &amp;pixels, <a class="el" href="#a30e21236d068bfdc0078d392e42b752d">TextureFiltering</a> filtering=<a class="el" href="#a30e21236d068bfdc0078d392e42b752da60c17eb98355db0fe5ce016db6c6f444">TextureFiltering::Sharp</a>)</td></tr>
@@ -1443,9 +1454,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a193118424306eba40e5743a9e8e70dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin d'une bande de figurine, relatif au dossier des assets.  <br /></td></tr>
 <tr class="memitem:a1c839cebf18adf167ae9ac5452d179b6" id="r_a1c839cebf18adf167ae9ac5452d179b6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1c839cebf18adf167ae9ac5452d179b6">figureMarkerKey</a> (std::string_view path)</td></tr>
 <tr class="memdesc:a1c839cebf18adf167ae9ac5452d179b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du marqueur d'une figurine qui n'a pas d'image (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>).  <br /></td></tr>
+<tr class="memitem:a2f3d83ca010accd2a3d552ae2b6b97c0" id="r_a2f3d83ca010accd2a3d552ae2b6b97c0"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2f3d83ca010accd2a3d552ae2b6b97c0">worldFigureTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memitem:a07929611bf03ab59a2de588feb90ad7d" id="r_a07929611bf03ab59a2de588feb90ad7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07929611bf03ab59a2de588feb90ad7d">worldTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
+<tr class="memitem:ac87779e65c2849bfdc39e93d4a96f578" id="r_ac87779e65c2849bfdc39e93d4a96f578"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac87779e65c2849bfdc39e93d4a96f578">placeWorldHero</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
+<tr class="memdesc:ac87779e65c2849bfdc39e93d4a96f578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros parmi <code class="param">figures</code>, placé et mesuré ; rien s'il n'y en a pas, ou s'il n'a pas d'image.  <br /></td></tr>
+<tr class="memitem:ad9cb008092b63cca7250190ee30f1b1b" id="r_ad9cb008092b63cca7250190ee30f1b1b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad9cb008092b63cca7250190ee30f1b1b">composeWorldStatics</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
+<tr class="memdesc:ad9cb008092b63cca7250190ee30f1b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose ce qui ne dépend <b>que de la carte</b> : sols, reliefs, étages, jetons et tracés, dans l'ordre de composition, sans trier.  <br /></td></tr>
+<tr class="memitem:a1b357cd2954eeb90e03d8f059e2930c1" id="r_a1b357cd2954eeb90e03d8f059e2930c1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b357cd2954eeb90e03d8f059e2930c1">composeWorldFigures</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
+<tr class="memdesc:a1b357cd2954eeb90e03d8f059e2930c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose les figurines <code class="param">figures</code>, sans trier ; leur dossier se lit dans <code class="param">snapshot</code>.  <br /></td></tr>
 <tr class="memitem:a888058bfce2a151c10776afeaabbb179" id="r_a888058bfce2a151c10776afeaabbb179"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a888058bfce2a151c10776afeaabbb179">composeWorldScene</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
-<tr class="memdesc:a888058bfce2a151c10776afeaabbb179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans un tampon réutilisé.  <br /></td></tr>
+<tr class="memdesc:a888058bfce2a151c10776afeaabbb179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans un tampon réutilisé, figurines comprises (<span class="tt">snapshot.figures</span>).  <br /></td></tr>
 <tr class="memitem:a5878150edf69cce4f7f785e2fb4be5f1" id="r_a5878150edf69cce4f7f785e2fb4be5f1"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5878150edf69cce4f7f785e2fb4be5f1">composeWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
 <tr class="memdesc:a5878150edf69cce4f7f785e2fb4be5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures.  <br /></td></tr>
 <tr class="memitem:add2056a8ef137e4eeeca4a1344fbdc82" id="r_add2056a8ef137e4eeeca4a1344fbdc82"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#add2056a8ef137e4eeeca4a1344fbdc82">worldTilePixels</a> (int pixelHeight) noexcept</td></tr>
@@ -1706,23 +1724,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Désignation d'une couche dans l'éditeur : un rang de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6532974328bb6e474d5b91d93f34c373">core::LevelDraft::layers()</a></span>, ou <span class="tt">std::nullopt</span> pour la grille racine — la collision, ou la grille unique d'une carte sans couche visuelle. </p>
-
-</div>
-</div>
-<a id="a5d708cce89edd729538c85a212cad231" name="a5d708cce89edd729538c85a212cad231"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d708cce89edd729538c85a212cad231">&#9670;&#160;</a></span>ManifestCache</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a5d708cce89edd729538c85a212cad231">hmi::ManifestCache</a> = std::map&lt;std::filesystem::path, std::optional&lt;nlohmann::json&gt;&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Les manifestes déjà lus, par dossier ; <span class="tt">std::nullopt</span> pour un dossier sans manifeste lisible. </p>
-<p>Qui lit les traits de nombreuses images d'un même lieu le passe à <span class="tt"><a class="el" href="#ac476afa91f2afee49d8bdd868bb21b4b" title="Lit les traits de l&#39;image path.">readSceneTextureTraits</a></span>, qui ne relit plus un manifeste par image (<span class="tt">LOT-125</span>). </p>
 
 </div>
 </div>
@@ -5479,6 +5480,44 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a1b357cd2954eeb90e03d8f059e2930c1" name="a1b357cd2954eeb90e03d8f059e2930c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b357cd2954eeb90e03d8f059e2930c1">&#9670;&#160;</a></span>composeWorldFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::composeWorldFigures </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>snapshot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose les figurines <code class="param">figures</code>, sans trier ; leur dossier se lit dans <code class="param">snapshot</code>. </p>
+
+</div>
+</div>
 <a id="a888058bfce2a151c10776afeaabbb179" name="a888058bfce2a151c10776afeaabbb179"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a888058bfce2a151c10776afeaabbb179">&#9670;&#160;</a></span>composeWorldScene() <span class="overload">[1/2]</span></h2>
 
@@ -5513,8 +5552,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compose le lieu dans un tampon réutilisé. </p>
-<p>Le tampon n'est <b>ni vidé ni trié</b> : même contrat qu'<span class="tt"><a class="el" href="#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span>, l'appelant enchaîne <span class="tt">clear()</span>, les compositions, puis <span class="tt">sort()</span>. </p>
+<p>Compose le lieu dans un tampon réutilisé, figurines comprises (<span class="tt">snapshot.figures</span>). </p>
+<p>Les briques de l'image du jeu (<span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html">hmi::StaticWorldScene</a></span>) : la carte (<span class="tt"><a class="el" href="#ad9cb008092b63cca7250190ee30f1b1b" title="Compose ce qui ne dépend que de la carte : sols, reliefs, étages, jetons et tracés,...">composeWorldStatics</a></span>), les figurines (<span class="tt"><a class="el" href="#a1b357cd2954eeb90e03d8f059e2930c1" title="Compose les figurines figures, sans trier ; leur dossier se lit dans snapshot.">composeWorldFigures</a></span>), puis l'effacement des étages devant le héros. Le tampon n'est <b>ni vidé ni trié</b> : même contrat qu'<span class="tt"><a class="el" href="#aa5e3c79f66ed2e7f47977044cb6d51ba" title="Compose la scène de combat dans un tampon réutilisé, depuis un instantané.">hmi::composeArenaScene</a></span>, l'appelant enchaîne <span class="tt">clear()</span>, les compositions, puis <span class="tt">sort()</span>. Un cadrage de <code class="param">scene</code> (<span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a55f90d51ee8eb346b47163efd1b78301" title="Restreint la composition aux primitives visibles dans un cadrage donné (EX-NFR-005).">ComposedScene::setVisibleBounds</a></span>) écarte ce qu'il ne montre pas. </p>
 
 </div>
 </div>
@@ -5556,6 +5595,45 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Compose le lieu dans une scène neuve, <b>triée</b> — commodité des tests et des captures. </p>
+
+</div>
+</div>
+<a id="ad9cb008092b63cca7250190ee30f1b1b" name="ad9cb008092b63cca7250190ee30f1b1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9cb008092b63cca7250190ee30f1b1b">&#9670;&#160;</a></span>composeWorldStatics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::composeWorldStatics </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>snapshot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td>          <td class="paramname"><span class="paramname"><em>options</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose ce qui ne dépend <b>que de la carte</b> : sols, reliefs, étages, jetons et tracés, dans l'ordre de composition, sans trier. </p>
+<p>Aucune figurine, aucun effacement devant le héros : les pièces d'étage portent seulement ce qu'elles masquent (<span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html#a626ba19038fe4a76af6e786c0f822564" title="Ce qu&#39;une pièce d&#39;étage masque à l&#39;écran, en unités monde : le rectangle que l&#39;on compare à l&#39;image d...">ComposedQuad::occlusion</a></span>). C'est la part qu'une image n'a pas à refaire. </p>
 
 </div>
 </div>
@@ -5772,6 +5850,34 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>L'image décodée, ou <span class="tt">std::nullopt</span> si le fichier est absent/illisible/format non supporté (erreur récupérable, <span class="tt">EX-NFR-040</span> — jamais d'exception ici). </dd></dl>
+
+</div>
+</div>
+<a id="adfff4e38b728514a48aac2df13bb1bd6" name="adfff4e38b728514a48aac2df13bb1bd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfff4e38b728514a48aac2df13bb1bd6">&#9670;&#160;</a></span>decodeImageFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::optional&lt; <a class="el" href="structhmi_1_1DecodedImage.html">DecodedImage</a> &gt; &gt; hmi::decodeImageFiles </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>paths</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Décode <code class="param">paths</code> <b>en parallèle</b>, sur les cœurs de la machine : une entrée par chemin, dans le même ordre, vide pour une image qui ne se décode pas. </p>
+<p>Ce qu'on paie en entrant dans une carte : des centaines de PNG, des dizaines de mégaoctets (audit de l'affichage, A5). Les fils de décodage ne journalisent rien ; chaque échec est signalé ensuite, sur le fil appelant, comme <span class="tt"><a class="el" href="#a22c3bcff9f77b4c4df7938a08c036dfd" title="Décode un fichier image (PNG au minimum) en pixels RGBA.">decodeImageFile</a></span> le ferait. Jamais d'exception (<span class="tt">EX-NFR-040</span>). </p>
 
 </div>
 </div>
@@ -6628,6 +6734,37 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="acd4e8e31191e807e49cfb1613f9166a9" name="acd4e8e31191e807e49cfb1613f9166a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd4e8e31191e807e49cfb1613f9166a9">&#9670;&#160;</a></span>fadeStoreysOverHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::fadeStoreysOverHero </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>quads</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>hero</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Efface, dans <code class="param">quads</code>, les pièces d'étage qui recouvrent le héros (<span class="tt"><a class="el" href="#ab12d7276850e59be85957b10047b8728" title="Vrai si quad, pièce d&#39;étage dessinée après le héros, recouvre son image (LOT-129) : elle doit s&#39;effac...">hidesHero</a></span>). </p>
+
+</div>
+</div>
 <a id="a89796b899c720539ddf54502a57788b0" name="a89796b899c720539ddf54502a57788b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89796b899c720539ddf54502a57788b0">&#9670;&#160;</a></span>familyOf()</h2>
 
@@ -7404,6 +7541,37 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La poignée de <code class="param">entity</code> en <code class="param">cell</code>, les coins avant les côtés ; rien sinon. </dd></dl>
+
+</div>
+</div>
+<a id="ab12d7276850e59be85957b10047b8728" name="ab12d7276850e59be85957b10047b8728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab12d7276850e59be85957b10047b8728">&#9670;&#160;</a></span>hidesHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::hidesHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>hero</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si <code class="param">quad</code>, pièce d'étage dessinée après le héros, recouvre son image (<span class="tt">LOT-129</span>) : elle doit s'effacer (<span class="tt"><a class="el" href="#ab0a2cd2527096877037eac485411c28f" title="Opacité d&#39;une pièce d&#39;étage qui masque le héros (LOT-129) : on le voit à travers le toit.">STOREY_SEE_THROUGH_OPACITY</a></span>). </p>
 
 </div>
 </div>
@@ -10674,6 +10842,48 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac87779e65c2849bfdc39e93d4a96f578" name="ac87779e65c2849bfdc39e93d4a96f578"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac87779e65c2849bfdc39e93d4a96f578">&#9670;&#160;</a></span>placeWorldHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt; hmi::placeWorldHero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>snapshot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le héros parmi <code class="param">figures</code>, placé et mesuré ; rien s'il n'y en a pas, ou s'il n'a pas d'image. </p>
+<p>Une pièce d'étage dessinée après lui et qui recouvre son image s'efface (<span class="tt"><a class="el" href="#ab0a2cd2527096877037eac485411c28f" title="Opacité d&#39;une pièce d&#39;étage qui masque le héros (LOT-129) : on le voit à travers le toit.">STOREY_SEE_THROUGH_OPACITY</a></span>) : c'est ce qu'on compare à <span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html#a626ba19038fe4a76af6e786c0f822564" title="Ce qu&#39;une pièce d&#39;étage masque à l&#39;écran, en unités monde : le rectangle que l&#39;on compare à l&#39;image d...">ComposedQuad::occlusion</a></span>. </p>
+
+</div>
+</div>
 <a id="abd8448903deb381b104ac15a93c940d5" name="abd8448903deb381b104ac15a93c940d5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd8448903deb381b104ac15a93c940d5">&#9670;&#160;</a></span>planChangeScene()</h2>
 
@@ -11467,7 +11677,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a5d708cce89edd729538c85a212cad231">ManifestCache</a> *</td>          <td class="paramname"><span class="paramname"><em>manifests</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a> *</td>          <td class="paramname"><span class="paramname"><em>manifests</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -12283,7 +12493,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md120"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md121"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -13797,6 +14007,37 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 </div><div class="memdoc">
 
 <p>Ordre de tri d'une pièce du lieu. </p>
+
+</div>
+</div>
+<a id="a2f3d83ca010accd2a3d552ae2b6b97c0" name="a2f3d83ca010accd2a3d552ae2b6b97c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3d83ca010accd2a3d552ae2b6b97c0">&#9670;&#160;</a></span>worldFigureTexturePaths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::worldFigureTexturePaths </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>snapshot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les chemins de texture des figurines <code class="param">figures</code> — leurs bandes <span class="tt">idle</span> et <span class="tt">walk</span> —, sans doublon, triés ; leur dossier se lit dans <code class="param">snapshot</code>.</dd></dl>
+<p>Ce que le rendu doit charger quand seules les figurines changent : la carte, elle, a déjà ses textures. </p>
 
 </div>
 </div>
@@ -15521,7 +15762,7 @@ template&lt;class Map&gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">                                            =</div>
 <div class="line"><span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">WorldDepthSlot::Storey</a>) + <a class="code hl_variable" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div>
 <div class="ttc" id="anamespacecore_html_a71ba5ff46298b3aa173af1f1071ae3eb"><div class="ttname"><a href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div><div class="ttdeci">constexpr int MAX_STOREY_FLOOR</div><div class="ttdoc">Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).</div><div class="ttdef"><b>Definition</b> TileLayer.h:22</div></div>
-<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:67</div></div>
+<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:69</div></div>
 </div><!-- fragment -->
 <p>Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage. </p>
 

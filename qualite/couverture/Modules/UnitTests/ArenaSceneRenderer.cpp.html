@@ -186,7 +186,7 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
         // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
 <span style = "background-color:#dfd">        ArenaTexture&amp; loaded = _textures.byPath[path] = ArenaTexture{</span>
             .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
-<span style = "background-color:#dfd">        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
+<span style = "background-color:#dfd">        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path, &amp;_manifests));
         _loaded.push_back(std::move(*texture));
     }
     if (_battlefield) {
@@ -204,8 +204,9 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
         }
         SceneTexture descriptor{
 <span style = "background-color:#dfd">            .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
-        applySceneTextureTraits(descriptor, readSceneTextureTraits(_directory.parent_path(), path));
-        _battlefieldTextures.byPath[path] = descriptor;
+        applySceneTextureTraits(</span>
+            descriptor, readSceneTextureTraits(_directory.parent_path(), path, &amp;_manifests));
+<span style = "background-color:#dfd">        _battlefieldTextures.byPath[path] = descriptor;
         _loaded.push_back(std::move(*texture));
     }
     _battlefieldTextures.missing = {</span>

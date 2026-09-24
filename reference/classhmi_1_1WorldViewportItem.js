@@ -22,6 +22,7 @@ var classhmi_1_1WorldViewportItem =
     [ "_model", "classhmi_1_1WorldViewportItem.html#a5112a47958544fe16e72cab7c3e76235", null ],
     [ "_modelChangedConnection", "classhmi_1_1WorldViewportItem.html#a831524774ca7f9bb0add35ac5c40139b", null ],
     [ "_modelDestroyedConnection", "classhmi_1_1WorldViewportItem.html#aa56faa46cc0ccb5ec5fd2e6fb47b32ae", null ],
+    [ "_modelFiguresConnection", "classhmi_1_1WorldViewportItem.html#af0bc42f17cc0aa9e2cf1f12cbf0c5b21", null ],
     [ "_modelMovedConnection", "classhmi_1_1WorldViewportItem.html#a9aaa6b22fb02410ef9bc2eab6330e1c3", null ],
     [ "clearColor", "classhmi_1_1WorldViewportItem.html#ad53fd20fad0cc665d0b02db9920e7bc8", null ],
     [ "model", "classhmi_1_1WorldViewportItem.html#a0b977f00e9f4adf178bada111fdf4dde", null ],

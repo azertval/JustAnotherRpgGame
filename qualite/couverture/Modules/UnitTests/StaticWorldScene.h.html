@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>StaticWorldScene.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;optional&gt;
+#include &lt;span&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/IsoProjection.h"
+#include "Core/Math/Rect.h"
+#include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
+
+/**
+ * @file HMI/Graphics/StaticWorldScene.h
+ * @brief Un lieu composÃ© **une fois**, puis dÃ©coupÃ© Ã  la vue Ã  chaque image (audit de l'affichage
+ *        d'un lieu, `Planning/standards/audit-affichage-lieu.md`).
+ *
+ * Une carte ne change qu'en entrant, ou quand un drapeau fait paraÃ®tre un PNJ ou fermer une porte ;
+ * ses figurines, elles, bougent Ã  chaque image. Composer et trier toute la carte Ã  chaque image
+ * coÃ»tait autant qu'un quartier est grand, alors que l'Ã©cran n'en montre qu'une vingtaine de cases
+ * sur onze.
+ *
+ * `build` compose donc ce qui ne dÃ©pend que de la carte (`hmi::composeWorldStatics`), le trie une
+ * fois et range chaque primitive dans une **grille de seaux** en unitÃ©s monde, selon sa boÃ®te
+ * englobante : une piÃ¨ce haute ou large est dans tous les seaux qu'elle touche. `compose` ne prend
+ * que les seaux sous le cadrage, garde les primitives qui le touchent vraiment, dans l'ordre dÃ©jÃ 
+ * triÃ©, et y **fusionne** les figurines de l'image par le mÃªme comparateur
+ * (`ComposedScene::drawsBefore`). Au passage, une piÃ¨ce d'Ã©tage qui recouvre le hÃ©ros et se dessine
+ * aprÃ¨s lui s'efface (`LOT-129`).
+ *
+ * Le rÃ©sultat est, primitive pour primitive, celui d'une composition complÃ¨te suivie d'un tri,
+ * privÃ© de ce qui est hors cadre : mÃªme ordre, mÃªmes rangs de texture. `hmi::composeWorldScene`
+ * passe par ici, ce qui fait du jeu, de l'essai de l'Ã©diteur, de son canevas et des tests un seul
+ * chemin.
+ *
+ * Logique pure, sans GPU ni Qt. Une instance n'est pas partagÃ©e entre deux fils.
+ */
+
+namespace hmi {
+
+class StaticWorldScene {
+public:
+    /// CÃ´tÃ© d'un seau de la grille, en largeurs de case : quelques seaux par Ã©cran, peu de
+    /// primitives par seau.
+    static constexpr float BUCKET_TILES = 4.0F;
+
+    /**
+     * @brief Compose la partie fixe de @p snapshot (tout sauf ses figurines) et l'indexe.
+     *
+     * Les textures de @p textures doivent Ãªtre celles du dessin : une piÃ¨ce dont la texture
+     * n'est pas encore chargÃ©e se compose sur le damier, comme dans `composeWorldScene`.
+     */
+    void build(const WorldSceneSnapshot&amp; snapshot, const core::IsoProjection&amp; projection,
+               const ScenePieceTextures&amp; textures, WorldComposeOptions options = {});
+
+    /// Oublie la scÃ¨ne composÃ©e.
+    void clear() noexcept;
+
+    /**
+     * @brief Compose une image dans @p out : la partie fixe sous le cadrage de @p out, et
+     *        @p figures, dans l'ordre de dessin.
+     *
+     * Le cadrage est celui de @p out (`ComposedScene::setVisibleBounds`) ; sans cadrage, toute la
+     * carte. @p out est **remplacÃ©e** si elle est vide, sinon la composition s'y ajoute et
+     * l'appelant la retrie.
+     *
+     * @param out      La scÃ¨ne de l'image.
+     * @param figures  Les figurines de l'image, hÃ©ros compris ; leur dossier se lit dans
+     *                 l'instantanÃ© passÃ© Ã  `build`.
+     * @param textures Les textures du dessin (celles des figurines comprises).
+     */
+    void compose(ComposedScene&amp; out, std::span&lt;const WorldFigureSnapshot&gt; figures,
+                 const ScenePieceTextures&amp; textures) const;
+
+    /// @return La partie fixe de toute la carte, triÃ©e : ce que `compose` dÃ©coupe.
+<span style = "background-color:#dfd">    [[nodiscard]] const ComposedScene&amp; scene() const noexcept {
+        return _scene;
+    }</span>
+
+    /// @return Le nombre de primitives fixes, toute la carte.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t size() const noexcept {
+        return _scene.size();
+    }</span>
+
+    /// @return Vrai si rien n'est composÃ©.
+    [[nodiscard]] bool empty() const noexcept {
+        return _scene.size() == 0;
+    }
+
+    /// @return La projection de la derniÃ¨re composition.
+    [[nodiscard]] const core::IsoProjection&amp; projection() const noexcept {
+        return _projection;
+    }
+
+private:
+    /// Construit la grille de seaux, Ã  la premiÃ¨re image cadrÃ©e.
+    void index() const;
+    /// Les indices, dans l'ordre triÃ©, des primitives fixes qui touchent @p bounds.
+    void visibleIndices(const core::Rect&amp; bounds, std::vector&lt;std::uint32_t&gt;&amp; indices) const;
+
+    /// Ce que les figurines lisent de l'instantanÃ© : le lieu et le dossier de chaque figurine.
+    WorldSceneSnapshot _figureContext;
+    core::IsoProjection _projection{0, 0};
+    /// Toute la partie fixe, triÃ©e une fois.
+    ComposedScene _scene;
+    /// L'index est bÃ¢ti (`index`) : la boÃ®te de chaque primitive fixe, dans le mÃªme ordre, et la
+    /// grille â origine, cÃ´tÃ© d'un seau, dimensions, et pour chaque seau les indices des
+    /// primitives qui le touchent (croissants, donc dans l'ordre de dessin).
+    mutable bool _indexed = false;
+    mutable std::vector&lt;core::Rect&gt; _bounds;
+    mutable core::Vector2 _origin{};
+    mutable float _bucketSize = 1.0F;
+    mutable int _bucketColumns = 0;
+    mutable int _bucketRows = 0;
+    mutable std::vector&lt;std::vector&lt;std::uint32_t&gt;&gt; _buckets;
+    /// Marque de la derniÃ¨re image qui a retenu chaque primitive : une piÃ¨ce prÃ©sente dans
+    /// plusieurs seaux n'est prise qu'une fois, sans ensemble Ã  vider.
+    mutable std::vector&lt;std::uint32_t&gt; _stamps;
+    mutable std::uint32_t _frame = 0;
+    /// Tampons rÃ©utilisÃ©s d'une image Ã  l'autre.
+    mutable std::vector&lt;std::uint32_t&gt; _visible;
+    mutable std::vector&lt;ComposedQuad&gt; _merged;
+};
+
+/**
+ * @brief Vrai si @p quad, piÃ¨ce d'Ã©tage dessinÃ©e aprÃ¨s le hÃ©ros, recouvre son image (`LOT-129`) :
+ *        elle doit s'effacer (`STOREY_SEE_THROUGH_OPACITY`).
+ */
+[[nodiscard]] bool hidesHero(const ComposedQuad&amp; quad,
+                             const std::optional&lt;WorldHeroPlacement&gt;&amp; hero) noexcept;
+
+/// @brief Efface, dans @p quads, les piÃ¨ces d'Ã©tage qui recouvrent le hÃ©ros (`hidesHero`).
+void fadeStoreysOverHero(std::span&lt;ComposedQuad&gt; quads,
+                         const std::optional&lt;WorldHeroPlacement&gt;&amp; hero) noexcept;
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

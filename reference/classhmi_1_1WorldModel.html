@@ -160,6 +160,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a147868bb8bedd3fbf84fa1f244f8838c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte, son nom, son état : tout ce que l'écran relit d'un coup.  <br /></td></tr>
 <tr class="memitem:a0fa7eb478594477e7068a98c0936e5eb" id="r_a0fa7eb478594477e7068a98c0936e5eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0fa7eb478594477e7068a98c0936e5eb">heroMoved</a> ()</td></tr>
 <tr class="memdesc:a0fa7eb478594477e7068a98c0936e5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros a bougé : la caméra suit, la scène se redessine.  <br /></td></tr>
+<tr class="memitem:a5a1c17085a8c8813ab684d3617efa125" id="r_a5a1c17085a8c8813ab684d3617efa125"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5a1c17085a8c8813ab684d3617efa125">figuresChanged</a> ()</td></tr>
+<tr class="memdesc:a5a1c17085a8c8813ab684d3617efa125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines ou la carte ont changé sans que le héros bouge — il s'arrête, se tourne, un drapeau fait paraître un PNJ : la scène se redessine.  <br /></td></tr>
 <tr class="memitem:add0ae7c6e65b31e7fd64dd11321c73a9" id="r_add0ae7c6e65b31e7fd64dd11321c73a9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add0ae7c6e65b31e7fd64dd11321c73a9">mapEntered</a> (const QString &amp;<a class="el" href="#ab5652e80c0a82a34c055391a09bf9383">mapId</a>)</td></tr>
 <tr class="memdesc:add0ae7c6e65b31e7fd64dd11321c73a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros est entré sur une carte (<span class="tt"><a class="el" href="#ab5652e80c0a82a34c055391a09bf9383" title="Identifiant de la carte courante, vide avant la première entrée.">mapId</a></span>).  <br /></td></tr>
 <tr class="memitem:a6723bd1aa09199cdd31a4e74b7e901f4" id="r_a6723bd1aa09199cdd31a4e74b7e901f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6723bd1aa09199cdd31a4e74b7e901f4">dialogueRequested</a> (const QString &amp;dialogueId)</td></tr>
@@ -211,11 +213,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a2d717ca339db7543fdc8c567838175" id="r_a2a2d717ca339db7543fdc8c567838175"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a2a2d717ca339db7543fdc8c567838175">cityLocation</a> () const</td></tr>
 <tr class="memitem:a77833d510860ab3e8b0325ec5f8df4f8" id="r_a77833d510860ab3e8b0325ec5f8df4f8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a77833d510860ab3e8b0325ec5f8df4f8">districtId</a> () const</td></tr>
 <tr class="memitem:a9e2ed6a1599df88493a0f92ff495cc5d" id="r_a9e2ed6a1599df88493a0f92ff495cc5d"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a9e2ed6a1599df88493a0f92ff495cc5d">visitedDistricts</a> () const</td></tr>
+<tr class="memitem:ad9421c6fb0964e93a8f9cce9bea25018" id="r_ad9421c6fb0964e93a8f9cce9bea25018"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9421c6fb0964e93a8f9cce9bea25018">scene</a> () const</td></tr>
+<tr class="memitem:a014873bddbbead42b168a3084e0cf5ec" id="r_a014873bddbbead42b168a3084e0cf5ec"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a> () const</td></tr>
 <tr class="memitem:accf15fd100d418948ceff091692180f0" id="r_accf15fd100d418948ceff091692180f0"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#accf15fd100d418948ceff091692180f0">snapshot</a> () const</td></tr>
 <tr class="memitem:a8ace752c0cf112e49b79142b3c85290b" id="r_a8ace752c0cf112e49b79142b3c85290b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8ace752c0cf112e49b79142b3c85290b">diamondRatio</a> () const</td></tr>
 <tr class="memitem:a14e589a9a79f090cd11e12278c24e761" id="r_a14e589a9a79f090cd11e12278c24e761"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a> () noexcept</td></tr>
 <tr class="memitem:ac4ed9f1827eeb9ba0daffc12c13e08b6" id="r_ac4ed9f1827eeb9ba0daffc12c13e08b6"><td class="memItemLeft">const <a class="el" href="structcore_1_1QuestCatalog.html">core::QuestCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac4ed9f1827eeb9ba0daffc12c13e08b6">quests</a> () const noexcept</td></tr>
 <tr class="memitem:a0a7036499a425b2fef0b03d14335ad8d" id="r_a0a7036499a425b2fef0b03d14335ad8d"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#a0a7036499a425b2fef0b03d14335ad8d">sceneRevision</a> () const noexcept</td></tr>
+<tr class="memitem:abad15ef15ccd907a75b62026549f720f" id="r_abad15ef15ccd907a75b62026549f720f"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#abad15ef15ccd907a75b62026549f720f">figuresRevision</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -283,10 +288,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:abebba2b18b07805157fe133092ef526b" id="r_abebba2b18b07805157fe133092ef526b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#abebba2b18b07805157fe133092ef526b">_move</a> {}</td></tr>
 <tr class="memitem:a933009a644601ba3b075e17f89c9d1bf" id="r_a933009a644601ba3b075e17f89c9d1bf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a933009a644601ba3b075e17f89c9d1bf">_interact</a> = false</td></tr>
 <tr class="memitem:aa9a833a6634a208feed602de1352ea34" id="r_aa9a833a6634a208feed602de1352ea34"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#aa9a833a6634a208feed602de1352ea34">_sceneRevision</a> = 1</td></tr>
+<tr class="memitem:ac5ad8baf6328cb5226195a5c82f7e730" id="r_ac5ad8baf6328cb5226195a5c82f7e730"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#ac5ad8baf6328cb5226195a5c82f7e730">_figuresRevision</a> = 1</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md124"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que l'arène (<span class="tt"><a class="el" href="classhmi_1_1ArenaModel.html" title="La vue-modèle de l&#39;arène : composer deux camps, lancer, jouer, rejouer.">hmi::ArenaModel</a></span>) : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -571,6 +577,85 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Entre sur <code class="param">mapId</code> au point d'arrivée <code class="param">arrival</code> (vide : l'entrée de la carte). </p>
+
+</div>
+</div>
+<a id="a014873bddbbead42b168a3084e0cf5ec" name="a014873bddbbead42b168a3084e0cf5ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a014873bddbbead42b168a3084e0cf5ec">&#9670;&#160;</a></span>figures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; hmi::WorldModel::figures </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les figurines de l'image : les PNJ présents, puis le héros. </dd></dl>
+
+</div>
+</div>
+<a id="a5a1c17085a8c8813ab684d3617efa125" name="a5a1c17085a8c8813ab684d3617efa125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a1c17085a8c8813ab684d3617efa125">&#9670;&#160;</a></span>figuresChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::figuresChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les figurines ou la carte ont changé sans que le héros bouge — il s'arrête, se tourne, un drapeau fait paraître un PNJ : la scène se redessine. </p>
+
+</div>
+</div>
+<a id="abad15ef15ccd907a75b62026549f720f" name="abad15ef15ccd907a75b62026549f720f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abad15ef15ccd907a75b62026549f720f">&#9670;&#160;</a></span>figuresRevision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">quint64 hmi::WorldModel::figuresRevision </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le numéro des <b>figurines</b> : il avance à chaque pas qui change leur dessin — le héros bouge, part, s'arrête, se tourne. </dd></dl>
 
 </div>
 </div>
@@ -1118,6 +1203,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ad9421c6fb0964e93a8f9cce9bea25018" name="ad9421c6fb0964e93a8f9cce9bea25018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9421c6fb0964e93a8f9cce9bea25018">&#9670;&#160;</a></span>scene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt; hmi::WorldModel::scene </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La carte que la surface de rendu dessine, partagée (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#ac6f08ec64b8fd2fa0c0cb50982166a98" title="La carte que hmi::WorldSceneRenderer dessine, partagée ; vide hors carte.">hmi::WorldPlay::scene</a></span>). </dd></dl>
+
+</div>
+</div>
 <a id="a0a7036499a425b2fef0b03d14335ad8d" name="a0a7036499a425b2fef0b03d14335ad8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a7036499a425b2fef0b03d14335ad8d">&#9670;&#160;</a></span>sceneRevision()</h2>
 
@@ -1140,7 +1251,7 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le numéro de la scène : il avance à chaque pas qui change ce qui se dessine. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Le numéro de la <b>carte</b> : il avance quand elle est à recomposer — entrée sur une carte, drapeau qui change ce qui s'y dessine, figurine du héros. </dd></dl>
 
 </div>
 </div>
@@ -1305,7 +1416,7 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>L'instantané que la surface de rendu dessine : des <b>valeurs</b>, sans pointeur. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La carte et ses figurines en une valeur (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#ab4512757a117f9523f0345cb1e89d68b">hmi::WorldPlay::snapshot</a></span>). </dd></dl>
 
 </div>
 </div>
@@ -1442,6 +1553,28 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
       <table class="memname">
         <tr>
           <td class="memname">QTimer hmi::WorldModel::_clock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5ad8baf6328cb5226195a5c82f7e730" name="ac5ad8baf6328cb5226195a5c82f7e730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5ad8baf6328cb5226195a5c82f7e730">&#9670;&#160;</a></span>_figuresRevision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">quint64 hmi::WorldModel::_figuresRevision = 1</td>
         </tr>
       </table>
   </td>

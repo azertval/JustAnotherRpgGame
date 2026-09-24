@@ -1,0 +1,821 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::StaticWorldScene Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1StaticWorldScene.html','','classhmi_1_1StaticWorldScene-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::StaticWorldScene Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="StaticWorldScene_8h_source.html">StaticWorldScene.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a79d6f2ddd2638b3704abf487ab58e6d8" id="r_a79d6f2ddd2638b3704abf487ab58e6d8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79d6f2ddd2638b3704abf487ab58e6d8">build</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;<a class="el" href="#ac872b423db1ac1dfa9971b3d6d8d3114">projection</a>, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures, <a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options={})</td></tr>
+<tr class="memdesc:a79d6f2ddd2638b3704abf487ab58e6d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose la partie fixe de <code class="param">snapshot</code> (tout sauf ses figurines) et l'indexe.  <br /></td></tr>
+<tr class="memitem:a4182583eb3145e2ba3101e65b5b9611f" id="r_a4182583eb3145e2ba3101e65b5b9611f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4182583eb3145e2ba3101e65b5b9611f">clear</a> () noexcept</td></tr>
+<tr class="memdesc:a4182583eb3145e2ba3101e65b5b9611f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie la scène composée.  <br /></td></tr>
+<tr class="memitem:a114b41c5a4d8bb36194f2de6b12ece0f" id="r_a114b41c5a4d8bb36194f2de6b12ece0f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a114b41c5a4d8bb36194f2de6b12ece0f">compose</a> (<a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;out, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures) const</td></tr>
+<tr class="memdesc:a114b41c5a4d8bb36194f2de6b12ece0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose une image dans <code class="param">out</code> : la partie fixe sous le cadrage de <code class="param">out</code>, et <code class="param">figures</code>, dans l'ordre de dessin.  <br /></td></tr>
+<tr class="memitem:ad4fb594d8266b7692657d874639a29b1" id="r_ad4fb594d8266b7692657d874639a29b1"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad4fb594d8266b7692657d874639a29b1">scene</a> () const noexcept</td></tr>
+<tr class="memitem:a57b273bf9e9ebf78f95f687e2ea26340" id="r_a57b273bf9e9ebf78f95f687e2ea26340"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a57b273bf9e9ebf78f95f687e2ea26340">size</a> () const noexcept</td></tr>
+<tr class="memitem:ac84953063bbe62f777cae3dcc18d1afa" id="r_ac84953063bbe62f777cae3dcc18d1afa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac84953063bbe62f777cae3dcc18d1afa">empty</a> () const noexcept</td></tr>
+<tr class="memitem:ac872b423db1ac1dfa9971b3d6d8d3114" id="r_ac872b423db1ac1dfa9971b3d6d8d3114"><td class="memItemLeft">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac872b423db1ac1dfa9971b3d6d8d3114">projection</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a1df7c684830767e99f904ba0fd892cd1" id="r_a1df7c684830767e99f904ba0fd892cd1"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a1df7c684830767e99f904ba0fd892cd1">BUCKET_TILES</a> = 4.0F</td></tr>
+<tr class="memdesc:a1df7c684830767e99f904ba0fd892cd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté d'un seau de la grille, en largeurs de case : quelques seaux par écran, peu de primitives par seau.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aff02e3a6f4b0f934bb509fae748354a3" id="r_aff02e3a6f4b0f934bb509fae748354a3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aff02e3a6f4b0f934bb509fae748354a3">index</a> () const</td></tr>
+<tr class="memdesc:aff02e3a6f4b0f934bb509fae748354a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la grille de seaux, à la première image cadrée.  <br /></td></tr>
+<tr class="memitem:a7db00147304cf9af6cf3edb57c0ba3c4" id="r_a7db00147304cf9af6cf3edb57c0ba3c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7db00147304cf9af6cf3edb57c0ba3c4">visibleIndices</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds, std::vector&lt; std::uint32_t &gt; &amp;indices) const</td></tr>
+<tr class="memdesc:a7db00147304cf9af6cf3edb57c0ba3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les indices, dans l'ordre trié, des primitives fixes qui touchent <code class="param">bounds</code>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a88af51e3eeb9ef552bb4bdae2617bb31" id="r_a88af51e3eeb9ef552bb4bdae2617bb31"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a88af51e3eeb9ef552bb4bdae2617bb31">_figureContext</a></td></tr>
+<tr class="memdesc:a88af51e3eeb9ef552bb4bdae2617bb31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que les figurines lisent de l'instantané : le lieu et le dossier de chaque figurine.  <br /></td></tr>
+<tr class="memitem:a102356d590e47268217ba921f5e8f871" id="r_a102356d590e47268217ba921f5e8f871"><td class="memItemLeft"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a>&#160;</td><td class="memItemRight"><a class="el" href="#a102356d590e47268217ba921f5e8f871">_projection</a> {0, 0}</td></tr>
+<tr class="memitem:ac25513d6c0e5d2f0d9f1d45c94809295" id="r_ac25513d6c0e5d2f0d9f1d45c94809295"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac25513d6c0e5d2f0d9f1d45c94809295">_scene</a></td></tr>
+<tr class="memdesc:ac25513d6c0e5d2f0d9f1d45c94809295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toute la partie fixe, triée une fois.  <br /></td></tr>
+<tr class="memitem:a60cd9f9b6bebb4998be0507c4b49556c" id="r_a60cd9f9b6bebb4998be0507c4b49556c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a60cd9f9b6bebb4998be0507c4b49556c">_indexed</a> = false</td></tr>
+<tr class="memdesc:a60cd9f9b6bebb4998be0507c4b49556c"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'index est bâti (<span class="tt"><a class="el" href="#aff02e3a6f4b0f934bb509fae748354a3" title="Construit la grille de seaux, à la première image cadrée.">index</a></span>) : la boîte de chaque primitive fixe, dans le même ordre, et la grille — origine, côté d'un seau, dimensions, et pour chaque seau les indices des primitives qui le touchent (croissants, donc dans l'ordre de dessin).  <br /></td></tr>
+<tr class="memitem:a0e6199cd09d949fc2459bf3b2226fdc3" id="r_a0e6199cd09d949fc2459bf3b2226fdc3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0e6199cd09d949fc2459bf3b2226fdc3">_bounds</a></td></tr>
+<tr class="memitem:a572860e63138d28f6d969cda0ddc86be" id="r_a572860e63138d28f6d969cda0ddc86be"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a572860e63138d28f6d969cda0ddc86be">_origin</a> {}</td></tr>
+<tr class="memitem:a99a01410a7ac31a4b23ed693a3831b4a" id="r_a99a01410a7ac31a4b23ed693a3831b4a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a99a01410a7ac31a4b23ed693a3831b4a">_bucketSize</a> = 1.0F</td></tr>
+<tr class="memitem:a547ceb61085ad229f40e309fd16333d1" id="r_a547ceb61085ad229f40e309fd16333d1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a547ceb61085ad229f40e309fd16333d1">_bucketColumns</a> = 0</td></tr>
+<tr class="memitem:a39d97171dabf6c42b80cf45212168660" id="r_a39d97171dabf6c42b80cf45212168660"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a39d97171dabf6c42b80cf45212168660">_bucketRows</a> = 0</td></tr>
+<tr class="memitem:a2e8d817722e5e06e62437670f005b3b8" id="r_a2e8d817722e5e06e62437670f005b3b8"><td class="memItemLeft">std::vector&lt; std::vector&lt; std::uint32_t &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2e8d817722e5e06e62437670f005b3b8">_buckets</a></td></tr>
+<tr class="memitem:a0b809423fb942397cd809dbd27486712" id="r_a0b809423fb942397cd809dbd27486712"><td class="memItemLeft">std::vector&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0b809423fb942397cd809dbd27486712">_stamps</a></td></tr>
+<tr class="memdesc:a0b809423fb942397cd809dbd27486712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marque de la dernière image qui a retenu chaque primitive : une pièce présente dans plusieurs seaux n'est prise qu'une fois, sans ensemble à vider.  <br /></td></tr>
+<tr class="memitem:a351528b07be203c8250d694403123b30" id="r_a351528b07be203c8250d694403123b30"><td class="memItemLeft">std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a351528b07be203c8250d694403123b30">_frame</a> = 0</td></tr>
+<tr class="memitem:ad29d4fe714d3f29a802d957b3d6fe0e6" id="r_ad29d4fe714d3f29a802d957b3d6fe0e6"><td class="memItemLeft">std::vector&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad29d4fe714d3f29a802d957b3d6fe0e6">_visible</a></td></tr>
+<tr class="memdesc:ad29d4fe714d3f29a802d957b3d6fe0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tampons réutilisés d'une image à l'autre.  <br /></td></tr>
+<tr class="memitem:a6ccc5b1e6214293155bb32f13f303b2d" id="r_a6ccc5b1e6214293155bb32f13f303b2d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6ccc5b1e6214293155bb32f13f303b2d">_merged</a></td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a79d6f2ddd2638b3704abf487ab58e6d8" name="a79d6f2ddd2638b3704abf487ab58e6d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79d6f2ddd2638b3704abf487ab58e6d8">&#9670;&#160;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::StaticWorldScene::build </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>snapshot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td>          <td class="paramname"><span class="paramname"><em>options</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose la partie fixe de <code class="param">snapshot</code> (tout sauf ses figurines) et l'indexe. </p>
+<p>Les textures de <code class="param">textures</code> doivent être celles du dessin : une pièce dont la texture n'est pas encore chargée se compose sur le damier, comme dans <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé, figurines comprises (snapshot.figures).">composeWorldScene</a></span>. </p>
+
+</div>
+</div>
+<a id="a4182583eb3145e2ba3101e65b5b9611f" name="a4182583eb3145e2ba3101e65b5b9611f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4182583eb3145e2ba3101e65b5b9611f">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::StaticWorldScene::clear </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Oublie la scène composée. </p>
+
+</div>
+</div>
+<a id="a114b41c5a4d8bb36194f2de6b12ece0f" name="a114b41c5a4d8bb36194f2de6b12ece0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a114b41c5a4d8bb36194f2de6b12ece0f">&#9670;&#160;</a></span>compose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::StaticWorldScene::compose </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>out</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>textures</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compose une image dans <code class="param">out</code> : la partie fixe sous le cadrage de <code class="param">out</code>, et <code class="param">figures</code>, dans l'ordre de dessin. </p>
+<p>Le cadrage est celui de <code class="param">out</code> (<span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#a55f90d51ee8eb346b47163efd1b78301" title="Restreint la composition aux primitives visibles dans un cadrage donné (EX-NFR-005).">ComposedScene::setVisibleBounds</a></span>) ; sans cadrage, toute la carte. <code class="param">out</code> est <b>remplacée</b> si elle est vide, sinon la composition s'y ajoute et l'appelant la retrie.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">out</td><td>La scène de l'image. </td></tr>
+    <tr><td class="paramname">figures</td><td>Les figurines de l'image, héros compris ; leur dossier se lit dans l'instantané passé à <span class="tt"><a class="el" href="#a79d6f2ddd2638b3704abf487ab58e6d8" title="Compose la partie fixe de snapshot (tout sauf ses figurines) et l&#39;indexe.">build</a></span>. </td></tr>
+    <tr><td class="paramname">textures</td><td>Les textures du dessin (celles des figurines comprises). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac84953063bbe62f777cae3dcc18d1afa" name="ac84953063bbe62f777cae3dcc18d1afa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac84953063bbe62f777cae3dcc18d1afa">&#9670;&#160;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::StaticWorldScene::empty </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si rien n'est composé. </dd></dl>
+
+</div>
+</div>
+<a id="aff02e3a6f4b0f934bb509fae748354a3" name="aff02e3a6f4b0f934bb509fae748354a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff02e3a6f4b0f934bb509fae748354a3">&#9670;&#160;</a></span>index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::StaticWorldScene::index </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit la grille de seaux, à la première image cadrée. </p>
+
+</div>
+</div>
+<a id="ac872b423db1ac1dfa9971b3d6d8d3114" name="ac872b423db1ac1dfa9971b3d6d8d3114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac872b423db1ac1dfa9971b3d6d8d3114">&#9670;&#160;</a></span>projection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp; hmi::StaticWorldScene::projection </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La projection de la dernière composition. </dd></dl>
+
+</div>
+</div>
+<a id="ad4fb594d8266b7692657d874639a29b1" name="ad4fb594d8266b7692657d874639a29b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4fb594d8266b7692657d874639a29b1">&#9670;&#160;</a></span>scene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp; hmi::StaticWorldScene::scene </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La partie fixe de toute la carte, triée : ce que <span class="tt"><a class="el" href="#a114b41c5a4d8bb36194f2de6b12ece0f" title="Compose une image dans out : la partie fixe sous le cadrage de out, et figures, dans l&#39;ordre de dessi...">compose</a></span> découpe. </dd></dl>
+
+</div>
+</div>
+<a id="a57b273bf9e9ebf78f95f687e2ea26340" name="a57b273bf9e9ebf78f95f687e2ea26340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b273bf9e9ebf78f95f687e2ea26340">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::StaticWorldScene::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de primitives fixes, toute la carte. </dd></dl>
+
+</div>
+</div>
+<a id="a7db00147304cf9af6cf3edb57c0ba3c4" name="a7db00147304cf9af6cf3edb57c0ba3c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db00147304cf9af6cf3edb57c0ba3c4">&#9670;&#160;</a></span>visibleIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::StaticWorldScene::visibleIndices </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::uint32_t &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>indices</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les indices, dans l'ordre trié, des primitives fixes qui touchent <code class="param">bounds</code>. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a0e6199cd09d949fc2459bf3b2226fdc3" name="a0e6199cd09d949fc2459bf3b2226fdc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6199cd09d949fc2459bf3b2226fdc3">&#9670;&#160;</a></span>_bounds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Rect.html">core::Rect</a>&gt; hmi::StaticWorldScene::_bounds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a547ceb61085ad229f40e309fd16333d1" name="a547ceb61085ad229f40e309fd16333d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547ceb61085ad229f40e309fd16333d1">&#9670;&#160;</a></span>_bucketColumns</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::StaticWorldScene::_bucketColumns = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a39d97171dabf6c42b80cf45212168660" name="a39d97171dabf6c42b80cf45212168660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39d97171dabf6c42b80cf45212168660">&#9670;&#160;</a></span>_bucketRows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::StaticWorldScene::_bucketRows = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e8d817722e5e06e62437670f005b3b8" name="a2e8d817722e5e06e62437670f005b3b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e8d817722e5e06e62437670f005b3b8">&#9670;&#160;</a></span>_buckets</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::vector&lt;std::uint32_t&gt; &gt; hmi::StaticWorldScene::_buckets</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99a01410a7ac31a4b23ed693a3831b4a" name="a99a01410a7ac31a4b23ed693a3831b4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99a01410a7ac31a4b23ed693a3831b4a">&#9670;&#160;</a></span>_bucketSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::StaticWorldScene::_bucketSize = 1.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88af51e3eeb9ef552bb4bdae2617bb31" name="a88af51e3eeb9ef552bb4bdae2617bb31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88af51e3eeb9ef552bb4bdae2617bb31">&#9670;&#160;</a></span>_figureContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> hmi::StaticWorldScene::_figureContext</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que les figurines lisent de l'instantané : le lieu et le dossier de chaque figurine. </p>
+
+</div>
+</div>
+<a id="a351528b07be203c8250d694403123b30" name="a351528b07be203c8250d694403123b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a351528b07be203c8250d694403123b30">&#9670;&#160;</a></span>_frame</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t hmi::StaticWorldScene::_frame = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60cd9f9b6bebb4998be0507c4b49556c" name="a60cd9f9b6bebb4998be0507c4b49556c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60cd9f9b6bebb4998be0507c4b49556c">&#9670;&#160;</a></span>_indexed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::StaticWorldScene::_indexed = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'index est bâti (<span class="tt"><a class="el" href="#aff02e3a6f4b0f934bb509fae748354a3" title="Construit la grille de seaux, à la première image cadrée.">index</a></span>) : la boîte de chaque primitive fixe, dans le même ordre, et la grille — origine, côté d'un seau, dimensions, et pour chaque seau les indices des primitives qui le touchent (croissants, donc dans l'ordre de dessin). </p>
+
+</div>
+</div>
+<a id="a6ccc5b1e6214293155bb32f13f303b2d" name="a6ccc5b1e6214293155bb32f13f303b2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ccc5b1e6214293155bb32f13f303b2d">&#9670;&#160;</a></span>_merged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&gt; hmi::StaticWorldScene::_merged</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a572860e63138d28f6d969cda0ddc86be" name="a572860e63138d28f6d969cda0ddc86be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a572860e63138d28f6d969cda0ddc86be">&#9670;&#160;</a></span>_origin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::StaticWorldScene::_origin {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a102356d590e47268217ba921f5e8f871" name="a102356d590e47268217ba921f5e8f871"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a102356d590e47268217ba921f5e8f871">&#9670;&#160;</a></span>_projection</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> hmi::StaticWorldScene::_projection {0, 0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac25513d6c0e5d2f0d9f1d45c94809295" name="ac25513d6c0e5d2f0d9f1d45c94809295"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac25513d6c0e5d2f0d9f1d45c94809295">&#9670;&#160;</a></span>_scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> hmi::StaticWorldScene::_scene</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Toute la partie fixe, triée une fois. </p>
+
+</div>
+</div>
+<a id="a0b809423fb942397cd809dbd27486712" name="a0b809423fb942397cd809dbd27486712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b809423fb942397cd809dbd27486712">&#9670;&#160;</a></span>_stamps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::uint32_t&gt; hmi::StaticWorldScene::_stamps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marque de la dernière image qui a retenu chaque primitive : une pièce présente dans plusieurs seaux n'est prise qu'une fois, sans ensemble à vider. </p>
+
+</div>
+</div>
+<a id="ad29d4fe714d3f29a802d957b3d6fe0e6" name="ad29d4fe714d3f29a802d957b3d6fe0e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad29d4fe714d3f29a802d957b3d6fe0e6">&#9670;&#160;</a></span>_visible</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::uint32_t&gt; hmi::StaticWorldScene::_visible</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tampons réutilisés d'une image à l'autre. </p>
+
+</div>
+</div>
+<a id="a1df7c684830767e99f904ba0fd892cd1" name="a1df7c684830767e99f904ba0fd892cd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df7c684830767e99f904ba0fd892cd1">&#9670;&#160;</a></span>BUCKET_TILES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::StaticWorldScene::BUCKET_TILES = 4.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Côté d'un seau de la grille, en largeurs de case : quelques seaux par écran, peu de primitives par seau. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="StaticWorldScene_8h_source.html">StaticWorldScene.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="StaticWorldScene_8cpp.html">StaticWorldScene.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1StaticWorldScene.html">StaticWorldScene</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

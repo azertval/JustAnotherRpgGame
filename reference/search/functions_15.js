@@ -25,9 +25,10 @@ var searchData=
   ['visibilityrequested_22',['visibilityRequested',['../classhmi_1_1LayersPanel.html#ae3b5648168f33c5fdf7e7772db0cc91b',1,'hmi::LayersPanel']]],
   ['visiblebounds_23',['visibleBounds',['../classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb',1,'hmi::Camera2D']]],
   ['visiblegridcorners_24',['visibleGridCorners',['../classhmi_1_1EditorViewport.html#a9c3b4a504fd1490457985123fad6215d',1,'hmi::EditorViewport']]],
-  ['visiteddistricts_25',['visitedDistricts',['../classhmi_1_1WorldModel.html#a9e2ed6a1599df88493a0f92ff495cc5d',1,'hmi::WorldModel']]],
-  ['volume_26',['volume',['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine::volume()'],['../classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945',1,'hmi::OptionsModel::volume() const noexcept']]],
-  ['volumechanged_27',['volumeChanged',['../classhmi_1_1OptionsModel.html#a866a05dec00aced02a6b439d61431283',1,'hmi::OptionsModel']]],
-  ['vsync_28',['vsync',['../classhmi_1_1OptionsModel.html#a3aafc6f4b6558daad08c2b836fff9044',1,'hmi::OptionsModel']]],
-  ['vsyncchanged_29',['vsyncChanged',['../classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb',1,'hmi::OptionsModel']]]
+  ['visibleindices_25',['visibleIndices',['../classhmi_1_1StaticWorldScene.html#a7db00147304cf9af6cf3edb57c0ba3c4',1,'hmi::StaticWorldScene']]],
+  ['visiteddistricts_26',['visitedDistricts',['../classhmi_1_1WorldModel.html#a9e2ed6a1599df88493a0f92ff495cc5d',1,'hmi::WorldModel']]],
+  ['volume_27',['volume',['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine::volume()'],['../classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945',1,'hmi::OptionsModel::volume() const noexcept']]],
+  ['volumechanged_28',['volumeChanged',['../classhmi_1_1OptionsModel.html#a866a05dec00aced02a6b439d61431283',1,'hmi::OptionsModel']]],
+  ['vsync_29',['vsync',['../classhmi_1_1OptionsModel.html#a3aafc6f4b6558daad08c2b836fff9044',1,'hmi::OptionsModel']]],
+  ['vsyncchanged_30',['vsyncChanged',['../classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb',1,'hmi::OptionsModel']]]
 ];

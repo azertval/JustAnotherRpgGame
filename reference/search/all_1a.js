@@ -50,13 +50,14 @@ var searchData=
   ['visible_47',['visible',['../structhmi_1_1LayerDisplay.html#a8a9b2b56a414ed5020c74472bad68d10',1,'hmi::LayerDisplay']]],
   ['visiblebounds_48',['visibleBounds',['../classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb',1,'hmi::Camera2D']]],
   ['visiblegridcorners_49',['visibleGridCorners',['../classhmi_1_1EditorViewport.html#a9c3b4a504fd1490457985123fad6215d',1,'hmi::EditorViewport']]],
-  ['visiteddistricts_50',['visitedDistricts',['../classhmi_1_1WorldModel.html#abbd27d6c2cb84fd8d7f57fd6f4c0b145',1,'hmi::WorldModel::visitedDistricts'],['../classhmi_1_1WorldModel.html#a9e2ed6a1599df88493a0f92ff495cc5d',1,'hmi::WorldModel::visitedDistricts() const']]],
-  ['vit_51',['Ce que dit le Manuel, et où chaque règle vit',['../Attack_8h.html#autotoc_md13',1,'']]],
-  ['volume_52',['volume',['../classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280',1,'hmi::OptionsModel::volume'],['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine::volume()'],['../classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945',1,'hmi::OptionsModel::volume() const noexcept']]],
-  ['volumechanged_53',['volumeChanged',['../classhmi_1_1OptionsModel.html#a866a05dec00aced02a6b439d61431283',1,'hmi::OptionsModel']]],
-  ['vraiment_20et_20qu_20il_20ne_20faut_20pas_20se_20cacher_54',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md113',1,'']]],
-  ['vsync_55',['vsync',['../classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24',1,'hmi::OptionsModel::vsync'],['../classhmi_1_1OptionsModel.html#a3aafc6f4b6558daad08c2b836fff9044',1,'hmi::OptionsModel::vsync() const noexcept']]],
-  ['vsyncchanged_56',['vsyncChanged',['../classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb',1,'hmi::OptionsModel']]],
-  ['vues_20un_20repère_20de_20cases_57',['Deux vues, un repère de cases',['../CanvasPicking_8h.html#autotoc_md62',1,'']]],
-  ['vulnerability_58',['Vulnerability',['../namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100',1,'core']]]
+  ['visibleindices_50',['visibleIndices',['../classhmi_1_1StaticWorldScene.html#a7db00147304cf9af6cf3edb57c0ba3c4',1,'hmi::StaticWorldScene']]],
+  ['visiteddistricts_51',['visitedDistricts',['../classhmi_1_1WorldModel.html#abbd27d6c2cb84fd8d7f57fd6f4c0b145',1,'hmi::WorldModel::visitedDistricts'],['../classhmi_1_1WorldModel.html#a9e2ed6a1599df88493a0f92ff495cc5d',1,'hmi::WorldModel::visitedDistricts() const']]],
+  ['vit_52',['Ce que dit le Manuel, et où chaque règle vit',['../Attack_8h.html#autotoc_md13',1,'']]],
+  ['volume_53',['volume',['../classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280',1,'hmi::OptionsModel::volume'],['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine::volume()'],['../classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945',1,'hmi::OptionsModel::volume() const noexcept']]],
+  ['volumechanged_54',['volumeChanged',['../classhmi_1_1OptionsModel.html#a866a05dec00aced02a6b439d61431283',1,'hmi::OptionsModel']]],
+  ['vraiment_20et_20qu_20il_20ne_20faut_20pas_20se_20cacher_55',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md114',1,'']]],
+  ['vsync_56',['vsync',['../classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24',1,'hmi::OptionsModel::vsync'],['../classhmi_1_1OptionsModel.html#a3aafc6f4b6558daad08c2b836fff9044',1,'hmi::OptionsModel::vsync() const noexcept']]],
+  ['vsyncchanged_57',['vsyncChanged',['../classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb',1,'hmi::OptionsModel']]],
+  ['vues_20un_20repère_20de_20cases_58',['Deux vues, un repère de cases',['../CanvasPicking_8h.html#autotoc_md62',1,'']]],
+  ['vulnerability_59',['Vulnerability',['../namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100',1,'core']]]
 ];

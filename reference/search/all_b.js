@@ -59,7 +59,7 @@ var searchData=
   ['gold_56',['gold',['../classhmi_1_1InventoryModel.html#a0ecfd55853c19a77e84b95a907fe1a23',1,'hmi::InventoryModel::gold'],['../classhmi_1_1InventoryModel.html#a51bf2487db923b4b3b4555e58be2c856',1,'hmi::InventoryModel::gold() const']]],
   ['gotocitation_57',['goToCitation',['../classhmi_1_1MainWindow.html#aa6c58df46de1f9b8770f7c6e9962d5d5',1,'hmi::MainWindow']]],
   ['gotofinding_58',['goToFinding',['../classhmi_1_1MainWindow.html#aa8690f8dc7dcf1406906c04a54d10553',1,'hmi::MainWindow']]],
-  ['gouverne_20cette_20classe_59',['La règle qui gouverne cette classe',['../classhmi_1_1OptionsModel.html#autotoc_md115',1,'']]],
+  ['gouverne_20cette_20classe_59',['La règle qui gouverne cette classe',['../classhmi_1_1OptionsModel.html#autotoc_md116',1,'']]],
   ['government_60',['government',['../structcore_1_1Region.html#ab2fcfb2827210b97d085a810023d1196',1,'core::Region::government'],['../structhmi_1_1MapRegionView.html#a6f5d6b1a1e94283593b4a4e75f02d7a2',1,'hmi::MapRegionView::government']]],
   ['governmentcorruption_61',['GovernmentCorruption',['../namespacecore.html#a1471b5a70feb139829909360f5b07940ab581cd8e9b61b71e5f3d39c384a643b8',1,'core']]],
   ['grab_62',['Grab',['../namespacehmi.html#a406a41b256977e2be0da3b64f976cce1ab635ceb01a10e96cdbefa95d72b25750',1,'hmi']]],

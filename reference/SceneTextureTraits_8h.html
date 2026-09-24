@@ -147,8 +147,11 @@ $(function(){initNavTree('SceneTextureTraits_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &quot;<a class="el" href="JsonDocument_8h_source.html">Core/Data/JsonDocument.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieces_8h_source.html">HMI/Graphics/ScenePieces.h</a>&quot;</code><br />
@@ -159,19 +162,18 @@ $(function(){initNavTree('SceneTextureTraits_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ASceneTextureTraits" id="r_hmi_3A_3ASceneTextureTraits"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTextureTraits.html">hmi::SceneTextureTraits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les traits d'une image, lus à côté d'elle. Un trait absent reste à sa valeur nulle.  <a href="structhmi_1_1SceneTextureTraits.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AIndexedManifest" id="r_hmi_3A_3AIndexedManifest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IndexedManifest.html">hmi::IndexedManifest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un manifeste lu, et ses entrées <b>indexées par fichier</b> : la recherche d'une image ne parcourt plus les milliers d'entrées d'un lieu (audit de l'affichage, A6).  <a href="structhmi_1_1IndexedManifest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AManifestCache" id="r_hmi_3A_3AManifestCache"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ManifestCache.html">hmi::ManifestCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les manifestes déjà lus, par dossier, chacun lu <b>une fois</b> et jamais recopié.  <a href="classhmi_1_1ManifestCache.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a5d708cce89edd729538c85a212cad231" id="r_a5d708cce89edd729538c85a212cad231"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a5d708cce89edd729538c85a212cad231">hmi::ManifestCache</a> = std::map&lt;std::filesystem::path, std::optional&lt;nlohmann::json&gt;&gt;</td></tr>
-<tr class="memdesc:a5d708cce89edd729538c85a212cad231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les manifestes déjà lus, par dossier ; <span class="tt">std::nullopt</span> pour un dossier sans manifeste lisible.  <br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac476afa91f2afee49d8bdd868bb21b4b" id="r_ac476afa91f2afee49d8bdd868bb21b4b"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextureTraits.html">SceneTextureTraits</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac476afa91f2afee49d8bdd868bb21b4b">hmi::readSceneTextureTraits</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view path, <a class="el" href="namespacehmi.html#a5d708cce89edd729538c85a212cad231">ManifestCache</a> *manifests=nullptr)</td></tr>
+<tr class="memitem:ac476afa91f2afee49d8bdd868bb21b4b" id="r_ac476afa91f2afee49d8bdd868bb21b4b"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTextureTraits.html">SceneTextureTraits</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac476afa91f2afee49d8bdd868bb21b4b">hmi::readSceneTextureTraits</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view path, <a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a> *manifests=nullptr)</td></tr>
 <tr class="memdesc:ac476afa91f2afee49d8bdd868bb21b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les traits de l'image <code class="param">path</code>.  <br /></td></tr>
 <tr class="memitem:a9d953b4ec44e750589868717d7667f89" id="r_a9d953b4ec44e750589868717d7667f89"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9d953b4ec44e750589868717d7667f89">hmi::manifestArtTile</a> (const nlohmann::json &amp;manifest)</td></tr>
 <tr class="memdesc:a9d953b4ec44e750589868717d7667f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le losange d'art déclaré par un manifeste (<span class="tt">tile</span>), (0, 0) s'il n'en déclare pas.  <br /></td></tr>

@@ -245,6 +245,88 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>bench_world_frame.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Benchmark/</path>
+    <filename>bench__world__frame_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>ArenareaSnapshot</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>a674608bcb407f6f4efaa6b6fb274176d</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>ada8b50b45f0698318eb18cb0bd61d101</anchor>
+      <arglist>(ArenareaSnapshot) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>ArenareaComposeWholeMap</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>a42ffe3cf1902a38a2d5f83bc2c7cdc9c</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>a688805ccd1c013d933ccc1061a0d3c42</anchor>
+      <arglist>(ArenareaComposeWholeMap) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>ArenareaTexturePaths</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>a59e407876da2685686866021f2117b10</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>aea4326faf156bdd0b728a2ddd3589810</anchor>
+      <arglist>(ArenareaTexturePaths) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>ArenareaBuildStaticScene</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>afe1140a0a4ed0f780fd594b3bee73304</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>ad0d3b5774fb8c382e0e4d94d6c75e59f</anchor>
+      <arglist>(ArenareaBuildStaticScene) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>ArenareaFrame1080p</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>a666dc397bf8f2b53d8d36228444c3102</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>aec1781d523904ebfdf259570ce0e028d</anchor>
+      <arglist>(ArenareaFrame1080p) -&gt; Unit(benchmark::kMicrosecond)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>BuildConfig.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/</path>
     <filename>BuildConfig_8h.html</filename>
@@ -3509,6 +3591,7 @@
     <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="class">hmi::EditorViewport</class>
     <namespace>hmi</namespace>
@@ -4152,6 +4235,7 @@
     <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="class">hmi::ArenaSceneRenderer</class>
@@ -4491,6 +4575,8 @@
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
     <class kind="struct">hmi::SceneTextureTraits</class>
+    <class kind="struct">hmi::IndexedManifest</class>
+    <class kind="class">hmi::ManifestCache</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4525,6 +4611,24 @@
     <filename>SpriteRenderer_8h.html</filename>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>StaticWorldScene.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>StaticWorldScene_8cpp.html</filename>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>StaticWorldScene.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>StaticWorldScene_8h.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <class kind="class">hmi::StaticWorldScene</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4628,6 +4732,7 @@
     <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4652,6 +4757,7 @@
     <class kind="struct">hmi::WorldSceneSnapshot</class>
     <class kind="struct">hmi::WorldSceneSource</class>
     <class kind="struct">hmi::WorldComposeOptions</class>
+    <class kind="struct">hmi::WorldHeroPlacement</class>
     <namespace>core</namespace>
     <namespace>hmi</namespace>
   </compound>
@@ -4680,6 +4786,8 @@
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
     <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
+    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
     <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="class">hmi::WorldSceneRenderer</class>
@@ -5437,6 +5545,13 @@
       <anchorfile>test__exploration__carte_8cpp.html</anchorfile>
       <anchor>aadaa0b0edb31c0cd8af18f708a89e605</anchor>
       <arglist>(ExplorationCarteIntegration, LeHerosMarcheSurUneCarte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__exploration__carte_8cpp.html</anchorfile>
+      <anchor>ab30a2d70329504024cfad2633d3a65bc</anchor>
+      <arglist>(ExplorationCarteIntegration, UnPasNeRefaitPasLaCarte)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -12591,6 +12706,43 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_static_world_scene.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__static__world__scene_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__static__world__scene_8cpp.html</anchorfile>
+      <anchor>aa6d5fd91cf3c9b6209097bc3727844ef</anchor>
+      <arglist>(StaticWorldSceneTest, SansCadrageLImageEstLaCompositionComplete)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__static__world__scene_8cpp.html</anchorfile>
+      <anchor>a84ce0ff4c5fb24cb52d1aabd5100d51d</anchor>
+      <arglist>(StaticWorldSceneTest, UnCadrageNeGardeQueCeQuIlMontre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__static__world__scene_8cpp.html</anchorfile>
+      <anchor>aabf2941bcbb6185b945ffa90d4843261</anchor>
+      <arglist>(StaticWorldSceneTest, LEtageSEffaceDevantLeHerosAChaqueImage)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_texture_atlas.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__texture__atlas_8cpp.html</filename>
@@ -15553,6 +15705,13 @@
       <name>_battlefieldTextures</name>
       <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
       <anchor>a80b3484ed7157afb91007cdc00eb37e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>ManifestCache</type>
+      <name>_manifests</name>
+      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
+      <anchor>a8b2ebed741f70aac11cf8315b035163e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -22157,6 +22316,13 @@
       <anchor>a37238749d10cab15704ad2e255e6a0ff</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>core::Rect</type>
+      <name>occlusion</name>
+      <anchorfile>structhmi_1_1ComposedQuad.html</anchorfile>
+      <anchor>a626ba19038fe4a76af6e786c0f822564</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::ComposedScene</name>
@@ -22200,8 +22366,8 @@
       <type>bool</type>
       <name>addSprite</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a00944ba9a1b321db44b0e6c4554ff8d5</anchor>
-      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0)</arglist>
+      <anchor>a1967932d41ebd5fe89fb77e6411da03c</anchor>
+      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0, const core::Rect &amp;occlusion={})</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -22214,8 +22380,8 @@
       <type>bool</type>
       <name>addPoly</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a6afbe9dfa8c821b7b9b8e90053199c59</anchor>
-      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const PolyQuad &amp;quad, int storey=0)</arglist>
+      <anchor>a0c47046f62c3e7fec88c4e28bfb649b8</anchor>
+      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const PolyQuad &amp;quad, int storey=0, const core::Rect &amp;occlusion={})</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -22223,6 +22389,27 @@
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
       <anchor>a6c3bcd9889c444a2150dd1b3bd576a14</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>registerTexture</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a484a964df70d29ebbcf8331518e00f43</anchor>
+      <arglist>(TextureHandle texture)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; TextureHandle &gt; &amp;</type>
+      <name>textureOrder</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>acf1601c3f02d1bbe8fe9b7eda8343124</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>swapQuads</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a7c7a06b1d0d858962314fdb706efe024</anchor>
+      <arglist>(std::vector&lt; ComposedQuad &gt; &amp;quads, int considered, int culled) noexcept</arglist>
     </member>
     <member kind="function">
       <type>const std::vector&lt; ComposedQuad &gt; &amp;</type>
@@ -22252,19 +22439,19 @@
       <anchor>a43dde3d9e70aac31ab47a430e516124d</anchor>
       <arglist>() const noexcept</arglist>
     </member>
+    <member kind="function" static="yes">
+      <type>static bool</type>
+      <name>drawsBefore</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a2229b70b3e44321b67cf7fc736732990</anchor>
+      <arglist>(const ComposedQuad &amp;lhs, const ComposedQuad &amp;rhs) noexcept</arglist>
+    </member>
     <member kind="variable" static="yes">
       <type>static constexpr float</type>
       <name>CULLING_MARGIN_UNITS</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
       <anchor>ad8dd91b7cee4c5d987aae7b22fac4d7e</anchor>
       <arglist></arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>int</type>
-      <name>textureRank</name>
-      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a86ce48e065a3f0541ae541f897b2fedd</anchor>
-      <arglist>(TextureHandle texture)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
@@ -22285,6 +22472,13 @@
       <name>_textureOrder</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
       <anchor>aa885de2ea8ce9908fe077a7b2bbfa65a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unordered_map&lt; TextureHandle, int &gt;</type>
+      <name>_textureRanks</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>aa2c90c7a877a60139f6f091b3714ffcd</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -26414,10 +26608,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>WorldSceneSnapshot</type>
-      <name>_playSnapshot</name>
+      <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
+      <name>_playMap</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
-      <anchor>a27c5e02deb9cc4633e64ff193b4a958f</anchor>
+      <anchor>a3e63e953a888241d559e3273d088caa5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>StaticWorldScene</type>
+      <name>_playStatics</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a9f1f22aefca06e3d875b7919b34801d8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -29329,6 +29530,31 @@
       <name>_until</name>
       <anchorfile>classcore_1_1ImmunityLedger.html</anchorfile>
       <anchor>aff5ac091f2962ab416cb9fef539d0a1e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::IndexedManifest</name>
+    <filename>structhmi_1_1IndexedManifest.html</filename>
+    <member kind="function">
+      <type>const nlohmann::json *</type>
+      <name>entry</name>
+      <anchorfile>structhmi_1_1IndexedManifest.html</anchorfile>
+      <anchor>aa3e03afc0acce39bed640a577b0ec830</anchor>
+      <arglist>(std::string_view filename) const</arglist>
+    </member>
+    <member kind="variable">
+      <type>nlohmann::json</type>
+      <name>root</name>
+      <anchorfile>structhmi_1_1IndexedManifest.html</anchorfile>
+      <anchor>a2267bc4ccfd16232abe03a077a52c57d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::unordered_map&lt; std::string, const nlohmann::json * &gt;</type>
+      <name>entries</name>
+      <anchorfile>structhmi_1_1IndexedManifest.html</anchorfile>
+      <anchor>aee35018325193a185c8e1bc9c6a78312</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -32781,6 +33007,13 @@
   <compound kind="struct">
     <name>hmi::LineQuad</name>
     <filename>structhmi_1_1LineQuad.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1LineQuad.html</anchorfile>
+      <anchor>a31ed7a0f62e07b76cc56423f204cf3e5</anchor>
+      <arglist>(const LineQuad &amp;) const =default</arglist>
+    </member>
     <member kind="variable">
       <type>float</type>
       <name>ax</name>
@@ -33916,6 +34149,31 @@
       <name>_crashAfterAutosave</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>a3a569c84aecff7a99e51e87f71a9b8ac</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::ManifestCache</name>
+    <filename>classhmi_1_1ManifestCache.html</filename>
+    <member kind="function">
+      <type>const IndexedManifest *</type>
+      <name>find</name>
+      <anchorfile>classhmi_1_1ManifestCache.html</anchorfile>
+      <anchor>ad8a32febf9a2d9c375d71e4a2dfd7cea</anchor>
+      <arglist>(const std::filesystem::path &amp;directory)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>size</name>
+      <anchorfile>classhmi_1_1ManifestCache.html</anchorfile>
+      <anchor>acff330d7ed5ced6f82c310bad0c57ed8</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::filesystem::path, std::unique_ptr&lt; const IndexedManifest &gt; &gt;</type>
+      <name>_read</name>
+      <anchorfile>classhmi_1_1ManifestCache.html</anchorfile>
+      <anchor>aa025fa1fc21a37585f24e89c11ef57ae</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -36512,6 +36770,13 @@
   <compound kind="struct">
     <name>hmi::PolyQuad</name>
     <filename>structhmi_1_1PolyQuad.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1PolyQuad.html</anchorfile>
+      <anchor>a9927008b954fec679d056f428036d24f</anchor>
+      <arglist>(const PolyQuad &amp;) const =default</arglist>
+    </member>
     <member kind="variable">
       <type>std::array&lt; float, 4 &gt;</type>
       <name>x</name>
@@ -40112,6 +40377,13 @@
   <compound kind="struct">
     <name>hmi::SpriteQuad</name>
     <filename>structhmi_1_1SpriteQuad.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1SpriteQuad.html</anchorfile>
+      <anchor>a5633ac582cc410824580899b327c29f2</anchor>
+      <arglist>(const SpriteQuad &amp;) const =default</arglist>
+    </member>
     <member kind="variable">
       <type>float</type>
       <name>x</name>
@@ -40456,6 +40728,178 @@
       <name>revision</name>
       <anchorfile>structcore_1_1LevelDraft_1_1State.html</anchorfile>
       <anchor>a4c2e0ff522b0562538725ade0c3a5db8</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::StaticWorldScene</name>
+    <filename>classhmi_1_1StaticWorldScene.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>build</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a79d6f2ddd2638b3704abf487ab58e6d8</anchor>
+      <arglist>(const WorldSceneSnapshot &amp;snapshot, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures, WorldComposeOptions options={})</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a4182583eb3145e2ba3101e65b5b9611f</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>compose</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a114b41c5a4d8bb36194f2de6b12ece0f</anchor>
+      <arglist>(ComposedScene &amp;out, std::span&lt; const WorldFigureSnapshot &gt; figures, const ScenePieceTextures &amp;textures) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const ComposedScene &amp;</type>
+      <name>scene</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>ad4fb594d8266b7692657d874639a29b1</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>size</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a57b273bf9e9ebf78f95f687e2ea26340</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>ac84953063bbe62f777cae3dcc18d1afa</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::IsoProjection &amp;</type>
+      <name>projection</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>ac872b423db1ac1dfa9971b3d6d8d3114</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>BUCKET_TILES</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a1df7c684830767e99f904ba0fd892cd1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>index</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>aff02e3a6f4b0f934bb509fae748354a3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>visibleIndices</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a7db00147304cf9af6cf3edb57c0ba3c4</anchor>
+      <arglist>(const core::Rect &amp;bounds, std::vector&lt; std::uint32_t &gt; &amp;indices) const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>WorldSceneSnapshot</type>
+      <name>_figureContext</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a88af51e3eeb9ef552bb4bdae2617bb31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::IsoProjection</type>
+      <name>_projection</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a102356d590e47268217ba921f5e8f871</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>ComposedScene</type>
+      <name>_scene</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>ac25513d6c0e5d2f0d9f1d45c94809295</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_indexed</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a60cd9f9b6bebb4998be0507c4b49556c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; core::Rect &gt;</type>
+      <name>_bounds</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a0e6199cd09d949fc2459bf3b2226fdc3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::Vector2</type>
+      <name>_origin</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a572860e63138d28f6d969cda0ddc86be</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_bucketSize</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a99a01410a7ac31a4b23ed693a3831b4a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_bucketColumns</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a547ceb61085ad229f40e309fd16333d1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_bucketRows</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a39d97171dabf6c42b80cf45212168660</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::vector&lt; std::uint32_t &gt; &gt;</type>
+      <name>_buckets</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a2e8d817722e5e06e62437670f005b3b8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::uint32_t &gt;</type>
+      <name>_stamps</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a0b809423fb942397cd809dbd27486712</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint32_t</type>
+      <name>_frame</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a351528b07be203c8250d694403123b30</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::uint32_t &gt;</type>
+      <name>_visible</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>ad29d4fe714d3f29a802d957b3d6fe0e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; ComposedQuad &gt;</type>
+      <name>_merged</name>
+      <anchorfile>classhmi_1_1StaticWorldScene.html</anchorfile>
+      <anchor>a6ccc5b1e6214293155bb32f13f303b2d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -42400,6 +42844,24 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::WorldHeroPlacement</name>
+    <filename>structhmi_1_1WorldHeroPlacement.html</filename>
+    <member kind="variable">
+      <type>core::Rect</type>
+      <name>bounds</name>
+      <anchorfile>structhmi_1_1WorldHeroPlacement.html</anchorfile>
+      <anchor>a4cf73c17f25a2f3c9b20908d6f1c010f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::int32_t</type>
+      <name>sortOrder</name>
+      <anchorfile>structhmi_1_1WorldHeroPlacement.html</anchorfile>
+      <anchor>ac801330a83cce036485cebbe01d51511</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::WorldIssue</name>
     <filename>structcore_1_1WorldIssue.html</filename>
     <member kind="function">
@@ -42708,6 +43170,13 @@
     </member>
     <member kind="signal">
       <type>void</type>
+      <name>figuresChanged</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a5a1c17085a8c8813ab684d3617efa125</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
       <name>mapEntered</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>add0ae7c6e65b31e7fd64dd11321c73a9</anchor>
@@ -42938,6 +43407,20 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
+      <name>scene</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ad9421c6fb0964e93a8f9cce9bea25018</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
+      <name>figures</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a014873bddbbead42b168a3084e0cf5ec</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>WorldSceneSnapshot</type>
       <name>snapshot</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -42970,6 +43453,13 @@
       <name>sceneRevision</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a0a7036499a425b2fef0b03d14335ad8d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>quint64</type>
+      <name>figuresRevision</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>abad15ef15ccd907a75b62026549f720f</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function" static="yes">
@@ -43189,6 +43679,13 @@
       <anchor>aa9a833a6634a208feed602de1352ea34</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>quint64</type>
+      <name>_figuresRevision</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ac5ad8baf6328cb5226195a5c82f7e730</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::WorldPlay</name>
@@ -43257,6 +43754,13 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
+      <name>scene</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ac6f08ec64b8fd2fa0c0cb50982166a98</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>WorldSceneSnapshot</type>
       <name>snapshot</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
@@ -43283,6 +43787,13 @@
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>a05af7d965c7b1bb8871355f4a0e55fe5</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>invalidateScene</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>aa0238c49b3c92777bc3ce5c71fa2ea02</anchor>
+      <arglist>() noexcept</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>core::ExplorationSession</type>
@@ -43347,6 +43858,13 @@
       <anchor>a995f23231d4f03abc7ccc15cd85874b4</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
+      <name>_scene</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ad50072f254f350ab206b27f3ff367cdc</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::WorldPlayStep</name>
@@ -43370,6 +43888,13 @@
       <name>sceneChanged</name>
       <anchorfile>structhmi_1_1WorldPlayStep.html</anchorfile>
       <anchor>aa510f0f4dcaf30e22367894d5ffd7a27</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>figuresChanged</name>
+      <anchorfile>structhmi_1_1WorldPlayStep.html</anchorfile>
+      <anchor>a83577845a4a69ed916370c373299155a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -43493,10 +44018,31 @@
       <arglist>(WorldSceneSnapshot snapshot)</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setScene</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a0fcbf345f4de023f391508840111dd91</anchor>
+      <arglist>(std::shared_ptr&lt; const WorldSceneSnapshot &gt; scene)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setFigures</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a9499a9cb2e75a65e696220e2e3df37c9</anchor>
+      <arglist>(std::vector&lt; WorldFigureSnapshot &gt; figures)</arglist>
+    </member>
+    <member kind="function">
       <type>const WorldSceneSnapshot &amp;</type>
       <name>snapshot</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a01ec4e99e298b44936479112517db503</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; WorldFigureSnapshot &gt; &amp;</type>
+      <name>figures</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>acf5fdab22a414ef7268ad12b78e71a70</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
@@ -43535,6 +44081,13 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>const StaticWorldScene &amp;</type>
+      <name>statics</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a53ddda7697bef63590860ae7775329cf</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>const ScenePieceTextures &amp;</type>
       <name>textures</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
@@ -43570,10 +44123,31 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>WorldSceneSnapshot</type>
-      <name>_snapshot</name>
+      <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
+      <name>_scene</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
-      <anchor>a8d15970c710d2e6994517b60386f2b54</anchor>
+      <anchor>a24c7dc0aa0863756c0ea2f92d0b8b1b0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
+      <name>_figures</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a8ad59087cb40ffd3f220a9dc4dfaf52d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_sceneDirty</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a4310c79037a4333d2cd4d705a8e895b6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_figuresDirty</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a711411bbae97a13b74d4154aeb74e36e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -43591,6 +44165,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>StaticWorldScene</type>
+      <name>_statics</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a715a5f4a6e359419e050993373ff37a4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>ComposedScene</type>
       <name>_composed</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
@@ -43602,6 +44183,13 @@
       <name>_requested</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a3cea47c68f6026b218ef345a0f994fad</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>ManifestCache</type>
+      <name>_manifests</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>aeb5bba418426fa54bfd3f6bec816c424</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -44283,6 +44871,13 @@
       <name>_modelMovedConnection</name>
       <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
       <anchor>a9aaa6b22fb02410ef9bc2eab6330e1c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QMetaObject::Connection</type>
+      <name>_modelFiguresConnection</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>af0bc42f17cc0aa9e2cf1f12cbf0c5b21</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -48068,7 +48663,10 @@
     <class kind="struct">hmi::ScenePieceTextures</class>
     <class kind="class">hmi::SceneResources</class>
     <class kind="struct">hmi::SceneTextureTraits</class>
+    <class kind="struct">hmi::IndexedManifest</class>
+    <class kind="class">hmi::ManifestCache</class>
     <class kind="class">hmi::SpriteBatch</class>
+    <class kind="class">hmi::StaticWorldScene</class>
     <class kind="class">hmi::TextureAtlas</class>
     <class kind="class">hmi::TextureCache</class>
     <class kind="struct">hmi::DecodedImage</class>
@@ -48081,6 +48679,7 @@
     <class kind="struct">hmi::WorldSceneSnapshot</class>
     <class kind="struct">hmi::WorldSceneSource</class>
     <class kind="struct">hmi::WorldComposeOptions</class>
+    <class kind="struct">hmi::WorldHeroPlacement</class>
     <class kind="class">hmi::WorldSceneRenderer</class>
     <class kind="class">hmi::ButtonRepeat</class>
     <class kind="class">hmi::GamepadPoller</class>
@@ -48170,13 +48769,6 @@
       <name>TextureHandle</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a979f7ffd7c87877cb1f65f0d08e4419d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>std::map&lt; std::filesystem::path, std::optional&lt; nlohmann::json &gt; &gt;</type>
-      <name>ManifestCache</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a5d708cce89edd729538c85a212cad231</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -50428,11 +51020,32 @@
       <arglist>(int viewportWidth, int viewportHeight) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>bool</type>
+      <name>hidesHero</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab12d7276850e59be85957b10047b8728</anchor>
+      <arglist>(const ComposedQuad &amp;quad, const std::optional&lt; WorldHeroPlacement &gt; &amp;hero) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>fadeStoreysOverHero</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>acd4e8e31191e807e49cfb1613f9166a9</anchor>
+      <arglist>(std::span&lt; ComposedQuad &gt; quads, const std::optional&lt; WorldHeroPlacement &gt; &amp;hero) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::optional&lt; DecodedImage &gt;</type>
       <name>decodeImageFile</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a22c3bcff9f77b4c4df7938a08c036dfd</anchor>
       <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::optional&lt; DecodedImage &gt; &gt;</type>
+      <name>decodeImageFiles</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>adfff4e38b728514a48aac2df13bb1bd6</anchor>
+      <arglist>(const std::vector&lt; std::filesystem::path &gt; &amp;paths)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -50541,10 +51154,38 @@
     </member>
     <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
+      <name>worldFigureTexturePaths</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2f3d83ca010accd2a3d552ae2b6b97c0</anchor>
+      <arglist>(const WorldSceneSnapshot &amp;snapshot, std::span&lt; const WorldFigureSnapshot &gt; figures)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
       <name>worldTexturePaths</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a07929611bf03ab59a2de588feb90ad7d</anchor>
       <arglist>(const WorldSceneSnapshot &amp;snapshot)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; WorldHeroPlacement &gt;</type>
+      <name>placeWorldHero</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac87779e65c2849bfdc39e93d4a96f578</anchor>
+      <arglist>(const WorldSceneSnapshot &amp;snapshot, std::span&lt; const WorldFigureSnapshot &gt; figures, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>composeWorldStatics</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ad9cb008092b63cca7250190ee30f1b1b</anchor>
+      <arglist>(ComposedScene &amp;scene, const WorldSceneSnapshot &amp;snapshot, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures, WorldComposeOptions options={})</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>composeWorldFigures</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a1b357cd2954eeb90e03d8f059e2930c1</anchor>
+      <arglist>(ComposedScene &amp;scene, const WorldSceneSnapshot &amp;snapshot, std::span&lt; const WorldFigureSnapshot &gt; figures, const core::IsoProjection &amp;projection, const ScenePieceTextures &amp;textures)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -51536,6 +52177,7 @@
     <file>bench_canvas_paint.cpp</file>
     <file>bench_combat.cpp</file>
     <file>bench_levels.cpp</file>
+    <file>bench_world_frame.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat</name>
@@ -51892,6 +52534,8 @@
     <file>SpriteBatch.h</file>
     <file>SpriteRenderer.cpp</file>
     <file>SpriteRenderer.h</file>
+    <file>StaticWorldScene.cpp</file>
+    <file>StaticWorldScene.h</file>
     <file>TextureAtlas.cpp</file>
     <file>TextureAtlas.h</file>
     <file>TextureAtlasRegions.cpp</file>
@@ -51933,6 +52577,7 @@
     <file>test_render_culling.cpp</file>
     <file>test_rhi_offscreen.cpp</file>
     <file>test_scene_folders.cpp</file>
+    <file>test_static_world_scene.cpp</file>
     <file>test_texture_atlas.cpp</file>
     <file>test_tile_visuals.cpp</file>
     <file>test_world_scene_composer.cpp</file>

@@ -1,5 +1,6 @@
 var structhmi_1_1PolyQuad =
 [
+    [ "operator==", "structhmi_1_1PolyQuad.html#a9927008b954fec679d056f428036d24f", null ],
     [ "a", "structhmi_1_1PolyQuad.html#a658783ed443dab1defd60428b5019f0f", null ],
     [ "b", "structhmi_1_1PolyQuad.html#af1e8ec23ec5ec07a568dc3788d87a799", null ],
     [ "g", "structhmi_1_1PolyQuad.html#a6791c5989bb2f2e2e74fbfb19af8791a", null ],

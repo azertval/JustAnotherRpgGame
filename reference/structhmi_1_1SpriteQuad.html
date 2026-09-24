@@ -148,6 +148,10 @@ $(function(){initNavTree('structhmi_1_1SpriteQuad.html','','structhmi_1_1SpriteQ
 
 <p><code>#include &lt;<a class="el" href="Quad_8h_source.html">Quad.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5633ac582cc410824580899b327c29f2" id="r_a5633ac582cc410824580899b327c29f2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5633ac582cc410824580899b327c29f2">operator==</a> (const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;) const =default</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a92c64adb689a74573ddd55c2ad06e1bf" id="r_a92c64adb689a74573ddd55c2ad06e1bf"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a92c64adb689a74573ddd55c2ad06e1bf">x</a> = 0.0f</td></tr>
@@ -167,7 +171,33 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un quad texturé à dessiner : rectangle en <b>unités monde</b>, région de texture (coordonnées normalisées) et teinte. </p>
 <p>Le coin (<span class="tt"><a class="el" href="#a92c64adb689a74573ddd55c2ad06e1bf">x</a></span>, <span class="tt"><a class="el" href="#aa5c6523969fab44f779387543dc3365a">y</a></span>) est haut-gauche <b>avant rotation</b>, l'axe Y va vers le bas (convention du projet). Les coordonnées de texture <span class="tt">u,v</span> sont normalisées dans [0, 1] ; la conversion depuis une région d'atlas en pixels est faite en amont (par le rendu des sprites). <span class="tt"><a class="el" href="#a6d77667b205966d8edb35e16aa6f8b3a">rotation</a></span> (radians) tourne le rectangle autour de <b>son propre centre</b> — nul par défaut, donc sans coût ni différence visuelle pour les quads alignés aux axes (tuiles, personnage). </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a5633ac582cc410824580899b327c29f2" name="a5633ac582cc410824580899b327c29f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5633ac582cc410824580899b327c29f2">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SpriteQuad::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a93b181adcb81b4e6d1ecbb2c7965108f" name="a93b181adcb81b4e6d1ecbb2c7965108f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93b181adcb81b4e6d1ecbb2c7965108f">&#9670;&#160;</a></span>a</h2>
 

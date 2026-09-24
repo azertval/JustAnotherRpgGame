@@ -16,8 +16,11 @@
 
 #include &lt;QImage&gt;
 #include &lt;QString&gt;
+#include &lt;algorithm&gt;
+#include &lt;atomic&gt;
 #include &lt;cstring&gt;
 #include &lt;system_error&gt;
+#include &lt;thread&gt;
 
 #include &lt;rhi/qrhi.h&gt;
 
@@ -26,13 +29,13 @@
 
 namespace hmi {
 
-// DÃ©code un fichier image (PNG au minimum) en pixels RGBA.
-<span style = "background-color:#dfd">std::optional&lt;DecodedImage&gt; decodeImageFile(const std::filesystem::path&amp; path) {
+namespace {
+
+// Decode sans rien journaliser : ce qui tourne sur un fil de decodage ne touche pas au journal.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;DecodedImage&gt; readImageFile(const std::filesystem::path&amp; path) {
     QImage source(QString::fromStdWString(path.wstring()));
     if (source.isNull()) {
-        GRAPHICS_LOG_WARNING("TextureLoader : echec de decodage de l'image '" + path.string() +</span>
-                             "'");
-<span style = "background-color:#dfd">        return std::nullopt;</span>
+        return std::nullopt;</span>
     }
     // Format_RGBA8888 : quatre octets R,G,B,A en mÃ©moire, alpha droit â le mÃªme ordre mÃ©moire que
     // QRhiTexture::RGBA8. La prÃ©multiplication se fait Ã  la crÃ©ation de la texture, pas ici :
@@ -48,6 +51,53 @@ namespace hmi {
     for (int row = 0; row &lt; decoded.height; ++row) {
         std::memcpy(decoded.pixels.data() + (static_cast&lt;std::size_t&gt;(row) * decoded.width),</span>
                     image.constScanLine(row), rowBytes);
+<span style = "background-color:#dfd">    }
+    return decoded;
+}</span>
+
+<span style = "background-color:#dfd">void warnUndecoded(const std::filesystem::path&amp; path) {
+    GRAPHICS_LOG_WARNING("TextureLoader : echec de decodage de l'image '" + path.string() + "'");
+}</span>
+
+}  // namespace
+
+// DÃ©code un fichier image (PNG au minimum) en pixels RGBA.
+<span style = "background-color:#dfd">std::optional&lt;DecodedImage&gt; decodeImageFile(const std::filesystem::path&amp; path) {
+    std::optional&lt;DecodedImage&gt; decoded = readImageFile(path);
+    if (!decoded) {
+        warnUndecoded(path);</span>
+    }
+<span style = "background-color:#dfd">    return decoded;
+}</span>
+
+// DÃ©code une liste d'images sur les coeurs de la machine, dans l'ordre de la liste.
+std::vector&lt;std::optional&lt;DecodedImage&gt;&gt; decodeImageFiles(
+<span style = "background-color:#dfd">    const std::vector&lt;std::filesystem::path&gt;&amp; paths) {
+    std::vector&lt;std::optional&lt;DecodedImage&gt;&gt; decoded(paths.size());
+    const unsigned cores = std::max(1U, std::thread::hardware_concurrency());
+    const std::size_t workers = std::min&lt;std::size_t&gt;(paths.size(), cores);
+    std::atomic&lt;std::size_t&gt; next{0};
+    const auto work = [&amp;]() noexcept {
+        for (std::size_t index = next++; index &lt; paths.size(); index = next++) {</span>
+            try {
+<span style = "background-color:#dfd">                decoded[index] = readImageFile(paths[index]);</span>
+<span style = "background-color:#fdd">            } catch (...) {
+                decoded[index].reset();  // une allocation refusee : l'image manque, rien ne tombe
+            }</span>
+<span style = "background-color:#dfd">        }
+    };</span>
+    {
+<span style = "background-color:#dfd">        std::vector&lt;std::jthread&gt; threads;
+        threads.reserve(workers &gt; 0 ? workers - 1 : 0);
+        for (std::size_t thread = 1; thread &lt; workers; ++thread) {
+            threads.emplace_back(work);
+        }
+        work();  // le fil appelant decode aussi
+    }
+    for (std::size_t index = 0; index &lt; paths.size(); ++index) {
+        if (!decoded[index]) {
+            warnUndecoded(paths[index]);</span>
+        }
 <span style = "background-color:#dfd">    }
     return decoded;
 }</span>

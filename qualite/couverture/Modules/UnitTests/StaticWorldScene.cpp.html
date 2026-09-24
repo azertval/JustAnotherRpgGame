@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>StaticWorldScene.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/StaticWorldScene.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;iterator&gt;
+#include &lt;limits&gt;
+#include &lt;numeric&gt;
+#include &lt;utility&gt;
+
+namespace hmi {
+
+namespace {
+
+// La boite d'une primitive composee, quelle que soit sa nature.
+<span style = "background-color:#dfd">[[nodiscard]] core::Rect boundsOf(const ComposedQuad&amp; quad) noexcept {
+    switch (quad.kind) {</span>
+        case QuadKind::Sprite:
+<span style = "background-color:#dfd">            return spriteQuadBounds(quad.sprite);</span>
+        case QuadKind::Line:
+<span style = "background-color:#fdd">            return lineQuadBounds(quad.line);</span>
+        case QuadKind::Poly:
+<span style = "background-color:#dfd">            return polyQuadBounds(quad.poly);</span>
+    }
+<span style = "background-color:#fdd">    return {};</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void seeThrough(ComposedQuad&amp; quad) noexcept {
+    switch (quad.kind) {</span>
+        case QuadKind::Sprite:
+<span style = "background-color:#dfd">            quad.sprite.a *= STOREY_SEE_THROUGH_OPACITY;
+            break;</span>
+        case QuadKind::Poly:
+<span style = "background-color:#dfd">            quad.poly.a *= STOREY_SEE_THROUGH_OPACITY;
+            break;</span>
+        case QuadKind::Line:
+<span style = "background-color:#fdd">            quad.line.a *= STOREY_SEE_THROUGH_OPACITY;</span>
+            break;
+    }
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool hidesHero(const ComposedQuad&amp; quad, const std::optional&lt;WorldHeroPlacement&gt;&amp; hero) noexcept {
+    return hero &amp;&amp; quad.storey &gt; 0 &amp;&amp; quad.occlusion.size.x &gt; 0.0F &amp;&amp;</span>
+           quad.sortOrder &gt; hero-&gt;sortOrder &amp;&amp; quad.occlusion.intersects(hero-&gt;bounds);
+<span style = "background-color:#dfd">}</span>
+
+void fadeStoreysOverHero(std::span&lt;ComposedQuad&gt; quads,
+<span style = "background-color:#dfd">                         const std::optional&lt;WorldHeroPlacement&gt;&amp; hero) noexcept {
+    if (!hero) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (ComposedQuad&amp; quad : quads) {
+        if (hidesHero(quad, hero)) {
+            seeThrough(quad);</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">void StaticWorldScene::clear() noexcept {
+    _figureContext = WorldSceneSnapshot{};
+    _projection = core::IsoProjection{0, 0};
+    _scene.clear();
+    _bounds.clear();
+    _buckets.clear();
+    _bucketColumns = 0;
+    _bucketRows = 0;
+    _stamps.clear();
+    _frame = 0;
+    _indexed = false;
+}</span>
+
+void StaticWorldScene::build(const WorldSceneSnapshot&amp; snapshot,
+                             const core::IsoProjection&amp; projection,
+<span style = "background-color:#dfd">                             const ScenePieceTextures&amp; textures, WorldComposeOptions options) {
+    clear();
+    _projection = projection;</span>
+    // Les figurines ne lisent de l'instantane que leur lieu et leurs dossiers : on ne garde
+    // qu'eux, pas les dizaines de milliers de noms de pieces.
+<span style = "background-color:#dfd">    _figureContext.place = snapshot.place;
+    _figureContext.figureDirectories = snapshot.figureDirectories;</span>
+
+<span style = "background-color:#dfd">    composeWorldStatics(_scene, snapshot, projection, textures, options);
+    _scene.sort();</span>
+
+<span style = "background-color:#dfd">    _indexed = false;
+}</span>
+
+<span style = "background-color:#dfd">void StaticWorldScene::index() const {</span>
+    // La grille ne sert qu'a une image cadree : une composition complete (le canevas de l'editeur,
+    // une capture) ne la paie pas.
+<span style = "background-color:#dfd">    _indexed = true;
+    const std::vector&lt;ComposedQuad&gt;&amp; quads = _scene.quads();
+    _bounds.reserve(quads.size());
+    float left = std::numeric_limits&lt;float&gt;::infinity();
+    float top = std::numeric_limits&lt;float&gt;::infinity();
+    float right = -std::numeric_limits&lt;float&gt;::infinity();
+    float bottom = -std::numeric_limits&lt;float&gt;::infinity();
+    for (const ComposedQuad&amp; quad : quads) {
+        const core::Rect bounds = boundsOf(quad);
+        _bounds.push_back(bounds);
+        left = std::min(left, bounds.position.x);
+        top = std::min(top, bounds.position.y);
+        right = std::max(right, bounds.position.x + bounds.size.x);
+        bottom = std::max(bottom, bounds.position.y + bounds.size.y);
+    }
+    _stamps.assign(quads.size(), 0U);
+    _frame = 0;
+    if (quads.empty() || !std::isfinite(left) || !std::isfinite(top) || !std::isfinite(right) ||</span>
+        !std::isfinite(bottom)) {
+<span style = "background-color:#dfd">        return;</span>
+    }
+
+    // La grille couvre tout ce qui est peint, reliefs hauts compris.
+<span style = "background-color:#dfd">    _origin = {left, top};
+    _bucketSize = std::max(1.0F, BUCKET_TILES * _projection.tileWidth());
+    _bucketColumns = std::max(1, static_cast&lt;int&gt;(std::ceil((right - left) / _bucketSize)));
+    _bucketRows = std::max(1, static_cast&lt;int&gt;(std::ceil((bottom - top) / _bucketSize)));
+    _buckets.assign(</span>
+        static_cast&lt;std::size_t&gt;(_bucketColumns) * static_cast&lt;std::size_t&gt;(_bucketRows), {});
+<span style = "background-color:#dfd">    const auto bucketOf = [this](float value, float origin, int count) {
+        return std::clamp(static_cast&lt;int&gt;(std::floor((value - origin) / _bucketSize)), 0,</span>
+                          count - 1);
+<span style = "background-color:#dfd">    };
+    for (std::size_t index = 0; index &lt; quads.size(); ++index) {
+        const core::Rect&amp; bounds = _bounds[index];
+        const int firstColumn = bucketOf(bounds.position.x, _origin.x, _bucketColumns);
+        const int lastColumn =</span>
+            bucketOf(bounds.position.x + bounds.size.x, _origin.x, _bucketColumns);
+<span style = "background-color:#dfd">        const int firstRow = bucketOf(bounds.position.y, _origin.y, _bucketRows);
+        const int lastRow = bucketOf(bounds.position.y + bounds.size.y, _origin.y, _bucketRows);
+        for (int row = firstRow; row &lt;= lastRow; ++row) {
+            for (int column = firstColumn; column &lt;= lastColumn; ++column) {
+                _buckets[(static_cast&lt;std::size_t&gt;(row) *</span>
+                          static_cast&lt;std::size_t&gt;(_bucketColumns)) +
+                         static_cast&lt;std::size_t&gt;(column)]
+                    .push_back(static_cast&lt;std::uint32_t&gt;(index));
+<span style = "background-color:#dfd">            }
+        }
+    }
+}</span>
+
+void StaticWorldScene::visibleIndices(const core::Rect&amp; bounds,
+<span style = "background-color:#dfd">                                      std::vector&lt;std::uint32_t&gt;&amp; indices) const {
+    if (!_indexed) {
+        index();</span>
+    }
+<span style = "background-color:#dfd">    if (_buckets.empty()) {
+        return;</span>
+    }
+    // Une nouvelle marque par image ; au tour du compteur, toutes les marques repartent de zero.
+<span style = "background-color:#dfd">    if (++_frame == 0) {</span>
+<span style = "background-color:#fdd">        std::ranges::fill(_stamps, 0U);
+        _frame = 1;</span>
+    }
+<span style = "background-color:#dfd">    const auto range = [this](float from, float to, float origin, int count) {
+        const int first = static_cast&lt;int&gt;(std::floor((from - origin) / _bucketSize));
+        const int last = static_cast&lt;int&gt;(std::floor((to - origin) / _bucketSize));
+        return std::pair{std::max(0, first), std::min(count - 1, last)};
+    };
+    const auto [firstColumn, lastColumn] =
+        range(bounds.position.x, bounds.position.x + bounds.size.x, _origin.x, _bucketColumns);
+    const auto [firstRow, lastRow] =
+        range(bounds.position.y, bounds.position.y + bounds.size.y, _origin.y, _bucketRows);
+    for (int row = firstRow; row &lt;= lastRow; ++row) {
+        for (int column = firstColumn; column &lt;= lastColumn; ++column) {
+            const std::vector&lt;std::uint32_t&gt;&amp; bucket =</span>
+                _buckets[(static_cast&lt;std::size_t&gt;(row) *
+                          static_cast&lt;std::size_t&gt;(_bucketColumns)) +
+                         static_cast&lt;std::size_t&gt;(column)];
+<span style = "background-color:#dfd">            for (const std::uint32_t index : bucket) {
+                if (_stamps[index] == _frame) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                _stamps[index] = _frame;
+                if (_bounds[index].intersects(bounds)) {
+                    indices.push_back(index);</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }</span>
+    // Les indices croissants sont l'ordre de dessin : la partie fixe est deja triee.
+<span style = "background-color:#dfd">    std::ranges::sort(indices);
+}</span>
+
+void StaticWorldScene::compose(ComposedScene&amp; out, std::span&lt;const WorldFigureSnapshot&gt; figures,
+<span style = "background-color:#dfd">                               const ScenePieceTextures&amp; textures) const {</span>
+    // Ce que l'appelant avait deja compose : garde tel quel, devant, et c'est lui qui retriera.
+<span style = "background-color:#dfd">    std::vector&lt;ComposedQuad&gt; existing;
+    out.swapQuads(existing, 0, 0);</span>
+
+    // Les rangs d'abord : ceux de la partie fixe, dans son ordre, pour que la fusion rende l'ordre
+    // meme d'une composition complete.
+<span style = "background-color:#dfd">    for (const TextureHandle texture : _scene.textureOrder()) {
+        out.registerTexture(texture);
+    }</span>
+
+    // Les figurines de l'image, sous le cadrage de l'appelant, triees entre elles.
+<span style = "background-color:#dfd">    composeWorldFigures(out, _figureContext, figures, _projection, textures);
+    out.sort();
+    std::vector&lt;ComposedQuad&gt; dynamic;
+    out.swapQuads(dynamic, 0, 0);</span>
+
+    // La partie fixe sous le cadrage, deja triee.
+<span style = "background-color:#dfd">    _visible.clear();
+    const std::vector&lt;ComposedQuad&gt;&amp; statics = _scene.quads();
+    if (out.isCullingEnabled()) {
+        visibleIndices(out.cullingBounds(), _visible);
+    } else {
+        _visible.resize(statics.size());
+        std::iota(_visible.begin(), _visible.end(), 0U);</span>
+    }
+
+    // La fusion : a cle egale, la piece fixe passe devant la figurine, comme dans un tri stable de
+    // la composition complete (la carte, puis les figurines).
+    const std::optional&lt;WorldHeroPlacement&gt; hero =
+<span style = "background-color:#dfd">        placeWorldHero(_figureContext, figures, _projection, textures);
+    _merged.clear();
+    _merged.reserve(existing.size() + _visible.size() + dynamic.size());
+    _merged.insert(_merged.end(), std::make_move_iterator(existing.begin()),</span>
+                   std::make_move_iterator(existing.end()));
+<span style = "background-color:#dfd">    std::size_t figure = 0;
+    for (const std::uint32_t index : _visible) {
+        const ComposedQuad&amp; fixed = statics[index];
+        while (figure &lt; dynamic.size() &amp;&amp; ComposedScene::drawsBefore(dynamic[figure], fixed)) {
+            _merged.push_back(dynamic[figure++]);
+        }
+        _merged.push_back(fixed);
+        if (hidesHero(fixed, hero)) {
+            seeThrough(_merged.back());</span>
+        }
+<span style = "background-color:#dfd">    }
+    _merged.insert(_merged.end(), dynamic.begin() + static_cast&lt;std::ptrdiff_t&gt;(figure),</span>
+                   dynamic.end());
+
+<span style = "background-color:#dfd">    const auto considered = static_cast&lt;int&gt;(statics.size());
+    const int culled = considered - static_cast&lt;int&gt;(_visible.size());
+    out.swapQuads(_merged, considered, culled);
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

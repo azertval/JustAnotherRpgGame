@@ -28,6 +28,7 @@
 
 #include &lt;cstdint&gt;
 #include &lt;filesystem&gt;
+#include &lt;memory&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
 #include &lt;vector&gt;
@@ -44,8 +45,12 @@ struct WorldPlayStep {
     std::vector&lt;core::ExplorationEvent&gt; events;
     /// Le hÃ©ros a bougÃ©, ou marche contre un mur : la camÃ©ra suit, la scÃ¨ne se redessine.
     bool heroMoved = false;
-    /// La scÃ¨ne doit Ãªtre recomposÃ©e : carte changÃ©e, ou bande du hÃ©ros basculÃ©e.
+    /// La **carte** a changÃ© : on est entrÃ© ailleurs, ou un drapeau fait paraÃ®tre ou disparaÃ®tre
+    /// un PNJ, une porte (`LOT-116`, `LOT-126`). Elle est Ã  recomposer.
     bool sceneChanged = false;
+    /// Les **figurines** ont changÃ© sans que le hÃ©ros bouge : sa bande a basculÃ© (il part, il
+    /// s'arrÃªte), ou il s'est tournÃ©. La carte, elle, reste composÃ©e.
+    bool figuresChanged = false;
 };
 
 class WorldPlay {
@@ -91,7 +96,18 @@ public:
     /// @return Les figurines de la carte courante : les PNJ, puis le hÃ©ros, qui passe devant.
     [[nodiscard]] std::vector&lt;WorldFigureSnapshot&gt; figures() const;
 
-    /// @return L'instantanÃ© que `hmi::WorldSceneRenderer` dessine ; vide hors carte.
+    /**
+     * @brief La **carte** que `hmi::WorldSceneRenderer` dessine, partagÃ©e ; vide hors carte.
+     *
+     * Refaite seulement quand elle change â entrÃ©e sur une carte, drapeau qui fait paraÃ®tre ou
+     * disparaÃ®tre quelque chose, figurine du hÃ©ros â, jamais Ã  un pas du hÃ©ros : c'est ce qui
+     * rendait chaque pas aussi cher que la carte est grande (audit de l'affichage, A3). Ses
+     * figurines sont celles de l'instant oÃ¹ elle a Ã©tÃ© faite ; celles de l'image sont `figures()`.
+     */
+    [[nodiscard]] std::shared_ptr&lt;const WorldSceneSnapshot&gt; scene() const;
+
+    /// @return La carte **et** les figurines de l'instant, en une valeur : pour qui compose tout
+    ///         d'un coup (un test, une capture).
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
     [[nodiscard]] float diamondRatio() const noexcept {
         return _appearance.diamondRatio();
@@ -100,6 +116,10 @@ public:
 private:
     /// @brief Relit la table d'apparence du lieu de la carte courante.
     void reloadAppearance();
+    /// @brief La carte est Ã  refaire Ã  la prochaine demande.
+<span style = "background-color:#dfd">    void invalidateScene() noexcept {
+        _scene.reset();
+    }</span>
 
     core::ExplorationSession _session;
     std::filesystem::path _assetsDirectory;
@@ -116,6 +136,8 @@ private:
 <span style = "background-color:#dfd">    bool _walking = false;</span>
     /// RÃ©vision des drapeaux de la derniÃ¨re scÃ¨ne annoncÃ©e : les PNJ conditionnÃ©s en dÃ©pendent.
 <span style = "background-color:#dfd">    std::uint64_t _drawnFlags = 0;</span>
+    /// La carte en valeurs, faite Ã  la premiÃ¨re demande aprÃ¨s un changement ; nulle d'ici lÃ .
+    mutable std::shared_ptr&lt;const WorldSceneSnapshot&gt; _scene;
 };
 
 }  // namespace hmi</pre>
