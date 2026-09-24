@@ -3,7 +3,7 @@ id = "LOT-126"
 titre = "Ce que la quête demande aux cartes"
 version = "0.0.1"
 filiere = "editeur"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Tout ce que « Des pommes pour l'arène » pose sur une carte se pose, se voit et se contrôle dans l'éditeur : un PNJ présent selon un drapeau, une porte close, un escalier condamné, un déclencheur."
 prerequis = ["LOT-116"]
@@ -50,8 +50,8 @@ l'éditeur par un mode à elles, le [LOT-144](../../v0.0.2-combat/lots/LOT-144-m
 
 ## Décisions de réalisation
 
-Réalisé le 24 septembre 2026, branche `lot-126-quete-cartes`, **PR #128**. La fiche reste `en-cours` jusqu'à la
-vérification à la main de l'auteur (inspecteur, « World state… », graphe en pointillé).
+Livré le 24 septembre 2026, **PR #128**, sur décision de l'auteur après vérification à la main
+(inspecteur, « World state… », graphe en pointillé).
 
 1. **La présence est une propriété commune, pas une propriété de chaque famille.**
    `core::commonEntityProperties` la déclare une fois ; `core::inspectedProperties` la joint aux
