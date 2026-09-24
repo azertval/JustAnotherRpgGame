@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="600" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+  </defs>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">L'arborescence des lieux : où une pièce se cherche, du plus propre au plus commun</text>
+
+  <!-- Panneau 1 : l'arbre -->
+  <rect x="20" y="44" width="320" height="436" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="32" y="66" font-weight="600" fill="#25201a">L'arbre, sous <tspan font-family="Consolas, monospace">Assets/</tspan></text>
+  <path d="M46,100 L46,404" stroke="#9a7420" stroke-width="2" stroke-opacity="0.5" fill="none"/>
+
+  <rect x="36" y="80" width="292" height="58" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="48" y="98" font-weight="600" fill="#25201a">Monde</text>
+  <text x="48" y="114" font-family="Consolas, monospace" font-size="11" fill="#25201a">Common/Terrain · Nature · Props</text>
+  <text x="48" y="129" font-family="Consolas, monospace" font-size="11" fill="#6a6152">Common/Characters/Heroes, Peoples…</text>
+
+  <rect x="48" y="150" width="280" height="58" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="60" y="168" font-weight="600" fill="#25201a">Région <tspan font-weight="400" fill="#6a6152">central-empire</tspan></text>
+  <text x="60" y="184" font-family="Consolas, monospace" font-size="11" fill="#25201a">Regions/central-empire/Common/Scene</text>
+  <text x="60" y="199" font-family="Consolas, monospace" font-size="11" fill="#6a6152">…/Common/Characters · region.json</text>
+
+  <rect x="60" y="220" width="268" height="58" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="72" y="238" font-weight="600" fill="#25201a">Ville <tspan font-weight="400" fill="#6a6152">capital</tspan></text>
+  <text x="72" y="254" font-family="Consolas, monospace" font-size="11" fill="#25201a">…/capital/Common/Scene</text>
+  <text x="72" y="269" font-family="Consolas, monospace" font-size="11" fill="#6a6152">…/capital/Common/Characters</text>
+
+  <rect x="72" y="290" width="256" height="58" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="84" y="308" font-weight="600" fill="#25201a">Zone <tspan font-weight="400" fill="#6a6152">arenarea</tspan></text>
+  <text x="84" y="324" font-family="Consolas, monospace" font-size="11" fill="#25201a">…/arenarea/Scene + manifest.json</text>
+  <text x="84" y="339" font-family="Consolas, monospace" font-size="11" fill="#6a6152">…/arenarea/Characters · Map</text>
+
+  <rect x="84" y="360" width="244" height="58" rx="6" fill="#fbf8f0" stroke="#3f6b34"/>
+  <text x="96" y="378" font-weight="600" fill="#3f6b34">Sous-zone <tspan font-weight="400" fill="#6a6152">arena-of-fate</tspan></text>
+  <text x="96" y="394" font-family="Consolas, monospace" font-size="11" fill="#25201a">…/arena-of-fate/Scene</text>
+  <text x="96" y="409" font-family="Consolas, monospace" font-size="10" fill="#6a6152">le donjon où l'on entre depuis la zone</text>
+
+  <text x="32" y="442" font-size="11" fill="#6a6152">Une carte nomme son lieu par ce chemin :</text>
+  <text x="32" y="458" font-family="Consolas, monospace" font-size="10" fill="#25201a">central-empire/capital/arenarea/arena-of-fate</text>
+  <text x="32" y="472" font-size="11" fill="#6a6152">Un lieu sans barre (bourg) est un lieu d'essai à plat.</text>
+
+  <!-- Panneau 2 : les candidats -->
+  <rect x="356" y="44" width="250" height="436" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="368" y="66" font-weight="600" fill="#25201a">Les niveaux candidats</text>
+  <text x="368" y="82" font-family="Consolas, monospace" font-size="10" fill="#6a6152">core::sceneLevelCandidates(</text>
+  <text x="368" y="95" font-family="Consolas, monospace" font-size="10" fill="#6a6152">  "…/arenarea/arena-of-fate")</text>
+  <path d="M366,108 L366,452" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
+
+  <g font-size="10" fill="#6a6152">
+    <text x="380" y="118">sous-zone</text>
+    <text x="380" y="180">zone</text>
+    <text x="380" y="242">ville</text>
+    <text x="380" y="304">région</text>
+    <text x="380" y="346">monde</text>
+  </g>
+  <g font-family="Consolas, monospace" font-size="10" fill="#25201a">
+    <text x="392" y="134">1. …/arena-of-fate/Scene</text>
+    <text x="392" y="150">2. …/arena-of-fate/Common/Scene</text>
+    <text x="392" y="196">3. …/arenarea/Scene</text>
+    <text x="392" y="212">4. …/arenarea/Common/Scene</text>
+    <text x="392" y="258">5. …/capital/Scene</text>
+    <text x="392" y="274">6. …/capital/Common/Scene</text>
+    <text x="392" y="320" font-size="10">7. Regions/central-empire/Common/Scene</text>
+    <text x="392" y="362">8. Common/Terrain</text>
+    <text x="392" y="378">9. Common/Nature</text>
+    <text x="392" y="394">10. Common/Props</text>
+  </g>
+  <g fill="#3f6b34">
+    <circle cx="384" cy="131" r="3"/>
+    <circle cx="384" cy="193" r="3"/>
+    <circle cx="384" cy="271" r="3"/>
+    <circle cx="384" cy="317" r="3"/>
+    <circle cx="384" cy="359" r="3"/>
+    <circle cx="384" cy="375" r="3"/>
+    <circle cx="384" cy="391" r="3"/>
+  </g>
+  <g fill="none" stroke="#6a6152">
+    <circle cx="384" cy="147" r="3"/>
+    <circle cx="384" cy="209" r="3"/>
+    <circle cx="384" cy="255" r="3"/>
+  </g>
+  <text x="380" y="422" font-size="11" fill="#6a6152">du plus propre au plus commun ;</text>
+  <text x="380" y="437" font-size="11" fill="#3f6b34">● porte un manifest.json</text>
+  <text x="380" y="452" font-size="11" fill="#6a6152">○ pas de manifeste : passé</text>
+  <text x="380" y="470" font-size="11" fill="#6a6152">Figurines : Characters/, même ordre.</text>
+
+  <!-- Panneau 3 : le catalogue résolu -->
+  <rect x="622" y="44" width="238" height="436" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="634" y="66" font-weight="600" fill="#25201a">Le catalogue résolu</text>
+  <text x="634" y="82" font-family="Consolas, monospace" font-size="10" fill="#6a6152">ScenePieceManifest::resolve</text>
+
+  <rect x="634" y="96" width="214" height="66" rx="6" fill="#fbf8f0" stroke="#3f6b34"/>
+  <text x="644" y="112" font-size="11" font-weight="600" fill="#3f6b34">1. arena-of-fate/Scene</text>
+  <text x="644" y="128" font-family="Consolas, monospace" font-size="11" fill="#25201a">arena-gate · sand-floor</text>
+  <text x="644" y="144" font-family="Consolas, monospace" font-size="11" fill="#25201a">tile 256 × 159</text>
+  <text x="644" y="157" font-size="10" fill="#6a6152">le losange du plus propre gagne</text>
+
+  <rect x="634" y="170" width="214" height="54" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="644" y="186" font-size="11" font-weight="600" fill="#25201a">3. arenarea/Scene</text>
+  <text x="644" y="202" font-family="Consolas, monospace" font-size="11" fill="#25201a">fountain · <tspan fill="#8a2233">street</tspan></text>
+  <text x="644" y="217" font-size="10" fill="#8a2233">street propre : masque la commune</text>
+
+  <rect x="634" y="232" width="214" height="66" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="644" y="248" font-size="11" font-weight="600" fill="#25201a">6. capital/Common/Scene</text>
+  <text x="644" y="264" font-family="Consolas, monospace" font-size="11" fill="#25201a"><tspan fill="#6a6152">street</tspan> · wall-left · lamp-post</text>
+  <path d="M644,261 L681,261" stroke="#8a2233" stroke-width="1.5"/>
+  <text x="644" y="280" font-size="10" fill="#6a6152">street → masked() : la pièce,</text>
+  <text x="644" y="293" font-size="10" fill="#6a6152">et le niveau qui la masque (3)</text>
+
+  <rect x="634" y="306" width="214" height="54" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="644" y="322" font-size="11" font-weight="600" fill="#25201a">7. central-empire/Common/Scene</text>
+  <text x="644" y="338" font-family="Consolas, monospace" font-size="11" fill="#25201a">banner-lion · limestone</text>
+
+  <rect x="634" y="368" width="214" height="54" rx="6" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="644" y="384" font-size="11" font-weight="600" fill="#25201a">8. Common/Terrain</text>
+  <text x="644" y="400" font-family="Consolas, monospace" font-size="11" fill="#25201a">grass · dirt · water</text>
+
+  <text x="634" y="442" font-family="Consolas, monospace" font-size="11" fill="#25201a">find("street") → arenarea</text>
+  <text x="634" y="458" font-family="Consolas, monospace" font-size="11" fill="#25201a">find("grass")  → Common</text>
+  <text x="634" y="472" font-size="10" fill="#6a6152">chaque pièce garde directory et level</text>
+
+  <!-- Légende -->
+  <g font-size="12" fill="#25201a">
+    <text x="20" y="508">Un lieu est un chemin ; une pièce vit au niveau le plus bas qui couvre tous ses usages, et monte par promotion, jamais par</text>
+    <text x="20" y="526">copie : sinon le pavé de la Capitale serait recopié dans chacun de ses quartiers, et la première retouche les ferait diverger.</text>
+    <text x="20" y="544">À chaque préfixe du chemin, le Scene propre puis le Common/Scene sont candidats (la région n'a qu'un commun), puis les trois</text>
+    <text x="20" y="562">dossiers du monde. resolve() empile les manifestes lus en un seul catalogue : find(nom) n'a qu'une question à poser, et une</text>
+    <text x="20" y="580">pièce propre masque une pièce commune du même nom — la trace en est gardée, un masquage involontaire ne se voit pas à l'écran.</text>
+  </g>
+</svg>

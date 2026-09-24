@@ -9,7 +9,8 @@ Cette page suit ce chemin de bout en bout : ce que sont ces données, d'où elle
 le moteur les charge, comment une donnée trouve son image, et comment un texte trouve sa langue.
 
 Le périmètre est celui de `Source/Core/Data/` (la brique de lecture), `Source/Core/Resources/`
-(clés d'assets, marqueurs, manifeste des pièces), `Source/Elements/` (les données elles-mêmes),
+(clés d'assets, marqueurs, manifeste des pièces, arborescence des lieux), `Source/Elements/` (les
+données elles-mêmes, et le verrou des kits d'images qui n'y sont plus),
 `scripts/sourcebook/` (l'extraction du corpus), les scripts `scripts/check_*.py` qui gardent les
 données, et `Source/HMI/Localization/` (les textes). Ce que **contiennent** les catalogues — une
 créature, une arme, une règle — est l'affaire de [Règles d20 et personnages](guide-regles.md) et de
@@ -79,14 +80,15 @@ les tests retrouvent la même forme d'arborescence quel que soit l'endroit d'où
 | Dossier | Contenu | Produit par |
 |---|---|---|
 | `Rpg/<famille>/<id>.json` | les catalogues du jeu de rôle : `creatures` (94), `items` (125), `weapons` (37), `armors` (13), `species` (22), `backgrounds` (13), `classes` (4, provisoires), `feats` (42), `skills` (18), `languages` (16), `rules` (7), `encounters`, `characters` | la chaîne d'extraction (`LOT-33`, `LOT-34`, `LOT-36`, `LOT-43`) ; quelques fichiers `original` écrits à la main |
-| `Rpg/schema/*.schema.json` | 28 schémas, dont `common.schema.json` que tous réutilisent | à la main (`LOT-32`, puis chaque lot qui ajoute une famille) |
+| `Rpg/schema/*.schema.json` | 29 schémas, dont `common.schema.json` que tous réutilisent | à la main (`LOT-32`, puis chaque lot qui ajoute une famille) |
 | `World/regions`, `World/locations` | l'atlas : 13 régions, 107 lieux | `sourcebook atlas` (`LOT-37`) |
 | `World/cities`, `World/dialogues`, `World/quests` | les plans de ville, les graphes de dialogue et les quêtes (`LOT-116`) | à la main et par l'éditeur |
 | `Levels/<région>/<ville>/<zone>.json` | les cartes (format v4) | l'éditeur, et lui seul ([Niveaux](guide-niveaux.md)) |
-| `Assets/` | images et polices : `Common/`, `Regions/`, `Entities/`, `Maps/`, `UI/`, `Fonts/`, chacun avec son manifeste | les ateliers, jamais à la main |
+| `Assets/` | images et polices : `Common/`, `Regions/`, `Entities/`, `Maps/`, `UI/`, `Fonts/`, chacun avec son manifeste. Git ne suit que les manifestes, les polices et `Entities/` : les **images** de `Common/`, `Regions/`, `Maps/` et `UI/` viennent des kits d'assets publiés en archives, installés par `scripts/fetch_assets.py` d'après `kits.lock.json` (voir plus bas) | les ateliers, jamais à la main |
 | `Maps/world-maps.json` | les positions relevées sur les cartes peintes : ancre d'une région, cadre, lieux, quartiers | relevé par Ctrl+clic dans l'écran « Carte » (`LOT-94`) |
 | `Localization/` | `fr.lang`, `en.lang`, `jadg_en.ts`, `rpg.glossary.csv` | à la main, Qt Linguist, `sourcebook glossaire` |
-| `Editor/Templates/` | trois modèles de carte vide | `LOT-EDITOR-08` |
+| `Editor/Templates/` | quatre modèles de carte vide (`arena`, `blockout`, `interior`, `street`) | `LOT-EDITOR-08` |
+| `Editor/Prefabs/<niveau>/<nom>.json` | les préfabriqués de l'éditeur, rangés par niveau de l'arbre des lieux (`central-empire/capital/`, `central-empire/capital/arenarea/`…) : un préfabriqué sert à tout lieu qui descend du niveau qui le range (`LOT-124`) | l'éditeur, `--save-prefab` |
 | `Credits/credits.json` | l'écran des crédits | à la main |
 
 Deux conventions traversent tous les catalogues. Les **identifiants** sont en anglais, en
@@ -397,6 +399,100 @@ texture écrivent. Le lecteur rend les deux.
   même nom ne détourne pas les cartes qui citent la nouvelle. `core::scenePieceShortName` rend ce
   qui suit la dernière barre d'une clé d'atelier.
 
+## L'arborescence des lieux : `ScenePlace.h` {#arborescence-lieux}
+
+Une carte ne nomme pas une planche : elle nomme un **lieu**, et un lieu est un **chemin** —
+`central-empire/capital/arenarea`, celui de son dossier sous `Assets/Regions/`. Le `LOT-124` a posé
+cette règle parce que le volume l'impose : treize régions, une centaine de zones, des milliers de
+pièces. Si chaque zone livrait toutes ses pièces, le pavé de la Capitale serait copié dans chacun
+de ses quartiers, et la première retouche en ferait diverger dix exemplaires. L'arborescence des
+assets ([`arborescence-assets.md`](../../Planning/standards/arborescence-assets.md)) tranche
+d'avance la question « cet asset, où va-t-il ? » : au niveau **le plus bas qui couvre tous ses
+usages** — le monde (`Common/`), la région (`Regions/<région>/Common/`), la ville
+(`Regions/<région>/<ville>/Common/`), la zone (`Regions/<région>/<ville>/<zone>/`), la sous-zone
+(un donjon où l'on entre depuis sa zone). Un asset naît propre et **monte par promotion**, jamais
+par copie ; et le moteur, lui, cherche une pièce du plus propre au plus commun.
+[`ScenePlace.h`](../../Source/Core/Resources/ScenePlace.h) porte cette logique, pure : elle ne lit
+le disque que pour `scenePlaces` et `resolveFigures`.
+
+![L'arbre des lieux de Source/Elements/Assets, les niveaux candidats d'une sous-zone du plus propre au monde, et l'empilement des manifestes où une pièce propre masque une pièce commune du même nom](figures/donnees-arborescence-lieux.svg)
+
+`core::sceneLevelCandidates(lieu)` rend les **niveaux candidats** d'un lieu, du plus propre au plus
+commun, sous forme de `core::SceneLevel` : un libellé pour la palette (« Arena of Fate »,
+« World »), le lieu que le niveau couvre (un préfixe du chemin, vide pour le monde) et son dossier
+de pièces, relatif à `Assets/`. À chaque préfixe du chemin, deux dossiers sont candidats — le
+`Scene` propre du préfixe, puis son `Common/Scene` — sauf pour la région, qui n'a qu'un commun :
+ses zones hors ville ont leur propre dossier. Le monde vient en dernier, en trois dossiers dans cet
+ordre : `Common/Terrain`, `Common/Nature`, `Common/Props`. Pour
+`central-empire/capital/arenarea/arena-of-fate`, la liste est donc :
+
+| Niveau | Dossiers de pièces candidats, relatifs à `Assets/`, dans l'ordre |
+|---|---|
+| sous-zone | `Regions/central-empire/capital/arenarea/arena-of-fate/Scene`, puis `…/arena-of-fate/Common/Scene` |
+| zone | `Regions/central-empire/capital/arenarea/Scene`, puis `…/arenarea/Common/Scene` |
+| ville | `Regions/central-empire/capital/Scene`, puis `Regions/central-empire/capital/Common/Scene` |
+| région | `Regions/central-empire/Common/Scene` |
+| monde | `Common/Terrain`, `Common/Nature`, `Common/Props` |
+
+C'est l'arbre qui dit ce qu'est chaque dossier, pas le code : seuls comptent les candidats qui
+portent un `manifest.json`. Un lieu **sans barre** (`bourg`) est un lieu d'essai à plat, sous
+`Assets/Scene/<lieu>/` — la forme des racines d'essai (`Source/Test/Fixtures/GameData`), que
+l'arborescence livrée n'a plus ; `core::isFlatScenePlace` le reconnaît, et il remonte au monde
+comme les autres. `core::isValidScenePlace` refuse un lieu vide, un segment vide, `.`, `..` et
+l'antislash ; `core::scenePlaceLabel` fait d'un segment un nom pour l'œil (`arena-of-fate` →
+« Arena of Fate »).
+
+Trois fonctions disent la parenté d'un lieu. `core::scenePlaceAncestry(lieu)` rend ses préfixes,
+du plus propre au monde (`a/b/c`, `a/b`, `a`, puis la chaîne vide).
+`core::scenePlaceDescendsFrom(lieu, ancêtre)` dit si un lieu descend d'un autre — tout lieu
+descend du monde — et c'est la règle par laquelle un préfabriqué rangé sous
+`central-empire/capital` sert à tous les quartiers de la Capitale. `core::scenePlaces(assets)`
+énumère les lieux où une carte peut se poser, l'arbre de « New map » de l'éditeur : chaque dossier
+de `Regions/` dont le `Scene/` **propre** porte un manifeste (un `Common/` n'est pas un lieu, et ce
+qu'il y a sous un `Scene/` non plus), et chaque lieu d'essai à plat de `Assets/Scene/`. Enfin
+`core::ownSceneDirectory(lieu)` est le dossier **propre** d'un lieu, là où naît une pièce et où vit
+sa table d'apparence (`Regions/<chemin>/Scene`, ou `Scene/<lieu>` à plat), et
+`core::fallbackScenePiecePath(lieu, pièce)` vaut `<dossier propre>/<pièce>.png` : ce que le rendu
+essaie pour une pièce qu'aucun manifeste ne cite, faute de mieux.
+
+### Le catalogue résolu : `core::ScenePieceManifest::resolve`
+
+Ceux qui lisent un manifeste — la déduction de collision, le brouillon, la palette, le contrôle —
+ne veulent poser qu'**une** question, `find(nom)`. Ils ne parcourent donc pas les niveaux :
+`core::ScenePieceManifest::resolve(assets, lieu)` **empile** leurs manifestes, du plus propre au
+plus commun, en un seul catalogue. Un niveau sans manifeste est passé ; un manifeste qui ne se lit
+pas fait échouer la résolution, message préfixé de son dossier — une pièce qui disparaîtrait en
+silence d'un niveau commun ferait tomber la collision de toutes les cartes qui descendent de lui ;
+aucun manifeste du tout, c'est `FileNotFound`. Le losange (`tile`) est celui du niveau le plus
+propre qui en déclare un. Chaque pièce du catalogue garde son dossier d'origine
+(`core::ScenePiece::directory`, d'où `path()` tire le chemin de l'image) et son niveau ;
+`levels()` rend les niveaux dont un manifeste a été lu, `pieces()` les pièces niveau par niveau.
+
+Une pièce propre qui porte le **nom** d'une pièce commune la **masque** : c'est ainsi qu'une zone
+remplace le pavé de sa ville par le sien sous la même clé, sans qu'aucune carte ne change (règle 2
+de l'arborescence). Le catalogue en garde la trace — `masked()` rend des `core::MaskedScenePiece`,
+la pièce masquée telle que son niveau la déclare et le niveau qui la masque — parce qu'un masquage
+involontaire (deux ateliers qui ont nommé `wall-left` chacun de leur côté) ne se verrait sinon
+qu'à l'écran, sur les cartes d'un autre quartier. Côté éditeur, `hmi::loadPlaceAssets` passe par
+cette résolution, et `hmi::PlaceAppearance::loadForPlace` empile de même les tables d'apparence :
+pour un type de case, la table la plus propre qui le traduit l'emporte.
+
+### Les figurines : `core::characterLevelCandidates` et `core::resolveFigures`
+
+Un PNJ se range de même (règle 5 de l'arborescence) : un PNJ nommé dans le `Characters/` de sa
+zone, un archétype dans le `Common/Characters/` de sa ville ou de sa région, un héros ou un peuple
+générique dans le `Common/Characters/` du monde. `core::characterLevelCandidates(lieu)` rend ces
+niveaux, `Regions/<préfixe>/Characters` puis `Regions/<préfixe>/Common/Characters` à chaque
+préfixe du chemin (la région n'a que son commun), puis `Common/Characters` ; un lieu à plat ou vide
+n'a que le monde. Une carte nomme une figurine par son **slug**, relatif au dossier `Characters/`
+qui la range (`citizen`, `Heroes/brawler`) : `core::resolveFigures(assets, lieu)` lit les listes
+`npcs` des manifestes de ces niveaux et rend une `core::FigureDirectories`, slug vers dossier, où
+**le plus propre gagne** — un PNJ de zone masque un archétype de même slug. Un manifeste absent ou
+illisible ne donne rien (`EX-NFR-040`) : la figurine se dessinera par son marqueur.
+`core::figureDirectory(figures, figurine)` fait le dernier pas : le dossier que la table donne ; à
+défaut la figurine elle-même si elle contient une barre (un dossier nommé depuis `Assets/`,
+`Common/Characters/Heroes/brawler`) ; à défaut `Npc/<slug>`, l'atelier à plat des racines d'essai.
+
 ## Les autres manifestes de `Source/Elements/`
 
 Chaque famille d'assets porte un manifeste, et « un dossier, un manifeste » est une règle de
@@ -418,6 +514,98 @@ Le `Assets/README.md` dit où un asset **va** : au niveau le plus bas qui couvre
 par promotion**, jamais copié ; le moteur résout une clé du plus propre au plus commun. Les
 sources — masters, planches de référence — vivent hors dépôt (`Tools/AssetsHD/`) ; seul l'asset
 installé entre.
+
+### La chaîne de production HD : `scripts/assetsGeneration/`
+
+Entre la sortie du générateur d'images et l'asset installé, rien ne se fait à la main : cinq
+scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il fabrique et pourquoi.
+
+- [`install_hd_asset.py`](../../scripts/assetsGeneration/install_hd_asset.py) (`LOT-104`) installe
+  un lot de sources. À côté des sorties du générateur, un **descripteur** `install.json` dit, pour
+  chaque source, ce qu'elle devient — `target` (un dossier `Scene/` ou `Characters/` sous
+  `Assets/`), le nom, la famille, l'emprise, le type tactique, ou les noms d'une **planche** qui
+  porte plusieurs sols. Le script détoure (le voile d'alpha du générateur tombe à 0, l'intérieur
+  monte à 255), découpe, **réduit** (jamais agrandit) à l'échelle du standard, ancre — une dalle
+  devient exactement le losange du lieu, une pièce debout se mesure à ses deux pointes — et
+  inscrit l'image et son entrée dans le `manifest.json` du dossier cible, sans toucher aux autres
+  entrées. La règle `folders` du descripteur (`LOT-129`) range un kit volumineux en sous-dossiers
+  sous son `Scene/` : la première règle dont le motif `match` prend le nom de la pièce donne son
+  sous-dossier `folder` (`roofs/l/d3/`), le manifeste cite alors la pièce par ce chemin, et la
+  clé ne change pas. Un descripteur dont la cible est un `Characters/` installe des **figurines**
+  (`LOT-112`) : chaque source est une bande d'animation, réduite d'une seule échelle, posée dans
+  ses cellules, avec son `.anim.json` et son entrée `npcs`.
+- [`prepare_envois_figure.py`](../../scripts/assetsGeneration/prepare_envois_figure.py) (`LOT-112`)
+  et [`prepare_envois_scene.py`](../../scripts/assetsGeneration/prepare_envois_scene.py)
+  (`LOT-105`) préparent les **envois** au générateur, qui reste un outil manuel : depuis la
+  commande versionnée d'une figurine ou d'une zone (`Tools/AssetsHD/…/commande.md`, la source
+  unique des textes), un dossier `envois/NN-<nom>/` par envoi, avec le texte entier à coller, les
+  pièces jointes déjà produites et un `LIRE.txt` qui dit ce qu'il reste à joindre et sous quel nom
+  enregistrer la sortie. `--seulement` ne prépare qu'une reprise, `--suffixe` évite d'écraser une
+  source acceptée.
+- [`preview_figure_walk.py`](../../scripts/assetsGeneration/preview_figure_walk.py) (`LOT-112`)
+  fait marcher une figurine sur la maquette du standard, à la vitesse et à la cadence du jeu, sans
+  rien écrire dans le dépôt : une cadence se juge à côté de son ancre et de son sol, pas sur une
+  planche.
+- [`build_hd_mockup.py`](../../scripts/assetsGeneration/build_hd_mockup.py) (`LOT-101`) monte la
+  maquette de validation du standard 2D HD, huit cases sur huit à 1080p et 2160p, et écrit sous
+  `Source/Test/Fixtures/HdMockup/` la même scène en données d'essai du moteur ; `--check` vérifie
+  que tout est à jour.
+
+Ce que ces scripts installent est gardé en CI par
+[`check_hd_assets.py`](../../scripts/checks/check_hd_assets.py), qui n'a pas besoin des sources
+(voir les kits, ci-dessous).
+
+## Les kits d'assets, hors Git {#kits-assets}
+
+Depuis le `LOT-108`, les **images** de `Assets/Common/`, `Assets/Regions/`, `Assets/Maps/` et
+`Assets/UI/` ne sont plus suivies par Git — `.gitignore` les exclut, extension par extension. Git ne
+garde que les manifestes et un **verrou**,
+[`kits.lock.json`](../../Source/Elements/Assets/kits.lock.json) ; `Fonts/` et `Entities/` restent
+suivis. La raison est le poids et l'historique : une pièce HD pèse seize fois une pièce de l'ancienne
+planche, le kit commun de la Capitale fait à lui seul une centaine de mébioctets pour 1 734
+fichiers, et tout binaire commis reste dans le pack Git **pour toujours**, même supprimé ensuite
+(`check_binary_files.py` refuse déjà tout fichier de plus de 5 Mio pour cette raison). Chaque
+retouche d'un kit aurait fait grossir le clone de chaque poste et de chaque runner.
+
+Un **kit** est un dossier d'assets publié d'un seul tenant : un lieu de `Regions/` ou de `Common/`
+(sans ses sous-lieux, qui sont d'autres kits), `Maps/` ou `UI/`. Ses images partent en **archive
+immuable** sur une release GitHub du dépôt — une release par région (`assets-central-empire`), une
+pour le commun du monde, une pour les cartes, une pour l'interface. Le verrou porte, par kit, un
+identifiant numéroté (`Regions/central-empire/capital/arenarea@1`), son `path`, la `release` et
+l'`asset` qui le portent (`regions-central-empire-capital-arenarea-1.zip`), son empreinte
+`sha256`, son poids et son nombre de fichiers. L'archive est **déterministe** — date fixe des
+entrées, fichiers triés —, si bien que deux publications du même contenu ont la même empreinte, et
+qu'un kit déjà en place se reconnaît en reconstruisant son archive depuis le disque, sans rien
+télécharger.
+
+![Le cycle d'un kit d'assets : la retouche sur le poste, la publication en archive numérotée, le verrou commis, l'installation sur chaque poste et en CI, le témoin qui laisse CMake configurer](figures/donnees-kits-assets.svg)
+
+Le cycle tient en six scripts et une garde :
+
+| Étape | Outil | Ce qu'il fait |
+|---|---|---|
+| retouche | `install_hd_asset.py`, `check_hd_assets.py` | l'asset s'installe et se contrôle sur le poste, comme avant |
+| publication | [`publish_asset_kit.py`](../../scripts/release/publish_asset_kit.py) | contrôle le kit avec le contrôle de son arbre (`check_hd_assets.py`, `check_map_assets.py` ou `check_ui_assets.py`), construit l'archive, et si l'empreinte n'est pas celle du verrou prend le **numéro suivant** — une retouche est un nouveau numéro, jamais une archive remplacée (`gh release upload`, jamais `--clobber`) ; `--dry-run` archive et pèse sans publier |
+| verrou | le même script | met à jour `kits.lock.json` et le témoin du poste ; le verrou se commet, les images non |
+| installation | [`fetch_assets.py`](../../scripts/fetch_assets.py) | pour chaque kit du verrou : déjà en place, rien ; sinon l'archive vient du **cache du poste** (`%LOCALAPPDATA%\JadgAssets`, ou `JADG_ASSETS_CACHE`, partagé par les clones et les worktrees), téléchargée au besoin, vérifiée contre l'empreinte, extraite. `--check` vérifie sans télécharger, code non nul sur un écart ; le travail local n'est **jamais écrasé** — une image modifiée ou ajoutée à la main arrête l'installation, sauf `--force` |
+| témoin | `fetch_assets.py` | chaque kit installé laisse `Assets/.kits/<slug>.json` (non suivi) : l'identifiant, l'empreinte, les fichiers |
+| garde | [`CMakeLists.txt`](../../CMakeLists.txt) | à la configuration, compare le témoin de chaque kit du verrou à son empreinte et **refuse** de configurer sur un écart, avec la commande à lancer ; `-DSKIP_ASSET_KITS_CHECK=ON` outrepasse |
+| CI | [`fetch-assets`](../../.github/actions/fetch-assets/action.yml) | l'action composite qu'appellent les jobs qui lisent les assets : cache d'Actions indexé par l'empreinte du verrou, `fetch_assets.py` puis `fetch_assets.py --check` |
+
+[`asset_kits.py`](../../scripts/release/asset_kits.py) est la partie commune de la publication et
+de l'installation — ce qu'est le fichier d'un kit, l'archive déterministe, le verrou, les témoins,
+le cache — sans dépendance hors de la bibliothèque standard. Sur le poste, `scripts/setup_dev.ps1`
+et `scripts/build.ps1` appellent `fetch_assets.py` avant CMake ; sans les kits, `Source/Ui`
+globerait un HUD vide et le jeu se construirait sans image, sans erreur visible — d'où la garde,
+qui refuse avec la commande plutôt que de télécharger en silence à la configuration.
+[`check_binary_files.py`](../../scripts/checks/check_binary_files.py) ferme la boucle du côté de
+Git : une image suivie sous un dossier que le verrou cite est refusée, avant le commit et en CI,
+parce que la suivre à nouveau la remettrait dans l'historique. Une retouche se **publie**, elle ne
+se commet pas.
+
+> **Attention** — Une carte sans texture dans l'éditeur, un HUD vide, une galerie qui ne montre que
+> des marqueurs : c'est un kit absent, pas un bug de rendu. `python scripts/fetch_assets.py --check`
+> dit lequel.
 
 ## La galerie des assets
 
@@ -604,6 +792,8 @@ invisible qui l'empêchait de jamais correspondre.
 | [`check_map_assets.py`](../../scripts/checks/check_map_assets.py) | `Assets/Maps/manifest.json` : provenance `author`, 1920 × 1080, empreinte et taille exactes, aucune image hors manifeste ; `world-maps.json` cite des images, régions et lieux qui existent | tout écart ; `--write` réécrit tailles et empreintes | — |
 | [`check_ui_assets.py`](../../scripts/checks/check_ui_assets.py) | `Assets/UI/illustrations.json` : provenance `produced` uniquement, empreinte, dimensions, aucune image orpheline, tout nom de fichier cité par le QML est déclaré, toute pièce du cahier est livrée ou déclarée `pending`, la table d'`Artwork.qml` suit le manifeste | tout écart, dont une image du corpus revenue dans le dépôt | — |
 | [`check_translations.py`](../../scripts/checks/check_translations.py) | `jadg_en.ts` (voir la localisation) | une traduction inachevée, une entrée disparue, des marqueurs `%1` différents, un espace de bord perdu | — |
+| [`check_hd_assets.py`](../../scripts/checks/check_hd_assets.py) | sous `Common/` et `Regions/`, chaque `Scene/` et `Characters/` porte un manifeste qui cite exactement ses images ; chaque pièce est au standard (PNG 32 bits, taille déclarée, 4096 px au plus, dalle au losange du lieu, ancre dans l'image) ; le poids de chaque zone s'affiche (sans budget) | un fichier cité absent, une image que le manifeste ne cite pas, une pièce hors bornes | le poids par zone |
+| [`check_binary_files.py`](../../scripts/checks/check_binary_files.py) | aucun fichier de plus de 5 Mio ; tout binaire porte une extension déclarée `binary` dans `.gitattributes` ; aucune image suivie sous un kit verrouillé (`LOT-108`) ; aussi en hook pre-commit | l'un de ces défauts | — |
 
 À ces contrôles s'ajoutent, côté C++, `test_rpg_enums.cpp` (le triangle) et les tests de chargeurs
 qui rejouent des profils **recopiés à la main du PDF** contre le catalogue **livré** — jamais une
@@ -688,7 +878,12 @@ lexique, traduit comme le lexique le dit. L'éditeur, outil interne, ne lit rien
   `core::ExpectedAssetKey`, `core::expectedAssetKeys`, `core::MarkerImage`, `core::assetMarker`,
   `core::stableAssetHash` — clés et marqueurs.
 - `core::ScenePieceManifest`, `core::ScenePiece`, `core::PieceTactical`, `core::ScenePieceClass` —
-  le manifeste des pièces.
+  le manifeste des pièces ; `core::ScenePieceManifest::resolve`, `core::MaskedScenePiece` — le
+  catalogue résolu d'un lieu.
+- `core::SceneLevel`, `core::sceneLevelCandidates`, `core::scenePlaces`, `core::scenePlaceAncestry`,
+  `core::scenePlaceDescendsFrom`, `core::ownSceneDirectory`, `core::fallbackScenePiecePath`,
+  `core::characterLevelCandidates`, `core::resolveFigures`, `core::figureDirectory` —
+  l'arborescence des lieux.
 - `core::loadBestiary`, `core::loadEquipment`, `core::loadCharacterOptions`, `core::loadAtlas`,
   `core::loadDialogues`, `core::loadEncounters` — les chargeurs qui suivent la même forme.
 - `hmi::Localization`, `hmi::ruleLabel`, `hmi::resolveDataRoot`, `hmi::assetGalleryExcludes`.
@@ -701,5 +896,9 @@ lexique, traduit comme le lexique le dit. L'éditeur, outil interne, ne lit rien
 - [Rendu 2D : de la scène à l'écran](guide-rendu.md) — les textures, du côté qui les possède.
 - [Éditeur de niveaux](guide-editeur.md) — le seul outil qui écrit dans `Source/Elements/`.
 - [Build, tests et intégration continue](guide-outils.md) — le job de lint qui rejoue les contrôles.
+- [`arborescence-assets.md`](../../Planning/standards/arborescence-assets.md) — les cinq niveaux et
+  les règles de rangement ; [`assets-hors-git-lot108.md`](../../Planning/standards/assets-hors-git-lot108.md)
+  — la décision de sortir les images de Git.
 - Les fiches `LOT-79`, `LOT-32`, `LOT-30`, `LOT-33`, `LOT-34`, `LOT-36`, `LOT-37`, `LOT-43`,
-  `LOT-39` — les décisions de la filière, dans l'ordre où elles ont été prises.
+  `LOT-39`, puis `LOT-104`, `LOT-124` et `LOT-108` — les décisions de la filière, dans l'ordre où
+  elles ont été prises.

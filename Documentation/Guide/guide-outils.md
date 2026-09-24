@@ -136,8 +136,12 @@ n'importe quel terminal, y compris un PowerShell nu. Ses étapes :
    module DevShell et entre en `-arch=amd64`. Si `VSCMD_ARG_TGT_ARCH` vaut déjà `x64`, rien à
    faire ; s'il ne bascule pas, le script s'arrête.
 2. **Garde Ninja.** `Assert-NinjaDepsIntact` : voir la section suivante.
-3. **Configuration.** `cmake --preset <préréglage>` ; `-QtPath` pose `CMAKE_PREFIX_PATH` quand la
-   détection automatique ne trouve pas Qt.
+3. **Kits d'assets, puis configuration.** `py -3 scripts/fetch_assets.py` installe d'abord les
+   images que Git ne suit plus (`LOT-108`, [les kits d'assets](guide-donnees.md#kits-assets)) :
+   CMake globe `UI/` et `Maps/` à la configuration et **refuse** de configurer sans le témoin de
+   chaque kit du verrou, avec la commande à lancer (`-DSKIP_ASSET_KITS_CHECK=ON` outrepasse).
+   Puis `cmake --preset <préréglage>` ; `-QtPath` pose `CMAKE_PREFIX_PATH` quand la détection
+   automatique ne trouve pas Qt.
 4. **Construction.** `cmake --build --preset`, tout ou `-Target <cible>` (par exemple
    `-Target JustAnotherRpgGame_qmllint`, ou `-Target LevelEditor`).
 5. **Tests**, facultatifs. `-Test` lance tout CTest ; `-Label unitaire|integration|systeme` ne
@@ -217,6 +221,10 @@ pre-commit, clang-format et uv ; le zip de la PowerShell Gallery pour PSScriptAn
 `Install-Module` (qui exige sous 5.1 le fournisseur NuGet). Puis `uv sync --locked` crée `.venv/`
 aux versions de `uv.lock`, et `pre-commit install` pose les hooks **dans le clone courant** : chaque
 worktree a son propre `.git/hooks` effectif. Visual Studio et Qt sont vérifiés, jamais installés.
+Enfin il appelle `scripts/fetch_assets.py` : les images des kits d'assets (`LOT-108`) viennent
+d'archives publiées, téléchargées d'après `Source/Elements/Assets/kits.lock.json` dans un cache
+partagé par les clones et les worktrees du poste (`%LOCALAPPDATA%\JadgAssets`) — sans elles, CMake
+refuse de configurer ([les kits d'assets](guide-donnees.md#kits-assets)).
 
 > **Attention** — `python` du PATH peut être n'importe quoi (celui d'Inkscape ou de GIMP s'y glisse
 > souvent) : le script n'installe jamais avec lui et l'avertit. Les scripts du dépôt se lancent avec
@@ -503,6 +511,13 @@ ceux des builds dans le job `test-report`.
 
 Quelques scripts ne contrôlent rien : ils **fabriquent**, sur le poste.
 
+- [`fetch_assets.py`](../../scripts/fetch_assets.py) et
+  [`publish_asset_kit.py`](../../scripts/release/publish_asset_kit.py) (`LOT-108`) sont les deux
+  bouts du cycle des kits d'assets : le premier installe les images que Git ne suit plus, d'après
+  le verrou `kits.lock.json` — `setup_dev.ps1` et `build.ps1` l'appellent, et CMake refuse de
+  configurer sans les témoins qu'il laisse ; le second publie une retouche en archive numérotée
+  immuable sur la release de sa région et réécrit le verrou. Le cycle entier, avec ses contrôles,
+  est dans [les kits d'assets](guide-donnees.md#kits-assets).
 - [`build_docs.py`](../../scripts/docs/build_docs.py) : Doxygen se place dans `Documentation/` (ses
   chemins sont relatifs au répertoire courant, pas au `Doxyfile`), lit la `VERSION` du `project()`
   et l'injecte en `PROJECT_NUMBER` par l'entrée standard. `WARN_AS_ERROR = FAIL_ON_WARNINGS` : un
@@ -538,7 +553,12 @@ qu'au job qui publie, toutes les actions sont épinglées par SHA. Les versions 
 Dix jobs, tous sur `pull_request` vers `main`. Un nouveau push sur la branche **annule** le run
 précédent (groupe de concurrence) au lieu d'occuper trois runners Windows.
 
-- **`build-test-coverage`** (windows-2022, 60 min). Qt par l'action composite
+- **`build-test-coverage`** (windows-2022, 60 min). D'abord les kits d'assets par l'action
+  composite [`fetch-assets`](../../.github/actions/fetch-assets/action.yml) (`LOT-108`) — les
+  archives, mises en cache d'Actions sous une clé qui est l'empreinte de `kits.lock.json`, sont
+  installées puis vérifiées par `fetch_assets.py --check`, avant toute lecture des assets ; c'est
+  la même action que reprennent tous les jobs qui construisent ou contrôlent des assets, dans
+  `ci.yml` comme dans `release.yml` et `docs.yml`. Puis Qt par l'action composite
   [`setup-qt`](../../.github/actions/setup-qt/action.yml) (unique définition des modules :
   `qtmultimedia`, `qtshadertools`, `qtcanvaspainter`), `cmake --preset vs`, build, `ctest
   --output-junit`, puis deux contrôles de **panne muette** : l'exécutable existe, et

@@ -300,10 +300,21 @@ un neuf), et les cases forcées (`hmi::StampForcedCell`) ; `LOT-EDITOR-08`, `EX-
 - `hmi::stampLabel` : `3 × 2 · 2 pieces · 1 entity`, pour la barre d'état.
 
 La **bibliothèque** est faite de fichiers : `hmi::stampToJson` / `hmi::stampFromJson` (format
-`hmi::PREFAB_FORMAT`, `hmi::PREFAB_VERSION`), `hmi::prefabsDir(dataRoot, lieu)` =
-`Editor/Prefabs/<lieu>/`, `hmi::prefabNames`, `hmi::writePrefab`, `hmi::readPrefab`,
+`hmi::PREFAB_FORMAT`, `hmi::PREFAB_VERSION`), `hmi::writePrefab`, `hmi::readPrefab`,
 `hmi::isValidPrefabName` (minuscules ASCII, chiffres, tirets et tirets bas : un nom de fichier sûr
-sur tout poste). Un **modèle de carte** (`hmi::MapTemplate`, format `hmi::MAP_TEMPLATE_FORMAT`,
+sur tout poste). Depuis le `LOT-124`, un préfabriqué ne se range plus **par lieu** mais **par
+niveau** de l'arbre des lieux ([l'arborescence des lieux](guide-donnees.md#arborescence-lieux)) :
+`hmi::prefabsDir(dataRoot, niveau)` est `Editor/Prefabs/<niveau>/`, où le niveau est un préfixe
+de chemin (`central-empire/capital`), vide pour le monde. `hmi::prefabLevel(tampon, catalogue)`
+choisit ce niveau — **le plus bas qui voit toutes ses pièces**, c'est-à-dire le niveau le plus
+propre d'où vient l'une d'elles (règle 1 de l'arborescence) : un tampon fait du seul kit de la
+Capitale se range sous `central-empire/capital` et sert à tous ses quartiers ; un tampon sans pièce,
+ou dont une pièce est inconnue du catalogue, reste au lieu de sa carte.
+`hmi::availablePrefabs(dataRoot, lieu)` rend ce qu'un lieu peut poser, en `hmi::PrefabEntry` (le
+nom, et le niveau qui le range) : les siens et ceux de chacun de ses niveaux communs jusqu'au monde,
+un préfabriqué propre masquant un commun de même nom ; `hmi::prefabNames` en donne les noms, et
+`readPrefab` relit le sien, à défaut celui du plus propre de ses niveaux communs. Un préfabriqué
+garde ses **étages** (`hmi::StampLayer::floor`, `LOT-129`) : un toit reste un toit une fois posé. Un **modèle de carte** (`hmi::MapTemplate`, format `hmi::MAP_TEMPLATE_FORMAT`,
 `EX-EDIT-087`) est ce dont part une carte neuve : ses couches (`hmi::MapTemplateLayer`, l'une
 portant `scene`), sa taille, son entrée et un tampon ; il ne nomme **aucune pièce**, puisqu'une
 pièce n'existe que dans la planche d'un lieu. `hmi::mapTemplates(dataRoot)` lit
@@ -347,8 +358,10 @@ valide**. Un test compare sa liste de primitives à celle du jeu.
 La composition fond les couches en **bandes** de dessin : le sol (`RenderLayer::Tile`), le relief
 (`RenderLayer::Object`), les figurines (`RenderLayer::Player`). Masquer, griser ou régler l'opacité
 d'une couche agit sur sa bande : `hmi::isoBandOpacity(couches, réglages, active, transparence)`
-rend une `hmi::IsoBandOpacity` (`floors`, `relief`, `figures`, `collision`), et
-`hmi::bandOpacity(bandes, calque)` l'opacité d'une primitive. Les reliefs **en transparence**
+rend une `hmi::IsoBandOpacity` (`floors`, `relief`, `figures`, `collision`, et `storeys` — un
+réglage par étage, du premier au dernier, `core::MAX_STOREY_FLOOR` au plus, chacun réglé par sa
+couche : depuis le `LOT-129`, les étages se montrent ou se cachent **un à un**, pour voir le
+rez-de-chaussée sous un toit), et `hmi::bandOpacity(bandes, calque)` l'opacité d'une primitive. Les reliefs **en transparence**
 (`F8`, `hmi::SEE_THROUGH_RELIEF_OPACITY`) laissent voir ce qu'on pointe derrière un mur ; le masque
 de collision (`hmi::COLLISION_MASK_OPACITY`) ne se montre en iso que quand on peint la collision —
 ailleurs il couvrirait le lieu qu'on vient voir. `hmi::formationFigures(terrain, figurines)` donne
@@ -365,11 +378,17 @@ dans le **même ordre** (décision D2). `hmi::paintComposedScene(peintre, scène
 peint la liste dans un `QPainter` dont la transformation porte déjà le cadrage, en sautant toute
 primitive hors du rectangle visible ; `hmi::QuadOpacity` est l'opacité supplémentaire décidée par
 l'appelant (calques masqués, grisés, reliefs en transparence ; 0 ou moins, la primitive n'est pas
-peinte). Ce qui compte pour ressembler au jeu, et qui est fait comme le GPU le fait :
-l'échantillonnage au plus proche, la région d'image tirée des UV, l'opacité, la rotation autour du
-centre. Une différence assumée : la teinte RVB d'un quad texturé n'est pas appliquée (le jeu ne
-teinte aucune pièce) ; un quad à teinte unie (`hmi::SceneImages::solid`) et un `hmi::PolyQuad`
-(`LOT-128`) se peignent en aplat. `hmi::cameraTransform(caméra)` donne la transformation d'un
+peinte). Ce qui compte pour ressembler au jeu, et qui est fait comme le GPU le fait : la région
+d'image tirée des UV, l'opacité, la rotation autour du centre, et le **lissage** — depuis le
+`LOT-125`, l'art peint se lit en **bilinéaire sur le niveau réduit** que l'échelle demande
+(`hmi::SceneImage::level`, l'image réduite de moitié à chaque niveau, calculée à la première
+demande), parce que `QPainter` n'a pas de mipmaps : réduire une pièce de 256 px à 30, même en
+bilinéaire, ne lirait qu'un texel sur huit et crénellerait. Les images **engendrées** (marqueurs,
+jetons, atlas, damier, aplats) restent au plus proche, comme en jeu, et n'ont que leur niveau 0.
+La parité exacte avec le GPU n'est plus promise — il mêle deux niveaux, le peintre n'en lit qu'un —
+et `test_scene_painter.cpp` en écrit les seuils, mesurés. Une différence assumée : la teinte RVB
+d'un quad texturé n'est pas appliquée (le jeu ne teinte aucune pièce) ; un quad à teinte unie
+(`hmi::SceneImages::solid`) et un `hmi::PolyQuad` (`LOT-128`) se peignent en aplat. `hmi::cameraTransform(caméra)` donne la transformation d'un
 cadrage du jeu, `hmi::renderComposedScene(scène, caméra, largeur, hauteur, fond)` rend hors écran
 — l'image que le jeu dessinerait ; la comparaison avec le rendu GPU en est la preuve.
 
@@ -384,6 +403,25 @@ texture que la composition manipule (`hmi::TextureHandle`) est ici l'adresse d'u
 cache possède — `hmi::sceneImageOf` et `hmi::sceneImageHandle` convertissent —, dans des
 `std::map` dont les éléments ne bougent pas quand on en ajoute : une adresse donnée à une scène
 composée reste valide tant que le cache vit.
+
+Depuis le `LOT-125`, ce cache est **partagé** et **borné**. Une pièce HD pèse seize fois une pièce
+de l'ancienne planche : sans borne, un kit coûtait des centaines de mébioctets, et chaque onglet,
+chaque vignette le rechargeait. `hmi::SceneImages::shared(dossierAssets)` rend l'instance unique
+d'un dossier d'assets, que les onglets, les vignettes de la liste des cartes, celles des
+préfabriqués et `--render` se partagent tant que l'un d'eux la tient (même fil, celui de
+l'interface). Les pixels de l'art peint, niveaux réduits compris, tiennent dans
+`SCENE_IMAGES_DEFAULT_BUDGET_BYTES` — **256 Mio** — quel que soit le nombre d'onglets : au-delà,
+la pièce la moins récemment peinte est **évincée** et relue sur disque à la peinture suivante ;
+l'identité d'une image ne meurt pas avec ses pixels, et ses dimensions restent connues — la
+composition n'en lit pas d'autre. Seules les images engendrées, de quelques kibioctets, restent
+hors budget ; un kit de zone n'ayant pas de budget de poids, c'est cette borne, et non le poids
+installé, qui tient la mémoire. Le **cadre** du canevas, des vignettes et de `--render` se mesure
+sur ce qui est peint (`hmi::composedSceneBounds(scène, base)` : chaque primitive compte, reliefs et
+figurines qui montent au-dessus de leur case compris), et non sur une marge d'un losange : une
+pièce de quatre cases de haut n'y est jamais rognée. Pour `--render`, l'**échelle 1 est la carte
+vue à 1080p** — une case de 100 pixels, celle du jeu en plein écran (`hmi::worldTilePixels`), 2 à
+2160p —, et l'image ne dépasse jamais `hmi::MAP_RENDER_MAX_SIDE`, 8 192 pixels de côté : au-delà,
+l'échelle se réduit pour y tenir.
 
 ### La vue à plat : `DraftRenderer.h`
 
@@ -570,6 +608,53 @@ cours de saisie. `kindToPlace` dit la famille que l'outil pose ; les signaux `ki
 `entitySelected`, `entitiesSelected(rangs, principale)`, `propertyChanged`, `removeRequested`
 partent vers la fenêtre.
 
+## L'état de partie : `WorldState.h` {#etat-de-partie}
+
+Une carte de quête change avec les drapeaux : le garde et l'enfant paraissent sous
+`quete.pommes = acceptee`, la porte de l'arène se ferme sous `condamne`. Éditer une telle carte en
+ne voyant que « tout à la fois » ne dit rien de ce que le joueur verra ; et l'essayer depuis un
+état neuf oblige à rejouer la quête à chaque essai. Le `LOT-126` donne à l'éditeur un **état de
+partie** : des faits acquis et une valeur par drapeau déclaré, que l'auteur choisit dans
+*Map › World state…*. Le canevas **grise** ce qui est absent sous cet état, et les deux essais —
+l'essai immédiat (`P`) et l'essai complet dans le vrai jeu (`F5`) — en partent.
+[`WorldState.h`](../../Source/Editor/Logic/WorldState.h) porte la logique, pure ;
+[`WorldStateEditor.h`](../../Source/Editor/Ui/WorldStateEditor.h) le widget.
+
+![Le dialogue World state, où chaque drapeau déclaré prend une valeur parmi celles de sa quête ; le canevas qui grise une entité absente sous cet état ; et les deux sorties, P pour l'essai immédiat, F5 pour le jeu par --flags=](figures/editeur-etat-de-partie.svg)
+
+L'état s'écrit **comme la ligne de commande du jeu le lit** (`--flags=`, `hmi::parseWorldFlags`) :
+`fait` pour un fait acquis, `drapeau=valeur` pour un drapeau qu'une quête déclare. Une seule
+forme, donc, de l'éditeur au jeu : ce que le canevas montre est exactement ce que l'essai reçoit.
+
+- `hmi::parseWorldStateEntry(entrée)` lit une entrée en `hmi::WorldStateEntry` — `a` donne
+  `{a}`, `a=b` donne `{a, b}` ; `hmi::worldStateValue(entrées, drapeau)` rend la valeur qu'un
+  état donne à un drapeau, s'il lui en donne une.
+- `hmi::worldStateFlags(entrées, déclarés)` construit les `core::WorldFlags` de l'état : d'abord
+  chaque drapeau que les quêtes déclarent (`hmi::EditorReferences::declaredFlags`, les
+  `core::QuestFlag` dans l'ordre des quêtes) à sa **valeur initiale**, puis chaque entrée dans
+  l'ordre. Le résultat, `hmi::WorldStateFlags`, porte les drapeaux et les entrées **refusées** —
+  une valeur hors de la déclaration, un fait posé sur un drapeau déclaré, ce que
+  `core::WorldFlags::set` refuse — parce qu'un état qui contient une faute doit le dire, pas jouer
+  autre chose en silence.
+- `hmi::presenceUnder(entités, drapeaux)` dit, pour chaque entité de la carte, si elle est
+  présente sous ces drapeaux (`core::isEntityPresent`, la règle même du jeu) : c'est la liste que
+  le canevas lit pour griser.
+
+`hmi::WorldStateEditor(drapeauxConnus, déclarés, entrées)` est le sélecteur, un `QWidget` qui sert
+**deux** fenêtres — « Run in game… » (l'état de l'essai complet) et « World state… » (celui sous
+lequel le canevas montre la carte, que l'essai immédiat reprend) — pour qu'il n'y ait pas deux
+façons de composer un état : une liste de choix par drapeau déclaré (les valeurs de sa quête, à
+l'initiale par défaut), les faits connus des dialogues, quêtes et déclencheurs de zone
+(`hmi::EditorReferences::flags`) à cocher, et un champ pour ceux qu'on écrit à la main ;
+`entries()` rend les valeurs qui diffèrent de l'initiale, puis les faits cochés, puis les faits
+écrits. `hmi::askWorldState(parent, drapeauxConnus, déclarés, courant)` ouvre le dialogue
+« World state… » et rend un `hmi::WorldStateChoice` — les entrées, et `preview`, vrai si le canevas
+doit griser ce que l'état rend absent — ou `std::nullopt` si l'auteur renonce.
+`hmi::MainWindow::openWorldStateDialog` le pose et `hmi::MainWindow::applyWorldState` donne l'état
+à **tous** les onglets par `hmi::EditorViewport::setWorldState(entrées, preview)` : l'essai en
+part toujours ; le canevas grise si `preview`. Il n'y a qu'un état de partie dans l'éditeur, celui
+de l'essai est celui du canevas.
+
 ## Le monde autour de la carte
 
 ### Plusieurs cartes à la fois : `MapDocuments.h`
@@ -674,10 +759,16 @@ diff git lisible. `hmi::runRefactorCommand` est l'entrée sans fenêtre (`--who-
 
 ### La garde du format : `MapFormat.h`
 
-`hmi::PlaceAssets` est ce que le lieu d'une carte apporte — son manifeste et sa table d'apparence,
-s'ils existent (`hmi::loadPlaceAssets(dataRoot, lieu)`, lus dans `Assets/Scene/<lieu>/`) ;
-`hmi::scenePlaces` liste les lieux qu'une carte peut prendre, `hmi::mapFiles` les cartes de
-`Levels/`, sous-dossiers compris, sans les annexes.
+`hmi::PlaceAssets` est ce que le lieu d'une carte apporte — son **catalogue résolu** et sa table
+d'apparence, s'ils existent, et sinon pourquoi le catalogue manque (`manifestError`).
+`hmi::loadPlaceAssets(dataRoot, lieu)` ne lit plus un dossier `Assets/Scene/<lieu>/` : depuis le
+`LOT-124`, un lieu est un chemin de l'arbre des lieux, et la fonction passe par
+`core::ScenePieceManifest::resolve` — les manifestes de ses niveaux, du plus propre au plus commun,
+empilés en un seul catalogue — et par `hmi::PlaceAppearance::loadForPlace`, qui empile de même les
+tables `appearance.json` de chaque niveau, la plus propre l'emportant pour un type donné ([l'arborescence
+des lieux](guide-donnees.md#arborescence-lieux)). `hmi::scenePlaces` liste les lieux qu'une carte
+peut prendre (`core::scenePlaces`, l'arbre de « New map »), `hmi::mapFiles` les cartes de `Levels/`,
+sous-dossiers compris, sans les séquences ni les annexes.
 
 **La migration** (`LOT-EDITOR-12`, `EX-EDIT-062`) se fait par un acte explicite, jamais par l'effet
 de bord d'un enregistrement : `hmi::migrateLevel(carte, lieu)` nomme la pièce de chaque case qui
@@ -711,6 +802,14 @@ jeu, `core::ExplorationReach`), le **graphe** (un portail sans retour, un point 
 ne nomme). Une **variante** (décision D12) se contrôle telle que le jeu la charge, sur les cases de
 sa base. Les portails vers une carte absente et les zones dégénérées sont dits une fois, par le
 format : ce contrôle ne les répète pas.
+
+Depuis le `LOT-116`, les quêtes et les dialogues ont leur propre contrôle, **hors de toute carte** :
+`hmi::checkStoryContent(dataRoot)` relève une quête refusée au chargement (`fichier:ligne`), un
+usage de drapeau que sa déclaration contredit (`core::validateFlagUses` : une valeur qu'aucune
+déclaration ne connaît), et un drapeau **lu** par une condition de dialogue ou d'étape que ni un
+dialogue ni une quête ne **pose** (`core::flagsReadBy` contre `core::flagsWrittenBy`) — la porte
+que rien n'ouvrira jamais. Ses constats portent la carte `World`, et `--check` comme le panneau
+« Problems » les montrent avec ceux des cartes.
 
 ### Le panneau : `ProblemsPanel.h`
 
@@ -791,7 +890,47 @@ propres cartes (`core::WorldTravel::directoriesLoader`).
 `hmi::askRunInGame(parent, carte, drapeauxConnus, bornes, courant)` (`EX-EDIT-094`) sert le second
 essai : la même carte **après** une quête — la case de départ et les drapeaux de monde
 (`hmi::RunInGameChoice`), la liste à cocher venant des dialogues (`EditorReferences::flags`), un
-drapeau hors liste se saisissant à la main.
+drapeau hors liste se saisissant à la main. Depuis le `LOT-126`, le dialogue emploie le même
+sélecteur que « World state… » ([l'état de partie](#etat-de-partie)).
+
+## La ligne de commande de l'éditeur, en une table {#ligne-de-commande}
+
+`Source/App/Editor/Main.cpp` essaie les commandes sans fenêtre **avant** de construire quoi que ce
+soit de Qt, dans cet ordre : `hmi::runRefactorCommand`, `hmi::runPrefabCommand`,
+`hmi::runMapCommand`, `hmi::runRenderCommand` ; chacune rend un code de sortie, ou rien si la ligne
+de commande ne la demande pas — et la fenêtre s'ouvre alors. Deux familles de syntaxe cohabitent :
+les commandes sans fenêtre prennent des arguments **séparés** (`--data <chemin>`, `--output <f>`),
+lus par le vecteur d'arguments ; les options de la fenêtre s'écrivent `--nom=valeur` et se lisent
+par `app::commandLineOption(argc, argv, "--nom=")` ([`Bootstrap.h`](../../Source/App/Common/Bootstrap.h)),
+qui rend la valeur qui suit le préfixe, ou rien si l'option est absente — un `optional` plutôt
+qu'une chaîne vide, parce que `--map=` sans valeur est une erreur de l'appelant, pas une absence.
+La racine des données est **unique** pour la fenêtre et les commandes : `--data`, sinon le
+`Source/Elements` de l'arbre qui a construit l'éditeur, sinon le dossier de l'exécutable
+(`hmi::resolveDataRoot`).
+
+| Commande | Ce qu'elle fait | Où |
+|---|---|---|
+| `--check` | contrôle le format et le contenu de toutes les cartes, et les quêtes ; sort en 1 sur une erreur (`EX-EDIT-062`, `EX-EDIT-079`) | `runMapCommand`, [`MapFormat.h`](../../Source/Editor/Logic/MapFormat.h) |
+| `--migrate [carte…] [--output f]` | convertit en v4 canonique, en place ou dans `--output` | `runMapCommand` |
+| `--apply gestes.json [carte] [--output f]` | rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`) | `runMapCommand`, [`GestureScript.h`](../../Source/Editor/Logic/GestureScript.h) |
+| `--render [carte…] [--output <fichier.png ou dossier>] [--layers floors,relief,figures,collision] [--plan] [--scale s]` | rend en PNG, en isométrie (`EX-EDIT-075`) : échelle 1 = la carte vue à 1080p, dans ]0, 4], au plus 8 192 px de côté ; `--plan` pour le plan de principe (`LOT-128`) | `runRenderCommand`, [`MapRender.h`](../../Source/Editor/Ui/MapRender.h) |
+| `--list-prefabs [lieu…]` | les préfabriqués qu'un lieu peut poser, avec leur niveau ; tous les lieux à défaut (`EX-EDIT-086`) | `runPrefabCommand`, [`Stamps.h`](../../Source/Editor/Logic/Stamps.h) |
+| `--save-prefab <carte> <nom> --from <c,r> --to <c,r>` | découpe le rectangle et l'écrit comme préfabriqué, au niveau que `hmi::prefabLevel` choisit (`EX-EDIT-086`) | `runPrefabCommand` |
+| `--who-cites map <carte>`, `--who-cites arrival <carte> <point>`, `--who-cites entity <carte> <id>`, `--who-cites piece <pièce> [<dossier de niveau>]` | liste ce qui cite, sans rien écrire (`EX-EDIT-082`) | `runRefactorCommand`, [`MapRefactor.h`](../../Source/Editor/Logic/MapRefactor.h) |
+| `--rename-map <ancien> <nouveau>` | renomme une carte, dossier compris, et tout ce qui la cite ; refusé, n'écrit rien | `runRefactorCommand` |
+| `--rename-arrival <carte> <ancien> <nouveau>`, `--rename-id <carte> <ancien> <nouveau>` | renomme un point d'arrivée, un identifiant d'entité, et ce qui les cite | `runRefactorCommand` |
+| `--replace-piece <ancienne> <nouvelle> [carte…] [--level <dossier de niveau>]` | remplace une pièce sur les cartes nommées, toutes celles qui la posent à défaut ; `--level` cible le dossier de niveau dont la pièce vient (`EX-EDIT-083`) | `runRefactorCommand` |
+| `--change-scene <carte> <lieu> [--table table.json]` | fait passer une carte à un autre lieu ; la table (`jadg-piece-table`, version 1, `"pieces": {"ancienne": "nouvelle"}`) donne les pièces sans homonyme (`EX-EDIT-084`) | `runRefactorCommand` |
+| `--link-maps <carte> <carte>` | relie deux cartes, portail et point d'arrivée des deux côtés ; refusé, n'écrit rien (`EX-EDIT-089`) | `runRefactorCommand` |
+| `--data <chemin>` | la racine des données, pour toutes les commandes et la fenêtre | `hmi::resolveDataRoot` |
+| `--map=<identifiant>` | ouvre cette carte (`Levels/<identifiant>.json`) dans la fenêtre ; sort en 2 si elle ne s'ouvre pas | `Main.cpp`, `app::commandLineOption` |
+| `--screenshot=<fichier>` | avec la fenêtre : la redimensionne à 1600 × 1000, la capture 1,8 s après l'ouverture, enregistre et quitte (3 si l'écriture échoue) — les captures de cette page | `Main.cpp` |
+| `--crash-test` | plante volontairement juste après la première sauvegarde automatique, pour éprouver la reprise | `hmi::MainWindow` |
+| `--log-level=<niveau>` | le seuil du journal, comme pour le jeu (`app::installLogging`, [Journalisation](guide-journalisation.md)) | `Bootstrap.cpp` |
+
+Suivie de `--check`, une commande de renommage ou de remplacement contrôle ensuite toutes les
+cartes. La table de référence des commandes est le
+[`README.md` de l'éditeur](../../Source/Editor/README.md), tenu avec le code.
 
 ## La fenêtre et ses panneaux
 
@@ -952,8 +1091,10 @@ Les jetons paraissent dès qu'une figurine manque, maquette ou non. Contours, tr
 paraissent, eux, que sur une carte **sans lieu** : une carte finie ne montre pas ses déclencheurs.
 
 **2. Jouer.** `P` pour l'essai immédiat, `F5` pour l'essai complet dans le vrai jeu : les deux
-montrent la maquette, puisque c'est la **même** composition. On marche, on bute sur les murs, on
-franchit les portails. C'est là que se voient une rue trop étroite ou un escalier mal placé.
+montrent la maquette, puisque c'est la **même** composition, et les deux partent de l'état de
+partie choisi dans *Map › World state…* ([l'état de partie](#etat-de-partie)). On marche, on bute
+sur les murs, on franchit les portails. C'est là que se voient une rue trop étroite ou un escalier
+mal placé.
 
 `LevelEditor --render <carte>` en donne une image hors écran, jetons compris.
 `--render --plan` la rend au **vocabulaire des plans de principe** du planning : blocs couchés à
@@ -969,12 +1110,16 @@ elle n'est simplement pas encore habillée.
 L'annexe `<carte>.editor.json` note où en est la carte : `blockout` avant `retouched` et
 `finished`. « Livré », pour une carte, veut toujours dire *avec son lieu et ses pièces*.
 
-> **Note** — Depuis la table rase du `LOT-102`, `Source/Elements` ne livre aucune planche de lieu
-> ni aucune carte : les lieux et les cartes reviennent avec la version 0.0.1 (`LOT-107` et
-> suivants). La racine d'essai `Source/Test/Fixtures/GameData` (`LOT-123`) offre deux lieux
-> synthétiques (`bourg`, `hameau`) et trois cartes (`bourg/place`, `cave`, `donjon`) — ce sont
-> elles que montrent les captures de cette page. Le passage du canevas à la HD est le `LOT-125`, et
-> la recette à la souris, due depuis plusieurs lots, le `LOT-127`.
+> **Note** — La table rase du `LOT-102` avait vidé `Source/Elements` de toute planche de lieu et
+> de toute carte ; les lieux sont revenus en HD, par niveaux de l'arbre des lieux (`LOT-104`,
+> `LOT-105`, `LOT-108` : le commun de l'Empire, celui de la Capitale, Arenarea et l'Arena of Fate),
+> et leurs **images** vivent hors Git, en kits publiés que `scripts/fetch_assets.py` installe
+> ([les kits d'assets](guide-donnees.md#kits-assets)) — sans eux, l'éditeur montre des cartes sans
+> texture. Le canevas peint cet art HD depuis le `LOT-125` (lissage par niveaux réduits, cache
+> partagé et borné, cadre mesuré sur ce qui est peint). La racine d'essai
+> `Source/Test/Fixtures/GameData` (`LOT-123`) garde ses deux lieux synthétiques (`bourg`, `hameau`)
+> et ses trois cartes (`bourg/place`, `cave`, `donjon`) — ce sont elles que montrent les captures
+> de cette page. La recette à la souris, due depuis plusieurs lots, est le `LOT-127`.
 
 ## Voir aussi
 
@@ -991,8 +1136,16 @@ L'annexe `<carte>.editor.json` note où en est la carte : `blockout` avant `reto
   `hmi::applyEntityDrag`, `hmi::loadEditorReferences`, `hmi::editorDiagnostics`, `hmi::EntityPanel`.
 - `hmi::documentLabel`, `hmi::layoutWorldGraph`, `hmi::planLinkMaps`, `hmi::buildCityView`,
   `hmi::askMapProperties`, `hmi::planRenameMap`, `hmi::planChangeScene`, `hmi::applyRefactorPlan`.
-- `hmi::checkAllMaps`, `hmi::migrateLevel`, `hmi::checkMapContent`, `hmi::ProblemsPanel`,
-  `hmi::applyGestureScript`, `hmi::renderMap`, `hmi::writeDraftMaps`, `hmi::askRunInGame`.
+- `hmi::checkAllMaps`, `hmi::migrateLevel`, `hmi::checkMapContent`, `hmi::checkStoryContent`,
+  `hmi::ProblemsPanel`, `hmi::applyGestureScript`, `hmi::renderMap`, `hmi::writeDraftMaps`,
+  `hmi::askRunInGame`.
+- `hmi::WorldStateEntry`, `hmi::parseWorldStateEntry`, `hmi::worldStateValue`,
+  `hmi::WorldStateFlags`, `hmi::worldStateFlags`, `hmi::presenceUnder`, `hmi::WorldStateEditor`,
+  `hmi::WorldStateChoice`, `hmi::askWorldState` — l'état de partie.
+- `hmi::availablePrefabs`, `hmi::prefabLevel`, `hmi::PrefabEntry` — les préfabriqués par niveau ;
+  `hmi::SceneImages::shared`, `hmi::SceneImage::level`, `hmi::composedSceneBounds`,
+  `hmi::MAP_RENDER_MAX_SIDE` — le canevas HD ; `app::commandLineOption` — les options de la
+  fenêtre.
 - `hmi::AutosaveStore`, `hmi::reactToDiskChange`, `hmi::resolveDataRoot`,
   `hmi::LevelFileOperations`, `hmi::mapNameKey`, `hmi::writeSidecar`.
 - [Utiliser l'éditeur de cartes](Manuel/utiliser-l-editeur.md) — le même outil, vu par l'auteur de
