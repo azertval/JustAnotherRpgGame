@@ -48,13 +48,15 @@ const char* entityIssueTemplate(core::EntityIssueCode code) noexcept {
         case core::EntityIssueCode::UnknownFigure:
             return R"(%1: figure "%3" is in no workshop.)";
         case core::EntityIssueCode::UnsetFlag:
-            return R"(%1: no dialogue sets flag "%3".)";
+            return R"(%1: no dialogue or quest sets flag "%3" (read by "%2").)";
         case core::EntityIssueCode::UnknownLocation:
             return R"(%1: location "%3" is not in the atlas.)";
         case core::EntityIssueCode::UnknownItem:
             return R"(%1: item "%3" does not exist.)";
         case core::EntityIssueCode::UnknownEntityRef:
             return R"(%1: no map has an entity "%3".)";
+        case core::EntityIssueCode::InvalidPresence:
+            return R"(%1: presence condition is malformed at "%2" (flag, set|unset|equals|notEquals, values).)";
     }
     return R"(Entity kind "%1" is unknown to the editor.)";
 }

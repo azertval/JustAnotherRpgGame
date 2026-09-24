@@ -212,7 +212,8 @@ enum class EntityIssueCode {
     OutOfRange,
     /// La figurine nommée n'est dans aucun atelier. `value`.
     UnknownFigure,
-    /// Aucun dialogue ne pose ce drapeau. `value`.
+    /// Aucun dialogue ni aucune quête ne pose ce drapeau. `key` nomme la propriété qui le lit
+    /// (`requiresFlag`, `presenceFlag`…), `value` le drapeau.
     UnsetFlag,
     /// La fiche de lieu nommée n'est pas dans l'atlas. `value`.
     UnknownLocation,
@@ -220,6 +221,9 @@ enum class EntityIssueCode {
     UnknownItem,
     /// Aucune carte n'a d'entité `carte#id`. `value`.
     UnknownEntityRef,
+    /// La condition de présence (`core::presenceConditionOf`, `LOT-116`) est mal formée. `key`
+    /// nomme la propriété fautive, `value` ce qui ne va pas.
+    InvalidPresence,
 };
 
 /// @brief Un problème relevé sur l'entité de rang `entityIndex`.

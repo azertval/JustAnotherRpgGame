@@ -3,9 +3,11 @@
 
 #include "Core/Data/JsonDocument.h"
 
+#include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <utility>
+#include <vector>
 
 namespace core {
 
@@ -58,6 +60,159 @@ TextPosition positionOf(std::string_view text, std::size_t byteOffset) {
         }
     }
     return {.line = line, .column = column};
+}
+
+namespace {
+
+/// Relit un texte JSON bien formé en suivant un chemin, et note où commence la valeur visée.
+class Pisteur {
+public:
+    Pisteur(std::string_view texte, std::vector<std::string> chemin)
+        : _texte(texte), _chemin(std::move(chemin)) {}
+
+    [[nodiscard]] TextPosition chercher() {
+        valeur(0);
+        return _trouve;
+    }
+
+private:
+    void espaces() {
+        while (_i < _texte.size() && (_texte[_i] == ' ' || _texte[_i] == '\t' ||
+                                      _texte[_i] == '\n' || _texte[_i] == '\r')) {
+            avancer();
+        }
+    }
+
+    void avancer() {
+        if (_texte[_i] == '\n') {
+            ++_ligne;
+            _colonne = 1;
+        } else {
+            ++_colonne;
+        }
+        ++_i;
+    }
+
+    /// Une chaîne, guillemets compris ; rend son contenu, échappements laissés bruts sauf `\"`.
+    std::string chaine() {
+        std::string contenu;
+        avancer();  // le guillemet ouvrant
+        while (_i < _texte.size() && _texte[_i] != '"') {
+            if (_texte[_i] == '\\' && _i + 1 < _texte.size()) {
+                avancer();
+            }
+            contenu += _texte[_i];
+            avancer();
+        }
+        if (_i < _texte.size()) {
+            avancer();  // le guillemet fermant
+        }
+        return contenu;
+    }
+
+    /// Une valeur à la profondeur @p profondeur du chemin courant.
+    void valeur(std::size_t profondeur) {
+        espaces();
+        if (_i >= _texte.size() || _trouve.line > 0) {
+            return;
+        }
+        const bool surLeChemin = profondeur == _suivis && _suivis == _chemin.size();
+        if (surLeChemin) {
+            _trouve = {.line = _ligne, .column = _colonne};
+            return;
+        }
+        const char c = _texte[_i];
+        if (c == '{') {
+            conteneur(profondeur, true);
+        } else if (c == '[') {
+            conteneur(profondeur, false);
+        } else if (c == '"') {
+            chaine();
+        } else {
+            while (_i < _texte.size() && _texte[_i] != ',' && _texte[_i] != '}' &&
+                   _texte[_i] != ']' && _texte[_i] != ' ' && _texte[_i] != '\n' &&
+                   _texte[_i] != '\r' && _texte[_i] != '\t') {
+                avancer();
+            }
+        }
+    }
+
+    void conteneur(std::size_t profondeur, bool objet) {
+        const char fermant = objet ? '}' : ']';
+        avancer();
+        std::size_t rang = 0;
+        while (_i < _texte.size() && _trouve.line == 0) {
+            espaces();
+            if (_i >= _texte.size() || _texte[_i] == fermant) {
+                break;
+            }
+            std::string nom;
+            if (objet) {
+                nom = chaine();
+                espaces();
+                if (_i < _texte.size() && _texte[_i] == ':') {
+                    avancer();
+                }
+            } else {
+                nom = std::to_string(rang);
+            }
+            // Le chemin ne descend dans un enfant que si tous les pas précédents ont été suivis.
+            const bool suivi =
+                profondeur == _suivis && _suivis < _chemin.size() && _chemin[_suivis] == nom;
+            if (suivi) {
+                ++_suivis;
+            }
+            valeur(profondeur + 1);
+            if (suivi && _trouve.line == 0) {
+                --_suivis;
+            }
+            espaces();
+            if (_i < _texte.size() && _texte[_i] == ',') {
+                avancer();
+            }
+            ++rang;
+        }
+        if (_i < _texte.size() && _trouve.line == 0) {
+            avancer();
+        }
+    }
+
+    std::string_view _texte;
+    std::vector<std::string> _chemin;
+    std::size_t _i = 0;
+    std::size_t _suivis = 0;
+    int _ligne = 1;
+    int _colonne = 1;
+    TextPosition _trouve;
+};
+
+/// Les pas d'un pointeur JSON, `~1` et `~0` rendus à `/` et `~`.
+[[nodiscard]] std::vector<std::string> pasDuPointeur(const nlohmann::json::json_pointer& pointeur) {
+    const std::string texte = pointeur.to_string();
+    std::vector<std::string> pas;
+    std::size_t debut = 1;
+    while (debut <= texte.size() && !texte.empty()) {
+        const std::size_t fin = std::min(texte.find('/', debut), texte.size());
+        std::string brut = texte.substr(debut, fin - debut);
+        std::string pasLu;
+        for (std::size_t i = 0; i < brut.size(); ++i) {
+            if (brut[i] == '~' && i + 1 < brut.size()) {
+                pasLu += brut[i + 1] == '1' ? '/' : '~';
+                ++i;
+            } else {
+                pasLu += brut[i];
+            }
+        }
+        pas.push_back(std::move(pasLu));
+        debut = fin + 1;
+    }
+    return pas;
+}
+
+}  // namespace
+
+TextPosition positionOfPointer(std::string_view text, const nlohmann::json::json_pointer& pointer) {
+    return Pisteur(text, pasDuPointeur(pointer)).chercher();
 }
 
 JsonDocument readJsonObject(std::string_view json, int supportedVersion, std::string_view origin,

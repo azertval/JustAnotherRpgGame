@@ -5,12 +5,17 @@
 
 /**
  * @file Core/Gameplay/WorldFlags.h
- * @brief Les drapeaux de monde : ce qui a eu lieu et ne doit pas avoir lieu deux fois (`LOT-10`).
+ * @brief Les drapeaux de monde : ce qui a eu lieu et ne doit pas avoir lieu deux fois (`LOT-10`),
+ *        et, depuis le `LOT-116`, où en est une quête — un drapeau **à valeurs** déclaré
+ *        (`EX-EXP-006`).
  */
 
-#include <set>
+#include <cstdint>
+#include <map>
+#include <optional>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace core {
@@ -36,25 +41,78 @@ namespace core {
  */
 class WorldFlags {
 public:
-    /// @brief Vrai si le fait est acquis.
+    /// @brief Vrai si le fait est acquis — ou, pour un drapeau à valeurs, s'il a reçu une valeur.
     [[nodiscard]] bool isSet(std::string_view key) const;
 
-    /// @brief Marque le fait comme acquis. Renvoie `false` s'il l'était déjà.
+    /// @brief Marque le fait comme acquis. Renvoie `false` s'il l'était déjà, ou si @p key est un
+    ///        drapeau **déclaré à valeurs** : il ne se pose qu'avec l'une d'elles (`setValue`).
     bool set(std::string_view key);
 
-    /// @brief Efface un fait. Utile à un `LOT-16` qui rouvrirait une quête, et aux tests.
+    /// @brief Efface un fait. Un drapeau à valeurs revient à sa valeur initiale.
     void clear(std::string_view key);
+
+    /**
+     * @brief Déclare un drapeau **à valeurs** (`LOT-116`) : ses valeurs permises et l'initiale.
+     *
+     * C'est ce qui rend le drapeau **typé** : `setValue` refuse ensuite une valeur hors de la
+     * liste, et `value` rend l'initiale tant que rien n'a été posé. Les quêtes déclarent leurs
+     * drapeaux au chargement ; un drapeau jamais déclaré reste un fait présent ou absent.
+     *
+     * @return `false` si @p values est vide, si @p initial n'y est pas, ou si le drapeau était déjà
+     *         déclaré autrement.
+     */
+    bool declare(std::string_view key, std::vector<std::string> values, std::string_view initial);
+
+    /// @brief Les valeurs permises d'un drapeau déclaré, ou `nullptr` pour un drapeau booléen.
+    [[nodiscard]] const std::vector<std::string>* declaredValues(std::string_view key) const;
+
+    /**
+     * @brief Donne une valeur à un drapeau déclaré.
+     *
+     * @return `false` si le drapeau n'est pas déclaré, ou si @p value n'est pas l'une de ses
+     *         valeurs : **refusé**, et rien ne change. Une valeur fautive écrite par un dialogue
+     * est refusée au chargement ; ce refus-ci est le dernier rempart, pas le premier.
+     */
+    bool setValue(std::string_view key, std::string_view value);
+
+    /**
+     * @brief La valeur d'un drapeau déclaré (posée, sinon l'initiale), `""` pour un fait booléen
+     *        acquis, `std::nullopt` pour un fait absent.
+     */
+    [[nodiscard]] std::optional<std::string> value(std::string_view key) const;
 
     /// @brief Le nombre de faits acquis.
     [[nodiscard]] std::size_t size() const {
-        return _flags.size();
+        return _values.size();
     }
 
     /// @brief Tous les faits acquis, triés — c'est la forme que la sauvegarde écrira.
     [[nodiscard]] std::vector<std::string> all() const;
 
+    /// @brief Tous les faits acquis et leur valeur (`""` pour un booléen), triés par clé.
+    [[nodiscard]] std::vector<std::pair<std::string, std::string>> entries() const;
+
+    /**
+     * @brief Un compteur qui avance à **chaque** changement (pose, effacement, nouvelle valeur).
+     *
+     * C'est ainsi que la carte apprend qu'un PNJ doit paraître ou disparaître **sans recharger**
+     * (`LOT-116`) : elle compare la révision à celle de sa dernière image, sans abonnement ni
+     * signal — le cœur n'en a pas, et une quête pose ses drapeaux depuis un dialogue qui ignore la
+     * carte.
+     */
+    [[nodiscard]] std::uint64_t revision() const noexcept {
+        return _revision;
+    }
+
 private:
-    std::set<std::string, std::less<>> _flags;
+    struct Declaration {
+        std::vector<std::string> values;
+        std::string initial;
+    };
+
+    std::map<std::string, std::string, std::less<>> _values;
+    std::map<std::string, Declaration, std::less<>> _declared;
+    std::uint64_t _revision = 0;
 };
 
 /**

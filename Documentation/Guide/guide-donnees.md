@@ -81,7 +81,7 @@ les tests retrouvent la même forme d'arborescence quel que soit l'endroit d'où
 | `Rpg/<famille>/<id>.json` | les catalogues du jeu de rôle : `creatures` (94), `items` (125), `weapons` (37), `armors` (13), `species` (22), `backgrounds` (13), `classes` (4, provisoires), `feats` (42), `skills` (18), `languages` (16), `rules` (7), `encounters`, `characters` | la chaîne d'extraction (`LOT-33`, `LOT-34`, `LOT-36`, `LOT-43`) ; quelques fichiers `original` écrits à la main |
 | `Rpg/schema/*.schema.json` | 28 schémas, dont `common.schema.json` que tous réutilisent | à la main (`LOT-32`, puis chaque lot qui ajoute une famille) |
 | `World/regions`, `World/locations` | l'atlas : 13 régions, 107 lieux | `sourcebook atlas` (`LOT-37`) |
-| `World/cities`, `World/dialogues` | les plans de ville et les graphes de dialogue | à la main et par l'éditeur |
+| `World/cities`, `World/dialogues`, `World/quests` | les plans de ville, les graphes de dialogue et les quêtes (`LOT-116`) | à la main et par l'éditeur |
 | `Levels/<région>/<ville>/<zone>.json` | les cartes (format v4) | l'éditeur, et lui seul ([Niveaux](guide-niveaux.md)) |
 | `Assets/` | images et polices : `Common/`, `Regions/`, `Entities/`, `Maps/`, `UI/`, `Fonts/`, chacun avec son manifeste | les ateliers, jamais à la main |
 | `Maps/world-maps.json` | les positions relevées sur les cartes peintes : ancre d'une région, cadre, lieux, quartiers | relevé par Ctrl+clic dans l'écran « Carte » (`LOT-94`) |
@@ -212,7 +212,8 @@ Tous les chargeurs de catalogue ont la même forme, et `core::loadBestiary`
   `hmi::WorldMapModel`, `hmi::DialogueModel`… — journalise les erreurs et décide.
 
 Les chargeurs qui suivent cette forme : `core::loadBestiary`, `core::loadEquipment`,
-`core::loadCharacterOptions`, `core::loadAtlas`, `core::loadDialogues`, `core::loadEncounters`,
+`core::loadCharacterOptions`, `core::loadAtlas`, `core::loadDialogues`, `core::loadQuests`,
+`core::loadEncounters`,
 `core::loadAssetFamilies`, `core::ScenePieceManifest::loadFromFile`, `core::LevelLoader` ; côté
 IHM, les catalogues d'animations et d'apparence. Le moteur **ne revalide pas** les schémas à
 l'exécution : embarquer un validateur JSON Schema coûterait une dépendance pour recontrôler ce qui

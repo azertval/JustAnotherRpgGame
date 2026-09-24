@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **203 cas** (24 bloquants, 44 critiques, 108 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **204 cas** (24 bloquants, 45 critiques, 108 majeurs, 27 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,7 +11,7 @@ Tests unitaires — **203 cas** (24 bloquants, 44 critiques, 108 majeurs, 27 min
 | [`test_canvas_picking.cpp`](#test-canvas-pickingcpp) | 5 | 2 | - | 3 | - |
 | [`test_canvas_scene.cpp`](#test-canvas-scenecpp) | 5 | 1 | - | 3 | 1 |
 | [`test_city_view.cpp`](#test-city-viewcpp) | 3 | - | 1 | 1 | 1 |
-| [`test_content_check.cpp`](#test-content-checkcpp) | 5 | 3 | 1 | 1 | - |
+| [`test_content_check.cpp`](#test-content-checkcpp) | 6 | 3 | 2 | 1 | - |
 | [`test_disk_guard.cpp`](#test-disk-guardcpp) | 3 | - | 2 | 1 | - |
 | [`test_editor_key_bindings.cpp`](#test-editor-key-bindingscpp) | 7 | - | - | 7 | - |
 | [`test_editor_sidecar.cpp`](#test-editor-sidecarcpp) | 4 | - | 1 | 3 | - |
@@ -555,7 +555,7 @@ Chaque défaut de contenu sort, et la CI échoue.
 - Vérifie que `signale(constats, MapCheckSeverity::Error, "fautive", "key city_block.ilot-sans-cle is missing")` est vrai.
 - Vérifie que `signale(constats, MapCheckSeverity::Error, "nuit", "map name \"map.nuit.name\" is not a translation key of en.lang")` est vrai.
 - Vérifie que `signale(constats, MapCheckSeverity::Error, "fautive", "dialogue \"inconnu\"")` est vrai.
-- Vérifie que `signale(constats, MapCheckSeverity::Error, "fautive", "no dialogue sets flag \"jamais")` est vrai.
+- Vérifie que `signale(constats, MapCheckSeverity::Error, "fautive", "no dialogue or quest sets flag \"jamais")` est vrai.
 - Vérifie que `signale(constats, MapCheckSeverity::Warning, "fautive", "\"mystere\" is unknown")` est vrai.
 - Vérifie que `signale(constats, MapCheckSeverity::Error, "fautive", "Encounter \"rats-du-donjon\": \"rat-d-essai\" would stand off the map")` est vrai.
 - Vérifie que `signale(constats, MapCheckSeverity::Error, "fautive", "npc e2 cannot be reached from the entry or an arrival point")` est vrai.
@@ -651,6 +651,26 @@ Une carte neuve a son nom dans chaque catalogue.
 - Vérifie que `copie.ok()` est vrai.
 - Vérifie que `core::LevelLoader::loadFromFile(copie.path).level->name()` vaut `hmi::mapNameKey(copie.path.stem().string())`.
 - Vérifie que `hmi::checkAllMaps(projet.racine()).ok()` est vrai.
+
+### ContentCheckTest.LeControleDuRecitRefuseUnDrapeauLuQueRienNePose
+
+*Critique · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:364`
+
+Le controle du recit refuse un drapeau lu que rien ne pose.
+
+**Étapes**
+
+1. Ecrire un dialogue dont une condition lit `jamais-pose` et qui pose `pose`.
+2. Ecrire une quete qui lit `pose`, et une quete mal formee.
+3. Controler le recit, puis `--check` sur le projet.
+
+**Résultat attendu**
+
+- Vérifie que `constats.size()` vaut `2U`.
+- Vérifie que `signale(constats, MapCheckSeverity::Error, "World", "casse.json:4")` est vrai.
+- Vérifie que `signale(constats, MapCheckSeverity::Error, "World", "dialogue 'veilleur' : noeud 'test': flag \"jamais-pose\" is read")` est vrai.
+- Vérifie que `code.has_value()` est vrai.
+- Vérifie que `*code` vaut `1`.
 
 ## test_disk_guard.cpp
 
@@ -2383,7 +2403,7 @@ Chaque carte migrée se joue à l'identique.
 
 ### Donnees.RenommerUneCarteLaisseLeControleVert
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:129`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:130`
 
 Renommer une carte laisse le contrôle vert.
 
@@ -2408,7 +2428,7 @@ Renommer une carte laisse le contrôle vert.
 
 ### Donnees.UneCarteChangeDeDossierSonAnnexeLaSuit
 
-*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:163`
+*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:164`
 
 Une carte change de dossier, son annexe la suit.
 
@@ -2449,7 +2469,7 @@ Un renommage impossible n'écrit rien.
 
 ### Donnees.RenommerUnPointDArriveeSuitPortailsEtVille
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:218`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:216`
 
 Renommer un point d'arrivée suit portails et ville.
 
@@ -2464,12 +2484,12 @@ Renommer un point d'arrivée suit portails et ville.
 - Vérifie que `portails.size()` vaut `1U`.
 - Vérifie que `portails.front().mapId` vaut `"cave"`.
 - Vérifie que `lire(carte("cave")).find(R"("arrival": "vers-la-place")")` diffère de `std::string::npos`.
-- Vérifie que `hmi::planRenameArrival(racine, "bourg/place", "vers-la-place", "porte-orientale") .ok()` est faux.
+- Vérifie que `hmi::planRenameArrival(racine, "bourg/place", "vers-la-place", "porte-orientale").ok()` est faux.
 - Vérifie que `hmi::checkAllMaps(racine).ok()` est vrai.
 
 ### Donnees.RenommerUnIdentifiantDEntite
 
-*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:248`
+*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:245`
 
 Renommer un identifiant d'entité, et ses refus.
 
@@ -2489,7 +2509,7 @@ Renommer un identifiant d'entité, et ses refus.
 
 ### Donnees.QuiCiteUneCarteQuiPoseUnePiece
 
-*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:272`
+*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:269`
 
 Qui cite une carte, qui pose une pièce.
 
@@ -2509,7 +2529,7 @@ Qui cite une carte, qui pose une pièce.
 
 ### Donnees.RemplacerUnePieceSurToutesLesCartes
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:299`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:296`
 
 Remplacer une pièce sur toutes les cartes.
 
@@ -2528,7 +2548,7 @@ Remplacer une pièce sur toutes les cartes.
 
 ### Donnees.UneCarteChangeDePlancheSansEtreRepeinte
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:324`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:321`
 
 Une carte change de planche sans être repeinte.
 
@@ -2556,7 +2576,7 @@ Une carte change de planche sans être repeinte.
 
 ### Donnees.UneTableMalFormeeEstRefusee
 
-*Mineur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:384`
+*Mineur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:378`
 
 Une table de correspondance mal formée est refusée.
 
@@ -3934,7 +3954,7 @@ Le pointeur designe une fleche ou une boucle.
 
 ### DonneesLiens.RelierDeuxCartesSeTraverseDansLesDeuxSens
 
-*Critique · Unitaire · Le monde* — `Source/Test/Unit/Editor/test_world_links.cpp:148`
+*Critique · Unitaire · Le monde* — `Source/Test/Unit/Editor/test_world_links.cpp:149`
 
 Relier deux cartes se traverse dans les deux sens.
 

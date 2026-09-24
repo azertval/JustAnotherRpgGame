@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-116 — Quêtes et drapeaux de monde.** Le jeu se souvient de ce que le joueur a fait. Un
+  drapeau peut être **déclaré à valeurs** par une quête (`quete.pommes`, de `inconnue` à
+  `enfant-libere`) : `core::WorldFlags` refuse alors une valeur hors liste, et sa révision avance à
+  chaque changement. Les quêtes sont des données (`World/quests/<id>.json`, schéma
+  `quest.schema.json`) : drapeaux déclarés, étapes atteintes dès que leurs conditions tiennent,
+  effets, issue ; lues et validées au démarrage, chaque erreur nommant **le fichier et la ligne**.
+  Les dialogues comparent (`equals`, `notEquals`) et posent (`setFlag` + `value`) ces valeurs, et
+  écrivent enfin dans les drapeaux **de la partie** — ceux que la carte lit. Une entité de carte
+  peut porter une **condition de présence** (`presenceFlag`, `presenceTest`, `presenceValue`) : un
+  PNJ paraît et disparaît quand le drapeau change, sans recharger la carte. Le **journal de
+  quêtes** est branché (`QuestJournalModel`, `Haut`/`Bas`/`Échap`). `LevelEditor --check` refuse
+  un drapeau lu par un dialogue, une quête ou une condition de présence qu'aucun dialogue ni aucune
+  quête ne pose, une quête mal formée et une valeur non déclarée. `--flags=` accepte
+  `drapeau=valeur`.
+
 - **LOT-108 — Arenarea : le quartier extérieur complet.** 1 491 pièces HD installées d'après la
   checklist de 102 postes validée par l'auteur : 1 029 dans le commun de la Capitale (raccords de
   murs, portes et fenêtres de service, soubassements, corniches, accents et solins de toiture,

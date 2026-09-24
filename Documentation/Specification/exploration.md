@@ -1,7 +1,8 @@
 # Exploration
 
 > Statut : **en cours.** Le déplacement, la collision et l'orientation sont livrés (`LOT-06`), le
-> vocabulaire de terrain aussi (`LOT-08`), et les portails relient les cartes (`LOT-09`). Ce qui
+> vocabulaire de terrain aussi (`LOT-08`), les portails relient les cartes (`LOT-09`), et le monde
+> se souvient de ce que le joueur a fait (`LOT-116`). Ce qui
 > manque est le **déclenchement d'une rencontre sur la carte** (`LOT-118`). Dépend de
 > [`architecture.md`](architecture.md) (conventions de monde) et de
 > [`niveaux.md`](niveaux.md) (couche de collision).
@@ -71,3 +72,33 @@ Une case vaut **1,5 m** (5 ft), l'unité tactique du système d20, que la grille
 reprendra telle quelle. Une vitesse de marche de 4 unités/seconde représente donc environ
 6 m/s : le pas soutenu d'un jeu d'action, pas la vitesse réelle d'un marcheur — l'exploration doit
 rester agréable à la manette, pas simuler une randonnée.
+
+## 3. La mémoire du monde : drapeaux et quêtes
+
+Le jeu se souvient de ce que le joueur a fait par des **drapeaux de monde** — et de rien d'autre :
+une quête, un PNJ qui paraît, une porte qui s'ouvre se lisent dans les drapeaux, jamais dans un état
+tenu à part que la sauvegarde devrait apprendre à écrire. Concrétisé en `LOT-116` ; la quête de la
+démo est au `LOT-120`, la sauvegarde en `0.0.3`.
+
+- **EX-EXP-006** — Un drapeau de monde est un fait **acquis** (présent ou
+  absent) ou, s'il est **déclaré** par une quête, une **valeur** parmi une liste fermée, avec une
+  valeur initiale. Une valeur hors de la liste est refusée, et ne change rien. Les drapeaux vivent à
+  côté des entités et survivent au changement de carte. Il n'en existe **qu'un** ensemble par
+  partie : ce que pose un dialogue, la carte le lit.
+- **EX-EXP-007** — Une quête est une **donnée** (`World/quests/<id>.json`) :
+  les drapeaux qu'elle déclare, et des étapes dans l'ordre du récit, chacune atteinte dès que
+  toutes ses conditions tiennent, une seule fois, et pouvant poser des drapeaux et clore la quête
+  (réussite, échec). Elle ne porte aucun texte : titre et étapes ont des clés fabriquées, présentes
+  en français et en anglais.
+- **EX-EXP-008** — Les quêtes sont lues et validées **au démarrage**. Un
+  fichier mal formé est refusé, toutes ses erreurs listées d'un coup, chacune nommant **le fichier
+  et la ligne** ; une valeur de drapeau qu'aucune déclaration ne permet, dans une quête ou un
+  dialogue, est relevée. La partie reste jouable (`EX-NFR-040`).
+- **EX-EXP-009** — Une entité de carte peut porter une **condition de
+  présence** sur un drapeau (test d'existence, d'égalité ou de différence à une ou plusieurs
+  valeurs). Absente sous les drapeaux, elle ne se voit pas et ne répond pas ; elle paraît ou
+  disparaît dès que le drapeau change, **sans que la carte soit rechargée**. Une condition mal
+  formée laisse l'entité présente.
+- **EX-EXP-010** — Le **journal de quêtes** montre les quêtes commencées et
+  leur état, l'entrée la plus récente de la quête choisie et ses étapes atteintes, tirés des seuls
+  drapeaux ; il se parcourt au clavier et à la manette.

@@ -11,6 +11,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include "Core/Gameplay/Quest.h"
 #include "Core/Resources/ScenePlace.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/Rpg/Inventory.h"
@@ -65,23 +66,6 @@ namespace {
     return figures;
 }
 
-// Les drapeaux que posent les dialogues : un portail qui en exige un autre ne s'ouvrirait jamais.
-[[nodiscard]] std::vector<std::string> flagsSetBy(const core::DialogueCatalog& catalog) {
-    std::set<std::string, std::less<>> flags;
-    for (const core::DialogueGraph& graph : catalog.dialogues) {
-        for (const core::DialogueNode& node : graph.nodes) {
-            for (const core::DialogueAction& action : node.actions) {
-                if (action.kind == core::DialogueActionKind::SetFlag) {
-                    flags.insert(action.target);
-                } else if (action.kind == core::DialogueActionKind::StartQuest) {
-                    flags.insert(core::questStartedFlag(action.target));
-                }
-            }
-        }
-    }
-    return {flags.begin(), flags.end()};
-}
-
 // Les fiches d'un dossier de l'atlas, par le nom de leur fichier.
 [[nodiscard]] std::vector<std::string> fileStems(const std::filesystem::path& directory) {
     std::vector<std::string> stems;
@@ -111,7 +95,14 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
             references.dialogues.push_back(graph.id);
         }
         std::ranges::sort(references.dialogues);
-        references.flags = flagsSetBy(loaded);
+    }
+    // Les drapeaux que posent dialogues ET quetes (LOT-116) : un portail ou un PNJ qui en attend
+    // un autre ne s'ouvrirait ou ne paraitrait jamais.
+    {
+        const core::DialogueCatalog dialogues = core::loadDialogues(root / "World" / "dialogues");
+        const core::QuestCatalog quests = core::loadQuests(root / "World" / "quests");
+        const std::set<std::string, std::less<>> written = core::flagsWrittenBy(quests, dialogues);
+        references.flags.assign(written.begin(), written.end());
     }
     if (const std::filesystem::path locations = root / "World" / "locations";
         isDirectory(locations)) {

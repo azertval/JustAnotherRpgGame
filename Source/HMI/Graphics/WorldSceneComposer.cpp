@@ -26,6 +26,7 @@
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
 #include "Core/World/EntityKinds.h"
+#include "Core/World/EntityPresence.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
@@ -601,18 +602,18 @@ namespace {
 
 // La nature du jeton d'une entite ponctuelle, ou rien si elle n'en merite pas (decision D3).
 //
-// Rien n'est ajoute au format pour cette table : `core::MapEntity` n'a aucune notion d'hostilite,
-// et la condition de quete n'existera qu'au LOT-116. Le jaune se regle donc sur « ce PNJ porte un
-// dialogue », et le LOT-116 le rebranchera sur la quete -- une ligne, pas une decision a reprendre.
+// Rien n'est ajoute au format pour cette table : `core::MapEntity` n'a aucune notion d'hostilite.
+// Le jaune est le PNJ de quete : celui qui porte un dialogue, ou dont la presence depend d'un
+// drapeau (LOT-116) -- l'enfant de la demo ne parle pas, mais la quete le fait paraitre.
 [[nodiscard]] std::optional<MaquetteTokenKind> tokenKindOf(const core::MapEntity& entity) {
     if (entity.type == core::NPC_ENTITY_TYPE) {
         // Un PNJ qui porte deja sa figurine se dessine par elle : pas de jeton par-dessus.
         if (!textProperty(entity, core::NPC_FIGURE_PROPERTY).empty()) {
             return std::nullopt;
         }
-        return textProperty(entity, core::NPC_DIALOGUE_PROPERTY).empty()
-                   ? MaquetteTokenKind::Neutral
-                   : MaquetteTokenKind::Talker;
+        const bool quete = !textProperty(entity, core::NPC_DIALOGUE_PROPERTY).empty() ||
+                           !textProperty(entity, core::PRESENCE_FLAG_PROPERTY).empty();
+        return quete ? MaquetteTokenKind::Talker : MaquetteTokenKind::Neutral;
     }
     if (entity.type == core::ENCOUNTER_ENTITY_TYPE) {
         return MaquetteTokenKind::Hostile;

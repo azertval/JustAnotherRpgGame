@@ -15,6 +15,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/World/EntityPresence.h"
 
 namespace core {
 
@@ -54,11 +55,16 @@ void ExplorationSession::rebuildInteractables() {
     _interactables.clear();
     const Level* carte = map();
     if (carte == nullptr) {
+        _seenRevision = _flags.revision();
         return;
     }
     // Meme table et meme fabrique de cle que le peuplement ECS (`spawnMapEntities`) : la session du
     // jeu n'a pas d'ECS, mais elle ne peut pas avoir sa PROPRE idee de ce qui est interactif.
+    _seenRevision = _flags.revision();
     for (const MapEntity& objet : carte->entities()) {
+        if (!isEntityPresent(objet, _flags)) {
+            continue;
+        }
         const auto famille =
             std::ranges::find(knownInteractableKinds(), objet.type, &InteractableKind::type);
         if (famille == knownInteractableKinds().end()) {
@@ -179,7 +185,8 @@ void ExplorationSession::resolveInteraction(std::vector<ExplorationEvent>& event
     // pas. On la retrouve par sa case et son type, l'identite meme d'une entite de carte.
     const GridPosition ou = _interactables[cible.index].position;
     for (const MapEntity& objet : carte->entities()) {
-        if (objet.position != ou || objet.type != issue.type) {
+        // Une entite absente peut partager la case d'une presente : l'enfant rendu a sa mere.
+        if (objet.position != ou || objet.type != issue.type || !isEntityPresent(objet, _flags)) {
             continue;
         }
         if (const std::optional<DialogueTrigger> parole = dialogueTriggerFor(objet);
@@ -200,9 +207,36 @@ void ExplorationSession::resolveInteraction(std::vector<ExplorationEvent>& event
         .kind = ExplorationEventKind::Interacted, .value = issue.type, .cell = ou});
 }
 
+void ExplorationSession::setQuests(QuestCatalog quests) {
+    _quests = std::move(quests);
+    declareQuestFlags(_quests, _flags);
+    advanceQuests(_quests, _flags);
+    rebuildInteractables();
+}
+
+std::vector<ExplorationEvent> ExplorationSession::refreshFromFlags() {
+    std::vector<ExplorationEvent> events;
+    if (_flags.revision() == _seenRevision) {
+        return events;
+    }
+    for (const QuestEvent& etape : advanceQuests(_quests, _flags)) {
+        events.push_back(ExplorationEvent{.kind = ExplorationEventKind::QuestAdvanced,
+                                          .value = etape.quest + "/" + etape.step,
+                                          .cell = heroCell()});
+    }
+    rebuildInteractables();
+    return events;
+}
+
+bool ExplorationSession::isPresent(const MapEntity& entity) const {
+    return isEntityPresent(entity, _flags);
+}
+
 std::vector<ExplorationEvent> ExplorationSession::update(const ExplorationIntent& intent,
                                                          float seconds) {
-    std::vector<ExplorationEvent> events;
+    // Avant le gel : un dialogue ouvert a pu poser un drapeau, et la quete doit avancer meme si
+    // la carte attend que la conversation se referme.
+    std::vector<ExplorationEvent> events = refreshFromFlags();
     if (_frozen || map() == nullptr || seconds <= 0.0F) {
         return events;
     }
@@ -211,6 +245,10 @@ std::vector<ExplorationEvent> ExplorationSession::update(const ExplorationIntent
     if (intent.interact) {
         resolveInteraction(events);
     }
+    // Une interaction a pu poser un drapeau (un coffre ouvert) : ses consequences, dans le meme
+    // pas.
+    std::vector<ExplorationEvent> suite = refreshFromFlags();
+    events.insert(events.end(), suite.begin(), suite.end());
     return events;
 }
 

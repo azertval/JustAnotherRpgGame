@@ -36,6 +36,10 @@
  * - **les textes** : le nom de la carte et celui de ses îlots sont des clés présentes dans chaque
  *   catalogue (`MapTexts.h`).
  *
+ * Et, hors de toute carte, **le récit** (`checkStoryContent`, `LOT-116`) : une quête refusée au
+ * chargement, une valeur de drapeau qu'aucune quête ne déclare, un drapeau qu'un dialogue ou une
+ * quête **lit** sans que rien ne le **pose**.
+ *
  * Une **variante** (décision D12) se contrôle telle que le jeu la charge, c'est-à-dire sur les
  * cases de sa base : si la base change sous ses entités — un PNJ muré, un portail hors d'atteinte
  * —, c'est la variante qui le dit. Une entité que la base ne loge plus du tout rend la variante
@@ -72,5 +76,15 @@ struct ContentContext {
 [[nodiscard]] std::vector<MapCheckFinding> checkMapContent(std::string_view mapId,
                                                            const core::Level& level,
                                                            const ContentContext& context);
+
+/**
+ * @brief Contrôle dialogues et quêtes de @p dataRoot, hors de toute carte (`LOT-116`).
+ *
+ * Erreurs : une quête refusée au chargement (`fichier:ligne`), un usage de drapeau que sa
+ * déclaration contredit (`core::validateFlagUses`), un drapeau lu par une condition de dialogue ou
+ * d'étape que ni un dialogue ni une quête ne pose (`core::flagsReadBy`, `core::flagsWrittenBy`).
+ * Les constats portent la carte `World`.
+ */
+[[nodiscard]] std::vector<MapCheckFinding> checkStoryContent(const std::filesystem::path& dataRoot);
 
 }  // namespace hmi

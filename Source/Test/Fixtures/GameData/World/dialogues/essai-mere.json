@@ -1,0 +1,53 @@
+{
+  "id": "essai-mere",
+  "name": "La mere, quete d'essai",
+  "source": "original",
+  "speaker": {
+    "languages": ["common"],
+    "attitude": "friendly"
+  },
+  "start": "aiguillage",
+  "nodes": [
+    {
+      "id": "aiguillage",
+      "type": "condition",
+      "flag": "quete.essai",
+      "equals": "garde-vu",
+      "then": "retour",
+      "else": "demande"
+    },
+    {
+      "id": "demande",
+      "type": "line",
+      "choices": [
+        {
+          "id": "accepter",
+          "next": "accepte",
+          "condition": { "flag": "quete.essai", "equals": "inconnue" }
+        },
+        { "id": "partir", "next": "fin" }
+      ]
+    },
+    {
+      "id": "accepte",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.essai", "value": "acceptee" }],
+      "next": "fin"
+    },
+    {
+      "id": "retour",
+      "type": "line",
+      "choices": [{ "id": "rendre", "next": "rendue" }]
+    },
+    {
+      "id": "rendue",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.essai", "value": "rendue" }],
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

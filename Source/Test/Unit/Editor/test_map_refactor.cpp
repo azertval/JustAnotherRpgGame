@@ -49,9 +49,9 @@ void ecrire(const std::filesystem::path& path, const std::string& text) {
 
 // Ce que le contrôle lit de la racine d'essai, sans le récrire : ce que les entités citent, et les
 // manifestes des figurines — pas leurs images.
-constexpr const char* DOSSIERS_LUS[] = {"World/dialogues", "World/locations", "Rpg/encounters",
-                                        "Rpg/creatures",   "Rpg/items",       "Assets/Npc",
-                                        "Assets/Monsters"};
+constexpr const char* DOSSIERS_LUS[] = {"World/dialogues", "World/quests",   "World/locations",
+                                        "Rpg/encounters",  "Rpg/creatures",  "Rpg/items",
+                                        "Assets/Npc",      "Assets/Monsters"};
 // Ce qu'un test peut récrire : les cartes, les villes, les catalogues, les planches.
 constexpr const char* DOSSIERS_RECRITS[] = {"Levels", "Localization", "World/cities",
                                             "Assets/Scene"};
@@ -70,8 +70,8 @@ void copier(const std::filesystem::path& racine, const char* dossier) {
     }
 }
 
-// Une copie de la racine d'essai par suite ; ce qu'un test récrit est recopié avant chacun. Copier tout à
-// chaque test coûtait quatre secondes sur ce poste.
+// Une copie de la racine d'essai par suite ; ce qu'un test récrit est recopié avant chacun. Copier
+// tout à chaque test coûtait quatre secondes sur ce poste.
 class Donnees : public ::testing::Test {
 protected:
     static inline std::filesystem::path racine;
@@ -125,7 +125,8 @@ protected:
 
 /**
  * @brief Acceptation du `LOT-EDITOR-14` : renommer `bourg/place` laisse le `--check` vert. Le
- *        portail de la Cave, le quartier et les portes gardées de la ville et la clé du nom suivent.
+ *        portail de la Cave, le quartier et les portes gardées de la ville et la clé du nom
+ * suivent.
  * \castest{<b>Renommer une carte laisse le contrôle vert.</b><br/>
  * \tcat Unitaire · Renommer et remplacer<br/>
  * \tcrit Critique<br/>
@@ -176,8 +177,7 @@ TEST_F(Donnees, UneCarteChangeDeDossierSonAnnexeLaSuit) {
 
     appliquer(hmi::planRenameMap(racine, "donjon", "arenes/donjon"));
     EXPECT_FALSE(std::filesystem::exists(hmi::sidecarPath(carte("donjon"))));
-    const hmi::SidecarReadResult lues =
-        hmi::readSidecar(hmi::sidecarPath(carte("arenes/donjon")));
+    const hmi::SidecarReadResult lues = hmi::readSidecar(hmi::sidecarPath(carte("arenes/donjon")));
     ASSERT_NE(hmi::noteAt(lues.sidecar, {.column = 3, .row = 4}), nullptr);
     EXPECT_TRUE(hmi::checkAllMaps(racine).ok()) << constats();
 
@@ -198,15 +198,13 @@ TEST_F(Donnees, UneCarteChangeDeDossierSonAnnexeLaSuit) {
  * }
  */
 TEST_F(Donnees, UnRenommageImpossibleNEcritRien) {
-    const hmi::RefactorPlan pris =
-        hmi::planRenameMap(racine, "bourg/place", "cave");
+    const hmi::RefactorPlan pris = hmi::planRenameMap(racine, "bourg/place", "cave");
     EXPECT_FALSE(pris.ok());
     EXPECT_TRUE(pris.edits.empty());
     EXPECT_FALSE(hmi::planRenameMap(racine, "bourg/place", "a:b").ok());
 
     ecrire(carte("cassee"), "{");
-    const hmi::RefactorPlan illisible =
-        hmi::planRenameMap(racine, "bourg/place", "bourg/marche");
+    const hmi::RefactorPlan illisible = hmi::planRenameMap(racine, "bourg/place", "bourg/marche");
     EXPECT_FALSE(illisible.ok());
     EXPECT_NE(illisible.error.find("cassee"), std::string::npos) << illisible.error;
     EXPECT_TRUE(illisible.edits.empty());
@@ -237,8 +235,7 @@ TEST_F(Donnees, RenommerUnPointDArriveeSuitPortailsEtVille) {
     appliquer(hmi::planRenameArrival(racine, "bourg/place", "cave", "vers-la-place"));
     EXPECT_NE(lire(carte("cave")).find(R"("arrival": "vers-la-place")"), std::string::npos);
     EXPECT_FALSE(
-        hmi::planRenameArrival(racine, "bourg/place", "vers-la-place", "porte-orientale")
-            .ok());
+        hmi::planRenameArrival(racine, "bourg/place", "vers-la-place", "porte-orientale").ok());
     EXPECT_TRUE(hmi::checkAllMaps(racine).ok()) << constats();
 }
 
@@ -344,11 +341,9 @@ TEST_F(Donnees, UneCarteChangeDePlancheSansEtreRepeinte) {
     remplacer(R"("scene/bourg/street-3": {)",
               R"("scene/caveau/cobbles": {"aliases": ["street-3"], )");
     ecrire(racine / "Assets" / "Scene" / "caveau" / "manifest.json", manifeste);
-    const core::TileMap avant =
-        core::LevelLoader::loadFromFile(carte("cave")).level->tileMap();
+    const core::TileMap avant = core::LevelLoader::loadFromFile(carte("cave")).level->tileMap();
 
-    const hmi::RefactorPlan sansTable =
-        hmi::planChangeScene(racine, "cave", "caveau", {});
+    const hmi::RefactorPlan sansTable = hmi::planChangeScene(racine, "cave", "caveau", {});
     ASSERT_FALSE(sansTable.ok());
     EXPECT_NE(sansTable.error.find("street-2"), std::string::npos) << sansTable.error;
     EXPECT_EQ(sansTable.error.find("street-3"), std::string::npos) << sansTable.error;
@@ -369,8 +364,7 @@ TEST_F(Donnees, UneCarteChangeDePlancheSansEtreRepeinte) {
                 << column << ", " << row;
         }
     }
-    const std::string apparence =
-        lire(racine / "Assets" / "Scene" / "caveau" / "appearance.json");
+    const std::string apparence = lire(racine / "Assets" / "Scene" / "caveau" / "appearance.json");
     EXPECT_NE(apparence.find(R"("place": "caveau")"), std::string::npos) << apparence;
     EXPECT_NE(apparence.find("paving-2"), std::string::npos) << apparence;
     EXPECT_EQ(hmi::citationsOfPiece(racine, "street-2").size(), 1U);  // la Place seule

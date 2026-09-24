@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Core/Ecs/Components/Interactable.h"
+#include "Core/Gameplay/Quest.h"
 #include "Core/Gameplay/WorldFlags.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
@@ -76,6 +77,8 @@ enum class ExplorationEventKind {
     Encounter,
     /// Une interaction a eu lieu sans autre conséquence (coffre, panneau). `value` donne le type.
     Interacted,
+    /// Une quête a atteint une étape (`LOT-116`). `value` vaut `<quête>/<étape>`.
+    QuestAdvanced,
 };
 
 /// @brief Un événement du pas, et où il a eu lieu.
@@ -160,6 +163,31 @@ public:
         return _flags;
     }
 
+    /**
+     * @brief Donne à la session les quêtes de la partie : leurs drapeaux sont déclarés, et celles
+     *        dont les conditions tiennent déjà avancent (`LOT-116`).
+     */
+    void setQuests(QuestCatalog quests);
+
+    [[nodiscard]] const QuestCatalog& quests() const noexcept {
+        return _quests;
+    }
+
+    /**
+     * @brief Tire les conséquences des drapeaux changés depuis le dernier appel : les quêtes
+     *        avancent, et les entités de la carte paraissent ou disparaissent **sans la
+     * recharger**.
+     *
+     * `update` l'appelle à chaque pas, gelée ou non ; l'appeler soi-même sert à qui vient d'écrire
+     * un drapeau hors d'un pas — un dialogue qui se referme — et veut le voir aussitôt.
+     *
+     * @return Une `QuestAdvanced` par étape atteinte ; vide si rien n'a changé.
+     */
+    std::vector<ExplorationEvent> refreshFromFlags();
+
+    /// @brief Vrai si l'entité @p entity de la carte courante est présente sous les drapeaux.
+    [[nodiscard]] bool isPresent(const MapEntity& entity) const;
+
     [[nodiscard]] const WorldTravel& travel() const noexcept {
         return _travel;
     }
@@ -178,7 +206,8 @@ public:
     }
 
 private:
-    /// Relit les entités interactives de la carte courante (changement de carte).
+    /// Relit les entités interactives **présentes** de la carte courante (changement de carte,
+    /// drapeau changé).
     void rebuildInteractables();
     /// @return Vrai si le gabarit du héros tient en @p point sans entrer dans du plein.
     [[nodiscard]] bool fits(CellPoint point) const;
@@ -191,6 +220,9 @@ private:
 
     WorldTravel _travel;
     WorldFlags _flags;
+    QuestCatalog _quests;
+    /// Révision des drapeaux que la liste des interactifs et les quêtes reflètent.
+    std::uint64_t _seenRevision = 0;
     std::vector<Interactable> _interactables;
     CellPoint _hero{};
     Vector2 _facing{0.0F, 1.0F};

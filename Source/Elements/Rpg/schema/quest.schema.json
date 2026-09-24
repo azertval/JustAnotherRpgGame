@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://justanotherrpggame.local/rpg/quest.schema.json",
+  "title": "Quete",
+  "description": "Une quete (LOT-116) : les drapeaux a valeurs qu'elle declare, et ses etapes dans l'ordre du recit. Une etape est atteinte des que toutes ses conditions tiennent, et le reste ; ses effets posent des drapeaux, son issue la clot. AUCUN TEXTE : le titre et chaque etape ont une cle FABRIQUEE (quest.<id>.title, quest.<id>.<etape>). Ce schema dit la forme ; une valeur non declaree, deux etapes de meme identifiant, un drapeau declare deux fois se refusent au chargement (core::readQuest, core::loadQuests), fichier et ligne nommes.",
+  "allOf": [
+    {
+      "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/entree"
+    }
+  ],
+  "type": "object",
+  "properties": {
+    "id": true,
+    "name": true,
+    "source": true,
+    "status": true,
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "values": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "initial": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Absente : la premiere valeur."
+          }
+        },
+        "required": [
+          "id",
+          "values"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+          },
+          "when": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "https://justanotherrpggame.local/rpg/dialogue.schema.json#/$defs/flagCondition"
+            }
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "setFlag",
+                    "clearFlag"
+                  ]
+                },
+                "flag": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "type",
+                "flag"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "outcome": {
+            "enum": [
+              "success",
+              "failure"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "when"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "steps"
+  ],
+  "additionalProperties": false
+}

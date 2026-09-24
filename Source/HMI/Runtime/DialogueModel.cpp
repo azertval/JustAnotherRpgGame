@@ -21,6 +21,7 @@
 #include "HMI/Presentation/DialogueScreen.h"
 #include "HMI/Runtime/DemonstrationCharacter.h"
 #include "HMI/Runtime/RuleLabels.h"
+#include "HMI/Runtime/WorldModel.h"
 
 namespace hmi {
 
@@ -31,11 +32,15 @@ namespace {
 }
 
 /**
- * Les drapeaux de monde des conversations, le temps du processus. ECHAFAUDAGE : sans partie ni
- * sauvegarde (LOT-17), il n'y a pas d'autre endroit ou les garder, et un heraut qui oublierait
- * qu'on lui a parle a chaque ouverture de l'ecran rendrait les conditions invisibles.
+ * Les drapeaux de monde des conversations : ceux de la partie (`LOT-116`), que la carte lit aussi
+ * -- une porte ouverte par un dialogue s'ouvre sur la carte, un PNJ appele par une quete y parait.
+ * Sans partie (le designer, un test de l'ecran seul), un ensemble le temps du processus, pour
+ * qu'un heraut n'oublie pas qu'on lui a parle a chaque ouverture de l'ecran.
  */
-[[nodiscard]] core::WorldFlags& drapeauxDeDemonstration() {
+[[nodiscard]] core::WorldFlags& drapeauxDeLaPartie() {
+    if (WorldModel* const partie = WorldModel::current()) {
+        return partie->flags();
+    }
     static core::WorldFlags drapeaux;
     return drapeaux;
 }
@@ -177,7 +182,7 @@ void DialogueModel::open() {
                        s.character.skills,
                        [this](const std::string& arena) { emit combatRequested(toQt(arena)); });
     s.random.emplace(graineSuivante());
-    s.runner.emplace(*s.graph, drapeauxDeDemonstration(), *s.listener, s.difficulty, *s.random);
+    s.runner.emplace(*s.graph, drapeauxDeLaPartie(), *s.listener, s.difficulty, *s.random);
     static_cast<void>(s.runner->start());
     for (const std::string& ligne : s.runner->journal()) {
         HMI_LOG_INFO("Dialogue : " + ligne);

@@ -19,9 +19,12 @@ add_library(Core STATIC
     World/ExplorationSession.cpp
     World/ExplorationReach.cpp
     World/CombatZone.cpp
+    World/EntityPresence.cpp
     Gameplay/Interaction.cpp
     Gameplay/MapEntitySpawner.cpp
     Gameplay/WorldFlags.cpp
+    Gameplay/FlagCondition.cpp
+    Gameplay/Quest.cpp
     Rpg/Ability.cpp
     Rpg/Bestiary.cpp
     Rpg/CharacterOptions.cpp

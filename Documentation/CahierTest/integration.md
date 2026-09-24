@@ -1,12 +1,13 @@
 # Tests d'intégration
 
-Tests d'intégration — **3 cas** (2 critiques, 1 majeur). [Retour à la synthèse](README.md).
+Tests d'intégration — **4 cas** (3 critiques, 1 majeur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_exploration_carte.cpp`](#test-exploration-cartecpp) | 3 | - | 2 | 1 | - |
+| [`test_quete_trois_etapes.cpp`](#test-quete-trois-etapescpp) | 1 | - | 1 | - | - |
 
 ## test_exploration_carte.cpp
 
@@ -70,3 +71,43 @@ Une carte qui puise dans quatre niveaux se joue.
 - Vérifie que `snapshot.figureDirectories.at("Peoples/human/guard")` vaut `"Common/Characters/Peoples/human/guard"`.
 - Vérifie que `snapshot.figures.empty()` est faux.
 - Vérifie que `snapshot.figures.back().figure` vaut `hmi::WorldPlay::DEFAULT_HERO_FIGURE`.
+
+## test_quete_trois_etapes.cpp
+
+### QueteIntegration.UneQueteDeTroisEtapesSeJoueSansFenetre
+
+*Critique · Integration · Quetes* — `Source/Test/Integration/test_quete_trois_etapes.cpp:168`
+
+Une quete de trois etapes se joue sans fenetre.
+
+**Étapes**
+
+1. Monter la partie : quetes et dialogues de la racine d'essai, un parvis en memoire ou la mere attend et ou le garde ne parait que sous `quete.essai == acceptee`.
+2. Parler a la mere, accepter.
+3. Parler au garde, lui faire relacher l'enfant.
+4. Revenir a la mere, lui rendre l'enfant.
+5. Lire le journal.
+
+**Résultat attendu**
+
+- Vérifie que `partie.erreurs.empty()` est vrai.
+- Vérifie que `partie.play().session().quests().find(QUETE)` diffère de `nullptr`.
+- Vérifie que `partie.play().enter("parvis", {})` est vrai.
+- Vérifie que `partie.figuresDePnj()` vaut `1U`.
+- Vérifie que `partie.parlerDepuis({6, 6})` vaut `std::nullopt`.
+- Vérifie que `partie.parlerDepuis({4, 4})` vaut `"essai-mere"`.
+- Vérifie que `partie.etapesAtteintes(&sceneChangee)` vaut `(std::vector<std::string>{"essai-trois-etapes/acceptee"})`.
+- Vérifie que `sceneChangee` est vrai.
+- Vérifie que `partie.figuresDePnj()` vaut `2U`.
+- Vérifie que `partie.parlerDepuis({6, 6})` vaut `"essai-garde"`.
+- Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"essai-trois-etapes/garde-vu"})`.
+- Vérifie que `partie.figuresDePnj()` vaut `1U`.
+- Vérifie que `partie.parlerDepuis({6, 6})` vaut `std::nullopt`.
+- Vérifie que `partie.parlerDepuis({4, 4})` vaut `"essai-mere"`.
+- Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"essai-trois-etapes/rendue"})`.
+- Vérifie que `drapeaux.isSet("essai/recompense-donnee")` est vrai.
+- Vérifie que `core::questProgress(quete, drapeaux).status` vaut `core::QuestStatus::Succeeded`.
+- Vérifie que `journal.quests.size()` vaut `1U`.
+- Vérifie que `journal.quests.front().value` vaut `"journal.status.succeeded"`.
+- Vérifie que `journal.objectives.size()` vaut `3U`.
+- Vérifie que `journal.detail` vaut `"quest.essai-trois-etapes.rendue"`.

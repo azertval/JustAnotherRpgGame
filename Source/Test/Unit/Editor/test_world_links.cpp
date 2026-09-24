@@ -37,9 +37,10 @@ namespace {
 }
 
 // Ce que le contrôle lit sans le récrire.
-constexpr const char* DOSSIERS_LUS[] = {
-    "World/dialogues", "World/locations", "Rpg/encounters", "Rpg/creatures", "Rpg/items",
-    "Assets/Npc",      "Assets/Monsters", "Localization",   "World/cities",  "Assets/Scene"};
+constexpr const char* DOSSIERS_LUS[] = {"World/dialogues", "World/quests",    "World/locations",
+                                        "Rpg/encounters",  "Rpg/creatures",   "Rpg/items",
+                                        "Assets/Npc",      "Assets/Monsters", "Localization",
+                                        "World/cities",    "Assets/Scene"};
 
 void copier(const std::filesystem::path& racine, const char* dossier) {
     for (const auto& entry : std::filesystem::recursive_directory_iterator(elements() / dossier)) {
@@ -175,8 +176,7 @@ TEST_F(DonneesLiens, RelierDeuxCartesSeTraverseDansLesDeuxSens) {
     EXPECT_EQ(aller->arrival, "from-place");
     EXPECT_EQ(retour->arrival, "from-donjon");
 
-    const std::optional<core::GridPosition> surLeDonjon =
-        arrivee(carte("donjon"), "from-place");
+    const std::optional<core::GridPosition> surLeDonjon = arrivee(carte("donjon"), "from-place");
     const std::optional<core::GridPosition> surLaPlace =
         arrivee(carte("bourg/place"), "from-donjon");
     ASSERT_TRUE(surLeDonjon.has_value());
@@ -251,6 +251,5 @@ TEST_F(DonneesLiens, DeuxLiensEntreLesMemesCartesSeDistinguent) {
 TEST(LiensDuMonde, UnPointDarriveeDitDouLonVient) {
     EXPECT_EQ(hmi::arrivalNameFrom("bourg/place", {}), "from-place");
     EXPECT_EQ(hmi::arrivalNameFrom("bourg/place", {"from-place"}), "from-place-2");
-    EXPECT_EQ(hmi::arrivalNameFrom("donjon", {"from-donjon", "from-donjon-2"}),
-              "from-donjon-3");
+    EXPECT_EQ(hmi::arrivalNameFrom("donjon", {"from-donjon", "from-donjon-2"}), "from-donjon-3");
 }

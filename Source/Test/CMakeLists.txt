@@ -66,11 +66,13 @@ add_executable(UnitTests
     Unit/Core/World/test_world_graph.cpp
     Unit/Core/World/test_world_travel.cpp
     Unit/Core/World/test_exploration_session.cpp
+    Unit/Core/World/test_entity_presence.cpp
     Unit/Core/World/test_city_plan.cpp
     Unit/Core/World/test_city_block.cpp
     Unit/Core/World/test_combat_zone.cpp
     Unit/Core/World/test_exploration_reach.cpp
     Unit/Core/Gameplay/test_interaction.cpp
+    Unit/Core/Gameplay/test_quest.cpp
     Unit/Core/Time/test_fixed_timestep.cpp
     Unit/Core/Diagnostics/test_logger.cpp
     Unit/Core/Diagnostics/test_scoped_log_level.cpp
@@ -108,6 +110,7 @@ add_executable(UnitTests
     Unit/HMI/Platform/test_crash_dump.cpp
     Unit/HMI/Presentation/test_credits_catalog.cpp
     Unit/HMI/Presentation/test_inventory_screen.cpp
+    Unit/HMI/Presentation/test_quest_journal_screen.cpp
     Unit/HMI/Presentation/test_world_maps.cpp
     Unit/HMI/Interface/test_screen_flow.cpp
     Unit/HMI/Interface/test_rpg_screens.cpp
@@ -385,6 +388,7 @@ endif()
 add_executable(IntegrationTests
     Support/CrtReports.cpp
     Integration/test_exploration_carte.cpp
+    Integration/test_quete_trois_etapes.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE

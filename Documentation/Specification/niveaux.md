@@ -203,6 +203,7 @@ rassemblés dans `core::knownEntityKinds` (`Source/Core/World/EntityKinds.h`) :
 | `combatZone` | `name`, `width`, `height` — requis | découpe de la grille de combat (`LOT-09`) |
 | `cityBlock` | `name`, `width`, `height` — requis | plan de ville (`LOT-96`) |
 | `arenaEntry` | `side` (`allies` ou `enemies`), `rank` (entier, au moins 1) | `core::arenaEntryPoints` (`LOT-50`) |
+| *toute famille* | `presenceFlag`, `presenceTest` (`set`, `unset`, `equals`, `notEquals`), `presenceValue` (`a\|b`) — la **condition de présence** | `core::isEntityPresent` (`LOT-116`, `EX-EXP-009`) ; déclarée à l'inspecteur au `LOT-126` |
 | `zone` | `width`, `height` (rectangle) ou `cells` (peinte) ; `name`, `difficultTerrain` | `core::BattleGrid::zonesAt` (`LOT-EDITOR-12`) |
 | `route` | `name` (requis), `loop` (booléen, une ronde) ; ses points dans `cells`, **dans l'ordre** | personne encore : le `LOT-70` et le `LOT-82` (`LOT-EDITOR-05`) |
 
