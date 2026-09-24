@@ -6,6 +6,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Nightly et Code scanning au vert.** Le chargeur de carte refuse un côté de plus de 1024 cases
+  (`MAX_LEVEL_SIDE`) avant d'allouer la grille : le fuzzing de `fuzz_level` y trouvait une carte
+  de dix gigaoctets. Les quinze alertes ouvertes sont corrigées : déplacements sans effet dans
+  l'image de scène de l'éditeur, rang d'étage hors de l'énumération `WorldDepthSlot` (qui nomme
+  désormais ses quatre étages), complexité de `composeWorldScene`, `snapshotWorldScene` et
+  `stampToJson` découpée, et quelques retouches de lisibilité.
 - **LOT-129 — Les étages et les toits de la scène.** Une couche de décor à l'étage 1 à 4 se dessine
   élevée d'autant de hauteurs d'étage, déclarées par le manifeste du lieu (`"storey"`, 224 pixels
   d'art pour le kit de la Capitale), triée au-dessus de ce qui la porte ; un étage qui masque le

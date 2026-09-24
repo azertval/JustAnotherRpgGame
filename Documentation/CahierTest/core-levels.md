@@ -1,6 +1,6 @@
 # Core · Levels
 
-Tests unitaires — **121 cas** (1 bloquant, 24 critiques, 79 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **122 cas** (1 bloquant, 24 critiques, 80 majeurs, 17 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -12,7 +12,7 @@ Tests unitaires — **121 cas** (1 bloquant, 24 critiques, 79 majeurs, 17 mineur
 | [`test_level_draft.cpp`](#test-level-draftcpp) | 25 | - | 1 | 21 | 3 |
 | [`test_level_draft_editing.cpp`](#test-level-draft-editingcpp) | 14 | - | 1 | 7 | 6 |
 | [`test_level_draft_pieces.cpp`](#test-level-draft-piecescpp) | 16 | 1 | 6 | 8 | 1 |
-| [`test_level_loader.cpp`](#test-level-loadercpp) | 5 | - | 1 | 4 | - |
+| [`test_level_loader.cpp`](#test-level-loadercpp) | 6 | - | 1 | 5 | - |
 | [`test_level_writer.cpp`](#test-level-writercpp) | 4 | - | - | 3 | 1 |
 | [`test_map_layers.cpp`](#test-map-layerscpp) | 14 | - | - | 12 | 2 |
 | [`test_rpg_terrain.cpp`](#test-rpg-terraincpp) | 6 | - | 2 | 4 | - |
@@ -1710,7 +1710,7 @@ Seul un decor monte, de 1 au dernier etage.
 
 ### LevelLoaderTest.ChargeUnNiveauValide
 
-*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:36`
+*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:37`
 
 Un niveau valide est chargé avec ses dimensions, ses tuiles et son entrée.
 
@@ -1733,7 +1733,7 @@ Un niveau valide est chargé avec ses dimensions, ses tuiles et son entrée.
 
 ### LevelLoaderTest.NiveauSansVersionSeChargeSansErreur
 
-*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:63`
+*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:64`
 
 Un niveau sans champ version se charge sans erreur.
 
@@ -1749,7 +1749,7 @@ Un niveau sans champ version se charge sans erreur.
 
 ### LevelLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement
 
-*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:80`
+*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:81`
 
 Un niveau dont la version depasse celle geree echoue proprement.
 
@@ -1763,9 +1763,25 @@ Un niveau dont la version depasse celle geree echoue proprement.
 - Vérifie que `result.ok()` est faux.
 - Vérifie que `result.errorCode` vaut `core::LevelValidationError::UnsupportedFormatVersion`.
 
+### LevelLoaderTest.DimensionsAberrantesRefuseesSansAllouer
+
+*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:105`
+
+Une carte plus grande que MAX_LEVEL_SIDE est refusée.
+
+**Étapes**
+
+1. Charger une carte de 100 000 × 100 000 cases.
+2. Charger une carte d'une case de plus que la borne en hauteur.
+
+**Résultat attendu**
+
+- Vérifie que `result.ok()` est faux.
+- Vérifie que `result.errorCode` vaut `core::LevelValidationError::ParseError`.
+
 ### LevelLoaderTest.UneCarteDoitPorterExactementUneEntree
 
-*Critique · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:104`
+*Critique · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:128`
 
 Une carte doit porter exactement une entrée.
 
@@ -1781,7 +1797,7 @@ Une carte doit porter exactement une entrée.
 
 ### LevelLoaderTest.TypeDeTuileInconnuRefuse
 
-*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:131`
+*Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:155`
 
 Un type de tuile inconnu est refusé au chargement.
 

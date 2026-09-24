@@ -65,7 +65,13 @@ enum class WorldDepthSlot : std::int32_t {
     Relief = 0,
     Figure,
     Storey,
+    Storey2,
+    Storey3,
+    Storey4,
 };
+static_assert(static_cast<std::int32_t>(WorldDepthSlot::Storey4) ==
+                  static_cast<std::int32_t>(WorldDepthSlot::Storey) + core::MAX_STOREY_FLOOR - 1,
+              "WorldDepthSlot nomme un rang par etage");
 
 /// Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage.
 inline constexpr std::int32_t WORLD_DEPTH_SLOTS =

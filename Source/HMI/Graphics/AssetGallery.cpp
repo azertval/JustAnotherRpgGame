@@ -151,7 +151,8 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
         }
     }
     std::ranges::sort(models);
-    models.erase(std::ranges::unique(models).begin(), models.end());
+    const auto duplicates = std::ranges::unique(models);
+    models.erase(duplicates.begin(), duplicates.end());
     const std::vector<std::string> animations = stringList(document.root, "animations");
     const auto tile = static_cast<int>(manifestArtTile(document.root).x);
     for (const std::string& model : models) {

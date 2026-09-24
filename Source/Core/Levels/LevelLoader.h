@@ -68,6 +68,15 @@ enum class LevelValidationError {
 inline constexpr int LEVEL_FORMAT_VERSION = 4;
 
 /**
+ * @brief Plus grand côté de carte accepté au chargement, en cases.
+ *
+ * L'éditeur plafonne ses cartes à 100 cases de côté ; cette borne, dix fois plus large, ne sert
+ * qu'à refuser un fichier aberrant avant d'allouer sa grille (un côté de 100 000 cases réclame
+ * des gigaoctets).
+ */
+inline constexpr int MAX_LEVEL_SIDE = 1024;
+
+/**
  * @brief Résultat d'un chargement de niveau : soit un `Level`, soit une **erreur** décrite.
  *
  * En cas de succès, `level` contient le niveau, `error` est vide et `errorCode` vaut `None`. En

@@ -48,13 +48,14 @@ QImage SceneImage::level(int level) {
         if (full.isNull()) {
             return {};
         }
-        _levels.assign(1, std::move(full));
+        _levels.clear();
+        _levels.push_back(std::move(full));
         _owner->account(static_cast<std::ptrdiff_t>(bytesOf(_levels.front())));
     }
     const int wanted = std::clamp(level, 0, levelCount() - 1);
     // Chaque niveau se tire du précédent, réduit de moitié : la moyenne de quatre texels, ce que
     // fait la génération de mipmaps du GPU.
-    while (static_cast<int>(_levels.size()) <= wanted) {
+    while (std::cmp_less_equal(_levels.size(), wanted)) {
         const QImage& previous = _levels.back();
         QImage next =
             previous.scaled(std::max(1, previous.width() / 2), std::max(1, previous.height() / 2),
@@ -119,7 +120,8 @@ TextureHandle SceneImages::solid() noexcept {
         image._width = 1;
         image._height = 1;
         image._solid = true;
-        image._levels.assign(1, std::move(white));
+        image._levels.clear();
+        image._levels.push_back(std::move(white));
         return image;
     }();
     return sceneImageHandle(&solidImage);
@@ -154,7 +156,8 @@ SceneImage* SceneImages::image(const std::string& path) {
 void SceneImages::pin(SceneImage& target, QImage image) {
     target._width = image.width();
     target._height = image.height();
-    target._levels.assign(1, std::move(image));
+    target._levels.clear();
+    target._levels.push_back(std::move(image));
 }
 
 QImage SceneImages::readFile(const std::string& path) const {
@@ -216,7 +219,8 @@ void SceneImages::ensure(const std::vector<std::string>& paths) {
             stored._smooth = true;
             stored._width = loaded.width();
             stored._height = loaded.height();
-            stored._levels.assign(1, std::move(loaded));
+            stored._levels.clear();
+            stored._levels.push_back(std::move(loaded));
             account(static_cast<std::ptrdiff_t>(bytesOf(stored._levels.front())));
             touch(stored);
             // Decoupe, echelle et ancre : les memes traits que le jeu lit (LOT-103), chaque

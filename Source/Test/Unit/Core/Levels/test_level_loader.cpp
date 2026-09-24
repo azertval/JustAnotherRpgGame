@@ -7,6 +7,7 @@
  */
 
 #include <filesystem>
+#include <string>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -97,6 +98,29 @@ TEST(LevelLoaderTest, VersionSuperieureALaVersionGereeEchoueProprement) {
     const core::LevelLoadResult result = core::LevelLoader::loadFromString(LEVEL);
     EXPECT_FALSE(result.ok());
     EXPECT_EQ(result.errorCode, core::LevelValidationError::UnsupportedFormatVersion);
+}
+
+/**
+ * @brief Une carte aux dimensions aberrantes est refusée avant d'allouer sa grille.
+ * \castest{<b>Une carte plus grande que MAX_LEVEL_SIDE est refusée.</b><br/>
+ * \tcat Unitaire · Level Loader<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Charger une carte de 100 000 × 100 000 cases.<br/>2. Charger une carte d'une case
+ * de plus que la borne en hauteur.<br/>
+ * \tattendu Les deux chargements échouent avec `LevelValidationError::ParseError`, sans allouer
+ * la grille.
+ * }
+ */
+TEST(LevelLoaderTest, DimensionsAberrantesRefuseesSansAllouer) {
+    const std::string tooLargeHeight = std::to_string(core::MAX_LEVEL_SIDE + 1);
+    const std::vector<std::string> levels = {
+        R"({ "width": 100000, "height": 100000, "tiles": [] })",
+        R"({ "width": 4, "height": )" + tooLargeHeight + R"(, "tiles": [] })"};
+    for (const std::string& levelJson : levels) {
+        const core::LevelLoadResult result = core::LevelLoader::loadFromString(levelJson);
+        EXPECT_FALSE(result.ok());
+        EXPECT_EQ(result.errorCode, core::LevelValidationError::ParseError);
+    }
 }
 
 /**
