@@ -97,6 +97,9 @@ FAMILLES = {
     # Villes jouables (LOT-96), sous World/ : le graphe des quartiers d'une ville, et la porte ou
     # << Nouvelle partie >> pose le heros.
     'cities': 'city',
+    # Quetes (LOT-116), sous World/ : drapeaux declares et etapes. Le schema dit la forme ; les
+    # valeurs non declarees et les doublons se refusent au chargement (core::readQuest).
+    'quests': 'quest',
 }
 
 # `rules/` porte des REGLES, pas une collection d'entrees semblables : chaque fichier y a son

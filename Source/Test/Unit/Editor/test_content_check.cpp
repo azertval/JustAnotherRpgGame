@@ -183,8 +183,8 @@ TEST(ContentCheckTest, ChaqueDefautDeContenuSort) {
                         "map name \"map.nuit.name\" is not a translation key of en.lang"));
     // Les références : dialogue, drapeau de monde ; une famille inconnue n'est qu'un avertissement.
     EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "fautive", "dialogue \"inconnu\""));
-    EXPECT_TRUE(
-        signale(constats, MapCheckSeverity::Error, "fautive", "no dialogue sets flag \"jamais"));
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "fautive",
+                        "no dialogue or quest sets flag \"jamais"));
     EXPECT_TRUE(signale(constats, MapCheckSeverity::Warning, "fautive", "\"mystere\" is unknown"));
     // Le terrain : la rencontre du LOT-11, sur toute carte ; au bord, un rat tomberait dehors.
     EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "fautive",
@@ -357,4 +357,50 @@ TEST(ContentCheckTest, UneCarteNeuveASonNomDansChaqueCatalogue) {
     EXPECT_EQ(core::LevelLoader::loadFromFile(copie.path).level->name(),
               hmi::mapNameKey(copie.path.stem().string()));
     EXPECT_TRUE(hmi::checkAllMaps(projet.racine()).ok());
+}
+
+/**
+ * @brief Le récit se contrôle hors de toute carte : drapeau lu jamais posé, quête mal formée.
+ * \castest{<b>Le controle du recit refuse un drapeau lu que rien ne pose.</b><br/>
+ * \tcat Unitaire · Controle du contenu<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire un dialogue dont une condition lit `jamais-pose` et qui pose `pose`.<br/>
+ * 2. Ecrire une quete qui lit `pose`, et une quete mal formee.<br/>3. Controler le recit, puis
+ * `--check` sur le projet.<br/>
+ * \tattendu Deux erreurs sur `World` : `jamais-pose` est lu sans etre pose (le dialogue et son
+ * noeud nommes), la quete mal formee est refusee avec sa ligne ; `pose` ne dit rien ; `--check`
+ * rend 1.
+ * }
+ */
+TEST(ContentCheckTest, LeControleDuRecitRefuseUnDrapeauLuQueRienNePose) {
+    const Projet projet;
+    const std::filesystem::path monde = projet.racine() / "World";
+    std::filesystem::create_directories(monde / "dialogues");
+    std::filesystem::create_directories(monde / "quests");
+    std::ofstream(monde / "dialogues" / "veilleur.json", std::ios::binary) << R"({
+  "id": "veilleur", "speaker": { "languages": ["common"], "attitude": "indifferent" },
+  "start": "test",
+  "nodes": [
+    { "id": "test", "type": "condition", "flag": "jamais-pose", "then": "pose", "else": "pose" },
+    { "id": "pose", "type": "action", "actions": [{ "type": "setFlag", "flag": "pose" }],
+      "next": "fin" },
+    { "id": "fin", "type": "end" }
+  ]
+})";
+    std::ofstream(monde / "quests" / "ronde.json", std::ios::binary)
+        << R"({ "id": "ronde", "steps": [{ "id": "vue", "when": [{ "flag": "pose" }] }] })";
+    std::ofstream(monde / "quests" / "casse.json", std::ios::binary)
+        << "{\n  \"id\": \"casse\",\n  \"steps\": [\n    { \"id\": \"sans-condition\" }\n  ]\n}";
+
+    const std::vector<hmi::MapCheckFinding> constats = hmi::checkStoryContent(projet.racine());
+    ASSERT_EQ(constats.size(), 2U);
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "World", "casse.json:4"));
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "World",
+                        "dialogue 'veilleur' : noeud 'test': flag \"jamais-pose\" is read"));
+
+    std::string sortie;
+    const std::optional<int> code =
+        hmi::runMapCommand({"--data", projet.racine().string(), "--check"}, {}, sortie);
+    ASSERT_TRUE(code.has_value());
+    EXPECT_EQ(*code, 1) << sortie;
 }

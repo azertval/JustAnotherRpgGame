@@ -1,6 +1,6 @@
 # HMI · Presentation
 
-Tests unitaires — **17 cas** (4 critiques, 10 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **18 cas** (5 critiques, 10 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -8,6 +8,7 @@ Tests unitaires — **17 cas** (4 critiques, 10 majeurs, 3 mineurs). [Retour à 
 |---|---|---|---|---|---|
 | [`test_credits_catalog.cpp`](#test-credits-catalogcpp) | 7 | - | 2 | 4 | 1 |
 | [`test_inventory_screen.cpp`](#test-inventory-screencpp) | 6 | - | 1 | 3 | 2 |
+| [`test_quest_journal_screen.cpp`](#test-quest-journal-screencpp) | 1 | - | 1 | - | - |
 | [`test_world_maps.cpp`](#test-world-mapscpp) | 4 | - | 1 | 3 | - |
 
 ## test_credits_catalog.cpp
@@ -244,6 +245,44 @@ La fiche d'un objet de l'inventaire décrit sa nature et son poids.
 - Vérifie que `torch.kind` vaut `"Matériel"`.
 - Vérifie que `torch.weight` vaut `"0,5 kg"`.
 - Vérifie que `torch.equippable` est faux.
+
+## test_quest_journal_screen.cpp
+
+### QuestJournalScreenTest.LeJournalSeLitDansLesDrapeaux
+
+*Critique · Unitaire · Journal de quetes* — `Source/Test/Unit/HMI/Presentation/test_quest_journal_screen.cpp:45`
+
+Le journal se lit dans les drapeaux.
+
+**Étapes**
+
+1. Deux quetes ; aucune commencee.
+2. Faire atteindre `un` puis `deux` a la premiere, `un` a la seconde.
+3. Choisir la seconde, puis la voisine suivante et precedente.
+4. Clore la premiere en echec.
+
+**Résultat attendu**
+
+- Vérifie que `vide.quests.empty()` est vrai.
+- Vérifie que `vide.selected.empty()` est vrai.
+- Vérifie que `vide.detail` vaut `"journal.empty"`.
+- Vérifie que `ouvert.quests.size()` vaut `2U`.
+- Vérifie que `ouvert.selected` vaut `"pommes"`.
+- Vérifie que `ouvert.quests[0]` vaut `(hmi::QuestJournalRow{"pommes", "› quest.pommes.title", "journal.status.active"})`.
+- Vérifie que `ouvert.quests[1].label` vaut `"quest.caves.title"`.
+- Vérifie que `ouvert.detail` vaut `"quest.pommes.deux"`.
+- Vérifie que `ouvert.objectives.size()` vaut `2U`.
+- Vérifie que `ouvert.objectives[0]` vaut `(hmi::QuestJournalRow{"un", "quest.pommes.un", "✓"})`.
+- Vérifie que `ouvert.objectives[1]` vaut `(hmi::QuestJournalRow{"deux", "quest.pommes.deux", ""})`.
+- Vérifie que `seconde.selected` vaut `"caves"`.
+- Vérifie que `seconde.quests[1].label` vaut `"› quest.caves.title"`.
+- Vérifie que `seconde.quests[0].label` vaut `"quest.pommes.title"`.
+- Vérifie que `hmi::neighbourQuest(seconde, 1)` vaut `"caves"`.
+- Vérifie que `hmi::neighbourQuest(seconde, -1)` vaut `"pommes"`.
+- Vérifie que `hmi::neighbourQuest(ouvert, -1)` vaut `"pommes"`.
+- Vérifie que `close.quests[0].value` vaut `"journal.status.failed"`.
+- Vérifie que `close.objectives.size()` vaut `3U`.
+- Vérifie que `close.objectives[2].value` vaut `"journal.status.failed"`.
 
 ## test_world_maps.cpp
 

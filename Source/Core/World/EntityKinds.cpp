@@ -16,6 +16,7 @@
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
+#include "Core/World/EntityPresence.h"
 
 namespace core {
 
@@ -317,6 +318,38 @@ namespace {
 
 }  // namespace
 
+namespace {
+
+// La condition de presence d'une entite : bien formee, et sur un drapeau qu'un dialogue ou une
+// quete pose -- sans quoi le PNJ ne paraitrait (ou ne partirait) jamais.
+template <class Report>
+void presenceIssues(const MapEntity& entity, const EntityReferenceContext& context,
+                    Report&& report) {
+    const PresenceRead read = presenceConditionOf(entity);
+    switch (read.issue) {
+        case PresenceIssue::None:
+            break;
+        case PresenceIssue::WrongValueType:
+            report(EntityIssueCode::WrongValueType, PRESENCE_FLAG_PROPERTY, std::string{});
+            return;
+        case PresenceIssue::UnknownTest:
+            report(EntityIssueCode::InvalidPresence, PRESENCE_TEST_PROPERTY,
+                   textOf(entity.properties, PRESENCE_TEST_PROPERTY));
+            return;
+        case PresenceIssue::MissingValue:
+            report(EntityIssueCode::InvalidPresence, PRESENCE_VALUE_PROPERTY, std::string{});
+            return;
+        case PresenceIssue::MissingFlag:
+            report(EntityIssueCode::InvalidPresence, PRESENCE_FLAG_PROPERTY, std::string{});
+            return;
+    }
+    if (read.condition && !context.flags.contains(read.condition->flag)) {
+        report(EntityIssueCode::UnsetFlag, PRESENCE_FLAG_PROPERTY, read.condition->flag);
+    }
+}
+
+}  // namespace
+
 std::vector<EntityIssue> validateMapEntities(const std::vector<MapEntity>& entities,
                                              const EntityReferenceContext& context) {
     std::vector<EntityIssue> issues;
@@ -334,6 +367,12 @@ std::vector<EntityIssue> validateMapEntities(const std::vector<MapEntity>& entit
 
     for (std::size_t index = 0; index < entities.size(); ++index) {
         const MapEntity& entity = entities[index];
+        // La condition de presence vaut pour TOUTE famille, connue ou non (LOT-116) : elle se
+        // controle ici, une fois, et non propriete par propriete dans la table.
+        presenceIssues(entity, context,
+                       [&](EntityIssueCode code, std::string_view key, std::string value) {
+                           report(index, code, key, std::move(value));
+                       });
         const EntityKind* const kind = findEntityKind(entity.type);
         if (kind == nullptr) {
             report(index, EntityIssueCode::UnknownType, {}, entity.type);

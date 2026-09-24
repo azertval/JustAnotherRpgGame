@@ -10,13 +10,26 @@
 #include "Core/Levels/Level.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/WorldTravel.h"
+#include "HMI/Game/GameQuests.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "HMI/Runtime/RuleLabels.h"
 
 namespace hmi {
 
+namespace {
+
+/// La partie en cours (`WorldModel::current`).
+WorldModel* partieCourante = nullptr;
+
+}  // namespace
+
+WorldModel* WorldModel::current() noexcept {
+    return partieCourante;
+}
+
 WorldModel::WorldModel(QObject* parent) : QObject(parent) {
+    partieCourante = this;
     _play = std::make_unique<WorldPlay>(
         core::WorldTravel::directoryLoader(executableDirectory() / "Levels"),
         executableDirectory() / "Assets");
@@ -33,9 +46,23 @@ WorldModel::WorldModel(QObject* parent) : QObject(parent) {
         // `EX-NFR-040` : l'ecran de jeu dira qu'il n'a rien a ouvrir, sans planter.
         HMI_LOG_WARNING("Monde : la ville de depart est illisible, " + lue.error);
     }
+    installQuests();
 }
 
-WorldModel::~WorldModel() = default;
+WorldModel::~WorldModel() {
+    if (partieCourante == this) {
+        partieCourante = nullptr;
+    }
+}
+
+void WorldModel::installQuests() {
+    GameQuests lues = loadGameQuests(executableDirectory());
+    for (const std::string& erreur : lues.errors) {
+        // Nomme son fichier et sa ligne (EX-CNT-010) : la quete se corrige sans relancer deux fois.
+        HMI_LOG_WARNING("Quete : " + erreur);
+    }
+    _play->session().setQuests(std::move(lues.catalog));
+}
 
 bool WorldModel::startNewGame() {
     _visitedDistricts.clear();
@@ -87,6 +114,7 @@ void WorldModel::setLevelDirectories(const std::vector<std::filesystem::path>& d
     _play = std::make_unique<WorldPlay>(core::WorldTravel::directoriesLoader(std::move(dossiers)),
                                         executableDirectory() / "Assets");
     _play->setHeroFigure(std::move(figure));
+    installQuests();
     for (const std::filesystem::path& dossier : directories) {
         HMI_LOG_INFO("Monde : cartes lues d'abord dans " + dossier.string());
     }
@@ -99,9 +127,20 @@ void WorldModel::setStartCell(core::GridPosition cell) {
 void WorldModel::setStartFlags(const QStringList& flags) {
     // Poses sur la SESSION, qui survit au changement de carte : un portail verrouille s'ouvre donc
     // aussi bien au premier pas qu'apres trois cartes.
+    // `drapeau=valeur` donne sa valeur a un drapeau qu'une quete declare (`LOT-116`).
+    core::WorldFlags& drapeaux = _play->session().flags();
     for (const QString& drapeau : flags) {
-        _play->session().flags().set(drapeau.toStdString());
+        const qsizetype egal = drapeau.indexOf(QLatin1Char('='));
+        if (egal < 0) {
+            drapeaux.set(drapeau.toStdString());
+        } else if (!drapeaux.setValue(drapeau.left(egal).toStdString(),
+                                      drapeau.mid(egal + 1).toStdString())) {
+            HMI_LOG_WARNING("Monde : --flags=, valeur refusee : " + drapeau.toStdString());
+        }
     }
+    // Les quetes avancent tout de suite, carte ouverte ou non : le journal le montre des
+    // l'ouverture.
+    static_cast<void>(_play->session().refreshFromFlags());
 }
 
 bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
@@ -175,6 +214,13 @@ void WorldModel::step() {
             case core::ExplorationEventKind::Interacted:
                 emit changed();
                 break;
+            case core::ExplorationEventKind::QuestAdvanced: {
+                const QString valeur = QString::fromStdString(evenement.value);
+                const qsizetype barre = valeur.indexOf(QLatin1Char('/'));
+                HMI_LOG_INFO("Quete : etape atteinte, " + evenement.value);
+                emit questAdvanced(valeur.left(barre), valeur.mid(barre + 1));
+                break;
+            }
         }
     }
 }

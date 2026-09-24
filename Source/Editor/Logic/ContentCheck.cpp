@@ -11,6 +11,8 @@
 #include "Core/Combat/CombatTransition.h"
 #include "Core/Combat/TacticalTerrain.h"
 #include "Core/Gameplay/MapEntitySpawner.h"
+#include "Core/Gameplay/Quest.h"
+#include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CityPlan.h"
 #include "Core/World/CombatZone.h"
@@ -284,6 +286,35 @@ std::vector<MapCheckFinding> checkMapContent(std::string_view mapId, const core:
     checkReach(mapId, level, context, findings);
     checkGraph(mapId, level, context, findings);
     return findings.take();
+}
+
+std::vector<MapCheckFinding> checkStoryContent(const std::filesystem::path& dataRoot) {
+    std::vector<MapCheckFinding> findings;
+    const auto error = [&findings](std::string message) {
+        findings.push_back(MapCheckFinding{.severity = MapCheckSeverity::Error,
+                                           .mapId = "World",
+                                           .cell = std::nullopt,
+                                           .message = std::move(message),
+                                           .entityId = {}});
+    };
+    const core::QuestCatalog quests = core::loadQuests(dataRoot / "World" / "quests");
+    const core::DialogueCatalog dialogues = core::loadDialogues(dataRoot / "World" / "dialogues");
+    // Les messages du chargement viennent de `core`, en francais : ce sont ceux que l'auteur des
+    // donnees lit aussi au demarrage du jeu, et ils nomment fichier et ligne.
+    for (const std::string& rejected : quests.errors) {
+        error("quest rejected: " + rejected);
+    }
+    for (const std::string& misuse : core::validateFlagUses(quests, dialogues)) {
+        error("flag misuse: " + misuse);
+    }
+    const std::set<std::string, std::less<>> written = core::flagsWrittenBy(quests, dialogues);
+    for (const core::FlagRead& read : core::flagsReadBy(quests, dialogues)) {
+        if (!written.contains(read.flag)) {
+            error(read.where + ": flag \"" + read.flag +
+                  "\" is read but no dialogue or quest sets it");
+        }
+    }
+    return findings;
 }
 
 }  // namespace hmi

@@ -166,6 +166,24 @@ public:
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
     [[nodiscard]] float diamondRatio() const;
 
+    /**
+     * @brief La partie en cours, s'il y en a une : ce que le dialogue et le journal lisent et
+     *        écrivent (`LOT-116`). Le dernier `WorldModel` construit — un par moteur QML, un seul
+     *        dans le jeu.
+     */
+    [[nodiscard]] static WorldModel* current() noexcept;
+
+    /// @return Les drapeaux de la partie : ceux de la session, qui survivent au changement de
+    /// carte.
+    [[nodiscard]] core::WorldFlags& flags() noexcept {
+        return _play->session().flags();
+    }
+
+    /// @return Les quêtes de la partie, lues au démarrage (`World/quests`).
+    [[nodiscard]] const core::QuestCatalog& quests() const noexcept {
+        return _play->session().quests();
+    }
+
     /// @return Le numéro de la scène : il avance à chaque pas qui change ce qui se dessine.
     [[nodiscard]] quint64 sceneRevision() const noexcept {
         return _sceneRevision;
@@ -186,12 +204,16 @@ signals:
     void portalLocked(const QString& flag);
     /// Un portail ne mène nulle part : la carte ou le point d'arrivée manque.
     void portalBroken(const QString& mapId);
+    /// Une quête a atteint une étape (`quest`) : le journal se relit.
+    void questAdvanced(const QString& quest, const QString& step);
 
 private:
     /// Un pas fixe : avance la session, joue ses événements, publie ce qui a changé.
     void step();
     /// Pose le héros sur la case de `--at=`, si elle est sur la carte (`LOT-EDITOR-10`).
     void placeHeroAtStartCell();
+    /// Lit les quêtes de `World/quests` et les donne à la session (`LOT-116`).
+    void installQuests();
     /// Retient le quartier de la carte courante parmi les quartiers visités.
     void noteDistrictVisit();
 

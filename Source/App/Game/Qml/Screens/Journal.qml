@@ -3,21 +3,27 @@ import Jadg.Ui
 import Jadg.Runtime
 
 /*!
-    Journal de quetes -- CABLAGE, cote developpeur (LOT-86).
+    Journal de quetes -- CABLAGE, cote developpeur (LOT-86, alimente au LOT-116).
 
-    Alimente par le lot des quetes, qui n'est pas ecrit.
+    Chaque propriete du formulaire se lit de `QuestJournalModel`, qui ne garde aucun etat de quete :
+    il relit les drapeaux de la partie, a l'ouverture et a chaque etape atteinte. Les quetes
+    commencees a gauche, l'entree la plus recente et les etapes atteintes de la quete choisie a
+    droite ; la choisie porte la marque `›`.
 
-    Chaque liaison porte une CLE D'ATTRIBUTION nommee, qui aboutit a l'ancre `PendingData`. Le
-    jour ou le lot fonctionnel arrive, il remplace ici `PendingData` par sa vraie vue-modele :
-    le formulaire ne bouge pas, et la mise en page decidee aujourd'hui est conservee telle quelle.
-
-    `python scripts/i18n/list_pending_bindings.py` releve ces cles depuis le QML : l'inventaire de ce
-    qu'il reste a brancher est DERIVE du code, donc toujours exact.
+    Au clavier et a la manette : `Haut` et `Bas` changent de quete, `Echap` referme le journal.
 */
 JournalForm {
-    pending: true
+    id: root
 
-    quests: PendingData.rows("journal.quests", 8)
-    detail: PendingData.value("journal.quest_detail")
-    objectives: PendingData.rows("journal.objectives", 4)
+    focus: true
+
+    readonly property QuestJournalModel journal: QuestJournalModel {}
+
+    quests: journal.quests
+    detail: journal.detail
+    objectives: journal.objectives
+
+    Keys.onUpPressed: root.journal.selectNeighbour(-1)
+    Keys.onDownPressed: root.journal.selectNeighbour(1)
+    Keys.onEscapePressed: ScreenRouter.closeRpgScreen()
 }

@@ -334,11 +334,14 @@ Une carte bien écrite (`EX-EDIT-062`) doit aussi se jouer ([LOT-EDITOR-07](../.
 
 - **EX-EDIT-079** — `LevelEditor --check` contrôle aussi le **contenu** de
   toutes les cartes, et échoue sur toute erreur : références des entités (catalogues, propriétés
-  requises, bornes, drapeaux de monde qu'un dialogue pose), terrain des rencontres, **atteignabilité**
+  requises, bornes, drapeaux de monde qu'un dialogue ou une quête pose), terrain des rencontres, **atteignabilité**
   de chaque case utile — portail, point d'arrivée, PNJ, coffre, panneau, rencontre, zone — depuis
   l'entrée ou un point d'arrivée nommé par un portail ou une ville, selon la règle de marche du jeu.
   Il avertit d'un portail sans retour, d'un point d'arrivée que rien ne nomme, d'une famille
-  d'entité inconnue. Une variante se contrôle sur les cases de sa base.
+  d'entité inconnue. Une variante se contrôle sur les cases de sa base. Hors de toute carte, il
+  contrôle aussi **le récit** (`LOT-116`) : une quête refusée au chargement, une valeur de drapeau
+  qu'aucune quête ne déclare, un drapeau qu'une condition de dialogue, d'étape de quête ou de
+  présence d'entité **lit** sans qu'aucun dialogue ni aucune quête ne le **pose** (`EX-EXP-009`).
 - **EX-EDIT-080** — La fenêtre montre les constats de **toutes** les cartes,
   tels qu'enregistrés, dans un panneau « Problems » : au lancement, après chaque enregistrement et
   à la demande. Un double-clic ouvre la carte du constat, sélectionne son entité et cerne sa case.

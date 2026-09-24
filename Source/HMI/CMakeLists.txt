@@ -63,6 +63,7 @@ add_library(HmiLib STATIC
     # Le lieu qu'on parcourt : sa table et sa composition vivent dans SceneComposition (ci-dessus).
     # La carte qu'on parcourt et sa mise en scene, partagees par le jeu et l'essai de l'editeur.
     Game/WorldPlay.cpp
+    Game/GameQuests.cpp
     # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit et que le jeu lit.
     Game/LaunchOptions.cpp
     Graphics/AssetGallery.cpp
@@ -84,6 +85,7 @@ add_library(HmiLib STATIC
     Presentation/CharacterSheetValues.cpp
     Presentation/InventoryValues.cpp
     Presentation/DialogueScreen.cpp
+    Presentation/QuestJournalScreen.cpp
     Presentation/CreditsCatalog.cpp
     Presentation/InventoryScreen.cpp
     Presentation/WorldMaps.cpp

@@ -1,0 +1,28 @@
+{
+  "id": "essai-trois-etapes",
+  "name": "Quete d'essai a trois etapes",
+  "source": "original",
+  "flags": [
+    {
+      "id": "quete.essai",
+      "values": ["inconnue", "acceptee", "garde-vu", "rendue"],
+      "initial": "inconnue"
+    }
+  ],
+  "steps": [
+    {
+      "id": "acceptee",
+      "when": [{ "flag": "quete.essai", "equals": "acceptee" }]
+    },
+    {
+      "id": "garde-vu",
+      "when": [{ "flag": "quete.essai", "equals": "garde-vu" }]
+    },
+    {
+      "id": "rendue",
+      "when": [{ "flag": "quete.essai", "equals": "rendue" }],
+      "effects": [{ "type": "setFlag", "flag": "essai/recompense-donnee" }],
+      "outcome": "success"
+    }
+  ]
+}

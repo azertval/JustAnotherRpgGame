@@ -1,0 +1,27 @@
+{
+  "id": "essai-garde",
+  "name": "Le garde, quete d'essai",
+  "source": "original",
+  "speaker": {
+    "languages": ["common"],
+    "attitude": "indifferent"
+  },
+  "start": "parvis",
+  "nodes": [
+    {
+      "id": "parvis",
+      "type": "line",
+      "choices": [{ "id": "relacher", "next": "relache" }]
+    },
+    {
+      "id": "relache",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.essai", "value": "garde-vu" }],
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

@@ -91,26 +91,6 @@ private:
     return std::nullopt;
 }
 
-/// Lit `{ "flag": ..., "isSet": ... }`. `isSet` absent vaut vrai : « si le drapeau est leve ».
-[[nodiscard]] std::optional<FlagCondition> conditionDepuis(const Json& objet) {
-    if (!objet.is_object()) {
-        return std::nullopt;
-    }
-    const auto drapeau = texte(objet, "flag");
-    if (!drapeau) {
-        return std::nullopt;
-    }
-    FlagCondition condition;
-    condition.flag = *drapeau;
-    if (const auto attendu = objet.find("isSet"); attendu != objet.end()) {
-        if (!attendu->is_boolean()) {
-            return std::nullopt;
-        }
-        condition.expected = attendu->get<bool>();
-    }
-    return condition;
-}
-
 /// Exige un champ texte, et le nomme s'il manque.
 [[nodiscard]] std::string exiger(const Json& objet, const char* champ, std::string_view noeud,
                                  Rapport& rapport) {
@@ -146,10 +126,10 @@ private:
     }
     choix.next = exiger(reponse, "next", noeudId + "' / reponse '" + choix.id, rapport);
     if (const auto condition = reponse.find("condition"); condition != reponse.end()) {
-        choix.condition = conditionDepuis(*condition);
+        FlagConditionRead lue = readFlagCondition(*condition);
+        choix.condition = std::move(lue.condition);
         if (!choix.condition) {
-            rapport.noeud(noeudId, "reponse '" + choix.id +
-                                       "' : condition sans 'flag' ou 'isSet' non booleen.");
+            rapport.noeud(noeudId, "reponse '" + choix.id + "' : " + lue.error);
         }
     } else {
         uneSansCondition = true;
@@ -213,11 +193,11 @@ void lireReplique(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
 }
 
 void lireCondition(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
-    const auto condition = conditionDepuis(brut);
-    if (!condition) {
-        rapport.noeud(noeud.id, "condition sans 'flag', ou 'isSet' non booleen.");
+    FlagConditionRead lue = readFlagCondition(brut);
+    if (!lue.condition) {
+        rapport.noeud(noeud.id, lue.error);
     } else {
-        noeud.condition = *condition;
+        noeud.condition = std::move(*lue.condition);
     }
     noeud.whenTrue = exiger(brut, "then", noeud.id, rapport);
     noeud.whenFalse = exiger(brut, "else", noeud.id, rapport);
@@ -251,6 +231,15 @@ void lireCondition(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
         return std::nullopt;
     }
     action.target = exiger(effet, champ, noeudId, rapport);
+    if (action.kind == DialogueActionKind::SetFlag) {
+        if (const auto valeur = effet.find("value"); valeur != effet.end()) {
+            if (!valeur->is_string() || valeur->get<std::string>().empty()) {
+                rapport.noeud(noeudId, "'value' doit etre un texte non vide.");
+            } else {
+                action.value = valeur->get<std::string>();
+            }
+        }
+    }
     if (action.kind != DialogueActionKind::GiveItem) {
         return action;
     }
@@ -475,10 +464,6 @@ void controlerLeGraphe(const DialogueGraph& graphe, Rapport& rapport) {
 }  // namespace
 
 // ---------------------------------------------------------------------------------------------
-
-bool FlagCondition::holds(const WorldFlags& flags) const {
-    return flags.isSet(flag) == expected;
-}
 
 const DialogueNode* DialogueGraph::find(std::string_view nodeId) const {
     const auto trouve = std::ranges::find(nodes, nodeId, &DialogueNode::id);
@@ -937,8 +922,16 @@ void DialogueRunner::advanceTo(const std::string& nodeId) {
 void DialogueRunner::apply(const DialogueAction& action) {
     switch (action.kind) {
         case DialogueActionKind::SetFlag:
-            _flags.set(action.target);
-            _journal.push_back("drapeau pose : " + action.target);
+            if (action.value.empty()) {
+                _flags.set(action.target);
+                _journal.push_back("drapeau pose : " + action.target);
+            } else if (_flags.setValue(action.target, action.value)) {
+                _journal.push_back("drapeau pose : " + action.target + " = " + action.value);
+            } else {
+                // Une valeur hors de la declaration est refusee au chargement du catalogue
+                // (`validateFlagUses`) ; si elle arrive ici, la trace le dit plutot que de taire.
+                _journal.push_back("drapeau refuse : " + action.target + " = " + action.value);
+            }
             break;
         case DialogueActionKind::ClearFlag:
             _flags.clear(action.target);

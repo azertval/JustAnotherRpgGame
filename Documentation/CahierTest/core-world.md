@@ -1,6 +1,6 @@
 # Core · World
 
-Tests unitaires — **53 cas** (1 bloquant, 26 critiques, 23 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **56 cas** (1 bloquant, 28 critiques, 24 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,6 +11,7 @@ Tests unitaires — **53 cas** (1 bloquant, 26 critiques, 23 majeurs, 3 mineurs)
 | [`test_city_plan.cpp`](#test-city-plancpp) | 3 | - | 1 | 2 | - |
 | [`test_combat_zone.cpp`](#test-combat-zonecpp) | 3 | - | 3 | - | - |
 | [`test_entity_kinds.cpp`](#test-entity-kindscpp) | 9 | 1 | - | 7 | 1 |
+| [`test_entity_presence.cpp`](#test-entity-presencecpp) | 3 | - | 2 | 1 | - |
 | [`test_exploration_reach.cpp`](#test-exploration-reachcpp) | 3 | - | 2 | 1 | - |
 | [`test_exploration_session.cpp`](#test-exploration-sessioncpp) | 4 | - | 3 | 1 | - |
 | [`test_world_graph.cpp`](#test-world-graphcpp) | 10 | - | 5 | 4 | 1 |
@@ -571,6 +572,86 @@ Le schema type controle bornes et catalogues.
 - Vérifie que `codes(core::validateMapEntities(bounded, references))` vaut `(std::vector<core::EntityIssueCode>{core::EntityIssueCode::OutOfRange, core::EntityIssueCode::OutOfRange})`.
 - Vérifie que `codes(core::validateMapEntities(referenced, references))` vaut `(std::vector<core::EntityIssueCode>{core::EntityIssueCode::UnknownFigure, core::EntityIssueCode::UnknownLocation, core::EntityIssueCode::UnsetFlag})`.
 - Vérifie que `core::validateMapEntities(referenced, references).empty()` est vrai.
+
+## test_entity_presence.cpp
+
+### EntityPresenceTest.LaConditionDePresenceSeLitSurTroisProprietes
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/World/test_entity_presence.cpp:114`
+
+La condition de presence se lit sur trois proprietes.
+
+**Étapes**
+
+1. Lire une entite sans condition, puis avec drapeau seul, drapeau et valeurs, test explicite.
+2. Lire des formes fautives : test inconnu, `equals` sans valeur, valeurs sans drapeau, drapeau non textuel.
+
+**Résultat attendu**
+
+- Vérifie que `core::presenceConditionOf(libre).condition.has_value()` est faux.
+- Vérifie que `core::isEntityPresent(libre, drapeaux)` est vrai.
+- Vérifie que `seul.condition.has_value()` est vrai.
+- Vérifie que `seul.condition->test` vaut `core::FlagTest::IsSet`.
+- Vérifie que `parmi.condition.has_value()` est vrai.
+- Vérifie que `parmi.condition->test` vaut `core::FlagTest::Equals`.
+- Vérifie que `parmi.condition->values` vaut `(std::vector<std::string>{"acceptee", "persuasion-echouee"})`.
+- Vérifie que `sauf.condition.has_value()` est vrai.
+- Vérifie que `sauf.condition->test` vaut `core::FlagTest::NotEquals`.
+- Vérifie que `core::presenceConditionOf(garde({1, 1}, presence("f", "parmi", "a"))).issue` vaut `core::PresenceIssue::UnknownTest`.
+- Vérifie que `core::presenceConditionOf(garde({1, 1}, presence("f", "equals", ""))).issue` vaut `core::PresenceIssue::MissingValue`.
+- Vérifie que `core::presenceConditionOf(garde({1, 1}, sansDrapeau)).issue` vaut `core::PresenceIssue::MissingFlag`.
+- Vérifie que `core::presenceConditionOf(fautive).issue` vaut `core::PresenceIssue::WrongValueType`.
+- Vérifie que `core::isEntityPresent(fautive, drapeaux)` est vrai.
+
+### EntityPresenceTest.UnPnjConditionneParaitEtDisparaitSansRechargerLaCarte
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/World/test_entity_presence.cpp:164`
+
+Un PNJ conditionne parait et disparait sans recharger la carte.
+
+**Étapes**
+
+1. Poser sur une carte un garde present sous `quete.pommes == acceptee`, en (5, 4).
+2. Donner la quete a la session ; y entrer, heros en (4, 4) ; lui parler.
+3. Poser `acceptee`, faire un pas, lui parler.
+4. Poser `enfant-libere`, faire un pas, lui parler.
+
+**Résultat attendu**
+
+- Vérifie que `session.start("parvis", "")` est vrai.
+- Vérifie que `session.interactables().empty()` est vrai.
+- Vérifie que `parlerADroite(session).empty()` est vrai.
+- Vérifie que `session.flags().setValue("quete.pommes", "acceptee")` est vrai.
+- Vérifie que `pas.size()` vaut `1U`.
+- Vérifie que `pas.front().kind` vaut `ExplorationEventKind::QuestAdvanced`.
+- Vérifie que `pas.front().value` vaut `"pommes/acceptee"`.
+- Vérifie que `session.interactables().size()` vaut `1U`.
+- Vérifie que `parole.size()` vaut `1U`.
+- Vérifie que `parole.front().kind` vaut `ExplorationEventKind::Dialogue`.
+- Vérifie que `parole.front().value` vaut `"garde"`.
+- Vérifie que `session.flags().setValue("quete.pommes", "enfant-libere")` est vrai.
+- Vérifie que `session.update(core::ExplorationIntent{}, 1.0F / 60.0F).empty()` est vrai.
+- Vérifie que `session.interactables().empty()` est vrai.
+- Vérifie que `parlerADroite(session).empty()` est vrai.
+- Vérifie que `disque.lectures` vaut `1`.
+
+### EntityPresenceTest.LeControleReleveUnePresenceSurUnDrapeauJamaisPose
+
+*Majeur · Unitaire · Quetes* — `Source/Test/Unit/Core/World/test_entity_presence.cpp:208`
+
+Le controle releve une presence sur un drapeau jamais pose.
+
+**Étapes**
+
+1. Valider trois PNJ : l'un present sous un drapeau pose par un dialogue, l'autre sous un drapeau que rien ne pose, le dernier au test inconnu.
+
+**Résultat attendu**
+
+- Vérifie que `problemes.size()` vaut `2U`.
+- Vérifie que `problemes[0]` vaut `(core::EntityIssue{.entityIndex = 1, .code = core::EntityIssueCode::UnsetFlag, .key = std::string{core::PRESENCE_FLAG_PROPERTY}, .value = "jamais-pose"})`.
+- Vérifie que `problemes[1].entityIndex` vaut `2U`.
+- Vérifie que `problemes[1].code` vaut `core::EntityIssueCode::InvalidPresence`.
+- Vérifie que `problemes[1].key` vaut `core::PRESENCE_TEST_PROPERTY`.
 
 ## test_exploration_reach.cpp
 

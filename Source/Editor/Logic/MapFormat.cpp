@@ -539,6 +539,9 @@ MapCheckReport checkAllMaps(const std::filesystem::path& dataRoot) {
             checkMapFile(core::mapIdOf(levels, file), file, dataRoot, context);
         report.findings.insert(report.findings.end(), found.begin(), found.end());
     }
+    // Le récit, hors de toute carte (LOT-116) : un drapeau lu que rien ne pose.
+    std::vector<MapCheckFinding> story = checkStoryContent(dataRoot);
+    report.findings.insert(report.findings.end(), story.begin(), story.end());
     // Les portails, d'une carte à l'autre : ce qu'aucune carte seule ne voit.
     for (const core::WorldIssue& issue : core::validateWorldGraph(core::loadWorldGraph(levels))) {
         if (issue.code == core::WorldIssueCode::UnreadableMap) {

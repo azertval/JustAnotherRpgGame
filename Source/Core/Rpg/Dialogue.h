@@ -17,6 +17,7 @@
 #include <string_view>
 #include <vector>
 
+#include "Core/Gameplay/FlagCondition.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Math/DeterministicRandom.h"
@@ -65,15 +66,6 @@ enum class DialogueAttitude {
     Hostile,
 };
 
-/// @brief « Le drapeau @c flag est levé » — ou, si @c expected est faux, « ne l'est pas ».
-struct FlagCondition {
-    std::string flag;
-    bool expected = true;
-
-    /// @brief Vrai si les drapeaux satisfont la condition.
-    [[nodiscard]] bool holds(const WorldFlags& flags) const;
-};
-
 /// @brief Une réponse proposée au joueur.
 struct DialogueChoice {
     /// Identifiant, unique dans sa réplique : il fabrique la clé de traduction.
@@ -105,6 +97,9 @@ struct DialogueAction {
     std::string target;
     /// Pour `GiveItem` seulement.
     int quantity = 1;
+    /// Pour `SetFlag` seulement : la valeur d'un drapeau **déclaré à valeurs** par une quête
+    /// (`LOT-116`). Vide, le drapeau est un fait booléen.
+    std::string value;
 };
 
 /**

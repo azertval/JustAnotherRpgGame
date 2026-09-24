@@ -15,6 +15,7 @@
  * appelant garde sa cadence et ses signaux, et partage le reste.
  */
 
+#include <cstdint>
 #include <filesystem>
 #include <string>
 #include <string_view>
@@ -102,6 +103,8 @@ private:
     float _elapsed = 0.0F;
     /// Le héros marche : sa bande est `walk`, sinon `idle`.
     bool _walking = false;
+    /// Révision des drapeaux de la dernière scène annoncée : les PNJ conditionnés en dépendent.
+    std::uint64_t _drawnFlags = 0;
 };
 
 }  // namespace hmi

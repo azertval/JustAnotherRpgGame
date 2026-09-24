@@ -72,6 +72,21 @@ struct JsonDocument {
 [[nodiscard]] TextPosition positionOf(std::string_view text, std::size_t byteOffset);
 
 /**
+ * @brief La position où commence, dans le texte, la valeur que désigne un pointeur JSON.
+ *
+ * nlohmann/json (3.11) ne garde pas les positions de l'arbre qu'il construit : une erreur de
+ * **sens** (une étape sans condition, une valeur hors de sa liste) ne pourrait nommer que son
+ * chemin. Ce repérage relit le texte, en suivant le chemin, pour que le message nomme aussi la
+ * **ligne** (`LOT-116`, `EX-CNT-010`). Le texte est supposé bien formé : il vient d'être lu.
+ *
+ * @param text    Le texte du document.
+ * @param pointer Le chemin de la valeur, par exemple `/steps/2/when`.
+ * @return La position, ou `{0, 0}` si le chemin ne mène à rien.
+ */
+[[nodiscard]] TextPosition positionOfPointer(std::string_view text,
+                                             const nlohmann::json::json_pointer& pointer);
+
+/**
  * @brief Lit l'enveloppe commune d'un catalogue : JSON bien formé, racine objet, garde de version.
  *
  * C'est la routine que les six lecteurs du dépôt réimplémentaient à l'identique. Le champ de

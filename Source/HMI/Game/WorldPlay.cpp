@@ -10,6 +10,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/World/EntityPresence.h"
 #include "HMI/HmiLog.h"
 
 namespace hmi {
@@ -18,6 +19,20 @@ namespace {
 
 /// Durée d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
+
+/// Les entités de la carte courante que les drapeaux laissent paraître (`LOT-116`) : une copie,
+/// que la carte, lue d'un fichier qui ignore la partie, ne peut pas être.
+[[nodiscard]] std::vector<core::MapEntity> entitesPresentes(const core::ExplorationSession& session,
+                                                            const core::Level& map) {
+    std::vector<core::MapEntity> presentes;
+    presentes.reserve(map.entities().size());
+    for (const core::MapEntity& entite : map.entities()) {
+        if (session.isPresent(entite)) {
+            presentes.push_back(entite);
+        }
+    }
+    return presentes;
+}
 
 }  // namespace
 
@@ -42,6 +57,7 @@ bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     }
     _elapsed = 0.0F;
     _walking = false;
+    _drawnFlags = _session.flags().revision();
     reloadAppearance();
     return true;
 }
@@ -70,6 +86,12 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
     // Un héros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
     // la scène doit se redessiner autant que s'il avait bougé.
     result.heroMoved = _session.heroPoint() != before || walking;
+    // Un drapeau change -- un dialogue, une quete qui avance : un PNJ parait ou disparait, et la
+    // scene se recompose sans que la carte soit relue (`LOT-116`).
+    if (_session.flags().revision() != _drawnFlags) {
+        _drawnFlags = _session.flags().revision();
+        result.sceneChanged = true;
+    }
     for (const core::ExplorationEvent& event : result.events) {
         if (event.kind == core::ExplorationEventKind::MapEntered) {
             _elapsed = 0.0F;
@@ -116,7 +138,7 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
     const int frame = static_cast<int>(_elapsed / FIGURE_FRAME_SECONDS);
 
     // Les PNJ d'abord, le héros ensuite : à égalité de profondeur, c'est lui qui passe devant.
-    std::vector<WorldFigureSnapshot> figures = npcFigures(map->entities(), frame);
+    std::vector<WorldFigureSnapshot> figures = npcFigures(entitesPresentes(_session, *map), frame);
     figures.push_back(
         WorldFigureSnapshot{.figure = _heroFigure,
                             .clip = _walking ? "walk" : "idle",
@@ -133,7 +155,10 @@ WorldSceneSnapshot WorldPlay::snapshot() const {
     if (map == nullptr) {
         return WorldSceneSnapshot{};
     }
-    return snapshotWorldScene(*map, _appearance, figures());
+    const std::vector<core::MapEntity> presentes = entitesPresentes(_session, *map);
+    const WorldSceneSource source{
+        .root = map->tileMap(), .layers = map->layers(), .entities = presentes};
+    return snapshotWorldScene(source, _appearance, figures());
 }
 
 }  // namespace hmi

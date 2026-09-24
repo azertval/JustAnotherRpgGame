@@ -60,6 +60,8 @@ qt_add_qml_module(JadgRuntime
         ../Graphics/TextureAtlas.cpp
         ../Graphics/TextureCache.cpp
         DialogueModel.h DialogueModel.cpp
+        # Le journal de quetes (LOT-116) : relu dans les drapeaux de la partie.
+        QuestJournalModel.h QuestJournalModel.cpp
         # La manette du jeu Qt Quick (LOT-24) : le sondage XInput, jusqu'ici compile dans
         # l'editeur seul, devient un QObject qui emet des appuis nommes.
         GamepadNavigator.h GamepadNavigator.cpp

@@ -14,4 +14,5 @@ singleton WorldModel 1.0 WorldModel.qml
 WorldViewport 1.0 WorldViewport.qml
 AssetGalleryViewport 1.0 AssetGalleryViewport.qml
 DialogueModel 1.0 DialogueModel.qml
+QuestJournalModel 1.0 QuestJournalModel.qml
 GamepadNavigator 1.0 GamepadNavigator.qml

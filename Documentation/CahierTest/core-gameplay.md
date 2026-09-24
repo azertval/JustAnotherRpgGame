@@ -1,12 +1,13 @@
 # Core · Gameplay
 
-Tests unitaires — **9 cas** (5 critiques, 3 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **17 cas** (10 critiques, 6 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_interaction.cpp`](#test-interactioncpp) | 9 | - | 5 | 3 | 1 |
+| [`test_quest.cpp`](#test-questcpp) | 8 | - | 5 | 3 | - |
 
 ## test_interaction.cpp
 
@@ -176,3 +177,198 @@ Les drapeaux acquis se relisent dans un ordre stable.
 - Vérifie que `std::is_sorted(tous.begin(), tous.end())` est vrai.
 - Vérifie que `drapeaux.isSet("donjon/chest@1,1")` est faux.
 - Vérifie que `drapeaux.size()` vaut `2U`.
+
+## test_quest.cpp
+
+### QuestFlagsTest.UnDrapeauAValeursEstType
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:66`
+
+Un drapeau a valeurs est type.
+
+**Étapes**
+
+1. Declarer `quete.pommes` a quatre valeurs, initiale `inconnue`.
+2. Lire, poser `acceptee`, puis une valeur absente, puis le poser sans valeur.
+3. L'effacer.
+
+**Résultat attendu**
+
+- Vérifie que `drapeaux.declare("quete.pommes", VALEURS, "inconnue")` est vrai.
+- Vérifie que `drapeaux.value("quete.pommes")` vaut `"inconnue"`.
+- Vérifie que `drapeaux.isSet("quete.pommes")` est faux.
+- Vérifie que `drapeaux.setValue("quete.pommes", "acceptee")` est vrai.
+- Vérifie que `drapeaux.value("quete.pommes")` vaut `"acceptee"`.
+- Vérifie que `drapeaux.revision()` est strictement supérieur à `avant`.
+- Vérifie que `drapeaux.setValue("quete.pommes", "accepte")` est faux.
+- Vérifie que `drapeaux.set("quete.pommes")` est faux.
+- Vérifie que `drapeaux.value("quete.pommes")` vaut `"acceptee"`.
+- Vérifie que `drapeaux.revision()` vaut `apres`.
+- Vérifie que `drapeaux.value("quete.pommes")` vaut `"inconnue"`.
+- Vérifie que `drapeaux.setValue("non-declare", "x")` est faux.
+- Vérifie que `drapeaux.declare("vide", {}, "x")` est faux.
+- Vérifie que `drapeaux.declare("hors", VALEURS, "absente")` est faux.
+
+### QuestFlagsTest.UneConditionSurDrapeauSeLitEtSEvalue
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:102`
+
+Une condition sur drapeau se lit et s'evalue.
+
+**Étapes**
+
+1. Lire `isSet`, `equals` (une valeur, une liste) et `notEquals`.
+2. Les evaluer sur un drapeau declare a son initiale, puis a `condamne`.
+3. Lire des formes fautives.
+
+**Résultat attendu**
+
+- Vérifie que `drapeaux.declare("quete.pommes", VALEURS, "inconnue")` est vrai.
+- Vérifie que `initiale.test` vaut `core::FlagTest::Equals`.
+- Vérifie que `absent.test` vaut `core::FlagTest::IsUnset`.
+- Vérifie que `core::describeFlagCondition(parmi)` vaut `"quete.pommes == condamne|enfant-libere"`.
+- Vérifie que `initiale.holds(drapeaux)` est vrai.
+- Vérifie que `parmi.holds(drapeaux)` est faux.
+- Vérifie que `sauf.holds(drapeaux)` est vrai.
+- Vérifie que `absent.holds(drapeaux)` est vrai.
+- Vérifie que `drapeaux.setValue("quete.pommes", "condamne")` est vrai.
+- Vérifie que `initiale.holds(drapeaux)` est faux.
+- Vérifie que `parmi.holds(drapeaux)` est vrai.
+- Vérifie que `sauf.holds(drapeaux)` est faux.
+- Vérifie que `absent.holds(drapeaux)` est faux.
+- Vérifie que `lue.condition.has_value()` est faux.
+- Vérifie que `lue.error.empty()` est faux.
+- Vérifie que `core::splitFlagValues(" acceptee | condamne||acceptee ")` vaut `(std::vector<std::string>{"acceptee", "condamne"})`.
+
+### QuestLoadTest.UnPointeurJsonDonneLaLigneDeSaValeur
+
+*Majeur · Unitaire · Donnees* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:151`
+
+Un pointeur JSON donne la ligne de sa valeur.
+
+**Étapes**
+
+1. Chercher `/steps/2/when`, `/steps/1` et `/id` dans la quete d'essai.
+2. Chercher un chemin absent.
+
+**Résultat attendu**
+
+- Vérifie que `core::positionOfPointer(QUETE_VALIDE, Pointeur("/id")).line` vaut `2`.
+- Vérifie que `core::positionOfPointer(QUETE_VALIDE, Pointeur("/steps/1")).line` vaut `8`.
+- Vérifie que `core::positionOfPointer(QUETE_VALIDE, Pointeur("/steps/2/when")).line` vaut `11`.
+- Vérifie que `core::positionOfPointer(QUETE_VALIDE, Pointeur("/steps/9")).line` vaut `0`.
+
+### QuestLoadTest.UneQueteBienFormeeSeLit
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:169`
+
+Une quete bien formee se lit.
+
+**Étapes**
+
+1. Lire la quete d'essai a trois etapes.
+
+**Résultat attendu**
+
+- Vérifie que `quete.id` vaut `"essai"`.
+- Vérifie que `quete.flags.size()` vaut `1U`.
+- Vérifie que `quete.flags.front().initial` vaut `"inconnue"`.
+- Vérifie que `quete.steps.size()` vaut `3U`.
+- Vérifie que `quete.steps[2].outcome` vaut `core::QuestOutcome::Success`.
+- Vérifie que `quete.steps[2].effects.size()` vaut `1U`.
+- Vérifie que `quete.steps[2].effects.front().flag` vaut `"essai/recompense"`.
+- Vérifie que `core::questTextKeys(quete)` vaut `(std::vector<std::string>{"quest.essai.title", "quest.essai.acceptee", "quest.essai.garde-vu", "quest.essai.rendue"})`.
+
+### QuestLoadTest.UneQueteMalFormeeEstRefuseeEnNommantLaLigne
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:194`
+
+Une quete mal formee est refusee en nommant la ligne.
+
+**Étapes**
+
+1. Lire un JSON a la virgule manquante.
+2. Lire une quete dont la deuxieme etape compare une valeur non declaree et dont la troisieme n'a pas de condition.
+
+**Résultat attendu**
+
+- Vérifie que `syntaxe.quest.has_value()` est faux.
+- Vérifie que `syntaxe.errors.size()` vaut `1U`.
+- Vérifie que `syntaxe.errors.front().find("quetes/x.json:4")` diffère de `std::string::npos`.
+- Vérifie que `sens.quest.has_value()` est faux.
+- Vérifie que `sens.errors.size()` vaut `2U`.
+- Vérifie que `sens.errors[0].find("quetes/fautive.json:8")` diffère de `std::string::npos`.
+- Vérifie que `sens.errors[0].find("'c'")` diffère de `std::string::npos`.
+- Vérifie que `sens.errors[1].find("quetes/fautive.json:9")` diffère de `std::string::npos`.
+- Vérifie que `sens.errors[1].find("'when'")` diffère de `std::string::npos`.
+
+### QuestLoadTest.LeCatalogueDesQuetesRefuseLesDoublons
+
+*Majeur · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:233`
+
+Le catalogue des quetes refuse les doublons.
+
+**Étapes**
+
+1. Ecrire trois quetes dans un dossier temporaire : une valide, une dont le nom de fichier differe de l'identifiant, une qui redeclare le drapeau de la premiere.
+2. Charger le dossier, puis un dossier absent.
+
+**Résultat attendu**
+
+- Vérifie que `catalogue.quests.size()` vaut `1U`.
+- Vérifie que `catalogue.quests.front().id` vaut `"essai"`.
+- Vérifie que `catalogue.errors.size()` vaut `2U`.
+- Vérifie que `catalogue.errors[0].find("mal-nommee.json")` diffère de `std::string::npos`.
+- Vérifie que `catalogue.errors[1].find("quete.essai")` diffère de `std::string::npos`.
+- Vérifie que `catalogue.findFlag("quete.essai")` diffère de `nullptr`.
+- Vérifie que `vide.quests.empty()` est vrai.
+- Vérifie que `vide.errors.empty()` est vrai.
+
+### QuestAdvanceTest.UneQueteDeTroisEtapesAvanceParLesDrapeaux
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:275`
+
+Une quete de trois etapes avance par les drapeaux.
+
+**Étapes**
+
+1. Declarer les drapeaux de la quete d'essai.
+2. Poser tour a tour `acceptee`, `garde-vu`, `rendue`, en faisant avancer les quetes a chaque fois.
+3. Faire avancer une fois de plus.
+
+**Résultat attendu**
+
+- Vérifie que `core::advanceQuests(catalogue, drapeaux).empty()` est vrai.
+- Vérifie que `core::questProgress(catalogue.quests.front(), drapeaux).status` vaut `core::QuestStatus::NotStarted`.
+- Vérifie que `drapeaux.setValue("quete.essai", valeur)` est vrai.
+- Vérifie que `evenements.size()` vaut `1U`.
+- Vérifie que `evenements.front()` vaut `(core::QuestEvent{"essai", valeur, issue})`.
+- Vérifie que `drapeaux.isSet("essai/recompense")` est vrai.
+- Vérifie que `fin.status` vaut `core::QuestStatus::Succeeded`.
+- Vérifie que `fin.reachedSteps` vaut `(std::vector<std::string>{"acceptee", "garde-vu", "rendue"})`.
+- Vérifie que `core::advanceQuests(catalogue, drapeaux).empty()` est vrai.
+
+### QuestAdvanceTest.LesUsagesDeDrapeauxSontConfrontesAuxDeclarations
+
+*Majeur · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:312`
+
+Les usages de drapeaux sont confrontes aux declarations.
+
+**Étapes**
+
+1. Lire un dialogue qui pose `quete.essai = acceptee`, compare a `accepte` (faute) et pose `quete.essai` sans valeur.
+2. Le confronter a la quete d'essai.
+3. Relever ce qu'il pose et ce qu'il lit.
+
+**Résultat attendu**
+
+- Vérifie que `lu.graph.has_value()` est vrai.
+- Vérifie que `erreurs.size()` vaut `2U`.
+- Vérifie que `erreurs[0].find("'accepte'")` diffère de `std::string::npos`.
+- Vérifie que `erreurs[1].find("'value'")` diffère de `std::string::npos`.
+- Vérifie que `erreurs[1].find("dialogue 'mere'")` diffère de `std::string::npos`.
+- Vérifie que `poses.contains("quete.essai")` est vrai.
+- Vérifie que `poses.contains(core::questStepFlag("essai", "rendue"))` est vrai.
+- Vérifie que `poses.contains("essai/recompense")` est vrai.
+- Vérifie que `std::ranges::all_of( lus, [](const core::FlagRead& lu) { return lu.flag == "quete.essai"; })` est vrai.
+- Vérifie que `lus.size()` vaut `4U`.
