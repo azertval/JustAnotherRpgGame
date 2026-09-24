@@ -147,6 +147,7 @@ $(function(){initNavTree('LevelFileOperations_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="FileOperationResult_8h_source.html">Editor/Logic/FileOperationResult.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Stamps_8h_source.html">Editor/Logic/Stamps.h</a>&quot;</code><br />
@@ -161,6 +162,11 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a97a1f449e9f4df4d908818d3b727e1b1" id="r_a97a1f449e9f4df4d908818d3b727e1b1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a97a1f449e9f4df4d908818d3b727e1b1">hmi::levelFolderOf</a> (std::string_view place)</td></tr>
+<tr class="memdesc:a97a1f449e9f4df4d908818d3b727e1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier, relatif à <span class="tt">Levels/</span>, où se range une carte du lieu <code class="param">place</code> (<span class="tt">LOT-124</span>) : le chemin du lieu sans son dernier segment — <span class="tt">central-empire/capital</span> pour <span class="tt">central-empire/capital/arenarea</span>, dont la carte est <span class="tt">arenarea.json</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Opérations fichiers sur les niveaux (créer/renommer/dupliquer/supprimer), sans Qt. </p>

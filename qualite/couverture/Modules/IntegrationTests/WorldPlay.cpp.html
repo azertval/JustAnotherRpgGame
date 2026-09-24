@@ -102,15 +102,15 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     if (place.empty()) {</span>
         // Une carte qui ne nomme aucun lieu se joue en MAQUETTE (LOT-128) : la composition dessine
         // ses types en couleurs, ses murs en blocs et ses entites en jetons. Ce n'est plus un
-        // manque a signaler, c'est l'etat de depart normal d'une carte.
-<span style = "background-color:#fdd">        _appearance = PlaceAppearance{};
+        // manque a signaler, c'est l'etat de depart normal d'une carte. Ses PNJ prennent les
+        // figurines du monde (LOT-124).
+<span style = "background-color:#fdd">        _appearance = PlaceAppearance::loadForPlace(_assetsDirectory, {}).appearance;
         HMI_LOG_INFO("Monde : la carte " + _session.mapId() +</span>
                      " ne declare aucun lieu ; elle se joue en maquette.");
 <span style = "background-color:#fdd">        return;</span>
     }
-<span style = "background-color:#dfd">    PlaceAppearanceResult read =</span>
-        PlaceAppearance::loadFromFile(_assetsDirectory / "Scene" / place / "appearance.json");
-<span style = "background-color:#dfd">    if (!read.ok()) {</span>
+<span style = "background-color:#dfd">    PlaceAppearanceResult read = PlaceAppearance::loadForPlace(_assetsDirectory, place);
+    if (!read.ok()) {</span>
 <span style = "background-color:#fdd">        HMI_LOG_WARNING("Monde : table d'apparence du lieu " + place + " illisible, " +</span>
                         read.message);
 <span style = "background-color:#fdd">        _appearance = PlaceAppearance{};

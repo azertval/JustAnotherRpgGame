@@ -30,6 +30,7 @@
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileTypeName.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/WorldGraph.h"
 #include "Core/World/WorldTravel.h"
 #include "Editor/Logic/ContentCheck.h"
@@ -187,8 +188,8 @@ void checkUncoveredTypes(const core::Level&amp; level, const PlaceAssets&amp; as
     for (const auto&amp; [type, cells] : uncovered) {
         findings.addCells(MapCheckSeverity::Warning, cells,</span>
                           "tile type \"" + core::tileTypeName(type) +
-                              "\" is not covered by Assets/Scene/" + place +
-                              "/appearance.json (shown as a mock-up)");
+                              "\" is not covered by the appearance tables of \"" + place +
+                              "\" (shown as a mock-up)");
 <span style = "background-color:#dfd">    }
 }</span>
 
@@ -213,10 +214,11 @@ void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, co
         }
     }
     const auto&amp; [missing, aliased, overlapping] = scan;
-    const std::string manifestPath = place.empty() ? std::string{"(no scene declared)"}</span>
-                                                   : "Assets/Scene/" + place + "/manifest.json";
+    const std::string sheet = place.empty()</span>
+                                  ? std::string{"(no scene declared)"}
+                                  : "the pieces of \"" + place + "\" and its common levels";
 <span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Error, missing,</span>
-                      "piece missing from " + manifestPath + " (shown as a checkerboard)");
+                      "piece missing from " + sheet + " (shown as a checkerboard)");
 <span style = "background-color:#dfd">    for (const auto&amp; [name, cells] : aliased) {</span>
 <span style = "background-color:#fdd">        findings.addCells(MapCheckSeverity::Warning, cells,</span>
                           "piece \"" + name + "\" is cited by an old name (alias of \"" +
@@ -442,16 +444,23 @@ void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, co
 
 <span style = "background-color:#dfd">PlaceAssets loadPlaceAssets(const std::filesystem::path&amp; dataRoot, std::string_view place) {
     PlaceAssets assets;
-    if (place.empty()) {
-        return assets;</span>
+    if (place.empty()) {</span>
+        // Une maquette n'a ni piÃ¨ce ni table ; ses PNJ prennent les figurines du monde (LOT-124).
+<span style = "background-color:#dfd">        PlaceAppearanceResult world = PlaceAppearance::loadForPlace(dataRoot / "Assets", {});
+        if (world.ok()) {</span>
+<span style = "background-color:#fdd">            assets.appearance = std::move(world.appearance);</span>
+        }
+<span style = "background-color:#dfd">        return assets;</span>
     }
-<span style = "background-color:#dfd">    const std::filesystem::path directory = dataRoot / "Assets" / "Scene" / std::string{place};
-    core::ScenePieceManifestResult manifest =</span>
-        core::ScenePieceManifest::loadFromFile(directory / "manifest.json");
-<span style = "background-color:#dfd">    if (manifest.ok()) {
-        assets.manifest = std::move(manifest.manifest);</span>
+    // Le catalogue RESOLU : le lieu et ses niveaux communs, du plus propre au monde (LOT-124).
+<span style = "background-color:#dfd">    const std::filesystem::path directory = dataRoot / "Assets";
+    core::ScenePieceManifestResult manifest = core::ScenePieceManifest::resolve(directory, place);
+    if (manifest.ok()) {
+        assets.manifest = std::move(manifest.manifest);
+    } else {</span>
+<span style = "background-color:#fdd">        assets.manifestError = std::move(manifest.message);</span>
     }
-<span style = "background-color:#dfd">    PlaceAppearanceResult appearance = PlaceAppearance::loadFromFile(directory / "appearance.json");
+<span style = "background-color:#dfd">    PlaceAppearanceResult appearance = PlaceAppearance::loadForPlace(directory, place);
     if (appearance.ok()) {
         assets.appearance = std::move(appearance.appearance);</span>
     }
@@ -459,17 +468,7 @@ void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, co
 }</span>
 
 <span style = "background-color:#dfd">std::vector&lt;std::string&gt; scenePlaces(const std::filesystem::path&amp; dataRoot) {
-    std::vector&lt;std::string&gt; places;
-    std::error_code error;
-    for (auto it = std::filesystem::directory_iterator(dataRoot / "Assets" / "Scene", error);
-         !error &amp;&amp; it != std::filesystem::directory_iterator(); it.increment(error)) {
-        if (it-&gt;is_directory(error) &amp;&amp;</span>
-            std::filesystem::is_regular_file(it-&gt;path() / "manifest.json", error)) {
-<span style = "background-color:#dfd">            places.push_back(it-&gt;path().filename().string());
-        }
-    }
-    std::ranges::sort(places);
-    return places;
+    return core::scenePlaces(dataRoot / "Assets");
 }</span>
 
 <span style = "background-color:#dfd">std::string formatFinding(const MapCheckFinding&amp; finding) {
@@ -524,7 +523,7 @@ std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId, const st
         const PlaceAssets assets = loadPlaceAssets(dataRoot, place);
         if (!place.empty() &amp;&amp; !assets.manifest) {</span>
 <span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Error,</span>
-                         "scene \"" + place + "\" has no Assets/Scene/" + place + "/manifest.json");
+                         "scene \"" + place + "\": " + assets.manifestError);
         }
 <span style = "background-color:#dfd">        checkPieces(level, assets, place, findings);
         checkCollision(level, assets, findings);

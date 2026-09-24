@@ -16,6 +16,7 @@ var dir_72f94039b203173a88806b7e5cad74af =
     [ "test_gesture_script.cpp", "test__gesture__script_8cpp.html", "test__gesture__script_8cpp" ],
     [ "test_level_file_operations.cpp", "test__level__file__operations_8cpp.html", "test__level__file__operations_8cpp" ],
     [ "test_level_name_validation.cpp", "test__level__name__validation_8cpp.html", "test__level__name__validation_8cpp" ],
+    [ "test_level_tree.cpp", "test__level__tree_8cpp.html", "test__level__tree_8cpp" ],
     [ "test_map_documents.cpp", "test__map__documents_8cpp.html", "test__map__documents_8cpp" ],
     [ "test_map_format.cpp", "test__map__format_8cpp.html", "test__map__format_8cpp" ],
     [ "test_map_refactor.cpp", "test__map__refactor_8cpp.html", "test__map__refactor_8cpp" ],

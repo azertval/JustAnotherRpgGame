@@ -1,0 +1,229 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/ScenePlace.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ScenePlace_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ScenePlace.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ScenePlace_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="};">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1SceneLevel.html">   51</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SceneLevel.html">SceneLevel</a> {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967">   53</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967">label</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1SceneLevel.html#afbede4e7357e2e17e0d828150e00fa50">   56</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SceneLevel.html#afbede4e7357e2e17e0d828150e00fa50">place</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structcore_1_1SceneLevel.html#a13e51ea6861c4094917399c70f68097c">   59</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SceneLevel.html#a13e51ea6861c4094917399c70f68097c">directory</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structcore_1_1SceneLevel.html#a37331188d4263ae3055e16c1bfd17e79">   61</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1SceneLevel.html#a37331188d4263ae3055e16c1bfd17e79">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1SceneLevel.html">SceneLevel</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#aef1bcbf15a56b7e7d7fdbcb1653c9eec">isValidScenePlace</a>(std::string_view place) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#aea20554f4ac58a2ae3fbe4f83198b153">isFlatScenePlace</a>(std::string_view place) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>[[nodiscard]] std::vector&lt;SceneLevel&gt; <a class="code hl_function" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec">sceneLevelCandidates</a>(std::string_view place);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a5d992e987466346bf7d8e58971e79a38">scenePlaceLabel</a>(std::string_view segment);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a95329d9831ad744916371a054eee853f">ownSceneDirectory</a>(std::string_view place);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a1662b570c7c1114bc9a4e62763485616">fallbackScenePiecePath</a>(std::string_view place, std::string_view piece);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#ac240dc083faf2330f8e69587219863e4">scenePlaceDescendsFrom</a>(std::string_view place, std::string_view ancestor);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacecore.html#afa88cfe8485726f11485a5b2d86e15f0">scenePlaceAncestry</a>(std::string_view place);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacecore.html#ad6626a85739f1b8a654f2e4f362d6bfb">scenePlaces</a>(<span class="keyword">const</span> std::filesystem::path&amp; assetsDirectory);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>[[nodiscard]] std::vector&lt;SceneLevel&gt; <a class="code hl_function" href="namespacecore.html#aa631d92fa5bd146a155ee27d970b6b6a">characterLevelCandidates</a>(std::string_view place);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">  119</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>[[nodiscard]] <a class="code hl_typedef" href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> <a class="code hl_function" href="namespacecore.html#a03fbe375242fffeae3499c57aaa301bf">resolveFigures</a>(<span class="keyword">const</span> std::filesystem::path&amp; assetsDirectory,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                                               std::string_view place);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08">figureDirectory</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a>&amp; figures,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                          std::string_view figure);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a03fbe375242fffeae3499c57aaa301bf"><div class="ttname"><a href="namespacecore.html#a03fbe375242fffeae3499c57aaa301bf">core::resolveFigures</a></div><div class="ttdeci">FigureDirectories resolveFigures(const std::filesystem::path &amp;assetsDirectory, std::string_view place)</div><div class="ttdoc">Les figurines que le lieu place peut poser : le slug de chaque entrée npcs des manifestes de ses nive...</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:240</div></div>
+<div class="ttc" id="anamespacecore_html_a1662b570c7c1114bc9a4e62763485616"><div class="ttname"><a href="namespacecore.html#a1662b570c7c1114bc9a4e62763485616">core::fallbackScenePiecePath</a></div><div class="ttdeci">std::string fallbackScenePiecePath(std::string_view place, std::string_view piece)</div><div class="ttdoc">Le chemin, relatif à Assets/, d&#39;une pièce que aucun manifeste ne cite : &lt;dossier propre&gt;/&lt;nom&gt;....</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:158</div></div>
+<div class="ttc" id="anamespacecore_html_a5d992e987466346bf7d8e58971e79a38"><div class="ttname"><a href="namespacecore.html#a5d992e987466346bf7d8e58971e79a38">core::scenePlaceLabel</a></div><div class="ttdeci">std::string scenePlaceLabel(std::string_view segment)</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:91</div></div>
+<div class="ttc" id="anamespacecore_html_a6c8c611f5b03ec8461b387664a026ac0"><div class="ttname"><a href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">core::FigureDirectories</a></div><div class="ttdeci">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt; FigureDirectories</div><div class="ttdoc">Le dossier de chaque figurine qu&#39;un lieu peut poser : slug → dossier relatif à Assets/.</div><div class="ttdef"><b>Definition</b> ScenePlace.h:119</div></div>
+<div class="ttc" id="anamespacecore_html_a95329d9831ad744916371a054eee853f"><div class="ttname"><a href="namespacecore.html#a95329d9831ad744916371a054eee853f">core::ownSceneDirectory</a></div><div class="ttdeci">std::string ownSceneDirectory(std::string_view place)</div><div class="ttdoc">Le dossier propre de place, relatif à Assets/ : celui où naît une pièce, où vit sa table d&#39;apparence.</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:148</div></div>
+<div class="ttc" id="anamespacecore_html_aa631d92fa5bd146a155ee27d970b6b6a"><div class="ttname"><a href="namespacecore.html#aa631d92fa5bd146a155ee27d970b6b6a">core::characterLevelCandidates</a></div><div class="ttdeci">std::vector&lt; SceneLevel &gt; characterLevelCandidates(std::string_view place)</div><div class="ttdoc">Les niveaux candidats des figurines de place, du plus propre au monde (LOT-124) : Regions/&lt;préfixe&gt;/C...</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:216</div></div>
+<div class="ttc" id="anamespacecore_html_ac240dc083faf2330f8e69587219863e4"><div class="ttname"><a href="namespacecore.html#ac240dc083faf2330f8e69587219863e4">core::scenePlaceDescendsFrom</a></div><div class="ttdeci">bool scenePlaceDescendsFrom(std::string_view place, std::string_view ancestor)</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:166</div></div>
+<div class="ttc" id="anamespacecore_html_ad6626a85739f1b8a654f2e4f362d6bfb"><div class="ttname"><a href="namespacecore.html#ad6626a85739f1b8a654f2e4f362d6bfb">core::scenePlaces</a></div><div class="ttdeci">std::vector&lt; std::string &gt; scenePlaces(const std::filesystem::path &amp;assetsDirectory)</div><div class="ttdoc">Les lieux où une carte peut se poser — l&#39;arbre des lieux de « New map » : chaque dossier de Assets/Re...</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:186</div></div>
+<div class="ttc" id="anamespacecore_html_aea20554f4ac58a2ae3fbe4f83198b153"><div class="ttname"><a href="namespacecore.html#aea20554f4ac58a2ae3fbe4f83198b153">core::isFlatScenePlace</a></div><div class="ttdeci">bool isFlatScenePlace(std::string_view place) noexcept</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:87</div></div>
+<div class="ttc" id="anamespacecore_html_aebc2b24792f0fb0c75d6eb0059a600ec"><div class="ttname"><a href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec">core::sceneLevelCandidates</a></div><div class="ttdeci">std::vector&lt; SceneLevel &gt; sceneLevelCandidates(std::string_view place)</div><div class="ttdoc">Les niveaux candidats de place, du plus propre au plus commun, monde compris.</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:118</div></div>
+<div class="ttc" id="anamespacecore_html_aed05eea4a2732d4c5a29181733d80f08"><div class="ttname"><a href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08">core::figureDirectory</a></div><div class="ttdeci">std::string figureDirectory(const FigureDirectories &amp;figures, std::string_view figure)</div><div class="ttdoc">Le dossier, relatif à Assets/, de la figurine figure : celui que figures lui donne ; à défaut,...</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:266</div></div>
+<div class="ttc" id="anamespacecore_html_aef1bcbf15a56b7e7d7fdbcb1653c9eec"><div class="ttname"><a href="namespacecore.html#aef1bcbf15a56b7e7d7fdbcb1653c9eec">core::isValidScenePlace</a></div><div class="ttdeci">bool isValidScenePlace(std::string_view place) noexcept</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:68</div></div>
+<div class="ttc" id="anamespacecore_html_afa88cfe8485726f11485a5b2d86e15f0"><div class="ttname"><a href="namespacecore.html#afa88cfe8485726f11485a5b2d86e15f0">core::scenePlaceAncestry</a></div><div class="ttdeci">std::vector&lt; std::string &gt; scenePlaceAncestry(std::string_view place)</div><div class="ttdef"><b>Definition</b> ScenePlace.cpp:174</div></div>
+<div class="ttc" id="astructcore_1_1SceneLevel_html"><div class="ttname"><a href="structcore_1_1SceneLevel.html">core::SceneLevel</a></div><div class="ttdoc">Un niveau de la résolution : un dossier de pièces, et ce qu&#39;il sert.</div><div class="ttdef"><b>Definition</b> ScenePlace.h:51</div></div>
+<div class="ttc" id="astructcore_1_1SceneLevel_html_a13e51ea6861c4094917399c70f68097c"><div class="ttname"><a href="structcore_1_1SceneLevel.html#a13e51ea6861c4094917399c70f68097c">core::SceneLevel::directory</a></div><div class="ttdeci">std::string directory</div><div class="ttdoc">Le dossier des pièces, relatif à Assets/, en barres obliques (Regions/central-empire/capital/Common/S...</div><div class="ttdef"><b>Definition</b> ScenePlace.h:59</div></div>
+<div class="ttc" id="astructcore_1_1SceneLevel_html_a37331188d4263ae3055e16c1bfd17e79"><div class="ttname"><a href="structcore_1_1SceneLevel.html#a37331188d4263ae3055e16c1bfd17e79">core::SceneLevel::operator==</a></div><div class="ttdeci">bool operator==(const SceneLevel &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1SceneLevel_html_abfcab0aafb3340be62611bafc8763967"><div class="ttname"><a href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967">core::SceneLevel::label</a></div><div class="ttdeci">std::string label</div><div class="ttdoc">Le nom du niveau, tel que la palette le montre : « Arena of Fate », « Capital », « World ».</div><div class="ttdef"><b>Definition</b> ScenePlace.h:53</div></div>
+<div class="ttc" id="astructcore_1_1SceneLevel_html_afbede4e7357e2e17e0d828150e00fa50"><div class="ttname"><a href="structcore_1_1SceneLevel.html#afbede4e7357e2e17e0d828150e00fa50">core::SceneLevel::place</a></div><div class="ttdeci">std::string place</div><div class="ttdoc">Le lieu que ce niveau couvre, préfixe du chemin d&#39;une carte (central-empire/capital) ; vide pour le m...</div><div class="ttdef"><b>Definition</b> ScenePlace.h:56</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_81575a0a6a20a380991b9ad2c16b89e5.html">Resources</a></li><li class="navelem"><a href="ScenePlace_8h.html">ScenePlace.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

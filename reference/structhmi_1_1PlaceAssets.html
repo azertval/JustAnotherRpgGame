@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1PlaceAssets.html','','structhmi_1_1PlaceA
 </div><!--header-->
 <div class="contents">
 
-<p>Ce que le lieu d'une carte apporte : son manifeste et sa table, s'ils existent.  
+<p>Ce que le lieu d'une carte apporte : son catalogue résolu et sa table, s'ils existent.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="MapFormat_8h_source.html">MapFormat.h</a>&gt;</code></p>
@@ -151,10 +151,13 @@ $(function(){initNavTree('structhmi_1_1PlaceAssets.html','','structhmi_1_1PlaceA
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:aca48af8c61dee359dd29d2eaa0218c55" id="r_aca48af8c61dee359dd29d2eaa0218c55"><td class="memItemLeft">std::optional&lt; <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aca48af8c61dee359dd29d2eaa0218c55">manifest</a></td></tr>
+<tr class="memdesc:aca48af8c61dee359dd29d2eaa0218c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue résolu du lieu : ses pièces et celles de ses niveaux communs (<span class="tt">LOT-124</span>).  <br /></td></tr>
 <tr class="memitem:a5258eb7171f456261d134762050668a5" id="r_a5258eb7171f456261d134762050668a5"><td class="memItemLeft">std::optional&lt; <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5258eb7171f456261d134762050668a5">appearance</a></td></tr>
+<tr class="memitem:af435aafe7faab28c629041f7a24deed4" id="r_af435aafe7faab28c629041f7a24deed4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af435aafe7faab28c629041f7a24deed4">manifestError</a></td></tr>
+<tr class="memdesc:af435aafe7faab28c629041f7a24deed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pourquoi le catalogue manque, vide s'il est là.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Ce que le lieu d'une carte apporte : son manifeste et sa table, s'ils existent. </p>
+<div class="textblock"><p>Ce que le lieu d'une carte apporte : son catalogue résolu et sa table, s'ils existent. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a5258eb7171f456261d134762050668a5" name="a5258eb7171f456261d134762050668a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5258eb7171f456261d134762050668a5">&#9670;&#160;</a></span>appearance</h2>
@@ -181,6 +184,24 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Le catalogue résolu du lieu : ses pièces et celles de ses niveaux communs (<span class="tt">LOT-124</span>). </p>
+
+</div>
+</div>
+<a id="af435aafe7faab28c629041f7a24deed4" name="af435aafe7faab28c629041f7a24deed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af435aafe7faab28c629041f7a24deed4">&#9670;&#160;</a></span>manifestError</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::PlaceAssets::manifestError</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pourquoi le catalogue manque, vide s'il est là. </p>
 
 </div>
 </div>

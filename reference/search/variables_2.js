@@ -27,7 +27,7 @@ var searchData=
   ['button_5frepeat_5fdelay_24',['BUTTON_REPEAT_DELAY',['../namespacehmi.html#a9ab13e58906fc19eaceaa84921d13f32',1,'hmi']]],
   ['button_5frepeat_5finterval_25',['BUTTON_REPEAT_INTERVAL',['../namespacehmi.html#a19c4e889b587eee63318fd97be53024d',1,'hmi']]],
   ['bx_26',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
-  ['by_27',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]],
+  ['by_27',['by',['../structcore_1_1MaskedScenePiece.html#a4ccf948fe25f7ad0d4f3650f93ccc58d',1,'core::MaskedScenePiece::by'],['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad::by']]],
   ['bypassedby_28',['bypassedBy',['../structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216',1,'core::DamageAffinity']]],
   ['bypath_29',['byPath',['../structhmi_1_1ArenaSceneTextures.html#ab07d86253bc7879c97f16804139f1fa4',1,'hmi::ArenaSceneTextures::byPath'],['../structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f',1,'hmi::ScenePieceTextures::byPath']]]
 ];

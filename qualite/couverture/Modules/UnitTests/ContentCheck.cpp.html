@@ -29,6 +29,7 @@
 #include "Core/World/ExplorationReach.h"
 #include "Editor/Logic/EditorDiagnostics.h"
 #include "Editor/Logic/EntityShapes.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
 
@@ -142,9 +143,10 @@ void checkEntities(std::string_view mapId, const core::Level&amp; level, const C
     const EditorReferences&amp; references = context.references;
     std::vector&lt;core::EntityIssue&gt; errors;
     std::vector&lt;core::EntityIssue&gt; unknownKinds;
-    for (core::EntityIssue&amp; issue :
-         core::validateMapEntities(entities, referenceContext(references, mapId, entities))) {
-        if (issue.code == core::EntityIssueCode::UnknownType) {
+    for (core::EntityIssue&amp; issue : core::validateMapEntities(</span>
+             entities,
+             referenceContext(references, mapId, entities, scenePlaceOf(level.layers())))) {
+<span style = "background-color:#dfd">        if (issue.code == core::EntityIssueCode::UnknownType) {
             unknownKinds.push_back(std::move(issue));  // legal, transporte : une information.
         } else if (!saidByTheFormatCheck(issue.code)) {
             errors.push_back(std::move(issue));

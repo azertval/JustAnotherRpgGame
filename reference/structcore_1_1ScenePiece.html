@@ -150,6 +150,7 @@ $(function(){initNavTree('structcore_1_1ScenePiece.html','','structcore_1_1Scene
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a95e3be7b50645669d22d20838fc4e84c" id="r_a95e3be7b50645669d22d20838fc4e84c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a95e3be7b50645669d22d20838fc4e84c">path</a> () const</td></tr>
 <tr class="memitem:a3007113a2df28f76da5e67d11eeb1986" id="r_a3007113a2df28f76da5e67d11eeb1986"><td class="memItemLeft"><a class="el" href="structcore_1_1PieceFootprint.html">PieceFootprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3007113a2df28f76da5e67d11eeb1986">footprint</a> () const noexcept</td></tr>
 <tr class="memitem:a1e1b67c75d3e7d3ab6b5c389ddb71308" id="r_a1e1b67c75d3e7d3ab6b5c389ddb71308"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1e1b67c75d3e7d3ab6b5c389ddb71308">operator==</a> (const <a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a> &amp;) const =default</td></tr>
 </table><table class="memberdecls">
@@ -179,6 +180,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a9a5d01fa7da564a436751b3a588d2660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type tactique (<span class="tt"><a class="el" href="#a9a5d01fa7da564a436751b3a588d2660" title="Type tactique (tactical du manifeste).">tactical</a></span> du manifeste).  <br /></td></tr>
 <tr class="memitem:a4c40e2acdc88439674762e5402ba224d" id="r_a4c40e2acdc88439674762e5402ba224d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c40e2acdc88439674762e5402ba224d">aliases</a></td></tr>
 <tr class="memdesc:a4c40e2acdc88439674762e5402ba224d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anciens noms courts sous lesquels une carte peut citer la pièce (<span class="tt"><a class="el" href="#a4c40e2acdc88439674762e5402ba224d" title="Anciens noms courts sous lesquels une carte peut citer la pièce (aliases).">aliases</a></span>).  <br /></td></tr>
+<tr class="memitem:a2ae097df852961297b52126aaa598278" id="r_a2ae097df852961297b52126aaa598278"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a2ae097df852961297b52126aaa598278">directory</a></td></tr>
+<tr class="memdesc:a2ae097df852961297b52126aaa598278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier du manifeste qui la déclare, relatif à <span class="tt">Assets/</span> (<span class="tt">Regions/central-empire/capital/Common/Scene</span>) ; vide pour un manifeste lu seul.  <br /></td></tr>
+<tr class="memitem:ac36eb97c4fccbb4d271ca7a392fce780" id="r_ac36eb97c4fccbb4d271ca7a392fce780"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ac36eb97c4fccbb4d271ca7a392fce780">level</a></td></tr>
+<tr class="memdesc:ac36eb97c4fccbb4d271ca7a392fce780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau qui la déclare (<span class="tt"><a class="el" href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967" title="Le nom du niveau, tel que la palette le montre : « Arena of Fate », « Capital », « World ».">core::SceneLevel::label</a></span>) ; vide pour un manifeste lu seul.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une pièce de la planche d'un lieu. </p>
@@ -231,6 +236,32 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95e3be7b50645669d22d20838fc4e84c" name="a95e3be7b50645669d22d20838fc4e84c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95e3be7b50645669d22d20838fc4e84c">&#9670;&#160;</a></span>path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::ScenePiece::path </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le fichier de l'image, relatif à <span class="tt">Assets/</span> : <span class="tt">&lt;<a class="el" href="#a2ae097df852961297b52126aaa598278" title="Le dossier du manifeste qui la déclare, relatif à Assets/ (Regions/central-empire/capital/Common/Scen...">directory</a>&gt;/&lt;<a class="el" href="#aa07afc5d2306797a84be1b32a4981a80" title="Fichier image, relatif au dossier du lieu (wall-left.png).">file</a>&gt;</span> ; <a class="el" href="#aa07afc5d2306797a84be1b32a4981a80" title="file">file</a> seul pour un manifeste lu seul. </dd></dl>
 
 </div>
 </div>
@@ -294,6 +325,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Classe telle qu'écrite (<span class="tt">floor</span>, <span class="tt">tall</span>, <span class="tt">wide</span>…), pour une classe inconnue. </p>
+
+</div>
+</div>
+<a id="a2ae097df852961297b52126aaa598278" name="a2ae097df852961297b52126aaa598278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ae097df852961297b52126aaa598278">&#9670;&#160;</a></span>directory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::ScenePiece::directory</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le dossier du manifeste qui la déclare, relatif à <span class="tt">Assets/</span> (<span class="tt">Regions/central-empire/capital/Common/Scene</span>) ; vide pour un manifeste lu seul. </p>
 
 </div>
 </div>
@@ -370,6 +417,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Clé de l'atelier (<span class="tt">scene/martpart/wall-left</span>). </p>
+
+</div>
+</div>
+<a id="ac36eb97c4fccbb4d271ca7a392fce780" name="ac36eb97c4fccbb4d271ca7a392fce780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36eb97c4fccbb4d271ca7a392fce780">&#9670;&#160;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::ScenePiece::level</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau qui la déclare (<span class="tt"><a class="el" href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967" title="Le nom du niveau, tel que la palette le montre : « Arena of Fate », « Capital », « World ».">core::SceneLevel::label</a></span>) ; vide pour un manifeste lu seul. </p>
 
 </div>
 </div>

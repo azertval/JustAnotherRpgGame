@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>ScenePlace.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Resources/ScenePlace.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cctype&gt;
+#include &lt;system_error&gt;
+
+#include "Core/Data/JsonDocument.h"
+
+namespace core {
+
+namespace {
+
+// Les dossiers de piÃ¨ces du monde, dans l'ordre oÃ¹ l'on y cherche : ce qu'on voit partout.
+constexpr std::array&lt;std::string_view, 3&gt; WORLD_DIRECTORIES = {"Common/Terrain", "Common/Nature",
+                                                               "Common/Props"};
+constexpr std::string_view WORLD_LABEL = "World";
+constexpr std::string_view REGIONS = "Regions";
+constexpr std::string_view FLAT_ROOT = "Scene";
+constexpr std::string_view OWN_SCENE = "Scene";
+constexpr std::string_view COMMON_SCENE = "Common/Scene";
+constexpr std::string_view OWN_CHARACTERS = "Characters";
+constexpr std::string_view COMMON_CHARACTERS = "Common/Characters";
+// L'atelier des PNJ a plat, celui des racines d'essai (LOT-91) : le repli d'un slug introuvable.
+constexpr std::string_view FLAT_FIGURES = "Npc/";
+
+// Les petits mots qu'un nom de lieu garde en minuscules, sauf en tÃªte.
+constexpr std::array&lt;std::string_view, 5&gt; SMALL_WORDS = {"of", "the", "and", "de", "du"};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string_view&gt; segmentsOf(std::string_view place) {
+    std::vector&lt;std::string_view&gt; segments;
+    std::size_t start = 0;
+    while (start &lt;= place.size()) {
+        const std::size_t slash = place.find('/', start);
+        const std::size_t end = slash == std::string_view::npos ? place.size() : slash;
+        segments.push_back(place.substr(start, end - start));
+        if (slash == std::string_view::npos) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        start = slash + 1;
+    }
+    return segments;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string joined(const std::vector&lt;std::string_view&gt;&amp; segments, std::size_t count) {
+    std::string path;
+    for (std::size_t index = 0; index &lt; count; ++index) {
+        if (index &gt; 0) {
+            path.push_back('/');</span>
+        }
+<span style = "background-color:#dfd">        path.append(segments[index]);
+    }
+    return path;
+}</span>
+
+<span style = "background-color:#dfd">void appendWorld(std::vector&lt;SceneLevel&gt;&amp; levels) {
+    for (const std::string_view directory : WORLD_DIRECTORIES) {
+        levels.push_back(SceneLevel{</span>
+            .label = std::string{WORLD_LABEL}, .place = {}, .directory = std::string{directory}});
+<span style = "background-color:#dfd">    }
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool isValidScenePlace(std::string_view place) noexcept {
+    if (place.empty() || place.find('\\') != std::string_view::npos) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    std::size_t start = 0;
+    while (true) {
+        const std::size_t slash = place.find('/', start);
+        const std::string_view segment = place.substr(</span>
+            start, slash == std::string_view::npos ? std::string_view::npos : slash - start);
+<span style = "background-color:#dfd">        if (segment.empty() || segment == "." || segment == "..") {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        if (slash == std::string_view::npos) {
+            return true;</span>
+        }
+<span style = "background-color:#dfd">        start = slash + 1;
+    }
+}</span>
+
+<span style = "background-color:#dfd">bool isFlatScenePlace(std::string_view place) noexcept {
+    return place.find('/') == std::string_view::npos;
+}</span>
+
+<span style = "background-color:#dfd">std::string scenePlaceLabel(std::string_view segment) {
+    std::string label;
+    std::size_t start = 0;
+    while (start &lt;= segment.size()) {
+        const std::size_t dash = segment.find('-', start);
+        const std::string_view word = segment.substr(</span>
+            start, dash == std::string_view::npos ? std::string_view::npos : dash - start);
+<span style = "background-color:#dfd">        if (!word.empty()) {
+            std::string written{word};
+            const bool small = std::ranges::find(SMALL_WORDS, word) != SMALL_WORDS.end();
+            if (label.empty() || !small) {
+                written.front() =</span>
+                    static_cast&lt;char&gt;(std::toupper(static_cast&lt;unsigned char&gt;(written.front())));
+            }
+<span style = "background-color:#dfd">            if (!label.empty()) {
+                label.push_back(' ');</span>
+            }
+<span style = "background-color:#dfd">            label += written;
+        }
+        if (dash == std::string_view::npos) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        start = dash + 1;
+    }
+    return label;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;SceneLevel&gt; sceneLevelCandidates(std::string_view place) {
+    std::vector&lt;SceneLevel&gt; levels;
+    if (!isValidScenePlace(place)) {
+        return levels;</span>
+    }
+<span style = "background-color:#dfd">    if (isFlatScenePlace(place)) {
+        levels.push_back(</span>
+            SceneLevel{.label = scenePlaceLabel(place),
+                       .place = std::string{place},
+                       .directory = std::string{FLAT_ROOT} + "/" + std::string{place}});
+<span style = "background-color:#dfd">        appendWorld(levels);
+        return levels;</span>
+    }
+<span style = "background-color:#dfd">    const std::vector&lt;std::string_view&gt; segments = segmentsOf(place);
+    for (std::size_t count = segments.size(); count &gt;= 1; --count) {
+        const std::string prefix = joined(segments, count);
+        const std::string label = scenePlaceLabel(segments[count - 1]);
+        const std::string base = std::string{REGIONS} + "/" + prefix + "/";</span>
+        // Une rÃ©gion n'a qu'un commun : ses zones hors ville ont leur propre dossier.
+<span style = "background-color:#dfd">        if (count &gt; 1) {
+            levels.push_back(SceneLevel{</span>
+                .label = label, .place = prefix, .directory = base + std::string{OWN_SCENE}});
+        }
+<span style = "background-color:#dfd">        levels.push_back(SceneLevel{</span>
+            .label = label, .place = prefix, .directory = base + std::string{COMMON_SCENE}});
+<span style = "background-color:#dfd">    }
+    appendWorld(levels);
+    return levels;
+}</span>
+
+<span style = "background-color:#dfd">std::string ownSceneDirectory(std::string_view place) {
+    if (!isValidScenePlace(place)) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    if (isFlatScenePlace(place)) {
+        return std::string{FLAT_ROOT} + "/" + std::string{place};</span>
+    }
+<span style = "background-color:#dfd">    return std::string{REGIONS} + "/" + std::string{place} + "/" + std::string{OWN_SCENE};
+}</span>
+
+<span style = "background-color:#dfd">std::string fallbackScenePiecePath(std::string_view place, std::string_view piece) {
+    const std::string directory = ownSceneDirectory(place);
+    if (directory.empty() || piece.empty()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    return directory + "/" + std::string{piece} + ".png";
+}</span>
+
+<span style = "background-color:#dfd">bool scenePlaceDescendsFrom(std::string_view place, std::string_view ancestor) {
+    if (ancestor.empty()) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    return place == ancestor || (place.size() &gt; ancestor.size() &amp;&amp; place.starts_with(ancestor) &amp;&amp;</span>
+                                 place[ancestor.size()] == '/');
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; scenePlaceAncestry(std::string_view place) {
+    std::vector&lt;std::string&gt; ancestry;
+    if (isValidScenePlace(place)) {
+        const std::vector&lt;std::string_view&gt; segments = segmentsOf(place);
+        for (std::size_t count = segments.size(); count &gt;= 1; --count) {
+            ancestry.push_back(joined(segments, count));
+        }
+    }
+    ancestry.emplace_back();
+    return ancestry;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; scenePlaces(const std::filesystem::path&amp; assetsDirectory) {
+    std::vector&lt;std::string&gt; places;
+    std::error_code error;
+    for (auto it = std::filesystem::directory_iterator(assetsDirectory / FLAT_ROOT, error);
+         !error &amp;&amp; it != std::filesystem::directory_iterator(); it.increment(error)) {
+        if (it-&gt;is_directory(error) &amp;&amp;</span>
+            std::filesystem::is_regular_file(it-&gt;path() / "manifest.json", error)) {
+<span style = "background-color:#dfd">            places.push_back(it-&gt;path().filename().string());
+        }
+    }
+    error.clear();
+    const std::filesystem::path regions = assetsDirectory / REGIONS;
+    for (auto it = std::filesystem::recursive_directory_iterator(regions, error);
+         !error &amp;&amp; it != std::filesystem::recursive_directory_iterator(); it.increment(error)) {</span>
+        // Un lieu est un dossier dont le `Scene/` PROPRE porte un manifeste ; un `Common/` n'en est
+        // pas un, et ce qu'il y a sous un `Scene/` non plus.
+<span style = "background-color:#dfd">        const std::string name = it-&gt;path().filename().string();
+        if (name == OWN_SCENE || name == "Common" || name == "Characters" || name == "Map") {
+            it.disable_recursion_pending();
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (it-&gt;is_directory(error) &amp;&amp;</span>
+            std::filesystem::is_regular_file(it-&gt;path() / OWN_SCENE / "manifest.json", error)) {
+<span style = "background-color:#dfd">            places.push_back(it-&gt;path().lexically_relative(regions).generic_string());</span>
+        }
+<span style = "background-color:#dfd">    }
+    std::ranges::sort(places);
+    return places;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;SceneLevel&gt; characterLevelCandidates(std::string_view place) {
+    std::vector&lt;SceneLevel&gt; levels;
+    if (isValidScenePlace(place) &amp;&amp; !isFlatScenePlace(place)) {
+        const std::vector&lt;std::string_view&gt; segments = segmentsOf(place);
+        for (std::size_t count = segments.size(); count &gt;= 1; --count) {
+            const std::string prefix = joined(segments, count);
+            const std::string label = scenePlaceLabel(segments[count - 1]);
+            const std::string base = std::string{REGIONS} + "/" + prefix + "/";
+            if (count &gt; 1) {
+                levels.push_back(SceneLevel{.label = label,</span>
+                                            .place = prefix,
+                                            .directory = base + std::string{OWN_CHARACTERS}});
+            }
+<span style = "background-color:#dfd">            levels.push_back(SceneLevel{.label = label,</span>
+                                        .place = prefix,
+                                        .directory = base + std::string{COMMON_CHARACTERS}});
+<span style = "background-color:#dfd">        }
+    }
+    levels.push_back(SceneLevel{.label = std::string{WORLD_LABEL},</span>
+                                .place = {},
+                                .directory = std::string{COMMON_CHARACTERS}});
+<span style = "background-color:#dfd">    return levels;
+}</span>
+
+FigureDirectories resolveFigures(const std::filesystem::path&amp; assetsDirectory,
+<span style = "background-color:#dfd">                                 std::string_view place) {
+    FigureDirectories figures;
+    for (const SceneLevel&amp; level : characterLevelCandidates(place)) {
+        const std::filesystem::path file =</span>
+            assetsDirectory / std::filesystem::path(level.directory) / "manifest.json";
+<span style = "background-color:#dfd">        std::error_code error;
+        if (!std::filesystem::is_regular_file(file, error)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const JsonDocument document = readJsonObjectFromFile(file, 1);
+        const auto npcs = document.ok() ? document.root.find("npcs") : document.root.end();
+        if (!document.ok() || npcs == document.root.end() || !npcs-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; slug : *npcs) {
+            if (slug.is_string() &amp;&amp; !slug.get&lt;std::string&gt;().empty()) {</span>
+                // Le plus propre gagne : un niveau plus commun ne remplace pas un slug dÃ©jÃ  vu.
+<span style = "background-color:#dfd">                figures.try_emplace(slug.get&lt;std::string&gt;(),</span>
+                                    level.directory + "/" + slug.get&lt;std::string&gt;());
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return figures;
+}</span>
+
+<span style = "background-color:#dfd">std::string figureDirectory(const FigureDirectories&amp; figures, std::string_view figure) {
+    if (figure.empty()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    if (const auto found = figures.find(figure); found != figures.end()) {
+        return found-&gt;second;
+    }
+    if (figure.find('/') != std::string_view::npos) {
+        return std::string{figure};</span>
+    }
+<span style = "background-color:#dfd">    return std::string{FLAT_FIGURES} + std::string{figure};
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -198,9 +198,38 @@ inline constexpr int MAP_TEMPLATE_VERSION = 1;
 [[nodiscard]] std::filesystem::path prefabsDir(const std::filesystem::path&amp; dataRoot,
                                                std::string_view place);
 
-/// @return Les noms des prÃ©fabriquÃ©s du lieu @p place, triÃ©s (vide si le dossier n'existe pas).
+/// @brief Un prÃ©fabriquÃ© qu'un lieu peut poser : son nom, et le niveau qui le range.
+struct PrefabEntry {
+    std::string name;
+    /// Le lieu du niveau qui le range (`central-empire/capital`), vide pour le monde.
+    std::string level;
+
+    [[nodiscard]] bool operator==(const PrefabEntry&amp;) const = default;
+};
+
+/**
+ * @brief Les prÃ©fabriquÃ©s que le lieu @p place peut poser (`LOT-124`) : les siens et ceux de chacun
+ *        de ses niveaux communs, jusqu'au monde (`&lt;dataRoot&gt;/Editor/Prefabs/*.json`). Un
+ *        prÃ©fabriquÃ© propre masque un commun de mÃªme nom. TriÃ©s par nom.
+ */
+[[nodiscard]] std::vector&lt;PrefabEntry&gt; availablePrefabs(const std::filesystem::path&amp; dataRoot,
+                                                        std::string_view place);
+
+/// @return Les noms des prÃ©fabriquÃ©s que le lieu @p place peut poser (`availablePrefabs`), triÃ©s.
 [[nodiscard]] std::vector&lt;std::string&gt; prefabNames(const std::filesystem::path&amp; dataRoot,
                                                    std::string_view place);
+
+/**
+ * @brief Le niveau oÃ¹ ranger @p stamp : le plus bas qui voit **toutes** ses piÃ¨ces â le niveau le
+ *        plus propre d'oÃ¹ vient l'une d'elles (`LOT-124`, rÃ¨gle 1 de l'arborescence). Un tampon
+ *        fait du seul kit de la Capitale se range sous `central-empire/capital` et sert Ã  tous ses
+ *        quartiers.
+ * @param stamp    Le tampon.
+ * @param manifest Le catalogue rÃ©solu du lieu d'oÃ¹ il vient ; `nullptr` : son lieu.
+ * @return Un lieu, vide pour le monde ; le lieu du tampon s'il n'a aucune piÃ¨ce, ou une piÃ¨ce que
+ *         le catalogue ignore.
+ */
+[[nodiscard]] std::string prefabLevel(const Stamp&amp; stamp, const core::ScenePieceManifest* manifest);
 
 /// @brief Ãcrit @p stamp comme prÃ©fabriquÃ© @p name du lieu @p place, dossier crÃ©Ã© au besoin.
 /// @return Le motif du refus (nom vide ou invalide, tampon vide, Ã©criture impossible) ; vide si
@@ -208,9 +237,10 @@ inline constexpr int MAP_TEMPLATE_VERSION = 1;
 [[nodiscard]] std::string writePrefab(const std::filesystem::path&amp; dataRoot, std::string_view place,
                                       std::string_view name, const Stamp&amp; stamp);
 
-/// @brief Relit le prÃ©fabriquÃ© @p name du lieu @p place.
+/// @brief Relit le prÃ©fabriquÃ© @p name que le lieu @p place peut poser : le sien, Ã  dÃ©faut celui du
+///        plus propre de ses niveaux communs qui en range un de ce nom.
 /// @param dataRoot La racine des donnÃ©es.
-/// @param place    Le lieu dont il vient.
+/// @param place    Le lieu qui le pose.
 /// @param name     Son nom, sans extension.
 /// @param error    ReÃ§oit le motif du refus ; vide si la lecture a rÃ©ussi.
 [[nodiscard]] std::optional&lt;Stamp&gt; readPrefab(const std::filesystem::path&amp; dataRoot,
@@ -259,9 +289,12 @@ struct MapTemplate {
     [[nodiscard]] bool operator==(const MapTemplate&amp;) const = default;
 };
 
-/// @return Les modÃ¨les de `&lt;dataRoot&gt;/Editor/Templates/*.json`, triÃ©s par identifiant ; les
-///         fichiers illisibles sont passÃ©s (`--check` les nomme).
-[[nodiscard]] std::vector&lt;MapTemplate&gt; mapTemplates(const std::filesystem::path&amp; dataRoot);
+/// @return Les modÃ¨les de `&lt;dataRoot&gt;/Editor/Templates/*.json` et, pour un lieu @p place, ceux de
+///         `Editor/Templates/&lt;niveau&gt;/` pour chacun de ses niveaux (`LOT-124`), le plus propre
+///         masquant un commun de mÃªme identifiant ; triÃ©s par identifiant. Les fichiers illisibles
+///         sont passÃ©s (`--check` les nomme).
+[[nodiscard]] std::vector&lt;MapTemplate&gt; mapTemplates(const std::filesystem::path&amp; dataRoot,
+                                                    std::string_view place = {});
 
 /// @brief Relit un modÃ¨le Ã©crit dans le format `jadg-editor-map-template`.
 /// @param json  Le modÃ¨le, lu.
@@ -285,10 +318,11 @@ struct LibraryFinding {
  * @brief La bibliothÃ¨que **sans fenÃªtre** (`LOT-EDITOR-08`, rÃ¨gle 4 de la feuille de route) : les
  *        mÃªmes fonctions que la fenÃªtre, appelÃ©es en ligne de commande.
  *
- * - `--list-prefabs [lieuâ¦]` : les prÃ©fabriquÃ©s d'un lieu, tous les lieux Ã  dÃ©faut ;
+ * - `--list-prefabs [lieuâ¦]` : les prÃ©fabriquÃ©s qu'un lieu peut poser, tous les lieux Ã  dÃ©faut ;
  * - `--save-prefab &lt;carte&gt; &lt;nom&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;` : dÃ©coupe le rectangle de la carte et
- *   l'Ã©crit comme prÃ©fabriquÃ© du lieu de cette carte. C'est ce que fait Â« Save selection as
- *   prefabâ¦ Â», et c'est ainsi que se fabrique un prÃ©fabriquÃ© livrÃ©.
+ *   l'Ã©crit comme prÃ©fabriquÃ©, au niveau le plus bas qui voit toutes ses piÃ¨ces (`prefabLevel`).
+ *   C'est ce que fait Â« Save selection as prefabâ¦ Â», et c'est ainsi que se fabrique un prÃ©fabriquÃ©
+ *   livrÃ©.
  *
  * @return Le code de sortie (0, 1 en cas d'Ã©chec, 2 si la ligne de commande est fausse), ou
  *         `std::nullopt` si aucune de ces commandes n'est demandÃ©e.

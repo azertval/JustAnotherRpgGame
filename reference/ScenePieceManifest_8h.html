@@ -152,6 +152,7 @@ $(function(){initNavTree('ScenePieceManifest_8h.html','',''); });
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="PieceFootprint_8h_source.html">Core/Levels/PieceFootprint.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePlace_8h_source.html">Core/Resources/ScenePlace.h</a>&quot;</code><br />
 </div>
 <p><a href="ScenePieceManifest_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -159,6 +160,8 @@ $(function(){initNavTree('ScenePieceManifest_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:core_3A_3AScenePiece" id="r_core_3A_3AScenePiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ScenePiece.html">core::ScenePiece</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce de la planche d'un lieu.  <a href="structcore_1_1ScenePiece.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AMaskedScenePiece" id="r_core_3A_3AMaskedScenePiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MaskedScenePiece.html">core::MaskedScenePiece</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce commune qu'une pièce plus propre, de même nom, masque (<span class="tt">LOT-124</span>).  <a href="structcore_1_1MaskedScenePiece.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3AScenePieceManifest" id="r_core_3A_3AScenePieceManifest"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pièces d'un lieu, dans l'ordre du manifeste.  <a href="classcore_1_1ScenePieceManifest.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3AScenePieceManifestResult" id="r_core_3A_3AScenePieceManifestResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ScenePieceManifestResult.html">core::ScenePieceManifestResult</a></td></tr>
@@ -207,9 +210,12 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le <b>manifeste des pièces</b> d'un lieu : ce que l'atelier des textures (<span class="tt">LOT-92</span>) déclare de chaque pièce de sa planche — classe, emprise, ancre, taille, miroir. </p>
-<p>L'atelier écrit, à côté des images d'un lieu, un <span class="tt">Assets/Scene/&lt;lieu&gt;/manifest.json</span>. Jusqu'au <span class="tt">LOT-EDITOR-02</span>, seule la galerie des assets le lisait, dans <span class="tt">HMI</span> (constat A9 de la feuille de route de l'éditeur) : aucune règle de carte ne pouvait donc s'appuyer sur l'emprise d'une pièce. La lecture descend ici, sans Qt ni GPU, pour que <span class="tt">Core</span> puisse un jour en déduire l'occupation et la collision (<span class="tt">LOT-EDITOR-12</span>) ; <span class="tt">HMI</span> n'en garde que les images.</p>
+<p>L'atelier écrit, à côté des images d'un lieu, un <span class="tt">manifest.json</span>. Jusqu'au <span class="tt">LOT-EDITOR-02</span>, seule la galerie des assets le lisait, dans <span class="tt">HMI</span> (constat A9 de la feuille de route de l'éditeur) : aucune règle de carte ne pouvait donc s'appuyer sur l'emprise d'une pièce. La lecture descend ici, sans Qt ni GPU, pour que <span class="tt">Core</span> puisse un jour en déduire l'occupation et la collision (<span class="tt">LOT-EDITOR-12</span>) ; <span class="tt">HMI</span> n'en garde que les images.</p>
 <p>Depuis le <span class="tt">LOT-EDITOR-12</span>, le manifeste dit aussi ce qu'une pièce <b>oppose</b> à qui passe (son type tactique, <span class="tt"><a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252" title="Ce qu&#39;une pièce oppose à qui passe : son type tactique (décision D10, constat A5).">core::PieceTactical</a></span>) — c'est de là que <span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span> tire la collision d'une carte — et sous quels <b>anciens noms</b> une carte peut encore la citer (<span class="tt">aliases</span>) : une planche réextraite qui renomme une pièce ne casse aucune carte.</p>
-<p>Le manifeste nomme une pièce par une clé d'atelier (<span class="tt">scene/martpart/wall-left</span>). Une carte, elle, ne connaît que le <b>nom court</b> (<span class="tt">wall-left</span>), celui que la table d'apparence et l'assignation de texture écrivent : le lecteur rend les deux. </p>
+<p>Le manifeste nomme une pièce par une clé d'atelier (<span class="tt">scene/martpart/wall-left</span>). Une carte, elle, ne connaît que le <b>nom court</b> (<span class="tt">wall-left</span>), celui que la table d'apparence et l'assignation de texture écrivent : le lecteur rend les deux.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
+Le catalogue résolu d'un lieu (<span class="tt">LOT-124</span>)</h2>
+<p>Une carte puise dans son lieu <b>et</b> dans ses niveaux communs (<span class="tt"><a class="el" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec" title="Les niveaux candidats de place, du plus propre au plus commun, monde compris.">core::sceneLevelCandidates</a></span>). <span class="tt">ScenePieceManifest::resolve</span> empile leurs manifestes, du plus propre au plus commun, en un seul manifeste : c'est lui que lisent la déduction de collision, le brouillon, la palette et le contrôle, qui n'ont donc qu'<b>une</b> question à poser — <span class="tt">find(nom)</span>. Chaque pièce y garde son dossier d'origine (<span class="tt">ScenePiece::directory</span>) et son niveau ; une pièce propre qui porte le nom d'une pièce commune la <b>masque</b>, et le catalogue garde la trace de la pièce masquée (<span class="tt">masked</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

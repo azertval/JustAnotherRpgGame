@@ -20,6 +20,7 @@
 #include &lt;fstream&gt;
 #include &lt;iterator&gt;
 #include &lt;memory&gt;
+#include &lt;optional&gt;
 #include &lt;sstream&gt;
 #include &lt;stdexcept&gt;
 #include &lt;system_error&gt;
@@ -32,6 +33,7 @@
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileTypeName.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/PaintTools.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -503,11 +505,11 @@ StampPasteResult pasteStamp(core::LevelDraft&amp; draft, const Stamp&amp; stamp,
     return result;
 }</span>
 
-<span style = "background-color:#fdd">std::string stampLabel(const Stamp&amp; stamp) {
-    if (stamp.empty()) {
-        return "empty";</span>
+<span style = "background-color:#dfd">std::string stampLabel(const Stamp&amp; stamp) {
+    if (stamp.empty()) {</span>
+<span style = "background-color:#fdd">        return "empty";</span>
     }
-<span style = "background-color:#fdd">    std::size_t pieces = 0;
+<span style = "background-color:#dfd">    std::size_t pieces = 0;
     for (const StampLayer&amp; layer : stamp.layers) {
         pieces += layer.pieces.size();
     }
@@ -517,12 +519,12 @@ StampPasteResult pasteStamp(core::LevelDraft&amp; draft, const Stamp&amp; stamp,
             .append(std::to_string(pieces))
             .append(pieces == 1 ? " piece" : " pieces");
     }
-<span style = "background-color:#fdd">    if (!stamp.entities.empty()) {
+<span style = "background-color:#dfd">    if (!stamp.entities.empty()) {
         label.append(" Â· ")</span>
             .append(std::to_string(stamp.entities.size()))
             .append(stamp.entities.size() == 1 ? " entity" : " entities");
     }
-<span style = "background-color:#fdd">    return label;
+<span style = "background-color:#dfd">    return label;
 }</span>
 
 // --- La bibliotheque -----------------------------------------------------------------------------
@@ -768,22 +770,76 @@ namespace {
     return dataRoot / "Editor" / "Prefabs" / std::filesystem::path(std::string{place});
 }</span>
 
-std::vector&lt;std::string&gt; prefabNames(const std::filesystem::path&amp; dataRoot,
-<span style = "background-color:#dfd">                                     std::string_view place) {
-    std::vector&lt;std::string&gt; names;
+namespace {
+
+// Les fichiers `*.json` de @p dir, sans ses sous-dossiers, par nom.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::filesystem::path&gt; jsonFilesIn(const std::filesystem::path&amp; dir) {
+    std::vector&lt;std::filesystem::path&gt; files;
     std::error_code error;
-    const std::filesystem::path dir = prefabsDir(dataRoot, place);
-    if (!std::filesystem::is_directory(dir, error)) {</span>
-<span style = "background-color:#fdd">        return names;</span>
+    if (!std::filesystem::is_directory(dir, error)) {
+        return files;</span>
     }
 <span style = "background-color:#dfd">    for (const std::filesystem::directory_entry&amp; entry :
          std::filesystem::directory_iterator(dir, error)) {
         if (entry.is_regular_file() &amp;&amp; entry.path().extension() == ".json") {
-            names.push_back(entry.path().stem().string());
+            files.push_back(entry.path());
         }
     }
-    std::ranges::sort(names);
+    std::ranges::sort(files);
+    return files;
+}</span>
+
+}  // namespace
+
+std::vector&lt;PrefabEntry&gt; availablePrefabs(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                          std::string_view place) {
+    std::vector&lt;PrefabEntry&gt; prefabs;</span>
+    // Du plus propre au monde : un prÃ©fabriquÃ© propre masque un commun de mÃªme nom.
+<span style = "background-color:#dfd">    for (const std::string&amp; level : core::scenePlaceAncestry(place)) {
+        for (const std::filesystem::path&amp; file : jsonFilesIn(prefabsDir(dataRoot, level))) {
+            std::string name = file.stem().string();
+            if (std::ranges::find(prefabs, name, &amp;PrefabEntry::name) == prefabs.end()) {
+                prefabs.push_back(PrefabEntry{.name = std::move(name), .level = level});</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    std::ranges::sort(prefabs, {}, &amp;PrefabEntry::name);
+    return prefabs;
+}</span>
+
+std::vector&lt;std::string&gt; prefabNames(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                     std::string_view place) {
+    std::vector&lt;std::string&gt; names;
+    for (PrefabEntry&amp; prefab : availablePrefabs(dataRoot, place)) {
+        names.push_back(std::move(prefab.name));
+    }
     return names;
+}</span>
+
+<span style = "background-color:#dfd">std::string prefabLevel(const Stamp&amp; stamp, const core::ScenePieceManifest* manifest) {
+    if (manifest == nullptr || manifest-&gt;levels().empty()) {</span>
+<span style = "background-color:#fdd">        return stamp.place;</span>
+    }
+    // Le rang, dans les niveaux du lieu, de chaque piÃ¨ce du tampon : le plus propre l'emporte, car
+    // c'est le plus bas niveau d'oÃ¹ toutes ses piÃ¨ces se voient.
+<span style = "background-color:#dfd">    const std::vector&lt;core::SceneLevel&gt;&amp; levels = manifest-&gt;levels();
+    std::optional&lt;std::size_t&gt; ownest;
+    for (const StampLayer&amp; layer : stamp.layers) {
+        for (const StampPiece&amp; piece : layer.pieces) {
+            const core::ScenePiece* found = manifest-&gt;find(piece.piece);
+            if (found == nullptr) {</span>
+<span style = "background-color:#fdd">                return stamp.place;  // une piÃ¨ce inconnue : on ne sait pas d'oÃ¹ elle se voit.</span>
+            }
+<span style = "background-color:#dfd">            const auto level =</span>
+                std::ranges::find(levels, found-&gt;directory, &amp;core::SceneLevel::directory);
+<span style = "background-color:#dfd">            const auto rank = static_cast&lt;std::size_t&gt;(std::distance(levels.begin(), level));
+            ownest = std::min(ownest.value_or(rank), rank);
+        }
+    }
+    if (!ownest || *ownest &gt;= levels.size()) {</span>
+<span style = "background-color:#fdd">        return stamp.place;  // sans piÃ¨ce, il sert lÃ  oÃ¹ il est nÃ©.</span>
+    }
+<span style = "background-color:#dfd">    return levels[*ownest].place;
 }</span>
 
 std::string writePrefab(const std::filesystem::path&amp; dataRoot, std::string_view place,
@@ -813,8 +869,18 @@ std::string writePrefab(const std::filesystem::path&amp; dataRoot, std::string_v
 }</span>
 
 std::optional&lt;Stamp&gt; readPrefab(const std::filesystem::path&amp; dataRoot, std::string_view place,
-<span style = "background-color:#dfd">                                std::string_view name, std::string&amp; error) {
-    const std::filesystem::path file = prefabsDir(dataRoot, place) / (std::string{name} + ".json");
+<span style = "background-color:#dfd">                                std::string_view name, std::string&amp; error) {</span>
+    // Le plus propre des niveaux du lieu qui en range un de ce nom (LOT-124).
+<span style = "background-color:#dfd">    std::filesystem::path file = prefabsDir(dataRoot, place) / (std::string{name} + ".json");
+    for (const std::string&amp; level : core::scenePlaceAncestry(place)) {
+        std::filesystem::path candidate =</span>
+            prefabsDir(dataRoot, level) / (std::string{name} + ".json");
+<span style = "background-color:#dfd">        std::error_code missing;
+        if (std::filesystem::is_regular_file(candidate, missing)) {
+            file = std::move(candidate);
+            break;</span>
+        }
+<span style = "background-color:#dfd">    }
     const Json json = Json::parse(readText(file), nullptr, false);
     if (json.is_discarded()) {</span>
 <span style = "background-color:#fdd">        error = file.string() + ": not a JSON file (or it cannot be read)";
@@ -894,26 +960,28 @@ namespace {
 
 }  // namespace
 
-<span style = "background-color:#dfd">std::vector&lt;MapTemplate&gt; mapTemplates(const std::filesystem::path&amp; dataRoot) {
-    std::vector&lt;MapTemplate&gt; models;
-    std::error_code error;
-    const std::filesystem::path dir = templatesDir(dataRoot);
-    if (!std::filesystem::is_directory(dir, error)) {</span>
-<span style = "background-color:#fdd">        return models;</span>
+std::vector&lt;MapTemplate&gt; mapTemplates(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                      std::string_view place) {
+    std::vector&lt;MapTemplate&gt; models;</span>
+    // Les modÃ¨les du lieu et de chacun de ses niveaux communs (LOT-124) ; le plus propre masque un
+    // commun de mÃªme identifiant.
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; levels{std::string{}};
+    if (!place.empty()) {
+        levels = core::scenePlaceAncestry(place);</span>
     }
-<span style = "background-color:#dfd">    for (const std::filesystem::directory_entry&amp; entry :
-         std::filesystem::directory_iterator(dir, error)) {
-        if (!entry.is_regular_file() || entry.path().extension() != ".json") {</span>
-<span style = "background-color:#fdd">            continue;</span>
-        }
-<span style = "background-color:#dfd">        const Json json = Json::parse(readText(entry.path()), nullptr, false);
-        if (json.is_discarded()) {</span>
-<span style = "background-color:#fdd">            continue;</span>
-        }
-<span style = "background-color:#dfd">        std::string ignored;
-        if (std::optional&lt;MapTemplate&gt; model = mapTemplateFromJson(json, ignored)) {
-            models.push_back(std::move(*model));
-        }
+<span style = "background-color:#dfd">    for (const std::string&amp; level : levels) {
+        for (const std::filesystem::path&amp; file :
+             jsonFilesIn(templatesDir(dataRoot) / std::filesystem::path(level))) {
+            const Json json = Json::parse(readText(file), nullptr, false);
+            if (json.is_discarded()) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            std::string ignored;
+            std::optional&lt;MapTemplate&gt; model = mapTemplateFromJson(json, ignored);
+            if (model &amp;&amp; std::ranges::find(models, model-&gt;id, &amp;MapTemplate::id) == models.end()) {
+                models.push_back(std::move(*model));</span>
+            }
+<span style = "background-color:#dfd">        }
     }
     std::ranges::sort(models, [](const MapTemplate&amp; left, const MapTemplate&amp; right) {
         return left.id &lt; right.id;
@@ -962,12 +1030,12 @@ namespace {
 
 // Les valeurs qui suivent @p option, jusqu'a la prochaine option (meme lecture que MapRefactor).
 [[nodiscard]] std::optional&lt;std::vector&lt;std::string&gt;&gt; valuesOf(
-<span style = "background-color:#fdd">    const std::vector&lt;std::string&gt;&amp; arguments, std::string_view option) {
+<span style = "background-color:#dfd">    const std::vector&lt;std::string&gt;&amp; arguments, std::string_view option) {
     const auto found = std::ranges::find(arguments, option);
     if (found == arguments.end()) {
         return std::nullopt;</span>
     }
-<span style = "background-color:#fdd">    std::vector&lt;std::string&gt; values;
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; values;
     for (auto value = std::next(found); value != arguments.end() &amp;&amp; !value-&gt;starts_with("--");
          ++value) {
         values.push_back(*value);
@@ -976,82 +1044,91 @@ namespace {
 }</span>
 
 // Une case ecrite Â« c,r Â» en ligne de commande.
-<span style = "background-color:#fdd">[[nodiscard]] std::optional&lt;core::GridPosition&gt; cellArgument(const std::string&amp; text) {
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;core::GridPosition&gt; cellArgument(const std::string&amp; text) {
     const std::size_t comma = text.find(',');
-    if (comma == std::string::npos) {
-        return std::nullopt;</span>
+    if (comma == std::string::npos) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
     }
     try {
-<span style = "background-color:#fdd">        return core::GridPosition{.column = std::stoi(text.substr(0, comma)),</span>
+<span style = "background-color:#dfd">        return core::GridPosition{.column = std::stoi(text.substr(0, comma)),</span>
                                   .row = std::stoi(text.substr(comma + 1))};
 <span style = "background-color:#fdd">    } catch (const std::exception&amp;) {
         return std::nullopt;
-    }
-}</span>
+    }</span>
+<span style = "background-color:#dfd">}</span>
 
 }  // namespace
 
 std::optional&lt;int&gt; runPrefabCommand(const std::vector&lt;std::string&gt;&amp; arguments,
-<span style = "background-color:#fdd">                                    const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
-    const auto usage = [&amp;output](std::string_view text) {
-        output += "usage: " + std::string{text} + "\n";
-        return 2;
-    };
-    if (const auto places = valuesOf(arguments, "--list-prefabs")) {
-        std::vector&lt;std::string&gt; wanted = *places;
+<span style = "background-color:#dfd">                                    const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const auto usage = [&amp;output](std::string_view text) {</span>
+<span style = "background-color:#fdd">        output += "usage: " + std::string{text} + "\n";
+        return 2;</span>
+<span style = "background-color:#dfd">    };
+    if (const auto places = valuesOf(arguments, "--list-prefabs")) {</span>
+<span style = "background-color:#fdd">        std::vector&lt;std::string&gt; wanted = *places;
         if (wanted.empty()) {
             wanted = scenePlaces(dataRoot);</span>
         }
 <span style = "background-color:#fdd">        std::size_t total = 0;
         for (const std::string&amp; place : wanted) {
-            for (const std::string&amp; name : prefabNames(dataRoot, place)) {
+            for (const PrefabEntry&amp; prefab : availablePrefabs(dataRoot, place)) {
                 std::string error;
-                const std::optional&lt;Stamp&gt; stamp = readPrefab(dataRoot, place, name, error);
-                output.append(place).append("/").append(name).append(": ");
+                const std::optional&lt;Stamp&gt; stamp =</span>
+                    readPrefab(dataRoot, prefab.level, prefab.name, error);
+<span style = "background-color:#fdd">                output.append(place).append(": ");
+                if (!prefab.level.empty()) {
+                    output.append(prefab.level).append("/");</span>
+                }
+<span style = "background-color:#fdd">                output.append(prefab.name).append(": ");
                 output.append(stamp ? stampLabel(*stamp) : "unreadable â " + error).append("\n");
                 ++total;
             }
         }
         output += std::to_string(total) + (total == 1 ? " prefab\n" : " prefabs\n");
-        return 0;
-    }
+        return 0;</span>
+<span style = "background-color:#dfd">    }
     const auto save = valuesOf(arguments, "--save-prefab");
-    if (!save) {
-        return std::nullopt;</span>
+    if (!save) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#fdd">    const auto from = valuesOf(arguments, "--from");
+<span style = "background-color:#dfd">    const auto from = valuesOf(arguments, "--from");
     const auto to = valuesOf(arguments, "--to");
-    if (save-&gt;size() != 2 || !from || from-&gt;size() != 1 || !to || to-&gt;size() != 1) {
-        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
+    if (save-&gt;size() != 2 || !from || from-&gt;size() != 1 || !to || to-&gt;size() != 1) {</span>
+<span style = "background-color:#fdd">        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
     }
-<span style = "background-color:#fdd">    const std::optional&lt;core::GridPosition&gt; first = cellArgument(from-&gt;front());
+<span style = "background-color:#dfd">    const std::optional&lt;core::GridPosition&gt; first = cellArgument(from-&gt;front());
     const std::optional&lt;core::GridPosition&gt; last = cellArgument(to-&gt;front());
-    if (!first || !last) {
-        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
+    if (!first || !last) {</span>
+<span style = "background-color:#fdd">        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
     }
-<span style = "background-color:#fdd">    const std::filesystem::path asPath{(*save)[0]};
+<span style = "background-color:#dfd">    const std::filesystem::path asPath{(*save)[0]};
     const std::filesystem::path mapFile = std::filesystem::is_regular_file(asPath)</span>
                                               ? asPath
                                               : dataRoot / "Levels" / ((*save)[0] + ".json");
-<span style = "background-color:#fdd">    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(mapFile);
-    if (!loaded.ok()) {
-        output += "error: " + mapFile.string() + ": " + loaded.error + "\n";
+<span style = "background-color:#dfd">    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(mapFile);
+    if (!loaded.ok()) {</span>
+<span style = "background-color:#fdd">        output += "error: " + mapFile.string() + ": " + loaded.error + "\n";
         return 1;</span>
     }
-<span style = "background-color:#fdd">    const std::string place = scenePlaceOf(loaded.level-&gt;layers());
+<span style = "background-color:#dfd">    const std::string place = scenePlaceOf(loaded.level-&gt;layers());
     core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
     const PlaceAssets assets = loadPlaceAssets(dataRoot, place);
     if (assets.manifest) {
         draft.setPieceManifest(std::make_shared&lt;const core::ScenePieceManifest&gt;(*assets.manifest));</span>
     }
-<span style = "background-color:#fdd">    const Stamp stamp = cutStamp(draft, *first, *last);
-    const std::string error = writePrefab(dataRoot, place, (*save)[1], stamp);
-    if (!error.empty()) {
-        output += "error: " + error + "\n";
+<span style = "background-color:#dfd">    const Stamp stamp = cutStamp(draft, *first, *last);</span>
+    // RangÃ© au plus bas niveau qui voit toutes ses piÃ¨ces (LOT-124) : fait du kit de la Capitale,
+    // il sert Ã  tous ses quartiers.
+<span style = "background-color:#dfd">    const std::string level = prefabLevel(stamp, assets.manifest ? &amp;*assets.manifest : nullptr);
+    const std::string error = writePrefab(dataRoot, level, (*save)[1], stamp);
+    if (!error.empty()) {</span>
+<span style = "background-color:#fdd">        output += "error: " + error + "\n";
         return 1;</span>
     }
-<span style = "background-color:#fdd">    output += "saved " + place + "/" + (*save)[1] + ": " + stampLabel(stamp) + "\n";
-    return 0;
+<span style = "background-color:#dfd">    output += "saved " + (level.empty() ? std::string{"(world)"} : level) + "/" + (*save)[1] +</span>
+              ": " + stampLabel(stamp) + "\n";
+<span style = "background-color:#dfd">    return 0;
 }</span>
 
 }  // namespace hmi</pre>

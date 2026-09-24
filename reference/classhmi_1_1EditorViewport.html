@@ -205,7 +205,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a59fd535b0c18c365e1e3ea31ca544ebe" id="r_a59fd535b0c18c365e1e3ea31ca544ebe"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a59fd535b0c18c365e1e3ea31ca544ebe">measureText</a> () const</td></tr>
 <tr class="memitem:a092b1ee865b290125749d74f20757baf" id="r_a092b1ee865b290125749d74f20757baf"><td class="memItemLeft">const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a092b1ee865b290125749d74f20757baf">brush</a> () const noexcept</td></tr>
 <tr class="memitem:adfec046652f3ec5702b1d6d30947493e" id="r_adfec046652f3ec5702b1d6d30947493e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PieceCatalogGroup.html">PieceCatalogGroup</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adfec046652f3ec5702b1d6d30947493e">pieceCatalog</a> () const</td></tr>
-<tr class="memitem:a187bce4cdab8c53ae8d2f03690d3d18f" id="r_a187bce4cdab8c53ae8d2f03690d3d18f"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a187bce4cdab8c53ae8d2f03690d3d18f">placeDirectory</a> () const</td></tr>
+<tr class="memitem:a24bddd2ca1acbf3ec098422b83b12c14" id="r_a24bddd2ca1acbf3ec098422b83b12c14"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a24bddd2ca1acbf3ec098422b83b12c14">pieceImagesDirectory</a> () const</td></tr>
 <tr class="memitem:af6475c5e915c27d80fb0e98e54909254" id="r_af6475c5e915c27d80fb0e98e54909254"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af6475c5e915c27d80fb0e98e54909254">place</a> () const noexcept</td></tr>
 <tr class="memitem:a9483dfdcea629d7f7f6879cc75b75cb1" id="r_a9483dfdcea629d7f7f6879cc75b75cb1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9483dfdcea629d7f7f6879cc75b75cb1">hoveredCellForced</a> () const</td></tr>
 <tr class="memitem:a01f8f3ad0730421bcde6b0bf5736db59" id="r_a01f8f3ad0730421bcde6b0bf5736db59"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a01f8f3ad0730421bcde6b0bf5736db59">setTool</a> (<a class="el" href="namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dd">hmi::EditorTool</a> tool)</td></tr>
@@ -429,6 +429,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae9816c87b04791bfeb600845c28c2d95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scène iso du brouillon, recomposée seulement quand il change.  <br /></td></tr>
 <tr class="memitem:a449630811b63f61f294cf907fdd1bb3d" id="r_a449630811b63f61f294cf907fdd1bb3d"><td class="memItemLeft"><a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a449630811b63f61f294cf907fdd1bb3d">_appearance</a></td></tr>
 <tr class="memitem:a90dde9cb8452cd58a66e57f41e243dee" id="r_a90dde9cb8452cd58a66e57f41e243dee"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a90dde9cb8452cd58a66e57f41e243dee">_appearancePlace</a></td></tr>
+<tr class="memitem:a5c023f981223939b933650aee0c6dfe7" id="r_a5c023f981223939b933650aee0c6dfe7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5c023f981223939b933650aee0c6dfe7">_placeAssetsLoaded</a> = false</td></tr>
+<tr class="memdesc:a5c023f981223939b933650aee0c6dfe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai une fois le lieu lu : une carte sans lieu lit aussi les figurines du monde.  <br /></td></tr>
 <tr class="memitem:a9c2170adab7584035c79b74d183933fa" id="r_a9c2170adab7584035c79b74d183933fa"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c2170adab7584035c79b74d183933fa">_manifest</a></td></tr>
 <tr class="memdesc:a9c2170adab7584035c79b74d183933fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le manifeste des pièces du lieu : le brouillon en tire emprises et collision.  <br /></td></tr>
 <tr class="memitem:a06665bd62f61b914f22be6dc4208b6e6" id="r_a06665bd62f61b914f22be6dc4208b6e6"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a06665bd62f61b914f22be6dc4208b6e6">_snapshot</a></td></tr>
@@ -3120,6 +3122,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a24bddd2ca1acbf3ec098422b83b12c14" name="a24bddd2ca1acbf3ec098422b83b12c14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24bddd2ca1acbf3ec098422b83b12c14">&#9670;&#160;</a></span>pieceImagesDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::EditorViewport::pieceImagesDirectory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le dossier auquel les fichiers du catalogue sont relatifs (<span class="tt">Assets/</span>, <span class="tt">LOT-124</span>), vide sans lieu. </dd></dl>
+
+</div>
+</div>
 <a id="af6475c5e915c27d80fb0e98e54909254" name="af6475c5e915c27d80fb0e98e54909254"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6475c5e915c27d80fb0e98e54909254">&#9670;&#160;</a></span>place()</h2>
 
@@ -3143,32 +3171,6 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le lieu de la carte ouverte (<span class="tt">scene</span>), vide pour une carte sans lieu. </dd></dl>
-
-</div>
-</div>
-<a id="a187bce4cdab8c53ae8d2f03690d3d18f" name="a187bce4cdab8c53ae8d2f03690d3d18f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a187bce4cdab8c53ae8d2f03690d3d18f">&#9670;&#160;</a></span>placeDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::filesystem::path hmi::EditorViewport::placeDirectory </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le dossier des images du lieu (<span class="tt">Assets/Scene/&lt;lieu&gt;</span>), vide sans lieu. </dd></dl>
 
 </div>
 </div>
@@ -5529,6 +5531,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>L'outil du peintre auquel la pipette rend la main. </p>
+
+</div>
+</div>
+<a id="a5c023f981223939b933650aee0c6dfe7" name="a5c023f981223939b933650aee0c6dfe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c023f981223939b933650aee0c6dfe7">&#9670;&#160;</a></span>_placeAssetsLoaded</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::EditorViewport::_placeAssetsLoaded = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai une fois le lieu lu : une carte sans lieu lit aussi les figurines du monde. </p>
 
 </div>
 </div>

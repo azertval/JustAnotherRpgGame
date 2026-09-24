@@ -162,10 +162,10 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par l'identifiant que l'ossature de l'écran déclare (<span class="tt"><a class="el" href="structhmi_1_1RpgField.html#adaf2f6e27991d43d9b19180ed7a8fe69">hmi::RpgField::valueId</a></span>). </p>
 <p>Logique <b>pure</b> : aucune dépendance Qt, aucun accès disque (<span class="tt">EX-NFR-010</span>). C'est ce qui permet de vérifier par test qu'un modificateur s'affiche <span class="tt">+3</span> et non <span class="tt">3</span>, qu'une compétence maîtrisée compte son bonus de maîtrise, et que la Perception passive vaut bien 10 + le modificateur — sans ouvrir de fenêtre.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md94"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md96"></a>
 Pourquoi une table de chaînes, et non une structure de champs</h2>
 <p>L'écran est décrit par une <b>table</b> (<span class="tt"><a class="el" href="namespacehmi.html#a74752c1a9d7b1d3e8da19eec82c397be">hmi::rpgScreens</a></span>), et un neuvième champ doit y coûter une ligne. Une structure à quarante membres obligerait à toucher trois fichiers pour chaque champ ajouté — la table, la structure, et le code qui les relie — c'est-à-dire exactement ce qu'<span class="tt">EX-IHM-090</span> écarte. Ici, l'identifiant est le seul contrat, et un test vérifie qu'aucun des deux côtés n'en invente un que l'autre ignore.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md95"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md97"></a>
 Le formatage est ici, la traduction reste dehors</h2>
 <p>Les nombres sont mis en forme ici (signe d'un modificateur, <span class="tt">12 / 18</span> de points de vie) parce que c'est une règle d'affichage, pas une question de langue. Les <b>noms</b> — espèce, classe, historique — viennent des catalogues, qui les portent déjà dans la langue du corpus ; les traduire est le sujet du lexique du <span class="tt">LOT-30</span>, pas de ce fichier. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>

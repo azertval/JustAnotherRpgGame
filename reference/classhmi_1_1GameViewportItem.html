@@ -177,14 +177,14 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Surface QRhi du jeu, composée avec le reste de l'interface QML. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md110"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md112"></a>
 Le jumeau Qt Quick de <span class="tt">QRhiWidget</span></h2>
 <p>L'éditeur dessine sa scène dans un <span class="tt">QRhiWidget</span> ; le jeu la dessine ici. Les deux rendent dans une texture d'appui que leur hôte compose : la cible technique ne change pas — <b>Direct3D 11 par défaut sous Windows, au travers de QRhi</b> (<span class="tt">EX-ARCH-050</span>, <span class="tt">EX-REN-002</span>) — seul l'hôte change.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md111"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md113"></a>
 Ce qui change vraiment, et qu'il ne faut pas se cacher</h2>
 <p><span class="tt">QRhiWidget</span> peint sur le fil graphique. <span class="tt">QQuickRhiItem</span> peint sur le <b>fil de rendu</b>, et c'est la seule différence qui compte. Toute donnée que la simulation produit doit donc traverser <span class="tt">synchronize()</span>, appelée pendant que le fil graphique est <b>bloqué</b> — le seul instant où les deux fils peuvent se parler sans verrou.</p>
 <p>C'est pour cela que la composition de scène (<span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span>, structure <b>pure et sans GPU</b>, <span class="tt">EX-NFR-004</span>/<span class="tt">005</span>) est exactement le bon objet de transfert : le fil graphique la remplit, <span class="tt">synchronize()</span> la remet, le fil de rendu la soumet. La frontière que le projet s'était donnée pour tester le rendu sans GPU sert ici une seconde fois.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md112"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md114"></a>
 Ce qu'il ne fait pas encore</h2>
 <p>Il <b>n'affiche aucune scène</b> : <span class="tt">Source/Elements/Levels/</span> ne porte que la carte de l'arène (<span class="tt">LOT-50</span>), que l'écran du Colisée dessine lui-même en QML, et le contenu du RPG arrive avec un lot ultérieur. Il établit la plomberie — création du <span class="tt">QRhi</span>, passe de rendu, couleur d'effacement — qui était le vrai risque du portage, et laisse la scène à brancher quand elle existera. Bâtir une session de jeu autour d'un niveau qui n'existe pas produirait du code que rien ne peut vérifier. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

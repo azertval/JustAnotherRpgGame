@@ -60,39 +60,49 @@ constexpr std::array&lt;std::pair&lt;core::ScenePieceClass, std::string_view&gt;
 
 <span style = "background-color:#dfd">[[nodiscard]] PieceCatalogEntry entryOf(const core::ScenePiece&amp; piece) {
     return PieceCatalogEntry{.name = piece.name,</span>
-                             .file = piece.file,
+                             .file = piece.path(),
                              .pieceClass = piece.pieceClass,
                              .footprint = piece.footprint(),
                              .tactical = piece.tactical,
                              .missing = false,
-                             .floor = piece.pieceClass == core::ScenePieceClass::Floor};
+                             .floor = piece.pieceClass == core::ScenePieceClass::Floor,
+                             .masks = {},
+                             .maskedBy = {}};
 <span style = "background-color:#dfd">}</span>
 
-/// @return Le dossier de @p file relatif au lieu (`roofs/l/d3`), vide pour un fichier Ã  plat.
+/// @return Le dossier de @p file relatif Ã  son niveau (`roofs/l/d3`), vide pour un fichier Ã  plat.
 <span style = "background-color:#dfd">[[nodiscard]] std::string folderOf(std::string_view file) {
     const std::size_t slash = file.rfind('/');
     return slash == std::string_view::npos ? std::string{} : std::string{file.substr(0, slash)};
 }</span>
 
-// Les groupes des piÃ¨ces du manifeste. Un kit rangÃ© en sous-dossiers se groupe par dossier, dans
+// Une piÃ¨ce d'un niveau, telle que la palette la range : son entrÃ©e, et son fichier relatif au
+// niveau, qui dit son sous-dossier.
+struct LevelPiece {
+    PieceCatalogEntry entry;
+    std::string file;
+};
+
+// Les groupes des piÃ¨ces d'un niveau. Un kit rangÃ© en sous-dossiers se groupe par dossier, dans
 // l'ordre alphabÃ©tique (`floors`, `roofs/l/d2`â¦) : c'est l'arborescence que l'auteur a choisie, et
 // six cents toits n'ont pas de sens dans un seul groupe (LOT-129). Les piÃ¨ces Ã  plat, elles, se
 // groupent par classe, un groupe vide n'Ã©tant pas rendu.
-<span style = "background-color:#dfd">std::vector&lt;PieceCatalogGroup&gt; manifestGroups(const core::ScenePieceManifest&amp; manifest) {
-    std::vector&lt;PieceCatalogGroup&gt; groups;
+void appendLevelGroups(const std::string&amp; level, const std::vector&lt;LevelPiece&gt;&amp; pieces,
+<span style = "background-color:#dfd">                       std::vector&lt;PieceCatalogGroup&gt;&amp; groups) {
     std::map&lt;std::string, PieceCatalogGroup&gt; folders;
-    for (const core::ScenePiece&amp; piece : manifest.pieces()) {
+    for (const LevelPiece&amp; piece : pieces) {
         if (std::string folder = folderOf(piece.file); !folder.empty()) {
             PieceCatalogGroup&amp; group = folders[folder];
             group.label = folder;
-            group.pieces.push_back(entryOf(piece));
+            group.level = level;
+            group.pieces.push_back(piece.entry);
         }
     }
     for (const auto&amp; [pieceClass, label] : CLASS_GROUPS) {
-        PieceCatalogGroup group{.label = std::string{label}, .pieces = {}};
-        for (const core::ScenePiece&amp; piece : manifest.pieces()) {
-            if (piece.pieceClass == pieceClass &amp;&amp; folderOf(piece.file).empty()) {
-                group.pieces.push_back(entryOf(piece));</span>
+        PieceCatalogGroup group{.label = std::string{label}, .level = level, .pieces = {}};
+        for (const LevelPiece&amp; piece : pieces) {
+            if (piece.entry.pieceClass == pieceClass &amp;&amp; folderOf(piece.file).empty()) {
+                group.pieces.push_back(piece.entry);</span>
             }
 <span style = "background-color:#dfd">        }
         if (!group.pieces.empty()) {
@@ -101,6 +111,46 @@ constexpr std::array&lt;std::pair&lt;core::ScenePieceClass, std::string_view&gt;
 <span style = "background-color:#dfd">    }
     for (auto&amp; [folder, group] : folders) {
         groups.push_back(std::move(group));
+    }
+}</span>
+
+// Les groupes du catalogue, niveau par niveau (LOT-124). Deux dossiers d'un mÃªme niveau (le monde
+// en a trois) se rangent sous le mÃªme titre.
+<span style = "background-color:#dfd">std::vector&lt;PieceCatalogGroup&gt; manifestGroups(const core::ScenePieceManifest&amp; manifest) {
+    std::vector&lt;std::string&gt; levels;
+    for (const core::SceneLevel&amp; level : manifest.levels()) {
+        if (std::ranges::find(levels, level.label) == levels.end()) {
+            levels.push_back(level.label);</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (levels.empty()) {
+        levels.emplace_back();  // un manifeste lu seul : un seul niveau, sans nom.</span>
+    }
+    // Le niveau commun que masque chaque piÃ¨ce propre.
+<span style = "background-color:#dfd">    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; masks;
+    for (const core::MaskedScenePiece&amp; masked : manifest.masked()) {
+        masks.try_emplace(masked.piece.name, masked.piece.level);
+    }
+    std::vector&lt;PieceCatalogGroup&gt; groups;
+    for (const std::string&amp; level : levels) {
+        std::vector&lt;LevelPiece&gt; pieces;
+        for (const core::ScenePiece&amp; piece : manifest.pieces()) {
+            if (piece.level == level) {
+                PieceCatalogEntry entry = entryOf(piece);
+                if (const auto found = masks.find(piece.name); found != masks.end()) {
+                    entry.masks = found-&gt;second;
+                }
+                pieces.push_back(LevelPiece{.entry = std::move(entry), .file = piece.file});
+            }
+        }
+        for (const core::MaskedScenePiece&amp; masked : manifest.masked()) {
+            if (masked.piece.level == level) {
+                PieceCatalogEntry entry = entryOf(masked.piece);
+                entry.maskedBy = masked.by;
+                pieces.push_back(LevelPiece{.entry = std::move(entry), .file = masked.piece.file});
+            }
+        }
+        appendLevelGroups(level, pieces, groups);
     }
     return groups;
 }</span>
@@ -127,8 +177,9 @@ std::vector&lt;PieceCatalogGroup&gt; pieceCatalog(const core::ScenePieceManifest
 <span style = "background-color:#dfd">            missing.try_emplace(name, layer.kind == core::LayerKind::Ground);
         }
     }
-    if (!missing.empty()) {
-        PieceCatalogGroup group{.label = std::string{MISSING_PIECES_GROUP}, .pieces = {}};
+    if (!missing.empty()) {</span>
+        PieceCatalogGroup group{
+<span style = "background-color:#dfd">            .label = std::string{MISSING_PIECES_GROUP}, .level = {}, .pieces = {}};
         for (const auto&amp; [name, floor] : missing) {
             group.pieces.push_back(PieceCatalogEntry{.name = name,</span>
                                                      .file = {},
@@ -136,7 +187,9 @@ std::vector&lt;PieceCatalogGroup&gt; pieceCatalog(const core::ScenePieceManifest
                                                      .footprint = {},
                                                      .tactical = core::PieceTactical::Open,
                                                      .missing = true,
-                                                     .floor = floor});
+                                                     .floor = floor,
+                                                     .masks = {},
+                                                     .maskedBy = {}});
 <span style = "background-color:#dfd">        }
         catalog.push_back(std::move(group));
     }
@@ -151,7 +204,7 @@ std::vector&lt;PieceCatalogGroup&gt; filterPieceCatalog(const std::vector&lt;Pie
     }
 <span style = "background-color:#dfd">    std::vector&lt;PieceCatalogGroup&gt; filtered;
     for (const PieceCatalogGroup&amp; group : catalog) {
-        PieceCatalogGroup kept{.label = group.label, .pieces = {}};
+        PieceCatalogGroup kept{.label = group.label, .level = group.level, .pieces = {}};
         for (const PieceCatalogEntry&amp; entry : group.pieces) {
             if (lowered(entry.name).find(needle) != std::string::npos ||</span>
                 std::string_view{classLabel(entry.pieceClass)}.find(needle) !=
@@ -170,10 +223,17 @@ std::vector&lt;PieceCatalogGroup&gt; filterPieceCatalog(const std::vector&lt;Pie
     if (entry.missing) {</span>
 <span style = "background-color:#fdd">        return entry.name + " â missing from the sheet: kept in the map, drawn as a checkerboard";</span>
     }
-<span style = "background-color:#dfd">    return entry.name + " â " + classLabel(entry.pieceClass) + ", " +</span>
-           std::to_string(entry.footprint.columns) + " Ã " + std::to_string(entry.footprint.rows) +
-           ", " + core::pieceTacticalName(entry.tactical);
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#dfd">    std::string description = entry.name + " â " + classLabel(entry.pieceClass) + ", " +</span>
+                              std::to_string(entry.footprint.columns) + " Ã " +
+                              std::to_string(entry.footprint.rows) + ", " +
+                              core::pieceTacticalName(entry.tactical);
+<span style = "background-color:#dfd">    if (!entry.maskedBy.empty()) {
+        description += " â masked by the " + entry.maskedBy + " piece of the same name";
+    } else if (!entry.masks.empty()) {</span>
+<span style = "background-color:#fdd">        description += " â masks the " + entry.masks + " piece of the same name";</span>
+    }
+<span style = "background-color:#dfd">    return description;
+}</span>
 
 std::optional&lt;std::size_t&gt; pieceTargetLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers, bool floor,
 <span style = "background-color:#dfd">                                            LayerSlot active) {

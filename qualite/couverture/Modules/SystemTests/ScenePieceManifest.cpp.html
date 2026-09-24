@@ -15,6 +15,7 @@
 #include "Core/Resources/ScenePieceManifest.h"
 
 #include &lt;algorithm&gt;
+#include &lt;system_error&gt;
 #include &lt;tuple&gt;
 #include &lt;utility&gt;
 
@@ -31,7 +32,7 @@ namespace {
         case JsonReadError::FileNotFound:
 <span style = "background-color:#dfd">            return ScenePieceManifestError::FileNotFound;</span>
         case JsonReadError::ParseError:
-<span style = "background-color:#fdd">            return ScenePieceManifestError::ParseError;</span>
+<span style = "background-color:#dfd">            return ScenePieceManifestError::ParseError;</span>
         case JsonReadError::UnsupportedVersion:
 <span style = "background-color:#fdd">            return ScenePieceManifestError::UnsupportedVersion;</span>
         case JsonReadError::MalformedStructure:
@@ -139,6 +140,50 @@ namespace {
 
 <span style = "background-color:#dfd">ScenePieceManifestResult ScenePieceManifest::loadFromFile(const std::filesystem::path&amp; path) {
     return fromDocument(readJsonObjectFromFile(path, FORMAT_VERSION));
+}</span>
+
+ScenePieceManifestResult ScenePieceManifest::resolve(const std::filesystem::path&amp; assetsDirectory,
+<span style = "background-color:#dfd">                                                     std::string_view place) {
+    ScenePieceManifestResult result;
+    result.manifest._place = std::string{place};
+    for (const SceneLevel&amp; level : sceneLevelCandidates(place)) {
+        const std::filesystem::path file =</span>
+            assetsDirectory / std::filesystem::path(level.directory) / "manifest.json";
+<span style = "background-color:#dfd">        std::error_code error;
+        if (!std::filesystem::is_regular_file(file, error)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        ScenePieceManifestResult read = loadFromFile(file);
+        if (!read.ok()) {
+            return ScenePieceManifestResult{</span>
+                .manifest = {},
+                .error = read.error,
+                .message = level.directory + "/manifest.json: " + read.message};
+        }
+<span style = "background-color:#dfd">        ScenePieceManifest&amp; merged = result.manifest;
+        merged._levels.push_back(level);
+        if (merged._tileWidth == 0 &amp;&amp; read.manifest._tileWidth &gt; 0) {
+            merged._tileWidth = read.manifest._tileWidth;
+            merged._tileHeight = read.manifest._tileHeight;</span>
+        }
+<span style = "background-color:#dfd">        for (ScenePiece&amp; piece : read.manifest._pieces) {
+            piece.directory = level.directory;
+            piece.level = level.label;</span>
+            // Le plus propre gagne : une piÃ¨ce commune de mÃªme nom est masquÃ©e, pas perdue.
+<span style = "background-color:#dfd">            if (const auto owner = std::ranges::find(merged._pieces, piece.name, &amp;ScenePiece::name);
+                owner != merged._pieces.end()) {
+                merged._masked.push_back(</span>
+                    MaskedScenePiece{.piece = std::move(piece), .by = owner-&gt;level});
+<span style = "background-color:#dfd">                continue;
+            }
+            merged._pieces.push_back(std::move(piece));
+        }
+    }
+    if (result.manifest._levels.empty()) {
+        result.error = ScenePieceManifestError::FileNotFound;
+        result.message = "no piece manifest for place \"" + std::string{place} + "\"";</span>
+    }
+<span style = "background-color:#dfd">    return result;
 }</span>
 
 <span style = "background-color:#dfd">const ScenePiece* ScenePieceManifest::find(std::string_view name) const noexcept {

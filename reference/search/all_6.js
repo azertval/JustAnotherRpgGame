@@ -73,7 +73,7 @@ var searchData=
   ['boundingrect_70',['boundingRect',['../classhmi_1_1EditorViewport_1_1CanvasItem.html#a847d3ad295b8accd8d52a7686bbf9185',1,'hmi::EditorViewport::CanvasItem']]],
   ['bout_71',['bout',['../classcore_1_1ArenaSession.html#a7b9cbd6f1bfc3c5276543737f2ac6db2',1,'core::ArenaSession']]],
   ['bracers_72',['Bracers',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6af1df96a16d18cc71cfd4bc442556bf46',1,'core']]],
-  ['brancher_73',['Comment on retrouve ce qu&apos;il reste à brancher',['../classhmi_1_1PendingData.html#autotoc_md117',1,'']]],
+  ['brancher_73',['Comment on retrouve ce qu&apos;il reste à brancher',['../classhmi_1_1PendingData.html#autotoc_md119',1,'']]],
   ['bridge_74',['Bridge',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ade8504b73ea228d0ea9bbce69752092e',1,'core']]],
   ['broken_75',['broken',['../structhmi_1_1WorldGraphLayoutEdge.html#a9a3f8b191fcfd59846f45c98f43101de',1,'hmi::WorldGraphLayoutEdge']]],
   ['brush_76',['brush',['../structhmi_1_1LevelStatusInfo.html#af7a683c327b50588af07ffeb31952c45',1,'hmi::LevelStatusInfo::brush'],['../structhmi_1_1GestureState.html#af94b840eef71b2eb85eaf1e0567667bb',1,'hmi::GestureState::brush'],['../structhmi_1_1PickedBrush.html#a0f42adc4762d5b0be4f089a91373dfb5',1,'hmi::PickedBrush::brush'],['../classhmi_1_1EditorViewport.html#a092b1ee865b290125749d74f20757baf',1,'hmi::EditorViewport::brush()']]],
@@ -84,7 +84,7 @@ var searchData=
   ['brushpicked_81',['brushPicked',['../classhmi_1_1EditorViewport.html#a1f8f8e3517f40b8d48a25e4df633ac0e',1,'hmi::EditorViewport']]],
   ['brushresult_82',['BrushResult',['../structhmi_1_1BrushResult.html',1,'hmi']]],
   ['brushtargetlayer_83',['brushTargetLayer',['../namespacehmi.html#ac6dc704de039d583d2c57eaa2ab073b2',1,'hmi']]],
-  ['brute_84',['Pourquoi des propriétés nommées plutôt que la table brute',['../classhmi_1_1CharacterSheetModel.html#autotoc_md105',1,'']]],
+  ['brute_84',['Pourquoi des propriétés nommées plutôt que la table brute',['../classhmi_1_1CharacterSheetModel.html#autotoc_md107',1,'']]],
   ['bucket_85',['Bucket',['../namespacehmi.html#a02048ad8ad69a87a10e8307ac2bd68dda30edf70db68aa84f05d3e72326807b0c',1,'hmi']]],
   ['budget_86',['budget',['../classcore_1_1ReachableArea.html#aee4ac21460c6c5e968e3cd1b31f2c544',1,'core::ReachableArea']]],
   ['budgetbytes_87',['budgetBytes',['../classhmi_1_1SceneImages.html#a762ac5a9faf4c692adeca043d81735b3',1,'hmi::SceneImages']]],
@@ -109,7 +109,7 @@ var searchData=
   ['buttonrepeat_106',['ButtonRepeat',['../classhmi_1_1ButtonRepeat.html',1,'hmi']]],
   ['buttonrepeat_2eh_107',['ButtonRepeat.h',['../ButtonRepeat_8h.html',1,'']]],
   ['bx_108',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
-  ['by_109',['by',['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad']]],
+  ['by_109',['by',['../structcore_1_1MaskedScenePiece.html#a4ccf948fe25f7ad0d4f3650f93ccc58d',1,'core::MaskedScenePiece::by'],['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad::by']]],
   ['bypassedby_110',['bypassedBy',['../structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216',1,'core::DamageAffinity']]],
   ['bypath_111',['byPath',['../structhmi_1_1ArenaSceneTextures.html#ab07d86253bc7879c97f16804139f1fa4',1,'hmi::ArenaSceneTextures::byPath'],['../structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f',1,'hmi::ScenePieceTextures::byPath']]]
 ];

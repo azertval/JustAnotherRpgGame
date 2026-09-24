@@ -1,12 +1,14 @@
 var Stamps_8cpp =
 [
+    [ "hmi::availablePrefabs", "namespacehmi.html#aef07b8646fceab1c624a224df72a0253", null ],
     [ "hmi::checkEditorLibrary", "namespacehmi.html#adf9e3c71ee8b149a0affc39de3cb2d0e", null ],
     [ "hmi::cutStamp", "namespacehmi.html#a86891f5de291d0a457c7dee889e9e9ed", null ],
     [ "hmi::isValidPrefabName", "namespacehmi.html#ada4c5f2f4d7544a3bb0598071fc35af2", null ],
     [ "hmi::mapTemplateFromJson", "namespacehmi.html#a539a375b9de8cc3b296bd4fac53c3c78", null ],
-    [ "hmi::mapTemplates", "namespacehmi.html#a0e4099166134b351936920ef6d43c2ef", null ],
+    [ "hmi::mapTemplates", "namespacehmi.html#aeadbf1d8ced6c6f6c841d6ac005b6b9e", null ],
     [ "hmi::mirrorStamp", "namespacehmi.html#acb773e916d7cf8cdaefb9c5f89a68279", null ],
     [ "hmi::pasteStamp", "namespacehmi.html#a22523d76b1fdd6565d1f3076d4f1355c", null ],
+    [ "hmi::prefabLevel", "namespacehmi.html#a3c4e9f0c2dba8b305bb472b1fcf59df5", null ],
     [ "hmi::prefabNames", "namespacehmi.html#a9c9aba9b8952f0682eb1a046133bb2c4", null ],
     [ "hmi::prefabsDir", "namespacehmi.html#a07be0ee4221ad06662b636b34b4e4fba", null ],
     [ "hmi::readPrefab", "namespacehmi.html#a78fb9c779ee4b68d1d2050a0a9f05f5a", null ],

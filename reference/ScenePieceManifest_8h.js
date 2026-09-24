@@ -1,6 +1,7 @@
 var ScenePieceManifest_8h =
 [
     [ "core::ScenePiece", "structcore_1_1ScenePiece.html", "structcore_1_1ScenePiece" ],
+    [ "core::MaskedScenePiece", "structcore_1_1MaskedScenePiece.html", "structcore_1_1MaskedScenePiece" ],
     [ "core::ScenePieceManifest", "classcore_1_1ScenePieceManifest.html", "classcore_1_1ScenePieceManifest" ],
     [ "core::ScenePieceManifestResult", "structcore_1_1ScenePieceManifestResult.html", "structcore_1_1ScenePieceManifestResult" ],
     [ "core::PieceTactical", "namespacecore.html#a096c9cc059de39edb20ccea06d18f252", [

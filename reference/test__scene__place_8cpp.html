@@ -1,0 +1,438 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/test_scene_place.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__scene__place_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_scene_place.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les niveaux d'un lieu et le catalogue résolu (<span class="tt">LOT-124</span>) : une carte puise dans son lieu <b>et</b> dans ses niveaux communs, du plus propre au monde.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePlace_8h_source.html">Core/Resources/ScenePlace.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae9227f4e0449d991a91d0b3d29d2e1e9" id="r_ae9227f4e0449d991a91d0b3d29d2e1e9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae9227f4e0449d991a91d0b3d29d2e1e9">TEST</a> (ScenePlaceTest, LesNiveauxDUneSousZoneVontJusquAuMonde)</td></tr>
+<tr class="memdesc:ae9227f4e0449d991a91d0b3d29d2e1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les niveaux d'une sous-zone, du plus propre au monde.  <br /></td></tr>
+<tr class="memitem:ac1399cdce425b687c6cf4429e3b369e9" id="r_ac1399cdce425b687c6cf4429e3b369e9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac1399cdce425b687c6cf4429e3b369e9">TEST</a> (ScenePlaceTest, UnLieuAPlatEtUnLieuMalForme)</td></tr>
+<tr class="memdesc:ac1399cdce425b687c6cf4429e3b369e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lieu à plat reste un dossier d'essai, qui remonte au monde ; un lieu mal formé n'a aucun niveau.  <br /></td></tr>
+<tr class="memitem:ad347e64a80ce0ed4a759367da05c180d" id="r_ad347e64a80ce0ed4a759367da05c180d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad347e64a80ce0ed4a759367da05c180d">TEST</a> (ScenePlaceTest, UnLieuDescendDeSesPrefixes)</td></tr>
+<tr class="memdesc:ad347e64a80ce0ed4a759367da05c180d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La filiation des lieux : ce qu'un préfabriqué ou un modèle d'un niveau peut servir.  <br /></td></tr>
+<tr class="memitem:a50cce1b68172e59ba0e21d1c66886e2b" id="r_a50cce1b68172e59ba0e21d1c66886e2b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a50cce1b68172e59ba0e21d1c66886e2b">TEST</a> (ScenePlaceTest, LeCatalogueDUnLieuEmpileSesNiveaux)</td></tr>
+<tr class="memdesc:a50cce1b68172e59ba0e21d1c66886e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue résolu de l'Arenarea : une pièce de chaque niveau, chacune sous son dossier d'origine, et la fontaine de la ville masquée par celle de la zone.  <br /></td></tr>
+<tr class="memitem:afc75db3ee8932de29d063543c9be135a" id="r_afc75db3ee8932de29d063543c9be135a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afc75db3ee8932de29d063543c9be135a">TEST</a> (ScenePlaceTest, UneZoneSansPieceProprePuiseDansLaVille)</td></tr>
+<tr class="memdesc:afc75db3ee8932de29d063543c9be135a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une zone sans pièce propre tient tout de la ville : le Martpart pose la fontaine commune.  <br /></td></tr>
+<tr class="memitem:a8fc4f8b780de309cac27ea157d359dd2" id="r_a8fc4f8b780de309cac27ea157d359dd2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8fc4f8b780de309cac27ea157d359dd2">TEST</a> (ScenePlaceTest, LArbreDesLieuxListeLesZones)</td></tr>
+<tr class="memdesc:a8fc4f8b780de309cac27ea157d359dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'arbre des lieux : les zones et sous-zones qui ont un dossier de pièces propre.  <br /></td></tr>
+<tr class="memitem:ae2a82466111b3366e0bce4dd99d276f5" id="r_ae2a82466111b3366e0bce4dd99d276f5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae2a82466111b3366e0bce4dd99d276f5">TEST</a> (ScenePlaceTest, UnNiveauCommunIllisibleFaitEchouerLaResolution)</td></tr>
+<tr class="memdesc:ae2a82466111b3366e0bce4dd99d276f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un manifeste illisible à un niveau commun fait échouer la résolution, et le message nomme son dossier ; un lieu sans aucun manifeste n'est pas trouvé.  <br /></td></tr>
+<tr class="memitem:aa9e1d6f3ad12292e40389628f74fc1b3" id="r_aa9e1d6f3ad12292e40389628f74fc1b3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa9e1d6f3ad12292e40389628f74fc1b3">TEST</a> (ScenePlaceTest, LesFiguresDUnLieuViennentDeSesNiveaux)</td></tr>
+<tr class="memdesc:aa9e1d6f3ad12292e40389628f74fc1b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines se cherchent comme les pièces : du <span class="tt">Characters/</span> de la zone au monde, le plus propre gagnant (<span class="tt">LOT-124</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les niveaux d'un lieu et le catalogue résolu (<span class="tt">LOT-124</span>) : une carte puise dans son lieu <b>et</b> dans ses niveaux communs, du plus propre au monde. </p>
+<p>La racine d'essai <span class="tt">Fixtures/LevelTree</span> porte une pièce à chacun des niveaux de l'Arenarea, et une fontaine de zone qui masque celle de la ville. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a8fc4f8b780de309cac27ea157d359dd2" name="a8fc4f8b780de309cac27ea157d359dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc4f8b780de309cac27ea157d359dd2">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LArbreDesLieuxListeLesZones</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'arbre des lieux : les zones et sous-zones qui ont un dossier de pièces propre. </p>
+<p><b>Cas de test :</b> <b>L'arbre des lieux liste les zones et sous-zones.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lister les lieux de la racine LevelTree.<br  />
+ <b>Resultat attendu :</b> L'Arenarea, sa sous-zone et le Martpart, tries ; ni la ville, ni la region, ni un dossier Characters. </p>
+
+</div>
+</div>
+<a id="a50cce1b68172e59ba0e21d1c66886e2b" name="a50cce1b68172e59ba0e21d1c66886e2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50cce1b68172e59ba0e21d1c66886e2b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeCatalogueDUnLieuEmpileSesNiveaux</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le catalogue résolu de l'Arenarea : une pièce de chaque niveau, chacune sous son dossier d'origine, et la fontaine de la ville masquée par celle de la zone. </p>
+<p><b>Cas de test :</b> <b>Le catalogue d'un lieu empile ses niveaux.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Resoudre le lieu <span class="tt">central-empire/capital/arenarea</span> de la racine LevelTree.<br  />
+ <b>Resultat attendu :</b> Le gazon vient du monde, le pavage de la ville, la banniere de l'Empire, les paves et la fontaine de la zone ; chaque piece donne son fichier relatif a Assets/ ; la fontaine de la ville est gardee comme masquee par l'Arenarea ; le losange est celui du niveau le plus propre. </p>
+
+</div>
+</div>
+<a id="aa9e1d6f3ad12292e40389628f74fc1b3" name="aa9e1d6f3ad12292e40389628f74fc1b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e1d6f3ad12292e40389628f74fc1b3">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesFiguresDUnLieuViennentDeSesNiveaux</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les figurines se cherchent comme les pièces : du <span class="tt">Characters/</span> de la zone au monde, le plus propre gagnant (<span class="tt">LOT-124</span>). </p>
+<p><b>Cas de test :</b> <b>Les figurines d'un lieu viennent de ses niveaux.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lister les niveaux de figurines de l'Arenarea.<br  />
+</p><ol type="1">
+<li>Resoudre ses figurines, puis celles du Martpart.<br  />
+</li>
+<li>Demander le dossier d'une figurine inconnue, d'un chemin, d'un slug seul.<br  />
+ <b>Resultat attendu :</b> La zone, la ville, la region, le monde ; le PNJ nomme et le citadin viennent de la zone (le citadin masque celui de la ville), le garde du monde ; au Martpart, le citadin est celui de la ville et le PNJ nomme de l'Arenarea est inconnu ; un chemin reste un chemin, un slug seul se cherche dans l'atelier a plat. </li>
+</ol>
+
+</div>
+</div>
+<a id="ae9227f4e0449d991a91d0b3d29d2e1e9" name="ae9227f4e0449d991a91d0b3d29d2e1e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9227f4e0449d991a91d0b3d29d2e1e9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesNiveauxDUneSousZoneVontJusquAuMonde</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les niveaux d'une sous-zone, du plus propre au monde. </p>
+<p><b>Cas de test :</b> <b>Les niveaux d'un lieu vont de la sous-zone au monde.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander les niveaux candidats de <span class="tt">central-empire/capital/arenarea/arena-of-fate</span>.<br  />
+ <b>Resultat attendu :</b> La sous-zone, la zone, la ville (propre puis commun), la region, puis les trois dossiers du monde ; chaque niveau porte son nom lisible et le lieu qu'il couvre. </p>
+
+</div>
+</div>
+<a id="afc75db3ee8932de29d063543c9be135a" name="afc75db3ee8932de29d063543c9be135a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc75db3ee8932de29d063543c9be135a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneZoneSansPieceProprePuiseDansLaVille</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une zone sans pièce propre tient tout de la ville : le Martpart pose la fontaine commune. </p>
+<p><b>Cas de test :</b> <b>Une zone sans piece propre puise dans la ville.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Resoudre <span class="tt">central-empire/capital/martpart</span>.<br  />
+ <b>Resultat attendu :</b> La fontaine vient de la ville, rien n'est masque. </p>
+
+</div>
+</div>
+<a id="ac1399cdce425b687c6cf4429e3b369e9" name="ac1399cdce425b687c6cf4429e3b369e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1399cdce425b687c6cf4429e3b369e9">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnLieuAPlatEtUnLieuMalForme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un lieu à plat reste un dossier d'essai, qui remonte au monde ; un lieu mal formé n'a aucun niveau. </p>
+<p><b>Cas de test :</b> <b>Un lieu a plat et un lieu mal forme.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander les niveaux de <span class="tt">bourg</span>, puis de lieux vides ou contenant <span class="tt">..</span>.<br  />
+ <b>Resultat attendu :</b> <span class="tt">Scene/bourg</span> puis le monde ; aucun niveau pour un lieu mal forme, et aucun chemin de repli. </p>
+
+</div>
+</div>
+<a id="ad347e64a80ce0ed4a759367da05c180d" name="ad347e64a80ce0ed4a759367da05c180d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad347e64a80ce0ed4a759367da05c180d">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnLieuDescendDeSesPrefixes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La filiation des lieux : ce qu'un préfabriqué ou un modèle d'un niveau peut servir. </p>
+<p><b>Cas de test :</b> <b>Un lieu descend de ses prefixes et du monde.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Comparer des lieux a leurs prefixes, et lister la filiation d'une zone.<br  />
+ <b>Resultat attendu :</b> L'Arenarea descend de la Capitale, de l'Empire et du monde, pas du Martpart ni d'un prefixe coupe au milieu d'un segment. </p>
+
+</div>
+</div>
+<a id="ae2a82466111b3366e0bce4dd99d276f5" name="ae2a82466111b3366e0bce4dd99d276f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2a82466111b3366e0bce4dd99d276f5">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScenePlaceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnNiveauCommunIllisibleFaitEchouerLaResolution</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un manifeste illisible à un niveau commun fait échouer la résolution, et le message nomme son dossier ; un lieu sans aucun manifeste n'est pas trouvé. </p>
+<p><b>Cas de test :</b> <b>Un niveau commun illisible fait echouer la resolution.</b><br  />
+ <b>Categorie :</b> Unitaire · Assets · Arborescence<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire une zone lisible sous une ville dont le manifeste est casse, et la resoudre.<br  />
+</p><ol type="1">
+<li>Resoudre un lieu qui n'a aucun manifeste.<br  />
+ <b>Resultat attendu :</b> Un echec qui nomme <span class="tt">Regions/r/v/Common/Scene/manifest.json</span> ; puis <span class="tt">FileNotFound</span>. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_ce0162bee40be316373db36c0f71b686.html">Resources</a></li><li class="navelem"><a href="test__scene__place_8cpp.html">test_scene_place.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

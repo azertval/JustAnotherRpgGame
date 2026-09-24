@@ -148,9 +148,9 @@ enum class FigureFacing : std::uint8_t {
 
 /// @brief Une figurine Ã  dessiner sur la carte : sa planche, son image, oÃ¹ elle est.
 struct WorldFigureSnapshot {
-    /// Figurine : un slug de l'atelier des PNJ (`anariel`, `jade`â¦, dossier `Assets/Npc/&lt;slug&gt;`),
-    /// ou, s'il contient une barre, un dossier relatif Ã  `Assets/` â une figurine de l'atelier des
-    /// monstres (`Monsters/ironhand-soldier`, `LOT-93`).
+    /// Figurine : un slug, cherchÃ© dans les `Characters/` du lieu et de ses niveaux communs
+    /// (`citizen`, `Heroes/brawler`, `LOT-124`) ; Ã  dÃ©faut un dossier relatif Ã  `Assets/`
+    /// (`Common/Characters/Heroes/brawler`), ou un PNJ de l'atelier Ã  plat (`Npc/&lt;slug&gt;`).
     std::string figure;
     /// Bande d'animation : `idle`, `walk`.
     std::string clip = "idle";
@@ -251,7 +251,8 @@ struct WorldSceneSnapshot {
     float diamondRatio = core::ARENA_DIAMOND_RATIO;
     int columns = 0;
     int rows = 0;
-    /// Le lieu, qui nomme le dossier de planches : `Assets/Scene/&lt;place&gt;/`.
+    /// Le lieu (`central-empire/capital/arenarea`) : ses niveaux disent oÃ¹ sont ses piÃ¨ces
+    /// (`core::sceneLevelCandidates`).
     std::string place;
     /// La plus haute Ã©lÃ©vation d'une piÃ¨ce du lieu au-dessus du losange de sa case, en largeurs de
     /// case (`hmi::PlaceAppearance::maximumRise`) : ce qu'un cadrage doit rÃ©server au-dessus.
@@ -267,9 +268,14 @@ struct WorldSceneSnapshot {
     std::map&lt;std::string, core::PieceFootprint, std::less&lt;&gt;&gt; footprints;
     /// Les couches d'Ã©tage, de la plus basse Ã  la plus haute (`LOT-129`).
     std::vector&lt;WorldStoreySnapshot&gt; storeys;
-    /// Le fichier, relatif au dossier du lieu, des piÃ¨ces citÃ©es qui ne sont pas `&lt;nom&gt;.png` Ã  plat
-    /// (`hmi::PlaceAppearance::pieceFile`) : un kit rangÃ© en sous-dossiers.
+    /// Le fichier, relatif au dossier des assets, de chaque piÃ¨ce citÃ©e, sous le niveau qui la
+    /// dÃ©clare (`hmi::PlaceAppearance::pieceFile`, `LOT-124`). Une piÃ¨ce absente de la table se
+    /// cherche en `&lt;nom&gt;.png` dans le dossier propre du lieu (`core::fallbackScenePiecePath`).
     std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; pieceFiles;
+    /// Le dossier, relatif au dossier des assets, de chaque figurine posÃ©e, sous le niveau qui la
+    /// range (`hmi::PlaceAppearance::figureDirectory`, `LOT-124`). Une figurine absente se cherche
+    /// par `core::figureDirectory`.
+    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; figureDirectories;
     std::vector&lt;WorldFigureSnapshot&gt; figures;
     /// Les jetons et les tracÃ©s de maquette (`LOT-128`), dÃ©jÃ  choisis par `maquetteMarks`.
     MaquetteMarks marks;
@@ -367,11 +373,12 @@ template &lt;class Map&gt;
 /**
  * @brief Le chemin d'une bande de figurine, relatif au dossier des assets.
  *
- * @param figure Le nom que la carte donne (`WorldFigureSnapshot::figure`).
+ * @param figure Le dossier de la figurine, relatif Ã  `Assets/`
+ *               (`Regions/â¦/Characters/&lt;slug&gt;`, `hmi::PlaceAppearance::figureDirectory`), ou un
+ *               slug seul, cherchÃ© Ã  plat (`core::figureDirectory`).
  * @param clip   La bande (`idle`, `walk`) ; vide : `idle`.
  * @param facing L'orientation ; `None` : la bande sans suffixe.
- * @return `Npc/&lt;figure&gt;/&lt;clip&gt;.png` pour un slug, `&lt;figure&gt;/&lt;clip&gt;.png` pour un dossier ;
- *         `&lt;clip&gt;-se.png`â¦ pour une figurine orientÃ©e.
+ * @return `&lt;dossier&gt;/&lt;clip&gt;.png` ; `&lt;clip&gt;-se.png`â¦ pour une figurine orientÃ©e.
  */
 [[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip,
                                           FigureFacing facing = FigureFacing::None);

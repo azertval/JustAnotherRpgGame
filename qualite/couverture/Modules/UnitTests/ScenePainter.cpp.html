@@ -54,8 +54,8 @@ namespace {
     }
 <span style = "background-color:#dfd">    const double texelsPerPixel =</span>
         std::max(std::abs(source.width()) / pixelsWide, std::abs(source.height()) / pixelsTall);
-<span style = "background-color:#dfd">    if (texelsPerPixel &lt;= 1.0) {</span>
-<span style = "background-color:#fdd">        return 0;</span>
+<span style = "background-color:#dfd">    if (texelsPerPixel &lt;= 1.0) {
+        return 0;</span>
     }
 <span style = "background-color:#dfd">    return std::clamp(static_cast&lt;int&gt;(std::lround(std::log2(texelsPerPixel))), 0, levelCount - 1);
 }</span>

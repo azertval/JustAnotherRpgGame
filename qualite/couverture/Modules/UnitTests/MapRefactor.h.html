@@ -113,10 +113,18 @@ struct RefactorPlan {
                                                       std::string_view mapId,
                                                       std::string_view entityId);
 
-/// @return Les couches qui posent @p piece, une citation par carte et par couche, sur la premiÃ¨re
-///         case ; @p what dit combien de cases.
+/**
+ * @return Les couches qui posent @p piece, une citation par carte et par couche, sur la premiÃ¨re
+ *         case ; son texte dit combien de cases, et de quel niveau la carte tient la piÃ¨ce.
+ * @param dataRoot La racine des donnÃ©es.
+ * @param piece    Le nom court de la piÃ¨ce.
+ * @param level    Un dossier de niveau, relatif Ã  `Assets/` : seules les cartes dont le lieu
+ *                 rÃ©sout @p piece **dans ce niveau** (`LOT-124`) ; vide, toutes. Deux zones qui
+ *                 ont chacune leur piÃ¨ce de mÃªme nom ne se citent pas l'une l'autre.
+ */
 [[nodiscard]] std::vector&lt;Citation&gt; citationsOfPiece(const std::filesystem::path&amp; dataRoot,
-                                                     std::string_view piece);
+                                                     std::string_view piece,
+                                                     std::string_view level = {});
 
 /// @}
 
@@ -160,10 +168,21 @@ struct RefactorPlan {
  *
  * RefusÃ© si @p to n'est pas sur la planche d'une de ces cartes, si l'une est un sol et l'autre
  * non, ou si une nouvelle emprise dÃ©borde.
+ *
+ * **Promouvoir** une piÃ¨ce au commun sous une autre clÃ© (`LOT-124`) : @p level nomme le niveau
+ * d'oÃ¹ elle part, et seules les cartes qui la tiennent **de ce niveau** sont rÃ©Ã©crites â pas une
+ * autre zone qui a sa propre piÃ¨ce de mÃªme nom. Sous la mÃªme clÃ©, une promotion ne rÃ©Ã©crit rien :
+ * la carte cite un nom court, que la rÃ©solution trouve au niveau commun.
+ * @param dataRoot La racine des donnÃ©es.
+ * @param from     La piÃ¨ce remplacÃ©e.
+ * @param to       La piÃ¨ce qui la remplace.
+ * @param maps     Les cartes visÃ©es ; vide : toutes celles qui la posent.
+ * @param level    Un dossier de niveau, relatif Ã  `Assets/` ; vide : toutes les cartes.
  */
 [[nodiscard]] RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot,
                                             std::string_view from, std::string_view to,
-                                            const std::vector&lt;std::string&gt;&amp; maps);
+                                            const std::vector&lt;std::string&gt;&amp; maps,
+                                            std::string_view level = {});
 
 /**
  * @brief La table que l'Ã©diteur propose pour passer @p layers Ã  la planche @p target : chaque
@@ -217,10 +236,10 @@ struct PieceTableResult {
  * @brief L'entrÃ©e sans fenÃªtre (dÃ©cision D9) :
  *
  * - `--who-cites map &lt;carte&gt;`, `--who-cites arrival &lt;carte&gt; &lt;point&gt;`,
- *   `--who-cites entity &lt;carte&gt; &lt;id&gt;`, `--who-cites piece &lt;piÃ¨ce&gt;` ;
+ *   `--who-cites entity &lt;carte&gt; &lt;id&gt;`, `--who-cites piece &lt;piÃ¨ce&gt; [&lt;dossier de niveau&gt;]` ;
  * - `--rename-map &lt;ancien&gt; &lt;nouveau&gt;`, `--rename-arrival &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;`,
  *   `--rename-id &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;` ;
- * - `--replace-piece &lt;ancienne&gt; &lt;nouvelle&gt; [carteâ¦]` ;
+ * - `--replace-piece &lt;ancienne&gt; &lt;nouvelle&gt; [carteâ¦] [--level &lt;dossier de niveau&gt;]` ;
  * - `--change-scene &lt;carte&gt; &lt;lieu&gt; [--table &lt;table.json&gt;]` ;
  * - `--link-maps &lt;carte&gt; &lt;carte&gt;` : la paire portail / point d'arrivÃ©e des deux cÃ´tÃ©s
  *   (`LOT-EDITOR-09`, `hmi::planLinkMaps`).

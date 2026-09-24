@@ -159,7 +159,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a95e88a2e9b961547d3a734ccc985b626" id="r_a95e88a2e9b961547d3a734ccc985b626"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a95e88a2e9b961547d3a734ccc985b626">columns</a> = 0</td></tr>
 <tr class="memitem:a4743f05edf51069ee2f6a2e693b646be" id="r_a4743f05edf51069ee2f6a2e693b646be"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4743f05edf51069ee2f6a2e693b646be">rows</a> = 0</td></tr>
 <tr class="memitem:a5853266b18d8062e8cbe6287485f8e80" id="r_a5853266b18d8062e8cbe6287485f8e80"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5853266b18d8062e8cbe6287485f8e80">place</a></td></tr>
-<tr class="memdesc:a5853266b18d8062e8cbe6287485f8e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu, qui nomme le dossier de planches : <span class="tt">Assets/Scene/&lt;<a class="el" href="#a5853266b18d8062e8cbe6287485f8e80" title="Le lieu, qui nomme le dossier de planches : Assets/Scene/&lt;place&gt;/.">place</a>&gt;/</span>.  <br /></td></tr>
+<tr class="memdesc:a5853266b18d8062e8cbe6287485f8e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu (<span class="tt">central-empire/capital/arenarea</span>) : ses niveaux disent où sont ses pièces (<span class="tt"><a class="el" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec" title="Les niveaux candidats de place, du plus propre au plus commun, monde compris.">core::sceneLevelCandidates</a></span>).  <br /></td></tr>
 <tr class="memitem:aa915bb857eb15549fc09510c5a587306" id="r_aa915bb857eb15549fc09510c5a587306"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aa915bb857eb15549fc09510c5a587306">maximumRise</a> = 0.0F</td></tr>
 <tr class="memdesc:aa915bb857eb15549fc09510c5a587306"><td class="mdescLeft">&#160;</td><td class="mdescRight">La plus haute élévation d'une pièce du lieu au-dessus du losange de sa case, en largeurs de case (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#acc91a094a349d947bd427f942a2b797c" title="La plus haute élévation d&#39;une pièce du lieu au-dessus du losange de sa case, en largeurs de case (LOT...">hmi::PlaceAppearance::maximumRise</a></span>) : ce qu'un cadrage doit réserver au-dessus.  <br /></td></tr>
 <tr class="memitem:a07a1eb5f4f5b3137b943484975173f06" id="r_a07a1eb5f4f5b3137b943484975173f06"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07a1eb5f4f5b3137b943484975173f06">floors</a></td></tr>
@@ -172,7 +172,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a3827d39966f52c2bb08eb43df4b934e7" id="r_a3827d39966f52c2bb08eb43df4b934e7"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldStoreySnapshot.html">WorldStoreySnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3827d39966f52c2bb08eb43df4b934e7">storeys</a></td></tr>
 <tr class="memdesc:a3827d39966f52c2bb08eb43df4b934e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les couches d'étage, de la plus basse à la plus haute (<span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:aec9fa73fbf00d2d46b033cc69d1d0043" id="r_aec9fa73fbf00d2d46b033cc69d1d0043"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aec9fa73fbf00d2d46b033cc69d1d0043">pieceFiles</a></td></tr>
-<tr class="memdesc:aec9fa73fbf00d2d46b033cc69d1d0043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier, relatif au dossier du lieu, des pièces citées qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">hmi::PlaceAppearance::pieceFile</a></span>) : un kit rangé en sous-dossiers.  <br /></td></tr>
+<tr class="memdesc:aec9fa73fbf00d2d46b033cc69d1d0043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier, relatif au dossier des assets, de chaque pièce citée, sous le niveau qui la déclare (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#ad58c25060ecb4d6e665538181c383c5e" title="Le fichier de la pièce name (nom courant), relatif à Assets/ : celui que le manifeste de son niveau l...">hmi::PlaceAppearance::pieceFile</a></span>, <span class="tt">LOT-124</span>).  <br /></td></tr>
+<tr class="memitem:a3fe8429279cb6b93c6b09fd800b16765" id="r_a3fe8429279cb6b93c6b09fd800b16765"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3fe8429279cb6b93c6b09fd800b16765">figureDirectories</a></td></tr>
+<tr class="memdesc:a3fe8429279cb6b93c6b09fd800b16765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier, relatif au dossier des assets, de chaque figurine posée, sous le niveau qui la range (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a25c57aae364b65363a53154edfa93262" title="Le dossier, relatif à Assets/, de la figurine figure : cherchée dans les Characters/ du lieu et de se...">hmi::PlaceAppearance::figureDirectory</a></span>, <span class="tt">LOT-124</span>).  <br /></td></tr>
 <tr class="memitem:a37330b8f96036726b4e3ea1030de098d" id="r_a37330b8f96036726b4e3ea1030de098d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a37330b8f96036726b4e3ea1030de098d">figures</a></td></tr>
 <tr class="memitem:a575f623efd821f68adab02944b81eebf" id="r_a575f623efd821f68adab02944b81eebf"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a575f623efd821f68adab02944b81eebf">marks</a></td></tr>
 <tr class="memdesc:a575f623efd821f68adab02944b81eebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons et les tracés de maquette (<span class="tt">LOT-128</span>), déjà choisis par <span class="tt"><a class="el" href="namespacehmi.html#a774a0ed2f31b521df4cf536fbfb7543f" title="Les marques que entities méritent.">maquetteMarks</a></span>.  <br /></td></tr>
@@ -336,6 +338,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3fe8429279cb6b93c6b09fd800b16765" name="a3fe8429279cb6b93c6b09fd800b16765"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fe8429279cb6b93c6b09fd800b16765">&#9670;&#160;</a></span>figureDirectories</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::string, std::less&lt;&gt; &gt; hmi::WorldSceneSnapshot::figureDirectories</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le dossier, relatif au dossier des assets, de chaque figurine posée, sous le niveau qui la range (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a25c57aae364b65363a53154edfa93262" title="Le dossier, relatif à Assets/, de la figurine figure : cherchée dans les Characters/ du lieu et de se...">hmi::PlaceAppearance::figureDirectory</a></span>, <span class="tt">LOT-124</span>). </p>
+<p>Une figurine absente se cherche par <span class="tt"><a class="el" href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08" title="Le dossier, relatif à Assets/, de la figurine figure : celui que figures lui donne ; à défaut,...">core::figureDirectory</a></span>. </p>
+
+</div>
+</div>
 <a id="a37330b8f96036726b4e3ea1030de098d" name="a37330b8f96036726b4e3ea1030de098d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37330b8f96036726b4e3ea1030de098d">&#9670;&#160;</a></span>figures</h2>
 
@@ -422,7 +441,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le fichier, relatif au dossier du lieu, des pièces citées qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">hmi::PlaceAppearance::pieceFile</a></span>) : un kit rangé en sous-dossiers. </p>
+<p>Le fichier, relatif au dossier des assets, de chaque pièce citée, sous le niveau qui la déclare (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#ad58c25060ecb4d6e665538181c383c5e" title="Le fichier de la pièce name (nom courant), relatif à Assets/ : celui que le manifeste de son niveau l...">hmi::PlaceAppearance::pieceFile</a></span>, <span class="tt">LOT-124</span>). </p>
+<p>Une pièce absente de la table se cherche en <span class="tt">&lt;nom&gt;.png</span> dans le dossier propre du lieu (<span class="tt"><a class="el" href="namespacecore.html#a1662b570c7c1114bc9a4e62763485616" title="Le chemin, relatif à Assets/, d&#39;une pièce que aucun manifeste ne cite : &lt;dossier propre&gt;/&lt;nom&gt;....">core::fallbackScenePiecePath</a></span>). </p>
 
 </div>
 </div>
@@ -438,7 +458,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le lieu, qui nomme le dossier de planches : <span class="tt">Assets/Scene/&lt;<a class="el" href="#a5853266b18d8062e8cbe6287485f8e80" title="Le lieu, qui nomme le dossier de planches : Assets/Scene/&lt;place&gt;/.">place</a>&gt;/</span>. </p>
+<p>Le lieu (<span class="tt">central-empire/capital/arenarea</span>) : ses niveaux disent où sont ses pièces (<span class="tt"><a class="el" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec" title="Les niveaux candidats de place, du plus propre au plus commun, monde compris.">core::sceneLevelCandidates</a></span>). </p>
 
 </div>
 </div>

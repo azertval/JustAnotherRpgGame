@@ -22,13 +22,14 @@
 #include &lt;vector&gt;
 
 #include "Core/Levels/PieceFootprint.h"
+#include "Core/Resources/ScenePlace.h"
 
 /**
  * @file Core/Resources/ScenePieceManifest.h
  * @brief Le **manifeste des piÃ¨ces** d'un lieu : ce que l'atelier des textures (`LOT-92`) dÃ©clare
  *        de chaque piÃ¨ce de sa planche â classe, emprise, ancre, taille, miroir.
  *
- * L'atelier Ã©crit, Ã  cÃ´tÃ© des images d'un lieu, un `Assets/Scene/&lt;lieu&gt;/manifest.json`. Jusqu'au
+ * L'atelier Ã©crit, Ã  cÃ´tÃ© des images d'un lieu, un `manifest.json`. Jusqu'au
  * `LOT-EDITOR-02`, seule la galerie des assets le lisait, dans `HMI` (constat A9 de la feuille de
  * route de l'Ã©diteur) : aucune rÃ¨gle de carte ne pouvait donc s'appuyer sur l'emprise d'une piÃ¨ce.
  * La lecture descend ici, sans Qt ni GPU, pour que `Core` puisse un jour en dÃ©duire l'occupation et
@@ -42,6 +43,16 @@
  * Le manifeste nomme une piÃ¨ce par une clÃ© d'atelier (`scene/martpart/wall-left`). Une carte, elle,
  * ne connaÃ®t que le **nom court** (`wall-left`), celui que la table d'apparence et l'assignation de
  * texture Ã©crivent : le lecteur rend les deux.
+ *
+ * ## Le catalogue rÃ©solu d'un lieu (`LOT-124`)
+ *
+ * Une carte puise dans son lieu **et** dans ses niveaux communs (`core::sceneLevelCandidates`).
+ * `ScenePieceManifest::resolve` empile leurs manifestes, du plus propre au plus commun, en un seul
+ * manifeste : c'est lui que lisent la dÃ©duction de collision, le brouillon, la palette et le
+ * contrÃ´le, qui n'ont donc qu'**une** question Ã  poser â `find(nom)`. Chaque piÃ¨ce y garde son
+ * dossier d'origine (`ScenePiece::directory`) et son niveau ; une piÃ¨ce propre qui porte le nom
+ * d'une piÃ¨ce commune la **masque**, et le catalogue garde la trace de la piÃ¨ce masquÃ©e
+ * (`masked`).
  */
 
 namespace core {
@@ -116,6 +127,17 @@ struct ScenePiece {
     PieceTactical tactical = PieceTactical::Solid;
     /// Anciens noms courts sous lesquels une carte peut citer la piÃ¨ce (`aliases`).
     std::vector&lt;std::string&gt; aliases;
+    /// Le dossier du manifeste qui la dÃ©clare, relatif Ã  `Assets/`
+    /// (`Regions/central-empire/capital/Common/Scene`) ; vide pour un manifeste lu seul.
+    std::string directory;
+    /// Le niveau qui la dÃ©clare (`core::SceneLevel::label`) ; vide pour un manifeste lu seul.
+    std::string level;
+
+    /// @return Le fichier de l'image, relatif Ã  `Assets/` : `&lt;directory&gt;/&lt;file&gt;` ; @ref file seul
+    ///         pour un manifeste lu seul.
+<span style = "background-color:#dfd">    [[nodiscard]] std::string path() const {
+        return directory.empty() ? file : directory + "/" + file;
+    }</span>
 
     /// @return L'emprise de la piÃ¨ce.
 <span style = "background-color:#dfd">    [[nodiscard]] PieceFootprint footprint() const noexcept {
@@ -136,6 +158,16 @@ enum class ScenePieceManifestError : std::uint8_t {
 
 struct ScenePieceManifestResult;
 
+/// @brief Une piÃ¨ce commune qu'une piÃ¨ce plus propre, de mÃªme nom, masque (`LOT-124`).
+struct MaskedScenePiece {
+    /// La piÃ¨ce masquÃ©e, telle que son niveau la dÃ©clare.
+    ScenePiece piece;
+    /// Le niveau de la piÃ¨ce qui la masque.
+    std::string by;
+
+    [[nodiscard]] bool operator==(const MaskedScenePiece&amp;) const = default;
+};
+
 /**
  * @brief Les piÃ¨ces d'un lieu, dans l'ordre du manifeste.
  *
@@ -148,6 +180,22 @@ public:
 
     [[nodiscard]] static ScenePieceManifestResult loadFromString(std::string_view json);
     [[nodiscard]] static ScenePieceManifestResult loadFromFile(const std::filesystem::path&amp; path);
+
+    /**
+     * @brief Le **catalogue rÃ©solu** du lieu @p place : les manifestes de ses niveaux
+     *        (`core::sceneLevelCandidates`), empilÃ©s du plus propre au plus commun.
+     *
+     * Un niveau sans manifeste est passÃ© ; un manifeste qui ne se lit pas fait Ã©chouer la lecture,
+     * message prÃ©fixÃ© de son dossier : une piÃ¨ce qui disparaÃ®trait en silence d'un niveau commun
+     * ferait tomber la collision de toutes les cartes qui descendent de lui. Aucun manifeste :
+     * `FileNotFound`.
+     *
+     * Le losange (`tile`) est celui du niveau le plus propre qui en dÃ©clare un.
+     * @param assetsDirectory Le dossier `Assets/`.
+     * @param place           Le lieu (`central-empire/capital/arenarea`, ou `bourg` Ã  plat).
+     */
+    [[nodiscard]] static ScenePieceManifestResult resolve(
+        const std::filesystem::path&amp; assetsDirectory, std::string_view place);
 
     /// @return Le lieu (`disposition` du manifeste : `martpart`), vide s'il n'est pas donnÃ©.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; place() const noexcept {
@@ -165,9 +213,21 @@ public:
         return _tileHeight;
     }</span>
 
-    /// @return Les piÃ¨ces, dans l'ordre oÃ¹ le manifeste les Ã©crit.
+    /// @return Les piÃ¨ces, dans l'ordre oÃ¹ le manifeste les Ã©crit ; pour un catalogue rÃ©solu,
+    ///         niveau par niveau, du plus propre au plus commun, sans les piÃ¨ces masquÃ©es.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;ScenePiece&gt;&amp; pieces() const noexcept {
         return _pieces;
+    }</span>
+
+    /// @return Les niveaux dont un catalogue rÃ©solu a lu un manifeste, du plus propre au plus
+    ///         commun ; vide pour un manifeste lu seul.
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;SceneLevel&gt;&amp; levels() const noexcept {
+        return _levels;
+    }</span>
+
+    /// @return Les piÃ¨ces communes qu'une piÃ¨ce plus propre masque, dans l'ordre des niveaux.
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;MaskedScenePiece&gt;&amp; masked() const noexcept {
+        return _masked;
     }</span>
 
     /// @return La piÃ¨ce de nom court @p name, ou dont @p name est un ancien nom (`aliases`) ;
@@ -181,6 +241,8 @@ private:
     int _tileWidth = 0;
     int _tileHeight = 0;
     std::vector&lt;ScenePiece&gt; _pieces;
+    std::vector&lt;SceneLevel&gt; _levels;
+    std::vector&lt;MaskedScenePiece&gt; _masked;
 };
 
 /// @brief RÃ©sultat d'une lecture : le manifeste, et ce qui a Ã©chouÃ©.

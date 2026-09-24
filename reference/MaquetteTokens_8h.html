@@ -204,11 +204,11 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les <b>jetons</b> du rendu de maquette : un rond de couleur, avec sa lettre, à la place d'une figurine qui n'existe pas (<span class="tt">LOT-128</span>, décision D2). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md87"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md89"></a>
 Une image engendrée, pas un rendu de texte</h2>
 <p>Il n'existe <b>aucun</b> rendu de texte en scène côté jeu : <span class="tt"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b" title="Texte et interface en scène (EX-REN-031).">hmi::RenderLayer::UI</a></span> ne porte que des rectangles, et le <span class="tt">LOT-88</span> a supprimé les polices pixel. Plutôt que d'en introduire un pour trente-six caractères, le jeton entier — disque et lettre — est <b>peint en code pur</b> ici, comme <span class="tt"><a class="el" href="namespacecore.html#ac6ae670b019f78f94c6c8354d01794bc" title="Peint le marqueur d&#39;une clé d&#39;asset.">core::assetMarker</a></span> peint le marqueur d'un asset manquant, puis téléversé comme n'importe quelle texture.</p>
 <p>Le bénéfice est la <b>parité par construction</b> : le jeu (QRhi) et l'éditeur (<span class="tt">QPainter</span>) ne montrent pas deux dessins qui se ressemblent, ils montrent la même image, et il n'y a qu'un chemin à vérifier.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md88"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md90"></a>
 Adressé comme une planche</h2>
 <p>Un jeton se demande par un <b>chemin</b>, <span class="tt">Token/&lt;nature&gt;/&lt;lettre&gt;.png</span>, exactement comme une pièce de lieu ou une bande de figurine (<span class="tt"><a class="el" href="structhmi_1_1ScenePieceTextures.html" title="Les textures d&#39;un lieu, adressées par leur chemin tel que la composition l&#39;écrit.">hmi::ScenePieceTextures</a></span>). Les deux rendus n'ont donc rien de neuf à apprendre : ils voient un chemin de plus dans <span class="tt"><a class="el" href="namespacehmi.html#a07929611bf03ab59a2de588feb90ad7d">hmi::worldTexturePaths</a></span>, et savent qu'un chemin de jeton se peint au lieu de se charger. </p>
 </div></div><!-- contents -->

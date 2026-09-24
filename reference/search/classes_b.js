@@ -28,13 +28,14 @@ var searchData=
   ['maquettetracesnapshot_25',['MaquetteTraceSnapshot',['../structhmi_1_1MaquetteTraceSnapshot.html',1,'hmi']]],
   ['markercolor_26',['MarkerColor',['../structcore_1_1MarkerColor.html',1,'core']]],
   ['markerimage_27',['MarkerImage',['../structcore_1_1MarkerImage.html',1,'core']]],
-  ['measure_28',['Measure',['../structhmi_1_1Measure.html',1,'hmi']]],
-  ['memorylogsink_29',['MemoryLogSink',['../classcore_1_1MemoryLogSink.html',1,'core']]],
-  ['minimap_30',['MiniMap',['../classhmi_1_1MiniMap.html',1,'hmi']]],
-  ['mirroraxis_31',['MirrorAxis',['../structhmi_1_1MirrorAxis.html',1,'hmi']]],
-  ['modifier_32',['Modifier',['../structcore_1_1Modifier.html',1,'core']]],
-  ['mountrefusal_33',['MountRefusal',['../structcore_1_1MountRefusal.html',1,'core']]],
-  ['moveoutcome_34',['MoveOutcome',['../structcore_1_1MoveOutcome.html',1,'core']]],
-  ['movepreview_35',['MovePreview',['../structcore_1_1MovePreview.html',1,'core']]],
-  ['mover_36',['Mover',['../structcore_1_1Mover.html',1,'core']]]
+  ['maskedscenepiece_28',['MaskedScenePiece',['../structcore_1_1MaskedScenePiece.html',1,'core']]],
+  ['measure_29',['Measure',['../structhmi_1_1Measure.html',1,'hmi']]],
+  ['memorylogsink_30',['MemoryLogSink',['../classcore_1_1MemoryLogSink.html',1,'core']]],
+  ['minimap_31',['MiniMap',['../classhmi_1_1MiniMap.html',1,'hmi']]],
+  ['mirroraxis_32',['MirrorAxis',['../structhmi_1_1MirrorAxis.html',1,'hmi']]],
+  ['modifier_33',['Modifier',['../structcore_1_1Modifier.html',1,'core']]],
+  ['mountrefusal_34',['MountRefusal',['../structcore_1_1MountRefusal.html',1,'core']]],
+  ['moveoutcome_35',['MoveOutcome',['../structcore_1_1MoveOutcome.html',1,'core']]],
+  ['movepreview_36',['MovePreview',['../structcore_1_1MovePreview.html',1,'core']]],
+  ['mover_37',['Mover',['../structcore_1_1Mover.html',1,'core']]]
 ];

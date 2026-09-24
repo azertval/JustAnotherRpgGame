@@ -22,6 +22,7 @@
 
 #include &lt;nlohmann/json.hpp&gt;
 
+#include "Core/Resources/ScenePlace.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/Rpg/Inventory.h"
 
@@ -66,7 +67,12 @@ namespace {
             }
         }</span>
     }
-<span style = "background-color:#dfd">    std::ranges::sort(figures);
+    // Les figurines du monde (`Common/Characters`, LOT-124) : celles que toute carte peut poser.
+<span style = "background-color:#dfd">    for (const auto&amp; [slug, directory] : core::resolveFigures(assets, {})) {
+        figures.push_back(slug);
+    }
+    std::ranges::sort(figures);
+    figures.erase(std::ranges::unique(figures).begin(), figures.end());
     return figures;
 }</span>
 
@@ -129,7 +135,8 @@ namespace {
         }
         std::ranges::sort(references.items);
     }
-    references.figures = loadFigures(root / "Assets");
+    references.assets = root / "Assets";
+    references.figures = loadFigures(references.assets);
     if (const std::filesystem::path encounters = root / "Rpg" / "encounters";
         isDirectory(encounters)) {
         references.encounters = core::loadEncounters(encounters);
@@ -144,14 +151,22 @@ namespace {
 
 core::EntityReferenceContext referenceContext(const EditorReferences&amp; references,
                                               std::string_view editedMapId,
-<span style = "background-color:#dfd">                                              const std::vector&lt;core::MapEntity&gt;&amp; editedEntities) {
+                                              const std::vector&lt;core::MapEntity&gt;&amp; editedEntities,
+<span style = "background-color:#dfd">                                              std::string_view place) {
     core::EntityReferenceContext context;
     context.dialogues.insert(references.dialogues.begin(), references.dialogues.end());
     for (const core::Encounter&amp; encounter : references.encounters.encounters) {
         context.encounters.insert(encounter.id);
     }
-    context.figures.insert(references.figures.begin(), references.figures.end());
-    context.flags.insert(references.flags.begin(), references.flags.end());
+    context.figures.insert(references.figures.begin(), references.figures.end());</span>
+    // Les figurines du lieu et de ses niveaux communs (LOT-124) : un PNJ nommÃ© d'une zone ne se
+    // propose qu'aux cartes qui en descendent.
+<span style = "background-color:#dfd">    if (!place.empty() &amp;&amp; !references.assets.empty()) {
+        for (const auto&amp; [slug, directory] : core::resolveFigures(references.assets, place)) {
+            context.figures.insert(slug);
+        }</span>
+    }
+<span style = "background-color:#dfd">    context.flags.insert(references.flags.begin(), references.flags.end());
     context.locations.insert(references.locations.begin(), references.locations.end());
     context.items.insert(references.items.begin(), references.items.end());
     for (const core::WorldMapNode&amp; map : references.world.maps) {

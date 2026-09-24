@@ -31,6 +31,7 @@
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/MapEntity.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/EntityKinds.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
@@ -382,23 +383,40 @@ void forEachCityMap(nlohmann::ordered_json&amp; city,
     return cells;
 }</span>
 
+// La table d'apparence propre au lieu @p place : celle qu'on Ã©crit.
 [[nodiscard]] std::filesystem::path appearanceFile(const std::filesystem::path&amp; dataRoot,
 <span style = "background-color:#dfd">                                                   std::string_view place) {
-    return dataRoot / "Assets" / "Scene" / std::string{place} / "appearance.json";
+    return dataRoot / "Assets" / std::filesystem::path(core::ownSceneDirectory(place)) /</span>
+           "appearance.json";
+<span style = "background-color:#dfd">}</span>
+
+// La table la plus propre que @p place lit, Ã  l'un de ses niveaux (LOT-124) ; vide s'il n'en a
+// aucune.
+[[nodiscard]] std::filesystem::path readableAppearanceFile(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                                           std::string_view place) {
+    for (const core::SceneLevel&amp; level : core::sceneLevelCandidates(place)) {
+        std::filesystem::path file =</span>
+            dataRoot / "Assets" / std::filesystem::path(level.directory) / "appearance.json";
+<span style = "background-color:#dfd">        std::error_code error;
+        if (std::filesystem::is_regular_file(file, error)) {
+            return file;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return {};
 }</span>
 
 // La table d'apparence de @p to, faite de celle de @p from traduite par @p table ; rien si @p to
-// en a dÃ©jÃ  une ou si @p from n'en a pas.
+// en lit dÃ©jÃ  une, Ã  son niveau ou Ã  un niveau commun, ou si @p from n'en lit aucune.
 [[nodiscard]] std::optional&lt;std::string&gt; translatedAppearance(const std::filesystem::path&amp; dataRoot,
                                                               std::string_view from,
                                                               std::string_view to,
 <span style = "background-color:#dfd">                                                              const core::PieceRenaming&amp; table) {
-    std::error_code error;
-    if (from.empty() || std::filesystem::exists(appearanceFile(dataRoot, to), error)) {</span>
+    const std::filesystem::path source = readableAppearanceFile(dataRoot, from);
+    if (from.empty() || source.empty() || !readableAppearanceFile(dataRoot, to).empty()) {</span>
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    nlohmann::ordered_json json = nlohmann::ordered_json::parse(</span>
-        readText(appearanceFile(dataRoot, from)), nullptr, /*allow_exceptions=*/false);
+<span style = "background-color:#dfd">    nlohmann::ordered_json json =</span>
+        nlohmann::ordered_json::parse(readText(source), nullptr, /*allow_exceptions=*/false);
 <span style = "background-color:#dfd">    if (!json.is_object()) {</span>
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
@@ -426,19 +444,19 @@ void forEachCityMap(nlohmann::ordered_json&amp; city,
 
 }  // namespace
 
-<span style = "background-color:#fdd">std::string formatCitation(const Citation&amp; citation, const std::filesystem::path&amp; dataRoot) {
+<span style = "background-color:#dfd">std::string formatCitation(const Citation&amp; citation, const std::filesystem::path&amp; dataRoot) {
     std::string where = citation.mapId;
-    if (where.empty()) {
-        std::error_code error;
+    if (where.empty()) {</span>
+<span style = "background-color:#fdd">        std::error_code error;
         const std::filesystem::path relative =</span>
             std::filesystem::relative(citation.file, dataRoot, error);
 <span style = "background-color:#fdd">        where = (error || relative.empty() ? citation.file : relative).generic_string();
-    }
-    if (citation.cell) {
+    }</span>
+<span style = "background-color:#dfd">    if (citation.cell) {
         where += " (" + std::to_string(citation.cell-&gt;column) + ", " +</span>
                  std::to_string(citation.cell-&gt;row) + ")";
     }
-<span style = "background-color:#fdd">    return where + ": " + citation.what;
+<span style = "background-color:#dfd">    return where + ": " + citation.what;
 }</span>
 
 <span style = "background-color:#dfd">bool applyRefactorPlan(const RefactorPlan&amp; plan, std::string&amp; error) {
@@ -490,7 +508,10 @@ std::vector&lt;Citation&gt; citationsOfEntity(const std::filesystem::path&amp; d
 namespace {
 
 // Une citation par couche visuelle de @p map qui place @p piece.
-<span style = "background-color:#dfd">std::vector&lt;Citation&gt; pieceCitationsIn(const ProjectMap&amp; map, std::string_view piece) {
+// Les citations de @p piece dans @p map ; @p origin, s'il est connu, dit de quel niveau la carte la
+// tient (LOT-124).
+std::vector&lt;Citation&gt; pieceCitationsIn(const ProjectMap&amp; map, std::string_view piece,
+<span style = "background-color:#dfd">                                       std::string_view origin = {}) {
     std::vector&lt;Citation&gt; citations;
     for (const core::TileLayer&amp; layer : map.data.layers) {
         if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
@@ -498,25 +519,50 @@ namespace {
         }
 <span style = "background-color:#dfd">        const std::vector&lt;core::GridPosition&gt; cells = cellsOf(layer, piece);
         if (!cells.empty()) {
-            citations.push_back(Citation{.file = map.file,</span>
-                                         .mapId = map.id,
-                                         .cell = cells.front(),
-                                         .what = "layer " + layer.name + ": " +
-                                                 std::to_string(cells.size()) +
-                                                 (cells.size() == 1 ? " cell" : " cells")});
-        }
-<span style = "background-color:#dfd">    }
+            std::string what = "layer " + layer.name + ": " + std::to_string(cells.size()) +</span>
+                               (cells.size() == 1 ? " cell" : " cells");
+<span style = "background-color:#dfd">            if (!origin.empty()) {
+                what.append(", from ").append(origin);</span>
+            }
+<span style = "background-color:#dfd">            citations.push_back(Citation{</span>
+                .file = map.file, .mapId = map.id, .cell = cells.front(), .what = std::move(what)});
+<span style = "background-color:#dfd">        }
+    }
     return citations;
+}</span>
+
+// Le dossier, relatif a Assets/, du niveau dont @p map tient @p piece (LOT-124) : le catalogue de
+// SON lieu la resout, pas celui d'une autre carte. Vide si la piece y manque.
+[[nodiscard]] std::string pieceOrigin(const std::filesystem::path&amp; dataRoot, const ProjectMap&amp; map,
+<span style = "background-color:#dfd">                                      std::string_view piece) {
+    const PlaceAssets assets = placeOf(dataRoot, map.data);
+    const core::ScenePiece* found = assets.manifest ? assets.manifest-&gt;find(piece) : nullptr;
+    return found == nullptr ? std::string{} : found-&gt;directory;
+}</span>
+
+// Vrai si @p level (un dossier de niveau) est vide ou designe @p origin, barre finale ignoree.
+<span style = "background-color:#dfd">[[nodiscard]] bool sameLevel(std::string_view level, std::string_view origin) {
+    while (level.ends_with('/')) {
+        level.remove_suffix(1);
+    }
+    return level.empty() || level == origin;
 }</span>
 
 }  // namespace
 
 std::vector&lt;Citation&gt; citationsOfPiece(const std::filesystem::path&amp; dataRoot,
-<span style = "background-color:#dfd">                                       std::string_view piece) {
+<span style = "background-color:#dfd">                                       std::string_view piece, std::string_view level) {
     std::vector&lt;Citation&gt; citations;
     Project project = loadProject(dataRoot);
     for (const ProjectMap&amp; map : project.maps) {
-        std::vector&lt;Citation&gt; found = pieceCitationsIn(map, piece);
+        if (!citedPieces(map.data.layers).contains(piece)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string origin = pieceOrigin(dataRoot, map, piece);
+        if (!sameLevel(level, origin)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        std::vector&lt;Citation&gt; found = pieceCitationsIn(map, piece, origin);
         citations.insert(citations.end(), std::make_move_iterator(found.begin()),</span>
                          std::make_move_iterator(found.end()));
 <span style = "background-color:#dfd">    }
@@ -824,7 +870,7 @@ std::optional&lt;std::string&gt; replacePieceInMap(const std::filesystem::path&a
     if (!validated.ok()) {</span>
 <span style = "background-color:#fdd">        return map.id + " would not be valid: " + validated.error;</span>
     }
-<span style = "background-color:#dfd">    std::vector&lt;Citation&gt; cited = pieceCitationsIn(map, from);
+<span style = "background-color:#dfd">    std::vector&lt;Citation&gt; cited = pieceCitationsIn(map, from, previous ? previous-&gt;directory : "");
     plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),</span>
                         std::make_move_iterator(cited.end()));
 <span style = "background-color:#dfd">    plan.edits.push_back(</span>
@@ -835,7 +881,8 @@ std::optional&lt;std::string&gt; replacePieceInMap(const std::filesystem::path&a
 }  // namespace
 
 RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot, std::string_view from,
-<span style = "background-color:#dfd">                              std::string_view to, const std::vector&lt;std::string&gt;&amp; maps) {
+                              std::string_view to, const std::vector&lt;std::string&gt;&amp; maps,
+<span style = "background-color:#dfd">                              std::string_view level) {
     if (from.empty() || to.empty()) {</span>
 <span style = "background-color:#fdd">        return refused("name the piece to replace and the one that replaces it");</span>
     }
@@ -856,13 +903,19 @@ RefactorPlan planReplacePiece(const std::filesystem::path&amp; dataRoot, std::st
 <span style = "background-color:#dfd">        if (!citedPieces(map.data.layers).contains(from)) {
             continue;</span>
         }
+        // Un niveau nomme : seules les cartes qui tiennent la piece de CE niveau changent
+        // (LOT-124). Une autre zone qui a sa propre piece de meme nom ne bouge pas.
+<span style = "background-color:#dfd">        if (!sameLevel(level, pieceOrigin(dataRoot, map, from))) {
+            continue;</span>
+        }
 <span style = "background-color:#dfd">        if (const std::optional&lt;std::string&gt; refusal =</span>
                 replacePieceInMap(dataRoot, map, from, to, plan)) {
 <span style = "background-color:#dfd">            return refused(*refusal);
         }
     }
     if (plan.edits.empty()) {</span>
-<span style = "background-color:#fdd">        return refused("no map places \"" + std::string{from} + "\"");</span>
+<span style = "background-color:#fdd">        return refused("no map places \"" + std::string{from} + "\"" +</span>
+                       (level.empty() ? std::string{} : " from " + std::string{level}));
     }
 <span style = "background-color:#dfd">    return plan;
 }</span>
@@ -919,8 +972,7 @@ RefactorPlan planChangeScene(const std::filesystem::path&amp; dataRoot, std::str
     }
 <span style = "background-color:#dfd">    const PlaceAssets target = loadPlaceAssets(dataRoot, place);
     if (!target.manifest) {</span>
-<span style = "background-color:#fdd">        return refused("no sheet \"" + std::string{place} + "\" (Assets/Scene/" +</span>
-                       std::string{place} + "/manifest.json)");
+<span style = "background-color:#fdd">        return refused("no sheet \"" + std::string{place} + "\" (" + target.manifestError + ")");</span>
     }
 <span style = "background-color:#dfd">    core::PieceRenaming merged = proposedPieceTable(map-&gt;data.layers, *target.manifest);
     for (const auto&amp; [from, to] : table) {
@@ -1010,12 +1062,12 @@ namespace {
 
 // Les arguments qui suivent @p option, jusqu'Ã  la prochaine option.
 [[nodiscard]] std::optional&lt;std::vector&lt;std::string&gt;&gt; valuesOf(
-<span style = "background-color:#fdd">    const std::vector&lt;std::string&gt;&amp; arguments, std::string_view option) {
+<span style = "background-color:#dfd">    const std::vector&lt;std::string&gt;&amp; arguments, std::string_view option) {
     const auto found = std::ranges::find(arguments, option);
-    if (found == arguments.end()) {
-        return std::nullopt;</span>
+    if (found == arguments.end()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#fdd">    std::vector&lt;std::string&gt; values;
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; values;
     for (auto value = std::next(found); value != arguments.end() &amp;&amp; !value-&gt;starts_with("--");
          ++value) {
         values.push_back(*value);
@@ -1024,35 +1076,37 @@ namespace {
 }</span>
 
 [[nodiscard]] int listCitations(const std::vector&lt;Citation&gt;&amp; citations,
-<span style = "background-color:#fdd">                                const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+<span style = "background-color:#dfd">                                const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
     for (const Citation&amp; citation : citations) {
         output += formatCitation(citation, dataRoot) + "\n";
     }
     output +=</span>
         std::to_string(citations.size()) + (citations.size() == 1 ? " citation\n" : " citations\n");
-<span style = "background-color:#fdd">    return 0;
+<span style = "background-color:#dfd">    return 0;
 }</span>
 
 [[nodiscard]] int whoCites(const std::vector&lt;std::string&gt;&amp; values,
-<span style = "background-color:#fdd">                           const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+<span style = "background-color:#dfd">                           const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
     const std::string what = values.empty() ? std::string{} : values.front();
-    if (what == "map" &amp;&amp; values.size() == 2) {
-        return listCitations(citationsOfMap(dataRoot, values[1]), dataRoot, output);</span>
+    if (what == "map" &amp;&amp; values.size() == 2) {</span>
+<span style = "background-color:#fdd">        return listCitations(citationsOfMap(dataRoot, values[1]), dataRoot, output);</span>
     }
-<span style = "background-color:#fdd">    if (what == "arrival" &amp;&amp; values.size() == 3) {
-        return listCitations(citationsOfArrival(dataRoot, values[1], values[2]), dataRoot, output);</span>
+<span style = "background-color:#dfd">    if (what == "arrival" &amp;&amp; values.size() == 3) {</span>
+<span style = "background-color:#fdd">        return listCitations(citationsOfArrival(dataRoot, values[1], values[2]), dataRoot, output);</span>
     }
-<span style = "background-color:#fdd">    if (what == "entity" &amp;&amp; values.size() == 3) {
-        return listCitations(citationsOfEntity(dataRoot, values[1], values[2]), dataRoot, output);</span>
+<span style = "background-color:#dfd">    if (what == "entity" &amp;&amp; values.size() == 3) {</span>
+<span style = "background-color:#fdd">        return listCitations(citationsOfEntity(dataRoot, values[1], values[2]), dataRoot, output);</span>
     }
-<span style = "background-color:#fdd">    if (what == "piece" &amp;&amp; values.size() == 2) {
-        return listCitations(citationsOfPiece(dataRoot, values[1]), dataRoot, output);</span>
+<span style = "background-color:#dfd">    if (what == "piece" &amp;&amp; (values.size() == 2 || values.size() == 3)) {
+        return listCitations(</span>
+            citationsOfPiece(dataRoot, values[1], values.size() == 3 ? values[2] : std::string{}),
+            dataRoot, output);
     }
 <span style = "background-color:#fdd">    output +=</span>
         "usage: --who-cites map &lt;map&gt; | arrival &lt;map&gt; &lt;point&gt; | entity &lt;map&gt; &lt;id&gt; | "
-        "piece &lt;piece&gt;\n";
-<span style = "background-color:#fdd">    return 2;
-}</span>
+        "piece &lt;piece&gt; [&lt;level directory&gt;]\n";
+<span style = "background-color:#fdd">    return 2;</span>
+<span style = "background-color:#dfd">}</span>
 
 [[nodiscard]] int carryOut(const RefactorPlan&amp; plan, const std::filesystem::path&amp; dataRoot,
 <span style = "background-color:#fdd">                           std::string&amp; output) {
@@ -1075,14 +1129,14 @@ namespace {
 }  // namespace
 
 std::optional&lt;int&gt; runRefactorCommand(const std::vector&lt;std::string&gt;&amp; arguments,
-<span style = "background-color:#fdd">                                      const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
-    const auto usage = [&amp;output](std::string_view text) {
-        output += "usage: " + std::string{text} + "\n";
-        return 2;
-    };
+<span style = "background-color:#dfd">                                      const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const auto usage = [&amp;output](std::string_view text) {</span>
+<span style = "background-color:#fdd">        output += "usage: " + std::string{text} + "\n";
+        return 2;</span>
+<span style = "background-color:#dfd">    };
     if (const auto values = valuesOf(arguments, "--who-cites")) {
-        return whoCites(*values, dataRoot, output);
-    }</span>
+        return whoCites(*values, dataRoot, output);</span>
+<span style = "background-color:#fdd">    }</span>
     // Relier deux cartes sans fenetre (LOT-EDITOR-09) : le meme plan que le geste du graphe.
 <span style = "background-color:#fdd">    if (const auto link = valuesOf(arguments, "--link-maps")) {
         if (link-&gt;size() != 2) {
@@ -1111,12 +1165,14 @@ std::optional&lt;int&gt; runRefactorCommand(const std::vector&lt;std::string&gt;
                         output);
 <span style = "background-color:#fdd">    }
     if (const auto piece = valuesOf(arguments, "--replace-piece")) {
-        if (piece-&gt;size() &lt; 2) {
-            return usage("--replace-piece &lt;old&gt; &lt;new&gt; [map...]");</span>
+        const auto level = valuesOf(arguments, "--level");
+        if (piece-&gt;size() &lt; 2 || (level &amp;&amp; level-&gt;size() != 1)) {
+            return usage("--replace-piece &lt;old&gt; &lt;new&gt; [map...] [--level &lt;level directory&gt;]");</span>
         }
 <span style = "background-color:#fdd">        const std::vector&lt;std::string&gt; maps(std::next(piece-&gt;begin(), 2), piece-&gt;end());
-        return carryOut(planReplacePiece(dataRoot, (*piece)[0], (*piece)[1], maps), dataRoot,</span>
-                        output);
+        return carryOut(planReplacePiece(dataRoot, (*piece)[0], (*piece)[1], maps,</span>
+                                         level ? level-&gt;front() : std::string{}),
+                        dataRoot, output);
 <span style = "background-color:#fdd">    }
     if (const auto scene = valuesOf(arguments, "--change-scene")) {
         const auto tableFile = valuesOf(arguments, "--table");
@@ -1134,8 +1190,8 @@ std::optional&lt;int&gt; runRefactorCommand(const std::vector&lt;std::string&gt;
 <span style = "background-color:#fdd">        return carryOut(planChangeScene(dataRoot, (*scene)[0], (*scene)[1], table.table), dataRoot,</span>
                         output);
 <span style = "background-color:#fdd">    }
-    return std::nullopt;
-}</span>
+    return std::nullopt;</span>
+<span style = "background-color:#dfd">}</span>
 
 }  // namespace hmi</pre>
         <hr />

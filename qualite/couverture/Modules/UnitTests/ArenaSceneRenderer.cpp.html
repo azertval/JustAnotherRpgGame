@@ -129,8 +129,8 @@ ArenaSceneRenderer::ArenaSceneRenderer(std::filesystem::path coliseumDirectory, 
         return;</span>
     }
     // Le decor est celui que la carte declare, pas un lieu ecrit dans le moteur.
-<span style = "background-color:#dfd">    const auto appearance = PlaceAppearance::loadFromFile(</span>
-        _directory.parent_path() / "Scene" / scenePlaceOf(*level.level) / "appearance.json");
+<span style = "background-color:#dfd">    const auto appearance =</span>
+        PlaceAppearance::loadForPlace(_directory.parent_path(), scenePlaceOf(*level.level));
 <span style = "background-color:#dfd">    if (!appearance.ok()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Arena battlefield appearance: " + appearance.message);
         return;</span>

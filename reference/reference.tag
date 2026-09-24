@@ -1441,9 +1441,26 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
     <filename>ScenePieceManifest_8h.html</filename>
     <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <class kind="struct">core::ScenePiece</class>
+    <class kind="struct">core::MaskedScenePiece</class>
     <class kind="class">core::ScenePieceManifest</class>
     <class kind="struct">core::ScenePieceManifestResult</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>ScenePlace.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>ScenePlace_8cpp.html</filename>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>ScenePlace.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>ScenePlace_8h.html</filename>
+    <class kind="struct">core::SceneLevel</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -2367,6 +2384,7 @@
     <includes id="ExplorationReach_8h" name="ExplorationReach.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationReach.h</includes>
     <includes id="EditorDiagnostics_8h" name="EditorDiagnostics.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorDiagnostics.h</includes>
     <includes id="EntityShapes_8h" name="EntityShapes.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityShapes.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -2520,6 +2538,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>EntityReferences_8cpp.html</filename>
     <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
     <namespace>hmi</namespace>
@@ -2638,6 +2657,7 @@
     <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="EditorSidecar_8h" name="EditorSidecar.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorSidecar.h</includes>
     <includes id="LevelNameValidation_8h" name="LevelNameValidation.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LevelNameValidation.h</includes>
@@ -2694,6 +2714,7 @@
     <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileTypeName_8h" name="TileTypeName.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileTypeName.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
     <includes id="ContentCheck_8h" name="ContentCheck.h" local="yes" import="no" module="no" objc="no">Editor/Logic/ContentCheck.h</includes>
@@ -2725,6 +2746,7 @@
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="EditorSidecar_8h" name="EditorSidecar.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorSidecar.h</includes>
@@ -2760,8 +2782,8 @@
       <type>std::vector&lt; Citation &gt;</type>
       <name>citationsOfPiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad8039f7a46143bef6da7de82c1a2b706</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece)</arglist>
+      <anchor>aa77afd17d50b0a0f78629cd36d58c921</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</arglist>
     </member>
     <member kind="function">
       <type>RefactorPlan</type>
@@ -2788,8 +2810,8 @@
       <type>RefactorPlan</type>
       <name>planReplacePiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>abfd98fd3827a2fc0a88db80648a18b59</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</arglist>
+      <anchor>a249ab1a3e2b1d49602866e4318a47c90</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</arglist>
     </member>
     <member kind="function">
       <type>core::PieceRenaming</type>
@@ -2844,8 +2866,8 @@
       <type>std::vector&lt; Citation &gt;</type>
       <name>citationsOfPiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad8039f7a46143bef6da7de82c1a2b706</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece)</arglist>
+      <anchor>aa77afd17d50b0a0f78629cd36d58c921</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</arglist>
     </member>
     <member kind="function">
       <type>RefactorPlan</type>
@@ -2872,8 +2894,8 @@
       <type>RefactorPlan</type>
       <name>planReplacePiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>abfd98fd3827a2fc0a88db80648a18b59</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</arglist>
+      <anchor>a249ab1a3e2b1d49602866e4318a47c90</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</arglist>
     </member>
     <member kind="function">
       <type>core::PieceRenaming</type>
@@ -2942,8 +2964,8 @@
       <type>std::vector&lt; Citation &gt;</type>
       <name>citationsOfPiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad8039f7a46143bef6da7de82c1a2b706</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece)</arglist>
+      <anchor>aa77afd17d50b0a0f78629cd36d58c921</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</arglist>
     </member>
     <member kind="function">
       <type>RefactorPlan</type>
@@ -2970,8 +2992,8 @@
       <type>RefactorPlan</type>
       <name>planReplacePiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>abfd98fd3827a2fc0a88db80648a18b59</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</arglist>
+      <anchor>a249ab1a3e2b1d49602866e4318a47c90</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</arglist>
     </member>
     <member kind="function">
       <type>core::PieceRenaming</type>
@@ -3026,8 +3048,8 @@
       <type>std::vector&lt; Citation &gt;</type>
       <name>citationsOfPiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad8039f7a46143bef6da7de82c1a2b706</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece)</arglist>
+      <anchor>aa77afd17d50b0a0f78629cd36d58c921</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</arglist>
     </member>
     <member kind="function">
       <type>RefactorPlan</type>
@@ -3054,8 +3076,8 @@
       <type>RefactorPlan</type>
       <name>planReplacePiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>abfd98fd3827a2fc0a88db80648a18b59</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</arglist>
+      <anchor>a249ab1a3e2b1d49602866e4318a47c90</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</arglist>
     </member>
     <member kind="function">
       <type>core::PieceRenaming</type>
@@ -3175,6 +3197,7 @@
     <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
     <includes id="TileTypeName_8h" name="TileTypeName.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileTypeName.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
     <includes id="PaintTools_8h" name="PaintTools.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PaintTools.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
@@ -3194,6 +3217,7 @@
     <class kind="struct">hmi::StampForcedCell</class>
     <class kind="struct">hmi::Stamp</class>
     <class kind="struct">hmi::StampPasteResult</class>
+    <class kind="struct">hmi::PrefabEntry</class>
     <class kind="struct">hmi::MapTemplateLayer</class>
     <class kind="struct">hmi::MapTemplate</class>
     <class kind="struct">hmi::LibraryFinding</class>
@@ -3445,6 +3469,7 @@
     <filename>LevelBrowserPanel_8cpp.html</filename>
     <includes id="LevelBrowserPanel_8h" name="LevelBrowserPanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/LevelBrowserPanel.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="CityView_8h" name="CityView.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CityView.h</includes>
     <includes id="EditorSidecar_8h" name="EditorSidecar.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorSidecar.h</includes>
@@ -3594,9 +3619,9 @@
     <includes id="PalettePanel_8h" name="PalettePanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/PalettePanel.h</includes>
     <includes id="ThumbnailGeometry_8h" name="ThumbnailGeometry.h" local="yes" import="no" module="no" objc="no">Editor/Logic/ThumbnailGeometry.h</includes>
     <includes id="TileTaxonomy_8h" name="TileTaxonomy.h" local="yes" import="no" module="no" objc="no">Editor/Logic/TileTaxonomy.h</includes>
+    <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
     <includes id="ProceduralAtlas_8h" name="ProceduralAtlas.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ProceduralAtlas.h</includes>
-    <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4017,6 +4042,7 @@
     <includes id="AssetGallery_8h" name="AssetGallery.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AssetGallery.h</includes>
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
     <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <namespace>hmi</namespace>
@@ -4219,6 +4245,7 @@
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <includes id="TileTypeName_8h" name="TileTypeName.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileTypeName.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4229,6 +4256,7 @@
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <class kind="class">hmi::PlaceAppearance</class>
     <class kind="struct">hmi::PlaceAppearanceResult</class>
     <namespace>core</namespace>
@@ -4462,6 +4490,7 @@
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
@@ -5238,6 +5267,13 @@
       <anchorfile>test__exploration__carte_8cpp.html</anchorfile>
       <anchor>aadaa0b0edb31c0cd8af18f708a89e605</anchor>
       <arglist>(ExplorationCarteIntegration, LeHerosMarcheSurUneCarte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__exploration__carte_8cpp.html</anchorfile>
+      <anchor>a796cf3dc980c4f4b1751510cb6a6a962</anchor>
+      <arglist>(ExplorationCarteIntegration, UneCarteQuiPuiseDansQuatreNiveauxSeJoue)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -8074,6 +8110,69 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_scene_place.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/</path>
+    <filename>test__scene__place_8cpp.html</filename>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>ae9227f4e0449d991a91d0b3d29d2e1e9</anchor>
+      <arglist>(ScenePlaceTest, LesNiveauxDUneSousZoneVontJusquAuMonde)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>ac1399cdce425b687c6cf4429e3b369e9</anchor>
+      <arglist>(ScenePlaceTest, UnLieuAPlatEtUnLieuMalForme)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>ad347e64a80ce0ed4a759367da05c180d</anchor>
+      <arglist>(ScenePlaceTest, UnLieuDescendDeSesPrefixes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>a50cce1b68172e59ba0e21d1c66886e2b</anchor>
+      <arglist>(ScenePlaceTest, LeCatalogueDUnLieuEmpileSesNiveaux)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>afc75db3ee8932de29d063543c9be135a</anchor>
+      <arglist>(ScenePlaceTest, UneZoneSansPieceProprePuiseDansLaVille)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>a8fc4f8b780de309cac27ea157d359dd2</anchor>
+      <arglist>(ScenePlaceTest, LArbreDesLieuxListeLesZones)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>ae2a82466111b3366e0bce4dd99d276f5</anchor>
+      <arglist>(ScenePlaceTest, UnNiveauCommunIllisibleFaitEchouerLaResolution)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>aa9e1d6f3ad12292e40389628f74fc1b3</anchor>
+      <arglist>(ScenePlaceTest, LesFiguresDUnLieuViennentDeSesNiveaux)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_bestiary.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
     <filename>test__bestiary_8cpp.html</filename>
@@ -9972,6 +10071,106 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_level_tree.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__level__tree_8cpp.html</filename>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
+    <includes id="GestureScript_8h" name="GestureScript.h" local="yes" import="no" module="no" objc="no">Editor/Logic/GestureScript.h</includes>
+    <includes id="LevelFileOperations_8h" name="LevelFileOperations.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LevelFileOperations.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="MapRefactor_8h" name="MapRefactor.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapRefactor.h</includes>
+    <includes id="PieceCatalog_8h" name="PieceCatalog.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PieceCatalog.h</includes>
+    <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a1c274d9eb1a83880cb4acc2aa49b402e</anchor>
+      <arglist>(LevelTreeTest, UneCarteQuiCiteQuatreNiveauxPasseLeControle)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>acf27956586beb6a3e4d34737a0d6e310</anchor>
+      <arglist>(LevelTreeTest, LaTableDUnLieuEmpileSesNiveaux)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>aa62693ac1fad8076001b61c4bcac8f34</anchor>
+      <arglist>(LevelTreeTest, LaSceneChercheChaquePieceSousSonNiveau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a7784b10e8e7bfafbd228ef8436c43621</anchor>
+      <arglist>(LevelTreeTest, UnScenarioPoseDesPiecesCommunes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>ac22cb6721c330835c8c6bfd600b14be3</anchor>
+      <arglist>(LevelTreeTest, LaPaletteGroupeLesPiecesParNiveau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a7ac997ccae1908bc793882aebfc59c31</anchor>
+      <arglist>(Arborescence, PromouvoirSousSaCleNeChangeAucuneCarte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a550bf344603c79f393e8e881ea4048f5</anchor>
+      <arglist>(Arborescence, PromouvoirSousUneAutreCleNeRecritQueSesCartes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a36ec78abbb8bc9ccd31de5a63071bfce</anchor>
+      <arglist>(LevelTreeTest, QuiCiteUnePieceNiveauParNiveau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>aa4b25704c7805b5ddb9a2c515c2b35ae</anchor>
+      <arglist>(Arborescence, UneCarteNeuveSeRangeSousSonLieu)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a0778738f2c26520eaa0332a564a9dd02</anchor>
+      <arglist>(Arborescence, UnPrefabriqueSeRangeAuNiveauDeSesPieces)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a6f2451c886b819d4b15ed9b3a3b39bd8</anchor>
+      <arglist>(LevelTreeTest, LesModelesDUnNiveauServentSesDescendants)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__level__tree_8cpp.html</anchorfile>
+      <anchor>a4e553294e28a3c8c25bbbb8d8adcaf75</anchor>
+      <arglist>(LevelTreeTest, LesFiguresDUneCarteViennentDeSesNiveaux)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_map_documents.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
     <filename>test__map__documents_8cpp.html</filename>
@@ -10185,6 +10384,13 @@
       <anchorfile>test__map__render_8cpp.html</anchorfile>
       <anchor>ab2ccc50483654b01e4a026af0b858638</anchor>
       <arglist>(MapRenderTest, LePlanCoucheLesBlocsEtLegende)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__map__render_8cpp.html</anchorfile>
+      <anchor>aca776bcc95fd618cbdbcfff65982ae62</anchor>
+      <arglist>(MapRenderTest, UneCarteQuiPuiseDansQuatreNiveauxSeRend)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -24140,6 +24346,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>assets</name>
+      <anchorfile>structhmi_1_1EditorReferences.html</anchorfile>
+      <anchor>a834339912ce66c819e4507367fa6a94d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; std::string &gt;</type>
       <name>flags</name>
       <anchorfile>structhmi_1_1EditorReferences.html</anchorfile>
@@ -24420,9 +24633,9 @@
     </member>
     <member kind="function">
       <type>std::filesystem::path</type>
-      <name>placeDirectory</name>
+      <name>pieceImagesDirectory</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
-      <anchor>a187bce4cdab8c53ae8d2f03690d3d18f</anchor>
+      <anchor>a24bddd2ca1acbf3ec098422b83b12c14</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -25480,6 +25693,13 @@
       <name>_appearancePlace</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>a90dde9cb8452cd58a66e57f41e243dee</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_placeAssetsLoaded</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a5c023f981223939b933650aee0c6dfe7</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -33981,6 +34201,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::MaskedScenePiece</name>
+    <filename>structcore_1_1MaskedScenePiece.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1MaskedScenePiece.html</anchorfile>
+      <anchor>aa5c292ce96c30a3682f434ccd165dd98</anchor>
+      <arglist>(const MaskedScenePiece &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>ScenePiece</type>
+      <name>piece</name>
+      <anchorfile>structcore_1_1MaskedScenePiece.html</anchorfile>
+      <anchor>a29d764fde88125e2fd97c1112c594d9c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>by</name>
+      <anchorfile>structcore_1_1MaskedScenePiece.html</anchorfile>
+      <anchor>a4ccf948fe25f7ad0d4f3650f93ccc58d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::Measure</name>
     <filename>structhmi_1_1Measure.html</filename>
     <member kind="function">
@@ -34686,8 +34931,8 @@
       <type>void</type>
       <name>setPieceCatalog</name>
       <anchorfile>classhmi_1_1PalettePanel.html</anchorfile>
-      <anchor>ad24eefa6be650cefdc4a56ac62995347</anchor>
-      <arglist>(std::vector&lt; PieceCatalogGroup &gt; catalog, const std::filesystem::path &amp;placeDirectory)</arglist>
+      <anchor>a5cf5c61e2f1c761d7de78e0f310cd654</anchor>
+      <arglist>(std::vector&lt; PieceCatalogGroup &gt; catalog, const std::filesystem::path &amp;imagesDirectory)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -34852,9 +35097,9 @@
     </member>
     <member kind="variable" protection="private">
       <type>std::filesystem::path</type>
-      <name>_placeDirectory</name>
+      <name>_imagesDirectory</name>
       <anchorfile>classhmi_1_1PalettePanel.html</anchorfile>
-      <anchor>a409bfe339cd5a38a3257a492dc959538</anchor>
+      <anchor>ad9647b104465fc1d28a76ea3f60e563a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -35049,6 +35294,20 @@
       <anchor>aed23663907bb32a3ea52ef940de862bc</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>masks</name>
+      <anchorfile>structhmi_1_1PieceCatalogEntry.html</anchorfile>
+      <anchor>a58d712086a782081ecf76f770a278b53</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>maskedBy</name>
+      <anchorfile>structhmi_1_1PieceCatalogEntry.html</anchorfile>
+      <anchor>a1f64f90ca80b1b2e6f65de2146265d03</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::PieceCatalogGroup</name>
@@ -35065,6 +35324,13 @@
       <name>label</name>
       <anchorfile>structhmi_1_1PieceCatalogGroup.html</anchorfile>
       <anchor>af07ca23e9f6326e2c54dd2d7f04c3ae5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>level</name>
+      <anchorfile>structhmi_1_1PieceCatalogGroup.html</anchorfile>
+      <anchor>a6ee4d2b06195f81f040957f778e67df0</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -35175,11 +35441,25 @@
       <arglist>(std::string_view name) const</arglist>
     </member>
     <member kind="function">
-      <type>std::string_view</type>
+      <type>std::string</type>
       <name>pieceFile</name>
       <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
-      <anchor>a051315857796da96ef2fdd784a6a400d</anchor>
+      <anchor>ad58c25060ecb4d6e665538181c383c5e</anchor>
       <arglist>(std::string_view name) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>figureDirectory</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a25c57aae364b65363a53154edfa93262</anchor>
+      <arglist>(std::string_view figure) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::ScenePieceManifest *</type>
+      <name>pieceManifest</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a9cb9b0a642d929e449adcd89c0b80d82</anchor>
+      <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
       <type>const std::string &amp;</type>
@@ -35251,6 +35531,13 @@
       <anchor>a0ea6b2906d74f13add881e1857ae8047</anchor>
       <arglist>(const std::filesystem::path &amp;path)</arglist>
     </member>
+    <member kind="function" static="yes">
+      <type>static PlaceAppearanceResult</type>
+      <name>loadForPlace</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>ad46b07568c722387857cf3801a76e4cb</anchor>
+      <arglist>(const std::filesystem::path &amp;assetsDirectory, std::string_view place)</arglist>
+    </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
       <name>FORMAT_VERSION</name>
@@ -35264,6 +35551,13 @@
       <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
       <anchor>ae39372602315857b3d4baac10da85cdf</anchor>
       <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillFrom</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a1cb34b2e82c40af6b4f93005eb2430c9</anchor>
+      <arglist>(const PlaceAppearance &amp;other)</arglist>
     </member>
     <member kind="function" protection="private" static="yes">
       <type>static PlaceAppearanceResult</type>
@@ -35328,6 +35622,20 @@
       <anchor>a882d7264d7583942f3c51796cf292fe0</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>core::FigureDirectories</type>
+      <name>_figures</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a35cbbe943bf7fecaaa2f983b187f5556</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::shared_ptr&lt; const core::ScenePieceManifest &gt;</type>
+      <name>_manifest</name>
+      <anchorfile>classhmi_1_1PlaceAppearance.html</anchorfile>
+      <anchor>a5731409d714e6fffd571330b790a97fa</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::PlaceAppearanceResult</name>
@@ -35376,6 +35684,13 @@
       <name>appearance</name>
       <anchorfile>structhmi_1_1PlaceAssets.html</anchorfile>
       <anchor>a5258eb7171f456261d134762050668a5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>manifestError</name>
+      <anchorfile>structhmi_1_1PlaceAssets.html</anchorfile>
+      <anchor>af435aafe7faab28c629041f7a24deed4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -35567,6 +35882,31 @@
       <name>requiredFlag</name>
       <anchorfile>structcore_1_1PortalTarget.html</anchorfile>
       <anchor>af33ec3d98bda62e2769fcfcbd0005901</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::PrefabEntry</name>
+    <filename>structhmi_1_1PrefabEntry.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1PrefabEntry.html</anchorfile>
+      <anchor>a8529caa79cb522c7d019cee5ce6f1f34</anchor>
+      <arglist>(const PrefabEntry &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1PrefabEntry.html</anchorfile>
+      <anchor>afe42dd2a8672271d32582fd6328a4516</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>level</name>
+      <anchorfile>structhmi_1_1PrefabEntry.html</anchorfile>
+      <anchor>a625fc12b2ec09682a7918b64e4cfb080</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -36890,8 +37230,47 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::SceneLevel</name>
+    <filename>structcore_1_1SceneLevel.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1SceneLevel.html</anchorfile>
+      <anchor>a37331188d4263ae3055e16c1bfd17e79</anchor>
+      <arglist>(const SceneLevel &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>label</name>
+      <anchorfile>structcore_1_1SceneLevel.html</anchorfile>
+      <anchor>abfcab0aafb3340be62611bafc8763967</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>place</name>
+      <anchorfile>structcore_1_1SceneLevel.html</anchorfile>
+      <anchor>afbede4e7357e2e17e0d828150e00fa50</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>directory</name>
+      <anchorfile>structcore_1_1SceneLevel.html</anchorfile>
+      <anchor>a13e51ea6861c4094917399c70f68097c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::ScenePiece</name>
     <filename>structcore_1_1ScenePiece.html</filename>
+    <member kind="function">
+      <type>std::string</type>
+      <name>path</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>a95e3be7b50645669d22d20838fc4e84c</anchor>
+      <arglist>() const</arglist>
+    </member>
     <member kind="function">
       <type>PieceFootprint</type>
       <name>footprint</name>
@@ -37004,6 +37383,20 @@
       <anchor>a4c40e2acdc88439674762e5402ba224d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>directory</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>a2ae097df852961297b52126aaa598278</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>level</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>ac36eb97c4fccbb4d271ca7a392fce780</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::ScenePieceManifest</name>
@@ -37037,6 +37430,20 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>const std::vector&lt; SceneLevel &gt; &amp;</type>
+      <name>levels</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>a35e569d9895ac423b33b6afd3103e4dc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; MaskedScenePiece &gt; &amp;</type>
+      <name>masked</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>a504f765ccecdc061556e443654cf7522</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>const ScenePiece *</type>
       <name>find</name>
       <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
@@ -37056,6 +37463,13 @@
       <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
       <anchor>a6979cb457d32c2be9d8a6587068d7f22</anchor>
       <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static ScenePieceManifestResult</type>
+      <name>resolve</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>a6dadfe65c55956dd86871a99fc0212e6</anchor>
+      <arglist>(const std::filesystem::path &amp;assetsDirectory, std::string_view place)</arglist>
     </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
@@ -37097,6 +37511,20 @@
       <name>_pieces</name>
       <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
       <anchor>ac98b1e9fb3d0fb154910f386c813c9ac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; SceneLevel &gt;</type>
+      <name>_levels</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>ac09673dc0c47fbc49d034d39c5f69e62</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; MaskedScenePiece &gt;</type>
+      <name>_masked</name>
+      <anchorfile>classcore_1_1ScenePieceManifest.html</anchorfile>
+      <anchor>a0035bba3e7ee033e81b5d6d51c40ff5a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -42064,6 +42492,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>figureDirectories</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>a3fe8429279cb6b93c6b09fd800b16765</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
       <name>figures</name>
       <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
@@ -42645,8 +43080,10 @@
     <class kind="struct">core::MarkerColor</class>
     <class kind="struct">core::MarkerImage</class>
     <class kind="struct">core::ScenePiece</class>
+    <class kind="struct">core::MaskedScenePiece</class>
     <class kind="class">core::ScenePieceManifest</class>
     <class kind="struct">core::ScenePieceManifestResult</class>
+    <class kind="struct">core::SceneLevel</class>
     <class kind="struct">core::CreatureTrait</class>
     <class kind="struct">core::CreatureAction</class>
     <class kind="struct">core::CreatureSpeed</class>
@@ -42790,6 +43227,13 @@
       <name>PropertyMap</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>ac3cd7f319efbfd33f183ca31782d1731</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>FigureDirectories</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a6c8c611f5b03ec8461b387664a026ac0</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
@@ -44429,6 +44873,90 @@
       <arglist>(std::string_view key) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>bool</type>
+      <name>isValidScenePlace</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aef1bcbf15a56b7e7d7fdbcb1653c9eec</anchor>
+      <arglist>(std::string_view place) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isFlatScenePlace</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aea20554f4ac58a2ae3fbe4f83198b153</anchor>
+      <arglist>(std::string_view place) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>scenePlaceLabel</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a5d992e987466346bf7d8e58971e79a38</anchor>
+      <arglist>(std::string_view segment)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; SceneLevel &gt;</type>
+      <name>sceneLevelCandidates</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aebc2b24792f0fb0c75d6eb0059a600ec</anchor>
+      <arglist>(std::string_view place)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>ownSceneDirectory</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a95329d9831ad744916371a054eee853f</anchor>
+      <arglist>(std::string_view place)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>fallbackScenePiecePath</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1662b570c7c1114bc9a4e62763485616</anchor>
+      <arglist>(std::string_view place, std::string_view piece)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>scenePlaceDescendsFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac240dc083faf2330f8e69587219863e4</anchor>
+      <arglist>(std::string_view place, std::string_view ancestor)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>scenePlaceAncestry</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>afa88cfe8485726f11485a5b2d86e15f0</anchor>
+      <arglist>(std::string_view place)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>scenePlaces</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ad6626a85739f1b8a654f2e4f362d6bfb</anchor>
+      <arglist>(const std::filesystem::path &amp;assetsDirectory)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; SceneLevel &gt;</type>
+      <name>characterLevelCandidates</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aa631d92fa5bd146a155ee27d970b6b6a</anchor>
+      <arglist>(std::string_view place)</arglist>
+    </member>
+    <member kind="function">
+      <type>FigureDirectories</type>
+      <name>resolveFigures</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a03fbe375242fffeae3499c57aaa301bf</anchor>
+      <arglist>(const std::filesystem::path &amp;assetsDirectory, std::string_view place)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>figureDirectory</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aed05eea4a2732d4c5a29181733d80f08</anchor>
+      <arglist>(const FigureDirectories &amp;figures, std::string_view figure)</arglist>
+    </member>
+    <member kind="function">
       <type>std::string_view</type>
       <name>abilityName</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -45702,6 +46230,7 @@
     <class kind="struct">hmi::StampForcedCell</class>
     <class kind="struct">hmi::Stamp</class>
     <class kind="struct">hmi::StampPasteResult</class>
+    <class kind="struct">hmi::PrefabEntry</class>
     <class kind="struct">hmi::MapTemplateLayer</class>
     <class kind="struct">hmi::MapTemplate</class>
     <class kind="struct">hmi::LibraryFinding</class>
@@ -46838,8 +47367,8 @@
       <type>core::EntityReferenceContext</type>
       <name>referenceContext</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a0d0807508a2f34865c159279827d4806</anchor>
-      <arglist>(const EditorReferences &amp;references, std::string_view editedMapId, const std::vector&lt; core::MapEntity &gt; &amp;editedEntities)</arglist>
+      <anchor>af4ea2cd1857b4816619f1b5c6ecdd969</anchor>
+      <arglist>(const EditorReferences &amp;references, std::string_view editedMapId, const std::vector&lt; core::MapEntity &gt; &amp;editedEntities, std::string_view place={})</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
@@ -47022,6 +47551,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ab632ba3c3120c215116a504837d137b9</anchor>
       <arglist>(const std::vector&lt; core::TileLayer &gt; &amp;layers, LayerSlot active)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>levelFolderOf</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a97a1f449e9f4df4d908818d3b727e1b1</anchor>
+      <arglist>(std::string_view place)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -47395,11 +47931,25 @@
       <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view place)</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; PrefabEntry &gt;</type>
+      <name>availablePrefabs</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aef07b8646fceab1c624a224df72a0253</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view place)</arglist>
+    </member>
+    <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
       <name>prefabNames</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a9c9aba9b8952f0682eb1a046133bb2c4</anchor>
       <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view place)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>prefabLevel</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a3c4e9f0c2dba8b305bb472b1fcf59df5</anchor>
+      <arglist>(const Stamp &amp;stamp, const core::ScenePieceManifest *manifest)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -47426,8 +47976,8 @@
       <type>std::vector&lt; MapTemplate &gt;</type>
       <name>mapTemplates</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a0e4099166134b351936920ef6d43c2ef</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
+      <anchor>aeadbf1d8ced6c6f6c841d6ac005b6b9e</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view place)</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; LibraryFinding &gt;</type>
@@ -48525,8 +49075,8 @@
       <type>std::vector&lt; Citation &gt;</type>
       <name>citationsOfPiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad8039f7a46143bef6da7de82c1a2b706</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece)</arglist>
+      <anchor>aa77afd17d50b0a0f78629cd36d58c921</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</arglist>
     </member>
     <member kind="function">
       <type>RefactorPlan</type>
@@ -48553,8 +49103,8 @@
       <type>RefactorPlan</type>
       <name>planReplacePiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>abfd98fd3827a2fc0a88db80648a18b59</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</arglist>
+      <anchor>a249ab1a3e2b1d49602866e4318a47c90</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</arglist>
     </member>
     <member kind="function">
       <type>core::PieceRenaming</type>
@@ -49036,8 +49586,8 @@
       <type>std::vector&lt; Citation &gt;</type>
       <name>citationsOfPiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad8039f7a46143bef6da7de82c1a2b706</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece)</arglist>
+      <anchor>aa77afd17d50b0a0f78629cd36d58c921</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</arglist>
     </member>
     <member kind="function">
       <type>RefactorPlan</type>
@@ -49064,8 +49614,8 @@
       <type>RefactorPlan</type>
       <name>planReplacePiece</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>abfd98fd3827a2fc0a88db80648a18b59</anchor>
-      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</arglist>
+      <anchor>a249ab1a3e2b1d49602866e4318a47c90</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</arglist>
     </member>
     <member kind="function">
       <type>core::PieceRenaming</type>
@@ -49384,6 +49934,7 @@
     <file>test_gesture_script.cpp</file>
     <file>test_level_file_operations.cpp</file>
     <file>test_level_name_validation.cpp</file>
+    <file>test_level_tree.cpp</file>
     <file>test_map_documents.cpp</file>
     <file>test_map_format.cpp</file>
     <file>test_map_refactor.cpp</file>
@@ -49833,6 +50384,8 @@
     <file>AssetMarker.h</file>
     <file>ScenePieceManifest.cpp</file>
     <file>ScenePieceManifest.h</file>
+    <file>ScenePlace.cpp</file>
+    <file>ScenePlace.h</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources</name>
@@ -49840,6 +50393,7 @@
     <filename>dir_ce0162bee40be316373db36c0f71b686.html</filename>
     <file>test_asset_keys.cpp</file>
     <file>test_scene_piece_manifest.cpp</file>
+    <file>test_scene_place.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg</name>

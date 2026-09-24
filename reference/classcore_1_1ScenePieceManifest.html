@@ -154,12 +154,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adf5ffe89065ca7bcfd21e0b5a3f2e378" id="r_adf5ffe89065ca7bcfd21e0b5a3f2e378"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adf5ffe89065ca7bcfd21e0b5a3f2e378">tileWidth</a> () const noexcept</td></tr>
 <tr class="memitem:a9966c63f75656e73fb3bce0ff8817d97" id="r_a9966c63f75656e73fb3bce0ff8817d97"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9966c63f75656e73fb3bce0ff8817d97">tileHeight</a> () const noexcept</td></tr>
 <tr class="memitem:a6395b628d5e55a75bd2a62bff6421a05" id="r_a6395b628d5e55a75bd2a62bff6421a05"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6395b628d5e55a75bd2a62bff6421a05">pieces</a> () const noexcept</td></tr>
+<tr class="memitem:a35e569d9895ac423b33b6afd3103e4dc" id="r_a35e569d9895ac423b33b6afd3103e4dc"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a35e569d9895ac423b33b6afd3103e4dc">levels</a> () const noexcept</td></tr>
+<tr class="memitem:a504f765ccecdc061556e443654cf7522" id="r_a504f765ccecdc061556e443654cf7522"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1MaskedScenePiece.html">MaskedScenePiece</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a504f765ccecdc061556e443654cf7522">masked</a> () const noexcept</td></tr>
 <tr class="memitem:adef82b97ddbffdc57811c0a9bcf22caf" id="r_adef82b97ddbffdc57811c0a9bcf22caf"><td class="memItemLeft">const <a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adef82b97ddbffdc57811c0a9bcf22caf">find</a> (std::string_view name) const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7517f6483f0ee8b55fe5c44cafb8efb0" id="r_a7517f6483f0ee8b55fe5c44cafb8efb0"><td class="memItemLeft">static <a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7517f6483f0ee8b55fe5c44cafb8efb0">loadFromString</a> (std::string_view json)</td></tr>
 <tr class="memitem:a6979cb457d32c2be9d8a6587068d7f22" id="r_a6979cb457d32c2be9d8a6587068d7f22"><td class="memItemLeft">static <a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6979cb457d32c2be9d8a6587068d7f22">loadFromFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memitem:a6dadfe65c55956dd86871a99fc0212e6" id="r_a6dadfe65c55956dd86871a99fc0212e6"><td class="memItemLeft">static <a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6dadfe65c55956dd86871a99fc0212e6">resolve</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view <a class="el" href="#a6ea382802f3c340421cc2acebf28da0c">place</a>)</td></tr>
+<tr class="memdesc:a6dadfe65c55956dd86871a99fc0212e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>catalogue résolu</b> du lieu <code class="param">place</code> : les manifestes de ses niveaux (<span class="tt"><a class="el" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec" title="Les niveaux candidats de place, du plus propre au plus commun, monde compris.">core::sceneLevelCandidates</a></span>), empilés du plus propre au plus commun.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -175,6 +179,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a6b62a13afce50c574a65c78a58173106" id="r_a6b62a13afce50c574a65c78a58173106"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6b62a13afce50c574a65c78a58173106">_tileWidth</a> = 0</td></tr>
 <tr class="memitem:aceedae6ba52f413aa3df686153c6446b" id="r_aceedae6ba52f413aa3df686153c6446b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aceedae6ba52f413aa3df686153c6446b">_tileHeight</a> = 0</td></tr>
 <tr class="memitem:ac98b1e9fb3d0fb154910f386c813c9ac" id="r_ac98b1e9fb3d0fb154910f386c813c9ac"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac98b1e9fb3d0fb154910f386c813c9ac">_pieces</a></td></tr>
+<tr class="memitem:ac09673dc0c47fbc49d034d39c5f69e62" id="r_ac09673dc0c47fbc49d034d39c5f69e62"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac09673dc0c47fbc49d034d39c5f69e62">_levels</a></td></tr>
+<tr class="memitem:a0035bba3e7ee033e81b5d6d51c40ff5a" id="r_a0035bba3e7ee033e81b5d6d51c40ff5a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MaskedScenePiece.html">MaskedScenePiece</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0035bba3e7ee033e81b5d6d51c40ff5a">_masked</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les pièces d'un lieu, dans l'ordre du manifeste. </p>
@@ -231,6 +237,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a35e569d9895ac423b33b6afd3103e4dc" name="a35e569d9895ac423b33b6afd3103e4dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35e569d9895ac423b33b6afd3103e4dc">&#9670;&#160;</a></span>levels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt; &amp; core::ScenePieceManifest::levels </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les niveaux dont un catalogue résolu a lu un manifeste, du plus propre au plus commun ; vide pour un manifeste lu seul. </dd></dl>
+
+</div>
+</div>
 <a id="a6979cb457d32c2be9d8a6587068d7f22" name="a6979cb457d32c2be9d8a6587068d7f22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6979cb457d32c2be9d8a6587068d7f22">&#9670;&#160;</a></span>loadFromFile()</h2>
 
@@ -281,6 +313,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a504f765ccecdc061556e443654cf7522" name="a504f765ccecdc061556e443654cf7522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a504f765ccecdc061556e443654cf7522">&#9670;&#160;</a></span>masked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1MaskedScenePiece.html">MaskedScenePiece</a> &gt; &amp; core::ScenePieceManifest::masked </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les pièces communes qu'une pièce plus propre masque, dans l'ordre des niveaux. </dd></dl>
+
+</div>
+</div>
 <a id="a6395b628d5e55a75bd2a62bff6421a05" name="a6395b628d5e55a75bd2a62bff6421a05"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6395b628d5e55a75bd2a62bff6421a05">&#9670;&#160;</a></span>pieces()</h2>
 
@@ -303,7 +361,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les pièces, dans l'ordre où le manifeste les écrit. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les pièces, dans l'ordre où le manifeste les écrit ; pour un catalogue résolu, niveau par niveau, du plus propre au plus commun, sans les pièces masquées. </dd></dl>
 
 </div>
 </div>
@@ -330,6 +388,45 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le lieu (<span class="tt">disposition</span> du manifeste : <span class="tt">martpart</span>), vide s'il n'est pas donné. </dd></dl>
+
+</div>
+</div>
+<a id="a6dadfe65c55956dd86871a99fc0212e6" name="a6dadfe65c55956dd86871a99fc0212e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dadfe65c55956dd86871a99fc0212e6">&#9670;&#160;</a></span>resolve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a> core::ScenePieceManifest::resolve </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>assetsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le <b>catalogue résolu</b> du lieu <code class="param">place</code> : les manifestes de ses niveaux (<span class="tt"><a class="el" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec" title="Les niveaux candidats de place, du plus propre au plus commun, monde compris.">core::sceneLevelCandidates</a></span>), empilés du plus propre au plus commun. </p>
+<p>Un niveau sans manifeste est passé ; un manifeste qui ne se lit pas fait échouer la lecture, message préfixé de son dossier : une pièce qui disparaîtrait en silence d'un niveau commun ferait tomber la collision de toutes les cartes qui descendent de lui. Aucun manifeste : <span class="tt">FileNotFound</span>.</p>
+<p>Le losange (<span class="tt">tile</span>) est celui du niveau le plus propre qui en déclare un. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetsDirectory</td><td>Le dossier <span class="tt">Assets/</span>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a6ea382802f3c340421cc2acebf28da0c">place</a></td><td>Le lieu (<span class="tt">central-empire/capital/arenarea</span>, ou <span class="tt">bourg</span> à plat). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -386,6 +483,50 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ac09673dc0c47fbc49d034d39c5f69e62" name="ac09673dc0c47fbc49d034d39c5f69e62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac09673dc0c47fbc49d034d39c5f69e62">&#9670;&#160;</a></span>_levels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a>&gt; core::ScenePieceManifest::_levels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0035bba3e7ee033e81b5d6d51c40ff5a" name="a0035bba3e7ee033e81b5d6d51c40ff5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0035bba3e7ee033e81b5d6d51c40ff5a">&#9670;&#160;</a></span>_masked</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1MaskedScenePiece.html">MaskedScenePiece</a>&gt; core::ScenePieceManifest::_masked</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac98b1e9fb3d0fb154910f386c813c9ac" name="ac98b1e9fb3d0fb154910f386c813c9ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac98b1e9fb3d0fb154910f386c813c9ac">&#9670;&#160;</a></span>_pieces</h2>
 

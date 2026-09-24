@@ -28,6 +28,7 @@
 
 #include "Core/Data/JsonDocument.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/ScenePlace.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
 
@@ -316,17 +317,12 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
     }
 <span style = "background-color:#dfd">}</span>
 
-<span style = "background-color:#dfd">void readScenes(const std::filesystem::path&amp; root, AssetGalleryCatalog&amp; catalog) {
-    std::vector&lt;std::string&gt; dispositions;
-    std::error_code error;
-    for (const auto&amp; item : std::filesystem::directory_iterator(root / "Scene", error)) {
-        if (item.is_directory()) {
-            dispositions.push_back(item.path().filename().string());
+<span style = "background-color:#dfd">void readScenes(const std::filesystem::path&amp; root, AssetGalleryCatalog&amp; catalog) {</span>
+    // Les lieux d'essai a plat ; l'arborescence par niveaux est lue par readTree.
+<span style = "background-color:#dfd">    for (const std::string&amp; name : core::scenePlaces(root)) {
+        if (core::isFlatScenePlace(name)) {
+            readSceneFamily(root, core::ownSceneDirectory(name), "ScÃ¨ne Â· " + name, catalog);
         }
-    }
-    std::ranges::sort(dispositions);
-    for (const std::string&amp; name : dispositions) {
-        readSceneFamily(root, "Scene/" + name, "ScÃ¨ne Â· " + name, catalog);
     }
 }</span>
 

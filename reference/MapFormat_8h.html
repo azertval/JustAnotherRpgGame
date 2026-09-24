@@ -161,7 +161,7 @@ $(function(){initNavTree('MapFormat_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3APlaceAssets" id="r_hmi_3A_3APlaceAssets"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlaceAssets.html">hmi::PlaceAssets</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le lieu d'une carte apporte : son manifeste et sa table, s'ils existent.  <a href="structhmi_1_1PlaceAssets.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le lieu d'une carte apporte : son catalogue résolu et sa table, s'ils existent.  <a href="structhmi_1_1PlaceAssets.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMapCheckFinding" id="r_hmi_3A_3AMapCheckFinding"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapCheckFinding.html">hmi::MapCheckFinding</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un constat du contrôle, sur une carte, et parfois sur une case.  <a href="structhmi_1_1MapCheckFinding.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMapCheckReport" id="r_hmi_3A_3AMapCheckReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapCheckReport.html">hmi::MapCheckReport</a></td></tr>
@@ -203,7 +203,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>La garde du format de carte v4 : la <b>migration</b> d'une carte et le <b>contrôle</b> de toutes (<span class="tt">LOT-EDITOR-12</span>, constat A12, <span class="tt">EX-EDIT-062</span>). </p>
 <p>Logique pure, sans fenêtre.</p>
 <p>Ce que <span class="tt">LevelEditor --migrate</span> et <span class="tt">LevelEditor --check</span> appellent (<span class="tt">runMapCommand</span>), et ce que les tests appellent directement. Les messages sont en anglais, comme toute l'IHM de l'éditeur.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md69"></a>
 La migration</h2>
 <p>Une carte se convertit par un acte explicite, jamais par l'effet de bord d'un enregistrement (règle 1 de la feuille de route). Migrer une carte, c'est :</p>
 <ol type="1">
@@ -213,7 +213,7 @@ La migration</h2>
 <li><b>déduire la collision</b> (<span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span>) : partout où la grille écrite s'accorde avec la déduction, elle en prend la valeur ; ailleurs, elle garde la sienne et la case devient <b>forcée</b> (D10). Le jeu ne voit donc aucune différence ;</li>
 <li>l'écrire en v4 canonique.</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md68"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md70"></a>
 Le contrôle</h2>
 <p>Pour chaque carte de <span class="tt">Levels/</span> : version courante, écriture canonique (charger puis écrire rend le même fichier), références (portails, points d'arrivée, zones de combat), pièces présentes au manifeste, collision égale à la déduction hors des cases forcées, identifiants d'entité. Les avertissements ne font pas échouer : réserve de hauteur non nulle, pièce citée par un ancien nom, gêne et abri pas encore joués, case forcée inutile, pièces larges qui se recouvrent.</p>
 <p>Puis le <b>contenu</b> (<span class="tt">LOT-EDITOR-07</span>, <span class="tt"><a class="el" href="ContentCheck_8h.html" title="Le contrôle du contenu : ce qu&#39;une carte promet au joueur et ne tient pas (LOT-EDITOR-07).">ContentCheck.h</a></span>) : références des entités, terrain des rencontres, atteignabilité, portails sans retour, points d'arrivée orphelins, clés de traduction. </p>

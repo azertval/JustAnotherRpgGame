@@ -157,7 +157,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a701f3528becc64780b532ee706275f5e" id="r_a701f3528becc64780b532ee706275f5e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a701f3528becc64780b532ee706275f5e">name</a></td></tr>
 <tr class="memdesc:a701f3528becc64780b532ee706275f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom court, celui que la carte écrit (<span class="tt">wall-left</span>).  <br /></td></tr>
 <tr class="memitem:a95b8a3728b601fb9e12819c2b67054a9" id="r_a95b8a3728b601fb9e12819c2b67054a9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a95b8a3728b601fb9e12819c2b67054a9">file</a></td></tr>
-<tr class="memdesc:a95b8a3728b601fb9e12819c2b67054a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier image, relatif au dossier du lieu ; vide pour une pièce absente de la planche.  <br /></td></tr>
+<tr class="memdesc:a95b8a3728b601fb9e12819c2b67054a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier image, relatif à <span class="tt">Assets/</span> (<span class="tt"><a class="el" href="structcore_1_1ScenePiece.html#a95e3be7b50645669d22d20838fc4e84c">core::ScenePiece::path</a></span>) ; vide pour une pièce absente de la planche.  <br /></td></tr>
 <tr class="memitem:a4ded16f111359a4a0944a367ddb13c2f" id="r_a4ded16f111359a4a0944a367ddb13c2f"><td class="memItemLeft"><a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">core::ScenePieceClass</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4ded16f111359a4a0944a367ddb13c2f">pieceClass</a> = <a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">core::ScenePieceClass::Other</a></td></tr>
 <tr class="memitem:a0f8ed517d585b3a8587b808f7ad2d8cf" id="r_a0f8ed517d585b3a8587b808f7ad2d8cf"><td class="memItemLeft"><a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0f8ed517d585b3a8587b808f7ad2d8cf">footprint</a></td></tr>
 <tr class="memitem:aff4a46723316283a94f9409416caa3ca" id="r_aff4a46723316283a94f9409416caa3ca"><td class="memItemLeft"><a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252">core::PieceTactical</a>&#160;</td><td class="memItemRight"><a class="el" href="#aff4a46723316283a94f9409416caa3ca">tactical</a> = <a class="el" href="namespacecore.html#a096c9cc059de39edb20ccea06d18f252ae41480b6bbfbf7407974a88d3d34f4fa">core::PieceTactical::Solid</a></td></tr>
@@ -165,6 +165,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a940a4308985222a779824763a57171d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Citée par la carte, absente du manifeste : montrée en damier.  <br /></td></tr>
 <tr class="memitem:aed23663907bb32a3ea52ef940de862bc" id="r_aed23663907bb32a3ea52ef940de862bc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aed23663907bb32a3ea52ef940de862bc">floor</a> = false</td></tr>
 <tr class="memdesc:aed23663907bb32a3ea52ef940de862bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Se pose sur la couche de sol (un sol) ; sinon sur la couche de décor.  <br /></td></tr>
+<tr class="memitem:a58d712086a782081ecf76f770a278b53" id="r_a58d712086a782081ecf76f770a278b53"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a58d712086a782081ecf76f770a278b53">masks</a></td></tr>
+<tr class="memdesc:a58d712086a782081ecf76f770a278b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau commun dont cette pièce masque une pièce de même nom (<span class="tt">LOT-124</span>), vide sinon.  <br /></td></tr>
+<tr class="memitem:a1f64f90ca80b1b2e6f65de2146265d03" id="r_a1f64f90ca80b1b2e6f65de2146265d03"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1f64f90ca80b1b2e6f65de2146265d03">maskedBy</a></td></tr>
+<tr class="memdesc:a1f64f90ca80b1b2e6f65de2146265d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour une pièce commune masquée : le niveau de la pièce qui la masque.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une pièce du catalogue. </p>
@@ -207,7 +211,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fichier image, relatif au dossier du lieu ; vide pour une pièce absente de la planche. </p>
+<p>Fichier image, relatif à <span class="tt">Assets/</span> (<span class="tt"><a class="el" href="structcore_1_1ScenePiece.html#a95e3be7b50645669d22d20838fc4e84c">core::ScenePiece::path</a></span>) ; vide pour une pièce absente de la planche. </p>
 
 </div>
 </div>
@@ -238,6 +242,39 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f64f90ca80b1b2e6f65de2146265d03" name="a1f64f90ca80b1b2e6f65de2146265d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f64f90ca80b1b2e6f65de2146265d03">&#9670;&#160;</a></span>maskedBy</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::PieceCatalogEntry::maskedBy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pour une pièce commune masquée : le niveau de la pièce qui la masque. </p>
+<p>Elle ne se pose pas — la carte qui la nommerait obtiendrait l'autre. </p>
+
+</div>
+</div>
+<a id="a58d712086a782081ecf76f770a278b53" name="a58d712086a782081ecf76f770a278b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58d712086a782081ecf76f770a278b53">&#9670;&#160;</a></span>masks</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::PieceCatalogEntry::masks</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau commun dont cette pièce masque une pièce de même nom (<span class="tt">LOT-124</span>), vide sinon. </p>
 
 </div>
 </div>

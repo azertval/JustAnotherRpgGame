@@ -24,6 +24,7 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
+#include "Core/Resources/ScenePlace.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/LevelNameValidation.h"
@@ -77,6 +78,13 @@ void LevelFileOperations::addNameTranslation(const std::filesystem::path&amp; fi
                                      text, copyFrom));
 <span style = "background-color:#dfd">}</span>
 
+<span style = "background-color:#dfd">std::string levelFolderOf(std::string_view place) {
+    if (!core::isValidScenePlace(place) || core::isFlatScenePlace(place)) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    return std::string{place.substr(0, place.rfind('/'))};
+}</span>
+
 <span style = "background-color:#dfd">std::filesystem::path LevelFileOperations::pathForName(const std::string&amp; name) const {
     return _dir / (name + ".json");
 }</span>
@@ -117,11 +125,15 @@ FileOperationResult LevelFileOperations::create(const std::string&amp; name, int
 <span style = "background-color:#dfd">    if (width &lt; 1 || height &lt; 1) {
         return FileOperationResult::failure("Dimensions trop petites (une case au minimum).");</span>
     }
-<span style = "background-color:#dfd">    const std::filesystem::path target = pathForName(trimmed);
-    std::error_code error;
+    // Une carte se range sous le chemin de son lieu (LOT-124) : un quartier de la Capitale sous
+    // `Levels/central-empire/capital/`, son donjon sous `â¦/capital/arenarea/`.
+<span style = "background-color:#dfd">    const std::filesystem::path target =</span>
+        _dir / std::filesystem::path(levelFolderOf(place)) / (trimmed + ".json");
+<span style = "background-color:#dfd">    std::error_code error;
     if (std::filesystem::exists(target, error)) {
         return FileOperationResult::failure("Un niveau porte dÃ©jÃ  ce nom.");</span>
     }
+<span style = "background-color:#dfd">    std::filesystem::create_directories(target.parent_path(), error);</span>
     // Niveau minimal valide : grille vide + une entrÃ©e (coin bas gauche).
 <span style = "background-color:#dfd">    core::LevelDraft draft = core::LevelDraft::empty(nameKeyFor(target), width, height);
     if (model != nullptr) {</span>
@@ -167,11 +179,11 @@ FileOperationResult LevelFileOperations::create(const std::string&amp; name, int
 <span style = "background-color:#dfd">    draft.addLayer(core::LayerKind::Decor, "relief");</span>
     // La collision est celle que la dÃ©duction donne Ã  une carte pleine : le mur arrÃªte la vue
     // (dÃ©cision D10 de l'Ã©diteur).
-<span style = "background-color:#dfd">    draft.paintRegion(0, 0,</span>
-                      std::vector&lt;std::vector&lt;core::TileType&gt;&gt;(
-                          static_cast&lt;std::size_t&gt;(height),
-                          std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(width),
-                                                      core::TileType::Wall)));
+<span style = "background-color:#dfd">    draft.paintRegion(</span>
+        0, 0,
+        std::vector&lt;std::vector&lt;core::TileType&gt;&gt;(
+            static_cast&lt;std::size_t&gt;(height),
+            std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(width), core::TileType::Wall)));
     // L'entrÃ©e ne se tient pas dans le vide : sa case reÃ§oit un sol de terre, que la table du lieu
     // traduit en piÃ¨ce, et que la maquette peint en couleur.
 <span style = "background-color:#dfd">    draft.paintLayerTile(*ground, 0, height - 1, core::TileType::Dirt);

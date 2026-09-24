@@ -18,11 +18,13 @@
 #include &lt;cmath&gt;
 #include &lt;optional&gt;
 #include &lt;set&gt;
+#include &lt;system_error&gt;
 #include &lt;utility&gt;
 
 #include "Core/Data/JsonDocument.h"
 #include "Core/Levels/TileTypeName.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/ScenePlace.h"
 
 namespace hmi {
 
@@ -32,12 +34,12 @@ constexpr std::string_view FIELD_PLACE = "place";
 constexpr std::string_view FIELD_FLOORS = "floors";
 constexpr std::string_view FIELD_RELIEF = "relief";
 
-<span style = "background-color:#dfd">[[nodiscard]] PlaceAppearanceError mapError(core::JsonReadError error) {
+<span style = "background-color:#fdd">[[nodiscard]] PlaceAppearanceError mapError(core::JsonReadError error) {
     switch (error) {</span>
         case core::JsonReadError::None:
 <span style = "background-color:#fdd">            return PlaceAppearanceError::None;</span>
         case core::JsonReadError::FileNotFound:
-<span style = "background-color:#dfd">            return PlaceAppearanceError::FileNotFound;</span>
+<span style = "background-color:#fdd">            return PlaceAppearanceError::FileNotFound;</span>
         case core::JsonReadError::ParseError:
 <span style = "background-color:#fdd">            return PlaceAppearanceError::ParseError;</span>
         case core::JsonReadError::UnsupportedVersion:
@@ -45,8 +47,8 @@ constexpr std::string_view FIELD_RELIEF = "relief";
         case core::JsonReadError::MalformedStructure:
 <span style = "background-color:#fdd">            return PlaceAppearanceError::MalformedStructure;</span>
     }
-<span style = "background-color:#fdd">    return PlaceAppearanceError::MalformedStructure;</span>
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#fdd">    return PlaceAppearanceError::MalformedStructure;
+}</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] PlaceAppearanceResult failure(std::string message, PlaceAppearanceError error) {
     return PlaceAppearanceResult{.appearance = {}, .error = error, .message = std::move(message)};
@@ -128,7 +130,60 @@ constexpr std::string_view FIELD_RELIEF = "relief";
     return result;
 }</span>
 
+PlaceAppearanceResult PlaceAppearance::loadForPlace(const std::filesystem::path&amp; assetsDirectory,
+<span style = "background-color:#dfd">                                                    std::string_view place) {
+    PlaceAppearanceResult result;
+    result.appearance._place = std::string{place};
+    bool found = false;
+    for (const core::SceneLevel&amp; level : core::sceneLevelCandidates(place)) {
+        const std::filesystem::path file =</span>
+            assetsDirectory / std::filesystem::path(level.directory) / "appearance.json";
+<span style = "background-color:#dfd">        std::error_code error;
+        if (!std::filesystem::is_regular_file(file, error)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const PlaceAppearanceResult table =</span>
+            fromDocument(core::readJsonObjectFromFile(file, FORMAT_VERSION));
+<span style = "background-color:#dfd">        if (!table.ok()) {</span>
+<span style = "background-color:#fdd">            return failure(level.directory + "/appearance.json: " + table.message, table.error);</span>
+        }
+        // Le plus propre gagne : son rapport du losange, et chaque type qu'il traduit.
+<span style = "background-color:#dfd">        if (!found) {
+            result.appearance._diamondRatio = table.appearance._diamondRatio;</span>
+        }
+<span style = "background-color:#dfd">        found = true;
+        result.appearance.fillFrom(table.appearance);
+    }
+    const core::ScenePieceManifestResult manifest =</span>
+        core::ScenePieceManifest::resolve(assetsDirectory, place);
+<span style = "background-color:#dfd">    if (manifest.ok()) {
+        result.appearance.adoptManifest(manifest.manifest);
+        found = true;
+    } else if (manifest.error != core::ScenePieceManifestError::FileNotFound) {</span>
+<span style = "background-color:#fdd">        return failure(manifest.message, PlaceAppearanceError::MalformedStructure);</span>
+    }
+<span style = "background-color:#dfd">    result.appearance._figures = core::resolveFigures(assetsDirectory, place);
+    if (!found &amp;&amp; result.appearance._figures.empty()) {
+        return failure("no appearance table nor piece manifest for place " + std::string{place},</span>
+                       PlaceAppearanceError::FileNotFound);
+    }
+<span style = "background-color:#dfd">    return result;
+}</span>
+
+<span style = "background-color:#dfd">void PlaceAppearance::fillFrom(const PlaceAppearance&amp; other) {
+    for (const auto&amp; [type, pieces] : other._floors) {
+        _floors.try_emplace(type, pieces);
+    }
+    for (const auto&amp; [type, pieces] : other._relief) {
+        _relief.try_emplace(type, pieces);
+    }
+}</span>
+
 <span style = "background-color:#dfd">void PlaceAppearance::adoptManifest(const core::ScenePieceManifest&amp; manifest) {
+    _manifest = std::make_shared&lt;const core::ScenePieceManifest&gt;(manifest);</span>
+    // Un manifeste lu seul ne dit pas son dossier : c'est celui, propre, du lieu que la table
+    // nomme.
+<span style = "background-color:#dfd">    const std::string ownDirectory = core::ownSceneDirectory(_place);
     for (const core::ScenePiece&amp; piece : manifest.pieces()) {
         for (const std::string&amp; alias : piece.aliases) {
             _aliases.emplace(alias, piece.name);
@@ -136,9 +191,11 @@ constexpr std::string_view FIELD_RELIEF = "relief";
         if (piece.footprintColumns &gt; 1 || piece.footprintRows &gt; 1) {
             _footprints.insert_or_assign(piece.name, piece.footprint());</span>
         }
-        // Une piÃ¨ce rangÃ©e ailleurs qu'Ã  plat : le rendu doit la chercher sous son vrai chemin.
-<span style = "background-color:#dfd">        if (!piece.file.empty() &amp;&amp; piece.file != piece.name + ".png") {
-            _files.insert_or_assign(piece.name, piece.file);</span>
+        // Le fichier de la piece, relatif a Assets/ : le rendu la cherche sous son niveau.
+<span style = "background-color:#dfd">        if (!piece.directory.empty()) {
+            _files.insert_or_assign(piece.name, piece.path());
+        } else if (!ownDirectory.empty()) {
+            _files.insert_or_assign(piece.name, ownDirectory + "/" + piece.file);</span>
         }
         // Ce qui monte au-dessus du sommet haut de l'emprise : l'ancre, a defaut le haut de
         // l'image au-dessus du losange de sa case. En largeurs de case, au losange du lieu -- a
@@ -173,14 +230,14 @@ constexpr std::string_view FIELD_RELIEF = "relief";
     return found == _footprints.end() ? core::PieceFootprint{} : found-&gt;second;
 }</span>
 
-<span style = "background-color:#dfd">std::string_view PlaceAppearance::pieceFile(std::string_view name) const {
+<span style = "background-color:#dfd">std::string PlaceAppearance::pieceFile(std::string_view name) const {
     const auto found = _files.find(name);
-    return found == _files.end() ? std::string_view{} : std::string_view{found-&gt;second};
+    return found == _files.end() ? core::fallbackScenePiecePath(_place, name) : found-&gt;second;
 }</span>
 
 <span style = "background-color:#dfd">PlaceAppearanceResult PlaceAppearance::fromDocument(const core::JsonDocument&amp; document) {
-    if (!document.ok()) {
-        return failure(document.message, mapError(document.error));</span>
+    if (!document.ok()) {</span>
+<span style = "background-color:#fdd">        return failure(document.message, mapError(document.error));</span>
     }
 <span style = "background-color:#dfd">    PlaceAppearance appearance;
     const auto place = document.root.find(FIELD_PLACE);

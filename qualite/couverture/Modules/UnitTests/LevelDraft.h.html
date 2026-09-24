@@ -71,8 +71,10 @@ using PieceRenaming = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt
  *   dÃ©duction, et la **libÃ¨re** si elle s'y accorde ;
  * - `unforceCollision` rend des cases forcÃ©es Ã  la dÃ©duction.
  *
- * La dÃ©duction lit le manifeste des piÃ¨ces du lieu (`setPieceManifest`) ; sans manifeste, toute
- * piÃ¨ce compte pour inconnue et la case suit la rÃ¨gle de son type, comme au contrÃ´le.
+ * La dÃ©duction lit le manifeste des piÃ¨ces du lieu (`setPieceManifest`) â son **catalogue rÃ©solu**,
+ * qui compte aussi les piÃ¨ces de ses niveaux communs (`core::ScenePieceManifest::resolve`,
+ * `LOT-124`) ; sans manifeste, toute piÃ¨ce compte pour inconnue et la case suit la rÃ¨gle de son
+ * type, comme au contrÃ´le.
  *
  * Logique **pure**, sans dÃ©pendance rendu ni fenÃªtre â testable sans GPU (`EX-NFR-010`).
  */

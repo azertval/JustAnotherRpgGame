@@ -5,5 +5,7 @@ var dir_81575a0a6a20a380991b9ad2c16b89e5 =
     [ "AssetMarker.cpp", "AssetMarker_8cpp.html", "AssetMarker_8cpp" ],
     [ "AssetMarker.h", "AssetMarker_8h.html", "AssetMarker_8h" ],
     [ "ScenePieceManifest.cpp", "ScenePieceManifest_8cpp.html", "ScenePieceManifest_8cpp" ],
-    [ "ScenePieceManifest.h", "ScenePieceManifest_8h.html", "ScenePieceManifest_8h" ]
+    [ "ScenePieceManifest.h", "ScenePieceManifest_8h.html", "ScenePieceManifest_8h" ],
+    [ "ScenePlace.cpp", "ScenePlace_8cpp.html", "ScenePlace_8cpp" ],
+    [ "ScenePlace.h", "ScenePlace_8h.html", "ScenePlace_8h" ]
 ];

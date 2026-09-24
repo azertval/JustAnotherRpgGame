@@ -24,8 +24,8 @@ var searchData=
   ['hasproperty_21',['hasProperty',['../namespacecore.html#ad0fe834d01c603c0df43af69133dc1e3',1,'core']]],
   ['hassheet_22',['hasSheet',['../structcore_1_1RpgActor.html#a6d3846c50bd7f04cb938044e0388a670',1,'core::RpgActor']]],
   ['hasvisuallayers_23',['hasVisualLayers',['../classhmi_1_1EditorViewport.html#a44e7f1b24929d08333e8ced958c06f72',1,'hmi::EditorViewport']]],
-  ['haut_20se_20désigne_20par_20son_20pied_24',['Un relief haut se désigne par son pied',['../CanvasPicking_8h.html#autotoc_md61',1,'']]],
-  ['hauteur_20réservée_20d11_25',['La hauteur, réservée (D11)',['../CanvasPicking_8h.html#autotoc_md62',1,'']]],
+  ['haut_20se_20désigne_20par_20son_20pied_24',['Un relief haut se désigne par son pied',['../CanvasPicking_8h.html#autotoc_md63',1,'']]],
+  ['hauteur_20réservée_20d11_25',['La hauteur, réservée (D11)',['../CanvasPicking_8h.html#autotoc_md64',1,'']]],
   ['hdmockupfocus_26',['hdMockupFocus',['../namespacetest__support.html#a48a656f190a8d0b31c9e337b2c0437c1',1,'test_support']]],
   ['hdmockupscene_2eh_27',['HdMockupScene.h',['../HdMockupScene_8h.html',1,'']]],
   ['hdmockupsnapshot_28',['hdMockupSnapshot',['../namespacetest__support.html#ae0504ed11cf8afe35cfc6a85ba8cd353',1,'test_support']]],
@@ -90,5 +90,5 @@ var searchData=
   ['hoverednote_87',['hoveredNote',['../structhmi_1_1LevelStatusInfo.html#a6252b8385d7687c85e99ea368b003f64',1,'hmi::LevelStatusInfo::hoveredNote'],['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport::hoveredNote()']]],
   ['hoveredpieces_88',['hoveredPieces',['../structhmi_1_1LevelStatusInfo.html#a2effd6644d86469c43423355353cded6',1,'hmi::LevelStatusInfo::hoveredPieces'],['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport::hoveredPieces()']]],
   ['huge_89',['Huge',['../namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204aa2ad65f28a717b0fd2be860a0d8e5c3e',1,'core']]],
-  ['huit_20écrans_20écrits_20à_20la_20main_90',['Une table, et non huit écrans écrits à la main',['../RpgScreens_8h.html#autotoc_md96',1,'']]]
+  ['huit_20écrans_20écrits_20à_20la_20main_90',['Une table, et non huit écrans écrits à la main',['../RpgScreens_8h.html#autotoc_md98',1,'']]]
 ];

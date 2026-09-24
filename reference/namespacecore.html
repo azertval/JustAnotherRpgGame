@@ -396,10 +396,14 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pixels d'un marqueur, en RVBA, ligne par ligne depuis le haut.  <a href="structcore_1_1MarkerImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ScenePiece" id="r_ScenePiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce de la planche d'un lieu.  <a href="structcore_1_1ScenePiece.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MaskedScenePiece" id="r_MaskedScenePiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MaskedScenePiece.html">MaskedScenePiece</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce commune qu'une pièce plus propre, de même nom, masque (<span class="tt">LOT-124</span>).  <a href="structcore_1_1MaskedScenePiece.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ScenePieceManifest" id="r_ScenePieceManifest"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ScenePieceManifest.html">ScenePieceManifest</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pièces d'un lieu, dans l'ordre du manifeste.  <a href="classcore_1_1ScenePieceManifest.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ScenePieceManifestResult" id="r_ScenePieceManifestResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture : le manifeste, et ce qui a échoué.  <a href="structcore_1_1ScenePieceManifestResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SceneLevel" id="r_SceneLevel"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau de la résolution : un dossier de pièces, et ce qu'il sert.  <a href="structcore_1_1SceneLevel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CreatureTrait" id="r_CreatureTrait"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CreatureTrait.html">CreatureTrait</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un trait de créature : un nom et sa description, tels que le livre les écrit.  <a href="structcore_1_1CreatureTrait.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CreatureAction" id="r_CreatureAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CreatureAction.html">CreatureAction</a></td></tr>
@@ -585,6 +589,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a9f79b235a73b6264aa3a97d51267919d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur d'une propriété libre : booléen, entier, réel ou chaîne.  <br /></td></tr>
 <tr class="memitem:ac3cd7f319efbfd33f183ca31782d1731" id="r_ac3cd7f319efbfd33f183ca31782d1731"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> = std::map&lt;std::string, <a class="el" href="#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a>&gt;</td></tr>
 <tr class="memdesc:ac3cd7f319efbfd33f183ca31782d1731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres, indexées par nom.  <br /></td></tr>
+<tr class="memitem:a6c8c611f5b03ec8461b387664a026ac0" id="r_a6c8c611f5b03ec8461b387664a026ac0"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;</td></tr>
+<tr class="memdesc:a6c8c611f5b03ec8461b387664a026ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier de chaque figurine qu'un lieu peut poser : slug → dossier relatif à <span class="tt">Assets/</span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -1382,6 +1388,25 @@ Functions</h2></td></tr>
 <tr class="memitem:a24630c3d763af343ac0a0863bddcc5fd" id="r_a24630c3d763af343ac0a0863bddcc5fd"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a24630c3d763af343ac0a0863bddcc5fd">parsePieceTactical</a> (std::string_view name) noexcept</td></tr>
 <tr class="memitem:ab61b34d0d8ae2acaa9aa552c099b2255" id="r_ab61b34d0d8ae2acaa9aa552c099b2255"><td class="memItemLeft"><a class="el" href="#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab61b34d0d8ae2acaa9aa552c099b2255">parseScenePieceClass</a> (std::string_view name) noexcept</td></tr>
 <tr class="memitem:a40b827238eccb98a51e5d1e4966f6aae" id="r_a40b827238eccb98a51e5d1e4966f6aae"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a40b827238eccb98a51e5d1e4966f6aae">scenePieceShortName</a> (std::string_view key) noexcept</td></tr>
+<tr class="memitem:aef1bcbf15a56b7e7d7fdbcb1653c9eec" id="r_aef1bcbf15a56b7e7d7fdbcb1653c9eec"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aef1bcbf15a56b7e7d7fdbcb1653c9eec">isValidScenePlace</a> (std::string_view place) noexcept</td></tr>
+<tr class="memitem:aea20554f4ac58a2ae3fbe4f83198b153" id="r_aea20554f4ac58a2ae3fbe4f83198b153"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aea20554f4ac58a2ae3fbe4f83198b153">isFlatScenePlace</a> (std::string_view place) noexcept</td></tr>
+<tr class="memitem:a5d992e987466346bf7d8e58971e79a38" id="r_a5d992e987466346bf7d8e58971e79a38"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d992e987466346bf7d8e58971e79a38">scenePlaceLabel</a> (std::string_view segment)</td></tr>
+<tr class="memitem:aebc2b24792f0fb0c75d6eb0059a600ec" id="r_aebc2b24792f0fb0c75d6eb0059a600ec"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aebc2b24792f0fb0c75d6eb0059a600ec">sceneLevelCandidates</a> (std::string_view place)</td></tr>
+<tr class="memdesc:aebc2b24792f0fb0c75d6eb0059a600ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les niveaux <b>candidats</b> de <code class="param">place</code>, du plus propre au plus commun, monde compris.  <br /></td></tr>
+<tr class="memitem:a95329d9831ad744916371a054eee853f" id="r_a95329d9831ad744916371a054eee853f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a95329d9831ad744916371a054eee853f">ownSceneDirectory</a> (std::string_view place)</td></tr>
+<tr class="memdesc:a95329d9831ad744916371a054eee853f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier <b>propre</b> de <code class="param">place</code>, relatif à <span class="tt">Assets/</span> : celui où naît une pièce, où vit sa table d'apparence.  <br /></td></tr>
+<tr class="memitem:a1662b570c7c1114bc9a4e62763485616" id="r_a1662b570c7c1114bc9a4e62763485616"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1662b570c7c1114bc9a4e62763485616">fallbackScenePiecePath</a> (std::string_view place, std::string_view piece)</td></tr>
+<tr class="memdesc:a1662b570c7c1114bc9a4e62763485616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin, relatif à <span class="tt">Assets/</span>, d'une pièce que <b>aucun</b> manifeste ne cite : <span class="tt">&lt;dossier propre&gt;/&lt;nom&gt;.png</span>.  <br /></td></tr>
+<tr class="memitem:ac240dc083faf2330f8e69587219863e4" id="r_ac240dc083faf2330f8e69587219863e4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac240dc083faf2330f8e69587219863e4">scenePlaceDescendsFrom</a> (std::string_view place, std::string_view ancestor)</td></tr>
+<tr class="memitem:afa88cfe8485726f11485a5b2d86e15f0" id="r_afa88cfe8485726f11485a5b2d86e15f0"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afa88cfe8485726f11485a5b2d86e15f0">scenePlaceAncestry</a> (std::string_view place)</td></tr>
+<tr class="memitem:ad6626a85739f1b8a654f2e4f362d6bfb" id="r_ad6626a85739f1b8a654f2e4f362d6bfb"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad6626a85739f1b8a654f2e4f362d6bfb">scenePlaces</a> (const std::filesystem::path &amp;assetsDirectory)</td></tr>
+<tr class="memdesc:ad6626a85739f1b8a654f2e4f362d6bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lieux où une carte peut se poser — l'<b>arbre des lieux</b> de « New map » : chaque dossier de <span class="tt">Assets/Regions/</span> dont le <span class="tt">Scene/</span> propre porte un manifeste (zones et sous-zones), et chaque lieu d'essai à plat de <span class="tt">Assets/Scene/</span>.  <br /></td></tr>
+<tr class="memitem:aa631d92fa5bd146a155ee27d970b6b6a" id="r_aa631d92fa5bd146a155ee27d970b6b6a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa631d92fa5bd146a155ee27d970b6b6a">characterLevelCandidates</a> (std::string_view place)</td></tr>
+<tr class="memdesc:aa631d92fa5bd146a155ee27d970b6b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les niveaux <b>candidats</b> des figurines de <code class="param">place</code>, du plus propre au monde (<span class="tt">LOT-124</span>) : <span class="tt">Regions/&lt;préfixe&gt;/Characters</span>, puis <span class="tt">Regions/&lt;préfixe&gt;/Common/Characters</span>, à chaque préfixe du chemin, puis <span class="tt">Common/Characters</span>.  <br /></td></tr>
+<tr class="memitem:a03fbe375242fffeae3499c57aaa301bf" id="r_a03fbe375242fffeae3499c57aaa301bf"><td class="memItemLeft"><a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a>&#160;</td><td class="memItemRight"><a class="el" href="#a03fbe375242fffeae3499c57aaa301bf">resolveFigures</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view place)</td></tr>
+<tr class="memdesc:a03fbe375242fffeae3499c57aaa301bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines que le lieu <code class="param">place</code> peut poser : le slug de chaque entrée <span class="tt">npcs</span> des manifestes de ses niveaux (<span class="tt"><a class="el" href="#aa631d92fa5bd146a155ee27d970b6b6a" title="Les niveaux candidats des figurines de place, du plus propre au monde (LOT-124) : Regions/&lt;préfixe&gt;/C...">characterLevelCandidates</a></span>), vers son dossier.  <br /></td></tr>
+<tr class="memitem:aed05eea4a2732d4c5a29181733d80f08" id="r_aed05eea4a2732d4c5a29181733d80f08"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aed05eea4a2732d4c5a29181733d80f08">figureDirectory</a> (const <a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> &amp;figures, std::string_view figure)</td></tr>
+<tr class="memdesc:aed05eea4a2732d4c5a29181733d80f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier, relatif à <span class="tt">Assets/</span>, de la figurine <code class="param">figure</code> : celui que <code class="param">figures</code> lui donne ; à défaut, <code class="param">figure</code> lui-même s'il contient une barre (un dossier nommé depuis <span class="tt">Assets/</span>, <span class="tt">Common/Characters/Heroes/brawler</span>) ; à défaut, <span class="tt">Npc/&lt;slug&gt;</span>, l'atelier à plat des racines d'essai.  <br /></td></tr>
 <tr class="memitem:ad539e41d55b3f90675658586d0d0b77e" id="r_ad539e41d55b3f90675658586d0d0b77e"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ad539e41d55b3f90675658586d0d0b77e">abilityName</a> (<a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> ability) noexcept</td></tr>
 <tr class="memdesc:ad539e41d55b3f90675658586d0d0b77e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom textuel d'une caractéristique, tel que les données l'écrivent.  <br /></td></tr>
 <tr class="memitem:a6faed4224d505ed620516937e3a019dd" id="r_a6faed4224d505ed620516937e3a019dd"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6faed4224d505ed620516937e3a019dd">parseAbility</a> (std::string_view name) noexcept</td></tr>
@@ -1782,6 +1807,22 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Un point d'insertion : reçoit les dégâts d'une cible, et l'état du combat s'il y en a un. </p>
+
+</div>
+</div>
+<a id="a6c8c611f5b03ec8461b387664a026ac0" name="a6c8c611f5b03ec8461b387664a026ac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c8c611f5b03ec8461b387664a026ac0">&#9670;&#160;</a></span>FigureDirectories</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">core::FigureDirectories</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le dossier de chaque figurine qu'un lieu peut poser : slug → dossier relatif à <span class="tt">Assets/</span>. </p>
 
 </div>
 </div>
@@ -5233,6 +5274,34 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="aa631d92fa5bd146a155ee27d970b6b6a" name="aa631d92fa5bd146a155ee27d970b6b6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa631d92fa5bd146a155ee27d970b6b6a">&#9670;&#160;</a></span>characterLevelCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt; core::characterLevelCandidates </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les niveaux <b>candidats</b> des figurines de <code class="param">place</code>, du plus propre au monde (<span class="tt">LOT-124</span>) : <span class="tt">Regions/&lt;préfixe&gt;/Characters</span>, puis <span class="tt">Regions/&lt;préfixe&gt;/Common/Characters</span>, à chaque préfixe du chemin, puis <span class="tt">Common/Characters</span>. </p>
+<p>Un lieu à plat ou vide n'a que le monde. </p>
+
+</div>
+</div>
 <a id="a7365293652d3b9980a5d196d0ada9400" name="a7365293652d3b9980a5d196d0ada9400"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7365293652d3b9980a5d196d0ada9400">&#9670;&#160;</a></span>checkTarget()</h2>
 
@@ -6084,7 +6153,7 @@ Déterministe, et c'est le point</h2>
     <tr><td class="paramname">layers</td><td>Les couches de la carte ; seules les couches visuelles comptent. </td></tr>
     <tr><td class="paramname">width</td><td>Largeur de la carte, en cases. </td></tr>
     <tr><td class="paramname">height</td><td>Hauteur de la carte, en cases. </td></tr>
-    <tr><td class="paramname">manifest</td><td>Le manifeste des pièces du lieu, ou <span class="tt">nullptr</span> : toute pièce compte alors comme inconnue, et la case suit la règle de son type. </td></tr>
+    <tr><td class="paramname">manifest</td><td>Le manifeste des pièces du lieu — son catalogue résolu, niveaux communs compris (<span class="tt">LOT-124</span>) —, ou <span class="tt">nullptr</span> : toute pièce compte alors comme inconnue, et la case suit la règle de son type. </td></tr>
   </table>
   </dd>
 </dl>
@@ -6708,6 +6777,70 @@ Déterministe, et c'est le point</h2>
 
 <p>L'espérance de dégâts d'une attaque, en <b>huit-centièmes</b> de point de dégât. </p>
 <p><span class="tt">chance × dégâts moyens + chance de critique × moyenne des dés</span>, les dégâts moyens en demi-points pour rester entier. Les résistances de la cible n'y entrent pas : la table ne les connaît pas avant de les avoir vues jouer (<span class="tt">EX-CBT-050</span>). </p>
+
+</div>
+</div>
+<a id="a1662b570c7c1114bc9a4e62763485616" name="a1662b570c7c1114bc9a4e62763485616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1662b570c7c1114bc9a4e62763485616">&#9670;&#160;</a></span>fallbackScenePiecePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::fallbackScenePiecePath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>piece</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chemin, relatif à <span class="tt">Assets/</span>, d'une pièce que <b>aucun</b> manifeste ne cite : <span class="tt">&lt;dossier propre&gt;/&lt;nom&gt;.png</span>. </p>
+<p>Ce que le rendu essaie, faute de mieux. </p>
+
+</div>
+</div>
+<a id="aed05eea4a2732d4c5a29181733d80f08" name="aed05eea4a2732d4c5a29181733d80f08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed05eea4a2732d4c5a29181733d80f08">&#9670;&#160;</a></span>figureDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::figureDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>figure</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier, relatif à <span class="tt">Assets/</span>, de la figurine <code class="param">figure</code> : celui que <code class="param">figures</code> lui donne ; à défaut, <code class="param">figure</code> lui-même s'il contient une barre (un dossier nommé depuis <span class="tt">Assets/</span>, <span class="tt">Common/Characters/Heroes/brawler</span>) ; à défaut, <span class="tt">Npc/&lt;slug&gt;</span>, l'atelier à plat des racines d'essai. </p>
+<p>Vide pour une figurine vide. </p>
 
 </div>
 </div>
@@ -7673,6 +7806,32 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="aea20554f4ac58a2ae3fbe4f83198b153" name="aea20554f4ac58a2ae3fbe4f83198b153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea20554f4ac58a2ae3fbe4f83198b153">&#9670;&#160;</a></span>isFlatScenePlace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isFlatScenePlace </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si <code class="param">place</code> est un lieu d'essai à plat (<span class="tt">bourg</span>), faux pour un chemin. </dd></dl>
+
+</div>
+</div>
 <a id="aef818c5b82795fc59c0d259e968762cd" name="aef818c5b82795fc59c0d259e968762cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef818c5b82795fc59c0d259e968762cd">&#9670;&#160;</a></span>isSightClear()</h2>
 
@@ -7771,6 +7930,32 @@ Déterministe, et c'est le point</h2>
 <p>Vrai si <code class="param">key</code> respecte la syntaxe d'une clé d'asset. </p>
 <p><span class="tt">famille/identifiant</span>, en minuscules, chiffres et tirets simples — la même expression que celle du schéma JSON (<span class="tt">common.schema.json</span>, <span class="tt">$defs/assetKey</span>), pour que la donnée refusée à la validation soit exactement celle que le moteur refuse.</p>
 <p><b>Ce n'est jamais un chemin de fichier</b> (<span class="tt">EX-CNT-040</span>) : un chemin dans une donnée de règle lie le catalogue à l'arborescence du disque, et tout déplacement de dossier casse alors des créatures. La clé, elle, survit à n'importe quel rangement. </p>
+
+</div>
+</div>
+<a id="aef1bcbf15a56b7e7d7fdbcb1653c9eec" name="aef1bcbf15a56b7e7d7fdbcb1653c9eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1bcbf15a56b7e7d7fdbcb1653c9eec">&#9670;&#160;</a></span>isValidScenePlace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isValidScenePlace </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si <code class="param">place</code> est un lieu utilisable : non vide, des segments non vides, ni <span class="tt">.</span> ni <span class="tt">..</span>, ni antislash. </dd></dl>
 
 </div>
 </div>
@@ -9239,6 +9424,34 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a95329d9831ad744916371a054eee853f" name="a95329d9831ad744916371a054eee853f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95329d9831ad744916371a054eee853f">&#9670;&#160;</a></span>ownSceneDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::ownSceneDirectory </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier <b>propre</b> de <code class="param">place</code>, relatif à <span class="tt">Assets/</span> : celui où naît une pièce, où vit sa table d'apparence. </p>
+<p><span class="tt">Regions/&lt;chemin&gt;/Scene</span>, ou <span class="tt">Scene/&lt;lieu&gt;</span> à plat ; vide pour un lieu invalide. </p>
+
+</div>
+</div>
 <a id="a6faed4224d505ed620516937e3a019dd" name="a6faed4224d505ed620516937e3a019dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6faed4224d505ed620516937e3a019dd">&#9670;&#160;</a></span>parseAbility()</h2>
 
@@ -10384,6 +10597,44 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a03fbe375242fffeae3499c57aaa301bf" name="a03fbe375242fffeae3499c57aaa301bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03fbe375242fffeae3499c57aaa301bf">&#9670;&#160;</a></span>resolveFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> core::resolveFigures </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>assetsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les figurines que le lieu <code class="param">place</code> peut poser : le slug de chaque entrée <span class="tt">npcs</span> des manifestes de ses niveaux (<span class="tt"><a class="el" href="#aa631d92fa5bd146a155ee27d970b6b6a" title="Les niveaux candidats des figurines de place, du plus propre au monde (LOT-124) : Regions/&lt;préfixe&gt;/C...">characterLevelCandidates</a></span>), vers son dossier. </p>
+<p>Le plus propre gagne : un PNJ de zone masque un archétype de même slug. Un manifeste absent ou illisible ne donne rien (<span class="tt">EX-NFR-040</span>) : la figurine se dessinera par son marqueur. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetsDirectory</td><td>Le dossier <span class="tt">Assets/</span>. </td></tr>
+    <tr><td class="paramname">place</td><td>Le lieu ; vide, le monde seul. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a4f1692682e25dadb017d37ca0a42e9aa" name="a4f1692682e25dadb017d37ca0a42e9aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4f1692682e25dadb017d37ca0a42e9aa">&#9670;&#160;</a></span>rollAttack()</h2>
 
@@ -10635,6 +10886,34 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="aebc2b24792f0fb0c75d6eb0059a600ec" name="aebc2b24792f0fb0c75d6eb0059a600ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebc2b24792f0fb0c75d6eb0059a600ec">&#9670;&#160;</a></span>sceneLevelCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a> &gt; core::sceneLevelCandidates </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les niveaux <b>candidats</b> de <code class="param">place</code>, du plus propre au plus commun, monde compris. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vide pour un lieu vide ou invalide. </dd></dl>
+
+</div>
+</div>
 <a id="a40b827238eccb98a51e5d1e4966f6aae" name="a40b827238eccb98a51e5d1e4966f6aae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a40b827238eccb98a51e5d1e4966f6aae">&#9670;&#160;</a></span>scenePieceShortName()</h2>
 
@@ -10658,6 +10937,121 @@ Déterministe, et c'est le point</h2>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le nom court d'une clé d'atelier : ce qui suit la dernière barre. </dd></dl>
+
+</div>
+</div>
+<a id="afa88cfe8485726f11485a5b2d86e15f0" name="afa88cfe8485726f11485a5b2d86e15f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa88cfe8485726f11485a5b2d86e15f0">&#9670;&#160;</a></span>scenePlaceAncestry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::scenePlaceAncestry </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les préfixes de <code class="param">place</code>, du plus propre au plus commun, le monde (vide) compris : <span class="tt">a/b/c</span> donne <span class="tt">a/b/c</span>, <span class="tt">a/b</span>, <span class="tt">a</span> puis la chaîne vide ; un lieu à plat, lui-même puis la chaîne vide. </dd></dl>
+
+</div>
+</div>
+<a id="ac240dc083faf2330f8e69587219863e4" name="ac240dc083faf2330f8e69587219863e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac240dc083faf2330f8e69587219863e4">&#9670;&#160;</a></span>scenePlaceDescendsFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::scenePlaceDescendsFrom </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>ancestor</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si le lieu <code class="param">place</code> descend de <code class="param">ancestor</code> (ou l'est) ; tout lieu descend du monde (<code class="param">ancestor</code> vide). </dd></dl>
+
+</div>
+</div>
+<a id="a5d992e987466346bf7d8e58971e79a38" name="a5d992e987466346bf7d8e58971e79a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d992e987466346bf7d8e58971e79a38">&#9670;&#160;</a></span>scenePlaceLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::scenePlaceLabel </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>segment</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nom d'un segment de lieu, pour l'œil : <span class="tt">arena-of-fate</span> → « <a class="el" href="structcore_1_1Arena.html" title="Une arène, telle que la donnée la décrit (Source/Elements/World/arena/).">Arena</a> of Fate ». </dd></dl>
+
+</div>
+</div>
+<a id="ad6626a85739f1b8a654f2e4f362d6bfb" name="ad6626a85739f1b8a654f2e4f362d6bfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6626a85739f1b8a654f2e4f362d6bfb">&#9670;&#160;</a></span>scenePlaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::scenePlaces </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>assetsDirectory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les lieux où une carte peut se poser — l'<b>arbre des lieux</b> de « New map » : chaque dossier de <span class="tt">Assets/Regions/</span> dont le <span class="tt">Scene/</span> propre porte un manifeste (zones et sous-zones), et chaque lieu d'essai à plat de <span class="tt">Assets/Scene/</span>. </p>
+<p>Triés. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetsDirectory</td><td>Le dossier <span class="tt">Assets/</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

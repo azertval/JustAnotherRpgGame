@@ -154,8 +154,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a425e655732fbc0f27996712e53091365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adopte les anciens noms et les emprises des pièces d'un manifeste.  <br /></td></tr>
 <tr class="memitem:acbb59fa899535efdd3dfaae9e54caed7" id="r_acbb59fa899535efdd3dfaae9e54caed7"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#acbb59fa899535efdd3dfaae9e54caed7">canonicalPiece</a> (std::string_view name) const</td></tr>
 <tr class="memitem:a6af0c067714cc6a22c8370e1b819c1c4" id="r_a6af0c067714cc6a22c8370e1b819c1c4"><td class="memItemLeft"><a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6af0c067714cc6a22c8370e1b819c1c4">pieceFootprint</a> (std::string_view name) const</td></tr>
-<tr class="memitem:a051315857796da96ef2fdd784a6a400d" id="r_a051315857796da96ef2fdd784a6a400d"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a051315857796da96ef2fdd784a6a400d">pieceFile</a> (std::string_view name) const</td></tr>
-<tr class="memdesc:a051315857796da96ef2fdd784a6a400d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier de la pièce <code class="param">name</code> (nom courant), relatif au dossier du lieu, quand il n'est pas <span class="tt">&lt;name&gt;.png</span> à plat — une pièce rangée dans un sous-dossier (<span class="tt">roofs/l/d3/roof-l-d3-ne-c0r0.png</span>, <span class="tt">LOT-129</span>).  <br /></td></tr>
+<tr class="memitem:ad58c25060ecb4d6e665538181c383c5e" id="r_ad58c25060ecb4d6e665538181c383c5e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad58c25060ecb4d6e665538181c383c5e">pieceFile</a> (std::string_view name) const</td></tr>
+<tr class="memdesc:ad58c25060ecb4d6e665538181c383c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier de la pièce <code class="param">name</code> (nom courant), <b>relatif à <span class="tt">Assets/</span></b> : celui que le manifeste de son niveau lui donne (<span class="tt">Regions/…/Common/Scene/floors/floor-01.png</span>, <span class="tt">LOT-124</span>) ; à défaut, <span class="tt">&lt;nom&gt;.png</span> dans le dossier propre du lieu (<span class="tt"><a class="el" href="namespacecore.html#a1662b570c7c1114bc9a4e62763485616" title="Le chemin, relatif à Assets/, d&#39;une pièce que aucun manifeste ne cite : &lt;dossier propre&gt;/&lt;nom&gt;....">core::fallbackScenePiecePath</a></span>).  <br /></td></tr>
+<tr class="memitem:a25c57aae364b65363a53154edfa93262" id="r_a25c57aae364b65363a53154edfa93262"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a25c57aae364b65363a53154edfa93262">figureDirectory</a> (std::string_view figure) const</td></tr>
+<tr class="memdesc:a25c57aae364b65363a53154edfa93262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier, relatif à <span class="tt">Assets/</span>, de la figurine <code class="param">figure</code> : cherchée dans les <span class="tt">Characters/</span> du lieu et de ses niveaux communs (<span class="tt"><a class="el" href="namespacecore.html#a03fbe375242fffeae3499c57aaa301bf" title="Les figurines que le lieu place peut poser : le slug de chaque entrée npcs des manifestes de ses nive...">core::resolveFigures</a></span>, <span class="tt">LOT-124</span>), à défaut par <span class="tt"><a class="el" href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08" title="Le dossier, relatif à Assets/, de la figurine figure : celui que figures lui donne ; à défaut,...">core::figureDirectory</a></span>.  <br /></td></tr>
+<tr class="memitem:a9cb9b0a642d929e449adcd89c0b80d82" id="r_a9cb9b0a642d929e449adcd89c0b80d82"><td class="memItemLeft">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a9cb9b0a642d929e449adcd89c0b80d82">pieceManifest</a> () const noexcept</td></tr>
 <tr class="memitem:a0d4246e6bc7472127ffce2ffc6b73e05" id="r_a0d4246e6bc7472127ffce2ffc6b73e05"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0d4246e6bc7472127ffce2ffc6b73e05">place</a> () const noexcept</td></tr>
 <tr class="memitem:a9e95a464541a22fef06b33455773645f" id="r_a9e95a464541a22fef06b33455773645f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a9e95a464541a22fef06b33455773645f">diamondRatio</a> () const noexcept</td></tr>
 <tr class="memitem:acc91a094a349d947bd427f942a2b797c" id="r_acc91a094a349d947bd427f942a2b797c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acc91a094a349d947bd427f942a2b797c">maximumRise</a> () const noexcept</td></tr>
@@ -174,6 +177,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a64f242c50874e2bfffee39c50d567b2e" id="r_a64f242c50874e2bfffee39c50d567b2e"><td class="memItemLeft">static <a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a64f242c50874e2bfffee39c50d567b2e">loadFromString</a> (std::string_view json)</td></tr>
 <tr class="memitem:a0ea6b2906d74f13add881e1857ae8047" id="r_a0ea6b2906d74f13add881e1857ae8047"><td class="memItemLeft">static <a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ea6b2906d74f13add881e1857ae8047">loadFromFile</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a0ea6b2906d74f13add881e1857ae8047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit la table, puis le manifeste rangé à côté d'elle s'il existe (voir l'en-tête).  <br /></td></tr>
+<tr class="memitem:ad46b07568c722387857cf3801a76e4cb" id="r_ad46b07568c722387857cf3801a76e4cb"><td class="memItemLeft">static <a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad46b07568c722387857cf3801a76e4cb">loadForPlace</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view <a class="el" href="#a0d4246e6bc7472127ffce2ffc6b73e05">place</a>)</td></tr>
+<tr class="memdesc:ad46b07568c722387857cf3801a76e4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table du lieu <code class="param">place</code> <b>et de ses niveaux communs</b> (<span class="tt">LOT-124</span>) : ce que le jeu et l'éditeur lisent.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -182,6 +187,11 @@ Static Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-types" class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
 <tr class="memitem:ae39372602315857b3d4baac10da85cdf" id="r_ae39372602315857b3d4baac10da85cdf"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ae39372602315857b3d4baac10da85cdf">Table</a> = std::map&lt;<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a>, std::vector&lt;std::string&gt;&gt;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a1cb34b2e82c40af6b4f93005eb2430c9" id="r_a1cb34b2e82c40af6b4f93005eb2430c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1cb34b2e82c40af6b4f93005eb2430c9">fillFrom</a> (const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;other)</td></tr>
+<tr class="memdesc:a1cb34b2e82c40af6b4f93005eb2430c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prend, pour chaque type que <code class="param">other</code> traduit et que cette table ignore, ses pièces.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -199,7 +209,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a1c4f8e44f18b0de3a332f42577805e0b" id="r_a1c4f8e44f18b0de3a332f42577805e0b"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structcore_1_1PieceFootprint.html">core::PieceFootprint</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1c4f8e44f18b0de3a332f42577805e0b">_footprints</a></td></tr>
 <tr class="memdesc:a1c4f8e44f18b0de3a332f42577805e0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom courant -&gt; emprise, pour les seules pièces plus grandes qu'une case.  <br /></td></tr>
 <tr class="memitem:a882d7264d7583942f3c51796cf292fe0" id="r_a882d7264d7583942f3c51796cf292fe0"><td class="memItemLeft">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a882d7264d7583942f3c51796cf292fe0">_files</a></td></tr>
-<tr class="memdesc:a882d7264d7583942f3c51796cf292fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers des pièces qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">pieceFile</a></span>).  <br /></td></tr>
+<tr class="memdesc:a882d7264d7583942f3c51796cf292fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier de chaque pièce du manifeste, relatif à <span class="tt">Assets/</span> (<span class="tt"><a class="el" href="#ad58c25060ecb4d6e665538181c383c5e" title="Le fichier de la pièce name (nom courant), relatif à Assets/ : celui que le manifeste de son niveau l...">pieceFile</a></span>).  <br /></td></tr>
+<tr class="memitem:a35cbbe943bf7fecaaa2f983b187f5556" id="r_a35cbbe943bf7fecaaa2f983b187f5556"><td class="memItemLeft"><a class="el" href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">core::FigureDirectories</a>&#160;</td><td class="memItemRight"><a class="el" href="#a35cbbe943bf7fecaaa2f983b187f5556">_figures</a></td></tr>
+<tr class="memdesc:a35cbbe943bf7fecaaa2f983b187f5556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines que le lieu peut poser, par slug (<span class="tt"><a class="el" href="#ad46b07568c722387857cf3801a76e4cb" title="La table du lieu place et de ses niveaux communs (LOT-124) : ce que le jeu et l&#39;éditeur lisent.">loadForPlace</a></span>).  <br /></td></tr>
+<tr class="memitem:a5731409d714e6fffd571330b790a97fa" id="r_a5731409d714e6fffd571330b790a97fa"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5731409d714e6fffd571330b790a97fa">_manifest</a></td></tr>
+<tr class="memdesc:a5731409d714e6fffd571330b790a97fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue adopté, partagé : copier une table ne le recopie pas.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La table d'un lieu : type de tuile → pièces, pour le sol et pour le relief. </p>
@@ -325,6 +339,60 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a25c57aae364b65363a53154edfa93262" name="a25c57aae364b65363a53154edfa93262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25c57aae364b65363a53154edfa93262">&#9670;&#160;</a></span>figureDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::PlaceAppearance::figureDirectory </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>figure</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier, relatif à <span class="tt">Assets/</span>, de la figurine <code class="param">figure</code> : cherchée dans les <span class="tt">Characters/</span> du lieu et de ses niveaux communs (<span class="tt"><a class="el" href="namespacecore.html#a03fbe375242fffeae3499c57aaa301bf" title="Les figurines que le lieu place peut poser : le slug de chaque entrée npcs des manifestes de ses nive...">core::resolveFigures</a></span>, <span class="tt">LOT-124</span>), à défaut par <span class="tt"><a class="el" href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08" title="Le dossier, relatif à Assets/, de la figurine figure : celui que figures lui donne ; à défaut,...">core::figureDirectory</a></span>. </p>
+
+</div>
+</div>
+<a id="a1cb34b2e82c40af6b4f93005eb2430c9" name="a1cb34b2e82c40af6b4f93005eb2430c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cb34b2e82c40af6b4f93005eb2430c9">&#9670;&#160;</a></span>fillFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PlaceAppearance::fillFrom </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prend, pour chaque type que <code class="param">other</code> traduit et que cette table ignore, ses pièces. </p>
+
+</div>
+</div>
 <a id="a7f3001880647e7cbd440a608f6c3ad67" name="a7f3001880647e7cbd440a608f6c3ad67"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f3001880647e7cbd440a608f6c3ad67">&#9670;&#160;</a></span>floorPiece()</h2>
 
@@ -382,6 +450,40 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad46b07568c722387857cf3801a76e4cb" name="ad46b07568c722387857cf3801a76e4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad46b07568c722387857cf3801a76e4cb">&#9670;&#160;</a></span>loadForPlace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a> hmi::PlaceAppearance::loadForPlace </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>assetsDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La table du lieu <code class="param">place</code> <b>et de ses niveaux communs</b> (<span class="tt">LOT-124</span>) : ce que le jeu et l'éditeur lisent. </p>
+<p>Les pièces sont celles du catalogue résolu (<span class="tt"><a class="el" href="classcore_1_1ScenePieceManifest.html#a6dadfe65c55956dd86871a99fc0212e6" title="Le catalogue résolu du lieu place : les manifestes de ses niveaux (core::sceneLevelCandidates),...">core::ScenePieceManifest::resolve</a></span>), chacune sous son dossier d'origine. Les tables (<span class="tt">appearance.json</span>, rangées à côté des manifestes) se lisent à chaque niveau et s'empilent de même : pour un type de tuile, la table <b>la plus propre</b> qui le traduit l'emporte.</p>
+<p>Les figurines se cherchent de même, dans les <span class="tt">Characters/</span> de ses niveaux (<span class="tt"><a class="el" href="#a25c57aae364b65363a53154edfa93262" title="Le dossier, relatif à Assets/, de la figurine figure : cherchée dans les Characters/ du lieu et de se...">figureDirectory</a></span>). Un lieu vide n'a que celles du monde.</p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">FileNotFound</span> si aucun niveau n'a ni table, ni manifeste, ni figurine ; l'échec de lecture d'une table ou d'un manifeste, préfixé de son dossier. </dd></dl>
+
+</div>
+</div>
 <a id="a0ea6b2906d74f13add881e1857ae8047" name="a0ea6b2906d74f13add881e1857ae8047"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ea6b2906d74f13add881e1857ae8047">&#9670;&#160;</a></span>loadFromFile()</h2>
 
@@ -406,6 +508,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lit la table, puis le manifeste rangé à côté d'elle s'il existe (voir l'en-tête). </p>
+<p>Ses pièces sont cherchées dans le dossier propre du lieu que la table nomme. </p>
 
 </div>
 </div>
@@ -462,8 +565,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a051315857796da96ef2fdd784a6a400d" name="a051315857796da96ef2fdd784a6a400d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a051315857796da96ef2fdd784a6a400d">&#9670;&#160;</a></span>pieceFile()</h2>
+<a id="ad58c25060ecb4d6e665538181c383c5e" name="ad58c25060ecb4d6e665538181c383c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad58c25060ecb4d6e665538181c383c5e">&#9670;&#160;</a></span>pieceFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,7 +575,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string_view hmi::PlaceAppearance::pieceFile </td>
+          <td class="memname">std::string hmi::PlaceAppearance::pieceFile </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
           <td> const</td>
@@ -485,8 +588,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Le fichier de la pièce <code class="param">name</code> (nom courant), relatif au dossier du lieu, quand il n'est pas <span class="tt">&lt;name&gt;.png</span> à plat — une pièce rangée dans un sous-dossier (<span class="tt">roofs/l/d3/roof-l-d3-ne-c0r0.png</span>, <span class="tt">LOT-129</span>). </p>
-<p>Vide sinon. </p>
+<p>Le fichier de la pièce <code class="param">name</code> (nom courant), <b>relatif à <span class="tt">Assets/</span></b> : celui que le manifeste de son niveau lui donne (<span class="tt">Regions/…/Common/Scene/floors/floor-01.png</span>, <span class="tt">LOT-124</span>) ; à défaut, <span class="tt">&lt;nom&gt;.png</span> dans le dossier propre du lieu (<span class="tt"><a class="el" href="namespacecore.html#a1662b570c7c1114bc9a4e62763485616" title="Le chemin, relatif à Assets/, d&#39;une pièce que aucun manifeste ne cite : &lt;dossier propre&gt;/&lt;nom&gt;....">core::fallbackScenePiecePath</a></span>). </p>
+<p>Vide sans lieu. </p>
 
 </div>
 </div>
@@ -513,6 +616,32 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'emprise de la pièce <code class="param">name</code> (nom courant), 1 × 1 si le manifeste ne la connaît pas. </dd></dl>
+
+</div>
+</div>
+<a id="a9cb9b0a642d929e449adcd89c0b80d82" name="a9cb9b0a642d929e449adcd89c0b80d82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cb9b0a642d929e449adcd89c0b80d82">&#9670;&#160;</a></span>pieceManifest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> * hmi::PlaceAppearance::pieceManifest </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le catalogue que la table a adopté, <span class="tt">nullptr</span> s'il n'y en a pas. </dd></dl>
 
 </div>
 </div>
@@ -678,6 +807,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a35cbbe943bf7fecaaa2f983b187f5556" name="a35cbbe943bf7fecaaa2f983b187f5556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35cbbe943bf7fecaaa2f983b187f5556">&#9670;&#160;</a></span>_figures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a6c8c611f5b03ec8461b387664a026ac0">core::FigureDirectories</a> hmi::PlaceAppearance::_figures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les figurines que le lieu peut poser, par slug (<span class="tt"><a class="el" href="#ad46b07568c722387857cf3801a76e4cb" title="La table du lieu place et de ses niveaux communs (LOT-124) : ce que le jeu et l&#39;éditeur lisent.">loadForPlace</a></span>). </p>
+
+</div>
+</div>
 <a id="a882d7264d7583942f3c51796cf292fe0" name="a882d7264d7583942f3c51796cf292fe0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a882d7264d7583942f3c51796cf292fe0">&#9670;&#160;</a></span>_files</h2>
 
@@ -698,7 +851,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les fichiers des pièces qui ne sont pas <span class="tt">&lt;nom&gt;.png</span> à plat (<span class="tt"><a class="el" href="#a051315857796da96ef2fdd784a6a400d" title="Le fichier de la pièce name (nom courant), relatif au dossier du lieu, quand il n&#39;est pas &lt;name&gt;....">pieceFile</a></span>). </p>
+<p>Le fichier de chaque pièce du manifeste, relatif à <span class="tt">Assets/</span> (<span class="tt"><a class="el" href="#ad58c25060ecb4d6e665538181c383c5e" title="Le fichier de la pièce name (nom courant), relatif à Assets/ : celui que le manifeste de son niveau l...">pieceFile</a></span>). </p>
 
 </div>
 </div>
@@ -745,6 +898,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom courant -&gt; emprise, pour les seules pièces plus grandes qu'une case. </p>
+
+</div>
+</div>
+<a id="a5731409d714e6fffd571330b790a97fa" name="a5731409d714e6fffd571330b790a97fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5731409d714e6fffd571330b790a97fa">&#9670;&#160;</a></span>_manifest</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a>&gt; hmi::PlaceAppearance::_manifest</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le catalogue adopté, partagé : copier une table ne le recopie pas. </p>
 
 </div>
 </div>

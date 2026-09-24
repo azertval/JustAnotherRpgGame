@@ -62,18 +62,22 @@
 
 namespace hmi {
 
-/// @brief Ce que le lieu d'une carte apporte : son manifeste et sa table, s'ils existent.
+/// @brief Ce que le lieu d'une carte apporte : son catalogue rÃ©solu et sa table, s'ils existent.
 struct PlaceAssets {
+    /// Le catalogue rÃ©solu du lieu : ses piÃ¨ces et celles de ses niveaux communs (`LOT-124`).
     std::optional&lt;core::ScenePieceManifest&gt; manifest;
     std::optional&lt;PlaceAppearance&gt; appearance;
+    /// Pourquoi le catalogue manque, vide s'il est lÃ .
+    std::string manifestError;
 };
 
-/// @return Le manifeste et la table du lieu @p place, lus dans `&lt;dataRoot&gt;/Assets/Scene/&lt;place&gt;/`.
+/// @return Le catalogue rÃ©solu et la table du lieu @p place, lus sous `&lt;dataRoot&gt;/Assets/`
+///         (`core::ScenePieceManifest::resolve`, `hmi::PlaceAppearance::loadForPlace`).
 [[nodiscard]] PlaceAssets loadPlaceAssets(const std::filesystem::path&amp; dataRoot,
                                           std::string_view place);
 
-/// @return Les lieux qu'une carte peut prendre : les dossiers de `&lt;dataRoot&gt;/Assets/Scene` qui ont
-///         un manifeste de piÃ¨ces, triÃ©s (`LOT-EDITOR-06`).
+/// @return Les lieux qu'une carte peut prendre, triÃ©s : l'arbre des lieux (`core::scenePlaces`,
+///         `LOT-124`).
 [[nodiscard]] std::vector&lt;std::string&gt; scenePlaces(const std::filesystem::path&amp; dataRoot);
 
 /// @return Les fichiers de carte de `&lt;dataRoot&gt;/Levels`, sous-dossiers compris, triÃ©s â sans les

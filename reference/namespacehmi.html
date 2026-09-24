@@ -224,7 +224,7 @@ Classes</h2></td></tr>
 <tr class="memitem:OpenDocument" id="r_OpenDocument"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1OpenDocument.html">OpenDocument</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte ouverte : ce que la barre d'onglets en connaît.  <a href="structhmi_1_1OpenDocument.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlaceAssets" id="r_PlaceAssets"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlaceAssets.html">PlaceAssets</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le lieu d'une carte apporte : son manifeste et sa table, s'ils existent.  <a href="structhmi_1_1PlaceAssets.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le lieu d'une carte apporte : son catalogue résolu et sa table, s'ils existent.  <a href="structhmi_1_1PlaceAssets.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapCheckFinding" id="r_MapCheckFinding"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un constat du contrôle, sur une carte, et parfois sur une case.  <a href="structhmi_1_1MapCheckFinding.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapCheckReport" id="r_MapCheckReport"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapCheckReport.html">MapCheckReport</a></td></tr>
@@ -263,6 +263,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un morceau de carte : le rectangle, ses couches, ses entités, ses cases forcées.  <a href="structhmi_1_1Stamp.html#details">More...</a><br /></td></tr>
 <tr class="memitem:StampPasteResult" id="r_StampPasteResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1StampPasteResult.html">StampPasteResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une pose a fait.  <a href="structhmi_1_1StampPasteResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PrefabEntry" id="r_PrefabEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PrefabEntry.html">PrefabEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un préfabriqué qu'un lieu peut poser : son nom, et le niveau qui le range.  <a href="structhmi_1_1PrefabEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapTemplateLayer" id="r_MapTemplateLayer"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapTemplateLayer.html">MapTemplateLayer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couche que le modèle donne à la carte neuve.  <a href="structhmi_1_1MapTemplateLayer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapTemplate" id="r_MapTemplate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a></td></tr>
@@ -1085,8 +1087,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a080952a1a1d790dc8b26f71b2fcd00d6" id="r_a080952a1a1d790dc8b26f71b2fcd00d6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a080952a1a1d790dc8b26f71b2fcd00d6">entityRef</a> (std::string_view mapId, std::string_view entityId)</td></tr>
 <tr class="memitem:a9a7176a33d5205537d912eb3dbcbf61c" id="r_a9a7176a33d5205537d912eb3dbcbf61c"><td class="memItemLeft"><a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9a7176a33d5205537d912eb3dbcbf61c">loadEditorReferences</a> (const std::filesystem::path &amp;root)</td></tr>
 <tr class="memdesc:a9a7176a33d5205537d912eb3dbcbf61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les catalogues sous <code class="param">root</code>, la racine des éléments déployés à côté de l'exécutable : <span class="tt">World/dialogues</span>, <span class="tt">World/locations</span>, <span class="tt">Rpg/encounters</span>, <span class="tt">Rpg/creatures</span>, <span class="tt">Rpg/items</span>, les manifestes des figurines sous <span class="tt">Assets</span>, et <span class="tt">Levels</span>.  <br /></td></tr>
-<tr class="memitem:a0d0807508a2f34865c159279827d4806" id="r_a0d0807508a2f34865c159279827d4806"><td class="memItemLeft"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0d0807508a2f34865c159279827d4806">referenceContext</a> (const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &amp;references, std::string_view editedMapId, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;editedEntities)</td></tr>
-<tr class="memdesc:a0d0807508a2f34865c159279827d4806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contexte de validation des entités de la carte éditée.  <br /></td></tr>
+<tr class="memitem:af4ea2cd1857b4816619f1b5c6ecdd969" id="r_af4ea2cd1857b4816619f1b5c6ecdd969"><td class="memItemLeft"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#af4ea2cd1857b4816619f1b5c6ecdd969">referenceContext</a> (const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &amp;references, std::string_view editedMapId, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;editedEntities, std::string_view place={})</td></tr>
+<tr class="memdesc:af4ea2cd1857b4816619f1b5c6ecdd969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contexte de validation des entités de la carte éditée.  <br /></td></tr>
 <tr class="memitem:a8e6e1ef57fdc109210a3e29802d85af9" id="r_a8e6e1ef57fdc109210a3e29802d85af9"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8e6e1ef57fdc109210a3e29802d85af9">entityChoices</a> (const <a class="el" href="structcore_1_1EntityPropertySpec.html">core::EntityPropertySpec</a> &amp;spec, const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &amp;entity, const <a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a> &amp;context)</td></tr>
 <tr class="memdesc:a8e6e1ef57fdc109210a3e29802d85af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les valeurs que le panneau propose pour la propriété <code class="param">spec</code> de <code class="param">entity</code>, triées.  <br /></td></tr>
 <tr class="memitem:a85003a18fc16ecb0133fc982181ff5ff" id="r_a85003a18fc16ecb0133fc982181ff5ff"><td class="memItemLeft"><a class="el" href="namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9">core::EntityShape</a>&#160;</td><td class="memItemRight"><a class="el" href="#a85003a18fc16ecb0133fc982181ff5ff">entityShape</a> (const <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &amp;entity)</td></tr>
@@ -1124,6 +1126,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a5513925544b8628185e12eae822a83e8" id="r_a5513925544b8628185e12eae822a83e8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1LayerRow.html">LayerRow</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5513925544b8628185e12eae822a83e8">layerRows</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
 <tr class="memdesc:a5513925544b8628185e12eae822a83e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lignes du panneau, dans l'<b>ordre de dessin</b> : la grille racine d'abord, puis les couches visuelles dans l'ordre de <span class="tt">layers</span>.  <br /></td></tr>
 <tr class="memitem:ab632ba3c3120c215116a504837d137b9" id="r_ab632ba3c3120c215116a504837d137b9"><td class="memItemLeft"><a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab632ba3c3120c215116a504837d137b9">validActiveLayer</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, <a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active)</td></tr>
+<tr class="memitem:a97a1f449e9f4df4d908818d3b727e1b1" id="r_a97a1f449e9f4df4d908818d3b727e1b1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a97a1f449e9f4df4d908818d3b727e1b1">levelFolderOf</a> (std::string_view place)</td></tr>
+<tr class="memdesc:a97a1f449e9f4df4d908818d3b727e1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier, relatif à <span class="tt">Levels/</span>, où se range une carte du lieu <code class="param">place</code> (<span class="tt">LOT-124</span>) : le chemin du lieu sans son dernier segment — <span class="tt">central-empire/capital</span> pour <span class="tt">central-empire/capital/arenarea</span>, dont la carte est <span class="tt">arenarea.json</span>.  <br /></td></tr>
 <tr class="memitem:abf93f3d263fe7268a624a8a96566a89e" id="r_abf93f3d263fe7268a624a8a96566a89e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abf93f3d263fe7268a624a8a96566a89e">isValidLevelName</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:abf93f3d263fe7268a624a8a96566a89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indique si <code class="param">name</code> peut servir de nom de niveau (donc de nom de fichier Windows).  <br /></td></tr>
 <tr class="memitem:acb440eec2a1a3d3cc760795b9875ae8e" id="r_acb440eec2a1a3d3cc760795b9875ae8e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acb440eec2a1a3d3cc760795b9875ae8e">trimLevelName</a> (const std::string &amp;name)</td></tr>
@@ -1203,14 +1207,18 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2d195c639fb5e48fce2944f545a0392b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit un tampon écrit par <span class="tt"><a class="el" href="#a696cb5ea01e7799dd96b5fb1d251df4b">hmi::stampToJson</a></span>.  <br /></td></tr>
 <tr class="memitem:ada4c5f2f4d7544a3bb0598071fc35af2" id="r_ada4c5f2f4d7544a3bb0598071fc35af2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ada4c5f2f4d7544a3bb0598071fc35af2">isValidPrefabName</a> (std::string_view name)</td></tr>
 <tr class="memitem:a07be0ee4221ad06662b636b34b4e4fba" id="r_a07be0ee4221ad06662b636b34b4e4fba"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a07be0ee4221ad06662b636b34b4e4fba">prefabsDir</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
+<tr class="memitem:aef07b8646fceab1c624a224df72a0253" id="r_aef07b8646fceab1c624a224df72a0253"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PrefabEntry.html">PrefabEntry</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aef07b8646fceab1c624a224df72a0253">availablePrefabs</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
+<tr class="memdesc:aef07b8646fceab1c624a224df72a0253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt">LOT-124</span>) : les siens et ceux de chacun de ses niveaux communs, jusqu'au monde (<span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/*.json</span>).  <br /></td></tr>
 <tr class="memitem:a9c9aba9b8952f0682eb1a046133bb2c4" id="r_a9c9aba9b8952f0682eb1a046133bb2c4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c9aba9b8952f0682eb1a046133bb2c4">prefabNames</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
+<tr class="memitem:a3c4e9f0c2dba8b305bb472b1fcf59df5" id="r_a3c4e9f0c2dba8b305bb472b1fcf59df5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3c4e9f0c2dba8b305bb472b1fcf59df5">prefabLevel</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest)</td></tr>
+<tr class="memdesc:a3c4e9f0c2dba8b305bb472b1fcf59df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau où ranger <code class="param">stamp</code> : le plus bas qui voit <b>toutes</b> ses pièces — le niveau le plus propre d'où vient l'une d'elles (<span class="tt">LOT-124</span>, règle 1 de l'arborescence).  <br /></td></tr>
 <tr class="memitem:a61e52f75a8d6b8bcf684423612d33961" id="r_a61e52f75a8d6b8bcf684423612d33961"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a61e52f75a8d6b8bcf684423612d33961">writePrefab</a> (const std::filesystem::path &amp;dataRoot, std::string_view place, std::string_view name, const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp)</td></tr>
 <tr class="memdesc:a61e52f75a8d6b8bcf684423612d33961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <code class="param">stamp</code> comme préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>, dossier créé au besoin.  <br /></td></tr>
 <tr class="memitem:a78fb9c779ee4b68d1d2050a0a9f05f5a" id="r_a78fb9c779ee4b68d1d2050a0a9f05f5a"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a78fb9c779ee4b68d1d2050a0a9f05f5a">readPrefab</a> (const std::filesystem::path &amp;dataRoot, std::string_view place, std::string_view name, std::string &amp;error)</td></tr>
-<tr class="memdesc:a78fb9c779ee4b68d1d2050a0a9f05f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit le préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>.  <br /></td></tr>
+<tr class="memdesc:a78fb9c779ee4b68d1d2050a0a9f05f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit le préfabriqué <code class="param">name</code> que le lieu <code class="param">place</code> peut poser : le sien, à défaut celui du plus propre de ses niveaux communs qui en range un de ce nom.  <br /></td></tr>
 <tr class="memitem:a539a375b9de8cc3b296bd4fac53c3c78" id="r_a539a375b9de8cc3b296bd4fac53c3c78"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a539a375b9de8cc3b296bd4fac53c3c78">mapTemplateFromJson</a> (const nlohmann::json &amp;json, std::string &amp;error)</td></tr>
 <tr class="memdesc:a539a375b9de8cc3b296bd4fac53c3c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit un modèle écrit dans le format <span class="tt">jadg-editor-map-template</span>.  <br /></td></tr>
-<tr class="memitem:a0e4099166134b351936920ef6d43c2ef" id="r_a0e4099166134b351936920ef6d43c2ef"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0e4099166134b351936920ef6d43c2ef">mapTemplates</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:aeadbf1d8ced6c6f6c841d6ac005b6b9e" id="r_aeadbf1d8ced6c6f6c841d6ac005b6b9e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aeadbf1d8ced6c6f6c841d6ac005b6b9e">mapTemplates</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
 <tr class="memitem:adf9e3c71ee8b149a0affc39de3cb2d0e" id="r_adf9e3c71ee8b149a0affc39de3cb2d0e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1LibraryFinding.html">LibraryFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adf9e3c71ee8b149a0affc39de3cb2d0e">checkEditorLibrary</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memitem:a8cb11ddb4f6f0829572c5af78aec6f4b" id="r_a8cb11ddb4f6f0829572c5af78aec6f4b"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8cb11ddb4f6f0829572c5af78aec6f4b">runPrefabCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</td></tr>
 <tr class="memdesc:a8cb11ddb4f6f0829572c5af78aec6f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bibliothèque <b>sans fenêtre</b> (<span class="tt">LOT-EDITOR-08</span>, règle 4 de la feuille de route) : les mêmes fonctions que la fenêtre, appelées en ligne de commande.  <br /></td></tr>
@@ -1490,7 +1498,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a9e883d27c858a688f03fb82107cbb826" id="r_a9e883d27c858a688f03fb82107cbb826"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9e883d27c858a688f03fb82107cbb826">citationsOfMap</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId)</td></tr>
 <tr class="memitem:abab76a12c8660bff3eeba4f44e7f488f" id="r_abab76a12c8660bff3eeba4f44e7f488f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abab76a12c8660bff3eeba4f44e7f488f">citationsOfArrival</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view arrival)</td></tr>
 <tr class="memitem:a6433401a8bdd2dfa3b1209c92df3f776" id="r_a6433401a8bdd2dfa3b1209c92df3f776"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6433401a8bdd2dfa3b1209c92df3f776">citationsOfEntity</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view entityId)</td></tr>
-<tr class="memitem:ad8039f7a46143bef6da7de82c1a2b706" id="r_ad8039f7a46143bef6da7de82c1a2b706"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad8039f7a46143bef6da7de82c1a2b706">citationsOfPiece</a> (const std::filesystem::path &amp;dataRoot, std::string_view piece)</td></tr>
+<tr class="memitem:aa77afd17d50b0a0f78629cd36d58c921" id="r_aa77afd17d50b0a0f78629cd36d58c921"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa77afd17d50b0a0f78629cd36d58c921">citationsOfPiece</a> (const std::filesystem::path &amp;dataRoot, std::string_view piece, std::string_view level)</td></tr>
 <tr id="func-members-1" class="groupHeader"><td colspan="2"><div class="groupHeader">Renommer</div></td></tr>
 <tr class="memitem:a43197e19f5f5d84456fbc0ec9a7d9c86" id="r_a43197e19f5f5d84456fbc0ec9a7d9c86"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#a43197e19f5f5d84456fbc0ec9a7d9c86">planRenameMap</a> (const std::filesystem::path &amp;dataRoot, std::string_view oldId, std::string_view newId)</td></tr>
 <tr class="memdesc:a43197e19f5f5d84456fbc0ec9a7d9c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la carte <code class="param">oldId</code> en <code class="param">newId</code> — un autre dossier est permis (<span class="tt">coliseum</span> → <span class="tt">capital/coliseum</span>).  <br /></td></tr>
@@ -1499,8 +1507,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ab822e7d58bc19bd2b2d86e8f5cf5575f" id="r_ab822e7d58bc19bd2b2d86e8f5cf5575f"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab822e7d58bc19bd2b2d86e8f5cf5575f">planRenameEntityId</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view oldId, std::string_view newId)</td></tr>
 <tr class="memdesc:ab822e7d58bc19bd2b2d86e8f5cf5575f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme l'entité <span class="tt">mapId#oldId</span> en <code class="param">newId</code>, et ce qui la cite.  <br /></td></tr>
 <tr id="func-members-2" class="groupHeader"><td colspan="2"><div class="groupHeader">Remplacer, changer de planche</div></td></tr>
-<tr class="memitem:abfd98fd3827a2fc0a88db80648a18b59" id="r_abfd98fd3827a2fc0a88db80648a18b59"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#abfd98fd3827a2fc0a88db80648a18b59">planReplacePiece</a> (const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps)</td></tr>
-<tr class="memdesc:abfd98fd3827a2fc0a88db80648a18b59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace la pièce <code class="param">from</code> par <code class="param">to</code>, sur les cartes <code class="param">maps</code> (toutes celles qui la posent si la liste est vide), par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>.  <br /></td></tr>
+<tr class="memitem:a249ab1a3e2b1d49602866e4318a47c90" id="r_a249ab1a3e2b1d49602866e4318a47c90"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#a249ab1a3e2b1d49602866e4318a47c90">planReplacePiece</a> (const std::filesystem::path &amp;dataRoot, std::string_view from, std::string_view to, const std::vector&lt; std::string &gt; &amp;maps, std::string_view level={})</td></tr>
+<tr class="memdesc:a249ab1a3e2b1d49602866e4318a47c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace la pièce <code class="param">from</code> par <code class="param">to</code>, sur les cartes <code class="param">maps</code> (toutes celles qui la posent si la liste est vide), par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>.  <br /></td></tr>
 <tr class="memitem:a2e091b55877d7aecd5436fad2ee8f474" id="r_a2e091b55877d7aecd5436fad2ee8f474"><td class="memItemLeft"><a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474">proposedPieceTable</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;target)</td></tr>
 <tr class="memdesc:a2e091b55877d7aecd5436fad2ee8f474"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table que l'éditeur propose pour passer <code class="param">layers</code> à la planche <code class="param">target</code> : chaque pièce citée va à la pièce de même nom — ou dont elle est un ancien nom (<span class="tt">aliases</span>), sous son nom courant.  <br /></td></tr>
 <tr class="memitem:a0377bf0efd1edea1d227241afc05856a" id="r_a0377bf0efd1edea1d227241afc05856a"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0377bf0efd1edea1d227241afc05856a">piecesMissingFrom</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers, const <a class="el" href="namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f">core::PieceRenaming</a> &amp;table, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> &amp;target)</td></tr>
@@ -4188,6 +4196,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aef07b8646fceab1c624a224df72a0253" name="aef07b8646fceab1c624a224df72a0253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef07b8646fceab1c624a224df72a0253">&#9670;&#160;</a></span>availablePrefabs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1PrefabEntry.html">PrefabEntry</a> &gt; hmi::availablePrefabs </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt">LOT-124</span>) : les siens et ceux de chacun de ses niveaux communs, jusqu'au monde (<span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/*.json</span>). </p>
+<p>Un préfabriqué propre masque un commun de même nom. Triés par nom. </p>
+
+</div>
+</div>
 <a id="a155d659b488b9c7a4898db4deed6300a" name="a155d659b488b9c7a4898db4deed6300a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a155d659b488b9c7a4898db4deed6300a">&#9670;&#160;</a></span>backpackCells()</h2>
 
@@ -4844,8 +4884,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad8039f7a46143bef6da7de82c1a2b706" name="ad8039f7a46143bef6da7de82c1a2b706"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8039f7a46143bef6da7de82c1a2b706">&#9670;&#160;</a></span>citationsOfPiece()</h2>
+<a id="aa77afd17d50b0a0f78629cd36d58c921" name="aa77afd17d50b0a0f78629cd36d58c921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa77afd17d50b0a0f78629cd36d58c921">&#9670;&#160;</a></span>citationsOfPiece()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4861,7 +4901,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>piece</em></span>&#160;)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>piece</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>level</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -4870,7 +4915,15 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les couches qui posent <code class="param">piece</code>, une citation par carte et par couche, sur la première case ; <code class="param">what</code> dit combien de cases. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les couches qui posent <code class="param">piece</code>, une citation par carte et par couche, sur la première case ; son texte dit combien de cases, et de quel niveau la carte tient la pièce. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données. </td></tr>
+    <tr><td class="paramname">piece</td><td>Le nom court de la pièce. </td></tr>
+    <tr><td class="paramname">level</td><td>Un dossier de niveau, relatif à <span class="tt">Assets/</span> : seules les cartes dont le lieu résout <code class="param">piece</code> <b>dans ce niveau</b> (<span class="tt">LOT-124</span>) ; vide, toutes. Deux zones qui ont chacune leur pièce de même nom ne se citent pas l'une l'autre. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -6667,13 +6720,13 @@ Variables</h2></td></tr>
 <p>Le chemin d'une bande de figurine, relatif au dossier des assets. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">figure</td><td>Le nom que la carte donne (<span class="tt"><a class="el" href="structhmi_1_1WorldFigureSnapshot.html#aeff19cbc04fa665fcb6838cb0964f9d1" title="Figurine : un slug de l&#39;atelier des PNJ (anariel, jade…, dossier Assets/Npc/&lt;slug&gt;),...">WorldFigureSnapshot::figure</a></span>). </td></tr>
+    <tr><td class="paramname">figure</td><td>Le dossier de la figurine, relatif à <span class="tt">Assets/</span> (<span class="tt">Regions/…/Characters/&lt;slug&gt;</span>, <span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a25c57aae364b65363a53154edfa93262" title="Le dossier, relatif à Assets/, de la figurine figure : cherchée dans les Characters/ du lieu et de se...">hmi::PlaceAppearance::figureDirectory</a></span>), ou un slug seul, cherché à plat (<span class="tt"><a class="el" href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08" title="Le dossier, relatif à Assets/, de la figurine figure : celui que figures lui donne ; à défaut,...">core::figureDirectory</a></span>). </td></tr>
     <tr><td class="paramname">clip</td><td>La bande (<span class="tt">idle</span>, <span class="tt">walk</span>) ; vide : <span class="tt">idle</span>. </td></tr>
     <tr><td class="paramname">facing</td><td>L'orientation ; <span class="tt">None</span> : la bande sans suffixe. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">Npc/&lt;figure&gt;/&lt;clip&gt;.png</span> pour un slug, <span class="tt">&lt;figure&gt;/&lt;clip&gt;.png</span> pour un dossier ; <span class="tt">&lt;clip&gt;-se.png</span>… pour une figurine orientée. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">&lt;dossier&gt;/&lt;clip&gt;.png</span> ; <span class="tt">&lt;clip&gt;-se.png</span>… pour une figurine orientée. </dd></dl>
 
 </div>
 </div>
@@ -6986,7 +7039,7 @@ Variables</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">terrain</td><td>Le terrain de la rencontre (<span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>). </td></tr>
-    <tr><td class="paramname">figures</td><td>Les figurines connues (<span class="tt"><a class="el" href="structhmi_1_1EditorReferences.html#ae65812f5ec623b0414bc4f1abd217e8f" title="Les figurines des ateliers, triées : les slugs de Assets/Npc/manifest.json, puis Monsters/&lt;slug&gt; pour...">hmi::EditorReferences::figures</a></span>), triées. </td></tr>
+    <tr><td class="paramname">figures</td><td>Les figurines connues (<span class="tt"><a class="el" href="structhmi_1_1EditorReferences.html#ae65812f5ec623b0414bc4f1abd217e8f" title="Les figurines que toute carte peut poser, triées : les slugs de Assets/Npc/manifest....">hmi::EditorReferences::figures</a></span>), triées. </td></tr>
   </table>
   </dd>
 </dl>
@@ -7909,6 +7962,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a97a1f449e9f4df4d908818d3b727e1b1" name="a97a1f449e9f4df4d908818d3b727e1b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97a1f449e9f4df4d908818d3b727e1b1">&#9670;&#160;</a></span>levelFolderOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::levelFolderOf </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier, relatif à <span class="tt">Levels/</span>, où se range une carte du lieu <code class="param">place</code> (<span class="tt">LOT-124</span>) : le chemin du lieu sans son dernier segment — <span class="tt">central-empire/capital</span> pour <span class="tt">central-empire/capital/arenarea</span>, dont la carte est <span class="tt">arenarea.json</span>. </p>
+<p>Vide pour un lieu à plat ou sans lieu : la carte va à la racine. </p>
+
+</div>
+</div>
 <a id="af759d2b783c12c7eb6e871adc4e19867" name="af759d2b783c12c7eb6e871adc4e19867"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af759d2b783c12c7eb6e871adc4e19867">&#9670;&#160;</a></span>lineCells()</h2>
 
@@ -8180,7 +8261,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le manifeste et la table du lieu <code class="param">place</code>, lus dans <span class="tt">&lt;dataRoot&gt;/Assets/Scene/&lt;place&gt;/</span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Le catalogue résolu et la table du lieu <code class="param">place</code>, lus sous <span class="tt">&lt;dataRoot&gt;/Assets/</span> (<span class="tt"><a class="el" href="classcore_1_1ScenePieceManifest.html#a6dadfe65c55956dd86871a99fc0212e6" title="Le catalogue résolu du lieu place : les manifestes de ses niveaux (core::sceneLevelCandidates),...">core::ScenePieceManifest::resolve</a></span>, <span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#ad46b07568c722387857cf3801a76e4cb" title="La table du lieu place et de ses niveaux communs (LOT-124) : ce que le jeu et l&#39;éditeur lisent.">hmi::PlaceAppearance::loadForPlace</a></span>). </dd></dl>
 
 </div>
 </div>
@@ -8476,8 +8557,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a0e4099166134b351936920ef6d43c2ef" name="a0e4099166134b351936920ef6d43c2ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e4099166134b351936920ef6d43c2ef">&#9670;&#160;</a></span>mapTemplates()</h2>
+<a id="aeadbf1d8ced6c6f6c841d6ac005b6b9e" name="aeadbf1d8ced6c6f6c841d6ac005b6b9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeadbf1d8ced6c6f6c841d6ac005b6b9e">&#9670;&#160;</a></span>mapTemplates()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8488,8 +8569,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1MapTemplate.html">MapTemplate</a> &gt; hmi::mapTemplates </td>
           <td>(</td>
-          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -8498,7 +8583,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les modèles de <span class="tt">&lt;dataRoot&gt;/Editor/Templates/*.json</span>, triés par identifiant ; les fichiers illisibles sont passés (<span class="tt">--check</span> les nomme). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les modèles de <span class="tt">&lt;dataRoot&gt;/Editor/Templates/*.json</span> et, pour un lieu <code class="param">place</code>, ceux de <span class="tt">Editor/Templates/&lt;niveau&gt;/</span> pour chacun de ses niveaux (<span class="tt">LOT-124</span>), le plus propre masquant un commun de même identifiant ; triés par identifiant. Les fichiers illisibles sont passés (<span class="tt">--check</span> les nomme). </dd></dl>
 
 </div>
 </div>
@@ -10196,7 +10281,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le catalogue d'un lieu. </p>
-<p>Groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide », « Other » (une classe que l'éditeur ne connaît pas) pour les pièces à plat ; un groupe par sous-dossier du lieu, nommé par son chemin (<span class="tt">roofs/l/d3</span>), dans l'ordre alphabétique, pour un kit rangé en arborescence (<span class="tt">LOT-129</span>) ; puis <span class="tt"><a class="el" href="#a5df9b58a558cb32ba554bcb3bff09c45" title="Titre du groupe des pièces que la carte cite et que la planche n&#39;a pas.">MISSING_PIECES_GROUP</a></span> — les noms que <code class="param">layers</code> citent et que <code class="param">manifest</code> ne connaît ni par leur nom ni par un alias, triés. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Niveau par niveau (<span class="tt"><a class="el" href="classcore_1_1ScenePieceManifest.html#a35e569d9895ac423b33b6afd3103e4dc">core::ScenePieceManifest::levels</a></span>), du plus propre au plus commun, des groupes, dans cet ordre et seulement s'ils ont une pièce : « Floors », « Standing », « Wide », « Other » (une classe que l'éditeur ne connaît pas) pour les pièces à plat ; un groupe par sous-dossier du niveau, nommé par son chemin (<span class="tt">roofs/l/d3</span>), dans l'ordre alphabétique, pour un kit rangé en arborescence (<span class="tt">LOT-129</span>). Les pièces masquées vont dans le groupe de leur niveau. Puis <span class="tt"><a class="el" href="#a5df9b58a558cb32ba554bcb3bff09c45" title="Titre du groupe des pièces que la carte cite et que la planche n&#39;a pas.">MISSING_PIECES_GROUP</a></span> — les noms que <code class="param">layers</code> citent et que <code class="param">manifest</code> ne connaît ni par leur nom ni par un alias, triés. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">manifest</td><td>Le manifeste du lieu, <span class="tt">nullptr</span> sans lieu : seules restent les pièces absentes. </td></tr>
     <tr><td class="paramname">layers</td><td>Les couches de la carte. </td></tr>
@@ -10272,7 +10357,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La bulle d'aide d'une pièce : <span class="tt">front-left — wide, 2 × 1, solid</span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>La bulle d'aide d'une pièce : <span class="tt">front-left — wide, 2 × 1, solid · Capital</span>, et ce qu'elle masque ou ce qui la masque. </dd></dl>
 
 </div>
 </div>
@@ -10589,8 +10674,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="abfd98fd3827a2fc0a88db80648a18b59" name="abfd98fd3827a2fc0a88db80648a18b59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfd98fd3827a2fc0a88db80648a18b59">&#9670;&#160;</a></span>planReplacePiece()</h2>
+<a id="a249ab1a3e2b1d49602866e4318a47c90" name="a249ab1a3e2b1d49602866e4318a47c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a249ab1a3e2b1d49602866e4318a47c90">&#9670;&#160;</a></span>planReplacePiece()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10616,7 +10701,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>maps</em></span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>maps</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>level</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -10627,7 +10717,17 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Remplace la pièce <code class="param">from</code> par <code class="param">to</code>, sur les cartes <code class="param">maps</code> (toutes celles qui la posent si la liste est vide), par <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45" title="Renomme, sur toutes les couches visuelles, chaque pièce que renaming nomme (LOT-EDITOR-14,...">core::LevelDraft::replacePieces</a></span>. </p>
-<p>Refusé si <code class="param">to</code> n'est pas sur la planche d'une de ces cartes, si l'une est un sol et l'autre non, ou si une nouvelle emprise déborde. </p>
+<p>Refusé si <code class="param">to</code> n'est pas sur la planche d'une de ces cartes, si l'une est un sol et l'autre non, ou si une nouvelle emprise déborde.</p>
+<p><b>Promouvoir</b> une pièce au commun sous une autre clé (<span class="tt">LOT-124</span>) : <code class="param">level</code> nomme le niveau d'où elle part, et seules les cartes qui la tiennent <b>de ce niveau</b> sont réécrites — pas une autre zone qui a sa propre pièce de même nom. Sous la même clé, une promotion ne réécrit rien : la carte cite un nom court, que la résolution trouve au niveau commun. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données. </td></tr>
+    <tr><td class="paramname">from</td><td>La pièce remplacée. </td></tr>
+    <tr><td class="paramname">to</td><td>La pièce qui la remplace. </td></tr>
+    <tr><td class="paramname">maps</td><td>Les cartes visées ; vide : toutes celles qui la posent. </td></tr>
+    <tr><td class="paramname">level</td><td>Un dossier de niveau, relatif à <span class="tt">Assets/</span> ; vide : toutes les cartes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -10691,6 +10791,45 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3c4e9f0c2dba8b305bb472b1fcf59df5" name="a3c4e9f0c2dba8b305bb472b1fcf59df5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c4e9f0c2dba8b305bb472b1fcf59df5">&#9670;&#160;</a></span>prefabLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::prefabLevel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>stamp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *</td>          <td class="paramname"><span class="paramname"><em>manifest</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le niveau où ranger <code class="param">stamp</code> : le plus bas qui voit <b>toutes</b> ses pièces — le niveau le plus propre d'où vient l'une d'elles (<span class="tt">LOT-124</span>, règle 1 de l'arborescence). </p>
+<p>Un tampon fait du seul kit de la Capitale se range sous <span class="tt">central-empire/capital</span> et sert à tous ses quartiers. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stamp</td><td>Le tampon. </td></tr>
+    <tr><td class="paramname">manifest</td><td>Le catalogue résolu du lieu d'où il vient ; <span class="tt">nullptr</span> : son lieu. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Un lieu, vide pour le monde ; le lieu du tampon s'il n'a aucune pièce, ou une pièce que le catalogue ignore. </dd></dl>
+
+</div>
+</div>
 <a id="a9c9aba9b8952f0682eb1a046133bb2c4" name="a9c9aba9b8952f0682eb1a046133bb2c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9c9aba9b8952f0682eb1a046133bb2c4">&#9670;&#160;</a></span>prefabNames()</h2>
 
@@ -10717,7 +10856,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les noms des préfabriqués du lieu <code class="param">place</code>, triés (vide si le dossier n'existe pas). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les noms des préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt"><a class="el" href="#aef07b8646fceab1c624a224df72a0253" title="Les préfabriqués que le lieu place peut poser (LOT-124) : les siens et ceux de chacun de ses niveaux ...">availablePrefabs</a></span>), triés. </dd></dl>
 
 </div>
 </div>
@@ -10972,11 +11111,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Relit le préfabriqué <code class="param">name</code> du lieu <code class="param">place</code>. </p>
+<p>Relit le préfabriqué <code class="param">name</code> que le lieu <code class="param">place</code> peut poser : le sien, à défaut celui du plus propre de ses niveaux communs qui en range un de ce nom. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dataRoot</td><td>La racine des données. </td></tr>
-    <tr><td class="paramname">place</td><td>Le lieu dont il vient. </td></tr>
+    <tr><td class="paramname">place</td><td>Le lieu qui le pose. </td></tr>
     <tr><td class="paramname">name</td><td>Son nom, sans extension. </td></tr>
     <tr><td class="paramname">error</td><td>Reçoit le motif du refus ; vide si la lecture a réussi. </td></tr>
   </table>
@@ -11115,8 +11254,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a0d0807508a2f34865c159279827d4806" name="a0d0807508a2f34865c159279827d4806"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d0807508a2f34865c159279827d4806">&#9670;&#160;</a></span>referenceContext()</h2>
+<a id="af4ea2cd1857b4816619f1b5c6ecdd969" name="af4ea2cd1857b4816619f1b5c6ecdd969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ea2cd1857b4816619f1b5c6ecdd969">&#9670;&#160;</a></span>referenceContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11137,7 +11276,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>editedEntities</em></span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>editedEntities</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>place</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -11154,6 +11298,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">references</td><td>Les catalogues. </td></tr>
     <tr><td class="paramname">editedMapId</td><td>L'identifiant de la carte éditée (le nom de son fichier, sans extension). </td></tr>
     <tr><td class="paramname">editedEntities</td><td>Les entités du brouillon. </td></tr>
+    <tr><td class="paramname">place</td><td>Le lieu de la carte : ses figurines, et celles de ses niveaux communs, s'ajoutent à celles de toute carte (<span class="tt"><a class="el" href="namespacecore.html#a03fbe375242fffeae3499c57aaa301bf" title="Les figurines que le lieu place peut poser : le slug de chaque entrée npcs des manifestes de ses nive...">core::resolveFigures</a></span>, <span class="tt">LOT-124</span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -11811,7 +11956,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md118"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md120"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -11903,8 +12048,8 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 
 <p>La bibliothèque <b>sans fenêtre</b> (<span class="tt">LOT-EDITOR-08</span>, règle 4 de la feuille de route) : les mêmes fonctions que la fenêtre, appelées en ligne de commande. </p>
 <ul>
-<li><span class="tt">--list-prefabs [lieu…]</span> : les préfabriqués d'un lieu, tous les lieux à défaut ;</li>
-<li><span class="tt">--save-prefab &lt;carte&gt; &lt;nom&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;</span> : découpe le rectangle de la carte et l'écrit comme préfabriqué du lieu de cette carte. C'est ce que fait « Save selection as prefab… », et c'est ainsi que se fabrique un préfabriqué livré.</li>
+<li><span class="tt">--list-prefabs [lieu…]</span> : les préfabriqués qu'un lieu peut poser, tous les lieux à défaut ;</li>
+<li><span class="tt">--save-prefab &lt;carte&gt; &lt;nom&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;</span> : découpe le rectangle de la carte et l'écrit comme préfabriqué, au niveau le plus bas qui voit toutes ses pièces (<span class="tt"><a class="el" href="#a3c4e9f0c2dba8b305bb472b1fcf59df5" title="Le niveau où ranger stamp : le plus bas qui voit toutes ses pièces — le niveau le plus propre d&#39;où vi...">prefabLevel</a></span>). C'est ce que fait « Save selection as prefab… », et c'est ainsi que se fabrique un préfabriqué livré.</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Le code de sortie (0, 1 en cas d'échec, 2 si la ligne de commande est fausse), ou <span class="tt">std::nullopt</span> si aucune de ces commandes n'est demandée. </dd></dl>
 
@@ -11944,9 +12089,9 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 
 <p>L'entrée sans fenêtre (décision D9) : </p>
 <ul>
-<li><span class="tt">--who-cites map &lt;carte&gt;</span>, <span class="tt">--who-cites arrival &lt;carte&gt; &lt;point&gt;</span>, <span class="tt">--who-cites entity &lt;carte&gt; &lt;id&gt;</span>, <span class="tt">--who-cites piece &lt;pièce&gt;</span> ;</li>
+<li><span class="tt">--who-cites map &lt;carte&gt;</span>, <span class="tt">--who-cites arrival &lt;carte&gt; &lt;point&gt;</span>, <span class="tt">--who-cites entity &lt;carte&gt; &lt;id&gt;</span>, <span class="tt">--who-cites piece &lt;pièce&gt; [&lt;dossier de niveau&gt;]</span> ;</li>
 <li><span class="tt">--rename-map &lt;ancien&gt; &lt;nouveau&gt;</span>, <span class="tt">--rename-arrival &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;</span>, <span class="tt">--rename-id &lt;carte&gt; &lt;ancien&gt; &lt;nouveau&gt;</span> ;</li>
-<li><span class="tt">--replace-piece &lt;ancienne&gt; &lt;nouvelle&gt; [carte…]</span> ;</li>
+<li><span class="tt">--replace-piece &lt;ancienne&gt; &lt;nouvelle&gt; [carte…] [--level &lt;dossier de niveau&gt;]</span> ;</li>
 <li><span class="tt">--change-scene &lt;carte&gt; &lt;lieu&gt; [--table &lt;table.json&gt;]</span> ;</li>
 <li><span class="tt">--link-maps &lt;carte&gt; &lt;carte&gt;</span> : la paire portail / point d'arrivée des deux côtés (<span class="tt">LOT-EDITOR-09</span>, <span class="tt"><a class="el" href="#a64455acf952fc368012a3ad74e8da8d4" title="Plan du lien fromMap ↔ toMap : le portail et le point d&#39;arrivée des deux côtés.">hmi::planLinkMaps</a></span>).</li>
 </ul>
@@ -12188,7 +12333,7 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les lieux qu'une carte peut prendre : les dossiers de <span class="tt">&lt;dataRoot&gt;/Assets/Scene</span> qui ont un manifeste de pièces, triés (<span class="tt">LOT-EDITOR-06</span>). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les lieux qu'une carte peut prendre, triés : l'arbre des lieux (<span class="tt"><a class="el" href="namespacecore.html#ad6626a85739f1b8a654f2e4f362d6bfb" title="Les lieux où une carte peut se poser — l&#39;arbre des lieux de « New map » : chaque dossier de Assets/Re...">core::scenePlaces</a></span>, <span class="tt">LOT-124</span>). </dd></dl>
 
 </div>
 </div>

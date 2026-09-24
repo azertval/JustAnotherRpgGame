@@ -57,6 +57,9 @@ var NAVTREEINDEX2 =
 "ScenePieceManifest_8h_source.html":[4,0,0,2,7,5],
 "ScenePieces_8h.html":[4,0,0,6,2,40],
 "ScenePieces_8h_source.html":[4,0,0,6,2,40],
+"ScenePlace_8cpp.html":[4,0,0,2,7,6],
+"ScenePlace_8h.html":[4,0,0,2,7,7],
+"ScenePlace_8h_source.html":[4,0,0,2,7,7],
 "SceneResources_8cpp.html":[4,0,0,6,2,41],
 "SceneResources_8h.html":[4,0,0,6,2,42],
 "SceneResources_8h_source.html":[4,0,0,6,2,42],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "classcore_1_1ArenaSession.html#a38808d9b9189c755c35f14cbe7159e07":[3,0,0,12,39],
 "classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9":[2,0,1,12,4],
 "classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9":[3,0,0,12,4],
-"classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c":[2,0,1,12,3],
-"classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c":[3,0,0,12,3],
-"classcore_1_1ArenaSession.html#a4034c02d8e32b175dbba41999b5646fe":[2,0,1,12,42],
-"classcore_1_1ArenaSession.html#a4034c02d8e32b175dbba41999b5646fe":[3,0,0,12,42]
+"classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c":[2,0,1,12,3]
 };

@@ -17,6 +17,7 @@
 #include &lt;cstdint&gt;
 #include &lt;filesystem&gt;
 #include &lt;map&gt;
+#include &lt;memory&gt;
 #include &lt;optional&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
@@ -26,6 +27,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Resources/ScenePlace.h"
 
 /**
  * @file HMI/Graphics/PlaceAppearance.h
@@ -84,7 +86,26 @@ public:
     [[nodiscard]] static PlaceAppearanceResult loadFromString(std::string_view json);
 
     /// @brief Lit la table, puis le manifeste rangÃ© Ã  cÃ´tÃ© d'elle s'il existe (voir l'en-tÃªte).
+    ///        Ses piÃ¨ces sont cherchÃ©es dans le dossier propre du lieu que la table nomme.
     [[nodiscard]] static PlaceAppearanceResult loadFromFile(const std::filesystem::path&amp; path);
+
+    /**
+     * @brief La table du lieu @p place **et de ses niveaux communs** (`LOT-124`) : ce que le jeu et
+     *        l'Ã©diteur lisent.
+     *
+     * Les piÃ¨ces sont celles du catalogue rÃ©solu (`core::ScenePieceManifest::resolve`), chacune
+     * sous son dossier d'origine. Les tables (`appearance.json`, rangÃ©es Ã  cÃ´tÃ© des manifestes) se
+     * lisent Ã  chaque niveau et s'empilent de mÃªme : pour un type de tuile, la table **la plus
+     * propre** qui le traduit l'emporte.
+     *
+     * Les figurines se cherchent de mÃªme, dans les `Characters/` de ses niveaux
+     * (`figureDirectory`). Un lieu vide n'a que celles du monde.
+     *
+     * @return `FileNotFound` si aucun niveau n'a ni table, ni manifeste, ni figurine ; l'Ã©chec de
+     *         lecture d'une table ou d'un manifeste, prÃ©fixÃ© de son dossier.
+     */
+    [[nodiscard]] static PlaceAppearanceResult loadForPlace(
+        const std::filesystem::path&amp; assetsDirectory, std::string_view place);
 
     /**
      * @brief Adopte les anciens noms et les emprises des piÃ¨ces d'un manifeste.
@@ -102,11 +123,26 @@ public:
     [[nodiscard]] core::PieceFootprint pieceFootprint(std::string_view name) const;
 
     /**
-     * @brief Le fichier de la piÃ¨ce @p name (nom courant), relatif au dossier du lieu, quand il
-     *        n'est pas `&lt;name&gt;.png` Ã  plat â une piÃ¨ce rangÃ©e dans un sous-dossier
-     *        (`roofs/l/d3/roof-l-d3-ne-c0r0.png`, `LOT-129`). Vide sinon.
+     * @brief Le fichier de la piÃ¨ce @p name (nom courant), **relatif Ã  `Assets/`** : celui que le
+     *        manifeste de son niveau lui donne (`Regions/â¦/Common/Scene/floors/floor-01.png`,
+     *        `LOT-124`) ; Ã  dÃ©faut, `&lt;nom&gt;.png` dans le dossier propre du lieu
+     *        (`core::fallbackScenePiecePath`). Vide sans lieu.
      */
-    [[nodiscard]] std::string_view pieceFile(std::string_view name) const;
+    [[nodiscard]] std::string pieceFile(std::string_view name) const;
+
+    /**
+     * @brief Le dossier, relatif Ã  `Assets/`, de la figurine @p figure : cherchÃ©e dans les
+     *        `Characters/` du lieu et de ses niveaux communs (`core::resolveFigures`, `LOT-124`),
+     *        Ã  dÃ©faut par `core::figureDirectory`.
+     */
+<span style = "background-color:#dfd">    [[nodiscard]] std::string figureDirectory(std::string_view figure) const {
+        return core::figureDirectory(_figures, figure);
+    }</span>
+
+    /// @return Le catalogue que la table a adoptÃ©, `nullptr` s'il n'y en a pas.
+<span style = "background-color:#dfd">    [[nodiscard]] const core::ScenePieceManifest* pieceManifest() const noexcept {
+        return _manifest.get();
+    }</span>
 
     /// @return L'identifiant du lieu (`coliseum`), vide pour une table vide.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; place() const noexcept {
@@ -162,6 +198,8 @@ private:
     using Table = std::map&lt;core::TileType, std::vector&lt;std::string&gt;&gt;;
 
     [[nodiscard]] static PlaceAppearanceResult fromDocument(const core::JsonDocument&amp; document);
+    /// Prend, pour chaque type que @p other traduit et que cette table ignore, ses piÃ¨ces.
+    void fillFrom(const PlaceAppearance&amp; other);
 
     std::string _place;
     float _diamondRatio = core::ARENA_DIAMOND_RATIO;
@@ -172,8 +210,12 @@ private:
     std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; _aliases;
     /// Nom courant -&gt; emprise, pour les seules piÃ¨ces plus grandes qu'une case.
     std::map&lt;std::string, core::PieceFootprint, std::less&lt;&gt;&gt; _footprints;
-    /// Les fichiers des piÃ¨ces qui ne sont pas `&lt;nom&gt;.png` Ã  plat (`pieceFile`).
+    /// Le fichier de chaque piÃ¨ce du manifeste, relatif Ã  `Assets/` (`pieceFile`).
     std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; _files;
+    /// Les figurines que le lieu peut poser, par slug (`loadForPlace`).
+    core::FigureDirectories _figures;
+    /// Le catalogue adoptÃ©, partagÃ© : copier une table ne le recopie pas.
+    std::shared_ptr&lt;const core::ScenePieceManifest&gt; _manifest;
 };
 
 /// @brief RÃ©sultat d'une lecture : la table, et ce qui a Ã©chouÃ©.

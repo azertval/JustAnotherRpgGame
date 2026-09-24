@@ -157,7 +157,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a2347b4745df3c2f026bfb4972b4e2132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour l'emprise des créatures d'une rencontre (<span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>).  <br /></td></tr>
 <tr class="memitem:a1b9a14a7e8d8fafb6d81ec468819b357" id="r_a1b9a14a7e8d8fafb6d81ec468819b357"><td class="memItemLeft"><a class="el" href="structcore_1_1WorldGraph.html">core::WorldGraph</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1b9a14a7e8d8fafb6d81ec468819b357">world</a></td></tr>
 <tr class="memitem:ae65812f5ec623b0414bc4f1abd217e8f" id="r_ae65812f5ec623b0414bc4f1abd217e8f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae65812f5ec623b0414bc4f1abd217e8f">figures</a></td></tr>
-<tr class="memdesc:ae65812f5ec623b0414bc4f1abd217e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des ateliers, triées : les slugs de <span class="tt">Assets/Npc/manifest.json</span>, puis <span class="tt">Monsters/&lt;slug&gt;</span> pour chaque monstre de <span class="tt">Assets/Monsters/manifest.json</span>.  <br /></td></tr>
+<tr class="memdesc:ae65812f5ec623b0414bc4f1abd217e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines que toute carte peut poser, triées : les slugs de <span class="tt">Assets/Npc/manifest.json</span>, <span class="tt">Monsters/&lt;slug&gt;</span> pour chaque monstre de <span class="tt">Assets/Monsters/manifest.json</span>, et les slugs du monde (<span class="tt">Assets/Common/Characters</span>, <span class="tt">LOT-124</span>).  <br /></td></tr>
+<tr class="memitem:a834339912ce66c819e4507367fa6a94d" id="r_a834339912ce66c819e4507367fa6a94d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a834339912ce66c819e4507367fa6a94d">assets</a></td></tr>
+<tr class="memdesc:a834339912ce66c819e4507367fa6a94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier <span class="tt">Assets/</span> où se cherchent les figurines d'un lieu ; vide sans données.  <br /></td></tr>
 <tr class="memitem:adfce73beec39e6122b2a340b5bb6ec41" id="r_adfce73beec39e6122b2a340b5bb6ec41"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adfce73beec39e6122b2a340b5bb6ec41">flags</a></td></tr>
 <tr class="memdesc:adfce73beec39e6122b2a340b5bb6ec41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux qu'un dialogue accepté pose (<span class="tt">SetFlag</span>, et le drapeau d'une quête démarrée), triés.  <br /></td></tr>
 <tr class="memitem:a3a6c93884d9c63175d7748beccec956f" id="r_a3a6c93884d9c63175d7748beccec956f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3a6c93884d9c63175d7748beccec956f">locations</a></td></tr>
@@ -168,6 +170,22 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les catalogues que les entités d'une carte référencent, lus une fois à l'ouverture de l'éditeur puis à la demande (enregistrement d'une carte, rechargement des assets). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a834339912ce66c819e4507367fa6a94d" name="a834339912ce66c819e4507367fa6a94d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a834339912ce66c819e4507367fa6a94d">&#9670;&#160;</a></span>assets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::EditorReferences::assets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le dossier <span class="tt">Assets/</span> où se cherchent les figurines d'un lieu ; vide sans données. </p>
+
+</div>
+</div>
 <a id="a2347b4745df3c2f026bfb4972b4e2132" name="a2347b4745df3c2f026bfb4972b4e2132"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2347b4745df3c2f026bfb4972b4e2132">&#9670;&#160;</a></span>bestiary</h2>
 
@@ -227,7 +245,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Les figurines des ateliers, triées : les slugs de <span class="tt">Assets/Npc/manifest.json</span>, puis <span class="tt">Monsters/&lt;slug&gt;</span> pour chaque monstre de <span class="tt">Assets/Monsters/manifest.json</span>. </p>
+<p>Les figurines que toute carte peut poser, triées : les slugs de <span class="tt">Assets/Npc/manifest.json</span>, <span class="tt">Monsters/&lt;slug&gt;</span> pour chaque monstre de <span class="tt">Assets/Monsters/manifest.json</span>, et les slugs du monde (<span class="tt">Assets/Common/Characters</span>, <span class="tt">LOT-124</span>). </p>
+<p>Celles d'un lieu s'y ajoutent carte par carte (<span class="tt"><a class="el" href="namespacehmi.html#af4ea2cd1857b4816619f1b5c6ecdd969" title="Le contexte de validation des entités de la carte éditée.">referenceContext</a></span>). </p>
 
 </div>
 </div>
