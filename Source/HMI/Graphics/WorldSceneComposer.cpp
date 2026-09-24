@@ -827,6 +827,42 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
             }
         }
     }
+    // Les entites qui posent une piece (LOT-126) -- une porte close : sa piece se pose a sa case
+    // comme une piece de decor, par-dessus celle de la couche. L'appelant n'a donne que les
+    // entites presentes. Sans piece dessinable -- une maquette, une piece absente du lieu --, un
+    // decor qui arrete le pas s'extrude en mur sur son emprise : on voit que le passage est clos.
+    for (const core::MapEntity& entity : source.entities) {
+        const core::EntityKind* const kind = core::findEntityKind(entity.type);
+        if (kind == nullptr || kind->pieceProperty.empty()) {
+            continue;
+        }
+        const std::string piece{textProperty(entity, kind->pieceProperty)};
+        const core::GridPosition cell = entity.position;
+        if (cell.column < 0 || cell.row < 0 || cell.column >= snapshot.columns ||
+            cell.row >= snapshot.rows) {
+            continue;
+        }
+        if (!snapshot.place.empty() && !piece.empty() && !appearance.pieceFile(piece).empty()) {
+            const std::size_t index = indexOf(cell, snapshot.columns);
+            snapshot.relief[index] = std::string{appearance.canonicalPiece(piece)};
+            const core::PieceFootprint emprise = appearance.pieceFootprint(snapshot.relief[index]);
+            if (emprise != core::PieceFootprint{}) {
+                snapshot.footprints.insert_or_assign(snapshot.relief[index], emprise);
+            }
+            continue;
+        }
+        const auto blocks = entity.properties.find(std::string{core::PROP_BLOCKS_PROPERTY});
+        const bool* const blocking =
+            blocks != entity.properties.end() ? std::get_if<bool>(&blocks->second) : nullptr;
+        if (blocking != nullptr && !*blocking) {
+            continue;
+        }
+        for (const core::GridPosition covered : rectangleCells(entity)) {
+            if (covered.column < snapshot.columns && covered.row < snapshot.rows) {
+                snapshot.reliefTypes[indexOf(covered, snapshot.columns)] = core::TileType::Wall;
+            }
+        }
+    }
     // Les couches d'etage : les decors d'etage 1 a MAX_STOREY_FLOOR, du plus bas au plus haut, a
     // la taille de la carte (LOT-129). Une autre valeur est gardee par le format, et ignoree ici.
     for (const core::TileLayer& couche : source.layers) {

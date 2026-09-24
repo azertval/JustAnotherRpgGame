@@ -211,6 +211,9 @@ void WorldModel::step() {
             case core::ExplorationEventKind::PortalBroken:
                 emit portalBroken(QString::fromStdString(evenement.value));
                 break;
+            case core::ExplorationEventKind::PortalSealed:
+                emit portalSealed(QString::fromStdString(evenement.value));
+                break;
             case core::ExplorationEventKind::Interacted:
                 emit changed();
                 break;

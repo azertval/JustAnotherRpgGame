@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <iterator>
 #include <optional>
 #include <utility>
 
@@ -39,12 +40,14 @@ bool ExplorationSession::start(std::string_view mapId, std::string_view arrival)
     rebuildInteractables();
     _hero = cellCenter(_travel.position());
     _lastCell = _travel.position();
+    resetZones();
     return true;
 }
 
 void ExplorationSession::placeHero(CellPoint point) noexcept {
     _hero = point;
     _lastCell = cellOf(point);
+    resetZones();
 }
 
 GridPosition ExplorationSession::aimedCell() const {
@@ -53,6 +56,7 @@ GridPosition ExplorationSession::aimedCell() const {
 
 void ExplorationSession::rebuildInteractables() {
     _interactables.clear();
+    _blocked.clear();
     const Level* carte = map();
     if (carte == nullptr) {
         _seenRevision = _flags.revision();
@@ -63,6 +67,17 @@ void ExplorationSession::rebuildInteractables() {
     _seenRevision = _flags.revision();
     for (const MapEntity& objet : carte->entities()) {
         if (!isEntityPresent(objet, _flags)) {
+            continue;
+        }
+        if (objet.type == PROP_ENTITY_TYPE) {
+            // Un decor present arrete le pas sur son emprise, sauf s'il dit le contraire.
+            const auto arrete = objet.properties.find(std::string{PROP_BLOCKS_PROPERTY});
+            const bool* const valeur =
+                arrete != objet.properties.end() ? std::get_if<bool>(&arrete->second) : nullptr;
+            if (valeur == nullptr || *valeur) {
+                const std::vector<GridPosition> emprise = zoneCells(objet);
+                _blocked.insert(_blocked.end(), emprise.begin(), emprise.end());
+            }
             continue;
         }
         const auto famille =
@@ -96,7 +111,8 @@ bool ExplorationSession::fits(CellPoint point) const {
             const GridPosition coin =
                 cellOf(CellPoint{.column = point.column + dx, .row = point.row + dy});
             if (!collision.inBounds(coin.column, coin.row) ||
-                collision.isSolid(coin.column, coin.row)) {
+                collision.isSolid(coin.column, coin.row) ||
+                std::ranges::find(_blocked, coin) != _blocked.end()) {
                 return false;
             }
         }
@@ -138,12 +154,11 @@ void ExplorationSession::crossPortal(std::vector<ExplorationEvent>& events) {
     }
     switch (_travel.cross(ici, _flags)) {
         case TravelResult::Moved:
-            rebuildInteractables();
-            _hero = cellCenter(_travel.position());
-            _lastCell = _travel.position();
-            events.push_back(ExplorationEvent{.kind = ExplorationEventKind::MapEntered,
-                                              .value = mapId(),
-                                              .cell = _travel.position()});
+            arrived(events);
+            break;
+        case TravelResult::Sealed:
+            events.push_back(ExplorationEvent{
+                .kind = ExplorationEventKind::PortalSealed, .value = portail->map, .cell = ici});
             break;
         case TravelResult::Locked:
             events.push_back(ExplorationEvent{.kind = ExplorationEventKind::PortalLocked,
@@ -157,6 +172,120 @@ void ExplorationSession::crossPortal(std::vector<ExplorationEvent>& events) {
             break;
         case TravelResult::NoPortal:
             break;
+    }
+}
+
+void ExplorationSession::arrived(std::vector<ExplorationEvent>& events) {
+    rebuildInteractables();
+    _hero = cellCenter(_travel.position());
+    _lastCell = _travel.position();
+    resetZones();
+    events.push_back(ExplorationEvent{
+        .kind = ExplorationEventKind::MapEntered, .value = mapId(), .cell = _travel.position()});
+}
+
+namespace {
+
+// Vrai si la zone @p entity declenche quelque chose a l'entree (LOT-126).
+[[nodiscard]] bool hasTrigger(const MapEntity& entity) {
+    if (entity.type != ZONE_ENTITY_TYPE) {
+        return false;
+    }
+    return std::ranges::any_of(std::array{ZONE_TRIGGER_DIALOGUE_PROPERTY,
+                                          ZONE_TRIGGER_FLAG_PROPERTY, ZONE_TRIGGER_MAP_PROPERTY},
+                               [&entity](std::string_view key) {
+                                   const auto found = entity.properties.find(std::string{key});
+                                   const std::string* const text =
+                                       found != entity.properties.end()
+                                           ? std::get_if<std::string>(&found->second)
+                                           : nullptr;
+                                   return text != nullptr && !text->empty();
+                               });
+}
+
+[[nodiscard]] std::string textOf(const MapEntity& entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    const std::string* const text =
+        found != entity.properties.end() ? std::get_if<std::string>(&found->second) : nullptr;
+    return text != nullptr ? *text : std::string{};
+}
+
+// Les rangs des zones a declencheur, presentes, qui couvrent @p cell.
+[[nodiscard]] std::vector<std::size_t> triggerZonesAt(const Level& map, GridPosition cell,
+                                                      const WorldFlags& flags) {
+    std::vector<std::size_t> zones;
+    const std::vector<MapEntity>& entities = map.entities();
+    for (std::size_t index = 0; index < entities.size(); ++index) {
+        const MapEntity& entity = entities[index];
+        if (!hasTrigger(entity) || !isEntityPresent(entity, flags)) {
+            continue;
+        }
+        const std::vector<GridPosition> cells = zoneCells(entity);
+        if (std::ranges::find(cells, cell) != cells.end()) {
+            zones.push_back(index);
+        }
+    }
+    return zones;
+}
+
+}  // namespace
+
+void ExplorationSession::resetZones() {
+    const Level* carte = map();
+    _insideZones =
+        carte != nullptr ? triggerZonesAt(*carte, heroCell(), _flags) : std::vector<std::size_t>{};
+}
+
+void ExplorationSession::enterZones(std::vector<ExplorationEvent>& events) {
+    const Level* carte = map();
+    if (carte == nullptr) {
+        return;
+    }
+    const std::vector<std::size_t> ici = triggerZonesAt(*carte, heroCell(), _flags);
+    std::vector<std::size_t> entrees;
+    std::ranges::set_difference(ici, _insideZones, std::back_inserter(entrees));
+    _insideZones = ici;
+    for (const std::size_t rang : entrees) {
+        // Copie : un transfert change la carte courante, et l'entite avec elle.
+        const MapEntity zone = carte->entities()[rang];
+        // Une zone « une fois » garde sa trace dans un fait fabrique, comme un coffre ouvert.
+        const auto once = zone.properties.find(std::string{ZONE_TRIGGER_ONCE_PROPERTY});
+        const bool* const unique =
+            once != zone.properties.end() ? std::get_if<bool>(&once->second) : nullptr;
+        if (unique != nullptr && *unique) {
+            const std::string fait =
+                keyForEntity(mapId(), zone.type, zone.position.column, zone.position.row);
+            if (_flags.isSet(fait)) {
+                continue;
+            }
+            _flags.set(fait);
+        }
+        // Le drapeau d'abord : le dialogue qui s'ouvre, ou la carte d'arrivee, le voient deja.
+        if (const std::string drapeau = textOf(zone, ZONE_TRIGGER_FLAG_PROPERTY);
+            !drapeau.empty()) {
+            const std::string valeur = textOf(zone, ZONE_TRIGGER_VALUE_PROPERTY);
+            if (valeur.empty()) {
+                _flags.set(drapeau);
+            } else {
+                _flags.setValue(drapeau, valeur);
+            }
+        }
+        if (const std::string dialogue = textOf(zone, ZONE_TRIGGER_DIALOGUE_PROPERTY);
+            !dialogue.empty()) {
+            events.push_back(ExplorationEvent{
+                .kind = ExplorationEventKind::Dialogue, .value = dialogue, .cell = heroCell()});
+        }
+        if (const std::string cible = textOf(zone, ZONE_TRIGGER_MAP_PROPERTY); !cible.empty()) {
+            const GridPosition depart = heroCell();
+            if (_travel.enter(cible, textOf(zone, ZONE_TRIGGER_ARRIVAL_PROPERTY)) ==
+                TravelResult::Moved) {
+                arrived(events);
+            } else {
+                events.push_back(ExplorationEvent{
+                    .kind = ExplorationEventKind::PortalBroken, .value = cible, .cell = depart});
+            }
+            return;  // ailleurs : les autres zones de la case sont restees derriere.
+        }
     }
 }
 
@@ -242,6 +371,7 @@ std::vector<ExplorationEvent> ExplorationSession::update(const ExplorationIntent
     }
     walk(intent.move, seconds);
     crossPortal(events);
+    enterZones(events);
     if (intent.interact) {
         resolveInteraction(events);
     }

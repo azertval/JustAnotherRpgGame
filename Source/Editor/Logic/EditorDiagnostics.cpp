@@ -57,6 +57,10 @@ const char* entityIssueTemplate(core::EntityIssueCode code) noexcept {
             return R"(%1: no map has an entity "%3".)";
         case core::EntityIssueCode::InvalidPresence:
             return R"(%1: presence condition is malformed at "%2" (flag, set|unset|equals|notEquals, values).)";
+        case core::EntityIssueCode::UndeclaredFlagValue:
+            return R"(%1: no quest declares value "%3" for the flag that "%2" names.)";
+        case core::EntityIssueCode::UnknownPiece:
+            return R"(%1: piece "%3" is not in the catalog of the map's place.)";
     }
     return R"(Entity kind "%1" is unknown to the editor.)";
 }

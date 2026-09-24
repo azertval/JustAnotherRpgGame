@@ -6,6 +6,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-126 — Ce que la quête demande aux cartes.** Tout ce que « Des pommes pour l'arène » pose
+  sur une carte s'écrit à l'inspecteur de l'éditeur, sans toucher au JSON. La **condition de
+  présence** est déclarée pour toute famille (`core::commonEntityProperties`) et propose les
+  valeurs que la quête déclare ; `--check` refuse une valeur qu'aucune quête ne déclare. Nouvelle
+  famille **`prop`** : une pièce du lieu posée comme entité, qui se compose et arrête le pas sur
+  son emprise tant qu'elle est présente — les portes de l'arène, closes sous `condamne`. Un
+  portail **condamné** (`sealed`) est légal sans cible ni arrivée, se montre en pointillé au graphe
+  et ne s'ouvre pas en jeu. Une **zone** déclenche à l'entrée un dialogue, un drapeau posé ou un
+  transfert vers une carte et un point d'arrivée (`triggerOnce` pour une seule fois) ; le transfert
+  compte pour l'atteignabilité du `--check`. *Map* › *World state…* règle l'**état de partie**
+  dont partent l'essai immédiat (`P`) et le jeu (`F5`), et montre au canevas la carte dans cet
+  état, ce qui est absent grisé.
+
+- **Planning — le mode Quêtes de l'éditeur (LOT-144, `0.0.2`).** Décision D-24 : les quêtes
+  s'écriront dans l'éditeur, à côté des cartes qu'elles traversent ; « Les enfants de Martpart »
+  (LOT-155) sera la première écrite ainsi.
+
 - **LOT-116 — Quêtes et drapeaux de monde.** Le jeu se souvient de ce que le joueur a fait. Un
   drapeau peut être **déclaré à valeurs** par une quête (`quete.pommes`, de `inconnue` à
   `enfant-libere`) : `core::WorldFlags` refuse alors une valeur hors liste, et sa révision avance à

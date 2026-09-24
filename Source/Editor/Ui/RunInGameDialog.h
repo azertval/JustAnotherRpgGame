@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include "Core/Gameplay/Quest.h"
 #include "Core/Levels/GridPosition.h"
 
 /**
@@ -38,15 +39,17 @@ struct RunInGameChoice {
  *
  * @param parent     Fenêtre parente.
  * @param mapId      L'identifiant de la carte qui sera jouée, affiché.
- * @param knownFlags Les drapeaux que les dialogues du jeu posent (`EditorReferences::flags`) :
- *                   la liste à cocher. Un drapeau hors liste se saisit à la main — une quête peut
- *                   précéder son dialogue.
+ * @param knownFlags Les drapeaux que posent dialogues, quêtes et zones
+ *                   (`EditorReferences::flags`) : la liste à cocher. Un drapeau hors liste se
+ *                   saisit à la main — une quête peut précéder son dialogue.
+ * @param declared   Les drapeaux à valeurs des quêtes : une valeur chacun (`LOT-126`).
  * @param bounds     La taille de la carte : la case se borne à elle.
  * @param current    Le choix de départ, celui du dernier essai.
  * @return Le choix, ou `std::nullopt` si l'auteur a renoncé.
  */
 [[nodiscard]] std::optional<RunInGameChoice> askRunInGame(
     QWidget* parent, const QString& mapId, const std::vector<std::string>& knownFlags,
-    core::GridPosition bounds, const RunInGameChoice& current);
+    const std::vector<core::QuestFlag>& declared, core::GridPosition bounds,
+    const RunInGameChoice& current);
 
 }  // namespace hmi

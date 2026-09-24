@@ -71,6 +71,7 @@
 #include "Editor/Ui/ProblemsPanel.h"
 #include "Editor/Ui/RefactorDialogs.h"
 #include "Editor/Ui/RunInGameDialog.h"
+#include "Editor/Ui/WorldStateEditor.h"
 #include "HMI/Game/LaunchOptions.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
@@ -211,6 +212,7 @@ EditorViewport* MainWindow::addDocument() {
     view->setMinimumSize(320, 240);
     view->setFocusPolicy(Qt::StrongFocus);
     view->setEditorReferences(_references.get());  // les mêmes catalogues pour tous les onglets
+    view->setWorldState(_runChoice.flags, _statePreview);  // et le même état de partie
     const int index = _tabs->addTab(view, QString::fromStdString(documentLabel({}, false)));
     _tabs->setCurrentIndex(index);  // `currentChanged` branche le canevas neuf
     if (_viewport != view) {
@@ -547,6 +549,7 @@ void MainWindow::buildMenus() {
     mapMenu->addAction(_actions->action(EditorCommand::RunInGame));
     mapMenu->addAction(_actions->action(EditorCommand::RunInGameHere));
     mapMenu->addAction(_actions->action(EditorCommand::RunInGameOptions));
+    mapMenu->addAction(_actions->action(EditorCommand::WorldState));
     mapMenu->addSeparator();
     QAction* const checkAll = mapMenu->addAction(QStringLiteral("Check all maps"));
     connect(checkAll, &QAction::triggered, this, [this] {
@@ -1193,12 +1196,36 @@ void MainWindow::openRunInGameDialog() {
     }
     const std::optional<RunInGameChoice> choix = askRunInGame(
         this, QString::fromStdString(_viewport->mapId()),
-        _references != nullptr ? _references->flags : std::vector<std::string>{}, bornes, depart);
+        _references != nullptr ? _references->flags : std::vector<std::string>{},
+        _references != nullptr ? _references->declaredFlags : std::vector<core::QuestFlag>{},
+        bornes, depart);
     if (!choix) {
         return;
     }
     _runChoice = *choix;
+    applyWorldState();  // un seul etat de partie : celui de l'essai est celui du canevas.
     runInGame(_runChoice.cell);
+}
+
+void MainWindow::openWorldStateDialog() {
+    const std::optional<WorldStateChoice> choix = askWorldState(
+        this, _references != nullptr ? _references->flags : std::vector<std::string>{},
+        _references != nullptr ? _references->declaredFlags : std::vector<core::QuestFlag>{},
+        WorldStateChoice{.entries = _runChoice.flags, .preview = _statePreview});
+    if (!choix) {
+        return;
+    }
+    _runChoice.flags = choix->entries;
+    _statePreview = choix->preview;
+    applyWorldState();
+}
+
+void MainWindow::applyWorldState() {
+    for (int index = 0; index < _tabs->count(); ++index) {
+        if (EditorViewport* const view = documentAt(index)) {
+            view->setWorldState(_runChoice.flags, _statePreview);
+        }
+    }
 }
 
 void MainWindow::runContentCheck() {
@@ -1271,6 +1298,8 @@ void MainWindow::connectEditorCommands() {
             [this] { runInGame(_viewport->hoveredCell()); });
     connect(_actions->action(EditorCommand::RunInGameOptions), &QAction::triggered, this,
             [this] { openRunInGameDialog(); });
+    connect(_actions->action(EditorCommand::WorldState), &QAction::triggered, this,
+            [this] { openWorldStateDialog(); });
     connect(_actions->action(EditorCommand::Mirror), &QAction::toggled, this,
             [this](bool enabled) { _viewport->setMirror(enabled); });
     connect(_actions->action(EditorCommand::Undo), &QAction::triggered, this,

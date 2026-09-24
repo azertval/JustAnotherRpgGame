@@ -790,9 +790,31 @@ annonce une scène changée dès que la révision des drapeaux bouge — un PNJ 
 est jaune, comme celui qui porte un dialogue (D-22).
 
 `core::validateMapEntities` contrôle la condition pour toute entité : mal formée,
-`InvalidPresence` ; sur un drapeau qu'aucun dialogue ni aucune quête ne pose, `UnsetFlag`. La
-déclarer dans `EntityKinds` pour que l'inspecteur la propose, et refuser une valeur non déclarée
-sur une carte, sont au `LOT-126`.
+`InvalidPresence` ; sur un drapeau qu'aucun dialogue, aucune quête ni aucune zone ne pose,
+`UnsetFlag` ; sur une valeur qu'aucune quête ne déclare pour ce drapeau, `UndeclaredFlagValue`
+(`LOT-126`). Ses trois propriétés sont déclarées au contrat des familles
+(`core::commonEntityProperties`) : l'inspecteur de l'éditeur les montre pour toute famille et
+propose, pour `presenceValue`, les valeurs que la quête déclare (source `FlagValues`).
+
+### Ce que la quête pose sur une carte (`LOT-126`)
+
+- **Le décor qui change** : la famille `prop` pose une pièce du lieu comme **entité**, avec sa
+  condition de présence — les portes de l'arène, closes sous `condamne`. Présente, sa pièce se
+  compose à sa case comme une pièce de décor (`EntityKind::pieceProperty`), et son emprise
+  (`width` × `height`, prise au manifeste quand on choisit la pièce) arrête le pas si `blocks`
+  (`core::ExplorationSession::blockedByProps`) ; absente, on passe. Sans pièce dessinable — une
+  maquette —, elle s'extrude en mur. La règle : ce qui **change** en cours de partie est une
+  entité, tout le reste une pièce de couche.
+- **Le portail condamné** : `sealed` sur un portail le rend légal sans cible ni arrivée
+  (`EntityPropertySpec::waivedBy`) ; le graphe lui donne le statut `Sealed`, qui n'est ni une
+  erreur ni un chemin, et la session répond `PortalSealed` quand on marche dessus.
+- **Le déclencheur** : une zone qui porte `triggerDialogue`, `triggerFlag` (+ `triggerValue` pour
+  un drapeau déclaré, alors requise) ou `triggerMap` + `triggerArrival` agit quand le héros y
+  **entre** — pas quand il y arrive : un transfert qui dépose dans une zone ne boucle pas. L'ordre
+  est drapeau, dialogue, transfert ; `triggerOnce` garde sa trace dans un fait fabriqué, comme un
+  coffre ouvert. Le transfert est une arête `WorldLinkKind::Transfer` du graphe : le point
+  d'arrivée qu'il nomme est un départ pour l'atteignabilité, et les drapeaux que les zones posent
+  (`WorldMapNode::triggerFlags`) comptent parmi ceux qu'on pose.
 
 ### Le journal
 

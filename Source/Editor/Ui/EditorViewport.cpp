@@ -26,18 +26,21 @@
 #include <optional>
 #include <utility>
 
+#include "Core/Gameplay/Quest.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileTypeName.h"
 #include "Core/Math/Vector2.h"
+#include "Core/World/EntityPresence.h"
 #include "Core/World/WorldTravel.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/EntityGesture.h"
 #include "Editor/Logic/EntityReferences.h"
 #include "Editor/Logic/EntityShapes.h"
 #include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/WorldState.h"
 #include "Editor/Ui/DraftRenderer.h"
 #include "Editor/Ui/SceneImages.h"
 #include "Editor/Ui/ScenePainter.h"
@@ -72,6 +75,8 @@ constexpr double ZOOM_STEP = 1.25;
 constexpr double MAX_PIXELS_PER_UNIT = 8.0 * Camera2D::PIXELS_PER_UNIT;
 /// Cadence de l'essai : celle du jeu (60 images par seconde).
 constexpr int PLAYTEST_FRAME_MS = 16;
+/// Opacité du marqueur d'une entité que l'état de partie rend absente (`LOT-126`).
+constexpr double ABSENT_ENTITY_OPACITY = 0.3;
 
 [[nodiscard]] std::filesystem::path keybindingsPath() {
     return hmi::executableDirectory() / "Settings" / "keybindings.json";
@@ -496,7 +501,7 @@ void EditorViewport::ensureIsoScene() {
     }
     // Un brouillon remplacé (ouverture, reprise) repart sans manifeste : on le lui redonne.
     _draft.setPieceManifest(_manifest);
-    _snapshot = canvasSnapshot(_draft, _appearance);
+    _snapshot = canvasSnapshot(_draft, _appearance, _statePreview ? &_stateFlags : nullptr);
     // La formation de la rencontre sélectionnée, par ses figurines (LOT-EDITOR-05).
     if (_tool == hmi::EditorTool::Entity && _selectedEntity && _references != nullptr) {
         appendFormation(_snapshot, _terrains, *_selectedEntity, _references->figures);
@@ -1126,6 +1131,12 @@ void EditorViewport::stepPlaytest() {
                 case core::ExplorationEventKind::Interacted:
                     message = QStringLiteral("Playtest: interacted with %1.");
                     break;
+                case core::ExplorationEventKind::PortalSealed:
+                    message = QStringLiteral("Playtest: sealed portal %1.");
+                    break;
+                case core::ExplorationEventKind::QuestAdvanced:
+                    message = QStringLiteral("Playtest: quest step %1 reached.");
+                    break;
             }
             emit statusMessage(message.arg(QString::fromStdString(event.value)));
         }
@@ -1205,6 +1216,18 @@ void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
         return fromDisk(requested);
     };
     auto play = std::make_unique<WorldPlay>(std::move(loader), assetsDirectory());
+    // L'essai part de l'état de partie (LOT-126) : les quêtes déclarent leurs drapeaux, l'état les
+    // règle, et les quêtes avancent d'autant — comme le jeu lancé avec `--flags=`.
+    play->session().setQuests(core::loadQuests(hmi::editorDataRoot() / "World" / "quests"));
+    for (const std::string& entry : _stateEntries) {
+        const WorldStateEntry read = parseWorldStateEntry(entry);
+        if (read.value) {
+            play->session().flags().setValue(read.flag, *read.value);
+        } else {
+            play->session().flags().set(read.flag);
+        }
+    }
+    static_cast<void>(play->session().refreshFromFlags());
     if (!play->enter(_mapId, {})) {
         HMI_LOG_WARNING("Editeur : essai refuse, la carte ne s'ouvre pas.");
         emit statusMessage(QStringLiteral("Cannot playtest: the map does not open."));
@@ -1668,8 +1691,8 @@ void EditorViewport::refreshDiagnostics() {
     static const hmi::EditorReferences emptyReferences;
     const hmi::EditorReferences& references =
         _references != nullptr ? *_references : emptyReferences;
-    _referenceContext =
-        hmi::referenceContext(references, _mapId, _draft.entities(), scenePlaceOf(_draft.layers()));
+    _referenceContext = hmi::referenceContext(references, _mapId, _draft.entities(),
+                                              scenePlaceOf(_draft.layers()), _manifest.get());
     const std::vector<core::EntityIssue> issues =
         core::validateMapEntities(_draft.entities(), _referenceContext);
     _terrains = core::analyzeEncounterTerrain(_draft.tileMap(), _draft.entities(),
@@ -1752,8 +1775,21 @@ void EditorViewport::setMapLayerFloor(std::size_t index, int floor) {
     }
 }
 
+void EditorViewport::setWorldState(std::vector<std::string> entries, bool preview) {
+    _stateEntries = std::move(entries);
+    _statePreview = preview;
+    _stateFlags =
+        worldStateFlags(_stateEntries, _references != nullptr ? _references->declaredFlags
+                                                              : std::vector<core::QuestFlag>{})
+            .flags;
+    invalidateScene();
+    viewport()->update();
+}
+
 void EditorViewport::setEditorReferences(const EditorReferences* references) {
     _references = references;
+    // Les declarations des quetes ont pu changer : l'etat se relit contre elles.
+    setWorldState(_stateEntries, _statePreview);
     refreshDiagnostics();
     viewport()->update();
     emit draftChanged();  // les panneaux relisent avertissements et choix proposés.
@@ -1789,7 +1825,30 @@ void EditorViewport::setEntitySelection(std::vector<std::size_t> indices,
 
 void EditorViewport::setEntityProperty(std::size_t index, const std::string& key,
                                        core::PropertyValue value) {
-    if (_draft.setEntityProperty(index, key, std::move(value))) {
+    // Choisir la pièce d'une entité qui en pose une (LOT-126) lui donne l'emprise de la pièce, dans
+    // le même pas d'annulation : sa collision est celle de ce qu'elle dessine.
+    std::optional<core::PieceFootprint> extent;
+    if (index < _draft.entities().size() && _manifest) {
+        const core::EntityKind* const kind = core::findEntityKind(_draft.entities()[index].type);
+        const std::string* const piece = std::get_if<std::string>(&value);
+        if (kind != nullptr && kind->pieceProperty == key &&
+            kind->shape == core::EntityShape::Rectangle && piece != nullptr) {
+            if (const core::ScenePiece* const found = _manifest->find(*piece)) {
+                extent = found->footprint();
+            }
+        }
+    }
+    const core::GestureScope gesture(_draft);
+    bool changed = _draft.setEntityProperty(index, key, std::move(value));
+    if (extent) {
+        changed = _draft.setEntityProperty(index, std::string{core::SHAPE_WIDTH_PROPERTY},
+                                           std::int64_t{extent->columns}) ||
+                  changed;
+        changed = _draft.setEntityProperty(index, std::string{core::SHAPE_HEIGHT_PROPERTY},
+                                           std::int64_t{extent->rows}) ||
+                  changed;
+    }
+    if (changed) {
         markDraftMutated();
     }
 }
@@ -2175,19 +2234,25 @@ void EditorViewport::paintEntities(QPainter& painter, const CellRange& cells, bo
         if (!cells.contains(entity.position)) {
             continue;
         }
+        // Sous l'état de partie (LOT-126), une entité absente n'est pas dans la scène : son
+        // marqueur la remplace, grisé.
+        const bool absent = _statePreview && !core::isEntityPresent(entity, _stateFlags);
         const std::string figure = entityFigure(entity);
-        const bool drawnByScene = !figure.empty() && _referenceContext.figures.contains(figure) &&
+        const bool drawnByScene = !absent && !figure.empty() &&
+                                  _referenceContext.figures.contains(figure) &&
                                   index < _draft.entities().size() &&
                                   _draft.entities()[index].position == entity.position;
         if (iso && !drawnByScene) {
             const QPointF center = geometry.center(entity.position);
             const QRectF target(center.x() - (markerSide / 2.0), center.y() - (markerSide / 2.0),
                                 markerSide, markerSide);
+            painter.setOpacity(absent ? ABSENT_ENTITY_OPACITY : 1.0);
             if (const SceneImage* const marker = _images->marker(entityMarkerKey(entity.type))) {
                 painter.drawImage(target, marker->pinned());
             } else {
                 painter.fillRect(target, QColor(255, 0, 255, 204));
             }
+            painter.setOpacity(1.0);
         }
         if (selected(index)) {
             paintSelectedCell(painter, geometry, entity.position);

@@ -260,11 +260,14 @@ void EntityPanel::rebuildForm() {
     const core::EntityKind* const kind =
         entity != nullptr ? core::findEntityKind(entity->type) : nullptr;
 
+    // Les propriétés de la famille, puis celles que toute famille porte : la condition de présence
+    // (LOT-126).
+    const std::vector<const core::EntityPropertySpec*> specs =
+        kind != nullptr ? core::inspectedProperties(*kind)
+                        : std::vector<const core::EntityPropertySpec*>{};
     std::vector<std::vector<std::string>> choices;
-    if (kind != nullptr) {
-        for (const core::EntityPropertySpec& spec : kind->properties) {
-            choices.push_back(entityChoices(spec, *entity, _context));
-        }
+    for (const core::EntityPropertySpec* const spec : specs) {
+        choices.push_back(entityChoices(*spec, *entity, _context));
     }
     _ui->verdictLabel->setText(QString::fromStdString(_verdict));
     _ui->verdictLabel->setVisible(!_verdict.empty());
@@ -299,18 +302,16 @@ void EntityPanel::rebuildForm() {
     }
     _ui->selectionLabel->setText(heading);
 
-    if (kind != nullptr) {
-        for (std::size_t specIndex = 0; specIndex < kind->properties.size(); ++specIndex) {
-            const core::EntityPropertySpec& spec = kind->properties[specIndex];
-            const auto found = entity->properties.find(std::string{spec.key});
-            addPropertyRow(index, spec,
-                           found != entity->properties.end() ? found->second : spec.defaultValue,
-                           choices[specIndex]);
-        }
+    for (std::size_t specIndex = 0; specIndex < specs.size(); ++specIndex) {
+        const core::EntityPropertySpec& spec = *specs[specIndex];
+        const auto found = entity->properties.find(std::string{spec.key});
+        addPropertyRow(index, spec,
+                       found != entity->properties.end() ? found->second : spec.defaultValue,
+                       choices[specIndex]);
     }
     // Proprietes que la table ne declare pas : transportees, montrees, jamais editees ici.
     for (const auto& [key, value] : entity->properties) {
-        if (kind != nullptr && kind->find(key) != nullptr) {
+        if (kind != nullptr && core::findInspectedProperty(*kind, key) != nullptr) {
             continue;
         }
         auto* const shown = new QLabel(valueText(value), _ui->propertiesForm);

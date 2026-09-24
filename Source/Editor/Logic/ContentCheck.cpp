@@ -128,15 +128,56 @@ void addDiagnostics(const std::vector<EditorDiagnostic>& diagnostics,
     }
 }
 
+// L'emprise d'une entite qui pose une piece (`EntityKind::pieceProperty`, LOT-126) est celle de sa
+// piece au manifeste : sinon la porte n'arrete pas le pas la ou elle se dessine.
+void checkPieceFootprints(const core::Level& level, const core::ScenePieceManifest* manifest,
+                          ContentFindings& findings) {
+    if (manifest == nullptr) {
+        return;
+    }
+    for (const core::MapEntity& entity : level.entities()) {
+        const core::EntityKind* const kind = core::findEntityKind(entity.type);
+        if (kind == nullptr || kind->pieceProperty.empty() ||
+            kind->shape != core::EntityShape::Rectangle) {
+            continue;
+        }
+        const core::ScenePiece* const piece = manifest->find(textOf(entity, kind->pieceProperty));
+        if (piece == nullptr) {
+            continue;  // piece inconnue : dit par les references.
+        }
+        const std::optional<CellRect> rect = entityRectangle(entity);
+        if (rect &&
+            (rect->columns != piece->footprintColumns || rect->rows != piece->footprintRows)) {
+            findings.add(MapCheckSeverity::Warning,
+                         describe(entity) + ": its extent is " + std::to_string(rect->columns) +
+                             " x " + std::to_string(rect->rows) + ", its piece's is " +
+                             std::to_string(piece->footprintColumns) + " x " +
+                             std::to_string(piece->footprintRows),
+                         entity.position, entity.id);
+        }
+    }
+}
+
 void checkEntities(std::string_view mapId, const core::Level& level, const ContentContext& context,
                    ContentFindings& findings) {
     const std::vector<core::MapEntity>& entities = level.entities();
     const EditorReferences& references = context.references;
     std::vector<core::EntityIssue> errors;
     std::vector<core::EntityIssue> unknownKinds;
+    // Le catalogue du lieu : ce qu'un decor peut nommer, et l'emprise de chaque piece (LOT-126).
+    const std::string place = scenePlaceOf(level.layers());
+    std::optional<core::ScenePieceManifest> manifest;
+    if (!place.empty() && !references.assets.empty()) {
+        if (core::ScenePieceManifestResult read =
+                core::ScenePieceManifest::resolve(references.assets, place);
+            read.ok()) {
+            manifest = std::move(read.manifest);
+        }
+    }
+    const core::ScenePieceManifest* const pieces = manifest ? &*manifest : nullptr;
+    checkPieceFootprints(level, pieces, findings);
     for (core::EntityIssue& issue : core::validateMapEntities(
-             entities,
-             referenceContext(references, mapId, entities, scenePlaceOf(level.layers())))) {
+             entities, referenceContext(references, mapId, entities, place, pieces))) {
         if (issue.code == core::EntityIssueCode::UnknownType) {
             unknownKinds.push_back(std::move(issue));  // legal, transporte : une information.
         } else if (!saidByTheFormatCheck(issue.code)) {
@@ -236,6 +277,9 @@ void checkGraph(std::string_view mapId, const core::Level& level, const ContentC
             }
         } else if (entity.type == core::PORTAL_ENTITY_TYPE) {
             const std::string target = textOf(entity, core::PORTAL_TARGET_MAP_PROPERTY);
+            if (core::isSealedPortal(entity)) {
+                continue;  // condamne : on n'en revient pas, puisqu'on n'y passe pas (LOT-126).
+            }
             if (target.empty() || target == mapId || world.find(target) == nullptr) {
                 continue;  // pas de cible, ou cible inconnue : dit par le controle du format.
             }
@@ -307,11 +351,15 @@ std::vector<MapCheckFinding> checkStoryContent(const std::filesystem::path& data
     for (const std::string& misuse : core::validateFlagUses(quests, dialogues)) {
         error("flag misuse: " + misuse);
     }
-    const std::set<std::string, std::less<>> written = core::flagsWrittenBy(quests, dialogues);
+    std::set<std::string, std::less<>> written = core::flagsWrittenBy(quests, dialogues);
+    // Les zones des cartes posent aussi des drapeaux (LOT-126).
+    for (const core::WorldMapNode& map : core::loadWorldGraph(dataRoot / "Levels").maps) {
+        written.insert(map.triggerFlags.begin(), map.triggerFlags.end());
+    }
     for (const core::FlagRead& read : core::flagsReadBy(quests, dialogues)) {
         if (!written.contains(read.flag)) {
             error(read.where + ": flag \"" + read.flag +
-                  "\" is read but no dialogue or quest sets it");
+                  "\" is read but no dialogue, quest or zone sets it");
         }
     }
     return findings;

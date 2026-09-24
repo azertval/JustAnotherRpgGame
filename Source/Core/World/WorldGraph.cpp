@@ -115,6 +115,7 @@ WorldGraph buildWorldGraph(std::vector<WorldMapInput> maps) {
     for (const WorldMapInput& entree : maps) {
         std::set<std::string, std::less<>> points;
         std::set<std::string, std::less<>> identifiants;
+        const std::set<std::string, std::less<>> drapeaux = flagsSetByEntities(entree.entities);
         for (const MapEntity& entite : entree.entities) {
             if (!entite.id.empty()) {
                 identifiants.insert(entite.id);
@@ -132,21 +133,34 @@ WorldGraph buildWorldGraph(std::vector<WorldMapInput> maps) {
             .name = entree.name,
             .arrivalPoints = std::vector<std::string>(points.begin(), points.end()),
             .loadError = entree.loadError,
-            .entityIds = std::vector<std::string>(identifiants.begin(), identifiants.end())});
+            .entityIds = std::vector<std::string>(identifiants.begin(), identifiants.end()),
+            .triggerFlags = std::vector<std::string>(drapeaux.begin(), drapeaux.end())});
     }
 
     // Deux passes : un portail peut viser une carte triee apres la sienne.
     for (const WorldMapInput& entree : maps) {
         for (const MapEntity& entite : entree.entities) {
-            if (entite.type != PORTAL_ENTITY_TYPE) {
-                continue;
+            if (entite.type == PORTAL_ENTITY_TYPE) {
+                WorldPortalLink portail{.fromMap = entree.mapId,
+                                        .position = entite.position,
+                                        .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
+                                        .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};
+                // Condamne, il est voulu tel : ni erreur, ni chemin (LOT-126).
+                portail.status =
+                    isSealedPortal(entite) ? PortalLinkStatus::Sealed : statutDu(graphe, portail);
+                graphe.portals.push_back(std::move(portail));
+            } else if (entite.type == ZONE_ENTITY_TYPE) {
+                WorldPortalLink transfert{.fromMap = entree.mapId,
+                                          .position = entite.position,
+                                          .toMap = texteDe(entite, ZONE_TRIGGER_MAP_PROPERTY),
+                                          .arrival = texteDe(entite, ZONE_TRIGGER_ARRIVAL_PROPERTY),
+                                          .kind = WorldLinkKind::Transfer};
+                if (transfert.toMap.empty()) {
+                    continue;  // une zone sans transfert n'est pas une arete.
+                }
+                transfert.status = statutDu(graphe, transfert);
+                graphe.portals.push_back(std::move(transfert));
             }
-            WorldPortalLink portail{.fromMap = entree.mapId,
-                                    .position = entite.position,
-                                    .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
-                                    .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};
-            portail.status = statutDu(graphe, portail);
-            graphe.portals.push_back(std::move(portail));
         }
     }
     return graphe;

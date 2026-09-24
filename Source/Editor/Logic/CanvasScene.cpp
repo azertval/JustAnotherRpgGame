@@ -6,7 +6,9 @@
 #include <algorithm>
 #include <optional>
 
+#include "Core/Gameplay/WorldFlags.h"
 #include "Core/Levels/LevelDraft.h"
+#include "Core/World/EntityPresence.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
 namespace hmi {
@@ -84,10 +86,24 @@ float bandOpacity(const IsoBandOpacity& bands, RenderLayer layer) noexcept {
     }
 }
 
-WorldSceneSnapshot canvasSnapshot(const core::LevelDraft& draft,
-                                  const PlaceAppearance& appearance) {
-    // Une image fixe des bandes : le canevas n'anime pas les figurines.
-    return snapshotWorldScene(worldSceneSource(draft), appearance, npcFigures(draft.entities(), 0));
+WorldSceneSnapshot canvasSnapshot(const core::LevelDraft& draft, const PlaceAppearance& appearance,
+                                  const core::WorldFlags* state) {
+    if (state == nullptr) {
+        // Une image fixe des bandes : le canevas n'anime pas les figurines.
+        return snapshotWorldScene(worldSceneSource(draft), appearance,
+                                  npcFigures(draft.entities(), 0));
+    }
+    // Sous un etat de partie (LOT-126) : ce qu'il rend absent ne se compose pas, comme en jeu
+    // (`hmi::WorldPlay::snapshot`).
+    std::vector<core::MapEntity> present;
+    for (const core::MapEntity& entity : draft.entities()) {
+        if (core::isEntityPresent(entity, *state)) {
+            present.push_back(entity);
+        }
+    }
+    const WorldSceneSource source{
+        .root = draft.tileMap(), .layers = draft.layers(), .entities = present};
+    return snapshotWorldScene(source, appearance, npcFigures(present, 0));
 }
 
 std::vector<WorldFigureSnapshot> formationFigures(const core::EncounterTerrain& terrain,

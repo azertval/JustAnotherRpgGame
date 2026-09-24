@@ -128,7 +128,9 @@ WorldGraphLayout layoutWorldGraph(const core::WorldGraph& graph) {
         }
         WorldGraphLayoutEdge& edge = layout.edges[it->second];
         edge.portals.push_back(p);
-        if (portal.status != core::PortalLinkStatus::Resolved && !edge.broken) {
+        if (portal.status == core::PortalLinkStatus::Sealed) {
+            edge.sealed = true;
+        } else if (portal.status != core::PortalLinkStatus::Resolved && !edge.broken) {
             edge.broken = true;
             edge.status = portal.status;
         }

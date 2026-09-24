@@ -1,6 +1,6 @@
 # Core · World
 
-Tests unitaires — **56 cas** (1 bloquant, 28 critiques, 24 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **63 cas** (1 bloquant, 32 critiques, 27 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -14,6 +14,7 @@ Tests unitaires — **56 cas** (1 bloquant, 28 critiques, 24 majeurs, 3 mineurs)
 | [`test_entity_presence.cpp`](#test-entity-presencecpp) | 3 | - | 2 | 1 | - |
 | [`test_exploration_reach.cpp`](#test-exploration-reachcpp) | 3 | - | 2 | 1 | - |
 | [`test_exploration_session.cpp`](#test-exploration-sessioncpp) | 4 | - | 3 | 1 | - |
+| [`test_quest_map_features.cpp`](#test-quest-map-featurescpp) | 7 | - | 4 | 3 | - |
 | [`test_world_graph.cpp`](#test-world-graphcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_world_travel.cpp`](#test-world-travelcpp) | 7 | - | 4 | 3 | - |
 
@@ -786,6 +787,154 @@ Gelee, la session ne deplace plus le heros et n'ouvre plus rien.
 - Vérifie que `session.heroPoint()` vaut `core::cellCenter({4, 4})`.
 - Vérifie que `session.update(core::ExplorationIntent{.move = {}, .interact = true}, 1.0F / 60.0F) .empty()` est vrai.
 - Vérifie que `session.heroPoint().column` est strictement supérieur à `4.5F`.
+
+## test_quest_map_features.cpp
+
+### QuestMapFeaturesTest.LaPresenceSeDeclarePourToutFamille
+
+*Majeur · Unitaire · Familles d'entites* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:106`
+
+La presence se declare au contrat des familles.
+
+**Étapes**
+
+1. Lire les proprietes inspectees d'un PNJ et d'un coffre.
+
+**Résultat attendu**
+
+- Vérifie que `kind` diffère de `nullptr`.
+- Vérifie que `valeur` diffère de `nullptr`.
+- Vérifie que `valeur->source` vaut `core::EntityChoiceSource::FlagValues`.
+- Vérifie que `valeur->relatedKey` vaut `core::PRESENCE_FLAG_PROPERTY`.
+- Vérifie que `core::findInspectedProperty(*kind, core::PRESENCE_FLAG_PROPERTY)` diffère de `nullptr`.
+- Vérifie que `core::findInspectedProperty(*kind, core::PRESENCE_TEST_PROPERTY)->fixedChoices.size()` vaut `4U`.
+- Vérifie que `neuve.properties.contains(std::string{core::PRESENCE_FLAG_PROPERTY})` est faux.
+
+### QuestMapFeaturesTest.UneValeurQuAucuneQueteNeDeclareEstRelevee
+
+*Critique · Unitaire · Quetes* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:135`
+
+Le controle refuse une valeur qu'aucune quete ne declare.
+
+**Étapes**
+
+1. Un PNJ present sous `acceptee|acepte`, une zone qui pose `quete.pommes` sans valeur, une zone qui pose `acceptee`, une zone qui donne une valeur a un fait.
+
+**Résultat attendu**
+
+- Vérifie que `problemes.size()` vaut `3U`.
+- Vérifie que `problemes[0]` vaut `(core::EntityIssue{.entityIndex = 0, .code = core::EntityIssueCode::UndeclaredFlagValue, .key = std::string{core::PRESENCE_VALUE_PROPERTY}, .value = "acepte"})`.
+- Vérifie que `problemes[1].entityIndex` vaut `1U`.
+- Vérifie que `problemes[1].code` vaut `core::EntityIssueCode::MissingProperty`.
+- Vérifie que `problemes[1].key` vaut `core::ZONE_TRIGGER_VALUE_PROPERTY`.
+- Vérifie que `problemes[2].entityIndex` vaut `3U`.
+- Vérifie que `problemes[2].code` vaut `core::EntityIssueCode::UndeclaredFlagValue`.
+
+### QuestMapFeaturesTest.UnPortailCondamneEstLegal
+
+*Critique · Unitaire · Graphe du monde* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:176`
+
+Un portail condamne est legal ; le meme, non condamne, est une faute.
+
+**Étapes**
+
+1. Une carte portant un escalier `sealed` sans cible.
+2. Valider ses entites et son graphe ; recommencer sans `sealed`.
+
+**Résultat attendu**
+
+- Vérifie que `core::validateMapEntities({escalier}, {}).empty()` est vrai.
+- Vérifie que `graphe.portals.size()` vaut `1U`.
+- Vérifie que `graphe.portals[0].status` vaut `core::PortalLinkStatus::Sealed`.
+- Vérifie que `core::validateWorldGraph(graphe).empty()` est vrai.
+- Vérifie que `problemes.size()` vaut `2U`.
+- Vérifie que `problemes[0].code` vaut `core::EntityIssueCode::MissingProperty`.
+- Vérifie que `defauts.size()` vaut `1U`.
+- Vérifie que `defauts[0].code` vaut `core::WorldIssueCode::MissingTargetMap`.
+
+### QuestMapFeaturesTest.UnPortailCondamneNeSOuvrePas
+
+*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:208`
+
+Un portail condamne ne s'ouvre pas.
+
+**Étapes**
+
+1. Un couloir dont la case (2, 1) porte un escalier condamne vers `catacombes`.
+2. Marcher dessus.
+
+**Résultat attendu**
+
+- Vérifie que `session.start("arene", "")` est vrai.
+- Vérifie que `contient(evenements, ExplorationEventKind::PortalSealed, "catacombes")` est vrai.
+- Vérifie que `session.mapId()` vaut `"arene"`.
+
+### QuestMapFeaturesTest.LaZoneDuParvisTransfereAuVestiaire
+
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:231`
+
+La zone du parvis transfere au vestiaire A.
+
+**Étapes**
+
+1. Un parvis dont la zone (3..4, 1) pose `quete.pommes = condamne`, ouvre le dialogue `garde` et transfere au point `vestiaire-a` de l'arene ; presente sous `acceptee` seulement.
+2. Marcher sur la zone sous `inconnue`, puis sous `acceptee`.
+3. Construire le graphe.
+
+**Résultat attendu**
+
+- Vérifie que `libre.start("parvis", "")` est vrai.
+- Vérifie que `marcher(libre, 4.0F).empty()` est vrai.
+- Vérifie que `libre.flags().value("quete.pommes")` vaut `"inconnue"`.
+- Vérifie que `session.flags().setValue("quete.pommes", "acceptee")` est vrai.
+- Vérifie que `session.start("parvis", "")` est vrai.
+- Vérifie que `session.flags().value("quete.pommes")` vaut `"condamne"`.
+- Vérifie que `contient(evenements, ExplorationEventKind::Dialogue, "garde")` est vrai.
+- Vérifie que `contient(evenements, ExplorationEventKind::MapEntered, "arene")` est vrai.
+- Vérifie que `session.mapId()` vaut `"arene"`.
+- Vérifie que `session.heroCell()` vaut `(core::GridPosition{1, 1})`.
+- Vérifie que `graphe.portals.size()` vaut `1U`.
+- Vérifie que `graphe.portals[0].kind` vaut `core::WorldLinkKind::Transfer`.
+- Vérifie que `graphe.portals[0].status` vaut `core::PortalLinkStatus::Resolved`.
+- Vérifie que `graphe.find("parvis")->triggerFlags` vaut `std::vector<std::string>{"quete.pommes"}`.
+
+### QuestMapFeaturesTest.UneZoneUneFoisNeSeDeclenchePasDeuxFois
+
+*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:288`
+
+Une zone une fois ne se declenche qu'une fois.
+
+**Étapes**
+
+1. Un couloir dont l'entree est dans une zone a dialogue, et une zone `triggerOnce` en (3, 1).
+2. Demarrer ; marcher a travers la seconde, revenir, repasser.
+
+**Résultat attendu**
+
+- Vérifie que `session.start("rue", "")` est vrai.
+- Vérifie que `contient(evenements, ExplorationEventKind::Dialogue, "accueil")` est faux.
+- Vérifie que `std::ranges::count_if(evenements, [](const core::ExplorationEvent& evenement) { return evenement.value == "annonce"; })` vaut `1`.
+
+### QuestMapFeaturesTest.LesPortesDeLAreneSontClosesSousCondamne
+
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_quest_map_features.cpp:322`
+
+Les portes de l'arene sont closes sous condamne.
+
+**Étapes**
+
+1. Un couloir barre en (3, 0..2) par une porte `prop` d'emprise 1 x 3, presente sous `condamne`.
+2. Poser `condamne` et marcher ; puis `enfant-libere` et marcher encore.
+
+**Résultat attendu**
+
+- Vérifie que `session.start("arene", "")` est vrai.
+- Vérifie que `session.flags().setValue("quete.pommes", "condamne")` est vrai.
+- Vérifie que `session.heroCell().column` vaut `2`.
+- Vérifie que `session.blockedByProps().size()` vaut `3U`.
+- Vérifie que `session.flags().setValue("quete.pommes", "enfant-libere")` est vrai.
+- Vérifie que `session.heroCell().column` est supérieur ou égal à `4`.
+- Vérifie que `session.blockedByProps().empty()` est vrai.
 
 ## test_world_graph.cpp
 

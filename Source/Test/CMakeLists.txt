@@ -67,6 +67,7 @@ add_executable(UnitTests
     Unit/Core/World/test_world_travel.cpp
     Unit/Core/World/test_exploration_session.cpp
     Unit/Core/World/test_entity_presence.cpp
+    Unit/Core/World/test_quest_map_features.cpp
     Unit/Core/World/test_city_plan.cpp
     Unit/Core/World/test_city_block.cpp
     Unit/Core/World/test_combat_zone.cpp
@@ -134,6 +135,7 @@ add_executable(UnitTests
     Unit/Editor/test_canvas_scene.cpp
     Unit/Editor/test_map_format.cpp
     Unit/Editor/test_content_check.cpp
+    Unit/Editor/test_quest_map_editor.cpp
     Unit/Editor/test_map_refactor.cpp
     Unit/Editor/test_stamps.cpp
     # Les etages dans l'editeur (LOT-129) : pinceau, visibilite, prefabriques.

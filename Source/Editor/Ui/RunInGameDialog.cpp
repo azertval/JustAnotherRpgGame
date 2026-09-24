@@ -10,32 +10,19 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
 #include <QPushButton>
 #include <QSpinBox>
-#include <QStringList>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <algorithm>
 
+#include "Editor/Ui/WorldStateEditor.h"
+
 namespace hmi {
-
-namespace {
-
-/// Les drapeaux saisis a la main, separes par des virgules : ceux qu'aucun dialogue ne pose encore.
-[[nodiscard]] std::vector<std::string> extraFlags(const QString& text) {
-    std::vector<std::string> saisis;
-    for (const QString& morceau : text.split(QLatin1Char(','), Qt::SkipEmptyParts)) {
-        saisis.push_back(morceau.trimmed().toStdString());
-    }
-    return saisis;
-}
-
-}  // namespace
 
 std::optional<RunInGameChoice> askRunInGame(QWidget* parent, const QString& mapId,
                                             const std::vector<std::string>& knownFlags,
+                                            const std::vector<core::QuestFlag>& declared,
                                             core::GridPosition bounds,
                                             const RunInGameChoice& current) {
     QDialog dialog(parent);
@@ -70,27 +57,11 @@ std::optional<RunInGameChoice> askRunInGame(QWidget* parent, const QString& mapI
     cellRow->addStretch();
     layout->addLayout(cellRow);
 
-    auto* const flagsBox = new QGroupBox(QStringLiteral("World flags"), &dialog);
+    // L'etat de partie : le meme selecteur que « World state… » (LOT-126).
+    auto* const flagsBox = new QGroupBox(QStringLiteral("World state"), &dialog);
     auto* const flagsLayout = new QVBoxLayout(flagsBox);
-    auto* const list = new QListWidget(flagsBox);
-    for (const std::string& flag : knownFlags) {
-        auto* const item = new QListWidgetItem(QString::fromStdString(flag), list);
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        item->setCheckState(std::ranges::find(current.flags, flag) == current.flags.end()
-                                ? Qt::Unchecked
-                                : Qt::Checked);
-    }
-    flagsLayout->addWidget(list);
-    // Ce que la liste ne propose pas : les drapeaux du dernier essai qu'aucun dialogue ne pose.
-    QStringList libres;
-    for (const std::string& flag : current.flags) {
-        if (std::ranges::find(knownFlags, flag) == knownFlags.end()) {
-            libres.push_back(QString::fromStdString(flag));
-        }
-    }
-    auto* const extra = new QLineEdit(libres.join(QStringLiteral(", ")), flagsBox);
-    extra->setPlaceholderText(QStringLiteral("other flags, comma separated"));
-    flagsLayout->addWidget(extra);
+    auto* const state = new WorldStateEditor(knownFlags, declared, current.flags, flagsBox);
+    flagsLayout->addWidget(state);
     layout->addWidget(flagsBox);
 
     auto* const buttons =
@@ -107,17 +78,7 @@ std::optional<RunInGameChoice> askRunInGame(QWidget* parent, const QString& mapI
     if (fromCell->isChecked()) {
         choix.cell = core::GridPosition{.column = column->value(), .row = row->value()};
     }
-    for (int index = 0; index < list->count(); ++index) {
-        const QListWidgetItem* const item = list->item(index);
-        if (item->checkState() == Qt::Checked) {
-            choix.flags.push_back(item->text().toStdString());
-        }
-    }
-    for (std::string& flag : extraFlags(extra->text())) {
-        if (!flag.empty() && std::ranges::find(choix.flags, flag) == choix.flags.end()) {
-            choix.flags.push_back(std::move(flag));
-        }
-    }
+    choix.flags = state->entries();
     return choix;
 }
 
