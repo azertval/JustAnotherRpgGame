@@ -72,8 +72,8 @@ TEST_F(GameLaunch, LeDossierNeGardeRienDeLEssaiPrecedent) {
                     .empty());
     ASSERT_TRUE(std::filesystem::exists(dir / "donjon.json"));
 
-    ASSERT_TRUE(hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"}})
-                    .empty());
+    ASSERT_TRUE(
+        hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"}}).empty());
     EXPECT_TRUE(std::filesystem::exists(dir / "bourg" / "place.json"));
     EXPECT_FALSE(std::filesystem::exists(dir / "donjon.json"));
 }

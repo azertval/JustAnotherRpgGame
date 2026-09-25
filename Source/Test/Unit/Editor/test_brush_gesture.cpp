@@ -99,7 +99,8 @@ const CanvasBrush GOMME{.kind = BrushKind::Eraser, .type = {}, .piece = {}, .flo
  * \castest{<b>Repeindre une rue et une façade rend le même fichier.</b><br/>
  * \tcat Unitaire · Pinceau<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Ouvrir la carte d essai.<br/>2. Gommer une case de rue (`street-2`) et un pan de façade
+ * \tetapes 1. Ouvrir la carte d essai.<br/>2. Gommer une case de rue (`street-2`) et un pan de
+ * façade
  * (`window-left`), puis les reposer du pinceau de pièce, le décor actif.<br/>3. Écrire le
  * brouillon.<br/>
  * \tattendu Gommées, la rue devient un mur (rien sous les pieds) et la façade libère sa case ;
@@ -131,8 +132,8 @@ TEST(BrushGestureTest, RepeindreUneRueEtUneFacadeRendLeMemeFichier) {
 }
 
 /**
- * @brief Poser puis gommer un étal 2 × 1 sur la place de la carte d'essai occupe puis libère ses deux
- *        cases, collision comprise (acceptation du `LOT-EDITOR-03`).
+ * @brief Poser puis gommer un étal 2 × 1 sur la place de la carte d'essai occupe puis libère ses
+ * deux cases, collision comprise (acceptation du `LOT-EDITOR-03`).
  * \castest{<b>Un étal 2 × 1 posé puis gommé sur la carte d'essai.</b><br/>
  * \tcat Unitaire · Pinceau<br/>
  * \tcrit Critique<br/>

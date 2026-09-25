@@ -33,9 +33,9 @@ namespace {
  */
 TEST(DebugCommands, LeCatalogueSuitLesSourcesDuJeu) {
     std::string sources;
-    for (const char* fichier : {JADG_SOURCE_DIR "/App/Game/Main.cpp",
-                                JADG_SOURCE_DIR "/App/Common/Bootstrap.cpp",
-                                JADG_SOURCE_DIR "/App/Game/Qml/Screens/WorldMap.qml"}) {
+    for (const char* fichier :
+         {JADG_SOURCE_DIR "/App/Game/Main.cpp", JADG_SOURCE_DIR "/App/Common/Bootstrap.cpp",
+          JADG_SOURCE_DIR "/App/Game/Qml/Screens/WorldMap.qml"}) {
         std::ifstream flux{fichier};
         ASSERT_TRUE(flux.is_open()) << fichier;
         sources.append(std::istreambuf_iterator<char>{flux}, std::istreambuf_iterator<char>{});
@@ -54,9 +54,9 @@ TEST(DebugCommands, LeCatalogueSuitLesSourcesDuJeu) {
         position = fin + 1;
         // Seuls les NOMS d'option : `"--at="`, `"--crash-test"`. Un message qui commence par un
         // tiret double (`"--at= attend ..."`) n'en est pas un.
-        const bool estUnNom = nom.find_first_not_of("abcdefghijklmnopqrstuvwxyz-=") ==
-                                  std::string::npos &&
-                              nom.find('=') >= nom.size() - 1;
+        const bool estUnNom =
+            nom.find_first_not_of("abcdefghijklmnopqrstuvwxyz-=") == std::string::npos &&
+            nom.find('=') >= nom.size() - 1;
         if (!estUnNom) {
             continue;
         }

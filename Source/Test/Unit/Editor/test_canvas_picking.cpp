@@ -42,8 +42,8 @@ namespace {
 
 /// La carte d'essai, telle qu'elle est sur disque.
 [[nodiscard]] core::Level carteDEssai() {
-    core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(
-        dataRoot() / "Levels" / "bourg" / "place.json");
+    core::LevelLoadResult loaded =
+        core::LevelLoader::loadFromFile(dataRoot() / "Levels" / "bourg" / "place.json");
     if (!loaded.ok()) {
         // Pas de carte vide à rendre : gtest compte l'exception comme un échec du test.
         throw std::runtime_error("place.json : " + loaded.error);
@@ -107,7 +107,8 @@ TEST(CanvasPickingTest, LePointageEstJusteAuxQuatreCoins) {
 }
 
 /**
- * @brief Sous un mur haut de la carte d'essai, on pointe la case dont le losange est sous le pointeur.
+ * @brief Sous un mur haut de la carte d'essai, on pointe la case dont le losange est sous le
+ * pointeur.
  * \castest{<b>Sous un mur haut, le pointage designe la case par son pied.</b><br/>
  * \tcat Unitaire · Editeur · Canevas<br/>
  * \tcrit Bloquant<br/>

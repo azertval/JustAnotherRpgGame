@@ -65,9 +65,9 @@ constexpr float PAS = 1.0F / 60.0F;
 constexpr core::GridPosition MERE{10, 5};
 constexpr core::GridPosition DEVANT_LA_MERE{9, 5};
 constexpr core::GridPosition ENFANT_CHEZ_SA_MERE{11, 5};
-constexpr core::GridPosition STRAVIAN_AVENUE{22, 4};        // devant le portail vers Arenarea
-constexpr core::GridPosition HEROFATE_AVENUE{1, 5};         // devant le portail vers Martpart
-constexpr core::GridPosition ENTREE_DU_PARVIS{8, 5};        // une case avant la zone du parvis
+constexpr core::GridPosition STRAVIAN_AVENUE{22, 4};  // devant le portail vers Arenarea
+constexpr core::GridPosition HEROFATE_AVENUE{1, 5};   // devant le portail vers Martpart
+constexpr core::GridPosition ENTREE_DU_PARVIS{8, 5};  // une case avant la zone du parvis
 constexpr core::GridPosition GARDE{12, 5};
 constexpr core::GridPosition ENFANT_AU_PARVIS{12, 6};
 constexpr core::GridPosition DEVANT_L_ESCALIER{22, 6};      // devant le portail vers l'arene
@@ -76,7 +76,7 @@ constexpr core::GridPosition PORTE_DE_L_ARENE{11, 3};       // close sous condam
 constexpr core::GridPosition PIED_DE_L_ESCALIER{7, 2};      // sous la porte du triomphe
 constexpr core::GridPosition MAITRE{8, 10};
 constexpr core::GridPosition DEVANT_LE_MAITRE{9, 10};
-constexpr core::GridPosition PORTE_DU_TRIOMPHE{16, 4};      // devant le portail vers le -1
+constexpr core::GridPosition PORTE_DU_TRIOMPHE{16, 4};  // devant le portail vers le -1
 
 /// Le heros de la demo, charge comme le jeu le charge (`hmi::loadDemonstrationState`), depuis le
 /// contenu livre.
@@ -95,9 +95,9 @@ struct Heros {
         hmi::HeroContestantSource hero{
             .sheet = loaded.sheet,
             .proficiency = core::proficiencyBonus(loaded.sheet, experience),
-            .armorClass = core::derivedStatsFor(loaded.sheet, loaded.inventory, lookup, rules,
-                                                encumbrance)
-                              .armorClass,
+            .armorClass =
+                core::derivedStatsFor(loaded.sheet, loaded.inventory, lookup, rules, encumbrance)
+                    .armorClass,
             .weapon = std::nullopt};
         if (const core::Weapon* weapon =
                 equipment.findWeapon(loaded.inventory.at(core::EquipmentSlot::MainHand))) {
@@ -262,8 +262,7 @@ public:
                                                           core::Vector2 regard = {1.0F, 0.0F}) {
         _play.session().placeHero(core::cellCenter(ou));
         static_cast<void>(_play.step(core::ExplorationIntent{.move = regard}, 0.0001F));
-        const hmi::WorldPlayStep pas =
-            _play.step(core::ExplorationIntent{.interact = true}, PAS);
+        const hmi::WorldPlayStep pas = _play.step(core::ExplorationIntent{.interact = true}, PAS);
         for (const core::ExplorationEvent& evenement : pas.events) {
             if (evenement.kind == core::ExplorationEventKind::Dialogue) {
                 return evenement.value;
@@ -356,15 +355,15 @@ void jusquAuGarde(Partie& partie) {
     EXPECT_EQ(partie.parlerDepuis(DEVANT_LA_MERE), "mere") << "elle attend, l'etal ne bouge pas";
 
     // Stravian Avenue, par le portail : on arrive sur Herofate Avenue.
-    ASSERT_EQ(partie.marcherJusquA(STRAVIAN_AVENUE, {1.0F, 0.0F},
-                                   core::ExplorationEventKind::MapEntered),
-              ARENAREA);
+    ASSERT_EQ(
+        partie.marcherJusquA(STRAVIAN_AVENUE, {1.0F, 0.0F}, core::ExplorationEventKind::MapEntered),
+        ARENAREA);
     EXPECT_EQ(partie.session().mapId(), ARENAREA);
 
     // Le parvis : sa zone declenche le garde a l'entree.
-    ASSERT_EQ(partie.marcherJusquA(ENTREE_DU_PARVIS, {1.0F, 0.0F},
-                                   core::ExplorationEventKind::Dialogue),
-              "garde");
+    ASSERT_EQ(
+        partie.marcherJusquA(ENTREE_DU_PARVIS, {1.0F, 0.0F}, core::ExplorationEventKind::Dialogue),
+        "garde");
 }
 
 // Le retour a l'etal, depuis Herofate Avenue, et la fin de la demo par la voie attendue.
@@ -382,8 +381,7 @@ void retourChezLaMere(Partie& partie, std::string_view voie) {
     EXPECT_EQ(fin.fins.front(), voie);
     EXPECT_EQ(partie.etapesAtteintes(), (std::vector<std::string>{"pommes/rendue"}));
     const core::Quest& quete = *partie.session().quests().find(QUETE);
-    EXPECT_EQ(core::questProgress(quete, partie.drapeaux()).status,
-              core::QuestStatus::Succeeded);
+    EXPECT_EQ(core::questProgress(quete, partie.drapeaux()).status, core::QuestStatus::Succeeded);
 }
 
 }  // namespace

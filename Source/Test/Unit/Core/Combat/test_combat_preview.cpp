@@ -37,10 +37,8 @@ core::Level salle(int largeur, int hauteur) {
         carte.setTile(0, y, core::TileType::Wall);
         carte.setTile(largeur - 1, y, core::TileType::Wall);
     }
-    return core::Level(core::LevelData{.name = "salle",
-                                       .tileMap = std::move(carte),
-                                       .entities = {},
-                                       .entry = {1, 1}});
+    return core::Level(core::LevelData{
+        .name = "salle", .tileMap = std::move(carte), .entities = {}, .entry = {1, 1}});
 }
 
 core::ArenaContestant combattant(const std::string& nom, CombatSide camp, GridPosition case_,

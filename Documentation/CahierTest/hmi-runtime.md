@@ -12,7 +12,7 @@ Tests unitaires — **3 cas** (1 bloquant, 2 majeurs). [Retour à la synthèse](
 
 ### EncounterModelTest.DuDeclenchementAuRetourALExploration
 
-*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:65`
+*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:66`
 
 Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 
@@ -56,7 +56,7 @@ Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 
 ### EncounterModelTest.UnRefusLaisseLExplorationIntacte
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:156`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:159`
 
 Un refus de montage laisse l'exploration intacte.
 
@@ -78,7 +78,7 @@ Un refus de montage laisse l'exploration intacte.
 
 ### EncounterModelTest.LesGestesAttendentLaFinDUnMouvement
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:184`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:187`
 
 Les gestes attendent la fin d'un mouvement.
 

@@ -6,16 +6,16 @@
  * @brief Le kit commun de la Capitale (`LOT-105`), rendu par le **moteur** : une rue de douze cases
  *        composée avec ses seules pièces.
  *
- * C'est le premier critère du lot : « une rue de douze cases se compose avec le seul kit, sans pièce
- * propre à un quartier ». Les aperçus de production (`Tools/AssetsHD/…/apercus/`) posent les pièces
- * dans un navigateur ; ce test les pose comme le jeu, par `hmi::WorldSceneRenderer` : échelle du
- * lieu, ancre de chaque pièce, mipmaps.
+ * C'est le premier critère du lot : « une rue de douze cases se compose avec le seul kit, sans
+ * pièce propre à un quartier ». Les aperçus de production (`Tools/AssetsHD/…/apercus/`) posent les
+ * pièces dans un navigateur ; ce test les pose comme le jeu, par `hmi::WorldSceneRenderer` :
+ * échelle du lieu, ancre de chaque pièce, mipmaps.
  *
  * Le moteur lit encore un lieu sous `Scene/<place>/` : la résolution dans l'arbre `Regions/` est à
  * venir. Le test copie donc le dossier installé `Regions/central-empire/capital/Common/Scene` sous
  * `Scene/capital/` d'une racine temporaire — une copie de lecture, jamais versionnée — et rend la
- * rue en 1920 × 1080. L'image est écrite pour l'œil de l'auteur ; ce que le test vérifie seul, c'est
- * que chaque pièce posée est au manifeste et que la rue occupe l'écran.
+ * rue en 1920 × 1080. L'image est écrite pour l'œil de l'auteur ; ce que le test vérifie seul,
+ * c'est que chaque pièce posée est au manifeste et que la rue occupe l'écran.
  */
 
 #include <QImage>
@@ -70,13 +70,20 @@ struct Placed {
  */
 const std::vector<Placed>& streetPieces() {
     static const std::vector<Placed> pieces = {
-        {"wall-limestone-corner-outer", 0, 0}, {"wall-limestone-u", 1, 0},
-        {"wall-limestone-window-u", 3, 0},     {"wall-limestone-u", 5, 0},
-        {"wall-limestone-window-u", 7, 0},     {"wall-limestone-u", 9, 0},
-        {"plant-cypress", 11, 0},              {"prop-lamppost", 0, 4},
-        {"prop-bench-u", 2, 4},                {"prop-planter", 4, 4},
-        {"plant-flowerbed", 5, 4},             {"prop-stall-empty", 7, 4},
-        {"prop-crate", 8, 4},                  {"prop-barrel", 9, 4},
+        {"wall-limestone-corner-outer", 0, 0},
+        {"wall-limestone-u", 1, 0},
+        {"wall-limestone-window-u", 3, 0},
+        {"wall-limestone-u", 5, 0},
+        {"wall-limestone-window-u", 7, 0},
+        {"wall-limestone-u", 9, 0},
+        {"plant-cypress", 11, 0},
+        {"prop-lamppost", 0, 4},
+        {"prop-bench-u", 2, 4},
+        {"prop-planter", 4, 4},
+        {"plant-flowerbed", 5, 4},
+        {"prop-stall-empty", 7, 4},
+        {"prop-crate", 8, 4},
+        {"prop-barrel", 9, 4},
         {"prop-lamppost", 11, 4},
     };
     return pieces;
@@ -152,16 +159,16 @@ TEST(CapitalKitRender, AStreetOfTwelveCellsIsComposedWithTheKitAlone) {
     if (!rhi) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
-    const std::filesystem::path root =
-        std::filesystem::temp_directory_path() / "jadg-kit-capitale";
+    const std::filesystem::path root = std::filesystem::temp_directory_path() / "jadg-kit-capitale";
     std::filesystem::remove_all(root);
     std::filesystem::create_directories(root / "Scene");
     std::filesystem::copy(kitScene(), root / "Scene" / "capital",
                           std::filesystem::copy_options::recursive);
 
     const QSize size(1920, 1080);
-    const std::unique_ptr<QRhiTexture> texture(rhi->newTexture(
-        QRhiTexture::RGBA8, size, 1, QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
+    const std::unique_ptr<QRhiTexture> texture(
+        rhi->newTexture(QRhiTexture::RGBA8, size, 1,
+                        QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
     ASSERT_TRUE(texture->create());
     const std::unique_ptr<QRhiTextureRenderTarget> target(
         rhi->newTextureRenderTarget({{texture.get()}}));
@@ -185,10 +192,10 @@ TEST(CapitalKitRender, AStreetOfTwelveCellsIsComposedWithTheKitAlone) {
         commandBuffer->resourceUpdate(batch);
         ASSERT_EQ(rhi->endOffscreenFrame(), QRhi::FrameOpSuccess);
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
-        rendered = QImage(reinterpret_cast<const uchar*>(readback.data.constData()),
-                          readback.pixelSize.width(), readback.pixelSize.height(),
-                          QImage::Format_RGBA8888)
-                       .copy();
+        rendered =
+            QImage(reinterpret_cast<const uchar*>(readback.data.constData()),
+                   readback.pixelSize.width(), readback.pixelSize.height(), QImage::Format_RGBA8888)
+                .copy();
         renderer.release();
     }
     ASSERT_EQ(rendered.size(), size);

@@ -178,4 +178,3 @@ TEST(TriParProfondeurTest, LaProfondeurNeDebordePasDeSaBande) {
     EXPECT_EQ(scene.quads()[2].layer, hmi::RenderLayer::UI);
     EXPECT_TRUE(recorder.isLayerOrderRespected()) << recorder.describe();
 }
-

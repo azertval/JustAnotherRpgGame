@@ -217,8 +217,8 @@ TEST(DataRootTest, LEditeurOuvreLesDonneesDeLArbreDesSources) {
  * }
  */
 TEST(DataRootTest, UnDossierDeNiveauxVideResteLArbreDesSources) {
-    const std::filesystem::path racine = std::filesystem::temp_directory_path() /
-                                         ("jadg-base-vide-" + std::to_string(std::rand()));
+    const std::filesystem::path racine =
+        std::filesystem::temp_directory_path() / ("jadg-base-vide-" + std::to_string(std::rand()));
     std::error_code ignore;
     std::filesystem::remove_all(racine, ignore);
     std::filesystem::create_directories(racine / "Levels");

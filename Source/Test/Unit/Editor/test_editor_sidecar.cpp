@@ -189,7 +189,8 @@ TEST(EditorSidecarTest, LAnnexeGardeOuEnEstLaCarte) {
     EXPECT_EQ(hmi::mapStateKey(hmi::MapState::Generated), "generated");
     EXPECT_EQ(hmi::mapStateFromKey("retouched"), hmi::MapState::Retouched);
     EXPECT_EQ(hmi::mapStateLabel(hmi::MapState::Unset), "not stated");
-    // Maquettee (LOT-128) s'ajoute aux trois etats, entre « sortie du generateur » et « retouchee ».
+    // Maquettee (LOT-128) s'ajoute aux trois etats, entre « sortie du generateur » et « retouchee
+    // ».
     EXPECT_EQ(hmi::knownMapStates().size(), 4U);
     EXPECT_EQ(hmi::mapStateKey(hmi::MapState::Blockout), "blockout");
     EXPECT_EQ(hmi::mapStateFromKey("blockout"), hmi::MapState::Blockout);

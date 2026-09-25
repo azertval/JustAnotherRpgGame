@@ -650,8 +650,11 @@ jobs:
         run: echo "::add-matcher::.github/problem-matchers/clang-format.json"
 
       - name: Verifier le formatage (Source/, hors External/)
-        # bash de GitHub tourne en -o pipefail : l'échec de xargs traverse le tee.
+        # Le shell par défaut d'un `run:` est `bash -e {0}`, SANS pipefail : l'échec de xargs
+        # était avalé par le tee, et le job restait vert avec 180 écarts annotés (constaté à la
+        # recette de la 0.0.1, LOT-122). `set -o pipefail` le fait traverser.
         run: |
+          set -o pipefail
           clang-format --version
           git ls-files 'Source/*.cpp' 'Source/*.h' > checked-files.txt
           xargs clang-format --dry-run --Werror --style=file < checked-files.txt 2>&1 | tee clang-format.log

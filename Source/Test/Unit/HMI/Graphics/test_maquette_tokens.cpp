@@ -86,8 +86,7 @@ TEST(MaquetteTokenTest, UneLettreIllisibleDonneUnPointDInterrogation) {
  * }
  */
 TEST(MaquetteTokenTest, LImageEstUnDisqueALettreDeterministe) {
-    const hmi::MaquetteTokenRequest demande{.kind = hmi::MaquetteTokenKind::Hostile,
-                                            .letter = 'W'};
+    const hmi::MaquetteTokenRequest demande{.kind = hmi::MaquetteTokenKind::Hostile, .letter = 'W'};
     const core::MarkerImage premiere = hmi::maquetteTokenImage(demande, 44);
     const core::MarkerImage seconde = hmi::maquetteTokenImage(demande, 44);
 
@@ -138,8 +137,7 @@ TEST(MaquetteTokenTest, LesSixNaturesOntSixTeintes) {
         hmi::MaquetteTokenKind::Object,  hmi::MaquetteTokenKind::Portal};
     for (std::size_t i = 0; i < natures.size(); ++i) {
         for (std::size_t j = i + 1; j < natures.size(); ++j) {
-            EXPECT_FALSE(hmi::maquetteTokenColor(natures[i]) ==
-                         hmi::maquetteTokenColor(natures[j]))
+            EXPECT_FALSE(hmi::maquetteTokenColor(natures[i]) == hmi::maquetteTokenColor(natures[j]))
                 << i << " et " << j;
             EXPECT_NE(hmi::maquetteTokenKindKey(natures[i]), hmi::maquetteTokenKindKey(natures[j]));
         }

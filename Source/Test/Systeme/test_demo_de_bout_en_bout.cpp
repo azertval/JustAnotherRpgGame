@@ -280,10 +280,9 @@ private:
         dialogue->setSeed(graineDuDialogue);
         // Dialogue.qml : la rencontre s'engage à la fermeture de l'écran ; la fin de la démo
         // ouvre son écran.
-        QObject::connect(dialogue.get(), &hmi::DialogueModel::encounterRequested,
-                         [this](const QString& rencontreId) {
-                             dialogueEngage = rencontreId.toStdString();
-                         });
+        QObject::connect(
+            dialogue.get(), &hmi::DialogueModel::encounterRequested,
+            [this](const QString& rencontreId) { dialogueEngage = rencontreId.toStdString(); });
         QObject::connect(dialogue.get(), &hmi::DialogueModel::demoEnded,
                          [this](const QString& voie) {
                              fin = voie.toStdString();
@@ -335,8 +334,8 @@ void jusquAuParvis(Jeu& jeu) {
 
     ASSERT_TRUE(jeu.passerLePortail(STRAVIAN_AVENUE, {1.0F, 0.0F}, ARENAREA));
     // La zone du parvis ouvre le dialogue du garde à l'entrée.
-    ASSERT_TRUE(jeu.marcher(ENTREE_DU_PARVIS, {1.0F, 0.0F},
-                            [&jeu] { return jeu.dialogue != nullptr; }));
+    ASSERT_TRUE(
+        jeu.marcher(ENTREE_DU_PARVIS, {1.0F, 0.0F}, [&jeu] { return jeu.dialogue != nullptr; }));
     ASSERT_EQ(jeu.dialogue->dialogueId().toStdString(), "garde");
 }
 

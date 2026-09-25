@@ -135,7 +135,8 @@ TEST(PaintToolsTest, LaLignePoseUneCaseParPas) {
  * \castest{<b>Un trait est un seul pas d'annulation.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Sur La carte d'essai, tracer une ligne de `light` sur six cases de rue.<br/>2. Annuler.<br/>
+ * \tetapes 1. Sur La carte d'essai, tracer une ligne de `light` sur six cases de rue.<br/>2.
+ * Annuler.<br/>
  * \tattendu Six lanternes, un pas d'annulation ; annulé, le fichier livré revient.
  * }
  */
@@ -224,8 +225,8 @@ TEST(PaintToolsTest, LeSeauEtLesPiecesLarges) {
  * \castest{<b>La pipette prend ce qu'on voit.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Sur La carte d'essai, piquer un mur, la collision active puis le sol actif, et une case
- * vide.<br/>2. Poser un étal, piquer sa deuxième case.<br/>
+ * \tetapes 1. Sur La carte d'essai, piquer un mur, la collision active puis le sol actif, et une
+ * case vide.<br/>2. Poser un étal, piquer sa deuxième case.<br/>
  * \tattendu `wall` sur la collision ; `street` sur le sol ; `wall-right` depuis le décor (ou une
  * autre couche), couche rendue ; rien sur le vide ; `feature-1` pour l'étal.
  * }
@@ -333,12 +334,13 @@ TEST(PaintToolsTest, LaMesureEnCasesEtEnPieds) {
 }
 
 /**
- * @brief Tracer une maison de la carte d'essai — sol, murs, porte, seuil — prend moins de dix gestes,
- *        sans ouvrir la couche collision ni un formulaire (acceptation du `LOT-EDITOR-04`).
+ * @brief Tracer une maison de la carte d'essai — sol, murs, porte, seuil — prend moins de dix
+ * gestes, sans ouvrir la couche collision ni un formulaire (acceptation du `LOT-EDITOR-04`).
  * \castest{<b>Une maison de la carte d'essai en six gestes.</b><br/>
  * \tcat Unitaire · Outils du peintre<br/>
  * \tcrit Critique<br/>
- * \tetapes Sur un terrain vide de la carte d'essai, le décor actif, le miroir par l'angle (30, 5) :<br/>
+ * \tetapes Sur un terrain vide de la carte d'essai, le décor actif, le miroir par l'angle (30, 5)
+ * :<br/>
  * 1. rectangle de `street` (25, 0)–(29, 4) ;<br/>2. ligne de `wall-right` (25, 5)–(29, 5) ;<br/>
  * 3. pinceau `wall-corner` sur l'angle ;<br/>4. pinceau `door-right` en (27, 5) ;<br/>5. pinceau
  * `doorstep` en (27, 4) ;<br/>6. annuler puis refaire le dernier geste.<br/>

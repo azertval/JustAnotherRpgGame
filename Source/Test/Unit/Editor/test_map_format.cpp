@@ -361,13 +361,11 @@ TEST(MapFormatTest, ChaqueCarteMigreeSeJoueALIdentique) {
     if (!dossier) {
         GTEST_SKIP() << "JADG_V3_MAPS_DIR non definie : versions v3 absentes";
     }
-    const std::filesystem::path livrees =
-        std::filesystem::path(JADG_LEVELS_DIR).parent_path();
+    const std::filesystem::path livrees = std::filesystem::path(JADG_LEVELS_DIR).parent_path();
     for (const std::filesystem::path& fichier : hmi::mapFiles(livrees)) {
         const std::string carte = core::mapIdOf(livrees / "Levels", fichier);
         SCOPED_TRACE(carte);
-        const std::filesystem::path ancienne =
-            std::filesystem::path(*dossier) / (carte + ".json");
+        const std::filesystem::path ancienne = std::filesystem::path(*dossier) / (carte + ".json");
         if (!std::filesystem::is_regular_file(ancienne)) {
             continue;  // une carte posée après la v3 n'a pas d'ancienne version
         }

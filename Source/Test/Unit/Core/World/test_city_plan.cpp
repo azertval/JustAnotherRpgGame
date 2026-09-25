@@ -91,8 +91,8 @@ TEST(CityPlanTest, UneVilleSeLit) {
  * \tetapes 1. Lire la ville d'essai.<br/>
  * 2. Chercher le quartier de `bourg/place/crypte`, de `bourg/place/crypte/-1`, puis de
  * `bourg/placette` et `bourg/plac`.<br/>
- * \tattendu Les deux premieres sont dans le quartier de `bourg/place` (LOT-121) ; les deux dernieres,
- * qui ne font que commencer comme lui, ne sont dans aucun.
+ * \tattendu Les deux premieres sont dans le quartier de `bourg/place` (LOT-121) ; les deux
+ * dernieres, qui ne font que commencer comme lui, ne sont dans aucun.
  * }
  */
 TEST(CityPlanTest, UneSousZoneEstDansSonQuartier) {

@@ -31,22 +31,22 @@ namespace {
     }
     sol.setTile(12, 6, core::TileType::Wall);
     core::LevelData donnees{.name = "essai", .tileMap = std::move(sol)};
-    donnees.entities.push_back(
-        core::MapEntity{.type = "combatZone",
-                        .position = {.column = 10, .row = 5},
-                        .properties = {{"name", std::string{"cour"}},
-                                       {"width", std::int64_t{10}},
-                                       {"height", std::int64_t{8}}}});
+    donnees.entities.push_back(core::MapEntity{.type = "combatZone",
+                                               .position = {.column = 10, .row = 5},
+                                               .properties = {{"name", std::string{"cour"}},
+                                                              {"width", std::int64_t{10}},
+                                                              {"height", std::int64_t{8}}}});
     return core::Level{std::move(donnees)};
 }
 
 [[nodiscard]] core::Encounter rencontre() {
-    return core::Encounter{.id = "loups",
-                           .name = "Deux loups",
-                           .source = "essai",
-                           .combatants = {{.creatureId = "wolf", .columnOffset = 0, .rowOffset = -1},
-                                          {.creatureId = "wolf", .columnOffset = 1, .rowOffset = 0}},
-                           .escapable = false};
+    return core::Encounter{
+        .id = "loups",
+        .name = "Deux loups",
+        .source = "essai",
+        .combatants = {{.creatureId = "wolf", .columnOffset = 0, .rowOffset = -1},
+                       {.creatureId = "wolf", .columnOffset = 1, .rowOffset = 0}},
+        .escapable = false};
 }
 
 [[nodiscard]] core::ExplorationSnapshot exploration() {
@@ -60,7 +60,8 @@ namespace {
 
 /**
  * @brief La rencontre se monte sur la zone qui contient le déclencheur, en cases de la grille.
- * \castest{<b>Une rencontre se pose sur la zone de combat du declencheur, cases translatees.</b><br/>
+ * \castest{<b>Une rencontre se pose sur la zone de combat du declencheur, cases
+ * translatees.</b><br/>
  * \tcat Unitaire · Combat sur la carte<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Preparer une rencontre de deux loups, declenchee en (14, 8), heros en (15, 10),
@@ -110,7 +111,8 @@ TEST(MapEncounterTest, UnePlaceImpossibleSeRapprocheEtSeNote) {
         core::prepareMapEncounter(carte(), "essai", rencontre(), {.column = 12, .row = 7},
                                   {.column = 15, .row = 10}, exploration(), {});
     ASSERT_TRUE(mur.ok()) << mur.issue;
-    const core::GridPosition posee = core::zoneToMap(mur.setup->zone, mur.setup->run.placements[0].position);
+    const core::GridPosition posee =
+        core::zoneToMap(mur.setup->zone, mur.setup->run.placements[0].position);
     EXPECT_NE(posee, (core::GridPosition{.column = 12, .row = 6}));
     EXPECT_LE(std::max(std::abs(posee.column - 12), std::abs(posee.row - 6)), 1);
     ASSERT_EQ(mur.setup->notes.size(), 1U);
@@ -126,7 +128,8 @@ TEST(MapEncounterTest, UnePlaceImpossibleSeRapprocheEtSeNote) {
     for (const core::CombatantPlacement& place : dehors.setup->run.placements) {
         EXPECT_EQ(std::ranges::find(cases, place.position), cases.end()) << "case partagee";
         cases.push_back(place.position);
-        EXPECT_TRUE(dehors.setup->zone.contains(core::zoneToMap(dehors.setup->zone, place.position)));
+        EXPECT_TRUE(
+            dehors.setup->zone.contains(core::zoneToMap(dehors.setup->zone, place.position)));
     }
 }
 

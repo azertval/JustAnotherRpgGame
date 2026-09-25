@@ -106,7 +106,7 @@ Une carte qui puise dans quatre niveaux se joue.
 
 ### QueteDesPommes.LaVoieDeLaParole
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:393`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:391`
 
 La demo se finit par la parole quand la Persuasion reussit.
 
@@ -128,7 +128,7 @@ La demo se finit par la parole quand la Persuasion reussit.
 
 ### QueteDesPommes.LaVoieDeLArene
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:422`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:420`
 
 La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
@@ -167,7 +167,7 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
 ### QueteDesPommes.LaDefaiteSurLeSable
 
-*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:503`
+*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:501`
 
 Une defaite sur le sable ne pose rien : la demo s'y termine.
 
@@ -190,7 +190,7 @@ Une defaite sur le sable ne pose rien : la demo s'y termine.
 
 ### QueteDesPommes.LeCombatSeGagneDeuxFoisSurTrois
 
-*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:541`
+*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:539`
 
 Le heros gagne le combat de l'arene entre 60 et 70 fois sur cent.
 
@@ -209,7 +209,7 @@ Le heros gagne le combat de l'arene entre 60 et 70 fois sur cent.
 
 ### QueteDesPommes.LaProbabiliteDeVictoireTientSurMilleGraines
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:575`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:573`
 
 Sur mille combats a graines tirees, le heros gagne deux fois sur trois.
 
@@ -224,7 +224,7 @@ Sur mille combats a graines tirees, le heros gagne deux fois sur trois.
 
 ### QueteDesPommes.LaPersuasionReussitUneFoisSurQuatre
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:612`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:610`
 
 Sur deux mille jets a graines tirees, la Persuasion reussit une fois sur quatre.
 
