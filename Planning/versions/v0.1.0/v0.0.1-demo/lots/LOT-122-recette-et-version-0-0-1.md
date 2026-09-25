@@ -63,7 +63,8 @@ la version, label `no-changelog` : elle ferme la section du CHANGELOG, elle n'y 
    du code sans lecteur dont le retrait est un choix de produit : la prévisualisation du combat
    et le catalogue d'arène partent, les portails fermés parlent au joueur, le cycle des écrans aux
    gâchettes et la table des écrans de l'ère Widgets disparaissent avec leurs exigences réécrites,
-   `InputState` ne garde que la manette, `CacheRegistry` part avec `EX-REN-043`, les six dialogues
+   `InputState` ne garde que la manette, `CacheRegistry` part (l'exigence `EX-REN-043` reste : elle
+   décrivait le multi-textures, pas le cache), les six dialogues
    du Colisée partent avec leurs textes ; les briques de règles de la fondation restent. Le détail
    est dans le [bilan](../bilan.md), table « Ce que l'audit a soumis à l'auteur ».
 8. **Le job `format` de la CI ne pouvait pas échouer** (`xargs | tee` sans `pipefail`) et `main`

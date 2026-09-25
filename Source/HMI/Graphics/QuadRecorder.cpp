@@ -33,9 +33,10 @@ bool QuadRecorder::isLayerOrderRespected() const {
     return true;
 }
 
-// true si, a l'interieur de chaque calque, aucune texture n'apparait dans deux groupes distincts
-// (EX-REN-043). La contiguite ne vaut qu'**a calque constant** : une meme texture presente sur deux
-// calques differents produit legitimement deux passes, puisque le calque prime sur la texture.
+// true si, a l'interieur de chaque calque, aucune texture n'apparait dans deux groupes distincts :
+// les quads d'une meme texture sont contigus, un seul groupe par texture. La contiguite ne vaut
+// qu'**a calque constant** : une meme texture presente sur deux calques differents produit
+// legitimement deux passes, puisque le calque prime sur la texture.
 bool QuadRecorder::areTextureGroupsContiguous() const {
     std::vector<TextureHandle> seenInLayer;  // textures deja closes dans le calque courant
     for (std::size_t i = 0; i < _quads.size(); ++i) {

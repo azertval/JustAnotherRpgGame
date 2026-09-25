@@ -13,14 +13,14 @@
 
 /**
  * @file HMI/Presentation/CharacterSheetValues.h
- * @brief Ce que l'écran de fiche affiche, calculé hors de tout widget (`LOT-38`, `EX-IHM-090`).
+ * @brief Ce que l'écran de fiche affiche, calculé hors de tout élément d'interface (`LOT-38`).
  */
 
 namespace hmi {
 
 /**
- * @brief Traduit une fiche de personnage en **valeurs affichables**, indexées par l'identifiant
- *        que l'ossature de l'écran déclare (`hmi::RpgField::valueId`).
+ * @brief Traduit une fiche de personnage en **valeurs affichables**, indexées par un identifiant
+ *        stable (`sheet.hit_points`) que `hmi::CharacterSheetModel` publie au QML.
  *
  * Logique **pure** : aucune dépendance Qt, aucun accès disque (`EX-NFR-010`). C'est ce qui permet
  * de vérifier par test qu'un modificateur s'affiche `+3` et non `3`, qu'une compétence maîtrisée
@@ -29,11 +29,11 @@ namespace hmi {
  *
  * ## Pourquoi une table de chaînes, et non une structure de champs
  *
- * L'écran est décrit par une **table** (`hmi::rpgScreens`), et un neuvième champ doit y coûter une
- * ligne. Une structure à quarante membres obligerait à toucher trois fichiers pour chaque champ
- * ajouté — la table, la structure, et le code qui les relie — c'est-à-dire exactement ce
- * qu'`EX-IHM-090` écarte. Ici, l'identifiant est le seul contrat, et un test vérifie qu'aucun des
- * deux côtés n'en invente un que l'autre ignore.
+ * L'écran est un formulaire QML (`CharacterSheetForm.ui.qml`) alimenté par
+ * `hmi::CharacterSheetModel`, qui nomme ces identifiants une fois, en propriétés. Une structure à
+ * quarante membres obligerait à toucher trois fichiers pour chaque champ ajouté — la structure, le
+ * modèle, et le code qui les relie. Ici, l'identifiant est le seul contrat entre cette fonction et
+ * le modèle qui la publie ; les tests de la fonction vérifient chaque valeur produite.
  *
  * ## Le formatage est ici, la traduction reste dehors
  *

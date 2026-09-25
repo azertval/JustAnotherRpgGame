@@ -8,11 +8,21 @@ Tests unitaires — **3 cas** (1 bloquant, 2 majeurs). [Retour à la synthèse](
 |---|---|---|---|---|---|
 | [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 3 | 1 | - | 2 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-IHM-091` | [`EncounterModelTest.DuDeclenchementAuRetourALExploration`](#encountermodeltestdudeclenchementauretouralexploration) |
+
 ## test_encounter_model.cpp
 
 ### EncounterModelTest.DuDeclenchementAuRetourALExploration
 
-*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:66`
+*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:67`
+
+Exigences : `EX-IHM-091`
 
 Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 
@@ -56,7 +66,7 @@ Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 
 ### EncounterModelTest.UnRefusLaisseLExplorationIntacte
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:159`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:160`
 
 Un refus de montage laisse l'exploration intacte.
 
@@ -78,7 +88,7 @@ Un refus de montage laisse l'exploration intacte.
 
 ### EncounterModelTest.LesGestesAttendentLaFinDUnMouvement
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:187`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:188`
 
 Les gestes attendent la fin d'un mouvement.
 

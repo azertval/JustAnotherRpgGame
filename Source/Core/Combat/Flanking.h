@@ -29,8 +29,8 @@
  * côtés opposés » si elle touche le bord gauche **et** le bord droit, ou le haut **et** le bas,
  * coins compris — ce qui couvre les angles opposés. Tout est entier et exact.
  *
- * La règle est **optionnelle** : c'est la donnée de l'arène qui l'active (`core::Arena::flanking`),
- * pas le moteur.
+ * La règle est **optionnelle** : c'est la donnée de l'arène qui l'active
+ * (`core::ArenaBout::flanking`), pas le moteur.
  */
 
 #include "Core/Combat/CombatState.h"

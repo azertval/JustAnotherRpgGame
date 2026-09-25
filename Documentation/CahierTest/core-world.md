@@ -799,13 +799,13 @@ L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.
 - Vérifie que `session.start("place", "")` est vrai.
 - Vérifie que `vus.size()` vaut `1U`.
 - Vérifie que `vus.front().kind` vaut `ExplorationEventKind::Dialogue`.
-- Vérifie que `vus.front().value` vaut `"heraut-colisee"`.
+- Vérifie que `vus.front().value` vaut `"garde"`.
 - Vérifie que `vus.size()` vaut `1U`.
 - Vérifie que `vus.front().value` vaut `"myr-marche"`.
 
 ### ExplorationSessionTest.UneCarteGeleeNeBougePlus
 
-*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:212`
+*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:211`
 
 Gelee, la session ne deplace plus le heros et n'ouvre plus rien.
 

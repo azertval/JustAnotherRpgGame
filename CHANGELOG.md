@@ -46,8 +46,17 @@ dans `Planning/`, avec son site. Le détail par lot, du plus récent au plus anc
   test est régénéré. Le job **`format`** de la CI annotait les écarts de `clang-format` sans jamais
   échouer (`xargs | tee` sans `pipefail`) : il échoue désormais, et les trente-six fichiers en
   défaut sur `main` sont reformatés. Les huit PNG de sortie de test commités à la racine partent.
-  Ce que l'audit laisse à trancher (prévisualisation du combat, signaux de portail, cycle des
-  écrans RPG, `RpgScreens`, `InputState`, données d'arène, dialogues du Colisée) est dans le bilan.
+  Ce que l'audit avait soumis à l'auteur est **tranché** à la recette : la prévisualisation du
+  combat de l'écran du Colisée (`CombatModel.preview`, 16 chaînes) part ; un portail fermé,
+  bloqué ou condamné le **dit au joueur** (message bref dans la vue de jeu) ; le cycle des écrans
+  aux gâchettes et la table `RpgScreens` de l'ère Widgets partent, `EX-IHM-090` et `EX-IHM-091`
+  disent la pile d'écrans QML et le gel tels qu'ils sont ; `InputState` ne garde que la manette ;
+  `CacheRegistry` part ; le catalogue d'arène (`core::Arena`, `loadArenas`, `heroic-marks`) et
+  l'action de dialogue `startCombat` partent, `core::ArenaSession` reste ; les six dialogues du
+  Colisée partent avec leurs textes et 147 clés de traduction sans lecteur (châssis, champs de
+  fiche, emplacements d'équipement, titres d'écran), les tests lisant désormais les dialogues de la
+  démo ou une fixture. Les briques de règles de la fondation (`AreaOfEffect`, `Multiclassing`…)
+  restent pour la `0.0.2`.
 
 - **LOT-121 — L'onglet « Carte » : le plan de la Capitale.** Le plan peint par l'auteur montre ses
   douze quartiers : Martpart et Arenarea s'ouvrent sur leur carte, les dix autres s'annoncent

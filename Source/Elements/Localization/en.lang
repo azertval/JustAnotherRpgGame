@@ -13,102 +13,23 @@ menu.quit = Quit
 # Options
 options.back = Back
 
-# Rappels de touches en bas des ecrans du jeu.
-key.shoulders = LB/RB
-hint.change_screen = Switch screen
-
 # --- RPG screens: the LOT-68 chassis ----------------------------------------------------------
 # The eight screens exist, and are EMPTY: this lot delivers their frame, not their content (sheet
 # in LOT-38, map in LOT-42, guild in LOT-45, combat in LOT-24). The labels below name SLOTS, never
 # values -- every displayed value is the dash of `rpg.empty`.
-rpg.empty = —
-rpg.chassis.close = Close
-rpg.chassis.previous_screen = Previous Screen
-rpg.chassis.next_screen = Next Screen
 
-rpg.character_sheet.title = Character Sheet
-rpg.inventory.title = Inventory and Equipment
-rpg.journal.title = Quest Journal
 journal.empty = No quest yet.
 journal.status.active = In progress
 journal.status.failed = Failed
 journal.status.succeeded = Completed
-rpg.world_map.title = World Map
-rpg.dialogue.title = Dialogue
-rpg.merchant.title = Merchant
-rpg.combat_hud.title = Combat
-
-rpg.block.identity = Identity
-rpg.block.progression = Progression
-rpg.block.abilities = Abilities
-rpg.block.combat = Combat
-rpg.block.saving_throws = Saving Throws
-rpg.block.skills = Skills
-rpg.block.equipment = Equipment
-rpg.block.bag = Backpack
-rpg.block.load = Load
-rpg.block.quests = Quests
-rpg.block.quest_detail = Details
-rpg.block.objectives = Objectives
-rpg.block.regions = Regions
-rpg.block.map = Map
-rpg.block.place = Location
-rpg.block.speaker = Speaker
-rpg.block.line = Line
-rpg.block.replies = Replies
-rpg.block.goods = Goods
-rpg.block.your_bag = Your Backpack
-rpg.block.purse = Purse
-rpg.block.contracts = Contracts
-rpg.block.contract = Contract
-rpg.block.initiative = Initiative Order
-rpg.block.target = Target
-rpg.block.actions = Actions
 
 # Fields taken from core::CharacterSheet (LOT-13) and core::Equipment (LOT-34). "Level" here is a
 # CHARACTER level (LOT-74), not a map.
-rpg.field.name = Name
-rpg.field.species = Species
-rpg.field.class = Class
-rpg.field.background = Background
-rpg.field.level = Level
-rpg.field.experience = Experience
-rpg.field.hit_points = Hit Points
-rpg.field.armor_class = Armor Class
-rpg.field.initiative = Initiative
-rpg.field.speed = Speed
-rpg.field.proficiency_bonus = Proficiency Bonus
-rpg.field.carried = Carried Weight
-rpg.field.capacity = Capacity
-rpg.field.gold = Gold Pieces
-rpg.field.region = Region
-rpg.field.place_type = Location Type
-rpg.field.danger = Danger
-rpg.field.attitude = Attitude
-rpg.field.giver = Patron
-rpg.field.rank = Rank
-rpg.field.reward = Reward
-rpg.field.conditions = Conditions
-
-rpg.slot.head = Head
-rpg.slot.torso = Torso
-rpg.slot.hands = Hands
-rpg.slot.feet = Feet
-rpg.slot.main_hand = Main Hand
-rpg.slot.off_hand = Off Hand
-rpg.slot.amulet = Amulet
-rpg.slot.ring = Ring
 
 # --- Character sheet: the LOT-38 mock-up ------------------------------------------------------
 # Labels taken from the five BLANK plates of `VTT/Blank Sheets RPG (1).pdf`. Skill and ability
 # names are the LEXICON's (rpg.glossary.csv), not synonyms: `check_glossary.py` guards these two
 # namespaces the way it already guards conditions.
-rpg.company.title = Mercenary Company
-rpg.skills.title = Skills and Spells
-rpg.block.attacks = Attacks
-rpg.block.cantrips = Cantrips
-rpg.block.spell_schools = Schools of Magic
-rpg.block.spell = Spell details
 
 rpg.ability.strength = Strength
 rpg.ability.dexterity = Dexterity
@@ -135,82 +56,6 @@ rpg.skill.religion = Religion
 rpg.skill.sleight_of_hand = Sleight of Hand
 rpg.skill.stealth = Stealth
 rpg.skill.survival = Survival
-
-rpg.block.attacks = Attacks
-rpg.block.other_proficiencies = Other Proficiencies
-rpg.block.appearance = Appearance
-rpg.block.personality = Personality
-rpg.block.features = Features and Traits
-rpg.block.powers = Powers
-rpg.block.spellcasting = Spellcasting
-rpg.block.spell_slots = Spell Slots
-rpg.block.languages = Languages
-rpg.block.backstory = Character Backstory
-rpg.block.team = Team
-rpg.block.team_members = Team Members
-rpg.block.relations = Relations
-rpg.block.coat_of_arms = Coat of Arms
-rpg.block.dream = Dream
-rpg.block.hidden_agenda = Hidden Agenda
-rpg.block.legendary_rewards = Legendary Rewards
-rpg.block.headquarters = Team Headquarters
-
-rpg.field.alignment = Alignment
-rpg.field.player = Player Name
-rpg.field.inspiration = Inspiration
-rpg.field.passive_perception = Passive Perception
-rpg.field.hit_dice = Hit Dice
-rpg.field.hit_points_max = Hit Point Maximum
-rpg.field.hit_points_temp = Temporary Hit Points
-rpg.field.death_saves = Death Saves
-rpg.field.age = Age
-rpg.field.height = Height
-rpg.field.weight = Weight
-rpg.field.eyes = Eyes
-rpg.field.skin = Skin
-rpg.field.hair = Hair
-rpg.field.traits = Personality Traits
-rpg.field.ideals = Ideals
-rpg.field.bonds = Bonds
-rpg.field.flaws = Flaws
-rpg.field.spellcasting_class = Spellcasting Class
-rpg.field.spellcasting_ability = Spellcasting Ability
-rpg.field.spell_save_dc = Spell Save DC
-rpg.field.spell_attack_bonus = Spell Attack Bonus
-rpg.field.cantrips = Cantrips
-rpg.field.spell_level_1 = Level 1 Spells
-rpg.field.spell_level_2 = Level 2 Spells
-rpg.field.spell_level_3 = Level 3 Spells
-rpg.field.spell_level_4 = Level 4 Spells
-rpg.field.spell_level_5 = Level 5 Spells
-rpg.field.spell_level_6 = Level 6 Spells
-rpg.field.spell_level_7 = Level 7 Spells
-rpg.field.spell_level_8 = Level 8 Spells
-rpg.field.spell_level_9 = Level 9 Spells
-rpg.field.class_and_level = Class & Level
-rpg.field.hand = Hand
-rpg.field.bonus = Bonus
-rpg.field.damage = Damage
-rpg.field.team_name = Team Name
-rpg.field.career_points = Career Points
-rpg.field.fame = Fame
-rpg.field.prestige = Prestige
-rpg.field.beneficiary = Beneficiary
-rpg.field.style = Style
-rpg.field.special_class_skills = Special Class Skills
-rpg.field.specialization = Specialization
-
-# Les seize emplacements d'equipement du noyau (LOT-14, core::EquipmentSlot).
-rpg.slot.neck = Neck
-rpg.slot.cloak = Cloak
-rpg.slot.belt = Belt
-rpg.slot.ring_left = Ring (left)
-rpg.slot.ring_right = Ring (right)
-rpg.slot.ranged = Ranged Weapon
-rpg.slot.ammunition = Ammunition
-rpg.slot.bracers = Bracers
-rpg.slot.pouch = Pouch
-rpg.slot.trinket = Trinket
 
 # Dialogues (LOT-15). Line and reply keys are BUILT from the graph identifiers
 # (dialogue.<dialogue>.<node>[.<reply>]): a test checks that every key a dialogue needs exists
@@ -270,57 +115,6 @@ quest.pommes.condamne = Convicted in the child's place: go down to the changing 
 quest.pommes.victoire = The arena fighter has fallen: the crowd has given its judgement.
 quest.pommes.enfant-libere = The child is free. Bring him back to his mother, on the stall square of Martpart.
 quest.pommes.rendue = The child is back with his mother.
-
-# The Coliseum herald (demonstration dialogue, provisional).
-dialogue.heraut-colisee.speaker = The Coliseum Herald
-dialogue.heraut-colisee.presentation = Halt, traveller. You stand at the gates of the Arena of the Future. Here, two sides settle what a war would otherwise settle — and nobody leaves feet first. What are you looking for?
-dialogue.heraut-colisee.presentation.marque = Nobody dies? How is that possible?
-dialogue.heraut-colisee.presentation.inscription = I want to fight in the arena.
-dialogue.heraut-colisee.presentation.partir = Nothing. I was only passing through.
-dialogue.heraut-colisee.retour = You again. Still curious about the Mark, or do you finally want to fight?
-dialogue.heraut-colisee.retour.marque = Tell me about the Mark again.
-dialogue.heraut-colisee.retour.inscription = Put my name among the champions.
-dialogue.heraut-colisee.retour.partir = I will be back.
-dialogue.heraut-colisee.marque = Before every bout, a priest traces the Heroic Mark on each fighter. When the last blow falls, it raises everyone back up — winners and losers alike. Only Feargus fights without it.
-dialogue.heraut-colisee.deja-inscrit = Your name is already on the list. Come back when the stands are full.
-dialogue.heraut-colisee.demande = The champions' list is closed for the season. Unless you give me a good reason to reopen it.
-dialogue.heraut-colisee.demande.convaincre = The stands crave fresh blood. I am what they are waiting for.
-dialogue.heraut-colisee.demande.renoncer = Too bad. Another season.
-dialogue.heraut-colisee.accepte-replique = Hm. You have nerve, and that is what the crowd loves. Your name is on the list — may the Mark keep you.
-dialogue.heraut-colisee.refuse-replique = Fine speech. The list stays closed, and so does my patience.
-dialogue.portier-colisee.speaker = The Coliseum gatekeeper
-dialogue.portier-colisee.accueil = Nobody uses the great gate on a day without a bout. Still, you are here — come in. What do you want to know?
-dialogue.portier-colisee.accueil.metier = Have you kept this gate long?
-dialogue.portier-colisee.accueil.arene = What is really judged here?
-dialogue.portier-colisee.accueil.partir = Nothing. I will walk a while.
-dialogue.portier-colisee.metier = Thirty years. I have seen nobles walk in and leave in debt, and mercenaries walk in and leave as counts. The gate has not moved.
-dialogue.portier-colisee.arene = Whatever the courts cannot settle. Two houses quarrelling over a vineyard, a charge without proof: the sand decides, and the Mark gives the bodies back.
-dialogue.parieuse-tribunes.speaker = The stands bookmaker
-dialogue.parieuse-tribunes.accueil = Three to one on the small one with the axe. Betting, or watching?
-dialogue.parieuse-tribunes.accueil.metier = Do you live on these bets?
-dialogue.parieuse-tribunes.accueil.arene = Who fights today?
-dialogue.parieuse-tribunes.accueil.partir = Watching, thank you.
-dialogue.parieuse-tribunes.metier = I live on them, and I have lived better. Since the Mark raises everyone, nobody bets on who dies — we bet on who yields. Subtler, and it pays less.
-dialogue.parieuse-tribunes.arene = Nobody yet. The herald is waiting for a champion: go and talk to him if you have the shoulders, and I will change my odds.
-dialogue.medecin-vestiaire.speaker = The locker-room physician
-dialogue.medecin-vestiaire.accueil = Sit down if you are bleeding, stay standing if you are not. I have two hands and six fighters.
-dialogue.medecin-vestiaire.accueil.metier = Is the Mark not enough, then?
-dialogue.medecin-vestiaire.accueil.arene = Do you treat both sides?
-dialogue.medecin-vestiaire.accueil.partir = I am not bleeding. Good day.
-dialogue.medecin-vestiaire.metier = The Mark raises, it does not stitch. It gives the breath back and leaves the shoulder out, the rib cracked, the tooth broken. That part is my work.
-dialogue.medecin-vestiaire.arene = Both, yes. A judgement is not a war: the loser goes home, and I would rather he walked there.
-dialogue.vieux-gladiateur.speaker = The old gladiator
-dialogue.vieux-gladiateur.accueil = You walk like someone who has never been down on the sand. It shows from here.
-dialogue.vieux-gladiateur.accueil.metier = Have you been down there?
-dialogue.vieux-gladiateur.accueil.arene = Any advice, then?
-dialogue.vieux-gladiateur.accueil.partir = I will remember that.
-dialogue.vieux-gladiateur.metier = Forty-one times. I won twenty-nine, and the other twelve taught me more. The Mark raised me twelve times; the knee never came back.
-dialogue.vieux-gladiateur.arene = Two. Do not run for the middle: that is where the crowd wants you, and that is where two of them will take you. And watch the gates — they open.
-dialogue.sentinelle-ironhand.speaker = The Ironhand sentinel
-dialogue.sentinelle-ironhand.halte = Halt. No one passes: the district is closed, by order of the Ironhand Army.
-dialogue.sentinelle-ironhand.halte.pourquoi = Closed? For what reason?
-dialogue.sentinelle-ironhand.halte.partir = Fine. I'll turn back.
-dialogue.sentinelle-ironhand.pourquoi = The Army owes you no reason, and neither do I. Come back with a pass from the watch, or do not come back.
 city_block.place-du-marche = The market square
 city_block.avenue-d-arenarea = The Arenarea avenue
 city_block.arene-illu-die = The Illu Die Arena

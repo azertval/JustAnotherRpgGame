@@ -586,9 +586,9 @@ bas, coins compris — ce qui couvre les angles opposés. Tout reste entier.
   case avant d'y aller.
 - `core::isFlanked(combat, attaquant, cible)` : la même règle, l'attaquant à sa place.
 
-C'est la **donnée de l'arène** qui active la règle (`core::Arena::flanking`, faux par défaut — une
-règle optionnelle s'active, elle ne se présume pas) ; activée pour l'Arène du Futur, le banc d'essai
-du combat.
+C'est la **composition** qui active la règle (`core::ArenaBout::flanking`, faux par défaut — une
+règle optionnelle s'active, elle ne se présume pas) ; la rencontre de carte la laisse fausse
+(`hmi::EncounterModel`), et seuls les tests la jouent.
 
 ## La prévisualisation (`CombatPreview.h`)
 
@@ -608,7 +608,8 @@ savoir : ce qu'un greffon `BeforeRoll` changera, et les dés — les seconds son
   `move` suivra), le déplacement restant, et **qui frapperait en chemin**
   (`core::ArenaSession::previewOpportunities`), choix du joueur et politique de l'IA compris.
 
-C'est ce que `hmi::CombatModel` expose en lignes lisibles (`preview`, `pathCells`), et ce qui fait
+C'est ce que `hmi::CombatModel` expose au HUD (`pathCells` ; la prévisualisation en lignes lisibles
+de l'écran du Colisée, `preview`, est partie avec lui à la recette de la `0.0.1`), et ce qui fait
 d'`EX-IHM-003` et de la moitié « montrées avant que le joueur ne s'engage » d'`EX-CBT-020` une
 donnée du `Core` (`LOT-24`).
 
@@ -711,25 +712,28 @@ la carte (`LOT-118`) — « Nouvelle partie », elle, ouvre Martpart au point d'
 
 ### La donnée
 
-- `core::Arena` : une arène telle que la donnée la décrit — région et lieu de l'atlas (`LOT-37`),
-  `map` (vide si elle n'a pas encore de carte), `zone` (le nom de sa **zone de combat**,
-  `core::CombatZone`, `LOT-09` : une arène est un lieu, et l'on ne se bat que sur son sable ;
-  `core::cropLevelToZone` donne à la session une carte qui n'est que la zone), `lethal` (faux par
-  défaut : la règle des Arènes), `heroicMark`, `flanking`. Les variantes du Sourcebook — l'Arène du
-  Futur non létale, Feargus la létale, le duel de baguettes — sont des données, pas des modes.
-  `core::loadArenas(dossier)` et `core::ArenaCatalog::find`.
-- `core::HeroicMark` et `core::loadHeroicMarks` : les huit rôles tabulés par le Sourcebook (Bruiser,
-  Brute, Commander…), l'étiquette contre laquelle les classes vérifieront que chacune remplit le sien.
 - `core::ArenaEntryPoint` et `core::arenaEntryPoints(carte)` : les entités `arenaEntry` de la carte
   (`ARENA_ENTRY_ENTITY_TYPE`, propriétés `side` et `rank`), rangées par camp, rang, puis position —
-  l'ordre de la donnée, jamais celui de la mémoire. Une entrée sans camp lisible est ignorée.
-- `core::ArenaContestant` (profil, attaques, case demandée ou non, Marque, profil de comportement —
-  vide pour un combattant que le joueur commande) et `core::ArenaBout` (les concurrents, la graine,
-  `lethal`, `heroicMark`, `flanking`).
+  l'ordre de la donnée, jamais celui de la mémoire. Une entrée sans camp lisible est ignorée. C'est
+  là que le montage pose un concurrent qui n'a pas de case demandée.
+- `core::ArenaContestant` (profil, attaques, case demandée ou non, rôle de Marque, profil de
+  comportement — vide pour un combattant que le joueur commande) et `core::ArenaBout` (les
+  concurrents, la graine, `lethal`, `heroicMark`, `flanking`, `escapable`). Sur la carte, c'est
+  `hmi::CombatContestants` et `hmi::EncounterModel` qui les composent depuis la rencontre
+  (`core::Encounter`, `LOT-118`) : `lethal` faux, `heroicMark` vrai, `flanking` faux, `escapable`
+  ce que la rencontre dit.
+- `HEROIC_ACTION_RESOURCE` (`heroicAction`) : la troisième économie d'action des Marques Héroïques,
+  que le montage déclare à chaque combattant quand `heroicMark` est vrai. Les huit rôles restent
+  une donnée de règles (`Rpg/rules/heroic-marks.json`, validée par `check_rpg_data.py`) ; rien dans
+  `Core` ne la lit plus.
 
-Le contenu livré ayant été retiré au `LOT-102`, les arènes et leur carte viennent aujourd'hui de la
-racine d'essai (`Source/Test/Fixtures/GameData/World/arena/`) ; le jeu les cherchera à côté de
-l'exécutable quand la Capitale en livrera.
+Le **catalogue d'arènes** — une structure d'arène et son chargeur, une donnée par variante régionale
+du Sourcebook dans un dossier d'arènes du monde, et le chargeur des huit Marques — a été retiré à la
+recette de la 0.0.1 (25 septembre 2026) avec l'écran de mise en place du Colisée, son seul lecteur :
+la table rase du `LOT-102` avait déjà vidé ce dossier de `Source/Elements`, et la session se monte
+depuis la rencontre de carte. Les variantes régionales (l'Arène du Futur non
+létale, Feargus la létale, le duel de baguettes) restent des **lieux** de l'atlas (`LOT-37`) ; le jour
+où l'une d'elles devient jouable, sa composition sera une rencontre sur sa carte, pas un catalogue.
 
 ### La session
 
@@ -738,7 +742,7 @@ l'exécutable quand la Capitale en livrera.
 | `ArenaSession(carte)` | garde la carte pour chaque rejeu ; la grille est `BattleGrid(carte)`. |
 | `mount(bout)` | une session neuve à la graine de la composition ; enrôle chaque concurrent à sa case ou au **prochain point d'entrée libre** de son camp ; un septième allié sur six entrées est refusé `OutOfBounds` — la carte n'a plus de place, et le dire vaut mieux que le poser dans un mur. Le rituel de Marque déclare `heroicAction` à chacun. Rend un `core::ArenaMount`. |
 | `start()` | jette l'initiative et l'écrit au journal. `replay()` remonte la même composition à la même graine, journal vidé : **une seule** suite aléatoire (`core::DeterministicRandom`) sert l'initiative, les attaques et les dégâts, et deux exécutions donnent le même journal — comparer deux versions d'une mécanique, c'est comparer deux journaux (`EX-NFR-002`). |
-| `combat()`, `level()`, `bout()`, `attacks(id)`, `attackHooks()`, `damagePipeline()`, `journal()`, `outcome()` | la lecture, et les deux points où une capacité se greffe. |
+| `combat()`, `level()`, `bout()`, `attacks(id)`, `journal()`, `outcome()` | la lecture : la machine, la carte, la composition, les attaques d'un enrôlé, le journal, l'issue. |
 | `attack(cible, indice)` | l'action *attaquer* : vérifie la cible (ni soi, ni un allié, ni à terre), `checkTarget`, l'action restante, dépense l'action, résout par `resolveAttack`. `core::ArenaAttack` porte le `core::ArenaActionResult` (`Done`, `NoActiveTurn`, `NoAction`, `OutOfReach`, `TotalCover`, `InvalidTarget`, `NoAttack`) et l'issue. |
 | `dodge()`, `disengage()`, `dash()` | les actions du Manuel : esquiver (désavantage aux attaques contre soi jusqu'au début de son prochain tour, si la cible **voit** l'attaquant), se désengager (plus d'attaque d'opportunité jusqu'à la fin du tour), se précipiter (un `grant` de déplacement égal à sa vitesse). Se précipiter manquait au joueur : l'IA en avait besoin pour traverser une grande salle, et `EX-CBT-050` interdit une action réservée aux monstres. |
 | `move(destination)` | le déplacement, avec les **attaques d'opportunité** : quand le chemin sort de l'allonge d'une créature hostile debout, qui a sa réaction et **voit** le fuyard depuis la case qu'il quitte (`provokes`, un seul prédicat partagé avec la prévisualisation), elle frappe de sa première attaque de contact et dépense sa réaction. Le déplacement s'arrête à la dernière case où l'on peut se tenir avant la sortie — jamais sur un allié qu'on traverse —, les attaques se jouent par identifiant croissant, et le déplacement reprend si le combattant tient debout. |

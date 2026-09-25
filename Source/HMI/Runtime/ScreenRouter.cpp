@@ -169,14 +169,4 @@ void ScreenRouter::closeRpgScreen() {
     static_cast<void>(apply(ScreenEvent::CloseRpgScreen));
 }
 
-void ScreenRouter::nextRpgScreen() {
-    _rpgScreen = hmi::nextRpgScreen(_rpgScreen);
-    emit changed();
-}
-
-void ScreenRouter::previousRpgScreen() {
-    _rpgScreen = hmi::previousRpgScreen(_rpgScreen);
-    emit changed();
-}
-
 }  // namespace hmi

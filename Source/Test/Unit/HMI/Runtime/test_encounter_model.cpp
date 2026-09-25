@@ -62,7 +62,8 @@ void jusquAuJoueur(hmi::EncounterModel& rencontre, const hmi::WorldModel& monde,
 
 /**
  * @brief Une rencontre engagée depuis la carte se monte sur sa zone de combat, se joue, se voit et
- *        rend l'exploration.
+ *        rend l'exploration. Tant qu'elle dure, c'est elle qui tient la carte gelée, d'où qu'elle
+ *        ait été engagée (`EX-IHM-091`).
  * \castest{<b>Du declenchement sur la carte au retour a l'exploration, sans fenetre.</b><br/>
  * \tcat Unitaire · Combat sur la carte<br/>
  * \tcrit Bloquant<br/>

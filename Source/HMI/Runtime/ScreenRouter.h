@@ -156,11 +156,6 @@ public:
     Q_INVOKABLE void openRpgScreen(RpgScreen screen);
     Q_INVOKABLE void closeRpgScreen();
 
-    /// Passe à l'écran suivant/précédent du RPG **sans repasser par le menu** (`EX-IHM-090`).
-    /// C'est le geste des gâchettes de la manette.
-    Q_INVOKABLE void nextRpgScreen();
-    Q_INVOKABLE void previousRpgScreen();
-
 signals:
     /// Émis quand l'écran courant change. Rien n'est émis si la transition a été **refusée** :
     /// l'interface ne doit pas se rafraîchir pour un geste que la table n'autorise pas.

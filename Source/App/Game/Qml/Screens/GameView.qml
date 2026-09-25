@@ -63,6 +63,20 @@ GameViewForm {
 
         // Le fondu du passage : a l'entree sur une carte, l'ecran revient de l'obscurite.
         function onMapEntered(mapId) { fondu.restart() }
+
+        // Un portail qui ne s'ouvre pas le dit au joueur, un instant, par-dessus la vue : le
+        // drapeau exige ou la carte visee ne le regardent pas, seul le refus compte.
+        function onPortalLocked(flag) { root.notify(qsTr("Cette porte est fermée.")) }
+        function onPortalBroken(mapId) { root.notify(qsTr("Ce passage est bloqué.")) }
+        function onPortalSealed(mapId) { root.notify(qsTr("Ce passage est condamné.")) }
+    }
+
+    /// Pose `message` par-dessus la vue pour quelques secondes ; un nouveau message remplace le
+    /// precedent et repart le compte.
+    function notify(message) {
+        notice.text = message;
+        notice.visible = true;
+        noticeTimer.restart();
     }
 
     // La partie ne recommence pas parce que l'ecran reparait : on revient du dialogue, du combat
@@ -175,6 +189,45 @@ GameViewForm {
             to: 0
             duration: 320
         }
+    }
+
+    // Le mot d'un portail refuse (LOT-126) : une plaque sombre du HUD, INVISIBLE par defaut, que
+    // `notify` montre et que le compte a rebours efface. Elle vit ici, dans le jumeau, parce
+    // qu'elle depend d'un signal et d'un Timer -- ce qu'un formulaire ne porte pas.
+    Rectangle {
+        id: notice
+
+        property alias text: noticeText.text
+
+        parent: root.viewportHost
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Tokens.gapLarge * 4
+        width: noticeText.implicitWidth + Tokens.gapLarge * 2
+        height: noticeText.implicitHeight + Tokens.gapMedium * 2
+        visible: false
+        color: Tokens.panelRaised
+        border.color: Tokens.panelEdge
+        border.width: Tokens.strokeWidth
+        opacity: 0.9
+
+        Text {
+            id: noticeText
+
+            anchors.centerIn: parent
+            color: Tokens.textOnPanel
+            font.family: Tokens.loreFamily
+            font.italic: true
+            font.pixelSize: Tokens.fontBody
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
+    Timer {
+        id: noticeTimer
+
+        interval: 2500
+        onTriggered: notice.visible = false
     }
 
     Connections {

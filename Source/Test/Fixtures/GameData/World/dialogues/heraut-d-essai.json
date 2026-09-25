@@ -1,6 +1,6 @@
 {
-  "id": "heraut-colisee",
-  "name": "Le heraut du Colisee",
+  "id": "heraut-d-essai",
+  "name": "Le heraut d'essai",
   "source": "original",
   "speaker": {
     "languages": [
@@ -13,7 +13,7 @@
     {
       "id": "accueil",
       "type": "condition",
-      "flag": "dialogue/heraut-colisee/rencontre",
+      "flag": "dialogue/heraut-d-essai/rencontre",
       "then": "retour",
       "else": "premiere-fois"
     },
@@ -23,7 +23,7 @@
       "actions": [
         {
           "type": "setFlag",
-          "flag": "dialogue/heraut-colisee/rencontre"
+          "flag": "dialogue/heraut-d-essai/rencontre"
         }
       ],
       "next": "presentation"
@@ -72,7 +72,7 @@
     {
       "id": "inscription",
       "type": "condition",
-      "flag": "quest/champion-du-colisee/started",
+      "flag": "quest/champion-d-essai/started",
       "then": "deja-inscrit",
       "else": "demande"
     },
@@ -90,7 +90,7 @@
           "id": "convaincre",
           "next": "jet-persuasion",
           "condition": {
-            "flag": "dialogue/heraut-colisee/persuasion-echouee",
+            "flag": "dialogue/heraut-d-essai/persuasion-echouee",
             "isSet": false
           }
         },
@@ -114,11 +114,7 @@
       "actions": [
         {
           "type": "startQuest",
-          "quest": "champion-du-colisee"
-        },
-        {
-          "type": "startCombat",
-          "arena": "arena-of-the-future"
+          "quest": "champion-d-essai"
         }
       ],
       "next": "accepte-replique"
@@ -135,7 +131,7 @@
       "actions": [
         {
           "type": "setFlag",
-          "flag": "dialogue/heraut-colisee/persuasion-echouee"
+          "flag": "dialogue/heraut-d-essai/persuasion-echouee"
         }
       ],
       "next": "refuse-replique"

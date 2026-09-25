@@ -94,10 +94,6 @@ public:
     void receiveItem(std::string_view itemId, int quantity) override {
         _personnage.receiveItem(itemId, quantity);
     }
-    // Impose par core::DialogueListener. Volontairement sans effet : l'action `startCombat` (le
-    // heraut du Colisee, LOT-09) reste dans le format des dialogues, mais l'ecran du Colisee est
-    // retire depuis que le combat se joue sur la carte (`startEncounter`).
-    void startCombat(std::string_view /*arenaId*/) override {}
     void startEncounter(std::string_view encounterId) override {
         if (_surRencontre) {
             _surRencontre(std::string{encounterId});

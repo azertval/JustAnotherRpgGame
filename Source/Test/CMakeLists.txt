@@ -105,7 +105,6 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_static_world_scene.cpp
     # Un kit range en sous-dossiers (LOT-129) : le rendu suit le fichier du manifeste.
     Unit/HMI/Graphics/test_scene_folders.cpp
-    Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Graphics/test_entity_markers.cpp
     Unit/HMI/Localization/test_localization.cpp
     Unit/HMI/Platform/test_crash_dump.cpp
@@ -114,7 +113,6 @@ add_executable(UnitTests
     Unit/HMI/Presentation/test_quest_journal_screen.cpp
     Unit/HMI/Presentation/test_world_maps.cpp
     Unit/HMI/Interface/test_screen_flow.cpp
-    Unit/HMI/Interface/test_rpg_screens.cpp
     Unit/HMI/Interface/test_character_sheet_values.cpp
     Unit/HMI/Interface/test_dialogue_screen.cpp
     Unit/HMI/Interface/test_identity_scale.cpp

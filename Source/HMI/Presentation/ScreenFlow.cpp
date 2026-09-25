@@ -109,9 +109,9 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
         case ScreenId::RpgScreen:
             switch (event) {
                 // Un seul retour, vers l'écran d'où l'on vient. Le PASSAGE d'un écran du RPG à un
-                // autre n'est pas une transition de cette machine : les huit vivent sur une seule
-                // page (`hmi::RpgScreenHost`), et c'est ce qui permet d'aller de la fiche au
-                // journal sans repasser par le menu (EX-IHM-090).
+                // autre n'est pas une transition de cette machine : le routeur retient lequel des
+                // neuf est ouvert, et c'est ce qui permet d'aller de la fiche au journal sans
+                // repasser par le menu (EX-IHM-090).
                 case ScreenEvent::CloseRpgScreen:
                     return ScreenState{.screen = current.rpgReturnTo,
                                        .optionsReturnTo = ScreenId::Menu,

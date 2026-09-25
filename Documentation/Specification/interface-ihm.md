@@ -330,22 +330,34 @@ La maquette fixe ce que le châssis **garantit** — un titre, un contenu, un pi
 va-et-vient entre écrans, une règle de superposition déclarée — et non la position au pixel près,
 qui se règle dans Qt Design Studio.
 
-- **EX-IHM-090** — Les écrans du **RPG** doivent partager un **châssis** unique :
-  le même cadre (panneau, titre, zone de contenu, pied d'actions), la même ouverture et la même
-  fermeture, le même passage d'un écran à l'autre **sans repasser par le menu**, et le même parcours
-  de focus à la manette (`EX-IHM-071`). L'**ossature** de chaque écran — ses blocs, leurs genres,
-  leurs libellés — doit être portée par une **description en données**, non par du code d'interface
-  écrit écran par écran : ajouter un écran ne doit demander de toucher à **aucun** des autres, ni
-  dans le code, ni dans la feuille de style. Une convention à réappliquer à chaque écran se reperd
-  au premier ajout — c'est la leçon qu'`EX-IHM-080` a déjà tirée pour la taille des écrans.
-  Corollaire : les libellés de cette description passent par le catalogue de traduction
-  (`EX-REN-033`) comme tout autre texte, et rien ne les y rattachant qu'une table, leur présence
-  dans **les deux** catalogues doit être vérifiée automatiquement.
-- **EX-IHM-091** — Chaque écran du RPG doit déclarer sa **règle de
-  superposition** : suspend-il la simulation, ou se consulte-t-il en marchant ? Cette règle
-  appartient à la **description** de l'écran, jamais au code qui l'ouvre : ouvert depuis la pause,
-  depuis le jeu ou depuis une touche, un même écran doit se comporter de la même façon, et une règle
-  décidée au point d'appel se contredit d'un appel à l'autre sans que rien ne le signale.
+- **EX-IHM-090** — Les écrans du **RPG** — fiche, compétences, inventaire, journal,
+  carte du monde, dialogue, marchand, compagnie, affichage tête haute de combat — doivent partager
+  le même **cadre** et la même **navigation** : chacun est un formulaire QML de `Jadg.Ui`
+  (`Source/Ui/Screens/*Form.ui.qml`) posé dans la pile d'écrans (`ScreenStack`) quand le routeur
+  le désigne (`hmi::ScreenRouter::openRpgScreen`), et refermé sur l'écran d'où il a été ouvert —
+  menu, jeu ou pause —, provenance que la table de transitions retient (`rpgReturnTo`). Ils
+  partagent le même parcours de focus à la manette (`EX-IHM-071`) et leurs textes passent par le
+  catalogue de traduction (`EX-REN-033`). Le C++ ne connaît d'eux que leur nom
+  (`hmi::RpgScreenId`) : ajouter un écran, c'est un formulaire, son jumeau de câblage et une
+  valeur de cette énumération, jamais une retouche des autres.
+  > **Précisée le 25 septembre 2026.** L'ossature en données de chaque écran (`hmi::rpgScreens`)
+  > et le cycle d'un écran à l'autre aux gâchettes (`nextRpgScreen`/`previousRpgScreen`), écrits
+  > au `LOT-68` pour un rendu générique par widgets, sont retirés : depuis le `LOT-86`, la mise en
+  > page vit dans les formulaires, et LB/RB servent aux onglets de la carte du monde et aux
+  > actions du combat.
+- **EX-IHM-091** — Ce qu'un écran fait de la **simulation** quand il recouvre la carte
+  doit tenir à un **seul mécanisme**, jamais à une décision prise au point d'appel : la vue de jeu
+  (`GameView.qml`) relâche les directions tenues dès qu'un écran lui prend le focus — le héros
+  s'arrête —, le dialogue et le combat **gèlent** la session (`hmi::WorldModel::setFrozen`,
+  `core::ExplorationSession::freeze`), et la vue la dégèle quand elle reprend le focus, sauf si un
+  combat est en cours, qui la tient gelée jusqu'à son issue. Les écrans de fin (mort, fin de la
+  démo) **ferment** la partie : la table de transitions n'en offre aucun retour à la carte. Ouvert
+  depuis la pause, depuis le jeu ou depuis une touche, un même écran se comporte donc de la même
+  façon.
+  > **Précisée le 25 septembre 2026.** La règle n'est plus déclarée écran par écran dans une
+  > table (`hmi::RpgSuperposition`, `hmi::pausesGame`, retirés) : elle est portée par le focus
+  > (`onActiveFocusChanged` de la vue de jeu) et par la table de transitions (`hmi::ScreenFlow`),
+  > que les tests de `ScreenFlow` et d'`EncounterModel` vérifient.
 
 ### Le journal de quêtes {#ihm-journal}
 
@@ -367,7 +379,8 @@ qu'on lit le journal s'y voit sans le fermer.
 
 ### Ce qui a changé, et pourquoi
 
-Les écrans du jeu étaient en Qt Widgets, décrits par une table C++ (`EX-IHM-090`). Une tentative
+Les écrans du jeu étaient en Qt Widgets, décrits par une table C++ — l'ossature en données que
+la première rédaction d'`EX-IHM-090` exigeait, et que le `LOT-86` a rendue sans objet. Une tentative
 de les porter sur des fichiers Qt Designer a été menée puis **abandonnée** : elle demandait
 1 268 lignes d'outillage — plugin de widgets promus, résolveur de feuille de style, générateur de
 `.ui` — dont l'unique fonction était de rendre ces fichiers visualisables dans le designer. Les

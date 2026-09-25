@@ -247,7 +247,7 @@ TEST(StampsTest, UnPrefabriqueFaitLAllerRetour) {
     draft.placeEntity(
         MapEntity{.type = "npc",
                   .position = ETAL,
-                  .properties = {{"dialogue", std::string{"sentinelle-ironhand"}},
+                  .properties = {{"dialogue", std::string{"garde"}},
                                  {"figure", std::string{"Monsters/ironhand-soldier"}}},
                   .id = {},
                   .elevation = 0,

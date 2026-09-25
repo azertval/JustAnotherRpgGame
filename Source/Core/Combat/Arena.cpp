@@ -6,45 +6,16 @@
 #include <algorithm>
 #include <array>
 #include <cstdlib>
-#include <system_error>
 #include <tuple>
 #include <utility>
 #include <variant>
 
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/Flanking.h"
-#include "Core/Data/JsonDocument.h"
 #include "Core/Rpg/Ability.h"
 
 namespace core {
 namespace {
-
-// Les entrees de catalogue ne portent pas de champ `version` : meme convention que
-// `loadEncounters` (LOT-18) et `loadEquipment` (LOT-34).
-constexpr int SANS_GARDE_DE_VERSION = 0;
-
-[[nodiscard]] std::string lireTexte(const nlohmann::json& objet, const char* champ) {
-    const auto trouve = objet.find(champ);
-    return (trouve != objet.end() && trouve->is_string()) ? trouve->get<std::string>()
-                                                          : std::string{};
-}
-
-[[nodiscard]] bool lireBooleen(const nlohmann::json& objet, const char* champ, bool defaut) {
-    const auto trouve = objet.find(champ);
-    return (trouve != objet.end() && trouve->is_boolean()) ? trouve->get<bool>() : defaut;
-}
-
-[[nodiscard]] std::vector<std::filesystem::path> fichiersJson(const std::filesystem::path& dossier,
-                                                              std::error_code& code) {
-    std::vector<std::filesystem::path> fichiers;
-    for (const auto& entree : std::filesystem::directory_iterator(dossier, code)) {
-        if (entree.is_regular_file(code) && entree.path().extension() == ".json") {
-            fichiers.push_back(entree.path());
-        }
-    }
-    std::ranges::sort(fichiers);
-    return fichiers;
-}
 
 [[nodiscard]] std::optional<CombatSide> campDepuis(const PropertyMap& proprietes) {
     const auto trouve = proprietes.find(std::string(ARENA_SIDE_PROPERTY));
@@ -152,79 +123,6 @@ std::vector<ArenaEntryPoint> arenaEntryPoints(const Level& level) {
                std::tuple(b.side, b.rank, b.position.row, b.position.column);
     });
     return entrees;
-}
-
-// --- Catalogues -------------------------------------------------------------------------------
-
-const HeroicMark* HeroicMarkCatalog::find(std::string_view id) const {
-    const auto trouve = std::ranges::find(marks, id, &HeroicMark::id);
-    return trouve == marks.end() ? nullptr : &*trouve;
-}
-
-HeroicMarkCatalog loadHeroicMarks(const std::filesystem::path& file) {
-    HeroicMarkCatalog catalogue;
-    const JsonDocument document = readJsonObjectFromFile(file, SANS_GARDE_DE_VERSION);
-    if (!document.ok()) {
-        catalogue.errors.push_back(document.message);
-        return catalogue;
-    }
-    const auto marques = document.root.find("marks");
-    if (marques == document.root.end() || !marques->is_array()) {
-        catalogue.errors.push_back(file.filename().string() + " : aucune liste « marks ».");
-        return catalogue;
-    }
-    for (const nlohmann::json& entree : *marques) {
-        if (!entree.is_object()) {
-            continue;
-        }
-        HeroicMark marque{.id = lireTexte(entree, "id"),
-                          .name = lireTexte(entree, "name"),
-                          .text = lireTexte(entree, "text")};
-        if (marque.id.empty()) {
-            catalogue.errors.push_back(file.filename().string() + " : marque sans identifiant.");
-            continue;
-        }
-        catalogue.marks.push_back(std::move(marque));
-    }
-    return catalogue;
-}
-
-const Arena* ArenaCatalog::find(std::string_view id) const {
-    const auto trouve = std::ranges::find(arenas, id, &Arena::id);
-    return trouve == arenas.end() ? nullptr : &*trouve;
-}
-
-ArenaCatalog loadArenas(const std::filesystem::path& directory) {
-    ArenaCatalog catalogue;
-    std::error_code code;
-    if (!std::filesystem::is_directory(directory, code)) {
-        catalogue.errors.push_back(directory.string() + " : dossier absent ou illisible.");
-        return catalogue;
-    }
-    for (const std::filesystem::path& chemin : fichiersJson(directory, code)) {
-        const JsonDocument document = readJsonObjectFromFile(chemin, SANS_GARDE_DE_VERSION);
-        if (!document.ok()) {
-            catalogue.errors.push_back(document.message);
-            continue;
-        }
-        const nlohmann::json& racine = document.root;
-        Arena arene{.id = lireTexte(racine, "id"),
-                    .name = lireTexte(racine, "name"),
-                    .source = lireTexte(racine, "source"),
-                    .region = lireTexte(racine, "region"),
-                    .location = lireTexte(racine, "location"),
-                    .map = lireTexte(racine, "map"),
-                    .zone = lireTexte(racine, "zone"),
-                    .lethal = lireBooleen(racine, "lethal", false),
-                    .heroicMark = lireBooleen(racine, "heroicMark", true),
-                    .flanking = lireBooleen(racine, "flanking", false)};
-        if (arene.id.empty()) {
-            catalogue.errors.push_back(chemin.filename().string() + " : arene sans identifiant.");
-            continue;
-        }
-        catalogue.arenas.push_back(std::move(arene));
-    }
-    return catalogue;
 }
 
 // --- Session ----------------------------------------------------------------------------------

@@ -14,102 +14,19 @@ menu.quit = Quitter
 # Options
 options.back = Retour
 
-# Rappels de touches en bas des ecrans du jeu.
-key.shoulders = LB/RB
-hint.change_screen = Changer d'écran
+# --- Ecrans du RPG -----------------------------------------------------------------------------
+# Les libelles des ecrans vivent dans les formulaires QML (qsTr, jadg_en.ts) ; ici, ce que les
+# vues-modeles traduisent par cle : le journal de quetes.
 
-# --- Ecrans du RPG : le chassis du LOT-68 -----------------------------------------------------
-# Les huit ecrans existent, et sont VIDES : ce lot livre leur cadre, pas leur contenu (fiche au
-# LOT-38, carte au LOT-42, guilde au LOT-45, combat au LOT-24). Les libelles ci-dessous nomment
-# donc des EMPLACEMENTS, jamais des valeurs -- toute valeur affichee est le tiret de `rpg.empty`.
-rpg.empty = —
-rpg.chassis.close = Fermer
-rpg.chassis.previous_screen = Écran précédent
-rpg.chassis.next_screen = Écran suivant
-
-rpg.character_sheet.title = Fiche de personnage
-rpg.inventory.title = Inventaire et équipement
-rpg.journal.title = Journal de quêtes
 journal.empty = Aucune quête pour l'instant.
 journal.status.active = En cours
 journal.status.failed = Échouée
 journal.status.succeeded = Terminée
-rpg.world_map.title = Carte du monde
-rpg.dialogue.title = Dialogue
-rpg.merchant.title = Marchand
-rpg.combat_hud.title = Combat
-
-rpg.block.identity = Identité
-rpg.block.progression = Progression
-rpg.block.abilities = Caractéristiques
-rpg.block.combat = Combat
-rpg.block.saving_throws = Jets de sauvegarde
-rpg.block.skills = Compétences
-rpg.block.equipment = Équipement
-rpg.block.bag = Sac
-rpg.block.load = Charge
-rpg.block.quests = Quêtes
-rpg.block.quest_detail = Détail
-rpg.block.objectives = Objectifs
-rpg.block.regions = Régions
-rpg.block.map = Carte
-rpg.block.place = Lieu
-rpg.block.speaker = Interlocuteur
-rpg.block.line = Réplique
-rpg.block.replies = Réponses
-rpg.block.goods = Marchandises
-rpg.block.your_bag = Votre sac
-rpg.block.purse = Bourse
-rpg.block.contracts = Contrats
-rpg.block.contract = Contrat
-rpg.block.initiative = Ordre d'initiative
-rpg.block.target = Cible
-rpg.block.actions = Actions
-
-# Champs releves sur core::CharacterSheet (LOT-13) et core::Equipment (LOT-34). « Niveau » est ici
-# celui d'un PERSONNAGE (LOT-74), pas une carte.
-rpg.field.name = Nom
-rpg.field.species = Espèce
-rpg.field.class = Classe
-rpg.field.background = Historique
-rpg.field.level = Niveau
-rpg.field.experience = Expérience
-rpg.field.hit_points = Points de vie
-rpg.field.armor_class = Classe d'armure
-rpg.field.initiative = Initiative
-rpg.field.speed = Vitesse
-rpg.field.proficiency_bonus = Bonus de maîtrise
-rpg.field.carried = Poids porté
-rpg.field.capacity = Capacité
-rpg.field.gold = Pièces d'or
-rpg.field.region = Région
-rpg.field.place_type = Type de lieu
-rpg.field.danger = Danger
-rpg.field.attitude = Attitude
-rpg.field.giver = Commanditaire
-rpg.field.rank = Rang
-rpg.field.reward = Récompense
-rpg.field.conditions = États
-
-rpg.slot.head = Tête
-rpg.slot.torso = Torse
-rpg.slot.hands = Mains
-rpg.slot.feet = Pieds
-rpg.slot.main_hand = Main directrice
-rpg.slot.off_hand = Main secondaire
-rpg.slot.amulet = Amulette
-rpg.slot.ring = Anneau
 
 # --- Fiche de personnage : la maquette du LOT-38 ----------------------------------------------
 # Libelles releves sur les cinq planches VIERGES de `VTT/Blank Sheets RPG (1).pdf`. Les noms de
 # competences et de caracteristiques sont ceux du LEXIQUE (rpg.glossary.csv) et non des synonymes :
 # `check_glossary.py` controle ces deux espaces de noms, comme il controle deja les etats.
-rpg.company.title = Équipe de mercenaires
-rpg.skills.title = Compétences et sorts
-rpg.block.attacks = Attaques
-rpg.block.cantrips = Sortilèges
-rpg.block.spell_schools = Écoles de magie
-rpg.block.spell = Détail du sort
 
 rpg.ability.strength = Force
 rpg.ability.dexterity = Dextérité
@@ -136,82 +53,6 @@ rpg.skill.religion = Religion
 rpg.skill.sleight_of_hand = Escamotage
 rpg.skill.stealth = Discrétion
 rpg.skill.survival = Survie
-
-rpg.block.attacks = Attaques
-rpg.block.other_proficiencies = Autres maîtrises
-rpg.block.appearance = Apparence
-rpg.block.personality = Personnalité
-rpg.block.features = Dons et traits
-rpg.block.powers = Pouvoirs
-rpg.block.spellcasting = Incantation
-rpg.block.spell_slots = Emplacements de sorts
-rpg.block.languages = Langues
-rpg.block.backstory = Histoire du personnage
-rpg.block.team = Équipe
-rpg.block.team_members = Membres
-rpg.block.relations = Relations
-rpg.block.coat_of_arms = Blason
-rpg.block.dream = Rêve
-rpg.block.hidden_agenda = Dessein caché
-rpg.block.legendary_rewards = Récompenses légendaires
-rpg.block.headquarters = Quartier général
-
-rpg.field.alignment = Alignement
-rpg.field.player = Joueur
-rpg.field.inspiration = Inspiration
-rpg.field.passive_perception = Perception passive
-rpg.field.hit_dice = Dés de vie
-rpg.field.hit_points_max = Points de vie maximum
-rpg.field.hit_points_temp = Points de vie temporaires
-rpg.field.death_saves = Jets contre la mort
-rpg.field.age = Âge
-rpg.field.height = Taille
-rpg.field.weight = Poids
-rpg.field.eyes = Yeux
-rpg.field.skin = Peau
-rpg.field.hair = Cheveux
-rpg.field.traits = Traits de personnalité
-rpg.field.ideals = Idéaux
-rpg.field.bonds = Liens
-rpg.field.flaws = Défauts
-rpg.field.spellcasting_class = Classe d'incantation
-rpg.field.spellcasting_ability = Caractéristique d'incantation
-rpg.field.spell_save_dc = DD de sauvegarde des sorts
-rpg.field.spell_attack_bonus = Bonus d'attaque des sorts
-rpg.field.cantrips = Sorts mineurs
-rpg.field.spell_level_1 = Sorts de niveau 1
-rpg.field.spell_level_2 = Sorts de niveau 2
-rpg.field.spell_level_3 = Sorts de niveau 3
-rpg.field.spell_level_4 = Sorts de niveau 4
-rpg.field.spell_level_5 = Sorts de niveau 5
-rpg.field.spell_level_6 = Sorts de niveau 6
-rpg.field.spell_level_7 = Sorts de niveau 7
-rpg.field.spell_level_8 = Sorts de niveau 8
-rpg.field.spell_level_9 = Sorts de niveau 9
-rpg.field.class_and_level = Classe et niveau
-rpg.field.hand = Main
-rpg.field.bonus = Bonus
-rpg.field.damage = Dégâts
-rpg.field.team_name = Nom de l'équipe
-rpg.field.career_points = Points de carrière
-rpg.field.fame = Renommée
-rpg.field.prestige = Prestige
-rpg.field.beneficiary = Bénéficiaire
-rpg.field.style = Style
-rpg.field.special_class_skills = Aptitudes de classe
-rpg.field.specialization = Spécialisation
-
-# Les seize emplacements d'equipement du noyau (LOT-14, core::EquipmentSlot).
-rpg.slot.neck = Cou
-rpg.slot.cloak = Cape
-rpg.slot.belt = Ceinture
-rpg.slot.ring_left = Anneau (gauche)
-rpg.slot.ring_right = Anneau (droit)
-rpg.slot.ranged = Arme à distance
-rpg.slot.ammunition = Munitions
-rpg.slot.bracers = Brassards
-rpg.slot.pouch = Bourse
-rpg.slot.trinket = Babiole
 
 # Dialogues (LOT-15). Les cles des repliques et des reponses sont FABRIQUEES depuis les
 # identifiants du graphe (dialogue.<dialogue>.<noeud>[.<reponse>]) : un test verifie que chaque
@@ -271,57 +112,6 @@ quest.pommes.condamne = Condamné à la place de l'enfant : descendre au vestiai
 quest.pommes.victoire = Le combattant de l'arène est tombé : la foule a rendu son jugement.
 quest.pommes.enfant-libere = L'enfant est libre. Le ramener à sa mère, sur la place des étals de Martpart.
 quest.pommes.rendue = L'enfant est rendu à sa mère.
-
-# Le héraut du Colisée (dialogue de démonstration, provisoire).
-dialogue.heraut-colisee.speaker = Le héraut du Colisée
-dialogue.heraut-colisee.presentation = Halte, voyageur. Vous voici aux portes de l'Arène du Futur. Ici, deux camps règlent ce qu'une guerre réglerait autrement — et personne n'en sort les pieds devant. Que cherchez-vous ?
-dialogue.heraut-colisee.presentation.marque = Personne n'y meurt ? Comment est-ce possible ?
-dialogue.heraut-colisee.presentation.inscription = Je veux combattre dans l'arène.
-dialogue.heraut-colisee.presentation.partir = Rien. Je ne faisais que passer.
-dialogue.heraut-colisee.retour = Encore vous. La Marque vous intrigue toujours, ou vous voulez enfin vous battre ?
-dialogue.heraut-colisee.retour.marque = Parlez-moi encore de la Marque.
-dialogue.heraut-colisee.retour.inscription = Inscrivez-moi parmi les champions.
-dialogue.heraut-colisee.retour.partir = Je reviendrai.
-dialogue.heraut-colisee.marque = Avant chaque combat, un prêtre trace sur chaque combattant la Marque Héroïque. Quand le dernier coup tombe, elle relève tout le monde — vainqueurs comme vaincus. Seule Feargus combat sans elle.
-dialogue.heraut-colisee.deja-inscrit = Votre nom est déjà sur la liste. Revenez quand les gradins seront pleins.
-dialogue.heraut-colisee.demande = La liste des champions est close pour la saison. À moins que vous ne me donniez une bonne raison de la rouvrir.
-dialogue.heraut-colisee.demande.convaincre = Les gradins réclament du sang neuf. Je suis ce qu'ils attendent.
-dialogue.heraut-colisee.demande.renoncer = Tant pis. Une autre saison.
-dialogue.heraut-colisee.accepte-replique = Hm. Vous avez de l'aplomb, et c'est ce que la foule aime. Votre nom est sur la liste — que la Marque vous garde.
-dialogue.heraut-colisee.refuse-replique = Belle tirade. La liste reste close, et ma patience aussi.
-dialogue.portier-colisee.speaker = Le portier du Colisée
-dialogue.portier-colisee.accueil = On n'entre pas par la grande porte un jour sans combat. Mais puisque vous êtes là, entrez donc. Que voulez-vous savoir ?
-dialogue.portier-colisee.accueil.metier = Vous gardez cette porte depuis longtemps ?
-dialogue.portier-colisee.accueil.arene = Que se juge-t-il ici, au fond ?
-dialogue.portier-colisee.accueil.partir = Rien. Je vais marcher un peu.
-dialogue.portier-colisee.metier = Trente ans. J'ai vu entrer des nobles qui ressortaient débiteurs, et des mercenaires qui ressortaient comtes. La porte, elle, n'a pas bougé.
-dialogue.portier-colisee.arene = Ce que les tribunaux n'arrivent pas à trancher. Deux maisons se disputent une vigne, une accusation sans preuve : le sable décide, et la Marque rend les corps.
-dialogue.parieuse-tribunes.speaker = La parieuse des tribunes
-dialogue.parieuse-tribunes.accueil = Trois contre un sur le petit avec la hache. Vous pariez, ou vous regardez ?
-dialogue.parieuse-tribunes.accueil.metier = Vous vivez de ces paris ?
-dialogue.parieuse-tribunes.accueil.arene = Qui se bat, aujourd'hui ?
-dialogue.parieuse-tribunes.accueil.partir = Je regarde, merci.
-dialogue.parieuse-tribunes.metier = J'en vis, et j'en ai vécu mieux. Depuis que la Marque relève tout le monde, on ne parie plus sur qui meurt — on parie sur qui plie. C'est plus fin, et ça paye moins.
-dialogue.parieuse-tribunes.arene = Personne, pour l'instant. Le héraut attend un champion : allez lui parler si vous avez les épaules, et je changerai ma cote.
-dialogue.medecin-vestiaire.speaker = Le médecin des vestiaires
-dialogue.medecin-vestiaire.accueil = Asseyez-vous si vous saignez, restez debout sinon. Je n'ai que deux mains et six combattants.
-dialogue.medecin-vestiaire.accueil.metier = La Marque ne suffit donc pas ?
-dialogue.medecin-vestiaire.accueil.arene = Vous soignez les deux camps ?
-dialogue.medecin-vestiaire.accueil.partir = Je ne saigne pas. Bonne journée.
-dialogue.medecin-vestiaire.metier = La Marque relève, elle ne recoud pas. Elle rend le souffle et laisse l'épaule démise, la côte fêlée, la dent cassée. C'est mon travail, après.
-dialogue.medecin-vestiaire.arene = Les deux, oui. Un jugement n'est pas une guerre : celui qui perd rentre chez lui, et j'aime autant qu'il y rentre en marchant.
-dialogue.vieux-gladiateur.speaker = Le vieux gladiateur
-dialogue.vieux-gladiateur.accueil = Vous avez le pas de quelqu'un qui n'est jamais descendu sur le sable. Ça se voit d'ici.
-dialogue.vieux-gladiateur.accueil.metier = Vous y êtes descendu, vous ?
-dialogue.vieux-gladiateur.accueil.arene = Un conseil, alors ?
-dialogue.vieux-gladiateur.accueil.partir = Je m'en souviendrai.
-dialogue.vieux-gladiateur.metier = Quarante-et-une fois. J'en ai gagné vingt-neuf, et les douze autres m'ont appris davantage. La Marque m'a relevé douze fois ; le genou, lui, n'est jamais revenu.
-dialogue.vieux-gladiateur.arene = Deux. Ne courez pas vers le centre : c'est là que la foule veut vous voir, et c'est là que vous serez pris à deux. Et regardez les grilles — elles s'ouvrent.
-dialogue.sentinelle-ironhand.speaker = La sentinelle Ironhand
-dialogue.sentinelle-ironhand.halte = Halte. On ne passe pas : le quartier est fermé, sur ordre de l'Armée Ironhand.
-dialogue.sentinelle-ironhand.halte.pourquoi = Fermé ? Et pour quelle raison ?
-dialogue.sentinelle-ironhand.halte.partir = Bien. Je fais demi-tour.
-dialogue.sentinelle-ironhand.pourquoi = L'Armée n'a pas à vous le dire, et moi non plus. Revenez avec un laissez-passer du guet, ou ne revenez pas.
 city_block.place-du-marche = La place du marché
 city_block.avenue-d-arenarea = L'avenue d'Arenarea
 city_block.arene-illu-die = L'arène Illu Die

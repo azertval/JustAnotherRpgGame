@@ -114,7 +114,7 @@ point à connaître quand une donnée « n'est pas là ».
 - **Les tests** lisent `Source/Test/Fixtures/GameData`, exposé par la macro `JADG_TEST_DATA_DIR`
   (`Source/Test/CMakeLists.txt`). Cette racine a la forme de `Source/Elements/` mais **sans un seul
   asset ni une seule carte du jeu** : une place de ville, une caverne, un donjon, deux planches de
-  lieu en aplats, une figurine par famille, une région, un dialogue. Les tests y prouvent des
+  lieu en aplats, une figurine par famille, une région, quelques dialogues. Les tests y prouvent des
   **mécanismes** — un manifeste se lit, une pièce se résout, un portail se traverse — qui doivent
   survivre à n'importe quel contenu du jour ; la table rase du `LOT-102` aurait sinon emporté ces
   tests avec l'art qu'elle retirait. L'éditeur a de même `Source/Test/Fixtures/EditorData`, trois

@@ -435,8 +435,8 @@ joue sur la carte, par `hmi::EncounterModel`.
 vues-modèles appellent, et que les tests unitaires vérifient sans fenêtre (`EX-NFR-010`).
 
 - `hmi::characterSheetValues(context)` — traduit une `core::CharacterSheet` en **valeurs
-  affichables**, indexées par l'identifiant que l'ossature de l'écran déclare
-  (`hmi::RpgField::valueId`). Le `hmi::CharacterSheetContext` porte la fiche, les catalogues et,
+  affichables**, indexées par un identifiant stable (`sheet.hit_points`) que
+  `hmi::CharacterSheetModel` publie en propriétés. Le `hmi::CharacterSheetContext` porte la fiche, les catalogues et,
   s'il est **présent**, `core::DerivedStats` — qui remplace alors classe d'armure et vitesse de la
   fiche par celles de l'équipement porté. Un contexte incomplet rend une table **vide**, jamais des
   zéros. Le formatage (signe d'un modificateur, `12 / 18`) est ici, parce que c'est une règle
@@ -472,7 +472,7 @@ vues-modèles appellent, et que les tests unitaires vérifient sans fenêtre (`E
   région qui manque en silence ne se corrige jamais.
 - `hmi::identityScaleFor`, `hmi::identityScaleForDisplay` — le facteur d'agrandissement entier,
   expliqué en [Système de design et architecture de l'information](guide-design-ihm.md).
-- `hmi::resolveTransition`, `hmi::rpgScreens` — en [Écrans, navigation et boucle de jeu](guide-ecrans.md).
+- `hmi::resolveTransition`, `hmi::RpgScreenId` — en [Écrans, navigation et boucle de jeu](guide-ecrans.md).
 
 ## La surface de rendu
 

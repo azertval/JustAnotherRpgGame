@@ -15,7 +15,6 @@ pipeline 2D, la caméra et la composition des scènes.
 - `TextureLoader` — `decodeImageFile` (décodage `QImage` → RGBA non prémultiplié), `encodeImageFile`, `createTexture`, `loadTextureFromFile` : **point unique** de création de texture GPU (`QRhiTexture`). Jamais d'exception (`EX-NFR-040`).
 - `TextureAtlas` — atlas **procédural** de tuiles 16 px, généré en mémoire : une couleur par type de tuile, dont le canevas et la palette de l'éditeur se servent. Aucun fichier n'est lu (`EX-REN-041`/`EX-REN-042`). `tile` est de la pure arithmétique de grille, `static` et testée sans GPU.
 - `ProceduralAtlas` — génération CPU déterministe des pixels de cet atlas. Aucune dépendance GPU ni Qt, entièrement testé.
-- `CacheRegistry` — registre générique clé → ressource, mémoïsation paresseuse + mémorisation d'échec + `invalidate`/`invalidateAll` ; aucune dépendance externe, testable sans GPU (`EX-REN-043`).
 - `EntityMarkers` — le marqueur d'une entité de carte : sa clé d'asset et ses pixels (`LOT-11`, `LOT-39`).
 - `AnimationCatalog` — lecture et validation du format `<asset>.anim.json` (bandes d'animation des figurines).
 - `AssetContract` — verdict de validation d'un asset contre ses dimensions décodées ; un asset non conforme est refusé avec un message nommant le fichier, le trouvé et l'attendu (`EX-REN-007`).

@@ -186,19 +186,18 @@ TEST(ExplorationSessionTest, UnPortailDeposeAuPointDArriveeNomme) {
  */
 TEST(ExplorationSessionTest, OnParleAuPnjQueLOnRegarde) {
     DossierEnMemoire dossier;
-    dossier.poser("place",
-                  carteMuree("place", {pnj("heraut-colisee", {5, 4}), pnj("myr-marche", {3, 4})}));
+    dossier.poser("place", carteMuree("place", {pnj("garde", {5, 4}), pnj("myr-marche", {3, 4})}));
     core::ExplorationSession session{dossier.chargeur()};
     ASSERT_TRUE(session.start("place", ""));
     session.placeHero(core::cellCenter({4, 4}));
 
-    // Regarder a droite : le heraut.
+    // Regarder a droite : le garde.
     session.update(core::ExplorationIntent{.move = {1.0F, 0.0F}, .interact = false}, 0.0001F);
     std::vector<core::ExplorationEvent> vus =
         session.update(core::ExplorationIntent{.move = {}, .interact = true}, 1.0F / 60.0F);
     ASSERT_EQ(vus.size(), 1U);
     EXPECT_EQ(vus.front().kind, ExplorationEventKind::Dialogue);
-    EXPECT_EQ(vus.front().value, "heraut-colisee");
+    EXPECT_EQ(vus.front().value, "garde");
 
     // Regarder a gauche : l'autre PNJ, et son dialogue a lui.
     session.update(core::ExplorationIntent{.move = {-1.0F, 0.0F}, .interact = false}, 0.0001F);
@@ -219,7 +218,7 @@ TEST(ExplorationSessionTest, OnParleAuPnjQueLOnRegarde) {
  */
 TEST(ExplorationSessionTest, UneCarteGeleeNeBougePlus) {
     DossierEnMemoire dossier;
-    dossier.poser("place", carteMuree("place", {pnj("heraut-colisee", {5, 4})}));
+    dossier.poser("place", carteMuree("place", {pnj("garde", {5, 4})}));
     core::ExplorationSession session{dossier.chargeur()};
     ASSERT_TRUE(session.start("place", ""));
     session.placeHero(core::cellCenter({4, 4}));

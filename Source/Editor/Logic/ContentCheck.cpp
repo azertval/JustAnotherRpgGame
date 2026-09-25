@@ -57,7 +57,7 @@ private:
     return text;
 }
 
-// `npc e3 (sentinelle-ironhand)` : de quoi retrouver l'entite dans la liste.
+// `npc e3 (garde)` : de quoi retrouver l'entite dans la liste.
 [[nodiscard]] std::string describe(const core::MapEntity& entity) {
     std::string text = entity.type;
     if (!entity.id.empty()) {

@@ -87,7 +87,6 @@ add_library(HmiLib STATIC
     Localization/Localization.cpp
     # Interface : logique d'écrans, sans widget.
     Presentation/ScreenFlow.cpp
-    Presentation/RpgScreens.cpp
     Presentation/CharacterSheetValues.cpp
     Presentation/InventoryValues.cpp
     Presentation/DialogueScreen.cpp

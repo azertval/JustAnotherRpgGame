@@ -24,10 +24,10 @@ enum class ScreenId {
     Options,
     Pause,
     Credits,
-    /// **Un** écran du RPG est ouvert (`LOT-68`, `EX-IHM-090`). Lequel des huit n'est pas la
-    /// question de cette table : c'est celle de `hmi::RpgScreenHost`, qui les héberge tous sur une
-    /// seule page. Les y déclarer un par un aurait multiplié par huit les transitions à écrire
-    /// pour n'exprimer, huit fois, que la même règle.
+    /// **Un** écran du RPG est ouvert (`LOT-68`, `EX-IHM-090`). Lequel des neuf n'est pas la
+    /// question de cette table : `hmi::ScreenRouter` le retient (`hmi::RpgScreenId`) et la pile
+    /// d'écrans QML pose son formulaire. Les y déclarer un par un aurait multiplié par neuf les
+    /// transitions à écrire pour n'exprimer, neuf fois, que la même règle.
     RpgScreen,
     /// L'écran de mort (`LOT-119`) : le combat sur la carte est létal, la partie s'y termine. On
     /// n'en sort que par « Recommencer » (`OpenGame`) ou « Menu » (`OpenMenu`) — pas de retour à

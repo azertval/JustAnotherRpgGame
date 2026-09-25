@@ -632,8 +632,11 @@ de valeurs ; `holds(flags)` répond, l'initiale d'un drapeau déclaré comptant 
 `"isSet": false`, `"equals": "v"` ou `["v", "w"]`, `"notEquals": …`. `core::DialogueChoice` porte un identifiant unique dans sa réplique, le nœud cible
 et une condition facultative : absente, la réponse est toujours proposée. `core::DialogueAction`
 (`core::DialogueActionKind`) : `SetFlag` (avec `value` pour un drapeau déclaré à valeurs), `ClearFlag`, `GiveItem` (avec `quantity`), `StartQuest`
-(pose `core::questStartedFlag`) et `StartCombat` (`LOT-09` : le héraut envoie sur le sable — le
-dialogue ne sait pas ce qu'est un combat, il le demande à son interlocuteur). Le degré de
+(pose `core::questStartedFlag`), `StartEncounter` (`LOT-118` : le maître d'arène engage la
+rencontre nommée sur la zone de combat de la carte — le dialogue ne sait pas ce qu'est un combat, il
+le demande à son interlocuteur) et `EndDemo` (`LOT-119` : la voie de fin de la démo). L'action
+`startCombat` du `LOT-09`, qui envoyait sur le sable d'une arène nommée, est partie avec les
+dialogues du Colisée à la recette de la `0.0.1`. Le degré de
 difficulté d'un jet est un **nom** de `rules/difficulty.json`, jamais un nombre (`EX-REG-021`) :
 un « 15 » ne dit pas ce qu'il vaut, et régler l'équilibre demanderait de relire chaque dialogue.
 
@@ -641,7 +644,7 @@ un « 15 » ne dit pas ce qu'il vaut, et régler l'équilibre demanderait de rel
 attitude de départ (`core::DialogueAttitude` : amical, indifférent, hostile — le vocabulaire des
 règles), les nœuds ; `find(nodeId)`.
 
-![Le graphe du héraut du Colisée : répliques, nœuds automatiques, fin, la boucle voulue par le hub et, en encadré, le cycle sans arrêt que le chargement refuse](figures/monde-dialogue-graphe.svg)
+![Le graphe d'un dialogue de dix nœuds au moins — le héraut d'essai de la racine d'essai, `Fixtures/GameData/World/dialogues/heraut-d-essai.json`, hérité du héraut du Colisée retiré à la recette : répliques, nœuds automatiques, fin, la boucle voulue par le hub et, en encadré, le cycle sans arrêt que le chargement refuse](figures/monde-dialogue-graphe.svg)
 
 ### Le chargement, et ce qu'il refuse
 
@@ -697,9 +700,9 @@ objets du jeu. `core::loadDialogues(directory)` charge un dossier en `core::Dial
 
 Le runner ne voit ni fiche, ni inventaire, ni groupe — trois questions et un geste : `speaks`
 (parle-t-il cette langue ?), `skillModifiers` (les modificateurs d'un jet, **avec leur origine**),
-`receiveItem` (recevoir un objet), `startCombat`, `startEncounter` et `endDemo` (sans effet par
+`receiveItem` (recevoir un objet), `startEncounter` et `endDemo` (sans effet par
 défaut : un interlocuteur sans écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste
-au journal ; la deuxième engage une rencontre **sur la carte**, `LOT-118` ; la troisième ouvre
+au journal ; la première engage une rencontre **sur la carte**, `LOT-118` ; la seconde ouvre
 l'écran « Fin de la démo » sur la voie nommée, `LOT-119`, dont le texte est la clé
 `core::demoEndingKey` — `ending.<voie>`). Le jour où le groupe
 existera, « connaît-il cette langue » deviendra « l'un d'eux la connaît-il » dans une autre
@@ -990,7 +993,7 @@ zone est donc **déclarée sur la carte** : une entité `combatZone`, sa case au
   calcule sur son brouillon à chaque geste (`LOT-EDITOR-05`) — et relève les cases posées même
   d'une zone qui déborde, pour montrer sa partie posée pendant qu'on la ramène.
 - `core::validateCombatZones(mapId, level)` — trois défauts, vus au **chargement** et non au
-  moment où le héraut lance le combat : une zone **dégénérée** (largeur ou hauteur nulle), une zone
+  moment où un dialogue lance le combat : une zone **dégénérée** (largeur ou hauteur nulle), une zone
   qui **déborde** de la carte, une zone dont **aucune case n'est libre** — un affrontement dans un
   mur.
 - `core::cropLevelToZone(level, zone)` — la carte **réduite** à la zone, que `core::ArenaSession`
@@ -1005,7 +1008,7 @@ zone est donc **déclarée sur la carte** : une entité `combatZone`, sa case au
   mais un champ menteur finirait par être lu.
 
 **La bascule elle-même** (`LOT-18`, `EX-CBT-001`) est un aller-retour dont la carte ne sait rien :
-un événement `Encounter` de la session, ou l'action `StartCombat` d'un dialogue, arrive à
+un événement `Encounter` de la session, ou l'action `StartEncounter` d'un dialogue, arrive à
 l'interface ; celle-ci **gèle** la session (`freeze`), ouvre le combat sur la carte réduite à la
 zone, et à la fin dégèle : le héros est à la case où il était, l'état de la carte — coffre pris,
 drapeaux posés — est conservé parce que la carte n'a jamais été détruite. Un ennemi vaincu est un

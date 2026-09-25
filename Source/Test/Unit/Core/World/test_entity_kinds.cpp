@@ -39,7 +39,7 @@ namespace {
 // Contexte type : un dialogue, une rencontre, deux cartes dont une porte le point « porte-nord ».
 [[nodiscard]] core::EntityReferenceContext context() {
     core::EntityReferenceContext references;
-    references.dialogues = {"heraut-colisee"};
+    references.dialogues = {"garde"};
     references.encounters = {"colisee-fauves"};
     references.arrivalPointsByMap["village"] = {"porte-nord"};
     references.arrivalPointsByMap["foret"] = {};
@@ -113,7 +113,7 @@ TEST(FamillesDEntitesTest, EntiteNeuvePorteSesDefauts) {
  */
 TEST(FamillesDEntitesTest, CarteBienRenseigneeEstMuette) {
     const std::vector<core::MapEntity> entities = {
-        entity("npc", {{"dialogue", std::string{"heraut-colisee"}}}),
+        entity("npc", {{"dialogue", std::string{"garde"}}}),
         entity("npc"),
         entity("encounter", {{"encounterId", std::string{"colisee-fauves"}}, {"respawns", true}}),
         entity("portal",

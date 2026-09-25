@@ -47,10 +47,10 @@
     <text x="282" y="226" font-size="13" fill="#6a6152">hmiKeyToQtKey : l'inverse, pour les QAction</text>
     <text x="282" y="282" font-family="Consolas, monospace" font-size="13">hmi::GamepadPoller::poll(InputState&amp;)</text>
     <text x="282" y="302" font-size="13">piste 1 : D-pad, stick, A, B, Start</text>
-    <text x="282" y="318" font-size="13" fill="#6a6152">→ onGamepadKeyDown(Key) (menus, fixe)</text>
+    <text x="282" y="318" font-size="13" fill="#6a6152">→ onGamepadButtonDown(GamepadButton)</text>
     <text x="282" y="338" font-size="13">piste 2 : dix boutons bruts</text>
     <text x="282" y="354" font-size="13" fill="#6a6152">→ onGamepadButtonDown(GamepadButton)</text>
-    <text x="282" y="412" font-family="Consolas, monospace" font-size="13">InputState::onMouseMove / onMouseButtonDown</text>
+    <text x="282" y="412" font-family="Consolas, monospace" font-size="13">clavier et souris : Qt Quick, directement</text>
     <text x="282" y="432" font-family="Consolas, monospace" font-size="13">onMouseWheel / onCharTyped</text>
   </g>
 
@@ -69,13 +69,13 @@
     <text x="642" y="192" font-family="Consolas, monospace" font-size="13">hmi::EditorKeyBindings</text>
     <text x="642" y="212" font-size="13">action d'éditeur ← touche</text>
     <text x="642" y="228" font-size="13" fill="#6a6152">keybindings.json, section « editeur »</text>
-    <text x="642" y="282" font-family="Consolas, monospace" font-size="13">keyPressed(Key)</text>
+    <text x="642" y="282" font-family="Consolas, monospace" font-size="13">gamepadButtonPressed(GamepadButton)</text>
     <text x="642" y="298" font-size="13" fill="#6a6152">= clavier OU manette (piste 1)</text>
     <text x="642" y="322" font-family="Consolas, monospace" font-size="13">GamepadNavigator::pressed</text>
     <text x="642" y="338" font-size="13" fill="#6a6152">("up", "a", "lb"…), piste 2,</text>
     <text x="642" y="354" font-size="13" fill="#6a6152">répétée par ButtonRepeat</text>
-    <text x="642" y="412" font-family="Consolas, monospace" font-size="13">mouseButtonPressed, wheelDelta</text>
-    <text x="642" y="432" font-family="Consolas, monospace" font-size="13">typedCharacters()</text>
+    <text x="642" y="412" font-family="Consolas, monospace" font-size="13">gamepadButtonDown, gamepadButtonReleased</text>
+    <text x="642" y="432" font-family="Consolas, monospace" font-size="13">gamepadConnected()</text>
   </g>
 
   <!-- Flèches -->

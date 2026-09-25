@@ -376,20 +376,13 @@ Un asset absent ou illisible n'interrompt jamais le rendu (`EX-REN-007`, `EX-NFR
   sinon nommant le fichier, le trouvé et l'attendu), plutôt que de produire des artefacts
   silencieux.
 
-### `hmi::CacheRegistry` : mémoïser, échec compris
+### Les textures se retiennent là où elles se dessinent
 
-`hmi::CacheRegistry<Resource>` (`CacheRegistry.h`) est un registre générique clé → ressource,
-**pur** et sans dépendance : `hmi::CacheRegistry::getOrLoad(key, loader)` appelle `loader` au
-premier accès et **mémorise aussi un échec** (`nullopt`), si bien qu'un asset manquant ne relit pas
-le disque à chaque image ; `invalidate(key)` et `invalidateAll` forcent un rechargement ; `size()`
-compte les entrées, succès et échecs. Factoriser cette logique hors de tout détail GPU est ce qui
-la rend vérifiable sans carte (`EX-NFR-004`).
-
-Le cache de textures des marqueurs d'entité qui composait ce registre (`hmi::TextureCache`) a été
-retiré à la recette de la 0.0.1 : le marqueur d'une figurine sans image est aujourd'hui créé, puis
-conservé avec les autres textures, par le rendu du lieu lui-même (`hmi::WorldSceneRenderer`,
-`figureMarkerKey`), qui n'en redemande jamais un déjà tenté. Les ressources sont détenues en RAII et
-libérées à la destruction (`EX-NFR-041`).
+Le marqueur d'une figurine sans image est créé, puis conservé avec les autres textures, par le rendu
+du lieu lui-même (`hmi::WorldSceneRenderer`, `figureMarkerKey`), qui n'en redemande jamais un déjà
+tenté. Les ressources sont détenues en RAII et libérées à la destruction (`EX-NFR-041`). Le registre
+générique de mémoïsation (`CacheRegistry`) et le cache de textures des marqueurs qui s'en servait
+sont retirés à la recette de la 0.0.1 : plus rien ne les lisait.
 
 ## L'animation : des clips en données
 
@@ -1202,7 +1195,7 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
 - `hmi::paintComposedScene`, `hmi::SceneImages`, `hmi::DraftRenderer`, `hmi::regionForTile`,
   `hmi::buildProceduralAtlasImage` — le canevas de l'éditeur, peint par `QPainter`.
 - `hmi::decodeImageFile`, `hmi::encodeImageFile`, `hmi::createTexture`, `hmi::loadTextureFromFile`,
-  `hmi::CacheRegistry`, `hmi::AssetValidation`,
+  `hmi::AssetValidation`,
   `hmi::buildMissingTextureImage`, `hmi::entityMarkerKey` — textures depuis fichiers et replis
   (`EX-REN-041`, `EX-REN-042`, `EX-REN-007`, `EX-CNT-041`).
 - `core::AnimationClip`, `core::ClipSet`, `hmi::AnimationCatalog`, `hmi::CombatCueTrack` —

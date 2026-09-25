@@ -1,9 +1,0 @@
-{
-  "id": "arene-sans-carte",
-  "name": "L'arene sans carte",
-  "source": "original",
-  "region": "test-region",
-  "lethal": true,
-  "heroicMark": false,
-  "description": "Une arene que le monde nomme et qu'aucune carte ne rend jouable."
-}

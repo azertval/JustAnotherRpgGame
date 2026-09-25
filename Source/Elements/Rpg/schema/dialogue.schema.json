@@ -295,22 +295,6 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "startCombat"
-                      },
-                      "arena": {
-                        "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "arena"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
                         "const": "startEncounter"
                       },
                       "encounter": {

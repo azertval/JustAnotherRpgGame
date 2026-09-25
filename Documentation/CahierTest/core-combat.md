@@ -198,29 +198,19 @@ Les points d'entree de l'arene se lisent de la carte, ranges par camp puis par r
 - Vérifie que `entrees.size()` vaut `6U`.
 - Vérifie que `entrees` vaut `attendu`.
 
-### ArenaTest.LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps
+### ArenaTest.LaCarteDEssaiAccueilleLesDeuxCamps
 
 *Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:185`
 
-La carte que nomme la premiere arene jouable se charge et accueille les deux camps ; les arenes et les huit Marques Heroiques se chargent.
+La carte d'essai du donjon se charge et ses points d'entree accueillent les deux camps.
 
 **Étapes**
 
-1. Charger le catalogue des arenes d'essai et les Marques Heroiques.
-2. Charger la carte que la premiere arene nomme.
-3. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.
+1. Charger la carte d'essai `Levels/donjon.json`.
+2. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.
 
 **Résultat attendu**
 
-- Vérifie que `arenes.errors.empty()` est vrai.
-- Vérifie que `marques.errors.empty()` est vrai.
-- Vérifie que `marques.marks.size()` vaut `8U`.
-- Vérifie que `marques.find("tank")` diffère de `nullptr`.
-- Vérifie que `marques.find("paladin")` vaut `nullptr`.
-- Vérifie que `jouable` diffère de `nullptr`.
-- Vérifie que `jouable->lethal` est faux.
-- Vérifie que `jouable->heroicMark` est vrai.
-- Vérifie que `arenes.find(jouable->id)` vaut `jouable`.
 - Vérifie que `carte.ok()` est vrai.
 - Vérifie que `grille.isObstructed(entree.position, core::Locomotion::Walk)` est faux.
 - Vérifie que `allies` est supérieur ou égal à `4`.
@@ -228,7 +218,7 @@ La carte que nomme la premiere arene jouable se charge et accueille les deux cam
 
 ### ArenaTest.LeMontagePlaceAuxEntreesEtRefuseEnLeDisant
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:235`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:211`
 
 Le montage place chaque combattant au prochain point d'entree libre de son camp, ou a la case demandee, et nomme chaque refus.
 
@@ -257,7 +247,7 @@ Le montage place chaque combattant au prochain point d'entree libre de son camp,
 
 ### ArenaTest.LAttaqueSeRefuseEtSeResout
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:282`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:258`
 
 L'action attaquer de l'arene refuse hors tour actif, contre un allie ou un inconnu, hors allonge, sans attaque ou sans action ; a portee elle jette le d20 contre la classe d'armure du profil et l'ecrit au journal.
 
@@ -287,7 +277,7 @@ L'action attaquer de l'arene refuse hors tour actif, contre un allie ou un incon
 
 ### ArenaTest.LePilierCacheEtAbrite
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:336`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:312`
 
 Dans l'arene, un tir vers une cible cachee par le pilier est refuse ; vers une cible que le pilier abrite partiellement, il est jete contre sa CA + 2, et le journal le dit.
 
@@ -311,7 +301,7 @@ Dans l'arene, un tir vers une cible cachee par le pilier est refuse ; vers une c
 
 ### ArenaTest.LOpportuniteLeDesengagementEtLEsquive
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:379`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:355`
 
 Quitter l'allonge d'un ennemi provoque son attaque d'opportunite, qui depense sa reaction ; se desengager l'evite ; esquiver impose le desavantage a qui attaque.
 
@@ -346,7 +336,7 @@ Quitter l'allonge d'un ennemi provoque son attaque d'opportunite, qui depense sa
 
 ### ArenaTest.UnAffrontementSeJoueSeRejoueEtPersonneNYMeurt
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:444`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:420`
 
 Un affrontement se joue jusqu'a son issue ; le rejeu a la meme graine donne le meme journal ; a la fin, la Marque Heroique releve tout le monde, sauf dans une arene letale.
 

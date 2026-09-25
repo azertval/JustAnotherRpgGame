@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **155 cas** (27 bloquants, 53 critiques, 70 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **150 cas** (27 bloquants, 48 critiques, 70 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -9,7 +9,6 @@ Tests unitaires — **155 cas** (27 bloquants, 53 critiques, 70 majeurs, 5 mineu
 | [`test_animation_catalog.cpp`](#test-animation-catalogcpp) | 12 | - | 5 | 7 | - |
 | [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 10 | 4 | 1 | 5 | - |
 | [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
-| [`test_cache_registry.cpp`](#test-cache-registrycpp) | 5 | - | 5 | - | - |
 | [`test_camera2d.cpp`](#test-camera2dcpp) | 10 | - | - | 9 | 1 |
 | [`test_capital_kit_render.cpp`](#test-capital-kit-rendercpp) | 1 | 1 | - | - | - |
 | [`test_city_block_render.cpp`](#test-city-block-rendercpp) | 2 | - | - | 2 | - |
@@ -535,94 +534,6 @@ Les chargements s'étalent, un fichier absent ne bloque rien.
 - Vérifie que `absent.ensureResources(rhi.get())` est vrai.
 - Vérifie que `absent.cachedTextureCount()` vaut `1U`.
 - Vérifie que `paintedPixels(image)` est strictement supérieur à `100U`.
-
-## test_cache_registry.cpp
-
-### CacheRegistryTest.ChargeUneSeuleFoisPourUneCleRepetee
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:43`
-
-Une clé demandée deux fois n'est chargée qu'une fois et rend la même entrée.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `first` diffère de `nullptr`.
-- Vérifie que `second` diffère de `nullptr`.
-- Vérifie que `*first` vaut `42`.
-- Vérifie que `second` vaut `first`.
-- Vérifie que `loader.callCount()` vaut `1`.
-
-### CacheRegistryTest.InvalidateForceLeRechargementDeLaCleSeule
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:68`
-
-invalidate ne force le rechargement que de la clé visée, pas des autres.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `loaderA.callCount()` vaut `2`.
-- Vérifie que `loaderB.callCount()` vaut `1`.
-
-### CacheRegistryTest.InvalidateAllViseTout
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:95`
-
-invalidateAll vide le registre et fait relire toutes les clés.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `registry.size()` vaut `2U`.
-- Vérifie que `registry.size()` vaut `0U`.
-- Vérifie que `loaderA.callCount()` vaut `2`.
-- Vérifie que `loaderB.callCount()` vaut `2`.
-
-### CacheRegistryTest.UnEchecEstMemoriseSansRetenterLeChargement
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:123`
-
-Un échec de chargement est mémorisé : la clé absente n'est pas relue.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `first` vaut `nullptr`.
-- Vérifie que `second` vaut `nullptr`.
-- Vérifie que `loader.callCount()` vaut `1`.
-
-### CacheRegistryTest.InvalidateSurUnEchecPermetUnNouvelEssai
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:146`
-
-Invalider une clé en échec autorise un nouvel essai, qui peut réussir.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `result` diffère de `nullptr`.
-- Vérifie que `*result` vaut `7`.
 
 ## test_camera2d.cpp
 

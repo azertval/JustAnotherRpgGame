@@ -463,6 +463,24 @@
     </message>
 </context>
 <context>
+    <name>GameView</name>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/GameView.qml" line="69"/>
+        <source>Cette porte est fermée.</source>
+        <translation>This door is locked.</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/GameView.qml" line="70"/>
+        <source>Ce passage est bloqué.</source>
+        <translation>This passage is blocked.</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/GameView.qml" line="71"/>
+        <source>Ce passage est condamné.</source>
+        <translation>This passage is sealed.</translation>
+    </message>
+</context>
+<context>
     <name>HudFrame.ui</name>
     <message>
         <location filename="../../Ui/Controls/HudFrame.ui.qml" line="256"/>
@@ -1127,96 +1145,14 @@
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="110"/>
-        <source> (a terre)</source>
-        <translation> (down)</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="112"/>
-        <source> (ensanglante)</source>
-        <translation> (bloodied)</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="426"/>
-        <source>Esquiver : les attaques contre lui sont desavantagees jusqu&apos;a son prochain tour, s&apos;il voit l&apos;attaquant.</source>
-        <translation>Dodge: attacks against them have disadvantage until their next turn, if they can see the attacker.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="431"/>
-        <source>Se desengager : ses deplacements ne provoquent plus d&apos;attaque d&apos;opportunite ce tour-ci.</source>
-        <translation>Disengage: their movement provokes no opportunity attacks for the rest of the turn.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="436"/>
-        <source>Se precipiter : un deplacement supplementaire egal a sa vitesse.</source>
-        <translation>Dash: extra movement equal to their speed.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="440"/>
-        <source>Il frappera l&apos;ennemi qui quitte son allonge. Confirmer pour le laisser passer.</source>
-        <translation>They will strike an enemy leaving their reach. Confirm to let it go.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="442"/>
-        <source>Il laissera passer l&apos;ennemi qui quitte son allonge. Confirmer pour frapper.</source>
-        <translation>They will let an enemy leave their reach. Confirm to strike.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="464"/>
         <location filename="../../HMI/Runtime/CombatModel.cpp" line="526"/>
         <source>Hors d&apos;allonge ou de portee.</source>
         <translation>Out of reach or range.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="467"/>
         <location filename="../../HMI/Runtime/CombatModel.cpp" line="529"/>
         <source>Cible hors de vue : abri total.</source>
         <translation>Target out of sight: total cover.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="470"/>
-        <source>Cible invalide.</source>
-        <translation>Invalid target.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="473"/>
-        <source>Jet requis %1 : %2 % de chances de toucher</source>
-        <translation>Roll needed %1: %2% chance to hit</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="477"/>
-        <source>CA %1</source>
-        <translation>AC %1</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="478"/>
-        <source>CA %1, dont %2</source>
-        <translation>AC %1, including %2</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="482"/>
-        <source>Avantage : %1</source>
-        <translation>Advantage: %1</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="485"/>
-        <source>Desavantage : %1</source>
-        <translation>Disadvantage: %1</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="496"/>
-        <source>Case hors d&apos;atteinte ce tour-ci.</source>
-        <translation>Square out of reach this turn.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="499"/>
-        <source>Deplacement : %1 case(s), il en restera %2.</source>
-        <translation>Move: %1 square(s), %2 left afterwards.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="507"/>
-        <source>Attaque d&apos;opportunite : %1</source>
-        <translation>Opportunity attack: %1</translation>
     </message>
     <message>
         <location filename="../../HMI/Runtime/CombatModel.cpp" line="532"/>

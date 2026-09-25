@@ -49,36 +49,9 @@ void GamepadPoller::poll(InputState& input) {
     const int stickX = stickDirection(pad.sThumbLX);
     const int stickY = stickDirection(pad.sThumbLY);  // XInput : Y positif = vers le haut
 
-    auto setKey = [&input](Key key, bool pressed) {
-        if (pressed) {
-            input.onGamepadKeyDown(key);
-        } else {
-            input.onGamepadKeyUp(key);
-        }
-    };
-
-    // D-pad ou stick gauche : les deux pilotent les memes directions (EX-CTRL-002).
-    const bool left = (pad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) != 0 || stickX < 0;
-    const bool right = (pad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) != 0 || stickX > 0;
-    const bool up = (pad.wButtons & XINPUT_GAMEPAD_DPAD_UP) != 0 || stickY > 0;
-    const bool down = (pad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN) != 0 || stickY < 0;
-    setKey(Key::Left, left);
-    setKey(Key::Right, right);
-    setKey(Key::Up, up);
-    setKey(Key::Down, down);
-    // A valide (menu) et interagit (jeu) : meme bouton physique pour les deux usages, comme au
-    // clavier.
-    const bool aHeld = (pad.wButtons & XINPUT_GAMEPAD_A) != 0;
-    setKey(Key::Enter, aHeld);
-    setKey(Key::Space, aHeld);
-    // B et Start reproduisent tous deux Echap (retour/pause) : pas d'ecran de pause dedie.
-    const bool bHeld = (pad.wButtons & XINPUT_GAMEPAD_B) != 0;
-    setKey(Key::Escape, bHeld || (pad.wButtons & XINPUT_GAMEPAD_START) != 0);
-    const bool rightShoulderHeld = (pad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) != 0;
-    setKey(Key::Shift, rightShoulderHeld);
-
-    // Piste manette brute (GamepadButton), independante de la fusion Key ci-dessus : consommee par
-    // la navigation des ecrans du jeu (hmi::GamepadNavigator, EX-CTRL-002).
+    // L'etat par GamepadButton, consomme par la navigation des ecrans du jeu
+    // (hmi::GamepadNavigator, EX-CTRL-002). Un bouton absent du releve est explicitement relache :
+    // XInput ne produit pas d'evenement, c'est le sondage qui ecrit les deux sens.
     auto setButton = [&input](GamepadButton button, bool pressed) {
         if (pressed) {
             input.onGamepadButtonDown(button);
@@ -86,16 +59,17 @@ void GamepadPoller::poll(InputState& input) {
             input.onGamepadButtonUp(button);
         }
     };
-    setButton(GamepadButton::Left, left);
-    setButton(GamepadButton::Right, right);
-    setButton(GamepadButton::Up, up);
-    setButton(GamepadButton::Down, down);
-    setButton(GamepadButton::A, aHeld);
-    setButton(GamepadButton::B, bHeld);
+    // D-pad ou stick gauche : les deux pilotent les memes directions (EX-CTRL-002).
+    setButton(GamepadButton::Left, (pad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT) != 0 || stickX < 0);
+    setButton(GamepadButton::Right, (pad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT) != 0 || stickX > 0);
+    setButton(GamepadButton::Up, (pad.wButtons & XINPUT_GAMEPAD_DPAD_UP) != 0 || stickY > 0);
+    setButton(GamepadButton::Down, (pad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN) != 0 || stickY < 0);
+    setButton(GamepadButton::A, (pad.wButtons & XINPUT_GAMEPAD_A) != 0);
+    setButton(GamepadButton::B, (pad.wButtons & XINPUT_GAMEPAD_B) != 0);
     setButton(GamepadButton::X, (pad.wButtons & XINPUT_GAMEPAD_X) != 0);
     setButton(GamepadButton::Y, (pad.wButtons & XINPUT_GAMEPAD_Y) != 0);
     setButton(GamepadButton::LeftShoulder, (pad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER) != 0);
-    setButton(GamepadButton::RightShoulder, rightShoulderHeld);
+    setButton(GamepadButton::RightShoulder, (pad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) != 0);
 }
 
 }  // namespace hmi

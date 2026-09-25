@@ -67,8 +67,6 @@ class CombatModel : public QObject {
     Q_PROPERTY(QVariantList pathCells READ pathCells NOTIFY cursorChanged)
     /// Les actions du tour du joueur : attaques, puis celles du Manuel, puis la réaction.
     Q_PROPERTY(QVariantList turnActions READ turnActions NOTIFY cursorChanged)
-    /// Ce que l'action choisie ferait sur la case du curseur (`LOT-24`).
-    Q_PROPERTY(QStringList preview READ preview NOTIFY cursorChanged)
     Q_PROPERTY(QVariantList turnOrder READ turnOrder NOTIFY changed)
     Q_PROPERTY(QString activeName READ activeName NOTIFY changed)
     Q_PROPERTY(QString activeResources READ activeResources NOTIFY changed)
@@ -97,7 +95,6 @@ public:
     }
     [[nodiscard]] QVariantList pathCells() const;
     [[nodiscard]] QVariantList turnActions() const;
-    [[nodiscard]] QStringList preview() const;
     [[nodiscard]] QVariantList turnOrder() const;
     [[nodiscard]] QString activeName() const;
     [[nodiscard]] QString activeResources() const;
@@ -147,8 +144,7 @@ public:
 signals:
     /// L'état du combat a changé en bloc : combattants, ordre de tour, journal, statut.
     void changed();
-    /// Le curseur de ciblage a bougé : sa case, le chemin, les actions et l'aperçu qui en
-    /// dépendent.
+    /// Le curseur de ciblage a bougé : sa case, le chemin et les actions qui en dépendent.
     void cursorChanged();
     /// Les figurines du combat sont à recomposer : la surface de rendu se redessine.
     void combatSceneChanged();
