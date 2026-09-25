@@ -47,7 +47,6 @@ IMAGE_SUFFIXES = ('.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif')
 REPO_URL = 'https://github.com/azertval/JustAnotherRpgGame/blob/main/'
 EXIGENCE_RE = re.compile(r'EX-[A-Z]+-\d{3}')
 EXIGENCE_DECL_RE = re.compile(r'^\s*[-*]\s+\*\*(EX-[A-Z]+-\d{3})\*\*\s*(?:—|-)?\s*(.*)$')
-LOT_REF_RE = re.compile(r'LOT-(?:EDITOR-\d{2}|\d{2,3})')
 MD_LINK_RE = re.compile(r'(?<!!)\[[^\]]+\]\(([^)\s]+)\)')
 CRITICITES = ('Bloquant', 'Critique', 'Majeur', 'Mineur')
 

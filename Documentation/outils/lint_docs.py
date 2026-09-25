@@ -35,6 +35,7 @@ LOT_RE = re.compile(r'\bLOT-(?:EDITOR-\d{2}|\d{2,3})\b')
 
 
 def anchors_of(path, cache={}):  # noqa: B006 — cache de module voulu
+    """Les ancres qu'une page déclare (titres, puces identifiées), mises en cache."""
     if path not in cache:
         text = path.read_text(encoding='utf-8')
         _, headings = mini_markdown.render(text)
@@ -45,6 +46,7 @@ def anchors_of(path, cache={}):  # noqa: B006 — cache de module voulu
 
 
 def lint(root):
+    """Applique les cinq règles aux pages de `root` ; retourne (erreurs, nombre de pages)."""
     root = Path(root)
     repo = root.parent
     site = site_builder.Site(root, root / 'generated' / 'unused')

@@ -43,6 +43,7 @@ CHECKS = {
 
 
 def run(command: list[str], *, capture: bool = False) -> subprocess.CompletedProcess:
+    """Lance une commande depuis la racine du dépôt, sa sortie en UTF-8."""
     # Les contrôles écrivent en UTF-8 quoi que dise la console du poste (cp1252 sous Windows).
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     return subprocess.run(command, cwd=K.ROOT, check=False, text=True, encoding="utf-8", errors="replace",
@@ -50,6 +51,7 @@ def run(command: list[str], *, capture: bool = False) -> subprocess.CompletedPro
 
 
 def check_tree(path: str) -> None:
+    """Rejoue le contrôle CI de l'arbre du kit (`CHECKS`) ; KitError s'il échoue."""
     script = K.ROOT / "scripts" / "checks" / CHECKS[path.split("/")[0]]
     result = run([sys.executable, str(script)], capture=True)
     if result.returncode != 0:
@@ -66,6 +68,7 @@ def release_assets(tag: str) -> list[str] | None:
 
 
 def ensure_release(tag: str) -> list[str]:
+    """Les archives de la release d'un kit ; créée vide, en pré-version, si elle manque."""
     names = release_assets(tag)
     if names is not None:
         return names
@@ -80,6 +83,7 @@ def ensure_release(tag: str) -> list[str]:
 
 
 def published_digest(tag: str, asset: str) -> str:
+    """L'empreinte SHA-256 d'une archive déjà publiée sur une release."""
     with tempfile.TemporaryDirectory() as folder:
         result = run(["gh", "release", "download", tag, "--repo", K.REPOSITORY, "--pattern", asset,
                       "--dir", folder], capture=True)
@@ -89,6 +93,7 @@ def published_digest(tag: str, asset: str) -> str:
 
 
 def publish(paths: list[str], *, dry_run: bool) -> int:
+    """Publie chaque kit de `paths` : contrôle, archive, dépôt sur sa release, verrou, témoin."""
     locked = K.read_lock()
     by_path = {k.path: k for k in locked}
     all_paths = sorted({*by_path, *paths})

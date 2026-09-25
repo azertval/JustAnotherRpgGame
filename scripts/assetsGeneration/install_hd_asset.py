@@ -118,7 +118,6 @@ ASSETS = ROOT / "Source" / "Elements" / "Assets"
 SOURCES = ROOT / "Tools" / "AssetsHD"
 
 DESCRIPTOR_VERSION = 1
-MANIFEST_VERSION = 1
 
 # --- Le détourage --------------------------------------------------------------------------------
 # Sous ALPHA_BAS, le voile du générateur ; au-dessus d'ALPHA_HAUT, l'intérieur de la pièce. Entre

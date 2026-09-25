@@ -58,6 +58,7 @@ class PlanningError(Exception):
 
 @dataclass
 class Version:
+    """Une version de `versions.toml`, avec les lots qui la servent."""
     id: str
     titre: str
     nature: str
@@ -76,6 +77,7 @@ class Version:
 
 @dataclass
 class Lot:
+    """Une fiche de lot : son en-tête TOML, son corps Markdown et son rang calculé."""
     id: str
     titre: str
     version: str
@@ -103,6 +105,7 @@ class Lot:
 
 @dataclass
 class Planning:
+    """Le plan entier : la racine, les versions dans l'ordre de livraison, les lots par id."""
     root: Path
     versions: list
     lots: dict
@@ -112,6 +115,7 @@ class Planning:
 
 
 def split_front_matter(text, path):
+    """Sépare l'en-tête TOML (entre deux `+++`) du corps Markdown ; PlanningError s'il manque."""
     match = FRONT_MATTER_RE.match(text.lstrip('﻿'))
     if not match:
         raise PlanningError(f'{path}: en-tête TOML absent (attendu entre deux lignes `+++`)')
@@ -122,6 +126,7 @@ def split_front_matter(text, path):
 
 
 def load_versions(root):
+    """Les versions de `versions/versions.toml`, dans l'ordre du fichier."""
     path = root / 'versions' / 'versions.toml'
     try:
         data = tomllib.loads(path.read_text(encoding='utf-8'))
@@ -137,6 +142,7 @@ def load_versions(root):
 
 
 def load_lot(path):
+    """La fiche de lot d'un fichier `LOT-NNN-*.md`."""
     meta, corps = split_front_matter(path.read_text(encoding='utf-8'), path)
     try:
         return Lot(path=path, corps=corps, **meta)
@@ -145,6 +151,7 @@ def load_lot(path):
 
 
 def load_planning(root):
+    """Lit `Planning/` en entier — versions et fiches de lot — et calcule l'ordre des lots."""
     root = Path(root)
     versions = load_versions(root)
     lots = {}

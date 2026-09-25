@@ -84,6 +84,7 @@ def release_tag(path: str) -> str:
 
 
 def is_image(path: Path) -> bool:
+    """Un fichier d'image au sens des kits (PNG, JPEG)."""
     return path.suffix.lower() in IMAGES
 
 
@@ -104,10 +105,12 @@ def kit_files(path: str, kits: list[str], assets: Path | None = None) -> list[st
 
 
 def sha256_bytes(data: bytes) -> str:
+    """L'empreinte SHA-256 d'un contenu en mémoire, en hexadécimal."""
     return hashlib.sha256(data).hexdigest()
 
 
 def sha256_file(path: Path) -> str:
+    """L'empreinte SHA-256 d'un fichier, lu par blocs."""
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1 << 20), b""):
@@ -147,6 +150,7 @@ def archive_members(data: bytes) -> dict[str, bytes]:
 
 
 def read_lock(lock: Path | None = None) -> list[Kit]:
+    """Les kits du verrou, ou aucun s'il n'existe pas ; KitError sur une version inconnue."""
     lock = lock or LOCK
     if not lock.exists():
         return []
@@ -157,6 +161,7 @@ def read_lock(lock: Path | None = None) -> list[Kit]:
 
 
 def write_lock(kits: list[Kit], lock: Path | None = None) -> None:
+    """Écrit le verrou, kits triés par chemin."""
     lock = lock or LOCK
     ordered = sorted(kits, key=lambda k: k.path)
     payload = {"version": LOCK_VERSION, "kits": [asdict(k) for k in ordered]}
@@ -164,15 +169,18 @@ def write_lock(kits: list[Kit], lock: Path | None = None) -> None:
 
 
 def download_url(kit: Kit) -> str:
+    """L'URL de téléchargement de l'archive d'un kit sur sa release."""
     return f"https://github.com/{REPOSITORY}/releases/download/{kit.release}/{kit.asset}"
 
 
 def witness_path(kit_path: str, witnesses: Path | None = None) -> Path:
+    """Le fichier témoin d'installation d'un kit."""
     witnesses = witnesses or WITNESSES
     return witnesses / f"{slug(kit_path)}.json"
 
 
 def read_witness(kit_path: str, witnesses: Path | None = None) -> dict | None:
+    """Le témoin d'installation d'un kit, ou None s'il manque ou ne se lit pas."""
     target = witness_path(kit_path, witnesses)
     if not target.exists():
         return None
@@ -183,6 +191,7 @@ def read_witness(kit_path: str, witnesses: Path | None = None) -> dict | None:
 
 
 def write_witness(kit: Kit, files: dict[str, str], witnesses: Path | None = None) -> None:
+    """Écrit le témoin d'installation d'un kit : identifiant, empreinte, celle de chaque fichier."""
     witnesses = witnesses or WITNESSES
     witnesses.mkdir(parents=True, exist_ok=True)
     payload = {"id": kit.id, "sha256": kit.sha256, "files": files}

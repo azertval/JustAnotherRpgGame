@@ -55,6 +55,7 @@ RACINE = Path(__file__).resolve().parent.parent.parent
 
 
 def quadruplet(valeur: str) -> tuple:
+    """Type argparse d'une région `x0,y0,x1,y1` : quatre flottants, ni plus ni moins."""
     morceaux = valeur.split(',')
     if len(morceaux) != 4:
         raise argparse.ArgumentTypeError('région attendue sous la forme x0,y0,x1,y1')
@@ -62,10 +63,12 @@ def quadruplet(valeur: str) -> tuple:
 
 
 def flottants(valeur: str) -> list:
+    """Type argparse d'une liste de flottants séparés par des virgules."""
     return [float(m) for m in valeur.split(',') if m.strip()]
 
 
 def analyser(argv) -> argparse.Namespace:
+    """Le parseur de la ligne de commande, appliqué à `argv`."""
     # Les deux options globales sont déclarées dans un parseur parent, hérité par chaque
     # sous-commande : sans cela, argparse ne les accepte qu'AVANT le nom de la commande, et
     # « sourcebook info --corpus-root X » échoue là où « sourcebook --corpus-root X info »
@@ -151,12 +154,14 @@ def analyser(argv) -> argparse.Namespace:
 
 
 def index_de(document, args) -> int:
+    """L'index PDF que visent `--page` ou `--page-imprimee`."""
     if args.page is not None:
         return args.page
     return document.index_pdf(args.page_imprimee)
 
 
 def commande_info(corpus: Corpus) -> int:
+    """`info` : la table des documents du manifeste, avec leur pagination."""
     print('%-22s %-46s %6s  %-9s %-8s' % ('clé', 'fichier', 'pages', 'pagination', 'provenance'))
     for document in sorted(corpus, key=lambda d: d.cle):
         pagination = document.pagination
@@ -171,6 +176,7 @@ def commande_info(corpus: Corpus) -> int:
 
 
 def commande_verifier(corpus: Corpus, args) -> int:
+    """`verifier` : les empreintes contre le manifeste, ou leur relevé (`--regenerer`)."""
     documents = [corpus[args.document]] if args.document else sorted(corpus, key=lambda d: d.cle)
     echecs = 0
     for document in documents:
@@ -194,6 +200,7 @@ def commande_verifier(corpus: Corpus, args) -> int:
 
 
 def commande_stats(corpus: Corpus, args) -> int:
+    """`stats` : pages, caractères et images de chaque document."""
     documents = [corpus[args.document]] if args.document else sorted(corpus, key=lambda d: d.cle)
     for document in documents:
         with Extracteur(document) as extracteur:
@@ -205,6 +212,7 @@ def commande_stats(corpus: Corpus, args) -> int:
 
 
 def commande_glossaire(corpus: Corpus, args) -> int:
+    """`glossaire` : écrit le lexique bilingue, ou vérifie le versionné (`--verifier`)."""
     entrees = mod_glossaire.construire(corpus, cache=args.cache)
     contenu = mod_glossaire.ecrire_csv(entrees)
     chemin = args.sortie or (RACINE / mod_glossaire.SORTIE)
@@ -232,6 +240,7 @@ def commande_glossaire(corpus: Corpus, args) -> int:
 
 
 def commande_options(corpus: Corpus, args) -> int:
+    """`options` : produit les quatre catalogues d'options de personnage (LOT-43)."""
     lexique = mod_glossaire.lire_csv(
         (RACINE / mod_glossaire.SORTIE).read_text(encoding='utf-8'))
     racine = args.sortie or (RACINE / mod_options.SORTIE_RPG)
@@ -251,6 +260,7 @@ def commande_options(corpus: Corpus, args) -> int:
 
 
 def commande_bestiaire(corpus: Corpus, args) -> int:
+    """`bestiaire` : produit les créatures d'`Animaux.pdf` (LOT-33)."""
     lexique = mod_glossaire.lire_csv(
         (RACINE / mod_glossaire.SORTIE).read_text(encoding='utf-8'))
     racine = args.sortie or (RACINE / mod_bestiaire.SORTIE_RPG)
@@ -264,6 +274,7 @@ def commande_bestiaire(corpus: Corpus, args) -> int:
 
 
 def commande_personnage(corpus: Corpus, args) -> int:
+    """`personnage` : produit espèces, historiques et classes (LOT-36)."""
     lexique = mod_glossaire.lire_csv(
         (RACINE / mod_glossaire.SORTIE).read_text(encoding='utf-8'))
     racine = args.sortie or (RACINE / mod_personnage.SORTIE_RPG)
@@ -277,6 +288,7 @@ def commande_personnage(corpus: Corpus, args) -> int:
 
 
 def commande_equipement(corpus: Corpus, args) -> int:
+    """`equipement` : produit armes, armures et équipement d'aventurier (LOT-36)."""
     lexique = mod_glossaire.lire_csv(
         (RACINE / mod_glossaire.SORTIE).read_text(encoding='utf-8'))
     racine = args.sortie or (RACINE / mod_equipement.SORTIE_RPG)
@@ -290,6 +302,7 @@ def commande_equipement(corpus: Corpus, args) -> int:
 
 
 def commande_atlas(corpus: Corpus, args) -> int:
+    """`atlas` : produit les régions et les lieux de Tanares (LOT-37)."""
     racine = args.sortie or (RACINE / mod_atlas.SORTIE_MONDE)
     compte = mod_atlas.produire(corpus, racine, cache=args.cache)
     print('%d région(s) et %d lieu(x) écrits sous %s (%d espèce(s) citée(s))'

@@ -782,7 +782,7 @@ jobs:
         if: ${{ !cancelled() }}
         run: python3 scripts/checks/check_ui_assets.py
 
-      # Cartes de l'ecran « Carte » (LOT-94, LOT-95) : peintes par l'auteur, jamais extraites du
+      # Cartes de l'ecran « Carte » (LOT-94) : peintes par l'auteur, jamais extraites du
       # corpus. Le controle recoupe les images, leur manifeste, world-maps.json et l'atlas : une
       # region sans carte, une position qui designe un lieu inconnu, une carte retouchee sans
       # repasser par le manifeste. Sans dependance.
@@ -813,8 +813,8 @@ jobs:
       # Contrats des catalogues RPG (LOT-32). jsonschema est la seule dependance externe de la
       # filiere contenu ; elle est EPINGLEE (uv.lock), meme raison que Qt, Doxygen et LLVM ailleurs
       # dans ce fichier : un validateur qui change de version sans qu'on le decide ne predit plus le
-      # resultat local. Le script s'auto-teste sur scripts/fixtures/rpg/ avant de se prononcer --
-      # aucun catalogue n'existe encore, et un validateur qui n'a rien valide ne prouve rien.
+      # resultat local. Le script s'auto-teste sur scripts/fixtures/rpg/ avant de se prononcer sur
+      # les catalogues de Source/Elements/Rpg/ : un validateur qui n'a rien valide ne prouve rien.
       - name: Catalogues RPG valides contre leurs schemas (EX-CNT-010)
         id: rpg_data
         if: ${{ !cancelled() }}

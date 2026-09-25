@@ -80,6 +80,7 @@ def read_ci(text):
 
 
 def auto_test(root):
+    """Éprouve la lecture de ci.yml : plancher de contrôles, scripts présents, échantillon."""
     with open(os.path.join(root, CI), encoding='utf-8') as handle:
         checks, env = read_ci(handle.read())
     # Plancher : le job en compte bien plus. Une lecture cassée qui ne trouverait rien rendrait ce

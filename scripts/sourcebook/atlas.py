@@ -475,13 +475,6 @@ def _introduction(ex: Extracteur, index: int, titre, cadre) -> dict:
 
 # -- Découpage du chapitre -----------------------------------------------------------------------
 
-def _demi_pages(ex: Extracteur):
-    """Les demi-pages du chapitre, dans l'ordre de lecture."""
-    for index in CHAPITRE:
-        for moitie in ('gauche', 'droite'):
-            yield index, moitie
-
-
 def _sections(ex: Extracteur, index: int, moitie: str) -> list[tuple[float, str]]:
     """Les intertitres d'une demi-page : (corps, texte), dans l'ordre de lecture."""
     sortie = []
