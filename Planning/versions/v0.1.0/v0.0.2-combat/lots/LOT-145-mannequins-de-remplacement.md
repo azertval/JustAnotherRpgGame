@@ -114,6 +114,6 @@ orientations manquantes de l'humanoïde, et les mannequins quadrupède et volant
 
 - Le mannequin SE-v1 n'est **pas validé en mouvement** (`Tools/AssetHd/NPC/ManequinNpc/SE-v1/review.md`) :
   il tient sa place, il ne fait pas référence. Sa marche se juge par
-  `scripts/assetsGeneration/check_figure_walk.py` comme toute autre.
+  `scripts/assetsGeneration/preview_figure_walk.py` comme toute autre.
 - Un mannequin trop lisible finirait dans une capture ou une démo : il porte ses couleurs de
   chantier exprès, pour qu'on ne le confonde jamais avec un asset.

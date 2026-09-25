@@ -13,7 +13,7 @@ du `CHANGELOG.md` et de l'historique Git ; les jugements sont ceux de l'auteur, 
 | Livrée | 25 septembre 2026, tag `v0.0.1` — **six jours** |
 | Lots livrés | **24**, du `LOT-100` au `LOT-129` et `LOT-146`, dont 4 S, 12 M, 7 L, 1 XL |
 | Lots sortis de la version | 7 vers la `0.0.3` par [D-25](../../../vision/decisions.md) (`LOT-106`, `107`, `110`, `111`, `113`, `114`, `115`) ; 1 vers la `0.0.2` par D-26 (`LOT-145`) |
-| Décisions de planification prises en route | D-17 à D-26 (dix) ; Q-01, Q-03, Q-04, Q-12, Q-13 tranchées |
+| Décisions de planification prises en route | D-17 à D-27 (onze) ; Q-01, Q-03, Q-04, Q-09, Q-12, Q-13 tranchées |
 | Critères de sortie | 4 sur 4 tenus (voir [ci-dessous](#les-critères-de-sortie)) |
 | Ce qui reste dû | les noms des trois PNJ du marché (Q-05) ; les mannequins complets (`LOT-145`, `0.0.2`) ; les zones de la démo au standard final (`0.0.3`) |
 
@@ -85,7 +85,7 @@ bumpe à la recette, et il désigne la version que l'on tague, jamais le jalon q
 
 ### 5. La planification elle-même
 
-Dix décisions (D-17 à D-26) et cinq questions tranchées en six jours : la moitié des décisions
+Onze décisions (D-17 à D-27) et six questions tranchées en six jours : la moitié des décisions
 de la refonte ont été prises **pendant** la version. Trois d'entre elles ont changé son périmètre
 (D-21 : un niveau est une carte ; D-22 : une carte se maquette avant de s'habiller ; D-25 : les
 cartes de principe). Ce n'est pas une dérive — chacune est écrite, datée, motivée — mais la
@@ -153,7 +153,11 @@ sa chaîne de rendu — `ArenaSceneRenderer`, `ArenaSceneComposer`, `ArenaAppear
 `ArenaAnimationDriver`, 2 000 lignes compilées dans les deux exécutables, exercées par leurs
 seuls tests —, 22 traductions orphelines, une branche de la galerie qui lisait un dossier disparu,
 un alias vers une carte supprimée, des signaux et des propriétés que plus aucun écran ne lisait ; le
-tout est retiré ou réécrit dans la PR de recette.
+tout est retiré ou réécrit dans la PR de recette. L'outillage Python n'a aucun script orphelin ;
+quatre symboles morts, deux chemins cassants (le cahier des assets d'interface déplacé au planning,
+un écran de capture retiré), huit PNG de sortie de test commités à la racine et une dizaine de
+commentaires d'un autre âge sont corrigés. Q-09 est tranchée par D-27 : le lint de l'ancienne
+feuille de route était déjà parti, les archives restent.
 
 Ce que l'audit **laisse à l'auteur**, parce que la réponse est un choix de produit et non un
 constat :

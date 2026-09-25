@@ -114,6 +114,12 @@ __pycache__/
 # a cote de l'executable pour etre relues a l'oeil. Une sortie de test, regeneree a chaque
 # execution -- deja supprimee du depot une fois (PR #91), elle y etait revenue.
 /editor-captures/
+# Images que les tests de rendu hors écran écrivent dans le répertoire courant (test_world_scene_renderer,
+# `<carte>-renderer.png`) : lancés depuis la racine, ils y déposaient huit PNG, commités par mégarde
+# et retirés à la recette de la 0.0.1 (LOT-122).
+/*-renderer.png
+/salle-combat.png
+/arena-of-brave-combat.png
 
 # Kits d'assets hors de Git (LOT-108) : les images viennent d'archives publiées, installées par
 # scripts/fetch_assets.py d'après Source/Elements/Assets/kits.lock.json. Les manifestes JSON et les
