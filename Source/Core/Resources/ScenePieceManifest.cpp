@@ -30,7 +30,7 @@ namespace {
     return ScenePieceManifestError::MalformedStructure;
 }
 
-/// Une paire d'entiers `[a, b]` du manifeste, @p fallback si le champ manque ou est mal formé.
+// Une paire d'entiers `[a, b]` du manifeste, @p fallback si le champ manque ou est mal formé.
 [[nodiscard]] std::pair<int, int> intPair(const nlohmann::json& object, std::string_view field,
                                           std::pair<int, int> fallback) {
     const auto found = object.find(field);

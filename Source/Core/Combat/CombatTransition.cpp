@@ -43,7 +43,7 @@ bool encounterAlreadyCleared(const WorldFlags& flags, std::string_view defeatFla
 
 namespace {
 
-/// @return La propriete @p nom si elle porte une chaine, sinon une chaine vide.
+// Retourne : La propriete @p nom si elle porte une chaine, sinon une chaine vide.
 [[nodiscard]] std::string proprieteTexte(const PropertyMap& proprietes, const char* nom) {
     const auto trouve = proprietes.find(nom);
     if (trouve == proprietes.end()) {
@@ -53,7 +53,7 @@ namespace {
     return texte != nullptr ? *texte : std::string{};
 }
 
-/// @return La propriete @p nom si elle porte un booleen, sinon `false`.
+// Retourne : La propriete @p nom si elle porte un booleen, sinon `false`.
 [[nodiscard]] bool proprieteBooleen(const PropertyMap& proprietes, const char* nom) {
     const auto trouve = proprietes.find(nom);
     if (trouve == proprietes.end()) {

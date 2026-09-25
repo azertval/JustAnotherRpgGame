@@ -16,7 +16,7 @@
 namespace core {
 namespace {
 
-/// Un parametre t du segment, en fraction exacte : num / den, den > 0.
+// Un parametre t du segment, en fraction exacte : num / den, den > 0.
 struct Fraction {
     std::int64_t num = 0;
     std::int64_t den = 1;
@@ -30,8 +30,8 @@ struct Fraction {
     return a.num * b.den == b.num * a.den;
 }
 
-/// Releve la borne basse de l'intervalle des t si @p entree la depasse ; a egalite, la borne
-/// n'est stricte que si les deux l'etaient.
+// Releve la borne basse de l'intervalle des t si @p entree la depasse ; a egalite, la borne
+// n'est stricte que si les deux l'etaient.
 void resserrerBas(Fraction& bas, bool& basStrict, Fraction entree, bool fermee) noexcept {
     if (inferieur(bas, entree)) {
         bas = entree;
@@ -41,7 +41,7 @@ void resserrerBas(Fraction& bas, bool& basStrict, Fraction entree, bool fermee) 
     }
 }
 
-/// Abaisse la borne haute de l'intervalle des t si @p sortie passe dessous ; meme regle d'egalite.
+// Abaisse la borne haute de l'intervalle des t si @p sortie passe dessous ; meme regle d'egalite.
 void resserrerHaut(Fraction& haut, bool& hautStrict, Fraction sortie, bool fermee) noexcept {
     if (inferieur(sortie, haut)) {
         haut = sortie;
@@ -51,15 +51,13 @@ void resserrerHaut(Fraction& haut, bool& hautStrict, Fraction sortie, bool ferme
     }
 }
 
-/**
- * Vrai si le segment ]a, b[ rencontre la boite [x0, x1] x [y0, y1] (fermee) ou ]x0, x1[ x ]y0, y1[
- * (ouverte). Les extremites du segment ne comptent jamais : un tir part d'un coin de sa propre
- * case, et ce coin touche souvent un mur sans que le mur soit sur le chemin.
- *
- * Arithmetique entiere : chaque axe donne l'intervalle des t ou la coordonnee est dans la boite,
- * et le segment la rencontre si l'intersection de ces intervalles avec ]0, 1[ n'est pas vide. Rien
- * ne depend du sens de a vers b.
- */
+// Vrai si le segment ]a, b[ rencontre la boite [x0, x1] x [y0, y1] (fermee) ou ]x0, x1[ x ]y0, y1[
+// (ouverte). Les extremites du segment ne comptent jamais : un tir part d'un coin de sa propre
+// case, et ce coin touche souvent un mur sans que le mur soit sur le chemin.
+//
+// Arithmetique entiere : chaque axe donne l'intervalle des t ou la coordonnee est dans la boite,
+// et le segment la rencontre si l'intersection de ces intervalles avec ]0, 1[ n'est pas vide. Rien
+// ne depend du sens de a vers b.
 [[nodiscard]] bool rencontreBoite(GridPoint a, GridPoint b, int x0, int y0, int x1, int y1,
                                   bool fermee) noexcept {
     if (a == b) {
@@ -93,18 +91,18 @@ void resserrerHaut(Fraction& haut, bool& hautStrict, Fraction sortie, bool ferme
     return egal(bas, haut) && !basStrict && !hautStrict;
 }
 
-/// Division entiere arrondie vers le bas, negatifs compris.
+// Division entiere arrondie vers le bas, negatifs compris.
 [[nodiscard]] constexpr int divBas(int a, int b) noexcept {
     return a >= 0 ? a / b : -((-a + b - 1) / b);
 }
 
-/// Division entiere arrondie vers le haut.
+// Division entiere arrondie vers le haut.
 [[nodiscard]] constexpr int divHaut(int a, int b) noexcept {
     return -divBas(-a, b);
 }
 
-/// Les cases de la grille dont la boite fermee peut toucher le segment : la case c couvre
-/// [2c, 2c + 2], et touche [min, max] si 2c <= max et 2c + 2 >= min.
+// Les cases de la grille dont la boite fermee peut toucher le segment : la case c couvre
+// [2c, 2c + 2], et touche [min, max] si 2c <= max et 2c + 2 >= min.
 template <typename Visiteur>
 bool pourChaqueCaseTouchee(const BattleGrid& grille, GridPoint a, GridPoint b,
                            const Visiteur& visiter) {
@@ -122,7 +120,7 @@ bool pourChaqueCaseTouchee(const BattleGrid& grille, GridPoint a, GridPoint b,
     return false;
 }
 
-/// Tous les points de grille d'une emprise, bords et interieur.
+// Tous les points de grille d'une emprise, bords et interieur.
 [[nodiscard]] std::vector<GridPoint> pointsDe(Footprint emprise) {
     std::vector<GridPoint> points;
     const int cote = std::max(1, emprise.side);
@@ -136,7 +134,7 @@ bool pourChaqueCaseTouchee(const BattleGrid& grille, GridPoint a, GridPoint b,
     return points;
 }
 
-/// Les obstacles d'une famille : ce qui arrete la vue, ou un masque de cases qui font corps.
+// Les obstacles d'une famille : ce qui arrete la vue, ou un masque de cases qui font corps.
 class Famille {
 public:
     Famille(const BattleGrid& grille, Cover plafond) : _grille(grille), _plafond(plafond) {
@@ -183,7 +181,7 @@ private:
     std::vector<bool> _masque;
 };
 
-/// Guide du Maitre : une ou deux lignes coupees, abri partiel ; trois, important ; quatre, total.
+// Guide du Maitre : une ou deux lignes coupees, abri partiel ; trois, important ; quatre, total.
 [[nodiscard]] constexpr Cover abriPourLignesCoupees(int coupees) noexcept {
     if (coupees <= 0) {
         return Cover::None;
@@ -194,7 +192,7 @@ private:
     return coupees == 3 ? Cover::ThreeQuarters : Cover::Total;
 }
 
-/// Marque les cases dont l'objet abrite, chacune dans la famille de son niveau.
+// Marque les cases dont l'objet abrite, chacune dans la famille de son niveau.
 void marquerObjets(const BattleGrid& grille, Famille& important, Famille& partiel) {
     for (int ligne = 0; ligne < grille.height(); ++ligne) {
         for (int colonne = 0; colonne < grille.width(); ++colonne) {
@@ -214,7 +212,7 @@ void marquerObjets(const BattleGrid& grille, Famille& important, Famille& partie
     }
 }
 
-/// Marque les cases des corps interposes : un abri partiel.
+// Marque les cases des corps interposes : un abri partiel.
 void marquerCorps(std::span<const Footprint> interposes, Famille& partiel) {
     for (const Footprint& corps : interposes) {
         for (int j = 0; j < corps.side; ++j) {
@@ -225,7 +223,7 @@ void marquerCorps(std::span<const Footprint> interposes, Famille& partiel) {
     }
 }
 
-/// L'abri qu'une famille donne pour @p coupees lignes coupees sur quatre.
+// L'abri qu'une famille donne pour @p coupees lignes coupees sur quatre.
 [[nodiscard]] Cover abriDeFamille(const Famille& famille, int coupees) {
     // Un mur abrite selon les lignes qu'il coupe ; un corps declare abrite de son
     // niveau des qu'il en coupe une.
@@ -235,8 +233,8 @@ void marquerCorps(std::span<const Footprint> interposes, Famille& partiel) {
     return coupees > 0 ? famille.plafond() : Cover::None;
 }
 
-/// L'abri de la case dont le coin haut-gauche est (@p x, @p y), vue depuis @p origine : le
-/// meilleur abri des familles, jamais leur somme.
+// L'abri de la case dont le coin haut-gauche est (@p x, @p y), vue depuis @p origine : le
+// meilleur abri des familles, jamais leur somme.
 [[nodiscard]] Cover abriVersCase(const std::vector<const Famille*>& familles, GridPoint origine,
                                  int x, int y) {
     const std::array<GridPoint, 4> coins{

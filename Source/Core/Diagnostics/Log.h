@@ -17,14 +17,13 @@
  */
 
 /// Journalise un message pour une catégorie et un niveau donnés, via le journaliseur global.
-#define JADG_LOG(category, level, message)                                                \
-    do {                                                                                  \
-        ::core::Logger& jadgLogger = ::core::defaultLogger();                             \
-        if (jadgLogger.isEnabled(level)) {                                                \
-            jadgLogger.log(                                                               \
-                level, ::core::formatLogLine(::core::currentTimestamp(), level, category, \
-                                             __FILE__, __LINE__, message));               \
-        }                                                                                 \
+#define JADG_LOG(category, level, message)                                                       \
+    do {                                                                                         \
+        ::core::Logger& jadgLogger = ::core::defaultLogger();                                    \
+        if (jadgLogger.isEnabled(level)) {                                                       \
+            jadgLogger.log(level, ::core::formatLogLine(::core::currentTimestamp(), level,       \
+                                                        category, __FILE__, __LINE__, message)); \
+        }                                                                                        \
     } while (false)
 
 #define JADG_LOG_TRACE(category, message) JADG_LOG(category, ::core::LogLevel::Trace, message)

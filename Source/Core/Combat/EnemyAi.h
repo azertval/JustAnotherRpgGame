@@ -172,6 +172,7 @@ struct BehaviorCatalog {
     std::string defaultBehavior;
     std::vector<std::string> errors;
 
+    /// @brief Le profil de comportement d'identifiant @p id, ou `nullptr` s'il est inconnu.
     [[nodiscard]] const BehaviorProfile* find(std::string_view id) const;
 };
 

@@ -28,7 +28,7 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
 
 using Json = nlohmann::json;
 
-/// Rassemble les erreurs d'un document, chacune prefixee de son origine et de son noeud.
+// Rassemble les erreurs d'un document, chacune prefixee de son origine et de son noeud.
 class Rapport {
 public:
     explicit Rapport(std::string_view origine) : _origine(origine) {}
@@ -91,7 +91,7 @@ private:
     return std::nullopt;
 }
 
-/// Exige un champ texte, et le nomme s'il manque.
+// Exige un champ texte, et le nomme s'il manque.
 [[nodiscard]] std::string exiger(const Json& objet, const char* champ, std::string_view noeud,
                                  Rapport& rapport) {
     auto valeur = texte(objet, champ);
@@ -102,7 +102,7 @@ private:
     return std::move(*valeur);
 }
 
-/// Une reponse d'une replique, ou rien si elle est inutilisable (erreur consignee).
+// Une reponse d'une replique, ou rien si elle est inutilisable (erreur consignee).
 [[nodiscard]] std::optional<DialogueChoice> lireReponse(const Json& reponse,
                                                         const std::string& noeudId,
                                                         std::set<std::string>& vus,
@@ -137,7 +137,7 @@ private:
     return choix;
 }
 
-/// Les reponses d'une replique (`choices`), deja reconnu comme present.
+// Les reponses d'une replique (`choices`), deja reconnu comme present.
 void lireReponses(const Json& reponses, DialogueNode& noeud, Rapport& rapport) {
     if (!reponses.is_array()) {
         rapport.noeud(noeud.id, "'choices' n'est pas un tableau.");
@@ -203,7 +203,7 @@ void lireCondition(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
     noeud.whenFalse = exiger(brut, "else", noeud.id, rapport);
 }
 
-/// Un effet d'un noeud d'action, ou rien si son type est inconnu (erreur consignee).
+// Un effet d'un noeud d'action, ou rien si son type est inconnu (erreur consignee).
 [[nodiscard]] std::optional<DialogueAction> lireEffet(const Json& effet, const std::string& noeudId,
                                                       Rapport& rapport) {
     const auto type = effet.is_object() ? texte(effet, "type") : std::nullopt;
@@ -300,7 +300,7 @@ void lireJet(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
     }
 }
 
-/// Les cibles d'un noeud, dans l'ordre de la donnee.
+// Les cibles d'un noeud, dans l'ordre de la donnee.
 [[nodiscard]] std::vector<const std::string*> ciblesDe(const DialogueNode& noeud) {
     std::vector<const std::string*> cibles;
     switch (noeud.kind) {
@@ -329,20 +329,20 @@ void lireJet(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
     return cibles;
 }
 
-/// Un noeud ou le joueur CHOISIT : le seul par lequel une boucle a le droit de passer.
+// Un noeud ou le joueur CHOISIT : le seul par lequel une boucle a le droit de passer.
 [[nodiscard]] bool estUnArret(const DialogueNode& noeud) {
     return noeud.kind == DialogueNodeKind::Line && !noeud.choices.empty();
 }
 
-/// Indice de chaque noeud du graphe, par identifiant.
+// Indice de chaque noeud du graphe, par identifiant.
 using IndicesDeNoeuds = std::map<std::string, std::size_t, std::less<>>;
 
-/// Indice d'un noeud dont l'existence est deja controlee.
+// Indice d'un noeud dont l'existence est deja controlee.
 [[nodiscard]] std::size_t indiceDe(const IndicesDeNoeuds& indices, const std::string& id) {
     return indices.find(id)->second;
 }
 
-/// Orphelins : ce que rien n'atteint depuis l'entree. @return Les noeuds atteints.
+// Orphelins : ce que rien n'atteint depuis l'entree. Rend les noeuds atteints.
 [[nodiscard]] std::vector<bool> signalerLesOrphelins(const DialogueGraph& graphe,
                                                      const IndicesDeNoeuds& indices,
                                                      Rapport& rapport) {
@@ -369,7 +369,7 @@ using IndicesDeNoeuds = std::map<std::string, std::size_t, std::less<>>;
     return atteint;
 }
 
-/// La trace d'un cycle : le chemin depuis la premiere occurrence de @p j, puis @p j.
+// La trace d'un cycle : le chemin depuis la premiere occurrence de @p j, puis @p j.
 [[nodiscard]] std::string traceDuCycle(const DialogueGraph& graphe,
                                        const std::vector<std::size_t>& chemin, std::size_t j) {
     const auto debut = std::ranges::find(chemin, j);
@@ -381,8 +381,8 @@ using IndicesDeNoeuds = std::map<std::string, std::size_t, std::less<>>;
     return trace;
 }
 
-/// Cycles non intentionnels : une boucle qui ne traverse aucun arret. Parcours en profondeur
-/// restreint aux noeuds qui ne sont pas des arrets -- une arete vers un arret termine le chemin.
+// Cycles non intentionnels : une boucle qui ne traverse aucun arret. Parcours en profondeur
+// restreint aux noeuds qui ne sont pas des arrets -- une arete vers un arret termine le chemin.
 void signalerLesCycles(const DialogueGraph& graphe, const IndicesDeNoeuds& indices,
                        Rapport& rapport) {
     enum class Couleur : std::uint8_t { BLANC, GRIS, NOIR };
@@ -416,8 +416,8 @@ void signalerLesCycles(const DialogueGraph& graphe, const IndicesDeNoeuds& indic
     }
 }
 
-/// Impasses : les noeuds atteints d'ou aucune fin n'est atteignable. Parcours inverse depuis
-/// les fins.
+// Impasses : les noeuds atteints d'ou aucune fin n'est atteignable. Parcours inverse depuis
+// les fins.
 void signalerLesImpasses(const DialogueGraph& graphe, const IndicesDeNoeuds& indices,
                          const std::vector<bool>& atteint, Rapport& rapport) {
     std::vector<std::vector<std::size_t>> predecesseurs(graphe.nodes.size());
@@ -451,11 +451,9 @@ void signalerLesImpasses(const DialogueGraph& graphe, const IndicesDeNoeuds& ind
     }
 }
 
-/**
- * Repliques qu'un jet rate peut laisser sans reponse (`LOT-117`). Une reponse qui mene a un jet
- * disparait une fois ce jet rate : elle compte comme conditionnelle, et une replique doit garder
- * une reponse toujours proposee -- sans condition, et qui ne jette pas.
- */
+// Repliques qu'un jet rate peut laisser sans reponse (`LOT-117`). Une reponse qui mene a un jet
+// disparait une fois ce jet rate : elle compte comme conditionnelle, et une replique doit garder
+// une reponse toujours proposee -- sans condition, et qui ne jette pas.
 void signalerLesRepliquesQuiPeuventSeVider(const DialogueGraph& graphe, Rapport& rapport) {
     const auto meneAUnJet = [&graphe](const DialogueChoice& choix) {
         const DialogueNode* suite = graphe.find(choix.next);
@@ -477,11 +475,9 @@ void signalerLesRepliquesQuiPeuventSeVider(const DialogueGraph& graphe, Rapport&
     }
 }
 
-/**
- * Les controles de graphe, sur un graphe dont chaque noeud est lu et chaque cible existe. Les
- * faire sur un graphe incomplet produirait des orphelins et des impasses qui ne sont que l'ombre
- * d'une cible mal orthographiee.
- */
+// Les controles de graphe, sur un graphe dont chaque noeud est lu et chaque cible existe. Les
+// faire sur un graphe incomplet produirait des orphelins et des impasses qui ne sont que l'ombre
+// d'une cible mal orthographiee.
 void controlerLeGraphe(const DialogueGraph& graphe, Rapport& rapport) {
     IndicesDeNoeuds indices;
     for (std::size_t i = 0; i < graphe.nodes.size(); ++i) {
@@ -595,7 +591,7 @@ std::string dialogueCheckFailedFlag(std::string_view dialogueId, std::string_vie
 
 namespace {
 
-/// Les langues et l'attitude de l'interlocuteur (`speaker`).
+// Les langues et l'attitude de l'interlocuteur (`speaker`).
 void lireInterlocuteur(const Json& racine, DialogueGraph& graphe, Rapport& rapport) {
     const auto interlocuteur = racine.find("speaker");
     if (interlocuteur == racine.end() || !interlocuteur->is_object()) {
@@ -631,7 +627,7 @@ void lireInterlocuteur(const Json& racine, DialogueGraph& graphe, Rapport& rappo
     }
 }
 
-/// Un noeud du graphe, ou rien s'il est inutilisable (erreur consignee).
+// Un noeud du graphe, ou rien s'il est inutilisable (erreur consignee).
 [[nodiscard]] std::optional<DialogueNode> lireNoeud(const Json& brut, std::set<std::string>& vus,
                                                     Rapport& rapport) {
     if (!brut.is_object()) {
@@ -676,7 +672,7 @@ void lireInterlocuteur(const Json& racine, DialogueGraph& graphe, Rapport& rappo
     return noeud;
 }
 
-/// Les noeuds du graphe (`nodes`).
+// Les noeuds du graphe (`nodes`).
 void lireNoeuds(const Json& racine, DialogueGraph& graphe, Rapport& rapport) {
     const auto noeuds = racine.find("nodes");
     if (noeuds == racine.end() || !noeuds->is_array() || noeuds->empty()) {
@@ -691,7 +687,7 @@ void lireNoeuds(const Json& racine, DialogueGraph& graphe, Rapport& rapport) {
     }
 }
 
-/// Les cibles, une fois tous les noeuds connus.
+// Les cibles, une fois tous les noeuds connus.
 void controlerLesCibles(const DialogueGraph& graphe, Rapport& rapport) {
     if (!graphe.start.empty() && !graphe.nodes.empty() && graphe.find(graphe.start) == nullptr) {
         rapport.document("noeud cible inconnu : l'entree 'start' nomme '" + graphe.start + "'.");
@@ -762,7 +758,7 @@ DialogueLoad loadDialogue(const std::filesystem::path& path) {
 
 namespace {
 
-/// Les references d'un noeud (competence, degre, objet) vers les catalogues du jeu.
+// Les references d'un noeud (competence, degre, objet) vers les catalogues du jeu.
 void verifierLesReferencesDuNoeud(const DialogueNode& noeud, const std::string& dialogueId,
                                   const DialogueReferences& references,
                                   std::vector<std::string>& erreurs) {
@@ -913,7 +909,7 @@ ChoiceResult DialogueRunner::choose(std::string_view choiceId) {
         const auto choix = std::ranges::find(_current->choices, choiceId, &DialogueChoice::id);
         // La condition est REEVALUEE : entre l'affichage et le geste, un drapeau a pu changer, et
         // l'ecran ne doit pas pouvoir faire passer une reponse que la donnee n'offre plus.
-        if (choix == _current->choices.end() || !estProposee(*choix)) {
+        if (choix == _current->choices.end() || !isOffered(*choix)) {
             return ChoiceResult::Unavailable;
         }
         suite = choix->next;
@@ -1056,7 +1052,7 @@ void DialogueRunner::runCheck(const DialogueNode& node) {
     _lastCheck = std::move(jet);
 }
 
-bool DialogueRunner::estProposee(const DialogueChoice& choice) const {
+bool DialogueRunner::isOffered(const DialogueChoice& choice) const {
     if (choice.condition && !choice.condition->holds(_flags)) {
         return false;
     }
@@ -1108,7 +1104,7 @@ std::vector<AvailableChoice> DialogueRunner::choices() const {
         return proposees;
     }
     for (const DialogueChoice& choix : ligne->choices) {
-        if (!estProposee(choix)) {
+        if (!isOffered(choix)) {
             continue;
         }
         AvailableChoice reponse{.id = choix.id,

@@ -75,8 +75,8 @@ CityPlanResult loadCityPlan(const std::filesystem::path& file) {
             resultat.error = file.string() + " : un quartier n'est pas un objet.";
             return resultat;
         }
-        CityDistrict quartier{.id = lireTexte(entree, "id"), .map = lireTexte(entree, "map"),
-                              .guardMap = {}};
+        CityDistrict quartier{
+            .id = lireTexte(entree, "id"), .map = lireTexte(entree, "map"), .guardMap = {}};
         if (const auto garde = entree.find("guard"); garde != entree.end() && garde->is_object()) {
             quartier.guardMap = lireTexte(*garde, "map");
         }

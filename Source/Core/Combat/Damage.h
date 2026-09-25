@@ -48,28 +48,28 @@ enum class CombatantId : std::uint32_t;
 /**
  * @brief Ce qu'une source de dégâts **est**, au-delà de son type.
  *
- * Un loup-garou résiste aux dégâts tranchants **non argentés** ; un démon, aux armes **non
- * magiques**. Le type seul ne suffit pas à le dire, et le texte de l'arme ne se lit pas. Les deux
+ * Un démon résiste aux armes **non magiques** ; un sort n'est pas une arme. Le type seul ne
+ * suffit pas à le dire, et le texte de l'arme ne se lit pas. Les deux
  * derniers drapeaux ne décrivent pas la source mais ce qu'elle **passe outre** — « ignore les
  * résistances », « ignore les points de vie temporaires » : des capacités les écrivent telles
  * quelles.
  */
 enum class DamageFlag : std::uint8_t {
     Magical = 1U << 0U,
-    Silvered = 1U << 1U,
-    Adamantine = 1U << 2U,
-    Spell = 1U << 3U,
-    IgnoresResistance = 1U << 4U,
-    IgnoresReserves = 1U << 5U,
+    Spell = 1U << 1U,
+    IgnoresResistance = 1U << 2U,
+    IgnoresReserves = 1U << 3U,
 };
 
 /// @brief Un ensemble de `core::DamageFlag`.
 using DamageFlags = std::uint8_t;
 
+/// @brief L'ensemble ne contenant que le drapeau @p flag.
 [[nodiscard]] constexpr DamageFlags flagsOf(DamageFlag flag) noexcept {
     return static_cast<DamageFlags>(flag);
 }
 
+/// @brief Vrai si l'ensemble @p flags contient le drapeau @p flag.
 [[nodiscard]] constexpr bool hasFlag(DamageFlags flags, DamageFlag flag) noexcept {
     return (flags & flagsOf(flag)) != 0U;
 }
@@ -267,6 +267,7 @@ struct DamageReport {
  */
 class DamagePipeline {
 public:
+    /// @brief Ajoute un greffon à l'étape @p stage, après ceux déjà insérés à cette étape.
     void insert(DamageStage stage, DamageListener listener);
 
     /**

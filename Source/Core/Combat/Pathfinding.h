@@ -105,6 +105,7 @@ public:
     [[nodiscard]] GridPosition origin() const noexcept {
         return _origin;
     }
+    /// @brief Les cases de déplacement dont l'aire a été calculée.
     [[nodiscard]] int budget() const noexcept {
         return _budget;
     }

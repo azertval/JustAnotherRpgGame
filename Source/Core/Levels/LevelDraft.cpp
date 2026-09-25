@@ -372,8 +372,8 @@ bool LevelDraft::paintLayerRegion(std::size_t index, int originColumn, int origi
 
 namespace {
 
-/// Plus grande emprise qu'on cherche autour d'une case : au-dela, une piece couvrant la case
-/// depuis son ancre serait plus grande que tout ce que les planches livrent.
+// Plus grande emprise qu'on cherche autour d'une case : au-dela, une piece couvrant la case
+// depuis son ancre serait plus grande que tout ce que les planches livrent.
 constexpr int MAX_FOOTPRINT_SEARCH = 8;
 
 [[nodiscard]] bool byRow(GridPosition left, GridPosition right) noexcept {

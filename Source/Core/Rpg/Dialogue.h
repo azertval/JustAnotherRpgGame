@@ -446,6 +446,14 @@ struct DialogueCheck {
  */
 class DialogueRunner {
 public:
+    /**
+     * @brief Prépare un runner sur @p graph sans le démarrer (`start`).
+     * @param graph      Le graphe à jouer.
+     * @param flags      Les drapeaux du monde, lus par les conditions et écrits par les actions.
+     * @param listener   L'interlocuteur qui répond aux jets et aux effets.
+     * @param difficulty L'échelle qui traduit une difficulté nommée en cible de jet.
+     * @param random     La suite aléatoire des jets, fournie pour le rejeu.
+     */
     DialogueRunner(const DialogueGraph& graph, WorldFlags& flags, DialogueListener& listener,
                    const DifficultyScale& difficulty, DeterministicRandom& random);
 
@@ -461,6 +469,7 @@ public:
     /// @brief Donne la réponse @p choiceId, puis avance jusqu'à la réplique suivante ou la fin.
     ChoiceResult choose(std::string_view choiceId);
 
+    /// @brief L'état observable de la conversation (`core::DialogueState`).
     [[nodiscard]] DialogueState state() const noexcept {
         return _state;
     }
@@ -485,6 +494,7 @@ public:
     [[nodiscard]] const std::vector<std::string>& journal() const noexcept {
         return _journal;
     }
+    /// @brief Le graphe que ce runner joue.
     [[nodiscard]] const DialogueGraph& graph() const noexcept {
         return _graph;
     }
@@ -492,7 +502,7 @@ public:
 private:
     /// Vrai si @p choice est proposée maintenant : sa condition tient, et le jet où elle mène
     /// n'a pas déjà été raté.
-    [[nodiscard]] bool estProposee(const DialogueChoice& choice) const;
+    [[nodiscard]] bool isOffered(const DialogueChoice& choice) const;
     void advanceTo(const std::string& nodeId);
     void apply(const DialogueAction& action);
     void runCheck(const DialogueNode& node);

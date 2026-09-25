@@ -452,9 +452,10 @@ d'insertion :
 | `Reserves` | points de vie temporaires et réserves, la plus récente d'abord | un transfert (*Life Link*) |
 | `HitPoints` | la perte, bornée à 0, en une salve | rien : c'est la fin |
 
-- `core::DamageFlag` (`Magical`, `Silvered`, `Adamantine`, `Spell`, `IgnoresResistance`,
-  `IgnoresReserves`) dit ce qu'une source **est** au-delà de son type — un loup-garou résiste aux
-  dégâts tranchants **non argentés** — ou ce qu'elle passe outre.
+- `core::DamageFlag` (`Magical`, `Spell`, `IgnoresResistance`, `IgnoresReserves`) dit ce qu'une
+  source **est** au-delà de son type — une créature qui ne craint que les armes magiques — ou ce
+  qu'elle passe outre. Les drapeaux `Silvered` et `Adamantine`, que rien ne posait, sont partis à
+  la recette de la `0.0.1` ; ils reviendront avec la créature qui les demande.
 - `core::DamageAffinity` (`type`, `kind` parmi `core::DamageAffinityKind`, `bypassedBy`) et
   `core::DamageTraits::applies` : « résistance aux dégâts contondants non magiques » s'écrit
   `{Bludgeoning, Resistance, Magical}`. `core::damageTraitsFor(créature)` traduit les listes nues du

@@ -110,6 +110,7 @@ public:
     /// qu'un couloir d'une case se franchit sans frotter les deux murs.
     static constexpr float HERO_HALF_SIZE_CELLS = 0.3F;
 
+    /// @brief Une session sans carte courante, dont les cartes se liront par @p loader (`start`).
     explicit ExplorationSession(WorldTravel::MapLoader loader);
 
     /**
@@ -159,9 +160,11 @@ public:
     /// @return La case que le héros regarde (`core::aimedCell`).
     [[nodiscard]] GridPosition aimedCell() const;
 
+    /// @brief Les drapeaux du monde, pour ce qui les écrit (dialogues, quêtes, interactions).
     [[nodiscard]] WorldFlags& flags() noexcept {
         return _flags;
     }
+    /// @brief Les drapeaux du monde, en lecture seule.
     [[nodiscard]] const WorldFlags& flags() const noexcept {
         return _flags;
     }
@@ -172,6 +175,7 @@ public:
      */
     void setQuests(QuestCatalog quests);
 
+    /// @brief Le catalogue de quêtes posé par `setQuests` (vide sinon).
     [[nodiscard]] const QuestCatalog& quests() const noexcept {
         return _quests;
     }
@@ -191,6 +195,7 @@ public:
     /// @brief Vrai si l'entité @p entity de la carte courante est présente sous les drapeaux.
     [[nodiscard]] bool isPresent(const MapEntity& entity) const;
 
+    /// @brief La traversée du monde sous-jacente : carte courante, position, dernier refus.
     [[nodiscard]] const WorldTravel& travel() const noexcept {
         return _travel;
     }
@@ -199,6 +204,7 @@ public:
     void freeze(bool frozen) noexcept {
         _frozen = frozen;
     }
+    /// @brief Vrai si la carte est gelée : `update` ne fait plus avancer le héros ni le temps.
     [[nodiscard]] bool frozen() const noexcept {
         return _frozen;
     }

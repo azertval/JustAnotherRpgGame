@@ -13,8 +13,8 @@
 
 namespace core {
 
-/// Tient la profondeur d'appel. En sortant de l'appel **extérieur** — celui qui ne vient d'aucun
-/// abonné —, la machine règle ce que l'appel a changé.
+// Tient la profondeur d'appel. En sortant de l'appel **extérieur** — celui qui ne vient d'aucun
+// abonné —, la machine règle ce que l'appel a changé.
 class CombatState::Operation {
 public:
     explicit Operation(CombatState& state) : _state(state) {
@@ -116,7 +116,7 @@ bool CombatState::start(DeterministicRandom& random) {
 
 namespace {
 
-/// L'identifiant vaut sa position plus un : la même recherche, constante ou non.
+// L'identifiant vaut sa position plus un : la même recherche, constante ou non.
 template <typename Combatants>
 auto* findIn(Combatants& combatants, CombatantId combatant) {
     const auto index = static_cast<std::size_t>(combatant);

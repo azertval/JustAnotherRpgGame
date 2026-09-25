@@ -18,8 +18,8 @@ namespace core {
  * @brief Une des six caractéristiques d'un personnage ou d'une créature (`EX-REG-010`).
  *
  * Ensemble **fermé** : six valeurs, fixées par les règles. Les noms textuels sont ceux du lexique
- * (`LOT-30`) et de `common.schema.json`, et `scripts/checks/check_rpg_data.py` vérifie que les trois
- * listes coïncident.
+ * (`LOT-30`) et de `common.schema.json`, et `scripts/checks/check_rpg_data.py` vérifie que les
+ * trois listes coïncident.
  */
 enum class Ability {
     Strength,

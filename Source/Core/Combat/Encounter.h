@@ -61,6 +61,7 @@ struct EncounterCatalog {
     std::vector<Encounter> encounters;
     std::vector<std::string> errors;
 
+    /// @brief La rencontre d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const Encounter* find(std::string_view id) const;
 };
 

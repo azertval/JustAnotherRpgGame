@@ -67,8 +67,8 @@ struct LevelData {
     /// qu'un identifiant retiré ne soit **jamais** redonné à une autre entité. 1 par défaut.
     int nextEntityId = 1;
     /// Carte dont celle-ci est une **variante** (décision D12), par son identifiant
-    /// (`coliseum`, `capital/martpart`) ; vide pour une carte ordinaire. Une variante ne porte ni
-    /// case ni couche : elle reprend celles de sa base, change de planche (`scene`) et porte ses
+    /// (`central-empire/capital/martpart`) ; vide pour une carte ordinaire. Une variante ne porte
+    /// ni case ni couche : elle reprend celles de sa base, change de planche (`scene`) et porte ses
     /// propres entités (`core::applyVariant`).
     std::string base{};
     /// Planche que la variante substitue à celle de sa base ; vide pour la garder.

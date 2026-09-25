@@ -118,8 +118,8 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
     return "?";
 }
 
-/// La derniere case ou l'on peut se tenir, au plus tard @p sortie : on ne s'arrete pas sur la case
-/// d'un allie qu'on traverse. Zero si aucune avant.
+// La derniere case ou l'on peut se tenir, au plus tard @p sortie : on ne s'arrete pas sur la case
+// d'un allie qu'on traverse. Zero si aucune avant.
 [[nodiscard]] std::size_t derniereCaseTenable(const ReachableArea& zone,
                                               const std::vector<GridPosition>& cases,
                                               std::size_t sortie) {

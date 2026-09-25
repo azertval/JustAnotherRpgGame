@@ -38,8 +38,8 @@
  * Tout ce qui est ici est du `Core` pur : une carte (`core::Level`), une composition
  * (`core::ArenaBout`), et une session (`core::ArenaSession`) qui tient la machine à états du
  * combat (`core::CombatState`, `LOT-20`) sur la grille de la carte (`core::BattleGrid`, `LOT-19`).
- * Rien ne dépend d'une fenêtre : l'écran de mise en place (`hmi::ArenaModel`) ne fait que
- * présenter et commander.
+ * Rien ne dépend d'une fenêtre : le modèle de présentation du combat (`hmi::CombatModel`) ne fait
+ * que présenter et commander.
  *
  * ## Les attaques du Manuel
  *
@@ -95,6 +95,7 @@ struct HeroicMarkCatalog {
     std::vector<HeroicMark> marks;
     std::vector<std::string> errors;
 
+    /// @brief La Marque Héroïque d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const HeroicMark* find(std::string_view id) const;
 };
 
@@ -102,7 +103,9 @@ struct HeroicMarkCatalog {
 [[nodiscard]] HeroicMarkCatalog loadHeroicMarks(const std::filesystem::path& file);
 
 /**
- * @brief Une arène, telle que la donnée la décrit (`Source/Elements/World/arena/`).
+ * @brief Une arène, telle que la donnée la décrit. Aucune arène ne vit dans `Source/Elements` :
+ *        la donnée d'arène n'existe plus que dans les racines d'essai
+ *        (`Source/Test/Fixtures/GameData/World/arena/`).
  *
  * Les variantes régionales du Sourcebook — l'Arène du Futur non létale, Feargus la létale, les
  * Braves des débutants, le duel de baguettes de la Magocratie — sont des **données**, pas des
@@ -141,6 +144,7 @@ struct ArenaCatalog {
     std::vector<Arena> arenas;
     std::vector<std::string> errors;
 
+    /// @brief L'arène d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const Arena* find(std::string_view id) const;
 };
 
@@ -262,6 +266,7 @@ public:
     [[nodiscard]] CombatState& combat() noexcept {
         return *_combat;
     }
+    /// @brief La machine à états du combat, en lecture seule.
     [[nodiscard]] const CombatState& combat() const noexcept {
         return *_combat;
     }
@@ -278,15 +283,6 @@ public:
 
     /// @return Les attaques d'un combattant enrôlé, ou `nullptr`.
     [[nodiscard]] const std::vector<AttackProfile>* attacks(CombatantId combatant) const;
-
-    /// @return Les greffons des jets d'attaque de la session, pour qu'une capacité s'y insère.
-    [[nodiscard]] AttackHooks& attackHooks() noexcept {
-        return _attackHooks;
-    }
-    /// @return Le pipeline de dégâts de la session.
-    [[nodiscard]] DamagePipeline& damagePipeline() noexcept {
-        return _damagePipeline;
-    }
 
     /**
      * @brief L'action *attaquer* du combattant actif, avec son attaque @p attackIndex.
@@ -337,6 +333,8 @@ public:
      * Il survit au rejeu, dont les identifiants sont les mêmes. Vrai par défaut.
      */
     void setTakesOpportunities(CombatantId combatant, bool takes);
+    /// @brief Vrai si @p combatant prend ses attaques d'opportunité (le défaut) ; faux s'il y a
+    /// renoncé.
     [[nodiscard]] bool takesOpportunities(CombatantId combatant) const {
         return !_declinesOpportunities.contains(combatant);
     }

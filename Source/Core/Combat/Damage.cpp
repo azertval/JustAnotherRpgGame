@@ -156,7 +156,7 @@ namespace {
     return travail;
 }
 
-/// Consomme les reserves, la plus recente d'abord, et rend ce qui reste a perdre en PV.
+// Consomme les reserves, la plus recente d'abord, et rend ce qui reste a perdre en PV.
 int absorber(DamageWork& travail, std::vector<HitPointReserve>& reserves, int montant) {
     for (auto it = reserves.rbegin(); it != reserves.rend() && montant > 0; ++it) {
         const int pris = std::min(it->amount, montant);

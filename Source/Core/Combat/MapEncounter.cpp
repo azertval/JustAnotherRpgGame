@@ -21,13 +21,15 @@ GridPosition mapToZone(const CombatZone& zone, GridPosition cell) noexcept {
 
 namespace {
 
-/// L'ordre des cases libres : de la plus proche de @p voulue a la plus lointaine (distance de
-/// Tchebychev, celle de la grille), a egalite dans l'ordre de lecture -- deterministe, donc rejouable.
+// L'ordre des cases libres : de la plus proche de @p voulue a la plus lointaine (distance de
+// Tchebychev, celle de la grille), a egalite dans l'ordre de lecture -- deterministe, donc
+// rejouable.
 [[nodiscard]] int distance(GridPosition a, GridPosition b) noexcept {
     return std::max(std::abs(a.column - b.column), std::abs(a.row - b.row));
 }
 
-/// La case libre de @p libres la plus proche de @p voulue, hors de @p prises ; rien si tout est pris.
+// La case libre de @p libres la plus proche de @p voulue, hors de @p prises ; rien si tout est
+// pris.
 [[nodiscard]] std::optional<GridPosition> plusProcheLibre(const std::vector<GridPosition>& libres,
                                                           const std::vector<GridPosition>& prises,
                                                           GridPosition voulue) {
@@ -87,12 +89,12 @@ MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
     }
     const CombatZone& zone = choisie->zone;
 
-    MapEncounterSetup setup{.zone = zone,
-                            .battlefield = cropLevelToZone(map, zone),
-                            .heroCell = {},
-                            .run = beginEncounter(encounter, exploration, trigger,
-                                                  std::move(defeatFlagKey)),
-                            .notes = {}};
+    MapEncounterSetup setup{
+        .zone = zone,
+        .battlefield = cropLevelToZone(map, zone),
+        .heroCell = {},
+        .run = beginEncounter(encounter, exploration, trigger, std::move(defeatFlagKey)),
+        .notes = {}};
 
     // Les cases libres, en cases de la carte ; ce qui est pris s'y retire au fil des places.
     std::vector<GridPosition> prises;

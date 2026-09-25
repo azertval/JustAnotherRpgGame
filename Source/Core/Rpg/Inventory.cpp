@@ -39,8 +39,8 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
     return trouve != objet.end() && trouve->is_boolean() && trouve->get<bool>();
 }
 
-/// Les seize emplacements et leur nom de donnee. Un seul endroit, parcouru dans les deux sens :
-/// deux listes finiraient par diverger, et l'ecart ne se verrait qu'a l'ecran.
+// Les seize emplacements et leur nom de donnee. Un seul endroit, parcouru dans les deux sens :
+// deux listes finiraient par diverger, et l'ecart ne se verrait qu'a l'ecran.
 constexpr std::array<std::pair<EquipmentSlot, const char*>, EQUIPMENT_SLOT_COUNT> EMPLACEMENTS = {{
     {EquipmentSlot::Head, "head"},
     {EquipmentSlot::Neck, "neck"},
@@ -204,7 +204,7 @@ int ItemLookup::weightGramsOf(std::string_view id) const {
 
 namespace {
 
-/// Vrai si @p id est connu de l'un des catalogues.
+// Vrai si @p id est connu de l'un des catalogues.
 [[nodiscard]] bool connu(const ItemLookup& lookup, const std::string& id) {
     if (id.empty()) {
         return true;

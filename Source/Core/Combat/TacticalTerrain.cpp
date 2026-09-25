@@ -17,7 +17,7 @@ namespace core {
 
 namespace {
 
-/// Le combattant fictif qui arpente la zone : seul sur sa grille, son identifiant importe peu.
+// Le combattant fictif qui arpente la zone : seul sur sa grille, son identifiant importe peu.
 constexpr CombatantId ARPENTEUR{1};
 
 [[nodiscard]] CreatureSize tailleDe(const std::string& creatureId, const Bestiary* bestiary) {
@@ -28,8 +28,8 @@ constexpr CombatantId ARPENTEUR{1};
     return creature == nullptr ? CreatureSize::Medium : creature->size;
 }
 
-/// Le refus de la grille, traduit en problème d'auteur. `InvalidCombatant` n'en est pas un : il
-/// ne survient pas pour un identifiant neuf et une taille du bestiaire.
+// Le refus de la grille, traduit en problème d'auteur. `InvalidCombatant` n'en est pas un : il
+// ne survient pas pour un identifiant neuf et une taille du bestiaire.
 [[nodiscard]] std::optional<TacticalIssueCode> problemeDe(PlacementResult result) {
     switch (result) {
         case PlacementResult::OutOfBounds:
@@ -45,8 +45,8 @@ constexpr CombatantId ARPENTEUR{1};
     return std::nullopt;
 }
 
-/// Les cases où un marcheur de taille M, parti du déclencheur, peut finir un tour de 30 pieds —
-/// le déclencheur compris. Vide si le déclencheur lui-même ne se tient pas.
+// Les cases où un marcheur de taille M, parti du déclencheur, peut finir un tour de 30 pieds —
+// le déclencheur compris. Vide si le déclencheur lui-même ne se tient pas.
 [[nodiscard]] std::vector<GridPosition> zoneAtteignable(const TileMap& collision,
                                                         GridPosition trigger) {
     BattleGrid grille(collision);

@@ -12,11 +12,11 @@
 namespace core {
 namespace {
 
-/// La table des familles porte un `version`, contrairement aux entrees de catalogue : c'est un
-/// document de FORMAT -- il decrit le vocabulaire, pas une entree du monde.
+// La table des familles porte un `version`, contrairement aux entrees de catalogue : c'est un
+// document de FORMAT -- il decrit le vocabulaire, pas une entree du monde.
 constexpr int VERSION_ATTENDUE = 1;
 
-/// Un segment de cle : minuscules, chiffres, tirets SIMPLES, ni au debut ni a la fin.
+// Un segment de cle : minuscules, chiffres, tirets SIMPLES, ni au debut ni a la fin.
 [[nodiscard]] bool segmentValide(std::string_view segment) {
     if (segment.empty() || segment.front() == '-' || segment.back() == '-') {
         return false;
@@ -78,7 +78,7 @@ std::string defaultAssetKeyFor(std::string_view family, std::string_view id) {
 
 namespace {
 
-/// Une entree de la table des familles, lue champ par champ ; un champ absent garde son defaut.
+// Une entree de la table des familles, lue champ par champ ; un champ absent garde son defaut.
 [[nodiscard]] AssetFamilyDefinition readFamilyDefinition(const nlohmann::json& entree) {
     AssetFamilyDefinition famille;
     if (const auto nom = entree.find("name"); nom != entree.end() && nom->is_string()) {
@@ -103,7 +103,7 @@ namespace {
     return famille;
 }
 
-/// Le champ texte @p champ de @p racine, ou une chaine vide s'il est absent ou d'un autre type.
+// Le champ texte @p champ de @p racine, ou une chaine vide s'il est absent ou d'un autre type.
 [[nodiscard]] std::string champTexte(const nlohmann::json& racine, const char* champ) {
     if (const auto trouve = racine.find(champ); trouve != racine.end() && trouve->is_string()) {
         return trouve->get<std::string>();
@@ -111,7 +111,7 @@ namespace {
     return {};
 }
 
-/// Les fichiers `.json` d'un dossier de catalogue, tries.
+// Les fichiers `.json` d'un dossier de catalogue, tries.
 [[nodiscard]] std::vector<std::filesystem::path> fichiersDeCatalogue(
     const std::filesystem::path& chemin, std::error_code& code) {
     std::vector<std::filesystem::path> fichiers;
@@ -124,8 +124,8 @@ namespace {
     return fichiers;
 }
 
-/// La cle qu'attend le fichier de catalogue @p fichier de la famille @p famille, ou rien (erreur
-/// consignee dans @p errors).
+// La cle qu'attend le fichier de catalogue @p fichier de la famille @p famille, ou rien (erreur
+// consignee dans @p errors).
 [[nodiscard]] std::optional<ExpectedAssetKey> cleAttenduePour(const std::filesystem::path& fichier,
                                                               const AssetFamilyDefinition& famille,
                                                               const AssetFamilyTable& families,
