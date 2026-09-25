@@ -6,6 +6,11 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Site de documentation — l'accueil ne casse plus ses cartes.** Le résumé d'une partie (le
+  premier paragraphe de son README) était rendu tel quel dans la carte de l'accueil, elle-même un
+  lien : dès qu'il citait une page, le navigateur refermait la carte au premier lien imbriqué et
+  la grille éclatait. Le résumé garde ses mots sans ses liens ; un test le vérifie.
+
 - **LOT-127 — La recette de l'éditeur, à la main.** L'auteur a passé l'éditeur à la souris et au
   clavier en construisant les cartes 2D HD, puis a essayé le résultat dans le jeu. Le cahier de
   recette (`Planning/versions/v0.1.0/v0.0.1-demo/annexes/LOT-127-…/cahier-de-recette.md`) compte
