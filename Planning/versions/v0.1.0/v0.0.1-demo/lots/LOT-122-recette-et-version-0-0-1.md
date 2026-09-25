@@ -27,8 +27,9 @@ fonctionnalités de la `0.2.0`.
 
 ## Décisions de réalisation
 
-Recette faite le 25 septembre 2026 par l'auteur, sur la branche de recette (PR de publication de
-la version, label `no-changelog` : elle ferme la section du CHANGELOG, elle n'y ajoute rien).
+Recette faite le 25 septembre 2026 par l'auteur, sur la branche de recette (**PR #141**, la PR de
+publication de la version, label `no-changelog` : elle ferme la section du CHANGELOG, elle n'y
+ajoute rien).
 
 1. **La recette s'est faite à une personne et trois tests.** Le livrable disait « trois parties
    complètes par trois personnes ». L'auteur a joué l'IHM et la démo jusqu'à ses trois fins ; les
@@ -73,7 +74,7 @@ la version, label `no-changelog` : elle ferme la section du CHANGELOG, elle n'y 
 
 ## Livraison
 
-Le tag `v0.0.1` se pose sur le commit de fusion de cette PR (`git tag v0.0.1 && git push origin
+Le tag `v0.0.1` se pose sur le commit de fusion de la PR #141 (`git tag v0.0.1 && git push origin
 v0.0.1`) : `release.yml` teste ce commit en Debug et en Release, empaquette les deux archives,
 les lance, et publie la release avec la section `0.0.1` du CHANGELOG pour notes. Le
 [bilan de la version](../bilan.md) est écrit ; le README du projet et le manuel décrivent la démo
