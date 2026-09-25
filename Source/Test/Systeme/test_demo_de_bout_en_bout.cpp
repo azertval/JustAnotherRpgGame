@@ -64,13 +64,13 @@ constexpr core::GridPosition MARKET_GATE{0, 9};
 constexpr core::GridPosition DEVANT_LA_MERE{9, 5};
 constexpr core::GridPosition DEVANT_L_ENFANT_CHEZ_SA_MERE{12, 5};
 constexpr core::GridPosition STRAVIAN_AVENUE{22, 4};
-constexpr core::GridPosition HEROFATE_AVENUE{1, 7};
+constexpr core::GridPosition HEROFATE_AVENUE{1, 5};
 constexpr core::GridPosition ENTREE_DU_PARVIS{8, 5};
 constexpr core::GridPosition DEVANT_LE_GARDE{11, 5};
 constexpr core::GridPosition DEVANT_L_ESCALIER{22, 6};
 constexpr core::GridPosition ARRIVEE_AUX_VESTIAIRES{9, 3};
 constexpr core::GridPosition PIED_DE_L_ESCALIER{7, 2};
-constexpr core::GridPosition DEVANT_LE_MAITRE{14, 10};
+constexpr core::GridPosition DEVANT_LE_MAITRE{9, 10};
 constexpr core::GridPosition PORTE_DU_TRIOMPHE{16, 4};
 
 using Screen = hmi::ScreenRouter::Screen;

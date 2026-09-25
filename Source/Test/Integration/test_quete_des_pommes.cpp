@@ -66,7 +66,7 @@ constexpr core::GridPosition MERE{10, 5};
 constexpr core::GridPosition DEVANT_LA_MERE{9, 5};
 constexpr core::GridPosition ENFANT_CHEZ_SA_MERE{11, 5};
 constexpr core::GridPosition STRAVIAN_AVENUE{22, 4};        // devant le portail vers Arenarea
-constexpr core::GridPosition HEROFATE_AVENUE{1, 7};         // devant le portail vers Martpart
+constexpr core::GridPosition HEROFATE_AVENUE{1, 5};         // devant le portail vers Martpart
 constexpr core::GridPosition ENTREE_DU_PARVIS{8, 5};        // une case avant la zone du parvis
 constexpr core::GridPosition GARDE{12, 5};
 constexpr core::GridPosition ENFANT_AU_PARVIS{12, 6};
@@ -74,8 +74,8 @@ constexpr core::GridPosition DEVANT_L_ESCALIER{22, 6};      // devant le portail
 constexpr core::GridPosition ARRIVEE_AUX_VESTIAIRES{9, 3};  // le condamne arrive ici
 constexpr core::GridPosition PORTE_DE_L_ARENE{11, 3};       // close sous condamne
 constexpr core::GridPosition PIED_DE_L_ESCALIER{7, 2};      // sous la porte du triomphe
-constexpr core::GridPosition MAITRE{15, 10};
-constexpr core::GridPosition DEVANT_LE_MAITRE{14, 10};
+constexpr core::GridPosition MAITRE{8, 10};
+constexpr core::GridPosition DEVANT_LE_MAITRE{9, 10};
 constexpr core::GridPosition PORTE_DU_TRIOMPHE{16, 4};      // devant le portail vers le -1
 
 /// Le heros de la demo, charge comme le jeu le charge (`hmi::loadDemonstrationState`), depuis le

@@ -52,6 +52,10 @@ constexpr int PIECE_THUMBNAIL_SIZE = 48;
 // Cote des vignettes de prefabrique : un morceau de carte se lit plus grand qu'une piece.
 constexpr int PREFAB_THUMBNAIL_SIZE = 72;
 
+// L'onglet des pièces grisé d'une maquette : une carte sans lieu n'a pas de catalogue (LOT-128).
+constexpr const char* NO_SHEET_TOOLTIP =
+    "This map has no sheet: give it one with Map > Change sheet… to paint pieces.";
+
 // Crée une feuille sélectionnable portant son type de tuile.
 [[nodiscard]] QStandardItem* makeLeaf(const TileEntry& entry) {
     auto* const item = new QStandardItem(QString::fromStdString(entry.label));
@@ -150,6 +154,7 @@ PalettePanel::PalettePanel(QWidget* parent)
     // Sans lieu, rien à poser : l'onglet des pièces s'éteint jusqu'au premier catalogue, et la
     // bibliothèque reste vide tant qu'aucun préfabriqué n'a été enregistré.
     _tabs->setTabEnabled(0, false);
+    _tabs->setTabToolTip(0, QString::fromUtf8(NO_SHEET_TOOLTIP));
     _tabs->setTabEnabled(2, false);
     _tabs->setCurrentIndex(1);
 
@@ -190,6 +195,7 @@ void PalettePanel::setPieceCatalog(std::vector<PieceCatalogGroup> catalog,
     buildPieceModel();
     const bool hasPieces = !_catalog.empty();
     _tabs->setTabEnabled(0, hasPieces);
+    _tabs->setTabToolTip(0, hasPieces ? QString{} : QString::fromUtf8(NO_SHEET_TOOLTIP));
     // Un lieu qui paraît ouvre ses pièces ; un lieu qui s'en va rend la main aux types (repli).
     if (hasPieces != hadPieces) {
         _tabs->setCurrentIndex(hasPieces ? 0 : 1);
