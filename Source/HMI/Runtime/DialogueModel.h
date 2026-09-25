@@ -51,6 +51,13 @@ class DialogueModel : public QObject {
     Q_PROPERTY(QString line READ line NOTIFY changed)
     /// Le jet que la dernière réponse a joué, restitué ; vide sinon.
     Q_PROPERTY(QString checkOutcome READ checkOutcome NOTIFY changed)
+    /// Le même jet, par morceaux (`LOT-117`) : « Persuasion · DD 15 », le d20 tiré (vide s'il ne
+    /// l'a pas été), le calcul « 12 + 4 = 16 », l'issue, et si elle est une réussite.
+    Q_PROPERTY(QString checkTitle READ checkTitle NOTIFY changed)
+    Q_PROPERTY(QString checkDie READ checkDie NOTIFY changed)
+    Q_PROPERTY(QString checkDetail READ checkDetail NOTIFY changed)
+    Q_PROPERTY(QString checkVerdict READ checkVerdict NOTIFY changed)
+    Q_PROPERTY(bool checkSucceeded READ checkSucceeded NOTIFY changed)
     /// Les réponses proposées : rôles `rowId`, `label` (le texte), `value` (le jet annoncé).
     Q_PROPERTY(QAbstractItemModel* replies READ replies CONSTANT)
     /// Vrai quand la conversation est terminée, ou quittée : l'écran se referme.
@@ -68,6 +75,11 @@ public:
     [[nodiscard]] QString attitude() const;
     [[nodiscard]] QString line() const;
     [[nodiscard]] QString checkOutcome() const;
+    [[nodiscard]] QString checkTitle() const;
+    [[nodiscard]] QString checkDie() const;
+    [[nodiscard]] QString checkDetail() const;
+    [[nodiscard]] QString checkVerdict() const;
+    [[nodiscard]] bool checkSucceeded() const noexcept;
     [[nodiscard]] QAbstractItemModel* replies() {
         return &_replies;
     }
@@ -89,6 +101,9 @@ signals:
     /// Le PNJ engage une rencontre **sur la carte** (`LOT-118`) : c'est l'écran qui la monte
     /// (`EncounterModel.begin`) et ouvre l'affichage de combat.
     void encounterRequested(const QString& encounterId);
+    /// Le PNJ clôt la démo par la voie @p ending (`endDemo`, `LOT-119`) : c'est l'écran qui ouvre
+    /// l'écran de fin.
+    void demoEnded(const QString& ending);
 
 private:
     struct Session;

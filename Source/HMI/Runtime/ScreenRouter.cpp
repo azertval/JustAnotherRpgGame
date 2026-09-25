@@ -6,6 +6,8 @@
 #include <optional>
 
 #include "Core/BuildConfig.h"
+#include "Core/Rpg/Dialogue.h"
+#include "HMI/Runtime/RuleLabels.h"
 
 namespace hmi {
 
@@ -32,6 +34,10 @@ namespace {
             return ScreenRouter::Screen::RpgScreen;
         case ScreenId::Arena:
             return ScreenRouter::Screen::Arena;
+        case ScreenId::Death:
+            return ScreenRouter::Screen::Death;
+        case ScreenId::DemoEnd:
+            return ScreenRouter::Screen::DemoEnd;
     }
     return ScreenRouter::Screen::Menu;  // inatteignable : switch exhaustif sur ScreenId.
 }
@@ -121,6 +127,24 @@ void ScreenRouter::openArena() {
 
 void ScreenRouter::closeArena() {
     static_cast<void>(apply(ScreenEvent::CloseArena));
+}
+
+void ScreenRouter::openDeath() {
+    static_cast<void>(apply(ScreenEvent::OpenDeath));
+}
+
+void ScreenRouter::openDemoEnd(const QString& ending) {
+    // La voie d'abord, l'ecran ensuite -- meme raison que `openDialogue`.
+    _ending = ending;
+    static_cast<void>(apply(ScreenEvent::OpenDemoEnd));
+}
+
+QString ScreenRouter::endingText() const {
+    if (_ending.isEmpty()) {
+        return {};
+    }
+    return QString::fromStdString(
+        ruleLabel(core::demoEndingKey(_ending.toStdString()), activeLanguage()));
 }
 
 void ScreenRouter::openDialogue(const QString& dialogueId) {

@@ -222,10 +222,18 @@ dialogue.refused = Votre interlocuteur ne parle aucune langue que vous comprenez
 dialogue.unavailable = Aucune conversation à afficher.
 dialogue.check.success = réussite
 dialogue.check.failure = échec
-dialogue.check.summary = %1 : %2 contre %3 — %4
+dialogue.check.announce = %1 · DD %2
+dialogue.check.summary = %1 · DD %2 — d20 : %3, total %4 — %5
+dialogue.check.repeat = %1 · DD %2 — déjà tenté — %3
+dialogue.check.already-failed = déjà tenté, le dé ne roule plus
 dialogue.attitude.friendly = Amical
 dialogue.attitude.indifferent = Indifférent
 dialogue.attitude.hostile = Hostile
+
+# Les voies de la fin de la démo (LOT-119) : l'action `endDemo` d'un dialogue en nomme une, et
+# l'écran « Fin de la démo » la dit (ending.<voie>).
+ending.arene = par la voie de l'arène
+ending.parole = par la parole
 
 # Le héraut du Colisée (dialogue de démonstration, provisoire).
 dialogue.heraut-colisee.speaker = Le héraut du Colisée

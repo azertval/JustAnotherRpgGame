@@ -93,6 +93,16 @@ public:
      */
     Q_INVOKABLE bool startNewGame();
 
+    /**
+     * @brief La partie est finie (`LOT-119`) : mort, ou retour au menu depuis l'écran de fin.
+     *
+     * La session repart de zéro — aucune carte ouverte, drapeaux et quêtes oubliés, sauf ceux que
+     * le lancement a posés (`--flags=`) — si bien que le prochain « Nouvelle partie », ou le
+     * « Recommencer » de l'écran de mort, ouvre une partie **neuve** et non celle où l'on vient de
+     * mourir. Les réglages du lancement (`--map=`, `--at=`, `--levels=`) demeurent.
+     */
+    Q_INVOKABLE void endGame();
+
     /// @brief Entre sur @p mapId au point d'arrivée @p arrival (vide : l'entrée de la carte).
     Q_INVOKABLE bool enterMap(const QString& mapId, const QString& arrival);
 
@@ -255,6 +265,10 @@ private:
     void placeHeroAtStartCell();
     /// Lit les quêtes de `World/quests` et les donne à la session (`LOT-116`).
     void installQuests();
+    /// Refait la session sur les cartes de `_levelDirectories`, puis le `Levels/` du contenu.
+    void rebuildSession();
+    /// Pose @p flags sur la session (`--flags=`), sans les retenir.
+    void applyFlags(const QStringList& flags);
     /// Retient le quartier de la carte courante parmi les quartiers visités.
     void noteDistrictVisit();
 
@@ -270,6 +284,10 @@ private:
     QString _startArrivalOverride;
     /// La case imposée par `--at=`, absente sinon (`LOT-EDITOR-10`).
     std::optional<core::GridPosition> _startCell;
+    /// Les dossiers de `--levels=`, lus avant le `Levels/` du contenu (`LOT-EDITOR-10`).
+    std::vector<std::filesystem::path> _levelDirectories;
+    /// Les drapeaux de `--flags=` : reposés à chaque partie neuve (`endGame`).
+    QStringList _startFlags;
     core::Vector2 _move{};
     bool _interact = false;
     quint64 _sceneRevision = 1;

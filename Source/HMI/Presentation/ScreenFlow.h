@@ -33,6 +33,13 @@ enum class ScreenId {
     /// premier niveau, comme `Game`, parce que l'arène est un **mode du jeu** et non l'un des
     /// écrans du RPG qui se consultent depuis une partie.
     Arena,
+    /// L'écran de mort (`LOT-119`) : le combat sur la carte est létal, la partie s'y termine. On
+    /// n'en sort que par « Recommencer » (`OpenGame`) ou « Menu » (`OpenMenu`) — pas de retour à
+    /// la partie où l'on vient de mourir.
+    Death,
+    /// L'écran « Fin de la démo » (`LOT-119`) : la quête est bouclée. On en sort par les crédits
+    /// ou le menu.
+    DemoEnd,
 };
 
 /// Événement pouvant déclencher une transition d'écran. Un seul événement `OpenOptions`/
@@ -56,6 +63,10 @@ enum class ScreenEvent {
     /// Ouvre le Colisée depuis le menu ; `CloseArena` y revient.
     OpenArena,
     CloseArena,
+    /// Le héros est tombé (`LOT-119`) : depuis le combat (`RpgScreen`) ou la carte (`Game`).
+    OpenDeath,
+    /// Un dialogue a clos la démo (`LOT-119`) : depuis la conversation ou la carte.
+    OpenDemoEnd,
 };
 
 /// État complet de la machine. `optionsReturnTo` n'est pertinent que lorsque `screen ==

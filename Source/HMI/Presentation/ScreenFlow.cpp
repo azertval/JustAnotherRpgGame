@@ -62,6 +62,27 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                 default:
                     return std::nullopt;
             }
+        // Les deux ecrans de fin (LOT-119) ferment la partie : ni pause, ni retour sur la carte.
+        // La mort recommence ou rend le menu ; la fin de la demo mene aux credits ou au menu.
+        case ScreenId::Death:
+            switch (event) {
+                case ScreenEvent::OpenGame:
+                    return ScreenState{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenMenu:
+                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
+                default:
+                    return std::nullopt;
+            }
+        case ScreenId::DemoEnd:
+            switch (event) {
+                case ScreenEvent::OpenCredits:
+                    return ScreenState{.screen = ScreenId::Credits,
+                                       .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenMenu:
+                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
+                default:
+                    return std::nullopt;
+            }
         case ScreenId::Game:
             switch (event) {
                 case ScreenEvent::OpenMenu:
@@ -83,6 +104,12 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                     return ScreenState{.screen = ScreenId::RpgScreen,
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Game};
+                case ScreenEvent::OpenDeath:
+                    return ScreenState{.screen = ScreenId::Death,
+                                       .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenDemoEnd:
+                    return ScreenState{.screen = ScreenId::DemoEnd,
+                                       .optionsReturnTo = ScreenId::Menu};
                 default:
                     return std::nullopt;
             }
@@ -120,6 +147,14 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                     return ScreenState{.screen = current.rpgReturnTo,
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Menu};
+                // Le heros tombe sur le HUD de combat, la demo se clot dans un dialogue : l'ecran
+                // de fin prend la place, sans repasser par la carte (LOT-119).
+                case ScreenEvent::OpenDeath:
+                    return ScreenState{.screen = ScreenId::Death,
+                                       .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenDemoEnd:
+                    return ScreenState{.screen = ScreenId::DemoEnd,
+                                       .optionsReturnTo = ScreenId::Menu};
                 default:
                     return std::nullopt;
             }

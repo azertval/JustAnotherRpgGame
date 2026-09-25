@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-117 — Un jet de compétence dans un dialogue.** Une réponse qui mène à un jet l'annonce
+  avec son seuil (« [Persuasion · DD 15] ») ; une fois jouée, l'écran de dialogue montre le d20
+  tiré dans son losange, ce qui était jeté, le calcul (« 12 + 4 = 16 ») et l'issue. Un jet **raté**
+  pose `dialogue/<dialogue>/<jet>/failed` : la réponse qui y menait ne se propose plus, dans cette
+  conversation comme dans les suivantes, et le même jet atteint par un autre chemin échoue sans
+  relancer le dé. Le chargement refuse un jet sans branche d'échec (ou dont l'échec mène où mène
+  la réussite), et une réplique que des jets ratés pourraient laisser sans réponse.
+- **LOT-119 — Les écrans de fin.** L'**écran de mort** s'ouvre dès que le héros tombe dans un
+  combat sur la carte, par-dessus la scène figée et assombrie : « Recommencer » rouvre une partie
+  neuve, « Menu » rend le menu. L'écran **« Fin de la démo »** s'ouvre par la nouvelle action de
+  dialogue `endDemo` (champ `ending`) et dit la voie suivie (`ending.<voie>` : « par la voie de
+  l'arène », « par la parole »), ce qui vient ensuite, puis mène aux crédits ou au menu. Les deux
+  ferment la partie (`WorldModel.endGame`) : « Nouvelle partie » ne reprend plus la partie où l'on
+  vient de mourir.
+
 - **Le menu de développement (F9).** Dans un binaire de développement, **F9** ouvre un panneau
   par-dessus l'écran courant (`Source/App/Game/Qml/Tools/DevMenu.qml`) : ouvrir un écran par son
   nom, entrer sur une carte à un point d'arrivée, engager une rencontre ou le Colisée, geler la

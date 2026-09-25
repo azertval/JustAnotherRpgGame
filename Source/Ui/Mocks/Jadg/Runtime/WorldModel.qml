@@ -24,6 +24,7 @@ QtObject {
     readonly property var visitedDistricts: ["central-empire-the-capital-city-martpart"]
 
     function startNewGame() { return true }
+    function endGame() {}
     function enterMap(mapId, arrival) { return true }
     function mapOfDistrict(districtId) {
         return districtId.endsWith("-martpart") ? "capital/martpart"

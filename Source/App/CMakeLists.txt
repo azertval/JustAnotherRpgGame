@@ -75,6 +75,9 @@ qt_add_qml_module(JustAnotherRpgGame
         Game/Qml/Screens/Credits.qml
         Game/Qml/Screens/GameView.qml
         Game/Qml/Screens/Arena.qml
+        # Les ecrans de fin (LOT-119).
+        Game/Qml/Screens/Death.qml
+        Game/Qml/Screens/DemoEnd.qml
         # Les outils de debug : pas des ecrans du jeu, donc sans formulaire dans Source/Ui.
         Game/Qml/Tools/AssetGallery.qml
         # Le menu de developpement (F9), lie a ScreenRouter.developerBuild comme le selecteur.

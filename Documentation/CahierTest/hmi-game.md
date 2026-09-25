@@ -1,14 +1,24 @@
 # HMI · Game
 
-Tests unitaires — **11 cas** (4 critiques, 5 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **19 cas** (7 critiques, 9 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_combat_cues.cpp`](#test-combat-cuescpp) | 3 | - | 2 | 1 | - |
+| [`test_debug_commands.cpp`](#test-debug-commandscpp) | 4 | - | 1 | 2 | 1 |
 | [`test_figure_resolver.cpp`](#test-figure-resolvercpp) | 2 | - | 1 | 1 | - |
 | [`test_launch_options.cpp`](#test-launch-optionscpp) | 6 | - | 1 | 3 | 2 |
+| [`test_level_scan.cpp`](#test-level-scancpp) | 4 | - | 2 | 2 | - |
+
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-NFR-040` | [`LevelScan.DossierAbsentNeContientRien`](#levelscandossierabsentnecontientrien) |
 
 ## test_combat_cues.cpp
 
@@ -88,6 +98,79 @@ La file ignore l'inconnu et sait tout finir d'un coup.
 - Vérifie que `heros->clip` vaut `hmi::figure_clips::IDLE`.
 - Vérifie que `heros->point.y` vaut `2.5F`, à `1e-4F` près.
 - Vérifie que `file.motionOf(HEROS)` vaut `nullptr`.
+
+## test_debug_commands.cpp
+
+### DebugCommands.LeCatalogueSuitLesSourcesDuJeu
+
+*Critique · Unitaire · Console de debug* — `Source/Test/Unit/HMI/Game/test_debug_commands.cpp:25`
+
+Le catalogue et les sources du jeu lisent les memes options.
+
+**Étapes**
+
+1. Relever les noms d'options que Main.cpp, Bootstrap.cpp et WorldMap.qml lisent.
+2. Comparer a ceux du catalogue.
+
+**Résultat attendu**
+
+- Vérifie que `flux.is_open()` est vrai.
+- Vérifie que `sources.find(cite)` diffère de `std::string::npos`.
+- Vérifie que `fin` diffère de `std::string::npos`.
+- Vérifie que `hmi::findDebugOption(nom)` diffère de `nullptr`.
+
+### DebugCommands.SepareNomEtValeurAuPremierEgal
+
+*Majeur · Unitaire · Console de debug* — `Source/Test/Unit/HMI/Game/test_debug_commands.cpp:70`
+
+Un mot se separe au premier = ; une option sans valeur garde son nom entier.
+
+**Étapes**
+
+1. Separer `--map=capital/arenarea@martpart`, `--flags=a=1,b`, `--crash-test`, `aide`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::splitDebugArgument("--map=capital/arenarea@martpart")` vaut `(hmi::DebugArgument{.name = "--map=", .value = "capital/arenarea@martpart"})`.
+- Vérifie que `hmi::splitDebugArgument("--flags=a=1,b")` vaut `(hmi::DebugArgument{.name = "--flags=", .value = "a=1,b"})`.
+- Vérifie que `hmi::splitDebugArgument("--crash-test")` vaut `(hmi::DebugArgument{.name = "--crash-test", .value = ""})`.
+- Vérifie que `hmi::splitDebugArgument("aide")` vaut `(hmi::DebugArgument{.name = "aide", .value = ""})`.
+- Vérifie que `hmi::findDebugOption("--map=")->takesValue()` est vrai.
+- Vérifie que `hmi::findDebugOption("--crash-test")->takesValue()` est faux.
+- Vérifie que `hmi::findDebugOption("--inconnue=")` vaut `nullptr`.
+
+### DebugCommands.DecoupeLaLigneEnRespectantLesGuillemets
+
+*Majeur · Unitaire · Console de debug* — `Source/Test/Unit/HMI/Game/test_debug_commands.cpp:94`
+
+Les guillemets gardent un chemin avec espaces en un seul mot.
+
+**Étapes**
+
+1. Decouper une ligne a blancs multiples et un chemin entre guillemets.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::splitCommandLine(" --map=donjon --screenshot=\"C:\\Mes captures\\a.png\" " "--at=1,2\t")` vaut `(std::vector<std::string>{"--map=donjon", "--screenshot=C:\\Mes captures\\a.png", "--at=1,2"})`.
+- Vérifie que `hmi::splitCommandLine(" ").empty()` est vrai.
+
+### DebugCommands.LitLaTailleDeFenetre
+
+*Mineur · Unitaire · Console de debug* — `Source/Test/Unit/HMI/Game/test_debug_commands.cpp:111`
+
+La taille de fenetre se lit en LxH, et rien d'autre.
+
+**Étapes**
+
+1. Lire `1920x1080`, puis `1920`, `0x10`, `axb`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::parseWindowSize("1920x1080").has_value()` est vrai.
+- Vérifie que `*hmi::parseWindowSize("1920x1080")` vaut `(std::pair{1920, 1080})`.
+- Vérifie que `hmi::parseWindowSize("1920").has_value()` est faux.
+- Vérifie que `hmi::parseWindowSize("0x10").has_value()` est faux.
+- Vérifie que `hmi::parseWindowSize("axb").has_value()` est faux.
 
 ## test_figure_resolver.cpp
 
@@ -241,3 +324,72 @@ Les drapeaux se lisent sans doublon ni valeur vide.
 
 - Vérifie que `hmi::parseWorldFlags("a,,b,a")` vaut `(std::vector<std::string>{"a", "b"})`.
 - Vérifie que `hmi::parseWorldFlags("").empty()` est vrai.
+
+## test_level_scan.cpp
+
+### LevelScan.IdentifiantEstLeCheminSousLevels
+
+*Critique · Unitaire · Lanceur de cartes* — `Source/Test/Unit/HMI/Game/test_level_scan.cpp:62`
+
+L'identifiant d'une carte est son chemin sous Levels/, sans .json.
+
+**Étapes**
+
+1. Poser trois cartes, dont deux dans des sous-dossiers.
+2. Lister le dossier.
+
+**Résultat attendu**
+
+- Vérifie que `identifiants(cartes)` vaut `(std::vector<std::string>{"bourg/place", "central-empire/capital/arenarea", "donjon"})`.
+- Vérifie que `cartes.size()` vaut `3U`.
+- Vérifie que `cartes[2].file` vaut `levels.chemin("donjon.json")`.
+- Vérifie que `cartes[2].directory` vaut `levels.chemin()`.
+
+### LevelScan.EcarteLesNotesDeLEditeurEtLesAutresFichiers
+
+*Majeur · Unitaire · Lanceur de cartes* — `Source/Test/Unit/HMI/Game/test_level_scan.cpp:89`
+
+Les notes de l'editeur et les fichiers etrangers ne sont pas des cartes.
+
+**Étapes**
+
+1. Poser une carte, ses notes `.editor.json`, un README et un PNG.
+2. Lister.
+
+**Résultat attendu**
+
+- Vérifie que `identifiants(hmi::scanLevelDirectories({levels.chemin()}))` vaut `(std::vector<std::string>{"cave"})`.
+
+### LevelScan.LePremierDossierLEmporteSurUnDoublon
+
+*Critique · Unitaire · Lanceur de cartes* — `Source/Test/Unit/HMI/Game/test_level_scan.cpp:110`
+
+Le premier dossier l'emporte sur une carte en double.
+
+**Étapes**
+
+1. Poser `donjon.json` dans un dossier de brouillons et dans celui du binaire, et une carte propre a chacun.
+2. Lister les deux, brouillons d'abord.
+
+**Résultat attendu**
+
+- Vérifie que `identifiants(cartes)` vaut `(std::vector<std::string>{"cave", "donjon", "essai"})`.
+- Vérifie que `cartes[1].directory` vaut `brouillons.chemin()`.
+- Vérifie que `cartes[0].directory` vaut `binaire.chemin()`.
+
+### LevelScan.DossierAbsentNeContientRien
+
+*Majeur · Unitaire · Lanceur de cartes* — `Source/Test/Unit/HMI/Game/test_level_scan.cpp:137`
+
+Exigences : `EX-NFR-040`
+
+Un dossier absent ne contient rien et ne fait pas echouer le parcours.
+
+**Étapes**
+
+1. Lister un dossier inexistant puis un dossier d'une carte.
+
+**Résultat attendu**
+
+- Vérifie que `identifiants(hmi::scanLevelDirectories( {levels.chemin("nulle-part"), levels.chemin()}))` vaut `(std::vector<std::string>{"cave"})`.
+- Vérifie que `hmi::scanLevelDirectories({}).empty()` est vrai.

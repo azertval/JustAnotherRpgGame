@@ -848,7 +848,10 @@ pipeline que l'exploration, bandes `attack`, `hit`, `death` (figées sur leur de
 `outcome` se publie quand le combat a une issue et que la file l'a montrée : `victory`, `defeat`,
 `flight`. `leave()` rend l'exploration par `core::endEncounter` — seule une victoire acquiert le
 drapeau —, laisse le héros **où le combat l'a laissé** (la carte est le champ de bataille) et
-dégèle la carte. Une défaite ramène au menu tant que l'écran de mort (`LOT-119`) n'existe pas.
+dégèle la carte. Une **défaite** ne passe pas par là : dès qu'elle est publiée, le HUD ouvre
+l'écran de mort (`LOT-119`) sans quitter la rencontre, pour que la scène du combat reste visible
+sous son voile ; c'est l'écran de mort qui quitte la rencontre et finit la partie
+(`hmi::WorldModel::endGame`).
 
 ## Voir aussi
 

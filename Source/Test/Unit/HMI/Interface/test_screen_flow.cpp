@@ -178,3 +178,51 @@ TEST(ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine) {
         EXPECT_EQ(resolveTransition(*opened, ScreenEvent::CloseRpgScreen)->screen, expected);
     }
 }
+
+/**
+ * @brief Les écrans de fin (`LOT-119`) : la mort s'ouvre depuis le combat ou la carte, et n'en
+ *        sort que pour recommencer ou rendre le menu ; la fin de la démo mène aux crédits ou au
+ *        menu. Aucun des deux ne revient à la partie.
+ * \castest{<b>Les ecrans de mort et de fin de la demo ferment la partie.</b><br/>
+ * \tcat Unitaire · Machine à états des écrans<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ouvrir la mort depuis un ecran du RPG (le HUD de combat) et depuis le jeu.<br/>
+ * 2. En sortir par OpenGame, OpenMenu, puis tenter la pause, les options, la fermeture d'un
+ * ecran du RPG.<br/>3. Ouvrir la fin de la demo depuis un ecran du RPG (le dialogue) et depuis le
+ * jeu.<br/>4. En sortir par les credits et le menu, puis tenter OpenGame.<br/>5. Tenter les deux
+ * depuis le menu.<br/>
+ * \tattendu Mort : Game puis Menu ; pause, options et retour refuses. Fin : Credits puis Menu ;
+ * OpenGame refuse. Depuis le menu : refuses.
+ * }
+ */
+TEST(ScreenFlowTest, LesEcransDeFinFermentLaPartie) {
+    const ScreenState menu{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
+    const ScreenState game{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
+    const ScreenState combat{.screen = ScreenId::RpgScreen,
+                             .optionsReturnTo = ScreenId::Menu,
+                             .rpgReturnTo = ScreenId::Game};
+
+    const auto mort = resolveTransition(combat, ScreenEvent::OpenDeath);
+    ASSERT_TRUE(mort.has_value());
+    EXPECT_EQ(mort->screen, ScreenId::Death);
+    EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenDeath)->screen, ScreenId::Death);
+    EXPECT_EQ(resolveTransition(*mort, ScreenEvent::OpenGame)->screen, ScreenId::Game);
+    EXPECT_EQ(resolveTransition(*mort, ScreenEvent::OpenMenu)->screen, ScreenId::Menu);
+    EXPECT_FALSE(resolveTransition(*mort, ScreenEvent::OpenPause).has_value());
+    EXPECT_FALSE(resolveTransition(*mort, ScreenEvent::OpenOptions).has_value());
+    EXPECT_FALSE(resolveTransition(*mort, ScreenEvent::CloseRpgScreen).has_value());
+
+    const auto fin = resolveTransition(combat, ScreenEvent::OpenDemoEnd);
+    ASSERT_TRUE(fin.has_value());
+    EXPECT_EQ(fin->screen, ScreenId::DemoEnd);
+    EXPECT_EQ(resolveTransition(game, ScreenEvent::OpenDemoEnd)->screen, ScreenId::DemoEnd);
+    const auto credits = resolveTransition(*fin, ScreenEvent::OpenCredits);
+    ASSERT_TRUE(credits.has_value());
+    EXPECT_EQ(credits->screen, ScreenId::Credits);
+    EXPECT_EQ(resolveTransition(*credits, ScreenEvent::CloseCredits)->screen, ScreenId::Menu);
+    EXPECT_EQ(resolveTransition(*fin, ScreenEvent::OpenMenu)->screen, ScreenId::Menu);
+    EXPECT_FALSE(resolveTransition(*fin, ScreenEvent::OpenGame).has_value());
+
+    EXPECT_FALSE(resolveTransition(menu, ScreenEvent::OpenDeath).has_value());
+    EXPECT_FALSE(resolveTransition(menu, ScreenEvent::OpenDemoEnd).has_value());
+}

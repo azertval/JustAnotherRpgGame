@@ -35,15 +35,16 @@ dépendance Qt — même patron que `hmi::panelForTool` dans l'éditeur. Un seul
   depuis cet écran. L'appelant garde alors son état inchangé : jamais de bascule silencieuse
   (`EX-GP-041`). La fonction est `noexcept` et ne lit que ses arguments.
 
-`hmi::ScreenId` compte sept états : `Menu`, `Game` (la carte qu'on parcourt), `Options`, `Pause`,
+`hmi::ScreenId` compte neuf états : `Menu`, `Game` (la carte qu'on parcourt), `Options`, `Pause`,
 `Credits`, `RpgScreen` (l'un des écrans du RPG — fiche, inventaire, carte… —, dont
-`RpgScreens.h` tient la liste) et `Arena` (le Colisée, `LOT-50`). L'arène est un écran de premier
-niveau, comme `Game`, parce que c'est un **mode du jeu** et non un écran qui se consulte pendant
-une partie.
+`RpgScreens.h` tient la liste), `Arena` (le Colisée, `LOT-50`), et les deux écrans de fin du
+`LOT-119`, `Death` (l'écran de mort) et `DemoEnd` (« Fin de la démo »). L'arène est un écran de
+premier niveau, comme `Game`, parce que c'est un **mode du jeu** et non un écran qui se consulte
+pendant une partie ; les écrans de fin aussi, parce qu'ils **ferment** la partie.
 
-`hmi::ScreenEvent` compte treize événements : `OpenMenu`, `OpenGame`, `OpenOptions`,
+`hmi::ScreenEvent` compte quinze événements : `OpenMenu`, `OpenGame`, `OpenOptions`,
 `CloseOptions`, `OpenPause`, `ResumePause`, `QuitPauseToMenu`, `OpenCredits`, `CloseCredits`,
-`OpenRpgScreen`, `CloseRpgScreen`, `OpenArena`, `CloseArena`. Un seul `OpenRpgScreen` sert les
+`OpenRpgScreen`, `CloseRpgScreen`, `OpenArena`, `CloseArena`, `OpenDeath`, `OpenDemoEnd`. Un seul `OpenRpgScreen` sert les
 neuf écrans du RPG, et un seul `OpenOptions` sert le menu et la pause.
 
 ### La table, telle que le code l'écrit
@@ -51,12 +52,14 @@ neuf écrans du RPG, et un seul `OpenOptions` sert le menu et la pause.
 | Depuis | Événement admis | Vers |
 |---|---|---|
 | `Menu` | `OpenGame`, `OpenOptions`, `OpenCredits`, `OpenRpgScreen`, `OpenArena`, `OpenMenu` | `Game`, `Options`, `Credits`, `RpgScreen`, `Arena`, `Menu` |
-| `Game` | `OpenPause`, `OpenRpgScreen`, `OpenArena`, `OpenMenu` | `Pause`, `RpgScreen`, `Arena`, `Menu` |
+| `Game` | `OpenPause`, `OpenRpgScreen`, `OpenArena`, `OpenMenu`, `OpenDeath`, `OpenDemoEnd` | `Pause`, `RpgScreen`, `Arena`, `Menu`, `Death`, `DemoEnd` |
 | `Pause` | `ResumePause`, `QuitPauseToMenu`, `OpenOptions`, `OpenRpgScreen` | `Game`, `Menu`, `Options`, `RpgScreen` |
 | `Options` | `CloseOptions` | `optionsReturnTo` (`Menu` ou `Pause`) |
 | `Credits` | `CloseCredits` | `Menu` |
-| `RpgScreen` | `CloseRpgScreen` | `rpgReturnTo` (`Menu`, `Game` ou `Pause`) |
+| `RpgScreen` | `CloseRpgScreen`, `OpenDeath`, `OpenDemoEnd` | `rpgReturnTo` (`Menu`, `Game` ou `Pause`), `Death`, `DemoEnd` |
 | `Arena` | `CloseArena`, `OpenMenu` | `arenaReturnTo` (`Menu` ou `Game`), `Menu` |
+| `Death` | `OpenGame`, `OpenMenu` | `Game` (« Recommencer »), `Menu` |
+| `DemoEnd` | `OpenCredits`, `OpenMenu` | `Credits`, `Menu` |
 
 Tout ce qui n'est pas dans cette table est refusé. `OpenGame` depuis la pause, par exemple,
 n'existe pas : reprendre est `ResumePause`, et cette distinction est ce qui permet de tester que
@@ -127,6 +130,8 @@ pas.
 | `hmi::ScreenRouter::openPause` / `resume` / `quitToMenu` | `OpenPause` / `ResumePause` / `QuitPauseToMenu` | |
 | `hmi::ScreenRouter::openCredits` / `closeCredits` | `OpenCredits` / `CloseCredits` | |
 | `hmi::ScreenRouter::openArena` / `closeArena` | `OpenArena` / `CloseArena` | retour selon `arenaReturnTo` |
+| `hmi::ScreenRouter::openDeath` | `OpenDeath` | le héros est tombé (`LOT-119`) |
+| `hmi::ScreenRouter::openDemoEnd(ending)` | `OpenDemoEnd` | transporte la voie (`ending`, `endingText`) |
 | `hmi::ScreenRouter::openRpgScreen(screen)` / `closeRpgScreen` | `OpenRpgScreen` / `CloseRpgScreen` | retient aussi **lequel** |
 | `hmi::ScreenRouter::openDialogue(dialogueId)` | `OpenRpgScreen` sur `Dialogue` | transporte l'identifiant |
 | `hmi::ScreenRouter::nextRpgScreen` / `previousRpgScreen` | aucun | change `currentRpgScreen` dans le cycle, sans repasser par la table |

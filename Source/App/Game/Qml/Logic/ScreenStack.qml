@@ -40,7 +40,7 @@ Item {
     readonly property var screenNames: [
         "MainMenu", "GameView", "Pause", "Options", "Credits",
         "CharacterSheet", "Skills", "Inventory", "Journal", "WorldMap", "Dialogue",
-        "Merchant", "Company", "CombatHud", "Arena", "Gallery", "AssetGallery"
+        "Merchant", "Company", "CombatHud", "Arena", "Death", "DemoEnd", "Gallery", "AssetGallery"
     ]
 
     Component { id: menuScreen; MainMenu {} }
@@ -58,6 +58,9 @@ Item {
     Component { id: companyScreen; Company {} }
     Component { id: combatHudScreen; CombatHud {} }
     Component { id: arenaScreen; Arena {} }
+    // Les ecrans de fin (LOT-119).
+    Component { id: deathScreen; Death {} }
+    Component { id: demoEndScreen; DemoEnd {} }
     // La galerie est le point d'entrée de l'atelier (`DesignStudio/Main.ui.qml`), posée telle quelle :
     // aucun jumeau, rien à câbler -- c'est ce qui prouve que les briques se résolvent au jeu comme à
     // l'atelier.
@@ -151,6 +154,8 @@ Item {
         case ScreenRouter.RpgScreen: return root.rpgScreen(ScreenRouter.currentRpgScreen)
         case ScreenRouter.Game:      return gameScreen
         case ScreenRouter.Arena:     return arenaScreen
+        case ScreenRouter.Death:     return deathScreen
+        case ScreenRouter.DemoEnd:   return demoEndScreen
         }
         return menuScreen
     }
@@ -189,6 +194,8 @@ Item {
         case "Company":        return companyScreen
         case "CombatHud":      return combatHudScreen
         case "Arena":          return arenaScreen
+        case "Death":          return deathScreen
+        case "DemoEnd":        return demoEndScreen
         case "Gallery":        return galleryScreen
         case "AssetGallery":   return assetGalleryScreen
         }

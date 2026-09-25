@@ -46,6 +46,13 @@ class ScreenRouter : public QObject {
     Q_PROPERTY(Screen currentScreen READ currentScreen NOTIFY changed)
     Q_PROPERTY(RpgScreen currentRpgScreen READ currentRpgScreen NOTIFY changed)
 
+    /// La voie par laquelle la démo s'est terminée (`LOT-119`), que l'écran de fin dit. Le routeur
+    /// la **transporte**, comme `dialogueId` : c'est le dialogue qui la nomme. Vide sinon.
+    Q_PROPERTY(QString ending READ ending NOTIFY changed)
+    /// La même voie, dite dans la langue active (clé `ending.arene` pour `arene`), vide sans voie. Une lecture du
+    /// catalogue, pas une décision : l'écran de fin n'a pas d'autre modèle à qui la demander.
+    Q_PROPERTY(QString endingText READ endingText NOTIFY changed)
+
     /// Le dialogue que l'écran de dialogue doit jouer (`LOT-09`). Le routeur le **transporte** :
     /// c'est la carte qui le nomme, en ouvrant la conversation du PNJ visé, et l'écran n'a plus de
     /// dialogue écrit en dur. Vide avant la première conversation.
@@ -68,6 +75,10 @@ public:
         RpgScreen,
         /// Le Colisée (`LOT-50`).
         Arena,
+        /// L'écran de mort (`LOT-119`).
+        Death,
+        /// L'écran « Fin de la démo » (`LOT-119`).
+        DemoEnd,
     };
     Q_ENUM(Screen)
 
@@ -114,6 +125,16 @@ public:
         return _dialogueId;
     }
 
+    /// Le héros est tombé : l'écran de mort (`LOT-119`).
+    Q_INVOKABLE void openDeath();
+    /// @brief La démo est bouclée par la voie @p ending : l'écran de fin (`LOT-119`).
+    Q_INVOKABLE void openDemoEnd(const QString& ending);
+
+    [[nodiscard]] QString ending() const {
+        return _ending;
+    }
+    [[nodiscard]] QString endingText() const;
+
     /// Ouvre un écran du RPG. L'écran d'où l'on vient est retenu par la table : refermer y revient,
     /// qu'on soit venu du menu, du jeu ou de la pause.
     Q_INVOKABLE void openRpgScreen(RpgScreen screen);
@@ -136,6 +157,7 @@ private:
     ScreenState _state{};
     RpgScreenId _rpgScreen = RpgScreenId::CharacterSheet;
     QString _dialogueId;
+    QString _ending;
 };
 
 }  // namespace hmi

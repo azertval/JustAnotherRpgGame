@@ -25,7 +25,7 @@ inline constexpr std::string_view DIALOGUE_LEAVE_REPLY = "leave";
 struct DialogueReply {
     std::string id;
     std::string label;
-    /// « [Persuasion] » si la réponse mène à un jet, vide sinon.
+    /// « [Persuasion · DD 15] » si la réponse mène à un jet (`LOT-117`), vide sinon.
     std::string value;
 };
 
@@ -34,8 +34,17 @@ struct DialogueScreenValues {
     std::string speakerName;
     std::string attitude;
     std::string line;
-    /// Le jet que la dernière réponse a joué, restitué (« Persuasion : 17 contre 15 — réussite »).
+    /// Le jet que la dernière réponse a joué, restitué d'une ligne (« Persuasion · DD 15 — d20 :
+    /// 12, total 16 — réussite »). Vide si le dernier geste n'a rien jeté.
     std::string checkOutcome;
+    /// Le même jet, par morceaux, pour que l'écran le **montre** (`LOT-117`) : ce qui était jeté
+    /// (« Persuasion · DD 15 »), le dé tiré (« 12 », vide s'il ne l'a pas été), le calcul
+    /// (« 12 + 4 = 16 ») et l'issue (« réussite »).
+    std::string checkTitle;
+    std::string checkDie;
+    std::string checkDetail;
+    std::string checkVerdict;
+    bool checkSucceeded = false;
     std::vector<DialogueReply> replies;
     /// Vrai quand la conversation a atteint une fin : l'écran se referme.
     bool finished = false;

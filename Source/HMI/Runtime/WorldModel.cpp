@@ -31,8 +31,7 @@ WorldModel* WorldModel::current() noexcept {
 WorldModel::WorldModel(QObject* parent) : QObject(parent) {
     partieCourante = this;
     _play = std::make_unique<WorldPlay>(
-        core::WorldTravel::directoryLoader(dataDirectory() / "Levels"),
-        dataDirectory() / "Assets");
+        core::WorldTravel::directoryLoader(dataDirectory() / "Levels"), dataDirectory() / "Assets");
     _clock.setInterval(STEP_MILLISECONDS);
     _clock.setTimerType(Qt::PreciseTimer);
     connect(&_clock, &QTimer::timeout, this, &WorldModel::step);
@@ -104,20 +103,45 @@ void WorldModel::setStartOverride(const QString& mapId, const QString& arrival) 
 }
 
 void WorldModel::setLevelDirectories(const std::vector<std::filesystem::path>& directories) {
-    // Le `Levels/` de l'executable vient TOUJOURS en dernier : l'editeur n'ecrit que les cartes
-    // qu'il a ouvertes, et le monde autour doit rester jouable.
-    std::vector<std::filesystem::path> dossiers = directories;
-    dossiers.push_back(dataDirectory() / "Levels");
     // La session est refaite : la carte courante et les drapeaux acquis appartiennent au chargeur
     // qu'on remplace. C'est pourquoi cet appel precede la premiere entree (LOT-EDITOR-10).
+    _levelDirectories = directories;
+    rebuildSession();
+    for (const std::filesystem::path& dossier : directories) {
+        HMI_LOG_INFO("Monde : cartes lues d'abord dans " + dossier.string());
+    }
+}
+
+void WorldModel::rebuildSession() {
+    // Le `Levels/` de l'executable vient TOUJOURS en dernier : l'editeur n'ecrit que les cartes
+    // qu'il a ouvertes, et le monde autour doit rester jouable.
+    std::vector<std::filesystem::path> dossiers = _levelDirectories;
+    dossiers.push_back(dataDirectory() / "Levels");
     std::string figure = _play->heroFigure();
     _play = std::make_unique<WorldPlay>(core::WorldTravel::directoriesLoader(std::move(dossiers)),
                                         dataDirectory() / "Assets");
     _play->setHeroFigure(std::move(figure));
     installQuests();
-    for (const std::filesystem::path& dossier : directories) {
-        HMI_LOG_INFO("Monde : cartes lues d'abord dans " + dossier.string());
-    }
+}
+
+void WorldModel::endGame() {
+    // Une partie finie ne laisse rien derriere elle : ni carte, ni drapeau, ni combattant. Le
+    // prochain `startNewGame` -- « Nouvelle partie », ou « Recommencer » sur l'ecran de mort --
+    // repart donc de la porte de la ville, et non du sable ou l'on vient de tomber (LOT-119).
+    _clock.stop();
+    _combatFigures.reset();
+    _lastInteractionCell.reset();
+    _visitedDistricts.clear();
+    _status.clear();
+    _move = {};
+    _interact = false;
+    rebuildSession();
+    applyFlags(_startFlags);
+    ++_sceneRevision;
+    ++_figuresRevision;
+    HMI_LOG_INFO("Monde : partie terminee, session remise a zero.");
+    emit changed();
+    emit figuresChanged();
 }
 
 void WorldModel::setStartCell(core::GridPosition cell) {
@@ -125,6 +149,12 @@ void WorldModel::setStartCell(core::GridPosition cell) {
 }
 
 void WorldModel::setStartFlags(const QStringList& flags) {
+    // Retenus : une partie neuve (`endGame`) les repose, comme le lancement les a poses.
+    _startFlags = flags;
+    applyFlags(flags);
+}
+
+void WorldModel::applyFlags(const QStringList& flags) {
     // Poses sur la SESSION, qui survit au changement de carte : un portail verrouille s'ouvre donc
     // aussi bien au premier pas qu'apres trois cartes.
     // `drapeau=valeur` donne sa valeur a un drapeau qu'une quete declare (`LOT-116`).
@@ -299,8 +329,8 @@ qreal WorldModel::heroRow() const {
 
 void WorldModel::setCombatFigures(std::vector<WorldFigureSnapshot> figures,
                                   core::Vector2 heroPoint) {
-    const bool moved = !_combatFigures.has_value() || _combatHero.x != heroPoint.x ||
-                       _combatHero.y != heroPoint.y;
+    const bool moved =
+        !_combatFigures.has_value() || _combatHero.x != heroPoint.x || _combatHero.y != heroPoint.y;
     _combatFigures = std::move(figures);
     _combatHero = heroPoint;
     ++_figuresRevision;

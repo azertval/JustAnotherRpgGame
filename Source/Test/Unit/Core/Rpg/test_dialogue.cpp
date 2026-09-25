@@ -70,9 +70,13 @@ public:
     void startEncounter(std::string_view rencontre) override {
         rencontres.emplace_back(rencontre);
     }
+    void endDemo(std::string_view voie) override {
+        fins.emplace_back(voie);
+    }
 
     std::vector<std::pair<std::string, int>> recus;
     std::vector<std::string> rencontres;
+    std::vector<std::string> fins;
 
 private:
     std::set<std::string> _langues;
@@ -207,6 +211,8 @@ TEST(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless) {
     const std::vector<core::AvailableChoice> demande = premiere.choices();
     ASSERT_EQ(identifiants(demande), (std::vector<std::string>{"convaincre", "renoncer"}));
     EXPECT_EQ(demande.front().checkSkill, "persuasion") << "l'ecran annonce le jet avant le choix";
+    EXPECT_EQ(demande.front().checkDc, 15) << "et son seuil, lu dans difficulty.json (LOT-117)";
+    EXPECT_EQ(demande.back().checkDc, 0) << "une reponse sans jet n'annonce rien";
 
     ASSERT_EQ(premiere.choose("convaincre"), core::ChoiceResult::Advanced);
     ASSERT_TRUE(premiere.lastCheck().has_value());
@@ -364,6 +370,21 @@ TEST(DialogueTest, UnGrapheMalFormeEstRejeteAuChargement) {
         {R"({"id":"essai","name":"E","source":"original","speaker":{"languages":[]},)"
          R"("start":"fin","nodes":[{"id":"fin","type":"end"}]})",
          "un PNJ parle au moins une langue"},
+        // LOT-117 : une reponse a jet a sa branche d'echec, et ne vide pas sa replique.
+        {graphe(R"({"id":"a","type":"check","skill":"persuasion","difficulty":"moyenne",)"
+                R"("success":"fin"},)" +
+                fin),
+         "noeud 'a' : jet sans branche d'echec"},
+        {graphe(R"({"id":"a","type":"check","skill":"persuasion","difficulty":"moyenne",)"
+                R"("success":"fin","failure":"fin"},)" +
+                fin),
+         "noeud 'a' : jet sans branche d'echec"},
+        {graphe(R"({"id":"a","type":"line","choices":[{"id":"x","next":"j"},)"
+                R"({"id":"y","next":"fin","condition":{"flag":"f"}}]},)"
+                R"({"id":"j","type":"check","skill":"persuasion","difficulty":"moyenne",)"
+                R"("success":"fin","failure":"non"},{"id":"non","type":"line","next":"fin"},)" +
+                fin),
+         "noeud 'a' : un jet rate ne se propose plus"},
     };
     for (const Cas& un : cas) {
         const core::DialogueLoad lu = core::readDialogue(un.json, "essai.json");
@@ -374,6 +395,74 @@ TEST(DialogueTest, UnGrapheMalFormeEstRejeteAuChargement) {
                                   : "\npremiere : " + lu.errors.front());
         EXPECT_TRUE(contient(lu.errors, "essai.json")) << "le message nomme son fichier";
     }
+}
+
+/**
+ * @brief Critère d'acceptation du `LOT-117` : une réponse à jet déjà tentée et ratée ne se propose
+ *        plus, dans cette conversation comme dans la suivante, et le jet atteint par un autre
+ *        chemin échoue sans relancer le dé.
+ * \castest{<b>Une reponse a jet ratee ne se propose plus.</b><br/>
+ * \tcat Unitaire · Dialogue<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Lire un graphe : un menu propose « convaincre » (jet de Persuasion, moyenne),
+ * « detour » (une replique qui mene au meme jet) et « partir ».<br/>2. Convaincre avec -20 aux
+ * jets.<br/>3. Revenir au menu ; ouvrir une seconde conversation sur les memes drapeaux.<br/>
+ * 4. Prendre le detour.<br/>
+ * \tattendu Le jet echoue et pose dialogue/essai/j/failed ; le menu ne propose plus que
+ * « detour » et « partir », « convaincre » est refuse, la seconde conversation aussi ; le detour
+ * mene a l'echec sans tirer de de (jet marque deja rate, suite aleatoire intacte).
+ * }
+ */
+TEST(DialogueTest, UneReponseAJetRateeNeSeProposePlus) {
+    const core::DialogueLoad lu = core::readDialogue(
+        graphe(R"({"id":"menu","type":"line","choices":[{"id":"convaincre","next":"j"},)"
+               R"({"id":"detour","next":"b"},{"id":"partir","next":"fin"}]},)"
+               R"({"id":"b","type":"line","next":"j"},)"
+               R"({"id":"j","type":"check","skill":"persuasion","difficulty":"moyenne",)"
+               R"("success":"oui","failure":"non"},)"
+               R"({"id":"oui","type":"line","next":"fin"},)"
+               R"({"id":"non","type":"line","next":"menu"},{"id":"fin","type":"end"})",
+               "menu"),
+        "jet.json");
+    ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
+    const std::string rate = core::dialogueCheckFailedFlag("essai", "j");
+    EXPECT_EQ(rate, "dialogue/essai/j/failed");
+
+    core::WorldFlags drapeaux;
+    Auditeur maladroit({"common"}, -20);
+    core::DeterministicRandom hasard(5);
+    core::DialogueRunner runner(*lu.graph, drapeaux, maladroit, echelle(), hasard);
+    ASSERT_EQ(runner.start(), core::DialogueState::AwaitingChoice);
+    const std::vector<core::AvailableChoice> avant = runner.choices();
+    ASSERT_EQ(identifiants(avant), (std::vector<std::string>{"convaincre", "detour", "partir"}));
+    EXPECT_EQ(avant.front().checkSkill, "persuasion");
+    EXPECT_EQ(avant.front().checkDc, 15);
+
+    ASSERT_EQ(runner.choose("convaincre"), core::ChoiceResult::Advanced);
+    ASSERT_TRUE(runner.lastCheck().has_value());
+    EXPECT_FALSE(runner.lastCheck()->result.succeeded());
+    EXPECT_FALSE(runner.lastCheck()->alreadyFailed);
+    EXPECT_TRUE(drapeaux.isSet(rate));
+    EXPECT_EQ(runner.lineKey(), "dialogue.essai.non");
+    ASSERT_EQ(runner.choose("continue"), core::ChoiceResult::Advanced);
+    EXPECT_EQ(identifiants(runner.choices()), (std::vector<std::string>{"detour", "partir"}));
+    EXPECT_EQ(runner.choose("convaincre"), core::ChoiceResult::Unavailable);
+
+    core::DialogueRunner seconde(*lu.graph, drapeaux, maladroit, echelle(), hasard);
+    ASSERT_EQ(seconde.start(), core::DialogueState::AwaitingChoice);
+    EXPECT_EQ(identifiants(seconde.choices()), (std::vector<std::string>{"detour", "partir"}))
+        << "le drapeau survit a la conversation";
+
+    ASSERT_EQ(seconde.choose("detour"), core::ChoiceResult::Advanced);
+    const core::DeterministicRandom temoin = hasard;
+    ASSERT_EQ(seconde.choose("continue"), core::ChoiceResult::Advanced);
+    ASSERT_TRUE(seconde.lastCheck().has_value());
+    EXPECT_TRUE(seconde.lastCheck()->alreadyFailed);
+    EXPECT_EQ(seconde.lastCheck()->result.target, 15);
+    EXPECT_EQ(seconde.lineKey(), "dialogue.essai.non") << "un jet deja rate echoue";
+    EXPECT_TRUE(contient(seconde.journal(), "jet : j (persuasion) deja rate, echec"));
+    core::DeterministicRandom copie = temoin;
+    EXPECT_EQ(hasard.nextUInt32(), copie.nextUInt32()) << "aucun de n'a ete tire";
 }
 
 /**
@@ -503,15 +592,14 @@ TEST(DialogueTest, LesDialoguesSontTraduitsEnFrancaisEtEnAnglais) {
     const auto en = catalogue(JADG_EN_LANG_PATH);
     ASSERT_FALSE(dialogues().dialogues.empty());
 
-    std::vector<std::string> cles = {"dialogue.leave",
-                                     "dialogue.refused",
-                                     "dialogue.unavailable",
-                                     "dialogue.check.success",
-                                     "dialogue.check.failure",
-                                     "dialogue.check.summary",
-                                     "dialogue.attitude.friendly",
-                                     "dialogue.attitude.indifferent",
-                                     "dialogue.attitude.hostile"};
+    std::vector<std::string> cles = {"dialogue.leave", "dialogue.refused", "dialogue.unavailable",
+                                     "dialogue.check.success", "dialogue.check.failure",
+                                     "dialogue.check.summary", "dialogue.check.announce",
+                                     "dialogue.check.repeat", "dialogue.check.already-failed",
+                                     // Les deux voies de la quete de la demo (LOT-119), que
+                                     // l'ecran de fin dit avant que le LOT-120 les nomme.
+                                     "ending.arene", "ending.parole", "dialogue.attitude.friendly",
+                                     "dialogue.attitude.indifferent", "dialogue.attitude.hostile"};
     for (const core::DialogueGraph& dialogue : dialogues().dialogues) {
         const std::vector<std::string> fabriquees = core::dialogueTextKeys(dialogue);
         cles.insert(cles.end(), fabriquees.begin(), fabriquees.end());
@@ -669,5 +757,43 @@ TEST(DialogueTest, UnDialoguePeutEngagerUneRencontreSurLaCarte) {
         graphe(R"({"id":"a","type":"action","actions":[{"type":"startEncounter"}],"next":"fin"},)"
                R"({"id":"fin","type":"end"})"),
         "sans-rencontre.json");
+    EXPECT_FALSE(refuse.graph.has_value());
+}
+
+/**
+ * @brief L'action `endDemo` demande l'écran de fin de la démo à l'interlocuteur, avec la voie
+ *        suivie, et réclame la clé de traduction de cette voie (`LOT-119`).
+ * \castest{<b>Un dialogue peut terminer la demo.</b><br/>
+ * \tcat Unitaire · Dialogue<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Lire un graphe dont le noeud d'action porte `endDemo` vers « arene ».<br/>
+ * 2. Le jouer avec un auditeur d'essai.<br/>3. Lire les cles de traduction du graphe.<br/>
+ * 4. Lire un graphe dont l'action `endDemo` n'a pas de champ `ending`.<br/>
+ * \tattendu L'auditeur a recu la voie « arene », le journal dit « fin de la demo » ; les cles
+ * comptent « ending.arene » ; le second graphe est refuse.
+ * }
+ */
+TEST(DialogueTest, UnDialoguePeutTerminerLaDemo) {
+    const core::DialogueLoad lu =
+        core::readDialogue(graphe(R"({"id":"a","type":"action","actions":[)"
+                                  R"({"type":"endDemo","ending":"arene"}],"next":"fin"},)"
+                                  R"({"id":"fin","type":"end"})"),
+                           "fin.json");
+    ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
+    core::WorldFlags drapeaux;
+    Auditeur receveur({"common"}, 0);
+    core::DeterministicRandom hasard(3);
+    core::DialogueRunner runner(*lu.graph, drapeaux, receveur, echelle(), hasard);
+    EXPECT_EQ(runner.start(), core::DialogueState::Ended);
+    EXPECT_EQ(receveur.fins, (std::vector<std::string>{"arene"}));
+    EXPECT_TRUE(contient(runner.journal(), "fin de la demo : arene"));
+    const std::vector<std::string> cles = core::dialogueTextKeys(*lu.graph);
+    EXPECT_NE(std::ranges::find(cles, core::demoEndingKey("arene")), cles.end());
+    EXPECT_EQ(core::demoEndingKey("arene"), "ending.arene");
+
+    const core::DialogueLoad refuse = core::readDialogue(
+        graphe(R"({"id":"a","type":"action","actions":[{"type":"endDemo"}],"next":"fin"},)"
+               R"({"id":"fin","type":"end"})"),
+        "sans-voie.json");
     EXPECT_FALSE(refuse.graph.has_value());
 }

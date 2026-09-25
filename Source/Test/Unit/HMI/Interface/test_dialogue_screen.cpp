@@ -24,8 +24,14 @@ namespace {
 
 /// Un catalogue d'essai qui rend la cle entre crochets : ce qui s'affiche dit d'ou il vient.
 std::string cle(std::string_view key) {
+    if (key == "dialogue.check.announce") {
+        return "%1 DD %2";
+    }
     if (key == "dialogue.check.summary") {
-        return "%1 : %2 contre %3 -- %4";
+        return "%1 DD %2 -- d20 %3, total %4 -- %5";
+    }
+    if (key == "dialogue.check.repeat") {
+        return "%1 DD %2 -- deja -- %3";
     }
     return "<" + std::string(key) + ">";
 }
@@ -54,8 +60,9 @@ core::DialogueGraph grapheDEssai() {
         R"({"id":"halte","type":"line","choices":[{"id":"negocier","next":"jet"},)"
         R"({"id":"partir","next":"fin"}]},)"
         R"({"id":"jet","type":"check","skill":"animal-handling","difficulty":"facile",)"
-        R"("success":"passe","failure":"passe"},)"
+        R"("success":"passe","failure":"refus"},)"
         R"({"id":"passe","type":"line","attitude":"friendly","next":"fin"},)"
+        R"({"id":"refus","type":"line","next":"halte"},)"
         R"({"id":"fin","type":"end"}]})",
         "garde.json");
     return *lu.graph;
@@ -76,8 +83,8 @@ core::DifficultyScale echelle() {
  * \tcrit Majeur<br/>
  * \tetapes 1. Ouvrir un dialogue de garde hostile.<br/>2. Lire les valeurs de l'ecran.<br/>
  * \tattendu Nom, attitude hostile et replique par leur cle ; deux reponses dans l'ordre ; la
- * premiere porte « [competence] » avec la cle de lexique a tiret bas ; aucune restitution de jet ;
- * l'ecran n'est pas termine.
+ * premiere porte « [competence DD 10] » avec la cle de lexique a tiret bas et le seuil du degre
+ * (LOT-117) ; aucune restitution de jet ; l'ecran n'est pas termine.
  * }
  */
 TEST(DialogueScreenTest, UneRepliqueAnnonceLeJetDeSaReponse) {
@@ -96,9 +103,10 @@ TEST(DialogueScreenTest, UneRepliqueAnnonceLeJetDeSaReponse) {
     ASSERT_EQ(v.replies.size(), 2U);
     EXPECT_EQ(v.replies[0].id, "negocier");
     EXPECT_EQ(v.replies[0].label, "<dialogue.garde.halte.negocier>");
-    EXPECT_EQ(v.replies[0].value, "[<rpg.skill.animal_handling>]");
+    EXPECT_EQ(v.replies[0].value, "[<rpg.skill.animal_handling> DD 10]");
     EXPECT_EQ(v.replies[1].value, "");
     EXPECT_TRUE(v.checkOutcome.empty());
+    EXPECT_TRUE(v.checkTitle.empty());
     EXPECT_FALSE(v.finished);
 }
 
@@ -110,9 +118,10 @@ TEST(DialogueScreenTest, UneRepliqueAnnonceLeJetDeSaReponse) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Negocier (bonus +30 contre 10).<br/>2. Lire les valeurs.<br/>3. Continuer jusqu'a la
  * fin.<br/>
- * \tattendu Apres le jet : attitude amicale, restitution « competence : total contre 10 --
- * reussite », une reponse « continuer ». A la fin : termine, restitution effacee, une seule
- * reponse « quitter ».
+ * \tattendu Apres le jet : attitude amicale ; restitution « competence DD 10 -- d20 de, total t
+ * -- reussite », et par morceaux : titre « competence DD 10 », le de tire, le calcul
+ * « de + 30 = t », l'issue ; une reponse « continuer ». A la fin : termine, restitution effacee,
+ * une seule reponse « quitter ».
  * }
  */
 TEST(DialogueScreenTest, LeJetSeRestitueSurLaRepliqueQuiSuit) {
@@ -128,8 +137,14 @@ TEST(DialogueScreenTest, LeJetSeRestitueSurLaRepliqueQuiSuit) {
     const hmi::DialogueScreenValues apres = hmi::dialogueScreenValues(runner, cle);
     EXPECT_EQ(apres.attitude, "<dialogue.attitude.friendly>");
     const std::string total = std::to_string(runner.lastCheck()->result.total);
-    EXPECT_EQ(apres.checkOutcome,
-              "<rpg.skill.animal_handling> : " + total + " contre 10 -- <dialogue.check.success>");
+    const std::string de = std::to_string(runner.lastCheck()->result.keptDie);
+    EXPECT_EQ(apres.checkOutcome, "<rpg.skill.animal_handling> DD 10 -- d20 " + de + ", total " +
+                                      total + " -- <dialogue.check.success>");
+    EXPECT_EQ(apres.checkTitle, "<rpg.skill.animal_handling> DD 10");
+    EXPECT_EQ(apres.checkDie, de);
+    EXPECT_EQ(apres.checkDetail, de + " + 30 = " + total);
+    EXPECT_EQ(apres.checkVerdict, "<dialogue.check.success>");
+    EXPECT_TRUE(apres.checkSucceeded);
     ASSERT_EQ(apres.replies.size(), 1U);
     EXPECT_EQ(apres.replies[0].id, "continue");
     EXPECT_EQ(apres.replies[0].label, "<dialogue.continue>");
@@ -138,6 +153,7 @@ TEST(DialogueScreenTest, LeJetSeRestitueSurLaRepliqueQuiSuit) {
     const hmi::DialogueScreenValues fin = hmi::dialogueScreenValues(runner, cle);
     EXPECT_TRUE(fin.finished);
     EXPECT_TRUE(fin.checkOutcome.empty());
+    EXPECT_TRUE(fin.checkTitle.empty());
     ASSERT_EQ(fin.replies.size(), 1U);
     EXPECT_EQ(fin.replies[0].id, std::string(hmi::DIALOGUE_LEAVE_REPLY));
 }
@@ -168,4 +184,64 @@ TEST(DialogueScreenTest, UnRefusMontreLeRefusEtQuitter) {
     ASSERT_EQ(v.replies.size(), 1U);
     EXPECT_EQ(v.replies[0].id, std::string(hmi::DIALOGUE_LEAVE_REPLY));
     EXPECT_EQ(v.replies[0].label, "<dialogue.leave>");
+}
+
+/**
+ * @brief Un jet raté montre son dé et son calcul négatif ; la réponse qui y menait disparaît, et
+ *        un jet raté atteint de nouveau se dit « déjà tenté », sans dé (`LOT-117`).
+ * \castest{<b>L'ecran montre un echec, puis un jet deja tente sans de.</b><br/>
+ * \tcat Unitaire · Interface<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Negocier avec -30 contre 10.<br/>2. Lire les valeurs.<br/>3. Continuer jusqu'a la
+ * halte.<br/>4. Rouvrir le dialogue sur les memes drapeaux, sur un graphe ou la halte mene au jet
+ * sans choix.<br/>
+ * \tattendu Apres le jet : echec, calcul « de - 30 = t », de montre. A la halte : seule « partir »
+ * reste. Sur le second graphe : titre du jet, de vide, detail « deja tente », restitution
+ * « deja », echec.
+ * }
+ */
+TEST(DialogueScreenTest, UnEchecSeMontreEtNeSeRetentePas) {
+    const core::DialogueGraph graphe = grapheDEssai();
+    const core::DifficultyScale e = echelle();
+    core::WorldFlags drapeaux;
+    Auditeur auditeur({"common"}, -30);
+    core::DeterministicRandom hasard(5);
+    core::DialogueRunner runner(graphe, drapeaux, auditeur, e, hasard);
+    ASSERT_EQ(runner.start(), core::DialogueState::AwaitingChoice);
+    ASSERT_EQ(runner.choose("negocier"), core::ChoiceResult::Advanced);
+
+    const hmi::DialogueScreenValues rate = hmi::dialogueScreenValues(runner, cle);
+    const std::string de = std::to_string(runner.lastCheck()->result.keptDie);
+    const std::string total = std::to_string(runner.lastCheck()->result.total);
+    EXPECT_FALSE(rate.checkSucceeded);
+    EXPECT_EQ(rate.checkDie, de);
+    EXPECT_EQ(rate.checkDetail, de + " - 30 = " + total);
+    EXPECT_EQ(rate.checkVerdict, "<dialogue.check.failure>");
+
+    ASSERT_EQ(runner.choose("continue"), core::ChoiceResult::Advanced);
+    const hmi::DialogueScreenValues halte = hmi::dialogueScreenValues(runner, cle);
+    ASSERT_EQ(halte.replies.size(), 1U);
+    EXPECT_EQ(halte.replies[0].id, "partir") << "la reponse a jet ratee ne se propose plus";
+
+    // Le meme jet, atteint sans choix : il echoue sans rouler, et l'ecran le dit.
+    const core::DialogueLoad lu = core::readDialogue(
+        R"({"id":"garde","name":"Garde","source":"original",)"
+        R"("speaker":{"languages":["common"]},"start":"halte","nodes":[)"
+        R"({"id":"halte","type":"line","next":"jet"},)"
+        R"({"id":"jet","type":"check","skill":"animal-handling","difficulty":"facile",)"
+        R"("success":"fin","failure":"refus"},)"
+        R"({"id":"refus","type":"line","next":"fin"},)"
+        R"({"id":"fin","type":"end"}]})",
+        "garde.json");
+    ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
+    core::DialogueRunner seconde(*lu.graph, drapeaux, auditeur, e, hasard);
+    ASSERT_EQ(seconde.start(), core::DialogueState::AwaitingChoice);
+    ASSERT_EQ(seconde.choose("continue"), core::ChoiceResult::Advanced);
+    const hmi::DialogueScreenValues deja = hmi::dialogueScreenValues(seconde, cle);
+    EXPECT_EQ(deja.checkTitle, "<rpg.skill.animal_handling> DD 10");
+    EXPECT_TRUE(deja.checkDie.empty());
+    EXPECT_EQ(deja.checkDetail, "<dialogue.check.already-failed>");
+    EXPECT_EQ(deja.checkOutcome,
+              "<rpg.skill.animal_handling> DD 10 -- deja -- <dialogue.check.failure>");
+    EXPECT_FALSE(deja.checkSucceeded);
 }

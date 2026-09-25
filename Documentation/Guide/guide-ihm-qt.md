@@ -307,12 +307,17 @@ aux deux écrans de diverger — la classe d'armure de la fiche vient de ce que 
 
 Tient un `core::DialogueRunner` et rien d'autre ne décide (`LOT-15`). Écrire `dialogueId` ouvre la
 conversation ; `speakerName`, `attitude`, `line`, `checkOutcome` (le jet que la dernière réponse
-a joué), `replies` (modèle : `rowId`, `label`, `value` = le jet annoncé), `finished`, `status`.
+a joué, d'une ligne) et ses morceaux pour que l'écran le **montre** (`LOT-117`) : `checkTitle`
+(« Persuasion · DD 15 »), `checkDie` (le d20 tiré, vide s'il ne l'a pas été), `checkDetail`
+(« 12 + 4 = 16 »), `checkVerdict`, `checkSucceeded` ; `replies` (modèle : `rowId`, `label`,
+`value` = le jet annoncé), `finished`, `status`.
 `hmi::DialogueModel::choose(rowId)` donne une réponse, ou quitte si c'est la ligne
 `hmi::DIALOGUE_LEAVE_REPLY` ; `chooseAt(index)` sert les touches <kbd>1</kbd> à <kbd>9</kbd> ;
 `restart()` rouvre depuis l'entrée, drapeaux conservés. Le signal
-`hmi::DialogueModel::combatRequested(arenaId)` dit qu'un PNJ envoie se battre (`LOT-09`) : le
-modèle n'ouvre rien, c'est l'écran qui décide et le routeur qui navigue.
+`hmi::DialogueModel::combatRequested(arenaId)` dit qu'un PNJ envoie se battre (`LOT-09`),
+`encounterRequested(encounterId)` qu'il engage une rencontre sur la carte (`LOT-118`),
+`demoEnded(ending)` qu'il clôt la démo (`LOT-119`) : le modèle n'ouvre rien, c'est l'écran qui
+décide et le routeur qui navigue.
 
 Le runner écrit dans les drapeaux **de la partie** (`LOT-116`) : ceux de `hmi::WorldModel::current`,
 que la carte lit aussi — une porte ouverte par un dialogue s'ouvre sur la carte, un PNJ appelé par
@@ -338,6 +343,9 @@ l'écran de jeu ([Écrans, navigation et boucle de jeu](guide-ecrans.md)). Elle 
   son plan), `districtId`, `visitedDistricts` (`LOT-96`).
 - `hmi::WorldModel::startNewGame()` — ouvre le jeu à la porte de départ de la ville
   (`WorldModel::START_CITY`, la Capitale) et oublie les quartiers visités ;
+  `hmi::WorldModel::endGame()` — la partie est finie (`LOT-119`, écran de mort ou de fin) : la
+  session est refaite, sans carte, drapeaux et quêtes oubliés sauf ceux de `--flags=`, si bien
+  que le prochain `startNewGame` ouvre une partie **neuve** ;
   `hmi::WorldModel::enterMap(mapId, arrival)` — entre sur une carte ;
   `hmi::WorldModel::mapOfDistrict(id)` — la carte d'un quartier.
 - `hmi::WorldModel::setMove(x, y)` — la direction demandée, de longueur au plus 1, **tenue**

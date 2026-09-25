@@ -27,7 +27,8 @@ import Jadg.Runtime
 
     Tant qu'un mouvement se joue (`busy`), les gestes attendent : le modele les ignore, et
     `Entree` saute l'animation. Une fois l'issue publiee, `Entree` ou le bouton du panneau rendent
-    l'exploration (`leave`) ; une defaite ramene au menu -- l'ecran de mort est au LOT-119.
+    l'exploration (`leave`). Une DEFAITE ouvre l'ecran de mort des qu'elle est publiee (LOT-119) :
+    le combat n'est pas quitte, pour que l'ecran de mort montre la scene ou le heros est tombe.
 
     Les valeurs du HUD qui ne viennent pas encore d'un lot (groupe, quetes, horloge, minicarte)
     restent des donnees en attente (`PendingData`, cles `hud.*`), comme dans la vue de jeu.
@@ -117,14 +118,26 @@ CombatHudForm {
         root.forceActiveFocus()
     }
 
-    /// Quitter le combat fini : l'exploration reprend ; une defaite ramene au menu (LOT-119 dira
-    /// mieux).
+    /// Quitter le combat fini : l'exploration reprend. Une defaite ne se quitte pas ainsi -- elle
+    /// mene a l'ecran de mort, qui quittera le combat lui-meme (LOT-119).
     function leave() {
-        const issue = EncounterModel.outcome
+        if (EncounterModel.outcome === "defeat") {
+            ScreenRouter.openDeath()
+            return
+        }
         EncounterModel.leave()
         ScreenRouter.closeRpgScreen()
-        if (issue === "defeat") {
-            ScreenRouter.openMenu()
+    }
+
+    // La defaite n'attend pas de geste : le heros tombe, la file a fini de le montrer, l'ecran de
+    // mort prend la place (LOT-119).
+    Connections {
+        target: EncounterModel
+
+        function onChanged() {
+            if (EncounterModel.outcome === "defeat") {
+                ScreenRouter.openDeath()
+            }
         }
     }
 

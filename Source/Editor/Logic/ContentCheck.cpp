@@ -348,6 +348,14 @@ std::vector<MapCheckFinding> checkStoryContent(const std::filesystem::path& data
     for (const std::string& rejected : quests.errors) {
         error("quest rejected: " + rejected);
     }
+    // Un dialogue refuse au chargement -- un jet sans branche d'echec (LOT-117), une cible
+    // inconnue, une impasse -- ne se jouerait pas : le PNJ resterait muet en jeu.
+    // Un projet sans dossier de dialogues n'en a simplement pas : ce n'est pas un refus.
+    if (std::filesystem::is_directory(dataRoot / "World" / "dialogues")) {
+        for (const std::string& rejected : dialogues.errors) {
+            error("dialogue rejected: " + rejected);
+        }
+    }
     for (const std::string& misuse : core::validateFlagUses(quests, dialogues)) {
         error("flag misuse: " + misuse);
     }

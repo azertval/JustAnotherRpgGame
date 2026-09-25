@@ -23,6 +23,9 @@ import Jadg.Runtime
     (`EncounterModel.begin`) et l'affichage de combat s'ouvre par-dessus la carte gelee. Si la
     carte ne peut pas l'accueillir, le modele le dit et l'exploration continue.
 
+    Un PNJ peut enfin TERMINER LA DEMO (LOT-119) : l'action `endDemo` (la mere, a la fin de la
+    quete) devient `demoEnded`, et l'ecran « Fin de la demo » s'ouvre sur la voie nommee.
+
     `Echap` quitte la conversation ; `1` a `9` choisissent la reponse de ce rang. La conversation
     terminee, l'ecran se referme de lui-meme.
 */
@@ -47,12 +50,24 @@ DialogueForm {
                 ScreenRouter.openRpgScreen(ScreenRouter.CombatHud);
             }
         }
+
+        // La demo se termine (LOT-119) : la conversation se referme, et l'ecran de fin dit la
+        // voie que le dialogue a nommee.
+        onDemoEnded: function (ending) {
+            ScreenRouter.closeRpgScreen();
+            ScreenRouter.openDemoEnd(ending);
+        }
     }
 
     speakerName: conversation.speakerName
     attitude: conversation.attitude
     line: conversation.line
     checkOutcome: conversation.checkOutcome
+    checkTitle: conversation.checkTitle
+    checkDie: conversation.checkDie
+    checkDetail: conversation.checkDetail
+    checkVerdict: conversation.checkVerdict
+    checkSucceeded: conversation.checkSucceeded
     replies: conversation.replies
 
     onReplyChosen: (rowId) => conversation.choose(rowId)
