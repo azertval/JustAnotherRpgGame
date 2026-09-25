@@ -22,7 +22,7 @@ var searchData=
   ['leveldirectories_19',['levelDirectories',['../structhmi_1_1GameLaunchOptions.html#ae6a63e80c4b3be63993b7cda74246351',1,'hmi::GameLaunchOptions']]],
   ['levellist_20',['levelList',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2728c9b2b302a06ac085632bafdffde9',1,'hmi::LevelBrowserPanel::Widgets']]],
   ['levelpath_21',['levelPath',['../structhmi_1_1AutosaveRecord.html#adaf7ec065457bc3afb409bfebfa70e39',1,'hmi::AutosaveRecord']]],
-  ['levels_22',['levels',['../structcore_1_1ExperienceTable.html#a9e65e5ea94c02d465eba06800a23582f',1,'core::ExperienceTable']]],
+  ['levels_22',['levels',['../structcore_1_1ExperienceTable.html#a9e65e5ea94c02d465eba06800a23582f',1,'core::ExperienceTable::levels'],['../structhmi_1_1DebugConsoleModel_1_1Pending.html#a5270be9366108648c44d2178a68b6e85',1,'hmi::DebugConsoleModel::Pending::levels']]],
   ['line_23',['line',['../structcore_1_1TextPosition.html#a212854e72aaaba608142270b46f535d0',1,'core::TextPosition::line'],['../structhmi_1_1ComposedQuad.html#a7e6bffe91fa5be8be3d80bda3f408d7b',1,'hmi::ComposedQuad::line'],['../structhmi_1_1DialogueScreenValues.html#ab0c3f3969e141cd53c07fba93fa03782',1,'hmi::DialogueScreenValues::line']]],
   ['lines_24',['lines',['../structhmi_1_1CreditSection.html#af9ea8e50dcc65ba98d28ab7531621835',1,'hmi::CreditSection']]],
   ['listener_25',['listener',['../structhmi_1_1DialogueModel_1_1Session.html#a23d784a2dfe50616375eec1637220428',1,'hmi::DialogueModel::Session']]],

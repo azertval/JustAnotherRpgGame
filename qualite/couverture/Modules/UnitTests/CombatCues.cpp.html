@@ -22,9 +22,14 @@ namespace hmi {
 
 namespace {
 
+// Le milieu d'une case, en fraction de case.
+constexpr float CELL_CENTER = 0.5F;
+// Garde de finishAll : nombre maximal de pas d'une seconde avant d'abandonner la file.
+constexpr std::size_t MAX_FINISH_STEPS = 4096;
+
 <span style = "background-color:#dfd">[[nodiscard]] core::Vector2 centerOf(core::GridPosition cell) noexcept {
-    return core::Vector2{static_cast&lt;float&gt;(cell.column) + 0.5F,</span>
-                         static_cast&lt;float&gt;(cell.row) + 0.5F};
+    return core::Vector2{static_cast&lt;float&gt;(cell.column) + CELL_CENTER,</span>
+                         static_cast&lt;float&gt;(cell.row) + CELL_CENTER};
 <span style = "background-color:#dfd">}</span>
 
 // La diagonale qui regarde de `from` vers `to` ; `previous` si les deux se confondent.
@@ -189,10 +194,9 @@ namespace {
 <span style = "background-color:#dfd">void CombatCueTrack::advance(float seconds) {</span>
     // Les figurines au repos respirent : leur bande de repos avance avec le temps.
 <span style = "background-color:#dfd">    for (auto&amp; [actor, figure] : _figures) {
-        if (figure.clip == figure_clips::IDLE) {
-            figure.clipSeconds += seconds;
-        } else if (figure.dead &amp;&amp; figure.clip == figure_clips::DEATH) {
-            figure.clipSeconds += seconds;</span>
+        if (figure.clip == figure_clips::IDLE ||</span>
+            (figure.dead &amp;&amp; figure.clip == figure_clips::DEATH)) {
+<span style = "background-color:#dfd">            figure.clipSeconds += seconds;</span>
         }
 <span style = "background-color:#dfd">    }
     startNext();
@@ -206,7 +210,7 @@ namespace {
 
 <span style = "background-color:#dfd">void CombatCueTrack::finishAll() {</span>
     // Une garde contre une file qui ne se viderait pas : chaque tour en joue au moins un.
-<span style = "background-color:#dfd">    for (std::size_t guard = 0; guard &lt; 4096 &amp;&amp; busy(); ++guard) {
+<span style = "background-color:#dfd">    for (std::size_t guard = 0; guard &lt; MAX_FINISH_STEPS &amp;&amp; busy(); ++guard) {
         advance(1.0F);
     }
 }</span>

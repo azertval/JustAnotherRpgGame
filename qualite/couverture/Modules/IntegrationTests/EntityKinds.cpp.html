@@ -257,6 +257,7 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
 
 <span style = "background-color:#fdd">std::vector&lt;const EntityPropertySpec*&gt; inspectedProperties(const EntityKind&amp; kind) {
     std::vector&lt;const EntityPropertySpec*&gt; specs;
+    specs.reserve(kind.properties.size() + commonEntityProperties().size());
     for (const EntityPropertySpec&amp; spec : kind.properties) {
         specs.push_back(&amp;spec);
     }
@@ -346,6 +347,14 @@ namespace {
     });</span>
 <span style = "background-color:#dfd">}</span>
 
+// Le defaut @p code si @p text manque a @p ensemble, rien sinon.
+template &lt;class Ensemble&gt;
+[[nodiscard]] std::optional&lt;EntityIssueCode&gt; absentDe(const Ensemble&amp; ensemble,
+                                                      const std::string&amp; text,
+<span style = "background-color:#dfd">                                                      EntityIssueCode code) {
+    return ensemble.contains(text) ? std::nullopt : std::optional&lt;EntityIssueCode&gt;{code};
+}</span>
+
 // Defaut d'une propriete de choix non vide : la valeur n'est pas dans la liste que la source
 // designe. Rien pour une valeur admise.
 [[nodiscard]] std::optional&lt;EntityIssueCode&gt; choiceIssue(const MapEntity&amp; entity,
@@ -360,20 +369,11 @@ namespace {
             }
 <span style = "background-color:#dfd">            break;</span>
         case EntityChoiceSource::Dialogues:
-<span style = "background-color:#dfd">            if (!context.dialogues.contains(text)) {
-                return EntityIssueCode::UnknownDialogue;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#dfd">            return absentDe(context.dialogues, text, EntityIssueCode::UnknownDialogue);</span>
         case EntityChoiceSource::Encounters:
-<span style = "background-color:#dfd">            if (!context.encounters.contains(text)) {
-                return EntityIssueCode::UnknownEncounter;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#dfd">            return absentDe(context.encounters, text, EntityIssueCode::UnknownEncounter);</span>
         case EntityChoiceSource::Maps:
-<span style = "background-color:#dfd">            if (!context.arrivalPointsByMap.contains(text)) {
-                return EntityIssueCode::UnknownTargetMap;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#dfd">            return absentDe(context.arrivalPointsByMap, text, EntityIssueCode::UnknownTargetMap);</span>
         case EntityChoiceSource::ArrivalPoints: {
             // Un point d'arrivee ne se juge que dans une carte connue : une carte inconnue
             // est deja signalee, et la signaler deux fois n'apprendrait rien.
@@ -386,30 +386,15 @@ namespace {
 <span style = "background-color:#dfd">            break;</span>
 <span style = "background-color:#fdd">        }</span>
         case EntityChoiceSource::Figures:
-<span style = "background-color:#dfd">            if (!context.figures.contains(text)) {
-                return EntityIssueCode::UnknownFigure;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#dfd">            return absentDe(context.figures, text, EntityIssueCode::UnknownFigure);</span>
         case EntityChoiceSource::Flags:
-<span style = "background-color:#dfd">            if (!context.flags.contains(text)) {
-                return EntityIssueCode::UnsetFlag;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#dfd">            return absentDe(context.flags, text, EntityIssueCode::UnsetFlag);</span>
         case EntityChoiceSource::Locations:
-<span style = "background-color:#dfd">            if (!context.locations.contains(text)) {
-                return EntityIssueCode::UnknownLocation;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#dfd">            return absentDe(context.locations, text, EntityIssueCode::UnknownLocation);</span>
         case EntityChoiceSource::Items:
-<span style = "background-color:#fdd">            if (!context.items.contains(text)) {
-                return EntityIssueCode::UnknownItem;</span>
-            }
-<span style = "background-color:#fdd">            break;</span>
+<span style = "background-color:#fdd">            return absentDe(context.items, text, EntityIssueCode::UnknownItem);</span>
         case EntityChoiceSource::EntityRefs:
-<span style = "background-color:#fdd">            if (!context.entityRefs.contains(text)) {
-                return EntityIssueCode::UnknownEntityRef;</span>
-            }
-<span style = "background-color:#fdd">            break;</span>
+<span style = "background-color:#fdd">            return absentDe(context.entityRefs, text, EntityIssueCode::UnknownEntityRef);</span>
         case EntityChoiceSource::FlagValues:
 <span style = "background-color:#dfd">            if (!declaresValues(context, textOf(entity.properties, spec.relatedKey), text,</span>
                                 spec.writesFlag)) {
@@ -497,7 +482,7 @@ namespace {
 // quete pose -- sans quoi le PNJ ne paraitrait (ou ne partirait) jamais.
 template &lt;class Report&gt;
 void presenceIssues(const MapEntity&amp; entity, const EntityReferenceContext&amp; context,
-<span style = "background-color:#dfd">                    Report&amp;&amp; report) {
+<span style = "background-color:#dfd">                    const Report&amp; report) {
     const PresenceRead read = presenceConditionOf(entity);
     switch (read.issue) {</span>
         case PresenceIssue::None:

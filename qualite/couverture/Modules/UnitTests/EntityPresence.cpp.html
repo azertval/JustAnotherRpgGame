@@ -33,7 +33,28 @@ struct Lu {
     if (trouve == entite.properties.end()) {
         return {};</span>
     }
-<span style = "background-color:#dfd">    return {true, std::get_if&lt;std::string&gt;(&amp;trouve-&gt;second)};
+<span style = "background-color:#dfd">    return {.present = true, .texte = std::get_if&lt;std::string&gt;(&amp;trouve-&gt;second)};
+}</span>
+
+// Le test nommÃ© par le mot (`set`, `unset`, `equals`, `notEquals`) ; mot vide : `Equals` si des
+// valeurs sont donnÃ©es, `IsSet` sinon ; `std::nullopt` si le mot est inconnu.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;FlagTest&gt; testDepuis(const std::string&amp; mot, bool sansValeurs) {
+    if (mot.empty()) {
+        return sansValeurs ? FlagTest::IsSet : FlagTest::Equals;</span>
+    }
+<span style = "background-color:#dfd">    if (mot == "set") {</span>
+<span style = "background-color:#fdd">        return FlagTest::IsSet;</span>
+    }
+<span style = "background-color:#dfd">    if (mot == "unset") {</span>
+<span style = "background-color:#fdd">        return FlagTest::IsUnset;</span>
+    }
+<span style = "background-color:#dfd">    if (mot == "equals") {
+        return FlagTest::Equals;</span>
+    }
+<span style = "background-color:#dfd">    if (mot == "notEquals") {
+        return FlagTest::NotEquals;</span>
+    }
+<span style = "background-color:#dfd">    return std::nullopt;
 }</span>
 
 }  // namespace
@@ -44,13 +65,14 @@ struct Lu {
     const Lu valeurs = lire(entity, PRESENCE_VALUE_PROPERTY);
     if ((drapeau.present &amp;&amp; drapeau.texte == nullptr) || (test.present &amp;&amp; test.texte == nullptr) ||</span>
         (valeurs.present &amp;&amp; valeurs.texte == nullptr)) {
-<span style = "background-color:#dfd">        return {std::nullopt, PresenceIssue::WrongValueType};</span>
+<span style = "background-color:#dfd">        return {.condition = std::nullopt, .issue = PresenceIssue::WrongValueType};</span>
     }
 <span style = "background-color:#dfd">    const bool sansDrapeau = !drapeau.present || drapeau.texte-&gt;empty();
     if (sansDrapeau) {
         const bool reste =</span>
             (test.present &amp;&amp; !test.texte-&gt;empty()) || (valeurs.present &amp;&amp; !valeurs.texte-&gt;empty());
-<span style = "background-color:#dfd">        return {std::nullopt, reste ? PresenceIssue::MissingFlag : PresenceIssue::None};</span>
+<span style = "background-color:#dfd">        return {.condition = std::nullopt,</span>
+                .issue = reste ? PresenceIssue::MissingFlag : PresenceIssue::None};
     }
 
 <span style = "background-color:#dfd">    FlagCondition condition;
@@ -59,28 +81,20 @@ struct Lu {
         condition.values = splitFlagValues(*valeurs.texte);</span>
     }
 <span style = "background-color:#dfd">    const std::string mot = test.present ? *test.texte : std::string();
-    if (mot.empty()) {
-        condition.test = condition.values.empty() ? FlagTest::IsSet : FlagTest::Equals;
-    } else if (mot == "set") {</span>
-<span style = "background-color:#fdd">        condition.test = FlagTest::IsSet;</span>
-<span style = "background-color:#dfd">    } else if (mot == "unset") {</span>
-<span style = "background-color:#fdd">        condition.test = FlagTest::IsUnset;</span>
-<span style = "background-color:#dfd">    } else if (mot == "equals") {
-        condition.test = FlagTest::Equals;
-    } else if (mot == "notEquals") {
-        condition.test = FlagTest::NotEquals;
-    } else {
-        return {std::nullopt, PresenceIssue::UnknownTest};</span>
+    const std::optional&lt;FlagTest&gt; forme = testDepuis(mot, condition.values.empty());
+    if (!forme) {
+        return {.condition = std::nullopt, .issue = PresenceIssue::UnknownTest};</span>
     }
-<span style = "background-color:#dfd">    const bool compare =</span>
+<span style = "background-color:#dfd">    condition.test = *forme;
+    const bool compare =</span>
         condition.test == FlagTest::Equals || condition.test == FlagTest::NotEquals;
 <span style = "background-color:#dfd">    if (compare &amp;&amp; condition.values.empty()) {
-        return {std::nullopt, PresenceIssue::MissingValue};</span>
+        return {.condition = std::nullopt, .issue = PresenceIssue::MissingValue};</span>
     }
 <span style = "background-color:#dfd">    if (!compare) {
         condition.values.clear();</span>
     }
-<span style = "background-color:#dfd">    return {std::move(condition), PresenceIssue::None};</span>
+<span style = "background-color:#dfd">    return {.condition = std::move(condition), .issue = PresenceIssue::None};</span>
 <span style = "background-color:#fdd">}</span>
 
 <span style = "background-color:#dfd">bool isEntityPresent(const MapEntity&amp; entity, const WorldFlags&amp; flags) {

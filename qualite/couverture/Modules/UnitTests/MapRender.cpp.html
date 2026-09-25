@@ -55,6 +55,16 @@ namespace hmi {
 namespace {
 
 constexpr double MAX_SCALE = 4.0;
+/// L'Ã©chelle minimale d'un rendu : un soixante-quatriÃ¨me de la carte vue Ã  1080p.
+constexpr double MIN_SCALE = 1.0 / 64.0;
+/// Chiffres aprÃ¨s la virgule d'une fraction de la grille (`world-maps.json`).
+constexpr int GRID_DECIMALS = 5;
+/// La moitiÃ© : le centre d'une Ã©tendue.
+constexpr double HALF = 0.5;
+/// Le masque de collision : intensitÃ© forte et faible d'un canal, et le vert du milieu.
+constexpr float OVERLAY_STRONG = 0.85F;
+constexpr float OVERLAY_WEAK = 0.20F;
+constexpr float OVERLAY_MID = 0.30F;
 
 /// La dÃ©finition de rÃ©fÃ©rence de `--render` : l'Ã©chelle 1 est la carte vue Ã  1080p (`LOT-125`).
 constexpr int REFERENCE_VIEW_HEIGHT = 1080;
@@ -131,7 +141,7 @@ constexpr int MAX_CANVAS_SIDE = 8192;
 <span style = "background-color:#fdd">[[nodiscard]] std::string gridJson(const MapImageGrid&amp; grid) {
     const auto pair = [](double x, double y) {
         return QStringLiteral("[%1, %2]")</span>
-            .arg(QString::number(x, 'f', 5), QString::number(y, 'f', 5))
+            .arg(QString::number(x, 'f', GRID_DECIMALS), QString::number(y, 'f', GRID_DECIMALS))
             .toStdString();
 <span style = "background-color:#fdd">    };
     return R"({"origin": )" + pair(grid.originX, grid.originY) + R"(, "column": )" +</span>
@@ -141,7 +151,7 @@ constexpr int MAX_CANVAS_SIDE = 8192;
 }  // namespace
 
 <span style = "background-color:#dfd">double renderPixelsPerUnit(double scale) {
-    return std::clamp(scale, 1.0 / 64.0, MAX_SCALE) *</span>
+    return std::clamp(scale, MIN_SCALE, MAX_SCALE) *</span>
            static_cast&lt;double&gt;(worldTilePixels(REFERENCE_VIEW_HEIGHT)) /
            static_cast&lt;double&gt;(core::ARENA_TILE_WIDTH_UNITS);
 <span style = "background-color:#dfd">}</span>
@@ -210,7 +220,8 @@ QImage renderStamp(const Stamp&amp; stamp, const std::filesystem::path&amp; data
                                    // Deux fois la vignette au plus : la rÃ©duction lisse le reste,
                                    // sans peindre une image de plein format pour la jeter.
                                    .maxSide = 2 * maxSide,
-                                   .background = QColor(0, 0, 0, 0)});
+                                   .background = QColor(0, 0, 0, 0),
+                                   .canvas = std::nullopt});
 <span style = "background-color:#fdd">    if (image.isNull()) {
         return image;</span>
     }
@@ -350,8 +361,8 @@ QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; 
 <span style = "background-color:#fdd">        width = options.canvas-&gt;width();
         height = options.canvas-&gt;height();
         scale = std::min(width / worldWidth, height / worldHeight);
-        offsetX = (width - (worldWidth * scale)) / 2.0;
-        offsetY = (height - (worldHeight * scale)) / 2.0;</span>
+        offsetX = (width - (worldWidth * scale)) * HALF;
+        offsetY = (height - (worldHeight * scale)) * HALF;</span>
     }
 <span style = "background-color:#dfd">    if (grid != nullptr) {
         const auto fraction = [&amp;](core::Vector2 gridPoint) {
@@ -387,11 +398,11 @@ QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; 
         // Le masque du canevas : rouge ce qui arrÃªte, vert l'entrÃ©e.
 <span style = "background-color:#dfd">        paintDiamonds(painter, projection, draft.tileMap(), [&amp;bands](core::TileType type) {
             if (core::isSolid(type)) {
-                return withAlpha(QColor::fromRgbF(0.85F, 0.20F, 0.20F),</span>
+                return withAlpha(QColor::fromRgbF(OVERLAY_STRONG, OVERLAY_WEAK, OVERLAY_WEAK),</span>
                                  bands.collision * DEFAULT_COLLISION_OVERLAY_OPACITY);
             }
 <span style = "background-color:#dfd">            if (type == core::TileType::Entry) {
-                return withAlpha(QColor::fromRgbF(0.20F, 0.85F, 0.30F),</span>
+                return withAlpha(QColor::fromRgbF(OVERLAY_WEAK, OVERLAY_STRONG, OVERLAY_MID),</span>
                                  bands.collision * DEFAULT_COLLISION_OVERLAY_OPACITY);
             }
 <span style = "background-color:#dfd">            return QColor{};
@@ -416,6 +427,33 @@ struct RenderCommandLine {
     std::string error;
 };
 
+// `--layers &lt;liste&gt;` : les bandes Ã  peindre.
+<span style = "background-color:#fdd">void applyLayersOption(RenderCommandLine&amp; line, std::string_view list) {
+    const std::optional&lt;IsoBandOpacity&gt; bands = parseRenderLayers(list);
+    if (bands) {
+        line.options.bands = *bands;
+    } else {
+        line.error = "--layers takes floors, relief, figures, collision";</span>
+    }
+<span style = "background-color:#fdd">}</span>
+
+// `--canvas &lt;l&gt;x&lt;h&gt;` : le cadre imposÃ©.
+<span style = "background-color:#fdd">void applyCanvasOption(RenderCommandLine&amp; line, const std::string&amp; size) {
+    line.options.canvas = parseCanvasSize(size);
+    if (!line.options.canvas) {
+        line.error = "--canvas takes &lt;width&gt;x&lt;height&gt;, each in [1, 8192]";</span>
+    }
+<span style = "background-color:#fdd">}</span>
+
+// `--scale &lt;n&gt;` : l'Ã©chelle, dans ]0, 4].
+<span style = "background-color:#dfd">void applyScaleOption(RenderCommandLine&amp; line, const std::string&amp; value) {
+    bool ok = false;
+    line.options.scale = QString::fromStdString(value).toDouble(&amp;ok);
+    if (!ok || line.options.scale &lt;= 0.0 || line.options.scale &gt; MAX_SCALE) {</span>
+<span style = "background-color:#fdd">        line.error = "--scale takes a number in ]0, 4]";</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
 [[nodiscard]] RenderCommandLine parseRenderCommand(const std::vector&lt;std::string&gt;&amp; arguments,
 <span style = "background-color:#dfd">                                                   const std::filesystem::path&amp; defaultDataRoot) {
     RenderCommandLine line;
@@ -430,25 +468,13 @@ struct RenderCommandLine {
         } else if (argument == "--output" &amp;&amp; hasValue) {
             line.destination = arguments[++index];
         } else if (argument == "--layers" &amp;&amp; hasValue) {</span>
-<span style = "background-color:#fdd">            const std::optional&lt;IsoBandOpacity&gt; bands = parseRenderLayers(arguments[++index]);
-            if (bands) {
-                line.options.bands = *bands;
-            } else {
-                line.error = "--layers takes floors, relief, figures, collision";
-            }</span>
+<span style = "background-color:#fdd">            applyLayersOption(line, arguments[++index]);</span>
 <span style = "background-color:#dfd">        } else if (argument == "--plan") {</span>
 <span style = "background-color:#fdd">            line.options.plan = true;</span>
 <span style = "background-color:#dfd">        } else if (argument == "--canvas" &amp;&amp; hasValue) {</span>
-<span style = "background-color:#fdd">            line.options.canvas = parseCanvasSize(arguments[++index]);
-            if (!line.options.canvas) {
-                line.error = "--canvas takes &lt;width&gt;x&lt;height&gt;, each in [1, 8192]";
-            }</span>
+<span style = "background-color:#fdd">            applyCanvasOption(line, arguments[++index]);</span>
 <span style = "background-color:#dfd">        } else if (argument == "--scale" &amp;&amp; hasValue) {
-            bool ok = false;
-            line.options.scale = QString::fromStdString(arguments[++index]).toDouble(&amp;ok);
-            if (!ok || line.options.scale &lt;= 0.0 || line.options.scale &gt; MAX_SCALE) {</span>
-<span style = "background-color:#fdd">                line.error = "--scale takes a number in ]0, 4]";</span>
-<span style = "background-color:#dfd">            }
+            applyScaleOption(line, arguments[++index]);
         } else if (line.render &amp;&amp; !argument.starts_with("--")) {
             line.targets.push_back(argument);</span>
         }

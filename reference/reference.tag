@@ -5181,6 +5181,7 @@
     <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <class kind="struct">hmi::DebugConsoleModel::Pending</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -21915,6 +21916,7 @@
   <compound kind="class">
     <name>hmi::DebugConsoleModel</name>
     <filename>classhmi_1_1DebugConsoleModel.html</filename>
+    <class kind="struct">hmi::DebugConsoleModel::Pending</class>
     <member kind="signal">
       <type>void</type>
       <name>transcriptChanged</name>
@@ -22033,6 +22035,27 @@
       <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
       <anchor>aecdb620d6d3cbe27101b9a532ee4a5e8</anchor>
       <arglist>(const std::vector&lt; std::string &gt; &amp;words)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyWord</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>ad953539eb68fdebdebc8d18d82e9a1dc</anchor>
+      <arglist>(const std::string &amp;word, Pending &amp;pending)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyImmediate</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>ae38661e67a89ef740301c0c8abf2d01f</anchor>
+      <arglist>(std::string_view name, const std::string &amp;value)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyPending</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>ac2dc85680105f9dd51035c3c33e3a101</anchor>
+      <arglist>(WorldModel *world, const Pending &amp;pending)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -24565,13 +24588,6 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>QColor</type>
-      <name>tileColor</name>
-      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
-      <anchor>aa0cdc975df4cc7578e07391d13dfe24c</anchor>
-      <arglist>(core::TileType type) const</arglist>
-    </member>
-    <member kind="function">
       <type>std::string</type>
       <name>hoveredPieces</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
@@ -24829,6 +24845,13 @@
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>ae3e7472df74297b2e90fa3b26978d49f</anchor>
       <arglist>(QPainter &amp;painter, const QRectF &amp;exposed)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static QColor</type>
+      <name>tileColor</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a6349e069f412f94d7a2962b5d07b7d72</anchor>
+      <arglist>(core::TileType type)</arglist>
     </member>
     <member kind="function" protection="protected">
       <type>bool</type>
@@ -26100,6 +26123,34 @@
       <name>ensureCatalogs</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
       <anchor>aa0530a99f5d66508ad00dee4615700eb</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>core::ArenaMount</type>
+      <name>mountBout</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a3281b166bca8fe7da2543e5662098658</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>bindFigures</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ac5d2d81fd5a46a1828095165c5b14834</anchor>
+      <arglist>(WorldModel &amp;world, const core::ArenaMount &amp;mount)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>keepMount</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a8810eb9ffc6038c1b9bb46b8102d3916</anchor>
+      <arglist>(const core::ArenaMount &amp;mount)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>placeCues</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a149af1205eda85e59702a9664b18b921</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
@@ -33786,13 +33837,6 @@
     </member>
     <member kind="function">
       <type>QString</type>
-      <name>levelsRoot</name>
-      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
-      <anchor>aeb885b617a0b2e904d920b2fdde2674f</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QString</type>
       <name>status</name>
       <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
       <anchor>ad32303eafc3118baa279994ad5f1b07b</anchor>
@@ -33825,6 +33869,13 @@
       <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
       <anchor>a2a1a5d448d469662a2787fc80222deea</anchor>
       <arglist>(const QString &amp;mapId, const QString &amp;arrival, const QString &amp;at, const QString &amp;flags, const QString &amp;heroFigure)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static QString</type>
+      <name>levelsRoot</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ab856178be7169b8d0c4fb3f45e5fe1ba</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="property">
       <type>QML_ELEMENTQVariantList</type>
@@ -35610,6 +35661,52 @@
       <name>cost</name>
       <anchorfile>structcore_1_1Path.html</anchorfile>
       <anchor>ad3940420fbeb5e12108818c1dd9cda1f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::DebugConsoleModel::Pending</name>
+    <filename>structhmi_1_1DebugConsoleModel_1_1Pending.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>structhmi_1_1DebugConsoleModel_1_1Pending.html</anchorfile>
+      <anchor>af507b6d0c46ada390681eb26b772b12f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>levels</name>
+      <anchorfile>structhmi_1_1DebugConsoleModel_1_1Pending.html</anchorfile>
+      <anchor>a5270be9366108648c44d2178a68b6e85</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>flags</name>
+      <anchorfile>structhmi_1_1DebugConsoleModel_1_1Pending.html</anchorfile>
+      <anchor>ab5b56eec89bc8834d0830af693803bd3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>at</name>
+      <anchorfile>structhmi_1_1DebugConsoleModel_1_1Pending.html</anchorfile>
+      <anchor>ac8eea7c117b9e563ed7c46c029e8f14c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>heroFigure</name>
+      <anchorfile>structhmi_1_1DebugConsoleModel_1_1Pending.html</anchorfile>
+      <anchor>a4ae3f77c6d73eb31ce074ba2fc581b45</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>map</name>
+      <anchorfile>structhmi_1_1DebugConsoleModel_1_1Pending.html</anchorfile>
+      <anchor>a81a6803be42b2ac7553bce03bd97526c</anchor>
       <arglist></arglist>
     </member>
   </compound>

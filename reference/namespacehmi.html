@@ -1184,7 +1184,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ada4c5f2f4d7544a3bb0598071fc35af2" id="r_ada4c5f2f4d7544a3bb0598071fc35af2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ada4c5f2f4d7544a3bb0598071fc35af2">isValidPrefabName</a> (std::string_view name)</td></tr>
 <tr class="memitem:a07be0ee4221ad06662b636b34b4e4fba" id="r_a07be0ee4221ad06662b636b34b4e4fba"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a07be0ee4221ad06662b636b34b4e4fba">prefabsDir</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
 <tr class="memitem:aef07b8646fceab1c624a224df72a0253" id="r_aef07b8646fceab1c624a224df72a0253"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1PrefabEntry.html">PrefabEntry</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aef07b8646fceab1c624a224df72a0253">availablePrefabs</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
-<tr class="memdesc:aef07b8646fceab1c624a224df72a0253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt">LOT-124</span>) : les siens et ceux de chacun de ses niveaux communs, jusqu'au monde (<span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/*.json</span>).  <br /></td></tr>
+<tr class="memdesc:aef07b8646fceab1c624a224df72a0253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt">LOT-124</span>) : les siens et ceux de chacun de ses niveaux communs, jusqu'au monde (<span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/&lt;nom&gt;.json</span>).  <br /></td></tr>
 <tr class="memitem:a9c9aba9b8952f0682eb1a046133bb2c4" id="r_a9c9aba9b8952f0682eb1a046133bb2c4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c9aba9b8952f0682eb1a046133bb2c4">prefabNames</a> (const std::filesystem::path &amp;dataRoot, std::string_view place)</td></tr>
 <tr class="memitem:a3c4e9f0c2dba8b305bb472b1fcf59df5" id="r_a3c4e9f0c2dba8b305bb472b1fcf59df5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3c4e9f0c2dba8b305bb472b1fcf59df5">prefabLevel</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest)</td></tr>
 <tr class="memdesc:a3c4e9f0c2dba8b305bb472b1fcf59df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau où ranger <code class="param">stamp</code> : le plus bas qui voit <b>toutes</b> ses pièces — le niveau le plus propre d'où vient l'une d'elles (<span class="tt">LOT-124</span>, règle 1 de l'arborescence).  <br /></td></tr>
@@ -3942,7 +3942,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt">LOT-124</span>) : les siens et ceux de chacun de ses niveaux communs, jusqu'au monde (<span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/*.json</span>). </p>
+<p>Les préfabriqués que le lieu <code class="param">place</code> peut poser (<span class="tt">LOT-124</span>) : les siens et ceux de chacun de ses niveaux communs, jusqu'au monde (<span class="tt">&lt;dataRoot&gt;/Editor/Prefabs/&lt;nom&gt;.json</span>). </p>
 <p>Un préfabriqué propre masque un commun de même nom. Triés par nom. </p>
 
 </div>

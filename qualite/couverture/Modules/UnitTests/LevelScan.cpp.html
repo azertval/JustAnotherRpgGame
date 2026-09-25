@@ -27,9 +27,8 @@ constexpr std::string_view EXTENSION = ".json";
 constexpr std::string_view EDITOR_SIDECAR = ".editor.json";
 
 <span style = "background-color:#dfd">[[nodiscard]] bool finitPar(std::string_view texte, std::string_view suffixe) {
-    return texte.size() &gt;= suffixe.size() &amp;&amp;</span>
-           texte.compare(texte.size() - suffixe.size(), suffixe.size(), suffixe) == 0;
-<span style = "background-color:#dfd">}</span>
+    return texte.ends_with(suffixe);
+}</span>
 
 // Rend : L'identifiant de `file` sous `directory` : le chemin relatif, `/` partout, sans
 //         `.json`.

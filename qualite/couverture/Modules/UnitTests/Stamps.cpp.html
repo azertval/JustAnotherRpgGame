@@ -1057,55 +1057,40 @@ namespace {
     }</span>
 <span style = "background-color:#dfd">}</span>
 
-}  // namespace
-
-std::optional&lt;int&gt; runPrefabCommand(const std::vector&lt;std::string&gt;&amp; arguments,
-<span style = "background-color:#dfd">                                    const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
-    const auto usage = [&amp;output](std::string_view text) {</span>
-<span style = "background-color:#fdd">        output += "usage: " + std::string{text} + "\n";
-        return 2;</span>
-<span style = "background-color:#dfd">    };
-    if (const auto places = valuesOf(arguments, "--list-prefabs")) {</span>
-<span style = "background-color:#fdd">        std::vector&lt;std::string&gt; wanted = *places;
-        if (wanted.empty()) {
-            wanted = scenePlaces(dataRoot);</span>
-        }
-<span style = "background-color:#fdd">        std::size_t total = 0;
-        for (const std::string&amp; place : wanted) {
-            for (const PrefabEntry&amp; prefab : availablePrefabs(dataRoot, place)) {
-                std::string error;
-                const std::optional&lt;Stamp&gt; stamp =</span>
-                    readPrefab(dataRoot, prefab.level, prefab.name, error);
-<span style = "background-color:#fdd">                output.append(place).append(": ");
-                if (!prefab.level.empty()) {
-                    output.append(prefab.level).append("/");</span>
-                }
-<span style = "background-color:#fdd">                output.append(prefab.name).append(": ");
-                output.append(stamp ? stampLabel(*stamp) : "unreadable â " + error).append("\n");
-                ++total;
+// `--list-prefabs [lieu...]` : chaque prÃ©fabriquÃ©, son Ã©tiquette ou pourquoi il est illisible.
+int listPrefabs(const std::vector&lt;std::string&gt;&amp; places, const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#fdd">                std::string&amp; output) {
+    std::vector&lt;std::string&gt; wanted = places;
+    if (wanted.empty()) {
+        wanted = scenePlaces(dataRoot);</span>
+    }
+<span style = "background-color:#fdd">    std::size_t total = 0;
+    for (const std::string&amp; place : wanted) {
+        for (const PrefabEntry&amp; prefab : availablePrefabs(dataRoot, place)) {
+            std::string error;
+            const std::optional&lt;Stamp&gt; stamp =</span>
+                readPrefab(dataRoot, prefab.level, prefab.name, error);
+<span style = "background-color:#fdd">            output.append(place).append(": ");
+            if (!prefab.level.empty()) {
+                output.append(prefab.level).append("/");</span>
             }
+<span style = "background-color:#fdd">            output.append(prefab.name).append(": ");
+            output.append(stamp ? stampLabel(*stamp) : "unreadable â " + error).append("\n");
+            ++total;
         }
-        output += std::to_string(total) + (total == 1 ? " prefab\n" : " prefabs\n");
-        return 0;</span>
-<span style = "background-color:#dfd">    }
-    const auto save = valuesOf(arguments, "--save-prefab");
-    if (!save) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    const auto from = valuesOf(arguments, "--from");
-    const auto to = valuesOf(arguments, "--to");
-    if (save-&gt;size() != 2 || !from || from-&gt;size() != 1 || !to || to-&gt;size() != 1) {</span>
-<span style = "background-color:#fdd">        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
-    }
-<span style = "background-color:#dfd">    const std::optional&lt;core::GridPosition&gt; first = cellArgument(from-&gt;front());
-    const std::optional&lt;core::GridPosition&gt; last = cellArgument(to-&gt;front());
-    if (!first || !last) {</span>
-<span style = "background-color:#fdd">        return usage("--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;");</span>
-    }
-<span style = "background-color:#dfd">    const std::filesystem::path asPath{(*save)[0]};
+    output += std::to_string(total) + (total == 1 ? " prefab\n" : " prefabs\n");
+    return 0;
+}</span>
+
+// `--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;` : dÃ©coupe le rectangle et l'Ã©crit.
+int savePrefab(const std::vector&lt;std::string&gt;&amp; save, const std::filesystem::path&amp; dataRoot,
+               const std::optional&lt;core::GridPosition&gt;&amp; first,
+<span style = "background-color:#dfd">               const std::optional&lt;core::GridPosition&gt;&amp; last, std::string&amp; output) {
+    const std::filesystem::path asPath{save[0]};
     const std::filesystem::path mapFile = std::filesystem::is_regular_file(asPath)</span>
                                               ? asPath
-                                              : dataRoot / "Levels" / ((*save)[0] + ".json");
+                                              : dataRoot / "Levels" / (save[0] + ".json");
 <span style = "background-color:#dfd">    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(mapFile);
     if (!loaded.ok()) {</span>
 <span style = "background-color:#fdd">        output += "error: " + mapFile.string() + ": " + loaded.error + "\n";
@@ -1121,14 +1106,41 @@ std::optional&lt;int&gt; runPrefabCommand(const std::vector&lt;std::string&gt;&a
     // RangÃ© au plus bas niveau qui voit toutes ses piÃ¨ces (LOT-124) : fait du kit de la Capitale,
     // il sert Ã  tous ses quartiers.
 <span style = "background-color:#dfd">    const std::string level = prefabLevel(stamp, assets.manifest ? &amp;*assets.manifest : nullptr);
-    const std::string error = writePrefab(dataRoot, level, (*save)[1], stamp);
+    const std::string error = writePrefab(dataRoot, level, save[1], stamp);
     if (!error.empty()) {</span>
 <span style = "background-color:#fdd">        output += "error: " + error + "\n";
         return 1;</span>
     }
-<span style = "background-color:#dfd">    output += "saved " + (level.empty() ? std::string{"(world)"} : level) + "/" + (*save)[1] +</span>
-              ": " + stampLabel(stamp) + "\n";
+<span style = "background-color:#dfd">    output += "saved " + (level.empty() ? std::string{"(world)"} : level) + "/" + save[1] + ": " +</span>
+              stampLabel(stamp) + "\n";
 <span style = "background-color:#dfd">    return 0;
+}</span>
+
+}  // namespace
+
+std::optional&lt;int&gt; runPrefabCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+<span style = "background-color:#dfd">                                    const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    if (const auto places = valuesOf(arguments, "--list-prefabs")) {</span>
+<span style = "background-color:#fdd">        return listPrefabs(*places, dataRoot, output);</span>
+<span style = "background-color:#dfd">    }
+    const auto save = valuesOf(arguments, "--save-prefab");
+    if (!save) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto from = valuesOf(arguments, "--from");
+    const auto to = valuesOf(arguments, "--to");
+    constexpr std::string_view SAVE_USAGE = "--save-prefab &lt;map&gt; &lt;name&gt; --from &lt;c,r&gt; --to &lt;c,r&gt;";
+    if (save-&gt;size() != 2 || !from || from-&gt;size() != 1 || !to || to-&gt;size() != 1) {</span>
+<span style = "background-color:#fdd">        output += "usage: " + std::string{SAVE_USAGE} + "\n";
+        return 2;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;core::GridPosition&gt; first = cellArgument(from-&gt;front());
+    const std::optional&lt;core::GridPosition&gt; last = cellArgument(to-&gt;front());
+    if (!first || !last) {</span>
+<span style = "background-color:#fdd">        output += "usage: " + std::string{SAVE_USAGE} + "\n";
+        return 2;</span>
+    }
+<span style = "background-color:#dfd">    return savePrefab(*save, dataRoot, first, last, output);
 }</span>
 
 }  // namespace hmi</pre>

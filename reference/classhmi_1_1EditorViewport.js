@@ -159,7 +159,7 @@ var classhmi_1_1EditorViewport =
     [ "stopPlaytest", "classhmi_1_1EditorViewport.html#a32cd2e6c17e71fba5b646ec1579fd311", null ],
     [ "strokeContext", "classhmi_1_1EditorViewport.html#af5807f5d3b60b40f4e1de624b061131d", null ],
     [ "syncEditingState", "classhmi_1_1EditorViewport.html#a5214b5ea9e293b58440e79f201c7c883", null ],
-    [ "tileColor", "classhmi_1_1EditorViewport.html#aa0cdc975df4cc7578e07391d13dfe24c", null ],
+    [ "tileColor", "classhmi_1_1EditorViewport.html#a6349e069f412f94d7a2962b5d07b7d72", null ],
     [ "toggleGrid", "classhmi_1_1EditorViewport.html#a791e3976ceee78809bf740357eec6629", null ],
     [ "toolChanged", "classhmi_1_1EditorViewport.html#a5a03318fcc260f0f9e9bd06fab4287ed", null ],
     [ "toolStateChanged", "classhmi_1_1EditorViewport.html#a429870503228f40a8030484d1ac1be96", null ],

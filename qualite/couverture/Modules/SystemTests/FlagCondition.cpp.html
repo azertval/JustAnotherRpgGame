@@ -93,11 +93,12 @@ using Json = nlohmann::json;
 
 <span style = "background-color:#dfd">FlagConditionRead readFlagCondition(const Json&amp; object) {
     if (!object.is_object()) {</span>
-<span style = "background-color:#fdd">        return {std::nullopt, "une condition est un objet { \"flag\": ... }."};</span>
+<span style = "background-color:#fdd">        return {.condition = std::nullopt,</span>
+                .error = "une condition est un objet { \"flag\": ... }."};
     }
 <span style = "background-color:#dfd">    const auto drapeau = object.find("flag");
     if (drapeau == object.end() || !drapeau-&gt;is_string() || drapeau-&gt;get&lt;std::string&gt;().empty()) {
-        return {std::nullopt, "condition sans 'flag'."};</span>
+        return {.condition = std::nullopt, .error = "condition sans 'flag'."};</span>
     }
 <span style = "background-color:#dfd">    FlagCondition condition;
     condition.flag = drapeau-&gt;get&lt;std::string&gt;();</span>
@@ -109,29 +110,32 @@ using Json = nlohmann::json;
                        static_cast&lt;int&gt;(egal != object.end()) +
                        static_cast&lt;int&gt;(different != object.end());
 <span style = "background-color:#dfd">    if (formes &gt; 1) {
-        return {std::nullopt, "condition sur '" + condition.flag +</span>
-                                  "' : 'isSet', 'equals' et 'notEquals' s'excluent."};
+        return {.condition = std::nullopt,</span>
+                .error = "condition sur '" + condition.flag +
+                         "' : 'isSet', 'equals' et 'notEquals' s'excluent."};
     }
 <span style = "background-color:#dfd">    if (estPose != object.end()) {
         if (!estPose-&gt;is_boolean()) {
-            return {std::nullopt, "condition sur '" + condition.flag + "' : 'isSet' non booleen."};</span>
+            return {.condition = std::nullopt,</span>
+                    .error = "condition sur '" + condition.flag + "' : 'isSet' non booleen."};
         }
 <span style = "background-color:#dfd">        condition.test = estPose-&gt;get&lt;bool&gt;() ? FlagTest::IsSet : FlagTest::IsUnset;
-        return {condition, {}};</span>
+        return {.condition = condition, .error = {}};</span>
     }
 <span style = "background-color:#dfd">    if (egal == object.end() &amp;&amp; different == object.end()) {
-        return {condition, {}};</span>
+        return {.condition = condition, .error = {}};</span>
     }
 <span style = "background-color:#dfd">    const bool estEgal = egal != object.end();
     auto valeurs = valeursDepuis(estEgal ? *egal : *different);
     if (!valeurs) {
-        return {std::nullopt, "condition sur '" + condition.flag + "' : '" +</span>
-                                  (estEgal ? "equals" : "notEquals") +
-                                  "' attend une valeur ou une liste de valeurs non vides."};
+        return {.condition = std::nullopt,</span>
+                .error = "condition sur '" + condition.flag + "' : '" +
+                         (estEgal ? "equals" : "notEquals") +
+                         "' attend une valeur ou une liste de valeurs non vides."};
     }
 <span style = "background-color:#dfd">    condition.test = estEgal ? FlagTest::Equals : FlagTest::NotEquals;
     condition.values = std::move(*valeurs);
-    return {condition, {}};</span>
+    return {.condition = condition, .error = {}};</span>
 <span style = "background-color:#fdd">}</span>
 
 <span style = "background-color:#dfd">std::vector&lt;std::string&gt; splitFlagValues(std::string_view text) {

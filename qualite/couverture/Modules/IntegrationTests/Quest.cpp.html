@@ -72,6 +72,23 @@ private:
     return std::ranges::find(valeurs, valeur) != valeurs.end();
 }</span>
 
+// Les valeurs dÃ©clarÃ©es d'un drapeau : chacune un texte non vide, sans doublon.
+void lireValeursDrapeau(const Json&amp; valeurs, const Pointeur&amp; ou, QuestFlag&amp; drapeau,
+<span style = "background-color:#dfd">                        Rapport&amp; rapport) {
+    for (std::size_t v = 0; v &lt; valeurs.size(); ++v) {
+        const Json&amp; valeur = valeurs[v];
+        if (!valeur.is_string() || valeur.get&lt;std::string&gt;().empty()) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou / "values" / v,</span>
+                             "drapeau '" + drapeau.id + "' : une valeur n'est pas un texte.");
+<span style = "background-color:#dfd">        } else if (contient(drapeau.values, valeur.get&lt;std::string&gt;())) {</span>
+<span style = "background-color:#fdd">            rapport.signaler(ou / "values" / v, "drapeau '" + drapeau.id + "' : valeur '" +</span>
+                                                    valeur.get&lt;std::string&gt;() + "' en double.");
+<span style = "background-color:#fdd">        } else {</span>
+<span style = "background-color:#dfd">            drapeau.values.push_back(valeur.get&lt;std::string&gt;());</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
 <span style = "background-color:#dfd">void lireDrapeaux(const Json&amp; racine, Quest&amp; quete, Rapport&amp; rapport) {
     const auto drapeaux = racine.find("flags");
     if (drapeaux == racine.end()) {
@@ -99,18 +116,7 @@ private:
 <span style = "background-color:#fdd">            rapport.signaler(ou, "drapeau '" + drapeau.id + "' : 'values' absent ou vide.");
             continue;</span>
         }
-<span style = "background-color:#dfd">        for (std::size_t v = 0; v &lt; valeurs-&gt;size(); ++v) {
-            const Json&amp; valeur = (*valeurs)[v];
-            if (!valeur.is_string() || valeur.get&lt;std::string&gt;().empty()) {</span>
-<span style = "background-color:#fdd">                rapport.signaler(ou / "values" / v,</span>
-                                 "drapeau '" + drapeau.id + "' : une valeur n'est pas un texte.");
-<span style = "background-color:#dfd">            } else if (contient(drapeau.values, valeur.get&lt;std::string&gt;())) {</span>
-<span style = "background-color:#fdd">                rapport.signaler(ou / "values" / v, "drapeau '" + drapeau.id + "' : valeur '" +</span>
-                                                        valeur.get&lt;std::string&gt;() + "' en double.");
-<span style = "background-color:#fdd">            } else {</span>
-<span style = "background-color:#dfd">                drapeau.values.push_back(valeur.get&lt;std::string&gt;());</span>
-            }
-<span style = "background-color:#dfd">        }
+<span style = "background-color:#dfd">        lireValeursDrapeau(*valeurs, ou, drapeau, rapport);
         if (const auto initiale = texte(brut, "initial")) {
             drapeau.initial = *initiale;
         } else if (!drapeau.values.empty()) {
@@ -385,6 +391,32 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
     }
 }</span>
 
+namespace {
+
+// Les effets d'une Ã©tape franchie : effacer, poser, ou donner sa valeur au drapeau.
+<span style = "background-color:#dfd">void appliquerEffets(const QuestStep&amp; etape, WorldFlags&amp; flags) {
+    for (const QuestEffect&amp; effet : etape.effects) {
+        if (effet.kind == QuestEffect::Kind::ClearFlag) {</span>
+<span style = "background-color:#fdd">            flags.clear(effet.flag);</span>
+<span style = "background-color:#dfd">        } else if (effet.value.empty()) {
+            flags.set(effet.flag);
+        } else {
+            flags.setValue(effet.flag, effet.value);</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+// Vrai si l'Ã©tape n'est pas dÃ©jÃ  franchie et que toutes ses conditions tiennent.
+[[nodiscard]] bool etapeFranchissable(const QuestStep&amp; etape, std::string_view fait,
+<span style = "background-color:#dfd">                                      const WorldFlags&amp; flags) {
+    return !flags.isSet(fait) &amp;&amp;
+           std::ranges::all_of(etape.when, [&amp;flags](const FlagCondition&amp; condition) {
+               return condition.holds(flags);
+           });
+}</span>
+
+}  // namespace
+
 <span style = "background-color:#dfd">std::vector&lt;QuestEvent&gt; advanceQuests(const QuestCatalog&amp; catalog, WorldFlags&amp; flags) {
     std::vector&lt;QuestEvent&gt; evenements;
     bool bouge = true;
@@ -397,24 +429,14 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
             }
 <span style = "background-color:#dfd">            for (const QuestStep&amp; etape : quete.steps) {
                 const std::string fait = questStepFlag(quete.id, etape.id);
-                if (flags.isSet(fait) ||
-                    !std::ranges::all_of(etape.when, [&amp;flags](const FlagCondition&amp; condition) {
-                        return condition.holds(flags);
-                    })) {
+                if (!etapeFranchissable(etape, fait, flags)) {
                     continue;</span>
                 }
 <span style = "background-color:#dfd">                flags.set(fait);
-                for (const QuestEffect&amp; effet : etape.effects) {
-                    if (effet.kind == QuestEffect::Kind::ClearFlag) {</span>
-<span style = "background-color:#fdd">                        flags.clear(effet.flag);</span>
-<span style = "background-color:#dfd">                    } else if (effet.value.empty()) {
-                        flags.set(effet.flag);
-                    } else {
-                        flags.setValue(effet.flag, effet.value);</span>
-                    }
-<span style = "background-color:#dfd">                }
-                evenements.push_back({quete.id, etape.id, etape.outcome});
-                bouge = true;
+                appliquerEffets(etape, flags);
+                evenements.push_back(</span>
+                    {.quest = quete.id, .step = etape.id, .outcome = etape.outcome});
+<span style = "background-color:#dfd">                bouge = true;
                 if (etape.outcome != QuestOutcome::None) {
                     break;</span>
                 }
@@ -462,17 +484,29 @@ void verifierUsage(const QuestCatalog&amp; quetes, std::string_view drapeau,
     }
 <span style = "background-color:#dfd">    for (const std::string&amp; valeur : valeurs) {
         if (!contient(declaration-&gt;values, valeur)) {
-            erreurs.push_back(ou + " : valeur '" + valeur + "' que le drapeau '" +</span>
-                              std::string(drapeau) + "' ne declare pas.");
+            std::string message = ou;
+            message.append(" : valeur '").append(valeur).append("' que le drapeau '");
+            message.append(drapeau).append("' ne declare pas.");
+            erreurs.push_back(std::move(message));
         }
-<span style = "background-color:#dfd">    }
+    }
 }</span>
 
 }  // namespace
 
-std::vector&lt;std::string&gt; validateFlagUses(const QuestCatalog&amp; quests,
-<span style = "background-color:#dfd">                                          const DialogueCatalog&amp; dialogues) {
-    std::vector&lt;std::string&gt; erreurs;
+namespace {
+
+// Les valeurs qu'une action ou un effet pose : aucune, ou la seule qu'il nomme.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; valeursPosees(const std::string&amp; valeur) {
+    std::vector&lt;std::string&gt; valeurs;
+    if (!valeur.empty()) {
+        valeurs.push_back(valeur);</span>
+    }
+<span style = "background-color:#dfd">    return valeurs;
+}</span>
+
+void verifierDialogues(const QuestCatalog&amp; quests, const DialogueCatalog&amp; dialogues,
+<span style = "background-color:#dfd">                       std::vector&lt;std::string&gt;&amp; erreurs) {
     for (const DialogueGraph&amp; graphe : dialogues.dialogues) {
         for (const DialogueNode&amp; noeud : graphe.nodes) {
             const std::string ou = "dialogue '" + graphe.id + "' : noeud '" + noeud.id + "'";
@@ -487,72 +521,91 @@ std::vector&lt;std::string&gt; validateFlagUses(const QuestCatalog&amp; quests,
                 }
 <span style = "background-color:#dfd">            }
             for (const DialogueAction&amp; action : noeud.actions) {
-                if (action.kind != DialogueActionKind::SetFlag) {
-                    continue;</span>
+                if (action.kind == DialogueActionKind::SetFlag) {
+                    verifierUsage(quests, action.target, valeursPosees(action.value),</span>
+                                  action.value.empty(), ou, erreurs);
                 }
-<span style = "background-color:#dfd">                std::vector&lt;std::string&gt; valeurs;
-                if (!action.value.empty()) {
-                    valeurs.push_back(action.value);</span>
-                }
-<span style = "background-color:#dfd">                verifierUsage(quests, action.target, valeurs, action.value.empty(), ou, erreurs);
-            }
+<span style = "background-color:#dfd">            }
         }
-    }</span>
-    // Les quÃªtes entre elles : une Ã©tape peut lire ou poser le drapeau qu'une autre dÃ©clare.
-<span style = "background-color:#dfd">    for (const Quest&amp; quete : quests.quests) {
+    }
+}</span>
+
+// Les quÃªtes entre elles : une Ã©tape peut lire ou poser le drapeau qu'une autre dÃ©clare.
+<span style = "background-color:#dfd">void verifierQuetes(const QuestCatalog&amp; quests, std::vector&lt;std::string&gt;&amp; erreurs) {
+    for (const Quest&amp; quete : quests.quests) {
         for (const QuestStep&amp; etape : quete.steps) {
             const std::string ou = "quete '" + quete.id + "' : etape '" + etape.id + "'";
             for (const FlagCondition&amp; condition : etape.when) {
                 verifierUsage(quests, condition.flag, condition.values, false, ou, erreurs);
             }
             for (const QuestEffect&amp; effet : etape.effects) {
-                if (effet.kind != QuestEffect::Kind::SetFlag) {</span>
-<span style = "background-color:#fdd">                    continue;</span>
+                if (effet.kind == QuestEffect::Kind::SetFlag) {
+                    verifierUsage(quests, effet.flag, valeursPosees(effet.value),</span>
+                                  effet.value.empty(), ou, erreurs);
                 }
-<span style = "background-color:#dfd">                std::vector&lt;std::string&gt; valeurs;
-                if (!effet.value.empty()) {
-                    valeurs.push_back(effet.value);</span>
-                }
-<span style = "background-color:#dfd">                verifierUsage(quests, effet.flag, valeurs, effet.value.empty(), ou, erreurs);
-            }
+<span style = "background-color:#dfd">            }
         }
     }
+}</span>
+
+}  // namespace
+
+std::vector&lt;std::string&gt; validateFlagUses(const QuestCatalog&amp; quests,
+<span style = "background-color:#dfd">                                          const DialogueCatalog&amp; dialogues) {
+    std::vector&lt;std::string&gt; erreurs;
+    verifierDialogues(quests, dialogues, erreurs);
+    verifierQuetes(quests, erreurs);
     return erreurs;
 }</span>
+
+namespace {
+
+// Ce qu'un noeud de dialogue pose : son jet ratÃ©, et le drapeau de chacune de ses actions.
+void poserDepuisNoeud(const DialogueGraph&amp; graphe, const DialogueNode&amp; noeud,
+<span style = "background-color:#dfd">                      std::set&lt;std::string, std::less&lt;&gt;&gt;&amp; poses) {</span>
+    // Un jet rate pose son drapeau de lui-meme (LOT-117) : une quete peut le lire.
+<span style = "background-color:#dfd">    if (noeud.kind == DialogueNodeKind::Check) {
+        poses.insert(dialogueCheckFailedFlag(graphe.id, noeud.id));</span>
+    }
+<span style = "background-color:#dfd">    for (const DialogueAction&amp; action : noeud.actions) {
+        if (action.kind == DialogueActionKind::SetFlag) {
+            poses.insert(action.target);
+        } else if (action.kind == DialogueActionKind::StartQuest) {
+            poses.insert(questStartedFlag(action.target));
+        } else if (action.kind == DialogueActionKind::StartEncounter) {</span>
+            // La victoire pose son fait (`core::endEncounter`, LOT-120) : une quete le lit.
+<span style = "background-color:#dfd">            poses.insert(encounterWonFlag(action.target));</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+// Ce qu'une quÃªte pose : ses drapeaux dÃ©clarÃ©s, le fait de chaque Ã©tape, et ses effets de pose.
+<span style = "background-color:#dfd">void poserDepuisQuete(const Quest&amp; quete, std::set&lt;std::string, std::less&lt;&gt;&gt;&amp; poses) {
+    for (const QuestFlag&amp; drapeau : quete.flags) {
+        poses.insert(drapeau.id);
+    }
+    for (const QuestStep&amp; etape : quete.steps) {
+        poses.insert(questStepFlag(quete.id, etape.id));
+        for (const QuestEffect&amp; effet : etape.effects) {
+            if (effet.kind == QuestEffect::Kind::SetFlag) {
+                poses.insert(effet.flag);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+}  // namespace
 
 std::set&lt;std::string, std::less&lt;&gt;&gt; flagsWrittenBy(const QuestCatalog&amp; quests,
 <span style = "background-color:#dfd">                                                  const DialogueCatalog&amp; dialogues) {
     std::set&lt;std::string, std::less&lt;&gt;&gt; poses;
     for (const DialogueGraph&amp; graphe : dialogues.dialogues) {
-        for (const DialogueNode&amp; noeud : graphe.nodes) {</span>
-            // Un jet rate pose son drapeau de lui-meme (LOT-117) : une quete peut le lire.
-<span style = "background-color:#dfd">            if (noeud.kind == DialogueNodeKind::Check) {
-                poses.insert(dialogueCheckFailedFlag(graphe.id, noeud.id));</span>
-            }
-<span style = "background-color:#dfd">            for (const DialogueAction&amp; action : noeud.actions) {
-                if (action.kind == DialogueActionKind::SetFlag) {
-                    poses.insert(action.target);
-                } else if (action.kind == DialogueActionKind::StartQuest) {
-                    poses.insert(questStartedFlag(action.target));
-                } else if (action.kind == DialogueActionKind::StartEncounter) {</span>
-                    // La victoire pose son fait (`core::endEncounter`, LOT-120) : une quete le lit.
-<span style = "background-color:#dfd">                    poses.insert(encounterWonFlag(action.target));</span>
-                }
-<span style = "background-color:#dfd">            }
+        for (const DialogueNode&amp; noeud : graphe.nodes) {
+            poserDepuisNoeud(graphe, noeud, poses);
         }
     }
     for (const Quest&amp; quete : quests.quests) {
-        for (const QuestFlag&amp; drapeau : quete.flags) {
-            poses.insert(drapeau.id);
-        }
-        for (const QuestStep&amp; etape : quete.steps) {
-            poses.insert(questStepFlag(quete.id, etape.id));
-            for (const QuestEffect&amp; effet : etape.effects) {
-                if (effet.kind == QuestEffect::Kind::SetFlag) {
-                    poses.insert(effet.flag);</span>
-                }
-<span style = "background-color:#dfd">            }
-        }
+        poserDepuisQuete(quete, poses);
     }
     return poses;
 }</span>
@@ -563,11 +616,12 @@ std::set&lt;std::string, std::less&lt;&gt;&gt; flagsWrittenBy(const QuestCatalog
         for (const DialogueNode&amp; noeud : graphe.nodes) {
             const std::string ou = "dialogue '" + graphe.id + "' : noeud '" + noeud.id + "'";
             if (noeud.kind == DialogueNodeKind::Condition) {
-                lus.push_back({noeud.condition.flag, ou});</span>
+                lus.push_back({.flag = noeud.condition.flag, .where = ou});</span>
             }
 <span style = "background-color:#dfd">            for (const DialogueChoice&amp; choix : noeud.choices) {
                 if (choix.condition) {
-                    lus.push_back({choix.condition-&gt;flag, ou + " / reponse '" + choix.id + "'"});</span>
+                    lus.push_back({.flag = choix.condition-&gt;flag,</span>
+                                   .where = ou + " / reponse '" + choix.id + "'"});
                 }
 <span style = "background-color:#dfd">            }
         }
@@ -575,8 +629,8 @@ std::set&lt;std::string, std::less&lt;&gt;&gt; flagsWrittenBy(const QuestCatalog
     for (const Quest&amp; quete : quests.quests) {
         for (const QuestStep&amp; etape : quete.steps) {
             for (const FlagCondition&amp; condition : etape.when) {
-                lus.push_back(</span>
-                    {condition.flag, "quete '" + quete.id + "' : etape '" + etape.id + "'"});
+                lus.push_back({.flag = condition.flag,</span>
+                               .where = "quete '" + quete.id + "' : etape '" + etape.id + "'"});
 <span style = "background-color:#dfd">            }
         }
     }

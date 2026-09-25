@@ -209,7 +209,7 @@ struct PrefabEntry {
 
 /**
  * @brief Les prÃ©fabriquÃ©s que le lieu @p place peut poser (`LOT-124`) : les siens et ceux de chacun
- *        de ses niveaux communs, jusqu'au monde (`&lt;dataRoot&gt;/Editor/Prefabs/*.json`). Un
+ *        de ses niveaux communs, jusqu'au monde (`&lt;dataRoot&gt;/Editor/Prefabs/&lt;nom&gt;.json`). Un
  *        prÃ©fabriquÃ© propre masque un commun de mÃªme nom. TriÃ©s par nom.
  */
 [[nodiscard]] std::vector&lt;PrefabEntry&gt; availablePrefabs(const std::filesystem::path&amp; dataRoot,

@@ -268,7 +268,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c389802e5ee41652f87a2c339599e14" id="r_a5c389802e5ee41652f87a2c339599e14"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5c389802e5ee41652f87a2c339599e14">setSeeThroughRelief</a> (bool enabled)</td></tr>
 <tr class="memdesc:a5c389802e5ee41652f87a2c339599e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reliefs en transparence : on voit ce qu'on pointe derrière un mur.  <br /></td></tr>
 <tr class="memitem:a28d486d458c7bd49b20422388dfb6f14" id="r_a28d486d458c7bd49b20422388dfb6f14"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a28d486d458c7bd49b20422388dfb6f14">seeThroughRelief</a> () const noexcept</td></tr>
-<tr class="memitem:aa0cdc975df4cc7578e07391d13dfe24c" id="r_aa0cdc975df4cc7578e07391d13dfe24c"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#aa0cdc975df4cc7578e07391d13dfe24c">tileColor</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type) const</td></tr>
 <tr class="memitem:acea96d2cf94cd7780c655afb1ab5c9df" id="r_acea96d2cf94cd7780c655afb1ab5c9df"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acea96d2cf94cd7780c655afb1ab5c9df">hoveredPieces</a> () const</td></tr>
 <tr class="memitem:a9c3b4a504fd1490457985123fad6215d" id="r_a9c3b4a504fd1490457985123fad6215d"><td class="memItemLeft">std::array&lt; <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9c3b4a504fd1490457985123fad6215d">visibleGridCorners</a> () const</td></tr>
 <tr class="memdesc:a9c3b4a504fd1490457985123fad6215d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre coins de la partie visible, en coordonnées de grille continues (colonne, ligne) : un rectangle à plat, un losange en iso.  <br /></td></tr>
@@ -317,6 +316,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae3e7472df74297b2e90fa3b26978d49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint le canevas : appelé par l'élément unique de la scène, <code class="param">exposed</code> en unités monde.  <br /></td></tr>
 <tr class="inherit_header pub_methods_classhmi_1_1EditContextTarget"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classhmi_1_1EditContextTarget')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="classhmi_1_1EditContextTarget.html">hmi::EditContextTarget</a></td></tr>
 <tr class="memitem:a82f63a0d5ba2f3fe2e78ae6bcf79eb99 inherit pub_methods_classhmi_1_1EditContextTarget" id="r_a82f63a0d5ba2f3fe2e78ae6bcf79eb99"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditContextTarget.html#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">~EditContextTarget</a> ()=default</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6349e069f412f94d7a2962b5d07b7d72" id="r_a6349e069f412f94d7a2962b5d07b7d72"><td class="memItemLeft">static QColor&#160;</td><td class="memItemRight"><a class="el" href="#a6349e069f412f94d7a2962b5d07b7d72">tileColor</a> (<a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> type)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -4432,8 +4435,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa0cdc975df4cc7578e07391d13dfe24c" name="aa0cdc975df4cc7578e07391d13dfe24c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0cdc975df4cc7578e07391d13dfe24c">&#9670;&#160;</a></span>tileColor()</h2>
+<a id="a6349e069f412f94d7a2962b5d07b7d72" name="a6349e069f412f94d7a2962b5d07b7d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6349e069f412f94d7a2962b5d07b7d72">&#9670;&#160;</a></span>tileColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4445,12 +4448,12 @@ Private Attributes</h2></td></tr>
           <td class="memname">QColor hmi::EditorViewport::tileColor </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

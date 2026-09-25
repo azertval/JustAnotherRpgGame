@@ -326,6 +326,14 @@ Properties</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aa0530a99f5d66508ad00dee4615700eb" id="r_aa0530a99f5d66508ad00dee4615700eb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa0530a99f5d66508ad00dee4615700eb">ensureCatalogs</a> ()</td></tr>
 <tr class="memdesc:aa0530a99f5d66508ad00dee4615700eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les catalogues à la première rencontre ;.  <br /></td></tr>
+<tr class="memitem:a3281b166bca8fe7da2543e5662098658" id="r_a3281b166bca8fe7da2543e5662098658"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3281b166bca8fe7da2543e5662098658">mountBout</a> ()</td></tr>
+<tr class="memdesc:a3281b166bca8fe7da2543e5662098658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la rencontre.  <br /></td></tr>
+<tr class="memitem:ac5d2d81fd5a46a1828095165c5b14834" id="r_ac5d2d81fd5a46a1828095165c5b14834"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac5d2d81fd5a46a1828095165c5b14834">bindFigures</a> (<a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;world, const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount)</td></tr>
+<tr class="memdesc:ac5d2d81fd5a46a1828095165c5b14834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associe à chaque combattant monté la figurine qu'il dessine.  <br /></td></tr>
+<tr class="memitem:a8810eb9ffc6038c1b9bb46b8102d3916" id="r_a8810eb9ffc6038c1b9bb46b8102d3916"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8810eb9ffc6038c1b9bb46b8102d3916">keepMount</a> (const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount)</td></tr>
+<tr class="memdesc:a8810eb9ffc6038c1b9bb46b8102d3916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient le héros du montage, ou défait la session quand un camp est vide.  <br /></td></tr>
+<tr class="memitem:a149af1205eda85e59702a9664b18b921" id="r_a149af1205eda85e59702a9664b18b921"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a149af1205eda85e59702a9664b18b921">placeCues</a> ()</td></tr>
+<tr class="memdesc:a149af1205eda85e59702a9664b18b921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose la file des mouvements sur les cases de départ des combattants.  <br /></td></tr>
 <tr class="memitem:a342172e5ec90ee7200202d03f37b9ec3" id="r_a342172e5ec90ee7200202d03f37b9ec3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a342172e5ec90ee7200202d03f37b9ec3">subscribeCues</a> ()</td></tr>
 <tr class="memdesc:a342172e5ec90ee7200202d03f37b9ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche la file des mouvements sur la session montée.  <br /></td></tr>
 <tr class="memitem:a66c403badc0d1b18c8cf2c764c13317d" id="r_a66c403badc0d1b18c8cf2c764c13317d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a66c403badc0d1b18c8cf2c764c13317d">publishFigures</a> ()</td></tr>
@@ -529,6 +537,44 @@ Les issues</h2>
 <dl class="section return"><dt>Returns</dt><dd>Les profils de l'IA que <span class="tt"><a class="el" href="namespacecore.html#a927dac700bedb90e5d0bb43bfeb537df" title="Joue le tour du combattant actif selon son profil, et le termine.">core::playTurn</a></span> lit ; <span class="tt">nullptr</span> : l'IA ne joue pas. </dd></dl>
 
 <p>Implements <a class="el" href="classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6">hmi::CombatModel</a>.</p>
+
+</div>
+</div>
+<a id="ac5d2d81fd5a46a1828095165c5b14834" name="ac5d2d81fd5a46a1828095165c5b14834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d2d81fd5a46a1828095165c5b14834">&#9670;&#160;</a></span>bindFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EncounterModel::bindFigures </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mount</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associe à chaque combattant monté la figurine qu'il dessine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>Le modèle du monde, qui résout les figurines. </td></tr>
+    <tr><td class="paramname">mount</td><td>Le montage de la session. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -764,6 +810,40 @@ Les issues</h2>
 
 </div>
 </div>
+<a id="a8810eb9ffc6038c1b9bb46b8102d3916" name="a8810eb9ffc6038c1b9bb46b8102d3916"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8810eb9ffc6038c1b9bb46b8102d3916">&#9670;&#160;</a></span>keepMount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::EncounterModel::keepMount </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mount</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retient le héros du montage, ou défait la session quand un camp est vide. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mount</td><td>Le montage de la session. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Faux si un camp est vide : rien à engager. </dd></dl>
+
+</div>
+</div>
 <a id="a1fe373e7ea8c8bc470d21e12816b1b3c" name="a1fe373e7ea8c8bc470d21e12816b1b3c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fe373e7ea8c8bc470d21e12816b1b3c">&#9670;&#160;</a></span>leave()</h2>
 
@@ -780,6 +860,34 @@ Les issues</h2>
 </div><div class="memdoc">
 
 <p>Le combat a une issue : rend l'exploration, pose ce qu'une victoire acquiert. </p>
+
+</div>
+</div>
+<a id="a3281b166bca8fe7da2543e5662098658" name="a3281b166bca8fe7da2543e5662098658"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3281b166bca8fe7da2543e5662098658">&#9670;&#160;</a></span>mountBout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> hmi::EncounterModel::mountBout </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la rencontre. </p>
+<dl class="section return"><dt>Returns</dt><dd>Le montage : les camps tels que la session les a numérotés. </dd></dl>
 
 </div>
 </div>
@@ -805,6 +913,33 @@ Les issues</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a149af1205eda85e59702a9664b18b921" name="a149af1205eda85e59702a9664b18b921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a149af1205eda85e59702a9664b18b921">&#9670;&#160;</a></span>placeCues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EncounterModel::placeCues </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pose la file des mouvements sur les cases de départ des combattants. </p>
 
 </div>
 </div>

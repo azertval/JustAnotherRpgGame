@@ -870,8 +870,9 @@ std::optional&lt;std::string&gt; replacePieceInMap(const std::filesystem::path&a
     if (!validated.ok()) {</span>
 <span style = "background-color:#fdd">        return map.id + " would not be valid: " + validated.error;</span>
     }
-<span style = "background-color:#dfd">    std::vector&lt;Citation&gt; cited = pieceCitationsIn(map, from, previous ? previous-&gt;directory : "");
-    plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),</span>
+<span style = "background-color:#dfd">    std::vector&lt;Citation&gt; cited =</span>
+        pieceCitationsIn(map, from, previous != nullptr ? previous-&gt;directory : "");
+<span style = "background-color:#dfd">    plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),</span>
                         std::make_move_iterator(cited.end()));
 <span style = "background-color:#dfd">    plan.edits.push_back(</span>
         ProjectEdit{.file = map.file, .text = core::LevelWriter::toJsonString(*validated.level)});
@@ -1126,6 +1127,40 @@ namespace {
     return 0;
 }</span>
 
+// `--replace-piece &lt;old&gt; &lt;new&gt; [map...] [--level &lt;dossier&gt;]` : le plan, puis son Ã©criture.
+int runReplacePiece(const std::vector&lt;std::string&gt;&amp; arguments,
+                    const std::vector&lt;std::string&gt;&amp; piece, const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#fdd">                    std::string&amp; output) {
+    const auto level = valuesOf(arguments, "--level");
+    if (piece.size() &lt; 2 || (level &amp;&amp; level-&gt;size() != 1)) {
+        output += "usage: --replace-piece &lt;old&gt; &lt;new&gt; [map...] [--level &lt;level directory&gt;]\n";
+        return 2;</span>
+    }
+<span style = "background-color:#fdd">    const std::vector&lt;std::string&gt; maps(std::next(piece.begin(), 2), piece.end());
+    return carryOut(planReplacePiece(dataRoot, piece[0], piece[1], maps,</span>
+                                     level ? level-&gt;front() : std::string{}),
+                    dataRoot, output);
+<span style = "background-color:#fdd">}</span>
+
+// `--change-scene &lt;map&gt; &lt;place&gt; [--table &lt;table.json&gt;]` : le plan, puis son Ã©criture.
+int runChangeScene(const std::vector&lt;std::string&gt;&amp; arguments, const std::vector&lt;std::string&gt;&amp; scene,
+<span style = "background-color:#fdd">                   const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const auto tableFile = valuesOf(arguments, "--table");
+    if (scene.size() != 2 || (tableFile &amp;&amp; tableFile-&gt;size() != 1)) {
+        output += "usage: --change-scene &lt;map&gt; &lt;place&gt; [--table &lt;table.json&gt;]\n";
+        return 2;</span>
+    }
+<span style = "background-color:#fdd">    PieceTableResult table;
+    if (tableFile) {
+        table = readPieceTable(tableFile-&gt;front());</span>
+    }
+<span style = "background-color:#fdd">    if (!table.ok()) {
+        output += "error: " + table.error + "\n";
+        return 1;</span>
+    }
+<span style = "background-color:#fdd">    return carryOut(planChangeScene(dataRoot, scene[0], scene[1], table.table), dataRoot, output);
+}</span>
+
 }  // namespace
 
 std::optional&lt;int&gt; runRefactorCommand(const std::vector&lt;std::string&gt;&amp; arguments,
@@ -1165,31 +1200,11 @@ std::optional&lt;int&gt; runRefactorCommand(const std::vector&lt;std::string&gt;
                         output);
 <span style = "background-color:#fdd">    }
     if (const auto piece = valuesOf(arguments, "--replace-piece")) {
-        const auto level = valuesOf(arguments, "--level");
-        if (piece-&gt;size() &lt; 2 || (level &amp;&amp; level-&gt;size() != 1)) {
-            return usage("--replace-piece &lt;old&gt; &lt;new&gt; [map...] [--level &lt;level directory&gt;]");</span>
-        }
-<span style = "background-color:#fdd">        const std::vector&lt;std::string&gt; maps(std::next(piece-&gt;begin(), 2), piece-&gt;end());
-        return carryOut(planReplacePiece(dataRoot, (*piece)[0], (*piece)[1], maps,</span>
-                                         level ? level-&gt;front() : std::string{}),
-                        dataRoot, output);
-<span style = "background-color:#fdd">    }
+        return runReplacePiece(arguments, *piece, dataRoot, output);
+    }
     if (const auto scene = valuesOf(arguments, "--change-scene")) {
-        const auto tableFile = valuesOf(arguments, "--table");
-        if (scene-&gt;size() != 2 || (tableFile &amp;&amp; tableFile-&gt;size() != 1)) {
-            return usage("--change-scene &lt;map&gt; &lt;place&gt; [--table &lt;table.json&gt;]");</span>
-        }
-<span style = "background-color:#fdd">        PieceTableResult table;
-        if (tableFile) {
-            table = readPieceTable(tableFile-&gt;front());</span>
-        }
-<span style = "background-color:#fdd">        if (!table.ok()) {
-            output += "error: " + table.error + "\n";
-            return 1;</span>
-        }
-<span style = "background-color:#fdd">        return carryOut(planChangeScene(dataRoot, (*scene)[0], (*scene)[1], table.table), dataRoot,</span>
-                        output);
-<span style = "background-color:#fdd">    }
+        return runChangeScene(arguments, *scene, dataRoot, output);
+    }
     return std::nullopt;</span>
 <span style = "background-color:#dfd">}</span>
 

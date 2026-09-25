@@ -12,7 +12,7 @@ var dir_7eb0d0bc801e3eeb9c9e3cb238223789 =
     [ "CombatModel.h", "CombatModel_8h.html", "CombatModel_8h" ],
     [ "CreditsModel.cpp", "CreditsModel_8cpp.html", null ],
     [ "CreditsModel.h", "CreditsModel_8h.html", "CreditsModel_8h" ],
-    [ "DebugConsoleModel.cpp", "DebugConsoleModel_8cpp.html", null ],
+    [ "DebugConsoleModel.cpp", "DebugConsoleModel_8cpp.html", "DebugConsoleModel_8cpp" ],
     [ "DebugConsoleModel.h", "DebugConsoleModel_8h.html", "DebugConsoleModel_8h" ],
     [ "DemonstrationCharacter.cpp", "DemonstrationCharacter_8cpp.html", "DemonstrationCharacter_8cpp" ],
     [ "DemonstrationCharacter.h", "DemonstrationCharacter_8h.html", "DemonstrationCharacter_8h" ],

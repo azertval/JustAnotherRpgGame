@@ -19,14 +19,14 @@
 namespace core {
 
 <span style = "background-color:#dfd">bool WorldFlags::isSet(std::string_view key) const {
-    return _values.find(key) != _values.end();
+    return _values.contains(key);
 }</span>
 
 <span style = "background-color:#dfd">bool WorldFlags::set(std::string_view key) {</span>
     // Le retour dit si le fait etait NEUF. C'est cette valeur qui repond a &lt;&lt; le coffre a-t-il deja
     // ete ouvert ? &gt;&gt;, et la rendre evite au gameplay de faire un `isSet` puis un `set` -- deux
     // appels entre lesquels un autre pourrait se glisser.
-<span style = "background-color:#dfd">    if (_declared.find(key) != _declared.end()) {
+<span style = "background-color:#dfd">    if (_declared.contains(key)) {
         return false;</span>
     }
 <span style = "background-color:#dfd">    const bool neuf = _values.emplace(std::string(key), std::string()).second;
@@ -46,14 +46,15 @@ namespace core {
 
 bool WorldFlags::declare(std::string_view key, std::vector&lt;std::string&gt; values,
 <span style = "background-color:#dfd">                         std::string_view initial) {
-    if (values.empty() || std::find(values.begin(), values.end(), initial) == values.end()) {
+    if (values.empty() || std::ranges::find(values, initial) == values.end()) {
         return false;</span>
     }
 <span style = "background-color:#dfd">    if (const auto deja = _declared.find(key); deja != _declared.end()) {</span>
 <span style = "background-color:#fdd">        return deja-&gt;second.values == values &amp;&amp; deja-&gt;second.initial == initial;</span>
 <span style = "background-color:#dfd">    }
-    _declared.emplace(std::string(key), Declaration{std::move(values), std::string(initial)});
-    ++_revision;
+    _declared.emplace(std::string(key),</span>
+                      Declaration{.values = std::move(values), .initial = std::string(initial)});
+<span style = "background-color:#dfd">    ++_revision;
     return true;
 }</span>
 
@@ -68,7 +69,7 @@ bool WorldFlags::declare(std::string_view key, std::vector&lt;std::string&gt; va
         return false;</span>
     }
 <span style = "background-color:#dfd">    const std::vector&lt;std::string&gt;&amp; permises = declaration-&gt;second.values;
-    if (std::find(permises.begin(), permises.end(), value) == permises.end()) {
+    if (std::ranges::find(permises, value) == permises.end()) {
         return false;</span>
     }
 <span style = "background-color:#dfd">    const auto trouve = _values.find(key);

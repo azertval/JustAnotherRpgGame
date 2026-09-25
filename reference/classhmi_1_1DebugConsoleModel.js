@@ -1,7 +1,11 @@
 var classhmi_1_1DebugConsoleModel =
 [
+    [ "Pending", "structhmi_1_1DebugConsoleModel_1_1Pending.html", "structhmi_1_1DebugConsoleModel_1_1Pending" ],
     [ "DebugConsoleModel", "classhmi_1_1DebugConsoleModel.html#a7a69fe5da35ab5ded3dcba68aa331cb8", null ],
     [ "apply", "classhmi_1_1DebugConsoleModel.html#aecdb620d6d3cbe27101b9a532ee4a5e8", null ],
+    [ "applyImmediate", "classhmi_1_1DebugConsoleModel.html#ae38661e67a89ef740301c0c8abf2d01f", null ],
+    [ "applyPending", "classhmi_1_1DebugConsoleModel.html#ac2dc85680105f9dd51035c3c33e3a101", null ],
+    [ "applyWord", "classhmi_1_1DebugConsoleModel.html#ad953539eb68fdebdebc8d18d82e9a1dc", null ],
     [ "clear", "classhmi_1_1DebugConsoleModel.html#a4f0340b1868d9186e84a6541c7c23525", null ],
     [ "gameRequested", "classhmi_1_1DebugConsoleModel.html#a442753b2916cdcd435fbef29bdc5fdfb", null ],
     [ "history", "classhmi_1_1DebugConsoleModel.html#a65c53f5880c1ef2d1e1072a76f4c1aef", null ],

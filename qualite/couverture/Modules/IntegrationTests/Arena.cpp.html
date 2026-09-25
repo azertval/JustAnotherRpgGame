@@ -500,19 +500,23 @@ AttackCircumstances ArenaSession::circumstancesAgainst(CombatantId attacker, Com
     if (!actif.has_value()) {</span>
 <span style = "background-color:#fdd">        return _combat-&gt;move(destination);</span>
     }
-<span style = "background-color:#dfd">    const auto noterPas = [&amp;](const MoveOutcome&amp; pas, GridPosition vers) {
-        record("pas " + _combat-&gt;find(*actif)-&gt;profile.name + " " + std::to_string(vers.column) +</span>
+<span style = "background-color:#dfd">    MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};</span>
+    // Un pas vers `vers` : s'il aboutit, il est notÃ©, signalÃ© Ã  l'observateur et cumulÃ©.
+<span style = "background-color:#dfd">    const auto avancer = [&amp;](GridPosition vers) {
+        const MoveOutcome pas = _combat-&gt;move(vers);
+        if (pas.result != MoveResult::Moved) {</span>
+<span style = "background-color:#fdd">            return pas;</span>
+        }
+<span style = "background-color:#dfd">        record("pas " + _combat-&gt;find(*actif)-&gt;profile.name + " " + std::to_string(vers.column) +</span>
                "," + std::to_string(vers.row) + " (" + std::to_string(pas.path.cost) + ")");
 <span style = "background-color:#dfd">        if (_moveObserver) {</span>
 <span style = "background-color:#fdd">            _moveObserver(*actif, pas.path);</span>
         }
-<span style = "background-color:#dfd">    };
-    MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};
-    const auto cumuler = [&amp;](const MoveOutcome&amp; pas) {
-        parcours.result = MoveResult::Moved;
+<span style = "background-color:#dfd">        parcours.result = MoveResult::Moved;
         parcours.path.steps.insert(parcours.path.steps.end(), pas.path.steps.begin(),</span>
                                    pas.path.steps.end());
 <span style = "background-color:#dfd">        parcours.path.cost += pas.path.cost;
+        return pas;
     };</span>
 
     // Chaque tour de boucle depense au moins une reaction, ou finit le deplacement : la garde n'est
@@ -536,25 +540,17 @@ AttackCircumstances ArenaSession::circumstancesAgainst(CombatantId attacker, Com
         std::vector&lt;CombatantId&gt; opportunistes;
         const std::optional&lt;std::size_t&gt; sortie = firstProvokingStep(*actif, cases, opportunistes);
         if (!sortie.has_value()) {
-            const MoveOutcome pas = _combat-&gt;move(destination);
-            if (pas.result == MoveResult::Moved) {
-                noterPas(pas, destination);
-                cumuler(pas);</span>
-            }
-<span style = "background-color:#dfd">            return parcours.result == MoveResult::Moved ? parcours : pas;</span>
+            const MoveOutcome pas = avancer(destination);
+            return parcours.result == MoveResult::Moved ? parcours : pas;</span>
         }
 
         // On ne s'arrete pas sur la case d'un allie qu'on traverse : l'attaque tombe a la derniere
         // case ou l'on peut se tenir avant la sortie.
 <span style = "background-color:#dfd">        const std::size_t arret = derniereCaseTenable(*zone, cases, *sortie);
         if (arret &gt; 0) {
-            const MoveOutcome pas = _combat-&gt;move(cases[arret]);
-            if (pas.result == MoveResult::Moved) {
-                noterPas(pas, cases[arret]);
-                cumuler(pas);</span>
-            }
-<span style = "background-color:#dfd">        }
-        takeOpportunities(*actif, opportunistes);
+            avancer(cases[arret]);</span>
+        }
+<span style = "background-color:#dfd">        takeOpportunities(*actif, opportunistes);
     }</span>
 <span style = "background-color:#fdd">    return parcours;</span>
 <span style = "background-color:#dfd">}</span>

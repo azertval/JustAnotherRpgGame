@@ -303,6 +303,7 @@ var hierarchy =
     [ "hmi::PanelFocusEntry", "structhmi_1_1PanelFocusEntry.html", null ],
     [ "core::PartyMember", "structcore_1_1PartyMember.html", null ],
     [ "core::Path", "structcore_1_1Path.html", null ],
+    [ "hmi::DebugConsoleModel::Pending", "structhmi_1_1DebugConsoleModel_1_1Pending.html", null ],
     [ "hmi::PickedBrush", "structhmi_1_1PickedBrush.html", null ],
     [ "hmi::PieceCatalogEntry", "structhmi_1_1PieceCatalogEntry.html", null ],
     [ "hmi::PieceCatalogGroup", "structhmi_1_1PieceCatalogGroup.html", null ],
