@@ -3,13 +3,15 @@
 Ce guide s'adresse aux **joueurs** : naviguer dans les menus, régler le jeu, et savoir ce que la
 version d'aujourd'hui donne à faire.
 
-> **À lire en premier — le monde est en cours de reconstruction.** Le jeu a quitté le pixel art pour
-> la 2D haute définition (`LOT-101`), et cette bascule a commencé par **vider** les cartes et les
-> images qui en dépendaient (`LOT-102`). Il n'y a donc, pour l'instant, **aucune carte livrée** :
-> « Nouvelle partie » ouvre l'écran de jeu, qui affiche *« La ville de départ ne s'ouvre pas »*.
-> Tout ce qui suit sur les menus, les écrans et les réglages est en revanche bien là, et se
-> manipule. Les deux quartiers et le donjon de la démo reviennent avec la version `0.0.1`
-> ([la planification](../../../Planning/README.md) dit où elle en est).
+> **La version `0.0.1` est une démo basique.** Elle tient en **une quête**, « Des pommes pour
+> l'arène », jouée sur trois lieux de la Capitale — le marché de **Martpart**, le parvis
+> d'**Arenarea**, et l'**Arena of Fate**, le colisée d'Arenarea — et se termine par l'une de ses
+> **trois fins**. Comptez un quart d'heure. Les cartes sont des **cartes de principe** : des sols
+> en losanges de couleur, des murs en blocs, quelques pièces peintes, et les personnages sont des
+> **mannequins** (une silhouette de chantier, tête ivoire et torse turquoise) ou des **jetons**
+> ronds — vert pour vous, jaune pour un personnage de la quête, rouge pour un adversaire. Ce n'est
+> pas un défaut d'affichage : les lieux définitifs, leurs images et leurs personnages viennent avec
+> la version `0.0.3` ([la planification](../../../Planning/README.md) dit où elle en est).
 
 ## Le menu principal
 
@@ -26,46 +28,89 @@ dans les menus.
 |--------|---------|
 | Se déplacer | **↑ ↓ ← →**, **Z Q S D** ou **W A S D** |
 | Interagir (parler, ouvrir) | **E** ou **Espace** |
+| Choisir une réponse de dialogue | **1** à **9**, ou clic ; **Échap** referme le dialogue |
+| Journal de quêtes | **↑ ↓** changent de quête, **Échap** referme |
 | Mettre en pause | **Échap** |
 
 Le déplacement est libre, en huit directions. On passe d'une carte à l'autre en marchant sur ses
-**portails**, et parler à un personnage ouvre un **dialogue**.
+**portails**, et l'on aborde un personnage ou un objet à **moins d'une case et demie**, de face
+comme de dos : la case regardée a la priorité, puis la plus proche. Parler à un personnage ouvre un
+**dialogue** à réponses ; une réponse qui demande un **jet de compétence** l'annonce entre crochets,
+avec la compétence et le seuil à atteindre (« [Persuasion · DD 15] »). Une fois jouée, l'écran
+montre le d20 tiré, le calcul et l'issue ; un jet **raté** ne se retente pas, ni dans cette
+conversation ni dans la suivante.
 
-![L'écran de jeu tel qu'il se présente aujourd'hui : le cadre de la charte est en place — portrait, jauges, boussole, journal de quêtes, boutons du bandeau — et au centre, faute de carte livrée, le message « La ville de départ ne s'ouvre pas », à 1280 × 720](../captures/jeu-gameview.jpg)
+![L'écran de jeu avant la démo : le cadre de la charte — portrait, jauges, boussole, journal de quêtes, boutons du bandeau — et, au centre, le message « La ville de départ ne s'ouvre pas », à 1280 × 720](../captures/jeu-gameview.jpg)
 
-Cette capture est le meilleur résumé de l'état du jeu : **le châssis est fini, le contenu revient**.
-Les cadres, les jauges et le bandeau sont ceux qui serviront ; ils attendent une carte à afficher.
+> Cette capture date d'avant les cartes de la démo : le cadre est le même, mais « Nouvelle partie »
+> ouvre désormais le marché de Martpart à la place du message.
 
-Les boutons du bandeau ouvrent l'inventaire, le journal, la **carte** (monde, région, ville) et les
-options. Ces écrans-là s'ouvrent et se parcourent dès maintenant.
+Les boutons du bandeau ouvrent l'inventaire, le **journal** (la quête en cours et son étape), la
+**carte** et les options.
 
 ![La carte du monde de Tanares : treize régions marquées d'un repère d'or, la fiche de l'Empire central à gauche, à 1280 × 720](../captures/jeu-worldmap.jpg)
 
 La carte a trois niveaux — le monde, une région, le plan d'une ville — et l'on descend de l'un à
-l'autre par un repère. On ne s'y déplace pas : elle sert à s'orienter.
+l'autre par un repère. Le plan de la **Capitale** montre ses douze quartiers : Martpart et Arenarea
+s'ouvrent sur leur carte, où l'on lit où l'on est ; l'Arena of Fate y a son repère, à l'intérieur
+d'Arenarea ; les dix autres quartiers s'annoncent, grisés. On ne s'y déplace pas : elle sert à
+s'orienter.
+
+## La démo : « Des pommes pour l'arène »
+
+**Nouvelle partie** vous dépose à la **Market Gate**, l'entrée du marché de Martpart, dans la peau
+de Grom Tranche-Écaille, un demi-orc Brawler tiré de la fiche préfabriquée du livre : solide au
+corps à corps, mais une Persuasion à −1 — la parole n'est pas son fort. Le déroulé, sans en dire plus qu'il ne faut :
+
+1. **Martpart.** Une **mère** vous interpelle près des étals : son fils a volé trois pommes — sur
+   son propre étal — et un garde l'emmène à l'arène. Acceptez de l'aider : la quête entre au
+   journal. Le portail vers Arenarea est au bout de l'avenue.
+2. **Arenarea.** Sur le **parvis** de l'arène, le **garde Ironhand** et l'**enfant** vous attendent.
+   Le garde vous propose de circuler ; deux réponses comptent :
+   - **Convaincre** — un jet de **Persuasion, DD 15**. Réussi, l'enfant est libéré : retournez
+     voir sa mère. Raté, la réponse disparaît, et il ne reste que la suivante.
+   - **Endosser** le vol — le garde vous emmène à sa place. Suivez-le : l'escalier de l'arène
+     descend au **vestiaire A**, dont la porte se referme derrière vous.
+3. **Arena of Fate.** Montez sur le **sable** et parlez au **maître d'arène** : il lâche le
+   **combattant de l'arène**, seul contre vous. La victoire libère l'enfant et rouvre les portes ;
+   la défaite est **définitive**.
+4. **Retour à Martpart** par les portails : l'enfant est auprès de sa mère, et le dernier dialogue
+   clôt la démo.
+
+Trois fins, donc : **par la parole**, **par la voie de l'arène**, ou **la mort**. L'écran de mort
+s'ouvre par-dessus la scène du combat, figée et assombrie : **Recommencer** rouvre une partie
+neuve, **Menu** rend le menu. L'écran **« Fin de la démo »** dit la voie suivie et ce qui vient
+ensuite, puis mène aux **Crédits** ou au **Menu**. Les deux ferment la partie : « Nouvelle partie »
+repart de la Market Gate. Aux deux écrans, **←** et **→** changent de bouton, **Entrée** valide,
+**Échap** choisit « Menu ».
+
+Ce que la démo **ne contient pas** : la sauvegarde (**Continuer** et **Charger une partie** restent
+grisées), un groupe de personnages, l'expérience, le marchand, le son. Tout cela est planifié, et
+la suite est [le système de combat de la `0.0.2`](../../../Planning/versions/v0.1.0/v0.0.2-combat/README.md).
 
 ## Combattre
 
-Le combat se joue au tour par tour, sur une grille, et la souris comme la manette pilotent le même
-curseur que le clavier. Les règles, l'adversaire et l'interface sont écrits et éprouvés ; ce qui
-manque est l'**endroit** où se battre — on y entre en parlant au héraut du Colisée, donc par une
-carte, et les cartes reviennent avec la démo `0.0.1`. Les commandes ci-dessous sont celles qui
-serviront alors.
+Le combat se joue au tour par tour, **sur la carte** où il commence : la carte se fige, la grille
+paraît sur sa zone de combat, et l'exploration reprend à la fin. La souris comme la manette pilotent
+le même curseur que le clavier.
 
-| Action | Clavier |
-|--------|---------|
-| Déplacer le curseur | **↑ ↓ ← →** |
-| Confirmer (déplacement, cible) | **Entrée** |
-| Changer de cible | **Tab** / **Maj+Tab** |
-| Changer d'action | **Page suivante** / **Page précédente**, ou **1** à **9** |
-| Revenir en arrière | **Retour arrière** |
-| Finir son tour | **Espace** |
-| Quitter l'arène | **Échap** |
+| Action | Clavier | Manette |
+|--------|---------|---------|
+| Déplacer le curseur | **↑ ↓ ← →** | croix ou stick gauche |
+| Confirmer (déplacement, cible, action) ; quitter une fois le combat fini | **Entrée** | **A** |
+| Changer de cible | **Tab** / **Maj+Tab** | **X** |
+| Changer d'action | **Page suivante** / **Page précédente**, ou **1** à **9** | **RB** / **LB** |
+| Recentrer sur le combattant actif | **Retour arrière** | **B** |
+| Finir son tour (aussi le bouton « Fin du tour » sous la fiche de la cible) | **Espace** | **Y** |
+| Fuir, si la rencontre le permet | **F** | — |
 
 ![L'affichage de combat : la piste d'initiative, la barre des actions du tour, la fiche de la cible et le journal des jets, à 1280 × 720](../captures/jeu-combathud.jpg)
 
 Avant de confirmer, le curseur annonce ce que coûtera le geste et le jet qu'il faudra atteindre :
-la prévisualisation **est** le calcul, pas une estimation.
+la prévisualisation **est** le calcul, pas une estimation. Les déplacements et les coups se
+rejouent à la vitesse du monde ; tant qu'un mouvement joue, les gestes attendent, et **Entrée** saute
+l'animation. Dans la démo, le combat de l'arène est le seul, et il est **létal** : y tomber ouvre
+l'écran de mort.
 
 ## Pause
 

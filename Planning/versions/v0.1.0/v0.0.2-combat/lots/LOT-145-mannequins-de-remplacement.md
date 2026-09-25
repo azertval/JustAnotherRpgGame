@@ -1,7 +1,7 @@
 +++
 id = "LOT-145"
 titre = "Les mannequins de remplacement"
-version = "0.0.1"
+version = "0.0.2"
 filiere = "pnj"
 statut = "en-cours"
 taille = "M"
@@ -20,12 +20,23 @@ criteres = [
 ]
 +++
 
+## Rescopé le 25 septembre 2026 : à la `0.0.2`
+
+À la recette de la `0.0.1` ([LOT-122](../../v0.0.1-demo/lots/LOT-122-recette-et-version-0-0-1.md)),
+le lot est **en cours** : le mannequin humanoïde SE-v1 est installé dans sa seule orientation, la
+règle de repli, la propriété `silhouette` et le contrôle des assets sont livrés avec le `LOT-118` ;
+les trois orientations manquantes de l'humanoïde et les mannequins quadrupède et volant restent à
+produire. La démo n'en dépend pas — elle se joue avec le mannequin tel qu'il est —, et la version
+ne l'attend donc pas : le lot passe à la **`0.0.2`** ([D-26](../../../../vision/decisions.md)), où
+le combat de groupe et le bestiaire des rencontres d'arène sont les premiers à en avoir besoin. Sa
+fiche garde son numéro et son contenu ; seul le champ `version` change.
+
 ## Pourquoi
 
 Les PNJ des zones (`LOT-113`, `LOT-114`, `LOT-115`, reportés à la `0.0.3` par la décision
 [D-25](../../../../vision/decisions.md)) et les monstres arrivent après le moteur qui les joue ; dans la
 démo, ce sont les mannequins qui tiennent la place des cinq PNJ de la quête, sur les cartes de
-principe du [LOT-146](LOT-146-cartes-de-principe-de-la-demo.md). Sans mannequin, une carte peuplée reste un semis de jetons jusqu'à ce que l'atelier ait
+principe du [LOT-146](../../v0.0.1-demo/lots/LOT-146-cartes-de-principe-de-la-demo.md). Sans mannequin, une carte peuplée reste un semis de jetons jusqu'à ce que l'atelier ait
 tout dessiné, et le combat sur la carte (`LOT-118`) ne peut montrer ni marche, ni coup, ni chute
 tant que l'adversaire n'a pas d'asset. Le mannequin **découple** les deux chantiers : le moteur
 s'éprouve sur des silhouettes neutres, l'atelier livre au rythme des lots de PNJ, et le jour où une

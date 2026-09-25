@@ -139,7 +139,9 @@ La portée correspond en général au module (`core`, `hmi`, `elements`, `test`,
    l'injecte dans la documentation générée. Rien d'autre à aligner à la main.
 2. Dans `CHANGELOG.md`, transformer `## [Non publié]` en `## [X.Y.Z] - AAAA-MM-JJ`, lui ajouter un
    chapeau de jalon, et rouvrir un `## [Non publié]` vide au-dessus. Cette PR n'ajoute rien à la
-   section : lui poser le label `no-changelog`.
+   section : lui poser le label `no-changelog`. La section devient le corps de la release, que
+   GitHub limite à **125 000 caractères** : garder les entrées au niveau du lot (la `0.0.1`, six
+   jours et vingt-quatre lots, en fait 62 000).
 3. Vérifier les notes que produira la release :
    `python scripts/release/extract_release_notes.py vX.Y.Z` — le workflow lit **cette** section du
    CHANGELOG (`--notes-file`) et **échoue** si elle est absente.

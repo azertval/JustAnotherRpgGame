@@ -22,8 +22,8 @@ requise : ni Visual Studio, ni Qt, ni redistribuable) :
 4. Ouvrir le dossier extrait et double-cliquer sur **`JustAnotherRpgGame.exe`**.
 
 Une fenêtre de jeu s'ouvre. Pour quitter : fermer la fenêtre (croix) ou appuyer
-sur **Échap**. Le jeu se joue au clavier et à la souris ; une **manette** (XInput) navigue dans les menus et au
-Colisée — voir [Jouer](jouer.md) pour le détail des contrôles.
+sur **Échap**. Le jeu se joue au clavier et à la souris ; une **manette** (XInput) navigue dans les menus, en
+combat et sur la carte du monde — voir [Jouer](jouer.md) pour le détail des contrôles.
 
 ## Remarques
 - Une version publiée (`vX.Y.Z`) ne change plus une fois parue : c'est celle à

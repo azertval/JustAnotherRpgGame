@@ -144,7 +144,7 @@ jobs:
           if ($LASTEXITCODE -eq 0) {
             gh release upload $tag @files --clobber
             if ($LASTEXITCODE -ne 0) { throw "Échec de l'envoi des fichiers sur $tag." }
-            gh release edit $tag --notes $notes --prerelease
+            gh release edit $tag --title "JustAnotherRpgGame — Debug (dernier main)" --notes $notes --prerelease
           } else {
             gh release create $tag @files --verify-tag --prerelease `
               --title "JustAnotherRpgGame — Debug (dernier main)" --notes $notes

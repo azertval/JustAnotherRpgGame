@@ -21,6 +21,12 @@ de Qt, qui retient **Direct3D 11** par défaut sous Windows.
 - ⬇️ **Télécharger la dernière version** : <https://github.com/azertval/JustAnotherRpgGame/releases/latest>
   (préversion roulante du dernier `main` : <https://github.com/azertval/JustAnotherRpgGame/releases/tag/debug-latest>)
 
+**Version courante : `0.0.1` — la démo basique** (25 septembre 2026). Une quête, « Des pommes pour
+l'arène », jouée de bout en bout sur trois cartes de principe de la Capitale, avec trois fins. Ce
+qu'elle contient et ce qu'elle laisse aux versions suivantes est dans son
+[bilan](Planning/versions/v0.1.0/v0.0.1-demo/bilan.md) ; la suite est la
+[`0.0.2`, le système de combat](Planning/versions/v0.1.0/v0.0.2-combat/README.md).
+
 ## Description
 
 JustAnotherRpgGame est un RPG en vue de dessus, dessiné en isométrique, bâti sur un moteur 2D maison.
@@ -40,33 +46,61 @@ Le *quoi* et le *pourquoi* sont décrits dans les
 [spécifications](https://azertval.github.io/JustAnotherRpgGame/) ; le *comment* dans le
 **Guide du développeur** et la référence de code Doxygen.
 
-## Fonctionnalités (état actuel)
+## Fonctionnalités (état de la `0.0.1`)
 
-> Le jeu quitte le pixel art pour la **2D HD** et repart d'une démo basique (`0.0.1`) : la
-> [planification](Planning/README.md) dit ce qui reste. L'ancienne
+> Le jeu a quitté le pixel art pour la **2D HD** le 20 septembre 2026 et a repris à zéro ses cartes
+> et ses assets. La `0.0.1` est la première version publiée depuis : une **démo basique**, jouée sur
+> des **cartes de principe** (les lieux définitifs, leurs assets et leurs PNJ sont à la `0.0.3`,
+> décision D-25). La [planification](Planning/README.md) dit ce qui vient ensuite ; l'ancienne
 > [feuille de route](Planning/vision/archives/feuille-de-route-jeu.md) est figée.
 
 Le **jeu** :
 
-- **Exploration** en temps réel du Colisée et de deux quartiers de la Capitale (Martpart,
-  Arenarea) : déplacement au clavier, PNJ, portails d'une carte à l'autre, points d'arrivée nommés.
-- **Combat tactique au tour par tour** au Colisée : initiative, économie d'actions, attaques et
-  dégâts, portée et ligne de vue, zones d'effet, IA ennemie décrite par profils.
+- **La démo** : « Nouvelle partie » ouvre le marché de **Martpart** ; une mère demande de sauver
+  son fils, emmené à l'arène pour des pommes volées. Sur le parvis d'**Arenarea**, on convainc le
+  garde (jet de Persuasion) ou l'on endosse le crime ; dans l'**Arena of Fate**, on combat seul
+  contre un. Trois fins : la parole, la victoire, la mort. Cinq PNJ à rôle, tenus par un mannequin
+  ou un jeton en attendant leurs figurines.
+- **Exploration** en temps réel : déplacement au clavier en huit directions, PNJ et objets
+  interactifs abordés à moins d'une case et demie, portails d'une carte à l'autre, points
+  d'arrivée nommés, zones déclencheuses, PNJ présents ou absents selon l'avancement de la quête.
+- **Quêtes et dialogues** : drapeaux de monde à valeurs déclarées, étapes lues dans le monde,
+  journal de quête ; dialogues à réponses et à embranchements, **jet de compétence en dialogue**
+  (compétence, DD, d20, calcul, issue ; un jet raté ne se retente pas), actions de dialogue qui
+  engagent une rencontre ou closent la démo.
+- **Combat tactique au tour par tour, sur la carte** : la carte se fige, la grille paraît sur sa
+  zone de combat, puis l'exploration reprend. Initiative, économie d'actions, attaques et dégâts,
+  portée et ligne de vue, zones d'effet, IA ennemie décrite par profils ; les mouvements et les
+  coups se rejouent à la vitesse du monde. La défaite ouvre l'**écran de mort**.
 - **Écrans du RPG** : fiche de personnage, compétences, inventaire, dialogues, journal, compagnie,
-  marchand, carte du monde à trois niveaux (monde, région, ville) et plan de ville par quartier.
+  marchand, carte du monde à trois niveaux (monde, région, ville) et **plan de la Capitale** à
+  douze quartiers, dont ceux de la démo s'ouvrent ; écrans de **fin** (mort, fin de la démo).
+- **Rendu 2D HD** : losange de 256 × 159, une case vaut la hauteur de la fenêtre divisée par 10,8
+  (même étendue de monde à toute définition), étages et toits, effacement de ce qui masque le héros,
+  cartes de principe rendues sans texture (sols en losanges, blocs, jetons).
 - **Menu, options** (plein écran, volume, langue), **pause** et **crédits**, en français et en
-  anglais, navigables au clavier et à la souris ; l'arène et la carte du monde se pilotent aussi à
-  la manette (XInput).
-- **Diagnostics** : journal de session sur disque, minidump en cas de plantage.
+  anglais, navigables au clavier et à la souris ; le combat, la carte du monde et les écrans de fin
+  se pilotent aussi à la manette (XInput).
+- **Diagnostics** : journal de session sur disque, minidump en cas de plantage ; dans un binaire de
+  développement, le **menu F9** (écrans, cartes, dialogues, fins, ligne de commande à chaud).
 
 L'**éditeur de cartes** :
 
-- Peinture des **trois couches** d'une carte (sol, décor, collision), rectangle, sélection,
-  copier/coller, annuler/refaire.
-- **Entités** : PNJ, coffres, panneaux, portails, points d'arrivée, rencontres ; propriétés
-  éditées dans un panneau, références validées contre les catalogues.
-- **Graphe du monde** des cartes et de leurs portails, avertissements de terrain tactique.
+- Peinture des **couches** d'une carte (sol, décor et ses **étages**, collision), rectangle,
+  sélection, copier/coller, tampons et préfabriqués, annuler/refaire ; canevas **HD** lissé, à la
+  parité du rendu du jeu.
+- **Maquettes** : une carte se dessine et se joue **sans texture** — sols, murs, eau, portails,
+  jetons — puis reçoit ses pièces ; les pièces viennent du lieu **et** de ses niveaux communs
+  (sous-zone, zone, ville, région, monde).
+- **Entités** : PNJ, coffres, panneaux, portails (condamnés ou non), points d'arrivée, rencontres,
+  zones déclencheuses, décors qui changent en cours de partie ; propriétés éditées dans un panneau,
+  **présence conditionnelle** à un drapeau de quête, références validées contre les catalogues.
+- **Graphe du monde** des cartes, de leurs portails et de leurs transferts, atteignabilité,
+  avertissements de terrain tactique ; **état de partie** réglable pour voir la carte sous un
+  drapeau donné.
 - **Essai immédiat** : la carte en cours se joue avec le moteur du jeu, sans l'enregistrer.
+- **Mode sans fenêtre** : `--check` (contrôle des cartes et du récit), `--render` (image et plan
+  d'une carte), `--apply` (gestes rejoués), `--replace-piece`, `--who-cites`…
 
 Toute la simulation vit dans `Core` et est **couverte par des tests** (unitaires, intégration,
 système) — voir le **Cahier de test**.
@@ -76,6 +110,7 @@ système) — voir le **Cahier de test**.
 | Dossier | Rôle |
 |---------|------|
 | `Documentation/` | Les pages du site, en **Markdown nu** : `Guide/` (guide du développeur, manuel utilisateur en tête), `Specification/` (exigences et conventions), `CahierTest/` (engendré depuis les tests), `SourceBook/` (corpus d'entrée, non versionné) ; `outils/` les rend et les contrôle. Doxygen ne fait plus que la référence du code, annexe du guide. |
+| `Planning/` | La **planification**, source unique de ce qui reste à faire : les versions (`versions.toml`), une fiche par lot, les maquettes, les référentiels de contenu, les standards, le bilan de chaque version livrée ; `outils/` la contrôle et engendre le site. |
 | `Site/` | La **charte du site publié** : palette, fontes et barre d'en-tête, partagées par la Doxygen, la planification et la page qualité. Aucune couleur ne s'écrit ailleurs — voir [`Site/README.md`](Site/README.md). |
 | `Source/` | Code source, réparti par fonction. |
 | `scripts/` | Build, contrôles de CI, ateliers d'extraction et de découpe d'assets. |
@@ -86,7 +121,8 @@ système) — voir le **Cahier de test**.
 | Sous-dossier | Contenu |
 |--------------|---------|
 | `Core/` | Logique et moteur : règles d20, combat, monde et exploration, modèle de carte, ECS, mathématiques, diagnostics — **sans dépendance au GPU ni à la fenêtre**. |
-| `HMI/` | Présentation partagée : rendu 2D sur **QRhi**, entrées, localisation, vues-modèles du jeu (`Runtime/`), et l'éditeur de cartes (`Editor/`, `Interface/`). Dépend de `Core`, jamais l'inverse. |
+| `HMI/` | Présentation partagée : rendu 2D sur **QRhi**, entrées, localisation, la carte qu'on parcourt (`Game/`), les vues-modèles du jeu (`Runtime/`). Dépend de `Core`, jamais l'inverse. |
+| `Editor/` | L'éditeur de cartes (Qt Widgets) : sa logique en fonctions pures testées (`Logic/`) et sa fenêtre (`Ui/`). Dépend de `Core` et de `HMI` ; rien ne dépend de lui. |
 | `Ui/` | Les formulaires QML du jeu (module `Jadg.Ui`), ouvrables dans Qt Design Studio. |
 | `App/` | Les points d'entrée du jeu (et son câblage QML) et de l'éditeur. |
 | `Elements/` | Données et assets : cartes, catalogues RPG, monde, planches de lieux, figurines, interface, polices, traductions. |

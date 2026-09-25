@@ -43,7 +43,7 @@ resume = "Le standard 2D HD, le moteur de la quête, et une quête jouée de bou
 objectifs = [
   "Le **standard 2D HD** : un style écrit, une arborescence d'assets durable, et plus un seul asset pixel art dans le dépôt.",
   "Trois **cartes de principe** enchaînées — **Martpart**, **Arenarea**, et dans Arenarea le donjon de l'**Arena of Fate** —, jouables en maquette (LOT-146) ; leurs assets, leurs PNJ et leurs cartes définitives sont à la `0.0.3` (décision D-25).",
-  "Les cinq PNJ de la quête, tenus par les **mannequins** (LOT-145) ou des **jetons** (LOT-128) jusqu'à leur production.",
+  "Les cinq PNJ de la quête, tenus par le **mannequin** humanoïde installé au LOT-118 ou des **jetons** (LOT-128) jusqu'à leur production ; les mannequins complets (LOT-145) sont à la `0.0.2` (décision D-26).",
   "La quête **« Des pommes pour l'arène »**, jouable de bout en bout : dialogue, jet de Persuasion, combat seul contre un, deux fins.",
 ]
 criteres_de_sortie = [
@@ -68,6 +68,7 @@ objectifs = [
   "Les **quatre classes de base** du *Player's Guide*, fidèles aux fiches préfabriquées (p. 195, 199, 203, 207) : compétences, capacités, assets.",
   "Le **combat de groupe** : plusieurs personnages joués contre plusieurs adversaires.",
   "Une **interface à jour** : les profils des personnages dans le combat, la fiche et le groupe.",
+  "Les **mannequins de remplacement** (LOT-145, repris de la `0.0.1` par la décision D-26) : trois silhouettes dans les quatre orientations, pour que chaque créature d'une rencontre se voie et s'anime avant sa figurine.",
 ]
 criteres_de_sortie = [
   "Chacune des quatre fiches préfabriquées se recrée dans le jeu, valeur pour valeur.",

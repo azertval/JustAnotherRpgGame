@@ -33,7 +33,7 @@ Le déroulé, les drapeaux, les PNJ et l'équilibrage sont dans
 
 La quête se joue sur les **cartes de principe** du [LOT-146](LOT-146-cartes-de-principe-de-la-demo.md),
 où ses cinq PNJ sont déjà posés avec leurs conditions de présence ; ils y sont des mannequins
-([LOT-145](LOT-145-mannequins-de-remplacement.md)) ou des jetons, jusqu'à leurs figurines de la
+([LOT-145](../../v0.0.2-combat/lots/LOT-145-mannequins-de-remplacement.md)) ou des jetons, jusqu'à leurs figurines de la
 `0.0.3` ([D-25](../../../../vision/decisions.md)). Ce lot écrit ce qu'ils disent et ce qui se joue.
 
 ![Déroulé](../maquettes/quete-demo-deroule.svg)
