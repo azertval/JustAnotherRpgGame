@@ -25,7 +25,7 @@ namespace hmi {
 
 namespace {
 
-/// Version la plus élevée des manifestes lus ; absente, elle vaut 1 (`core::readJsonObject`).
+// Version la plus élevée des manifestes lus ; absente, elle vaut 1 (`core::readJsonObject`).
 constexpr int MANIFEST_VERSION = 1;
 
 using json = nlohmann::json;
@@ -49,17 +49,7 @@ using json = nlohmann::json;
     return values;
 }
 
-[[nodiscard]] std::pair<int, int> intPair(const json& object, const char* key, int fallbackX,
-                                          int fallbackY) {
-    const auto found = object.find(key);
-    if (found == object.end() || !found->is_array() || found->size() != 2 ||
-        !(*found)[0].is_number_integer() || !(*found)[1].is_number_integer()) {
-        return {fallbackX, fallbackY};
-    }
-    return {(*found)[0].get<int>(), (*found)[1].get<int>()};
-}
-
-/// Largeur et hauteur d'un PNG, lues dans son en-tête IHDR ; (0, 0) si ce n'est pas un PNG lisible.
+// Largeur et hauteur d'un PNG, lues dans son en-tête IHDR ; (0, 0) si ce n'est pas un PNG lisible.
 [[nodiscard]] std::pair<int, int> pngSize(const std::filesystem::path& path) {
     std::ifstream file(path, std::ios::binary);
     std::array<unsigned char, 24> header{};
@@ -78,11 +68,9 @@ using json = nlohmann::json;
     return {bigEndian(16), bigEndian(20)};
 }
 
-/**
- * @brief Une forme animée, d'après son `.anim.json` : le clip du nom du fichier s'il existe, le
- *        premier sinon.
- * @return Faux si le fichier est absent ; une erreur est ajoutée s'il est illisible.
- */
+// Une forme animée, d'après son `.anim.json` : le clip du nom du fichier s'il existe, le
+//        premier sinon.
+// Rend : Faux si le fichier est absent ; une erreur est ajoutée s'il est illisible.
 bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& descriptor,
                        std::vector<std::string>& errors) {
     std::error_code ignored;
@@ -106,7 +94,7 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
     return true;
 }
 
-/// Un manifeste lu ; absent : rien, sans erreur. Illisible : une erreur nommée.
+// Un manifeste lu ; absent : rien, sans erreur. Illisible : une erreur nommée.
 [[nodiscard]] core::JsonDocument readManifest(const std::filesystem::path& path,
                                               std::vector<std::string>& errors) {
     core::JsonDocument document = core::readJsonObjectFromFile(path, MANIFEST_VERSION);
@@ -116,19 +104,17 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
     return document;
 }
 
-/**
- * @brief Les figurines d'un atelier : un dossier par modèle, ses bandes animées et son portrait.
- *
- * Sert aux PNJ (`Npc/`, LOT-91) et aux monstres (`Monsters/`, LOT-93), qui partagent la forme :
- * un `manifest.json` qui nomme les `animations`, puis `<modèle>/<animation>.png` et son
- * `.anim.json`. Une animation absente d'un modèle — le `cast` d'une bête sans sort — ne fait pas
- * d'entrée, et ce n'est pas une erreur. La taille de la cellule est celle de chaque `.anim.json` :
- * une figurine Grande (96 × 96) s'affiche comme une Moyenne (48 × 64), sans cas particulier.
- *
- * Une figurine **orientée** (`LOT-112`) a une bande par animation et par diagonale
- * (`walk-se.png`…) : chacune fait son entrée. Un modèle rangé plus bas que l'atelier
- * (`Characters/Heroes/brawler`) est trouvé par la liste `npcs` du manifeste.
- */
+// Les figurines d'un atelier : un dossier par modèle, ses bandes animées et son portrait.
+//
+// Sert aux PNJ (`Npc/`, LOT-91) et aux monstres (`Monsters/`, LOT-93), qui partagent la forme :
+// un `manifest.json` qui nomme les `animations`, puis `<modèle>/<animation>.png` et son
+// `.anim.json`. Une animation absente d'un modèle — le `cast` d'une bête sans sort — ne fait pas
+// d'entrée, et ce n'est pas une erreur. La taille de la cellule est celle de chaque `.anim.json` :
+// une figurine Grande (96 × 96) s'affiche comme une Moyenne (48 × 64), sans cas particulier.
+//
+// Une figurine **orientée** (`LOT-112`) a une bande par animation et par diagonale
+// (`walk-se.png`…) : chacune fait son entrée. Un modèle rangé plus bas que l'atelier
+// (`Characters/Heroes/brawler`) est trouvé par la liste `npcs` du manifeste.
 void readFigures(const std::filesystem::path& root, const std::string& directory,
                  const std::string& title, AssetGalleryCatalog& catalog) {
     const core::JsonDocument document =
@@ -194,67 +180,6 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
     }
 }
 
-void readColiseum(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
-    const core::JsonDocument document =
-        readManifest(root / "Coliseum" / "manifest.json", catalog.errors);
-    if (!document.ok()) {
-        return;
-    }
-    const auto figures = [&](const char* title, const char* key, const char* directory,
-                             const std::vector<std::string>& animations) {
-        AssetGalleryFamily family{.title = title, .directory = "Coliseum", .entries = {}};
-        for (const std::string& name : stringList(document.root, key)) {
-            for (const std::string& animation : animations) {
-                const std::string folder = std::string(directory) + "/" + name + "/";
-                AssetGalleryEntry entry{.family = family.title,
-                                        .model = name,
-                                        .form = animation,
-                                        .path = "Coliseum/" + folder + (animation + ".png"),
-                                        .frames = {}};
-                if (readAnimatedEntry(
-                        entry, root / "Coliseum" / directory / name / (animation + ".anim.json"),
-                        catalog.errors)) {
-                    family.entries.push_back(std::move(entry));
-                }
-            }
-        }
-        if (!family.entries.empty()) {
-            catalog.families.push_back(std::move(family));
-        }
-    };
-    const std::vector<std::string> animations = stringList(document.root, "animations");
-    figures("Colisée · héros", "heroes", "characters", animations);
-    figures("Colisée · gladiateurs", "gladiators", "enemies", animations);
-
-    const auto files = document.root.find("files");
-    if (files == document.root.end() || !files->is_object()) {
-        return;
-    }
-    AssetGalleryFamily pieces{.title = "Colisée · pièces", .directory = "Coliseum", .entries = {}};
-    for (const auto& [key, value] : files->items()) {
-        const std::size_t slash = key.find('/');
-        if (slash == std::string::npos || !value.is_object()) {
-            continue;
-        }
-        const std::string folder = key.substr(0, slash);
-        if (folder == "characters" || folder == "enemies") {
-            continue;
-        }
-        const auto [width, height] = intPair(value, "size", 0, 0);
-        pieces.entries.push_back(AssetGalleryEntry{.family = pieces.title,
-                                                   .model = folder,
-                                                   .form = stemOf(key.substr(slash + 1)),
-                                                   .path = "Coliseum/" + key,
-                                                   .frameWidth = width,
-                                                   .frameHeight = height,
-                                                   .frames = {}});
-    }
-    // `nlohmann::json` range ses clés par ordre alphabétique : les dossiers se suivent déjà.
-    if (!pieces.entries.empty()) {
-        catalog.families.push_back(std::move(pieces));
-    }
-}
-
 [[nodiscard]] int classRank(const std::string& textureClass) {
     if (textureClass == "floor") {
         return 0;
@@ -265,10 +190,8 @@ void readColiseum(const std::filesystem::path& root, AssetGalleryCatalog& catalo
     return textureClass == "wide" ? 2 : 3;
 }
 
-/**
- * @brief Les pièces d'un manifeste de scène, en une famille rangée par classe.
- * @param directory Dossier du manifeste, relatif à la racine des assets, séparateurs `/`.
- */
+// Les pièces d'un manifeste de scène, en une famille rangée par classe.
+// `directory` : Dossier du manifeste, relatif à la racine des assets, séparateurs `/`.
 void readSceneFamily(const std::filesystem::path& root, const std::string& directory,
                      const std::string& title, AssetGalleryCatalog& catalog) {
     // Le manifeste des pièces se lit dans Core depuis le LOT-EDITOR-02 (constat A9) : la galerie,
@@ -315,14 +238,12 @@ void readScenes(const std::filesystem::path& root, AssetGalleryCatalog& catalog)
     }
 }
 
-/**
- * @brief L'arborescence par niveaux : chaque `manifest.json` sous `Common/` et `Regions/`, dans
- *        l'ordre de son chemin.
- *
- * Un manifeste qui déclare des `textures` est un dossier `Scene/` ; un manifeste qui déclare des
- * `animations` est un dossier `Characters/`, dont les PNJ ont la forme de l'atelier
- * (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune famille.
- */
+// L'arborescence par niveaux : chaque `manifest.json` sous `Common/` et `Regions/`, dans
+//        l'ordre de son chemin.
+//
+// Un manifeste qui déclare des `textures` est un dossier `Scene/` ; un manifeste qui déclare des
+// `animations` est un dossier `Characters/`, dont les PNJ ont la forme de l'atelier
+// (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune famille.
 void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
     std::vector<std::filesystem::path> manifests;
     for (const char* tree : {"Common", "Regions"}) {
@@ -362,7 +283,7 @@ void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
     }
 }
 
-/// Le nombre de cases que couvrent @p pixels d'art, une case valant @p tilePixels.
+// Le nombre de cases que couvrent `pixels` d'art, une case valant `tilePixels`.
 [[nodiscard]] int ceilCells(int pixels, int tilePixels) {
     const int tile = std::max(1, tilePixels);
     return pixels <= 0 ? 0 : (pixels + tile - 1) / tile;
@@ -374,7 +295,6 @@ AssetGalleryCatalog AssetGalleryCatalog::load(const std::filesystem::path& asset
     AssetGalleryCatalog catalog;
     readFigures(assetsRoot, "Npc", "PNJ", catalog);
     readFigures(assetsRoot, "Monsters", "Monstres", catalog);
-    readColiseum(assetsRoot, catalog);
     readScenes(assetsRoot, catalog);
     readTree(assetsRoot, catalog);
     return catalog;

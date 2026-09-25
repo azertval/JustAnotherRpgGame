@@ -15,15 +15,15 @@ namespace {
 constexpr std::string_view TOKEN_ROOT = "Token/";
 constexpr std::string_view TOKEN_EXTENSION = ".png";
 
-/// Hauteur d'un glyphe, en pixels de la table ci-dessous.
+// Hauteur d'un glyphe, en pixels de la table ci-dessous.
 constexpr int GLYPH_ROWS = 7;
-/// Largeur d'un glyphe : chaque ligne tient sur cinq bits, le bit de poids fort a gauche.
+// Largeur d'un glyphe : chaque ligne tient sur cinq bits, le bit de poids fort a gauche.
 constexpr int GLYPH_COLUMNS = 5;
 
-/// Les trente-six glyphes que porte un jeton, plus le point d'interrogation du nom illisible.
-///
-/// Une table plutot qu'une police : une police est un fichier, et un jeton doit se peindre quand
-/// AUCUN fichier n'est present (EX-EXP-005). Trente-sept caracteres de sept octets tiennent ici.
+// Les trente-six glyphes que porte un jeton, plus le point d'interrogation du nom illisible.
+//
+// Une table plutot qu'une police : une police est un fichier, et un jeton doit se peindre quand
+// AUCUN fichier n'est present (EX-EXP-005). Trente-sept caracteres de sept octets tiennent ici.
 struct Glyph {
     char character;
     std::array<std::uint8_t, GLYPH_ROWS> rows;
@@ -69,7 +69,7 @@ constexpr std::array<Glyph, 37> GLYPHS = {{
     {.character = '?', .rows = {0x0E, 0x11, 0x01, 0x02, 0x04, 0x00, 0x04}},
 }};
 
-/// Ecart entre deux lettres, en pixels de glyphe.
+// Ecart entre deux lettres, en pixels de glyphe.
 constexpr int GLYPH_SPACING = 1;
 
 [[nodiscard]] std::size_t pixelIndex(int y, int width, int x) {
@@ -98,8 +98,8 @@ constexpr int GLYPH_SPACING = 1;
         .r = channel(color.r), .g = channel(color.g), .b = channel(color.b), .a = alpha};
 }
 
-/// La lettre se pose en clair sur un jeton sombre, en sombre sur un jeton clair : sans ce choix,
-/// la moitie des jetons auraient une lettre illisible.
+// La lettre se pose en clair sur un jeton sombre, en sombre sur un jeton clair : sans ce choix,
+// la moitie des jetons auraient une lettre illisible.
 [[nodiscard]] core::MarkerColor letterColorFor(const MaquetteColor& color) {
     const float luminance = (0.299F * color.r) + (0.587F * color.g) + (0.114F * color.b);
     return luminance > 0.55F ? core::MarkerColor{.r = 20, .g = 22, .b = 26, .a = 255}
@@ -184,10 +184,10 @@ std::optional<MaquetteTokenRequest> parseMaquetteTokenPath(std::string_view path
     return std::nullopt;
 }
 
-/// Le disque, cerne : le cercle plein se lit a toute taille, le cerne le detache d'un sol de
-/// teinte voisine.
+// Le disque, cerne : le cercle plein se lit a toute taille, le cerne le detache d'un sol de
+// teinte voisine.
 static void paintDisc(core::MarkerImage& image, int size, core::MarkerColor disc,
-                       core::MarkerColor rim) {
+                      core::MarkerColor rim) {
     const float centre = static_cast<float>(size - 1) / 2.0F;
     const float radius = static_cast<float>(size) / 2.0F;
     const float rimRadius = radius - (static_cast<float>(size) * 0.14F);
@@ -204,9 +204,9 @@ static void paintDisc(core::MarkerImage& image, int size, core::MarkerColor disc
     }
 }
 
-/// La lettre, au plus grand entier qui tienne dans le disque.
+// La lettre, au plus grand entier qui tienne dans le disque.
 static void paintLetter(core::MarkerImage& image, int size, char letterChar,
-                         core::MarkerColor letterColor) {
+                        core::MarkerColor letterColor) {
     const int scale = std::max(1, size / 11);
     const int glyphWidth = GLYPH_COLUMNS * scale;
     const int glyphHeight = GLYPH_ROWS * scale;
@@ -253,8 +253,7 @@ core::MarkerImage maquetteTokenImage(const MaquetteTokenRequest& request, int si
     return image;
 }
 
-core::MarkerImage maquetteTextImage(std::string_view text, int scale,
-                                    core::MarkerColor color) {
+core::MarkerImage maquetteTextImage(std::string_view text, int scale, core::MarkerColor color) {
     const int step = std::max(1, scale);
     if (text.empty()) {
         return {};

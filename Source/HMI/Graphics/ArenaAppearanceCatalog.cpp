@@ -22,8 +22,8 @@ constexpr const char* FIELD_PALE_SLABS = "paleSlabs";
 constexpr const char* FIELD_HERO_FRAMES = "heroFrames";
 constexpr const char* FIELD_ENEMY_FRAMES = "enemyFrames";
 
-/// Manifeste des PNJ de l'atelier (LOT-91) : `replaces` associe un héros du Colisée au slug du
-/// PNJ qui prend sa place ; ses bandes sont sous `Npc/<slug>/`, à côté de `Coliseum/`.
+// Manifeste des PNJ de l'atelier (LOT-91) : `replaces` associe un héros du Colisée au slug du
+// PNJ qui prend sa place ; ses bandes sont sous `Npc/<slug>/`, à côté de `Coliseum/`.
 constexpr const char* FIELD_REPLACES = "replaces";
 constexpr int NPC_FORMAT_VERSION = 1;
 constexpr const char* NPC_DIRECTORY_FROM_COLISEUM = "../Npc/";
@@ -52,8 +52,8 @@ constexpr const char* NPC_DIRECTORY_FROM_COLISEUM = "../Npc/";
         .catalog = std::nullopt, .error = std::move(message), .errorCode = code};
 }
 
-/// Lit un tableau de chaines obligatoire et non vide : une liste de figurines vide laisserait
-/// `figureFor` sans rien a choisir, ce que le format refuse plutot que de le decouvrir au rendu.
+// Lit un tableau de chaines obligatoire et non vide : une liste de figurines vide laisserait
+// `figureFor` sans rien a choisir, ce que le format refuse plutot que de le decouvrir au rendu.
 [[nodiscard]] bool readStringArray(const nlohmann::json& root, const char* field,
                                    std::vector<std::string>& out, std::string& error) {
     if (!root.contains(field) || !root[field].is_array() || root[field].empty()) {

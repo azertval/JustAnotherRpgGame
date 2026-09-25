@@ -32,6 +32,8 @@ class CreditsModel : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
+    /// La colonne de l'écran que cette instance sert (`0` ou `1`) : `sections` se relit quand elle
+    /// change.
     Q_PROPERTY(int column READ column WRITE setColumn NOTIFY sectionsChanged)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY sectionsChanged)
     Q_PROPERTY(QVariantList sections READ sections NOTIFY sectionsChanged)

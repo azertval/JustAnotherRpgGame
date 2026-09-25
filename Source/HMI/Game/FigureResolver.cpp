@@ -53,8 +53,8 @@ const ResolvedFigure& FigureResolver::resolve(std::string_view figure, std::stri
     for (const std::string_view candidate : {silhouette, DEFAULT_SILHOUETTE}) {
         const std::string placeholder = placeholderFigureDirectory(candidate);
         if (hasIdleStrip(placeholder, oriented)) {
-            resolved = ResolvedFigure{
-                .directory = placeholder, .oriented = oriented, .placeholder = true};
+            resolved =
+                ResolvedFigure{.directory = placeholder, .oriented = oriented, .placeholder = true};
             return _found.emplace(key, std::move(resolved)).first->second;
         }
     }

@@ -2,10 +2,11 @@ import QtQuick
 import Jadg.Ui
 
 /*!
-    Une marque posee sur une case de la scene isometrique du Colisee (LOT-24).
+    La marque de ciblage du calque tactique (`TacticalLayer`), posee sur une case de la grille
+    isometrique du combat sur la carte (LOT-24, LOT-118).
 
-    L'element EST le losange de la case, comme `ArenaTile` : la scene le place par la meme
-    projection. Il ne dessine qu'un losange de jetons :
+    L'element EST le losange de la case : le calque le place par la meme projection que ses
+    cases. Il ne dessine qu'un losange de jetons :
 
     - `cursor` : le contour d'or epais de la case visee par le curseur de ciblage ;
     - `path` : un petit losange d'or plein sur une case que le deplacement traverserait ;

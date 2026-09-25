@@ -11,7 +11,6 @@ QtObject {
     readonly property string name: "Brenna Pierrefonte"
     readonly property string species: "Naine des collines"
     readonly property string background: "Artisane de guilde"
-    readonly property string classAndLevel: "Guerrière 3"
     readonly property string level: "3"
     readonly property string experience: "900"
     readonly property string hitPoints: "25 / 30"
@@ -42,15 +41,6 @@ QtObject {
         ListElement { rowId: "intelligence"; label: "Intelligence"; value: "10 (+0)" }
         ListElement { rowId: "wisdom"; label: "Sagesse"; value: "13 (+1)" }
         ListElement { rowId: "charisma"; label: "Charisme"; value: "8 (-1)" }
-    }
-
-    readonly property ListModel savingThrows: ListModel {
-        ListElement { rowId: "strength"; label: "Force"; value: "+5 •" }
-        ListElement { rowId: "dexterity"; label: "Dextérité"; value: "+1" }
-        ListElement { rowId: "constitution"; label: "Constitution"; value: "+4 •" }
-        ListElement { rowId: "intelligence"; label: "Intelligence"; value: "+0" }
-        ListElement { rowId: "wisdom"; label: "Sagesse"; value: "+1" }
-        ListElement { rowId: "charisma"; label: "Charisme"; value: "-1" }
     }
 
     readonly property ListModel skills: ListModel {

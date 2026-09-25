@@ -2,119 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
-    <name>ArenaForm.ui</name>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="130"/>
-        <source>Retour au menu</source>
-        <translation>Back to menu</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="146"/>
-        <source>Combattants disponibles</source>
-        <translation>Available fighters</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="183"/>
-        <source>Allies</source>
-        <translation>Allies</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="221"/>
-        <source>Ennemis</source>
-        <translation>Enemies</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="262"/>
-        <source>Graine</source>
-        <translation>Seed</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="277"/>
-        <source>Ennemis joues par l&apos;IA</source>
-        <translation>Enemies played by the AI</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="283"/>
-        <source>Lancer l&apos;affrontement</source>
-        <translation>Start the bout</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="288"/>
-        <source>+A : enroler en allie, +E : en ennemi.</source>
-        <translation>+A: enlist as an ally, +E: as an enemy.</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="307"/>
-        <source>Combat termine</source>
-        <translation>Combat over</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="307"/>
-        <source>Tour de </source>
-        <translation>Turn of </translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="368"/>
-        <source>Fin du tour</source>
-        <translation>End turn</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="374"/>
-        <source>Se retirer</source>
-        <translation>Withdraw</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="380"/>
-        <source>Rejouer (meme graine)</source>
-        <translation>Replay (same seed)</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="385"/>
-        <source>Nouvelle composition</source>
-        <translation>New line-up</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="391"/>
-        <source>Souris : survol, viser ; clic, se deplacer ou attaquer.</source>
-        <translation>Mouse: hover, aim; click, move or attack.</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="399"/>
-        <source>Clavier : fleches, le curseur ; Entree, confirmer ; Tab, cible suivante ; 1 a 9 ou Page precedente / suivante, l&apos;action ; Retour arriere, recentrer ; Espace, fin du tour.</source>
-        <translation>Keyboard: arrows, the cursor; Enter, confirm; Tab, next target; 1 to 9 or Page Up / Down, the action; Backspace, recentre; Space, end turn.</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="407"/>
-        <source>Manette connectee</source>
-        <translation>Gamepad connected</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="407"/>
-        <source>Manette absente</source>
-        <translation>No gamepad</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="408"/>
-        <source> : croix, le curseur ; A, confirmer ; X, cible suivante ; LB / RB, l&apos;action ; B, recentrer ; Y, fin du tour.</source>
-        <translation>: d-pad, the cursor; A, confirm; X, next target; LB / RB, the action; B, recentre; Y, end turn.</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="469"/>
-        <source>Initiative</source>
-        <translation>Initiative</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="481"/>
-        <source>  (a terre)</source>
-        <translation>  (down)</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="489"/>
-        <source>Journal</source>
-        <translation>Log</translation>
-    </message>
-</context>
-<context>
     <name>BlockMapForm.ui</name>
     <message>
         <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="63"/>
@@ -754,14 +641,6 @@
         <location filename="../../Ui/Screens/JournalForm.ui.qml" line="89"/>
         <source>Objectifs</source>
         <translation>Objectives</translation>
-    </message>
-</context>
-<context>
-    <name>Main.ui</name>
-    <message>
-        <location filename="../../Ui/DesignStudio/Main.ui.qml" line="223"/>
-        <source>Colisée : prévisualisation en QRhi (voir le jeu)</source>
-        <translation>Coliseum: QRhi preview (see the game)</translation>
     </message>
 </context>
 <context>

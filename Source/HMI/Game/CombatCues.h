@@ -77,6 +77,13 @@ struct FigureMotion {
     bool dead = false;
 };
 
+/**
+ * @brief La file des faits du combat, rejoués dans le temps par les figurines.
+ *
+ * Reçoit ce que la session a décidé (`push`), le joue à la vitesse du monde (`advance`) et publie,
+ * combattant par combattant, ce que chaque figurine montre à l'instant (`motionOf`). Tant que
+ * `busy()` est vrai, l'image est en retard sur la grille ; `finishAll` les fait se rejoindre.
+ */
 class CombatCueTrack {
 public:
     /// La marche du combat est celle du monde : deux cases par seconde (`LOT-112`, D5).

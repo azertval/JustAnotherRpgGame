@@ -17,13 +17,13 @@ namespace hmi {
 
 namespace {
 
-/// Durée d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
+// Durée d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
-/// Le décalage de respiration entre deux PNJ, en secondes : ni nul, ni un multiple de la bande.
+// Le décalage de respiration entre deux PNJ, en secondes : ni nul, ni un multiple de la bande.
 constexpr float NPC_BREATH_OFFSET_SECONDS = 0.37F;
 
-/// Les entités de la carte courante que les drapeaux laissent paraître (`LOT-116`) : une copie,
-/// que la carte, lue d'un fichier qui ignore la partie, ne peut pas être.
+// Les entités de la carte courante que les drapeaux laissent paraître (`LOT-116`) : une copie,
+// que la carte, lue d'un fichier qui ignore la partie, ne peut pas être.
 [[nodiscard]] std::vector<core::MapEntity> entitesPresentes(const core::ExplorationSession& session,
                                                             const core::Level& map) {
     std::vector<core::MapEntity> presentes;

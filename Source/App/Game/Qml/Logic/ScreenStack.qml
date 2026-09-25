@@ -58,11 +58,6 @@ Item {
         }
     }
 
-    /// Rend le clavier à l'écran courant.
-    function restoreFocus() {
-        stack.forceActiveFocus();
-    }
-
     Component { id: menuScreen; MainMenu {} }
     Component { id: optionsScreen; Options {} }
     Component { id: creditsScreen; Credits {} }

@@ -30,7 +30,7 @@ enum class Key : std::uint16_t {
     Backspace = 0x08,
     Tab = 0x09,
     Enter = 0x0D,
-    Shift = 0x10,  // Maj : modificateur (Maj+clic de l'éditeur)
+    Shift = 0x10,    // Maj : modificateur (Maj+clic de l'éditeur)
     Control = 0x11,  // Ctrl : raccourcis d'édition (annuler/refaire, éditeur)
     Escape = 0x1B,
     Space = 0x20,

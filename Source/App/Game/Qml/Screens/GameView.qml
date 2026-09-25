@@ -41,8 +41,8 @@ GameViewForm {
     minimap: PendingData.image("hud.minimap")
 
     // La session d'exploration est un SINGLETON (`WorldModel`) : elle survit a l'ouverture du
-    // dialogue et du Colisee, que la pile d'ecrans construit a la place de cet ecran. Une session
-    // possedee par l'ecran mourrait avec lui, et l'on reviendrait du sable sur une carte neuve.
+    // dialogue et des ecrans RPG, que la pile d'ecrans construit a la place de cet ecran. Une
+    // session possedee par l'ecran mourrait avec lui, et l'on reviendrait sur une carte neuve.
     Connections {
         target: WorldModel
 
@@ -65,19 +65,19 @@ GameViewForm {
         function onMapEntered(mapId) { fondu.restart() }
     }
 
-    // La partie ne recommence pas parce que l'ecran reparait : on revient du sable, du dialogue
+    // La partie ne recommence pas parce que l'ecran reparait : on revient du dialogue, du combat
     // ou de l'inventaire sur la carte qu'on a quittee.
     Component.onCompleted: {
         if (!WorldModel.loaded)
             WorldModel.startNewGame();
-        // Et l'on revient de l'obscurite : au premier pas dans le Colisee comme au retour du
-        // sable, la carte se leve d'un fondu plutot que de paraitre d'un coup.
+        // Et l'on revient de l'obscurite : au premier pas sur la carte comme au retour d'un
+        // ecran, la carte se leve d'un fondu plutot que de paraitre d'un coup.
         fondu.restart();
     }
 
-    // De retour du dialogue ou du sable : la carte reprend la ou elle s'etait arretee. Le gel
+    // De retour du dialogue ou du combat : la carte reprend la ou elle s'etait arretee. Le gel
     // depend du focus et non d'un signal de fermeture : tout ce qui recouvre la vue de jeu --
-    // dialogue, Colisee, pause, inventaire -- lui prend le focus, et un seul chemin vaut mieux
+    // dialogue, combat, pause, inventaire -- lui prend le focus, et un seul chemin vaut mieux
     // qu'un par ecran.
     onActiveFocusChanged: {
         if (root.activeFocus) {

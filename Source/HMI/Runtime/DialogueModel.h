@@ -108,10 +108,6 @@ public:
 
 signals:
     void changed();
-    /// Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (`startCombat`, `LOT-09`).
-    /// Aucun écran ne l'ouvre plus : l'écran du Colisée est retiré, le combat se joue sur la
-    /// carte (`encounterRequested`).
-    void combatRequested(const QString& arenaId);
     /// Le PNJ engage une rencontre **sur la carte** (`LOT-118`) : c'est l'écran qui la monte
     /// (`EncounterModel.begin`) et ouvre l'affichage de combat.
     void encounterRequested(const QString& encounterId);

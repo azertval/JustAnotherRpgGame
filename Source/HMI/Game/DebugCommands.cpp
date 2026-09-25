@@ -76,7 +76,7 @@ constexpr std::array CATALOGUE = {
                 .scope = DebugOptionScope::LaunchOnly},
 };
 
-/// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
+// Rend : L'entier de `text`, s'il est ecrit en entier et sans rien d'autre.
 [[nodiscard]] std::optional<int> entier(std::string_view text) {
     int valeur = 0;
     // NOLINTNEXTLINE(bugprone-suspicious-stringview-data-usage): la paire data()/size() borne la
@@ -128,8 +128,8 @@ std::vector<std::string> splitCommandLine(std::string_view line) {
             dansMot = true;
             continue;
         }
-        if (!entreGuillemets && (caractere == ' ' || caractere == '\t' || caractere == '\n' ||
-                                 caractere == '\r')) {
+        if (!entreGuillemets &&
+            (caractere == ' ' || caractere == '\t' || caractere == '\n' || caractere == '\r')) {
             if (dansMot) {
                 mots.push_back(std::move(courant));
                 courant.clear();

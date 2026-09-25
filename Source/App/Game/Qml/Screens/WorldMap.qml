@@ -455,7 +455,8 @@ Item {
         root.wireHud(form, level)
         form.canvas.backRequested.connect(root.back)
         form.canvas.positionMarked.connect((x, y) => {
-            if (root.level === level)
+            // Un releve de position pour l'auteur des cartes : rien a dire dans un binaire livre.
+            if (root.level === level && ScreenRouter.developerBuild)
                 console.info("Carte : [" + x.toFixed(3) + ", " + y.toFixed(3) + "] sur " + form.canvas.image)
         })
         form.canvas.markerHovered.connect((index, inside) => {

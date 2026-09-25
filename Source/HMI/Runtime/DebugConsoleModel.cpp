@@ -28,7 +28,7 @@ namespace {
     return QString::fromUtf8(texte.data(), static_cast<qsizetype>(texte.size()));
 }
 
-/// Les mots qui demandent l'aide, quelle que soit la langue du clavier.
+// Les mots qui demandent l'aide, quelle que soit la langue du clavier.
 [[nodiscard]] bool demandeLAide(std::string_view mot) {
     return mot == "aide" || mot == "help" || mot == "?" || mot == "--help" || mot == "-h";
 }
@@ -125,9 +125,8 @@ void DebugConsoleModel::apply(const std::vector<std::string>& words) {
             continue;
         }
         if (option->takesValue() && argument.value.empty()) {
-            _transcript.push_back(
-                QStringLiteral("%1 attend une valeur : %2").arg(versQt(option->name),
-                                                                 versQt(option->syntax)));
+            _transcript.push_back(QStringLiteral("%1 attend une valeur : %2")
+                                      .arg(versQt(option->name), versQt(option->syntax)));
             continue;
         }
         const std::string_view nom = option->name;
@@ -147,18 +146,15 @@ void DebugConsoleModel::apply(const std::vector<std::string>& words) {
         } else if (nom == "--window-size=") {
             if (const auto taille = parseWindowSize(argument.value)) {
                 emit windowSizeRequested(taille->first, taille->second);
-                _transcript.push_back(QStringLiteral("Fenetre : %1 x %2")
-                                          .arg(taille->first)
-                                          .arg(taille->second));
-            } else {
                 _transcript.push_back(
-                    QStringLiteral("--window-size= attend <largeur>x<hauteur>."));
+                    QStringLiteral("Fenetre : %1 x %2").arg(taille->first).arg(taille->second));
+            } else {
+                _transcript.push_back(QStringLiteral("--window-size= attend <largeur>x<hauteur>."));
             }
         } else if (nom == "--screenshot=") {
             emit screenshotRequested(versQt(argument.value));
         } else if (nom == "--log-level=") {
-            if (const std::optional<core::LogLevel> niveau =
-                    core::parseLogLevel(argument.value)) {
+            if (const std::optional<core::LogLevel> niveau = core::parseLogLevel(argument.value)) {
                 core::defaultLogger().setMinimumLevel(*niveau);
                 _transcript.push_back(
                     QStringLiteral("Journal : niveau minimum %1").arg(versQt(argument.value)));

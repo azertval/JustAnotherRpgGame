@@ -22,14 +22,14 @@ namespace {
 constexpr float MAXIMUM_FRAME_SECONDS = 0.25F;
 constexpr qreal MINIMUM_ZOOM = 0.25;
 constexpr qreal MAXIMUM_ZOOM = 8.0;
-/// Une image toutes les 16 ms tant que les animations jouent.
+// Une image toutes les 16 ms tant que les animations jouent.
 constexpr int CLOCK_INTERVAL_MS = 16;
 
 QString decimal(double value) {
     return QString::number(value, 'g', 3).replace(u'.', u',');
 }
 
-/// Bouclée, jouée une fois puis tenue, ou « — » pour une image fixe.
+// Bouclée, jouée une fois puis tenue, ou « — » pour une image fixe.
 QString loopText(const AssetGalleryEntry& entry) {
     if (entry.frameCount() <= 1) {
         return QStringLiteral("—");
@@ -100,7 +100,7 @@ private:
 
     AssetGalleryRenderer _gallery;
     QColor _clearColor;
-    /// Textures voulues à la dernière synchronisation.
+    // Textures voulues à la dernière synchronisation.
     std::size_t _wantedCount = 0;
     Clock::time_point _previous = Clock::now();
 };

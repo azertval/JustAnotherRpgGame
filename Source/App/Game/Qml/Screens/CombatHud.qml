@@ -12,8 +12,8 @@ import Jadg.Runtime
     formulaire (`TacticalLayer`) se cale sur le cadrage que la surface publie, decale de l'origine
     de la zone.
 
-    Les gestes sont ceux du Colisee (`Arena.qml`, LOT-24), au clavier, a la manette et a la souris,
-    par les memes touches :
+    Les gestes sont herites de l'ecran du Colisee (LOT-24), retire au profit du combat sur la carte :
+    au clavier, a la manette et a la souris, par les memes touches :
 
     | Geste | Clavier | Manette |
     |---|---|---|

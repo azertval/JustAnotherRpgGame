@@ -83,27 +83,41 @@ struct AssetGalleryFrame {
  */
 class AssetGalleryRenderer {
 public:
+    /// Chargements de texture au plus par image.
     static constexpr int UPLOADS_PER_FRAME = 24;
+    /// Délai avant de libérer une texture qui n'est plus voulue.
     static constexpr float EVICTION_SECONDS = 2.0f;
 
+    /// @param assetsRoot Racine des assets : les chemins des textures s'y rapportent.
     explicit AssetGalleryRenderer(std::filesystem::path assetsRoot);
+    /// Libère ce qui reste de ressources GPU.
     ~AssetGalleryRenderer();
 
     AssetGalleryRenderer(const AssetGalleryRenderer&) = delete;
     AssetGalleryRenderer& operator=(const AssetGalleryRenderer&) = delete;
 
+    /// @brief Crée les ressources sur @p rhi, ou les recrée s'il a changé.
+    /// @return Vrai si le rendu peut dessiner.
     bool ensureResources(QRhi* rhi);
+    /// Libère toutes les ressources GPU, textures du cache comprises.
     void release() noexcept;
 
+    /// @return Vrai si `ensureResources` a réussi et que rien n'a été libéré depuis.
     [[nodiscard]] bool created() const noexcept {
         return _resources.created();
     }
+    /// @return Le `QRhi` sur lequel les ressources ont été créées, ou `nullptr`.
     [[nodiscard]] QRhi* rhi() const noexcept {
         return _rhi;
     }
 
+    /// Reçoit l'image à dessiner : des valeurs, remises depuis `synchronize()`.
     void setFrame(AssetGalleryFrame frame);
 
+    /// @brief Dessine l'image reçue sur @p target, après avoir mis le cache à jour : au plus
+    ///        `UPLOADS_PER_FRAME` textures chargées, celles plus voulues depuis `EVICTION_SECONDS`
+    ///        libérées (@p realDeltaSeconds les compte). @p clear est la couleur d'effacement
+    ///        (RGBA).
     void render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target, float realDeltaSeconds,
                 const float* clear);
 
@@ -117,6 +131,7 @@ public:
         return _loading;
     }
 
+    /// @return La scène composée à la dernière image.
     [[nodiscard]] const ComposedScene& composed() const noexcept {
         return _composed;
     }

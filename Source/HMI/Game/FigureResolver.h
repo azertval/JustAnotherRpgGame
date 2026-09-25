@@ -46,6 +46,14 @@ struct ResolvedFigure {
     [[nodiscard]] bool operator==(const ResolvedFigure&) const = default;
 };
 
+/**
+ * @brief Résout la figurine à dessiner pour un personnage, et retient la réponse le temps d'une
+ *        carte (`LOT-145`).
+ *
+ * Applique la règle en trois temps de l'en-tête : la figurine nommée si sa bande de repos existe,
+ * sinon le mannequin de sa silhouette, sinon le mannequin humanoïde. Le disque n'est lu qu'à la
+ * première demande par figurine ; `clear` oublie tout quand la carte change.
+ */
 class FigureResolver {
 public:
     explicit FigureResolver(std::filesystem::path assetsDirectory);

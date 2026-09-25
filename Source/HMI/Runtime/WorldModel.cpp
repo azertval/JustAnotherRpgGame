@@ -19,7 +19,7 @@ namespace hmi {
 
 namespace {
 
-/// La partie en cours (`WorldModel::current`).
+// La partie en cours (`WorldModel::current`).
 WorldModel* partieCourante = nullptr;
 
 }  // namespace
@@ -174,8 +174,7 @@ void WorldModel::applyFlags(const QStringList& flags) {
 }
 
 bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
-    const std::string carte =
-        mapId == QStringLiteral("coliseum") ? "capital/arena-of-brave" : mapId.toStdString();
+    const std::string carte = mapId.toStdString();
     if (!_play->enter(carte, arrival.toStdString())) {
         // Un échec de chargement est récupérable (`EX-NFR-040`) : l'écran le dit et reste debout.
         _status = tr("La carte « %1 » ne s'ouvre pas.").arg(mapId);

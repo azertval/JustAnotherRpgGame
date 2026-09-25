@@ -12,7 +12,7 @@ namespace {
 
 using core::Ability;
 
-/// Les six caractéristiques et le suffixe d'identifiant sous lequel l'ossature les attend.
+// Les six caractéristiques et le suffixe d'identifiant sous lequel l'ossature les attend.
 constexpr std::array<std::pair<Ability, const char*>, 6> ABILITIES = {{
     {Ability::Strength, "strength"},
     {Ability::Dexterity, "dexterity"},
@@ -22,14 +22,14 @@ constexpr std::array<std::pair<Ability, const char*>, 6> ABILITIES = {{
     {Ability::Charisma, "charisma"},
 }};
 
-/// @return Un modificateur avec son signe — `+3`, `-1`, `+0`. Le signe n'est pas une coquetterie :
-///         un `3` nu se lit comme une valeur de caractéristique, et les deux se côtoient sur la
-///         même ligne de la feuille.
+// Rend : Un modificateur avec son signe — `+3`, `-1`, `+0`. Le signe n'est pas une coquetterie :
+//         un `3` nu se lit comme une valeur de caractéristique, et les deux se côtoient sur la
+//         même ligne de la feuille.
 [[nodiscard]] std::string signe(int valeur) {
     return (valeur >= 0 ? "+" : "") + std::to_string(valeur);
 }
 
-/// @return La vitesse en mètres, sans décimale inutile : « 9 m », jamais « 9.000000 m ».
+// Rend : La vitesse en mètres, sans décimale inutile : « 9 m », jamais « 9.000000 m ».
 [[nodiscard]] std::string metres(float valeur) {
     const int entier = static_cast<int>(valeur);
     std::string texte = std::to_string(entier);
@@ -40,7 +40,7 @@ constexpr std::array<std::pair<Ability, const char*>, 6> ABILITIES = {{
     return texte + " m";
 }
 
-/// Les trois choix qui ont construit la fiche, et le dé de vie que la classe donne.
+// Les trois choix qui ont construit la fiche, et le dé de vie que la classe donne.
 void addChoices(std::map<std::string, std::string>& valeurs, const CharacterSheetContext& context,
                 const core::CharacterSheet& fiche) {
     // Les trois choix qui ont construit la fiche portent des IDENTIFIANTS ; leur nom lisible vit
@@ -61,8 +61,8 @@ void addChoices(std::map<std::string, std::string>& valeurs, const CharacterShee
     }
 }
 
-/// Le bonus de maîtrise, les jets de sauvegarde et les compétences : ce qui demande la table
-/// d'expérience (et, pour les compétences, leur catalogue).
+// Le bonus de maîtrise, les jets de sauvegarde et les compétences : ce qui demande la table
+// d'expérience (et, pour les compétences, leur catalogue).
 void addExperienceValues(std::map<std::string, std::string>& valeurs,
                          const CharacterSheetContext& context, const core::CharacterSheet& fiche) {
     if (context.experience != nullptr) {

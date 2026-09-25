@@ -14,8 +14,9 @@ import Jadg.Runtime
     ecrit en dur. Ouvert depuis le menu de developpement (F9) sans identifiant, il n'a rien a
     jouer et le dit ; la section « Dialogue » du menu l'ouvre sur le dialogue qu'on choisit.
 
-    L'action `startCombat` (le heraut du Colisee) reste dans le format, mais n'ouvre plus rien :
-    l'ecran du Colisee est retire depuis que le combat se joue sur la carte.
+    L'action `startCombat` (le heraut du Colisee) reste dans le format des dialogues, mais le
+    modele l'ignore et n'emet rien : l'ecran du Colisee est retire depuis que le combat se joue sur
+    la carte.
 
     Un PNJ peut aussi ENGAGER LE COMBAT ICI MEME (LOT-118) : l'action `startEncounter` (le maitre
     d'arene) devient `encounterRequested`, la rencontre se monte sur la zone de combat de la carte

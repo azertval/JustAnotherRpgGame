@@ -25,15 +25,15 @@ namespace {
     return gabarit;
 }
 
-/// « Persuasion · DD 15 », ou « Persuasion » seul si le degre n'a pas de seuil connu.
+// « Persuasion · DD 15 », ou « Persuasion » seul si le degre n'a pas de seuil connu.
 [[nodiscard]] std::string annonceDuJet(const TextLookup& text, const std::string& skill, int dc) {
     const std::string competence = text(skillLabelKey(skill));
     return dc > 0 ? remplir(text("dialogue.check.announce"), {competence, std::to_string(dc)})
                   : competence;
 }
 
-/// « 12 + 4 = 16 » : le de retenu, la somme des modificateurs, le total. Des chiffres et des
-/// signes, que toutes les langues du jeu lisent pareil.
+// « 12 + 4 = 16 » : le de retenu, la somme des modificateurs, le total. Des chiffres et des
+// signes, que toutes les langues du jeu lisent pareil.
 [[nodiscard]] std::string calculDuJet(const core::CheckResult& jet) {
     const int bonus = std::accumulate(
         jet.modifiers.begin(), jet.modifiers.end(), 0,

@@ -13,14 +13,12 @@
 namespace hmi {
 namespace {
 
-/**
- * @brief Le catalogue, charge UNE FOIS pour la langue demandee.
- *
- * Statique de fonction, et non membre d'une vue-modele : la fiche et l'inventaire demandent les
- * memes libelles, et deux catalogues liraient deux fois les memes fichiers pour rendre les memes
- * chaines. Rechargee seulement si la langue change -- ce qui n'arrive qu'au changement de langue,
- * pas a chaque lecture.
- */
+// Le catalogue, charge UNE FOIS pour la langue demandee.
+//
+// Statique de fonction, et non membre d'une vue-modele : la fiche et l'inventaire demandent les
+// memes libelles, et deux catalogues liraient deux fois les memes fichiers pour rendre les memes
+// chaines. Rechargee seulement si la langue change -- ce qui n'arrive qu'au changement de langue,
+// pas a chaque lecture.
 [[nodiscard]] const Localization& catalog(const std::string& language) {
     static Localization loaded(executableDirectory() / "Localization");
     static std::string current;
@@ -42,9 +40,9 @@ namespace {
 
 }  // namespace
 
-/// Le catalogue de la racine de contenu imposee (`--data=`, LOT-118), s'il y en a une : ses cles
-/// -- noms de cartes, dialogues d'essai -- passent devant celles du jeu. Rien si le contenu est
-/// celui de l'executable.
+// Le catalogue de la racine de contenu imposee (`--data=`, LOT-118), s'il y en a une : ses cles
+// -- noms de cartes, dialogues d'essai -- passent devant celles du jeu. Rien si le contenu est
+// celui de l'executable.
 [[nodiscard]] const Localization* contentCatalog(const std::string& language) {
     static const bool impose = dataDirectory() != executableDirectory();
     if (!impose) {

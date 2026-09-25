@@ -24,7 +24,7 @@ namespace {
     return lookup.equipment != nullptr ? lookup.equipment->findArmor(id) : nullptr;
 }
 
-/// @return Le nom du catalogue, ou l'identifiant : un objet inconnu doit se VOIR, pas disparaître.
+// Rend : Le nom du catalogue, ou l'identifiant : un objet inconnu doit se VOIR, pas disparaître.
 [[nodiscard]] std::string nameOf(const core::ItemLookup& lookup, std::string_view id) {
     if (const core::Weapon* const weapon = findWeapon(lookup, id); weapon != nullptr) {
         return weapon->name;
@@ -38,8 +38,8 @@ namespace {
     return std::string(id);
 }
 
-/// @return Un poids en grammes, en kilogrammes à une décimale (« 1,5 kg ») -- comme l'inventaire
-/// v1.
+// Rend : Un poids en grammes, en kilogrammes à une décimale (« 1,5 kg ») -- comme l'inventaire
+// v1.
 [[nodiscard]] std::string kilograms(int grams) {
     const int tenths = (std::max(grams, 0) + 50) / 100;
     return std::to_string(tenths / 10) + "," + std::to_string(tenths % 10) + " kg";

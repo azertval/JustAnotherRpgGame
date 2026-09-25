@@ -24,9 +24,9 @@ namespace {
     return QString::fromStdString(chemin.string());
 }
 
-/// @brief Ce que la liste dit d'une carte : son nom et sa taille, lus dans le fichier — ou
-///        l'erreur qui empêche de l'ouvrir, pour qu'une carte cassée se voie ici plutôt que sur
-///        un écran de jeu vide.
+// Ce que la liste dit d'une carte : son nom et sa taille, lus dans le fichier — ou
+//        l'erreur qui empêche de l'ouvrir, pour qu'une carte cassée se voie ici plutôt que sur
+//        un écran de jeu vide.
 [[nodiscard]] QVariantMap decrire(const LevelEntry& carte) {
     QVariantMap ligne;
     ligne.insert(QStringLiteral("id"), QString::fromStdString(carte.mapId));
@@ -122,8 +122,9 @@ bool MapLauncherModel::launch(const QString& mapId, const QString& arrival, cons
     if (const QString cellule = at.trimmed(); !cellule.isEmpty()) {
         const std::optional<core::GridPosition> lue = parseStartCell(cellule.toStdString());
         if (!lue) {
-            remarque = QStringLiteral(" ; case illisible (attendu <colonne>,<ligne>), le heros "
-                                      "part de l'entree");
+            remarque = QStringLiteral(
+                " ; case illisible (attendu <colonne>,<ligne>), le heros "
+                "part de l'entree");
         }
         world->setStartCell(lue);
     } else {
@@ -147,7 +148,6 @@ bool MapLauncherModel::launch(const QString& mapId, const QString& arrival, cons
     }
     HMI_LOG_INFO("Lanceur de cartes : " + mapId.trimmed().toStdString());
     setStatus(QStringLiteral("Carte ouverte : %1%2").arg(mapId.trimmed(), remarque));
-    emit launched(mapId.trimmed());
     return true;
 }
 

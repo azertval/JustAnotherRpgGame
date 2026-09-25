@@ -10,8 +10,8 @@ namespace {
 
 // --- Ossature des neuf écrans (LOT-68) ---------------------------------------------------------
 //
-// Chaque écran est décrit ICI, en données pures, et `hmi::RpgScreenFrame` en peint l'ossature sans
-// connaître aucun écran par son nom (`EX-IHM-090`).
+// Chaque écran est décrit ICI, en données pures : l'ossature est posée par les formulaires Qt Quick
+// sans qu'aucun code ne connaisse un écran par son nom (`EX-IHM-090`).
 //
 // Un champ porte l'identifiant sous lequel sa valeur arrive, ou une chaîne vide. **Vide** veut
 // dire : ce champ est à l'écran, et rien ne l'alimente encore — il garde son tiret cadratin,
@@ -316,7 +316,7 @@ constexpr std::array<RpgScreenDescriptor, RPG_SCREEN_COUNT> SCREENS = {{
      .layout = {.leftColumn = COMBAT_HUD_LEFT}},
 }};
 
-/// @return Le rang de @p screen dans la table.
+// Rend : Le rang de `screen` dans la table.
 [[nodiscard]] std::size_t indexOf(RpgScreenId screen) noexcept {
     for (std::size_t rank = 0; rank < SCREENS.size(); ++rank) {
         if (SCREENS[rank].id == screen) {

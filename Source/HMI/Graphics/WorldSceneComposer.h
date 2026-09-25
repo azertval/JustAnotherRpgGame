@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
 #pragma once
+#include <array>
 #include <cstdint>
 #include <map>
 #include <optional>
-#include <array>
 #include <span>
 #include <string>
 #include <string_view>
@@ -146,11 +146,17 @@ enum class FigureFacing : std::uint8_t {
  * dernière image (`SceneTexture::loop`, lu dans le `.anim.json` de la bande).
  */
 namespace figure_clips {
+/// Le repos, en boucle.
 inline constexpr std::string_view IDLE = "idle";
+/// La marche, en boucle.
 inline constexpr std::string_view WALK = "walk";
+/// L'attaque au contact, jouée une fois.
 inline constexpr std::string_view ATTACK = "attack";
+/// L'incantation, jouée une fois.
 inline constexpr std::string_view CAST = "cast";
+/// Le coup encaissé, joué une fois.
 inline constexpr std::string_view HIT = "hit";
+/// La chute, jouée une fois ; la dernière image reste.
 inline constexpr std::string_view DEATH = "death";
 /// Toutes, dans l'ordre du standard.
 inline constexpr std::array<std::string_view, 6> ALL = {IDLE, WALK, ATTACK, CAST, HIT, DEATH};
@@ -276,6 +282,14 @@ struct WorldStoreySnapshot {
     [[nodiscard]] bool operator==(const WorldStoreySnapshot&) const = default;
 };
 
+/**
+ * @brief Une carte **en valeurs**, telle que la composition la lit : sa grille, ses pièces par
+ *        case, ses étages, ses figurines et où trouver leurs fichiers.
+ *
+ * C'est ce que `hmi::WorldPlay::snapshot` produit et que `composeWorldScene` et
+ * `StaticWorldScene::build` consomment : aucune référence à la session ni au disque, donc une
+ * valeur partageable entre le fil graphique et le fil de rendu, et comparable dans un test.
+ */
 struct WorldSceneSnapshot {
     float diamondRatio = core::ARENA_DIAMOND_RATIO;
     int columns = 0;

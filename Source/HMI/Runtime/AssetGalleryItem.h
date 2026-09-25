@@ -55,6 +55,8 @@ class AssetGalleryItem : public QQuickRhiItem {
     Q_PROPERTY(qreal speed READ speed WRITE setSpeed NOTIFY playbackChanged)
     Q_PROPERTY(QColor clearColor READ clearColor WRITE setClearColor NOTIFY displayChanged)
 
+    /// Rang du bloc sélectionné dans la disposition, ou -1 sans sélection ; écrit hors bornes, il
+    /// désélectionne.
     Q_PROPERTY(int selectedIndex READ selectedIndex WRITE select NOTIFY selectionChanged)
     /// Fiche de la forme sélectionnée ; vide sans sélection.
     Q_PROPERTY(QVariantMap selected READ selected NOTIFY selectionChanged)
@@ -63,6 +65,7 @@ class AssetGalleryItem : public QQuickRhiItem {
     /// Les autres formes du même modèle : `{index, form}`.
     Q_PROPERTY(QVariantList siblings READ siblings NOTIFY selectionChanged)
 
+    /// Nombre de blocs de la disposition : une forme par bloc.
     Q_PROPERTY(int blocCount READ blocCount CONSTANT)
     Q_PROPERTY(int drawnCount READ drawnCount NOTIFY viewChanged)
     Q_PROPERTY(int preloadedCount READ preloadedCount NOTIFY viewChanged)

@@ -26,7 +26,7 @@ namespace hmi {
 
 namespace {
 
-/// Marge du cadrage : la scène entière tient dans la surface, sans toucher ses bords.
+// Marge du cadrage : la scène entière tient dans la surface, sans toucher ses bords.
 constexpr float FRAMING_MARGIN = 0.95F;
 
 }  // namespace

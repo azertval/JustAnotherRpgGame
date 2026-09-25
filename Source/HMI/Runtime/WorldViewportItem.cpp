@@ -19,11 +19,9 @@
 namespace hmi {
 namespace {
 
-/**
- * @brief Le peintre du lieu, côté **fil de rendu**.
- *
- * Il ne partage aucun état avec l'élément : tout lui est remis par copie dans `synchronize()`.
- */
+// Le peintre du lieu, côté **fil de rendu**.
+//
+// Il ne partage aucun état avec l'élément : tout lui est remis par copie dans `synchronize()`.
 class WorldViewportRenderer : public QQuickRhiItemRenderer {
 public:
     WorldViewportRenderer() : _world(dataDirectory() / "Assets") {}
@@ -34,7 +32,7 @@ public:
 
 private:
     WorldSceneRenderer _world;
-    /// Numéros de la carte et des figurines reprises : 0 tant que rien n'a été pris.
+    // Numéros de la carte et des figurines reprises : 0 tant que rien n'a été pris.
     quint64 _sceneRevision = 0;
     quint64 _figuresRevision = 0;
     QColor _clearColor;
@@ -89,7 +87,7 @@ void WorldViewportRenderer::render(QRhiCommandBuffer* commandBuffer) {
 struct WorldViewportItem::Framing {
     core::IsoProjection projection{0, 0};
     Camera2D camera;
-    /// Pixels de texture par unité d'élément, sur chaque axe.
+    // Pixels de texture par unité d'élément, sur chaque axe.
     qreal pixelsPerItemX = 1.0;
     qreal pixelsPerItemY = 1.0;
 };
@@ -153,13 +151,6 @@ QPoint WorldViewportItem::cellAt(qreal x, qreal y) const {
         {static_cast<float>(x * f.pixelsPerItemX), static_cast<float>(y * f.pixelsPerItemY)});
     const std::optional<core::GridPosition> cell = f.projection.worldToTile(world);
     return cell.has_value() ? QPoint(cell->column, cell->row) : QPoint(-1, -1);
-}
-
-QPointF WorldViewportItem::pointAt(qreal column, qreal row) const {
-    const Framing f = framing();
-    const core::Vector2 screen = f.camera.worldToScreen(
-        f.projection.gridToWorld({static_cast<float>(column), static_cast<float>(row)}));
-    return {screen.x / f.pixelsPerItemX, screen.y / f.pixelsPerItemY};
 }
 
 void WorldViewportItem::setModel(WorldModel* model) {

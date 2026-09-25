@@ -55,8 +55,9 @@ struct SceneTexture {
     std::optional<float> groundLine{};
     /// Durée d'une image de la bande, en secondes (`.anim.json`) ; 0 si la bande n'en dit rien.
     float frameDuration = 0.0F;
-    /// Vrai si la bande boucle (repos, marche) ; faux si elle se joue **une fois** et se fige sur sa
-    /// dernière image (attaque, sort, touché, mort — `LOT-118`). Une bande sans `.anim.json` boucle.
+    /// Vrai si la bande boucle (repos, marche) ; faux si elle se joue **une fois** et se fige sur
+    /// sa dernière image (attaque, sort, touché, mort — `LOT-118`). Une bande sans `.anim.json`
+    /// boucle.
     bool loop = true;
     /// Hauteur d'un étage du lieu, en pixels d'art (`storey` du manifeste, `LOT-129`) : ce dont une
     /// pièce posée sur la couche d'étage `floor = n` s'élève, n fois.

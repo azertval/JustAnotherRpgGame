@@ -132,8 +132,12 @@ public:
     Q_INVOKABLE void cycleAction(int step);
     /// @brief Confirme l'action choisie sur la case du curseur.
     Q_INVOKABLE void confirm();
+    /// @brief Esquive : dépense l'action du tour du joueur (`core::ArenaSession::dodge`) ; si elle
+    ///        l'est déjà, `status` le dit.
     Q_INVOKABLE void dodge();
+    /// @brief Désengagement : dépense l'action du tour ; si elle l'est déjà, `status` le dit.
     Q_INVOKABLE void disengage();
+    /// @brief Sprint : dépense l'action du tour ; si elle l'est déjà, `status` le dit.
     Q_INVOKABLE void dash();
     /// @brief Termine le tour du joueur ; l'IA joue ensuite les siens.
     Q_INVOKABLE void endTurn();
@@ -141,8 +145,12 @@ public:
     Q_INVOKABLE void withdraw();
 
 signals:
+    /// L'état du combat a changé en bloc : combattants, ordre de tour, journal, statut.
     void changed();
+    /// Le curseur de ciblage a bougé : sa case, le chemin, les actions et l'aperçu qui en
+    /// dépendent.
     void cursorChanged();
+    /// Les figurines du combat sont à recomposer : la surface de rendu se redessine.
     void combatSceneChanged();
 
 protected:

@@ -47,8 +47,8 @@ namespace hmi {
 class GameViewportItem : public QQuickRhiItem {
     Q_OBJECT
     // Nommé pour le QML, où le suffixe `Item` n'apprendrait rien : tout y est un élément. La classe
-    // C++ le garde, comme `ArenaViewportItem` et `WorldViewportItem` : c'est la classe
-    // `QQuickRhiItem`, pas l'élément QML.
+    // C++ le garde, comme `WorldViewportItem` : c'est la classe `QQuickRhiItem`, pas l'élément
+    // QML.
     QML_NAMED_ELEMENT(GameViewport)
 
     /// Couleur d'effacement. Exposée au QML pour venir de `Tokens.qml` comme le reste : la surface

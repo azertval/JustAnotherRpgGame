@@ -10,11 +10,11 @@
 namespace hmi {
 namespace {
 
-/// Le même signe que le châssis pose sur un champ sans source (`hmi::CharacterSheetModel`).
+// Le même signe que le châssis pose sur un champ sans source (`hmi::CharacterSheetModel`).
 constexpr const char* EMPTY_MARK = "—";
 
-/// Garde-fou de bon sens : une liste d'attente ne décrit jamais mille lignes, et une valeur folle
-/// venue d'une liaison QML mal écrite ne doit pas allouer sans fin.
+// Garde-fou de bon sens : une liste d'attente ne décrit jamais mille lignes, et une valeur folle
+// venue d'une liaison QML mal écrite ne doit pas allouer sans fin.
 constexpr int MAXIMUM_ROWS = 64;
 
 }  // namespace

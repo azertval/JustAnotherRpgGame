@@ -30,7 +30,6 @@ QtObject {
     readonly property var dialogueIds: [ "heraut-colisee", "portier-colisee" ]
 
     signal changed()
-    signal combatRequested(string arenaId)
     signal encounterRequested(string encounterId)
     signal demoEnded(string ending)
 

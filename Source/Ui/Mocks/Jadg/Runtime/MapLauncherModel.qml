@@ -18,7 +18,6 @@ QtObject {
     readonly property string status: ""
 
     signal changed()
-    signal launched(string mapId)
 
     function refresh() {}
     function addDirectory(path) { return false }

@@ -20,11 +20,10 @@ namespace hmi {
  * @brief Mémoïsation par clé logique : charge au premier accès, retient aussi un **échec**, et
  *        s'invalide par clé ou entièrement.
  *
- * Factorise la logique de bibliothèque de `hmi::TextureCache` hors de tout détail
- * Direct3D : c'est ce qui rend ce comportement — mémoïsation, mémorisation d'échec,
+ * Factorise la logique de bibliothèque d'un cache de ressources hors de tout détail de rendu :
+ * c'est ce qui rend ce comportement — mémoïsation, mémorisation d'échec,
  * `invalidate`/`invalidateAll` — vérifiable **sans GPU** (`EX-NFR-004`), avec n'importe quel type
- * de ressource. `TextureCache` compose ce registre pour sa bibliothèque de textures ; ce fichier
- * ne connaît rien de Direct3D ni de Qt.
+ * de ressource. Ce fichier ne connaît rien de QRhi ni de Qt.
  *
  * Logique **pure**, aucune dépendance externe (`EX-NFR-010`).
  * @tparam Resource Type de ressource mémorisée par clé.

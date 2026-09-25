@@ -60,7 +60,7 @@ struct CharacterSheetContext {
     std::string emptyMark = "—";
 };
 
-/// @return Les valeurs de la fiche, prêtes à être posées par `hmi::RpgScreenFrame::setValues`.
+/// @return Les valeurs de la fiche, prêtes à être publiées par `hmi::CharacterSheetModel::values`.
 ///         Un contexte incomplet (fiche absente) rend une table **vide**, jamais des zéros :
 ///         l'écran garde alors ses tirets, ce qui est la vérité.
 [[nodiscard]] std::map<std::string, std::string> characterSheetValues(

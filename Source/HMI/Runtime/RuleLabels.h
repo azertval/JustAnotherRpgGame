@@ -24,8 +24,9 @@ namespace hmi {
  * littérale — c'est ce qui permet à `lupdate` de l'extraire sans exécuter le programme.
  *
  * Ce n'est pas qu'une contrainte technique. Ces termes sont un **lexique** : `rpg.glossary.csv`
- * garantit une seule traduction par terme de règle dans tout le jeu, et `scripts/checks/check_glossary.py`
- * le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.
+ * garantit une seule traduction par terme de règle dans tout le jeu, et
+ * `scripts/checks/check_glossary.py` le vérifie. Les disperser en littéraux dans les écrans
+ * casserait précisément cette garantie.
  *
  * @param key      Clé du catalogue (« rpg.ability.strength »).
  * @param language Langue demandée (« fr », « en »).

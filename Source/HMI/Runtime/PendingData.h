@@ -48,9 +48,9 @@ namespace hmi {
  *
  * ## Comment on retrouve ce qu'il reste à brancher
  *
- * `python scripts/i18n/list_pending_bindings.py` relève toutes les clés depuis le QML lui-même. Aucune
- * liste à tenir à jour en parallèle : l'inventaire est **dérivé du code**, donc toujours exact —
- * et c'est le motif que ce lot applique partout ailleurs.
+ * `python scripts/i18n/list_pending_bindings.py` relève toutes les clés depuis le QML lui-même.
+ * Aucune liste à tenir à jour en parallèle : l'inventaire est **dérivé du code**, donc toujours
+ * exact — et c'est le motif que ce lot applique partout ailleurs.
  */
 class PendingData : public QObject {
     Q_OBJECT

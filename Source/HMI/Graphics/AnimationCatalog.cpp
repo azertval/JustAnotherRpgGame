@@ -240,19 +240,4 @@ core::AtlasRegion AnimationCatalog::frameRegion(const AnimationDescription& desc
                              .height = description.frameHeight};
 }
 
-core::AtlasRegion AnimationCatalog::currentFrameRegion(const AnimationDescription& description,
-                                                       const core::Animation& animation) {
-    if (!animation.clips || animation.clips->clipCount() == 0) {
-        return frameRegion(description, 0);
-    }
-    const core::AnimationClip& clip = animation.clips->clipAt(animation.clipIndex);
-    if (clip.frames.empty()) {
-        return frameRegion(description, 0);
-    }
-    const bool inBounds = animation.frameIndex >= 0 &&
-                          static_cast<std::size_t>(animation.frameIndex) < clip.frames.size();
-    const int frameIndexInClip = inBounds ? animation.frameIndex : 0;
-    return frameRegion(description, clip.frames[static_cast<std::size_t>(frameIndexInClip)]);
-}
-
 }  // namespace hmi

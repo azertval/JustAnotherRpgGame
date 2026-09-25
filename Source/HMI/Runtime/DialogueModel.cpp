@@ -31,12 +31,10 @@ namespace {
     return QString::fromStdString(texte);
 }
 
-/**
- * Les drapeaux de monde des conversations : ceux de la partie (`LOT-116`), que la carte lit aussi
- * -- une porte ouverte par un dialogue s'ouvre sur la carte, un PNJ appele par une quete y parait.
- * Sans partie (le designer, un test de l'ecran seul), un ensemble le temps du processus, pour
- * qu'un heraut n'oublie pas qu'on lui a parle a chaque ouverture de l'ecran.
- */
+// Les drapeaux de monde des conversations : ceux de la partie (`LOT-116`), que la carte lit aussi
+// -- une porte ouverte par un dialogue s'ouvre sur la carte, un PNJ appele par une quete y parait.
+// Sans partie (le designer, un test de l'ecran seul), un ensemble le temps du processus, pour
+// qu'un heraut n'oublie pas qu'on lui a parle a chaque ouverture de l'ecran.
 [[nodiscard]] core::WorldFlags& drapeauxDeLaPartie() {
     if (WorldModel* const partie = WorldModel::current()) {
         return partie->flags();
@@ -45,16 +43,14 @@ namespace {
     return drapeaux;
 }
 
-/**
- * Une graine par conversation, tiree d'un compteur et non de l'horloge (EX-NFR-002) : deux
- * lancements du jeu rejouent les memes des dans le meme ordre de conversations.
- */
+// Une graine par conversation, tiree d'un compteur et non de l'horloge (EX-NFR-002) : deux
+// lancements du jeu rejouent les memes des dans le meme ordre de conversations.
 [[nodiscard]] std::uint64_t graineSuivante() {
     static std::uint64_t compteur = 0;
     return core::deriveSeed(0x15D1A106ULL, compteur++, 0);
 }
 
-/// Garde les dialogues dont toutes les références se résolvent ; journalise les autres.
+// Garde les dialogues dont toutes les références se résolvent ; journalise les autres.
 [[nodiscard]] std::vector<core::DialogueGraph> validDialogues(
     std::vector<core::DialogueGraph> graphes, const core::DialogueReferences& references) {
     std::vector<core::DialogueGraph> valides;
@@ -71,23 +67,20 @@ namespace {
     return valides;
 }
 
-/**
- * @brief L'interlocuteur du PNJ, tel que l'ECRAN l'entend : le personnage, et un rappel de plus.
- *
- * `core::CharacterListener` est `final` -- et c'est bien : ce qu'il sait faire d'une fiche et d'un
- * sac n'a pas a se redefinir. On le DELEGUE donc, et l'on n'ajoute que ce qui regarde l'ecran :
- * quand le heraut envoie sur le sable (`startCombat`, LOT-09), le modele emet son signal, et c'est
- * l'ecran qui ouvre le Colisee.
- */
+// L'interlocuteur du PNJ, tel que l'ECRAN l'entend : le personnage, et un rappel de plus.
+//
+// `core::CharacterListener` est `final` -- et c'est bien : ce qu'il sait faire d'une fiche et d'un
+// sac n'a pas a se redefinir. On le DELEGUE donc, et l'on n'ajoute que ce qui regarde l'ecran :
+// quand un PNJ engage une rencontre (`startEncounter`, LOT-118) ou clot la demo (`endDemo`,
+// LOT-119), le modele emet son signal, et c'est l'ecran qui ouvre ce qui suit.
 class EcouteurDEcran final : public core::DialogueListener {
 public:
     using SurCombat = std::function<void(std::string)>;
 
     EcouteurDEcran(const core::CharacterSheet& fiche, core::Inventory& sac,
                    const core::ExperienceTable& experience, const core::SkillCatalog& competences,
-                   SurCombat surCombat, SurCombat surRencontre, SurCombat surFin)
+                   SurCombat surRencontre, SurCombat surFin)
         : _personnage(fiche, sac, experience, competences),
-          _surCombat(std::move(surCombat)),
           _surRencontre(std::move(surRencontre)),
           _surFin(std::move(surFin)) {}
 
@@ -101,11 +94,10 @@ public:
     void receiveItem(std::string_view itemId, int quantity) override {
         _personnage.receiveItem(itemId, quantity);
     }
-    void startCombat(std::string_view arenaId) override {
-        if (_surCombat) {
-            _surCombat(std::string{arenaId});
-        }
-    }
+    // Impose par core::DialogueListener. Volontairement sans effet : l'action `startCombat` (le
+    // heraut du Colisee, LOT-09) reste dans le format des dialogues, mais l'ecran du Colisee est
+    // retire depuis que le combat se joue sur la carte (`startEncounter`).
+    void startCombat(std::string_view /*arenaId*/) override {}
     void startEncounter(std::string_view encounterId) override {
         if (_surRencontre) {
             _surRencontre(std::string{encounterId});
@@ -119,7 +111,6 @@ public:
 
 private:
     core::CharacterListener _personnage;
-    SurCombat _surCombat;
     SurCombat _surRencontre;
     SurCombat _surFin;
 };
@@ -195,7 +186,6 @@ void DialogueModel::open() {
     }
     s.listener.emplace(
         s.character.sheet, s.character.inventory, s.character.experience, s.character.skills,
-        [this](const std::string& arena) { emit combatRequested(toQt(arena)); },
         [this](const std::string& rencontre) { emit encounterRequested(toQt(rencontre)); },
         [this](const std::string& voie) { emit demoEnded(toQt(voie)); });
     // La graine du compteur, sauf si l'appelant en a fixe une : un test force ainsi l'issue d'un

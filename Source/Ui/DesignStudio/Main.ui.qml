@@ -206,30 +206,6 @@ Rectangle {
                     SectionBanner {
                         Layout.fillWidth: true
                         material: "dark"
-                        text: "Colisée"
-                    }
-
-                    // La scene isometrique du Colisee n'est plus accessible a l'atelier : elle est
-                    // rendue par QRhi (LOT-86 Phase 7). Lancer l'arene dans le jeu pour la voir.
-                    Rectangle {
-                        Layout.preferredWidth: 900 * Tokens.uiScale
-                        Layout.preferredHeight: 420 * Tokens.uiScale
-                        color: Tokens.panelRaised
-                        border.color: Tokens.panelEdge
-                        border.width: Tokens.strokeWidth
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: qsTr("Colisée : prévisualisation en QRhi (voir le jeu)")
-                            color: Tokens.textOnPanelMuted
-                            font.family: Tokens.bodyFamily
-                            font.pixelSize: Tokens.fontCaption
-                        }
-                    }
-
-                    SectionBanner {
-                        Layout.fillWidth: true
-                        material: "dark"
                         text: "Menu"
                     }
 

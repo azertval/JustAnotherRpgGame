@@ -22,15 +22,15 @@
 namespace hmi {
 namespace {
 
-/// Réglages retenus par installCrashDumpWriter. Lus depuis le filtre : aucune allocation n'y a lieu
-/// avant l'écriture du dump, le tas pouvant être la cause du plantage.
+// Réglages retenus par installCrashDumpWriter. Lus depuis le filtre : aucune allocation n'y a lieu
+// avant l'écriture du dump, le tas pouvant être la cause du plantage.
 struct CrashDumpSettings {
     std::filesystem::path directory;
     std::string application;
     std::string version;
 };
 
-/// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
+// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
 constexpr DWORD MINI_DUMP_RETRY_PAUSE_MS = 50;
 
 CrashDumpSettings& settings() {
@@ -38,8 +38,8 @@ CrashDumpSettings& settings() {
     return instance;
 }
 
-/// Erreurs des tentatives de la dernière écriture (writeMiniDump), pour le diagnostic : sans elles,
-/// seule l'erreur de la dernière tentative est connue, et une panne de CI reste illisible.
+// Erreurs des tentatives de la dernière écriture (writeMiniDump), pour le diagnostic : sans elles,
+// seule l'erreur de la dernière tentative est connue, et une panne de CI reste illisible.
 std::array<unsigned long, kMiniDumpAttemptCount>& attemptErrors() {
     static std::array<unsigned long, kMiniDumpAttemptCount> instance{};
     return instance;
@@ -98,7 +98,7 @@ LONG WINAPI onUnhandledException(EXCEPTION_POINTERS* exception) {
     return EXCEPTION_EXECUTE_HANDLER;
 }
 
-/// Écriture d'un dump confiée à un thread dédié (writeMiniDump).
+// Écriture d'un dump confiée à un thread dédié (writeMiniDump).
 struct DumpJob {
     HANDLE file = INVALID_HANDLE_VALUE;
     EXCEPTION_POINTERS* original = nullptr;
@@ -115,17 +115,17 @@ struct DumpJob {
     std::array<unsigned long, kMiniDumpAttemptCount> errors{};
 };
 
-/// Rappel de MiniDumpWriteDump : une zone mémoire illisible est sautée au lieu d'annuler le dump,
-/// et, sur la dernière tentative, seul le thread du plantage est consigné.
-///
-/// ReadMemoryFailureCallback ne couvre pas tout : « si l'échec a lieu dans une pile, il est
-/// considéré comme irrécupérable et le minidump échoue » (documentation de
-/// MINIDUMP_CALLBACK_TYPE). Une pile qu'un thread en cours de fin libère pendant la lecture fait
-/// donc échouer l'écriture sur ERROR_PARTIAL_COPY quoi qu'on réponde -- vu sur les runners de CI,
-/// jamais sur le poste. Le seul remède est de ne pas lire cette pile : IncludeThreadCallback rend
-/// FALSE pour tout thread autre que celui du plantage (`onlyThread`), ce que la dernière tentative
-/// seule demande. Les autres rappels gardent le comportement par défaut : threads et modules
-/// inclus, aucune mémoire ajoutée.
+// Rappel de MiniDumpWriteDump : une zone mémoire illisible est sautée au lieu d'annuler le dump,
+// et, sur la dernière tentative, seul le thread du plantage est consigné.
+//
+// ReadMemoryFailureCallback ne couvre pas tout : « si l'échec a lieu dans une pile, il est
+// considéré comme irrécupérable et le minidump échoue » (documentation de
+// MINIDUMP_CALLBACK_TYPE). Une pile qu'un thread en cours de fin libère pendant la lecture fait
+// donc échouer l'écriture sur ERROR_PARTIAL_COPY quoi qu'on réponde -- vu sur les runners de CI,
+// jamais sur le poste. Le seul remède est de ne pas lire cette pile : IncludeThreadCallback rend
+// FALSE pour tout thread autre que celui du plantage (`onlyThread`), ce que la dernière tentative
+// seule demande. Les autres rappels gardent le comportement par défaut : threads et modules
+// inclus, aucune mémoire ajoutée.
 BOOL CALLBACK skipUnreadableMemory(PVOID param, const PMINIDUMP_CALLBACK_INPUT input,
                                    PMINIDUMP_CALLBACK_OUTPUT output) {
     if (input == nullptr || output == nullptr) {

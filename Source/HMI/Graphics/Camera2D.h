@@ -37,13 +37,6 @@ public:
     Camera2D(int viewportWidth, int viewportHeight);
 
     /**
-     * @brief Met à jour les dimensions de la surface de rendu (redimensionnement).
-     * @param viewportWidth  Nouvelle largeur, en pixels.
-     * @param viewportHeight Nouvelle hauteur, en pixels.
-     */
-    void setViewportSize(int viewportWidth, int viewportHeight);
-
-    /**
      * @brief Place le centre de la caméra.
      * @param worldCenter Position visée, au centre de l'écran, en unités monde.
      */

@@ -8,15 +8,15 @@
 namespace hmi {
 namespace {
 
-/// Les taux du livre : cent pièces de cuivre valent une pièce d'or, dix une pièce d'argent.
-/// Écrits ici, et non dans le modèle, parce que ce sont des **grandeurs d'affichage** : le modèle
-/// ne compte qu'en cuivre.
+// Les taux du livre : cent pièces de cuivre valent une pièce d'or, dix une pièce d'argent.
+// Écrits ici, et non dans le modèle, parce que ce sont des **grandeurs d'affichage** : le modèle
+// ne compte qu'en cuivre.
 constexpr int CUIVRE_PAR_ARGENT = 10;
 constexpr int CUIVRE_PAR_OR = 100;
 
-/// @return Le nom d'un objet, cherché dans les trois catalogues, ou son identifiant à défaut.
-///         L'identifiant plutôt qu'un tiret : un emplacement qui porte quelque chose que le
-///         catalogue ignore doit se **voir**, et le tiret le ferait passer pour vide.
+// Rend : Le nom d'un objet, cherché dans les trois catalogues, ou son identifiant à défaut.
+//         L'identifiant plutôt qu'un tiret : un emplacement qui porte quelque chose que le
+//         catalogue ignore doit se **voir**, et le tiret le ferait passer pour vide.
 [[nodiscard]] std::string nomDe(const core::ItemLookup& catalogues, const std::string& id) {
     if (id.empty()) {
         return {};
@@ -39,7 +39,7 @@ constexpr int CUIVRE_PAR_OR = 100;
     return id;
 }
 
-/// @return Un poids en grammes, écrit en kilogrammes avec une décimale : « 12,5 kg ».
+// Rend : Un poids en grammes, écrit en kilogrammes avec une décimale : « 12,5 kg ».
 [[nodiscard]] std::string kilogrammes(int grammes) {
     const int dixiemes = (grammes + 50) / 100;  // arrondi au dixième de kilogramme
     return std::to_string(dixiemes / 10) + "," + std::to_string(dixiemes % 10) + " kg";

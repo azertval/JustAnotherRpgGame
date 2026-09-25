@@ -25,7 +25,7 @@ namespace {
     return side == core::CombatSide::Allies ? QStringLiteral("allies") : QStringLiteral("enemies");
 }
 
-/// Une action du tour telle que l'écran la propose.
+// Une action du tour telle que l'écran la propose.
 enum class TurnActionKind : std::uint8_t { ATTACK, DODGE, DISENGAGE, DASH, REACTION };
 
 struct TurnActionEntry {
@@ -34,8 +34,8 @@ struct TurnActionEntry {
     QString label;
 };
 
-/// Les actions du combattant @p active : ses attaques, puis les actions du Manuel, puis sa
-/// réaction.
+// Les actions du combattant `active` : ses attaques, puis les actions du Manuel, puis sa
+// réaction.
 [[nodiscard]] std::vector<TurnActionEntry> turnActionsOf(const core::ArenaSession& session,
                                                          core::CombatantId active) {
     std::vector<TurnActionEntry> entries;
@@ -76,7 +76,7 @@ struct TurnActionEntry {
     return {};
 }
 
-/// Ce que l'écran montre de la santé d'un combattant : un texte et une jauge.
+// Ce que l'écran montre de la santé d'un combattant : un texte et une jauge.
 struct HealthDisplay {
     QString hitPoints;
     double ratio = 1.0;
@@ -104,7 +104,7 @@ struct HealthDisplay {
     return display;
 }
 
-/// L'état visible d'une cible, à accoler à son nom : à terre, ou ensanglantée.
+// L'état visible d'une cible, à accoler à son nom : à terre, ou ensanglantée.
 [[nodiscard]] QString targetStateSuffix(const core::Combatant& target) {
     if (target.status == core::CombatantStatus::Down) {
         return CombatModel::tr(" (a terre)");
@@ -138,15 +138,14 @@ std::optional<HeroContestantSource> CombatModel::loadHeroSource(
         problems.emplace_back("personnage de demonstration absent");
         return std::nullopt;
     }
-    HeroContestantSource hero{.sheet = demonstration.sheet,
-                              .proficiency = core::proficiencyBonus(demonstration.sheet,
-                                                                    demonstration.experience),
-                              .armorClass = core::derivedStatsFor(
-                                                demonstration.sheet, demonstration.inventory,
-                                                demonstration.lookup(), demonstration.rules,
-                                                demonstration.encumbrance)
-                                                .armorClass,
-                              .weapon = std::nullopt};
+    HeroContestantSource hero{
+        .sheet = demonstration.sheet,
+        .proficiency = core::proficiencyBonus(demonstration.sheet, demonstration.experience),
+        .armorClass = core::derivedStatsFor(demonstration.sheet, demonstration.inventory,
+                                            demonstration.lookup(), demonstration.rules,
+                                            demonstration.encumbrance)
+                          .armorClass,
+        .weapon = std::nullopt};
     if (const core::Weapon* weapon = demonstration.equipment.findWeapon(
             demonstration.inventory.at(core::EquipmentSlot::MainHand))) {
         hero.weapon = *weapon;

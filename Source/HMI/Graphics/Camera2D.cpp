@@ -12,12 +12,6 @@ namespace hmi {
 Camera2D::Camera2D(int viewportWidth, int viewportHeight)
     : _viewportWidth(viewportWidth), _viewportHeight(viewportHeight) {}
 
-// Met à jour les dimensions de la surface de rendu (redimensionnement).
-void Camera2D::setViewportSize(int viewportWidth, int viewportHeight) {
-    _viewportWidth = viewportWidth;
-    _viewportHeight = viewportHeight;
-}
-
 // Place le centre de la caméra.
 void Camera2D::setCenter(const core::Vector2& worldCenter) {
     _center = worldCenter;

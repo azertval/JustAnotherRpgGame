@@ -41,7 +41,7 @@ constexpr std::string_view PILLAR = "pillar";
 // Marge basse d'une figurine, en hauteurs de losange (anchors.bottomMargin de ArenaTile.ui.qml).
 constexpr float FIGURE_BOTTOM_MARGIN = 0.42F;
 
-/// Le chemin d'une piece de scene : `../Scene/<lieu du kit>/<nom><suffixe>.png`.
+// Le chemin d'une piece de scene : `../Scene/<lieu du kit>/<nom><suffixe>.png`.
 void scenePath(const ArenaAppearanceCatalog& catalog, std::string& path, std::string_view name,
                std::string_view suffix = {}) {
     path.assign(SCENE_ROOT);
@@ -52,28 +52,24 @@ void scenePath(const ArenaAppearanceCatalog& catalog, std::string& path, std::st
     path.append(".png");
 }
 
-/**
- * @brief L'arete du fond contre laquelle se dresse une piece du bord de la grille.
- *
- * Le bord de la ligne 0 (et de la derniere ligne) court comme l'arete droite d'une case, du sommet
- * haut au sommet droit ; celui de la colonne 0 (et de la derniere), comme l'arete gauche. Une piece
- * du bord de devant se dresse contre l'arete du fond de sa case, parallele au bord : l'atelier ne
- * dessine que des pieces du fond.
- */
+// L'arete du fond contre laquelle se dresse une piece du bord de la grille.
+//
+// Le bord de la ligne 0 (et de la derniere ligne) court comme l'arete droite d'une case, du sommet
+// haut au sommet droit ; celui de la colonne 0 (et de la derniere), comme l'arete gauche. Une piece
+// du bord de devant se dresse contre l'arete du fond de sa case, parallele au bord : l'atelier ne
+// dessine que des pieces du fond.
 [[nodiscard]] std::string_view edgeSuffix(core::GridPosition cell, int rows) {
     return cell.row == 0 || cell.row == rows - 1 ? "-right" : "-left";
 }
 
-/// Ce qui ne change pas d'une piece a l'autre : la projection, les textures et le tampon.
+// Ce qui ne change pas d'une piece a l'autre : la projection, les textures et le tampon.
 struct Composer {
     ComposedScene& scene;
     const core::IsoProjection& projection;
     const ArenaSceneTextures& textures;
 
-    /**
-     * @brief Une piece de scene d'une case, posee par son ancre et a l'echelle de son lieu : le
-     *        losange que son manifeste declare occupe celui de la case (`hmi::standingPieceQuad`).
-     */
+    // Une piece de scene d'une case, posee par son ancre et a l'echelle de son lieu : le
+    //        losange que son manifeste declare occupe celui de la case (`hmi::standingPieceQuad`).
     void addStanding(RenderLayer layer, std::string_view path, core::Vector2 topVertex,
                      std::int32_t sortOrder) const {
         const ArenaTexture& texture = textures.resolve(path);

@@ -24,8 +24,8 @@
  *
  * Cette ossature est décrite en **données** plutôt qu'en code d'interface, pour la raison qu'écrit
  * `EX-IHM-090` : un neuvième écran doit coûter une **ligne de table**, jamais une retouche des huit
- * autres. Le rendu Qt (`hmi::RpgScreenFrame`) sait peindre les sept genres de blocs ci-dessous et
- * rien de plus ; il n'a aucune connaissance d'un écran en particulier.
+ * autres. Les formulaires Qt Quick (`Source/Ui/Screens/*Form.ui.qml`) posent les sept genres de
+ * blocs ci-dessous et rien de plus ; la table n'a aucune connaissance d'un écran en particulier.
  */
 
 namespace hmi {
@@ -140,7 +140,7 @@ struct RpgScreenDescriptor {
     const char* objectName = "";
     const char* titleKey = "";  ///< Clé du titre de l'écran (catalogue de traduction).
     RpgSuperposition superposition = RpgSuperposition::PausesGame;
-    /// L'ossature de l'écran : ce que `hmi::RpgScreenFrame` en peint.
+    /// L'ossature de l'écran : ce que son formulaire Qt Quick en pose.
     RpgScreenLayout layout{};
 };
 

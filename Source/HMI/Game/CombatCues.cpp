@@ -16,7 +16,7 @@ namespace {
                          static_cast<float>(cell.row) + 0.5F};
 }
 
-/// La diagonale qui regarde de @p from vers @p to ; @p previous si les deux se confondent.
+// La diagonale qui regarde de `from` vers `to` ; `previous` si les deux se confondent.
 [[nodiscard]] FigureFacing facingTowards(core::Vector2 from, core::Vector2 to,
                                          FigureFacing previous) noexcept {
     return figureFacingFor(core::Vector2{to.x - from.x, to.y - from.y}, previous);
@@ -119,8 +119,7 @@ bool CombatCueTrack::apply(Running& running) {
             const float progress = std::max(0.0F, elapsed) * WALK_CELLS_PER_SECOND;
             const auto segment = static_cast<std::size_t>(std::floor(progress));
             const float fraction = progress - static_cast<float>(segment);
-            const core::Vector2 from =
-                segment == 0 ? running.from : centerOf(path[segment - 1]);
+            const core::Vector2 from = segment == 0 ? running.from : centerOf(path[segment - 1]);
             const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
             figure.point = core::Vector2{from.x + ((to.x - from.x) * fraction),
                                          from.y + ((to.y - from.y) * fraction)};
@@ -132,8 +131,8 @@ bool CombatCueTrack::apply(Running& running) {
         case CombatCueKind::Attack:
         case CombatCueKind::Cast: {
             if (running.cue.target.has_value()) {
-                figure.facing = facingTowards(figure.point, centerOf(*running.cue.target),
-                                              figure.facing);
+                figure.facing =
+                    facingTowards(figure.point, centerOf(*running.cue.target), figure.facing);
             }
             if (elapsed >= ACTION_SECONDS) {
                 figure.clip = figure_clips::IDLE;

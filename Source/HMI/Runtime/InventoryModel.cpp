@@ -6,22 +6,20 @@
 #include <algorithm>
 #include <array>
 #include <optional>
-#include <string_view>
 #include <utility>
 
 #include "Core/Rpg/Inventory.h"
 #include "HMI/Presentation/InventoryScreen.h"
 #include "HMI/Presentation/InventoryValues.h"
 #include "HMI/Runtime/DemonstrationCharacter.h"
-#include "HMI/Runtime/RuleLabels.h"
 
 namespace hmi {
 namespace {
 
 constexpr const char* EMPTY_MARK = "—";
 
-/// Les seize emplacements, dans l'ordre où une feuille de personnage les grave : de la tête aux
-/// pieds, puis ce qui se porte à part.
+// Les seize emplacements, dans l'ordre où une feuille de personnage les grave : de la tête aux
+// pieds, puis ce qui se porte à part.
 constexpr std::array<core::EquipmentSlot, core::EQUIPMENT_SLOT_COUNT> SLOTS{
     core::EquipmentSlot::Head,       core::EquipmentSlot::Neck,     core::EquipmentSlot::Cloak,
     core::EquipmentSlot::Torso,      core::EquipmentSlot::Belt,     core::EquipmentSlot::Hands,
@@ -31,7 +29,7 @@ constexpr std::array<core::EquipmentSlot, core::EQUIPMENT_SLOT_COUNT> SLOTS{
     core::EquipmentSlot::Trinket,
 };
 
-/// Les filtres des onglets, dans l'ordre de `InventoryModel::filter`.
+// Les filtres des onglets, dans l'ordre de `InventoryModel::filter`.
 constexpr std::array<ItemFamily, 4> FILTERS{ItemFamily::All, ItemFamily::Equipment,
                                             ItemFamily::Gear, ItemFamily::Tools};
 
@@ -39,21 +37,9 @@ constexpr std::array<ItemFamily, 4> FILTERS{ItemFamily::All, ItemFamily::Equipme
     return QString::fromStdString(text);
 }
 
-/**
- * @brief Traduit un nom d'emplacement du modèle en clé de traduction.
- *
- * `core::equipmentSlotName` rend un nom en tirets (`ring-left`) — c'est ce qui sert d'identifiant
- * de valeur. Le catalogue de traduction, lui, indexe en soulignés (`rpg.slot.ring_left`).
- */
-[[nodiscard]] std::string translationKey(std::string_view slotName) {
-    std::string key(slotName);
-    std::ranges::replace(key, '-', '_');
-    return "rpg.slot." + key;
-}
-
 }  // namespace
 
-InventoryModel::InventoryModel(QObject* parent) : QObject(parent), _slots(this) {}
+InventoryModel::InventoryModel(QObject* parent) : QObject(parent) {}
 
 InventoryModel::~InventoryModel() = default;
 
@@ -116,19 +102,6 @@ void InventoryModel::refresh() {
             _selectedSlot.clear();
         }
     }
-
-    const std::string language = activeLanguage();
-    QVector<SheetRow> rows;
-    rows.reserve(static_cast<qsizetype>(SLOTS.size()));
-    for (const core::EquipmentSlot slot : SLOTS) {
-        const std::string name(core::equipmentSlotName(slot));
-        const auto found = _values.find("inventory.slot." + name);
-        rows.append(SheetRow{
-            .id = toQt(name),
-            .label = toQt(ruleLabel(translationKey(name), language)),
-            .value = found == _values.end() ? QString::fromUtf8(EMPTY_MARK) : toQt(found->second)});
-    }
-    _slots.setRows(std::move(rows));
 
     emit changed();
 }

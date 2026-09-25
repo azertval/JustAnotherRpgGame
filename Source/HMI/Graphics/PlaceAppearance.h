@@ -70,8 +70,11 @@ struct PlaceAppearanceResult;
  */
 class PlaceAppearance {
 public:
+    /// Version la plus haute du format de table que cette lecture accepte.
     static constexpr int FORMAT_VERSION = 1;
 
+    /// @brief Lit une table depuis son texte JSON @p json, sans manifeste voisin.
+    /// @return La table et, si la lecture échoue, l'erreur nommée.
     [[nodiscard]] static PlaceAppearanceResult loadFromString(std::string_view json);
 
     /// @brief Lit la table, puis le manifeste rangé à côté d'elle s'il existe (voir l'en-tête).

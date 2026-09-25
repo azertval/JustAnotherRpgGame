@@ -22,6 +22,10 @@ struct SheetRow {
     QString value;  ///< Valeur **déjà formatée** par la couche pure (« 16 (+3) », « +5 • »).
 };
 
+// Volontairement PAS déclaré comme type QML. Un modèle ne s'instancie jamais depuis le QML : il
+// est fourni par la vue-modèle, et le QML le consomme par son type de base `QAbstractItemModel*`,
+// comme tout modèle Qt. L'exposer aurait obligé le registrar à enregistrer aussi sa classe de
+// base, qui appartient à un autre module — et la compilation du fichier engendré échouait.
 /**
  * @brief Liste de lignes libellé/valeur, pour un `Repeater` ou une `ListView`.
  *
@@ -35,10 +39,6 @@ struct SheetRow {
  * `hmi::characterSheetValues`, logique **pure** et testée. Reformater ici aurait produit deux
  * vérités sur la façon d'écrire un modificateur.
  */
-// Volontairement PAS déclaré comme type QML. Un modèle ne s'instancie jamais depuis le QML : il
-// est fourni par la vue-modèle, et le QML le consomme par son type de base `QAbstractItemModel*`,
-// comme tout modèle Qt. L'exposer aurait obligé le registrar à enregistrer aussi sa classe de
-// base, qui appartient à un autre module — et la compilation du fichier engendré échouait.
 class SheetRowModel : public QAbstractListModel {
     Q_OBJECT
 

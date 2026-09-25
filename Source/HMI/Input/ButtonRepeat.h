@@ -23,6 +23,12 @@ inline constexpr std::chrono::milliseconds BUTTON_REPEAT_DELAY{350};
 /// Intervalle entre deux répétitions.
 inline constexpr std::chrono::milliseconds BUTTON_REPEAT_INTERVAL{110};
 
+/**
+ * @brief Compteur de répétition d'un bouton tenu : un pas à l'appui, puis un pas tous les
+ *        `BUTTON_REPEAT_INTERVAL` une fois `BUTTON_REPEAT_DELAY` écoulé.
+ *
+ * Sans horloge à lui : l'instant est donné à `update`, ce qui le rend testable sans attendre.
+ */
 class ButtonRepeat {
 public:
     /**

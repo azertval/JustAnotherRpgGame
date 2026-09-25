@@ -17,7 +17,7 @@ bool ScreenRouter::developerBuild() noexcept {
 
 namespace {
 
-/// Correspondance entre l'état de la table et celui que le QML lit.
+// Correspondance entre l'état de la table et celui que le QML lit.
 [[nodiscard]] ScreenRouter::Screen toRouterScreen(ScreenId screen) noexcept {
     switch (screen) {
         case ScreenId::Menu:

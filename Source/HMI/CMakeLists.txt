@@ -6,7 +6,7 @@
 # (LOT-EDITOR-01) : il dépend de HMI, et rien ici ne dépend de lui. Le code est réparti par domaine :
 #   Platform/     provisionnement bas niveau (répertoire exécutable, minidump) ;
 #   Input/        entrées (état, manette, table Qt -> touche) ;
-#   Graphics/     rendu 2D sur QRhi (sprites, caméra, lieu, arène) ;
+#   Graphics/     rendu 2D sur QRhi (sprites, caméra, lieu, combat sur la carte) ;
 #   Game/         la carte qu'on parcourt, partagée par le jeu et l'essai de l'éditeur ;
 #   Presentation/ logique de présentation pure (table de transitions, échelle, valeurs de fiche) ;
 #   Runtime/      les types C++ que les écrans du jeu voient -- module QML `Jadg.Runtime` (LOT-87) ;

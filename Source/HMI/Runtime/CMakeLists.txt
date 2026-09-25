@@ -63,7 +63,6 @@ qt_add_qml_module(JadgRuntime
         ../Graphics/SpriteRenderer.cpp
         ../Graphics/TextureLoader.cpp
         ../Graphics/TextureAtlas.cpp
-        ../Graphics/TextureCache.cpp
         DialogueModel.h DialogueModel.cpp
         # Le journal de quetes (LOT-116) : relu dans les drapeaux de la partie.
         QuestJournalModel.h QuestJournalModel.cpp

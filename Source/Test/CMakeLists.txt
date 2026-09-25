@@ -218,7 +218,6 @@ if(Qt6_FOUND)
         ../HMI/Graphics/SceneResources.cpp
         ../HMI/Graphics/SpriteRenderer.cpp
         ../HMI/Graphics/TextureAtlas.cpp
-        ../HMI/Graphics/TextureCache.cpp
         # Table de correspondance Qt <-> Win32 : logique PURE, mais qui lit les
         # constantes de <qnamespace.h> -- elle depend des en-tetes Qt, jamais d'une QApplication.
         # Elle vit donc ici plutot qu'avec les autres sources HMI/Input compilees sans condition.
