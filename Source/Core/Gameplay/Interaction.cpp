@@ -27,6 +27,30 @@ namespace {
     return (dx * dx) + (dy * dy);
 }
 
+// Vrai si l'on peut tendre la main de la case @p from a la case voisine @p to sans traverser de
+// matiere. La case cible doit etre traversable ; en diagonale, deux murs qui se touchent par le
+// coin ferment le passage, comme ils ferment la marche (`core::ExplorationReach`).
+[[nodiscard]] bool atteignable(const TileMap& map, GridPosition from, GridPosition to) {
+    const int dc = to.column - from.column;
+    const int dr = to.row - from.row;
+    if (std::abs(dc) > 1 || std::abs(dr) > 1) {
+        return false;
+    }
+    if (!map.inBounds(to.column, to.row) || map.isSolid(to.column, to.row)) {
+        return false;
+    }
+    if (dc != 0 && dr != 0) {
+        const bool coteColonne =
+            !map.inBounds(from.column + dc, from.row) || map.isSolid(from.column + dc, from.row);
+        const bool coteLigne =
+            !map.inBounds(from.column, from.row + dr) || map.isSolid(from.column, from.row + dr);
+        if (coteColonne && coteLigne) {
+            return false;
+        }
+    }
+    return true;
+}
+
 }  // namespace
 
 GridPosition aimedCell(GridPosition from, Vector2 facing) {
@@ -46,30 +70,26 @@ GridPosition aimedCell(GridPosition from, Vector2 facing) {
     return {.column = from.column, .row = from.row + (facing.y >= 0.0F ? 1 : -1)};
 }
 
-InteractionTarget findInteractionTarget(GridPosition from, Vector2 facing, const TileMap& map,
+InteractionTarget findInteractionTarget(Vector2 from, Vector2 facing, const TileMap& map,
                                         const std::vector<InteractionCandidate>& candidates,
                                         const WorldFlags& flags) {
+    const GridPosition ici{.column = static_cast<int>(std::floor(from.x)),
+                           .row = static_cast<int>(std::floor(from.y))};
     InteractionTarget resultat;
-    resultat.aimedCell = aimedCell(from, facing);
-    if (resultat.aimedCell == from) {
-        return resultat;  // Orientation nulle.
-    }
-    if (!map.inBounds(resultat.aimedCell.column, resultat.aimedCell.row)) {
-        return resultat;
-    }
-    // L'interaction ne traverse pas un mur. La case visee est adjacente, si bien qu'il n'y a rien
-    // entre elle et le personnage : c'est la case ELLE-MEME qui doit etre traversable.
-    if (map.isSolid(resultat.aimedCell.column, resultat.aimedCell.row)) {
-        return resultat;
-    }
+    resultat.aimedCell = aimedCell(ici, facing);
 
-    const Vector2 centre = centreDe(resultat.aimedCell);
+    bool meilleureVisee = false;
     float meilleure = std::numeric_limits<float>::max();
     for (const InteractionCandidate& candidat : candidates) {
         if (candidat.interactable == nullptr) {
             continue;
         }
-        if (candidat.interactable->position != resultat.aimedCell) {
+        const GridPosition ou = candidat.interactable->position;
+        const float distance = distanceCarree(centreDe(ou), from);
+        if (distance >= INTERACTION_REACH_CELLS * INTERACTION_REACH_CELLS) {
+            continue;
+        }
+        if (!atteignable(map, ici, ou)) {
             continue;
         }
         if (candidat.interactable->isConsumable() &&
@@ -78,11 +98,15 @@ InteractionTarget findInteractionTarget(GridPosition from, Vector2 facing, const
             // au joueur quelque chose qui n'arrivera pas.
             continue;
         }
-        const float distance = distanceCarree(centreDe(candidat.interactable->position), centre);
-        // Strictement inferieur : a distance egale, le PREMIER l'emporte, donc le plus petit
-        // indice. Sans ce depart, deux candidats sur la meme case donneraient tantot l'un tantot
-        // l'autre selon l'ordre de parcours de l'ECS, qui n'est pas stable.
-        if (distance < meilleure) {
+        // Ce que le heros regarde passe avant ce qui est plus pres : a deux PNJ a portee, il parle
+        // a celui vers lequel il s'est tourne. Puis le plus proche ; a egalite STRICTE, le premier
+        // l'emporte, donc le plus petit indice -- sans ce depart, l'ordre de parcours de l'ECS,
+        // qui n'est pas stable, deciderait.
+        const bool visee = ou == resultat.aimedCell;
+        const bool mieux = resultat.interactable == nullptr || (visee && !meilleureVisee) ||
+                           (visee == meilleureVisee && distance < meilleure);
+        if (mieux) {
+            meilleureVisee = visee;
             meilleure = distance;
             resultat.interactable = candidat.interactable;
             resultat.index = candidat.index;

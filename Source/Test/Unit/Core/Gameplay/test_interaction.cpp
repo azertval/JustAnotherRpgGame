@@ -62,6 +62,11 @@ constexpr int HAUTEUR = 4;
     return liste;
 }
 
+// Le personnage se tient au CENTRE de la case (colonne, ligne), en cases.
+[[nodiscard]] core::Vector2 auCentre(int colonne, int ligne) {
+    return {static_cast<float>(colonne) + 0.5F, static_cast<float>(ligne) + 0.5F};
+}
+
 }  // namespace
 
 /**
@@ -106,8 +111,8 @@ TEST(InteractionTest, UnCoffreNeDonneSonButinQuUneFois) {
     core::WorldFlags drapeaux;
     const std::vector<core::Interactable> objets = {coffre(3, 2, "village/chest@3,2")};
 
-    const core::InteractionTarget premiere =
-        core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+    const core::InteractionTarget premiere = core::findInteractionTarget(
+        auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
     ASSERT_TRUE(premiere.found());
     const core::InteractionOutcome butin = core::interact(premiere, drapeaux);
     EXPECT_TRUE(butin.happened);
@@ -116,8 +121,8 @@ TEST(InteractionTest, UnCoffreNeDonneSonButinQuUneFois) {
 
     // La seconde ne trouve MEME PLUS de cible : un coffre vide n'est plus une cible, et continuer
     // a l'afficher comme telle promettrait au joueur quelque chose qui n'arrivera pas.
-    const core::InteractionTarget seconde =
-        core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+    const core::InteractionTarget seconde = core::findInteractionTarget(
+        auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
     EXPECT_FALSE(seconde.found());
     const core::InteractionOutcome rien = core::interact(seconde, drapeaux);
     EXPECT_FALSE(rien.happened);
@@ -153,8 +158,8 @@ TEST(InteractionTest, LEtatDUnCoffreSurvitAUnAllerRetourDeCarte) {
             objets.push_back(interactif);
         }
         ASSERT_EQ(objets.size(), 1U);
-        const core::InteractionTarget cible =
-            core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+        const core::InteractionTarget cible = core::findInteractionTarget(
+            auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
         ASSERT_TRUE(cible.found());
         EXPECT_TRUE(core::interact(cible, drapeaux).consumed);
     }
@@ -171,8 +176,8 @@ TEST(InteractionTest, LEtatDUnCoffreSurvitAUnAllerRetourDeCarte) {
             objets.push_back(interactif);
         }
         ASSERT_EQ(objets.size(), 1U);
-        const core::InteractionTarget cible =
-            core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+        const core::InteractionTarget cible = core::findInteractionTarget(
+            auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
         EXPECT_FALSE(cible.found())
             << "un drapeau porte par l'entite disparaitrait avec elle, et le coffre redonnerait "
                "son butin a chaque passage";
@@ -193,13 +198,13 @@ TEST(InteractionTest, LInteractionNeTraversePasUnMur) {
     core::WorldFlags drapeaux;
     const std::vector<core::Interactable> objets = {coffre(3, 2, "village/chest@3,2")};
 
-    EXPECT_TRUE(
-        core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux)
-            .found());
+    EXPECT_TRUE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets),
+                                            drapeaux)
+                    .found());
 
     carte.setTile(3, 2, core::TileType::Wall);
-    const core::InteractionTarget derriereLeMur =
-        core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+    const core::InteractionTarget derriereLeMur = core::findInteractionTarget(
+        auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
     EXPECT_FALSE(derriereLeMur.found())
         << "ouvrir a travers une cloison se joue et ne se diagnostique pas";
     EXPECT_EQ(derriereLeMur.aimedCell, (core::GridPosition{3, 2}))
@@ -222,8 +227,8 @@ TEST(InteractionTest, LaCibleEstDeterministeAEgalite) {
                                                     panneau(3, 2)};
 
     for (int essai = 0; essai < 10; ++essai) {
-        const core::InteractionTarget cible =
-            core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+        const core::InteractionTarget cible = core::findInteractionTarget(
+            auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
         ASSERT_TRUE(cible.found());
         EXPECT_EQ(cible.index, 0U)
             << "sans depart, l'ordre de parcours de l'ECS -- qui n'est pas stable -- deciderait";
@@ -246,8 +251,8 @@ TEST(InteractionTest, UnPanneauSeRelitIndefiniment) {
     const std::vector<core::Interactable> objets = {panneau(3, 2)};
 
     for (int essai = 0; essai < 3; ++essai) {
-        const core::InteractionTarget cible =
-            core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+        const core::InteractionTarget cible = core::findInteractionTarget(
+            auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
         ASSERT_TRUE(cible.found()) << "essai " << essai;
         const core::InteractionOutcome lecture = core::interact(cible, drapeaux);
         EXPECT_TRUE(lecture.happened);
@@ -278,14 +283,14 @@ TEST(InteractionTest, DeuxCartesNeSeMarchentPasDessus) {
 
     const std::vector<core::Interactable> auVillage = {coffre(3, 2, cleVillage)};
     const std::vector<core::Interactable> auDonjon = {coffre(3, 2, cleDonjon)};
-    const core::InteractionTarget cible =
-        core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(auVillage), drapeaux);
+    const core::InteractionTarget cible = core::findInteractionTarget(
+        auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(auVillage), drapeaux);
     ASSERT_TRUE(cible.found());
     EXPECT_TRUE(core::interact(cible, drapeaux).consumed);
 
-    EXPECT_TRUE(
-        core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(auDonjon), drapeaux)
-            .found())
+    EXPECT_TRUE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte,
+                                            candidats(auDonjon), drapeaux)
+                    .found())
         << "le coffre du donjon n'a pas ete ouvert";
 }
 
@@ -342,4 +347,100 @@ TEST(InteractionTest, LesDrapeauxSeRelisentTries) {
     drapeaux.clear("donjon/chest@1,1");
     EXPECT_FALSE(drapeaux.isSet("donjon/chest@1,1"));
     EXPECT_EQ(drapeaux.size(), 2U);
+}
+
+/**
+ * @brief Un PNJ s'aborde a moins d'une case et demie, diagonale et dos compris.
+ * \castest{<b>Toute cible a moins de 1,5 case du heros est atteignable.</b><br/>
+ * \tcat Unitaire · Interaction<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser un panneau en diagonale du heros, puis derriere lui, puis a deux cases.<br/>
+ * \tattendu La diagonale et le dos sont a portee ; deux cases ne le sont pas.
+ * }
+ */
+TEST(InteractionTest, LaPorteeEstDUneCaseEtDemie) {
+    const core::TileMap carte = carteVide();
+    core::WorldFlags drapeaux;
+
+    const std::vector<core::Interactable> enDiagonale = {panneau(3, 3)};
+    EXPECT_TRUE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte,
+                                            candidats(enDiagonale), drapeaux)
+                    .found())
+        << "la diagonale est a 1,41 case";
+
+    const std::vector<core::Interactable> dansLeDos = {panneau(1, 2)};
+    EXPECT_TRUE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte,
+                                            candidats(dansLeDos), drapeaux)
+                    .found())
+        << "le heros n'a pas a se tourner exactement vers le PNJ";
+
+    const std::vector<core::Interactable> aDeuxCases = {panneau(4, 2)};
+    EXPECT_FALSE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte,
+                                             candidats(aDeuxCases), drapeaux)
+                     .found());
+
+    // La position est CONTINUE : au bord de sa case, le heros atteint la case d'apres, a peine.
+    EXPECT_TRUE(core::findInteractionTarget({3.2F, 2.5F}, {1.0F, 0.0F}, carte,
+                                            candidats(aDeuxCases), drapeaux)
+                    .found())
+        << "de (3,2 ; 2,5) au centre de (4, 2) : 1,3 case";
+}
+
+/**
+ * @brief Deux murs qui se touchent par le coin ferment la diagonale.
+ * \castest{<b>L'interaction ne passe pas entre deux murs en diagonale.</b><br/>
+ * \tcat Unitaire · Interaction<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Poser un panneau en diagonale, puis murer une case de cote, puis l'autre.<br/>
+ * \tattendu Un seul mur laisse passer ; les deux ferment le passage.
+ * }
+ */
+TEST(InteractionTest, DeuxMursEnCoinFermentLaDiagonale) {
+    core::TileMap carte = carteVide();
+    core::WorldFlags drapeaux;
+    const std::vector<core::Interactable> objets = {panneau(3, 3)};
+
+    carte.setTile(3, 2, core::TileType::Wall);
+    EXPECT_TRUE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets),
+                                            drapeaux)
+                    .found());
+    carte.setTile(2, 3, core::TileType::Wall);
+    EXPECT_FALSE(core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets),
+                                             drapeaux)
+                     .found())
+        << "on ne tend pas la main entre deux murs qui se touchent";
+}
+
+/**
+ * @brief Ce que le heros regarde passe avant ce qui est plus pres.
+ * \castest{<b>A deux cibles a portee, la cible visee l'emporte.</b><br/>
+ * \tcat Unitaire · Interaction<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser un panneau devant le heros et un coffre dans son dos, plus proche.<br/>
+ * \tattendu Le panneau, vise, est designe ; tourne vers le coffre, c'est le coffre.
+ * }
+ */
+TEST(InteractionTest, LaCibleViseeLEmporte) {
+    const core::TileMap carte = carteVide();
+    core::WorldFlags drapeaux;
+    const std::vector<core::Interactable> objets = {coffre(1, 2, "village/chest@1,2"),
+                                                    panneau(3, 2)};
+    // Le heros est a gauche de sa case : le coffre, derriere lui, est plus proche que le panneau.
+    const core::Vector2 ici{2.2F, 2.5F};
+
+    const core::InteractionTarget versLaDroite =
+        core::findInteractionTarget(ici, {1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+    ASSERT_TRUE(versLaDroite.found());
+    EXPECT_EQ(versLaDroite.interactable->type, "sign");
+
+    const core::InteractionTarget versLaGauche =
+        core::findInteractionTarget(ici, {-1.0F, 0.0F}, carte, candidats(objets), drapeaux);
+    ASSERT_TRUE(versLaGauche.found());
+    EXPECT_EQ(versLaGauche.interactable->type, "chest");
+
+    // Ni l'un ni l'autre vise : le plus proche.
+    const core::InteractionTarget versLeBas =
+        core::findInteractionTarget(ici, {0.0F, 1.0F}, carte, candidats(objets), drapeaux);
+    ASSERT_TRUE(versLeBas.found());
+    EXPECT_EQ(versLeBas.interactable->type, "chest");
 }

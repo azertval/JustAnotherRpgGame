@@ -300,8 +300,8 @@ void ExplorationSession::resolveInteraction(std::vector<ExplorationEvent>& event
         candidats.push_back(
             InteractionCandidate{.interactable = &_interactables[rang], .index = rang});
     }
-    const InteractionTarget cible =
-        findInteractionTarget(heroCell(), _facing, carte->tileMap(), candidats, _flags);
+    const InteractionTarget cible = findInteractionTarget({_hero.column, _hero.row}, _facing,
+                                                          carte->tileMap(), candidats, _flags);
     if (!cible.found()) {
         return;
     }

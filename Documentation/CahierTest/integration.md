@@ -1,12 +1,13 @@
 # Tests d'intégration
 
-Tests d'intégration — **5 cas** (3 critiques, 2 majeurs). [Retour à la synthèse](README.md).
+Tests d'intégration — **11 cas** (6 critiques, 5 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_exploration_carte.cpp`](#test-exploration-cartecpp) | 4 | - | 2 | 2 | - |
+| [`test_quete_des_pommes.cpp`](#test-quete-des-pommescpp) | 6 | - | 3 | 3 | - |
 | [`test_quete_trois_etapes.cpp`](#test-quete-trois-etapescpp) | 1 | - | 1 | - | - |
 
 ## test_exploration_carte.cpp
@@ -100,6 +101,141 @@ Une carte qui puise dans quatre niveaux se joue.
 - Vérifie que `snapshot.figures.empty()` est faux.
 - Vérifie que `snapshot.figures.back().hero` est vrai.
 - Vérifie que `snapshot.figures.back().figure` vaut `play.heroResolved().directory`.
+
+## test_quete_des_pommes.cpp
+
+### QueteDesPommes.LaVoieDeLaParole
+
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:393`
+
+La demo se finit par la parole quand la Persuasion reussit.
+
+**Étapes**
+
+1. Market Gate, la mere, accepter.
+2. Stravian Avenue par le portail ; le parvis declenche le garde.
+3. Convaincre, avec un jet qui reussit.
+4. Revenir a l'etal par les portails, parler a la mere.
+
+**Résultat attendu**
+
+- `ASSERT_NO_FATAL_FAILURE(jusquAuGarde(partie))`
+- Vérifie que `partie.valeur()` vaut `"enfant-libere"`.
+- Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"pommes/enfant-libere"})`.
+- Vérifie que `partie.parlerDepuis({GARDE.column - 1, GARDE.row})` vaut `std::nullopt`.
+- Vérifie que `partie.parlerDepuis({ENFANT_AU_PARVIS.column - 1, ENFANT_AU_PARVIS.row})` vaut `std::nullopt`.
+- `ASSERT_NO_FATAL_FAILURE(retourChezLaMere(partie, "parole"))`
+
+### QueteDesPommes.LaVoieDeLArene
+
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:422`
+
+La demo se finit par l'arene quand le joueur endosse le crime et gagne.
+
+**Étapes**
+
+1. Jusqu'au garde ; convaincre avec un jet qui echoue, puis endosser.
+2. L'escalier de l'arene : on arrive au vestiaire A, et la porte du couloir arrete le pas.
+3. La porte du triomphe : le sable ; le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la gagne.
+4. Redescendre, passer la porte ouverte, revenir a l'etal.
+
+**Résultat attendu**
+
+- `ASSERT_NO_FATAL_FAILURE(jusquAuGarde(partie))`
+- Vérifie que `partie.valeur()` vaut `"condamne"`.
+- Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"pommes/persuasion-echouee", "pommes/condamne"})`.
+- Vérifie que `partie.parlerDepuis({GARDE.column - 1, GARDE.row})` vaut `std::nullopt`.
+- Vérifie que `partie.marcherJusquA(DEVANT_L_ESCALIER, {1.0F, 0.0F}, core::ExplorationEventKind::MapEntered)` vaut `VESTIAIRES`.
+- Vérifie que `partie.session().heroCell()` vaut `ARRIVEE_AUX_VESTIAIRES`.
+- Vérifie que `partie.marcherJusquA(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, core::ExplorationEventKind::MapEntered)` vaut `std::nullopt`.
+- Vérifie que `partie.session().heroCell().column` est strictement inférieur à `PORTE_DE_L_ARENE.column`.
+- Vérifie que `partie.marcherJusquA(PIED_DE_L_ESCALIER, {0.0F, -1.0F}, core::ExplorationEventKind::MapEntered)` vaut `SABLE`.
+- Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- Vérifie que `defi.rencontres` vaut `(std::vector<std::string>{std::string{RENCONTRE}})`.
+- Vérifie que `heros.loaded.errors.empty()` est vrai.
+- Vérifie que `arene.bestiary.find("combattant-de-l-arene") != nullptr` est vrai.
+- Vérifie que `sable` diffère de `nullptr`.
+- Vérifie que `gagnante.has_value()` est vrai.
+- Vérifie que `partie.drapeaux().isSet(core::encounterWonFlag(RENCONTRE))` est vrai.
+- Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"pommes/victoire", "pommes/enfant-libere"})`.
+- Vérifie que `partie.valeur()` vaut `"enfant-libere"`.
+- Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `std::nullopt`.
+- Vérifie que `partie.marcherJusquA(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, core::ExplorationEventKind::MapEntered)` vaut `VESTIAIRES`.
+- Vérifie que `partie.marcherJusquA(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, core::ExplorationEventKind::MapEntered)` vaut `ARENAREA`.
+- Vérifie que `partie.session().heroCell()` vaut `DEVANT_L_ESCALIER`.
+- `ASSERT_NO_FATAL_FAILURE(retourChezLaMere(partie, "arene"))`
+
+### QueteDesPommes.LaDefaiteSurLeSable
+
+*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:503`
+
+Une defaite sur le sable ne pose rien : la demo s'y termine.
+
+**Étapes**
+
+1. Condamne, sur le sable, la rencontre engagee.
+2. La jouer a la premiere graine qui la perd.
+
+**Résultat attendu**
+
+- Vérifie que `partie.erreurs.empty()` est vrai.
+- Vérifie que `partie.session().flags().setValue(DRAPEAU, "condamne")` est vrai.
+- Vérifie que `partie.play().enter(SABLE, "from-undercroft")` est vrai.
+- Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- Vérifie que `sable` diffère de `nullptr`.
+- Vérifie que `perdante.has_value()` est vrai.
+- Vérifie que `partie.drapeaux().isSet(core::encounterWonFlag(RENCONTRE))` est faux.
+- Vérifie que `partie.etapesAtteintes().empty()` est vrai.
+- Vérifie que `partie.valeur()` vaut `"condamne"`.
+
+### QueteDesPommes.LeCombatSeGagneDeuxFoisSurTrois
+
+*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:541`
+
+Le heros gagne le combat de l'arene entre 60 et 70 fois sur cent.
+
+**Étapes**
+
+1. Le sable, la rencontre de l'arene, le heros de la demo joue par l'IA.
+2. Cent combats, aux graines 1 a 100.
+
+**Résultat attendu**
+
+- Vérifie que `sable.ok()` est vrai.
+- Vérifie que `heros.loaded.errors.empty()` est vrai.
+- Vérifie que `issue.has_value()` est vrai.
+- Vérifie que `victoires` est supérieur ou égal à `60`.
+- Vérifie que `victoires` est inférieur ou égal à `70`.
+
+### QueteDesPommes.LaProbabiliteDeVictoireTientSurMilleGraines
+
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:575`
+
+Sur mille combats a graines tirees, le heros gagne deux fois sur trois.
+
+**Étapes**
+
+1. Mille graines tirees de la graine maitresse 120.
+2. Un combat par graine, les deux camps par l'IA.
+
+**Résultat attendu**
+
+- Chaque combat se termine ; entre 600 et 700 victoires.
+
+### QueteDesPommes.LaPersuasionReussitUneFoisSurQuatre
+
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:612`
+
+Sur deux mille jets a graines tirees, la Persuasion reussit une fois sur quatre.
+
+**Étapes**
+
+1. Le modificateur de Persuasion du heros de la demo, par sa fiche.
+2. Deux mille jets contre le DD du degre « moyenne », a graines tirees d'une graine maitresse.
+
+**Résultat attendu**
+
+- Entre 20 % et 30 % de reussites.
 
 ## test_quete_trois_etapes.cpp
 

@@ -246,17 +246,21 @@ lui-même : rendre une voisine arbitraire ferait ouvrir un coffre qu'il ne regar
 
 **`core::findInteractionTarget(from, facing, map, candidates, flags)`** — désigne la cible parmi
 des `core::InteractionCandidate` (un pointeur de `core::Interactable` et un indice libre, rendu tel
-quel : la fonction ne connaît pas l'entité, l'appelant la retrouve). Trois règles, une par critère
-du lot :
+quel : la fonction ne connaît pas l'entité, l'appelant la retrouve). `from` est la position
+**continue** du personnage, en cases. Quatre règles :
 
-1. la cible est **sur la case visée** ;
-2. **l'interaction ne traverse pas un mur** : si la case visée est solide (`core::isSolid`), il n'y
-   a pas de cible — la case visée étant adjacente, c'est elle-même qui doit être traversable. Sans
-   cette règle, on ouvrirait un coffre à travers une cloison, ce qui se joue et ne se diagnostique
-   pas ;
-3. à plusieurs candidats, le choix est **déterministe** : le plus proche du **centre** de la case
-   visée (au centre, pas au coin, sinon deux candidats symétriques départageraient sur un arrondi),
-   et à distance égale le plus petit indice — l'ordre de parcours de l'ECS n'est pas stable.
+1. la cible est **à portée** : le centre de sa case est à moins de
+   `core::INTERACTION_REACH_CELLS` (1,5 case) du personnage. Le héros ne marche pas de case en
+   case, et n'accepter que la case visée rendait l'abord d'un PNJ tatillon (retour de jeu sur la
+   démo) : à 1,5 case, les huit voisines sont à portée, diagonales et dos compris ;
+2. **l'interaction ne traverse pas un mur** : la case de la cible doit être traversable
+   (`core::isSolid`), et en diagonale deux murs qui se touchent par le coin ferment le passage,
+   comme pour la marche. Sans cette règle, on ouvrirait un coffre à travers une cloison, ce qui se
+   joue et ne se diagnostique pas ;
+3. une cible **sur la case visée** l'emporte : à deux PNJ à portée, on parle à celui vers lequel
+   on s'est tourné ;
+4. puis le choix est **déterministe** : le plus proche du personnage, et à distance égale le plus
+   petit indice — l'ordre de parcours de l'ECS n'est pas stable.
 
 Une cible dont le drapeau de consommation est déjà levé n'est **pas** retenue : un coffre vidé
 n'est plus une cible, et continuer à l'afficher promettrait au joueur quelque chose qui n'arrivera

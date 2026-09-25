@@ -208,6 +208,11 @@ void WorldModel::interact() {
     _interact = true;
 }
 
+void WorldModel::releaseInput() noexcept {
+    _move = {};
+    _interact = false;
+}
+
 void WorldModel::step() {
     if (_play->session().map() == nullptr) {
         return;
@@ -242,10 +247,12 @@ void WorldModel::step() {
                 break;
             case core::ExplorationEventKind::Dialogue:
                 _lastInteractionCell = evenement.cell;
+                releaseInput();
                 emit dialogueRequested(QString::fromStdString(evenement.value));
                 break;
             case core::ExplorationEventKind::Encounter:
                 _lastInteractionCell = evenement.cell;
+                releaseInput();
                 emit encounterRequested(QString::fromStdString(evenement.value));
                 break;
             case core::ExplorationEventKind::PortalLocked:
@@ -371,6 +378,12 @@ bool WorldModel::frozen() const {
 }
 
 void WorldModel::setFrozen(bool frozen) {
+    if (frozen) {
+        // Ce qui gele la carte (dialogue, combat) remplace la vue de jeu : detruite, elle ne voit
+        // jamais le relachement des touches, et la derniere direction ferait repartir le heros
+        // seul au retour.
+        releaseInput();
+    }
     if (_play->session().frozen() == frozen) {
         return;
     }

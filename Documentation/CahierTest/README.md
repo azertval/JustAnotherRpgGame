@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1046 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1061 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -18,11 +18,11 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | Domaine | Type | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|---|
 | [Core](core.md) | Tests unitaires | 1 | — | — | 1 | — |
-| [Core · Combat](core-combat.md) | Tests unitaires | 115 | 33 | 50 | 31 | 1 |
+| [Core · Combat](core-combat.md) | Tests unitaires | 116 | 33 | 51 | 31 | 1 |
 | [Core · Data](core-data.md) | Tests unitaires | 12 | — | 5 | 5 | 2 |
 | [Core · Diagnostics](core-diagnostics.md) | Tests unitaires | 22 | — | — | 19 | 3 |
 | [Core · Ecs](core-ecs.md) | Tests unitaires | 35 | — | 5 | 30 | — |
-| [Core · Gameplay](core-gameplay.md) | Tests unitaires | 17 | — | 10 | 6 | 1 |
+| [Core · Gameplay](core-gameplay.md) | Tests unitaires | 21 | — | 12 | 8 | 1 |
 | [Core · Levels](core-levels.md) | Tests unitaires | 122 | 1 | 24 | 80 | 17 |
 | [Core · Math](core-math.md) | Tests unitaires | 26 | 4 | — | 18 | 4 |
 | [Core · Resources](core-resources.md) | Tests unitaires | 20 | 5 | 6 | 9 | — |
@@ -32,16 +32,16 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Editor](editor.md) | Tests unitaires | 211 | 25 | 47 | 111 | 28 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 19 | — | 7 | 9 | 3 |
-| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 192 | 38 | 61 | 85 | 8 |
+| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 193 | 38 | 61 | 86 | 8 |
 | [HMI · Input](hmi-input.md) | Tests unitaires | 25 | 1 | 3 | 19 | 2 |
 | [HMI · Interface](hmi-interface.md) | Tests unitaires | 30 | 2 | 10 | 17 | 1 |
 | [HMI · Localization](hmi-localization.md) | Tests unitaires | 9 | — | — | 9 | — |
 | [HMI · Platform](hmi-platform.md) | Tests unitaires | 5 | — | 2 | 3 | — |
 | [HMI · Presentation](hmi-presentation.md) | Tests unitaires | 18 | — | 5 | 10 | 3 |
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 3 | 1 | — | 2 | — |
-| [Tests d'intégration](integration.md) | Tests d'intégration | 5 | — | 3 | 2 | — |
-| [Tests système](systeme.md) | Tests système | 1 | — | 1 | — | — |
-| **Total** | | **1046** | **114** | **321** | **533** | **78** |
+| [Tests d'intégration](integration.md) | Tests d'intégration | 11 | — | 6 | 5 | — |
+| [Tests système](systeme.md) | Tests système | 4 | — | 4 | — | — |
+| **Total** | | **1061** | **114** | **330** | **539** | **78** |
 
 ## Trois étages de vérification
 

@@ -45,14 +45,14 @@ Les 94 creatures du bestiaire de base se chargent toutes.
 
 **Résultat attendu**
 
-- Vérifie que `catalogue.creatures.size()` vaut `BETES_DU_SRD`.
 - Vérifie que `identifiants.insert(creature.id).second` est vrai.
 - Vérifie que `creature.name.empty()` est faux.
-- Vérifie que `creature.source` vaut `"srd"`.
+- Vérifie que `creature.source` vaut `"original"`.
+- Vérifie que `srd` vaut `BETES_DU_SRD`.
 
 ### BestiaryTest.DixProfilsConcordentAvecLeLivre
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:123`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:129`
 
 Dix blocs de statistiques du bestiaire concordent avec le livre.
 
@@ -76,7 +76,7 @@ Dix blocs de statistiques du bestiaire concordent avec le livre.
 
 ### BestiaryTest.ChaqueProfilEstComplet
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:163`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:169`
 
 Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.
 
@@ -95,7 +95,7 @@ Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.
 
 ### BestiaryTest.UneVitesseNulleSignifieUnAutreDeplacement
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:187`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:193`
 
 Une creature sans vitesse de marche possede un autre mode de deplacement.
 
@@ -110,7 +110,7 @@ Une creature sans vitesse de marche possede un autre mode de deplacement.
 
 ### BestiaryTest.LesMecanismesExigesSontAnnonces
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:215`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:221`
 
 Exigences : `EX-CNT-031`
 
@@ -127,7 +127,7 @@ Le bestiaire annonce les mecanismes que les creatures exigent du moteur.
 
 ### BestiaryTest.UnDossierAbsentEstSignale
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:236`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:242`
 
 Charger un dossier de creatures inexistant produit une erreur nommee.
 
