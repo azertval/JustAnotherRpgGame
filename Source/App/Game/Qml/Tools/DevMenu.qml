@@ -10,8 +10,8 @@ import Jadg.Runtime
     de commande : ouvrir un écran par son nom (il remplace le sélecteur d'écrans du bas de la
     fenêtre), entrer sur une carte à un point d'arrivée ou la choisir dans le lanceur de cartes,
     ouvrir un dialogue, engager une rencontre, ouvrir les écrans de fin (LOT-119), geler la carte,
-    montrer le compteur de diagnostic, écrire les journaux de la session -- et, dans la section
-    « Ligne de commande », taper les options du binaire, appliquées à chaud (`DebugConsoleModel`,
+    montrer le compteur de diagnostic, écrire les journaux de la session -- et, dans le bandeau
+    du bas de l'écran, taper les options du binaire, appliquées à chaud (`DebugConsoleModel`,
     catalogue `hmi::debugOptionCatalog`). Il ne fait rien que les vues-modèles ne sachent déjà
     faire : chaque bouton appelle un invocable de `Jadg.Runtime`.
 
@@ -61,6 +61,8 @@ Item {
     property string feedback: ""
 
     readonly property int panelWidth: 400
+    /// Le bandeau de la ligne de commande : le compte rendu (sept lignes environ) et le champ.
+    readonly property int commandBarHeight: 170
 
     visible: root.open && ScreenRouter.developerBuild
 
@@ -73,7 +75,7 @@ Item {
             root.close();
         } else {
             root.open = true;
-            panel.forceActiveFocus();
+            commandField.forceActiveFocus();
         }
     }
 
@@ -203,12 +205,13 @@ Item {
         root.close();
     }
 
-    // Le panneau, à droite : une colonne laisse la scène visible pendant qu'on la commande.
+    // Le panneau, à droite, au-dessus du bandeau : une colonne laisse la scène visible pendant
+    // qu'on la commande.
     Rectangle {
         id: panel
 
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.bottom: commandBar.top
         anchors.right: parent.right
         width: root.panelWidth
         color: root.palette.window
@@ -456,70 +459,6 @@ Item {
                     onClicked: root.feedback = OptionsModel.saveLogs()
                 }
 
-                // --- Ligne de commande ------------------------------------------------------
-                Label {
-                    Layout.topMargin: 8
-                    text: "Ligne de commande"
-                    font.bold: true
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    wrapMode: Text.Wrap
-                    opacity: 0.7
-                    text: "Les options du binaire, appliquées à chaud : --map=, --at=, --flags=, "
-                          + "--screen=, --window-size=, --screenshot=… « aide » les liste."
-                }
-
-                TextField {
-                    id: commandField
-
-                    Layout.fillWidth: true
-                    placeholderText: "--map=donjon@sable --at=24,19"
-                    onAccepted: root.runCommand()
-                    Keys.onUpPressed: root.recall(-1)
-                    Keys.onDownPressed: root.recall(1)
-                }
-
-                RowLayout {
-                    Layout.fillWidth: true
-
-                    Button {
-                        text: "Exécuter"
-                        onClicked: root.runCommand()
-                    }
-
-                    Button {
-                        text: "Aide"
-                        onClicked: DebugConsoleModel.run("aide")
-                    }
-
-                    Button {
-                        // --data=, --crash-test, --map-* ne se lisent qu'au lancement.
-                        text: "Relancer avec"
-                        onClicked: DebugConsoleModel.relaunch(commandField.text)
-                    }
-
-                    Button {
-                        text: "Effacer"
-                        onClicked: DebugConsoleModel.clear()
-                    }
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    wrapMode: Text.Wrap
-                    visible: DebugConsoleModel.transcript.length > 0
-                    // Les dernières lignes seulement : le panneau n'est pas une console plein écran.
-                    text: DebugConsoleModel.transcript.slice(-12).join("\n")
-                    background: Rectangle {
-                        color: root.palette.base
-                        border.color: root.palette.mid
-                        border.width: 1
-                    }
-                    padding: 4
-                }
-
                 // --- Retour de la dernière commande -----------------------------------------
                 Label {
                     Layout.fillWidth: true
@@ -533,6 +472,100 @@ Item {
                         border.width: 1
                     }
                     padding: 4
+                }
+            }
+        }
+    }
+
+    /*!
+        La ligne de commande : un BANDEAU en bas de l'écran, sur toute sa largeur, comme une console.
+        Le compte rendu défile au-dessus du champ ; le champ prend le clavier à l'ouverture du menu,
+        si bien qu'on tape tout de suite. Les options du binaire s'y appliquent à chaud
+        (`DebugConsoleModel.run`), « Relancer avec » redémarre le jeu avec celles qui ne se lisent
+        qu'au lancement.
+    */
+    Rectangle {
+        id: commandBar
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        height: root.commandBarHeight
+        color: root.palette.window
+        border.color: root.palette.mid
+        border.width: 1
+
+        // Un clic sur le bandeau ne doit pas atteindre l'écran qu'il recouvre.
+        MouseArea {
+            anchors.fill: parent
+            onClicked: commandField.forceActiveFocus()
+        }
+
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: 6
+            spacing: 4
+
+            ListView {
+                id: transcriptView
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                model: DebugConsoleModel.transcript
+                // Toujours la dernière ligne en vue : une console se lit par le bas.
+                onCountChanged: transcriptView.positionViewAtEnd()
+                Component.onCompleted: transcriptView.positionViewAtEnd()
+                delegate: Label {
+                    required property string modelData
+
+                    width: ListView.view.width
+                    text: modelData
+                    elide: Text.ElideRight
+                    opacity: modelData.startsWith("> ") ? 1 : 0.8
+                    font.bold: modelData.startsWith("> ")
+                }
+                ScrollBar.vertical: ScrollBar {}
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+
+                Label {
+                    text: ">"
+                    font.bold: true
+                }
+
+                TextField {
+                    id: commandField
+
+                    Layout.fillWidth: true
+                    placeholderText: "options du binaire, appliquées à chaud (ex. --map=donjon@sable --at=24,19) · « aide » les liste"
+                    onAccepted: root.runCommand()
+                    Keys.onUpPressed: root.recall(-1)
+                    Keys.onDownPressed: root.recall(1)
+                    Keys.onEscapePressed: root.close()
+                }
+
+                Button {
+                    text: "Exécuter"
+                    onClicked: root.runCommand()
+                }
+
+                Button {
+                    text: "Aide"
+                    onClicked: DebugConsoleModel.run("aide")
+                }
+
+                Button {
+                    // --data=, --crash-test, --map-* ne se lisent qu'au lancement.
+                    text: "Relancer avec"
+                    onClicked: DebugConsoleModel.relaunch(commandField.text)
+                }
+
+                Button {
+                    text: "Effacer"
+                    onClicked: DebugConsoleModel.clear()
                 }
             }
         }

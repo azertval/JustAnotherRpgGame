@@ -45,8 +45,8 @@ libellé.
 
 ## Le menu de développement (F9) {#le-menu-de-developpement-f9}
 
-<kbd>F9</kbd> ouvre, et referme, un panneau posé à droite de l'écran courant
-(`Source/App/Game/Qml/Tools/DevMenu.qml`). Il réunit ce qu'on faisait jusque-là par la ligne de
+<kbd>F9</kbd> ouvre, et referme, un panneau posé à droite de l'écran courant et un bandeau de
+ligne de commande en bas (`Source/App/Game/Qml/Tools/DevMenu.qml`). Il réunit ce qu'on faisait jusque-là par la ligne de
 commande, et le rend possible **en cours de partie**, sans relancer le jeu. <kbd>Échap</kbd> le
 referme aussi. C'est le **seul** outil de navigation de développement : le sélecteur d'écrans du
 bas de la fenêtre (◀ ▶) et la console de debug séparée ont été fondus dedans le 25 septembre 2026,
@@ -60,11 +60,11 @@ et l'écran du Colisée retiré (le combat se joue sur la carte, `LOT-118`).
 | **Combat** | lire la rencontre en cours et son issue ; engager une rencontre par son identifiant | `EncounterModel.begin(rencontre)` puis `ScreenRouter.openRpgScreen(CombatHud)` |
 | **Fins** | ouvrir l'écran de mort, ou l'écran « Fin de la démo » sur la voie `arene` ou `parole` (`LOT-119`) | `ScreenRouter.jumpToGame()`, puis `openDeath()` ou `openDemoEnd(voie)` — ces écrans **finissent la partie** |
 | **Affichage et journaux** | montrer le compteur de diagnostic ; écrire les journaux de la session | `OptionsModel.diagnostics`, `OptionsModel.saveLogs()` |
-| **Ligne de commande** | taper les options du binaire, appliquées **à chaud** ; « Aide » les liste ; « Relancer avec » redémarre le jeu avec la ligne ; les flèches rappellent l'historique | `DebugConsoleModel.run(ligne)`, `relaunch(ligne)` — voir [ci-dessous](#la-ligne-de-commande) |
+| **Ligne de commande** (bandeau en bas de l'écran) | taper les options du binaire, appliquées **à chaud** ; « Aide » les liste ; « Relancer avec » redémarre le jeu avec la ligne ; les flèches rappellent l'historique ; le champ prend le clavier dès que le menu s'ouvre | `DebugConsoleModel.run(ligne)`, `relaunch(ligne)` — voir [ci-dessous](#la-ligne-de-commande) |
 
 En pied de panneau, la **réponse** de la dernière commande : la carte sur laquelle on est arrivé,
 la raison d'un refus (`WorldModel.status`), le chemin du fichier de journaux écrit ; la ligne de
-commande a son propre compte rendu, ses douze dernières lignes. Une commande qui ne répondrait rien
+commande a son propre compte rendu, qui défile dans le bandeau au-dessus du champ. Une commande qui ne répondrait rien
 laisserait croire qu'elle n'a rien fait, alors qu'elle a peut-être échoué.
 
 Quatre règles gouvernent ce panneau, et chacune répond à un défaut qu'on aurait eu sans elle :
@@ -124,7 +124,7 @@ Toutes les options sont lues par `app::commandLineOption` dans `Source/App/Game/
 `Source/App/Common/Bootstrap.cpp`, à la forme `--nom=valeur`. Une valeur illisible est ignorée et
 **signalée au journal**, jamais fatale (`EX-NFR-040`) : le jeu s'ouvre quand même.
 
-**Les mêmes options se tapent dans le menu** (section *Ligne de commande*) et s'appliquent à chaud,
+**Les mêmes options se tapent dans le menu**, dans le bandeau du bas de l'écran, et s'appliquent à chaud,
 dans l'ordre du lancement : `--levels=`, `--flags=`, `--at=`, `--hero-figure=`, puis `--map=`. Une
 case seule (`--at=`) déplace le héros sur la carte ouverte. `--screen=` épingle un écran,
 `--window-size=` redimensionne la fenêtre (sauf en plein écran), `--screenshot=` capture les
