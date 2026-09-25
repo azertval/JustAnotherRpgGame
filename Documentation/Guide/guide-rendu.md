@@ -104,8 +104,8 @@ sont toutes composées avec le reste de l'interface :
   ([Entrées et actions logiques](guide-entrees.md)). Un test
   (`Source/Test/Unit/Editor/test_scene_painter.cpp`) compare son image au rendu QRhi du jeu, cadrage
   pour cadrage ;
-- `hmi::WorldViewportItem`, `hmi::ArenaViewportItem` et `hmi::AssetGalleryItem`
-  (`Source/HMI/Runtime`) : le lieu qu'on parcourt, l'arène et la galerie de débug, dans le jeu
+- `hmi::WorldViewportItem` et `hmi::AssetGalleryItem`
+  (`Source/HMI/Runtime`) : le lieu qu'on parcourt et la galerie de débug, dans le jeu
   Qt Quick. Ce sont des **`QQuickRhiItem`**, exposés au QML ([IHM Qt — deux applications, deux
   technologies](guide-ihm-qt.md)) ; ils sont détaillés en fin de page ;
 - `hmi::renderCityBlock` peint **hors écran**, sur un `QRhi` sans fenêtre, l'îlot d'un quartier
@@ -1101,8 +1101,7 @@ manifeste des PNJ voisin peut mettre un PNJ à la place d'un héros (`applyNpcMa
 - `catalog()`, `textures()`, `composed()`, `created()`, `rhi()`, `release()`.
 
 > **Note** — Depuis le `LOT-102`, ni la planche du Colisée ni les bandes de figurines n'existent
-> dans le dépôt : le catalogue est vide et le renderer ne dessine que le fond. La capture
-> `jeu-arena.jpg` (plus bas) le montre. L'Arena of Fate HD arrive avec les `LOT-106` et `LOT-107`.
+> dans le dépôt : le catalogue est vide et le renderer ne dessine que le fond. L'Arena of Fate HD arrive avec les `LOT-106` et `LOT-107`.
 
 ### `hmi::renderCityBlock` : l'îlot d'un quartier, hors écran
 
@@ -1201,17 +1200,11 @@ recalcul.
 
 ![L'écran d'exploration du jeu à 1280 × 720 : le châssis du HUD (médaillons, boussole, emplacements de portraits, panneau Quêtes, barre Exploration · Tactique) autour d'un viewport vide portant le message « La ville de départ ne s'ouvre pas », faute de carte dans le dépôt depuis la table rase](captures/jeu-gameview.jpg)
 
-### `hmi::ArenaViewportItem` (`ArenaViewport`)
+### Le Colisée, retiré
 
-La surface du Colisée (`Arena.qml`), à part parce que sessions et projections n'ont rien en commun
-avec le monde : `model` (une `hmi::ArenaModel`), `clearColor`, le même cadrage publié (celui de
-`hmi::arenaCamera`) et `cellAt(x, y)`. Chaque `ArenaModel::combatSceneChanged` avance
-`sceneRevision()` ; ni un pas de curseur ni un geste de composition n'en provoquent — le curseur
-reste dessiné en QML (`LOT-24`), et la composition du roster ne touche à aucune grille. Le peintre
-relaie `hmi::ArenaSceneRenderer` : `initialize()` → `ensureResources`, `synchronize()` →
-`setSnapshot`, `render()` → `render`.
-
-![L'écran du Colisée à 1280 × 720 : à gauche la liste des combattants disponibles avec les boutons +A et +E, les camps Alliés et Ennemis, la graine 2026 et la case « Ennemis joués par l'IA » ; au centre le viewport d'arène, vide faute de planche depuis la table rase ; à droite l'initiative et le journal](captures/jeu-arena.jpg)
+L'écran du Colisée et sa surface (`ArenaViewportItem`) sont retirés depuis le 25 septembre 2026 :
+le combat se joue sur la carte (`LOT-118`), dessiné par `hmi::WorldViewportItem`.
+`hmi::ArenaSceneRenderer` et `hmi::composeArenaScene` restent, éprouvés hors écran par leurs tests.
 
 ### `hmi::GameViewportItem` (`GameViewport`)
 
@@ -1245,7 +1238,7 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
 ## Voir aussi
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::PolyQuad`, `hmi::RhiContext`,
   `hmi::SceneResources`, `hmi::Camera2D`, `hmi::screenProjectionMatrix`.
-- `hmi::EditorViewport`, `hmi::WorldViewportItem`, `hmi::ArenaViewportItem`,
+- `hmi::EditorViewport`, `hmi::WorldViewportItem`,
   `hmi::GameViewportItem`, `hmi::AssetGalleryItem`, `hmi::CityBlockImageProvider` — les surfaces
   de dessin (`EX-REN-050`).
 - `hmi::RenderLayer`, `hmi::sortsByDepth`, `hmi::renderBand`, `hmi::ComposedScene`,

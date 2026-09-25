@@ -27,31 +27,6 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                     return ScreenState{.screen = ScreenId::RpgScreen,
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Menu};
-                // Le Colisée (LOT-50) s'ouvre depuis le menu — « Nouvelle partie », tant que
-                // c'est la seule carte jouable — et seulement de là : c'est un mode du jeu, pas
-                // un écran qu'on consulte pendant une partie. Le jour où l'arène
-                // s'ouvrira depuis le monde comme une carte ordinaire (LOT-42), ce sera par
-                // `Game`, pas par cet événement.
-                case ScreenEvent::OpenArena:
-                    return ScreenState{.screen = ScreenId::Arena,
-                                       .optionsReturnTo = ScreenId::Menu,
-                                       .rpgReturnTo = ScreenId::Menu,
-                                       .arenaReturnTo = ScreenId::Menu};
-                default:
-                    return std::nullopt;
-            }
-        case ScreenId::Arena:
-            switch (event) {
-                // On revient d'où l'on vient : au menu si le Colisée s'est ouvert de là, sur la
-                // CARTE si le héraut a envoyé sur le sable (LOT-09) -- et la carte est restée ce
-                // qu'elle était, personnage au même endroit.
-                case ScreenEvent::CloseArena:
-                    return ScreenState{.screen = current.arenaReturnTo,
-                                       .optionsReturnTo = ScreenId::Menu,
-                                       .rpgReturnTo = current.arenaReturnTo,
-                                       .arenaReturnTo = ScreenId::Menu};
-                case ScreenEvent::OpenMenu:
-                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
                 default:
                     return std::nullopt;
             }
@@ -87,13 +62,6 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
             switch (event) {
                 case ScreenEvent::OpenMenu:
                     return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};
-                // Le héraut envoie sur le sable (LOT-09) : la zone de combat de la carte se joue
-                // dans le Colisée, et l'on revient ici -- `arenaReturnTo` le retient.
-                case ScreenEvent::OpenArena:
-                    return ScreenState{.screen = ScreenId::Arena,
-                                       .optionsReturnTo = ScreenId::Menu,
-                                       .rpgReturnTo = ScreenId::Menu,
-                                       .arenaReturnTo = ScreenId::Game};
                 case ScreenEvent::OpenPause:
                     return ScreenState{.screen = ScreenId::Pause,
                                        .optionsReturnTo = ScreenId::Menu};

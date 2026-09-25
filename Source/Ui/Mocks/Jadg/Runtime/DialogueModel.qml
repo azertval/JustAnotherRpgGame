@@ -26,6 +26,7 @@ QtObject {
     }
     readonly property bool finished: false
     readonly property string status: ""
+    readonly property var dialogueIds: [ "heraut-colisee", "portier-colisee" ]
 
     signal changed()
     signal combatRequested(string arenaId)

@@ -1,6 +1,6 @@
 # HMI · Interface
 
-Tests unitaires — **31 cas** (2 bloquants, 11 critiques, 17 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **30 cas** (2 bloquants, 10 critiques, 17 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -10,7 +10,7 @@ Tests unitaires — **31 cas** (2 bloquants, 11 critiques, 17 majeurs, 1 mineur)
 | [`test_dialogue_screen.cpp`](#test-dialogue-screencpp) | 4 | - | - | 4 | - |
 | [`test_identity_scale.cpp`](#test-identity-scalecpp) | 8 | 2 | 2 | 4 | - |
 | [`test_rpg_screens.cpp`](#test-rpg-screenscpp) | 7 | - | 1 | 6 | - |
-| [`test_screen_flow.cpp`](#test-screen-flowcpp) | 6 | - | 6 | - | - |
+| [`test_screen_flow.cpp`](#test-screen-flowcpp) | 5 | - | 5 | - | - |
 
 ## Exigences vérifiées par cette page
 
@@ -528,13 +528,10 @@ Chaque transition autorisée mène à l'écran attendu.
 - Vérifie que `resolveTransition(menu, ScreenEvent::OpenRpgScreen)->screen` vaut `ScreenId::RpgScreen`.
 - Vérifie que `resolveTransition(game, ScreenEvent::OpenRpgScreen)->screen` vaut `ScreenId::RpgScreen`.
 - Vérifie que `resolveTransition(pause, ScreenEvent::OpenRpgScreen)->screen` vaut `ScreenId::RpgScreen`.
-- Vérifie que `resolveTransition(menu, ScreenEvent::OpenArena)->screen` vaut `ScreenId::Arena`.
-- Vérifie que `resolveTransition(arena, ScreenEvent::CloseArena)->screen` vaut `ScreenId::Menu`.
-- Vérifie que `resolveTransition(arena, ScreenEvent::OpenMenu)->screen` vaut `ScreenId::Menu`.
 
 ### ScreenFlowTest.OptionsRevientVersSonEcranDOrigine
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:72`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:67`
 
 Options revient vers son écran d'origine (Menu ou Pause).
 
@@ -552,7 +549,7 @@ Options revient vers son écran d'origine (Menu ou Pause).
 
 ### ScreenFlowTest.TransitionInterditeEstRefusee
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:100`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:95`
 
 Une transition interdite est refusée.
 
@@ -568,34 +565,10 @@ Une transition interdite est refusée.
 - Vérifie que `resolveTransition(menu, ScreenEvent::ResumePause)` vaut `std::nullopt`.
 - Vérifie que `resolveTransition(game, ScreenEvent::OpenCredits)` vaut `std::nullopt`.
 - Vérifie que `resolveTransition(menu, ScreenEvent::CloseRpgScreen)` vaut `std::nullopt`.
-- Vérifie que `resolveTransition(pause, ScreenEvent::OpenArena)` vaut `std::nullopt`.
-- Vérifie que `resolveTransition(menu, ScreenEvent::CloseArena)` vaut `std::nullopt`.
-
-### ScreenFlowTest.LeColiseeRevientSurLaCarteQuandLeHerautYEnvoie
-
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:128`
-
-Le Colisee revient sur la carte quand le heraut y envoie.
-
-**Étapes**
-
-1. Ouvrir le Colisee depuis le menu, le refermer.
-2. L'ouvrir depuis la carte, le refermer.
-
-**Résultat attendu**
-
-- Vérifie que `depuisLeMenu.has_value()` est vrai.
-- Vérifie que `depuisLeMenu->screen` vaut `ScreenId::Arena`.
-- Vérifie que `depuisLeMenu->arenaReturnTo` vaut `ScreenId::Menu`.
-- Vérifie que `resolveTransition(*depuisLeMenu, ScreenEvent::CloseArena)->screen` vaut `ScreenId::Menu`.
-- Vérifie que `depuisLaCarte.has_value()` est vrai.
-- Vérifie que `depuisLaCarte->screen` vaut `ScreenId::Arena`.
-- Vérifie que `depuisLaCarte->arenaReturnTo` vaut `ScreenId::Game`.
-- Vérifie que `resolveTransition(*depuisLaCarte, ScreenEvent::CloseArena)->screen` vaut `ScreenId::Game`.
 
 ### ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:158`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:119`
 
 Exigences : `EX-IHM-090`
 
@@ -614,7 +587,7 @@ Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).
 
 ### ScreenFlowTest.LesEcransDeFinFermentLaPartie
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:186`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:147`
 
 Les ecrans de mort et de fin de la demo ferment la partie.
 

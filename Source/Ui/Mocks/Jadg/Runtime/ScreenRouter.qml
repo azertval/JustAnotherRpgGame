@@ -15,7 +15,6 @@ QtObject {
         Pause,
         Credits,
         RpgScreen,
-        Arena,
         Death,
         DemoEnd
     }
@@ -57,8 +56,7 @@ QtObject {
     function quitToMenu() {}
     function openCredits() {}
     function closeCredits() {}
-    function openArena() {}
-    function closeArena() {}
+    function jumpToGame() {}
     function openRpgScreen(screen) {}
     function closeRpgScreen() {}
     function nextRpgScreen() {}

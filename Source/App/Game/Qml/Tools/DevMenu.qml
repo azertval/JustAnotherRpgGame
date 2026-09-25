@@ -7,11 +7,13 @@ import Jadg.Runtime
     Le menu de développement -- un OUTIL DE DEBUG, côté développeur, ouvert et fermé par F9.
 
     Un panneau posé par-dessus l'écran courant, qui réunit ce qu'on faisait jusque-là par la ligne
-    de commande ou par le sélecteur d'écrans : ouvrir un écran par son nom, entrer sur une carte à
-    un point d'arrivée, engager une rencontre ou le Colisée, geler la carte, montrer le compteur de
-    diagnostic, écrire les journaux de la session. Il ne fait rien que les vues-modèles ne sachent
-    déjà faire : chaque bouton appelle un invocable de `Jadg.Runtime`, et le menu n'a pas d'état
-    propre au-delà de ce qu'on tape dans ses champs.
+    de commande : ouvrir un écran par son nom (il remplace le sélecteur d'écrans du bas de la
+    fenêtre), entrer sur une carte à un point d'arrivée ou la choisir dans le lanceur de cartes,
+    ouvrir un dialogue, engager une rencontre, ouvrir les écrans de fin (LOT-119), geler la carte,
+    montrer le compteur de diagnostic, écrire les journaux de la session -- et, dans la section
+    « Ligne de commande », taper les options du binaire, appliquées à chaud (`DebugConsoleModel`,
+    catalogue `hmi::debugOptionCatalog`). Il ne fait rien que les vues-modèles ne sachent déjà
+    faire : chaque bouton appelle un invocable de `Jadg.Runtime`.
 
     **Ce n'est pas une fonctionnalité, et le code le garantit** : `visible` se lie à
     `ScreenRouter.developerBuild`, faux dans un binaire livré, et le raccourci qui l'ouvre
@@ -19,7 +21,7 @@ import Jadg.Runtime
 
     Il vit dans Tools/ et non dans Screens/ : sans formulaire dans Source/Ui, l'atelier n'a rien à
     y dessiner. C'est une interface de développeur, en contrôles Qt Quick ordinaires, qui emprunte
-    la palette ambiante comme le sélecteur d'écrans -- aucune couleur n'y est écrite, et ce qui la
+    la palette ambiante comme tout contrôle Qt -- aucune couleur n'y est écrite, et ce qui la
     distingue du jeu n'est pas sa teinte mais son libellé.
 
     **Il prend le clavier** tant qu'il est ouvert -- ses champs se remplissent --, et la vue de jeu,
@@ -31,19 +33,26 @@ import Jadg.Runtime
     |---|---|
     | Ouvrir, fermer | F9 |
     | Fermer | Échap |
-    | Valider le champ courant (carte, rencontre) | Entrée |
+    | Valider le champ courant (carte, dialogue, rencontre, ligne de commande) | Entrée |
+    | Rappeler une ligne de commande | flèches haut, bas (dans le champ) |
 */
 Item {
     id: root
 
-    /// Les écrans que le menu propose, dans l'ordre du sélecteur (`ScreenStack.screenNames`).
+    /// Les écrans que le menu propose, dans l'ordre de la pile (`ScreenStack.screenNames`).
     required property var screenNames
 
     /// Vrai quand le panneau est à l'écran. Ne s'ouvre jamais dans un binaire livré.
     property bool open: false
 
-    /// Un écran a été choisi par son nom : c'est la pile qui l'ouvre, par le sélecteur.
+    /// Ce que `--screenshot=` capture : la pile d'écrans, sans ce menu.
+    property Item captureTarget: null
+
+    /// Un écran a été choisi par son nom : c'est la pile qui l'épingle.
     signal screenChosen(string name)
+
+    /// `--window-size=` : c'est la pile qui tient la fenêtre.
+    signal windowSizeChosen(int width, int height)
 
     /// Le menu vient de se fermer : la pile rend le clavier à l'écran courant.
     signal closed()
@@ -51,7 +60,7 @@ Item {
     /// Ce que la dernière commande a répondu, affiché en pied de panneau.
     property string feedback: ""
 
-    readonly property int panelWidth: 340
+    readonly property int panelWidth: 400
 
     visible: root.open && ScreenRouter.developerBuild
 
@@ -90,8 +99,87 @@ Item {
             return;
         }
         root.feedback = "Sur « " + WorldModel.mapName + " » (" + WorldModel.mapId + ").";
-        if (ScreenRouter.currentScreen !== ScreenRouter.Game) {
-            root.screenChosen("GameView");
+        ScreenRouter.jumpToGame();
+    }
+
+    /// Ouvre le dialogue choisi, comme un PNJ l'ouvrirait.
+    function openDialogue() {
+        const dialogueId = dialogueBox.editText.trim();
+        if (dialogueId.length === 0) {
+            root.feedback = "Dialogue : identifiant vide.";
+            return;
+        }
+        ScreenRouter.openDialogue(dialogueId);
+        root.feedback = "Dialogue « " + dialogueId + " » ouvert.";
+        root.close();
+    }
+
+    /// L'écran de mort (LOT-119), par-dessus la partie ; depuis n'importe quel écran.
+    function openDeath() {
+        ScreenRouter.jumpToGame();
+        ScreenRouter.openDeath();
+        root.feedback = "Écran de mort ouvert.";
+        root.close();
+    }
+
+    /// L'écran « Fin de la démo » (LOT-119), par la voie choisie.
+    function openDemoEnd() {
+        ScreenRouter.jumpToGame();
+        ScreenRouter.openDemoEnd(endingBox.currentText);
+        root.feedback = "Fin de la démo : « " + endingBox.currentText + " ».";
+        root.close();
+    }
+
+    /// Exécute la ligne tapée, comme la ligne de commande du binaire.
+    function runCommand() {
+        DebugConsoleModel.run(commandField.text);
+        commandField.text = "";
+        root.historyIndex = DebugConsoleModel.history.length;
+    }
+
+    /// Rappelle la ligne précédente (`delta` < 0) ou suivante de l'historique.
+    function recall(delta) {
+        const history = DebugConsoleModel.history;
+        const next = Math.max(0, Math.min(history.length, root.historyIndex + delta));
+        root.historyIndex = next;
+        commandField.text = next < history.length ? history[next] : "";
+        commandField.cursorPosition = commandField.text.length;
+    }
+
+    /// Rang dans l'historique pendant qu'on le parcourt ; `history.length` = la ligne en cours.
+    property int historyIndex: DebugConsoleModel.history.length
+
+    /// La liste des dialogues du contenu, lue une fois.
+    readonly property DialogueModel dialogueCatalog: DialogueModel {}
+
+    // Ce que la ligne de commande demande à la fenêtre et au routeur : le modèle ne les connaît pas.
+    Connections {
+        target: DebugConsoleModel
+
+        function onScreenRequested(name) {
+            root.screenChosen(name);
+        }
+
+        function onWindowSizeRequested(width, height) {
+            if (OptionsModel.fullscreen) {
+                DebugConsoleModel.say("Fenetre en plein ecran : la taille ne s'applique pas (Options).");
+                return;
+            }
+            root.windowSizeChosen(width, height);
+        }
+
+        function onScreenshotRequested(path) {
+            if (root.captureTarget === null
+                    || !root.captureTarget.grabToImage(function (result) {
+                        const saved = result.saveToFile(path);
+                        DebugConsoleModel.say((saved ? "Capture ecrite : " : "Echec de la capture : ") + path);
+                    })) {
+                DebugConsoleModel.say("Capture impossible : la scene n'est pas rendue.");
+            }
+        }
+
+        function onGameRequested() {
+            ScreenRouter.jumpToGame();
         }
     }
 
@@ -115,8 +203,7 @@ Item {
         root.close();
     }
 
-    // Le panneau, à droite : le haut porte le bandeau de titre des écrans, le bas le sélecteur
-    // d'écrans, et une colonne à droite laisse la scène visible pendant qu'on la commande.
+    // Le panneau, à droite : une colonne laisse la scène visible pendant qu'on la commande.
     Rectangle {
         id: panel
 
@@ -183,7 +270,7 @@ Item {
                         text: "Ouvrir"
                         onClicked: {
                             root.screenChosen(screenBox.currentText);
-                            root.feedback = "Écran « " + screenBox.currentText + " » ouvert par le sélecteur.";
+                            root.feedback = "Écran « " + screenBox.currentText + " » épinglé.";
                         }
                     }
                 }
@@ -238,12 +325,52 @@ Item {
                     }
                 }
 
+                Button {
+                    text: "Lanceur de cartes…"
+                    onClicked: {
+                        root.screenChosen("MapLauncher");
+                        root.close();
+                    }
+                }
+
                 Switch {
                     id: frozenSwitch
 
                     text: "Carte gelée"
                     checked: WorldModel.frozen
                     onToggled: WorldModel.frozen = frozenSwitch.checked
+                }
+
+                // --- Dialogue -------------------------------------------------------------
+                Label {
+                    Layout.topMargin: 8
+                    text: "Dialogue"
+                    font.bold: true
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    ComboBox {
+                        id: dialogueBox
+
+                        Layout.fillWidth: true
+                        editable: true
+                        model: root.dialogueCatalog.dialogueIds
+                        onAccepted: root.openDialogue()
+                    }
+
+                    Button {
+                        text: "Ouvrir"
+                        onClicked: root.openDialogue()
+                    }
+                }
+
+                Label {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    opacity: 0.7
+                    text: "Les dialogues du contenu (World/dialogues) ; les drapeaux sont ceux de la partie."
                 }
 
                 // --- Combat ---------------------------------------------------------------
@@ -279,12 +406,31 @@ Item {
                     }
                 }
 
-                Button {
-                    text: "Colisée"
-                    onClicked: {
-                        ScreenRouter.openArena();
-                        root.feedback = "Colisée demandé au routeur.";
-                        root.close();
+                // --- Écrans de fin (LOT-119) ------------------------------------------------
+                Label {
+                    Layout.topMargin: 8
+                    text: "Fins"
+                    font.bold: true
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Button {
+                        text: "Mort"
+                        onClicked: root.openDeath()
+                    }
+
+                    ComboBox {
+                        id: endingBox
+
+                        Layout.fillWidth: true
+                        model: ["arene", "parole"]
+                    }
+
+                    Button {
+                        text: "Fin de la démo"
+                        onClicked: root.openDemoEnd()
                     }
                 }
 
@@ -310,7 +456,7 @@ Item {
                     onClicked: root.feedback = OptionsModel.saveLogs()
                 }
 
-                // --- Aide-mémoire ---------------------------------------------------------
+                // --- Ligne de commande ------------------------------------------------------
                 Label {
                     Layout.topMargin: 8
                     text: "Ligne de commande"
@@ -321,10 +467,57 @@ Item {
                     Layout.fillWidth: true
                     wrapMode: Text.Wrap
                     opacity: 0.7
-                    text: "--screen=<Nom>  --map=<carte>[@<arrivée>]  --at=<c>,<l>  --flags=<a>,<b>\n"
-                          + "--levels=<dossier>;…  --data=<racine>  --hero-figure=<dossier>\n"
-                          + "--window-size=<L>x<H>  --screenshot=<fichier>  --log-level=<niveau>\n"
-                          + "Le guide « Outils de développement du jeu » les détaille."
+                    text: "Les options du binaire, appliquées à chaud : --map=, --at=, --flags=, "
+                          + "--screen=, --window-size=, --screenshot=… « aide » les liste."
+                }
+
+                TextField {
+                    id: commandField
+
+                    Layout.fillWidth: true
+                    placeholderText: "--map=donjon@sable --at=24,19"
+                    onAccepted: root.runCommand()
+                    Keys.onUpPressed: root.recall(-1)
+                    Keys.onDownPressed: root.recall(1)
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    Button {
+                        text: "Exécuter"
+                        onClicked: root.runCommand()
+                    }
+
+                    Button {
+                        text: "Aide"
+                        onClicked: DebugConsoleModel.run("aide")
+                    }
+
+                    Button {
+                        // --data=, --crash-test, --map-* ne se lisent qu'au lancement.
+                        text: "Relancer avec"
+                        onClicked: DebugConsoleModel.relaunch(commandField.text)
+                    }
+
+                    Button {
+                        text: "Effacer"
+                        onClicked: DebugConsoleModel.clear()
+                    }
+                }
+
+                Label {
+                    Layout.fillWidth: true
+                    wrapMode: Text.Wrap
+                    visible: DebugConsoleModel.transcript.length > 0
+                    // Les dernières lignes seulement : le panneau n'est pas une console plein écran.
+                    text: DebugConsoleModel.transcript.slice(-12).join("\n")
+                    background: Rectangle {
+                        color: root.palette.base
+                        border.color: root.palette.mid
+                        border.width: 1
+                    }
+                    padding: 4
                 }
 
                 // --- Retour de la dernière commande -----------------------------------------

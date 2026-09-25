@@ -293,6 +293,15 @@ QString DialogueModel::status() const {
     return parts.join(QStringLiteral(" ; "));
 }
 
+QStringList DialogueModel::dialogueIds() const {
+    QStringList ids;
+    for (const core::DialogueGraph& graphe : _session->dialogues.dialogues) {
+        ids.push_back(toQt(graphe.id));
+    }
+    ids.sort();
+    return ids;
+}
+
 void DialogueModel::choose(const QString& rowId) {
     Session& s = *_session;
     if (rowId.toStdString() == DIALOGUE_LEAVE_REPLY) {

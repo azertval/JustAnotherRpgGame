@@ -9,8 +9,6 @@ la prévisualisation, l'IA, puis l'arène du Colisée qui est aujourd'hui le seu
 se joue. Ce que l'écran en montre est renvoyé à [Rendu 2D](guide-rendu.md) et
 [Écrans](guide-ecrans.md) ; les règles du d20 lui-même, à [Règles d20](guide-regles.md).
 
-![L'écran du Colisée avant le lancement : à gauche le roster (Brenna Vangris, grand singe, bec de hache, babouin…) avec un bouton +A ou +E par camp, la graine 2026 et la case « Ennemis joués par l'IA » ; au centre la grille encore vide ; à droite l'initiative et le journal](captures/jeu-arena.jpg)
-
 ## Définitions
 
 ### Un combat tactique au tour par tour
@@ -608,7 +606,7 @@ savoir : ce qu'un greffon `BeforeRoll` changera, et les dés — les seconds son
   `move` suivra), le déplacement restant, et **qui frapperait en chemin**
   (`core::ArenaSession::previewOpportunities`), choix du joueur et politique de l'IA compris.
 
-C'est ce que `hmi::ArenaModel` expose en lignes lisibles (`preview`, `pathCells`), et ce qui fait
+C'est ce que `hmi::CombatModel` expose en lignes lisibles (`preview`, `pathCells`), et ce qui fait
 d'`EX-IHM-003` et de la moitié « montrées avant que le joueur ne s'engage » d'`EX-CBT-020` une
 donnée du `Core` (`LOT-24`).
 
@@ -781,24 +779,21 @@ projection mais de la caméra (`hmi::Camera2D`, [Rendu 2D](guide-rendu.md)).
 ### À l'écran
 
 Ce que l'écran fait de la session est l'affaire d'autres pages ; en voici seulement les prises.
-`hmi::ArenaModel` (`Source/HMI/Runtime/`) est la vue-modèle du Colisée : elle tient la session et
-les catalogues, ne décide **rien** — chaque geste devient un appel à la session, et l'affichage est
-relu de la machine après chaque geste. Elle expose la composition, la grille (`fighters`,
-`reachableCells` — les PV d'un ennemi restent secrets : ensanglanté, à terre, ou rien), le curseur
-de ciblage et sa prévisualisation (`LOT-24`, clavier et manette), l'ordre d'initiative et le
-journal ; `playAiTurns` joue les tours des combattants à profil par `core::playTurn`.
-`hmi::ArenaViewportItem` est la surface QRhi qui dessine la session en projection isométrique, à
-partir d'un instantané en valeurs pris dans `synchronize` ; `hmi::composeArenaScene` et
-`hmi::ArenaSceneRenderer` en font la composition et la passe de rendu (`LOT-86`,
-[Rendu 2D](guide-rendu.md)) ; l'écran `Arena` et son ouverture depuis le menu sont dans
-[Écrans, navigation et boucle de jeu](guide-ecrans.md).
+`hmi::CombatModel` (`Source/HMI/Runtime/`) est la vue-modèle d'un combat : elle tient la session,
+ne décide **rien** — chaque geste devient un appel à la session, et l'affichage est relu de la
+machine après chaque geste. Elle expose la grille (`fighters`, `reachableCells` — les PV d'un
+ennemi restent secrets : ensanglanté, à terre, ou rien), le curseur de ciblage et sa
+prévisualisation (`LOT-24`, clavier et manette), l'ordre d'initiative et le journal, et joue les
+tours des combattants à profil par `core::playTurn`. `hmi::composeArenaScene` et
+`hmi::ArenaSceneRenderer` composent et rendent une scène de combat seule (`LOT-86`,
+[Rendu 2D](guide-rendu.md)) ; ils restent pour leurs tests, l'écran du Colisée qui les montrait
+étant retiré (25 septembre 2026).
 
 ![L'écran CombatHud tel qu'il existe aujourd'hui : un HUD dessiné sans données — portrait et jauges, barre d'actions numérotée de 1 à 8, panneau CA / Initiative / Vitesse / États, quêtes, boussole, et la bascule Exploration · Tactique](captures/jeu-combathud.jpg)
 
-Depuis le `LOT-118`, ce que l'écran fait d'un combat est **commun** au Colisée et à la carte :
-`hmi::CombatModel` tient la session, le curseur, les actions du tour, les gestes du joueur et les
-tours de l'IA ; `hmi::ArenaModel` n'y ajoute que la composition des deux camps et la carte
-d'arène. Le HUD de combat sur la carte (`CombatHudForm`) est ouvert par le combat sur la carte,
+Depuis le `LOT-118`, le combat se joue **sur la carte** : `hmi::EncounterModel` dérive de
+`hmi::CombatModel` et n'y ajoute que la rencontre montée sur la zone de combat et la file des
+mouvements. Le HUD de combat sur la carte (`CombatHudForm`) est ouvert par le combat sur la carte,
 ci-dessous.
 
 ## Le combat sur la carte (`MapEncounter.h`, `LOT-118`)
@@ -867,7 +862,7 @@ sous son voile ; c'est l'écran de mort qui quitte la rencontre et finit la part
   `hmi::CombatModel`, `hmi::CombatCueTrack`, `hmi::FigureResolver`.
 - `core::planTurn`, `core::playTurn`, `core::expectedDamage`, `core::ArenaSession`,
   `core::IsoProjection`, `core::CombatZone`.
-- `hmi::ArenaModel`, `hmi::ArenaViewportItem` — la présentation du Colisée.
+- `hmi::CombatModel`, `hmi::EncounterModel` — la présentation du combat sur la carte.
 - [Règles d20 et personnages](guide-regles.md) — le jet, la fiche, l'inventaire que les profils
   d'attaque lisent.
 - [Monde et exploration](guide-monde.md) — la session d'exploration qui rencontre un déclencheur,

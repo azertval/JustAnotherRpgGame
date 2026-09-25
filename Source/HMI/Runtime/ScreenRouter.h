@@ -49,8 +49,9 @@ class ScreenRouter : public QObject {
     /// La voie par laquelle la démo s'est terminée (`LOT-119`), que l'écran de fin dit. Le routeur
     /// la **transporte**, comme `dialogueId` : c'est le dialogue qui la nomme. Vide sinon.
     Q_PROPERTY(QString ending READ ending NOTIFY changed)
-    /// La même voie, dite dans la langue active (clé `ending.arene` pour `arene`), vide sans voie. Une lecture du
-    /// catalogue, pas une décision : l'écran de fin n'a pas d'autre modèle à qui la demander.
+    /// La même voie, dite dans la langue active (clé `ending.arene` pour `arene`), vide sans voie.
+    /// Une lecture du catalogue, pas une décision : l'écran de fin n'a pas d'autre modèle à qui la
+    /// demander.
     Q_PROPERTY(QString endingText READ endingText NOTIFY changed)
 
     /// Le dialogue que l'écran de dialogue doit jouer (`LOT-09`). Le routeur le **transporte** :
@@ -73,8 +74,6 @@ public:
         Pause,
         Credits,
         RpgScreen,
-        /// Le Colisée (`LOT-50`).
-        Arena,
         /// L'écran de mort (`LOT-119`).
         Death,
         /// L'écran « Fin de la démo » (`LOT-119`).
@@ -113,9 +112,14 @@ public:
     Q_INVOKABLE void openCredits();
     Q_INVOKABLE void closeCredits();
 
-    /// Ouvre le Colisée depuis le menu, et en revient. Un mode du jeu, pas un écran du RPG.
-    Q_INVOKABLE void openArena();
-    Q_INVOKABLE void closeArena();
+    /**
+     * @brief Outil de debug : ouvre la vue de jeu **hors de la table**, d'où que l'on soit.
+     *
+     * Le menu F9 et le lanceur de cartes ouvrent une carte depuis n'importe quel écran ; la table
+     * ne connaît le jeu que depuis le menu et la pause. C'est la seule navigation qui la
+     * contourne, et elle n'existe que dans un binaire de développement : ailleurs, sans effet.
+     */
+    Q_INVOKABLE void jumpToGame();
 
     /// @brief Ouvre l'écran de dialogue **sur** @p dialogueId : le dialogue du PNJ à qui l'on
     ///        parle, jamais un identifiant écrit dans l'écran (`LOT-09`).

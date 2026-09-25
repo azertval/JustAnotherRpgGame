@@ -144,7 +144,7 @@ void WorldModel::endGame() {
     emit figuresChanged();
 }
 
-void WorldModel::setStartCell(core::GridPosition cell) {
+void WorldModel::setStartCell(std::optional<core::GridPosition> cell) {
     _startCell = cell;
 }
 

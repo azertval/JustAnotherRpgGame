@@ -25,7 +25,8 @@ Source/Ui/                      le module Jadg.Ui : du QML, et rien d'autre. À 
   Mocks/                        les DOUBLURES des types C++, pour l'atelier seulement.
 Source/App/Game/Qml/            le module Jadg.App : le câblage — développeur.
   Main.qml                      la fenêtre.
-  Logic/                        la pile d'écrans, le sélecteur de développement.
+  Logic/                        la pile d'écrans.
+  Tools/                        les outils de debug : menu F9, lanceur de cartes, galerie des assets.
   Screens/                      le JUMEAU <Écran>.qml de chaque formulaire.
 Source/HMI/Runtime/             le module Jadg.Runtime : les types C++ que les jumeaux voient.
 ```

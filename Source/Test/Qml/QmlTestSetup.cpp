@@ -180,7 +180,7 @@ public slots:
 
     void qmlEngineAvailable(QQmlEngine* engine) {
         // Chemins relatifs au module, sans extension : `Controls/OrnateButton`,
-        // `Screens/ArenaForm`.
+        // `Screens/DialogueForm`.
         QStringList files;
         const QString root = QStringLiteral(":/qt/qml/Jadg/Ui/");
         QDirIterator iterator(root, {QStringLiteral("*.ui.qml")}, QDir::Files,

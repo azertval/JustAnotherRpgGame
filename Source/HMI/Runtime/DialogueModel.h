@@ -6,6 +6,7 @@
 #include <QAbstractItemModel>
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QtQmlIntegration>
 #include <memory>
 
@@ -64,6 +65,9 @@ class DialogueModel : public QObject {
     Q_PROPERTY(bool finished READ finished NOTIFY changed)
     /// Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien.
     Q_PROPERTY(QString status READ status NOTIFY changed)
+    /// Les dialogues jouables du contenu, par identifiant, dans l'ordre alphabétique : ce que le
+    /// menu de développement (F9) propose d'ouvrir.
+    Q_PROPERTY(QStringList dialogueIds READ dialogueIds CONSTANT)
 
 public:
     explicit DialogueModel(QObject* parent = nullptr);
@@ -85,6 +89,7 @@ public:
     }
     [[nodiscard]] bool finished() const noexcept;
     [[nodiscard]] QString status() const;
+    [[nodiscard]] QStringList dialogueIds() const;
 
     /// Donne la réponse @p rowId — ou quitte, si c'est la ligne « Quitter ».
     Q_INVOKABLE void choose(const QString& rowId);
@@ -96,7 +101,8 @@ public:
 signals:
     void changed();
     /// Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (`startCombat`, `LOT-09`).
-    /// Le modèle n'ouvre rien — c'est l'écran qui décide, et c'est le routeur qui navigue.
+    /// Aucun écran ne l'ouvre plus : l'écran du Colisée est retiré, le combat se joue sur la
+    /// carte (`encounterRequested`).
     void combatRequested(const QString& arenaId);
     /// Le PNJ engage une rencontre **sur la carte** (`LOT-118`) : c'est l'écran qui la monte
     /// (`EncounterModel.begin`) et ouvre l'affichage de combat.

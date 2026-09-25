@@ -1,4 +1,7 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
+import QtQuick.Window
 import Jadg.Runtime
 // Qualifié : `Jadg.Ui` et `Jadg.App` exportent tous deux un type `Main` (la galerie de l'atelier et
 // la fenêtre du jeu). Sans préfixe, l'un masquerait l'autre selon l'ordre des imports.
@@ -23,25 +26,42 @@ import Jadg.App
     Chaque écran est enveloppé dans un `Component` : il n'est construit qu'une fois choisi. Les
     quinze écrans ne vivent jamais tous en même temps.
 
-    `--screen=<Nom>` court-circuite le routeur. C'est un outil de vérification, pas un chemin de
-    jeu : les écrans dessinés mais pas encore alimentés ne sont atteignables par aucun autre moyen.
+    `--screen=<Nom>` et le menu de développement (F9) **épinglent** un écran par son nom, par-dessus
+    le routeur (`pinnedScreen`). Ce sont des outils de vérification, pas des chemins de jeu : les
+    écrans dessinés mais pas encore alimentés ne sont atteignables par aucun autre moyen. L'écran
+    épinglé cède la main dès que le jeu navigue de lui-même.
 */
 Item {
     id: root
 
-    /// Écran imposé au lancement, ou chaîne vide pour laisser le routeur décider.
+    /// Écran imposé au lancement (`--screen=`), ou chaîne vide pour laisser le routeur décider.
     property string forcedScreen: ""
 
-    /// Les quinze écrans, dans l'ordre où le sélecteur de développement les fait défiler, puis
-    /// la galerie des briques de la charte v2 (LOT-87) -- qui n'est pas un écran du jeu, et que le
-    /// routeur ne désigne jamais.
+    /// L'écran épinglé par `--screen=` ou le menu F9, vide tant que le routeur décide.
+    property string pinnedScreen: root.forcedScreen
+
+    /// Les écrans, dans l'ordre du menu de développement, puis la galerie des briques de la
+    /// charte v2 (LOT-87) et les outils de debug -- que le routeur ne désigne jamais.
     /// Le même vocabulaire que `--screen=` : deux listes différentes auraient fini par diverger,
     /// et un écran serait devenu joignable par un chemin et pas par l'autre.
     readonly property var screenNames: [
         "MainMenu", "GameView", "Pause", "Options", "Credits",
         "CharacterSheet", "Skills", "Inventory", "Journal", "WorldMap", "Dialogue",
-        "Merchant", "Company", "CombatHud", "Arena", "Death", "DemoEnd", "Gallery", "AssetGallery"
+        "Merchant", "Company", "CombatHud", "Death", "DemoEnd", "Gallery", "AssetGallery",
+        "MapLauncher"
     ]
+
+    /// Épingle l'écran nommé, s'il est de la liste.
+    function showScreen(name) {
+        if (root.screenNames.indexOf(name) >= 0) {
+            root.pinnedScreen = name;
+        }
+    }
+
+    /// Rend le clavier à l'écran courant.
+    function restoreFocus() {
+        stack.forceActiveFocus();
+    }
 
     Component { id: menuScreen; MainMenu {} }
     Component { id: optionsScreen; Options {} }
@@ -57,7 +77,6 @@ Item {
     Component { id: merchantScreen; Merchant {} }
     Component { id: companyScreen; Company {} }
     Component { id: combatHudScreen; CombatHud {} }
-    Component { id: arenaScreen; Arena {} }
     // Les ecrans de fin (LOT-119).
     Component { id: deathScreen; Death {} }
     Component { id: demoEndScreen; DemoEnd {} }
@@ -67,58 +86,45 @@ Item {
     Component { id: galleryScreen; Ui.Main {} }
     // La galerie des ASSETS : un outil de debug, lui non plus pas un ecran du jeu.
     Component { id: assetGalleryScreen; AssetGallery {} }
+    // Le lanceur de cartes : un outil de debug. Il se referme en rendant la main au routeur.
+    Component {
+        id: mapLauncherScreen
+
+        MapLauncher {
+            onToolClosed: root.pinnedScreen = ""
+        }
+    }
 
     Loader {
         id: stack
 
         anchors.fill: parent
         focus: true
-        // Trois sources, dans cet ordre : le sélecteur de développement s'il a servi, puis
-        // `--screen=`, puis le routeur. Le sélecteur passe DEVANT `--screen=` : sans cela,
-        // ouvrir le jeu sur un écran précis aurait figé le sélecteur sur ce même écran.
-        sourceComponent: probe.selectedScreen.length > 0
-                         ? root.byName(probe.selectedScreen)
-                         : (root.forcedScreen.length > 0 ? root.byName(root.forcedScreen)
-                                                         : root.byState())
+        // Deux sources : l'écran épinglé (`--screen=`, menu F9), sinon le routeur.
+        sourceComponent: root.pinnedScreen.length > 0 ? root.byName(root.pinnedScreen)
+                                                      : root.byState()
     }
 
     /*!
-        Le sélecteur d'écrans de développement. Absent des binaires livrés -- il se lie lui-même à
-        `ScreenRouter.developerBuild`.
+        Le menu de développement, ouvert par F9. Absent des binaires livrés : il se lie lui-même
+        à `ScreenRouter.developerBuild`, et le raccourci aussi. Il remplace le sélecteur d'écrans
+        et la console de debug : un seul outil, une seule touche.
 
-        Il est posé APRÈS le `Loader`, donc au-dessus : c'est un recouvrement, et il doit le rester
-        quel que soit l'écran regardé.
-    */
-    ScreenProbe {
-        id: probe
-
-        anchors.fill: parent
-        screenNames: root.screenNames
-        // Reprend là où `--screen=` a ouvert : sans cela, le premier clic sur ▶ aurait ramené au
-        // menu depuis n'importe quel écran, au lieu de continuer la liste.
-        Component.onCompleted: {
-            if (root.forcedScreen.length > 0) {
-                probe.index = root.screenNames.indexOf(root.forcedScreen);
-                probe.selectedScreen = root.forcedScreen;
-            }
-        }
-    }
-
-    /*!
-        Le menu de développement, ouvert par F9. Absent des binaires livrés, comme le sélecteur :
-        il se lie lui-même à `ScreenRouter.developerBuild`, et le raccourci aussi.
-
-        Posé APRÈS le sélecteur, donc au-dessus de tout : c'est un recouvrement qui commande
-        l'écran, il ne doit être masqué par aucun.
+        Posé APRÈS la pile, donc au-dessus : c'est un recouvrement qui commande l'écran, il ne doit
+        être masqué par aucun.
     */
     DevMenu {
         id: devMenu
 
         anchors.fill: parent
         screenNames: root.screenNames
-        // Un écran choisi au menu passe par le sélecteur : un seul chemin pour épingler un écran,
-        // et un seul endroit où le routeur le désépingle.
-        onScreenChosen: function (name) { probe.select(name) }
+        // Ce que `--screenshot=` capture : les écrans, sans le menu posé dessus.
+        captureTarget: stack
+        onScreenChosen: function (name) { root.showScreen(name) }
+        onWindowSizeChosen: function (width, height) {
+            root.Window.window.width = width;
+            root.Window.window.height = height;
+        }
         // Le menu a pris le clavier ; fermé, il le rend à l'écran courant. Sans cela, plus aucune
         // touche n'atteignait l'écran jusqu'au prochain clic.
         onClosed: stack.forceActiveFocus()
@@ -134,13 +140,13 @@ Item {
     }
 
     // Le routeur reprend la main dès que le jeu navigue de lui-même. Sans cela, un écran choisi
-    // dans le sélecteur restait épinglé : `Échap` ne fermait plus rien, et la navigation -- ce
+    // au menu restait épinglé : `Échap` ne fermait plus rien, et la navigation -- ce
     // qu'on cherche justement à vérifier -- aurait paru cassée par l'outil de vérification.
     Connections {
         target: ScreenRouter
 
         function onChanged() {
-            probe.clear();
+            root.pinnedScreen = "";
         }
     }
 
@@ -153,7 +159,6 @@ Item {
         case ScreenRouter.Pause:     return pauseScreen
         case ScreenRouter.RpgScreen: return root.rpgScreen(ScreenRouter.currentRpgScreen)
         case ScreenRouter.Game:      return gameScreen
-        case ScreenRouter.Arena:     return arenaScreen
         case ScreenRouter.Death:     return deathScreen
         case ScreenRouter.DemoEnd:   return demoEndScreen
         }
@@ -193,11 +198,11 @@ Item {
         case "Merchant":       return merchantScreen
         case "Company":        return companyScreen
         case "CombatHud":      return combatHudScreen
-        case "Arena":          return arenaScreen
         case "Death":          return deathScreen
         case "DemoEnd":        return demoEndScreen
         case "Gallery":        return galleryScreen
         case "AssetGallery":   return assetGalleryScreen
+        case "MapLauncher":    return mapLauncherScreen
         }
         return menuScreen
     }

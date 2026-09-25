@@ -11,12 +11,11 @@ import Jadg.Runtime
 
     **Le dialogue ouvert est celui du PNJ a qui l'on parle** (LOT-09) : la carte le nomme, le
     routeur le transporte (`ScreenRouter.dialogueId`), et cet ecran n'a plus aucun identifiant
-    ecrit en dur. Ouvert depuis le selecteur de developpement, sans PNJ, il n'a rien a jouer et le
-    dit.
+    ecrit en dur. Ouvert depuis le menu de developpement (F9) sans identifiant, il n'a rien a
+    jouer et le dit ; la section « Dialogue » du menu l'ouvre sur le dialogue qu'on choisit.
 
-    Un PNJ peut ENVOYER SE BATTRE : l'action `startCombat` de son dialogue (le heraut du Colisee)
-    devient `combatRequested`, et l'ecran ouvre alors le Colisee. On y joue sur la zone de combat
-    de la carte, et l'on revient ici -- la carte est restee ce qu'elle etait.
+    L'action `startCombat` (le heraut du Colisee) reste dans le format, mais n'ouvre plus rien :
+    l'ecran du Colisee est retire depuis que le combat se joue sur la carte.
 
     Un PNJ peut aussi ENGAGER LE COMBAT ICI MEME (LOT-118) : l'action `startEncounter` (le maitre
     d'arene) devient `encounterRequested`, la rencontre se monte sur la zone de combat de la carte
@@ -36,13 +35,6 @@ DialogueForm {
 
     readonly property DialogueModel conversation: DialogueModel {
         dialogueId: ScreenRouter.dialogueId
-
-        onCombatRequested: function (arenaId) {
-            // Le dialogue se referme AVANT d'ouvrir le sable : sans quoi l'on reviendrait du
-            // combat sur une conversation finie.
-            ScreenRouter.closeRpgScreen();
-            ScreenRouter.openArena();
-        }
 
         onEncounterRequested: function (encounterId) {
             ScreenRouter.closeRpgScreen();

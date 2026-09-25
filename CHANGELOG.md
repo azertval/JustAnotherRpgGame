@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Menu de développement (F9) — un seul outil.** Le menu gagne une section **Dialogue** (ouvrir
+  n'importe quel dialogue du contenu, comme un PNJ l'ouvrirait), une section **Fins** (écran de
+  mort, fin de la démo par voie), le **lanceur de cartes** (`--screen=MapLauncher` : toutes les
+  cartes du contenu et des brouillons, ouvertes à la case et dans l'état voulus) et une **ligne de
+  commande** qui rejoue à chaud les options du binaire (`hmi::DebugConsoleModel` ; le catalogue
+  `hmi::debugOptionCatalog` est recoupé par un test avec les options que le jeu lit ; « Relancer
+  avec » pour celles qui ne se lisent qu'au lancement). Le sélecteur d'écrans ◀ ▶ du bas de la
+  fenêtre est retiré : le menu épingle les écrans (`ScreenStack.pinnedScreen`). L'écran du
+  **Colisée** est retiré (`Arena.qml`, `ArenaModel`, `ArenaViewportItem`, l'état `Arena` de la
+  table) : le combat se joue sur la carte depuis le `LOT-118`. `ScreenRouter.jumpToGame()` ouvre la
+  vue de jeu hors de la table, en développement seulement. Le guide « Outils de développement du
+  jeu » est à jour.
 - **LOT-117 — Un jet de compétence dans un dialogue.** Une réponse qui mène à un jet l'annonce
   avec son seuil (« [Persuasion · DD 15] ») ; une fois jouée, l'écran de dialogue montre le d20
   tiré dans son losange, ce qui était jeté, le calcul (« 12 + 4 = 16 ») et l'issue. Un jet **raté**

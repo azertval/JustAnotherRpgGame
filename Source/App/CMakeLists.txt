@@ -54,8 +54,6 @@ qt_add_qml_module(JustAnotherRpgGame
         # La pile d'écrans : l'état publié par ScreenRouter, traduit en écran affiché. Elle vit en
         # QML pour que la conception puisse renommer ses fichiers sans qu'une ligne de C++ le sache.
         Game/Qml/Logic/ScreenStack.qml
-        # Le sélecteur d'écrans de développement, lié à ScreenRouter.developerBuild.
-        Game/Qml/Logic/ScreenProbe.qml
         Game/Qml/Screens/CharacterSheet.qml
         Game/Qml/Screens/Inventory.qml
         Game/Qml/Screens/Journal.qml
@@ -74,12 +72,13 @@ qt_add_qml_module(JustAnotherRpgGame
         Game/Qml/Screens/Pause.qml
         Game/Qml/Screens/Credits.qml
         Game/Qml/Screens/GameView.qml
-        Game/Qml/Screens/Arena.qml
         # Les ecrans de fin (LOT-119).
         Game/Qml/Screens/Death.qml
         Game/Qml/Screens/DemoEnd.qml
         # Les outils de debug : pas des ecrans du jeu, donc sans formulaire dans Source/Ui.
         Game/Qml/Tools/AssetGallery.qml
+        # Le lanceur de cartes (`--screen=MapLauncher`), ouvert aussi depuis le menu F9.
+        Game/Qml/Tools/MapLauncher.qml
         # Le menu de developpement (F9), lie a ScreenRouter.developerBuild comme le selecteur.
         Game/Qml/Tools/DevMenu.qml
 )

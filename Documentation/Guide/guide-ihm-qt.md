@@ -10,7 +10,7 @@ Périmètre de la page : `Source/HMI/Runtime/` (les vues-modèles), `Source/HMI/
 logique de présentation pure), `Source/HMI/Platform/`, `Source/HMI/Localization/`,
 `Source/HMI/HmiLog.h`. La navigation (`ScreenFlow.h`, `RpgScreens.h`, `ScreenRouter.h`) est
 détaillée en [Écrans, navigation et boucle de jeu](guide-ecrans.md) ; les surfaces de rendu
-(`WorldViewportItem`, `ArenaViewportItem`, `GameViewportItem`, `AssetGalleryItem`,
+(`WorldViewportItem`, `GameViewportItem`, `AssetGalleryItem`,
 `CityBlockImageProvider`) en [Rendu 2D](guide-rendu.md) ; `GamepadNavigator` en [Entrées et actions
 logiques](guide-entrees.md).
 
@@ -420,19 +420,17 @@ changement de langue relit les titres. Le fichier est embarqué dans la ressourc
 
 ![L'écran des crédits sur le fond de scène du menu : deux colonnes de sections — Développement, Direction artistique, Autres contributions ; Univers et inspirations —, à 1280 × 720](captures/jeu-credits.jpg)
 
-### `hmi::ArenaModel` — le Colisée
+### Les outils de debug : `hmi::DebugConsoleModel`, `hmi::MapLauncherModel`
 
-La vue-modèle de l'arène tient une `core::ArenaSession` et les catalogues dont l'écran compose son
-affrontement ; elle ne décide **rien** du combat. Composition : `roster`, `allies`, `enemies`,
-`marks`, `seed`, `enemyAi`, et les gestes `addAlly`, `addEnemy`, `removeAlly`, `removeEnemy`,
-`assignMark`, `launch`, `replay`, `backToSetup`. Jeu : `fighters`, `reachableCells`, `turnOrder`,
-`activeName`, `activeResources`, `journal`, et le ciblage du `LOT-24` (`cursorColumn`,
-`cursorRow`, `pathCells`, `turnActions`, `preview`, gestes `tapCell`, `moveCursor`, `pointCursor`,
-`centerCursor`, `cycleTarget`, `selectAction`, `cycleAction`, `confirm`, `dodge`, `disengage`,
-`dash`, `endTurn`, `withdraw`). Trois signaux et non un : `changed` pour tout ce que l'interface
-affiche, `cursorChanged` pour ce qui suit le curseur (un pas de curseur ne doit pas reconstruire le
-calque de la grille), `combatSceneChanged` pour la surface de rendu seule, émis aux seuls gestes
-qui mutent la grille. Le détail des règles est en [Combat tactique](guide-combat.md).
+`hmi::DebugConsoleModel` (singleton) rejoue les options du binaire tapées dans le menu F9 :
+`run(ligne)` les applique à chaud par les mêmes fonctions que `Main.cpp`, `relaunch(ligne)`
+redémarre le jeu avec elles, `transcript` et `history` gardent ce qui s'est dit ; ce qui touche la
+fenêtre (`screenRequested`, `windowSizeRequested`, `screenshotRequested`) est **demandé** par signal,
+et c'est le QML qui le fait. `hmi::MapLauncherModel` liste les cartes du contenu et des brouillons
+(`maps`, `directories`) et en ouvre une (`launch`). Tous deux sont sans effet dans un binaire livré ;
+ils sont décrits en [Outils de développement du jeu](guide-outils-developpement.md). L'écran du
+Colisée et sa vue-modèle (`ArenaModel`) sont retirés depuis le 25 septembre 2026 : le combat se
+joue sur la carte, par `hmi::EncounterModel`.
 
 ## La logique de présentation pure
 
@@ -483,8 +481,8 @@ vues-modèles appellent, et que les tests unitaires vérifient sans fenêtre (`E
 
 Le jeu pose ses surfaces QRhi comme des items Qt Quick (`QQuickRhiItem`, dans `HMI/Runtime`) :
 `hmi::WorldViewportItem` (`WorldViewport` en QML) pour la carte explorée,
-`hmi::ArenaViewportItem` pour le Colisée, `hmi::GameViewportItem` sous le HUD de combat,
-`hmi::AssetGalleryItem` pour la galerie des assets. C'est le jumeau (`GameView.qml`, `Arena.qml`…)
+`hmi::GameViewportItem` sous le HUD de combat,
+`hmi::AssetGalleryItem` pour la galerie des assets. C'est le jumeau (`GameView.qml`, `CombatHud.qml`…)
 qui les pose, dans l'hôte que le formulaire lui réserve : un type C++ n'a pas sa place dans un
 formulaire. Tous rendent dans une **texture d'appui** que leur hôte compose : la cible technique
 ne change pas (`EX-ARCH-050`), seul l'hôte change. L'éditeur, lui, ne parle plus au GPU depuis le
@@ -504,8 +502,8 @@ pures et sans GPU (`EX-NFR-004`, `EX-NFR-005`), que le fil de rendu soumet par
 `hmi::ScreenRouter` ne **décide rien** : toute la règle vit dans `hmi::resolveTransition`, table
 pure couverte par ses tests, et une transition non déclarée est refusée (`EX-GP-041`). Il publie
 un **état**, jamais un chemin de fichier ; la correspondance vit dans
-`Source/App/Game/Qml/Logic/ScreenStack.qml`. `--screen=<Nom>` et `Logic/ScreenProbe.qml` sont des
-outils de vérification, absents d'un binaire livré. Tout cela est détaillé en [Écrans, navigation
+`Source/App/Game/Qml/Logic/ScreenStack.qml`. `--screen=<Nom>` et le menu F9 (`Tools/DevMenu.qml`)
+sont des outils de vérification, absents d'un binaire livré. Tout cela est détaillé en [Écrans, navigation
 et boucle de jeu](guide-ecrans.md).
 
 ## Les réglages, et ce qu'ils atteignent
@@ -617,7 +615,7 @@ JustAnotherRpgGame --screen=MainMenu --window-size=1280x720 --screenshot=jeu-mai
 - `hmi::OptionsModel`, `hmi::PendingData`, `hmi::SheetRowModel`, `hmi::CharacterSheetModel`,
   `hmi::InventoryModel`, `hmi::DialogueModel`, `hmi::WorldModel`, `hmi::QuestJournalModel`,
   `hmi::WorldMapModel`,
-  `hmi::CityDistrictModel`, `hmi::CreditsModel`, `hmi::ArenaModel`, `hmi::Localization`.
+  `hmi::CityDistrictModel`, `hmi::CreditsModel`, `hmi::DebugConsoleModel`, `hmi::Localization`.
 - [Concevoir les écrans dans Qt Design Studio](guide-conception-qds.md) — le mode d'emploi de la **conception** : ce qu'on modifie sans code.
 - [Système de design et architecture de l'information](guide-design-ihm.md) — jetons, échelle, panneaux, barre d'état.
 - [Écrans, navigation et boucle de jeu](guide-ecrans.md) — la navigation entre écrans.

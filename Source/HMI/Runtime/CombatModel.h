@@ -19,8 +19,8 @@
 
 /**
  * @file HMI/Runtime/CombatModel.h
- * @brief Un combat tel qu'un écran le joue (`LOT-24`) : la partie **commune** au Colisée
- *        (`hmi::ArenaModel`) et au combat sur la carte (`hmi::EncounterModel`, `LOT-118`).
+ * @brief Un combat tel qu'un écran le joue (`LOT-24`) : la partie commune, que le combat sur la
+ *        carte dérive (`hmi::EncounterModel`, `LOT-118`) ; l'écran du Colisée est retiré.
  */
 
 namespace hmi {

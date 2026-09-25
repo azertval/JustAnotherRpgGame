@@ -20,7 +20,7 @@ Une regle qui n'est pas verifiee n'est pas une regle : c'est une intention.
 CE QUI EST VERIFIE
 ------------------
 1. Presentation et Runtime (les vues-modeles) ne connaissent ni Qt Quick ni Qt Widgets ; seule la
-   surface de rendu (Runtime/GameViewportItem, Runtime/ArenaViewportItem,
+   surface de rendu (Runtime/GameViewportItem,
    Runtime/WorldViewportItem) lie Quick, et rien ne
    lie Widgets.
 2. Core ne connait pas Qt du tout.
@@ -54,9 +54,6 @@ RUNTIME = ROOT / "Source" / "HMI" / "Runtime"
 RUNTIME_QUICK_ALLOWED = (
     "GameViewportItem.h",
     "GameViewportItem.cpp",
-    # La scene de combat du Colisee (LOT-86 Phase 5) : une seconde surface de rendu.
-    "ArenaViewportItem.h",
-    "ArenaViewportItem.cpp",
     "WorldViewportItem.h",
     "WorldViewportItem.cpp",
     # La galerie des assets, outil de debug : une troisieme surface de rendu.

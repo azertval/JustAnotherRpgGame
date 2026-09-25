@@ -32,8 +32,6 @@ namespace {
             return ScreenRouter::Screen::Credits;
         case ScreenId::RpgScreen:
             return ScreenRouter::Screen::RpgScreen;
-        case ScreenId::Arena:
-            return ScreenRouter::Screen::Arena;
         case ScreenId::Death:
             return ScreenRouter::Screen::Death;
         case ScreenId::DemoEnd:
@@ -121,12 +119,16 @@ void ScreenRouter::closeCredits() {
     static_cast<void>(apply(ScreenEvent::CloseCredits));
 }
 
-void ScreenRouter::openArena() {
-    static_cast<void>(apply(ScreenEvent::OpenArena));
-}
-
-void ScreenRouter::closeArena() {
-    static_cast<void>(apply(ScreenEvent::CloseArena));
+void ScreenRouter::jumpToGame() {
+    // `if constexpr` avec sa branche `else` : un retour anticipe laisserait en Release un code
+    // inatteignable, que /W4 /WX refuse (C4702).
+    if constexpr (core::DEVELOPER_BUILD) {
+        if (_state.screen == ScreenId::Game) {
+            return;
+        }
+        _state = ScreenState{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
+        emit changed();
+    }
 }
 
 void ScreenRouter::openDeath() {
