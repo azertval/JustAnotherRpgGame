@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" font-family="Georgia, serif" font-size="13">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/></marker></defs>
+  <rect width="880" height="540" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Schéma — le cycle d'un kit d'assets hors Git : publier, verrouiller, rapatrier, garder (LOT-108)</text>
+
+  <g font-size="10" fill="#25201a">
+    <rect x="20" y="50" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="28" y="66" font-size="12" font-weight="600">Retouche locale</text>
+    <text x="28" y="82" font-family="Consolas, monospace">Elements/Assets/&lt;kit&gt;/</text>
+    <text x="28" y="96">images non suivies par Git :</text>
+    <text x="28" y="110">Common, Maps, UI, Regions/…</text>
+    <text x="28" y="124">les sources de production</text>
+    <text x="28" y="138">(Tools/) ne partent jamais</text>
+    <text x="28" y="152">dans l'archive</text>
+
+    <rect x="236" y="50" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="244" y="66" font-size="12" font-weight="600">Publication (T1)</text>
+    <text x="244" y="82" font-family="Consolas, monospace">publish_asset_kit.py</text>
+    <text x="244" y="96">contrôle de l'arbre, archive</text>
+    <text x="244" y="110">déterministe ; une retouche =</text>
+    <text x="244" y="124">un nouveau numéro, jamais une</text>
+    <text x="244" y="138">archive remplacée ; gh release</text>
+    <text x="244" y="152">upload, sans --clobber</text>
+
+    <rect x="452" y="50" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="460" y="66" font-size="12" font-weight="600">Release GitHub</text>
+    <text x="460" y="82" font-family="Consolas, monospace">assets-common, assets-maps</text>
+    <text x="460" y="96" font-family="Consolas, monospace">assets-central-empire</text>
+    <text x="460" y="110" font-family="Consolas, monospace">common-1.zip, maps-1.zip…</text>
+    <text x="460" y="124">archive immuable, numérotée</text>
+    <text x="460" y="138">@1, @2… ; un même nom avec</text>
+    <text x="460" y="152">une autre empreinte : refus</text>
+
+    <rect x="668" y="50" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="676" y="66" font-size="12" font-weight="600">Verrou, commis</text>
+    <text x="676" y="82" font-family="Consolas, monospace">Assets/kits.lock.json</text>
+    <text x="676" y="96" font-family="Consolas, monospace">id "Common@1", path,</text>
+    <text x="676" y="110" font-family="Consolas, monospace">release, asset, sha256,</text>
+    <text x="676" y="124" font-family="Consolas, monospace">bytes, files</text>
+    <text x="676" y="138">7 kits en @1, 191 Mio : pas</text>
+    <text x="676" y="152">de budget de poids (D-23)</text>
+  </g>
+  <path d="M210,110 L234,110" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M426,110 L450,110" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M642,110 L666,110" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M763,170 L763,192 L115,192 L115,214" fill="none" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M331,192 L331,214" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+
+  <g font-size="10" fill="#25201a">
+    <rect x="20" y="216" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="28" y="232" font-size="12" font-weight="600">Rapatrier, sur le poste</text>
+    <text x="28" y="248" font-family="Consolas, monospace">scripts/fetch_assets.py</text>
+    <text x="28" y="262">réinstalle si l'empreinte du</text>
+    <text x="28" y="276">kit sur disque diffère ; cache</text>
+    <text x="28" y="290" font-family="Consolas, monospace">JADG_ASSETS_CACHE</text>
+    <text x="28" y="304">(ou %LOCALAPPDATA%\JadgAssets)</text>
+    <text x="28" y="318">--check ; --force pour écraser</text>
+    <text x="28" y="331">une image retouchée à la main</text>
+
+    <rect x="236" y="216" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="244" y="232" font-size="12" font-weight="600">Rapatrier, en CI</text>
+    <text x="244" y="248" font-family="Consolas, monospace">actions/fetch-assets</text>
+    <text x="244" y="262">une seule définition pour tous</text>
+    <text x="244" y="276">les workflows ; actions/cache :</text>
+    <text x="244" y="290" font-family="Consolas, monospace">jadg-assets-&lt;hash(lock)&gt;</text>
+    <text x="244" y="304">puis fetch_assets.py, puis</text>
+    <text x="244" y="318" font-family="Consolas, monospace">fetch_assets.py --check</text>
+
+    <rect x="452" y="216" width="190" height="120" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="460" y="232" font-size="12" font-weight="600">Témoins d'installation</text>
+    <text x="460" y="248" font-family="Consolas, monospace">Assets/.kits/&lt;slug&gt;.json</text>
+    <text x="460" y="262">non suivis, un par kit :</text>
+    <text x="460" y="276">id du kit, empreinte, fichiers</text>
+    <text x="460" y="290">écrits par fetch_assets.py et</text>
+    <text x="460" y="304">par publish_asset_kit.py</text>
+
+    <rect x="668" y="216" width="190" height="120" fill="#fbf8f0" stroke="#8a2233" stroke-width="2"/>
+    <text x="676" y="232" font-size="12" font-weight="600">Garde CMake</text>
+    <text x="676" y="248"><tspan font-family="Consolas, monospace">SKIP_ASSET_KITS_CHECK</tspan> OFF</text>
+    <text x="676" y="262">lit kits.lock.json, compare</text>
+    <text x="676" y="276">chaque témoin à l'empreinte ;</text>
+    <text x="676" y="290">sur un écart, refuse de</text>
+    <text x="676" y="304">configurer et nomme la</text>
+    <text x="676" y="318">commande à lancer</text>
+  </g>
+  <path d="M115,336 L115,354 L547,354 L547,338" fill="none" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M426,276 L450,276" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M642,276 L666,276" stroke="#9a7420" stroke-width="2" marker-end="url(#a)"/>
+
+  <g font-size="10" fill="#25201a">
+    <rect x="20" y="376" width="406" height="70" fill="#fbf8f0" stroke="#8a2233" stroke-width="2"/>
+    <text x="28" y="392" font-size="12" font-weight="600">Garde Git : check_binary_files.py</text>
+    <text x="28" y="408">refuse une image suivie sous un dossier que kits.lock.json verrouille</text>
+    <text x="28" y="422">(publiée, jamais commise), et tout fichier suivi au-delà</text>
+    <text x="28" y="436">de MAX_BYTES = 5 × 1024 × 1024 (5 Mio) — en pre-commit et en CI.</text>
+
+    <rect x="450" y="376" width="408" height="70" fill="#ece4d1" stroke="#d6c9a8"/>
+    <text x="458" y="392" font-size="12" font-weight="600">Le poids, sans budget (D-23)</text>
+    <text x="458" y="408">Git garde la description des kits, les octets vivent ailleurs : le pack</text>
+    <text x="458" y="422">git pèse près de 600 Mio sans LFS ; sept kits font 191 Mio, le plus</text>
+    <text x="458" y="436">gros (capital/Common@1) 1 734 fichiers pour 101 Mio.</text>
+  </g>
+
+  <g font-size="11" fill="#6a6152">
+    <text x="20" y="476">Ce que montre le dessin : Git ne porte que le verrou, jamais les images ; chaque kit est une archive immuable dont le numéro change à</text>
+    <text x="20" y="492">chaque retouche, pour qu'un poste et la CI reconstruisent le même arbre au bit près. Pourquoi la garde : sans témoin, Source/Ui globerait</text>
+    <text x="20" y="508">un HUD vide et le jeu se construirait sans rien dire ; CMake refuse donc de configurer et nomme la commande. Pourquoi le contrôle Git :</text>
+    <text x="20" y="524">une image commise sous un kit verrouillé aurait deux origines, et la prochaine installation ne saurait plus laquelle est vraie.</text>
+  </g>
+</svg>

@@ -14,12 +14,15 @@
   <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
 </header>
 <div class="shell with-sidebar">
-<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1 active" href="core-levels.html">Core · Levels</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-format-v4cpp">test_format_v4.cpp</a><a class="toc depth-2" href="#test-layer-piecescpp">test_layer_pieces.cpp</a><a class="toc depth-2" href="#test-levelcpp">test_level.cpp</a><a class="toc depth-2" href="#test-level-draftcpp">test_level_draft.cpp</a><a class="toc depth-2" href="#test-level-draft-editingcpp">test_level_draft_editing.cpp</a><a class="toc depth-2" href="#test-level-draft-piecescpp">test_level_draft_pieces.cpp</a><a class="toc depth-2" href="#test-level-loadercpp">test_level_loader.cpp</a><a class="toc depth-2" href="#test-level-writercpp">test_level_writer.cpp</a><a class="toc depth-2" href="#test-map-layerscpp">test_map_layers.cpp</a><a class="toc depth-2" href="#test-rpg-terraincpp">test_rpg_terrain.cpp</a><a class="toc depth-2" href="#test-tile-type-namecpp">test_tile_type_name.cpp</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1 active" href="core-levels.html">Core · Levels</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</a><a class="toc depth-2" href="#test-format-v4cpp">test_format_v4.cpp</a><a class="toc depth-2" href="#test-layer-piecescpp">test_layer_pieces.cpp</a><a class="toc depth-2" href="#test-levelcpp">test_level.cpp</a><a class="toc depth-2" href="#test-level-draftcpp">test_level_draft.cpp</a><a class="toc depth-2" href="#test-level-draft-editingcpp">test_level_draft_editing.cpp</a><a class="toc depth-2" href="#test-level-draft-piecescpp">test_level_draft_pieces.cpp</a><a class="toc depth-2" href="#test-level-loadercpp">test_level_loader.cpp</a><a class="toc depth-2" href="#test-level-writercpp">test_level_writer.cpp</a><a class="toc depth-2" href="#test-map-layerscpp">test_map_layers.cpp</a><a class="toc depth-2" href="#test-rpg-terraincpp">test_rpg_terrain.cpp</a><a class="toc depth-2" href="#test-tile-type-namecpp">test_tile_type_name.cpp</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
 <main>
 <article class="prose"><h1 id="core-levels">Core · Levels</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">122 cas</span></div>
 <p>Tests unitaires — <strong>122 cas</strong> (1 bloquant, 24 critiques, 80 majeurs, 17 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
 <h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
 <div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-format-v4cpp"><code>test_format_v4.cpp</code></a></td><td>19</td><td>-</td><td>8</td><td>7</td><td>4</td></tr><tr><td><a href="#test-layer-piecescpp"><code>test_layer_pieces.cpp</code></a></td><td>9</td><td>-</td><td>3</td><td>6</td><td>-</td></tr><tr><td><a href="#test-levelcpp"><code>test_level.cpp</code></a></td><td>6</td><td>-</td><td>-</td><td>6</td><td>-</td></tr><tr><td><a href="#test-level-draftcpp"><code>test_level_draft.cpp</code></a></td><td>25</td><td>-</td><td>1</td><td>21</td><td>3</td></tr><tr><td><a href="#test-level-draft-editingcpp"><code>test_level_draft_editing.cpp</code></a></td><td>14</td><td>-</td><td>1</td><td>7</td><td>6</td></tr><tr><td><a href="#test-level-draft-piecescpp"><code>test_level_draft_pieces.cpp</code></a></td><td>16</td><td>1</td><td>6</td><td>8</td><td>1</td></tr><tr><td><a href="#test-level-loadercpp"><code>test_level_loader.cpp</code></a></td><td>6</td><td>-</td><td>1</td><td>5</td><td>-</td></tr><tr><td><a href="#test-level-writercpp"><code>test_level_writer.cpp</code></a></td><td>4</td><td>-</td><td>-</td><td>3</td><td>1</td></tr><tr><td><a href="#test-map-layerscpp"><code>test_map_layers.cpp</code></a></td><td>14</td><td>-</td><td>-</td><td>12</td><td>2</td></tr><tr><td><a href="#test-rpg-terraincpp"><code>test_rpg_terrain.cpp</code></a></td><td>6</td><td>-</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-tile-type-namecpp"><code>test_tile_type_name.cpp</code></a></td><td>3</td><td>-</td><td>2</td><td>1</td><td>-</td></tr></tbody></table></div>
+<h2 id="exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</h2>
+<p>Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la <a href="couverture-exigences.html">matrice de traçabilité</a> les rassemble toutes.</p>
+<div class="table-wrap"><table><thead><tr><th>Exigence</th><th>Cas</th></tr></thead><tbody><tr><td><a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-004"><code>EX-EDIT-004</code></a></td><td><a href="#leveldrafttestsetentrydeplacelentreeexistante"><code>LevelDraftTest.SetEntryDeplaceLEntreeExistante</code></a></td></tr><tr><td><a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-007"><code>EX-EDIT-007</code></a></td><td><a href="#leveldrafttesttolevelsansentreeechoueproprement"><code>LevelDraftTest.ToLevelSansEntreeEchoueProprement</code></a></td></tr><tr><td><a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-011"><code>EX-EDIT-011</code></a></td><td><a href="#couchesdecartetestbrouillondeditionpreservecouchesetentites"><code>CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites</code></a></td></tr><tr><td><a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-065"><code>EX-EDIT-065</code></a></td><td><a href="#leveldraftpiecestestpeindrelacollisionforceouliberelacase"><code>LevelDraftPiecesTest.PeindreLaCollisionForceOuLibereLaCase</code></a></td></tr><tr><td><a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-083"><code>EX-EDIT-083</code></a></td><td><a href="#leveldraftpiecestestremplacerunepieceenunpaslacollisionsuit"><code>LevelDraftPiecesTest.RemplacerUnePieceEnUnPasLaCollisionSuit</code></a></td></tr><tr><td><a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-084"><code>EX-EDIT-084</code></a></td><td><a href="#leveldraftpiecestestchangerdeplanchetraduitlespiecesetrededuitlacollision"><code>LevelDraftPiecesTest.ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-003"><code>EX-LVL-003</code></a></td><td><a href="#terrainrpgtestallerretoursurchaquetypedeterrain"><code>TerrainRpgTest.AllerRetourSurChaqueTypeDeTerrain</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-004"><code>EX-LVL-004</code></a></td><td><a href="#couchesdecartetesttuilehorsbornesdansunecoucherefusee"><code>CouchesDeCarteTest.TuileHorsBornesDansUneCoucheRefusee</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-005"><code>EX-LVL-005</code></a></td><td><a href="#levelloadertestniveausansversionsechargesanserreur"><code>LevelLoaderTest.NiveauSansVersionSeChargeSansErreur</code></a>, <a href="#levelloadertestversionsuperieurealaversiongereeechoueproprement"><code>LevelLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement</code></a>, <a href="#couchesdecartetestcarteduneversionfuturerefuseeavecunmessageexplicite"><code>CouchesDeCarteTest.CarteDUneVersionFutureRefuseeAvecUnMessageExplicite</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></td><td><a href="#couchesdecartetestcarteversion2promueencouchelegacyunique"><code>CouchesDeCarteTest.CarteVersion2PromueEnCoucheLegacyUnique</code></a>, <a href="#couchesdecartetestcarteversion2reecritesanstableaudecouches"><code>CouchesDeCarteTest.CarteVersion2ReecriteSansTableauDeCouches</code></a>, <a href="#couchesdecartetestallerretoursurtroiscouchesetdeuxentites"><code>CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites</code></a>, <a href="#couchesdecartetestlacouchedecollisionestlagrilledugameplay"><code>CouchesDeCarteTest.LaCoucheDeCollisionEstLaGrilleDuGameplay</code></a>, <a href="#couchesdecartetestbrouillondeditionpreservecouchesetentites"><code>CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites</code></a>, <a href="#couchesdecartetesttuilepeinteatteintlacouchedecollision"><code>CouchesDeCarteTest.TuilePeinteAtteintLaCoucheDeCollision</code></a>, <a href="#couchesdecartetestredimensionnementemportecouchesetentites"><code>CouchesDeCarteTest.RedimensionnementEmporteCouchesEtEntites</code></a>, <a href="#couchesdecartetestcouchedecollisiondeclareerefusee"><code>CouchesDeCarteTest.CoucheDeCollisionDeclareeRefusee</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-017"><code>EX-LVL-017</code></a></td><td><a href="#couchesdecartetestallerretoursurtroiscouchesetdeuxentites"><code>CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites</code></a>, <a href="#couchesdecartetestentitehorsbornesrefusee"><code>CouchesDeCarteTest.EntiteHorsBornesRefusee</code></a>, <a href="#couchesdecartetestredimensionnementemportecouchesetentites"><code>CouchesDeCarteTest.RedimensionnementEmporteCouchesEtEntites</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-018"><code>EX-LVL-018</code></a></td><td><a href="#couchesdecartetestchampsinconnusdunecouchepreservesalareecriture"><code>CouchesDeCarteTest.ChampsInconnusDUneCouchePreservesALaReecriture</code></a>, <a href="#couchesdecartetestchampsinconnusduneentitepreservesalareecriture"><code>CouchesDeCarteTest.ChampsInconnusDUneEntitePreservesALaReecriture</code></a></td></tr><tr><td><a class="ref" href="../Specification/niveaux.html#EX-LVL-025"><code>EX-LVL-025</code></a></td><td><a href="#leveldraftpiecestestunetagenebloqueaucunecase"><code>LevelDraftPiecesTest.UnEtageNeBloqueAucuneCase</code></a></td></tr><tr><td><a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></td><td><a href="#levelwritertestsavetofileversdossierinexistantechoueproprement"><code>LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement</code></a>, <a href="#couchesdecartetestcarteduneversionfuturerefuseeavecunmessageexplicite"><code>CouchesDeCarteTest.CarteDUneVersionFutureRefuseeAvecUnMessageExplicite</code></a>, <a href="#couchesdecartetestroledecoucheinconnuretombesurlesol"><code>CouchesDeCarteTest.RoleDeCoucheInconnuRetombeSurLeSol</code></a></td></tr></tbody></table></div>
 <h2 id="test-format-v4cpp">test_format_v4.cpp</h2>
 <section class="case" data-crit="Critique"><h3 id="formatv4testunecartedechaqueversionsecharge">FormatV4Test.UneCarteDeChaqueVersionSeCharge</h3>
 <p><em>Critique · Unitaire · Format v4</em> — <code>Source/Test/Unit/Core/Levels/test_format_v4.cpp:107</code></p>
@@ -271,6 +274,7 @@
 <ul><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="leveldrafttestsetentrydeplacelentreeexistante">LevelDraftTest.SetEntryDeplaceLEntreeExistante</h3>
 <p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:44</code></p>
+<p>Exigences : <a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-004"><code>EX-EDIT-004</code></a></p>
 <p>Poser une seconde entrée déplace la première (unicité, EX-EDIT-004).</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
@@ -299,6 +303,7 @@
 <ul><li>Vérifie que <code>draft.tileMap().width()</code> vaut <code>3</code>.</li><li>Vérifie que <code>draft.tileMap().height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>draft.entry().has_value()</code> est faux.</li><li>Vérifie que <code>draft.tileMap().tile(1, 1)</code> vaut <code>TileType::Solid</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="leveldrafttesttolevelsansentreeechoueproprement">LevelDraftTest.ToLevelSansEntreeEchoueProprement</h3>
 <p><em>Majeur · Unitaire · Level Draft</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft.cpp:131</code></p>
+<p>Exigences : <a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-007"><code>EX-EDIT-007</code></a></p>
 <p>toLevel() sur un brouillon sans entrée échoue avec un message récupérable (EX-EDIT-007).</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
@@ -595,6 +600,7 @@
 <ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 1}, &quot;stall&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.paintLayerTile(DECOR, 1, 1, TileType::Dirt)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 1, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.paintLayerTile(SOL, 3, 2, TileType::DeepWater)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 3, 2)</code> vaut <code>TileType::Cliff</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestpeindrelacollisionforceouliberelacase">LevelDraftPiecesTest.PeindreLaCollisionForceOuLibereLaCase</h3>
 <p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:266</code></p>
+<p>Exigences : <a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-065"><code>EX-EDIT-065</code></a></p>
 <p>Peindre la collision force ou libère la case.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Peindre un mur de collision en (2, 2).</li><li>Y repeindre du vide.</li></ol>
@@ -616,6 +622,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 2}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 1, 2)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision(draft, 3, 0)</code> vaut <code>TileType::Wall</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestremplacerunepieceenunpaslacollisionsuit">LevelDraftPiecesTest.RemplacerUnePieceEnUnPasLaCollisionSuit</h3>
 <p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:346</code></p>
+<p>Exigences : <a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-083"><code>EX-EDIT-083</code></a></p>
 <p>Remplacer une pièce : un pas, la collision suit.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser deux piliers.</li><li>Remplacer <code>pillar</code> par <code>pit</code>, une fosse 1 × 2.</li><li>Défaire.</li></ol>
@@ -630,6 +637,7 @@
 <ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 1, .row = 0}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 2, .row = 2}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>draft.replacePieces({{&quot;pillar&quot;, &quot;pit&quot;}})</code> est faux.</li><li>Vérifie que <code>draft.replacePieces({{&quot;stall&quot;, &quot;pillar&quot;}})</code> est faux.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(1, 0)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>draft.undoDepth()</code> vaut <code>depth</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="leveldraftpiecestestchangerdeplanchetraduitlespiecesetrededuitlacollision">LevelDraftPiecesTest.ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision</h3>
 <p><em>Critique · Unitaire · Pièces du brouillon</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:402</code></p>
+<p>Exigences : <a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-084"><code>EX-EDIT-084</code></a></p>
 <p>Changer de planche : lieu, pièces et collision en un pas.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser un pilier en (2, 1).</li><li>Passer à une planche où le pavé s'appelle <code>paving</code> et où le pilier, gardant son nom, se franchit.</li><li>Défaire.</li></ol>
@@ -637,6 +645,7 @@
 <ul><li>Vérifie que <code>draft.placePiece(DECOR, {.column = 2, .row = 1}, &quot;pillar&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>draft.changeScene(&quot;autre&quot;, manifest, {{&quot;street&quot;, &quot;paving&quot;}})</code> est vrai.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(draft.layers()[SOL].properties.at(&quot;scene&quot;))</code> vaut <code>&quot;autre&quot;</code>.</li><li>Vérifie que <code>draft.layers()[SOL].pieceAt(3, 2)</code> vaut <code>&quot;paving&quot;</code>.</li><li>Vérifie que <code>draft.layers()[DECOR].pieceAt(2, 1)</code> vaut <code>&quot;pillar&quot;</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>draft.undo()</code> est vrai.</li><li>Vérifie que <code>draft.layers()[SOL].properties.count(&quot;scene&quot;)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>draft.layers()[SOL].pieceAt(3, 2)</code> vaut <code>&quot;street&quot;</code>.</li><li>Vérifie que <code>collision(draft, 2, 1)</code> vaut <code>TileType::Wall</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="leveldraftpiecestestunetagenebloqueaucunecase">LevelDraftPiecesTest.UnEtageNeBloqueAucuneCase</h3>
 <p><em>Bloquant · Unitaire · Pieces du brouillon · Etages</em> — <code>Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:441</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-025"><code>EX-LVL-025</code></a></p>
 <p>Un etage ne bloque aucune case.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser un pilier en (2, 1) du decor, qui arrete la vue.</li><li>Mettre le decor a l'etage 1, puis defaire.</li><li>A l'etage 1, poser un pilier en (1, 1).</li></ol>
@@ -659,6 +668,7 @@
 <ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::None</code>.</li><li>Vérifie que <code>level.name()</code> vaut <code>&quot;Tutoriel&quot;</code>.</li><li>Vérifie que <code>level.tileMap().width()</code> vaut <code>4</code>.</li><li>Vérifie que <code>level.tileMap().height()</code> vaut <code>3</code>.</li><li>Vérifie que <code>level.tileMap().tile(0, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>level.tileMap().tile(1, 1)</code> vaut <code>core::TileType::Entry</code>.</li><li>Vérifie que <code>level.tileMap().tile(3, 0)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>level.entry()</code> vaut <code>(core::GridPosition{1, 1})</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="levelloadertestniveausansversionsechargesanserreur">LevelLoaderTest.NiveauSansVersionSeChargeSansErreur</h3>
 <p><em>Majeur · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:64</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-005"><code>EX-LVL-005</code></a></p>
 <p>Un niveau sans champ version se charge sans erreur.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
@@ -666,6 +676,7 @@
 <ul><li>Vérifie que <code>result.ok()</code> est vrai.</li><li>Vérifie que <code>result.errorCode</code> vaut <code>core::LevelValidationError::None</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="levelloadertestversionsuperieurealaversiongereeechoueproprement">LevelLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement</h3>
 <p><em>Majeur · Unitaire · Level Loader</em> — <code>Source/Test/Unit/Core/Levels/test_level_loader.cpp:81</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-005"><code>EX-LVL-005</code></a></p>
 <p>Un niveau dont la version depasse celle geree echoue proprement.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
@@ -709,6 +720,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(*loaded.level, path)</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;name()</code> vaut <code>loaded.level-&gt;name()</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entry()</code> vaut <code>loaded.level-&gt;entry()</code>.</li><li>Vérifie que <code>reloaded.level-&gt;tileMap().tile(column, row)</code> vaut <code>loaded.level-&gt;tileMap().tile(column, row)</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="levelwritertestsavetofileversdossierinexistantechoueproprement">LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement</h3>
 <p><em>Majeur · Unitaire · Level Writer</em> — <code>Source/Test/Unit/Core/Levels/test_level_writer.cpp:98</code></p>
+<p>Exigences : <a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></p>
 <p>saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
@@ -724,6 +736,7 @@
 </section><h2 id="test-map-layerscpp">test_map_layers.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="couchesdecartetestcarteversion2promueencouchelegacyunique">CouchesDeCarteTest.CarteVersion2PromueEnCoucheLegacyUnique</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:91</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></p>
 <p>Une carte version 2 est promue en couche unique.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte au format version 2, sans tableau 'layers'.</li><li>Inspecter les couches du niveau obtenu.</li></ol>
@@ -731,6 +744,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;layers().size()</code> vaut <code>1u</code>.</li><li>Vérifie que <code>layer.kind</code> vaut <code>core::LayerKind::Legacy</code>.</li><li>Vérifie que <code>layer.tiles.width()</code> vaut <code>loaded.level-&gt;tileMap().width()</code>.</li><li>Vérifie que <code>layer.tiles.height()</code> vaut <code>loaded.level-&gt;tileMap().height()</code>.</li><li>Vérifie que <code>layer.tiles.tile(0, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>loaded.level-&gt;entities().empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="couchesdecartetestcarteversion2reecritesanstableaudecouches">CouchesDeCarteTest.CarteVersion2ReecriteSansTableauDeCouches</h3>
 <p><em>Mineur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:116</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></p>
 <p>Une carte version 2 reecrite ne gagne pas de tableau 'layers'.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte version 2.</li><li>La reserialiser.</li></ol>
@@ -738,6 +752,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>json.find(&quot;\&quot;layers\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li><li>Vérifie que <code>json.find(&quot;\&quot;entities\&quot;&quot;)</code> vaut <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestallerretoursurtroiscouchesetdeuxentites">CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:135</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a>, <a class="ref" href="../Specification/niveaux.html#EX-LVL-017"><code>EX-LVL-017</code></a></p>
 <p>Une carte a trois couches et deux entites survit a l'aller-retour.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte version 3 a trois couches et deux entites.</li><li>La reserialiser puis la recharger.</li><li>Comparer couches et entites au niveau d'origine.</li></ol>
@@ -745,6 +760,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;layers().size()</code> vaut <code>loaded.level-&gt;layers().size()</code>.</li><li>Vérifie que <code>after.name</code> vaut <code>before.name</code>.</li><li>Vérifie que <code>after.kind</code> vaut <code>before.kind</code>.</li><li>Vérifie que <code>after.tiles.width()</code> vaut <code>before.tiles.width()</code>.</li><li>Vérifie que <code>after.tiles.height()</code> vaut <code>before.tiles.height()</code>.</li><li>Vérifie que <code>after.tiles.tile(column, row)</code> vaut <code>before.tiles.tile(column, row)</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[0].type</code> vaut <code>&quot;npc&quot;</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[0].position</code> vaut <code>(core::GridPosition{2, 2})</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[1].type</code> vaut <code>&quot;chest&quot;</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities()[1].position</code> vaut <code>(core::GridPosition{0, 2})</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestchampsinconnusdunecouchepreservesalareecriture">CouchesDeCarteTest.ChampsInconnusDUneCouchePreservesALaReecriture</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:177</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-018"><code>EX-LVL-018</code></a></p>
 <p>Les champs inconnus d'une couche sont preserves a la reecriture.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une couche portant quatre cles inconnues (booleen, entier, reel, chaine).</li><li>Reserialiser puis recharger.</li></ol>
@@ -752,6 +768,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>decor</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>decor-&gt;properties.size()</code> vaut <code>4u</code>.</li><li>Vérifie que <code>std::get&lt;bool&gt;(decor-&gt;properties.at(&quot;difficultTerrain&quot;))</code> vaut <code>true</code>.</li><li>Vérifie que <code>std::get&lt;std::int64_t&gt;(decor-&gt;properties.at(&quot;coverBonus&quot;))</code> vaut <code>2</code>.</li><li>Vérifie que <code>std::get&lt;double&gt;(decor-&gt;properties.at(&quot;heightMeters&quot;))</code> vaut <code>1.5</code> (comparaison flottante).</li><li>Vérifie que <code>std::get&lt;std::string&gt;(decor-&gt;properties.at(&quot;note&quot;))</code> vaut <code>&quot;tapis&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestchampsinconnusduneentitepreservesalareecriture">CouchesDeCarteTest.ChampsInconnusDUneEntitePreservesALaReecriture</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:205</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-018"><code>EX-LVL-018</code></a></p>
 <p>Les champs inconnus d'une entite sont preserves a la reecriture.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une entite portant un dialogue, un niveau et un drapeau.</li><li>Reserialiser puis recharger.</li></ol>
@@ -759,6 +776,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.ok()</code> est vrai.</li><li>Vérifie que <code>reloaded.level-&gt;entities().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>npc.properties.size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>std::get&lt;std::string&gt;(npc.properties.at(&quot;dialogue&quot;))</code> vaut <code>&quot;bonjour&quot;</code>.</li><li>Vérifie que <code>std::get&lt;std::int64_t&gt;(npc.properties.at(&quot;level&quot;))</code> vaut <code>3</code>.</li><li>Vérifie que <code>std::get&lt;bool&gt;(npc.properties.at(&quot;hostile&quot;))</code> vaut <code>false</code>.</li><li>Vérifie que <code>reloaded.level-&gt;entities().back().properties.empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestlacouchedecollisionestlagrilledugameplay">CouchesDeCarteTest.LaCoucheDeCollisionEstLaGrilleDuGameplay</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:233</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></p>
 <p>La couche de collision est la grille du gameplay.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte dont le decor pose un mur en (2, 1), absent de la collision.</li><li>Lire la grille du niveau.</li></ol>
@@ -766,6 +784,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;tileMap().tile(0, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>loaded.level-&gt;tileMap().tile(2, 1)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>decor</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>decor-&gt;tiles.tile(2, 1)</code> vaut <code>core::TileType::Wall</code>.</li><li>Vérifie que <code>collision</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>&amp;loaded.level-&gt;layers().front()</code> vaut <code>collision</code>.</li><li>Vérifie que <code>collision-&gt;tiles.tile(1, 1)</code> vaut <code>core::TileType::Entry</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestcarteduneversionfuturerefuseeavecunmessageexplicite">CouchesDeCarteTest.CarteDUneVersionFutureRefuseeAvecUnMessageExplicite</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:261</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-005"><code>EX-LVL-005</code></a>, <a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></p>
 <p>Une carte d'une version future est refusee explicitement.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte declarant la version suivant la version courante.</li></ol>
@@ -773,6 +792,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::UnsupportedFormatVersion</code>.</li><li>Vérifie que <code>loaded.error.find(future)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetesttuilehorsbornesdansunecoucherefusee">CouchesDeCarteTest.TuileHorsBornesDansUneCoucheRefusee</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:289</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-004"><code>EX-LVL-004</code></a></p>
 <p>Une tuile hors bornes dans une couche est refusee.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte dont une couche pose une tuile en dehors de la grille.</li></ol>
@@ -780,6 +800,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::OutOfBounds</code>.</li><li>Vérifie que <code>loaded.error.find(&quot;sol&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestentitehorsbornesrefusee">CouchesDeCarteTest.EntiteHorsBornesRefusee</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:317</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-017"><code>EX-LVL-017</code></a></p>
 <p>Une entite hors bornes est refusee.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte dont une entite est posee en dehors de la grille.</li></ol>
@@ -787,6 +808,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est faux.</li><li>Vérifie que <code>loaded.errorCode</code> vaut <code>core::LevelValidationError::OutOfBounds</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="couchesdecartetestroledecoucheinconnuretombesurlesol">CouchesDeCarteTest.RoleDeCoucheInconnuRetombeSurLeSol</h3>
 <p><em>Mineur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:343</code></p>
+<p>Exigences : <a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></p>
 <p>Un role de couche inconnu ne fait pas echouer la carte.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte dont une couche declare un role inconnu.</li></ol>
@@ -794,6 +816,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>loaded.level-&gt;layers().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>loaded.level-&gt;layers().back().kind</code> vaut <code>core::LayerKind::Ground</code>.</li><li>Vérifie que <code>loaded.level-&gt;layers().back().name</code> vaut <code>&quot;brouillard&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestbrouillondeditionpreservecouchesetentites">CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:372</code></p>
+<p>Exigences : <a class="ref" href="../Specification/editeur-niveaux.html#EX-EDIT-011"><code>EX-EDIT-011</code></a>, <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></p>
 <p>Le brouillon d'edition preserve couches et entites.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte version 3 et en faire un brouillon d'edition.</li><li>Reconvertir le brouillon en niveau, sans rien modifier.</li></ol>
@@ -801,6 +824,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.layers().size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>draft.entities().size()</code> vaut <code>2u</code>.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.level-&gt;layers().size()</code> vaut <code>3u</code>.</li><li>Vérifie que <code>rebuilt.level-&gt;entities().size()</code> vaut <code>2u</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetesttuilepeinteatteintlacouchedecollision">CouchesDeCarteTest.TuilePeinteAtteintLaCoucheDeCollision</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:397</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></p>
 <p>Une tuile peinte dans l'editeur atteint la couche de collision.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ouvrir une carte version 3 en brouillon.</li><li>Peindre un solide en (2, 0).</li><li>Reconvertir le brouillon en niveau.</li></ol>
@@ -808,6 +832,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>rebuilt.ok()</code> est vrai.</li><li>Vérifie que <code>collision</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>collision-&gt;tiles.tile(2, 0)</code> vaut <code>core::TileType::Solid</code>.</li><li>Vérifie que <code>ground</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ground-&gt;tiles.tile(2, 0)</code> vaut <code>core::TileType::Empty</code>.</li><li>Vérifie que <code>ground-&gt;tiles.tile(1, 0)</code> vaut <code>core::TileType::Solid</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestredimensionnementemportecouchesetentites">CouchesDeCarteTest.RedimensionnementEmporteCouchesEtEntites</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:428</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a>, <a class="ref" href="../Specification/niveaux.html#EX-LVL-017"><code>EX-LVL-017</code></a></p>
 <p>Un redimensionnement emporte couches et entites.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ouvrir une carte version 3 de 4x3 en brouillon.</li><li>La redimensionner en 2x2.</li></ol>
@@ -815,6 +840,7 @@
 <ul><li>Vérifie que <code>loaded.ok()</code> est vrai.</li><li>Vérifie que <code>draft.wouldResizeDropContent(2, 2)</code> est vrai.</li><li>Vérifie que <code>layer.tiles.width()</code> vaut <code>2</code>.</li><li>Vérifie que <code>layer.tiles.height()</code> vaut <code>2</code>.</li><li>Vérifie que <code>draft.entities().empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="couchesdecartetestcouchedecollisiondeclareerefusee">CouchesDeCarteTest.CoucheDeCollisionDeclareeRefusee</h3>
 <p><em>Majeur · Unitaire · Couches de carte</em> — <code>Source/Test/Unit/Core/Levels/test_map_layers.cpp:455</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-016"><code>EX-LVL-016</code></a></p>
 <p>Une couche 'collision' declaree est refusee.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger une carte declarant une couche de role 'collision'.</li></ol>
@@ -823,6 +849,7 @@
 </section><h2 id="test-rpg-terraincpp">test_rpg_terrain.cpp</h2>
 <section class="case" data-crit="Critique"><h3 id="terrainrpgtestallerretoursurchaquetypedeterrain">TerrainRpgTest.AllerRetourSurChaqueTypeDeTerrain</h3>
 <p><em>Critique · Unitaire · Terrain RPG</em> — <code>Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:50</code></p>
+<p>Exigences : <a class="ref" href="../Specification/niveaux.html#EX-LVL-003"><code>EX-LVL-003</code></a></p>
 <p>Chaque type de terrain survit a l'aller-retour de format.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chacun des neuf types, charger une carte qui le porte.</li><li>La reserialiser puis la recharger.</li></ol>
@@ -883,7 +910,7 @@
 <ul><li>Vérifie que <code>core::parseTileType(&quot;&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseTileType(&quot;mur&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>core::parseTileType(&quot;Solid&quot;).has_value()</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="core-gameplay.html"><span>Précédent</span>Core · Gameplay</a><a class="next" href="core-math.html"><span>Suivant</span>Core · Math</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-levels.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>a138dbe4b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>15773d861</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

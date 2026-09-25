@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="560" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+  </defs>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Le cycle d'un kit d'assets, hors Git (LOT-108) : de la retouche à la configuration</text>
+
+  <!-- Rangée 1 -->
+  <rect x="30" y="56" width="180" height="94" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="42" y="76" font-weight="600" fill="#25201a">1. Retouche, sur le poste</text>
+  <text x="42" y="94" font-family="Consolas, monospace" font-size="10" fill="#25201a">install_hd_asset.py</text>
+  <text x="42" y="108" font-family="Consolas, monospace" font-size="10" fill="#25201a">check_hd_assets.py</text>
+  <text x="42" y="126" font-size="11" fill="#6a6152">asset installé, contrôlé</text>
+  <text x="42" y="140" font-size="11" fill="#6a6152">sources hors dépôt (Tools/)</text>
+
+  <rect x="350" y="56" width="180" height="94" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="362" y="76" font-weight="600" fill="#25201a">2. Publication</text>
+  <text x="362" y="94" font-family="Consolas, monospace" font-size="10" fill="#25201a">publish_asset_kit.py</text>
+  <text x="362" y="110" font-size="11" fill="#6a6152">archive immuable, N+1</text>
+  <text x="362" y="126" font-family="Consolas, monospace" font-size="10" fill="#25201a">…-capital-arenarea-2.zip</text>
+  <text x="362" y="140" font-family="Consolas, monospace" font-size="10" fill="#6a6152">release assets-&lt;région&gt;</text>
+
+  <rect x="670" y="56" width="180" height="94" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="682" y="76" font-weight="600" fill="#25201a">3. Verrou, commis</text>
+  <text x="682" y="94" font-family="Consolas, monospace" font-size="10" fill="#25201a">Assets/kits.lock.json</text>
+  <text x="682" y="108" font-family="Consolas, monospace" font-size="10" fill="#25201a">"id": "…/arenarea@2"</text>
+  <text x="682" y="122" font-family="Consolas, monospace" font-size="10" fill="#25201a">"sha256": "2b87…", "bytes"</text>
+  <text x="682" y="140" font-size="11" fill="#8a2233">commis ; l'image, non</text>
+
+  <!-- Rangée 2 -->
+  <rect x="670" y="216" width="180" height="94" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="682" y="236" font-weight="600" fill="#25201a">4. Installation</text>
+  <text x="682" y="254" font-family="Consolas, monospace" font-size="10" fill="#25201a">fetch_assets.py [--check]</text>
+  <text x="682" y="270" font-size="11" fill="#6a6152">poste : setup_dev.ps1,</text>
+  <text x="682" y="286" font-size="11" fill="#6a6152">build.ps1 ; CI : fetch-assets</text>
+  <text x="682" y="302" font-size="11" fill="#6a6152">--force : écraser le local</text>
+
+  <rect x="350" y="216" width="180" height="94" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="362" y="236" font-weight="600" fill="#25201a">5. Témoin</text>
+  <text x="362" y="254" font-family="Consolas, monospace" font-size="10" fill="#25201a">Assets/.kits/&lt;slug&gt;.json</text>
+  <text x="362" y="270" font-size="11" fill="#6a6152">id, empreinte, fichiers</text>
+  <text x="362" y="286" font-size="11" fill="#6a6152">non suivi par Git</text>
+  <text x="362" y="302" font-size="11" fill="#6a6152">un par kit installé</text>
+
+  <rect x="30" y="216" width="180" height="94" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <text x="42" y="236" font-weight="600" fill="#25201a">6. Garde CMake</text>
+  <text x="42" y="254" font-size="11" fill="#6a6152">le témoin porte le sha256</text>
+  <text x="42" y="270" font-size="11" fill="#3f6b34">oui : configure</text>
+  <text x="42" y="286" font-size="11" fill="#8a2233">non : refus + la commande</text>
+  <text x="42" y="302" font-family="Consolas, monospace" font-size="10" fill="#25201a">-DSKIP_ASSET_KITS_CHECK=ON</text>
+
+  <!-- Flèches du cycle -->
+  <g stroke="#9a7420" stroke-width="2" fill="none">
+    <path d="M210,103 L348,103" marker-end="url(#a)"/>
+    <path d="M530,103 L668,103" marker-end="url(#a)"/>
+    <path d="M760,150 L760,214" marker-end="url(#a)"/>
+    <path d="M670,263 L532,263" marker-end="url(#a)"/>
+    <path d="M350,263 L212,263" marker-end="url(#a)"/>
+    <path d="M120,216 L120,152" marker-end="url(#a)"/>
+  </g>
+  <g font-family="Consolas, monospace" font-size="10" fill="#6a6152">
+    <text x="218" y="94">--dry-run : peser</text>
+    <text x="218" y="118">une retouche = un numéro</text>
+    <text x="540" y="94">gh release upload</text>
+    <text x="540" y="118">jamais --clobber</text>
+    <text x="770" y="178">cache par sha256</text>
+    <text x="770" y="192">(poste, CI)</text>
+    <text x="540" y="254">vérifie le sha256,</text>
+    <text x="536" y="278">extrait, pose le témoin</text>
+    <text x="220" y="254">CMakeLists.txt relit</text>
+    <text x="220" y="278">témoin et verrou</text>
+    <text x="128" y="178">build.ps1 : fetch,</text>
+    <text x="128" y="192">puis cmake --preset</text>
+  </g>
+
+  <!-- Gardes latérales -->
+  <rect x="30" y="336" width="400" height="76" rx="8" fill="#fbf8f0" stroke="#8a2233"/>
+  <text x="42" y="356" font-weight="600" fill="#8a2233">Ce que Git refuse</text>
+  <text x="42" y="374" font-size="11" fill="#25201a">Les images de Common/, Regions/, Maps/, UI/ sont ignorées.</text>
+  <text x="42" y="390" font-family="Consolas, monospace" font-size="10" fill="#25201a">check_binary_files.py</text>
+  <text x="172" y="390" font-size="11" fill="#25201a">refuse une image suivie sous un kit</text>
+  <text x="42" y="405" font-size="11" fill="#25201a">verrouillé, au pre-commit et en CI : l'historique la garderait.</text>
+
+  <rect x="450" y="336" width="400" height="76" rx="8" fill="#fbf8f0" stroke="#2f7f86"/>
+  <text x="462" y="356" font-weight="600" fill="#2f7f86">Ce que l'archive garantit</text>
+  <text x="462" y="374" font-size="11" fill="#25201a">Déterministe (date fixe, fichiers triés) : un kit déjà en</text>
+  <text x="462" y="390" font-size="11" fill="#25201a">place se reconnaît sans télécharger. Numérotée : une retouche</text>
+  <text x="462" y="405" font-size="11" fill="#25201a">publie N+1, l'archive N ne change jamais et reste installable.</text>
+
+  <!-- Légende -->
+  <g font-size="12" fill="#25201a">
+    <text x="20" y="444">Les images d'un kit pèsent des dizaines de mébioctets et chaque binaire commis reste dans le pack Git pour toujours :</text>
+    <text x="20" y="462">elles vivent donc en archives sur les releases du dépôt, et Git ne garde que les manifestes et le verrou, qui dit pour</text>
+    <text x="20" y="480">chaque kit quelle archive et quelle empreinte. Le témoin d'installation laisse CMake refuser de configurer sans les kits :</text>
+    <text x="20" y="498">sans lui, l'interface globerait un HUD vide et le jeu se construirait sans image, sans erreur visible. asset_kits.py est la</text>
+    <text x="20" y="516">partie commune de la publication et de l'installation ; en CI, l'action fetch-assets met les archives en cache par verrou.</text>
+  </g>
+</svg>

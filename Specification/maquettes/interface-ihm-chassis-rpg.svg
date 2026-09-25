@@ -16,7 +16,7 @@
     <text x="440" y="112" fill="#6a6152">LB / RB : écran voisin</text>
   </g>
   <rect x="76" y="132" width="180" height="150" fill="#fbf8f0" stroke="#d6c9a8"/>
-  <text x="84" y="150" font-size="11" fill="#25201a" font-weight="600">Brenna Vaugris</text>
+  <text x="84" y="150" font-size="11" fill="#25201a" font-weight="600">Grom Tranche-Écaille</text>
   <text x="84" y="166" font-size="10" fill="#6a6152">Humaine · Guerrière niv. 3</text>
   <g font-size="10" fill="#25201a"><text x="84" y="190">For 16 (+3)</text><text x="84" y="206">Dex 12 (+1)</text><text x="84" y="222">Con 14 (+2)</text><text x="170" y="190">Int 10 (+0)</text><text x="170" y="206">Sag 11 (+0)</text><text x="170" y="222">Cha 9 (−1)</text></g>
   <text x="84" y="250" font-size="10" fill="#25201a">CA 16 · PV 32 · Vitesse 6 cases</text>

@@ -35,10 +35,13 @@
 <h3 id="critères">Critères</h3>
 <ul><li><strong>Une carte sous <code>capital/arenarea/</code> cite une pièce de chacun des quatre niveaux</strong> ✔ — <code>LevelTree/Levels/central-empire/capital/arenarea.json</code> : <code>--check</code> passe sans case forcée (<code>LevelTreeTest.UneCarteQuiCiteQuatreNiveauxPasseLeControle</code>), <code>--render</code> la montre sans une image manquante (<code>MapRenderTest.UneCarteQuiPuiseDansQuatreNiveauxSeRend</code>), l'essai dans le jeu la compose (<code>ExplorationCarteIntegration.UneCarteQuiPuiseDansQuatreNiveauxSeJoue</code>). Vérifié aussi sur les assets <strong>livrés</strong> : une rue de 12 cases posée en Arenarea avec le kit de la Capitale et la bannière de l'Empire se contrôle et se rend (carte jetable, non versionnée).</li><li><strong>Promouvoir une pièce</strong> ✔ — sous la même clé, aucun octet des cartes ne change (<code>Arborescence.PromouvoirSousSaCleNeChangeAucuneCarte</code>) ; sous une autre clé, <code>--replace-piece --level</code> réécrit l'Arenarea et laisse le Martpart, qui pose la fontaine de la ville sous le même nom (<code>Arborescence.PromouvoirSousUneAutreCleNeRecritQueSesCartes</code>).</li><li><strong><code>git grep &#x27;&quot;Scene/&quot;&#x27; Source/Editor Source/HMI/Graphics</code></strong> ✔ — aucun résultat.</li><li><strong>Un scénario <code>--apply</code> couvre la pose d'une pièce commune</strong> ✔ — <code>Fixtures/Gestures/niveaux.json</code> refait l'Arenarea de <code>LevelTree</code> pièce à pièce, octet pour octet. La rue de douze cases avec le seul kit, vérifiée sur les assets livrés ; l'auteur a déclaré le lot fini.</li></ul>
 <h2 id="livraison">Livraison</h2>
-<p>Livré le 24 septembre 2026, sur décision de l'auteur, figurines comprises.</p></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-124-editeur-et-arborescence-par-niveaux.md</code></p>
+<p>Livré le 24 septembre 2026, sur décision de l'auteur, figurines comprises.</p>
+<h2 id="exigences">Exigences</h2>
+<p>Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :</p>
+<ul><li><code>EX-LVL-029</code> — le lieu est un chemin, les pièces se cherchent du plus propre au plus commun.</li><li><code>EX-EDIT-099</code> — l'arbre des lieux à la création, et le suivi du niveau par <code>--who-cites</code> et <code>--replace-piece</code>.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-124-editeur-et-arborescence-par-niveaux.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-25 · <code>a138dbe4b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-25 · <code>15773d861</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

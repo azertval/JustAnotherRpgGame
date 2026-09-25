@@ -66,10 +66,13 @@
 <h2 id="périmètre">Périmètre</h2>
 <p><strong>Pas dedans</strong> : le combat sur une carte en maquette — il vient avec le LOT-118, qui héritera du rendu ; la hauteur réelle des murs (D6) ; toute texture engendrée ; le rendu de texte en scène, que D2 contourne.</p>
 <h2 id="risques">Risques</h2>
-<ul><li>La parité éditeur / jeu se joue sur une primitive <strong>nouvelle</strong> : <code>SpriteBatch</code> côté GPU et <code>ScenePainter</code> côté <code>QPainter</code> doivent tous deux l'apprendre. C'est la phase 1, isolée exprès, et le test de parité de la phase 5 la garde.</li><li>Le LOT-103 touche le même composeur : l'ordre entre les deux est libre, mais le second se rebase sur le premier.</li><li><code>WorldSceneSnapshot</code> gagne deux champs (types, jetons) : c'est une structure de <strong>valeurs</strong> comparée par <code>operator==</code> et prise dans <code>synchronize()</code>, donc sans risque de fil, mais les instantanés de test existants sont à relire.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-128-cartes-maquettes.md</code></p>
+<ul><li>La parité éditeur / jeu se joue sur une primitive <strong>nouvelle</strong> : <code>SpriteBatch</code> côté GPU et <code>ScenePainter</code> côté <code>QPainter</code> doivent tous deux l'apprendre. C'est la phase 1, isolée exprès, et le test de parité de la phase 5 la garde.</li><li>Le LOT-103 touche le même composeur : l'ordre entre les deux est libre, mais le second se rebase sur le premier.</li><li><code>WorldSceneSnapshot</code> gagne deux champs (types, jetons) : c'est une structure de <strong>valeurs</strong> comparée par <code>operator==</code> et prise dans <code>synchronize()</code>, donc sans risque de fil, mais les instantanés de test existants sont à relire.</li></ul>
+<h2 id="exigences">Exigences</h2>
+<p>Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :</p>
+<ul><li><code>EX-REN-023</code> — le rendu sans texture : losanges, blocs, jetons, palette dans le code.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-128-cartes-maquettes.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-25 · <code>a138dbe4b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-25 · <code>15773d861</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

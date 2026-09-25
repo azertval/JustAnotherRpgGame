@@ -42,10 +42,13 @@
 <h3 id="limport-dans-le-projet-une-arborescence">L'import dans le projet : une arborescence</h3>
 <p>598 toits et le kit : 632 fichiers à plat dans <code>capital/Common/Scene/</code>. Choix de l'auteur, le kit se range <strong>par famille</strong>, les toits <strong>par sorte puis par largeur</strong> — <code>floors/</code>, <code>walls/</code>, <code>balustrades/</code>, <code>plants/</code>, <code>props/</code>, <code>roofs/{straight,l,t,x}/d2…d5/</code> ; le kit impérial en <code>walls/</code>, <code>props/</code>, <code>columns/</code>. Un seul manifeste par <code>Scene/</code>, qui cite chaque pièce par son chemin : les clés, donc les cartes, ne changent pas. Le moteur prend le chemin dans le manifeste (<code>PlaceAppearance::pieceFile</code>), lit l'ancre d'une image rangée dans le manifeste du lieu, la palette de l'éditeur se groupe par dossier ; l'installateur range d'après une règle <code>folders</code> du descripteur, que le standard d'arborescence décrit. Les 636 images installées sont identiques, pixels et ancres, à celles d'avant le rangement.</p>
 <h2 id="livraison">Livraison</h2>
-<p>Livré le 23 septembre 2026, <strong>PR #121</strong>, sur décision de l'auteur. 968 tests CTest et 158 tests des scripts verts. L'éditeur ne lit pas encore les lieux rangés sous <code>Regions/</code> : il y peindra les toits au <code>LOT-124</code>. Les scripts de fabrication et de validation des toitures, à usage unique, ont été retirés du dépôt à la livraison.</p></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-129-etages-et-toits.md</code></p>
+<p>Livré le 23 septembre 2026, <strong>PR #121</strong>, sur décision de l'auteur. 968 tests CTest et 158 tests des scripts verts. L'éditeur ne lit pas encore les lieux rangés sous <code>Regions/</code> : il y peindra les toits au <code>LOT-124</code>. Les scripts de fabrication et de validation des toitures, à usage unique, ont été retirés du dépôt à la livraison.</p>
+<h2 id="exigences">Exigences</h2>
+<p>Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :</p>
+<ul><li><code>EX-LVL-025</code> — l'étage, couche de décor élevée.</li><li><code>EX-EDIT-098</code> — l'étage réglé, peint, montré ou caché dans l'éditeur.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-129-etages-et-toits.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-09-25 · <code>a138dbe4b</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-25 · <code>15773d861</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

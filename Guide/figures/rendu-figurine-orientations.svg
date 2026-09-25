@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="460" fill="#fbf8f0"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9a7420"/>
+    </marker>
+  </defs>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">L'orientation d'une figurine : le vecteur (dx, dy) de la grille devient l'une des quatre diagonales</text>
+
+  <!-- ===== Gauche : le losange et les quatre diagonales ===== -->
+  <text x="20" y="52" font-weight="600" fill="#6a6152">1. La grille vue en losange</text>
+
+  <!-- Grille 3 × 3 : cellule (c, r), sommet haut en (230 + (c − r)·45, 130 + (c + r)·28) -->
+  <g fill="#ece4d1" stroke="#d6c9a8">
+    <path d="M230,130 L275,158 L230,186 L185,158 z"/>
+    <path d="M275,158 L320,186 L275,214 L230,186 z"/>
+    <path d="M320,186 L365,214 L320,242 L275,214 z"/>
+    <path d="M185,158 L230,186 L185,214 L140,186 z"/>
+    <path d="M275,214 L320,242 L275,270 L230,242 z"/>
+    <path d="M140,186 L185,214 L140,242 L95,214 z"/>
+    <path d="M185,214 L230,242 L185,270 L140,242 z"/>
+    <path d="M230,242 L275,270 L230,298 L185,270 z"/>
+  </g>
+  <!-- La case du héros : (1, 1) -->
+  <path d="M230,186 L275,214 L230,242 L185,214 z" fill="#9a7420" fill-opacity="0.25" stroke="#9a7420" stroke-width="1.5"/>
+  <circle cx="230" cy="214" r="7" fill="#9a7420"/>
+
+  <!-- Les axes de la grille -->
+  <text x="300" y="150" font-size="11" fill="#6a6152">colonne + 1 ↘</text>
+  <text x="90" y="150" font-size="11" fill="#6a6152">↙ ligne + 1</text>
+
+  <!-- Les quatre diagonales, depuis le héros -->
+  <g stroke="#9a7420" stroke-width="2" fill="none">
+    <path d="M238,219 L330,276" marker-end="url(#a)"/>
+    <path d="M222,219 L130,276" marker-end="url(#a)"/>
+    <path d="M238,209 L330,152" marker-end="url(#a)"/>
+    <path d="M222,209 L130,152" marker-end="url(#a)"/>
+  </g>
+
+  <!-- Étiquettes des diagonales -->
+  <g fill="#25201a">
+    <text x="20" y="96" font-weight="600">nord-ouest</text>
+    <text x="20" y="112" font-size="11" fill="#6a6152">dx &lt; 0 : − colonne</text>
+    <text x="20" y="126" font-family="Consolas, monospace" font-size="11">walk-nw.png</text>
+
+    <text x="440" y="96" font-weight="600" text-anchor="end">nord-est</text>
+    <text x="440" y="112" font-size="11" fill="#6a6152" text-anchor="end">dy &lt; 0 : − ligne</text>
+    <text x="440" y="126" font-family="Consolas, monospace" font-size="11" text-anchor="end">walk-ne.png</text>
+
+    <text x="20" y="316" font-weight="600">sud-ouest</text>
+    <text x="20" y="332" font-size="11" fill="#6a6152">dy &gt; 0 : + ligne</text>
+    <text x="20" y="346" font-family="Consolas, monospace" font-size="11">walk-sw.png</text>
+
+    <text x="440" y="316" font-weight="600" text-anchor="end">sud-est</text>
+    <text x="440" y="332" font-size="11" fill="#6a6152" text-anchor="end">dx &gt; 0 : + colonne</text>
+    <text x="440" y="346" font-family="Consolas, monospace" font-size="11" text-anchor="end">walk-se.png</text>
+  </g>
+  <text x="20" y="386" font-size="11" fill="#6a6152">Le bas de l'écran est entre SE et SW : un pas droit vers le bas est une égalité.</text>
+
+  <!-- ===== Droite : la règle de figureFacingFor ===== -->
+  <text x="480" y="52" font-weight="600" fill="#6a6152">2. <tspan font-family="Consolas, monospace">hmi::figureFacingFor(move, previous)</tspan></text>
+  <rect x="480" y="62" width="380" height="196" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+    <text x="492" y="82" fill="#6a6152">move (dx, dy)  previous   → facing     pourquoi</text>
+    <text x="492" y="102">( 1,   0)     —          SouthEast   + colonne</text>
+    <text x="492" y="120">(−1,   0)     —          NorthWest   − colonne</text>
+    <text x="492" y="138">( 0,   1)     —          SouthWest   + ligne</text>
+    <text x="492" y="156">( 0,  −1)     —          NorthEast   − ligne</text>
+    <text x="492" y="174">(0,8, −0,6)   —          SouthEast   axe dominant</text>
+    <text x="492" y="192" fill="#9a7420">(0,7,  0,7)   SouthWest  SouthWest   égalité : gardée</text>
+    <text x="492" y="210" fill="#9a7420">(0,7,  0,7)   NorthWest  SouthEast   égalité : la 1re</text>
+    <text x="492" y="228">( 0,   0)     NorthWest  NorthWest   nul : inchangée</text>
+    <text x="492" y="248" font-family="Georgia, serif" fill="#6a6152">Égalité jugée à 10⁻⁴ près ; ordre : SE, SW, NE, NW.</text>
+  </g>
+
+  <!-- Les fichiers -->
+  <text x="480" y="290" font-weight="600" fill="#6a6152">3. La bande que lit <tspan font-family="Consolas, monospace">figureStripPath</tspan></text>
+  <rect x="480" y="300" width="380" height="72" rx="8" fill="#fbf8f0" stroke="#9a7420" stroke-width="2"/>
+  <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+    <text x="492" y="320">&lt;dossier&gt;/&lt;clip&gt;-&lt;suffixe&gt;.png</text>
+    <text x="492" y="338">Characters/Heroes/brawler/walk-se.png</text>
+    <text x="492" y="356" fill="#6a6152">facing = None : walk.png — une seule bande</text>
+  </g>
+
+  <!-- Légende -->
+  <g font-size="12" fill="#25201a">
+    <text x="20" y="404">Le héros marche dans la grille, en colonnes et en lignes ; la figurine est peinte pour l'écran, dans quatre diagonales.</text>
+    <text x="20" y="422">Avancer d'une colonne descend vers le sud-est, d'une ligne vers le sud-ouest : l'axe dominant du vecteur choisit la bande.</text>
+    <text x="20" y="440">À égalité, deux bandes conviennent ; garder l'orientation courante évite que la figurine tremble d'une image à l'autre.</text>
+  </g>
+</svg>
