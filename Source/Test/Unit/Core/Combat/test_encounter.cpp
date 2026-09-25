@@ -145,6 +145,33 @@ TEST(EncounterTest, UneRencontreSansCleSeRedeclenche) {
 }
 
 /**
+ * @brief Une victoire pose le fait de la rencontre gagnée, clé d'entité ou non : c'est ce qu'une
+ *        quête lit quand le combat a été engagé par un dialogue (`LOT-120`).
+ * \castest{<b>Une victoire pose le fait encounter/&lt;id&gt;/won, une fuite non.</b><br/>
+ * \tcat Unitaire · Combat<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Gagner une rencontre sans cle d'entite.<br/>2. En fuir une autre.<br/>
+ * \tattendu Le fait `encounter/&lt;id&gt;/won` est pose apres la victoire seulement.
+ * }
+ */
+TEST(EncounterTest, UneVictoirePoseLeFaitDeLaRencontreGagnee) {
+    core::WorldFlags drapeaux;
+    const core::Encounter modele = rencontre();
+    const std::string fait = core::encounterWonFlag(modele.id);
+    EXPECT_EQ(fait, "encounter/" + modele.id + "/won");
+
+    const core::EncounterRun fuie =
+        core::beginEncounter(modele, exploration(), {.column = 1, .row = 1}, "");
+    static_cast<void>(core::endEncounter(fuie, core::CombatOutcome::Flight, drapeaux));
+    EXPECT_FALSE(drapeaux.isSet(fait)) << "fuir n'est pas gagner";
+
+    const core::EncounterRun gagnee =
+        core::beginEncounter(modele, exploration(), {.column = 1, .row = 1}, "");
+    static_cast<void>(core::endEncounter(gagnee, core::CombatOutcome::Victory, drapeaux));
+    EXPECT_TRUE(drapeaux.isSet(fait));
+}
+
+/**
  * @brief Les combattants se placent **relativement** au déclencheur.
  * \castest{<b>Les combattants se placent relativement au declencheur.</b><br/>
  * \tcat Unitaire · Combat<br/>

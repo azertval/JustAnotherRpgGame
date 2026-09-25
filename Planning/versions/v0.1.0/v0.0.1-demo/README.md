@@ -22,7 +22,7 @@ les plans ci-dessous montrent, rien de plus —, en un seul lot :
 |---|---|---|
 | **Le standard et le moteur HD** | LOT-101 → LOT-102, LOT-103 → LOT-104 → LOT-105 → LOT-129 ; LOT-112 (héros) → LOT-145 (mannequins) — tous livrés, sauf les mannequins en cours | rien |
 | **Le moteur de la quête** | LOT-116 (drapeaux, livré), LOT-117 (jet en dialogue), LOT-118 (combat sur la carte, livré), LOT-119 (écrans de fin) | rien |
-| **Les cartes et la quête** | LOT-128 → LOT-126 → **LOT-146** (les trois cartes de principe) → LOT-120 (la quête), LOT-121 (l'onglet « Carte ») → LOT-122 (recette) | rien : l'éditeur est prêt (LOT-123 à LOT-127, livrés) |
+| **Les cartes et la quête** | LOT-128 → LOT-126 → LOT-146 (les cartes de principe, livré) → LOT-120 (la quête, livré ; « Nouvelle partie » entre dans la démo), LOT-121 (l'onglet « Carte ») → LOT-122 (recette) | rien : l'éditeur est prêt (LOT-123 à LOT-127, livrés) |
 
 ## Ce que la démo contient
 

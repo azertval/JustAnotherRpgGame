@@ -714,6 +714,54 @@ TEST(MaquetteRenderTest, UnMurSeComposeEnBlocDeTroisFaces) {
 }
 
 /**
+ * @brief Un mur de la couche de decor se couche a plat sur le plan de principe, comme un mur du
+ *        sol : une carte neuve met ses murs sur `relief`, et le plan doit les montrer (`LOT-146`).
+ * \castest{<b>Un mur de decor se couche a plat sur le plan.</b><br/>
+ * \tcat Unitaire · Rendu de maquette<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Composer une carte d'une case dont le mur est sur la couche de decor, sans lieu,
+ * une fois extrude, une fois a plat.<br/>
+ * \tattendu Trois faces sur le calque du decor a l'extrusion ; a plat, un seul losange, a la
+ * teinte du mur.
+ * }
+ */
+TEST(MaquetteRenderTest, UnMurDeDecorSeCoucheAPlatSurLePlan) {
+    core::TileMap collision{1, 1};
+    collision.setTile(0, 0, core::TileType::Wall);
+    core::TileMap sol{1, 1};
+    core::TileMap decor{1, 1};
+    decor.setTile(0, 0, core::TileType::Wall);
+    core::LevelData donnees{.name = "mur-de-decor", .tileMap = std::move(collision)};
+    donnees.layers.push_back(core::TileLayer{
+        .name = "sol", .kind = core::LayerKind::Ground, .tiles = std::move(sol), .properties = {}});
+    donnees.layers.push_back(core::TileLayer{.name = "relief",
+                                             .kind = core::LayerKind::Decor,
+                                             .tiles = std::move(decor),
+                                             .properties = {}});
+    const core::Level carte{std::move(donnees)};
+
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carte, hmi::PlaceAppearance{}, {});
+    ASSERT_EQ(instantane.reliefTypeAt({0, 0}), core::TileType::Wall);
+    const core::IsoProjection projection = projectionDe(instantane);
+    hmi::ScenePieceTextures resolues;
+    resolues.solid = hmi::SceneTexture{.texture = aplat(), .width = 1, .height = 1};
+
+    const hmi::ComposedScene extrude = hmi::composeWorldScene(instantane, projection, resolues);
+    EXPECT_EQ(extrude.size(), 3U);
+
+    hmi::ComposedScene plat;
+    hmi::composeWorldScene(plat, instantane, projection, resolues,
+                           hmi::WorldComposeOptions{.flatBlocks = true});
+    ASSERT_EQ(plat.size(), 1U);
+    EXPECT_EQ(plat.quads()[0].kind, hmi::QuadKind::Poly);
+    const hmi::MaquetteColor teinte = hmi::maquetteColor(core::TileType::Wall);
+    EXPECT_FLOAT_EQ(plat.quads()[0].poly.r, teinte.r);
+    EXPECT_FLOAT_EQ(plat.quads()[0].poly.g, teinte.g);
+    EXPECT_FLOAT_EQ(plat.quads()[0].poly.b, teinte.b);
+}
+
+/**
  * @brief L'eau profonde bloque le pas mais n'est pas de la matiere : elle reste un losange plat,
  *        plus sombre que l'eau vive, et l'on voit par-dessus.
  * \castest{<b>L'eau profonde reste un losange plat, plus sombre que l'eau vive.</b><br/>

@@ -31,6 +31,7 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/LevelWriter.h"
+#include "Core/Levels/TileType.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/GestureScript.h"
@@ -77,7 +78,8 @@ struct CarteOuverte {
     return valide.ok() ? core::LevelWriter::toJsonString(*valide.level) : std::string{};
 }
 
-/// La première pièce dressée de la carte : sa couche et sa case.
+/// La première pièce dressée de la carte : sa couche et sa case. Sur une carte de principe, qui
+/// ne nomme aucune pièce (`LOT-146`), c'est le premier bloc typé de la couche de décor.
 struct PieceDressee {
     std::string couche;
     int colonne = 0;
@@ -85,6 +87,7 @@ struct PieceDressee {
 };
 
 [[nodiscard]] std::optional<PieceDressee> premierePiece(const core::LevelDraft& draft) {
+    std::optional<PieceDressee> bloc;
     for (const core::TileLayer& couche : draft.layers()) {
         if (couche.kind != core::LayerKind::Decor) {
             continue;
@@ -94,10 +97,13 @@ struct PieceDressee {
                 if (!couche.pieceAt(colonne, ligne).empty()) {
                     return PieceDressee{.couche = couche.name, .colonne = colonne, .ligne = ligne};
                 }
+                if (!bloc && couche.tiles.tile(colonne, ligne) != core::TileType::Empty) {
+                    bloc = PieceDressee{.couche = couche.name, .colonne = colonne, .ligne = ligne};
+                }
             }
         }
     }
-    return std::nullopt;
+    return bloc;
 }
 
 }  // namespace
@@ -159,7 +165,8 @@ TEST(ShippedMapsTest, UneRetoucheSEnregistreSeRechargeEtSeDefait) {
         bool gommee = false;
         for (const core::TileLayer& couche : relue.draft.layers()) {
             if (couche.name == piece->couche) {
-                gommee = couche.pieceAt(piece->colonne, piece->ligne).empty();
+                gommee = couche.pieceAt(piece->colonne, piece->ligne).empty() &&
+                         couche.tiles.tile(piece->colonne, piece->ligne) == core::TileType::Empty;
             }
         }
         EXPECT_TRUE(gommee) << "la pièce gommée est revenue au rechargement";

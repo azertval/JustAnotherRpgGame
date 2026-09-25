@@ -6,6 +6,30 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-146 — Les quatre cartes de principe de la démo.** Martpart (24 × 11), Arenarea (24 × 13),
+  le sable de l'Arena of Fate (34 × 24, zone de combat 22 × 14) et son niveau −1 (le vestiaire A,
+  le couloir et sa porte close, l'escalier de la porte du triomphe) sont dessinés dans l'éditeur
+  par `--apply`, sans une seule pièce, à l'échelle des plans du planning ; les gestes sont
+  l'annexe du lot. Portails et points d'arrivée nommés, zone du parvis à déclencheur, portails
+  condamnés (la porte des morts, le casino), les cinq PNJ de la quête en jetons ou mannequins
+  avec leur condition de présence ; `--check` vert, `--render --plan` de chaque carte joint. La
+  carte d'Arenarea du `LOT-109` (128 × 88) cède son identifiant (D-25). Le plan de principe
+  (`--render --plan`) couche désormais aussi les blocs de la couche de **décor** : une carte neuve
+  y met ses murs, et le plan ne les montrait pas.
+- **LOT-120 — La quête « Des pommes pour l'arène ».** La quête en données (`World/quests/pommes.json`,
+  un drapeau à cinq valeurs, six étapes), ses quatre dialogues (la mère, le garde et son jet de
+  Persuasion au degré « moyenne », l'enfant, le maître d'arène), la rencontre de l'arène et la
+  fiche du combattant (`Rpg/creatures/combattant-de-l-arene.json`, joué par le mannequin), les
+  textes en français et en anglais. **« Nouvelle partie » entre dans la démo** : un plan de la
+  Capitale provisoire (`World/cities/capital.json`, deux quartiers, Martpart en départ à
+  `market-gate`) jusqu'au plan complet du `LOT-121`. Le moteur pose à la victoire le fait
+  `encounter/<rencontre>/won` (`core::encounterWonFlag`) : une rencontre engagée par un dialogue
+  n'avait pas de trace, la quête le lit ; `DialogueModel.seed` fixe la graine d'une conversation,
+  comme `EncounterModel.seed` celle d'un combat. Tests : la chaîne entière sans fenêtre par ses
+  trois issues (`IntegrationTests`), la démo **par les modèles du jeu** de « Nouvelle partie » à
+  chaque fin (`SystemGameTests`, étiquette `systeme`), et l'équilibrage à cent graines (le héros
+  l'emporte entre 60 et 70 fois) et à mille graines tirées d'une graine maîtresse.
+
 - **Menu de développement (F9) — un seul outil.** Le menu gagne une section **Dialogue** (ouvrir
   n'importe quel dialogue du contenu, comme un PNJ l'ouvrirait), une section **Fins** (écran de
   mort, fin de la démo par voie), le **lanceur de cartes** (`--screen=MapLauncher` : toutes les

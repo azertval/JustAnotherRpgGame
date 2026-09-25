@@ -1,0 +1,86 @@
+{
+  "id": "mere",
+  "name": "La mère, à son étal de pommes (ouverture et clôture de la quête)",
+  "source": "original",
+  "speaker": {
+    "languages": ["common"],
+    "attitude": "friendly"
+  },
+  "start": "aiguillage",
+  "nodes": [
+    {
+      "id": "aiguillage",
+      "type": "condition",
+      "flag": "quete.pommes",
+      "equals": "enfant-libere",
+      "then": "retrouvailles",
+      "else": "encore"
+    },
+    {
+      "id": "encore",
+      "type": "condition",
+      "flag": "quete.pommes",
+      "equals": "inconnue",
+      "then": "appel",
+      "else": "attente"
+    },
+    {
+      "id": "appel",
+      "type": "line",
+      "choices": [
+        { "id": "accepter", "next": "accepte" },
+        { "id": "refuser", "next": "fin" }
+      ]
+    },
+    {
+      "id": "accepte",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.pommes", "value": "acceptee" }],
+      "next": "merci"
+    },
+    {
+      "id": "merci",
+      "type": "line",
+      "next": "fin"
+    },
+    {
+      "id": "attente",
+      "type": "line",
+      "next": "fin"
+    },
+    {
+      "id": "retrouvailles",
+      "type": "line",
+      "choices": [{ "id": "sourire", "next": "rendue" }]
+    },
+    {
+      "id": "rendue",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "pommes/rendue" }],
+      "next": "voie"
+    },
+    {
+      "id": "voie",
+      "type": "condition",
+      "flag": "encounter/arene-combattant/won",
+      "then": "fin-arene",
+      "else": "fin-parole"
+    },
+    {
+      "id": "fin-arene",
+      "type": "action",
+      "actions": [{ "type": "endDemo", "ending": "arene" }],
+      "next": "fin"
+    },
+    {
+      "id": "fin-parole",
+      "type": "action",
+      "actions": [{ "type": "endDemo", "ending": "parole" }],
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

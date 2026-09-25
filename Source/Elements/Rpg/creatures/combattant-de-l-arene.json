@@ -1,0 +1,41 @@
+{
+  "id": "combattant-de-l-arene",
+  "name": "Combattant de l'arène",
+  "source": "original",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "neutre",
+  "silhouette": "humanoid",
+  "description": "Un gladiateur de la Capitale, payé à la journée pour donner au public de l'Arena of Fate le jugement qu'il réclame. Il combat en cuir clouté, bouclier au bras et épée courte à la main, et sait qu'un condamné qui se bat bien vaut plus qu'un condamné qui meurt vite.",
+  "abilities": {
+    "strength": 14,
+    "dexterity": 12,
+    "constitution": 13,
+    "intelligence": 9,
+    "wisdom": 10,
+    "charisma": 8
+  },
+  "armorClass": 14,
+  "hitPoints": 16,
+  "hitDice": "3d8+3",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 0.25,
+  "senses": [
+    "Perception passive 10"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "actions": [
+    {
+      "name": "Épée courte",
+      "text": "Attaque au corps à corps avec une arme : +4 au toucher, allonge 1,50 m, une cible. Touché : 5 (1d6 + 2) dégâts perforants.",
+      "attackBonus": 4,
+      "reach": 1.5,
+      "damage": "1d6+2",
+      "damageType": "piercing"
+    }
+  ]
+}

@@ -405,8 +405,12 @@ def controler_villes(racine: Path, niveaux: Path, plans: Path) -> list[str]:
                 violations.append(
                     "%s : la porte gardee de « %s » se tient sur « %s », qui n'est la carte "
                     "d'aucun quartier de la ville." % (nom, quartier.get('id', ''), garde['map']))
+        # Un plan PROVISOIRE (EX-CNT-032) peut ne pas ouvrir tous les quartiers du plan : celui de
+        # la demo n'en ouvre que deux (LOT-120), en attendant le plan complet (LOT-121). Ce qu'il
+        # ouvre, lui, doit exister et mener quelque part : les autres controles s'appliquent.
+        provisoire = bool(ville.get('status', {}).get('provisoire'))
         oublies = sorted(places - {q.get('id', '') for q in ville.get('districts', [])})
-        if oublies:
+        if oublies and not provisoire:
             violations.append('%s : quartier(s) du plan absent(s) de la ville : %s.'
                               % (nom, ', '.join(oublies)))
 

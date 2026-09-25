@@ -1,0 +1,40 @@
+{
+  "id": "pommes",
+  "name": "Des pommes pour l'arène",
+  "source": "original",
+  "flags": [
+    {
+      "id": "quete.pommes",
+      "values": ["inconnue", "acceptee", "persuasion-echouee", "condamne", "enfant-libere"],
+      "initial": "inconnue"
+    }
+  ],
+  "steps": [
+    {
+      "id": "acceptee",
+      "when": [{ "flag": "quete.pommes", "equals": "acceptee" }]
+    },
+    {
+      "id": "persuasion-echouee",
+      "when": [{ "flag": "dialogue/garde/jet-persuasion/failed" }]
+    },
+    {
+      "id": "condamne",
+      "when": [{ "flag": "quete.pommes", "equals": "condamne" }]
+    },
+    {
+      "id": "victoire",
+      "when": [{ "flag": "encounter/arene-combattant/won" }],
+      "effects": [{ "type": "setFlag", "flag": "quete.pommes", "value": "enfant-libere" }]
+    },
+    {
+      "id": "enfant-libere",
+      "when": [{ "flag": "quete.pommes", "equals": "enfant-libere" }]
+    },
+    {
+      "id": "rendue",
+      "when": [{ "flag": "pommes/rendue" }],
+      "outcome": "success"
+    }
+  ]
+}

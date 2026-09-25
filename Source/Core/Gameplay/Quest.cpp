@@ -523,6 +523,9 @@ std::set<std::string, std::less<>> flagsWrittenBy(const QuestCatalog& quests,
                     poses.insert(action.target);
                 } else if (action.kind == DialogueActionKind::StartQuest) {
                     poses.insert(questStartedFlag(action.target));
+                } else if (action.kind == DialogueActionKind::StartEncounter) {
+                    // La victoire pose son fait (`core::endEncounter`, LOT-120) : une quete le lit.
+                    poses.insert(encounterWonFlag(action.target));
                 }
             }
         }

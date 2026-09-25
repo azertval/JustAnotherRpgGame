@@ -1,0 +1,492 @@
+{
+ "format": "jadg-editor-gestures",
+ "version": 1,
+ "map": "central-empire/capital/arenarea/arena-of-fate/undercroft",
+ "note": "LOT-146 : le niveau -1 de l'Arena of Fate, reduit a ce que la quete traverse — le vestiaire A ou arrive le condamne, le couloir et sa porte close sous condamne, l'escalier de la porte du triomphe.",
+ "gestures": [
+  {
+   "layer": "relief",
+   "type": "wall",
+   "tool": "paint",
+   "path": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     5,
+     0
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     7,
+     0
+    ],
+    [
+     8,
+     0
+    ],
+    [
+     9,
+     0
+    ],
+    [
+     10,
+     0
+    ],
+    [
+     11,
+     0
+    ],
+    [
+     12,
+     0
+    ],
+    [
+     13,
+     0
+    ],
+    [
+     14,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     8,
+     1
+    ],
+    [
+     9,
+     1
+    ],
+    [
+     10,
+     1
+    ],
+    [
+     11,
+     1
+    ],
+    [
+     12,
+     1
+    ],
+    [
+     13,
+     1
+    ],
+    [
+     14,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     8,
+     2
+    ],
+    [
+     9,
+     2
+    ],
+    [
+     10,
+     2
+    ],
+    [
+     11,
+     2
+    ],
+    [
+     12,
+     2
+    ],
+    [
+     13,
+     2
+    ],
+    [
+     14,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     14,
+     3
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     5,
+     4
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     9,
+     4
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     12,
+     4
+    ],
+    [
+     13,
+     4
+    ],
+    [
+     14,
+     4
+    ],
+    [
+     0,
+     5
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     3,
+     5
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     8,
+     5
+    ],
+    [
+     9,
+     5
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     12,
+     5
+    ],
+    [
+     13,
+     5
+    ],
+    [
+     14,
+     5
+    ]
+   ]
+  },
+  {
+   "layer": "sol",
+   "type": "pavement",
+   "tool": "paint",
+   "path": [
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ]
+   ]
+  },
+  {
+   "layer": "sol",
+   "type": "stairs",
+   "tool": "paint",
+   "path": [
+    [
+     7,
+     1
+    ],
+    [
+     7,
+     2
+    ]
+   ]
+  },
+  {
+   "layer": "sol",
+   "type": "flagstone",
+   "tool": "paint",
+   "path": [
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     8,
+     3
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     11,
+     3
+    ],
+    [
+     12,
+     3
+    ],
+    [
+     13,
+     3
+    ]
+   ]
+  },
+  {
+   "kind": "spawnPoint",
+   "tool": "entity",
+   "at": [
+    7,
+    2
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e1"
+   ],
+   "set": {
+    "name": "from-arena-of-fate"
+   }
+  },
+  {
+   "kind": "portal",
+   "tool": "entity",
+   "at": [
+    7,
+    1
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e2"
+   ],
+   "set": {
+    "targetMap": "central-empire/capital/arenarea/arena-of-fate",
+    "arrival": "from-undercroft"
+   }
+  },
+  {
+   "kind": "spawnPoint",
+   "tool": "entity",
+   "at": [
+    9,
+    3
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e3"
+   ],
+   "set": {
+    "name": "from-arenarea"
+   }
+  },
+  {
+   "kind": "prop",
+   "tool": "entity",
+   "at": [
+    11,
+    3
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e4"
+   ],
+   "set": {
+    "piece": "porte-de-l-arene",
+    "blocks": true,
+    "presenceFlag": "quete.pommes",
+    "presenceTest": "equals",
+    "presenceValue": "condamne"
+   }
+  },
+  {
+   "kind": "portal",
+   "tool": "entity",
+   "at": [
+    13,
+    3
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e5"
+   ],
+   "set": {
+    "targetMap": "central-empire/capital/arenarea",
+    "arrival": "from-arena-of-fate"
+   }
+  }
+ ]
+}

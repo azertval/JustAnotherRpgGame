@@ -462,8 +462,13 @@ std::optional<float> composeRelief(ComposedScene& scene, const WorldSceneSnapsho
         // (LOT-128). Le mobilier (caisses, etals, buissons) s'y extrude de meme ; un type de decor
         // plat n'a, lui, pas de forme a prendre.
         const core::TileType type = snapshot.reliefTypeAt(cell);
-        if (textures.solid.texture != nullptr && maquetteExtrudes(type) && !flatBlocks) {
-            return composeMaquetteBlock(scene, projection, textures, cell, type);
+        if (textures.solid.texture != nullptr && maquetteExtrudes(type)) {
+            if (!flatBlocks) {
+                return composeMaquetteBlock(scene, projection, textures, cell, type);
+            }
+            // Le plan de principe couche le bloc : son losange, a la teinte du type, comme un
+            // bloc pose sur le sol (LOT-146 : les murs d'une carte neuve sont sur `relief`).
+            composeMaquetteDiamond(scene, projection, textures, cell, type, BLOCK_TOP_LIGHT);
         }
         return std::nullopt;
     }
