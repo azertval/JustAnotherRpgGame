@@ -137,7 +137,10 @@ courtes, le lint est vert, le site suit.
 7. **Q-05 se tranche tôt** : les trois PNJ du marché n'ont toujours pas de nom, et leurs textes
    les désignent par leur rôle. Un lot de la `0.0.2` qui touche les dialogues (le jet de groupe,
    `LOT-138`) les nommera au passage.
-8. **La `CombatCueTrack` est faite pour un héros** : le combat de groupe (`LOT-139`) rejouera les
+8. **Un contrôle qui ne peut pas échouer n'est pas un contrôle.** Le job `format` est resté vert
+   pendant des semaines sur un dépôt mal formaté. À la `0.0.2`, tout job de CI nouveau ou
+   retouché se prouve une fois **en rouge** (un écart volontaire, puis retiré) avant d'être cru.
+9. **La `CombatCueTrack` est faite pour un héros** : le combat de groupe (`LOT-139`) rejouera les
    mouvements de quatre personnages joués et de plusieurs adversaires ; la file, ses attentes et
    `Entrée` qui saute l'animation sont à relire à quatre, pas à étendre à l'aveugle.
 
@@ -157,7 +160,11 @@ tout est retiré ou réécrit dans la PR de recette. L'outillage Python n'a aucu
 quatre symboles morts, deux chemins cassants (le cahier des assets d'interface déplacé au planning,
 un écran de capture retiré), huit PNG de sortie de test commités à la racine et une dizaine de
 commentaires d'un autre âge sont corrigés. Q-09 est tranchée par D-27 : le lint de l'ancienne
-feuille de route était déjà parti, les archives restent.
+feuille de route était déjà parti, les archives restent. Une trouvaille de la recette dépasse
+l'audit : le job `format` de la CI annotait les écarts de `clang-format` **sans jamais échouer**
+(le `run:` de GitHub tourne sans `pipefail`, l'échec de `xargs` mourait dans le `tee`) — `main`
+en portait 180, presque tous dans les tests. Le job échoue désormais, et `Source/` est reformaté
+à la version épinglée.
 
 Ce que l'audit **laisse à l'auteur**, parce que la réponse est un choix de produit et non un
 constat :
