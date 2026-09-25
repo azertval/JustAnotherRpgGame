@@ -303,7 +303,10 @@ void EncounterModel::placeCues() {
 void EncounterModel::subscribeCues() {
     // Les pas : leur chemin, pour que la figurine marche case par case.
     _session->setMoveObserver([this](core::CombatantId mover, const core::Path& path) {
-        _cues.push(CombatCue{.kind = CombatCueKind::Walk, .actor = mover, .path = path.steps, .target = std::nullopt});
+        _cues.push(CombatCue{.kind = CombatCueKind::Walk,
+                             .actor = mover,
+                             .path = path.steps,
+                             .target = std::nullopt});
     });
     core::CombatState& combat = _session->combat();
     combat.subscribe(core::CombatHook::AttackDeclared,
@@ -318,24 +321,24 @@ void EncounterModel::subscribeCues() {
                                                             ? state.grid().positionOf(*event.target)
                                                             : std::nullopt});
                      });
-    combat.subscribe(
-        core::CombatHook::DamageTaken, [this](core::CombatState&, const core::CombatEvent& event) {
-            if (event.combatant.has_value() && event.amount > 0) {
-                _cues.push(CombatCue{.kind = CombatCueKind::Hit,
-                                     .actor = *event.combatant,
-                                     .path = {},
-                                     .target = std::nullopt});
-            }
-        });
-    combat.subscribe(core::CombatHook::CombatantDowned, [this](core::CombatState&,
-                                                               const core::CombatEvent& event) {
-        if (event.combatant.has_value()) {
-            _cues.push(CombatCue{.kind = CombatCueKind::Death,
-                                     .actor = *event.combatant,
-                                     .path = {},
-                                     .target = std::nullopt});
-        }
-    });
+    combat.subscribe(core::CombatHook::DamageTaken,
+                     [this](core::CombatState&, const core::CombatEvent& event) {
+                         if (event.combatant.has_value() && event.amount > 0) {
+                             _cues.push(CombatCue{.kind = CombatCueKind::Hit,
+                                                  .actor = *event.combatant,
+                                                  .path = {},
+                                                  .target = std::nullopt});
+                         }
+                     });
+    combat.subscribe(core::CombatHook::CombatantDowned,
+                     [this](core::CombatState&, const core::CombatEvent& event) {
+                         if (event.combatant.has_value()) {
+                             _cues.push(CombatCue{.kind = CombatCueKind::Death,
+                                                  .actor = *event.combatant,
+                                                  .path = {},
+                                                  .target = std::nullopt});
+                         }
+                     });
     combat.subscribe(core::CombatHook::CombatantLeft,
                      [this](core::CombatState&, const core::CombatEvent& event) {
                          if (event.combatant.has_value()) {

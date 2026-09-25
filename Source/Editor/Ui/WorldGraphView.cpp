@@ -117,7 +117,8 @@ void WorldGraphView::setGraph(core::WorldGraph graph, std::filesystem::path leve
 }
 
 qreal WorldGraphView::scale() const {
-    const qreal extent = DIAMETER_FACTOR * (static_cast<qreal>(_layout.circleRadius) + LABEL_MARGIN);
+    const qreal extent =
+        DIAMETER_FACTOR * (static_cast<qreal>(_layout.circleRadius) + LABEL_MARGIN);
     const qreal available = std::min<qreal>(width(), height() - (LEGEND_ROWS * LEGEND_ROW));
     return std::clamp(available / extent, MIN_SCALE, 1.0);
 }

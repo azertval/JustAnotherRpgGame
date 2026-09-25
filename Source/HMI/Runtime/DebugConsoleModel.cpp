@@ -199,7 +199,8 @@ void DebugConsoleModel::applyImmediate(std::string_view name, const std::string&
             core::defaultLogger().setMinimumLevel(*niveau);
             _transcript.push_back(QStringLiteral("Journal : niveau minimum %1").arg(versQt(value)));
         } else {
-            _transcript.push_back(QStringLiteral("--log-level= attend trace, info, warning ou error."));
+            _transcript.push_back(
+                QStringLiteral("--log-level= attend trace, info, warning ou error."));
         }
     }
 }

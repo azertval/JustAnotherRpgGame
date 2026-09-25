@@ -174,7 +174,8 @@ private:
 
     /// Lit les catalogues à la première rencontre ; @return faux s'il manque l'essentiel.
     bool ensureCatalogs();
-    /// Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la rencontre.
+    /// Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la
+    /// rencontre.
     /// @return Le montage : les camps tels que la session les a numérotés.
     core::ArenaMount mountBout();
     /// Associe à chaque combattant monté la figurine qu'il dessine.

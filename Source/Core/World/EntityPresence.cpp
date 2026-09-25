@@ -60,7 +60,8 @@ PresenceRead presenceConditionOf(const MapEntity& entity) {
     if (sansDrapeau) {
         const bool reste =
             (test.present && !test.texte->empty()) || (valeurs.present && !valeurs.texte->empty());
-        return {.condition = std::nullopt, .issue = reste ? PresenceIssue::MissingFlag : PresenceIssue::None};
+        return {.condition = std::nullopt,
+                .issue = reste ? PresenceIssue::MissingFlag : PresenceIssue::None};
     }
 
     FlagCondition condition;

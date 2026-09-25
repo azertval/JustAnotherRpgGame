@@ -41,7 +41,8 @@ bool WorldFlags::declare(std::string_view key, std::vector<std::string> values,
     if (const auto deja = _declared.find(key); deja != _declared.end()) {
         return deja->second.values == values && deja->second.initial == initial;
     }
-    _declared.emplace(std::string(key), Declaration{.values = std::move(values), .initial = std::string(initial)});
+    _declared.emplace(std::string(key),
+                      Declaration{.values = std::move(values), .initial = std::string(initial)});
     ++_revision;
     return true;
 }

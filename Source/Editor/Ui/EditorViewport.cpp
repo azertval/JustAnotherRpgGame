@@ -1210,9 +1210,9 @@ namespace {
 
 // Le brouillon est servi sous l'identifiant de sa carte ; toute autre carte vient du disque,
 // comme en jeu. Un portail qui ramène ici retrouve donc le brouillon, pas le fichier d'avant.
-[[nodiscard]] core::WorldTravel::MapLoader draftLoader(
-    std::string mapId, std::shared_ptr<const core::Level> edited,
-    core::WorldTravel::MapLoader fromDisk) {
+[[nodiscard]] core::WorldTravel::MapLoader draftLoader(std::string mapId,
+                                                       std::shared_ptr<const core::Level> edited,
+                                                       core::WorldTravel::MapLoader fromDisk) {
     return [mapId = std::move(mapId), edited = std::move(edited),
             fromDisk = std::move(fromDisk)](std::string_view requested) {
         if (requested == mapId) {

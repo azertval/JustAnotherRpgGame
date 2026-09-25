@@ -859,7 +859,8 @@ std::optional<std::string> replacePieceInMap(const std::filesystem::path& dataRo
     if (!validated.ok()) {
         return map.id + " would not be valid: " + validated.error;
     }
-    std::vector<Citation> cited = pieceCitationsIn(map, from, previous != nullptr ? previous->directory : "");
+    std::vector<Citation> cited =
+        pieceCitationsIn(map, from, previous != nullptr ? previous->directory : "");
     plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),
                         std::make_move_iterator(cited.end()));
     plan.edits.push_back(
@@ -1131,9 +1132,8 @@ int runReplacePiece(const std::vector<std::string>& arguments,
 }
 
 // `--change-scene <map> <place> [--table <table.json>]` : le plan, puis son écriture.
-int runChangeScene(const std::vector<std::string>& arguments,
-                   const std::vector<std::string>& scene, const std::filesystem::path& dataRoot,
-                   std::string& output) {
+int runChangeScene(const std::vector<std::string>& arguments, const std::vector<std::string>& scene,
+                   const std::filesystem::path& dataRoot, std::string& output) {
     const auto tableFile = valuesOf(arguments, "--table");
     if (scene.size() != 2 || (tableFile && tableFile->size() != 1)) {
         output += "usage: --change-scene <map> <place> [--table <table.json>]\n";

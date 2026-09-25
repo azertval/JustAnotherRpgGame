@@ -423,7 +423,8 @@ std::vector<QuestEvent> advanceQuests(const QuestCatalog& catalog, WorldFlags& f
                 }
                 flags.set(fait);
                 appliquerEffets(etape, flags);
-                evenements.push_back({.quest = quete.id, .step = etape.id, .outcome = etape.outcome});
+                evenements.push_back(
+                    {.quest = quete.id, .step = etape.id, .outcome = etape.outcome});
                 bouge = true;
                 if (etape.outcome != QuestOutcome::None) {
                     break;
