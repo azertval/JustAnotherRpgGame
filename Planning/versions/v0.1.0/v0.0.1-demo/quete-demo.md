@@ -12,7 +12,7 @@ dans la version.
 > la prison. Le vestiaire A est sur la seconde ; le combat se joue sur la première.
 
 > Dans la démo, les trois cartes sont des **cartes de principe** ([LOT-146](lots/LOT-146-cartes-de-principe-de-la-demo.md)),
-> jouées en maquette, et les PNJ y sont des mannequins ([LOT-145](lots/LOT-145-mannequins-de-remplacement.md))
+> jouées en maquette, et les PNJ y sont des mannequins ([LOT-145](../v0.0.2-combat/lots/LOT-145-mannequins-de-remplacement.md))
 > ou des jetons. Les cartes et les PNJ définitifs sont à la `0.0.3` ([D-25](../../../vision/decisions.md)).
 
 ## Déroulé

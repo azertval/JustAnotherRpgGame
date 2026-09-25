@@ -52,7 +52,7 @@ Une marche se rejoue a deux cases par seconde, puis revient au repos.
 
 ### CombatCuesTest.LeCoupPorteAMiGesteEtUnMortResteATerre
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:66`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:67`
 
 Attaque, touche et mort s'enchainent a l'instant de l'impact.
 
@@ -79,7 +79,7 @@ Attaque, touche et mort s'enchainent a l'instant de l'impact.
 
 ### CombatCuesTest.LInconnuEstIgnoreEtToutPeutFinirDUnCoup
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:118`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:119`
 
 La file ignore l'inconnu et sait tout finir d'un coup.
 
@@ -391,5 +391,5 @@ Un dossier absent ne contient rien et ne fait pas echouer le parcours.
 
 **Résultat attendu**
 
-- Vérifie que `identifiants(hmi::scanLevelDirectories( {levels.chemin("nulle-part"), levels.chemin()}))` vaut `(std::vector<std::string>{"cave"})`.
+- Vérifie que `identifiants(hmi::scanLevelDirectories({levels.chemin("nulle-part"), levels.chemin()}))` vaut `(std::vector<std::string>{"cave"})`.
 - Vérifie que `hmi::scanLevelDirectories({}).empty()` est vrai.

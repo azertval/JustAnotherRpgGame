@@ -12,9 +12,9 @@ relatifs (``index.md``, ``Guide``, ``../Source``, ``generated``) : lancer
 série de ``source '...' is not a readable file or directory``, alors que le même
 fichier fonctionne parfaitement depuis ``Documentation/``.
 
-Le piège est d'autant plus facile que les trois autres scripts de vérification
-(``lint_exigences.py``, ``generate_cahier_test.py``, ``check_demo_sequence.py``)
-se lancent, eux, **depuis la racine**. Ce script rétablit la symétrie : il se
+Le piège est d'autant plus facile que les autres contrôles du dépôt — la vingtaine de scripts
+que ``scripts/check.py`` rejoue depuis ``ci.yml`` — se lancent, eux, **depuis la racine**.
+Ce script rétablit la symétrie : il se
 place dans ``Documentation/`` avant d'appeler Doxygen, quel que soit le
 répertoire d'où on l'invoque.
 

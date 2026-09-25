@@ -27,19 +27,23 @@ détachent et se referment ; la disposition est retenue d'une session à l'autre
 ## 1. Créer la carte, avec son lieu
 
 Panneau **Maps**, onglet *List*, bouton **New** : un nom (`echoppe`), une taille en cases, un
-**lieu** — la planche dont la carte prendra ses pièces (`martpart`, `coliseum`…) — et un
-**modèle**. Sans modèle, la carte naît comme les cartes livrées : une couche de sol `sol` qui
+**lieu** — la planche dont la carte prendra ses pièces, choisi dans l'arbre des lieux que la
+boîte **New map** propose (`central-empire/capital/martpart`,
+`central-empire/capital/arenarea`…) — et un **modèle**. Sans modèle, la carte naît comme les cartes livrées : une couche de sol `sol` qui
 nomme le lieu, une couche de décor `relief`, et une collision déduite où tout, encore vide,
 arrête la vue — sauf l'entrée, au coin bas gauche, posée sur une case de terre. Avec un modèle
 (`LOT-EDITOR-08`) — **Interior**, **Street**, **Arena** —, elle naît avec sa taille, ses murs et
 son entrée déjà posés ; choisir le modèle reprend sa taille, qu'on peut encore changer, et ce
 qu'il ne couvre pas reste plein. Double-cliquer la carte dans la liste l'ouvre.
 
-Sans lieu (« none »), on peint des types en couleurs sur une grille unique : c'est le repli des
-cartes générées, pas la façon de faire une carte du jeu.
+Sans lieu (« none »), on peint des types en couleurs sur une grille unique : c'est la
+**maquette**, et c'est la première étape légitime d'une carte du jeu (décision D-22) — sa
+physique se dessine et se joue avant ses textures ; les cartes de la démo sont nées ainsi, puis
+*Change sheet…* (ci-dessous) leur a donné leur lieu et leurs pièces.
 
-Une carte d'un quartier va dans un sous-dossier (`capital/…`) : la créer, puis la renommer
-`capital/echoppe` (**Rename**, ci-dessous) ; le fichier change de dossier.
+Une carte d'un quartier va dans le sous-dossier de son lieu (`central-empire/capital/…`) : la
+boîte **New map** l'y range d'elle-même, et **Rename** (ci-dessous) prend l'identifiant
+complet, `central-empire/capital/echoppe`, si le fichier doit changer de dossier.
 
 ## 2. Poser le sol
 
@@ -81,10 +85,14 @@ déduction. On ne force qu'en dernier recours : une case forcée ne suit plus le
 Outil **Entité** (`O`), puis une famille dans la liste *Place* du panneau **Entities** : un PNJ
 (son dialogue, sa figurine), un coffre, un point d'arrivée (`spawnPoint`, nommé), un portail
 (`portal` : la carte visée et le point d'arrivée de l'autre côté), une zone de combat qu'on tire
-d'un coin à l'autre.
+d'un coin à l'autre, une rencontre (`encounter`, les créatures qu'elle lève). Une rencontre
+engage le **combat** sur la zone de combat de la carte, comme l'action de dialogue
+`startEncounter` d'un PNJ ([LOT-118](../../../Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-118-combat-sur-la-carte.md)) :
+c'est ce que le jeu joue quand *Run in game* l'ouvre.
 L'inspecteur propose les valeurs que les catalogues connaissent ; ses avertissements disent ce qui
 manque, et une zone de combat donne son verdict tactique pendant qu'on la tire. Une entité reçoit
-un identifiant (`e12`) qu'elle garde : les quêtes la citeront par `carte#e12`.
+un identifiant (`e12`) qu'elle garde : c'est par lui que l'éditeur la retrouve et la renomme
+(*Map* › **Who cites the selected entity?**, **Rename entity id…**, `--who-cites entity`).
 
 Pour relier deux cartes, le plus court est le **graphe du monde** (ci-dessous) : il pose les deux
 paires d'un geste. À la main, poser un portail et un point d'arrivée de chaque côté.
@@ -184,7 +192,7 @@ Une échoppe, un étal, une cour se composent une fois (`LOT-EDITOR-08`) :
   contenu ; le choisir arme le tampon, `Ctrl+V` le pose. Les préfabriqués sont des fichiers, dans
   `Source/Elements/Editor/Prefabs/<lieu>/` : on les renomme et on les supprime à l'explorateur.
 - Sans fenêtre : `LevelEditor --list-prefabs` et
-  `LevelEditor --save-prefab capital/martpart etal --from 21,24 --to 21,24`.
+  `LevelEditor --save-prefab central-empire/capital/martpart etal --from 21,24 --to 21,24`.
 
 ## Renommer, remplacer, changer de planche
 
@@ -218,7 +226,7 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
   point d'arrivée que l'autre cite (`from-martpart`) —, puis l'écrit. La paire se pose au plus
   près de l'entrée, sur des cases libres et atteignables : `P` traverse aussitôt, dans les deux
   sens, et l'outil **Entité** déplace ensuite la porte où on la veut. Sans fenêtre :
-  `LevelEditor --link-maps capital/martpart coliseum`.
+  `LevelEditor --link-maps central-empire/capital/martpart central-empire/capital/arenarea`.
 - **Voir une ville par quartiers.** Onglet **City** : le plan peint de la ville, les cadres de ses
   quartiers, leur nom ; un quartier tireté n'a pas (encore) sa carte, ou n'est qu'une porte
   gardée. Double-cliquer un quartier ouvre sa carte dans son onglet.
@@ -232,7 +240,4 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
 
 ## Ce qui ne se fait pas encore dans l'éditeur
 
-- Engager un **combat** depuis une carte d'exploration : le jeu ne le branche pas encore
-  ([LOT-27](../../../Planning/vision/archives/feuille-de-route-jeu.md#lot-27)). *Run in game* ouvre bien les dialogues ; une rencontre ne
-  déclenche rien.
 - Semer une forêt ou une prairie sans perdre les retouches : `LOT-168` du planning (`LOT-EDITOR-11`, qui pilotait un générateur, est abandonné).

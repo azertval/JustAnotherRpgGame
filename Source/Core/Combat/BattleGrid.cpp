@@ -15,16 +15,16 @@ namespace core {
 
 namespace {
 
-/// Emprise maximale : Gigantesque, 4 × 4 (`footprintSide`). Au-delà, le côté est une erreur
-/// d'appel, pas une créature.
+// Emprise maximale : Gigantesque, 4 × 4 (`footprintSide`). Au-delà, le côté est une erreur
+// d'appel, pas une créature.
 constexpr int LARGEST_SIDE = 4;
 
 [[nodiscard]] std::size_t cellCount(int width, int height) {
     return static_cast<std::size_t>(width) * static_cast<std::size_t>(height);
 }
 
-/// Vrai seulement pour un booléen `true` : un `"difficultTerrain": 1` ou `"oui"` est une faute de
-/// saisie, et la lire comme vraie ferait d'une coquille une règle.
+// Vrai seulement pour un booléen `true` : un `"difficultTerrain": 1` ou `"oui"` est une faute de
+// saisie, et la lire comme vraie ferait d'une coquille une règle.
 [[nodiscard]] bool marksDifficult(const PropertyMap& properties) {
     const auto found = properties.find(std::string(DIFFICULT_TERRAIN_PROPERTY));
     if (found == properties.end()) {

@@ -260,8 +260,6 @@ struct AttackRoll {
     bool hit = false;
     bool critical = false;
 
-    /// @brief Relance le d20 d'indice @p die. Sans effet hors des dés lancés.
-    void reroll(std::size_t die, DeterministicRandom& random, const std::string& source);
     /// @brief Remplace le d20 d'indice @p die par @p value (un résultat stocké, *Portent*).
     void substitute(std::size_t die, int value, const std::string& source);
     /// @brief Ajoute un modificateur, avec son origine.
@@ -286,7 +284,9 @@ using AttackRollListener = std::function<void(AttackRoll&, DeterministicRandom&)
 /// @brief Les greffons des jets d'attaque, par étape, dans l'ordre d'insertion.
 class AttackHooks {
 public:
+    /// @brief Ajoute un greffon à l'étape @p stage, après ceux déjà insérés à cette étape.
     void insert(AttackRollStage stage, AttackRollListener listener);
+    /// @brief Applique à @p roll, dans l'ordre d'insertion, tous les greffons de l'étape @p stage.
     void run(AttackRollStage stage, AttackRoll& roll, DeterministicRandom& random) const;
 
 private:

@@ -11,7 +11,7 @@ namespace hmi {
 
 namespace {
 
-/// Decoupe @p value sur @p separator ; les morceaux vides sont ecartes.
+// Decoupe `value` sur `separator` ; les morceaux vides sont ecartes.
 [[nodiscard]] std::vector<std::string_view> decouper(std::string_view value, char separator) {
     std::vector<std::string_view> morceaux;
     std::size_t debut = 0;
@@ -30,7 +30,7 @@ namespace {
     return morceaux;
 }
 
-/// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
+// Rend : L'entier de `text`, s'il est ecrit en entier et sans rien d'autre.
 [[nodiscard]] std::optional<int> entier(std::string_view text) {
     int valeur = 0;
     // NOLINTNEXTLINE(bugprone-suspicious-stringview-data-usage): la paire data()/size() borne la

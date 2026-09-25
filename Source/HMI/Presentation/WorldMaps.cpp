@@ -21,7 +21,7 @@ namespace {
 constexpr int FORMAT_VERSION = 1;
 constexpr std::string_view ORIGIN = "world-maps.json";
 
-/// Échec de lecture : porte le message, remonté tel quel dans `WorldMaps::error`.
+// Échec de lecture : porte le message, remonté tel quel dans `WorldMaps::error`.
 class ReadFailure : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
@@ -35,7 +35,7 @@ public:
     return value.is_number() && value.get<double>() >= 0.0 && value.get<double>() <= 1.0;
 }
 
-/// Chemin de lecture `where / part`, pour situer une erreur sans chaîner des concaténations.
+// Chemin de lecture `where / part`, pour situer une erreur sans chaîner des concaténations.
 [[nodiscard]] std::string within(std::string where, std::string_view part) {
     where += " / ";
     where += part;

@@ -16,7 +16,7 @@ endif()
 # l'injecte dans le `PROJECT_NUMBER` de Doxygen à la génération (le Doxyfile versionné ne le porte
 # pas). Bumper ici, et nulle part ailleurs, avant de poser le tag `vX.Y.Z`.
 project(JustAnotherRpgGame
-    VERSION 0.1.0
+    VERSION 0.0.1
     DESCRIPTION "RPG 2D en vue de dessus, exploration temps reel et combat tactique d20, en C++/Qt QRhi"
     LANGUAGES CXX)
 

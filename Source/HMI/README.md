@@ -16,7 +16,7 @@ dans `../Ui/`.
 |---|---|
 | [`Platform/`](Platform/README.md)   | Provisionnement bas niveau (répertoire de l'exécutable, minidump). |
 | [`Input/`](Input/README.md)         | Entrées : état, manette, pont Qt→`Key`. |
-| [`Graphics/`](Graphics/README.md)   | Rendu via **QRhi** (pipeline 2D, caméra, lieu, arène). |
+| [`Graphics/`](Graphics/README.md)   | Rendu via **QRhi** (pipeline 2D, caméra, lieu, combat sur la carte). |
 | [`Game/`](Game/README.md)           | La carte qu'on parcourt (`WorldPlay`), partagée par le jeu et l'essai de l'éditeur. |
 | `Presentation/` | Logique de présentation pure (enchaînement des écrans, échelle, valeurs de fiche, crédits). |
 | `Runtime/`   | Les types C++ que les écrans du jeu voient : module QML `Jadg.Runtime` (vues-modèles, surfaces de rendu). |

@@ -30,8 +30,8 @@ namespace hmi {
  * - `regions` : une table par région — `regionId`, `name`, `image`, `x`, `y` (repère sur le
  *   monde), `frame` (`x`, `y`, `width`, `height` : d'où part le zoom), `government`, `faction`,
  *   `population`, `grades` (sept entiers de 0 à 4, ordre de `core::RegionAxis`), `places` (une
- *   table par lieu : `placeId`, `name`, `description`, `placed`, `x`, `y`, `hasCityMap`),
- *   `placedCount` et `labels` (`name`, `kind`, `x`, `y`).
+ *   table par lieu : `placeId`, `name`, `description`, `placed`, `x`, `y`, `hasCityMap`) et
+ *   `labels` (`name`, `kind`, `x`, `y`).
  * - `city(placeId)` : le plan d'une ville — `cityId`, `name`, `regionId`, `image`, `points` (une
  *   table par quartier ou lieu numéroté : `pointId`, `number`, `name`, `description`, `x`, `y`) et
  *   `labels` — ou une table vide.
@@ -40,10 +40,9 @@ class WorldMapModel : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
+    /// Nom de fichier de la carte du monde, sous `Elements/Assets/Maps/`.
     Q_PROPERTY(QString worldImage READ worldImage NOTIFY changed)
     Q_PROPERTY(QVariantList regions READ regions NOTIFY changed)
-    /// Nombre de lieux posés sur les cartes de région.
-    Q_PROPERTY(int placedCount READ placedCount NOTIFY changed)
 
 public:
     explicit WorldMapModel(QObject* parent = nullptr);
@@ -63,9 +62,6 @@ public:
     [[nodiscard]] QVariantList regions() const {
         return _regions;
     }
-    [[nodiscard]] int placedCount() const noexcept {
-        return _placedCount;
-    }
 
 signals:
     void changed();
@@ -74,7 +70,6 @@ private:
     QString _worldImage;
     QVariantList _regions;
     QVariantMap _cities;  ///< Identifiant de lieu → plan.
-    int _placedCount = 0;
 };
 
 }  // namespace hmi

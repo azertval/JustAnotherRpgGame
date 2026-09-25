@@ -143,7 +143,8 @@ TEST(ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine) {
 /**
  * @brief Les écrans de fin (`LOT-119`) : la mort s'ouvre depuis le combat ou la carte, et n'en
  *        sort que pour recommencer ou rendre le menu ; la fin de la démo mène aux crédits ou au
- *        menu. Aucun des deux ne revient à la partie.
+ *        menu. Aucun des deux ne revient à la partie — leur règle de superposition est dans la
+ *        table, la même d'où qu'ils s'ouvrent (`EX-IHM-091`).
  * \castest{<b>Les ecrans de mort et de fin de la demo ferment la partie.</b><br/>
  * \tcat Unitaire · Machine à états des écrans<br/>
  * \tcrit Critique<br/>

@@ -31,9 +31,9 @@ QtObject {
         CombatHud
     }
 
-    /// Le dialogue que l'ecran de dialogue joue (LOT-09) : dans l'atelier, celui du heraut, pour
-    /// que l'ecran se dessine sur une conversation.
-    readonly property string dialogueId: "heraut-colisee"
+    /// Le dialogue que l'ecran de dialogue joue (LOT-09) : dans l'atelier, celui du garde de la
+    /// demo, pour que l'ecran se dessine sur une conversation.
+    readonly property string dialogueId: "garde"
     /// La voie de la fin de la demo (LOT-119) : dans l'atelier, celle de l'arene.
     readonly property string ending: "arene"
     readonly property string endingText: "par la voie de l'arène"
@@ -59,6 +59,4 @@ QtObject {
     function jumpToGame() {}
     function openRpgScreen(screen) {}
     function closeRpgScreen() {}
-    function nextRpgScreen() {}
-    function previousRpgScreen() {}
 }

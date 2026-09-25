@@ -57,7 +57,7 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 - [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md) — les **cartes** : modèle, couches, entités, format JSON.
 - [Monde et exploration](guide-monde.md) — la session d'exploration, les portails, le graphe du monde, les dialogues et les faits de la partie.
 - [Règles d20 et personnages](guide-regles.md) — dés, jets, caractéristiques, fiche, inventaire, équipement.
-- [Combat tactique](guide-combat.md) — grille, initiative, économie d'actions, attaques, portée et ligne de vue, zones, IA, arène.
+- [Combat tactique](guide-combat.md) — grille, initiative, économie d'actions, attaques, portée et ligne de vue, zones, IA, la rencontre sur la carte.
 - [Données, corpus et ressources](guide-donnees.md) — catalogues JSON, schémas, clés d'assets, chaîne d'extraction, localisation.
 - [Journalisation et assertions](guide-journalisation.md) — niveaux, sinks, macros, rapport de plantage.
 
@@ -78,7 +78,7 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 ### Construire, vérifier, documenter
 
 - [Build, tests et intégration continue](guide-outils.md) — la chaîne de build, les scripts, les lints, la CI, la page qualité.
-- [Outils de développement du jeu](guide-outils-developpement.md) — le menu de développement (<kbd>F9</kbd>), le sélecteur d'écrans, la ligne de commande, la racine d'essai, les captures.
+- [Outils de développement du jeu](guide-outils-developpement.md) — le menu de développement (<kbd>F9</kbd>), le lanceur de cartes, la ligne de commande, la racine d'essai, les captures.
 - [Écrire la documentation](guide-documentation.md) — le format des pages, les conventions, les figures, la publication.
 
 ### Annexe

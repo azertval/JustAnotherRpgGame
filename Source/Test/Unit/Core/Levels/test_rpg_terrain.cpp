@@ -191,8 +191,8 @@ TEST(TerrainRpgTest, IsSolidSAccordeAvecLaCollisionDeduite) {
             << core::tileTypeName(type);
     }
     for (const core::TileType type :
-         {core::TileType::Rock, core::TileType::Fence, core::TileType::Stall,
-          core::TileType::Crate, core::TileType::Pit, core::TileType::Lava}) {
+         {core::TileType::Rock, core::TileType::Fence, core::TileType::Stall, core::TileType::Crate,
+          core::TileType::Pit, core::TileType::Lava}) {
         EXPECT_EQ(core::canonicalCollisionTile(type), core::TileType::Cliff)
             << core::tileTypeName(type);
     }

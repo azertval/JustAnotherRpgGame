@@ -3,7 +3,7 @@
 """Garde-fou : les cartes de l'ecran « Carte », leur manifeste et leurs positions ne divergent pas.
 
 `Source/Elements/Assets/Maps/` porte les cartes PEINTES PAR L'AUTEUR -- le monde, les treize regions,
-les plans de ville --, en 1920 x 1080 et sans lettrage (`LOT-94`, `LOT-95`). Aucune n'est une image
+les plans de ville --, en 1920 x 1080 et sans lettrage (`LOT-94`). Aucune n'est une image
 du corpus : le plan de la ville et la carte du monde du livre sont des oeuvres, que le jeu n'affiche
 pas (`EX-IHM-076`). Le manifeste (`manifest.json`) dit d'ou vient chaque fichier et fige son
 empreinte ; `Source/Elements/Maps/world-maps.json` pose dessus les regions, les lieux de l'atlas

@@ -198,29 +198,19 @@ Les points d'entree de l'arene se lisent de la carte, ranges par camp puis par r
 - Vérifie que `entrees.size()` vaut `6U`.
 - Vérifie que `entrees` vaut `attendu`.
 
-### ArenaTest.LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps
+### ArenaTest.LaCarteDEssaiAccueilleLesDeuxCamps
 
 *Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:185`
 
-La carte que nomme la premiere arene jouable se charge et accueille les deux camps ; les arenes et les huit Marques Heroiques se chargent.
+La carte d'essai du donjon se charge et ses points d'entree accueillent les deux camps.
 
 **Étapes**
 
-1. Charger le catalogue des arenes d'essai et les Marques Heroiques.
-2. Charger la carte que la premiere arene nomme.
-3. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.
+1. Charger la carte d'essai `Levels/donjon.json`.
+2. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.
 
 **Résultat attendu**
 
-- Vérifie que `arenes.errors.empty()` est vrai.
-- Vérifie que `marques.errors.empty()` est vrai.
-- Vérifie que `marques.marks.size()` vaut `8U`.
-- Vérifie que `marques.find("tank")` diffère de `nullptr`.
-- Vérifie que `marques.find("paladin")` vaut `nullptr`.
-- Vérifie que `jouable` diffère de `nullptr`.
-- Vérifie que `jouable->lethal` est faux.
-- Vérifie que `jouable->heroicMark` est vrai.
-- Vérifie que `arenes.find(jouable->id)` vaut `jouable`.
 - Vérifie que `carte.ok()` est vrai.
 - Vérifie que `grille.isObstructed(entree.position, core::Locomotion::Walk)` est faux.
 - Vérifie que `allies` est supérieur ou égal à `4`.
@@ -228,7 +218,7 @@ La carte que nomme la premiere arene jouable se charge et accueille les deux cam
 
 ### ArenaTest.LeMontagePlaceAuxEntreesEtRefuseEnLeDisant
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:235`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:211`
 
 Le montage place chaque combattant au prochain point d'entree libre de son camp, ou a la case demandee, et nomme chaque refus.
 
@@ -257,7 +247,7 @@ Le montage place chaque combattant au prochain point d'entree libre de son camp,
 
 ### ArenaTest.LAttaqueSeRefuseEtSeResout
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:282`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:258`
 
 L'action attaquer de l'arene refuse hors tour actif, contre un allie ou un inconnu, hors allonge, sans attaque ou sans action ; a portee elle jette le d20 contre la classe d'armure du profil et l'ecrit au journal.
 
@@ -287,7 +277,7 @@ L'action attaquer de l'arene refuse hors tour actif, contre un allie ou un incon
 
 ### ArenaTest.LePilierCacheEtAbrite
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:336`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:312`
 
 Dans l'arene, un tir vers une cible cachee par le pilier est refuse ; vers une cible que le pilier abrite partiellement, il est jete contre sa CA + 2, et le journal le dit.
 
@@ -311,7 +301,7 @@ Dans l'arene, un tir vers une cible cachee par le pilier est refuse ; vers une c
 
 ### ArenaTest.LOpportuniteLeDesengagementEtLEsquive
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:379`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:355`
 
 Quitter l'allonge d'un ennemi provoque son attaque d'opportunite, qui depense sa reaction ; se desengager l'evite ; esquiver impose le desavantage a qui attaque.
 
@@ -346,7 +336,7 @@ Quitter l'allonge d'un ennemi provoque son attaque d'opportunite, qui depense sa
 
 ### ArenaTest.UnAffrontementSeJoueSeRejoueEtPersonneNYMeurt
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:444`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_arena.cpp:420`
 
 Un affrontement se joue jusqu'a son issue ; le rejeu a la meme graine donne le meme journal ; a la fin, la Marque Heroique releve tout le monde, sauf dans une arene letale.
 
@@ -797,7 +787,7 @@ Un objet de grille bloque tant qu'il tient, puis se detruit.
 
 ### CombatPreviewTest.LaPrevisualisationEstLeJet
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:86`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:84`
 
 Ce que l'ecran montre avant l'attaque -- CA abri compris, posture, sources d'avantage et de desavantage, chance de toucher -- est exactement ce que le jet jette.
 
@@ -835,7 +825,7 @@ Ce que l'ecran montre avant l'attaque -- CA abri compris, posture, sources d'ava
 
 ### CombatPreviewTest.LeDeplacementSePrevisualiseEtLOpportuniteSeDecline
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:158`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:156`
 
 La previsualisation d'un deplacement donne le chemin, le deplacement restant et qui frappera en chemin ; un combattant dont le joueur laisse passer les opportunites ne frappe pas.
 
@@ -1618,7 +1608,7 @@ Ce qui n'est pas un declencheur n'en devient pas un.
 
 ### FlankingTest.LaLigneDesCentresTranche
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:109`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:107`
 
 Deux allies prennent un ennemi en tenaille si la ligne entre leurs centres passe par deux cotes ou deux angles opposes de son emplacement, s'ils lui sont adjacents, debout, et le voient.
 
@@ -1651,7 +1641,7 @@ Deux allies prennent un ennemi en tenaille si la ligne entre leurs centres passe
 
 ### FlankingTest.LaTenailleDonneLAvantageDansLArene
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:163`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:161`
 
 Dans une arene a prise en tenaille, une attaque au corps a corps contre un ennemi pris en tenaille est jetee avec avantage, et le journal le dit ; ailleurs, non.
 
@@ -1670,7 +1660,7 @@ Dans une arene a prise en tenaille, une attaque au corps a corps contre un ennem
 
 ### EnemyAiTest.LeJetRequisEtLEsperanceSuiventLeGuide
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:194`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:192`
 
 Le jet requis est la CA moins le bonus d'attaque ; la chance de toucher et l'esperance de degats en decoulent, en entiers.
 
@@ -1696,7 +1686,7 @@ Le jet requis est la CA moins le bonus d'attaque ; la chance de toucher et l'esp
 
 ### EnemyAiTest.LesProfilsSontDesDonnees
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:228`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:226`
 
 Les profils de comportement livres se chargent sans erreur, ne tolerent jamais trois menaces, et s'attribuent aux creatures par leurs regles.
 
@@ -1723,7 +1713,7 @@ Les profils de comportement livres se chargent sans erreur, ne tolerent jamais t
 
 ### EnemyAiTest.LIaNeLitQueLEtatEnsanglante
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:285`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:283`
 
 Exigences : `EX-CBT-050`
 
@@ -1748,7 +1738,7 @@ Les points de vie d'un adversaire restent secrets : deux cibles qui ne different
 
 ### EnemyAiTest.PasDeSuicideQuandUneCaseSureExiste
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:325`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:323`
 
 Aucun profil ne finit son tour a portee immediate de trois ennemis quand une case moins exposee etait atteignable.
 
@@ -1767,7 +1757,7 @@ Aucun profil ne finit son tour a portee immediate de trois ennemis quand une cas
 
 ### EnemyAiTest.UnTireurNeComptePasDansLAntiSuicide
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:371`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:369`
 
 Deux archers allies qui couvrent toute la salle n'empechent pas un prudent d'aller frapper le heros au contact.
 
@@ -1786,7 +1776,7 @@ Deux archers allies qui couvrent toute la salle n'empechent pas un prudent d'all
 
 ### EnemyAiTest.SansAttaquePossibleChaqueProfilAvance
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:403`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:401`
 
 Dans une salle aux dimensions de l'arene, un ennemi de chaque profil qui ne peut pas encore frapper se rapproche a chaque tour, jusqu'a attaquer.
 
@@ -1807,7 +1797,7 @@ Dans une salle aux dimensions de l'arene, un ennemi de chaque profil qui ne peut
 
 ### EnemyAiTest.LeRepliVaALaCaseSureLaPlusProche
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:460`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:458`
 
 Une archere prudente tire puis recule juste hors de portee du heros, vers la case la plus proche de lui.
 
@@ -1828,7 +1818,7 @@ Une archere prudente tire puis recule juste hors de portee du heros, vers la cas
 
 ### EnemyAiTest.LArchereChercheLaVue
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:501`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:499`
 
 Une IA archere cachee de sa cible par un pilier se deplace jusqu'a une case qui la voit et tire ; elle n'essaie jamais un tir que la ligne de vue refuse.
 
@@ -1849,7 +1839,7 @@ Une IA archere cachee de sa cible par un pilier se deplace jusqu'a une case qui 
 
 ### EnemyAiTest.SePrecipiterEtChoisirSesOpportunites
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:535`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:533`
 
 Une IA qui ne peut attaquer se precipite vers l'ennemi le plus proche ; une IA prudente laisse passer une attaque d'opportunite dont le jet requis depasse son seuil, une agressive la prend.
 
@@ -1871,7 +1861,7 @@ Une IA qui ne peut attaquer se precipite vers l'ennemi le plus proche ; une IA p
 
 ### EnemyAiTest.UnCombatIaContreIaSeTermineToujoursEtSeRejoue
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:584`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_enemy_ai.cpp:582`
 
 Sur des configurations generees -- salles, piliers, compositions, profils, tireurs, tenaille ou non --, un combat joue par l'IA des deux cotes atteint son issue ; a graine fixee, deux parties donnent le meme journal.
 
@@ -2024,7 +2014,7 @@ Pour plusieurs tailles d'élément et de grille, la position QML de chaque briqu
 
 **Étapes**
 
-1. Transcrire littéralement les formules de `ArenaScene.ui.qml` (lignes 36-61).
+1. Transcrire littéralement les formules de l'écran QML du Colisée (LOT-50).
 2. Pour des éléments 1280 × 720, 800 × 900, 640 × 360 et des grilles 16 × 12, 9 × 14, 1 × 1 : comparer la position de chaque case.
 
 **Résultat attendu**
@@ -2165,7 +2155,7 @@ Une rencontre se pose sur la zone de combat du declencheur, cases translatees.
 
 ### MapEncounterTest.UnePlaceImpossibleSeRapprocheEtSeNote
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:97`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:98`
 
 Une place impossible est rapprochee de la case voulue, et notee.
 
@@ -2188,7 +2178,7 @@ Une place impossible est rapprochee de la case voulue, et notee.
 
 ### MapEncounterTest.SansZoneLaRencontreEstRefusee
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:136`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:139`
 
 Une rencontre hors de toute zone de combat est refusee.
 

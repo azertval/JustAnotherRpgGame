@@ -20,8 +20,9 @@ Dépendances **tierces** du projet.
 
 ## Qt (LOT-34, refonte IHM)
 
-Qt porte l'IHM hors-jeu — l'unique application `JustAnotherRpgGame` (`Source/HMI`, widgets Qt + assets
-déclaratifs dans `Source/Elements`). **Qt 6.11+** est requis depuis le `LOT-69` : c'est la première
+Qt porte les deux exécutables du projet : le jeu `JustAnotherRpgGame` (Qt Quick, `Source/App/Game`
+et `Source/HMI`) et l'éditeur `LevelEditor` (Qt Widgets, `Source/Editor`), sur les données
+déclaratives de `Source/Elements`. **Qt 6.11+** est requis depuis le `LOT-69` : c'est la première
 version à fournir **Qt Canvas Painter** (peinture 2D accélérée sur cible QRhi). L'archi
 `win64_msvc2022_64` reste celle retenue (Qt 6.7 n'exposait que `win64_msvc2019_64`). Licence
 **LGPLv3, lien dynamique** — aucune obligation de publication du source du jeu ; les DLL Qt sont
@@ -45,13 +46,14 @@ redistribuées à côté de l'exécutable (`windeployqt`).
   ```
   cmake --preset vs -DCMAKE_PREFIX_PATH=C:/Qt/6.11.2/msvc2022_64
   ```
-  (ou installeur officiel Qt). La cible éditeur est **optionnelle** : sans Qt, la configuration
-  n'échoue pas (l'exécutable historique se construit) ; forcer l'exclusion avec `-DBUILD_EDITOR_QT=OFF`.
-- **CI** (`.github/workflows/ci.yml`) : étape `jurplel/install-qt-action@v4` (avec cache) avant la
-  configuration ; `CMAKE_PREFIX_PATH` est renseigné depuis `QT_ROOT_DIR`. L'action est un wrapper
-  d'aqtinstall : elle hérite donc de la limite ci-dessus, contournée par son entrée **`aqtsource`**
-  (prioritaire sur `aqtversion`), pointée sur le même commit épinglé via `env.AQT_SOURCE`.
-- **Release** (`.github/workflows/release.yml`) : tant que l'exécutable livré reste l'historique
-  (jusqu'au LOT-38), Qt n'y est pas installé et l'éditeur est simplement ignoré. Quand la release
-  basculera sur `JustAnotherRpgGame`, ajouter **`windeployqt`** pour déployer les DLL Qt à côté du
-  binaire packagé.
+  (ou installeur officiel Qt). Les exécutables sont **optionnels** à la configuration : sans Qt,
+  elle n'échoue pas, mais seuls les **tests** se construisent (ni jeu, ni éditeur) ; on l'obtient
+  explicitement avec `-DBUILD_EDITOR_QT=OFF`.
+- **CI** (`.github/workflows/ci.yml` et les autres workflows) : l'installation passe par l'action
+  composite du dépôt, `.github/actions/setup-qt`, qui enveloppe `jurplel/install-qt-action` (avec
+  cache) avant la configuration ; `CMAKE_PREFIX_PATH` est renseigné depuis `QT_ROOT_DIR`. L'action
+  est un wrapper d'aqtinstall : elle hérite donc de la limite ci-dessus, contournée par son entrée
+  **`aqtsource`** (prioritaire sur `aqtversion`), pointée sur le même commit épinglé.
+- **Release** (`.github/workflows/release.yml`) : Qt y est installé par la même action, et
+  **`windeployqt`**, lancé à la construction (`POST_BUILD`), dépose les DLL Qt et leurs greffons
+  à côté des deux exécutables ; l'archive publiée emporte tout le dossier.

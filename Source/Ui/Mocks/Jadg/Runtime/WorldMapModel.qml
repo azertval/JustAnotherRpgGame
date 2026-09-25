@@ -14,7 +14,7 @@ QtObject {
           x: 0.634, y: 0.42, kind: "city", number: 0, gateway: true,
           frame: { x: 0.39, y: 0.19, width: 0.48, height: 0.48 },
           government: "Absolute monarchy", faction: "Tanarean Empire", population: 2300000,
-          grades: [0, 1, 4, 3, 1, 1, 3], placedCount: 2, labels: [],
+          grades: [0, 1, 4, 3, 1, 1, 3], labels: [],
           places: [
               { placeId: "central-empire-the-capital-city", name: "The Capital City",
                 description: "The largest city on the continent.", placed: true, x: 0.59, y: 0.565,
@@ -27,9 +27,8 @@ QtObject {
           x: 0.557, y: 0.563, kind: "city", number: 0, gateway: true,
           frame: { x: 0.29, y: 0.384, width: 0.406, height: 0.406 },
           government: "Pirate Lords", faction: "Tanarean Empire", population: 617000,
-          grades: [3, 4, 1, 4, 2, 3, 1], placedCount: 0, labels: [], places: [] }
+          grades: [3, 4, 1, 4, 2, 3, 1], labels: [], places: [] }
     ]
-    readonly property int placedCount: 2
 
     function load() {}
 

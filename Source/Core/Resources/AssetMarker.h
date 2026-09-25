@@ -34,9 +34,12 @@ struct MarkerImage {
     /// `width * height` pixels.
     std::vector<MarkerColor> pixels;
 
+    /// @brief Vrai si l'image n'a pas de pixel : dimension nulle ou tampon vide.
     [[nodiscard]] bool isEmpty() const noexcept {
         return width <= 0 || height <= 0 || pixels.empty();
     }
+    /// @brief Le pixel de la colonne @p x et de la ligne @p y, comptées depuis le haut-gauche. Sans
+    /// contrôle des bornes.
     [[nodiscard]] MarkerColor at(int x, int y) const {
         return pixels[static_cast<std::size_t>((y * width) + x)];
     }

@@ -15,8 +15,8 @@
 namespace core {
 namespace {
 
-/// « Au moins la moitie » : une case couverte a exactement 50 % est dans la zone. La tolerance
-/// absorbe l'arrondi d'une racine de 2, jamais une vraie difference de surface.
+// « Au moins la moitie » : une case couverte a exactement 50 % est dans la zone. La tolerance
+// absorbe l'arrondi d'une racine de 2, jamais une vraie difference de surface.
 constexpr double MOITIE = 0.5 - 1e-9;
 
 struct Point {
@@ -26,7 +26,7 @@ struct Point {
 
 using Polygone = std::vector<Point>;
 
-/// Decoupe un polygone convexe par le demi-plan ou `garder` est vrai (Sutherland-Hodgman).
+// Decoupe un polygone convexe par le demi-plan ou `garder` est vrai (Sutherland-Hodgman).
 template <typename Garder, typename Couper>
 [[nodiscard]] Polygone decouper(const Polygone& polygone, Garder garder, Couper couper) {
     Polygone resultat;
@@ -45,7 +45,7 @@ template <typename Garder, typename Couper>
     return resultat;
 }
 
-/// Surface d'un polygone convexe dans la case [x0, x0 + 1] x [y0, y0 + 1].
+// Surface d'un polygone convexe dans la case [x0, x0 + 1] x [y0, y0 + 1].
 [[nodiscard]] double surfaceDansCase(Polygone polygone, double x0, double y0) {
     const auto surX = [](double bord) {
         return [bord](const Point& a, const Point& b) {
@@ -72,19 +72,17 @@ template <typename Garder, typename Couper>
     return std::abs(doubleSurface) / 2.0;
 }
 
-/// Primitive de sqrt(r^2 - x^2).
+// Primitive de sqrt(r^2 - x^2).
 [[nodiscard]] double primitiveDemiDisque(double x, double rayon) {
     const double borne = std::clamp(x / rayon, -1.0, 1.0);
     return 0.5 * ((x * std::sqrt(std::max(0.0, (rayon * rayon) - (x * x)))) +
                   (rayon * rayon * std::asin(borne)));
 }
 
-/**
- * Surface du disque de centre (0, 0) et de rayon @p rayon dans le rectangle [x0, x1] x [y0, y1].
- *
- * L'integrale sur x de la hauteur du disque tronquee au rectangle. Entre deux abscisses ou le
- * cercle croise y0 ou y1, chaque borne est soit la droite, soit l'arc, et se primitive exactement.
- */
+// Surface du disque de centre (0, 0) et de rayon @p rayon dans le rectangle [x0, x1] x [y0, y1].
+//
+// L'integrale sur x de la hauteur du disque tronquee au rectangle. Entre deux abscisses ou le
+// cercle croise y0 ou y1, chaque borne est soit la droite, soit l'arc, et se primitive exactement.
 [[nodiscard]] double surfaceDisqueRectangle(double rayon, double x0, double y0, double x1,
                                             double y1) {
     const double a = std::max(x0, -rayon);
@@ -124,7 +122,7 @@ template <typename Garder, typename Couper>
     return surface;
 }
 
-/// La forme en polygone (cone, cube, ligne), en cases ; vide si elle n'a pas de direction.
+// La forme en polygone (cone, cube, ligne), en cases ; vide si elle n'a pas de direction.
 [[nodiscard]] Polygone polygoneDe(const AreaOfEffect& zone) {
     const auto dx = static_cast<double>(zone.toward.x - zone.origin.x);
     const auto dy = static_cast<double>(zone.toward.y - zone.origin.y);

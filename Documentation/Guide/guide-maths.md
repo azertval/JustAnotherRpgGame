@@ -213,7 +213,7 @@ de distribution et non seulement un test de reproductibilité.
 Le générateur ne sait rien des dés ; ce sont les règles qui l'appellent, toujours en le recevant
 en **paramètre** — jamais un générateur global : `core::rollCheck` (jets de compétence),
 `core::rollAttack` et les dégâts ([Règles d20 et personnages](guide-regles.md), [Combat tactique](guide-combat.md)),
-et `core::Arena` pour l'initiative. Le passer en paramètre est ce qui rend un combat rejouable :
+et `core::ArenaSession` pour l'initiative. Le passer en paramètre est ce qui rend un combat rejouable :
 un test construit un `DeterministicRandom{42}`, joue, et compare à un résultat connu.
 
 ## Voir aussi

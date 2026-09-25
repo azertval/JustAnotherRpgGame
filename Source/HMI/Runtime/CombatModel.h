@@ -67,8 +67,6 @@ class CombatModel : public QObject {
     Q_PROPERTY(QVariantList pathCells READ pathCells NOTIFY cursorChanged)
     /// Les actions du tour du joueur : attaques, puis celles du Manuel, puis la réaction.
     Q_PROPERTY(QVariantList turnActions READ turnActions NOTIFY cursorChanged)
-    /// Ce que l'action choisie ferait sur la case du curseur (`LOT-24`).
-    Q_PROPERTY(QStringList preview READ preview NOTIFY cursorChanged)
     Q_PROPERTY(QVariantList turnOrder READ turnOrder NOTIFY changed)
     Q_PROPERTY(QString activeName READ activeName NOTIFY changed)
     Q_PROPERTY(QString activeResources READ activeResources NOTIFY changed)
@@ -97,7 +95,6 @@ public:
     }
     [[nodiscard]] QVariantList pathCells() const;
     [[nodiscard]] QVariantList turnActions() const;
-    [[nodiscard]] QStringList preview() const;
     [[nodiscard]] QVariantList turnOrder() const;
     [[nodiscard]] QString activeName() const;
     [[nodiscard]] QString activeResources() const;
@@ -132,8 +129,12 @@ public:
     Q_INVOKABLE void cycleAction(int step);
     /// @brief Confirme l'action choisie sur la case du curseur.
     Q_INVOKABLE void confirm();
+    /// @brief Esquive : dépense l'action du tour du joueur (`core::ArenaSession::dodge`) ; si elle
+    ///        l'est déjà, `status` le dit.
     Q_INVOKABLE void dodge();
+    /// @brief Désengagement : dépense l'action du tour ; si elle l'est déjà, `status` le dit.
     Q_INVOKABLE void disengage();
+    /// @brief Sprint : dépense l'action du tour ; si elle l'est déjà, `status` le dit.
     Q_INVOKABLE void dash();
     /// @brief Termine le tour du joueur ; l'IA joue ensuite les siens.
     Q_INVOKABLE void endTurn();
@@ -141,8 +142,11 @@ public:
     Q_INVOKABLE void withdraw();
 
 signals:
+    /// L'état du combat a changé en bloc : combattants, ordre de tour, journal, statut.
     void changed();
+    /// Le curseur de ciblage a bougé : sa case, le chemin et les actions qui en dépendent.
     void cursorChanged();
+    /// Les figurines du combat sont à recomposer : la surface de rendu se redessine.
     void combatSceneChanged();
 
 protected:

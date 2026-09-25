@@ -43,6 +43,8 @@ class ScreenRouter : public QObject {
     QML_ELEMENT
     QML_SINGLETON
 
+    /// L'écran affiché ; quand il vaut `RpgScreen`, `currentRpgScreen` dit lequel des écrans du
+    /// RPG.
     Q_PROPERTY(Screen currentScreen READ currentScreen NOTIFY changed)
     Q_PROPERTY(RpgScreen currentRpgScreen READ currentRpgScreen NOTIFY changed)
 
@@ -60,7 +62,7 @@ class ScreenRouter : public QObject {
     Q_PROPERTY(QString dialogueId READ dialogueId NOTIFY changed)
 
     /// Vrai dans un binaire de developpement, faux dans un binaire livre. Ce qui s'y adosse est un
-    /// outil de verification -- le selecteur d'ecrans de `Logic/ScreenProbe.qml` --, et un outil de
+    /// outil de verification -- le menu de developpement de `Tools/DevMenu.qml` --, et un outil de
     /// verification ne doit pas pouvoir partir avec le jeu. Une liaison QML sur cette propriete le
     /// garantit a la construction, la ou une consigne de relecture ne garantit rien.
     Q_PROPERTY(bool developerBuild READ developerBuild CONSTANT)
@@ -100,16 +102,26 @@ public:
     [[nodiscard]] Screen currentScreen() const noexcept;
     [[nodiscard]] RpgScreen currentRpgScreen() const noexcept;
 
+    /// @return Vrai dans un binaire de développement (`core::DEVELOPER_BUILD`).
     [[nodiscard]] static bool developerBuild() noexcept;
 
+    /// Ouvre le menu principal.
     Q_INVOKABLE void openMenu();
+    /// Ouvre la vue de jeu depuis le menu.
     Q_INVOKABLE void openGame();
+    /// Ouvre les options, en retenant d'où l'on vient pour y revenir.
     Q_INVOKABLE void openOptions();
+    /// Referme les options sur l'écran d'où elles ont été ouvertes.
     Q_INVOKABLE void closeOptions();
+    /// Met la partie en pause.
     Q_INVOKABLE void openPause();
+    /// Reprend la partie depuis la pause.
     Q_INVOKABLE void resume();
+    /// Quitte la partie depuis la pause, pour le menu principal.
     Q_INVOKABLE void quitToMenu();
+    /// Ouvre les crédits.
     Q_INVOKABLE void openCredits();
+    /// Referme les crédits sur le menu.
     Q_INVOKABLE void closeCredits();
 
     /**
@@ -143,11 +155,6 @@ public:
     /// qu'on soit venu du menu, du jeu ou de la pause.
     Q_INVOKABLE void openRpgScreen(RpgScreen screen);
     Q_INVOKABLE void closeRpgScreen();
-
-    /// Passe à l'écran suivant/précédent du RPG **sans repasser par le menu** (`EX-IHM-090`).
-    /// C'est le geste des gâchettes de la manette.
-    Q_INVOKABLE void nextRpgScreen();
-    Q_INVOKABLE void previousRpgScreen();
 
 signals:
     /// Émis quand l'écran courant change. Rien n'est émis si la transition a été **refusée** :

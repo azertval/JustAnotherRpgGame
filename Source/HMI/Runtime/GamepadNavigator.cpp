@@ -10,7 +10,7 @@ namespace hmi {
 
 namespace {
 
-/// Soixante sondages par seconde : la frequence d'affichage, rien de plus fin n'est perceptible.
+// Soixante sondages par seconde : la frequence d'affichage, rien de plus fin n'est perceptible.
 constexpr int POLL_PERIOD_MS = 16;
 
 }  // namespace

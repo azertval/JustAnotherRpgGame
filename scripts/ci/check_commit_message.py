@@ -50,6 +50,7 @@ def verdict(message):
 
 
 def auto_test():
+    """Éprouve le verdict sur des sujets admis et refusés connus."""
     admitted = [
         'feat(core): ajouter la détection de collision AABB',
         'fix: corriger le ratio',

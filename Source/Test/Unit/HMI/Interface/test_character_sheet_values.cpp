@@ -16,7 +16,6 @@
 #include <gtest/gtest.h>
 
 #include "HMI/Presentation/CharacterSheetValues.h"
-#include "HMI/Presentation/RpgScreens.h"
 
 namespace {
 
@@ -200,54 +199,4 @@ TEST(CharacterSheetValuesTest, LesPointsDeVieSeLisentContreLeurMaximum) {
  */
 TEST(CharacterSheetValuesTest, SansFicheAucuneValeurNEstProduite) {
     EXPECT_TRUE(hmi::characterSheetValues({}).empty());
-}
-
-/**
- * @brief Tout champ de l'écran qui déclare une source est **effectivement rempli** par le
- *        présentateur.
- *
- * C'est le seul lien entre les deux côtés : l'ossature (`hmi::rpgScreens`) déclare ses `valueId`,
- * le présentateur produit des valeurs sous ces mêmes identifiants, et rien d'autre ne les
- * rapproche. Une faute de frappe d'un côté ne se verrait qu'à l'écran, sous la forme d'un champ
- * resté au tiret cadratin au milieu de champs remplis — c'est-à-dire pas du tout.
- * \castest{<b>Chaque champ de la fiche declarant une source est rempli.</b><br/>
- * \tcat Unitaire · Fiche de personnage<br/>
- * \tcrit Critique<br/>
- * \tetapes 1. Lire les identifiants de valeur declares par l'ossature de la fiche.<br/>2.
- * Produire les valeurs d'une fiche complete.<br/>3. Verifier que chaque identifiant declare est
- * produit.<br/>
- * \tattendu Aucun champ de la fiche ne reste sans source.
- * }
- */
-TEST(CharacterSheetValuesTest, ChaqueChampDeLaFicheEstAlimente) {
-    const core::CharacterSheet personnage = fiche();
-    const core::CharacterOptions options = catalogues();
-    const core::ExperienceTable table = tableDExperience();
-    const core::SkillCatalog competences = catalogueDeCompetences();
-    const std::map<std::string, std::string> valeurs = hmi::characterSheetValues(
-        {.sheet = &personnage, .options = &options, .experience = &table, .skills = &competences});
-
-    const hmi::RpgScreenDescriptor& ecran =
-        hmi::rpgScreenDescriptor(hmi::RpgScreenId::CharacterSheet);
-    int declares = 0;
-    // Le sens qui attrape le vrai defaut : un champ de l'ecran que RIEN ne remplit. Une faute de
-    // frappe dans un identifiant -- d'un cote comme de l'autre -- le laisse au tiret cadratin au
-    // milieu de champs remplis, et personne ne le remarque.
-    //
-    // Le sens inverse n'est pas une erreur : le presentateur produit des valeurs que d'autres
-    // ecrans afficheront, et exiger que la fiche les porte toutes lui imposerait leur contenu.
-    for (std::span<const hmi::RpgContentBlock> colonne :
-         {ecran.layout.leftColumn, ecran.layout.rightColumn}) {
-        for (const hmi::RpgContentBlock& bloc : colonne) {
-            for (const hmi::RpgField& champ : bloc.fields) {
-                if (champ.valueId == nullptr || *champ.valueId == char{}) {
-                    continue;  // champ declare SANS source : il garde son tiret, et c'est voulu.
-                }
-                ++declares;
-                EXPECT_TRUE(valeurs.count(champ.valueId) > 0)
-                    << "champ de la fiche que rien ne remplit : " << champ.valueId;
-            }
-        }
-    }
-    EXPECT_GT(declares, 10) << "lecture cassee : l'ossature ne declare presque aucune valeur";
 }

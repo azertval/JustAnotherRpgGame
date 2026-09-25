@@ -10,8 +10,8 @@
  *
  * ## D'où viennent les formules
  *
- * Elles sont portées de la scène QML du Colisée (`Source/Ui/Controls/ArenaScene.ui.qml`,
- * `LOT-50`), qui les appliquait en pixels d'élément. Ici, elles s'expriment en **unités monde**
+ * Elles sont portées de l'ancienne scène QML du Colisée (celle du `LOT-50`, retirée depuis), qui
+ * les appliquait en pixels d'élément. Ici, elles s'expriment en **unités monde**
  * (`EX-ARCH-021`) : le cadrage — centrer la scène, la faire tenir dans la surface — n'est plus
  * l'affaire de la projection mais celle de la caméra (`hmi::Camera2D`), qui ne fait que déplacer
  * et agrandir, en aval, des points déjà projetés.
@@ -81,9 +81,11 @@ public:
                   float diamondRatio = ARENA_DIAMOND_RATIO,
                   float wallRise = ARENA_WALL_RISE) noexcept;
 
+    /// @brief Le nombre de colonnes de la grille projetée (jamais négatif).
     [[nodiscard]] int columns() const noexcept {
         return _columns;
     }
+    /// @brief Le nombre de lignes de la grille projetée (jamais négatif).
     [[nodiscard]] int rows() const noexcept {
         return _rows;
     }

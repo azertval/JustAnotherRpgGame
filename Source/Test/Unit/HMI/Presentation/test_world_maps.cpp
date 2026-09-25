@@ -108,7 +108,8 @@ TEST(WorldMapsTest, FichierLuEtBorne) {
  * \castest{<b>La carte rendue d'un quartier se lit avec sa grille et ses sous-zones.</b><br/>
  * \tcat Unitaire · Carte<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Lire un plan dont le quartier nomme une carte rendue, sa grille et une sous-zone.<br/>
+ * \tetapes 1. Lire un plan dont le quartier nomme une carte rendue, sa grille et une
+ * sous-zone.<br/>
  * 2. Lire le même quartier sans grille, puis une sous-zone sans entrée.<br/>
  * \tattendu La grille place le point (2, 1) en origine + 2 colonnes + 1 ligne ; la sous-zone a
  * son nom, son entrée et sa carte ; puis deux échecs qui disent ce qui manque.
@@ -142,8 +143,8 @@ TEST(WorldMapsTest, UnQuartierRenduPorteSaGrilleEtSesSousZones) {
     EXPECT_FALSE(gridless.ok());
     EXPECT_NE(gridless.error.find("grid"), std::string::npos) << gridless.error;
 
-    const hmi::WorldMaps doorless = hmi::readWorldMaps(
-        head + grid + R"(,"zones":{"crypte":{"name":"La crypte"}}}}}}})");
+    const hmi::WorldMaps doorless =
+        hmi::readWorldMaps(head + grid + R"(,"zones":{"crypte":{"name":"La crypte"}}}}}}})");
     EXPECT_FALSE(doorless.ok());
     EXPECT_NE(doorless.error.find("entrance"), std::string::npos) << doorless.error;
 }

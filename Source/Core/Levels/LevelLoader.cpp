@@ -26,10 +26,10 @@ namespace core {
 
 namespace {
 
-/// Premiere version ou la grille racine ne porte plus d'assignation de texture (LOT-EDITOR-12).
+// Premiere version ou la grille racine ne porte plus d'assignation de texture (LOT-EDITOR-12).
 constexpr int PIECES_ON_LAYERS_VERSION = 4;
 
-/// Nom de la couche de decor creee pour recevoir les assignations d'une carte v3 qui n'en a pas.
+// Nom de la couche de decor creee pour recevoir les assignations d'une carte v3 qui n'en a pas.
 constexpr const char* MIGRATED_RELIEF_LAYER_NAME = "relief";
 
 // Construit un résultat d'échec avec un message et un code categorise (EX-EDIT-012).
@@ -267,7 +267,7 @@ struct TileParseState {
     GridPosition& entry;
     int& entryCount;
     std::set<std::pair<int, int>>& occupiedPositions;
-    /// Assignations de texture d'une carte v3, a ranger comme pieces de la couche de decor.
+    // Assignations de texture d'une carte v3, a ranger comme pieces de la couche de decor.
     std::vector<std::pair<GridPosition, std::string>>& legacyTextures;
     int version;
 };

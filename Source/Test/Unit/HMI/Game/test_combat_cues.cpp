@@ -35,9 +35,10 @@ TEST(CombatCuesTest, UneMarcheSeRejoueCaseParCase) {
     hmi::CombatCueTrack file;
     file.place(HEROS, {.column = 0, .row = 0});
     EXPECT_FALSE(file.busy());
-    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Walk,
-                             .actor = HEROS,
-                             .path = {{.column = 1, .row = 0}, {.column = 2, .row = 0}, {.column = 2, .row = 1}}});
+    file.push(hmi::CombatCue{
+        .kind = hmi::CombatCueKind::Walk,
+        .actor = HEROS,
+        .path = {{.column = 1, .row = 0}, {.column = 2, .row = 0}, {.column = 2, .row = 1}}});
     ASSERT_TRUE(file.busy());
 
     file.advance(0.25F);
@@ -127,9 +128,8 @@ TEST(CombatCuesTest, LeCoupPorteAMiGesteEtUnMortResteATerre) {
 TEST(CombatCuesTest, LInconnuEstIgnoreEtToutPeutFinirDUnCoup) {
     hmi::CombatCueTrack file;
     file.place(HEROS, {.column = 0, .row = 0});
-    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Walk,
-                             .actor = RAT,
-                             .path = {{.column = 1, .row = 0}}});
+    file.push(hmi::CombatCue{
+        .kind = hmi::CombatCueKind::Walk, .actor = RAT, .path = {{.column = 1, .row = 0}}});
     file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Walk, .actor = HEROS, .path = {}});
     EXPECT_FALSE(file.busy());
     EXPECT_EQ(file.pending(), 0U);

@@ -50,7 +50,8 @@ void jusquAuJoueur(hmi::EncounterModel& rencontre, const hmi::WorldModel& monde,
         for (const hmi::WorldFigureSnapshot& figure : monde.figures()) {
             bandes.insert(figure.clip);
         }
-        if (rencontre.ended() ? !rencontre.busy() : (!rencontre.busy() && !rencontre.turnActions().isEmpty())) {
+        if (rencontre.ended() ? !rencontre.busy()
+                              : (!rencontre.busy() && !rencontre.turnActions().isEmpty())) {
             return;
         }
     }
@@ -61,7 +62,8 @@ void jusquAuJoueur(hmi::EncounterModel& rencontre, const hmi::WorldModel& monde,
 
 /**
  * @brief Une rencontre engagée depuis la carte se monte sur sa zone de combat, se joue, se voit et
- *        rend l'exploration.
+ *        rend l'exploration. Tant qu'elle dure, c'est elle qui tient la carte gelée, d'où qu'elle
+ *        ait été engagée (`EX-IHM-091`).
  * \castest{<b>Du declenchement sur la carte au retour a l'exploration, sans fenetre.</b><br/>
  * \tcat Unitaire · Combat sur la carte<br/>
  * \tcrit Bloquant<br/>
@@ -82,7 +84,8 @@ TEST(EncounterModelTest, DuDeclenchementAuRetourALExploration) {
     hmi::EncounterModel rencontre;
     rencontre.setContentRoot(dataRoot());
     rencontre.setSeed(2026);
-    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon"))) << rencontre.status().toStdString();
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+        << rencontre.status().toStdString();
     EXPECT_TRUE(rencontre.active());
     EXPECT_TRUE(monde.frozen());
     EXPECT_TRUE(monde.showsCombat());
@@ -141,7 +144,8 @@ TEST(EncounterModelTest, DuDeclenchementAuRetourALExploration) {
     EXPECT_GE(arrivee.column, 10);
     EXPECT_GE(arrivee.row, 10);
     static_cast<void>(depart);
-    // Les figurines de l'exploration ont repris : le maitre d'arene, sans figurine, est un mannequin.
+    // Les figurines de l'exploration ont repris : le maitre d'arene, sans figurine, est un
+    // mannequin.
     bool mannequin = false;
     for (const hmi::WorldFigureSnapshot& figure : monde.figures()) {
         EXPECT_FALSE(figure.combatant);
@@ -195,7 +199,8 @@ TEST(EncounterModelTest, LesGestesAttendentLaFinDUnMouvement) {
     hmi::EncounterModel rencontre;
     rencontre.setContentRoot(dataRoot());
     rencontre.setSeed(7);
-    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon"))) << rencontre.status().toStdString();
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+        << rencontre.status().toStdString();
     // Jusqu'a ce qu'un mouvement joue : un tour de l'IA, ou un pas du joueur.
     for (int pas = 0; pas < 600 && !rencontre.busy(); ++pas) {
         rencontre.tick(1.0F / 60.0F);

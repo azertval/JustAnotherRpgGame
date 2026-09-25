@@ -48,8 +48,8 @@ namespace {
  */
 TEST(CityBlockTest, LesIlotsSeLisentEtLesSaisiesFautivesSontEcartees) {
     core::LevelData donnees{.tileMap = core::TileMap{20, 20}};
-    donnees.entities = {ilot("place", 2, 3, 5, 4), ilot("", 0, 0, 2, 2),
-                        ilot("vide", 1, 1, 0, 3), ilot("ruelles", 10, 10, 3, 3)};
+    donnees.entities = {ilot("place", 2, 3, 5, 4), ilot("", 0, 0, 2, 2), ilot("vide", 1, 1, 0, 3),
+                        ilot("ruelles", 10, 10, 3, 3)};
     core::MapEntity autre;
     autre.type = "spawnPoint";
     donnees.entities.push_back(autre);

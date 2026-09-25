@@ -52,13 +52,16 @@ class CharacterSheetModel : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
+    /// L'identité de la fiche (`sheet.name`, `sheet.species`…), déjà mise en forme ; un tiret
+    /// cadratin tant que rien ne l'alimente.
     Q_PROPERTY(QString name READ name NOTIFY changed)
     Q_PROPERTY(QString species READ species NOTIFY changed)
     Q_PROPERTY(QString background READ background NOTIFY changed)
-    Q_PROPERTY(QString classAndLevel READ classAndLevel NOTIFY changed)
     Q_PROPERTY(QString level READ level NOTIFY changed)
     Q_PROPERTY(QString experience READ experience NOTIFY changed)
 
+    /// Points de vie courants sur le maximum (« 25 / 30 »), et les autres valeurs de combat de la
+    /// fiche, déjà mises en forme par `hmi::characterSheetValues`.
     Q_PROPERTY(QString hitPoints READ hitPoints NOTIFY changed)
     Q_PROPERTY(QString hitPointsMax READ hitPointsMax NOTIFY changed)
     Q_PROPERTY(QString hitDice READ hitDice NOTIFY changed)
@@ -68,8 +71,9 @@ class CharacterSheetModel : public QObject {
     Q_PROPERTY(QString proficiencyBonus READ proficiencyBonus NOTIFY changed)
     Q_PROPERTY(QString passivePerception READ passivePerception NOTIFY changed)
 
+    /// Les six caractéristiques, une ligne par caractéristique (`SheetRowModel` : `rowId`, `label`,
+    /// `value`), libellées d'après le lexique des règles.
     Q_PROPERTY(QAbstractItemModel* abilities READ abilities CONSTANT)
-    Q_PROPERTY(QAbstractItemModel* savingThrows READ savingThrows CONSTANT)
     Q_PROPERTY(QAbstractItemModel* skills READ skills CONSTANT)
 
     /// Toutes les valeurs formatées de la fiche, par clé (`sheet.ability.strength.score`,
@@ -107,9 +111,6 @@ public:
     [[nodiscard]] QString background() const {
         return value("sheet.background");
     }
-    [[nodiscard]] QString classAndLevel() const {
-        return value("sheet.class_and_level");
-    }
     [[nodiscard]] QString level() const {
         return value("sheet.level");
     }
@@ -144,9 +145,6 @@ public:
     [[nodiscard]] QAbstractItemModel* abilities() {
         return &_abilities;
     }
-    [[nodiscard]] QAbstractItemModel* savingThrows() {
-        return &_savingThrows;
-    }
     [[nodiscard]] QAbstractItemModel* skills() {
         return &_skills;
     }
@@ -165,7 +163,6 @@ private:
 
     std::map<std::string, std::string> _values;
     SheetRowModel _abilities;
-    SheetRowModel _savingThrows;
     SheetRowModel _skills;
 };
 

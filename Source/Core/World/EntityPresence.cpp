@@ -11,7 +11,7 @@ namespace core {
 
 namespace {
 
-/// Une propriété lue : absente, présente et textuelle (`texte`), ou présente d'un autre type.
+// Une propriété lue : absente, présente et textuelle (`texte`), ou présente d'un autre type.
 struct Lu {
     bool present = false;
     const std::string* texte = nullptr;

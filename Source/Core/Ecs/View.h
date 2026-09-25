@@ -6,7 +6,6 @@
 #include <cstddef>
 #include <limits>
 #include <tuple>
-#include <utility>
 
 #include "Core/Ecs/ComponentPool.h"
 #include "Core/Ecs/Entity.h"

@@ -75,9 +75,9 @@ TEST(LevelScan, IdentifiantEstLeCheminSousLevels) {
 
     const std::vector<hmi::LevelEntry> cartes = hmi::scanLevelDirectories({levels.chemin()});
 
-    EXPECT_EQ(identifiants(cartes),
-              (std::vector<std::string>{"bourg/place", "central-empire/capital/arenarea",
-                                        "donjon"}));
+    EXPECT_EQ(
+        identifiants(cartes),
+        (std::vector<std::string>{"bourg/place", "central-empire/capital/arenarea", "donjon"}));
     ASSERT_EQ(cartes.size(), 3U);
     EXPECT_EQ(cartes[2].file, levels.chemin("donjon.json"));
     EXPECT_EQ(cartes[2].directory, levels.chemin());
@@ -145,9 +145,9 @@ TEST(LevelScan, DossierAbsentNeContientRien) {
     const DossierDEssai levels{"present"};
     levels.poser("cave.json");
 
-    EXPECT_EQ(identifiants(hmi::scanLevelDirectories(
-                  {levels.chemin("nulle-part"), levels.chemin()})),
-              (std::vector<std::string>{"cave"}));
+    EXPECT_EQ(
+        identifiants(hmi::scanLevelDirectories({levels.chemin("nulle-part"), levels.chemin()})),
+        (std::vector<std::string>{"cave"}));
     EXPECT_TRUE(hmi::scanLevelDirectories({}).empty());
 }
 

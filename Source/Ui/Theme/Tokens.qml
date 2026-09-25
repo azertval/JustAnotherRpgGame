@@ -51,20 +51,15 @@ QtObject {
     readonly property color text: "#302000"         // encre sepia
     readonly property color textMuted: "#705020"    // encre delavee
     readonly property color accent: "#c0a060"       // or des filets
-    readonly property color accentHover: "#c0b080"
 
     // Seul role qui ne vienne pas des feuilles : une feuille de personnage n'a pas d'etat
     // d'erreur a montrer. Rouge de garance assombri, tenant le contraste sur le parchemin --
     // signale ici comme non atteste plutot que passe sous silence.
     readonly property color error: "#8a2f20"
 
-    // Cadre : un trait exterieur d'encre, un filet ornemental dore en retrait, et l'ombre portee.
-    // Ce ne sont pas des biseaux -- la lumiere ne vient pas d'en haut a gauche, il n'y a pas de
-    // relief a simuler. Ce qui doit rester lisible, c'est l'ECART entre le trait et le filet :
-    // deux traits de meme valeur ne composent pas un encadrement, mais une bordure epaisse.
+    // Cadre : le trait exterieur d'encre. Ce n'est pas un biseau -- la lumiere ne vient pas d'en
+    // haut a gauche, il n'y a pas de relief a simuler ; le filet dore en retrait vient de `border`.
     readonly property color frameEdge: "#302000"
-    readonly property color frameOrnament: "#907030"
-    readonly property color frameShadow: "#705020"
 
     // Grenat des cabochons et de la plaque du bandeau de titre (LOT-76), releve sur deux angles
     // opposes du meme cabochon -- qui donnent la meme valeur.

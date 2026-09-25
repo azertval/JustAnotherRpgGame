@@ -27,7 +27,7 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
     return (trouve != objet.end() && trouve->is_number_integer()) ? trouve->get<int>() : 0;
 }
 
-/// Les combattants d'une rencontre ; une entree sans creature est signalee puis ignoree.
+// Les combattants d'une rencontre ; une entree sans creature est signalee puis ignoree.
 void lireCombattants(const nlohmann::json& combattants, const std::filesystem::path& chemin,
                      Encounter& rencontre, std::vector<std::string>& erreurs) {
     for (const nlohmann::json& entree : combattants) {

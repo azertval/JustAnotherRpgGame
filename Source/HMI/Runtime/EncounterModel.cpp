@@ -22,8 +22,8 @@
 
 namespace hmi {
 
-/// Les catalogues du combat sur la carte, lus une fois : le bestiaire, les rencontres, les profils
-/// de l'IA, le héros.
+// Les catalogues du combat sur la carte, lus une fois : le bestiaire, les rencontres, les profils
+// de l'IA, le héros.
 struct EncounterModel::Catalogs {
     core::Bestiary bestiary;
     core::EncounterCatalog encounters;
@@ -51,11 +51,10 @@ EncounterModel* rencontreCourante = nullptr;
     return {};
 }
 
-/// Une graine tirée à l'horloge quand l'écran n'en impose pas : deux rencontres ne se ressemblent
-/// pas, et le journal dit laquelle a servi pour la rejouer.
+// Une graine tirée à l'horloge quand l'écran n'en impose pas : deux rencontres ne se ressemblent
+// pas, et le journal dit laquelle a servi pour la rejouer.
 [[nodiscard]] std::uint64_t graineHorloge() {
-    return static_cast<std::uint64_t>(
-        std::chrono::steady_clock::now().time_since_epoch().count());
+    return static_cast<std::uint64_t>(std::chrono::steady_clock::now().time_since_epoch().count());
 }
 
 }  // namespace
@@ -94,7 +93,8 @@ bool EncounterModel::ensureCatalogs() {
     auto catalogs = std::make_unique<Catalogs>();
     catalogs->bestiary = core::loadBestiary(_contentRoot / "Rpg" / "creatures");
     catalogs->encounters = core::loadEncounters(_contentRoot / "Rpg" / "encounters");
-    catalogs->behaviors = core::loadBehaviors(executableDirectory() / "Rpg" / "rules" / "behaviors.json");
+    catalogs->behaviors =
+        core::loadBehaviors(executableDirectory() / "Rpg" / "rules" / "behaviors.json");
     for (const std::string& error : catalogs->bestiary.errors) {
         HMI_LOG_WARNING("Rencontre : bestiaire, " + error);
     }
@@ -143,8 +143,7 @@ bool EncounterModel::begin(const QString& encounterId) {
         emit changed();
         return false;
     }
-    const core::Encounter* const encounter =
-        _catalogs->encounters.find(encounterId.toStdString());
+    const core::Encounter* const encounter = _catalogs->encounters.find(encounterId.toStdString());
     if (encounter == nullptr) {
         _status = tr("Rencontre inconnue : %1").arg(encounterId);
         HMI_LOG_WARNING("Rencontre : '" + encounterId.toStdString() + "' est inconnue.");
@@ -156,8 +155,7 @@ bool EncounterModel::begin(const QString& encounterId) {
     // l'entite `encounter` --, a defaut la case que le heros regarde.
     const core::ExplorationSession& session = world->play().session();
     const core::Level* const map = session.map();
-    const core::GridPosition trigger =
-        world->lastInteractionCell().value_or(session.aimedCell());
+    const core::GridPosition trigger = world->lastInteractionCell().value_or(session.aimedCell());
     // Une entite `encounter` posee la se combat une fois : sa cle de drapeau la fait disparaitre
     // pour de bon (`core::encounterTriggerFor`). Un combat engage par un dialogue n'a pas de cle :
     // ce sont les drapeaux de la quete qui en tirent les consequences (LOT-116).
@@ -195,8 +193,9 @@ bool EncounterModel::begin(const QString& encounterId) {
     _session->setOpportunityPolicy(core::aiOpportunityPolicy(_catalogs->behaviors));
 
     core::ArenaBout bout{.contestants = {},
-                         .seed = _seed != 0 ? static_cast<std::uint64_t>(static_cast<unsigned>(_seed))
-                                            : graineHorloge(),
+                         .seed = _seed != 0
+                                     ? static_cast<std::uint64_t>(static_cast<unsigned>(_seed))
+                                     : graineHorloge(),
                          // Un combat sur la carte est LETAL : la defaite est la mort, et la demo
                          // s'y termine (LOT-119). Les Marques sont celles du Colisee.
                          .lethal = true,
@@ -236,8 +235,8 @@ bool EncounterModel::begin(const QString& encounterId) {
     // Ce que chacun dessine : le heros sa figurine, chaque creature la sienne ou son mannequin.
     _bindings.clear();
     const ResolvedFigure& heroFigure = world->play().heroResolved();
-    _bindings[*_hero] = Binding{
-        .directory = heroFigure.directory, .oriented = heroFigure.oriented, .hero = true};
+    _bindings[*_hero] =
+        Binding{.directory = heroFigure.directory, .oriented = heroFigure.oriented, .hero = true};
     std::size_t rang = 0;
     for (const core::CombatantPlacement& placement : _setup->run.placements) {
         const core::Creature* const creature = _catalogs->bestiary.find(placement.creatureId);
@@ -255,7 +254,8 @@ bool EncounterModel::begin(const QString& encounterId) {
     _outcome.clear();
     _cues.clear();
     for (const core::CombatantId id : _session->combat().combatants()) {
-        if (const std::optional<core::GridPosition> cell = _session->combat().grid().positionOf(id)) {
+        if (const std::optional<core::GridPosition> cell =
+                _session->combat().grid().positionOf(id)) {
             _cues.place(id, *cell);
         }
     }
@@ -280,28 +280,25 @@ void EncounterModel::subscribeCues() {
                          if (!event.combatant.has_value()) {
                              return;
                          }
-                         _cues.push(CombatCue{
-                             .kind = CombatCueKind::Attack,
-                             .actor = *event.combatant,
-                             .path = {},
-                             .target = event.target.has_value()
-                                           ? state.grid().positionOf(*event.target)
-                                           : std::nullopt});
+                         _cues.push(CombatCue{.kind = CombatCueKind::Attack,
+                                              .actor = *event.combatant,
+                                              .path = {},
+                                              .target = event.target.has_value()
+                                                            ? state.grid().positionOf(*event.target)
+                                                            : std::nullopt});
                      });
-    combat.subscribe(core::CombatHook::DamageTaken,
-                     [this](core::CombatState&, const core::CombatEvent& event) {
-                         if (event.combatant.has_value() && event.amount > 0) {
-                             _cues.push(CombatCue{.kind = CombatCueKind::Hit,
-                                                  .actor = *event.combatant});
-                         }
-                     });
-    combat.subscribe(core::CombatHook::CombatantDowned,
-                     [this](core::CombatState&, const core::CombatEvent& event) {
-                         if (event.combatant.has_value()) {
-                             _cues.push(CombatCue{.kind = CombatCueKind::Death,
-                                                  .actor = *event.combatant});
-                         }
-                     });
+    combat.subscribe(
+        core::CombatHook::DamageTaken, [this](core::CombatState&, const core::CombatEvent& event) {
+            if (event.combatant.has_value() && event.amount > 0) {
+                _cues.push(CombatCue{.kind = CombatCueKind::Hit, .actor = *event.combatant});
+            }
+        });
+    combat.subscribe(core::CombatHook::CombatantDowned, [this](core::CombatState&,
+                                                               const core::CombatEvent& event) {
+        if (event.combatant.has_value()) {
+            _cues.push(CombatCue{.kind = CombatCueKind::Death, .actor = *event.combatant});
+        }
+    });
     combat.subscribe(core::CombatHook::CombatantLeft,
                      [this](core::CombatState&, const core::CombatEvent& event) {
                          if (event.combatant.has_value()) {
@@ -379,9 +376,8 @@ void EncounterModel::publishFigures() {
             motion == nullptr || binding == _bindings.end()) {
             continue;
         }
-        const core::Vector2 point{
-            motion->point.x + static_cast<float>(_setup->zone.origin.column),
-            motion->point.y + static_cast<float>(_setup->zone.origin.row)};
+        const core::Vector2 point{motion->point.x + static_cast<float>(_setup->zone.origin.column),
+                                  motion->point.y + static_cast<float>(_setup->zone.origin.row)};
         if (binding->second.hero) {
             heroPoint = point;
         }
@@ -518,18 +514,17 @@ QVariantMap EncounterModel::target() const {
     if (ally) {
         map.insert("hitPoints", QString::number(profile.currentHitPoints) + " / " +
                                     QString::number(profile.maximumHitPoints));
-        map.insert("hitPointsRatio",
-                   std::clamp(static_cast<double>(profile.currentHitPoints) /
-                                  std::max(1, profile.maximumHitPoints),
-                              0.0, 1.0));
+        map.insert("hitPointsRatio", std::clamp(static_cast<double>(profile.currentHitPoints) /
+                                                    std::max(1, profile.maximumHitPoints),
+                                                0.0, 1.0));
     } else {
         map.insert("hitPoints", down ? tr("a terre")
                                      : (core::isBloodied(profile) ? tr("ensanglante") : QString()));
         map.insert("hitPointsRatio", down ? 0.0 : (core::isBloodied(profile) ? 0.5 : 1.0));
     }
     map.insert("armorClass", QString::number(profile.armorClass));
-    map.insert("speed", QString::number(static_cast<double>(profile.movement) * core::METERS_PER_TILE,
-                                        'g', 3) +
+    map.insert("speed", QString::number(
+                            static_cast<double>(profile.movement) * core::METERS_PER_TILE, 'g', 3) +
                             tr(" m"));
     QStringList conditions;
     if (down) {

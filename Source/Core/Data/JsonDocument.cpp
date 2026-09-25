@@ -13,7 +13,7 @@ namespace core {
 
 namespace {
 
-/// @brief Construit un échec, en un point unique pour que tous se ressemblent.
+// Construit un échec, en un point unique pour que tous se ressemblent.
 [[nodiscard]] JsonDocument failure(JsonReadError code, std::string message,
                                    TextPosition position = {}) {
     return JsonDocument{.root = nlohmann::json::object(),
@@ -23,7 +23,7 @@ namespace {
                         .version = 0};
 }
 
-/// @brief Préfixe « fichier:ligne:colonne : » d'un message, réduit à ce qui est connu.
+// Préfixe « fichier:ligne:colonne : » d'un message, réduit à ce qui est connu.
 [[nodiscard]] std::string prefix(std::string_view origin, TextPosition position) {
     std::string out;
     if (!origin.empty()) {
@@ -64,7 +64,7 @@ TextPosition positionOf(std::string_view text, std::size_t byteOffset) {
 
 namespace {
 
-/// Relit un texte JSON bien formé en suivant un chemin, et note où commence la valeur visée.
+// Relit un texte JSON bien formé en suivant un chemin, et note où commence la valeur visée.
 class Pisteur {
 public:
     Pisteur(std::string_view texte, std::vector<std::string> chemin)
@@ -93,7 +93,7 @@ private:
         ++_i;
     }
 
-    /// Une chaîne, guillemets compris ; rend son contenu, échappements laissés bruts sauf `\"`.
+    // Une chaîne, guillemets compris ; rend son contenu, échappements laissés bruts sauf `\"`.
     std::string chaine() {
         std::string contenu;
         avancer();  // le guillemet ouvrant
@@ -110,7 +110,7 @@ private:
         return contenu;
     }
 
-    /// Une valeur à la profondeur @p profondeur du chemin courant.
+    // Une valeur à la profondeur @p profondeur du chemin courant.
     void valeur(std::size_t profondeur) {
         espaces();
         if (_i >= _texte.size() || _trouve.line > 0) {
@@ -186,7 +186,7 @@ private:
     TextPosition _trouve;
 };
 
-/// Les pas d'un pointeur JSON, `~1` et `~0` rendus à `/` et `~`.
+// Les pas d'un pointeur JSON, `~1` et `~0` rendus à `/` et `~`.
 [[nodiscard]] std::vector<std::string> pasDuPointeur(const nlohmann::json::json_pointer& pointeur) {
     const std::string texte = pointeur.to_string();
     std::vector<std::string> pas;

@@ -84,7 +84,7 @@ s'ouvre d'un double-clic sur la carte, l'entité et la case concernées.
 ## 4. Approche d'implémentation (décidée)
 **Un outil d'auteur à part, et un mode intégré au jeu qui n'en est pas un.** L'édition de contenu
 vit dans `LevelEditor`, un exécutable Qt Widgets distinct du jeu ; l'édition **dans la scène**,
-depuis le jeu, est l'**arène** du `LOT-50`.
+depuis le jeu, se réduit à ses outils de développement.
 
 - **EX-EDIT-030** — L'**outil d'auteur** est un exécutable distinct du jeu
   (`LevelEditor`), qui partage le code du jeu mais pas sa technologie d'interface : le jeu ne lie
@@ -92,6 +92,12 @@ depuis le jeu, est l'**arène** du `LOT-50`.
   débogage où l'on pose des combattants et rejoue à graine fixée — pas un outil qui produit du
   contenu versionné. Refondue au `LOT-11` (décision de l'auteur, 16 septembre 2026) : retarger
   `LevelEditor` plutôt que reconstruire l'édition dans la scène en Qt Quick.
+  > **Précisée le 25 septembre 2026.** L'arène du `LOT-50` n'est plus ce bac à sable : son écran
+  > est retiré, le combat se jouant sur la carte (`LOT-118`). Le bac à sable de débogage du jeu
+  > est désormais le menu de développement (<kbd>F9</kbd>), le lanceur de cartes
+  > (`--screen=MapLauncher`) et la racine de données d'essai (`--data=`) : on y ouvre n'importe
+  > quelle carte, à n'importe quel point d'arrivée, et l'on y rejoue une rencontre — toujours
+  > sans produire de contenu versionné, ce que l'exigence demande.
 - **EX-EDIT-031** — L'éditeur réutilise le **rendu du jeu** (QRhi,
   `hmi::SceneResources`, composition de `HMI`), le **modèle et la validation de carte** de `Core`,
   et, pour l'essai, la **mise en scène du jeu** elle-même (`hmi::WorldPlay`,

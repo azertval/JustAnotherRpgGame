@@ -21,7 +21,7 @@ namespace core {
  * @brief Catégorie d'échec de lecture d'un document JSON.
  *
  * Les cinq catégories que les six lecteurs du dépôt avaient chacun redéfinies pour leur compte
- * (`hmi::AnimationCatalogError`, `hmi::ArenaAppearanceError`…). Elles sont
+ * (`hmi::AnimationCatalogError`, `hmi::PlaceAppearanceError`…). Elles sont
  * ici **une seule fois** : deux définitions de « version non gérée » finissent par diverger sur
  * ce qu'elles recouvrent.
  */

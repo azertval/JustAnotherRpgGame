@@ -36,7 +36,8 @@ struct InventoryContext {
     std::string emptyMark = "—";
 };
 
-/// @return Les valeurs de l'inventaire, prêtes pour `hmi::RpgScreenFrame::setValues`. Un contexte
+/// @return Les valeurs de l'inventaire, prêtes à être publiées par `hmi::InventoryModel`. Un
+/// contexte
 ///         sans inventaire rend une table **vide** : l'écran garde alors ses tirets.
 [[nodiscard]] std::map<std::string, std::string> inventoryValues(const InventoryContext& context);
 

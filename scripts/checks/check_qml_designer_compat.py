@@ -98,18 +98,22 @@ BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.S)
 
 
 def strip_comments(text: str) -> str:
+    """Le QML sans ses commentaires, de ligne comme de bloc."""
     return LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text))
 
 
 def strip_cmake_comments(text: str) -> str:
+    """Un CMakeLists.txt sans ses commentaires `#`."""
     return re.sub(r"#[^\n]*", "", text)
 
 
 def read(path: Path) -> str:
+    """Le texte d'un fichier, lu en UTF-8 sans jamais echouer sur un octet douteux."""
     return path.read_text(encoding="utf-8", errors="replace")
 
 
 def rel(path: Path) -> str:
+    """Le chemin d'un fichier relatif a la racine du depot, en barres obliques."""
     return path.relative_to(ROOT).as_posix()
 
 
@@ -124,10 +128,12 @@ def project_qml(directory: Path) -> list[Path]:
 
 
 def forms() -> list[Path]:
+    """Les formulaires `.ui.qml` ecrits sous Source/Ui."""
     return [p for p in project_qml(UI) if p.name.endswith(".ui.qml")]
 
 
 def twins() -> list[Path]:
+    """Les jumeaux de cablage des ecrans (Source/App/Game/Qml/Screens/*.qml)."""
     screens = APP_QML / "Screens"
     return sorted(screens.glob("*.qml")) if screens.is_dir() else []
 
@@ -151,6 +157,7 @@ def runtime_types() -> dict[str, dict[str, set[str]]]:
 
 
 def check_form_imports_and_patterns(failures: list[str]) -> int:
+    """Regles 1-2 : imports autorises seulement, et rien que Design Studio perdrait."""
     checked = 0
     for path in forms():
         checked += 1
@@ -171,6 +178,7 @@ def check_form_imports_and_patterns(failures: list[str]) -> int:
 
 
 def check_forms_name_no_cpp_type(failures: list[str], types: dict) -> int:
+    """Regle 3 : aucun formulaire ne nomme un type C++, ni comme element ni comme singleton."""
     checked = 0
     for path in forms():
         checked += 1
@@ -186,6 +194,7 @@ def check_forms_name_no_cpp_type(failures: list[str], types: dict) -> int:
 
 
 def check_mocks(failures: list[str], types: dict) -> int:
+    """Regle 4 : chaque type C++ expose a sa doublure complete, et aucune doublure sans original."""
     if not MOCKS_QMLDIR.is_file():
         failures.append(f"{rel(MOCKS_QMLDIR)} introuvable : aucune doublure pour Design Studio.")
         return 0
@@ -229,6 +238,7 @@ def check_mocks(failures: list[str], types: dict) -> int:
 
 
 def check_twins(failures: list[str], types: dict) -> int:
+    """Regle 5 : jumeau et formulaire vont par deux ; le jumeau importe Jadg.Runtime s'il en use."""
     checked = 0
     screens = UI / "Screens"
     for twin in twins():
@@ -253,6 +263,7 @@ def check_twins(failures: list[str], types: dict) -> int:
 
 
 def check_cmake_lists_every_file(failures: list[str]) -> int:
+    """Regle 6 : chaque fichier QML ecrit est liste par le CMakeLists.txt de son module."""
     checked = 0
     for cmake, directory, base in ((UI_CMAKE, UI, UI), (APP_CMAKE, APP_QML, APP_CMAKE.parent)):
         if not cmake.is_file():
@@ -271,6 +282,7 @@ def check_cmake_lists_every_file(failures: list[str]) -> int:
 
 
 def check_no_forbidden_cmake(failures: list[str]) -> int:
+    """Regle 7 : aucun CMakeLists.txt du depot ne pose les deux interdits de la phase 1."""
     checked = 0
     for cmake in sorted(ROOT.rglob("CMakeLists.txt")):
         if "build" in cmake.parts or "External" in cmake.parts:
@@ -287,6 +299,7 @@ def check_no_forbidden_cmake(failures: list[str]) -> int:
 
 
 def check_qmldirs(failures: list[str]) -> int:
+    """Regle 8 : le qmldir de Jadg.Ui est `designersupported` sans plugin ; la galerie existe."""
     checked = 0
     if DEV_QMLDIR.is_file():
         checked += 1

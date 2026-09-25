@@ -109,6 +109,8 @@ struct AssetGalleryCatalog {
     std::vector<AssetGalleryFamily> families;
     std::vector<std::string> errors;
 
+    /// @brief Lit les manifestes sous @p assetsRoot (PNJ, monstres, scènes, arbre des assets) ; un
+    ///        manifeste illisible s'ajoute à `errors`.
     [[nodiscard]] static AssetGalleryCatalog load(const std::filesystem::path& assetsRoot);
 
     /// @return Le nombre total de formes.
@@ -199,6 +201,8 @@ struct AssetGalleryView {
 /// Épaisseur de l'anneau de préchargement, en cases : un bloc ordinaire.
 inline constexpr double ASSET_GALLERY_RING_CELLS = 3.0;
 
+/// @return Ce que devient @p bloc pour la vue @p view : dessiné s'il la touche, préchargé s'il est
+///         dans l'anneau de @p ringCells cases autour d'elle, libéré au-delà.
 [[nodiscard]] AssetGalleryVisibility assetGalleryVisibility(
     const AssetGalleryBloc& bloc, const AssetGalleryView& view,
     double ringCells = ASSET_GALLERY_RING_CELLS) noexcept;

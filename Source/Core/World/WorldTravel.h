@@ -162,6 +162,7 @@ public:
      */
     [[nodiscard]] static MapLoader directoriesLoader(std::vector<std::filesystem::path> levelsDirs);
 
+    /// @brief Une traversée sans carte courante, dont les cartes se liront par @p loader (`enter`).
     explicit WorldTravel(MapLoader loader);
 
     /**
@@ -192,11 +193,6 @@ public:
     /// @return La case du personnage sur la carte courante.
     [[nodiscard]] GridPosition position() const noexcept {
         return _position;
-    }
-
-    /// @brief Suit le personnage sur sa carte : c'est le déplacement qui décide, pas ce fichier.
-    void setPosition(GridPosition position) noexcept {
-        _position = position;
     }
 
     /// @return Le défaut de la dernière traversée refusée, s'il y en a un.

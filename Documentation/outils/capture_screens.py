@@ -29,7 +29,6 @@ from PIL import Image
 
 DOCS_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = DOCS_ROOT / 'Guide' / 'captures'
-# Les écrans du jeu, par le nom que connaît `ScreenStack.qml`.
 TEST_DATA = DOCS_ROOT.parent / 'Source' / 'Test' / 'Fixtures' / 'GameData'
 # La fenêtre de l'éditeur, ouverte sur une carte d'essai : identifiant de carte -> nom de la capture.
 EDITOR_MAPS = {'donjon': 'editeur-fenetre-donjon', 'bourg/place': 'editeur-fenetre-place'}
@@ -40,12 +39,15 @@ EDITOR_RENDERS = {
     'editeur-rendu-place-collision': ('bourg/place', ['--layers', 'floors,collision']),
     'editeur-rendu-donjon-plan': ('donjon', ['--plan']),
 }
+# Les écrans du jeu, par le nom que connaît `ScreenStack.qml` (`screenNames`) ; la capture
+# s'appelle `jeu-<nom en minuscules>.jpg`.
 GAME_SCREENS = ['MainMenu', 'Options', 'Credits', 'Pause', 'GameView', 'CharacterSheet', 'Skills',
                 'Inventory', 'Journal', 'WorldMap', 'Dialogue', 'Merchant', 'Company', 'CombatHud',
-                'Arena', 'AssetGallery']
+                'Death', 'DemoEnd', 'Gallery', 'AssetGallery']
 
 
 def shrink(source, target, width=1280, quality=82):
+    """Réduit une capture PNG en JPEG de `width` px de large au plus."""
     with Image.open(source) as image:
         image = image.convert('RGB')
         if image.width > width:
@@ -54,6 +56,7 @@ def shrink(source, target, width=1280, quality=82):
 
 
 def capture(command, target, cwd):
+    """Fait se photographier un exécutable (`--screenshot=`) ; la capture réduite va dans `target`."""
     with tempfile.TemporaryDirectory() as folder:
         raw = Path(folder) / 'capture.png'
         result = subprocess.run(command + [f'--screenshot={raw}'], cwd=cwd, timeout=120,
@@ -67,6 +70,7 @@ def capture(command, target, cwd):
 
 
 def render(editor, map_id, options, target, cwd):
+    """Rend une carte hors fenêtre (`LevelEditor --render`) ; l'image, réduite, va dans `target`."""
     with tempfile.TemporaryDirectory() as folder:
         raw = Path(folder) / 'render.png'
         command = [str(editor), '--render', '--data', str(TEST_DATA), '--output', str(raw)] + options + [map_id]

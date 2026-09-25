@@ -9,8 +9,8 @@
 namespace core {
 namespace {
 
-/// Vrai si le segment p-q touche le segment vertical x = @p x, y dans [@p y0, @p y1], extremites
-/// comprises. Les points sont en demi-cases ; tout reste entier.
+// Vrai si le segment p-q touche le segment vertical x = @p x, y dans [@p y0, @p y1], extremites
+// comprises. Les points sont en demi-cases ; tout reste entier.
 [[nodiscard]] bool toucheLeBordVertical(GridPoint p, GridPoint q, int x, int y0, int y1) noexcept {
     if (q.x < p.x) {
         std::swap(p, q);
@@ -41,7 +41,7 @@ namespace {
     return std::max(dx, dy);
 }
 
-/// Deux emprises alignees, par une case de chacune, sur deux cotes opposes de la cible.
+// Deux emprises alignees, par une case de chacune, sur deux cotes opposes de la cible.
 [[nodiscard]] bool alignees(Footprint a, Footprint b, Footprint cible) noexcept {
     for (int ya = 0; ya < a.side; ++ya) {
         for (int xa = 0; xa < a.side; ++xa) {

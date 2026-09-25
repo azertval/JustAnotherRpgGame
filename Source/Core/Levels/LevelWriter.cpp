@@ -27,7 +27,7 @@ namespace {
 // alphabetique -- "version" en tete, les tuiles en dernier.
 using Json = nlohmann::ordered_json;
 
-/// Tableaux dont les objets s'ecrivent sur UNE ligne chacun : une case = une ligne de diff.
+// Tableaux dont les objets s'ecrivent sur UNE ligne chacun : une case = une ligne de diff.
 [[nodiscard]] bool isCellArray(const std::string& key) {
     return key == "tiles" || key == "forced" || key == "cells";
 }

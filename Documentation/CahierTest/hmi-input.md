@@ -1,6 +1,6 @@
 # HMI · Input
 
-Tests unitaires — **25 cas** (1 bloquant, 3 critiques, 19 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **13 cas** (1 bloquant, 3 critiques, 7 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -8,17 +8,8 @@ Tests unitaires — **25 cas** (1 bloquant, 3 critiques, 19 majeurs, 2 mineurs).
 |---|---|---|---|---|---|
 | [`test_button_repeat.cpp`](#test-button-repeatcpp) | 1 | - | 1 | - | - |
 | [`test_gamepad_probe.cpp`](#test-gamepad-probecpp) | 3 | - | 2 | 1 | - |
-| [`test_input_state.cpp`](#test-input-statecpp) | 16 | - | - | 15 | 1 |
+| [`test_input_state.cpp`](#test-input-statecpp) | 4 | - | - | 3 | 1 |
 | [`test_qt_key_map.cpp`](#test-qt-key-mapcpp) | 5 | 1 | - | 3 | 1 |
-
-## Exigences vérifiées par cette page
-
-Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
-
-| Exigence | Cas |
-|---|---|
-| `EX-CTRL-002` | [`InputStateTest.ManetteSeuleActiveLaTouche`](#inputstatetestmanetteseuleactivelatouche) |
-| `EX-EDIT-009` | [`InputStateTest.CaracteresTapesAccumulesEtVides`](#inputstatetestcaracterestapesaccumulesetvides) |
 
 ## test_button_repeat.cpp
 
@@ -92,216 +83,9 @@ Le delai de detection ne depend pas de la cadence de l'appelant.
 
 ## test_input_state.cpp
 
-### InputStateTest.FrontMontantClavier
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:15`
-
-Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyDown(hmi::Key::Enter)` est vrai.
-- Vérifie que `input.keyPressed(hmi::Key::Enter)` est vrai.
-- Vérifie que `input.keyReleased(hmi::Key::Enter)` est faux.
-- Vérifie que `input.keyDown(hmi::Key::Enter)` est vrai.
-- Vérifie que `input.keyPressed(hmi::Key::Enter)` est faux.
-
-### InputStateTest.MaintienClavier
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:41`
-
-Une touche restée enfoncée n'est « pressée » qu'à la première frame.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyPressed(hmi::Key::Down)` est vrai.
-- Vérifie que `input.keyDown(hmi::Key::Down)` est vrai.
-- Vérifie que `input.keyPressed(hmi::Key::Down)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Down)` est faux.
-
-### InputStateTest.FrontDescendantClavier
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:66`
-
-Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyDown(hmi::Key::Space)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Space)` est vrai.
-- Vérifie que `input.keyReleased(hmi::Key::Space)` est faux.
-
-### InputStateTest.TouchesIndependantes
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:93`
-
-Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyPressed(hmi::Key::Up)` est vrai.
-- Vérifie que `input.keyDown(hmi::Key::Down)` est faux.
-- Vérifie que `input.keyPressed(hmi::Key::Down)` est faux.
-
-### InputStateTest.BoutonSouris
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:114`
-
-Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.mouseButtonDown(hmi::MouseButton::Left)` est vrai.
-- Vérifie que `input.mouseButtonPressed(hmi::MouseButton::Left)` est vrai.
-- Vérifie que `input.mouseButtonDown(hmi::MouseButton::Left)` est vrai.
-- Vérifie que `input.mouseButtonPressed(hmi::MouseButton::Left)` est faux.
-- Vérifie que `input.mouseButtonDown(hmi::MouseButton::Left)` est faux.
-- Vérifie que `input.mouseButtonReleased(hmi::MouseButton::Left)` est vrai.
-
-### InputStateTest.PositionSouris
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:143`
-
-La position de la souris reflète le dernier déplacement injecté.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.mouseX()` vaut `42`.
-- Vérifie que `input.mouseY()` vaut `99`.
-- Vérifie que `input.mouseX()` vaut `-3`.
-- Vérifie que `input.mouseY()` vaut `7`.
-
-### InputStateTest.MoletteAccumuleEtSeReinitialise
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:165`
-
-Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.wheelDelta()` vaut `0`.
-- Vérifie que `input.wheelDelta()` vaut `80`.
-- Vérifie que `input.wheelDelta()` vaut `0`.
-
-### InputStateTest.CaracteresTapesAccumulesEtVides
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:189`
-
-Exigences : `EX-EDIT-009`
-
-Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.typedCharacters().empty()` est vrai.
-- Vérifie que `input.typedCharacters().size()` vaut `3u`.
-- Vérifie que `input.typedCharacters()[0]` vaut `L'N'`.
-- Vérifie que `input.typedCharacters()[1]` vaut `L'1'`.
-- Vérifie que `input.typedCharacters()[2]` vaut `L'\xE9'`.
-- Vérifie que `input.typedCharacters().empty()` est vrai.
-
-### InputStateTest.ManetteSeuleActiveLaTouche
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:218`
-
-Exigences : `EX-CTRL-002`
-
-Un bouton manette seul rend `keyDown`/`keyPressed` vrais, comme au clavier.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyDown(hmi::Key::Enter)` est vrai.
-- Vérifie que `input.keyPressed(hmi::Key::Enter)` est vrai.
-- Vérifie que `input.keyDown(hmi::Key::Enter)` est vrai.
-- Vérifie que `input.keyPressed(hmi::Key::Enter)` est faux.
-- Vérifie que `input.keyDown(hmi::Key::Enter)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Enter)` est vrai.
-
-### InputStateTest.ClavierEtManetteMemeToucheUnSeulFront
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:246`
-
-Clavier et manette combinés sur la même touche ne produisent pas de double front.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyPressed(hmi::Key::Space)` est vrai.
-- Vérifie que `input.keyPressed(hmi::Key::Space)` est faux.
-- Vérifie que `input.keyDown(hmi::Key::Space)` est vrai.
-- Vérifie que `input.keyReleased(hmi::Key::Space)` est faux.
-- Vérifie que `input.keyDown(hmi::Key::Space)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Space)` est vrai.
-
-### InputStateTest.ManetteRelacheeNeMasquePasLeClavier
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:283`
-
-La manette relâchée ne masque jamais une touche clavier réellement maintenue.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyDown(hmi::Key::Left)` est vrai.
-- Vérifie que `input.keyDown(hmi::Key::Left)` est vrai.
-- Vérifie que `input.keyReleased(hmi::Key::Left)` est faux.
-
 ### InputStateTest.GamepadConnecteReecrasable
 
-*Mineur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:311`
+*Mineur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:15`
 
 `gamepadConnected` reflète le dernier `setGamepadConnected` appelé.
 
@@ -318,9 +102,9 @@ La manette relâchée ne masque jamais une touche clavier réellement maintenue.
 
 ### InputStateTest.FrontMontantBoutonManetteBrut
 
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:333`
+*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:36`
 
-Un bouton manette (piste brute) est « pressé » exactement une frame.
+Un bouton manette est « pressé » exactement un relevé.
 
 **Étapes**
 
@@ -337,9 +121,9 @@ Un bouton manette (piste brute) est « pressé » exactement une frame.
 
 ### InputStateTest.FrontDescendantBoutonManetteBrut
 
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:360`
+*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:63`
 
-Un bouton manette (piste brute) est « relâché » exactement une frame.
+Un bouton manette est « relâché » exactement un relevé.
 
 **Étapes**
 
@@ -352,44 +136,25 @@ Un bouton manette (piste brute) est « relâché » exactement une frame.
 - Vérifie que `input.gamepadButtonReleased(hmi::GamepadButton::X)` est vrai.
 - Vérifie que `input.gamepadButtonReleased(hmi::GamepadButton::X)` est faux.
 
-### InputStateTest.PisteBrutIndependanteDeLaFusionKey
-
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:386`
-
-La piste manette brute est indépendante de la fusion clavier/manette sur Key.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `input.keyDown(hmi::Key::Enter)` est faux.
-- Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::B)` est faux.
-
 ### InputStateTest.RelacheToutSansFront
 
-*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:409`
+*Majeur · Unitaire · Input State* — `Source/Test/Unit/HMI/Input/test_input_state.cpp:89`
 
-releaseAll relâche tout sans produire de front « relâchée ».
+releaseAll relâche tout sans produire de front « relâché ».
 
 **Étapes**
 
-1. Maintenir des entrées clavier/manette/souris.
-2. Appeler releaseAll et verifier qu'aucune n'est plus enfoncee ni signalee « relâchée ».
+1. Maintenir deux boutons.
+2. Appeler releaseAll et verifier qu'aucun n'est plus enfonce ni signale « relâché », a ce releve comme au suivant.
 
 **Résultat attendu**
 
-- Vérifie que `input.keyDown(hmi::Key::Right)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Right)` est faux.
-- Vérifie que `input.keyDown(hmi::Key::Space)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Space)` est faux.
 - Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::A)` est faux.
-- Vérifie que `input.mouseButtonDown(hmi::MouseButton::Left)` est faux.
-- Vérifie que `input.mouseButtonReleased(hmi::MouseButton::Left)` est faux.
-- Vérifie que `input.keyReleased(hmi::Key::Right)` est faux.
-- Vérifie que `input.keyPressed(hmi::Key::Right)` est faux.
+- Vérifie que `input.gamepadButtonReleased(hmi::GamepadButton::A)` est faux.
+- Vérifie que `input.gamepadButtonDown(hmi::GamepadButton::Right)` est faux.
+- Vérifie que `input.gamepadButtonReleased(hmi::GamepadButton::Right)` est faux.
+- Vérifie que `input.gamepadButtonReleased(hmi::GamepadButton::A)` est faux.
+- Vérifie que `input.gamepadButtonPressed(hmi::GamepadButton::A)` est faux.
 
 ## test_qt_key_map.cpp
 

@@ -17,7 +17,7 @@ bool ScreenRouter::developerBuild() noexcept {
 
 namespace {
 
-/// Correspondance entre l'état de la table et celui que le QML lit.
+// Correspondance entre l'état de la table et celui que le QML lit.
 [[nodiscard]] ScreenRouter::Screen toRouterScreen(ScreenId screen) noexcept {
     switch (screen) {
         case ScreenId::Menu:
@@ -167,16 +167,6 @@ void ScreenRouter::openRpgScreen(RpgScreen screen) {
 
 void ScreenRouter::closeRpgScreen() {
     static_cast<void>(apply(ScreenEvent::CloseRpgScreen));
-}
-
-void ScreenRouter::nextRpgScreen() {
-    _rpgScreen = hmi::nextRpgScreen(_rpgScreen);
-    emit changed();
-}
-
-void ScreenRouter::previousRpgScreen() {
-    _rpgScreen = hmi::previousRpgScreen(_rpgScreen);
-    emit changed();
 }
 
 }  // namespace hmi

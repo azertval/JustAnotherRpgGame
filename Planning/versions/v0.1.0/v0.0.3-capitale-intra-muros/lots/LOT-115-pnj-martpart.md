@@ -25,7 +25,7 @@ sources = ["Référentiel : Martpart dans `referentiels/central-empire/`"]
 Ce lot servait la démo. C'est un lot de *world building*, trop complexe pour elle : il rejoint la
 `0.0.3`, où il s'inscrit avec les six autres quartiers intra-muros. Dans la démo, la mère et
 l'enfant revenu sont tenus par les **mannequins**
-([LOT-145](../../v0.0.1-demo/lots/LOT-145-mannequins-de-remplacement.md)) ou par des **jetons**
+([LOT-145](../../v0.0.2-combat/lots/LOT-145-mannequins-de-remplacement.md)) ou par des **jetons**
 (`LOT-128`), posés sur les cartes de principe du
 [LOT-146](../../v0.0.1-demo/lots/LOT-146-cartes-de-principe-de-la-demo.md) ; leurs dialogues sont au
 `LOT-120`. Ce lot leur donne leurs figurines, leurs portraits et la foule, avec le pinceau de foule

@@ -15,8 +15,6 @@ pipeline 2D, la caméra et la composition des scènes.
 - `TextureLoader` — `decodeImageFile` (décodage `QImage` → RGBA non prémultiplié), `encodeImageFile`, `createTexture`, `loadTextureFromFile` : **point unique** de création de texture GPU (`QRhiTexture`). Jamais d'exception (`EX-NFR-040`).
 - `TextureAtlas` — atlas **procédural** de tuiles 16 px, généré en mémoire : une couleur par type de tuile, dont le canevas et la palette de l'éditeur se servent. Aucun fichier n'est lu (`EX-REN-041`/`EX-REN-042`). `tile` est de la pure arithmétique de grille, `static` et testée sans GPU.
 - `ProceduralAtlas` — génération CPU déterministe des pixels de cet atlas. Aucune dépendance GPU ni Qt, entièrement testé.
-- `TextureCache` — registre des textures **générées** à la demande : les marqueurs d'entité, une par clé d'asset (`LOT-39`). La mémoïsation, échec compris, est celle de `CacheRegistry`.
-- `CacheRegistry` — registre générique clé → ressource, mémoïsation paresseuse + mémorisation d'échec + `invalidate`/`invalidateAll` ; aucune dépendance externe, testable sans GPU (`EX-REN-043`).
 - `EntityMarkers` — le marqueur d'une entité de carte : sa clé d'asset et ses pixels (`LOT-11`, `LOT-39`).
 - `AnimationCatalog` — lecture et validation du format `<asset>.anim.json` (bandes d'animation des figurines).
 - `AssetContract` — verdict de validation d'un asset contre ses dimensions décodées ; un asset non conforme est refusé avec un message nommant le fichier, le trouvé et l'attendu (`EX-REN-007`).
@@ -32,7 +30,7 @@ pipeline 2D, la caméra et la composition des scènes.
 - `PlaceAppearance` — ce qu'un **lieu** met sur une case : la table qui traduit un type de tuile en pièce de sa planche (`Scene/<lieu>/appearance.json`, `LOT-92`, `LOT-09`).
 - `WorldSceneComposer` / `WorldSceneRenderer` — un lieu qu'on parcourt, composé sans GPU puis rendu en QRhi (`LOT-09`) ; dessiné pour le jeu comme pour l'essai de l'éditeur.
 - `StaticWorldScene` — un lieu composé **une fois**, indexé par une grille de seaux, puis découpé à la vue à chaque image ; les figurines s'y fusionnent et les étages s'effacent devant le héros. Le coût d'une image dépend de ce qu'on voit, pas de la taille de la carte ([audit de l'affichage d'un lieu](../../../Planning/standards/audit-affichage-lieu.md)).
-- `ArenaSceneComposer` / `ArenaSceneRenderer` — la scène de combat du Colisée, composée sans GPU puis rendue en QRhi (`LOT-50`, `LOT-86`) ; `ArenaAppearanceCatalog` (rôle de case et figurine), `ArenaAnimationDriver` / `ArenaAnimationState` (image courante de chaque figurine).
+- La scène de combat n'a plus de chaîne à part : depuis le `LOT-118` le combat se joue sur la carte et se rend par `WorldSceneComposer` / `WorldSceneRenderer` dans `hmi::WorldViewportItem` (la chaîne du Colisée seul, `LOT-50`/`LOT-86`, a été retirée à la recette de la 0.0.1).
 - `CityBlockRender` — l'**îlot** vu sur le plan : la carte du quartier telle que le jeu la dessine, cadrée sur un rectangle nommé (`LOT-96`).
 - `TileVisuals` — correspondance type de tuile → région d'atlas (`regionForTile`), partagée par le canevas et la palette de l'éditeur.
 - `GraphicsLog` — macros de journalisation du module.

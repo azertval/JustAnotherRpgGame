@@ -62,29 +62,23 @@ latence entrée → effet reste bornée à **un pas** (`EX-CTRL-020`).
 **Perte de focus.** À un `Alt+Tab` (ou tout basculement de fenêtre), la vue ne reçoit **pas**
 d'événement de relâchement pour les touches maintenues. Sans précaution, une direction maintenue
 resterait « collée » et le personnage avancerait seul au retour. `hmi::EditorViewport` traite donc
-`QEvent::FocusOut` en oubliant toutes les touches tenues ; côté `InputState`, c'est le rôle de
-`releaseAll` (plus bas).
+`QEvent::FocusOut` en oubliant toutes les touches tenues ; côté manette, c'est le rôle de
+`hmi::InputState::releaseAll` (plus bas).
 
-## Le vocabulaire : `hmi::Key`, `hmi::MouseButton`, `hmi::GamepadButton`
+## Le vocabulaire : `hmi::Key`, `hmi::GamepadButton`
 
-Trois énumérations nomment ce que la présentation sait observer. Elles sont dans `HMI/Input`,
+Deux énumérations nomment ce que la présentation sait observer. Elles sont dans `HMI/Input`,
 jamais dans `Core` (`EX-NFR-011`).
 
 ### `hmi::Key` : une touche, par son code virtuel Win32
 
 `hmi::Key` identifie une touche du clavier par son **code virtuel Win32** (`VK_*`) : `Escape` vaut
 `0x1B`, `Left` `0x25`, `A` `0x41`, `F10` `0x79`… Ce choix, hérité de la fenêtre Win32 d'origine,
-est conservé parce qu'il coûte zéro table : un code brut se range dans `InputState` par un simple
-`static_cast`, et l'énumération n'a besoin de nommer que les touches **utiles** (menus, `ZQSD`/
+est conservé parce qu'il coûte zéro table : c'est le code brut que le fichier des raccourcis de
+l'éditeur enregistre, et l'énumération n'a besoin de nommer que les touches **utiles** (`ZQSD`/
 `WASD`, `E`, `Ctrl`, `Maj`, `0`, `F1`, `F2`, `F10` et quelques lettres de l'éditeur). Ajouter une
-touche revient à ajouter un énumérateur : `InputState` stocke déjà n'importe quel code sur 256
-entrées (`KEY_COUNT`). Le fichier des raccourcis de l'éditeur enregistre d'ailleurs ce code brut.
-
-### `hmi::MouseButton`
-
-`Left`, `Right`, `Middle`, et la sentinelle `Count` (3), qui **n'est pas un bouton** : elle
-dimensionne les tableaux d'état. C'est le patron classique d'une énumération dont on veut connaître
-la taille sans la recompter à la main.
+touche revient à ajouter un énumérateur. Le jeu Qt Quick, lui, lit ses touches par les événements
+de ses éléments (`Keys.onPressed`) et ne passe pas par `hmi::Key`.
 
 ### `hmi::GamepadButton`
 
@@ -112,9 +106,9 @@ fait la correspondance dans les deux sens :
   (`hmi::EditorActions::applyShortcuts`). Comme à l'aller, tout code non nommé explicitement est
   converti tel quel.
 
-**Pourquoi une table plutôt que d'adopter `Qt::Key` partout.** `InputState` et les tests qui le
-couvrent sont indépendants de Qt (`EX-NFR-010`) ; la table est la seule ligne de contact, et elle
-est testable seule.
+**Pourquoi une table plutôt que d'adopter `Qt::Key` partout.** `hmi::Key`, les raccourcis de
+l'éditeur (`hmi::EditorKeyBindings`) et leurs tests sont indépendants de Qt (`EX-NFR-010`) ; la
+table est la seule ligne de contact, et elle est testable seule.
 
 ## Échantillonner plutôt que réagir : `hmi::InputState`
 
@@ -126,11 +120,14 @@ Deux façons classiques d'observer les entrées existent :
 - **échantillonné** (*polling*) : le code lit un **état courant**, mis à jour à intervalle régulier,
   à un instant **prévisible**.
 
-Le clavier arrive par événements Qt ; la **manette**, elle, n'en produit pas : il faut la sonder.
-`hmi::InputState` est l'état échantillonné qui reçoit ces relevés — indépendant de toute fenêtre
-(aucune dépendance `<Windows.h>`, `<Xinput.h>` ni Qt dans son en-tête), si bien que les tests
-(`Source/Test/Unit/HMI/Input/test_input_state.cpp`) y injectent directement touches et boutons,
-sans manette réelle (`EX-NFR-010`).
+Le clavier et la souris arrivent par événements Qt, que les écrans traitent directement ; la
+**manette**, elle, n'en produit pas : il faut la sonder. `hmi::InputState` est l'état échantillonné
+qui reçoit ces relevés — indépendant de toute fenêtre (aucune dépendance `<Windows.h>`,
+`<Xinput.h>` ni Qt dans son en-tête), si bien que les tests
+(`Source/Test/Unit/HMI/Input/test_input_state.cpp`) y injectent directement les boutons, sans
+manette réelle (`EX-NFR-010`). Il ne porte que la manette : l'état clavier/souris et la fusion
+clavier/manette sur `Key`, hérités de la fenêtre Win32, sont retirés à la recette de la 0.0.1, plus
+aucun lecteur ne les interrogeant.
 
 ### Détecter les fronts, pas seulement l'état
 
@@ -146,92 +143,54 @@ liées mais différentes (`EX-CTRL-011`) :
 du relevé **précédent**. Un bouton est « pressé » (front montant) précisément quand il est enfoncé
 maintenant mais ne l'était **pas** au relevé d'avant ; de même, « relâché » (front descendant) quand
 il ne l'est plus mais l'était juste avant. Sans conserver cet historique, on ne pourrait connaître
-que l'état courant (`keyDown`), jamais le moment précis de transition (`keyPressed`/`keyReleased`) —
-pourtant essentiel aux actions **ponctuelles**, à déclencher une seule fois par appui.
+que l'état courant (`gamepadButtonDown`), jamais le moment précis de transition
+(`gamepadButtonPressed`/`gamepadButtonReleased`) — pourtant essentiel aux actions **ponctuelles**, à
+déclencher une seule fois par appui.
 
-![Quatre relevés successifs d'une touche tenue pendant deux d'entre eux : les deux instantanés courant et précédent, et les valeurs de keyDown, keyPressed et keyReleased à chaque relevé](figures/entrees-fronts.svg)
+![Quatre relevés successifs d'un bouton tenu pendant deux d'entre eux : les deux instantanés courant et précédent, et les valeurs d'enfoncé, pressé et relâché à chaque relevé](figures/entrees-fronts.svg)
 
 ```cpp
-// keyDown : vraie si enfoncée maintenant, quelle que soit la source (clavier OU manette).
-bool InputState::keyDown(Key key) const noexcept {
-    return _keysCurrent[index] || _gamepadCurrent[index];
+// gamepadButtonDown : vrai si enfoncé maintenant.
+bool InputState::gamepadButtonDown(GamepadButton button) const noexcept {
+    return _gamepadButtonsCurrent[gamepadButtonIndex(button)];
 }
 
-// keyPressed (front montant) : enfoncée maintenant, mais ne l'était sur AUCUNE source
-// au relevé précédent.
-bool InputState::keyPressed(Key key) const noexcept {
-    const bool keyboardEdge = _keysCurrent[index] && !_keysPrevious[index];
-    const bool gamepadEdge = _gamepadCurrent[index] && !_gamepadPrevious[index];
-    return keyboardEdge || gamepadEdge;
+// gamepadButtonPressed (front montant) : enfoncé maintenant, mais pas au relevé précédent.
+bool InputState::gamepadButtonPressed(GamepadButton button) const noexcept {
+    const std::size_t index = gamepadButtonIndex(button);
+    return _gamepadButtonsCurrent[index] && !_gamepadButtonsPrevious[index];
 }
 ```
 
-Remarque sur la fusion manette (détaillée plus bas) : `keyPressed` calcule un front **par source**
-puis les combine par OU logique — un bouton manette pressé alors que la touche clavier équivalente
-était déjà maintenue produit bien un nouveau front (celui de la manette), sans que le clavier
-« masque » cette pression.
-
 ### Le cycle d'un relevé
 
-1. `hmi::InputState::beginFrame` recopie l'état **courant** vers l'état **précédent**, remet à zéro
-   l'incrément de molette et vide la file des caractères tapés : la fenêtre d'observation du relevé
-   s'ouvre ;
-2. les sources mettent à jour l'état courant (`onKeyDown`/`onKeyUp`, `onGamepadKeyDown`/…,
-   `onGamepadButtonDown`/…, `onMouseMove`/…) ;
-3. le lecteur interroge les fronts et l'état (`keyPressed`, `gamepadButtonPressed`, …).
+1. `hmi::InputState::beginFrame` recopie l'état **courant** vers l'état **précédent** : la fenêtre
+   d'observation du relevé s'ouvre ;
+2. `hmi::GamepadPoller::poll` met à jour l'état courant (`onGamepadButtonDown`/`onGamepadButtonUp`,
+   `setGamepadConnected`) ;
+3. le lecteur interroge les fronts et l'état (`gamepadButtonPressed`, `gamepadButtonDown`, …).
 
-`hmi::InputState::releaseAll` remet à zéro l'état courant **et** précédent de toutes les touches et
-de tous les boutons — sans produire de front « relâché » parasite (courant == précédent ==
-relâché). C'est ce qu'appelle un lecteur qui cesse d'écouter (perte de focus, `GamepadNavigator`
-désactivé).
+`hmi::InputState::releaseAll` remet à zéro l'état courant **et** précédent de tous les boutons —
+sans produire de front « relâché » parasite (courant == précédent == relâché). C'est ce qu'appelle
+un lecteur qui cesse d'écouter (`GamepadNavigator` désactivé).
 
 ### L'interface complète, fonction par fonction
 
 | Fonction | Rôle | Invariant |
 |---|---|---|
-| `hmi::InputState::onKeyDown` / `onKeyUp` | Source **clavier** : marque une `Key` enfoncée ou relâchée dans l'état courant. | N'écrit jamais dans les tableaux manette. |
-| `hmi::InputState::onGamepadKeyDown` / `onGamepadKeyUp` | Source **manette**, même espace de `Key` (navigation de menu). | Tableau distinct du clavier : relâcher un bouton n'efface jamais une touche clavier tenue. |
-| `hmi::InputState::onGamepadButtonDown` / `onGamepadButtonUp` | Piste **brute** par `GamepadButton`, pour les actions de jeu. | Indépendante de la fusion ci-dessus. |
+| `hmi::InputState::onGamepadButtonDown` / `onGamepadButtonUp` | Marque un `GamepadButton` enfoncé ou relâché dans l'état courant. | Écrit par le sondage, dans les deux sens : XInput ne produit pas d'événement. |
 | `hmi::InputState::setGamepadConnected` / `gamepadConnected` | Déclare et relit la présence d'une manette au dernier relevé. | Posé par `GamepadPoller::poll` à chaque sondage effectif. |
-| `hmi::InputState::keyDown` / `keyPressed` / `keyReleased` | État et fronts d'une `Key`, **clavier OU manette**. | Le front se calcule par source puis se combine. |
-| `hmi::InputState::gamepadButtonDown` / `gamepadButtonPressed` / `gamepadButtonReleased` | État et fronts d'un `GamepadButton`. | Même règle courant/précédent. |
-| `hmi::InputState::onMouseMove` ; `mouseX` / `mouseY` | Position de la souris en pixels de la zone client (origine haut-gauche). | Conservée d'un relevé à l'autre : rien ne la remet à zéro. |
-| `hmi::InputState::onMouseButtonDown` / `onMouseButtonUp` ; `mouseButtonDown` / `mouseButtonPressed` / `mouseButtonReleased` | État et fronts d'un `MouseButton`. | Même règle. |
-| `hmi::InputState::onMouseWheel` ; `wheelDelta` | Accumule les crans de molette du relevé (unités natives Win32, `WHEEL_DELTA` = 120 par cran, signé : positif vers l'avant). | Somme remise à zéro par `beginFrame` ; l'appelant convertit. |
-| `hmi::InputState::onCharTyped` ; `typedCharacters` | File des caractères **déjà traduits** par la disposition clavier (`WM_CHAR`), dans l'ordre de saisie. | Vidée par `beginFrame`. Un champ de texte lit des caractères, jamais des `Key`. |
+| `hmi::InputState::gamepadButtonDown` / `gamepadButtonPressed` / `gamepadButtonReleased` | État et fronts d'un `GamepadButton`. | Courant/précédent, voir ci-dessus. |
 | `hmi::InputState::beginFrame` / `releaseAll` | Ouvre un relevé ; relâche tout sans front. | Voir ci-dessus. |
 
-La souris et les caractères tapés ne servent aujourd'hui qu'à l'éditeur, et le jeu Qt Quick reçoit
-sa souris par les événements de ses éléments ; ils restent dans `InputState` parce que l'état
-échantillonné doit être **complet** pour qu'un lecteur n'ait qu'une seule source à interroger.
+## La manette : dix boutons, sondés (EX-CTRL-002)
 
-## La manette : une seconde source, fusionnée en lecture (EX-CTRL-002)
-
-`InputState` ne connaît qu'un seul `hmi::Key` par touche, mais **deux** sources indépendantes qui
-peuvent l'enfoncer : le clavier (`onKeyDown`/`onKeyUp`) et la manette (`onGamepadKeyDown`/
-`onGamepadKeyUp`), chacune avec sa propre paire courant/précédent. `keyDown`/`keyPressed`/
-`keyReleased` **combinent** les deux (OU logique) au moment de la lecture — jamais à l'écriture.
-
-**Pourquoi pas une seule table partagée ?** Parce que la manette est **sondée**, pas événementielle
-: `hmi::GamepadPoller::poll` interroge XInput à chaque relevé et doit explicitement relâcher
-(`onGamepadKeyUp`) chaque touche dont le bouton correspondant n'est plus enfoncé — y compris quand
-la manette est débranchée. Si ce relâchement écrivait dans la **même** table que le clavier, il
-effacerait une touche clavier réellement maintenue dès que la manette (absente ou relâchée) ne la
-tient plus. Deux tables, combinées seulement en lecture, rendent ce bug structurellement
-impossible plutôt que de compter sur la discipline du code appelant.
-
-Chaque direction manette synthétise le **même** `Key` fixe que son équivalent clavier (D-pad et
-stick gauche → `Left`/`Right`/`Up`/`Down` ; **A** → `Enter` **et** `Space` ; **B**/**Start** →
-`Escape`) — câblage en dur dans `hmi::GamepadPoller::poll`.
-
-**Une seconde piste, brute, par bouton.** À partir du **même** relevé XInput, `GamepadPoller::poll`
-alimente aussi un état par `hmi::GamepadButton` (`onGamepadButtonDown`/`onGamepadButtonUp`,
-`InputState::gamepadButtonDown`/`gamepadButtonPressed`) — dix boutons et directions. C'est cette
-piste que lit le jeu.
-
-> **Note** — Les commentaires de `InputState.h` et `GamepadPoller.h` citent un `GamepadBindings`
-> « remappable » : cette classe n'existe pas dans le dépôt. Le remappage des boutons manette n'est
-> pas implémenté ; la piste brute est lue telle quelle par `hmi::GamepadNavigator`.
+`hmi::GamepadPoller::poll` interroge XInput à chaque relevé et écrit l'état de chaque
+`hmi::GamepadButton` — enfoncé **ou relâché**, explicitement, y compris quand la manette est
+débranchée : un sondage ne reçoit pas de relâchement, il le constate. Le D-pad et le stick gauche
+donnent les **mêmes** quatre directions ; A, B, X, Y et les deux gâchettes hautes (`LeftShoulder`,
+`RightShoulder`) ont chacun leur bouton. C'est cet état que lit `hmi::GamepadNavigator`, et lui
+seul.
 
 ### `hmi::GamepadPoller` : sonder XInput sans fenêtre
 
@@ -339,7 +298,7 @@ ressources](guide-donnees.md).
 
 ## Voir aussi
 - `core::ExplorationIntent`, `hmi::WorldModel`, `hmi::EditorViewport`.
-- `hmi::InputState`, `hmi::Key`, `hmi::MouseButton`, `hmi::GamepadButton`,
+- `hmi::InputState`, `hmi::Key`, `hmi::GamepadButton`,
   `hmi::qtKeyToHmiKey`, `hmi::hmiKeyToQtKey`.
 - `hmi::GamepadPoller`, `hmi::gamepadProbeDue`, `hmi::ButtonRepeat`, `hmi::GamepadNavigator`.
 - `Source/Ui/Screens/MainMenuForm.ui.qml`, `OptionsForm.ui.qml` — le menu principal et la page

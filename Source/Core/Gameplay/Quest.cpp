@@ -20,10 +20,10 @@ namespace {
 using Json = nlohmann::json;
 using Pointeur = Json::json_pointer;
 
-/// Aucune garde de version : le format naît avec ce lot, et un champ `version` absent ne dit rien.
+// Aucune garde de version : le format naît avec ce lot, et un champ `version` absent ne dit rien.
 constexpr int SANS_GARDE_DE_VERSION = 0;
 
-/// Rassemble les erreurs d'un document, chacune préfixée de son fichier et de sa ligne.
+// Rassemble les erreurs d'un document, chacune préfixée de son fichier et de sa ligne.
 class Rapport {
 public:
     Rapport(std::string_view texte, std::string_view origine) : _texte(texte), _origine(origine) {}
@@ -113,7 +113,7 @@ void lireDrapeaux(const Json& racine, Quest& quete, Rapport& rapport) {
     }
 }
 
-/// Une valeur comparée ou posée doit être l'une de celles que la quête déclare pour ce drapeau.
+// Une valeur comparée ou posée doit être l'une de celles que la quête déclare pour ce drapeau.
 void verifierValeur(const Quest& quete, std::string_view drapeau, std::string_view valeur,
                     const Pointeur& ou, Rapport& rapport) {
     const auto declaration = std::ranges::find(quete.flags, drapeau, &QuestFlag::id);
@@ -433,7 +433,7 @@ QuestProgress questProgress(const Quest& quest, const WorldFlags& flags) {
 
 namespace {
 
-/// Confronte une valeur comparée ou posée à la déclaration du drapeau, s'il en a une.
+// Confronte une valeur comparée ou posée à la déclaration du drapeau, s'il en a une.
 void verifierUsage(const QuestCatalog& quetes, std::string_view drapeau,
                    const std::vector<std::string>& valeurs, bool poseSansValeur,
                    const std::string& ou, std::vector<std::string>& erreurs) {

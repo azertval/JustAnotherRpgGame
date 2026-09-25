@@ -240,7 +240,7 @@ refuse de configurer ([les kits d'assets](guide-donnees.md#kits-assets)).
 
 | Cible | Ce qu'elle lie | Étage (label) | Délai |
 |---|---|---|---|
-| `UnitTests` | `Core`, `HmiLib`, `EditorLogic` ; plus, si Qt est là, les rendus hors écran (`ArenaSceneRenderer`, `WorldSceneRenderer`, `ScenePainter`, `MapRender`) et l'audio | `unitaire` | 300 s |
+| `UnitTests` | `Core`, `HmiLib`, `EditorLogic` ; plus, si Qt est là, les rendus hors écran (`WorldSceneRenderer`, `ScenePainter`, `MapRender`) et l'audio | `unitaire` | 300 s |
 | `RuntimeTests` | `JadgRuntime`, les vues-modèles Qt Quick ; existe seulement si la cible existe | `unitaire` | 300 s |
 | `QmlTests` | `JadgUi` + `Qt6::QuickTest` ; les `tst_*.qml` de `Source/Test/Qml` | `unitaire` | 300 s |
 | `IntegrationTests` | `HmiLib` ; une carte devient une scène, bout en bout | `integration` | 300 s |

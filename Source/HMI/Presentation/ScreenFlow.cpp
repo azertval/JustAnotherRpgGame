@@ -66,8 +66,9 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                     return ScreenState{.screen = ScreenId::Pause,
                                        .optionsReturnTo = ScreenId::Menu};
                 // Depuis le jeu : la fiche, l'inventaire ou la carte s'ouvrent et se referment sur
-                // la partie en cours. C'est `hmi::pausesGame` qui dit lequel suspend la simulation
-                // (EX-IHM-091), pas cette table -- elle ne connaît pas les huit écrans.
+                // la partie en cours. Le gel de la simulation (EX-IHM-091) n'est pas decide ici :
+                // c'est la vue de jeu (`GameView.qml`, `onActiveFocusChanged`) qui gele la carte
+                // quand un ecran lui prend le focus -- cette table ne connait pas les huit ecrans.
                 case ScreenEvent::OpenRpgScreen:
                     return ScreenState{.screen = ScreenId::RpgScreen,
                                        .optionsReturnTo = ScreenId::Menu,
@@ -108,9 +109,9 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
         case ScreenId::RpgScreen:
             switch (event) {
                 // Un seul retour, vers l'écran d'où l'on vient. Le PASSAGE d'un écran du RPG à un
-                // autre n'est pas une transition de cette machine : les huit vivent sur une seule
-                // page (`hmi::RpgScreenHost`), et c'est ce qui permet d'aller de la fiche au
-                // journal sans repasser par le menu (EX-IHM-090).
+                // autre n'est pas une transition de cette machine : le routeur retient lequel des
+                // neuf est ouvert, et c'est ce qui permet d'aller de la fiche au journal sans
+                // repasser par le menu (EX-IHM-090).
                 case ScreenEvent::CloseRpgScreen:
                     return ScreenState{.screen = current.rpgReturnTo,
                                        .optionsReturnTo = ScreenId::Menu,

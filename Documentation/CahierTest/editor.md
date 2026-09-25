@@ -178,7 +178,7 @@ Repeindre une rue et une façade rend le même fichier.
 
 ### BrushGestureTest.PoserPuisGommerUnEtalSurLaCarteDEssai
 
-*Critique · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:136`
+*Critique · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:137`
 
 Un étal 2 × 1 posé puis gommé sur la carte d'essai.
 
@@ -202,7 +202,7 @@ Un étal 2 × 1 posé puis gommé sur la carte d'essai.
 
 ### BrushGestureTest.GlisserUnEtalNeLeDecalePas
 
-*Majeur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:184`
+*Majeur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:185`
 
 Glisser un étal ne le décale pas.
 
@@ -219,7 +219,7 @@ Glisser un étal ne le décale pas.
 
 ### BrushGestureTest.CoucheVerrouilleeOuAbsenteLeGesteEstRefuse
 
-*Majeur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:210`
+*Majeur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:211`
 
 Couche verrouillée ou absente : le geste est refusé.
 
@@ -238,7 +238,7 @@ Couche verrouillée ou absente : le geste est refusé.
 
 ### BrushGestureTest.SurLaCollisionLePinceauForceEtLaGommeLibere
 
-*Critique · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:242`
+*Critique · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:243`
 
 Sur la collision, le pinceau force et la gomme libère.
 
@@ -257,7 +257,7 @@ Sur la collision, le pinceau force et la gomme libère.
 
 ### BrushGestureTest.UnTypeVaSurLaCoucheActiveJamaisLEntree
 
-*Majeur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:268`
+*Majeur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:269`
 
 Un type va sur la couche active, jamais l'entrée.
 
@@ -272,7 +272,7 @@ Un type va sur la couche active, jamais l'entrée.
 
 ### BrushGestureTest.LePinceauSeNomme
 
-*Mineur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:291`
+*Mineur · Unitaire · Pinceau* — `Source/Test/Unit/Editor/test_brush_gesture.cpp:292`
 
 Le pinceau se nomme.
 
@@ -311,7 +311,7 @@ Le pointage iso est juste aux quatre coins de la carte.
 
 ### CanvasPickingTest.SousUnMurHautOnPointeLaCaseDerriere
 
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:111`
+*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:112`
 
 Sous un mur haut, le pointage designe la case par son pied.
 
@@ -331,7 +331,7 @@ Sous un mur haut, le pointage designe la case par son pied.
 
 ### CanvasPickingTest.LaHauteurSePrendEnParametre
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:178`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:179`
 
 Le pointage prend la hauteur en parametre.
 
@@ -348,7 +348,7 @@ Le pointage prend la hauteur en parametre.
 
 ### CanvasPickingTest.OnNeParcourtQueLesCasesVisibles
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:199`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:200`
 
 Le canevas ne parcourt que les cases visibles.
 
@@ -369,7 +369,7 @@ Le canevas ne parcourt que les cases visibles.
 
 ### CanvasPickingTest.EnVueAPlatUneCaseParUnite
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:232`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_picking.cpp:233`
 
 Le pointage a plat designe la case sous le point.
 
@@ -1561,7 +1561,7 @@ Le dossier d'essai ne garde rien de l'essai precedent.
 
 - Vérifie que `hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"}, hmi::DraftMap{.mapId = "donjon", .json = "{}"}}) .empty()` est vrai.
 - Vérifie que `std::filesystem::exists(dir / "donjon.json")` est vrai.
-- Vérifie que `hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"}}) .empty()` est vrai.
+- Vérifie que `hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = "bourg/place", .json = "{}"}}).empty()` est vrai.
 - Vérifie que `std::filesystem::exists(dir / "bourg" / "place.json")` est vrai.
 - Vérifie que `std::filesystem::exists(dir / "donjon.json")` est faux.
 
@@ -2779,7 +2779,7 @@ Un trait est un seul pas d'annulation.
 
 ### PaintToolsTest.LeSeauRemplitUneRegionEnUnPas
 
-*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:160`
+*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:161`
 
 Le seau remplit une région, en un pas.
 
@@ -2802,7 +2802,7 @@ Le seau remplit une région, en un pas.
 
 ### PaintToolsTest.LeSeauEtLesPiecesLarges
 
-*Majeur · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:199`
+*Majeur · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:200`
 
 Le seau et les pièces larges.
 
@@ -2821,7 +2821,7 @@ Le seau et les pièces larges.
 
 ### PaintToolsTest.LaPipettePrendCeQuOnVoit
 
-*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:224`
+*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:225`
 
 La pipette prend ce qu'on voit.
 
@@ -2850,7 +2850,7 @@ La pipette prend ce qu'on voit.
 
 ### PaintToolsTest.LeMiroirPoseLaJumelle
 
-*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:267`
+*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:268`
 
 Le miroir pose la jumelle, de l'autre côté de l'axe.
 
@@ -2882,7 +2882,7 @@ Le miroir pose la jumelle, de l'autre côté de l'axe.
 
 ### PaintToolsTest.LaMesureEnCasesEtEnPieds
 
-*Mineur · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:318`
+*Mineur · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:319`
 
 La mesure en cases et en pieds.
 
@@ -2898,7 +2898,7 @@ La mesure en cases et en pieds.
 
 ### PaintToolsTest.UneMaisonEnMoinsDeDixGestes
 
-*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:338`
+*Critique · Unitaire · Outils du peintre* — `Source/Test/Unit/Editor/test_paint_tools.cpp:339`
 
 Une maison de la carte d'essai en six gestes.
 
@@ -3606,7 +3606,7 @@ Un étal de la Place se repose sur le Donjon.
 
 ### DonneesPrefabriques.LesModelesLivresSeLisent
 
-*Majeur · Unitaire · Modèles de carte* — `Source/Test/Unit/Editor/test_stamps.cpp:345`
+*Majeur · Unitaire · Modèles de carte* — `Source/Test/Unit/Editor/test_stamps.cpp:344`
 
 La bibliothèque livrée se lit.
 
@@ -3624,7 +3624,7 @@ La bibliothèque livrée se lit.
 
 ### StampsTest.UnModeleNeNommeAucunePiece
 
-*Mineur · Unitaire · Modèles de carte* — `Source/Test/Unit/Editor/test_stamps.cpp:376`
+*Mineur · Unitaire · Modèles de carte* — `Source/Test/Unit/Editor/test_stamps.cpp:374`
 
 Un modèle qui nomme une pièce est refusé.
 

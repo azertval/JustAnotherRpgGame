@@ -90,6 +90,7 @@ struct EncounterTerrain {
     /// Dans l'ordre des combattants, puis la zone.
     std::vector<TacticalIssue> issues;
 
+    /// @brief Vrai si aucun défaut n'a été relevé : le terrain accueille le combat tel quel.
     [[nodiscard]] bool valid() const {
         return issues.empty();
     }

@@ -125,8 +125,11 @@ struct CharacterOptions {
     std::vector<PlayableClass> classes;
     std::vector<std::string> errors;
 
+    /// @brief L'espèce d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const Species* findSpecies(std::string_view id) const;
+    /// @brief L'historique d'identifiant @p id, ou `nullptr` s'il est inconnu.
     [[nodiscard]] const Background* findBackground(std::string_view id) const;
+    /// @brief La classe d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const PlayableClass* findClass(std::string_view id) const;
 
     /**

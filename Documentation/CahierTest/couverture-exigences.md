@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**35 exigences en vigueur sur 298** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**33 exigences en vigueur sur 298** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -10,8 +10,8 @@
 | `EX-BUILD` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 1 | 0 | 1 |
 | `EX-CBT` | [Combat tactique](../Specification/combat.md) | 14 | 2 | 12 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
-| `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 1 | 6 |
-| `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 76 | 9 | 67 |
+| `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 0 | 7 |
+| `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 76 | 8 | 68 |
 | `EX-EXP` | [Exploration](../Specification/exploration.md) | 12 | 1 | 11 |
 | `EX-GP` | [Gameplay](../Specification/gameplay.md) | 7 | 1 | 6 |
 | `EX-IHM` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | 32 | 2 | 30 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 17 | 1 | 16 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **298** | **35** | **263** |
+| **Total** | | **298** | **33** | **265** |
 
 ## Exigence par exigence
 
@@ -103,7 +103,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | Exigence | Spécification | Cas de test |
 |---|---|---|
 | `EX-CTRL-001` | [Contrôles & entrées](../Specification/controles.md) | — |
-| `EX-CTRL-002` | [Contrôles & entrées](../Specification/controles.md) | [`InputStateTest.ManetteSeuleActiveLaTouche`](hmi-input.md#inputstatetestmanetteseuleactivelatouche) |
+| `EX-CTRL-002` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-010` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-011` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-012` | [Contrôles & entrées](../Specification/controles.md) | — |
@@ -121,7 +121,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-EDIT-006` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
 | `EX-EDIT-007` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`LevelDraftTest.ToLevelSansEntreeEchoueProprement`](core-levels.md#leveldrafttesttolevelsansentreeechoueproprement) |
 | `EX-EDIT-008` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
-| `EX-EDIT-009` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`InputStateTest.CaracteresTapesAccumulesEtVides`](hmi-input.md#inputstatetestcaracterestapesaccumulesetvides) |
+| `EX-EDIT-009` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
 | `EX-EDIT-010` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
 | `EX-EDIT-011` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites`](core-levels.md#couchesdecartetestbrouillondeditionpreservecouchesetentites) |
 | `EX-EDIT-012` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
@@ -247,7 +247,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-IHM-082` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
 | `EX-IHM-083` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
 | `EX-IHM-090` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | [`ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine`](hmi-interface.md#screenflowtestecrandurpgrevientverssonecrandorigine) |
-| `EX-IHM-091` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | [`RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue`](hmi-interface.md#rpgscreenstestlaregledesuperpositionestcelleattendue) |
+| `EX-IHM-091` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | [`ScreenFlowTest.LesEcransDeFinFermentLaPartie`](hmi-interface.md#screenflowtestlesecransdefinfermentlapartie), [`EncounterModelTest.DuDeclenchementAuRetourALExploration`](hmi-runtime.md#encountermodeltestdudeclenchementauretouralexploration) |
 | `EX-IHM-100` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
 | `EX-IHM-101` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
 | `EX-IHM-102` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
@@ -362,7 +362,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-REN-030` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-031` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-032` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
-| `EX-REN-033` | [Rendu & cible technique](../Specification/rendu-technique.md) | [`RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues`](hmi-interface.md#rpgscreenstestchaquecledelossatureexistedanslesdeuxlangues), [`LocalizationTest.LesDeuxCataloguesDeclarentLesMemesCles`](hmi-localization.md#localizationtestlesdeuxcataloguesdeclarentlesmemescles) |
+| `EX-REN-033` | [Rendu & cible technique](../Specification/rendu-technique.md) | [`LocalizationTest.LesDeuxCataloguesDeclarentLesMemesCles`](hmi-localization.md#localizationtestlesdeuxcataloguesdeclarentlesmemescles) |
 | `EX-REN-041` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-042` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-043` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |

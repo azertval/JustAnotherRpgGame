@@ -220,11 +220,14 @@ TEST(AtlasTest, LaCapitaleEtSesDouzeQuartiersSontRejouesDepuisLeLivre) {
     }
 
     // Le bloc B de l'atelier des textures lit ces phrases : elles doivent etre celles du livre.
-    EXPECT_NE(atlas().findLocation(capitale + "-martpart")->description.find(
-                  "Lantern-lit stalls and culturally blended architecture adorn cobblestone"),
+    EXPECT_NE(atlas()
+                  .findLocation(capitale + "-martpart")
+                  ->description.find(
+                      "Lantern-lit stalls and culturally blended architecture adorn cobblestone"),
               std::string::npos);
-    EXPECT_NE(atlas().findLocation(capitale + "-arenarea")->description.find(
-                  "Famed for the Arena of Fate"),
+    EXPECT_NE(atlas()
+                  .findLocation(capitale + "-arenarea")
+                  ->description.find("Famed for the Arena of Fate"),
               std::string::npos);
 }
 

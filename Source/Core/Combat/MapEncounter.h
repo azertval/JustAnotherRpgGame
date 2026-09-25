@@ -60,6 +60,7 @@ struct MapEncounterResult {
     /// Vide si `setup` est là ; sinon, ce qui manque à la carte pour accueillir ce combat.
     std::string issue;
 
+    /// @brief Vrai si la mise en place du combat a pu être construite (`setup` est là).
     [[nodiscard]] bool ok() const noexcept {
         return setup.has_value();
     }

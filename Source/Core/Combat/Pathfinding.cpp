@@ -23,15 +23,15 @@ namespace {
 
 constexpr int UNREACHED = std::numeric_limits<int>::max();
 
-/// Tolérance de l'arrondi à la case inférieure : 9 / 1,5 tombe juste en binaire, mais une vitesse
-/// issue d'une soustraction de flottants (malus d'encombrement) peut valoir 5,9999 cases, et en
-/// perdre une sur une erreur d'arrondi serait un défaut invisible.
+// Tolérance de l'arrondi à la case inférieure : 9 / 1,5 tombe juste en binaire, mais une vitesse
+// issue d'une soustraction de flottants (malus d'encombrement) peut valoir 5,9999 cases, et en
+// perdre une sur une erreur d'arrondi serait un défaut invisible.
 constexpr float SPEED_EPSILON = 1.0e-3F;
 
-/// Les huit voisins, dans un ordre **fixe**. Le départage ne dépend pas de cet ordre (il porte sur
-/// la géométrie, puis sur l'indice de case), mais un ordre fixe garde la file identique d'une
-/// exécution à l'autre, et c'est le rang d'un voisin ici qui numérote son bit dans le masque des
-/// prédécesseurs.
+// Les huit voisins, dans un ordre **fixe**. Le départage ne dépend pas de cet ordre (il porte sur
+// la géométrie, puis sur l'indice de case), mais un ordre fixe garde la file identique d'une
+// exécution à l'autre, et c'est le rang d'un voisin ici qui numérote son bit dans le masque des
+// prédécesseurs.
 constexpr std::array<std::pair<int, int>, 8> NEIGHBOURS{{
     {0, -1},
     {-1, 0},
@@ -43,18 +43,18 @@ constexpr std::array<std::pair<int, int>, 8> NEIGHBOURS{{
     {1, 1},
 }};
 
-/// Coût d'entrée normal et en terrain difficile (Manuel des Joueurs, « Jouer sur un quadrillage »).
+// Coût d'entrée normal et en terrain difficile (Manuel des Joueurs, « Jouer sur un quadrillage »).
 constexpr int NORMAL_COST = 1;
 constexpr int DIFFICULT_COST = 2;
 
-/// Ce qu'il faut savoir d'un combattant pour dire si un pas est permis, et ce qu'il coûte.
+// Ce qu'il faut savoir d'un combattant pour dire si un pas est permis, et ce qu'il coûte.
 struct StepRules {
     const BattleGrid& grid;
     const Mover& mover;
     int side = 1;
 
-    /// @return Le coût d'entrée de @p to depuis @p from, voisin, ou `std::nullopt` si le pas est
-    /// interdit.
+    // Retourne : Le coût d'entrée de @p to depuis @p from, voisin, ou `std::nullopt` si le pas est
+    // interdit.
     [[nodiscard]] std::optional<int> cost(GridPosition from, GridPosition to) const {
         if (!grid.isClear(to, side, mover.locomotion)) {
             return std::nullopt;
@@ -94,24 +94,22 @@ struct StepRules {
     }
 };
 
-/// Élément de file : clé de priorité, puis indice de case — l'ordre total qui rend la file
-/// déterministe.
+// Élément de file : clé de priorité, puis indice de case — l'ordre total qui rend la file
+// déterministe.
 using QueueEntry = std::pair<int, std::size_t>;
 using MinQueue = std::priority_queue<QueueEntry, std::vector<QueueEntry>, std::greater<>>;
 
-/// Le masque des prédécesseurs optimaux d'une case : le bit k est levé si le voisin k de
-/// `NEIGHBOURS`, **relativement à la case**, l'atteint à son meilleur coût. Tout ce qu'un
-/// prédécesseur a de plus qu'un autre se juge à la remontée (`rebuild`), quand la destination est
-/// connue.
+// Le masque des prédécesseurs optimaux d'une case : le bit k est levé si le voisin k de
+// `NEIGHBOURS`, **relativement à la case**, l'atteint à son meilleur coût. Tout ce qu'un
+// prédécesseur a de plus qu'un autre se juge à la remontée (`rebuild`), quand la destination est
+// connue.
 using Predecessors = std::vector<std::uint8_t>;
 
-/**
- * Relâche l'arc qui mène à @p next par le pas de rang @p neighbour, au coût cumulé @p candidate.
- *
- * @return Vrai si le coût de @p next a **baissé** — il faut alors le remettre en file, et ses
- * anciens prédécesseurs ne valent plus rien. À coût égal, le pas s'ajoute aux prédécesseurs : le
- * choix entre eux n'appartient pas à l'exploration.
- */
+// Relâche l'arc qui mène à @p next par le pas de rang @p neighbour, au coût cumulé @p candidate.
+//
+// Retourne : Vrai si le coût de @p next a **baissé** — il faut alors le remettre en file, et ses
+// anciens prédécesseurs ne valent plus rien. À coût égal, le pas s'ajoute aux prédécesseurs : le
+// choix entre eux n'appartient pas à l'exploration.
 bool relax(std::vector<int>& costs, Predecessors& predecessors, std::size_t next,
            std::size_t neighbour, int candidate) {
     const auto bit = static_cast<std::uint8_t>(1U << neighbour);
@@ -126,14 +124,12 @@ bool relax(std::vector<int>& costs, Predecessors& predecessors, std::size_t next
     return false;
 }
 
-/**
- * Remonte le chemin de @p origin à @p target, prédécesseur par prédécesseur.
- *
- * Parmi les prédécesseurs qui atteignent une case à son meilleur coût, on retient **le plus proche
- * de la droite** qui joint le départ à l'arrivée — le produit vectoriel entier tient lieu de
- * distance —, et à égalité celui d'indice de case le plus petit. Le chemin ne fait donc jamais de
- * coude qu'un autre chemin de même coût aurait évité : c'est celui que la prévisualisation trace.
- */
+// Remonte le chemin de @p origin à @p target, prédécesseur par prédécesseur.
+//
+// Parmi les prédécesseurs qui atteignent une case à son meilleur coût, on retient **le plus proche
+// de la droite** qui joint le départ à l'arrivée — le produit vectoriel entier tient lieu de
+// distance —, et à égalité celui d'indice de case le plus petit. Le chemin ne fait donc jamais de
+// coude qu'un autre chemin de même coût aurait évité : c'est celui que la prévisualisation trace.
 [[nodiscard]] Path rebuild(const std::vector<int>& costs, const Predecessors& predecessors,
                            GridPosition origin, GridPosition target, int width) {
     const auto indexOf = [width](GridPosition cell) {

@@ -196,8 +196,9 @@ romprait cette garantie et deviendrait, par construction, non déterministe et d
 > toutes deux de l'extérieur.
 
 Ce qui vit au **temps réel**, et non au pas fixe, est par construction hors de la simulation :
-l'animation des figurines du Colisée (`hmi::ArenaAnimationDriver::advance`, cadencée par la frame
-de rendu) fait vivre l'image sans rien décider du combat, qui reste au tour par tour dans `Core`.
+la file des faits du combat (`hmi::CombatCueTrack::advance`, cadencée par la frame de rendu, qui
+rejoue pas, coups et chutes à la vitesse du monde) fait vivre l'image sans rien décider du combat,
+qui reste au tour par tour dans `Core`.
 
 ## Voir aussi
 - `core::FixedTimestep`.

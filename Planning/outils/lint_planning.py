@@ -42,6 +42,7 @@ CODE_RE = re.compile(r'```.*?```|`[^`\n]*`', re.DOTALL)
 
 
 def lint(root):
+    """Applique les règles au dossier `Planning/` sous `root` ; retourne la liste des erreurs."""
     root = Path(root)
     try:
         planning = load_planning(root)

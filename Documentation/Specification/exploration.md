@@ -1,9 +1,9 @@
 # Exploration
 
-> Statut : **en cours.** Le déplacement, la collision et l'orientation sont livrés (`LOT-06`), le
-> vocabulaire de terrain aussi (`LOT-08`), les portails relient les cartes (`LOT-09`), et le monde
-> se souvient de ce que le joueur a fait (`LOT-116`). Ce qui
-> manque est le **déclenchement d'une rencontre sur la carte** (`LOT-118`). Dépend de
+> Statut : **livré** pour la démo. Le déplacement, la collision et l'orientation sont livrés
+> (`LOT-06`), le vocabulaire de terrain aussi (`LOT-08`), les portails relient les cartes
+> (`LOT-09`), le monde se souvient de ce que le joueur a fait (`LOT-116`), et une rencontre se
+> **déclenche sur la carte**, où le combat se joue (`LOT-118`). Dépend de
 > [`architecture.md`](architecture.md) (conventions de monde) et de
 > [`niveaux.md`](niveaux.md) (couche de collision).
 

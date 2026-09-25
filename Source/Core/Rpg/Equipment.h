@@ -91,7 +91,9 @@ struct EquipmentCatalog {
     std::vector<Armor> armors;
     std::vector<std::string> errors;
 
+    /// @brief L'arme d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const Weapon* findWeapon(std::string_view id) const;
+    /// @brief L'armure d'identifiant @p id, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const Armor* findArmor(std::string_view id) const;
 };
 

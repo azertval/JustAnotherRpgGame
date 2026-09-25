@@ -13,8 +13,8 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
 #include "HMI/Graphics/EntityMarkers.h"
-#include "HMI/Graphics/RenderLayer.h"
 #include "HMI/Graphics/MaquettePalette.h"
+#include "HMI/Graphics/RenderLayer.h"
 
 namespace hmi {
 

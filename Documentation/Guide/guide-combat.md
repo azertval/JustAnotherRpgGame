@@ -5,8 +5,8 @@ et l'espace se compte en cases. Tout ce qui le décide vit dans `Source/Core/Com
 en-têtes de `Core` pur, sans Qt ni GPU (`EX-NFR-010`), que cette page parcourt dans l'ordre d'un
 combat : le montage d'une rencontre, la grille, l'initiative, le tour et son économie, le
 déplacement, l'attaque et les dégâts, la géométrie (portée, ligne de vue, abri, zones, tenaille),
-la prévisualisation, l'IA, puis l'arène du Colisée qui est aujourd'hui le seul lieu où ce combat
-se joue. Ce que l'écran en montre est renvoyé à [Rendu 2D](guide-rendu.md) et
+la prévisualisation, l'IA, puis la session d'arène qui tient un combat — lequel se joue sur la
+carte d'exploration elle-même depuis le `LOT-118`. Ce que l'écran en montre est renvoyé à [Rendu 2D](guide-rendu.md) et
 [Écrans](guide-ecrans.md) ; les règles du d20 lui-même, à [Règles d20](guide-regles.md).
 
 ## Définitions
@@ -40,7 +40,7 @@ combat](../Specification/combat.md) en détaille chaque terme.
 | `LineOfSight.h`, `AreaOfEffect.h` | ligne de vue, abri, zones d'effet | `LOT-22` |
 | `EnemyAi.h`, `Flanking.h` | l'IA tactique et la prise en tenaille | `LOT-23` |
 | `CombatPreview.h` | ce que l'écran montre avant que le joueur ne s'engage | `LOT-24` |
-| `Arena.h`, `IsoProjection.h` | le Colisée : session rejouable, et la projection isométrique de sa grille | `LOT-50` |
+| `Arena.h`, `IsoProjection.h` | la session d'arène, rejouable, et la projection isométrique de sa grille | `LOT-50` |
 
 Chaque en-tête cite la page du Manuel des Joueurs ou du Guide du Maître qui fonde ses règles, et
 nomme ce qu'il **décide** au-delà du livre : cette page reprend ces décisions, sans recopier les
@@ -98,8 +98,9 @@ de ce qui décide n'est dans un widget, ce qui rend l'aller-retour vérifiable s
 Côté exploration, `core::ExplorationSession` produit un `ExplorationEventKind::Encounter` quand le
 héros interagit avec un tel déclencheur ([Monde et exploration](guide-monde.md)) ; c'est
 l'appelant qui monte alors le combat. Le mode `hmi::CombatMode` du `LOT-18`, qui gelait les passes
-de l'ancienne exploration, n'existe plus (`LOT-88`, `LOT-102`) : dans le jeu Qt Quick, le seul
-combat ouvert est celui du Colisée, et brancher une rencontre de carte reste dû au `LOT-27`.
+de l'ancienne exploration, n'existe plus (`LOT-88`, `LOT-102`) : dans le jeu Qt Quick, c'est
+`hmi::EncounterModel` qui monte la rencontre sur la carte courante quand la session émet
+l'événement, et le combat se joue là, sur la carte (`LOT-118`, livré pour la démo).
 
 ### Le terrain est-il jouable ? (`TacticalTerrain.h`)
 
@@ -451,9 +452,10 @@ d'insertion :
 | `Reserves` | points de vie temporaires et réserves, la plus récente d'abord | un transfert (*Life Link*) |
 | `HitPoints` | la perte, bornée à 0, en une salve | rien : c'est la fin |
 
-- `core::DamageFlag` (`Magical`, `Silvered`, `Adamantine`, `Spell`, `IgnoresResistance`,
-  `IgnoresReserves`) dit ce qu'une source **est** au-delà de son type — un loup-garou résiste aux
-  dégâts tranchants **non argentés** — ou ce qu'elle passe outre.
+- `core::DamageFlag` (`Magical`, `Spell`, `IgnoresResistance`, `IgnoresReserves`) dit ce qu'une
+  source **est** au-delà de son type — une créature qui ne craint que les armes magiques — ou ce
+  qu'elle passe outre. Les drapeaux `Silvered` et `Adamantine`, que rien ne posait, sont partis à
+  la recette de la `0.0.1` ; ils reviendront avec la créature qui les demande.
 - `core::DamageAffinity` (`type`, `kind` parmi `core::DamageAffinityKind`, `bypassedBy`) et
   `core::DamageTraits::applies` : « résistance aux dégâts contondants non magiques » s'écrit
   `{Bludgeoning, Resistance, Magical}`. `core::damageTraitsFor(créature)` traduit les listes nues du
@@ -584,9 +586,9 @@ bas, coins compris — ce qui couvre les angles opposés. Tout reste entier.
   case avant d'y aller.
 - `core::isFlanked(combat, attaquant, cible)` : la même règle, l'attaquant à sa place.
 
-C'est la **donnée de l'arène** qui active la règle (`core::Arena::flanking`, faux par défaut — une
-règle optionnelle s'active, elle ne se présume pas) ; activée pour l'Arène du Futur, le banc d'essai
-du combat.
+C'est la **composition** qui active la règle (`core::ArenaBout::flanking`, faux par défaut — une
+règle optionnelle s'active, elle ne se présume pas) ; la rencontre de carte la laisse fausse
+(`hmi::EncounterModel`), et seuls les tests la jouent.
 
 ## La prévisualisation (`CombatPreview.h`)
 
@@ -606,7 +608,8 @@ savoir : ce qu'un greffon `BeforeRoll` changera, et les dés — les seconds son
   `move` suivra), le déplacement restant, et **qui frapperait en chemin**
   (`core::ArenaSession::previewOpportunities`), choix du joueur et politique de l'IA compris.
 
-C'est ce que `hmi::CombatModel` expose en lignes lisibles (`preview`, `pathCells`), et ce qui fait
+C'est ce que `hmi::CombatModel` expose au HUD (`pathCells` ; la prévisualisation en lignes lisibles
+de l'écran du Colisée, `preview`, est partie avec lui à la recette de la `0.0.1`), et ce qui fait
 d'`EX-IHM-003` et de la moitié « montrées avant que le joueur ne s'engage » d'`EX-CBT-020` une
 donnée du `Core` (`LOT-24`).
 
@@ -697,35 +700,40 @@ attaque de contact a un jet requis au plus égal à `opportunityMaximumRoll` ;
 profil décide, les autres prennent tout. Un test génère trente salles et joue chaque combat par
 l'IA des deux côtés : tous atteignent leur issue.
 
-## L'arène : le Colisée (`Arena.h`)
+## La session d'arène (`Arena.h`)
 
 Les Arènes de Tanares sont une institution du monde : deux camps y règlent un litige par leurs
 champions, **sans mort**, sous la protection d'un rituel de Marque Héroïque. C'est ce qui en fait le
 banc d'essai naturel du combat — un affrontement s'y rejoue indéfiniment, et c'est la fiction qui
 l'explique. `core::ArenaSession` est le premier objet du jeu qui **tient** un `core::CombatState`
-(`LOT-50`) ; « Nouvelle partie » ouvre l'arène tant qu'aucune autre carte n'est jouable.
+(`LOT-50`) ; c'est encore elle que `hmi::EncounterModel` monte quand une rencontre s'engage sur
+la carte (`LOT-118`) — « Nouvelle partie », elle, ouvre Martpart au point d'arrivée
+`market-gate`, et l'on marche jusqu'au sable.
 
 ### La donnée
 
-- `core::Arena` : une arène telle que la donnée la décrit — région et lieu de l'atlas (`LOT-37`),
-  `map` (vide si elle n'a pas encore de carte), `zone` (le nom de sa **zone de combat**,
-  `core::CombatZone`, `LOT-09` : le Colisée est un lieu, et l'on ne se bat que sur son sable ;
-  `core::cropLevelToZone` donne à la session une carte qui n'est que la zone), `lethal` (faux par
-  défaut : la règle des Arènes), `heroicMark`, `flanking`. Les variantes du Sourcebook — l'Arène du
-  Futur non létale, Feargus la létale, le duel de baguettes — sont des données, pas des modes.
-  `core::loadArenas(dossier)` et `core::ArenaCatalog::find`.
-- `core::HeroicMark` et `core::loadHeroicMarks` : les huit rôles tabulés par le Sourcebook (Bruiser,
-  Brute, Commander…), l'étiquette contre laquelle les classes vérifieront que chacune remplit le sien.
 - `core::ArenaEntryPoint` et `core::arenaEntryPoints(carte)` : les entités `arenaEntry` de la carte
   (`ARENA_ENTRY_ENTITY_TYPE`, propriétés `side` et `rank`), rangées par camp, rang, puis position —
-  l'ordre de la donnée, jamais celui de la mémoire. Une entrée sans camp lisible est ignorée.
-- `core::ArenaContestant` (profil, attaques, case demandée ou non, Marque, profil de comportement —
-  vide pour un combattant que le joueur commande) et `core::ArenaBout` (les concurrents, la graine,
-  `lethal`, `heroicMark`, `flanking`).
+  l'ordre de la donnée, jamais celui de la mémoire. Une entrée sans camp lisible est ignorée. C'est
+  là que le montage pose un concurrent qui n'a pas de case demandée.
+- `core::ArenaContestant` (profil, attaques, case demandée ou non, rôle de Marque, profil de
+  comportement — vide pour un combattant que le joueur commande) et `core::ArenaBout` (les
+  concurrents, la graine, `lethal`, `heroicMark`, `flanking`, `escapable`). Sur la carte, c'est
+  `hmi::CombatContestants` et `hmi::EncounterModel` qui les composent depuis la rencontre
+  (`core::Encounter`, `LOT-118`) : `lethal` faux, `heroicMark` vrai, `flanking` faux, `escapable`
+  ce que la rencontre dit.
+- `HEROIC_ACTION_RESOURCE` (`heroicAction`) : la troisième économie d'action des Marques Héroïques,
+  que le montage déclare à chaque combattant quand `heroicMark` est vrai. Les huit rôles restent
+  une donnée de règles (`Rpg/rules/heroic-marks.json`, validée par `check_rpg_data.py`) ; rien dans
+  `Core` ne la lit plus.
 
-Le contenu livré ayant été retiré au `LOT-102`, les arènes et leur carte viennent aujourd'hui de la
-racine d'essai (`Source/Test/Fixtures/GameData/World/arena/`) ; le jeu les cherchera à côté de
-l'exécutable quand la Capitale en livrera.
+Le **catalogue d'arènes** — une structure d'arène et son chargeur, une donnée par variante régionale
+du Sourcebook dans un dossier d'arènes du monde, et le chargeur des huit Marques — a été retiré à la
+recette de la 0.0.1 (25 septembre 2026) avec l'écran de mise en place du Colisée, son seul lecteur :
+la table rase du `LOT-102` avait déjà vidé ce dossier de `Source/Elements`, et la session se monte
+depuis la rencontre de carte. Les variantes régionales (l'Arène du Futur non
+létale, Feargus la létale, le duel de baguettes) restent des **lieux** de l'atlas (`LOT-37`) ; le jour
+où l'une d'elles devient jouable, sa composition sera une rencontre sur sa carte, pas un catalogue.
 
 ### La session
 
@@ -734,7 +742,7 @@ l'exécutable quand la Capitale en livrera.
 | `ArenaSession(carte)` | garde la carte pour chaque rejeu ; la grille est `BattleGrid(carte)`. |
 | `mount(bout)` | une session neuve à la graine de la composition ; enrôle chaque concurrent à sa case ou au **prochain point d'entrée libre** de son camp ; un septième allié sur six entrées est refusé `OutOfBounds` — la carte n'a plus de place, et le dire vaut mieux que le poser dans un mur. Le rituel de Marque déclare `heroicAction` à chacun. Rend un `core::ArenaMount`. |
 | `start()` | jette l'initiative et l'écrit au journal. `replay()` remonte la même composition à la même graine, journal vidé : **une seule** suite aléatoire (`core::DeterministicRandom`) sert l'initiative, les attaques et les dégâts, et deux exécutions donnent le même journal — comparer deux versions d'une mécanique, c'est comparer deux journaux (`EX-NFR-002`). |
-| `combat()`, `level()`, `bout()`, `attacks(id)`, `attackHooks()`, `damagePipeline()`, `journal()`, `outcome()` | la lecture, et les deux points où une capacité se greffe. |
+| `combat()`, `level()`, `bout()`, `attacks(id)`, `journal()`, `outcome()` | la lecture : la machine, la carte, la composition, les attaques d'un enrôlé, le journal, l'issue. |
 | `attack(cible, indice)` | l'action *attaquer* : vérifie la cible (ni soi, ni un allié, ni à terre), `checkTarget`, l'action restante, dépense l'action, résout par `resolveAttack`. `core::ArenaAttack` porte le `core::ArenaActionResult` (`Done`, `NoActiveTurn`, `NoAction`, `OutOfReach`, `TotalCover`, `InvalidTarget`, `NoAttack`) et l'issue. |
 | `dodge()`, `disengage()`, `dash()` | les actions du Manuel : esquiver (désavantage aux attaques contre soi jusqu'au début de son prochain tour, si la cible **voit** l'attaquant), se désengager (plus d'attaque d'opportunité jusqu'à la fin du tour), se précipiter (un `grant` de déplacement égal à sa vitesse). Se précipiter manquait au joueur : l'IA en avait besoin pour traverser une grande salle, et `EX-CBT-050` interdit une action réservée aux monstres. |
 | `move(destination)` | le déplacement, avec les **attaques d'opportunité** : quand le chemin sort de l'allonge d'une créature hostile debout, qui a sa réaction et **voit** le fuyard depuis la case qu'il quitte (`provokes`, un seul prédicat partagé avec la prévisualisation), elle frappe de sa première attaque de contact et dépense sa réaction. Le déplacement s'arrête à la dernière case où l'on peut se tenir avant la sortie — jamais sur un allié qu'on traverse —, les attaques se jouent par identifiant croissant, et le déplacement reprend si le combattant tient debout. |
@@ -760,8 +768,8 @@ monde.x = originX + L/2 + (gc − gr) · L/2
 monde.y = originY       + (gc + gr) · H/2
 ```
 
-où L est la largeur du losange (`ARENA_TILE_WIDTH_UNITS` par défaut : une tuile de la planche du
-Colisée, 86 px, à sa taille native au zoom 1) et H = 0,62 L sa hauteur (`ARENA_DIAMOND_RATIO`,
+où L est la largeur du losange (`ARENA_TILE_WIDTH_UNITS` par défaut : une tuile de l'ancienne
+planche du Colisée, 86 px, à sa taille native au zoom 1) et H = 0,62 L sa hauteur (`ARENA_DIAMOND_RATIO`,
 l'angle des tuiles de la planche, pas le 2:1 classique). Le coin de grille (c, r) tombe sur le
 sommet haut du losange de la case ; une bande de `ARENA_WALL_RISE · L` est réservée en haut pour
 les murs du fond. Le cadrage — centrer, faire tenir dans la surface — n'est pas l'affaire de la
@@ -784,10 +792,10 @@ ne décide **rien** — chaque geste devient un appel à la session, et l'affich
 machine après chaque geste. Elle expose la grille (`fighters`, `reachableCells` — les PV d'un
 ennemi restent secrets : ensanglanté, à terre, ou rien), le curseur de ciblage et sa
 prévisualisation (`LOT-24`, clavier et manette), l'ordre d'initiative et le journal, et joue les
-tours des combattants à profil par `core::playTurn`. `hmi::composeArenaScene` et
-`hmi::ArenaSceneRenderer` composent et rendent une scène de combat seule (`LOT-86`,
-[Rendu 2D](guide-rendu.md)) ; ils restent pour leurs tests, l'écran du Colisée qui les montrait
-étant retiré (25 septembre 2026).
+tours des combattants à profil par `core::playTurn`. La scène de combat seule et son renderer
+(`LOT-86`), écrits pour l'écran du Colisée, ont été retirés à la recette de la 0.0.1 avec cet écran
+(25 septembre 2026) : le combat se rend sur la carte, par `hmi::WorldSceneComposer` et
+`hmi::WorldSceneRenderer` ([Rendu 2D](guide-rendu.md)).
 
 ![L'écran CombatHud tel qu'il existe aujourd'hui : un HUD dessiné sans données — portrait et jauges, barre d'actions numérotée de 1 à 8, panneau CA / Initiative / Vitesse / États, quêtes, boussole, et la bascule Exploration · Tactique](captures/jeu-combathud.jpg)
 
@@ -868,8 +876,8 @@ sous son voile ; c'est l'écran de mort qui quitte la rencontre et finit la part
 - [Monde et exploration](guide-monde.md) — la session d'exploration qui rencontre un déclencheur,
   et la zone de combat d'une carte.
 - [Niveaux](guide-niveaux.md) — la grille de collision dont la grille de combat est la copie.
-- [Rendu 2D](guide-rendu.md), [Écrans](guide-ecrans.md) — ce que l'écran du Colisée fait de la
-  session.
+- [Rendu 2D](guide-rendu.md), [Écrans](guide-ecrans.md) — ce que `CombatHud.qml` et
+  `hmi::EncounterModel` font de la session.
 - [Éditeur de niveaux](guide-editeur.md) — le contrôle du contenu qui appelle
   `core::analyzeEncounterTerrain`.
 - [`combat.md`](../Specification/combat.md), [`regles-d20.md`](../Specification/regles-d20.md) — les

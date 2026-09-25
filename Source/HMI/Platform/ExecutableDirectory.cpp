@@ -12,7 +12,7 @@ namespace hmi {
 
 namespace {
 
-/// Le dossier de contenu impose, vide tant que personne ne l'a pose.
+// Le dossier de contenu impose, vide tant que personne ne l'a pose.
 std::filesystem::path dossierImpose;
 
 }  // namespace

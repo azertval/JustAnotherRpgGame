@@ -3,7 +3,7 @@
 
 /**
  * @file test_arena.cpp
- * @brief Tests unitaires du Colisée (`LOT-50`) : points d'entrée, catalogues, montage, attaques et
+ * @brief Tests unitaires de la session d'arène (`LOT-50`) : points d'entrée, montage, attaques et
  *        attaque d'opportunité (`LOT-21`), rejeu et non-létalité.
  */
 
@@ -181,43 +181,19 @@ TEST(ArenaTest, LesPointsDEntreeSeLisentDeLaCarte) {
 }
 
 /**
- * @brief La carte d'une arene se charge, et les catalogues de l'arene avec elle.
- * \castest{<b>La carte que nomme la premiere arene jouable se charge et accueille les deux camps ;
- * les arenes et les huit Marques Heroiques se chargent.</b><br/>
+ * @brief La carte d'essai accueille les deux camps : ses points d'entree sont sur des cases libres.
+ * \castest{<b>La carte d'essai du donjon se charge et ses points d'entree accueillent les deux
+ * camps.</b><br/>
  * \tcat Unitaire · Combat<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Charger le catalogue des arenes d'essai et les Marques Heroiques.<br/>2. Charger la
- * carte que la premiere arene nomme.<br/>3. Lire ses points d'entree et verifier qu'aucun n'est
- * dans un mur.<br/>
- * \tattendu Aucune erreur de chargement ; une arene jouable non letale a Marque Heroique ; huit
- * marques ; au moins quatre entrees libres par camp.
+ * \tetapes 1. Charger la carte d'essai `Levels/donjon.json`.<br/>2. Lire ses points d'entree et
+ * verifier qu'aucun n'est dans un mur.<br/>
+ * \tattendu La carte se charge ; au moins quatre entrees libres par camp.
  * }
  */
-TEST(ArenaTest, LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps) {
-    const core::ArenaCatalog arenes =
-        core::loadArenas(std::filesystem::path(JADG_TEST_DATA_DIR) / "World" / "arena");
-    EXPECT_TRUE(arenes.errors.empty());
-    const core::HeroicMarkCatalog marques =
-        core::loadHeroicMarks(std::filesystem::path(JADG_RPG_RULES_DIR) / "heroic-marks.json");
-    EXPECT_TRUE(marques.errors.empty());
-    EXPECT_EQ(marques.marks.size(), 8U);
-    EXPECT_NE(marques.find("tank"), nullptr);
-    EXPECT_EQ(marques.find("paladin"), nullptr);
-
-    const core::Arena* jouable = nullptr;
-    for (const core::Arena& arene : arenes.arenas) {
-        if (!arene.map.empty()) {
-            jouable = &arene;
-            break;
-        }
-    }
-    ASSERT_NE(jouable, nullptr);
-    EXPECT_FALSE(jouable->lethal);
-    EXPECT_TRUE(jouable->heroicMark);
-    EXPECT_EQ(arenes.find(jouable->id), jouable);
-
+TEST(ArenaTest, LaCarteDEssaiAccueilleLesDeuxCamps) {
     const core::LevelLoadResult carte = core::LevelLoader::loadFromFile(
-        std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels" / jouable->map);
+        std::filesystem::path(JADG_TEST_DATA_DIR) / "Levels" / "donjon.json");
     ASSERT_TRUE(carte.ok()) << carte.error;
     const core::BattleGrid grille(*carte.level);
     int allies = 0;

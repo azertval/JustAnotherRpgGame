@@ -13,8 +13,6 @@
 #include <memory>
 #include <string>
 
-#include "HMI/Runtime/SheetRowModel.h"
-
 /**
  * @file HMI/Runtime/InventoryModel.h
  * @brief Ce que le personnage porte, tel que le QML le lit et le modifie (`LOT-86`, `LOT-87`).
@@ -41,9 +39,7 @@ class InventoryModel : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
-    /// Les seize emplacements d'équipement : identifiant, libellé du corps, objet porté (ou tiret).
-    Q_PROPERTY(QAbstractItemModel* equipmentSlots READ equipmentSlots CONSTANT)
-
+    /// La bourse, déjà mise en forme (« 37 po ») ; un tiret cadratin tant que rien ne l'alimente.
     Q_PROPERTY(QString purse READ purse NOTIFY changed)
     Q_PROPERTY(QString carried READ carried NOTIFY changed)
     Q_PROPERTY(QString capacity READ capacity NOTIFY changed)
@@ -97,9 +93,6 @@ public:
     /// Trie le sac par nom.
     Q_INVOKABLE void sortBackpack();
 
-    [[nodiscard]] QAbstractItemModel* equipmentSlots() {
-        return &_slots;
-    }
     [[nodiscard]] QString purse() const {
         return value("inventory.purse");
     }
@@ -157,7 +150,6 @@ private:
     std::unique_ptr<DemonstrationState> _state;
     std::map<std::string, std::string> _values;
     std::map<std::string, std::string> _sheetValues;
-    SheetRowModel _slots;
     int _filter = 0;
     QString _selectedItem;
     QString _selectedSlot;

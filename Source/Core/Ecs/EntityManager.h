@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <cstdint>
+#include <cstddef>
 #include <vector>
 
 #include "Core/Ecs/Entity.h"

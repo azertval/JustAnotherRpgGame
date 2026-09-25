@@ -16,7 +16,7 @@ namespace {
 constexpr int FORMAT_VERSION = 1;
 constexpr const char* SOURCE_LANGUAGE = "fr";
 
-/// Un libellé traduit : la langue demandée, sinon la langue source ; rien si ni l'une ni l'autre.
+// Un libellé traduit : la langue demandée, sinon la langue source ; rien si ni l'une ni l'autre.
 [[nodiscard]] std::optional<std::string> translated(const nlohmann::json& label,
                                                     std::string_view language) {
     if (!label.is_object()) {
@@ -35,8 +35,8 @@ constexpr const char* SOURCE_LANGUAGE = "fr";
     return CreditsResult{.sections = {}, .error = "credits.json : " + std::move(message)};
 }
 
-/// Lit une ligne de la section @p sectionId dans @p line.
-/// @return Le message d'erreur, ou rien si la ligne est valide.
+// Lit une ligne de la section `sectionId` dans `line`.
+// Rend : Le message d'erreur, ou rien si la ligne est valide.
 [[nodiscard]] std::optional<std::string> readLine(const nlohmann::json& lineJson,
                                                   const std::string& sectionId,
                                                   std::string_view language, CreditLine& line) {
@@ -66,8 +66,8 @@ constexpr const char* SOURCE_LANGUAGE = "fr";
     return std::nullopt;
 }
 
-/// Lit une section dans @p section.
-/// @return Le message d'erreur, ou rien si la section est valide.
+// Lit une section dans `section`.
+// Rend : Le message d'erreur, ou rien si la section est valide.
 [[nodiscard]] std::optional<std::string> readSection(const nlohmann::json& sectionJson,
                                                      std::string_view language,
                                                      CreditSection& section) {

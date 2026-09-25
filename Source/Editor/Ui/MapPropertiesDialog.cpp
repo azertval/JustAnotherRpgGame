@@ -11,7 +11,6 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QWidget>
-
 #include <utility>
 
 namespace hmi {

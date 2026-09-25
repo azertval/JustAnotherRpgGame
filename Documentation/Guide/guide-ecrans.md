@@ -75,39 +75,24 @@ vérifiable d'une égalité.
 Invariant : après toute transition, les retours non pertinents sont **remis** à `Menu` — un état
 n'emporte jamais une provenance périmée d'un cycle précédent.
 
-## Les écrans du RPG : `hmi::RpgScreens`
+## Les écrans du RPG : `hmi::RpgScreenId`
 
-`Source/HMI/Presentation/RpgScreens.h` est le catalogue des écrans que le RPG consulte pendant
-une partie (`LOT-68`, `EX-IHM-090`), logique pure comme `ScreenFlow`.
+`Source/HMI/Presentation/RpgScreens.h` nomme les neuf écrans que le RPG consulte pendant une
+partie (`LOT-68`, `EX-IHM-090`) : `hmi::RpgScreenId` — `CharacterSheet`, `Skills`, `Inventory`,
+`QuestJournal`, `WorldMap`, `Dialogue`, `Merchant`, `Company`, `CombatHud`. C'est tout ce que le
+C++ sait d'eux. Chacun est un formulaire QML de `Jadg.Ui` (`Source/Ui/Screens/*Form.ui.qml`)
+doublé d'un jumeau de câblage (`Source/App/Game/Qml/Screens/*.qml`), que la pile d'écrans pose
+quand le routeur le désigne (`hmi::ScreenRouter::openRpgScreen`) et referme sur l'écran d'où il a
+été ouvert (`rpgReturnTo`). Le routeur reprend l'énumération valeur pour valeur
+(`ScreenRouter::RpgScreen`, des `static_assert` tiennent les deux alignées), et c'est elle que le
+QML écrit : `ScreenRouter.openRpgScreen(ScreenRouter.Inventory)`.
 
-- `hmi::RpgScreenId` — les neuf écrans, dans l'ordre du **cycle** de navigation :
-  `CharacterSheet`, `Skills`, `Inventory`, `QuestJournal`, `WorldMap`, `Dialogue`, `Merchant`,
-  `Company`, `CombatHud`. `hmi::RPG_SCREEN_COUNT` vaut 9.
-- `hmi::RpgSuperposition` — `PausesGame` (la simulation est suspendue tant que l'écran est ouvert)
-  ou `WhileWalking` (on le consulte en marchant). La règle est portée par la **description** de
-  l'écran, jamais par le code qui l'ouvre (`EX-IHM-091`) : une règle décidée à l'ouverture se
-  contredirait d'un point d'appel à l'autre. Seuls la carte du monde et l'ATH de combat se lisent
-  en marchant.
-- `hmi::RpgBlockKind`, `hmi::RpgField`, `hmi::RpgContentBlock`, `hmi::RpgScreenLayout` — l'**ossature**
-  d'un écran en données : deux colonnes de blocs, chaque bloc d'un des sept genres (`Fields`,
-  `Grid`, `List`, `Prose`, `Portrait`, `Track`, `ActionBar`). Un `RpgField` associe une clé de
-  libellé à un **identifiant de valeur** (`valueId`) — le contrat par lequel un écran se remplit :
-  `hmi::characterSheetValues` produit une table indexée par ces identifiants, et un test vérifie
-  qu'aucun des deux côtés n'en invente un que l'autre ignore.
-- `hmi::RpgScreenDescriptor` — l'identité complète d'un écran : `objectName`, `titleKey`,
-  `superposition`, `layout`.
-- `hmi::rpgScreens()` — la table entière, dans l'ordre du cycle ; `hmi::rpgScreenDescriptor(id)`
-  — une entrée.
-- `hmi::nextRpgScreen(id)` / `hmi::previousRpgScreen(id)` — le cycle : du dernier on revient au
-  premier. C'est ce qui permet d'atteindre n'importe quel écran depuis n'importe quel autre sans
-  repasser par le menu (`EX-IHM-090`), au geste des gâchettes de la manette.
-- `hmi::pausesGame(id)` — `true` si l'écran suspend la simulation.
-
-Depuis le `LOT-86`, les écrans sont dessinés en QML (`Source/Ui/Screens/*Form.ui.qml`), et le
-rendu générique par widgets que ce fichier décrivait n'existe plus. La table reste la **source de
-vérité** de deux choses que le QML ne décide pas : quel écran suspend le jeu, et quels
-identifiants de valeur un écran attend — ce que `hmi::CharacterSheetModel` publie, et ce que les
-tests de `test_rpg_screens.cpp` contrôlent.
+Le `LOT-68` décrivait ici chaque écran en données — une ossature de blocs, une règle de
+superposition, un cycle aux gâchettes — pour un rendu générique par widgets ; depuis le `LOT-86`
+les formulaires portent la mise en page, et cette table est retirée à la recette de la 0.0.1. Les
+gâchettes LB/RB servent aux onglets de la carte du monde et aux actions du combat ([Entrées et
+actions logiques](guide-entrees.md)) ; ce qu'un écran fait de la simulation est dit plus bas, avec
+la vue de jeu (`EX-IHM-091`).
 
 ![La fiche de personnage, écran du RPG qui suspend la simulation : médaillons de caractéristiques, identité, compétences, à 1280 × 720](captures/jeu-charactersheet.jpg)
 
@@ -131,7 +116,6 @@ pas.
 | `hmi::ScreenRouter::openDemoEnd(ending)` | `OpenDemoEnd` | transporte la voie (`ending`, `endingText`) |
 | `hmi::ScreenRouter::openRpgScreen(screen)` / `closeRpgScreen` | `OpenRpgScreen` / `CloseRpgScreen` | retient aussi **lequel** |
 | `hmi::ScreenRouter::openDialogue(dialogueId)` | `OpenRpgScreen` sur `Dialogue` | transporte l'identifiant |
-| `hmi::ScreenRouter::nextRpgScreen` / `previousRpgScreen` | aucun | change `currentRpgScreen` dans le cycle, sans repasser par la table |
 
 Deux propriétés de plus : `dialogueId`, le dialogue que l'écran de dialogue doit jouer — c'est la
 carte qui le nomme en ouvrant la conversation du PNJ visé (`LOT-09`), et l'écran n'a plus de
@@ -179,11 +163,13 @@ remplace : une session possédée par l'écran mourrait avec lui, et l'on revien
 dialogue ou du sable sur une carte neuve, héros à la porte. `GameView` ne lance donc
 `WorldModel.startNewGame()` que si aucune carte n'est chargée.
 
-Le **gel** suit le focus : ce qui recouvre la vue de jeu (dialogue, pause, écran du RPG)
-lui prend le focus, et la vue relâche alors les directions tenues ; le dialogue pose en plus
-`WorldModel.frozen`. Un seul chemin pour tous les écrans plutôt qu'un par écran. Quel écran du
-RPG suspend la simulation est dit par `hmi::pausesGame`, pas par la table de transitions, qui ne
-connaît pas ces écrans un par un.
+Le **gel** suit le focus (`EX-IHM-091`) : ce qui recouvre la vue de jeu (dialogue, pause, écran
+du RPG) lui prend le focus, et la vue relâche alors les directions tenues — le héros s'arrête ; le
+dialogue et le combat posent en plus `WorldModel.frozen`, qui arrête la session
+(`hmi::WorldModel::setFrozen`). Quand la vue reprend le focus, elle dégèle la carte — sauf si un
+combat est en cours (`EncounterModel.active`), qui la tient gelée jusqu'à son issue. Un seul chemin
+pour tous les écrans plutôt qu'une règle par écran ; la table de transitions, elle, ne connaît pas
+ces écrans un par un.
 
 ### `hmi::WorldPlay` : la mise en scène partagée avec l'éditeur
 
@@ -321,7 +307,7 @@ fixe](guide-boucle.md).
 
 - `hmi::ScreenRouter`, `hmi::WorldModel`, `hmi::WorldPlay`, `hmi::GameLaunchOptions`.
 - `hmi::ScreenId`, `hmi::ScreenEvent`, `hmi::ScreenState`, `hmi::resolveTransition`,
-  `hmi::RpgScreenId`, `hmi::RpgScreenDescriptor`, `hmi::pausesGame`.
+  `hmi::RpgScreenId`.
 - [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le socle Qt Quick : modules
   QML, vues-modèles, surface de rendu QRhi.
 - [Entrées et actions logiques](guide-entrees.md) — le clavier et la manette dans les écrans.

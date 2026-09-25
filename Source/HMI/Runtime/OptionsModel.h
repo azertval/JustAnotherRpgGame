@@ -56,6 +56,7 @@ class OptionsModel : public QObject {
     QML_ELEMENT
     QML_SINGLETON
 
+    /// Le jeu occupe tout l'écran. Écrit, le réglage est enregistré et la fenêtre suit aussitôt.
     Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
     Q_PROPERTY(bool vsync READ vsync WRITE setVsync NOTIFY vsyncChanged)
     Q_PROPERTY(bool diagnostics READ diagnostics WRITE setDiagnostics NOTIFY diagnosticsChanged)

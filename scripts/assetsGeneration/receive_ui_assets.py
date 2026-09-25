@@ -45,7 +45,8 @@ import check_ui_assets  # reutilise write_artwork() : la table des pieces livree
 ROOT = Path(__file__).resolve().parents[2]
 UI = ROOT / "Source" / "Elements" / "Assets" / "UI"
 MANIFEST = UI / "illustrations.json"
-CAHIER = ROOT / "Documentation" / "Lot" / "LOT-87-charte-v2" / "assets-brief.json"
+# Le cahier des assets : un seul chemin, celui du controle qui le valide.
+CAHIER = brief.CAHIER
 
 PNG_SIGNATURE = bytes([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
 

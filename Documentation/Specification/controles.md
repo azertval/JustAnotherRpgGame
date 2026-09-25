@@ -1,7 +1,7 @@
 # Contrôles & entrées
 
-> Statut : **livré** pour l'exploration, les écrans et l'arène. Le clavier suffit à tout ; la
-> manette (XInput) pilote l'arène et la carte du monde. Dépend de [`gameplay.md`](gameplay.md).
+> Statut : **livré** pour l'exploration, les écrans et le combat. Le clavier suffit à tout ; la
+> manette (XInput) pilote le combat sur la carte et la carte du monde. Dépend de [`gameplay.md`](gameplay.md).
 
 ## 1. Périphériques
 - **EX-CTRL-001** — Le jeu doit être jouable **entièrement au clavier**.
@@ -17,7 +17,7 @@ ou « retour », jamais à une touche en particulier.
 | Se déplacer (exploration) | ← ↑ → ↓, ZQSD ou WASD | — |
 | Interagir (`EX-CTRL-022`) | E ou Espace | — |
 | Pause (exploration) | Échap | — |
-| Naviguer (écrans, arène) | ← ↑ → ↓ | Croix directionnelle |
+| Naviguer (écrans, combat) | ← ↑ → ↓ | Croix directionnelle |
 | Valider | Entrée | A |
 | Retour | Échap | B |
 

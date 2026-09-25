@@ -44,7 +44,6 @@
  * L'altitude n'y entre pas (`core::Locomotion`) : un volant se voit et se vise sur la même grille.
  */
 
-#include <cstdint>
 #include <span>
 #include <string_view>
 

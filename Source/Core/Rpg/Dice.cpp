@@ -17,7 +17,7 @@ constexpr int MAX_COUNT = 100;
 constexpr int MAX_FACES = 100;
 constexpr int MAX_MODIFIER = 999;
 
-/// @brief Lit un entier decimal a partir de `position`, et avance. `nullopt` si aucun chiffre.
+// Lit un entier decimal a partir de `position`, et avance. `nullopt` si aucun chiffre.
 [[nodiscard]] std::optional<int> lireEntier(std::string_view texte, std::size_t& position) {
     const std::size_t debut = position;
     while (position < texte.size() && texte[position] >= '0' && texte[position] <= '9') {
@@ -35,8 +35,8 @@ constexpr int MAX_MODIFIER = 999;
     return valeur;
 }
 
-/// Le modificateur signe qui suit un de (`+2`, `-1`), ecrit dans @p dice. @return false si la
-/// notation est invalide a cet endroit.
+// Le modificateur signe qui suit un de (`+2`, `-1`), ecrit dans @p dice. Rend false si la
+// notation est invalide a cet endroit.
 [[nodiscard]] bool lireModificateur(std::string_view notation, std::size_t& position, Dice& dice) {
     const char signe = notation[position];
     if (signe != '+' && signe != '-') {

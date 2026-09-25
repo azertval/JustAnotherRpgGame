@@ -272,10 +272,9 @@ seule traduction par terme dans tout le jeu, et `scripts/checks/check_glossary.p
 
 ### `hmi::CharacterSheetModel` et `hmi::InventoryModel` — le personnage
 
-`CharacterSheetModel` publie la fiche : `name`, `species`, `background`, `classAndLevel`, `level`,
-`experience`, `hitPoints`, `hitPointsMax`, `hitDice`, `armorClass`, `initiative`, `speed`,
-`proficiencyBonus`, `passivePerception`, trois modèles (`abilities`, `savingThrows`, `skills`) et
-la table complète `values` (`sheet.ability.strength.score`, `…modifier`…) que la fiche de la
+`CharacterSheetModel` publie la fiche : `name`, `species`, `background`, `level`, `experience`,
+`hitPoints`, `hitPointsMax`, `hitDice`, `armorClass`, `initiative`, `speed`, `proficiencyBonus`,
+`passivePerception`, deux modèles (`abilities`, `skills`) et la table complète `values` (`sheet.ability.strength.score`, `…modifier`…) que la fiche de la
 charte v2 pose hors des listes. Ces propriétés nommées ne sont pas une seconde source : une façade
 lisible dans le panneau des propriétés de Design Studio, sur la table que `hmi::characterSheetValues`
 produit. `hmi::CharacterSheetModel::loadDemonstrationCharacter()` charge le personnage de
@@ -283,8 +282,7 @@ démonstration — **échafaudage écrit comme tel** : il n'existe encore ni gro
 tirer un personnage réel. Une donnée manquante n'interrompt rien (`EX-CNT-010`) : la fiche
 s'affiche partielle, avec ses tirets.
 
-`InventoryModel` publie ce que le personnage porte et **agit** (`LOT-87`) : `equipmentSlots` (les
-seize emplacements), `purse`, `gold`, `carried`, `capacity`, `loadRatio`, `backpack`, `equipped`,
+`InventoryModel` publie ce que le personnage porte et **agit** (`LOT-87`) : `purse`, `gold`, `carried`, `capacity`, `loadRatio`, `backpack`, `equipped`,
 la grille filtrée `cells` selon `filter` (`hmi::ItemFamily`), la sélection (`selectedItem`,
 `selectedSlot`, `selection` : nom, genre, dégâts, armure, poids, texte, et `canEquip`,
 `canUnequip`, `canDrop`) et les quatre statistiques dérivées de la maquette. Les gestes :
@@ -314,9 +312,8 @@ a joué, d'une ligne) et ses morceaux pour que l'écran le **montre** (`LOT-117`
 `hmi::DialogueModel::choose(rowId)` donne une réponse, ou quitte si c'est la ligne
 `hmi::DIALOGUE_LEAVE_REPLY` ; `chooseAt(index)` sert les touches <kbd>1</kbd> à <kbd>9</kbd> ;
 `restart()` rouvre depuis l'entrée, drapeaux conservés. Le signal
-`hmi::DialogueModel::combatRequested(arenaId)` dit qu'un PNJ envoie se battre (`LOT-09`),
-`encounterRequested(encounterId)` qu'il engage une rencontre sur la carte (`LOT-118`),
-`demoEnded(ending)` qu'il clôt la démo (`LOT-119`) : le modèle n'ouvre rien, c'est l'écran qui
+`hmi::DialogueModel::encounterRequested(encounterId)` dit qu'un PNJ engage une rencontre sur la
+carte (`LOT-118`), `demoEnded(ending)` qu'il clôt la démo (`LOT-119`) : le modèle n'ouvre rien, c'est l'écran qui
 décide et le routeur qui navigue.
 
 Le runner écrit dans les drapeaux **de la partie** (`LOT-116`) : ceux de `hmi::WorldModel::current`,
@@ -399,7 +396,7 @@ divergerait des drapeaux au premier chargement de sauvegarde ; celui-ci ne peut 
 (`Maps/world-maps.json`), puis les joint par `hmi::joinWorldMaps` ; chaque écart est journalisé
 plutôt que tu (`LOT-94`). `hmi::WorldMapModel::load()` ; `worldImage` ; `regions` (une table par
 région : repère, cadre du zoom, régime, faction, population, les sept `grades`, ses `places` et
-ses `labels`) ; `placedCount` ; `hmi::WorldMapModel::city(placeId)` — le plan d'une ville, ou une
+ses `labels`) ; `hmi::WorldMapModel::city(placeId)` — le plan d'une ville, ou une
 table vide ; `hmi::WorldMapModel::regionIndex(regionId)`.
 
 ![La carte du monde de Tanares : treize régions marquées d'un repère d'or, la fiche de l'Empire central à gauche, le bandeau du personnage en haut à droite, à 1280 × 720](captures/jeu-worldmap.jpg)
@@ -438,8 +435,8 @@ joue sur la carte, par `hmi::EncounterModel`.
 vues-modèles appellent, et que les tests unitaires vérifient sans fenêtre (`EX-NFR-010`).
 
 - `hmi::characterSheetValues(context)` — traduit une `core::CharacterSheet` en **valeurs
-  affichables**, indexées par l'identifiant que l'ossature de l'écran déclare
-  (`hmi::RpgField::valueId`). Le `hmi::CharacterSheetContext` porte la fiche, les catalogues et,
+  affichables**, indexées par un identifiant stable (`sheet.hit_points`) que
+  `hmi::CharacterSheetModel` publie en propriétés. Le `hmi::CharacterSheetContext` porte la fiche, les catalogues et,
   s'il est **présent**, `core::DerivedStats` — qui remplace alors classe d'armure et vitesse de la
   fiche par celles de l'équipement porté. Un contexte incomplet rend une table **vide**, jamais des
   zéros. Le formatage (signe d'un modificateur, `12 / 18`) est ici, parce que c'est une règle
@@ -475,7 +472,7 @@ vues-modèles appellent, et que les tests unitaires vérifient sans fenêtre (`E
   région qui manque en silence ne se corrige jamais.
 - `hmi::identityScaleFor`, `hmi::identityScaleForDisplay` — le facteur d'agrandissement entier,
   expliqué en [Système de design et architecture de l'information](guide-design-ihm.md).
-- `hmi::resolveTransition`, `hmi::rpgScreens` — en [Écrans, navigation et boucle de jeu](guide-ecrans.md).
+- `hmi::resolveTransition`, `hmi::RpgScreenId` — en [Écrans, navigation et boucle de jeu](guide-ecrans.md).
 
 ## La surface de rendu
 
@@ -593,8 +590,8 @@ nom de carte (`map.<id>.name`, `EX-EDIT-081`).
 
 `Source/HMI/HmiLog.h` définit `HMI_LOG_TRACE`, `HMI_LOG_INFO`, `HMI_LOG_WARNING`,
 `HMI_LOG_ERROR` : la catégorie « HMI » sur les macros de `Core/Diagnostics/Log.h`. Chaque module a
-son en-tête de ce type (`AudioLog.h`, `GraphicsLog.h`…). `Source/HMI/Diagnostics/` est un dossier
-**vide** : ce que l'application expose du journal à l'utilisateur vit dans `HMI/Runtime/`
+son en-tête de ce type (`AudioLog.h`, `GraphicsLog.h`…). La couche n'a pas de module de
+diagnostic à elle : ce que l'application expose du journal à l'utilisateur vit dans `HMI/Runtime/`
 (`hmi::OptionsModel::saveLogs`). Le détail est en [Journalisation et
 assertions](guide-journalisation.md).
 

@@ -115,7 +115,6 @@ PAGE_AUGMENTATIONS = 12
 # Pages IMPRIMEES, relevees au sommaire (p. 4).
 PAGES_ESPECES_PG = range(11, 56)
 PAGES_HISTORIQUES_PG = range(260, 274)
-PAGES_CLASSES_PG = range(192, 208)
 
 # Corps des titres du Player's Guide : 18 pour une espece, une classe ou un chapitre, 14,5 pour une
 # section, 17,5 pour le groupe des sous-especes elfiques.

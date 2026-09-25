@@ -1,6 +1,6 @@
 # Rendu 2D : de la scène à l'écran
 
-Cette page explique comment un lieu qu'on parcourt, l'arène du Colisée ou le brouillon de l'éditeur
+Cette page explique comment un lieu qu'on parcourt, une scène de combat ou le brouillon de l'éditeur
 finissent par apparaître comme une image à l'écran, en partant des notions de base du rendu temps
 réel pour qui n'en a jamais écrit. Tout le rendu vit dans `Source/HMI/Graphics`, sur une surface
 fournie par Qt (l'éditeur dans `Source/Editor/Ui`, le jeu dans `Source/HMI/Runtime`) ; c'est la
@@ -124,13 +124,13 @@ souvenir. L'autre raison est la **non-divergence** : deux hôtes (`LOT-86`) cré
 mêmes ressources ; les écrire deux fois aurait suffi à les faire diverger, et cela ne se voit qu'à
 l'exécution, sur un seul des deux.
 
-- `hmi::SceneResources::create(rhi, updates)` construit le `SpriteBatch`, le `TextureAtlas` et le
-  `TextureCache` sur `rhi`, en déposant les téléversements de la première image dans `updates`, que
-  l'appelant soumet ensuite hors de toute passe ;
+- `hmi::SceneResources::create(rhi, updates)` construit le `SpriteBatch` et le `TextureAtlas` sur
+  `rhi`, en déposant les téléversements de la première image dans `updates`, que l'appelant soumet
+  ensuite hors de toute passe ;
 - `created()` dit si `create` a réussi et que rien n'a été libéré depuis ;
 - `setFrameUpdates(updates)` déclare le lot de l'image en cours (`nullptr` en fin d'image) : c'est
   ce que `RhiContext::updates` reflète ;
-- `context()`, `sprites()`, `atlas()`, `textures()` donnent accès aux quatre membres.
+- `context()`, `sprites()`, `atlas()` donnent accès aux trois membres.
 
 Ce qui n'y est **pas** — le brouillon d'édition, le `DraftRenderer`, la caméra, la carte jouée —
 appartient à un seul des hôtes : le remonter ici ferait payer au jeu ce dont il ne se sert pas.
@@ -150,8 +150,8 @@ cette conversion :
 
 La caméra a aussi un **centre** (`setCenter`, `center()`, en unités monde) : le point qui apparaît
 au milieu de la surface, dont les dimensions en pixels sont données au constructeur
-(`Camera2D(viewportWidth, viewportHeight)`) et mises à jour par `setViewportSize` à chaque
-redimensionnement. L'origine écran est en haut à gauche et l'axe Y descend : la convention du
+(`Camera2D(viewportWidth, viewportHeight)`) : la caméra ne se redimensionne pas, le rendu la
+reconstruit à chaque image à la taille de sa cible (`worldCamera`). L'origine écran est en haut à gauche et l'axe Y descend : la convention du
 projet, la même que celle des cartes.
 
 - `hmi::Camera2D::projectionMatrix` combine centre, échelle et dimensions de la surface en une
@@ -165,7 +165,7 @@ projet, la même que celle des cartes.
   `screenToWorld` : la base du **culling** (plus bas). Aucune notion de cadrage nouvelle n'est
   introduite, la caméra reste la seule source de vérité.
 
-### Cadrer une scène : `fitZoom`, `worldCamera`, `arenaCamera`
+### Cadrer une scène : `fitZoom` et `worldCamera`
 
 `hmi::Camera2D::fitZoom(availableWidth, availableHeight, contentWidth, contentHeight, margin)`
 calcule le zoom qui fait tenir un rectangle donné (en unités monde) dans une surface disponible (en
@@ -173,13 +173,12 @@ pixels), sans jamais laisser de zone hors champ : le plus petit des deux rapport
 `margin` (1 par défaut) pour laisser une marge visuelle, **sans arrondi**. Il s'arrondissait à
 l'entier pour la netteté du pixel art ; l'art peint et filtré par mipmaps n'a plus de grille à
 protéger (`EX-ARCH-022`, `LOT-103`). Fonction pure, partagée par le canevas de l'éditeur
-(`EX-EDIT-013`) et l'arène : aucune règle dupliquée entre les deux.
+(`EX-EDIT-013`) et le rendu du jeu : aucune règle dupliquée entre les deux.
 
-Les deux scènes du jeu ont chacune **une** fonction de cadrage, qui est la seule géométrie de la
-scène à l'écran :
+La scène du jeu a **une** fonction de cadrage, qui est la seule géométrie de la scène à l'écran
+(celle qui cadrait l'arène entière, `arenaCamera`, est partie avec le renderer du Colisée à la
+recette de la 0.0.1) :
 
-- `hmi::arenaCamera(projection, pixelWidth, pixelHeight)` (`ArenaSceneRenderer.h`) cadre le
-  Colisée **entier**, centré, par `fitZoom` ;
 - `hmi::worldCamera(projection, focus, pixelWidth, pixelHeight, tilePixels)`
   (`WorldSceneRenderer.h`) **suit** le héros dans le lieu qu'on parcourt (`EX-REN-013`) : une case
   occupe à l'écran la hauteur de la surface divisée par `hmi::WORLD_VIEW_HEIGHT_IN_TILES` = 10,8
@@ -308,8 +307,7 @@ déjà posé ne change jamais.
 
 - `hmi::TextureAtlas::tile(column, row)` renvoie la **région** (rectangle en pixels,
   `core::AtlasRegion`) d'une case de la grille — pure arithmétique, `static`, testable sans GPU ;
-- `textureHandle()`, `width()`, `height()` : l'identité opaque de la texture et ses dimensions,
-  pour normaliser les UV.
+- `width()`, `height()` : les dimensions de l'atlas, pour normaliser les UV.
 
 Les pixels eux-mêmes viennent de `hmi::buildProceduralAtlasImage` (`ProceduralAtlas.h`), fonction
 **pure** et déterministe qui renvoie une `hmi::ProceduralAtlasImage` (largeur, hauteur, pixels
@@ -378,21 +376,13 @@ Un asset absent ou illisible n'interrompt jamais le rendu (`EX-REN-007`, `EX-NFR
   sinon nommant le fichier, le trouvé et l'attendu), plutôt que de produire des artefacts
   silencieux.
 
-### `hmi::CacheRegistry` et `hmi::TextureCache` : mémoïser, échec compris
+### Les textures se retiennent là où elles se dessinent
 
-`hmi::CacheRegistry<Resource>` (`CacheRegistry.h`) est un registre générique clé → ressource,
-**pur** et sans dépendance : `hmi::CacheRegistry::getOrLoad(key, loader)` appelle `loader` au
-premier accès et **mémorise aussi un échec** (`nullopt`), si bien qu'un asset manquant ne relit pas
-le disque à chaque image ; `invalidate(key)` et `invalidateAll` forcent un rechargement ; `size()`
-compte les entrées, succès et échecs. Factoriser cette logique hors de tout détail GPU est ce qui
-la rend vérifiable sans carte (`EX-NFR-004`).
-
-`hmi::TextureCache` (`TextureCache.h`) compose ce registre pour les **marqueurs d'entité** :
-`hmi::TextureCache::markerTexture(key)` crée à la demande, puis conserve, la texture du marqueur
-d'une clé d'asset, peinte à une case de côté ; elle renvoie `nullptr` — jamais une exception — si la
-clé est malformée ou si la création GPU a échoué. `invalidateAll` retire toutes les entrées, qui
-seront recréées au prochain accès. Les ressources sont détenues en RAII et libérées à la
-destruction (`EX-NFR-041`).
+Le marqueur d'une figurine sans image est créé, puis conservé avec les autres textures, par le rendu
+du lieu lui-même (`hmi::WorldSceneRenderer`, `figureMarkerKey`), qui n'en redemande jamais un déjà
+tenté. Les ressources sont détenues en RAII et libérées à la destruction (`EX-NFR-041`). Le registre
+générique de mémoïsation (`CacheRegistry`) et le cache de textures des marqueurs qui s'en servait
+sont retirés à la recette de la 0.0.1 : plus rien ne les lisait.
 
 ## L'animation : des clips en données
 
@@ -423,53 +413,53 @@ Trois fonctions **pures** traduisent une description en région de texture :
   dimensions réelles ne sont connues qu'après décodage (`EX-REN-007`) ;
 - `hmi::AnimationCatalog::frameRegion(description, frameSheetIndex)` : le rectangle
   `[indice × frameWidth, 0, frameWidth, frameHeight]`. Elle ne borne pas l'indice : c'est le rôle de
-  la validation, en amont ;
-- `hmi::AnimationCatalog::currentFrameRegion(description, animation)` : la région de l'image
-  courante d'un `core::Animation` (composant ECS), en passant par `AnimationClip::frames` ; repli sur
-  la première image si l'animation n'a pas de jeu de clips valide.
+  la validation, en amont.
 
-Le catalogue ne charge ni ne met en cache aucun PNG : ses appelants (`hmi::ArenaAnimationDriver`,
-`hmi::WorldSceneRenderer`, la galerie) le composent avec `hmi::TextureLoader`.
+Le catalogue ne charge ni ne met en cache aucun PNG : ses appelants (`hmi::WorldSceneRenderer`, la
+galerie) le composent avec `hmi::TextureLoader`.
 
-### Au Colisée : `hmi::ArenaAnimationDriver`
+### En combat : `hmi::CombatCueTrack`
 
-Contrairement au personnage exploré (plusieurs clips dans **une** bande), une figurine du Colisée a
-**un fichier par action** — `idle.png`, `walk.png`, `attack.png`, `hit.png`, `death.png` —, chacun
-décrit par son propre `.anim.json` à un seul clip (`hmi::ArenaFigureAction` : `Idle`, `Walk`,
-`Attack`, `Hit`, `Death`).
+Le pilote d'animation des figurines de l'arène (`hmi::ArenaAnimationDriver`, un fichier `.anim.json`
+par action, `LOT-50`) a été retiré à la recette de la 0.0.1 avec la scène de combat seule : depuis
+le `LOT-118`, le combat se joue sur la carte, et ses figurines sont celles du lieu — une bande par
+animation, découpée par ce même catalogue.
 
-- `hmi::ArenaFigureAnimationSet` porte ces cinq jeux de clips (`shared_ptr` nuls pour une action
-  sans fichier : les ennemis n'ont que `idle.png`, `LOT-50`) ; `forAction(action)` en rend un ;
-- `hmi::loadArenaFigureAnimations(sheetDirectory)` lit les cinq fichiers possibles par
-  `AnimationCatalog::loadFromFile` et renvoie une `hmi::ArenaFigureAnimationLoad` : les clips, les
-  largeurs d'image des bandes dessinées (`idleFrameWidth`, `deathFrameWidth`, 0 si le fichier
-  manque) et `errors` — qui ne porte que les fichiers **présents mais invalides**, jamais les
-  absents ;
-- `hmi::ArenaCombatantAnimation` est l'état d'**un** combattant (planche, action, clips, indice
-  d'image **dans le clip**, temps écoulé) ; `frame()` traduit cet indice en indice dans la bande ;
-- `hmi::advanceArenaAnimation(state, realDeltaSeconds)` le fait avancer, fonction pure sur le
-  patron de `core::advanceAnimation` : une pose unique n'avance jamais (aucune dérive de `elapsed`),
-  un clip bouclé revient au début, un clip ponctuel s'arrête net sur sa dernière image ;
-- `hmi::ArenaAnimationDriver` pilote tous les combattants au **temps réel du rendu**, sans ECS ni
-  pas fixe : `setFigureAnimations(sheet, clips)` déclare une planche ; `play(combatant, sheet,
-  action)` démarre une action — `Idle`/`Walk` ne relancent pas s'ils sont déjà en cours,
-  `Attack`/`Hit` relancent toujours, `Death` ne se relance **jamais** une fois atteint (pas de
-  résurrection par un appel erroné), une action sans fichier retombe sur `Idle` ; `remove` retire un
-  combattant sorti ; `advance(realDeltaSeconds)` fait avancer tout le monde et ramène sur `Idle`
-  toute action ponctuelle terminée ; `snapshot()` rend un `hmi::ArenaAnimationState` ;
-  `actionOf(combatant)` dit l'action en cours.
+Ce qui fait vivre l'image du combat est la **file des faits**, `hmi::CombatCueTrack`
+(`Source/HMI/Game/CombatCues.h`). La session (`core::ArenaSession`) est instantanée : un tour de
+l'IA — approche, attaque, repli — se joue en un appel, et la grille est déjà dans son état final
+quand l'écran la relit ; dessiner cet état, c'est montrer des combattants qui se téléportent. La
+file reçoit donc chaque fait au moment où il se produit et le **rejoue** à la vitesse du monde :
 
-Le pilote ne lit **jamais** `core::ArenaSession` (`EX-ARCH-012`) : c'est l'appelant qui décide,
-d'après les événements de combat, quand appeler `play`. `hmi::ArenaAnimationState`
-(`ArenaAnimationState.h`) est la donnée seule que lit la composition : une table combattant →
-`hmi::ArenaFigureAnimation` (indice d'image dans la bande) ; `frameOf(combatant)` rend 0 pour un
-combattant absent, si bien qu'un état vide compose une scène figée — ce qui suffit aux tests et aux
-captures. La composition ne fait jamais avancer cet état : composer deux fois la même scène donne
-deux fois les mêmes quads.
+- `hmi::CombatCue` : un fait à montrer — `Walk` et son chemin (`core::Path::steps`, départ exclu),
+  `Attack` ou `Cast` et la case visée (pour tourner la figurine vers elle), `Hit`, `Death` ;
+- `push(cue)` l'ajoute après ceux en attente ; `place(combatant, cell, facing)` pose un combattant
+  au repos, tout de suite (montage, rejeu, repli) ; `remove` retire un combattant sorti ;
+- `advance(seconds)` fait progresser les faits en cours et démarre le suivant : la marche à
+  `WALK_CELLS_PER_SECOND` = 2 cases par seconde, celle de l'exploration (`LOT-112`, D5) ; une
+  action ponctuelle le temps de sa bande, `ACTION_SECONDS` = 0,64 s (huit images à 80 ms) ; le coup
+  **porte** au milieu de la bande d'attaque (`IMPACT_FRACTION` = 0,5), où commencent le touché et la
+  chute de la cible, pas quand l'attaquant a fini son geste ;
+- `motionOf(combatant)` publie ce que sa figurine montre à l'instant, une `hmi::FigureMotion` :
+  `point` (position **continue**, en cases), `clip` (la bande en cours, `hmi::figure_clips`),
+  `facing` (la diagonale regardée), `clipSeconds` (le temps écoulé dans la bande) et `dead` — à
+  terre, la bande de mort reste sur sa dernière image et rien ne la relève ;
+- tant que `busy()` est vrai, l'image est en retard sur la grille et les gestes attendent ;
+  `finishAll` les fait se rejoindre, `clear` oublie tout à la fin du combat ; `pending()` compte ce
+  qui reste à jouer.
+
+La file ne connaît ni la session, ni les textures, ni Qt : des identifiants, des cases, des
+secondes — c'est ce qui la rend vérifiable sans fenêtre, et elle ne lit **jamais**
+`core::ArenaSession` (`EX-ARCH-012`) : c'est `hmi::EncounterModel` qui la remplit d'après les
+événements du combat, la fait avancer au temps réel du rendu, puis traduit chaque `FigureMotion` en
+`hmi::WorldFigureSnapshot` (`clip`, `point`, `facing`, `seconds`) publiée dans `hmi::WorldModel`
+(`setCombatFigures`). `hmi::WorldSceneComposer` compose ces figurines comme celles de l'exploration :
+l'image d'une bande se déduit de ses secondes par la cadence de son `.anim.json`. La composition ne
+fait jamais avancer cet état : composer deux fois la même scène donne deux fois les mêmes quads.
 
 ## La géométrie des pièces : `core::IsoProjection` et `hmi::ScenePieces`
 
-Le lieu et l'arène se dessinent en **projection isométrique**, la même : `core::IsoProjection`
+Le lieu, et le combat qui s'y joue, se dessinent en **projection isométrique** : `core::IsoProjection`
 (`Core/Combat/IsoProjection.h`, détaillée dans [Combat tactique](guide-combat.md)) projette une
 case (c, r) en un losange de largeur L et de hauteur H = 0,62 L (`core::ARENA_DIAMOND_RATIO`,
 l'angle des tuiles de la planche, pas le 2:1 classique) par une transformation **affine** :
@@ -481,15 +471,16 @@ bande de `wallRise · L` est réservée en haut de la scène pour les murs du fo
 
 ![La projection isométrique : une case de la grille devient un losange dont le sommet haut est l'ancre et le sommet bas le pied, les formules affines de gridToWorld, et la pose d'une pièce PNG par son ancre avec standingPieceQuad](figures/rendu-projection-iso.svg)
 
-`ScenePieces.h` fixe la géométrie des **pièces de scène**, commune au Colisée (`LOT-50`) et aux
-lieux qu'on parcourt (`LOT-09`) — la garder en deux copies ferait de leur égalité une coïncidence.
+`ScenePieces.h` fixe la géométrie des **pièces de scène**, écrite pour le Colisée (`LOT-50`) et
+reprise par les lieux qu'on parcourt (`LOT-09`) — la garder en deux copies aurait fait de leur
+égalité une coïncidence.
 Elle n'écrit **aucune taille d'art** (`LOT-103`) : l'échelle d'une pièce est une donnée de son lieu.
 
 - `hmi::SceneTexture` : une texture liable et ses dimensions, plus ce que ses fichiers voisins
   disent d'elle — `frameWidth` et `frameHeight` (la cellule d'une bande, 0 pour une image fixe),
   `artTile` (le losange de sol que déclare le manifeste de son dossier, `"tile": [256, 159]`), et
   deux valeurs optionnelles : `anchor` (origine de la pièce, en pixels d'art) et `depthOffset`
-  (décalage du pied de tri, en cases). `hmi::ArenaTexture` en est un simple alias ;
+  (décalage du pied de tri, en cases) ;
 - `hmi::artTileWidth(texture)` : les pixels d'art d'une largeur de case — le losange déclaré, à
   défaut la hauteur de la cellule d'une bande, à défaut la largeur de l'image (une pièce sans
   échelle se suppose d'une case de large). C'est lui qui ramène l'art à la projection : une pièce
@@ -513,7 +504,7 @@ Elle n'écrit **aucune taille d'art** (`LOT-103`) : l'échelle d'une pièce est 
   près laisseraient passer le fond sous la couture, un treillis sombre sur tout le sol.
 
 `SceneTextureTraits.h` lit ce que les fichiers voisins d'une image disent d'elle, une fois, pour le
-jeu, l'arène et l'éditeur : `hmi::readSceneTextureTraits(assets, path)` rend la cellule de son
+jeu et l'éditeur : `hmi::readSceneTextureTraits(assets, path)` rend la cellule de son
 `.anim.json`, le losange (`hmi::manifestArtTile`) du manifeste de son dossier — ou de celui du
 dossier parent pour une figurine (`Characters/<pnj>/idle.png`) —, son ancre
 (`hmi::scenePieceAnchor`) et son décalage de profondeur (`hmi::scenePieceDepthOffset`), qui rendent
@@ -527,9 +518,9 @@ C'est ici que les fils se rejoignent. Le rendu se fait en **deux temps distincts
 séparation est le point le plus important de la page :
 
 1. la **composition** produit une `hmi::ComposedScene` : une liste ordonnée de quads en unités
-   monde, chacun avec son calque et sa texture. C'est de la logique **pure** : aucun appel GPU. Trois
-   compositeurs existent — `hmi::composeWorldScene` (lieu qu'on parcourt), `hmi::composeArenaScene`
-   (Colisée) et `hmi::DraftRenderer` (brouillon de l'éditeur) ;
+   monde, chacun avec son calque et sa texture. C'est de la logique **pure** : aucun appel GPU. Deux
+   compositeurs existent — `hmi::composeWorldScene` (lieu qu'on parcourt, combat compris) et
+   `hmi::DraftRenderer` (brouillon de l'éditeur) ;
 2. la **soumission** (`hmi::submitComposedScene(batch, projection, scene)`, `SpriteRenderer.h`)
    parcourt cette liste **déjà triée** et l'envoie au `SpriteBatch`, une passe `begin`/`end` par
    groupe **contigu** de même texture, dans l'ordre de la scène. C'est le seul endroit du rendu qui
@@ -628,8 +619,7 @@ visuel — une entité écartée continue d'être simulée normalement (`EX-ARCH
 
 Les compteurs de l'image sont exposés par `hmi::ComposedScene::statistics` (`EX-NFR-005`) dans
 une `hmi::SceneStatistics` — `considered` (examinées), `culled` (écartées), `submitted`
-(conservées), `batches` (passes) — que `hmi::formatSceneStatistics` met en une ligne lisible pour
-le journal de diagnostic.
+(conservées), `batches` (passes) —, que `hmi::QuadRecorder` relit dans les tests.
 
 ### `hmi::QuadRecorder` : asserter des listes, jamais des pixels
 
@@ -654,9 +644,9 @@ assertable des critères d'acceptation du rendu :
 ### Lecture seule
 
 La composition **lit** l'état du jeu mais ne le modifie **jamais** (`EX-ARCH-012`) — le rendu est
-un simple observateur, jamais une source de vérité. L'arène n'est vue que par
-`const core::ArenaSession&`, et n'est lue qu'une fois, par `hmi::snapshotArenaScene` ; le lieu, par
-`hmi::snapshotWorldScene`. Le rendu est aussi **découplé** de la simulation au pas fixe
+un simple observateur, jamais une source de vérité. Le lieu n'est lu qu'une fois, par
+`hmi::snapshotWorldScene` ; le combat, par les faits que la session publie et que
+`hmi::CombatCueTrack` rejoue. Le rendu est aussi **découplé** de la simulation au pas fixe
 (`EX-REN-021`), cohérent avec la séparation décrite en [Boucle de jeu et pas de temps
 fixe](guide-boucle.md) : la simulation avance par pas fixes, discrets ; le rendu, lui, redessine le
 dernier instantané une fois par **frame** réelle, qu'un pas ait eu lieu ou non entre deux frames.
@@ -796,8 +786,8 @@ héros (`hmi::fadeStoreysOverHero`).
 `hmi::WorldComposeOptions::flatBlocks` dessine les blocs de maquette **à plat** — le vocabulaire des
 plans de principe (`LevelEditor --render --plan`, `LOT-128`) : un plan dit ce que la carte contient
 et comment on y circule, et l'extrusion, faite pour jouer, y cacherait ce qu'on vient lire. La
-marge basse d'une figurine, `hmi::WORLD_FIGURE_BOTTOM_MARGIN` = 0,42 hauteur de losange, est la
-même qu'à l'arène.
+marge basse d'une figurine, `hmi::WORLD_FIGURE_BOTTOM_MARGIN` = 0,42 hauteur de losange, est
+celle que le Colisée avait fixée.
 
 La composition parcourt la carte ligne par ligne : le sol et le relief du rez de chaque case, puis
 les étages du plus bas au plus haut, puis les figurines, puis les jetons et les tracés. Une bande de
@@ -912,67 +902,19 @@ tomber sur un damier sur sept mille cases.
   inconnue), `pieces()` (tous les noms, triés, sans doublon — ce que le rendu charge), `place()`,
   `diamondRatio()`, `empty()`.
 
-## Le Colisée : `hmi::ArenaSceneComposer` et `hmi::ArenaAppearanceCatalog`
+### Le combat sur la carte
 
-La scène de combat (`ArenaSceneComposer.h`, `LOT-86` phase 3) suit les mêmes règles avec une autre
-source : une grille de combat. Le sol va sur `Tile`, l'enceinte (pan, angle, pilier, bannière,
-torche, arche) sur `Object`, les figurines sur `Player` ; `hmi::ArenaDepthSlot` (`Wall`,
-`WallDecoration`, `Gate`, `Figure`, `hmi::ARENA_DEPTH_SLOTS` = 4) départage les pièces d'une même
-case dans l'ordre où l'ancienne brique QML les empilait, et `hmi::arenaDepthSortOrder(footWorldY,
-slot)` compose la clé. Le pied est le **sommet bas** du losange de la case (de l'emprise, pour une
-figurine), pas le bord bas du quad : une bannière posée plus haut que son mur doit rester devant
-lui.
-
-- `hmi::ArenaSceneSnapshot` : la grille en valeurs — `columns`, `rows`, `obstructed` (une entrée
-  par case : la case obstrue-t-elle le sol, ce que l'enceinte habille ; `isObstructed(cell)`), et
-  `figures`, les `hmi::ArenaFigureSnapshot` (identifiant, nom — qui choisit la planche —, côté, à
-  terre ou non, coin de l'emprise, côté de l'emprise). Les combattants sortis (`Withdrawn`) n'y sont
-  pas ;
-- `hmi::snapshotArenaScene(session)` le tire d'une `const core::ArenaSession&` en une seule
-  lecture ; `core::CombatState` n'est pas copiable, l'instantané ne copie que ce qui se dessine ;
-- `hmi::ArenaTexture` et `hmi::ArenaSceneTextures` : le pendant de `SceneTexture`/
-  `ScenePieceTextures` pour le Colisée, adressé par chemin relatif au dossier de la planche
-  (`resolve` retombe sur le damier) ;
-- `hmi::arenaTexturePaths(catalog)` : tous les chemins que la composition peut demander pour un
-  catalogue (sols, enceinte, dalles claires, bandes des figurines) ;
-- `hmi::composeArenaScene` existe en trois formes : dans un tampon depuis un instantané (avec
-  `scenery` : composer le décor historique, faux quand la carte fournit le décor), dans un tampon
-  depuis la session (équivaut à composer `snapshotArenaScene(session)`), ou dans une scène neuve
-  triée.
-
-Les combattants : `Standing` dessine une figurine à l'image que donne `ArenaAnimationState` ;
-`Down` dessine **quand même** une figurine (le combattant garde sa case et sa place dans l'ordre) —
-un allié montre la dernière image de `death.png`, un ennemi la dernière d'`idle.png` estompée
-(`hmi::ARENA_DOWN_ENEMY_ALPHA` = 0,45) ; `Withdrawn` ne produit aucun quad. Une créature de plus
-d'une case a **une** figurine, centrée sur son emprise et agrandie à sa taille. Les surbrillances de
+La scène de combat seule et son renderer, écrits pour l'écran du Colisée (`LOT-50`, `LOT-86` :
+composition d'une grille de combat et de son enceinte, catalogue du rôle des cases et des figurines,
+pilote d'animation à un fichier par action), ont été retirés à la recette de la 0.0.1, avec l'écran
+qui les montrait. Depuis le `LOT-118`, le combat se rend **sur la carte**, par ce même
+`hmi::WorldSceneComposer` et `hmi::WorldSceneRenderer` : la zone de combat est une région de la
+carte (`core::prepareMapEncounter`), les combattants sont des `hmi::WorldFigureSnapshot` posés
+dessus (`combatant` vrai), que `hmi::EncounterModel` publie à chaque pas d'après la file des faits
+(`hmi::CombatCueTrack`, plus haut). Un combattant à terre reste dessiné, sur la dernière image de
+sa bande de mort ; un combattant sorti (`Withdrawn`) ne produit aucun quad. Les surbrillances de
 case, la jauge, les points de vie et le curseur de ciblage ne sont pas des pièces : ils restent en
 QML par-dessus (`LOT-24`).
-
-`hmi::ArenaAppearanceCatalog` (`ArenaAppearanceCatalog.h`) dit le **rôle** de chaque case et la
-**figurine** de chaque combattant, lus dans le manifeste de la planche du Colisée (`heroes`,
-`gladiators`, `heroFrames`, `enemyFrames`, `paleSlabs`, `scene`) — logique pure, aucune lecture ne
-lève :
-
-- `hmi::ArenaAppearanceCatalog::tileAppearance(cell, columns, rows, wall)` rend une
-  `hmi::ArenaTileAppearance` : `wall` (donnée d'entrée, reçue de `BattleGrid::isObstructed`, jamais
-  recalculée), `wallFeature` (`hmi::WallFeature` : `Plain` partout, `Corner` aux quatre angles,
-  `BannerSpot` tous les cinq pas sur les bords haut et bas, `TorchSpot` tous les quatre pas sur les
-  bords gauche et droit), `gateSpot` (case franchissable du bord : l'arche s'y dessine), `slab` et
-  `slabVariant` (dalle claire plutôt que sable) ;
-- `hmi::ArenaAppearanceCatalog::figureFor(name, side)` rend une `hmi::FigureAppearance` (`sheet`,
-  `directory`, `frameCount`), choisie d'après le **nom** pour rester la même d'un tour à l'autre
-  sans état à tenir ; `sheetDirectory(sheet, side)` donne `characters/<sheet>` ou
-  `enemies/<sheet>` sauf remplacement ;
-- `hmi::ArenaAppearanceCatalog::replaceHero(hero, directory)` fait lire les bandes d'un héros dans
-  un autre dossier — la figurine d'un PNJ de l'atelier (`LOT-91`) à la place d'un héros de la
-  planche —, le nom du héros ne changeant pas ; `applyNpcManifest(path)` applique les
-  remplacements déclarés par le manifeste des PNJ (champ `replaces`), fichier absent = rien,
-  entrée invalide = avertissement et ignorée ;
-- `scene()` : le lieu dont l'arène emprunte ses pièces — le kit dit lui-même de quelle planche il
-  se sert, rien n'est écrit en dur (`LOT-102`) ; `heroes()`, `gladiators()`, `paleSlabs()`,
-  `heroFrames()`, `enemyFrames()` ;
-- `loadFromFile` / `loadFromString` rendent une `hmi::ArenaAppearanceCatalogResult` (catalogue
-  optionnel, `error`, `hmi::ArenaAppearanceError` ; `ok()`).
 
 ## Le rendu de maquette : `hmi::MaquettePalette` et `hmi::MaquetteTokens`
 
@@ -1039,8 +981,8 @@ ses déclencheurs.
 
 ## Assembler la frame complète
 
-Les deux rendus de scène du jeu, `hmi::WorldSceneRenderer` et `hmi::ArenaSceneRenderer`, suivent
-les trois mêmes temps, que l'élément Qt Quick ne fait que relayer :
+Le rendu de scène du jeu, `hmi::WorldSceneRenderer`, suit trois temps, que l'élément Qt Quick ne
+fait que relayer :
 
 1. `ensureResources(rhi)`, sur le fil de rendu : crée les `SceneResources` et les textures, ou les
    **libère puis recrée** si l'interface QRhi a changé — une ressource de l'ancienne interface ne
@@ -1048,15 +990,15 @@ les trois mêmes temps, que l'élément Qt Quick ne fait que relayer :
 2. `setSnapshot(...)`, depuis `synchronize()` : remplace la scène à dessiner, **en valeurs**, sans
    toucher au GPU — appelable avant les ressources ;
 3. `render(commandBuffer, target, ...)`, sur le fil de rendu : `SpriteBatch::beginFrame`, cadrage
-   (`worldCamera`/`arenaCamera`, la taille de la cible fixant le cadrage), composition,
+   (`worldCamera`, la taille de la cible fixant le cadrage), composition,
    `submitComposedScene`, puis `SpriteBatch::submit`, qui téléverse les sommets et les textures
    accumulés et émet l'unique passe de l'image.
 
 ![Une image du jeu Qt Quick : le fil graphique simule et prend un instantané en valeurs, synchronize() le fait traverser, le fil de rendu enchaîne ensureResources, setSnapshot, la composition pure puis la soumission au GPU](figures/rendu-pipeline-image.svg)
 
 C'est ce découpage qui rend le rendu testable hors écran : tout ce qui peut casser — l'ordre de
-création, l'ordre de libération, la recréation sur une autre interface QRhi — vit dans ces classes,
-qu'un test (`Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp`) fait tourner sur un vrai
+création, l'ordre de libération, la recréation sur une autre interface QRhi — vit dans cette classe,
+qu'un test (`Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp`) fait tourner sur un vrai
 `QRhi` Direct3D 11 sans fenêtre. Les textures meurent **avant** `SceneResources`, qui libère
 ensuite sa grappe dans l'ordre qu'elle fixe ; les membres sont déclarés dans cet ordre pour que le
 destructeur implicite fasse la même chose que `release()`.
@@ -1065,8 +1007,8 @@ destructeur implicite fasse la même chose que `release()`.
 
 Construit sur le dossier des assets (`Source/Elements/Assets`, copié à côté de l'exécutable), où
 les chemins de l'instantané se résolvent ; absent, rien à dessiner que le fond, jamais une erreur
-bloquante. Une différence avec l'arène, et une seule : **les textures ne sont pas connues
-d'avance**. Un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Elles se
+bloquante. **Les textures ne sont pas connues d'avance** : un lieu a les pièces de sa carte, et la
+carte change au passage d'un portail. Elles se
 chargent donc **à la demande**, sur le fil de rendu, quand l'instantané réclame un chemin que le
 rendu n'a pas ; `requested()` liste les chemins déjà tentés, réussis ou non — une pièce absente
 n'est pas redemandée à chaque image, et un test vérifie qu'une carte ne redemande pas ce qu'elle a
@@ -1086,22 +1028,13 @@ image indépendant de la taille du quartier.
   héros ;
 - `composed()`, `textures()`, `created()`, `rhi()`, `release()`.
 
-### `hmi::ArenaSceneRenderer`
-
-Construit sur le dossier de la planche du Colisée (manifeste, pièces, `.anim.json` ; absent =
-catalogue vide, rien que le fond) et un drapeau `productionMap` (utiliser la carte du catalogue
-comme décor de combat, auquel cas le décor historique de la composition n'est plus composé). Le
-manifeste des PNJ voisin peut mettre un PNJ à la place d'un héros (`applyNpcManifest`).
-
-- `setSnapshot(snapshot)` : un combattant qui apparaît commence son repos (`Idle`), un combattant
-  qui disparaît quitte le pilotage d'animation ;
-- `render(commandBuffer, target, realDeltaSeconds, clear)` : **avance l'animation** du temps réel
-  écoulé (`ArenaAnimationDriver::advance`), compose, trie, soumet ;
-- `animating()` : vrai si une figurine est à l'écran — l'image suivante doit être demandée ;
-- `catalog()`, `textures()`, `composed()`, `created()`, `rhi()`, `release()`.
-
-> **Note** — Depuis le `LOT-102`, ni la planche du Colisée ni les bandes de figurines n'existent
-> dans le dépôt : le catalogue est vide et le renderer ne dessine que le fond. L'Arena of Fate HD arrive avec les `LOT-106` et `LOT-107`.
+> **Note** — Le renderer de la scène de combat seule (`hmi::ArenaSceneRenderer`, `LOT-86`
+> phase 5), construit sur la planche du Colisée et qui faisait avancer lui-même l'animation des
+> figurines, ne dessinait plus que le fond depuis le `LOT-102` — ni la planche ni ses bandes
+> n'existent plus dans le dépôt — et ne vivait que pour ses tests ; il a été retiré à la recette
+> de la 0.0.1. Le combat de la démo se rend par `hmi::WorldViewportItem`, sur la carte
+> (`LOT-118`) ; l'Arena of Fate définitive en HD (`LOT-106`, `LOT-107`) est à la `0.0.3`
+> (décision D-25).
 
 ### `hmi::renderCityBlock` : l'îlot d'un quartier, hors écran
 
@@ -1193,25 +1126,25 @@ reste de l'identité du jeu). « A changé » se compte : chaque pas qui modifie
 avance `hmi::WorldModel::sceneRevision`, et le peintre ne reprend un instantané que si le numéro
 diffère du sien. Le cadrage est **publié** — `tileWidth`, `tileHeight`, `originX`, `originY`, en
 unités d'élément, la case (c, r) ayant sa boîte en `originX + (c − r) · tileWidth / 2`,
-`originY + (c + r) · tileHeight / 2` — et deux invocables le traduisent : `cellAt(x, y)` (la case
-sous un point, (−1, −1) hors carte : le geste de la souris) et `pointAt(column, row)` (le centre
-d'une case, pour poser une invite). Le calque QML posé par-dessus lit **ce** cadrage, jamais un
+`originY + (c + r) · tileHeight / 2` — et un invocable le traduit : `cellAt(x, y)` (la case sous
+un point, (−1, −1) hors carte : le geste de la souris). Le calque QML posé par-dessus lit **ce** cadrage, jamais un
 recalcul.
 
-![L'écran d'exploration du jeu à 1280 × 720 : le châssis du HUD (médaillons, boussole, emplacements de portraits, panneau Quêtes, barre Exploration · Tactique) autour d'un viewport vide portant le message « La ville de départ ne s'ouvre pas », faute de carte dans le dépôt depuis la table rase](captures/jeu-gameview.jpg)
+![L'écran d'exploration du jeu à 1280 × 720 : le châssis du HUD (médaillons, boussole, emplacements de portraits, panneau Quêtes, barre Exploration · Tactique) autour d'un viewport vide portant le message « La ville de départ ne s'ouvre pas » — une capture d'avant les cartes de la démo, quand le dépôt n'avait plus de carte depuis la table rase ; « Nouvelle partie » ouvre aujourd'hui Martpart](captures/jeu-gameview.jpg)
 
 ### Le Colisée, retiré
 
 L'écran du Colisée et sa surface (`ArenaViewportItem`) sont retirés depuis le 25 septembre 2026 :
-le combat se joue sur la carte (`LOT-118`), dessiné par `hmi::WorldViewportItem`.
-`hmi::ArenaSceneRenderer` et `hmi::composeArenaScene` restent, éprouvés hors écran par leurs tests.
+le combat se joue sur la carte (`LOT-118`), dessiné par `hmi::WorldViewportItem`. La chaîne de
+rendu de la scène de combat seule (`LOT-50`, `LOT-86`), restée un temps pour ses tests, l'a suivi à
+la recette de la 0.0.1.
 
 ### `hmi::GameViewportItem` (`GameViewport`)
 
 Le premier item du portage (`LOT-86`), qui a établi la plomberie — création du `QRhi`, passe de
 rendu, couleur d'effacement (`clearColor`) — sans afficher de scène. Il reste employé par
-`CombatHud.qml` comme surface de fond ; le monde et l'arène sont dessinés par les deux items
-ci-dessus.
+`CombatHud.qml` comme surface de fond ; le monde — combat compris — est dessiné par
+`hmi::WorldViewportItem`.
 
 ### `hmi::AssetGalleryItem` (`AssetGalleryViewport`)
 
@@ -1256,19 +1189,17 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
   `EX-REN-011`, `EX-REN-013`, `EX-LVL-025`).
 - `hmi::SceneTexture`, `hmi::artTileWidth`, `hmi::artTileHeight`, `hmi::frameCountOf`,
   `hmi::frameWidthOf`, `hmi::frameHeightOf`, `hmi::figureQuad` — les traits d'une texture de scène.
-- `hmi::composeArenaScene`, `hmi::ArenaSceneSnapshot`, `hmi::ArenaSceneRenderer`,
-  `hmi::arenaCamera`, `hmi::ArenaAppearanceCatalog` — le Colisée.
 - `hmi::maquetteColor`, `hmi::maquetteExtrudes`, `hmi::maquetteShape`, `hmi::MaquetteShape`,
   `hmi::maquetteTokenImage`, `hmi::maquetteMarks` — le rendu de maquette (`LOT-128`,
   `EX-EXP-005`).
 - `hmi::paintComposedScene`, `hmi::SceneImages`, `hmi::DraftRenderer`, `hmi::regionForTile`,
   `hmi::buildProceduralAtlasImage` — le canevas de l'éditeur, peint par `QPainter`.
 - `hmi::decodeImageFile`, `hmi::encodeImageFile`, `hmi::createTexture`, `hmi::loadTextureFromFile`,
-  `hmi::CacheRegistry`, `hmi::TextureCache`, `hmi::AssetValidation`,
+  `hmi::AssetValidation`,
   `hmi::buildMissingTextureImage`, `hmi::entityMarkerKey` — textures depuis fichiers et replis
   (`EX-REN-041`, `EX-REN-042`, `EX-REN-007`, `EX-CNT-041`).
-- `core::AnimationClip`, `core::ClipSet`, `hmi::AnimationCatalog`, `hmi::ArenaAnimationDriver`,
-  `hmi::ArenaAnimationState` — l'animation par données (`EX-REN-005`, `EX-REN-012`).
+- `core::AnimationClip`, `core::ClipSet`, `hmi::AnimationCatalog`, `hmi::CombatCueTrack` —
+  l'animation par données (`EX-REN-005`, `EX-REN-012`).
 - `hmi::AssetGalleryCatalog`, `hmi::layoutAssetGallery`, `hmi::AssetGalleryRenderer` — la galerie
   de débug (`EX-CNT-042`).
 - [Boucle de jeu et pas de temps fixe](guide-boucle.md) — où le rendu s'insère dans la boucle de jeu.

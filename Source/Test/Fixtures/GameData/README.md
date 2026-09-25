@@ -3,7 +3,7 @@
 Une racine à la forme de `Source/Elements/`, mais **sans un seul asset ni une seule carte du jeu**.
 Les tests de l'éditeur (`LOT-123`) puis ceux du jeu (`LOT-102`) la lisent à la place du contenu
 livré : la table rase du `LOT-102` a vidé `Assets/Scene/`, `Assets/Coliseum/`, `Assets/Npc/`,
-`Assets/Monsters/`, `Levels/` et `World/arena/`, et tous ces tests seraient tombés avec eux.
+`Assets/Monsters/` et `Levels/`, et tous ces tests seraient tombés avec eux.
 
 Ce qu'ils prouvent n'est pas du **contenu** — une carte livrée, une pièce dessinée — mais des
 **mécanismes** : un manifeste se lit, une pièce se résout, un portail se traverse, une zone de
@@ -23,7 +23,7 @@ héros paraît devant le maître d'arène d'essai, dont le dialogue engage les r
 | `Assets/Scene/bourg`, `.../hameau` | deux planches de lieu : `manifest.json` (clé, emprise, ancre), `appearance.json` (ce que le sol et le relief posent sur une case) |
 | `Assets/Arena/` | un kit d'arène : `manifest.json` (dont `scene`, le lieu d'où il tire ses pièces), deux héros, deux gladiateurs |
 | `Assets/Npc/`, `Assets/Monsters/` | une figurine chacun (`figurant`, `sentinelle`), aux cadences de l'atelier |
-| `World/` | une ville (`bourg`), deux arènes, une région, des lieux, des dialogues — dont le maître d'arène d'essai (`maitre-d-essai`), qui engage la rencontre sur la carte (`LOT-118`) |
+| `World/` | une ville (`bourg`), une région, des lieux, des dialogues — dont le maître d'arène d'essai (`maitre-d-essai`), qui engage la rencontre sur la carte (`LOT-118`), et le héraut d'essai (`heraut-d-essai`), le graphe de quatorze nœuds — deux conditions, un jet de Persuasion, une quête démarrée — que les tests de dialogue parcourent réplique par réplique |
 | `Rpg/`, `Localization/`, `Maps/`, `Editor/` | une rencontre, des objets, les textes des cartes, trois modèles de carte |
 
 ## Comment son art est fait

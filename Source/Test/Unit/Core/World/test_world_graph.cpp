@@ -335,7 +335,8 @@ TEST_F(WorldGraphFileTest, UneCarteDUnSousDossierAPourIdentifiantSonCheminRelati
     ecrire("capital/arenarea.json",
            carteJson("Arenarea", R"({ "type": "spawnPoint", "x": 2, "y": 1, "name": "martpart" },
                { "type": "portal", "x": 3, "y": 1, "targetMap": "capital/martpart", "arrival": "arenarea" })"));
-    ecrire("coliseum.json", carteJson("Colisee", R"({ "type": "spawnPoint", "x": 1, "y": 1, "name": "porte" })"));
+    ecrire("coliseum.json",
+           carteJson("Colisee", R"({ "type": "spawnPoint", "x": 1, "y": 1, "name": "porte" })"));
 
     const core::WorldGraph graphe = core::loadWorldGraph(dir);
 

@@ -76,6 +76,7 @@ def verdict(diff, changelog):
 
 
 def auto_test():
+    """Éprouve l'analyseur de diff et le verdict sur des cas connus ; retourne les échecs."""
     changelog = '\n'.join([
         '# Changelog', '', '## [Non publié]', '', '- Nouveau.', '', '## [0.0.4] - 2026-09-01',
         '', '- Ancien.'])

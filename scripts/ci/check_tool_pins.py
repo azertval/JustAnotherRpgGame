@@ -32,6 +32,7 @@ PRE_COMMIT = '.pre-commit-config.yaml'
 
 
 def env_value(name):
+    """Le motif qui lit la valeur de `NAME:` dans le bloc `env:` d'un workflow."""
     return re.compile(r'^\s*%s:\s*[\'"]?([^\'"\s#]+)[\'"]?\s*(?:#.*)?$' % re.escape(name),
                       re.MULTILINE)
 
@@ -63,6 +64,7 @@ PAIRS = [
 
 
 def read_single(path, pattern, label):
+    """L'unique capture de `pattern` dans `path`, ou None après avoir dit pourquoi."""
     try:
         with open(path, encoding='utf-8') as handle:
             matches = pattern.findall(handle.read())

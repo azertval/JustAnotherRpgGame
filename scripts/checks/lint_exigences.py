@@ -71,10 +71,11 @@ def iter_files(root):
 def collect(root):
     """Retourne (declarations, references, family_references, retired).
 
-    declarations      : dict id -> liste de (fichier, ligne) des ``\\anchor``.
+    declarations      : dict id -> liste de (fichier, ligne) des puces ``- **EX-XXX-NNN**`` des
+                        specifications.
     references        : dict id -> liste de (fichier, ligne) de toutes les autres mentions.
     family_references : dict famille -> liste de (fichier, ligne) des ``EX-XXX-*``.
-    retired           : ensemble des exigences dont l'ancre est marquee retiree.
+    retired           : ensemble des exigences dont la puce de declaration est marquee retiree.
     """
     declarations = {}
     references = {}
@@ -104,6 +105,7 @@ def collect(root):
 
 
 def check(root):
+    """Applique les contrôles sous `root` ; imprime le verdict, retourne le code de sortie."""
     declarations, references, family_references, retired = collect(root)
     errors = []
 
@@ -151,6 +153,7 @@ def check(root):
 
 
 def next_free(root):
+    """Affiche, par catégorie, le prochain numéro d'exigence libre."""
     declarations, _, _, _ = collect(root)
     by_category = {}
     width = {}

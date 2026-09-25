@@ -399,13 +399,12 @@ TEST(ScenePainterTest, LaMaquetteHdPeinteEgaleLeRenduDuJeu) {
                           (driver.vendorId == 0x1414 && driver.deviceId == 0x8c);
     std::cout << "pilote : " << driver.deviceName.constData() << (software ? " (logiciel)" : "")
               << "\n";
-    expectSamePicture(*rhi, test_support::hdMockupSnapshot(scene, directory),
-                      test_support::hdMockupFocus(scene), "maquette-hd-1080",
-                      Framing{.assets = directory,
-                              .size = QSize(1920, height),
-                              .tilePixels = hmi::worldTilePixels(height)},
-                      software ? HD_MOCKUP_SOFTWARE_MEAN_ERROR_TOLERANCE
-                               : HD_MOCKUP_MEAN_ERROR_TOLERANCE,
-                      software ? HD_MOCKUP_SOFTWARE_DIFFERING_PIXELS_TOLERANCE
-                               : DIFFERING_PIXELS_TOLERANCE);
+    expectSamePicture(
+        *rhi, test_support::hdMockupSnapshot(scene, directory), test_support::hdMockupFocus(scene),
+        "maquette-hd-1080",
+        Framing{.assets = directory,
+                .size = QSize(1920, height),
+                .tilePixels = hmi::worldTilePixels(height)},
+        software ? HD_MOCKUP_SOFTWARE_MEAN_ERROR_TOLERANCE : HD_MOCKUP_MEAN_ERROR_TOLERANCE,
+        software ? HD_MOCKUP_SOFTWARE_DIFFERING_PIXELS_TOLERANCE : DIFFERING_PIXELS_TOLERANCE);
 }

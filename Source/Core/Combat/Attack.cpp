@@ -40,7 +40,7 @@ namespace {
     return (valeur >= 0 ? " + " : " - ") + std::to_string(valeur >= 0 ? valeur : -valeur);
 }
 
-/// Distance entre deux emprises carrees : l'ecart sur chaque axe, puis le plus grand des deux.
+// Distance entre deux emprises carrees : l'ecart sur chaque axe, puis le plus grand des deux.
 [[nodiscard]] int ecartEntreEmprises(GridPosition a, int coteA, GridPosition b,
                                      int coteB) noexcept {
     const int dx =
@@ -49,14 +49,14 @@ namespace {
     return std::max(dx, dy);
 }
 
-/// Une portee du corpus en cases, arrondie vers le bas : 24 m font 16 cases, 7,50 m en font 5. La
-/// marge evite de perdre une case sur l'arrondi d'une division par 1,5.
+// Une portee du corpus en cases, arrondie vers le bas : 24 m font 16 cases, 7,50 m en font 5. La
+// marge evite de perdre une case sur l'arrondi d'une division par 1,5.
 [[nodiscard]] int casesDePortee(float metres) noexcept {
     return static_cast<int>(std::floor(tilesFromMeters(metres) + 1e-4F));
 }
 
-/// Les portees d'une arme ou d'une action, si la donnee en porte une. Une portee unique fait deux
-/// nombres egaux.
+// Les portees d'une arme ou d'une action, si la donnee en porte une. Une portee unique fait deux
+// nombres egaux.
 [[nodiscard]] std::optional<AttackRange> porteeDe(std::optional<float> normale,
                                                   std::optional<float> longue) {
     if (!normale.has_value() || casesDePortee(*normale) <= 0) {
@@ -267,17 +267,6 @@ void AttackRoll::recompute() {
     for (const Modifier& modificateur : check.modifiers) {
         check.total += modificateur.value;
     }
-}
-
-void AttackRoll::reroll(std::size_t die, DeterministicRandom& random, const std::string& source) {
-    if (die >= check.dice.size()) {
-        return;
-    }
-    const int avant = check.dice[die];
-    check.dice[die] = random.nextInt(1, D20_FACES);
-    amendments.push_back("relance (" + source + ") : " + std::to_string(avant) + " -> " +
-                         std::to_string(check.dice[die]));
-    recompute();
 }
 
 void AttackRoll::substitute(std::size_t die, int value, const std::string& source) {

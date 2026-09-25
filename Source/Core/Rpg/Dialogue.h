@@ -84,10 +84,6 @@ enum class DialogueActionKind {
     GiveItem,
     /// Démarre une quête : pose `core::questStartedFlag(id)`, que le `LOT-16` lira.
     StartQuest,
-    /// **Envoie sur le sable** (`LOT-09`) : le héraut ouvre l'arène nommée par `target`. Le
-    /// dialogue ne sait pas ce qu'est un combat — il le demande, et c'est l'interface qui ouvre le
-    /// Colisée (`core::DialogueListener::startCombat`).
-    StartCombat,
     /// **Engage une rencontre sur la carte** (`LOT-118`) : le maître d'arène lance le combat nommé
     /// par `target`, ici même, sur la zone de combat de la carte
     /// (`core::DialogueListener::startEncounter`).
@@ -329,19 +325,14 @@ public:
     [[nodiscard]] virtual std::vector<Modifier> skillModifiers(std::string_view skillId) const = 0;
     /// Reçoit un objet que le PNJ lui donne.
     virtual void receiveItem(std::string_view itemId, int quantity) = 0;
-    /// Le PNJ l'envoie se battre dans l'arène @p arenaId (`LOT-09`). Sans effet par défaut : un
-    /// interlocuteur qui n'a pas d'écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste
-    /// consignée au journal du runner.
-    virtual void startCombat(std::string_view arenaId) {
-        static_cast<void>(arenaId);
-    }
-    /// Le PNJ engage la rencontre @p encounterId sur la carte (`LOT-118`). Sans effet par défaut,
-    /// pour la même raison que `startCombat`.
+    /// Le PNJ engage la rencontre @p encounterId sur la carte (`LOT-118`). Sans effet par défaut :
+    /// un interlocuteur qui n'a pas d'écran — un test, un rejeu — n'a rien à ouvrir, et l'action
+    /// reste consignée au journal du runner.
     virtual void startEncounter(std::string_view encounterId) {
         static_cast<void>(encounterId);
     }
     /// Le PNJ clôt la démo par la voie @p ending (`LOT-119`). Sans effet par défaut, pour la même
-    /// raison que `startCombat`.
+    /// raison que `startEncounter`.
     virtual void endDemo(std::string_view ending) {
         static_cast<void>(ending);
     }
@@ -446,6 +437,14 @@ struct DialogueCheck {
  */
 class DialogueRunner {
 public:
+    /**
+     * @brief Prépare un runner sur @p graph sans le démarrer (`start`).
+     * @param graph      Le graphe à jouer.
+     * @param flags      Les drapeaux du monde, lus par les conditions et écrits par les actions.
+     * @param listener   L'interlocuteur qui répond aux jets et aux effets.
+     * @param difficulty L'échelle qui traduit une difficulté nommée en cible de jet.
+     * @param random     La suite aléatoire des jets, fournie pour le rejeu.
+     */
     DialogueRunner(const DialogueGraph& graph, WorldFlags& flags, DialogueListener& listener,
                    const DifficultyScale& difficulty, DeterministicRandom& random);
 
@@ -461,6 +460,7 @@ public:
     /// @brief Donne la réponse @p choiceId, puis avance jusqu'à la réplique suivante ou la fin.
     ChoiceResult choose(std::string_view choiceId);
 
+    /// @brief L'état observable de la conversation (`core::DialogueState`).
     [[nodiscard]] DialogueState state() const noexcept {
         return _state;
     }
@@ -485,6 +485,7 @@ public:
     [[nodiscard]] const std::vector<std::string>& journal() const noexcept {
         return _journal;
     }
+    /// @brief Le graphe que ce runner joue.
     [[nodiscard]] const DialogueGraph& graph() const noexcept {
         return _graph;
     }
@@ -492,7 +493,7 @@ public:
 private:
     /// Vrai si @p choice est proposée maintenant : sa condition tient, et le jet où elle mène
     /// n'a pas déjà été raté.
-    [[nodiscard]] bool estProposee(const DialogueChoice& choice) const;
+    [[nodiscard]] bool isOffered(const DialogueChoice& choice) const;
     void advanceTo(const std::string& nodeId);
     void apply(const DialogueAction& action);
     void runCheck(const DialogueNode& node);

@@ -24,41 +24,54 @@ dossier que `JustAnotherRpgGame.exe` — voir [Télécharger et lancer le jeu](t
 
 ## 3. Créer une carte
 
-La fenêtre montre la carte ouverte au centre, entourée de quatre panneaux qu'on peut déplacer,
-redimensionner ou détacher :
+La fenêtre montre la carte ouverte au centre, sur le **canevas**, entouré de cinq panneaux qu'on
+peut déplacer, redimensionner ou détacher — six panneaux en tout, les mêmes que décrit geste par
+geste [Utiliser l'éditeur de niveaux](utiliser-l-editeur.md) :
 
-- **Cartes** — les cartes enregistrées, avec un champ de recherche. On y **crée**, **renomme**,
-  **duplique** et **supprime** une carte.
-- **Palette** — les types de case : vide, plein, entrée, herbe, terre, sable, eau, eau profonde,
-  mur, falaise, pont, escalier.
-- **Couches** — les couches de la carte (sol, décor) : en ajouter, en retirer, choisir celle qu'on
-  peint.
-- **Entités** — ce qu'on pose sur la carte : coffre, panneau, PNJ, rencontre, portail, point
-  d'arrivée, entrée d'arène…
+- **Maps** — les cartes du dépôt, avec un champ de recherche. On y **crée** (**New**), **renomme**
+  (**Rename**), **duplique** et **supprime** une carte ; l'onglet *Graph* relie deux cartes d'un
+  geste, l'onglet *City* montre la ville par quartiers.
+- **Palette** — ce qu'on peint. L'onglet *Pieces* offre les pièces de la planche du lieu (sols,
+  murs, étals, gradins…), l'onglet *Prefabs* les morceaux de carte enregistrés pour ce lieu, et
+  l'onglet *Types* les types de case d'une carte sans lieu ou de la couche de collision — leur
+  liste, et l'usage de chacun, sont dans [Utiliser l'éditeur de niveaux](utiliser-l-editeur.md).
+- **Layers** — les couches de la carte (`sol`, `relief`, collision) : en ajouter, en retirer,
+  choisir celle qu'on peint.
+- **Entities · Inspector** — ce qu'on pose sur la carte et ce qu'on en dit : coffre, panneau, PNJ,
+  rencontre, portail (ouvert ou condamné), point d'arrivée, zone de combat, zone déclencheuse,
+  décor (`prop`)…
+- **Problems** — ce qui cloche sur la carte ouverte, à lire avant de la partager.
 
-**F1** affiche la liste complète des raccourcis.
+Les menus et les boutons de l'éditeur sont en anglais ; ils sont cités ici tels qu'il les affiche.
+**F1** (*Shortcuts overview*) affiche la liste complète des raccourcis.
 
 | Action | Comment |
 |--------|---------|
-| Peindre une case | Choisir un type dans la **palette**, puis cliquer (ou cliquer-glisser) sur la grille avec l'outil **Pinceau**. |
-| Remplir une zone | Outil **Rectangle** : cliquer-glisser d'un coin à l'autre, relâcher pour remplir. |
-| Copier / coller une zone | Outil **Sélection** : cliquer-glisser pour définir la zone, **Ctrl+C** pour la copier, **Ctrl+V** pour la coller à l'endroit survolé. |
-| Placer l'entrée | Choisir *Entrée* dans la palette et cliquer la case voulue. Une carte a **une seule** entrée : l'ancienne se déplace. |
-| Poser une entité | Outil **Entité** : choisir sa sorte dans le panneau **Entités**, cliquer la case. Ses champs (portail de destination, dialogue d'un PNJ…) se remplissent dans le panneau. **Suppr** retire l'entité sélectionnée. |
-| Déplacer la vue / zoomer | Cliquer-glisser avec le **bouton droit** ; **molette** pour zoomer ; **0** pour revenir au cadrage automatique. |
-| Afficher un quadrillage | **F10**. |
-| Changer la taille de la carte | Menu **Redimensionner…** : taper la nouvelle largeur et la nouvelle hauteur ; si la réduction supprimerait l'entrée ou des entités, une confirmation est demandée. |
-| Renommer la carte | **F2**. |
-| Annuler / refaire | **Ctrl+Z** / **Ctrl+Y**. |
-| Essayer la carte | **P** — la carte se joue dans l'éditeur, comme en jeu : **↑ ↓ ← →**, **ZQSD** ou **WASD** pour marcher, **E** ou **Espace** pour interagir, **Échap** pour revenir à l'édition. Rien n'est perdu. |
-| Enregistrer | **Ctrl+S** — un message confirme l'enregistrement, ou explique ce qui manque (par exemple : aucune entrée). |
+| Peindre une case | Choisir une pièce dans la **Palette**, puis cliquer (ou cliquer-glisser) sur la grille avec le **pinceau** (**B**). |
+| Remplir une zone | Outil **rectangle** (**R**) : cliquer-glisser d'un coin à l'autre, relâcher pour remplir ; le **seau** (**G**) remplit une surface d'un seul sol. |
+| Copier / coller une zone | Outil **sélection** (**S**) : cliquer-glisser pour définir la zone, **Ctrl+C** (*Copy*) pour la copier, **Ctrl+V** (*Paste*) pour la coller à l'endroit survolé. |
+| Placer l'entrée | Panneau **Layers**, couche *Collision*, puis dans la **Palette**, onglet *Types*, le marqueur **Entry** : cliquer la case voulue. Une carte a **une seule** entrée : l'ancienne se déplace. |
+| Poser une entité | Outil **Entité** (**O**) : choisir sa sorte dans la liste *Place* du panneau **Entities**, cliquer la case. Ses champs (carte visée par un portail, dialogue d'un PNJ…) se remplissent dans l'**Inspector** ; le bouton **Remove** retire l'entité sélectionnée. |
+| Déplacer la vue / zoomer | Cliquer-glisser avec le **bouton droit** ; **molette** pour zoomer ; **0** (*Reset camera*) pour revenir au cadrage automatique. |
+| Afficher un quadrillage | **F10** (*Grid*). |
+| Changer la taille de la carte | *File* › **Resize…** : taper la nouvelle largeur et la nouvelle hauteur ; si la réduction supprimait l'entrée ou des entités, une confirmation est demandée. |
+| Renommer la carte | **F2** (*Rename*) : le nouvel identifiant, dossier compris. |
+| Annuler / refaire | **Ctrl+Z** / **Ctrl+Y** (*Undo*, *Redo*). |
+| Essayer la carte | **P** (*Playtest*) — la carte se joue dans l'éditeur, comme en jeu : **↑ ↓ ← →**, **ZQSD** ou **WASD** pour marcher, **E** ou **Espace** pour interagir, **Échap** pour revenir à l'édition. Rien n'est perdu. |
+| Enregistrer | **Ctrl+S** (*Save*) — un message confirme l'enregistrement, ou explique ce qui manque (par exemple : aucune entrée). |
 
-La carte est enregistrée à côté de l'exécutable, dans le dossier `Levels`.
+Où la carte s'enregistre dépend de l'éditeur qu'on lance. Le `LevelEditor.exe` d'une archive
+publiée ouvre et écrit le dossier `Levels` posé à côté de lui ; l'éditeur construit depuis les
+sources, lui, ouvre et écrit directement l'arbre des sources, `Source/Elements/Levels/`, et la
+carte est alors déjà dans le projet. Dans les deux cas, la carte va dans le sous-dossier de son
+lieu, `Levels/<région>/<ville>/` — par exemple `Levels/central-empire/capital/echoppe.json`.
 
 ## 4. Publier votre carte
 
-1. Copiez le fichier de votre carte (`Levels\<nom>.json`, à côté de `LevelEditor.exe`) dans le
-   dossier `Source/Elements/Levels/` de votre copie du projet (celle clonée à l'étape 1).
+1. Si vous avez travaillé avec le `LevelEditor.exe` d'une archive, copiez le fichier de votre
+   carte (`Levels\central-empire\capital\<nom>.json`, à côté de `LevelEditor.exe`) au même
+   endroit sous `Source/Elements/Levels/` de votre copie du projet (celle clonée à l'étape 1).
+   Avec l'éditeur construit depuis les sources, la carte y est déjà.
 2. Ouvrez **GitHub Desktop** : votre nouveau fichier apparaît dans la liste des changements.
 3. En bas à gauche, donnez un court résumé (ex. « Ajout de la carte du port ») et cliquez
    **Commit to main**.

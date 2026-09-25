@@ -27,9 +27,9 @@ struct Tint {
     float a;
 };
 
-/// Les lignes de cases : discrètes, sous tout le reste.
+// Les lignes de cases : discrètes, sous tout le reste.
 constexpr Tint GRID_TINT{.r = 1.0F, .g = 1.0F, .b = 1.0F, .a = 0.07F};
-/// L'emprise, et son contour : l'or de la sélection, atténué.
+// L'emprise, et son contour : l'or de la sélection, atténué.
 constexpr Tint FOOTPRINT_FILL{.r = 0.88F, .g = 0.64F, .b = 0.29F, .a = 0.12F};
 constexpr Tint FOOTPRINT_EDGE{.r = 0.88F, .g = 0.64F, .b = 0.29F, .a = 0.55F};
 constexpr Tint SELECTION_EDGE{.r = 0.88F, .g = 0.64F, .b = 0.29F, .a = 1.0F};

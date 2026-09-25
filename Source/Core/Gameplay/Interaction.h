@@ -9,7 +9,6 @@
  */
 
 #include <string>
-#include <string_view>
 #include <vector>
 
 #include "Core/Ecs/Components/Interactable.h"

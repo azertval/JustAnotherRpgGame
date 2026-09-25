@@ -20,9 +20,9 @@ import Jadg.Runtime
     Le profil est une donnee en attente (`PendingData`, cles `main_menu.profile.*`) : aucun lot ne
     tient encore de profil de joueur.
 
-    « Nouvelle partie » ouvre la VUE DE JEU sur le Colisee (LOT-09) : le personnage parait a la
-    porte, et l'on parcourt le lieu. Le sable ne se joue plus depuis le menu : c'est le heraut qui
-    y envoie, et l'on en revient sur la carte, au meme endroit.
+    « Nouvelle partie » ouvre la VUE DE JEU sur la carte de depart de la ville (`WorldModel`,
+    LOT-09) : le personnage parait a la porte, et l'on parcourt le lieu. Le combat ne se joue pas
+    depuis le menu : c'est un PNJ de la carte qui y engage, et l'on en revient au meme endroit.
 */
 MainMenuForm {
     id: root

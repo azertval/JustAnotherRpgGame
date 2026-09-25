@@ -195,6 +195,7 @@ struct EntityKind {
     /// canevas pose la pièce à sa case, comme une pièce de couche, tant que l'entité est présente.
     std::string_view pieceProperty{};
 
+    /// @brief La propriété de clé @p key déclarée par cette sorte, ou `nullptr`.
     [[nodiscard]] const EntityPropertySpec* find(std::string_view key) const;
 };
 

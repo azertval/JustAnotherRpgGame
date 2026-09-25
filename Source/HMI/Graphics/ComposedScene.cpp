@@ -187,14 +187,6 @@ SceneStatistics ComposedScene::statistics() const noexcept {
     return stats;
 }
 
-// Resume des compteurs d'une image, pour la journalisation de diagnostic (EX-NFR-005).
-std::string formatSceneStatistics(const SceneStatistics& statistics) {
-    return "Rendu : " + std::to_string(statistics.considered) + " primitive(s) composee(s), " +
-           std::to_string(statistics.culled) + " ecartee(s) hors cadrage, " +
-           std::to_string(statistics.submitted) + " soumise(s) en " +
-           std::to_string(statistics.batches) + " passe(s).";
-}
-
 // Boite englobante d'un rectangle texture, en unites monde -- tient compte de la rotation
 // : un quad pivote occupe un rectangle englobant plus grand que sa taille propre, le culling
 // doit donc le juger sur ce rectangle-la, jamais sur (x, y, width, height) brut (une entite pivotee

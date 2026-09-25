@@ -4,7 +4,6 @@
 #pragma once
 
 #include <cstdint>
-#include <filesystem>
 #include <functional>
 #include <map>
 #include <memory>
@@ -38,8 +37,15 @@
  * Tout ce qui est ici est du `Core` pur : une carte (`core::Level`), une composition
  * (`core::ArenaBout`), et une session (`core::ArenaSession`) qui tient la machine à états du
  * combat (`core::CombatState`, `LOT-20`) sur la grille de la carte (`core::BattleGrid`, `LOT-19`).
- * Rien ne dépend d'une fenêtre : l'écran de mise en place (`hmi::ArenaModel`) ne fait que
- * présenter et commander.
+ * Rien ne dépend d'une fenêtre : le modèle de présentation du combat (`hmi::CombatModel`) ne fait
+ * que présenter et commander.
+ *
+ * Le **catalogue d'arènes** (une donnée par variante régionale, dans un dossier du monde) et
+ * l'écran de mise en place du Colisée ont été retirés à la recette de la 0.0.1, le 25 septembre
+ * 2026 : aucune arène ne vit dans `Source/Elements`. La composition vient désormais de la
+ * **rencontre de carte** (`core::prepareMapEncounter`, `hmi::EncounterModel`), qui monte cette
+ * session sur la zone de combat d'une carte, aux points d'entrée que la carte déclare
+ * (`core::arenaEntryPoints`).
  *
  * ## Les attaques du Manuel
  *
@@ -83,70 +89,6 @@ struct ArenaEntryPoint {
  */
 [[nodiscard]] std::vector<ArenaEntryPoint> arenaEntryPoints(const Level& level);
 
-/// @brief Un rôle de Marque Héroïque : huit, tabulés par le Sourcebook.
-struct HeroicMark {
-    std::string id;
-    std::string name;
-    std::string text;
-};
-
-/// @brief Les huit Marques, et ce qui n'a pas pu être lu.
-struct HeroicMarkCatalog {
-    std::vector<HeroicMark> marks;
-    std::vector<std::string> errors;
-
-    [[nodiscard]] const HeroicMark* find(std::string_view id) const;
-};
-
-/// @brief Charge les Marques Héroïques (`Source/Elements/Rpg/rules/heroic-marks.json`).
-[[nodiscard]] HeroicMarkCatalog loadHeroicMarks(const std::filesystem::path& file);
-
-/**
- * @brief Une arène, telle que la donnée la décrit (`Source/Elements/World/arena/`).
- *
- * Les variantes régionales du Sourcebook — l'Arène du Futur non létale, Feargus la létale, les
- * Braves des débutants, le duel de baguettes de la Magocratie — sont des **données**, pas des
- * modes : ce qui les distingue tient dans trois champs.
- */
-struct Arena {
-    std::string id;
-    std::string name;
-    std::string source;
-    /// Région de l'atlas (`LOT-37`) où l'arène se tient.
-    std::string region;
-    /// Lieu de l'atlas (`LOT-37`) où l'arène se tient, plus précis que la région : le quartier
-    /// d'Arenarea, dans la Capitale impériale. Vide si la relecture ne l'a pas encore établi.
-    std::string location;
-    /// Nom du fichier de carte dans `Source/Elements/Levels/`, vide si l'arène n'a pas encore de
-    /// carte : elle existe dans le monde, pas encore comme lieu jouable.
-    std::string map;
-    /// Nom de la **zone de combat** de cette carte (`core::CombatZone`, `LOT-09`) : l'arène joue
-    /// sur elle, et non sur la carte entière — le Colisée est un lieu, et l'on ne se bat que sur
-    /// son sable. Vide : la carte entière est la grille, comme au `LOT-50`.
-    std::string zone;
-    /// Vrai si l'on y meurt. Faux par défaut : c'est la règle des Arènes, et une arène létale est
-    /// l'exception écrite dans la donnée.
-    bool lethal = false;
-    /// Vrai si le rituel de Marque Héroïque s'y pratique : les combattants sont relevés à la fin,
-    /// et disposent de la troisième économie d'action.
-    bool heroicMark = true;
-    /// Vrai si la **prise en tenaille**, règle optionnelle du *Guide du Maître*, s'y joue
-    /// (`core::isFlanked`). Faux par défaut : une règle optionnelle s'active, elle ne se présume
-    /// pas.
-    bool flanking = false;
-};
-
-/// @brief Le catalogue des arènes, et ce qui n'a pas pu être lu.
-struct ArenaCatalog {
-    std::vector<Arena> arenas;
-    std::vector<std::string> errors;
-
-    [[nodiscard]] const Arena* find(std::string_view id) const;
-};
-
-/// @brief Charge les arènes d'un dossier — un fichier JSON par arène, balayé et trié.
-[[nodiscard]] ArenaCatalog loadArenas(const std::filesystem::path& directory);
-
 /// @brief Un combattant tel que l'écran de mise en place le compose.
 struct ArenaContestant {
     /// Le profil, classe d'armure et affinités comprises.
@@ -155,7 +97,8 @@ struct ArenaContestant {
     std::vector<AttackProfile> attacks;
     /// Case demandée, ou absente : le prochain point d'entrée libre de son camp.
     std::optional<GridPosition> position;
-    /// Rôle de Marque Héroïque revendiqué (`core::HeroicMark::id`), ou vide.
+    /// Rôle de Marque Héroïque revendiqué (un identifiant de `Rpg/rules/heroic-marks.json`), ou
+    /// vide.
     std::string markId;
     /// Le profil de comportement qui le joue (`core::BehaviorProfile::id`, `LOT-23`), ou vide
     /// pour un combattant que le joueur commande.
@@ -168,7 +111,8 @@ struct ArenaBout {
     std::uint64_t seed = 0;
     bool lethal = false;
     bool heroicMark = true;
-    /// La prise en tenaille du *Guide du Maître* (`core::Arena::flanking`).
+    /// La prise en tenaille, règle optionnelle du *Guide du Maître* (`core::isFlanked`). Fausse par
+    /// défaut : une règle optionnelle s'active, elle ne se présume pas.
     bool flanking = false;
     /// Vrai si l'on peut se retirer : toujours au Colisée ; sur la carte, ce que la rencontre dit
     /// (`core::Encounter::escapable`, `LOT-118`).
@@ -262,6 +206,7 @@ public:
     [[nodiscard]] CombatState& combat() noexcept {
         return *_combat;
     }
+    /// @brief La machine à états du combat, en lecture seule.
     [[nodiscard]] const CombatState& combat() const noexcept {
         return *_combat;
     }
@@ -278,15 +223,6 @@ public:
 
     /// @return Les attaques d'un combattant enrôlé, ou `nullptr`.
     [[nodiscard]] const std::vector<AttackProfile>* attacks(CombatantId combatant) const;
-
-    /// @return Les greffons des jets d'attaque de la session, pour qu'une capacité s'y insère.
-    [[nodiscard]] AttackHooks& attackHooks() noexcept {
-        return _attackHooks;
-    }
-    /// @return Le pipeline de dégâts de la session.
-    [[nodiscard]] DamagePipeline& damagePipeline() noexcept {
-        return _damagePipeline;
-    }
 
     /**
      * @brief L'action *attaquer* du combattant actif, avec son attaque @p attackIndex.
@@ -337,6 +273,8 @@ public:
      * Il survit au rejeu, dont les identifiants sont les mêmes. Vrai par défaut.
      */
     void setTakesOpportunities(CombatantId combatant, bool takes);
+    /// @brief Vrai si @p combatant prend ses attaques d'opportunité (le défaut) ; faux s'il y a
+    /// renoncé.
     [[nodiscard]] bool takesOpportunities(CombatantId combatant) const {
         return !_declinesOpportunities.contains(combatant);
     }

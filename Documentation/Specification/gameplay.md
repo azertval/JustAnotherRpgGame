@@ -28,7 +28,8 @@ Chaque règle est déterministe : à état d'entrée identique, comportement ide
 
 - **EX-GP-040** — Le jeu doit gérer des états distincts — menu, exploration,
   pause, options, crédits et écrans du RPG — portés par `hmi::ScreenFlow`, avec des transitions
-  explicites et unidirectionnelles (`EX-GP-041`). Détaillé côté interface par `EX-IHM-090`.
+  explicites et unidirectionnelles (`EX-GP-041`). Les écrans du RPG sont détaillés côté interface
+  par `EX-IHM-090` et `EX-IHM-091`.
 - **EX-GP-041** — Les transitions entre états doivent être explicites et
   unidirectionnelles à chaque événement (machine à états).
 

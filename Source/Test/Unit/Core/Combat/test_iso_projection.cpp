@@ -37,8 +37,8 @@ void expectCase(const std::optional<core::GridPosition>& obtenue, int column, in
     EXPECT_EQ(obtenue->row, row);
 }
 
-/// Transcription littérale de `ArenaScene.ui.qml` (LOT-50) : la position en pixels d'élément de
-/// la brique `ArenaTile` de la case (c, r), pour un élément de `largeur` × `hauteur`.
+/// Transcription littérale de l'écran QML du Colisée (LOT-50, retiré) : la position en pixels
+/// d'élément de la brique `ArenaTile` de la case (c, r), pour un élément de `largeur` × `hauteur`.
 struct SceneQml {
     float largeur;
     float hauteur;
@@ -285,7 +285,7 @@ TEST(IsoProjectionTest, LaRelectureSuitLeLosange) {
  * losange et le décalage celui qui centre la scène.</b><br/>
  * \tcat Unitaire · Combat<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Transcrire littéralement les formules de `ArenaScene.ui.qml` (lignes 36-61).<br/>2.
+ * \tetapes 1. Transcrire littéralement les formules de l'écran QML du Colisée (LOT-50).<br/>2.
  * Pour des éléments 1280 × 720, 800 × 900, 640 × 360 et des grilles 16 × 12, 9 × 14, 1 × 1 :
  * comparer la position de chaque case.<br/>
  * \tattendu Égalité à 1e-2 pixel près, pour chaque case.

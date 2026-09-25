@@ -13,10 +13,10 @@ namespace hmi {
 
 namespace {
 
-/// Version la plus élevée des manifestes lus.
+// Version la plus élevée des manifestes lus.
 constexpr int MANIFEST_VERSION = 1;
 
-/// L'entrée de manifeste qui cite @p filename, `nullptr` si aucune.
+// L'entrée de manifeste qui cite `filename`, `nullptr` si aucune.
 [[nodiscard]] const nlohmann::json* entryOf(const nlohmann::json& manifest,
                                             std::string_view filename) {
     const auto textures = manifest.find("textures");
@@ -33,7 +33,7 @@ constexpr int MANIFEST_VERSION = 1;
     return nullptr;
 }
 
-/// Le manifeste de @p directory, lu et indexé, s'il se lit.
+// Le manifeste de `directory`, lu et indexé, s'il se lit.
 [[nodiscard]] std::unique_ptr<const IndexedManifest> readManifest(
     const std::filesystem::path& directory) {
     std::error_code error;
@@ -60,7 +60,7 @@ constexpr int MANIFEST_VERSION = 1;
     return manifest;
 }
 
-/// L'ancre d'une entrée de manifeste, rien si elle n'est pas numérique.
+// L'ancre d'une entrée de manifeste, rien si elle n'est pas numérique.
 [[nodiscard]] std::optional<core::Vector2> anchorOf(const nlohmann::json& entry) {
     const auto anchor = entry.find("anchor");
     if (anchor == entry.end() || !anchor->is_array() || anchor->size() != 2 ||
@@ -75,7 +75,7 @@ constexpr int MANIFEST_VERSION = 1;
     return core::Vector2{x, y};
 }
 
-/// Le `depthOffset` d'une entrée, rien sans ancre valide ou sans valeur finie.
+// Le `depthOffset` d'une entrée, rien sans ancre valide ou sans valeur finie.
 [[nodiscard]] std::optional<float> depthOffsetOf(const nlohmann::json& entry) {
     if (!anchorOf(entry)) {
         return std::nullopt;
@@ -88,7 +88,7 @@ constexpr int MANIFEST_VERSION = 1;
     return std::isfinite(value) ? std::optional<float>{value} : std::nullopt;
 }
 
-/// Le nombre fini positif que @p manifest déclare sous @p key, rien sinon.
+// Le nombre fini positif que `manifest` déclare sous `key`, rien sinon.
 [[nodiscard]] std::optional<float> manifestLength(const nlohmann::json& manifest,
                                                   std::string_view key) {
     const auto found = manifest.is_object() ? manifest.find(key) : manifest.end();
@@ -99,8 +99,8 @@ constexpr int MANIFEST_VERSION = 1;
     return std::isfinite(value) && value > 0.0F ? std::optional<float>{value} : std::nullopt;
 }
 
-/// La ligne de sol que déclare @p manifest (`ground`), rien si elle n'est pas un nombre fini
-/// positif.
+// La ligne de sol que déclare `manifest` (`ground`), rien si elle n'est pas un nombre fini
+// positif.
 [[nodiscard]] std::optional<float> manifestGroundLine(const nlohmann::json& manifest) {
     return manifestLength(manifest, "ground");
 }

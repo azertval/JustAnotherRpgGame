@@ -19,16 +19,15 @@ namespace hmi {
 
 class SpriteBatch;
 class TextureAtlas;
-class TextureCache;
 
 /**
- * @brief Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le
- *        bon ordre.
+ * @brief Lot de sprites et atlas — créés ensemble, libérés ensemble, dans le bon ordre.
  *
  * **Pourquoi cette classe.** Depuis le `LOT-86`, deux surfaces dessinent la même scène : le
  * canevas de l'éditeur (`hmi::EditorViewport`, un `QRhiWidget`) et les éléments Qt Quick du jeu
- * (`hmi::WorldViewportItem`, `hmi::ArenaViewportItem`, des `QQuickRhiItem`). Elles n'ont ni le même hôte, ni la même
- * boucle, ni les mêmes entrées — mais elles créent **exactement** les mêmes ressources graphiques.
+ * (`hmi::WorldViewportItem`, `hmi::GameViewportItem`, des `QQuickRhiItem`). Elles n'ont ni le
+ * même hôte, ni la même boucle, ni les mêmes entrées — mais elles créent **exactement** les mêmes
+ * ressources graphiques.
  * Les écrire deux fois aurait suffi à les faire diverger : c'est ce qui arrive toujours, et ça ne
  * se voit qu'à l'exécution, sur une seule des deux.
  *
@@ -38,8 +37,9 @@ class TextureCache;
  * pilote. `release()` fixe cet ordre une fois pour toutes ; aucun appelant n'a plus à s'en
  * souvenir.
  *
- * **Ce qui n'est pas ici** : le brouillon d'édition, le `DraftRenderer`, la caméra, la carte jouée. Ils appartiennent à un seul des deux hôtes — les remonter ici rendrait la classe
- * dépendante de l'éditeur, et le jeu paierait pour ce dont il ne se sert pas.
+ * **Ce qui n'est pas ici** : le brouillon d'édition, le `DraftRenderer`, la caméra, la carte jouée.
+ * Ils appartiennent à un seul des deux hôtes — les remonter ici rendrait la classe dépendante de
+ * l'éditeur, et le jeu paierait pour ce dont il ne se sert pas.
  */
 class SceneResources {
 public:
@@ -72,24 +72,23 @@ public:
         _context.updates = updates;
     }
 
+    /// @return Le contexte de rendu : le `QRhi` et le lot de téléversements de l'image en cours.
     [[nodiscard]] RhiContext& context() noexcept {
         return _context;
     }
+    /// @return Le pipeline 2D ; valide seulement si `created()`.
     [[nodiscard]] SpriteBatch& sprites() noexcept {
         return *_spriteBatch;
     }
+    /// @return L'atlas procédural des tuiles ; valide seulement si `created()`.
     [[nodiscard]] TextureAtlas& atlas() noexcept {
         return *_atlas;
-    }
-    [[nodiscard]] TextureCache& textures() noexcept {
-        return *_textureCache;
     }
 
 private:
     RhiContext _context;
     std::unique_ptr<SpriteBatch> _spriteBatch;
     std::unique_ptr<TextureAtlas> _atlas;
-    std::unique_ptr<TextureCache> _textureCache;
 };
 
 }  // namespace hmi

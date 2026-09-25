@@ -6,7 +6,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <optional>
-#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -270,13 +269,6 @@ private:
     int _considered = 0;
     int _culled = 0;
 };
-
-/**
- * @brief Résumé des compteurs d'une image, pour la journalisation de diagnostic (`EX-NFR-005`).
- * @param statistics Compteurs à formater.
- * @return Une ligne lisible : composées, écartées, soumises, passes.
- */
-[[nodiscard]] std::string formatSceneStatistics(const SceneStatistics& statistics);
 
 /**
  * @brief Boîte englobante d'un rectangle texturé, en unités monde.

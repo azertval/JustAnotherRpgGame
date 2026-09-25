@@ -84,8 +84,6 @@ public:
 
 signals:
     void changed();
-    /// La carte @p mapId s'est ouverte dans la partie.
-    void launched(const QString& mapId);
 
 private:
     /// Les dossiers lus, dans l'ordre : ceux de l'utilisateur, puis le `Levels/` du contenu.

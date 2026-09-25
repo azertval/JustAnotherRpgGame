@@ -13,7 +13,7 @@ Tests système — **4 cas** (4 critiques). [Retour à la synthèse](README.md).
 
 ### DemoDeBoutEnBout.LaFinParLaParole
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:363`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:362`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
@@ -39,7 +39,7 @@ Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
 ### DemoDeBoutEnBout.LaFinParLArene
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:394`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:393`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
@@ -82,7 +82,7 @@ Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
 ### DemoDeBoutEnBout.LaMortSurLeSable
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:459`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:458`
 
 Nouvelle partie, puis la demo jusqu'a la mort sur le sable.
 

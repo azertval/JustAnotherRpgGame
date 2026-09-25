@@ -19,10 +19,5 @@ Rectangle {
         return Qt.point(-1, -1)
     }
 
-    function pointAt(column, row) {
-        return Qt.point(originX + (column - row) * tileWidth / 2,
-                        originY + (column + row) * tileHeight / 2)
-    }
-
     color: clearColor
 }

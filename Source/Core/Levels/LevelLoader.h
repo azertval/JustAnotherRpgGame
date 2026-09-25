@@ -108,7 +108,7 @@ class LevelLoader {
 public:
     /**
      * @brief Ce qui rend la carte de base d'une variante (décision D12), à partir de son
-     *        identifiant (`coliseum`, `capital/martpart`).
+     *        identifiant (`central-empire/capital/martpart`).
      */
     using BaseResolver = std::function<LevelLoadResult(std::string_view baseId)>;
 
@@ -126,9 +126,10 @@ public:
      * @brief Charge un niveau depuis un fichier.
      *
      * La base d'une variante se cherche comme `<dossier>/<base>.json`, du dossier de la variante
-     * vers la racine du disque : le premier qui existe l'emporte. Une carte `capital/x.json` qui
-     * déclare `"base": "coliseum"` trouve donc `Levels/coliseum.json`, et `"base":
-     * "capital/martpart"` trouve `Levels/capital/martpart.json`.
+     * vers la racine du disque : le premier qui existe l'emporte. Une carte
+     * `central-empire/capital/x.json` qui déclare `"base": "martpart"` trouve donc
+     * `Levels/central-empire/capital/martpart.json` dans son propre dossier, et `"base":
+     * "central-empire/capital/martpart"` le trouve depuis la racine `Levels/`.
      * @param path Chemin du fichier.
      * @return Résultat.
      */

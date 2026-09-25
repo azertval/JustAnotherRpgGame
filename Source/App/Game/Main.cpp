@@ -1,17 +1,15 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-/**
- * @file App/Game/Main.cpp
- * @brief Point d'entrée du **jeu** (`JustAnotherRpgGame`) — Qt Quick, sans un seul widget.
- *
- * `QGuiApplication` et non `QApplication` : la cible ne lie pas `Qt6::Widgets`, et ce n'est pas un
- * détail de dépendance mais la garantie qui porte tout le `LOT-86`. Un widget ne peut pas
- * réapparaître dans le jeu par inadvertance — l'édition de liens échouerait.
- *
- * L'éditeur de niveaux est un binaire séparé (`App/Editor/Main.cpp`), lui en Qt Widgets : c'est un
- * outil d'auteur, où docks et arbres sont le bon outil.
- */
+// Fichier : App/Game/Main.cpp
+// Point d'entrée du **jeu** (`JustAnotherRpgGame`) — Qt Quick, sans un seul widget.
+//
+// `QGuiApplication` et non `QApplication` : la cible ne lie pas `Qt6::Widgets`, et ce n'est pas un
+// détail de dépendance mais la garantie qui porte tout le `LOT-86`. Un widget ne peut pas
+// réapparaître dans le jeu par inadvertance — l'édition de liens échouerait.
+//
+// L'éditeur de niveaux est un binaire séparé (`App/Editor/Main.cpp`), lui en Qt Widgets : c'est un
+// outil d'auteur, où docks et arbres sont le bon outil.
 
 #include <QFontDatabase>
 #include <QGuiApplication>
@@ -47,20 +45,18 @@
 
 namespace {
 
-/**
- * @brief Enregistre les polices embarquées de l'identité auprès de Qt.
- *
- * Les fichiers sont déposés à côté de l'exécutable (`Assets/Fonts/`). Le QML ne les charge pas
- * lui-même : il les désigne par **nom de famille** (`Tokens.qml`), et Qt Design Studio les prend de
- * son côté via `FontFiles` du `.qmlproject`. Les deux voient donc les mêmes noms, et changer de
- * police reste une modification de `Tokens.qml` — jamais de C++.
- *
- * Un fichier absent n'est pas fatal : Qt retombe sur une famille générique et le journal le dit
- * (`EX-NFR-040`).
- *
- * Charte v2 (`LOT-87`) : `Cinzel` et `IM Fell English` remplacent la charte v1 (`Pixelify Sans`,
- * `Press Start 2P`) — retirées au T5.2, la phase 3 ayant transcrit les quatorze écrans.
- */
+// Enregistre les polices embarquées de l'identité auprès de Qt.
+//
+// Les fichiers sont déposés à côté de l'exécutable (`Assets/Fonts/`). Le QML ne les charge pas
+// lui-même : il les désigne par **nom de famille** (`Tokens.qml`), et Qt Design Studio les prend de
+// son côté via `FontFiles` du `.qmlproject`. Les deux voient donc les mêmes noms, et changer de
+// police reste une modification de `Tokens.qml` — jamais de C++.
+//
+// Un fichier absent n'est pas fatal : Qt retombe sur une famille générique et le journal le dit
+// (`EX-NFR-040`).
+//
+// Charte v2 (`LOT-87`) : `Cinzel` et `IM Fell English` remplacent la charte v1 (`Pixelify Sans`,
+// `Press Start 2P`) — retirées au T5.2, la phase 3 ayant transcrit les quatorze écrans.
 void registerIdentityFonts() {
     const std::filesystem::path fonts = hmi::executableDirectory() / "Assets" / "Fonts";
     for (const char* file :
@@ -75,39 +71,33 @@ void registerIdentityFonts() {
     }
 }
 
-/**
- * @brief Traducteur du JEU, partagé par l'installation au lancement et le changement de langue.
- *
- * Duree de vie statique : QCoreApplication ne possede pas le traducteur, et un objet local
- * serait detruit a la sortie de cette portee. La traduction disparaitrait alors sans erreur,
- * et l'interface reviendrait au francais sans que rien ne le dise.
- */
+// Traducteur du JEU, partagé par l'installation au lancement et le changement de langue.
+//
+// Duree de vie statique : QCoreApplication ne possede pas le traducteur, et un objet local
+// serait detruit a la sortie de cette portee. La traduction disparaitrait alors sans erreur,
+// et l'interface reviendrait au francais sans que rien ne le dise.
 QTranslator& gameTranslator() {
     static QTranslator translator;
     return translator;
 }
 
-/**
- * @brief Synchronisation verticale : elle se pose sur le FORMAT DE SURFACE, donc avant la creation
- * de la fenetre.
- *
- * C'est pour cela qu'elle s'applique au prochain lancement et que l'ecran des options le dit. La
- * changer en cours de route recreerait la surface de rendu sous les yeux du joueur, pour un
- * reglage qu'on modifie une fois.
- */
+// Synchronisation verticale : elle se pose sur le FORMAT DE SURFACE, donc avant la creation
+// de la fenetre.
+//
+// C'est pour cela qu'elle s'applique au prochain lancement et que l'ecran des options le dit. La
+// changer en cours de route recreerait la surface de rendu sous les yeux du joueur, pour un
+// reglage qu'on modifie une fois.
 void applyVsyncSetting() {
     QSurfaceFormat format = QSurfaceFormat::defaultFormat();
     format.setSwapInterval(QSettings().value(QStringLiteral("vsync"), true).toBool() ? 1 : 0);
     QSurfaceFormat::setDefaultFormat(format);
 }
 
-/**
- * @brief Traductions du JEU pour @p language.
- *
- * Le francais est la langue SOURCE des ecrans -- leurs textes s'ecrivent en francais dans le QML,
- * pour que la conception les lise dans Qt Design Studio -- et n'a donc pas de catalogue : sans
- * traducteur installe, `qsTr` rend sa source.
- */
+// Traductions du JEU pour `language`.
+//
+// Le francais est la langue SOURCE des ecrans -- leurs textes s'ecrivent en francais dans le QML,
+// pour que la conception les lise dans Qt Design Studio -- et n'a donc pas de catalogue : sans
+// traducteur installe, `qsTr` rend sa source.
 void installGameTranslation(const QString& language) {
     if (language == QLatin1String("fr")) {
         return;
@@ -120,7 +110,7 @@ void installGameTranslation(const QString& language) {
     }
 }
 
-/// @brief Verse les erreurs du moteur QML et ses échecs de chargement dans le journal de session.
+// Verse les erreurs du moteur QML et ses échecs de chargement dans le journal de session.
 void connectEngineDiagnostics(QQmlApplicationEngine& engine, QGuiApplication& application) {
     // Les erreurs de l'engine vont, par defaut, sur la sortie d'erreur de Qt -- que personne ne
     // lit apres coup, et qui n'existe pas dans un binaire livre. On les verse dans le journal de
@@ -142,7 +132,7 @@ void connectEngineDiagnostics(QQmlApplicationEngine& engine, QGuiApplication& ap
         Qt::QueuedConnection);
 }
 
-/// @brief Planifie la capture de la fenetre racine @p root dans @p path, puis la sortie.
+// Planifie la capture de la fenetre racine `root` dans `path`, puis la sortie.
 void scheduleWindowCapture(QObject* root, const QString& path) {
     auto* window = qobject_cast<QQuickWindow*>(root);
     if (window == nullptr) {
@@ -158,7 +148,7 @@ void scheduleWindowCapture(QObject* root, const QString& path) {
     });
 }
 
-/// @brief Sortie de secours du mode capture, quand aucune image n'a ete produite a temps.
+// Sortie de secours du mode capture, quand aucune image n'a ete produite a temps.
 void abortScreenshotOnTimeout() {
     HMI_LOG_ERROR(
         "Capture : delai depasse, aucune image produite (voir si l'interface a ete "
@@ -166,17 +156,15 @@ void abortScreenshotOnTimeout() {
     QCoreApplication::exit(2);
 }
 
-/**
- * @brief Capture d'ecran non interactive (--screenshot=<chemin>), armée si l'option est présente.
- *
- * Une fenetre Qt Quick est rendue par le GPU : les API de capture de Windows en tirent une image
- * NOIRE, seul Qt sait relire son propre graphe de scene. C'est ce qui rend la verification
- * visuelle des ecrans reproductible, au lieu de dependre d'un oeil devant l'ecran au bon moment.
- *
- * Declenchee par minuterie sur le fil graphique, et non depuis `frameSwapped` : ce signal est
- * emis par le FIL DE RENDU, et `grabWindow` -- qui attend ce meme fil -- n'y rendait jamais la
- * main. Le programme restait ouvert sans rien ecrire.
- */
+// Capture d'ecran non interactive (--screenshot=<chemin>), armée si l'option est présente.
+//
+// Une fenetre Qt Quick est rendue par le GPU : les API de capture de Windows en tirent une image
+// NOIRE, seul Qt sait relire son propre graphe de scene. C'est ce qui rend la verification
+// visuelle des ecrans reproductible, au lieu de dependre d'un oeil devant l'ecran au bon moment.
+//
+// Declenchee par minuterie sur le fil graphique, et non depuis `frameSwapped` : ce signal est
+// emis par le FIL DE RENDU, et `grabWindow` -- qui attend ce meme fil -- n'y rendait jamais la
+// main. Le programme restait ouvert sans rien ecrire.
 void armScreenshot(int argc, char** argv, QQmlApplicationEngine& engine,
                    QGuiApplication& application) {
     const std::optional<std::string_view> shot =
@@ -200,13 +188,11 @@ void armScreenshot(int argc, char** argv, QQmlApplicationEngine& engine,
     QTimer::singleShot(45000, &application, &abortScreenshotOnTimeout);
 }
 
-/**
- * @brief Taille de fenetre imposee (--window-size=<L>x<H>), ajoutée à @p initialProperties.
- *
- * Pour capturer un ecran a 1920 x 1080 et a 1280 x 720 cote a cote avec sa maquette (LOT-87,
- * phase 3). Passer par le plein ecran aurait ecrit le reglage du joueur, et donne la taille de SON
- * moniteur, pas celle qu'on verifie.
- */
+// Taille de fenetre imposee (--window-size=<L>x<H>), ajoutée à `initialProperties`.
+//
+// Pour capturer un ecran a 1920 x 1080 et a 1280 x 720 cote a cote avec sa maquette (LOT-87,
+// phase 3). Passer par le plein ecran aurait ecrit le reglage du joueur, et donne la taille de SON
+// moniteur, pas celle qu'on verifie.
 void insertWindowSize(std::string_view size, QVariantMap& initialProperties) {
     const QStringList parts =
         QString::fromUtf8(size.data(), static_cast<qsizetype>(size.size())).split(QLatin1Char('x'));
@@ -222,13 +208,11 @@ void insertWindowSize(std::string_view size, QVariantMap& initialProperties) {
     }
 }
 
-/**
- * @brief Propriétés initiales de la racine QML, lues sur la ligne de commande.
- *
- * `setInitialProperties` pose la propriété AVANT que la racine ne soit construite : l'affecter
- * après aurait fait afficher l'écran par défaut le temps d'une image, puis le bon -- un clignement
- * visible sur une capture.
- */
+// Propriétés initiales de la racine QML, lues sur la ligne de commande.
+//
+// `setInitialProperties` pose la propriété AVANT que la racine ne soit construite : l'affecter
+// après aurait fait afficher l'écran par défaut le temps d'une image, puis le bon -- un clignement
+// visible sur une capture.
 QVariantMap initialWindowProperties(int argc, char** argv) {
     QVariantMap initialProperties;
     // Écran d'ouverture (--screen=<Nom>).
@@ -245,12 +229,10 @@ QVariantMap initialWindowProperties(int argc, char** argv) {
     return initialProperties;
 }
 
-/**
- * @brief Brancher les reglages sur ce qu'ils atteignent.
- *
- * La vue-modele persiste et previent ; c'est ICI que chaque signal rejoint le moteur -- la
- * presentation ne connait ni le son, ni les traducteurs, ni la fenetre.
- */
+// Brancher les reglages sur ce qu'ils atteignent.
+//
+// La vue-modele persiste et previent ; c'est ICI que chaque signal rejoint le moteur -- la
+// presentation ne connait ni le son, ni les traducteurs, ni la fenetre.
 void connectOptions(QQmlApplicationEngine& engine, hmi::AudioEngine& audio,
                     core::MemoryLogSink* sessionLog) {
     auto* const options =
@@ -277,18 +259,16 @@ void connectOptions(QQmlApplicationEngine& engine, hmi::AudioEngine& audio,
     });
 }
 
-/// @return La valeur d'une option de ligne de commande, en `QString`.
+// Rend : La valeur d'une option de ligne de commande, en `QString`.
 [[nodiscard]] QString toQString(std::string_view value) {
     return QString::fromUtf8(value.data(), static_cast<qsizetype>(value.size()));
 }
 
-/**
- * @brief L'endroit et l'état de la partie imposés par la ligne de commande (`LOT-EDITOR-10`).
- *
- * `--at=<colonne>,<ligne>` pose le héros sur la case voulue, `--flags=<a>,<b>` marque des faits
- * acquis : c'est la carte **après** une quête, sans avoir à la jouer. Une valeur illisible est
- * ignorée et signalée, jamais fatale (`EX-NFR-040`).
- */
+// L'endroit et l'état de la partie imposés par la ligne de commande (`LOT-EDITOR-10`).
+//
+// `--at=<colonne>,<ligne>` pose le héros sur la case voulue, `--flags=<a>,<b>` marque des faits
+// acquis : c'est la carte **après** une quête, sans avoir à la jouer. Une valeur illisible est
+// ignorée et signalée, jamais fatale (`EX-NFR-040`).
 void applyStartState(int argc, char** argv, hmi::WorldModel& world) {
     if (const std::optional<std::string_view> at = app::commandLineOption(argc, argv, "--at=")) {
         if (const std::optional<core::GridPosition> cell = hmi::parseStartCell(*at)) {
@@ -309,19 +289,17 @@ void applyStartState(int argc, char** argv, hmi::WorldModel& world) {
     }
 }
 
-/**
- * @brief Carte d'ouverture imposée (--map=<carte>[@<arrivée>]), dans un build de développement.
- *
- * Pour voir ou capturer une carte sans y marcher depuis la porte de départ (`LOT-96`), et pour
- * l'essai complet que lance l'éditeur (`LOT-EDITOR-10`) : `--levels=` sert alors les brouillons
- * avant les cartes du binaire, `--at=` et `--flags=` disent où et dans quel état. Un binaire livré
- * ignore tout cela : « Nouvelle partie » y ouvre toujours la porte de départ.
- *
- * Le jeu s'**ouvre sur la carte**, sans passer par le menu : une carte imposée n'a de sens que si
- * on y entre, et l'essai de l'éditeur ne doit demander aucun clic. L'écran est celui que le
- * routeur désigne — pas un écran forcé (`--screen=`) —, si bien que dialogue, pause et Colisée
- * s'ouvrent ensuite normalement.
- */
+// Carte d'ouverture imposée (--map=<carte>[@<arrivée>]), dans un build de développement.
+//
+// Pour voir ou capturer une carte sans y marcher depuis la porte de départ (`LOT-96`), et pour
+// l'essai complet que lance l'éditeur (`LOT-EDITOR-10`) : `--levels=` sert alors les brouillons
+// avant les cartes du binaire, `--at=` et `--flags=` disent où et dans quel état. Un binaire livré
+// ignore tout cela : « Nouvelle partie » y ouvre toujours la porte de départ.
+//
+// Le jeu s'**ouvre sur la carte**, sans passer par le menu : une carte imposée n'a de sens que si
+// on y entre, et l'essai de l'éditeur ne doit demander aucun clic. L'écran est celui que le
+// routeur désigne — pas un écran forcé (`--screen=`) —, si bien que dialogue, pause et combat
+// s'ouvrent ensuite normalement.
 void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
     // `if constexpr` avec sa branche `else` : un retour anticipe laisserait en Release un code
     // inatteignable, que /W4 /WX refuse (C4702).
@@ -362,10 +340,8 @@ void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
 
 }  // namespace
 
-/**
- * @brief Point d'entrée du programme.
- * @return Code de sortie du processus (0 en cas de succès).
- */
+// Point d'entrée du programme.
+// Rend : Code de sortie du processus (0 en cas de succès).
 int main(int argc, char** argv) {
     core::MemoryLogSink* const sessionLog = app::installLogging(argc, argv, "JustAnotherRpgGame");
 
@@ -395,7 +371,8 @@ int main(int argc, char** argv) {
                 hmi::setDataDirectory(racine);
                 HMI_LOG_INFO("Contenu lu depuis " + racine.string());
             } else {
-                HMI_LOG_WARNING("--data= : dossier introuvable, le contenu reste celui du binaire.");
+                HMI_LOG_WARNING(
+                    "--data= : dossier introuvable, le contenu reste celui du binaire.");
             }
         }
     }

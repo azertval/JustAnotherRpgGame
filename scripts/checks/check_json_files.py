@@ -74,6 +74,7 @@ def problems(raw):
 
 
 def check(paths):
+    """Contrôle chaque fichier de `paths` ; retourne les défauts, fixtures invalides à part."""
     errors = []
     for path in paths:
         normalized = path.replace('\\', '/')
@@ -91,6 +92,7 @@ def check(paths):
 
 
 def auto_test():
+    """Éprouve `problems()` et `check()` sur des cas connus avant de juger les vrais fichiers."""
     assert problems(b'{"a": [1, 2], "b": {"c": 1}}\n') == []
     assert problems(b'{"a": 1, "a": 2}\n')[0].startswith('clé')
     assert problems(b'{"a": {"x": 1, "x": 1}}\n')[0].startswith('clé')

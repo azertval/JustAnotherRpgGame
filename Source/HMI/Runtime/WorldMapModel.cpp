@@ -6,7 +6,6 @@
 #include <QPointF>
 #include <QRectF>
 #include <QVariantList>
-
 #include <filesystem>
 #include <fstream>
 #include <map>
@@ -33,11 +32,9 @@ namespace {
     return rows;
 }
 
-[[nodiscard]] QVariantMap regionRow(const MapRegionView& region, int& placedCount) {
+[[nodiscard]] QVariantMap regionRow(const MapRegionView& region) {
     QVariantList places;
-    int placed = 0;
     for (const MapPlaceView& place : region.places) {
-        placed += place.placed ? 1 : 0;
         places.append(QVariantMap{
             {QStringLiteral("placeId"), QString::fromStdString(place.id)},
             {QStringLiteral("name"), QString::fromStdString(place.name)},
@@ -52,7 +49,6 @@ namespace {
             {QStringLiteral("number"), 0},
             {QStringLiteral("gateway"), place.hasCityMap}});
     }
-    placedCount += placed;
 
     QVariantList grades;
     for (const int grade : region.grades) {
@@ -76,7 +72,6 @@ namespace {
         {QStringLiteral("population"), region.population.value_or(0)},
         {QStringLiteral("grades"), grades},
         {QStringLiteral("places"), places},
-        {QStringLiteral("placedCount"), placed},
         {QStringLiteral("labels"), labelRows(region.labels)}};
 }
 
@@ -87,7 +82,8 @@ namespace {
                        {QStringLiteral("row"), QPointF(grid.row.x, grid.row.y)}};
 }
 
-// Les sous-zones d'un quartier (LOT-121) : leur dossier, leur nom, leur entree en cases, leur carte.
+// Les sous-zones d'un quartier (LOT-121) : leur dossier, leur nom, leur entree en cases, leur
+// carte.
 [[nodiscard]] QVariantList zoneRows(const std::map<std::string, MapZone>& zones) {
     QVariantList rows;
     for (const auto& [id, zone] : zones) {
@@ -168,9 +164,8 @@ void WorldMapModel::load() {
     _worldImage = QString::fromStdString(views.worldImage);
     _regions.clear();
     _cities.clear();
-    _placedCount = 0;
     for (const MapRegionView& region : views.regions) {
-        _regions.append(regionRow(region, _placedCount));
+        _regions.append(regionRow(region));
     }
     for (const MapCityView& city : views.cities) {
         _cities.insert(QString::fromStdString(city.id), cityRow(city));

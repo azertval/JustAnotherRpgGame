@@ -1,15 +1,14 @@
 # HMI · Interface
 
-Tests unitaires — **30 cas** (2 bloquants, 10 critiques, 17 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **22 cas** (2 bloquants, 8 critiques, 11 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_character_sheet_values.cpp`](#test-character-sheet-valuescpp) | 6 | - | 2 | 3 | 1 |
+| [`test_character_sheet_values.cpp`](#test-character-sheet-valuescpp) | 5 | - | 1 | 3 | 1 |
 | [`test_dialogue_screen.cpp`](#test-dialogue-screencpp) | 4 | - | - | 4 | - |
 | [`test_identity_scale.cpp`](#test-identity-scalecpp) | 8 | 2 | 2 | 4 | - |
-| [`test_rpg_screens.cpp`](#test-rpg-screenscpp) | 7 | - | 1 | 6 | - |
 | [`test_screen_flow.cpp`](#test-screen-flowcpp) | 5 | - | 5 | - | - |
 
 ## Exigences vérifiées par cette page
@@ -19,14 +18,13 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | Exigence | Cas |
 |---|---|
 | `EX-IHM-090` | [`ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine`](#screenflowtestecrandurpgrevientverssonecrandorigine) |
-| `EX-IHM-091` | [`RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue`](#rpgscreenstestlaregledesuperpositionestcelleattendue) |
-| `EX-REN-033` | [`RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues`](#rpgscreenstestchaquecledelossatureexistedanslesdeuxlangues) |
+| `EX-IHM-091` | [`ScreenFlowTest.LesEcransDeFinFermentLaPartie`](#screenflowtestlesecransdefinfermentlapartie) |
 
 ## test_character_sheet_values.cpp
 
 ### CharacterSheetValuesTest.LesModificateursSAffichentAvecLeurSigne
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:104`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:103`
 
 Les modificateurs s'affichent signes, les caracteristiques avec leur modificateur.
 
@@ -43,7 +41,7 @@ Les modificateurs s'affichent signes, les caracteristiques avec leur modificateu
 
 ### CharacterSheetValuesTest.LeJetDeSauvegardeMaitriseComptteLaMaitrise
 
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:127`
+*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:126`
 
 Un jet de sauvegarde maitrise porte le bonus de maitrise.
 
@@ -60,7 +58,7 @@ Un jet de sauvegarde maitrise porte le bonus de maitrise.
 
 ### CharacterSheetValuesTest.LaCompetenceMaitriseeSeSignaleEtLaPerceptionPassiveEnDerive
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:149`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:148`
 
 Une competence maitrisee se signale, et la Perception passive en derive.
 
@@ -77,7 +75,7 @@ Une competence maitrisee se signale, et la Perception passive en derive.
 
 ### CharacterSheetValuesTest.LesPointsDeVieSeLisentContreLeurMaximum
 
-*Mineur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:172`
+*Mineur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:171`
 
 Les points de vie se lisent contre leur maximum.
 
@@ -93,7 +91,7 @@ Les points de vie se lisent contre leur maximum.
 
 ### CharacterSheetValuesTest.SansFicheAucuneValeurNEstProduite
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:194`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:193`
 
 Sans fiche, aucune valeur n'est produite.
 
@@ -104,23 +102,6 @@ Sans fiche, aucune valeur n'est produite.
 **Résultat attendu**
 
 - Vérifie que `hmi::characterSheetValues({}).empty()` est vrai.
-
-### CharacterSheetValuesTest.ChaqueChampDeLaFicheEstAlimente
-
-*Critique · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:213`
-
-Chaque champ de la fiche declarant une source est rempli.
-
-**Étapes**
-
-1. Lire les identifiants de valeur declares par l'ossature de la fiche.
-2. Produire les valeurs d'une fiche complete.
-3. Verifier que chaque identifiant declare est produit.
-
-**Résultat attendu**
-
-- Vérifie que `valeurs.count(champ.valueId) > 0` est vrai.
-- Vérifie que `declares` est strictement supérieur à `10`.
 
 ## test_dialogue_screen.cpp
 
@@ -364,140 +345,6 @@ Une petite fenetre garde son facteur sur un grand ecran.
 - Vérifie que `hmi::identityScaleForDisplay(720, 1440)` vaut `2`.
 - Vérifie que `hmi::identityScaleForDisplay(1080, 1440)` vaut `3`.
 
-## test_rpg_screens.cpp
-
-### RpgScreensTest.LeCycleTraverseLesHuitEcrans
-
-*Critique · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:43`
-
-Le cycle de navigation traverse les huit ecrans et revient au premier.
-
-**Étapes**
-
-1. Partir du premier ecran.
-2. Appeler nextRpgScreen huit fois en notant chaque ecran atteint.
-
-**Résultat attendu**
-
-- Vérifie que `rpgScreens().size()` vaut `hmi::RPG_SCREEN_COUNT`.
-- Vérifie que `visited.size()` vaut `hmi::RPG_SCREEN_COUNT`.
-- Vérifie que `screen` vaut `first`.
-
-### RpgScreensTest.LePasArriereEstLInverseDuPasAvant
-
-*Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:68`
-
-Le pas arriere est l'inverse du pas avant.
-
-**Étapes**
-
-1. Pour chaque ecran, avancer puis reculer.
-2. Reculer depuis le premier ecran.
-
-**Résultat attendu**
-
-- Vérifie que `previousRpgScreen(nextRpgScreen(descriptor.id))` vaut `descriptor.id`.
-- Vérifie que `nextRpgScreen(previousRpgScreen(descriptor.id))` vaut `descriptor.id`.
-- Vérifie que `previousRpgScreen(rpgScreens().front().id)` vaut `rpgScreens().back().id`.
-
-### RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue
-
-*Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:87`
-
-Exigences : `EX-IHM-091`
-
-La regle de superposition est celle attendue pour chacun des huit ecrans.
-
-**Étapes**
-
-1. Interroger pausesGame pour chacun des huit ecrans.
-
-**Résultat attendu**
-
-- Vérifie que `pausesGame(RpgScreenId::CharacterSheet)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::Skills)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::Inventory)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::QuestJournal)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::Dialogue)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::Merchant)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::Company)` est vrai.
-- Vérifie que `pausesGame(RpgScreenId::WorldMap)` est faux.
-- Vérifie que `pausesGame(RpgScreenId::CombatHud)` est faux.
-
-### RpgScreensTest.ChaqueEcranEstIdentifiableEtNonVide
-
-*Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:115`
-
-Chaque ecran a un nom d'objet unique, un titre unique et une ossature non vide.
-
-**Étapes**
-
-1. Collecter noms d'objets et cles de titre.
-2. Verifier leur unicite et la presence d'au moins un bloc par ecran.
-
-**Résultat attendu**
-
-- Vérifie que `objectNames.insert(descriptor.objectName).second` est vrai.
-- Vérifie que `titleKeys.insert(descriptor.titleKey).second` est vrai.
-- Vérifie que `descriptor.layout.leftColumn.empty()` est faux.
-- Vérifie que `hmi::rpgScreenDescriptor(descriptor.id).id` vaut `descriptor.id`.
-
-### RpgScreensTest.ChaqueBlocEstCoherentAvecSonGenre
-
-*Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:145`
-
-Chaque bloc de l'ossature est coherent avec son genre.
-
-**Étapes**
-
-1. Parcourir les blocs des deux colonnes de chaque ecran.
-2. Verifier les dimensions et libelles exiges par chaque genre.
-
-**Résultat attendu**
-
-- Vérifie que `block.fields.empty()` est faux.
-- Vérifie que `field.labelKey[0]` diffère de `'\0'`.
-- Vérifie que `block.columns` est strictement supérieur à `0`.
-- Vérifie que `block.rows` est strictement supérieur à `0`.
-- Vérifie que `block.rows > 0 || !block.valueIds.empty()` est vrai.
-- Vérifie que `block.columns` est strictement supérieur à `0`.
-
-### RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues
-
-*Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:199`
-
-Exigences : `EX-REN-033`
-
-Chaque cle de l'ossature des ecrans du RPG existe en francais et en anglais.
-
-**Étapes**
-
-1. Lire fr.lang et en.lang.
-2. Verifier chaque cle de titre, de bloc et de champ, plus les cles du pied d'actions.
-
-**Résultat attendu**
-
-- Vérifie que `fr.empty()` est faux.
-- Vérifie que `en.empty()` est faux.
-- Vérifie que `fr.count(key) > 0` est vrai.
-- Vérifie que `en.count(key) > 0` est vrai.
-
-### RpgScreensTest.LesIdentifiantsDeValeurSontUniquesParEcran
-
-*Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:254`
-
-Les identifiants de valeur sont uniques a l'interieur d'un ecran.
-
-**Étapes**
-
-1. Collecter les identifiants de valeur de chaque ecran.
-2. Verifier qu'aucun ne se repete dans un meme ecran.
-
-**Résultat attendu**
-
-- Vérifie que `vus.insert(field.valueId).second` est vrai.
-- Vérifie que `vus.insert(id).second` est vrai.
-
 ## test_screen_flow.cpp
 
 ### ScreenFlowTest.TransitionsAutoriseesMenentALEcranAttendu
@@ -587,7 +434,9 @@ Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).
 
 ### ScreenFlowTest.LesEcransDeFinFermentLaPartie
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:147`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:148`
+
+Exigences : `EX-IHM-091`
 
 Les ecrans de mort et de fin de la demo ferment la partie.
 

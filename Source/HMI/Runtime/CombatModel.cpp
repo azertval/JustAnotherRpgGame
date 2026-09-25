@@ -25,7 +25,7 @@ namespace {
     return side == core::CombatSide::Allies ? QStringLiteral("allies") : QStringLiteral("enemies");
 }
 
-/// Une action du tour telle que l'écran la propose.
+// Une action du tour telle que l'écran la propose.
 enum class TurnActionKind : std::uint8_t { ATTACK, DODGE, DISENGAGE, DASH, REACTION };
 
 struct TurnActionEntry {
@@ -34,8 +34,8 @@ struct TurnActionEntry {
     QString label;
 };
 
-/// Les actions du combattant @p active : ses attaques, puis les actions du Manuel, puis sa
-/// réaction.
+// Les actions du combattant `active` : ses attaques, puis les actions du Manuel, puis sa
+// réaction.
 [[nodiscard]] std::vector<TurnActionEntry> turnActionsOf(const core::ArenaSession& session,
                                                          core::CombatantId active) {
     std::vector<TurnActionEntry> entries;
@@ -76,7 +76,7 @@ struct TurnActionEntry {
     return {};
 }
 
-/// Ce que l'écran montre de la santé d'un combattant : un texte et une jauge.
+// Ce que l'écran montre de la santé d'un combattant : un texte et une jauge.
 struct HealthDisplay {
     QString hitPoints;
     double ratio = 1.0;
@@ -104,22 +104,6 @@ struct HealthDisplay {
     return display;
 }
 
-/// L'état visible d'une cible, à accoler à son nom : à terre, ou ensanglantée.
-[[nodiscard]] QString targetStateSuffix(const core::Combatant& target) {
-    if (target.status == core::CombatantStatus::Down) {
-        return CombatModel::tr(" (a terre)");
-    }
-    return core::isBloodied(target.profile) ? CombatModel::tr(" (ensanglante)") : QString();
-}
-
-[[nodiscard]] QStringList joined(const std::vector<std::string>& sources) {
-    QStringList list;
-    for (const std::string& source : sources) {
-        list << toQt(source);
-    }
-    return list;
-}
-
 }  // namespace
 
 CombatModel::CombatModel(QObject* parent) : QObject(parent) {
@@ -138,15 +122,14 @@ std::optional<HeroContestantSource> CombatModel::loadHeroSource(
         problems.emplace_back("personnage de demonstration absent");
         return std::nullopt;
     }
-    HeroContestantSource hero{.sheet = demonstration.sheet,
-                              .proficiency = core::proficiencyBonus(demonstration.sheet,
-                                                                    demonstration.experience),
-                              .armorClass = core::derivedStatsFor(
-                                                demonstration.sheet, demonstration.inventory,
-                                                demonstration.lookup(), demonstration.rules,
-                                                demonstration.encumbrance)
-                                                .armorClass,
-                              .weapon = std::nullopt};
+    HeroContestantSource hero{
+        .sheet = demonstration.sheet,
+        .proficiency = core::proficiencyBonus(demonstration.sheet, demonstration.experience),
+        .armorClass = core::derivedStatsFor(demonstration.sheet, demonstration.inventory,
+                                            demonstration.lookup(), demonstration.rules,
+                                            demonstration.encumbrance)
+                          .armorClass,
+        .weapon = std::nullopt};
     if (const core::Weapon* weapon = demonstration.equipment.findWeapon(
             demonstration.inventory.at(core::EquipmentSlot::MainHand))) {
         hero.weapon = *weapon;
@@ -409,104 +392,6 @@ QVariantList CombatModel::turnActions() const {
                             {"selected", std::cmp_equal(i, _selectedAction)}};
     }
     return list;
-}
-
-QStringList CombatModel::preview() const {
-    QStringList lines;
-    const std::optional<core::CombatantId> active = playerTurn();
-    if (!active.has_value()) {
-        return lines;
-    }
-    const core::CombatState& combat = _session->combat();
-    const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
-    const TurnActionEntry& chosen = entries[static_cast<std::size_t>(
-        std::clamp(_selectedAction, 0, static_cast<int>(entries.size()) - 1))];
-    switch (chosen.kind) {
-        case TurnActionKind::DODGE:
-            lines << tr(
-                "Esquiver : les attaques contre lui sont desavantagees jusqu'a son prochain "
-                "tour, s'il voit l'attaquant.");
-            return lines;
-        case TurnActionKind::DISENGAGE:
-            lines << tr(
-                "Se desengager : ses deplacements ne provoquent plus d'attaque "
-                "d'opportunite ce tour-ci.");
-            return lines;
-        case TurnActionKind::DASH:
-            lines << tr("Se precipiter : un deplacement supplementaire egal a sa vitesse.");
-            return lines;
-        case TurnActionKind::REACTION:
-            lines << (_session->takesOpportunities(*active)
-                          ? tr("Il frappera l'ennemi qui quitte son allonge. Confirmer pour le "
-                               "laisser passer.")
-                          : tr("Il laissera passer l'ennemi qui quitte son allonge. Confirmer "
-                               "pour frapper."));
-            return lines;
-        case TurnActionKind::ATTACK:
-            break;
-    }
-
-    const std::optional<core::CombatantId> occupant = combat.grid().occupantAt(_cursor);
-    const core::Combatant* self = combat.find(*active);
-    const core::Combatant* other = occupant.has_value() ? combat.find(*occupant) : nullptr;
-    if (other != nullptr && self != nullptr && other->profile.side != self->profile.side) {
-        const std::optional<core::AttackPreview> attack =
-            core::previewAttack(*_session, *occupant, chosen.attack);
-        if (!attack.has_value()) {
-            return lines;
-        }
-        lines << toQt(attack->label) + QStringLiteral(" -> ") + toQt(other->profile.name) +
-                     targetStateSuffix(*other);
-        switch (attack->check) {
-            case core::TargetCheck::Valid:
-                break;
-            case core::TargetCheck::OutOfReach:
-                lines << tr("Hors d'allonge ou de portee.");
-                return lines;
-            case core::TargetCheck::TotalCover:
-                lines << tr("Cible hors de vue : abri total.");
-                return lines;
-            case core::TargetCheck::NotOnGrid:
-                lines << tr("Cible invalide.");
-                return lines;
-        }
-        lines << tr("Jet requis %1 : %2 % de chances de toucher")
-                     .arg(attack->requiredRoll)
-                     .arg(attack->hitPercent());
-        lines << (attack->cover == core::Cover::None
-                      ? tr("CA %1").arg(attack->armorClass)
-                      : tr("CA %1, dont %2")
-                            .arg(attack->armorClass)
-                            .arg(toQt(std::string(core::coverLabel(attack->cover)))));
-        if (!attack->advantages.empty()) {
-            lines << tr("Avantage : %1").arg(joined(attack->advantages).join(QStringLiteral(", ")));
-        }
-        if (!attack->disadvantages.empty()) {
-            lines << tr("Desavantage : %1")
-                         .arg(joined(attack->disadvantages).join(QStringLiteral(", ")));
-        }
-        return lines;
-    }
-    if (other != nullptr) {
-        lines << toQt(other->profile.name);
-        return lines;
-    }
-    const core::MovePreview move = core::previewMove(*_session, _cursor);
-    if (!move.path.has_value()) {
-        lines << tr("Case hors d'atteinte ce tour-ci.");
-        return lines;
-    }
-    lines << tr("Deplacement : %1 case(s), il en restera %2.")
-                 .arg(move.path->cost)
-                 .arg(move.movementLeft);
-    if (!move.opportunities.empty()) {
-        QStringList names;
-        for (const core::CombatantId id : move.opportunities) {
-            names << toQt(combat.find(id)->profile.name);
-        }
-        lines << tr("Attaque d'opportunite : %1").arg(names.join(QStringLiteral(", ")));
-    }
-    return lines;
 }
 
 // --- Les gestes -------------------------------------------------------------------------------

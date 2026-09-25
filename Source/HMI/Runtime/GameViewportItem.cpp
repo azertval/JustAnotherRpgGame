@@ -10,14 +10,12 @@
 namespace hmi {
 namespace {
 
-/**
- * @brief Le peintre, côté **fil de rendu**.
- *
- * Il ne partage aucun état avec l'élément : tout ce dont il a besoin lui est remis par
- * `synchronize()`, appelée pendant que le fil graphique est bloqué. C'est la discipline que
- * `QQuickRhiItem` impose, et la contourner ne produirait pas une erreur mais une corruption
- * intermittente — le pire des deux.
- */
+// Le peintre, côté **fil de rendu**.
+//
+// Il ne partage aucun état avec l'élément : tout ce dont il a besoin lui est remis par
+// `synchronize()`, appelée pendant que le fil graphique est bloqué. C'est la discipline que
+// `QQuickRhiItem` impose, et la contourner ne produirait pas une erreur mais une corruption
+// intermittente — le pire des deux.
 class GameViewportRenderer : public QQuickRhiItemRenderer {
 public:
     void initialize(QRhiCommandBuffer* commandBuffer) override;

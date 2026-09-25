@@ -20,9 +20,10 @@ namespace core {
  * silencieux (`EX-CBT-032`) — d'où le `switch` exhaustif de `Core/Rpg/RpgEnumNames.h`.
  *
  * Les noms textuels sont ceux du lexique de traduction (`LOT-30`), catégorie *type de dégâts* :
- * `scripts/checks/check_rpg_data.py` vérifie que les treize valeurs de cette énumération sont exactement
- * les treize termes anglais que le lexique porte sous cette catégorie. Le moteur, les schémas et
- * la table d'autorité de traduction disent donc le même mot pour la même chose, ou la CI échoue.
+ * `scripts/checks/check_rpg_data.py` vérifie que les treize valeurs de cette énumération sont
+ * exactement les treize termes anglais que le lexique porte sous cette catégorie. Le moteur, les
+ * schémas et la table d'autorité de traduction disent donc le même mot pour la même chose, ou la CI
+ * échoue.
  */
 enum class DamageType {
     Acid,
@@ -47,9 +48,10 @@ enum class DamageType {
  * mesure en six niveaux — mais elle reste une condition, et l'omettre de cette liste (comme le
  * glossaire du corpus l'omettait de sa catégorie) reviendrait à la rendre invisible au moteur.
  *
- * @note L'énumération ne dit **rien** de l'effet d'une condition : c'est l'objet du catalogue
- *       `Source/Elements/Rpg/conditions/`, décrit par `condition.schema.json`. Une énumération qui
- *       porterait les effets les figerait dans le C++, ce qu'`EX-VIS-007` interdit.
+ * @note L'énumération ne dit **rien** de l'effet d'une condition : c'est l'affaire de la donnée,
+ *       dont `Source/Elements/Rpg/schema/condition.schema.json` fixe la forme (aucun catalogue de
+ *       conditions n'est encore livré). Une énumération qui porterait les effets les figerait dans
+ *       le C++, ce qu'`EX-VIS-007` interdit.
  */
 enum class Condition {
     Blinded,

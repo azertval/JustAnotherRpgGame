@@ -11,7 +11,7 @@ namespace hmi {
 
 namespace {
 
-/// La marque de la quête choisie : le formulaire n'a pas de sélection à lui, la ligne la porte.
+// La marque de la quête choisie : le formulaire n'a pas de sélection à lui, la ligne la porte.
 constexpr std::string_view MARQUE_CHOISIE = "› ";
 constexpr std::string_view FRANCHIE = "✓";
 

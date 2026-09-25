@@ -247,7 +247,7 @@ TEST(StampsTest, UnPrefabriqueFaitLAllerRetour) {
     draft.placeEntity(
         MapEntity{.type = "npc",
                   .position = ETAL,
-                  .properties = {{"dialogue", std::string{"sentinelle-ironhand"}},
+                  .properties = {{"dialogue", std::string{"garde"}},
                                  {"figure", std::string{"Monsters/ironhand-soldier"}}},
                   .id = {},
                   .elevation = 0,
@@ -287,15 +287,14 @@ TEST(StampsTest, UnPrefabriqueFaitLAllerRetour) {
  */
 TEST(DonneesPrefabriques, UnEtalSeReposeAvecSonMarchand) {
     LevelDraft source = laPlace();
-    source.placeEntity(
-        MapEntity{.type = "npc",
-                  .position = ETAL,
-                  .properties = {{"dialogue", std::string{"garde-du-bourg"}},
-                                 {"figure", std::string{"Monsters/sentinelle"}},
-                                 {"name", std::string{"marchand-du-bourg"}}},
-                  .id = {},
-                  .elevation = 0,
-                  .cells = {}});
+    source.placeEntity(MapEntity{.type = "npc",
+                                 .position = ETAL,
+                                 .properties = {{"dialogue", std::string{"garde-du-bourg"}},
+                                                {"figure", std::string{"Monsters/sentinelle"}},
+                                                {"name", std::string{"marchand-du-bourg"}}},
+                                 .id = {},
+                                 .elevation = 0,
+                                 .cells = {}});
     const Stamp etal = hmi::cutStamp(source, ETAL, ETAL);
     EXPECT_EQ(etal.width, 2);
     EXPECT_EQ(etal.entities.size(), 1U);
@@ -346,8 +345,8 @@ TEST(DonneesPrefabriques, UnEtalSeReposeAvecSonMarchand) {
  * \tcat Unitaire · Modèles de carte<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Lire les modèles de `Editor/Templates`. 2. Contrôler toute la bibliothèque.<br/>
- * \tattendu Les quatre modèles — maquette, intérieur, rue, arène — sont là, chacun avec ses couches, et le
- * contrôle ne rend aucun constat.
+ * \tattendu Les quatre modèles — maquette, intérieur, rue, arène — sont là, chacun avec ses
+ * couches, et le contrôle ne rend aucun constat.
  * }
  */
 TEST(DonneesPrefabriques, LesModelesLivresSeLisent) {
@@ -362,8 +361,7 @@ TEST(DonneesPrefabriques, LesModelesLivresSeLisent) {
             modele.layers, [](const hmi::MapTemplateLayer& couche) { return couche.scene; }))
             << modele.id << " : aucune couche ne nomme le lieu";
     }
-    EXPECT_EQ(identifiants,
-              (std::vector<std::string>{"arena", "blockout", "interior", "street"}));
+    EXPECT_EQ(identifiants, (std::vector<std::string>{"arena", "blockout", "interior", "street"}));
 
     const std::vector<hmi::LibraryFinding> constats = hmi::checkEditorLibrary(dataRoot());
     for (const hmi::LibraryFinding& constat : constats) {

@@ -41,8 +41,8 @@ GameViewForm {
     minimap: PendingData.image("hud.minimap")
 
     // La session d'exploration est un SINGLETON (`WorldModel`) : elle survit a l'ouverture du
-    // dialogue et du Colisee, que la pile d'ecrans construit a la place de cet ecran. Une session
-    // possedee par l'ecran mourrait avec lui, et l'on reviendrait du sable sur une carte neuve.
+    // dialogue et des ecrans RPG, que la pile d'ecrans construit a la place de cet ecran. Une
+    // session possedee par l'ecran mourrait avec lui, et l'on reviendrait sur une carte neuve.
     Connections {
         target: WorldModel
 
@@ -63,21 +63,35 @@ GameViewForm {
 
         // Le fondu du passage : a l'entree sur une carte, l'ecran revient de l'obscurite.
         function onMapEntered(mapId) { fondu.restart() }
+
+        // Un portail qui ne s'ouvre pas le dit au joueur, un instant, par-dessus la vue : le
+        // drapeau exige ou la carte visee ne le regardent pas, seul le refus compte.
+        function onPortalLocked(flag) { root.notify(qsTr("Cette porte est fermée.")) }
+        function onPortalBroken(mapId) { root.notify(qsTr("Ce passage est bloqué.")) }
+        function onPortalSealed(mapId) { root.notify(qsTr("Ce passage est condamné.")) }
     }
 
-    // La partie ne recommence pas parce que l'ecran reparait : on revient du sable, du dialogue
+    /// Pose `message` par-dessus la vue pour quelques secondes ; un nouveau message remplace le
+    /// precedent et repart le compte.
+    function notify(message) {
+        notice.text = message;
+        notice.visible = true;
+        noticeTimer.restart();
+    }
+
+    // La partie ne recommence pas parce que l'ecran reparait : on revient du dialogue, du combat
     // ou de l'inventaire sur la carte qu'on a quittee.
     Component.onCompleted: {
         if (!WorldModel.loaded)
             WorldModel.startNewGame();
-        // Et l'on revient de l'obscurite : au premier pas dans le Colisee comme au retour du
-        // sable, la carte se leve d'un fondu plutot que de paraitre d'un coup.
+        // Et l'on revient de l'obscurite : au premier pas sur la carte comme au retour d'un
+        // ecran, la carte se leve d'un fondu plutot que de paraitre d'un coup.
         fondu.restart();
     }
 
-    // De retour du dialogue ou du sable : la carte reprend la ou elle s'etait arretee. Le gel
+    // De retour du dialogue ou du combat : la carte reprend la ou elle s'etait arretee. Le gel
     // depend du focus et non d'un signal de fermeture : tout ce qui recouvre la vue de jeu --
-    // dialogue, Colisee, pause, inventaire -- lui prend le focus, et un seul chemin vaut mieux
+    // dialogue, combat, pause, inventaire -- lui prend le focus, et un seul chemin vaut mieux
     // qu'un par ecran.
     onActiveFocusChanged: {
         if (root.activeFocus) {
@@ -175,6 +189,45 @@ GameViewForm {
             to: 0
             duration: 320
         }
+    }
+
+    // Le mot d'un portail refuse (LOT-126) : une plaque sombre du HUD, INVISIBLE par defaut, que
+    // `notify` montre et que le compte a rebours efface. Elle vit ici, dans le jumeau, parce
+    // qu'elle depend d'un signal et d'un Timer -- ce qu'un formulaire ne porte pas.
+    Rectangle {
+        id: notice
+
+        property alias text: noticeText.text
+
+        parent: root.viewportHost
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Tokens.gapLarge * 4
+        width: noticeText.implicitWidth + Tokens.gapLarge * 2
+        height: noticeText.implicitHeight + Tokens.gapMedium * 2
+        visible: false
+        color: Tokens.panelRaised
+        border.color: Tokens.panelEdge
+        border.width: Tokens.strokeWidth
+        opacity: 0.9
+
+        Text {
+            id: noticeText
+
+            anchors.centerIn: parent
+            color: Tokens.textOnPanel
+            font.family: Tokens.loreFamily
+            font.italic: true
+            font.pixelSize: Tokens.fontBody
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
+    Timer {
+        id: noticeTimer
+
+        interval: 2500
+        onTriggered: notice.visible = false
     }
 
     Connections {

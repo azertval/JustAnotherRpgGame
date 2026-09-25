@@ -9,7 +9,6 @@
 #include <string_view>
 
 #include "Core/Ecs/AnimationClip.h"
-#include "Core/Ecs/Components/Animation.h"
 #include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
 #include "HMI/Graphics/AssetContract.h"  // hmi::AssetValidation
 
@@ -69,8 +68,8 @@ struct AnimationDescriptionResult {
  * @brief Lecture, validation et traduction en région de texture du format `nom-asset.anim.json`.
  *
  * Logique **pure** (aucune dépendance GPU/Qt/fichier au-delà de la lecture elle-même) : ne réalise
- * ni chargement PNG ni mise en cache — ce sont ses appelants (`hmi::ArenaAnimationDriver`,
- * `hmi::WorldSceneRenderer`, la galerie des assets) qui le composent avec `hmi::TextureLoader`.
+ * ni chargement PNG ni mise en cache — ce sont ses appelants (`hmi::WorldSceneRenderer`, la
+ * galerie des assets) qui le composent avec `hmi::TextureLoader`.
  */
 class AnimationCatalog {
 public:
@@ -148,23 +147,6 @@ public:
      */
     [[nodiscard]] static core::AtlasRegion frameRegion(const AnimationDescription& description,
                                                        int frameSheetIndex);
-
-    /**
-     * @brief Région de l'image **courante** d'une animation en cours, d'après son état
-     *        (`core::Animation`) et la description de son asset.
-     *
-     * Traduit `animation.clipIndex`/`frameIndex` (indices résolus par `core::AnimationSystem`/
-     * `core::advanceAnimation`) en indice de spritesheet via `AnimationClip::frames`, puis en
-     * région via `frameRegion`. Fonction **pure**, sans accès au jeu de clips au-delà de ce que
-     * porte déjà `animation.clips` : repli sur la première image si l'animation n'a pas (ou plus)
-     * de jeu de clips valide (`EX-NFR-040`).
-     * @param description Description de l'asset animé (fournit `frameWidth`/`frameHeight`).
-     * @param animation   État d'animation courant (typiquement l'horloge partagée d'un asset de
-     *                    tuile).
-     * @return La région à échantillonner pour l'image courante.
-     */
-    [[nodiscard]] static core::AtlasRegion currentFrameRegion(
-        const AnimationDescription& description, const core::Animation& animation);
 };
 
 }  // namespace hmi

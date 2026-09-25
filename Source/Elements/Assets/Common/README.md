@@ -1,5 +1,3 @@
-<!-- Dossier encore vide : il attend le lot qui le remplira. -->
-
 # Le commun du monde
 
 Ce qui existe **partout**, dans n'importe quelle région : sols naturels (`Terrain/`),

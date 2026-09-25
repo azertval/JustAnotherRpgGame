@@ -142,12 +142,12 @@ La Capitale et ses douze quartiers sont des lieux de l'Empire central.
 - Vérifie que `lieu` diffère de `nullptr`.
 - Vérifie que `lieu->region` vaut `"central-empire"`.
 - Vérifie que `lieu->description.empty()` est faux.
-- Vérifie que `atlas().findLocation(capitale + "-martpart")->description.find( "Lantern-lit stalls and culturally blended architecture adorn cobblestone")` diffère de `std::string::npos`.
-- Vérifie que `atlas().findLocation(capitale + "-arenarea")->description.find( "Famed for the Arena of Fate")` diffère de `std::string::npos`.
+- Vérifie que `atlas() .findLocation(capitale + "-martpart") ->description.find( "Lantern-lit stalls and culturally blended architecture adorn cobblestone")` diffère de `std::string::npos`.
+- Vérifie que `atlas() .findLocation(capitale + "-arenarea") ->description.find("Famed for the Arena of Fate")` diffère de `std::string::npos`.
 
 ### AtlasTest.AucunLieuSansRegion
 
-*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:233`
+*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:236`
 
 Aucun lieu n'est orphelin de region.
 
@@ -163,7 +163,7 @@ Aucun lieu n'est orphelin de region.
 
 ### AtlasTest.ToutLieuCiteParUneRegionExiste
 
-*Majeur · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:252`
+*Majeur · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:255`
 
 Toute region ne cite que des lieux existants.
 
@@ -177,7 +177,7 @@ Toute region ne cite que des lieux existants.
 
 ### AtlasTest.LeVoisinageEstSymetriqueEtLeGrapheConnexe
 
-*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:270`
+*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:273`
 
 Le voisinage des regions est symetrique et le graphe connexe.
 
@@ -195,7 +195,7 @@ Le voisinage des regions est symetrique et le graphe connexe.
 
 ### AtlasTest.UneRegionCoupeeDuGrapheEstSignalee
 
-*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:295`
+*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:298`
 
 Le controle de connexite sait echouer.
 
@@ -213,7 +213,7 @@ Le controle de connexite sait echouer.
 
 ### AtlasTest.LesNotesDuMoteurCoincidentAvecCellesDuSchema
 
-*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:334`
+*Critique · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:337`
 
 Exigences : `EX-CNT-011`
 
@@ -235,7 +235,7 @@ Les notes et les axes du moteur coincident avec region.schema.json.
 
 ### AtlasTest.UnDossierAbsentEstUneErreurPasUnMondeVide
 
-*Majeur · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:372`
+*Majeur · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:375`
 
 Un dossier d'atlas absent produit une erreur, pas un monde vide.
 
@@ -250,7 +250,7 @@ Un dossier d'atlas absent produit une erreur, pas un monde vide.
 
 ### AtlasTest.LesPartsDePopulationRestentPlausibles
 
-*Majeur · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:388`
+*Majeur · Unitaire · Atlas* — `Source/Test/Unit/Core/World/test_atlas.cpp:391`
 
 Les parts de population de chaque region somment a 100 % a l'arrondi pres.
 
@@ -744,7 +744,7 @@ Un départ muré n'atteint rien.
 
 ### ExplorationSessionTest.LeHerosMarcheEtLeMurLArrete
 
-*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:108`
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:107`
 
 Le heros marche sur la carte et bute sur le mur, en glissant le long.
 
@@ -764,7 +764,7 @@ Le heros marche sur la carte et bute sur le mur, en glissant le long.
 
 ### ExplorationSessionTest.UnPortailDeposeAuPointDArriveeNomme
 
-*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:138`
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:137`
 
 Marcher sur un portail depose le heros au point d'arrivee nomme de la cible.
 
@@ -785,7 +785,7 @@ Marcher sur un portail depose le heros au point d'arrivee nomme de la cible.
 
 ### ExplorationSessionTest.OnParleAuPnjQueLOnRegarde
 
-*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:180`
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:179`
 
 L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.
 
@@ -799,13 +799,13 @@ L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.
 - Vérifie que `session.start("place", "")` est vrai.
 - Vérifie que `vus.size()` vaut `1U`.
 - Vérifie que `vus.front().kind` vaut `ExplorationEventKind::Dialogue`.
-- Vérifie que `vus.front().value` vaut `"heraut-colisee"`.
+- Vérifie que `vus.front().value` vaut `"garde"`.
 - Vérifie que `vus.size()` vaut `1U`.
 - Vérifie que `vus.front().value` vaut `"myr-marche"`.
 
 ### ExplorationSessionTest.UneCarteGeleeNeBougePlus
 
-*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:213`
+*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:211`
 
 Gelee, la session ne deplace plus le heros et n'ouvre plus rien.
 
@@ -1159,7 +1159,7 @@ Les cartes d'un sous-dossier entrent au graphe sous leur chemin relatif.
 
 ### WorldGraphFileTest.UnDossierAbsentDonneUnGrapheVide
 
-*Majeur · Unitaire · Graphe du monde* — `Source/Test/Unit/Core/World/test_world_graph.cpp:354`
+*Majeur · Unitaire · Graphe du monde* — `Source/Test/Unit/Core/World/test_world_graph.cpp:355`
 
 Un dossier absent donne un graphe vide.
 

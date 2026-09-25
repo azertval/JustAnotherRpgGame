@@ -45,7 +45,6 @@ QtObject {
         { label: "Se precipiter", kind: "dash", enabled: true, selected: false },
         { label: "Reaction : saisir les opportunites", kind: "reaction", enabled: true, selected: false }
     ]
-    readonly property var preview: [ "Grande hache -> Rat", "Jet requis 6 : 75 % de chances de toucher" ]
     readonly property var turnOrder: [
         { name: "Grom Tranche-Écaille", total: 14, side: "allies", active: true, down: false },
         { name: "Rat", total: 11, side: "enemies", active: false, down: false },

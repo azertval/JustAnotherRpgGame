@@ -1,26 +1,24 @@
 // SPDX-FileCopyrightText: 2026 Valentin Eloy
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
-/**
- * @file App/Editor/Main.cpp
- * @brief Point d'entrée de l'**éditeur de cartes** (`LevelEditor`) — Qt Widgets.
- *
- * Binaire distinct du jeu depuis le `LOT-86`. L'éditeur est un outil interne, fait pour l'auteur
- * seul (`LOT-EDITOR-01`) : style Fusion de Qt, sans charte ni thème, textes anglais écrits dans le
- * code, sans catalogue de traduction.
- *
- * `--crash-test` ne plante pas au démarrage, comme le jeu, mais juste après la première sauvegarde
- * automatique : c'est ce qui éprouve la reprise d'un brouillon après un plantage.
- *
- * `--check` et `--migrate` (`LOT-EDITOR-12`, décision D9), `--apply` et `--render`
- * (`LOT-EDITOR-13`), les renommages et remplacements (`LOT-EDITOR-14`), la bibliothèque de
- * préfabriqués (`LOT-EDITOR-08`) s'exécutent **sans fenêtre**
- * et rendent la main aussitôt : ni `QApplication` ni affichage, ce qui les fait tourner en CI
- * (`hmi::runMapCommand`, `hmi::runRenderCommand`).
- *
- * `--link-maps <carte> <carte>` relie deux cartes des deux côtés (`LOT-EDITOR-09`), par le plan
- * même que le geste du graphe du monde.
- */
+// Fichier : App/Editor/Main.cpp
+// Point d'entrée de l'**éditeur de cartes** (`LevelEditor`) — Qt Widgets.
+//
+// Binaire distinct du jeu depuis le `LOT-86`. L'éditeur est un outil interne, fait pour l'auteur
+// seul (`LOT-EDITOR-01`) : style Fusion de Qt, sans charte ni thème, textes anglais écrits dans le
+// code, sans catalogue de traduction.
+//
+// `--crash-test` ne plante pas au démarrage, comme le jeu, mais juste après la première sauvegarde
+// automatique : c'est ce qui éprouve la reprise d'un brouillon après un plantage.
+//
+// `--check` et `--migrate` (`LOT-EDITOR-12`, décision D9), `--apply` et `--render`
+// (`LOT-EDITOR-13`), les renommages et remplacements (`LOT-EDITOR-14`), la bibliothèque de
+// préfabriqués (`LOT-EDITOR-08`) s'exécutent **sans fenêtre**
+// et rendent la main aussitôt : ni `QApplication` ni affichage, ce qui les fait tourner en CI
+// (`hmi::runMapCommand`, `hmi::runRenderCommand`).
+//
+// `--link-maps <carte> <carte>` relie deux cartes des deux côtés (`LOT-EDITOR-09`), par le plan
+// même que le geste du graphe du monde.
 
 #include <QApplication>
 #include <QCoreApplication>
@@ -44,10 +42,8 @@
 #include "Editor/Ui/MapRender.h"
 #include "HMI/HmiLog.h"
 
-/**
- * @brief Point d'entrée du programme.
- * @return Code de sortie du processus (0 en cas de succès).
- */
+// Point d'entrée du programme.
+// Rend : Code de sortie du processus (0 en cas de succès).
 int main(int argc, char** argv) {
     static_cast<void>(app::installLogging(argc, argv, "LevelEditor", app::CrashTest::Deferred));
     const bool crashAfterAutosave = app::commandLineOption(argc, argv, "--crash-test").has_value();

@@ -3,15 +3,13 @@
 
 #include "HMI/Graphics/TextureAtlas.h"
 
-/**
- * @file HMI/Graphics/TextureAtlasRegions.cpp
- * @brief Mapping (colonne, ligne) -> région d'atlas de `hmi::TextureAtlas` (`tile`).
- *
- * Séparé de `TextureAtlas.cpp` (création de la texture, dépendante de Qt/QRhi) : cette pure
- * arithmétique de grille ne dépend que des constantes de la classe, ce qui permet de la compiler
- * et de la tester **sans GPU ni Qt** (`EX-NFR-010`), comme le reste de la logique pure du projet
- * (`Source/Test/CMakeLists.txt`).
- */
+// Fichier : HMI/Graphics/TextureAtlasRegions.cpp
+// Mapping (colonne, ligne) -> région d'atlas de `hmi::TextureAtlas` (`tile`).
+//
+// Séparé de `TextureAtlas.cpp` (création de la texture, dépendante de Qt/QRhi) : cette pure
+// arithmétique de grille ne dépend que des constantes de la classe, ce qui permet de la compiler
+// et de la tester **sans GPU ni Qt** (`EX-NFR-010`), comme le reste de la logique pure du projet
+// (`Source/Test/CMakeLists.txt`).
 
 namespace hmi {
 

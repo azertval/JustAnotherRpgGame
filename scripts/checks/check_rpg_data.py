@@ -27,9 +27,9 @@ Il vérifie cinq choses :
    critère de retrait — une donnée provisoire non marquée devient permanente par accident.
 
 5. **Le script s'auto-teste** sur `scripts/fixtures/rpg/`, avant de se prononcer sur les vraies
-   données. Il n'y en a aucune aujourd'hui : les catalogues arrivent du `LOT-33` au `LOT-84`. Un
-   validateur qui n'a rien validé est un validateur dont on ne sait rien — c'est la panne du
-   `LOT-78`, et la même parade que `check_glossary.py`.
+   données — les catalogues livrés du `LOT-33` au `LOT-84`, des centaines de fichiers sous
+   `Source/Elements/Rpg/`. Un validateur qui n'a rien validé est un validateur dont on ne sait
+   rien — c'est la panne du `LOT-78`, et la même parade que `check_glossary.py`.
 
 Dépendance : **jsonschema** (`pip install jsonschema`), installé par le workflow de CI.
 """
@@ -82,8 +82,6 @@ FAMILLES = {
     'feats': 'feat',
     # Atlas (LOT-37).
     'regions': 'region',
-    # Le Colisee (LOT-50) : les arenes sont des donnees de lieu, une par variante regionale.
-    'arena': 'arena',
     'locations': 'location',
     # Fiches de personnage (LOT-38). Seule famille de ce dossier a decrire une INSTANCE et non un
     # catalogue : une espece est un modele dont on tire des personnages, une fiche EST un
@@ -246,7 +244,7 @@ def controler_references(racine: Path) -> list[str]:
 
     Le schéma vérifie qu'une langue est une *chaîne* ; il ne peut pas vérifier qu'elle **existe**.
     Sans ce contrôle, une créature déclarant parler le « draconien » — pour « draconique » —
-    passerait, et le [LOT-15](@ref lot-15) refuserait un dialogue pour une langue qui n'existe
+    passerait, et le `LOT-15` refuserait un dialogue pour une langue qui n'existe
     pas, ce qui est indiscernable d'un bogue de dialogue.
 
     La comparaison se fait sur le nom **français** aussi bien que sur l'identifiant : les blocs de

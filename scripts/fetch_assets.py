@@ -70,6 +70,7 @@ def download(kit: K.Kit, cache: Path) -> bytes:
 
 
 def in_place(kit: K.Kit, paths: list[str]) -> tuple[bool, list[str]]:
+    """(le kit est-il en place, conforme au verrou ; ses fichiers présents sur le disque)."""
     files = K.kit_files(kit.path, paths)
     if not files:
         return False, files
@@ -77,6 +78,7 @@ def in_place(kit: K.Kit, paths: list[str]) -> tuple[bool, list[str]]:
 
 
 def install(kit: K.Kit, paths: list[str], cache: Path, *, force: bool) -> str:
+    """Installe un kit depuis son archive ; une image retouchée à la main arrête, sauf `force`."""
     ok, on_disk = in_place(kit, paths)
     if ok:
         if (K.read_witness(kit.path) or {}).get("sha256") != kit.sha256:
@@ -114,6 +116,7 @@ def install(kit: K.Kit, paths: list[str], cache: Path, *, force: bool) -> str:
 
 
 def check(kits: list[K.Kit], paths: list[str]) -> int:
+    """Vérifie que chaque kit est installé conforme au verrou ; retourne le code de sortie."""
     errors = 0
     for kit in kits:
         ok, files = in_place(kit, paths)

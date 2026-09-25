@@ -52,7 +52,7 @@ ROOT = Path(__file__).resolve().parents[2]
 UI = ROOT / "Source" / "Elements" / "Assets" / "UI"
 MANIFEST = UI / "illustrations.json"
 CAHIER = ROOT / "Planning" / "versions" / "v0.0.0" / "v0.0.0-fondation" / "annexes" / "LOT-87-charte-v2" / "assets-brief.json"
-# Les cartes de l'ecran « Carte » (LOT-94, LOT-95) : peintes par l'auteur, sous Assets/Maps/, avec
+# Les cartes de l'ecran « Carte » (LOT-94) : peintes par l'auteur, sous Assets/Maps/, avec
 # leur propre manifeste, que scripts/checks/check_map_assets.py recoupe.
 MAPS_MANIFEST = ROOT / "Source" / "Elements" / "Assets" / "Maps" / "manifest.json"
 # La table des pieces livrees que les briques consultent (T2.7), et les briques elles-memes.
@@ -123,7 +123,7 @@ def read_manifest() -> dict:
 
 
 def read_maps_manifest() -> list[str]:
-    """Les cartes de l'ecran « Carte » (LOT-94, LOT-95), ou rien si le dossier n'existe pas."""
+    """Les cartes de l'ecran « Carte » (LOT-94), ou rien si le dossier n'existe pas."""
     if not MAPS_MANIFEST.is_file():
         return []
     return [entry["file"] for entry in json.loads(MAPS_MANIFEST.read_text(encoding="utf-8"))["maps"]]

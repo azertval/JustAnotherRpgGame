@@ -345,7 +345,7 @@ La carte rendue d'un quartier se lit avec sa grille et ses sous-zones.
 
 ### WorldMapsTest.JointureRangeLesLieux
 
-*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:153`
+*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:154`
 
 Une région montre ses lieux posés puis les autres, sans les entrées écartées ni les quartiers d'une ville.
 
@@ -373,7 +373,7 @@ Une région montre ses lieux posés puis les autres, sans les entrées écartée
 
 ### WorldMapsTest.EcartsNommes
 
-*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:190`
+*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:191`
 
 Une carte sans région, une région sans carte et une position étrangère sont signalées.
 
@@ -389,7 +389,7 @@ Une carte sans région, une région sans carte et une position étrangère sont 
 
 ### WorldMapsTest.AtlasLivreEntierementCartographie
 
-*Critique · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:216`
+*Critique · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:217`
 
 Les treize régions de l'atlas ont leur carte, et chaque position désigne un lieu de sa région.
 

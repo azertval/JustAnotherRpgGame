@@ -362,6 +362,7 @@ public:
     [[nodiscard]] std::optional<CombatantId> activeCombatant() const noexcept {
         return _active;
     }
+    /// @brief L'ordre d'initiative courant, en lecture seule.
     [[nodiscard]] const TurnOrder& turnOrder() const noexcept {
         return _order;
     }
@@ -369,13 +370,16 @@ public:
     [[nodiscard]] std::optional<CombatOutcome> outcome() const noexcept {
         return _outcome;
     }
+    /// @brief Vrai si les alliés peuvent fuir ce combat (recopié de la rencontre, `setEscapable`).
     [[nodiscard]] bool escapable() const noexcept {
         return _escapable;
     }
+    /// @brief Le combattant enrôlé d'identifiant @p combatant, sorti compris, ou `nullptr`.
     [[nodiscard]] const Combatant* find(CombatantId combatant) const;
     /// @brief Tous les combattants enrôlés, sortis compris, par identifiant croissant.
     [[nodiscard]] std::vector<CombatantId> combatants() const;
 
+    /// @brief La grille tactique du combat, en lecture seule.
     [[nodiscard]] const BattleGrid& grid() const noexcept {
         return _grid;
     }

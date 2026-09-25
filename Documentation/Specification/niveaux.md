@@ -2,7 +2,8 @@
 
 > Statut : **livré**. Format JSON versionné (version 4 depuis le `LOT-EDITOR-12`), chargement,
 > validation, couches à pièces nommées, collision déduite et cases forcées, entités à identifiant,
-> zones peintes, variantes ; le Colisée et deux quartiers de la Capitale sont livrés dans ce format.
+> zones peintes, variantes ; les quatre cartes de la démo (`central-empire/capital/`) sont livrées
+> dans ce format.
 > Dépend de [`gameplay.md`](gameplay.md). Schéma publié :
 > `Documentation/Specification/level.schema.json`.
 
@@ -266,7 +267,7 @@ celle qui nomme sa figurine : l'éditeur les dessine et les manipule par là, sa
 (`EX-EDIT-073`).
 
 L'**identifiant d'une carte** est le chemin de son fichier sous `Source/Elements/Levels/`, sans
-extension (`coliseum`, `capital/martpart`). Un portail désigne sa destination par `(carte, point
+extension (`central-empire/capital/martpart`, `central-empire/capital/arenarea/arena-of-fate`). Un portail désigne sa destination par `(carte, point
 d'arrivée nommé)`, jamais par des coordonnées, qui se désynchroniseraient au premier
 redimensionnement de la carte cible (`EX-EDIT-052`) :
 ```json

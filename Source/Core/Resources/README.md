@@ -12,8 +12,9 @@ Il n'y a pas de `ResourceManager` unique dans `Core` (`EX-ARCH-080` dans sa form
 d'origine) : un gestionnaire de textures obligerait `Core` à connaître le GPU (`EX-NFR-010`,
 `EX-ARCH-010`). La gestion des ressources vit du côté qui les possède :
 
-- **Textures** → `HMI/Graphics` : décodage et upload (`hmi::TextureLoader`), textures des
-  marqueurs d'entité (`hmi::TextureCache`).
+- **Textures** → `HMI/Graphics` : décodage et upload (`hmi::TextureLoader`) ; les pixels d'un
+  marqueur d'entité (`hmi::EntityMarkers`) deviennent une texture par la bibliothèque du rendu
+  qui les dessine (`hmi::WorldSceneRenderer::textures()`).
 - **Cartes** → `Core/Levels` : `core::LevelLoader`/`core::LevelWriter`, avec validation
   (`EX-LVL-004`).
 

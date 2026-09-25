@@ -19,13 +19,14 @@
 namespace hmi {
 
 /**
- * @brief Surface QRhi de la carte courante : le jumeau d'`hmi::ArenaViewportItem` pour le monde.
+ * @brief Surface QRhi de la carte courante, posée dans la vue de jeu.
  *
- * Même frontière entre les fils, pour la même raison : le modèle et sa session vivent sur le fil
- * graphique, le dessin sur le fil de rendu, et `synchronize()` — fil graphique bloqué — est le seul
- * instant où les deux se parlent. Ne traversent que des **valeurs** : la couleur d'effacement, le
- * point suivi par la caméra, la carte si elle a changé — un `hmi::WorldSceneSnapshot` partagé,
- * immuable, jamais recopié —, et les figurines si elles ont changé.
+ * La frontière entre les fils est celle de tout `QQuickRhiItem` : le modèle et sa session vivent
+ * sur le fil graphique, le dessin sur le fil de rendu, et `synchronize()` — fil graphique bloqué —
+ * est le seul instant où les deux se parlent. Ne traversent que des **valeurs** : la couleur
+ * d'effacement, le point suivi par la caméra, la carte si elle a changé — un
+ * `hmi::WorldSceneSnapshot` partagé, immuable, jamais recopié —, et les figurines si elles ont
+ * changé.
  *
  * « A changé » se compte : `WorldModel::sceneRevision` avance quand la carte est à recomposer,
  * `WorldModel::figuresRevision` à chaque pas qui change les figurines. Un pas du héros ne fait donc
@@ -75,9 +76,6 @@ public:
     /// @brief La case sous un point de l'élément — le geste de la souris.
     /// @return (colonne, ligne), ou (−1, −1) hors de la carte.
     Q_INVOKABLE QPoint cellAt(qreal x, qreal y) const;
-
-    /// @brief Le point de l'élément où tombe une case (son centre) — pour poser une invite.
-    Q_INVOKABLE QPointF pointAt(qreal column, qreal row) const;
 
     [[nodiscard]] QQuickRhiItemRenderer* createRenderer() override;
 

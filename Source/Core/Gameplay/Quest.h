@@ -39,6 +39,7 @@ struct QuestFlag {
 
 /// @brief Ce qu'une étape fait au monde quand elle est atteinte.
 struct QuestEffect {
+    /// @brief La nature de l'effet : poser ou effacer un drapeau.
     enum class Kind {
         /// Pose un fait booléen, ou donne une valeur à un drapeau déclaré (`value`).
         SetFlag,

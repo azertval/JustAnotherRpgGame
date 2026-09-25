@@ -428,8 +428,9 @@ TEST(WorldSceneComposerTest, UneFigurineSansImageAUneCleDeMarqueur) {
     // L'arborescence 2D HD : un dossier `Characters/` a n'importe quel niveau (LOT-112).
     EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/Heroes/brawler/idle-se.png"),
               "characters/heroes/brawler");
-    EXPECT_EQ(hmi::figureMarkerKey("Regions/central-empire/capital/Common/Characters/guard/walk.png"),
-              "characters/guard");
+    EXPECT_EQ(
+        hmi::figureMarkerKey("Regions/central-empire/capital/Common/Characters/guard/walk.png"),
+        "characters/guard");
     EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/manifest.json"), "");
     EXPECT_EQ(hmi::figureMarkerKey("Common/Characters/Heroes/brawler/"), "");
     EXPECT_EQ(hmi::figureMarkerKey("Common/OtherCharacters/x/idle.png"), "");
@@ -995,14 +996,16 @@ TEST(MaquetteRenderTest, LesCheminsContiennentLesJetons) {
 /**
  * @brief Une figurine se tourne vers l'une des quatre diagonales de l'ecran, et la garde a
  *        l'egalite (`LOT-112`).
- * \castest{<b>L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.</b><br/>
+ * \castest{<b>L'orientation d'une figurine suit son deplacement, sans basculer a
+ * l'egalite.</b><br/>
  * \tcat Unitaire · Scene du monde<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Demander l'orientation d'un pas le long de chaque axe de la grille.<br/>
  * 2. Demander celle d'un pas en diagonale de la grille, depuis une orientation voisine, puis depuis
  * une orientation opposee.<br/>3. Demander celle d'un pas nul.<br/>
- * \tattendu Colonne : sud-est / nord-ouest ; ligne : sud-ouest / nord-est. En diagonale, la figurine
- * garde son orientation si elle convient, sinon la premiere des deux. Un pas nul ne la change pas.
+ * \tattendu Colonne : sud-est / nord-ouest ; ligne : sud-ouest / nord-est. En diagonale, la
+ * figurine garde son orientation si elle convient, sinon la premiere des deux. Un pas nul ne la
+ * change pas.
  * }
  */
 TEST(WorldSceneComposerTest, UneFigurineSeTourneVersLUneDesQuatreDiagonales) {
@@ -1051,12 +1054,12 @@ TEST(WorldSceneComposerTest, UneFigurineOrienteeLitLaBandeDeSonOrientation) {
     EXPECT_EQ(hmi::figureStripPath(heros, "", hmi::FigureFacing::NorthWest),
               heros + "/idle-nw.png");
 
-    const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
-        carte(), table(),
-        {hmi::WorldFigureSnapshot{.figure = heros,
-                                  .clip = "walk",
-                                  .point = {1.5F, 1.5F},
-                                  .facing = hmi::FigureFacing::NorthWest}});
+    const hmi::WorldSceneSnapshot instantane =
+        hmi::snapshotWorldScene(carte(), table(),
+                                {hmi::WorldFigureSnapshot{.figure = heros,
+                                                          .clip = "walk",
+                                                          .point = {1.5F, 1.5F},
+                                                          .facing = hmi::FigureFacing::NorthWest}});
     const std::vector<std::string> chemins = hmi::worldTexturePaths(instantane);
     EXPECT_NE(std::ranges::find(chemins, heros + "/idle-nw.png"), chemins.end());
     EXPECT_NE(std::ranges::find(chemins, heros + "/walk-nw.png"), chemins.end());
@@ -1070,15 +1073,15 @@ namespace {
 [[nodiscard]] hmi::ScenePieceTextures bandeDuHeros(const std::string& chemin) {
     hmi::ScenePieceTextures resolues;
     resolues.byPath.emplace(
-        chemin, hmi::SceneTexture{.texture = reinterpret_cast<hmi::TextureHandle>(
-                                      static_cast<std::uintptr_t>(1)),
-                                  .width = 8 * 192,
-                                  .height = 256,
-                                  .frameWidth = 192,
-                                  .frameHeight = 256,
-                                  .artTile = {256.0F, 159.0F},
-                                  .groundLine = 252.0F,
-                                  .frameDuration = 0.1F});
+        chemin, hmi::SceneTexture{
+                    .texture = reinterpret_cast<hmi::TextureHandle>(static_cast<std::uintptr_t>(1)),
+                    .width = 8 * 192,
+                    .height = 256,
+                    .frameWidth = 192,
+                    .frameHeight = 256,
+                    .artTile = {256.0F, 159.0F},
+                    .groundLine = 252.0F,
+                    .frameDuration = 0.1F});
     return resolues;
 }
 
@@ -1117,8 +1120,8 @@ TEST(WorldSceneComposerTest, LesPiedsDuHerosTombentAuCentreDeSaCase) {
                                       .point = point,
                                       .facing = hmi::FigureFacing::SouthEast}});
         const core::IsoProjection projection{instantane.columns, instantane.rows};
-        const hmi::SpriteQuad quad = quadDeLaFigurine(
-            hmi::composeWorldScene(instantane, projection, bandeDuHeros(chemin)));
+        const hmi::SpriteQuad quad =
+            quadDeLaFigurine(hmi::composeWorldScene(instantane, projection, bandeDuHeros(chemin)));
 
         const float unitesParPixel = projection.tileWidth() / 256.0F;
         const core::Vector2 sol = projection.gridToWorld(point);
@@ -1167,7 +1170,8 @@ TEST(WorldSceneComposerTest, LaCadenceEstCelleQueDitLaBande) {
 /**
  * @brief L'echelle et la ligne de sol d'un heros se lisent dans le manifeste de son atelier, deux
  *        dossiers plus haut (`LOT-112`).
- * \castest{<b>Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.</b><br/>
+ * \castest{<b>Un heros range par classe lit l'echelle et le sol de
+ * Characters/manifest.json.</b><br/>
  * \tcat Unitaire · Rendu HD<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Ecrire `Common/Characters/manifest.json` (losange 256 x 159, sol 252) et la

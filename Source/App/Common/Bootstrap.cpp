@@ -30,7 +30,7 @@
 namespace app {
 namespace {
 
-/// @return La valeur d'une variable d'environnement, ou `std::nullopt` si absente.
+// Rend : La valeur d'une variable d'environnement, ou `std::nullopt` si absente.
 [[nodiscard]] std::optional<std::string> environmentVariable(const char* name) {
     std::size_t length = 0;
     if (getenv_s(&length, nullptr, 0, name) != 0 || length == 0) {
@@ -46,12 +46,10 @@ namespace {
     return value;
 }
 
-/**
- * @brief Chemin d'un fichier de log horodaté pour la session en cours, à côté de l'exécutable.
- *
- * Un nom distinct par lancement (dossier `Logs/` créé au besoin par `FileLogSink`) : un crash
- * n'écrase jamais les preuves du lancement précédent, contrairement à un nom de fichier fixe.
- */
+// Chemin d'un fichier de log horodaté pour la session en cours, à côté de l'exécutable.
+//
+// Un nom distinct par lancement (dossier `Logs/` créé au besoin par `FileLogSink`) : un crash
+// n'écrase jamais les preuves du lancement précédent, contrairement à un nom de fichier fixe.
 [[nodiscard]] std::filesystem::path timestampedLogFilePath() {
     const std::time_t now = std::time(nullptr);
     std::tm local{};
@@ -64,7 +62,7 @@ namespace {
     return hmi::executableDirectory() / "Logs" / fileName;
 }
 
-/// @return Le niveau minimum retenu ; @p invalidValueGiven signale une valeur non reconnue.
+// Rend : Le niveau minimum retenu ; `invalidValueGiven` signale une valeur non reconnue.
 [[nodiscard]] core::LogLevel resolveMinimumLogLevel(int argc, char** argv,
                                                     bool& invalidValueGiven) {
     core::LogLevel level = core::LogLevel::Trace;

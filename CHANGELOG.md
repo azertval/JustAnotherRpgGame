@@ -6,6 +6,58 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.0.1] - 2026-09-25
+
+**La démo basique.** Première version publiée du jeu : une quête, « Des pommes pour l'arène »,
+jouée de bout en bout sur trois cartes de principe — le marché de **Martpart**, le parvis
+d'**Arenarea**, le sable et le niveau −1 de l'**Arena of Fate** — et qui se termine par l'une de
+ses trois issues : la persuasion du garde, la victoire seul contre un sur le sable, ou la mort.
+« Nouvelle partie » ouvre Martpart à la Market Gate ; un dialogue à jet de compétence, un combat
+tactique **sur la carte**, un journal de quête et deux écrans de fin font le reste. Les PNJ sont
+des mannequins et les cartes ne portent qu'un habillage de principe : les lieux définitifs, leurs
+assets et leurs figurines sont à la `0.0.3` (décision D-25).
+
+Sous la démo, la version pose ce qui servira à tout le jeu : le **standard 2D HD** et sa chaîne de
+production (le pixel art a quitté le dépôt), le kit commun de la Capitale, les étages et les toits,
+l'arborescence des assets par niveaux et leurs kits publiés hors de Git, le moteur de la quête
+(drapeaux, étapes, présence conditionnelle, jets en dialogue, rencontres sur la carte), l'éditeur
+de cartes remis d'aplomb (base vide, canevas HD, maquettes jouables, tout ce que la quête demande à
+une carte, recette à la main), le menu de développement **F9**, et la planification par versions
+dans `Planning/`, avec son site. Le détail par lot, du plus récent au plus ancien :
+
+- **LOT-122 — Recette et version 0.0.1.** La démo est jouée par l'auteur jusqu'à ses trois fins
+  (les trois `SystemGameTests` les couvrent), le numéro de version passe de `0.1.0` — un contresens :
+  `0.1.0` est le référentiel de l'Empire central — à `0.0.1` dans `CMakeLists.txt`, ce CHANGELOG
+  reçoit sa première section de version (et une section `0.0.0` pour tout ce qui précédait la
+  refonte du 20 septembre), le README et le manuel décrivent la démo telle qu'elle se joue, le
+  bilan de la version est écrit dans `Planning/versions/v0.1.0/v0.0.1-demo/bilan.md`. Les
+  mannequins (`LOT-145`) partent à la `0.0.2` (D-26) : la démo n'en dépend pas ; Q-09 est tranchée
+  (D-27 : le lint de l'ancienne feuille de route était déjà parti, les archives restent). Le code a
+  été **audité** : dans `Core`, sept symboles sans appelant, six includes inutiles et la convention
+  « Doxygen dans le `.h`, `//` dans le `.cpp` » rétablie dans 27 fichiers, un `@brief` sur
+  cinquante-trois fonctions publiques ; dans `HMI`, la **chaîne de rendu du Colisée**
+  (`ArenaSceneRenderer`, `ArenaSceneComposer`, `ArenaAppearanceCatalog`, `ArenaAnimationDriver`,
+  2 000 lignes compilées dans les deux exécutables sans appelant depuis le retrait de l'écran) part
+  avec ses quatre tests, ainsi que `TextureCache`, 22 traductions orphelines, la section
+  « Colisée » de la galerie de l'atelier, un alias vers une carte disparue, des signaux et des
+  propriétés que plus aucun écran ne lisait ; l'outillage Python perd quatre symboles morts et deux
+  chemins cassants (le cahier des assets d'interface, l'écran `Arena` des captures). Les guides
+  suivent (`guide-rendu`, `guide-combat`, `guide-ihm-qt`, le manuel de l'éditeur), le cahier de
+  test est régénéré. Le job **`format`** de la CI annotait les écarts de `clang-format` sans jamais
+  échouer (`xargs | tee` sans `pipefail`) : il échoue désormais, et les trente-six fichiers en
+  défaut sur `main` sont reformatés. Les huit PNG de sortie de test commités à la racine partent.
+  Ce que l'audit avait soumis à l'auteur est **tranché** à la recette : la prévisualisation du
+  combat de l'écran du Colisée (`CombatModel.preview`, 16 chaînes) part ; un portail fermé,
+  bloqué ou condamné le **dit au joueur** (message bref dans la vue de jeu) ; le cycle des écrans
+  aux gâchettes et la table `RpgScreens` de l'ère Widgets partent, `EX-IHM-090` et `EX-IHM-091`
+  disent la pile d'écrans QML et le gel tels qu'ils sont ; `InputState` ne garde que la manette ;
+  `CacheRegistry` part ; le catalogue d'arène (`core::Arena`, `loadArenas`, `heroic-marks`) et
+  l'action de dialogue `startCombat` partent, `core::ArenaSession` reste ; les six dialogues du
+  Colisée partent avec leurs textes et 147 clés de traduction sans lecteur (châssis, champs de
+  fiche, emplacements d'équipement, titres d'écran), les tests lisant désormais les dialogues de la
+  démo ou une fixture. Les briques de règles de la fondation (`AreaOfEffect`, `Multiclassing`…)
+  restent pour la `0.0.2`.
+
 - **LOT-121 — L'onglet « Carte » : le plan de la Capitale.** Le plan peint par l'auteur montre ses
   douze quartiers : Martpart et Arenarea s'ouvrent sur leur carte, les dix autres s'annoncent
   grisés, avec leur nom. La carte d'un quartier est son rendu (`LevelEditor --render --canvas
@@ -681,6 +733,17 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   assets et l'audit du passage à la HD. Un lint (`Planning/outils/lint_planning.py`) le garde en
   CI, et un site engendré depuis le dossier est publié sous `/planning/`. L'ancienne feuille de
   route est figée.
+
+
+## [0.0.0] - 2026-09-20
+
+**La fondation du moteur** — tout ce qui a été livré avant la refonte du 20 septembre 2026 : le
+moteur C++20 / Qt QRhi, les règles d20, le combat tactique, l'interface Qt Quick à la charte v2, la
+chaîne de données du corpus et l'éditeur de cartes, du socle au format v4. Cette version n'a jamais
+été publiée ni taguée : la `0.0.1` est la première release. Ses lots sont les fiches de
+`Planning/versions/v0.0.0/v0.0.0-fondation/`, sous leur identifiant d'époque (`LOT-01` à `LOT-96`,
+`LOT-EDITOR-01` à `14`) ; les deux anciennes feuilles de route sont archivées sous
+`Planning/vision/archives/`.
 
 - **`scripts/` de nouveau versionné.** Le dossier avait été supprimé (#92) alors que la CI, les
   hooks pre-commit et les workflows de release en dépendent ; il est restauré et retiré du

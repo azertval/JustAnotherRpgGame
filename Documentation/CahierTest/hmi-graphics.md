@@ -1,19 +1,14 @@
 # HMI · Graphics
 
-Tests unitaires — **193 cas** (38 bloquants, 61 critiques, 86 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **150 cas** (27 bloquants, 48 critiques, 70 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_animation_catalog.cpp`](#test-animation-catalogcpp) | 12 | - | 5 | 7 | - |
-| [`test_arena_animation_driver.cpp`](#test-arena-animation-drivercpp) | 8 | - | 3 | 4 | 1 |
-| [`test_arena_appearance_catalog.cpp`](#test-arena-appearance-catalogcpp) | 13 | 4 | 2 | 6 | 1 |
-| [`test_arena_scene_composer.cpp`](#test-arena-scene-composercpp) | 11 | 5 | - | 6 | - |
-| [`test_arena_scene_renderer.cpp`](#test-arena-scene-renderercpp) | 6 | 2 | 3 | - | 1 |
 | [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 10 | 4 | 1 | 5 | - |
 | [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
-| [`test_cache_registry.cpp`](#test-cache-registrycpp) | 5 | - | 5 | - | - |
 | [`test_camera2d.cpp`](#test-camera2dcpp) | 10 | - | - | 9 | 1 |
 | [`test_capital_kit_render.cpp`](#test-capital-kit-rendercpp) | 1 | 1 | - | - | - |
 | [`test_city_block_render.cpp`](#test-city-block-rendercpp) | 2 | - | - | 2 | - |
@@ -260,776 +255,6 @@ La région d'une image se déduit de son indice par décalage horizontal, ordonn
 - Vérifie que `last.y` vaut `0`.
 - Vérifie que `last.width` vaut `16`.
 - Vérifie que `last.height` vaut `16`.
-
-## test_arena_animation_driver.cpp
-
-### ArenaAnimationDriverTest.CombattantNonSuiviResteIdle
-
-*Majeur · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:77`
-
-Un combattant non déclenché ne bouge pas.
-
-**Étapes**
-
-1. Avancer un pilote vide de dix secondes.
-
-**Résultat attendu**
-
-- Vérifie que `driver.snapshot().figures.empty()` est vrai.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Idle`.
-
-### ArenaAnimationDriverTest.IdleBoucle
-
-*Majeur · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:93`
-
-La boucle idle ne s'arrête jamais.
-
-**Étapes**
-
-1. Jouer Idle. 2. Avancer de deux durées d'image. 3. Avancer de deux de plus.
-
-**Résultat attendu**
-
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `0`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `2`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `0`.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Idle`.
-
-### ArenaAnimationDriverTest.TransitionIdleAttackIdle
-
-*Critique · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:115`
-
-Transition idle -> attack -> idle.
-
-**Étapes**
-
-1. Jouer Idle. 2. Jouer Attack. 3. Avancer jusqu'à la fin de la bande d'attaque.
-
-**Résultat attendu**
-
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Attack`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `0`.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Attack`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `3`.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Idle`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `0`.
-
-### ArenaAnimationDriverTest.HitRelanceCoupSurCoup
-
-*Majeur · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:143`
-
-Hit relance toujours, même coup sur coup.
-
-**Étapes**
-
-1. Jouer Hit, avancer d'une image. 2. Rejouer Hit.
-
-**Résultat attendu**
-
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `1`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `0`.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Hit`.
-
-### ArenaAnimationDriverTest.MortResteFigee
-
-*Critique · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:163`
-
-Franchissement de l'état mort.
-
-**Étapes**
-
-1. Jouer Death, avancer jusqu'à la derniere image. 2. Rejouer Idle puis Attack.
-
-**Résultat attendu**
-
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Death`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `3`.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Death`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `3`.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Death`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `3`.
-
-### ArenaAnimationDriverTest.ActionAbsenteReplieSurIdle
-
-*Majeur · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:190`
-
-Repli sur Idle quand l'action n'existe pas (ex. un ennemi sans attack.png).
-
-**Étapes**
-
-1. Déclarer une figurine avec seulement `idle`. 2. Lui jouer Attack.
-
-**Résultat attendu**
-
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Idle`.
-- Vérifie que `driver.snapshot().frameOf(HERO)` vaut `0`.
-
-### ArenaAnimationDriverTest.RemoveRetireDuPilotage
-
-*Mineur · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:210`
-
-Un combattant sorti de la grille quitte le pilotage.
-
-**Étapes**
-
-1. Jouer Idle. 2. Retirer le combattant.
-
-**Résultat attendu**
-
-- Vérifie que `driver.snapshot().figures.empty()` est faux.
-- Vérifie que `driver.snapshot().figures.empty()` est vrai.
-- Vérifie que `driver.actionOf(HERO)` vaut `ArenaFigureAction::Idle`.
-
-### ArenaAnimationDriverTest.PlanchesDUnKitValides
-
-*Critique · Unitaire · Pilote d'animation de l'arène* — `Source/Test/Unit/HMI/Graphics/test_arena_animation_driver.cpp:229`
-
-Les `.anim.json` d'un kit d'arène sont valides.
-
-**Étapes**
-
-1. Lire un héros (cinq actions). 2. Lire un gladiateur au repos seul.
-
-**Résultat attendu**
-
-- Vérifie que `std::filesystem::exists(characters)` est vrai.
-- Vérifie que `hero.errors.empty()` est vrai.
-- Vérifie que `hero.clips.idle` diffère de `nullptr`.
-- Vérifie que `hero.clips.walk` diffère de `nullptr`.
-- Vérifie que `hero.clips.attack` diffère de `nullptr`.
-- Vérifie que `hero.clips.hit` diffère de `nullptr`.
-- Vérifie que `hero.clips.death` diffère de `nullptr`.
-- Vérifie que `std::filesystem::exists(enemy)` est vrai.
-- Vérifie que `tireur.errors.empty()` est vrai.
-- Vérifie que `tireur.clips.idle` diffère de `nullptr`.
-- Vérifie que `tireur.clips.attack` vaut `nullptr`.
-- Vérifie que `tireur.clips.hit` vaut `nullptr`.
-- Vérifie que `tireur.clips.death` vaut `nullptr`.
-
-## test_arena_appearance_catalog.cpp
-
-### ArenaAppearanceCatalogTest.LectureDeReference
-
-*Bloquant · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:45`
-
-Le catalogue de reference se lit sans erreur.
-
-**Étapes**
-
-1. Lire REFERENCE_JSON.
-
-**Résultat attendu**
-
-- Vérifie que `catalog.heroes().size()` vaut `4U`.
-- Vérifie que `catalog.gladiators().size()` vaut `4U`.
-- Vérifie que `catalog.paleSlabs().size()` vaut `10U`.
-- Vérifie que `catalog.heroFrames()` vaut `5`.
-- Vérifie que `catalog.enemyFrames()` vaut `8`.
-
-### ArenaAppearanceCatalogTest.ChampsInvalidesRefuses
-
-*Majeur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:63`
-
-Un catalogue dont un champ obligatoire manque, est vide ou mal type est refuse.
-
-**Étapes**
-
-1. Lire des variantes du JSON de reference, chacune avec un defaut.
-
-**Résultat attendu**
-
-- Vérifie que `result.ok()` est faux.
-- Vérifie que `result.errorCode` vaut `hmi::ArenaAppearanceError::MalformedStructure`.
-
-### ArenaAppearanceCatalogTest.LesAnglesPortentUneColonne
-
-*Bloquant · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:91`
-
-Sur une grille 10 x 8 murée, les quatre angles portent `WallFeature::Corner`.
-
-**Étapes**
-
-1. Lire le role des quatre coins, wall = vrai.
-
-**Résultat attendu**
-
-- Vérifie que `role.wall` est vrai.
-- Vérifie que `role.wallFeature` vaut `hmi::WallFeature::Corner`.
-- Vérifie que `role.gateSpot` est faux.
-
-### ArenaAppearanceCatalogTest.LaBanniereTousLesCinqPas
-
-*Majeur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:115`
-
-Sur une grille 10 x 8, la banniere est aux colonnes multiples de 5 des bords haut et bas, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.
-
-**Étapes**
-
-1. Lire le role de chaque case murée des lignes 0 et 7.
-
-**Résultat attendu**
-
-- Vérifie que `role.wallFeature` vaut `attendu`.
-
-### ArenaAppearanceCatalogTest.LaTorcheTousLesQuatrePas
-
-*Majeur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:140`
-
-Sur une grille 10 x 8, la torche est aux lignes valant 2 modulo 4 des bords gauche et droit, hors angle ; les autres cases de ces bords sont un pan de mur ordinaire.
-
-**Étapes**
-
-1. Lire le role de chaque case muree des colonnes 0 et 9.
-
-**Résultat attendu**
-
-- Vérifie que `role.wallFeature` vaut `attendu`.
-
-### ArenaAppearanceCatalogTest.LaPorteEstSurLeBordSeulement
-
-*Bloquant · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:165`
-
-Sur une grille 10 x 8, toute case non muree du bord porte `gateSpot`, aucune case interieure ne le porte.
-
-**Étapes**
-
-1. Lire le role de la case (0, 3) et de la case (4, 4), wall = faux.
-
-**Résultat attendu**
-
-- Vérifie que `bord.gateSpot` est vrai.
-- Vérifie que `bord.wall` est faux.
-- Vérifie que `interieur.gateSpot` est faux.
-
-### ArenaAppearanceCatalogTest.LaDalleSuitLaFormuleQml
-
-*Critique · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:188`
-
-Le sol d'une case non muree porte une dalle quand `(colonne*3 + ligne*5 + colonne*ligne) % 7 == 0`, a l'indice `(colonne*3 + ligne*5) % 10`.
-
-**Étapes**
-
-1. Calculer le role de chaque case interieure d'une grille 10 x 8.
-2. Comparer a la formule transcrite de la scene QML.
-
-**Résultat attendu**
-
-- Vérifie que `role.slab` vaut `slabAttendu`.
-- Vérifie que `role.slabVariant` vaut `(column * 3 + row * 5) % 10`.
-
-### ArenaAppearanceCatalogTest.LaFigurineEstDeterministeEtDependDuCote
-
-*Bloquant · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:218`
-
-Deux appels avec le meme nom et le meme cote rendent la meme figurine ; un allie choisit parmi les heros, un ennemi parmi les gladiateurs.
-
-**Étapes**
-
-1. Demander la figurine de « Gorlak » comme allie, puis comme ennemi, deux fois chacune.
-
-**Résultat attendu**
-
-- Vérifie que `allie1.sheet` vaut `allie2.sheet`.
-- Vérifie que `std::find(catalog.heroes().begin(), catalog.heroes().end(), allie1.sheet)` diffère de `catalog.heroes().end()`.
-- Vérifie que `allie1.frameCount` vaut `catalog.heroFrames()`.
-- Vérifie que `ennemi1.sheet` vaut `ennemi2.sheet`.
-- Vérifie que `std::find(catalog.gladiators().begin(), catalog.gladiators().end(), ennemi1.sheet)` diffère de `catalog.gladiators().end()`.
-- Vérifie que `ennemi1.frameCount` vaut `catalog.enemyFrames()`.
-
-### ArenaAppearanceCatalogTest.LaFigurineSuitLaFormuleQml
-
-*Majeur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:248`
-
-Pour plusieurs noms, l'indice de figurine vaut `(longueur*7 + code du premier caractere) % taille du roster`.
-
-**Étapes**
-
-1. Calculer la figurine attendue pour plusieurs noms.
-2. Comparer a la formule transcrite de la scene QML.
-
-**Résultat attendu**
-
-- Vérifie que `catalog.figureFor(nom, core::CombatSide::Allies).sheet` vaut `catalog.heroes()[static_cast<std::size_t>(indiceAttendu)]`.
-
-### ArenaAppearanceCatalogTest.NomVideRendLaPremiereFigurine
-
-*Mineur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:272`
-
-Un combattant sans nom rend la figurine d'indice 0.
-
-**Étapes**
-
-1. Demander la figurine d'un nom vide, des deux cotes.
-
-**Résultat attendu**
-
-- Vérifie que `catalog.figureFor("", core::CombatSide::Allies).sheet` vaut `catalog.heroes().front()`.
-- Vérifie que `catalog.figureFor("", core::CombatSide::Enemies).sheet` vaut `catalog.gladiators().front()`.
-
-### ArenaAppearanceCatalogTest.ManifesteDUnKitValide
-
-*Critique · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:287`
-
-Le manifeste du kit d'arene d'essai se lit sans erreur.
-
-**Étapes**
-
-1. Lire le manifeste livre depuis les sources.
-
-**Résultat attendu**
-
-- Vérifie que `std::filesystem::exists(path)` est vrai.
-- Vérifie que `result.ok()` est vrai.
-- Vérifie que `result.catalog->heroes().empty()` est faux.
-- Vérifie que `result.catalog->gladiators().empty()` est faux.
-- Vérifie que `result.catalog->paleSlabs().empty()` est faux.
-- Vérifie que `result.catalog->heroFrames()` est strictement supérieur à `0`.
-- Vérifie que `result.catalog->enemyFrames()` est strictement supérieur à `0`.
-
-### ArenaAppearanceCatalogTest.UnHerosRemplaceLitSesBandesAilleurs
-
-*Majeur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:312`
-
-`replaceHero` change le dossier rendu par `figureFor`/`sheetDirectory`, rien d'autre.
-
-**Étapes**
-
-1. Lire le dossier par defaut d'un heros et d'un gladiateur.
-2. Remplacer ce heros par `../Npc/anariel`, puis tenter un nom inconnu.
-
-**Résultat attendu**
-
-- Vérifie que `avant.directory` vaut `"characters/" + avant.sheet`.
-- Vérifie que `catalog.figureFor("Gorlak", core::CombatSide::Enemies).directory` vaut `"enemies/" + catalog.figureFor("Gorlak", core::CombatSide::Enemies).sheet`.
-- Vérifie que `catalog.replaceHero(avant.sheet, "../Npc/anariel")` est vrai.
-- Vérifie que `apres.sheet` vaut `avant.sheet`.
-- Vérifie que `apres.frameCount` vaut `avant.frameCount`.
-- Vérifie que `apres.directory` vaut `"../Npc/anariel"`.
-- Vérifie que `catalog.sheetDirectory(avant.sheet, core::CombatSide::Allies)` vaut `"../Npc/anariel"`.
-- Vérifie que `catalog.heroes()` vaut `referenceCatalog().heroes()`.
-- Vérifie que `catalog.replaceHero("inconnu", "../Npc/inconnu")` est faux.
-- Vérifie que `catalog.sheetDirectory("inconnu", core::CombatSide::Allies)` vaut `"characters/inconnu"`.
-
-### ArenaAppearanceCatalogTest.LeManifesteDesPnjRemplaceLesHerosNommes
-
-*Majeur · Unitaire · Catalogue d'apparence de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_appearance_catalog.cpp:344`
-
-`applyNpcManifest` : un heros remplace par entree valide, une entree inconnue ou sans slug ignoree, un fichier absent sans effet.
-
-**Étapes**
-
-1. Appliquer un chemin inexistant.
-2. Ecrire un manifeste avec `kaelith_voss` -> `anariel`, un heros inconnu et un slug vide ; l'appliquer.
-
-**Résultat attendu**
-
-- Vérifie que `catalog.applyNpcManifest(manifest)` vaut `0`.
-- Vérifie que `catalog.sheetDirectory("kaelith_voss", core::CombatSide::Allies)` vaut `"characters/kaelith_voss"`.
-- Vérifie que `catalog.applyNpcManifest(manifest)` vaut `1`.
-- Vérifie que `catalog.sheetDirectory("kaelith_voss", core::CombatSide::Allies)` vaut `"../Npc/anariel"`.
-- Vérifie que `catalog.sheetDirectory("bram", core::CombatSide::Allies)` vaut `"characters/bram"`.
-
-## test_arena_scene_composer.cpp
-
-### ArenaSceneComposerTest.NombreDeQuadsParCalque
-
-*Bloquant · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:209`
-
-La scene composee compte exactement les quads attendus, par calque.
-
-**Étapes**
-
-1. Monter cinq combattants sur la piste 5x4.
-2. Composer la scene.
-
-**Résultat attendu**
-
-- Vérifie que `onLayer(scene, RenderLayer::Tile).size()` vaut `static_cast<std::size_t>(FLOOR_QUADS)`.
-- Vérifie que `onLayer(scene, RenderLayer::Object).size()` vaut `static_cast<std::size_t>(STRUCTURE_QUADS)`.
-- Vérifie que `onLayer(scene, RenderLayer::Player).size()` vaut `5U`.
-- Vérifie que `scene.size()` vaut `static_cast<std::size_t>(FLOOR_QUADS + STRUCTURE_QUADS + 5)`.
-
-### ArenaSceneComposerTest.OrdreDesCalques
-
-*Bloquant · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:229`
-
-Le sol est dessine sous tout ; la bande de profondeur est triee par pied.
-
-**Étapes**
-
-1. Composer la scene (triee).
-
-**Résultat attendu**
-
-- Vérifie que `quads.size()` vaut `static_cast<std::size_t>(FLOOR_QUADS + STRUCTURE_QUADS + 5)`.
-- Vérifie que `quads[index].layer` vaut `RenderLayer::Tile`.
-- Vérifie que `hmi::sortsByDepth(quads[index].layer)` est vrai.
-- Vérifie que `quads[index - 1].sortOrder` est inférieur ou égal à `quads[index].sortOrder`.
-
-### ArenaSceneComposerTest.ProfondeurAuPiedDeLaCase
-
-*Majeur · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:255`
-
-La profondeur suit le pied de la case.
-
-**Étapes**
-
-1. Composer la scene.
-2. Reperer la figurine de Bram (1, 1), le pan (1, 0), le pan (1, 3) et le pan a torche (4, 2).
-
-**Résultat attendu**
-
-- Vérifie que `found` diffère de `quads.end()`.
-- Vérifie que `bram` diffère de `nullptr`.
-- Vérifie que `back` diffère de `nullptr`.
-- Vérifie que `front` diffère de `nullptr`.
-- Vérifie que `torch` diffère de `nullptr`.
-- Vérifie que `torch->texture` vaut `sceneTextures.resolve(scenePiece("torch-left")).texture`.
-- Vérifie que `indexOf(back)` est strictement inférieur à `indexOf(bram)`.
-- Vérifie que `indexOf(bram)` est strictement inférieur à `indexOf(front)`.
-
-### ArenaSceneComposerTest.LeDecorSePoseParSonAncreDansLeBonSens
-
-*Majeur · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:310`
-
-Le decor de l'atelier des textures (LOT-92) est pose par son ancre, dans le bon sens.
-
-**Étapes**
-
-1. Composer la piste 5x4.
-2. Relever la piece et le sol de (1, 0), (0, 1), (0, 0), (4, 3), (0, 2).
-
-**Résultat attendu**
-
-- Vérifie que `found` diffère de `composed.quads().end()`.
-- Vérifie que `is(back, "wall-right")` est vrai.
-- Vérifie que `is(side, "wall-left")` est vrai.
-- Vérifie que `side` diffère de `nullptr`.
-- Vérifie que `side->sprite.x` vaut `top.x - 34.0f * unitsPerArtPixel`, à `1e-3f` près.
-- Vérifie que `side->sprite.y` vaut `top.y - (STANDING_HEIGHT - 42) * unitsPerArtPixel`, à `1e-3f` près.
-- Vérifie que `side->sprite.width` vaut `68.0f * unitsPerArtPixel`, à `1e-3f` près.
-- Vérifie que `is(pieceAt({.column = 0, .row = 0}, RenderLayer::Object), "wall-corner")` est vrai.
-- Vérifie que `is(pieceAt({.column = 4, .row = 3}, RenderLayer::Object), "pillar")` est vrai.
-- Vérifie que `is(pieceAt({.column = 0, .row = 2}, RenderLayer::Object), "arch-left")` est vrai.
-- Vérifie que `is(pieceAt({.column = 0, .row = 2}, RenderLayer::Tile), "gate-threshold")` est vrai.
-
-### ArenaSceneComposerTest.ATerreEtSorti
-
-*Bloquant · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:362`
-
-Down compose une figurine, Withdrawn aucune.
-
-**Étapes**
-
-1. Demarrer le combat.
-2. Abattre Bram (allie) et Orc (ennemi), faire sortir Cid.
-3. Composer la scene.
-
-**Résultat attendu**
-
-- Vérifie que `session.start()` est vrai.
-- Vérifie que `combat.withdraw(idOf(session, "Cid"))` vaut `core::WithdrawResult::Withdrawn`.
-- Vérifie que `combat.find(idOf(session, "Bram"))->status` vaut `core::CombatantStatus::Down`.
-- Vérifie que `combat.find(idOf(session, "Orc"))->status` vaut `core::CombatantStatus::Down`.
-- Vérifie que `combat.find(idOf(session, "Cid"))->status` vaut `core::CombatantStatus::Withdrawn`.
-- Vérifie que `combat.phase()` diffère de `core::CombatPhase::Ended`.
-- Vérifie que `onLayer(scene, RenderLayer::Player).size()` vaut `4U`.
-- Vérifie que `bram` diffère de `nullptr`.
-- Vérifie que `bram->sprite.u0` vaut `4.0f * 48.0f / 240.0f` (comparaison flottante).
-- Vérifie que `bram->sprite.u1` vaut `1.0f` (comparaison flottante).
-- Vérifie que `bram->sprite.a` vaut `1.0f` (comparaison flottante).
-- Vérifie que `orc` diffère de `nullptr`.
-- Vérifie que `orc->sprite.u0` vaut `7.0f * 48.0f / 384.0f` (comparaison flottante).
-- Vérifie que `orc->sprite.a` vaut `hmi::ARENA_DOWN_ENEMY_ALPHA` (comparaison flottante).
-- Vérifie que `cid` diffère de `eve`.
-- Vérifie que `withTexture(scene, cid)` vaut `nullptr`.
-
-### ArenaSceneComposerTest.ImageCouranteBornee
-
-*Majeur · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:409`
-
-L'image courante vient de ArenaAnimationState, bornee a la bande.
-
-**Étapes**
-
-1. Donner l'image 3 a Eve et l'image 99 a Rat.
-2. Composer la scene.
-
-**Résultat attendu**
-
-- Vérifie que `eve` diffère de `nullptr`.
-- Vérifie que `eve->sprite.u0` vaut `144.0f / 240.0f` (comparaison flottante).
-- Vérifie que `eve->sprite.u1` vaut `192.0f / 240.0f` (comparaison flottante).
-- Vérifie que `eve->sprite.v1` vaut `1.0f` (comparaison flottante).
-- Vérifie que `rat` diffère de `nullptr`.
-- Vérifie que `rat->sprite.u0` vaut `7.0f * 48.0f / 384.0f` (comparaison flottante).
-- Vérifie que `rat->sprite.a` vaut `1.0f` (comparaison flottante).
-
-### ArenaSceneComposerTest.RepliSurLeDamier
-
-*Majeur · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:439`
-
-Repli sur le damier, puis rien.
-
-**Étapes**
-
-1. Composer sans aucune texture chargee, damier fourni.
-2. Composer sans aucune texture ni damier.
-
-**Résultat attendu**
-
-- Vérifie que `fallback.size()` vaut `static_cast<std::size_t>(FLOOR_QUADS + STRUCTURE_QUADS + 5)`.
-- Vérifie que `std::all_of(fallback.quads().begin(), fallback.quads().end(), [&](const hmi::ComposedQuad& quad) { return quad.texture == onlyMissing.missing.texture; })` est vrai.
-- Vérifie que `empty.size()` vaut `0U`.
-
-### ArenaSceneComposerTest.LectureSeule
-
-*Bloquant · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:465`
-
-La composition est une lecture seule (EX-ARCH-012).
-
-**Étapes**
-
-1. Demarrer le combat, relever phase, tour actif, journal et positions.
-2. Composer deux fois.
-
-**Résultat attendu**
-
-- Vérifie que `session.start()` est vrai.
-- Vérifie que `session.combat().phase()` vaut `phase`.
-- Vérifie que `session.combat().activeCombatant()` vaut `active`.
-- Vérifie que `session.journal().size()` vaut `journal`.
-- Vérifie que `after` vaut `positions`.
-- Vérifie que `first.size()` vaut `second.size()`.
-- Vérifie que `a.layer` vaut `b.layer`.
-- Vérifie que `a.texture` vaut `b.texture`.
-- Vérifie que `a.sortOrder` vaut `b.sortOrder`.
-- Vérifie que `a.sprite.x` vaut `b.sprite.x` (comparaison flottante).
-- Vérifie que `a.sprite.y` vaut `b.sprite.y` (comparaison flottante).
-
-### ArenaSceneComposerTest.InstantaneSurvitALaSession
-
-*Bloquant · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:510`
-
-L'instantane en valeurs survit a sa session (LOT-86 Phase 5).
-
-**Étapes**
-
-1. Abattre Bram, faire sortir Cid, tirer l'instantane.
-2. Detruire une copie de la session, composer l'instantane.
-
-**Résultat attendu**
-
-- Vérifie que `session.start()` est vrai.
-- Vérifie que `session.combat().withdraw(idOf(session, "Cid"))` vaut `core::WithdrawResult::Withdrawn`.
-- Vérifie que `ephemeral->mount(affrontement()).refusals.empty()` est vrai.
-- Vérifie que `ephemeral->start()` est vrai.
-- Vérifie que `ephemeral->combat().withdraw(idOf(*ephemeral, "Cid"))` vaut `core::WithdrawResult::Withdrawn`.
-- Vérifie que `snapshot` vaut `hmi::snapshotArenaScene(session)`.
-- Vérifie que `snapshot.columns` vaut `5`.
-- Vérifie que `snapshot.rows` vaut `4`.
-- Vérifie que `std::count(snapshot.obstructed.begin(), snapshot.obstructed.end(), true)` vaut `13`.
-- Vérifie que `snapshot.figures.size()` vaut `4U`.
-- Vérifie que `std::none_of(snapshot.figures.begin(), snapshot.figures.end(), [](const hmi::ArenaFigureSnapshot& f) { return f.name == "Cid"; })` est vrai.
-- Vérifie que `bram` diffère de `snapshot.figures.end()`.
-- Vérifie que `bram->down` est vrai.
-- Vérifie que `bram->anchor` vaut `(core::GridPosition{.column = 1, .row = 1})`.
-- Vérifie que `fromSnapshot.size()` vaut `fromSession.size()`.
-- Vérifie que `a.texture` vaut `b.texture`.
-- Vérifie que `a.sortOrder` vaut `b.sortOrder`.
-- Vérifie que `a.sprite.x` vaut `b.sprite.x` (comparaison flottante).
-- Vérifie que `a.sprite.u0` vaut `b.sprite.u0` (comparaison flottante).
-- Vérifie que `a.sprite.a` vaut `b.sprite.a` (comparaison flottante).
-
-### ArenaSceneComposerTest.ListeDesTexturesCouvreLaComposition
-
-*Majeur · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:569`
-
-La liste des textures couvre tout ce que la composition demande.
-
-**Étapes**
-
-1. Lier chaque chemin de arenaTexturePaths a une texture, et le damier a une autre.
-2. Composer la piste avec un allie a terre.
-
-**Résultat attendu**
-
-- Vérifie que `std::adjacent_find(sorted.begin(), sorted.end())` vaut `sorted.end()`.
-- Vérifie que `session.start()` est vrai.
-- Vérifie que `scene.size()` vaut `static_cast<std::size_t>(FLOOR_QUADS + STRUCTURE_QUADS + 5)`.
-- Vérifie que `std::none_of( scene.quads().begin(), scene.quads().end(), [&](const hmi::ComposedQuad& quad) { return quad.texture == listed.missing.texture; })` est vrai.
-
-### ArenaSceneComposerTest.UneFigurineDeRemplacementSuitSaPropreDecoupe
-
-*Majeur · Unitaire · Composeur de la scene de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_composer.cpp:604`
-
-Un heros remplace se dessine depuis `../Npc/<slug>` ; une bande large (96 px) donne un quad deux fois plus large, centre au meme endroit, et sa derniere image a terre.
-
-**Étapes**
-
-1. Remplacer la figurine de Bram par `../Npc/anariel`, avec `idle.png` 288x64 (frameWidth 48) et `death.png` 576x64 (frameWidth 96).
-2. Composer debout a l'image 5, puis a terre.
-
-**Résultat attendu**
-
-- Vérifie que `appearance.replaceHero(sheet, "../Npc/anariel")` est vrai.
-- Vérifie que `session.start()` est vrai.
-- Vérifie que `repos` diffère de `nullptr`.
-- Vérifie que `repos->sprite.u0` vaut `5.0f * 48.0f / 288.0f` (comparaison flottante).
-- Vérifie que `repos->sprite.u1` vaut `1.0f` (comparaison flottante).
-- Vérifie que `session.combat().find(bram)->status` vaut `core::CombatantStatus::Down`.
-- Vérifie que `mort` diffère de `nullptr`.
-- Vérifie que `mort->sprite.u0` vaut `5.0f * 96.0f / 576.0f` (comparaison flottante).
-- Vérifie que `mort->sprite.u1` vaut `1.0f` (comparaison flottante).
-- Vérifie que `mort->sprite.width` vaut `repos->sprite.width * 2.0f` (comparaison flottante).
-- Vérifie que `mort->sprite.height` vaut `repos->sprite.height` (comparaison flottante).
-- Vérifie que `mort->sprite.x + mort->sprite.width / 2.0f` vaut `centreDebout`, à `1e-3f` près.
-
-## test_arena_scene_renderer.cpp
-
-### ArenaSceneRendererTest.CreationLiberationRecreation
-
-*Bloquant · Unitaire · Rendu QRhi de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:160`
-
-Le cycle de vie des ressources QRhi de l'arene est sur.
-
-**Étapes**
-
-1. Creer les ressources sur une interface QRhi hors ecran, sans jamais dessiner.
-2. Liberer, puis liberer encore.
-3. Recreer, dessiner une image, detruire le rendu avant l'interface.
-
-**Résultat attendu**
-
-- Vérifie que `renderer.catalog().heroes().empty()` est faux.
-- Vérifie que `renderer.ensureResources(nullptr)` est faux.
-- Vérifie que `renderer.created()` est faux.
-- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
-- Vérifie que `renderer.created()` est vrai.
-- Vérifie que `renderer.rhi()` vaut `rhi.get()`.
-- Vérifie que `renderer.textures().byPath.size()` vaut `hmi::arenaTexturePaths(renderer.catalog()).size()`.
-- Vérifie que `renderer.textures().missing.texture` diffère de `nullptr`.
-- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
-- Vérifie que `renderer.textures().resolve("../Scene/bourg/sand.png").texture` vaut `sand`.
-- Vérifie que `renderer.created()` est faux.
-- Vérifie que `renderer.rhi()` vaut `nullptr`.
-- Vérifie que `renderer.textures().byPath.empty()` est vrai.
-- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
-- Vérifie que `image.size()` vaut `QSize(TARGET_SIZE, TARGET_SIZE)`.
-
-### ArenaSceneRendererTest.SceneNonVideSurUneGrilleDeTest
-
-*Bloquant · Unitaire · Rendu QRhi de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:213`
-
-La scene de l'arene devient des pixels.
-
-**Étapes**
-
-1. Tirer l'instantane de la piste 5x4 (quatre combattants), puis detruire la session.
-2. Dessiner une image hors ecran et la relire.
-
-**Résultat attendu**
-
-- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
-- Vérifie que `renderer.animating()` est vrai.
-- Vérifie que `image.size()` vaut `QSize(TARGET_SIZE, TARGET_SIZE)`.
-- Vérifie que `renderer.composed().size()` vaut `PISTE_QUADS`.
-- Vérifie que `quad.texture` diffère de `nullptr`.
-- Vérifie que `quad.texture` diffère de `renderer.textures().missing.texture`.
-- Vérifie que `painted` est strictement supérieur à `static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 5)`.
-- Vérifie que `painted` est strictement inférieur à `static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE)`.
-- Vérifie que `renderer.animating()` est faux.
-- Vérifie que `renderer.composed().size()` vaut `0U`.
-- Vérifie que `paintedPixels(empty)` vaut `0U`.
-
-### ArenaSceneRendererTest.RecreationSurUneAutreInterface
-
-*Critique · Unitaire · Rendu QRhi de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:260`
-
-Le rendu de l'arene se recree sur une nouvelle interface QRhi.
-
-**Étapes**
-
-1. Creer et dessiner sur une premiere interface.
-2. Appeler ensureResources avec une seconde interface, puis dessiner dessus.
-
-**Résultat attendu**
-
-- Vérifie que `renderer.ensureResources(first.get())` est vrai.
-- Vérifie que `paintedPixels(renderFrame(*first, renderer, firstTarget))` est strictement supérieur à `0U`.
-- Vérifie que `renderer.ensureResources(second.get())` est vrai.
-- Vérifie que `renderer.rhi()` vaut `second.get()`.
-- Vérifie que `renderer.textures().byPath.size()` vaut `hmi::arenaTexturePaths(renderer.catalog()).size()`.
-- Vérifie que `paintedPixels(renderFrame(*second, renderer, secondTarget))` est strictement supérieur à `0U`.
-- Vérifie que `renderer.composed().size()` vaut `PISTE_QUADS`.
-
-### ArenaSceneRendererTest.LeCadrageRameneChaqueCaseAElleMeme
-
-*Critique · Unitaire · Rendu QRhi de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:292`
-
-Le centre de chaque case, projete a l'ecran par le cadrage du rendu, redevient la meme case.
-
-**Étapes**
-
-1. Pour plusieurs grilles et surfaces (zoom entier et zoom inferieur a 1), cadrer par arenaCamera.
-2. Projeter le centre de chaque case a l'ecran, puis revenir au monde et a la case.
-3. Revenir d'un coin de la surface, hors de la scene.
-
-**Résultat attendu**
-
-- Vérifie que `screen.x` est supérieur ou égal à `0.0f`.
-- Vérifie que `screen.x` est inférieur ou égal à `static_cast<float>(cas.width)`.
-- Vérifie que `screen.y` est supérieur ou égal à `0.0f`.
-- Vérifie que `screen.y` est inférieur ou égal à `static_cast<float>(cas.height)`.
-- Vérifie que `cell.has_value()` est vrai.
-- Vérifie que `cell->column` vaut `column`.
-- Vérifie que `cell->row` vaut `row`.
-- Vérifie que `projection.worldToTile(camera.screenToWorld({0.0f, 0.0f})).has_value()` est faux.
-
-### ArenaSceneRendererTest.CaptureDeLArenePourRelecture
-
-*Mineur · Unitaire · Rendu QRhi de l'arene* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:334`
-
-Capture de l'arène pour relecture à l'œil (LOT-92).
-
-**Étapes**
-
-1. Définir JADG_ARENA_CAPTURE, lancer ce test.
-2. Ouvrir l'image.
-
-**Résultat attendu**
-
-- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
-- Vérifie que `image.isNull()` est faux.
-- Vérifie que `image.save(destination)` est vrai.
-
-### ArenaSceneRendererTest.LeCombatUtiliseLeDecorEtLesDepartsDeLaZone
-
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_arena_scene_renderer.cpp:388`
-
-Le combat utilise le décor et les départs de la nouvelle arène.
-
-**Étapes**
-
-1. Charger la zone sable, monter deux concurrents et rendre la scène.
-
-**Résultat attendu**
-
-- Vérifie que `loaded.ok()` est vrai.
-- Vérifie que `zone` diffère de `nullptr`.
-- Vérifie que `zone->columns` vaut `20`.
-- Vérifie que `zone->rows` vaut `14`.
-- Vérifie que `core::validateCombatZones("donjon", *loaded.level).empty()` est vrai.
-- Vérifie que `mounted.refusals.empty()` est vrai.
-- Vérifie que `snapshot.figures.size()` vaut `2U`.
-- Vérifie que `snapshot.figures[0].anchor.column` vaut `1`.
-- Vérifie que `snapshot.figures[1].anchor.column` vaut `18`.
-- Vérifie que `rhi` diffère de `nullptr`.
-- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
-- Vérifie que `renderer.composed().quads().size()` est strictement supérieur à `280U`.
-- Vérifie que `quad.texture` diffère de `renderer.textures().missing.texture`.
-- Vérifie que `image.save("salle-combat.png")` est vrai.
-- Vérifie que `session.start()` est vrai.
 
 ## test_asset_gallery.cpp
 
@@ -1310,94 +535,6 @@ Les chargements s'étalent, un fichier absent ne bloque rien.
 - Vérifie que `absent.cachedTextureCount()` vaut `1U`.
 - Vérifie que `paintedPixels(image)` est strictement supérieur à `100U`.
 
-## test_cache_registry.cpp
-
-### CacheRegistryTest.ChargeUneSeuleFoisPourUneCleRepetee
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:43`
-
-Une clé demandée deux fois n'est chargée qu'une fois et rend la même entrée.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `first` diffère de `nullptr`.
-- Vérifie que `second` diffère de `nullptr`.
-- Vérifie que `*first` vaut `42`.
-- Vérifie que `second` vaut `first`.
-- Vérifie que `loader.callCount()` vaut `1`.
-
-### CacheRegistryTest.InvalidateForceLeRechargementDeLaCleSeule
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:68`
-
-invalidate ne force le rechargement que de la clé visée, pas des autres.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `loaderA.callCount()` vaut `2`.
-- Vérifie que `loaderB.callCount()` vaut `1`.
-
-### CacheRegistryTest.InvalidateAllViseTout
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:95`
-
-invalidateAll vide le registre et fait relire toutes les clés.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `registry.size()` vaut `2U`.
-- Vérifie que `registry.size()` vaut `0U`.
-- Vérifie que `loaderA.callCount()` vaut `2`.
-- Vérifie que `loaderB.callCount()` vaut `2`.
-
-### CacheRegistryTest.UnEchecEstMemoriseSansRetenterLeChargement
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:123`
-
-Un échec de chargement est mémorisé : la clé absente n'est pas relue.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `first` vaut `nullptr`.
-- Vérifie que `second` vaut `nullptr`.
-- Vérifie que `loader.callCount()` vaut `1`.
-
-### CacheRegistryTest.InvalidateSurUnEchecPermetUnNouvelEssai
-
-*Critique · Unitaire · Registre de cache* — `Source/Test/Unit/HMI/Graphics/test_cache_registry.cpp:146`
-
-Invalider une clé en échec autorise un nouvel essai, qui peut réussir.
-
-**Étapes**
-
-1. Mettre en place le contexte du test (arrangement).
-2. Executer le scenario et verifier les assertions.
-
-**Résultat attendu**
-
-- Vérifie que `result` diffère de `nullptr`.
-- Vérifie que `*result` vaut `7`.
-
 ## test_camera2d.cpp
 
 ### Camera2DTest.CentreAuMilieuDeLEcran
@@ -1564,7 +701,7 @@ fitZoom applique la marge telle quelle.
 
 ### CapitalKitRender.AStreetOfTwelveCellsIsComposedWithTheKitAlone
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_capital_kit_render.cpp:127`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_capital_kit_render.cpp:134`
 
 Le moteur rend une rue de douze cases composee du seul kit de la Capitale.
 
@@ -1824,7 +961,7 @@ Les pixels du marqueur sont empaquetes au format de createTexture.
 
 ### HdMockupRender.MatchesTheHandMadeMockupAt1080p
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:220`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:221`
 
 Le moteur rend la maquette du standard 2D HD a 1080p.
 
@@ -1840,7 +977,7 @@ Le moteur rend la maquette du standard 2D HD a 1080p.
 
 ### HdMockupRender.MatchesTheHandMadeMockupAt2160p
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:236`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:237`
 
 Le moteur rend la maquette du standard 2D HD a 2160p.
 
@@ -1856,7 +993,7 @@ Le moteur rend la maquette du standard 2D HD a 2160p.
 
 ### HdMockupRender.WritesASlowTravellingForTheAuthor
 
-*Mineur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:258`
+*Mineur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_hd_mockup_render.cpp:259`
 
 Le travelling de la maquette s'ecrit pour le controle visuel.
 
@@ -2042,7 +1179,7 @@ L'image d'un jeton est un disque a lettre, deterministe.
 
 ### MaquetteTokenTest.UneDemandeImpossibleRendUneImageVide
 
-*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:112`
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:111`
 
 Une demande impossible rend une image vide.
 
@@ -2057,7 +1194,7 @@ Une demande impossible rend une image vide.
 
 ### MaquetteTokenTest.LesSixNaturesOntSixTeintes
 
-*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:127`
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:126`
 
 Les six natures de jeton ont six teintes distinctes.
 
@@ -3051,7 +2188,7 @@ La cle du marqueur d'une figurine se tire de son chemin de bande.
 
 ### WorldSceneComposerTest.UneFigurineSeNommeParSlugOuParDossier
 
-*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:441`
+*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:442`
 
 Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
@@ -3067,7 +2204,7 @@ Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
 ### WorldSceneComposerTest.LaPieceNommeeLEmporteSousSonNomCourant
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:460`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:461`
 
 La pièce nommée l'emporte, sous son nom courant.
 
@@ -3084,7 +2221,7 @@ La pièce nommée l'emporte, sous son nom courant.
 
 ### WorldSceneComposerTest.UnePieceLargeSeTrieAuPiedDeSonEmprise
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:489`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:490`
 
 Une pièce large se trie au pied de son emprise.
 
@@ -3101,7 +2238,7 @@ Une pièce large se trie au pied de son emprise.
 
 ### ScenePiecePlacement.DepthRequiresAValidAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:530`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:531`
 
 La profondeur exige une ancre valide.
 
@@ -3117,7 +2254,7 @@ La profondeur exige une ancre valide.
 
 ### MaquetteRenderTest.UneCarteSansLieuSeComposeEnLosangesDeCouleur
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:575`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:576`
 
 Une carte sans lieu se compose en losanges de couleur.
 
@@ -3139,7 +2276,7 @@ Une carte sans lieu se compose en losanges de couleur.
 
 ### MaquetteRenderTest.UnTypeNonCouvertParLeLieuPrendLaMaquette
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:612`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:613`
 
 Un type absent de la table du lieu prend le rendu de maquette.
 
@@ -3158,7 +2295,7 @@ Un type absent de la table du lieu prend le rendu de maquette.
 
 ### MaquetteRenderTest.SansAplatRienNEstCompose
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:654`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:655`
 
 Sans aplat, la maquette ne compose rien.
 
@@ -3172,7 +2309,7 @@ Sans aplat, la maquette ne compose rien.
 
 ### MaquetteRenderTest.UnMurSeComposeEnBlocDeTroisFaces
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:673`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:674`
 
 Un mur se compose en bloc de trois faces, haut d'une case.
 
@@ -3191,7 +2328,7 @@ Un mur se compose en bloc de trois faces, haut d'une case.
 
 ### MaquetteRenderTest.UnMurDeDecorSeCoucheAPlatSurLePlan
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:719`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:720`
 
 Un mur de decor se couche a plat sur le plan.
 
@@ -3211,7 +2348,7 @@ Un mur de decor se couche a plat sur le plan.
 
 ### MaquetteRenderTest.LEauProfondeNeSExtrudePas
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:767`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:768`
 
 L'eau profonde reste un losange plat, plus sombre que l'eau vive.
 
@@ -3229,7 +2366,7 @@ L'eau profonde reste un losange plat, plus sombre que l'eau vive.
 
 ### MaquetteRenderTest.ChaqueTypeASaTeinteEtSaForme
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:788`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:789`
 
 Deux types de tuile ne partagent jamais une teinte de maquette.
 
@@ -3250,7 +2387,7 @@ Deux types de tuile ne partagent jamais une teinte de maquette.
 
 ### MaquetteRenderTest.UneColonneSeComposeEnBlocEtroitSurSonSocle
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:827`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:828`
 
 Une colonne se compose en bloc etroit, sur son socle.
 
@@ -3269,7 +2406,7 @@ Une colonne se compose en bloc etroit, sur son socle.
 
 ### MaquetteRenderTest.LaCouleurDuJetonSeDeduitDeLEntite
 
-*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:875`
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:876`
 
 La couleur d'un jeton se deduit de ce que le format dit deja.
 
@@ -3298,7 +2435,7 @@ La couleur d'un jeton se deduit de ce que le format dit deja.
 
 ### MaquetteRenderTest.LesTracesNeParaissentQuEnMaquette
 
-*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:925`
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:926`
 
 Une carte habillee garde ses jetons mais perd ses traces.
 
@@ -3320,7 +2457,7 @@ Une carte habillee garde ses jetons mais perd ses traces.
 
 ### MaquetteRenderTest.LesCheminsContiennentLesJetons
 
-*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:968`
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:969`
 
 Les chemins de textures d'une carte contiennent ceux de ses jetons.
 
@@ -3335,7 +2472,7 @@ Les chemins de textures d'une carte contiennent ceux de ses jetons.
 
 ### WorldSceneComposerTest.UneFigurineSeTourneVersLUneDesQuatreDiagonales
 
-*Critique · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:998`
+*Critique · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:999`
 
 L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.
 
@@ -3360,7 +2497,7 @@ L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.
 
 ### WorldSceneComposerTest.UneFigurineOrienteeLitLaBandeDeSonOrientation
 
-*Majeur · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1033`
+*Majeur · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1036`
 
 Une figurine orientee a une bande par orientation.
 
@@ -3382,7 +2519,7 @@ Une figurine orientee a une bande par orientation.
 
 ### WorldSceneComposerTest.LesPiedsDuHerosTombentAuCentreDeSaCase
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1101`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1104`
 
 Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.
 
@@ -3398,7 +2535,7 @@ Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.
 
 ### WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1135`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1138`
 
 Exigences : `EX-REN-005`
 
@@ -3418,7 +2555,7 @@ L'image affichee suit la duree que declare la bande.
 
 ### WorldSceneComposerTest.UnHerosLitLEchelleEtLeSolDeSonAtelier
 
-*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1170`
+*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1173`
 
 Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.
 
@@ -3442,7 +2579,7 @@ Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.
 
 ### WorldSceneComposerTest.UneBandeAUnCoupSeFigeSurSaDerniereImage
 
-*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1213`
+*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1217`
 
 Une bande a un coup se fige sur sa derniere image.
 
@@ -3460,7 +2597,7 @@ Une bande a un coup se fige sur sa derniere image.
 
 ### WorldSceneComposerTest.UnCombattantPrechargeSesSixBandes
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1251`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1255`
 
 Les chemins d'un combattant couvrent les six bandes.
 
@@ -3477,7 +2614,7 @@ Les chemins d'un combattant couvrent les six bandes.
 
 ### MaquetteRenderTest.LeMannequinRemplaceLeJetonDUnPnjSansFigurine
 
-*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1276`
+*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1280`
 
 Le mannequin remplace le jeton d'un PNJ sans figurine.
 

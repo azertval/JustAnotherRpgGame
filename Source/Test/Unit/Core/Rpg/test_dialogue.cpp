@@ -37,9 +37,15 @@ namespace {
 const std::filesystem::path RPG{JADG_RPG_DIR};
 const std::filesystem::path WORLD{JADG_WORLD_DIR};
 
-const std::string HERAUT = "heraut-colisee";
-const std::string RENCONTRE = "dialogue/heraut-colisee/rencontre";
-const std::string ECHEC = "dialogue/heraut-colisee/persuasion-echouee";
+const std::filesystem::path ESSAI{JADG_TEST_DATA_DIR};
+
+/// Le heraut d'essai (`Fixtures/GameData/World/dialogues/heraut-d-essai.json`) : quatorze noeuds,
+/// deux conditions, un jet de Persuasion, une quete demarree -- le graphe precis que les parcours
+/// ci-dessous verifient replique par replique. Le contenu livre, lui, change avec la demo.
+const std::string HERAUT = "heraut-d-essai";
+const std::string RENCONTRE = "dialogue/heraut-d-essai/rencontre";
+const std::string ECHEC = "dialogue/heraut-d-essai/persuasion-echouee";
+const std::string QUETE = "champion-d-essai";
 
 [[nodiscard]] const core::DifficultyScale& echelle() {
     static const core::DifficultyScale lue =
@@ -47,9 +53,23 @@ const std::string ECHEC = "dialogue/heraut-colisee/persuasion-echouee";
     return lue;
 }
 
+/// Les dialogues LIVRES (`Source/Elements/World/dialogues`).
 [[nodiscard]] const core::DialogueCatalog& dialogues() {
     static const core::DialogueCatalog lus = core::loadDialogues(WORLD / "dialogues");
     return lus;
+}
+
+/// Les dialogues de la racine d'ESSAI, dont le heraut d'essai.
+[[nodiscard]] const core::DialogueGraph& herautDEssai() {
+    static const core::DialogueCatalog lus = core::loadDialogues(ESSAI / "World" / "dialogues");
+    EXPECT_TRUE(lus.errors.empty()) << (lus.errors.empty() ? "" : lus.errors.front());
+    const core::DialogueGraph* graphe = lus.find(HERAUT);
+    if (graphe == nullptr) {
+        ADD_FAILURE() << "le heraut d'essai manque a la racine d'essai";
+        static const core::DialogueGraph vide;
+        return vide;
+    }
+    return *graphe;
 }
 
 /// Un interlocuteur d'essai : ses langues, un modificateur fixe par jet, et ce qu'il a recu.
@@ -128,28 +148,28 @@ private:
 }  // namespace
 
 /**
- * @brief Le dialogue de démonstration se charge, dix nœuds au moins, deux conditions et un jet de
- *        Persuasion, et tout ce qu'il nomme existe dans les catalogues.
- * \castest{<b>Le dialogue du heraut se charge et ses references existent.</b><br/>
+ * @brief Les dialogues livrés se chargent, celui du garde a dix nœuds au moins, une condition et
+ *        un jet de Persuasion, et tout ce qu'ils nomment existe dans les catalogues.
+ * \castest{<b>Les dialogues de la demo se chargent et leurs references existent.</b><br/>
  * \tcat Unitaire · Dialogue<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Charger Source/Elements/World/dialogues.<br/>2. Charger competences, degres de
- * difficulte, objets et langues.<br/>3. Valider les references du heraut.<br/>
- * \tattendu Aucune erreur ; au moins dix noeuds, deux conditions et un jet de persuasion ; aucune
- * reference inconnue.
+ * difficulte, objets et langues.<br/>3. Valider les references de chaque dialogue.<br/>
+ * \tattendu Aucune erreur ; le garde a au moins dix noeuds, une condition et un jet de persuasion ;
+ * aucune reference inconnue.
  * }
  */
-TEST(DialogueTest, LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent) {
+TEST(DialogueTest, LesDialoguesDeLaDemoSeChargentEtLeursReferencesExistent) {
     ASSERT_TRUE(dialogues().errors.empty()) << dialogues().errors.front();
     ASSERT_TRUE(echelle().errors.empty()) << echelle().errors.front();
-    const core::DialogueGraph* heraut = dialogues().find(HERAUT);
-    ASSERT_NE(heraut, nullptr);
+    const core::DialogueGraph* garde = dialogues().find("garde");
+    ASSERT_NE(garde, nullptr);
 
-    EXPECT_GE(heraut->nodes.size(), 10U);
-    EXPECT_GE(std::ranges::count(heraut->nodes, core::DialogueNodeKind::Condition,
+    EXPECT_GE(garde->nodes.size(), 10U);
+    EXPECT_GE(std::ranges::count(garde->nodes, core::DialogueNodeKind::Condition,
                                  &core::DialogueNode::kind),
-              2);
-    EXPECT_TRUE(std::ranges::any_of(heraut->nodes, [](const core::DialogueNode& n) {
+              1);
+    EXPECT_TRUE(std::ranges::any_of(garde->nodes, [](const core::DialogueNode& n) {
         return n.kind == core::DialogueNodeKind::Check && n.skill == "persuasion";
     }));
 
@@ -170,44 +190,44 @@ TEST(DialogueTest, LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent) {
 }
 
 /**
- * @brief Critère d'acceptation : le dialogue de dix nœuds, deux conditions et un jet de Persuasion
- *        se parcourt **en headless**, réussite puis retour, les drapeaux orientant la seconde
- *        conversation.
- * \castest{<b>Le dialogue du heraut se parcourt sans fenetre.</b><br/>
+ * @brief Critère d'acceptation : un dialogue de dix nœuds au moins, deux conditions et un jet de
+ *        Persuasion (le héraut d'essai) se parcourt **en headless**, réussite puis retour, les
+ *        drapeaux orientant la seconde conversation.
+ * \castest{<b>Le dialogue du heraut d'essai se parcourt sans fenetre.</b><br/>
  * \tcat Unitaire · Dialogue<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Ouvrir la conversation avec un interlocuteur parlant le commun, +20 aux jets.<br/>
- * 2. Demander la Marque, continuer, demander l'inscription, convaincre.<br/>3. Continuer jusqu'a la
- * fin.<br/>4. Rouvrir une seconde conversation sur les memes drapeaux, demander l'inscription.<br/>
+ * \tetapes 1. Ouvrir le heraut d'essai (racine d'essai) avec un interlocuteur parlant le commun,
+ * +20 aux jets.<br/>2. Demander la Marque, continuer, demander l'inscription, convaincre.<br/>3.
+ * Continuer jusqu'a la fin.<br/>4. Rouvrir une seconde conversation sur les memes drapeaux,
+ * demander l'inscription.<br/>
  * \tattendu Premiere conversation : presentation, marque, retour, demande, jet reussi contre 15,
  * quete demarree, fin. Seconde : retour (condition de rencontre), deja inscrit (condition de
  * quete), fin. Au moins dix noeuds distincts traverses.
  * }
  */
-TEST(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless) {
-    const core::DialogueGraph* heraut = dialogues().find(HERAUT);
-    ASSERT_NE(heraut, nullptr);
+TEST(DialogueTest, LeDialogueDuHerautDEssaiSeParcourtEnHeadless) {
+    const core::DialogueGraph& heraut = herautDEssai();
     core::WorldFlags drapeaux;
     Auditeur brenna({"common", "elvish"}, 20);
     core::DeterministicRandom hasard(2026);
 
-    core::DialogueRunner premiere(*heraut, drapeaux, brenna, echelle(), hasard);
+    core::DialogueRunner premiere(heraut, drapeaux, brenna, echelle(), hasard);
     ASSERT_EQ(premiere.start(), core::DialogueState::AwaitingChoice);
-    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-colisee.presentation");
+    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-d-essai.presentation");
     EXPECT_TRUE(drapeaux.isSet(RENCONTRE)) << "l'action de premiere rencontre a pose son drapeau";
     EXPECT_EQ(identifiants(premiere.choices()),
               (std::vector<std::string>{"marque", "inscription", "partir"}));
     EXPECT_EQ(premiere.attitude(), core::DialogueAttitude::Indifferent);
 
     ASSERT_EQ(premiere.choose("marque"), core::ChoiceResult::Advanced);
-    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-colisee.marque");
+    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-d-essai.marque");
     ASSERT_EQ(identifiants(premiere.choices()), (std::vector<std::string>{"continue"}));
     EXPECT_EQ(premiere.choices().front().textKey, "dialogue.continue");
     ASSERT_EQ(premiere.choose("continue"), core::ChoiceResult::Advanced);
-    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-colisee.retour");
+    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-d-essai.retour");
 
     ASSERT_EQ(premiere.choose("inscription"), core::ChoiceResult::Advanced);
-    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-colisee.demande");
+    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-d-essai.demande");
     const std::vector<core::AvailableChoice> demande = premiere.choices();
     ASSERT_EQ(identifiants(demande), (std::vector<std::string>{"convaincre", "renoncer"}));
     EXPECT_EQ(demande.front().checkSkill, "persuasion") << "l'ecran annonce le jet avant le choix";
@@ -219,8 +239,8 @@ TEST(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless) {
     EXPECT_EQ(premiere.lastCheck()->skill, "persuasion");
     EXPECT_EQ(premiere.lastCheck()->result.target, 15) << "« moyenne », lue dans difficulty.json";
     EXPECT_TRUE(premiere.lastCheck()->result.succeeded());
-    EXPECT_TRUE(drapeaux.isSet(core::questStartedFlag("champion-du-colisee")));
-    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-colisee.accepte-replique");
+    EXPECT_TRUE(drapeaux.isSet(core::questStartedFlag(QUETE)));
+    EXPECT_EQ(premiere.lineKey(), "dialogue.heraut-d-essai.accepte-replique");
     EXPECT_EQ(premiere.attitude(), core::DialogueAttitude::Friendly);
 
     ASSERT_EQ(premiere.choose("continue"), core::ChoiceResult::Advanced);
@@ -228,11 +248,11 @@ TEST(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless) {
     EXPECT_TRUE(premiere.choices().empty());
     EXPECT_EQ(premiere.choose("continue"), core::ChoiceResult::NotAwaiting);
 
-    core::DialogueRunner seconde(*heraut, drapeaux, brenna, echelle(), hasard);
+    core::DialogueRunner seconde(heraut, drapeaux, brenna, echelle(), hasard);
     ASSERT_EQ(seconde.start(), core::DialogueState::AwaitingChoice);
-    EXPECT_EQ(seconde.lineKey(), "dialogue.heraut-colisee.retour") << "condition de rencontre";
+    EXPECT_EQ(seconde.lineKey(), "dialogue.heraut-d-essai.retour") << "condition de rencontre";
     ASSERT_EQ(seconde.choose("inscription"), core::ChoiceResult::Advanced);
-    EXPECT_EQ(seconde.lineKey(), "dialogue.heraut-colisee.deja-inscrit") << "condition de quete";
+    EXPECT_EQ(seconde.lineKey(), "dialogue.heraut-d-essai.deja-inscrit") << "condition de quete";
     ASSERT_EQ(seconde.choose("continue"), core::ChoiceResult::Advanced);
     EXPECT_EQ(seconde.state(), core::DialogueState::Ended);
 
@@ -240,7 +260,7 @@ TEST(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless) {
     traverses.merge(noeudsTraverses(seconde.journal()));
     EXPECT_GE(traverses.size(), 10U) << "dix noeuds au moins, conditions, actions et jet compris";
     EXPECT_TRUE(contient(premiere.journal(), "jet : jet-persuasion (persuasion)"));
-    EXPECT_TRUE(contient(premiere.journal(), "quete demarree : champion-du-colisee"));
+    EXPECT_TRUE(contient(premiere.journal(), "quete demarree : " + QUETE));
 }
 
 /**
@@ -256,29 +276,28 @@ TEST(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless) {
  * }
  */
 TEST(DialogueTest, UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle) {
-    const core::DialogueGraph* heraut = dialogues().find(HERAUT);
-    ASSERT_NE(heraut, nullptr);
+    const core::DialogueGraph& heraut = herautDEssai();
     core::WorldFlags drapeaux;
     Auditeur maladroit({"common"}, -20);
     core::DeterministicRandom hasard(7);
-    core::DialogueRunner runner(*heraut, drapeaux, maladroit, echelle(), hasard);
+    core::DialogueRunner runner(heraut, drapeaux, maladroit, echelle(), hasard);
 
     ASSERT_EQ(runner.start(), core::DialogueState::AwaitingChoice);
     ASSERT_EQ(runner.choose("inscription"), core::ChoiceResult::Advanced);
     ASSERT_EQ(runner.choose("convaincre"), core::ChoiceResult::Advanced);
     ASSERT_TRUE(runner.lastCheck().has_value());
     EXPECT_FALSE(runner.lastCheck()->result.succeeded());
-    EXPECT_EQ(runner.lineKey(), "dialogue.heraut-colisee.refuse-replique");
+    EXPECT_EQ(runner.lineKey(), "dialogue.heraut-d-essai.refuse-replique");
     EXPECT_EQ(runner.attitude(), core::DialogueAttitude::Hostile);
     EXPECT_TRUE(drapeaux.isSet(ECHEC));
-    EXPECT_FALSE(drapeaux.isSet(core::questStartedFlag("champion-du-colisee")));
+    EXPECT_FALSE(drapeaux.isSet(core::questStartedFlag(QUETE)));
 
     ASSERT_EQ(runner.choose("continue"), core::ChoiceResult::Advanced);
     ASSERT_EQ(runner.choose("inscription"), core::ChoiceResult::Advanced);
     EXPECT_EQ(identifiants(runner.choices()), (std::vector<std::string>{"renoncer"}));
     EXPECT_EQ(runner.choose("convaincre"), core::ChoiceResult::Unavailable);
     EXPECT_EQ(runner.choose("inexistante"), core::ChoiceResult::Unavailable);
-    EXPECT_EQ(runner.lineKey(), "dialogue.heraut-colisee.demande") << "un refus n'avance rien";
+    EXPECT_EQ(runner.lineKey(), "dialogue.heraut-d-essai.demande") << "un refus n'avance rien";
 }
 
 /**
@@ -286,19 +305,19 @@ TEST(DialogueTest, UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle) {
  * \castest{<b>Un dialogue est refuse faute de langue commune.</b><br/>
  * \tcat Unitaire · Dialogue<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Ouvrir le heraut (commun) avec un interlocuteur qui ne parle que le nain.<br/>
+ * \tetapes 1. Ouvrir le heraut d'essai (commun) avec un interlocuteur qui ne parle que le
+ * nain.<br/>
  * 2. Tenter une reponse.<br/>
  * \tattendu Etat Refused ; aucun drapeau pose ; aucune replique ni reponse ; une reponse rend
  * NotAwaiting ; le journal nomme la langue manquante.
  * }
  */
 TEST(DialogueTest, UnDialogueEstRefuseFauteDeLangueCommune) {
-    const core::DialogueGraph* heraut = dialogues().find(HERAUT);
-    ASSERT_NE(heraut, nullptr);
+    const core::DialogueGraph& heraut = herautDEssai();
     core::WorldFlags drapeaux;
     Auditeur nain({"dwarvish"}, 0);
     core::DeterministicRandom hasard(1);
-    core::DialogueRunner runner(*heraut, drapeaux, nain, echelle(), hasard);
+    core::DialogueRunner runner(heraut, drapeaux, nain, echelle(), hasard);
 
     EXPECT_EQ(runner.start(), core::DialogueState::Refused);
     EXPECT_EQ(drapeaux.size(), 0U) << "une conversation qui n'a pas lieu ne pose rien";
@@ -545,20 +564,20 @@ TEST(DialogueTest, LesActionsTouchentLeMonde) {
  * \castest{<b>Un dialogue se rejoue a l'identique a graine fixee.</b><br/>
  * \tcat Unitaire · Dialogue<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Jouer le heraut jusqu'au jet, sans bonus, a la graine 42, deux fois.<br/>2. Le jouer
+ * \tetapes 1. Jouer le heraut d'essai jusqu'au jet, sans bonus, a la graine 42, deux fois.<br/>
+ * 2. Le jouer
  * sur une plage de graines.<br/>
  * \tattendu Les deux journaux sont identiques ; sur la plage, le jet reussit au moins une fois et
  * echoue au moins une fois -- le de compte.
  * }
  */
 TEST(DialogueTest, UnDialogueSeRejoueAGraineFixee) {
-    const core::DialogueGraph* heraut = dialogues().find(HERAUT);
-    ASSERT_NE(heraut, nullptr);
-    const auto jouer = [heraut](std::uint64_t graine) {
+    const core::DialogueGraph& heraut = herautDEssai();
+    const auto jouer = [&heraut](std::uint64_t graine) {
         core::WorldFlags drapeaux;
         Auditeur neutre({"common"}, 0);
         core::DeterministicRandom hasard(graine);
-        core::DialogueRunner runner(*heraut, drapeaux, neutre, echelle(), hasard);
+        core::DialogueRunner runner(heraut, drapeaux, neutre, echelle(), hasard);
         static_cast<void>(runner.start());
         static_cast<void>(runner.choose("inscription"));
         static_cast<void>(runner.choose("convaincre"));

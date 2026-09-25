@@ -45,8 +45,8 @@ class WorldModel : public QObject {
     QML_ELEMENT
     // **Un singleton, et c'est le fond du sujet** : la session d'exploration est LA PARTIE, pas un
     // objet de l'écran de jeu. La pile d'écrans ne garde qu'un écran vivant à la fois (`Loader`) ;
-    // une session possédée par l'écran mourrait à l'ouverture du dialogue ou du Colisée, et l'on
-    // reviendrait sur une carte neuve, héros à la porte. Ce qui est exactement ce que le lot
+    // une session possédée par l'écran mourrait à l'ouverture du dialogue ou d'un écran RPG, et
+    // l'on reviendrait sur une carte neuve, héros à la porte. Ce qui est exactement ce que le lot
     // interdit : on revient au même endroit (`LOT-09`).
     QML_SINGLETON
 
