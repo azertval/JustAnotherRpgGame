@@ -246,6 +246,7 @@ const std::vector<EntityPropertySpec>& commonEntityProperties() {
 
 std::vector<const EntityPropertySpec*> inspectedProperties(const EntityKind& kind) {
     std::vector<const EntityPropertySpec*> specs;
+    specs.reserve(kind.properties.size() + commonEntityProperties().size());
     for (const EntityPropertySpec& spec : kind.properties) {
         specs.push_back(&spec);
     }
@@ -335,6 +336,14 @@ namespace {
     });
 }
 
+// Le defaut @p code si @p text manque a @p ensemble, rien sinon.
+template <class Ensemble>
+[[nodiscard]] std::optional<EntityIssueCode> absentDe(const Ensemble& ensemble,
+                                                      const std::string& text,
+                                                      EntityIssueCode code) {
+    return ensemble.contains(text) ? std::nullopt : std::optional<EntityIssueCode>{code};
+}
+
 // Defaut d'une propriete de choix non vide : la valeur n'est pas dans la liste que la source
 // designe. Rien pour une valeur admise.
 [[nodiscard]] std::optional<EntityIssueCode> choiceIssue(const MapEntity& entity,
@@ -349,20 +358,11 @@ namespace {
             }
             break;
         case EntityChoiceSource::Dialogues:
-            if (!context.dialogues.contains(text)) {
-                return EntityIssueCode::UnknownDialogue;
-            }
-            break;
+            return absentDe(context.dialogues, text, EntityIssueCode::UnknownDialogue);
         case EntityChoiceSource::Encounters:
-            if (!context.encounters.contains(text)) {
-                return EntityIssueCode::UnknownEncounter;
-            }
-            break;
+            return absentDe(context.encounters, text, EntityIssueCode::UnknownEncounter);
         case EntityChoiceSource::Maps:
-            if (!context.arrivalPointsByMap.contains(text)) {
-                return EntityIssueCode::UnknownTargetMap;
-            }
-            break;
+            return absentDe(context.arrivalPointsByMap, text, EntityIssueCode::UnknownTargetMap);
         case EntityChoiceSource::ArrivalPoints: {
             // Un point d'arrivee ne se juge que dans une carte connue : une carte inconnue
             // est deja signalee, et la signaler deux fois n'apprendrait rien.
@@ -375,30 +375,15 @@ namespace {
             break;
         }
         case EntityChoiceSource::Figures:
-            if (!context.figures.contains(text)) {
-                return EntityIssueCode::UnknownFigure;
-            }
-            break;
+            return absentDe(context.figures, text, EntityIssueCode::UnknownFigure);
         case EntityChoiceSource::Flags:
-            if (!context.flags.contains(text)) {
-                return EntityIssueCode::UnsetFlag;
-            }
-            break;
+            return absentDe(context.flags, text, EntityIssueCode::UnsetFlag);
         case EntityChoiceSource::Locations:
-            if (!context.locations.contains(text)) {
-                return EntityIssueCode::UnknownLocation;
-            }
-            break;
+            return absentDe(context.locations, text, EntityIssueCode::UnknownLocation);
         case EntityChoiceSource::Items:
-            if (!context.items.contains(text)) {
-                return EntityIssueCode::UnknownItem;
-            }
-            break;
+            return absentDe(context.items, text, EntityIssueCode::UnknownItem);
         case EntityChoiceSource::EntityRefs:
-            if (!context.entityRefs.contains(text)) {
-                return EntityIssueCode::UnknownEntityRef;
-            }
-            break;
+            return absentDe(context.entityRefs, text, EntityIssueCode::UnknownEntityRef);
         case EntityChoiceSource::FlagValues:
             if (!declaresValues(context, textOf(entity.properties, spec.relatedKey), text,
                                 spec.writesFlag)) {
@@ -486,7 +471,7 @@ namespace {
 // quete pose -- sans quoi le PNJ ne paraitrait (ou ne partirait) jamais.
 template <class Report>
 void presenceIssues(const MapEntity& entity, const EntityReferenceContext& context,
-                    Report&& report) {
+                    const Report& report) {
     const PresenceRead read = presenceConditionOf(entity);
     switch (read.issue) {
         case PresenceIssue::None:

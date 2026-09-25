@@ -766,7 +766,7 @@ void EditorViewport::paintDragPreview(QPainter& painter, bool iso) {
     painter.drawLine(center(segment->first), center(segment->second));
 }
 
-QColor EditorViewport::tileColor(core::TileType type) const {
+QColor EditorViewport::tileColor(core::TileType type) {
     return SceneImages::tileColor(type);
 }
 
@@ -1184,6 +1184,63 @@ void EditorViewport::startPlaytestHere() {
     startPlaytest(_hoverCell);
 }
 
+namespace {
+
+// L'essai part de la case : une copie du brouillon, sans historique, dont l'entrée y est déplacée.
+// Le brouillon, lui, ne bouge pas. Rend le message d'échec, vide si l'essai peut partir.
+[[nodiscard]] QString moveEntryTo(core::LevelLoadResult& validated, core::GridPosition from,
+                                  const std::shared_ptr<const core::ScenePieceManifest>& manifest) {
+    const core::TileMap& tiles = validated.level->tileMap();
+    if (!tiles.inBounds(from.column, from.row) ||
+        core::isSolid(tiles.tile(from.column, from.row))) {
+        return QStringLiteral("Cannot playtest from (%1, %2): the cell blocks the way.")
+            .arg(from.column)
+            .arg(from.row);
+    }
+    core::LevelDraft moved = core::LevelDraft::fromLevel(*validated.level);
+    moved.setPieceManifest(manifest);
+    moved.setEntry(from.column, from.row);
+    validated = moved.toLevel();
+    if (!validated.ok()) {
+        return QStringLiteral("Cannot playtest from here: %1")
+            .arg(QString::fromStdString(validated.error));
+    }
+    return {};
+}
+
+// Le brouillon est servi sous l'identifiant de sa carte ; toute autre carte vient du disque,
+// comme en jeu. Un portail qui ramène ici retrouve donc le brouillon, pas le fichier d'avant.
+[[nodiscard]] core::WorldTravel::MapLoader draftLoader(
+    std::string mapId, std::shared_ptr<const core::Level> edited,
+    core::WorldTravel::MapLoader fromDisk) {
+    return [mapId = std::move(mapId), edited = std::move(edited),
+            fromDisk = std::move(fromDisk)](std::string_view requested) {
+        if (requested == mapId) {
+            core::LevelLoadResult served;
+            served.level = *edited;
+            return served;
+        }
+        return fromDisk(requested);
+    };
+}
+
+// L'essai part de l'état de partie (LOT-126) : les quêtes déclarent leurs drapeaux, l'état les
+// règle, et les quêtes avancent d'autant — comme le jeu lancé avec `--flags=`.
+void applyWorldState(WorldPlay& play, const std::vector<std::string>& stateEntries) {
+    play.session().setQuests(core::loadQuests(hmi::editorDataRoot() / "World" / "quests"));
+    for (const std::string& entry : stateEntries) {
+        const WorldStateEntry read = parseWorldStateEntry(entry);
+        if (read.value) {
+            play.session().flags().setValue(read.flag, *read.value);
+        } else {
+            play.session().flags().set(read.flag);
+        }
+    }
+    static_cast<void>(play.session().refreshFromFlags());
+}
+
+}  // namespace
+
 void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
     if (_play) {
         return;
@@ -1197,53 +1254,18 @@ void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
         return;
     }
     if (from) {
-        // L'essai part de la case : une copie du brouillon, sans historique, dont l'entrée y est
-        // déplacée. Le brouillon, lui, ne bouge pas.
-        const core::TileMap& tiles = validated.level->tileMap();
-        if (!tiles.inBounds(from->column, from->row) ||
-            core::isSolid(tiles.tile(from->column, from->row))) {
-            emit statusMessage(QStringLiteral("Cannot playtest from (%1, %2): the cell blocks the "
-                                              "way.")
-                                   .arg(from->column)
-                                   .arg(from->row));
-            return;
-        }
-        core::LevelDraft moved = core::LevelDraft::fromLevel(*validated.level);
-        moved.setPieceManifest(_manifest);
-        moved.setEntry(from->column, from->row);
-        validated = moved.toLevel();
-        if (!validated.ok()) {
-            emit statusMessage(QStringLiteral("Cannot playtest from here: %1")
-                                   .arg(QString::fromStdString(validated.error)));
+        const QString failure = moveEntryTo(validated, *from, _manifest);
+        if (!failure.isEmpty()) {
+            emit statusMessage(failure);
             return;
         }
     }
-    // Le brouillon est servi sous l'identifiant de sa carte ; toute autre carte vient du disque,
-    // comme en jeu. Un portail qui ramène ici retrouve donc le brouillon, pas le fichier d'avant.
     auto edited = std::make_shared<const core::Level>(std::move(*validated.level));
-    core::WorldTravel::MapLoader fromDisk = core::WorldTravel::directoryLoader(levelsDirectory());
-    core::WorldTravel::MapLoader loader = [mapId = _mapId, edited,
-                                           fromDisk](std::string_view requested) {
-        if (requested == mapId) {
-            core::LevelLoadResult served;
-            served.level = *edited;
-            return served;
-        }
-        return fromDisk(requested);
-    };
-    auto play = std::make_unique<WorldPlay>(std::move(loader), assetsDirectory());
-    // L'essai part de l'état de partie (LOT-126) : les quêtes déclarent leurs drapeaux, l'état les
-    // règle, et les quêtes avancent d'autant — comme le jeu lancé avec `--flags=`.
-    play->session().setQuests(core::loadQuests(hmi::editorDataRoot() / "World" / "quests"));
-    for (const std::string& entry : _stateEntries) {
-        const WorldStateEntry read = parseWorldStateEntry(entry);
-        if (read.value) {
-            play->session().flags().setValue(read.flag, *read.value);
-        } else {
-            play->session().flags().set(read.flag);
-        }
-    }
-    static_cast<void>(play->session().refreshFromFlags());
+    auto play = std::make_unique<WorldPlay>(
+        draftLoader(_mapId, std::move(edited),
+                    core::WorldTravel::directoryLoader(levelsDirectory())),
+        assetsDirectory());
+    applyWorldState(*play, _stateEntries);
     if (!play->enter(_mapId, {})) {
         HMI_LOG_WARNING("Editeur : essai refuse, la carte ne s'ouvre pas.");
         emit statusMessage(QStringLiteral("Cannot playtest: the map does not open."));

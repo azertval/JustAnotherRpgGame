@@ -20,16 +20,19 @@ namespace hmi {
 namespace {
 
 // La partie en cours (`WorldModel::current`).
-WorldModel* partieCourante = nullptr;
+WorldModel*& partieCourante() noexcept {
+    static WorldModel* partie = nullptr;
+    return partie;
+}
 
 }  // namespace
 
 WorldModel* WorldModel::current() noexcept {
-    return partieCourante;
+    return partieCourante();
 }
 
 WorldModel::WorldModel(QObject* parent) : QObject(parent) {
-    partieCourante = this;
+    partieCourante() = this;
     _play = std::make_unique<WorldPlay>(
         core::WorldTravel::directoryLoader(dataDirectory() / "Levels"), dataDirectory() / "Assets");
     _clock.setInterval(STEP_MILLISECONDS);
@@ -49,8 +52,8 @@ WorldModel::WorldModel(QObject* parent) : QObject(parent) {
 }
 
 WorldModel::~WorldModel() {
-    if (partieCourante == this) {
-        partieCourante = nullptr;
+    if (partieCourante() == this) {
+        partieCourante() = nullptr;
     }
 }
 

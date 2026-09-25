@@ -8,7 +8,7 @@
  * @brief Les écrans du RPG, nommés (`LOT-68`, `EX-IHM-090`).
  *
  * Logique **pure** (aucune dépendance Qt). Le `LOT-68` décrivait ici l'ossature de chaque écran en
- * données ; depuis le `LOT-86`, un écran est un formulaire QML (`Source/Ui/Screens/*Form.ui.qml`)
+ * données ; depuis le `LOT-86`, un écran est un formulaire QML (`Source/Ui/Screens/<Nom>Form.ui.qml`)
  * que la pile d'écrans pose quand `hmi::ScreenRouter` le désigne, et il ne reste de la table que
  * cette énumération.
  */

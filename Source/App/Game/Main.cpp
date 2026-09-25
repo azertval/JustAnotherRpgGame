@@ -338,6 +338,50 @@ void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
     }
 }
 
+// La racine de contenu imposee (--data=<racine>, LOT-118) : le jeu lit cartes, assets, monde,
+// dialogues et rencontres la ou l'editeur les ouvre (`LevelEditor --data`), et l'on joue une
+// racine d'essai sans rien copier a cote de l'executable. AVANT tout modele : ils lisent
+// `hmi::dataDirectory()` a leur construction. Un binaire livre l'ignore.
+//
+// Params : argc, argv : la ligne de commande du processus.
+void applyDataRoot(int argc, char** argv) {
+    if constexpr (core::DEVELOPER_BUILD) {
+        const std::optional<std::string_view> data = app::commandLineOption(argc, argv, "--data=");
+        if (!data) {
+            return;
+        }
+        const std::filesystem::path racine = std::filesystem::absolute(*data);
+        if (std::filesystem::is_directory(racine)) {
+            hmi::setDataDirectory(racine);
+            HMI_LOG_INFO("Contenu lu depuis " + racine.string());
+        } else {
+            HMI_LOG_WARNING("--data= : dossier introuvable, le contenu reste celui du binaire.");
+        }
+    } else {
+        static_cast<void>(argc);
+        static_cast<void>(argv);
+    }
+}
+
+// Éditer un écran sans rien reconstruire (EX-IHM-100). Par défaut, les .qml sont lus dans la
+// ressource embarquée -- c'est ce qu'il faut pour un binaire livré. Avec
+// JADG_QML_FROM_SOURCE=1, on place en tête des chemins d'import un module dont le qmldir
+// désigne les fichiers SOURCES : le programme lit alors Source/Ui directement, et relancer
+// suffit à voir la retouche. Seul `Jadg.Ui` -- les formulaires, le territoire de la
+// conception -- se relit ainsi ; `Jadg.App` (le câblage) et `Jadg.Runtime` (le C++) restent
+// ceux du binaire, et c'est voulu : ce qu'un artiste change ne demande jamais de les toucher.
+//
+// `addImportPath` insère en tête : le module sur disque l'emporte donc sur celui de la
+// ressource, sans qu'il faille retirer ce dernier.
+//
+// Params : engine : le moteur QML dont on complète les chemins d'import.
+void applyQmlSourceImport(QQmlApplicationEngine& engine) {
+    if (qEnvironmentVariable("JADG_QML_FROM_SOURCE") == QLatin1String("1")) {
+        engine.addImportPath(QStringLiteral(JADG_QML_DEV_IMPORT_PATH));
+        HMI_LOG_INFO("Interface lue depuis les sources : " JADG_QML_DEV_IMPORT_PATH);
+    }
+}
+
 }  // namespace
 
 // Point d'entrée du programme.
@@ -359,23 +403,7 @@ int main(int argc, char** argv) {
 
     QGuiApplication application(argc, argv);
 
-    // La racine de contenu imposee (--data=<racine>, LOT-118) : le jeu lit cartes, assets, monde,
-    // dialogues et rencontres la ou l'editeur les ouvre (`LevelEditor --data`), et l'on joue une
-    // racine d'essai sans rien copier a cote de l'executable. AVANT tout modele : ils lisent
-    // `hmi::dataDirectory()` a leur construction. Un binaire livre l'ignore.
-    if constexpr (core::DEVELOPER_BUILD) {
-        if (const std::optional<std::string_view> data =
-                app::commandLineOption(argc, argv, "--data=")) {
-            const std::filesystem::path racine = std::filesystem::absolute(*data);
-            if (std::filesystem::is_directory(racine)) {
-                hmi::setDataDirectory(racine);
-                HMI_LOG_INFO("Contenu lu depuis " + racine.string());
-            } else {
-                HMI_LOG_WARNING(
-                    "--data= : dossier introuvable, le contenu reste celui du binaire.");
-            }
-        }
-    }
+    applyDataRoot(argc, argv);
 
     const QString language =
         QSettings().value(QStringLiteral("language"), QStringLiteral("fr")).toString();
@@ -403,20 +431,7 @@ int main(int argc, char** argv) {
 
     QQmlApplicationEngine engine;
 
-    // Éditer un écran sans rien reconstruire (EX-IHM-100). Par défaut, les .qml sont lus dans la
-    // ressource embarquée -- c'est ce qu'il faut pour un binaire livré. Avec
-    // JADG_QML_FROM_SOURCE=1, on place en tête des chemins d'import un module dont le qmldir
-    // désigne les fichiers SOURCES : le programme lit alors Source/Ui directement, et relancer
-    // suffit à voir la retouche. Seul `Jadg.Ui` -- les formulaires, le territoire de la
-    // conception -- se relit ainsi ; `Jadg.App` (le câblage) et `Jadg.Runtime` (le C++) restent
-    // ceux du binaire, et c'est voulu : ce qu'un artiste change ne demande jamais de les toucher.
-    //
-    // `addImportPath` insère en tête : le module sur disque l'emporte donc sur celui de la
-    // ressource, sans qu'il faille retirer ce dernier.
-    if (qEnvironmentVariable("JADG_QML_FROM_SOURCE") == QLatin1String("1")) {
-        engine.addImportPath(QStringLiteral(JADG_QML_DEV_IMPORT_PATH));
-        HMI_LOG_INFO("Interface lue depuis les sources : " JADG_QML_DEV_IMPORT_PATH);
-    }
+    applyQmlSourceImport(engine);
     connectEngineDiagnostics(engine, application);
     // Les ilots du plan (LOT-96) : dessines a la demande, le moteur prend possession du
     // fournisseur.

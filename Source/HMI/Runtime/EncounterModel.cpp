@@ -33,7 +33,10 @@ struct EncounterModel::Catalogs {
 
 namespace {
 
-EncounterModel* rencontreCourante = nullptr;
+EncounterModel*& rencontreCourante() noexcept {
+    static EncounterModel* rencontre = nullptr;
+    return rencontre;
+}
 
 [[nodiscard]] QString toQt(const std::string& text) {
     return QString::fromStdString(text);
@@ -57,23 +60,53 @@ EncounterModel* rencontreCourante = nullptr;
     return static_cast<std::uint64_t>(std::chrono::steady_clock::now().time_since_epoch().count());
 }
 
+// Journalise les erreurs d'un catalogue, sous son préfixe.
+void logCatalogErrors(const std::string& prefix, const std::vector<std::string>& errors) {
+    for (const std::string& error : errors) {
+        std::string message = "Rencontre : ";
+        message += prefix;
+        message += error;
+        HMI_LOG_WARNING(message);
+    }
+}
+
+// La clé de drapeau de la rencontre posée sur la case @p trigger, s'il y en a une. Une entité
+// `encounter` posée là se combat une fois : sa clé de drapeau la fait disparaître pour de bon
+// (`core::encounterTriggerFor`). Un combat engagé par un dialogue n'a pas de clé : ce sont les
+// drapeaux de la quête qui en tirent les conséquences (LOT-116).
+[[nodiscard]] std::string defeatFlagKeyAt(const core::Level& map, const std::string& mapId,
+                                          const core::GridPosition& trigger,
+                                          const core::Encounter& encounter) {
+    for (const core::MapEntity& entity : map.entities()) {
+        if (entity.position != trigger) {
+            continue;
+        }
+        if (const std::optional<core::EncounterTrigger> declencheur =
+                core::encounterTriggerFor(entity, mapId);
+            declencheur.has_value() && declencheur->encounterId == encounter.id) {
+            return declencheur->defeatFlagKey;
+        }
+    }
+    return {};
+}
+
 }  // namespace
 
 EncounterModel* EncounterModel::current() noexcept {
-    return rencontreCourante;
+    return rencontreCourante();
 }
 
 EncounterModel::EncounterModel(QObject* parent)
     : CombatModel(parent), _contentRoot(dataDirectory()) {
-    rencontreCourante = this;
+    rencontreCourante() = this;
     _clock.setInterval(STEP_MILLISECONDS);
     _clock.setTimerType(Qt::PreciseTimer);
     connect(&_clock, &QTimer::timeout, this, &EncounterModel::step);
 }
 
 EncounterModel::~EncounterModel() {
-    if (rencontreCourante == this) {
-        rencontreCourante = nullptr;
+    if (rencontreCourante() == this) {
+        rencontreCourante() = nullptr;
     }
 }
 
@@ -95,20 +128,12 @@ bool EncounterModel::ensureCatalogs() {
     catalogs->encounters = core::loadEncounters(_contentRoot / "Rpg" / "encounters");
     catalogs->behaviors =
         core::loadBehaviors(executableDirectory() / "Rpg" / "rules" / "behaviors.json");
-    for (const std::string& error : catalogs->bestiary.errors) {
-        HMI_LOG_WARNING("Rencontre : bestiaire, " + error);
-    }
-    for (const std::string& error : catalogs->encounters.errors) {
-        HMI_LOG_WARNING("Rencontre : catalogue, " + error);
-    }
-    for (const std::string& error : catalogs->behaviors.errors) {
-        HMI_LOG_WARNING("Rencontre : profils de comportement, " + error);
-    }
+    logCatalogErrors("bestiaire, ", catalogs->bestiary.errors);
+    logCatalogErrors("catalogue, ", catalogs->encounters.errors);
+    logCatalogErrors("profils de comportement, ", catalogs->behaviors.errors);
     std::vector<std::string> problemes;
     catalogs->hero = loadHeroSource(problemes);
-    for (const std::string& probleme : problemes) {
-        HMI_LOG_WARNING("Rencontre : " + probleme);
-    }
+    logCatalogErrors("", problemes);
     if (catalogs->behaviors.profiles.empty()) {
         HMI_LOG_WARNING("Rencontre : aucun profil d'IA, les ennemis ne joueront pas.");
     }
@@ -156,21 +181,7 @@ bool EncounterModel::begin(const QString& encounterId) {
     const core::ExplorationSession& session = world->play().session();
     const core::Level* const map = session.map();
     const core::GridPosition trigger = world->lastInteractionCell().value_or(session.aimedCell());
-    // Une entite `encounter` posee la se combat une fois : sa cle de drapeau la fait disparaitre
-    // pour de bon (`core::encounterTriggerFor`). Un combat engage par un dialogue n'a pas de cle :
-    // ce sont les drapeaux de la quete qui en tirent les consequences (LOT-116).
-    std::string defeatFlagKey;
-    for (const core::MapEntity& entity : map->entities()) {
-        if (entity.position != trigger) {
-            continue;
-        }
-        if (const std::optional<core::EncounterTrigger> declencheur =
-                core::encounterTriggerFor(entity, session.mapId());
-            declencheur.has_value() && declencheur->encounterId == encounter->id) {
-            defeatFlagKey = declencheur->defeatFlagKey;
-            break;
-        }
-    }
+    std::string defeatFlagKey = defeatFlagKeyAt(*map, session.mapId(), trigger, *encounter);
     const core::ExplorationSnapshot exploration{
         .playerPosition = {session.heroPoint().column, session.heroPoint().row},
         .playerFacing = session.facing(),
@@ -188,6 +199,30 @@ bool EncounterModel::begin(const QString& encounterId) {
     _setup = std::move(*prepared.setup);
     _encounterName = encounter->name;
 
+    const core::ArenaMount mount = mountBout();
+    if (!keepMount(mount)) {
+        emit changed();
+        return false;
+    }
+
+    bindFigures(*world, mount);
+
+    subscribeCues();
+    _inCombat = _session->start();
+    _outcome.clear();
+    _cues.clear();
+    placeCues();
+    followActive();
+    world->setFrozen(true);
+    publishFigures();
+    _clock.start();
+    emitSceneChanged();
+    HMI_LOG_INFO("Rencontre : " + encounter->id + " engagee sur la zone « " + _setup->zone.name +
+                 " » de " + session.mapId() + ".");
+    return true;
+}
+
+core::ArenaMount EncounterModel::mountBout() {
     // La session, sur la grille de la zone.
     _session = std::make_unique<core::ArenaSession>(_setup->battlefield);
     _session->setOpportunityPolicy(core::aiOpportunityPolicy(_catalogs->behaviors));
@@ -222,19 +257,13 @@ bool EncounterModel::begin(const QString& encounterId) {
         _session->note(note);
     }
     _session->note("graine " + std::to_string(bout.seed));
-    if (mount.allies.empty() || mount.enemies.empty()) {
-        _status += tr(" Un camp est vide apres le montage : rien a engager.");
-        HMI_LOG_WARNING("Rencontre : un camp est vide apres le montage.");
-        _session.reset();
-        _setup.reset();
-        emit changed();
-        return false;
-    }
-    _hero = mount.allies.front();
+    return mount;
+}
 
+void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& mount) {
     // Ce que chacun dessine : le heros sa figurine, chaque creature la sienne ou son mannequin.
     _bindings.clear();
-    const ResolvedFigure& heroFigure = world->play().heroResolved();
+    const ResolvedFigure& heroFigure = world.play().heroResolved();
     _bindings[*_hero] =
         Binding{.directory = heroFigure.directory, .oriented = heroFigure.oriented, .hero = true};
     std::size_t rang = 0;
@@ -244,35 +273,37 @@ bool EncounterModel::begin(const QString& encounterId) {
             continue;
         }
         const ResolvedFigure& figure =
-            world->play().resolveFigure(creature->id, creature->silhouette);
+            world.play().resolveFigure(creature->id, creature->silhouette);
         _bindings[mount.enemies[rang++]] =
             Binding{.directory = figure.directory, .oriented = figure.oriented, .hero = false};
     }
+}
 
-    subscribeCues();
-    _inCombat = _session->start();
-    _outcome.clear();
-    _cues.clear();
+bool EncounterModel::keepMount(const core::ArenaMount& mount) {
+    if (mount.allies.empty() || mount.enemies.empty()) {
+        _status += tr(" Un camp est vide apres le montage : rien a engager.");
+        HMI_LOG_WARNING("Rencontre : un camp est vide apres le montage.");
+        _session.reset();
+        _setup.reset();
+        return false;
+    }
+    _hero = mount.allies.front();
+    return true;
+}
+
+void EncounterModel::placeCues() {
     for (const core::CombatantId id : _session->combat().combatants()) {
         if (const std::optional<core::GridPosition> cell =
                 _session->combat().grid().positionOf(id)) {
             _cues.place(id, *cell);
         }
     }
-    followActive();
-    world->setFrozen(true);
-    publishFigures();
-    _clock.start();
-    emitSceneChanged();
-    HMI_LOG_INFO("Rencontre : " + encounter->id + " engagee sur la zone « " + _setup->zone.name +
-                 " » de " + session.mapId() + ".");
-    return true;
 }
 
 void EncounterModel::subscribeCues() {
     // Les pas : leur chemin, pour que la figurine marche case par case.
     _session->setMoveObserver([this](core::CombatantId mover, const core::Path& path) {
-        _cues.push(CombatCue{.kind = CombatCueKind::Walk, .actor = mover, .path = path.steps});
+        _cues.push(CombatCue{.kind = CombatCueKind::Walk, .actor = mover, .path = path.steps, .target = std::nullopt});
     });
     core::CombatState& combat = _session->combat();
     combat.subscribe(core::CombatHook::AttackDeclared,
@@ -290,13 +321,19 @@ void EncounterModel::subscribeCues() {
     combat.subscribe(
         core::CombatHook::DamageTaken, [this](core::CombatState&, const core::CombatEvent& event) {
             if (event.combatant.has_value() && event.amount > 0) {
-                _cues.push(CombatCue{.kind = CombatCueKind::Hit, .actor = *event.combatant});
+                _cues.push(CombatCue{.kind = CombatCueKind::Hit,
+                                     .actor = *event.combatant,
+                                     .path = {},
+                                     .target = std::nullopt});
             }
         });
     combat.subscribe(core::CombatHook::CombatantDowned, [this](core::CombatState&,
                                                                const core::CombatEvent& event) {
         if (event.combatant.has_value()) {
-            _cues.push(CombatCue{.kind = CombatCueKind::Death, .actor = *event.combatant});
+            _cues.push(CombatCue{.kind = CombatCueKind::Death,
+                                     .actor = *event.combatant,
+                                     .path = {},
+                                     .target = std::nullopt});
         }
     });
     combat.subscribe(core::CombatHook::CombatantLeft,
@@ -518,9 +555,17 @@ QVariantMap EncounterModel::target() const {
                                                     std::max(1, profile.maximumHitPoints),
                                                 0.0, 1.0));
     } else {
-        map.insert("hitPoints", down ? tr("a terre")
-                                     : (core::isBloodied(profile) ? tr("ensanglante") : QString()));
-        map.insert("hitPointsRatio", down ? 0.0 : (core::isBloodied(profile) ? 0.5 : 1.0));
+        QString label;
+        double ratio = 1.0;
+        if (down) {
+            label = tr("a terre");
+            ratio = 0.0;
+        } else if (core::isBloodied(profile)) {
+            label = tr("ensanglante");
+            ratio = 0.5;
+        }
+        map.insert("hitPoints", label);
+        map.insert("hitPointsRatio", ratio);
     }
     map.insert("armorClass", QString::number(profile.armorClass));
     map.insert("speed", QString::number(

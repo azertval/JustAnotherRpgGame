@@ -44,6 +44,16 @@ namespace hmi {
 namespace {
 
 constexpr double MAX_SCALE = 4.0;
+/// L'échelle minimale d'un rendu : un soixante-quatrième de la carte vue à 1080p.
+constexpr double MIN_SCALE = 1.0 / 64.0;
+/// Chiffres après la virgule d'une fraction de la grille (`world-maps.json`).
+constexpr int GRID_DECIMALS = 5;
+/// La moitié : le centre d'une étendue.
+constexpr double HALF = 0.5;
+/// Le masque de collision : intensité forte et faible d'un canal, et le vert du milieu.
+constexpr float OVERLAY_STRONG = 0.85F;
+constexpr float OVERLAY_WEAK = 0.20F;
+constexpr float OVERLAY_MID = 0.30F;
 
 /// La définition de référence de `--render` : l'échelle 1 est la carte vue à 1080p (`LOT-125`).
 constexpr int REFERENCE_VIEW_HEIGHT = 1080;
@@ -120,7 +130,7 @@ constexpr int MAX_CANVAS_SIDE = 8192;
 [[nodiscard]] std::string gridJson(const MapImageGrid& grid) {
     const auto pair = [](double x, double y) {
         return QStringLiteral("[%1, %2]")
-            .arg(QString::number(x, 'f', 5), QString::number(y, 'f', 5))
+            .arg(QString::number(x, 'f', GRID_DECIMALS), QString::number(y, 'f', GRID_DECIMALS))
             .toStdString();
     };
     return R"({"origin": )" + pair(grid.originX, grid.originY) + R"(, "column": )" +
@@ -130,7 +140,7 @@ constexpr int MAX_CANVAS_SIDE = 8192;
 }  // namespace
 
 double renderPixelsPerUnit(double scale) {
-    return std::clamp(scale, 1.0 / 64.0, MAX_SCALE) *
+    return std::clamp(scale, MIN_SCALE, MAX_SCALE) *
            static_cast<double>(worldTilePixels(REFERENCE_VIEW_HEIGHT)) /
            static_cast<double>(core::ARENA_TILE_WIDTH_UNITS);
 }
@@ -199,7 +209,8 @@ QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
                                    // Deux fois la vignette au plus : la réduction lisse le reste,
                                    // sans peindre une image de plein format pour la jeter.
                                    .maxSide = 2 * maxSide,
-                                   .background = QColor(0, 0, 0, 0)});
+                                   .background = QColor(0, 0, 0, 0),
+                                   .canvas = std::nullopt});
     if (image.isNull()) {
         return image;
     }
@@ -339,8 +350,8 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
         width = options.canvas->width();
         height = options.canvas->height();
         scale = std::min(width / worldWidth, height / worldHeight);
-        offsetX = (width - (worldWidth * scale)) / 2.0;
-        offsetY = (height - (worldHeight * scale)) / 2.0;
+        offsetX = (width - (worldWidth * scale)) * HALF;
+        offsetY = (height - (worldHeight * scale)) * HALF;
     }
     if (grid != nullptr) {
         const auto fraction = [&](core::Vector2 gridPoint) {
@@ -376,11 +387,11 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
         // Le masque du canevas : rouge ce qui arrête, vert l'entrée.
         paintDiamonds(painter, projection, draft.tileMap(), [&bands](core::TileType type) {
             if (core::isSolid(type)) {
-                return withAlpha(QColor::fromRgbF(0.85F, 0.20F, 0.20F),
+                return withAlpha(QColor::fromRgbF(OVERLAY_STRONG, OVERLAY_WEAK, OVERLAY_WEAK),
                                  bands.collision * DEFAULT_COLLISION_OVERLAY_OPACITY);
             }
             if (type == core::TileType::Entry) {
-                return withAlpha(QColor::fromRgbF(0.20F, 0.85F, 0.30F),
+                return withAlpha(QColor::fromRgbF(OVERLAY_WEAK, OVERLAY_STRONG, OVERLAY_MID),
                                  bands.collision * DEFAULT_COLLISION_OVERLAY_OPACITY);
             }
             return QColor{};
@@ -405,6 +416,33 @@ struct RenderCommandLine {
     std::string error;
 };
 
+// `--layers <liste>` : les bandes à peindre.
+void applyLayersOption(RenderCommandLine& line, std::string_view list) {
+    const std::optional<IsoBandOpacity> bands = parseRenderLayers(list);
+    if (bands) {
+        line.options.bands = *bands;
+    } else {
+        line.error = "--layers takes floors, relief, figures, collision";
+    }
+}
+
+// `--canvas <l>x<h>` : le cadre imposé.
+void applyCanvasOption(RenderCommandLine& line, const std::string& size) {
+    line.options.canvas = parseCanvasSize(size);
+    if (!line.options.canvas) {
+        line.error = "--canvas takes <width>x<height>, each in [1, 8192]";
+    }
+}
+
+// `--scale <n>` : l'échelle, dans ]0, 4].
+void applyScaleOption(RenderCommandLine& line, const std::string& value) {
+    bool ok = false;
+    line.options.scale = QString::fromStdString(value).toDouble(&ok);
+    if (!ok || line.options.scale <= 0.0 || line.options.scale > MAX_SCALE) {
+        line.error = "--scale takes a number in ]0, 4]";
+    }
+}
+
 [[nodiscard]] RenderCommandLine parseRenderCommand(const std::vector<std::string>& arguments,
                                                    const std::filesystem::path& defaultDataRoot) {
     RenderCommandLine line;
@@ -419,25 +457,13 @@ struct RenderCommandLine {
         } else if (argument == "--output" && hasValue) {
             line.destination = arguments[++index];
         } else if (argument == "--layers" && hasValue) {
-            const std::optional<IsoBandOpacity> bands = parseRenderLayers(arguments[++index]);
-            if (bands) {
-                line.options.bands = *bands;
-            } else {
-                line.error = "--layers takes floors, relief, figures, collision";
-            }
+            applyLayersOption(line, arguments[++index]);
         } else if (argument == "--plan") {
             line.options.plan = true;
         } else if (argument == "--canvas" && hasValue) {
-            line.options.canvas = parseCanvasSize(arguments[++index]);
-            if (!line.options.canvas) {
-                line.error = "--canvas takes <width>x<height>, each in [1, 8192]";
-            }
+            applyCanvasOption(line, arguments[++index]);
         } else if (argument == "--scale" && hasValue) {
-            bool ok = false;
-            line.options.scale = QString::fromStdString(arguments[++index]).toDouble(&ok);
-            if (!ok || line.options.scale <= 0.0 || line.options.scale > MAX_SCALE) {
-                line.error = "--scale takes a number in ]0, 4]";
-            }
+            applyScaleOption(line, arguments[++index]);
         } else if (line.render && !argument.starts_with("--")) {
             line.targets.push_back(argument);
         }

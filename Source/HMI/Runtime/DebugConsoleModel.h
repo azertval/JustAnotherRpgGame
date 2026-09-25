@@ -9,6 +9,7 @@
 #include <QVariantList>
 #include <QtQmlIntegration>
 #include <string>
+#include <string_view>
 #include <vector>
 
 /**
@@ -17,6 +18,8 @@
  */
 
 namespace hmi {
+
+class WorldModel;
 
 /**
  * @brief La vue-modèle de la console de debug (`Logic/DebugConsole.qml`).
@@ -92,6 +95,20 @@ signals:
 private:
     /// @brief Applique les options de @p words, dans l'ordre que le lancement suivrait.
     void apply(const std::vector<std::string>& words);
+    /// Les options qui ouvrent une carte, collectées avant d'être appliquées ensemble.
+    struct Pending;
+    /// @brief Applique un mot : une option à effet immédiat, ou une valeur mise de côté.
+    /// @param word Le mot de la ligne.
+    /// @param pending Reçoit les valeurs des options qui ouvrent une carte.
+    void applyWord(const std::string& word, Pending& pending);
+    /// @brief Applique une option à effet immédiat (écran, fenêtre, capture, journal).
+    /// @param name Le nom de l'option, avec son `=`.
+    /// @param value La valeur donnée à l'option.
+    void applyImmediate(std::string_view name, const std::string& value);
+    /// @brief Applique les options collectées, dans l'ordre du lancement.
+    /// @param world Le modèle du monde ; peut être nul.
+    /// @param pending Les valeurs collectées.
+    void applyPending(WorldModel* world, const Pending& pending);
     void printHelp();
 
     QStringList _transcript;

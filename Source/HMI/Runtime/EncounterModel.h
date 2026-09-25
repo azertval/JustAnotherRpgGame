@@ -30,6 +30,8 @@
 
 namespace hmi {
 
+class WorldModel;
+
 /**
  * @brief La vue-modèle du combat sur la carte.
  *
@@ -172,6 +174,19 @@ private:
 
     /// Lit les catalogues à la première rencontre ; @return faux s'il manque l'essentiel.
     bool ensureCatalogs();
+    /// Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la rencontre.
+    /// @return Le montage : les camps tels que la session les a numérotés.
+    core::ArenaMount mountBout();
+    /// Associe à chaque combattant monté la figurine qu'il dessine.
+    /// @param world Le modèle du monde, qui résout les figurines.
+    /// @param mount Le montage de la session.
+    void bindFigures(WorldModel& world, const core::ArenaMount& mount);
+    /// Retient le héros du montage, ou défait la session quand un camp est vide.
+    /// @param mount Le montage de la session.
+    /// @return Faux si un camp est vide : rien à engager.
+    bool keepMount(const core::ArenaMount& mount);
+    /// Pose la file des mouvements sur les cases de départ des combattants.
+    void placeCues();
     /// Branche la file des mouvements sur la session montée.
     void subscribeCues();
     /// Publie les figurines des combattants dans le monde.

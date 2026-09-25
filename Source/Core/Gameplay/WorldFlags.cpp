@@ -8,14 +8,14 @@
 namespace core {
 
 bool WorldFlags::isSet(std::string_view key) const {
-    return _values.find(key) != _values.end();
+    return _values.contains(key);
 }
 
 bool WorldFlags::set(std::string_view key) {
     // Le retour dit si le fait etait NEUF. C'est cette valeur qui repond a << le coffre a-t-il deja
     // ete ouvert ? >>, et la rendre evite au gameplay de faire un `isSet` puis un `set` -- deux
     // appels entre lesquels un autre pourrait se glisser.
-    if (_declared.find(key) != _declared.end()) {
+    if (_declared.contains(key)) {
         return false;
     }
     const bool neuf = _values.emplace(std::string(key), std::string()).second;
@@ -35,13 +35,13 @@ void WorldFlags::clear(std::string_view key) {
 
 bool WorldFlags::declare(std::string_view key, std::vector<std::string> values,
                          std::string_view initial) {
-    if (values.empty() || std::find(values.begin(), values.end(), initial) == values.end()) {
+    if (values.empty() || std::ranges::find(values, initial) == values.end()) {
         return false;
     }
     if (const auto deja = _declared.find(key); deja != _declared.end()) {
         return deja->second.values == values && deja->second.initial == initial;
     }
-    _declared.emplace(std::string(key), Declaration{std::move(values), std::string(initial)});
+    _declared.emplace(std::string(key), Declaration{.values = std::move(values), .initial = std::string(initial)});
     ++_revision;
     return true;
 }
@@ -57,7 +57,7 @@ bool WorldFlags::setValue(std::string_view key, std::string_view value) {
         return false;
     }
     const std::vector<std::string>& permises = declaration->second.values;
-    if (std::find(permises.begin(), permises.end(), value) == permises.end()) {
+    if (std::ranges::find(permises, value) == permises.end()) {
         return false;
     }
     const auto trouve = _values.find(key);

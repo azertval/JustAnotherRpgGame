@@ -246,6 +246,17 @@ float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proj
 // assez epais pour se voir a l'echelle ou l'on lit une carte entiere.
 constexpr float TRACE_THICKNESS = 0.09F;
 
+// Le milieu d'une case, en fraction de case.
+constexpr float CELL_CENTER = 0.5F;
+
+// Le releve d'un jeton, en hauteurs de losange : il se tient sur la case.
+constexpr float TOKEN_LIFT = 0.18F;
+
+// Les couleurs des traces de maquette : zone de combat, quartier, zone et route.
+constexpr unsigned int COMBAT_ZONE_RGB = 0xb33a3a;
+constexpr unsigned int CITY_BLOCK_RGB = 0xd2ac62;
+constexpr unsigned int ZONE_RGB = 0xefe6d2;
+
 // Un jeton : l'image engendree du disque a lettre, posee au centre de sa case.
 //
 // Sur le calque de l'INTERFACE EN SCENE, comme les traces, et non dans la bande de profondeur ou
@@ -260,8 +271,9 @@ void composeToken(ComposedScene& scene, const core::IsoProjection& projection,
     if (texture == nullptr || texture->texture == nullptr) {
         return;
     }
-    const core::Vector2 centre = projection.gridToWorld(gridPoint(
-        static_cast<float>(token.cell.column) + 0.5F, static_cast<float>(token.cell.row) + 0.5F));
+    const core::Vector2 centre =
+        projection.gridToWorld(gridPoint(static_cast<float>(token.cell.column) + CELL_CENTER,
+                                         static_cast<float>(token.cell.row) + CELL_CENTER));
     const float side = MAQUETTE_TOKEN_TILE_FRACTION * projection.tileWidth();
     const float footY = projection
                             .gridToWorld(gridPoint(static_cast<float>(token.cell.column),
@@ -270,10 +282,10 @@ void composeToken(ComposedScene& scene, const core::IsoProjection& projection,
     const std::int32_t order = worldDepthSortOrder(footY, WorldDepthSlot::Figure);
 
     SpriteQuad quad;
-    quad.x = centre.x - (side / 2.0F);
+    quad.x = centre.x - (side * CELL_CENTER);
     // Le disque repose sur le centre de la case, legerement releve : il se tient dessus, il n'y
     // flotte pas.
-    quad.y = centre.y - side + (projection.tileHeight() * 0.18F);
+    quad.y = centre.y - side + (projection.tileHeight() * TOKEN_LIFT);
     quad.width = side;
     quad.height = side;
     scene.addSprite(RenderLayer::UI, texture->texture, order, quad);
@@ -325,8 +337,9 @@ void composeTrace(ComposedScene& scene, const core::IsoProjection& projection,
     if (trace.shape == MaquetteTraceShape::Path) {
         for (std::size_t i = 1; i < trace.cells.size(); ++i) {
             const auto centreOf = [&projection](core::GridPosition cell) {
-                return projection.gridToWorld(gridPoint(static_cast<float>(cell.column) + 0.5F,
-                                                        static_cast<float>(cell.row) + 0.5F));
+                return projection.gridToWorld(
+                    gridPoint(static_cast<float>(cell.column) + CELL_CENTER,
+                              static_cast<float>(cell.row) + CELL_CENTER));
             };
             segment(centreOf(trace.cells[i - 1]), centreOf(trace.cells[i]),
                     core::IsoProjection::depth(trace.cells[i]));
@@ -509,7 +522,9 @@ struct FigurePlacement {
 
     const core::Vector2 center = projection.gridToWorld(figure.point);
     const float footY =
-        projection.gridToWorld(gridPoint(figure.point.x + 0.5F, figure.point.y + 0.5F)).y;
+        projection
+            .gridToWorld(gridPoint(figure.point.x + CELL_CENTER, figure.point.y + CELL_CENTER))
+            .y;
     // Une figurine qui declare sa ligne de sol la pose au CENTRE du losange de sa position : c'est
     // la que la maquette du LOT-101 met les pieds. Sans elle, l'ancienne marge : le bas de la
     // cellule un peu au-dessus de la pointe sud.
@@ -690,15 +705,15 @@ MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool m
         }
         if (entity.type == core::COMBAT_ZONE_ENTITY_TYPE) {
             marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,
-                                                         .color = maquetteColorOf(0xb33a3a),
+                                                         .color = maquetteColorOf(COMBAT_ZONE_RGB),
                                                          .cells = rectangleCells(entity)});
         } else if (entity.type == core::CITY_BLOCK_ENTITY_TYPE) {
             marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,
-                                                         .color = maquetteColorOf(0xd2ac62),
+                                                         .color = maquetteColorOf(CITY_BLOCK_RGB),
                                                          .cells = rectangleCells(entity)});
         } else if (entity.type == core::ZONE_ENTITY_TYPE) {
             marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Outline,
-                                                         .color = maquetteColorOf(0xefe6d2),
+                                                         .color = maquetteColorOf(ZONE_RGB),
                                                          .cells = core::zoneCells(entity)});
         } else if (entity.type == core::ROUTE_ENTITY_TYPE) {
             std::vector<core::GridPosition> points = entity.cells;
@@ -706,7 +721,7 @@ MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool m
                 points.insert(points.begin(), entity.position);
             }
             marks.traces.push_back(MaquetteTraceSnapshot{.shape = MaquetteTraceShape::Path,
-                                                         .color = maquetteColorOf(0xefe6d2),
+                                                         .color = maquetteColorOf(ZONE_RGB),
                                                          .cells = std::move(points)});
         }
     }
@@ -737,8 +752,8 @@ std::vector<WorldFigureSnapshot> npcFigures(const std::vector<core::MapEntity>& 
         figures.push_back(
             WorldFigureSnapshot{.figure = std::move(figure),
                                 .clip = std::string{figure_clips::IDLE},
-                                .point = {static_cast<float>(entity.position.column) + 0.5F,
-                                          static_cast<float>(entity.position.row) + 0.5F},
+                                .point = {static_cast<float>(entity.position.column) + CELL_CENTER,
+                                          static_cast<float>(entity.position.row) + CELL_CENTER},
                                 .frame = frame});
     }
     return figures;
@@ -796,6 +811,127 @@ namespace {
     return storey;
 }
 
+// Releve l'emprise de `piece` dans le cliche, quand le lieu en declare une.
+void recordFootprint(WorldSceneSnapshot& snapshot, const PlaceAppearance& appearance,
+                     const std::string& piece) {
+    const core::PieceFootprint emprise = appearance.pieceFootprint(piece);
+    if (emprise != core::PieceFootprint{}) {
+        snapshot.footprints.insert_or_assign(piece, emprise);
+    }
+}
+
+// Les sols, les decors et les types de chaque case, lus sur les couches de sol et de decor.
+void fillGroundCells(WorldSceneSnapshot& snapshot, const core::TileLayer* sol,
+                     const core::TileLayer* decor, const core::TileMap& grilleSol,
+                     const PlaceAppearance& appearance) {
+    const auto cases =
+        static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
+    snapshot.floors.assign(cases, std::string{});
+    snapshot.relief.assign(cases, std::string{});
+    snapshot.types.assign(cases, core::TileType::Empty);
+    snapshot.reliefTypes.assign(cases, core::TileType::Empty);
+    for (int row = 0; row < snapshot.rows; ++row) {
+        for (int column = 0; column < snapshot.columns; ++column) {
+            const core::GridPosition cell{.column = column, .row = row};
+            const std::size_t index = indexOf(cell, snapshot.columns);
+            // Le type de la case vient de la MEME grille que son sol : ce qui se dessine en
+            // maquette est ce que la couche de sol dit, jamais une autre.
+            snapshot.types[index] = grilleSol.tile(column, row);
+            snapshot.floors[index] =
+                sol != nullptr
+                    ? pieceAt(*sol, cell, appearance, true)
+                    : std::string{appearance.floorPiece(grilleSol.tile(column, row), cell)};
+            if (decor != nullptr && decor->tiles.inBounds(column, row)) {
+                snapshot.reliefTypes[index] = decor->tiles.tile(column, row);
+                snapshot.relief[index] = pieceAt(*decor, cell, appearance, false);
+                recordFootprint(snapshot, appearance, snapshot.relief[index]);
+            }
+        }
+    }
+}
+
+// Une entite qui pose une piece : la piece se pose a sa case, ou, faute de piece dessinable, un
+// decor qui arrete le pas s'extrude en mur sur son emprise.
+void applyPieceEntity(WorldSceneSnapshot& snapshot, const core::MapEntity& entity,
+                      const core::EntityKind& kind, const PlaceAppearance& appearance) {
+    const std::string piece{textProperty(entity, kind.pieceProperty)};
+    const core::GridPosition cell = entity.position;
+    if (cell.column < 0 || cell.row < 0 || cell.column >= snapshot.columns ||
+        cell.row >= snapshot.rows) {
+        return;
+    }
+    if (!snapshot.place.empty() && !piece.empty() && !appearance.pieceFile(piece).empty()) {
+        const std::size_t index = indexOf(cell, snapshot.columns);
+        snapshot.relief[index] = std::string{appearance.canonicalPiece(piece)};
+        recordFootprint(snapshot, appearance, snapshot.relief[index]);
+        return;
+    }
+    const auto blocks = entity.properties.find(std::string{core::PROP_BLOCKS_PROPERTY});
+    const bool* const blocking =
+        blocks != entity.properties.end() ? std::get_if<bool>(&blocks->second) : nullptr;
+    if (blocking != nullptr && !*blocking) {
+        return;
+    }
+    for (const core::GridPosition covered : rectangleCells(entity)) {
+        if (covered.column < snapshot.columns && covered.row < snapshot.rows) {
+            snapshot.reliefTypes[indexOf(covered, snapshot.columns)] = core::TileType::Wall;
+        }
+    }
+}
+
+// Les entites qui posent une piece (LOT-126) -- une porte close : sa piece se pose a sa case
+// comme une piece de decor, par-dessus celle de la couche. L'appelant n'a donne que les
+// entites presentes.
+void applyPieceEntities(WorldSceneSnapshot& snapshot, const std::vector<core::MapEntity>& entities,
+                        const PlaceAppearance& appearance) {
+    for (const core::MapEntity& entity : entities) {
+        const core::EntityKind* const kind = core::findEntityKind(entity.type);
+        if (kind == nullptr || kind->pieceProperty.empty()) {
+            continue;
+        }
+        applyPieceEntity(snapshot, entity, *kind, appearance);
+    }
+}
+
+// Les couches d'etage : les decors d'etage 1 a MAX_STOREY_FLOOR, du plus bas au plus haut, a
+// la taille de la carte (LOT-129). Une autre valeur est gardee par le format, et ignoree ici.
+void applyStoreys(WorldSceneSnapshot& snapshot, const std::vector<core::TileLayer>& layers,
+                  const PlaceAppearance& appearance) {
+    for (const core::TileLayer& couche : layers) {
+        if (couche.kind != core::LayerKind::Decor || couche.floor < 1 ||
+            couche.floor > core::MAX_STOREY_FLOOR || couche.tiles.width() != snapshot.columns ||
+            couche.tiles.height() != snapshot.rows) {
+            continue;
+        }
+        snapshot.storeys.push_back(snapshotStorey(couche, appearance, snapshot));
+    }
+    std::ranges::stable_sort(snapshot.storeys, {}, &WorldStoreySnapshot::floor);
+}
+
+// Le fichier de chaque piece citee, sous le niveau qui la declare (LOT-124), et le dossier de
+// chaque figurine posee, sous le niveau qui la range.
+void recordFiles(WorldSceneSnapshot& snapshot, const PlaceAppearance& appearance) {
+    const auto recordFile = [&snapshot, &appearance](const std::string& piece) {
+        if (piece.empty() || snapshot.pieceFiles.contains(piece)) {
+            return;
+        }
+        if (std::string file = appearance.pieceFile(piece); !file.empty()) {
+            snapshot.pieceFiles.emplace(piece, std::move(file));
+        }
+    };
+    for (const WorldFigureSnapshot& figure : snapshot.figures) {
+        if (!figure.figure.empty() && !snapshot.figureDirectories.contains(figure.figure)) {
+            snapshot.figureDirectories.emplace(figure.figure,
+                                               appearance.figureDirectory(figure.figure));
+        }
+    }
+    std::ranges::for_each(snapshot.floors, recordFile);
+    std::ranges::for_each(snapshot.relief, recordFile);
+    for (const WorldStoreySnapshot& storey : snapshot.storeys) {
+        std::ranges::for_each(storey.relief, recordFile);
+    }
+}
+
 }  // namespace
 
 WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
@@ -821,103 +957,10 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     // qu'une figurine occupe n'a pas de jeton.
     snapshot.marks = maquetteMarks(source.entities, snapshot.place.empty(), snapshot.figures);
 
-    const auto cases =
-        static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
-    snapshot.floors.assign(cases, std::string{});
-    snapshot.relief.assign(cases, std::string{});
-    snapshot.types.assign(cases, core::TileType::Empty);
-    snapshot.reliefTypes.assign(cases, core::TileType::Empty);
-
-    for (int row = 0; row < snapshot.rows; ++row) {
-        for (int column = 0; column < snapshot.columns; ++column) {
-            const core::GridPosition cell{.column = column, .row = row};
-            const std::size_t index = indexOf(cell, snapshot.columns);
-            // Le type de la case vient de la MEME grille que son sol : ce qui se dessine en
-            // maquette est ce que la couche de sol dit, jamais une autre.
-            snapshot.types[index] = grilleSol.tile(column, row);
-            snapshot.floors[index] =
-                sol != nullptr
-                    ? pieceAt(*sol, cell, appearance, true)
-                    : std::string{appearance.floorPiece(grilleSol.tile(column, row), cell)};
-            if (decor != nullptr && decor->tiles.inBounds(column, row)) {
-                snapshot.reliefTypes[index] = decor->tiles.tile(column, row);
-                snapshot.relief[index] = pieceAt(*decor, cell, appearance, false);
-                const core::PieceFootprint emprise =
-                    appearance.pieceFootprint(snapshot.relief[index]);
-                if (emprise != core::PieceFootprint{}) {
-                    snapshot.footprints.insert_or_assign(snapshot.relief[index], emprise);
-                }
-            }
-        }
-    }
-    // Les entites qui posent une piece (LOT-126) -- une porte close : sa piece se pose a sa case
-    // comme une piece de decor, par-dessus celle de la couche. L'appelant n'a donne que les
-    // entites presentes. Sans piece dessinable -- une maquette, une piece absente du lieu --, un
-    // decor qui arrete le pas s'extrude en mur sur son emprise : on voit que le passage est clos.
-    for (const core::MapEntity& entity : source.entities) {
-        const core::EntityKind* const kind = core::findEntityKind(entity.type);
-        if (kind == nullptr || kind->pieceProperty.empty()) {
-            continue;
-        }
-        const std::string piece{textProperty(entity, kind->pieceProperty)};
-        const core::GridPosition cell = entity.position;
-        if (cell.column < 0 || cell.row < 0 || cell.column >= snapshot.columns ||
-            cell.row >= snapshot.rows) {
-            continue;
-        }
-        if (!snapshot.place.empty() && !piece.empty() && !appearance.pieceFile(piece).empty()) {
-            const std::size_t index = indexOf(cell, snapshot.columns);
-            snapshot.relief[index] = std::string{appearance.canonicalPiece(piece)};
-            const core::PieceFootprint emprise = appearance.pieceFootprint(snapshot.relief[index]);
-            if (emprise != core::PieceFootprint{}) {
-                snapshot.footprints.insert_or_assign(snapshot.relief[index], emprise);
-            }
-            continue;
-        }
-        const auto blocks = entity.properties.find(std::string{core::PROP_BLOCKS_PROPERTY});
-        const bool* const blocking =
-            blocks != entity.properties.end() ? std::get_if<bool>(&blocks->second) : nullptr;
-        if (blocking != nullptr && !*blocking) {
-            continue;
-        }
-        for (const core::GridPosition covered : rectangleCells(entity)) {
-            if (covered.column < snapshot.columns && covered.row < snapshot.rows) {
-                snapshot.reliefTypes[indexOf(covered, snapshot.columns)] = core::TileType::Wall;
-            }
-        }
-    }
-    // Les couches d'etage : les decors d'etage 1 a MAX_STOREY_FLOOR, du plus bas au plus haut, a
-    // la taille de la carte (LOT-129). Une autre valeur est gardee par le format, et ignoree ici.
-    for (const core::TileLayer& couche : source.layers) {
-        if (couche.kind != core::LayerKind::Decor || couche.floor < 1 ||
-            couche.floor > core::MAX_STOREY_FLOOR || couche.tiles.width() != snapshot.columns ||
-            couche.tiles.height() != snapshot.rows) {
-            continue;
-        }
-        snapshot.storeys.push_back(snapshotStorey(couche, appearance, snapshot));
-    }
-    std::ranges::stable_sort(snapshot.storeys, {}, &WorldStoreySnapshot::floor);
-    // Le fichier de chaque piece citee, sous le niveau qui la declare (LOT-124).
-    const auto recordFile = [&snapshot, &appearance](const std::string& piece) {
-        if (piece.empty() || snapshot.pieceFiles.contains(piece)) {
-            return;
-        }
-        if (std::string file = appearance.pieceFile(piece); !file.empty()) {
-            snapshot.pieceFiles.emplace(piece, std::move(file));
-        }
-    };
-    // Le dossier de chaque figurine posee, sous le niveau qui la range (LOT-124).
-    for (const WorldFigureSnapshot& figure : snapshot.figures) {
-        if (!figure.figure.empty() && !snapshot.figureDirectories.contains(figure.figure)) {
-            snapshot.figureDirectories.emplace(figure.figure,
-                                               appearance.figureDirectory(figure.figure));
-        }
-    }
-    std::ranges::for_each(snapshot.floors, recordFile);
-    std::ranges::for_each(snapshot.relief, recordFile);
-    for (const WorldStoreySnapshot& storey : snapshot.storeys) {
-        std::ranges::for_each(storey.relief, recordFile);
-    }
+    fillGroundCells(snapshot, sol, decor, grilleSol, appearance);
+    applyPieceEntities(snapshot, source.entities, appearance);
+    applyStoreys(snapshot, source.layers, appearance);
+    recordFiles(snapshot, appearance);
     return snapshot;
 }
 

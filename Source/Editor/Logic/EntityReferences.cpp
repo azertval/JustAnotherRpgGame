@@ -62,7 +62,8 @@ namespace {
         figures.push_back(slug);
     }
     std::ranges::sort(figures);
-    figures.erase(std::ranges::unique(figures).begin(), figures.end());
+    const auto [duplicates, last] = std::ranges::unique(figures);
+    figures.erase(duplicates, last);
     return figures;
 }
 

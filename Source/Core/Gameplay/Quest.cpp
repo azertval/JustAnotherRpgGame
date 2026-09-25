@@ -61,6 +61,23 @@ private:
     return std::ranges::find(valeurs, valeur) != valeurs.end();
 }
 
+// Les valeurs déclarées d'un drapeau : chacune un texte non vide, sans doublon.
+void lireValeursDrapeau(const Json& valeurs, const Pointeur& ou, QuestFlag& drapeau,
+                        Rapport& rapport) {
+    for (std::size_t v = 0; v < valeurs.size(); ++v) {
+        const Json& valeur = valeurs[v];
+        if (!valeur.is_string() || valeur.get<std::string>().empty()) {
+            rapport.signaler(ou / "values" / v,
+                             "drapeau '" + drapeau.id + "' : une valeur n'est pas un texte.");
+        } else if (contient(drapeau.values, valeur.get<std::string>())) {
+            rapport.signaler(ou / "values" / v, "drapeau '" + drapeau.id + "' : valeur '" +
+                                                    valeur.get<std::string>() + "' en double.");
+        } else {
+            drapeau.values.push_back(valeur.get<std::string>());
+        }
+    }
+}
+
 void lireDrapeaux(const Json& racine, Quest& quete, Rapport& rapport) {
     const auto drapeaux = racine.find("flags");
     if (drapeaux == racine.end()) {
@@ -88,18 +105,7 @@ void lireDrapeaux(const Json& racine, Quest& quete, Rapport& rapport) {
             rapport.signaler(ou, "drapeau '" + drapeau.id + "' : 'values' absent ou vide.");
             continue;
         }
-        for (std::size_t v = 0; v < valeurs->size(); ++v) {
-            const Json& valeur = (*valeurs)[v];
-            if (!valeur.is_string() || valeur.get<std::string>().empty()) {
-                rapport.signaler(ou / "values" / v,
-                                 "drapeau '" + drapeau.id + "' : une valeur n'est pas un texte.");
-            } else if (contient(drapeau.values, valeur.get<std::string>())) {
-                rapport.signaler(ou / "values" / v, "drapeau '" + drapeau.id + "' : valeur '" +
-                                                        valeur.get<std::string>() + "' en double.");
-            } else {
-                drapeau.values.push_back(valeur.get<std::string>());
-            }
-        }
+        lireValeursDrapeau(*valeurs, ou, drapeau, rapport);
         if (const auto initiale = texte(brut, "initial")) {
             drapeau.initial = *initiale;
         } else if (!drapeau.values.empty()) {
@@ -374,6 +380,32 @@ void declareQuestFlags(const QuestCatalog& catalog, WorldFlags& flags) {
     }
 }
 
+namespace {
+
+// Les effets d'une étape franchie : effacer, poser, ou donner sa valeur au drapeau.
+void appliquerEffets(const QuestStep& etape, WorldFlags& flags) {
+    for (const QuestEffect& effet : etape.effects) {
+        if (effet.kind == QuestEffect::Kind::ClearFlag) {
+            flags.clear(effet.flag);
+        } else if (effet.value.empty()) {
+            flags.set(effet.flag);
+        } else {
+            flags.setValue(effet.flag, effet.value);
+        }
+    }
+}
+
+// Vrai si l'étape n'est pas déjà franchie et que toutes ses conditions tiennent.
+[[nodiscard]] bool etapeFranchissable(const QuestStep& etape, std::string_view fait,
+                                      const WorldFlags& flags) {
+    return !flags.isSet(fait) &&
+           std::ranges::all_of(etape.when, [&flags](const FlagCondition& condition) {
+               return condition.holds(flags);
+           });
+}
+
+}  // namespace
+
 std::vector<QuestEvent> advanceQuests(const QuestCatalog& catalog, WorldFlags& flags) {
     std::vector<QuestEvent> evenements;
     bool bouge = true;
@@ -386,23 +418,12 @@ std::vector<QuestEvent> advanceQuests(const QuestCatalog& catalog, WorldFlags& f
             }
             for (const QuestStep& etape : quete.steps) {
                 const std::string fait = questStepFlag(quete.id, etape.id);
-                if (flags.isSet(fait) ||
-                    !std::ranges::all_of(etape.when, [&flags](const FlagCondition& condition) {
-                        return condition.holds(flags);
-                    })) {
+                if (!etapeFranchissable(etape, fait, flags)) {
                     continue;
                 }
                 flags.set(fait);
-                for (const QuestEffect& effet : etape.effects) {
-                    if (effet.kind == QuestEffect::Kind::ClearFlag) {
-                        flags.clear(effet.flag);
-                    } else if (effet.value.empty()) {
-                        flags.set(effet.flag);
-                    } else {
-                        flags.setValue(effet.flag, effet.value);
-                    }
-                }
-                evenements.push_back({quete.id, etape.id, etape.outcome});
+                appliquerEffets(etape, flags);
+                evenements.push_back({.quest = quete.id, .step = etape.id, .outcome = etape.outcome});
                 bouge = true;
                 if (etape.outcome != QuestOutcome::None) {
                     break;
@@ -451,17 +472,29 @@ void verifierUsage(const QuestCatalog& quetes, std::string_view drapeau,
     }
     for (const std::string& valeur : valeurs) {
         if (!contient(declaration->values, valeur)) {
-            erreurs.push_back(ou + " : valeur '" + valeur + "' que le drapeau '" +
-                              std::string(drapeau) + "' ne declare pas.");
+            std::string message = ou;
+            message.append(" : valeur '").append(valeur).append("' que le drapeau '");
+            message.append(drapeau).append("' ne declare pas.");
+            erreurs.push_back(std::move(message));
         }
     }
 }
 
 }  // namespace
 
-std::vector<std::string> validateFlagUses(const QuestCatalog& quests,
-                                          const DialogueCatalog& dialogues) {
-    std::vector<std::string> erreurs;
+namespace {
+
+// Les valeurs qu'une action ou un effet pose : aucune, ou la seule qu'il nomme.
+[[nodiscard]] std::vector<std::string> valeursPosees(const std::string& valeur) {
+    std::vector<std::string> valeurs;
+    if (!valeur.empty()) {
+        valeurs.push_back(valeur);
+    }
+    return valeurs;
+}
+
+void verifierDialogues(const QuestCatalog& quests, const DialogueCatalog& dialogues,
+                       std::vector<std::string>& erreurs) {
     for (const DialogueGraph& graphe : dialogues.dialogues) {
         for (const DialogueNode& noeud : graphe.nodes) {
             const std::string ou = "dialogue '" + graphe.id + "' : noeud '" + noeud.id + "'";
@@ -476,18 +509,17 @@ std::vector<std::string> validateFlagUses(const QuestCatalog& quests,
                 }
             }
             for (const DialogueAction& action : noeud.actions) {
-                if (action.kind != DialogueActionKind::SetFlag) {
-                    continue;
+                if (action.kind == DialogueActionKind::SetFlag) {
+                    verifierUsage(quests, action.target, valeursPosees(action.value),
+                                  action.value.empty(), ou, erreurs);
                 }
-                std::vector<std::string> valeurs;
-                if (!action.value.empty()) {
-                    valeurs.push_back(action.value);
-                }
-                verifierUsage(quests, action.target, valeurs, action.value.empty(), ou, erreurs);
             }
         }
     }
-    // Les quêtes entre elles : une étape peut lire ou poser le drapeau qu'une autre déclare.
+}
+
+// Les quêtes entre elles : une étape peut lire ou poser le drapeau qu'une autre déclare.
+void verifierQuetes(const QuestCatalog& quests, std::vector<std::string>& erreurs) {
     for (const Quest& quete : quests.quests) {
         for (const QuestStep& etape : quete.steps) {
             const std::string ou = "quete '" + quete.id + "' : etape '" + etape.id + "'";
@@ -495,53 +527,73 @@ std::vector<std::string> validateFlagUses(const QuestCatalog& quests,
                 verifierUsage(quests, condition.flag, condition.values, false, ou, erreurs);
             }
             for (const QuestEffect& effet : etape.effects) {
-                if (effet.kind != QuestEffect::Kind::SetFlag) {
-                    continue;
+                if (effet.kind == QuestEffect::Kind::SetFlag) {
+                    verifierUsage(quests, effet.flag, valeursPosees(effet.value),
+                                  effet.value.empty(), ou, erreurs);
                 }
-                std::vector<std::string> valeurs;
-                if (!effet.value.empty()) {
-                    valeurs.push_back(effet.value);
-                }
-                verifierUsage(quests, effet.flag, valeurs, effet.value.empty(), ou, erreurs);
             }
         }
     }
+}
+
+}  // namespace
+
+std::vector<std::string> validateFlagUses(const QuestCatalog& quests,
+                                          const DialogueCatalog& dialogues) {
+    std::vector<std::string> erreurs;
+    verifierDialogues(quests, dialogues, erreurs);
+    verifierQuetes(quests, erreurs);
     return erreurs;
 }
+
+namespace {
+
+// Ce qu'un noeud de dialogue pose : son jet raté, et le drapeau de chacune de ses actions.
+void poserDepuisNoeud(const DialogueGraph& graphe, const DialogueNode& noeud,
+                      std::set<std::string, std::less<>>& poses) {
+    // Un jet rate pose son drapeau de lui-meme (LOT-117) : une quete peut le lire.
+    if (noeud.kind == DialogueNodeKind::Check) {
+        poses.insert(dialogueCheckFailedFlag(graphe.id, noeud.id));
+    }
+    for (const DialogueAction& action : noeud.actions) {
+        if (action.kind == DialogueActionKind::SetFlag) {
+            poses.insert(action.target);
+        } else if (action.kind == DialogueActionKind::StartQuest) {
+            poses.insert(questStartedFlag(action.target));
+        } else if (action.kind == DialogueActionKind::StartEncounter) {
+            // La victoire pose son fait (`core::endEncounter`, LOT-120) : une quete le lit.
+            poses.insert(encounterWonFlag(action.target));
+        }
+    }
+}
+
+// Ce qu'une quête pose : ses drapeaux déclarés, le fait de chaque étape, et ses effets de pose.
+void poserDepuisQuete(const Quest& quete, std::set<std::string, std::less<>>& poses) {
+    for (const QuestFlag& drapeau : quete.flags) {
+        poses.insert(drapeau.id);
+    }
+    for (const QuestStep& etape : quete.steps) {
+        poses.insert(questStepFlag(quete.id, etape.id));
+        for (const QuestEffect& effet : etape.effects) {
+            if (effet.kind == QuestEffect::Kind::SetFlag) {
+                poses.insert(effet.flag);
+            }
+        }
+    }
+}
+
+}  // namespace
 
 std::set<std::string, std::less<>> flagsWrittenBy(const QuestCatalog& quests,
                                                   const DialogueCatalog& dialogues) {
     std::set<std::string, std::less<>> poses;
     for (const DialogueGraph& graphe : dialogues.dialogues) {
         for (const DialogueNode& noeud : graphe.nodes) {
-            // Un jet rate pose son drapeau de lui-meme (LOT-117) : une quete peut le lire.
-            if (noeud.kind == DialogueNodeKind::Check) {
-                poses.insert(dialogueCheckFailedFlag(graphe.id, noeud.id));
-            }
-            for (const DialogueAction& action : noeud.actions) {
-                if (action.kind == DialogueActionKind::SetFlag) {
-                    poses.insert(action.target);
-                } else if (action.kind == DialogueActionKind::StartQuest) {
-                    poses.insert(questStartedFlag(action.target));
-                } else if (action.kind == DialogueActionKind::StartEncounter) {
-                    // La victoire pose son fait (`core::endEncounter`, LOT-120) : une quete le lit.
-                    poses.insert(encounterWonFlag(action.target));
-                }
-            }
+            poserDepuisNoeud(graphe, noeud, poses);
         }
     }
     for (const Quest& quete : quests.quests) {
-        for (const QuestFlag& drapeau : quete.flags) {
-            poses.insert(drapeau.id);
-        }
-        for (const QuestStep& etape : quete.steps) {
-            poses.insert(questStepFlag(quete.id, etape.id));
-            for (const QuestEffect& effet : etape.effects) {
-                if (effet.kind == QuestEffect::Kind::SetFlag) {
-                    poses.insert(effet.flag);
-                }
-            }
-        }
+        poserDepuisQuete(quete, poses);
     }
     return poses;
 }
@@ -552,11 +604,12 @@ std::vector<FlagRead> flagsReadBy(const QuestCatalog& quests, const DialogueCata
         for (const DialogueNode& noeud : graphe.nodes) {
             const std::string ou = "dialogue '" + graphe.id + "' : noeud '" + noeud.id + "'";
             if (noeud.kind == DialogueNodeKind::Condition) {
-                lus.push_back({noeud.condition.flag, ou});
+                lus.push_back({.flag = noeud.condition.flag, .where = ou});
             }
             for (const DialogueChoice& choix : noeud.choices) {
                 if (choix.condition) {
-                    lus.push_back({choix.condition->flag, ou + " / reponse '" + choix.id + "'"});
+                    lus.push_back({.flag = choix.condition->flag,
+                                   .where = ou + " / reponse '" + choix.id + "'"});
                 }
             }
         }
@@ -564,8 +617,8 @@ std::vector<FlagRead> flagsReadBy(const QuestCatalog& quests, const DialogueCata
     for (const Quest& quete : quests.quests) {
         for (const QuestStep& etape : quete.steps) {
             for (const FlagCondition& condition : etape.when) {
-                lus.push_back(
-                    {condition.flag, "quete '" + quete.id + "' : etape '" + etape.id + "'"});
+                lus.push_back({.flag = condition.flag,
+                               .where = "quete '" + quete.id + "' : etape '" + etape.id + "'"});
             }
         }
     }

@@ -53,6 +53,9 @@ constexpr int PATH_ROLE = Qt::UserRole + 1;
 // Côté d'une vignette de carte, en pixels, et échelle de son rendu (LOT-EDITOR-09).
 constexpr int THUMBNAIL_SIDE = 112;
 constexpr double THUMBNAIL_SCALE = 0.25;
+// Marge de la grille d'icônes autour d'une vignette : de quoi loger le nom dessous.
+constexpr int THUMBNAIL_MARGIN_X = 24;
+constexpr int THUMBNAIL_MARGIN_Y = 36;
 
 // Le choix « tous les états » du filtre.
 constexpr const char* EVERY_STATE = "Any state";
@@ -226,7 +229,8 @@ void LevelBrowserPanel::applyThumbnailMode() {
     const bool icons = _ui->thumbnails->isChecked();
     _ui->levelList->setViewMode(icons ? QListView::IconMode : QListView::ListMode);
     _ui->levelList->setIconSize(icons ? QSize(THUMBNAIL_SIDE, THUMBNAIL_SIDE) : QSize());
-    _ui->levelList->setGridSize(icons ? QSize(THUMBNAIL_SIDE + 24, THUMBNAIL_SIDE + 36) : QSize());
+    const QSize cell(THUMBNAIL_SIDE + THUMBNAIL_MARGIN_X, THUMBNAIL_SIDE + THUMBNAIL_MARGIN_Y);
+    _ui->levelList->setGridSize(icons ? cell : QSize());
     _ui->levelList->setResizeMode(QListView::Adjust);
     _ui->levelList->setMovement(QListView::Static);
     _ui->levelList->setWordWrap(icons);
@@ -247,7 +251,10 @@ QPixmap LevelBrowserPanel::thumbnailFor(const std::filesystem::path& path) {
     if (level.ok()) {
         const QImage rendered = renderMap(
             *level.level, _dir.parent_path(),
-            MapRenderOptions{.bands = {}, .scale = THUMBNAIL_SCALE, .maxSide = 2 * THUMBNAIL_SIDE});
+            MapRenderOptions{.bands = {},
+                             .scale = THUMBNAIL_SCALE,
+                             .maxSide = 2 * THUMBNAIL_SIDE,
+                             .canvas = std::nullopt});
         if (!rendered.isNull()) {
             thumbnail = QPixmap::fromImage(rendered.scaled(
                 THUMBNAIL_SIDE, THUMBNAIL_SIDE, Qt::KeepAspectRatio, Qt::SmoothTransformation));

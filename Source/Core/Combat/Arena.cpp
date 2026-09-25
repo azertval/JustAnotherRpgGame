@@ -489,19 +489,23 @@ MoveOutcome ArenaSession::move(GridPosition destination) {
     if (!actif.has_value()) {
         return _combat->move(destination);
     }
-    const auto noterPas = [&](const MoveOutcome& pas, GridPosition vers) {
+    MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};
+    // Un pas vers `vers` : s'il aboutit, il est noté, signalé à l'observateur et cumulé.
+    const auto avancer = [&](GridPosition vers) {
+        const MoveOutcome pas = _combat->move(vers);
+        if (pas.result != MoveResult::Moved) {
+            return pas;
+        }
         record("pas " + _combat->find(*actif)->profile.name + " " + std::to_string(vers.column) +
                "," + std::to_string(vers.row) + " (" + std::to_string(pas.path.cost) + ")");
         if (_moveObserver) {
             _moveObserver(*actif, pas.path);
         }
-    };
-    MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};
-    const auto cumuler = [&](const MoveOutcome& pas) {
         parcours.result = MoveResult::Moved;
         parcours.path.steps.insert(parcours.path.steps.end(), pas.path.steps.begin(),
                                    pas.path.steps.end());
         parcours.path.cost += pas.path.cost;
+        return pas;
     };
 
     // Chaque tour de boucle depense au moins une reaction, ou finit le deplacement : la garde n'est
@@ -525,11 +529,7 @@ MoveOutcome ArenaSession::move(GridPosition destination) {
         std::vector<CombatantId> opportunistes;
         const std::optional<std::size_t> sortie = firstProvokingStep(*actif, cases, opportunistes);
         if (!sortie.has_value()) {
-            const MoveOutcome pas = _combat->move(destination);
-            if (pas.result == MoveResult::Moved) {
-                noterPas(pas, destination);
-                cumuler(pas);
-            }
+            const MoveOutcome pas = avancer(destination);
             return parcours.result == MoveResult::Moved ? parcours : pas;
         }
 
@@ -537,11 +537,7 @@ MoveOutcome ArenaSession::move(GridPosition destination) {
         // case ou l'on peut se tenir avant la sortie.
         const std::size_t arret = derniereCaseTenable(*zone, cases, *sortie);
         if (arret > 0) {
-            const MoveOutcome pas = _combat->move(cases[arret]);
-            if (pas.result == MoveResult::Moved) {
-                noterPas(pas, cases[arret]);
-                cumuler(pas);
-            }
+            avancer(cases[arret]);
         }
         takeOpportunities(*actif, opportunistes);
     }
