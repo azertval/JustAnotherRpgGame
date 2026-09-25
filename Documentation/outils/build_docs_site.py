@@ -361,8 +361,12 @@ class Site:
             first = next((block for block in re.split(r'\n\s*\n', index.text)
                           if block.strip() and not block.lstrip().startswith(('#', '>', '-', '|', '!'))), '')
             count = sum(1 for rel in self.pages if rel.startswith(folder + '/'))
+            # La carte est elle-même un lien : un lien dans le résumé s'y imbriquerait, ce que le
+            # navigateur refuse en refermant la carte au premier `<a>`. Le résumé garde ses mots.
+            summary = re.sub(r'<a\b[^>]*>(.*?)</a>', r'\1',
+                             mini_markdown.render_inline(' '.join(first.split())), flags=re.DOTALL)
             cards.append(f'<a class="vcard" href="{esc(self.rel(page.page, index.page))}">'
-                         f'<strong>{esc(label)}</strong><p>{mini_markdown.render_inline(" ".join(first.split()))}</p>'
+                         f'<strong>{esc(label)}</strong><p>{summary}</p>'
                          f'<span class="meta">{count} pages</span></a>')
         cards.append(f'<a class="vcard" href="{esc(self.planning_url)}"><strong>Planification</strong>'
                      f'<p>Les versions, les lots livrés et à venir, leur ordre calculé et leurs maquettes.</p>'

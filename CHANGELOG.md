@@ -6,6 +6,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Site de documentation — l'accueil ne casse plus ses cartes.** Le résumé d'une partie (le
+  premier paragraphe de son README) était rendu tel quel dans la carte de l'accueil, elle-même un
+  lien : dès qu'il citait une page, le navigateur refermait la carte au premier lien imbriqué et
+  la grille éclatait. Le résumé garde ses mots sans ses liens ; un test le vérifie.
 - **LOT-118 — Le combat sur la carte.** Une rencontre engagée pendant l'exploration se joue sur
   place : la carte se fige, la grille paraît sur sa zone de combat, le combat se joue avec les
   gestes du Colisée, l'exploration reprend. Ce qui entre :
