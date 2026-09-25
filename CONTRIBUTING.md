@@ -28,6 +28,10 @@ Le poste exécute les mêmes outils que la CI, aux mêmes versions, lues dans `e
   Ninja perdrait des dépendances d'en-têtes. Module linguistique anglais de Visual Studio et
   `VSLANG=1033` pour en profiter.
 - **Tests d'un seul étage** : `scripts/build.ps1 -Label unitaire` (ou `integration`, `systeme`).
+- **Outils de développement du jeu** : dans un binaire de développement, **F9** ouvre un menu
+  (écrans, carte, combat, gel, diagnostic, journaux) ; la ligne de commande (`--screen=`, `--map=`,
+  `--at=`, `--data=`…) et le reste sont dans
+  [`Documentation/Guide/guide-outils-developpement.md`](Documentation/Guide/guide-outils-developpement.md).
 - **Tests Qt Quick** (`Source/Test/Qml`, cible `QmlTests`, étage `unitaire`) : chaque `.ui.qml` de
   `Jadg.Ui` se construit sans avertissement, les briques se comportent comme la galerie le suppose,
   et chaque écran ressemble à sa **capture de référence** (`Source/Test/Qml/References`, rendu

@@ -78,6 +78,7 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 ### Construire, vérifier, documenter
 
 - [Build, tests et intégration continue](guide-outils.md) — la chaîne de build, les scripts, les lints, la CI, la page qualité.
+- [Outils de développement du jeu](guide-outils-developpement.md) — le menu de développement (<kbd>F9</kbd>), le sélecteur d'écrans, la ligne de commande, la racine d'essai, les captures.
 - [Écrire la documentation](guide-documentation.md) — le format des pages, les conventions, les figures, la publication.
 
 ### Annexe

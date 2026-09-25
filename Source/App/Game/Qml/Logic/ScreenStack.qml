@@ -66,6 +66,8 @@ Item {
     Component { id: assetGalleryScreen; AssetGallery {} }
 
     Loader {
+        id: stack
+
         anchors.fill: parent
         focus: true
         // Trois sources, dans cet ordre : le sélecteur de développement s'il a servi, puis
@@ -97,6 +99,35 @@ Item {
                 probe.selectedScreen = root.forcedScreen;
             }
         }
+    }
+
+    /*!
+        Le menu de développement, ouvert par F9. Absent des binaires livrés, comme le sélecteur :
+        il se lie lui-même à `ScreenRouter.developerBuild`, et le raccourci aussi.
+
+        Posé APRÈS le sélecteur, donc au-dessus de tout : c'est un recouvrement qui commande
+        l'écran, il ne doit être masqué par aucun.
+    */
+    DevMenu {
+        id: devMenu
+
+        anchors.fill: parent
+        screenNames: root.screenNames
+        // Un écran choisi au menu passe par le sélecteur : un seul chemin pour épingler un écran,
+        // et un seul endroit où le routeur le désépingle.
+        onScreenChosen: function (name) { probe.select(name) }
+        // Le menu a pris le clavier ; fermé, il le rend à l'écran courant. Sans cela, plus aucune
+        // touche n'atteignait l'écran jusqu'au prochain clic.
+        onClosed: stack.forceActiveFocus()
+    }
+
+    // F9 partout, quel que soit l'écran qui a le clavier : un raccourci d'application passe avant
+    // les `Keys` des écrans. Désactivé dans un binaire livré, où le menu n'existe pas.
+    Shortcut {
+        sequence: "F9"
+        context: Qt.ApplicationShortcut
+        enabled: ScreenRouter.developerBuild
+        onActivated: devMenu.toggle()
     }
 
     // Le routeur reprend la main dès que le jeu navigue de lui-même. Sans cela, un écran choisi

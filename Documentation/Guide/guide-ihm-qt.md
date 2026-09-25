@@ -615,5 +615,7 @@ JustAnotherRpgGame --screen=MainMenu --window-size=1280x720 --screenshot=jeu-mai
 - [Écrans, navigation et boucle de jeu](guide-ecrans.md) — la navigation entre écrans.
 - [Rendu 2D : de la scène à l'écran](guide-rendu.md) — le pipeline QRhi et les surfaces.
 - [Audio](guide-audio.md) — ce que le réglage de volume atteint.
+- [Outils de développement du jeu](guide-outils-developpement.md) — le menu <kbd>F9</kbd>, les captures et
+  la ligne de commande, réunis.
 - [Spécification IHM](../Specification/interface-ihm.md), section 10 — le *pourquoi* de la frontière
   (`EX-IHM-100` à `EX-IHM-105`).

@@ -165,6 +165,11 @@ lui-même (`Connections` sur `ScreenRouter.changed`). Sans cela, l'écran choisi
 <kbd>Échap</kbd> ne fermait plus rien, et la navigation aurait paru cassée par l'outil censé
 permettre de la vérifier.
 
+Le **menu de développement** (<kbd>F9</kbd>, `Tools/DevMenu.qml`) passe par le même sélecteur pour
+ouvrir un écran, et y ajoute la carte, le combat, le gel et les journaux, en cours de partie. Tous
+les outils de ce genre sont réunis dans [Outils de développement du
+jeu](guide-outils-developpement.md).
+
 ## La vue de jeu et la session qui lui survit
 
 `Screens/GameView.qml` pose la surface de rendu QRhi (`WorldViewport`, [Rendu 2D : de la scène à
@@ -322,6 +327,8 @@ fixe](guide-boucle.md).
   QML, vues-modèles, surface de rendu QRhi.
 - [Entrées et actions logiques](guide-entrees.md) — le clavier et la manette dans les écrans.
 - [Monde et exploration](guide-monde.md) — la session d'exploration, les portails, les dialogues.
+- [Outils de développement du jeu](guide-outils-developpement.md) — le menu <kbd>F9</kbd>, le
+  sélecteur, toutes les options de la ligne de commande en une table.
 - [Éditeur de niveaux](guide-editeur.md) — l'essai immédiat et l'essai complet, qui réutilisent
   `hmi::WorldPlay` et `hmi::LaunchOptions`.
 - [Boucle de jeu et pas de temps fixe](guide-boucle.md) — le pas fixe.
