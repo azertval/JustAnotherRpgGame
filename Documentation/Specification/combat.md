@@ -1,10 +1,9 @@
 # Combat tactique
 
-> Statut : **livré dans l'arène, à porter sur la carte.** La mécanique entière — bascule,
+> Statut : **livré dans l'arène et sur la carte.** La mécanique entière — bascule,
 > initiative, économie d'actions, déplacement, ligne de vue, abri, zones, attaque, IA — est écrite
-> et testée (`LOT-18` → `LOT-24`), et se joue aujourd'hui dans le Colisée (`LOT-50`). Ce qui reste
-> tient en trois lots : la rencontre déclenchée **sur la carte d'exploration** (`LOT-118`), les
-> écrans de fin (`LOT-119`), l'agonie et la mort (`LOT-137`). Dépend de
+> et testée (`LOT-18` → `LOT-24`) ; la rencontre se joue sur la carte d'exploration (`LOT-118`), et
+> une défaite y ouvre l'écran de mort (`LOT-119`). Reste l'agonie et la mort (`LOT-137`). Dépend de
 > [`regles-d20.md`](regles-d20.md) (le jet, les conditions) et de
 > [`exploration.md`](exploration.md) (la couche de collision, l'orientation).
 

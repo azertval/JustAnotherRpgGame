@@ -10,8 +10,14 @@ import Jadg.Ui
     un dialogue suspend le jeu, et se lit comme une page.
 
     Les proprietes portent des VALEURS D'EXEMPLE ; le jumeau les lie a `DialogueModel` (LOT-15).
-    Cliquer une reponse emet `replyChosen(rowId)` ; le jet que la derniere reponse a joue s'ecrit
-    au-dessus de la replique (`checkOutcome`), vide sinon.
+    Cliquer une reponse emet `replyChosen(rowId)`.
+
+    LE JET SE MONTRE (LOT-117). La reponse qui mene a un jet l'annonce dans sa colonne de valeur
+    (« [Persuasion · DD 15] ») ; une fois joue, il se pose au-dessus de la replique qui en decoule :
+    le d20 tire dans son losange -- filet d'or si le jet reussit, grenat s'il echoue --, ce qui
+    etait jete (`checkTitle`), le calcul (`checkDetail`) et l'issue (`checkVerdict`). Rien ne
+    s'affiche quand le dernier geste n'a rien jete (`checkTitle` vide). Un jet deja rate ne relance
+    pas le de : le losange porte alors un tiret.
 */
 ScreenPage {
     id: root
@@ -22,6 +28,11 @@ ScreenPage {
     property string speakerName: "—"
     property string attitude: "—"
     property string checkOutcome: ""
+    property string checkTitle: "Persuasion · DD 15"
+    property string checkDie: "12"
+    property string checkDetail: "12 + 4 = 16"
+    property string checkVerdict: "réussite"
+    property bool checkSucceeded: true
 
     signal replyChosen(string rowId)
 
@@ -84,26 +95,74 @@ ScreenPage {
                     text: qsTr("Réplique")
                 }
 
-                Text {
-                    id: outcomeLabel
+                Row {
+                    id: checkRow
 
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: lineBanner.bottom
                     anchors.topMargin: Tokens.gapSmall
-                    visible: root.checkOutcome.length > 0
-                    height: visible ? implicitHeight : 0
-                    text: root.checkOutcome
-                    color: Tokens.textMuted
-                    font.family: Tokens.bodyFamily
-                    font.pixelSize: Tokens.fontBody
-                    elide: Text.ElideRight
+                    visible: root.checkTitle.length > 0
+                    height: visible ? dieBadge.height : 0
+                    spacing: Tokens.gapMedium
+
+                    // Le d20 : un losange, le de tire au centre.
+                    Item {
+                        id: dieBadge
+
+                        width: 64 * Tokens.uiScale
+                        height: 64 * Tokens.uiScale
+
+                        Rectangle {
+                            anchors.centerIn: parent
+                            width: parent.width * 0.7
+                            height: parent.height * 0.7
+                            rotation: 45
+                            color: Tokens.panelRaised
+                            border.color: root.checkSucceeded ? Tokens.goldLight : Tokens.gemLight
+                            border.width: Tokens.strokeWidth * 2
+                        }
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: root.checkDie.length > 0 ? root.checkDie : "–"
+                            color: Tokens.textOnPanel
+                            font.family: Tokens.titleFamily
+                            font.pixelSize: Tokens.fontSectionTitle
+                            font.bold: true
+                        }
+                    }
+
+                    Column {
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: parent.width - dieBadge.width - parent.spacing
+                        spacing: Tokens.gapSmall / 2
+
+                        Text {
+                            width: parent.width
+                            text: root.checkTitle
+                            color: Tokens.text
+                            font.family: Tokens.titleFamily
+                            font.pixelSize: Tokens.fontBody
+                            font.bold: true
+                            elide: Text.ElideRight
+                        }
+
+                        Text {
+                            width: parent.width
+                            text: root.checkDetail + "  —  " + root.checkVerdict
+                            color: root.checkSucceeded ? Tokens.success : Tokens.error
+                            font.family: Tokens.bodyFamily
+                            font.pixelSize: Tokens.fontBody
+                            elide: Text.ElideRight
+                        }
+                    }
                 }
 
                 Text {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.top: outcomeLabel.bottom
+                    anchors.top: checkRow.bottom
                     anchors.bottom: parent.bottom
                     anchors.topMargin: Tokens.gapMedium
                     text: root.line

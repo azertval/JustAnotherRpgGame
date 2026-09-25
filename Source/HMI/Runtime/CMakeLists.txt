@@ -15,7 +15,7 @@
 # à la main, et ajouter un type se fait en écrivant la macro dans son en-tête.
 #
 # Les vues-modèles ne connaissent ni Quick ni Widgets (EX-IHM-101, `check_ui_layers.py`) ; seule
-# `GameViewportItem`, `ArenaViewportItem` et `WorldViewportItem`, les surfaces de rendu, lient Quick -- ce sont des items de
+# `GameViewportItem` et `WorldViewportItem`, les surfaces de rendu, lient Quick -- ce sont des items de
 # scène, pas des modèles.
 
 qt_add_qml_module(JadgRuntime
@@ -34,15 +34,16 @@ qt_add_qml_module(JadgRuntime
         RuleLabels.h RuleLabels.cpp
         DemonstrationCharacter.h DemonstrationCharacter.cpp
         GameViewportItem.h GameViewportItem.cpp
-        # Le combat, tel qu'un ecran le joue (LOT-24) : la partie commune au Colisee et au combat
-        # sur la carte, puis chacun des deux (LOT-118).
+        # Le combat, tel qu'un ecran le joue (LOT-24) : la partie commune, et le combat sur la
+        # carte (LOT-118). L'ecran du Colisee est retire (25 sept. 2026).
         CombatModel.h CombatModel.cpp
-        ArenaModel.h ArenaModel.cpp
         EncounterModel.h EncounterModel.cpp
-        # La scene de combat du Colisee sur QRhi (LOT-86 Phase 5) : l'item, et le pipeline 2D qu'il
-        # est le premier ecran du jeu a faire tourner -- jusqu'ici compile dans l'editeur seul.
-        ArenaViewportItem.h ArenaViewportItem.cpp
+        # Le pipeline 2D de la scene de combat sur QRhi (LOT-86 Phase 5), garde pour ses tests.
         ../Graphics/ArenaSceneRenderer.cpp
+        # Les outils de debug : le menu F9 rejoue les options du binaire, le lanceur de cartes
+        # (`--screen=MapLauncher`) ouvre une carte du contenu.
+        DebugConsoleModel.h DebugConsoleModel.cpp
+        MapLauncherModel.h MapLauncherModel.cpp
         # Le lieu qu'on parcourt (LOT-09) : la vue-modele de l'exploration, sa surface de rendu, et
         # le rendu QRhi du lieu -- le meme pipeline 2D que l'arene, sur une carte au lieu d'une
         # grille de combat.

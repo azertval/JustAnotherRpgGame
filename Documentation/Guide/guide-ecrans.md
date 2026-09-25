@@ -1,7 +1,7 @@
 # Écrans, navigation et boucle de jeu
 
 Cette page explique comment le jeu passe du menu à la carte, à la pause, aux options, aux écrans
-du RPG ou au Colisée, et ce que la ligne de commande peut imposer à ce parcours. Les écrans sont
+du RPG ou aux écrans de fin, et ce que la ligne de commande peut imposer à ce parcours. Les écrans sont
 des fichiers QML ([IHM Qt — deux applications, deux technologies](guide-ihm-qt.md)) ; la **table
 de transitions** qui décide où l'on peut aller est, elle, du C++ pur, testé sans fenêtre, que
 `hmi::ScreenRouter` se contente d'appeler pour le compte du QML. L'éditeur de niveaux est un
@@ -9,7 +9,7 @@ binaire séparé ([Éditeur de niveaux](guide-editeur.md)) : aucun chemin du jeu
 
 Périmètre de la page : `Source/HMI/Presentation/ScreenFlow.h` et `RpgScreens.h`,
 `Source/HMI/Runtime/ScreenRouter.h`, `Source/HMI/Game/WorldPlay.h` et `LaunchOptions.h`, et les
-fichiers de câblage `Source/App/Game/Qml/Main.qml`, `Logic/ScreenStack.qml`, `Logic/ScreenProbe.qml`.
+fichiers de câblage `Source/App/Game/Qml/Main.qml`, `Logic/ScreenStack.qml`, `Tools/DevMenu.qml`.
 
 ## Ce qu'est une machine à états d'écrans
 
@@ -35,28 +35,29 @@ dépendance Qt — même patron que `hmi::panelForTool` dans l'éditeur. Un seul
   depuis cet écran. L'appelant garde alors son état inchangé : jamais de bascule silencieuse
   (`EX-GP-041`). La fonction est `noexcept` et ne lit que ses arguments.
 
-`hmi::ScreenId` compte sept états : `Menu`, `Game` (la carte qu'on parcourt), `Options`, `Pause`,
+`hmi::ScreenId` compte huit états : `Menu`, `Game` (la carte qu'on parcourt), `Options`, `Pause`,
 `Credits`, `RpgScreen` (l'un des écrans du RPG — fiche, inventaire, carte… —, dont
-`RpgScreens.h` tient la liste) et `Arena` (le Colisée, `LOT-50`). L'arène est un écran de premier
-niveau, comme `Game`, parce que c'est un **mode du jeu** et non un écran qui se consulte pendant
-une partie.
+`RpgScreens.h` tient la liste), et les deux écrans de fin du `LOT-119`, `Death` (l'écran de mort)
+et `DemoEnd` (« Fin de la démo »), de premier niveau parce qu'ils **ferment** la partie. L'écran
+du Colisée (`Arena`, `LOT-50`) est retiré depuis que le combat se joue sur la carte (`LOT-118`).
 
 `hmi::ScreenEvent` compte treize événements : `OpenMenu`, `OpenGame`, `OpenOptions`,
 `CloseOptions`, `OpenPause`, `ResumePause`, `QuitPauseToMenu`, `OpenCredits`, `CloseCredits`,
-`OpenRpgScreen`, `CloseRpgScreen`, `OpenArena`, `CloseArena`. Un seul `OpenRpgScreen` sert les
+`OpenRpgScreen`, `CloseRpgScreen`, `OpenDeath`, `OpenDemoEnd`. Un seul `OpenRpgScreen` sert les
 neuf écrans du RPG, et un seul `OpenOptions` sert le menu et la pause.
 
 ### La table, telle que le code l'écrit
 
 | Depuis | Événement admis | Vers |
 |---|---|---|
-| `Menu` | `OpenGame`, `OpenOptions`, `OpenCredits`, `OpenRpgScreen`, `OpenArena`, `OpenMenu` | `Game`, `Options`, `Credits`, `RpgScreen`, `Arena`, `Menu` |
-| `Game` | `OpenPause`, `OpenRpgScreen`, `OpenArena`, `OpenMenu` | `Pause`, `RpgScreen`, `Arena`, `Menu` |
+| `Menu` | `OpenGame`, `OpenOptions`, `OpenCredits`, `OpenRpgScreen`, `OpenMenu` | `Game`, `Options`, `Credits`, `RpgScreen`, `Menu` |
+| `Game` | `OpenPause`, `OpenRpgScreen`, `OpenMenu`, `OpenDeath`, `OpenDemoEnd` | `Pause`, `RpgScreen`, `Menu`, `Death`, `DemoEnd` |
 | `Pause` | `ResumePause`, `QuitPauseToMenu`, `OpenOptions`, `OpenRpgScreen` | `Game`, `Menu`, `Options`, `RpgScreen` |
 | `Options` | `CloseOptions` | `optionsReturnTo` (`Menu` ou `Pause`) |
 | `Credits` | `CloseCredits` | `Menu` |
-| `RpgScreen` | `CloseRpgScreen` | `rpgReturnTo` (`Menu`, `Game` ou `Pause`) |
-| `Arena` | `CloseArena`, `OpenMenu` | `arenaReturnTo` (`Menu` ou `Game`), `Menu` |
+| `RpgScreen` | `CloseRpgScreen`, `OpenDeath`, `OpenDemoEnd` | `rpgReturnTo` (`Menu`, `Game` ou `Pause`), `Death`, `DemoEnd` |
+| `Death` | `OpenGame`, `OpenMenu` | `Game` (« Recommencer »), `Menu` |
+| `DemoEnd` | `OpenCredits`, `OpenMenu` | `Credits`, `Menu` |
 
 Tout ce qui n'est pas dans cette table est refusé. `OpenGame` depuis la pause, par exemple,
 n'existe pas : reprendre est `ResumePause`, et cette distinction est ce qui permet de tester que
@@ -64,9 +65,8 @@ la reprise revient bien sur la **même** partie.
 
 ### La provenance est un attribut de l'état
 
-`hmi::ScreenState` porte l'écran courant **et** trois retours : `optionsReturnTo` dit si
-`CloseOptions` revient au menu ou à la pause, `rpgReturnTo` d'où un écran du RPG a été ouvert,
-`arenaReturnTo` si le Colisée revient au menu ou à la carte (quand le héraut y envoie, `LOT-09`).
+`hmi::ScreenState` porte l'écran courant **et** deux retours : `optionsReturnTo` dit si
+`CloseOptions` revient au menu ou à la pause, `rpgReturnTo` d'où un écran du RPG a été ouvert.
 Jamais une variable « écran précédent » posée à côté de la machine : une telle variable devrait
 être mise à jour par chaque appelant, et l'un d'eux finirait par l'oublier. Ici, la table écrit le
 retour en même temps que l'état, et `operator==` sur la structure entière rend chaque transition
@@ -126,7 +126,9 @@ pas.
 | `hmi::ScreenRouter::openOptions` / `closeOptions` | `OpenOptions` / `CloseOptions` | retour selon `optionsReturnTo` |
 | `hmi::ScreenRouter::openPause` / `resume` / `quitToMenu` | `OpenPause` / `ResumePause` / `QuitPauseToMenu` | |
 | `hmi::ScreenRouter::openCredits` / `closeCredits` | `OpenCredits` / `CloseCredits` | |
-| `hmi::ScreenRouter::openArena` / `closeArena` | `OpenArena` / `CloseArena` | retour selon `arenaReturnTo` |
+| `hmi::ScreenRouter::jumpToGame` | aucun | outil de debug : la vue de jeu **hors de la table**, sans effet dans un binaire livré |
+| `hmi::ScreenRouter::openDeath` | `OpenDeath` | le héros est tombé (`LOT-119`) |
+| `hmi::ScreenRouter::openDemoEnd(ending)` | `OpenDemoEnd` | transporte la voie (`ending`, `endingText`) |
 | `hmi::ScreenRouter::openRpgScreen(screen)` / `closeRpgScreen` | `OpenRpgScreen` / `CloseRpgScreen` | retient aussi **lequel** |
 | `hmi::ScreenRouter::openDialogue(dialogueId)` | `OpenRpgScreen` sur `Dialogue` | transporte l'identifiant |
 | `hmi::ScreenRouter::nextRpgScreen` / `previousRpgScreen` | aucun | change `currentRpgScreen` dans le cycle, sans repasser par la table |
@@ -152,23 +154,20 @@ depuis la pause…), et la pile suit.
 
 ### Les outils de vérification, et pourquoi ils ne sont pas des chemins de jeu
 
-`--screen=<Nom>` ouvre un écran directement, et `Logic/ScreenProbe.qml` fait de même en cours
-d'exécution : deux boutons posés en bas de la fenêtre font défiler les dix-sept noms de
-`ScreenStack.screenNames` (les quinze écrans, la galerie des briques `Gallery` et la galerie des
-assets `AssetGallery`, qui ne sont pas des écrans du jeu). Ils existent parce que plusieurs écrans
-sont dessinés mais pas encore alimentés — sans eux, ils ne seraient atteignables par aucun chemin
-de jeu, et ne se vérifieraient donc pas.
+`--screen=<Nom>` épingle un écran au lancement, et le **menu de développement** (<kbd>F9</kbd>,
+`Tools/DevMenu.qml`) fait de même en cours de partie, parmi les noms de `ScreenStack.screenNames`
+(les écrans du jeu, la galerie des briques `Gallery`, la galerie des assets `AssetGallery` et le
+lanceur de cartes `MapLauncher`, qui ne sont pas des écrans du jeu). Ils existent parce que
+plusieurs écrans sont dessinés mais pas encore alimentés — sans eux, ils ne seraient atteignables
+par aucun chemin de jeu, et ne se vérifieraient donc pas.
 
-Le sélecteur se lie à `ScreenRouter.developerBuild` et **n'existe pas** dans un binaire livré,
-garanti par la construction ; et il **rend la main au routeur** dès que le jeu navigue de
-lui-même (`Connections` sur `ScreenRouter.changed`). Sans cela, l'écran choisi restait épinglé :
-<kbd>Échap</kbd> ne fermait plus rien, et la navigation aurait paru cassée par l'outil censé
-permettre de la vérifier.
-
-Le **menu de développement** (<kbd>F9</kbd>, `Tools/DevMenu.qml`) passe par le même sélecteur pour
-ouvrir un écran, et y ajoute la carte, le combat, le gel et les journaux, en cours de partie. Tous
-les outils de ce genre sont réunis dans [Outils de développement du
-jeu](guide-outils-developpement.md).
+La pile montre l'écran épinglé (`pinnedScreen`) s'il y en a un, sinon celui du routeur ; l'épingle
+**tombe** dès que le jeu navigue de lui-même (`Connections` sur `ScreenRouter.changed`). Sans cela,
+l'écran choisi restait épinglé : <kbd>Échap</kbd> ne fermait plus rien, et la navigation aurait paru
+cassée par l'outil censé permettre de la vérifier. Le menu se lie à `ScreenRouter.developerBuild`
+et **n'existe pas** dans un binaire livré, garanti par la construction. Le sélecteur ◀ ▶ du bas de
+la fenêtre, qui faisait le même office, est retiré : le menu le contient. Tous les outils de ce
+genre sont réunis dans [Outils de développement du jeu](guide-outils-developpement.md).
 
 ## La vue de jeu et la session qui lui survit
 
@@ -180,7 +179,7 @@ remplace : une session possédée par l'écran mourrait avec lui, et l'on revien
 dialogue ou du sable sur une carte neuve, héros à la porte. `GameView` ne lance donc
 `WorldModel.startNewGame()` que si aucune carte n'est chargée.
 
-Le **gel** suit le focus : ce qui recouvre la vue de jeu (dialogue, Colisée, pause, écran du RPG)
+Le **gel** suit le focus : ce qui recouvre la vue de jeu (dialogue, pause, écran du RPG)
 lui prend le focus, et la vue relâche alors les directions tenues ; le dialogue pose en plus
 `WorldModel.frozen`. Un seul chemin pour tous les écrans plutôt qu'un par écran. Quel écran du
 RPG suspend la simulation est dit par `hmi::pausesGame`, pas par la table de transitions, qui ne
@@ -266,7 +265,7 @@ refaite), `--at=` et `--flags=` disent où et dans quel état (`setStartCell`, `
 `--hero-figure=<dossier>` remplace la figurine du héros (`hmi::WorldModel::setHeroFigure`, un
 dossier depuis `Assets/`, comme `WorldPlay::DEFAULT_HERO_FIGURE`) — pour voir une figurine de
 l'atelier marcher sans attendre la création de personnage. Le jeu s'ouvre alors sur l'écran que
-le **routeur** désigne — pas un écran forcé —, si bien que dialogue, pause et Colisée fonctionnent
+le **routeur** désigne — pas un écran forcé —, si bien que dialogue, pause et combat fonctionnent
 pendant l'essai. Ces options n'existent que dans un build de développement, et toutes
 s'accrochent à `--map=` : sans carte imposée, aucune n'est lue. `--hero-figure=` n'a pas de champ
 dans `hmi::GameLaunchOptions` : l'éditeur ne la passe pas, elle se tape à la main.

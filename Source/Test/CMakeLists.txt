@@ -123,6 +123,9 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_identity_scale.cpp
     # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit, le jeu la relit.
     Unit/HMI/Game/test_launch_options.cpp
+    # Les outils de debug : le catalogue suit les sources du jeu ; les cartes d'un dossier.
+    Unit/HMI/Game/test_debug_commands.cpp
+    Unit/HMI/Game/test_level_scan.cpp
     # Le combat sur la carte (LOT-118) : la file des mouvements ; les mannequins (LOT-145).
     Unit/HMI/Game/test_combat_cues.cpp
     Unit/HMI/Game/test_figure_resolver.cpp
@@ -329,7 +332,6 @@ target_compile_definitions(UnitTests PRIVATE
 # JADG_GAME_ENABLED), et un lien vers une cible absente casserait ce build sans rapport avec le code.
 if(TARGET JadgRuntime)
     add_executable(RuntimeTests
-        Unit/HMI/Runtime/test_arena_model.cpp
         # Le combat sur la carte (LOT-118) : la rencontre montee sur la zone, jouee, quittee.
         Unit/HMI/Runtime/test_encounter_model.cpp
     )

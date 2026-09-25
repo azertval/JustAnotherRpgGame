@@ -221,10 +221,18 @@ dialogue.refused = Your interlocutor speaks no language you understand. They shr
 dialogue.unavailable = No conversation to show.
 dialogue.check.success = success
 dialogue.check.failure = failure
-dialogue.check.summary = %1: %2 against %3 — %4
+dialogue.check.announce = %1 · DC %2
+dialogue.check.summary = %1 · DC %2 — d20: %3, total %4 — %5
+dialogue.check.repeat = %1 · DC %2 — already attempted — %3
+dialogue.check.already-failed = already attempted, no second roll
 dialogue.attitude.friendly = Friendly
 dialogue.attitude.indifferent = Indifferent
 dialogue.attitude.hostile = Hostile
+
+# The ways the demo can end (LOT-119): a dialogue's `endDemo` action names one, and the
+# "End of the demo" screen says it (ending.<way>).
+ending.arene = through the arena
+ending.parole = by words alone
 
 # The Coliseum herald (demonstration dialogue, provisional).
 dialogue.heraut-colisee.speaker = The Coliseum Herald

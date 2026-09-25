@@ -659,7 +659,15 @@ d'après perd son après-midi. Refusé au chargement, jamais découvert en jeu :
 - un **cycle non intentionnel** (ci-dessous) ;
 - un **nœud orphelin**, que rien n'atteint depuis l'entrée — presque toujours une faute de frappe
   dans une cible ;
-- une **impasse** : un nœud atteint d'où aucune fin n'est atteignable.
+- une **impasse** : un nœud atteint d'où aucune fin n'est atteignable ;
+- un **jet sans branche d'échec** (`LOT-117`) : `failure` absent, ou menant où mène `success` —
+  le jet ne déciderait rien ;
+- une réplique que des **jets ratés** pourraient vider : une réponse qui mène à un jet disparaît
+  une fois ce jet raté (ci-dessous), elle compte donc comme conditionnelle, et il faut une réponse
+  toujours proposée, sans condition et sans jet.
+
+Le contrôle de l'éditeur (`LevelEditor --check`) liste les dialogues ainsi refusés, avec leur
+message.
 
 Les contrôles de graphe (orphelins, cycles, impasses) ne tournent que sur un graphe dont chaque
 nœud est lu et chaque cible existe : les faire sur un graphe incomplet produirait des orphelins qui
@@ -685,9 +693,11 @@ objets du jeu. `core::loadDialogues(directory)` charge un dossier en `core::Dial
 
 Le runner ne voit ni fiche, ni inventaire, ni groupe — trois questions et un geste : `speaks`
 (parle-t-il cette langue ?), `skillModifiers` (les modificateurs d'un jet, **avec leur origine**),
-`receiveItem` (recevoir un objet), `startCombat` et `startEncounter` (sans effet par défaut : un
-interlocuteur sans écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste au journal ;
-la seconde engage une rencontre **sur la carte**, `LOT-118`). Le jour où le groupe
+`receiveItem` (recevoir un objet), `startCombat`, `startEncounter` et `endDemo` (sans effet par
+défaut : un interlocuteur sans écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste
+au journal ; la deuxième engage une rencontre **sur la carte**, `LOT-118` ; la troisième ouvre
+l'écran « Fin de la démo » sur la voie nommée, `LOT-119`, dont le texte est la clé
+`core::demoEndingKey` — `ending.<voie>`). Le jour où le groupe
 existera, « connaît-il cette langue » deviendra « l'un d'eux la connaît-il » dans une autre
 implémentation, sans que le runner le sache. `core::CharacterListener` est l'implémentation sur
 une fiche : les langues de la fiche, le modificateur de compétence **détaillé** (« +3 (charisma)
@@ -720,8 +730,14 @@ un arbre de vingt nœuds se vérifie en test sans le cliquer. Les références d
 - `state()`, `currentLine()` (la réplique affichée, ou `nullptr`), `lineKey()`, `attitude()`
   (celle de la réplique si elle en déclare une, sinon celle du graphe), `choices()` — les
   `core::AvailableChoice` proposées **maintenant**, conditions évaluées, chacune avec sa clé de
-  texte et, si elle mène à un jet, la compétence jetée : l'écran l'annonce avant qu'on choisisse,
-  comme une table l'annonce (« [Persuasion] »).
+  texte et, si elle mène à un jet, la compétence jetée et son seuil (`checkDc`) : l'écran
+  l'annonce avant qu'on choisisse, comme une table l'annonce (« [Persuasion · DD 15] »).
+- **Un jet raté ne se retente pas** (`LOT-117`). À l'échec, le runner pose
+  `core::dialogueCheckFailedFlag` — `dialogue/<dialogue>/<jet>/failed`, un drapeau de monde qui
+  survit à la conversation. Une réponse qui mène à ce jet n'est plus proposée (ni acceptée par
+  `choose`) ; le même jet atteint par un autre chemin échoue **sans tirer de dé**
+  (`core::DialogueCheck::alreadyFailed`), la suite aléatoire restant intacte. Le drapeau compte
+  parmi ceux que le récit pose (`core::flagsWrittenBy`) : une quête peut le lire.
 - Le jet (`runCheck`) passe par `core::rollCheck` contre le degré lu dans l'échelle, avec les
   modificateurs de l'interlocuteur ; `lastCheck()` rend le `core::DialogueCheck` du **dernier
   geste** seulement — l'écran le restitue sur la réplique qui en découle, pas sur les suivantes. Un

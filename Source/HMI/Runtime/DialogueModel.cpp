@@ -85,10 +85,11 @@ public:
 
     EcouteurDEcran(const core::CharacterSheet& fiche, core::Inventory& sac,
                    const core::ExperienceTable& experience, const core::SkillCatalog& competences,
-                   SurCombat surCombat, SurCombat surRencontre)
+                   SurCombat surCombat, SurCombat surRencontre, SurCombat surFin)
         : _personnage(fiche, sac, experience, competences),
           _surCombat(std::move(surCombat)),
-          _surRencontre(std::move(surRencontre)) {}
+          _surRencontre(std::move(surRencontre)),
+          _surFin(std::move(surFin)) {}
 
     [[nodiscard]] bool speaks(std::string_view languageId) const override {
         return _personnage.speaks(languageId);
@@ -110,11 +111,17 @@ public:
             _surRencontre(std::string{encounterId});
         }
     }
+    void endDemo(std::string_view ending) override {
+        if (_surFin) {
+            _surFin(std::string{ending});
+        }
+    }
 
 private:
     core::CharacterListener _personnage;
     SurCombat _surCombat;
     SurCombat _surRencontre;
+    SurCombat _surFin;
 };
 
 }  // namespace
@@ -186,12 +193,11 @@ void DialogueModel::open() {
         refresh();
         return;
     }
-    s.listener.emplace(s.character.sheet, s.character.inventory, s.character.experience,
-                       s.character.skills,
-                       [this](const std::string& arena) { emit combatRequested(toQt(arena)); },
-                       [this](const std::string& rencontre) {
-                           emit encounterRequested(toQt(rencontre));
-                       });
+    s.listener.emplace(
+        s.character.sheet, s.character.inventory, s.character.experience, s.character.skills,
+        [this](const std::string& arena) { emit combatRequested(toQt(arena)); },
+        [this](const std::string& rencontre) { emit encounterRequested(toQt(rencontre)); },
+        [this](const std::string& voie) { emit demoEnded(toQt(voie)); });
     s.random.emplace(graineSuivante());
     s.runner.emplace(*s.graph, drapeauxDeLaPartie(), *s.listener, s.difficulty, *s.random);
     static_cast<void>(s.runner->start());
@@ -251,6 +257,26 @@ QString DialogueModel::checkOutcome() const {
     return toQt(_session->values.checkOutcome);
 }
 
+QString DialogueModel::checkTitle() const {
+    return toQt(_session->values.checkTitle);
+}
+
+QString DialogueModel::checkDie() const {
+    return toQt(_session->values.checkDie);
+}
+
+QString DialogueModel::checkDetail() const {
+    return toQt(_session->values.checkDetail);
+}
+
+QString DialogueModel::checkVerdict() const {
+    return toQt(_session->values.checkVerdict);
+}
+
+bool DialogueModel::checkSucceeded() const noexcept {
+    return _session->values.checkSucceeded;
+}
+
 bool DialogueModel::finished() const noexcept {
     return _session->values.finished || _session->left;
 }
@@ -265,6 +291,15 @@ QString DialogueModel::status() const {
         parts << QStringLiteral("dialogue inconnu : ") + toQt(s.dialogueId);
     }
     return parts.join(QStringLiteral(" ; "));
+}
+
+QStringList DialogueModel::dialogueIds() const {
+    QStringList ids;
+    for (const core::DialogueGraph& graphe : _session->dialogues.dialogues) {
+        ids.push_back(toQt(graphe.id));
+    }
+    ids.sort();
+    return ids;
 }
 
 void DialogueModel::choose(const QString& rowId) {

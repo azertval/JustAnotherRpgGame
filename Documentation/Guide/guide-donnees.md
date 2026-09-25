@@ -210,7 +210,7 @@ Tous les chargeurs de catalogue ont la même forme, et `core::loadBestiary`
 - le résultat est **valeurs plus liste d'erreurs** (`core::Bestiary::errors`,
   `core::EquipmentCatalog::errors`, `core::Atlas::errors`…), et `requiredMechanisms()` rend l'union
   des mécanismes que les données exigent : c'est l'état d'avancement consultable qu'`EX-CNT-031`
-  demande, pas une erreur fatale. L'appelant — `hmi::ArenaModel::loadCatalogs`,
+  demande, pas une erreur fatale. L'appelant — `hmi::EncounterModel`,
   `hmi::WorldMapModel`, `hmi::DialogueModel`… — journalise les erreurs et décide.
 
 Les chargeurs qui suivent cette forme : `core::loadBestiary`, `core::loadEquipment`,

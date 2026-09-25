@@ -36,7 +36,7 @@ namespace hmi {
  * l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle.
  * Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.
  *
- * Même partage que l'arène (`hmi::ArenaModel`) : la surface de rendu (`hmi::WorldViewportItem`)
+ * Même partage que le combat : la surface de rendu (`hmi::WorldViewportItem`)
  * prend un **instantané en valeurs** (`hmi::WorldSceneSnapshot`) dans `synchronize()`, pendant que
  * le fil graphique est bloqué. Le modèle ne lui passe jamais la session.
  */
@@ -93,6 +93,16 @@ public:
      */
     Q_INVOKABLE bool startNewGame();
 
+    /**
+     * @brief La partie est finie (`LOT-119`) : mort, ou retour au menu depuis l'écran de fin.
+     *
+     * La session repart de zéro — aucune carte ouverte, drapeaux et quêtes oubliés, sauf ceux que
+     * le lancement a posés (`--flags=`) — si bien que le prochain « Nouvelle partie », ou le
+     * « Recommencer » de l'écran de mort, ouvre une partie **neuve** et non celle où l'on vient de
+     * mourir. Les réglages du lancement (`--map=`, `--at=`, `--levels=`) demeurent.
+     */
+    Q_INVOKABLE void endGame();
+
     /// @brief Entre sur @p mapId au point d'arrivée @p arrival (vide : l'entrée de la carte).
     Q_INVOKABLE bool enterMap(const QString& mapId, const QString& arrival);
 
@@ -116,8 +126,9 @@ public:
     /**
      * @brief La case où « Nouvelle partie » pose le héros, à la place de l'entrée de la carte
      *        (`--at=`, `LOT-EDITOR-10`) : l'endroit de la carte qu'on veut voir, tout de suite.
+     *        Vide : le héros part de l'entrée (le lanceur de cartes le remet ainsi).
      */
-    void setStartCell(core::GridPosition cell);
+    void setStartCell(std::optional<core::GridPosition> cell);
 
     /**
      * @brief Les drapeaux de monde acquis avant le premier pas (`--flags=`, `LOT-EDITOR-10`) :
@@ -255,6 +266,10 @@ private:
     void placeHeroAtStartCell();
     /// Lit les quêtes de `World/quests` et les donne à la session (`LOT-116`).
     void installQuests();
+    /// Refait la session sur les cartes de `_levelDirectories`, puis le `Levels/` du contenu.
+    void rebuildSession();
+    /// Pose @p flags sur la session (`--flags=`), sans les retenir.
+    void applyFlags(const QStringList& flags);
     /// Retient le quartier de la carte courante parmi les quartiers visités.
     void noteDistrictVisit();
 
@@ -270,6 +285,10 @@ private:
     QString _startArrivalOverride;
     /// La case imposée par `--at=`, absente sinon (`LOT-EDITOR-10`).
     std::optional<core::GridPosition> _startCell;
+    /// Les dossiers de `--levels=`, lus avant le `Levels/` du contenu (`LOT-EDITOR-10`).
+    std::vector<std::filesystem::path> _levelDirectories;
+    /// Les drapeaux de `--flags=` : reposés à chaque partie neuve (`endGame`).
+    QStringList _startFlags;
     core::Vector2 _move{};
     bool _interact = false;
     quint64 _sceneRevision = 1;

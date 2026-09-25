@@ -15,7 +15,8 @@ QtObject {
         Pause,
         Credits,
         RpgScreen,
-        Arena
+        Death,
+        DemoEnd
     }
 
     enum RpgScreen {
@@ -33,6 +34,9 @@ QtObject {
     /// Le dialogue que l'ecran de dialogue joue (LOT-09) : dans l'atelier, celui du heraut, pour
     /// que l'ecran se dessine sur une conversation.
     readonly property string dialogueId: "heraut-colisee"
+    /// La voie de la fin de la demo (LOT-119) : dans l'atelier, celle de l'arene.
+    readonly property string ending: "arene"
+    readonly property string endingText: "par la voie de l'arène"
 
     readonly property int currentScreen: ScreenRouter.Menu
     readonly property int currentRpgScreen: ScreenRouter.CharacterSheet
@@ -43,6 +47,8 @@ QtObject {
     function openMenu() {}
     function openGame() {}
     function openDialogue(dialogueId) {}
+    function openDeath() {}
+    function openDemoEnd(ending) {}
     function openOptions() {}
     function closeOptions() {}
     function openPause() {}
@@ -50,8 +56,7 @@ QtObject {
     function quitToMenu() {}
     function openCredits() {}
     function closeCredits() {}
-    function openArena() {}
-    function closeArena() {}
+    function jumpToGame() {}
     function openRpgScreen(screen) {}
     function closeRpgScreen() {}
     function nextRpgScreen() {}

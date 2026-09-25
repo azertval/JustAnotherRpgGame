@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **210 cas** (25 bloquants, 46 critiques, 111 majeurs, 28 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **211 cas** (25 bloquants, 47 critiques, 111 majeurs, 28 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,7 +11,7 @@ Tests unitaires — **210 cas** (25 bloquants, 46 critiques, 111 majeurs, 28 min
 | [`test_canvas_picking.cpp`](#test-canvas-pickingcpp) | 5 | 2 | - | 3 | - |
 | [`test_canvas_scene.cpp`](#test-canvas-scenecpp) | 5 | 1 | - | 3 | 1 |
 | [`test_city_view.cpp`](#test-city-viewcpp) | 3 | - | 1 | 1 | 1 |
-| [`test_content_check.cpp`](#test-content-checkcpp) | 6 | 3 | 2 | 1 | - |
+| [`test_content_check.cpp`](#test-content-checkcpp) | 7 | 3 | 3 | 1 | - |
 | [`test_disk_guard.cpp`](#test-disk-guardcpp) | 3 | - | 2 | 1 | - |
 | [`test_editor_key_bindings.cpp`](#test-editor-key-bindingscpp) | 7 | - | - | 7 | - |
 | [`test_editor_sidecar.cpp`](#test-editor-sidecarcpp) | 4 | - | 1 | 3 | - |
@@ -685,6 +685,24 @@ Le controle du recit refuse un drapeau lu que rien ne pose.
 - Vérifie que `signale(constats, MapCheckSeverity::Error, "World", "dialogue 'veilleur' : noeud 'test': flag \"jamais-pose\" is read")` est vrai.
 - Vérifie que `code.has_value()` est vrai.
 - Vérifie que `*code` vaut `1`.
+
+### ContentCheckTest.LeControleDuRecitRefuseUnJetSansBrancheDEchec
+
+*Critique · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:411`
+
+Le controle du recit refuse un jet sans branche d'echec.
+
+**Étapes**
+
+1. Ecrire un dialogue dont le jet n'a pas de `failure`.
+2. Ecrire un dialogue valide avec un jet `j`, et une quete qui lit `dialogue/garde/j/failed`.
+3. Controler le recit.
+
+**Résultat attendu**
+
+- Vérifie que `constats.size()` vaut `1U`.
+- Vérifie que `signale(constats, MapCheckSeverity::Error, "World", "dialogue rejected")` est vrai.
+- Vérifie que `signale(constats, MapCheckSeverity::Error, "World", "jet sans branche d'echec")` est vrai.
 
 ## test_disk_guard.cpp
 

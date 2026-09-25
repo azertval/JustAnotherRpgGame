@@ -8,7 +8,7 @@ import Jadg.Ui
     des ennemis, chemin et curseur de ciblage. Une marque par combattant ou par case atteignable,
     jamais une par case de la grille.
 
-    Le meme calque sert au Colisee (`ArenaForm`) et au combat sur la carte (`CombatHudForm`) :
+    Le calque du combat sur la carte (`CombatHudForm`), ne en commun avec le Colisee retire :
     seules changent la surface qu'il recouvre et l'origine de la grille. Sur la carte, la grille
     tactique est une ZONE de la carte : `zoneColumn` et `zoneRow` ramenent chaque case de la grille
     sur la carte que la surface dessine ; au Colisee, la grille est la carte, et ils valent zero.

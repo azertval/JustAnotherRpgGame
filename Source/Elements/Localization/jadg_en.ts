@@ -261,27 +261,27 @@
 <context>
     <name>CombatHudForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="156"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="159"/>
         <source>Victoire</source>
         <translation>Victory</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="157"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="160"/>
         <source>Vous avez pris la fuite</source>
         <translation>You fled</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="158"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="161"/>
         <source>Vous êtes mort</source>
         <translation>You are dead</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="179"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="182"/>
         <source>Fin de la démo</source>
         <translation>End of the demo</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="179"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="182"/>
         <source>Reprendre l&apos;exploration</source>
         <translation>Back to exploring</translation>
     </message>
@@ -291,27 +291,27 @@
         <translation>End turn</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="396"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="409"/>
         <source>Niv. %1</source>
         <translation>Lvl %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="432"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="445"/>
         <source>CA</source>
         <translation>AC</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="433"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="446"/>
         <source>Initiative</source>
         <translation>Initiative</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="434"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="447"/>
         <source>Vitesse</source>
         <translation>Speed</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="435"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="448"/>
         <source>États</source>
         <translation>Conditions</translation>
     </message>
@@ -479,29 +479,85 @@
     </message>
 </context>
 <context>
+    <name>DeathForm.ui</name>
+    <message>
+        <location filename="../../Ui/Screens/DeathForm.ui.qml" line="60"/>
+        <source>Vous êtes mort</source>
+        <translation>You are dead</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DeathForm.ui.qml" line="79"/>
+        <source>Le sable de l&apos;Arena of Fate a bu votre sang.</source>
+        <translation>The sand of the Arena of Fate has drunk your blood.</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DeathForm.ui.qml" line="88"/>
+        <source>L&apos;enfant attend toujours dans sa cellule.</source>
+        <translation>The child still waits in his cell.</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DeathForm.ui.qml" line="107"/>
+        <source>Recommencer</source>
+        <translation>Start again</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DeathForm.ui.qml" line="120"/>
+        <source>Menu</source>
+        <translation>Menu</translation>
+    </message>
+</context>
+<context>
+    <name>DemoEndForm.ui</name>
+    <message>
+        <location filename="../../Ui/Screens/DemoEndForm.ui.qml" line="54"/>
+        <source>Fin de la démo</source>
+        <translation>End of the demo</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DemoEndForm.ui.qml" line="74"/>
+        <source>Vous avez rendu son fils à sa mère</source>
+        <translation>You brought her son back to his mother</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DemoEndForm.ui.qml" line="97"/>
+        <source>À venir : quatre classes, le combat de groupe, puis toute la Capitale impériale.</source>
+        <translation>Coming next: four classes, party combat, then the whole Imperial Capital.</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DemoEndForm.ui.qml" line="115"/>
+        <source>Crédits</source>
+        <translation>Credits</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DemoEndForm.ui.qml" line="128"/>
+        <source>Menu</source>
+        <translation>Menu</translation>
+    </message>
+</context>
+<context>
     <name>DialogueForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="34"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="45"/>
         <source>Dialogue</source>
         <translation>Dialogue</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="56"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="67"/>
         <source>Nom</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="62"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="73"/>
         <source>Attitude</source>
         <translation>Attitude</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="84"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="95"/>
         <source>Réplique</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="122"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="181"/>
         <source>Réponses</source>
         <translation>Replies</translation>
     </message>
@@ -1439,7 +1495,7 @@
         <translation>The starting city will not open.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="151"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="182"/>
         <source>La carte « %1 » ne s&apos;ouvre pas.</source>
         <translation>The map “%1” does not open.</translation>
     </message>

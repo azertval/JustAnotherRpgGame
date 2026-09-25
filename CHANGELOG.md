@@ -6,6 +6,33 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Menu de développement (F9) — un seul outil.** Le menu gagne une section **Dialogue** (ouvrir
+  n'importe quel dialogue du contenu, comme un PNJ l'ouvrirait), une section **Fins** (écran de
+  mort, fin de la démo par voie), le **lanceur de cartes** (`--screen=MapLauncher` : toutes les
+  cartes du contenu et des brouillons, ouvertes à la case et dans l'état voulus) et une **ligne de
+  commande** qui rejoue à chaud les options du binaire (`hmi::DebugConsoleModel` ; le catalogue
+  `hmi::debugOptionCatalog` est recoupé par un test avec les options que le jeu lit ; « Relancer
+  avec » pour celles qui ne se lisent qu'au lancement). Le sélecteur d'écrans ◀ ▶ du bas de la
+  fenêtre est retiré : le menu épingle les écrans (`ScreenStack.pinnedScreen`). L'écran du
+  **Colisée** est retiré (`Arena.qml`, `ArenaModel`, `ArenaViewportItem`, l'état `Arena` de la
+  table) : le combat se joue sur la carte depuis le `LOT-118`. `ScreenRouter.jumpToGame()` ouvre la
+  vue de jeu hors de la table, en développement seulement. Le guide « Outils de développement du
+  jeu » est à jour.
+- **LOT-117 — Un jet de compétence dans un dialogue.** Une réponse qui mène à un jet l'annonce
+  avec son seuil (« [Persuasion · DD 15] ») ; une fois jouée, l'écran de dialogue montre le d20
+  tiré dans son losange, ce qui était jeté, le calcul (« 12 + 4 = 16 ») et l'issue. Un jet **raté**
+  pose `dialogue/<dialogue>/<jet>/failed` : la réponse qui y menait ne se propose plus, dans cette
+  conversation comme dans les suivantes, et le même jet atteint par un autre chemin échoue sans
+  relancer le dé. Le chargement refuse un jet sans branche d'échec (ou dont l'échec mène où mène
+  la réussite), et une réplique que des jets ratés pourraient laisser sans réponse.
+- **LOT-119 — Les écrans de fin.** L'**écran de mort** s'ouvre dès que le héros tombe dans un
+  combat sur la carte, par-dessus la scène figée et assombrie : « Recommencer » rouvre une partie
+  neuve, « Menu » rend le menu. L'écran **« Fin de la démo »** s'ouvre par la nouvelle action de
+  dialogue `endDemo` (champ `ending`) et dit la voie suivie (`ending.<voie>` : « par la voie de
+  l'arène », « par la parole »), ce qui vient ensuite, puis mène aux crédits ou au menu. Les deux
+  ferment la partie (`WorldModel.endGame`) : « Nouvelle partie » ne reprend plus la partie où l'on
+  vient de mourir.
+
 - **Planning — la démo se joue sur des cartes de principe (D-25).** Les lots de *world building*
   de la `0.0.1` — assets, cartes et PNJ de l'Arena of Fate et de Martpart, PNJ d'Arenarea
   (`LOT-106`, `LOT-107`, `LOT-110`, `LOT-111`, `LOT-113`, `LOT-114`, et `LOT-115`, de même nature)

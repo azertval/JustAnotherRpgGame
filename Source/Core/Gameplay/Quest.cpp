@@ -514,6 +514,10 @@ std::set<std::string, std::less<>> flagsWrittenBy(const QuestCatalog& quests,
     std::set<std::string, std::less<>> poses;
     for (const DialogueGraph& graphe : dialogues.dialogues) {
         for (const DialogueNode& noeud : graphe.nodes) {
+            // Un jet rate pose son drapeau de lui-meme (LOT-117) : une quete peut le lire.
+            if (noeud.kind == DialogueNodeKind::Check) {
+                poses.insert(dialogueCheckFailedFlag(graphe.id, noeud.id));
+            }
             for (const DialogueAction& action : noeud.actions) {
                 if (action.kind == DialogueActionKind::SetFlag) {
                     poses.insert(action.target);

@@ -1,13 +1,13 @@
 # HMI · Interface
 
-Tests unitaires — **29 cas** (2 bloquants, 10 critiques, 16 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **30 cas** (2 bloquants, 10 critiques, 17 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_character_sheet_values.cpp`](#test-character-sheet-valuescpp) | 6 | - | 2 | 3 | 1 |
-| [`test_dialogue_screen.cpp`](#test-dialogue-screencpp) | 3 | - | - | 3 | - |
+| [`test_dialogue_screen.cpp`](#test-dialogue-screencpp) | 4 | - | - | 4 | - |
 | [`test_identity_scale.cpp`](#test-identity-scalecpp) | 8 | 2 | 2 | 4 | - |
 | [`test_rpg_screens.cpp`](#test-rpg-screenscpp) | 7 | - | 1 | 6 | - |
 | [`test_screen_flow.cpp`](#test-screen-flowcpp) | 5 | - | 5 | - | - |
@@ -126,7 +126,7 @@ Chaque champ de la fiche declarant une source est rempli.
 
 ### DialogueScreenTest.UneRepliqueAnnonceLeJetDeSaReponse
 
-*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:74`
+*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:81`
 
 L'ecran de dialogue annonce le jet avant le choix.
 
@@ -144,14 +144,15 @@ L'ecran de dialogue annonce le jet avant le choix.
 - Vérifie que `v.replies.size()` vaut `2U`.
 - Vérifie que `v.replies[0].id` vaut `"negocier"`.
 - Vérifie que `v.replies[0].label` vaut `"<dialogue.garde.halte.negocier>"`.
-- Vérifie que `v.replies[0].value` vaut `"[<rpg.skill.animal_handling>]"`.
+- Vérifie que `v.replies[0].value` vaut `"[<rpg.skill.animal_handling> DD 10]"`.
 - Vérifie que `v.replies[1].value` vaut `""`.
 - Vérifie que `v.checkOutcome.empty()` est vrai.
+- Vérifie que `v.checkTitle.empty()` est vrai.
 - Vérifie que `v.finished` est faux.
 
 ### DialogueScreenTest.LeJetSeRestitueSurLaRepliqueQuiSuit
 
-*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:108`
+*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:116`
 
 Le jet se restitue sur la replique qui suit, puis s'efface.
 
@@ -166,19 +167,25 @@ Le jet se restitue sur la replique qui suit, puis s'efface.
 - Vérifie que `runner.start()` vaut `core::DialogueState::AwaitingChoice`.
 - Vérifie que `runner.choose("negocier")` vaut `core::ChoiceResult::Advanced`.
 - Vérifie que `apres.attitude` vaut `"<dialogue.attitude.friendly>"`.
-- Vérifie que `apres.checkOutcome` vaut `"<rpg.skill.animal_handling> : " + total + " contre 10 -- <dialogue.check.success>"`.
+- Vérifie que `apres.checkOutcome` vaut `"<rpg.skill.animal_handling> DD 10 -- d20 " + de + ", total " + total + " -- <dialogue.check.success>"`.
+- Vérifie que `apres.checkTitle` vaut `"<rpg.skill.animal_handling> DD 10"`.
+- Vérifie que `apres.checkDie` vaut `de`.
+- Vérifie que `apres.checkDetail` vaut `de + " + 30 = " + total`.
+- Vérifie que `apres.checkVerdict` vaut `"<dialogue.check.success>"`.
+- Vérifie que `apres.checkSucceeded` est vrai.
 - Vérifie que `apres.replies.size()` vaut `1U`.
 - Vérifie que `apres.replies[0].id` vaut `"continue"`.
 - Vérifie que `apres.replies[0].label` vaut `"<dialogue.continue>"`.
 - Vérifie que `runner.choose("continue")` vaut `core::ChoiceResult::Advanced`.
 - Vérifie que `fin.finished` est vrai.
 - Vérifie que `fin.checkOutcome.empty()` est vrai.
+- Vérifie que `fin.checkTitle.empty()` est vrai.
 - Vérifie que `fin.replies.size()` vaut `1U`.
 - Vérifie que `fin.replies[0].id` vaut `std::string(hmi::DIALOGUE_LEAVE_REPLY)`.
 
 ### DialogueScreenTest.UnRefusMontreLeRefusEtQuitter
 
-*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:147`
+*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:163`
 
 L'ecran montre le refus faute de langue commune.
 
@@ -195,6 +202,39 @@ L'ecran montre le refus faute de langue commune.
 - Vérifie que `v.replies.size()` vaut `1U`.
 - Vérifie que `v.replies[0].id` vaut `std::string(hmi::DIALOGUE_LEAVE_REPLY)`.
 - Vérifie que `v.replies[0].label` vaut `"<dialogue.leave>"`.
+
+### DialogueScreenTest.UnEchecSeMontreEtNeSeRetentePas
+
+*Majeur · Unitaire · Interface* — `Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:192`
+
+L'ecran montre un echec, puis un jet deja tente sans de.
+
+**Étapes**
+
+1. Negocier avec -30 contre 10.
+2. Lire les valeurs.
+3. Continuer jusqu'a la halte.
+4. Rouvrir le dialogue sur les memes drapeaux, sur un graphe ou la halte mene au jet sans choix.
+
+**Résultat attendu**
+
+- Vérifie que `runner.start()` vaut `core::DialogueState::AwaitingChoice`.
+- Vérifie que `runner.choose("negocier")` vaut `core::ChoiceResult::Advanced`.
+- Vérifie que `rate.checkSucceeded` est faux.
+- Vérifie que `rate.checkDie` vaut `de`.
+- Vérifie que `rate.checkDetail` vaut `de + " - 30 = " + total`.
+- Vérifie que `rate.checkVerdict` vaut `"<dialogue.check.failure>"`.
+- Vérifie que `runner.choose("continue")` vaut `core::ChoiceResult::Advanced`.
+- Vérifie que `halte.replies.size()` vaut `1U`.
+- Vérifie que `halte.replies[0].id` vaut `"partir"`.
+- Vérifie que `lu.graph.has_value()` est vrai.
+- Vérifie que `seconde.start()` vaut `core::DialogueState::AwaitingChoice`.
+- Vérifie que `seconde.choose("continue")` vaut `core::ChoiceResult::Advanced`.
+- Vérifie que `deja.checkTitle` vaut `"<rpg.skill.animal_handling> DD 10"`.
+- Vérifie que `deja.checkDie.empty()` est vrai.
+- Vérifie que `deja.checkDetail` vaut `"<dialogue.check.already-failed>"`.
+- Vérifie que `deja.checkOutcome` vaut `"<rpg.skill.animal_handling> DD 10 -- deja -- <dialogue.check.failure>"`.
+- Vérifie que `deja.checkSucceeded` est faux.
 
 ## test_identity_scale.cpp
 
@@ -488,13 +528,10 @@ Chaque transition autorisée mène à l'écran attendu.
 - Vérifie que `resolveTransition(menu, ScreenEvent::OpenRpgScreen)->screen` vaut `ScreenId::RpgScreen`.
 - Vérifie que `resolveTransition(game, ScreenEvent::OpenRpgScreen)->screen` vaut `ScreenId::RpgScreen`.
 - Vérifie que `resolveTransition(pause, ScreenEvent::OpenRpgScreen)->screen` vaut `ScreenId::RpgScreen`.
-- Vérifie que `resolveTransition(menu, ScreenEvent::OpenArena)->screen` vaut `ScreenId::Arena`.
-- Vérifie que `resolveTransition(arena, ScreenEvent::CloseArena)->screen` vaut `ScreenId::Menu`.
-- Vérifie que `resolveTransition(arena, ScreenEvent::OpenMenu)->screen` vaut `ScreenId::Menu`.
 
 ### ScreenFlowTest.OptionsRevientVersSonEcranDOrigine
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:72`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:67`
 
 Options revient vers son écran d'origine (Menu ou Pause).
 
@@ -512,7 +549,7 @@ Options revient vers son écran d'origine (Menu ou Pause).
 
 ### ScreenFlowTest.TransitionInterditeEstRefusee
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:100`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:95`
 
 Une transition interdite est refusée.
 
@@ -528,34 +565,10 @@ Une transition interdite est refusée.
 - Vérifie que `resolveTransition(menu, ScreenEvent::ResumePause)` vaut `std::nullopt`.
 - Vérifie que `resolveTransition(game, ScreenEvent::OpenCredits)` vaut `std::nullopt`.
 - Vérifie que `resolveTransition(menu, ScreenEvent::CloseRpgScreen)` vaut `std::nullopt`.
-- Vérifie que `resolveTransition(pause, ScreenEvent::OpenArena)` vaut `std::nullopt`.
-- Vérifie que `resolveTransition(menu, ScreenEvent::CloseArena)` vaut `std::nullopt`.
-
-### ScreenFlowTest.LeColiseeRevientSurLaCarteQuandLeHerautYEnvoie
-
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:128`
-
-Le Colisee revient sur la carte quand le heraut y envoie.
-
-**Étapes**
-
-1. Ouvrir le Colisee depuis le menu, le refermer.
-2. L'ouvrir depuis la carte, le refermer.
-
-**Résultat attendu**
-
-- Vérifie que `depuisLeMenu.has_value()` est vrai.
-- Vérifie que `depuisLeMenu->screen` vaut `ScreenId::Arena`.
-- Vérifie que `depuisLeMenu->arenaReturnTo` vaut `ScreenId::Menu`.
-- Vérifie que `resolveTransition(*depuisLeMenu, ScreenEvent::CloseArena)->screen` vaut `ScreenId::Menu`.
-- Vérifie que `depuisLaCarte.has_value()` est vrai.
-- Vérifie que `depuisLaCarte->screen` vaut `ScreenId::Arena`.
-- Vérifie que `depuisLaCarte->arenaReturnTo` vaut `ScreenId::Game`.
-- Vérifie que `resolveTransition(*depuisLaCarte, ScreenEvent::CloseArena)->screen` vaut `ScreenId::Game`.
 
 ### ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:158`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:119`
 
 Exigences : `EX-IHM-090`
 
@@ -571,3 +584,38 @@ Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).
 - Vérifie que `opened.has_value()` est vrai.
 - Vérifie que `opened->rpgReturnTo` vaut `expected`.
 - Vérifie que `resolveTransition(*opened, ScreenEvent::CloseRpgScreen)->screen` vaut `expected`.
+
+### ScreenFlowTest.LesEcransDeFinFermentLaPartie
+
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:147`
+
+Les ecrans de mort et de fin de la demo ferment la partie.
+
+**Étapes**
+
+1. Ouvrir la mort depuis un ecran du RPG (le HUD de combat) et depuis le jeu.
+2. En sortir par OpenGame, OpenMenu, puis tenter la pause, les options, la fermeture d'un ecran du RPG.
+3. Ouvrir la fin de la demo depuis un ecran du RPG (le dialogue) et depuis le jeu.
+4. En sortir par les credits et le menu, puis tenter OpenGame.
+5. Tenter les deux depuis le menu.
+
+**Résultat attendu**
+
+- Vérifie que `mort.has_value()` est vrai.
+- Vérifie que `mort->screen` vaut `ScreenId::Death`.
+- Vérifie que `resolveTransition(game, ScreenEvent::OpenDeath)->screen` vaut `ScreenId::Death`.
+- Vérifie que `resolveTransition(*mort, ScreenEvent::OpenGame)->screen` vaut `ScreenId::Game`.
+- Vérifie que `resolveTransition(*mort, ScreenEvent::OpenMenu)->screen` vaut `ScreenId::Menu`.
+- Vérifie que `resolveTransition(*mort, ScreenEvent::OpenPause).has_value()` est faux.
+- Vérifie que `resolveTransition(*mort, ScreenEvent::OpenOptions).has_value()` est faux.
+- Vérifie que `resolveTransition(*mort, ScreenEvent::CloseRpgScreen).has_value()` est faux.
+- Vérifie que `fin.has_value()` est vrai.
+- Vérifie que `fin->screen` vaut `ScreenId::DemoEnd`.
+- Vérifie que `resolveTransition(game, ScreenEvent::OpenDemoEnd)->screen` vaut `ScreenId::DemoEnd`.
+- Vérifie que `credits.has_value()` est vrai.
+- Vérifie que `credits->screen` vaut `ScreenId::Credits`.
+- Vérifie que `resolveTransition(*credits, ScreenEvent::CloseCredits)->screen` vaut `ScreenId::Menu`.
+- Vérifie que `resolveTransition(*fin, ScreenEvent::OpenMenu)->screen` vaut `ScreenId::Menu`.
+- Vérifie que `resolveTransition(*fin, ScreenEvent::OpenGame).has_value()` est faux.
+- Vérifie que `resolveTransition(menu, ScreenEvent::OpenDeath).has_value()` est faux.
+- Vérifie que `resolveTransition(menu, ScreenEvent::OpenDemoEnd).has_value()` est faux.

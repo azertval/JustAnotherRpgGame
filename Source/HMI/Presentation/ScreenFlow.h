@@ -29,10 +29,13 @@ enum class ScreenId {
     /// seule page. Les y déclarer un par un aurait multiplié par huit les transitions à écrire
     /// pour n'exprimer, huit fois, que la même règle.
     RpgScreen,
-    /// Le Colisée (`LOT-50`) : la mise en place d'un affrontement et sa grille. Un écran de
-    /// premier niveau, comme `Game`, parce que l'arène est un **mode du jeu** et non l'un des
-    /// écrans du RPG qui se consultent depuis une partie.
-    Arena,
+    /// L'écran de mort (`LOT-119`) : le combat sur la carte est létal, la partie s'y termine. On
+    /// n'en sort que par « Recommencer » (`OpenGame`) ou « Menu » (`OpenMenu`) — pas de retour à
+    /// la partie où l'on vient de mourir.
+    Death,
+    /// L'écran « Fin de la démo » (`LOT-119`) : la quête est bouclée. On en sort par les crédits
+    /// ou le menu.
+    DemoEnd,
 };
 
 /// Événement pouvant déclencher une transition d'écran. Un seul événement `OpenOptions`/
@@ -53,9 +56,10 @@ enum class ScreenEvent {
     /// `optionsReturnTo` le fait pour Options.
     OpenRpgScreen,
     CloseRpgScreen,
-    /// Ouvre le Colisée depuis le menu ; `CloseArena` y revient.
-    OpenArena,
-    CloseArena,
+    /// Le héros est tombé (`LOT-119`) : depuis le combat (`RpgScreen`) ou la carte (`Game`).
+    OpenDeath,
+    /// Un dialogue a clos la démo (`LOT-119`) : depuis la conversation ou la carte.
+    OpenDemoEnd,
 };
 
 /// État complet de la machine. `optionsReturnTo` n'est pertinent que lorsque `screen ==
@@ -68,10 +72,6 @@ struct ScreenState {
     /// Même patron, et même raison, qu'`optionsReturnTo` : la provenance est un attribut de
     /// l'état, jamais une variable « écran précédent » posée à côté de la machine.
     ScreenId rpgReturnTo = ScreenId::Menu;
-    /// Écran vers lequel `CloseArena` revient (`Menu` ou `Game`, `LOT-09`) : le Colisée s'ouvre
-    /// depuis le menu, et désormais aussi **depuis la carte**, quand le héraut envoie sur le
-    /// sable. On revient alors sur la carte, au même endroit, et non au menu.
-    ScreenId arenaReturnTo = ScreenId::Menu;
 
     friend bool operator==(const ScreenState&, const ScreenState&) = default;
 };

@@ -404,3 +404,51 @@ TEST(ContentCheckTest, LeControleDuRecitRefuseUnDrapeauLuQueRienNePose) {
     ASSERT_TRUE(code.has_value());
     EXPECT_EQ(*code, 1) << sortie;
 }
+
+/**
+ * @brief Le contrôle du récit refuse un dialogue que le jeu refuserait — ici une réponse à jet
+ *        sans branche d'échec (`LOT-117`) — et connaît le drapeau qu'un jet raté pose de lui-même.
+ * \castest{<b>Le controle du recit refuse un jet sans branche d'echec.</b><br/>
+ * \tcat Unitaire · Controle du contenu<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire un dialogue dont le jet n'a pas de `failure`.<br/>2. Ecrire un dialogue
+ * valide avec un jet `j`, et une quete qui lit `dialogue/garde/j/failed`.<br/>3. Controler le
+ * recit.<br/>
+ * \tattendu Une seule erreur sur `World` : le premier dialogue est refuse, « jet sans branche
+ * d'echec » ; le drapeau d'echec du second, que le jet pose de lui-meme, n'est pas signale.
+ * }
+ */
+TEST(ContentCheckTest, LeControleDuRecitRefuseUnJetSansBrancheDEchec) {
+    const Projet projet;
+    const std::filesystem::path monde = projet.racine() / "World";
+    std::filesystem::create_directories(monde / "dialogues");
+    std::filesystem::create_directories(monde / "quests");
+    std::ofstream(monde / "dialogues" / "bavard.json", std::ios::binary) << R"({
+  "id": "bavard", "speaker": { "languages": ["common"] },
+  "start": "jet",
+  "nodes": [
+    { "id": "jet", "type": "check", "skill": "persuasion", "difficulty": "moyenne",
+      "success": "fin" },
+    { "id": "fin", "type": "end" }
+  ]
+})";
+    std::ofstream(monde / "dialogues" / "garde.json", std::ios::binary) << R"({
+  "id": "garde", "speaker": { "languages": ["common"] },
+  "start": "halte",
+  "nodes": [
+    { "id": "halte", "type": "line", "choices": [
+      { "id": "convaincre", "next": "j" }, { "id": "partir", "next": "fin" } ] },
+    { "id": "j", "type": "check", "skill": "persuasion", "difficulty": "moyenne",
+      "success": "fin", "failure": "non" },
+    { "id": "non", "type": "line", "next": "fin" },
+    { "id": "fin", "type": "end" }
+  ]
+})";
+    std::ofstream(monde / "quests" / "refus.json", std::ios::binary)
+        << R"({ "id": "refus", "steps": [{ "id": "vu", "when": [{ "flag": "dialogue/garde/j/failed" }] }] })";
+
+    const std::vector<hmi::MapCheckFinding> constats = hmi::checkStoryContent(projet.racine());
+    ASSERT_EQ(constats.size(), 1U) << tout(constats);
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "World", "dialogue rejected"));
+    EXPECT_TRUE(signale(constats, MapCheckSeverity::Error, "World", "jet sans branche d'echec"));
+}

@@ -85,7 +85,9 @@ set(JADG_UI_QML_FILES
     Screens/PauseForm.ui.qml
     Screens/CreditsForm.ui.qml
     Screens/GameViewForm.ui.qml
-    Screens/ArenaForm.ui.qml
+    # Les ecrans de fin (LOT-119) : la mort, et la fin de la demo.
+    Screens/DeathForm.ui.qml
+    Screens/DemoEndForm.ui.qml
     # La galerie de l'atelier : ce que Qt Design Studio ouvre en premier (mainFile du .qmlproject).
     DesignStudio/Main.ui.qml
 )

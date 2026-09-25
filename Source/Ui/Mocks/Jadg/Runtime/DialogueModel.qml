@@ -14,6 +14,11 @@ QtObject {
     readonly property string attitude: "Indifférent"
     readonly property string line: "Halte, voyageur. Vous voici aux portes de l'Arène du Futur. Ici, deux camps règlent ce qu'une guerre réglerait autrement — et personne n'en sort les pieds devant. Que cherchez-vous ?"
     readonly property string checkOutcome: ""
+    readonly property string checkTitle: ""
+    readonly property string checkDie: ""
+    readonly property string checkDetail: ""
+    readonly property string checkVerdict: ""
+    readonly property bool checkSucceeded: false
     readonly property ListModel replies: ListModel {
         ListElement { rowId: "marque"; label: "Personne n'y meurt ? Comment est-ce possible ?"; value: "" }
         ListElement { rowId: "inscription"; label: "Je veux combattre dans l'arène."; value: "" }
@@ -21,8 +26,12 @@ QtObject {
     }
     readonly property bool finished: false
     readonly property string status: ""
+    readonly property var dialogueIds: [ "heraut-colisee", "portier-colisee" ]
 
     signal changed()
+    signal combatRequested(string arenaId)
+    signal encounterRequested(string encounterId)
+    signal demoEnded(string ending)
 
     function choose(rowId) {}
     function chooseAt(index) {}

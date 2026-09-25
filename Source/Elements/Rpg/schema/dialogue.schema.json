@@ -322,6 +322,23 @@
                       "encounter"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "description": "Termine la demo (LOT-119) : l'ecran de fin dit la voie nommee (cle ending.<voie>).",
+                    "properties": {
+                      "type": {
+                        "const": "endDemo"
+                      },
+                      "ending": {
+                        "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "ending"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               }

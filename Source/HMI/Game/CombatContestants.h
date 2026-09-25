@@ -8,7 +8,7 @@
  * @brief De la fiche et du bestiaire au combattant d'une session (`core::ArenaContestant`) —
  *        ce que le Colisée et le combat sur la carte composent de la même façon (`LOT-118`).
  *
- * Le Colisée (`hmi::ArenaModel`) fabriquait ses combattants dans une fonction privée ; le combat
+ * Le Colisée (écran retiré) fabriquait ses combattants dans une fonction privée ; le combat
  * sur la carte a besoin des mêmes — le héros avec son arme, une créature avec ses attaques et son
  * profil d'IA —, et deux copies de cette fabrique divergeraient au premier réglage. Elle vit donc
  * ici, sans Qt, entre les deux.

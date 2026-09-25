@@ -92,6 +92,10 @@ enum class DialogueActionKind {
     /// par `target`, ici même, sur la zone de combat de la carte
     /// (`core::DialogueListener::startEncounter`).
     StartEncounter,
+    /// **Termine la démo** (`LOT-119`) : l'écran « Fin de la démo » s'ouvre, et dit la voie
+    /// nommée par `target` (`core::demoEndingKey`). Le dialogue ne connaît pas l'écran ; il le
+    /// demande (`core::DialogueListener::endDemo`).
+    EndDemo,
 };
 
 /// @brief Un effet d'un nœud d'action.
@@ -175,6 +179,9 @@ inline constexpr std::string_view DIALOGUE_CONTINUE_KEY = "dialogue.continue";
 /// @brief `dialogue.<dialogue>.<nœud>.<réponse>` — le texte d'une réponse.
 [[nodiscard]] std::string dialogueChoiceKey(std::string_view dialogueId, std::string_view nodeId,
                                             std::string_view choiceId);
+/// @brief La clé de traduction d'une voie de fin de la démo (`LOT-119`) : « ending. » suivi de
+///        la voie. Son texte est ce que dit l'écran de fin, « par la voie de l'arène ».
+[[nodiscard]] std::string demoEndingKey(std::string_view ending);
 /// @brief `dialogue.attitude.<friendly|indifferent|hostile>`.
 [[nodiscard]] std::string dialogueAttitudeKey(DialogueAttitude attitude);
 /// @brief `friendly`, `indifferent`, `hostile` — le mot de la donnée.
@@ -196,6 +203,18 @@ inline constexpr std::string_view DIALOGUE_CONTINUE_KEY = "dialogue.continue";
  * drapeau. Une clé fabriquée, pour que les deux lots ne puissent pas l'écrire différemment.
  */
 [[nodiscard]] std::string questStartedFlag(std::string_view questId);
+
+/**
+ * @brief `dialogue/<dialogue>/<jet>/failed` — le drapeau qu'un jet **raté** pose (`LOT-117`).
+ *
+ * Un jet raté ne se retente pas : à une table, le garde qui a dit non ne se laisse pas convaincre
+ * par la même tirade cinq minutes plus tard. Le runner pose ce drapeau à l'échec, retire les
+ * réponses qui mènent à ce jet, et un jet atteint de nouveau par un autre chemin échoue sans
+ * relancer le dé. Un drapeau de monde, et non une mémoire du runner : il survit à la conversation,
+ * et une quête peut le lire. Fabriqué, pour qu'aucun auteur n'ait à l'écrire.
+ */
+[[nodiscard]] std::string dialogueCheckFailedFlag(std::string_view dialogueId,
+                                                  std::string_view checkNodeId);
 
 // ---------------------------------------------------------------------------------------------
 // Le chargement, et ce qu'il refuse
@@ -230,7 +249,12 @@ struct DialogueLoad {
  *   enfermerait le joueur dans un monologue ;
  * - un **nœud orphelin**, que rien n'atteint depuis l'entrée — presque toujours une faute de
  *   frappe dans une cible ;
- * - une **impasse** : un nœud d'où aucune fin n'est atteignable.
+ * - une **impasse** : un nœud d'où aucune fin n'est atteignable ;
+ * - une **réponse à jet sans branche d'échec** (`LOT-117`) : un jet sans `failure`, ou dont
+ *   l'échec mène où mène la réussite — le jet ne déciderait rien ;
+ * - une réplique dont **toutes** les réponses peuvent disparaître : une réponse qui mène à un jet
+ *   n'est plus proposée une fois ce jet raté (`core::dialogueCheckFailedFlag`), et compte donc
+ *   comme conditionnelle.
  *
  * @param json   Le texte du document.
  * @param origin Le nom du fichier, pour les messages.
@@ -316,6 +340,11 @@ public:
     virtual void startEncounter(std::string_view encounterId) {
         static_cast<void>(encounterId);
     }
+    /// Le PNJ clôt la démo par la voie @p ending (`LOT-119`). Sans effet par défaut, pour la même
+    /// raison que `startCombat`.
+    virtual void endDemo(std::string_view ending) {
+        static_cast<void>(ending);
+    }
 };
 
 /**
@@ -362,8 +391,12 @@ struct AvailableChoice {
     std::string id;
     std::string textKey;
     /// Si la réponse mène à un jet : la compétence jetée — l'écran l'annonce avant qu'on la
-    /// choisisse, comme une table l'annonce (« [Persuasion] »). Vide sinon.
+    /// choisisse, comme une table l'annonce (« Persuasion · DD 15 »). Vide sinon.
     std::string checkSkill;
+    /// Si la réponse mène à un jet : son degré de difficulté, en nombre (`LOT-117`). Le contenu
+    /// le **nomme** ; le joueur, lui, voit le seuil qu'il doit atteindre. 0 sinon, ou si le degré
+    /// est inconnu.
+    int checkDc = 0;
 };
 
 /// @brief Ce qu'une réponse a produit.
@@ -382,6 +415,9 @@ struct DialogueCheck {
     std::string skill;
     std::string difficulty;
     CheckResult result;
+    /// Vrai si le jet n'a **pas** été lancé : déjà raté une fois, il échoue sans dé
+    /// (`core::dialogueCheckFailedFlag`). `result` ne porte alors que le seuil.
+    bool alreadyFailed = false;
 };
 
 /**
@@ -454,6 +490,9 @@ public:
     }
 
 private:
+    /// Vrai si @p choice est proposée maintenant : sa condition tient, et le jet où elle mène
+    /// n'a pas déjà été raté.
+    [[nodiscard]] bool estProposee(const DialogueChoice& choice) const;
     void advanceTo(const std::string& nodeId);
     void apply(const DialogueAction& action);
     void runCheck(const DialogueNode& node);

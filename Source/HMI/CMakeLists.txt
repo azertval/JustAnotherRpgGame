@@ -72,6 +72,9 @@ add_library(HmiLib STATIC
     Game/CombatCues.cpp
     # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit et que le jeu lit.
     Game/LaunchOptions.cpp
+    # Les outils de debug : le catalogue des options du binaire, et les cartes d'un dossier.
+    Game/DebugCommands.cpp
+    Game/LevelScan.cpp
     Graphics/AssetGallery.cpp
     Graphics/ArenaAnimationDriver.cpp
     Graphics/AnimationCatalog.cpp

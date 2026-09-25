@@ -6,6 +6,7 @@
 #include <QAbstractItemModel>
 #include <QObject>
 #include <QString>
+#include <QStringList>
 #include <QtQmlIntegration>
 #include <memory>
 
@@ -51,12 +52,22 @@ class DialogueModel : public QObject {
     Q_PROPERTY(QString line READ line NOTIFY changed)
     /// Le jet que la dernière réponse a joué, restitué ; vide sinon.
     Q_PROPERTY(QString checkOutcome READ checkOutcome NOTIFY changed)
+    /// Le même jet, par morceaux (`LOT-117`) : « Persuasion · DD 15 », le d20 tiré (vide s'il ne
+    /// l'a pas été), le calcul « 12 + 4 = 16 », l'issue, et si elle est une réussite.
+    Q_PROPERTY(QString checkTitle READ checkTitle NOTIFY changed)
+    Q_PROPERTY(QString checkDie READ checkDie NOTIFY changed)
+    Q_PROPERTY(QString checkDetail READ checkDetail NOTIFY changed)
+    Q_PROPERTY(QString checkVerdict READ checkVerdict NOTIFY changed)
+    Q_PROPERTY(bool checkSucceeded READ checkSucceeded NOTIFY changed)
     /// Les réponses proposées : rôles `rowId`, `label` (le texte), `value` (le jet annoncé).
     Q_PROPERTY(QAbstractItemModel* replies READ replies CONSTANT)
     /// Vrai quand la conversation est terminée, ou quittée : l'écran se referme.
     Q_PROPERTY(bool finished READ finished NOTIFY changed)
     /// Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien.
     Q_PROPERTY(QString status READ status NOTIFY changed)
+    /// Les dialogues jouables du contenu, par identifiant, dans l'ordre alphabétique : ce que le
+    /// menu de développement (F9) propose d'ouvrir.
+    Q_PROPERTY(QStringList dialogueIds READ dialogueIds CONSTANT)
 
 public:
     explicit DialogueModel(QObject* parent = nullptr);
@@ -68,11 +79,17 @@ public:
     [[nodiscard]] QString attitude() const;
     [[nodiscard]] QString line() const;
     [[nodiscard]] QString checkOutcome() const;
+    [[nodiscard]] QString checkTitle() const;
+    [[nodiscard]] QString checkDie() const;
+    [[nodiscard]] QString checkDetail() const;
+    [[nodiscard]] QString checkVerdict() const;
+    [[nodiscard]] bool checkSucceeded() const noexcept;
     [[nodiscard]] QAbstractItemModel* replies() {
         return &_replies;
     }
     [[nodiscard]] bool finished() const noexcept;
     [[nodiscard]] QString status() const;
+    [[nodiscard]] QStringList dialogueIds() const;
 
     /// Donne la réponse @p rowId — ou quitte, si c'est la ligne « Quitter ».
     Q_INVOKABLE void choose(const QString& rowId);
@@ -84,11 +101,15 @@ public:
 signals:
     void changed();
     /// Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (`startCombat`, `LOT-09`).
-    /// Le modèle n'ouvre rien — c'est l'écran qui décide, et c'est le routeur qui navigue.
+    /// Aucun écran ne l'ouvre plus : l'écran du Colisée est retiré, le combat se joue sur la
+    /// carte (`encounterRequested`).
     void combatRequested(const QString& arenaId);
     /// Le PNJ engage une rencontre **sur la carte** (`LOT-118`) : c'est l'écran qui la monte
     /// (`EncounterModel.begin`) et ouvre l'affichage de combat.
     void encounterRequested(const QString& encounterId);
+    /// Le PNJ clôt la démo par la voie @p ending (`endDemo`, `LOT-119`) : c'est l'écran qui ouvre
+    /// l'écran de fin.
+    void demoEnded(const QString& ending);
 
 private:
     struct Session;
