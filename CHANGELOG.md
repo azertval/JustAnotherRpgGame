@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Éditeur — les cartes de la démo reçoivent leurs pièces.** Martpart, Arenarea et le sable de
+  l'Arena of Fate nomment leur lieu (`scene`, par `--change-scene`) : l'onglet des pièces de la
+  palette s'ouvre sur leur catalogue, au lieu de rester grisé depuis le `LOT-128`. Les types
+  couverts par la table d'Arenarea s'y peignent en pièces (pavé en marbre, sable en piste), en jeu
+  comme dans l'éditeur. Le niveau −1 reste une maquette : sa porte close nomme une pièce d'attente
+  (`porte-de-l-arene`) à apparier au passage de « Change sheet… ». L'onglet grisé d'une carte
+  sans lieu le dit dans son infobulle.
 - **LOT-146 — Les quatre cartes de principe de la démo.** Martpart (24 × 11), Arenarea (24 × 13),
   le sable de l'Arena of Fate (34 × 24, zone de combat 22 × 14) et son niveau −1 (le vestiaire A,
   le couloir et sa porte close, l'escalier de la porte du triomphe) sont dessinés dans l'éditeur

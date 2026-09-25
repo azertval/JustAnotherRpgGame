@@ -104,6 +104,7 @@
     {
       "name": "sol",
       "kind": "ground",
+      "scene": "central-empire/capital/arenarea",
       "tiles": [
         {"x": 8, "y": 0, "type": "pavement"},
         {"x": 9, "y": 0, "type": "pavement"},

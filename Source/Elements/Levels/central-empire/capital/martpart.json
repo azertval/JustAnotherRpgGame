@@ -91,6 +91,7 @@
     {
       "name": "sol",
       "kind": "ground",
+      "scene": "central-empire/capital/martpart",
       "tiles": [
         {"x": 4, "y": 0, "type": "alley"},
         {"x": 5, "y": 0, "type": "alley"},
