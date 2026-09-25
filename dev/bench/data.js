@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790304031680,
+  "lastUpdate": 1790304036945,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1066,6 +1066,40 @@ window.BENCHMARK_DATA = {
             "value": 5.220152272727319,
             "unit": "ms/iter",
             "extra": "iterations: 264\ncpu: 5.208333333333333 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "a138dbe4b2b2a3e20e4f44d2afdb7ce3d714f870",
+          "message": "Merge pull request #129 from azertval/lot-109-carte-arenarea\n\nLOT-109 — Arenarea, le quartier entier ; affichage d'un lieu refait ; LOT-127 livré",
+          "timestamp": "2026-09-24T21:44:19Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/a138dbe4b2b2a3e20e4f44d2afdb7ce3d714f870"
+        },
+        "date": 1790304035081,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.125178124999692,
+            "unit": "ms/iter",
+            "extra": "iterations: 128\ncpu: 12.8173828125 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.146497794117643,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.112591911764706 ms\nthreads: 1"
           }
         ]
       }
