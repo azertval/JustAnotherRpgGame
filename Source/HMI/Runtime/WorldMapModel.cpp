@@ -113,7 +113,7 @@ namespace {
 WorldMapModel::WorldMapModel(QObject* parent) : QObject(parent) {}
 
 void WorldMapModel::load() {
-    const std::filesystem::path root = executableDirectory();
+    const std::filesystem::path root = dataDirectory();
     const core::Atlas atlas = core::loadAtlas(root / "World");
     for (const std::string& error : atlas.errors) {
         HMI_LOG_WARNING("Atlas : " + error);

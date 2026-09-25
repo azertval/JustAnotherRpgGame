@@ -11,7 +11,9 @@ combat se découpe, une figurine s'anime, le rendu GPU et celui de l'éditeur to
 mécanismes valent d'être gardés quel que soit le contenu du jour ; c'est pourquoi ils vivent ici.
 
 Le chemin est `JADG_TEST_DATA_DIR` (`Source/Test/CMakeLists.txt`), et
-`LevelEditor --data <cette racine>` l'ouvre à la main.
+`LevelEditor --data <cette racine>` l'ouvre à la main. Le jeu la joue de même
+(`JustAnotherRpgGame.exe --data=<cette racine> --map=donjon@sable --at=24,19`, `LOT-118`) : le
+héros paraît devant le maître d'arène d'essai, dont le dialogue engage les rats sur la carte.
 
 ## Ce qu'elle contient
 
@@ -21,7 +23,7 @@ Le chemin est `JADG_TEST_DATA_DIR` (`Source/Test/CMakeLists.txt`), et
 | `Assets/Scene/bourg`, `.../hameau` | deux planches de lieu : `manifest.json` (clé, emprise, ancre), `appearance.json` (ce que le sol et le relief posent sur une case) |
 | `Assets/Arena/` | un kit d'arène : `manifest.json` (dont `scene`, le lieu d'où il tire ses pièces), deux héros, deux gladiateurs |
 | `Assets/Npc/`, `Assets/Monsters/` | une figurine chacun (`figurant`, `sentinelle`), aux cadences de l'atelier |
-| `World/` | une ville (`bourg`), deux arènes, une région, des lieux, un dialogue |
+| `World/` | une ville (`bourg`), deux arènes, une région, des lieux, des dialogues — dont le maître d'arène d'essai (`maitre-d-essai`), qui engage la rencontre sur la carte (`LOT-118`) |
 | `Rpg/`, `Localization/`, `Maps/`, `Editor/` | une rencontre, des objets, les textes des cartes, trois modèles de carte |
 
 ## Comment son art est fait

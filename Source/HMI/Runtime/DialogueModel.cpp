@@ -147,7 +147,7 @@ DialogueModel::DialogueModel(QObject* parent)
     for (const std::string& error : s.difficulty.errors) {
         HMI_LOG_WARNING("Dialogue : degres de difficulte, " + error);
     }
-    s.dialogues = core::loadDialogues(root / "World" / "dialogues");
+    s.dialogues = core::loadDialogues(dataDirectory() / "World" / "dialogues");
     for (const std::string& error : s.dialogues.errors) {
         // Nomme son fichier et son noeud : l'auteur du dialogue le corrige sans lancer le jeu deux
         // fois (EX-CNT-010).

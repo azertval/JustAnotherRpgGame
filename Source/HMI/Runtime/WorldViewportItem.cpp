@@ -26,7 +26,7 @@ namespace {
  */
 class WorldViewportRenderer : public QQuickRhiItemRenderer {
 public:
-    WorldViewportRenderer() : _world(executableDirectory() / "Assets") {}
+    WorldViewportRenderer() : _world(dataDirectory() / "Assets") {}
 
     void initialize(QRhiCommandBuffer* commandBuffer) override;
     void synchronize(QQuickRhiItem* item) override;

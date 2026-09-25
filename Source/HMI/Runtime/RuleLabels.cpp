@@ -42,7 +42,32 @@ namespace {
 
 }  // namespace
 
+/// Le catalogue de la racine de contenu imposee (`--data=`, LOT-118), s'il y en a une : ses cles
+/// -- noms de cartes, dialogues d'essai -- passent devant celles du jeu. Rien si le contenu est
+/// celui de l'executable.
+[[nodiscard]] const Localization* contentCatalog(const std::string& language) {
+    static const bool impose = dataDirectory() != executableDirectory();
+    if (!impose) {
+        return nullptr;
+    }
+    static Localization loaded(dataDirectory() / "Localization");
+    static std::string current;
+    if (current != language) {
+        static_cast<void>(loaded.loadDefaultLanguage("fr"));
+        if (language != "fr") {
+            static_cast<void>(loaded.loadLanguage(language));
+        }
+        current = language;
+    }
+    return &loaded;
+}
+
 std::string ruleLabel(std::string_view key, const std::string& language) {
+    if (const Localization* const contenu = contentCatalog(language)) {
+        if (std::string texte = contenu->text(key); texte != key) {
+            return texte;
+        }
+    }
     return catalog(language).text(key);
 }
 

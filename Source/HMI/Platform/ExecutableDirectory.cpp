@@ -4,10 +4,26 @@
 #include "HMI/Platform/ExecutableDirectory.h"
 
 #include <array>
+#include <utility>
 
 #include <Windows.h>
 
 namespace hmi {
+
+namespace {
+
+/// Le dossier de contenu impose, vide tant que personne ne l'a pose.
+std::filesystem::path dossierImpose;
+
+}  // namespace
+
+std::filesystem::path dataDirectory() {
+    return dossierImpose.empty() ? executableDirectory() : dossierImpose;
+}
+
+void setDataDirectory(std::filesystem::path directory) {
+    dossierImpose = std::move(directory);
+}
 
 std::filesystem::path executableDirectory() {
     std::array<wchar_t, MAX_PATH> buffer{};

@@ -23,7 +23,10 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     ouvrent l'affichage de combat (`CombatHud.qml`) par-dessus la carte ; le calque tactique
     (`TacticalLayer`) est commun aux deux écrans ;
   - les issues : victoire (drapeau posé, exploration reprise là où le combat a laissé le héros),
-    fuite, défaite (retour au menu en attendant le `LOT-119`).
+    fuite, défaite (retour au menu en attendant le `LOT-119`) ;
+  - `--data=<racine>` : le jeu joue une racine de contenu comme l'éditeur l'ouvre — c'est ainsi
+    que la carte de test du combat se joue :
+    `JustAnotherRpgGame.exe --data=Source/Test/Fixtures/GameData --map=donjon@sable --at=24,19`.
   - **Audit de l'IA** : elle marchait bien vers le joueur ; c'est l'affichage qui ne le montrait
     pas (tous les tours joués d'un bloc, un seul instantané). Un déplacement refusé s'écrit
     désormais au journal, et un test la fait marcher sur la vraie zone d'une carte.

@@ -76,7 +76,7 @@ void logErrors(const std::string& prefix, const std::vector<std::string>& errors
 
 ArenaModel::ArenaModel(QObject* parent, std::filesystem::path contentRoot)
     : CombatModel(parent),
-      _contentRoot(contentRoot.empty() ? executableDirectory() : std::move(contentRoot)),
+      _contentRoot(contentRoot.empty() ? dataDirectory() : std::move(contentRoot)),
       _catalogs(std::make_unique<Catalogs>()) {
     loadCatalogs();
 }

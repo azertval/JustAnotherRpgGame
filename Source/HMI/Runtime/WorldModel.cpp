@@ -31,14 +31,14 @@ WorldModel* WorldModel::current() noexcept {
 WorldModel::WorldModel(QObject* parent) : QObject(parent) {
     partieCourante = this;
     _play = std::make_unique<WorldPlay>(
-        core::WorldTravel::directoryLoader(executableDirectory() / "Levels"),
-        executableDirectory() / "Assets");
+        core::WorldTravel::directoryLoader(dataDirectory() / "Levels"),
+        dataDirectory() / "Assets");
     _clock.setInterval(STEP_MILLISECONDS);
     _clock.setTimerType(Qt::PreciseTimer);
     connect(&_clock, &QTimer::timeout, this, &WorldModel::step);
 
     const std::filesystem::path ville =
-        executableDirectory() / "World" / "cities" / (std::string{START_CITY} + ".json");
+        dataDirectory() / "World" / "cities" / (std::string{START_CITY} + ".json");
     core::CityPlanResult lue = core::loadCityPlan(ville);
     if (lue.ok()) {
         _city = std::move(lue.plan);
@@ -56,7 +56,7 @@ WorldModel::~WorldModel() {
 }
 
 void WorldModel::installQuests() {
-    GameQuests lues = loadGameQuests(executableDirectory());
+    GameQuests lues = loadGameQuests(dataDirectory());
     for (const std::string& erreur : lues.errors) {
         // Nomme son fichier et sa ligne (EX-CNT-010) : la quete se corrige sans relancer deux fois.
         HMI_LOG_WARNING("Quete : " + erreur);
@@ -107,12 +107,12 @@ void WorldModel::setLevelDirectories(const std::vector<std::filesystem::path>& d
     // Le `Levels/` de l'executable vient TOUJOURS en dernier : l'editeur n'ecrit que les cartes
     // qu'il a ouvertes, et le monde autour doit rester jouable.
     std::vector<std::filesystem::path> dossiers = directories;
-    dossiers.push_back(executableDirectory() / "Levels");
+    dossiers.push_back(dataDirectory() / "Levels");
     // La session est refaite : la carte courante et les drapeaux acquis appartiennent au chargeur
     // qu'on remplace. C'est pourquoi cet appel precede la premiere entree (LOT-EDITOR-10).
     std::string figure = _play->heroFigure();
     _play = std::make_unique<WorldPlay>(core::WorldTravel::directoriesLoader(std::move(dossiers)),
-                                        executableDirectory() / "Assets");
+                                        dataDirectory() / "Assets");
     _play->setHeroFigure(std::move(figure));
     installQuests();
     for (const std::filesystem::path& dossier : directories) {

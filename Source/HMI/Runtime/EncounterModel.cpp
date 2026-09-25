@@ -65,7 +65,7 @@ EncounterModel* EncounterModel::current() noexcept {
 }
 
 EncounterModel::EncounterModel(QObject* parent)
-    : CombatModel(parent), _contentRoot(executableDirectory()) {
+    : CombatModel(parent), _contentRoot(dataDirectory()) {
     rencontreCourante = this;
     _clock.setInterval(STEP_MILLISECONDS);
     _clock.setTimerType(Qt::PreciseTimer);

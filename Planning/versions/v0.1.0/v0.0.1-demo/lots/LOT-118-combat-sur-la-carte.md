@@ -133,4 +133,16 @@ joueur ». Ce que la lecture et les tests ont établi :
 Livré le 25 septembre 2026, **PR #132**. Les trois critères tiennent par les tests (sans fenêtre :
 `EncounterModelTest`, `MapEncounterTest`, `CombatCuesTest`, le rejeu à graine fixée par la session
 commune, aucune régression du Colisée par `ArenaModelTest`). Reste due par l'auteur : la passe à
-l'écran de `CombatHud` au clavier, à la manette et à la souris, sur une carte de test.
+l'écran de `CombatHud` au clavier, à la manette et à la souris, sur la carte de test.
+
+**Jouer la carte de test.** Le contenu livré n'a encore ni maître d'arène ni rencontre posée : la
+carte de test est le `donjon` de la racine d'essai, que le jeu joue par l'option `--data=`
+(comme l'éditeur par `LevelEditor --data`) :
+
+```
+JustAnotherRpgGame.exe --data=Source/Test/Fixtures/GameData --map=donjon@sable --at=24,19
+```
+
+Le héros paraît devant le maître d'arène d'essai (24, 20), dans la zone « salle » ; `E` lui parle,
+« Qu'on les lâche » engage les rats sur la carte. L'éditeur ouvre la même carte :
+`LevelEditor --data Source/Test/Fixtures/GameData`.

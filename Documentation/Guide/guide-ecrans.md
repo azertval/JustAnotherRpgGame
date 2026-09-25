@@ -266,6 +266,19 @@ pendant l'essai. Ces options n'existent que dans un build de développement, et 
 s'accrochent à `--map=` : sans carte imposée, aucune n'est lue. `--hero-figure=` n'a pas de champ
 dans `hmi::GameLaunchOptions` : l'éditeur ne la passe pas, elle se tape à la main.
 
+`--data=<racine>` (`LOT-118`) va plus loin que `--levels=` : le jeu lit **tout son contenu** —
+cartes, assets, monde, dialogues, rencontres, créatures, libellés des cartes et des dialogues —
+sous cette racine (`hmi::dataDirectory`), comme l'éditeur l'ouvre avec `LevelEditor --data`. Les
+règles, les fiches et les traductions du jeu restent à côté de l'exécutable. C'est ainsi que se
+joue la racine d'essai, et le combat sur la carte avec elle :
+
+```
+JustAnotherRpgGame.exe --data=Source/Test/Fixtures/GameData --map=donjon@sable --at=24,19
+```
+
+Le héros paraît devant le maître d'arène d'essai (24, 20), dans la zone « salle » ; `E` lui parle,
+« Qu'on les lâche » engage les rats sur la carte.
+
 L'écran « Carte » lit de même quatre options, en QML (`Screens/WorldMap.qml`, `LOT-96`) : ouvert
 avec `--map-region=<région>`, il montre la région ; avec `--map-city=<lieu>` la ville, puis
 `--map-district=<quartier>` le quartier et `--map-block=<îlot>` l'îlot — chaque niveau supposant le
