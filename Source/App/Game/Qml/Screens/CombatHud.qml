@@ -22,7 +22,7 @@ import Jadg.Runtime
     | Cible suivante, precedente | Tab, Maj+Tab | X |
     | Action suivante, precedente | Page suivante, Page precedente, 1 a 9 | RB, LB |
     | Recentrer sur le combattant actif | Retour arriere | B |
-    | Fin du tour | Espace | Y |
+    | Fin du tour (aussi le bouton sous la fiche de la cible) | Espace | Y |
     | Fuir (si la rencontre le permet) | F | -- |
 
     Tant qu'un mouvement se joue (`busy`), les gestes attendent : le modele les ignore, et
@@ -112,6 +112,10 @@ CombatHudForm {
         root.forceActiveFocus()
     }
     onLeaveRequested: root.leave()
+    onEndTurnRequested: {
+        EncounterModel.endTurn()
+        root.forceActiveFocus()
+    }
 
     /// Quitter le combat fini : l'exploration reprend ; une defaite ramene au menu (LOT-119 dira
     /// mieux).

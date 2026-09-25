@@ -30,6 +30,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   - **Audit de l'IA** : elle marchait bien vers le joueur ; c'est l'affichage qui ne le montrait
     pas (tous les tours joués d'un bloc, un seul instantané). Un déplacement refusé s'écrit
     désormais au journal, et un test la fait marcher sur la vraie zone d'une carte.
+  - un bouton **« Fin du tour »** sous la fiche de la cible : le HUD de combat n'offrait la fin du
+    tour qu'au clavier (Espace) et à la manette (Y), la souris ne rendait jamais la main.
 - **LOT-145 — Les mannequins de remplacement** (en cours). Un personnage sans figurine se dessine
   par le mannequin de sa silhouette (`hmi::FigureResolver`) : le mannequin humanoïde SE-v1 de
   l'atelier est installé sous `Common/Characters/Placeholders/humanoid/`, sa seule orientation

@@ -286,6 +286,11 @@
         <translation>Back to exploring</translation>
     </message>
     <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="376"/>
+        <source>Fin du tour</source>
+        <translation>End turn</translation>
+    </message>
+    <message>
         <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="396"/>
         <source>Niv. %1</source>
         <translation>Lvl %1</translation>

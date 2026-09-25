@@ -53,6 +53,8 @@ HudFrame {
     signal gridClicked(real x, real y)
     /// Le joueur quitte le combat fini : retour a l'exploration, ou fin de la demo.
     signal leaveRequested()
+    /// Le joueur rend la main (le geste « Espace » / « Y », a la souris).
+    signal endTurnRequested()
 
     property var initiative: exampleInitiative
     /// Le combattant dont c'est le tour (indice dans `initiative`).
@@ -364,6 +366,16 @@ HudFrame {
                 }
             }
         }
+    }
+
+    // --- Fin du tour, sous la fiche de la cible -----------------------------------------------------------
+    // Le seul geste du tour qui n'avait ni case ni bouton : sans lui, la souris ne rendait jamais la main.
+    OrnateButton {
+        x: 1256 * Tokens.uiScale
+        y: 968 * Tokens.uiScale
+        text: qsTr("Fin du tour")
+        enabled: !root.ended && !root.busy && root.outcome.length === 0
+        onClicked: root.endTurnRequested()
     }
 
     // --- Fiche de la cible (maquette : 1100, 678 -> 1390, 828) ----------------------------------------------
