@@ -75,3 +75,7 @@ du focus signale le bouton désigné, jamais la seule teinte.
 |---|---|
 | Capture de référence QML des deux écrans | `QmlTests` : `References/DeathForm.png`, `References/DemoEndForm.png` |
 | Textes en français et en anglais | `jadg_en.ts` (`check_translations.py`) ; `ending.*` dans `fr.lang` et `en.lang` (`DialogueTest.LesDialoguesSontTraduitsEnFrancaisEtEnAnglais`) |
+
+## Livraison
+
+PR #134 (avec le lot jumeau). La fiche passe à `livre` à la fusion.

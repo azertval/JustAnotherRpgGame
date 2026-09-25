@@ -84,3 +84,7 @@ la sauvegarde (`0.0.3`) en portera une.
 | À graine fixée, la même issue | `DialogueTest.UnDialogueSeRejoueAGraineFixee` |
 | Une réponse tentée et ratée ne se propose plus | `DialogueTest.UneReponseAJetRateeNeSeProposePlus`, `DialogueScreenTest.UnEchecSeMontreEtNeSeRetentePas` |
 | Le contrôle refuse une réponse à jet sans branche d'échec | `DialogueTest.UnGrapheMalFormeEstRejeteAuChargement`, `ContentCheckTest.LeControleDuRecitRefuseUnJetSansBrancheDEchec` |
+
+## Livraison
+
+PR #134 (avec le lot jumeau). La fiche passe à `livre` à la fusion.
