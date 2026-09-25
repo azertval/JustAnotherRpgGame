@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790367024059,
+  "lastUpdate": 1790367029316,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1194,6 +1194,40 @@ window.BENCHMARK_DATA = {
             "value": 5.146497794117643,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.112591911764706 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "f20d7a39f7f722f896325ec286689c9b7f725132",
+          "message": "Merge pull request #141 from azertval/claude/recettage-v0-0-1-lot-122-ixgfl2\n\nLOT-122 — Recette et version 0.0.1 : la démo basique",
+          "timestamp": "2026-09-25T20:05:24Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/f20d7a39f7f722f896325ec286689c9b7f725132"
+        },
+        "date": 1790367027464,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 10.168085156250228,
+            "unit": "ms/iter",
+            "extra": "iterations: 128\ncpu: 9.8876953125 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.15824821428542,
+            "unit": "ms/iter",
+            "extra": "iterations: 280\ncpu: 5.133928571428571 ms\nthreads: 1"
           }
         ]
       }
