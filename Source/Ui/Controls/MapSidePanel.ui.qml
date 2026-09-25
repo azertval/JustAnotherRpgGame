@@ -205,8 +205,8 @@ PanelFrame {
                 text: (line.modelData.number > 0 ? line.modelData.number + " · " : "")
                       + line.modelData.name
                 color: line.chosen ? Tokens.goldLight
-                                   : line.modelData.placed ? Tokens.textOnPanel
-                                                           : Tokens.textOnPanelMuted
+                                   : line.modelData.placed && line.modelData.locked !== true
+                                     ? Tokens.textOnPanel : Tokens.textOnPanelMuted
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontBody
                 elide: Text.ElideRight

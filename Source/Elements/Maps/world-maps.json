@@ -1385,7 +1385,22 @@
             0.415,
             0.18,
             0.18
-          ]
+          ],
+          "image": "Regions/central-empire/capital/martpart/Map/martpart.jpg",
+          "grid": {
+            "origin": [
+              0.35018,
+              0.09015
+            ],
+            "column": [
+              0.02305,
+              0.0254
+            ],
+            "row": [
+              -0.02305,
+              0.0254
+            ]
+          }
         },
         "central-empire-the-capital-city-arenarea": {
           "frame": [
@@ -1393,7 +1408,46 @@
             0.247,
             0.18,
             0.18
-          ]
+          ],
+          "image": "Regions/central-empire/capital/arenarea/Map/arenarea.jpg",
+          "grid": {
+            "origin": [
+              0.37955,
+              0.08565
+            ],
+            "column": [
+              0.0219,
+              0.02418
+            ],
+            "row": [
+              -0.0219,
+              0.02418
+            ]
+          },
+          "zones": {
+            "arena-of-fate": {
+              "name": "Arena of Fate",
+              "entrance": [
+                23,
+                6
+              ],
+              "image": "Regions/central-empire/capital/arenarea/arena-of-fate/Map/arena-of-fate.jpg",
+              "grid": {
+                "origin": [
+                  0.42737,
+                  0.05681
+                ],
+                "column": [
+                  0.01453,
+                  0.01604
+                ],
+                "row": [
+                  -0.01453,
+                  0.01604
+                ]
+              }
+            }
+          }
         }
       },
       "labels": [

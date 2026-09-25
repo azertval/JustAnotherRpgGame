@@ -1,6 +1,6 @@
 # HMI · Presentation
 
-Tests unitaires — **18 cas** (5 critiques, 10 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **19 cas** (5 critiques, 11 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -9,7 +9,7 @@ Tests unitaires — **18 cas** (5 critiques, 10 majeurs, 3 mineurs). [Retour à 
 | [`test_credits_catalog.cpp`](#test-credits-catalogcpp) | 7 | - | 2 | 4 | 1 |
 | [`test_inventory_screen.cpp`](#test-inventory-screencpp) | 6 | - | 1 | 3 | 2 |
 | [`test_quest_journal_screen.cpp`](#test-quest-journal-screencpp) | 1 | - | 1 | - | - |
-| [`test_world_maps.cpp`](#test-world-mapscpp) | 4 | - | 1 | 3 | - |
+| [`test_world_maps.cpp`](#test-world-mapscpp) | 5 | - | 1 | 4 | - |
 
 ## test_credits_catalog.cpp
 
@@ -315,9 +315,37 @@ Les cartes se lisent, et une position hors de la carte est refusée.
 - Vérifie que `overflowing.ok()` est faux.
 - Vérifie que `overflowing.error.find("cadre")` diffère de `std::string::npos`.
 
+### WorldMapsTest.UnQuartierRenduPorteSaGrilleEtSesSousZones
+
+*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:108`
+
+La carte rendue d'un quartier se lit avec sa grille et ses sous-zones.
+
+**Étapes**
+
+1. Lire un plan dont le quartier nomme une carte rendue, sa grille et une sous-zone.
+2. Lire le même quartier sans grille, puis une sous-zone sans entrée.
+
+**Résultat attendu**
+
+- Vérifie que `maps.ok()` est vrai.
+- Vérifie que `district.image` vaut `"Regions/r/t/a/Map/a.jpg"`.
+- Vérifie que `district.grid.has_value()` est vrai.
+- Vérifie que `point.x` vaut `0.5 + (2 * 0.02) - 0.02` (comparaison flottante).
+- Vérifie que `point.y` vaut `0.1 + (2 * 0.025) + 0.025` (comparaison flottante).
+- Vérifie que `district.zones.size()` vaut `1U`.
+- Vérifie que `zone.name` vaut `"La crypte"`.
+- Vérifie que `zone.entrance.x` vaut `23.0` (comparaison flottante).
+- Vérifie que `zone.entrance.y` vaut `6.0` (comparaison flottante).
+- Vérifie que `zone.grid.has_value()` est vrai.
+- Vérifie que `gridless.ok()` est faux.
+- Vérifie que `gridless.error.find("grid")` diffère de `std::string::npos`.
+- Vérifie que `doorless.ok()` est faux.
+- Vérifie que `doorless.error.find("entrance")` diffère de `std::string::npos`.
+
 ### WorldMapsTest.JointureRangeLesLieux
 
-*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:107`
+*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:153`
 
 Une région montre ses lieux posés puis les autres, sans les entrées écartées ni les quartiers d'une ville.
 
@@ -345,7 +373,7 @@ Une région montre ses lieux posés puis les autres, sans les entrées écartée
 
 ### WorldMapsTest.EcartsNommes
 
-*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:144`
+*Majeur · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:190`
 
 Une carte sans région, une région sans carte et une position étrangère sont signalées.
 
@@ -361,7 +389,7 @@ Une carte sans région, une région sans carte et une position étrangère sont 
 
 ### WorldMapsTest.AtlasLivreEntierementCartographie
 
-*Critique · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:170`
+*Critique · Unitaire · Carte* — `Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:216`
 
 Les treize régions de l'atlas ont leur carte, et chaque position désigne un lieu de sa région.
 
@@ -385,3 +413,5 @@ Les treize régions de l'atlas ont leur carte, et chaque position désigne un li
 - Vérifie que `place` diffère de `region->places.end()`.
 - Vérifie que `place->placed` est vrai.
 - Vérifie que `place->hasCityMap` est vrai.
+- Vérifie que `std::filesystem::is_regular_file(imageOf(point.district->image))` est vrai.
+- Vérifie que `zone.image.empty() || std::filesystem::is_regular_file(imageOf(zone.image))` est vrai.

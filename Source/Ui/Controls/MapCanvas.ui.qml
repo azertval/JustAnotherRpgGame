@@ -9,15 +9,18 @@ import Jadg.Ui
     cartes sont celles de l'auteur, peintes en 1920 x 1080 et SANS lettrage : tout nom est pose par
     le jeu, dans sa police et dans sa langue.
 
-    `image` est un NOM DE FICHIER de `Source/Elements/Assets/Maps/` ; le chemin relatif vaut dans
-    l'atelier, depuis les sources et dans la ressource (meme mecanisme que les pieces de la charte).
+    `image` est un NOM DE FICHIER de `Source/Elements/Assets/Maps/` -- ou, pour la carte rendue d'une
+    zone (LOT-121), un CHEMIN relatif a `Source/Elements/Assets/` (`Regions/.../Map/martpart.jpg`) ;
+    le chemin relatif vaut dans l'atelier, depuis les sources et dans la ressource (meme mecanisme
+    que les pieces de la charte).
 
     Sans panneau (`leftInset` nul), la carte COUVRE la zone : a `zoom` 1 elle la remplit sans bande,
     quitte a deborder d'un cote sur un ecran qui n'est pas en 16:9. Avec un panneau pose a gauche,
     elle TIENT ENTIERE a sa droite, centree en hauteur -- rien de la carte ne reste sous la fiche --,
     et l'agrandir lui fait remplir la zone. Les positions des reperes sont des fractions de l'image.
 
-    - `markers` : `{ name, x, y, kind, number, gateway }` ; `activeIndex` designe le repere choisi.
+    - `markers` : `{ name, x, y, kind, number, gateway, visited, locked }` ; `activeIndex` designe
+      le repere choisi.
     - `labels` : `{ name, kind, x, y }`, des noms de geographie sans repere ni fiche.
     - `frame` : la part de l'image qu'on montre, en fractions (tout, par defaut). Le niveau
       « quartier » du plan (LOT-96) agrandit ainsi le plan de la ville sur un quartier, faute de
@@ -101,7 +104,11 @@ Item {
                 height: root.mapHeight / root.frame.height
                 x: -root.frame.x * width
                 y: -root.frame.y * height
-                source: root.image !== "" ? "../../Elements/Assets/Maps/" + root.image : ""
+                // Un nom : une carte peinte de `Assets/Maps/` ; un chemin : la carte rendue d'une
+                // zone, rangee avec elle et relative a `Assets/` (LOT-121).
+                source: root.image === "" ? ""
+                        : "../../Elements/Assets/" + (root.image.indexOf("/") >= 0
+                                                      ? root.image : "Maps/" + root.image)
                 fillMode: Image.Stretch
                 smooth: true
                 mipmap: true
@@ -165,6 +172,7 @@ Item {
                 number: marker.modelData.number
                 gateway: marker.modelData.gateway
                 visited: marker.modelData.visited === true
+                locked: marker.modelData.locked === true
                 active: root.activeIndex === marker.index
                 labelAlways: root.namesAlways
                 onHoveredChanged: root.markerHovered(marker.index, marker.hovered)

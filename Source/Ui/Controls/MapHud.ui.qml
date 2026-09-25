@@ -164,7 +164,9 @@ Item {
         Image {
             anchors.fill: parent
             anchors.margins: Tokens.strokeWidth
-            source: root.parentImage !== "" ? "../../Elements/Assets/Maps/" + root.parentImage : ""
+            source: root.parentImage === "" ? ""
+                    : "../../Elements/Assets/" + (root.parentImage.indexOf("/") >= 0
+                                                  ? root.parentImage : "Maps/" + root.parentImage)
             sourceSize.width: 640
             fillMode: Image.Stretch
             smooth: true

@@ -118,7 +118,8 @@ struct AssetGalleryCatalog {
 /**
  * @brief Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface
  *        (`UI/`), les cartes plein écran de l'écran « Carte » (`Maps/`, que cet écran montre déjà
- *        une à une) et les polices (`Fonts/`).
+ *        une à une, et les cartes rendues des zones, dans le `Map/` de chacune sous `Regions/`,
+ *        `LOT-121`) et les polices (`Fonts/`).
  *
  * Les planches **sources** des ateliers n'ont plus de règle : elles ne sont plus versionnées
  * (`Tools/AssetsHD/`, hors dépôt), seul l'asset installé entre dans le dépôt (`LOT-102`).

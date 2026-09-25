@@ -381,7 +381,11 @@ AssetGalleryCatalog AssetGalleryCatalog::load(const std::filesystem::path& asset
 }
 
 bool assetGalleryExcludes(std::string_view path) noexcept {
-    return path.starts_with("UI/") || path.starts_with("Maps/") || path.starts_with("Fonts/");
+    // Les cartes rendues des zones (LOT-121) sont des cartes de l'ecran « Carte », comme Maps/.
+    const bool zoneMap =
+        path.starts_with("Regions/") && path.find("/Map/") != std::string_view::npos;
+    return path.starts_with("UI/") || path.starts_with("Maps/") || path.starts_with("Fonts/") ||
+           zoneMap;
 }
 
 std::vector<std::string> assetGalleryUnlisted(const std::filesystem::path& assetsRoot,

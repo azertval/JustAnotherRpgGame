@@ -38,6 +38,10 @@ Item {
     /// Vrai pour un quartier deja parcouru (LOT-96) : un point d'or sous le repere.
     property bool visited: false
 
+    /// Vrai pour un quartier qu'on ne parcourt pas encore (LOT-121) : grise, son nom toujours
+    /// lisible -- il s'annonce, il ne s'ouvre pas.
+    property bool locked: false
+
     readonly property real markerSize: (root.active ? 44 : 36) * Tokens.uiScale
     readonly property bool hovered: markerPointer.containsMouse
 
@@ -66,9 +70,12 @@ Item {
         width: root.markerSize * 0.7
         height: root.markerSize * 0.7
         rotation: 45
-        visible: !art.delivered || root.number > 0
-        color: root.active ? Tokens.gemLight : Tokens.gem
-        border.color: root.active ? Tokens.goldLight : Tokens.panelEdge
+        visible: !art.delivered || root.number > 0 || root.locked
+        // Grise, le losange seul : le nom d'un quartier ferme reste lisible (LOT-121).
+        opacity: root.locked && !root.active ? 0.7 : 1
+        color: root.locked ? Tokens.panel : root.active ? Tokens.gemLight : Tokens.gem
+        border.color: root.active ? Tokens.goldLight
+                                  : root.locked ? Tokens.textOnPanelMuted : Tokens.panelEdge
         border.width: Tokens.strokeWidth
         antialiasing: true
     }
@@ -77,7 +84,7 @@ Item {
         id: art
 
         anchors.fill: parent
-        visible: root.number <= 0
+        visible: root.number <= 0 && !root.locked
         key: "ui/icon/poi/" + root.kind
     }
 
@@ -92,13 +99,14 @@ Item {
     }
 
     Rectangle {
-        visible: root.active || root.labelAlways
+        visible: root.active || root.labelAlways || root.locked
         anchors.left: parent.right
         anchors.leftMargin: Tokens.gapSmall
         anchors.verticalCenter: parent.verticalCenter
         width: nameLabel.implicitWidth + 2 * Tokens.gapSmall
         height: nameLabel.implicitHeight + Tokens.gapSmall
-        color: Qt.rgba(Tokens.panel.r, Tokens.panel.g, Tokens.panel.b, root.active ? 0.85 : 0.6)
+        color: Qt.rgba(Tokens.panel.r, Tokens.panel.g, Tokens.panel.b,
+                       root.active || root.locked ? 0.85 : 0.6)
         border.color: root.active ? Tokens.goldLight : "transparent"
         border.width: Tokens.strokeWidth
 
@@ -107,7 +115,8 @@ Item {
 
             anchors.centerIn: parent
             text: root.label
-            color: root.active ? Tokens.goldLight : Tokens.textOnPanel
+            color: root.active ? Tokens.goldLight
+                               : root.locked ? Tokens.textOnPanelMuted : Tokens.textOnPanel
             font.family: Tokens.titleFamily
             font.pixelSize: Tokens.fontCaption
             font.weight: Font.DemiBold

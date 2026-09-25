@@ -5,6 +5,7 @@
 
 #include <QColor>
 #include <QImage>
+#include <QSize>
 #include <filesystem>
 #include <optional>
 #include <string>
@@ -57,6 +58,25 @@ struct MapRenderOptions {
     /// **Plan de principe** (`--plan`, `LOT-128`) : les blocs se couchent en losanges plats et une
     /// légende s'ajoute. Ce que la carte contient et comment on y circule, pas ce qu'on y voit.
     bool plan = false;
+    /// **Le cadre imposé** (`--canvas`, `LOT-121`) : l'image a cette taille, la carte y tient
+    /// entière et centrée, quelle que soit l'échelle. C'est la forme des cartes de l'onglet
+    /// « Carte » (1920 × 1080).
+    std::optional<QSize> canvas;
+};
+
+/**
+ * @brief Où tombe la **grille** de la carte sur son image, en fractions de sa largeur et de sa
+ *        hauteur (`LOT-121`) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en
+ *        `origin + c × column + r × row`. L'isométrie est affine : trois vecteurs suffisent à
+ *        l'onglet « Carte » pour poser le héros et les repères sur l'image rendue.
+ */
+struct MapImageGrid {
+    double originX = 0.0;
+    double originY = 0.0;
+    double columnX = 0.0;
+    double columnY = 0.0;
+    double rowX = 0.0;
+    double rowY = 0.0;
 };
 
 /**
@@ -70,9 +90,10 @@ struct MapRenderOptions {
  * @param level    La carte.
  * @param dataRoot La racine des données : la table du lieu, ses planches, les figurines.
  * @param options  Bandes, échelle et fond.
+ * @param grid     S'il n'est pas nul, reçoit la place de la grille sur l'image.
  */
 [[nodiscard]] QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
-                               const MapRenderOptions& options);
+                               const MapRenderOptions& options, MapImageGrid* grid = nullptr);
 
 /**
  * @brief La **vignette d'un préfabriqué** (`LOT-EDITOR-08`) : le tampon posé sur une carte de sa
@@ -90,11 +111,13 @@ struct MapRenderOptions {
  * @brief L'entrée `--render` de l'éditeur, avant toute construction de fenêtre.
  *
  * - `--render [carte…]` : les cartes nommées (identifiant ou chemin), toutes à défaut ;
- * - `--output <fichier.png | dossier>` : un fichier pour une carte unique, sinon un dossier où
- *   chaque carte s'écrit `capital-martpart.png` (défaut : le dossier courant) ;
+ * - `--output <fichier.png | fichier.jpg | dossier>` : un fichier pour une carte unique, sinon un
+ *   dossier où chaque carte s'écrit `capital-martpart.png` (défaut : le dossier courant) ;
  * - `--layers floors,relief,figures,collision` : les bandes (défaut : les trois premières) ;
  * - `--plan` : le plan de principe — losanges plats, pastilles, légende ;
  * - `--scale <s>` : l'échelle ;
+ * - `--canvas <l>x<h>` : le cadre imposé ; chaque carte écrit alors aussi sa grille
+ *   (`grid {"origin":…,"column":…,"row":…}`), celle que `world-maps.json` recopie ;
  * - `--data <racine>` : la racine des données (défaut : @p defaultDataRoot).
  *
  * @return Le code de sortie (0, 1 si une carte ne se lit pas ou ne s'écrit pas, 2 si la ligne de

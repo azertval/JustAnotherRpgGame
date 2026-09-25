@@ -149,6 +149,21 @@ qt_add_resources(JadgUi "JadgUiMaps"
     FILES ${_jadg_map_art}
 )
 
+# Les cartes RENDUES des zones de l'onglet « Carte » (LOT-121) : `LevelEditor --render --canvas`,
+# rangees avec leur zone (`Regions/<...>/Map/*.jpg`, dans son kit) et nommees par world-maps.json
+# d'un chemin relatif a Assets/. Embarquees de meme, la ou `../../Elements/Assets/Regions/` les
+# cherche.
+file(GLOB_RECURSE _jadg_zone_maps CONFIGURE_DEPENDS
+    "${PROJECT_SOURCE_DIR}/Source/Elements/Assets/Regions/*.jpg")
+list(FILTER _jadg_zone_maps INCLUDE REGEX "/Map/[^/]+\\.jpg$")
+if(_jadg_zone_maps)
+    qt_add_resources(JadgUi "JadgUiZoneMaps"
+        PREFIX "/qt/qml/Jadg/Elements/Assets/Regions"
+        BASE "${PROJECT_SOURCE_DIR}/Source/Elements/Assets/Regions"
+        FILES ${_jadg_zone_maps}
+    )
+endif()
+
 # La table rase du LOT-102 a emporte les pieces du Colisee, et avec elles la ressource
 # « JadgUiColiseum » qui les embarquait : plus aucun QML ne les lisait depuis que le rendu de
 # l'arene passe par QRhi (LOT-86, phase 7), qui charge ses pieces depuis le disque. Le kit d'une

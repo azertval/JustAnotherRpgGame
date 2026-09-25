@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <optional>
 #include <set>
 #include <stdexcept>
 #include <string_view>
@@ -46,6 +47,30 @@ public:
         throw failure(where, "la position n'est pas une paire de fractions entre 0 et 1.");
     }
     return MapPoint{.x = value[0].get<double>(), .y = value[1].get<double>()};
+}
+
+// Une paire de nombres quelconques : un vecteur de grille, une case.
+[[nodiscard]] MapPoint readPair(const nlohmann::json& value, const std::string& where) {
+    if (!value.is_array() || value.size() != 2 || !value[0].is_number() || !value[1].is_number()) {
+        throw failure(where, "il faut une paire de nombres.");
+    }
+    return MapPoint{.x = value[0].get<double>(), .y = value[1].get<double>()};
+}
+
+// La grille d'une carte rendue (LOT-121) : trois paires, `origin`, `column`, `row`.
+[[nodiscard]] std::optional<MapGrid> readGrid(const nlohmann::json& object,
+                                              const std::string& where) {
+    const auto found = object.find("grid");
+    if (found == object.end()) {
+        return std::nullopt;
+    }
+    if (!found->is_object() || !found->contains("origin") || !found->contains("column") ||
+        !found->contains("row")) {
+        throw failure(where, "la grille (« grid ») veut « origin », « column » et « row ».");
+    }
+    return MapGrid{.origin = readPair((*found)["origin"], within(where, "grid / origin")),
+                   .column = readPair((*found)["column"], within(where, "grid / column")),
+                   .row = readPair((*found)["row"], within(where, "grid / row"))};
 }
 
 [[nodiscard]] MapFrame readFrame(const nlohmann::json& value, const std::string& where) {
@@ -173,6 +198,34 @@ public:
     return region;
 }
 
+// Les sous-zones d'un quartier (LOT-121) : `zones: { <dossier>: {name, entrance, image, grid} }`.
+[[nodiscard]] std::map<std::string, MapZone> readZones(const nlohmann::json& object,
+                                                       const std::string& where) {
+    std::map<std::string, MapZone> zones;
+    const auto found = object.find("zones");
+    if (found == object.end()) {
+        return zones;
+    }
+    if (!found->is_object()) {
+        throw failure(where, "le champ « zones » n'est pas un objet.");
+    }
+    for (const auto& [id, entry] : found->items()) {
+        const std::string here = within(within(where, "zones"), id);
+        if (!entry.is_object() || !entry.contains("entrance")) {
+            throw failure(here, "il faut une entrée (« entrance »), en cases.");
+        }
+        MapZone zone{.name = readText(entry, "name", here, true),
+                     .entrance = readPair(entry["entrance"], within(here, "entrance")),
+                     .image = readText(entry, "image", here, false),
+                     .grid = readGrid(entry, here)};
+        if (!zone.image.empty() && !zone.grid) {
+            throw failure(here, "une carte rendue veut sa grille (« grid »).");
+        }
+        zones.emplace(id, std::move(zone));
+    }
+    return zones;
+}
+
 [[nodiscard]] std::map<std::string, MapDistrict> readDistricts(const nlohmann::json& object,
                                                                const std::string& where) {
     std::map<std::string, MapDistrict> districts;
@@ -187,8 +240,16 @@ public:
         if (!entry.is_object() || !entry.contains("frame")) {
             throw failure(within(within(where, "districts"), id), "il faut un cadre (« frame »).");
         }
-        districts.emplace(id, MapDistrict{.frame = readFrame(entry["frame"], within(where, id)),
-                                          .image = readText(entry, "image", where, false)});
+        const std::string here = within(within(where, "districts"), id);
+        MapDistrict district{.frame = readFrame(entry["frame"], within(where, id)),
+                             .image = readText(entry, "image", where, false),
+                             .grid = readGrid(entry, here),
+                             .zones = readZones(entry, here)};
+        if (!district.image.empty() && district.image.find('/') != std::string::npos &&
+            !district.grid) {
+            throw failure(here, "une carte rendue (un chemin) veut sa grille (« grid »).");
+        }
+        districts.emplace(id, std::move(district));
     }
     return districts;
 }

@@ -53,7 +53,11 @@ struct CityPlan {
     /// @return Le quartier @p districtId, `nullptr` s'il n'est pas de cette ville.
     [[nodiscard]] const CityDistrict* find(std::string_view districtId) const;
 
-    /// @return Le quartier dont @p mapId est la carte, `nullptr` si aucun ne l'a.
+    /**
+     * @return Le quartier dont @p mapId est la carte, ou une carte **de ses sous-zones** — rangée
+     *         sous la sienne (`…/arenarea/arena-of-fate`, décision D-16, `LOT-121`) ; `nullptr`
+     *         si aucun ne l'a.
+     */
     [[nodiscard]] const CityDistrict* districtOfMap(std::string_view mapId) const;
 
     /// @return La carte du quartier de départ, vide si ce quartier n'en a pas.

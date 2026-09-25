@@ -19,6 +19,13 @@ Ce que ce controle rend impossible, c'est l'ecart SILENCIEUX :
 - `world-maps.json` qui nomme une image absente du manifeste, une region ou un lieu que l'atlas ne
   connait pas, une region de l'atlas sans carte, une ville a plan sans repere sur sa region.
 
+Les cartes RENDUES des zones (`LOT-121`) ne sont pas des cartes peintes : `LevelEditor --render
+--canvas 1920x1080` les tire de la carte de niveau, et elles se rangent avec leur zone
+(`Assets/Regions/<...>/Map/`), dans son kit. `world-maps.json` les nomme par un chemin relatif a
+`Assets/`, avec leur grille (`grid`). Ce controle exige qu'elles soient dans un dossier `Map/` de
+`Regions/`, en JPEG 1920 x 1080, et que leur grille soit complete ; la sous-zone d'un quartier
+(`zones`) de meme, avec son entree en cases.
+
 Aucune dependance : hashlib, et une lecture d'en-tete JPEG (celle de `check_ui_assets.py`).
 
 Usage :
@@ -35,7 +42,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-MAPS = ROOT / "Source" / "Elements" / "Assets" / "Maps"
+ASSETS = ROOT / "Source" / "Elements" / "Assets"
+MAPS = ASSETS / "Maps"
 MANIFEST = MAPS / "manifest.json"
 WORLD_MAPS = ROOT / "Source" / "Elements" / "Maps" / "world-maps.json"
 ATLAS = ROOT / "Source" / "Elements" / "World"
@@ -128,6 +136,31 @@ def is_point(value: object) -> bool:
     )
 
 
+def is_pair(value: object) -> bool:
+    return isinstance(value, list) and len(value) == 2 and all(isinstance(n, (int, float)) for n in value)
+
+
+def check_rendered(owner: str, entry: dict) -> None:
+    """Une carte rendue (LOT-121) : un JPEG 1920 x 1080 dans un `Map/` de `Regions/`, et sa grille."""
+    image = entry["image"]
+    path = ASSETS / image
+    if not image.startswith("Regions/") or path.parent.name != "Map":
+        fail(f"world-maps.json : `{owner}` : une carte rendue se range dans le `Map/` de sa zone, pas `{image}`")
+    elif not path.is_file():
+        fail(f"world-maps.json : `{owner}` : `{image}` absent (kit a installer : scripts/fetch_assets.py)")
+    else:
+        try:
+            size = list(jpeg_size(path.read_bytes()))
+        except (ValueError, struct.error) as error:
+            fail(f"`{image}` n'est pas un JPEG lisible ({error})")
+        else:
+            if size != EXPECTED_SIZE:
+                fail(f"`{image}` : {size}, {EXPECTED_SIZE} attendus")
+    grid = entry.get("grid")
+    if not (isinstance(grid, dict) and all(is_pair(grid.get(k)) for k in ("origin", "column", "row"))):
+        fail(f"world-maps.json : `{owner}` : carte rendue sans grille complete (origin, column, row)")
+
+
 def check_world_maps(declared: set[str]) -> None:
     document = json.loads(WORLD_MAPS.read_text(encoding="utf-8"))
     regions = {path.stem: json.loads(path.read_text(encoding="utf-8")) for path in (ATLAS / "regions").glob("*.json")}
@@ -175,11 +208,20 @@ def check_world_maps(declared: set[str]) -> None:
                     and frame[2] > 0 and frame[3] > 0
                     and frame[0] + frame[2] <= 1 and frame[1] + frame[3] <= 1):
                 fail(f"world-maps.json : `{district_id}` : cadre hors du plan")
-            if district.get("image"):
+            if district.get("image") and "/" in district["image"]:
+                check_rendered(district_id, district)
+            elif district.get("image"):
                 used.add(district["image"])
             else:
                 # Pas une faute : la decision provisoire du LOT-96, que ce rappel garde visible.
                 pending_districts.append(district_id)
+            # Ses sous-zones (LOT-121, D-16) : un nom, une entree en cases, leur carte rendue.
+            for zone_id, zone in district.get("zones", {}).items():
+                owner = f"{district_id} / {zone_id}"
+                if not zone.get("name") or not is_pair(zone.get("entrance")):
+                    fail(f"world-maps.json : `{owner}` : une sous-zone veut un nom et une entree en cases")
+                if zone.get("image"):
+                    check_rendered(owner, zone)
 
     for name in sorted(used - declared):
         fail(f"world-maps.json nomme `{name}`, absent du manifeste des cartes")

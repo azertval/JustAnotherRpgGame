@@ -8,7 +8,9 @@ import Jadg.Runtime
 
     Cinq niveaux, cinq formulaires empiles : le monde (`WorldMapForm`, cable ici), une region
     (`RegionMap.qml`), le plan d'une ville (`CityMap.qml`), un quartier et ses ilots
-    (`DistrictMap.qml`), un ilot (`BlockMap.qml`). Ce jumeau tient le niveau courant et la selection
+    (`DistrictMap.qml`), un ilot (`BlockMap.qml`). Une sous-zone d'un quartier (l'Arena of Fate dans
+    Arenarea, LOT-121) s'ouvre DANS la vue du quartier (`zoneIndex`), sur sa carte ; « remonter »
+    rend le quartier. Ce jumeau tient le niveau courant et la selection
     de chacun, et la passe aux autres ; les cartes et leurs reperes viennent de `WorldMapModel`
     (atlas du `LOT-37` joint a `world-maps.json`), les quartiers de `CityDistrictModel` (leur carte
     de niveau), la place du heros de `WorldModel`, l'encart du personnage de la fiche de
@@ -45,6 +47,8 @@ Item {
     property int placeIndex: 0
     property int pointIndex: 0
     property int blockIndex: 0
+    /// La sous-zone ouverte dans le quartier (LOT-121, D-16), ou -1 : le quartier lui-meme.
+    property int zoneIndex: -1
     property var city: ({})
     /// Le quartier ouvert : une table de `CityDistrictModel.district(mapId)`.
     property var district: ({})
@@ -136,10 +140,7 @@ Item {
         city: root.city
         region: root.region
         blockIndex: root.blockIndex
-        heroAt: root.heroInDistrict && root.district.columns > 0
-                ? Qt.point(WorldModel.heroColumn / root.district.columns,
-                           WorldModel.heroRow / root.district.rows)
-                : Qt.point(-1, -1)
+        zoneIndex: root.zoneIndex
 
         Behavior on opacity { NumberAnimation { duration: 260; easing.type: Easing.InOutQuad } }
         Behavior on scale { NumberAnimation { duration: 260; easing.type: Easing.InOutQuad } }
@@ -199,19 +200,30 @@ Item {
         if (chosen.hasDistrictView !== true || mapId === "")
             return
         root.pointIndex = index
+        root.zoneIndex = -1
         root.district = root.districts.district(mapId)
         // Le heros dans ce quartier : on ouvre sur son ilot.
         const here = mapId === WorldModel.mapId
                      ? root.districts.blockAt(mapId, Math.floor(WorldModel.heroColumn),
                                               Math.floor(WorldModel.heroRow)) : ""
         const heroBlock = root.blocks.findIndex((block) => block.blockId === here)
-        root.blockIndex = heroBlock >= 0 ? heroBlock : (root.blocks.length > 0 ? 0 : -1)
+        // Le heros dans une sous-zone (ou dessous) : on ouvre sur son entree (LOT-121).
+        const heroZone = districtForm.zones.findIndex((zone) => WorldModel.mapId === mapId + "/" + zone.zoneId
+            || WorldModel.mapId.startsWith(mapId + "/" + zone.zoneId + "/"))
+        root.blockIndex = heroBlock >= 0 ? heroBlock
+                        : heroZone >= 0 ? root.blocks.length + heroZone
+                        : (districtForm.markers.length > 0 ? 0 : -1)
         root.resetView(districtForm.canvas)
         root.level = 3
     }
 
-    /// L'ilot choisi : la carte du quartier telle que le jeu la dessine, cadree sur lui.
+    /// L'ilot choisi : la carte du quartier telle que le jeu la dessine, cadree sur lui. Apres les
+    /// ilots viennent les sous-zones du quartier, qui s'ouvrent sur leur carte (LOT-121).
     function openBlock(index) {
+        if (index >= root.blocks.length && index < districtForm.markers.length) {
+            root.openZone(index - root.blocks.length)
+            return
+        }
         if (index < 0 || index >= root.blocks.length)
             return
         root.blockIndex = index
@@ -220,6 +232,15 @@ Item {
             root.heroInDistrict ? WorldModel.heroFigure : "",
             WorldModel.heroColumn, WorldModel.heroRow)
         root.level = 4
+    }
+
+    /// La sous-zone choisie (l'Arena of Fate dans Arenarea) : sa carte, a la place du quartier.
+    function openZone(index) {
+        if (index < 0 || index >= districtForm.zones.length || districtForm.zones[index].image === "")
+            return
+        root.blockIndex = root.blocks.length + index
+        root.zoneIndex = index
+        root.resetView(districtForm.canvas)
     }
 
     /// Le geste « ouvrir » : la region choisie, la ville si elle a un plan, le quartier s'il a sa
@@ -231,13 +252,17 @@ Item {
             root.openCity(root.placeIndex)
         else if (root.level === 2)
             root.openDistrict(root.pointIndex)
-        else if (root.level === 3)
+        else if (root.level === 3 && root.zoneIndex < 0)
             root.openBlock(root.blockIndex)
     }
 
     /// Le geste « remonter » : d'un niveau, et hors de l'ecran depuis le monde.
     function back() {
-        if (root.level > 0)
+        if (root.level === 3 && root.zoneIndex >= 0) {
+            // De la sous-zone, on remonte a son quartier, son repere choisi.
+            root.zoneIndex = -1
+            root.resetView(districtForm.canvas)
+        } else if (root.level > 0)
             root.level -= 1
         else
             ScreenRouter.closeRpgScreen()
@@ -245,12 +270,14 @@ Item {
 
     /// Ouverture directe d'un niveau, pour verifier une vue sans la parcourir :
     /// `--map-region=<region>` et, avec elle, `--map-city=<lieu>`, puis `--map-district=<quartier>`
-    /// et `--map-block=<ilot>` (LOT-96). @return Vrai si un niveau a ete demande.
+    /// et `--map-block=<ilot>` (LOT-96) ou `--map-zone=<sous-zone>` (LOT-121). @return Vrai si un
+    /// niveau a ete demande.
     function openFromArguments() {
         let regionId = ""
         let cityId = ""
         let districtId = ""
         let blockId = ""
+        let zoneId = ""
         for (const argument of Qt.application.arguments) {
             if (argument.startsWith("--map-region="))
                 regionId = argument.substring(13)
@@ -260,6 +287,8 @@ Item {
                 districtId = argument.substring(15)
             else if (argument.startsWith("--map-block="))
                 blockId = argument.substring(12)
+            else if (argument.startsWith("--map-zone="))
+                zoneId = argument.substring(11)
         }
         if (regionId === "" || atlas.regionIndex(regionId) < 0)
             return false
@@ -276,6 +305,9 @@ Item {
         const block = root.blocks.findIndex((block) => block.blockId === blockId)
         if (block >= 0)
             root.openBlock(block)
+        const zone = districtForm.zones.findIndex((zone) => zone.zoneId === zoneId)
+        if (zone >= 0)
+            root.openZone(zone)
         return true
     }
 
@@ -304,12 +336,13 @@ Item {
             return root.places.filter((place) => place.placed)
         if (level === 2)
             return root.points
-        return level === 3 ? root.blocks : []
+        return level === 3 && root.zoneIndex < 0 ? districtForm.markers : []
     }
 
     function selection() {
         return root.level === 0 ? root.regionIndex : root.level === 1 ? root.placeIndex
-             : root.level === 2 ? root.pointIndex : root.level === 3 ? root.blockIndex : -1
+             : root.level === 2 ? root.pointIndex
+             : root.level === 3 && root.zoneIndex < 0 ? root.blockIndex : -1
     }
 
     function select(index) {

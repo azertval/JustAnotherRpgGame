@@ -6,6 +6,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-121 — L'onglet « Carte » : le plan de la Capitale.** Le plan peint par l'auteur montre ses
+  douze quartiers : Martpart et Arenarea s'ouvrent sur leur carte, les dix autres s'annoncent
+  grisés, avec leur nom. La carte d'un quartier est son rendu (`LevelEditor --render --canvas
+  1920x1080`, JPEG, rangé dans le `Map/` de la zone et dans son kit) ; `world-maps.json` le nomme
+  avec sa **grille**, qui pose le héros et les repères en isométrie. L'Arena of Fate est une
+  **sous-zone** d'Arenarea (D-16) : un repère à son entrée, qui ouvre sa carte ; le héros qui s'y
+  tient, ou dessous, est marqué à cette entrée, et son quartier reste Arenarea
+  (`CityPlan::districtOfMap`). `check_map_assets.py` contrôle les cartes rendues et leurs
+  sous-zones ; `--render` écrit le JPEG (greffons d'image chargés sans application).
 - **Éditeur — les cartes de la démo reçoivent leurs pièces.** Martpart, Arenarea et le sable de
   l'Arena of Fate nomment leur lieu (`scene`, par `--change-scene`) : l'onglet des pièces de la
   palette s'ouvre sur leur catalogue, au lieu de rester grisé depuis le `LOT-128`. Les types

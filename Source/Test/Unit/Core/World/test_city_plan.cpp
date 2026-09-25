@@ -84,6 +84,30 @@ TEST(CityPlanTest, UneVilleSeLit) {
 }
 
 /**
+ * @brief Une sous-zone est dans son quartier : sa carte est rangee sous la sienne (D-16).
+ * \castest{<b>La carte d'une sous-zone designe son quartier.</b><br/>
+ * \tcat Unitaire · Graphe de la ville<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire la ville d'essai.<br/>
+ * 2. Chercher le quartier de `bourg/place/crypte`, de `bourg/place/crypte/-1`, puis de
+ * `bourg/placette` et `bourg/plac`.<br/>
+ * \tattendu Les deux premieres sont dans le quartier de `bourg/place` (LOT-121) ; les deux dernieres,
+ * qui ne font que commencer comme lui, ne sont dans aucun.
+ * }
+ */
+TEST(CityPlanTest, UneSousZoneEstDansSonQuartier) {
+    const core::CityPlanResult lue = core::loadCityPlan(MONDE / "cities" / "bourg.json");
+    ASSERT_TRUE(lue.ok()) << lue.error;
+    const core::CityDistrict* const place = lue.plan.districtOfMap("bourg/place");
+    ASSERT_NE(place, nullptr);
+
+    EXPECT_EQ(lue.plan.districtOfMap("bourg/place/crypte"), place);
+    EXPECT_EQ(lue.plan.districtOfMap("bourg/place/crypte/-1"), place);
+    EXPECT_EQ(lue.plan.districtOfMap("bourg/placette"), nullptr);
+    EXPECT_EQ(lue.plan.districtOfMap("bourg/plac"), nullptr);
+}
+
+/**
  * @brief Un quartier qui a a la fois une carte et une porte gardee est refuse.
  * \castest{<b>Un quartier doit avoir soit une carte, soit une porte gardee.</b><br/>
  * \tcat Unitaire · Graphe de la ville<br/>
