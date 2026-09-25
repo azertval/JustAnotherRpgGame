@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-25 14:01 UTC",
-  "commit": "540031184",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36140957758",
+  "generated": "2026-09-25 15:05 UTC",
+  "commit": "91b3ad2d2",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36148692194",
   "coverage": {
-    "percent": 91.31,
-    "covered": 32412,
-    "valid": 35495,
-    "files": 272,
+    "percent": 91.63,
+    "covered": 35613,
+    "valid": 38868,
+    "files": 273,
     "areas": [
       {
         "name": "Core",
@@ -16,9 +16,9 @@
       },
       {
         "name": "Core/Combat",
-        "covered": 3380,
-        "valid": 3572,
-        "percent": 94.62
+        "covered": 3383,
+        "valid": 3575,
+        "percent": 94.63
       },
       {
         "name": "Core/Data",
@@ -40,21 +40,21 @@
       },
       {
         "name": "Core/Gameplay",
-        "covered": 598,
-        "valid": 668,
-        "percent": 89.52
+        "covered": 611,
+        "valid": 676,
+        "percent": 90.38
       },
       {
         "name": "Core/Levels",
-        "covered": 1638,
+        "covered": 1640,
         "valid": 1700,
-        "percent": 96.35
+        "percent": 96.47
       },
       {
         "name": "Core/Math",
-        "covered": 122,
+        "covered": 124,
         "valid": 124,
-        "percent": 98.39
+        "percent": 100.0
       },
       {
         "name": "Core/Resources",
@@ -76,9 +76,9 @@
       },
       {
         "name": "Core/World",
-        "covered": 1224,
+        "covered": 1226,
         "valid": 1357,
-        "percent": 90.2
+        "percent": 90.35
       },
       {
         "name": "Editor/Logic",
@@ -100,14 +100,14 @@
       },
       {
         "name": "HMI/Game",
-        "covered": 455,
-        "valid": 484,
-        "percent": 94.01
+        "covered": 475,
+        "valid": 499,
+        "percent": 95.19
       },
       {
         "name": "HMI/Graphics",
-        "covered": 3514,
-        "valid": 3925,
+        "covered": 3516,
+        "valid": 3927,
         "percent": 89.53
       },
       {

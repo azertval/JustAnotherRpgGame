@@ -1,5 +1,15 @@
 var NAVTREEINDEX13 =
 {
+"classhmi_1_1EditorActions.html#ac4d2e8656ebb396804cd5cc62ccc706a":[2,0,2,79,2],
+"classhmi_1_1EditorActions.html#ac4d2e8656ebb396804cd5cc62ccc706a":[3,0,1,78,2],
+"classhmi_1_1EditorActions.html#aecec8147666b37e0712ca31c459cb10b":[2,0,2,79,3],
+"classhmi_1_1EditorActions.html#aecec8147666b37e0712ca31c459cb10b":[3,0,1,78,3],
+"classhmi_1_1EditorActions.html#af2d300041fc10b35275809d315c0bf95":[2,0,2,79,5],
+"classhmi_1_1EditorActions.html#af2d300041fc10b35275809d315c0bf95":[3,0,1,78,5],
+"classhmi_1_1EditorActions.html#af84d72bf51035c33133a93d8ba91e41f":[2,0,2,79,6],
+"classhmi_1_1EditorActions.html#af84d72bf51035c33133a93d8ba91e41f":[3,0,1,78,6],
+"classhmi_1_1EditorActions.html#af9747bf926ce8a159c465f59c508a932":[2,0,2,79,0],
+"classhmi_1_1EditorActions.html#af9747bf926ce8a159c465f59c508a932":[3,0,1,78,0],
 "classhmi_1_1EditorKeyBindings.html":[2,0,2,13],
 "classhmi_1_1EditorKeyBindings.html":[3,0,1,12],
 "classhmi_1_1EditorKeyBindings.html#a12570faca506479fd16c5817d2092ad6":[2,0,2,13,1],
@@ -239,15 +249,5 @@ var NAVTREEINDEX13 =
 "classhmi_1_1EditorViewport.html#a799aeaed317a541cca4990fa8585b09b":[2,0,2,80,107],
 "classhmi_1_1EditorViewport.html#a799aeaed317a541cca4990fa8585b09b":[3,0,1,79,107],
 "classhmi_1_1EditorViewport.html#a7a36fd2f80e18da0782e75694b2c76cd":[2,0,2,80,112],
-"classhmi_1_1EditorViewport.html#a7a36fd2f80e18da0782e75694b2c76cd":[3,0,1,79,112],
-"classhmi_1_1EditorViewport.html#a7b25e73ff4f739d1121c5686ed579d73":[2,0,2,80,147],
-"classhmi_1_1EditorViewport.html#a7b25e73ff4f739d1121c5686ed579d73":[3,0,1,79,147],
-"classhmi_1_1EditorViewport.html#a7c355b35edfde092e790577fb6b136cc":[2,0,2,80,35],
-"classhmi_1_1EditorViewport.html#a7c355b35edfde092e790577fb6b136cc":[3,0,1,79,35],
-"classhmi_1_1EditorViewport.html#a7dd8d9d501a17ddd27b55754072587c0":[2,0,2,80,39],
-"classhmi_1_1EditorViewport.html#a7dd8d9d501a17ddd27b55754072587c0":[3,0,1,79,39],
-"classhmi_1_1EditorViewport.html#a800e3996af85a07a3163b32f6215234f":[2,0,2,80,8],
-"classhmi_1_1EditorViewport.html#a800e3996af85a07a3163b32f6215234f":[3,0,1,79,8],
-"classhmi_1_1EditorViewport.html#a801f840b7cb02a01a69b85c6951a1fc6":[2,0,2,80,65],
-"classhmi_1_1EditorViewport.html#a801f840b7cb02a01a69b85c6951a1fc6":[3,0,1,79,65]
+"classhmi_1_1EditorViewport.html#a7a36fd2f80e18da0782e75694b2c76cd":[3,0,1,79,112]
 };

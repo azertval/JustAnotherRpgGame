@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Pathfinding.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/Pathfinding.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cmath&gt;
+#include &lt;cstdint&gt;
+#include &lt;cstdlib&gt;
+#include &lt;functional&gt;
+#include &lt;limits&gt;
+#include &lt;queue&gt;
+#include &lt;utility&gt;
+
+#include "Core/Rpg/Bestiary.h"
+#include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/Scale.h"
+
+namespace core {
+
+namespace {
+
+constexpr int UNREACHED = std::numeric_limits&lt;int&gt;::max();
+
+/// TolÃ©rance de l'arrondi Ã  la case infÃ©rieure : 9 / 1,5 tombe juste en binaire, mais une vitesse
+/// issue d'une soustraction de flottants (malus d'encombrement) peut valoir 5,9999 cases, et en
+/// perdre une sur une erreur d'arrondi serait un dÃ©faut invisible.
+constexpr float SPEED_EPSILON = 1.0e-3F;
+
+/// Les huit voisins, dans un ordre **fixe**. Le dÃ©partage ne dÃ©pend pas de cet ordre (il porte sur
+/// la gÃ©omÃ©trie, puis sur l'indice de case), mais un ordre fixe garde la file identique d'une
+/// exÃ©cution Ã  l'autre, et c'est le rang d'un voisin ici qui numÃ©rote son bit dans le masque des
+/// prÃ©dÃ©cesseurs.
+constexpr std::array&lt;std::pair&lt;int, int&gt;, 8&gt; NEIGHBOURS{{
+    {0, -1},
+    {-1, 0},
+    {1, 0},
+    {0, 1},
+    {-1, -1},
+    {1, -1},
+    {-1, 1},
+    {1, 1},
+}};
+
+/// CoÃ»t d'entrÃ©e normal et en terrain difficile (Manuel des Joueurs, Â« Jouer sur un quadrillage Â»).
+constexpr int NORMAL_COST = 1;
+constexpr int DIFFICULT_COST = 2;
+
+/// Ce qu'il faut savoir d'un combattant pour dire si un pas est permis, et ce qu'il coÃ»te.
+struct StepRules {
+    const BattleGrid&amp; grid;
+    const Mover&amp; mover;
+    int side = 1;
+
+    /// @return Le coÃ»t d'entrÃ©e de @p to depuis @p from, voisin, ou `std::nullopt` si le pas est
+    /// interdit.
+<span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;int&gt; cost(GridPosition from, GridPosition to) const {
+        if (!grid.isClear(to, side, mover.locomotion)) {
+            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        const bool diagonal = from.column != to.column &amp;&amp; from.row != to.row;</span>
+        // Le coin d'un mur : on regarde les deux places orthogonales que la diagonale enjambe. Le
+        // coin se juge en vol â seule la matiÃ¨re qui Â« remplit l'espace Â» l'interdit, pas une eau
+        // profonde qu'on ne fait que longer.
+<span style = "background-color:#dfd">        if (diagonal &amp;&amp;</span>
+            (!grid.isClear({.column = to.column, .row = from.row}, side, Locomotion::Fly) ||
+             !grid.isClear({.column = from.column, .row = to.row}, side, Locomotion::Fly))) {
+<span style = "background-color:#dfd">            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        bool difficult = false;
+        bool crowded = false;
+        for (int row = to.row; row &lt; to.row + side; ++row) {
+            for (int column = to.column; column &lt; to.column + side; ++column) {
+                const GridPosition cell{.column = column, .row = row};
+                const std::optional&lt;CombatantId&gt; occupant = grid.occupantAt(cell);
+                if (occupant.has_value() &amp;&amp; *occupant != mover.combatant) {
+                    if (!(mover.canPassThrough &amp;&amp; mover.canPassThrough(*occupant))) {
+                        return std::nullopt;</span>
+                    }
+<span style = "background-color:#dfd">                    crowded = true;</span>
+                }
+<span style = "background-color:#dfd">                difficult = difficult || grid.isDifficult(cell);
+            }
+        }</span>
+        // Â« L'emplacement occupÃ© par une autre crÃ©ature est aussi considÃ©rÃ© comme un terrain
+        // difficile Â» (Manuel des Joueurs, PDF p. 192 et 193) : traverser un alliÃ© coÃ»te double, en
+        // vol comme au sol â c'est la crÃ©ature qui gÃªne, pas le sol.
+<span style = "background-color:#dfd">        if (crowded) {
+            return DIFFICULT_COST;</span>
+        }
+        // Le terrain difficile est une gÃªne de sol : un volant ne la paie pas (`core::Locomotion`).
+<span style = "background-color:#dfd">        return difficult &amp;&amp; mover.locomotion == Locomotion::Walk ? DIFFICULT_COST : NORMAL_COST;
+    }</span>
+};
+
+/// ÃlÃ©ment de file : clÃ© de prioritÃ©, puis indice de case â l'ordre total qui rend la file
+/// dÃ©terministe.
+using QueueEntry = std::pair&lt;int, std::size_t&gt;;
+using MinQueue = std::priority_queue&lt;QueueEntry, std::vector&lt;QueueEntry&gt;, std::greater&lt;&gt;&gt;;
+
+/// Le masque des prÃ©dÃ©cesseurs optimaux d'une case : le bit k est levÃ© si le voisin k de
+/// `NEIGHBOURS`, **relativement Ã  la case**, l'atteint Ã  son meilleur coÃ»t. Tout ce qu'un
+/// prÃ©dÃ©cesseur a de plus qu'un autre se juge Ã  la remontÃ©e (`rebuild`), quand la destination est
+/// connue.
+using Predecessors = std::vector&lt;std::uint8_t&gt;;
+
+/**
+ * RelÃ¢che l'arc qui mÃ¨ne Ã  @p next par le pas de rang @p neighbour, au coÃ»t cumulÃ© @p candidate.
+ *
+ * @return Vrai si le coÃ»t de @p next a **baissÃ©** â il faut alors le remettre en file, et ses
+ * anciens prÃ©dÃ©cesseurs ne valent plus rien. Ã coÃ»t Ã©gal, le pas s'ajoute aux prÃ©dÃ©cesseurs : le
+ * choix entre eux n'appartient pas Ã  l'exploration.
+ */
+bool relax(std::vector&lt;int&gt;&amp; costs, Predecessors&amp; predecessors, std::size_t next,
+<span style = "background-color:#dfd">           std::size_t neighbour, int candidate) {
+    const auto bit = static_cast&lt;std::uint8_t&gt;(1U &lt;&lt; neighbour);
+    if (candidate &lt; costs[next]) {
+        costs[next] = candidate;
+        predecessors[next] = bit;
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    if (candidate == costs[next]) {
+        predecessors[next] = static_cast&lt;std::uint8_t&gt;(predecessors[next] | bit);</span>
+    }
+<span style = "background-color:#dfd">    return false;
+}</span>
+
+/**
+ * Remonte le chemin de @p origin Ã  @p target, prÃ©dÃ©cesseur par prÃ©dÃ©cesseur.
+ *
+ * Parmi les prÃ©dÃ©cesseurs qui atteignent une case Ã  son meilleur coÃ»t, on retient **le plus proche
+ * de la droite** qui joint le dÃ©part Ã  l'arrivÃ©e â le produit vectoriel entier tient lieu de
+ * distance â, et Ã  Ã©galitÃ© celui d'indice de case le plus petit. Le chemin ne fait donc jamais de
+ * coude qu'un autre chemin de mÃªme coÃ»t aurait Ã©vitÃ© : c'est celui que la prÃ©visualisation trace.
+ */
+[[nodiscard]] Path rebuild(const std::vector&lt;int&gt;&amp; costs, const Predecessors&amp; predecessors,
+<span style = "background-color:#dfd">                           GridPosition origin, GridPosition target, int width) {
+    const auto indexOf = [width](GridPosition cell) {
+        return (static_cast&lt;std::size_t&gt;(cell.row) * static_cast&lt;std::size_t&gt;(width)) +</span>
+               static_cast&lt;std::size_t&gt;(cell.column);
+<span style = "background-color:#dfd">    };
+    const long long axisColumn = target.column - origin.column;
+    const long long axisRow = target.row - origin.row;
+    const auto deviation = [&amp;](GridPosition cell) {
+        const long long column = cell.column - origin.column;
+        const long long row = cell.row - origin.row;
+        return std::llabs((axisColumn * row) - (axisRow * column));
+    };</span>
+
+<span style = "background-color:#dfd">    Path path;
+    path.cost = costs[indexOf(target)];
+    GridPosition current = target;
+    while (current != origin) {
+        path.steps.push_back(current);
+        const std::uint8_t mask = predecessors[indexOf(current)];
+        std::optional&lt;GridPosition&gt; best;
+        for (std::size_t rank = 0; rank &lt; NEIGHBOURS.size(); ++rank) {
+            if ((mask &amp; (1U &lt;&lt; rank)) == 0) {
+                continue;</span>
+            }
+            // Le bit dit d'oÃ¹ l'on vient : le prÃ©dÃ©cesseur est Ã  l'opposÃ© du pas relÃ¢chÃ©.
+<span style = "background-color:#dfd">            const GridPosition candidate{.column = current.column - NEIGHBOURS[rank].first,
+                                         .row = current.row - NEIGHBOURS[rank].second};
+            if (!best.has_value() || deviation(candidate) &lt; deviation(*best) ||</span>
+                (deviation(candidate) == deviation(*best) &amp;&amp; indexOf(candidate) &lt; indexOf(*best))) {
+<span style = "background-color:#dfd">                best = candidate;</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (!best.has_value()) {</span>
+<span style = "background-color:#fdd">            break;  // Une case sans prÃ©dÃ©cesseur est l'origine ; ne se produit pas ailleurs.</span>
+        }
+<span style = "background-color:#dfd">        current = *best;
+    }
+    std::ranges::reverse(path.steps);
+    return path;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">int movementBudget(float speedMeters) noexcept {
+    if (!(speedMeters &gt; 0.0F)) {
+        return 0;</span>
+    }
+<span style = "background-color:#dfd">    return static_cast&lt;int&gt;(std::floor(tilesFromMeters(speedMeters) + SPEED_EPSILON));
+}</span>
+
+<span style = "background-color:#dfd">int movementBudget(const CharacterSheet&amp; sheet) noexcept {
+    return movementBudget(sheet.speedMeters);
+}</span>
+
+<span style = "background-color:#dfd">int movementBudget(const Creature&amp; creature, Locomotion locomotion) noexcept {
+    switch (locomotion) {</span>
+        case Locomotion::Walk:
+<span style = "background-color:#dfd">            return movementBudget(creature.speed.walk);</span>
+        case Locomotion::Fly:
+<span style = "background-color:#dfd">            return movementBudget(creature.speed.fly.value_or(0.0F));</span>
+    }
+<span style = "background-color:#fdd">    return 0;</span>
+<span style = "background-color:#dfd">}</span>
+
+ReachableArea::ReachableArea(const BattleGrid&amp; grid, const Mover&amp; mover, int budget)
+<span style = "background-color:#dfd">    : _width(grid.width()),
+      _height(grid.height()),
+      _budget(std::max(budget, 0)),
+      _costs(static_cast&lt;std::size_t&gt;(_width) * static_cast&lt;std::size_t&gt;(_height), UNREACHED),
+      _predecessors(_costs.size(), 0),
+      _endable(_costs.size(), false) {
+    const std::optional&lt;GridPosition&gt; start = grid.positionOf(mover.combatant);
+    if (!start.has_value()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    _origin = *start;
+    const StepRules rules{.grid = grid, .mover = mover, .side = grid.sideOf(mover.combatant)};</span>
+
+<span style = "background-color:#dfd">    MinQueue frontier;
+    _costs[indexOf(_origin)] = 0;
+    frontier.emplace(0, indexOf(_origin));
+    while (!frontier.empty()) {
+        const auto [cost, index] = frontier.top();
+        frontier.pop();
+        if (cost &gt; _costs[index]) {</span>
+<span style = "background-color:#fdd">            continue;  // EntrÃ©e pÃ©rimÃ©e : la case a Ã©tÃ© atteinte moins cher depuis.</span>
+        }
+<span style = "background-color:#dfd">        const GridPosition current{.column = static_cast&lt;int&gt;(index) % _width,
+                                   .row = static_cast&lt;int&gt;(index) / _width};
+        for (std::size_t rank = 0; rank &lt; NEIGHBOURS.size(); ++rank) {
+            const auto [deltaColumn, deltaRow] = NEIGHBOURS[rank];
+            const GridPosition next{.column = current.column + deltaColumn,
+                                    .row = current.row + deltaRow};
+            if (!grid.inBounds(next)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::optional&lt;int&gt; step = rules.cost(current, next);</span>
+            // Il faut pouvoir payer l'entrÃ©e entiÃ¨re : une case difficile Ã  une case du budget est
+            // hors de portÃ©e, pas Â« Ã  moitiÃ© Â» atteinte.
+<span style = "background-color:#dfd">            if (!step.has_value() || cost + *step &gt; _budget) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::size_t nextIndex = indexOf(next);
+            if (relax(_costs, _predecessors, nextIndex, rank, cost + *step)) {
+                frontier.emplace(_costs[nextIndex], nextIndex);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }</span>
+
+<span style = "background-color:#dfd">    for (std::size_t index = 0; index &lt; _costs.size(); ++index) {
+        const GridPosition anchor{.column = static_cast&lt;int&gt;(index) % _width,
+                                  .row = static_cast&lt;int&gt;(index) / _width};
+        _endable[index] = _costs[index] != UNREACHED &amp;&amp; anchor != _origin &amp;&amp;</span>
+                          grid.canStand(anchor, rules.side, mover.combatant, mover.locomotion);
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">std::size_t ReachableArea::indexOf(GridPosition cell) const noexcept {
+    return (static_cast&lt;std::size_t&gt;(cell.row) * static_cast&lt;std::size_t&gt;(_width)) +</span>
+           static_cast&lt;std::size_t&gt;(cell.column);
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;int&gt; ReachableArea::costTo(GridPosition anchor) const {
+    if (anchor.column &lt; 0 || anchor.row &lt; 0 || anchor.column &gt;= _width || anchor.row &gt;= _height) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const int cost = _costs[indexOf(anchor)];
+    return cost == UNREACHED ? std::nullopt : std::optional&lt;int&gt;(cost);
+}</span>
+
+<span style = "background-color:#dfd">bool ReachableArea::canEndAt(GridPosition anchor) const {
+    if (anchor.column &lt; 0 || anchor.row &lt; 0 || anchor.column &gt;= _width || anchor.row &gt;= _height) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return _endable[indexOf(anchor)];
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;GridPosition&gt; ReachableArea::destinations() const {
+    std::vector&lt;GridPosition&gt; cells;
+    for (std::size_t index = 0; index &lt; _endable.size(); ++index) {
+        if (_endable[index]) {
+            cells.push_back({.column = static_cast&lt;int&gt;(index) % _width,</span>
+                             .row = static_cast&lt;int&gt;(index) / _width});
+        }
+<span style = "background-color:#dfd">    }
+    return cells;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;Path&gt; ReachableArea::pathTo(GridPosition anchor) const {
+    if (!canEndAt(anchor)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return rebuild(_costs, _predecessors, _origin, anchor, _width);
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;Path&gt; findPath(const BattleGrid&amp; grid, const Mover&amp; mover, GridPosition destination) {
+    const std::optional&lt;GridPosition&gt; start = grid.positionOf(mover.combatant);
+    const int side = grid.sideOf(mover.combatant);
+    if (!start.has_value() ||</span>
+        !grid.canStand(destination, side, mover.combatant, mover.locomotion)) {
+<span style = "background-color:#dfd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const int width = grid.width();
+    const auto indexOf = [width](GridPosition cell) {
+        return (static_cast&lt;std::size_t&gt;(cell.row) * static_cast&lt;std::size_t&gt;(width)) +</span>
+               static_cast&lt;std::size_t&gt;(cell.column);
+<span style = "background-color:#dfd">    };</span>
+    // Distance de Tchebychev : chaque pas coÃ»te au moins 1 et avance d'au plus une case sur chaque
+    // axe. L'heuristique est donc cohÃ©rente â une case sortie de la file a son coÃ»t dÃ©finitif.
+<span style = "background-color:#dfd">    const auto estimate = [destination](GridPosition cell) {
+        return std::max(std::abs(cell.column - destination.column),</span>
+                        std::abs(cell.row - destination.row));
+<span style = "background-color:#dfd">    };
+    const StepRules rules{.grid = grid, .mover = mover, .side = side};</span>
+
+<span style = "background-color:#dfd">    const std::size_t cellTotal =</span>
+        static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(grid.height());
+<span style = "background-color:#dfd">    std::vector&lt;int&gt; costs(cellTotal, UNREACHED);
+    Predecessors predecessors(cellTotal, 0);
+    const std::size_t target = indexOf(destination);</span>
+
+<span style = "background-color:#dfd">    MinQueue frontier;
+    costs[indexOf(*start)] = 0;
+    frontier.emplace(estimate(*start), indexOf(*start));
+    while (!frontier.empty()) {
+        const auto [priority, index] = frontier.top();</span>
+        // On ne s'arrÃªte pas Ã  la premiÃ¨re sortie de la destination : tant qu'une case de mÃªme
+        // estimation totale reste en file, elle peut Ãªtre le prÃ©dÃ©cesseur de mÃªme coÃ»t que le
+        // dÃ©partage retiendra. S'arrÃªter plus tÃ´t rendrait un chemin juste, mais pas toujours
+        // celui de `ReachableArea::pathTo`.
+<span style = "background-color:#dfd">        if (costs[target] != UNREACHED &amp;&amp; priority &gt; costs[target]) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        frontier.pop();
+        const GridPosition current{.column = static_cast&lt;int&gt;(index) % width,
+                                   .row = static_cast&lt;int&gt;(index) / width};
+        if (priority - estimate(current) &gt; costs[index]) {
+            continue;  // EntrÃ©e pÃ©rimÃ©e.</span>
+        }
+<span style = "background-color:#dfd">        for (std::size_t rank = 0; rank &lt; NEIGHBOURS.size(); ++rank) {
+            const auto [deltaColumn, deltaRow] = NEIGHBOURS[rank];
+            const GridPosition next{.column = current.column + deltaColumn,
+                                    .row = current.row + deltaRow};
+            if (!grid.inBounds(next)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::optional&lt;int&gt; step = rules.cost(current, next);
+            if (!step.has_value()) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::size_t nextIndex = indexOf(next);
+            if (relax(costs, predecessors, nextIndex, rank, costs[index] + *step)) {
+                frontier.emplace(costs[nextIndex] + estimate(next), nextIndex);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }</span>
+
+<span style = "background-color:#dfd">    if (costs[target] == UNREACHED) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return rebuild(costs, predecessors, *start, destination, width);
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

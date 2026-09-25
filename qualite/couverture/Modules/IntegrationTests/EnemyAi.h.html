@@ -1,0 +1,281 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EnemyAi.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/EnemyAi.h
+ * @brief L'IA tactique : des heuristiques pondÃ©rÃ©es, dÃ©terministes, qui jouent dans les mÃªmes
+ *        actions que le joueur (`LOT-23`, `EX-CBT-050`).
+ *
+ * ## Ce que le *Guide du MaÃ®tre* en dit
+ *
+ * Le chapitre 8, Â« Le combat Â» (PDF p. 247-255), ne donne pas de tactique aux monstres : il dit au
+ * MD **ce qu'il sait** et **comment il compte**. Ce fichier en tire ses rÃ¨gles, et nomme ce qu'il
+ * dÃ©cide au-delÃ .
+ *
+ * - **Les points de vie des monstres se suivent en secret** ; mais Â« si le monstre a moins de la
+ *   moitiÃ© de ses points de vie Â», il est **ensanglantÃ©**, et la table le voit. L'IA lit la mÃªme
+ *   chose chez ses adversaires : l'Ã©tat ensanglantÃ© (`core::isBloodied`), jamais le nombre de
+ * points de vie restants â c'est ce qu'`EX-CBT-050` appelle les mÃªmes informations.
+ * - **GÃ©rer les foules** : le rÃ©sultat minimal au d20 pour toucher est Â« la CA de la cible moins le
+ *   bonus d'attaque Â» (`core::requiredRoll`). L'IA en tire la chance de toucher
+ *   (`core::hitChance`), et l'espÃ©rance de dÃ©gÃ¢ts : les **dÃ©gÃ¢ts moyens** du bloc, et au critique
+ *   les dÃ©s Â« ajoutÃ©s aux dÃ©gÃ¢ts moyens Â» (Â« Les monstres et les coups critiques Â»).
+ * - **Le champ de vision et l'abri** se mesurent par la mÃ©thode du Guide, dÃ©jÃ  celle du `LOT-22` :
+ *   l'IA vise par `core::hasLineOfSight` et compte l'abri par `core::coverFrom`, comme le jet rÃ©el.
+ * - **La prise en tenaille**, rÃ¨gle optionnelle, donne l'avantage au corps Ã  corps
+ *   (`core::isFlankedFrom`) : une IA dans une arÃ¨ne qui la joue cherche la case d'en face.
+ * - **Le temps de rÃ©action** : l'attaque d'opportunitÃ© interrompt son dÃ©clencheur ; la dÃ©cision de
+ *   la prendre est ici (`core::shouldTakeOpportunity`).
+ *
+ * ## Ce que ce fichier dÃ©cide, et que le Guide ne dit pas
+ *
+ * Les **poids** : combien pÃ¨se une cible ensanglantÃ©e, une menace subie, une case Ã  parcourir. Ce
+ * sont des donnÃ©es (`Source/Elements/Rpg/rules/behaviors.json`, `EX-VIS-007`), pas des constantes.
+ * Et deux garde-fous, qui sont des rÃ¨gles de l'IA et non des poids :
+ *
+ * - **Le suicide.** Une IA ne finit pas son tour au contact de plus d'ennemis que son profil n'en
+ *   tolÃ¨re (`toleratedThreats`) quand une case qui en tolÃ¨re moins existait : la comparaison est
+ *   **lexicographique**, l'excÃ¨s d'abord, le score ensuite. Seules les attaques **de contact**
+ *   comptent : un tireur couvre toute l'arÃ¨ne, et le compter interdirait d'approcher.
+ * - **Le blocage.** Une IA qui peut attaquer attaque ; une IA qui ne le peut pas **avance** vers sa
+ *   cible â c'est une clÃ© de la comparaison, avant le score, sans quoi la menace d'un round entier
+ *   la tiendrait hors de portÃ©e Ã  jamais â, en se prÃ©cipitant si le chemin est long. Le prudent
+ *   choisit **d'oÃ¹** frapper, et **recule** aprÃ¨s, Ã  menace Ã©gale le moins loin possible : il ne
+ *   se cache pas indÃ©finiment.
+ *
+ * ## DÃ©terministe, en entiers
+ *
+ * Aucun flottant : une chance de toucher est un nombre de quatre-centiÃ¨mes (le carrÃ© d'un
+ * vingtiÃ¨me, pour l'avantage), des dÃ©gÃ¢ts moyens un nombre de demi-points, un poids un pourcentage.
+ * Les cases se parcourent par indice croissant, les cibles par identifiant croissant, et une
+ * Ã©galitÃ© garde le premier candidat. Deux exÃ©cutions, deux compilateurs, deux modes de construction
+ * donnent le mÃªme tour.
+ */
+
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/Arena.h"
+#include "Core/Combat/Attack.h"
+#include "Core/Rpg/Check.h"
+
+namespace core {
+
+struct Creature;
+
+// --- Ce que la table sait ---------------------------------------------------------------------
+
+/**
+ * @brief Vrai si le combattant a **moins de la moitiÃ©** de ses points de vie : ensanglantÃ©, ce que
+ *        le *Guide du MaÃ®tre* laisse voir Ã  la table.
+ */
+<span style = "background-color:#dfd">[[nodiscard]] constexpr bool isBloodied(const CombatantProfile&amp; profile) noexcept {
+    return profile.currentHitPoints * 2 &lt; profile.maximumHitPoints;
+}</span>
+
+/**
+ * @brief Le rÃ©sultat minimal au d20 pour toucher : la CA moins le bonus d'attaque (*Guide du
+ *        MaÃ®tre*, Â« GÃ©rer les foules Â»).
+ */
+<span style = "background-color:#dfd">[[nodiscard]] constexpr int requiredRoll(int armorClass, int attackBonus) noexcept {
+    return armorClass - attackBonus;
+}</span>
+
+/// @brief Le bonus d'un profil d'attaque : la somme de ses modificateurs.
+[[nodiscard]] int attackBonusOf(const AttackProfile&amp; profile) noexcept;
+
+/// @brief Une chance, en **quatre-centiÃ¨mes** : 400 est la certitude.
+inline constexpr int CHANCE_SCALE = 400;
+
+/**
+ * @brief La chance de toucher, en quatre-centiÃ¨mes, pour un rÃ©sultat requis et une posture.
+ *
+ * Un 1 rate toujours, un 20 touche toujours : la chance d'un seul dÃ© est entre 1 et 19 vingtiÃ¨mes.
+ * Avec l'avantage, on rate si les deux dÃ©s ratent ; avec le dÃ©savantage, on touche si les deux dÃ©s
+ * touchent. Un rÃ©sultat au moins Ã©gal au seuil critique touche aussi, quelle que soit la CA.
+ */
+[[nodiscard]] int hitChance(int required, RollStance stance, int criticalThreshold = 20) noexcept;
+
+/// @brief La chance d'un critique, en quatre-centiÃ¨mes, pour un seuil critique et une posture.
+[[nodiscard]] int criticalChance(int criticalThreshold, RollStance stance) noexcept;
+
+/**
+ * @brief L'espÃ©rance de dÃ©gÃ¢ts d'une attaque, en **huit-centiÃ¨mes** de point de dÃ©gÃ¢t.
+ *
+ * `chance Ã dÃ©gÃ¢ts moyens + chance de critique Ã moyenne des dÃ©s`, les dÃ©gÃ¢ts moyens en demi-points
+ * pour rester entier. Les rÃ©sistances de la cible n'y entrent pas : la table ne les connaÃ®t pas
+ * avant de les avoir vues jouer (`EX-CBT-050`).
+ */
+[[nodiscard]] long long expectedDamage(const AttackProfile&amp; profile, int armorClass,
+                                       RollStance stance) noexcept;
+
+// --- Les profils --------------------------------------------------------------------------------
+
+/**
+ * @brief Un profil de comportement : des poids, en pour cent, et deux rÃ¨gles.
+ *
+ * Tous les termes du score sont en points de dÃ©gÃ¢ts attendus : ce qu'on inflige, ce qu'on subit, et
+ * les cases Ã  parcourir converties au taux `approachPerTile`. Un poids de 100 compte un point pour
+ * un point.
+ */
+struct BehaviorProfile {
+    std::string id;
+    std::string name;
+    /// Les dÃ©gÃ¢ts qu'on espÃ¨re infliger.
+    int damageDealt = 100;
+    /// Ce qui s'ajoute quand la cible est ensanglantÃ©e : l'achever.
+    int bloodiedTarget = 0;
+    /// Ce qui s'ajoute par alliÃ© dÃ©jÃ  au contact de la cible : frapper ensemble.
+    int focusFire = 0;
+    /// Ce qui s'ajoute quand la cible est au contact d'un alliÃ© ensanglantÃ© : le dÃ©gager.
+    int protectBloodiedAlly = 0;
+    /// Les dÃ©gÃ¢ts qu'on s'attend Ã  subir au prochain round, lÃ  oÃ¹ l'on finit.
+    int threatTaken = 100;
+    /// La mÃªme menace, quand on est soi-mÃªme ensanglantÃ©.
+    int threatWhenBloodied = 100;
+    /// Les attaques d'opportunitÃ© qu'un chemin provoque.
+    int opportunityTaken = 100;
+    /// Le prix d'une case entre soi et la cible, en pour cent d'un point de dÃ©gÃ¢t.
+    int approachPerTile = 100;
+    /// Combien d'ennemis peuvent frapper la case de fin de tour au contact, sans bouger, au plus.
+    int toleratedThreats = 2;
+    /// Le jet requis au-delÃ  duquel on ne prend pas l'attaque d'opportunitÃ© (21 : toujours).
+    int opportunityMaximumRoll = 21;
+    /// Vrai si, faute de pouvoir attaquer et menacÃ©, on esquive plutÃ´t que de se prÃ©cipiter.
+    bool dodgeWhenThreatened = false;
+    /// Vrai si, aprÃ¨s avoir attaquÃ©, on s'Ã©loigne vers une case moins menacÃ©e.
+    bool retreatAfterAttack = false;
+};
+
+/// @brief Une rÃ¨gle d'attribution : un trait, une crÃ©ature, ou le goÃ»t du tir.
+struct BehaviorAssignment {
+    std::string behavior;
+    /// Le nom d'un trait du bloc (Â« Tactique de groupe Â»).
+    std::string trait;
+    /// L'identifiant d'une crÃ©ature.
+    std::string creature;
+    /// Vrai pour une crÃ©ature qui frappe au moins aussi fort Ã  distance qu'au contact.
+    bool ranged = false;
+};
+
+/// @brief Les profils, les rÃ¨gles d'attribution dans l'ordre, et ce qui n'a pas pu Ãªtre lu.
+struct BehaviorCatalog {
+    std::vector&lt;BehaviorProfile&gt; profiles;
+    std::vector&lt;BehaviorAssignment&gt; assignments;
+    std::string defaultBehavior;
+    std::vector&lt;std::string&gt; errors;
+
+    [[nodiscard]] const BehaviorProfile* find(std::string_view id) const;
+};
+
+/// @brief Charge les profils (`Source/Elements/Rpg/rules/behaviors.json`).
+[[nodiscard]] BehaviorCatalog loadBehaviors(const std::filesystem::path&amp; file);
+
+/**
+ * @brief Le profil d'une crÃ©ature du bestiaire : la premiÃ¨re rÃ¨gle qui la dÃ©signe, sinon le profil
+ *        par dÃ©faut.
+ */
+[[nodiscard]] std::string behaviorFor(const Creature&amp; creature, const BehaviorCatalog&amp; catalog);
+
+// --- Le tour ----------------------------------------------------------------------------------
+
+/// @brief Ce que l'IA fait de son action.
+enum class TurnAction : std::uint8_t {
+    Attack,
+    Dash,
+    Dodge,
+    Disengage,
+    /// Rien : un tour sans action utile, qui se termine quand mÃªme.
+    Wait,
+};
+
+/// @brief Un tour dÃ©cidÃ© : oÃ¹ aller, puis quoi faire.
+struct TurnPlan {
+    CombatantId actor{};
+    /// L'ancre de fin de dÃ©placement **avant** l'action, ou vide pour rester.
+    std::optional&lt;GridPosition&gt; moveTo;
+<span style = "background-color:#dfd">    TurnAction action = TurnAction::Wait;</span>
+    std::optional&lt;CombatantId&gt; target;
+<span style = "background-color:#dfd">    std::size_t attackIndex = 0;</span>
+    /// Pour une approche : oÃ¹ aller **aprÃ¨s** s'Ãªtre prÃ©cipitÃ©, le long du chemin.
+    std::optional&lt;GridPosition&gt; dashTo;
+    /// Le jet requis de l'attaque, et sa posture.
+<span style = "background-color:#dfd">    int requiredRoll = 0;
+    RollStance stance = RollStance::Normal;</span>
+    /// Les ennemis qui peuvent frapper la case de fin sans bouger.
+<span style = "background-color:#dfd">    int immediateThreats = 0;
+    long long score = 0;</span>
+    /// La ligne de journal qui dit la dÃ©cision.
+    std::string summary;
+};
+
+/**
+ * @brief DÃ©cide le tour de @p actor, qui doit Ãªtre le combattant actif de la session.
+ *
+ * Toutes les cases oÃ¹ finir le dÃ©placement (`core::ReachableArea`), et la case de dÃ©part, sont
+ * examinÃ©es avec chaque attaque et chaque ennemi debout ; si aucune attaque n'est possible, les
+ * cases le long du chemin vers l'ennemi le plus proche (`core::findPath`). Rien n'est jouÃ©.
+ */
+[[nodiscard]] TurnPlan planTurn(const ArenaSession&amp; session, CombatantId actor,
+                                const BehaviorProfile&amp; profile);
+
+/**
+ * @brief Joue le tour du combattant actif selon son profil, et le termine.
+ *
+ * Le plan passe par les actions de la session, **les mÃªmes que celles du joueur** : `move`,
+ * `attack`, `dash`, `dodge`, `disengage`, `endTurn`. La dÃ©cision s'Ã©crit au journal avant d'Ãªtre
+ * jouÃ©e. Une attaque d'opportunitÃ© qui abat l'IA en chemin met fin Ã  son tour.
+ *
+ * @return Faux si le combattant actif n'a pas de profil connu ou si aucun tour n'est en cours.
+ */
+bool playTurn(ArenaSession&amp; session, const BehaviorCatalog&amp; catalog);
+
+/**
+ * @brief Vrai si @p reactor, jouÃ© par @p profile, prend l'attaque d'opportunitÃ© sur @p mover : sa
+ *        premiÃ¨re attaque au contact, Ã  un jet requis au plus Ã©gal Ã  `opportunityMaximumRoll`.
+ */
+[[nodiscard]] bool shouldTakeOpportunity(const ArenaSession&amp; session, CombatantId reactor,
+                                         CombatantId mover, const BehaviorProfile&amp; profile);
+
+/**
+ * @brief La politique d'opportunitÃ© d'une session oÃ¹ l'IA joue certains combattants : chacun d'eux
+ *        dÃ©cide par son profil, les autres prennent toutes leurs attaques.
+ *
+ * Le catalogue doit vivre aussi longtemps que la session.
+ */
+[[nodiscard]] OpportunityPolicy aiOpportunityPolicy(const BehaviorCatalog&amp; catalog);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

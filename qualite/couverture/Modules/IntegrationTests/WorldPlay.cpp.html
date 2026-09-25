@@ -93,8 +93,8 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     }
 <span style = "background-color:#dfd">    if (walking) {
         const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
-        if (facing != _heroFacing) {</span>
-<span style = "background-color:#fdd">            _heroFacing = facing;
+        if (facing != _heroFacing) {
+            _heroFacing = facing;
             result.figuresChanged = true;</span>
         }
     }
@@ -109,8 +109,8 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
         result.sceneChanged = true;</span>
     }
 <span style = "background-color:#dfd">    for (const core::ExplorationEvent&amp; event : result.events) {
-        if (event.kind == core::ExplorationEventKind::MapEntered) {</span>
-<span style = "background-color:#fdd">            _elapsed = 0.0F;
+        if (event.kind == core::ExplorationEventKind::MapEntered) {
+            _elapsed = 0.0F;
             reloadAppearance();
             result.sceneChanged = true;
             result.heroMoved = true;</span>

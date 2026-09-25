@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>BattleGrid.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/BattleGrid.h"
+
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+#include "Core/Levels/Level.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileType.h"
+
+namespace core {
+
+namespace {
+
+/// Emprise maximale : Gigantesque, 4 Ã 4 (`footprintSide`). Au-delÃ , le cÃ´tÃ© est une erreur
+/// d'appel, pas une crÃ©ature.
+constexpr int LARGEST_SIDE = 4;
+
+<span style = "background-color:#dfd">[[nodiscard]] std::size_t cellCount(int width, int height) {
+    return static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height);
+}</span>
+
+/// Vrai seulement pour un boolÃ©en `true` : un `"difficultTerrain": 1` ou `"oui"` est une faute de
+/// saisie, et la lire comme vraie ferait d'une coquille une rÃ¨gle.
+<span style = "background-color:#dfd">[[nodiscard]] bool marksDifficult(const PropertyMap&amp; properties) {
+    const auto found = properties.find(std::string(DIFFICULT_TERRAIN_PROPERTY));
+    if (found == properties.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const bool* value = std::get_if&lt;bool&gt;(&amp;found-&gt;second);
+    return value != nullptr &amp;&amp; *value;
+}</span>
+
+}  // namespace
+
+BattleGrid::BattleGrid(const TileMap&amp; collision)
+<span style = "background-color:#dfd">    : _width(collision.width()),
+      _height(collision.height()),
+      _terrain(cellCount(_width, _height), Terrain::Open),
+      _difficult(cellCount(_width, _height), false),
+      _occupants(cellCount(_width, _height)) {
+    for (int row = 0; row &lt; _height; ++row) {
+        for (int column = 0; column &lt; _width; ++column) {
+            const TileType type = collision.tile(column, row);
+            if (!isSolid(type)) {
+                continue;</span>
+            }
+            // Ce que le vol franchit se nomme ici, et nulle part ailleurs : tout autre type plein
+            // arrÃªte aussi un volant, y compris une porte fermÃ©e, que le contrÃ´leur de mÃ©canismes
+            // Ã©crit comme de la matiÃ¨re pleine.
+<span style = "background-color:#dfd">            const bool groundOnly = type == TileType::DeepWater || type == TileType::Cliff;
+            _terrain[indexOf({.column = column, .row = row})] =</span>
+                groundOnly ? Terrain::GroundObstacle : Terrain::Solid;
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+<span style = "background-color:#dfd">BattleGrid::BattleGrid(const Level&amp; level, const TileMap&amp; collision) : BattleGrid(collision) {
+    addZones(level);
+}</span>
+
+<span style = "background-color:#dfd">BattleGrid::BattleGrid(const Level&amp; level) : BattleGrid(level, level.tileMap()) {}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::addZones(const Level&amp; level) {
+    addLayerZones(level);</span>
+    // Les zones posees comme entites (decision D13) : un rectangle ou des cases peintes, apres les
+    // couches -- `zonesAt` les rend dans l'ordre des couches, puis des entites.
+<span style = "background-color:#dfd">    addEntityZones(level);
+}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::addLayerZones(const Level&amp; level) {
+    for (const TileLayer&amp; layer : level.layers()) {
+        if (layer.properties.empty() || layer.tiles.width() != _width ||</span>
+            layer.tiles.height() != _height) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        Zone zone{.properties = layer.properties,
+                  .cells = std::vector&lt;bool&gt;(_terrain.size(), false)};
+        const bool difficult = marksDifficult(layer.properties);
+        for (int row = 0; row &lt; _height; ++row) {
+            for (int column = 0; column &lt; _width; ++column) {
+                if (layer.tiles.tile(column, row) == TileType::Empty) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const std::size_t index = indexOf({.column = column, .row = row});
+                zone.cells[index] = true;
+                if (difficult) {
+                    _difficult[index] = true;</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+        _zones.push_back(std::move(zone));
+    }
+}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::addEntityZones(const Level&amp; level) {
+    for (const MapEntity&amp; entity : level.entities()) {
+        if (entity.type != ZONE_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        Zone zone{.properties = entity.properties,
+                  .cells = std::vector&lt;bool&gt;(_terrain.size(), false)};
+        const bool difficult = marksDifficult(entity.properties);
+        for (const GridPosition cell : zoneCells(entity)) {
+            if (!inBounds(cell)) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::size_t index = indexOf(cell);
+            zone.cells[index] = true;
+            if (difficult) {
+                _difficult[index] = true;
+            }
+        }
+        _zones.push_back(std::move(zone));
+    }
+}</span>
+
+<span style = "background-color:#dfd">std::size_t BattleGrid::indexOf(GridPosition cell) const noexcept {
+    return (static_cast&lt;std::size_t&gt;(cell.row) * static_cast&lt;std::size_t&gt;(_width)) +</span>
+           static_cast&lt;std::size_t&gt;(cell.column);
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::inBounds(GridPosition cell) const noexcept {
+    return cell.column &gt;= 0 &amp;&amp; cell.row &gt;= 0 &amp;&amp; cell.column &lt; _width &amp;&amp; cell.row &lt; _height;
+}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::isObstructed(GridPosition cell, Locomotion locomotion) const {
+    if (!inBounds(cell)) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t index = indexOf(cell);
+    const Terrain terrain = _terrain[index];
+    if (terrain == Terrain::Solid ||</span>
+        (terrain == Terrain::GroundObstacle &amp;&amp; locomotion == Locomotion::Walk)) {
+<span style = "background-color:#dfd">        return true;</span>
+    }
+<span style = "background-color:#dfd">    const auto object = _objects.find(index);
+    return object != _objects.end() &amp;&amp; object-&gt;second.blocksMovement;
+}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::isDifficult(GridPosition cell) const {
+    return inBounds(cell) &amp;&amp; _difficult[indexOf(cell)];
+}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::blocksSight(GridPosition cell) const {
+    if (!inBounds(cell)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t index = indexOf(cell);
+    return _terrain[index] == Terrain::Solid || objectCoverAt(cell) == Cover::Total;
+}</span>
+
+<span style = "background-color:#dfd">Cover BattleGrid::objectCoverAt(GridPosition cell) const {
+    const GridObject* object = objectAt(cell);
+    return object == nullptr ? Cover::None : object-&gt;cover;
+}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::setDifficult(GridPosition cell, bool difficult) {
+    if (inBounds(cell)) {
+        _difficult[indexOf(cell)] = difficult;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;const PropertyMap*&gt; BattleGrid::zonesAt(GridPosition cell) const {
+    std::vector&lt;const PropertyMap*&gt; zones;
+    if (!inBounds(cell)) {
+        return zones;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t index = indexOf(cell);
+    for (const Zone&amp; zone : _zones) {
+        if (zone.cells[index]) {
+            zones.push_back(&amp;zone.properties);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return zones;
+}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::isClear(GridPosition anchor, int side, Locomotion locomotion) const {
+    if (side &lt; 1 || side &gt; LARGEST_SIDE) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    for (int row = anchor.row; row &lt; anchor.row + side; ++row) {
+        for (int column = anchor.column; column &lt; anchor.column + side; ++column) {
+            if (isObstructed({.column = column, .row = row}, locomotion)) {
+                return false;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return true;
+}</span>
+
+bool BattleGrid::canStand(GridPosition anchor, int side, std::optional&lt;CombatantId&gt; self,
+<span style = "background-color:#dfd">                          Locomotion locomotion) const {
+    if (!isClear(anchor, side, locomotion)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    for (int row = anchor.row; row &lt; anchor.row + side; ++row) {
+        for (int column = anchor.column; column &lt; anchor.column + side; ++column) {
+            const std::optional&lt;CombatantId&gt;&amp; occupant =</span>
+                _occupants[indexOf({.column = column, .row = row})];
+<span style = "background-color:#dfd">            if (occupant.has_value() &amp;&amp; occupant != self) {
+                return false;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return true;
+}</span>
+
+PlacementResult BattleGrid::check(GridPosition anchor, int side, CombatantId self,
+<span style = "background-color:#dfd">                                  Locomotion locomotion) const {
+    const GridPosition farCorner{.column = anchor.column + side - 1, .row = anchor.row + side - 1};
+    if (!inBounds(anchor) || !inBounds(farCorner)) {
+        return PlacementResult::OutOfBounds;</span>
+    }
+<span style = "background-color:#dfd">    if (!isClear(anchor, side, locomotion)) {
+        return PlacementResult::Obstructed;</span>
+    }
+    // Le combattant ne se gÃªne pas lui-mÃªme : une crÃ©ature de 2 Ã 2 qui avance d'une case
+    // recouvre la moitiÃ© de son ancienne emprise.
+<span style = "background-color:#dfd">    if (!canStand(anchor, side, self, locomotion)) {
+        return PlacementResult::Occupied;</span>
+    }
+<span style = "background-color:#dfd">    return PlacementResult::Placed;
+}</span>
+
+<span style = "background-color:#dfd">void BattleGrid::fill(const Placement&amp; placement, std::optional&lt;CombatantId&gt; occupant) {
+    for (int row = placement.anchor.row; row &lt; placement.anchor.row + placement.side; ++row) {
+        for (int column = placement.anchor.column;
+             column &lt; placement.anchor.column + placement.side; ++column) {
+            _occupants[indexOf({.column = column, .row = row})] = occupant;
+        }
+    }
+}</span>
+
+PlacementResult BattleGrid::place(CombatantId combatant, GridPosition anchor, int side,
+<span style = "background-color:#dfd">                                  Locomotion locomotion) {
+    if (_placements.contains(combatant) || side &lt; 1 || side &gt; LARGEST_SIDE) {
+        return PlacementResult::InvalidCombatant;</span>
+    }
+<span style = "background-color:#dfd">    const PlacementResult result = check(anchor, side, combatant, locomotion);
+    if (result != PlacementResult::Placed) {
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    const Placement placement{.anchor = anchor, .side = side};
+    _placements.emplace(combatant, placement);
+    fill(placement, combatant);
+    return PlacementResult::Placed;
+}</span>
+
+PlacementResult BattleGrid::moveTo(CombatantId combatant, GridPosition anchor,
+<span style = "background-color:#dfd">                                   Locomotion locomotion) {
+    const auto found = _placements.find(combatant);
+    if (found == _placements.end()) {
+        return PlacementResult::InvalidCombatant;</span>
+    }
+<span style = "background-color:#dfd">    const PlacementResult result = check(anchor, found-&gt;second.side, combatant, locomotion);
+    if (result != PlacementResult::Placed) {
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    fill(found-&gt;second, std::nullopt);
+    found-&gt;second.anchor = anchor;
+    fill(found-&gt;second, combatant);
+    return PlacementResult::Placed;
+}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::remove(CombatantId combatant) {
+    const auto found = _placements.find(combatant);
+    if (found == _placements.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    fill(found-&gt;second, std::nullopt);
+    _placements.erase(found);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;CombatantId&gt; BattleGrid::occupantAt(GridPosition cell) const {
+    if (!inBounds(cell)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return _occupants[indexOf(cell)];
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;GridPosition&gt; BattleGrid::positionOf(CombatantId combatant) const {
+    const auto found = _placements.find(combatant);
+    if (found == _placements.end()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return found-&gt;second.anchor;
+}</span>
+
+<span style = "background-color:#dfd">int BattleGrid::sideOf(CombatantId combatant) const {
+    const auto found = _placements.find(combatant);
+    return found == _placements.end() ? 0 : found-&gt;second.side;
+}</span>
+
+<span style = "background-color:#dfd">PlacementResult BattleGrid::placeObject(GridPosition cell, GridObject object) {
+    if (!inBounds(cell)) {</span>
+<span style = "background-color:#fdd">        return PlacementResult::OutOfBounds;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t index = indexOf(cell);
+    if (_terrain[index] != Terrain::Open) {</span>
+<span style = "background-color:#fdd">        return PlacementResult::Obstructed;</span>
+    }
+<span style = "background-color:#dfd">    if (_objects.contains(index) || (object.blocksMovement &amp;&amp; _occupants[index].has_value())) {
+        return PlacementResult::Occupied;</span>
+    }
+<span style = "background-color:#dfd">    _objects.emplace(index, std::move(object));
+    return PlacementResult::Placed;
+}</span>
+
+<span style = "background-color:#dfd">const GridObject* BattleGrid::objectAt(GridPosition cell) const {
+    if (!inBounds(cell)) {</span>
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    const auto found = _objects.find(indexOf(cell));
+    return found == _objects.end() ? nullptr : &amp;found-&gt;second;
+}</span>
+
+<span style = "background-color:#dfd">bool BattleGrid::damageObject(GridPosition cell, int damage) {
+    if (!inBounds(cell) || damage &lt;= 0) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto found = _objects.find(indexOf(cell));
+    if (found == _objects.end()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    found-&gt;second.hitPoints -= damage;
+    if (found-&gt;second.hitPoints &gt; 0) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    _objects.erase(found);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;CombatantId&gt; BattleGrid::combatants() const {
+    std::vector&lt;CombatantId&gt; identifiers;
+    identifiers.reserve(_placements.size());
+    for (const auto&amp; [identifier, placement] : _placements) {
+        identifiers.push_back(identifier);
+    }
+    return identifiers;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

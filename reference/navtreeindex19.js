@@ -1,5 +1,15 @@
 var NAVTREEINDEX19 =
 {
+"classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb":[2,0,2,227,21],
+"classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb":[3,0,1,226,21],
+"classhmi_1_1PalettePanel.html":[2,0,2,88],
+"classhmi_1_1PalettePanel.html":[3,0,1,87],
+"classhmi_1_1PalettePanel.html#a03d97557ac36f4d584c10d516ecc8249":[2,0,2,88,13],
+"classhmi_1_1PalettePanel.html#a03d97557ac36f4d584c10d516ecc8249":[3,0,1,87,13],
+"classhmi_1_1PalettePanel.html#a08547fcaa0ed7766b7a4beda576ed2bf":[2,0,2,88,24],
+"classhmi_1_1PalettePanel.html#a08547fcaa0ed7766b7a4beda576ed2bf":[3,0,1,87,24],
+"classhmi_1_1PalettePanel.html#a1a573b3201ad6ce9d9d5c86cad1c8154":[2,0,2,88,11],
+"classhmi_1_1PalettePanel.html#a1a573b3201ad6ce9d9d5c86cad1c8154":[3,0,1,87,11],
 "classhmi_1_1PalettePanel.html#a1e5eed578fb9a7ce0901d3e6698497ff":[2,0,2,88,14],
 "classhmi_1_1PalettePanel.html#a1e5eed578fb9a7ce0901d3e6698497ff":[3,0,1,87,14],
 "classhmi_1_1PalettePanel.html#a22fb2b59adc8c82a357e357d72dbe9d6":[2,0,2,88,15],
@@ -239,15 +249,5 @@ var NAVTREEINDEX19 =
 "classhmi_1_1SceneImage.html#a4184896a249658e05e82a1958bc8ef99":[2,0,2,93,5],
 "classhmi_1_1SceneImage.html#a4184896a249658e05e82a1958bc8ef99":[3,0,1,92,5],
 "classhmi_1_1SceneImage.html#a55a49364695b042ed24d702d19ec7cd5":[2,0,2,93,0],
-"classhmi_1_1SceneImage.html#a55a49364695b042ed24d702d19ec7cd5":[3,0,1,92,0],
-"classhmi_1_1SceneImage.html#a7bccbc40a5c4c20e8c3898dd7a1f1503":[2,0,2,93,13],
-"classhmi_1_1SceneImage.html#a7bccbc40a5c4c20e8c3898dd7a1f1503":[3,0,1,92,13],
-"classhmi_1_1SceneImage.html#a7f0bbd6c971feb94e25a8c6628e3620f":[2,0,2,93,11],
-"classhmi_1_1SceneImage.html#a7f0bbd6c971feb94e25a8c6628e3620f":[3,0,1,92,11],
-"classhmi_1_1SceneImage.html#a85b0770bdb2ba57d2296956cabad1246":[2,0,2,93,6],
-"classhmi_1_1SceneImage.html#a85b0770bdb2ba57d2296956cabad1246":[3,0,1,92,6],
-"classhmi_1_1SceneImage.html#aa44d04d4ee4f11c9ac7f4f30d404214a":[2,0,2,93,15],
-"classhmi_1_1SceneImage.html#aa44d04d4ee4f11c9ac7f4f30d404214a":[3,0,1,92,15],
-"classhmi_1_1SceneImage.html#aa464c6ce793ebf952b20a8446bbb77c6":[2,0,2,93,8],
-"classhmi_1_1SceneImage.html#aa464c6ce793ebf952b20a8446bbb77c6":[3,0,1,92,8]
+"classhmi_1_1SceneImage.html#a55a49364695b042ed24d702d19ec7cd5":[3,0,1,92,0]
 };

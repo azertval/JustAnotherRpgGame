@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Attack.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/Attack.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;utility&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Rpg/Ability.h"
+#include "Core/Rpg/Bestiary.h"
+#include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/Equipment.h"
+#include "Core/Rpg/Inventory.h"
+#include "Core/Rpg/Scale.h"
+
+namespace core {
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view nomDeCaracteristique(Ability caracteristique) noexcept {
+    switch (caracteristique) {</span>
+        case Ability::Strength:
+<span style = "background-color:#dfd">            return "Force";</span>
+        case Ability::Dexterity:
+<span style = "background-color:#dfd">            return "Dexterite";</span>
+        case Ability::Constitution:
+<span style = "background-color:#fdd">            return "Constitution";</span>
+        case Ability::Intelligence:
+<span style = "background-color:#fdd">            return "Intelligence";</span>
+        case Ability::Wisdom:
+<span style = "background-color:#fdd">            return "Sagesse";</span>
+        case Ability::Charisma:
+<span style = "background-color:#fdd">            return "Charisme";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string signe(int valeur) {
+    return (valeur &gt;= 0 ? " + " : " - ") + std::to_string(valeur &gt;= 0 ? valeur : -valeur);
+}</span>
+
+/// Distance entre deux emprises carrees : l'ecart sur chaque axe, puis le plus grand des deux.
+[[nodiscard]] int ecartEntreEmprises(GridPosition a, int coteA, GridPosition b,
+<span style = "background-color:#dfd">                                     int coteB) noexcept {
+    const int dx =</span>
+        std::max({0, b.column - (a.column + coteA - 1), a.column - (b.column + coteB - 1)});
+<span style = "background-color:#dfd">    const int dy = std::max({0, b.row - (a.row + coteA - 1), a.row - (b.row + coteB - 1)});
+    return std::max(dx, dy);
+}</span>
+
+/// Une portee du corpus en cases, arrondie vers le bas : 24 m font 16 cases, 7,50 m en font 5. La
+/// marge evite de perdre une case sur l'arrondi d'une division par 1,5.
+<span style = "background-color:#dfd">[[nodiscard]] int casesDePortee(float metres) noexcept {
+    return static_cast&lt;int&gt;(std::floor(tilesFromMeters(metres) + 1e-4F));
+}</span>
+
+/// Les portees d'une arme ou d'une action, si la donnee en porte une. Une portee unique fait deux
+/// nombres egaux.
+[[nodiscard]] std::optional&lt;AttackRange&gt; porteeDe(std::optional&lt;float&gt; normale,
+<span style = "background-color:#dfd">                                                  std::optional&lt;float&gt; longue) {
+    if (!normale.has_value() || casesDePortee(*normale) &lt;= 0) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const int proche = casesDePortee(*normale);
+    return AttackRange{</span>
+        .normal = proche,
+        .maximum = std::max(proche, longue.has_value() ? casesDePortee(*longue) : 0)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] const DamagePipeline&amp; pipelineVide() {
+    static const DamagePipeline vide;
+    return vide;
+}</span>
+
+<span style = "background-color:#fdd">[[nodiscard]] const AttackHooks&amp; crochetsVides() {
+    static const AttackHooks vides;
+    return vides;
+}</span>
+
+}  // namespace
+
+// --- Profils ----------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">CreatureAttacks attacksFor(const Creature&amp; creature) {
+    CreatureAttacks attaques;
+    for (const CreatureAction&amp; action : creature.actions) {
+        if (!action.attackBonus.has_value() || !action.damage.has_value()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!action.damageType.has_value()) {
+            attaques.refused.push_back(action.name + " : degats sans type");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        AttackProfile profil;
+        profil.label = action.name;
+        profil.modifiers.push_back({.source = "bonus d'attaque", .value = *action.attackBonus});
+        profil.damage.push_back({.dice = *action.damage, .type = *action.damageType, .flags = 0});
+        const std::optional&lt;AttackRange&gt; portee = porteeDe(action.rangeNormal, action.rangeLong);
+        if (action.reach.has_value()) {
+            AttackProfile contact = profil;
+            contact.kind = AttackKind::Melee;</span>
+            // 1,50 m = 1 case, 3 m = 2, 4,50 m = 3. Une allonge de 0 m (une nuee qui entre dans
+            // l'emplacement de sa cible) frappe au contact : deux creatures ne partagent jamais une
+            // case sur cette grille (LOT-19).
+<span style = "background-color:#dfd">            contact.reach =</span>
+                std::max(1, static_cast&lt;int&gt;(std::lround(tilesFromMeters(*action.reach))));
+<span style = "background-color:#dfd">            attaques.attacks.push_back(std::move(contact));
+        }
+        if (!action.reach.has_value() || portee.has_value()) {
+            profil.kind = AttackKind::Ranged;
+            profil.range = portee;
+            attaques.attacks.push_back(std::move(profil));</span>
+        }
+<span style = "background-color:#dfd">    }
+    return attaques;
+}</span>
+
+AttackProfile weaponAttackFor(const CharacterSheet&amp; sheet, const Weapon* weapon,
+<span style = "background-color:#dfd">                              int proficiencyBonus, bool proficient) {
+    AttackProfile profil;
+    if (weapon == nullptr) {
+        const int force = sheet.modifier(Ability::Strength);
+        profil.label = "coup a mains nues";
+        profil.modifiers = {{.source = "Force", .value = force},</span>
+                            {.source = "maitrise", .value = proficiencyBonus}};
+<span style = "background-color:#dfd">        profil.damage.push_back({.dice = Dice{.count = 0, .faces = 0, .modifier = 1 + force},</span>
+                                 .type = DamageType::Bludgeoning,
+                                 .flags = 0});
+<span style = "background-color:#dfd">        return profil;</span>
+    }
+<span style = "background-color:#dfd">    const Ability caracteristique = weaponAttackAbility(sheet, *weapon);
+    const int modificateur = sheet.modifier(caracteristique);
+    profil.label = weapon-&gt;name;
+    profil.kind = weapon-&gt;ranged ? AttackKind::Ranged : AttackKind::Melee;</span>
+    // Manuel, chapitre 5, Â« Allonge Â» : l'arme ajoute 1,50 m a l'allonge.
+<span style = "background-color:#dfd">    profil.reach = hasProperty(*weapon, "reach") ? 2 : 1;
+    if (weapon-&gt;ranged) {
+        profil.range = porteeDe(weapon-&gt;rangeNormal, weapon-&gt;rangeLong);</span>
+    }
+<span style = "background-color:#dfd">    profil.modifiers.push_back(</span>
+        {.source = std::string(nomDeCaracteristique(caracteristique)), .value = modificateur});
+<span style = "background-color:#dfd">    if (proficient) {
+        profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});</span>
+    }
+    // Le filet n'inflige aucun degat : il touche, et entrave (LOT-72). Une arme a des sans type
+    // n'existe pas au catalogue -- le schema l'interdit --, et n'en recoit pas un par defaut.
+<span style = "background-color:#dfd">    if (weapon-&gt;damage.has_value() &amp;&amp; weapon-&gt;damageType.has_value()) {
+        Dice des = *weapon-&gt;damage;
+        des.modifier += modificateur;
+        profil.damage.push_back({.dice = des, .type = *weapon-&gt;damageType, .flags = 0});</span>
+    }
+<span style = "background-color:#dfd">    return profil;
+}</span>
+
+std::optional&lt;AttackProfile&gt; thrownAttackFor(const CharacterSheet&amp; sheet, const Weapon&amp; weapon,
+<span style = "background-color:#dfd">                                             int proficiencyBonus, bool proficient) {
+    if (!hasProperty(weapon, "thrown")) {
+        return std::nullopt;</span>
+    }
+    // La caracteristique est celle de l'arme telle qu'elle est (weaponAttackAbility) : Force pour
+    // une javeline, la meilleure des deux pour une dague de finesse, Dexterite pour une flechette.
+<span style = "background-color:#dfd">    AttackProfile profil = weaponAttackFor(sheet, &amp;weapon, proficiencyBonus, proficient);
+    profil.label = weapon.name + " (lancer)";
+    profil.kind = AttackKind::Ranged;
+    profil.reach = 1;
+    profil.range = porteeDe(weapon.rangeNormal, weapon.rangeLong);
+    return profil;
+}</span>
+
+// --- Geometrie --------------------------------------------------------------------------------
+
+std::optional&lt;int&gt; gridDistanceFrom(const CombatState&amp; combat, CombatantId mover,
+<span style = "background-color:#dfd">                                    GridPosition moverAnchor, CombatantId other) {
+    const Combatant* a = combat.find(mover);
+    const Combatant* b = combat.find(other);
+    const std::optional&lt;GridPosition&gt; ancreB = combat.grid().positionOf(other);
+    if (a == nullptr || b == nullptr || !ancreB.has_value()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return ecartEntreEmprises(moverAnchor, footprintSide(a-&gt;profile.size), *ancreB,</span>
+                              footprintSide(b-&gt;profile.size));
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;int&gt; gridDistance(const CombatState&amp; combat, CombatantId from, CombatantId to) {
+    const std::optional&lt;GridPosition&gt; ancre = combat.grid().positionOf(from);
+    if (!ancre.has_value()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return gridDistanceFrom(combat, from, *ancre, to);
+}</span>
+
+bool inReach(const CombatState&amp; combat, CombatantId attacker, CombatantId target,
+<span style = "background-color:#dfd">             const AttackProfile&amp; profile) {
+    const std::optional&lt;int&gt; distance = gridDistance(combat, attacker, target);
+    if (!distance.has_value() || attacker == target) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (profile.kind == AttackKind::Melee) {
+        return *distance &lt;= profile.reach;</span>
+    }
+<span style = "background-color:#dfd">    return profile.range.has_value() ? *distance &lt;= profile.range-&gt;maximum : *distance &lt;= 1;
+}</span>
+
+TargetCheck checkTarget(const CombatState&amp; combat, CombatantId attacker, CombatantId target,
+<span style = "background-color:#dfd">                        const AttackProfile&amp; profile) {
+    if (attacker == target || !combat.grid().positionOf(attacker).has_value() ||</span>
+        !combat.grid().positionOf(target).has_value()) {
+<span style = "background-color:#dfd">        return TargetCheck::NotOnGrid;</span>
+    }
+<span style = "background-color:#dfd">    if (!inReach(combat, attacker, target, profile)) {
+        return TargetCheck::OutOfReach;</span>
+    }
+<span style = "background-color:#dfd">    return hasLineOfSight(combat, attacker, target) ? TargetCheck::Valid : TargetCheck::TotalCover;
+}</span>
+
+AttackCircumstances attackCircumstances(const CombatState&amp; combat, CombatantId attacker,
+<span style = "background-color:#dfd">                                        CombatantId target, const AttackProfile&amp; profile) {
+    AttackCircumstances circonstances;
+    if (profile.kind != AttackKind::Ranged) {
+        return circonstances;</span>
+    }
+<span style = "background-color:#dfd">    const Combatant* tireur = combat.find(attacker);
+    if (tireur == nullptr) {</span>
+<span style = "background-color:#fdd">        return circonstances;</span>
+    }
+<span style = "background-color:#dfd">    for (const CombatantId autre : combat.combatants()) {
+        const Combatant* c = combat.find(autre);
+        if (c == nullptr || c-&gt;profile.side == tireur-&gt;profile.side ||</span>
+            c-&gt;status != CombatantStatus::Standing) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+        // Â« Une creature hostile qui vous voit Â» : un gobelin de l'autre cote d'un mur, a une case,
+        // ne gene pas le tir.
+<span style = "background-color:#dfd">        if (gridDistance(combat, attacker, autre) == 1 &amp;&amp; hasLineOfSight(combat, autre, attacker)) {
+            circonstances.disadvantages.emplace_back("tir au contact d'un ennemi");
+            break;
+        }
+    }
+    const std::optional&lt;int&gt; distance = gridDistance(combat, attacker, target);
+    if (profile.range.has_value() &amp;&amp; distance.has_value() &amp;&amp; *distance &gt; profile.range-&gt;normal) {
+        circonstances.disadvantages.emplace_back("longue portee");</span>
+    }
+<span style = "background-color:#dfd">    return circonstances;
+}</span>
+
+// --- Le jet -----------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">void AttackRoll::recompute() {
+    if (check.dice.empty()) {
+        check.keptDie = 0;
+    } else {
+        switch (check.stance) {</span>
+            case RollStance::Advantage:
+<span style = "background-color:#dfd">                check.keptDie = *std::ranges::max_element(check.dice);
+                break;</span>
+            case RollStance::Disadvantage:
+<span style = "background-color:#dfd">                check.keptDie = *std::ranges::min_element(check.dice);
+                break;</span>
+            case RollStance::Normal:
+<span style = "background-color:#dfd">                check.keptDie = check.dice.front();</span>
+                break;
+        }
+    }
+<span style = "background-color:#dfd">    check.target = armorClass;
+    check.total = check.keptDie;
+    for (const Modifier&amp; modificateur : check.modifiers) {
+        check.total += modificateur.value;
+    }
+}</span>
+
+<span style = "background-color:#fdd">void AttackRoll::reroll(std::size_t die, DeterministicRandom&amp; random, const std::string&amp; source) {
+    if (die &gt;= check.dice.size()) {
+        return;</span>
+    }
+<span style = "background-color:#fdd">    const int avant = check.dice[die];
+    check.dice[die] = random.nextInt(1, D20_FACES);
+    amendments.push_back("relance (" + source + ") : " + std::to_string(avant) + " -&gt; " +</span>
+                         std::to_string(check.dice[die]));
+<span style = "background-color:#fdd">    recompute();
+}</span>
+
+<span style = "background-color:#dfd">void AttackRoll::substitute(std::size_t die, int value, const std::string&amp; source) {
+    if (die &gt;= check.dice.size()) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const int avant = check.dice[die];
+    check.dice[die] = std::clamp(value, 1, D20_FACES);
+    amendments.push_back("substitution (" + source + ") : " + std::to_string(avant) + " -&gt; " +</span>
+                         std::to_string(check.dice[die]));
+<span style = "background-color:#dfd">    recompute();
+}</span>
+
+<span style = "background-color:#dfd">void AttackRoll::addModifier(Modifier modifier) {
+    check.modifiers.push_back(std::move(modifier));
+    recompute();
+}</span>
+
+<span style = "background-color:#dfd">void AttackRoll::applyCover(Cover level) {</span>
+    // Total n'est pas un bonus ; un abri egal ou moindre est deja compte.
+<span style = "background-color:#dfd">    if (level == Cover::Total || level &lt;= cover) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const int avant = armorClass;
+    armorClass += coverBonus(level) - coverBonus(cover);
+    cover = level;
+    amendments.push_back(std::string(coverLabel(level)) + " : CA " + std::to_string(avant) +</span>
+                         " -&gt; " + std::to_string(armorClass));
+<span style = "background-color:#dfd">    recompute();
+}</span>
+
+<span style = "background-color:#dfd">void AttackHooks::insert(AttackRollStage stage, AttackRollListener listener) {
+    _listeners.emplace_back(stage, std::move(listener));
+}</span>
+
+<span style = "background-color:#dfd">void AttackHooks::run(AttackRollStage stage, AttackRoll&amp; roll, DeterministicRandom&amp; random) const {
+    for (const auto&amp; [etape, greffon] : _listeners) {
+        if (etape == stage) {
+            greffon(roll, random);</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">AttackRoll rollAttack(AttackRoll request, const AttackHooks&amp; hooks, DeterministicRandom&amp; random) {
+    AttackRoll jet = std::move(request);
+    hooks.run(AttackRollStage::BeforeRoll, jet, random);</span>
+
+<span style = "background-color:#dfd">    jet.check.stance = rollStance(static_cast&lt;int&gt;(jet.advantages.size()),</span>
+                                  static_cast&lt;int&gt;(jet.disadvantages.size()));
+<span style = "background-color:#dfd">    jet.check.dice.clear();
+    jet.check.dice.push_back(random.nextInt(1, D20_FACES));
+    if (jet.check.stance != RollStance::Normal) {
+        jet.check.dice.push_back(random.nextInt(1, D20_FACES));</span>
+    }
+<span style = "background-color:#dfd">    jet.recompute();
+    hooks.run(AttackRollStage::DiceRolled, jet, random);
+    jet.recompute();
+    hooks.run(AttackRollStage::BeforeOutcome, jet, random);
+    jet.recompute();</span>
+
+    // L'issue est figee ici, et nulle part ailleurs. Manuel, Â« Faire 1 ou 20 Â» : le 1 rate et le
+    // 20 touche Â« peu importe les modificateurs ou la CA de la cible Â».
+<span style = "background-color:#dfd">    if (jet.check.isNaturalOne()) {
+        jet.hit = false;
+        jet.critical = false;
+    } else if (jet.check.keptDie &gt;= jet.criticalThreshold) {
+        jet.hit = true;
+        jet.critical = true;
+    } else {
+        jet.hit = jet.check.succeeded();
+        jet.critical = false;</span>
+    }
+<span style = "background-color:#dfd">    return jet;
+}</span>
+
+// --- La resolution ----------------------------------------------------------------------------
+
+std::optional&lt;AttackOutcome&gt; resolveAttack(CombatState&amp; combat, CombatantId attacker,
+                                           CombatantId target, const AttackProfile&amp; profile,
+                                           DeterministicRandom&amp; random,
+<span style = "background-color:#dfd">                                           const AttackContext&amp; context) {
+    if (attacker == target || !combat.declareAttack(attacker, target)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const Combatant* attaquant = combat.find(attacker);
+    const Combatant* cible = combat.find(target);
+    if (attaquant == nullptr || cible == nullptr) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+
+<span style = "background-color:#dfd">    AttackOutcome issue;
+    issue.attackerName = attaquant-&gt;profile.name;
+    issue.targetName = cible-&gt;profile.name;</span>
+
+<span style = "background-color:#dfd">    AttackRoll demande;
+    demande.attacker = attacker;
+    demande.target = target;
+    demande.label = profile.label;
+    demande.armorClass = cible-&gt;profile.armorClass;
+    demande.criticalThreshold = profile.criticalThreshold;
+    demande.check.modifiers = profile.modifiers;
+    const AttackCircumstances grille = attackCircumstances(combat, attacker, target, profile);
+    for (const AttackCircumstances* source : {&amp;grille, &amp;context.circumstances}) {
+        demande.advantages.insert(demande.advantages.end(), source-&gt;advantages.begin(),</span>
+                                  source-&gt;advantages.end());
+<span style = "background-color:#dfd">        demande.disadvantages.insert(demande.disadvantages.end(), source-&gt;disadvantages.begin(),</span>
+                                     source-&gt;disadvantages.end());
+<span style = "background-color:#dfd">    }</span>
+    // L'abri que la grille dit, avant tout greffon : un greffon qui en pose un autre passe par
+    // applyCover, et le meilleur seul compte.
+<span style = "background-color:#dfd">    demande.applyCover(coverBetween(combat, attacker, target));</span>
+
+<span style = "background-color:#dfd">    issue.roll = rollAttack(std::move(demande),</span>
+                            context.hooks != nullptr ? *context.hooks : crochetsVides(), random);
+<span style = "background-color:#dfd">    if (!issue.roll.hit) {
+        return issue;</span>
+    }
+<span style = "background-color:#dfd">    issue.damage = rollDamage(profile.damage, issue.roll.critical, random);
+    const std::vector&lt;DamageRequest&gt; salve{{.target = target, .damage = issue.damage}};
+    const DamagePipeline&amp; pipeline =</span>
+        context.pipeline != nullptr ? *context.pipeline : pipelineVide();
+<span style = "background-color:#dfd">    std::vector&lt;DamageReport&gt; rapports = pipeline.apply(combat, salve);
+    if (!rapports.empty()) {
+        issue.report = std::move(rapports.front());</span>
+    }
+<span style = "background-color:#dfd">    return issue;
+}</span>
+
+<span style = "background-color:#dfd">std::string AttackOutcome::describe() const {
+    const CheckResult&amp; jet = roll.check;
+    std::string texte =</span>
+        "attaque " + attackerName + " -&gt; " + targetName + " (" + roll.label + ") : d20";
+<span style = "background-color:#dfd">    if (jet.stance != RollStance::Normal) {
+        texte += " (";
+        texte += rollStanceName(jet.stance);
+        for (std::size_t i = 0; i &lt; jet.dice.size(); ++i) {
+            texte += (i == 0 ? " : " : ", ") + std::to_string(jet.dice[i]);
+        }
+        const std::vector&lt;std::string&gt;&amp; sources =</span>
+            jet.stance == RollStance::Advantage ? roll.advantages : roll.disadvantages;
+<span style = "background-color:#dfd">        for (const std::string&amp; source : sources) {
+            texte += " ; " + source;
+        }
+        texte += ')';</span>
+    }
+<span style = "background-color:#dfd">    for (const std::string&amp; amendement : roll.amendments) {
+        texte += " [" + amendement + ']';
+    }
+    texte += " = " + std::to_string(jet.keptDie);
+    for (const Modifier&amp; modificateur : jet.modifiers) {
+        texte += signe(modificateur.value) + " (" + modificateur.source + ')';
+    }
+    texte += " = " + std::to_string(jet.total) + " contre CA " + std::to_string(roll.armorClass);
+    if (!roll.hit) {
+        texte += jet.isNaturalOne() ? " : rate (1 naturel)" : " : rate";
+        return texte;</span>
+    }
+<span style = "background-color:#dfd">    texte +=</span>
+        roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)" : " : touche";
+<span style = "background-color:#dfd">    for (const RolledDamage&amp; lance : damage) {
+        texte += " ; degats " + lance.roll.describe();
+        if (lance.critical) {
+            texte += " (des doubles)";</span>
+        }
+<span style = "background-color:#dfd">        texte += ' ';
+        texte += damageTypeLabel(lance.clause.type);
+    }
+    if (report.has_value()) {
+        for (const DamageStep&amp; etape : report-&gt;work.trace) {</span>
+<span style = "background-color:#fdd">            texte += " ; " + etape.source + ' ' + std::to_string(etape.before) + " -&gt; " +</span>
+                     std::to_string(etape.after);
+<span style = "background-color:#fdd">        }</span>
+<span style = "background-color:#dfd">        texte += " ; PV " + std::to_string(report-&gt;hitPointsBefore) + " -&gt; " +</span>
+                 std::to_string(report-&gt;hitPointsAfter);
+    }
+<span style = "background-color:#dfd">    return texte;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

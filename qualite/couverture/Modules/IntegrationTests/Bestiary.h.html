@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Bestiary.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Rpg/Bestiary.h
+ * @brief Chargement du catalogue de crÃ©atures (`LOT-33`, `EX-CNT-010`, `EX-CNT-031`).
+ */
+
+#include &lt;array&gt;
+#include &lt;cstddef&gt;
+#include &lt;filesystem&gt;
+#include &lt;map&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Rpg/Ability.h"
+#include "Core/Rpg/Dice.h"
+#include "Core/Rpg/RpgEnums.h"
+
+namespace core {
+
+/// @brief Un trait de crÃ©ature : un nom et sa description, tels que le livre les Ã©crit.
+struct CreatureTrait {
+    std::string name;
+    std::string text;
+};
+
+/**
+ * @brief Une action de crÃ©ature, et ce que le moteur sait en jouer.
+ *
+ * Le texte est **toujours** prÃ©sent ; les champs typÃ©s ne le sont pas. Une action qui n'inflige
+ * aucun dÃ©gÃ¢t â l'invisibilitÃ© du diablotin, la toile de l'araignÃ©e gÃ©ante â n'a ni bonus ni dÃ©s,
+ * et ce n'est pas une extraction incomplÃ¨te : c'est la donnÃ©e. D'oÃ¹ les `std::optional`, qui
+ * distinguent Â« pas de dÃ©gÃ¢ts Â» de Â« zÃ©ro dÃ©gÃ¢t Â».
+ */
+struct CreatureAction {
+    std::string name;
+    std::string text;
+    /// Bonus au jet d'attaque. Absent si l'action n'est pas une attaque.
+    std::optional&lt;int&gt; attackBonus;
+    /// Allonge en mÃ¨tres. Absente pour une action Ã  distance ou sans portÃ©e.
+    std::optional&lt;float&gt; reach;
+    /// DÃ©s de dÃ©gÃ¢ts de la **premiÃ¨re** clause de l'action. Voir la note de `loadBestiary`.
+    std::optional&lt;Dice&gt; damage;
+    /// Type des dÃ©gÃ¢ts ci-dessus.
+    std::optional&lt;DamageType&gt; damageType;
+    /// PortÃ©e normale d'une action Ã  distance, en mÃ¨tres (Â« portÃ©e 24/96 m Â» : 24). `LOT-22`.
+    std::optional&lt;float&gt; rangeNormal;
+    /// Longue portÃ©e, en mÃ¨tres (96). Ãgale Ã  la normale pour une portÃ©e unique.
+    std::optional&lt;float&gt; rangeLong;
+};
+
+/// @brief Vitesses de dÃ©placement d'une crÃ©ature, en **mÃ¨tres**. `walk` est toujours renseignÃ©e.
+struct CreatureSpeed {
+    float walk = 0.0F;
+    std::optional&lt;float&gt; fly;
+    std::optional&lt;float&gt; swim;
+    std::optional&lt;float&gt; climb;
+    std::optional&lt;float&gt; burrow;
+};
+
+/**
+ * @brief Un bloc de statistiques : ce que `creature.schema.json` dÃ©crit.
+ *
+ * Les champs obligatoires du schÃ©ma sont des valeurs nues ; les facultatifs sont vides quand la
+ * donnÃ©e les omet. Aucun n'a de valeur de repli inventÃ©e â une caractÃ©ristique laissÃ©e Ã  10 par
+ * dÃ©faut masquerait une extraction incomplÃ¨te, ce que le schÃ©ma refuse dÃ©jÃ  en exigeant les six.
+ */
+struct Creature {
+    std::string id;
+    std::string name;
+    std::string source;
+    CreatureSize size = CreatureSize::Medium;
+    /// Type de crÃ©ature, en franÃ§ais et **ouvert** : le Sourcebook en introduira que le SRD ignore.
+    std::string creatureType;
+    std::string alignment;
+    int armorClass = 0;
+    int hitPoints = 0;
+    /// DÃ©s de vie â `4d10+4`. Absents si la donnÃ©e ne les porte pas.
+    std::optional&lt;Dice&gt; hitDice;
+    CreatureSpeed speed;
+    /// Les six caractÃ©ristiques, indexÃ©es par `core::Ability`, dans l'ordre de la fiche.
+    std::array&lt;int, 6&gt; abilities{};
+    /// Facteur de puissance. Fractionnaire sous 1 â 1/8, 1/4, 1/2 â d'oÃ¹ le nombre flottant.
+    float challengeRating = 0.0F;
+    /// Bonus de compÃ©tence, par identifiant du catalogue (`stealth`, `perception`).
+    std::map&lt;std::string, int&gt; skills;
+    /// Sens, en franÃ§ais : Â« vision dans le noir 18 m Â», Â« Perception passive 13 Â».
+    std::vector&lt;std::string&gt; senses;
+    /// Langues, par identifiant du catalogue des seize langues.
+    std::vector&lt;std::string&gt; languages;
+    std::vector&lt;DamageType&gt; damageResistances;
+    std::vector&lt;DamageType&gt; damageImmunities;
+    std::vector&lt;DamageType&gt; damageVulnerabilities;
+    std::vector&lt;Condition&gt; conditionImmunities;
+    std::vector&lt;CreatureTrait&gt; traits;
+    std::vector&lt;CreatureAction&gt; actions;
+    /// Le paragraphe d'ambiance du livre. Vide pour les crÃ©atures qui n'en ont pas.
+    std::string description;
+    /// MÃ©canismes que cette crÃ©ature exige du moteur (`EX-CNT-030`).
+    std::vector&lt;std::string&gt; requiredMechanisms;
+    /// La silhouette de son mannequin de remplacement (`LOT-145`) : `humanoid`, `quadruped`,
+    /// `flying`. Vide : humanoÃ¯de. L'extraction ne la devine pas ; elle se pose Ã  la main.
+    std::string silhouette;
+
+    /// @brief La valeur d'une caractÃ©ristique.
+<span style = "background-color:#dfd">    [[nodiscard]] int ability(Ability which) const {
+        return abilities[static_cast&lt;std::size_t&gt;(which)];
+    }</span>
+
+    /// @brief L'action portant ce nom, ou `nullptr`.
+    [[nodiscard]] const CreatureAction* action(std::string_view actionName) const;
+};
+
+/**
+ * @brief Le catalogue chargÃ©, et ce qui n'a pas pu l'Ãªtre.
+ *
+ * Les deux **ensemble**, jamais l'un ou l'autre : un catalogue dont une entrÃ©e sur quatre-vingt-
+ * quatorze est illisible reste utilisable, et le refuser en bloc rendrait le jeu injouable pour
+ * une virgule. Chaque Ã©chec nomme son fichier (`EX-CNT-010`).
+ */
+struct Bestiary {
+    /// Les crÃ©atures chargÃ©es, triÃ©es par identifiant.
+    std::vector&lt;Creature&gt; creatures;
+    /// Un message par fichier refusÃ©, nommant le fichier et la raison.
+    std::vector&lt;std::string&gt; errors;
+    /**
+     * @brief Les mÃ©canismes que les crÃ©atures chargÃ©es exigent et que personne n'a encore honorÃ©s
+     *        (`EX-CNT-031`).
+     *
+     * L'union des `mecanismesRequis`, dÃ©dupliquÃ©e. Le moteur la liste au chargement plutÃ´t que de
+     * jouer en silence une rÃ©sistance conditionnelle qu'il ne sait pas appliquer.
+     */
+    [[nodiscard]] std::vector&lt;std::string&gt; requiredMechanisms() const;
+
+    /// @brief La crÃ©ature portant cet identifiant, ou `nullptr`.
+    [[nodiscard]] const Creature* find(std::string_view id) const;
+};
+
+/**
+ * @brief Charge toutes les crÃ©atures d'un dossier â un fichier JSON par crÃ©ature.
+ *
+ * Le dossier est balayÃ©, jamais Ã©numÃ©rÃ© dans le code : une liste de quatre-vingt-quatorze noms
+ * Ã©crite en C++ serait une seconde source de vÃ©ritÃ©, et la premiÃ¨re crÃ©ature ajoutÃ©e par le
+ * `LOT-46` en sortirait invisible.
+ *
+ * @note **Une seule clause de dÃ©gÃ¢ts est typÃ©e par action.** Une morsure qui inflige Â« 7 (1d10 +
+ *       2) dÃ©gÃ¢ts perforants + 5 (1d10) dÃ©gÃ¢ts de poison Â» en porte deux ; `CreatureAction::damage`
+ *       ne rend que la premiÃ¨re, et `text` reste ce qui fait foi jusqu'Ã  ce que le `LOT-21` sache
+ *       composer plusieurs clauses. Le champ n'est pas *faux*, il est **partiel**, et c'est Ã©crit
+ *       ici parce que rien dans la donnÃ©e ne le dit.
+ *
+ * @param directory Dossier des crÃ©atures (`Source/Elements/Rpg/creatures`).
+ * @return Le catalogue et la liste des Ã©checs. Ne lÃ¨ve jamais (`EX-NFR-040`). Un dossier absent
+ *         produit une erreur, pas un catalogue vide : un bestiaire vide se confondrait avec un
+ *         bestiaire non installÃ©.
+ */
+[[nodiscard]] Bestiary loadBestiary(const std::filesystem::path&amp; directory);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

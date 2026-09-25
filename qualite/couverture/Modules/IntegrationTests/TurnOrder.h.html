@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>TurnOrder.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/TurnOrder.h
+ * @brief L'ordre d'initiative : qui joue avant qui, et comment se dÃ©partagent les Ã©galitÃ©s
+ *        (`LOT-20`, `EX-CBT-010`).
+ */
+
+#include &lt;cstdint&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/BattleGrid.h"
+
+namespace core {
+
+/**
+ * @brief Le camp d'un combattant.
+ *
+ * Deux camps, et **aucun hÃ©ros** : un alliÃ© est un alliÃ©, qu'il soit le personnage du joueur, un
+ * compagnon ou une invocation hors groupe (`EX-CBT-010`). Rien dans l'ordre ni dans la machine Ã 
+ * Ã©tats ne distingue Â« le Â» joueur â c'est ce qui fera du groupe de quatre (`LOT-29`) un ajout et
+ * non une refonte.
+ */
+enum class CombatSide : std::uint8_t {
+    Allies,
+    Enemies,
+};
+
+/**
+ * @brief La place d'un combattant dans l'ordre : son jet, et ce qui dÃ©partage une Ã©galitÃ©.
+ *
+ * Tout ce qui sert au dÃ©partage est **recopiÃ©** ici, au moment du jet : l'ordre reste stable
+ * jusqu'Ã  la fin du combat (`EX-CBT-010`), mÃªme si la DextÃ©ritÃ© d'un combattant change en cours
+ * de route.
+ */
+struct InitiativeEntry {
+    CombatantId combatant{};
+    /// Le total du test de DextÃ©ritÃ© : le dÃ© retenu plus le modificateur â ou la valeur fixe d'un
+    /// combattant qui entre Ã  une initiative imposÃ©e (renfort Ã  0).
+    int total = 0;
+    /// Le modificateur d'initiative, premier critÃ¨re de dÃ©partage.
+    int modifier = 0;
+    /// La valeur de DextÃ©ritÃ©, second critÃ¨re.
+    int dexterity = 10;
+    CombatSide side = CombatSide::Allies;
+};
+
+/**
+ * @brief Vrai si @p first joue avant @p second.
+ *
+ * ## La rÃ¨gle de dÃ©partage
+ *
+ * Manuel des Joueurs, Â« Initiative Â» (PDF p. 191) : les combattants se classent du plus haut
+ * rÃ©sultat au plus bas, et Â« en cas d'Ã©galitÃ© Â», c'est le MD qui tranche entre ses crÃ©atures, les
+ * joueurs entre leurs personnages, et le MD encore entre un monstre et un personnage. Le jeu n'a
+ * pas de MD : la rÃ¨gle doit Ãªtre **Ã©crite**, et elle ne peut pas dÃ©pendre de l'ordre dans lequel
+ * les combattants ont Ã©tÃ© rangÃ©s en mÃ©moire (`EX-CBT-010`). Dans l'ordre :
+ *
+ * 1. le **total** le plus haut ;
+ * 2. le **modificateur d'initiative** le plus haut â la variante que le livre laisse au MD
+ *    (Â« relancer un d20 Â») est Ã©cartÃ©e : un nouveau tirage consommerait la suite alÃ©atoire et
+ *    ferait dÃ©pendre l'ordre de *combien* d'Ã©galitÃ©s il y a eu ;
+ * 3. la **DextÃ©ritÃ©** la plus haute ;
+ * 4. les **alliÃ©s** avant les ennemis â c'est la part du MD Â« entre un monstre et un personnage Â»,
+ *    tranchÃ©e en faveur du joueur, qui n'a personne Ã  qui en appeler ;
+ * 5. l'**identifiant** le plus petit. Il n'est pas un ordre d'insertion : le montage de la
+ *    rencontre les attribue dans l'ordre de la **donnÃ©e** â le groupe, puis les combattants dans
+ *    l'ordre oÃ¹ la rencontre les Ã©crit (`core::mountEncounter`).
+ */
+[[nodiscard]] bool actsBefore(const InitiativeEntry&amp; first, const InitiativeEntry&amp; second) noexcept;
+
+/**
+ * @brief Un repÃ¨re d'initiative **fixe**, qui n'est pas un combattant.
+ *
+ * Les actions de repaire se jouent Â« au rang 20 de l'initiative, en perdant les Ã©galitÃ©s Â», les
+ * renforts entrent au rang 0 : le livre place des Ã©vÃ©nements dans l'ordre, pas seulement des
+ * crÃ©atures. Un repÃ¨re **perd toujours** l'Ã©galitÃ© contre un combattant ; deux repÃ¨res de mÃªme rang
+ * se rangent par nom.
+ */
+struct InitiativeMarker {
+<span style = "background-color:#dfd">    int count = 0;</span>
+    /// Le nom sous lequel le crochet `core::CombatHook::InitiativeCount` l'annonce.
+    std::string name;
+};
+
+/**
+ * @brief Une place de l'ordre : un combattant, ou un repÃ¨re.
+ *
+ * Elle porte **tout** ce qui la range, et pas seulement un identifiant : une place reste
+ * comparable aprÃ¨s que son combattant a quittÃ© l'ordre, ce qui permet de calculer la suivante
+ * quand le combattant actif vient de fuir.
+ */
+struct TurnSlot {
+    /// RenseignÃ©e pour un combattant.
+    std::optional&lt;InitiativeEntry&gt; entry;
+    /// Le repÃ¨re, quand `entry` est vide.
+    InitiativeMarker marker;
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;CombatantId&gt; combatant() const {
+        return entry.has_value() ? std::optional&lt;CombatantId&gt;(entry-&gt;combatant) : std::nullopt;
+    }</span>
+    /// @brief Le rang : le total du combattant, ou celui du repÃ¨re.
+<span style = "background-color:#dfd">    [[nodiscard]] int count() const {
+        return entry.has_value() ? entry-&gt;total : marker.count;
+    }</span>
+};
+
+/// @brief Vrai si la place @p first vient avant @p second dans le round.
+[[nodiscard]] bool slotBefore(const TurnSlot&amp; first, const TurnSlot&amp; second);
+
+/**
+ * @brief L'ordre d'initiative d'un combat : combattants et repÃ¨res, du premier au dernier.
+ *
+ * ## Une place, pas un indice
+ *
+ * Un combattant qui entre en cours de combat (un renfort) ou qui en sort (une fuite, une mort)
+ * change la **longueur** de l'ordre. Un curseur tenu par indice sauterait alors un tour ou en
+ * rejouerait un. Le tour courant se dÃ©signe donc par sa **place** (`TurnSlot`), et la suivante se
+ * calcule par la rÃ¨gle d'ordre : un renfort rangÃ© aprÃ¨s la place courante joue ce round-ci, rangÃ©
+ * avant, au round suivant â ce que dit le livre, sans cas particulier.
+ */
+class TurnOrder {
+public:
+    /// @brief Range un combattant. Faux, et rien ne change, s'il y figure dÃ©jÃ .
+    bool add(const InitiativeEntry&amp; entry);
+    /// @brief Retire un combattant. Faux s'il n'y figurait pas.
+    bool remove(CombatantId combatant);
+    /// @brief Range un repÃ¨re d'initiative fixe. Faux, et rien ne change, si un repÃ¨re de mÃªme rang
+    /// et de mÃªme nom existe dÃ©jÃ  : deux places identiques ne se distingueraient plus.
+    bool addMarker(InitiativeMarker marker);
+
+    [[nodiscard]] bool contains(CombatantId combatant) const;
+    /// @brief La place d'un combattant, ou `nullptr`.
+    [[nodiscard]] const InitiativeEntry* find(CombatantId combatant) const;
+    /// @brief Les combattants, du premier au dernier.
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;InitiativeEntry&gt;&amp; entries() const noexcept {
+        return _entries;
+    }</span>
+    /// @brief Les repÃ¨res, du premier au dernier.
+    [[nodiscard]] const std::vector&lt;InitiativeMarker&gt;&amp; markers() const noexcept {
+        return _markers;
+    }
+
+    /// @brief La premiÃ¨re place d'un round, ou `std::nullopt` si l'ordre est vide.
+    [[nodiscard]] std::optional&lt;TurnSlot&gt; firstSlot() const;
+    /**
+     * @brief La place qui suit @p slot dans le round, ou `std::nullopt` si le round est fini.
+     *
+     * @p slot n'a pas besoin de figurer encore dans l'ordre : le combattant qui vient de fuir
+     * pendant son tour laisse une place dont la suivante se calcule quand mÃªme.
+     */
+    [[nodiscard]] std::optional&lt;TurnSlot&gt; slotAfter(const TurnSlot&amp; slot) const;
+
+private:
+    /// TriÃ©s Ã  chaque ajout : l'ordre se lit, il ne se recalcule pas.
+    std::vector&lt;InitiativeEntry&gt; _entries;
+    std::vector&lt;InitiativeMarker&gt; _markers;
+};
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

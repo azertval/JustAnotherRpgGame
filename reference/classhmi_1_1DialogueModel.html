@@ -187,6 +187,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa45f645683377e57eb468b4308ced157" id="r_aa45f645683377e57eb468b4308ced157"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa45f645683377e57eb468b4308ced157">finished</a> () const noexcept</td></tr>
 <tr class="memitem:a1a6c0babadcd43e9bf20541b8c549412" id="r_a1a6c0babadcd43e9bf20541b8c549412"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a1a6c0babadcd43e9bf20541b8c549412">status</a> () const</td></tr>
 <tr class="memitem:ab127e997c3d4496386d96dcbc414d393" id="r_ab127e997c3d4496386d96dcbc414d393"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#ab127e997c3d4496386d96dcbc414d393">dialogueIds</a> () const</td></tr>
+<tr class="memitem:aceed1636624fd252634da7d63d1332b9" id="r_aceed1636624fd252634da7d63d1332b9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aceed1636624fd252634da7d63d1332b9">seed</a> () const noexcept</td></tr>
+<tr class="memitem:a9791c34c0fc5b50102af8252cb806758" id="r_a9791c34c0fc5b50102af8252cb806758"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9791c34c0fc5b50102af8252cb806758">setSeed</a> (int <a class="el" href="#a935f94969f58a1d1d6f25245a263b2b3">seed</a>)</td></tr>
 <tr class="memitem:ac725f335856ecabd4341e3a9d94b501d" id="r_ac725f335856ecabd4341e3a9d94b501d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ac725f335856ecabd4341e3a9d94b501d">choose</a> (const QString &amp;rowId)</td></tr>
 <tr class="memdesc:ac725f335856ecabd4341e3a9d94b501d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la réponse <code class="param">rowId</code> — ou quitte, si c'est la ligne « Quitter ».  <br /></td></tr>
 <tr class="memitem:aaaa6233b29c562241df0945b608ea9b1" id="r_aaaa6233b29c562241df0945b608ea9b1"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aaaa6233b29c562241df0945b608ea9b1">chooseAt</a> (int index)</td></tr>
@@ -218,6 +220,8 @@ Properties</h2></td></tr>
 <tr class="memdesc:a20a3f6d2a4ed028340251c4bf9c65d34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien.  <br /></td></tr>
 <tr class="memitem:abe43ddd1c94f7610cf4d4cf202e74bc2" id="r_abe43ddd1c94f7610cf4d4cf202e74bc2"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#abe43ddd1c94f7610cf4d4cf202e74bc2">dialogueIds</a></td></tr>
 <tr class="memdesc:abe43ddd1c94f7610cf4d4cf202e74bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dialogues jouables du contenu, par identifiant, dans l'ordre alphabétique : ce que le menu de développement (F9) propose d'ouvrir.  <br /></td></tr>
+<tr class="memitem:a935f94969f58a1d1d6f25245a263b2b3" id="r_a935f94969f58a1d1d6f25245a263b2b3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a935f94969f58a1d1d6f25245a263b2b3">seed</a></td></tr>
+<tr class="memdesc:a935f94969f58a1d1d6f25245a263b2b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">La graine de la <b>prochaine</b> conversation ouverte : 0, la valeur du jeu, la tire d'un compteur ; une autre la fixe — un test ou un rejeu force ainsi l'issue d'un jet (<span class="tt">LOT-120</span>), comme <span class="tt"><a class="el" href="classhmi_1_1EncounterModel.html#af97d96adfe5a43565bd6ebbfe7869b26" title="La graine du prochain combat ; 0 : tirée à l&#39;horloge. Le journal dit celle qui a servi.">EncounterModel.seed</a></span> fixe celle d'un combat.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -227,6 +231,7 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aa684090329cea87137aece4e20788dff" id="r_aa684090329cea87137aece4e20788dff"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1DialogueModel_1_1Session.html">Session</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa684090329cea87137aece4e20788dff">_session</a></td></tr>
+<tr class="memitem:a14f1d828309043c315f46887a7dca2bb" id="r_a14f1d828309043c315f46887a7dca2bb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a14f1d828309043c315f46887a7dca2bb">_seed</a> = 0</td></tr>
 <tr class="memitem:a866770f2da891ea6127cd0609afbfe48" id="r_a866770f2da891ea6127cd0609afbfe48"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#a866770f2da891ea6127cd0609afbfe48">_replies</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -803,6 +808,31 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="aceed1636624fd252634da7d63d1332b9" name="aceed1636624fd252634da7d63d1332b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceed1636624fd252634da7d63d1332b9">&#9670;&#160;</a></span>seed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::DialogueModel::seed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a82645440644586364341bb798fba4c01" name="a82645440644586364341bb798fba4c01"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82645440644586364341bb798fba4c01">&#9670;&#160;</a></span>setDialogueId()</h2>
 
@@ -813,6 +843,23 @@ Ce qui est un échafaudage, et le dit</h2>
           <td class="memname">void hmi::DialogueModel::setDialogueId </td>
           <td>(</td>
           <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9791c34c0fc5b50102af8252cb806758" name="a9791c34c0fc5b50102af8252cb806758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9791c34c0fc5b50102af8252cb806758">&#9670;&#160;</a></span>setSeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::setSeed </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>seed</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -882,6 +929,28 @@ Ce qui est un échafaudage, et le dit</h2>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::DialogueModel::_replies</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14f1d828309043c315f46887a7dca2bb" name="a14f1d828309043c315f46887a7dca2bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f1d828309043c315f46887a7dca2bb">&#9670;&#160;</a></span>_seed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::DialogueModel::_seed = 0</td>
         </tr>
       </table>
   </td>
@@ -1191,6 +1260,30 @@ Ce qui est un échafaudage, et le dit</h2>
 </div><div class="memdoc">
 
 <p>Les réponses proposées : rôles <span class="tt">rowId</span>, <span class="tt">label</span> (le texte), <span class="tt">value</span> (le jet annoncé). </p>
+
+</div>
+</div>
+<a id="a935f94969f58a1d1d6f25245a263b2b3" name="a935f94969f58a1d1d6f25245a263b2b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a935f94969f58a1d1d6f25245a263b2b3">&#9670;&#160;</a></span>seed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::DialogueModel::seed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La graine de la <b>prochaine</b> conversation ouverte : 0, la valeur du jeu, la tire d'un compteur ; une autre la fixe — un test ou un rejeu force ainsi l'issue d'un jet (<span class="tt">LOT-120</span>), comme <span class="tt"><a class="el" href="classhmi_1_1EncounterModel.html#af97d96adfe5a43565bd6ebbfe7869b26" title="La graine du prochain combat ; 0 : tirée à l&#39;horloge. Le journal dit celle qui a servi.">EncounterModel.seed</a></span> fixe celle d'un combat. </p>
 
 </div>
 </div>

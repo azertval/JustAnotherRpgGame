@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Damage.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/Damage.h
+ * @brief Les dÃ©gÃ¢ts typÃ©s et leur pipeline Ã  Ã©tapes nommÃ©es (`LOT-21`, `EX-CBT-031`,
+ *        `EX-CBT-032`).
+ *
+ * ## Pourquoi un pipeline, et pas une soustraction
+ *
+ * Retirer des points de vie est la derniÃ¨re chose que font des dÃ©gÃ¢ts. Avant, ils ont une
+ * **source** (magique, argentÃ©e, un sort), un **type** qu'une capacitÃ© peut convertir, une cible
+ * qui y **rÃ©siste**, y est **vulnÃ©rable** ou **immunisÃ©e**, et des **rÃ©serves** â points de vie
+ * temporaires, armure ablative â qui les absorbent. Les livres de Tanares greffent une capacitÃ© Ã 
+ * chacun de ces instants (Â§4bis de la feuille de route) : un entier qui descend ne laisserait
+ * aucune place oÃ¹ la greffer, et chaque capacitÃ© rÃ©Ã©crirait la soustraction Ã  sa faÃ§on.
+ *
+ * Les Ã©tapes sont donc **nommÃ©es** (`core::DamageStage`), dans un ordre fixe, et chacune est un
+ * point d'insertion (`core::DamagePipeline::insert`). Le pipeline se termine dans
+ * `core::CombatState::applyDamage`, qui borne Ã  0, met Ã  terre et Ã©value l'issue â une salve
+ * entiÃ¨re en un appel.
+ */
+
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;functional&gt;
+#include &lt;optional&gt;
+#include &lt;span&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Math/DeterministicRandom.h"
+#include "Core/Rpg/Dice.h"
+#include "Core/Rpg/RpgEnums.h"
+
+namespace core {
+
+class BattleGrid;
+class CombatState;
+struct Creature;
+enum class CombatantId : std::uint32_t;
+
+/**
+ * @brief Ce qu'une source de dÃ©gÃ¢ts **est**, au-delÃ  de son type.
+ *
+ * Un loup-garou rÃ©siste aux dÃ©gÃ¢ts tranchants **non argentÃ©s** ; un dÃ©mon, aux armes **non
+ * magiques**. Le type seul ne suffit pas Ã  le dire, et le texte de l'arme ne se lit pas. Les deux
+ * derniers drapeaux ne dÃ©crivent pas la source mais ce qu'elle **passe outre** â Â« ignore les
+ * rÃ©sistances Â», Â« ignore les points de vie temporaires Â» : des capacitÃ©s les Ã©crivent telles
+ * quelles.
+ */
+enum class DamageFlag : std::uint8_t {
+    Magical = 1U &lt;&lt; 0U,
+    Silvered = 1U &lt;&lt; 1U,
+    Adamantine = 1U &lt;&lt; 2U,
+    Spell = 1U &lt;&lt; 3U,
+    IgnoresResistance = 1U &lt;&lt; 4U,
+    IgnoresReserves = 1U &lt;&lt; 5U,
+};
+
+/// @brief Un ensemble de `core::DamageFlag`.
+using DamageFlags = std::uint8_t;
+
+<span style = "background-color:#dfd">[[nodiscard]] constexpr DamageFlags flagsOf(DamageFlag flag) noexcept {
+    return static_cast&lt;DamageFlags&gt;(flag);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] constexpr bool hasFlag(DamageFlags flags, DamageFlag flag) noexcept {
+    return (flags &amp; flagsOf(flag)) != 0U;
+}</span>
+
+/// @brief RÃ©sistance, vulnÃ©rabilitÃ© ou immunitÃ©.
+enum class DamageAffinityKind : std::uint8_t {
+    Resistance,
+    Vulnerability,
+    Immunity,
+};
+
+/**
+ * @brief Une affinitÃ© de la cible Ã  un type de dÃ©gÃ¢ts, et ce qui la **contourne**.
+ *
+ * `bypassedBy` vide : l'affinitÃ© vaut toujours. Sinon, une source portant **l'un** de ces drapeaux
+ * la contourne â Â« rÃ©sistance aux dÃ©gÃ¢ts contondants des attaques non magiques Â» s'Ã©crit
+ * `{Bludgeoning, Resistance, Magical}`.
+ */
+struct DamageAffinity {
+    DamageType type = DamageType::Bludgeoning;
+    DamageAffinityKind kind = DamageAffinityKind::Resistance;
+    DamageFlags bypassedBy = 0;
+
+    [[nodiscard]] bool operator==(const DamageAffinity&amp;) const = default;
+};
+
+/// @brief Les affinitÃ©s d'une cible â combattant ou structure.
+struct DamageTraits {
+    std::vector&lt;DamageAffinity&gt; affinities;
+
+    /// @brief Vrai si une affinitÃ© de ce genre s'applique Ã  des dÃ©gÃ¢ts de ce type et de cette
+    /// source.
+    [[nodiscard]] bool applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const;
+};
+
+/**
+ * @brief Une clause de dÃ©gÃ¢ts, telle qu'une attaque la porte **avant** les dÃ©s.
+ *
+ * Une attaque en a une ou plusieurs : Â« 1d4 + 4 perforants, et 3d6 de poison Â» en fait deux, de
+ * deux types, que les rÃ©sistances traitent sÃ©parÃ©ment.
+ */
+struct DamageClause {
+    Dice dice;
+    DamageType type = DamageType::Bludgeoning;
+    DamageFlags flags = 0;
+};
+
+/**
+ * @brief Une clause lancÃ©e.
+ *
+ * Sur un coup critique, **les dÃ©s sont doublÃ©s, pas le modificateur** (`EX-CBT-031`) : `roll.dice`
+ * porte alors deux fois plus de dÃ©s que la clause, et le mÃªme modificateur. L'erreur inverse â
+ * doubler le total â fait croÃ®tre la part fixe avec le niveau et fausse tout l'Ã©quilibrage.
+ */
+struct RolledDamage {
+    DamageClause clause;
+    DiceRoll roll;
+    bool critical = false;
+    /// Le total, jamais nÃ©gatif : un 1d4-3 qui fait -2 ne soigne pas.
+<span style = "background-color:#dfd">    int amount = 0;</span>
+};
+
+/// @brief Lance chaque clause, en doublant les dÃ©s si le coup est critique.
+[[nodiscard]] std::vector&lt;RolledDamage&gt; rollDamage(std::span&lt;const DamageClause&gt; clauses,
+                                                   bool critical, DeterministicRandom&amp; random);
+
+/**
+ * @brief Les Ã©tapes du pipeline, **dans l'ordre** oÃ¹ elles s'exÃ©cutent.
+ *
+ * | Ãtape | Ce que le moteur y fait | Ce qui s'y greffe |
+ * |---|---|---|
+ * | `Source` | rien | poser un drapeau (arme bÃ©nie devenue magique) |
+ * | `Conversion` | rien | changer le type (*Shadowcaster*, zone *Maelstrom*) |
+ * | `Resistances` | immunitÃ©, puis rÃ©sistance, puis vulnÃ©rabilitÃ© | une rÃ©duction fixe, **avant** |
+ * | `Reserves` | points de vie temporaires, rÃ©serves ablatives | un transfert (*Life Link*) |
+ * | `HitPoints` | la perte, bornÃ©e Ã  0, en une salve | rien : c'est la fin |
+ */
+enum class DamageStage : std::uint8_t {
+    Source,
+    Conversion,
+    Resistances,
+    Reserves,
+    HitPoints,
+};
+
+/**
+ * @brief Nom franÃ§ais d'un type de dÃ©gÃ¢ts, pour le journal : Â« tranchant Â», Â« feu Â».
+ *
+ * Le nom de **donnÃ©e** reste `core::damageTypeName` (`slashing`) ; celui-ci est ce que le journal
+ * Ã©crit, dans la langue du Manuel, sans dÃ©faut silencieux (`EX-CBT-032`).
+ */
+[[nodiscard]] std::string_view damageTypeLabel(DamageType type) noexcept;
+
+/// @brief Nom textuel d'une Ã©tape, pour le journal.
+[[nodiscard]] std::string_view damageStageName(DamageStage stage) noexcept;
+
+/**
+ * @brief Une rÃ©serve de points de vie : ce qui absorbe les dÃ©gÃ¢ts **avant** les PV.
+ *
+ * Les PV sont une pile de rÃ©serves, pas un entier : points de vie temporaires, exosquelette de 80
+ * PV, PV mis en commun avec une monture. Une rÃ©serve **qui ne se cumule pas** â les points de vie
+ * temporaires du Manuel â remplace celle de mÃªme source si elle est plus grande, et est ignorÃ©e
+ * sinon.
+ *
+ * Manuel, chapitre 9, Â« Points de vie temporaires Â» : ils sont perdus **d'abord** ; ils ne se
+ * cumulent pas, et le joueur Â« dÃ©cide s'il conserve ceux qu'il possÃ¨de ou les remplace Â» â le
+ * moteur garde le plus grand, qui est le seul choix raisonnable tant qu'aucune rÃ©serve n'a de
+ * durÃ©e ; les soins ne les rendent pas ; ils absorbent encore Ã  0 PV, sans relever personne.
+ */
+struct HitPointReserve {
+    /// Ce qui l'a donnÃ©e : Â« points de vie temporaires Â», Â« Exosquelette Â».
+    std::string source;
+    int amount = 0;
+    bool stacks = false;
+
+    [[nodiscard]] bool operator==(const HitPointReserve&amp;) const = default;
+};
+
+/// La source des points de vie temporaires du Manuel : ils ne se cumulent pas.
+inline constexpr std::string_view TEMPORARY_HIT_POINTS = "points de vie temporaires";
+
+/// @brief Une ligne de la trace : ce qu'une Ã©tape a fait d'une clause.
+struct DamageStep {
+    DamageStage stage = DamageStage::Source;
+    /// Ce qui a agi : Â« resistance (tranchant) Â», Â« points de vie temporaires Â».
+    std::string source;
+    int before = 0;
+    int after = 0;
+};
+
+/// @brief Une clause **en cours** de pipeline : type courant, drapeaux courants, montant courant.
+struct DamagePortion {
+    DamageType type = DamageType::Bludgeoning;
+    DamageFlags flags = 0;
+    int amount = 0;
+};
+
+/**
+ * @brief Les dÃ©gÃ¢ts qu'une cible reÃ§oit, pendant qu'ils traversent le pipeline.
+ *
+ * C'est ce que reÃ§oit un point d'insertion, **modifiable** : un crochet qui ne pourrait rien
+ * changer ne servirait Ã  rien. Chaque changement de montant s'inscrit dans `trace` par `adjust`,
+ * pour que le journal dise Â« rÃ©sistance : 10 â 5 Â» et non un 5 sorti de nulle part.
+ */
+struct DamageWork {
+    /// Le combattant visÃ©, ou vide pour une structure.
+    std::optional&lt;CombatantId&gt; target;
+    /// La case de la structure visÃ©e.
+    std::optional&lt;GridPosition&gt; structure;
+    std::vector&lt;DamagePortion&gt; portions;
+    /// AbsorbÃ© par les rÃ©serves.
+    int absorbed = 0;
+    /// Perdu en points de vie â calculÃ© Ã  l'Ã©tape `Reserves`, appliquÃ© Ã  l'Ã©tape `HitPoints`.
+    int hitPointLoss = 0;
+    std::vector&lt;DamageStep&gt; trace;
+
+    /// @brief Somme des portions.
+    [[nodiscard]] int total() const;
+    /// @brief Change le montant d'une portion, et l'inscrit dans la trace.
+    void adjust(std::size_t portion, int amount, DamageStage stage, std::string source);
+};
+
+/// @brief Un point d'insertion : reÃ§oit les dÃ©gÃ¢ts d'une cible, et l'Ã©tat du combat s'il y en a un.
+using DamageListener = std::function&lt;void(DamageWork&amp;, CombatState*)&gt;;
+
+/// @brief Les dÃ©gÃ¢ts d'une cible dans une salve : le combattant et ses clauses lancÃ©es.
+struct DamageRequest {
+    CombatantId target{};
+    std::vector&lt;RolledDamage&gt; damage;
+};
+
+/// @brief Ce qu'une cible a reÃ§u, Ã©tape par Ã©tape.
+struct DamageReport {
+    DamageWork work;
+    int hitPointsBefore = 0;
+    int hitPointsAfter = 0;
+    /**
+     * @brief Les dÃ©gÃ¢ts **restants** une fois la cible tombÃ©e Ã  0 (Manuel, chapitre 9, Â« Mort
+     *        instantanÃ©e Â»).
+     *
+     * Un clerc Ã  6 PV sur 12 qui en subit 18 tombe Ã  0 avec un excÃ©dent de 12 â Ã©gal Ã  son
+     * maximum : il meurt sur le coup. Ce lot borne Ã  0 et **rapporte** l'excÃ©dent ; c'est l'agonie
+     * (`LOT-72`) qui en tire la mort.
+     */
+    int overflow = 0;
+};
+
+/**
+ * @brief Le pipeline de dÃ©gÃ¢ts : cinq Ã©tapes nommÃ©es, et ce qui s'y greffe.
+ *
+ * Deux greffons d'une mÃªme Ã©tape s'exÃ©cutent dans l'ordre de leur insertion, **avant** ce que le
+ * moteur fait Ã  cette Ã©tape : une rÃ©duction fixe prÃ©cÃ¨de la rÃ©sistance (*Basic Rules* : Â« la
+ * rÃ©sistance puis la vulnÃ©rabilitÃ© s'appliquent aprÃ¨s tous les autres modificateurs Â»), et un
+ * transfert de PV prÃ©cÃ¨de l'absorption par les rÃ©serves.
+ */
+class DamagePipeline {
+public:
+    void insert(DamageStage stage, DamageListener listener);
+
+    /**
+     * @brief Fait traverser une salve Ã  des combattants, et la termine en **un** appel Ã 
+     *        `core::CombatState::applyDamage`.
+     *
+     * Une cible absente, sortie du combat, ou touchÃ©e par un montant nul est rapportÃ©e sans rien
+     * changer. Deux demandes pour la mÃªme cible s'appliquent l'une aprÃ¨s l'autre dans la salve.
+     */
+    std::vector&lt;DamageReport&gt; apply(CombatState&amp; combat,
+                                    std::span&lt;const DamageRequest&gt; volley) const;
+
+    /**
+     * @brief Fait traverser des dÃ©gÃ¢ts Ã  une **structure** de la grille : les structures ont des
+     *        PV, et les mÃªmes rÃ©sistances â une porte de fer ne craint pas le poison.
+     *
+     * Pas de rÃ©serves : une structure n'en a pas. L'objet dÃ©truit quitte la grille
+     * (`core::BattleGrid::damageObject`).
+     */
+    DamageReport applyToStructure(BattleGrid&amp; grid, GridPosition cell,
+                                  std::span&lt;const RolledDamage&gt; damage) const;
+
+private:
+    void runStage(DamageStage stage, DamageWork&amp; work, CombatState* combat) const;
+    static void applyAffinities(DamageWork&amp; work, const DamageTraits&amp; traits);
+
+    std::vector&lt;std::pair&lt;DamageStage, DamageListener&gt;&gt; _listeners;
+};
+
+/**
+ * @brief Les affinitÃ©s d'une crÃ©ature du bestiaire.
+ *
+ * Le bestiaire du SRD porte des listes nues : aucune n'y est conditionnelle, et la condition Â« non
+ * magique Â» reste dans le texte tant que la donnÃ©e ne l'Ã©crit pas (`requiredMechanisms`,
+ * `EX-CNT-031`). Chaque type y devient une affinitÃ© sans contournement.
+ */
+[[nodiscard]] DamageTraits damageTraitsFor(const Creature&amp; creature);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

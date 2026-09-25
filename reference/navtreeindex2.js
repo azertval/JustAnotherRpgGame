@@ -136,6 +136,8 @@ var NAVTREEINDEX2 =
 "StaticWorldScene_8cpp.html":[4,0,0,6,2,49],
 "StaticWorldScene_8h.html":[4,0,0,6,2,50],
 "StaticWorldScene_8h_source.html":[4,0,0,6,2,50],
+"SystemGameMain_8cpp.html":[4,0,0,7,3,0],
+"SystemGameMain_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627":[4,0,0,7,3,0,0],
 "TacticalTerrain_8cpp.html":[4,0,0,2,0,34],
 "TacticalTerrain_8h.html":[4,0,0,2,0,35],
 "TacticalTerrain_8h_source.html":[4,0,0,2,0,35],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "bench__combat_8cpp.html#ace8605499a6afe42f017bb075650fcac":[4,0,0,1,2,3],
 "bench__combat_8cpp.html#aeb2f275681d55d8b3905ccc0f63057c3":[4,0,0,1,2,9],
 "bench__combat_8cpp.html#aeb72136d9d2f394937e075742735dcb7":[4,0,0,1,2,5],
-"bench__levels_8cpp.html":[4,0,0,1,3],
-"bench__levels_8cpp.html#a283727fedcdc64b085d1ea0bee05a666":[4,0,0,1,3,0],
-"bench__levels_8cpp.html#a34a6f6e75788dfbdee95e6702b29df96":[4,0,0,1,3,1]
+"bench__levels_8cpp.html":[4,0,0,1,3]
 };

@@ -1,5 +1,16 @@
 var NAVTREEINDEX33 =
 {
+"structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[3,0,0,90,3],
+"structcore_1_1Color.html#aa0fab318db823df0ee631ac5eff49588":[2,0,1,90,1],
+"structcore_1_1Color.html#aa0fab318db823df0ee631ac5eff49588":[3,0,0,90,1],
+"structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b":[2,0,1,90,0],
+"structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b":[3,0,0,90,0],
+"structcore_1_1CombatEvent.html":[2,0,1,27],
+"structcore_1_1CombatEvent.html":[3,0,0,27],
+"structcore_1_1CombatEvent.html#a05ac43793422ddea715c39466b6ec574":[2,0,1,27,7],
+"structcore_1_1CombatEvent.html#a05ac43793422ddea715c39466b6ec574":[3,0,0,27,7],
+"structcore_1_1CombatEvent.html#a17dced5c645c0998427206cd6eede6b5":[2,0,1,27,3],
+"structcore_1_1CombatEvent.html#a17dced5c645c0998427206cd6eede6b5":[3,0,0,27,3],
 "structcore_1_1CombatEvent.html#a40a43039f3a72994607c3f050ce03059":[2,0,1,27,4],
 "structcore_1_1CombatEvent.html#a40a43039f3a72994607c3f050ce03059":[3,0,0,27,4],
 "structcore_1_1CombatEvent.html#a5d4180eeac3290b56b638e9521bc4008":[2,0,1,27,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX33 =
 "structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c":[3,0,0,48,1],
 "structcore_1_1DamageStep.html":[2,0,1,45],
 "structcore_1_1DamageStep.html":[3,0,0,45],
-"structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[2,0,1,45,3],
-"structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[3,0,0,45,3],
-"structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3":[2,0,1,45,2],
-"structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3":[3,0,0,45,2],
-"structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5":[2,0,1,45,1],
-"structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5":[3,0,0,45,1],
-"structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[2,0,1,45,0],
-"structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[3,0,0,45,0],
-"structcore_1_1DamageTraits.html":[2,0,1,41],
-"structcore_1_1DamageTraits.html":[3,0,0,41],
-"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[2,0,1,41,0],
-"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[3,0,0,41,0]
+"structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[2,0,1,45,3]
 };

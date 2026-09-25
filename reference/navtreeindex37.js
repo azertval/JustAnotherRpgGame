@@ -1,5 +1,16 @@
 var NAVTREEINDEX37 =
 {
+"structcore_1_1Location.html":[3,0,0,197],
+"structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922":[2,0,1,197,4],
+"structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922":[3,0,0,197,4],
+"structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284":[2,0,1,197,3],
+"structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284":[3,0,0,197,3],
+"structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4":[2,0,1,197,1],
+"structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4":[3,0,0,197,1],
+"structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3":[2,0,1,197,2],
+"structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3":[3,0,0,197,2],
+"structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29":[2,0,1,197,0],
+"structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29":[3,0,0,197,0],
 "structcore_1_1MapEncounterResult.html":[2,0,1,63],
 "structcore_1_1MapEncounterResult.html":[3,0,0,63],
 "structcore_1_1MapEncounterResult.html#a565072d180d6ecb2dd128fb6f7d93f3e":[2,0,1,63,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX37 =
 "structcore_1_1QuestLoad.html":[3,0,0,108],
 "structcore_1_1QuestLoad.html#a5cf80d4df30d461f06e46d041f17ce2a":[2,0,1,108,1],
 "structcore_1_1QuestLoad.html#a5cf80d4df30d461f06e46d041f17ce2a":[3,0,0,108,1],
-"structcore_1_1QuestLoad.html#aefb8eb50b6c2906bd08d8b9fac4a9ba5":[2,0,1,108,0],
-"structcore_1_1QuestLoad.html#aefb8eb50b6c2906bd08d8b9fac4a9ba5":[3,0,0,108,0],
-"structcore_1_1QuestProgress.html":[2,0,1,111],
-"structcore_1_1QuestProgress.html":[3,0,0,111],
-"structcore_1_1QuestProgress.html#a0e35013a68e4c09b0c765c89f355fd14":[2,0,1,111,0],
-"structcore_1_1QuestProgress.html#a0e35013a68e4c09b0c765c89f355fd14":[3,0,0,111,0],
-"structcore_1_1QuestProgress.html#a6018f14a3e85276a50c88825221441d5":[2,0,1,111,1],
-"structcore_1_1QuestProgress.html#a6018f14a3e85276a50c88825221441d5":[3,0,0,111,1],
-"structcore_1_1QuestStep.html":[2,0,1,106],
-"structcore_1_1QuestStep.html":[3,0,0,106],
-"structcore_1_1QuestStep.html#ab9c42c5ea29124e81e37647dfe6bb61a":[2,0,1,106,3],
-"structcore_1_1QuestStep.html#ab9c42c5ea29124e81e37647dfe6bb61a":[3,0,0,106,3]
+"structcore_1_1QuestLoad.html#aefb8eb50b6c2906bd08d8b9fac4a9ba5":[2,0,1,108,0]
 };

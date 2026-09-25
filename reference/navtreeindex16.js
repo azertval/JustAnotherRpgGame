@@ -1,5 +1,15 @@
 var NAVTREEINDEX16 =
 {
+"classhmi_1_1GamepadPoller.html":[2,0,2,180],
+"classhmi_1_1GamepadPoller.html":[3,0,1,179],
+"classhmi_1_1GamepadPoller.html#a1ba7adb75dea62a30fca7a207dc79868":[2,0,2,180,0],
+"classhmi_1_1GamepadPoller.html#a1ba7adb75dea62a30fca7a207dc79868":[3,0,1,179,0],
+"classhmi_1_1GamepadPoller.html#a50ff27e4cacca8e5627fe8a0079e1cd1":[2,0,2,180,2],
+"classhmi_1_1GamepadPoller.html#a50ff27e4cacca8e5627fe8a0079e1cd1":[3,0,1,179,2],
+"classhmi_1_1GamepadPoller.html#ae33c922e03ea961b2b1a3bc5630f47f1":[2,0,2,180,1],
+"classhmi_1_1GamepadPoller.html#ae33c922e03ea961b2b1a3bc5630f47f1":[3,0,1,179,1],
+"classhmi_1_1InputState.html":[2,0,2,181],
+"classhmi_1_1InputState.html":[3,0,1,180],
 "classhmi_1_1InputState.html#a0ac64c54bed934b3dddbafe545adcd8d":[2,0,2,181,19],
 "classhmi_1_1InputState.html#a0ac64c54bed934b3dddbafe545adcd8d":[3,0,1,180,19],
 "classhmi_1_1InputState.html#a16d213c75c334aaaa040979aa2a116ab":[2,0,2,181,1],
@@ -239,15 +249,5 @@ var NAVTREEINDEX16 =
 "classhmi_1_1LayersPanel.html#a0aa921faf0a0f6c2cb6128f66aee867c":[2,0,2,82,20],
 "classhmi_1_1LayersPanel.html#a0aa921faf0a0f6c2cb6128f66aee867c":[3,0,1,81,20],
 "classhmi_1_1LayersPanel.html#a19f65588e2a76e603936ee8682f88da8":[2,0,2,82,8],
-"classhmi_1_1LayersPanel.html#a19f65588e2a76e603936ee8682f88da8":[3,0,1,81,8],
-"classhmi_1_1LayersPanel.html#a1c2c07b68c7f8db09d182fab27eecfde":[2,0,2,82,2],
-"classhmi_1_1LayersPanel.html#a1c2c07b68c7f8db09d182fab27eecfde":[3,0,1,81,2],
-"classhmi_1_1LayersPanel.html#a1c67762a3963bd8a5aa70360c9d7b7f1":[2,0,2,82,5],
-"classhmi_1_1LayersPanel.html#a1c67762a3963bd8a5aa70360c9d7b7f1":[3,0,1,81,5],
-"classhmi_1_1LayersPanel.html#a203829f5f59784191d8a5e1b4f440b55":[2,0,2,82,11],
-"classhmi_1_1LayersPanel.html#a203829f5f59784191d8a5e1b4f440b55":[3,0,1,81,11],
-"classhmi_1_1LayersPanel.html#a305e8ee967b815fd31e3f6ae6c1e8dba":[2,0,2,82,6],
-"classhmi_1_1LayersPanel.html#a305e8ee967b815fd31e3f6ae6c1e8dba":[3,0,1,81,6],
-"classhmi_1_1LayersPanel.html#a3106f92bc8a2ba0d96a2d13147d28edb":[2,0,2,82,15],
-"classhmi_1_1LayersPanel.html#a3106f92bc8a2ba0d96a2d13147d28edb":[3,0,1,81,15]
+"classhmi_1_1LayersPanel.html#a19f65588e2a76e603936ee8682f88da8":[3,0,1,81,8]
 };

@@ -24,10 +24,13 @@ var classhmi_1_1DialogueModel =
     [ "refresh", "classhmi_1_1DialogueModel.html#a6a74e37cf17bb19d8eb06446a9571ec3", null ],
     [ "replies", "classhmi_1_1DialogueModel.html#ac554785154cbeed0223249dd36f1cda6", null ],
     [ "restart", "classhmi_1_1DialogueModel.html#a36f702303d6e507d989850c1a291df3c", null ],
+    [ "seed", "classhmi_1_1DialogueModel.html#aceed1636624fd252634da7d63d1332b9", null ],
     [ "setDialogueId", "classhmi_1_1DialogueModel.html#a82645440644586364341bb798fba4c01", null ],
+    [ "setSeed", "classhmi_1_1DialogueModel.html#a9791c34c0fc5b50102af8252cb806758", null ],
     [ "speakerName", "classhmi_1_1DialogueModel.html#a17e77a671b69bfb772eddfc08c7834c7", null ],
     [ "status", "classhmi_1_1DialogueModel.html#a1a6c0babadcd43e9bf20541b8c549412", null ],
     [ "_replies", "classhmi_1_1DialogueModel.html#a866770f2da891ea6127cd0609afbfe48", null ],
+    [ "_seed", "classhmi_1_1DialogueModel.html#a14f1d828309043c315f46887a7dca2bb", null ],
     [ "_session", "classhmi_1_1DialogueModel.html#aa684090329cea87137aece4e20788dff", null ],
     [ "attitude", "classhmi_1_1DialogueModel.html#a78b3e3e0b7b59100c7f821085555c6a7", null ],
     [ "checkDetail", "classhmi_1_1DialogueModel.html#ab6bb6f524017fe9e6f2aa737bcde7d35", null ],
@@ -41,6 +44,7 @@ var classhmi_1_1DialogueModel =
     [ "finished", "classhmi_1_1DialogueModel.html#a1aebfff876b25e77f3e45035f21ba4d6", null ],
     [ "line", "classhmi_1_1DialogueModel.html#a592028e7408a21f11bdeb1efe008c1e7", null ],
     [ "replies", "classhmi_1_1DialogueModel.html#a8f295c17802fd0e4e7e4e7363e3e5481", null ],
+    [ "seed", "classhmi_1_1DialogueModel.html#a935f94969f58a1d1d6f25245a263b2b3", null ],
     [ "speakerName", "classhmi_1_1DialogueModel.html#a5be7ee1780c414a9cf0768e408fdb26d", null ],
     [ "status", "classhmi_1_1DialogueModel.html#a20a3f6d2a4ed028340251c4bf9c65d34", null ]
 ];

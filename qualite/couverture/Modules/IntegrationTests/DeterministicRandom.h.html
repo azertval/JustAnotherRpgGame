@@ -130,10 +130,10 @@ public:
         // trouvÃ©, pas une relecture.
 <span style = "background-color:#dfd">        const std::uint32_t reste = (std::uint32_t{0} - etendue) % etendue;
         std::uint32_t tirage = nextUInt32();
-        while (tirage &lt; reste) {</span>
-<span style = "background-color:#fdd">            tirage = nextUInt32();
-        }</span>
-<span style = "background-color:#dfd">        return min + static_cast&lt;int&gt;(tirage % etendue);
+        while (tirage &lt; reste) {
+            tirage = nextUInt32();
+        }
+        return min + static_cast&lt;int&gt;(tirage % etendue);
     }</span>
 
 private:

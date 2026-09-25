@@ -1,5 +1,16 @@
 var NAVTREEINDEX41 =
 {
+"structhmi_1_1CanvasBrush.html":[3,0,1,2],
+"structhmi_1_1CanvasBrush.html#a145d16c08f8e89e98706592b93e7cd90":[2,0,2,3,1],
+"structhmi_1_1CanvasBrush.html#a145d16c08f8e89e98706592b93e7cd90":[3,0,1,2,1],
+"structhmi_1_1CanvasBrush.html#a353afd0608a4a95397bedd030bde11a3":[2,0,2,3,4],
+"structhmi_1_1CanvasBrush.html#a353afd0608a4a95397bedd030bde11a3":[3,0,1,2,4],
+"structhmi_1_1CanvasBrush.html#a8b7e10540da0198a409b6276a5286647":[2,0,2,3,0],
+"structhmi_1_1CanvasBrush.html#a8b7e10540da0198a409b6276a5286647":[3,0,1,2,0],
+"structhmi_1_1CanvasBrush.html#ab4e7ef8d990721a8a008c107ee146cc6":[2,0,2,3,2],
+"structhmi_1_1CanvasBrush.html#ab4e7ef8d990721a8a008c107ee146cc6":[3,0,1,2,2],
+"structhmi_1_1CanvasBrush.html#afea62d2b4a4bb8a4c20a467559f2a06f":[2,0,2,3,3],
+"structhmi_1_1CanvasBrush.html#afea62d2b4a4bb8a4c20a467559f2a06f":[3,0,1,2,3],
 "structhmi_1_1CellRange.html":[2,0,2,5],
 "structhmi_1_1CellRange.html":[3,0,1,4],
 "structhmi_1_1CellRange.html#a354a8409f7799fd63e7e91c66c6c0568":[2,0,2,5,2],
@@ -238,16 +249,5 @@ var NAVTREEINDEX41 =
 "structhmi_1_1DemonstrationState.html#af06c9633f7c1e475adf0c5b085924338":[3,0,1,219,5],
 "structhmi_1_1DemonstrationState.html#af73eaf8a173c729d1afac7853bd36e92":[2,0,2,220,7],
 "structhmi_1_1DemonstrationState.html#af73eaf8a173c729d1afac7853bd36e92":[3,0,1,219,7],
-"structhmi_1_1DemonstrationState.html#aff8ddb1576e401a19e48a74a4457f95d":[2,0,2,220,2],
-"structhmi_1_1DemonstrationState.html#aff8ddb1576e401a19e48a74a4457f95d":[3,0,1,219,2],
-"structhmi_1_1DialogueModel_1_1Session.html":[2,0,2,221,0],
-"structhmi_1_1DialogueModel_1_1Session.html":[3,0,1,220,0],
-"structhmi_1_1DialogueModel_1_1Session.html#a061a0960cbcf1fe15a7e9378e9a82260":[2,0,2,221,0,7],
-"structhmi_1_1DialogueModel_1_1Session.html#a061a0960cbcf1fe15a7e9378e9a82260":[3,0,1,220,0,7],
-"structhmi_1_1DialogueModel_1_1Session.html#a06d4e0952d1b0a59c408725a795b88e2":[2,0,2,221,0,4],
-"structhmi_1_1DialogueModel_1_1Session.html#a06d4e0952d1b0a59c408725a795b88e2":[3,0,1,220,0,4],
-"structhmi_1_1DialogueModel_1_1Session.html#a143c2d5b564393344017380c530fb528":[2,0,2,221,0,3],
-"structhmi_1_1DialogueModel_1_1Session.html#a143c2d5b564393344017380c530fb528":[3,0,1,220,0,3],
-"structhmi_1_1DialogueModel_1_1Session.html#a23d784a2dfe50616375eec1637220428":[2,0,2,221,0,6],
-"structhmi_1_1DialogueModel_1_1Session.html#a23d784a2dfe50616375eec1637220428":[3,0,1,220,0,6]
+"structhmi_1_1DemonstrationState.html#aff8ddb1576e401a19e48a74a4457f95d":[2,0,2,220,2]
 };

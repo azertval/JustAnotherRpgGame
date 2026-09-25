@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LineOfSight.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/LineOfSight.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;optional&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/CombatState.h"
+
+namespace core {
+namespace {
+
+/// Un parametre t du segment, en fraction exacte : num / den, den &gt; 0.
+struct Fraction {
+    std::int64_t num = 0;
+    std::int64_t den = 1;
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] bool inferieur(Fraction a, Fraction b) noexcept {
+    return a.num * b.den &lt; b.num * a.den;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool egal(Fraction a, Fraction b) noexcept {
+    return a.num * b.den == b.num * a.den;
+}</span>
+
+/// Releve la borne basse de l'intervalle des t si @p entree la depasse ; a egalite, la borne
+/// n'est stricte que si les deux l'etaient.
+<span style = "background-color:#dfd">void resserrerBas(Fraction&amp; bas, bool&amp; basStrict, Fraction entree, bool fermee) noexcept {
+    if (inferieur(bas, entree)) {
+        bas = entree;
+        basStrict = !fermee;
+    } else if (egal(bas, entree)) {
+        basStrict = basStrict || !fermee;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+/// Abaisse la borne haute de l'intervalle des t si @p sortie passe dessous ; meme regle d'egalite.
+<span style = "background-color:#dfd">void resserrerHaut(Fraction&amp; haut, bool&amp; hautStrict, Fraction sortie, bool fermee) noexcept {
+    if (inferieur(sortie, haut)) {
+        haut = sortie;
+        hautStrict = !fermee;
+    } else if (egal(sortie, haut)) {
+        hautStrict = hautStrict || !fermee;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+/**
+ * Vrai si le segment ]a, b[ rencontre la boite [x0, x1] x [y0, y1] (fermee) ou ]x0, x1[ x ]y0, y1[
+ * (ouverte). Les extremites du segment ne comptent jamais : un tir part d'un coin de sa propre
+ * case, et ce coin touche souvent un mur sans que le mur soit sur le chemin.
+ *
+ * Arithmetique entiere : chaque axe donne l'intervalle des t ou la coordonnee est dans la boite,
+ * et le segment la rencontre si l'intersection de ces intervalles avec ]0, 1[ n'est pas vide. Rien
+ * ne depend du sens de a vers b.
+ */
+[[nodiscard]] bool rencontreBoite(GridPoint a, GridPoint b, int x0, int y0, int x1, int y1,
+<span style = "background-color:#dfd">                                  bool fermee) noexcept {
+    if (a == b) {
+        return fermee ? (a.x &gt;= x0 &amp;&amp; a.x &lt;= x1 &amp;&amp; a.y &gt;= y0 &amp;&amp; a.y &lt;= y1)</span>
+                      : (a.x &gt; x0 &amp;&amp; a.x &lt; x1 &amp;&amp; a.y &gt; y0 &amp;&amp; a.y &lt; y1);
+    }
+<span style = "background-color:#dfd">    Fraction bas{.num = 0, .den = 1};
+    Fraction haut{.num = 1, .den = 1};
+    bool basStrict = true;
+    bool hautStrict = true;</span>
+    const std::array&lt;std::array&lt;int, 4&gt;, 2&gt; axes{
+<span style = "background-color:#dfd">        {{a.x, b.x - a.x, x0, x1}, {a.y, b.y - a.y, y0, y1}}};
+    for (const auto&amp; [p, d, lo, hi] : axes) {
+        if (d == 0) {
+            const bool dedans = fermee ? (p &gt;= lo &amp;&amp; p &lt;= hi) : (p &gt; lo &amp;&amp; p &lt; hi);
+            if (!dedans) {
+                return false;</span>
+            }
+<span style = "background-color:#dfd">            continue;</span>
+        }
+        const Fraction entree =
+<span style = "background-color:#dfd">            d &gt; 0 ? Fraction{.num = lo - p, .den = d} : Fraction{.num = p - hi, .den = -d};</span>
+        const Fraction sortie =
+<span style = "background-color:#dfd">            d &gt; 0 ? Fraction{.num = hi - p, .den = d} : Fraction{.num = p - lo, .den = -d};
+        resserrerBas(bas, basStrict, entree, fermee);
+        resserrerHaut(haut, hautStrict, sortie, fermee);
+    }
+    if (inferieur(bas, haut)) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    return egal(bas, haut) &amp;&amp; !basStrict &amp;&amp; !hautStrict;
+}</span>
+
+/// Division entiere arrondie vers le bas, negatifs compris.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr int divBas(int a, int b) noexcept {
+    return a &gt;= 0 ? a / b : -((-a + b - 1) / b);
+}</span>
+
+/// Division entiere arrondie vers le haut.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr int divHaut(int a, int b) noexcept {
+    return -divBas(-a, b);
+}</span>
+
+/// Les cases de la grille dont la boite fermee peut toucher le segment : la case c couvre
+/// [2c, 2c + 2], et touche [min, max] si 2c &lt;= max et 2c + 2 &gt;= min.
+template &lt;typename Visiteur&gt;
+bool pourChaqueCaseTouchee(const BattleGrid&amp; grille, GridPoint a, GridPoint b,
+<span style = "background-color:#dfd">                           const Visiteur&amp; visiter) {
+    const int colonneMin = std::max(0, divHaut(std::min(a.x, b.x) - 2, 2));
+    const int colonneMax = std::min(grille.width() - 1, divBas(std::max(a.x, b.x), 2));
+    const int ligneMin = std::max(0, divHaut(std::min(a.y, b.y) - 2, 2));
+    const int ligneMax = std::min(grille.height() - 1, divBas(std::max(a.y, b.y), 2));
+    for (int ligne = ligneMin; ligne &lt;= ligneMax; ++ligne) {
+        for (int colonne = colonneMin; colonne &lt;= colonneMax; ++colonne) {
+            if (visiter(GridPosition{.column = colonne, .row = ligne})) {
+                return true;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return false;
+}</span>
+
+/// Tous les points de grille d'une emprise, bords et interieur.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;GridPoint&gt; pointsDe(Footprint emprise) {
+    std::vector&lt;GridPoint&gt; points;
+    const int cote = std::max(1, emprise.side);
+    points.reserve(static_cast&lt;std::size_t&gt;(cote + 1) * static_cast&lt;std::size_t&gt;(cote + 1));
+    for (int j = 0; j &lt;= cote; ++j) {
+        for (int i = 0; i &lt;= cote; ++i) {
+            points.push_back(</span>
+                {.x = 2 * (emprise.anchor.column + i), .y = 2 * (emprise.anchor.row + j)});
+<span style = "background-color:#dfd">        }
+    }
+    return points;
+}</span>
+
+/// Les obstacles d'une famille : ce qui arrete la vue, ou un masque de cases qui font corps.
+class Famille {
+public:
+<span style = "background-color:#dfd">    Famille(const BattleGrid&amp; grille, Cover plafond) : _grille(grille), _plafond(plafond) {
+        if (plafond != Cover::Total) {
+            _masque.assign(static_cast&lt;std::size_t&gt;(grille.width()) *</span>
+                               static_cast&lt;std::size_t&gt;(grille.height()),
+                           false);
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    void marquer(GridPosition cellule) {
+        if (_grille.inBounds(cellule)) {
+            _masque[indice(cellule)] = true;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool vide() const {
+        return _plafond != Cover::Total &amp;&amp; std::ranges::find(_masque, true) == _masque.end();
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] Cover plafond() const noexcept {
+        return _plafond;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool coupe(GridPoint a, GridPoint b) const {
+        if (_plafond == Cover::Total) {
+            return !isSightClear(_grille, a, b);</span>
+        }
+<span style = "background-color:#dfd">        return pourChaqueCaseTouchee(_grille, a, b, [&amp;](GridPosition cellule) {
+            return _masque[indice(cellule)] &amp;&amp;</span>
+                   rencontreBoite(a, b, 2 * cellule.column, 2 * cellule.row,
+                                  (2 * cellule.column) + 2, (2 * cellule.row) + 2, false);
+<span style = "background-color:#dfd">        });
+    }</span>
+
+private:
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t indice(GridPosition cellule) const noexcept {
+        return (static_cast&lt;std::size_t&gt;(cellule.row) * static_cast&lt;std::size_t&gt;(_grille.width())) +</span>
+               static_cast&lt;std::size_t&gt;(cellule.column);
+<span style = "background-color:#dfd">    }</span>
+
+    const BattleGrid&amp; _grille;
+    Cover _plafond;
+    std::vector&lt;bool&gt; _masque;
+};
+
+/// Guide du Maitre : une ou deux lignes coupees, abri partiel ; trois, important ; quatre, total.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr Cover abriPourLignesCoupees(int coupees) noexcept {
+    if (coupees &lt;= 0) {
+        return Cover::None;</span>
+    }
+<span style = "background-color:#dfd">    if (coupees &lt;= 2) {
+        return Cover::Half;</span>
+    }
+<span style = "background-color:#dfd">    return coupees == 3 ? Cover::ThreeQuarters : Cover::Total;
+}</span>
+
+/// Marque les cases dont l'objet abrite, chacune dans la famille de son niveau.
+<span style = "background-color:#dfd">void marquerObjets(const BattleGrid&amp; grille, Famille&amp; important, Famille&amp; partiel) {
+    for (int ligne = 0; ligne &lt; grille.height(); ++ligne) {
+        for (int colonne = 0; colonne &lt; grille.width(); ++colonne) {
+            const GridPosition cellule{.column = colonne, .row = ligne};
+            switch (grille.objectCoverAt(cellule)) {</span>
+                case Cover::ThreeQuarters:
+<span style = "background-color:#dfd">                    important.marquer(cellule);
+                    break;</span>
+                case Cover::Half:
+<span style = "background-color:#dfd">                    partiel.marquer(cellule);</span>
+                    break;
+                case Cover::None:
+                case Cover::Total:
+                    break;
+            }
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+/// Marque les cases des corps interposes : un abri partiel.
+<span style = "background-color:#dfd">void marquerCorps(std::span&lt;const Footprint&gt; interposes, Famille&amp; partiel) {
+    for (const Footprint&amp; corps : interposes) {
+        for (int j = 0; j &lt; corps.side; ++j) {
+            for (int i = 0; i &lt; corps.side; ++i) {
+                partiel.marquer({.column = corps.anchor.column + i, .row = corps.anchor.row + j});
+            }
+        }
+    }
+}</span>
+
+/// L'abri qu'une famille donne pour @p coupees lignes coupees sur quatre.
+<span style = "background-color:#dfd">[[nodiscard]] Cover abriDeFamille(const Famille&amp; famille, int coupees) {</span>
+    // Un mur abrite selon les lignes qu'il coupe ; un corps declare abrite de son
+    // niveau des qu'il en coupe une.
+<span style = "background-color:#dfd">    if (famille.plafond() == Cover::Total) {
+        return abriPourLignesCoupees(coupees);</span>
+    }
+<span style = "background-color:#dfd">    return coupees &gt; 0 ? famille.plafond() : Cover::None;
+}</span>
+
+/// L'abri de la case dont le coin haut-gauche est (@p x, @p y), vue depuis @p origine : le
+/// meilleur abri des familles, jamais leur somme.
+[[nodiscard]] Cover abriVersCase(const std::vector&lt;const Famille*&gt;&amp; familles, GridPoint origine,
+<span style = "background-color:#dfd">                                 int x, int y) {</span>
+    const std::array&lt;GridPoint, 4&gt; coins{
+<span style = "background-color:#dfd">        {{.x = x, .y = y}, {.x = x + 2, .y = y}, {.x = x, .y = y + 2}, {.x = x + 2, .y = y + 2}}};
+    Cover ici = Cover::None;
+    for (const Famille* famille : familles) {
+        int coupees = 0;
+        for (const GridPoint coin : coins) {
+            coupees += famille-&gt;coupe(origine, coin) ? 1 : 0;
+        }
+        ici = std::max(ici, abriDeFamille(*famille, coupees));
+    }
+    return ici;
+}</span>
+
+[[nodiscard]] Cover abriDepuis(const BattleGrid&amp; grille, const std::vector&lt;GridPoint&gt;&amp; origines,
+<span style = "background-color:#dfd">                               Footprint cible, std::span&lt;const Footprint&gt; interposes) {
+    Famille vue(grille, Cover::Total);
+    Famille important(grille, Cover::ThreeQuarters);
+    Famille partiel(grille, Cover::Half);
+    marquerObjets(grille, important, partiel);
+    marquerCorps(interposes, partiel);
+    std::vector&lt;const Famille*&gt; familles{&amp;vue};
+    for (const Famille* famille : {&amp;important, &amp;partiel}) {
+        if (!famille-&gt;vide()) {
+            familles.push_back(famille);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // L'attaquant choisit le point et la case de la cible qui l'arrangent : le plus petit abri.
+    // Pour chaque choix, le meilleur abri des familles compte, jamais leur somme.
+<span style = "background-color:#dfd">    Cover meilleur = Cover::Total;
+    const int cote = std::max(1, cible.side);
+    for (const GridPoint origine : origines) {
+        for (int j = 0; j &lt; cote; ++j) {
+            for (int i = 0; i &lt; cote; ++i) {
+                const Cover ici = abriVersCase(familles, origine, 2 * (cible.anchor.column + i),</span>
+                                               2 * (cible.anchor.row + j));
+<span style = "background-color:#dfd">                meilleur = std::min(meilleur, ici);
+                if (meilleur == Cover::None) {
+                    return meilleur;</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return meilleur;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;Footprint&gt; empriseDe(const BattleGrid&amp; grille, CombatantId combattant) {
+    const std::optional&lt;GridPosition&gt; ancre = grille.positionOf(combattant);
+    if (!ancre.has_value()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return Footprint{.anchor = *ancre, .side = grille.sideOf(combattant)};
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string_view coverLabel(Cover cover) noexcept {
+    switch (cover) {</span>
+        case Cover::None:
+<span style = "background-color:#fdd">            return "sans abri";</span>
+        case Cover::Half:
+<span style = "background-color:#dfd">            return "abri partiel";</span>
+        case Cover::ThreeQuarters:
+<span style = "background-color:#dfd">            return "abri important";</span>
+        case Cover::Total:
+<span style = "background-color:#fdd">            return "abri total";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool isSightClear(const BattleGrid&amp; grid, GridPoint a, GridPoint b) {</span>
+    // Une extremite posee sur un coin de cases, d'ou le segment part en diagonale entre deux cases
+    // qui arretent la vue : le regard se glisserait par le coin commun de deux murs. Le test des
+    // boites ignore les extremites, et c'est ici qu'on le rattrape. La condition ne depend que de
+    // l'extremite et de la direction qui s'en eloigne : symetrique.
+<span style = "background-color:#dfd">    for (const auto&amp; [p, q] : {std::pair{a, b}, std::pair{b, a}}) {
+        if (p.x % 2 != 0 || p.y % 2 != 0 || q.x == p.x || q.y == p.y) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const int colonneVers = q.x &gt; p.x ? p.x / 2 : (p.x / 2) - 1;
+        const int colonneAutre = q.x &gt; p.x ? (p.x / 2) - 1 : p.x / 2;
+        const int ligneVers = q.y &gt; p.y ? p.y / 2 : (p.y / 2) - 1;
+        const int ligneAutre = q.y &gt; p.y ? (p.y / 2) - 1 : p.y / 2;
+        if (grid.blocksSight({.column = colonneVers, .row = ligneAutre}) &amp;&amp;</span>
+            grid.blocksSight({.column = colonneAutre, .row = ligneVers})) {
+<span style = "background-color:#dfd">            return false;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return !pourChaqueCaseTouchee(grid, a, b, [&amp;](GridPosition cellule) {
+        return grid.blocksSight(cellule) &amp;&amp;</span>
+               rencontreBoite(a, b, 2 * cellule.column, 2 * cellule.row, (2 * cellule.column) + 2,
+                              (2 * cellule.row) + 2, true);
+<span style = "background-color:#dfd">    });
+}</span>
+
+<span style = "background-color:#dfd">bool hasLineOfSight(const BattleGrid&amp; grid, Footprint a, Footprint b) {
+    const std::vector&lt;GridPoint&gt; depuis = pointsDe(a);
+    const std::vector&lt;GridPoint&gt; vers = pointsDe(b);
+    return std::ranges::any_of(depuis, [&amp;](GridPoint p) {
+        return std::ranges::any_of(vers, [&amp;](GridPoint q) { return isSightClear(grid, p, q); });
+    });
+}</span>
+
+<span style = "background-color:#dfd">bool hasLineOfSight(const CombatState&amp; combat, CombatantId a, CombatantId b) {
+    const std::optional&lt;Footprint&gt; empriseA = empriseDe(combat.grid(), a);
+    const std::optional&lt;Footprint&gt; empriseB = empriseDe(combat.grid(), b);
+    return empriseA.has_value() &amp;&amp; empriseB.has_value() &amp;&amp;</span>
+           hasLineOfSight(combat.grid(), *empriseA, *empriseB);
+<span style = "background-color:#dfd">}</span>
+
+Cover coverFrom(const BattleGrid&amp; grid, Footprint attacker, Footprint target,
+<span style = "background-color:#dfd">                std::span&lt;const Footprint&gt; interposed) {
+    return abriDepuis(grid, pointsDe(attacker), target, interposed);
+}</span>
+
+Cover coverFromPoint(const BattleGrid&amp; grid, GridPoint origin, Footprint target,
+<span style = "background-color:#dfd">                     std::span&lt;const Footprint&gt; interposed) {
+    return abriDepuis(grid, {origin}, target, interposed);
+}</span>
+
+<span style = "background-color:#dfd">Cover coverBetween(const CombatState&amp; combat, CombatantId attacker, CombatantId target) {
+    const BattleGrid&amp; grille = combat.grid();
+    const std::optional&lt;Footprint&gt; tireur = empriseDe(grille, attacker);
+    const std::optional&lt;Footprint&gt; cible = empriseDe(grille, target);
+    if (!tireur.has_value() || !cible.has_value()) {</span>
+<span style = "background-color:#fdd">        return Cover::Total;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;Footprint&gt; interposes;
+    for (const CombatantId autre : grille.combatants()) {
+        if (autre != attacker &amp;&amp; autre != target) {
+            if (const std::optional&lt;Footprint&gt; corps = empriseDe(grille, autre)) {
+                interposes.push_back(*corps);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return coverFrom(grille, *tireur, *cible, interposes);
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

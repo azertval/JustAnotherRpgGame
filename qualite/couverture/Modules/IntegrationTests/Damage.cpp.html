@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Damage.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/Damage.h"
+
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatState.h"
+#include "Core/Rpg/Bestiary.h"
+
+namespace core {
+
+<span style = "background-color:#dfd">bool DamageTraits::applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const {
+    return std::ranges::any_of(affinities, [&amp;](const DamageAffinity&amp; affinite) {
+        return affinite.kind == kind &amp;&amp; affinite.type == type &amp;&amp;</span>
+               (affinite.bypassedBy &amp; flags) == 0U;
+<span style = "background-color:#dfd">    });
+}</span>
+
+std::vector&lt;RolledDamage&gt; rollDamage(std::span&lt;const DamageClause&gt; clauses, bool critical,
+<span style = "background-color:#dfd">                                     DeterministicRandom&amp; random) {
+    std::vector&lt;RolledDamage&gt; lances;
+    lances.reserve(clauses.size());
+    for (const DamageClause&amp; clause : clauses) {</span>
+        // Manuel, chapitre 9, Â« Coups critiques Â» : on lance deux fois TOUS les des de degats, puis
+        // on ajoute les modificateurs comme a l'accoutumee. Le modificateur n'est jamais double.
+<span style = "background-color:#dfd">        Dice des = clause.dice;
+        if (critical) {
+            des.count *= 2;</span>
+        }
+<span style = "background-color:#dfd">        RolledDamage lance{.clause = clause, .roll = rollDice(des, random), .critical = critical};</span>
+        // Â« Vous pouvez infliger un nombre de degats egal a 0, mais jamais une quantite negative. Â»
+<span style = "background-color:#dfd">        lance.amount = std::max(0, lance.roll.total);
+        lances.push_back(std::move(lance));
+    }
+    return lances;
+}</span>
+
+<span style = "background-color:#dfd">std::string_view damageTypeLabel(DamageType type) noexcept {</span>
+    // Les noms du Manuel, chapitre 9, Â« Types de degats Â». switch exhaustif sans default.
+<span style = "background-color:#dfd">    switch (type) {</span>
+        case DamageType::Acid:
+<span style = "background-color:#fdd">            return "acide";</span>
+        case DamageType::Bludgeoning:
+<span style = "background-color:#dfd">            return "contondant";</span>
+        case DamageType::Cold:
+<span style = "background-color:#dfd">            return "froid";</span>
+        case DamageType::Fire:
+<span style = "background-color:#dfd">            return "feu";</span>
+        case DamageType::Force:
+<span style = "background-color:#fdd">            return "force";</span>
+        case DamageType::Lightning:
+<span style = "background-color:#fdd">            return "foudre";</span>
+        case DamageType::Necrotic:
+<span style = "background-color:#fdd">            return "necrotique";</span>
+        case DamageType::Piercing:
+<span style = "background-color:#dfd">            return "perforant";</span>
+        case DamageType::Poison:
+<span style = "background-color:#dfd">            return "poison";</span>
+        case DamageType::Psychic:
+<span style = "background-color:#dfd">            return "psychique";</span>
+        case DamageType::Radiant:
+<span style = "background-color:#fdd">            return "radiant";</span>
+        case DamageType::Slashing:
+<span style = "background-color:#dfd">            return "tranchant";</span>
+        case DamageType::Thunder:
+<span style = "background-color:#fdd">            return "tonnerre";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::string_view damageStageName(DamageStage stage) noexcept {
+    switch (stage) {</span>
+        case DamageStage::Source:
+<span style = "background-color:#dfd">            return "source";</span>
+        case DamageStage::Conversion:
+<span style = "background-color:#dfd">            return "conversion";</span>
+        case DamageStage::Resistances:
+<span style = "background-color:#dfd">            return "resistances";</span>
+        case DamageStage::Reserves:
+<span style = "background-color:#dfd">            return "reserves";</span>
+        case DamageStage::HitPoints:
+<span style = "background-color:#dfd">            return "points de vie";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">int DamageWork::total() const {
+    int somme = 0;
+    for (const DamagePortion&amp; portion : portions) {
+        somme += portion.amount;
+    }
+    return somme;
+}</span>
+
+<span style = "background-color:#dfd">void DamageWork::adjust(std::size_t portion, int amount, DamageStage stage, std::string source) {
+    if (portion &gt;= portions.size()) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const int avant = portions[portion].amount;
+    const int apres = std::max(0, amount);
+    if (avant == apres) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    portions[portion].amount = apres;
+    trace.push_back({.stage = stage, .source = std::move(source), .before = avant, .after = apres});
+}</span>
+
+<span style = "background-color:#dfd">void DamagePipeline::insert(DamageStage stage, DamageListener listener) {
+    _listeners.emplace_back(stage, std::move(listener));
+}</span>
+
+<span style = "background-color:#dfd">void DamagePipeline::runStage(DamageStage stage, DamageWork&amp; work, CombatState* combat) const {
+    for (const auto&amp; [etape, greffon] : _listeners) {
+        if (etape == stage) {
+            greffon(work, combat);</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">void DamagePipeline::applyAffinities(DamageWork&amp; work, const DamageTraits&amp; traits) {
+    for (std::size_t indice = 0; indice &lt; work.portions.size(); ++indice) {
+        const DamagePortion portion = work.portions[indice];
+        if (portion.amount &lt;= 0 || hasFlag(portion.flags, DamageFlag::IgnoresResistance)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string type(damageTypeLabel(portion.type));
+        if (traits.applies(DamageAffinityKind::Immunity, portion.type, portion.flags)) {
+            work.adjust(indice, 0, DamageStage::Resistances, "immunite (" + type + ")");
+            continue;</span>
+        }
+        // Manuel, chapitre 9 : Â« la resistance PUIS la vulnerabilite sont appliquees apres tous les
+        // autres modificateurs Â», et plusieurs resistances au meme type ne comptent qu'une fois.
+        // Moitie arrondie a l'inferieur : 25 resiste et vulnerable donne 12 puis 24, pas 25.
+<span style = "background-color:#dfd">        if (traits.applies(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
+            work.adjust(indice, work.portions[indice].amount / 2, DamageStage::Resistances,</span>
+                        "resistance (" + type + ")");
+        }
+<span style = "background-color:#dfd">        if (traits.applies(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
+            work.adjust(indice, work.portions[indice].amount * 2, DamageStage::Resistances,</span>
+                        "vulnerabilite (" + type + ")");
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] DamageWork travailDepuis(std::span&lt;const RolledDamage&gt; degats) {
+    DamageWork travail;
+    for (const RolledDamage&amp; lance : degats) {
+        travail.portions.push_back(</span>
+            {.type = lance.clause.type, .flags = lance.clause.flags, .amount = lance.amount});
+<span style = "background-color:#dfd">    }
+    return travail;
+}</span>
+
+/// Consomme les reserves, la plus recente d'abord, et rend ce qui reste a perdre en PV.
+<span style = "background-color:#dfd">int absorber(DamageWork&amp; travail, std::vector&lt;HitPointReserve&gt;&amp; reserves, int montant) {
+    for (auto it = reserves.rbegin(); it != reserves.rend() &amp;&amp; montant &gt; 0; ++it) {
+        const int pris = std::min(it-&gt;amount, montant);
+        if (pris &lt;= 0) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        travail.trace.push_back({.stage = DamageStage::Reserves,</span>
+                                 .source = it-&gt;source,
+                                 .before = montant,
+                                 .after = montant - pris});
+<span style = "background-color:#dfd">        it-&gt;amount -= pris;
+        montant -= pris;
+        travail.absorbed += pris;
+    }
+    std::erase_if(reserves, [](const HitPointReserve&amp; r) { return r.amount &lt;= 0; });
+    return montant;
+}</span>
+
+}  // namespace
+
+std::vector&lt;DamageReport&gt; DamagePipeline::apply(CombatState&amp; combat,
+<span style = "background-color:#dfd">                                                std::span&lt;const DamageRequest&gt; volley) const {
+    std::vector&lt;DamageReport&gt; rapports;
+    std::vector&lt;HitPointChange&gt; pertes;</span>
+    // Les PV que chaque cible aura une fois les pertes precedentes de la salve appliquees : deux
+    // demandes pour la meme cible se suivent, et l'excedent de la seconde se mesure apres la
+    // premiere.
+<span style = "background-color:#dfd">    std::map&lt;CombatantId, int&gt; pvCourants;
+    for (const DamageRequest&amp; demande : volley) {
+        DamageReport rapport;
+        rapport.work = travailDepuis(demande.damage);
+        rapport.work.target = demande.target;
+        const Combatant* cible = combat.find(demande.target);
+        if (cible == nullptr || cible-&gt;status == CombatantStatus::Withdrawn) {</span>
+<span style = "background-color:#fdd">            rapports.push_back(std::move(rapport));
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const DamageTraits traits = cible-&gt;profile.damageTraits;
+        const bool critique = std::ranges::any_of(
+            demande.damage, [](const RolledDamage&amp; lance) { return lance.critical; });
+        const auto position =</span>
+            pvCourants.try_emplace(demande.target, cible-&gt;profile.currentHitPoints).first;
+
+<span style = "background-color:#dfd">        runStage(DamageStage::Source, rapport.work, &amp;combat);
+        runStage(DamageStage::Conversion, rapport.work, &amp;combat);
+        runStage(DamageStage::Resistances, rapport.work, &amp;combat);
+        applyAffinities(rapport.work, traits);
+        runStage(DamageStage::Reserves, rapport.work, &amp;combat);</span>
+
+<span style = "background-color:#dfd">        int reste = 0;
+        int absorbable = 0;
+        for (const DamagePortion&amp; portion : rapport.work.portions) {
+            (hasFlag(portion.flags, DamageFlag::IgnoresReserves) ? reste : absorbable) +=</span>
+                portion.amount;
+<span style = "background-color:#dfd">        }
+        if (std::vector&lt;HitPointReserve&gt;* reserves = combat.reserves(demande.target)) {
+            absorbable = absorber(rapport.work, *reserves, absorbable);</span>
+        }
+<span style = "background-color:#dfd">        rapport.work.hitPointLoss = reste + absorbable;
+        runStage(DamageStage::HitPoints, rapport.work, &amp;combat);</span>
+
+<span style = "background-color:#dfd">        rapport.hitPointsBefore = position-&gt;second;
+        rapport.hitPointsAfter = std::max(0, position-&gt;second - rapport.work.hitPointLoss);
+        rapport.overflow = std::max(0, rapport.work.hitPointLoss - position-&gt;second);
+        position-&gt;second = rapport.hitPointsAfter;
+        if (rapport.work.hitPointLoss &gt; 0) {
+            pertes.push_back({.target = demande.target,</span>
+                              .amount = rapport.work.hitPointLoss,
+                              .critical = critique});
+        }
+<span style = "background-color:#dfd">        rapports.push_back(std::move(rapport));
+    }</span>
+    // Une salve, un appel : l'issue ne depend pas de l'ordre des cibles (LOT-20).
+<span style = "background-color:#dfd">    combat.applyDamage(pertes);
+    return rapports;
+}</span>
+
+DamageReport DamagePipeline::applyToStructure(BattleGrid&amp; grid, GridPosition cell,
+<span style = "background-color:#dfd">                                              std::span&lt;const RolledDamage&gt; damage) const {
+    DamageReport rapport;
+    rapport.work = travailDepuis(damage);
+    rapport.work.structure = cell;
+    const GridObject* objet = grid.objectAt(cell);
+    if (objet == nullptr) {</span>
+<span style = "background-color:#fdd">        return rapport;</span>
+    }
+<span style = "background-color:#dfd">    const DamageTraits traits = objet-&gt;damageTraits;
+    rapport.hitPointsBefore = objet-&gt;hitPoints;
+    runStage(DamageStage::Source, rapport.work, nullptr);
+    runStage(DamageStage::Conversion, rapport.work, nullptr);
+    runStage(DamageStage::Resistances, rapport.work, nullptr);
+    applyAffinities(rapport.work, traits);
+    rapport.work.hitPointLoss = rapport.work.total();
+    runStage(DamageStage::HitPoints, rapport.work, nullptr);
+    rapport.hitPointsAfter = std::max(0, rapport.hitPointsBefore - rapport.work.hitPointLoss);
+    rapport.overflow = std::max(0, rapport.work.hitPointLoss - rapport.hitPointsBefore);
+    grid.damageObject(cell, rapport.work.hitPointLoss);
+    return rapport;
+}</span>
+
+<span style = "background-color:#dfd">DamageTraits damageTraitsFor(const Creature&amp; creature) {
+    DamageTraits traits;
+    const auto ajouter = [&amp;](const std::vector&lt;DamageType&gt;&amp; types, DamageAffinityKind genre) {
+        for (const DamageType type : types) {
+            traits.affinities.push_back({.type = type, .kind = genre, .bypassedBy = 0});</span>
+        }
+<span style = "background-color:#dfd">    };
+    ajouter(creature.damageImmunities, DamageAffinityKind::Immunity);
+    ajouter(creature.damageResistances, DamageAffinityKind::Resistance);
+    ajouter(creature.damageVulnerabilities, DamageAffinityKind::Vulnerability);
+    return traits;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

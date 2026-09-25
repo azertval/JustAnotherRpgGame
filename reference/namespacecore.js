@@ -802,6 +802,7 @@ var namespacecore =
     [ "dialogueTriggerFor", "namespacecore.html#ac8e8c2031667df66e1dbb70f7e64d3b8", null ],
     [ "encounterAlreadyCleared", "namespacecore.html#ab401913553c656a65288561b547c7d92", null ],
     [ "encounterTriggerFor", "namespacecore.html#a930b849a4d1c903dd56b8f5fe14d26ca", null ],
+    [ "encounterWonFlag", "namespacecore.html#aece07193dc5bae59c5937053f89b1c49", null ],
     [ "endEncounter", "namespacecore.html#a468dc3da08cf6838100dc8e96eed0312", null ],
     [ "entityIdFor", "namespacecore.html#a3764b26ea4ba9abe8e2f727a3ed486b5", null ],
     [ "entityIdNumber", "namespacecore.html#aa14dee2fbf0162c6a5ee07fd6579c500", null ],

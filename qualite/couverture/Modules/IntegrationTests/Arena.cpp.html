@@ -1,0 +1,730 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Arena.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/Arena.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstdlib&gt;
+#include &lt;system_error&gt;
+#include &lt;tuple&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/Flanking.h"
+#include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/Ability.h"
+
+namespace core {
+namespace {
+
+// Les entrees de catalogue ne portent pas de champ `version` : meme convention que
+// `loadEncounters` (LOT-18) et `loadEquipment` (LOT-34).
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
+                                                          : std::string{};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool lireBooleen(const nlohmann::json&amp; objet, const char* champ, bool defaut) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_boolean()) ? trouve-&gt;get&lt;bool&gt;() : defaut;
+}</span>
+
+[[nodiscard]] std::vector&lt;std::filesystem::path&gt; fichiersJson(const std::filesystem::path&amp; dossier,
+<span style = "background-color:#dfd">                                                              std::error_code&amp; code) {
+    std::vector&lt;std::filesystem::path&gt; fichiers;
+    for (const auto&amp; entree : std::filesystem::directory_iterator(dossier, code)) {
+        if (entree.is_regular_file(code) &amp;&amp; entree.path().extension() == ".json") {
+            fichiers.push_back(entree.path());
+        }
+    }
+    std::ranges::sort(fichiers);
+    return fichiers;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;CombatSide&gt; campDepuis(const PropertyMap&amp; proprietes) {
+    const auto trouve = proprietes.find(std::string(ARENA_SIDE_PROPERTY));
+    if (trouve == proprietes.end()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const std::string* texte = std::get_if&lt;std::string&gt;(&amp;trouve-&gt;second);
+    if (texte == nullptr) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (*texte == "allies") {
+        return CombatSide::Allies;</span>
+    }
+<span style = "background-color:#dfd">    if (*texte == "enemies") {
+        return CombatSide::Enemies;</span>
+    }
+<span style = "background-color:#fdd">    return std::nullopt;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] int rangDepuis(const PropertyMap&amp; proprietes) {
+    const auto trouve = proprietes.find(std::string(ARENA_RANK_PROPERTY));
+    if (trouve == proprietes.end()) {</span>
+<span style = "background-color:#fdd">        return 0;</span>
+    }
+<span style = "background-color:#dfd">    if (const std::int64_t* entier = std::get_if&lt;std::int64_t&gt;(&amp;trouve-&gt;second)) {
+        return static_cast&lt;int&gt;(*entier);</span>
+    }
+<span style = "background-color:#fdd">    if (const double* reel = std::get_if&lt;double&gt;(&amp;trouve-&gt;second)) {
+        return static_cast&lt;int&gt;(*reel);</span>
+    }
+<span style = "background-color:#fdd">    return 0;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view nomDuCrochet(CombatHook crochet) noexcept {
+    switch (crochet) {</span>
+        case CombatHook::BeforeFirstTurn:
+<span style = "background-color:#dfd">            return "avant le premier tour";</span>
+        case CombatHook::RoundStart:
+<span style = "background-color:#dfd">            return "round";</span>
+        case CombatHook::InitiativeCount:
+<span style = "background-color:#fdd">            return "repere";</span>
+        case CombatHook::TurnStart:
+<span style = "background-color:#dfd">            return "debut du tour";</span>
+        case CombatHook::TurnEnd:
+<span style = "background-color:#dfd">            return "fin du tour";</span>
+        case CombatHook::AttackDeclared:
+<span style = "background-color:#dfd">            return "attaque declaree";</span>
+        case CombatHook::DamageTaken:
+<span style = "background-color:#fdd">            return "degats";</span>
+        case CombatHook::CombatantDowned:
+<span style = "background-color:#dfd">            return "a terre";</span>
+        case CombatHook::CombatantJoined:
+<span style = "background-color:#fdd">            return "entree";</span>
+        case CombatHook::CombatantLeft:
+<span style = "background-color:#dfd">            return "sortie";</span>
+        case CombatHook::CombatEnded:
+<span style = "background-color:#dfd">            return "issue";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view nomDeLIssue(CombatOutcome issue) noexcept {
+    switch (issue) {</span>
+        case CombatOutcome::Victory:
+<span style = "background-color:#dfd">            return "victoire";</span>
+        case CombatOutcome::Flight:
+<span style = "background-color:#fdd">            return "fuite";</span>
+        case CombatOutcome::Defeat:
+<span style = "background-color:#dfd">            return "defaite";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+/// La derniere case ou l'on peut se tenir, au plus tard @p sortie : on ne s'arrete pas sur la case
+/// d'un allie qu'on traverse. Zero si aucune avant.
+[[nodiscard]] std::size_t derniereCaseTenable(const ReachableArea&amp; zone,
+                                              const std::vector&lt;GridPosition&gt;&amp; cases,
+<span style = "background-color:#dfd">                                              std::size_t sortie) {
+    std::size_t arret = sortie;
+    while (arret &gt; 0 &amp;&amp; !zone.canEndAt(cases[arret])) {
+        --arret;
+    }
+    return arret;
+}</span>
+
+}  // namespace
+
+// --- Points d'entree --------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">std::vector&lt;ArenaEntryPoint&gt; arenaEntryPoints(const Level&amp; level) {
+    std::vector&lt;ArenaEntryPoint&gt; entrees;
+    for (const MapEntity&amp; entite : level.entities()) {
+        if (entite.type != ARENA_ENTRY_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;CombatSide&gt; camp = campDepuis(entite.properties);
+        if (!camp.has_value()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        entrees.push_back(</span>
+            {.side = *camp, .rank = rangDepuis(entite.properties), .position = entite.position});
+<span style = "background-color:#dfd">    }
+    std::ranges::sort(entrees, [](const ArenaEntryPoint&amp; a, const ArenaEntryPoint&amp; b) {
+        return std::tuple(a.side, a.rank, a.position.row, a.position.column) &lt;</span>
+               std::tuple(b.side, b.rank, b.position.row, b.position.column);
+<span style = "background-color:#dfd">    });
+    return entrees;
+}</span>
+
+// --- Catalogues -------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">const HeroicMark* HeroicMarkCatalog::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(marks, id, &amp;HeroicMark::id);
+    return trouve == marks.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">HeroicMarkCatalog loadHeroicMarks(const std::filesystem::path&amp; file) {
+    HeroicMarkCatalog catalogue;
+    const JsonDocument document = readJsonObjectFromFile(file, SANS_GARDE_DE_VERSION);
+    if (!document.ok()) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(document.message);
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    const auto marques = document.root.find("marks");
+    if (marques == document.root.end() || !marques-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(file.filename().string() + " : aucune liste Â« marks Â».");
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    for (const nlohmann::json&amp; entree : *marques) {
+        if (!entree.is_object()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        HeroicMark marque{.id = lireTexte(entree, "id"),
+                          .name = lireTexte(entree, "name"),
+                          .text = lireTexte(entree, "text")};
+        if (marque.id.empty()) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(file.filename().string() + " : marque sans identifiant.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        catalogue.marks.push_back(std::move(marque));
+    }
+    return catalogue;
+}</span>
+
+<span style = "background-color:#dfd">const Arena* ArenaCatalog::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(arenas, id, &amp;Arena::id);
+    return trouve == arenas.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">ArenaCatalog loadArenas(const std::filesystem::path&amp; directory) {
+    ArenaCatalog catalogue;
+    std::error_code code;
+    if (!std::filesystem::is_directory(directory, code)) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(directory.string() + " : dossier absent ou illisible.");
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    for (const std::filesystem::path&amp; chemin : fichiersJson(directory, code)) {
+        const JsonDocument document = readJsonObjectFromFile(chemin, SANS_GARDE_DE_VERSION);
+        if (!document.ok()) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(document.message);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const nlohmann::json&amp; racine = document.root;
+        Arena arene{.id = lireTexte(racine, "id"),
+                    .name = lireTexte(racine, "name"),
+                    .source = lireTexte(racine, "source"),
+                    .region = lireTexte(racine, "region"),
+                    .location = lireTexte(racine, "location"),
+                    .map = lireTexte(racine, "map"),
+                    .zone = lireTexte(racine, "zone"),
+                    .lethal = lireBooleen(racine, "lethal", false),
+                    .heroicMark = lireBooleen(racine, "heroicMark", true),
+                    .flanking = lireBooleen(racine, "flanking", false)};
+        if (arene.id.empty()) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(chemin.filename().string() + " : arene sans identifiant.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        catalogue.arenas.push_back(std::move(arene));
+    }
+    return catalogue;
+}</span>
+
+// --- Session ----------------------------------------------------------------------------------
+
+ArenaSession::ArenaSession(Level level)
+<span style = "background-color:#dfd">    : _level(std::move(level)), _combat(std::make_unique&lt;CombatState&gt;(BattleGrid(_level))) {}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::record(std::string line) {
+    _journal.push_back(std::move(line));
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::subscribe() {
+    const auto nommer = [this](std::optional&lt;CombatantId&gt; id) -&gt; std::string {
+        if (!id.has_value()) {</span>
+<span style = "background-color:#fdd">            return "-";</span>
+        }
+<span style = "background-color:#dfd">        const Combatant* c = _combat-&gt;find(*id);
+        return (c == nullptr ? std::string("?") : c-&gt;profile.name) + " #" +</span>
+               std::to_string(static_cast&lt;std::uint32_t&gt;(*id));
+<span style = "background-color:#dfd">    };</span>
+    // Les degats subis ne font pas une ligne a eux seuls : l'attaque qui les inflige les ecrit
+    // deja, etape par etape. La chute, elle, en fait une.
+<span style = "background-color:#dfd">    constexpr std::array&lt;CombatHook, 10&gt; CROCHETS{</span>
+        CombatHook::BeforeFirstTurn, CombatHook::RoundStart,      CombatHook::InitiativeCount,
+        CombatHook::TurnStart,       CombatHook::TurnEnd,         CombatHook::AttackDeclared,
+        CombatHook::CombatantDowned, CombatHook::CombatantJoined, CombatHook::CombatantLeft,
+        CombatHook::CombatEnded};
+<span style = "background-color:#dfd">    for (const CombatHook crochet : CROCHETS) {
+        _combat-&gt;subscribe(crochet, [this, nommer](CombatState&amp; etat, const CombatEvent&amp; e) {
+            std::string ligne = std::string(nomDuCrochet(e.hook));
+            switch (e.hook) {</span>
+                case CombatHook::RoundStart:
+<span style = "background-color:#dfd">                    ligne += " " + std::to_string(e.round);
+                    break;</span>
+                case CombatHook::InitiativeCount:
+<span style = "background-color:#fdd">                    ligne += " " + e.marker;
+                    break;</span>
+                case CombatHook::TurnStart:
+                    // L'esquive dure Â« jusqu'au debut de votre prochain tour Â».
+<span style = "background-color:#dfd">                    if (e.combatant.has_value()) {
+                        _dodging.erase(*e.combatant);</span>
+                    }
+<span style = "background-color:#dfd">                    ligne += " " + nommer(e.combatant);
+                    break;</span>
+                case CombatHook::TurnEnd:
+                    // Se desengager vaut Â« jusqu'a la fin du tour Â».
+<span style = "background-color:#dfd">                    if (e.combatant.has_value()) {
+                        _disengaged.erase(*e.combatant);</span>
+                    }
+<span style = "background-color:#dfd">                    ligne += " " + nommer(e.combatant);
+                    break;</span>
+                case CombatHook::CombatantDowned:
+                case CombatHook::DamageTaken:
+                case CombatHook::CombatantJoined:
+                case CombatHook::CombatantLeft:
+<span style = "background-color:#dfd">                    ligne += " " + nommer(e.combatant);
+                    break;</span>
+                case CombatHook::AttackDeclared:
+<span style = "background-color:#dfd">                    ligne += " " + nommer(e.combatant) + " -&gt; " + nommer(e.target);
+                    break;</span>
+                case CombatHook::CombatEnded:
+<span style = "background-color:#dfd">                    ligne += " : ";
+                    ligne += etat.outcome().has_value() ? nomDeLIssue(*etat.outcome()) : "?";</span>
+                    break;
+                case CombatHook::BeforeFirstTurn:
+                    break;
+            }
+<span style = "background-color:#dfd">            record(std::move(ligne));
+            if (e.hook == CombatHook::CombatEnded) {
+                restoreAll();</span>
+            }
+<span style = "background-color:#dfd">        });
+    }
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::restoreAll() {
+    if (_bout.lethal) {
+        return;</span>
+    }
+    // La Marque Heroique releve tout le monde, y compris ceux qui sont tombes : personne ne meurt
+    // dans une arene, et un affrontement se rejoue autant de fois qu'on veut.
+<span style = "background-color:#dfd">    for (const CombatantId id : _combat-&gt;combatants()) {
+        const Combatant* c = _combat-&gt;find(id);
+        if (c != nullptr &amp;&amp; c-&gt;status != CombatantStatus::Withdrawn) {
+            _combat-&gt;heal(id, c-&gt;profile.maximumHitPoints - c-&gt;profile.currentHitPoints);
+        }
+    }
+    record("marque heroique : tous releves");
+}</span>
+
+<span style = "background-color:#dfd">ArenaMount ArenaSession::mount(const ArenaBout&amp; bout) {
+    _bout = bout;
+    _random = DeterministicRandom(bout.seed);
+    _combat = std::make_unique&lt;CombatState&gt;(BattleGrid(_level));
+    _attacks.clear();
+    _behaviors.clear();</span>
+    // Les choix de reaction du joueur survivent au rejeu : les memes identifiants, le meme choix.
+<span style = "background-color:#dfd">    _dodging.clear();
+    _disengaged.clear();
+    _journal.clear();
+    subscribe();
+    _combat-&gt;setEscapable(bout.escapable);</span>
+
+<span style = "background-color:#dfd">    ArenaMount montage;
+    std::vector&lt;ArenaEntryPoint&gt; entrees = arenaEntryPoints(_level);
+    const auto prochaineEntree = [&amp;](CombatSide camp) -&gt; std::optional&lt;GridPosition&gt; {
+        for (auto it = entrees.begin(); it != entrees.end(); ++it) {
+            if (it-&gt;side == camp) {
+                const GridPosition position = it-&gt;position;
+                entrees.erase(it);
+                return position;
+            }
+        }
+        return std::nullopt;
+    };</span>
+
+<span style = "background-color:#dfd">    for (const ArenaContestant&amp; concurrent : bout.contestants) {
+        const std::optional&lt;GridPosition&gt; place = concurrent.position.has_value()</span>
+                                                      ? concurrent.position
+                                                      : prochaineEntree(concurrent.profile.side);
+<span style = "background-color:#dfd">        if (!place.has_value()) {
+            montage.refusals.push_back({.who = concurrent.profile.name,</span>
+                                        .position = {},
+                                        .placement = PlacementResult::OutOfBounds});
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const EnlistResult enrolement = _combat-&gt;enlist(concurrent.profile, *place);
+        if (!enrolement.combatant.has_value()) {
+            montage.refusals.push_back({.who = concurrent.profile.name,</span>
+                                        .position = *place,
+                                        .placement = enrolement.placement});
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const CombatantId id = *enrolement.combatant;
+        _attacks[id] = concurrent.attacks;
+        if (!concurrent.behavior.empty()) {
+            _behaviors[id] = concurrent.behavior;</span>
+        }
+<span style = "background-color:#dfd">        if (bout.heroicMark) {
+            _combat-&gt;economy(id)-&gt;declare(HEROIC_ACTION_RESOURCE, 1);</span>
+        }
+<span style = "background-color:#dfd">        (concurrent.profile.side == CombatSide::Allies ? montage.allies : montage.enemies)</span>
+            .push_back(id);
+<span style = "background-color:#dfd">    }
+    record("montage : " + std::to_string(montage.allies.size()) + " allies, " +</span>
+           std::to_string(montage.enemies.size()) + " ennemis, " +
+           std::to_string(montage.refusals.size()) + " refus");
+<span style = "background-color:#dfd">    return montage;
+}</span>
+
+<span style = "background-color:#dfd">bool ArenaSession::start() {
+    if (!_combat-&gt;start(_random)) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    for (const InitiativeEntry&amp; place : _combat-&gt;turnOrder().entries()) {
+        const Combatant* c = _combat-&gt;find(place.combatant);
+        record("initiative " + (c == nullptr ? std::string("?") : c-&gt;profile.name) + " #" +</span>
+               std::to_string(static_cast&lt;std::uint32_t&gt;(place.combatant)) + " = " +
+               std::to_string(place.total));
+<span style = "background-color:#dfd">    }
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">ArenaMount ArenaSession::replay() {
+    ArenaMount montage = mount(_bout);
+    start();
+    return montage;
+}</span>
+
+<span style = "background-color:#dfd">const std::vector&lt;AttackProfile&gt;* ArenaSession::attacks(CombatantId combatant) const {
+    const auto trouve = _attacks.find(combatant);
+    return trouve == _attacks.end() ? nullptr : &amp;trouve-&gt;second;
+}</span>
+
+<span style = "background-color:#dfd">const std::string&amp; ArenaSession::behaviorOf(CombatantId combatant) const {
+    static const std::string joueur;
+    const auto trouve = _behaviors.find(combatant);
+    return trouve == _behaviors.end() ? joueur : trouve-&gt;second;
+}</span>
+
+<span style = "background-color:#dfd">const AttackProfile* ArenaSession::meleeAttack(CombatantId combatant) const {
+    const std::vector&lt;AttackProfile&gt;* liste = attacks(combatant);
+    if (liste == nullptr) {</span>
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    const auto trouve = std::ranges::find(*liste, AttackKind::Melee, &amp;AttackProfile::kind);
+    return trouve == liste-&gt;end() ? nullptr : &amp;*trouve;
+}</span>
+
+std::optional&lt;AttackOutcome&gt; ArenaSession::resolveAndRecord(CombatantId attacker,
+                                                            CombatantId target,
+                                                            const AttackProfile&amp; profile,
+<span style = "background-color:#dfd">                                                            const std::string&amp; prefix) {</span>
+    // La ligne de l'attaque se reserve apres la declaration et avant les des : ce que les degats
+    // declenchent (une chute, l'issue, la Marque) s'ecrit ensuite, dans l'ordre ou c'est arrive.
+<span style = "background-color:#dfd">    std::optional&lt;std::size_t&gt; place;
+    AttackHooks crochets = _attackHooks;
+    crochets.insert(AttackRollStage::BeforeRoll, [this, &amp;place](AttackRoll&amp;, DeterministicRandom&amp;) {
+        place = _journal.size();
+        _journal.emplace_back();
+    });
+    AttackContext contexte = contextAgainst(attacker, target, profile);
+    contexte.hooks = &amp;crochets;
+    std::optional&lt;AttackOutcome&gt; issue =</span>
+        resolveAttack(*_combat, attacker, target, profile, _random, contexte);
+<span style = "background-color:#dfd">    if (issue.has_value() &amp;&amp; place.has_value()) {
+        _journal[*place] = prefix + issue-&gt;describe();</span>
+    }
+<span style = "background-color:#dfd">    return issue;
+}</span>
+
+AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId target,
+<span style = "background-color:#dfd">                                           const AttackProfile&amp; profile) const {</span>
+    AttackContext contexte{
+<span style = "background-color:#dfd">        .hooks = &amp;_attackHooks, .pipeline = &amp;_damagePipeline, .circumstances = {}};</span>
+    // Manuel, Â« Esquiver Â» : les attaques contre vous sont desavantagees Â« si vous pouvez voir
+    // l'attaquant Â». La lumiere et les sens ne sont pas encore la : voir, c'est la ligne de vue.
+<span style = "background-color:#dfd">    if (_dodging.contains(target) &amp;&amp; hasLineOfSight(*_combat, target, attacker)) {
+        contexte.circumstances.disadvantages.emplace_back("esquive de la cible");</span>
+    }
+    // Guide du Maitre, Â« la prise en tenaille Â» : avantage aux jets d'attaque au corps a corps.
+<span style = "background-color:#dfd">    if (_bout.flanking &amp;&amp; profile.kind == AttackKind::Melee &amp;&amp;</span>
+        isFlanked(*_combat, attacker, target)) {
+<span style = "background-color:#dfd">        contexte.circumstances.advantages.emplace_back("prise en tenaille");</span>
+    }
+<span style = "background-color:#dfd">    return contexte;
+}</span>
+
+<span style = "background-color:#dfd">ArenaAttack ArenaSession::attack(CombatantId target, std::size_t attackIndex) {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value() || _combat-&gt;phase() != CombatPhase::TurnActive) {
+        return {.result = ArenaActionResult::NoActiveTurn, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    const Combatant* attaquant = _combat-&gt;find(*actif);
+    const Combatant* cible = _combat-&gt;find(target);
+    if (cible == nullptr || target == *actif || cible-&gt;profile.side == attaquant-&gt;profile.side ||</span>
+        cible-&gt;status != CombatantStatus::Standing) {
+<span style = "background-color:#dfd">        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    const std::vector&lt;AttackProfile&gt;* liste = attacks(*actif);
+    if (liste == nullptr || attackIndex &gt;= liste-&gt;size()) {
+        return {.result = ArenaActionResult::NoAttack, .outcome = std::nullopt};</span>
+    }
+    // Copie : un abonne peut enroler un renfort, et la table des attaques ne doit pas bouger sous
+    // la resolution.
+<span style = "background-color:#dfd">    const AttackProfile profil = (*liste)[attackIndex];
+    switch (checkTarget(*_combat, *actif, target, profil)) {</span>
+        case TargetCheck::Valid:
+<span style = "background-color:#fdd">            break;</span>
+        case TargetCheck::NotOnGrid:
+<span style = "background-color:#fdd">            return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
+        case TargetCheck::OutOfReach:
+<span style = "background-color:#dfd">            return {.result = ArenaActionResult::OutOfReach, .outcome = std::nullopt};</span>
+        case TargetCheck::TotalCover:
+<span style = "background-color:#dfd">            return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    if (attaquant-&gt;economy.remaining(ACTION_RESOURCE) &lt;= 0) {
+        return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    _combat-&gt;spend(ACTION_RESOURCE);
+    ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
+    attaque.outcome = resolveAndRecord(*actif, target, profil, {});
+    return attaque;
+}</span>
+
+<span style = "background-color:#dfd">bool ArenaSession::dodge() {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value() || !_combat-&gt;spend(ACTION_RESOURCE)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    _dodging.insert(*actif);
+    record("esquive " + _combat-&gt;find(*actif)-&gt;profile.name);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool ArenaSession::disengage() {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value() || !_combat-&gt;spend(ACTION_RESOURCE)) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    _disengaged.insert(*actif);
+    record("desengagement " + _combat-&gt;find(*actif)-&gt;profile.name);
+    return true;
+}</span>
+
+bool ArenaSession::provokes(CombatantId mover, CombatantId reactor, GridPosition from,
+<span style = "background-color:#dfd">                            GridPosition to) const {
+    const Combatant* mobile = _combat-&gt;find(mover);
+    const Combatant* c = _combat-&gt;find(reactor);
+    const AttackProfile* coup = meleeAttack(reactor);</span>
+    if (mobile == nullptr || c == nullptr || coup == nullptr ||
+        c-&gt;profile.side == mobile-&gt;profile.side || c-&gt;status != CombatantStatus::Standing ||
+<span style = "background-color:#dfd">        c-&gt;economy.remaining(REACTION_RESOURCE) &lt;= 0 || _declinesOpportunities.contains(reactor)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;int&gt; avant = gridDistanceFrom(*_combat, mover, from, reactor);
+    const std::optional&lt;int&gt; apres = gridDistanceFrom(*_combat, mover, to, reactor);
+    if (!avant.has_value() || !apres.has_value() || *avant &gt; coup-&gt;reach || *apres &lt;= coup-&gt;reach) {
+        return false;</span>
+    }
+    // Â« Une creature hostile, situee dans votre champ de vision Â» : vue depuis la case qu'elle
+    // quitte.
+<span style = "background-color:#dfd">    const std::optional&lt;GridPosition&gt; ancre = _combat-&gt;grid().positionOf(reactor);
+    const bool voit =</span>
+        ancre.has_value() &amp;&amp;
+        hasLineOfSight(_combat-&gt;grid(), {.anchor = from, .side = _combat-&gt;grid().sideOf(mover)},
+                       {.anchor = *ancre, .side = _combat-&gt;grid().sideOf(reactor)});
+<span style = "background-color:#dfd">    return voit &amp;&amp; (!_opportunityPolicy || _opportunityPolicy(*this, reactor, mover));
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;CombatantId&gt; ArenaSession::previewOpportunities(GridPosition destination) const {
+    std::vector&lt;CombatantId&gt; opportunistes;
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    const std::optional&lt;ReachableArea&gt; zone = _combat-&gt;reachableArea();
+    if (!actif.has_value() || !zone.has_value() || _disengaged.contains(*actif)) {</span>
+<span style = "background-color:#fdd">        return opportunistes;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;Path&gt; chemin = zone-&gt;pathTo(destination);
+    if (!chemin.has_value()) {</span>
+<span style = "background-color:#fdd">        return opportunistes;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; cases{zone-&gt;origin()};
+    cases.insert(cases.end(), chemin-&gt;steps.begin(), chemin-&gt;steps.end());</span>
+    // Chacun ne frappe qu'une fois : sa reaction est depensee au premier coup.
+<span style = "background-color:#dfd">    for (std::size_t i = 0; i + 1 &lt; cases.size(); ++i) {
+        for (const CombatantId autre : _combat-&gt;combatants()) {
+            if (std::ranges::find(opportunistes, autre) == opportunistes.end() &amp;&amp;</span>
+                provokes(*actif, autre, cases[i], cases[i + 1])) {
+<span style = "background-color:#dfd">                opportunistes.push_back(autre);
+            }
+        }
+    }
+    return opportunistes;
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::setTakesOpportunities(CombatantId combatant, bool takes) {
+    if (takes) {</span>
+<span style = "background-color:#fdd">        _declinesOpportunities.erase(combatant);
+    } else {</span>
+<span style = "background-color:#dfd">        _declinesOpportunities.insert(combatant);</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+AttackCircumstances ArenaSession::circumstancesAgainst(CombatantId attacker, CombatantId target,
+<span style = "background-color:#dfd">                                                       const AttackProfile&amp; profile) const {
+    return contextAgainst(attacker, target, profile).circumstances;
+}</span>
+
+<span style = "background-color:#dfd">bool ArenaSession::dash() {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value() || !_combat-&gt;spend(ACTION_RESOURCE)) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const Combatant* c = _combat-&gt;find(*actif);</span>
+    // Â« Vous obtenez un deplacement supplementaire pour le tour en cours Â», egal a votre vitesse :
+    // un octroi, que le debut du prochain tour efface (core::ActionEconomy::grant).
+<span style = "background-color:#dfd">    _combat-&gt;economy(*actif)-&gt;grant(MOVEMENT_RESOURCE, c-&gt;profile.movement);
+    record("precipitation " + c-&gt;profile.name);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">MoveOutcome ArenaSession::move(GridPosition destination) {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value()) {</span>
+<span style = "background-color:#fdd">        return _combat-&gt;move(destination);</span>
+    }
+<span style = "background-color:#dfd">    const auto noterPas = [&amp;](const MoveOutcome&amp; pas, GridPosition vers) {
+        record("pas " + _combat-&gt;find(*actif)-&gt;profile.name + " " + std::to_string(vers.column) +</span>
+               "," + std::to_string(vers.row) + " (" + std::to_string(pas.path.cost) + ")");
+<span style = "background-color:#dfd">        if (_moveObserver) {</span>
+<span style = "background-color:#fdd">            _moveObserver(*actif, pas.path);</span>
+        }
+<span style = "background-color:#dfd">    };
+    MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};
+    const auto cumuler = [&amp;](const MoveOutcome&amp; pas) {
+        parcours.result = MoveResult::Moved;
+        parcours.path.steps.insert(parcours.path.steps.end(), pas.path.steps.begin(),</span>
+                                   pas.path.steps.end());
+<span style = "background-color:#dfd">        parcours.path.cost += pas.path.cost;
+    };</span>
+
+    // Chaque tour de boucle depense au moins une reaction, ou finit le deplacement : la garde n'est
+    // la que contre une regression.
+<span style = "background-color:#dfd">    for (std::size_t garde = 0; garde &lt;= _combat-&gt;combatants().size(); ++garde) {
+        const bool toujoursLui =</span>
+            _combat-&gt;phase() == CombatPhase::TurnActive &amp;&amp; _combat-&gt;activeCombatant() == actif;
+<span style = "background-color:#dfd">        if (!toujoursLui) {
+            return parcours;</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;ReachableArea&gt; zone = _combat-&gt;reachableArea();
+        const std::optional&lt;Path&gt; chemin =</span>
+            zone.has_value() ? zone-&gt;pathTo(destination) : std::optional&lt;Path&gt;{};
+<span style = "background-color:#dfd">        if (!chemin.has_value()) {</span>
+<span style = "background-color:#fdd">            return parcours.result == MoveResult::Moved ? parcours : _combat-&gt;move(destination);</span>
+        }
+
+        // Les cases successives de l'ancre, depart compris, et la premiere sortie d'allonge.
+<span style = "background-color:#dfd">        std::vector&lt;GridPosition&gt; cases{zone-&gt;origin()};
+        cases.insert(cases.end(), chemin-&gt;steps.begin(), chemin-&gt;steps.end());
+        std::vector&lt;CombatantId&gt; opportunistes;
+        const std::optional&lt;std::size_t&gt; sortie = firstProvokingStep(*actif, cases, opportunistes);
+        if (!sortie.has_value()) {
+            const MoveOutcome pas = _combat-&gt;move(destination);
+            if (pas.result == MoveResult::Moved) {
+                noterPas(pas, destination);
+                cumuler(pas);</span>
+            }
+<span style = "background-color:#dfd">            return parcours.result == MoveResult::Moved ? parcours : pas;</span>
+        }
+
+        // On ne s'arrete pas sur la case d'un allie qu'on traverse : l'attaque tombe a la derniere
+        // case ou l'on peut se tenir avant la sortie.
+<span style = "background-color:#dfd">        const std::size_t arret = derniereCaseTenable(*zone, cases, *sortie);
+        if (arret &gt; 0) {
+            const MoveOutcome pas = _combat-&gt;move(cases[arret]);
+            if (pas.result == MoveResult::Moved) {
+                noterPas(pas, cases[arret]);
+                cumuler(pas);</span>
+            }
+<span style = "background-color:#dfd">        }
+        takeOpportunities(*actif, opportunistes);
+    }</span>
+<span style = "background-color:#fdd">    return parcours;</span>
+<span style = "background-color:#dfd">}</span>
+
+std::optional&lt;std::size_t&gt; ArenaSession::firstProvokingStep(
+    CombatantId mover, const std::vector&lt;GridPosition&gt;&amp; cases,
+<span style = "background-color:#dfd">    std::vector&lt;CombatantId&gt;&amp; reactors) const {
+    std::optional&lt;std::size_t&gt; sortie;
+    if (_disengaged.contains(mover)) {
+        return sortie;</span>
+    }
+<span style = "background-color:#dfd">    for (std::size_t i = 0; i + 1 &lt; cases.size() &amp;&amp; !sortie.has_value(); ++i) {
+        for (const CombatantId autre : _combat-&gt;combatants()) {
+            if (provokes(mover, autre, cases[i], cases[i + 1])) {
+                reactors.push_back(autre);
+            }
+        }
+        if (!reactors.empty()) {
+            sortie = i;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return sortie;
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::takeOpportunities(CombatantId mover, const std::vector&lt;CombatantId&gt;&amp; reactors) {
+    for (const CombatantId opportuniste : reactors) {
+        const Combatant* cible = _combat-&gt;find(mover);
+        const Combatant* c = _combat-&gt;find(opportuniste);</span>
+        if (cible == nullptr || cible-&gt;status != CombatantStatus::Standing ||
+<span style = "background-color:#dfd">            _combat-&gt;phase() == CombatPhase::Ended || c == nullptr ||</span>
+            c-&gt;status != CombatantStatus::Standing) {
+<span style = "background-color:#fdd">            break;</span>
+        }
+<span style = "background-color:#dfd">        const AttackProfile coup = *meleeAttack(opportuniste);
+        static_cast&lt;void&gt;(_combat-&gt;economy(opportuniste)-&gt;spend(REACTION_RESOURCE));
+        static_cast&lt;void&gt;(resolveAndRecord(opportuniste, mover, coup, "opportunite : "));
+    }
+}</span>
+
+<span style = "background-color:#dfd">bool ArenaSession::endTurn() {
+    return _combat-&gt;endTurn();
+}</span>
+
+<span style = "background-color:#fdd">WithdrawResult ArenaSession::withdraw() {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value()) {
+        return WithdrawResult::NotInCombat;</span>
+    }
+<span style = "background-color:#fdd">    return _combat-&gt;withdraw(*actif);
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;CombatOutcome&gt; ArenaSession::outcome() const {
+    return _combat-&gt;outcome();
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

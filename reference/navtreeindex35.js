@@ -1,5 +1,16 @@
 var NAVTREEINDEX35 =
 {
+"structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[3,0,0,68,6],
+"structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49":[2,0,1,68,1],
+"structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49":[3,0,0,68,1],
+"structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86":[2,0,1,68,4],
+"structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86":[3,0,0,68,4],
+"structcore_1_1EncounterTerrain.html#adcfee2604a59fb7db82799fd0261a6ec":[2,0,1,68,5],
+"structcore_1_1EncounterTerrain.html#adcfee2604a59fb7db82799fd0261a6ec":[3,0,0,68,5],
+"structcore_1_1EncounterTrigger.html":[2,0,1,39],
+"structcore_1_1EncounterTrigger.html":[3,0,0,39],
+"structcore_1_1EncounterTrigger.html#a01091eeca898dbd5680f3e96f6694102":[2,0,1,39,1],
+"structcore_1_1EncounterTrigger.html#a01091eeca898dbd5680f3e96f6694102":[3,0,0,39,1],
 "structcore_1_1EncounterTrigger.html#a8c8afc2d618797055db72a90c0656602":[2,0,1,39,2],
 "structcore_1_1EncounterTrigger.html#a8c8afc2d618797055db72a90c0656602":[3,0,0,39,2],
 "structcore_1_1EncounterTrigger.html#ac449bc196581b4c514d11096a60853e3":[2,0,1,39,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX35 =
 "structcore_1_1GridPosition.html":[3,0,0,115],
 "structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0":[2,0,1,115,0],
 "structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0":[3,0,0,115,0],
-"structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589":[2,0,1,115,1],
-"structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589":[3,0,0,115,1],
-"structcore_1_1HeroicMark.html":[2,0,1,4],
-"structcore_1_1HeroicMark.html":[3,0,0,4],
-"structcore_1_1HeroicMark.html#a798cc6f745f5c472c3fda6e773219cdc":[2,0,1,4,1],
-"structcore_1_1HeroicMark.html#a798cc6f745f5c472c3fda6e773219cdc":[3,0,0,4,1],
-"structcore_1_1HeroicMark.html#aa6238d2eed9ee292110fa19864746081":[2,0,1,4,2],
-"structcore_1_1HeroicMark.html#aa6238d2eed9ee292110fa19864746081":[3,0,0,4,2],
-"structcore_1_1HeroicMark.html#ae275d4649d5ffd378b47bb69b293764f":[2,0,1,4,0],
-"structcore_1_1HeroicMark.html#ae275d4649d5ffd378b47bb69b293764f":[3,0,0,4,0],
-"structcore_1_1HeroicMarkCatalog.html":[2,0,1,5],
-"structcore_1_1HeroicMarkCatalog.html":[3,0,0,5]
+"structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589":[2,0,1,115,1]
 };

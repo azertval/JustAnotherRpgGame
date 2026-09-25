@@ -183,16 +183,16 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
 <span style = "background-color:#dfd">            .kind = type == "setFlag" ? QuestEffect::Kind::SetFlag : QuestEffect::Kind::ClearFlag,
             .flag = *drapeau,
             .value = {}};
-        if (const auto valeur = effet.find("value"); valeur != effet.end()) {</span>
-<span style = "background-color:#fdd">            if (lu.kind != QuestEffect::Kind::SetFlag || !valeur-&gt;is_string() ||</span>
+        if (const auto valeur = effet.find("value"); valeur != effet.end()) {
+            if (lu.kind != QuestEffect::Kind::SetFlag || !valeur-&gt;is_string() ||</span>
                 valeur-&gt;get&lt;std::string&gt;().empty()) {
 <span style = "background-color:#fdd">                rapport.signaler(ici / "value",</span>
                                  "etape '" + etape.id + "' : 'value' est un texte, pour setFlag.");
 <span style = "background-color:#fdd">                continue;</span>
             }
-<span style = "background-color:#fdd">            lu.value = valeur-&gt;get&lt;std::string&gt;();
-            verifierValeur(quete, lu.flag, lu.value, ici / "value", rapport);</span>
-<span style = "background-color:#dfd">        } else if (lu.kind == QuestEffect::Kind::SetFlag &amp;&amp;</span>
+<span style = "background-color:#dfd">            lu.value = valeur-&gt;get&lt;std::string&gt;();
+            verifierValeur(quete, lu.flag, lu.value, ici / "value", rapport);
+        } else if (lu.kind == QuestEffect::Kind::SetFlag &amp;&amp;</span>
                    std::ranges::find(quete.flags, lu.flag, &amp;QuestFlag::id) != quete.flags.end()) {
 <span style = "background-color:#fdd">            rapport.signaler(ici, "etape '" + etape.id + "' : le drapeau '" + lu.flag +</span>
                                       "' a des valeurs ; 'value' manque.");
@@ -409,8 +409,8 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
 <span style = "background-color:#fdd">                        flags.clear(effet.flag);</span>
 <span style = "background-color:#dfd">                    } else if (effet.value.empty()) {
                         flags.set(effet.flag);
-                    } else {</span>
-<span style = "background-color:#fdd">                        flags.setValue(effet.flag, effet.value);</span>
+                    } else {
+                        flags.setValue(effet.flag, effet.value);</span>
                     }
 <span style = "background-color:#dfd">                }
                 evenements.push_back({quete.id, etape.id, etape.outcome});
@@ -510,8 +510,8 @@ std::vector&lt;std::string&gt; validateFlagUses(const QuestCatalog&amp; quests,
 <span style = "background-color:#fdd">                    continue;</span>
                 }
 <span style = "background-color:#dfd">                std::vector&lt;std::string&gt; valeurs;
-                if (!effet.value.empty()) {</span>
-<span style = "background-color:#fdd">                    valeurs.push_back(effet.value);</span>
+                if (!effet.value.empty()) {
+                    valeurs.push_back(effet.value);</span>
                 }
 <span style = "background-color:#dfd">                verifierUsage(quests, effet.flag, valeurs, effet.value.empty(), ou, erreurs);
             }
@@ -533,7 +533,10 @@ std::set&lt;std::string, std::less&lt;&gt;&gt; flagsWrittenBy(const QuestCatalog
                 if (action.kind == DialogueActionKind::SetFlag) {
                     poses.insert(action.target);
                 } else if (action.kind == DialogueActionKind::StartQuest) {
-                    poses.insert(questStartedFlag(action.target));</span>
+                    poses.insert(questStartedFlag(action.target));
+                } else if (action.kind == DialogueActionKind::StartEncounter) {</span>
+                    // La victoire pose son fait (`core::endEncounter`, LOT-120) : une quete le lit.
+<span style = "background-color:#dfd">                    poses.insert(encounterWonFlag(action.target));</span>
                 }
 <span style = "background-color:#dfd">            }
         }

@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Pathfinding.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/Pathfinding.h
+ * @brief Le dÃ©placement d'un tour : le budget, les cases atteignables et le chemin
+ *        (`LOT-19`, `EX-CBT-020`, `EX-REG-051`).
+ */
+
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;functional&gt;
+#include &lt;optional&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Levels/GridPosition.h"
+
+namespace core {
+
+struct CharacterSheet;
+struct Creature;
+
+/**
+ * @brief Le budget de dÃ©placement d'une vitesse de @p speedMeters, en cases entiÃ¨res.
+ *
+ * Une case vaut 1,5 m (`EX-REG-051`, `core::METERS_PER_TILE`) : 9 m font 6 cases. Une vitesse qui
+ * ne tombe pas juste â 10 m aprÃ¨s un malus d'encombrement de 3 m sur 13 m â est **arrondie Ã  la
+ * case infÃ©rieure** : le livre dÃ©pense la vitesse Â« par segments de 1,50 mÃ¨tre Â», et un segment
+ * entamÃ© n'en est pas un. Arrondir au plus proche ferait gagner une case Ã  qui porte trop.
+ * Une vitesse nÃ©gative ou nulle donne 0.
+ */
+[[nodiscard]] int movementBudget(float speedMeters) noexcept;
+
+/// @brief Le budget d'une fiche, sur sa vitesse de base (`core::CharacterSheet::speedMeters`).
+[[nodiscard]] int movementBudget(const CharacterSheet&amp; sheet) noexcept;
+
+/**
+ * @brief Le budget d'une crÃ©ature du bestiaire pour @p locomotion : sa vitesse de marche, ou de
+ *        vol â 0 pour une crÃ©ature qui ne vole pas.
+ */
+[[nodiscard]] int movementBudget(const Creature&amp; creature, Locomotion locomotion) noexcept;
+
+/**
+ * @brief Qui se dÃ©place, comment, et Ã  travers qui.
+ *
+ * Le combattant doit Ãªtre **placÃ©** sur la grille : son point de dÃ©part et son emprise en sont lus,
+ * jamais recopiÃ©s, pour qu'une requÃªte ne parte pas d'une case qu'il a dÃ©jÃ  quittÃ©e.
+ */
+struct Mover {
+    CombatantId combatant{};
+<span style = "background-color:#dfd">    Locomotion locomotion = Locomotion::Walk;</span>
+    /**
+     * @brief Vrai pour un combattant dont on peut **traverser** la case sans s'y arrÃªter.
+     *
+     * Le Manuel permet de traverser l'espace d'une crÃ©ature non hostile, et la grille ne connaÃ®t
+     * pas les camps : c'est `core::CombatState::moverFor` (`LOT-20`) qui le dit. Vide, personne ne
+     * se traverse â le parti prudent, qui ne fait jamais passer Ã  travers un ennemi.
+     */
+    std::function&lt;bool(CombatantId)&gt; canPassThrough;
+};
+
+/// @brief Un chemin : les cases franchies, dÃ©part exclu et arrivÃ©e incluse, et ce qu'il coÃ»te.
+struct Path {
+    std::vector&lt;GridPosition&gt; steps;
+<span style = "background-color:#dfd">    int cost = 0;</span>
+};
+
+/**
+ * @brief Les cases qu'un combattant peut atteindre ce tour-ci, et par oÃ¹.
+ *
+ * ## La rÃ¨gle du Manuel, et pourquoi elle n'est pas un parcours en largeur
+ *
+ * Manuel des Joueurs, Â« Jouer sur un quadrillage Â» : entrer dans une case coÃ»te **1**, mÃªme en
+ * **diagonale** ; entrer dans une case de terrain difficile coÃ»te **2**, et il faut qu'il reste de
+ * quoi payer ; on ne passe pas en diagonale par le **coin** d'un mur. Trois faits qu'un parcours en
+ * largeur Ã  quatre voisins ne sait pas exprimer : il ignore les diagonales, et tous ses pas coÃ»tent
+ * un. La case d'une crÃ©ature qu'on **traverse** compte, elle aussi, pour du terrain difficile
+ * (Â« Se dÃ©placer au milieu d'autres crÃ©atures Â», PDF p. 193), en vol comme au sol. Ce calcul-ci est
+ * donc un Dijkstra sur les huit voisins.
+ *
+ * ## Le dÃ©partage est une rÃ¨gle, pas un hasard
+ *
+ * Deux chemins de mÃªme coÃ»t existent presque toujours. L'exploration retient **tous** les
+ * prÃ©dÃ©cesseurs qui atteignent une case Ã  son meilleur coÃ»t ; c'est la remontÃ©e, qui connaÃ®t
+ * l'arrivÃ©e, qui choisit : **le prÃ©dÃ©cesseur le plus proche de la droite qui joint le dÃ©part Ã 
+ * l'arrivÃ©e**, et Ã  Ã©galitÃ© celui d'indice de case le plus petit (ligne, puis colonne). Le chemin
+ * ne monte donc pas pour redescendre quand un autre chemin de mÃªme coÃ»t suit la droite â c'est lui
+ * que la prÃ©visualisation du dÃ©placement dessine (`LOT-24`). Cette dÃ©finition ne dÃ©pend pas de
+ * l'ordre d'exploration : `core::findPath` la partage, et le chemin qu'il rend vers une case
+ * atteignable est celui que rend `pathTo`, pas un autre de mÃªme coÃ»t.
+ */
+class ReachableArea {
+public:
+    /**
+     * @param grid   La grille, lue Ã  la construction et plus jamais ensuite.
+     * @param mover  Qui se dÃ©place. Non placÃ©, l'aire est vide.
+     * @param budget Les cases de dÃ©placement disponibles (`core::movementBudget`).
+     */
+    ReachableArea(const BattleGrid&amp; grid, const Mover&amp; mover, int budget);
+
+    /// @brief Le coin haut-gauche de l'emprise au dÃ©part.
+<span style = "background-color:#dfd">    [[nodiscard]] GridPosition origin() const noexcept {
+        return _origin;
+    }
+    [[nodiscard]] int budget() const noexcept {
+        return _budget;
+    }</span>
+
+    /**
+     * @brief Le coÃ»t du meilleur chemin jusqu'Ã  @p anchor, s'il tient dans le budget.
+     *
+     * DÃ©fini aussi pour une case qu'on **traverse** sans pouvoir s'y arrÃªter (un alliÃ© l'occupe) :
+     * le coÃ»t dit qu'on y passe, `canEndAt` dit qu'on n'y reste pas.
+     */
+    [[nodiscard]] std::optional&lt;int&gt; costTo(GridPosition anchor) const;
+
+    /// @brief Vrai si le combattant peut **finir** son dÃ©placement avec son emprise ancrÃ©e en
+    /// @p anchor : dans le budget, et sur une place libre. Faux pour le point de dÃ©part.
+    [[nodiscard]] bool canEndAt(GridPosition anchor) const;
+
+    /**
+     * @brief Toutes les places oÃ¹ finir le dÃ©placement, par indice de case croissant â ce que
+     *        l'IHM de combat surligne (`LOT-24`) avant que le joueur ne s'engage.
+     */
+    [[nodiscard]] std::vector&lt;GridPosition&gt; destinations() const;
+
+    /// @brief Le chemin jusqu'Ã  @p anchor, ou `std::nullopt` si l'on ne peut pas y finir.
+    [[nodiscard]] std::optional&lt;Path&gt; pathTo(GridPosition anchor) const;
+
+private:
+    [[nodiscard]] std::size_t indexOf(GridPosition cell) const noexcept;
+
+    int _width = 0;
+    int _height = 0;
+<span style = "background-color:#dfd">    GridPosition _origin{};</span>
+    int _budget = 0;
+    std::vector&lt;int&gt; _costs;
+    /// Par case, le masque de ses prÃ©dÃ©cesseurs au meilleur coÃ»t (un bit par voisin).
+    std::vector&lt;std::uint8_t&gt; _predecessors;
+    std::vector&lt;bool&gt; _endable;
+};
+
+/**
+ * @brief Le meilleur chemin de @p mover jusqu'Ã  @p destination, sans limite de budget.
+ *
+ * A* sur la mÃªme rÃ¨gle que `core::ReachableArea` â mÃªmes coÃ»ts, mÃªmes coins, mÃªme dÃ©partage â
+ * pour qui planifie au-delÃ  du tour : l'IA (`LOT-23`) qui marche vers une cible lointaine. Le
+ * mÃªme appel sur la mÃªme grille rend **toujours** le mÃªme chemin, sans quoi aucun test de combat
+ * ne tiendrait.
+ *
+ * @return Le chemin, ou `std::nullopt` si @p destination est hors d'atteinte, ne peut pas
+ *         accueillir l'emprise du combattant, ou si celui-ci n'est pas placÃ©.
+ */
+[[nodiscard]] std::optional&lt;Path&gt; findPath(const BattleGrid&amp; grid, const Mover&amp; mover,
+                                           GridPosition destination);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

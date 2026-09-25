@@ -1,5 +1,16 @@
 var NAVTREEINDEX31 =
 {
+"structcore_1_1ArenaBout.html#ae6d827d684f55d105b7e26eba08813f2":[3,0,0,9,5],
+"structcore_1_1ArenaCatalog.html":[2,0,1,7],
+"structcore_1_1ArenaCatalog.html":[3,0,0,7],
+"structcore_1_1ArenaCatalog.html#a2cb416a682e8f9829539342b0dc5b4cc":[2,0,1,7,0],
+"structcore_1_1ArenaCatalog.html#a2cb416a682e8f9829539342b0dc5b4cc":[3,0,0,7,0],
+"structcore_1_1ArenaCatalog.html#a3479c7add533bdeb1ecf5975b72a9dbd":[2,0,1,7,1],
+"structcore_1_1ArenaCatalog.html#a3479c7add533bdeb1ecf5975b72a9dbd":[3,0,0,7,1],
+"structcore_1_1ArenaCatalog.html#aa5a4289e2488f0c96540e80388c6d44a":[2,0,1,7,2],
+"structcore_1_1ArenaCatalog.html#aa5a4289e2488f0c96540e80388c6d44a":[3,0,0,7,2],
+"structcore_1_1ArenaContestant.html":[2,0,1,8],
+"structcore_1_1ArenaContestant.html":[3,0,0,8],
 "structcore_1_1ArenaContestant.html#a190e47f103f3dadbf460e7a18a3ad843":[2,0,1,8,1],
 "structcore_1_1ArenaContestant.html#a190e47f103f3dadbf460e7a18a3ad843":[3,0,0,8,1],
 "structcore_1_1ArenaContestant.html#a1ae64e52f560402dc6c25bc8cf2b0895":[2,0,1,8,4],
@@ -238,16 +249,5 @@ var NAVTREEINDEX31 =
 "structcore_1_1Background.html#ac0b5574dd15e0bea5207e22525d0bc19":[3,0,0,149,5],
 "structcore_1_1Background.html#adbf9c9d57947d44d354c5d2ffbadcb39":[2,0,1,149,2],
 "structcore_1_1Background.html#adbf9c9d57947d44d354c5d2ffbadcb39":[3,0,0,149,2],
-"structcore_1_1Background.html#ae39e074e1745158545d30c481c321303":[2,0,1,149,4],
-"structcore_1_1Background.html#ae39e074e1745158545d30c481c321303":[3,0,0,149,4],
-"structcore_1_1Background.html#af85984951f82a72793eff3e05c3e314c":[2,0,1,149,3],
-"structcore_1_1Background.html#af85984951f82a72793eff3e05c3e314c":[3,0,0,149,3],
-"structcore_1_1BattleGrid_1_1Placement.html":[2,0,1,22,0],
-"structcore_1_1BattleGrid_1_1Placement.html":[3,0,0,22,0],
-"structcore_1_1BattleGrid_1_1Placement.html#a0cc8960ddfdeb2bb29dea52217b4449f":[2,0,1,22,0,0],
-"structcore_1_1BattleGrid_1_1Placement.html#a0cc8960ddfdeb2bb29dea52217b4449f":[3,0,0,22,0,0],
-"structcore_1_1BattleGrid_1_1Placement.html#a79278bf1e30cb6ef4a4e6784c3233870":[2,0,1,22,0,1],
-"structcore_1_1BattleGrid_1_1Placement.html#a79278bf1e30cb6ef4a4e6784c3233870":[3,0,0,22,0,1],
-"structcore_1_1BattleGrid_1_1Zone.html":[2,0,1,22,1],
-"structcore_1_1BattleGrid_1_1Zone.html":[3,0,0,22,1]
+"structcore_1_1Background.html#ae39e074e1745158545d30c481c321303":[2,0,1,149,4]
 };

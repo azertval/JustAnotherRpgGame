@@ -1,5 +1,16 @@
 var NAVTREEINDEX44 =
 {
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2728c9b2b302a06ac085632bafdffde9":[3,0,1,82,0,5],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2f6eaf12360ad7248dbf2a719e23a7dd":[2,0,2,83,0,10],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2f6eaf12360ad7248dbf2a719e23a7dd":[3,0,1,82,0,10],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a43323150de0dcf05cebf772b375b4359":[2,0,2,83,0,2],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a43323150de0dcf05cebf772b375b4359":[3,0,1,82,0,2],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a53abcfcb62fe7315a33136734aef2891":[2,0,2,83,0,12],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a53abcfcb62fe7315a33136734aef2891":[3,0,1,82,0,12],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a65b08ca076a4706731769f9d19224f67":[2,0,2,83,0,7],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a65b08ca076a4706731769f9d19224f67":[3,0,1,82,0,7],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a97fb9a6c81bb85c3435cdef178f93fec":[2,0,2,83,0,0],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a97fb9a6c81bb85c3435cdef178f93fec":[3,0,1,82,0,0],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aa47763c4e43cc03499381552d2c7240f":[2,0,2,83,0,9],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aa47763c4e43cc03499381552d2c7240f":[3,0,1,82,0,9],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aaf6af167086a860ae413e638887ffe4a":[2,0,2,83,0,11],
@@ -238,16 +249,5 @@ var NAVTREEINDEX44 =
 "structhmi_1_1MapPropertiesChoice.html#af558a6626fb57698afda684380b3741a":[3,0,1,84,1],
 "structhmi_1_1MapRegionView.html":[2,0,2,208],
 "structhmi_1_1MapRegionView.html":[3,0,1,207],
-"structhmi_1_1MapRegionView.html#a100fef56ec6baba5b096607def9533e5":[2,0,2,208,4],
-"structhmi_1_1MapRegionView.html#a100fef56ec6baba5b096607def9533e5":[3,0,1,207,4],
-"structhmi_1_1MapRegionView.html#a117da473da6e1b32e443355bdc1b2d1e":[2,0,2,208,10],
-"structhmi_1_1MapRegionView.html#a117da473da6e1b32e443355bdc1b2d1e":[3,0,1,207,10],
-"structhmi_1_1MapRegionView.html#a1d55e8f7e4dd54bbd9e36b2d6c124702":[2,0,2,208,1],
-"structhmi_1_1MapRegionView.html#a1d55e8f7e4dd54bbd9e36b2d6c124702":[3,0,1,207,1],
-"structhmi_1_1MapRegionView.html#a6f5d6b1a1e94283593b4a4e75f02d7a2":[2,0,2,208,3],
-"structhmi_1_1MapRegionView.html#a6f5d6b1a1e94283593b4a4e75f02d7a2":[3,0,1,207,3],
-"structhmi_1_1MapRegionView.html#a75775e85f1692eb87d31f24763f60585":[2,0,2,208,0],
-"structhmi_1_1MapRegionView.html#a75775e85f1692eb87d31f24763f60585":[3,0,1,207,0],
-"structhmi_1_1MapRegionView.html#a873c9062ea716a00b223ac6b0a9928b1":[2,0,2,208,6],
-"structhmi_1_1MapRegionView.html#a873c9062ea716a00b223ac6b0a9928b1":[3,0,1,207,6]
+"structhmi_1_1MapRegionView.html#a100fef56ec6baba5b096607def9533e5":[2,0,2,208,4]
 };

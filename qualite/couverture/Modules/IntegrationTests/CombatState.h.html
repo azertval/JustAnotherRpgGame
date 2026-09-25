@@ -1,0 +1,636 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CombatState.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/CombatState.h
+ * @brief La machine Ã  Ã©tats du combat : rounds, tours, crochets et fins (`LOT-20`, `EX-CBT-010`,
+ *        `EX-CBT-011`, `EX-CBT-012`).
+ */
+
+#include &lt;cstdint&gt;
+#include &lt;deque&gt;
+#include &lt;functional&gt;
+#include &lt;optional&gt;
+#include &lt;span&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/ActionEconomy.h"
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatCounters.h"
+#include "Core/Combat/CombatTransition.h"
+#include "Core/Combat/Damage.h"
+#include "Core/Combat/Pathfinding.h"
+#include "Core/Combat/TurnOrder.h"
+#include "Core/Levels/GridPosition.h"
+#include "Core/Math/DeterministicRandom.h"
+#include "Core/Rpg/Check.h"
+#include "Core/Rpg/RpgEnums.h"
+
+namespace core {
+
+struct Bestiary;
+struct CharacterSheet;
+struct Creature;
+
+/**
+ * @brief L'Ã©tat **nommÃ©** du combat.
+ *
+ * Pas de drapeaux Ã©pars (`enCombat`, `tourFini`, `roundCommence`) dont une combinaison sur deux
+ * n'aurait pas de sens : un seul Ã©tat, et des transitions qui le changent.
+ *
+ * - `Setup` â la rencontre se monte : on enrÃ´le et on place, personne n'a encore d'initiative ;
+ * - `Starting` â les initiatives sont jetÃ©es, le premier round n'a pas commencÃ© : c'est la fenÃªtre
+ *   Â« avant le premier tour Â» (la rÃ©action du *Natural Strategist*) ;
+ * - `RoundStart` â un round commence, ou un repÃ¨re d'initiative fixe se joue ;
+ * - `TurnActive` â un combattant joue, et le tour attend **qu'on le termine** (`EX-CBT-012`) ;
+ * - `TurnEnd` â le tour vient de se terminer (les actions lÃ©gendaires se jouent ici) ;
+ * - `Ended` â une des trois fins est atteinte ; plus rien ne change.
+ */
+enum class CombatPhase : std::uint8_t {
+    Setup,
+    Starting,
+    RoundStart,
+    TurnActive,
+    TurnEnd,
+    Ended,
+};
+
+/**
+ * @brief Les **points d'insertion** du combat : oÃ¹ une capacitÃ© peut se greffer.
+ *
+ * Aucun n'a de consommateur dans le `LOT-20`, et tous en auront un : les livres de Tanares
+ * placent des capacitÃ©s Ã  chacun de ces instants (Â§4bis de la feuille de route). Les poser aprÃ¨s
+ * coup aurait coÃ»tÃ© une refonte de la machine ; les poser maintenant ne coÃ»te qu'une Ã©numÃ©ration.
+ *
+ * | Crochet | Ce qui s'y greffe |
+ * |---|---|
+ * | `BeforeFirstTurn` | une rÃ©action avant le premier tour (*Natural Strategist*) |
+ * | `RoundStart` | les effets Â« au dÃ©but de chaque round Â» |
+ * | `InitiativeCount` | un repÃ¨re fixe : actions de repaire (20), renforts (0) |
+ * | `TurnStart` | les effets Â« au dÃ©but de votre tour Â» |
+ * | `TurnEnd` | les actions lÃ©gendaires, dÃ©pensÃ©es en fin de tour d'autrui |
+ * | `AttackDeclared` | les postures du moine, qui rÃ©pondent Ã  une attaque **dÃ©clarÃ©e** |
+ * | `DamageTaken` | un seuil franchi (*Battle Fury* sous 50 %), des dÃ©gÃ¢ts subis Ã  0 PV |
+ * | `CombatantDowned` | un dÃ©clencheur Ã  la chute (explosion, apparition) ; l'agonie (`LOT-72`) |
+ * | `CombatantJoined`, `CombatantLeft` | un renfort, une fuite |
+ * | `CombatEnded` | l'expÃ©rience (`LOT-74`), le retour Ã  l'exploration (`LOT-18`) |
+ */
+enum class CombatHook : std::uint8_t {
+    BeforeFirstTurn,
+    RoundStart,
+    InitiativeCount,
+    TurnStart,
+    TurnEnd,
+    AttackDeclared,
+    DamageTaken,
+    CombatantDowned,
+    CombatantJoined,
+    CombatantLeft,
+    CombatEnded,
+};
+
+/// @brief Ce qu'un crochet annonce.
+struct CombatEvent {
+    CombatHook hook = CombatHook::RoundStart;
+    int round = 0;
+    /// Le combattant concernÃ© : celui dont c'est le tour, qui entre, qui sort, ou qui attaque.
+    std::optional&lt;CombatantId&gt; combatant;
+    /// La cible d'une attaque dÃ©clarÃ©e.
+    std::optional&lt;CombatantId&gt; target;
+    /// Le nom du repÃ¨re d'initiative fixe.
+    std::string marker;
+    /// `DamageTaken` et `CombatantDowned` : les points de vie perdus, avant, aprÃ¨s, le maximum.
+    int amount = 0;
+    int hitPointsBefore = 0;
+    int hitPointsAfter = 0;
+    int maximumHitPoints = 0;
+    /// Les dÃ©gÃ¢ts restants une fois la cible tombÃ©e Ã  0 â la mort instantanÃ©e du `LOT-72`.
+    int overflow = 0;
+    /// Vrai si les dÃ©gÃ¢ts viennent d'un coup critique : subis Ã  0 PV, ils comptent deux Ã©checs.
+    bool critical = false;
+};
+
+/**
+ * @brief Vrai si l'Ã©vÃ©nement fait passer les points de vie **sous** la fraction
+ *        @p numerator / @p denominator du maximum â Â« sous 50 % Â» s'Ã©crit `(e, 1, 2)`.
+ *
+ * Franchir, pas Ãªtre sous : une crÃ©ature dÃ©jÃ  sous la moitiÃ© qui reprend un coup ne dÃ©clenche pas
+ * une seconde fois sa *Battle Fury*.
+ */
+[[nodiscard]] constexpr bool crossedBelow(const CombatEvent&amp; event, int numerator,
+<span style = "background-color:#dfd">                                          int denominator) noexcept {
+    const long long seuil = static_cast&lt;long long&gt;(event.maximumHitPoints) * numerator;
+    return static_cast&lt;long long&gt;(event.hitPointsBefore) * denominator &gt;= seuil &amp;&amp;</span>
+           static_cast&lt;long long&gt;(event.hitPointsAfter) * denominator &lt; seuil;
+<span style = "background-color:#dfd">}</span>
+
+class CombatState;
+
+/**
+ * @brief Un abonnÃ© Ã  un crochet.
+ *
+ * Il reÃ§oit l'Ã©tat **mutable** : un crochet qui ne pourrait rien changer ne servirait Ã  rien. Il
+ * peut infliger des dÃ©gÃ¢ts, faire entrer ou sortir un combattant, octroyer une ressource, poser un
+ * repÃ¨re ou demander un tour flottant. Il ne peut pas **terminer un tour** â `endTurn` y est
+ * refusÃ© : la fin d'un tour est une dÃ©cision de celui qui joue (`EX-CBT-012`), et un tour terminÃ©
+ * depuis le dÃ©but de ce mÃªme tour rendrait l'ordre des abonnÃ©s significatif.
+ */
+using CombatListener = std::function&lt;void(CombatState&amp;, const CombatEvent&amp;)&gt;;
+
+/// @brief OÃ¹ en est un combattant.
+enum class CombatantStatus : std::uint8_t {
+    /// En Ã©tat de combattre.
+    Standing,
+    /// Ã 0 point de vie : il garde sa place dans l'ordre, et ses tours sont passÃ©s tant qu'il n'est
+    /// pas relevÃ©. L'agonie et les jets contre la mort sont au `LOT-72`.
+    Down,
+    /// Sorti du combat : il a quittÃ© la grille et l'ordre.
+    Withdrawn,
+};
+
+/**
+ * @brief Ce que le combat doit savoir d'un combattant â ni fiche, ni bloc de statistiques.
+ *
+ * Le combat ne dÃ©pend ni de `core::CharacterSheet` ni de `core::Creature` : un personnage, un
+ * compagnon et un gobelin s'y prÃ©sentent sous la mÃªme forme, et `profileFor` la construit depuis
+ * l'un ou l'autre. C'est ce qui garde la machine Ã  Ã©tats indiffÃ©rente Ã  Â« qui est le joueur Â».
+ */
+struct CombatantProfile {
+    std::string name;
+    CombatSide side = CombatSide::Allies;
+    int maximumHitPoints = 0;
+    int currentHitPoints = 0;
+    /// Valeur de DextÃ©ritÃ©, second critÃ¨re de dÃ©partage de l'initiative.
+<span style = "background-color:#dfd">    int dexterity = 10;</span>
+    /// Modificateur du test d'initiative â la DextÃ©ritÃ©, et ce qui s'y ajoute.
+<span style = "background-color:#dfd">    int initiativeModifier = 0;
+    RollStance initiativeStance = RollStance::Normal;</span>
+    /// Budget de dÃ©placement, en cases (`core::movementBudget`).
+    int movement = 0;
+<span style = "background-color:#dfd">    Locomotion locomotion = Locomotion::Walk;
+    CreatureSize size = CreatureSize::Medium;</span>
+    /**
+     * @brief Vrai pour un acteur **flottant** (*Law of Time*) : il n'a pas de place dans l'ordre,
+     *        et joue une fois par round **avant n'importe quel tour** de son choix
+     *        (`CombatState::interject`) â ou Ã  la fin du round, s'il n'a pas choisi.
+     */
+<span style = "background-color:#dfd">    bool floating = false;</span>
+    /**
+     * @brief La classe d'armure contre laquelle on l'attaque (`EX-CBT-030`).
+     *
+     * **RecalculÃ©e depuis ses sources** au moment oÃ¹ le profil se construit â l'Ã©quipement portÃ©
+     * (`core::derivedStatsFor`), le bloc de bestiaire â, jamais tenue Ã  jour Ã  la main : un
+     * Ã©quipement ne change pas au milieu d'un combat, et ce qui la change en combat (un abri, une
+     * posture) s'ajoute au jet par un crochet, sans toucher Ã  ce nombre.
+     */
+<span style = "background-color:#dfd">    int armorClass = 10;</span>
+    /// RÃ©sistances, vulnÃ©rabilitÃ©s et immunitÃ©s (`EX-CBT-032`).
+    DamageTraits damageTraits;
+};
+
+/// @brief Le profil d'un personnage : ses points de vie courants, sa DextÃ©ritÃ©, sa vitesse.
+/// La fiche ne porte pas de taille : un personnage est de taille M jusqu'Ã  ce qu'elle en porte une.
+[[nodiscard]] CombatantProfile profileFor(const CharacterSheet&amp; sheet,
+                                          CombatSide side = CombatSide::Allies);
+
+/**
+ * @brief Le profil d'une crÃ©ature du bestiaire.
+ *
+ * Elle se dÃ©place **en vol** si sa vitesse de vol dÃ©passe sa vitesse de marche â une chauve-souris
+ * (1,5 m au sol, 9 m en vol) vole, un griffon qui marche aussi vite qu'il vole marche. Choisir
+ * autrement, crÃ©ature par crÃ©ature, est l'affaire du comportement (`LOT-23`).
+ */
+[[nodiscard]] CombatantProfile profileFor(const Creature&amp; creature,
+                                          CombatSide side = CombatSide::Enemies);
+
+/// @brief Un combattant engagÃ© : son profil, son Ã©tat, son Ã©conomie et son jet d'initiative.
+struct Combatant {
+    CombatantId id{};
+    CombatantProfile profile;
+    CombatantStatus status = CombatantStatus::Standing;
+    ActionEconomy economy;
+    /// Le jet d'initiative, restituable (`EX-REG-003`). Vide pour un acteur flottant et pour un
+    /// combattant entrÃ© Ã  une initiative imposÃ©e.
+    std::optional&lt;CheckResult&gt; initiativeRoll;
+    /// Pour un acteur flottant : a-t-il dÃ©jÃ  jouÃ© ce round-ci ?
+    bool actedThisRound = false;
+    /// Ce qui absorbe les dÃ©gÃ¢ts avant les points de vie, dans l'ordre oÃ¹ on les a reÃ§us.
+    std::vector&lt;HitPointReserve&gt; reserves;
+};
+
+/// @brief Ce qu'un enrÃ´lement a donnÃ© : l'identifiant, ou la raison du refus.
+struct EnlistResult {
+    std::optional&lt;CombatantId&gt; combatant;
+    /// `Placed` si le combattant a Ã©tÃ© enrÃ´lÃ© â y compris sans case, avant le combat.
+    PlacementResult placement = PlacementResult::Placed;
+};
+
+/// @brief Pourquoi une sortie a Ã©tÃ© refusÃ©e â ou qu'elle a eu lieu.
+enum class WithdrawResult : std::uint8_t {
+    Withdrawn,
+    /// Un alliÃ© ne fuit pas une rencontre dont on ne fuit pas (`core::Encounter::escapable`).
+    NotEscapable,
+    /// Inconnu, dÃ©jÃ  sorti, ou combat non commencÃ© ou terminÃ©.
+    NotInCombat,
+};
+
+/// @brief Ce qu'un dÃ©placement a donnÃ©.
+enum class MoveResult : std::uint8_t {
+    Moved,
+    /// Aucun tour n'est en cours.
+    NoActiveTurn,
+    /// Le combattant actif n'est pas sur la grille.
+    NotPlaced,
+    /// La destination n'est pas une fin de dÃ©placement permise dans ce qui reste du budget.
+    Unreachable,
+};
+
+/// @brief Un dÃ©placement : son issue, et le chemin suivi.
+struct MoveOutcome {
+    MoveResult result = MoveResult::NoActiveTurn;
+    Path path;
+};
+
+/// @brief Une variation de points de vie, pour en appliquer plusieurs d'un seul coup.
+struct HitPointChange {
+    CombatantId target{};
+    int amount = 0;
+    /// Vrai si la perte vient d'un coup critique â recopiÃ© dans l'Ã©vÃ©nement.
+<span style = "background-color:#dfd">    bool critical = false;</span>
+};
+
+/**
+ * @brief Un combat, du montage de la rencontre Ã  sa fin.
+ *
+ * ## Le cycle
+ *
+ * `start` jette l'initiative de chacun â **une fois** : l'ordre ne bouge plus (`EX-CBT-010`) â,
+ * ouvre la fenÃªtre d'avant le premier tour, puis le premier round. Chaque round parcourt les places
+ * de l'ordre ; un repÃ¨re d'initiative fixe y annonce son crochet, un combattant Ã  terre y est
+ * passÃ©, un combattant debout y ouvre son tour, et le combat **attend** : rien n'avance tant que
+ * `endTurn` n'a pas Ã©tÃ© appelÃ© (`EX-CBT-012`). Ãpuiser ses ressources ne termine pas le tour â ne
+ * rien faire est une dÃ©cision.
+ *
+ * ## Les trois fins
+ *
+ * ÃvaluÃ©es aprÃ¨s **chaque** changement, et non Ã  la fin d'un tour : un combat gagnÃ© par une
+ * attaque d'opportunitÃ© pendant le tour d'un ennemi est gagnÃ© tout de suite.
+ *
+ * - **victoire** â plus aucun ennemi n'est debout : tous Ã  terre, ou partis ;
+ * - **dÃ©faite** â plus aucun alliÃ© n'est debout, et aucun n'est parti : tous Ã  terre ;
+ * - **fuite** â plus aucun alliÃ© n'est debout, et au moins un est **parti**. Ceux qui restent Ã 
+ *   terre derriÃ¨re lui sont l'affaire de l'agonie (`LOT-72`), pas de l'issue.
+ *
+ * Si un mÃªme changement abat les deux camps Ã  la fois, la dÃ©faite l'emporte : on ne gagne pas un
+ * combat oÃ¹ plus personne ne se tient debout de son cÃ´tÃ©.
+ *
+ * ## Les changements en cascade
+ *
+ * Un abonnÃ© peut changer l'Ã©tat pendant qu'on l'avertit : infliger des dÃ©gÃ¢ts qui abattent le
+ * combattant dont le tour commence, faire entrer un renfort. Ces consÃ©quences ne sont **jamais**
+ * tirÃ©es au milieu d'une annonce : la machine les rÃ¨gle quand l'appel extÃ©rieur se termine, une par
+ * une et dans un ordre fixe â la fin du combat d'abord, puis le tour d'un combattant qui ne peut
+ * plus le jouer, puis la place suivante. Deux abonnÃ©s de mÃªme crochet sont avertis dans l'ordre de
+ * leur abonnement.
+ *
+ * ## Sans hÃ©ros unique
+ *
+ * Rien ici ne suppose un personnage seul : les alliÃ©s sont un camp, en nombre quelconque, et un
+ * test en monte quatre (`LOT-29`).
+ *
+ * L'Ã©tat n'est ni copiable ni dÃ©plaÃ§able : les `core::Mover` qu'il construit et les abonnÃ©s qui le
+ * reÃ§oivent le dÃ©signent par son adresse.
+ */
+class CombatState {
+public:
+    /// @param grid La grille de la rencontre (`LOT-19`), que le combat possÃ¨de dÃ©sormais.
+    explicit CombatState(BattleGrid grid);
+
+    CombatState(const CombatState&amp;) = delete;
+    CombatState&amp; operator=(const CombatState&amp;) = delete;
+    CombatState(CombatState&amp;&amp;) = delete;
+    CombatState&amp; operator=(CombatState&amp;&amp;) = delete;
+<span style = "background-color:#dfd">    ~CombatState() = default;</span>
+
+    // --- Montage -------------------------------------------------------------------------------
+
+    /**
+     * @brief EnrÃ´le un combattant avant le dÃ©but du combat, et le place si @p anchor est donnÃ©.
+     *
+     * Les identifiants sont attribuÃ©s **dans l'ordre des enrÃ´lements**, Ã  partir de 1 : c'est
+     * l'ordre de la donnÃ©e, et le dernier critÃ¨re de dÃ©partage de l'initiative. Un placement
+     * refusÃ© n'enrÃ´le personne et ne consomme aucun identifiant.
+     */
+    EnlistResult enlist(CombatantProfile profile,
+                        std::optional&lt;GridPosition&gt; anchor = std::nullopt);
+
+    /// @brief Pose un repÃ¨re d'initiative fixe (actions de repaire Ã  20, renforts Ã  0).
+    bool addInitiativeMarker(InitiativeMarker marker);
+
+    /// @brief Permet ou interdit la fuite des alliÃ©s â recopiÃ© de la rencontre.
+<span style = "background-color:#dfd">    void setEscapable(bool escapable) noexcept {
+        _escapable = escapable;
+    }</span>
+
+    /// @brief Abonne @p listener Ã  @p hook.
+    void subscribe(CombatHook hook, CombatListener listener);
+
+    /**
+     * @brief Jette l'initiative de chacun et ouvre le premier tour.
+     *
+     * Les jets se font par identifiant croissant : Ã  graine Ã©gale, les mÃªmes dÃ©s tombent sur les
+     * mÃªmes combattants, et le rejeu est exact.
+     *
+     * @return Faux si le combat n'est plus en montage, ou si l'appel vient d'un abonnÃ©.
+     */
+    bool start(DeterministicRandom&amp; random);
+
+    // --- Lecture -------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">    [[nodiscard]] CombatPhase phase() const noexcept {
+        return _phase;
+    }</span>
+    /// @brief Le round en cours, Ã  partir de 1 ; 0 avant le premier.
+<span style = "background-color:#dfd">    [[nodiscard]] int round() const noexcept {
+        return _round;
+    }</span>
+    /// @brief Le combattant dont c'est le tour.
+<span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;CombatantId&gt; activeCombatant() const noexcept {
+        return _active;
+    }
+    [[nodiscard]] const TurnOrder&amp; turnOrder() const noexcept {
+        return _order;
+    }</span>
+    /// @brief L'issue, une fois le combat terminÃ©.
+<span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;CombatOutcome&gt; outcome() const noexcept {
+        return _outcome;
+    }
+    [[nodiscard]] bool escapable() const noexcept {
+        return _escapable;
+    }</span>
+    [[nodiscard]] const Combatant* find(CombatantId combatant) const;
+    /// @brief Tous les combattants enrÃ´lÃ©s, sortis compris, par identifiant croissant.
+    [[nodiscard]] std::vector&lt;CombatantId&gt; combatants() const;
+
+<span style = "background-color:#dfd">    [[nodiscard]] const BattleGrid&amp; grid() const noexcept {
+        return _grid;
+    }</span>
+    /// @brief La grille, pour ce qui la change en combat : terrain difficile crÃ©Ã©, objet dÃ©truit.
+<span style = "background-color:#dfd">    [[nodiscard]] BattleGrid&amp; grid() noexcept {
+        return _grid;
+    }</span>
+
+    /**
+     * @brief Les compteurs Ã  portÃ©e du combat.
+     *
+     * La machine vide la portÃ©e `Turn` Ã  chaque fin de tour, `Round` Ã  chaque dÃ©but de round, et
+     * `Turn`, `Round` et `Encounter` Ã  la fin du combat. Elle ne touche jamais `Day`.
+     */
+    [[nodiscard]] ScopedCounters&amp; counters() noexcept {
+        return _counters;
+    }
+
+    // --- Le tour -------------------------------------------------------------------------------
+
+    /**
+     * @brief L'Ã©conomie d'action d'un combattant â pour dÃ©penser une rÃ©action hors de son tour, ou
+     *        octroyer une ressource. `nullptr` s'il est inconnu.
+     */
+    [[nodiscard]] ActionEconomy* economy(CombatantId combatant);
+
+    /// @brief DÃ©pense une ressource du combattant actif. Faux s'il n'y a pas de tour, ou pas assez.
+    bool spend(std::string_view resource, int amount = 1);
+
+    /**
+     * @brief OÃ¹ le combattant actif peut aller, avec **ce qui reste** de son dÃ©placement.
+     * @return Vide s'il n'y a pas de tour ou si le combattant n'est pas placÃ©.
+     */
+    [[nodiscard]] std::optional&lt;ReachableArea&gt; reachableArea() const;
+
+    /**
+     * @brief DÃ©place le combattant actif jusqu'Ã  @p destination, et paie le chemin.
+     *
+     * Le chemin est celui de `core::ReachableArea::pathTo`, calculÃ© sur ce qui reste du budget :
+     * le dÃ©placement se fractionne, et chaque fraction se paie (`core::ActionEconomy`).
+     */
+    MoveOutcome move(GridPosition destination);
+
+    /**
+     * @brief Termine **explicitement** le tour en cours (`EX-CBT-012`).
+     * @return Faux s'il n'y a pas de tour en cours, ou si l'appel vient d'un abonnÃ©.
+     */
+    bool endTurn();
+
+    /**
+     * @brief Demande qu'un acteur flottant joue **avant le prochain tour**.
+     *
+     * AppelÃ© pendant un tour, l'acteur joue dÃ¨s que ce tour se termine ; appelÃ© depuis un crochet
+     * de dÃ©but de round ou de repÃ¨re, il joue avant la place suivante. Une fois par round.
+     *
+     * @return Faux si le combattant n'est pas un acteur flottant debout, ou s'il a dÃ©jÃ  jouÃ© ce
+     *         round-ci.
+     */
+    bool interject(CombatantId floatingActor);
+
+    /**
+     * @brief Annonce qu'une attaque est **dÃ©clarÃ©e**, avant tout jet
+     * (`CombatHook::AttackDeclared`).
+     *
+     * Le jet et les dÃ©gÃ¢ts sont dans `core::resolveAttack` (`LOT-21`) ; ce crochet est la fenÃªtre
+     * oÃ¹ une posture rÃ©pond Ã  l'intention, avant que le dÃ© ne tombe.
+     *
+     * @return Faux si l'un des deux n'est pas debout, ou si le combat n'est pas en cours.
+     */
+    bool declareAttack(CombatantId attacker, CombatantId target);
+
+    // --- EntrÃ©es, sorties, points de vie -------------------------------------------------------
+
+    /**
+     * @brief Fait entrer un combattant **en cours** de combat : un renfort.
+     *
+     * Il jette son initiative et prend sa place : rangÃ©e aprÃ¨s la place en cours, il joue ce
+     * round-ci ; avant, au round suivant â ce que dit le Manuel, sans cas particulier.
+     */
+    EnlistResult join(CombatantProfile profile, GridPosition anchor, DeterministicRandom&amp; random);
+
+    /// @brief Fait entrer un combattant Ã  une initiative **imposÃ©e** â un renfort Â« au rang 0 Â».
+    EnlistResult joinAtInitiative(CombatantProfile profile, GridPosition anchor, int initiative);
+
+    /**
+     * @brief Fait sortir un combattant : il quitte la grille et l'ordre, et ne revient pas.
+     *
+     * S'il Ã©tait en train de jouer, son tour se termine â le crochet de fin de tour est annoncÃ©,
+     * parce que les actions lÃ©gendaires ne distinguent pas un tour fini d'un tour interrompu.
+     */
+    WithdrawResult withdraw(CombatantId combatant);
+
+    /**
+     * @brief Retire @p amount points de vie, sans descendre sous 0 ; Ã  0, le combattant est Ã 
+     * terre.
+     *
+     * C'est la **derniÃ¨re** Ã©tape du pipeline de dÃ©gÃ¢ts (`core::DamagePipeline`, `LOT-21`) : les
+     * types, les rÃ©sistances et les rÃ©serves sont dÃ©jÃ  passÃ©s. Annonce `CombatHook::DamageTaken`,
+     * puis `CombatHook::CombatantDowned` si le combattant vient de tomber. Sans effet sur un
+     * combattant sorti, ou pour un montant non positif.
+     */
+    void applyDamage(CombatantId combatant, int amount);
+
+    /**
+     * @brief Applique plusieurs dÃ©gÃ¢ts **d'un seul coup** : l'issue n'est Ã©valuÃ©e qu'une fois.
+     *
+     * Une boule de feu qui abat le dernier alliÃ© et le dernier ennemi est une dÃ©faite (voir la
+     * classe), et non une victoire ou une dÃ©faite selon l'ordre dans lequel on a rangÃ© les cibles.
+     */
+    void applyDamage(std::span&lt;const HitPointChange&gt; changes);
+
+    /// @brief Rend @p amount points de vie, sans dÃ©passer le maximum ; relÃ¨ve un combattant Ã 
+    /// terre. Les rÃ©serves ne se soignent pas.
+    void heal(CombatantId combatant, int amount);
+
+    /**
+     * @brief Donne une rÃ©serve de points de vie.
+     *
+     * Une rÃ©serve qui ne se cumule pas remplace celle de mÃªme source si elle est plus grande, et
+     * est ignorÃ©e sinon ; une rÃ©serve qui se cumule s'ajoute Ã  la pile. Ne relÃ¨ve personne.
+     * @return Faux si le combattant est inconnu ou sorti, ou si la rÃ©serve est ignorÃ©e.
+     */
+    bool grantReserve(CombatantId combatant, HitPointReserve reserve);
+
+    /// @brief Les rÃ©serves d'un combattant, pour que le pipeline les consomme. `nullptr` s'il est
+    /// inconnu.
+    [[nodiscard]] std::vector&lt;HitPointReserve&gt;* reserves(CombatantId combatant);
+
+    /**
+     * @brief Le `core::Mover` d'un combattant, droit de passage compris.
+     *
+     * Manuel des Joueurs, Â« Se dÃ©placer au milieu d'autres crÃ©atures Â» (PDF p. 193) : on traverse
+     * la case d'une crÃ©ature **non hostile** â ici, d'un alliÃ© â, et celle d'une crÃ©ature hostile
+     * seulement si elle a **deux catÃ©gories de taille** de plus ou de moins. Il dÃ©signe l'Ã©tat par
+     * son adresse, et ne vit pas plus longtemps que lui.
+     */
+    [[nodiscard]] Mover moverFor(CombatantId combatant) const;
+
+private:
+    /// Tient la profondeur d'appel : les consÃ©quences ne se rÃ¨glent qu'en sortant de l'appel
+    /// extÃ©rieur.
+    class Operation;
+
+    [[nodiscard]] Combatant* findMutable(CombatantId combatant);
+<span style = "background-color:#dfd">    [[nodiscard]] bool reentrant() const noexcept {
+        return _depth &gt; 0;
+    }
+    [[nodiscard]] bool running() const noexcept {
+        return _phase != CombatPhase::Setup &amp;&amp; _phase != CombatPhase::Ended;
+    }</span>
+
+    EnlistResult admit(CombatantProfile profile, std::optional&lt;GridPosition&gt; anchor);
+    void rollInitiative(Combatant&amp; combatant, DeterministicRandom&amp; random);
+    void takeFixedInitiative(Combatant&amp; combatant, int initiative);
+    void damage(const HitPointChange&amp; change);
+    void dispatch(const CombatEvent&amp; event);
+
+    void settle();
+    [[nodiscard]] bool reachEndIfDecided();
+    /// Ouvre le tour du premier acteur intercalÃ© encore debout ; faux s'il n'y en a pas.
+    [[nodiscard]] bool startInterjection();
+    void step();
+    void startTurn(CombatantId combatant);
+    void finishTurn();
+    [[nodiscard]] bool canPassThrough(CombatantId mover, CombatantId other) const;
+
+    BattleGrid _grid;
+    /// Par identifiant croissant : l'identifiant vaut sa position plus un.
+    std::vector&lt;Combatant&gt; _combatants;
+    TurnOrder _order;
+    std::vector&lt;std::pair&lt;CombatHook, CombatListener&gt;&gt; _listeners;
+    ScopedCounters _counters;
+
+<span style = "background-color:#dfd">    CombatPhase _phase = CombatPhase::Setup;
+    int _round = 0;</span>
+    std::optional&lt;CombatantId&gt; _active;
+    std::optional&lt;CombatOutcome&gt; _outcome;
+<span style = "background-color:#dfd">    bool _escapable = true;</span>
+
+    /// La derniÃ¨re place parcourue dans le round.
+    std::optional&lt;TurnSlot&gt; _cursor;
+    /// Les tours d'acteurs flottants Ã  jouer avant la place suivante.
+    std::deque&lt;CombatantId&gt; _interjections;
+    /// Vrai quand le round a dÃ©jÃ  proposÃ© leur tour aux acteurs flottants qui n'avaient pas jouÃ©.
+<span style = "background-color:#dfd">    bool _closingRound = false;
+    bool _turnThisRound = false;</span>
+    /// Vrai quand la machine doit chercher la place suivante.
+<span style = "background-color:#dfd">    bool _advancePending = false;
+    int _depth = 0;</span>
+};
+
+/// @brief Un membre du groupe Ã  engager, et sa case.
+struct PartyMember {
+    CombatantProfile profile;
+    GridPosition position;
+};
+
+/// @brief Un combattant que le montage n'a pas pu poser, et pourquoi.
+struct MountRefusal {
+    /// L'identifiant de crÃ©ature, ou le nom du membre du groupe.
+    std::string who;
+    GridPosition position;
+    /// La raison du refus de la grille ; vide si la crÃ©ature est **inconnue** du bestiaire.
+    std::optional&lt;PlacementResult&gt; placement;
+};
+
+/// @brief Ce que le montage a donnÃ©.
+struct EncounterMount {
+    std::vector&lt;CombatantId&gt; allies;
+    std::vector&lt;CombatantId&gt; enemies;
+    std::vector&lt;MountRefusal&gt; refusals;
+};
+
+/**
+ * @brief Monte la rencontre @p run sur @p combat : le groupe, puis les crÃ©atures, dans cet ordre.
+ *
+ * Les placements viennent de `core::beginEncounter` (`LOT-18`), qui ne les a pas vÃ©rifiÃ©s : c'est
+ * ici qu'une case voulue tombe dans un mur, et le montage **le dit** plutÃ´t que de dÃ©placer la
+ * crÃ©ature d'office â une formation mal Ã©crite est une information pour l'auteur. Un combattant
+ * refusÃ© n'est pas enrÃ´lÃ© : un combattant sans case ne peut pas combattre sur la grille.
+ *
+ * @param combat   Un combat encore en montage.
+ * @param run      La rencontre engagÃ©e : ses placements, et si l'on peut la fuir.
+ * @param bestiary Le bestiaire oÃ¹ chercher chaque crÃ©ature de la rencontre.
+ * @param party    Le groupe Ã  engager, chaque membre avec sa case.
+ * @return Les alliÃ©s et ennemis enrÃ´lÃ©s, et chaque refus avec sa raison.
+ */
+[[nodiscard]] EncounterMount mountEncounter(CombatState&amp; combat, const EncounterRun&amp; run,
+                                            const Bestiary&amp; bestiary,
+                                            std::span&lt;const PartyMember&gt; party);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

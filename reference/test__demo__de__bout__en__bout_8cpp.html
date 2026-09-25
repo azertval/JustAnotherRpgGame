@@ -1,0 +1,306 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Systeme/test_demo_de_bout_en_bout.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__demo__de__bout__en__bout_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_demo_de_bout_en_bout.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests système : la démo jouée de bout en bout <b>par les modèles du jeu</b>, sans fenêtre, depuis « Nouvelle partie » jusqu'à chacune de ses trois fins (<span class="tt">LOT-120</span>, <span class="tt">LOT-146</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;QCoreApplication&gt;</code><br />
+<code>#include &lt;QElapsedTimer&gt;</code><br />
+<code>#include &lt;QEventLoop&gt;</code><br />
+<code>#include &lt;QObject&gt;</code><br />
+<code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;QThread&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DeterministicRandom_8h_source.html">Core/Math/DeterministicRandom.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterOptions_8h_source.html">Core/Rpg/CharacterOptions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Check_8h_source.html">Core/Rpg/Check.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Dialogue_8h_source.html">Core/Rpg/Dialogue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Skill_8h_source.html">Core/Rpg/Skill.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ExplorationSession_8h_source.html">Core/World/ExplorationSession.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DialogueModel_8h_source.html">HMI/Runtime/DialogueModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EncounterModel_8h_source.html">HMI/Runtime/EncounterModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScreenRouter_8h_source.html">HMI/Runtime/ScreenRouter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldModel_8h_source.html">HMI/Runtime/WorldModel.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6ffca2c5b86d11a2a18706311c718147" id="r_a6ffca2c5b86d11a2a18706311c718147"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ffca2c5b86d11a2a18706311c718147">TEST</a> (DemoDeBoutEnBout, LaFinParLaParole)</td></tr>
+<tr class="memdesc:a6ffca2c5b86d11a2a18706311c718147"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fin par la parole : la Persuasion réussit, à la graine qui la fait réussir.  <br /></td></tr>
+<tr class="memitem:a45229aa02adccbec8c42b33fccff5215" id="r_a45229aa02adccbec8c42b33fccff5215"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a45229aa02adccbec8c42b33fccff5215">TEST</a> (DemoDeBoutEnBout, LaFinParLArene)</td></tr>
+<tr class="memdesc:a45229aa02adccbec8c42b33fccff5215"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fin par l'arène : la Persuasion échoue, le joueur endosse le crime, gagne sur le sable.  <br /></td></tr>
+<tr class="memitem:a206e558a66c3ae38ef84fb7382279044" id="r_a206e558a66c3ae38ef84fb7382279044"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a206e558a66c3ae38ef84fb7382279044">TEST</a> (DemoDeBoutEnBout, LaMortSurLeSable)</td></tr>
+<tr class="memdesc:a206e558a66c3ae38ef84fb7382279044"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mort sur le sable : la défaite ouvre l'écran de mort, et « Recommencer » rouvre une partie neuve à Market Gate.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests système : la démo jouée de bout en bout <b>par les modèles du jeu</b>, sans fenêtre, depuis « Nouvelle partie » jusqu'à chacune de ses trois fins (<span class="tt">LOT-120</span>, <span class="tt">LOT-146</span>). </p>
+<p>Ce qui est rejoué ici est ce que les écrans QML font : <span class="tt">GameView</span> ouvre le dialogue qu'un PNJ demande et gèle la carte, <span class="tt">Dialogue</span> engage la rencontre ou ouvre l'écran de fin, <span class="tt">CombatHud</span> ouvre l'écran de mort à la défaite, <span class="tt">Death</span> et <span class="tt">DemoEnd</span> finissent la partie. Les modèles sont ceux du jeu, le contenu est celui qui est livré, le hasard est <b>fixé</b> : la graine du dialogue force l'issue du jet de Persuasion, celle du combat force son issue. Un test par fin : la parole, l'arène gagnée, la mort sur le sable. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a6ffca2c5b86d11a2a18706311c718147" name="a6ffca2c5b86d11a2a18706311c718147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ffca2c5b86d11a2a18706311c718147">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DemoDeBoutEnBout</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaFinParLaParole</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fin par la parole : la Persuasion réussit, à la graine qui la fait réussir. </p>
+<p><b>Cas de test :</b> <b>Nouvelle partie, puis la demo jusqu'a sa fin par la parole.</b><br  />
+ <b>Categorie :</b> Systeme · Demo<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Nouvelle partie : Market Gate.<br  />
+2. La mere, accepter.<br  />
+3. Stravian Avenue, le parvis ; le garde, convaincre, a une graine dont le d20 reussit le DD.<br  />
+4. Retour a l'etal par les portails ; la mere.<br  />
+ <b>Resultat attendu :</b> <span class="tt">enfant-libere</span> ; l'ecran « Fin de la demo » s'ouvre par la voie <span class="tt">parole</span> ; la partie est finie. </p>
+
+</div>
+</div>
+<a id="a45229aa02adccbec8c42b33fccff5215" name="a45229aa02adccbec8c42b33fccff5215"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45229aa02adccbec8c42b33fccff5215">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DemoDeBoutEnBout</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaFinParLArene</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fin par l'arène : la Persuasion échoue, le joueur endosse le crime, gagne sur le sable. </p>
+<p><b>Cas de test :</b> <b>Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.</b><br  />
+ <b>Categorie :</b> Systeme · Demo<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Jusqu'au parvis ; le garde a une graine dont le d20 echoue : convaincre, puis endosser.<br  />
+2. L'escalier de l'arene : le vestiaire, la porte close ; la porte du triomphe : le sable.<br  />
+3. Le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la gagne.<br  />
+4. Redescendre, passer la porte ouverte, revenir a l'etal.<br  />
+ <b>Resultat attendu :</b> <span class="tt">persuasion-echouee</span> puis <span class="tt">condamne</span> ; la victoire pose <span class="tt">enfant-libere</span> ; l'ecran de fin s'ouvre par la voie <span class="tt">arene</span>. </p>
+
+</div>
+</div>
+<a id="a206e558a66c3ae38ef84fb7382279044" name="a206e558a66c3ae38ef84fb7382279044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a206e558a66c3ae38ef84fb7382279044">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DemoDeBoutEnBout</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaMortSurLeSable</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La mort sur le sable : la défaite ouvre l'écran de mort, et « Recommencer » rouvre une partie neuve à Market Gate. </p>
+<p><b>Cas de test :</b> <b>Nouvelle partie, puis la demo jusqu'a la mort sur le sable.</b><br  />
+ <b>Categorie :</b> Systeme · Demo<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Jusqu'au sable, condamne.<br  />
+2. Le combat a la premiere graine qui le perd.<br  />
+</p><ol type="1">
+<li>Recommencer.<br  />
+ <b>Resultat attendu :</b> L'ecran de mort s'ouvre ; ni le fait de la victoire ni <span class="tt">enfant-libere</span> ; la partie neuve repart a Market Gate, la quete inconnue. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_8b21ae7fc27895318f89a3a31abe4fde.html">Systeme</a></li><li class="navelem"><a href="test__demo__de__bout__en__bout_8cpp.html">test_demo_de_bout_en_bout.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

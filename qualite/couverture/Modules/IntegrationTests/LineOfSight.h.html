@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LineOfSight.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/LineOfSight.h
+ * @brief Ligne de vue et abri sur la grille tactique (`LOT-22`, `EX-CBT-021`).
+ *
+ * ## Ce que dit le Manuel, et ce qu'il laisse Ã  trancher
+ *
+ * Chapitre 9, Â« Abri Â» : les murs, les arbres, les crÃ©atures et autres obstacles abritent ; un abri
+ * partiel donne +2 Ã  la CA et aux sauvegardes de DextÃ©ritÃ©, un abri important +5, un abri total
+ * interdit d'Ãªtre ciblÃ© directement ; **les abris ne s'additionnent pas**, seul le meilleur compte.
+ * Chapitre 10, Â« Un chemin dÃ©gagÃ© jusqu'Ã  la cible Â» : pour viser une chose, il ne faut pas qu'elle
+ * soit derriÃ¨re un abri total.
+ *
+ * Le Manuel ne dit pas **comment** mesurer ces fractions de corps sur un quadrillage. Ce fichier
+ * prend la mÃ©thode du *Guide du MaÃ®tre*, la seule que les tables connaissent : choisir un coin de
+ * l'emprise de l'attaquant, tracer des lignes vers les quatre coins d'une case de la cible, et
+ * compter celles qu'un obstacle coupe â une ou deux : abri partiel ; trois : abri important ;
+ * quatre depuis chaque coin : abri total. L'attaquant prend le coin et la case qui l'arrangent.
+ *
+ * ## La symÃ©trie, par construction
+ *
+ * Un tracÃ© qui part de A, avance case par case et s'arrÃªte au premier obstacle ne donne pas le mÃªme
+ * rÃ©sultat depuis B : c'est le dÃ©faut classique, et le joueur le dÃ©couvre en tirant sur un ennemi
+ * qui ne peut pas riposter. Ici, rien n'avance : la question est Â« ce **segment** coupe-t-il cette
+ * case ? Â», posÃ©e en arithmÃ©tique entiÃ¨re exacte sur des points Ã  coordonnÃ©es en demi-cases. Un
+ * segment n'a pas de sens de parcours, et l'ensemble des segments examinÃ©s â tous les points de
+ * grille d'une emprise vers tous ceux de l'autre â est le mÃªme dans les deux sens. A voit B si et
+ * seulement si B voit A ; les tests le vÃ©rifient sur des grilles gÃ©nÃ©rÃ©es.
+ *
+ * ## Ce qui coupe un segment
+ *
+ * - **La vue** (`BattleGrid::blocksSight` : matiÃ¨re pleine, objet Ã  abri total) coupe un segment
+ * qui
+ *   **touche** la case, bord et coin compris, extrÃ©mitÃ©s exceptÃ©es. Un segment qui rase la face
+ * d'un mur ne voit donc pas au travers, et deux murs en diagonale ne laissent pas passer le regard
+ * par leur coin commun â la mÃªme rÃ¨gle que le dÃ©placement (Â« Coins Â», chapitre 9).
+ * - **Un corps** â une crÃ©ature interposÃ©e, un objet Ã  abri partiel ou important â coupe un segment
+ *   qui **traverse** sa case : il abrite, il n'aveugle pas.
+ *
+ * L'altitude n'y entre pas (`core::Locomotion`) : un volant se voit et se vise sur la mÃªme grille.
+ */
+
+#include &lt;cstdint&gt;
+#include &lt;span&gt;
+#include &lt;string_view&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Levels/GridPosition.h"
+
+namespace core {
+
+class CombatState;
+
+/**
+ * @brief Un point de la grille, en **demi-cases** : la case (c, r) va de (2c, 2r) Ã  (2c+2, 2r+2).
+ *
+ * Les coins de case sont aux coordonnÃ©es paires, les centres aux impaires, les milieux d'arÃªtes Ã 
+ * une de chaque : tout point d'origine qu'une rÃ¨gle nomme s'Ã©crit en entiers, et aucun calcul de
+ * vue n'a besoin d'un flottant.
+ */
+struct GridPoint {
+<span style = "background-color:#dfd">    int x = 0;
+    int y = 0;</span>
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] constexpr bool operator==(GridPoint left, GridPoint right) noexcept {
+    return left.x == right.x &amp;&amp; left.y == right.y;
+}</span>
+
+/// @brief Le coin haut-gauche de la case.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr GridPoint cornerOf(GridPosition cell) noexcept {
+    return {.x = 2 * cell.column, .y = 2 * cell.row};
+}</span>
+
+/// @brief Le centre de la case.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr GridPoint centerOf(GridPosition cell) noexcept {
+    return {.x = 2 * cell.column + 1, .y = 2 * cell.row + 1};
+}</span>
+
+/// @brief Une emprise carrÃ©e : coin haut-gauche et cÃ´tÃ©, en cases.
+struct Footprint {
+    GridPosition anchor;
+    int side = 1;
+};
+
+/// @brief Le bonus d'un abri Ã  la CA et aux sauvegardes de DextÃ©ritÃ© : 0, +2, +5 ; 0 pour l'abri
+/// total, qui n'est pas un bonus mais une interdiction.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr int coverBonus(Cover cover) noexcept {
+    switch (cover) {</span>
+        case Cover::Half:
+<span style = "background-color:#dfd">            return 2;</span>
+        case Cover::ThreeQuarters:
+<span style = "background-color:#dfd">            return 5;</span>
+        case Cover::None:
+        case Cover::Total:
+<span style = "background-color:#dfd">            return 0;</span>
+    }
+<span style = "background-color:#fdd">    return 0;</span>
+<span style = "background-color:#dfd">}</span>
+
+/// @brief Le nom d'un abri tel que le journal l'Ã©crit : Â« abri partiel Â», Â« abri important Â».
+[[nodiscard]] std::string_view coverLabel(Cover cover) noexcept;
+
+/**
+ * @brief Vrai si rien n'arrÃªte la vue sur le segment @p a â @p b (extrÃ©mitÃ©s exceptÃ©es).
+ *
+ * SymÃ©trique : `isSightClear(g, a, b) == isSightClear(g, b, a)`. Un segment rÃ©duit Ã  un point est
+ * dÃ©gagÃ© sauf si ce point touche une case qui arrÃªte la vue â le coin commun de deux murs en
+ * diagonale.
+ */
+[[nodiscard]] bool isSightClear(const BattleGrid&amp; grid, GridPoint a, GridPoint b);
+
+/**
+ * @brief Vrai si les deux emprises se voient : un segment dÃ©gagÃ© relie un point de grille de l'une
+ *        Ã  un point de grille de l'autre.
+ *
+ * Tous les points de grille de chaque emprise, et pas seulement ses quatre coins : c'est ce qui
+ * rend la relation symÃ©trique pour une crÃ©ature de grande taille, dont une case intÃ©rieure peut
+ * regarder par une meurtriÃ¨re que ses coins ne voient pas.
+ */
+[[nodiscard]] bool hasLineOfSight(const BattleGrid&amp; grid, Footprint a, Footprint b);
+
+/// @brief La mÃªme relation entre deux combattants ; faux si l'un des deux n'est pas sur la grille.
+[[nodiscard]] bool hasLineOfSight(const CombatState&amp; combat, CombatantId a, CombatantId b);
+
+/**
+ * @brief L'abri de @p target contre ce qui vient de @p attacker.
+ *
+ * Trois familles d'obstacles, comptÃ©es **sÃ©parÃ©ment** puis comparÃ©es, parce que les abris ne
+ * s'additionnent pas. Ce qui arrÃªte la vue abrite **selon les lignes coupÃ©es** (une ou deux :
+ * partiel ; trois : important ; quatre : total). Un corps abrite **selon sa nature**, dÃ¨s qu'il
+ * coupe une ligne : un objet Ã  abri important â la herse, la meurtriÃ¨re du Manuel â donne
+ * `Cover::ThreeQuarters` ; une crÃ©ature de @p interposed, Â« amie ou ennemie Â», ou un objet Ã  abri
+ * partiel donne `Cover::Half`. Compter ses lignes n'aurait pas de sens : une herse d'une case n'en
+ * coupe jamais plus de deux. Un mur qui coupe deux lignes et un alliÃ© qui coupe les deux autres
+ * font un abri partiel, pas un abri total.
+ *
+ * `Cover::Total` si et seulement si `!hasLineOfSight(grid, attacker, target)`.
+ */
+[[nodiscard]] Cover coverFrom(const BattleGrid&amp; grid, Footprint attacker, Footprint target,
+                              std::span&lt;const Footprint&gt; interposed = {});
+
+/**
+ * @brief L'abri de @p target contre un effet qui part d'un **point** â l'origine d'une zone.
+ *
+ * MÃªme compte, depuis un seul point au lieu des coins d'une emprise : c'est l'abri qui s'ajoute Ã 
+ * une sauvegarde de DextÃ©ritÃ© contre une boule de feu.
+ */
+[[nodiscard]] Cover coverFromPoint(const BattleGrid&amp; grid, GridPoint origin, Footprint target,
+                                   std::span&lt;const Footprint&gt; interposed = {});
+
+/**
+ * @brief L'abri d'un combattant contre un autre, les autres combattants placÃ©s faisant corps.
+ *
+ * Un combattant Ã  terre reste sur la grille et abrite encore. `Cover::Total` si l'un des deux n'est
+ * pas sur la grille : ce qui n'y est pas ne se vise pas.
+ */
+[[nodiscard]] Cover coverBetween(const CombatState&amp; combat, CombatantId attacker,
+                                 CombatantId target);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

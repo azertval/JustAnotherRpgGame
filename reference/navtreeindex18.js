@@ -1,5 +1,15 @@
 var NAVTREEINDEX18 =
 {
+"classhmi_1_1MainWindow.html#a9e89ff49e801603f1e390c30071d2f4a":[2,0,2,84,102],
+"classhmi_1_1MainWindow.html#a9e89ff49e801603f1e390c30071d2f4a":[3,0,1,83,102],
+"classhmi_1_1MainWindow.html#aa0f18b423a6be1bda623de58166a835f":[2,0,2,84,74],
+"classhmi_1_1MainWindow.html#aa0f18b423a6be1bda623de58166a835f":[3,0,1,83,74],
+"classhmi_1_1MainWindow.html#aa11ea4bf8bdc5815fc36bee49cd1c0ed":[2,0,2,84,68],
+"classhmi_1_1MainWindow.html#aa11ea4bf8bdc5815fc36bee49cd1c0ed":[3,0,1,83,68],
+"classhmi_1_1MainWindow.html#aa28e8e28e6d9ee14ea3bd4c76700090a":[2,0,2,84,29],
+"classhmi_1_1MainWindow.html#aa28e8e28e6d9ee14ea3bd4c76700090a":[3,0,1,83,29],
+"classhmi_1_1MainWindow.html#aa2b7066edcb640abeae9f9454f0c22d2":[2,0,2,84,63],
+"classhmi_1_1MainWindow.html#aa2b7066edcb640abeae9f9454f0c22d2":[3,0,1,83,63],
 "classhmi_1_1MainWindow.html#aa3a6277e15086fc09f3ba9b42dfc86e2":[2,0,2,84,81],
 "classhmi_1_1MainWindow.html#aa3a6277e15086fc09f3ba9b42dfc86e2":[3,0,1,83,81],
 "classhmi_1_1MainWindow.html#aa5446f2537408e5ced7e8f2930d9d02c":[2,0,2,84,39],
@@ -239,15 +249,5 @@ var NAVTREEINDEX18 =
 "classhmi_1_1OptionsModel.html#ace9a52cbc002b12326f524777f7febd5":[2,0,2,227,34],
 "classhmi_1_1OptionsModel.html#ace9a52cbc002b12326f524777f7febd5":[3,0,1,226,34],
 "classhmi_1_1OptionsModel.html#ad4faa29a69a81e4c9987c7fab507397f":[2,0,2,227,29],
-"classhmi_1_1OptionsModel.html#ad4faa29a69a81e4c9987c7fab507397f":[3,0,1,226,29],
-"classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb":[2,0,2,227,21],
-"classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb":[3,0,1,226,21],
-"classhmi_1_1PalettePanel.html":[2,0,2,88],
-"classhmi_1_1PalettePanel.html":[3,0,1,87],
-"classhmi_1_1PalettePanel.html#a03d97557ac36f4d584c10d516ecc8249":[2,0,2,88,13],
-"classhmi_1_1PalettePanel.html#a03d97557ac36f4d584c10d516ecc8249":[3,0,1,87,13],
-"classhmi_1_1PalettePanel.html#a08547fcaa0ed7766b7a4beda576ed2bf":[2,0,2,88,24],
-"classhmi_1_1PalettePanel.html#a08547fcaa0ed7766b7a4beda576ed2bf":[3,0,1,87,24],
-"classhmi_1_1PalettePanel.html#a1a573b3201ad6ce9d9d5c86cad1c8154":[2,0,2,88,11],
-"classhmi_1_1PalettePanel.html#a1a573b3201ad6ce9d9d5c86cad1c8154":[3,0,1,87,11]
+"classhmi_1_1OptionsModel.html#ad4faa29a69a81e4c9987c7fab507397f":[3,0,1,226,29]
 };

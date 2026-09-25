@@ -1,0 +1,1061 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EnemyAi.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/EnemyAi.h"
+
+#include &lt;algorithm&gt;
+#include &lt;set&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/Flanking.h"
+#include "Core/Combat/LineOfSight.h"
+#include "Core/Combat/Pathfinding.h"
+#include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/Bestiary.h"
+
+namespace core {
+namespace {
+
+constexpr int SANS_GARDE_DE_VERSION = 0;
+/// Une case vaut, au taux `approachPerTile`, un point de degat : 800 unites d'esperance.
+constexpr long long UNITES_PAR_POINT = 800;
+
+// --- Donnee -----------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
+                                                          : std::string{};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] int lireEntier(const nlohmann::json&amp; objet, const char* champ, int defaut) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_number_integer()) ? trouve-&gt;get&lt;int&gt;() : defaut;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool lireBooleen(const nlohmann::json&amp; objet, const char* champ, bool defaut) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_boolean()) ? trouve-&gt;get&lt;bool&gt;() : defaut;
+}</span>
+
+// --- Des --------------------------------------------------------------------------------------
+
+/// Les faces d'un d20 qui touchent : un 1 rate toujours, un 20 et le seuil critique touchent.
+<span style = "background-color:#dfd">[[nodiscard]] int facesQuiTouchent(int requis, int seuilCritique) noexcept {
+    int faces = 0;
+    for (int face = 2; face &lt;= 20; ++face) {
+        if (face &gt;= requis || face &gt;= seuilCritique) {
+            ++faces;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return faces;
+}</span>
+
+/// Une chance d'un de sur vingt, en quatre-centiemes, selon la posture.
+<span style = "background-color:#dfd">[[nodiscard]] int chanceSelonPosture(int faces, RollStance posture) noexcept {
+    switch (posture) {</span>
+        case RollStance::Advantage:
+<span style = "background-color:#dfd">            return CHANCE_SCALE - ((20 - faces) * (20 - faces));</span>
+        case RollStance::Disadvantage:
+<span style = "background-color:#dfd">            return faces * faces;</span>
+        case RollStance::Normal:
+            break;
+    }
+<span style = "background-color:#dfd">    return faces * 20;
+}</span>
+
+/// Les degats moyens en demi-points (un de a f faces vaut (f + 1) / 2), et la part des des seuls.
+<span style = "background-color:#dfd">[[nodiscard]] std::pair&lt;long long, long long&gt; degatsMoyens(const AttackProfile&amp; profil) noexcept {
+    long long total = 0;
+    long long des = 0;
+    for (const DamageClause&amp; clause : profil.damage) {
+        const long long moyenneDes =</span>
+            static_cast&lt;long long&gt;(clause.dice.count) * (clause.dice.faces + 1);
+<span style = "background-color:#dfd">        total += std::max(0LL, moyenneDes + (2LL * clause.dice.modifier));
+        des += moyenneDes;
+    }
+    return {total, des};
+}</span>
+
+// --- Geometrie --------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">[[nodiscard]] int ecart(GridPosition a, int coteA, GridPosition b, int coteB) noexcept {
+    const int dx =</span>
+        std::max({0, b.column - (a.column + coteA - 1), a.column - (b.column + coteB - 1)});
+<span style = "background-color:#dfd">    const int dy = std::max({0, b.row - (a.row + coteA - 1), a.row - (b.row + coteB - 1)});
+    return std::max(dx, dy);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string caseTexte(GridPosition cell) {
+    return std::to_string(cell.column) + "," + std::to_string(cell.row);
+}</span>
+
+/// Un combattant place, tel que l'IA le lit.
+struct Present {
+    CombatantId id{};
+    const Combatant* combattant = nullptr;
+    Footprint emprise;
+    const std::vector&lt;AttackProfile&gt;* attaques = nullptr;
+};
+
+/// Le bonus d'une portee : l'allonge au contact, la longue portee a distance, 1 sans portee connue.
+<span style = "background-color:#dfd">[[nodiscard]] bool porte(const AttackProfile&amp; attaque, int distance) noexcept {
+    if (attaque.kind == AttackKind::Melee) {
+        return distance &lt;= attaque.reach;</span>
+    }
+<span style = "background-color:#dfd">    return attaque.range.has_value() ? distance &lt;= attaque.range-&gt;maximum : distance &lt;= 1;
+}</span>
+
+/**
+ * Ce que l'IA sait evaluer pour un combattant a un instant : les menaces sur une case, les attaques
+ * d'opportunite d'un chemin, les attaques possibles depuis une case. Tout est lu de la session,
+ * rien n'est ecrit.
+ */
+class Evaluateur {
+public:
+<span style = "background-color:#dfd">    Evaluateur(const ArenaSession&amp; session, CombatantId acteur, const BehaviorProfile&amp; profil)
+        : _session(session), _combat(session.combat()), _grille(_combat.grid()), _profil(profil) {
+        _moi.id = acteur;
+        _moi.combattant = _combat.find(acteur);
+        const std::optional&lt;GridPosition&gt; ancre = _grille.positionOf(acteur);
+        if (_moi.combattant == nullptr || !ancre.has_value()) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        _moi.emprise = {.anchor = *ancre, .side = footprintSide(_moi.combattant-&gt;profile.size)};
+        _moi.attaques = session.attacks(acteur);
+        _valide = true;
+        for (const CombatantId id : _combat.combatants()) {
+            const Combatant* c = _combat.find(id);
+            const std::optional&lt;GridPosition&gt; position = _grille.positionOf(id);
+            if (c == nullptr || !position.has_value()) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+            Present present{
+<span style = "background-color:#dfd">                .id = id,
+                .combattant = c,
+                .emprise = {.anchor = *position, .side = footprintSide(c-&gt;profile.size)},
+                .attaques = session.attacks(id)};
+            _places.push_back(present);
+            if (id == acteur || c-&gt;status != CombatantStatus::Standing) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            (c-&gt;profile.side == _moi.combattant-&gt;profile.side ? _allies : _ennemis)</span>
+                .push_back(present);
+<span style = "background-color:#dfd">        }
+        for (const Present&amp; ennemi : _ennemis) {
+            _mobilite.push_back(destinationsDe(ennemi));
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool valide() const noexcept {
+        return _valide;
+    }
+    [[nodiscard]] const Present&amp; moi() const noexcept {
+        return _moi;
+    }
+    [[nodiscard]] const std::vector&lt;Present&gt;&amp; ennemis() const noexcept {
+        return _ennemis;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] Footprint empriseEn(GridPosition ancre) const noexcept {
+        return {.anchor = ancre, .side = _moi.emprise.side};
+    }</span>
+
+    /// Les corps qui abritent entre deux combattants : tous les places, sauf les deux, l'acteur
+    /// compte a sa case supposee.
+    [[nodiscard]] std::vector&lt;Footprint&gt; corps(CombatantId a, CombatantId b,
+<span style = "background-color:#dfd">                                               GridPosition ancreActeur) const {
+        std::vector&lt;Footprint&gt; liste;
+        for (const Present&amp; p : _places) {
+            if (p.id == a || p.id == b) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            liste.push_back(p.id == _moi.id ? empriseEn(ancreActeur) : p.emprise);
+        }
+        return liste;
+    }</span>
+
+    /// Le nombre d'ennemis debout qui peuvent frapper l'ancre **au contact** sans bouger. Un tireur
+    /// ne compte pas : sa portee couvre l'arene, et la cle anti-suicide n'interdirait plus rien
+    /// d'autre que d'approcher ; il pese dans `menace`.
+<span style = "background-color:#dfd">    [[nodiscard]] int menacesImmediates(GridPosition ancre) const {
+        int total = 0;
+        const Footprint ici = empriseEn(ancre);
+        for (const Present&amp; ennemi : _ennemis) {
+            if (ennemi.attaques == nullptr) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            const int distance = ecart(ennemi.emprise.anchor, ennemi.emprise.side, ancre, ici.side);
+            const bool frappe = std::ranges::any_of(*ennemi.attaques, [&amp;](const AttackProfile&amp; a) {
+                return a.kind == AttackKind::Melee &amp;&amp; porte(a, distance);
+            });
+            if (frappe &amp;&amp; hasLineOfSight(_grille, ennemi.emprise, ici)) {
+                ++total;</span>
+            }
+<span style = "background-color:#dfd">        }
+        return total;
+    }</span>
+
+    /**
+     * Les degats attendus au prochain round sur l'ancre, en huit-centiemes : chaque ennemi qui peut
+     * y frapper, en marchant puis au contact, ou a distance depuis sa portee plus sa vitesse, avec
+     * sa meilleure attaque, contre la CA de l'acteur.
+     */
+<span style = "background-color:#dfd">    [[nodiscard]] long long menace(GridPosition ancre, bool esquive) const {
+        long long total = 0;
+        const Footprint ici = empriseEn(ancre);
+        const RollStance posture = esquive ? RollStance::Disadvantage : RollStance::Normal;
+        const int ca = _moi.combattant-&gt;profile.armorClass;
+        for (std::size_t i = 0; i &lt; _ennemis.size(); ++i) {
+            const Present&amp; ennemi = _ennemis[i];
+            if (ennemi.attaques == nullptr) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            long long pire = 0;
+            for (const AttackProfile&amp; attaque : *ennemi.attaques) {
+                if (attaque.kind == AttackKind::Melee) {
+                    const bool atteint =
+                        std::ranges::any_of(_mobilite[i], [&amp;](GridPosition depuis) {
+                            return ecart(depuis, ennemi.emprise.side, ancre, ici.side) &lt;=</span>
+                                   attaque.reach;
+<span style = "background-color:#dfd">                        });
+                    if (atteint) {
+                        pire = std::max(pire, expectedDamage(attaque, ca, posture));</span>
+                    }
+<span style = "background-color:#dfd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const int portee = attaque.range.has_value() ? attaque.range-&gt;maximum : 1;
+                if (ecart(ennemi.emprise.anchor, ennemi.emprise.side, ancre, ici.side) &gt;</span>
+                    portee + ennemi.combattant-&gt;profile.movement) {
+<span style = "background-color:#fdd">                    continue;</span>
+                }
+                // Sans abri : un tireur qui marche trouve sa case, et compter l'abri de chaque case
+                // contre chaque tireur doublait le cout d'un tour pour une nuance de deux points.
+<span style = "background-color:#dfd">                pire = std::max(pire, expectedDamage(attaque, ca, posture));
+            }
+            total += pire;
+        }
+        return total;
+    }</span>
+
+    /// Les attaques d'opportunite que provoque le chemin jusqu'a l'ancre, en huit-centiemes.
+<span style = "background-color:#dfd">    [[nodiscard]] long long opportunites(const ReachableArea&amp; zone, GridPosition ancre) const {
+        if (ancre == zone.origin()) {
+            return 0;</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;Path&gt; chemin = zone.pathTo(ancre);
+        if (!chemin.has_value()) {</span>
+<span style = "background-color:#fdd">            return 0;</span>
+        }
+<span style = "background-color:#dfd">        std::vector&lt;GridPosition&gt; cases{zone.origin()};
+        cases.insert(cases.end(), chemin-&gt;steps.begin(), chemin-&gt;steps.end());
+        long long total = 0;
+        std::set&lt;CombatantId&gt; deja;
+        const int ca = _moi.combattant-&gt;profile.armorClass;
+        for (std::size_t pas = 0; pas + 1 &lt; cases.size(); ++pas) {
+            for (const Present&amp; ennemi : _ennemis) {
+                if (deja.contains(ennemi.id) || ennemi.attaques == nullptr ||</span>
+                    ennemi.combattant-&gt;economy.remaining(REACTION_RESOURCE) &lt;= 0) {
+<span style = "background-color:#dfd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const auto coup =</span>
+                    std::ranges::find(*ennemi.attaques, AttackKind::Melee, &amp;AttackProfile::kind);
+<span style = "background-color:#dfd">                if (coup == ennemi.attaques-&gt;end()) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const int avant = ecart(cases[pas], _moi.emprise.side, ennemi.emprise.anchor,</span>
+                                        ennemi.emprise.side);
+<span style = "background-color:#dfd">                const int apres = ecart(cases[pas + 1], _moi.emprise.side, ennemi.emprise.anchor,</span>
+                                        ennemi.emprise.side);
+<span style = "background-color:#dfd">                if (avant &lt;= coup-&gt;reach &amp;&amp; apres &gt; coup-&gt;reach &amp;&amp;</span>
+                    hasLineOfSight(_grille, empriseEn(cases[pas]), ennemi.emprise)) {
+<span style = "background-color:#dfd">                    deja.insert(ennemi.id);
+                    total += expectedDamage(*coup, ca, RollStance::Normal);</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+        return total;
+    }</span>
+
+    /// Une attaque evaluee depuis une ancre.
+    struct Frappe {
+        CombatantId cible{};
+        std::size_t indice = 0;
+<span style = "background-color:#dfd">        int requis = 0;
+        RollStance posture = RollStance::Normal;</span>
+        std::vector&lt;std::string&gt; circonstances;
+        /// L'esperance, deja ponderee par le profil, en huit-centiemes de point fois cent.
+<span style = "background-color:#dfd">        long long valeur = 0;</span>
+    };
+
+    /// Toutes les attaques valides depuis l'ancre, par cible puis par indice d'attaque.
+<span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;Frappe&gt; frappes(GridPosition ancre) const {
+        std::vector&lt;Frappe&gt; liste;
+        if (_moi.attaques == nullptr) {</span>
+<span style = "background-color:#fdd">            return liste;</span>
+        }
+<span style = "background-color:#dfd">        const Footprint ici = empriseEn(ancre);</span>
+        // Un ennemi qui voit l'acteur a une case gene le tir : une fois par ancre, pas par cible.
+<span style = "background-color:#dfd">        std::optional&lt;bool&gt; auContact;
+        for (const Present&amp; cible : _ennemis) {
+            const int distance = ecart(ancre, ici.side, cible.emprise.anchor, cible.emprise.side);
+            const bool uneAPortee = std::ranges::any_of(
+                *_moi.attaques, [&amp;](const AttackProfile&amp; a) { return porte(a, distance); });
+            if (!uneAPortee || !hasLineOfSight(_grille, ici, cible.emprise)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::vector&lt;Footprint&gt; abris = corps(_moi.id, cible.id, ancre);
+            const Cover abri = coverFrom(_grille, ici, cible.emprise, abris);
+            const int ca = cible.combattant-&gt;profile.armorClass + coverBonus(abri);
+            const long long pourcent = pourcentContre(cible);</span>
+
+<span style = "background-color:#dfd">            for (std::size_t i = 0; i &lt; _moi.attaques-&gt;size(); ++i) {
+                const AttackProfile&amp; attaque = (*_moi.attaques)[i];
+                if (!porte(attaque, distance)) {</span>
+<span style = "background-color:#fdd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                Frappe frappe{.cible = cible.id, .indice = i, .circonstances = {}};
+                const RollStance posture =</span>
+                    postureDe(attaque, cible, ancre, distance, auContact, frappe);
+<span style = "background-color:#dfd">                if (abri != Cover::None) {
+                    frappe.circonstances.emplace_back(coverLabel(abri));</span>
+                }
+<span style = "background-color:#dfd">                frappe.posture = posture;
+                frappe.requis = requiredRoll(ca, attackBonusOf(attaque));
+                frappe.valeur = expectedDamage(attaque, ca, frappe.posture) * pourcent;
+                liste.push_back(std::move(frappe));
+            }
+        }
+        return liste;
+    }</span>
+
+    /// Le poids de la menace pour l'acteur : plus lourd s'il est ensanglante.
+<span style = "background-color:#dfd">    [[nodiscard]] long long poidsMenace() const noexcept {
+        return isBloodied(_moi.combattant-&gt;profile) ? _profil.threatWhenBloodied</span>
+                                                    : _profil.threatTaken;
+<span style = "background-color:#dfd">    }</span>
+
+private:
+    /// Le pourcentage du profil contre @p cible : les degats, plus une cible ensanglantee, les
+    /// allies a son contact, et un allie ensanglante a proteger.
+<span style = "background-color:#dfd">    [[nodiscard]] long long pourcentContre(const Present&amp; cible) const {
+        int allieAuContact = 0;
+        bool allieEnsanglante = false;
+        for (const Present&amp; allie : _allies) {</span>
+            if (ecart(allie.emprise.anchor, allie.emprise.side, cible.emprise.anchor,
+<span style = "background-color:#dfd">                      cible.emprise.side) == 1) {
+                ++allieAuContact;
+                allieEnsanglante = allieEnsanglante || isBloodied(allie.combattant-&gt;profile);</span>
+            }
+<span style = "background-color:#dfd">        }
+        long long pourcent = _profil.damageDealt;
+        if (isBloodied(cible.combattant-&gt;profile)) {
+            pourcent += _profil.bloodiedTarget;</span>
+        }
+<span style = "background-color:#dfd">        pourcent += static_cast&lt;long long&gt;(_profil.focusFire) * allieAuContact;
+        if (allieEnsanglante) {
+            pourcent += _profil.protectBloodiedAlly;</span>
+        }
+<span style = "background-color:#dfd">        return pourcent;
+    }</span>
+
+    /// Les sources d'avantage et de desavantage d'une attaque depuis l'ancre, notees dans
+    /// @p frappe, et la posture qu'elles donnent. @p auContact est calcule au premier tir.
+    [[nodiscard]] RollStance postureDe(const AttackProfile&amp; attaque, const Present&amp; cible,
+                                       GridPosition ancre, int distance,
+<span style = "background-color:#dfd">                                       std::optional&lt;bool&gt;&amp; auContact, Frappe&amp; frappe) const {
+        const Footprint ici = empriseEn(ancre);
+        int avantages = 0;
+        int desavantages = 0;
+        if (attaque.kind == AttackKind::Melee &amp;&amp; _session.bout().flanking &amp;&amp;</span>
+            isFlankedFrom(_combat, _moi.id, ancre, cible.id)) {
+<span style = "background-color:#dfd">            ++avantages;
+            frappe.circonstances.emplace_back("prise en tenaille");</span>
+        }
+<span style = "background-color:#dfd">        if (attaque.kind == AttackKind::Ranged) {
+            if (attaque.range.has_value() &amp;&amp; distance &gt; attaque.range-&gt;normal) {</span>
+<span style = "background-color:#fdd">                ++desavantages;
+                frappe.circonstances.emplace_back("longue portee");</span>
+            }
+<span style = "background-color:#dfd">            if (!auContact.has_value()) {
+                auContact = ennemiAuContact(ancre);</span>
+            }
+<span style = "background-color:#dfd">            if (*auContact) {
+                ++desavantages;
+                frappe.circonstances.emplace_back("tir au contact d'un ennemi");</span>
+            }
+        }
+<span style = "background-color:#dfd">        if (_session.isDodging(cible.id) &amp;&amp; hasLineOfSight(_grille, cible.emprise, ici)) {</span>
+<span style = "background-color:#fdd">            ++desavantages;
+            frappe.circonstances.emplace_back("esquive de la cible");</span>
+        }
+<span style = "background-color:#dfd">        return rollStance(avantages, desavantages);
+    }</span>
+
+    /// Vrai si un ennemi qui voit l'acteur se tient a une case de l'ancre.
+<span style = "background-color:#dfd">    [[nodiscard]] bool ennemiAuContact(GridPosition ancre) const {
+        const Footprint ici = empriseEn(ancre);
+        return std::ranges::any_of(_ennemis, [&amp;](const Present&amp; e) {
+            return ecart(ancre, ici.side, e.emprise.anchor, e.emprise.side) == 1 &amp;&amp;</span>
+                   hasLineOfSight(_grille, e.emprise, ici);
+<span style = "background-color:#dfd">        });
+    }</span>
+
+    /// Les ancres d'ou un ennemi peut frapper au prochain round : la sienne et celles qu'il
+    /// atteint.
+<span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;GridPosition&gt; destinationsDe(const Present&amp; ennemi) const {
+        std::vector&lt;GridPosition&gt; liste{ennemi.emprise.anchor};
+        const ReachableArea zone(_grille, _combat.moverFor(ennemi.id),</span>
+                                 ennemi.combattant-&gt;profile.movement);
+<span style = "background-color:#dfd">        const std::vector&lt;GridPosition&gt; autres = zone.destinations();
+        liste.insert(liste.end(), autres.begin(), autres.end());
+        return liste;
+    }</span>
+
+    const ArenaSession&amp; _session;
+    const CombatState&amp; _combat;
+    const BattleGrid&amp; _grille;
+    const BehaviorProfile&amp; _profil;
+<span style = "background-color:#dfd">    bool _valide = false;</span>
+    Present _moi;
+    std::vector&lt;Present&gt; _places;
+    std::vector&lt;Present&gt; _allies;
+    std::vector&lt;Present&gt; _ennemis;
+    std::vector&lt;std::vector&lt;GridPosition&gt;&gt; _mobilite;
+};
+
+/// L'ordre d'un candidat : moins d'exces de menace, puis attaquer, puis avancer vers l'ennemi,
+/// puis le score, puis le moins de deplacement. Un candidat ne remplace le meilleur que s'il le
+/// bat strictement : a egalite, le premier examine reste. Â« Avancer Â» est une cle et non un
+/// poids : la menace d'un round entier pese plus que quelques cases d'approche, et une IA qui ne
+/// peut pas attaquer resterait hors de portee â ou reculerait â a jamais. Le deplacement departage
+/// les cases equivalentes : sans lui, la premiere examinee â le coin haut-gauche â l'emportait.
+struct Cle {
+    int exces = 0;
+    bool attaque = false;
+    bool progresse = false;
+    long long score = 0;
+    int deplacement = 0;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool meilleureQue(const Cle&amp; autre) const noexcept {
+        if (exces != autre.exces) {
+            return exces &lt; autre.exces;</span>
+        }
+<span style = "background-color:#dfd">        if (attaque != autre.attaque) {
+            return attaque;</span>
+        }
+<span style = "background-color:#dfd">        if (progresse != autre.progresse) {
+            return progresse;</span>
+        }
+<span style = "background-color:#dfd">        if (score != autre.score) {
+            return score &gt; autre.score;</span>
+        }
+<span style = "background-color:#dfd">        return deplacement &lt; autre.deplacement;
+    }</span>
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string nomDe(const CombatState&amp; combat, CombatantId id) {
+    const Combatant* c = combat.find(id);
+    return (c == nullptr ? std::string("?") : c-&gt;profile.name) + " #" +</span>
+           std::to_string(static_cast&lt;std::uint32_t&gt;(id));
+<span style = "background-color:#dfd">}</span>
+
+/// Le chemin le plus court jusqu'au contact d'un ennemi : la cible d'une approche.
+struct Approche {
+    CombatantId cible{};
+    Path chemin;
+};
+
+[[nodiscard]] std::optional&lt;Approche&gt; approcheLaPlusCourte(const CombatState&amp; combat,
+<span style = "background-color:#dfd">                                                           const Evaluateur&amp; eval) {
+    const BattleGrid&amp; grille = combat.grid();
+    const Present&amp; moi = eval.moi();
+    const Mover mobile = combat.moverFor(moi.id);
+    std::optional&lt;Approche&gt; meilleure;
+    for (const Present&amp; ennemi : eval.ennemis()) {
+        const Footprint&amp; e = ennemi.emprise;
+        for (int ligne = e.anchor.row - moi.emprise.side; ligne &lt;= e.anchor.row + e.side; ++ligne) {
+            for (int colonne = e.anchor.column - moi.emprise.side;
+                 colonne &lt;= e.anchor.column + e.side; ++colonne) {
+                const GridPosition ancre{.column = colonne, .row = ligne};
+                if (ecart(ancre, moi.emprise.side, e.anchor, e.side) != 1) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                if (ancre == moi.emprise.anchor) {
+                    return Approche{.cible = ennemi.id, .chemin = {}};</span>
+                }
+<span style = "background-color:#dfd">                if (!grille.canStand(ancre, moi.emprise.side, moi.id,</span>
+                                     moi.combattant-&gt;profile.locomotion)) {
+<span style = "background-color:#dfd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                std::optional&lt;Path&gt; chemin = findPath(grille, mobile, ancre);
+                if (chemin.has_value() &amp;&amp;</span>
+                    (!meilleure.has_value() || chemin-&gt;cost &lt; meilleure-&gt;chemin.cost)) {
+<span style = "background-color:#dfd">                    meilleure = Approche{.cible = ennemi.id, .chemin = std::move(*chemin)};</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return meilleure;
+}</span>
+
+/// Le reste du chemin d'approche depuis une ancre, en cases : exact sur le chemin, estime ailleurs
+/// par la distance a la cible plus le detour que le chemin impose.
+[[nodiscard]] long long resteDApproche(const CombatState&amp; combat, const Evaluateur&amp; eval,
+                                       const Approche&amp; approche, const ReachableArea&amp; zone,
+<span style = "background-color:#dfd">                                       GridPosition ancre) {
+    const Present&amp; moi = eval.moi();
+    const auto sur = std::ranges::find(approche.chemin.steps, ancre);
+    if (sur != approche.chemin.steps.end() || ancre == zone.origin()) {
+        const int parcouru = ancre == zone.origin() ? 0 : zone.costTo(ancre).value_or(0);
+        return std::max(0, approche.chemin.cost - parcouru);</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;GridPosition&gt; ancreCible = combat.grid().positionOf(approche.cible);
+    const int cote = footprintSide(combat.find(approche.cible)-&gt;profile.size);
+    const int direct = ecart(zone.origin(), moi.emprise.side, *ancreCible, cote) - 1;
+    const int detour = std::max(0, approche.chemin.cost - direct);
+    return std::max(0, ecart(ancre, moi.emprise.side, *ancreCible, cote) - 1) + detour;
+}</span>
+
+/// La derniere case du chemin ou l'on peut finir dans @p zone : jusqu'ou une approche va.
+[[nodiscard]] std::optional&lt;GridPosition&gt; plusLoinSurLeChemin(const Path&amp; chemin,
+<span style = "background-color:#dfd">                                                              const ReachableArea&amp; zone) {
+    for (auto it = chemin.steps.rbegin(); it != chemin.steps.rend(); ++it) {
+        if (zone.canEndAt(*it)) {
+            return *it;
+        }</span>
+<span style = "background-color:#fdd">    }
+    return std::nullopt;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view nomDePosture(RollStance posture) noexcept {
+    switch (posture) {</span>
+        case RollStance::Advantage:
+<span style = "background-color:#dfd">            return ", avantage";</span>
+        case RollStance::Disadvantage:
+<span style = "background-color:#dfd">            return ", desavantage";</span>
+        case RollStance::Normal:
+            break;
+    }
+<span style = "background-color:#dfd">    return "";
+}</span>
+
+}  // namespace
+
+// --- Ce que la table sait ---------------------------------------------------------------------
+
+<span style = "background-color:#dfd">int attackBonusOf(const AttackProfile&amp; profile) noexcept {
+    int bonus = 0;
+    for (const Modifier&amp; modificateur : profile.modifiers) {
+        bonus += modificateur.value;
+    }
+    return bonus;
+}</span>
+
+<span style = "background-color:#dfd">int hitChance(int required, RollStance stance, int criticalThreshold) noexcept {
+    return chanceSelonPosture(facesQuiTouchent(required, criticalThreshold), stance);
+}</span>
+
+<span style = "background-color:#dfd">int criticalChance(int criticalThreshold, RollStance stance) noexcept {
+    const int seuil = std::clamp(criticalThreshold, 2, 20);
+    return chanceSelonPosture(21 - seuil, stance);
+}</span>
+
+<span style = "background-color:#dfd">long long expectedDamage(const AttackProfile&amp; profile, int armorClass, RollStance stance) noexcept {
+    const int requis = requiredRoll(armorClass, attackBonusOf(profile));
+    const long long touche =</span>
+        chanceSelonPosture(facesQuiTouchent(requis, profile.criticalThreshold), stance);
+<span style = "background-color:#dfd">    const long long critique = criticalChance(profile.criticalThreshold, stance);
+    const auto [moyens, des] = degatsMoyens(profile);
+    return (touche * moyens) + (critique * des);
+}</span>
+
+// --- Les profils --------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">const BehaviorProfile* BehaviorCatalog::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(profiles, id, &amp;BehaviorProfile::id);
+    return trouve == profiles.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">BehaviorCatalog loadBehaviors(const std::filesystem::path&amp; file) {
+    BehaviorCatalog catalogue;
+    const JsonDocument document = readJsonObjectFromFile(file, SANS_GARDE_DE_VERSION);
+    if (!document.ok()) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(document.message);
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    const std::string fichier = file.filename().string();
+    const nlohmann::json&amp; racine = document.root;
+    const auto profils = racine.find("profiles");
+    if (profils == racine.end() || !profils-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(fichier + " : aucune liste Â« profiles Â».");
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    const BehaviorProfile defaut;
+    for (const nlohmann::json&amp; entree : *profils) {
+        if (!entree.is_object()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+        BehaviorProfile profil{
+<span style = "background-color:#dfd">            .id = lireTexte(entree, "id"),
+            .name = lireTexte(entree, "name"),
+            .damageDealt = lireEntier(entree, "damageDealt", defaut.damageDealt),
+            .bloodiedTarget = lireEntier(entree, "bloodiedTarget", defaut.bloodiedTarget),
+            .focusFire = lireEntier(entree, "focusFire", defaut.focusFire),</span>
+            .protectBloodiedAlly =
+<span style = "background-color:#dfd">                lireEntier(entree, "protectBloodiedAlly", defaut.protectBloodiedAlly),
+            .threatTaken = lireEntier(entree, "threatTaken", defaut.threatTaken),</span>
+            .threatWhenBloodied =
+<span style = "background-color:#dfd">                lireEntier(entree, "threatWhenBloodied", defaut.threatWhenBloodied),
+            .opportunityTaken = lireEntier(entree, "opportunityTaken", defaut.opportunityTaken),
+            .approachPerTile = lireEntier(entree, "approachPerTile", defaut.approachPerTile),
+            .toleratedThreats = lireEntier(entree, "toleratedThreats", defaut.toleratedThreats),</span>
+            .opportunityMaximumRoll =
+<span style = "background-color:#dfd">                lireEntier(entree, "opportunityMaximumRoll", defaut.opportunityMaximumRoll),</span>
+            .dodgeWhenThreatened =
+<span style = "background-color:#dfd">                lireBooleen(entree, "dodgeWhenThreatened", defaut.dodgeWhenThreatened),</span>
+            .retreatAfterAttack =
+<span style = "background-color:#dfd">                lireBooleen(entree, "retreatAfterAttack", defaut.retreatAfterAttack)};
+        if (profil.id.empty()) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(fichier + " : profil sans identifiant.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (catalogue.find(profil.id) != nullptr) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(fichier + " : profil Â« " + profil.id + " Â» en double.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        catalogue.profiles.push_back(std::move(profil));
+    }
+    catalogue.defaultBehavior = lireTexte(racine, "default");
+    if (catalogue.find(catalogue.defaultBehavior) == nullptr) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(fichier + " : profil par defaut Â« " + catalogue.defaultBehavior +</span>
+                                   " Â» inconnu.");
+    }
+<span style = "background-color:#dfd">    const auto regles = racine.find("assignments");
+    if (regles != racine.end() &amp;&amp; regles-&gt;is_array()) {
+        for (const nlohmann::json&amp; entree : *regles) {
+            if (!entree.is_object()) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            BehaviorAssignment regle{.behavior = lireTexte(entree, "behavior"),
+                                     .trait = lireTexte(entree, "trait"),
+                                     .creature = lireTexte(entree, "creature"),
+                                     .ranged = lireBooleen(entree, "ranged", false)};
+            if (catalogue.find(regle.behavior) == nullptr) {</span>
+<span style = "background-color:#fdd">                catalogue.errors.push_back(fichier + " : attribution vers le profil inconnu Â« " +</span>
+                                           regle.behavior + " Â».");
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            if (regle.trait.empty() &amp;&amp; regle.creature.empty() &amp;&amp; !regle.ranged) {</span>
+<span style = "background-color:#fdd">                catalogue.errors.push_back(fichier + " : attribution sans condition vers Â« " +</span>
+                                           regle.behavior + " Â».");
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            catalogue.assignments.push_back(std::move(regle));
+        }</span>
+    }
+<span style = "background-color:#dfd">    return catalogue;
+}</span>
+
+<span style = "background-color:#dfd">std::string behaviorFor(const Creature&amp; creature, const BehaviorCatalog&amp; catalog) {
+    const CreatureAttacks attaques = attacksFor(creature);
+    long long auContact = 0;
+    long long aDistance = 0;
+    for (const AttackProfile&amp; attaque : attaques.attacks) {
+        const long long moyens = degatsMoyens(attaque).first;
+        if (attaque.kind == AttackKind::Melee) {
+            auContact = std::max(auContact, moyens);
+        } else if (attaque.range.has_value()) {
+            aDistance = std::max(aDistance, moyens);</span>
+        }
+<span style = "background-color:#dfd">    }
+    const bool tireur = aDistance &gt; 0 &amp;&amp; aDistance &gt;= auContact;
+    for (const BehaviorAssignment&amp; regle : catalog.assignments) {
+        const bool trait = regle.trait.empty() ||</span>
+                           std::ranges::find(creature.traits, regle.trait, &amp;CreatureTrait::name) !=
+                               creature.traits.end();
+<span style = "background-color:#dfd">        const bool laCreature = regle.creature.empty() || regle.creature == creature.id;
+        const bool distance = !regle.ranged || tireur;
+        if (trait &amp;&amp; laCreature &amp;&amp; distance) {
+            return regle.behavior;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return catalog.defaultBehavior;
+}</span>
+
+// --- Le tour ----------------------------------------------------------------------------------
+
+namespace {
+
+/// Les menaces au-dela de ce que le profil tolere.
+<span style = "background-color:#dfd">[[nodiscard]] int excesDe(const BehaviorProfile&amp; profile, int menaces) noexcept {
+    return std::max(0, menaces - profile.toleratedThreats);
+}</span>
+
+/// Attaquer @p frappe depuis @p ancre, avec la ligne de journal qui le dit.
+[[nodiscard]] TurnPlan planAttaque(const CombatState&amp; combat, const BehaviorProfile&amp; profile,
+                                   const Present&amp; moi, GridPosition origine, GridPosition ancre,
+<span style = "background-color:#dfd">                                   const Evaluateur::Frappe&amp; frappe, int menaces, long long cout) {
+    TurnPlan candidat{.actor = moi.id,
+                      .moveTo = ancre == origine ? std::nullopt : std::optional(ancre),
+                      .action = TurnAction::Attack,
+                      .target = frappe.cible,
+                      .attackIndex = frappe.indice,
+                      .dashTo = std::nullopt,
+                      .requiredRoll = frappe.requis,
+                      .stance = frappe.posture,
+                      .immediateThreats = menaces,
+                      .score = frappe.valeur - cout,
+                      .summary = {}};
+    std::string raisons;
+    for (const std::string&amp; c : frappe.circonstances) {
+        raisons.append(", ").append(c);
+    }
+    candidat.summary = "ia " + profile.id + " " + nomDe(combat, moi.id) + " : attaque " +</span>
+                       nomDe(combat, frappe.cible) + " avec " +
+                       (*moi.attaques)[frappe.indice].label + " depuis " + caseTexte(ancre) +
+                       " (jet requis " + std::to_string(frappe.requis) +
+                       std::string(nomDePosture(frappe.posture)) + raisons + ")";
+<span style = "background-color:#dfd">    return candidat;
+}</span>
+
+/// Finir le deplacement en @p ancre sans attaquer, ou tenir sa place si c'est l'origine.
+[[nodiscard]] TurnPlan planTenir(const CombatState&amp; combat, const BehaviorProfile&amp; profile,
+                                 CombatantId actor, const std::optional&lt;Approche&gt;&amp; approche,
+                                 GridPosition origine, GridPosition ancre, int menaces,
+<span style = "background-color:#dfd">                                 long long score) {
+    const std::optional&lt;GridPosition&gt; vers = ancre == origine ? std::nullopt : std::optional(ancre);
+    const std::string qui = "ia " + profile.id + " " + nomDe(combat, actor);
+    const std::string cible =</span>
+        approche.has_value() ? " vers " + nomDe(combat, approche-&gt;cible) : std::string();
+
+<span style = "background-color:#dfd">    TurnPlan tenir{.actor = actor,
+                   .moveTo = vers,
+                   .action = TurnAction::Wait,
+                   .target = std::nullopt,
+                   .dashTo = std::nullopt,
+                   .immediateThreats = menaces,
+                   .score = score,
+                   .summary = {}};
+    tenir.summary = qui + (vers.has_value() ? " : avance en " + caseTexte(ancre) + cible</span>
+                                            : std::string(" : tient sa place"));
+<span style = "background-color:#dfd">    return tenir;
+}</span>
+
+/// Se precipiter : la vitesse une seconde fois, jusqu'au plus loin du chemin d'approche.
+template &lt;typename Proposer&gt;
+void proposerCourse(const CombatState&amp; combat, const BehaviorProfile&amp; profile,
+                    const Evaluateur&amp; eval, const ReachableArea&amp; zone, const Approche&amp; approche,
+<span style = "background-color:#dfd">                    long long resteOrigine, const Proposer&amp; proposer) {
+    if (approche.chemin.steps.empty()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const Present&amp; moi = eval.moi();
+    const CombatantId actor = moi.id;
+    const ReachableArea loin(combat.grid(), combat.moverFor(actor),</span>
+                             zone.budget() + moi.combattant-&gt;profile.movement);
+<span style = "background-color:#dfd">    const std::optional&lt;GridPosition&gt; but = plusLoinSurLeChemin(approche.chemin, loin);
+    if (!but.has_value()) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const int menaces = eval.menacesImmediates(*but);
+    const long long reste = std::max(0, approche.chemin.cost - loin.costTo(*but).value_or(0));</span>
+    TurnPlan course{
+<span style = "background-color:#dfd">        .actor = actor,
+        .moveTo = std::nullopt,
+        .action = TurnAction::Dash,
+        .target = std::nullopt,
+        .dashTo = *but,
+        .immediateThreats = menaces,</span>
+        .score = (-static_cast&lt;long long&gt;(profile.approachPerTile) * UNITES_PAR_POINT * reste) -
+<span style = "background-color:#dfd">                 (eval.poidsMenace() * eval.menace(*but, false)) -</span>
+                 (static_cast&lt;long long&gt;(profile.opportunityTaken) * eval.opportunites(loin, *but)),
+<span style = "background-color:#dfd">        .summary = {}};
+    course.summary = "ia " + profile.id + " " + nomDe(combat, actor) + " : se precipite en " +</span>
+                     caseTexte(*but) + " vers " + nomDe(combat, approche.cible);
+<span style = "background-color:#dfd">    const long long scoreCourse = course.score;
+    proposer({.exces = excesDe(profile, menaces),</span>
+              .attaque = false,
+              .progresse = reste &lt; resteOrigine,
+              .score = scoreCourse,
+              .deplacement = loin.costTo(*but).value_or(0)},
+             std::move(course));
+<span style = "background-color:#dfd">}</span>
+
+/// Reculer apres avoir frappe : vers une case moins menacee, si elle bat strictement la sienne.
+/// A menace egale, la moins loin : on ne file pas jusqu'au premier coin de la salle.
+<span style = "background-color:#dfd">void reculerApresAttaque(ArenaSession&amp; session, CombatantId actif, const BehaviorProfile&amp; profil) {
+    const CombatState&amp; combat = session.combat();
+    const Evaluateur eval(session, actif, profil);
+    const std::optional&lt;ReachableArea&gt; zone = combat.reachableArea();
+    if (!eval.valide() || !zone.has_value()) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const long long poids = eval.poidsMenace();
+    const auto cleEn = [&amp;](GridPosition ancre) {
+        return Cle{.exces = std::max(0, eval.menacesImmediates(ancre) - profil.toleratedThreats),</span>
+                   .attaque = false,
+                   .progresse = false,
+                   .score = (-poids * eval.menace(ancre, false)) -
+                            (static_cast&lt;long long&gt;(profil.opportunityTaken) *
+                             eval.opportunites(*zone, ancre)),
+                   .deplacement = zone-&gt;costTo(ancre).value_or(0)};
+<span style = "background-color:#dfd">    };
+    Cle meilleure = cleEn(zone-&gt;origin());
+    std::optional&lt;GridPosition&gt; recul;
+    for (const GridPosition ancre : zone-&gt;destinations()) {
+        const Cle cle = cleEn(ancre);
+        if (cle.meilleureQue(meilleure)) {
+            meilleure = cle;
+            recul = ancre;
+        }
+    }
+    if (recul.has_value()) {
+        session.note("ia " + profil.id + " " + nomDe(combat, actif) + " : recule en " +</span>
+                     caseTexte(*recul));
+<span style = "background-color:#dfd">        static_cast&lt;void&gt;(session.move(*recul));</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">TurnPlan planTurn(const ArenaSession&amp; session, CombatantId actor, const BehaviorProfile&amp; profile) {
+    const CombatState&amp; combat = session.combat();
+    TurnPlan plan{.actor = actor,
+                  .moveTo = std::nullopt,
+                  .target = std::nullopt,
+                  .dashTo = std::nullopt,
+                  .summary = {}};
+    const Evaluateur eval(session, actor, profile);
+    const std::optional&lt;ReachableArea&gt; zone = combat.reachableArea();
+    if (!eval.valide() || !zone.has_value() || combat.activeCombatant() != actor) {</span>
+<span style = "background-color:#fdd">        plan.summary = "ia " + profile.id + " " + nomDe(combat, actor) + " : attend";
+        return plan;</span>
+    }
+<span style = "background-color:#dfd">    const Present&amp; moi = eval.moi();
+    const bool action = moi.combattant-&gt;economy.remaining(ACTION_RESOURCE) &gt; 0;
+    const long long poidsMenace = eval.poidsMenace();</span>
+
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; ancres{zone-&gt;origin()};
+    const std::vector&lt;GridPosition&gt; destinations = zone-&gt;destinations();
+    ancres.insert(ancres.end(), destinations.begin(), destinations.end());</span>
+
+<span style = "background-color:#dfd">    std::optional&lt;Cle&gt; meilleure;
+    const auto proposer = [&amp;](const Cle&amp; cle, TurnPlan candidat) {
+        if (!meilleure.has_value() || cle.meilleureQue(*meilleure)) {
+            meilleure = cle;
+            plan = std::move(candidat);</span>
+        }
+<span style = "background-color:#dfd">    };
+    const auto exces = [&amp;](int menaces) { return excesDe(profile, menaces); };</span>
+
+    // Ce qu'une case coute, calcule une fois : les deux familles de candidats le relisent.
+    struct Case {
+        int menaces = 0;
+        long long menace = 0;
+        long long opportunites = 0;
+    };
+<span style = "background-color:#dfd">    std::vector&lt;Case&gt; cases;
+    cases.reserve(ancres.size());
+    for (const GridPosition ancre : ancres) {
+        cases.push_back({.menaces = eval.menacesImmediates(ancre),</span>
+                         .menace = poidsMenace * eval.menace(ancre, false),
+                         .opportunites = static_cast&lt;long long&gt;(profile.opportunityTaken) *
+                                         eval.opportunites(*zone, ancre)});
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    const auto deplacementVers = [&amp;](GridPosition ancre) {
+        return zone-&gt;costTo(ancre).value_or(0);
+    };</span>
+
+    // Attaquer : chaque case, chaque cible, chaque attaque.
+<span style = "background-color:#dfd">    for (std::size_t indice = 0; action &amp;&amp; indice &lt; ancres.size(); ++indice) {
+        const GridPosition ancre = ancres[indice];
+        const std::vector&lt;Evaluateur::Frappe&gt; frappes = eval.frappes(ancre);
+        if (frappes.empty()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const int menaces = cases[indice].menaces;
+        const long long cout = cases[indice].menace + cases[indice].opportunites;
+        for (const Evaluateur::Frappe&amp; frappe : frappes) {
+            TurnPlan candidat =</span>
+                planAttaque(combat, profile, moi, zone-&gt;origin(), ancre, frappe, menaces, cout);
+<span style = "background-color:#dfd">            const long long scoreCandidat = candidat.score;
+            proposer({.exces = exces(menaces),</span>
+                      .attaque = true,
+                      .progresse = true,
+                      .score = scoreCandidat,
+                      .deplacement = deplacementVers(ancre)},
+                     std::move(candidat));
+<span style = "background-color:#dfd">        }
+    }</span>
+
+    // Sans attaque : s'approcher, se precipiter, esquiver, ou tenir. Un candidat Â« progresse Â»
+    // s'il laisse moins de chemin jusqu'a l'ennemi que la case de depart.
+<span style = "background-color:#dfd">    const std::optional&lt;Approche&gt; approche = approcheLaPlusCourte(combat, eval);
+    const long long resteOrigine = approche.has_value() ? approche-&gt;chemin.cost : 0;
+    for (std::size_t indice = 0; indice &lt; ancres.size(); ++indice) {
+        const GridPosition ancre = ancres[indice];
+        const int menaces = cases[indice].menaces;
+        const long long reste =</span>
+            approche.has_value() ? resteDApproche(combat, eval, *approche, *zone, ancre) : 0;
+<span style = "background-color:#dfd">        const bool progresse = reste &lt; resteOrigine;
+        const int deplacement = deplacementVers(ancre);
+        const long long opportunites = cases[indice].opportunites;
+        const long long base =</span>
+            -static_cast&lt;long long&gt;(profile.approachPerTile) * UNITES_PAR_POINT * reste;
+
+<span style = "background-color:#dfd">        const TurnPlan tenir = planTenir(combat, profile, actor, approche, zone-&gt;origin(), ancre,</span>
+                                         menaces, base - cases[indice].menace - opportunites);
+<span style = "background-color:#dfd">        proposer({.exces = exces(menaces),</span>
+                  .attaque = false,
+                  .progresse = progresse,
+                  .score = tenir.score,
+                  .deplacement = deplacement},
+                 tenir);
+
+<span style = "background-color:#dfd">        if (action &amp;&amp; profile.dodgeWhenThreatened &amp;&amp; menaces &gt; 0) {
+            TurnPlan esquive = tenir;
+            esquive.action = TurnAction::Dodge;
+            esquive.score = base - (poidsMenace * eval.menace(ancre, true)) - opportunites;
+            esquive.summary += ", esquive";
+            const long long scoreEsquive = esquive.score;
+            proposer({.exces = exces(menaces),</span>
+                      .attaque = false,
+                      .progresse = progresse,
+                      .score = scoreEsquive,
+                      .deplacement = deplacement},
+                     std::move(esquive));
+<span style = "background-color:#dfd">        }
+        if (action &amp;&amp; opportunites &gt; 0) {
+            TurnPlan desengage = tenir;
+            desengage.action = TurnAction::Disengage;
+            desengage.score = base - cases[indice].menace;
+            desengage.summary += ", en se desengageant";
+            const long long scoreDesengage = desengage.score;
+            proposer({.exces = exces(menaces),</span>
+                      .attaque = false,
+                      .progresse = progresse,
+                      .score = scoreDesengage,
+                      .deplacement = deplacement},
+                     std::move(desengage));
+<span style = "background-color:#dfd">        }
+    }</span>
+
+<span style = "background-color:#dfd">    if (action &amp;&amp; approche.has_value()) {
+        proposerCourse(combat, profile, eval, *zone, *approche, resteOrigine, proposer);</span>
+    }
+<span style = "background-color:#dfd">    return plan;
+}</span>
+
+bool shouldTakeOpportunity(const ArenaSession&amp; session, CombatantId reactor, CombatantId mover,
+<span style = "background-color:#dfd">                           const BehaviorProfile&amp; profile) {
+    const std::vector&lt;AttackProfile&gt;* attaques = session.attacks(reactor);
+    const Combatant* fuyard = session.combat().find(mover);
+    if (attaques == nullptr || fuyard == nullptr) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto coup = std::ranges::find(*attaques, AttackKind::Melee, &amp;AttackProfile::kind);
+    return coup != attaques-&gt;end() &amp;&amp;</span>
+           requiredRoll(fuyard-&gt;profile.armorClass, attackBonusOf(*coup)) &lt;=
+               profile.opportunityMaximumRoll;
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">OpportunityPolicy aiOpportunityPolicy(const BehaviorCatalog&amp; catalog) {
+    return [&amp;catalog](const ArenaSession&amp; session, CombatantId reactor, CombatantId mover) {
+        const std::string&amp; id = session.behaviorOf(reactor);
+        if (id.empty()) {</span>
+<span style = "background-color:#fdd">            return true;</span>
+        }
+<span style = "background-color:#dfd">        const BehaviorProfile* profil = catalog.find(id);
+        return profil == nullptr || shouldTakeOpportunity(session, reactor, mover, *profil);
+    };
+}</span>
+
+<span style = "background-color:#dfd">bool playTurn(ArenaSession&amp; session, const BehaviorCatalog&amp; catalog) {
+    CombatState&amp; combat = session.combat();
+    const std::optional&lt;CombatantId&gt; actif = combat.activeCombatant();
+    if (!actif.has_value() || combat.phase() != CombatPhase::TurnActive) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const BehaviorProfile* profil = catalog.find(session.behaviorOf(*actif));
+    if (profil == nullptr) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto toujoursLui = [&amp;] {
+        return combat.phase() == CombatPhase::TurnActive &amp;&amp; combat.activeCombatant() == actif;
+    };
+    const TurnPlan plan = planTurn(session, *actif, *profil);
+    session.note(plan.summary);</span>
+
+<span style = "background-color:#dfd">    if (plan.action == TurnAction::Disengage) {
+        static_cast&lt;void&gt;(session.disengage());</span>
+    }
+<span style = "background-color:#dfd">    if (plan.moveTo.has_value() &amp;&amp; toujoursLui()) {</span>
+        // Un deplacement refuse se dit : sans cette ligne, une IA qui Â« ne bouge pas Â» ne laisse
+        // aucune trace de ce qu'elle a voulu, et l'audit ne peut pas distinguer un plan qui tient
+        // sa place d'un pas que la grille a refuse (LOT-118).
+<span style = "background-color:#dfd">        if (const MoveOutcome pas = session.move(*plan.moveTo); pas.result != MoveResult::Moved) {
+            session.note("deplacement refuse vers " + std::to_string(plan.moveTo-&gt;column) + "," +</span>
+                         std::to_string(plan.moveTo-&gt;row));
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    switch (plan.action) {</span>
+        case TurnAction::Attack:
+<span style = "background-color:#dfd">            if (toujoursLui() &amp;&amp; plan.target.has_value()) {
+                static_cast&lt;void&gt;(session.attack(*plan.target, plan.attackIndex));</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case TurnAction::Dash:
+<span style = "background-color:#dfd">            if (toujoursLui() &amp;&amp; session.dash() &amp;&amp; plan.dashTo.has_value()) {
+                static_cast&lt;void&gt;(session.move(*plan.dashTo));</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        case TurnAction::Dodge:
+<span style = "background-color:#fdd">            if (toujoursLui()) {
+                static_cast&lt;void&gt;(session.dodge());</span>
+            }
+            break;
+        case TurnAction::Disengage:
+        case TurnAction::Wait:
+            break;
+    }
+
+<span style = "background-color:#dfd">    if (plan.action == TurnAction::Attack &amp;&amp; profil-&gt;retreatAfterAttack &amp;&amp; toujoursLui()) {
+        reculerApresAttaque(session, *actif, *profil);</span>
+    }
+<span style = "background-color:#dfd">    if (toujoursLui()) {
+        static_cast&lt;void&gt;(session.endTurn());</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

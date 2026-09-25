@@ -559,8 +559,8 @@ bool LevelDraft::placePieceRegion(std::size_t index, GridPosition first, GridPos
             const GridPosition cell{.column = column, .row = row};
             if (const std::optional&lt;GridPosition&gt; anchor = pieceAnchorAt(index, cell)) {
                 removePieceInternal(index, *anchor, touched);
-            } else if (_layers[index].tiles.tile(column, row) != TileType::Empty) {</span>
-<span style = "background-color:#fdd">                _layers[index].tiles.setTile(column, row, TileType::Empty);
+            } else if (_layers[index].tiles.tile(column, row) != TileType::Empty) {
+                _layers[index].tiles.setTile(column, row, TileType::Empty);
                 touched.push_back(cell);</span>
             }
 <span style = "background-color:#dfd">        }

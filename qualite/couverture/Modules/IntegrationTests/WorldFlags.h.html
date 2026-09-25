@@ -143,6 +143,16 @@ private:
 [[nodiscard]] std::string keyForEntity(std::string_view mapName, std::string_view entityType,
                                        int column, int row);
 
+/**
+ * @brief Le fait Â« cette rencontre a Ã©tÃ© gagnÃ©e Â» : `encounter/&lt;rencontre&gt;/won` (`LOT-120`).
+ *
+ * **FabriquÃ©, jamais Ã©crit Ã  la main.** Une rencontre engagÃ©e par un dialogue n'a pas de clÃ©
+ * d'entitÃ© (`LOT-118`) : sans ce fait, une victoire ne laisserait aucune trace qu'une quÃªte
+ * puisse lire. `core::endEncounter` le pose Ã  la victoire, et lui seul ; `core::flagsWrittenBy`
+ * le compte parmi les drapeaux que pose un dialogue qui engage la rencontre.
+ */
+[[nodiscard]] std::string encounterWonFlag(std::string_view encounterId);
+
 }  // namespace core</pre>
         <hr />
         <table width="100%">

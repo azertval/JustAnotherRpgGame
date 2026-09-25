@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Bestiary.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Rpg/Bestiary.h"
+
+#include &lt;algorithm&gt;
+#include &lt;set&gt;
+#include &lt;system_error&gt;
+
+#include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/Ability.h"
+#include "Core/Rpg/RpgEnumNames.h"
+
+namespace core {
+
+namespace {
+
+// Les fichiers de creature ne portent pas de champ `version` : ce sont des entrees de catalogue,
+// pas des documents de format. `0` desactive la garde de version de readJsonObject, comme le fait
+// deja le test des schemas.
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+// Un champ obligatoire absent est une donnee invalide, jamais une valeur par defaut : c'est ce
+// que `check_rpg_data.py` refuse en CI, et le moteur doit refuser la meme chose. Ces fonctions
+// renvoient false et remplissent `raison` plutot que de lever (EX-NFR-040).
+[[nodiscard]] bool lireEntier(const nlohmann::json&amp; objet, const char* champ, int&amp; sortie,
+<span style = "background-color:#dfd">                              std::string&amp; raison) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">        raison = std::string{"champ '"} + champ + "' absent ou non entier";
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    sortie = trouve-&gt;get&lt;int&gt;();
+    return true;
+}</span>
+
+[[nodiscard]] bool lireTexte(const nlohmann::json&amp; objet, const char* champ, std::string&amp; sortie,
+<span style = "background-color:#dfd">                             std::string&amp; raison) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_string()) {</span>
+<span style = "background-color:#fdd">        raison = std::string{"champ '"} + champ + "' absent ou non textuel";
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    sortie = trouve-&gt;get&lt;std::string&gt;();
+    return true;
+}</span>
+
+[[nodiscard]] std::optional&lt;float&gt; lireReelFacultatif(const nlohmann::json&amp; objet,
+<span style = "background-color:#dfd">                                                      const char* champ) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_number()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return trouve-&gt;get&lt;float&gt;();
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexteFacultatif(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
+                                                          : std::string{};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; lireTextes(const nlohmann::json&amp; objet, const char* champ) {
+    std::vector&lt;std::string&gt; valeurs;
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_array()) {
+        return valeurs;</span>
+    }
+<span style = "background-color:#dfd">    for (const auto&amp; element : *trouve) {
+        if (element.is_string()) {
+            valeurs.push_back(element.get&lt;std::string&gt;());
+        }
+    }
+    return valeurs;
+}</span>
+
+// Les des sont lus par `parseDice`, la seule porte d'entree du projet : une notation illisible
+// donne std::nullopt, jamais une expression devinee. Un `ld8` issu d'un OCR -- la faute que le
+// LOT-30 a documentee -- ressort donc absent, et le test le voit.
+[[nodiscard]] std::optional&lt;Dice&gt; lireDesFacultatifs(const nlohmann::json&amp; objet,
+<span style = "background-color:#dfd">                                                     const char* champ) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_string()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return parseDice(trouve-&gt;get&lt;std::string&gt;());
+}</span>
+
+// Une valeur d'enumeration inconnue est SIGNALEE, pas ignoree : c'est le scenario exact
+// d'EX-CNT-011 -- la donnee nomme un type que le moteur ne connait pas, la valeur tombe dans un
+// cas par defaut, et l'attaque cesse de faire des degats sans que rien ne l'annonce.
+template &lt;typename Enum, typename Analyser&gt;
+void lireEnumerations(const nlohmann::json&amp; objet, const char* champ, Analyser analyser,
+                      std::vector&lt;Enum&gt;&amp; sortie, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                      std::vector&lt;std::string&gt;&amp; erreurs) {
+    for (const std::string&amp; nom : lireTextes(objet, champ)) {
+        const std::optional&lt;Enum&gt; valeur = analyser(nom);
+        if (valeur.has_value()) {
+            sortie.push_back(*valeur);
+        } else {</span>
+<span style = "background-color:#fdd">            std::string message = fichier;
+            message += " : ";
+            message += champ;
+            message += " '";
+            message += nom;
+            message +=</span>
+                "' inconnu du moteur. Une valeur ignoree ferait taire l'effet "
+                "sans qu'aucun message ne le dise.";
+<span style = "background-color:#fdd">            erreurs.push_back(std::move(message));
+        }</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+[[nodiscard]] bool lireCaracteristiques(const nlohmann::json&amp; objet, std::array&lt;int, 6&gt;&amp; sortie,
+<span style = "background-color:#dfd">                                        std::string&amp; raison) {
+    const auto trouve = objet.find("abilities");
+    if (trouve == objet.end() || !trouve-&gt;is_object()) {</span>
+<span style = "background-color:#fdd">        raison = "champ 'abilities' absent ou non objet";
+        return false;</span>
+    }
+    // Les six sont exigees. Une fiche a cinq caracteristiques n'existe pas, et completer la
+    // sixieme a 10 rendrait une extraction incomplete indiscernable d'une creature moyenne.
+<span style = "background-color:#dfd">    for (const Ability caracteristique : allAbilities()) {
+        const std::string nom{abilityName(caracteristique)};
+        const auto valeur = trouve-&gt;find(nom);
+        if (valeur == trouve-&gt;end() || !valeur-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">            raison = "caracteristique '" + nom + "' absente";
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        sortie[static_cast&lt;std::size_t&gt;(caracteristique)] = valeur-&gt;get&lt;int&gt;();
+    }
+    return true;
+}</span>
+
+[[nodiscard]] bool lireVitesse(const nlohmann::json&amp; objet, CreatureSpeed&amp; sortie,
+<span style = "background-color:#dfd">                               std::string&amp; raison) {
+    const auto trouve = objet.find("speed");
+    if (trouve == objet.end() || !trouve-&gt;is_object()) {</span>
+<span style = "background-color:#fdd">        raison = "champ 'speed' absent ou non objet";
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;float&gt; marche = lireReelFacultatif(*trouve, "walk");
+    if (!marche.has_value()) {</span>
+        // Une creature sans vitesse de marche porte `walk: 0` -- l'epaulard, le requin geant. Son
+        // ABSENCE est donc une extraction incomplete, pas une creature immobile.
+<span style = "background-color:#fdd">        raison =</span>
+            "vitesse 'walk' absente ; une creature immobile porte 0, elle n'omet pas le "
+            "champ";
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    sortie.walk = *marche;
+    sortie.fly = lireReelFacultatif(*trouve, "fly");
+    sortie.swim = lireReelFacultatif(*trouve, "swim");
+    sortie.climb = lireReelFacultatif(*trouve, "climb");
+    sortie.burrow = lireReelFacultatif(*trouve, "burrow");
+    return true;
+}</span>
+
+void lireNommes(const nlohmann::json&amp; objet, const char* champ,
+<span style = "background-color:#dfd">                std::vector&lt;CreatureTrait&gt;&amp; sortie) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_array()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (const auto&amp; element : *trouve) {
+        if (element.is_object()) {
+            sortie.push_back({.name = lireTexteFacultatif(element, "name"),</span>
+                              .text = lireTexteFacultatif(element, "text")});
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+void lireActions(const nlohmann::json&amp; objet, Creature&amp; creature, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                 std::vector&lt;std::string&gt;&amp; erreurs) {
+    const auto trouve = objet.find("actions");
+    if (trouve == objet.end() || !trouve-&gt;is_array()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (const auto&amp; element : *trouve) {
+        if (!element.is_object()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        CreatureAction action;
+        action.name = lireTexteFacultatif(element, "name");
+        action.text = lireTexteFacultatif(element, "text");
+        if (const auto bonus = element.find("attackBonus");
+            bonus != element.end() &amp;&amp; bonus-&gt;is_number_integer()) {
+            action.attackBonus = bonus-&gt;get&lt;int&gt;();
+        }
+        action.reach = lireReelFacultatif(element, "reach");
+        action.rangeNormal = lireReelFacultatif(element, "rangeNormal");
+        action.rangeLong = lireReelFacultatif(element, "rangeLong");
+        action.damage = lireDesFacultatifs(element, "damage");
+        if (element.contains("damage") &amp;&amp; !action.damage.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : action '" + action.name +</span>
+                              "' porte une notation de des illisible. Une expression devinee "
+                              "ferait lancer autre chose que ce que le livre ecrit.");
+        }
+<span style = "background-color:#dfd">        const std::string type = lireTexteFacultatif(element, "damageType");
+        if (!type.empty()) {
+            action.damageType = parseDamageType(type);
+            if (!action.damageType.has_value()) {</span>
+<span style = "background-color:#fdd">                std::string message = fichier;
+                message += " : type de degats '";
+                message += type;
+                message += "' inconnu du moteur.";
+                erreurs.push_back(std::move(message));
+            }</span>
+        }
+<span style = "background-color:#dfd">        creature.actions.push_back(std::move(action));
+    }
+}</span>
+
+[[nodiscard]] bool lireCreature(const nlohmann::json&amp; racine, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                Creature&amp; creature, std::vector&lt;std::string&gt;&amp; erreurs) {
+    std::string raison;
+    std::string taille;
+    const bool obligatoires = lireTexte(racine, "id", creature.id, raison) &amp;&amp;</span>
+                              lireTexte(racine, "name", creature.name, raison) &amp;&amp;
+                              lireTexte(racine, "source", creature.source, raison) &amp;&amp;
+                              lireTexte(racine, "size", taille, raison) &amp;&amp;
+                              lireTexte(racine, "creatureType", creature.creatureType, raison) &amp;&amp;
+                              lireEntier(racine, "armorClass", creature.armorClass, raison) &amp;&amp;
+                              lireEntier(racine, "hitPoints", creature.hitPoints, raison) &amp;&amp;
+                              lireVitesse(racine, creature.speed, raison) &amp;&amp;
+                              lireCaracteristiques(racine, creature.abilities, raison);
+<span style = "background-color:#dfd">    if (!obligatoires) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : " + raison + ".");
+        return false;</span>
+    }
+
+<span style = "background-color:#dfd">    const std::optional&lt;CreatureSize&gt; lue = parseCreatureSize(taille);
+    if (!lue.has_value()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : taille '" + taille + "' inconnue du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    creature.size = *lue;</span>
+
+<span style = "background-color:#dfd">    const std::optional&lt;float&gt; puissance = lireReelFacultatif(racine, "challengeRating");
+    if (!puissance.has_value()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : champ 'challengeRating' absent ou non numerique.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    creature.challengeRating = *puissance;</span>
+
+<span style = "background-color:#dfd">    creature.alignment = lireTexteFacultatif(racine, "alignment");
+    creature.description = lireTexteFacultatif(racine, "description");
+    creature.hitDice = lireDesFacultatifs(racine, "hitDice");
+    creature.senses = lireTextes(racine, "senses");
+    creature.languages = lireTextes(racine, "languages");
+    creature.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
+    creature.silhouette = lireTexteFacultatif(racine, "silhouette");</span>
+
+<span style = "background-color:#dfd">    if (const auto competences = racine.find("skills");
+        competences != racine.end() &amp;&amp; competences-&gt;is_object()) {
+        for (const auto&amp; [nom, bonus] : competences-&gt;items()) {
+            if (bonus.is_number_integer()) {
+                creature.skills.emplace(nom, bonus.get&lt;int&gt;());
+            }
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    lireEnumerations&lt;DamageType&gt;(racine, "damageResistances", parseDamageType,</span>
+                                 creature.damageResistances, fichier, erreurs);
+<span style = "background-color:#dfd">    lireEnumerations&lt;DamageType&gt;(racine, "damageImmunities", parseDamageType,</span>
+                                 creature.damageImmunities, fichier, erreurs);
+<span style = "background-color:#dfd">    lireEnumerations&lt;DamageType&gt;(racine, "damageVulnerabilities", parseDamageType,</span>
+                                 creature.damageVulnerabilities, fichier, erreurs);
+<span style = "background-color:#dfd">    lireEnumerations&lt;Condition&gt;(racine, "conditionImmunities", parseCondition,</span>
+                                creature.conditionImmunities, fichier, erreurs);
+<span style = "background-color:#dfd">    lireNommes(racine, "traits", creature.traits);
+    lireActions(racine, creature, fichier, erreurs);
+    return true;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const CreatureAction* Creature::action(std::string_view actionName) const {
+    const auto trouve = std::ranges::find(actions, actionName, &amp;CreatureAction::name);
+    return trouve == actions.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">const Creature* Bestiary::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(creatures, id, &amp;Creature::id);
+    return trouve == creatures.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; Bestiary::requiredMechanisms() const {
+    std::set&lt;std::string&gt; uniques;
+    for (const Creature&amp; creature : creatures) {
+        uniques.insert(creature.requiredMechanisms.begin(), creature.requiredMechanisms.end());
+    }
+    return {uniques.begin(), uniques.end()};
+}</span>
+
+<span style = "background-color:#dfd">Bestiary loadBestiary(const std::filesystem::path&amp; directory) {
+    Bestiary bestiaire;</span>
+
+<span style = "background-color:#dfd">    std::error_code code;
+    if (!std::filesystem::is_directory(directory, code)) {</span>
+        // Un dossier absent n'est PAS un bestiaire vide : les deux se ressemblent a l'execution,
+        // et confondre &lt;&lt; pas installe &gt;&gt; avec &lt;&lt; aucune creature &gt;&gt; fait chercher le defaut du
+        // mauvais cote pendant longtemps.
+<span style = "background-color:#dfd">        bestiaire.errors.push_back(directory.string() +</span>
+                                   " : dossier de creatures absent ou illisible.");
+<span style = "background-color:#dfd">        return bestiaire;</span>
+    }
+
+    // Le dossier est BALAYE. Une liste de quatre-vingt-quatorze noms ecrite ici serait une seconde
+    // source de verite, et la premiere creature du LOT-46 en sortirait invisible.
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; fichiers;
+    for (const auto&amp; entree : std::filesystem::directory_iterator(directory, code)) {
+        if (entree.is_regular_file(code) &amp;&amp; entree.path().extension() == ".json") {
+            fichiers.push_back(entree.path());
+        }
+    }
+    std::ranges::sort(fichiers);</span>
+
+<span style = "background-color:#dfd">    for (const std::filesystem::path&amp; chemin : fichiers) {
+        const std::string nom = chemin.filename().string();
+        const JsonDocument document = readJsonObjectFromFile(chemin, SANS_GARDE_DE_VERSION);
+        if (!document.ok()) {</span>
+            // Le message porte deja le fichier et la ligne (EX-CNT-010).
+<span style = "background-color:#fdd">            bestiaire.errors.push_back(document.message);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        Creature creature;
+        if (lireCreature(document.root, nom, creature, bestiaire.errors)) {
+            bestiaire.creatures.push_back(std::move(creature));</span>
+        }
+<span style = "background-color:#dfd">    }
+    std::ranges::sort(bestiaire.creatures, {}, &amp;Creature::id);
+    return bestiaire;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

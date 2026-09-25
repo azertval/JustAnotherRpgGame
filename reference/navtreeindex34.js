@@ -1,5 +1,16 @@
 var NAVTREEINDEX34 =
 {
+"structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[3,0,0,45,3],
+"structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3":[2,0,1,45,2],
+"structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3":[3,0,0,45,2],
+"structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5":[2,0,1,45,1],
+"structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5":[3,0,0,45,1],
+"structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[2,0,1,45,0],
+"structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[3,0,0,45,0],
+"structcore_1_1DamageTraits.html":[2,0,1,41],
+"structcore_1_1DamageTraits.html":[3,0,0,41],
+"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[2,0,1,41,0],
+"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[3,0,0,41,0],
 "structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596":[2,0,1,41,1],
 "structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596":[3,0,0,41,1],
 "structcore_1_1DamageWork.html":[2,0,1,47],
@@ -238,16 +249,5 @@ var NAVTREEINDEX34 =
 "structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b":[3,0,0,68,0],
 "structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1":[2,0,1,68,7],
 "structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1":[3,0,0,68,7],
-"structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[2,0,1,68,6],
-"structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[3,0,0,68,6],
-"structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49":[2,0,1,68,1],
-"structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49":[3,0,0,68,1],
-"structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86":[2,0,1,68,4],
-"structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86":[3,0,0,68,4],
-"structcore_1_1EncounterTerrain.html#adcfee2604a59fb7db82799fd0261a6ec":[2,0,1,68,5],
-"structcore_1_1EncounterTerrain.html#adcfee2604a59fb7db82799fd0261a6ec":[3,0,0,68,5],
-"structcore_1_1EncounterTrigger.html":[2,0,1,39],
-"structcore_1_1EncounterTrigger.html":[3,0,0,39],
-"structcore_1_1EncounterTrigger.html#a01091eeca898dbd5680f3e96f6694102":[2,0,1,39,1],
-"structcore_1_1EncounterTrigger.html#a01091eeca898dbd5680f3e96f6694102":[3,0,0,39,1]
+"structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[2,0,1,68,6]
 };

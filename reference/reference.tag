@@ -5722,6 +5722,75 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_quete_des_pommes.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
+    <filename>test__quete__des__pommes_8cpp.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="CombatTransition_8h" name="CombatTransition.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatTransition.h</includes>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="DeterministicRandom_8h" name="DeterministicRandom.h" local="yes" import="no" module="no" objc="no">Core/Math/DeterministicRandom.h</includes>
+    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
+    <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
+    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
+    <includes id="GameQuests_8h" name="GameQuests.h" local="yes" import="no" module="no" objc="no">HMI/Game/GameQuests.h</includes>
+    <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__des__pommes_8cpp.html</anchorfile>
+      <anchor>ace3ac6fda3c27d1fdfd3239abc97329f</anchor>
+      <arglist>(QueteDesPommes, LaVoieDeLaParole)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__des__pommes_8cpp.html</anchorfile>
+      <anchor>a0e9d04e54a7f9a69d40195ec42db52f8</anchor>
+      <arglist>(QueteDesPommes, LaVoieDeLArene)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__des__pommes_8cpp.html</anchorfile>
+      <anchor>ab3de9ec51551fbac7b707bc37cb7d31f</anchor>
+      <arglist>(QueteDesPommes, LaDefaiteSurLeSable)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__des__pommes_8cpp.html</anchorfile>
+      <anchor>af8389963d55d051d4a9bf227a108c2ad</anchor>
+      <arglist>(QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__des__pommes_8cpp.html</anchorfile>
+      <anchor>abf1805695d3a89b74706d7a64c3d7ac8</anchor>
+      <arglist>(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quete__des__pommes_8cpp.html</anchorfile>
+      <anchor>a8ab9df99f4ba59acfe4103c052008ce8</anchor>
+      <arglist>(QueteDesPommes, LaPersuasionReussitUneFoisSurQuatre)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_quete_trois_etapes.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
     <filename>test__quete__trois__etapes_8cpp.html</filename>
@@ -5766,6 +5835,58 @@
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <namespace>test_support</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SystemGameMain.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Systeme/</path>
+    <filename>SystemGameMain_8cpp.html</filename>
+    <member kind="function">
+      <type>int</type>
+      <name>main</name>
+      <anchorfile>SystemGameMain_8cpp.html</anchorfile>
+      <anchor>a3c04138a5bfe5d72780bb7e82a18e627</anchor>
+      <arglist>(int argc, char **argv)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_demo_de_bout_en_bout.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Systeme/</path>
+    <filename>test__demo__de__bout__en__bout_8cpp.html</filename>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="DeterministicRandom_8h" name="DeterministicRandom.h" local="yes" import="no" module="no" objc="no">Core/Math/DeterministicRandom.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
+    <includes id="DialogueModel_8h" name="DialogueModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DialogueModel.h</includes>
+    <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="ScreenRouter_8h" name="ScreenRouter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ScreenRouter.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__demo__de__bout__en__bout_8cpp.html</anchorfile>
+      <anchor>a6ffca2c5b86d11a2a18706311c718147</anchor>
+      <arglist>(DemoDeBoutEnBout, LaFinParLaParole)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__demo__de__bout__en__bout_8cpp.html</anchorfile>
+      <anchor>a45229aa02adccbec8c42b33fccff5215</anchor>
+      <arglist>(DemoDeBoutEnBout, LaFinParLArene)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__demo__de__bout__en__bout_8cpp.html</anchorfile>
+      <anchor>a206e558a66c3ae38ef84fb7382279044</anchor>
+      <arglist>(DemoDeBoutEnBout, LaMortSurLeSable)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_parcours_edition_rpg.cpp</name>
@@ -6277,6 +6398,13 @@
       <anchorfile>test__encounter_8cpp.html</anchorfile>
       <anchor>a88abd14a2bac975404bc1ee3b0dd7496</anchor>
       <arglist>(EncounterTest, UneRencontreSansCleSeRedeclenche)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter_8cpp.html</anchorfile>
+      <anchor>a4a2cde8a07fc08b53bad628e6c181363</anchor>
+      <arglist>(EncounterTest, UneVictoirePoseLeFaitDeLaRencontreGagnee)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -7402,6 +7530,13 @@
       <anchorfile>test__quest_8cpp.html</anchorfile>
       <anchor>a89f06d11274022ef057728a425f7ce91</anchor>
       <arglist>(QuestAdvanceTest, LesUsagesDeDrapeauxSontConfrontesAuxDeclarations)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest_8cpp.html</anchorfile>
+      <anchor>acd9e1ed7c4b182ed2898972c33b9ac6b</anchor>
+      <arglist>(QuestTest, UneRencontreEngageeParUnDialoguePoseLeFaitDeSaVictoire)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11406,6 +11541,7 @@
     <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="DataRoot_8h" name="DataRoot.h" local="yes" import="no" module="no" objc="no">Editor/Logic/DataRoot.h</includes>
     <includes id="EditorSidecar_8h" name="EditorSidecar.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorSidecar.h</includes>
     <includes id="GestureScript_8h" name="GestureScript.h" local="yes" import="no" module="no" objc="no">Editor/Logic/GestureScript.h</includes>
@@ -13143,6 +13279,13 @@
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
       <anchor>a4cd27ffc67925c9d6bef6551ebc9d1e1</anchor>
       <arglist>(MaquetteRenderTest, UnMurSeComposeEnBlocDeTroisFaces)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>ac3d5c4701711877e41569692836a7d35</anchor>
+      <arglist>(MaquetteRenderTest, UnMurDeDecorSeCoucheAPlatSurLePlan)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -24242,6 +24385,20 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>int</type>
+      <name>seed</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>aceed1636624fd252634da7d63d1332b9</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSeed</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a9791c34c0fc5b50102af8252cb806758</anchor>
+      <arglist>(int seed)</arglist>
+    </member>
+    <member kind="function">
       <type>Q_INVOKABLE void</type>
       <name>choose</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
@@ -24360,6 +24517,13 @@
       <anchor>abe43ddd1c94f7610cf4d4cf202e74bc2</anchor>
       <arglist></arglist>
     </member>
+    <member kind="property">
+      <type>int</type>
+      <name>seed</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a935f94969f58a1d1d6f25245a263b2b3</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>open</name>
@@ -24379,6 +24543,13 @@
       <name>_session</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>aa684090329cea87137aece4e20788dff</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_seed</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a14f1d828309043c315f46887a7dca2bb</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -48141,6 +48312,13 @@
       <arglist>(std::string_view mapName, std::string_view entityType, int column, int row)</arglist>
     </member>
     <member kind="function">
+      <type>std::string</type>
+      <name>encounterWonFlag</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aece07193dc5bae59c5937053f89b1c49</anchor>
+      <arglist>(std::string_view encounterId)</arglist>
+    </member>
+    <member kind="function">
       <type>TileType</type>
       <name>collisionTileOf</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -54230,6 +54408,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
     <filename>dir_470d866d2aee15f42c1af4c2491482fa.html</filename>
     <file>test_exploration_carte.cpp</file>
+    <file>test_quete_des_pommes.cpp</file>
     <file>test_quete_trois_etapes.cpp</file>
   </compound>
   <compound kind="dir">
@@ -54598,6 +54777,8 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Systeme</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Systeme/</path>
     <filename>dir_8b21ae7fc27895318f89a3a31abe4fde.html</filename>
+    <file>SystemGameMain.cpp</file>
+    <file>test_demo_de_bout_en_bout.cpp</file>
     <file>test_parcours_edition_rpg.cpp</file>
   </compound>
   <compound kind="dir">

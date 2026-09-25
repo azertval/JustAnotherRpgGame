@@ -81,8 +81,8 @@ public:
              ++index) {
             add(severity, message, cells[index]);
         }
-        if (cells.size() &gt; CELLS_LISTED_PER_KIND) {
-            add(severity, message + " (" + std::to_string(cells.size()) + " cells in all)");</span>
+        if (cells.size() &gt; CELLS_LISTED_PER_KIND) {</span>
+<span style = "background-color:#fdd">            add(severity, message + " (" + std::to_string(cells.size()) + " cells in all)");</span>
         }
 <span style = "background-color:#dfd">    }</span>
 
@@ -447,8 +447,8 @@ void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, co
     if (place.empty()) {</span>
         // Une maquette n'a ni piÃ¨ce ni table ; ses PNJ prennent les figurines du monde (LOT-124).
 <span style = "background-color:#dfd">        PlaceAppearanceResult world = PlaceAppearance::loadForPlace(dataRoot / "Assets", {});
-        if (world.ok()) {</span>
-<span style = "background-color:#fdd">            assets.appearance = std::move(world.appearance);</span>
+        if (world.ok()) {
+            assets.appearance = std::move(world.appearance);</span>
         }
 <span style = "background-color:#dfd">        return assets;</span>
     }

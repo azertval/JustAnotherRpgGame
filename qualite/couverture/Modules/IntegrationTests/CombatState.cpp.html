@@ -1,0 +1,689 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CombatState.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/CombatState.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstdlib&gt;
+
+#include "Core/Rpg/Ability.h"
+#include "Core/Rpg/Bestiary.h"
+#include "Core/Rpg/CharacterSheet.h"
+
+namespace core {
+
+/// Tient la profondeur d'appel. En sortant de l'appel **extÃ©rieur** â celui qui ne vient d'aucun
+/// abonnÃ© â, la machine rÃ¨gle ce que l'appel a changÃ©.
+class CombatState::Operation {
+public:
+<span style = "background-color:#dfd">    explicit Operation(CombatState&amp; state) : _state(state) {
+        ++_state._depth;
+    }
+    ~Operation() {
+        if (--_state._depth == 0) {
+            _state.settle();</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+    Operation(const Operation&amp;) = delete;
+    Operation&amp; operator=(const Operation&amp;) = delete;
+    Operation(Operation&amp;&amp;) = delete;
+    Operation&amp; operator=(Operation&amp;&amp;) = delete;
+
+private:
+    CombatState&amp; _state;
+};
+
+<span style = "background-color:#dfd">CombatantProfile profileFor(const CharacterSheet&amp; sheet, CombatSide side) {
+    return {</span>
+        .name = sheet.name,
+        .side = side,
+        .maximumHitPoints = sheet.maximumHitPoints,
+        .currentHitPoints = sheet.currentHitPoints,
+        .dexterity = sheet.ability(Ability::Dexterity),
+        .initiativeModifier = sheet.modifier(Ability::Dexterity),
+        .initiativeStance = RollStance::Normal,
+        .movement = movementBudget(sheet),
+        .locomotion = Locomotion::Walk,
+        .size = CreatureSize::Medium,
+        .floating = false,
+        .armorClass = sheet.armorClass,
+        .damageTraits = {},
+    };
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">CombatantProfile profileFor(const Creature&amp; creature, CombatSide side) {
+    const bool flies = creature.speed.fly.has_value() &amp;&amp; *creature.speed.fly &gt; creature.speed.walk;
+    const Locomotion locomotion = flies ? Locomotion::Fly : Locomotion::Walk;
+    const int dexterity = creature.ability(Ability::Dexterity);
+    return {</span>
+        .name = creature.name,
+        .side = side,
+        .maximumHitPoints = creature.hitPoints,
+        .currentHitPoints = creature.hitPoints,
+        .dexterity = dexterity,
+        .initiativeModifier = abilityModifier(dexterity),
+        .initiativeStance = RollStance::Normal,
+        .movement = movementBudget(creature, locomotion),
+        .locomotion = locomotion,
+        .size = creature.size,
+        .floating = false,
+        .armorClass = creature.armorClass,
+        .damageTraits = damageTraitsFor(creature),
+    };
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">CombatState::CombatState(BattleGrid grid) : _grid(std::move(grid)) {}</span>
+
+// --- Montage ---------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">EnlistResult CombatState::enlist(CombatantProfile profile, std::optional&lt;GridPosition&gt; anchor) {
+    if (_phase != CombatPhase::Setup) {</span>
+<span style = "background-color:#fdd">        return {.combatant = std::nullopt, .placement = PlacementResult::InvalidCombatant};</span>
+    }
+<span style = "background-color:#dfd">    return admit(std::move(profile), anchor);
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::addInitiativeMarker(InitiativeMarker marker) {
+    return _order.addMarker(std::move(marker));
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::subscribe(CombatHook hook, CombatListener listener) {
+    _listeners.emplace_back(hook, std::move(listener));
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::start(DeterministicRandom&amp; random) {
+    if (reentrant() || _phase != CombatPhase::Setup) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    for (Combatant&amp; combatant : _combatants) {
+        if (!combatant.profile.floating) {
+            rollInitiative(combatant, random);</span>
+        }
+<span style = "background-color:#dfd">    }
+    _phase = CombatPhase::Starting;
+    _advancePending = true;
+    dispatch({.hook = CombatHook::BeforeFirstTurn,</span>
+              .round = 0,
+              .combatant = std::nullopt,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// --- Lecture ---------------------------------------------------------------------------------
+
+namespace {
+
+/// L'identifiant vaut sa position plus un : la mÃªme recherche, constante ou non.
+template &lt;typename Combatants&gt;
+<span style = "background-color:#dfd">auto* findIn(Combatants&amp; combatants, CombatantId combatant) {
+    const auto index = static_cast&lt;std::size_t&gt;(combatant);
+    return index == 0 || index &gt; combatants.size() ? nullptr : &amp;combatants[index - 1];
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const Combatant* CombatState::find(CombatantId combatant) const {
+    return findIn(_combatants, combatant);
+}</span>
+
+<span style = "background-color:#dfd">Combatant* CombatState::findMutable(CombatantId combatant) {
+    return findIn(_combatants, combatant);
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;CombatantId&gt; CombatState::combatants() const {
+    std::vector&lt;CombatantId&gt; ids;
+    ids.reserve(_combatants.size());
+    for (const Combatant&amp; combatant : _combatants) {
+        ids.push_back(combatant.id);
+    }
+    return ids;
+}</span>
+
+// --- Le tour ---------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">ActionEconomy* CombatState::economy(CombatantId combatant) {
+    Combatant* found = findMutable(combatant);
+    return found == nullptr ? nullptr : &amp;found-&gt;economy;
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::spend(std::string_view resource, int amount) {
+    if (_phase != CombatPhase::TurnActive || !_active.has_value()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    return findMutable(*_active)-&gt;economy.spend(resource, amount);
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;ReachableArea&gt; CombatState::reachableArea() const {
+    if (_phase != CombatPhase::TurnActive || !_active.has_value() ||</span>
+        !_grid.positionOf(*_active).has_value()) {
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return ReachableArea(_grid, moverFor(*_active),</span>
+                         find(*_active)-&gt;economy.remaining(MOVEMENT_RESOURCE));
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">MoveOutcome CombatState::move(GridPosition destination) {
+    if (_phase != CombatPhase::TurnActive || !_active.has_value()) {
+        return {.result = MoveResult::NoActiveTurn, .path = {}};</span>
+    }
+<span style = "background-color:#dfd">    const CombatantId mover = *_active;
+    if (!_grid.positionOf(mover).has_value()) {</span>
+<span style = "background-color:#fdd">        return {.result = MoveResult::NotPlaced, .path = {}};</span>
+    }
+<span style = "background-color:#dfd">    std::optional&lt;Path&gt; path = reachableArea()-&gt;pathTo(destination);
+    if (!path.has_value()) {
+        return {.result = MoveResult::Unreachable, .path = {}};</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    Combatant* combatant = findMutable(mover);</span>
+    // `pathTo` a vÃ©rifiÃ© que le chemin tient dans ce qui reste, et que l'emprise tient Ã 
+    // l'arrivÃ©e : ni la dÃ©pense ni le dÃ©placement ne peuvent Ãªtre refusÃ©s ici.
+<span style = "background-color:#dfd">    static_cast&lt;void&gt;(combatant-&gt;economy.spend(MOVEMENT_RESOURCE, path-&gt;cost));
+    static_cast&lt;void&gt;(_grid.moveTo(mover, destination, combatant-&gt;profile.locomotion));
+    return {.result = MoveResult::Moved, .path = std::move(*path)};</span>
+<span style = "background-color:#fdd">}</span>
+
+<span style = "background-color:#dfd">bool CombatState::endTurn() {
+    if (reentrant() || _phase != CombatPhase::TurnActive || !_active.has_value()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    finishTurn();
+    _advancePending = true;
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::interject(CombatantId floatingActor) {
+    Combatant* actor = findMutable(floatingActor);</span>
+    // Pas avant le premier round : le drapeau Â« a jouÃ© ce round-ci Â» serait remis Ã  zÃ©ro au dÃ©but
+    // du round 1, et l'acteur jouerait deux fois.
+    if (!running() || _round == 0 || actor == nullptr || !actor-&gt;profile.floating ||
+<span style = "background-color:#dfd">        actor-&gt;status != CombatantStatus::Standing || actor-&gt;actedThisRound) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    actor-&gt;actedThisRound = true;
+    _interjections.push_back(floatingActor);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::declareAttack(CombatantId attacker, CombatantId target) {
+    const Combatant* from = find(attacker);
+    const Combatant* to = find(target);</span>
+    if (!running() || from == nullptr || to == nullptr ||
+<span style = "background-color:#dfd">        from-&gt;status != CombatantStatus::Standing || to-&gt;status != CombatantStatus::Standing) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    dispatch({.hook = CombatHook::AttackDeclared,</span>
+              .round = _round,
+              .combatant = attacker,
+              .target = target,
+              .marker = {}});
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// --- EntrÃ©es, sorties, points de vie ---------------------------------------------------------
+
+EnlistResult CombatState::join(CombatantProfile profile, GridPosition anchor,
+<span style = "background-color:#dfd">                               DeterministicRandom&amp; random) {
+    if (!running()) {</span>
+<span style = "background-color:#fdd">        return {.combatant = std::nullopt, .placement = PlacementResult::InvalidCombatant};</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    EnlistResult result = admit(std::move(profile), anchor);
+    if (!result.combatant.has_value()) {
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    Combatant&amp; joined = _combatants.back();
+    if (!joined.profile.floating) {
+        rollInitiative(joined, random);</span>
+    }
+<span style = "background-color:#dfd">    dispatch({.hook = CombatHook::CombatantJoined,</span>
+              .round = _round,
+              .combatant = result.combatant,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">    return result;
+}</span>
+
+EnlistResult CombatState::joinAtInitiative(CombatantProfile profile, GridPosition anchor,
+<span style = "background-color:#dfd">                                           int initiative) {
+    if (!running()) {</span>
+<span style = "background-color:#fdd">        return {.combatant = std::nullopt, .placement = PlacementResult::InvalidCombatant};</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    EnlistResult result = admit(std::move(profile), anchor);
+    if (!result.combatant.has_value()) {</span>
+<span style = "background-color:#fdd">        return result;</span>
+    }
+<span style = "background-color:#dfd">    Combatant&amp; joined = _combatants.back();
+    if (!joined.profile.floating) {
+        takeFixedInitiative(joined, initiative);</span>
+    }
+<span style = "background-color:#dfd">    dispatch({.hook = CombatHook::CombatantJoined,</span>
+              .round = _round,
+              .combatant = result.combatant,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">    return result;
+}</span>
+
+<span style = "background-color:#dfd">WithdrawResult CombatState::withdraw(CombatantId combatant) {
+    Combatant* leaving = findMutable(combatant);
+    if (!running() || leaving == nullptr || leaving-&gt;status == CombatantStatus::Withdrawn) {
+        return WithdrawResult::NotInCombat;</span>
+    }
+<span style = "background-color:#dfd">    if (leaving-&gt;profile.side == CombatSide::Allies &amp;&amp; !_escapable) {
+        return WithdrawResult::NotEscapable;</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    leaving-&gt;status = CombatantStatus::Withdrawn;
+    static_cast&lt;void&gt;(_grid.remove(combatant));
+    static_cast&lt;void&gt;(_order.remove(combatant));
+    std::erase(_interjections, combatant);
+    dispatch({.hook = CombatHook::CombatantLeft,</span>
+              .round = _round,
+              .combatant = combatant,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">    return WithdrawResult::Withdrawn;
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::applyDamage(CombatantId combatant, int amount) {
+    Operation operation(*this);
+    damage({.target = combatant, .amount = amount, .critical = false});
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::applyDamage(std::span&lt;const HitPointChange&gt; changes) {
+    Operation operation(*this);
+    for (const HitPointChange&amp; change : changes) {
+        damage(change);
+    }
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::heal(CombatantId combatant, int amount) {
+    Combatant* target = findMutable(combatant);
+    if (target == nullptr || target-&gt;status == CombatantStatus::Withdrawn || amount &lt;= 0) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    Operation operation(*this);
+    target-&gt;profile.currentHitPoints =</span>
+        std::min(target-&gt;profile.maximumHitPoints, target-&gt;profile.currentHitPoints + amount);
+<span style = "background-color:#dfd">    if (target-&gt;profile.currentHitPoints &gt; 0) {
+        target-&gt;status = CombatantStatus::Standing;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool CombatState::grantReserve(CombatantId combatant, HitPointReserve reserve) {
+    Combatant* target = findMutable(combatant);
+    if (target == nullptr || target-&gt;status == CombatantStatus::Withdrawn || reserve.amount &lt;= 0) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (!reserve.stacks) {
+        const auto same = std::ranges::find_if(target-&gt;reserves, [&amp;](const HitPointReserve&amp; r) {
+            return !r.stacks &amp;&amp; r.source == reserve.source;
+        });
+        if (same != target-&gt;reserves.end()) {
+            if (same-&gt;amount &gt;= reserve.amount) {
+                return false;</span>
+            }
+<span style = "background-color:#dfd">            same-&gt;amount = reserve.amount;
+            return true;</span>
+        }
+<span style = "background-color:#dfd">    }
+    target-&gt;reserves.push_back(std::move(reserve));
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;HitPointReserve&gt;* CombatState::reserves(CombatantId combatant) {
+    Combatant* target = findMutable(combatant);
+    return target == nullptr ? nullptr : &amp;target-&gt;reserves;
+}</span>
+
+<span style = "background-color:#dfd">Mover CombatState::moverFor(CombatantId combatant) const {
+    const Combatant* found = find(combatant);
+    return {.combatant = combatant,</span>
+            .locomotion = found == nullptr ? Locomotion::Walk : found-&gt;profile.locomotion,
+<span style = "background-color:#dfd">            .canPassThrough = [this, combatant](CombatantId other) {
+                return canPassThrough(combatant, other);
+            }};
+}</span>
+
+// --- MÃ©canique interne -----------------------------------------------------------------------
+
+<span style = "background-color:#dfd">EnlistResult CombatState::admit(CombatantProfile profile, std::optional&lt;GridPosition&gt; anchor) {
+    const CombatantId id{static_cast&lt;std::uint32_t&gt;(_combatants.size() + 1)};
+    if (anchor.has_value()) {
+        const PlacementResult placed =</span>
+            _grid.place(id, *anchor, footprintSide(profile.size), profile.locomotion);
+<span style = "background-color:#dfd">        if (placed != PlacementResult::Placed) {
+            return {.combatant = std::nullopt, .placement = placed};</span>
+        }
+    }
+<span style = "background-color:#dfd">    const CombatantStatus status =</span>
+        profile.currentHitPoints &gt; 0 ? CombatantStatus::Standing : CombatantStatus::Down;
+<span style = "background-color:#dfd">    const int movement = profile.movement;
+    _combatants.push_back({.id = id,</span>
+                           .profile = std::move(profile),
+                           .status = status,
+                           .economy = ActionEconomy::standard(movement),
+                           .initiativeRoll = std::nullopt,
+                           .actedThisRound = false,
+                           .reserves = {}});
+<span style = "background-color:#dfd">    return {.combatant = id, .placement = PlacementResult::Placed};</span>
+<span style = "background-color:#fdd">}</span>
+
+<span style = "background-color:#dfd">void CombatState::rollInitiative(Combatant&amp; combatant, DeterministicRandom&amp; random) {</span>
+    // L'initiative est un test de DextÃ©ritÃ© (Manuel des Joueurs, Â« Initiative Â») : il passe par le
+    // mÃªme jet que tous les autres, et reste restituable.
+<span style = "background-color:#dfd">    const std::array&lt;Modifier, 1&gt; modifiers{</span>
+        Modifier{.source = "Initiative", .value = combatant.profile.initiativeModifier}};
+<span style = "background-color:#dfd">    CheckResult roll = rollCheck(0, modifiers, combatant.profile.initiativeStance, random);
+    static_cast&lt;void&gt;(_order.add({.combatant = combatant.id,</span>
+                                  .total = roll.total,
+                                  .modifier = combatant.profile.initiativeModifier,
+                                  .dexterity = combatant.profile.dexterity,
+                                  .side = combatant.profile.side}));
+<span style = "background-color:#dfd">    combatant.initiativeRoll = std::move(roll);
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::takeFixedInitiative(Combatant&amp; combatant, int initiative) {
+    static_cast&lt;void&gt;(_order.add({.combatant = combatant.id,</span>
+                                  .total = initiative,
+                                  .modifier = combatant.profile.initiativeModifier,
+                                  .dexterity = combatant.profile.dexterity,
+                                  .side = combatant.profile.side}));
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void CombatState::damage(const HitPointChange&amp; change) {
+    Combatant* target = findMutable(change.target);
+    if (target == nullptr || target-&gt;status == CombatantStatus::Withdrawn || change.amount &lt;= 0) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const int before = target-&gt;profile.currentHitPoints;
+    target-&gt;profile.currentHitPoints = std::max(0, before - change.amount);
+    const bool fell =</span>
+        target-&gt;profile.currentHitPoints == 0 &amp;&amp; target-&gt;status != CombatantStatus::Down;
+<span style = "background-color:#dfd">    if (target-&gt;profile.currentHitPoints == 0) {
+        target-&gt;status = CombatantStatus::Down;</span>
+    }
+<span style = "background-color:#dfd">    CombatEvent event{.hook = CombatHook::DamageTaken,
+                      .round = _round,
+                      .combatant = change.target,
+                      .target = std::nullopt,
+                      .marker = {},
+                      .amount = change.amount,
+                      .hitPointsBefore = before,
+                      .hitPointsAfter = target-&gt;profile.currentHitPoints,
+                      .maximumHitPoints = target-&gt;profile.maximumHitPoints,
+                      .overflow = std::max(0, change.amount - before),
+                      .critical = change.critical};</span>
+    // L'abonne peut enroler un renfort et reallouer la liste : `target` n'est plus lu apres.
+<span style = "background-color:#dfd">    dispatch(event);
+    if (fell) {
+        event.hook = CombatHook::CombatantDowned;
+        dispatch(event);</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void CombatState::dispatch(const CombatEvent&amp; event) {
+    ++_depth;</span>
+    // Un abonnÃ© peut s'abonner Ã  son tour : il sera averti Ã  la prochaine annonce, pas Ã  celle-ci.
+    // L'abonnÃ© est copiÃ© avant l'appel, parce qu'un nouvel abonnement peut rÃ©allouer la liste.
+<span style = "background-color:#dfd">    const std::size_t count = _listeners.size();
+    for (std::size_t index = 0; index &lt; count; ++index) {
+        if (_listeners[index].first != event.hook) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const CombatListener listener = _listeners[index].second;
+        listener(*this, event);
+    }
+    --_depth;
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::settle() {</span>
+    // Dans cet ordre, une consÃ©quence Ã  la fois : la fin du combat prime tout ; un tour que son
+    // combattant ne peut plus jouer se termine ; puis la machine cherche la place suivante.
+<span style = "background-color:#dfd">    while (running()) {
+        if (reachEndIfDecided()) {
+            return;</span>
+        }
+<span style = "background-color:#dfd">        if (_active.has_value() &amp;&amp; find(*_active)-&gt;status != CombatantStatus::Standing) {
+            finishTurn();
+            _advancePending = true;
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (_advancePending &amp;&amp; !_active.has_value()) {
+            step();
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        return;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool CombatState::reachEndIfDecided() {
+    bool allyStanding = false;
+    bool allyWithdrawn = false;
+    bool enemyStanding = false;
+    for (const Combatant&amp; combatant : _combatants) {
+        const bool standing = combatant.status == CombatantStatus::Standing;
+        if (combatant.profile.side == CombatSide::Allies) {
+            allyStanding = allyStanding || standing;
+            allyWithdrawn = allyWithdrawn || combatant.status == CombatantStatus::Withdrawn;
+        } else {
+            enemyStanding = enemyStanding || standing;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (allyStanding &amp;&amp; enemyStanding) {
+        return false;</span>
+    }
+    // Le camp alliÃ© d'abord : si les deux tombent ensemble, c'est une dÃ©faite.
+<span style = "background-color:#dfd">    if (!allyStanding) {
+        _outcome = allyWithdrawn ? CombatOutcome::Flight : CombatOutcome::Defeat;
+    } else {
+        _outcome = CombatOutcome::Victory;</span>
+    }
+<span style = "background-color:#dfd">    _phase = CombatPhase::Ended;
+    _active.reset();
+    _interjections.clear();
+    _advancePending = false;
+    dispatch({.hook = CombatHook::CombatEnded,</span>
+              .round = _round,
+              .combatant = std::nullopt,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">    _counters.clear(CounterScope::Turn);
+    _counters.clear(CounterScope::Round);
+    _counters.clear(CounterScope::Encounter);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::startInterjection() {
+    while (!_interjections.empty()) {
+        const CombatantId actor = _interjections.front();
+        _interjections.pop_front();
+        const Combatant* found = find(actor);
+        if (found != nullptr &amp;&amp; found-&gt;status == CombatantStatus::Standing) {
+            startTurn(actor);
+            return true;</span>
+        }
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    return false;
+}</span>
+
+<span style = "background-color:#dfd">void CombatState::step() {
+    _advancePending = false;</span>
+
+<span style = "background-color:#dfd">    if (startInterjection()) {
+        return;</span>
+    }
+
+<span style = "background-color:#dfd">    std::optional&lt;TurnSlot&gt; next;
+    if (_round &gt; 0) {
+        next = _cursor.has_value() ? _order.slotAfter(*_cursor) : _order.firstSlot();</span>
+    }
+
+<span style = "background-color:#dfd">    if (!next.has_value()) {</span>
+        // Le round est fini. Les acteurs flottants qui n'ont pas choisi leur moment jouent
+        // maintenant : un acteur qui ne se dÃ©cide pas ne perd pas son tour.
+<span style = "background-color:#dfd">        if (_round &gt; 0 &amp;&amp; !_closingRound) {
+            _closingRound = true;
+            for (Combatant&amp; combatant : _combatants) {
+                if (combatant.profile.floating &amp;&amp; combatant.status == CombatantStatus::Standing &amp;&amp;</span>
+                    !combatant.actedThisRound) {
+<span style = "background-color:#dfd">                    combatant.actedThisRound = true;
+                    _interjections.push_back(combatant.id);</span>
+                }
+<span style = "background-color:#dfd">            }
+            _advancePending = true;
+            return;</span>
+        }
+        // Un round sans aucun tour suppose que plus personne n'est debout, et l'issue l'a dÃ©jÃ 
+        // dit. S'arrÃªter plutÃ´t que d'ouvrir des rounds vides Ã  l'infini.
+<span style = "background-color:#dfd">        if (_round &gt; 0 &amp;&amp; !_turnThisRound) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        _closingRound = false;
+        _turnThisRound = false;
+        _cursor.reset();
+        ++_round;
+        for (Combatant&amp; combatant : _combatants) {
+            combatant.actedThisRound = false;
+        }
+        _counters.clear(CounterScope::Round);
+        _phase = CombatPhase::RoundStart;
+        _advancePending = true;
+        dispatch({.hook = CombatHook::RoundStart,</span>
+                  .round = _round,
+                  .combatant = std::nullopt,
+                  .target = std::nullopt,
+                  .marker = {}});
+<span style = "background-color:#dfd">        return;</span>
+    }
+
+<span style = "background-color:#dfd">    _cursor = next;
+    _advancePending = true;
+    if (!next-&gt;entry.has_value()) {
+        _phase = CombatPhase::RoundStart;
+        dispatch({.hook = CombatHook::InitiativeCount,</span>
+                  .round = _round,
+                  .combatant = std::nullopt,
+                  .target = std::nullopt,
+                  .marker = next-&gt;marker.name});
+<span style = "background-color:#dfd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const Combatant* found = find(next-&gt;entry-&gt;combatant);
+    if (found != nullptr &amp;&amp; found-&gt;status == CombatantStatus::Standing) {
+        _advancePending = false;
+        startTurn(found-&gt;id);</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void CombatState::startTurn(CombatantId combatant) {
+    Combatant* actor = findMutable(combatant);
+    _active = combatant;
+    _turnThisRound = true;</span>
+    // La rÃ©action revient ici, au dÃ©but du tour de son porteur â jamais Ã  la fin du tour d'un
+    // autre (`EX-CBT-011`).
+<span style = "background-color:#dfd">    actor-&gt;economy.refresh();
+    _phase = CombatPhase::TurnActive;
+    dispatch({.hook = CombatHook::TurnStart,</span>
+              .round = _round,
+              .combatant = combatant,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void CombatState::finishTurn() {
+    const CombatantId ending = *_active;
+    _phase = CombatPhase::TurnEnd;
+    dispatch({.hook = CombatHook::TurnEnd,</span>
+              .round = _round,
+              .combatant = ending,
+              .target = std::nullopt,
+              .marker = {}});
+<span style = "background-color:#dfd">    _counters.clear(CounterScope::Turn);
+    _active.reset();
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::canPassThrough(CombatantId mover, CombatantId other) const {
+    const Combatant* self = find(mover);
+    const Combatant* crossed = find(other);
+    if (self == nullptr || crossed == nullptr) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (self-&gt;profile.side == crossed-&gt;profile.side) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const int gap =</span>
+        std::abs(static_cast&lt;int&gt;(self-&gt;profile.size) - static_cast&lt;int&gt;(crossed-&gt;profile.size));
+<span style = "background-color:#dfd">    return gap &gt;= 2;
+}</span>
+
+// --- Montage d'une rencontre -----------------------------------------------------------------
+
+EncounterMount mountEncounter(CombatState&amp; combat, const EncounterRun&amp; run,
+<span style = "background-color:#dfd">                              const Bestiary&amp; bestiary, std::span&lt;const PartyMember&gt; party) {
+    EncounterMount mount;
+    combat.setEscapable(run.escapable);
+    for (const PartyMember&amp; member : party) {
+        const EnlistResult enlisted = combat.enlist(member.profile, member.position);
+        if (enlisted.combatant.has_value()) {
+            mount.allies.push_back(*enlisted.combatant);
+        } else {</span>
+<span style = "background-color:#fdd">            mount.refusals.push_back({.who = member.profile.name,</span>
+                                      .position = member.position,
+                                      .placement = enlisted.placement});
+        }
+<span style = "background-color:#dfd">    }
+    for (const CombatantPlacement&amp; placement : run.placements) {
+        const Creature* creature = bestiary.find(placement.creatureId);
+        if (creature == nullptr) {
+            mount.refusals.push_back({.who = placement.creatureId,</span>
+                                      .position = placement.position,
+                                      .placement = std::nullopt});
+<span style = "background-color:#dfd">            continue;</span>
+        }
+        const EnlistResult enlisted =
+<span style = "background-color:#dfd">            combat.enlist(profileFor(*creature, CombatSide::Enemies), placement.position);
+        if (enlisted.combatant.has_value()) {
+            mount.enemies.push_back(*enlisted.combatant);
+        } else {
+            mount.refusals.push_back({.who = placement.creatureId,</span>
+                                      .position = placement.position,
+                                      .placement = enlisted.placement});
+        }
+<span style = "background-color:#dfd">    }
+    return mount;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

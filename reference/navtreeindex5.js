@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"classcore_1_1DialogueListener.html#a3de75ad9eaf865ce5d687b19ab8d08e0":[3,0,0,171,4],
+"classcore_1_1DialogueListener.html#a512b9279278d56bff0d99966ecd2bc20":[2,0,1,171,3],
 "classcore_1_1DialogueListener.html#a512b9279278d56bff0d99966ecd2bc20":[3,0,0,171,3],
 "classcore_1_1DialogueListener.html#a6ce049b4a2a48f8ac02c979a3caf0c14":[2,0,1,171,10],
 "classcore_1_1DialogueListener.html#a6ce049b4a2a48f8ac02c979a3caf0c14":[3,0,0,171,10],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "classcore_1_1ISystem.html":[3,0,0,95],
 "classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a":[2,0,1,95,0],
 "classcore_1_1ISystem.html#a720a3e2dcc57e50cc42fb24b73a8bf9a":[3,0,0,95,0],
-"classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4":[2,0,1,95,1],
-"classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4":[3,0,0,95,1],
-"classcore_1_1ImmunityLedger.html":[2,0,1,24]
+"classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4":[2,0,1,95,1]
 };

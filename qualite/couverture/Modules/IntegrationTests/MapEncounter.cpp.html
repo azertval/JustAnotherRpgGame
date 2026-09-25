@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapEncounter.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/MapEncounter.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cstdlib&gt;
+#include &lt;utility&gt;
+
+namespace core {
+
+<span style = "background-color:#dfd">GridPosition zoneToMap(const CombatZone&amp; zone, GridPosition cell) noexcept {
+    return GridPosition{.column = cell.column + zone.origin.column,</span>
+                        .row = cell.row + zone.origin.row};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">GridPosition mapToZone(const CombatZone&amp; zone, GridPosition cell) noexcept {
+    return GridPosition{.column = cell.column - zone.origin.column,</span>
+                        .row = cell.row - zone.origin.row};
+<span style = "background-color:#dfd">}</span>
+
+namespace {
+
+/// L'ordre des cases libres : de la plus proche de @p voulue a la plus lointaine (distance de
+/// Tchebychev, celle de la grille), a egalite dans l'ordre de lecture -- deterministe, donc rejouable.
+<span style = "background-color:#dfd">[[nodiscard]] int distance(GridPosition a, GridPosition b) noexcept {
+    return std::max(std::abs(a.column - b.column), std::abs(a.row - b.row));
+}</span>
+
+/// La case libre de @p libres la plus proche de @p voulue, hors de @p prises ; rien si tout est pris.
+[[nodiscard]] std::optional&lt;GridPosition&gt; plusProcheLibre(const std::vector&lt;GridPosition&gt;&amp; libres,
+                                                          const std::vector&lt;GridPosition&gt;&amp; prises,
+<span style = "background-color:#dfd">                                                          GridPosition voulue) {
+    std::optional&lt;GridPosition&gt; meilleure;
+    int meilleureDistance = 0;
+    for (const GridPosition cell : libres) {
+        if (std::ranges::find(prises, cell) != prises.end()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const int d = distance(cell, voulue);
+        if (!meilleure.has_value() || d &lt; meilleureDistance) {
+            meilleure = cell;
+            meilleureDistance = d;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return meilleure;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string nomDe(GridPosition cell) {
+    return std::to_string(cell.column) + "," + std::to_string(cell.row);
+}</span>
+
+}  // namespace
+
+MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view mapId,
+                                       const Encounter&amp; encounter, GridPosition trigger,
+                                       GridPosition heroCell,
+                                       const ExplorationSnapshot&amp; exploration,
+<span style = "background-color:#dfd">                                       std::string defeatFlagKey) {
+    MapEncounterResult result;</span>
+
+    // La zone : celle du declencheur, a defaut celle du heros. Le terrain deja analyse par
+    // l'editeur (`analyzeCombatZones`) dit si elle est jouable et quelles cases y sont libres.
+<span style = "background-color:#dfd">    const std::vector&lt;CombatZoneTerrain&gt; terrains =</span>
+        analyzeCombatZones(map.tileMap(), map.entities());
+<span style = "background-color:#dfd">    const CombatZoneTerrain* choisie = nullptr;
+    for (const GridPosition point : {trigger, heroCell}) {
+        for (const CombatZoneTerrain&amp; terrain : terrains) {
+            if (terrain.zone.contains(point)) {
+                choisie = &amp;terrain;
+                break;</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (choisie != nullptr) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (choisie == nullptr) {
+        result.issue = std::string{mapId} + " : aucune zone de combat ne contient le declencheur " +</span>
+                       nomDe(trigger) + " ni le heros " + nomDe(heroCell) + ".";
+<span style = "background-color:#dfd">        return result;</span>
+    }
+<span style = "background-color:#dfd">    if (choisie-&gt;issue.has_value() || choisie-&gt;freeCells.empty()) {</span>
+<span style = "background-color:#fdd">        result.issue = std::string{mapId} + " : la zone de combat Â« " + choisie-&gt;zone.name +</span>
+                       " Â» n'est pas jouable.";
+<span style = "background-color:#fdd">        return result;</span>
+    }
+<span style = "background-color:#dfd">    const CombatZone&amp; zone = choisie-&gt;zone;</span>
+
+<span style = "background-color:#dfd">    MapEncounterSetup setup{.zone = zone,
+                            .battlefield = cropLevelToZone(map, zone),</span>
+                            .heroCell = {},
+<span style = "background-color:#dfd">                            .run = beginEncounter(encounter, exploration, trigger,</span>
+                                                  std::move(defeatFlagKey)),
+<span style = "background-color:#dfd">                            .notes = {}};</span>
+
+    // Les cases libres, en cases de la carte ; ce qui est pris s'y retire au fil des places.
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; prises;
+    const auto libre = [&amp;](GridPosition cell) {
+        return std::ranges::find(prises, cell) == prises.end() &amp;&amp;</span>
+               std::ranges::find(choisie-&gt;freeCells, cell) != choisie-&gt;freeCells.end();
+<span style = "background-color:#dfd">    };
+    const auto placer = [&amp;](GridPosition voulue, std::string_view qui) -&gt; GridPosition {
+        if (libre(voulue)) {
+            prises.push_back(voulue);
+            return voulue;</span>
+        }
+        // Une place hors de la zone, dans un mur ou deja prise se rapproche de ce qu'elle voulait.
+        // La zone a au moins une case libre, et l'on a moins de combattants que de cases : le cas
+        // ou tout est pris se repli sur la case voulue, que le montage refusera en le disant.
+        const std::optional&lt;GridPosition&gt; proche =
+<span style = "background-color:#dfd">            plusProcheLibre(choisie-&gt;freeCells, prises, voulue);
+        if (!proche.has_value()) {</span>
+<span style = "background-color:#fdd">            return voulue;</span>
+        }
+<span style = "background-color:#dfd">        prises.push_back(*proche);
+        setup.notes.push_back(std::string{qui} + " : place " + nomDe(voulue) +</span>
+                              " indisponible, pose en " + nomDe(*proche));
+<span style = "background-color:#dfd">        return *proche;
+    };</span>
+
+    // Le heros d'abord : c'est lui que la rencontre entoure.
+<span style = "background-color:#dfd">    setup.heroCell = mapToZone(zone, placer(heroCell, "heros"));
+    for (CombatantPlacement&amp; placement : setup.run.placements) {
+        placement.position = mapToZone(zone, placer(placement.position, placement.creatureId));
+    }
+    result.setup = std::move(setup);
+    return result;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

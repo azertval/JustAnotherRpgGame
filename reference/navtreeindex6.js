@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4":[3,0,0,95,1],
+"classcore_1_1ImmunityLedger.html":[2,0,1,24],
 "classcore_1_1ImmunityLedger.html":[3,0,0,24],
 "classcore_1_1ImmunityLedger.html#a0e20501097fc196f97f6349c35bf4b0e":[2,0,1,24,1],
 "classcore_1_1ImmunityLedger.html#a0e20501097fc196f97f6349c35bf4b0e":[3,0,0,24,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "classcore_1_1LevelDraft.html#acc48e2f45fb3db53de09e30f60f75845":[3,0,0,118,63],
 "classcore_1_1LevelDraft.html#acda8ea200910fc5679cd968d36de87e4":[2,0,1,118,1],
 "classcore_1_1LevelDraft.html#acda8ea200910fc5679cd968d36de87e4":[3,0,0,118,1],
-"classcore_1_1LevelDraft.html#ad06d3935521ff07ddb8c35b7ab7ee863":[2,0,1,118,73],
-"classcore_1_1LevelDraft.html#ad06d3935521ff07ddb8c35b7ab7ee863":[3,0,0,118,73],
-"classcore_1_1LevelDraft.html#ad27c800742bff5e3bd6f4c04e9780d25":[2,0,1,118,54]
+"classcore_1_1LevelDraft.html#ad06d3935521ff07ddb8c35b7ab7ee863":[2,0,1,118,73]
 };

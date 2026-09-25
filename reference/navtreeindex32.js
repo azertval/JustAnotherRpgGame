@@ -1,5 +1,16 @@
 var NAVTREEINDEX32 =
 {
+"structcore_1_1Background.html#ae39e074e1745158545d30c481c321303":[3,0,0,149,4],
+"structcore_1_1Background.html#af85984951f82a72793eff3e05c3e314c":[2,0,1,149,3],
+"structcore_1_1Background.html#af85984951f82a72793eff3e05c3e314c":[3,0,0,149,3],
+"structcore_1_1BattleGrid_1_1Placement.html":[2,0,1,22,0],
+"structcore_1_1BattleGrid_1_1Placement.html":[3,0,0,22,0],
+"structcore_1_1BattleGrid_1_1Placement.html#a0cc8960ddfdeb2bb29dea52217b4449f":[2,0,1,22,0,0],
+"structcore_1_1BattleGrid_1_1Placement.html#a0cc8960ddfdeb2bb29dea52217b4449f":[3,0,0,22,0,0],
+"structcore_1_1BattleGrid_1_1Placement.html#a79278bf1e30cb6ef4a4e6784c3233870":[2,0,1,22,0,1],
+"structcore_1_1BattleGrid_1_1Placement.html#a79278bf1e30cb6ef4a4e6784c3233870":[3,0,0,22,0,1],
+"structcore_1_1BattleGrid_1_1Zone.html":[2,0,1,22,1],
+"structcore_1_1BattleGrid_1_1Zone.html":[3,0,0,22,1],
 "structcore_1_1BattleGrid_1_1Zone.html#a1981a5485a0015784d9111bad8bc409a":[2,0,1,22,1,0],
 "structcore_1_1BattleGrid_1_1Zone.html#a1981a5485a0015784d9111bad8bc409a":[3,0,0,22,1,0],
 "structcore_1_1BattleGrid_1_1Zone.html#aca2ea625cf023fd58d81eaacfe915ffa":[2,0,1,22,1,1],
@@ -238,16 +249,5 @@ var NAVTREEINDEX32 =
 "structcore_1_1Color.html":[3,0,0,90],
 "structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3":[2,0,1,90,2],
 "structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3":[3,0,0,90,2],
-"structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[2,0,1,90,3],
-"structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[3,0,0,90,3],
-"structcore_1_1Color.html#aa0fab318db823df0ee631ac5eff49588":[2,0,1,90,1],
-"structcore_1_1Color.html#aa0fab318db823df0ee631ac5eff49588":[3,0,0,90,1],
-"structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b":[2,0,1,90,0],
-"structcore_1_1Color.html#ae9a048010fb40505d655c0b54703036b":[3,0,0,90,0],
-"structcore_1_1CombatEvent.html":[2,0,1,27],
-"structcore_1_1CombatEvent.html":[3,0,0,27],
-"structcore_1_1CombatEvent.html#a05ac43793422ddea715c39466b6ec574":[2,0,1,27,7],
-"structcore_1_1CombatEvent.html#a05ac43793422ddea715c39466b6ec574":[3,0,0,27,7],
-"structcore_1_1CombatEvent.html#a17dced5c645c0998427206cd6eede6b5":[2,0,1,27,3],
-"structcore_1_1CombatEvent.html#a17dced5c645c0998427206cd6eede6b5":[3,0,0,27,3]
+"structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[2,0,1,90,3]
 };

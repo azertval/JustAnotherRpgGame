@@ -1,7 +1,7 @@
 var searchData=
 [
   ['magicschoolname_0',['magicSchoolName',['../namespacecore.html#aa8d6d02cb4e8204a0ae9e6a14b5bbc2e',1,'core']]],
-  ['main_1',['main',['../Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp'],['../Game_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp']]],
+  ['main_1',['main',['../Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp'],['../Game_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;Main.cpp'],['../SystemGameMain_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SystemGameMain.cpp']]],
   ['mainwindow_2',['MainWindow',['../classhmi_1_1MainWindow.html#ad5314276368d312f8f32bc9e3bed3db2',1,'hmi::MainWindow::MainWindow(bool crashAfterAutosave=false)'],['../classhmi_1_1MainWindow.html#ab4c8e259baea81d2f887f07b47582e19',1,'hmi::MainWindow::MainWindow(const MainWindow &amp;)=delete']]],
   ['makeentity_3',['makeEntity',['../namespacecore.html#a88adb5289b8943d6a8f1f33b3d296e73',1,'core']]],
   ['manifestarttile_4',['manifestArtTile',['../namespacehmi.html#a9d953b4ec44e750589868717d7667f89',1,'hmi']]],

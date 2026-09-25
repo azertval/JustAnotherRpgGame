@@ -10,5 +10,6 @@ var test__encounter_8cpp =
     [ "TEST", "test__encounter_8cpp.html#ad9ed53b43753e978318c739829bf2bdb", null ],
     [ "TEST", "test__encounter_8cpp.html#a9a7e9db37e57edc732751573a938ef91", null ],
     [ "TEST", "test__encounter_8cpp.html#a88abd14a2bac975404bc1ee3b0dd7496", null ],
+    [ "TEST", "test__encounter_8cpp.html#a4a2cde8a07fc08b53bad628e6c181363", null ],
     [ "TEST", "test__encounter_8cpp.html#a89ab34fd569e455ce083c6b1b0dfa030", null ]
 ];

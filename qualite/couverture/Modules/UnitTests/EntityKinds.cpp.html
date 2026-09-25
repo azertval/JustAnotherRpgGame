@@ -420,8 +420,8 @@ namespace {
 <span style = "background-color:#fdd">            break;  // l'entite le pose : il n'a pas a l'etre ailleurs.</span>
         case EntityChoiceSource::Pieces:
             // Un lieu inconnu ne dit rien de ses pieces : c'est le lieu qui manque, pas elles.
-<span style = "background-color:#fdd">            if (!context.pieces.empty() &amp;&amp; !context.pieces.contains(text)) {
-                return EntityIssueCode::UnknownPiece;</span>
+<span style = "background-color:#dfd">            if (!context.pieces.empty() &amp;&amp; !context.pieces.contains(text)) {</span>
+<span style = "background-color:#fdd">                return EntityIssueCode::UnknownPiece;</span>
             }
             break;
     }

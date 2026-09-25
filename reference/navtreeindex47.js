@@ -1,5 +1,16 @@
 var NAVTREEINDEX47 =
 {
+"structhmi_1_1SidecarReadResult.html#ab9190aef9a7e2edb1cffbda4610a3d1b":[3,0,1,15,0],
+"structhmi_1_1SidecarReadResult.html#aef6ccb6ab488e1f6c1f3474f0767e84a":[2,0,2,16,1],
+"structhmi_1_1SidecarReadResult.html#aef6ccb6ab488e1f6c1f3474f0767e84a":[3,0,1,15,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html":[2,0,2,163,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html":[3,0,1,162,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a243537f76d52247b6918db4e9a19d6e4":[2,0,2,163,1,0],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a243537f76d52247b6918db4e9a19d6e4":[3,0,1,162,1,0],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a84e20dc04c9ec6ef209d002e224ee5cc":[2,0,2,163,1,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a84e20dc04c9ec6ef209d002e224ee5cc":[3,0,1,162,1,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html#aafa1ab2883c41ca1bc963ab9134803cd":[2,0,2,163,1,3],
+"structhmi_1_1SpriteBatch_1_1Batch.html#aafa1ab2883c41ca1bc963ab9134803cd":[3,0,1,162,1,3],
 "structhmi_1_1SpriteBatch_1_1Batch.html#acf82789fe7fff48fa14a8a497a3d3c4a":[2,0,2,163,1,2],
 "structhmi_1_1SpriteBatch_1_1Batch.html#acf82789fe7fff48fa14a8a497a3d3c4a":[3,0,1,162,1,2],
 "structhmi_1_1SpriteBatch_1_1Vertex.html":[2,0,2,163,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX47 =
 "structhmi_1_1WorldMaps.html#a6e05b3688539d26308a00b591c9a72e8":[3,0,1,205,2],
 "structhmi_1_1WorldMaps.html#ae66474f28d2d4e4186662fbb95f17c9d":[2,0,2,206,4],
 "structhmi_1_1WorldMaps.html#ae66474f28d2d4e4186662fbb95f17c9d":[3,0,1,205,4],
-"structhmi_1_1WorldMaps.html#af90875e76864fdd2067b5725a83c4ad7":[2,0,2,206,3],
-"structhmi_1_1WorldMaps.html#af90875e76864fdd2067b5725a83c4ad7":[3,0,1,205,3],
-"structhmi_1_1WorldPlayStep.html":[2,0,2,110],
-"structhmi_1_1WorldPlayStep.html":[3,0,1,109],
-"structhmi_1_1WorldPlayStep.html#a0ac9b6eefe7f811f3cdc428f7a44b9c3":[2,0,2,110,0],
-"structhmi_1_1WorldPlayStep.html#a0ac9b6eefe7f811f3cdc428f7a44b9c3":[3,0,1,109,0],
-"structhmi_1_1WorldPlayStep.html#a38a2011234fd4216f3ecef7f57daf2bf":[2,0,2,110,2],
-"structhmi_1_1WorldPlayStep.html#a38a2011234fd4216f3ecef7f57daf2bf":[3,0,1,109,2],
-"structhmi_1_1WorldPlayStep.html#a83577845a4a69ed916370c373299155a":[2,0,2,110,1],
-"structhmi_1_1WorldPlayStep.html#a83577845a4a69ed916370c373299155a":[3,0,1,109,1],
-"structhmi_1_1WorldPlayStep.html#aa510f0f4dcaf30e22367894d5ffd7a27":[2,0,2,110,3],
-"structhmi_1_1WorldPlayStep.html#aa510f0f4dcaf30e22367894d5ffd7a27":[3,0,1,109,3]
+"structhmi_1_1WorldMaps.html#af90875e76864fdd2067b5725a83c4ad7":[2,0,2,206,3]
 };

@@ -115,6 +115,13 @@ std::string keyForEntity(std::string_view mapName, std::string_view entityType, 
     return cle;
 }</span>
 
+<span style = "background-color:#dfd">std::string encounterWonFlag(std::string_view encounterId) {
+    std::string cle;
+    cle.reserve(encounterId.size() + 15);
+    cle.append("encounter/").append(encounterId).append("/won");
+    return cle;
+}</span>
+
 }  // namespace core</pre>
         <hr />
         <table width="100%">

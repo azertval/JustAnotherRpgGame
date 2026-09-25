@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Flanking.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/Flanking.h"
+
+#include &lt;algorithm&gt;
+#include &lt;utility&gt;
+
+namespace core {
+namespace {
+
+/// Vrai si le segment p-q touche le segment vertical x = @p x, y dans [@p y0, @p y1], extremites
+/// comprises. Les points sont en demi-cases ; tout reste entier.
+<span style = "background-color:#dfd">[[nodiscard]] bool toucheLeBordVertical(GridPoint p, GridPoint q, int x, int y0, int y1) noexcept {
+    if (q.x &lt; p.x) {
+        std::swap(p, q);</span>
+    }
+<span style = "background-color:#dfd">    const long long dx = q.x - p.x;
+    if (dx == 0) {</span>
+        // Parallele au bord : un centre de case n'est jamais sur un bord, la ligne ne le touche
+        // pas.
+<span style = "background-color:#dfd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const long long n = x - p.x;
+    if (n &lt; 0 || n &gt; dx) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const long long y = (static_cast&lt;long long&gt;(p.y) * dx) + (n * (q.y - p.y));
+    return y &gt;= static_cast&lt;long long&gt;(y0) * dx &amp;&amp; y &lt;= static_cast&lt;long long&gt;(y1) * dx;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] GridPoint transpose(GridPoint point) noexcept {
+    return {.x = point.y, .y = point.x};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] int ecart(GridPosition a, int coteA, Footprint b) noexcept {
+    const int dx = std::max(</span>
+        {0, b.anchor.column - (a.column + coteA - 1), a.column - (b.anchor.column + b.side - 1)});
+<span style = "background-color:#dfd">    const int dy =</span>
+        std::max({0, b.anchor.row - (a.row + coteA - 1), a.row - (b.anchor.row + b.side - 1)});
+<span style = "background-color:#dfd">    return std::max(dx, dy);
+}</span>
+
+/// Deux emprises alignees, par une case de chacune, sur deux cotes opposes de la cible.
+<span style = "background-color:#dfd">[[nodiscard]] bool alignees(Footprint a, Footprint b, Footprint cible) noexcept {
+    for (int ya = 0; ya &lt; a.side; ++ya) {
+        for (int xa = 0; xa &lt; a.side; ++xa) {
+            for (int yb = 0; yb &lt; b.side; ++yb) {
+                for (int xb = 0; xb &lt; b.side; ++xb) {
+                    if (crossesOppositeSides(</span>
+                            {.column = a.anchor.column + xa, .row = a.anchor.row + ya},
+                            {.column = b.anchor.column + xb, .row = b.anchor.row + yb}, cible)) {
+<span style = "background-color:#dfd">                        return true;</span>
+                    }
+<span style = "background-color:#dfd">                }
+            }
+        }
+    }
+    return false;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool crossesOppositeSides(GridPosition a, GridPosition b, Footprint target) noexcept {
+    const GridPoint p = centerOf(a);
+    const GridPoint q = centerOf(b);
+    const int x0 = 2 * target.anchor.column;
+    const int x1 = 2 * (target.anchor.column + target.side);
+    const int y0 = 2 * target.anchor.row;
+    const int y1 = 2 * (target.anchor.row + target.side);
+    const bool gaucheEtDroite =</span>
+        toucheLeBordVertical(p, q, x0, y0, y1) &amp;&amp; toucheLeBordVertical(p, q, x1, y0, y1);
+<span style = "background-color:#dfd">    const bool hautEtBas = toucheLeBordVertical(transpose(p), transpose(q), y0, x0, x1) &amp;&amp;</span>
+                           toucheLeBordVertical(transpose(p), transpose(q), y1, x0, x1);
+<span style = "background-color:#dfd">    return gaucheEtDroite || hautEtBas;
+}</span>
+
+bool isFlankedFrom(const CombatState&amp; combat, CombatantId attacker, GridPosition attackerAnchor,
+<span style = "background-color:#dfd">                   CombatantId target) {
+    const Combatant* assaillant = combat.find(attacker);
+    const Combatant* cible = combat.find(target);
+    const std::optional&lt;GridPosition&gt; ancreCible = combat.grid().positionOf(target);</span>
+    if (assaillant == nullptr || cible == nullptr || !ancreCible.has_value() ||
+<span style = "background-color:#dfd">        attacker == target || assaillant-&gt;status != CombatantStatus::Standing) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const BattleGrid&amp; grille = combat.grid();
+    const Footprint emplacement{.anchor = *ancreCible, .side = footprintSide(cible-&gt;profile.size)};
+    const Footprint moi{.anchor = attackerAnchor, .side = footprintSide(assaillant-&gt;profile.size)};
+    if (ecart(moi.anchor, moi.side, emplacement) != 1 ||</span>
+        !hasLineOfSight(grille, moi, emplacement)) {
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto prendEnTenaille = [&amp;](const CombatantId autre) {
+        const Combatant* allie = combat.find(autre);
+        const std::optional&lt;GridPosition&gt; ancre = grille.positionOf(autre);</span>
+        if (autre == attacker || autre == target || allie == nullptr || !ancre.has_value() ||
+<span style = "background-color:#dfd">            allie-&gt;status != CombatantStatus::Standing ||</span>
+            allie-&gt;profile.side != assaillant-&gt;profile.side) {
+<span style = "background-color:#dfd">            return false;</span>
+        }
+<span style = "background-color:#dfd">        const Footprint lui{.anchor = *ancre, .side = footprintSide(allie-&gt;profile.size)};
+        return ecart(lui.anchor, lui.side, emplacement) == 1 &amp;&amp;</span>
+               hasLineOfSight(grille, lui, emplacement) &amp;&amp; alignees(moi, lui, emplacement);
+<span style = "background-color:#dfd">    };
+    return std::ranges::any_of(combat.combatants(), prendEnTenaille);
+}</span>
+
+<span style = "background-color:#dfd">bool isFlanked(const CombatState&amp; combat, CombatantId attacker, CombatantId target) {
+    const std::optional&lt;GridPosition&gt; ancre = combat.grid().positionOf(attacker);
+    return ancre.has_value() &amp;&amp; isFlankedFrom(combat, attacker, *ancre, target);
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

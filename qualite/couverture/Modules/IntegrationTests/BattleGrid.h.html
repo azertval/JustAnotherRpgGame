@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>BattleGrid.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/BattleGrid.h
+ * @brief La grille de combat : ce qui fait obstacle, ce qui ralentit, et qui se tient oÃ¹
+ *        (`LOT-19`, `EX-CBT-020`).
+ */
+
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;map&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/Damage.h"
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/LevelProperties.h"
+#include "Core/Levels/TileMap.h"
+#include "Core/Rpg/RpgEnums.h"
+
+namespace core {
+
+class Level;
+
+/**
+ * @brief Identifiant d'un combattant sur la grille.
+ *
+ * Un type **fort**, et non un `int` : la grille ne sait rien de ce qu'est un combattant â fiche,
+ * crÃ©ature, camp â, elle ne retient que sa place. C'est le combat (`core::CombatState`, `LOT-20`)
+ * qui attribue les identifiants ; un entier nu se serait confondu avec un indice de case Ã  la
+ * premiÃ¨re signature qui prend les deux.
+ */
+enum class CombatantId : std::uint32_t {};
+
+/**
+ * @brief CÃ´tÃ©, en cases, de l'emprise d'une crÃ©ature de taille @p size.
+ *
+ * Manuel des Joueurs, Â« Taille des crÃ©atures Â» : TP, P et M tiennent dans une case de 1,50 m, G
+ * dans 2 Ã 2, TG dans 3 Ã 3, Gig dans 4 Ã 4. Une trÃ¨s petite crÃ©ature occupe **une case entiÃ¨re**
+ * ici, lÃ  oÃ¹ le livre en tolÃ¨re quatre dans la mÃªme : c'est le critÃ¨re du lot â Â« deux crÃ©atures
+ * ne partagent jamais une case Â» â, et la rÃ¨gle du livre se rouvrira, si un contenu la rÃ©clame, par
+ * une exception nommÃ©e et non par un partage silencieux.
+ */
+<span style = "background-color:#dfd">[[nodiscard]] constexpr int footprintSide(CreatureSize size) noexcept {
+    switch (size) {</span>
+        case CreatureSize::Tiny:
+        case CreatureSize::Small:
+        case CreatureSize::Medium:
+<span style = "background-color:#dfd">            return 1;</span>
+        case CreatureSize::Large:
+<span style = "background-color:#dfd">            return 2;</span>
+        case CreatureSize::Huge:
+<span style = "background-color:#fdd">            return 3;</span>
+        case CreatureSize::Gargantuan:
+<span style = "background-color:#dfd">            return 4;</span>
+    }
+<span style = "background-color:#fdd">    return 1;</span>
+<span style = "background-color:#dfd">}</span>
+
+/**
+ * @brief Comment un combattant se dÃ©place : au sol, ou en vol.
+ *
+ * ## L'altitude est un attribut, jamais une gÃ©omÃ©trie
+ *
+ * Le jeu est vu de dessus, et sa grille n'a pas de hauteur. Donner une altitude aux cases â une
+ * grille par Ã©tage, ou une case Â« en l'air Â» au-dessus d'une autre â ferait de chaque requÃªte de
+ * portÃ©e, de chemin et d'occupation une requÃªte en trois dimensions, pour un contenu qui n'en a
+ * besoin qu'au passage d'un dragon. Le vol est donc une **maniÃ¨re de traverser** la mÃªme grille :
+ *
+ * - un volant franchit les obstacles **au sol** â l'eau profonde, la falaise â et ignore le terrain
+ *   difficile, qui est une gÃªne de sol ;
+ * - il ne traverse pas la **matiÃ¨re pleine** : un mur de donjon monte jusqu'Ã  la voÃ»te, et la
+ *   grille de collision ne sait pas distinguer un muret d'un rempart ;
+ * - il occupe sa case comme tout autre combattant : deux crÃ©atures ne s'y superposent pas, l'une
+ *   en vol et l'autre au sol.
+ *
+ * Qu'un volant reste ciblable Ã  portÃ©e dÃ©coule de la mÃªme dÃ©cision, et c'est le `LOT-22` qui la
+ * lira : une portÃ©e se compte sur la grille, sans hauteur Ã  ajouter.
+ */
+enum class Locomotion {
+    Walk,
+    Fly,
+};
+
+/// @brief Nom de la propriÃ©tÃ© de zone qui rend une case difficile (`EX-LVL-018`).
+inline constexpr std::string_view DIFFICULT_TERRAIN_PROPERTY = "difficultTerrain";
+
+/**
+ * @brief Les trois abris du Manuel des Joueurs (chapitre 9, Â« Abri Â»), et l'absence d'abri.
+ *
+ * OrdonnÃ©s du moins au plus protecteur : Â« si une cible se positionne derriÃ¨re plusieurs types
+ * d'abri, seul celui qui la protÃ¨ge le plus est pris en compte Â», et comparer deux abris est ce que
+ * cette rÃ¨gle demande. Le calcul est au `LOT-22` (`core::coverBetween`).
+ */
+enum class Cover : std::uint8_t {
+    None,
+    /// Au moins la moitiÃ© du corps : +2 Ã  la CA et aux sauvegardes de DextÃ©ritÃ©.
+    Half,
+    /// Au moins les trois quarts : +5.
+    ThreeQuarters,
+    /// ComplÃ¨tement dissimulÃ©e : ne peut pas Ãªtre ciblÃ©e directement.
+    Total,
+};
+
+/**
+ * @brief Un objet posÃ© sur une case : une toile, une barricade, un tonneau.
+ *
+ * Il a des **points de vie** parce que le corpus en donne (les toiles du Sourcebook : CA 10,
+ * 10 PV) et qu'un objet de grille se dÃ©truit ; il n'est pas une crÃ©ature, et n'entre donc ni dans
+ * l'occupation ni dans l'ordre du tour.
+ */
+struct GridObject {
+    /// Nature de l'objet, libre (`"web"`, `"barricade"`) â la grille ne l'interprÃ¨te pas.
+    std::string kind;
+    int hitPoints = 1;
+    /// Vrai si l'objet empÃªche d'entrer dans sa case, comme un mur tant qu'il tient debout. Faux
+    /// pour une toile, qu'on traverse â c'est l'Ã©tat qu'elle inflige qui gÃªne, pas sa prÃ©sence.
+    bool blocksMovement = true;
+    /**
+     * @brief L'abri que l'objet procure Ã  ce qui se tient derriÃ¨re (`LOT-22`).
+     *
+     * Le Manuel nomme ses exemples : un muret ou un grand meuble abrite partiellement, une herse ou
+     * une meurtriÃ¨re abrite de faÃ§on importante. Aucun ne se dÃ©duit de `kind`, que la grille
+     * n'interprÃ¨te pas. Un objet Ã  `Cover::Total` arrÃªte la vue comme un mur ; une toile n'abrite
+     * de rien.
+     */
+<span style = "background-color:#dfd">    Cover cover = Cover::None;</span>
+    /// Les structures rÃ©sistent comme les crÃ©atures : une porte de fer ne craint pas le poison
+    /// (`core::DamagePipeline::applyToStructure`, `LOT-21`).
+    DamageTraits damageTraits;
+};
+
+/// @brief Pourquoi un placement a Ã©tÃ© refusÃ© â ou qu'il a rÃ©ussi.
+enum class PlacementResult {
+    Placed,
+    /// L'emprise sort de la carte.
+    OutOfBounds,
+    /// L'emprise touche une case pleine ou un objet bloquant.
+    Obstructed,
+    /// L'emprise touche une case dÃ©jÃ  tenue par un **autre** combattant, ou dÃ©jÃ  chargÃ©e d'un
+    /// objet.
+    Occupied,
+    /// `place` : le combattant est dÃ©jÃ  sur la grille, ou son emprise n'est pas un cÃ´tÃ© valide.
+    /// `moveTo` : il n'y est pas.
+    InvalidCombatant,
+};
+
+/**
+ * @brief La grille tactique d'une rencontre.
+ *
+ * ## Une seule source de vÃ©ritÃ© pour Â« peut-on se tenir ici Â»
+ *
+ * Les obstacles viennent de la **grille de collision** de la carte â `core::Level::tileMap()` â,
+ * jamais d'un masque dessinÃ© pour le combat (`EX-CBT-001`). La grille la **recopie** Ã  la
+ * construction : une copie ne peut pas changer sous un tour en cours.
+ *
+ * ## Les propriÃ©tÃ©s de zone
+ *
+ * Une couche de la carte qui porte des propriÃ©tÃ©s libres (`EX-LVL-018`) dÃ©clare une **zone** :
+ * les cases non vides de cette couche. Une entitÃ© `zone` en dÃ©clare une aussi, rectangle ou
+ * ensemble de cases peint (`core::zoneCells`, dÃ©cision D13 de l'Ã©diteur). La grille les relÃ¨ve
+ * sans les interprÃ©ter, sauf une â
+ * `difficultTerrain: true`, qui double le coÃ»t d'entrÃ©e. Les autres (combat interdit, aucun soin,
+ * type de dÃ©gÃ¢ts alÃ©atoire) sont lues par ceux qui en ont l'usage (`LOT-50`, `LOT-81`) au moyen de
+ * `zonesAt`, et ce lot n'en invente aucune.
+ *
+ * ## Ce qu'elle ne fait pas
+ *
+ * Elle ne calcule aucun chemin : c'est `core::findPath` et `core::ReachableArea`. Elle ne connaÃ®t
+ * aucun camp : c'est la requÃªte de dÃ©placement qui dit qui l'on peut traverser. Elle n'a pas
+ * d'altitude : l'altitude est un **attribut** du dÃ©placement, jamais une gÃ©omÃ©trie de la grille
+ * (voir `core::Locomotion`).
+ */
+class BattleGrid {
+public:
+    /// @brief Une grille sans zone, dont les obstacles sont les cases pleines de @p collision.
+    explicit BattleGrid(const TileMap&amp; collision);
+
+    /**
+     * @brief La grille de @p level : obstacles de @p collision, zones de ses couches.
+     * @param level     La carte, dont les couches dÃ©clarent les zones.
+     * @param collision La grille de collision Ã  retenir â `level.tileMap()` pour la soliditÃ©
+     *                  statique, ou une grille dÃ©rivÃ©e (une zone de combat dÃ©coupÃ©e, par
+     *                  exemple). Une couche aux dimensions diffÃ©rentes est ignorÃ©e.
+     */
+    BattleGrid(const Level&amp; level, const TileMap&amp; collision);
+
+    /// @brief La grille de @p level, sur sa seule soliditÃ© statique.
+    explicit BattleGrid(const Level&amp; level);
+
+<span style = "background-color:#dfd">    [[nodiscard]] int width() const noexcept {
+        return _width;
+    }
+    [[nodiscard]] int height() const noexcept {
+        return _height;
+    }</span>
+    [[nodiscard]] bool inBounds(GridPosition cell) const noexcept;
+
+    /**
+     * @brief Vrai si la case arrÃªte un combattant qui se dÃ©place par @p locomotion : matiÃ¨re
+     *        pleine, objet bloquant, et â au sol seulement â eau profonde et falaise.
+     *
+     * Hors de la carte compte pour plein â un appelant qui oublie la borne doit se heurter Ã  un
+     * mur, pas lire hors du tableau.
+     */
+    [[nodiscard]] bool isObstructed(GridPosition cell,
+                                    Locomotion locomotion = Locomotion::Walk) const;
+
+    /// @brief Vrai si entrer dans la case coÃ»te double **au sol** â un volant n'en tient pas compte
+    /// (`core::Locomotion`).
+    [[nodiscard]] bool isDifficult(GridPosition cell) const;
+
+    /**
+     * @brief Vrai si la case arrÃªte la vue : matiÃ¨re pleine, ou objet Ã  abri total (`LOT-22`).
+     *
+     * L'eau profonde et la falaise arrÃªtent la marche, pas le regard : on voit par-dessus un
+     * gouffre. Hors de la carte, faux â un tracÃ© entre deux cases de la carte n'en sort jamais, et
+     * les bords ne sont pas des murs pour la vue.
+     */
+    [[nodiscard]] bool blocksSight(GridPosition cell) const;
+
+    /// @brief L'abri que procure l'objet posÃ© sur la case, `Cover::None` s'il n'y en a pas.
+    [[nodiscard]] Cover objectCoverAt(GridPosition cell) const;
+
+    /**
+     * @brief Rend une case difficile, ou la rend Ã  la normale â en cours de combat.
+     *
+     * Le terrain difficile n'est pas seulement une donnÃ©e de carte : un sÃ©isme en crÃ©e, un sort
+     * l'efface. Une case hors de la carte est ignorÃ©e.
+     */
+    void setDifficult(GridPosition cell, bool difficult);
+
+    /// @brief Les propriÃ©tÃ©s de toutes les zones qui couvrent la case, dans l'ordre des couches.
+    /// Les pointeurs vivent aussi longtemps que la grille.
+    [[nodiscard]] std::vector&lt;const PropertyMap*&gt; zonesAt(GridPosition cell) const;
+
+    /**
+     * @brief Place @p combatant, d'emprise @p side Ã @p side, avec @p anchor pour coin haut-gauche.
+     *
+     * Refuse plutÃ´t que de corriger : une case voulue qui tombe dans un mur est une information
+     * pour le montage de la rencontre (`core::placeCombatants`), et la dÃ©placer d'office cacherait
+     * une formation mal Ã©crite. Un combattant placÃ© **au sol** ne peut l'Ãªtre sur l'eau profonde ;
+     * un volant, si â il s'y tient en vol stationnaire.
+     */
+    [[nodiscard]] PlacementResult place(CombatantId combatant, GridPosition anchor, int side = 1,
+                                        Locomotion locomotion = Locomotion::Walk);
+
+    /**
+     * @brief DÃ©place un combattant dÃ©jÃ  placÃ©.
+     *
+     * Ne vÃ©rifie **aucun** chemin ni budget : c'est l'appelant qui a validÃ© le trajet
+     * (`core::ReachableArea`). La grille ne tient que l'occupation, et refuse tout ce qui la
+     * violerait.
+     */
+    [[nodiscard]] PlacementResult moveTo(CombatantId combatant, GridPosition anchor,
+                                         Locomotion locomotion = Locomotion::Walk);
+
+    /// @brief Retire un combattant de la grille (mort, fuite). Faux s'il n'y Ã©tait pas.
+    bool remove(CombatantId combatant);
+
+    /// @brief Le combattant qui tient la case, s'il y en a un.
+    [[nodiscard]] std::optional&lt;CombatantId&gt; occupantAt(GridPosition cell) const;
+    /// @brief Le coin haut-gauche de l'emprise du combattant, s'il est sur la grille.
+    [[nodiscard]] std::optional&lt;GridPosition&gt; positionOf(CombatantId combatant) const;
+    /// @brief Le cÃ´tÃ© de l'emprise du combattant, ou 0 s'il n'est pas sur la grille.
+    [[nodiscard]] int sideOf(CombatantId combatant) const;
+
+    /**
+     * @brief Vrai si une emprise @p side Ã @p side ancrÃ©e en @p anchor tient sur la grille : dans
+     *        les bornes, sans obstacle pour @p locomotion, et sans autre combattant que @p self.
+     */
+    [[nodiscard]] bool canStand(GridPosition anchor, int side,
+                                std::optional&lt;CombatantId&gt; self = std::nullopt,
+                                Locomotion locomotion = Locomotion::Walk) const;
+
+    /**
+     * @brief Vrai si l'emprise @p side Ã @p side ancrÃ©e en @p anchor ne touche aucun obstacle pour
+     *        @p locomotion, sans regarder les combattants.
+     */
+    [[nodiscard]] bool isClear(GridPosition anchor, int side,
+                               Locomotion locomotion = Locomotion::Walk) const;
+
+    /// @brief Pose un objet sur une case. RefusÃ© hors carte, sur une case pleine, sur un autre
+    /// objet, et â pour un objet bloquant â sur une case tenue par un combattant.
+    [[nodiscard]] PlacementResult placeObject(GridPosition cell, GridObject object);
+    /// @brief L'objet posÃ© sur la case, ou `nullptr`.
+    [[nodiscard]] const GridObject* objectAt(GridPosition cell) const;
+    /**
+     * @brief Inflige @p damage points de dÃ©gÃ¢ts Ã  l'objet de la case.
+     * @return Vrai si l'objet est dÃ©truit par ce coup â il quitte alors la grille, et sa case
+     *         redevient franchissable.
+     */
+    bool damageObject(GridPosition cell, int damage);
+
+    /// @brief Tous les combattants placÃ©s, par identifiant croissant.
+    [[nodiscard]] std::vector&lt;CombatantId&gt; combatants() const;
+
+private:
+    struct Placement {
+        GridPosition anchor;
+        int side = 1;
+    };
+    struct Zone {
+        PropertyMap properties;
+        std::vector&lt;bool&gt; cells;
+    };
+
+    [[nodiscard]] std::size_t indexOf(GridPosition cell) const noexcept;
+    void fill(const Placement&amp; placement, std::optional&lt;CombatantId&gt; occupant);
+    void addZones(const Level&amp; level);
+    /// @brief Ajoute une zone par couche qui porte des propriÃ©tÃ©s.
+    /// @param level La carte dont on lit les couches.
+    void addLayerZones(const Level&amp; level);
+    /// @brief Ajoute une zone par entitÃ© de zone (dÃ©cision D13), aprÃ¨s celles des couches.
+    /// @param level La carte dont on lit les entitÃ©s.
+    void addEntityZones(const Level&amp; level);
+    [[nodiscard]] PlacementResult check(GridPosition anchor, int side, CombatantId self,
+                                        Locomotion locomotion) const;
+
+    /// Ce qu'une case de la carte oppose au dÃ©placement.
+    enum class Terrain : std::uint8_t {
+        Open,
+        /// Eau profonde, falaise : infranchissable au sol, survolÃ©.
+        GroundObstacle,
+        /// Mur, matiÃ¨re pleine, bloc : infranchissable, y compris en vol.
+        Solid,
+    };
+
+    int _width;
+    int _height;
+    std::vector&lt;Terrain&gt; _terrain;
+    std::vector&lt;bool&gt; _difficult;
+    std::vector&lt;std::optional&lt;CombatantId&gt;&gt; _occupants;
+    std::vector&lt;Zone&gt; _zones;
+    /// OrdonnÃ©s : parcourir les combattants ou les objets doit donner le mÃªme ordre d'une partie Ã 
+    /// l'autre, et un conteneur non ordonnÃ© ne le garantit pas.
+    std::map&lt;CombatantId, Placement&gt; _placements;
+    std::map&lt;std::size_t, GridObject&gt; _objects;
+};
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

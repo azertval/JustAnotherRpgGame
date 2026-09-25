@@ -1,5 +1,16 @@
 var NAVTREEINDEX36 =
 {
+"structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589":[3,0,0,115,1],
+"structcore_1_1HeroicMark.html":[2,0,1,4],
+"structcore_1_1HeroicMark.html":[3,0,0,4],
+"structcore_1_1HeroicMark.html#a798cc6f745f5c472c3fda6e773219cdc":[2,0,1,4,1],
+"structcore_1_1HeroicMark.html#a798cc6f745f5c472c3fda6e773219cdc":[3,0,0,4,1],
+"structcore_1_1HeroicMark.html#aa6238d2eed9ee292110fa19864746081":[2,0,1,4,2],
+"structcore_1_1HeroicMark.html#aa6238d2eed9ee292110fa19864746081":[3,0,0,4,2],
+"structcore_1_1HeroicMark.html#ae275d4649d5ffd378b47bb69b293764f":[2,0,1,4,0],
+"structcore_1_1HeroicMark.html#ae275d4649d5ffd378b47bb69b293764f":[3,0,0,4,0],
+"structcore_1_1HeroicMarkCatalog.html":[2,0,1,5],
+"structcore_1_1HeroicMarkCatalog.html":[3,0,0,5],
 "structcore_1_1HeroicMarkCatalog.html#a092361daa879eed62b234531a2f414ea":[2,0,1,5,1],
 "structcore_1_1HeroicMarkCatalog.html#a092361daa879eed62b234531a2f414ea":[3,0,0,5,1],
 "structcore_1_1HeroicMarkCatalog.html#a6fb9bc6ab1a9b28b5f202c8f33532a25":[2,0,1,5,0],
@@ -238,16 +249,5 @@ var NAVTREEINDEX36 =
 "structcore_1_1LoadedCharacterSheet.html#a5b2cd3709c111558ee572afe5051e058":[3,0,0,158,0],
 "structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a":[2,0,1,158,2],
 "structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a":[3,0,0,158,2],
-"structcore_1_1Location.html":[2,0,1,197],
-"structcore_1_1Location.html":[3,0,0,197],
-"structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922":[2,0,1,197,4],
-"structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922":[3,0,0,197,4],
-"structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284":[2,0,1,197,3],
-"structcore_1_1Location.html#a9ba858868f5d971ecf67214a963b6284":[3,0,0,197,3],
-"structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4":[2,0,1,197,1],
-"structcore_1_1Location.html#ad48a501b624c00c7c70183c3f12963c4":[3,0,0,197,1],
-"structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3":[2,0,1,197,2],
-"structcore_1_1Location.html#adf9bd9b3c549243b625112c0623dfff3":[3,0,0,197,2],
-"structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29":[2,0,1,197,0],
-"structcore_1_1Location.html#af82580580fcf327bd9a3286244d96f29":[3,0,0,197,0]
+"structcore_1_1Location.html":[2,0,1,197]
 };

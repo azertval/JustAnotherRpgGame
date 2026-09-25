@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>TurnOrder.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/TurnOrder.h"
+
+#include &lt;algorithm&gt;
+#include &lt;utility&gt;
+
+namespace core {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] bool markerBefore(const InitiativeMarker&amp; first, const InitiativeMarker&amp; second) {
+    if (first.count != second.count) {
+        return first.count &gt; second.count;</span>
+    }
+<span style = "background-color:#dfd">    return first.name &lt; second.name;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool actsBefore(const InitiativeEntry&amp; first, const InitiativeEntry&amp; second) noexcept {
+    if (first.total != second.total) {
+        return first.total &gt; second.total;</span>
+    }
+<span style = "background-color:#dfd">    if (first.modifier != second.modifier) {
+        return first.modifier &gt; second.modifier;</span>
+    }
+<span style = "background-color:#dfd">    if (first.dexterity != second.dexterity) {
+        return first.dexterity &gt; second.dexterity;</span>
+    }
+<span style = "background-color:#dfd">    if (first.side != second.side) {
+        return first.side == CombatSide::Allies;</span>
+    }
+<span style = "background-color:#dfd">    return first.combatant &lt; second.combatant;
+}</span>
+
+<span style = "background-color:#dfd">bool slotBefore(const TurnSlot&amp; first, const TurnSlot&amp; second) {
+    if (first.count() != second.count()) {
+        return first.count() &gt; second.count();</span>
+    }
+    // Ã rang Ã©gal, un combattant passe avant un repÃ¨re : les actions de repaire se jouent au rang
+    // 20 Â« en perdant les Ã©galitÃ©s Â».
+<span style = "background-color:#dfd">    if (first.entry.has_value() != second.entry.has_value()) {
+        return first.entry.has_value();</span>
+    }
+<span style = "background-color:#dfd">    if (first.entry.has_value()) {
+        return actsBefore(*first.entry, *second.entry);</span>
+    }
+<span style = "background-color:#dfd">    return markerBefore(first.marker, second.marker);
+}</span>
+
+<span style = "background-color:#dfd">bool TurnOrder::add(const InitiativeEntry&amp; entry) {
+    if (contains(entry.combatant)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto place = std::ranges::upper_bound(_entries, entry, actsBefore);
+    _entries.insert(place, entry);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool TurnOrder::remove(CombatantId combatant) {
+    const auto found = std::ranges::find_if(_entries, [combatant](const InitiativeEntry&amp; entry) {
+        return entry.combatant == combatant;
+    });
+    if (found == _entries.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    _entries.erase(found);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool TurnOrder::addMarker(InitiativeMarker marker) {
+    const bool duplicate = std::ranges::any_of(_markers, [&amp;marker](const InitiativeMarker&amp; other) {
+        return other.count == marker.count &amp;&amp; other.name == marker.name;
+    });
+    if (duplicate) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto place = std::ranges::upper_bound(_markers, marker, markerBefore);
+    _markers.insert(place, std::move(marker));
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool TurnOrder::contains(CombatantId combatant) const {
+    return find(combatant) != nullptr;
+}</span>
+
+<span style = "background-color:#dfd">const InitiativeEntry* TurnOrder::find(CombatantId combatant) const {
+    const auto found = std::ranges::find_if(_entries, [combatant](const InitiativeEntry&amp; entry) {
+        return entry.combatant == combatant;
+    });
+    return found == _entries.end() ? nullptr : &amp;*found;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;TurnSlot&gt; TurnOrder::firstSlot() const {
+    std::optional&lt;TurnSlot&gt; best;
+    if (!_entries.empty()) {
+        best = TurnSlot{.entry = _entries.front(), .marker = {}};</span>
+    }
+<span style = "background-color:#dfd">    if (!_markers.empty()) {
+        TurnSlot marker{.entry = std::nullopt, .marker = _markers.front()};
+        if (!best.has_value() || slotBefore(marker, *best)) {</span>
+<span style = "background-color:#fdd">            best = std::move(marker);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return best;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;TurnSlot&gt; TurnOrder::slotAfter(const TurnSlot&amp; slot) const {</span>
+    // Les deux listes sont triÃ©es : la place qui suit est la plus avancÃ©e des deux premiÃ¨res
+    // candidates strictement aprÃ¨s `slot`, une par liste.
+<span style = "background-color:#dfd">    std::optional&lt;TurnSlot&gt; best;
+    for (const InitiativeEntry&amp; entry : _entries) {
+        TurnSlot candidate{.entry = entry, .marker = {}};
+        if (slotBefore(slot, candidate)) {
+            best = std::move(candidate);
+            break;</span>
+        }
+<span style = "background-color:#dfd">    }
+    for (const InitiativeMarker&amp; marker : _markers) {
+        TurnSlot candidate{.entry = std::nullopt, .marker = marker};
+        if (slotBefore(slot, candidate)) {
+            if (!best.has_value() || slotBefore(candidate, *best)) {
+                best = std::move(candidate);</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return best;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
