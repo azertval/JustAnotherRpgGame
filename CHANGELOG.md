@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Planning — la démo se joue sur des cartes de principe (D-25).** Les lots de *world building*
+  de la `0.0.1` — assets, cartes et PNJ de l'Arena of Fate et de Martpart, PNJ d'Arenarea
+  (`LOT-106`, `LOT-107`, `LOT-110`, `LOT-111`, `LOT-113`, `LOT-114`, et `LOT-115`, de même nature)
+  — partent à la `0.0.3`, où ils s'inscrivent avec les six autres quartiers ; ils gardent leur
+  numéro. Les trois cartes enchaînées restent, fortement réduites à des cartes de principe jouées
+  en maquette, en un seul lot (`LOT-146`) ; les PNJ y sont les mannequins du `LOT-145` ou des
+  jetons. Les livraisons des `LOT-108` et `LOT-109` sont loin du standard voulu pour le jeu final :
+  elles se refont à la `0.0.3` (`LOT-147`), et la démo n'en dépend plus. La quête (`LOT-120`) et
+  l'onglet « Carte » (`LOT-121`) n'attendent plus que le `LOT-146` ; le catalogue des versions, les
+  README des deux versions, la trajectoire, les risques (R-13) et les fiches touchées suivent.
 - **Le menu de développement (F9).** Dans un binaire de développement, **F9** ouvre un panneau
   par-dessus l'écran courant (`Source/App/Game/Qml/Tools/DevMenu.qml`) : ouvrir un écran par son
   nom, entrer sur une carte à un point d'arrivée, engager une rencontre ou le Colisée, geler la

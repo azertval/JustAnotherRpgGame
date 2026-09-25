@@ -1,12 +1,12 @@
 +++
 id = "LOT-113"
 titre = "PNJ — Arena of Fate (donjon d'Arenarea)"
-version = "0.0.1"
+version = "0.0.3"
 filiere = "pnj"
 statut = "a-faire"
 taille = "M"
 resume = "Les habitants de Arena of Fate : figurines HD, portraits, fiches, placements."
-prerequis = ["LOT-104", "LOT-112", "LOT-145"]
+prerequis = ["LOT-104", "LOT-112", "LOT-145", "LOT-158"]
 livrables = [
   "`capital/arenarea/arena-of-fate/Characters/` pour les PNJ propres ; les archétypes de citadins dans `capital/Common/Characters/`.",
   "Pour chaque PNJ : figurine animée, portrait, jeton, et sa fiche (`Rpg/`) quand il en a une.",
@@ -19,6 +19,17 @@ criteres = [
 ]
 sources = ["Référentiel : Arena of Fate dans `referentiels/central-empire/`"]
 +++
+
+## Reporté à la `0.0.3` (décision [D-25](../../../../vision/decisions.md), 25 septembre 2026)
+
+Ce lot servait la démo. C'est un lot de *world building*, trop complexe pour elle : il rejoint la
+`0.0.3`, où il s'inscrit avec les six autres quartiers intra-muros. Dans la démo, le maître d'arène
+et le combattant de l'arène sont tenus par les **mannequins**
+([LOT-145](../../v0.0.1-demo/lots/LOT-145-mannequins-de-remplacement.md)) ou par des **jetons**
+(`LOT-128`), posés sur les cartes de principe du
+[LOT-146](../../v0.0.1-demo/lots/LOT-146-cartes-de-principe-de-la-demo.md) ; leurs dialogues sont au
+`LOT-120`. Ce lot leur donne leurs figurines, leurs portraits et la foule, avec le pinceau de foule
+du `LOT-158`. Une figurine livrée remplace son mannequin sans toucher à la carte.
 
 ## Les PNJ
 

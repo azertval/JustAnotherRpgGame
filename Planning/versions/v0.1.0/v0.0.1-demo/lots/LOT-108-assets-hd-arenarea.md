@@ -42,7 +42,7 @@ validée le **24 septembre 2026**, avec deux décisions :
   entier, la démo n'en parcourt qu'une part.
 
 Il n'y a pas de budget de poids ([D-23](../../../../vision/decisions.md)). Les postes R (porte du
-triomphe, façade du Colisée) se coordonnent avec le [LOT-106](LOT-106-assets-hd-arena-of-fate.md) :
+triomphe, façade du Colisée) se coordonnent avec le [LOT-106](../../v0.0.3-capitale-intra-muros/lots/LOT-106-assets-hd-arena-of-fate.md) :
 une seule source, une seule clé.
 
 Le détail du quartier — texte du livre et lieux nommés sur le plan — est dans
@@ -111,6 +111,15 @@ minimal 5,5), contraste de 12,5 à 15,4, au niveau de la V4 ; ourlet gauche en v
 bouts d'auvent. Revérifié : 73 PNG modifiés, contrôles conformes, 997 tests verts, douze cartes
 témoins sans erreur. L'auteur a validé le lot en l'état le 24 septembre 2026 (pose décalée du marbre comprise) ; la
 checklist est cochée.
+
+## Relecture du 25 septembre 2026 : à refaire
+
+Validé en l'état la veille, le lot est **loin du standard de qualité** que l'auteur veut pour le
+jeu final ([D-25](../../../../vision/decisions.md)). Il reste livré — les pièces existent, sont
+publiées et contrôlées — mais la démo n'en dépend plus : elle se joue sur des cartes de principe
+([LOT-146](LOT-146-cartes-de-principe-de-la-demo.md)). La reprise est un lot de la `0.0.3`, le
+[LOT-147](../../v0.0.3-capitale-intra-muros/lots/LOT-147-zone-arenarea-reprise.md), qui relit
+chaque poste sur pièce et écrit au standard ce qui manquait ici.
 
 ## En fin de lot : les assets sortent de l'historique Git
 

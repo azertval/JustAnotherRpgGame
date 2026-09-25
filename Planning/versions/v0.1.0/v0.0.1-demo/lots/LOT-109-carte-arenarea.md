@@ -102,6 +102,17 @@ reste le cœur : Herofate Avenue, le parvis, les manoirs, le casino.
   une décision de l'auteur du 24 septembre 2026 : toutes les cartes de l'onglet se font dans le même
   lot.
 
+## Relecture du 25 septembre 2026 : à refaire
+
+Validée en l'état la veille, la carte est, comme les pièces du `LOT-108` qui l'habillent, **loin du
+standard de qualité** que l'auteur veut pour le jeu final ([D-25](../../../../vision/decisions.md)).
+Elle n'est pas la carte de la démo : la carte de principe d'Arenarea
+([LOT-146](LOT-146-cartes-de-principe-de-la-demo.md)) prend son identifiant, et celle-ci reste dans
+l'historique et dans l'atelier (`Carte109/`). Elle revient, reprise sur les pièces refaites, avec le
+[LOT-147](../../v0.0.3-capitale-intra-muros/lots/LOT-147-zone-arenarea-reprise.md) ; les portails
+condamnés qu'elle posait vers Martpart et l'Arena of Fate prennent leur cible aux `LOT-111` et
+`LOT-107`, à la `0.0.3` eux aussi.
+
 ## Livré le 24 septembre 2026
 
 L'auteur a validé la carte et la correction de l'affichage : le lot est livré.
