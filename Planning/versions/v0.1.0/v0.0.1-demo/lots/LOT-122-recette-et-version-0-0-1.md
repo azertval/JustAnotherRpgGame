@@ -59,6 +59,16 @@ la version, label `no-changelog` : elle ferme la section du CHANGELOG, elle n'y 
    d'assets verrouillés par `kits.lock.json`, pas des releases obsolètes, et restent. Les
    vingt tags `archive/*` (sauvegardes de branches des lots `LOT-10` à `LOT-85`) sont des états
    d'avant la refonte : leur retrait est une décision de l'auteur, pas de la recette.
+7. **Ce que l'audit n'a pas tranché seul, l'auteur l'a tranché à la recette** — neuf points,
+   du code sans lecteur dont le retrait est un choix de produit : la prévisualisation du combat
+   et le catalogue d'arène partent, les portails fermés parlent au joueur, le cycle des écrans aux
+   gâchettes et la table des écrans de l'ère Widgets disparaissent avec leurs exigences réécrites,
+   `InputState` ne garde que la manette, `CacheRegistry` part avec `EX-REN-043`, les six dialogues
+   du Colisée partent avec leurs textes ; les briques de règles de la fondation restent. Le détail
+   est dans le [bilan](../bilan.md), table « Ce que l'audit a soumis à l'auteur ».
+8. **Le job `format` de la CI ne pouvait pas échouer** (`xargs | tee` sans `pipefail`) et `main`
+   portait 180 écarts de `clang-format` : le job échoue désormais, et `Source/` est reformaté à la
+   version épinglée.
 
 ## Livraison
 
