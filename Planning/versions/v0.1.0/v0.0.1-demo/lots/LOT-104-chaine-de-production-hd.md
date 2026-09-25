@@ -127,7 +127,7 @@ Les 18 pièces de `Tools/AssetsHD/Colisee/`, dans
 pavé, quatre bordures sable / pavé (nord-ouest, nord-est), quatre murs à arcades (U et V, neufs et
 usés), l'angle rentrant et l'angle sortant — 2,2 Mio, 6 % du budget de la sous-zone. Les **décors**
 n'y sont pas : les bandes de foule sont en pixel art et se refont, et l'emprise des deux gardiens
-se décide avec l'inventaire du [LOT-106](LOT-106-assets-hd-arena-of-fate.md).
+se décide avec l'inventaire du [LOT-106](../../v0.0.3-capitale-intra-muros/lots/LOT-106-assets-hd-arena-of-fate.md).
 
 Livré le 22 septembre 2026, **PR #111**.
 

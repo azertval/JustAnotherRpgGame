@@ -39,17 +39,17 @@ titre = "Démo basique"
 nature = "detaillee"
 referentiel = "0.1.0"
 dossier = "v0.1.0/v0.0.1-demo"
-resume = "Deux quartiers de la Capitale et un donjon en 2D HD, et une quête qui les traverse : du marché de Martpart au sable de l'Arena of Fate."
+resume = "Le standard 2D HD, le moteur de la quête, et une quête jouée de bout en bout sur trois cartes de principe : du marché de Martpart au sable de l'Arena of Fate."
 objectifs = [
   "Le **standard 2D HD** : un style écrit, une arborescence d'assets durable, et plus un seul asset pixel art dans le dépôt.",
-  "**Martpart** et **Arenarea**, et dans Arenarea le donjon de l'**Arena of Fate** : assets HD, carte jouable et carte de l'onglet « Carte » pour chacun.",
-  "Les PNJ des trois cartes : nommés, neutres, et les combattants de l'arène.",
+  "Trois **cartes de principe** enchaînées — **Martpart**, **Arenarea**, et dans Arenarea le donjon de l'**Arena of Fate** —, jouables en maquette (LOT-146) ; leurs assets, leurs PNJ et leurs cartes définitives sont à la `0.0.3` (décision D-25).",
+  "Les cinq PNJ de la quête, tenus par les **mannequins** (LOT-145) ou des **jetons** (LOT-128) jusqu'à leur production.",
   "La quête **« Des pommes pour l'arène »**, jouable de bout en bout : dialogue, jet de Persuasion, combat seul contre un, deux fins.",
 ]
 criteres_de_sortie = [
   "Un joueur qui ne connaît pas le projet termine la démo par chacune de ses **trois issues** (persuasion réussie, victoire, mort) sans aide.",
   "Aucun asset pixel art ne reste dans `Source/Elements/Assets/` (les cartes peintes et le HUD, déjà au standard, sont gardés) ; la galerie de débug montre tous les assets HD.",
-  "Toutes les cartes de la démo — l'Arena of Fate en compte deux, un niveau étant une carte — passent le contrôle de l'éditeur (`--check`) et se parcourent sans case inatteignable.",
+  "Les trois cartes de principe — l'Arena of Fate en compte deux, un niveau étant une carte — s'enchaînent par leurs portails, passent le contrôle de l'éditeur (`--check`) et se parcourent sans case inatteignable.",
   "La CI est verte, l'installeur se lance sur un poste vierge, le tag `v0.0.1` est posé.",
 ]
 sources = [
@@ -84,14 +84,16 @@ titre = "Zone — la Capitale dans ses murs"
 nature = "detaillee"
 referentiel = "0.1.0"
 dossier = "v0.1.0/v0.0.3-capitale-intra-muros"
-resume = "Les six autres quartiers intra-muros : Uptown, Artisansquare, Scholarnest, Dweomer, Downtown, Palacedomain."
+resume = "Les six autres quartiers intra-muros — Uptown, Artisansquare, Scholarnest, Dweomer, Downtown, Palacedomain — et les trois lieux de la démo produits pour de bon : Martpart, Arenarea repris, l'Arena of Fate."
 objectifs = [
   "Les **six quartiers** intra-muros restants : assets HD, PNJ, carte jouable et carte de l'onglet.",
+  "Les **trois lieux de la démo** au standard du jeu final : Martpart et l'Arena of Fate (assets, PNJ, cartes — reportés de la `0.0.1`, décision D-25), et Arenarea **repris** (LOT-147) ; les cartes de principe de la démo leur cèdent la place.",
   "Le **kit commun de la Capitale** : ce que les quartiers partagent cesse d'être refait à chaque zone.",
   "La **sauvegarde** : le monde devient trop grand pour une séance.",
 ]
 criteres_de_sortie = [
   "On traverse la Capitale intra-muros par ses portails, sans quitter le jeu.",
+  "La quête « Des pommes pour l'arène » se rejoue de bout en bout sur les cartes définitives de Martpart, d'Arenarea et de l'Arena of Fate, avec leurs PNJ en figurines.",
   "Les PNJ nommés de la cour, de la cathédrale et de Dweomer sont à leur place.",
   "Une partie se sauvegarde et se reprend dans n'importe quel quartier.",
 ]

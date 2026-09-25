@@ -1,12 +1,12 @@
 +++
 id = "LOT-106"
 titre = "Assets HD — Arena of Fate (donjon d'Arenarea)"
-version = "0.0.1"
+version = "0.0.3"
 filiere = "assets"
 statut = "a-faire"
 taille = "L"
 resume = "Les pièces propres à Arena of Fate, produites au standard et installées dans `capital/arenarea/arena-of-fate/Scene/`."
-prerequis = ["LOT-105", "LOT-108", "LOT-129"]
+prerequis = ["LOT-105", "LOT-129", "LOT-151", "LOT-147"]
 livrables = [
   "`Regions/central-empire/capital/arenarea/arena-of-fate/Scene/` : pièces, `manifest.json`, `appearance.json`.",
   "La commande de la zone (`Tools/AssetsHD/`) : les dix familles passées en revue, ce qui vient du kit, ce qui est propre.",
@@ -25,6 +25,15 @@ sources = [
   "Le Colisée de Rome : référence d'architecture (DA de l'auteur, 21 sept. 2026)",
 ]
 +++
+
+## Reporté à la `0.0.3` (décision [D-25](../../../../vision/decisions.md), 25 septembre 2026)
+
+Ce lot servait la démo. C'est un lot de *world building*, trop complexe pour elle : il rejoint la
+`0.0.3`, où il s'inscrit avec les six autres quartiers intra-muros. Dans la démo, l'Arena of Fate
+est une **carte de principe**
+([LOT-146](../../v0.0.1-demo/lots/LOT-146-cartes-de-principe-de-la-demo.md)), sans pièce propre : ce
+lot lui donne ses pièces définitives. Il attend le kit complété (`LOT-151`) et la reprise d'Arenarea
+([LOT-147](LOT-147-zone-arenarea-reprise.md)), avec laquelle sa façade se coordonne.
 
 ## Le lieu
 
