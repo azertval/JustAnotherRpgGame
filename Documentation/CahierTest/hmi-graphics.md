@@ -1187,12 +1187,13 @@ Aucun asset livré n'échappe à la galerie.
 - Vérifie que `hmi::assetGalleryExcludes("UI/background/menu-scene.png")` est vrai.
 - Vérifie que `hmi::assetGalleryExcludes("Maps/world.jpg")` est vrai.
 - Vérifie que `hmi::assetGalleryExcludes("Fonts/Cinzel.ttf")` est vrai.
+- Vérifie que `hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Map/martpart.jpg")` est vrai.
 - Vérifie que `hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png")` est faux.
 - Vérifie que `hmi::assetGalleryExcludes("Npc/figurant/portrait.png")` est faux.
 
 ### AssetGalleryTest.ArborescenceParNiveaux
 
-*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:286`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:288`
 
 Les pièces de l'arborescence par niveaux paraissent dans la galerie.
 
@@ -1220,7 +1221,7 @@ Les pièces de l'arborescence par niveaux paraissent dans la galerie.
 
 ### AssetGalleryTest.FigurinesDeMonstres
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:337`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:339`
 
 Une figurine Grande sans sort paraît dans la galerie.
 
@@ -1244,7 +1245,7 @@ Une figurine Grande sans sort paraît dans la galerie.
 
 ### AssetGalleryTest.UnHerosOrienteRangeParClasse
 
-*Critique · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:390`
+*Critique · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:392`
 
 Exigences : `EX-CNT-042`
 

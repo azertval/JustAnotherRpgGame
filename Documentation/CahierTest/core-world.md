@@ -1,6 +1,6 @@
 # Core · World
 
-Tests unitaires — **63 cas** (1 bloquant, 32 critiques, 27 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **64 cas** (1 bloquant, 32 critiques, 28 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -8,7 +8,7 @@ Tests unitaires — **63 cas** (1 bloquant, 32 critiques, 27 majeurs, 3 mineurs)
 |---|---|---|---|---|---|
 | [`test_atlas.cpp`](#test-atlascpp) | 13 | - | 8 | 4 | 1 |
 | [`test_city_block.cpp`](#test-city-blockcpp) | 1 | - | - | 1 | - |
-| [`test_city_plan.cpp`](#test-city-plancpp) | 3 | - | 1 | 2 | - |
+| [`test_city_plan.cpp`](#test-city-plancpp) | 4 | - | 1 | 3 | - |
 | [`test_combat_zone.cpp`](#test-combat-zonecpp) | 3 | - | 3 | - | - |
 | [`test_entity_kinds.cpp`](#test-entity-kindscpp) | 9 | 1 | - | 7 | 1 |
 | [`test_entity_presence.cpp`](#test-entity-presencecpp) | 3 | - | 2 | 1 | - |
@@ -317,9 +317,29 @@ Une ville se lit, et sa porte de depart s'ouvre.
 - Vérifie que `capitale.districtOfMap("donjon")` vaut `nullptr`.
 - Vérifie que `voyage.enter(capitale.startMap(), capitale.startArrival)` vaut `core::TravelResult::Moved`.
 
-### CityPlanFileTest.UnQuartierDoitAvoirSoitUneCarteSoitUnePorteGardee
+### CityPlanTest.UneSousZoneEstDansSonQuartier
 
 *Majeur · Unitaire · Graphe de la ville* — `Source/Test/Unit/Core/World/test_city_plan.cpp:88`
+
+La carte d'une sous-zone designe son quartier.
+
+**Étapes**
+
+1. Lire la ville d'essai.
+2. Chercher le quartier de `bourg/place/crypte`, de `bourg/place/crypte/-1`, puis de `bourg/placette` et `bourg/plac`.
+
+**Résultat attendu**
+
+- Vérifie que `lue.ok()` est vrai.
+- Vérifie que `place` diffère de `nullptr`.
+- Vérifie que `lue.plan.districtOfMap("bourg/place/crypte")` vaut `place`.
+- Vérifie que `lue.plan.districtOfMap("bourg/place/crypte/-1")` vaut `place`.
+- Vérifie que `lue.plan.districtOfMap("bourg/placette")` vaut `nullptr`.
+- Vérifie que `lue.plan.districtOfMap("bourg/plac")` vaut `nullptr`.
+
+### CityPlanFileTest.UnQuartierDoitAvoirSoitUneCarteSoitUnePorteGardee
+
+*Majeur · Unitaire · Graphe de la ville* — `Source/Test/Unit/Core/World/test_city_plan.cpp:112`
 
 Un quartier doit avoir soit une carte, soit une porte gardee.
 
@@ -336,7 +356,7 @@ Un quartier doit avoir soit une carte, soit une porte gardee.
 
 ### CityPlanFileTest.UnDepartDansUnQuartierSansCarteEstRefuse
 
-*Majeur · Unitaire · Graphe de la ville* — `Source/Test/Unit/Core/World/test_city_plan.cpp:114`
+*Majeur · Unitaire · Graphe de la ville* — `Source/Test/Unit/Core/World/test_city_plan.cpp:138`
 
 « Nouvelle partie » doit pouvoir poser le heros : le depart a une carte.
 
