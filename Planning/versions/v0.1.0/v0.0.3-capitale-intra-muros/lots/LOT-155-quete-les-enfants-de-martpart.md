@@ -6,7 +6,7 @@ filiere = "quete"
 statut = "a-faire"
 taille = "M"
 resume = "La première quête **du livre** : les disparitions d'enfants, Myr, la piste des mages impériaux."
-prerequis = ["LOT-144", "LOT-150", "LOT-152", "LOT-153", "LOT-154"]
+prerequis = ["LOT-111", "LOT-115", "LOT-144", "LOT-150", "LOT-152", "LOT-153", "LOT-154"]
 reprend = ["LOT-16 (la quête)", "LOT-27"]
 livrables = [
   "La quête, écrite dans le mode Quêtes de l'éditeur (LOT-144), ses dialogues, ses rencontres, à travers quatre quartiers.",

@@ -32,8 +32,8 @@ comme pièce unique, dessinée d'un bloc avec son toit : cela suffit pour une bo
 îlot de manoirs de longueur quelconque. La production du LOT-108 est suspendue jusqu'à ce lot.
 
 Les trois zones de la démo en ont besoin : les manoirs d'Arenarea, la halle et les maisons de
-Martpart ([LOT-110](LOT-110-assets-hd-martpart.md)), et le Colisée, dont l'enceinte monte **trois
-ordres d'arcades superposés** ([LOT-106](LOT-106-assets-hd-arena-of-fate.md)) — trois étages du
+Martpart ([LOT-110](../../v0.0.3-capitale-intra-muros/lots/LOT-110-assets-hd-martpart.md)), et le Colisée, dont l'enceinte monte **trois
+ordres d'arcades superposés** ([LOT-106](../../v0.0.3-capitale-intra-muros/lots/LOT-106-assets-hd-arena-of-fate.md)) — trois étages du
 même mur, et non trois pièces hautes.
 
 Le format le permet déjà : le `LOT-EDITOR-12` a **réservé** la hauteur (`"floor"` par couche,
@@ -47,7 +47,7 @@ Le format le permet déjà : le `LOT-EDITOR-12` a **réservé** la hauteur (`"fl
   `--check` levé pour `floor` ; la toiture commune de la Capitale, sans laquelle rien ne se vérifie.
 - **Pas dedans** : un personnage qui **monte** à l'étage (terrasses, remparts, coursives
   praticables) — l'`elevation` par case reste réservée ; le Colisée garde ses niveaux jouables en
-  cartes distinctes ([LOT-107](LOT-107-carte-arena-of-fate.md), « deux cartes, pas deux étages »).
+  cartes distinctes ([LOT-107](../../v0.0.3-capitale-intra-muros/lots/LOT-107-carte-arena-of-fate.md), « deux cartes, pas deux étages »).
   Les étages **propres** à une zone (arcades du Colisée, étage de manoir, halle de Martpart) restent
   aux lots de zone.
 
