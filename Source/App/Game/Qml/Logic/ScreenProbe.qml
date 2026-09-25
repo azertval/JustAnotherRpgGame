@@ -53,6 +53,18 @@ Item {
         root.selectedScreen = "";
     }
 
+    /// Ouvre l'écran nommé, s'il est de la liste : le menu de développement (F9) passe par ici, si
+    /// bien qu'un écran choisi au menu se comporte exactement comme un écran choisi aux boutons --
+    /// épinglé jusqu'à ce que le routeur reprenne la main, et ◀ ▶ repartent de lui.
+    function select(name) {
+        const rank = root.screenNames.indexOf(name);
+        if (rank < 0) {
+            return;
+        }
+        root.index = rank;
+        root.selectedScreen = name;
+    }
+
     /// Ouvre l'écran suivant (`delta > 0`) ou précédent, en bouclant aux extrémités.
     function step(delta) {
         const count = root.screenNames.length;

@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Le menu de développement (F9).** Dans un binaire de développement, **F9** ouvre un panneau
+  par-dessus l'écran courant (`Source/App/Game/Qml/Tools/DevMenu.qml`) : ouvrir un écran par son
+  nom, entrer sur une carte à un point d'arrivée, engager une rencontre ou le Colisée, geler la
+  carte, montrer le compteur de diagnostic, écrire les journaux de la session — ce qu'on faisait
+  par la ligne de commande, en cours de partie. Il n'appelle que les vues-modèles, emprunte la
+  palette ambiante sans écrire une couleur, se lie à `ScreenRouter.developerBuild` comme le
+  sélecteur d'écrans (un binaire livré n'a ni le panneau ni la touche) et rend le clavier à
+  l'écran en se fermant. Le sélecteur gagne `select(name)`, par lequel le menu ouvre un écran.
+- **Guide — « Outils de développement du jeu ».** Une page réunit ce que le jeu offre à qui le
+  développe : le menu F9, le sélecteur d'écrans, toutes les options de la ligne de commande en
+  une table (`--data=` du `LOT-118` comprise), la racine de contenu d'essai, la galerie des
+  assets, les captures, les journaux, et la règle qui tient tout cela hors d'un binaire livré.
 - **Site de documentation — l'accueil ne casse plus ses cartes.** Le résumé d'une partie (le
   premier paragraphe de son README) était rendu tel quel dans la carte de l'accueil, elle-même un
   lien : dès qu'il citait une page, le navigateur refermait la carte au premier lien imbriqué et
