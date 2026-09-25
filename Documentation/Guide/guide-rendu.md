@@ -788,7 +788,11 @@ le suffixe que `figureStripPath` colle au nom de la bande.
 
 `hmi::composeWorldScene(scene, snapshot, projection, textures, options)` compose dans un tampon
 réutilisé, **ni vidé ni trié** : l'appelant enchaîne `clear()`, les compositions, puis `sort()`. La
-surcharge sans tampon rend une scène neuve triée, commodité des tests et des captures.
+surcharge sans tampon rend une scène neuve triée, commodité des tests et des captures. Elle
+assemble trois briques, que le jeu emploie séparément (voir plus bas) : `hmi::composeWorldStatics`
+— ce qui ne dépend **que de la carte** : sols, reliefs, étages, jetons et tracés —,
+`hmi::composeWorldFigures` — les figurines de l'image —, puis l'effacement des étages devant le
+héros (`hmi::fadeStoreysOverHero`).
 `hmi::WorldComposeOptions::flatBlocks` dessine les blocs de maquette **à plat** — le vocabulaire des
 plans de principe (`LevelEditor --render --plan`, `LOT-128`) : un plan dit ce que la carte contient
 et comment on y circule, et l'extrusion, faite pour jouer, y cacherait ce qu'on vient lire. La
@@ -805,6 +809,29 @@ côté de la texture. `hmi::artTileWidth` et `hmi::artTileHeight(texture, ratio)
 de l'art (`"tile"` du manifeste, à défaut mesuré sur l'image), l'échelle à laquelle toute pièce se
 ramène à la largeur d'une case de la projection.
 
+### Composer une fois, découper à la vue : `hmi::StaticWorldScene`
+
+Le premier quartier à l'échelle — Arenarea, 128 × 88 cases, 14 700 primitives sur sept couches
+(`LOT-109`) — a mis en défaut les 60 images par seconde (`EX-NFR-001`) : chaque image composait et
+triait **toute** la carte alors que l'écran n'en montre qu'une vingtaine de cases sur onze
+(`Planning/standards/audit-affichage-lieu.md`). Or une carte ne change qu'en y entrant, ou quand un
+drapeau fait paraître un PNJ ou fermer une porte ; seules ses figurines bougent à chaque image.
+
+`hmi::StaticWorldScene` ([`StaticWorldScene.h`](../../Source/HMI/Graphics/StaticWorldScene.h))
+sépare donc les deux temps. `build(snapshot, projection, textures, options)` compose la partie fixe
+(`composeWorldStatics`), la trie **une fois**, et range chaque primitive dans une **grille de
+seaux** en unités monde, de `BUCKET_TILES` = 4 largeurs de case de côté, selon sa boîte englobante
+— une pièce haute ou large est dans tous les seaux qu'elle touche. `compose(out, figures,
+textures)` ne prend que les seaux sous le cadrage de `out` (`ComposedScene::setVisibleBounds` ;
+sans cadrage, toute la carte), garde les primitives qui le touchent vraiment, **dans l'ordre déjà
+trié**, et y fusionne les figurines de l'image par le même comparateur
+(`ComposedScene::drawsBefore`) ; une marque d'image par primitive évite qu'une pièce présente dans
+plusieurs seaux soit prise deux fois. Le résultat est, primitive pour primitive, celui d'une
+composition complète suivie d'un tri, privé de ce qui est hors cadre — et `composeWorldScene`
+passe par là, ce qui fait du jeu, de l'essai de l'éditeur, de son canevas et des tests **un seul
+chemin**. `scene()`, `size()`, `empty()` et `projection()` exposent la partie fixe ; `clear()`
+l'oublie. Logique pure, sans GPU ni Qt.
+
 ### Les étages : élevés, triés au-dessus, effacés devant le héros
 
 Une pièce d'une couche d'étage se pose comme une pièce de relief, à deux différences près
@@ -820,11 +847,14 @@ pièce), et chaque étage s'y trie au plus tôt. En maquette, une case d'étage 
 s'extrude en bloc élevé d'autant de hauteurs de bloc (`hmi::maquetteShape` du mur), pour que les
 blocs s'empilent.
 
-L'**effacement** : le héros derrière un îlot doit rester visible. Avant de composer quoi que ce
-soit, la composition **place le héros** (`hero == true` dans l'instantané) et retient deux choses :
-la boîte englobante de son quad (`hmi::spriteQuadBounds`) et sa clé de tri. Ensuite, chaque pièce
-d'étage — jamais une pièce du rez — dont la clé est **plus grande** que celle du héros (elle se
-dessine après lui, donc devant) et dont la boîte **intersecte** la sienne prend l'opacité
+L'**effacement** : le héros derrière un îlot doit rester visible. La partie fixe ne sait pas où
+il est : chaque pièce d'étage porte seulement **ce qu'elle masque**, la boîte
+`hmi::ComposedQuad::occlusion` que `composeWorldStatics` calcule une fois. À chaque image,
+`hmi::placeWorldHero` **place le héros** (`hero == true` dans l'instantané) et retient deux choses
+(`hmi::WorldHeroPlacement`) : la boîte englobante de son quad et sa clé de tri. Puis
+`hmi::hidesHero` désigne chaque pièce d'étage — jamais une pièce du rez — dont la clé est **plus
+grande** que celle du héros (elle se dessine après lui, donc devant) et dont l'occlusion
+**intersecte** sa boîte, et `hmi::fadeStoreysOverHero` lui donne l'opacité
 `hmi::STOREY_SEE_THROUGH_OPACITY` = 0,35 : on le voit à travers le toit. Un bloc de maquette
 d'étage fait de même, avec la boîte de son bloc élevé. Le test porte sur la **pièce entière** et
 non sur la seule case du héros, question ouverte du lot tranchée à l'essai : un disque découpé
@@ -1043,10 +1073,17 @@ n'est pas redemandée à chaque image, et un test vérifie qu'une carte ne redem
 déjà. Un chemin de jeton est peint (`maquetteTokenImage`) au lieu d'être lu ; une bande de
 figurine absente reçoit son marqueur (`figureMarkerKey`).
 
+La carte se compose **une fois**, dans une `hmi::StaticWorldScene` (`statics()`), et chaque
+image n'en découpe que le cadrage avant d'y fondre les figurines : c'est ce qui rend le coût d'une
+image indépendant de la taille du quartier.
+
 - `setFocus(focusCells)` / `focus()` : le point suivi par la caméra, en cases (position continue
   du héros) ;
-- `setSnapshot(snapshot)` / `snapshot()`, `render(commandBuffer, target, clear)` : efface à
-  `clear`, puis dessine le lieu cadré sur le héros ;
+- `setScene(scene)` : remplace la **carte** à dessiner, recomposée à la prochaine image ;
+  `setFigures(figures)` : remplace les figurines, héros compris, sans recomposer la carte ;
+  `setSnapshot(snapshot)` fait les deux d'un coup ;
+- `render(commandBuffer, target, clear)` : efface à `clear`, puis dessine le lieu cadré sur le
+  héros ;
 - `composed()`, `textures()`, `created()`, `rhi()`, `release()`.
 
 ### `hmi::ArenaSceneRenderer`

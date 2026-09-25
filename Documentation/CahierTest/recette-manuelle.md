@@ -169,7 +169,10 @@ l'auteur**. Les scénarios `--apply` rejouent la logique ; ce contrôle rejoue l
 ### RM-030 — Le parcours du manuel, du sol à la publication
 
 *Lot de la filière éditeur.* Suivre [Utiliser l'éditeur](../Guide/Manuel/utiliser-l-editeur.md),
-étape par étape, sans en sauter une.
+étape par étape, sans en sauter une. Le `LOT-127` en est le précédent : son
+[cahier de recette](../../Planning/versions/v0.1.0/v0.0.1-demo/annexes/LOT-127-recette-de-l-editeur-a-la-main/cahier-de-recette.md),
+une ligne par geste des lots de l'éditeur, tout OK le 24 septembre 2026, est la forme que prend le
+compte rendu de ce contrôle.
 
 - **Faire** : créer une carte avec son lieu, poser le sol, dresser le relief, placer l'entrée,
   poser un PNJ, un portail et sa paire retour, une zone ; essayer par *P* ; enregistrer ;
