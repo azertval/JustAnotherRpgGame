@@ -6,6 +6,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Corrigé
+
+- **Alertes clang-tidy de Code scanning** : une soixantaine d'alertes de `main` levées dans 26
+  fichiers, sans `NOLINT` ni changement de configuration. Les fonctions à complexité cognitive
+  supérieure à 25 sont découpées en aides, les initialiseurs sont désignés, les singletons globaux
+  passent en accesseurs à statique locale, la comparaison mémoire de `XMFLOAT4X4` compare les
+  membres, et un itérateur de sous-intervalle temporaire dans `EntityReferences` est corrigé.
+  Comportement inchangé.
+
 ## [0.0.1] - 2026-09-25
 
 **La démo basique.** Première version publiée du jeu : une quête, « Des pommes pour l'arène »,
