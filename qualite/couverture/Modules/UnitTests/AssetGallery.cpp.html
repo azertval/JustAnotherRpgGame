@@ -391,9 +391,13 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
     return catalog;
 }</span>
 
-<span style = "background-color:#dfd">bool assetGalleryExcludes(std::string_view path) noexcept {
-    return path.starts_with("UI/") || path.starts_with("Maps/") || path.starts_with("Fonts/");
-}</span>
+<span style = "background-color:#dfd">bool assetGalleryExcludes(std::string_view path) noexcept {</span>
+    // Les cartes rendues des zones (LOT-121) sont des cartes de l'ecran Â« Carte Â», comme Maps/.
+<span style = "background-color:#dfd">    const bool zoneMap =</span>
+        path.starts_with("Regions/") &amp;&amp; path.find("/Map/") != std::string_view::npos;
+<span style = "background-color:#dfd">    return path.starts_with("UI/") || path.starts_with("Maps/") || path.starts_with("Fonts/") ||</span>
+           zoneMap;
+<span style = "background-color:#dfd">}</span>
 
 std::vector&lt;std::string&gt; assetGalleryUnlisted(const std::filesystem::path&amp; assetsRoot,
 <span style = "background-color:#dfd">                                              const AssetGalleryCatalog&amp; catalog) {

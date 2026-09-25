@@ -146,13 +146,16 @@ $(function(){initNavTree('MapRender_8cpp.html','',''); });
 <code>#include &lt;QPainter&gt;</code><br />
 <code>#include &lt;QPoint&gt;</code><br />
 <code>#include &lt;QPolygonF&gt;</code><br />
+<code>#include &lt;QSize&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;QStringList&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -186,8 +189,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aea9d8742fc17bfd6135f669a67430cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une liste de bandes (<span class="tt">floors,relief,figures,collision</span>).  <br /></td></tr>
 <tr class="memitem:ae7f247079ad6dfe5c32dcc3dbc814f84" id="r_ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae7f247079ad6dfe5c32dcc3dbc814f84">hmi::renderStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const std::filesystem::path &amp;dataRoot, const std::string &amp;place, int maxSide)</td></tr>
 <tr class="memdesc:ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels.  <br /></td></tr>
-<tr class="memitem:ad9167a1055ccb957be12eecf083c3054" id="r_ad9167a1055ccb957be12eecf083c3054"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad9167a1055ccb957be12eecf083c3054">hmi::renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options)</td></tr>
-<tr class="memdesc:ad9167a1055ccb957be12eecf083c3054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
+<tr class="memitem:a3c843b87b8612e61a4c7b1747f90f229" id="r_a3c843b87b8612e61a4c7b1747f90f229"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3c843b87b8612e61a4c7b1747f90f229">hmi::renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options, <a class="el" href="structhmi_1_1MapImageGrid.html">MapImageGrid</a> *grid=nullptr)</td></tr>
+<tr class="memdesc:a3c843b87b8612e61a4c7b1747f90f229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
 <tr class="memitem:ad551059312355ed10cda2f2300d1a6b9" id="r_ad551059312355ed10cda2f2300d1a6b9"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad551059312355ed10cda2f2300d1a6b9">hmi::runRenderCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
 <tr class="memdesc:ad551059312355ed10cda2f2300d1a6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée <span class="tt">--render</span> de l'éditeur, avant toute construction de fenêtre.  <br /></td></tr>
 </table>

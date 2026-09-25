@@ -156,6 +156,8 @@ $(function(){initNavTree('test__city__plan_8cpp.html','',''); });
 Functions</h2></td></tr>
 <tr class="memitem:ac6a7a780419a836ad5ca0e7eb5b1e2b2" id="r_ac6a7a780419a836ad5ca0e7eb5b1e2b2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac6a7a780419a836ad5ca0e7eb5b1e2b2">TEST</a> (CityPlanTest, UneVilleSeLit)</td></tr>
 <tr class="memdesc:ac6a7a780419a836ad5ca0e7eb5b1e2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ville d'essai se lit : six quartiers, deux cartes, quatre portes gardees.  <br /></td></tr>
+<tr class="memitem:afce4487653aa390b5c4a1a96f6df887e" id="r_afce4487653aa390b5c4a1a96f6df887e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afce4487653aa390b5c4a1a96f6df887e">TEST</a> (CityPlanTest, UneSousZoneEstDansSonQuartier)</td></tr>
+<tr class="memdesc:afce4487653aa390b5c4a1a96f6df887e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une sous-zone est dans son quartier : sa carte est rangee sous la sienne (D-16).  <br /></td></tr>
 <tr class="memitem:a26d2c3347a28c1f6dcf2f24f82497816" id="r_a26d2c3347a28c1f6dcf2f24f82497816"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a26d2c3347a28c1f6dcf2f24f82497816">TEST_F</a> (CityPlanFileTest, UnQuartierDoitAvoirSoitUneCarteSoitUnePorteGardee)</td></tr>
 <tr class="memdesc:a26d2c3347a28c1f6dcf2f24f82497816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quartier qui a a la fois une carte et une porte gardee est refuse.  <br /></td></tr>
 <tr class="memitem:a2144b5850171ac3606240c60ceed77f2" id="r_a2144b5850171ac3606240c60ceed77f2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2144b5850171ac3606240c60ceed77f2">TEST_F</a> (CityPlanFileTest, UnDepartDansUnQuartierSansCarteEstRefuse)</td></tr>
@@ -164,8 +166,40 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le graphe d'une ville jouable (LOT-96) : la lecture, ses refus, et la Capitale livree. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="afce4487653aa390b5c4a1a96f6df887e" name="afce4487653aa390b5c4a1a96f6df887e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afce4487653aa390b5c4a1a96f6df887e">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CityPlanTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneSousZoneEstDansSonQuartier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une sous-zone est dans son quartier : sa carte est rangee sous la sienne (D-16). </p>
+<p><b>Cas de test :</b> <b>La carte d'une sous-zone designe son quartier.</b><br  />
+ <b>Categorie :</b> Unitaire · Graphe de la ville<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire la ville d'essai.<br  />
+</p><ol type="1">
+<li>Chercher le quartier de <span class="tt">bourg/place/crypte</span>, de <span class="tt">bourg/place/crypte/-1</span>, puis de <span class="tt">bourg/placette</span> et <span class="tt">bourg/plac</span>.<br  />
+ <b>Resultat attendu :</b> Les deux premieres sont dans le quartier de <span class="tt">bourg/place</span> (LOT-121) ; les deux dernieres, qui ne font que commencer comme lui, ne sont dans aucun. </li>
+</ol>
+
+</div>
+</div>
 <a id="ac6a7a780419a836ad5ca0e7eb5b1e2b2" name="ac6a7a780419a836ad5ca0e7eb5b1e2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6a7a780419a836ad5ca0e7eb5b1e2b2">&#9670;&#160;</a></span>TEST()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6a7a780419a836ad5ca0e7eb5b1e2b2">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

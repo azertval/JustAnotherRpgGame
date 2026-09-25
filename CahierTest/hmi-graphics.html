@@ -428,23 +428,23 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images livrées.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;UI/background/menu-scene.png&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Maps/world.jpg&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Fonts/Cinzel.ttf&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Regions/central-empire/capital/martpart/Scene/street.png&quot;)</code> est faux.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Npc/figurant/portrait.png&quot;)</code> est faux.</li></ul>
+<ul><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;UI/background/menu-scene.png&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Maps/world.jpg&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Fonts/Cinzel.ttf&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Regions/central-empire/capital/martpart/Map/martpart.jpg&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Regions/central-empire/capital/martpart/Scene/street.png&quot;)</code> est faux.</li><li>Vérifie que <code>hmi::assetGalleryExcludes(&quot;Npc/figurant/portrait.png&quot;)</code> est faux.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="assetgallerytestarborescenceparniveaux">AssetGalleryTest.ArborescenceParNiveaux</h3>
-<p><em>Bloquant · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:286</code></p>
+<p><em>Bloquant · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:288</code></p>
 <p>Les pièces de l'arborescence par niveaux paraissent dans la galerie.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Écrire <code>Regions/r/ville/zone/Scene/manifest.json</code> avec un mur 3 × 1, et <code>Common/Terrain/manifest.json</code> sans pièce. 2. Lire le catalogue. 3. Chercher les images non listées.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>catalog.errors.empty()</code> est vrai.</li><li>Vérifie que <code>unlisted.empty()</code> est vrai.</li><li>Vérifie que <code>catalog.families.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>family.title</code> vaut <code>&quot;Scène · r/ville/zone&quot;</code>.</li><li>Vérifie que <code>family.directory</code> vaut <code>&quot;Regions/r/ville/zone/Scene&quot;</code>.</li><li>Vérifie que <code>family.entries.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>wall.form</code> vaut <code>&quot;wall-arcade-u&quot;</code>.</li><li>Vérifie que <code>wall.model</code> vaut <code>&quot;wide&quot;</code>.</li><li>Vérifie que <code>wall.path</code> vaut <code>&quot;Regions/r/ville/zone/Scene/wall-arcade-u.png&quot;</code>.</li><li>Vérifie que <code>wall.frameWidth</code> vaut <code>426</code>.</li><li>Vérifie que <code>wall.frameHeight</code> vaut <code>539</code>.</li><li>Vérifie que <code>wall.footprintColumns</code> vaut <code>3</code>.</li><li>Vérifie que <code>wall.footprintRows</code> vaut <code>1</code>.</li><li>Vérifie que <code>wall.anchorX</code> vaut <code>6</code>.</li><li>Vérifie que <code>wall.anchorY</code> vaut <code>295</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="assetgallerytestfigurinesdemonstres">AssetGalleryTest.FigurinesDeMonstres</h3>
-<p><em>Majeur · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:337</code></p>
+<p><em>Majeur · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:339</code></p>
 <p>Une figurine Grande sans sort paraît dans la galerie.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Écrire un dossier Monsters/ : un manifeste qui nomme idle et cast, un lion qui n'a que idle, en cellules de 96 × 96. 2. Lire le catalogue.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>catalog.errors.empty()</code> est vrai.</li><li>Vérifie que <code>monsters</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>monsters-&gt;directory</code> vaut <code>&quot;Monsters&quot;</code>.</li><li>Vérifie que <code>monsters-&gt;entries.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>idle.model</code> vaut <code>&quot;lion&quot;</code>.</li><li>Vérifie que <code>idle.form</code> vaut <code>&quot;idle&quot;</code>.</li><li>Vérifie que <code>idle.path</code> vaut <code>&quot;Monsters/lion/idle.png&quot;</code>.</li><li>Vérifie que <code>idle.frameWidth</code> vaut <code>96</code>.</li><li>Vérifie que <code>idle.frameHeight</code> vaut <code>96</code>.</li><li>Vérifie que <code>idle.frameCount()</code> vaut <code>6</code>.</li><li>Vérifie que <code>idle.loop</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="assetgallerytestunherosorienterangeparclasse">AssetGalleryTest.UnHerosOrienteRangeParClasse</h3>
-<p><em>Critique · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:390</code></p>
+<p><em>Critique · Unitaire · Galerie des assets</em> — <code>Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:392</code></p>
 <p>Exigences : <a class="ref" href="../Specification/contenu.html#EX-CNT-042"><code>EX-CNT-042</code></a></p>
 <p>Les bandes orientees du heros et son jeton paraissent dans la galerie.</p>
 <p><strong>Étapes</strong></p>
@@ -1414,7 +1414,7 @@
 <ul><li>Vérifie que <code>snapshot.storeys.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>storeyFaces</code> vaut <code>3U</code>.</li><li>Vérifie que <code>storeyTop</code> est strictement inférieur à <code>rezTop</code>.</li><li>Vérifie que <code>storeyOrder</code> est strictement supérieur à <code>rezOrder</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-game.html"><span>Précédent</span>HMI · Game</a><a class="next" href="hmi-input.html"><span>Suivant</span>HMI · Input</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-graphics.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>419c9efb7</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f5868d2b6</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

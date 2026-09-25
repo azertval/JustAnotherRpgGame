@@ -94,8 +94,8 @@ var NAVTREEINDEX =
 "namespacecore.html#a9f790045523fda834167bed21d202dd3",
 "namespacecore.html#ad497c2900cfa19d5303871e38bbf3ace",
 "namespacehmi.html#a2959b61f0394085789d35563568aac2d",
-"namespacehmi.html#a856d281d19a2bb61819bed1b54cd3eb1",
-"namespacehmi.html#acf7d466bf233ec8793a6ce809dff494f",
+"namespacehmi.html#a851ee9d5cbca4f7ee5fd39dd24d02110",
+"namespacehmi.html#acd4e8e31191e807e49cfb1613f9166a9",
 "structcore_1_1ArenaBout.html#acb026b45e6e3555dce3a960b5227dfda",
 "structcore_1_1Background.html#adbf9c9d57947d44d354c5d2ffbadcb39",
 "structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3",
@@ -110,15 +110,15 @@ var NAVTREEINDEX =
 "structhmi_1_1DemonstrationState.html#af73eaf8a173c729d1afac7853bd36e92",
 "structhmi_1_1EntityPressModifiers.html",
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a184d1792709321efdd1eb50857f1febd",
-"structhmi_1_1MapRegionView.html",
-"structhmi_1_1PolyQuad.html#a27699e993f900e4ac5ee102abfd14dcf",
-"structhmi_1_1SidecarReadResult.html",
-"structhmi_1_1WorldMaps.html#ae66474f28d2d4e4186662fbb95f17c9d",
-"test__cache__registry_8cpp.html",
-"test__entity__editing_8cpp.html#a4f0a3810f54752d55ab153a464c9b4e1",
-"test__level__draft__editing_8cpp.html#a633729b568157c60b10946619866c472",
-"test__quest__map__features_8cpp.html#a25664883e13e8253fea633dfb58e281e",
-"test__world__scene__renderer_8cpp.html#a5b91bdf37e64242ece8a2d459fd680d6"
+"structhmi_1_1MapPlaceView.html#a2a15b55de5e3a404db2e64cd4426f48a",
+"structhmi_1_1PieceCatalogGroup.html#af07ca23e9f6326e2c54dd2d7f04c3ae5",
+"structhmi_1_1SceneTextureTraits.html#a3c7f13b1aca0e224dacbfb2cb253e999",
+"structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790",
+"test__attack_8cpp.html#a81f1726dcc96553052cfda148dd57eea",
+"test__editor__status_8cpp.html",
+"test__level_8cpp.html#a0196ba361c49491a85084322ad54109b",
+"test__poly__quad_8cpp.html#af681ba07edf3a4fb12e1f9d76af489b1",
+"test__world__links_8cpp.html#a56ae8b3d79899b4913df42fc0ca2d811"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

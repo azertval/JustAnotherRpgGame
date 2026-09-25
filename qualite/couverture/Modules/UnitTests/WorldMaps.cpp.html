@@ -16,6 +16,7 @@
 
 #include &lt;algorithm&gt;
 #include &lt;cstddef&gt;
+#include &lt;optional&gt;
 #include &lt;set&gt;
 #include &lt;stdexcept&gt;
 #include &lt;string_view&gt;
@@ -58,6 +59,30 @@ public:
     }
 <span style = "background-color:#dfd">    return MapPoint{.x = value[0].get&lt;double&gt;(), .y = value[1].get&lt;double&gt;()};
 }</span>
+
+// Une paire de nombres quelconques : un vecteur de grille, une case.
+<span style = "background-color:#dfd">[[nodiscard]] MapPoint readPair(const nlohmann::json&amp; value, const std::string&amp; where) {
+    if (!value.is_array() || value.size() != 2 || !value[0].is_number() || !value[1].is_number()) {</span>
+<span style = "background-color:#fdd">        throw failure(where, "il faut une paire de nombres.");</span>
+    }
+<span style = "background-color:#dfd">    return MapPoint{.x = value[0].get&lt;double&gt;(), .y = value[1].get&lt;double&gt;()};
+}</span>
+
+// La grille d'une carte rendue (LOT-121) : trois paires, `origin`, `column`, `row`.
+[[nodiscard]] std::optional&lt;MapGrid&gt; readGrid(const nlohmann::json&amp; object,
+<span style = "background-color:#dfd">                                              const std::string&amp; where) {
+    const auto found = object.find("grid");
+    if (found == object.end()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (!found-&gt;is_object() || !found-&gt;contains("origin") || !found-&gt;contains("column") ||</span>
+        !found-&gt;contains("row")) {
+<span style = "background-color:#fdd">        throw failure(where, "la grille (Â« grid Â») veut Â« origin Â», Â« column Â» et Â« row Â».");</span>
+    }
+<span style = "background-color:#dfd">    return MapGrid{.origin = readPair((*found)["origin"], within(where, "grid / origin")),</span>
+                   .column = readPair((*found)["column"], within(where, "grid / column")),
+                   .row = readPair((*found)["row"], within(where, "grid / row"))};
+<span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] MapFrame readFrame(const nlohmann::json&amp; value, const std::string&amp; where) {
     constexpr std::size_t FRAME_SIZE = 4;
@@ -184,6 +209,34 @@ public:
     return region;
 }</span>
 
+// Les sous-zones d'un quartier (LOT-121) : `zones: { &lt;dossier&gt;: {name, entrance, image, grid} }`.
+[[nodiscard]] std::map&lt;std::string, MapZone&gt; readZones(const nlohmann::json&amp; object,
+<span style = "background-color:#dfd">                                                       const std::string&amp; where) {
+    std::map&lt;std::string, MapZone&gt; zones;
+    const auto found = object.find("zones");
+    if (found == object.end()) {
+        return zones;</span>
+    }
+<span style = "background-color:#dfd">    if (!found-&gt;is_object()) {</span>
+<span style = "background-color:#fdd">        throw failure(where, "le champ Â« zones Â» n'est pas un objet.");</span>
+    }
+<span style = "background-color:#dfd">    for (const auto&amp; [id, entry] : found-&gt;items()) {
+        const std::string here = within(within(where, "zones"), id);
+        if (!entry.is_object() || !entry.contains("entrance")) {
+            throw failure(here, "il faut une entrÃ©e (Â« entrance Â»), en cases.");</span>
+        }
+<span style = "background-color:#dfd">        MapZone zone{.name = readText(entry, "name", here, true),
+                     .entrance = readPair(entry["entrance"], within(here, "entrance")),
+                     .image = readText(entry, "image", here, false),
+                     .grid = readGrid(entry, here)};
+        if (!zone.image.empty() &amp;&amp; !zone.grid) {</span>
+<span style = "background-color:#fdd">            throw failure(here, "une carte rendue veut sa grille (Â« grid Â»).");</span>
+        }
+<span style = "background-color:#dfd">        zones.emplace(id, std::move(zone));
+    }
+    return zones;
+}</span>
+
 [[nodiscard]] std::map&lt;std::string, MapDistrict&gt; readDistricts(const nlohmann::json&amp; object,
 <span style = "background-color:#dfd">                                                               const std::string&amp; where) {
     std::map&lt;std::string, MapDistrict&gt; districts;
@@ -198,9 +251,17 @@ public:
         if (!entry.is_object() || !entry.contains("frame")) {</span>
 <span style = "background-color:#fdd">            throw failure(within(within(where, "districts"), id), "il faut un cadre (Â« frame Â»).");</span>
         }
-<span style = "background-color:#dfd">        districts.emplace(id, MapDistrict{.frame = readFrame(entry["frame"], within(where, id)),</span>
-                                          .image = readText(entry, "image", where, false)});
-<span style = "background-color:#dfd">    }
+<span style = "background-color:#dfd">        const std::string here = within(within(where, "districts"), id);
+        MapDistrict district{.frame = readFrame(entry["frame"], within(where, id)),
+                             .image = readText(entry, "image", where, false),
+                             .grid = readGrid(entry, here),
+                             .zones = readZones(entry, here)};
+        if (!district.image.empty() &amp;&amp; district.image.find('/') != std::string::npos &amp;&amp;</span>
+            !district.grid) {
+<span style = "background-color:#dfd">            throw failure(here, "une carte rendue (un chemin) veut sa grille (Â« grid Â»).");</span>
+        }
+<span style = "background-color:#dfd">        districts.emplace(id, std::move(district));
+    }
     return districts;
 }</span>
 

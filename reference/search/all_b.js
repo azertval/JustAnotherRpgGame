@@ -80,7 +80,7 @@ var searchData=
   ['grappled_77',['Grappled',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493aa6a928f3388475a9635f44ac382ba759',1,'core']]],
   ['grass_78',['Grass',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875aaac9a63596f76a62bb9f61a5dd7c0d25',1,'core']]],
   ['grid_79',['Grid',['../namespacehmi.html#a0076ce0092efe8d8df165966481a5830a5174d1309f275ba6f275db3af9eb3e18',1,'hmi']]],
-  ['grid_80',['grid',['../classcore_1_1CombatState.html#a7f3fae84024674a5c70227a98a248735',1,'core::CombatState::grid() const noexcept'],['../classcore_1_1CombatState.html#afc7082aa97336d45c5d4e8a186fdb38a',1,'core::CombatState::grid() noexcept']]],
+  ['grid_80',['grid',['../structhmi_1_1MapZone.html#a49e79703895477ae60635d24cb8b3bba',1,'hmi::MapZone::grid'],['../structhmi_1_1MapDistrict.html#a30f61e653751d9b41a8b6a07430a6f07',1,'hmi::MapDistrict::grid'],['../classcore_1_1CombatState.html#a7f3fae84024674a5c70227a98a248735',1,'core::CombatState::grid() const noexcept'],['../classcore_1_1CombatState.html#afc7082aa97336d45c5d4e8a186fdb38a',1,'core::CombatState::grid() noexcept']]],
   ['gridcolumns_81',['gridColumns',['../classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e',1,'hmi::CombatModel::gridColumns'],['../classhmi_1_1CombatModel.html#a06c71e2e83b0b0af4f9da87c1d72f9e6',1,'hmi::CombatModel::gridColumns() const']]],
   ['griddistance_82',['gridDistance',['../namespacecore.html#ae19c39c376647e74514462b13d834e06',1,'core']]],
   ['griddistancefrom_83',['gridDistanceFrom',['../namespacecore.html#ad19e2dfeb2158624471c2a07e5a776e6',1,'core']]],

@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1MapDistrict.html','','structhmi_1_1MapDis
 </div><!--header-->
 <div class="contents">
 
-<p>Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés.  
+<p>La vue d'un <b>quartier</b> sur le plan de sa ville (<span class="tt">LOT-96</span>) : le plan agrandi sur <span class="tt"><a class="el" href="#a7ed155cb60358e16cbf35738249b649b">frame</a></span> tant qu'il n'a pas de carte ; sa carte sinon — peinte, ou rendue avec sa grille (<span class="tt">LOT-121</span>).  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="WorldMaps_8h_source.html">WorldMaps.h</a>&gt;</code></p>
@@ -152,12 +152,14 @@ $(function(){initNavTree('structhmi_1_1MapDistrict.html','','structhmi_1_1MapDis
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7ed155cb60358e16cbf35738249b649b" id="r_a7ed155cb60358e16cbf35738249b649b"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapFrame.html">MapFrame</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7ed155cb60358e16cbf35738249b649b">frame</a></td></tr>
 <tr class="memitem:a53f5a35f3da0d058accd74c962cb513d" id="r_a53f5a35f3da0d058accd74c962cb513d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a53f5a35f3da0d058accd74c962cb513d">image</a></td></tr>
-<tr class="memdesc:a53f5a35f3da0d058accd74c962cb513d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide tant que le quartier n'a pas sa carte peinte.  <br /></td></tr>
+<tr class="memdesc:a53f5a35f3da0d058accd74c962cb513d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vide tant que le quartier n'a pas sa carte.  <br /></td></tr>
+<tr class="memitem:a30f61e653751d9b41a8b6a07430a6f07" id="r_a30f61e653751d9b41a8b6a07430a6f07"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1MapGrid.html">MapGrid</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a30f61e653751d9b41a8b6a07430a6f07">grid</a></td></tr>
+<tr class="memdesc:a30f61e653751d9b41a8b6a07430a6f07"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille de l'image rendue ; absente d'une carte peinte.  <br /></td></tr>
+<tr class="memitem:ab67890b261bc3919ad180ac8e22001a5" id="r_ab67890b261bc3919ad180ac8e22001a5"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1MapZone.html">MapZone</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab67890b261bc3919ad180ac8e22001a5">zones</a></td></tr>
+<tr class="memdesc:ab67890b261bc3919ad180ac8e22001a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant (dossier) → sous-zone.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés. </p>
-<p>La vue d'un <b>quartier</b> sur le plan de sa ville (<span class="tt">LOT-96</span>).</p>
-<p><em>Provisoire, décision de l'auteur du 18 septembre 2026</em> : un quartier n'a pas encore de carte peinte ; l'écran agrandit le plan de la ville sur <span class="tt"><a class="el" href="#a7ed155cb60358e16cbf35738249b649b">frame</a></span>. Aucun recadrage n'est commité. Le jour où l'auteur peint le quartier, <span class="tt"><a class="el" href="#a53f5a35f3da0d058accd74c962cb513d" title="Vide tant que le quartier n&#39;a pas sa carte peinte.">image</a></span> le nomme et le cadre ne sert plus qu'à l'origine du zoom. </p>
+<div class="textblock"><p>La vue d'un <b>quartier</b> sur le plan de sa ville (<span class="tt">LOT-96</span>) : le plan agrandi sur <span class="tt"><a class="el" href="#a7ed155cb60358e16cbf35738249b649b">frame</a></span> tant qu'il n'a pas de carte ; sa carte sinon — peinte, ou rendue avec sa grille (<span class="tt">LOT-121</span>). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a7ed155cb60358e16cbf35738249b649b" name="a7ed155cb60358e16cbf35738249b649b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ed155cb60358e16cbf35738249b649b">&#9670;&#160;</a></span>frame</h2>
@@ -173,6 +175,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a30f61e653751d9b41a8b6a07430a6f07" name="a30f61e653751d9b41a8b6a07430a6f07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30f61e653751d9b41a8b6a07430a6f07">&#9670;&#160;</a></span>grid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1MapGrid.html">MapGrid</a>&gt; hmi::MapDistrict::grid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La grille de l'image rendue ; absente d'une carte peinte. </p>
+
+</div>
+</div>
 <a id="a53f5a35f3da0d058accd74c962cb513d" name="a53f5a35f3da0d058accd74c962cb513d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a53f5a35f3da0d058accd74c962cb513d">&#9670;&#160;</a></span>image</h2>
 
@@ -185,7 +203,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vide tant que le quartier n'a pas sa carte peinte. </p>
+<p>Vide tant que le quartier n'a pas sa carte. </p>
+<p>Un nom seul est une carte peinte de <span class="tt">Assets/Maps/</span> ; un chemin (<span class="tt">Regions/…/Map/martpart.jpg</span>) est relatif à <span class="tt">Assets/</span> : la carte rendue d'une zone, rangée avec elle (<span class="tt">LOT-121</span>). </p>
+
+</div>
+</div>
+<a id="ab67890b261bc3919ad180ac8e22001a5" name="ab67890b261bc3919ad180ac8e22001a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab67890b261bc3919ad180ac8e22001a5">&#9670;&#160;</a></span>zones</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="structhmi_1_1MapZone.html">MapZone</a>&gt; hmi::MapDistrict::zones</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Identifiant (dossier) → sous-zone. </p>
 
 </div>
 </div>

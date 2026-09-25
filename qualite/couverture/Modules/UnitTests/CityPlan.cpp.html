@@ -44,7 +44,13 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
     if (mapId.empty()) {</span>
 <span style = "background-color:#fdd">        return nullptr;</span>
     }
-<span style = "background-color:#dfd">    const auto trouve = std::ranges::find(districts, mapId, &amp;CityDistrict::map);
+    // La carte du quartier, ou une carte rangee sous la sienne : une sous-zone (D-16).
+<span style = "background-color:#dfd">    const auto trouve = std::ranges::find_if(districts, [mapId](const CityDistrict&amp; quartier) {
+        return !quartier.map.empty() &amp;&amp;</span>
+               (mapId == quartier.map ||
+                (mapId.size() &gt; quartier.map.size() &amp;&amp; mapId.starts_with(quartier.map) &amp;&amp;
+                 mapId[quartier.map.size()] == '/'));
+<span style = "background-color:#dfd">    });
     return trouve != districts.end() ? &amp;*trouve : nullptr;
 }</span>
 

@@ -160,6 +160,8 @@ $(function(){initNavTree('test__world__maps_8cpp.html','',''); });
 Functions</h2></td></tr>
 <tr class="memitem:a447931c038980e53e2441cd5ca6c13d4" id="r_a447931c038980e53e2441cd5ca6c13d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a447931c038980e53e2441cd5ca6c13d4">TEST</a> (WorldMapsTest, FichierLuEtBorne)</td></tr>
 <tr class="memdesc:a447931c038980e53e2441cd5ca6c13d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier valide se lit en entier ; une position ou un cadre hors de la carte fait échouer toute la lecture, en nommant l'entrée.  <br /></td></tr>
+<tr class="memitem:a1e2f0ab5ca622fd97ad8a8351b029c9d" id="r_a1e2f0ab5ca622fd97ad8a8351b029c9d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1e2f0ab5ca622fd97ad8a8351b029c9d">TEST</a> (WorldMapsTest, UnQuartierRenduPorteSaGrilleEtSesSousZones)</td></tr>
+<tr class="memdesc:a1e2f0ab5ca622fd97ad8a8351b029c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quartier rendu porte sa grille et ses sous-zones ; une carte rendue sans grille, ou une sous-zone sans entrée, est refusée (<span class="tt">LOT-121</span>).  <br /></td></tr>
 <tr class="memitem:a24a5329555f4a2fed5b946294a8bf1cd" id="r_a24a5329555f4a2fed5b946294a8bf1cd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a24a5329555f4a2fed5b946294a8bf1cd">TEST</a> (WorldMapsTest, JointureRangeLesLieux)</td></tr>
 <tr class="memdesc:a24a5329555f4a2fed5b946294a8bf1cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">La jointure range les lieux : posés d'abord, écartés absents, quartiers dans leur ville.  <br /></td></tr>
 <tr class="memitem:a8092498fe40d9a3d218bf2013d74b38e" id="r_a8092498fe40d9a3d218bf2013d74b38e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8092498fe40d9a3d218bf2013d74b38e">TEST</a> (WorldMapsTest, EcartsNommes)</td></tr>
@@ -171,7 +173,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests unitaires des cartes de l'écran « Carte » : monde, régions, villes (<span class="tt">LOT-94</span>, <span class="tt">LOT-95</span>) — trois niveaux reliés par des repères (<span class="tt">EX-IHM-106</span>), positions tenues à part de l'atlas et jamais inventées (<span class="tt">EX-IHM-107</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad5349e35dd51ef7e9ee30357c93fe94a" name="ad5349e35dd51ef7e9ee30357c93fe94a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5349e35dd51ef7e9ee30357c93fe94a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5349e35dd51ef7e9ee30357c93fe94a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,7 +207,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8092498fe40d9a3d218bf2013d74b38e" name="a8092498fe40d9a3d218bf2013d74b38e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8092498fe40d9a3d218bf2013d74b38e">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8092498fe40d9a3d218bf2013d74b38e">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +236,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a447931c038980e53e2441cd5ca6c13d4" name="a447931c038980e53e2441cd5ca6c13d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a447931c038980e53e2441cd5ca6c13d4">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a447931c038980e53e2441cd5ca6c13d4">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +268,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a24a5329555f4a2fed5b946294a8bf1cd" name="a24a5329555f4a2fed5b946294a8bf1cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24a5329555f4a2fed5b946294a8bf1cd">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a24a5329555f4a2fed5b946294a8bf1cd">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,6 +293,38 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Joindre un atlas de quatre lieux (une règle, un lieu sans position, une ville à plan, son quartier) au fichier minimal.<br  />
  <b>Resultat attendu :</b> Deux lieux dans la région — la ville, posée et ouvrable, puis le lieu sans position ; le plan de la ville porte son quartier numéroté 1 puis le lieu numéroté 3 ; aucun écart. </p>
+
+</div>
+</div>
+<a id="a1e2f0ab5ca622fd97ad8a8351b029c9d" name="a1e2f0ab5ca622fd97ad8a8351b029c9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e2f0ab5ca622fd97ad8a8351b029c9d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldMapsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnQuartierRenduPorteSaGrilleEtSesSousZones</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un quartier rendu porte sa grille et ses sous-zones ; une carte rendue sans grille, ou une sous-zone sans entrée, est refusée (<span class="tt">LOT-121</span>). </p>
+<p><b>Cas de test :</b> <b>La carte rendue d'un quartier se lit avec sa grille et ses sous-zones.</b><br  />
+ <b>Categorie :</b> Unitaire · Carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire un plan dont le quartier nomme une carte rendue, sa grille et une sous-zone.<br  />
+</p><ol type="1">
+<li>Lire le même quartier sans grille, puis une sous-zone sans entrée.<br  />
+ <b>Resultat attendu :</b> La grille place le point (2, 1) en origine + 2 colonnes + 1 ligne ; la sous-zone a son nom, son entrée et sa carte ; puis deux échecs qui disent ce qui manque. </li>
+</ol>
 
 </div>
 </div>

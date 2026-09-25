@@ -17,13 +17,16 @@
 #include &lt;QPainter&gt;
 #include &lt;QPoint&gt;
 #include &lt;QPolygonF&gt;
+#include &lt;QSize&gt;
 #include &lt;QString&gt;
+#include &lt;QStringList&gt;
 #include &lt;algorithm&gt;
 #include &lt;array&gt;
 #include &lt;cmath&gt;
 #include &lt;cstdint&gt;
 #include &lt;functional&gt;
 #include &lt;memory&gt;
+#include &lt;optional&gt;
 #include &lt;set&gt;
 #include &lt;utility&gt;
 #include &lt;vector&gt;
@@ -95,6 +98,45 @@ void paintDiamonds(QPainter&amp; painter, const core::IsoProjection&amp; project
     std::ranges::replace(name, '/', '-');
     return name + ".png";
 }</span>
+
+/// La qualitÃ© des JPEG de l'onglet Â« Carte Â» : celle des cartes peintes, sans bloc visible.
+constexpr int JPEG_QUALITY = 92;
+
+/// Le plus grand cÃ´tÃ© d'un cadre imposÃ© (`--canvas`), en pixels.
+constexpr int MAX_CANVAS_SIDE = 8192;
+
+// `1920x1080` : un cadre, chaque cÃ´tÃ© dans [1, MAX_CANVAS_SIDE] ; rien sinon.
+<span style = "background-color:#fdd">[[nodiscard]] std::optional&lt;QSize&gt; parseCanvasSize(const std::string&amp; text) {
+    const QStringList sides = QString::fromStdString(text).split(QLatin1Char('x'));
+    if (sides.size() != 2) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#fdd">    bool widthOk = false;
+    bool heightOk = false;
+    const int width = sides[0].toInt(&amp;widthOk);
+    const int height = sides[1].toInt(&amp;heightOk);
+    if (!widthOk || !heightOk || width &lt; 1 || height &lt; 1 || width &gt; MAX_CANVAS_SIDE ||</span>
+        height &gt; MAX_CANVAS_SIDE) {
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#fdd">    return QSize(width, height);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool isImageFile(const std::filesystem::path&amp; path) {
+    const std::filesystem::path extension = path.extension();
+    return extension == ".png" || extension == ".jpg" || extension == ".jpeg";
+}</span>
+
+// La grille telle que `world-maps.json` l'Ã©crit : trois couples de fractions, Ã  1e-5 prÃ¨s.
+<span style = "background-color:#fdd">[[nodiscard]] std::string gridJson(const MapImageGrid&amp; grid) {
+    const auto pair = [](double x, double y) {
+        return QStringLiteral("[%1, %2]")</span>
+            .arg(QString::number(x, 'f', 5), QString::number(y, 'f', 5))
+            .toStdString();
+<span style = "background-color:#fdd">    };
+    return R"({"origin": )" + pair(grid.originX, grid.originY) + R"(, "column": )" +</span>
+           pair(grid.columnX, grid.columnY) + R"(, "row": )" + pair(grid.rowX, grid.rowY) + "}";
+<span style = "background-color:#fdd">}</span>
 
 }  // namespace
 
@@ -268,7 +310,7 @@ namespace {
 }  // namespace
 
 QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; dataRoot,
-<span style = "background-color:#dfd">                 const MapRenderOptions&amp; options) {
+<span style = "background-color:#dfd">                 const MapRenderOptions&amp; options, MapImageGrid* grid) {
     const core::LevelDraft draft = core::LevelDraft::fromLevel(level);
     const std::string place = scenePlaceOf(level.layers());
     const PlaceAppearance appearance = [&amp;] {
@@ -294,20 +336,47 @@ QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; 
     const double top = static_cast&lt;double&gt;(painted.position.y) - padding;
     const double worldWidth = static_cast&lt;double&gt;(painted.size.x) + (2 * padding);
     const double worldHeight = static_cast&lt;double&gt;(painted.size.y) + (2 * padding);
-    const double scale = std::min(</span>
+    double scale = std::min(</span>
         renderPixelsPerUnit(options.scale),
         static_cast&lt;double&gt;(std::max(1, options.maxSide)) / std::max(worldWidth, worldHeight));
-<span style = "background-color:#dfd">    const int width = std::clamp(static_cast&lt;int&gt;(std::ceil(worldWidth * scale)), 1,</span>
-                                 std::max(1, options.maxSide));
-<span style = "background-color:#dfd">    const int height = std::clamp(static_cast&lt;int&gt;(std::ceil(worldHeight * scale)), 1,</span>
-                                  std::max(1, options.maxSide));
+<span style = "background-color:#dfd">    int width = std::clamp(static_cast&lt;int&gt;(std::ceil(worldWidth * scale)), 1,</span>
+                           std::max(1, options.maxSide));
+<span style = "background-color:#dfd">    int height = std::clamp(static_cast&lt;int&gt;(std::ceil(worldHeight * scale)), 1,</span>
+                            std::max(1, options.maxSide));
+    // Le cadre imposÃ© : la carte y tient entiÃ¨re, centrÃ©e, le reste est du fond (LOT-121).
+<span style = "background-color:#dfd">    double offsetX = 0.0;
+    double offsetY = 0.0;
+    if (options.canvas &amp;&amp; !options.canvas-&gt;isEmpty()) {</span>
+<span style = "background-color:#fdd">        width = options.canvas-&gt;width();
+        height = options.canvas-&gt;height();
+        scale = std::min(width / worldWidth, height / worldHeight);
+        offsetX = (width - (worldWidth * scale)) / 2.0;
+        offsetY = (height - (worldHeight * scale)) / 2.0;</span>
+    }
+<span style = "background-color:#dfd">    if (grid != nullptr) {
+        const auto fraction = [&amp;](core::Vector2 gridPoint) {
+            const core::Vector2 world = projection.gridToWorld(gridPoint);
+            return QPointF((offsetX + ((static_cast&lt;double&gt;(world.x) - left) * scale)) / width,</span>
+                           (offsetY + ((static_cast&lt;double&gt;(world.y) - top) * scale)) / height);
+<span style = "background-color:#dfd">        };
+        const QPointF origin = fraction({0.0F, 0.0F});
+        const QPointF column = fraction({1.0F, 0.0F}) - origin;
+        const QPointF row = fraction({0.0F, 1.0F}) - origin;
+        *grid = MapImageGrid{.originX = origin.x(),</span>
+                             .originY = origin.y(),
+                             .columnX = column.x(),
+                             .columnY = column.y(),
+                             .rowX = row.x(),
+                             .rowY = row.y()};
+    }
 
 <span style = "background-color:#dfd">    QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
     image.fill(options.background);
     QPainter painter(&amp;image);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
     painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setTransform(QTransform(scale, 0.0, 0.0, scale, -left * scale, -top * scale));</span>
+    painter.setTransform(</span>
+        QTransform(scale, 0.0, 0.0, scale, offsetX - (left * scale), offsetY - (top * scale)));
 
     // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
     // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
@@ -369,6 +438,11 @@ struct RenderCommandLine {
             }</span>
 <span style = "background-color:#dfd">        } else if (argument == "--plan") {</span>
 <span style = "background-color:#fdd">            line.options.plan = true;</span>
+<span style = "background-color:#dfd">        } else if (argument == "--canvas" &amp;&amp; hasValue) {</span>
+<span style = "background-color:#fdd">            line.options.canvas = parseCanvasSize(arguments[++index]);
+            if (!line.options.canvas) {
+                line.error = "--canvas takes &lt;width&gt;x&lt;height&gt;, each in [1, 8192]";
+            }</span>
 <span style = "background-color:#dfd">        } else if (argument == "--scale" &amp;&amp; hasValue) {
             bool ok = false;
             line.options.scale = QString::fromStdString(arguments[++index]).toDouble(&amp;ok);
@@ -422,9 +496,9 @@ std::optional&lt;int&gt; runRenderCommand(const std::vector&lt;std::string&gt;&a
         return 2;</span>
     }
 <span style = "background-color:#dfd">    const std::vector&lt;std::pair&lt;std::filesystem::path, std::string&gt;&gt; files = renderTargets(line);
-    const bool singleFile = line.destination &amp;&amp; line.destination-&gt;extension() == ".png";
+    const bool singleFile = line.destination &amp;&amp; isImageFile(*line.destination);
     if (singleFile &amp;&amp; files.size() != 1) {</span>
-<span style = "background-color:#fdd">        output += "--output names a .png: render exactly one map, or give a directory\n";
+<span style = "background-color:#fdd">        output += "--output names an image: render exactly one map, or give a directory\n";
         return 2;</span>
     }
 <span style = "background-color:#dfd">    const std::filesystem::path directory =</span>
@@ -441,13 +515,20 @@ std::optional&lt;int&gt; runRenderCommand(const std::vector&lt;std::string&gt;&a
         }
 <span style = "background-color:#dfd">        const std::filesystem::path png =</span>
             singleFile ? *line.destination : directory / imageNameOf(mapId);
-<span style = "background-color:#dfd">        const QImage image = renderMap(*loaded.level, line.dataRoot, line.options);
-        if (!image.save(QString::fromStdWString(png.wstring()), "PNG")) {</span>
+<span style = "background-color:#dfd">        MapImageGrid grid;
+        const QImage image = renderMap(*loaded.level, line.dataRoot, line.options, &amp;grid);</span>
+        // Le format suit l'extension : un JPEG pour l'onglet Â« Carte Â» (LOT-121), un PNG sinon.
+<span style = "background-color:#dfd">        const bool jpeg = png.extension() == ".jpg" || png.extension() == ".jpeg";
+        if (!image.save(QString::fromStdWString(png.wstring()), jpeg ? "JPG" : "PNG",</span>
+                        jpeg ? JPEG_QUALITY : -1)) {
 <span style = "background-color:#fdd">            output += "error: cannot write " + png.string() + "\n";
             return 1;</span>
         }
 <span style = "background-color:#dfd">        output += "rendered " + mapId + " (" + std::to_string(image.width()) + " Ã " +</span>
                   std::to_string(image.height()) + ") to " + png.string() + "\n";
+<span style = "background-color:#dfd">        if (line.options.canvas) {</span>
+<span style = "background-color:#fdd">            output += "grid " + gridJson(grid) + "\n";</span>
+        }
 <span style = "background-color:#dfd">    }
     return 0;
 }</span>

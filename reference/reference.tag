@@ -3786,6 +3786,7 @@
     <includes id="CanvasScene_8h" name="CanvasScene.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasScene.h</includes>
     <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
     <class kind="struct">hmi::MapRenderOptions</class>
+    <class kind="struct">hmi::MapImageGrid</class>
     <namespace>core</namespace>
     <namespace>hmi</namespace>
   </compound>
@@ -5201,6 +5202,8 @@
     <class kind="struct">hmi::MapLabel</class>
     <class kind="struct">hmi::MapSite</class>
     <class kind="struct">hmi::RegionMap</class>
+    <class kind="struct">hmi::MapGrid</class>
+    <class kind="struct">hmi::MapZone</class>
     <class kind="struct">hmi::MapDistrict</class>
     <class kind="struct">hmi::CityMap</class>
     <class kind="struct">hmi::WorldMaps</class>
@@ -9680,6 +9683,13 @@
       <anchorfile>test__city__plan_8cpp.html</anchorfile>
       <anchor>ac6a7a780419a836ad5ca0e7eb5b1e2b2</anchor>
       <arglist>(CityPlanTest, UneVilleSeLit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__city__plan_8cpp.html</anchorfile>
+      <anchor>afce4487653aa390b5c4a1a96f6df887e</anchor>
+      <arglist>(CityPlanTest, UneSousZoneEstDansSonQuartier)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -14217,6 +14227,13 @@
       <anchorfile>test__world__maps_8cpp.html</anchorfile>
       <anchor>a447931c038980e53e2441cd5ca6c13d4</anchor>
       <arglist>(WorldMapsTest, FichierLuEtBorne)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__maps_8cpp.html</anchorfile>
+      <anchor>a1e2f0ab5ca622fd97ad8a8351b029c9d</anchor>
+      <arglist>(WorldMapsTest, UnQuartierRenduPorteSaGrilleEtSesSousZones)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -35451,6 +35468,20 @@
       <anchor>a53f5a35f3da0d058accd74c962cb513d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; MapGrid &gt;</type>
+      <name>grid</name>
+      <anchorfile>structhmi_1_1MapDistrict.html</anchorfile>
+      <anchor>a30f61e653751d9b41a8b6a07430a6f07</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, MapZone &gt;</type>
+      <name>zones</name>
+      <anchorfile>structhmi_1_1MapDistrict.html</anchorfile>
+      <anchor>ab67890b261bc3919ad180ac8e22001a5</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::MapEncounterResult</name>
@@ -35598,6 +35629,84 @@
       <name>height</name>
       <anchorfile>structhmi_1_1MapFrame.html</anchorfile>
       <anchor>a2948587b31678886e3e958879a91136c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MapGrid</name>
+    <filename>structhmi_1_1MapGrid.html</filename>
+    <member kind="function">
+      <type>MapPoint</type>
+      <name>at</name>
+      <anchorfile>structhmi_1_1MapGrid.html</anchorfile>
+      <anchor>aa532379dfb4d32fe09349159557b9136</anchor>
+      <arglist>(double gridColumn, double gridRow) const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>MapPoint</type>
+      <name>origin</name>
+      <anchorfile>structhmi_1_1MapGrid.html</anchorfile>
+      <anchor>a1f8de0d311fd24c9c777efc7902cddc7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MapPoint</type>
+      <name>column</name>
+      <anchorfile>structhmi_1_1MapGrid.html</anchorfile>
+      <anchor>aef4efc14b9d69cefbdf34a1160b8ef9e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MapPoint</type>
+      <name>row</name>
+      <anchorfile>structhmi_1_1MapGrid.html</anchorfile>
+      <anchor>a2f8b88a83301bfa3de9ce16fa7782609</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MapImageGrid</name>
+    <filename>structhmi_1_1MapImageGrid.html</filename>
+    <member kind="variable">
+      <type>double</type>
+      <name>originX</name>
+      <anchorfile>structhmi_1_1MapImageGrid.html</anchorfile>
+      <anchor>a08e5fa22933bb12b88acb124529886e3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>originY</name>
+      <anchorfile>structhmi_1_1MapImageGrid.html</anchorfile>
+      <anchor>af3e602ab6a7c4259afd5f90d76b8ef68</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>columnX</name>
+      <anchorfile>structhmi_1_1MapImageGrid.html</anchorfile>
+      <anchor>a868d34e47ef6390df3b9a6b4d22a0315</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>columnY</name>
+      <anchorfile>structhmi_1_1MapImageGrid.html</anchorfile>
+      <anchor>acc7763c90f2f91c4685cb322ec7918fc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>rowX</name>
+      <anchorfile>structhmi_1_1MapImageGrid.html</anchorfile>
+      <anchor>a83b761631e4d4d8cf254d61f01c7f53f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>rowY</name>
+      <anchorfile>structhmi_1_1MapImageGrid.html</anchorfile>
+      <anchor>a610d35109aabe1b7546d2f8e09d1c5e2</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -36095,6 +36204,13 @@
       <anchor>a5bfa8ff702b85bebff36a8aa13a78203</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; QSize &gt;</type>
+      <name>canvas</name>
+      <anchorfile>structhmi_1_1MapRenderOptions.html</anchorfile>
+      <anchor>a8bd822402428740d579f84c04786eed2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::MapSite</name>
@@ -36224,6 +36340,38 @@
       <name>scene</name>
       <anchorfile>structhmi_1_1MapTemplateLayer.html</anchorfile>
       <anchor>a5952294b5949b2a6af415f17da21b1a6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MapZone</name>
+    <filename>structhmi_1_1MapZone.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1MapZone.html</anchorfile>
+      <anchor>a0dba1aa3b864e19c6215a743a666eff8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MapPoint</type>
+      <name>entrance</name>
+      <anchorfile>structhmi_1_1MapZone.html</anchorfile>
+      <anchor>a6beeb47fddc79e94b591e1760d5de074</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>image</name>
+      <anchorfile>structhmi_1_1MapZone.html</anchorfile>
+      <anchor>a60629d5f60a982a515d536f620854d8c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; MapGrid &gt;</type>
+      <name>grid</name>
+      <anchorfile>structhmi_1_1MapZone.html</anchorfile>
+      <anchor>a49e79703895477ae60635d24cb8b3bba</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -50201,6 +50349,7 @@
     <class kind="class">hmi::MainWindow</class>
     <class kind="struct">hmi::MapPropertiesChoice</class>
     <class kind="struct">hmi::MapRenderOptions</class>
+    <class kind="struct">hmi::MapImageGrid</class>
     <class kind="class">hmi::MiniMap</class>
     <class kind="class">hmi::PalettePanel</class>
     <class kind="class">hmi::ProblemsPanel</class>
@@ -50318,6 +50467,8 @@
     <class kind="struct">hmi::MapLabel</class>
     <class kind="struct">hmi::MapSite</class>
     <class kind="struct">hmi::RegionMap</class>
+    <class kind="struct">hmi::MapGrid</class>
+    <class kind="struct">hmi::MapZone</class>
     <class kind="struct">hmi::MapDistrict</class>
     <class kind="struct">hmi::CityMap</class>
     <class kind="struct">hmi::WorldMaps</class>
@@ -52113,8 +52264,8 @@
       <type>QImage</type>
       <name>renderMap</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad9167a1055ccb957be12eecf083c3054</anchor>
-      <arglist>(const core::Level &amp;level, const std::filesystem::path &amp;dataRoot, const MapRenderOptions &amp;options)</arglist>
+      <anchor>a3c843b87b8612e61a4c7b1747f90f229</anchor>
+      <arglist>(const core::Level &amp;level, const std::filesystem::path &amp;dataRoot, const MapRenderOptions &amp;options, MapImageGrid *grid=nullptr)</arglist>
     </member>
     <member kind="function">
       <type>std::optional&lt; int &gt;</type>

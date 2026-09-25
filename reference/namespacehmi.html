@@ -322,6 +322,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le dialogue montre et rend.  <a href="structhmi_1_1MapPropertiesChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapRenderOptions" id="r_MapRenderOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réglages d'un rendu.  <a href="structhmi_1_1MapRenderOptions.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapImageGrid" id="r_MapImageGrid"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapImageGrid.html">MapImageGrid</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où tombe la <b>grille</b> de la carte sur son image, en fractions de sa largeur et de sa hauteur (<span class="tt">LOT-121</span>) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en <span class="tt">origin + c × column + r × row</span>.  <a href="structhmi_1_1MapImageGrid.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MiniMap" id="r_MiniMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1MiniMap.html">MiniMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mini-carte : l'image de la carte, le cadre de la vue, et le clic qui la déplace.  <a href="classhmi_1_1MiniMap.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PalettePanel" id="r_PalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a></td></tr>
@@ -549,8 +551,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lieu numéroté d'un plan de ville qui n'est pas un lieu de l'atlas (légende du livre).  <a href="structhmi_1_1MapSite.html#details">More...</a><br /></td></tr>
 <tr class="memitem:RegionMap" id="r_RegionMap"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RegionMap.html">RegionMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'une région, telle que <span class="tt">world-maps.json</span> la décrit.  <a href="structhmi_1_1RegionMap.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapGrid" id="r_MapGrid"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapGrid.html">MapGrid</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés.  <a href="structhmi_1_1MapGrid.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapZone" id="r_MapZone"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapZone.html">MapZone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une <b>sous-zone</b> d'un quartier (<span class="tt">LOT-121</span>, décision D-16) : l'Arena of Fate dans Arenarea.  <a href="structhmi_1_1MapZone.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapDistrict" id="r_MapDistrict"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapDistrict.html">MapDistrict</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés.  <a href="structhmi_1_1MapDistrict.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue d'un <b>quartier</b> sur le plan de sa ville (<span class="tt">LOT-96</span>) : le plan agrandi sur <span class="tt"><a class="el" href="structhmi_1_1MapDistrict.html#a7ed155cb60358e16cbf35738249b649b">frame</a></span> tant qu'il n'a pas de carte ; sa carte sinon — peinte, ou rendue avec sa grille (<span class="tt">LOT-121</span>).  <a href="structhmi_1_1MapDistrict.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityMap" id="r_CityMap"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CityMap.html">CityMap</a></td></tr>
 <tr class="memitem:WorldMaps" id="r_WorldMaps"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldMaps.html">WorldMaps</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contenu de <span class="tt">world-maps.json</span>, ou la raison de l'échec.  <a href="structhmi_1_1WorldMaps.html#details">More...</a><br /></td></tr>
@@ -1317,8 +1323,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aea9d8742fc17bfd6135f669a67430cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une liste de bandes (<span class="tt">floors,relief,figures,collision</span>).  <br /></td></tr>
 <tr class="memitem:ae7f247079ad6dfe5c32dcc3dbc814f84" id="r_ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#ae7f247079ad6dfe5c32dcc3dbc814f84">renderStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const std::filesystem::path &amp;dataRoot, const std::string &amp;place, int maxSide)</td></tr>
 <tr class="memdesc:ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels.  <br /></td></tr>
-<tr class="memitem:ad9167a1055ccb957be12eecf083c3054" id="r_ad9167a1055ccb957be12eecf083c3054"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#ad9167a1055ccb957be12eecf083c3054">renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options)</td></tr>
-<tr class="memdesc:ad9167a1055ccb957be12eecf083c3054"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
+<tr class="memitem:a3c843b87b8612e61a4c7b1747f90f229" id="r_a3c843b87b8612e61a4c7b1747f90f229"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a3c843b87b8612e61a4c7b1747f90f229">renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options, <a class="el" href="structhmi_1_1MapImageGrid.html">MapImageGrid</a> *grid=nullptr)</td></tr>
+<tr class="memdesc:a3c843b87b8612e61a4c7b1747f90f229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
 <tr class="memitem:ad551059312355ed10cda2f2300d1a6b9" id="r_ad551059312355ed10cda2f2300d1a6b9"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad551059312355ed10cda2f2300d1a6b9">runRenderCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
 <tr class="memdesc:ad551059312355ed10cda2f2300d1a6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée <span class="tt">--render</span> de l'éditeur, avant toute construction de fenêtre.  <br /></td></tr>
 <tr class="memitem:a5457af8d03379837aef8543c9fa07b7c" id="r_a5457af8d03379837aef8543c9fa07b7c"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5457af8d03379837aef8543c9fa07b7c">showCitations</a> (QWidget *parent, const QString &amp;title, const std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt; &amp;citations, const std::filesystem::path &amp;dataRoot)</td></tr>
@@ -1379,7 +1385,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2d572b49065ad901c6e2704b8d515c78" id="r_a2d572b49065ad901c6e2704b8d515c78"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2d572b49065ad901c6e2704b8d515c78">arenaCamera</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, int pixelWidth, int pixelHeight)</td></tr>
 <tr class="memdesc:a2d572b49065ad901c6e2704b8d515c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage du Colisée : la scène entière, centrée, dans une surface de <code class="param">pixelWidth</code> × <code class="param">pixelHeight</code> pixels physiques.  <br /></td></tr>
 <tr class="memitem:a11b4cbe2fcfcc3f152293f1bdf5c7f8d" id="r_a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">assetGalleryExcludes</a> (std::string_view path) noexcept</td></tr>
-<tr class="memdesc:a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>).  <br /></td></tr>
+<tr class="memdesc:a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une, et les cartes rendues des zones, dans le <span class="tt">Map/</span> de chacune sous <span class="tt">Regions/</span>, <span class="tt">LOT-121</span>) et les polices (<span class="tt">Fonts/</span>).  <br /></td></tr>
 <tr class="memitem:a3256818dab3b1990ebe3f4da0aed8a34" id="r_a3256818dab3b1990ebe3f4da0aed8a34"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3256818dab3b1990ebe3f4da0aed8a34">assetGalleryUnlisted</a> (const std::filesystem::path &amp;assetsRoot, const <a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> &amp;catalog)</td></tr>
 <tr class="memdesc:a3256818dab3b1990ebe3f4da0aed8a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit.  <br /></td></tr>
 <tr class="memitem:a83debe99d4ca04cebc854c1407f3a39e" id="r_a83debe99d4ca04cebc854c1407f3a39e"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a>&#160;</td><td class="memItemRight"><a class="el" href="#a83debe99d4ca04cebc854c1407f3a39e">assetGalleryBlocShape</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry)</td></tr>
@@ -4279,7 +4285,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une) et les polices (<span class="tt">Fonts/</span>). </p>
+<p>Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une, et les cartes rendues des zones, dans le <span class="tt">Map/</span> de chacune sous <span class="tt">Regions/</span>, <span class="tt">LOT-121</span>) et les polices (<span class="tt">Fonts/</span>). </p>
 <p>Les planches <b>sources</b> des ateliers n'ont plus de règle : elles ne sont plus versionnées (<span class="tt">Tools/AssetsHD/</span>, hors dépôt), seul l'asset installé entre dans le dépôt (<span class="tt">LOT-102</span>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>Chemin relatif à la racine des assets, séparateurs <span class="tt">/</span>. </td></tr>
@@ -12436,8 +12442,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad9167a1055ccb957be12eecf083c3054" name="ad9167a1055ccb957be12eecf083c3054"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9167a1055ccb957be12eecf083c3054">&#9670;&#160;</a></span>renderMap()</h2>
+<a id="a3c843b87b8612e61a4c7b1747f90f229" name="a3c843b87b8612e61a4c7b1747f90f229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c843b87b8612e61a4c7b1747f90f229">&#9670;&#160;</a></span>renderMap()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -12458,7 +12464,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>options</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1MapImageGrid.html">MapImageGrid</a> *</td>          <td class="paramname"><span class="paramname"><em>grid</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -12474,6 +12485,7 @@ Variables</h2></td></tr>
     <tr><td class="paramname">level</td><td>La carte. </td></tr>
     <tr><td class="paramname">dataRoot</td><td>La racine des données : la table du lieu, ses planches, les figurines. </td></tr>
     <tr><td class="paramname">options</td><td>Bandes, échelle et fond. </td></tr>
+    <tr><td class="paramname">grid</td><td>S'il n'est pas nul, reçoit la place de la grille sur l'image. </td></tr>
   </table>
   </dd>
 </dl>
@@ -13055,10 +13067,11 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>L'entrée <span class="tt">--render</span> de l'éditeur, avant toute construction de fenêtre. </p>
 <ul>
 <li><span class="tt">--render [carte…]</span> : les cartes nommées (identifiant ou chemin), toutes à défaut ;</li>
-<li><span class="tt">--output &lt;fichier.png | dossier&gt;</span> : un fichier pour une carte unique, sinon un dossier où chaque carte s'écrit <span class="tt">capital-martpart.png</span> (défaut : le dossier courant) ;</li>
+<li><span class="tt">--output &lt;fichier.png | fichier.jpg | dossier&gt;</span> : un fichier pour une carte unique, sinon un dossier où chaque carte s'écrit <span class="tt">capital-martpart.png</span> (défaut : le dossier courant) ;</li>
 <li><span class="tt">--layers floors,relief,figures,collision</span> : les bandes (défaut : les trois premières) ;</li>
 <li><span class="tt">--plan</span> : le plan de principe — losanges plats, pastilles, légende ;</li>
 <li><span class="tt">--scale &lt;s&gt;</span> : l'échelle ;</li>
+<li><span class="tt">--canvas &lt;l&gt;x&lt;h&gt;</span> : le cadre imposé ; chaque carte écrit alors aussi sa grille (<span class="tt">grid {"origin":…,"column":…,"row":…}</span>), celle que <span class="tt">world-maps.json</span> recopie ;</li>
 <li><span class="tt">--data &lt;racine&gt;</span> : la racine des données (défaut : <code class="param">defaultDataRoot</code>).</li>
 </ul>
 <dl class="section return"><dt>Returns</dt><dd>Le code de sortie (0, 1 si une carte ne se lit pas ou ne s'écrit pas, 2 si la ligne de commande est fausse), ou <span class="tt">std::nullopt</span> sans <span class="tt">--render</span>. </dd></dl>
