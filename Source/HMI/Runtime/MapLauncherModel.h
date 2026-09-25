@@ -58,7 +58,7 @@ public:
         return _maps;
     }
     [[nodiscard]] QStringList directories() const;
-    [[nodiscard]] QString levelsRoot() const;
+    [[nodiscard]] static QString levelsRoot();
     [[nodiscard]] QString status() const {
         return _status;
     }

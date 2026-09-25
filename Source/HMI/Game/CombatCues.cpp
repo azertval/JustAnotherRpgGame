@@ -11,9 +11,14 @@ namespace hmi {
 
 namespace {
 
+// Le milieu d'une case, en fraction de case.
+constexpr float CELL_CENTER = 0.5F;
+// Garde de finishAll : nombre maximal de pas d'une seconde avant d'abandonner la file.
+constexpr std::size_t MAX_FINISH_STEPS = 4096;
+
 [[nodiscard]] core::Vector2 centerOf(core::GridPosition cell) noexcept {
-    return core::Vector2{static_cast<float>(cell.column) + 0.5F,
-                         static_cast<float>(cell.row) + 0.5F};
+    return core::Vector2{static_cast<float>(cell.column) + CELL_CENTER,
+                         static_cast<float>(cell.row) + CELL_CENTER};
 }
 
 // La diagonale qui regarde de `from` vers `to` ; `previous` si les deux se confondent.
@@ -178,9 +183,8 @@ bool CombatCueTrack::apply(Running& running) {
 void CombatCueTrack::advance(float seconds) {
     // Les figurines au repos respirent : leur bande de repos avance avec le temps.
     for (auto& [actor, figure] : _figures) {
-        if (figure.clip == figure_clips::IDLE) {
-            figure.clipSeconds += seconds;
-        } else if (figure.dead && figure.clip == figure_clips::DEATH) {
+        if (figure.clip == figure_clips::IDLE ||
+            (figure.dead && figure.clip == figure_clips::DEATH)) {
             figure.clipSeconds += seconds;
         }
     }
@@ -195,7 +199,7 @@ void CombatCueTrack::advance(float seconds) {
 
 void CombatCueTrack::finishAll() {
     // Une garde contre une file qui ne se viderait pas : chaque tour en joue au moins un.
-    for (std::size_t guard = 0; guard < 4096 && busy(); ++guard) {
+    for (std::size_t guard = 0; guard < MAX_FINISH_STEPS && busy(); ++guard) {
         advance(1.0F);
     }
 }

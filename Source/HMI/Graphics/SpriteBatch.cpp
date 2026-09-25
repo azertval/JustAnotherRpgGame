@@ -23,6 +23,18 @@ namespace hmi {
 
 namespace {
 
+// Deux matrices sont identiques quand leurs seize flottants le sont (comparaison membre a membre).
+[[nodiscard]] bool sameMatrix(const DirectX::XMFLOAT4X4& a, const DirectX::XMFLOAT4X4& b) noexcept {
+    for (std::size_t row = 0; row < 4; ++row) {
+        for (std::size_t column = 0; column < 4; ++column) {
+            if (a(row, column) != b(row, column)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 // Charge un shader precompile (.qsb) depuis les ressources de l'executable. Un shader absent est
 // une erreur de BUILD, pas un etat d'execution recuperable : la ressource est embarquee par
 // qt6_add_shaders, elle ne peut manquer que si la compilation n'a pas eu lieu.
@@ -263,8 +275,7 @@ void SpriteBatch::begin(const DirectX::XMFLOAT4X4& projection, TextureHandle tex
     // Une projection par image, en pratique : une passe ne pousse la sienne que si elle differe de
     // la precedente. Des centaines de passes (une par texture de la bande de profondeur) ne
     // televersent plus chacune la meme matrice (audit de l'affichage, A7).
-    if (_projections.empty() ||
-        std::memcmp(&_projections.back(), &projection, sizeof(projection)) != 0) {
+    if (_projections.empty() || !sameMatrix(_projections.back(), projection)) {
         _projections.push_back(projection);
     }
     _current.uniformOffset = static_cast<int>(_projections.size() - 1) * _uniformStride;

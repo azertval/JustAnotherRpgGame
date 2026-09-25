@@ -859,7 +859,8 @@ std::optional<std::string> replacePieceInMap(const std::filesystem::path& dataRo
     if (!validated.ok()) {
         return map.id + " would not be valid: " + validated.error;
     }
-    std::vector<Citation> cited = pieceCitationsIn(map, from, previous ? previous->directory : "");
+    std::vector<Citation> cited =
+        pieceCitationsIn(map, from, previous != nullptr ? previous->directory : "");
     plan.changes.insert(plan.changes.end(), std::make_move_iterator(cited.begin()),
                         std::make_move_iterator(cited.end()));
     plan.edits.push_back(
@@ -1115,6 +1116,40 @@ namespace {
     return 0;
 }
 
+// `--replace-piece <old> <new> [map...] [--level <dossier>]` : le plan, puis son écriture.
+int runReplacePiece(const std::vector<std::string>& arguments,
+                    const std::vector<std::string>& piece, const std::filesystem::path& dataRoot,
+                    std::string& output) {
+    const auto level = valuesOf(arguments, "--level");
+    if (piece.size() < 2 || (level && level->size() != 1)) {
+        output += "usage: --replace-piece <old> <new> [map...] [--level <level directory>]\n";
+        return 2;
+    }
+    const std::vector<std::string> maps(std::next(piece.begin(), 2), piece.end());
+    return carryOut(planReplacePiece(dataRoot, piece[0], piece[1], maps,
+                                     level ? level->front() : std::string{}),
+                    dataRoot, output);
+}
+
+// `--change-scene <map> <place> [--table <table.json>]` : le plan, puis son écriture.
+int runChangeScene(const std::vector<std::string>& arguments, const std::vector<std::string>& scene,
+                   const std::filesystem::path& dataRoot, std::string& output) {
+    const auto tableFile = valuesOf(arguments, "--table");
+    if (scene.size() != 2 || (tableFile && tableFile->size() != 1)) {
+        output += "usage: --change-scene <map> <place> [--table <table.json>]\n";
+        return 2;
+    }
+    PieceTableResult table;
+    if (tableFile) {
+        table = readPieceTable(tableFile->front());
+    }
+    if (!table.ok()) {
+        output += "error: " + table.error + "\n";
+        return 1;
+    }
+    return carryOut(planChangeScene(dataRoot, scene[0], scene[1], table.table), dataRoot, output);
+}
+
 }  // namespace
 
 std::optional<int> runRefactorCommand(const std::vector<std::string>& arguments,
@@ -1154,30 +1189,10 @@ std::optional<int> runRefactorCommand(const std::vector<std::string>& arguments,
                         output);
     }
     if (const auto piece = valuesOf(arguments, "--replace-piece")) {
-        const auto level = valuesOf(arguments, "--level");
-        if (piece->size() < 2 || (level && level->size() != 1)) {
-            return usage("--replace-piece <old> <new> [map...] [--level <level directory>]");
-        }
-        const std::vector<std::string> maps(std::next(piece->begin(), 2), piece->end());
-        return carryOut(planReplacePiece(dataRoot, (*piece)[0], (*piece)[1], maps,
-                                         level ? level->front() : std::string{}),
-                        dataRoot, output);
+        return runReplacePiece(arguments, *piece, dataRoot, output);
     }
     if (const auto scene = valuesOf(arguments, "--change-scene")) {
-        const auto tableFile = valuesOf(arguments, "--table");
-        if (scene->size() != 2 || (tableFile && tableFile->size() != 1)) {
-            return usage("--change-scene <map> <place> [--table <table.json>]");
-        }
-        PieceTableResult table;
-        if (tableFile) {
-            table = readPieceTable(tableFile->front());
-        }
-        if (!table.ok()) {
-            output += "error: " + table.error + "\n";
-            return 1;
-        }
-        return carryOut(planChangeScene(dataRoot, (*scene)[0], (*scene)[1], table.table), dataRoot,
-                        output);
+        return runChangeScene(arguments, *scene, dataRoot, output);
     }
     return std::nullopt;
 }

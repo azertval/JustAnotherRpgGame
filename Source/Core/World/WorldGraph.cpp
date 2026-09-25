@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <optional>
 #include <set>
 #include <system_error>
 #include <utility>
@@ -106,6 +107,67 @@ std::vector<std::string> WorldGraph::unreachableFrom(std::string_view fromMapId)
     return isolees;
 }
 
+namespace {
+
+// Le noeud d'une carte : ses points d'arrivee, ses identifiants d'entite et les drapeaux que ses
+// entites posent, chacun trie et sans doublon.
+[[nodiscard]] WorldMapNode noeudDe(const WorldMapInput& entree) {
+    std::set<std::string, std::less<>> points;
+    std::set<std::string, std::less<>> identifiants;
+    const std::set<std::string, std::less<>> drapeaux = flagsSetByEntities(entree.entities);
+    for (const MapEntity& entite : entree.entities) {
+        if (!entite.id.empty()) {
+            identifiants.insert(entite.id);
+        }
+        if (entite.type != SPAWN_POINT_ENTITY_TYPE) {
+            continue;
+        }
+        std::string nom = texteDe(entite, SPAWN_POINT_NAME_PROPERTY);
+        if (!nom.empty()) {
+            points.insert(std::move(nom));
+        }
+    }
+    return WorldMapNode{
+        .mapId = entree.mapId,
+        .name = entree.name,
+        .arrivalPoints = std::vector<std::string>(points.begin(), points.end()),
+        .loadError = entree.loadError,
+        .entityIds = std::vector<std::string>(identifiants.begin(), identifiants.end()),
+        .triggerFlags = std::vector<std::string>(drapeaux.begin(), drapeaux.end())};
+}
+
+// L'arete qu'une entite trace : un portail, ou le transfert d'une zone ; rien pour le reste, ni
+// pour une zone sans transfert (elle n'est pas une arete).
+[[nodiscard]] std::optional<WorldPortalLink> areteDe(const WorldGraph& graphe,
+                                                     const WorldMapInput& entree,
+                                                     const MapEntity& entite) {
+    if (entite.type == PORTAL_ENTITY_TYPE) {
+        WorldPortalLink portail{.fromMap = entree.mapId,
+                                .position = entite.position,
+                                .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
+                                .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};
+        // Condamne, il est voulu tel : ni erreur, ni chemin (LOT-126).
+        portail.status =
+            isSealedPortal(entite) ? PortalLinkStatus::Sealed : statutDu(graphe, portail);
+        return portail;
+    }
+    if (entite.type == ZONE_ENTITY_TYPE) {
+        WorldPortalLink transfert{.fromMap = entree.mapId,
+                                  .position = entite.position,
+                                  .toMap = texteDe(entite, ZONE_TRIGGER_MAP_PROPERTY),
+                                  .arrival = texteDe(entite, ZONE_TRIGGER_ARRIVAL_PROPERTY),
+                                  .kind = WorldLinkKind::Transfer};
+        if (transfert.toMap.empty()) {
+            return std::nullopt;
+        }
+        transfert.status = statutDu(graphe, transfert);
+        return transfert;
+    }
+    return std::nullopt;
+}
+
+}  // namespace
+
 WorldGraph buildWorldGraph(std::vector<WorldMapInput> maps) {
     // Tri stable : l'ordre de lecture d'un dossier n'est pas garanti, celui du graphe doit l'etre.
     std::ranges::stable_sort(maps, std::less<>{}, &WorldMapInput::mapId);
@@ -113,53 +175,14 @@ WorldGraph buildWorldGraph(std::vector<WorldMapInput> maps) {
     WorldGraph graphe;
     graphe.maps.reserve(maps.size());
     for (const WorldMapInput& entree : maps) {
-        std::set<std::string, std::less<>> points;
-        std::set<std::string, std::less<>> identifiants;
-        const std::set<std::string, std::less<>> drapeaux = flagsSetByEntities(entree.entities);
-        for (const MapEntity& entite : entree.entities) {
-            if (!entite.id.empty()) {
-                identifiants.insert(entite.id);
-            }
-            if (entite.type != SPAWN_POINT_ENTITY_TYPE) {
-                continue;
-            }
-            std::string nom = texteDe(entite, SPAWN_POINT_NAME_PROPERTY);
-            if (!nom.empty()) {
-                points.insert(std::move(nom));
-            }
-        }
-        graphe.maps.push_back(WorldMapNode{
-            .mapId = entree.mapId,
-            .name = entree.name,
-            .arrivalPoints = std::vector<std::string>(points.begin(), points.end()),
-            .loadError = entree.loadError,
-            .entityIds = std::vector<std::string>(identifiants.begin(), identifiants.end()),
-            .triggerFlags = std::vector<std::string>(drapeaux.begin(), drapeaux.end())});
+        graphe.maps.push_back(noeudDe(entree));
     }
 
     // Deux passes : un portail peut viser une carte triee apres la sienne.
     for (const WorldMapInput& entree : maps) {
         for (const MapEntity& entite : entree.entities) {
-            if (entite.type == PORTAL_ENTITY_TYPE) {
-                WorldPortalLink portail{.fromMap = entree.mapId,
-                                        .position = entite.position,
-                                        .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
-                                        .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};
-                // Condamne, il est voulu tel : ni erreur, ni chemin (LOT-126).
-                portail.status =
-                    isSealedPortal(entite) ? PortalLinkStatus::Sealed : statutDu(graphe, portail);
-                graphe.portals.push_back(std::move(portail));
-            } else if (entite.type == ZONE_ENTITY_TYPE) {
-                WorldPortalLink transfert{.fromMap = entree.mapId,
-                                          .position = entite.position,
-                                          .toMap = texteDe(entite, ZONE_TRIGGER_MAP_PROPERTY),
-                                          .arrival = texteDe(entite, ZONE_TRIGGER_ARRIVAL_PROPERTY),
-                                          .kind = WorldLinkKind::Transfer};
-                if (transfert.toMap.empty()) {
-                    continue;  // une zone sans transfert n'est pas une arete.
-                }
-                transfert.status = statutDu(graphe, transfert);
-                graphe.portals.push_back(std::move(transfert));
+            if (std::optional<WorldPortalLink> arete = areteDe(graphe, entree, entite)) {
+                graphe.portals.push_back(std::move(*arete));
             }
         }
     }

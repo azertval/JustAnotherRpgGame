@@ -82,11 +82,12 @@ std::string describeFlagCondition(const FlagCondition& condition) {
 
 FlagConditionRead readFlagCondition(const Json& object) {
     if (!object.is_object()) {
-        return {std::nullopt, "une condition est un objet { \"flag\": ... }."};
+        return {.condition = std::nullopt,
+                .error = "une condition est un objet { \"flag\": ... }."};
     }
     const auto drapeau = object.find("flag");
     if (drapeau == object.end() || !drapeau->is_string() || drapeau->get<std::string>().empty()) {
-        return {std::nullopt, "condition sans 'flag'."};
+        return {.condition = std::nullopt, .error = "condition sans 'flag'."};
     }
     FlagCondition condition;
     condition.flag = drapeau->get<std::string>();
@@ -98,29 +99,32 @@ FlagConditionRead readFlagCondition(const Json& object) {
                        static_cast<int>(egal != object.end()) +
                        static_cast<int>(different != object.end());
     if (formes > 1) {
-        return {std::nullopt, "condition sur '" + condition.flag +
-                                  "' : 'isSet', 'equals' et 'notEquals' s'excluent."};
+        return {.condition = std::nullopt,
+                .error = "condition sur '" + condition.flag +
+                         "' : 'isSet', 'equals' et 'notEquals' s'excluent."};
     }
     if (estPose != object.end()) {
         if (!estPose->is_boolean()) {
-            return {std::nullopt, "condition sur '" + condition.flag + "' : 'isSet' non booleen."};
+            return {.condition = std::nullopt,
+                    .error = "condition sur '" + condition.flag + "' : 'isSet' non booleen."};
         }
         condition.test = estPose->get<bool>() ? FlagTest::IsSet : FlagTest::IsUnset;
-        return {condition, {}};
+        return {.condition = condition, .error = {}};
     }
     if (egal == object.end() && different == object.end()) {
-        return {condition, {}};
+        return {.condition = condition, .error = {}};
     }
     const bool estEgal = egal != object.end();
     auto valeurs = valeursDepuis(estEgal ? *egal : *different);
     if (!valeurs) {
-        return {std::nullopt, "condition sur '" + condition.flag + "' : '" +
-                                  (estEgal ? "equals" : "notEquals") +
-                                  "' attend une valeur ou une liste de valeurs non vides."};
+        return {.condition = std::nullopt,
+                .error = "condition sur '" + condition.flag + "' : '" +
+                         (estEgal ? "equals" : "notEquals") +
+                         "' attend une valeur ou une liste de valeurs non vides."};
     }
     condition.test = estEgal ? FlagTest::Equals : FlagTest::NotEquals;
     condition.values = std::move(*valeurs);
-    return {condition, {}};
+    return {.condition = condition, .error = {}};
 }
 
 std::vector<std::string> splitFlagValues(std::string_view text) {

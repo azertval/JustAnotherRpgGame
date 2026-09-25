@@ -285,7 +285,7 @@ public:
         return _seeThroughRelief;
     }
     /// @return La couleur d'un type de tuile, celle de la vue à plat (pour la mini-carte).
-    [[nodiscard]] QColor tileColor(core::TileType type) const;
+    [[nodiscard]] static QColor tileColor(core::TileType type);
     /// @return Les pièces de la case survolée (`street · wall-left`), vide sinon.
     [[nodiscard]] std::string hoveredPieces() const;
     /**

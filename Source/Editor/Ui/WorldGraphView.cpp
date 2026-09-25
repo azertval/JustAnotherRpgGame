@@ -35,6 +35,29 @@ constexpr int LEGEND_ROW = 18;
 constexpr int LEGEND_PADDING = 8;
 constexpr int LEGEND_SAMPLE = 26;
 constexpr int LEGEND_ROWS = 6;
+/// Taille minimale et taille souhaitée du widget, en pixels.
+constexpr int MINIMUM_SIDE = 160;
+constexpr int PREFERRED_SIDE = 320;
+/// Échelle minimale de la vue : en deçà, le graphe n'est plus lisible.
+constexpr qreal MIN_SCALE = 0.05;
+/// La moitié : le centre d'une étendue.
+constexpr qreal HALF = 0.5;
+/// Le diamètre vaut deux rayons.
+constexpr qreal DIAMETER_FACTOR = 2.0;
+/// Épaisseur du trait du lien qu'on tire.
+constexpr qreal LINK_PEN_WIDTH = 2.0;
+/// Épaisseur d'une flèche, au repos et survolée.
+constexpr qreal EDGE_PEN_WIDTH = 1.6;
+constexpr qreal EDGE_PEN_WIDTH_HOVERED = 3.0;
+/// Épaisseur des traits d'un échantillon de la légende.
+constexpr qreal LEGEND_PEN_WIDTH = 1.5;
+/// Rayon des coins du badge du nombre de portails.
+constexpr qreal BADGE_CORNER_RADIUS = 8.0;
+/// Le rouge des erreurs : un canal fort, deux faibles.
+constexpr int ERROR_RED = 0xc6;
+constexpr int ERROR_OTHER = 0x28;
+/// Corps de l'identifiant d'une carte, en proportion de celui de son nom.
+constexpr qreal DETAIL_FONT_RATIO = 0.85;
 
 /// Les couleurs du graphe, tirées de la palette du widget (style Fusion) : l'éditeur n'a pas de
 /// charte (`LOT-EDITOR-01`).
@@ -55,7 +78,7 @@ struct GraphColors {
                        .accent = palette.color(QPalette::Highlight),
                        .surface = palette.color(QPalette::Button),
                        .surfaceAlt = palette.color(QPalette::AlternateBase),
-                       .error = QColor(0xc6, 0x28, 0x28)};
+                       .error = QColor(ERROR_RED, ERROR_OTHER, ERROR_OTHER)};
 }
 
 [[nodiscard]] QPointF toPoint(core::Vector2 vector) {
@@ -77,11 +100,11 @@ struct GraphColors {
 
 WorldGraphView::WorldGraphView(QWidget* parent) : QWidget(parent) {
     setMouseTracking(true);
-    setMinimumSize(160, 160);
+    setMinimumSize(MINIMUM_SIDE, MINIMUM_SIDE);
 }
 
 QSize WorldGraphView::sizeHint() const {
-    return {320, 320};
+    return {PREFERRED_SIDE, PREFERRED_SIDE};
 }
 
 void WorldGraphView::setGraph(core::WorldGraph graph, std::filesystem::path levelsDir) {
@@ -94,9 +117,10 @@ void WorldGraphView::setGraph(core::WorldGraph graph, std::filesystem::path leve
 }
 
 qreal WorldGraphView::scale() const {
-    const qreal extent = 2.0 * (static_cast<qreal>(_layout.circleRadius) + LABEL_MARGIN);
+    const qreal extent =
+        DIAMETER_FACTOR * (static_cast<qreal>(_layout.circleRadius) + LABEL_MARGIN);
     const qreal available = std::min<qreal>(width(), height() - (LEGEND_ROWS * LEGEND_ROW));
-    return std::clamp(available / extent, 0.05, 1.0);
+    return std::clamp(available / extent, MIN_SCALE, 1.0);
 }
 
 core::Vector2 WorldGraphView::toLayout(QPointF widgetPoint) const {
@@ -284,7 +308,7 @@ void WorldGraphView::paintEvent(QPaintEvent* /*event*/) {
     }
 
     painter.save();
-    painter.translate(width() / 2.0, (height() - (LEGEND_ROWS * LEGEND_ROW)) / 2.0);
+    painter.translate(width() * HALF, (height() - (LEGEND_ROWS * LEGEND_ROW)) * HALF);
     painter.scale(scale(), scale());
     paintEdges(painter);
     paintNodes(painter);
@@ -293,7 +317,7 @@ void WorldGraphView::paintEvent(QPaintEvent* /*event*/) {
         const core::Vector2 from = _layout.nodes[*_linkFrom].center;
         QPen pen(colors.text);
         pen.setStyle(Qt::DashLine);
-        pen.setWidthF(2.0);
+        pen.setWidthF(LINK_PEN_WIDTH);
         painter.setPen(pen);
         painter.drawLine(QPointF(from.x, from.y), QPointF(_linkPoint.x, _linkPoint.y));
     }
@@ -310,10 +334,13 @@ void WorldGraphView::paintEdges(QPainter& painter) const {
         const QColor color = edge.broken ? colors.error : colors.textMuted;
         const bool hovered = _hoveredEdge == i;
         // Condamné : voulu, il se montre en pointillé discret, pas en erreur (LOT-126).
-        const Qt::PenStyle style = edge.broken   ? Qt::DashLine
-                                   : edge.sealed ? Qt::DotLine
-                                                 : Qt::SolidLine;
-        QPen pen(color, hovered ? 3.0 : 1.6, style);
+        Qt::PenStyle style = Qt::SolidLine;
+        if (edge.broken) {
+            style = Qt::DashLine;
+        } else if (edge.sealed) {
+            style = Qt::DotLine;
+        }
+        QPen pen(color, hovered ? EDGE_PEN_WIDTH_HOVERED : EDGE_PEN_WIDTH, style);
         painter.setPen(pen);
         painter.setBrush(Qt::NoBrush);
 
@@ -337,7 +364,7 @@ void WorldGraphView::paintEdges(QPainter& painter) const {
                                QSizeF(diameter, 16.0));
             painter.setPen(Qt::NoPen);
             painter.setBrush(color);
-            painter.drawRoundedRect(badge, 8.0, 8.0);
+            painter.drawRoundedRect(badge, BADGE_CORNER_RADIUS, BADGE_CORNER_RADIUS);
             painter.setPen(colors.background);
             painter.drawText(badge, Qt::AlignCenter, text);
         }
@@ -350,7 +377,7 @@ void WorldGraphView::paintNodes(QPainter& painter) const {
     QFont nameFont = baseFont;
     nameFont.setBold(true);
     QFont idFont = baseFont;
-    idFont.setPointSizeF(baseFont.pointSizeF() * 0.85);
+    idFont.setPointSizeF(baseFont.pointSizeF() * DETAIL_FONT_RATIO);
 
     for (std::size_t i = 0; i < _layout.nodes.size(); ++i) {
         const WorldGraphLayoutNode& node = _layout.nodes[i];
@@ -427,36 +454,36 @@ void WorldGraphView::paintLegend(QPainter& painter) const {
 
     const auto label = [&](const QString& text) {
         painter.setPen(colors.textMuted);
-        painter.drawText(QRectF(textX, y - (LEGEND_ROW / 2.0), width() - textX, LEGEND_ROW),
+        painter.drawText(QRectF(textX, y - (LEGEND_ROW * HALF), width() - textX, LEGEND_ROW),
                          Qt::AlignLeft | Qt::AlignVCenter, text);
         y += LEGEND_ROW;
     };
     const QPointF sample(x + (LEGEND_SAMPLE / 2.0), 0.0);
 
-    painter.setPen(QPen(colors.accent, 1.5));
+    painter.setPen(QPen(colors.accent, LEGEND_PEN_WIDTH));
     painter.setBrush(colors.surface);
     painter.drawEllipse(sample + QPointF(0.0, y), radius, radius);
     label(QStringLiteral("Map"));
 
-    painter.setPen(QPen(colors.error, 1.5, Qt::DotLine));
+    painter.setPen(QPen(colors.error, LEGEND_PEN_WIDTH, Qt::DotLine));
     painter.setBrush(colors.surfaceAlt);
     painter.drawEllipse(sample + QPointF(0.0, y), radius, radius);
     label(QStringLiteral("Unreadable map"));
 
-    painter.setPen(QPen(colors.textMuted, 1.5, Qt::DashLine));
+    painter.setPen(QPen(colors.textMuted, LEGEND_PEN_WIDTH, Qt::DashLine));
     painter.setBrush(Qt::NoBrush);
     painter.drawEllipse(sample + QPointF(0.0, y), radius, radius);
     label(QStringLiteral("Missing map"));
 
-    painter.setPen(QPen(colors.textMuted, 1.6));
+    painter.setPen(QPen(colors.textMuted, EDGE_PEN_WIDTH));
     painter.drawLine(QPointF(x, y), QPointF(x + LEGEND_SAMPLE, y));
     label(QStringLiteral("Portal"));
 
-    painter.setPen(QPen(colors.error, 1.6, Qt::DashLine));
+    painter.setPen(QPen(colors.error, EDGE_PEN_WIDTH, Qt::DashLine));
     painter.drawLine(QPointF(x, y), QPointF(x + LEGEND_SAMPLE, y));
     label(QStringLiteral("Broken portal"));
 
-    painter.setPen(QPen(colors.textMuted, 1.6, Qt::DotLine));
+    painter.setPen(QPen(colors.textMuted, EDGE_PEN_WIDTH, Qt::DotLine));
     painter.drawLine(QPointF(x, y), QPointF(x + LEGEND_SAMPLE, y));
     label(QStringLiteral("Sealed portal"));
 }

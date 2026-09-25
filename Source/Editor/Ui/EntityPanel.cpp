@@ -266,8 +266,11 @@ void EntityPanel::rebuildForm() {
         kind != nullptr ? core::inspectedProperties(*kind)
                         : std::vector<const core::EntityPropertySpec*>{};
     std::vector<std::vector<std::string>> choices;
-    for (const core::EntityPropertySpec* const spec : specs) {
-        choices.push_back(entityChoices(*spec, *entity, _context));
+    if (entity != nullptr) {
+        choices.reserve(specs.size());
+        for (const core::EntityPropertySpec* const spec : specs) {
+            choices.push_back(entityChoices(*spec, *entity, _context));
+        }
     }
     _ui->verdictLabel->setText(QString::fromStdString(_verdict));
     _ui->verdictLabel->setVisible(!_verdict.empty());

@@ -22,7 +22,28 @@ struct Lu {
     if (trouve == entite.properties.end()) {
         return {};
     }
-    return {true, std::get_if<std::string>(&trouve->second)};
+    return {.present = true, .texte = std::get_if<std::string>(&trouve->second)};
+}
+
+// Le test nommé par le mot (`set`, `unset`, `equals`, `notEquals`) ; mot vide : `Equals` si des
+// valeurs sont données, `IsSet` sinon ; `std::nullopt` si le mot est inconnu.
+[[nodiscard]] std::optional<FlagTest> testDepuis(const std::string& mot, bool sansValeurs) {
+    if (mot.empty()) {
+        return sansValeurs ? FlagTest::IsSet : FlagTest::Equals;
+    }
+    if (mot == "set") {
+        return FlagTest::IsSet;
+    }
+    if (mot == "unset") {
+        return FlagTest::IsUnset;
+    }
+    if (mot == "equals") {
+        return FlagTest::Equals;
+    }
+    if (mot == "notEquals") {
+        return FlagTest::NotEquals;
+    }
+    return std::nullopt;
 }
 
 }  // namespace
@@ -33,13 +54,14 @@ PresenceRead presenceConditionOf(const MapEntity& entity) {
     const Lu valeurs = lire(entity, PRESENCE_VALUE_PROPERTY);
     if ((drapeau.present && drapeau.texte == nullptr) || (test.present && test.texte == nullptr) ||
         (valeurs.present && valeurs.texte == nullptr)) {
-        return {std::nullopt, PresenceIssue::WrongValueType};
+        return {.condition = std::nullopt, .issue = PresenceIssue::WrongValueType};
     }
     const bool sansDrapeau = !drapeau.present || drapeau.texte->empty();
     if (sansDrapeau) {
         const bool reste =
             (test.present && !test.texte->empty()) || (valeurs.present && !valeurs.texte->empty());
-        return {std::nullopt, reste ? PresenceIssue::MissingFlag : PresenceIssue::None};
+        return {.condition = std::nullopt,
+                .issue = reste ? PresenceIssue::MissingFlag : PresenceIssue::None};
     }
 
     FlagCondition condition;
@@ -48,28 +70,20 @@ PresenceRead presenceConditionOf(const MapEntity& entity) {
         condition.values = splitFlagValues(*valeurs.texte);
     }
     const std::string mot = test.present ? *test.texte : std::string();
-    if (mot.empty()) {
-        condition.test = condition.values.empty() ? FlagTest::IsSet : FlagTest::Equals;
-    } else if (mot == "set") {
-        condition.test = FlagTest::IsSet;
-    } else if (mot == "unset") {
-        condition.test = FlagTest::IsUnset;
-    } else if (mot == "equals") {
-        condition.test = FlagTest::Equals;
-    } else if (mot == "notEquals") {
-        condition.test = FlagTest::NotEquals;
-    } else {
-        return {std::nullopt, PresenceIssue::UnknownTest};
+    const std::optional<FlagTest> forme = testDepuis(mot, condition.values.empty());
+    if (!forme) {
+        return {.condition = std::nullopt, .issue = PresenceIssue::UnknownTest};
     }
+    condition.test = *forme;
     const bool compare =
         condition.test == FlagTest::Equals || condition.test == FlagTest::NotEquals;
     if (compare && condition.values.empty()) {
-        return {std::nullopt, PresenceIssue::MissingValue};
+        return {.condition = std::nullopt, .issue = PresenceIssue::MissingValue};
     }
     if (!compare) {
         condition.values.clear();
     }
-    return {std::move(condition), PresenceIssue::None};
+    return {.condition = std::move(condition), .issue = PresenceIssue::None};
 }
 
 bool isEntityPresent(const MapEntity& entity, const WorldFlags& flags) {

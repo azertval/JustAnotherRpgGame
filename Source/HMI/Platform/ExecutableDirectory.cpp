@@ -13,16 +13,19 @@ namespace hmi {
 namespace {
 
 // Le dossier de contenu impose, vide tant que personne ne l'a pose.
-std::filesystem::path dossierImpose;
+std::filesystem::path& dossierImpose() {
+    static std::filesystem::path dossier;
+    return dossier;
+}
 
 }  // namespace
 
 std::filesystem::path dataDirectory() {
-    return dossierImpose.empty() ? executableDirectory() : dossierImpose;
+    return dossierImpose().empty() ? executableDirectory() : dossierImpose();
 }
 
 void setDataDirectory(std::filesystem::path directory) {
-    dossierImpose = std::move(directory);
+    dossierImpose() = std::move(directory);
 }
 
 std::filesystem::path executableDirectory() {

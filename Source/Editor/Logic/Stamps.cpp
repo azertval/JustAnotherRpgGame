@@ -1046,55 +1046,40 @@ namespace {
     }
 }
 
-}  // namespace
-
-std::optional<int> runPrefabCommand(const std::vector<std::string>& arguments,
-                                    const std::filesystem::path& dataRoot, std::string& output) {
-    const auto usage = [&output](std::string_view text) {
-        output += "usage: " + std::string{text} + "\n";
-        return 2;
-    };
-    if (const auto places = valuesOf(arguments, "--list-prefabs")) {
-        std::vector<std::string> wanted = *places;
-        if (wanted.empty()) {
-            wanted = scenePlaces(dataRoot);
-        }
-        std::size_t total = 0;
-        for (const std::string& place : wanted) {
-            for (const PrefabEntry& prefab : availablePrefabs(dataRoot, place)) {
-                std::string error;
-                const std::optional<Stamp> stamp =
-                    readPrefab(dataRoot, prefab.level, prefab.name, error);
-                output.append(place).append(": ");
-                if (!prefab.level.empty()) {
-                    output.append(prefab.level).append("/");
-                }
-                output.append(prefab.name).append(": ");
-                output.append(stamp ? stampLabel(*stamp) : "unreadable — " + error).append("\n");
-                ++total;
+// `--list-prefabs [lieu...]` : chaque préfabriqué, son étiquette ou pourquoi il est illisible.
+int listPrefabs(const std::vector<std::string>& places, const std::filesystem::path& dataRoot,
+                std::string& output) {
+    std::vector<std::string> wanted = places;
+    if (wanted.empty()) {
+        wanted = scenePlaces(dataRoot);
+    }
+    std::size_t total = 0;
+    for (const std::string& place : wanted) {
+        for (const PrefabEntry& prefab : availablePrefabs(dataRoot, place)) {
+            std::string error;
+            const std::optional<Stamp> stamp =
+                readPrefab(dataRoot, prefab.level, prefab.name, error);
+            output.append(place).append(": ");
+            if (!prefab.level.empty()) {
+                output.append(prefab.level).append("/");
             }
+            output.append(prefab.name).append(": ");
+            output.append(stamp ? stampLabel(*stamp) : "unreadable — " + error).append("\n");
+            ++total;
         }
-        output += std::to_string(total) + (total == 1 ? " prefab\n" : " prefabs\n");
-        return 0;
     }
-    const auto save = valuesOf(arguments, "--save-prefab");
-    if (!save) {
-        return std::nullopt;
-    }
-    const auto from = valuesOf(arguments, "--from");
-    const auto to = valuesOf(arguments, "--to");
-    if (save->size() != 2 || !from || from->size() != 1 || !to || to->size() != 1) {
-        return usage("--save-prefab <map> <name> --from <c,r> --to <c,r>");
-    }
-    const std::optional<core::GridPosition> first = cellArgument(from->front());
-    const std::optional<core::GridPosition> last = cellArgument(to->front());
-    if (!first || !last) {
-        return usage("--save-prefab <map> <name> --from <c,r> --to <c,r>");
-    }
-    const std::filesystem::path asPath{(*save)[0]};
+    output += std::to_string(total) + (total == 1 ? " prefab\n" : " prefabs\n");
+    return 0;
+}
+
+// `--save-prefab <map> <name> --from <c,r> --to <c,r>` : découpe le rectangle et l'écrit.
+int savePrefab(const std::vector<std::string>& save, const std::filesystem::path& dataRoot,
+               const std::optional<core::GridPosition>& first,
+               const std::optional<core::GridPosition>& last, std::string& output) {
+    const std::filesystem::path asPath{save[0]};
     const std::filesystem::path mapFile = std::filesystem::is_regular_file(asPath)
                                               ? asPath
-                                              : dataRoot / "Levels" / ((*save)[0] + ".json");
+                                              : dataRoot / "Levels" / (save[0] + ".json");
     const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(mapFile);
     if (!loaded.ok()) {
         output += "error: " + mapFile.string() + ": " + loaded.error + "\n";
@@ -1110,14 +1095,41 @@ std::optional<int> runPrefabCommand(const std::vector<std::string>& arguments,
     // Rangé au plus bas niveau qui voit toutes ses pièces (LOT-124) : fait du kit de la Capitale,
     // il sert à tous ses quartiers.
     const std::string level = prefabLevel(stamp, assets.manifest ? &*assets.manifest : nullptr);
-    const std::string error = writePrefab(dataRoot, level, (*save)[1], stamp);
+    const std::string error = writePrefab(dataRoot, level, save[1], stamp);
     if (!error.empty()) {
         output += "error: " + error + "\n";
         return 1;
     }
-    output += "saved " + (level.empty() ? std::string{"(world)"} : level) + "/" + (*save)[1] +
-              ": " + stampLabel(stamp) + "\n";
+    output += "saved " + (level.empty() ? std::string{"(world)"} : level) + "/" + save[1] + ": " +
+              stampLabel(stamp) + "\n";
     return 0;
+}
+
+}  // namespace
+
+std::optional<int> runPrefabCommand(const std::vector<std::string>& arguments,
+                                    const std::filesystem::path& dataRoot, std::string& output) {
+    if (const auto places = valuesOf(arguments, "--list-prefabs")) {
+        return listPrefabs(*places, dataRoot, output);
+    }
+    const auto save = valuesOf(arguments, "--save-prefab");
+    if (!save) {
+        return std::nullopt;
+    }
+    const auto from = valuesOf(arguments, "--from");
+    const auto to = valuesOf(arguments, "--to");
+    constexpr std::string_view SAVE_USAGE = "--save-prefab <map> <name> --from <c,r> --to <c,r>";
+    if (save->size() != 2 || !from || from->size() != 1 || !to || to->size() != 1) {
+        output += "usage: " + std::string{SAVE_USAGE} + "\n";
+        return 2;
+    }
+    const std::optional<core::GridPosition> first = cellArgument(from->front());
+    const std::optional<core::GridPosition> last = cellArgument(to->front());
+    if (!first || !last) {
+        output += "usage: " + std::string{SAVE_USAGE} + "\n";
+        return 2;
+    }
+    return savePrefab(*save, dataRoot, first, last, output);
 }
 
 }  // namespace hmi

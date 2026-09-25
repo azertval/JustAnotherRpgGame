@@ -64,7 +64,7 @@ QStringList MapLauncherModel::directories() const {
     return dossiers;
 }
 
-QString MapLauncherModel::levelsRoot() const {
+QString MapLauncherModel::levelsRoot() {
     return versQt(dataDirectory() / "Levels");
 }
 
