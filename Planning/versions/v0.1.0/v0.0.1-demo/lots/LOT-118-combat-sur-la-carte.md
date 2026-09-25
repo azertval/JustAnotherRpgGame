@@ -3,7 +3,7 @@ id = "LOT-118"
 titre = "Le combat sur la carte"
 version = "0.0.1"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Une rencontre engagée sur une carte d'exploration se joue **sur place** : la carte se fige, la grille paraît, le combat se joue, l'exploration reprend."
 prerequis = ["LOT-103", "LOT-128"]
@@ -127,3 +127,10 @@ joueur ». Ce que la lecture et les tests ont établi :
 - Rappel : dans le jeu livré, le Colisée n'a **aucune carte** depuis le `LOT-102` — la session
   n'existe pas, et la surface de l'arène lit un dossier `Assets/Coliseum` supprimé. Le combat sur
   la carte ne passe plus par là.
+
+## Livraison
+
+Livré le 25 septembre 2026, **PR #132**. Les trois critères tiennent par les tests (sans fenêtre :
+`EncounterModelTest`, `MapEncounterTest`, `CombatCuesTest`, le rejeu à graine fixée par la session
+commune, aucune régression du Colisée par `ArenaModelTest`). Reste due par l'auteur : la passe à
+l'écran de `CombatHud` au clavier, à la manette et à la souris, sur une carte de test.
