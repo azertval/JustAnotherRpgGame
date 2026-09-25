@@ -105,8 +105,9 @@ HudFrame {
     mode: "combat"
 
     // --- Le calque tactique, par-dessus la surface (LOT-118) ---------------------------------------------
+    // Le contenu d'un HudFrame remplit le cadre, comme l'hote de la surface : meme rectangle.
     TacticalLayer {
-        anchors.fill: root.viewportHost
+        anchors.fill: parent
         visible: root.fighters.length > 0
         fighters: root.fighters
         reachableCells: root.reachableCells
