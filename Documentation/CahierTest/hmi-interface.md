@@ -12,6 +12,16 @@ Tests unitaires — **29 cas** (2 bloquants, 10 critiques, 16 majeurs, 1 mineur)
 | [`test_rpg_screens.cpp`](#test-rpg-screenscpp) | 7 | - | 1 | 6 | - |
 | [`test_screen_flow.cpp`](#test-screen-flowcpp) | 5 | - | 5 | - | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-IHM-090` | [`ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine`](#screenflowtestecrandurpgrevientverssonecrandorigine) |
+| `EX-IHM-091` | [`RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue`](#rpgscreenstestlaregledesuperpositionestcelleattendue) |
+| `EX-REN-033` | [`RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues`](#rpgscreenstestchaquecledelossatureexistedanslesdeuxlangues) |
+
 ## test_character_sheet_values.cpp
 
 ### CharacterSheetValuesTest.LesModificateursSAffichentAvecLeurSigne
@@ -354,6 +364,8 @@ Le pas arriere est l'inverse du pas avant.
 
 *Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:87`
 
+Exigences : `EX-IHM-091`
+
 La regle de superposition est celle attendue pour chacun des huit ecrans.
 
 **Étapes**
@@ -413,6 +425,8 @@ Chaque bloc de l'ossature est coherent avec son genre.
 ### RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues
 
 *Majeur · Unitaire · Ecrans du RPG* — `Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:199`
+
+Exigences : `EX-REN-033`
 
 Chaque cle de l'ossature des ecrans du RPG existe en francais et en anglais.
 
@@ -542,6 +556,8 @@ Le Colisee revient sur la carte quand le heraut y envoie.
 ### ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine
 
 *Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:158`
+
+Exigences : `EX-IHM-090`
 
 Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).
 

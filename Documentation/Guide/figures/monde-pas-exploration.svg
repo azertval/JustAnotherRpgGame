@@ -12,7 +12,7 @@
     </marker>
   </defs>
 
-  <text x="20" y="28" font-weight="600" font-size="15" fill="#25201a">core::ExplorationSession::update(intention, secondes) — un pas, trois temps, dans cet ordre</text>
+  <text x="20" y="28" font-weight="600" font-size="15" fill="#25201a">core::ExplorationSession::update(intention, secondes) — un pas, quatre temps, dans cet ordre</text>
 
   <!-- Entrée -->
   <rect x="20" y="52" width="160" height="96" rx="8" fill="#ece4d1" stroke="#d6c9a8"/>
@@ -33,7 +33,7 @@
   <!-- 1. walk -->
   <rect x="214" y="52" width="200" height="196" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
   <text x="226" y="74" font-weight="600" fill="#25201a">1. walk — marcher</text>
-  <text x="226" y="96" font-size="12" fill="#25201a">pas = 4 cases/s × secondes</text>
+  <text x="226" y="96" font-size="12" fill="#25201a">pas = 2 cases/s × secondes (LOT-112)</text>
   <text x="226" y="114" font-size="12" fill="#25201a">facing := move (si non nul)</text>
   <text x="226" y="138" font-size="12" fill="#25201a">Axe par axe : X puis Y ;</text>
   <text x="226" y="155" font-size="12" fill="#25201a">un mur pris en biais fait glisser.</text>
@@ -45,8 +45,8 @@
   <path d="M414,150 L446,150" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
 
   <!-- 2. crossPortal -->
-  <rect x="448" y="52" width="200" height="196" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
-  <text x="460" y="74" font-weight="600" fill="#25201a">2. crossPortal — franchir</text>
+  <rect x="448" y="52" width="200" height="206" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
+  <text x="460" y="74" font-weight="600" fill="#25201a">2. crossPortal, 3. enterZones</text>
   <text x="460" y="96" font-size="12" fill="#25201a">Seulement si la case a changé</text>
   <text x="460" y="113" font-size="12" fill="#25201a">depuis le pas précédent (_lastCell) :</text>
   <text x="460" y="130" font-size="12" fill="#25201a">un portail se franchit en y arrivant.</text>
@@ -54,13 +54,14 @@
   <text x="460" y="172" font-family="Consolas, monospace" font-size="12" fill="#25201a">travel.cross(case, flags)</text>
   <text x="460" y="196" font-size="12" fill="#3f6b34">Moved → héros au centre de l'arrivée</text>
   <text x="460" y="213" font-size="12" fill="#8a2233">Locked → PortalLocked(drapeau)</text>
-  <text x="460" y="230" font-size="12" fill="#8a2233">Unreadable/Unknown → PortalBroken</text>
+  <text x="460" y="230" font-size="12" fill="#8a2233">Sealed → PortalSealed ; cassé → PortalBroken</text>
+  <text x="460" y="247" font-size="11" fill="#2f7f86">3. zones à l'entrée : drapeau → dialogue → transfert (LOT-126)</text>
 
   <path d="M648,150 L680,150" stroke="#6a6152" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
 
   <!-- 3. resolveInteraction -->
   <rect x="682" y="52" width="178" height="196" rx="8" fill="#fbf8f0" stroke="#9a7420"/>
-  <text x="694" y="74" font-weight="600" fill="#25201a">3. interagir (si interact)</text>
+  <text x="694" y="74" font-weight="600" fill="#25201a">4. interagir (si interact)</text>
   <text x="694" y="96" font-family="Consolas, monospace" font-size="12" fill="#25201a">aimedCell(case, facing)</text>
   <text x="694" y="114" font-family="Consolas, monospace" font-size="12" fill="#25201a">findInteractionTarget</text>
   <text x="694" y="132" font-family="Consolas, monospace" font-size="12" fill="#25201a">interact(cible, flags)</text>

@@ -10,6 +10,12 @@ interface Git graphique — **jamais de ligne de commande**.
 2. Ouvrir GitHub Desktop, se connecter avec un compte GitHub (en créer un si besoin — gratuit).
 3. **File → Clone repository**, choisir `azertval/JustAnotherRpgGame`, puis un dossier sur votre
    ordinateur. Le bouton **Clone** télécharge tout le projet.
+4. Récupérer les **images** : elles ne font pas partie de ce que le clone télécharge (elles sont
+   trop lourdes pour y vivre, et sont publiées à part). Dans le dossier du projet, lancer une fois
+   `python scripts/fetch_assets.py` — ou `scripts/setup_dev.ps1`, qui le fait avec le reste de
+   l'installation. Sans cette étape, l'éditeur ouvre les cartes mais les montre **sans texture** :
+   des cases nues et des marqueurs à la place des pièces. La même commande se relance quand un
+   message signale des images manquantes ou périmées après une mise à jour du projet.
 
 ## 2. Lancer l'éditeur
 

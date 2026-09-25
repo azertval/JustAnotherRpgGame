@@ -9,6 +9,14 @@ Tests unitaires — **17 cas** (10 critiques, 6 majeurs, 1 mineur). [Retour à l
 | [`test_interaction.cpp`](#test-interactioncpp) | 9 | - | 5 | 3 | 1 |
 | [`test_quest.cpp`](#test-questcpp) | 8 | - | 5 | 3 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-NFR-040` | [`InteractionTest.UnTypeInconnuProduitUneEntiteNonInteractive`](#interactiontestuntypeinconnuproduituneentitenoninteractive) |
+
 ## test_interaction.cpp
 
 ### InteractionTest.LaCaseViseeSuitLaDirectionDominante
@@ -142,6 +150,8 @@ Deux coffres de cartes differentes a la meme case ont des drapeaux distincts.
 ### InteractionTest.UnTypeInconnuProduitUneEntiteNonInteractive
 
 *Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:294`
+
+Exigences : `EX-NFR-040`
 
 Un objet de type inconnu apparait sur la carte sans etre interactif.
 

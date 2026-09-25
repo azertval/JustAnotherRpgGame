@@ -69,9 +69,19 @@ le joueur se trouve déjà.
 ## 2. Repères d'échelle
 
 Une case vaut **1,5 m** (5 ft), l'unité tactique du système d20, que la grille de combat du `LOT-19`
-reprendra telle quelle. Une vitesse de marche de 4 unités/seconde représente donc environ
-6 m/s : le pas soutenu d'un jeu d'action, pas la vitesse réelle d'un marcheur — l'exploration doit
-rester agréable à la manette, pas simuler une randonnée.
+reprend telle quelle. La marche va à **2 cases par seconde**, soit 3 m/s
+(`core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND`) : une marche vive, pas la vitesse réelle
+d'un marcheur — l'exploration doit rester agréable à la manette, pas simuler une randonnée. Elle
+allait à 4 cases par seconde avant le `LOT-112` ; c'est la figurine peinte qui a tranché.
+
+- **EX-EXP-011** — La vitesse de marche est **2 cases par seconde**, et un cycle de marche de
+  la figurine couvre **une case** : la cadence des images se lit dans la bande d'animation
+  (`frameDuration`, `EX-REN-012`), jamais dans une constante du code. À 4 cases par seconde, des
+  pieds qui ne glissent pas demandaient une image toutes les 31 ms ; le déplacement et l'animation
+  sont **un seul réglage**, sans quoi l'un des deux ment toujours. L'orientation vectorielle
+  (`EX-EXP-004`) se projette sur la **diagonale peinte** la plus proche — quatre bandes, une par
+  diagonale isométrique — et, quand deux directions sont tenues, la diagonale courante est gardée
+  plutôt que de battre entre deux.
 
 ## 3. La mémoire du monde : drapeaux et quêtes
 
@@ -79,6 +89,12 @@ Le jeu se souvient de ce que le joueur a fait par des **drapeaux de monde** — 
 une quête, un PNJ qui paraît, une porte qui s'ouvre se lisent dans les drapeaux, jamais dans un état
 tenu à part que la sauvegarde devrait apprendre à écrire. Concrétisé en `LOT-116` ; la quête de la
 démo est au `LOT-120`, la sauvegarde en `0.0.3`.
+
+![Maquette du circuit des drapeaux et des quêtes : la quête déclare ses drapeaux à valeurs dans un fichier de données, un seul ensemble de drapeaux par partie que posent les dialogues, les étapes et les zones, et que lisent les conditions de dialogue, les étapes de quête, la présence des entités et le journal, sans que la carte soit rechargée](maquettes/exploration-drapeaux-quetes.svg)
+
+La maquette dit l'essentiel : il n'y a **qu'un** endroit où le monde se souvient, et tout le reste
+— l'étape atteinte, le PNJ qui paraît, la porte qui se condamne — se **relit** dans cet endroit-là.
+La sauvegarde n'aura que lui à écrire.
 
 - **EX-EXP-006** — Un drapeau de monde est un fait **acquis** (présent ou
   absent) ou, s'il est **déclaré** par une quête, une **valeur** parmi une liste fermée, avec une
@@ -101,4 +117,11 @@ démo est au `LOT-120`, la sauvegarde en `0.0.3`.
   formée laisse l'entité présente.
 - **EX-EXP-010** — Le **journal de quêtes** montre les quêtes commencées et
   leur état, l'entrée la plus récente de la quête choisie et ses étapes atteintes, tirés des seuls
-  drapeaux ; il se parcourt au clavier et à la manette.
+  drapeaux ; il se parcourt au clavier et à la manette. Sa maquette est dans
+  [`interface-ihm.md`](interface-ihm.md#ihm-journal).
+- **EX-EXP-012** — L'**avancement** d'une quête n'est **stocké nulle part** : l'état
+  (non commencée, en cours, réussie, échouée) et les étapes atteintes se **recalculent** depuis les
+  drapeaux, à chaque changement de leur **révision** (`core::WorldFlags::revision`). Deux mémoires
+  de la même chose — un compteur d'étape et les drapeaux — divergent au premier rechargement, et
+  c'est celle qu'on n'a pas sauvegardée qui gagne. Un effet d'étape peut en atteindre une autre :
+  l'avancement se rejoue jusqu'au repos, et termine parce qu'une étape ne s'atteint qu'une fois.

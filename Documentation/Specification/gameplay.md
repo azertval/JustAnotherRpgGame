@@ -24,11 +24,32 @@ Chaque règle est déterministe : à état d'entrée identique, comportement ide
 
 ## 2. États de jeu
 
+![Maquette de la machine à états du jeu : le menu principal, la nouvelle partie, l'exploration, la pause, les options, les crédits et les écrans du RPG, reliés par des transitions nommées et à sens unique, les écrans qui suspendent la scène distingués de ceux qui la laissent tourner](maquettes/gameplay-etats-du-jeu.svg)
+
 - **EX-GP-040** — Le jeu doit gérer des états distincts — menu, exploration,
   pause, options, crédits et écrans du RPG — portés par `hmi::ScreenFlow`, avec des transitions
   explicites et unidirectionnelles (`EX-GP-041`). Détaillé côté interface par `EX-IHM-090`.
 - **EX-GP-041** — Les transitions entre états doivent être explicites et
   unidirectionnelles à chaque événement (machine à états).
+
+## 3. La partie et sa sauvegarde
+
+Le jeu est un monde persistant (`vision.md`, décision 3), et la démo ne sauvegarde pas encore
+(`LOT-150`, version `0.0.3`). Ce qui est déjà tenu est ce que la sauvegarde aura à écrire — et
+rien d'autre : c'est la raison d'être d'`EX-EXP-006` et d'`EX-EXP-012`.
+
+- **EX-GP-070** — Une partie sauvegardée est une **liste** de personnages (jamais un seul,
+  décision 3) avec leurs fiches et leur inventaire, la carte et la case du héros, et l'**ensemble
+  des drapeaux** de monde avec leur révision (`EX-EXP-006`) ; elle s'écrit en **exploration**,
+  jamais en combat. L'avancement des quêtes, l'état des entités conditionnées et les
+  coffres ouverts **ne s'y écrivent pas** : ils se relisent dans les drapeaux (`EX-EXP-012`). Une
+  sauvegarde qui porterait deux mémoires de la même chose se contredirait au premier changement de
+  version du jeu.
+- **EX-GP-071** — Une sauvegarde porte un **numéro de version de format** et se lit **pour
+  toujours** : un fichier d'une version passée se charge, une version supérieure est refusée avec
+  un message, et un fichier illisible n'est **jamais écrasé** en silence. C'est la règle du format
+  de carte (`EX-LVL-005`), appliquée au fichier que le joueur ne peut pas refaire. Portée par le
+  `LOT-150`.
 
 ## Exigences retirées {#gp-retirees}
 

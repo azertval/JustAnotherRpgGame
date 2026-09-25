@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="440" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le journal de quêtes, dans le châssis des écrans du RPG (EX-EXP-010, LOT-116)</text>
+
+  <rect x="20" y="40" width="560" height="315" fill="#6a6152"/>
+  <text x="30" y="58" font-size="10" fill="#fbf8f0">scène en arrière-plan, assombrie</text>
+
+  <rect x="60" y="66" width="480" height="270" fill="#ece4d1" stroke="#9a7420" stroke-width="3"/>
+  <rect x="60" y="66" width="480" height="30" fill="#25201a"/>
+  <text x="76" y="86" font-size="14" fill="#9a7420" font-weight="600">JOURNAL DE QUÊTES</text>
+  <text x="430" y="86" font-size="10" fill="#d6c9a8">Échap / B : fermer</text>
+  <g font-size="11">
+    <rect x="60" y="96" width="480" height="22" fill="#d6c9a8"/>
+    <text x="82" y="112" fill="#6a6152">Fiche</text><text x="132" y="112" fill="#6a6152">Sac</text><text x="176" y="112" fill="#6a6152">Équipe</text>
+    <rect x="232" y="98" width="70" height="20" fill="#ece4d1" stroke="#9a7420"/><text x="244" y="112" fill="#25201a" font-weight="600">Journal</text>
+    <text x="322" y="112" fill="#6a6152">Carte</text>
+    <text x="400" y="112" fill="#6a6152">LB / RB : écran voisin</text>
+  </g>
+
+  <rect x="76" y="132" width="200" height="150" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="84" y="150" font-size="11" fill="#25201a" font-weight="600">Quêtes</text>
+  <rect x="80" y="158" width="192" height="16" fill="#9a7420" fill-opacity="0.2"/>
+  <g font-size="9" fill="#25201a">
+    <text x="84" y="170" font-weight="600">› Des pommes pour l'arène</text><text x="228" y="170" fill="#2f7f86">En cours</text>
+    <text x="84" y="190">  Le loup du marché</text><text x="228" y="190" fill="#3f6b34">Terminée</text>
+    <text x="84" y="210">  La dette du forgeron</text><text x="228" y="210" fill="#8a2233">Échouée</text>
+  </g>
+  <text x="84" y="240" font-size="9" fill="#6a6152">quêtes commencées, dans l'ordre</text>
+  <text x="84" y="252" font-size="9" fill="#6a6152">du catalogue ; « › » : la choisie</text>
+  <text x="84" y="270" font-size="9" fill="#6a6152">vide : <tspan font-family="Consolas, monospace">journal.empty</tspan></text>
+
+  <rect x="292" y="132" width="232" height="150" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <text x="300" y="150" font-size="11" fill="#25201a" font-weight="600">Des pommes pour l'arène</text>
+  <g font-size="10" fill="#25201a">
+    <text x="300" y="168">Le garde a mené l'enfant à l'arène.</text>
+    <text x="300" y="181">Grom a promis à sa mère de le</text>
+    <text x="300" y="194">ramener ; le vestiaire donne sur</text>
+    <text x="300" y="207">le parvis d'Arenarea.</text>
+  </g>
+  <g font-size="10" fill="#25201a">
+    <text x="300" y="226"><tspan fill="#3f6b34">✓</tspan> Aider la mère : retrouver son fils</text>
+    <text x="300" y="242"><tspan fill="#3f6b34">✓</tspan> Parler au garde, sur le parvis</text>
+    <text x="300" y="258">› Libérer l'enfant</text><text x="470" y="258" fill="#2f7f86">en cours</text>
+  </g>
+  <text x="300" y="276" font-size="9" fill="#6a6152">étapes atteintes ; sur la dernière, l'issue</text>
+
+  <rect x="60" y="306" width="480" height="30" fill="#25201a"/>
+  <g font-size="10" fill="#fbf8f0"><text x="76" y="325">Haut / Bas : changer de quête</text><text x="260" y="325">Échap / B : fermer</text><text x="380" y="325">Suspend la simulation : oui</text></g>
+
+  <g fill="#25201a" font-size="12">
+    <text x="600" y="80" font-weight="600">Tiré des seuls drapeaux</text>
+    <text x="600" y="100" font-size="11"><tspan font-family="Consolas, monospace">hmi::questJournalValues</tspan> lit le</text>
+    <text x="600" y="116" font-size="11">catalogue et <tspan font-family="Consolas, monospace">core::WorldFlags</tspan> ;</text>
+    <text x="600" y="132" font-size="11">l'écran est relu à chaque</text>
+    <text x="600" y="148" font-size="11"><tspan font-family="Consolas, monospace">questAdvanced</tspan> (<tspan font-family="Consolas, monospace">hmi::WorldModel</tspan>).</text>
+    <text x="600" y="176" font-weight="600">Les champs</text>
+    <text x="600" y="196" font-size="11"><tspan font-family="Consolas, monospace">quests[]</tspan> : id, label, value (état)</text>
+    <text x="600" y="212" font-size="11"><tspan font-family="Consolas, monospace">selected</tspan> : la quête choisie</text>
+    <text x="600" y="228" font-size="11"><tspan font-family="Consolas, monospace">detail</tspan> : l'entrée de la dernière étape</text>
+    <text x="600" y="244" font-size="11"><tspan font-family="Consolas, monospace">objectives[]</tspan> : ✓ ou issue</text>
+    <text x="600" y="272" font-weight="600">Les clés</text>
+    <text x="600" y="292" font-size="11"><tspan font-family="Consolas, monospace">journal.status.active</tspan> = En cours</text>
+    <text x="600" y="308" font-size="11"><tspan font-family="Consolas, monospace">journal.status.succeeded</tspan> = Terminée</text>
+    <text x="600" y="324" font-size="11"><tspan font-family="Consolas, monospace">journal.status.failed</tspan> = Échouée</text>
+    <text x="600" y="340" font-size="11"><tspan font-family="Consolas, monospace">quest.&lt;id&gt;.title</tspan>, <tspan font-family="Consolas, monospace">quest.&lt;id&gt;.&lt;étape&gt;</tspan></text>
+    <text x="600" y="356" font-size="11">Haut / Bas : <tspan font-family="Consolas, monospace">hmi::neighbourQuest(±1)</tspan></text>
+  </g>
+
+  <text x="20" y="390" font-size="11" fill="#6a6152">Le journal n'a pas d'état propre : il redit ce que les drapeaux de la partie disent, dans la langue du joueur (fr.lang, en.lang).</text>
+  <text x="20" y="406" font-size="11" fill="#6a6152">Le héros de la démo est Grom Tranche-Écaille (LOT-112) ; « Des pommes pour l'arène » est sa quête ; les deux autres quêtes sont des</text>
+  <text x="20" y="422" font-size="11" fill="#6a6152">exemples de figure, pour montrer les trois états. Même châssis que la fiche (EX-IHM-090) : titre, onglets, contenu, pied d'actions.</text>
+</svg>

@@ -166,6 +166,18 @@ Une valeur non reconnue par `parseLogLevel` (renvoyant `std::nullopt`) est **ign
 faire échouer le démarrage — journaliser un `Warning` à ce sujet est préférable à interrompre le
 jeu pour une simple faute de frappe dans un paramètre de diagnostic.
 
+Le seuil peut aussi se **relever le temps d'une portée** : `core::ScopedLogLevel(logger, plancher)`
+([`ScopedLogLevel.h`](../../Source/Core/Diagnostics/ScopedLogLevel.h)) relève le niveau minimal à
+au moins `plancher` pour la durée de vie de l'objet, et restaure le niveau précédent à sa
+destruction (RAII). Il n'**assouplit** jamais un niveau déjà plus strict : qui a demandé
+`--log-level=error` reste à `error` à l'intérieur d'une portée qui ne demande que `warning`. Son
+usage prévu est de faire taire les traces de cycle de vie — chargement d'une carte, ouverture d'un
+catalogue — pendant un traitement répété sans joueur, dont le volume de journal n'a rien à voir
+avec une partie réelle et ralentit le traitement pour rien. La comptabilité vit dans le `Logger`
+(`beginLevelElevation`, `endLevelElevation`), pas dans chaque objet de portée : deux portées qui se
+chevauchent, chacune sur son fil, restaureraient sinon le niveau que la première avait relevé, et
+le journal resterait muet pour le reste de la session.
+
 ### Bootstrap réel : sinks différents en développement et en Release
 
 `app::installLogging` illustre bien pourquoi séparer `Logger` (filtrage) et sinks (destination) est
@@ -205,7 +217,11 @@ Deux différences fondamentales avec la journalisation :
 - **gestionnaire remplaçable** : `core::setAssertionHandler(handler)` permet de substituer le
   comportement par défaut (qui interromprait normalement le programme) par un gestionnaire
   personnalisé — utile en test, pour vérifier qu'une fonction **déclenche bien** une assertion sur
-  une entrée invalide, sans faire planter la suite de tests elle-même.
+  une entrée invalide, sans faire planter la suite de tests elle-même. Un gestionnaire nul rend
+  l'échec silencieux. Ce que la macro appelle quand la condition est fausse est
+  `core::handleAssertionFailure(condition, message, fichier, ligne)` : elle invoque le
+  gestionnaire courant avec le texte de la condition (`#condition`), le message, `__FILE__` et
+  `__LINE__` — c'est là, et nulle part ailleurs, que le choix du gestionnaire se lit.
 
 En résumé : **journaliser** un événement (« la carte du Colisée a été chargée ») documente un fait pour un
 humain qui lira le journal plus tard ; **asserter** une condition (« cette entité doit être vivante
@@ -294,7 +310,7 @@ pas sur un build local — pour prouver que c'est bien le zip téléchargé qui 
 - `core::Logger`, `core::LogLevel`, `core::ILogSink`, `core::ConsoleLogSink`, `core::MemoryLogSink`.
 - `hmi::installCrashDumpWriter`, `hmi::writeMiniDump`, `hmi::crashDumpFileName`,
   `hmi::routeCrtReportsToStderr`.
-- `core::formatLogLine`, `core::parseLogLevel`, `core::defaultLogger`.
-- `JADG_ASSERT`, `core::setAssertionHandler`.
+- `core::formatLogLine`, `core::parseLogLevel`, `core::defaultLogger`, `core::ScopedLogLevel`.
+- `JADG_ASSERT`, `core::setAssertionHandler`, `core::handleAssertionFailure`.
 - [Boucle de jeu et pas de temps fixe](guide-boucle.md) — la règle « jamais de log dans le chemin exécuté à chaque pas fixe ».
 - [ECS : entités, composants, systèmes](guide-ecs.md) — usage concret des assertions pour les préconditions du `World`/`ComponentPool`.

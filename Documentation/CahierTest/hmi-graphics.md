@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **186 cas** (36 bloquants, 59 critiques, 83 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **189 cas** (38 bloquants, 59 critiques, 84 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -29,10 +29,23 @@ Tests unitaires — **186 cas** (36 bloquants, 59 critiques, 83 majeurs, 8 mineu
 | [`test_render_culling.cpp`](#test-render-cullingcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_rhi_offscreen.cpp`](#test-rhi-offscreencpp) | 4 | 2 | 1 | 1 | - |
 | [`test_scene_folders.cpp`](#test-scene-folderscpp) | 2 | 2 | - | - | - |
+| [`test_static_world_scene.cpp`](#test-static-world-scenecpp) | 3 | 2 | - | 1 | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
 | [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 32 | 4 | 14 | 14 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
 | [`test_world_storeys.cpp`](#test-world-storeyscpp) | 7 | 6 | - | 1 | - |
+
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](#assetgallerytestunherosorienterangeparclasse) |
+| `EX-NFR-040` | [`ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte`](#proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte) |
+| `EX-REN-005` | [`WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande`](#worldscenecomposertestlacadenceestcellequeditlabande) |
+| `EX-REN-014` | [`TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande`](#triparprofondeurtestlaprofondeurnedebordepasdesabande), [`QuadRecorderTest.OrdonnancementDeclare`](#quadrecordertestordonnancementdeclare) |
+| `EX-REN-018` | [`TriParProfondeurTest.TroisPrimitivesSortentParPiedCroissant`](#triparprofondeurtesttroisprimitivessortentparpiedcroissant), [`TriParProfondeurTest.PersonnageEntreDeuxObjets`](#triparprofondeurtestpersonnageentredeuxobjets), [`TriParProfondeurTest.PiedEgalConserveLOrdreDeComposition`](#triparprofondeurtestpiedegalconservelordredecomposition), [`TriParProfondeurTest.QuantificationAuPixel`](#triparprofondeurtestquantificationaupixel) |
 
 ## test_animation_catalog.cpp
 
@@ -1161,6 +1174,8 @@ La galerie lit les assets d'une racine.
 
 *Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:256`
 
+Exigences : `EX-CNT-042`
+
 Aucun asset livré n'échappe à la galerie.
 
 **Étapes**
@@ -1230,6 +1245,8 @@ Une figurine Grande sans sort paraît dans la galerie.
 ### AssetGalleryTest.UnHerosOrienteRangeParClasse
 
 *Critique · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:390`
+
+Exigences : `EX-CNT-042`
 
 Les bandes orientees du heros et son jeton paraissent dans la galerie.
 
@@ -1617,6 +1634,8 @@ Un ilot d'un lieu se dessine hors ecran, a la taille de son cadrage.
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:46`
 
+Exigences : `EX-REN-018`
+
 Trois primitives a Y croissants sortent dans l'ordre de leur pied.
 
 **Étapes**
@@ -1634,6 +1653,8 @@ Trois primitives a Y croissants sortent dans l'ordre de leur pied.
 ### TriParProfondeurTest.PersonnageEntreDeuxObjets
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:73`
+
+Exigences : `EX-REN-018`
 
 Le personnage passe derriere un objet plus bas et devant un objet plus haut.
 
@@ -1654,6 +1675,8 @@ Le personnage passe derriere un objet plus bas et devant un objet plus haut.
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:101`
 
+Exigences : `EX-REN-018`
+
 A pied egal, l'ordre de composition est preserve : aucun scintillement.
 
 **Étapes**
@@ -1672,6 +1695,8 @@ A pied egal, l'ordre de composition est preserve : aucun scintillement.
 
 *Majeur · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:137`
 
+Exigences : `EX-REN-018`
+
 Un ecart inferieur au pixel ne departage pas deux profondeurs.
 
 **Étapes**
@@ -1688,6 +1713,8 @@ Un ecart inferieur au pixel ne departage pas deux profondeurs.
 ### TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande
 
 *Critique · Unitaire · Tri par profondeur* — `Source/Test/Unit/HMI/Graphics/test_depth_sort.cpp:155`
+
+Exigences : `EX-REN-014`
 
 La profondeur ne deborde pas de sa bande.
 
@@ -2254,6 +2281,8 @@ La dernière tuile de la grille contient des pixels opaques et transparents (dam
 
 *Critique · Unitaire · Atlas procedural* — `Source/Test/Unit/HMI/Graphics/test_procedural_atlas.cpp:107`
 
+Exigences : `EX-NFR-040`
+
 Chaque type de tuile a une couleur de repli visible et distincte.
 
 **Étapes**
@@ -2382,6 +2411,8 @@ Segments et rectangles cohabitent dans la meme scene ordonnee.
 ### QuadRecorderTest.OrdonnancementDeclare
 
 *Critique · Unitaire · Quad Recorder* — `Source/Test/Unit/HMI/Graphics/test_quad_recorder.cpp:208`
+
+Exigences : `EX-REN-014`
 
 L'ordonnancement place l'interface au-dessus du personnage.
 
@@ -2694,6 +2725,56 @@ L'ancre d'une piece rangee se lit dans le manifeste du lieu.
 - Vérifie que `traits.artTile.x` vaut `256.0F` (comparaison flottante).
 - Vérifie que `traits.storeyHeight.has_value()` est vrai.
 - Vérifie que `*traits.storeyHeight` vaut `224.0F` (comparaison flottante).
+
+## test_static_world_scene.cpp
+
+### StaticWorldSceneTest.SansCadrageLImageEstLaCompositionComplete
+
+*Bloquant · Unitaire · Rendu d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:200`
+
+Composer la carte une fois ne change rien a ce qui se dessine.
+
+**Étapes**
+
+1. Composer la place du bourg, puis une maquette a etages, par la composition complete triee.
+2. Composer les memes lieux une fois par la scene statique, puis une image sans cadrage, heros compris.
+
+**Résultat attendu**
+
+- Vérifie que `expected.size()` est strictement supérieur à `100U`.
+
+### StaticWorldSceneTest.UnCadrageNeGardeQueCeQuIlMontre
+
+*Bloquant · Unitaire · Rendu d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:222`
+
+Une image ne compose que ce que la camera montre.
+
+**Étapes**
+
+1. Composer la place du bourg une fois.
+2. Composer une image cadree sur dix cases autour du heros, puis sur un coin de la carte.
+
+**Résultat attendu**
+
+- Vérifie que `framed.size()` est strictement inférieur à `complete.size()`.
+- Vérifie que `framed.statistics().culled` est strictement supérieur à `0`.
+
+### StaticWorldSceneTest.LEtageSEffaceDevantLeHerosAChaqueImage
+
+*Majeur · Unitaire · Rendu d'un lieu · Etages* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:257`
+
+Un etage s'efface devant le heros a chaque image.
+
+**Étapes**
+
+1. Composer une fois une maquette a etages.
+2. Composer une image le heros au pied d'un ilot de murs, puis une le heros en rase campagne, avec la meme scene statique.
+
+**Résultat attendu**
+
+- Vérifie que `fadedStoreys(image(place, statics))` est strictement supérieur à `0`.
+- Vérifie que `fadedStoreys(image(place, statics))` vaut `0`.
+- Vérifie que `fadedStoreys(statics.scene())` vaut `0`.
 
 ## test_texture_atlas.cpp
 
@@ -3298,6 +3379,8 @@ Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.
 
 *Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1087`
 
+Exigences : `EX-REN-005`
+
 L'image affichee suit la duree que declare la bande.
 
 **Étapes**
@@ -3385,7 +3468,12 @@ Le donjon d'essai se dessine, sans une seule piece manquante.
 
 - Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
 - Vérifie que `image.size()` vaut `QSize(TARGET_SIZE, TARGET_SIZE)`.
-- Vérifie que `renderer.composed().size()` est strictement supérieur à `700U`.
+- Vérifie que `renderer.statics().size()` est strictement supérieur à `700U`.
+- Vérifie que `quad.texture` diffère de `nullptr`.
+- Vérifie que `quad.texture` diffère de `renderer.textures().missing.texture`.
+- Vérifie que `renderer.composed().size()` est strictement supérieur à `0U`.
+- Vérifie que `renderer.composed().size()` est inférieur ou égal à `renderer.statics().size() + 1U`.
+- Vérifie que `renderer.composed().statistics().culled` est strictement supérieur à `0`.
 - Vérifie que `quad.texture` diffère de `nullptr`.
 - Vérifie que `quad.texture` diffère de `renderer.textures().missing.texture`.
 - Vérifie que `paintedPixels(image)` est strictement supérieur à `static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4)`.
@@ -3394,7 +3482,7 @@ Le donjon d'essai se dessine, sans une seule piece manquante.
 
 ### WorldSceneRendererTest.LaCameraSuitLeHerosSansSortirDeLaCarte
 
-*Critique · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:236`
+*Critique · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:248`
 
 Le cadrage d'un lieu suit le heros, borne a la scene, une case a la hauteur de la vue divisee par 10,8.
 
@@ -3421,7 +3509,7 @@ Le cadrage d'un lieu suit le heros, borne a la scene, une case a la hauteur de l
 
 ### WorldSceneRendererTest.DeuxLieuxDeviennentDesPixels
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:287`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:299`
 
 Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les traits de leur figurine.
 
@@ -3444,7 +3532,7 @@ Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les trait
 
 ### WorldSceneRendererTest.LesCartesSeSauvegardentEtSeRendentAvecLeurKit
 
-*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:353`
+*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:365`
 
 Les trois cartes se sauvegardent et se rendent avec leur kit.
 
@@ -3471,7 +3559,7 @@ Les trois cartes se sauvegardent et se rendent avec leur kit.
 
 ### WorldSceneRendererTest.TousLesPortailsSeTraversent
 
-*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:408`
+*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:420`
 
 Tous les portails des cartes se traversent.
 

@@ -145,3 +145,10 @@ Livré le 23 septembre 2026, **PR #121**, sur décision de l'auteur. 968 tests C
 scripts verts. L'éditeur ne lit pas encore les lieux rangés sous `Regions/` : il y peindra les toits
 au `LOT-124`. Les scripts de fabrication et de validation des toitures, à usage unique, ont été
 retirés du dépôt à la livraison.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-LVL-025` — l'étage, couche de décor élevée.
+- `EX-EDIT-098` — l'étage réglé, peint, montré ou caché dans l'éditeur.

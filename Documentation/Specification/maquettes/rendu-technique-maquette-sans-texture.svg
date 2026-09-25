@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="620" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — le rendu sans texture : losange plat, bloc à trois faces, jetons et palette (LOT-128)</text>
+
+  <text x="20" y="52" font-weight="600" fill="#25201a">1. La case et le bloc (D1, D6)</text>
+  <text x="310" y="52" font-weight="600" fill="#25201a">2. Les jetons et les tracés (D2, D3, D7)</text>
+  <text x="600" y="52" font-weight="600" fill="#25201a">3. La palette (D5)</text>
+
+  <g transform="translate(30,70)">
+    <path d="M64,0 L128,40 L64,79 L0,40 z" fill="#3f6b34" stroke="#25201a"/>
+    <path d="M0,88 L128,88" stroke="#6a6152"/><text x="40" y="100" font-size="10" fill="#6a6152">L, puis H = 0,62 L</text>
+    <g font-size="11" fill="#25201a">
+      <text x="0" y="122">case Grass sans pièce : losange plat</text>
+      <text x="0" y="138"><tspan font-family="Consolas, monospace">hmi::PolyQuad</tspan> : 4 sommets libres, 1 teinte</text>
+      <text x="0" y="154">texture liée : le blanc 1 × 1 (textures.solid)</text>
+      <text x="0" y="170">calque Tile ; ordre = IsoProjection::depth</text>
+    </g>
+  </g>
+  <g transform="translate(30,300)">
+    <path d="M0,40 L64,79 L64,0 L0,-39 z" fill="#6a6152" fill-opacity="0.8" stroke="#25201a"/>
+    <path d="M64,79 L128,40 L128,-39 L64,0 z" fill="#25201a" fill-opacity="0.75" stroke="#25201a"/>
+    <path d="M64,-79 L128,-39 L64,0 L0,-39 z" fill="#6a6152" fill-opacity="0.45" stroke="#25201a"/>
+    <path d="M140,-39 L140,40" stroke="#8a2233"/><text x="146" y="4" font-size="10" fill="#8a2233">1 × H</text>
+    <text x="4" y="-8" font-size="9" fill="#fbf8f0">0,74</text>
+    <text x="100" y="24" font-size="9" fill="#fbf8f0">0,54</text>
+    <text x="54" y="-34" font-size="9" fill="#25201a">1,0</text>
+    <g font-size="11" fill="#25201a">
+      <text x="0" y="98">wall / solid / cliff : maquetteShape{1,0 ; 1,0}</text>
+      <text x="0" y="114">un bloc d'une case de haut, trois faces (D6)</text>
+      <text x="0" y="130">éclairage 1,0 · 0,74 · 0,54 (BLOCK_*_LIGHT)</text>
+      <text x="0" y="146">calque Object, trié au pied : rang Relief</text>
+      <text x="0" y="162">arbre 2,0 × 0,6 · colonne 2,0 × 0,45</text>
+    </g>
+  </g>
+
+  <g transform="translate(310,70)">
+    <g font-size="11" fill="#25201a">
+      <circle cx="18" cy="20" r="14" fill="#3f6b34" stroke="#25201a"/><text x="14" y="24" font-size="12" font-weight="600" fill="#fbf8f0">J</text>
+      <text x="42" y="17">Joueur · Player</text><text x="42" y="31" font-size="10" fill="#6a6152">entrée, spawnPoint, arenaEntry côté allies</text>
+      <circle cx="18" cy="60" r="14" fill="#9a7420" stroke="#25201a"/><text x="13" y="64" font-size="12" font-weight="600" fill="#fbf8f0">M</text>
+      <text x="42" y="57">PNJ à dialogue ou conditionné · Talker</text><text x="42" y="71" font-size="10" fill="#6a6152">npc avec dialogue ou drapeau de présence</text>
+      <circle cx="18" cy="100" r="14" fill="#6a6152" stroke="#25201a"/><text x="13" y="104" font-size="12" font-weight="600" fill="#fbf8f0">N</text>
+      <text x="42" y="97">PNJ muet · Neutral</text><text x="42" y="111" font-size="10" fill="#6a6152">npc sans dialogue ni figurine</text>
+      <circle cx="18" cy="140" r="14" fill="#8a2233" stroke="#25201a"/><text x="12" y="144" font-size="12" font-weight="600" fill="#fbf8f0">W</text>
+      <text x="42" y="137">Hostile · Hostile</text><text x="42" y="151" font-size="10" fill="#6a6152">encounter, arenaEntry côté enemies</text>
+      <circle cx="18" cy="180" r="14" fill="#2f7f86" stroke="#25201a"/><text x="13" y="184" font-size="12" font-weight="600" fill="#fbf8f0">C</text>
+      <text x="42" y="177">Objet · Object</text><text x="42" y="191" font-size="10" fill="#6a6152">chest, sign</text>
+      <circle cx="18" cy="226" r="12" fill="#9a7420" stroke="#25201a"/><text x="14" y="230" font-size="11" font-weight="600" fill="#fbf8f0">P</text>
+      <rect x="15" y="200" width="6" height="12" fill="#9a7420"/><path d="M18,192 L26,202 L10,202 z" fill="#9a7420"/>
+      <circle cx="56" cy="226" r="12" fill="#9a7420" stroke="#25201a" stroke-dasharray="2 2"/><text x="52" y="230" font-size="11" font-weight="600" fill="#fbf8f0">P</text>
+      <rect x="53" y="200" width="6" height="12" fill="#9a7420"/><path d="M56,192 L64,202 L48,202 z" fill="#9a7420"/>
+      <path d="M44,214 L68,192" stroke="#8a2233" stroke-width="2"/>
+      <text x="78" y="217">Portail · Portal</text><text x="78" y="231" font-size="10" fill="#6a6152">flèche d'or, barrée si condamné (D3)</text>
+      <path d="M18,251 L34,260 L18,269 L2,260 z" fill="none" stroke="#8a2233" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="42" y="257">Zone · MaquetteTraceShape::Outline</text><text x="42" y="271" font-size="10" fill="#6a6152">combatZone rouge, zone blanc, cityBlock or</text>
+      <path d="M2,306 L14,294 L24,304 L34,294" fill="none" stroke="#6a6152" stroke-width="2"/>
+      <text x="42" y="297">Trajet · MaquetteTraceShape::Path</text><text x="42" y="311" font-size="10" fill="#6a6152">route, par ses points de passage</text>
+    </g>
+    <g font-size="10" fill="#25201a">
+      <text x="0" y="340"><tspan font-family="Consolas, monospace">Token/&lt;nature&gt;/&lt;lettre&gt;.png</tspan> — peint en code,</text>
+      <text x="0" y="355">image de 44 px, 0,65 case à l'écran (D2)</text>
+      <text x="0" y="370">sur RenderLayer::UI, hors bande de profondeur (D7)</text>
+      <text x="0" y="385">lettre : 1er caractère du nom, sinon du type (D8)</text>
+      <text x="0" y="400">jeton si la figurine manque ; tracés en maquette</text>
+    </g>
+  </g>
+
+  <g transform="translate(600,70)">
+    <text x="22" y="0" font-size="11" font-weight="600" fill="#25201a">core::TileType</text>
+    <text x="130" y="0" font-size="11" font-weight="600" fill="#25201a">hmi::maquetteShape</text>
+    <g font-family="Consolas, monospace" font-size="11" fill="#25201a">
+      <rect x="0" y="6" width="14" height="12" fill="#3f6b34"/><text x="22" y="16">Grass</text>
+      <rect x="0" y="22" width="14" height="12" fill="#9a7420" fill-opacity="0.55"/><text x="22" y="32">Dirt</text>
+      <rect x="0" y="38" width="14" height="12" fill="#9a7420" fill-opacity="0.4"/><text x="22" y="48">Sand</text>
+      <rect x="0" y="54" width="14" height="12" fill="#2f7f86"/><text x="22" y="64">Water</text>
+      <rect x="0" y="70" width="14" height="12" fill="#2f7f86"/><rect x="0" y="70" width="14" height="12" fill="#25201a" fill-opacity="0.45"/><text x="22" y="80">DeepWater</text>
+      <rect x="0" y="86" width="14" height="12" fill="#d6c9a8"/><text x="22" y="96">Pavement</text>
+      <rect x="0" y="102" width="14" height="12" fill="#d6c9a8"/><rect x="0" y="102" width="14" height="12" fill="#9a7420" fill-opacity="0.3"/><text x="22" y="112">Alley</text>
+      <rect x="0" y="118" width="14" height="12" fill="#ece4d1"/><text x="22" y="128">Stairs</text>
+      <rect x="0" y="134" width="14" height="12" fill="#fbf8f0" stroke="#d6c9a8"/><text x="22" y="144">Snow</text>
+      <rect x="0" y="150" width="14" height="12" fill="#8a2233" fill-opacity="0.8"/><text x="22" y="160">Lava</text>
+      <rect x="0" y="166" width="14" height="12" fill="#6a6152"/><text x="22" y="176">Wall</text>
+      <rect x="0" y="182" width="14" height="12" fill="#6a6152" fill-opacity="0.75"/><text x="22" y="192">Solid</text>
+      <rect x="0" y="198" width="14" height="12" fill="#25201a" fill-opacity="0.7"/><text x="22" y="208">Cliff</text>
+      <rect x="0" y="214" width="14" height="12" fill="#3f6b34"/><rect x="0" y="214" width="14" height="12" fill="#25201a" fill-opacity="0.5"/><text x="22" y="224">Tree</text>
+      <rect x="0" y="230" width="14" height="12" fill="#ece4d1" fill-opacity="0.6" stroke="#d6c9a8"/><text x="22" y="240">Column</text>
+      <rect x="0" y="246" width="14" height="12" fill="#8a2233" fill-opacity="0.55"/><text x="22" y="256">Roof</text>
+      <rect x="0" y="262" width="14" height="12" fill="#8a2233"/><text x="22" y="272">Stall</text>
+      <rect x="0" y="278" width="14" height="12" fill="#9a7420" fill-opacity="0.7"/><text x="22" y="288">Fence</text>
+    </g>
+    <g font-size="10" fill="#6a6152">
+      <text x="130" y="16">plat</text><text x="130" y="32">plat</text><text x="130" y="48">plat</text><text x="130" y="64">plat</text>
+      <text x="130" y="80">plat, bloque le pas</text><text x="130" y="96">plat, « pavé »</text>
+      <text x="130" y="112">plat, « ruelle »</text><text x="130" y="128">plat</text><text x="130" y="144">plat</text><text x="130" y="160">plat</text>
+      <text x="130" y="176">bloc 1,0 × 1,0</text><text x="130" y="192">bloc 1,0 × 1,0</text><text x="130" y="208">bloc 1,0 × 1,0</text>
+      <text x="130" y="224">bloc 2,0 × 0,6 + socle</text><text x="130" y="240">bloc 2,0 × 0,45</text>
+      <text x="130" y="256">bloc 1,5 × 1,0</text><text x="130" y="272">bloc 0,7 × 0,9</text><text x="130" y="288">bloc 0,45 × 1,0</text>
+    </g>
+    <g font-size="10" fill="#25201a">
+      <text x="0" y="316">30 types : switch exhaustif, sans default</text>
+      <text x="0" y="331">vraies teintes : hmi::maquetteColor(type),</text>
+      <text x="0" y="346">en-tête seul, sans fichier — la maquette se</text>
+      <text x="0" y="361">dessine sans aucun asset (EX-EXP-005, D5)</text>
+      <text x="0" y="376">formes : hmi::maquetteShape — hauteur × emprise</text>
+    </g>
+  </g>
+
+  <rect x="20" y="500" width="410" height="54" fill="#ece4d1" stroke="#d6c9a8"/>
+  <g font-size="11" fill="#25201a">
+    <text x="28" y="517">Repli par case, « cette case n'a nommé aucune pièce », et non par</text>
+    <text x="28" y="532">carte, « la carte n'a pas de lieu » : sans lieu ou type absent de</text>
+    <text x="28" y="547">la table du lieu, c'est le même cas (composeMaquetteCell).</text>
+  </g>
+  <rect x="450" y="500" width="410" height="54" fill="#ece4d1" stroke="#d6c9a8"/>
+  <g font-size="11" fill="#25201a">
+    <text x="458" y="517">Jeu et éditeur montrent la même image, jetons compris : la même</text>
+    <text x="458" y="532">composition, un jeton peint une fois (parité par construction) ;</text>
+    <text x="458" y="547">LevelEditor --render --plan se lit comme la maquette (D4).</text>
+  </g>
+
+  <g font-size="11" fill="#6a6152">
+    <text x="20" y="576">Ce que montre le dessin : ce qu'un joueur voit d'une carte dont aucune case ne nomme de pièce (EX-REN-023). Pourquoi : une carte se joue</text>
+    <text x="20" y="592">avant d'être habillée (D-22), et rien ici ne vient d'un fichier — la palette est dans le code (D5). Les échantillons sont rendus avec les</text>
+    <text x="20" y="608">neuf teintes de cette charte ; les vraies couleurs sont celles que hmi::maquetteColor et hmi::maquetteTokenColor déclarent.</text>
+  </g>
+</svg>

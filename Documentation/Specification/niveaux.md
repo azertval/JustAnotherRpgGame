@@ -105,6 +105,53 @@ La seule révision de format du module éditeur, faite tant qu'il n'y avait que 
   sur une couche de sol, ou hors de 0 à 4, est gardé mais ignoré, et le contrôle le signale
   (`LOT-129`).
 
+![Maquette des étages d'une carte : vue de côté, les couches de décor à l'étage 1 et 2 élevées d'une et de deux hauteurs d'étage au-dessus du rez de leur case, triées par-dessus ; vue isométrique, la façade à deux étages dont l'étage qui masque le héros se dessine translucide, et la grille de collision qui ne connaît que le rez](maquettes/niveaux-etages-toits.svg)
+
+Ce que la maquette fixe : un étage est une **couche**, jamais une propriété de case, et il ne
+change rien à ce qui bloque. La décision D-21 tient donc toujours — un niveau **jouable** est une
+carte, reliée par portail à l'étage du dessous — et l'étage du `LOT-129` n'est qu'un **décor
+élevé** : on passe dessous, on n'y monte pas.
+
+### Ce que la quête pose sur une carte (`LOT-126`)
+
+Une quête change ce qu'une carte montre et ce qu'elle laisse passer : une porte se condamne, un
+PNJ paraît, une zone déclenche. Le format v4 le porte sans champ nouveau — une entité, ses
+propriétés libres (`EX-LVL-018`), et la condition de présence du `LOT-116` (`EX-EXP-009`).
+
+![Maquette des entités qu'une quête pose sur une carte : la porte de l'arène posée comme entité de famille prop avec son emprise et sa condition de présence, le portail condamné dessiné en pointillé sans cible, et la zone déclencheuse peinte qui pose un drapeau, ouvre un dialogue ou transfère à l'entrée, une seule fois si on le demande](maquettes/niveaux-entites-de-quete.svg)
+
+- **EX-LVL-026** — Une entité de famille **`prop`** pose une **pièce du lieu** comme entité :
+  présente, elle se compose à sa case comme une pièce de décor et son emprise (`width` × `height`,
+  prise au manifeste quand on choisit la pièce) **arrête le pas** si `blocks` (vrai par défaut) ;
+  absente sous les drapeaux, on la traverse. Sans pièce dessinable — une carte maquette —, elle
+  s'extrude en mur. La règle qui la justifie : ce qui **change en cours de partie** est une entité,
+  tout le reste une pièce de couche — sinon une porte qui s'ouvre demanderait de réécrire la couche
+  de décor et sa collision déduite, que la sauvegarde ne sait pas porter.
+- **EX-LVL-027** — Un portail **condamné** (`sealed`) est légal **sans cible ni point
+  d'arrivée** : il se pose, se montre en pointillé au graphe du monde, et ne se franchit jamais —
+  la session répond « portail condamné » quand on marche dessus. C'est le seul moyen de dessiner
+  une porte qui n'ouvre sur rien encore sans que `--check` exige une carte qui n'existe pas, et
+  sans qu'un joueur tombe dans une carte vide.
+- **EX-LVL-028** — Une **zone** peut déclencher, à l'**entrée** du héros et jamais à son
+  arrivée par transfert, un **drapeau** posé (`triggerFlag`, avec `triggerValue` si le drapeau est
+  déclaré à valeurs), un **dialogue** (`triggerDialogue`) ou un **transfert** vers une carte et un
+  point d'arrivée (`triggerMap` + `triggerArrival`), dans cet ordre ; `triggerOnce` la fait agir une
+  seule fois par partie, par un fait fabriqué comme celui d'un coffre ouvert. Un transfert est une
+  **arête du graphe** du monde et compte pour l'atteignabilité que `--check` vérifie
+  (`EX-EDIT-079`). Déclencher à l'arrivée ferait boucler tout transfert qui dépose dans une zone.
+- **EX-LVL-029** — Le **lieu** d'une carte (`"scene"`) est un **chemin** dans l'arborescence des
+  lieux (`central-empire/capital/arenarea`), et ses pièces se cherchent **du plus propre au plus
+  commun** : la zone, puis la ville, la région et le monde (`core::sceneLevelCandidates`,
+  `core::ScenePieceManifest::resolve`). Une pièce propre **masque** la commune du même nom ; les
+  tables d'apparence et les figurines s'empilent de même. Sans cet héritage, chaque quartier
+  recopierait le kit de sa ville, et corriger un mur de la Capitale demanderait de le corriger dans
+  chaque quartier — `LOT-124`.
+- **EX-LVL-030** — Le chargeur refuse une carte dont un côté dépasse **1024 cases**
+  (`core::MAX_LEVEL_SIDE`) **avant** d'allouer sa grille. L'éditeur plafonne ses cartes bien plus
+  bas (`EX-EDIT-017`) ; cette borne-ci ne sert qu'à écarter un fichier aberrant — le fuzzing y
+  trouvait une carte de dix gigaoctets — sans jamais contraindre une carte qu'un auteur
+  dessinerait.
+
 ### Format retenu (JSON, liste de tuiles-objets)
 
 Types de tuiles : `entry` (entrée, point d'arrivée par défaut), `solid` (matière pleine), et le
@@ -186,7 +233,11 @@ Une **variante** ne porte que `version`, `name`, `base`, `scene`, `nextEntityId`
 Rôles de couche reconnus : `ground`, `decor`, et `legacy` (rôle de la grille racine promue, jamais
 écrit) ; un rôle inconnu retombe sur `ground` plutôt que de faire échouer la carte (`EX-NFR-040`),
 et `collision` déclaré est refusé (`EX-LVL-016`). La propriété de couche `scene` nomme le **lieu**
-dont la carte porte les planches (`Assets/Scene/<lieu>/`).
+dont la carte porte les planches, par son **chemin** dans l'arborescence des lieux
+(`Assets/Regions/<région>/<ville>/<zone>/Scene/`, `EX-LVL-029`) ; une couche de décor porte en
+outre son étage (`"floor"`, `EX-LVL-025`).
+
+![Maquette de l'arborescence des lieux : les dossiers du monde, de la région, de la ville, de la zone et de la sous-zone, la liste ordonnée des candidats que la carte d'Arenarea parcourt, et l'empilement des manifestes où la pièce propre masque la commune du même nom](maquettes/niveaux-arborescence-lieux.svg)
 
 **Familles d'entités posées par l'éditeur** (`LOT-11`, `EX-EDIT-050`). Le chargeur ne connaît aucun
 type d'entité (`EX-NFR-040`) ; l'éditeur, lui, sait poser et renseigner ceux que le gameplay lit,
@@ -198,14 +249,14 @@ rassemblés dans `core::knownEntityKinds` (`Source/Core/World/EntityKinds.h`) :
 | `sign` | — | `core::knownInteractableKinds` (`LOT-10`) |
 | `npc` | `dialogue`, `figure` (figurine de l'atelier), `guards` (fiche de lieu du quartier gardé) | `core::dialogueTriggerFor` (`LOT-15`), rendu du lieu |
 | `encounter` | `encounterId` (requis), `respawns` (booléen) | `core::encounterTriggerFor` (`LOT-18`) |
-| `portal` | `targetMap`, `arrival` — requis, sauf portail **condamné** ; `requiresFlag` ; `sealed` (booléen : posé, jamais franchi) | graphe du monde (`LOT-09`, `LOT-126`) |
+| `portal` | `targetMap`, `arrival` — requis, sauf portail **condamné** ; `requiresFlag` ; `sealed` (booléen : posé, jamais franchi, `EX-LVL-027`) | graphe du monde (`LOT-09`, `LOT-126`) |
 | `spawnPoint` | `name` (requis, unique dans la carte) | graphe du monde (`LOT-09`) |
 | `combatZone` | `name`, `width`, `height` — requis | découpe de la grille de combat (`LOT-09`) |
 | `cityBlock` | `name`, `width`, `height` — requis | plan de ville (`LOT-96`) |
 | `arenaEntry` | `side` (`allies` ou `enemies`), `rank` (entier, au moins 1) | `core::arenaEntryPoints` (`LOT-50`) |
 | *toute famille* | `presenceFlag`, `presenceTest` (`set`, `unset`, `equals`, `notEquals`), `presenceValue` (`a\|b`, des valeurs qu'une quête déclare) — la **condition de présence** | `core::isEntityPresent` (`LOT-116`, `EX-EXP-009`) ; déclarée au contrat (`core::commonEntityProperties`) au `LOT-126` |
-| `zone` | `width`, `height` (rectangle) ou `cells` (peinte) ; `name`, `difficultTerrain` ; ses **déclencheurs** : `triggerDialogue`, `triggerFlag` + `triggerValue`, `triggerMap` + `triggerArrival`, `triggerOnce` | `core::BattleGrid::zonesAt` (`LOT-EDITOR-12`), `core::ExplorationSession` (`LOT-126`) |
-| `prop` | `piece` (requis, une pièce du lieu), `blocks` (booléen, vrai par défaut), `width`, `height` — l'emprise de la pièce | `core::ExplorationSession`, `hmi::snapshotWorldScene` (`LOT-126`) |
+| `zone` | `width`, `height` (rectangle) ou `cells` (peinte) ; `name`, `difficultTerrain` ; ses **déclencheurs** (`EX-LVL-028`) : `triggerDialogue`, `triggerFlag` + `triggerValue`, `triggerMap` + `triggerArrival`, `triggerOnce` | `core::BattleGrid::zonesAt` (`LOT-EDITOR-12`), `core::ExplorationSession` (`LOT-126`) |
+| `prop` | `piece` (requis, une pièce du lieu), `blocks` (booléen, vrai par défaut), `width`, `height` — l'emprise de la pièce (`EX-LVL-026`) | `core::ExplorationSession`, `hmi::snapshotWorldScene` (`LOT-126`) |
 | `route` | `name` (requis), `loop` (booléen, une ronde) ; ses points dans `cells`, **dans l'ordre** | personne encore : le `LOT-70` et le `LOT-82` (`LOT-EDITOR-05`) |
 
 Chaque famille déclare aussi sa **forme** sur la carte — point, rectangle (`width` × `height`,
@@ -256,7 +307,8 @@ Coordonnées `x` = colonne, `y` = ligne, origine **haut-gauche** ; toute tuile h
 
 ## Traçabilité
 Le chargement et la validation relèvent de `Source/Core` (`core::LevelLoader`,
-`core::LevelWriter`, `core::deriveCollision`) ; la migration et le contrôle de toutes les cartes,
+`core::LevelWriter`, `core::deriveCollision`) ; la résolution des lieux, de
+`core::sceneLevelCandidates` et `core::ScenePieceManifest::resolve` (`EX-LVL-029`) ; la migration et le contrôle de toutes les cartes,
 de l'éditeur (`LevelEditor --migrate`, `--check`, `EX-EDIT-062`) ; les fichiers de cartes sont dans
 `Source/Elements/Levels`. Types de tuiles :
 [`gameplay.md`](gameplay.md) ; exploration : [`exploration.md`](exploration.md).

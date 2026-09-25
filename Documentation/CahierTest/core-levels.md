@@ -18,6 +18,27 @@ Tests unitaires — **122 cas** (1 bloquant, 24 critiques, 80 majeurs, 17 mineur
 | [`test_rpg_terrain.cpp`](#test-rpg-terraincpp) | 6 | - | 2 | 4 | - |
 | [`test_tile_type_name.cpp`](#test-tile-type-namecpp) | 3 | - | 2 | 1 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-EDIT-004` | [`LevelDraftTest.SetEntryDeplaceLEntreeExistante`](#leveldrafttestsetentrydeplacelentreeexistante) |
+| `EX-EDIT-007` | [`LevelDraftTest.ToLevelSansEntreeEchoueProprement`](#leveldrafttesttolevelsansentreeechoueproprement) |
+| `EX-EDIT-011` | [`CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites`](#couchesdecartetestbrouillondeditionpreservecouchesetentites) |
+| `EX-EDIT-065` | [`LevelDraftPiecesTest.PeindreLaCollisionForceOuLibereLaCase`](#leveldraftpiecestestpeindrelacollisionforceouliberelacase) |
+| `EX-EDIT-083` | [`LevelDraftPiecesTest.RemplacerUnePieceEnUnPasLaCollisionSuit`](#leveldraftpiecestestremplacerunepieceenunpaslacollisionsuit) |
+| `EX-EDIT-084` | [`LevelDraftPiecesTest.ChangerDePlancheTraduitLesPiecesEtRededuitLaCollision`](#leveldraftpiecestestchangerdeplanchetraduitlespiecesetrededuitlacollision) |
+| `EX-LVL-003` | [`TerrainRpgTest.AllerRetourSurChaqueTypeDeTerrain`](#terrainrpgtestallerretoursurchaquetypedeterrain) |
+| `EX-LVL-004` | [`CouchesDeCarteTest.TuileHorsBornesDansUneCoucheRefusee`](#couchesdecartetesttuilehorsbornesdansunecoucherefusee) |
+| `EX-LVL-005` | [`LevelLoaderTest.NiveauSansVersionSeChargeSansErreur`](#levelloadertestniveausansversionsechargesanserreur), [`LevelLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement`](#levelloadertestversionsuperieurealaversiongereeechoueproprement), [`CouchesDeCarteTest.CarteDUneVersionFutureRefuseeAvecUnMessageExplicite`](#couchesdecartetestcarteduneversionfuturerefuseeavecunmessageexplicite) |
+| `EX-LVL-016` | [`CouchesDeCarteTest.CarteVersion2PromueEnCoucheLegacyUnique`](#couchesdecartetestcarteversion2promueencouchelegacyunique), [`CouchesDeCarteTest.CarteVersion2ReecriteSansTableauDeCouches`](#couchesdecartetestcarteversion2reecritesanstableaudecouches), [`CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites`](#couchesdecartetestallerretoursurtroiscouchesetdeuxentites), [`CouchesDeCarteTest.LaCoucheDeCollisionEstLaGrilleDuGameplay`](#couchesdecartetestlacouchedecollisionestlagrilledugameplay), [`CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites`](#couchesdecartetestbrouillondeditionpreservecouchesetentites), [`CouchesDeCarteTest.TuilePeinteAtteintLaCoucheDeCollision`](#couchesdecartetesttuilepeinteatteintlacouchedecollision), [`CouchesDeCarteTest.RedimensionnementEmporteCouchesEtEntites`](#couchesdecartetestredimensionnementemportecouchesetentites), [`CouchesDeCarteTest.CoucheDeCollisionDeclareeRefusee`](#couchesdecartetestcouchedecollisiondeclareerefusee) |
+| `EX-LVL-017` | [`CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites`](#couchesdecartetestallerretoursurtroiscouchesetdeuxentites), [`CouchesDeCarteTest.EntiteHorsBornesRefusee`](#couchesdecartetestentitehorsbornesrefusee), [`CouchesDeCarteTest.RedimensionnementEmporteCouchesEtEntites`](#couchesdecartetestredimensionnementemportecouchesetentites) |
+| `EX-LVL-018` | [`CouchesDeCarteTest.ChampsInconnusDUneCouchePreservesALaReecriture`](#couchesdecartetestchampsinconnusdunecouchepreservesalareecriture), [`CouchesDeCarteTest.ChampsInconnusDUneEntitePreservesALaReecriture`](#couchesdecartetestchampsinconnusduneentitepreservesalareecriture) |
+| `EX-LVL-025` | [`LevelDraftPiecesTest.UnEtageNeBloqueAucuneCase`](#leveldraftpiecestestunetagenebloqueaucunecase) |
+| `EX-NFR-040` | [`LevelWriterTest.SaveToFileVersDossierInexistantEchoueProprement`](#levelwritertestsavetofileversdossierinexistantechoueproprement), [`CouchesDeCarteTest.CarteDUneVersionFutureRefuseeAvecUnMessageExplicite`](#couchesdecartetestcarteduneversionfuturerefuseeavecunmessageexplicite), [`CouchesDeCarteTest.RoleDeCoucheInconnuRetombeSurLeSol`](#couchesdecartetestroledecoucheinconnuretombesurlesol) |
+
 ## test_format_v4.cpp
 
 ### FormatV4Test.UneCarteDeChaqueVersionSeCharge
@@ -624,6 +645,8 @@ paintTile pose le type demandé sur la case visée.
 
 *Majeur · Unitaire · Level Draft* — `Source/Test/Unit/Core/Levels/test_level_draft.cpp:44`
 
+Exigences : `EX-EDIT-004`
+
 Poser une seconde entrée déplace la première (unicité, EX-EDIT-004).
 
 **Étapes**
@@ -695,6 +718,8 @@ Réduire la grille tronque le contenu hors bornes et invalide l'entrée perdue.
 ### LevelDraftTest.ToLevelSansEntreeEchoueProprement
 
 *Majeur · Unitaire · Level Draft* — `Source/Test/Unit/Core/Levels/test_level_draft.cpp:131`
+
+Exigences : `EX-EDIT-007`
 
 toLevel() sur un brouillon sans entrée échoue avec un message récupérable (EX-EDIT-007).
 
@@ -1532,6 +1557,8 @@ Un type peint sur une couche : la collision suit.
 
 *Critique · Unitaire · Pièces du brouillon* — `Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:266`
 
+Exigences : `EX-EDIT-065`
+
 Peindre la collision force ou libère la case.
 
 **Étapes**
@@ -1592,6 +1619,8 @@ Un geste ne touche que ses cases.
 
 *Critique · Unitaire · Pièces du brouillon* — `Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:346`
 
+Exigences : `EX-EDIT-083`
+
 Remplacer une pièce : un pas, la collision suit.
 
 **Étapes**
@@ -1640,6 +1669,8 @@ Un remplacement qui déborde est refusé en entier.
 
 *Critique · Unitaire · Pièces du brouillon* — `Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:402`
 
+Exigences : `EX-EDIT-084`
+
 Changer de planche : lieu, pièces et collision en un pas.
 
 **Étapes**
@@ -1665,6 +1696,8 @@ Changer de planche : lieu, pièces et collision en un pas.
 ### LevelDraftPiecesTest.UnEtageNeBloqueAucuneCase
 
 *Bloquant · Unitaire · Pieces du brouillon · Etages* — `Source/Test/Unit/Core/Levels/test_level_draft_pieces.cpp:441`
+
+Exigences : `EX-LVL-025`
 
 Un etage ne bloque aucune case.
 
@@ -1735,6 +1768,8 @@ Un niveau valide est chargé avec ses dimensions, ses tuiles et son entrée.
 
 *Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:64`
 
+Exigences : `EX-LVL-005`
+
 Un niveau sans champ version se charge sans erreur.
 
 **Étapes**
@@ -1750,6 +1785,8 @@ Un niveau sans champ version se charge sans erreur.
 ### LevelLoaderTest.VersionSuperieureALaVersionGereeEchoueProprement
 
 *Majeur · Unitaire · Level Loader* — `Source/Test/Unit/Core/Levels/test_level_loader.cpp:81`
+
+Exigences : `EX-LVL-005`
 
 Un niveau dont la version depasse celle geree echoue proprement.
 
@@ -1855,6 +1892,8 @@ saveToFile écrit un fichier qui se recharge à l'identique (round-trip disque).
 
 *Majeur · Unitaire · Level Writer* — `Source/Test/Unit/Core/Levels/test_level_writer.cpp:98`
 
+Exigences : `EX-NFR-040`
+
 saveToFile vers un dossier inexistant échoue proprement (récupérable, EX-NFR-040).
 
 **Étapes**
@@ -1901,6 +1940,8 @@ Une carte garde sa région, son ambiance et ses clés inconnues.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:91`
 
+Exigences : `EX-LVL-016`
+
 Une carte version 2 est promue en couche unique.
 
 **Étapes**
@@ -1922,6 +1963,8 @@ Une carte version 2 est promue en couche unique.
 
 *Mineur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:116`
 
+Exigences : `EX-LVL-016`
+
 Une carte version 2 reecrite ne gagne pas de tableau 'layers'.
 
 **Étapes**
@@ -1938,6 +1981,8 @@ Une carte version 2 reecrite ne gagne pas de tableau 'layers'.
 ### CouchesDeCarteTest.AllerRetourSurTroisCouchesEtDeuxEntites
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:135`
+
+Exigences : `EX-LVL-016`, `EX-LVL-017`
 
 Une carte a trois couches et deux entites survit a l'aller-retour.
 
@@ -1967,6 +2012,8 @@ Une carte a trois couches et deux entites survit a l'aller-retour.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:177`
 
+Exigences : `EX-LVL-018`
+
 Les champs inconnus d'une couche sont preserves a la reecriture.
 
 **Étapes**
@@ -1988,6 +2035,8 @@ Les champs inconnus d'une couche sont preserves a la reecriture.
 ### CouchesDeCarteTest.ChampsInconnusDUneEntitePreservesALaReecriture
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:205`
+
+Exigences : `EX-LVL-018`
 
 Les champs inconnus d'une entite sont preserves a la reecriture.
 
@@ -2011,6 +2060,8 @@ Les champs inconnus d'une entite sont preserves a la reecriture.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:233`
 
+Exigences : `EX-LVL-016`
+
 La couche de collision est la grille du gameplay.
 
 **Étapes**
@@ -2033,6 +2084,8 @@ La couche de collision est la grille du gameplay.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:261`
 
+Exigences : `EX-LVL-005`, `EX-NFR-040`
+
 Une carte d'une version future est refusee explicitement.
 
 **Étapes**
@@ -2048,6 +2101,8 @@ Une carte d'une version future est refusee explicitement.
 ### CouchesDeCarteTest.TuileHorsBornesDansUneCoucheRefusee
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:289`
+
+Exigences : `EX-LVL-004`
 
 Une tuile hors bornes dans une couche est refusee.
 
@@ -2065,6 +2120,8 @@ Une tuile hors bornes dans une couche est refusee.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:317`
 
+Exigences : `EX-LVL-017`
+
 Une entite hors bornes est refusee.
 
 **Étapes**
@@ -2079,6 +2136,8 @@ Une entite hors bornes est refusee.
 ### CouchesDeCarteTest.RoleDeCoucheInconnuRetombeSurLeSol
 
 *Mineur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:343`
+
+Exigences : `EX-NFR-040`
 
 Un role de couche inconnu ne fait pas echouer la carte.
 
@@ -2096,6 +2155,8 @@ Un role de couche inconnu ne fait pas echouer la carte.
 ### CouchesDeCarteTest.BrouillonDEditionPreserveCouchesEtEntites
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:372`
+
+Exigences : `EX-EDIT-011`, `EX-LVL-016`
 
 Le brouillon d'edition preserve couches et entites.
 
@@ -2116,6 +2177,8 @@ Le brouillon d'edition preserve couches et entites.
 ### CouchesDeCarteTest.TuilePeinteAtteintLaCoucheDeCollision
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:397`
+
+Exigences : `EX-LVL-016`
 
 Une tuile peinte dans l'editeur atteint la couche de collision.
 
@@ -2139,6 +2202,8 @@ Une tuile peinte dans l'editeur atteint la couche de collision.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:428`
 
+Exigences : `EX-LVL-016`, `EX-LVL-017`
+
 Un redimensionnement emporte couches et entites.
 
 **Étapes**
@@ -2158,6 +2223,8 @@ Un redimensionnement emporte couches et entites.
 
 *Majeur · Unitaire · Couches de carte* — `Source/Test/Unit/Core/Levels/test_map_layers.cpp:455`
 
+Exigences : `EX-LVL-016`
+
 Une couche 'collision' declaree est refusee.
 
 **Étapes**
@@ -2175,6 +2242,8 @@ Une couche 'collision' declaree est refusee.
 ### TerrainRpgTest.AllerRetourSurChaqueTypeDeTerrain
 
 *Critique · Unitaire · Terrain RPG* — `Source/Test/Unit/Core/Levels/test_rpg_terrain.cpp:50`
+
+Exigences : `EX-LVL-003`
 
 Chaque type de terrain survit a l'aller-retour de format.
 

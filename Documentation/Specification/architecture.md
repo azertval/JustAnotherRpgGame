@@ -4,6 +4,9 @@
 > rendu, deux exécutables). Transverse à toutes les specs.
 
 ## 1. Modules & dépendances
+
+![Maquette des modules et des espaces : le graphe des dépendances, de Core vers HMI puis vers les deux exécutables, le jeu en Qt Quick et l'éditeur en Qt Widgets, les données d'Elements lues par les deux, et en dessous les trois espaces de coordonnées, monde, art et écran, avec les fonctions qui convertissent de l'un à l'autre](maquettes/architecture-modules-espaces.svg)
+
 - `Core` (simulation, indépendant du système), `HMI` (rendu, entrées, présentation, éditeur), `Ui` et `App` (écrans et points d'entrée), `Elements` (données et assets), `Test`.
 - **EX-ARCH-001** — Le sens des dépendances est `HMI → Core`, jamais l'inverse. `Core` est testable sans fenêtre ni GPU.
 ## 2. Modèle d'entités : ECS

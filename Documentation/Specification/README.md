@@ -98,11 +98,16 @@ Le statut en tête de chaque page dit où en est sa **réalisation** — ce qui 
 Une maquette est un **dessin d'intention** : ce qu'un écran ou une mécanique **doit** être, avant
 que le code ne le fasse — et donc ce contre quoi on juge le résultat. Elles vivent dans
 `Documentation/Specification/maquettes/`, en SVG écrit à la main, et la page du domaine les montre
-là où une phrase ne suffit pas à cadrer une disposition : la
-[grille de combat](combat.md), le [HUD et les écrans](interface-ihm.md), la
-[projection isométrique](rendu-technique.md), les [couches d'une carte](niveaux.md),
-l'[enchaînement portail → rencontre](exploration.md) et la
-[fenêtre de l'éditeur](editeur-niveaux.md).
+là où une phrase ne suffit pas à cadrer une disposition ou un mécanisme : le
+[jet de dé](regles-d20.md), la [fiche comme agrégat](rpg.md), la
+[bascule, le tour et l'agonie](combat.md), les [emplacements d'équipement](inventaire.md), la
+[filière des données et les kits d'assets](contenu.md), les [couches, les étages, les entités de
+quête et l'arborescence des lieux](niveaux.md), l'[enchaînement portail → rencontre et le circuit
+des drapeaux](exploration.md), la [chaîne des entrées](controles.md), la [projection isométrique,
+l'ordre de tri, le cadre 16:9 et le rendu sans texture](rendu-technique.md), le [HUD, les écrans et
+le journal de quêtes](interface-ihm.md), la [fenêtre de l'éditeur et l'état de
+partie](editeur-niveaux.md), la [machine à états du jeu](gameplay.md) et les
+[modules et espaces de coordonnées](architecture.md). Chaque page en porte au moins une.
 
 > **Attention** — Une maquette n'est pas une capture : elle montre l'**intention**, pas l'état du
 > code. Ce que le jeu affiche réellement se photographie, et ces captures-là sont dans le

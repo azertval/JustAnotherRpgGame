@@ -8,6 +8,14 @@ Tests unitaires — **7 cas** (1 critique, 6 majeurs). [Retour à la synthèse](
 |---|---|---|---|---|---|
 | [`test_fixed_timestep.cpp`](#test-fixed-timestepcpp) | 7 | - | 1 | 6 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-GP-041` | [`FixedTimestepTest.PauseSansAppelNAccumuleAucunPas`](#fixedtimesteptestpausesansappelnaccumuleaucunpas) |
+
 ## test_fixed_timestep.cpp
 
 ### FixedTimestepTest.UnPasExact
@@ -107,6 +115,8 @@ Le pas fixe exposé correspond à la configuration.
 ### FixedTimestepTest.PauseSansAppelNAccumuleAucunPas
 
 *Critique · Unitaire · Fixed Timestep* — `Source/Test/Unit/Core/Time/test_fixed_timestep.cpp:122`
+
+Exigences : `EX-GP-041`
 
 Une pause simulée (aucun appel à advance()) n'accumule aucun pas.
 

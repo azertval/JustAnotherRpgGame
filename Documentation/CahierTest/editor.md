@@ -42,6 +42,17 @@ Tests unitaires — **210 cas** (25 bloquants, 46 critiques, 111 majeurs, 28 min
 | [`test_world_graph_layout.cpp`](#test-world-graph-layoutcpp) | 16 | - | - | 8 | 8 |
 | [`test_world_links.cpp`](#test-world-linkscpp) | 4 | - | 1 | 2 | 1 |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-EDIT-077` | [`ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue`](#contentchecktestunecarteneuveasonnomdanschaquecatalogue) |
+| `EX-EDIT-083` | [`Donnees.RemplacerUnePieceSurToutesLesCartes`](#donneesremplacerunepiecesurtouteslescartes) |
+| `EX-EDIT-084` | [`Donnees.UneCarteChangeDePlancheSansEtreRepeinte`](#donneesunecartechangedeplanchesansetrerepeinte) |
+| `EX-EXP-005` | [`ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus`](#scenepaintertestunecartesansaucuneimagesevoitdanslesdeuxrendus) |
+
 ## test_autosave.cpp
 
 ### AutosaveTest.UnBrouillonSeRelitALIdentique
@@ -631,6 +642,8 @@ Une clé ajoutée garde les traductions qu'elle reprend.
 ### ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue
 
 *Bloquant · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:316`
+
+Exigences : `EX-EDIT-077`
 
 Une carte neuve a son nom dans chaque catalogue.
 
@@ -2532,6 +2545,8 @@ Qui cite une carte, qui pose une pièce.
 
 *Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:296`
 
+Exigences : `EX-EDIT-083`
+
 Remplacer une pièce sur toutes les cartes.
 
 **Étapes**
@@ -2550,6 +2565,8 @@ Remplacer une pièce sur toutes les cartes.
 ### Donnees.UneCarteChangeDePlancheSansEtreRepeinte
 
 *Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:321`
+
+Exigences : `EX-EDIT-084`
 
 Une carte change de planche sans être repeinte.
 
@@ -3309,6 +3326,8 @@ Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
 ### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
 
 *Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:343`
+
+Exigences : `EX-EXP-005`
 
 Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
 

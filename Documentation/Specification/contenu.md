@@ -34,6 +34,11 @@ publication. La discipline qui garde cette porte ouverte tient en un champ.
 
 ## 2. Contrats avant données
 
+Le chemin d'une donnée, du livre au moteur, tient en un dessin. Chaque étape y porte l'exigence
+qui la garde, et l'on voit où une donnée peut mentir — et où le moteur est tenu de le dire.
+
+![Maquette de la filière des données : le corpus hors Git et son manifeste à empreinte, l'extraction rejouable, le fichier JSON final avec son champ source, le schéma validé en intégration continue, la brique de lecture unique et l'agrégat typé, puis le moteur qui liste ce qu'il ne sait pas honorer ; en parallèle, la clé d'asset servie par une image ou par un marqueur généré, la galerie qui montre tout, et le contrôle de plausibilité qui signale sans rejeter](maquettes/contenu-filiere-donnees.svg)
+
 - **EX-CNT-010** — Chaque famille de données (créature, objet, arme, armure,
   sort, espèce, classe, historique, état, type de dégâts) doit être décrite par un **JSON Schema**,
   et toute donnée livrée doit être **validée en intégration continue**. Un échec doit nommer le
@@ -82,7 +87,8 @@ script jetable : elle est rejouée à chaque correction du corpus.
   l'extraction ne sont **pas versionnés** ; les **données finales** le sont. Le corpus pèse des
   centaines de mégaoctets de binaires que le gestionnaire de versions compresse mal et que chaque
   clone traînerait. L'intermédiaire, lui, se régénère à la demande — le versionner reviendrait à
-  versionner un cache.
+  versionner un cache. Les **images** des kits d'assets suivent la même logique depuis le
+  `LOT-108` : versionnées par leur **verrou**, pas par leurs octets (`EX-CNT-070`).
 
 ## 4. Ce qu'une donnée promet
 
@@ -143,7 +149,37 @@ créature de facteur ⅛ avec quatre-vingt-dix points de vie franchissent un sch
   est enregistrée **dans la donnée** pour ne pas être re-signalée à chaque exécution : un
   avertissement qu'on réapprend à ignorer ne protège plus de rien.
 
-## 7. Atlas du monde
+## 7. Les kits d'assets, hors Git
+
+Mille cinq cents pièces HD pour un seul quartier (`LOT-108`) : à ce rythme, les images pèseraient
+plus que tout le reste du dépôt réuni, et chaque clone les traînerait dans son historique pour
+toujours. Git garde donc la **description** des kits, et les octets vivent ailleurs.
+
+![Maquette du cycle de vie d'un kit d'assets : la retouche locale publiée en archive immuable sur une release, le verrou qui en note le nom, la version et l'empreinte, le script qui rapatrie les kits sur le poste et en intégration continue, le témoin qui dit lesquels sont installés, la garde de la configuration qui refuse de construire sans eux, et le contrôle qui refuse une image suivie sous un kit verrouillé](maquettes/contenu-kits-assets.svg)
+
+- **EX-CNT-070** — Les images des kits (`Common/`, `Regions/`, `Maps/`, `UI/`) ne sont **pas
+  suivies** par Git : un kit se publie en **archive immuable** et numérotée sur une release du
+  dépôt (`scripts/release/publish_asset_kit.py`), et Git ne garde que les manifestes et le
+  **verrou** `Source/Elements/Assets/kits.lock.json` — nom, version, empreinte. Le poste et le
+  runner rapatrient les kits du verrou (`scripts/fetch_assets.py`, appelé par `build.ps1` et
+  `setup_dev.ps1`), la configuration **refuse** de construire sans eux, et le contrôle des fichiers
+  binaires **refuse** une image suivie sous un kit verrouillé. Une retouche ne se commite jamais :
+  elle se publie, et le verrou change. Sans le verrou, deux postes construiraient deux jeux
+  différents à partir du même commit ; sans la garde, le premier se lancerait sur des cartes sans
+  texture sans rien dire.
+- **EX-CNT-071** — Un kit n'a **pas de budget de poids** (décision D-23) : une zone se produit
+  aussi riche que le lieu le demande, et le contrôle des assets HD **pèse** chaque kit et publie
+  son poids dans le résumé du job, pour mémoire. Le plafond de **5 Mio par fichier** demeure — une
+  image au-delà est un défaut de production, pas une richesse.
+- **EX-CNT-072** — Toute pièce HD livrée passe le **contrôle des assets HD**
+  (`scripts/checks/check_hd_assets.py`) : PNG RGBA 8 bits, **4096 px** de côté au plus, une dalle
+  de sol exactement à l'échelle que le manifeste déclare, et **aucune image que le manifeste ne
+  cite** ni aucune pièce citée sans image. Une pièce s'installe par un descripteur et une commande
+  (`scripts/assetsGeneration/install_hd_asset.py`), jamais à la main : c'est la seule façon de
+  ranger quinze cents fichiers au bon dossier de l'arborescence des lieux (`EX-LVL-029`) sans en
+  perdre un.
+
+## 8. Atlas du monde
 
 Les catalogues précédents décrivent des **choses** — une créature, une arme, un don. L'atlas
 décrit un **espace**, et un espace a une propriété qu'aucune liste n'a : on peut s'y perdre, ou

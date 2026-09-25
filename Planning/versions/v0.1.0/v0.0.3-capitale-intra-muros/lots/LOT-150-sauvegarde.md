@@ -22,3 +22,10 @@ criteres = [
 ## Périmètre
 
 Pas de sauvegarde **en combat** : on sauvegarde en exploration.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-GP-070` — ce qu'une sauvegarde écrit : la liste des personnages, la carte, la case, les drapeaux.
+- `EX-GP-071` — un format versionné, lu pour toujours, jamais écrasé en silence.

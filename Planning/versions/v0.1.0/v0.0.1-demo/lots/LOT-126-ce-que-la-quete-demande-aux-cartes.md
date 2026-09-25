@@ -97,3 +97,13 @@ Livré le 24 septembre 2026, **PR #128**, sur décision de l'auteur après véri
 - Un héros qui se tient sur l'emprise d'un décor au moment où il paraît n'est pas déplacé.
 - Le panneau « Problems » et la vue à plat ne grisent pas selon l'état de partie ; la vue iso le
   fait.
+
+## Exigences
+
+Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
+
+- `EX-LVL-026` — la famille `prop`.
+- `EX-LVL-027` — le portail condamné.
+- `EX-LVL-028` — la zone déclencheuse.
+- `EX-EDIT-096` — l'état de partie de la session d'édition.
+- `EX-EDIT-097` — tout se pose à l'inspecteur, rien au JSON.

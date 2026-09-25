@@ -203,7 +203,7 @@ sans que cette classe en ait rien su.
 
 ### `hmi::PendingData` — l'ancre de ce qui n'a pas encore de source
 
-Singleton. Plusieurs écrans du RPG — journal, marchand, ATH de combat, l'essentiel de l'équipe de
+Singleton. Plusieurs écrans du RPG — marchand, ATH de combat, l'essentiel de l'équipe de
 mercenaires — n'ont aujourd'hui **aucune donnée** : les lots qui les produiront n'existent pas
 encore. Leur mise en page, elle, est décidée. Chacun de leurs champs porte donc une **clé
 d'attribution** nommée qui aboutit ici ; le jour où le lot fonctionnel arrive, il remplace
@@ -225,14 +225,16 @@ les mêmes trois objets.
 ![L'écran du marchand, dessiné mais pas encore alimenté : trois panneaux « Marchandises », « Bourse », « Votre sac » aux lignes en tirets, à 1280 × 720](captures/jeu-merchant.jpg)
 
 Le marchand n'est pas seul dans ce cas, et les deux autres montrent bien ce que le tiret permet :
-juger une **disposition** avant d'avoir la donnée qui la remplira.
+juger une **disposition** avant d'avoir la donnée qui la remplira — puis la garder quand la donnée
+arrive.
 
-![Le journal de quêtes sur panneaux sombres : la liste « Quêtes » à gauche, « Détail » et « Objectifs » à droite, toutes leurs lignes en tirets, à 1280 × 720](captures/jeu-journal.jpg)
+![Le journal de quêtes sur panneaux sombres, tel qu'il était avant le LOT-116 : la liste « Quêtes » à gauche, « Détail » et « Objectifs » à droite, toutes leurs lignes en tirets, à 1280 × 720](captures/jeu-journal.jpg)
 
-Le journal se juge déjà sur une question de conception que nulle donnée ne changera : la liste des
-quêtes occupe une colonne entière, et le détail se partage en deux avec les objectifs. C'est
-vérifiable aujourd'hui, et ce serait bien plus coûteux à corriger une fois les quêtes écrites
-(`LOT-116`).
+Le journal a été jugé ainsi, en tirets, sur une question de conception que nulle donnée ne
+changeait : la liste des quêtes occupe une colonne entière, et le détail se partage en deux avec
+les objectifs. Depuis le `LOT-116`, il n'est plus en attente : `hmi::QuestJournalModel`
+(ci-dessous) l'alimente depuis les drapeaux de la partie, et le formulaire n'a pas bougé — c'est
+exactement ce que l'ancre promettait. La capture, antérieure, se refait avec une partie en cours.
 
 ![L'écran de l'équipe de mercenaires sur parchemin : les quatre médaillons de carrière, les six places de membres dont une seule occupée, la base principale et ses bâtiments, les hauts faits et les trésors, à 1280 × 720](captures/jeu-company.jpg)
 
@@ -312,8 +314,12 @@ a joué), `replies` (modèle : `rowId`, `label`, `value` = le jet annoncé), `fi
 `hmi::DialogueModel::combatRequested(arenaId)` dit qu'un PNJ envoie se battre (`LOT-09`) : le
 modèle n'ouvre rien, c'est l'écran qui décide et le routeur qui navigue.
 
-Échafaudage nommé : sans partie ni sauvegarde (`LOT-17`), les drapeaux de monde de la conversation
-vivent le temps du processus, et l'interlocuteur est le personnage de démonstration.
+Le runner écrit dans les drapeaux **de la partie** (`LOT-116`) : ceux de `hmi::WorldModel::current`,
+que la carte lit aussi — une porte ouverte par un dialogue s'ouvre sur la carte, un PNJ appelé par
+une quête y paraît. Seule leur persistance sur disque attend la sauvegarde (`LOT-150`). Sans
+partie (le designer, un test de l'écran seul), un ensemble vit le temps du processus, pour qu'un
+héraut n'oublie pas qu'on lui a parlé à chaque ouverture de l'écran. Échafaudage qui demeure :
+l'interlocuteur est le personnage de démonstration.
 
 ![L'écran de dialogue ouvert sans conversation : cadre de portrait vide, champs Nom et Attitude, la réplique « Aucune conversation à afficher » et la seule réponse « Quitter la conversation », à 1280 × 720](captures/jeu-dialogue.jpg)
 
@@ -325,9 +331,11 @@ l'écran de jeu ([Écrans, navigation et boucle de jeu](guide-ecrans.md)). Elle 
 `QTimer` précis).
 
 - Propriétés : `mapId`, `mapName`, `status`, `loaded`, `columns`, `rows`, `heroColumn` /
-  `heroRow` (coordonnées **continues**, ce que la caméra suit ; signal `heroMoved`), `heroFigure`,
-  `frozen`, `cityLocation` (la fiche d'atlas de la ville, clé de son plan), `districtId`,
-  `visitedDistricts` (`LOT-96`).
+  `heroRow` (coordonnées **continues**, ce que la caméra suit ; signal `heroMoved`), `heroFigure`
+  (en écriture par `hmi::WorldModel::setHeroFigure`, qui la passe à `hmi::WorldPlay` et fait
+  recomposer la scène ; `WorldPlay::DEFAULT_HERO_FIGURE` tant que rien ne la nomme, ou
+  `--hero-figure=` avec `--map=`), `frozen`, `cityLocation` (la fiche d'atlas de la ville, clé de
+  son plan), `districtId`, `visitedDistricts` (`LOT-96`).
 - `hmi::WorldModel::startNewGame()` — ouvre le jeu à la porte de départ de la ville
   (`WorldModel::START_CITY`, la Capitale) et oublie les quartiers visités ;
   `hmi::WorldModel::enterMap(mapId, arrival)` — entre sur une carte ;
@@ -337,13 +345,45 @@ l'écran de jeu ([Écrans, navigation et boucle de jeu](guide-ecrans.md)). Elle 
   — le prochain pas résoudra l'interaction.
 - Options de développement : `setStartOverride` (`--map=`), `setLevelDirectories` (`--levels=`, à
   appeler **avant** la première entrée : la session est refaite), `setStartCell` (`--at=`),
-  `setStartFlags` (`--flags=`).
+  `setStartFlags` (`--flags=` ; `drapeau=valeur` donne sa valeur à un drapeau qu'une quête
+  déclare, et les quêtes avancent aussitôt).
+- La partie que les autres vues-modèles lisent (`LOT-116`) : `hmi::WorldModel::current()` (le
+  dernier construit — un par moteur QML, un seul dans le jeu), `flags()` (les drapeaux de la
+  session, qui survivent au changement de carte) et `quests()` (le catalogue lu au démarrage par
+  `hmi::loadGameQuests`).
 - Pour la surface de rendu : `hmi::WorldModel::snapshot()` (des **valeurs**, sans pointeur),
   `diamondRatio()`, `sceneRevision()` (avance à chaque pas qui change ce qui se dessine — c'est ce
   qui épargne une recomposition par image).
 - Signaux : `changed`, `heroMoved`, `mapEntered(mapId)`, `dialogueRequested(dialogueId)`,
-  `encounterRequested(encounterId)`, `portalLocked(flag)`, `portalBroken(mapId)`. Le modèle ne
+  `encounterRequested(encounterId)`, `portalLocked(flag)`, `portalBroken(mapId)`,
+  `portalSealed(mapId)` (un portail condamné, `LOT-126` : il est là, il ne s'ouvre pas) et
+  `questAdvanced(quest, step)` (une étape atteinte, `LOT-116` : le journal se relit). Le modèle ne
   navigue jamais : il dit ce qu'il faut ouvrir, l'écran l'ouvre.
+
+### `hmi::QuestJournalModel` — le journal de quêtes
+
+`Source/HMI/Runtime/QuestJournalModel.h` (`LOT-116`, `EX-EXP-010`). Ce que l'écran « Journal de
+quêtes » lit — et il ne garde **aucun** état de quête : tout se relit dans les drapeaux de la
+partie, à l'ouverture et à chaque étape atteinte. Un journal qui tiendrait sa propre liste
+divergerait des drapeaux au premier chargement de sauvegarde ; celui-ci ne peut pas.
+
+- Propriétés : `quests` (les quêtes commencées, un modèle de lignes `rowId`, `label` — le titre —,
+  `value` — l'état), `objectives` (les étapes atteintes de la quête choisie), `detail` (l'entrée de
+  sa dernière étape, ou « aucune quête »), `selected` (son identifiant, vide si le journal est
+  vide).
+- `hmi::QuestJournalModel::select(questId)` — choisit une quête ;
+  `hmi::QuestJournalModel::selectNeighbour(step)` — la suivante (`1`) ou la précédente (`-1`),
+  sans sortir de la liste : les flèches ; `hmi::QuestJournalModel::refresh()` — relit le journal
+  dans les drapeaux. Le constructeur relie `refresh` au signal `questAdvanced` de
+  `hmi::WorldModel::current()`, s'il y a une partie ; sans partie (le designer), le journal est
+  vide et le dit.
+- La logique est pure, dans `Source/HMI/Presentation/QuestJournalScreen.h` :
+  `hmi::questJournalValues(catalog, flags, selected, text)` rend un `hmi::QuestJournalValues` —
+  `quests` et `objectives`, des `hmi::QuestJournalRow` (`id`, `label`, `value`), `selected` (la
+  quête choisie ; absente du journal, la première) et `detail` — tout traduit par le
+  `hmi::TextLookup` reçu ; `hmi::questStatusKey(status)` donne `journal.status.<active|succeeded|failed>`
+  pour un `core::QuestStatus` ; `hmi::neighbourQuest(values, step)` la quête voisine. Le test le
+  vérifie sans fenêtre, et le modèle ne fait que verser ces valeurs dans deux `hmi::SheetRowModel`.
 
 ### `hmi::WorldMapModel` et `hmi::CityDistrictModel` — l'écran « Carte »
 
@@ -567,7 +607,8 @@ JustAnotherRpgGame --screen=MainMenu --window-size=1280x720 --screenshot=jeu-mai
 ## Voir aussi
 
 - `hmi::OptionsModel`, `hmi::PendingData`, `hmi::SheetRowModel`, `hmi::CharacterSheetModel`,
-  `hmi::InventoryModel`, `hmi::DialogueModel`, `hmi::WorldModel`, `hmi::WorldMapModel`,
+  `hmi::InventoryModel`, `hmi::DialogueModel`, `hmi::WorldModel`, `hmi::QuestJournalModel`,
+  `hmi::WorldMapModel`,
   `hmi::CityDistrictModel`, `hmi::CreditsModel`, `hmi::ArenaModel`, `hmi::Localization`.
 - [Concevoir les écrans dans Qt Design Studio](guide-conception-qds.md) — le mode d'emploi de la **conception** : ce qu'on modifie sans code.
 - [Système de design et architecture de l'information](guide-design-ihm.md) — jetons, échelle, panneaux, barre d'état.

@@ -44,6 +44,33 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   les Docks sont condamnés, en attendant leurs cartes. `--check` ne relève aucune erreur. L'image
   de l'onglet « Carte » part au LOT-121, avec celles de Martpart et de l'Arena of Fate.
 
+- **Documentation — la refonte se poursuit : ce que les lots ont livré sans l'écrire.** Les
+  **spécifications** gagnent dix-neuf exigences pour des fonctions livrées sans engagement écrit :
+  la famille `prop`, le portail condamné, la zone déclencheuse, l'arborescence des lieux et la
+  borne de côté du chargeur (`EX-LVL-026` → `EX-LVL-030`) ; la vitesse de marche et l'avancement
+  recalculé des quêtes (`EX-EXP-011`, `EX-EXP-012`) ; l'état de partie de l'éditeur, l'inspecteur
+  qui pose tout, les étages, l'arbre des lieux et le mode Quêtes à venir (`EX-EDIT-096` →
+  `EX-EDIT-100`) ; les kits d'assets hors Git, le poids sans budget et le contrôle HD
+  (`EX-CNT-070` → `EX-CNT-072`) ; le cadre 16:9 et le rendu sans texture (`EX-REN-019`,
+  `EX-REN-023`) ; la sauvegarde (`EX-GP-070`, `EX-GP-071`). Quatorze passages périmés sont
+  corrigés (vitesse de 4 cases/s, nombre d'images « ouvert », `Assets/Scene/<lieu>/`, trois
+  modèles, palette par classe…) et **chaque page porte désormais au moins une maquette** : dix-huit
+  dessins nouveaux ou refaits — le jet, la fiche agrégat, la bascule et l'agonie, les emplacements,
+  la filière des données et les kits, les étages, les entités de quête, l'arbre des lieux, le circuit
+  des drapeaux, le journal de quêtes, l'état de partie, la chaîne des entrées, l'ordre de tri (sa
+  clé était fausse), le cadre 16:9, la maquette sans texture, la machine à états, les modules — et
+  la fenêtre de l'éditeur montre l'étage, l'état de partie et la palette par niveau. Le **guide**
+  documente ce qu'il taisait : l'arborescence des lieux (`ScenePlace.h`), les kits hors Git, les
+  étages et la translucidité, l'orientation des figurines, l'état de partie de l'éditeur, le
+  canevas HD, le journal de quêtes, la ligne de commande de l'éditeur en une table, et corrige une
+  quinzaine d'affirmations que les lots récents avaient rendues fausses (`WORLD_DEPTH_SLOTS`, la
+  figurine par défaut, les préfabriqués par lieu…). Le **cahier de test** gagne sa **matrice de
+  traçabilité** (`couverture-exigences.md`, engendrée : chaque exigence en vigueur et les cas qui la
+  citent, les exigences sans garde laissées visibles), chaque fiche cite ses exigences, chaque
+  domaine récapitule les siennes, le README dit les trois étages de vérification, et une seule
+  page s'écrit à la main, la **recette manuelle** (`RM-…` : ce qu'un humain contrôle avant de dire
+  « livré », avec ce qui vaut refus). Les fiches des lots concernés citent leurs exigences.
+
 - **LOT-126 — Ce que la quête demande aux cartes.** Tout ce que « Des pommes pour l'arène » pose
   sur une carte s'écrit à l'inspecteur de l'éditeur, sans toucher au JSON. La **condition de
   présence** est déclarée pour toute famille (`core::commonEntityProperties`) et propose les

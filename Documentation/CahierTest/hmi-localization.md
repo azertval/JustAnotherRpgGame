@@ -8,6 +8,14 @@ Tests unitaires — **9 cas** (9 majeurs). [Retour à la synthèse](README.md).
 |---|---|---|---|---|---|
 | [`test_localization.cpp`](#test-localizationcpp) | 9 | - | - | 9 | - |
 
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-REN-033` | [`LocalizationTest.LesDeuxCataloguesDeclarentLesMemesCles`](#localizationtestlesdeuxcataloguesdeclarentlesmemescles) |
+
 ## test_localization.cpp
 
 ### LocalizationTest.AnalyseIgnoreCommentairesEtEspaces
@@ -144,6 +152,8 @@ Le catalogue français livré (Source/Elements/Localization) se charge et résou
 ### LocalizationTest.LesDeuxCataloguesDeclarentLesMemesCles
 
 *Majeur · Unitaire · Localization* — `Source/Test/Unit/HMI/Localization/test_localization.cpp:201`
+
+Exigences : `EX-REN-033`
 
 Les catalogues francais et anglais declarent les memes cles.
 

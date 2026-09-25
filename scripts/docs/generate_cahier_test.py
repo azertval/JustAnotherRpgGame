@@ -11,7 +11,16 @@ pages de Markdown nu, que le site de documentation rend (`Documentation/outils/b
 - ``README.md`` : le mode d'emploi du cahier et sa synthèse — cas par domaine et par criticité ;
 - une page par domaine de ``Source/Test/`` (``core-combat.md``, ``hmi-graphics.md``,
   ``integration.md``…), où chaque fichier de test est une section et chaque cas une fiche :
-  identifiant GoogleTest, criticité, catégorie, emplacement, objet, étapes, résultat attendu.
+  identifiant GoogleTest, criticité, catégorie, emplacement, objet, étapes, résultat attendu,
+  et les exigences ``EX-…`` que le test cite ;
+- ``couverture-exigences.md`` : la **matrice de traçabilité** exigence → cas de test, tirée des
+  déclarations de ``Documentation/Specification/`` et des citations relevées dans les tests. Une
+  exigence en vigueur qu'aucun test ne cite y paraît telle quelle : le cahier dit ce qui est tenu,
+  et la matrice dit ce qui ne l'est pas encore.
+
+Une page est écrite **à la main** et jamais engendrée : ``recette-manuelle.md``, les contrôles
+qu'aucun test automatisé ne remplace (``HAND_WRITTEN_PAGES``). Le script la laisse en place et la
+cite depuis le ``README.md``.
 
 Une page unique de 640 Ko en tableaux de quatre colonnes ne se lisait pas ; un cas par fiche, un
 domaine par page, et le site filtre les fiches par texte et par criticité.
@@ -34,6 +43,15 @@ import mini_markdown  # noqa: E402  (chemin ajoute juste au-dessus)
 
 TEST_ROOT = 'Source/Test'
 OUTPUT_DIR = 'Documentation/CahierTest'
+SPECIFICATION_DIR = 'Documentation/Specification'
+
+# Pages du cahier écrites à la main : ni engendrées, ni supprimées, citées depuis le README.
+HAND_WRITTEN_PAGES = {'recette-manuelle.md': 'Recette manuelle'}
+
+# Une exigence, telle que la déclare une spécification (même forme que le moteur du site) et telle
+# qu'un test la cite (en clair dans son commentaire ou son corps).
+EXIGENCE_RE = re.compile(r'EX-[A-Z]+-\d{3}')
+EXIGENCE_DECL_RE = re.compile(r'^\s*[-*]\s+\*\*(EX-[A-Z]+-\d{3})\*\*\s*(?:—|-)?\s*(.*)$')
 
 # Déclaration d'un test GoogleTest, sous ses trois formes. `TEST_F`/`TEST_P` prennent en premier
 # argument la *fixture*, dont GoogleTest tire justement le nom de la suite : le premier groupe
@@ -250,9 +268,41 @@ def collect_cases(root):
                     'suite': match.group('suite').strip(),
                     'name': match.group('name').strip(),
                     'assertions': assertions,
+                    'exigences': cited_exigences(content, match.start(), body),
                     **fields,
                 })
     return cases
+
+
+def cited_exigences(content, castest_start, body):
+    """Les exigences que cite un cas : dans le commentaire qui porte son bloc (le `@brief` compris)
+    et dans son corps. Le commentaire s'étend du dernier `/**` qui précède le bloc au bloc lui-même ;
+    ce qui précède ce commentaire appartient au test d'avant."""
+    comment_start = content.rfind('/**', 0, castest_start)
+    comment = content[comment_start if comment_start != -1 else 0:castest_start]
+    return sorted(set(EXIGENCE_RE.findall(comment)) | set(EXIGENCE_RE.findall(body)))
+
+
+def collect_exigences(spec_dir):
+    """Les exigences déclarées par les spécifications : {id: (page, titre de la page, retirée)}.
+
+    Une exigence retirée reste déclarée (son ancre survit), mais n'attend aucun test ; elle se
+    reconnaît à la mention `*(retirée …)*` qui suit son identifiant."""
+    exigences = {}
+    if not os.path.isdir(spec_dir):
+        return exigences
+    for filename in sorted(os.listdir(spec_dir)):
+        if not filename.endswith('.md') or filename == 'README.md':
+            continue
+        with open(os.path.join(spec_dir, filename), encoding='utf-8') as handle:
+            lines = handle.read().splitlines()
+        title = next((line[2:].strip() for line in lines if line.startswith('# ')), filename)
+        for line in lines:
+            match = EXIGENCE_DECL_RE.match(line)
+            if match and match.group(1) not in exigences:
+                retiree = match.group(2).lstrip().startswith('*(retir')
+                exigences[match.group(1)] = (filename, title, retiree)
+    return exigences
 
 
 def find_undocumented_tests(root):
@@ -314,7 +364,10 @@ def render_case(case):
     lines = [f"### {case['suite']}.{case['name']}", '']
     category = case.get('cat', '').strip()
     facts = ' · '.join(part for part in (criticite_of(case), category) if part)
-    lines += [f"*{facts}* — `{case['path']}:{case['line']}`", '', case['title'], '']
+    lines += [f"*{facts}* — `{case['path']}:{case['line']}`", '']
+    if case.get('exigences'):
+        lines += ['Exigences : ' + ', '.join(f'`{key}`' for key in case['exigences']), '']
+    lines += [case['title'], '']
     etapes = [re.sub(r'^\d+\.\s*', '', step.strip()) for step in case.get('etapes', '').split('<br/>')]
     etapes = [step for step in etapes if step]
     if etapes:
@@ -357,10 +410,90 @@ def render_domain(title, category, cases):
                      f'| {len(group)} | {cells} |')
     lines.append('')
 
+    # Les exigences que la page vérifie, et par quels cas : le chemin inverse de la fiche, pour
+    # qui part d'une spécification et cherche ce qui la garde.
+    by_exigence = {}
+    for case in cases:
+        for key in case.get('exigences') or []:
+            by_exigence.setdefault(key, []).append(case)
+    if by_exigence:
+        lines += ['## Exigences vérifiées par cette page', '',
+                  'Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la '
+                  '[matrice de traçabilité](couverture-exigences.md) les rassemble toutes.', '',
+                  '| Exigence | Cas |', '|---|---|']
+        for key in sorted(by_exigence):
+            links = ', '.join(case_link(case, '') for case in by_exigence[key])
+            lines.append(f'| `{key}` | {links} |')
+        lines.append('')
+
     for filename in sorted(by_file):
         lines += [f'## {filename}', '']
         for case in by_file[filename]:
             lines += render_case(case)
+    return '\n'.join(lines).rstrip() + '\n'
+
+
+def case_id(case):
+    return f"{case['suite']}.{case['name']}"
+
+
+def case_link(case, page):
+    """Un lien vers la fiche d'un cas, dans la même page (`page` vide) ou depuis une autre."""
+    return f'[`{case_id(case)}`]({page}#{mini_markdown.slugify(case_id(case))})'
+
+
+def render_coverage(domains, exigences):
+    """La matrice de traçabilité : chaque exigence en vigueur, la page qui la déclare, et les cas
+    de test qui la citent — ou rien, ce qui se lit aussi."""
+    cases_by_exigence = {}
+    for slug, (_title, _category, cases) in domains.items():
+        for case in cases:
+            for key in case.get('exigences') or []:
+                cases_by_exigence.setdefault(key, []).append((slug, case))
+    active = {key: value for key, value in exigences.items() if not value[2]}
+    families = sorted({key.rsplit('-', 1)[0] for key in active})
+    covered = {key for key in active if key in cases_by_exigence}
+    unknown = sorted(key for key in cases_by_exigence if key not in exigences)
+
+    lines = ['# Couverture des exigences', '',
+             f'**{len(covered)} exigences en vigueur sur {len(active)}** sont citées par au moins un cas '
+             'de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche '
+             'vient des déclarations des [spécifications](../Specification/README.md), celle de droite '
+             'des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une '
+             'exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il '
+             'la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.', '',
+             '## Par famille', '',
+             '| Famille | Déclarée dans | En vigueur | Citées par un test | Sans test |',
+             '|---|---|---|---|---|']
+    for family in families:
+        keys = [key for key in active if key.rsplit('-', 1)[0] == family]
+        page_links = ', '.join(dict.fromkeys(
+            f'[{active[key][1]}](../Specification/{active[key][0]})' for key in keys))
+        with_test = sum(1 for key in keys if key in covered)
+        lines.append(f'| `{family}` | {page_links} | {len(keys)} | {with_test} | {len(keys) - with_test} |')
+    lines.append(f'| **Total** | | **{len(active)}** | **{len(covered)}** | **{len(active) - len(covered)}** |')
+    lines.append('')
+
+    lines += ['## Exigence par exigence', '',
+              'Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun cas ne cite '
+              'l\'exigence.', '']
+    for family in families:
+        lines += [f'### `{family}`', '', '| Exigence | Spécification | Cas de test |', '|---|---|---|']
+        for key in sorted(k for k in active if k.rsplit('-', 1)[0] == family):
+            page, title, _retiree = active[key]
+            links = ', '.join(case_link(case, f'{slug}.md')
+                              for slug, case in cases_by_exigence.get(key, [])) or '—'
+            lines.append(f'| `{key}` | [{title}](../Specification/{page}) | {links} |')
+        lines.append('')
+
+    if unknown:
+        lines += ['## Citées par un test, déclarées nulle part', '',
+                  'Un test cite un identifiant qu\'aucune spécification ne déclare : une faute de '
+                  'frappe, ou une exigence supprimée sans que le test l\'apprenne.', '']
+        lines += [f'- `{key}` : ' + ', '.join(case_link(case, f'{slug}.md')
+                                             for slug, case in cases_by_exigence[key])
+                  for key in unknown]
+        lines.append('')
     return '\n'.join(lines).rstrip() + '\n'
 
 
@@ -374,7 +507,8 @@ def render_readme(domains):
         f'**{total} cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les '
         'blocs `\\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne '
         's\'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un '
-        'cahier périmé, et refuse un test sans bloc.', '',
+        'cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) '
+        's\'écrit à la main.', '',
         '## Lire une fiche', '',
         'Chaque cas porte l\'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel dans le code et '
         'dans le rapport `ctest`), sa **criticité**, sa **catégorie**, son **emplacement** '
@@ -399,7 +533,36 @@ def render_readme(domains):
         lines.append(f'| [{title}]({slug}.md) | {CATEGORY_TITLES.get(category, category)} | {len(cases)} | '
                      + ' | '.join(str(count or '—') for count in counts) + ' |')
     lines.append(f'| **Total** | | **{total}** | ' + ' | '.join(f'**{totals[c]}**' for c in CRITICITES) + ' |')
-    lines += ['', '## Lancer les tests', '',
+    lines += ['', '## Trois étages de vérification', '',
+              'Le dépôt vérifie à trois hauteurs, et le cahier range chaque cas à la sienne : la '
+              'colonne *Type* de la synthèse vient du dossier du test (`Source/Test/Unit`, '
+              '`Integration`, `Systeme`).', '',
+              '| Étage | Ce qu\'il prouve | Ce qu\'il ne prouve pas | Où |', '|---|---|---|---|',
+              '| **Unitaire** | Une fonction ou une classe tient son contrat, seule, sans fenêtre ni GPU '
+              '(`EX-NFR-010`) : un jet, une grille, un chargeur, une vue-modèle. | Que les pièces '
+              's\'assemblent. | `Source/Test/Unit/<Core, HMI, Editor>/<domaine>/` |',
+              '| **Intégration** | Plusieurs modules jouent ensemble sur des données réelles du dépôt : '
+              'une carte livrée se charge, se compose et se parcourt. | Que l\'exécutable démarre. | '
+              '`Source/Test/Integration/` |',
+              '| **Système** | Un parcours **de bout en bout**, tel qu\'un utilisateur le ferait — '
+              'l\'auteur dessine une carte dans l\'éditeur, puis le jeu la joue —, sans fenêtre. | '
+              'Le ressenti : fluidité, lisibilité, plaisir. | `Source/Test/Systeme/` ; l\'archive '
+              'publiée a son test de fumée (`scripts/release/smoke_test_release.ps1`) et la '
+              '[recette manuelle](recette-manuelle.md) le reste |', '',
+              'Les écrans Qt Quick ont en plus leurs tests de référence (`Source/Test/Qml/`, images '
+              'comparées pixel à pixel) et les scripts Python les leurs (`scripts/tests/`, pytest) ; '
+              'ni les uns ni les autres ne sont des cas GoogleTest, et ils sont décrits dans '
+              '[Build, tests et intégration continue](../Guide/guide-outils.md#les-suites-de-tests).',
+              '', '## Ce que chaque exigence a pour garde', '',
+              'La [matrice de traçabilité](couverture-exigences.md) donne, pour chaque exigence en '
+              'vigueur des spécifications, les cas de test qui la citent — et laisse visibles celles '
+              'qu\'aucun test ne cite. Chaque fiche porte de même ses exigences, et chaque page de '
+              'domaine récapitule celles qu\'elle vérifie.', '',
+              '## Ce que les tests ne remplacent pas', '',
+              'La [recette manuelle](recette-manuelle.md) est la seule page du cahier écrite à la main : '
+              'les contrôles qu\'un humain fait avant de dire « livré » — fluidité, lisibilité, son, '
+              'manette — avec, pour chacun, ce qu\'on regarde et ce qui doit se voir.', '',
+              '## Lancer les tests', '',
               '```', 'powershell -File scripts/build.ps1      # compile (préréglage ninja)',
               'ctest --preset ninja                     # exécute tous les cas',
               'ctest --preset ninja -R AttackTest       # une suite', '```', '',
@@ -418,6 +581,7 @@ def render_all(cases):
     files = {'README.md': render_readme(domains)}
     for slug, (title, category, items) in domains.items():
         files[f'{slug}.md'] = render_domain(title, category, items)
+    files['couverture-exigences.md'] = render_coverage(domains, collect_exigences(SPECIFICATION_DIR))
     return files
 
 
@@ -444,7 +608,14 @@ def main():
     files = render_all(cases)
     existing = set()
     if os.path.isdir(OUTPUT_DIR):
-        existing = {name for name in os.listdir(OUTPUT_DIR) if name.endswith('.md')}
+        existing = {name for name in os.listdir(OUTPUT_DIR)
+                    if name.endswith('.md') and name not in HAND_WRITTEN_PAGES}
+    missing = [name for name in HAND_WRITTEN_PAGES
+               if not os.path.isfile(os.path.join(OUTPUT_DIR, name))]
+    if missing:
+        print(f'Page(s) manuscrite(s) absente(s) de {OUTPUT_DIR} : {", ".join(missing)} — le README '
+              'les cite, le lint du site les exigerait.', file=sys.stderr)
+        return 1
 
     if '--check' in sys.argv:
         stale = sorted(existing - set(files))

@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" font-family="Georgia, serif" font-size="13">
-  <rect width="880" height="600" fill="#fbf8f0"/>
-  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la fenêtre de LevelEditor : palette, couches, canevas isométrique, navigateur, Problems</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 616" font-family="Georgia, serif" font-size="13">
+  <rect width="880" height="616" fill="#fbf8f0"/>
+  <text x="20" y="24" font-size="15" font-weight="600" fill="#25201a">Maquette — la fenêtre de LevelEditor : palette par niveau, couches et étages, canevas, Maps, Problems</text>
 
   <rect x="20" y="36" width="840" height="470" fill="#ece4d1" stroke="#25201a"/>
   <rect x="20" y="36" width="840" height="18" fill="#d6c9a8"/>
@@ -18,22 +18,31 @@
   <text x="30" y="94" font-size="11" font-weight="600" fill="#25201a">Palette</text>
   <g font-size="10"><rect x="30" y="99" width="40" height="14" fill="#9a7420"/><text x="34" y="110" fill="#fbf8f0">Pieces</text><text x="78" y="110" fill="#6a6152">Types</text><text x="116" y="110" fill="#6a6152">Prefabs</text></g>
   <rect x="30" y="118" width="158" height="12" fill="#ece4d1" stroke="#d6c9a8"/><text x="34" y="127" font-size="9" fill="#6a6152">search: fountain</text>
-  <text x="30" y="144" font-size="9" fill="#25201a" font-weight="600">Floors</text>
-  <g stroke="#d6c9a8"><path d="M46,158 l14,9 l-14,9 l-14,-9 z" fill="#d6c9a8"/><path d="M80,158 l14,9 l-14,9 l-14,-9 z" fill="#ece4d1"/><path d="M114,158 l14,9 l-14,9 l-14,-9 z" fill="#d6c9a8"/></g>
-  <text x="30" y="188" font-size="9" fill="#25201a" font-weight="600">Standing · Wide</text>
-  <g stroke="#6a6152"><rect x="34" y="194" width="22" height="28" fill="#9a7420"/><rect x="66" y="194" width="34" height="28" fill="#2f7f86"/><rect x="110" y="200" width="22" height="22" fill="#3f6b34"/></g>
-  <text x="140" y="212" font-size="9" fill="#8a2233">damier :</text><text x="140" y="222" font-size="9" fill="#8a2233">pièce absente</text>
+  <text x="30" y="142" font-size="9" fill="#8a2233" font-weight="600">▾ Arenarea</text>
+  <rect x="30" y="147" width="12" height="12" fill="#9a7420" stroke="#6a6152"/><text x="48" y="156" font-size="9" fill="#25201a">mur-pierre <tspan fill="#9a7420">⚠ masks Capital</tspan></text>
+  <path d="M36,163 l6,4 l-6,4 l-6,-4 z" fill="#2f7f86" stroke="#6a6152"/><text x="48" y="170" font-size="9" fill="#25201a">fontaine</text>
+  <text x="30" y="183" font-size="9" fill="#2f7f86" font-weight="600">▾ Capital</text>
+  <rect x="30" y="188" width="12" height="12" fill="#9a7420" fill-opacity="0.3" stroke="#d6c9a8"/><text x="48" y="197" font-size="9" fill="#6a6152">mur-pierre (masked)</text>
+  <text x="30" y="211" font-size="9" fill="#3f6b34" font-weight="600">▸ Central Empire   ▸ World</text>
+  <text x="30" y="224" font-size="9" fill="#8a2233">damier : pièce absente</text>
 
-  <rect x="24" y="236" width="170" height="96" fill="#fbf8f0" stroke="#d6c9a8"/>
+  <rect x="24" y="236" width="170" height="126" fill="#fbf8f0" stroke="#d6c9a8"/>
   <text x="30" y="250" font-size="11" font-weight="600" fill="#25201a">Layers</text>
-  <g font-size="10" fill="#25201a"><text x="30" y="266">☑ relief (decor) · locked</text><text x="30" y="280">☑ sol (ground · arenarea)</text><text x="30" y="294">☑ collision — masque</text></g>
-  <text x="30" y="312" font-size="9" fill="#6a6152">Opacity ──●── 100 % · Dimmed</text>
-  <text x="30" y="326" font-size="9" fill="#6a6152">Add ground · Add decor · Move · Remove</text>
+  <g font-size="9" fill="#25201a">
+    <text x="30" y="265">☑ toit (Decor, floor 2)</text>
+    <rect x="28" y="269" width="162" height="12" fill="#9a7420" fill-opacity="0.2"/><text x="30" y="278">☑ étage (Decor, floor 1)</text>
+    <text x="30" y="291">☑ relief (Decor) · locked</text>
+    <text x="30" y="304">☑ sol (Ground · arenarea)</text>
+    <text x="30" y="317">☑ collision — masque</text>
+  </g>
+  <text x="30" y="332" font-size="9" fill="#6a6152">Opacity ●── 100 % · Dimmed</text>
+  <text x="30" y="345" font-size="9" fill="#25201a">Floor [1▾] 0..4 · ☑ show storey</text>
+  <text x="30" y="357" font-size="9" fill="#6a6152">Add ground · Add decor · Remove</text>
 
-  <rect x="24" y="338" width="170" height="80" fill="#6a6152" stroke="#d6c9a8"/>
-  <text x="30" y="352" font-size="11" font-weight="600" fill="#fbf8f0">Overview</text>
-  <path d="M109,360 l50,31 l-50,31 l-50,-31 z" fill="#d6c9a8"/>
-  <rect x="94" y="372" width="36" height="24" fill="none" stroke="#9a7420" stroke-width="1.5"/>
+  <rect x="24" y="366" width="170" height="54" fill="#6a6152" stroke="#d6c9a8"/>
+  <text x="30" y="380" font-size="11" font-weight="600" fill="#fbf8f0">Overview</text>
+  <path d="M109,384 l30,16 l-30,16 l-30,-16 z" fill="#d6c9a8"/>
+  <rect x="97" y="392" width="24" height="14" fill="none" stroke="#9a7420" stroke-width="1.5"/>
 
   <rect x="200" y="80" width="470" height="338" fill="#25201a"/>
   <rect x="200" y="80" width="90" height="16" fill="#6a6152"/><text x="206" y="92" font-size="9" fill="#fbf8f0">arenarea *</text>
@@ -90,10 +99,19 @@
   <rect x="20" y="490" width="840" height="16" fill="#d6c9a8"/>
   <text x="26" y="502" font-size="9" fill="#25201a">Paint: left click/drag · Alt+click: pick · Ctrl+Z/Y: undo/redo · double-click a problem: open the map, select the entity, frame its cell</text>
 
+  <rect x="116" y="54" width="112" height="52" fill="#fbf8f0" stroke="#25201a"/>
+  <g font-size="9" fill="#25201a">
+    <text x="122" y="65">Playtest</text><text x="200" y="65" fill="#6a6152">P</text>
+    <text x="122" y="76">Run in game</text><text x="200" y="76" fill="#6a6152">F5</text>
+    <text x="122" y="87">Run in game…</text><text x="196" y="87" fill="#6a6152">^F5</text>
+    <rect x="117" y="91" width="110" height="13" fill="#9a7420" fill-opacity="0.25"/><text x="122" y="101" font-weight="600">World state…</text>
+  </g>
+
   <g fill="#6a6152" font-size="11">
     <text x="20" y="530">Comparer à la capture réelle (editeur-fenetre.jpg) : la fenêtre existe avec ces six panneaux ; elle s'ouvre aujourd'hui sur une carte vierge,</text>
     <text x="20" y="546">sans lieu (base vide, LOT-102), et sa palette « Pieces » attend les planches HD (LOT-105 à LOT-110). La maquette montre l'éditeur avec une</text>
     <text x="20" y="562">carte de quartier ouverte : ce qu'il doit montrer et signaler, pas son style — outil interne, style Fusion, textes anglais (décision D7).</text>
     <text x="20" y="578">Le canevas montre la carte comme le jeu la joue (EX-EDIT-059) ; le losange sous le pointeur désigne la case, pas l'image (EX-EDIT-060).</text>
+    <text x="20" y="594">Palette par niveau et pièce masquante (LOT-124) ; Map › World state… (LOT-126) ; couche de décor à l'étage, « show storey » (LOT-129).</text>
   </g>
 </svg>

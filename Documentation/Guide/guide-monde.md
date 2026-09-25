@@ -46,7 +46,8 @@ GPU (`EX-NFR-004`), que l'interface met à l'écran et que les tests jouent sans
 Côté interface, `hmi::WorldModel` (un singleton QML) tient la partie : il possède un
 `hmi::WorldPlay`, qui possède la session ; toutes les 16 ms, il passe à `update` l'intention que
 l'écran a tenue (`setMove`, `interact`) et traduit les événements rendus en signaux
-(`dialogueRequested`, `encounterRequested`, `portalLocked`, `portalBroken`, `mapEntered`). C'est
+(`dialogueRequested`, `encounterRequested`, `portalLocked`, `portalBroken`, `portalSealed`,
+`mapEntered`, `questAdvanced`). C'est
 l'**écran** qui ouvre le dialogue ou le Colisée, et qui **gèle** la carte pendant ce temps ; le
 modèle ne décide rien du monde. Le singleton n'est pas un détail : la pile d'écrans détruit la vue
 de jeu quand un autre écran la recouvre, et une session possédée par l'écran mourrait avec elle —
@@ -63,7 +64,7 @@ la scène (composeur, caméra qui suit le héros) dans [Rendu 2D : de la scène 
 > monde est gelé pendant un dialogue — mais elles vivent désormais dans `ExplorationSession` et
 > dans le gel de `hmi::WorldModel`.
 
-![Un pas d'exploration : l'intention entre, la marche puis le portail puis l'interaction se jouent dans cet ordre, et les événements sortent](figures/monde-pas-exploration.svg)
+![Un pas d'exploration : l'intention entre, la marche, le portail, les zones déclencheuses puis l'interaction se jouent dans cet ordre, et les événements sortent](figures/monde-pas-exploration.svg)
 
 ## La session d'exploration : `core::ExplorationSession`
 
@@ -90,9 +91,11 @@ avec une nature (`core::ExplorationEventKind`), une valeur et une case :
 | `MapEntered` | l'identifiant de la carte | recomposer la scène, relancer le fondu |
 | `PortalLocked` | le drapeau exigé | dire que la porte est fermée |
 | `PortalBroken` | la carte cible | signaler un contenu cassé (`EX-NFR-040`) |
+| `PortalSealed` | la carte cible, s'il en nomme une | dire que l'escalier est condamné : il est là, il ne s'ouvre pas (`LOT-126`) |
 | `Dialogue` | l'identifiant du dialogue | ouvrir l'écran de dialogue, geler la carte |
 | `Encounter` | l'identifiant de la rencontre | engager le combat, geler la carte |
 | `Interacted` | le type de l'entité (`chest`, `sign`…) | jouer l'interaction sans autre suite |
+| `QuestAdvanced` | `<quête>/<étape>` | relire le journal de quêtes (`LOT-116`) |
 
 ### `start` : entrer sur une carte
 
@@ -102,7 +105,7 @@ vide, c'est l'**entrée** de la carte, ce que fait « Nouvelle partie » — via
 héros est posé au **centre** de la case d'arrivée et la case courante est mémorisée ; sinon la
 fonction rend faux, et `travel().lastIssue()` dit pourquoi.
 
-### `update` : un pas, trois temps
+### `update` : un pas, quatre temps
 
 `core::ExplorationSession::update(intent, seconds)` commence, **gelée ou non**, par tirer les
 conséquences des drapeaux changés depuis le pas précédent (`refreshFromFlags`, `LOT-116`) : les
@@ -110,9 +113,11 @@ quêtes avancent (un `QuestAdvanced` par étape atteinte, `value` = `<quête>/<�
 des interactifs est relue, sans la carte absente. Gelée ou non, parce qu'un dialogue ouvert pose
 ses drapeaux pendant que la carte attend. Puis rien de plus si la carte est gelée, si aucune carte
 n'est chargée ou si la durée n'est pas positive. Sinon, **dans cet ordre** : on marche, on
-franchit le portail de la case atteinte, puis on interagit — et l'on tire de nouveau les
-conséquences des drapeaux, qu'un coffre ouvert a pu changer. L'ordre compte : marcher *après* avoir
-franchi ferait faire au héros un pas sur la carte d'arrivée avec l'intention qui l'a fait entrer.
+franchit le portail de la case atteinte, on entre dans les zones à déclencheur de cette case
+(`enterZones`, `LOT-126`, décrit avec [les quêtes](#les-zones-declencheuses)), puis on interagit —
+et l'on tire de nouveau les conséquences des drapeaux, qu'un coffre ouvert a pu changer. L'ordre
+compte : marcher *après* avoir franchi ferait faire au héros un pas sur la carte d'arrivée avec
+l'intention qui l'a fait entrer.
 
 **Marcher (`walk`).** Si l'intention est nulle, rien ; sinon l'orientation prend la direction
 demandée (`EX-EXP-004` : elle est **conservée à l'arrêt**) et le héros avance de
@@ -136,9 +141,10 @@ reste dessus : la session compare la case du héros à celle du pas précédent 
 fait rien si elle n'a pas changé — sans quoi un portail qui ramène sur place bouclerait. Sur une
 case neuve, `core::portalAt` cherche un portail ; s'il y en a un, `core::WorldTravel::cross`
 décide. `Moved` : la liste des interactifs est relue, le héros est posé au centre de l'arrivée, et
-`MapEntered` est rendu avec la carte et la case. `Locked` : `PortalLocked` avec le drapeau exigé.
-`UnreadableMap` ou `UnknownArrival` : `PortalBroken` avec la carte cible. `NoPortal` n'arrive pas
-ici, puisqu'on a déjà vu le portail.
+`MapEntered` est rendu avec la carte et la case. `Sealed` (`core::PortalTarget::sealed`, le
+portail condamné du `LOT-126`) : `PortalSealed` avec la carte cible, s'il en nomme une. `Locked` :
+`PortalLocked` avec le drapeau exigé. `UnreadableMap` ou `UnknownArrival` : `PortalBroken` avec la
+carte cible. `NoPortal` n'arrive pas ici, puisqu'on a déjà vu le portail.
 
 **Interagir (`resolveInteraction`).** Si `interact` est vrai : la session bâtit un
 `core::InteractionCandidate` par entité interactive, et `core::findInteractionTarget` désigne la
@@ -190,8 +196,7 @@ recréée depuis le fichier de niveau à chaque changement de carte, et le drape
 elle. Le coffre redonnerait son butin à chaque passage : un défaut qui ne casse rien, ne lève
 aucune alerte, et se confond avec de la générosité de conception. L'état vit donc **à côté** des
 entités, dans un ensemble ordonné de clés texte qui survit au chargement de carte et que la
-sauvegarde (`LOT-150`) écrira telle
-quelle.
+sauvegarde (`LOT-150`) écrira telle quelle.
 
 - `core::WorldFlags::isSet(key)` — vrai si le fait est acquis.
 - `core::WorldFlags::set(key)` — marque le fait acquis et rend **faux s'il l'était déjà**. C'est
@@ -217,9 +222,8 @@ déclaration), jamais sur un refus. C'est ainsi que la carte apprend qu'un PNJ d
 disparaître sans être rechargée : elle compare la révision à celle de sa dernière image. Pas
 d'abonnement ni de signal — le cœur n'en a pas, et un dialogue qui pose un drapeau ignore la carte.
 
-Les clés sont des chaînes plutôt qu'un type fermé : les quêtes
-(`LOT-116`) y écrivent des drapeaux
-que ce fichier ne peut pas énumérer. La contrepartie — une faute de frappe passe — est traitée par
+Les clés sont des chaînes plutôt qu'un type fermé : les quêtes (`LOT-116`) y écrivent des
+drapeaux que ce fichier ne peut pas énumérer. La contrepartie — une faute de frappe passe — est traitée par
 `core::keyForEntity(mapName, type, column, row)`, qui **fabrique** la clé d'une entité de carte :
 `"<carte>/<type>@<colonne>,<ligne>"`. Deux coffres d'une même carte se distinguent par leur case ;
 deux cartes ne se marchent pas dessus parce que le nom de carte ouvre la clé. La **position** sert
@@ -305,7 +309,7 @@ texte** (`EX-NFR-011`) : `Core` n'écrit aucun message, l'interface traduit.
 ### Lire un portail sur la carte
 
 `core::PortalTarget` est ce qu'un portail nomme : `map`, `arrival`, `requiredFlag` (vide si le
-portail s'ouvre toujours). `core::portalAt(level, position)` rend le portail posé sur une case,
+portail s'ouvre toujours) et `sealed` (vrai pour un portail condamné, `LOT-126`). `core::portalAt(level, position)` rend le portail posé sur une case,
 s'il y en a un ; `core::arrivalPointAt(level, name)` la case du point d'arrivée nommé. Une
 propriété ne vaut que si elle est du **texte** : un entier là où l'on attend un nom de carte est
 une saisie fautive, et la traiter comme vide la fait signaler plutôt que deviner. Deux points de
@@ -322,8 +326,9 @@ le point nommé sinon — inconnu, `UnknownArrival` avec `UnknownArrivalPoint` d
 rend un `core::TravelResult` : `Moved`, `UnreadableMap` ou `UnknownArrival`.
 
 `core::WorldTravel::cross(from, flags)` franchit le portail posé sur une case, dans cet ordre :
-pas de carte ou pas de portail, `NoPortal` (le cas ordinaire d'un pas) ; drapeau exigé absent des
-`WorldFlags`, `Locked` — le drapeau est exigé **du monde**, pas de la carte : la porte d'Arenarea
+pas de carte ou pas de portail, `NoPortal` (le cas ordinaire d'un pas) ; portail condamné
+(`sealed`, `core::isSealedPortal`), `Sealed` — voulu, ce n'est ni une erreur ni un chemin ; drapeau
+exigé absent des `WorldFlags`, `Locked` — le drapeau est exigé **du monde**, pas de la carte : la porte d'Arenarea
 s'ouvrira quand la quête l'aura ouverte, et le portail se contente de le lire ; carte cible vide,
 `MissingTargetMap` dans `lastIssue()` et `UnreadableMap` ; sinon le résultat de `enter`. Sur un
 refus, rien ne bouge.
@@ -521,22 +526,42 @@ les types et propriétés sont ceux de `knownInteractableKinds`, `dialogueTrigge
 | `chest`, `sign` | point | — | `knownInteractableKinds` |
 | `npc` | point | `dialogue`, `figure`, `guards` | `dialogueTriggerFor`, `CityPlan` |
 | `encounter` | point | `encounterId` (requis), `respawns` | `encounterTriggerFor` |
-| `portal` | point | `targetMap`, `arrival` (requis), `requiresFlag` | `WorldTravel` |
+| `portal` | point | `targetMap`, `arrival` (requis, sauf si `sealed`), `requiresFlag`, `sealed` | `WorldTravel` |
 | `spawnPoint` | point | `name` (requis) | `arrivalPointAt` |
 | `combatZone` | rectangle | `name`, `width`, `height` (≥ 1) | `combatZonesOf` |
 | `cityBlock` | rectangle | `name`, `width`, `height` (≥ 1) | `cityBlocksOf` |
-| `zone` | aire | `name`, `difficultTerrain`, `width`, `height` | `BattleGrid` |
+| `zone` | aire | `name`, `difficultTerrain`, `width`, `height` ; les déclencheurs `triggerDialogue`, `triggerFlag` + `triggerValue`, `triggerMap` + `triggerArrival`, `triggerOnce` | `BattleGrid`, `ExplorationSession` |
+| `prop` | rectangle | `piece` (requis), `blocks` (vrai par défaut), `width`, `height` (≥ 1) | `ExplorationSession`, `WorldSceneComposer` |
 | `route` | ligne brisée | `name` (requis), `loop` | personne encore |
 | `arenaEntry` | point | `side` (`allies`/`enemies`), `rank` | `arenaEntryPoints` |
 
 - `core::EntityPropertySpec` — une propriété déclarée : clé, nature (`core::EntityPropertyKind` :
-  texte, entier, booléen, **choix**), source des choix (`core::EntityChoiceSource` : liste fixe,
-  dialogues acceptés, rencontres, cartes, points d'arrivée de la carte nommée par `targetMap` de
-  la **même** entité, figurines, drapeaux qu'un dialogue pose, lieux de l'atlas, objets, entités
-  `carte#id`), `required`, valeur par défaut, bornes d'un entier.
+  texte, entier, booléen, **choix**), source des choix (`core::EntityChoiceSource` : liste fixe
+  `Fixed`, dialogues acceptés `Dialogues`, rencontres `Encounters`, cartes `Maps`, points
+  d'arrivée `ArrivalPoints` de la carte nommée par la propriété liée de la **même** entité,
+  figurines `Figures`, drapeaux qu'un dialogue, une quête ou une zone pose `Flags`, lieux de
+  l'atlas `Locations`, objets `Items`, entités `carte#id` `EntityRefs`, et depuis le `LOT-126`
+  les valeurs qu'une quête déclare pour le drapeau nommé par la propriété liée `FlagValues`, tout
+  drapeau connu ou nouveau que l'entité **pose** `WrittenFlags`, les pièces du catalogue résolu du
+  lieu `Pieces`), `required`, valeur par défaut, bornes d'un entier. Trois liens entre
+  propriétés d'une même entité : `relatedKey` nomme celle dont dépendent les choix (`targetMap`
+  pour `arrival`, `triggerFlag` pour `triggerValue`) ; `waivedBy` nomme une propriété booléenne
+  qui, vraie, lève `required` — un portail condamné (`sealed`) n'a ni cible ni arrivée à nommer ;
+  `writesFlag` marque une valeur que l'entité **pose**, requise si une quête déclare le drapeau
+  (`core::WorldFlags::set` refuse un drapeau déclaré sans valeur).
 - `core::EntityKind` — type, propriétés, `core::EntityShape` (point, rectangle, aire, ligne
   brisée : c'est la **forme** que le canevas de l'éditeur connaît, pas le type, `LOT-EDITOR-05`),
-  la propriété écrite en libellé à côté, la propriété qui nomme la figurine. `find(key)`.
+  la propriété écrite en libellé à côté (`labelProperty`), la propriété qui nomme la figurine
+  (`figureProperty`) et celle qui nomme la pièce (`pieceProperty`, `LOT-126`) : la composition du
+  jeu et du canevas pose alors la pièce à la case de l'entité, comme une pièce de couche, tant
+  qu'elle est présente. `find(key)`.
+- `core::commonEntityProperties()` — les propriétés que **toute** famille peut porter : la
+  condition de présence du `LOT-116` (`presenceFlag`, source `Flags` ; `presenceTest`, choix fixe
+  parmi `set`, `unset`, `equals`, `notEquals` ; `presenceValue`, source `FlagValues` liée à
+  `presenceFlag`). Déclarées ici pour l'inspecteur, elles ne sont pas posées à la création : une
+  entité sans condition est toujours là. `core::inspectedProperties(kind)` rend ce que
+  l'inspecteur montre — les propriétés de la famille, puis les communes que la famille ne
+  redéclare pas — et `core::findInspectedProperty(kind, key)` cherche dans les deux.
 - `core::knownEntityKinds()` — la table, dans l'ordre de la liste de l'éditeur. **Toute famille
   que le jeu lit doit y être** : un test bloquant le vérifie (`EX-EDIT-073`). Un type absent reste
   **légal** sur une carte (`EX-NFR-040`) : l'éditeur le transporte et en montre les propriétés
@@ -549,11 +574,15 @@ les types et propriétés sont ceux de `knownInteractableKinds`, `dialogueTrigge
   la forêt —, et c'est au chargement du graphe qu'un portail orphelin devient une erreur. Les
   `core::EntityIssue` portent un `core::EntityIssueCode` (type inconnu, propriété manquante,
   mauvais type de valeur, choix invalide, dialogue / rencontre / carte / point d'arrivée / figurine
-  / drapeau / lieu / objet / référence inconnus, doublon de point d'arrivée, entier hors bornes),
-  la clé et la valeur à citer — `Core` n'écrit pas de texte. Un point d'arrivée ne se juge que
-  dans une carte connue : une carte inconnue est déjà signalée, la signaler deux fois n'apprendrait
-  rien.
-- `core::arrivalPointNames(entities)` — les noms des points d'arrivée, sans doublon.
+  / drapeau / lieu / objet / référence / pièce inconnus, doublon de point d'arrivée, entier hors
+  bornes, condition de présence mal formée, valeur de drapeau qu'aucune quête ne déclare), la clé
+  et la valeur à citer — `Core` n'écrit pas de texte. Un point d'arrivée ne se juge que dans une
+  carte connue : une carte inconnue est déjà signalée, la signaler deux fois n'apprendrait rien.
+- `core::arrivalPointNames(entities)` — les noms des points d'arrivée, sans doublon ;
+  `core::flagsSetByEntities(entities)` — les drapeaux que les entités **posent**, le `triggerFlag`
+  de leurs zones (`LOT-126`), sans doublon : ce que le graphe du monde range dans
+  `core::WorldMapNode::triggerFlags` ; `core::isSealedPortal(entity)` — vrai pour un portail
+  condamné (`sealed` vrai), ce que `WorldTravel` et le graphe lisent.
 
 ## Les dialogues : `Dialogue.h`
 
@@ -705,7 +734,8 @@ un arbre de vingt nœuds se vérifie en test sans le cliquer. Les références d
 Un PNJ est une entité `npc` (`NPC_ENTITY_TYPE`) dont `dialogue` nomme le dialogue, `figure` la
 figurine (`Assets/Npc/<slug>`, ou un dossier depuis `Assets/` avec une barre ; vide, le PNJ n'est
 pas dessiné) et `guards` le quartier dont il garde la porte. `core::dialogueTriggerFor(entity)`
-lit l'entité comme un PNJ à qui parler : un PNJ **sans** dialogue n'est pas un déclencheur — il se
+lit l'entité comme un PNJ à qui parler et rend un `core::DialogueTrigger` — l'identifiant du
+dialogue et la case — : un PNJ **sans** dialogue n'est pas un déclencheur — il se
 voit et ne répond pas, et le refuser comme carte invalide ferait disparaître un figurant dont le
 dialogue n'est pas encore écrit. Côté interface, `hmi::DialogueModel` tient un runner, le catalogue
 des dialogues et l'interlocuteur, et relit ce que l'écran affiche après chaque geste. Le runner
@@ -717,14 +747,29 @@ de l'écran seul), un ensemble le temps du processus.
 ## Les quêtes : `Quest.h`
 
 Fichiers : [`Quest.h`](../../Source/Core/Gameplay/Quest.h),
-[`EntityPresence.h`](../../Source/Core/World/EntityPresence.h) (`LOT-116`). Le mécanisme ; la quête
-de la démo est au `LOT-120`, la sauvegarde des drapeaux en `0.0.3`.
+[`FlagCondition.h`](../../Source/Core/Gameplay/FlagCondition.h),
+[`EntityPresence.h`](../../Source/Core/World/EntityPresence.h) (`LOT-116`) et, pour ce que la quête
+demande aux cartes, [`EntityKinds.h`](../../Source/Core/World/EntityKinds.h) (`LOT-126`). Le
+mécanisme ; la quête de la démo est au `LOT-120`, la sauvegarde des drapeaux au `LOT-150`
+(`0.0.3`).
+
+![Le circuit des drapeaux : le fichier de quête déclare ses drapeaux à l'unique ensemble de la partie, dialogues, effets d'étape et zones y écrivent, conditions de dialogue, étapes, présence et zones y lisent, et la révision fait recomposer la scène puis relire le journal](figures/monde-quete-drapeaux.svg)
+
+Tout tient dans un seul ensemble : les **drapeaux de la partie** (`core::WorldFlags`, plus haut).
+Il n'y en a qu'un — celui de la `core::ExplorationSession`, que `hmi::WorldModel::flags` expose —
+et rien d'autre ne mémorise une quête : ni compteur d'étape, ni objet « quête en cours ». Une
+quête **déclare** ses drapeaux à valeurs, ses étapes les **lisent**, ses effets y **écrivent** ; le
+dialogue, la présence d'un PNJ et les zones déclencheuses passent par le même ensemble. C'est ce
+qui permet à un dialogue de faire avancer une quête sans savoir qu'elle existe, et à la sauvegarde
+de n'écrire que des drapeaux.
 
 ### Une quête en données
 
-Un fichier `World/quests/<id>.json` (schéma `quest.schema.json`) porte les **drapeaux à valeurs**
-que la quête déclare (`flags` : `id`, `values`, `initial` — absente, la première) et ses
-**étapes** dans l'ordre du récit (`steps`) :
+Un fichier `World/quests/<id>.json` (schéma
+[`quest.schema.json`](../../Source/Elements/Rpg/schema/quest.schema.json)) devient un `core::Quest` :
+son identifiant, les **drapeaux à valeurs** qu'elle déclare (`flags`, des `core::QuestFlag` :
+`id`, `values`, `initial` — absente, la première) et ses **étapes** dans l'ordre du récit
+(`steps`, des `core::QuestStep`) :
 
 ```json
 { "id": "pommes", "name": "Des pommes pour l'arène", "source": "original",
@@ -736,44 +781,83 @@ que la quête déclare (`flags` : `id`, `values`, `initial` — absente, la prem
       "effects": [{ "type": "setFlag", "flag": "pommes/recompense" }], "outcome": "success" } ] }
 ```
 
-**Une étape se lit dans le monde, elle ne s'ordonne pas.** Elle est atteinte dès que **toutes** ses
-conditions (`when`) tiennent, et le reste : son fait `core::questStepFlag` (`quest/<quête>/step/
-<étape>`) est posé, ses effets (`setFlag` avec ou sans `value`, `clearFlag`) appliqués, et une
-issue (`success`, `failure`) clôt la quête. Les embranchements viennent sans graphe : « persuadé »
-et « condamné » sont deux étapes que deux valeurs du même drapeau atteignent, et le journal ne
-montre que celle qui l'a été. **Aucun texte** : le titre et chaque étape ont une clé fabriquée,
-`quest.<id>.title` et `quest.<id>.<étape>` (`core::questTextKeys`).
+Un `core::QuestStep` porte son identifiant, ses conditions `when` (des `core::FlagCondition`,
+jamais vides, qui doivent **toutes** tenir), ses effets (des `core::QuestEffect` : `SetFlag`, avec
+`value` pour un drapeau déclaré, ou `ClearFlag`) et son issue (`core::QuestOutcome` : `None`,
+`Success`, `Failure`). **Une étape se lit dans le monde, elle ne s'ordonne pas.** Elle est
+atteinte dès que ses conditions tiennent, et le reste : son fait `core::questStepFlag`
+(`quest/<quête>/step/<étape>`) est posé, ses effets appliqués, et une issue clôt la quête. Les
+embranchements viennent sans graphe : « persuadé » et « condamné » sont deux étapes que deux
+valeurs du même drapeau atteignent, et le journal ne montre que celle qui l'a été. **Aucun
+texte** : le titre et chaque étape ont une clé fabriquée, `core::questTitleKey`
+(`quest.<id>.title`) et `core::questStepKey` (`quest.<id>.<étape>`) ; `core::questTextKeys` les
+liste toutes, pour qu'un test les cherche dans les deux langues, comme pour un dialogue.
+
+La déclaration est ce qui **type** un drapeau : `core::declareQuestFlags(catalog, flags)` porte
+chaque `QuestFlag` du catalogue à `core::WorldFlags::declare`, qui en retient les valeurs permises
+et l'initiale (sa structure privée `core::WorldFlags::Declaration`). Dès lors `setValue` refuse
+une valeur hors liste, `set` refuse de poser le drapeau sans valeur, et `value` rend l'initiale
+tant que rien n'a été posé : la quête des pommes est « inconnue » avant qu'on ne l'accepte, sans
+qu'un dialogue ait eu à l'écrire.
+
+### La condition sur drapeau : `core::FlagCondition`
+
+Une seule forme pour trois lecteurs — une réponse de dialogue, une étape de quête et une entité
+conditionnée ne doivent pas pouvoir comprendre le même drapeau de trois façons.
+`core::FlagCondition` porte le drapeau, un `core::FlagTest` (`IsSet` : le fait est acquis, ou le
+drapeau a reçu une valeur ; `IsUnset` ; `Equals` et `NotEquals`, avec au moins une valeur) et ses
+`values` ; `holds(flags)` répond, l'initiale d'un drapeau déclaré comptant comme sa valeur.
+`core::readFlagCondition` lit les trois formes JSON, exclusives — `{"flag": f}` ou
+`"isSet": false`, `"equals": "v"` ou `["v", "w"]`, `"notEquals": …` — et rend un
+`core::FlagConditionRead` : la condition **ou** l'erreur. `core::describeFlagCondition` en donne la
+forme lisible des traces et des tests (`quete.pommes == acceptee|condamne`, `!coffre`), et
+`core::splitFlagValues` sépare `a|b|c` en valeurs sans les vides : la forme d'une propriété de
+carte, qui ne tient qu'un scalaire.
 
 ### Le chargement, et ce qu'il refuse
 
-`core::readQuest(json, origin)` et `core::loadQuest(path)` rendent une quête **ou** des erreurs,
-toutes d'un coup, chacune nommant **le fichier et la ligne** (`quetes/pommes.json:14 : …`). La
-ligne d'une erreur de syntaxe vient de nlohmann ; celle d'une erreur de sens — une étape sans
-condition — de `core::positionOfPointer`, qui relit le texte en suivant le chemin JSON de la valeur
-fautive, nlohmann 3.11 ne gardant pas les positions. Refusés : un champ manquant ou du mauvais type,
-un drapeau sans valeur, à valeur en double ou d'initiale hors liste, deux étapes de même
-identifiant, une étape sans condition, une valeur comparée ou posée que le drapeau **de la quête**
-ne déclare pas, une issue inconnue. `core::loadQuests(dir)` refuse en plus un fichier dont le nom
-n'est pas l'identifiant, deux quêtes de même identifiant et un drapeau déclaré par deux quêtes ; un
-dossier absent est un jeu sans quête.
+`core::readQuest(json, origin)` et `core::loadQuest(path)` rendent un `core::QuestLoad` : la quête
+**ou** des erreurs, toutes d'un coup, chacune nommant **le fichier et la ligne**
+(`quetes/pommes.json:14 : …`). La ligne d'une erreur de syntaxe vient de nlohmann ; celle d'une
+erreur de sens — une étape sans condition — de `core::positionOfPointer`, qui relit le texte en
+suivant le chemin JSON de la valeur fautive, nlohmann 3.11 ne gardant pas les positions. Refusés :
+un champ manquant ou du mauvais type, un drapeau sans valeur, à valeur en double ou d'initiale hors
+liste, deux étapes de même identifiant, une étape sans condition, une valeur comparée ou posée que
+le drapeau **de la quête** ne déclare pas, une issue inconnue. `core::loadQuests(dir)` rend un
+`core::QuestCatalog` — `quests`, `errors`, `find(id)` et `findFlag(flag)`, la déclaration d'un
+drapeau par l'une des quêtes — et refuse en plus un fichier dont le nom n'est pas l'identifiant,
+deux quêtes de même identifiant et un drapeau déclaré par deux quêtes ; un dossier absent est un
+jeu sans quête.
 
 `core::validateFlagUses(quests, dialogues)` confronte ensuite dialogues et quêtes aux déclarations :
 une valeur comparée ou posée qu'aucune déclaration ne permet, un drapeau déclaré posé sans valeur,
-une valeur sur un drapeau que personne ne déclare. `core::flagsWrittenBy` et `core::flagsReadBy`
-relèvent ce que les deux catalogues posent et lisent : c'est ce que `LevelEditor --check` compare.
+une valeur sur un drapeau que personne ne déclare. `core::flagsWrittenBy` relève ce que les deux
+catalogues posent (`setFlag`, le drapeau d'une quête démarrée, les effets et le fait de chaque
+étape, les drapeaux déclarés — qui ont toujours une valeur, l'initiale) ; `core::flagsReadBy` ce
+qu'ils lisent, en `core::FlagRead` : le drapeau et l'endroit qui le lit (`dialogue 'x' : noeud
+'y'`, `quete 'x' : etape 'y'`). C'est ce que `LevelEditor --check` compare aux cartes.
 
-Au démarrage, `hmi::loadGameQuests(root)` lit `World/quests`, confronte aux dialogues et rend les
-erreurs, que `hmi::WorldModel` journalise ; la partie reste jouable (`EX-NFR-040`).
+Au démarrage, `hmi::loadGameQuests(root)` ([`GameQuests.h`](../../Source/HMI/Game/GameQuests.h))
+lit `World/quests` sous la racine des éléments déployés, confronte aux dialogues de
+`World/dialogues` et rend un `hmi::GameQuests` : le catalogue accepté et, dans `errors`, les quêtes
+refusées (`fichier:ligne : …`) puis les usages fautifs. `hmi::WorldModel` les journalise et donne
+le catalogue à la session ; la partie reste jouable (`EX-NFR-040`), et le test des données livrées
+exige qu'il n'y ait rien à dire.
 
 ### Avancer, et lire l'avancement
 
 `core::advanceQuests(catalog, flags)` atteint toutes les étapes dont les conditions tiennent, dans
 les quêtes non closes, jusqu'au repos — un effet peut en atteindre une autre, et le tout termine
-puisqu'une étape n'est atteinte qu'une fois. `core::ExplorationSession::setQuests` déclare les
-drapeaux des quêtes et fait un premier pas ; `refreshFromFlags` appelle `advanceQuests` à chaque
-changement de révision. `core::questProgress(quest, flags)` rend l'état (`NotStarted`, `Active`,
-`Succeeded`, `Failed`) et les étapes atteintes, **lus dans les drapeaux** : l'avancement n'est
-stocké nulle part ailleurs, et la sauvegarde n'aura que les drapeaux à écrire.
+puisqu'une étape n'est atteinte qu'une fois — et rend un `core::QuestEvent` par étape atteinte
+(`quest`, `step`, `outcome`). `core::ExplorationSession::setQuests` déclare les drapeaux et fait un
+premier pas ; `refreshFromFlags` appelle `advanceQuests` à chaque changement de révision et traduit
+chaque `QuestEvent` en événement `QuestAdvanced` (`value` = `<quête>/<étape>`), que
+`hmi::WorldModel` relaie par son signal `questAdvanced(quête, étape)`.
+`core::questProgress(quest, flags)` rend un `core::QuestProgress` : le `core::QuestStatus`
+(`NotStarted`, `Active`, `Succeeded`, `Failed`) et `reachedSteps`, les étapes atteintes dans
+l'ordre du récit, dont la dernière est l'objectif du moment — **lus dans les drapeaux** :
+l'avancement n'est stocké nulle part ailleurs, et la sauvegarde (`LOT-150`) n'aura que les
+drapeaux à écrire.
 
 ### La condition de présence
 
@@ -781,13 +865,15 @@ Une entité de carte, **de toute famille**, peut dépendre d'un drapeau par troi
 une propriété de carte ne tient qu'un scalaire, un objet serait jeté au chargement :
 `presenceFlag` (le drapeau), `presenceTest` (`set`, `unset`, `equals`, `notEquals` ; absent :
 `equals` si des valeurs sont données, `set` sinon) et `presenceValue` (`acceptee|persuasion-echouee`).
-`core::presenceConditionOf` la lit ou nomme son défaut (`core::PresenceIssue`) ;
-`core::isEntityPresent` répond, et une condition mal formée laisse l'entité **présente** — un PNJ
-toujours là se voit, un PNJ disparu par une faute de frappe non. La session ne rend interactives
-que les entités présentes ; `hmi::WorldPlay` ne compose que leurs figurines et leurs jetons, et
-annonce une scène changée dès que la révision des drapeaux bouge — un PNJ paraît et disparaît
-**sans que la carte soit relue**. Un PNJ conditionné est un PNJ de quête : son jeton de maquette
-est jaune, comme celui qui porte un dialogue (D-22).
+`core::presenceConditionOf` la lit en un `core::PresenceRead` : la condition, ou le
+`core::PresenceIssue` qui l'empêche (une propriété qui n'est pas un texte, un test inconnu,
+`equals` sans valeur, un test sans drapeau). `core::isEntityPresent` répond, et
+`core::presentEntities` filtre une liste d'entités dans leur ordre. Une condition mal formée
+laisse l'entité **présente** — un PNJ toujours là se voit, un PNJ disparu par une faute de frappe
+non. La session ne rend interactives que les entités présentes ; `hmi::WorldPlay` ne compose que
+leurs figurines et leurs jetons, et annonce une scène changée dès que la révision des drapeaux
+bouge — un PNJ paraît et disparaît **sans que la carte soit relue**. Un PNJ conditionné est un PNJ
+de quête : son jeton de maquette est jaune, comme celui qui porte un dialogue (D-22).
 
 `core::validateMapEntities` contrôle la condition pour toute entité : mal formée,
 `InvalidPresence` ; sur un drapeau qu'aucun dialogue, aucune quête ni aucune zone ne pose,
@@ -806,24 +892,60 @@ propose, pour `presenceValue`, les valeurs que la quête déclare (source `FlagV
   maquette —, elle s'extrude en mur. La règle : ce qui **change** en cours de partie est une
   entité, tout le reste une pièce de couche.
 - **Le portail condamné** : `sealed` sur un portail le rend légal sans cible ni arrivée
-  (`EntityPropertySpec::waivedBy`) ; le graphe lui donne le statut `Sealed`, qui n'est ni une
-  erreur ni un chemin, et la session répond `PortalSealed` quand on marche dessus.
-- **Le déclencheur** : une zone qui porte `triggerDialogue`, `triggerFlag` (+ `triggerValue` pour
-  un drapeau déclaré, alors requise) ou `triggerMap` + `triggerArrival` agit quand le héros y
-  **entre** — pas quand il y arrive : un transfert qui dépose dans une zone ne boucle pas. L'ordre
-  est drapeau, dialogue, transfert ; `triggerOnce` garde sa trace dans un fait fabriqué, comme un
-  coffre ouvert. Le transfert est une arête `WorldLinkKind::Transfer` du graphe : le point
-  d'arrivée qu'il nomme est un départ pour l'atteignabilité, et les drapeaux que les zones posent
-  (`WorldMapNode::triggerFlags`) comptent parmi ceux qu'on pose.
+  (`EntityPropertySpec::waivedBy`) ; `core::isSealedPortal` le reconnaît, le graphe lui donne le
+  statut `Sealed`, qui n'est ni une erreur ni un chemin, `core::WorldTravel::cross` répond
+  `Sealed` et la session rend `PortalSealed` quand on marche dessus.
+- **Le déclencheur** : une zone qui agit quand le héros y entre, ci-dessous.
+
+### Les zones déclencheuses {#les-zones-declencheuses}
+
+Une zone de règles (`zone`, l'aire que `BattleGrid` lit pour le terrain difficile) peut aussi
+**agir** quand le héros y entre, par trois déclencheurs facultatifs de `EntityKinds.h` :
+`triggerDialogue` (un dialogue s'ouvre), `triggerFlag` (un drapeau se pose, avec `triggerValue` si
+une quête le déclare — requise alors, puisque `core::WorldFlags::set` refuse un drapeau déclaré
+sans valeur) et `triggerMap` + `triggerArrival` (un **transfert** vers une autre carte, ou
+ailleurs sur la même). Une zone sans aucun des trois ne déclenche rien.
+
+**Entrer, pas arriver.** `core::ExplorationSession` retient les zones à déclencheur qui couvrent
+la case du héros, relues par `resetZones` à chaque entrée sur une carte **sans être déclenchées** ;
+à chaque pas, après la marche et le portail, `enterZones` compare les zones de la case atteinte à
+celles du pas précédent et ne joue que les **nouvelles**. Un transfert qui dépose dans une zone ne
+boucle donc pas, et rester dans une zone ne la rejoue pas. Seules les zones **présentes**
+comptent : une zone porte une condition de présence comme toute entité, et une zone absente ne se
+traverse pas.
+
+**L'ordre : drapeau, dialogue, transfert.** Le drapeau d'abord, pour que le dialogue qui s'ouvre
+ou la carte d'arrivée le voient déjà ; puis l'événement `Dialogue` (l'écran l'ouvre et gèle la
+carte, comme pour un PNJ) ; puis le transfert, par `core::WorldTravel::enter` — `Moved` pose le
+héros et rend `MapEntered`, sinon `PortalBroken` avec la carte visée. Un transfert **arrête**
+l'entrée des zones : les autres zones de la case sont restées sur la carte quittée.
+
+**`triggerOnce`.** Une zone « une fois par partie » garde sa trace dans un fait **fabriqué** par
+`core::keyForEntity` (`<carte>/zone@<colonne>,<ligne>`), exactement comme un coffre ouvert : posé
+avant d'agir, lu avant de rejouer. Pas de compteur sur l'entité — elle serait recréée avec la
+carte.
+
+**Dans le graphe.** Une zone qui nomme `triggerMap` donne une arête `WorldLinkKind::Transfer` du
+`core::WorldGraph`, jugée comme un portail (mêmes statuts `core::PortalLinkStatus`) : le point
+d'arrivée qu'elle nomme est un départ pour l'atteignabilité de l'éditeur, et les drapeaux que les
+zones d'une carte posent (`core::WorldMapNode::triggerFlags`, tirés de
+`core::flagsSetByEntities`) comptent parmi ceux qu'un portail, un PNJ ou un dialogue peut attendre.
+Dans l'inspecteur, `triggerFlag` propose tout drapeau connu et en accepte un nouveau
+(`EntityChoiceSource::WrittenFlags` : c'est elle qui le pose), et `triggerValue` les valeurs que la
+quête déclare (`FlagValues`, avec `writesFlag`).
 
 ### Le journal
 
 `hmi::questJournalValues(catalog, flags, selected, text)`
 ([`QuestJournalScreen.h`](../../Source/HMI/Presentation/QuestJournalScreen.h)) tire l'écran des
-drapeaux, sans Qt : les quêtes commencées et leur état (`journal.status.*`), la choisie marquée
-`›`, l'entrée de sa dernière étape atteinte, et ses étapes, `✓` pour les franchies, l'issue pour
-la dernière. `hmi::QuestJournalModel` le relit à l'ouverture et à chaque `questAdvanced` de
-`hmi::WorldModel`. Au clavier et à la manette : `Haut`, `Bas` changent de quête, `Échap` referme.
+drapeaux, sans Qt, en `hmi::QuestJournalValues` : les quêtes commencées (`quests`, des
+`hmi::QuestJournalRow` — identifiant, libellé, valeur) et leur état traduit par
+`hmi::questStatusKey` (`journal.status.<active|succeeded|failed>`), la choisie (`selected`)
+marquée `›`, l'entrée de sa dernière étape atteinte (`detail`), et ses étapes (`objectives`), `✓`
+pour les franchies, l'issue pour la dernière ; `hmi::neighbourQuest` donne la voisine dans la
+liste, sans en sortir. `hmi::QuestJournalModel` ([IHM Qt](guide-ihm-qt.md)) le relit à
+l'ouverture et à chaque `questAdvanced` de `hmi::WorldModel`. Au clavier et à la manette :
+<kbd>Haut</kbd>, <kbd>Bas</kbd> changent de quête, <kbd>Échap</kbd> referme.
 
 ## La bascule vers le combat : `core::CombatZone`
 
@@ -883,6 +1005,9 @@ de la fuite un moyen de nettoyer une carte. La grille, l'initiative et les tours
   `core::knownEntityKinds`, `core::validateMapEntities`.
 - `core::DialogueGraph`, `core::readDialogue`, `core::loadDialogues`, `core::DialogueRunner`,
   `core::DialogueListener`, `core::dialogueTriggerFor`.
+- `core::Quest`, `core::QuestCatalog`, `core::loadQuests`, `core::advanceQuests`,
+  `core::questProgress`, `core::FlagCondition`, `core::isEntityPresent`, `hmi::loadGameQuests`,
+  `hmi::questJournalValues`.
 - `core::CombatZone`, `core::analyzeCombatZones`, `core::cropLevelToZone`.
 - [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md) — la carte que tout ceci
   fait vivre.

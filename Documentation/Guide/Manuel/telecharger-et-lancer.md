@@ -36,3 +36,9 @@ Colisée — voir [Jouer](jouer.md) pour le détail des contrôles.
   messages de diagnostic plus précis, qui aident à localiser la cause.
 - Windows SmartScreen peut afficher un avertissement pour un exécutable non signé :
   *Informations complémentaires* → *Exécuter quand même*.
+- Les archives publiées contiennent **toutes les images** du jeu et de l'éditeur. Ce n'est pas le
+  cas d'une copie du projet récupérée par clonage (GitHub Desktop, `git clone`) : les images y sont
+  publiées à part, et il faut lancer une fois `python scripts/fetch_assets.py` dans le dossier du
+  projet — ou `scripts/setup_dev.ps1`, qui le fait — avant de construire ; sinon la construction
+  s'arrête en le demandant, et un éditeur lancé sur cette copie montrerait des cartes sans texture.
+  Voir [Créer et partager une carte](partager-un-niveau.md).
