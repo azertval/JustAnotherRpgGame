@@ -21,7 +21,7 @@ namespace hmi {
  * dernier (`EX-REN-014`).
  *
  * Le calque de chaque primitive est choisi par le composeur qui la produit
- * (`hmi::ArenaSceneComposer`, `hmi::WorldSceneComposer`, `hmi::DraftRenderer`) ; la galerie des
+ * (`hmi::WorldSceneComposer`, `hmi::DraftRenderer`) ; la galerie des
  * assets range aussi chaque image sous le calque où elle sera dessinée.
  *
  * Notion de **présentation** (`HMI`) : `Core` l'ignore et continue de ne connaître que

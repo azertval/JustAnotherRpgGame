@@ -31,7 +31,7 @@ pipeline 2D, la caméra et la composition des scènes.
 - `PlaceAppearance` — ce qu'un **lieu** met sur une case : la table qui traduit un type de tuile en pièce de sa planche (`Scene/<lieu>/appearance.json`, `LOT-92`, `LOT-09`).
 - `WorldSceneComposer` / `WorldSceneRenderer` — un lieu qu'on parcourt, composé sans GPU puis rendu en QRhi (`LOT-09`) ; dessiné pour le jeu comme pour l'essai de l'éditeur.
 - `StaticWorldScene` — un lieu composé **une fois**, indexé par une grille de seaux, puis découpé à la vue à chaque image ; les figurines s'y fusionnent et les étages s'effacent devant le héros. Le coût d'une image dépend de ce qu'on voit, pas de la taille de la carte ([audit de l'affichage d'un lieu](../../../Planning/standards/audit-affichage-lieu.md)).
-- `ArenaSceneComposer` / `ArenaSceneRenderer` — la scène de combat du Colisée, composée sans GPU puis rendue en QRhi (`LOT-50`, `LOT-86`) ; `ArenaAppearanceCatalog` (rôle de case et figurine), `ArenaAnimationDriver` / `ArenaAnimationState` (image courante de chaque figurine).
+- La scène de combat n'a plus de chaîne à part : depuis le `LOT-118` le combat se joue sur la carte et se rend par `WorldSceneComposer` / `WorldSceneRenderer` dans `hmi::WorldViewportItem` (la chaîne du Colisée seul, `LOT-50`/`LOT-86`, a été retirée à la recette de la 0.0.1).
 - `CityBlockRender` — l'**îlot** vu sur le plan : la carte du quartier telle que le jeu la dessine, cadrée sur un rectangle nommé (`LOT-96`).
 - `TileVisuals` — correspondance type de tuile → région d'atlas (`regionForTile`), partagée par le canevas et la palette de l'éditeur.
 - `GraphicsLog` — macros de journalisation du module.

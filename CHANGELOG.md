@@ -31,9 +31,23 @@ dans `Planning/`, avec son site. Le détail par lot, du plus récent au plus anc
   reçoit sa première section de version (et une section `0.0.0` pour tout ce qui précédait la
   refonte du 20 septembre), le README et le manuel décrivent la démo telle qu'elle se joue, le
   bilan de la version est écrit dans `Planning/versions/v0.1.0/v0.0.1-demo/bilan.md`. Les
-  mannequins (`LOT-145`) partent à la `0.0.2` (D-26) : la démo n'en dépend pas. Le code a été
-  audité — code mort, documentation, résidus du Colisée et du pixel art — et les constats corrigés
-  ou inscrits au bilan.
+  mannequins (`LOT-145`) partent à la `0.0.2` (D-26) : la démo n'en dépend pas ; Q-09 est tranchée
+  (D-27 : le lint de l'ancienne feuille de route était déjà parti, les archives restent). Le code a
+  été **audité** : dans `Core`, sept symboles sans appelant, six includes inutiles et la convention
+  « Doxygen dans le `.h`, `//` dans le `.cpp` » rétablie dans 27 fichiers, un `@brief` sur
+  cinquante-trois fonctions publiques ; dans `HMI`, la **chaîne de rendu du Colisée**
+  (`ArenaSceneRenderer`, `ArenaSceneComposer`, `ArenaAppearanceCatalog`, `ArenaAnimationDriver`,
+  2 000 lignes compilées dans les deux exécutables sans appelant depuis le retrait de l'écran) part
+  avec ses quatre tests, ainsi que `TextureCache`, 22 traductions orphelines, la section
+  « Colisée » de la galerie de l'atelier, un alias vers une carte disparue, des signaux et des
+  propriétés que plus aucun écran ne lisait ; l'outillage Python perd quatre symboles morts et deux
+  chemins cassants (le cahier des assets d'interface, l'écran `Arena` des captures). Les guides
+  suivent (`guide-rendu`, `guide-combat`, `guide-ihm-qt`, le manuel de l'éditeur), le cahier de
+  test est régénéré. Le job **`format`** de la CI annotait les écarts de `clang-format` sans jamais
+  échouer (`xargs | tee` sans `pipefail`) : il échoue désormais, et les trente-six fichiers en
+  défaut sur `main` sont reformatés. Les huit PNG de sortie de test commités à la racine partent.
+  Ce que l'audit laisse à trancher (prévisualisation du combat, signaux de portail, cycle des
+  écrans RPG, `RpgScreens`, `InputState`, données d'arène, dialogues du Colisée) est dans le bilan.
 
 - **LOT-121 — L'onglet « Carte » : le plan de la Capitale.** Le plan peint par l'auteur montre ses
   douze quartiers : Martpart et Arenarea s'ouvrent sur leur carte, les dix autres s'annoncent

@@ -317,7 +317,8 @@ d'avancement (`EX-CNT-041`).
 
 `core::MarkerColor` est une couleur RVBA sur quatre octets ; `core::MarkerImage` ses pixels,
 `width × height`, ligne par ligne depuis le haut, avec `isEmpty()` et `at(x, y)`. Aucune
-dépendance au rendu : `HMI` convertit en texture (`hmi::TextureCache::markerTexture`).
+dépendance au rendu : `HMI` convertit en texture (le rendu du lieu, `hmi::WorldSceneRenderer`,
+pour une figurine sans image).
 
 `core::assetMarker(clé, largeur, hauteur)` peint le marqueur d'une clé. Sans marqueur, trois cents
 entrées s'afficheraient comme des trous et la production graphique deviendrait un préalable
@@ -342,8 +343,8 @@ joueur. Il est exposé pour être testé.
 
 > **Note** — Il n'y a pas de `ResourceManager` unique dans `Core`. Un gestionnaire de textures
 > obligerait `Core` à connaître le GPU (`EX-ARCH-010`) ; la gestion des ressources vit du côté qui
-> les possède — les textures dans `HMI/Graphics` (`hmi::TextureLoader`, `hmi::TextureCache`), les
-> cartes dans `Core/Levels`. `EX-ARCH-080` a été amendée en conséquence, et le `README.md` de
+> les possède — les textures dans `HMI/Graphics` (`hmi::TextureLoader`, les bibliothèques de
+> textures des rendus de scène), les cartes dans `Core/Levels`. `EX-ARCH-080` a été amendée en conséquence, et le `README.md` de
 > `Source/Core/Resources/` le rappelle.
 
 ### Où vit l'image, et qui la trouve

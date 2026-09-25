@@ -50,7 +50,7 @@ class ScenePieceManifest;
 
 namespace hmi {
 
-/// @brief Catégorie d'échec de lecture (même esprit que `hmi::ArenaAppearanceError`).
+/// @brief Catégorie d'échec de lecture (même esprit que `hmi::AnimationCatalogError`).
 enum class PlaceAppearanceError : std::uint8_t {
     None,
     FileNotFound,

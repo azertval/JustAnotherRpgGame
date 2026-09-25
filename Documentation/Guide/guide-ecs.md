@@ -353,8 +353,8 @@ d'un combattant —, jamais une source de vérité supplémentaire.
 
 > **Note** — Les commentaires du code nomment un `AnimationSystem` : il n'existe pas dans `Core`
 > aujourd'hui. Ce qui fait avancer une animation vit dans `HMI`, au temps réel du rendu
-> (`hmi::ArenaAnimationDriver` pour les figurines de l'arène, `hmi::AnimationCatalog` pour la
-> traduction en région de texture). Le composant et le clip, eux, restent dans `Core` pour le jour
+> (`hmi::CombatCueTrack` pour les bandes que les figurines rejouent en combat,
+> `hmi::AnimationCatalog` pour la traduction en région de texture). Le composant et le clip, eux, restent dans `Core` pour le jour
 > où une animation devra suivre le pas fixe.
 
 ### `core::Interactable` — ce qu'on peut solliciter

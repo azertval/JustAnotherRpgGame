@@ -98,16 +98,13 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_render_culling.cpp
     Unit/HMI/Graphics/test_poly_quad.cpp
     Unit/HMI/Graphics/test_maquette_tokens.cpp
-    Unit/HMI/Graphics/test_arena_appearance_catalog.cpp
     Unit/HMI/Graphics/test_asset_gallery.cpp
-    Unit/HMI/Graphics/test_arena_scene_composer.cpp
     Unit/HMI/Graphics/test_world_scene_composer.cpp
     # Les etages de la scene (LOT-129) : elevation, tri, effacement devant le heros.
     Unit/HMI/Graphics/test_world_storeys.cpp
     Unit/HMI/Graphics/test_static_world_scene.cpp
     # Un kit range en sous-dossiers (LOT-129) : le rendu suit le fichier du manifeste.
     Unit/HMI/Graphics/test_scene_folders.cpp
-    Unit/HMI/Graphics/test_arena_animation_driver.cpp
     Unit/HMI/Graphics/test_cache_registry.cpp
     Unit/HMI/Graphics/test_entity_markers.cpp
     Unit/HMI/Localization/test_localization.cpp
@@ -188,10 +185,6 @@ if(Qt6_FOUND)
         # Le kit commun de la Capitale (LOT-105) : une rue de douze cases composee de ses seules
         # pieces, rendue par le moteur et ecrite pour l'oeil de l'auteur.
         Unit/HMI/Graphics/test_capital_kit_render.cpp
-        # La scene du Colisee rendue hors ecran (LOT-86 Phase 5) : creation, recreation sur une autre
-        # interface QRhi, liberation, et une image qui n'est pas que le fond.
-        Unit/HMI/Graphics/test_arena_scene_renderer.cpp
-        ../HMI/Graphics/ArenaSceneRenderer.cpp
         # Le lieu qu'on parcourt, rendu hors ecran (LOT-09) : cycle de vie, cadrage qui suit le
         # heros, et une image du Colisee LIVRE -- la capture de reference du lot.
         Unit/HMI/Graphics/test_world_scene_renderer.cpp

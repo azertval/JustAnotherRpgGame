@@ -78,7 +78,7 @@ struct AssetGalleryFrame {
  * est libérée après `EVICTION_SECONDS`, pour qu'un aller-retour de la vue ne la recharge pas. Un
  * fichier illisible est retenu comme tel et dessiné en damier, sans nouvel essai à chaque image.
  *
- * Même cycle de vie que `hmi::ArenaSceneRenderer` : `ensureResources` depuis `initialize()`,
+ * Même cycle de vie que `hmi::WorldSceneRenderer` : `ensureResources` depuis `initialize()`,
  * `setFrame` depuis `synchronize()`, `render` depuis `render()`.
  */
 class AssetGalleryRenderer {

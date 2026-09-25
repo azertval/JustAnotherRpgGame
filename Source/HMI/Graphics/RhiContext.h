@@ -30,8 +30,7 @@ namespace hmi {
  *   servi à celui du contexte, plutôt que de supposer qu'il ne bouge jamais.
  *
  * L'instance est **possédée par le viewport** et référencée (jamais copiée) par les objets qui
- * créent des textures : `hmi::TextureAtlas` et les rendus de scène (`hmi::WorldSceneRenderer`,
- * `hmi::ArenaSceneRenderer`).
+ * créent des textures : `hmi::TextureAtlas` et les rendus de scène (`hmi::WorldSceneRenderer`).
  */
 struct RhiContext {
     /// Interface de rendu courante, ou `nullptr` avant la première initialisation.

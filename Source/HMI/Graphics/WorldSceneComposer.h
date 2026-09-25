@@ -24,13 +24,13 @@
 
 /**
  * @file HMI/Graphics/WorldSceneComposer.h
- * @brief Un **lieu qu'on parcourt** composé en primitives, sans GPU : le jumeau
- *        d'`hmi::ArenaSceneComposer` pour la carte du jeu (`LOT-09`).
+ * @brief Un **lieu qu'on parcourt** composé en primitives, sans GPU (`LOT-09`) ; depuis le
+ *        `LOT-118`, la scène du combat aussi.
  *
- * Le lieu et l'arène se dessinent par le **même** code : même projection isométrique
+ * Le lieu et le combat se dessinent par le **même** code : même projection isométrique
  * (`core::IsoProjection`), mêmes planches de l'atelier des textures (`LOT-92`, `ScenePieces.h`),
- * même tri par profondeur. Ce qui change est la **source** : l'arène lit une grille de combat, le
- * lieu lit une carte (`core::Level`) — ses couches, les pièces qu'elles nomment, ses entités.
+ * même tri par profondeur. La **source** est une carte (`core::Level`) — ses couches, les pièces
+ * qu'elles nomment, ses entités — et, en combat, les combattants posés dessus (`snapshot.figures`).
  *
  * ## Ce qui va où
  *
@@ -461,7 +461,7 @@ struct WorldComposeOptions {
  *
  * Les briques de l'image du jeu (`hmi::StaticWorldScene`) : la carte (`composeWorldStatics`), les
  * figurines (`composeWorldFigures`), puis l'effacement des étages devant le héros. Le tampon n'est
- * **ni vidé ni trié** : même contrat qu'`hmi::composeArenaScene`, l'appelant enchaîne `clear()`,
+ * **ni vidé ni trié** : l'appelant enchaîne `clear()`,
  * les compositions, puis `sort()`. Un cadrage de @p scene (`ComposedScene::setVisibleBounds`)
  * écarte ce qu'il ne montre pas.
  */

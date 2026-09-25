@@ -59,8 +59,6 @@ add_library(HmiLib STATIC
     Graphics/TileVisuals.cpp
     Graphics/ProceduralAtlas.cpp
     Graphics/TextureAtlasRegions.cpp
-    Graphics/ArenaAppearanceCatalog.cpp
-    Graphics/ArenaSceneComposer.cpp
     # Le lieu qu'on parcourt : sa table et sa composition vivent dans SceneComposition (ci-dessus).
     # La carte qu'on parcourt et sa mise en scene, partagees par le jeu et l'essai de l'editeur.
     Game/WorldPlay.cpp
@@ -76,7 +74,6 @@ add_library(HmiLib STATIC
     Game/DebugCommands.cpp
     Game/LevelScan.cpp
     Graphics/AssetGallery.cpp
-    Graphics/ArenaAnimationDriver.cpp
     Graphics/AnimationCatalog.cpp
     Graphics/MissingTexture.cpp
     Graphics/QuadRecorder.cpp

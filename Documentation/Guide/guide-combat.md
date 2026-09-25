@@ -788,10 +788,10 @@ ne décide **rien** — chaque geste devient un appel à la session, et l'affich
 machine après chaque geste. Elle expose la grille (`fighters`, `reachableCells` — les PV d'un
 ennemi restent secrets : ensanglanté, à terre, ou rien), le curseur de ciblage et sa
 prévisualisation (`LOT-24`, clavier et manette), l'ordre d'initiative et le journal, et joue les
-tours des combattants à profil par `core::playTurn`. `hmi::composeArenaScene` et
-`hmi::ArenaSceneRenderer` composent et rendent une scène de combat seule (`LOT-86`,
-[Rendu 2D](guide-rendu.md)) ; ils restent pour leurs tests, l'écran du Colisée qui les montrait
-étant retiré (25 septembre 2026).
+tours des combattants à profil par `core::playTurn`. La scène de combat seule et son renderer
+(`LOT-86`), écrits pour l'écran du Colisée, ont été retirés à la recette de la 0.0.1 avec cet écran
+(25 septembre 2026) : le combat se rend sur la carte, par `hmi::WorldSceneComposer` et
+`hmi::WorldSceneRenderer` ([Rendu 2D](guide-rendu.md)).
 
 ![L'écran CombatHud tel qu'il existe aujourd'hui : un HUD dessiné sans données — portrait et jauges, barre d'actions numérotée de 1 à 8, panneau CA / Initiative / Vitesse / États, quêtes, boussole, et la bascule Exploration · Tactique](captures/jeu-combathud.jpg)
 

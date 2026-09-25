@@ -29,16 +29,16 @@ class QRhiResourceUpdateBatch;
 
 /**
  * @file HMI/Graphics/WorldSceneRenderer.h
- * @brief Le rendu QRhi d'un **lieu qu'on parcourt** : le jumeau d'`hmi::ArenaSceneRenderer`
- *        (`LOT-09`).
+ * @brief Le rendu QRhi d'un **lieu qu'on parcourt** (`LOT-09`) ; depuis le `LOT-118`, celui du
+ *        combat aussi.
  *
- * Même découpage, pour la même raison : tout ce qui peut casser — l'ordre de création, l'ordre de
+ * Le découpage vaut pour une raison : tout ce qui peut casser — l'ordre de création, l'ordre de
  * libération, la recréation sur une autre interface QRhi — vit ici, où un test hors écran le fait
  * tourner sur un vrai `QRhi` sans fenêtre. L'élément Qt Quick (`hmi::WorldViewportItem`) ne relaie
  * que trois appels.
  *
- * Une différence avec l'arène : **les textures ne sont pas connues d'avance**. Une arène a son
- * catalogue ; un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les
+ * **Les textures ne sont pas connues d'avance** : un lieu a les pièces de sa carte, et la carte
+ * change au passage d'un portail. Les
  * textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil
  * de rendu, dans le lot de l'image.
  *
@@ -95,7 +95,7 @@ public:
     WorldSceneRenderer(const WorldSceneRenderer&) = delete;
     WorldSceneRenderer& operator=(const WorldSceneRenderer&) = delete;
 
-    /// @brief Garantit que les ressources existent sur @p rhi (voir `ArenaSceneRenderer`).
+    /// @brief Garantit que les ressources existent sur @p rhi, et les recrée s'il a changé.
     bool ensureResources(QRhi* rhi);
 
     /// Libère toutes les ressources GPU, dans l'ordre. Sans effet si rien n'est créé.

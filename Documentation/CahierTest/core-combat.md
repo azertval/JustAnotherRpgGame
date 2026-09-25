@@ -2024,7 +2024,7 @@ Pour plusieurs tailles d'élément et de grille, la position QML de chaque briqu
 
 **Étapes**
 
-1. Transcrire littéralement les formules de `ArenaScene.ui.qml` (lignes 36-61).
+1. Transcrire littéralement les formules de l'écran QML du Colisée (LOT-50).
 2. Pour des éléments 1280 × 720, 800 × 900, 640 × 360 et des grilles 16 × 12, 9 × 14, 1 × 1 : comparer la position de chaque case.
 
 **Résultat attendu**

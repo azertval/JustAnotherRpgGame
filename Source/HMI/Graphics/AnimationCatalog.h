@@ -68,8 +68,8 @@ struct AnimationDescriptionResult {
  * @brief Lecture, validation et traduction en région de texture du format `nom-asset.anim.json`.
  *
  * Logique **pure** (aucune dépendance GPU/Qt/fichier au-delà de la lecture elle-même) : ne réalise
- * ni chargement PNG ni mise en cache — ce sont ses appelants (`hmi::ArenaAnimationDriver`,
- * `hmi::WorldSceneRenderer`, la galerie des assets) qui le composent avec `hmi::TextureLoader`.
+ * ni chargement PNG ni mise en cache — ce sont ses appelants (`hmi::WorldSceneRenderer`, la
+ * galerie des assets) qui le composent avec `hmi::TextureLoader`.
  */
 class AnimationCatalog {
 public:

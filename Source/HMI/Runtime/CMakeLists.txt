@@ -38,15 +38,13 @@ qt_add_qml_module(JadgRuntime
         # carte (LOT-118). L'ecran du Colisee est retire (25 sept. 2026).
         CombatModel.h CombatModel.cpp
         EncounterModel.h EncounterModel.cpp
-        # Le pipeline 2D de la scene de combat sur QRhi (LOT-86 Phase 5), garde pour ses tests.
-        ../Graphics/ArenaSceneRenderer.cpp
         # Les outils de debug : le menu F9 rejoue les options du binaire, le lanceur de cartes
         # (`--screen=MapLauncher`) ouvre une carte du contenu.
         DebugConsoleModel.h DebugConsoleModel.cpp
         MapLauncherModel.h MapLauncherModel.cpp
         # Le lieu qu'on parcourt (LOT-09) : la vue-modele de l'exploration, sa surface de rendu, et
-        # le rendu QRhi du lieu -- le meme pipeline 2D que l'arene, sur une carte au lieu d'une
-        # grille de combat.
+        # le rendu QRhi du lieu -- le pipeline 2D de la scene (LOT-86), sur une carte ; depuis le
+        # LOT-118 le combat s'y rend aussi.
         WorldModel.h WorldModel.cpp
         WorldViewportItem.h WorldViewportItem.cpp
         ../Graphics/WorldSceneRenderer.cpp
