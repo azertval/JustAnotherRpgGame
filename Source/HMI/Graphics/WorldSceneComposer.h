@@ -156,14 +156,14 @@ inline constexpr std::string_view DEATH = "death";
 inline constexpr std::array<std::string_view, 6> ALL = {IDLE, WALK, ATTACK, CAST, HIT, DEATH};
 }  // namespace figure_clips
 
-/// @brief Le dossier d'un mannequin de remplacement, par silhouette (`LOT-316`) : ce que dessine
+/// @brief Le dossier d'un mannequin de remplacement, par silhouette (`LOT-145`) : ce que dessine
 ///        un personnage sans figurine.
 [[nodiscard]] std::string placeholderFigureDirectory(std::string_view silhouette);
 
 /// @brief La silhouette par défaut d'un personnage qui n'en déclare pas.
 inline constexpr std::string_view DEFAULT_SILHOUETTE = "humanoid";
 
-/// @brief Propriété d'entité `npc` et de fiche de créature qui nomme la silhouette (`LOT-316`).
+/// @brief Propriété d'entité `npc` et de fiche de créature qui nomme la silhouette (`LOT-145`).
 inline constexpr std::string_view SILHOUETTE_PROPERTY = "silhouette";
 
 /// @brief Une figurine à dessiner sur la carte : sa planche, son image, où elle est.
@@ -244,7 +244,7 @@ struct MaquetteMarks {
  * flèches de portail ne paraissent qu'en maquette : une carte finie ne montre pas ses
  * déclencheurs.
  *
- * Un PNJ dont une **figurine** occupe la case n'a pas de jeton (`LOT-316`) : le jeton d'un
+ * Un PNJ dont une **figurine** occupe la case n'a pas de jeton (`LOT-145`) : le jeton d'un
  * personnage tenait lieu de figurine, et il y en a une — un mannequin ou la vraie.
  *
  * @param entities Les entités de la carte.
@@ -357,7 +357,7 @@ template <class Map>
  * @brief Les figurines des PNJ d'une carte, dans l'ordre des entités.
  *
  * Un PNJ sans propriété `figure` ne se dessine pas, sauf si @p placeholders est vrai : il prend
- * alors le mannequin de sa silhouette (`placeholderFigureDirectory`, `LOT-316`), et c'est le
+ * alors le mannequin de sa silhouette (`placeholderFigureDirectory`, `LOT-145`), et c'est le
  * résolveur de figurines du jeu qui dira ensuite si ce mannequin existe. Le jeu y ajoute le héros
  * (`hmi::WorldPlay::figures`) ; l'éditeur les montre telles quelles, jetons compris.
  * @param entities     Les entités de la carte.

@@ -1224,7 +1224,7 @@ TEST(WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes) {
 
 /**
  * @brief Un PNJ sans figurine prend le mannequin de sa silhouette quand on le demande, et le jeton
- *        d'un PNJ qu'une figurine occupe disparaît (`LOT-316`).
+ *        d'un PNJ qu'une figurine occupe disparaît (`LOT-145`).
  * \castest{<b>Le mannequin remplace le jeton d'un PNJ sans figurine.</b><br/>
  * \tcat Unitaire · Mannequins<br/>
  * \tcrit Critique<br/>

@@ -66,7 +66,7 @@ add_library(HmiLib STATIC
     Game/WorldPlay.cpp
     Game/GameQuests.cpp
     # Le combat sur la carte (LOT-118) : les combattants composes comme au Colisee, le resolveur
-    # de figurines et ses mannequins (LOT-316), la file des mouvements que les figurines rejouent.
+    # de figurines et ses mannequins (LOT-145), la file des mouvements que les figurines rejouent.
     Game/CombatContestants.cpp
     Game/FigureResolver.cpp
     Game/CombatCues.cpp

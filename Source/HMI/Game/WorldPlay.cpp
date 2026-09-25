@@ -47,7 +47,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 
 void WorldPlay::setHeroFigure(std::string figure) {
     _heroFigure = std::move(figure);
-    // La figurine du heros, ou son mannequin si elle n'est pas installee (LOT-316) ; orientee si
+    // La figurine du heros, ou son mannequin si elle n'est pas installee (LOT-145) ; orientee si
     // sa bande de repos vers le sud-est existe (`scripts/checks/check_hd_assets.py` exige les
     // quatre des qu'il y en a une).
     _hero = _figures.resolve(_heroFigure, {}, _appearance);
@@ -146,7 +146,7 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
     const int frame = static_cast<int>(_elapsed / FIGURE_FRAME_SECONDS);
 
     // Les PNJ d'abord, le héros ensuite : à égalité de profondeur, c'est lui qui passe devant.
-    // Un PNJ sans figurine prend son mannequin (LOT-316) ; chacun respire a son rythme -- un
+    // Un PNJ sans figurine prend son mannequin (LOT-145) ; chacun respire a son rythme -- un
     // decalage par PNJ, pour qu'une place ne respire pas d'un seul souffle.
     const std::vector<core::MapEntity> presentes = entitesPresentes(_session, *map);
     std::vector<WorldFigureSnapshot> figures = npcFigures(presentes, frame, /*placeholders=*/true);

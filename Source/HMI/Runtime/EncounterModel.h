@@ -46,7 +46,7 @@ namespace hmi {
  *   s'est vu ;
  * - les **figurines** des combattants, publiées à chaque pas dans `hmi::WorldModel`
  *   (`setCombatFigures`) : la surface de rendu de l'exploration les dessine sur la carte gelée,
- *   par le même pipeline. Un combattant sans figurine prend son mannequin (`LOT-316`).
+ *   par le même pipeline. Un combattant sans figurine prend son mannequin (`LOT-145`).
  *
  * ## Un singleton, comme la partie
  *

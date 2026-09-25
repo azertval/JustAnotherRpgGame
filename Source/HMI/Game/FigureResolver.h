@@ -6,7 +6,7 @@
 /**
  * @file HMI/Game/FigureResolver.h
  * @brief Quelle bande dessiner pour ce personnage ? La figurine nommée si elle existe, sinon le
- *        mannequin de sa silhouette (`LOT-316`).
+ *        mannequin de sa silhouette (`LOT-145`).
  *
  * ## La règle, en trois temps
  *

@@ -98,7 +98,7 @@ porte (la sauvegarde est à la `0.0.3`).
 ### D8 — Les mannequins tiennent la place des figurines absentes
 
 Une créature de la rencontre sans figurine se dessine par le mannequin de sa silhouette
-(`hmi::FigureResolver`, [LOT-316](LOT-316-mannequins-de-remplacement.md)), et les PNJ des cartes
+(`hmi::FigureResolver`, [LOT-145](LOT-145-mannequins-de-remplacement.md)), et les PNJ des cartes
 aussi. Le mannequin humanoïde SE-v1 de l'atelier est installé (kit `Common@2`), sa seule
 orientation servie aux quatre.
 

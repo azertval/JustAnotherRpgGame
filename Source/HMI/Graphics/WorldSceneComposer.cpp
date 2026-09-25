@@ -607,7 +607,7 @@ namespace {
                                                            bool figureDrawn) {
     if (entity.type == core::NPC_ENTITY_TYPE) {
         // Un PNJ qui porte deja sa figurine se dessine par elle : pas de jeton par-dessus. Un PNJ
-        // qu'une figurine occupe -- un mannequin (LOT-316) -- non plus.
+        // qu'une figurine occupe -- un mannequin (LOT-145) -- non plus.
         if (figureDrawn || !textProperty(entity, core::NPC_FIGURE_PROPERTY).empty()) {
             return std::nullopt;
         }
@@ -725,7 +725,7 @@ std::vector<WorldFigureSnapshot> npcFigures(const std::vector<core::MapEntity>& 
             if (!placeholders) {
                 continue;  // Un PNJ sans figurine ne se dessine pas : il n'est pas encore dessiné.
             }
-            // Le mannequin de sa silhouette tient la place (LOT-316) : un PNJ se voit et s'anime
+            // Le mannequin de sa silhouette tient la place (LOT-145) : un PNJ se voit et s'anime
             // avant que l'atelier ne l'ait dessine.
             figure = placeholderFigureDirectory(textProperty(entity, SILHOUETTE_PROPERTY));
         }

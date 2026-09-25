@@ -1,5 +1,5 @@
 +++
-id = "LOT-316"
+id = "LOT-145"
 titre = "Les mannequins de remplacement"
 version = "0.0.1"
 filiere = "pnj"

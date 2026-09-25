@@ -90,7 +90,7 @@ public:
 
     /**
      * @brief Quelle bande dessiner pour @p figure (slug ou dossier) de silhouette @p silhouette :
-     *        la sienne si elle existe, sinon son mannequin (`hmi::FigureResolver`, `LOT-316`).
+     *        la sienne si elle existe, sinon son mannequin (`hmi::FigureResolver`, `LOT-145`).
      */
     [[nodiscard]] const ResolvedFigure& resolveFigure(std::string_view figure,
                                                       std::string_view silhouette) const {

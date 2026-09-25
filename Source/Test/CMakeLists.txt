@@ -123,7 +123,7 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_identity_scale.cpp
     # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit, le jeu la relit.
     Unit/HMI/Game/test_launch_options.cpp
-    # Le combat sur la carte (LOT-118) : la file des mouvements ; les mannequins (LOT-316).
+    # Le combat sur la carte (LOT-118) : la file des mouvements ; les mannequins (LOT-145).
     Unit/HMI/Game/test_combat_cues.cpp
     Unit/HMI/Game/test_figure_resolver.cpp
     Unit/Editor/test_thumbnail_geometry.cpp

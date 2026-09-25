@@ -65,7 +65,7 @@ TEST(ExplorationCarteIntegration, UneCarteSeChargeEtSeCompose) {
     EXPECT_TRUE(hasDrawnFloor(snapshot));
     ASSERT_FALSE(snapshot.figures.empty());
     EXPECT_TRUE(snapshot.figures.back().hero);
-    // La racine d'essai n'a pas le heros de la demo : son mannequin tient la place (LOT-316).
+    // La racine d'essai n'a pas le heros de la demo : son mannequin tient la place (LOT-145).
     EXPECT_EQ(snapshot.figures.back().figure, play.heroResolved().directory);
     EXPECT_EQ(play.heroResolved().directory, hmi::placeholderFigureDirectory("humanoid"));
     EXPECT_TRUE(play.heroResolved().placeholder);
@@ -168,7 +168,7 @@ TEST(ExplorationCarteIntegration, UneCarteQuiPuiseDansQuatreNiveauxSeJoue) {
         EXPECT_TRUE(std::filesystem::is_regular_file(tree / "Assets" / file)) << piece;
     }
     // Ses PNJ prennent leur figurine sous le niveau qui la range : la zone, le monde -- et c'est
-    // ce dossier resolu que les figurines posees portent (LOT-316).
+    // ce dossier resolu que les figurines posees portent (LOT-145).
     const std::string anariel = "Regions/central-empire/capital/arenarea/Characters/anariel";
     const std::string garde = "Common/Characters/Peoples/human/guard";
     EXPECT_EQ(play.resolveFigure("anariel", {}).directory, anariel);

@@ -27,7 +27,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   - **Audit de l'IA** : elle marchait bien vers le joueur ; c'est l'affichage qui ne le montrait
     pas (tous les tours joués d'un bloc, un seul instantané). Un déplacement refusé s'écrit
     désormais au journal, et un test la fait marcher sur la vraie zone d'une carte.
-- **LOT-316 — Les mannequins de remplacement** (en cours). Un personnage sans figurine se dessine
+- **LOT-145 — Les mannequins de remplacement** (en cours). Un personnage sans figurine se dessine
   par le mannequin de sa silhouette (`hmi::FigureResolver`) : le mannequin humanoïde SE-v1 de
   l'atelier est installé sous `Common/Characters/Placeholders/humanoid/`, sa seule orientation
   servie aux quatre ; les créatures et les PNJ déclarent leur `silhouette` (`humanoid`,

@@ -3,7 +3,7 @@
 
 /**
  * @file test_figure_resolver.cpp
- * @brief Tests du résolveur de figurines (`LOT-316`) : la figurine nommée si elle existe, sinon
+ * @brief Tests du résolveur de figurines (`LOT-145`) : la figurine nommée si elle existe, sinon
  *        le mannequin de sa silhouette, sinon l'humanoïde, sinon le marqueur.
  */
 

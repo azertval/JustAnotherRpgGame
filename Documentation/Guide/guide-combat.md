@@ -841,7 +841,7 @@ chacun après que le précédent s'est vu. À chaque pas, le modèle publie les 
 combattants dans `hmi::WorldModel` (`setCombatFigures`) : la carte gelée les dessine par le même
 pipeline que l'exploration, bandes `attack`, `hit`, `death` (figées sur leur dernière image,
 `SceneTexture::loop`) et `cast` comprises. Un combattant sans figurine prend son mannequin
-(`hmi::FigureResolver`, `LOT-316`).
+(`hmi::FigureResolver`, `LOT-145`).
 
 ### Les issues
 

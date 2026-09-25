@@ -6,7 +6,7 @@ filiere = "pnj"
 statut = "a-faire"
 taille = "M"
 resume = "Les habitants de Arenarea : figurines HD, portraits, fiches, placements."
-prerequis = ["LOT-104", "LOT-112", "LOT-126", "LOT-316"]
+prerequis = ["LOT-104", "LOT-112", "LOT-126", "LOT-145"]
 livrables = [
   "`capital/arenarea/Characters/` pour les PNJ propres ; les archétypes de citadins dans `capital/Common/Characters/`.",
   "Pour chaque PNJ : figurine animée, portrait, jeton, et sa fiche (`Rpg/`) quand il en a une.",

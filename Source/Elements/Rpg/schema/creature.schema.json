@@ -15,7 +15,7 @@
     },
     "alignment": { "type": "string" },
     "silhouette": {
-      "description": "Le mannequin de remplacement de la creature tant qu'elle n'a pas de figurine (LOT-316).",
+      "description": "Le mannequin de remplacement de la creature tant qu'elle n'a pas de figurine (LOT-145).",
       "type": "string", "enum": ["humanoid", "quadruped", "flying"]
     },
     "description": {
