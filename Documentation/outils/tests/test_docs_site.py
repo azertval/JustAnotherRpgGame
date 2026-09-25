@@ -3,6 +3,7 @@
 
 """Tests de l'outillage de `Documentation/` : conventions Markdown, site engendré, lint."""
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -58,7 +59,9 @@ def depot(tmp_path):
         'puis [le pas fixe](guide-boucle.md#pas-fixe) et [la fiche](../../Planning/versions/v0.0.0/lots/LOT-19-grille.md).\n\n'
         '![La grille de combat](captures/grille.png)\n\n> **Attention** — Un encadré.\n', encoding='utf-8')
     (docs / 'Guide' / 'captures' / 'grille.png').write_bytes(b'png')
-    (docs / 'Specification' / 'README.md').write_text('# Spécifications\n\n- [Combat](combat.md)\n', encoding='utf-8')
+    (docs / 'Specification' / 'README.md').write_text(
+        '# Spécifications\n\nLe **quoi** : le [guide](../Guide/README.md) dit le comment.\n\n- [Combat](combat.md)\n',
+        encoding='utf-8')
     (docs / 'Specification' / 'combat.md').write_text(
         '# Combat\n\n- **EX-CBT-001** — La bascule est explicite.\n- **EX-CBT-002** *(retirée au `LOT-19`)* — Rien.\n',
         encoding='utf-8')
@@ -108,6 +111,16 @@ def test_le_site_suit_l_ordre_du_sommaire_et_relie_ce_qui_est_cite(depot):
     assert (depot / 'site' / 'assets' / 'docs.js').is_file()
     search = json.loads((depot / 'site' / 'search.json').read_text(encoding='utf-8'))
     assert {entry['u'] for entry in search} >= {'index.html', 'Guide/guide-combat.html'}
+
+
+def test_l_accueil_resume_chaque_partie_sans_lien_imbrique(depot):
+    build(depot)
+    accueil = (depot / 'site' / 'index.html').read_text(encoding='utf-8')
+    cards = re.findall(r'<a class="vcard"[^>]*>(.*?)</a>', accueil, flags=re.DOTALL)
+    assert len(cards) == 6  # trois parties, la planification, la qualité, la référence
+    spec = next(card for card in cards if '<strong>Spécifications</strong>' in card)
+    assert '<p>Le <strong>quoi</strong> : le guide dit le comment.</p>' in spec
+    assert '<a ' not in spec  # un lien dans un lien casserait la carte
 
 
 def test_l_index_des_exigences_dit_qui_les_cite(depot):
