@@ -1,5 +1,8 @@
 var NAVTREEINDEX34 =
 {
+"structcore_1_1DamageStep.html":[2,0,1,45],
+"structcore_1_1DamageStep.html":[3,0,0,45],
+"structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[2,0,1,45,3],
 "structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[3,0,0,45,3],
 "structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3":[2,0,1,45,2],
 "structcore_1_1DamageStep.html#a6c75e49f556cdd2552e895814f9a87d3":[3,0,0,45,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX34 =
 "structcore_1_1EncounterTerrain.html#a23d341ad3dfba1935194702c54bff5b8":[2,0,1,68,2],
 "structcore_1_1EncounterTerrain.html#a23d341ad3dfba1935194702c54bff5b8":[3,0,0,68,2],
 "structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b":[2,0,1,68,0],
-"structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b":[3,0,0,68,0],
-"structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1":[2,0,1,68,7],
-"structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1":[3,0,0,68,7],
-"structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[2,0,1,68,6]
+"structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b":[3,0,0,68,0]
 };

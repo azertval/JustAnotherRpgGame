@@ -41,6 +41,7 @@ var classhmi_1_1WorldModel =
     [ "questAdvanced", "classhmi_1_1WorldModel.html#ab475b1b1da2ebf4bb6169abcdc93795f", null ],
     [ "quests", "classhmi_1_1WorldModel.html#ac4ed9f1827eeb9ba0daffc12c13e08b6", null ],
     [ "rebuildSession", "classhmi_1_1WorldModel.html#a8020d76261bedca7939d0f2d4f0aeb18", null ],
+    [ "releaseInput", "classhmi_1_1WorldModel.html#a06a39edc9a1f4f20fea65226c2c16bcd", null ],
     [ "rows", "classhmi_1_1WorldModel.html#ac86f1bb3f3f3d8b51c1a5a868146d779", null ],
     [ "scene", "classhmi_1_1WorldModel.html#ad9421c6fb0964e93a8f9cce9bea25018", null ],
     [ "sceneRevision", "classhmi_1_1WorldModel.html#a0a7036499a425b2fef0b03d14335ad8d", null ],

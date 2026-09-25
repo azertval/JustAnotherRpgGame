@@ -310,10 +310,10 @@ namespace {
     for (std::size_t rang = 0; rang &lt; _interactables.size(); ++rang) {
         candidats.push_back(</span>
             InteractionCandidate{.interactable = &amp;_interactables[rang], .index = rang});
-<span style = "background-color:#dfd">    }</span>
-    const InteractionTarget cible =
-<span style = "background-color:#dfd">        findInteractionTarget(heroCell(), _facing, carte-&gt;tileMap(), candidats, _flags);
-    if (!cible.found()) {
+<span style = "background-color:#dfd">    }
+    const InteractionTarget cible = findInteractionTarget({_hero.column, _hero.row}, _facing,</span>
+                                                          carte-&gt;tileMap(), candidats, _flags);
+<span style = "background-color:#dfd">    if (!cible.found()) {
         return;</span>
     }
 <span style = "background-color:#dfd">    const InteractionOutcome issue = interact(cible, _flags);

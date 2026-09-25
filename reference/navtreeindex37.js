@@ -1,5 +1,8 @@
 var NAVTREEINDEX37 =
 {
+"structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a":[2,0,1,158,2],
+"structcore_1_1LoadedCharacterSheet.html#a5ba188fafec172937a0f7176a4a5957a":[3,0,0,158,2],
+"structcore_1_1Location.html":[2,0,1,197],
 "structcore_1_1Location.html":[3,0,0,197],
 "structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922":[2,0,1,197,4],
 "structcore_1_1Location.html#a1144f0c1a71664ed8ed4c3c98a9b8922":[3,0,0,197,4],
@@ -246,8 +249,5 @@ var NAVTREEINDEX37 =
 "structcore_1_1QuestFlag.html#a635065ac3342b945e0bac03f4eac7b13":[2,0,1,104,1],
 "structcore_1_1QuestFlag.html#a635065ac3342b945e0bac03f4eac7b13":[3,0,0,104,1],
 "structcore_1_1QuestLoad.html":[2,0,1,108],
-"structcore_1_1QuestLoad.html":[3,0,0,108],
-"structcore_1_1QuestLoad.html#a5cf80d4df30d461f06e46d041f17ce2a":[2,0,1,108,1],
-"structcore_1_1QuestLoad.html#a5cf80d4df30d461f06e46d041f17ce2a":[3,0,0,108,1],
-"structcore_1_1QuestLoad.html#aefb8eb50b6c2906bd08d8b9fac4a9ba5":[2,0,1,108,0]
+"structcore_1_1QuestLoad.html":[3,0,0,108]
 };

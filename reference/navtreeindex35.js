@@ -1,5 +1,8 @@
 var NAVTREEINDEX35 =
 {
+"structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1":[2,0,1,68,7],
+"structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1":[3,0,0,68,7],
+"structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[2,0,1,68,6],
 "structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c":[3,0,0,68,6],
 "structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49":[2,0,1,68,1],
 "structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49":[3,0,0,68,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX35 =
 "structcore_1_1GridPoint.html#ab0ed336a179d44df4a199e249cf6820e":[2,0,1,60,0],
 "structcore_1_1GridPoint.html#ab0ed336a179d44df4a199e249cf6820e":[3,0,0,60,0],
 "structcore_1_1GridPosition.html":[2,0,1,115],
-"structcore_1_1GridPosition.html":[3,0,0,115],
-"structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0":[2,0,1,115,0],
-"structcore_1_1GridPosition.html#ab0574e45a221418d1a0ea6e1b67c6bc0":[3,0,0,115,0],
-"structcore_1_1GridPosition.html#ac6f7abc29fe595daf6d2efc341701589":[2,0,1,115,1]
+"structcore_1_1GridPosition.html":[3,0,0,115]
 };

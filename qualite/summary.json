@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-25 15:05 UTC",
-  "commit": "91b3ad2d2",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36148692194",
+  "generated": "2026-09-25 15:40 UTC",
+  "commit": "7875f9d64",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36152553250",
   "coverage": {
-    "percent": 91.63,
-    "covered": 35613,
-    "valid": 38868,
+    "percent": 91.64,
+    "covered": 35647,
+    "valid": 38900,
     "files": 273,
     "areas": [
       {
@@ -40,9 +40,9 @@
       },
       {
         "name": "Core/Gameplay",
-        "covered": 611,
-        "valid": 676,
-        "percent": 90.38
+        "covered": 628,
+        "valid": 692,
+        "percent": 90.75
       },
       {
         "name": "Core/Levels",

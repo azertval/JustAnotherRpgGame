@@ -285,6 +285,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a607b89abcc862c2f2c8bbd32167197d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">flags</code> sur la session (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>), sans les retenir.  <br /></td></tr>
 <tr class="memitem:adc66b2547875ba03914fe3186cd9e7c4" id="r_adc66b2547875ba03914fe3186cd9e7c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc66b2547875ba03914fe3186cd9e7c4">noteDistrictVisit</a> ()</td></tr>
 <tr class="memdesc:adc66b2547875ba03914fe3186cd9e7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient le quartier de la carte courante parmi les quartiers visités.  <br /></td></tr>
+<tr class="memitem:a06a39edc9a1f4f20fea65226c2c16bcd" id="r_a06a39edc9a1f4f20fea65226c2c16bcd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a06a39edc9a1f4f20fea65226c2c16bcd">releaseInput</a> () noexcept</td></tr>
+<tr class="memdesc:a06a39edc9a1f4f20fea65226c2c16bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie la direction et l'interaction demandées : le héros s'arrête.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -1364,6 +1366,33 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Refait la session sur les cartes de <span class="tt"><a class="el" href="#a1e39e071f83fd8ce132426c2b29e434d" title="Les dossiers de --levels=, lus avant le Levels/ du contenu (LOT-EDITOR-10).">_levelDirectories</a></span>, puis le <span class="tt">Levels/</span> du contenu. </p>
+
+</div>
+</div>
+<a id="a06a39edc9a1f4f20fea65226c2c16bcd" name="a06a39edc9a1f4f20fea65226c2c16bcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a39edc9a1f4f20fea65226c2c16bcd">&#9670;&#160;</a></span>releaseInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::releaseInput </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Oublie la direction et l'interaction demandées : le héros s'arrête. </p>
 
 </div>
 </div>

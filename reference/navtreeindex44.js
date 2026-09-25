@@ -1,5 +1,8 @@
 var NAVTREEINDEX44 =
 {
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a184d1792709321efdd1eb50857f1febd":[2,0,2,83,0,6],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a184d1792709321efdd1eb50857f1febd":[3,0,1,82,0,6],
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2728c9b2b302a06ac085632bafdffde9":[2,0,2,83,0,5],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2728c9b2b302a06ac085632bafdffde9":[3,0,1,82,0,5],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2f6eaf12360ad7248dbf2a719e23a7dd":[2,0,2,83,0,10],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2f6eaf12360ad7248dbf2a719e23a7dd":[3,0,1,82,0,10],
@@ -246,8 +249,5 @@ var NAVTREEINDEX44 =
 "structhmi_1_1MapPropertiesChoice.html#aaea4b9e222b2b256438f4e78e8326c02":[2,0,2,85,3],
 "structhmi_1_1MapPropertiesChoice.html#aaea4b9e222b2b256438f4e78e8326c02":[3,0,1,84,3],
 "structhmi_1_1MapPropertiesChoice.html#af558a6626fb57698afda684380b3741a":[2,0,2,85,1],
-"structhmi_1_1MapPropertiesChoice.html#af558a6626fb57698afda684380b3741a":[3,0,1,84,1],
-"structhmi_1_1MapRegionView.html":[2,0,2,208],
-"structhmi_1_1MapRegionView.html":[3,0,1,207],
-"structhmi_1_1MapRegionView.html#a100fef56ec6baba5b096607def9533e5":[2,0,2,208,4]
+"structhmi_1_1MapPropertiesChoice.html#af558a6626fb57698afda684380b3741a":[3,0,1,84,1]
 };

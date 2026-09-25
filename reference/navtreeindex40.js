@@ -1,5 +1,8 @@
 var NAVTREEINDEX40 =
 {
+"structhmi_1_1ArenaFigureAnimationLoad.html#adcd5e644575d1b147fa2ce0203f34766":[2,0,2,116,1],
+"structhmi_1_1ArenaFigureAnimationLoad.html#adcd5e644575d1b147fa2ce0203f34766":[3,0,1,115,1],
+"structhmi_1_1ArenaFigureAnimationSet.html":[2,0,2,115],
 "structhmi_1_1ArenaFigureAnimationSet.html":[3,0,1,114],
 "structhmi_1_1ArenaFigureAnimationSet.html#a22375e98b3a7a417c1442fdc3613103d":[2,0,2,115,3],
 "structhmi_1_1ArenaFigureAnimationSet.html#a22375e98b3a7a417c1442fdc3613103d":[3,0,1,114,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX40 =
 "structhmi_1_1BrushResult.html#a47540b7cc8b0c311d411f0308f2d74a2":[2,0,2,4,0],
 "structhmi_1_1BrushResult.html#a47540b7cc8b0c311d411f0308f2d74a2":[3,0,1,3,0],
 "structhmi_1_1BrushResult.html#a60727a5e305558b0e26a4ce8409c4f1a":[2,0,2,4,2],
-"structhmi_1_1BrushResult.html#a60727a5e305558b0e26a4ce8409c4f1a":[3,0,1,3,2],
-"structhmi_1_1BrushResult.html#a76a5880387046c04388d9d4163af1950":[2,0,2,4,1],
-"structhmi_1_1BrushResult.html#a76a5880387046c04388d9d4163af1950":[3,0,1,3,1],
-"structhmi_1_1CanvasBrush.html":[2,0,2,3]
+"structhmi_1_1BrushResult.html#a60727a5e305558b0e26a4ce8409c4f1a":[3,0,1,3,2]
 };

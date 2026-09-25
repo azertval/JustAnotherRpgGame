@@ -16,65 +16,65 @@
 <div class="shell with-sidebar">
 <aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1 active" href="core-gameplay.html">Core · Gameplay</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</a><a class="toc depth-2" href="#test-interactioncpp">test_interaction.cpp</a><a class="toc depth-2" href="#test-questcpp">test_quest.cpp</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
 <main>
-<article class="prose"><h1 id="core-gameplay">Core · Gameplay</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">17 cas</span></div>
-<p>Tests unitaires — <strong>17 cas</strong> (10 critiques, 6 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
+<article class="prose"><h1 id="core-gameplay">Core · Gameplay</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">21 cas</span></div>
+<p>Tests unitaires — <strong>21 cas</strong> (12 critiques, 8 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
 <h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
-<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-interactioncpp"><code>test_interaction.cpp</code></a></td><td>9</td><td>-</td><td>5</td><td>3</td><td>1</td></tr><tr><td><a href="#test-questcpp"><code>test_quest.cpp</code></a></td><td>8</td><td>-</td><td>5</td><td>3</td><td>-</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-interactioncpp"><code>test_interaction.cpp</code></a></td><td>12</td><td>-</td><td>7</td><td>4</td><td>1</td></tr><tr><td><a href="#test-questcpp"><code>test_quest.cpp</code></a></td><td>9</td><td>-</td><td>5</td><td>4</td><td>-</td></tr></tbody></table></div>
 <h2 id="exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</h2>
 <p>Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la <a href="couverture-exigences.html">matrice de traçabilité</a> les rassemble toutes.</p>
 <div class="table-wrap"><table><thead><tr><th>Exigence</th><th>Cas</th></tr></thead><tbody><tr><td><a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></td><td><a href="#interactiontestuntypeinconnuproduituneentitenoninteractive"><code>InteractionTest.UnTypeInconnuProduitUneEntiteNonInteractive</code></a></td></tr></tbody></table></div>
 <h2 id="test-interactioncpp">test_interaction.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="interactiontestlacaseviseesuitladirectiondominante">InteractionTest.LaCaseViseeSuitLaDirectionDominante</h3>
-<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:69</code></p>
+<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:74</code></p>
 <p>La case visee suit la direction dominante de l'orientation.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Viser avec quatre orientations cardinales, puis une orientation a 30 degres.</li><li>Viser avec une orientation nulle.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>core::aimedCell(depart, {1.0F, 0.0F})</code> vaut <code>(core::GridPosition{3, 2})</code>.</li><li>Vérifie que <code>core::aimedCell(depart, {-1.0F, 0.0F})</code> vaut <code>(core::GridPosition{1, 2})</code>.</li><li>Vérifie que <code>core::aimedCell(depart, {0.0F, 1.0F})</code> vaut <code>(core::GridPosition{2, 3})</code>.</li><li>Vérifie que <code>core::aimedCell(depart, {0.0F, -1.0F})</code> vaut <code>(core::GridPosition{2, 1})</code>.</li><li>Vérifie que <code>core::aimedCell(depart, {0.866F, 0.5F})</code> vaut <code>(core::GridPosition{3, 2})</code>.</li><li>Vérifie que <code>core::aimedCell(depart, {0.5F, 0.866F})</code> vaut <code>(core::GridPosition{2, 3})</code>.</li><li>Vérifie que <code>core::aimedCell(depart, {0.0F, 0.0F})</code> vaut <code>depart</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="interactiontestuncoffrenedonnesonbutinquunefois">InteractionTest.UnCoffreNeDonneSonButinQuUneFois</h3>
-<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:97</code></p>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:102</code></p>
 <p>Un coffre ne donne son butin qu'a la premiere ouverture.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Interagir deux fois avec le meme coffre.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>premiere.found()</code> est vrai.</li><li>Vérifie que <code>butin.happened</code> est vrai.</li><li>Vérifie que <code>butin.consumed</code> est vrai.</li><li>Vérifie que <code>butin.type</code> vaut <code>&quot;chest&quot;</code>.</li><li>Vérifie que <code>seconde.found()</code> est faux.</li><li>Vérifie que <code>rien.happened</code> est faux.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="interactiontestletatduncoffresurvitaunallerretourdecarte">InteractionTest.LEtatDUnCoffreSurvitAUnAllerRetourDeCarte</h3>
-<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:128</code></p>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:133</code></p>
 <p>Un coffre ouvert le reste apres avoir quitte la carte et y etre revenu.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ouvrir un coffre, puis DETRUIRE les entites de la carte et les recreer depuis la couche objects, comme le fait un changement de carte.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>core::spawnMapEntities(monde, niveau, niveau.name())</code> vaut <code>1U</code>.</li><li>Vérifie que <code>objets.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>cible.found()</code> est vrai.</li><li>Vérifie que <code>core::interact(cible, drapeaux).consumed</code> est vrai.</li><li>Vérifie que <code>core::spawnMapEntities(monde, niveau, niveau.name())</code> vaut <code>1U</code>.</li><li>Vérifie que <code>objets.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>cible.found()</code> est faux.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="interactiontestlinteractionnetraversepasunmur">InteractionTest.LInteractionNeTraversePasUnMur</h3>
-<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:184</code></p>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:189</code></p>
 <p>Un objet place sur une case pleine n'est pas atteignable.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser un coffre sur une case, puis rendre cette case pleine.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()</code> est vrai.</li><li>Vérifie que <code>derriereLeMur.found()</code> est faux.</li><li>Vérifie que <code>derriereLeMur.aimedCell</code> vaut <code>(core::GridPosition{3, 2})</code>.</li></ul>
+<ul><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()</code> est vrai.</li><li>Vérifie que <code>derriereLeMur.found()</code> est faux.</li><li>Vérifie que <code>derriereLeMur.aimedCell</code> vaut <code>(core::GridPosition{3, 2})</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="interactiontestlacibleestdeterministeaegalite">InteractionTest.LaCibleEstDeterministeAEgalite</h3>
-<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:211</code></p>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:216</code></p>
 <p>Deux objets sur la meme case designent toujours le meme.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser deux objets sur la case visee et designer la cible dix fois.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>cible.found()</code> est vrai.</li><li>Vérifie que <code>cible.index</code> vaut <code>0U</code>.</li><li>Vérifie que <code>cible.interactable-&gt;type</code> vaut <code>&quot;chest&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="interactiontestunpanneauserelitindefiniment">InteractionTest.UnPanneauSeRelitIndefiniment</h3>
-<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:236</code></p>
+<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:241</code></p>
 <p>Une entite non consommable reste une cible apres interaction.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Interagir trois fois avec un panneau.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>cible.found()</code> est vrai.</li><li>Vérifie que <code>lecture.happened</code> est vrai.</li><li>Vérifie que <code>lecture.consumed</code> est faux.</li><li>Vérifie que <code>lecture.promptKey</code> vaut <code>&quot;interaction.sign&quot;</code>.</li><li>Vérifie que <code>drapeaux.size()</code> vaut <code>0U</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="interactiontestdeuxcartesnesemarchentpasdessus">InteractionTest.DeuxCartesNeSeMarchentPasDessus</h3>
-<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:262</code></p>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:267</code></p>
 <p>Deux coffres de cartes differentes a la meme case ont des drapeaux distincts.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Fabriquer la cle de deux coffres a la case (3, 2), sur deux cartes.</li><li>Ouvrir le premier.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>cleVillage</code> diffère de <code>cleDonjon</code>.</li><li>Vérifie que <code>cible.found()</code> est vrai.</li><li>Vérifie que <code>core::interact(cible, drapeaux).consumed</code> est vrai.</li><li>Vérifie que <code>core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(auDonjon), drapeaux) .found()</code> est vrai.</li></ul>
+<ul><li>Vérifie que <code>cleVillage</code> diffère de <code>cleDonjon</code>.</li><li>Vérifie que <code>cible.found()</code> est vrai.</li><li>Vérifie que <code>core::interact(cible, drapeaux).consumed</code> est vrai.</li><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(auDonjon), drapeaux) .found()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="interactiontestuntypeinconnuproduituneentitenoninteractive">InteractionTest.UnTypeInconnuProduitUneEntiteNonInteractive</h3>
-<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:294</code></p>
+<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:299</code></p>
 <p>Exigences : <a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></p>
 <p>Un objet de type inconnu apparait sur la carte sans etre interactif.</p>
 <p><strong>Étapes</strong></p>
@@ -82,12 +82,33 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>core::spawnMapEntities(monde, niveau, niveau.name())</code> vaut <code>2U</code>.</li><li>Vérifie que <code>interactif.type</code> vaut <code>&quot;chest&quot;</code>.</li><li>Vérifie que <code>interactifs</code> vaut <code>1U</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="interactiontestlesdrapeauxserelisenttries">InteractionTest.LesDrapeauxSeRelisentTries</h3>
-<p><em>Mineur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:322</code></p>
+<p><em>Mineur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:327</code></p>
 <p>Les drapeaux acquis se relisent dans un ordre stable.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Lever trois drapeaux dans le desordre, puis les relire.</li><li>Lever deux fois le meme.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>drapeaux.set(&quot;village/chest@3,2&quot;)</code> est vrai.</li><li>Vérifie que <code>drapeaux.set(&quot;donjon/chest@1,1&quot;)</code> est vrai.</li><li>Vérifie que <code>drapeaux.set(&quot;village/chest@0,0&quot;)</code> est vrai.</li><li>Vérifie que <code>drapeaux.set(&quot;village/chest@3,2&quot;)</code> est faux.</li><li>Vérifie que <code>drapeaux.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>tous.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>std::is_sorted(tous.begin(), tous.end())</code> est vrai.</li><li>Vérifie que <code>drapeaux.isSet(&quot;donjon/chest@1,1&quot;)</code> est faux.</li><li>Vérifie que <code>drapeaux.size()</code> vaut <code>2U</code>.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="interactiontestlaporteeestdunecaseetdemie">InteractionTest.LaPorteeEstDUneCaseEtDemie</h3>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:354</code></p>
+<p>Toute cible a moins de 1,5 case du heros est atteignable.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un panneau en diagonale du heros, puis derriere lui, puis a deux cases.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(enDiagonale), drapeaux) .found()</code> est vrai.</li><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(dansLeDos), drapeaux) .found()</code> est vrai.</li><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(aDeuxCases), drapeaux) .found()</code> est faux.</li><li>Vérifie que <code>core::findInteractionTarget({3.2F, 2.5F}, {1.0F, 0.0F}, carte, candidats(aDeuxCases), drapeaux) .found()</code> est vrai.</li></ul>
+</section><section class="case" data-crit="Critique"><h3 id="interactiontestdeuxmursencoinfermentladiagonale">InteractionTest.DeuxMursEnCoinFermentLaDiagonale</h3>
+<p><em>Critique · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:391</code></p>
+<p>L'interaction ne passe pas entre deux murs en diagonale.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un panneau en diagonale, puis murer une case de cote, puis l'autre.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()</code> est vrai.</li><li>Vérifie que <code>core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()</code> est faux.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="interactiontestlacibleviseelemporte">InteractionTest.LaCibleViseeLEmporte</h3>
+<p><em>Majeur · Unitaire · Interaction</em> — <code>Source/Test/Unit/Core/Gameplay/test_interaction.cpp:416</code></p>
+<p>A deux cibles a portee, la cible visee l'emporte.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un panneau devant le heros et un coffre dans son dos, plus proche.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>versLaDroite.found()</code> est vrai.</li><li>Vérifie que <code>versLaDroite.interactable-&gt;type</code> vaut <code>&quot;sign&quot;</code>.</li><li>Vérifie que <code>versLaGauche.found()</code> est vrai.</li><li>Vérifie que <code>versLaGauche.interactable-&gt;type</code> vaut <code>&quot;chest&quot;</code>.</li><li>Vérifie que <code>versLeBas.found()</code> est vrai.</li><li>Vérifie que <code>versLeBas.interactable-&gt;type</code> vaut <code>&quot;chest&quot;</code>.</li></ul>
 </section><h2 id="test-questcpp">test_quest.cpp</h2>
 <section class="case" data-crit="Critique"><h3 id="questflagstestundrapeauavaleursesttype">QuestFlagsTest.UnDrapeauAValeursEstType</h3>
 <p><em>Critique · Unitaire · Quetes</em> — <code>Source/Test/Unit/Core/Gameplay/test_quest.cpp:66</code></p>
@@ -144,10 +165,17 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Lire un dialogue qui pose <code>quete.essai = acceptee</code>, compare a <code>accepte</code> (faute) et pose <code>quete.essai</code> sans valeur.</li><li>Le confronter a la quete d'essai.</li><li>Relever ce qu'il pose et ce qu'il lit.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>lu.graph.has_value()</code> est vrai.</li><li>Vérifie que <code>erreurs.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>erreurs[0].find(&quot;&#x27;accepte&#x27;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>erreurs[1].find(&quot;&#x27;value&#x27;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>erreurs[1].find(&quot;dialogue &#x27;mere&#x27;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>poses.contains(&quot;quete.essai&quot;)</code> est vrai.</li><li>Vérifie que <code>poses.contains(core::questStepFlag(&quot;essai&quot;, &quot;rendue&quot;))</code> est vrai.</li><li>Vérifie que <code>poses.contains(&quot;essai/recompense&quot;)</code> est vrai.</li><li>Vérifie que <code>std::ranges::all_of( lus, [](const core::FlagRead&amp; lu) { return lu.flag == &quot;quete.essai&quot;; })</code> est vrai.</li><li>Vérifie que <code>lus.size()</code> vaut <code>4U</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-ecs.html"><span>Précédent</span>Core · Ecs</a><a class="next" href="core-levels.html"><span>Suivant</span>Core · Levels</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-gameplay.md</code></p>
+<ul><li>Vérifie que <code>lu.graph.has_value()</code> est vrai.</li><li>Vérifie que <code>erreurs.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>erreurs[0].find(&quot;&#x27;accepte&#x27;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>erreurs[1].find(&quot;&#x27;value&#x27;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>erreurs[1].find(&quot;dialogue &#x27;mere&#x27;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>poses.contains(&quot;quete.essai&quot;)</code> est vrai.</li><li>Vérifie que <code>poses.contains(core::questStepFlag(&quot;essai&quot;, &quot;rendue&quot;))</code> est vrai.</li><li>Vérifie que <code>poses.contains(&quot;essai/recompense&quot;)</code> est vrai.</li><li>Vérifie que <code>std::ranges::all_of( lus, [](const core::FlagRead&amp; lu) { return lu.flag == &quot;quete.essai&quot;; })</code> est vrai.</li><li>Vérifie que <code>lus.size()</code> vaut <code>4U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="questtestunerencontreengageeparundialogueposelefaitdesavictoire">QuestTest.UneRencontreEngageeParUnDialoguePoseLeFaitDeSaVictoire</h3>
+<p><em>Majeur · Unitaire · Quetes</em> — <code>Source/Test/Unit/Core/Gameplay/test_quest.cpp:362</code></p>
+<p>Une rencontre engagee par un dialogue compte parmi les drapeaux poses.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Un dialogue dont un noeud d'action engage la rencontre <code>arene</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li><code>encounter/arene/won</code> est parmi les drapeaux que le recit pose.</li></ul></section></article><nav class="pager"><a class="prev" href="core-ecs.html"><span>Précédent</span>Core · Ecs</a><a class="next" href="core-levels.html"><span>Suivant</span>Core · Levels</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-gameplay.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>91b3ad2d2</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>7875f9d64</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

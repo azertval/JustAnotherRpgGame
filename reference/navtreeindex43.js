@@ -1,5 +1,8 @@
 var NAVTREEINDEX43 =
 {
+"structhmi_1_1EntityPressModifiers.html":[2,0,2,21],
+"structhmi_1_1EntityPressModifiers.html":[3,0,1,20],
+"structhmi_1_1EntityPressModifiers.html#a1f61caa0c4d34547fc7b1a529269f37a":[2,0,2,21,1],
 "structhmi_1_1EntityPressModifiers.html#a1f61caa0c4d34547fc7b1a529269f37a":[3,0,1,20,1],
 "structhmi_1_1EntityPressModifiers.html#ac9a5e034093157dca9c3371b0d6d6974":[2,0,2,21,0],
 "structhmi_1_1EntityPressModifiers.html#ac9a5e034093157dca9c3371b0d6d6974":[3,0,1,20,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX43 =
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html":[2,0,2,83,0],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html":[3,0,1,82,0],
 "structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a03662645b8df760237ffa9798b12ba86":[2,0,2,83,0,8],
-"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a03662645b8df760237ffa9798b12ba86":[3,0,1,82,0,8],
-"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a184d1792709321efdd1eb50857f1febd":[2,0,2,83,0,6],
-"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a184d1792709321efdd1eb50857f1febd":[3,0,1,82,0,6],
-"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a2728c9b2b302a06ac085632bafdffde9":[2,0,2,83,0,5]
+"structhmi_1_1LevelBrowserPanel_1_1Widgets.html#a03662645b8df760237ffa9798b12ba86":[3,0,1,82,0,8]
 };

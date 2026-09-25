@@ -30,30 +30,30 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Charger Source/Elements/Rpg/creatures.</li><li>Compter les creatures chargees et les erreurs rapportees.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>catalogue.creatures.size()</code> vaut <code>BETES_DU_SRD</code>.</li><li>Vérifie que <code>identifiants.insert(creature.id).second</code> est vrai.</li><li>Vérifie que <code>creature.name.empty()</code> est faux.</li><li>Vérifie que <code>creature.source</code> vaut <code>&quot;srd&quot;</code>.</li></ul>
+<ul><li>Vérifie que <code>identifiants.insert(creature.id).second</code> est vrai.</li><li>Vérifie que <code>creature.name.empty()</code> est faux.</li><li>Vérifie que <code>creature.source</code> vaut <code>&quot;original&quot;</code>.</li><li>Vérifie que <code>srd</code> vaut <code>BETES_DU_SRD</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="bestiarytestdixprofilsconcordentaveclelivre">BestiaryTest.DixProfilsConcordentAvecLeLivre</h3>
-<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:123</code></p>
+<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:129</code></p>
 <p>Dix blocs de statistiques du bestiaire concordent avec le livre.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour douze creatures, comparer classe d'armure, points de vie, vitesse de marche, facteur de puissance et degats de l'attaque principale aux valeurs lues sur Animaux.pdf.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>creature</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>creature-&gt;armorClass</code> vaut <code>attendu.armorClass</code>.</li><li>Vérifie que <code>creature-&gt;hitPoints</code> vaut <code>attendu.hitPoints</code>.</li><li>Vérifie que <code>creature-&gt;speed.walk</code> vaut <code>attendu.walk</code> (comparaison flottante).</li><li>Vérifie que <code>creature-&gt;challengeRating</code> vaut <code>attendu.challengeRating</code> (comparaison flottante).</li><li>Vérifie que <code>action</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>action-&gt;damage.has_value()</code> est vrai.</li><li>Vérifie que <code>des.has_value()</code> est vrai.</li><li>Vérifie que <code>*action-&gt;damage</code> vaut <code>*des</code>.</li><li>Vérifie que <code>action-&gt;damageType.has_value()</code> est vrai.</li><li>Vérifie que <code>*action-&gt;damageType</code> vaut <code>attendu.damageType</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="bestiarytestchaqueprofilestcomplet">BestiaryTest.ChaqueProfilEstComplet</h3>
-<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:163</code></p>
+<p><em>Critique · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:169</code></p>
 <p>Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque creature, verifier que les six caracteristiques sont dans [1, 30].</li><li>Verifier que la vitesse de marche est renseignee, meme nulle.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>valeur</code> est supérieur ou égal à <code>1</code>.</li><li>Vérifie que <code>valeur</code> est inférieur ou égal à <code>30</code>.</li><li>Vérifie que <code>creature.speed.walk</code> est supérieur ou égal à <code>0.0F</code>.</li><li>Vérifie que <code>creature.hitPoints</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>creature.armorClass</code> est strictement supérieur à <code>0</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="bestiarytestunevitessenullesignifieunautredeplacement">BestiaryTest.UneVitesseNulleSignifieUnAutreDeplacement</h3>
-<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:187</code></p>
+<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:193</code></p>
 <p>Une creature sans vitesse de marche possede un autre mode de deplacement.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Relever les creatures dont <code>walk</code> vaut 0.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>autrement</code> est vrai.</li><li>Vérifie que <code>immobiles</code> est strictement supérieur à <code>0U</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="bestiarytestlesmecanismesexigessontannonces">BestiaryTest.LesMecanismesExigesSontAnnonces</h3>
-<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:215</code></p>
+<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:221</code></p>
 <p>Exigences : <a class="ref" href="../Specification/contenu.html#EX-CNT-031"><code>EX-CNT-031</code></a></p>
 <p>Le bestiaire annonce les mecanismes que les creatures exigent du moteur.</p>
 <p><strong>Étapes</strong></p>
@@ -61,7 +61,7 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>std::ranges::find(mecanismes, &quot;resistance-conditionnelle&quot;)</code> diffère de <code>mecanismes.end()</code>.</li><li>Vérifie que <code>std::ranges::find(mecanismes, &quot;langue-comprise-non-parlee&quot;)</code> diffère de <code>mecanismes.end()</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="bestiarytestundossierabsentestsignale">BestiaryTest.UnDossierAbsentEstSignale</h3>
-<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:236</code></p>
+<p><em>Majeur · Unitaire · Bestiaire</em> — <code>Source/Test/Unit/Core/Rpg/test_bestiary.cpp:242</code></p>
 <p>Charger un dossier de creatures inexistant produit une erreur nommee.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger un chemin qui n'existe pas.</li></ol>
@@ -639,7 +639,7 @@
 <ul><li>Vérifie que <code>core::allDamageTypes().size()</code> vaut <code>13U</code>.</li><li>Vérifie que <code>core::allConditions().size()</code> vaut <code>15U</code>.</li><li>Vérifie que <code>core::allMagicSchools().size()</code> vaut <code>8U</code>.</li><li>Vérifie que <code>core::allCreatureSizes().size()</code> vaut <code>6U</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-resources.html"><span>Précédent</span>Core · Resources</a><a class="next" href="core-time.html"><span>Suivant</span>Core · Time</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-rpg.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>91b3ad2d2</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>7875f9d64</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

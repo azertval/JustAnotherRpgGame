@@ -179,13 +179,19 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5a61c8ceddd7906b75a29f858dd4e089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un type d'entite inconnu produit tout de meme une entite, sans composant interactif.  <br /></td></tr>
 <tr class="memitem:a24e6a1f2c0e807fa0b482aa16d5dc3cd" id="r_a24e6a1f2c0e807fa0b482aa16d5dc3cd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a24e6a1f2c0e807fa0b482aa16d5dc3cd">TEST</a> (InteractionTest, LesDrapeauxSeRelisentTries)</td></tr>
 <tr class="memdesc:a24e6a1f2c0e807fa0b482aa16d5dc3cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de monde se relisent tries, forme que la sauvegarde ecrira.  <br /></td></tr>
+<tr class="memitem:a277566c461ee6a62fcae05b5ed0f62ee" id="r_a277566c461ee6a62fcae05b5ed0f62ee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a277566c461ee6a62fcae05b5ed0f62ee">TEST</a> (InteractionTest, LaPorteeEstDUneCaseEtDemie)</td></tr>
+<tr class="memdesc:a277566c461ee6a62fcae05b5ed0f62ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un PNJ s'aborde a moins d'une case et demie, diagonale et dos compris.  <br /></td></tr>
+<tr class="memitem:a9d6d5921f4adac280cbd3e21294cc65d" id="r_a9d6d5921f4adac280cbd3e21294cc65d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9d6d5921f4adac280cbd3e21294cc65d">TEST</a> (InteractionTest, DeuxMursEnCoinFermentLaDiagonale)</td></tr>
+<tr class="memdesc:a9d6d5921f4adac280cbd3e21294cc65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deux murs qui se touchent par le coin ferment la diagonale.  <br /></td></tr>
+<tr class="memitem:ad67b2158ce124429205cbe1c3d3c00bd" id="r_ad67b2158ce124429205cbe1c3d3c00bd"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad67b2158ce124429205cbe1c3d3c00bd">TEST</a> (InteractionTest, LaCibleViseeLEmporte)</td></tr>
+<tr class="memdesc:ad67b2158ce124429205cbe1c3d3c00bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le heros regarde passe avant ce qui est plus pres.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests des entites de carte et de l'interaction (LOT-10). </p>
 <p>Les trois criteres d'acceptation du lot ont chacun leur cas : ouvrir un coffre deux fois ne donne le butin qu'une fois Y COMPRIS APRES ALLER-RETOUR DE CARTE ; l'interaction ne traverse pas un mur ; et a deux cibles a portee, celle designee est deterministe. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a8edf76da9f9e1cfd3da0fef77be4870e" name="a8edf76da9f9e1cfd3da0fef77be4870e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8edf76da9f9e1cfd3da0fef77be4870e">&#9670;&#160;</a></span>TEST() <span class="overload">[1/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8edf76da9f9e1cfd3da0fef77be4870e">&#9670;&#160;</a></span>TEST() <span class="overload">[1/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,8 +222,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9d6d5921f4adac280cbd3e21294cc65d" name="a9d6d5921f4adac280cbd3e21294cc65d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d6d5921f4adac280cbd3e21294cc65d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InteractionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DeuxMursEnCoinFermentLaDiagonale</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deux murs qui se touchent par le coin ferment la diagonale. </p>
+<p><b>Cas de test :</b> <b>L'interaction ne passe pas entre deux murs en diagonale.</b><br  />
+ <b>Categorie :</b> Unitaire · Interaction<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un panneau en diagonale, puis murer une case de cote, puis l'autre.<br  />
+ <b>Resultat attendu :</b> Un seul mur laisse passer ; les deux ferment le passage. </p>
+
+</div>
+</div>
 <a id="a613e68e1163769091eb4347cec1b5c44" name="a613e68e1163769091eb4347cec1b5c44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a613e68e1163769091eb4347cec1b5c44">&#9670;&#160;</a></span>TEST() <span class="overload">[2/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a613e68e1163769091eb4347cec1b5c44">&#9670;&#160;</a></span>TEST() <span class="overload">[3/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +284,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac25cfe75567b2fdd3172dcd9c951649b" name="ac25cfe75567b2fdd3172dcd9c951649b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac25cfe75567b2fdd3172dcd9c951649b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac25cfe75567b2fdd3172dcd9c951649b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,8 +312,66 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad67b2158ce124429205cbe1c3d3c00bd" name="ad67b2158ce124429205cbe1c3d3c00bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad67b2158ce124429205cbe1c3d3c00bd">&#9670;&#160;</a></span>TEST() <span class="overload">[5/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InteractionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCibleViseeLEmporte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que le heros regarde passe avant ce qui est plus pres. </p>
+<p><b>Cas de test :</b> <b>A deux cibles a portee, la cible visee l'emporte.</b><br  />
+ <b>Categorie :</b> Unitaire · Interaction<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un panneau devant le heros et un coffre dans son dos, plus proche.<br  />
+ <b>Resultat attendu :</b> Le panneau, vise, est designe ; tourne vers le coffre, c'est le coffre. </p>
+
+</div>
+</div>
+<a id="a277566c461ee6a62fcae05b5ed0f62ee" name="a277566c461ee6a62fcae05b5ed0f62ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a277566c461ee6a62fcae05b5ed0f62ee">&#9670;&#160;</a></span>TEST() <span class="overload">[6/12]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InteractionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaPorteeEstDUneCaseEtDemie</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un PNJ s'aborde a moins d'une case et demie, diagonale et dos compris. </p>
+<p><b>Cas de test :</b> <b>Toute cible a moins de 1,5 case du heros est atteignable.</b><br  />
+ <b>Categorie :</b> Unitaire · Interaction<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un panneau en diagonale du heros, puis derriere lui, puis a deux cases.<br  />
+ <b>Resultat attendu :</b> La diagonale et le dos sont a portee ; deux cases ne le sont pas. </p>
+
+</div>
+</div>
 <a id="a24e6a1f2c0e807fa0b482aa16d5dc3cd" name="a24e6a1f2c0e807fa0b482aa16d5dc3cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24e6a1f2c0e807fa0b482aa16d5dc3cd">&#9670;&#160;</a></span>TEST() <span class="overload">[4/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a24e6a1f2c0e807fa0b482aa16d5dc3cd">&#9670;&#160;</a></span>TEST() <span class="overload">[7/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -310,7 +403,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a32bff10670d855ee63cf9bdd3ba876e1" name="a32bff10670d855ee63cf9bdd3ba876e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32bff10670d855ee63cf9bdd3ba876e1">&#9670;&#160;</a></span>TEST() <span class="overload">[5/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a32bff10670d855ee63cf9bdd3ba876e1">&#9670;&#160;</a></span>TEST() <span class="overload">[8/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,7 +432,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2fa10151f02d60d138c397a1c94f2599" name="a2fa10151f02d60d138c397a1c94f2599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fa10151f02d60d138c397a1c94f2599">&#9670;&#160;</a></span>TEST() <span class="overload">[6/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa10151f02d60d138c397a1c94f2599">&#9670;&#160;</a></span>TEST() <span class="overload">[9/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -368,7 +461,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a475ae270fddd000f59beb045423e3c2e" name="a475ae270fddd000f59beb045423e3c2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a475ae270fddd000f59beb045423e3c2e">&#9670;&#160;</a></span>TEST() <span class="overload">[7/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a475ae270fddd000f59beb045423e3c2e">&#9670;&#160;</a></span>TEST() <span class="overload">[10/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -397,7 +490,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3191951de8bb78cce1ab28f6d6065fdf" name="a3191951de8bb78cce1ab28f6d6065fdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3191951de8bb78cce1ab28f6d6065fdf">&#9670;&#160;</a></span>TEST() <span class="overload">[8/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3191951de8bb78cce1ab28f6d6065fdf">&#9670;&#160;</a></span>TEST() <span class="overload">[11/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,7 +519,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5a61c8ceddd7906b75a29f858dd4e089" name="a5a61c8ceddd7906b75a29f858dd4e089"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a61c8ceddd7906b75a29f858dd4e089">&#9670;&#160;</a></span>TEST() <span class="overload">[9/9]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a61c8ceddd7906b75a29f858dd4e089">&#9670;&#160;</a></span>TEST() <span class="overload">[12/12]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

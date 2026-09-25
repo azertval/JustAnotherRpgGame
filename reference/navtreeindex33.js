@@ -1,5 +1,8 @@
 var NAVTREEINDEX33 =
 {
+"structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3":[2,0,1,90,2],
+"structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3":[3,0,0,90,2],
+"structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[2,0,1,90,3],
 "structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[3,0,0,90,3],
 "structcore_1_1Color.html#aa0fab318db823df0ee631ac5eff49588":[2,0,1,90,1],
 "structcore_1_1Color.html#aa0fab318db823df0ee631ac5eff49588":[3,0,0,90,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX33 =
 "structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49":[2,0,1,48,0],
 "structcore_1_1DamageRequest.html#a1c34ec2760c59f2a9b0c5adb0d395c49":[3,0,0,48,0],
 "structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c":[2,0,1,48,1],
-"structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c":[3,0,0,48,1],
-"structcore_1_1DamageStep.html":[2,0,1,45],
-"structcore_1_1DamageStep.html":[3,0,0,45],
-"structcore_1_1DamageStep.html#a333b38c6f83f6dfff0128d0c7da7161c":[2,0,1,45,3]
+"structcore_1_1DamageRequest.html#aedf13f3eff3746c3acb680ee2b97b70c":[3,0,0,48,1]
 };

@@ -1,5 +1,8 @@
 var NAVTREEINDEX38 =
 {
+"structcore_1_1QuestLoad.html#a5cf80d4df30d461f06e46d041f17ce2a":[2,0,1,108,1],
+"structcore_1_1QuestLoad.html#a5cf80d4df30d461f06e46d041f17ce2a":[3,0,0,108,1],
+"structcore_1_1QuestLoad.html#aefb8eb50b6c2906bd08d8b9fac4a9ba5":[2,0,1,108,0],
 "structcore_1_1QuestLoad.html#aefb8eb50b6c2906bd08d8b9fac4a9ba5":[3,0,0,108,0],
 "structcore_1_1QuestProgress.html":[2,0,1,111],
 "structcore_1_1QuestProgress.html":[3,0,0,111],
@@ -246,8 +249,5 @@ var NAVTREEINDEX38 =
 "structcore_1_1TileLayer.html#a05efcf8e0a2cbc6a1553ff67b7b1ec3c":[2,0,1,125,7],
 "structcore_1_1TileLayer.html#a05efcf8e0a2cbc6a1553ff67b7b1ec3c":[3,0,0,125,7],
 "structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0":[2,0,1,125,10],
-"structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0":[3,0,0,125,10],
-"structcore_1_1TileLayer.html#a345fbe13020bf06888d128bf0ebd0697":[2,0,1,125,4],
-"structcore_1_1TileLayer.html#a345fbe13020bf06888d128bf0ebd0697":[3,0,0,125,4],
-"structcore_1_1TileLayer.html#a3e8783d816158a9f664727059e7d83a0":[2,0,1,125,0]
+"structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0":[3,0,0,125,10]
 };

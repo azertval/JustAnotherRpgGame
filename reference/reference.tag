@@ -7465,6 +7465,27 @@
       <anchor>a24e6a1f2c0e807fa0b482aa16d5dc3cd</anchor>
       <arglist>(InteractionTest, LesDrapeauxSeRelisentTries)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__interaction_8cpp.html</anchorfile>
+      <anchor>a277566c461ee6a62fcae05b5ed0f62ee</anchor>
+      <arglist>(InteractionTest, LaPorteeEstDUneCaseEtDemie)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__interaction_8cpp.html</anchorfile>
+      <anchor>a9d6d5921f4adac280cbd3e21294cc65d</anchor>
+      <arglist>(InteractionTest, DeuxMursEnCoinFermentLaDiagonale)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__interaction_8cpp.html</anchorfile>
+      <anchor>ad67b2158ce124429205cbe1c3d3c00bd</anchor>
+      <arglist>(InteractionTest, LaCibleViseeLEmporte)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_quest.cpp</name>
@@ -45053,6 +45074,13 @@
       <anchor>adc66b2547875ba03914fe3186cd9e7c4</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>releaseInput</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a06a39edc9a1f4f20fea65226c2c16bcd</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>std::unique_ptr&lt; WorldPlay &gt;</type>
       <name>_play</name>
@@ -48189,8 +48217,8 @@
       <type>InteractionTarget</type>
       <name>findInteractionTarget</name>
       <anchorfile>namespacecore.html</anchorfile>
-      <anchor>a9d8c1764c03821f2f58f75d0e5795e7a</anchor>
-      <arglist>(GridPosition from, Vector2 facing, const TileMap &amp;map, const std::vector&lt; InteractionCandidate &gt; &amp;candidates, const WorldFlags &amp;flags)</arglist>
+      <anchor>a7178f0f9c6623b2e838e7f68ed141935</anchor>
+      <arglist>(Vector2 from, Vector2 facing, const TileMap &amp;map, const std::vector&lt; InteractionCandidate &gt; &amp;candidates, const WorldFlags &amp;flags)</arglist>
     </member>
     <member kind="function">
       <type>InteractionOutcome</type>
@@ -49597,6 +49625,13 @@
       <name>INVALID_ENTITY</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a2a9202a1a89eacaec610bdc83b0ff272</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr float</type>
+      <name>INTERACTION_REACH_CELLS</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3d8ff82795b933f62d14bea20a246159</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">

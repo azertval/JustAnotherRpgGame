@@ -38,6 +38,30 @@ namespace {
     return (dx * dx) + (dy * dy);
 }</span>
 
+// Vrai si l'on peut tendre la main de la case @p from a la case voisine @p to sans traverser de
+// matiere. La case cible doit etre traversable ; en diagonale, deux murs qui se touchent par le
+// coin ferment le passage, comme ils ferment la marche (`core::ExplorationReach`).
+<span style = "background-color:#dfd">[[nodiscard]] bool atteignable(const TileMap&amp; map, GridPosition from, GridPosition to) {
+    const int dc = to.column - from.column;
+    const int dr = to.row - from.row;
+    if (std::abs(dc) &gt; 1 || std::abs(dr) &gt; 1) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (!map.inBounds(to.column, to.row) || map.isSolid(to.column, to.row)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (dc != 0 &amp;&amp; dr != 0) {
+        const bool coteColonne =</span>
+            !map.inBounds(from.column + dc, from.row) || map.isSolid(from.column + dc, from.row);
+<span style = "background-color:#dfd">        const bool coteLigne =</span>
+            !map.inBounds(from.column, from.row + dr) || map.isSolid(from.column, from.row + dr);
+<span style = "background-color:#dfd">        if (coteColonne &amp;&amp; coteLigne) {
+            return false;</span>
+        }
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
 }  // namespace
 
 <span style = "background-color:#dfd">GridPosition aimedCell(GridPosition from, Vector2 facing) {
@@ -57,30 +81,26 @@ namespace {
 <span style = "background-color:#dfd">    return {.column = from.column, .row = from.row + (facing.y &gt;= 0.0F ? 1 : -1)};
 }</span>
 
-InteractionTarget findInteractionTarget(GridPosition from, Vector2 facing, const TileMap&amp; map,
+InteractionTarget findInteractionTarget(Vector2 from, Vector2 facing, const TileMap&amp; map,
                                         const std::vector&lt;InteractionCandidate&gt;&amp; candidates,
 <span style = "background-color:#dfd">                                        const WorldFlags&amp; flags) {
+    const GridPosition ici{.column = static_cast&lt;int&gt;(std::floor(from.x)),
+                           .row = static_cast&lt;int&gt;(std::floor(from.y))};
     InteractionTarget resultat;
-    resultat.aimedCell = aimedCell(from, facing);
-    if (resultat.aimedCell == from) {</span>
-<span style = "background-color:#fdd">        return resultat;  // Orientation nulle.</span>
-    }
-<span style = "background-color:#dfd">    if (!map.inBounds(resultat.aimedCell.column, resultat.aimedCell.row)) {</span>
-<span style = "background-color:#fdd">        return resultat;</span>
-    }
-    // L'interaction ne traverse pas un mur. La case visee est adjacente, si bien qu'il n'y a rien
-    // entre elle et le personnage : c'est la case ELLE-MEME qui doit etre traversable.
-<span style = "background-color:#dfd">    if (map.isSolid(resultat.aimedCell.column, resultat.aimedCell.row)) {
-        return resultat;</span>
-    }
+    resultat.aimedCell = aimedCell(ici, facing);</span>
 
-<span style = "background-color:#dfd">    const Vector2 centre = centreDe(resultat.aimedCell);
+<span style = "background-color:#dfd">    bool meilleureVisee = false;
     float meilleure = std::numeric_limits&lt;float&gt;::max();
     for (const InteractionCandidate&amp; candidat : candidates) {
         if (candidat.interactable == nullptr) {</span>
 <span style = "background-color:#fdd">            continue;</span>
         }
-<span style = "background-color:#dfd">        if (candidat.interactable-&gt;position != resultat.aimedCell) {
+<span style = "background-color:#dfd">        const GridPosition ou = candidat.interactable-&gt;position;
+        const float distance = distanceCarree(centreDe(ou), from);
+        if (distance &gt;= INTERACTION_REACH_CELLS * INTERACTION_REACH_CELLS) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!atteignable(map, ici, ou)) {
             continue;</span>
         }
 <span style = "background-color:#dfd">        if (candidat.interactable-&gt;isConsumable() &amp;&amp;</span>
@@ -89,11 +109,15 @@ InteractionTarget findInteractionTarget(GridPosition from, Vector2 facing, const
             // au joueur quelque chose qui n'arrivera pas.
 <span style = "background-color:#dfd">            continue;</span>
         }
-<span style = "background-color:#dfd">        const float distance = distanceCarree(centreDe(candidat.interactable-&gt;position), centre);</span>
-        // Strictement inferieur : a distance egale, le PREMIER l'emporte, donc le plus petit
-        // indice. Sans ce depart, deux candidats sur la meme case donneraient tantot l'un tantot
-        // l'autre selon l'ordre de parcours de l'ECS, qui n'est pas stable.
-<span style = "background-color:#dfd">        if (distance &lt; meilleure) {
+        // Ce que le heros regarde passe avant ce qui est plus pres : a deux PNJ a portee, il parle
+        // a celui vers lequel il s'est tourne. Puis le plus proche ; a egalite STRICTE, le premier
+        // l'emporte, donc le plus petit indice -- sans ce depart, l'ordre de parcours de l'ECS,
+        // qui n'est pas stable, deciderait.
+<span style = "background-color:#dfd">        const bool visee = ou == resultat.aimedCell;
+        const bool mieux = resultat.interactable == nullptr || (visee &amp;&amp; !meilleureVisee) ||</span>
+                           (visee == meilleureVisee &amp;&amp; distance &lt; meilleure);
+<span style = "background-color:#dfd">        if (mieux) {
+            meilleureVisee = visee;
             meilleure = distance;
             resultat.interactable = candidat.interactable;
             resultat.index = candidat.index;</span>

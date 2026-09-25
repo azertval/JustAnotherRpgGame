@@ -37,8 +37,8 @@
  * Ce n'est pas la `core::ReachableArea` du combat (`LOT-19`) : en combat, on coupe les diagonales
  * libres et le terrain difficile coÃ»te double. Les deux rÃ¨gles rÃ©pondent Ã  deux questions.
  *
- * L'interaction (`core::findInteractionTarget`) vise une case **voisine par un cÃ´tÃ©** et non
- * solide : un PNJ qu'on peut aborder se tient donc lui-mÃªme sur une case atteinte.
+ * L'interaction (`core::findInteractionTarget`) vise une case **voisine**, diagonale comprise,
+ * et non solide : un PNJ qu'on peut aborder se tient donc lui-mÃªme sur une case atteinte.
  */
 
 namespace core {

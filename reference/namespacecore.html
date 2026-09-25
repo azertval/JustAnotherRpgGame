@@ -1398,8 +1398,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6e17fe4590d3f7f8beb22b016576512a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une condition écrite en JSON.  <br /></td></tr>
 <tr class="memitem:a241c2143642b12472d6bddb921dac0fa" id="r_a241c2143642b12472d6bddb921dac0fa"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a241c2143642b12472d6bddb921dac0fa">aimedCell</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> from, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> facing)</td></tr>
 <tr class="memdesc:a241c2143642b12472d6bddb921dac0fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case que vise un personnage, d'après son orientation.  <br /></td></tr>
-<tr class="memitem:a9d8c1764c03821f2f58f75d0e5795e7a" id="r_a9d8c1764c03821f2f58f75d0e5795e7a"><td class="memItemLeft"><a class="el" href="structcore_1_1InteractionTarget.html">InteractionTarget</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9d8c1764c03821f2f58f75d0e5795e7a">findInteractionTarget</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> from, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> facing, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;map, const std::vector&lt; <a class="el" href="structcore_1_1InteractionCandidate.html">InteractionCandidate</a> &gt; &amp;candidates, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
-<tr class="memdesc:a9d8c1764c03821f2f58f75d0e5795e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne la cible d'interaction d'un personnage.  <br /></td></tr>
+<tr class="memitem:a7178f0f9c6623b2e838e7f68ed141935" id="r_a7178f0f9c6623b2e838e7f68ed141935"><td class="memItemLeft"><a class="el" href="structcore_1_1InteractionTarget.html">InteractionTarget</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7178f0f9c6623b2e838e7f68ed141935">findInteractionTarget</a> (<a class="el" href="structcore_1_1Vector2.html">Vector2</a> from, <a class="el" href="structcore_1_1Vector2.html">Vector2</a> facing, const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;map, const std::vector&lt; <a class="el" href="structcore_1_1InteractionCandidate.html">InteractionCandidate</a> &gt; &amp;candidates, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
+<tr class="memdesc:a7178f0f9c6623b2e838e7f68ed141935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne la cible d'interaction d'un personnage.  <br /></td></tr>
 <tr class="memitem:ade4da2a70cde1d986371a29343746637" id="r_ade4da2a70cde1d986371a29343746637"><td class="memItemLeft"><a class="el" href="structcore_1_1InteractionOutcome.html">InteractionOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#ade4da2a70cde1d986371a29343746637">interact</a> (const <a class="el" href="structcore_1_1InteractionTarget.html">InteractionTarget</a> &amp;target, <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
 <tr class="memdesc:ade4da2a70cde1d986371a29343746637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout une interaction sur une cible désignée, en levant son drapeau s'il y a lieu.  <br /></td></tr>
 <tr class="memitem:a07f40df9fbe2a910d1e99b9756220fea" id="r_a07f40df9fbe2a910d1e99b9756220fea"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1InteractableKind.html">InteractableKind</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a07f40df9fbe2a910d1e99b9756220fea">knownInteractableKinds</a> ()</td></tr>
@@ -1767,6 +1767,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a4ff8c5fc88044f24ec81f72d00e77a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cases libres exigées par combattant (rencontre + groupe).  <br /></td></tr>
 <tr class="memitem:a2a9202a1a89eacaec610bdc83b0ff272" id="r_a2a9202a1a89eacaec610bdc83b0ff272"><td class="memItemLeft">constexpr <a class="el" href="structcore_1_1Entity.html">Entity</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2a9202a1a89eacaec610bdc83b0ff272">INVALID_ENTITY</a> {<a class="el" href="structcore_1_1Entity.html#a215ee621f52074b73615e4c567820e38">Entity::INVALID_INDEX</a>, 0}</td></tr>
 <tr class="memdesc:a2a9202a1a89eacaec610bdc83b0ff272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entité invalide conventionnelle : ne désigne jamais une entité vivante.  <br /></td></tr>
+<tr class="memitem:a3d8ff82795b933f62d14bea20a246159" id="r_a3d8ff82795b933f62d14bea20a246159"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a3d8ff82795b933f62d14bea20a246159">INTERACTION_REACH_CELLS</a> = 1.5F</td></tr>
+<tr class="memdesc:a3d8ff82795b933f62d14bea20a246159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Portée de l'interaction, en cases, mesurée de la position du personnage au centre de la case de la cible (strictement moins).  <br /></td></tr>
 <tr class="memitem:a47f6e001dc10a742e05ed01de586335f" id="r_a47f6e001dc10a742e05ed01de586335f"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a47f6e001dc10a742e05ed01de586335f">MAP_REGION_PROPERTY</a> = &quot;region&quot;</td></tr>
 <tr class="memdesc:a47f6e001dc10a742e05ed01de586335f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de la <b>région</b> du monde où se trouve la carte, telle que <span class="tt">world-maps.json</span> la nomme (<span class="tt">central-empire</span>) : une propriété de carte, pas un champ du format (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
 <tr class="memitem:afa94966b4ac589f39c5ce6240f9bf3c2" id="r_afa94966b4ac589f39c5ce6240f9bf3c2"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#afa94966b4ac589f39c5ce6240f9bf3c2">MAP_AMBIENCE_PROPERTY</a> = &quot;ambience&quot;</td></tr>
@@ -7518,8 +7520,8 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
-<a id="a9d8c1764c03821f2f58f75d0e5795e7a" name="a9d8c1764c03821f2f58f75d0e5795e7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d8c1764c03821f2f58f75d0e5795e7a">&#9670;&#160;</a></span>findInteractionTarget()</h2>
+<a id="a7178f0f9c6623b2e838e7f68ed141935" name="a7178f0f9c6623b2e838e7f68ed141935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7178f0f9c6623b2e838e7f68ed141935">&#9670;&#160;</a></span>findInteractionTarget()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7530,7 +7532,7 @@ Déterministe, et c'est le point</h2>
         <tr>
           <td class="memname"><a class="el" href="structcore_1_1InteractionTarget.html">InteractionTarget</a> core::findInteractionTarget </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>from</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>          <td class="paramname"><span class="paramname"><em>from</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7561,16 +7563,17 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Désigne la cible d'interaction d'un personnage. </p>
-<p>Trois règles, et chacune répond à un critère d'acceptation du lot :</p>
+<p>Quatre règles :</p>
 <ol type="1">
-<li><b>La cible est sur la case visée</b>, celle devant l'orientation.</li>
-<li><b>L'interaction ne traverse pas un mur</b> : si la case visée est de la matière pleine (<span class="tt"><a class="el" href="#a105a7f2ca0f25e01231a9bc1bbc36ebb" title="Indique si un type de tuile bloque le déplacement de manière statique.">core::isSolid</a></span>), il n'y a pas de cible. Un coffre derrière un mur se voit et ne s'ouvre pas — sans cette règle, un joueur ouvrirait à travers une cloison, ce qui se joue et ne se diagnostique pas.</li>
-<li><b>À plusieurs candidats, le choix est déterministe</b> : la plus proche du <b>centre</b> de la case visée, et à distance égale le plus petit indice. Sans départage, deux coffres empilés donneraient tantôt l'un tantôt l'autre selon l'ordre de parcours de l'ECS, qui n'est pas stable.</li>
+<li><b>La cible est à portée</b> : le centre de sa case est à moins de <span class="tt"><a class="el" href="#a3d8ff82795b933f62d14bea20a246159" title="Portée de l&#39;interaction, en cases, mesurée de la position du personnage au centre de la case de la ci...">INTERACTION_REACH_CELLS</a></span> (1,5 case) de la position <b>continue</b> du personnage. Le héros ne marche pas de case en case ; exiger qu'il regarde exactement la case voisine rendait l'abord d'un PNJ tatillon (retour de l'auteur, démo 0.0.1). À 1,5 case, les huit voisines sont à portée, diagonales comprises, et rien au-delà.</li>
+<li><b>L'interaction ne traverse pas un mur</b> : la case de la cible doit être traversable, et en diagonale deux murs qui se touchent par le coin ferment le passage, comme pour la marche. Un coffre derrière un mur se voit et ne s'ouvre pas.</li>
+<li><b>Ce que le personnage regarde passe d'abord</b> : une cible sur la case visée (<span class="tt"><a class="el" href="#a241c2143642b12472d6bddb921dac0fa" title="La case que vise un personnage, d&#39;après son orientation.">core::aimedCell</a></span>) l'emporte sur une cible plus proche ailleurs. À deux PNJ à portée, on parle à celui vers lequel on s'est tourné.</li>
+<li><b>Le reste est déterministe</b> : puis la plus proche du personnage, et à distance égale le plus petit indice. Sans départage, deux coffres empilés donneraient tantôt l'un tantôt l'autre selon l'ordre de parcours de l'ECS, qui n'est pas stable.</li>
 </ol>
 <p>Une cible dont le drapeau de consommation est déjà levé n'est <b>pas</b> retenue : un coffre vidé n'est plus une cible, et continuer à l'afficher comme telle promettrait au joueur quelque chose qui n'arrivera pas.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">from</td><td>Case du personnage. </td></tr>
+    <tr><td class="paramname">from</td><td>Position continue du personnage, en cases (le centre d'une case est à +0,5). </td></tr>
     <tr><td class="paramname">facing</td><td>Orientation du personnage. </td></tr>
     <tr><td class="paramname">map</td><td>La carte, pour la règle du mur. </td></tr>
     <tr><td class="paramname">candidates</td><td>Les entités interactives de la carte. </td></tr>
@@ -13816,6 +13819,30 @@ Les places</h2>
 </div><div class="memdoc">
 
 <p>Durée d'une immunité « de 24 heures », en secondes de jeu. </p>
+
+</div>
+</div>
+<a id="a3d8ff82795b933f62d14bea20a246159" name="a3d8ff82795b933f62d14bea20a246159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d8ff82795b933f62d14bea20a246159">&#9670;&#160;</a></span>INTERACTION_REACH_CELLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::INTERACTION_REACH_CELLS = 1.5F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Portée de l'interaction, en cases, mesurée de la position du personnage au centre de la case de la cible (strictement moins). </p>
 
 </div>
 </div>

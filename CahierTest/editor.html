@@ -1231,28 +1231,28 @@
 <ul><li>Vérifie que <code>scene.is_discarded()</code> est faux.</li></ul>
 </section><h2 id="test-shipped-mapscpp">test_shipped_maps.cpp</h2>
 <section class="case" data-crit="Bloquant"><h3 id="shippedmapstestchaquecartesouvreetsenregistrealidentique">ShippedMapsTest.ChaqueCarteSOuvreEtSEnregistreALIdentique</h3>
-<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:107</code></p>
+<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:113</code></p>
 <p>Les cartes livrées se rechargent sans perte.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque carte de <code>Source/Elements/Levels</code>, l'ouvrir en brouillon avec le manifeste de son lieu.</li><li>L'enregistrer sans la toucher.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>enregistrer(ouvrir(livre).draft)</code> vaut <code>livre</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="shippedmapstestuneretouchesenregistreserechargeetsedefait">ShippedMapsTest.UneRetoucheSEnregistreSeRechargeEtSeDefait</h3>
-<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:127</code></p>
+<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:133</code></p>
 <p>Une retouche s'enregistre, se recharge et se défait.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque carte livrée, gommer sa première pièce dressée par un geste <code>--apply</code>.</li><li>Enregistrer, recharger, réenregistrer.</li><li>Défaire le geste.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>piece.has_value()</code> est vrai.</li><li>Vérifie que <code>rejoue.ok()</code> est vrai.</li><li>Vérifie que <code>rejoue.steps</code> vaut <code>1U</code>.</li><li>Vérifie que <code>retouche</code> diffère de <code>livre</code>.</li><li>Vérifie que <code>gommee</code> est vrai.</li><li>Vérifie que <code>enregistrer(relue.draft)</code> vaut <code>retouche</code>.</li><li>Vérifie que <code>carte.draft.undo()</code> est vrai.</li><li>Vérifie que <code>enregistrer(carte.draft)</code> vaut <code>livre</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="dataroottestlediteurouvrelesdonneesdelarbredessources">DataRootTest.LEditeurOuvreLesDonneesDeLArbreDesSources</h3>
-<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:176</code></p>
+<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:183</code></p>
 <p>L'éditeur ouvre les données de l'arbre des sources.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Résoudre la racine avec <code>--data</code>, puis sans, l'arbre des sources présent.</li><li>Puis avec un arbre des sources absent ou inconnu.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::resolveDataRoot({&quot;--data&quot;, &quot;ailleurs&quot;, &quot;--check&quot;}, executable, sources)</code> vaut <code>std::filesystem::path{&quot;ailleurs&quot;}</code>.</li><li>Vérifie que <code>hmi::resolveDataRoot({&quot;--check&quot;}, executable, sources)</code> vaut <code>sources</code>.</li><li>Vérifie que <code>hmi::resolveDataRoot({}, executable, sources / &quot;absent&quot;)</code> vaut <code>executable</code>.</li><li>Vérifie que <code>hmi::resolveDataRoot({}, executable, {})</code> vaut <code>executable</code>.</li><li>Vérifie que <code>hmi::resolveDataRoot({&quot;--data&quot;}, executable, {})</code> vaut <code>executable</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="dataroottestundossierdeniveauxviderestelarbredessources">DataRootTest.UnDossierDeNiveauxVideResteLArbreDesSources</h3>
-<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:203</code></p>
+<p><em>Bloquant · Unitaire · Editeur · Cartes livrées</em> — <code>Source/Test/Unit/Editor/test_shipped_maps.cpp:210</code></p>
 <p>Un dossier de niveaux vide reste l'arbre des sources.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Batir une racine dont <code>Levels/</code> ne porte que son <code>README.md</code>.</li><li>Resoudre la racine sans <code>--data</code>.</li><li>Controler cette racine.</li></ol>
@@ -1533,7 +1533,7 @@
 <ul><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {})</code> vaut <code>&quot;from-place&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {&quot;from-place&quot;})</code> vaut <code>&quot;from-place-2&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;donjon&quot;, {&quot;from-donjon&quot;, &quot;from-donjon-2&quot;})</code> vaut <code>&quot;from-donjon-3&quot;</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-world.html"><span>Précédent</span>Core · World</a><a class="next" href="hmi-audio.html"><span>Suivant</span>HMI · Audio</a></nav><p class="source">Source : <code>Documentation/CahierTest/editor.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>91b3ad2d2</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>7875f9d64</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

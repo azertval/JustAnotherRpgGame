@@ -1,5 +1,8 @@
 var NAVTREEINDEX32 =
 {
+"structcore_1_1Background.html#adbf9c9d57947d44d354c5d2ffbadcb39":[2,0,1,149,2],
+"structcore_1_1Background.html#adbf9c9d57947d44d354c5d2ffbadcb39":[3,0,0,149,2],
+"structcore_1_1Background.html#ae39e074e1745158545d30c481c321303":[2,0,1,149,4],
 "structcore_1_1Background.html#ae39e074e1745158545d30c481c321303":[3,0,0,149,4],
 "structcore_1_1Background.html#af85984951f82a72793eff3e05c3e314c":[2,0,1,149,3],
 "structcore_1_1Background.html#af85984951f82a72793eff3e05c3e314c":[3,0,0,149,3],
@@ -246,8 +249,5 @@ var NAVTREEINDEX32 =
 "structcore_1_1CollisionDerivation.html#a508d98310de3a4b1bd71e48330c20e7e":[2,0,1,114,0],
 "structcore_1_1CollisionDerivation.html#a508d98310de3a4b1bd71e48330c20e7e":[3,0,0,114,0],
 "structcore_1_1Color.html":[2,0,1,90],
-"structcore_1_1Color.html":[3,0,0,90],
-"structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3":[2,0,1,90,2],
-"structcore_1_1Color.html#a174b0688edeaa14b34a69404f2e771b3":[3,0,0,90,2],
-"structcore_1_1Color.html#a6661129aae38ea85f938acfd130a888d":[2,0,1,90,3]
+"structcore_1_1Color.html":[3,0,0,90]
 };

@@ -1,5 +1,8 @@
 var NAVTREEINDEX48 =
 {
+"structhmi_1_1WorldMaps.html#ae66474f28d2d4e4186662fbb95f17c9d":[2,0,2,206,4],
+"structhmi_1_1WorldMaps.html#ae66474f28d2d4e4186662fbb95f17c9d":[3,0,1,205,4],
+"structhmi_1_1WorldMaps.html#af90875e76864fdd2067b5725a83c4ad7":[2,0,2,206,3],
 "structhmi_1_1WorldMaps.html#af90875e76864fdd2067b5725a83c4ad7":[3,0,1,205,3],
 "structhmi_1_1WorldPlayStep.html":[2,0,2,110],
 "structhmi_1_1WorldPlayStep.html":[3,0,1,109],
@@ -246,8 +249,5 @@ var NAVTREEINDEX48 =
 "test__brush__gesture_8cpp.html#ac23d2e8096aaecdf4afe56d72dae7ce8":[4,0,0,7,4,1,1,5],
 "test__brush__gesture_8cpp.html#afcdca3a0c99c092455a2de5d54240680":[4,0,0,7,4,1,1,6],
 "test__button__repeat_8cpp.html":[4,0,0,7,4,2,3,0],
-"test__button__repeat_8cpp.html#a9164b8917fd5b733cdb242a7deb987a6":[4,0,0,7,4,2,3,0,0],
-"test__cache__registry_8cpp.html":[4,0,0,7,4,2,2,7],
-"test__cache__registry_8cpp.html#a1863fab6e2fd799860e610095a76796a":[4,0,0,7,4,2,2,7,2],
-"test__cache__registry_8cpp.html#a26ae8ec96a1c683a9547df1221e72087":[4,0,0,7,4,2,2,7,1]
+"test__button__repeat_8cpp.html#a9164b8917fd5b733cdb242a7deb987a6":[4,0,0,7,4,2,3,0,0]
 };
