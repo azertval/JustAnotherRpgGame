@@ -86,6 +86,9 @@ signals:
     /// Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (`startCombat`, `LOT-09`).
     /// Le modèle n'ouvre rien — c'est l'écran qui décide, et c'est le routeur qui navigue.
     void combatRequested(const QString& arenaId);
+    /// Le PNJ engage une rencontre **sur la carte** (`LOT-118`) : c'est l'écran qui la monte
+    /// (`EncounterModel.begin`) et ouvre l'affichage de combat.
+    void encounterRequested(const QString& encounterId);
 
 private:
     struct Session;

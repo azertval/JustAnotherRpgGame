@@ -326,7 +326,7 @@ ArenaMount ArenaSession::mount(const ArenaBout& bout) {
     _disengaged.clear();
     _journal.clear();
     subscribe();
-    _combat->setEscapable(true);
+    _combat->setEscapable(bout.escapable);
 
     ArenaMount montage;
     std::vector<ArenaEntryPoint> entrees = arenaEntryPoints(_level);
@@ -594,6 +594,9 @@ MoveOutcome ArenaSession::move(GridPosition destination) {
     const auto noterPas = [&](const MoveOutcome& pas, GridPosition vers) {
         record("pas " + _combat->find(*actif)->profile.name + " " + std::to_string(vers.column) +
                "," + std::to_string(vers.row) + " (" + std::to_string(pas.path.cost) + ")");
+        if (_moveObserver) {
+            _moveObserver(*actif, pas.path);
+        }
     };
     MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};
     const auto cumuler = [&](const MoveOutcome& pas) {

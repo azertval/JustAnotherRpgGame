@@ -34,7 +34,11 @@ qt_add_qml_module(JadgRuntime
         RuleLabels.h RuleLabels.cpp
         DemonstrationCharacter.h DemonstrationCharacter.cpp
         GameViewportItem.h GameViewportItem.cpp
+        # Le combat, tel qu'un ecran le joue (LOT-24) : la partie commune au Colisee et au combat
+        # sur la carte, puis chacun des deux (LOT-118).
+        CombatModel.h CombatModel.cpp
         ArenaModel.h ArenaModel.cpp
+        EncounterModel.h EncounterModel.cpp
         # La scene de combat du Colisee sur QRhi (LOT-86 Phase 5) : l'item, et le pipeline 2D qu'il
         # est le premier ecran du jeu a faire tourner -- jusqu'ici compile dans l'editeur seul.
         ArenaViewportItem.h ArenaViewportItem.cpp

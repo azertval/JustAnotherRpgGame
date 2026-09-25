@@ -67,8 +67,12 @@ public:
     void receiveItem(std::string_view objet, int quantite) override {
         recus.emplace_back(std::string(objet), quantite);
     }
+    void startEncounter(std::string_view rencontre) override {
+        rencontres.emplace_back(rencontre);
+    }
 
     std::vector<std::pair<std::string, int>> recus;
+    std::vector<std::string> rencontres;
 
 private:
     std::set<std::string> _langues;
@@ -629,4 +633,41 @@ TEST(DialogueTest, UnPnjDeCarteOuvreSonDialogue) {
     coffre.type = "chest";
     coffre.properties[std::string(core::NPC_DIALOGUE_PROPERTY)] = HERAUT;
     EXPECT_FALSE(core::dialogueTriggerFor(coffre).has_value());
+}
+
+/**
+ * @brief L'action `startEncounter` demande une rencontre sur la carte à l'interlocuteur, et le
+ *        journal la note (`LOT-118`).
+ * \castest{<b>Un dialogue peut engager une rencontre sur la carte.</b><br/>
+ * \tcat Unitaire · Dialogue<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Lire un graphe dont le noeud d'action porte `startEncounter` vers
+ * « rats-du-donjon ».<br/>2. Le jouer avec un auditeur d'essai.<br/>3. Lire un graphe dont
+ * l'action `startEncounter` n'a pas de champ `encounter`.<br/>
+ * \tattendu L'auditeur a recu la rencontre, le journal dit « rencontre demandee » ; le second
+ * graphe est refuse.
+ * }
+ */
+TEST(DialogueTest, UnDialoguePeutEngagerUneRencontreSurLaCarte) {
+    const core::DialogueLoad lu = core::readDialogue(
+        graphe(R"({"id":"a","type":"action","actions":[)"
+               R"({"type":"startEncounter","encounter":"rats-du-donjon"}],"next":"fin"},)"
+               R"({"id":"fin","type":"end"})"),
+        "rencontre.json");
+    ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
+    core::WorldFlags drapeaux;
+    Auditeur receveur({"common"}, 0);
+    core::DeterministicRandom hasard(3);
+    core::DialogueRunner runner(*lu.graph, drapeaux, receveur, echelle(), hasard);
+    EXPECT_EQ(runner.start(), core::DialogueState::Ended);
+    ASSERT_EQ(receveur.rencontres.size(), 1U);
+    EXPECT_EQ(receveur.rencontres.front(), "rats-du-donjon");
+    EXPECT_NE(std::ranges::find(runner.journal(), "rencontre demandee : rats-du-donjon"),
+              runner.journal().end());
+
+    const core::DialogueLoad refuse = core::readDialogue(
+        graphe(R"({"id":"a","type":"action","actions":[{"type":"startEncounter"}],"next":"fin"},)"
+               R"({"id":"fin","type":"end"})"),
+        "sans-rencontre.json");
+    EXPECT_FALSE(refuse.graph.has_value());
 }

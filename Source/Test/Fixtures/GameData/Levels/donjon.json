@@ -3,7 +3,7 @@
   "name": "map.donjon.name",
   "width": 40,
   "height": 34,
-  "nextEntityId": 17,
+  "nextEntityId": 18,
   "tiles": [
     {"x": 0, "y": 0, "type": "wall"},
     {"x": 1, "y": 0, "type": "wall"},
@@ -1734,6 +1734,13 @@
       "x": 20,
       "y": 23,
       "name": "sable"
+    },
+    {
+      "id": "e17",
+      "type": "npc",
+      "x": 24,
+      "y": 20,
+      "dialogue": "maitre-d-essai"
     }
   ]
 }

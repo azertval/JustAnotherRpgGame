@@ -224,10 +224,13 @@ void lireCondition(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
     } else if (type == "startCombat") {
         action.kind = DialogueActionKind::StartCombat;
         champ = "arena";
+    } else if (type == "startEncounter") {
+        action.kind = DialogueActionKind::StartEncounter;
+        champ = "encounter";
     } else {
         rapport.noeud(noeudId,
                       "action de type inconnu (setFlag, clearFlag, giveItem, "
-                      "startQuest, startCombat).");
+                      "startQuest, startCombat, startEncounter).");
         return std::nullopt;
     }
     action.target = exiger(effet, champ, noeudId, rapport);
@@ -949,6 +952,10 @@ void DialogueRunner::apply(const DialogueAction& action) {
         case DialogueActionKind::StartCombat:
             _listener.startCombat(action.target);
             _journal.push_back("combat demande : " + action.target);
+            break;
+        case DialogueActionKind::StartEncounter:
+            _listener.startEncounter(action.target);
+            _journal.push_back("rencontre demandee : " + action.target);
             break;
     }
 }

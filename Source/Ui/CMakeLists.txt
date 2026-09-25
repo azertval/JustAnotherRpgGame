@@ -64,6 +64,8 @@ set(JADG_UI_QML_FILES
     Controls/HudFrame.ui.qml
     # Le Colisee (LOT-50) : la marque de ciblage. La scene elle-meme (LOT-86 Phase 7) est rendue par QRhi.
     Controls/ArenaMark.ui.qml
+    # Le calque tactique (LOT-118) : cases, curseur, chemin et combattants, au Colisee comme sur la carte.
+    Controls/TacticalLayer.ui.qml
     Screens/CharacterSheetForm.ui.qml
     Screens/InventoryForm.ui.qml
     Screens/JournalForm.ui.qml

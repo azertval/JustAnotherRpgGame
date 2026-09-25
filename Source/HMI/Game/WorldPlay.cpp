@@ -3,7 +3,7 @@
 
 #include "HMI/Game/WorldPlay.h"
 
-#include <system_error>
+#include <cstddef>
 #include <utility>
 #include <variant>
 
@@ -19,6 +19,8 @@ namespace {
 
 /// Durée d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
+/// Le décalage de respiration entre deux PNJ, en secondes : ni nul, ni un multiple de la bande.
+constexpr float NPC_BREATH_OFFSET_SECONDS = 0.37F;
 
 /// Les entités de la carte courante que les drapeaux laissent paraître (`LOT-116`) : une copie,
 /// que la carte, lue d'un fichier qui ignore la partie, ne peut pas être.
@@ -37,18 +39,18 @@ constexpr float FIGURE_FRAME_SECONDS = 0.15F;
 }  // namespace
 
 WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path assetsDirectory)
-    : _session(std::move(loader)), _assetsDirectory(std::move(assetsDirectory)) {
+    : _session(std::move(loader)),
+      _assetsDirectory(std::move(assetsDirectory)),
+      _figures(_assetsDirectory) {
     setHeroFigure(std::string{DEFAULT_HERO_FIGURE});
 }
 
 void WorldPlay::setHeroFigure(std::string figure) {
     _heroFigure = std::move(figure);
-    // Une figurine est orientee si sa bande de repos vers le sud-est existe : c'est la premiere que
-    // l'atelier produit, et une figurine a moitie orientee se verrait plus mal qu'une qui ne l'est
-    // pas (`scripts/checks/check_hd_assets.py` exige les quatre).
-    std::error_code erreur;
-    _heroOriented = std::filesystem::is_regular_file(
-        _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
+    // La figurine du heros, ou son mannequin si elle n'est pas installee (LOT-145) ; orientee si
+    // sa bande de repos vers le sud-est existe (`scripts/checks/check_hd_assets.py` exige les
+    // quatre des qu'il y en a une).
+    _hero = _figures.resolve(_heroFigure, {}, _appearance);
     // Le dossier de la figurine du heros se lit dans la carte en valeurs.
     invalidateScene();
 }
@@ -108,9 +110,12 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
 
 void WorldPlay::reloadAppearance() {
     invalidateScene();
+    // Le lieu change : ce que le resolveur savait des figurines ne vaut plus, le heros compris.
+    _figures.clear();
     const core::Level* const map = _session.map();
     if (map == nullptr) {
         _appearance = PlaceAppearance{};
+        _hero = _figures.resolve(_heroFigure, {}, _appearance);
         return;
     }
     const std::string place = scenePlaceOf(*map);
@@ -122,16 +127,15 @@ void WorldPlay::reloadAppearance() {
         _appearance = PlaceAppearance::loadForPlace(_assetsDirectory, {}).appearance;
         HMI_LOG_INFO("Monde : la carte " + _session.mapId() +
                      " ne declare aucun lieu ; elle se joue en maquette.");
-        return;
-    }
-    PlaceAppearanceResult read = PlaceAppearance::loadForPlace(_assetsDirectory, place);
-    if (!read.ok()) {
+    } else if (PlaceAppearanceResult read = PlaceAppearance::loadForPlace(_assetsDirectory, place);
+               !read.ok()) {
         HMI_LOG_WARNING("Monde : table d'apparence du lieu " + place + " illisible, " +
                         read.message);
         _appearance = PlaceAppearance{};
-        return;
+    } else {
+        _appearance = std::move(read.appearance);
     }
-    _appearance = std::move(read.appearance);
+    _hero = _figures.resolve(_heroFigure, {}, _appearance);
 }
 
 std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
@@ -142,10 +146,29 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
     const int frame = static_cast<int>(_elapsed / FIGURE_FRAME_SECONDS);
 
     // Les PNJ d'abord, le héros ensuite : à égalité de profondeur, c'est lui qui passe devant.
-    std::vector<WorldFigureSnapshot> figures = npcFigures(entitesPresentes(_session, *map), frame);
+    // Un PNJ sans figurine prend son mannequin (LOT-145) ; chacun respire a son rythme -- un
+    // decalage par PNJ, pour qu'une place ne respire pas d'un seul souffle.
+    const std::vector<core::MapEntity> presentes = entitesPresentes(_session, *map);
+    std::vector<WorldFigureSnapshot> figures = npcFigures(presentes, frame, /*placeholders=*/true);
+    std::size_t rang = 0;
+    for (const core::MapEntity& entite : presentes) {
+        if (entite.type != core::NPC_ENTITY_TYPE || rang >= figures.size()) {
+            continue;
+        }
+        WorldFigureSnapshot& figure = figures[rang++];
+        const auto silhouette = entite.properties.find(std::string{SILHOUETTE_PROPERTY});
+        const std::string* nom = silhouette != entite.properties.end()
+                                     ? std::get_if<std::string>(&silhouette->second)
+                                     : nullptr;
+        const ResolvedFigure& resolue =
+            _figures.resolve(figure.figure, nom != nullptr ? *nom : std::string{}, _appearance);
+        figure.figure = resolue.directory;
+        figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
+        figure.seconds = _elapsed + (static_cast<float>(rang) * NPC_BREATH_OFFSET_SECONDS);
+    }
     figures.push_back(
-        WorldFigureSnapshot{.figure = _heroFigure,
-                            .clip = _walking ? "walk" : "idle",
+        WorldFigureSnapshot{.figure = _hero.directory,
+                            .clip = std::string{_walking ? figure_clips::WALK : figure_clips::IDLE},
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
                             .frame = frame,
                             .facing = heroFacing(),

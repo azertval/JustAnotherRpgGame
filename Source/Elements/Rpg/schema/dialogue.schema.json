@@ -306,6 +306,22 @@
                       "arena"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "startEncounter"
+                      },
+                      "encounter": {
+                        "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "encounter"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               }

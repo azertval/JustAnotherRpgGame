@@ -103,6 +103,9 @@ struct Creature {
     std::string description;
     /// Mécanismes que cette créature exige du moteur (`EX-CNT-030`).
     std::vector<std::string> requiredMechanisms;
+    /// La silhouette de son mannequin de remplacement (`LOT-145`) : `humanoid`, `quadruped`,
+    /// `flying`. Vide : humanoïde. L'extraction ne la devine pas ; elle se pose à la main.
+    std::string silhouette;
 
     /// @brief La valeur d'une caractéristique.
     [[nodiscard]] int ability(Ability which) const {

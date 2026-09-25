@@ -53,6 +53,14 @@ GameViewForm {
             ScreenRouter.openDialogue(dialogueId);
         }
 
+        // Une entite `encounter` de la carte (LOT-118) : le combat se monte sur la zone de combat
+        // et se joue par-dessus la carte gelee ; refuse, l'exploration continue.
+        function onEncounterRequested(encounterId) {
+            if (EncounterModel.begin(encounterId)) {
+                ScreenRouter.openRpgScreen(ScreenRouter.CombatHud);
+            }
+        }
+
         // Le fondu du passage : a l'entree sur une carte, l'ecran revient de l'obscurite.
         function onMapEntered(mapId) { fondu.restart() }
     }
@@ -73,7 +81,10 @@ GameViewForm {
     // qu'un par ecran.
     onActiveFocusChanged: {
         if (root.activeFocus) {
-            WorldModel.frozen = false;
+            // Pendant un combat sur la carte, c'est le combat qui tient la carte gelee : entre la
+            // fermeture du dialogue et l'ouverture de l'affichage de combat, la vue de jeu peut
+            // reprendre le focus un instant sans que le heros doive repartir.
+            WorldModel.frozen = EncounterModel.active;
         } else {
             held.up = false;
             held.down = false;

@@ -10,6 +10,37 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   premier paragraphe de son README) était rendu tel quel dans la carte de l'accueil, elle-même un
   lien : dès qu'il citait une page, le navigateur refermait la carte au premier lien imbriqué et
   la grille éclatait. Le résumé garde ses mots sans ses liens ; un test le vérifie.
+- **LOT-118 — Le combat sur la carte.** Une rencontre engagée pendant l'exploration se joue sur
+  place : la carte se fige, la grille paraît sur sa zone de combat, le combat se joue avec les
+  gestes du Colisée, l'exploration reprend. Ce qui entre :
+  - `core::prepareMapEncounter` : la zone de combat du déclencheur (à défaut du héros), la carte
+    découpée à la zone, les places ramenées dedans et notées ;
+  - `hmi::CombatModel`, la partie du combat commune au Colisée (`hmi::ArenaModel`) et à la carte
+    (`hmi::EncounterModel`) : curseur, actions, gestes, tours de l'IA ; aucune régression du
+    Colisée ;
+  - la **file des mouvements** (`hmi::CombatCueTrack`) : les pas, les coups et les chutes se
+    rejouent à la vitesse du monde, l'IA joue ses tours un par un, et les figurines de la carte
+    gelée jouent leurs six bandes — la marche, l'attaque, le touché, la mort, et le sort (prêt,
+    encore appelé par rien). Les bandes à un coup se figent sur leur dernière image ; le repos
+    respire à l'arrêt ;
+  - l'action de dialogue `startEncounter` (le maître d'arène) et l'entité `encounter` de la carte
+    ouvrent l'affichage de combat (`CombatHud.qml`) par-dessus la carte ; le calque tactique
+    (`TacticalLayer`) est commun aux deux écrans ;
+  - les issues : victoire (drapeau posé, exploration reprise là où le combat a laissé le héros),
+    fuite, défaite (retour au menu en attendant le `LOT-119`) ;
+  - `--data=<racine>` : le jeu joue une racine de contenu comme l'éditeur l'ouvre — c'est ainsi
+    que la carte de test du combat se joue :
+    `JustAnotherRpgGame.exe --data=Source/Test/Fixtures/GameData --map=donjon@sable --at=24,19`.
+  - **Audit de l'IA** : elle marchait bien vers le joueur ; c'est l'affichage qui ne le montrait
+    pas (tous les tours joués d'un bloc, un seul instantané). Un déplacement refusé s'écrit
+    désormais au journal, et un test la fait marcher sur la vraie zone d'une carte.
+  - un bouton **« Fin du tour »** sous la fiche de la cible : le HUD de combat n'offrait la fin du
+    tour qu'au clavier (Espace) et à la manette (Y), la souris ne rendait jamais la main.
+- **LOT-145 — Les mannequins de remplacement** (en cours). Un personnage sans figurine se dessine
+  par le mannequin de sa silhouette (`hmi::FigureResolver`) : le mannequin humanoïde SE-v1 de
+  l'atelier est installé sous `Common/Characters/Placeholders/humanoid/`, sa seule orientation
+  servie aux quatre ; les créatures et les PNJ déclarent leur `silhouette` (`humanoid`,
+  `quadruped`, `flying`). Un PNJ dessiné par un mannequin n'a plus de jeton.
 
 - **LOT-127 — La recette de l'éditeur, à la main.** L'auteur a passé l'éditeur à la souris et au
   clavier en construisant les cartes 2D HD, puis a essayé le résultat dans le jeu. Le cahier de

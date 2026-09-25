@@ -99,17 +99,17 @@
         <translation>: d-pad, the cursor; A, confirm; X, next target; LB / RB, the action; B, recentre; Y, end turn.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="568"/>
+        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="469"/>
         <source>Initiative</source>
         <translation>Initiative</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="580"/>
+        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="481"/>
         <source>  (a terre)</source>
         <translation>  (down)</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="588"/>
+        <location filename="../../Ui/Screens/ArenaForm.ui.qml" line="489"/>
         <source>Journal</source>
         <translation>Log</translation>
     </message>
@@ -117,17 +117,17 @@
 <context>
     <name>BlockMapForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="61"/>
+        <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="63"/>
         <source>L&apos;îlot se dessine…</source>
         <translation>Drawing the block…</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="82"/>
+        <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="84"/>
         <source>Vous êtes ici.</source>
         <translation>You are here.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="90"/>
+        <location filename="../../Ui/Screens/BlockMapForm.ui.qml" line="92"/>
         <source>Tanares  ›  %1  ›  %2  ›  %3  ›  %4</source>
         <translation>Tanares  ›  %1  ›  %2  ›  %3  ›  %4</translation>
     </message>
@@ -140,107 +140,107 @@
         <translation>STR</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="156"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="157"/>
         <source>DEX</source>
         <translation>DEX</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="166"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="168"/>
         <source>CON</source>
         <translation>CON</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="176"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="179"/>
         <source>INT</source>
         <translation>INT</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="186"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="190"/>
         <source>SAG</source>
         <translation>WIS</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="196"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="201"/>
         <source>CHA</source>
         <translation>CHA</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="210"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="216"/>
         <source>CA</source>
         <translation>AC</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="211"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="217"/>
         <source>INIT.</source>
         <translation>INIT.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="212"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="218"/>
         <source>VITESSE</source>
         <translation>SPEED</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="213"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="219"/>
         <source>MAÎTRISE</source>
         <translation>PROF.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="214"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="220"/>
         <source>PERC. PASS.</source>
         <translation>PASS. PERC.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="226"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="232"/>
         <source>Identité du personnage</source>
         <translation>Character identity</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="235"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="241"/>
         <source>Nom</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="236"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="242"/>
         <source>Classe</source>
         <translation>Class</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="237"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="243"/>
         <source>Niveau</source>
         <translation>Level</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="238"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="244"/>
         <source>Origine</source>
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="239"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="245"/>
         <source>Espèce</source>
         <translation>Species</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="240"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="246"/>
         <source>Matricule</source>
         <translation>Registration</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="258"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="264"/>
         <source>Points de vie</source>
         <translation>Hit Points</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="287"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="293"/>
         <source>Expérience</source>
         <translation>Experience</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="369"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="376"/>
         <source>Compétences</source>
         <translation>Skills</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="380"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="387"/>
         <source>Compétences et sorts</source>
         <translation>Skills and spells</translation>
     </message>
@@ -261,27 +261,57 @@
 <context>
     <name>CombatHudForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="287"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="156"/>
+        <source>Victoire</source>
+        <translation>Victory</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="157"/>
+        <source>Vous avez pris la fuite</source>
+        <translation>You fled</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="158"/>
+        <source>Vous êtes mort</source>
+        <translation>You are dead</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="179"/>
+        <source>Fin de la démo</source>
+        <translation>End of the demo</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="179"/>
+        <source>Reprendre l&apos;exploration</source>
+        <translation>Back to exploring</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="376"/>
+        <source>Fin du tour</source>
+        <translation>End turn</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="396"/>
         <source>Niv. %1</source>
         <translation>Lvl %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="323"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="432"/>
         <source>CA</source>
         <translation>AC</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="324"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="433"/>
         <source>Initiative</source>
         <translation>Initiative</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="325"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="434"/>
         <source>Vitesse</source>
         <translation>Speed</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="326"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="435"/>
         <source>États</source>
         <translation>Conditions</translation>
     </message>
@@ -492,54 +522,54 @@
 <context>
     <name>HudFrame.ui</name>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="255"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="256"/>
         <source>O</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="256"/>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="309"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="257"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="333"/>
         <source>N</source>
         <translation>N</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="257"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="258"/>
         <source>E</source>
         <translation>E</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="275"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="276"/>
         <source>HUD dessiné, données à venir</source>
         <translation>HUD designed, data to come</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="332"/>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="493"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="356"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="517"/>
         <source>Quêtes</source>
         <translation>Quests</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="485"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="509"/>
         <source>Sac</source>
         <translation>Bag</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="501"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="525"/>
         <source>Carte</source>
         <translation>Map</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="509"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="533"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="542"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="566"/>
         <source>Exploration</source>
         <translation>Exploration</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="558"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="582"/>
         <source>Tactique</source>
         <translation>Tactical</translation>
     </message>
@@ -881,22 +911,22 @@
 <context>
     <name>PauseForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="50"/>
+        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="53"/>
         <source>Reprendre</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="63"/>
+        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="66"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="76"/>
+        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="79"/>
         <source>Quitter vers le menu</source>
         <translation>Quit to menu</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="88"/>
+        <location filename="../../Ui/Screens/PauseForm.ui.qml" line="91"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>
@@ -1125,178 +1155,261 @@
     </message>
 </context>
 <context>
-    <name>hmi::ArenaModel</name>
+    <name>hmi::CombatModel</name>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="639"/>
-        <source>a terre</source>
-        <translation>down</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="642"/>
-        <source>ensanglante</source>
-        <translation>bloodied</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="591"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="49"/>
         <source>Esquiver</source>
         <translation>Dodge</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="593"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="52"/>
         <source>Se desengager</source>
         <translation>Disengage</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="595"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="54"/>
         <source>Se precipiter</source>
         <translation>Dash</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="599"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="58"/>
         <source>Reaction : saisir les opportunites</source>
         <translation>Reaction: take opportunity attacks</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="600"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="59"/>
         <source>Reaction : laisser passer</source>
         <translation>Reaction: let them go</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="768"/>
-        <source>Esquiver : les attaques contre lui sont desavantagees jusqu&apos;a son prochain tour, s&apos;il voit l&apos;attaquant.</source>
-        <translation>Dodge: attacks against them have disadvantage until their next turn, if they can see the attacker.</translation>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="98"/>
+        <source>a terre</source>
+        <translation>down</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="773"/>
-        <source>Se desengager : ses deplacements ne provoquent plus d&apos;attaque d&apos;opportunite ce tour-ci.</source>
-        <translation>Disengage: their movement provokes no opportunity attacks for the rest of the turn.</translation>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="101"/>
+        <source>ensanglante</source>
+        <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="778"/>
-        <source>Se precipiter : un deplacement supplementaire egal a sa vitesse.</source>
-        <translation>Dash: extra movement equal to their speed.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="782"/>
-        <source>Il frappera l&apos;ennemi qui quitte son allonge. Confirmer pour le laisser passer.</source>
-        <translation>They will strike an enemy leaving their reach. Confirm to let it go.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="784"/>
-        <source>Il laissera passer l&apos;ennemi qui quitte son allonge. Confirmer pour frapper.</source>
-        <translation>They will let an enemy leave their reach. Confirm to strike.</translation>
-    </message>
-    <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="651"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="110"/>
         <source> (a terre)</source>
         <translation> (down)</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="653"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="112"/>
         <source> (ensanglante)</source>
         <translation> (bloodied)</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="806"/>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="866"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="426"/>
+        <source>Esquiver : les attaques contre lui sont desavantagees jusqu&apos;a son prochain tour, s&apos;il voit l&apos;attaquant.</source>
+        <translation>Dodge: attacks against them have disadvantage until their next turn, if they can see the attacker.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="431"/>
+        <source>Se desengager : ses deplacements ne provoquent plus d&apos;attaque d&apos;opportunite ce tour-ci.</source>
+        <translation>Disengage: their movement provokes no opportunity attacks for the rest of the turn.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="436"/>
+        <source>Se precipiter : un deplacement supplementaire egal a sa vitesse.</source>
+        <translation>Dash: extra movement equal to their speed.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="440"/>
+        <source>Il frappera l&apos;ennemi qui quitte son allonge. Confirmer pour le laisser passer.</source>
+        <translation>They will strike an enemy leaving their reach. Confirm to let it go.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="442"/>
+        <source>Il laissera passer l&apos;ennemi qui quitte son allonge. Confirmer pour frapper.</source>
+        <translation>They will let an enemy leave their reach. Confirm to strike.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="464"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="526"/>
         <source>Hors d&apos;allonge ou de portee.</source>
         <translation>Out of reach or range.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="809"/>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="869"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="467"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="529"/>
         <source>Cible hors de vue : abri total.</source>
         <translation>Target out of sight: total cover.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="812"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="470"/>
         <source>Cible invalide.</source>
         <translation>Invalid target.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="815"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="473"/>
         <source>Jet requis %1 : %2 % de chances de toucher</source>
         <translation>Roll needed %1: %2% chance to hit</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="819"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="477"/>
         <source>CA %1</source>
         <translation>AC %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="820"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="478"/>
         <source>CA %1, dont %2</source>
         <translation>AC %1, including %2</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="824"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="482"/>
         <source>Avantage : %1</source>
         <translation>Advantage: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="827"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="485"/>
         <source>Desavantage : %1</source>
         <translation>Disadvantage: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="838"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="496"/>
         <source>Case hors d&apos;atteinte ce tour-ci.</source>
         <translation>Square out of reach this turn.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="841"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="499"/>
         <source>Deplacement : %1 case(s), il en restera %2.</source>
         <translation>Move: %1 square(s), %2 left afterwards.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="849"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="507"/>
         <source>Attaque d&apos;opportunite : %1</source>
         <translation>Opportunity attack: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="872"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="532"/>
         <source>L&apos;action de ce tour est deja depensee.</source>
         <translation>This turn&apos;s action is already spent.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="875"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="535"/>
         <source>Ce combattant n&apos;a aucune attaque.</source>
         <translation>This fighter has no attack.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="879"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="539"/>
         <source>Attaque refusee.</source>
         <translation>Attack refused.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="888"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="548"/>
         <source>Deplacement : %1 case(s).</source>
         <translation>Move: %1 square(s).</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="891"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="551"/>
         <source>Case hors de portee de ce qui reste du deplacement.</source>
         <translation>Square beyond the movement left.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="895"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="555"/>
         <source>Aucun combattant a deplacer.</source>
         <translation>No fighter to move.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="1049"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="709"/>
         <source>Rien a faire sur cette case.</source>
         <translation>Nothing to do on this square.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="1066"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="726"/>
         <source>Il frappera l&apos;ennemi qui quitte son allonge.</source>
         <translation>They will strike an enemy leaving their reach.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/ArenaModel.cpp" line="1067"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="727"/>
         <source>Il laissera passer l&apos;ennemi qui quitte son allonge.</source>
         <translation>They will let an enemy leave their reach.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="781"/>
+        <source>Sorti du combat.</source>
+        <translation>Left the fight.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="784"/>
+        <source>On ne fuit pas ce combat.</source>
+        <translation>There is no fleeing this fight.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="787"/>
+        <source>Personne a retirer.</source>
+        <translation>Nobody to withdraw.</translation>
+    </message>
+</context>
+<context>
+    <name>hmi::EncounterModel</name>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="131"/>
+        <source>Un combat est deja engage.</source>
+        <translation>A fight is already under way.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="137"/>
+        <source>Aucune carte ou engager le combat.</source>
+        <translation>No map to fight on.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="142"/>
+        <source>Le heros de la demo n&apos;a pas de fiche : rien a engager.</source>
+        <translation>The demo hero has no sheet: nothing to fight with.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="149"/>
+        <source>Rencontre inconnue : %1</source>
+        <translation>Unknown encounter: %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="227"/>
+        <source> Un camp est vide apres le montage : rien a engager.</source>
+        <translation> One side is empty after mounting: nothing to fight.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="411"/>
+        <source>Le combat n&apos;est pas fini.</source>
+        <translation>The fight is not over.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="526"/>
+        <source>a terre</source>
+        <translation>down</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="527"/>
+        <source>ensanglante</source>
+        <translation>bloodied</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="533"/>
+        <source> m</source>
+        <translation> m</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="536"/>
+        <source>A terre</source>
+        <translation>Down</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="539"/>
+        <source>Ensanglante</source>
+        <translation>Bloodied</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="542"/>
+        <source>Esquive</source>
+        <translation>Dodging</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="544"/>
+        <source>Aucun</source>
+        <translation>None</translation>
     </message>
 </context>
 <context>
@@ -1321,12 +1434,12 @@
 <context>
     <name>hmi::WorldModel</name>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="63"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="78"/>
         <source>La ville de départ ne s&apos;ouvre pas.</source>
         <translation>The starting city will not open.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="79"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="151"/>
         <source>La carte « %1 » ne s&apos;ouvre pas.</source>
         <translation>The map “%1” does not open.</translation>
     </message>

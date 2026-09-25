@@ -114,6 +114,11 @@ TEST(CanvasSceneTest, LaCarteDEssaiSeComposeCommeDansLeJeu) {
     const hmi::WorldFigureSnapshot hero = game.figures.back();
     game.figures.pop_back();  // le héros : le jeu le pose, l'éditeur non.
     game.figureDirectories.erase(hero.figure);
+    // Les figurines du jeu portent le temps (elles respirent, LOT-118) ; celles de l'éditeur sont
+    // figées à leur première image. Tout le reste doit être identique.
+    for (hmi::WorldFigureSnapshot& figure : game.figures) {
+        figure.seconds = -1.0F;
+    }
 
     EXPECT_EQ(editor.place, "bourg");
     EXPECT_EQ(editor, game);

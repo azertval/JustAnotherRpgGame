@@ -22,7 +22,8 @@
     "cast"
   ],
   "npcs": [
-    "Heroes/brawler"
+    "Heroes/brawler",
+    "Placeholders/humanoid"
   ],
   "sources": {
     "Heroes/brawler/attack-ne.png": {
@@ -112,6 +113,30 @@
     "Heroes/brawler/walk-sw.png": {
       "file": "Common/Characters/Heroes/brawler/walk-sw-v2.png",
       "sha256": "df249d6d6e6514b3f3515e9aaa2ec62e885cfefdb00522928bfb3cfe4b81b562"
+    },
+    "Placeholders/humanoid/attack.png": {
+      "file": "Common/Characters/Placeholders/humanoid/attack-se.png",
+      "sha256": "7bef8916b463e18ab1c698274f5808bed48b913ead8ade32daf5f928946b6147"
+    },
+    "Placeholders/humanoid/cast.png": {
+      "file": "Common/Characters/Placeholders/humanoid/cast-se.png",
+      "sha256": "7cad81ff45962088b59818fdffe90fed384e3fd6daca9034c15802f98081d67b"
+    },
+    "Placeholders/humanoid/death.png": {
+      "file": "Common/Characters/Placeholders/humanoid/death-se.png",
+      "sha256": "4b6460f19c2515e5f81ab8669c78ec82d144d631769c2724f2f2bef62acdd839"
+    },
+    "Placeholders/humanoid/hit.png": {
+      "file": "Common/Characters/Placeholders/humanoid/hit-se.png",
+      "sha256": "1495e9ae7a834a738ea14b5c217c6154cbc8efc5e6b03f504ca9da6f77f96e32"
+    },
+    "Placeholders/humanoid/idle.png": {
+      "file": "Common/Characters/Placeholders/humanoid/idle-se.png",
+      "sha256": "af8910129258408be1f198fc8f46adf9abc7861b390bd2f422ba6dffd96abba4"
+    },
+    "Placeholders/humanoid/walk.png": {
+      "file": "Common/Characters/Placeholders/humanoid/walk-se.png",
+      "sha256": "c429326dfadeace661858c33e3d97c93c529b484dfcf8f96ba0734456ab8e83c"
     }
   }
 }

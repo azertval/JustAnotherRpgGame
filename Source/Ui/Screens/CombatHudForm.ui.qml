@@ -18,10 +18,43 @@ import Jadg.Ui
     - `combatLog` : `label` la ligne, `value` le tour qu'elle ouvre (`ally`, `enemy`) ou vide ;
     - `actions` : `label` l'action, `value` ses charges restantes ou vide.
 
+    Le combat sur la carte (LOT-118) y ajoute le CALQUE TACTIQUE par-dessus la surface -- cases
+    atteignables, curseur, chemin, combattants (`TacticalLayer`, le meme qu'au Colisee) --, le
+    statut du dernier geste, et le panneau de l'ISSUE : victoire, fuite ou mort, avec le geste
+    qui rend l'exploration. La grille tactique est une zone de la carte : `zoneColumn` et
+    `zoneRow` ramenent ses cases sur la carte.
+
     Les proprietes portent des VALEURS D'EXEMPLE ; le jumeau les remplace.
 */
 HudFrame {
     id: root
+
+    // --- Le calque tactique (LOT-118) -----------------------------------------------------------
+    property var fighters: []
+    property var reachableCells: []
+    property var pathCells: []
+    property int cursorColumn: 0
+    property int cursorRow: 0
+    property bool ended: false
+    property int zoneColumn: 0
+    property int zoneRow: 0
+    property real gridTileWidth: 64
+    property real gridTileHeight: 40
+    property real gridOriginX: 0
+    property real gridOriginY: 0
+    /// Ce que le dernier geste a donne : un jet, un refus.
+    property string status: ""
+    /// Vrai pendant qu'un mouvement se joue : les gestes attendent.
+    property bool busy: false
+    /// L'issue : vide tant que le combat dure ; `victory`, `flight`, `defeat`.
+    property string outcome: ""
+
+    signal gridHovered(real x, real y)
+    signal gridClicked(real x, real y)
+    /// Le joueur quitte le combat fini : retour a l'exploration, ou fin de la demo.
+    signal leaveRequested()
+    /// Le joueur rend la main (le geste « Espace » / « Y », a la souris).
+    signal endTurnRequested()
 
     property var initiative: exampleInitiative
     /// Le combattant dont c'est le tour (indice dans `initiative`).
@@ -72,6 +105,85 @@ HudFrame {
     }
 
     mode: "combat"
+
+    // --- Le calque tactique, par-dessus la surface (LOT-118) ---------------------------------------------
+    // Le contenu d'un HudFrame remplit le cadre, comme l'hote de la surface : meme rectangle.
+    TacticalLayer {
+        anchors.fill: parent
+        visible: root.fighters.length > 0
+        fighters: root.fighters
+        reachableCells: root.reachableCells
+        pathCells: root.pathCells
+        cursorColumn: root.cursorColumn
+        cursorRow: root.cursorRow
+        ended: root.ended
+        zoneColumn: root.zoneColumn
+        zoneRow: root.zoneRow
+        gridTileWidth: root.gridTileWidth
+        gridTileHeight: root.gridTileHeight
+        gridOriginX: root.gridOriginX
+        gridOriginY: root.gridOriginY
+        onGridHovered: (x, y) => root.gridHovered(x, y)
+        onGridClicked: (x, y) => root.gridClicked(x, y)
+    }
+
+    // --- Le statut du dernier geste, sous l'ordre d'initiative ------------------------------------------
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 172 * Tokens.uiScale
+        width: 900 * Tokens.uiScale
+        visible: text.length > 0
+        text: root.busy ? "" : root.status
+        color: Tokens.goldLight
+        font.family: Tokens.bodyFamily
+        font.pixelSize: Tokens.fontBody
+        horizontalAlignment: Text.AlignHCenter
+        elide: Text.ElideMiddle
+        style: Text.Outline
+        styleColor: Tokens.panel
+    }
+
+    // --- L'issue (LOT-118) : ce qui reste a l'ecran quand le combat est fini -----------------------------
+    PanelFrame {
+        anchors.centerIn: parent
+        width: 520 * Tokens.uiScale
+        height: 200 * Tokens.uiScale
+        visible: root.outcome.length > 0
+
+        Column {
+            anchors.centerIn: parent
+            spacing: Tokens.gapMedium
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: root.outcome === "victory" ? qsTr("Victoire")
+                    : root.outcome === "flight" ? qsTr("Vous avez pris la fuite")
+                    : qsTr("Vous êtes mort")
+                color: Tokens.goldLight
+                font.family: Tokens.titleFamily
+                font.pixelSize: Tokens.fontSectionTitle
+            }
+
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 460 * Tokens.uiScale
+                text: root.status
+                color: Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontBody
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
+            }
+
+            OrnateButton {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: root.outcome === "defeat" ? qsTr("Fin de la démo") : qsTr("Reprendre l'exploration")
+                onClicked: root.leaveRequested()
+            }
+        }
+    }
 
     // --- Ordre d'initiative, sous la boussole ------------------------------------------------------------
     Row {
@@ -254,6 +366,16 @@ HudFrame {
                 }
             }
         }
+    }
+
+    // --- Fin du tour, sous la fiche de la cible -----------------------------------------------------------
+    // Le seul geste du tour qui n'avait ni case ni bouton : sans lui, la souris ne rendait jamais la main.
+    OrnateButton {
+        x: 1256 * Tokens.uiScale
+        y: 968 * Tokens.uiScale
+        text: qsTr("Fin du tour")
+        enabled: !root.ended && !root.busy && root.outcome.length === 0
+        onClicked: root.endTurnRequested()
     }
 
     // --- Fiche de la cible (maquette : 1100, 678 -> 1390, 828) ----------------------------------------------

@@ -14,6 +14,10 @@
       "type": "string", "minLength": 2
     },
     "alignment": { "type": "string" },
+    "silhouette": {
+      "description": "Le mannequin de remplacement de la creature tant qu'elle n'a pas de figurine (LOT-145).",
+      "type": "string", "enum": ["humanoid", "quadruped", "flying"]
+    },
     "description": {
       "description": "Le paragraphe d'ambiance qui clot le bloc dans le livre -- << Les araignees-loups geantes chassent en terrain decouvert ou se cachent dans des terriers >>. Il ne porte aucune regle, et c'est pourtant ce que le bestiaire affichera. Champ ajoute au premier remplissage de la famille (LOT-33) : le laisser tomber obligerait a reextraire le document le jour ou l'ecran existe.",
       "type": "string", "minLength": 8

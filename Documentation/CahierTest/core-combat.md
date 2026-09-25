@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **112 cas** (33 bloquants, 48 critiques, 30 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **115 cas** (33 bloquants, 50 critiques, 31 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -18,6 +18,7 @@ Tests unitaires — **112 cas** (33 bloquants, 48 critiques, 30 majeurs, 1 mineu
 | [`test_enemy_ai.cpp`](#test-enemy-aicpp) | 12 | 5 | 7 | - | - |
 | [`test_iso_projection.cpp`](#test-iso-projectioncpp) | 9 | 5 | - | 3 | 1 |
 | [`test_line_of_sight.cpp`](#test-line-of-sightcpp) | 3 | 1 | 1 | 1 | - |
+| [`test_map_encounter.cpp`](#test-map-encountercpp) | 3 | - | 2 | 1 | - |
 | [`test_pathfinding.cpp`](#test-pathfindingcpp) | 13 | 4 | 6 | 3 | - |
 | [`test_tactical_terrain.cpp`](#test-tactical-terraincpp) | 10 | - | 4 | 6 | - |
 | [`test_turn_order.cpp`](#test-turn-ordercpp) | 3 | 1 | 1 | 1 | - |
@@ -2116,6 +2117,74 @@ Un muret et une créature interposée abritent partiellement, une herse de faço
 - Vérifie que `core::coverBonus(Cover::Half)` vaut `2`.
 - Vérifie que `core::coverBonus(Cover::ThreeQuarters)` vaut `5`.
 - Vérifie que `core::coverBonus(Cover::Total)` vaut `0`.
+
+## test_map_encounter.cpp
+
+### MapEncounterTest.LaZoneDuDeclencheurEstChoisieEtLesCasesTranslatees
+
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:63`
+
+Une rencontre se pose sur la zone de combat du declencheur, cases translatees.
+
+**Étapes**
+
+1. Preparer une rencontre de deux loups, declenchee en (14, 8), heros en (15, 10), sur une carte dont la zone « cour » couvre (10, 5) a (19, 12).
+
+**Résultat attendu**
+
+- Vérifie que `resultat.ok()` est vrai.
+- Vérifie que `montage.zone.name` vaut `"cour"`.
+- Vérifie que `montage.battlefield.tileMap().width()` vaut `10`.
+- Vérifie que `montage.battlefield.tileMap().height()` vaut `8`.
+- Vérifie que `montage.heroCell` vaut `(core::GridPosition{.column = 5, .row = 5})`.
+- Vérifie que `montage.run.placements.size()` vaut `2U`.
+- Vérifie que `montage.run.placements[0].position` vaut `(core::GridPosition{.column = 4, .row = 2})`.
+- Vérifie que `montage.run.placements[1].position` vaut `(core::GridPosition{.column = 5, .row = 3})`.
+- Vérifie que `montage.run.escapable` est faux.
+- Vérifie que `montage.run.defeatFlagKey` vaut `"essai/loups"`.
+- Vérifie que `montage.notes.empty()` est vrai.
+- Vérifie que `core::zoneToMap(montage.zone, montage.heroCell)` vaut `(core::GridPosition{.column = 15, .row = 10})`.
+- Vérifie que `core::mapToZone(montage.zone, {.column = 15, .row = 10})` vaut `montage.heroCell`.
+
+### MapEncounterTest.UnePlaceImpossibleSeRapprocheEtSeNote
+
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:97`
+
+Une place impossible est rapprochee de la case voulue, et notee.
+
+**Étapes**
+
+1. Declencher en (12, 7) : le loup « un pas devant » vise (12, 6), un mur.
+2. Declencher en (10, 5) avec le heros hors de la zone, en (2, 2) : le second loup vise (11, 5), la place du heros vise une case hors zone.
+
+**Résultat attendu**
+
+- Vérifie que `mur.ok()` est vrai.
+- Vérifie que `posee` diffère de `(core::GridPosition{.column = 12, .row = 6})`.
+- Vérifie que `std::max(std::abs(posee.column - 12), std::abs(posee.row - 6))` est inférieur ou égal à `1`.
+- Vérifie que `mur.setup->notes.size()` vaut `1U`.
+- Vérifie que `mur.setup->notes.front().find("wolf")` diffère de `std::string::npos`.
+- Vérifie que `dehors.ok()` est vrai.
+- Vérifie que `core::zoneToMap(dehors.setup->zone, dehors.setup->heroCell)` vaut `(core::GridPosition{.column = 10, .row = 5})`.
+- Vérifie que `std::ranges::find(cases, place.position)` vaut `cases.end()`.
+- Vérifie que `dehors.setup->zone.contains(core::zoneToMap(dehors.setup->zone, place.position))` est vrai.
+
+### MapEncounterTest.SansZoneLaRencontreEstRefusee
+
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:136`
+
+Une rencontre hors de toute zone de combat est refusee.
+
+**Étapes**
+
+1. Declencher en (2, 2), heros en (3, 3), hors de la zone « cour ».
+
+**Résultat attendu**
+
+- Vérifie que `resultat.ok()` est faux.
+- Vérifie que `resultat.issue.find("essai")` diffère de `std::string::npos`.
+- Vérifie que `resultat.issue.find("2,2")` diffère de `std::string::npos`.
+- Vérifie que `resultat.issue.find("3,3")` diffère de `std::string::npos`.
 
 ## test_pathfinding.cpp
 

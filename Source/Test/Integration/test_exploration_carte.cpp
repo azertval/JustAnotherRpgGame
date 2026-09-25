@@ -64,7 +64,11 @@ TEST(ExplorationCarteIntegration, UneCarteSeChargeEtSeCompose) {
     EXPECT_EQ(snapshot.rows, play.session().map()->tileMap().height());
     EXPECT_TRUE(hasDrawnFloor(snapshot));
     ASSERT_FALSE(snapshot.figures.empty());
-    EXPECT_EQ(snapshot.figures.back().figure, hmi::WorldPlay::DEFAULT_HERO_FIGURE);
+    EXPECT_TRUE(snapshot.figures.back().hero);
+    // La racine d'essai n'a pas le heros de la demo : son mannequin tient la place (LOT-145).
+    EXPECT_EQ(snapshot.figures.back().figure, play.heroResolved().directory);
+    EXPECT_EQ(play.heroResolved().directory, hmi::placeholderFigureDirectory("humanoid"));
+    EXPECT_TRUE(play.heroResolved().placeholder);
 }
 
 /**
@@ -163,11 +167,20 @@ TEST(ExplorationCarteIntegration, UneCarteQuiPuiseDansQuatreNiveauxSeJoue) {
     for (const auto& [piece, file] : snapshot.pieceFiles) {
         EXPECT_TRUE(std::filesystem::is_regular_file(tree / "Assets" / file)) << piece;
     }
-    // Ses PNJ prennent leur figurine sous le niveau qui la range : la zone, le monde.
-    EXPECT_EQ(snapshot.figureDirectories.at("anariel"),
-              "Regions/central-empire/capital/arenarea/Characters/anariel");
-    EXPECT_EQ(snapshot.figureDirectories.at("Peoples/human/guard"),
-              "Common/Characters/Peoples/human/guard");
+    // Ses PNJ prennent leur figurine sous le niveau qui la range : la zone, le monde -- et c'est
+    // ce dossier resolu que les figurines posees portent (LOT-145).
+    const std::string anariel = "Regions/central-empire/capital/arenarea/Characters/anariel";
+    const std::string garde = "Common/Characters/Peoples/human/guard";
+    EXPECT_EQ(play.resolveFigure("anariel", {}).directory, anariel);
+    EXPECT_EQ(play.resolveFigure("Peoples/human/guard", {}).directory, garde);
+    EXPECT_FALSE(play.resolveFigure("anariel", {}).placeholder);
+    for (const std::string& dossier : {anariel, garde}) {
+        EXPECT_TRUE(std::ranges::any_of(snapshot.figures, [&dossier](const auto& figure) {
+            return figure.figure == dossier;
+        })) << dossier;
+        EXPECT_EQ(snapshot.figureDirectories.at(dossier), dossier);
+    }
     ASSERT_FALSE(snapshot.figures.empty());
-    EXPECT_EQ(snapshot.figures.back().figure, hmi::WorldPlay::DEFAULT_HERO_FIGURE);
+    EXPECT_TRUE(snapshot.figures.back().hero);
+    EXPECT_EQ(snapshot.figures.back().figure, play.heroResolved().directory);
 }

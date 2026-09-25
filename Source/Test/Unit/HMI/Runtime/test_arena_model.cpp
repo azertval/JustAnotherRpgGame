@@ -169,3 +169,63 @@ TEST(ArenaModelTest, LeCalqueDeLaGrilleDecritCombattantsEtCasesAtteignables) {
         }
     }
 }
+
+/**
+ * @brief Un ennemi joué par l'IA se rapproche du joueur, tour après tour, sur la vraie zone de
+ *        combat d'une carte — pas seulement dans une salle synthétique (audit du `LOT-118`).
+ * \castest{<b>L'ennemi de l'IA marche vers le joueur sur la carte de l'arene.</b><br/>
+ * \tcat Unitaire · IHM · IA<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Lancer le personnage contre un sanglier, IA en marche, sur la zone « salle » du
+ * donjon d'essai (les deux camps entrent a dix-sept cases l'un de l'autre).<br/>2. Finir le tour
+ * du joueur sans bouger, trois fois.<br/>
+ * \tattendu A chaque tour de l'IA, la distance du sanglier au personnage diminue, ou le sanglier
+ * l'attaque ; le journal porte ses pas, et jamais un deplacement refuse.
+ * }
+ */
+TEST(ArenaModelTest, LEnnemiDeLIaMarcheVersLeJoueur) {
+    hmi::ArenaModel arena{nullptr, JADG_TEST_DATA_DIR};
+    lancer(arena);
+    const auto distance = [&arena]() {
+        int allie = -1;
+        int ennemi = -1;
+        int colonneA = 0;
+        int ligneA = 0;
+        int colonneE = 0;
+        int ligneE = 0;
+        for (const QVariant& entry : arena.fighters()) {
+            const QVariantMap fighter = entry.toMap();
+            if (fighter.value("side").toString() == "allies") {
+                allie = 1;
+                colonneA = fighter.value("column").toInt();
+                ligneA = fighter.value("row").toInt();
+            } else {
+                ennemi = 1;
+                colonneE = fighter.value("column").toInt();
+                ligneE = fighter.value("row").toInt();
+            }
+        }
+        EXPECT_EQ(allie, 1);
+        EXPECT_EQ(ennemi, 1);
+        return std::max(std::abs(colonneA - colonneE), std::abs(ligneA - ligneE));
+    };
+    int avant = distance();
+    ASSERT_GT(avant, 2) << "les deux camps entrent loin l'un de l'autre";
+    bool attaque = false;
+    for (int tour = 0; tour < 3 && !arena.ended(); ++tour) {
+        arena.endTurn();
+        const int apres = distance();
+        const QStringList journal = arena.journal();
+        attaque = attaque || std::ranges::any_of(journal, [](const QString& ligne) {
+                      return ligne.contains(QStringLiteral("attaque"));
+                  });
+        EXPECT_TRUE(apres < avant || attaque) << "tour " << tour << " : " << avant << " -> " << apres;
+        EXPECT_FALSE(std::ranges::any_of(journal, [](const QString& ligne) {
+            return ligne.contains(QStringLiteral("deplacement refuse"));
+        }));
+        avant = std::min(avant, apres);
+    }
+    EXPECT_TRUE(std::ranges::any_of(arena.journal(), [](const QString& ligne) {
+        return ligne.startsWith(QStringLiteral("pas "));
+    })) << "le journal porte les pas de l'IA";
+}

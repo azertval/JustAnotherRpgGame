@@ -383,6 +383,23 @@ int main(int argc, char** argv) {
 
     QGuiApplication application(argc, argv);
 
+    // La racine de contenu imposee (--data=<racine>, LOT-118) : le jeu lit cartes, assets, monde,
+    // dialogues et rencontres la ou l'editeur les ouvre (`LevelEditor --data`), et l'on joue une
+    // racine d'essai sans rien copier a cote de l'executable. AVANT tout modele : ils lisent
+    // `hmi::dataDirectory()` a leur construction. Un binaire livre l'ignore.
+    if constexpr (core::DEVELOPER_BUILD) {
+        if (const std::optional<std::string_view> data =
+                app::commandLineOption(argc, argv, "--data=")) {
+            const std::filesystem::path racine = std::filesystem::absolute(*data);
+            if (std::filesystem::is_directory(racine)) {
+                hmi::setDataDirectory(racine);
+                HMI_LOG_INFO("Contenu lu depuis " + racine.string());
+            } else {
+                HMI_LOG_WARNING("--data= : dossier introuvable, le contenu reste celui du binaire.");
+            }
+        }
+    }
+
     const QString language =
         QSettings().value(QStringLiteral("language"), QStringLiteral("fr")).toString();
     app::installQtTranslations(language.toStdString());
@@ -427,7 +444,7 @@ int main(int argc, char** argv) {
     // Les ilots du plan (LOT-96) : dessines a la demande, le moteur prend possession du
     // fournisseur.
     engine.addImageProvider(QStringLiteral("cityblock"),
-                            new hmi::CityBlockImageProvider(hmi::executableDirectory()));
+                            new hmi::CityBlockImageProvider(hmi::dataDirectory()));
     armScreenshot(argc, argv, engine, application);
 
     const QVariantMap initialProperties = initialWindowProperties(argc, argv);

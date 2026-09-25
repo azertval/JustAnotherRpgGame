@@ -497,7 +497,10 @@ struct FigurePlacement {
     const int rang = figure.seconds >= 0.0F && texture.frameDuration > 0.0F
                          ? static_cast<int>(figure.seconds / texture.frameDuration)
                          : figure.frame;
-    const int frame = ((rang % frameCount) + frameCount) % frameCount;
+    // Une bande jouee une fois (attaque, touche, mort) se fige sur sa derniere image : un mort ne
+    // se releve pas parce que le temps passe (`LOT-118`). Une bande qui boucle est ramenee dedans.
+    const int frame = texture.loop ? ((rang % frameCount) + frameCount) % frameCount
+                                   : std::clamp(rang, 0, frameCount - 1);
 
     const core::Vector2 center = projection.gridToWorld(figure.point);
     const float footY =
@@ -600,10 +603,12 @@ namespace {
 // Rien n'est ajoute au format pour cette table : `core::MapEntity` n'a aucune notion d'hostilite.
 // Le jaune est le PNJ de quete : celui qui porte un dialogue, ou dont la presence depend d'un
 // drapeau (LOT-116) -- l'enfant de la demo ne parle pas, mais la quete le fait paraitre.
-[[nodiscard]] std::optional<MaquetteTokenKind> tokenKindOf(const core::MapEntity& entity) {
+[[nodiscard]] std::optional<MaquetteTokenKind> tokenKindOf(const core::MapEntity& entity,
+                                                           bool figureDrawn) {
     if (entity.type == core::NPC_ENTITY_TYPE) {
-        // Un PNJ qui porte deja sa figurine se dessine par elle : pas de jeton par-dessus.
-        if (!textProperty(entity, core::NPC_FIGURE_PROPERTY).empty()) {
+        // Un PNJ qui porte deja sa figurine se dessine par elle : pas de jeton par-dessus. Un PNJ
+        // qu'une figurine occupe -- un mannequin (LOT-145) -- non plus.
+        if (figureDrawn || !textProperty(entity, core::NPC_FIGURE_PROPERTY).empty()) {
             return std::nullopt;
         }
         const bool quete = !textProperty(entity, core::NPC_DIALOGUE_PROPERTY).empty() ||
@@ -655,10 +660,19 @@ namespace {
 
 }  // namespace
 
-MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool maquette) {
+MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool maquette,
+                            std::span<const WorldFigureSnapshot> figures) {
     MaquetteMarks marks;
+    const auto figureAt = [&figures](core::GridPosition cell) {
+        return std::ranges::any_of(figures, [cell](const WorldFigureSnapshot& figure) {
+            return !figure.figure.empty() && !figure.hero &&
+                   core::GridPosition{.column = static_cast<int>(std::floor(figure.point.x)),
+                                      .row = static_cast<int>(std::floor(figure.point.y))} == cell;
+        });
+    };
     for (const core::MapEntity& entity : entities) {
-        if (const std::optional<MaquetteTokenKind> kind = tokenKindOf(entity)) {
+        if (const std::optional<MaquetteTokenKind> kind =
+                tokenKindOf(entity, figureAt(entity.position))) {
             marks.tokens.push_back(
                 MaquetteTokenSnapshot{.kind = *kind,
                                       .letter = maquetteTokenLetter(tokenName(entity)),
@@ -694,22 +708,30 @@ MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool m
     return marks;
 }
 
+std::string placeholderFigureDirectory(std::string_view silhouette) {
+    return "Common/Characters/Placeholders/" +
+           std::string{silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette};
+}
+
 std::vector<WorldFigureSnapshot> npcFigures(const std::vector<core::MapEntity>& entities,
-                                            int frame) {
+                                            int frame, bool placeholders) {
     std::vector<WorldFigureSnapshot> figures;
     for (const core::MapEntity& entity : entities) {
         if (entity.type != core::NPC_ENTITY_TYPE) {
             continue;
         }
-        const auto found = entity.properties.find(std::string{core::NPC_FIGURE_PROPERTY});
-        const std::string* figure =
-            found != entity.properties.end() ? std::get_if<std::string>(&found->second) : nullptr;
-        if (figure == nullptr || figure->empty()) {
-            continue;  // Un PNJ sans figurine ne se dessine pas : il n'est pas encore dessiné.
+        std::string figure{textProperty(entity, core::NPC_FIGURE_PROPERTY)};
+        if (figure.empty()) {
+            if (!placeholders) {
+                continue;  // Un PNJ sans figurine ne se dessine pas : il n'est pas encore dessiné.
+            }
+            // Le mannequin de sa silhouette tient la place (LOT-145) : un PNJ se voit et s'anime
+            // avant que l'atelier ne l'ait dessine.
+            figure = placeholderFigureDirectory(textProperty(entity, SILHOUETTE_PROPERTY));
         }
         figures.push_back(
-            WorldFigureSnapshot{.figure = *figure,
-                                .clip = "idle",
+            WorldFigureSnapshot{.figure = std::move(figure),
+                                .clip = std::string{figure_clips::IDLE},
                                 .point = {static_cast<float>(entity.position.column) + 0.5F,
                                           static_cast<float>(entity.position.row) + 0.5F},
                                 .frame = frame});
@@ -790,8 +812,9 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
         snapshot.place = appearance.place();
     }
     snapshot.figures = std::move(figures);
-    // Une carte qui ne nomme aucun lieu est une maquette : ses declencheurs s'y voient.
-    snapshot.marks = maquetteMarks(source.entities, snapshot.place.empty());
+    // Une carte qui ne nomme aucun lieu est une maquette : ses declencheurs s'y voient. Un PNJ
+    // qu'une figurine occupe n'a pas de jeton.
+    snapshot.marks = maquetteMarks(source.entities, snapshot.place.empty(), snapshot.figures);
 
     const auto cases =
         static_cast<std::size_t>(snapshot.columns) * static_cast<std::size_t>(snapshot.rows);
@@ -992,10 +1015,18 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
             continue;
         }
         // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
-        // charger une texture au milieu d'une image.
+        // charger une texture au milieu d'une image. Un combattant precharge ses six bandes : un
+        // coup ne doit pas non plus attendre sa texture (LOT-118).
         const std::string directory = figureDirectoryIn(snapshot, figure.figure);
-        uniques.insert(figureStripPath(directory, "idle", figure.facing));
-        uniques.insert(figureStripPath(directory, "walk", figure.facing));
+        uniques.insert(figureStripPath(directory, figure_clips::IDLE, figure.facing));
+        uniques.insert(figureStripPath(directory, figure_clips::WALK, figure.facing));
+        if (figure.combatant) {
+            for (const std::string_view clip : figure_clips::ALL) {
+                uniques.insert(figureStripPath(directory, clip, figure.facing));
+            }
+        }
+        // La bande en cours, quelle qu'elle soit : elle se dessine a cette image.
+        uniques.insert(figureStripPath(directory, figure.clip, figure.facing));
     }
     return {uniques.begin(), uniques.end()};
 }

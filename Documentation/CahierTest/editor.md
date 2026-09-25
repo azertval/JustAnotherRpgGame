@@ -411,7 +411,7 @@ Le canevas iso compose une carte comme le jeu.
 
 ### CanvasSceneTest.LesReglagesDeCoucheAgissentSurLeurBande
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:146`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:151`
 
 Masquer, griser, voir a travers : chaque reglage agit sur sa bande.
 
@@ -433,7 +433,7 @@ Masquer, griser, voir a travers : chaque reglage agit sur sa bande.
 
 ### CanvasSceneTest.UneGrilleUniqueEstLImage
 
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:186`
+*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:191`
 
 Une grille unique est l'image du canevas iso.
 
@@ -449,7 +449,7 @@ Une grille unique est l'image du canevas iso.
 
 ### CanvasSceneTest.GriserEtVerrouillerSontDesReglagesDEditeur
 
-*Majeur · Unitaire · Editeur · Couches* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:203`
+*Majeur · Unitaire · Editeur · Couches* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:208`
 
 Griser et verrouiller une couche, puis tout oublier.
 
@@ -468,7 +468,7 @@ Griser et verrouiller une couche, puis tout oublier.
 
 ### CanvasSceneTest.LesPiecesDUneCaseSeLisent
 
-*Mineur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:229`
+*Mineur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_canvas_scene.cpp:234`
 
 Les pieces d'une case se lisent dans la barre d'etat.
 

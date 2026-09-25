@@ -30,11 +30,14 @@ Une carte du disque se charge et se compose.
 - Vérifie que `snapshot.rows` vaut `play.session().map()->tileMap().height()`.
 - Vérifie que `hasDrawnFloor(snapshot)` est vrai.
 - Vérifie que `snapshot.figures.empty()` est faux.
-- Vérifie que `snapshot.figures.back().figure` vaut `hmi::WorldPlay::DEFAULT_HERO_FIGURE`.
+- Vérifie que `snapshot.figures.back().hero` est vrai.
+- Vérifie que `snapshot.figures.back().figure` vaut `play.heroResolved().directory`.
+- Vérifie que `play.heroResolved().directory` vaut `hmi::placeholderFigureDirectory("humanoid")`.
+- Vérifie que `play.heroResolved().placeholder` est vrai.
 
 ### ExplorationCarteIntegration.LeHerosMarcheSurUneCarte
 
-*Majeur · Integration · Exploration* — `Source/Test/Integration/test_exploration_carte.cpp:72`
+*Majeur · Integration · Exploration* — `Source/Test/Integration/test_exploration_carte.cpp:76`
 
 Marcher sur une carte deplace le heros et change sa bande.
 
@@ -51,7 +54,7 @@ Marcher sur une carte deplace le heros et change sa bande.
 
 ### ExplorationCarteIntegration.UnPasNeRefaitPasLaCarte
 
-*Majeur · Integration · Exploration · Rendu* — `Source/Test/Integration/test_exploration_carte.cpp:104`
+*Majeur · Integration · Exploration · Rendu* — `Source/Test/Integration/test_exploration_carte.cpp:108`
 
 Marcher ne recompose pas la carte.
 
@@ -73,7 +76,7 @@ Marcher ne recompose pas la carte.
 
 ### ExplorationCarteIntegration.UneCarteQuiPuiseDansQuatreNiveauxSeJoue
 
-*Critique · Integration · Exploration · Arborescence* — `Source/Test/Integration/test_exploration_carte.cpp:139`
+*Critique · Integration · Exploration · Arborescence* — `Source/Test/Integration/test_exploration_carte.cpp:143`
 
 Une carte qui puise dans quatre niveaux se joue.
 
@@ -89,10 +92,14 @@ Une carte qui puise dans quatre niveaux se joue.
 - Vérifie que `hasDrawnFloor(snapshot)` est vrai.
 - Vérifie que `std::ranges::any_of(snapshot.pieceFiles, [level](const auto& entry) { return entry.second.starts_with(level); })` est vrai.
 - Vérifie que `std::filesystem::is_regular_file(tree / "Assets" / file)` est vrai.
-- Vérifie que `snapshot.figureDirectories.at("anariel")` vaut `"Regions/central-empire/capital/arenarea/Characters/anariel"`.
-- Vérifie que `snapshot.figureDirectories.at("Peoples/human/guard")` vaut `"Common/Characters/Peoples/human/guard"`.
+- Vérifie que `play.resolveFigure("anariel", {}).directory` vaut `anariel`.
+- Vérifie que `play.resolveFigure("Peoples/human/guard", {}).directory` vaut `garde`.
+- Vérifie que `play.resolveFigure("anariel", {}).placeholder` est faux.
+- Vérifie que `std::ranges::any_of(snapshot.figures, [&dossier](const auto& figure) { return figure.figure == dossier; })` est vrai.
+- Vérifie que `snapshot.figureDirectories.at(dossier)` vaut `dossier`.
 - Vérifie que `snapshot.figures.empty()` est faux.
-- Vérifie que `snapshot.figures.back().figure` vaut `hmi::WorldPlay::DEFAULT_HERO_FIGURE`.
+- Vérifie que `snapshot.figures.back().hero` est vrai.
+- Vérifie que `snapshot.figures.back().figure` vaut `play.heroResolved().directory`.
 
 ## test_quete_trois_etapes.cpp
 

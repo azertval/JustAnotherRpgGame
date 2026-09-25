@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <set>
+#include <string>
 #include <utility>
 
 #include "Core/Combat/BattleGrid.h"
@@ -993,7 +994,13 @@ bool playTurn(ArenaSession& session, const BehaviorCatalog& catalog) {
         static_cast<void>(session.disengage());
     }
     if (plan.moveTo.has_value() && toujoursLui()) {
-        static_cast<void>(session.move(*plan.moveTo));
+        // Un deplacement refuse se dit : sans cette ligne, une IA qui « ne bouge pas » ne laisse
+        // aucune trace de ce qu'elle a voulu, et l'audit ne peut pas distinguer un plan qui tient
+        // sa place d'un pas que la grille a refuse (LOT-118).
+        if (const MoveOutcome pas = session.move(*plan.moveTo); pas.result != MoveResult::Moved) {
+            session.note("deplacement refuse vers " + std::to_string(plan.moveTo->column) + "," +
+                         std::to_string(plan.moveTo->row));
+        }
     }
     switch (plan.action) {
         case TurnAction::Attack:

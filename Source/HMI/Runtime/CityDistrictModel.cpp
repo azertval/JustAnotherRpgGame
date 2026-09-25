@@ -19,7 +19,7 @@ namespace hmi {
 namespace {
 
 [[nodiscard]] core::LevelLoadResult lireCarte(const QString& mapId) {
-    return core::LevelLoader::loadFromFile(executableDirectory() / "Levels" /
+    return core::LevelLoader::loadFromFile(dataDirectory() / "Levels" /
                                            (mapId.toStdString() + ".json"));
 }
 
