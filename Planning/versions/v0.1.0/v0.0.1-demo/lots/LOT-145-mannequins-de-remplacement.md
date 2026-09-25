@@ -22,8 +22,10 @@ criteres = [
 
 ## Pourquoi
 
-Les PNJ de la démo (`LOT-113`, `LOT-114`, `LOT-115`) et les monstres arrivent après le moteur qui
-les joue. Sans mannequin, une carte peuplée reste un semis de jetons jusqu'à ce que l'atelier ait
+Les PNJ des zones (`LOT-113`, `LOT-114`, `LOT-115`, reportés à la `0.0.3` par la décision
+[D-25](../../../../vision/decisions.md)) et les monstres arrivent après le moteur qui les joue ; dans la
+démo, ce sont les mannequins qui tiennent la place des cinq PNJ de la quête, sur les cartes de
+principe du [LOT-146](LOT-146-cartes-de-principe-de-la-demo.md). Sans mannequin, une carte peuplée reste un semis de jetons jusqu'à ce que l'atelier ait
 tout dessiné, et le combat sur la carte (`LOT-118`) ne peut montrer ni marche, ni coup, ni chute
 tant que l'adversaire n'a pas d'asset. Le mannequin **découple** les deux chantiers : le moteur
 s'éprouve sur des silhouettes neutres, l'atelier livre au rythme des lots de PNJ, et le jour où une

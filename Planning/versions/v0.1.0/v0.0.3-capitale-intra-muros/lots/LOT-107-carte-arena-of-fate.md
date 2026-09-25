@@ -1,12 +1,12 @@
 +++
 id = "LOT-107"
 titre = "Carte — Arena of Fate (donjon d'Arenarea)"
-version = "0.0.1"
+version = "0.0.3"
 filiere = "cartes"
 statut = "a-faire"
 taille = "M"
 resume = "L'Arena of Fate se parcourt, **à l'intérieur d'Arenarea**."
-prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127", "LOT-128"]
+prerequis = ["LOT-106", "LOT-103", "LOT-126", "LOT-127", "LOT-128", "LOT-146"]
 livrables = [
   "`Levels/central-empire/capital/arenarea/arena-of-fate.json` (le sable et ses anneaux) et `arena-of-fate/undercroft.json` (le niveau −1 : vestiaires et prison), dessinées **dans l'éditeur** et reliées par l'escalier de la porte du triomphe (décision D-21).",
   "Portails, points d'apparition nommés, zones (combat, déclencheurs de quête).",
@@ -17,8 +17,18 @@ criteres = [
   "Les 14 statues et les 4 tribunes d'honneur sont posées et nommées ; `--check` ne relève aucune référence morte vers elles.",
   "Les vestiaires et la prison sont deux chemins distincts vers l'escalier de la porte du triomphe, tous deux atteignables ; l'escalier des catacombes est posé et condamné.",
 ]
-maquettes = ["../maquettes/plan-arena-of-fate.svg"]
+maquettes = ["../../v0.0.1-demo/maquettes/plan-arena-of-fate.svg"]
 +++
+
+## Reporté à la `0.0.3` (décision [D-25](../../../../vision/decisions.md), 25 septembre 2026)
+
+Ce lot servait la démo. C'est un lot de *world building*, trop complexe pour elle : il rejoint la
+`0.0.3`, où il s'inscrit avec les six autres quartiers intra-muros. Dans la démo, l'Arena of Fate
+est une **carte de principe**
+([LOT-146](../../v0.0.1-demo/lots/LOT-146-cartes-de-principe-de-la-demo.md)) : le sable, le
+vestiaire A et l'escalier, en maquette. Ce lot livre les deux cartes définitives, qui la remplacent
+sous le même identifiant ; la pré-carte montée avec les pièces de `Tools/AssetsHD/Colisee/` n'a plus
+lieu d'être, la carte de principe en tient le rôle.
 
 ## Une sous-zone, pas un quartier
 
@@ -70,7 +80,7 @@ atteignables.
 Au fond de la prison, l'**escalier des catacombes** descend au niveau −2. Il est posé sur la carte
 et **condamné** : c'est le crochet du `LOT-157`. Le contrôle de l'éditeur doit l'accepter comme
 porte sans arrivée — sinon la carte est marquée d'un portail mort : c'est `portal.sealed`, au
-[LOT-126](LOT-126-ce-que-la-quete-demande-aux-cartes.md).
+[LOT-126](../../v0.0.1-demo/lots/LOT-126-ce-que-la-quete-demande-aux-cartes.md).
 
 ### Deux cartes, pas deux étages
 
@@ -82,7 +92,7 @@ l'escalier condamné des catacombes sont sur la carte du sous-sol. La taille de 
 pour la carte du sable ; celle du sous-sol se fixe au tracé. L'onglet « Carte » montre les deux sous la
 même sous-zone.
 
-![Plan de principe](../maquettes/plan-arena-of-fate.svg)
+![Plan de principe](../../v0.0.1-demo/maquettes/plan-arena-of-fate.svg)
 
 Le plan ci-dessus est un **schéma de principe** : il fixe ce que la carte contient et comment on y
 circule, pas son dessin.
