@@ -35,6 +35,8 @@ add_executable(UnitTests
     Unit/Core/Rpg/test_equipment.cpp
     Unit/Core/Rpg/test_inventory.cpp
     Unit/Core/Combat/test_encounter.cpp
+    # Une rencontre posee sur la carte (LOT-118) : la zone, la grille, les places.
+    Unit/Core/Combat/test_map_encounter.cpp
     Unit/Core/Combat/test_battle_grid.cpp
     Unit/Core/Combat/test_pathfinding.cpp
     Unit/Core/Combat/test_turn_order.cpp
@@ -121,6 +123,9 @@ add_executable(UnitTests
     Unit/HMI/Interface/test_identity_scale.cpp
     # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit, le jeu la relit.
     Unit/HMI/Game/test_launch_options.cpp
+    # Le combat sur la carte (LOT-118) : la file des mouvements ; les mannequins (LOT-316).
+    Unit/HMI/Game/test_combat_cues.cpp
+    Unit/HMI/Game/test_figure_resolver.cpp
     Unit/Editor/test_thumbnail_geometry.cpp
     Unit/Editor/test_level_name_validation.cpp
     Unit/Editor/test_tile_taxonomy.cpp
@@ -325,6 +330,8 @@ target_compile_definitions(UnitTests PRIVATE
 if(TARGET JadgRuntime)
     add_executable(RuntimeTests
         Unit/HMI/Runtime/test_arena_model.cpp
+        # Le combat sur la carte (LOT-118) : la rencontre montee sur la zone, jouee, quittee.
+        Unit/HMI/Runtime/test_encounter_model.cpp
     )
 
     target_link_libraries(RuntimeTests PRIVATE

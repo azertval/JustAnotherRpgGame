@@ -1158,3 +1158,104 @@ TEST(WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier) {
     EXPECT_FLOAT_EQ(ailleurs.artTile.x, 0.0F);
     EXPECT_FALSE(ailleurs.groundLine.has_value());
 }
+
+/**
+ * @brief Une bande jouée une fois (attaque, mort) se fige sur sa dernière image quand son temps
+ *        est passé ; une bande qui boucle repart (`LOT-118`).
+ * \castest{<b>Une bande a un coup se fige sur sa derniere image.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer le heros sur une bande de mort de huit images a 0,1 s, `loop` faux, a
+ * 0,25 s, 0,75 s et 3 s.<br/>2. La meme bande `loop` vrai, a 3 s.<br/>
+ * \tattendu Images 2, 7 puis 7 (figee) ; en boucle, 3 s donne l'image 6.
+ * }
+ */
+TEST(WorldSceneComposerTest, UneBandeAUnCoupSeFigeSurSaDerniereImage) {
+    const std::string heros = "Common/Characters/Heroes/brawler";
+    const auto imageA = [&](float secondes, bool boucle) {
+        hmi::ScenePieceTextures bande = bandeDuHeros(heros + "/death-se.png");
+        for (auto& [chemin, texture] : bande.byPath) {
+            texture.frameDuration = 0.1F;
+            texture.loop = boucle;
+        }
+        const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
+            carte(), table(),
+            {hmi::WorldFigureSnapshot{.figure = heros,
+                                      .clip = "death",
+                                      .point = {1.5F, 1.5F},
+                                      .frame = 0,
+                                      .facing = hmi::FigureFacing::SouthEast,
+                                      .seconds = secondes}});
+        const core::IsoProjection projection{instantane.columns, instantane.rows};
+        const hmi::SpriteQuad quad =
+            quadDeLaFigurine(hmi::composeWorldScene(instantane, projection, bande));
+        return static_cast<int>((quad.u0 * 8.0F) + 0.5F);
+    };
+    EXPECT_EQ(imageA(0.25F, false), 2);
+    EXPECT_EQ(imageA(0.75F, false), 7);
+    EXPECT_EQ(imageA(3.0F, false), 7) << "un mort ne se releve pas";
+    EXPECT_EQ(imageA(3.0F, true), 6) << "une bande qui boucle repart";
+}
+
+/**
+ * @brief Un combattant précharge ses six bandes ; une figurine d'exploration, ses deux
+ *        (`LOT-118`).
+ * \castest{<b>Les chemins d'un combattant couvrent les six bandes.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lister les chemins d'un heros au repos, puis du meme marque combattant.<br/>
+ * \tattendu Deux chemins, puis six : repos, marche, attaque, sort, touche, mort, orientes.
+ * }
+ */
+TEST(WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes) {
+    const std::string heros = "Common/Characters/Heroes/brawler";
+    hmi::WorldFigureSnapshot figure{.figure = heros,
+                                    .clip = "idle",
+                                    .point = {1.5F, 1.5F},
+                                    .facing = hmi::FigureFacing::NorthEast};
+    const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(carte(), table(), {figure});
+    EXPECT_EQ(hmi::worldFigureTexturePaths(instantane, instantane.figures).size(), 2U);
+    figure.combatant = true;
+    const std::vector<std::string> chemins = hmi::worldFigureTexturePaths(instantane, {&figure, 1});
+    EXPECT_EQ(chemins.size(), 6U);
+    EXPECT_NE(std::ranges::find(chemins, heros + "/death-ne.png"), chemins.end());
+    EXPECT_NE(std::ranges::find(chemins, heros + "/cast-ne.png"), chemins.end());
+}
+
+/**
+ * @brief Un PNJ sans figurine prend le mannequin de sa silhouette quand on le demande, et le jeton
+ *        d'un PNJ qu'une figurine occupe disparaît (`LOT-316`).
+ * \castest{<b>Le mannequin remplace le jeton d'un PNJ sans figurine.</b><br/>
+ * \tcat Unitaire · Mannequins<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Tirer les figurines de trois PNJ -- sans figurine, silhouette quadrupede, figurine
+ * nommee -- sans puis avec mannequins.<br/>2. Tirer les marques avec ces figurines.<br/>
+ * \tattendu Sans : une figurine (la nommee). Avec : trois, dont le mannequin humanoide et le
+ * quadrupede. Les marques ne portent plus aucun jeton de PNJ ; un coffre garde le sien.
+ * }
+ */
+TEST(MaquetteRenderTest, LeMannequinRemplaceLeJetonDUnPnjSansFigurine) {
+    const auto pnj = [](int colonne, core::PropertyMap proprietes) {
+        return core::MapEntity{.type = "npc",
+                               .position = {.column = colonne, .row = 0},
+                               .properties = std::move(proprietes)};
+    };
+    std::vector<core::MapEntity> entites = {
+        pnj(0, {}),
+        pnj(1, {{"silhouette", std::string{"quadruped"}}}),
+        pnj(2, {{"figure", std::string{"anariel"}}}),
+        core::MapEntity{.type = "chest", .position = {.column = 3, .row = 0}},
+    };
+    EXPECT_EQ(hmi::npcFigures(entites, 0).size(), 1U);
+    const std::vector<hmi::WorldFigureSnapshot> figurines = hmi::npcFigures(entites, 0, true);
+    ASSERT_EQ(figurines.size(), 3U);
+    EXPECT_EQ(figurines[0].figure, hmi::placeholderFigureDirectory("humanoid"));
+    EXPECT_EQ(figurines[1].figure, hmi::placeholderFigureDirectory("quadruped"));
+    EXPECT_EQ(figurines[2].figure, "anariel");
+
+    const hmi::MaquetteMarks sansFigurine = hmi::maquetteMarks(entites, true);
+    EXPECT_EQ(sansFigurine.tokens.size(), 3U) << "deux PNJ sans figurine et un coffre";
+    const hmi::MaquetteMarks avec = hmi::maquetteMarks(entites, true, figurines);
+    ASSERT_EQ(avec.tokens.size(), 1U);
+    EXPECT_EQ(avec.tokens.front().kind, hmi::MaquetteTokenKind::Object);
+}

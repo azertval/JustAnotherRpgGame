@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <map>
 #include <optional>
+#include <array>
 #include <span>
 #include <string>
 #include <string_view>
@@ -137,13 +138,42 @@ enum class FigureFacing : std::uint8_t {
  */
 [[nodiscard]] FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept;
 
+/**
+ * @brief Les six bandes d'une figurine (standard 2D HD, §5) : ce qu'une figurine complète sait
+ *        jouer, et ce qu'un combattant précharge (`LOT-118`).
+ *
+ * Le repos et la marche **bouclent** ; les quatre autres se jouent une fois et se figent sur leur
+ * dernière image (`SceneTexture::loop`, lu dans le `.anim.json` de la bande).
+ */
+namespace figure_clips {
+inline constexpr std::string_view IDLE = "idle";
+inline constexpr std::string_view WALK = "walk";
+inline constexpr std::string_view ATTACK = "attack";
+inline constexpr std::string_view CAST = "cast";
+inline constexpr std::string_view HIT = "hit";
+inline constexpr std::string_view DEATH = "death";
+/// Toutes, dans l'ordre du standard.
+inline constexpr std::array<std::string_view, 6> ALL = {IDLE, WALK, ATTACK, CAST, HIT, DEATH};
+}  // namespace figure_clips
+
+/// @brief Le dossier d'un mannequin de remplacement, par silhouette (`LOT-316`) : ce que dessine
+///        un personnage sans figurine.
+[[nodiscard]] std::string placeholderFigureDirectory(std::string_view silhouette);
+
+/// @brief La silhouette par défaut d'un personnage qui n'en déclare pas.
+inline constexpr std::string_view DEFAULT_SILHOUETTE = "humanoid";
+
+/// @brief Propriété d'entité `npc` et de fiche de créature qui nomme la silhouette (`LOT-316`).
+inline constexpr std::string_view SILHOUETTE_PROPERTY = "silhouette";
+
 /// @brief Une figurine à dessiner sur la carte : sa planche, son image, où elle est.
 struct WorldFigureSnapshot {
     /// Figurine : un slug, cherché dans les `Characters/` du lieu et de ses niveaux communs
     /// (`citizen`, `Heroes/brawler`, `LOT-124`) ; à défaut un dossier relatif à `Assets/`
     /// (`Common/Characters/Heroes/brawler`), ou un PNJ de l'atelier à plat (`Npc/<slug>`).
     std::string figure;
-    /// Bande d'animation : `idle`, `walk`.
+    /// Bande d'animation : l'une de `figure_clips` (`idle`, `walk`, `attack`, `cast`, `hit`,
+    /// `death`).
     std::string clip = "idle";
     /// Position **continue**, en cases : `{1.5, 2.5}` est le centre de la case (1, 2).
     core::Vector2 point{};
@@ -157,6 +187,9 @@ struct WorldFigureSnapshot {
     float seconds = -1.0F;
     /// Le héros : un étage qui le masque s'efface (`LOT-129`).
     bool hero = false;
+    /// Un combattant (`LOT-118`) : ses six bandes se préchargent, pour qu'un coup ne charge pas une
+    /// texture au milieu d'une image. Une figurine d'exploration n'en précharge que deux.
+    bool combatant = false;
 
     [[nodiscard]] bool operator==(const WorldFigureSnapshot&) const = default;
 };
@@ -211,11 +244,16 @@ struct MaquetteMarks {
  * flèches de portail ne paraissent qu'en maquette : une carte finie ne montre pas ses
  * déclencheurs.
  *
+ * Un PNJ dont une **figurine** occupe la case n'a pas de jeton (`LOT-316`) : le jeton d'un
+ * personnage tenait lieu de figurine, et il y en a une — un mannequin ou la vraie.
+ *
  * @param entities Les entités de la carte.
  * @param maquette Vrai si la carte ne nomme aucun lieu.
+ * @param figures  Les figurines posées sur la carte, dont les PNJ dessinés.
  */
 [[nodiscard]] MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities,
-                                          bool maquette);
+                                          bool maquette,
+                                          std::span<const WorldFigureSnapshot> figures = {});
 
 /**
  * @brief Le lieu **en valeurs** : ce que la composition lit, et rien d'autre.
@@ -318,13 +356,16 @@ template <class Map>
 /**
  * @brief Les figurines des PNJ d'une carte, dans l'ordre des entités.
  *
- * Un PNJ sans propriété `figure` ne se dessine pas : il n'est pas encore dessiné. Le jeu y ajoute
- * le héros (`hmi::WorldPlay::figures`) ; l'éditeur les montre telles quelles.
- * @param entities Les entités de la carte.
- * @param frame    L'image des bandes (0 pour une image fixe).
+ * Un PNJ sans propriété `figure` ne se dessine pas, sauf si @p placeholders est vrai : il prend
+ * alors le mannequin de sa silhouette (`placeholderFigureDirectory`, `LOT-316`), et c'est le
+ * résolveur de figurines du jeu qui dira ensuite si ce mannequin existe. Le jeu y ajoute le héros
+ * (`hmi::WorldPlay::figures`) ; l'éditeur les montre telles quelles, jetons compris.
+ * @param entities     Les entités de la carte.
+ * @param frame        L'image des bandes (0 pour une image fixe).
+ * @param placeholders Vrai pour donner un mannequin aux PNJ sans figurine.
  */
 [[nodiscard]] std::vector<WorldFigureSnapshot> npcFigures(
-    const std::vector<core::MapEntity>& entities, int frame);
+    const std::vector<core::MapEntity>& entities, int frame, bool placeholders = false);
 
 /**
  * @brief Tire de @p level l'instantané que la composition dessine.

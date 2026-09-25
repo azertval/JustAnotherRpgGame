@@ -170,6 +170,9 @@ struct ArenaBout {
     bool heroicMark = true;
     /// La prise en tenaille du *Guide du Maître* (`core::Arena::flanking`).
     bool flanking = false;
+    /// Vrai si l'on peut se retirer : toujours au Colisée ; sur la carte, ce que la rencontre dit
+    /// (`core::Encounter::escapable`, `LOT-118`).
+    bool escapable = true;
 };
 
 class ArenaSession;
@@ -182,6 +185,15 @@ class ArenaSession;
  */
 using OpportunityPolicy =
     std::function<bool(const ArenaSession&, CombatantId reactor, CombatantId mover)>;
+
+/**
+ * @brief Ce que l'écran veut savoir d'un pas : qui a marché, par où (`LOT-118`).
+ *
+ * Le journal note déjà chaque pas en clair ; l'écran, lui, veut le **chemin** pour faire marcher
+ * la figurine case par case — un tour de l'IA se joue d'un bloc, et sans ce crochet il ne resterait
+ * que des positions d'arrivée, ce qui se lit comme une téléportation.
+ */
+using MoveObserver = std::function<void(CombatantId mover, const Path& path)>;
 
 /// @brief Ce que le montage d'un affrontement a produit : les enrôlés par camp, et les refus.
 struct ArenaMount {
@@ -348,6 +360,11 @@ public:
         _opportunityPolicy = std::move(policy);
     }
 
+    /// @brief Prévient @p observer à chaque pas effectué, avec son chemin (`LOT-118`).
+    void setMoveObserver(MoveObserver observer) {
+        _moveObserver = std::move(observer);
+    }
+
     /// @brief Ajoute une ligne au journal : la décision d'un comportement, pour qu'elle se relise.
     void note(std::string line) {
         record(std::move(line));
@@ -420,6 +437,7 @@ private:
     std::map<CombatantId, std::vector<AttackProfile>> _attacks;
     std::map<CombatantId, std::string> _behaviors;
     OpportunityPolicy _opportunityPolicy;
+    MoveObserver _moveObserver;
     std::set<CombatantId> _declinesOpportunities;
     AttackHooks _attackHooks;
     DamagePipeline _damagePipeline;

@@ -165,7 +165,9 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path& assetsDir
         traits.frameWidth = read.description->frameWidth;
         traits.frameHeight = read.description->frameHeight;
         if (read.description->clips.clipCount() > 0) {
-            traits.frameDuration = read.description->clips.clipAt(0).frameDuration;
+            const core::AnimationClip& clip = read.description->clips.clipAt(0);
+            traits.frameDuration = clip.frameDuration;
+            traits.loop = clip.endMode == core::ClipEndMode::Loop;
         }
     }
 
@@ -224,6 +226,7 @@ void applySceneTextureTraits(SceneTexture& texture, const SceneTextureTraits& tr
     texture.depthOffset = traits.depthOffset;
     texture.groundLine = traits.groundLine;
     texture.frameDuration = traits.frameDuration;
+    texture.loop = traits.loop;
     texture.storeyHeight = traits.storeyHeight;
 }
 

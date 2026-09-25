@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "tile": [
+    68,
+    42
+  ],
+  "frame": [
+    48,
+    64
+  ],
+  "wideFrame": [
+    96,
+    64
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "cast",
+    "hit",
+    "death"
+  ],
+  "comment": "Monde d'essai : le mannequin humanoide de remplacement (LOT-316), une silhouette plate.",
+  "npcs": [
+    "Placeholders/humanoid"
+  ]
+}

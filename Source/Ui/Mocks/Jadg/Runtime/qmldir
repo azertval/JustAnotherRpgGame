@@ -9,6 +9,7 @@ CreditsModel 1.0 CreditsModel.qml
 WorldMapModel 1.0 WorldMapModel.qml
 CityDistrictModel 1.0 CityDistrictModel.qml
 ArenaModel 1.0 ArenaModel.qml
+singleton EncounterModel 1.0 EncounterModel.qml
 ArenaViewport 1.0 ArenaViewport.qml
 singleton WorldModel 1.0 WorldModel.qml
 WorldViewport 1.0 WorldViewport.qml

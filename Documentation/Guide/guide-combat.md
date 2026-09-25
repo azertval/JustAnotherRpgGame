@@ -795,10 +795,60 @@ partir d'un instantané en valeurs pris dans `synchronize` ; `hmi::composeArenaS
 
 ![L'écran CombatHud tel qu'il existe aujourd'hui : un HUD dessiné sans données — portrait et jauges, barre d'actions numérotée de 1 à 8, panneau CA / Initiative / Vitesse / États, quêtes, boussole, et la bascule Exploration · Tactique](captures/jeu-combathud.jpg)
 
-Le HUD de combat sur la carte d'exploration (`CombatHudForm`) est dessiné mais **n'est ouvert par
-rien** et n'a aucune session à lire : le jeu Qt Quick n'a pas encore de carte d'exploration à geler
-sous un combat, et c'est la vue-modèle et la prévisualisation du Colisée qu'il lira le jour où le
-`LOT-27` le branchera.
+Depuis le `LOT-118`, ce que l'écran fait d'un combat est **commun** au Colisée et à la carte :
+`hmi::CombatModel` tient la session, le curseur, les actions du tour, les gestes du joueur et les
+tours de l'IA ; `hmi::ArenaModel` n'y ajoute que la composition des deux camps et la carte
+d'arène. Le HUD de combat sur la carte (`CombatHudForm`) est ouvert par le combat sur la carte,
+ci-dessous.
+
+## Le combat sur la carte (`MapEncounter.h`, `LOT-118`)
+
+Une rencontre engagée pendant l'exploration se joue **sur place** : la carte se fige, la grille
+paraît, le combat se joue, l'exploration reprend. Trois questions, trois réponses :
+
+### Où ? (`core::prepareMapEncounter`)
+
+Sur la **zone de combat** de la carte qui contient le déclencheur — le PNJ dont le dialogue
+engage le combat (`startEncounter`), l'entité `encounter` — ; à défaut, celle qui contient le
+héros ; à défaut, refus : un combat se joue sur une zone que l'éditeur a posée et contrôlée,
+jamais sur une fenêtre inventée autour du héros. La carte est découpée à cette zone
+(`core::cropLevelToZone`) : c'est la grille tactique, dont les cases sont celles de la zone
+(`core::mapToZone`, `core::zoneToMap`). Le héros garde sa case si elle est dans la zone et libre ;
+chaque combattant garde celle que sa formation lui donne (`core::placeCombatants`) si elle est
+libre, sinon la case libre la plus proche — et une place déplacée se **note** au journal.
+
+### Qui ? (`hmi::EncounterModel`, `hmi::CombatContestants`)
+
+`hmi::EncounterModel` (`Source/HMI/Runtime/`), singleton comme la partie, monte la rencontre sur
+la carte courante (`hmi::WorldModel::current`) : le héros de la démo comme au Colisée
+(`hmi::heroContestant`), chaque créature de la rencontre avec ses attaques et son profil d'IA
+(`hmi::creatureContestant`), sur une `core::ArenaSession` **létale**, sans Marque, fuyable si la
+rencontre le dit. Les gestes sont ceux de `hmi::CombatModel` ; l'écran `CombatHud.qml` les câble
+aux mêmes touches que le Colisée, par-dessus la surface de rendu de l'exploration
+(`WorldViewport`), dont le calque tactique (`TacticalLayer`) se cale sur le cadrage, décalé de
+l'origine de la zone (`zoneColumn`, `zoneRow`).
+
+### Comment cela se voit ? (`hmi::CombatCueTrack`)
+
+La session est instantanée : un tour de l'IA — approche, attaque, repli — se joue en un appel,
+et dessiner la grille telle quelle montre des combattants qui **se téléportent**. La file des
+mouvements (`Source/HMI/Game/CombatCues.h`) reçoit les faits au moment où ils se produisent —
+un pas et son chemin (`core::ArenaSession::setMoveObserver`), une attaque déclarée, un coup
+encaissé, une chute (`core::CombatHook`) — et les **rejoue** à la vitesse du monde : la marche à
+deux cases par seconde, une action le temps de sa bande, le coup qui porte au milieu du geste. Tant
+qu'elle joue, `busy` est vrai et les gestes attendent ; les tours de l'IA se jouent un par un,
+chacun après que le précédent s'est vu. À chaque pas, le modèle publie les figurines des
+combattants dans `hmi::WorldModel` (`setCombatFigures`) : la carte gelée les dessine par le même
+pipeline que l'exploration, bandes `attack`, `hit`, `death` (figées sur leur dernière image,
+`SceneTexture::loop`) et `cast` comprises. Un combattant sans figurine prend son mannequin
+(`hmi::FigureResolver`, `LOT-316`).
+
+### Les issues
+
+`outcome` se publie quand le combat a une issue et que la file l'a montrée : `victory`, `defeat`,
+`flight`. `leave()` rend l'exploration par `core::endEncounter` — seule une victoire acquiert le
+drapeau —, laisse le héros **où le combat l'a laissé** (la carte est le champ de bataille) et
+dégèle la carte. Une défaite ramène au menu tant que l'écran de mort (`LOT-119`) n'existe pas.
 
 ## Voir aussi
 
@@ -810,6 +860,8 @@ sous un combat, et c'est la vue-modèle et la prévisualisation du Colisée qu'i
   `core::DamagePipeline`, `core::rollDamage`.
 - `core::isSightClear`, `core::hasLineOfSight`, `core::coverFrom`, `core::areaTemplate`,
   `core::affectedCells`, `core::isFlanked`, `core::previewAttack`, `core::previewMove`.
+- `core::prepareMapEncounter`, `core::MapEncounterSetup`, `hmi::EncounterModel`,
+  `hmi::CombatModel`, `hmi::CombatCueTrack`, `hmi::FigureResolver`.
 - `core::planTurn`, `core::playTurn`, `core::expectedDamage`, `core::ArenaSession`,
   `core::IsoProjection`, `core::CombatZone`.
 - `hmi::ArenaModel`, `hmi::ArenaViewportItem` — la présentation du Colisée.

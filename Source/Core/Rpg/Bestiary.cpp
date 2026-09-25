@@ -249,6 +249,7 @@ void lireActions(const nlohmann::json& objet, Creature& creature, const std::str
     creature.senses = lireTextes(racine, "senses");
     creature.languages = lireTextes(racine, "languages");
     creature.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
+    creature.silhouette = lireTexteFacultatif(racine, "silhouette");
 
     if (const auto competences = racine.find("skills");
         competences != racine.end() && competences->is_object()) {

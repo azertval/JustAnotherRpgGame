@@ -24,6 +24,7 @@
 
 #include "Core/World/ExplorationSession.h"
 #include "Core/World/WorldTravel.h"
+#include "HMI/Game/FigureResolver.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -79,7 +80,26 @@ public:
 
     /// @return L'orientation du héros ; `None` si sa figurine n'a pas de bandes orientées.
     [[nodiscard]] FigureFacing heroFacing() const noexcept {
-        return _heroOriented ? _heroFacing : FigureFacing::None;
+        return _hero.oriented ? _heroFacing : FigureFacing::None;
+    }
+
+    /// @return La figurine du héros telle qu'elle se dessine : la sienne, ou son mannequin.
+    [[nodiscard]] const ResolvedFigure& heroResolved() const noexcept {
+        return _hero;
+    }
+
+    /**
+     * @brief Quelle bande dessiner pour @p figure (slug ou dossier) de silhouette @p silhouette :
+     *        la sienne si elle existe, sinon son mannequin (`hmi::FigureResolver`, `LOT-316`).
+     */
+    [[nodiscard]] const ResolvedFigure& resolveFigure(std::string_view figure,
+                                                      std::string_view silhouette) const {
+        return _figures.resolve(figure, silhouette, _appearance);
+    }
+
+    /// @return La table d'apparence du lieu de la carte courante.
+    [[nodiscard]] const PlaceAppearance& appearance() const noexcept {
+        return _appearance;
     }
 
     /// @return Les figurines de la carte courante : les PNJ, puis le héros, qui passe devant.
@@ -113,10 +133,12 @@ private:
     core::ExplorationSession _session;
     std::filesystem::path _assetsDirectory;
     PlaceAppearance _appearance;
+    /// Le résolveur des figurines : ce qu'il a trouvé se retient le temps d'une carte.
+    mutable FigureResolver _figures;
     std::string _heroFigure{DEFAULT_HERO_FIGURE};
-    /// La figurine du héros a ses quatre orientations (`idle-se.png`…) : relu quand elle change,
-    /// pas à chaque image.
-    bool _heroOriented = false;
+    /// La figurine du héros résolue : son dossier, ses orientations. Relue quand elle change ou
+    /// que le lieu change, pas à chaque image.
+    ResolvedFigure _hero;
     /// Dernière orientation du héros : il la garde à l'arrêt.
     FigureFacing _heroFacing = FigureFacing::SouthEast;
     /// Temps écoulé sur la carte : l'image des bandes de figurine en dépend.

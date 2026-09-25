@@ -164,8 +164,33 @@ public:
 
     /// @return La carte que la surface de rendu dessine, partagée (`hmi::WorldPlay::scene`).
     [[nodiscard]] std::shared_ptr<const WorldSceneSnapshot> scene() const;
-    /// @return Les figurines de l'image : les PNJ présents, puis le héros.
+    /// @return Les figurines de l'image : les PNJ présents, puis le héros — ou, pendant un combat
+    ///         sur la carte, les combattants (`setCombatFigures`, `LOT-118`).
     [[nodiscard]] std::vector<WorldFigureSnapshot> figures() const;
+
+    /**
+     * @brief Pendant un combat sur la carte (`LOT-118`), ce sont les **combattants** que la
+     *        surface dessine, à la place des figurines de l'exploration : la carte reste, gelée,
+     *        et la caméra suit @p heroPoint, le héros de la grille.
+     */
+    void setCombatFigures(std::vector<WorldFigureSnapshot> figures, core::Vector2 heroPoint);
+    /// @brief Le combat est fini : les figurines de l'exploration reprennent.
+    void clearCombatFigures();
+    /// @return Vrai tant que des combattants tiennent lieu de figurines.
+    [[nodiscard]] bool showsCombat() const noexcept {
+        return _combatFigures.has_value();
+    }
+    /// @brief Pose le héros où le combat l'a laissé (`LOT-118`) ; la caméra suit.
+    void placeHero(core::CellPoint point);
+    /// @return La case de l'entité avec laquelle le héros a interagi en dernier — le PNJ dont le
+    ///         dialogue engage la rencontre, l'entité `encounter` —, ou rien.
+    [[nodiscard]] std::optional<core::GridPosition> lastInteractionCell() const noexcept {
+        return _lastInteractionCell;
+    }
+    /// @return La carte qu'on parcourt et sa mise en scène : ce que le combat sur la carte lit.
+    [[nodiscard]] const WorldPlay& play() const noexcept {
+        return *_play;
+    }
     /// @return La carte et ses figurines en une valeur (`hmi::WorldPlay::snapshot`).
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
     [[nodiscard]] float diamondRatio() const;
@@ -249,6 +274,12 @@ private:
     bool _interact = false;
     quint64 _sceneRevision = 1;
     quint64 _figuresRevision = 1;
+    /// Les combattants d'un combat sur la carte, tant qu'il dure (`LOT-118`).
+    std::optional<std::vector<WorldFigureSnapshot>> _combatFigures;
+    /// Le héros de la grille pendant ce combat : ce que la caméra suit.
+    core::Vector2 _combatHero{};
+    /// La case de la dernière interaction : d'où une rencontre engagée par un dialogue part.
+    std::optional<core::GridPosition> _lastInteractionCell;
 };
 
 }  // namespace hmi

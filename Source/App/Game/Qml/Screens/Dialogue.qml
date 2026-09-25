@@ -18,6 +18,11 @@ import Jadg.Runtime
     devient `combatRequested`, et l'ecran ouvre alors le Colisee. On y joue sur la zone de combat
     de la carte, et l'on revient ici -- la carte est restee ce qu'elle etait.
 
+    Un PNJ peut aussi ENGAGER LE COMBAT ICI MEME (LOT-118) : l'action `startEncounter` (le maitre
+    d'arene) devient `encounterRequested`, la rencontre se monte sur la zone de combat de la carte
+    (`EncounterModel.begin`) et l'affichage de combat s'ouvre par-dessus la carte gelee. Si la
+    carte ne peut pas l'accueillir, le modele le dit et l'exploration continue.
+
     `Echap` quitte la conversation ; `1` a `9` choisissent la reponse de ce rang. La conversation
     terminee, l'ecran se referme de lui-meme.
 */
@@ -34,6 +39,13 @@ DialogueForm {
             // combat sur une conversation finie.
             ScreenRouter.closeRpgScreen();
             ScreenRouter.openArena();
+        }
+
+        onEncounterRequested: function (encounterId) {
+            ScreenRouter.closeRpgScreen();
+            if (EncounterModel.begin(encounterId)) {
+                ScreenRouter.openRpgScreen(ScreenRouter.CombatHud);
+            }
         }
     }
 

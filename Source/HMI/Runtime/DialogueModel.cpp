@@ -85,8 +85,10 @@ public:
 
     EcouteurDEcran(const core::CharacterSheet& fiche, core::Inventory& sac,
                    const core::ExperienceTable& experience, const core::SkillCatalog& competences,
-                   SurCombat surCombat)
-        : _personnage(fiche, sac, experience, competences), _surCombat(std::move(surCombat)) {}
+                   SurCombat surCombat, SurCombat surRencontre)
+        : _personnage(fiche, sac, experience, competences),
+          _surCombat(std::move(surCombat)),
+          _surRencontre(std::move(surRencontre)) {}
 
     [[nodiscard]] bool speaks(std::string_view languageId) const override {
         return _personnage.speaks(languageId);
@@ -103,10 +105,16 @@ public:
             _surCombat(std::string{arenaId});
         }
     }
+    void startEncounter(std::string_view encounterId) override {
+        if (_surRencontre) {
+            _surRencontre(std::string{encounterId});
+        }
+    }
 
 private:
     core::CharacterListener _personnage;
     SurCombat _surCombat;
+    SurCombat _surRencontre;
 };
 
 }  // namespace
@@ -180,7 +188,10 @@ void DialogueModel::open() {
     }
     s.listener.emplace(s.character.sheet, s.character.inventory, s.character.experience,
                        s.character.skills,
-                       [this](const std::string& arena) { emit combatRequested(toQt(arena)); });
+                       [this](const std::string& arena) { emit combatRequested(toQt(arena)); },
+                       [this](const std::string& rencontre) {
+                           emit encounterRequested(toQt(rencontre));
+                       });
     s.random.emplace(graineSuivante());
     s.runner.emplace(*s.graph, drapeauxDeLaPartie(), *s.listener, s.difficulty, *s.random);
     static_cast<void>(s.runner->start());

@@ -1,0 +1,43 @@
+{
+  "id": "maitre-d-essai",
+  "name": "Le maitre d'arene d'essai",
+  "source": "original",
+  "speaker": {
+    "languages": [
+      "common"
+    ],
+    "attitude": "indifferent"
+  },
+  "start": "defi",
+  "nodes": [
+    {
+      "id": "defi",
+      "type": "line",
+      "choices": [
+        {
+          "id": "combattre",
+          "next": "engage"
+        },
+        {
+          "id": "partir",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "engage",
+      "type": "action",
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "rats-du-donjon"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

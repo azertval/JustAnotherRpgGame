@@ -685,8 +685,9 @@ objets du jeu. `core::loadDialogues(directory)` charge un dossier en `core::Dial
 
 Le runner ne voit ni fiche, ni inventaire, ni groupe — trois questions et un geste : `speaks`
 (parle-t-il cette langue ?), `skillModifiers` (les modificateurs d'un jet, **avec leur origine**),
-`receiveItem` (recevoir un objet) et `startCombat` (sans effet par défaut : un interlocuteur sans
-écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste au journal). Le jour où le groupe
+`receiveItem` (recevoir un objet), `startCombat` et `startEncounter` (sans effet par défaut : un
+interlocuteur sans écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste au journal ;
+la seconde engage une rencontre **sur la carte**, `LOT-118`). Le jour où le groupe
 existera, « connaît-il cette langue » deviendra « l'un d'eux la connaît-il » dans une autre
 implémentation, sans que le runner le sache. `core::CharacterListener` est l'implémentation sur
 une fiche : les langues de la fiche, le modificateur de compétence **détaillé** (« +3 (charisma)

@@ -43,6 +43,7 @@ add_library(Core STATIC
     # Les niveaux d'un lieu, du plus propre au monde (LOT-124).
     Resources/ScenePlace.cpp
     Combat/CombatTransition.cpp
+    Combat/MapEncounter.cpp
     Combat/BattleGrid.cpp
     Combat/Pathfinding.cpp
     Combat/TurnOrder.cpp

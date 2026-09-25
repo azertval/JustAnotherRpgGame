@@ -65,6 +65,11 @@ add_library(HmiLib STATIC
     # La carte qu'on parcourt et sa mise en scene, partagees par le jeu et l'essai de l'editeur.
     Game/WorldPlay.cpp
     Game/GameQuests.cpp
+    # Le combat sur la carte (LOT-118) : les combattants composes comme au Colisee, le resolveur
+    # de figurines et ses mannequins (LOT-316), la file des mouvements que les figurines rejouent.
+    Game/CombatContestants.cpp
+    Game/FigureResolver.cpp
+    Game/CombatCues.cpp
     # L'essai complet (LOT-EDITOR-10) : la ligne de commande que l'editeur ecrit et que le jeu lit.
     Game/LaunchOptions.cpp
     Graphics/AssetGallery.cpp

@@ -5,6 +5,7 @@
   "size": "small",
   "creatureType": "bête",
   "alignment": "sans alignement",
+  "silhouette": "quadruped",
   "abilities": {
     "strength": 2,
     "dexterity": 11,
@@ -27,7 +28,11 @@
   "actions": [
     {
       "name": "Morsure",
-      "text": "Attaque d'arme au corps à corps : +0 au toucher, allonge 1,50 m, une cible. Touché : 1 dégât perforant."
+      "text": "Attaque d'arme au corps à corps : +0 au toucher, allonge 1,50 m, une cible. Touché : 1 dégât perforant.",
+      "attackBonus": 0,
+      "reach": 1.5,
+      "damage": "1d1",
+      "damageType": "piercing"
     }
   ]
 }

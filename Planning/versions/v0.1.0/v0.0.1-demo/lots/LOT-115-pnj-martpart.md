@@ -6,7 +6,7 @@ filiere = "pnj"
 statut = "a-faire"
 taille = "M"
 resume = "Les habitants de Martpart : figurines HD, portraits, fiches, placements."
-prerequis = ["LOT-104", "LOT-112"]
+prerequis = ["LOT-104", "LOT-112", "LOT-316"]
 livrables = [
   "`capital/martpart/Characters/` pour les PNJ propres ; les archétypes de citadins dans `capital/Common/Characters/`.",
   "Pour chaque PNJ : figurine animée, portrait, jeton, et sa fiche (`Rpg/`) quand il en a une.",

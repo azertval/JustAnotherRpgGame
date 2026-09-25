@@ -159,6 +159,7 @@ bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
     _status.clear();
     _move = {};
     _interact = false;
+    _lastInteractionCell.reset();
     noteDistrictVisit();
     ++_sceneRevision;
     ++_figuresRevision;
@@ -190,12 +191,15 @@ void WorldModel::step() {
     if (pas.sceneChanged) {
         ++_sceneRevision;
     }
-    if (pas.sceneChanged || pas.figuresChanged || pas.heroMoved) {
+    // Les figurines changent a CHAQUE pas : a l'arret, elles respirent (la bande de repos avance
+    // avec le temps, LOT-118), et une image de la carte coute 0,07 ms (audit de l'affichage).
+    // Pendant un combat sur la carte, c'est le combat qui publie ses figurines.
+    if (!_combatFigures.has_value()) {
         ++_figuresRevision;
     }
     if (pas.heroMoved) {
         emit heroMoved();
-    } else if (pas.sceneChanged || pas.figuresChanged) {
+    } else {
         emit figuresChanged();  // rien n'a bouge, mais l'image a change : elle se redessine
     }
 
@@ -207,9 +211,11 @@ void WorldModel::step() {
                 emit mapEntered(QString::fromStdString(evenement.value));
                 break;
             case core::ExplorationEventKind::Dialogue:
+                _lastInteractionCell = evenement.cell;
                 emit dialogueRequested(QString::fromStdString(evenement.value));
                 break;
             case core::ExplorationEventKind::Encounter:
+                _lastInteractionCell = evenement.cell;
                 emit encounterRequested(QString::fromStdString(evenement.value));
                 break;
             case core::ExplorationEventKind::PortalLocked:
@@ -284,11 +290,40 @@ int WorldModel::rows() const {
 }
 
 qreal WorldModel::heroColumn() const {
-    return _play->session().heroPoint().column;
+    return _combatFigures.has_value() ? _combatHero.x : _play->session().heroPoint().column;
 }
 
 qreal WorldModel::heroRow() const {
-    return _play->session().heroPoint().row;
+    return _combatFigures.has_value() ? _combatHero.y : _play->session().heroPoint().row;
+}
+
+void WorldModel::setCombatFigures(std::vector<WorldFigureSnapshot> figures,
+                                  core::Vector2 heroPoint) {
+    const bool moved = !_combatFigures.has_value() || _combatHero.x != heroPoint.x ||
+                       _combatHero.y != heroPoint.y;
+    _combatFigures = std::move(figures);
+    _combatHero = heroPoint;
+    ++_figuresRevision;
+    if (moved) {
+        emit heroMoved();
+    } else {
+        emit figuresChanged();
+    }
+}
+
+void WorldModel::clearCombatFigures() {
+    if (!_combatFigures.has_value()) {
+        return;
+    }
+    _combatFigures.reset();
+    ++_figuresRevision;
+    emit heroMoved();
+}
+
+void WorldModel::placeHero(core::CellPoint point) {
+    _play->session().placeHero(point);
+    ++_figuresRevision;
+    emit heroMoved();
 }
 
 void WorldModel::setHeroFigure(const QString& figure) {
@@ -318,7 +353,7 @@ std::shared_ptr<const WorldSceneSnapshot> WorldModel::scene() const {
 }
 
 std::vector<WorldFigureSnapshot> WorldModel::figures() const {
-    return _play->figures();
+    return _combatFigures.has_value() ? *_combatFigures : _play->figures();
 }
 
 WorldSceneSnapshot WorldModel::snapshot() const {
