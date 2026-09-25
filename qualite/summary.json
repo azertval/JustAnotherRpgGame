@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-24 22:13 UTC",
+  "generated": "2026-09-25 05:29 UTC",
   "commit": "a138dbe4b",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36063350639",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36098751408",
   "coverage": {
     "percent": 91.19,
     "covered": 31696,
@@ -138,51 +138,81 @@
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 15,
-    "date": "2026-09-24 02:41 UTC",
-    "commit": "776e4bf13",
+    "runs": 16,
+    "date": "2026-09-25 02:40 UTC",
+    "commit": "a138dbe4b",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 157996.32812500012,
+        "value": 157625.12276785553,
         "unit": "ns/iter",
-        "change_percent": -0.1
+        "change_percent": -0.2
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 214351.31250001406,
-        "unit": "ns/iter",
-        "change_percent": -0.1
-      },
-      {
-        "name": "LineOfSightAcrossGrid",
-        "value": 57714.76296663616,
-        "unit": "ns/iter",
-        "change_percent": 1.1
-      },
-      {
-        "name": "CoverFromWithInterposed",
-        "value": 162271.7522321412,
-        "unit": "ns/iter",
-        "change_percent": -0.4
-      },
-      {
-        "name": "PlanTurnFourVersusFour",
-        "value": 1146633.593750046,
-        "unit": "ns/iter",
-        "change_percent": 3.0
-      },
-      {
-        "name": "LoadTestLevel",
-        "value": 2652019.70338987,
+        "value": 211652.04687499718,
         "unit": "ns/iter",
         "change_percent": -1.3
       },
       {
+        "name": "LineOfSightAcrossGrid",
+        "value": 56935.550875453264,
+        "unit": "ns/iter",
+        "change_percent": -1.4
+      },
+      {
+        "name": "CoverFromWithInterposed",
+        "value": 161791.3321055766,
+        "unit": "ns/iter",
+        "change_percent": -0.3
+      },
+      {
+        "name": "PlanTurnFourVersusFour",
+        "value": 1100266.4062500498,
+        "unit": "ns/iter",
+        "change_percent": -4.0
+      },
+      {
+        "name": "LoadTestLevel",
+        "value": 2608559.322033807,
+        "unit": "ns/iter",
+        "change_percent": -1.6
+      },
+      {
         "name": "ComposeTestMap",
-        "value": 616.1646930779003,
+        "value": 635.1201339285747,
         "unit": "us/iter",
-        "change_percent": 14.4
+        "change_percent": 3.1
+      },
+      {
+        "name": "ArenareaSnapshot",
+        "value": 4.175658132530168,
+        "unit": "ms/iter",
+        "change_percent": null
+      },
+      {
+        "name": "ArenareaComposeWholeMap",
+        "value": 8.382339644970148,
+        "unit": "ms/iter",
+        "change_percent": null
+      },
+      {
+        "name": "ArenareaTexturePaths",
+        "value": 3.6628002564101827,
+        "unit": "ms/iter",
+        "change_percent": null
+      },
+      {
+        "name": "ArenareaBuildStaticScene",
+        "value": 8.35307831325311,
+        "unit": "ms/iter",
+        "change_percent": null
+      },
+      {
+        "name": "ArenareaFrame1080p",
+        "value": 60.16173935753304,
+        "unit": "us/iter",
+        "change_percent": null
       }
     ]
   },
