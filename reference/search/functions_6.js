@@ -25,9 +25,9 @@ var searchData=
   ['graph_22',['graph',['../classcore_1_1DialogueRunner.html#a66b9d691ec94030a442f53c34c3f3275',1,'core::DialogueRunner']]],
   ['graphlayout_23',['graphLayout',['../classhmi_1_1WorldGraphView.html#af52c4b259a16a7a6988ecfb7e8db6b87',1,'hmi::WorldGraphView']]],
   ['grid_24',['grid',['../classcore_1_1CombatState.html#a7f3fae84024674a5c70227a98a248735',1,'core::CombatState::grid() const noexcept'],['../classcore_1_1CombatState.html#afc7082aa97336d45c5d4e8a186fdb38a',1,'core::CombatState::grid() noexcept']]],
-  ['gridcolumns_25',['gridColumns',['../classhmi_1_1ArenaModel.html#aa0e867678253a828df3d9e0285fe8388',1,'hmi::ArenaModel']]],
+  ['gridcolumns_25',['gridColumns',['../classhmi_1_1CombatModel.html#a06c71e2e83b0b0af4f9da87c1d72f9e6',1,'hmi::CombatModel']]],
   ['griddistance_26',['gridDistance',['../namespacecore.html#ae19c39c376647e74514462b13d834e06',1,'core']]],
   ['griddistancefrom_27',['gridDistanceFrom',['../namespacecore.html#ad19e2dfeb2158624471c2a07e5a776e6',1,'core']]],
-  ['gridrows_28',['gridRows',['../classhmi_1_1ArenaModel.html#a954d10c7baddb00eec90076dab3823ab',1,'hmi::ArenaModel']]],
+  ['gridrows_28',['gridRows',['../classhmi_1_1CombatModel.html#a0b18309c2caeec817bd0d5bdbddb39ee',1,'hmi::CombatModel']]],
   ['gridtoworld_29',['gridToWorld',['../classcore_1_1IsoProjection.html#aee928bb53e2b5d1bbee3820ece456c47',1,'core::IsoProjection']]]
 ];

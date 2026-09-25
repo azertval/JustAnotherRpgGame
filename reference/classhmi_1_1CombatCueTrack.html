@@ -1,0 +1,618 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::CombatCueTrack Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1CombatCueTrack.html','','classhmi_1_1CombatCueTrack-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::CombatCueTrack Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="CombatCues_8h_source.html">CombatCues.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Running" id="r_Running"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5845b0a48c9a4c1b50f97a5b9f58abec" id="r_a5845b0a48c9a4c1b50f97a5b9f58abec"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5845b0a48c9a4c1b50f97a5b9f58abec">place</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing=<a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a>)</td></tr>
+<tr class="memdesc:a5845b0a48c9a4c1b50f97a5b9f58abec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">actor</code> au repos en <code class="param">cell</code>, tout de suite (montage, rejeu, repli).  <br /></td></tr>
+<tr class="memitem:a924fb983c66452c64e943ae4f423275a" id="r_a924fb983c66452c64e943ae4f423275a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a924fb983c66452c64e943ae4f423275a">remove</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor)</td></tr>
+<tr class="memdesc:a924fb983c66452c64e943ae4f423275a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire <code class="param">actor</code> : il est sorti du combat.  <br /></td></tr>
+<tr class="memitem:ad8833d40491f43b045a9d71f68053d92" id="r_ad8833d40491f43b045a9d71f68053d92"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad8833d40491f43b045a9d71f68053d92">push</a> (<a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> cue)</td></tr>
+<tr class="memdesc:ad8833d40491f43b045a9d71f68053d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un fait à montrer, après ceux déjà en attente.  <br /></td></tr>
+<tr class="memitem:a65069cf9282dddde01db8cd17ea9de94" id="r_a65069cf9282dddde01db8cd17ea9de94"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a65069cf9282dddde01db8cd17ea9de94">advance</a> (float seconds)</td></tr>
+<tr class="memdesc:a65069cf9282dddde01db8cd17ea9de94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance de <code class="param">seconds</code> : les faits en cours progressent, le suivant démarre.  <br /></td></tr>
+<tr class="memitem:ae50a51156e9374e17265695fdbd660ef" id="r_ae50a51156e9374e17265695fdbd660ef"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae50a51156e9374e17265695fdbd660ef">finishAll</a> ()</td></tr>
+<tr class="memdesc:ae50a51156e9374e17265695fdbd660ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue instantanément tout ce qui reste : l'image rejoint la grille.  <br /></td></tr>
+<tr class="memitem:adb88d297e2690e8a941c9ef447f6e31a" id="r_adb88d297e2690e8a941c9ef447f6e31a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adb88d297e2690e8a941c9ef447f6e31a">clear</a> () noexcept</td></tr>
+<tr class="memdesc:adb88d297e2690e8a941c9ef447f6e31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie tout : la fin du combat.  <br /></td></tr>
+<tr class="memitem:a40e87f2f4dc51a0410eb2c5cf9e9c67a" id="r_a40e87f2f4dc51a0410eb2c5cf9e9c67a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a40e87f2f4dc51a0410eb2c5cf9e9c67a">busy</a> () const noexcept</td></tr>
+<tr class="memitem:a49e582ba9ecdf7f00af7b43bc22c02e0" id="r_a49e582ba9ecdf7f00af7b43bc22c02e0"><td class="memItemLeft">const <a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a49e582ba9ecdf7f00af7b43bc22c02e0">motionOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor) const</td></tr>
+<tr class="memitem:ab3e55c85793523ec65bc841f0e768fff" id="r_ab3e55c85793523ec65bc841f0e768fff"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab3e55c85793523ec65bc841f0e768fff">pending</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a5fd46f6bc9c924e710b7c54412301ee0" id="r_a5fd46f6bc9c924e710b7c54412301ee0"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a5fd46f6bc9c924e710b7c54412301ee0">WALK_CELLS_PER_SECOND</a> = 2.0F</td></tr>
+<tr class="memdesc:a5fd46f6bc9c924e710b7c54412301ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La marche du combat est celle du monde : deux cases par seconde (<span class="tt">LOT-112</span>, D5).  <br /></td></tr>
+<tr class="memitem:ac838aa510aa11e1d6256337e85026600" id="r_ac838aa510aa11e1d6256337e85026600"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ac838aa510aa11e1d6256337e85026600">ACTION_SECONDS</a> = 0.64F</td></tr>
+<tr class="memdesc:ac838aa510aa11e1d6256337e85026600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action ponctuelle dure sa bande : huit images à 80 ms (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memitem:afd0414c9c8565543290b89aa58a7d098" id="r_afd0414c9c8565543290b89aa58a7d098"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098">IMPACT_FRACTION</a> = 0.5F</td></tr>
+<tr class="memdesc:afd0414c9c8565543290b89aa58a7d098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coup <b>porte</b> au milieu de la bande d'attaque : le touché et la chute de la cible commencent là, pas quand l'attaquant a fini son geste.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a218a18059ffaee9d819526442883a8c8" id="r_a218a18059ffaee9d819526442883a8c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a218a18059ffaee9d819526442883a8c8">startNext</a> ()</td></tr>
+<tr class="memdesc:a218a18059ffaee9d819526442883a8c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Démarre le fait suivant, et ceux qui l'accompagnent.  <br /></td></tr>
+<tr class="memitem:a6d209291b75fd618b9098690fdc6bf0a" id="r_a6d209291b75fd618b9098690fdc6bf0a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6d209291b75fd618b9098690fdc6bf0a">apply</a> (<a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> &amp;running)</td></tr>
+<tr class="memdesc:a6d209291b75fd618b9098690fdc6bf0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique <code class="param">running</code> à sa figurine ;.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aea130bad9d873753b9e912e01c7e30c8" id="r_aea130bad9d873753b9e912e01c7e30c8"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aea130bad9d873753b9e912e01c7e30c8">_figures</a></td></tr>
+<tr class="memitem:a0934d9870bb052824ebf88742b5efb04" id="r_a0934d9870bb052824ebf88742b5efb04"><td class="memItemLeft">std::deque&lt; <a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0934d9870bb052824ebf88742b5efb04">_queue</a></td></tr>
+<tr class="memitem:a49bf29271602ddc3a7297e31400e0393" id="r_a49bf29271602ddc3a7297e31400e0393"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49bf29271602ddc3a7297e31400e0393">_running</a></td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a65069cf9282dddde01db8cd17ea9de94" name="a65069cf9282dddde01db8cd17ea9de94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65069cf9282dddde01db8cd17ea9de94">&#9670;&#160;</a></span>advance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::advance </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avance de <code class="param">seconds</code> : les faits en cours progressent, le suivant démarre. </p>
+
+</div>
+</div>
+<a id="a6d209291b75fd618b9098690fdc6bf0a" name="a6d209291b75fd618b9098690fdc6bf0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d209291b75fd618b9098690fdc6bf0a">&#9670;&#160;</a></span>apply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::CombatCueTrack::apply </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>running</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applique <code class="param">running</code> à sa figurine ;. </p>
+<dl class="section return"><dt>Returns</dt><dd>vrai s'il est fini. </dd></dl>
+
+</div>
+</div>
+<a id="a40e87f2f4dc51a0410eb2c5cf9e9c67a" name="a40e87f2f4dc51a0410eb2c5cf9e9c67a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40e87f2f4dc51a0410eb2c5cf9e9c67a">&#9670;&#160;</a></span>busy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::CombatCueTrack::busy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai tant qu'un fait se joue ou en attend un autre. </dd></dl>
+
+</div>
+</div>
+<a id="adb88d297e2690e8a941c9ef447f6e31a" name="adb88d297e2690e8a941c9ef447f6e31a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb88d297e2690e8a941c9ef447f6e31a">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::clear </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Oublie tout : la fin du combat. </p>
+
+</div>
+</div>
+<a id="ae50a51156e9374e17265695fdbd660ef" name="ae50a51156e9374e17265695fdbd660ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae50a51156e9374e17265695fdbd660ef">&#9670;&#160;</a></span>finishAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::finishAll </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Joue instantanément tout ce qui reste : l'image rejoint la grille. </p>
+
+</div>
+</div>
+<a id="a49e582ba9ecdf7f00af7b43bc22c02e0" name="a49e582ba9ecdf7f00af7b43bc22c02e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e582ba9ecdf7f00af7b43bc22c02e0">&#9670;&#160;</a></span>motionOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a> * hmi::CombatCueTrack::motionOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>actor</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce que <code class="param">actor</code> montre, ou <span class="tt">nullptr</span> s'il n'est pas posé. </dd></dl>
+
+</div>
+</div>
+<a id="ab3e55c85793523ec65bc841f0e768fff" name="ab3e55c85793523ec65bc841f0e768fff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e55c85793523ec65bc841f0e768fff">&#9670;&#160;</a></span>pending()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::CombatCueTrack::pending </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de faits encore à jouer, en cours compris. </dd></dl>
+
+</div>
+</div>
+<a id="a5845b0a48c9a4c1b50f97a5b9f58abec" name="a5845b0a48c9a4c1b50f97a5b9f58abec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5845b0a48c9a4c1b50f97a5b9f58abec">&#9670;&#160;</a></span>place()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::place </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>actor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose <code class="param">actor</code> au repos en <code class="param">cell</code>, tout de suite (montage, rejeu, repli). </p>
+
+</div>
+</div>
+<a id="ad8833d40491f43b045a9d71f68053d92" name="ad8833d40491f43b045a9d71f68053d92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8833d40491f43b045a9d71f68053d92">&#9670;&#160;</a></span>push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::push </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a></td>          <td class="paramname"><span class="paramname"><em>cue</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute un fait à montrer, après ceux déjà en attente. </p>
+
+</div>
+</div>
+<a id="a924fb983c66452c64e943ae4f423275a" name="a924fb983c66452c64e943ae4f423275a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a924fb983c66452c64e943ae4f423275a">&#9670;&#160;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::remove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>actor</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire <code class="param">actor</code> : il est sorti du combat. </p>
+
+</div>
+</div>
+<a id="a218a18059ffaee9d819526442883a8c8" name="a218a18059ffaee9d819526442883a8c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a218a18059ffaee9d819526442883a8c8">&#9670;&#160;</a></span>startNext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::startNext </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Démarre le fait suivant, et ceux qui l'accompagnent. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aea130bad9d873753b9e912e01c7e30c8" name="aea130bad9d873753b9e912e01c7e30c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea130bad9d873753b9e912e01c7e30c8">&#9670;&#160;</a></span>_figures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a>&gt; hmi::CombatCueTrack::_figures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0934d9870bb052824ebf88742b5efb04" name="a0934d9870bb052824ebf88742b5efb04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0934d9870bb052824ebf88742b5efb04">&#9670;&#160;</a></span>_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::deque&lt;<a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a>&gt; hmi::CombatCueTrack::_queue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a49bf29271602ddc3a7297e31400e0393" name="a49bf29271602ddc3a7297e31400e0393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49bf29271602ddc3a7297e31400e0393">&#9670;&#160;</a></span>_running</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a>&gt; hmi::CombatCueTrack::_running</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac838aa510aa11e1d6256337e85026600" name="ac838aa510aa11e1d6256337e85026600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac838aa510aa11e1d6256337e85026600">&#9670;&#160;</a></span>ACTION_SECONDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::CombatCueTrack::ACTION_SECONDS = 0.64F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une action ponctuelle dure sa bande : huit images à 80 ms (<span class="tt">LOT-112</span>). </p>
+
+</div>
+</div>
+<a id="afd0414c9c8565543290b89aa58a7d098" name="afd0414c9c8565543290b89aa58a7d098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd0414c9c8565543290b89aa58a7d098">&#9670;&#160;</a></span>IMPACT_FRACTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::CombatCueTrack::IMPACT_FRACTION = 0.5F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le coup <b>porte</b> au milieu de la bande d'attaque : le touché et la chute de la cible commencent là, pas quand l'attaquant a fini son geste. </p>
+
+</div>
+</div>
+<a id="a5fd46f6bc9c924e710b7c54412301ee0" name="a5fd46f6bc9c924e710b7c54412301ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fd46f6bc9c924e710b7c54412301ee0">&#9670;&#160;</a></span>WALK_CELLS_PER_SECOND</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::CombatCueTrack::WALK_CELLS_PER_SECOND = 2.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La marche du combat est celle du monde : deux cases par seconde (<span class="tt">LOT-112</span>, D5). </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/<a class="el" href="CombatCues_8h_source.html">CombatCues.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/<a class="el" href="CombatCues_8cpp.html">CombatCues.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

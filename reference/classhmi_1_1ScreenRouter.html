@@ -242,11 +242,11 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pilote la machine à états des écrans, et publie l'écran courant. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md132"></a>
 Ce qu'il n'est pas</h2>
 <p>Il ne décide <b>rien</b>. Toute la règle vit dans <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">hmi::resolveTransition</a></span> — table pure, sans Qt, couverte par ses tests — et ce routeur ne fait que l'appeler et diffuser le résultat. C'est ce qui permet de vérifier la navigation sans ouvrir une fenêtre, et qui l'a déjà été.</p>
 <p><b>Une transition non déclarée est refusée</b>, jamais silencieusement acceptée : <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">resolveTransition</a></span> rend alors <span class="tt">std::nullopt</span> et l'état ne bouge pas. Sans cette discipline, un <span class="tt"><a class="el" href="#a726babaae9dd3059829d58646ade1efc">openOptions()</a></span> appelé depuis un écran d'où les options ne s'ouvrent pas produirait un état que la table ne décrit pas, et dont personne ne saurait comment revenir.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md133"></a>
 Pourquoi une énumération et non un nom de fichier</h2>
 <p>Le routeur publie un <b>état</b>, pas un chemin. Faire transiter « <span class="tt">Screens/MainMenu.qml</span> » ferait connaître à la présentation le nom des fichiers de la conception — que l'artiste doit pouvoir renommer sans toucher au C++. La correspondance entre état et fichier vit donc en QML, dans <span class="tt">Logic/ScreenStack.qml</span>, du côté développeur mais du bon côté de la frontière. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>

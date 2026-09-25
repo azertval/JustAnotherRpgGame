@@ -337,7 +337,7 @@ ArenaSession::ArenaSession(Level level)
     _disengaged.clear();
     _journal.clear();
     subscribe();
-    _combat-&gt;setEscapable(true);</span>
+    _combat-&gt;setEscapable(bout.escapable);</span>
 
 <span style = "background-color:#dfd">    ArenaMount montage;
     std::vector&lt;ArenaEntryPoint&gt; entrees = arenaEntryPoints(_level);
@@ -605,6 +605,9 @@ AttackCircumstances ArenaSession::circumstancesAgainst(CombatantId attacker, Com
 <span style = "background-color:#dfd">    const auto noterPas = [&amp;](const MoveOutcome&amp; pas, GridPosition vers) {
         record("pas " + _combat-&gt;find(*actif)-&gt;profile.name + " " + std::to_string(vers.column) +</span>
                "," + std::to_string(vers.row) + " (" + std::to_string(pas.path.cost) + ")");
+<span style = "background-color:#dfd">        if (_moveObserver) {</span>
+<span style = "background-color:#fdd">            _moveObserver(*actif, pas.path);</span>
+        }
 <span style = "background-color:#dfd">    };
     MoveOutcome parcours{.result = MoveResult::NoActiveTurn, .path = {}};
     const auto cumuler = [&amp;](const MoveOutcome&amp; pas) {

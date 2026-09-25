@@ -23,7 +23,8 @@ var Dialogue_8h =
       [ "core::DialogueActionKind::ClearFlag", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac23574157c4f45657c36e9ce5d40eab7", null ],
       [ "core::DialogueActionKind::GiveItem", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee", null ],
       [ "core::DialogueActionKind::StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
-      [ "core::DialogueActionKind::StartCombat", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159", null ]
+      [ "core::DialogueActionKind::StartCombat", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159", null ],
+      [ "core::DialogueActionKind::StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ]
     ] ],
     [ "core::DialogueAttitude", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7", [
       [ "core::DialogueAttitude::Friendly", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df", null ],

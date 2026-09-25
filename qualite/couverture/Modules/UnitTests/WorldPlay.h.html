@@ -35,6 +35,7 @@
 
 #include "Core/World/ExplorationSession.h"
 #include "Core/World/WorldTravel.h"
+#include "HMI/Game/FigureResolver.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -90,8 +91,27 @@ public:
 
     /// @return L'orientation du hÃ©ros ; `None` si sa figurine n'a pas de bandes orientÃ©es.
 <span style = "background-color:#dfd">    [[nodiscard]] FigureFacing heroFacing() const noexcept {
-        return _heroOriented ? _heroFacing : FigureFacing::None;
+        return _hero.oriented ? _heroFacing : FigureFacing::None;
     }</span>
+
+    /// @return La figurine du hÃ©ros telle qu'elle se dessine : la sienne, ou son mannequin.
+<span style = "background-color:#dfd">    [[nodiscard]] const ResolvedFigure&amp; heroResolved() const noexcept {
+        return _hero;
+    }</span>
+
+    /**
+     * @brief Quelle bande dessiner pour @p figure (slug ou dossier) de silhouette @p silhouette :
+     *        la sienne si elle existe, sinon son mannequin (`hmi::FigureResolver`, `LOT-145`).
+     */
+    [[nodiscard]] const ResolvedFigure&amp; resolveFigure(std::string_view figure,
+<span style = "background-color:#dfd">                                                      std::string_view silhouette) const {
+        return _figures.resolve(figure, silhouette, _appearance);
+    }</span>
+
+    /// @return La table d'apparence du lieu de la carte courante.
+    [[nodiscard]] const PlaceAppearance&amp; appearance() const noexcept {
+        return _appearance;
+    }
 
     /// @return Les figurines de la carte courante : les PNJ, puis le hÃ©ros, qui passe devant.
     [[nodiscard]] std::vector&lt;WorldFigureSnapshot&gt; figures() const;
@@ -124,10 +144,12 @@ private:
     core::ExplorationSession _session;
     std::filesystem::path _assetsDirectory;
     PlaceAppearance _appearance;
+    /// Le rÃ©solveur des figurines : ce qu'il a trouvÃ© se retient le temps d'une carte.
+    mutable FigureResolver _figures;
 <span style = "background-color:#dfd">    std::string _heroFigure{DEFAULT_HERO_FIGURE};</span>
-    /// La figurine du hÃ©ros a ses quatre orientations (`idle-se.png`â¦) : relu quand elle change,
-    /// pas Ã  chaque image.
-<span style = "background-color:#dfd">    bool _heroOriented = false;</span>
+    /// La figurine du hÃ©ros rÃ©solue : son dossier, ses orientations. Relue quand elle change ou
+    /// que le lieu change, pas Ã  chaque image.
+    ResolvedFigure _hero;
     /// DerniÃ¨re orientation du hÃ©ros : il la garde Ã  l'arrÃªt.
 <span style = "background-color:#dfd">    FigureFacing _heroFacing = FigureFacing::SouthEast;</span>
     /// Temps Ã©coulÃ© sur la carte : l'image des bandes de figurine en dÃ©pend.

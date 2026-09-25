@@ -154,28 +154,28 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>play.enter(&quot;bourg/place&quot;, {})</code> est vrai.</li><li>Vérifie que <code>game.figures.empty()</code> est faux.</li><li>Vérifie que <code>editor.place</code> vaut <code>&quot;bourg&quot;</code>.</li><li>Vérifie que <code>editor</code> vaut <code>game</code>.</li><li>Vérifie que <code>editor.figures.empty()</code> est faux.</li><li>Vérifie que <code>fromGame.size()</code> vaut <code>fromEditor.size() + 1</code>.</li><li>Vérifie que <code>matched</code> vaut <code>fromEditor.size()</code>.</li><li>Vérifie que <code>fromEditor.size()</code> est strictement supérieur à <code>1000U</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="canvasscenetestlesreglagesdecoucheagissentsurleurbande">CanvasSceneTest.LesReglagesDeCoucheAgissentSurLeurBande</h3>
-<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:146</code></p>
+<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:151</code></p>
 <p>Masquer, griser, voir a travers : chaque reglage agit sur sa bande.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Une carte a couche de sol et couche de decor, reglages par defaut.</li><li>Masquer le decor, griser le sol, activer les reliefs en transparence.</li><li>Rendre la collision active.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>defaults</code> vaut <code>(hmi::IsoBandOpacity{ .floors = 1.0F, .relief = 1.0F, .figures = 1.0F, .collision = 0.0F})</code>.</li><li>Vérifie que <code>changed.relief</code> vaut <code>0.0F</code> (comparaison flottante).</li><li>Vérifie que <code>changed.floors</code> vaut <a class="ref" href="../reference/namespacehmi.html#a9d005a8117089b54f18763e2b17e08f6"><code>hmi::DIMMED_LAYER_OPACITY</code></a> (comparaison flottante).</li><li>Vérifie que <code>hmi::bandOpacity(changed, hmi::RenderLayer::Object)</code> vaut <code>0.0F</code> (comparaison flottante).</li><li>Vérifie que <code>hmi::bandOpacity(changed, hmi::RenderLayer::Tile)</code> vaut <a class="ref" href="../reference/namespacehmi.html#a9d005a8117089b54f18763e2b17e08f6"><code>hmi::DIMMED_LAYER_OPACITY</code></a> (comparaison flottante).</li><li>Vérifie que <code>hmi::isoBandOpacity(layers, view, 0U, true).relief</code> vaut <a class="ref" href="../reference/namespacehmi.html#ad13c35694489a3dca1d74146d3acad66"><code>hmi::SEE_THROUGH_RELIEF_OPACITY</code></a> (comparaison flottante).</li><li>Vérifie que <code>collision.collision</code> vaut <code>hmi::DEFAULT_COLLISION_OVERLAY_OPACITY * hmi::COLLISION_MASK_OPACITY</code> (comparaison flottante).</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="canvasscenetestunegrilleuniqueestlimage">CanvasSceneTest.UneGrilleUniqueEstLImage</h3>
-<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:186</code></p>
+<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:191</code></p>
 <p>Une grille unique est l'image du canevas iso.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Une carte sans couche visuelle ; masquer puis montrer sa grille.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::isoBandOpacity({}, view, std::nullopt, false).floors</code> vaut <code>1.0F</code> (comparaison flottante).</li><li>Vérifie que <code>hmi::isoBandOpacity({}, view, std::nullopt, false).collision</code> vaut <code>0.0F</code> (comparaison flottante).</li><li>Vérifie que <code>hmi::isoBandOpacity({}, view, std::nullopt, false).floors</code> vaut <code>0.0F</code> (comparaison flottante).</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="canvasscenetestgriseretverrouillersontdesreglagesdediteur">CanvasSceneTest.GriserEtVerrouillerSontDesReglagesDEditeur</h3>
-<p><em>Majeur · Unitaire · Editeur · Couches</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:203</code></p>
+<p><em>Majeur · Unitaire · Editeur · Couches</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:208</code></p>
 <p>Griser et verrouiller une couche, puis tout oublier.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Verrouiller la collision, griser une couche visuelle.</li><li>Remettre les reglages a zero.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>view.display(std::nullopt, true).locked</code> est vrai.</li><li>Vérifie que <code>view.display(0U, true).dimmed</code> est vrai.</li><li>Vérifie que <code>view.display(0U, true).effectiveOpacity()</code> vaut <a class="ref" href="../reference/namespacehmi.html#a9d005a8117089b54f18763e2b17e08f6"><code>hmi::DIMMED_LAYER_OPACITY</code></a> (comparaison flottante).</li><li>Vérifie que <code>view.display(std::nullopt, true).locked</code> est faux.</li><li>Vérifie que <code>view.display(0U, true).dimmed</code> est faux.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="canvasscenetestlespiecesdunecaseselisent">CanvasSceneTest.LesPiecesDUneCaseSeLisent</h3>
-<p><em>Mineur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:229</code></p>
+<p><em>Mineur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_scene.cpp:234</code></p>
 <p>Les pieces d'une case se lisent dans la barre d'etat.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Un instantane dont une case a un sol et un relief, une autre un sol seul.</li></ol>
@@ -1526,7 +1526,7 @@
 <ul><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {})</code> vaut <code>&quot;from-place&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {&quot;from-place&quot;})</code> vaut <code>&quot;from-place-2&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;donjon&quot;, {&quot;from-donjon&quot;, &quot;from-donjon-2&quot;})</code> vaut <code>&quot;from-donjon-3&quot;</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-world.html"><span>Précédent</span>Core · World</a><a class="next" href="hmi-audio.html"><span>Suivant</span>HMI · Audio</a></nav><p class="source">Source : <code>Documentation/CahierTest/editor.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>a23d46a87</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>6ef1a4af1</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

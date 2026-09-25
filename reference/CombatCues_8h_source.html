@@ -1,0 +1,302 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/CombatCues.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('CombatCues_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CombatCues.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="CombatCues_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;deque&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &quot;<a class="code" href="BattleGrid_8h.html">Core/Combat/BattleGrid.h</a>&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &quot;<a class="code" href="WorldSceneComposer_8h.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406">   43</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406">CombatCueKind</a> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62">   45</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62">Walk</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a">   47</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a">Attack</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">   49</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">Cast</a>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">   51</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">Hit</a>,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">   53</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">Death</a>,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCue.html">   57</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1CombatCue.html">CombatCue</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCue.html#a5117b30c8230dc67cd8d1e4fee4a5e7f">   58</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406">CombatCueKind</a> <a class="code hl_variable" href="structhmi_1_1CombatCue.html#a5117b30c8230dc67cd8d1e4fee4a5e7f">kind</a> = <a class="code hl_enumvalue" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62">CombatCueKind::Walk</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCue.html#abd651f1f0853b2bd336e0046ea32a3de">   59</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> <a class="code hl_variable" href="structhmi_1_1CombatCue.html#abd651f1f0853b2bd336e0046ea32a3de">actor</a>{};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCue.html#a0f1117a00c38875257108ba245d511e6">   61</a></span>    std::vector&lt;core::GridPosition&gt; <a class="code hl_variable" href="structhmi_1_1CombatCue.html#a0f1117a00c38875257108ba245d511e6">path</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCue.html#ae3ddf7b9429272c30e370c053c0efc1e">   63</a></span>    std::optional&lt;core::GridPosition&gt; <a class="code hl_variable" href="structhmi_1_1CombatCue.html#ae3ddf7b9429272c30e370c053c0efc1e">target</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structhmi_1_1FigureMotion.html">   67</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1FigureMotion.html">FigureMotion</a> {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structhmi_1_1FigureMotion.html#a46023823e82a90da915cab00c624a98b">   69</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1FigureMotion.html#a46023823e82a90da915cab00c624a98b">point</a>{};</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structhmi_1_1FigureMotion.html#a2d7942748d62e7bc151c6a55272a14e1">   71</a></span>    std::string_view <a class="code hl_variable" href="structhmi_1_1FigureMotion.html#a2d7942748d62e7bc151c6a55272a14e1">clip</a> = <a class="code hl_variable" href="namespacehmi_1_1figure__clips.html#ae32b43afe6206e30237ba1bcfae6f724">figure_clips::IDLE</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structhmi_1_1FigureMotion.html#a7872742a2597576377ec20ca9c9ced1c">   73</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> <a class="code hl_variable" href="structhmi_1_1FigureMotion.html#a7872742a2597576377ec20ca9c9ced1c">facing</a> = <a class="code hl_enumvalue" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structhmi_1_1FigureMotion.html#a5076ae8c9940a892fc7a149ea9eb92dc">   75</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1FigureMotion.html#a5076ae8c9940a892fc7a149ea9eb92dc">clipSeconds</a> = 0.0F;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="structhmi_1_1FigureMotion.html#a033ebdd18b1561b8bbc5b45ad0a8c021">   77</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1FigureMotion.html#a033ebdd18b1561b8bbc5b45ad0a8c021">dead</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="};">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html">   80</a></span><span class="keyword">class </span><a class="code hl_class" href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a> {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#a5fd46f6bc9c924e710b7c54412301ee0">   83</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a5fd46f6bc9c924e710b7c54412301ee0">WALK_CELLS_PER_SECOND</a> = 2.0F;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#ac838aa510aa11e1d6256337e85026600">   85</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#ac838aa510aa11e1d6256337e85026600">ACTION_SECONDS</a> = 0.64F;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#afd0414c9c8565543290b89aa58a7d098">   88</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#afd0414c9c8565543290b89aa58a7d098">IMPACT_FRACTION</a> = 0.5F;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a5845b0a48c9a4c1b50f97a5b9f58abec">place</a>(<a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell,</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>               <a class="code hl_enumeration" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing = <a class="code hl_enumvalue" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a>);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a924fb983c66452c64e943ae4f423275a">remove</a>(<a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#ad8833d40491f43b045a9d71f68053d92">push</a>(<a class="code hl_struct" href="structhmi_1_1CombatCue.html">CombatCue</a> cue);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a65069cf9282dddde01db8cd17ea9de94">advance</a>(<span class="keywordtype">float</span> seconds);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#ae50a51156e9374e17265695fdbd660ef">finishAll</a>();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#adb88d297e2690e8a941c9ef447f6e31a">clear</a>() noexcept;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span></div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a">  105</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a">busy</a>() const noexcept {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">return</span> !<a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a49bf29271602ddc3a7297e31400e0393">_running</a>.empty() || !<a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a0934d9870bb052824ebf88742b5efb04">_queue</a>.empty();</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1FigureMotion.html">FigureMotion</a>* <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a49e582ba9ecdf7f00af7b43bc22c02e0">motionOf</a>(<a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor) <span class="keyword">const</span>;</div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#ab3e55c85793523ec65bc841f0e768fff">  111</a></span>    [[nodiscard]] std::size_t <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#ab3e55c85793523ec65bc841f0e768fff">pending</a>() const noexcept {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a49bf29271602ddc3a7297e31400e0393">_running</a>.size() + <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a0934d9870bb052824ebf88742b5efb04">_queue</a>.size();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">private</span>:</div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="};">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCueTrack_1_1Running.html">  116</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCueTrack_1_1Running.html#a2ac79d58964403a0721a4cbd610c4e77">  117</a></span>        <a class="code hl_struct" href="structhmi_1_1CombatCue.html">CombatCue</a> <a class="code hl_variable" href="structhmi_1_1CombatCueTrack_1_1Running.html#a2ac79d58964403a0721a4cbd610c4e77">cue</a>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCueTrack_1_1Running.html#a0d2412e36d5f7eec0e56badb21bf5080">  119</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1CombatCueTrack_1_1Running.html#a0d2412e36d5f7eec0e56badb21bf5080">elapsed</a> = 0.0F;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="structhmi_1_1CombatCueTrack_1_1Running.html#a60afd51c2d0a567c9747ca289ab8dcce">  121</a></span>        <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="structhmi_1_1CombatCueTrack_1_1Running.html#a60afd51c2d0a567c9747ca289ab8dcce">from</a>{};</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    };</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a218a18059ffaee9d819526442883a8c8">startNext</a>();</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1CombatCueTrack.html#a6d209291b75fd618b9098690fdc6bf0a">apply</a>(Running&amp; running);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#aea130bad9d873753b9e912e01c7e30c8">  129</a></span>    std::map&lt;core::CombatantId, FigureMotion&gt; <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#aea130bad9d873753b9e912e01c7e30c8">_figures</a>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#a0934d9870bb052824ebf88742b5efb04">  130</a></span>    std::deque&lt;CombatCue&gt; <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a0934d9870bb052824ebf88742b5efb04">_queue</a>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatCueTrack.html#a49bf29271602ddc3a7297e31400e0393">  131</a></span>    std::vector&lt;Running&gt; <a class="code hl_variable" href="classhmi_1_1CombatCueTrack.html#a49bf29271602ddc3a7297e31400e0393">_running</a>;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>};</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aBattleGrid_8h_html"><div class="ttname"><a href="BattleGrid_8h.html">BattleGrid.h</a></div><div class="ttdoc">La grille de combat : ce qui fait obstacle, ce qui ralentit, et qui se tient où (LOT-19,...</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="aWorldSceneComposer_8h_html"><div class="ttname"><a href="WorldSceneComposer_8h.html">WorldSceneComposer.h</a></div><div class="ttdoc">Un lieu qu&#39;on parcourt composé en primitives, sans GPU : le jumeau d&#39;hmi::ArenaSceneComposer pour la ...</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html">hmi::CombatCueTrack</a></div><div class="ttdef"><b>Definition</b> CombatCues.h:80</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a0934d9870bb052824ebf88742b5efb04"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a0934d9870bb052824ebf88742b5efb04">hmi::CombatCueTrack::_queue</a></div><div class="ttdeci">std::deque&lt; CombatCue &gt; _queue</div><div class="ttdef"><b>Definition</b> CombatCues.h:130</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a218a18059ffaee9d819526442883a8c8"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a218a18059ffaee9d819526442883a8c8">hmi::CombatCueTrack::startNext</a></div><div class="ttdeci">void startNext()</div><div class="ttdoc">Démarre le fait suivant, et ceux qui l&#39;accompagnent.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:69</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a40e87f2f4dc51a0410eb2c5cf9e9c67a"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a">hmi::CombatCueTrack::busy</a></div><div class="ttdeci">bool busy() const noexcept</div><div class="ttdef"><b>Definition</b> CombatCues.h:105</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a49bf29271602ddc3a7297e31400e0393"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a49bf29271602ddc3a7297e31400e0393">hmi::CombatCueTrack::_running</a></div><div class="ttdeci">std::vector&lt; Running &gt; _running</div><div class="ttdef"><b>Definition</b> CombatCues.h:131</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a49e582ba9ecdf7f00af7b43bc22c02e0"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a49e582ba9ecdf7f00af7b43bc22c02e0">hmi::CombatCueTrack::motionOf</a></div><div class="ttdeci">const FigureMotion * motionOf(core::CombatantId actor) const</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:64</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a5845b0a48c9a4c1b50f97a5b9f58abec"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a5845b0a48c9a4c1b50f97a5b9f58abec">hmi::CombatCueTrack::place</a></div><div class="ttdeci">void place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing=FigureFacing::SouthEast)</div><div class="ttdoc">Pose actor au repos en cell, tout de suite (montage, rejeu, repli).</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:31</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a5fd46f6bc9c924e710b7c54412301ee0"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a5fd46f6bc9c924e710b7c54412301ee0">hmi::CombatCueTrack::WALK_CELLS_PER_SECOND</a></div><div class="ttdeci">static constexpr float WALK_CELLS_PER_SECOND</div><div class="ttdoc">La marche du combat est celle du monde : deux cases par seconde (LOT-112, D5).</div><div class="ttdef"><b>Definition</b> CombatCues.h:83</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a65069cf9282dddde01db8cd17ea9de94"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a65069cf9282dddde01db8cd17ea9de94">hmi::CombatCueTrack::advance</a></div><div class="ttdeci">void advance(float seconds)</div><div class="ttdoc">Avance de seconds : les faits en cours progressent, le suivant démarre.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:179</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a6d209291b75fd618b9098690fdc6bf0a"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a6d209291b75fd618b9098690fdc6bf0a">hmi::CombatCueTrack::apply</a></div><div class="ttdeci">bool apply(Running &amp;running)</div><div class="ttdoc">Applique running à sa figurine ;.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:97</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_a924fb983c66452c64e943ae4f423275a"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#a924fb983c66452c64e943ae4f423275a">hmi::CombatCueTrack::remove</a></div><div class="ttdeci">void remove(core::CombatantId actor)</div><div class="ttdoc">Retire actor : il est sorti du combat.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:41</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_ab3e55c85793523ec65bc841f0e768fff"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#ab3e55c85793523ec65bc841f0e768fff">hmi::CombatCueTrack::pending</a></div><div class="ttdeci">std::size_t pending() const noexcept</div><div class="ttdef"><b>Definition</b> CombatCues.h:111</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_ac838aa510aa11e1d6256337e85026600"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#ac838aa510aa11e1d6256337e85026600">hmi::CombatCueTrack::ACTION_SECONDS</a></div><div class="ttdeci">static constexpr float ACTION_SECONDS</div><div class="ttdoc">Une action ponctuelle dure sa bande : huit images à 80 ms (LOT-112).</div><div class="ttdef"><b>Definition</b> CombatCues.h:85</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_ad8833d40491f43b045a9d71f68053d92"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#ad8833d40491f43b045a9d71f68053d92">hmi::CombatCueTrack::push</a></div><div class="ttdeci">void push(CombatCue cue)</div><div class="ttdoc">Ajoute un fait à montrer, après ceux déjà en attente.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:47</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_adb88d297e2690e8a941c9ef447f6e31a"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#adb88d297e2690e8a941c9ef447f6e31a">hmi::CombatCueTrack::clear</a></div><div class="ttdeci">void clear() noexcept</div><div class="ttdoc">Oublie tout : la fin du combat.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:58</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_ae50a51156e9374e17265695fdbd660ef"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#ae50a51156e9374e17265695fdbd660ef">hmi::CombatCueTrack::finishAll</a></div><div class="ttdeci">void finishAll()</div><div class="ttdoc">Joue instantanément tout ce qui reste : l&#39;image rejoint la grille.</div><div class="ttdef"><b>Definition</b> CombatCues.cpp:197</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_aea130bad9d873753b9e912e01c7e30c8"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#aea130bad9d873753b9e912e01c7e30c8">hmi::CombatCueTrack::_figures</a></div><div class="ttdeci">std::map&lt; core::CombatantId, FigureMotion &gt; _figures</div><div class="ttdef"><b>Definition</b> CombatCues.h:129</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatCueTrack_html_afd0414c9c8565543290b89aa58a7d098"><div class="ttname"><a href="classhmi_1_1CombatCueTrack.html#afd0414c9c8565543290b89aa58a7d098">hmi::CombatCueTrack::IMPACT_FRACTION</a></div><div class="ttdeci">static constexpr float IMPACT_FRACTION</div><div class="ttdoc">Le coup porte au milieu de la bande d&#39;attaque : le touché et la chute de la cible commencent là,...</div><div class="ttdef"><b>Definition</b> CombatCues.h:88</div></div>
+<div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ae32b43afe6206e30237ba1bcfae6f724"><div class="ttname"><a href="namespacehmi_1_1figure__clips.html#ae32b43afe6206e30237ba1bcfae6f724">hmi::figure_clips::IDLE</a></div><div class="ttdeci">constexpr std::string_view IDLE</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:149</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_ac35af7f8a75d64ff0600ed46bb08ea2d"><div class="ttname"><a href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">hmi::FigureFacing</a></div><div class="ttdeci">FigureFacing</div><div class="ttdoc">L&#39;orientation d&#39;une figurine : l&#39;une des quatre diagonales de l&#39;isométrie (LOT-112).</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:120</div></div>
+<div class="ttc" id="anamespacehmi_html_ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190"><div class="ttname"><a href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">hmi::FigureFacing::SouthEast</a></div><div class="ttdeci">@ SouthEast</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:122</div></div>
+<div class="ttc" id="anamespacehmi_html_af50d48ed1cc573c620ff2a1c420f7406"><div class="ttname"><a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406">hmi::CombatCueKind</a></div><div class="ttdeci">CombatCueKind</div><div class="ttdoc">Ce qu&#39;un combattant fait de visible.</div><div class="ttdef"><b>Definition</b> CombatCues.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html_af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c"><div class="ttname"><a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">hmi::CombatCueKind::Cast</a></div><div class="ttdeci">@ Cast</div><div class="ttdoc">Il lance un sort vers target (personne ne le demande encore : la bande est prête).</div><div class="ttdef"><b>Definition</b> CombatCues.h:49</div></div>
+<div class="ttc" id="anamespacehmi_html_af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f"><div class="ttname"><a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">hmi::CombatCueKind::Death</a></div><div class="ttdeci">@ Death</div><div class="ttdoc">Il tombe, et reste à terre.</div><div class="ttdef"><b>Definition</b> CombatCues.h:53</div></div>
+<div class="ttc" id="anamespacehmi_html_af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62"><div class="ttname"><a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62">hmi::CombatCueKind::Walk</a></div><div class="ttdeci">@ Walk</div><div class="ttdoc">Il marche le long de path.</div><div class="ttdef"><b>Definition</b> CombatCues.h:45</div></div>
+<div class="ttc" id="anamespacehmi_html_af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a"><div class="ttname"><a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a">hmi::CombatCueKind::Attack</a></div><div class="ttdeci">@ Attack</div><div class="ttdoc">Il frappe target.</div><div class="ttdef"><b>Definition</b> CombatCues.h:47</div></div>
+<div class="ttc" id="anamespacehmi_html_af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d"><div class="ttname"><a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">hmi::CombatCueKind::Hit</a></div><div class="ttdeci">@ Hit</div><div class="ttdoc">Il encaisse un coup.</div><div class="ttdef"><b>Definition</b> CombatCues.h:51</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCueTrack_1_1Running_html"><div class="ttname"><a href="structhmi_1_1CombatCueTrack_1_1Running.html">hmi::CombatCueTrack::Running</a></div><div class="ttdef"><b>Definition</b> CombatCues.h:116</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCueTrack_1_1Running_html_a0d2412e36d5f7eec0e56badb21bf5080"><div class="ttname"><a href="structhmi_1_1CombatCueTrack_1_1Running.html#a0d2412e36d5f7eec0e56badb21bf5080">hmi::CombatCueTrack::Running::elapsed</a></div><div class="ttdeci">float elapsed</div><div class="ttdoc">Négatif : le fait attend son heure (un touché qui suit une attaque).</div><div class="ttdef"><b>Definition</b> CombatCues.h:119</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCueTrack_1_1Running_html_a2ac79d58964403a0721a4cbd610c4e77"><div class="ttname"><a href="structhmi_1_1CombatCueTrack_1_1Running.html#a2ac79d58964403a0721a4cbd610c4e77">hmi::CombatCueTrack::Running::cue</a></div><div class="ttdeci">CombatCue cue</div><div class="ttdef"><b>Definition</b> CombatCues.h:117</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCueTrack_1_1Running_html_a60afd51c2d0a567c9747ca289ab8dcce"><div class="ttname"><a href="structhmi_1_1CombatCueTrack_1_1Running.html#a60afd51c2d0a567c9747ca289ab8dcce">hmi::CombatCueTrack::Running::from</a></div><div class="ttdeci">core::Vector2 from</div><div class="ttdoc">La case d&#39;où part une marche.</div><div class="ttdef"><b>Definition</b> CombatCues.h:121</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCue_html"><div class="ttname"><a href="structhmi_1_1CombatCue.html">hmi::CombatCue</a></div><div class="ttdoc">Un fait du combat à montrer.</div><div class="ttdef"><b>Definition</b> CombatCues.h:57</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCue_html_a0f1117a00c38875257108ba245d511e6"><div class="ttname"><a href="structhmi_1_1CombatCue.html#a0f1117a00c38875257108ba245d511e6">hmi::CombatCue::path</a></div><div class="ttdeci">std::vector&lt; core::GridPosition &gt; path</div><div class="ttdoc">Walk : les cases traversées, départ exclu, arrivée incluse (core::Path::steps).</div><div class="ttdef"><b>Definition</b> CombatCues.h:61</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCue_html_a5117b30c8230dc67cd8d1e4fee4a5e7f"><div class="ttname"><a href="structhmi_1_1CombatCue.html#a5117b30c8230dc67cd8d1e4fee4a5e7f">hmi::CombatCue::kind</a></div><div class="ttdeci">CombatCueKind kind</div><div class="ttdef"><b>Definition</b> CombatCues.h:58</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCue_html_abd651f1f0853b2bd336e0046ea32a3de"><div class="ttname"><a href="structhmi_1_1CombatCue.html#abd651f1f0853b2bd336e0046ea32a3de">hmi::CombatCue::actor</a></div><div class="ttdeci">core::CombatantId actor</div><div class="ttdef"><b>Definition</b> CombatCues.h:59</div></div>
+<div class="ttc" id="astructhmi_1_1CombatCue_html_ae3ddf7b9429272c30e370c053c0efc1e"><div class="ttname"><a href="structhmi_1_1CombatCue.html#ae3ddf7b9429272c30e370c053c0efc1e">hmi::CombatCue::target</a></div><div class="ttdeci">std::optional&lt; core::GridPosition &gt; target</div><div class="ttdoc">Attack, Cast : la case visée, pour tourner la figurine vers elle.</div><div class="ttdef"><b>Definition</b> CombatCues.h:63</div></div>
+<div class="ttc" id="astructhmi_1_1FigureMotion_html"><div class="ttname"><a href="structhmi_1_1FigureMotion.html">hmi::FigureMotion</a></div><div class="ttdoc">Ce qu&#39;une figurine montre à cet instant.</div><div class="ttdef"><b>Definition</b> CombatCues.h:67</div></div>
+<div class="ttc" id="astructhmi_1_1FigureMotion_html_a033ebdd18b1561b8bbc5b45ad0a8c021"><div class="ttname"><a href="structhmi_1_1FigureMotion.html#a033ebdd18b1561b8bbc5b45ad0a8c021">hmi::FigureMotion::dead</a></div><div class="ttdeci">bool dead</div><div class="ttdoc">À terre : sa bande de mort reste sur sa dernière image, et rien ne la relève.</div><div class="ttdef"><b>Definition</b> CombatCues.h:77</div></div>
+<div class="ttc" id="astructhmi_1_1FigureMotion_html_a2d7942748d62e7bc151c6a55272a14e1"><div class="ttname"><a href="structhmi_1_1FigureMotion.html#a2d7942748d62e7bc151c6a55272a14e1">hmi::FigureMotion::clip</a></div><div class="ttdeci">std::string_view clip</div><div class="ttdoc">La bande en cours (hmi::figure_clips).</div><div class="ttdef"><b>Definition</b> CombatCues.h:71</div></div>
+<div class="ttc" id="astructhmi_1_1FigureMotion_html_a46023823e82a90da915cab00c624a98b"><div class="ttname"><a href="structhmi_1_1FigureMotion.html#a46023823e82a90da915cab00c624a98b">hmi::FigureMotion::point</a></div><div class="ttdeci">core::Vector2 point</div><div class="ttdoc">Position continue, en cases de la grille : {1.5, 2.5} est le centre de la case (1,...</div><div class="ttdef"><b>Definition</b> CombatCues.h:69</div></div>
+<div class="ttc" id="astructhmi_1_1FigureMotion_html_a5076ae8c9940a892fc7a149ea9eb92dc"><div class="ttname"><a href="structhmi_1_1FigureMotion.html#a5076ae8c9940a892fc7a149ea9eb92dc">hmi::FigureMotion::clipSeconds</a></div><div class="ttdeci">float clipSeconds</div><div class="ttdoc">Temps écoulé depuis le début de la bande, en secondes.</div><div class="ttdef"><b>Definition</b> CombatCues.h:75</div></div>
+<div class="ttc" id="astructhmi_1_1FigureMotion_html_a7872742a2597576377ec20ca9c9ced1c"><div class="ttname"><a href="structhmi_1_1FigureMotion.html#a7872742a2597576377ec20ca9c9ced1c">hmi::FigureMotion::facing</a></div><div class="ttdeci">FigureFacing facing</div><div class="ttdoc">La diagonale vers laquelle elle regarde.</div><div class="ttdef"><b>Definition</b> CombatCues.h:73</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_e63fac7525d4addf9f5e759ec10d14ef.html">Game</a></li><li class="navelem"><a href="CombatCues_8h.html">CombatCues.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

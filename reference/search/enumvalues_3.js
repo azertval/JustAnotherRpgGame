@@ -6,7 +6,7 @@ var searchData=
   ['dash_3',['Dash',['../namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187',1,'core']]],
   ['day_4',['Day',['../namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2a03727ac48595a24daed975559c944a44',1,'core']]],
   ['deafened_5',['Deafened',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493af35625581e1a8c825a5e9e7bf74fe2a5',1,'core']]],
-  ['death_6',['Death',['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3a6097f89e3092d4ccd249c9d479785c1f',1,'hmi']]],
+  ['death_6',['Death',['../namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f',1,'hmi::Death'],['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3a6097f89e3092d4ccd249c9d479785c1f',1,'hmi::Death']]],
   ['decor_7',['Decor',['../namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5dae953e8671da3a0647c0939df8ebe8e44',1,'core']]],
   ['deepwater_8',['DeepWater',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875ad75f2eb4f735236e2cd65c575ed5fdc3',1,'core']]],
   ['defeat_9',['Defeat',['../namespacecore.html#a8825ea64ff05621b7c2c8a073d27577ca570e9d24849e2161b5a969599fb03446',1,'core']]],

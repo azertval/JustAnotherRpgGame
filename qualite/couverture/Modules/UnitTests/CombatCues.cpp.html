@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CombatCues.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Game/CombatCues.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;utility&gt;
+
+namespace hmi {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] core::Vector2 centerOf(core::GridPosition cell) noexcept {
+    return core::Vector2{static_cast&lt;float&gt;(cell.column) + 0.5F,</span>
+                         static_cast&lt;float&gt;(cell.row) + 0.5F};
+<span style = "background-color:#dfd">}</span>
+
+/// La diagonale qui regarde de @p from vers @p to ; @p previous si les deux se confondent.
+[[nodiscard]] FigureFacing facingTowards(core::Vector2 from, core::Vector2 to,
+<span style = "background-color:#dfd">                                         FigureFacing previous) noexcept {
+    return figureFacingFor(core::Vector2{to.x - from.x, to.y - from.y}, previous);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool isVictimCue(CombatCueKind kind) noexcept {
+    return kind == CombatCueKind::Hit || kind == CombatCueKind::Death;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
+    FigureMotion&amp; figure = _figures[actor];
+    figure.point = centerOf(cell);
+    figure.facing = facing;
+    if (!figure.dead) {
+        figure.clip = figure_clips::IDLE;
+        figure.clipSeconds = 0.0F;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void CombatCueTrack::remove(core::CombatantId actor) {
+    _figures.erase(actor);
+    std::erase_if(_running, [actor](const Running&amp; r) { return r.cue.actor == actor; });
+    std::erase_if(_queue, [actor](const CombatCue&amp; cue) { return cue.actor == actor; });
+}</span>
+
+<span style = "background-color:#dfd">void CombatCueTrack::push(CombatCue cue) {</span>
+    // Un fait sur un combattant que personne n'a pose ne se montre pas : il n'a pas de figurine.
+<span style = "background-color:#dfd">    if (!_figures.contains(cue.actor)) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (cue.kind == CombatCueKind::Walk &amp;&amp; cue.path.empty()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    _queue.push_back(std::move(cue));
+}</span>
+
+<span style = "background-color:#fdd">void CombatCueTrack::clear() noexcept {
+    _figures.clear();
+    _queue.clear();
+    _running.clear();
+}</span>
+
+<span style = "background-color:#dfd">const FigureMotion* CombatCueTrack::motionOf(core::CombatantId actor) const {
+    const auto found = _figures.find(actor);
+    return found != _figures.end() ? &amp;found-&gt;second : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">void CombatCueTrack::startNext() {
+    if (!_running.empty() || _queue.empty()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    CombatCue next = std::move(_queue.front());
+    _queue.pop_front();
+    Running running{.cue = std::move(next), .elapsed = 0.0F, .from = {}};
+    if (const FigureMotion* figure = motionOf(running.cue.actor)) {
+        running.from = figure-&gt;point;</span>
+    }
+<span style = "background-color:#dfd">    const bool strike =</span>
+        running.cue.kind == CombatCueKind::Attack || running.cue.kind == CombatCueKind::Cast;
+<span style = "background-color:#dfd">    const core::CombatantId attacker = running.cue.actor;
+    _running.push_back(std::move(running));
+    if (!strike) {
+        return;</span>
+    }
+    // Le coup porte au milieu du geste : les touches et les chutes qui le suivent immediatement
+    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier.
+<span style = "background-color:#dfd">    while (!_queue.empty() &amp;&amp; isVictimCue(_queue.front().kind) &amp;&amp;</span>
+           _queue.front().actor != attacker) {
+<span style = "background-color:#dfd">        _running.push_back(Running{.cue = std::move(_queue.front()),</span>
+                                   .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
+                                   .from = {}});
+<span style = "background-color:#dfd">        _queue.pop_front();
+    }
+}</span>
+
+<span style = "background-color:#dfd">bool CombatCueTrack::apply(Running&amp; running) {
+    const auto found = _figures.find(running.cue.actor);
+    if (found == _figures.end()) {</span>
+<span style = "background-color:#fdd">        return true;  // sorti entre-temps</span>
+    }
+<span style = "background-color:#dfd">    FigureMotion&amp; figure = found-&gt;second;
+    const float elapsed = running.elapsed;
+    switch (running.cue.kind) {</span>
+        case CombatCueKind::Walk: {
+<span style = "background-color:#dfd">            const std::vector&lt;core::GridPosition&gt;&amp; path = running.cue.path;
+            const float total = static_cast&lt;float&gt;(path.size()) / WALK_CELLS_PER_SECOND;
+            if (elapsed &gt;= total) {</span>
+                // Arrive : tourne dans le sens du dernier pas, meme si l'image precedente n'a pas
+                // eu le temps de le montrer.
+<span style = "background-color:#dfd">                const core::Vector2 avant =</span>
+                    path.size() &gt;= 2 ? centerOf(path[path.size() - 2]) : running.from;
+<span style = "background-color:#dfd">                figure.point = centerOf(path.back());
+                figure.facing = facingTowards(avant, figure.point, figure.facing);
+                figure.clip = figure_clips::IDLE;
+                figure.clipSeconds = 0.0F;
+                return true;</span>
+            }
+<span style = "background-color:#dfd">            const float progress = std::max(0.0F, elapsed) * WALK_CELLS_PER_SECOND;
+            const auto segment = static_cast&lt;std::size_t&gt;(std::floor(progress));
+            const float fraction = progress - static_cast&lt;float&gt;(segment);
+            const core::Vector2 from =</span>
+                segment == 0 ? running.from : centerOf(path[segment - 1]);
+<span style = "background-color:#dfd">            const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
+            figure.point = core::Vector2{from.x + ((to.x - from.x) * fraction),</span>
+                                         from.y + ((to.y - from.y) * fraction)};
+<span style = "background-color:#dfd">            figure.facing = facingTowards(from, to, figure.facing);
+            figure.clip = figure_clips::WALK;
+            figure.clipSeconds = std::max(0.0F, elapsed);
+            return false;</span>
+        }
+        case CombatCueKind::Attack:
+        case CombatCueKind::Cast: {
+<span style = "background-color:#dfd">            if (running.cue.target.has_value()) {
+                figure.facing = facingTowards(figure.point, centerOf(*running.cue.target),</span>
+                                              figure.facing);
+            }
+<span style = "background-color:#dfd">            if (elapsed &gt;= ACTION_SECONDS) {
+                figure.clip = figure_clips::IDLE;
+                figure.clipSeconds = 0.0F;
+                return true;</span>
+            }
+<span style = "background-color:#dfd">            figure.clip = running.cue.kind == CombatCueKind::Attack ? figure_clips::ATTACK</span>
+                                                                    : figure_clips::CAST;
+<span style = "background-color:#dfd">            figure.clipSeconds = std::max(0.0F, elapsed);
+            return false;</span>
+        }
+        case CombatCueKind::Hit: {
+<span style = "background-color:#dfd">            if (elapsed &lt; 0.0F) {
+                return false;  // le coup n'a pas encore porte</span>
+            }
+<span style = "background-color:#dfd">            if (figure.dead) {
+                return true;  // un mort n'encaisse plus rien de visible</span>
+            }
+<span style = "background-color:#dfd">            if (elapsed &gt;= ACTION_SECONDS) {</span>
+<span style = "background-color:#fdd">                figure.clip = figure_clips::IDLE;
+                figure.clipSeconds = 0.0F;
+                return true;</span>
+            }
+<span style = "background-color:#dfd">            figure.clip = figure_clips::HIT;
+            figure.clipSeconds = elapsed;
+            return false;</span>
+        }
+        case CombatCueKind::Death: {
+<span style = "background-color:#dfd">            if (elapsed &lt; 0.0F) {
+                return false;</span>
+            }
+<span style = "background-color:#dfd">            figure.dead = true;
+            figure.clip = figure_clips::DEATH;</span>
+            // La bande de mort ne revient jamais au repos : ses secondes continuent de courir, et
+            // le rendu la fige sur sa derniere image (`SceneTexture::loop`).
+<span style = "background-color:#dfd">            figure.clipSeconds = elapsed;
+            return elapsed &gt;= ACTION_SECONDS;</span>
+        }
+    }
+<span style = "background-color:#fdd">    return true;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void CombatCueTrack::advance(float seconds) {</span>
+    // Les figurines au repos respirent : leur bande de repos avance avec le temps.
+<span style = "background-color:#dfd">    for (auto&amp; [actor, figure] : _figures) {
+        if (figure.clip == figure_clips::IDLE) {
+            figure.clipSeconds += seconds;
+        } else if (figure.dead &amp;&amp; figure.clip == figure_clips::DEATH) {
+            figure.clipSeconds += seconds;</span>
+        }
+<span style = "background-color:#dfd">    }
+    startNext();
+    for (Running&amp; running : _running) {
+        running.elapsed += seconds;
+    }
+    std::erase_if(_running, [this](Running&amp; running) { return apply(running); });</span>
+    // Un fait fini dans ce pas laisse la place au suivant sans attendre le pas d'apres.
+<span style = "background-color:#dfd">    startNext();
+}</span>
+
+<span style = "background-color:#dfd">void CombatCueTrack::finishAll() {</span>
+    // Une garde contre une file qui ne se viderait pas : chaque tour en joue au moins un.
+<span style = "background-color:#dfd">    for (std::size_t guard = 0; guard &lt; 4096 &amp;&amp; busy(); ++guard) {
+        advance(1.0F);
+    }
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

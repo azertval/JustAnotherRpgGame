@@ -55,5 +55,6 @@ var searchData=
   ['rpg_5fscreen_5fcount_52',['RPG_SCREEN_COUNT',['../namespacehmi.html#a93db3bafe6aeaebee6e483836f313055',1,'hmi']]],
   ['rpgreturnto_53',['rpgReturnTo',['../structhmi_1_1ScreenState.html#a35d36781ddd45df8818932eb54d7a616',1,'hmi::ScreenState']]],
   ['rules_54',['rules',['../structhmi_1_1DemonstrationState.html#af73eaf8a173c729d1afac7853bd36e92',1,'hmi::DemonstrationState']]],
-  ['runner_55',['runner',['../structhmi_1_1DialogueModel_1_1Session.html#a408d5f63789daeed1c0d342d8e1b6967',1,'hmi::DialogueModel::Session']]]
+  ['run_55',['run',['../structcore_1_1MapEncounterSetup.html#a2a260ee37775c11ad49c185e03aa727a',1,'core::MapEncounterSetup']]],
+  ['runner_56',['runner',['../structhmi_1_1DialogueModel_1_1Session.html#a408d5f63789daeed1c0d342d8e1b6967',1,'hmi::DialogueModel::Session']]]
 ];

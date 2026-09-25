@@ -167,6 +167,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:af856af7e668f6e54537bc5b99b527919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ligne de sol d'une figurine, en pixels depuis le haut de sa cellule (<span class="tt">LOT-112</span>) ; sans elle, la figurine se pose par le bas de sa cellule.  <br /></td></tr>
 <tr class="memitem:a623e6b74bf876a1f0ec1720c95bb9cd2" id="r_a623e6b74bf876a1f0ec1720c95bb9cd2"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a623e6b74bf876a1f0ec1720c95bb9cd2">frameDuration</a> = 0.0F</td></tr>
 <tr class="memdesc:a623e6b74bf876a1f0ec1720c95bb9cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Durée d'une image de la bande, en secondes (<span class="tt">.anim.json</span>) ; 0 si la bande n'en dit rien.  <br /></td></tr>
+<tr class="memitem:a7394e953fdbd1fa85ec81e54cc23f9d6" id="r_a7394e953fdbd1fa85ec81e54cc23f9d6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7394e953fdbd1fa85ec81e54cc23f9d6">loop</a> = true</td></tr>
+<tr class="memdesc:a7394e953fdbd1fa85ec81e54cc23f9d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la bande boucle (repos, marche) ; faux si elle se joue <b>une fois</b> et se fige sur sa dernière image (attaque, sort, touché, mort — <span class="tt">LOT-118</span>).  <br /></td></tr>
 <tr class="memitem:a97ffb26e27c7a86af49b746288996baf" id="r_a97ffb26e27c7a86af49b746288996baf"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a97ffb26e27c7a86af49b746288996baf">storeyHeight</a> {}</td></tr>
 <tr class="memdesc:a97ffb26e27c7a86af49b746288996baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hauteur d'un étage du lieu, en pixels d'art (<span class="tt">storey</span> du manifeste, <span class="tt">LOT-129</span>) : ce dont une pièce posée sur la couche d'étage <span class="tt">floor = n</span> s'élève, n fois.  <br /></td></tr>
 </table>
@@ -296,6 +298,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7394e953fdbd1fa85ec81e54cc23f9d6" name="a7394e953fdbd1fa85ec81e54cc23f9d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7394e953fdbd1fa85ec81e54cc23f9d6">&#9670;&#160;</a></span>loop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SceneTexture::loop = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai si la bande boucle (repos, marche) ; faux si elle se joue <b>une fois</b> et se fige sur sa dernière image (attaque, sort, touché, mort — <span class="tt">LOT-118</span>). </p>
+<p>Une bande sans <span class="tt">.anim.json</span> boucle. </p>
 
 </div>
 </div>

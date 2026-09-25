@@ -215,6 +215,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e2ed6a1599df88493a0f92ff495cc5d" id="r_a9e2ed6a1599df88493a0f92ff495cc5d"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a9e2ed6a1599df88493a0f92ff495cc5d">visitedDistricts</a> () const</td></tr>
 <tr class="memitem:ad9421c6fb0964e93a8f9cce9bea25018" id="r_ad9421c6fb0964e93a8f9cce9bea25018"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9421c6fb0964e93a8f9cce9bea25018">scene</a> () const</td></tr>
 <tr class="memitem:a014873bddbbead42b168a3084e0cf5ec" id="r_a014873bddbbead42b168a3084e0cf5ec"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a> () const</td></tr>
+<tr class="memitem:a0b0a8899de46ea91bfea78d9795669ea" id="r_a0b0a8899de46ea91bfea78d9795669ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b0a8899de46ea91bfea78d9795669ea">setCombatFigures</a> (std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; <a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a>, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> heroPoint)</td></tr>
+<tr class="memdesc:a0b0a8899de46ea91bfea78d9795669ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pendant un combat sur la carte (<span class="tt">LOT-118</span>), ce sont les <b>combattants</b> que la surface dessine, à la place des figurines de l'exploration : la carte reste, gelée, et la caméra suit <code class="param">heroPoint</code>, le héros de la grille.  <br /></td></tr>
+<tr class="memitem:a6ba6e50c11165a0fa919dbb96c9364b4" id="r_a6ba6e50c11165a0fa919dbb96c9364b4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ba6e50c11165a0fa919dbb96c9364b4">clearCombatFigures</a> ()</td></tr>
+<tr class="memdesc:a6ba6e50c11165a0fa919dbb96c9364b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combat est fini : les figurines de l'exploration reprennent.  <br /></td></tr>
+<tr class="memitem:a1a6b7f38925d05ecafe2c1ad9771871d" id="r_a1a6b7f38925d05ecafe2c1ad9771871d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1a6b7f38925d05ecafe2c1ad9771871d">showsCombat</a> () const noexcept</td></tr>
+<tr class="memitem:ad66b926ac03cecb12fda3d957cd2f313" id="r_ad66b926ac03cecb12fda3d957cd2f313"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad66b926ac03cecb12fda3d957cd2f313">placeHero</a> (<a class="el" href="structcore_1_1CellPoint.html">core::CellPoint</a> point)</td></tr>
+<tr class="memdesc:ad66b926ac03cecb12fda3d957cd2f313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le héros où le combat l'a laissé (<span class="tt">LOT-118</span>) ; la caméra suit.  <br /></td></tr>
+<tr class="memitem:a2fa6704ae8ccd49539e002644395cdfc" id="r_a2fa6704ae8ccd49539e002644395cdfc"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2fa6704ae8ccd49539e002644395cdfc">lastInteractionCell</a> () const noexcept</td></tr>
+<tr class="memitem:a4863dc542f1781e3d5d7a35de1b28a4d" id="r_a4863dc542f1781e3d5d7a35de1b28a4d"><td class="memItemLeft">const <a class="el" href="classhmi_1_1WorldPlay.html">WorldPlay</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4863dc542f1781e3d5d7a35de1b28a4d">play</a> () const noexcept</td></tr>
 <tr class="memitem:accf15fd100d418948ceff091692180f0" id="r_accf15fd100d418948ceff091692180f0"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#accf15fd100d418948ceff091692180f0">snapshot</a> () const</td></tr>
 <tr class="memitem:a8ace752c0cf112e49b79142b3c85290b" id="r_a8ace752c0cf112e49b79142b3c85290b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8ace752c0cf112e49b79142b3c85290b">diamondRatio</a> () const</td></tr>
 <tr class="memitem:a14e589a9a79f090cd11e12278c24e761" id="r_a14e589a9a79f090cd11e12278c24e761"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a> () noexcept</td></tr>
@@ -289,10 +298,16 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a933009a644601ba3b075e17f89c9d1bf" id="r_a933009a644601ba3b075e17f89c9d1bf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a933009a644601ba3b075e17f89c9d1bf">_interact</a> = false</td></tr>
 <tr class="memitem:aa9a833a6634a208feed602de1352ea34" id="r_aa9a833a6634a208feed602de1352ea34"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#aa9a833a6634a208feed602de1352ea34">_sceneRevision</a> = 1</td></tr>
 <tr class="memitem:ac5ad8baf6328cb5226195a5c82f7e730" id="r_ac5ad8baf6328cb5226195a5c82f7e730"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#ac5ad8baf6328cb5226195a5c82f7e730">_figuresRevision</a> = 1</td></tr>
+<tr class="memitem:a0ea3b1253005e356c0438590b4788cb0" id="r_a0ea3b1253005e356c0438590b4788cb0"><td class="memItemLeft">std::optional&lt; std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0ea3b1253005e356c0438590b4788cb0">_combatFigures</a></td></tr>
+<tr class="memdesc:a0ea3b1253005e356c0438590b4788cb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les combattants d'un combat sur la carte, tant qu'il dure (<span class="tt">LOT-118</span>).  <br /></td></tr>
+<tr class="memitem:af4574787271f9e979c3d5f04fee4c0e0" id="r_af4574787271f9e979c3d5f04fee4c0e0"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#af4574787271f9e979c3d5f04fee4c0e0">_combatHero</a> {}</td></tr>
+<tr class="memdesc:af4574787271f9e979c3d5f04fee4c0e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros de la grille pendant ce combat : ce que la caméra suit.  <br /></td></tr>
+<tr class="memitem:a61f5d9eff14da9a4e2e7d554392fe6fe" id="r_a61f5d9eff14da9a4e2e7d554392fe6fe"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a61f5d9eff14da9a4e2e7d554392fe6fe">_lastInteractionCell</a></td></tr>
+<tr class="memdesc:a61f5d9eff14da9a4e2e7d554392fe6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case de la dernière interaction : d'où une rencontre engagée par un dialogue part.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md124"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md134"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que l'arène (<span class="tt"><a class="el" href="classhmi_1_1ArenaModel.html" title="La vue-modèle de l&#39;arène : composer deux camps, lancer, jouer, rejouer.">hmi::ArenaModel</a></span>) : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -397,6 +412,25 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ba6e50c11165a0fa919dbb96c9364b4" name="a6ba6e50c11165a0fa919dbb96c9364b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ba6e50c11165a0fa919dbb96c9364b4">&#9670;&#160;</a></span>clearCombatFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::clearCombatFigures </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le combat est fini : les figurines de l'exploration reprennent. </p>
 
 </div>
 </div>
@@ -602,7 +636,7 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les figurines de l'image : les PNJ présents, puis le héros. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les figurines de l'image : les PNJ présents, puis le héros — ou, pendant un combat sur la carte, les combattants (<span class="tt"><a class="el" href="#a0b0a8899de46ea91bfea78d9795669ea" title="Pendant un combat sur la carte (LOT-118), ce sont les combattants que la surface dessine,...">setCombatFigures</a></span>, <span class="tt">LOT-118</span>). </dd></dl>
 
 </div>
 </div>
@@ -858,6 +892,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a2fa6704ae8ccd49539e002644395cdfc" name="a2fa6704ae8ccd49539e002644395cdfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa6704ae8ccd49539e002644395cdfc">&#9670;&#160;</a></span>lastInteractionCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; hmi::WorldModel::lastInteractionCell </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La case de l'entité avec laquelle le héros a interagi en dernier — le PNJ dont le dialogue engage la rencontre, l'entité <span class="tt">encounter</span> —, ou rien. </dd></dl>
+
+</div>
+</div>
 <a id="a648dd501d5739db825155c82b1961194" name="a648dd501d5739db825155c82b1961194"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a648dd501d5739db825155c82b1961194">&#9670;&#160;</a></span>loaded()</h2>
 
@@ -1013,6 +1073,25 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ad66b926ac03cecb12fda3d957cd2f313" name="ad66b926ac03cecb12fda3d957cd2f313"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66b926ac03cecb12fda3d957cd2f313">&#9670;&#160;</a></span>placeHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::placeHero </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CellPoint.html">core::CellPoint</a></td>          <td class="paramname"><span class="paramname"><em>point</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pose le héros où le combat l'a laissé (<span class="tt">LOT-118</span>) ; la caméra suit. </p>
+
+</div>
+</div>
 <a id="a4bcec9f85851d4fae27e2ca6d0cbcf28" name="a4bcec9f85851d4fae27e2ca6d0cbcf28"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4bcec9f85851d4fae27e2ca6d0cbcf28">&#9670;&#160;</a></span>placeHeroAtStartCell()</h2>
 
@@ -1037,6 +1116,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Pose le héros sur la case de <span class="tt">--at=</span>, si elle est sur la carte (<span class="tt">LOT-EDITOR-10</span>). </p>
+
+</div>
+</div>
+<a id="a4863dc542f1781e3d5d7a35de1b28a4d" name="a4863dc542f1781e3d5d7a35de1b28a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4863dc542f1781e3d5d7a35de1b28a4d">&#9670;&#160;</a></span>play()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1WorldPlay.html">WorldPlay</a> &amp; hmi::WorldModel::play </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La carte qu'on parcourt et sa mise en scène : ce que le combat sur la carte lit. </dd></dl>
 
 </div>
 </div>
@@ -1255,6 +1360,29 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a0b0a8899de46ea91bfea78d9795669ea" name="a0b0a8899de46ea91bfea78d9795669ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b0a8899de46ea91bfea78d9795669ea">&#9670;&#160;</a></span>setCombatFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::setCombatFigures </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>heroPoint</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pendant un combat sur la carte (<span class="tt">LOT-118</span>), ce sont les <b>combattants</b> que la surface dessine, à la place des figurines de l'exploration : la carte reste, gelée, et la caméra suit <code class="param">heroPoint</code>, le héros de la grille. </p>
+
+</div>
+</div>
 <a id="a2de3a9e9a2c11cf867cb782a7a719f2a" name="a2de3a9e9a2c11cf867cb782a7a719f2a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2de3a9e9a2c11cf867cb782a7a719f2a">&#9670;&#160;</a></span>setFrozen()</h2>
 
@@ -1391,6 +1519,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Remplace la carte où « Nouvelle partie » ouvre le jeu — outil de développement (<span class="tt">--map=&lt;carte&gt;[@&lt;arrivée&gt;]</span>, <span class="tt">LOT-96</span>) : ouvrir Arenarea sans marcher depuis Martpart, pour la voir ou la capturer. </p>
+
+</div>
+</div>
+<a id="a1a6b7f38925d05ecafe2c1ad9771871d" name="a1a6b7f38925d05ecafe2c1ad9771871d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a6b7f38925d05ecafe2c1ad9771871d">&#9670;&#160;</a></span>showsCombat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::showsCombat </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai tant que des combattants tiennent lieu de figurines. </dd></dl>
 
 </div>
 </div>
@@ -1564,6 +1718,54 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a0ea3b1253005e356c0438590b4788cb0" name="a0ea3b1253005e356c0438590b4788cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea3b1253005e356c0438590b4788cb0">&#9670;&#160;</a></span>_combatFigures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;std::vector&lt;<a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a>&gt; &gt; hmi::WorldModel::_combatFigures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les combattants d'un combat sur la carte, tant qu'il dure (<span class="tt">LOT-118</span>). </p>
+
+</div>
+</div>
+<a id="af4574787271f9e979c3d5f04fee4c0e0" name="af4574787271f9e979c3d5f04fee4c0e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4574787271f9e979c3d5f04fee4c0e0">&#9670;&#160;</a></span>_combatHero</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::WorldModel::_combatHero {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le héros de la grille pendant ce combat : ce que la caméra suit. </p>
+
+</div>
+</div>
 <a id="ac5ad8baf6328cb5226195a5c82f7e730" name="ac5ad8baf6328cb5226195a5c82f7e730"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5ad8baf6328cb5226195a5c82f7e730">&#9670;&#160;</a></span>_figuresRevision</h2>
 
@@ -1605,6 +1807,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a61f5d9eff14da9a4e2e7d554392fe6fe" name="a61f5d9eff14da9a4e2e7d554392fe6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61f5d9eff14da9a4e2e7d554392fe6fe">&#9670;&#160;</a></span>_lastInteractionCell</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&gt; hmi::WorldModel::_lastInteractionCell</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La case de la dernière interaction : d'où une rencontre engagée par un dialogue part. </p>
 
 </div>
 </div>

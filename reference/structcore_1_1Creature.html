@@ -189,6 +189,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:acf8f08feebb317942a935a6227430569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le paragraphe d'ambiance du livre. Vide pour les créatures qui n'en ont pas.  <br /></td></tr>
 <tr class="memitem:ace09660f1aa10b5cbdb5e3fa5ea3f5aa" id="r_ace09660f1aa10b5cbdb5e3fa5ea3f5aa"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ace09660f1aa10b5cbdb5e3fa5ea3f5aa">requiredMechanisms</a></td></tr>
 <tr class="memdesc:ace09660f1aa10b5cbdb5e3fa5ea3f5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mécanismes que cette créature exige du moteur (<span class="tt">EX-CNT-030</span>).  <br /></td></tr>
+<tr class="memitem:a42d5a5101530fe93a230106e16f9a583" id="r_a42d5a5101530fe93a230106e16f9a583"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a42d5a5101530fe93a230106e16f9a583">silhouette</a></td></tr>
+<tr class="memdesc:a42d5a5101530fe93a230106e16f9a583"><td class="mdescLeft">&#160;</td><td class="mdescRight">La silhouette de son mannequin de remplacement (<span class="tt">LOT-145</span>) : <span class="tt">humanoid</span>, <span class="tt">quadruped</span>, <span class="tt">flying</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un bloc de statistiques : ce que <span class="tt">creature.schema.json</span> décrit. </p>
@@ -514,6 +516,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sens, en français : « vision dans le noir 18 m », « Perception passive 13 ». </p>
+
+</div>
+</div>
+<a id="a42d5a5101530fe93a230106e16f9a583" name="a42d5a5101530fe93a230106e16f9a583"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d5a5101530fe93a230106e16f9a583">&#9670;&#160;</a></span>silhouette</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Creature::silhouette</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La silhouette de son mannequin de remplacement (<span class="tt">LOT-145</span>) : <span class="tt">humanoid</span>, <span class="tt">quadruped</span>, <span class="tt">flying</span>. </p>
+<p>Vide : humanoïde. L'extraction ne la devine pas ; elle se pose à la main. </p>
 
 </div>
 </div>

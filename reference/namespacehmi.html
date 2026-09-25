@@ -143,6 +143,11 @@ $(function(){initNavTree('namespacehmi.html','',''); });
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:figure_5Fclips" id="r_figure_5Fclips"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html">figure_clips</a></td></tr>
+<tr class="memdesc:namespacehmi_1_1figure__clips"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six bandes d'une figurine (standard 2D HD, §5) : ce qu'une figurine complète sait jouer, et ce qu'un combattant précharge (<span class="tt">LOT-118</span>). <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:AutosaveRecord" id="r_AutosaveRecord"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a></td></tr>
@@ -340,6 +345,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état de partie du canevas, et s'il s'y montre.  <a href="structhmi_1_1WorldStateChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AudioEngine" id="r_AudioEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AudioEngine.html">AudioEngine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lecture d'échantillons courts à faible latence, avec volume global et repli muet.  <a href="classhmi_1_1AudioEngine.html#details">More...</a><br /></td></tr>
+<tr class="memitem:HeroContestantSource" id="r_HeroContestantSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce dont un héros a besoin pour devenir combattant : sa fiche, et ce que son équipement en fait (<span class="tt">EX-CBT-030</span> : la classe d'armure se recalcule depuis ce qui est porté).  <a href="structhmi_1_1HeroContestantSource.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CombatCue" id="r_CombatCue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fait du combat à montrer.  <a href="structhmi_1_1CombatCue.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FigureMotion" id="r_FigureMotion"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une figurine montre à cet instant.  <a href="structhmi_1_1FigureMotion.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CombatCueTrack" id="r_CombatCueTrack"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a></td></tr>
+<tr class="memitem:ResolvedFigure" id="r_ResolvedFigure"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le résolveur a trouvé pour une figurine.  <a href="structhmi_1_1ResolvedFigure.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FigureResolver" id="r_FigureResolver"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1FigureResolver.html">FigureResolver</a></td></tr>
 <tr class="memitem:GameQuests" id="r_GameQuests"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GameQuests.html">GameQuests</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quêtes acceptées, et tout ce qui a été refusé ou relevé.  <a href="structhmi_1_1GameQuests.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameLaunchOptions" id="r_GameLaunchOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a></td></tr>
@@ -555,6 +570,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine l'îlot qu'une adresse <span class="tt">image://cityblock/&lt;carte&gt;|&lt;îlot&gt;|&lt;figurine&gt;|&lt;col&gt;|&lt;lig&gt;</span> désigne (<span class="tt"><a class="el" href="classhmi_1_1CityDistrictModel.html#aa58cf01c9354ffc9b8a69f77c75285c2" title="L&#39;adresse de l&#39;image de l&#39;îlot blockId de mapId, héros compris si figure n&#39;est pas vide (à la case co...">hmi::CityDistrictModel::blockImage</a></span>).  <a href="classhmi_1_1CityBlockImageProvider.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityDistrictModel" id="r_CityDistrictModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CityDistrictModel.html">CityDistrictModel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vue-modèle des deux niveaux que l'écran « Carte » gagne sous la ville : le <b>quartier</b> et l'<b>îlot</b>.  <a href="classhmi_1_1CityDistrictModel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CombatModel" id="r_CombatModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html">CombatModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle d'un combat monté : le curseur, les actions du tour, ce que la grille montre, les gestes du joueur, les tours de l'IA.  <a href="classhmi_1_1CombatModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CreditsModel" id="r_CreditsModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CreditsModel.html">CreditsModel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une colonne de l'écran des crédits : ses sections, dans la langue courante.  <a href="classhmi_1_1CreditsModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DemonstrationCharacter" id="r_DemonstrationCharacter"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a></td></tr>
@@ -563,6 +580,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage de démonstration et tout ce qu'il faut pour le recalculer : la fiche, ce qu'il porte, et les catalogues (<span class="tt">LOT-87</span>, T3.5).  <a href="structhmi_1_1DemonstrationState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DialogueModel" id="r_DialogueModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DialogueModel.html">DialogueModel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide.  <a href="classhmi_1_1DialogueModel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EncounterModel" id="r_EncounterModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EncounterModel.html">EncounterModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle du combat sur la carte.  <a href="classhmi_1_1EncounterModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GamepadNavigator" id="r_GamepadNavigator"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GamepadNavigator.html">GamepadNavigator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La manette pour un écran Qt Quick : chaque appui devient un signal nommé (<span class="tt">LOT-24</span>).  <a href="classhmi_1_1GamepadNavigator.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewportItem" id="r_GameViewportItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewportItem.html">GameViewportItem</a></td></tr>
@@ -760,6 +779,16 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a576cb29b1af75dc6bda8abb048330f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une commande de l'éditeur : les onze outils, puis les commandes.  <a href="#a576cb29b1af75dc6bda8abb048330f18">More...</a><br /></td></tr>
+<tr class="memitem:af50d48ed1cc573c620ff2a1c420f7406" id="r_af50d48ed1cc573c620ff2a1c420f7406"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406">CombatCueKind</a> { <br />
+&#160;&#160;<a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62">Walk</a>
+, <a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a">Attack</a>
+, <a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">Cast</a>
+, <a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">Hit</a>
+, <br />
+&#160;&#160;<a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">Death</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:af50d48ed1cc573c620ff2a1c420f7406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un combattant fait de visible.  <a href="#af50d48ed1cc573c620ff2a1c420f7406">More...</a><br /></td></tr>
 <tr class="memitem:afee4dd05bda0b2293c4a99a73cb7eb8f" id="r_afee4dd05bda0b2293c4a99a73cb7eb8f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8f">AnimationCatalogError</a> { <br />
 &#160;&#160;<a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="#afee4dd05bda0b2293c4a99a73cb7eb8fa2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
@@ -1301,6 +1330,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7e2e49094a1e633ea842459409c9c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra.  <br /></td></tr>
 <tr class="memitem:a6d2e0104481eacf1024ddce11e05491d" id="r_a6d2e0104481eacf1024ddce11e05491d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d2e0104481eacf1024ddce11e05491d">askWorldState</a> (QWidget *parent, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared, const <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &amp;current)</td></tr>
 <tr class="memdesc:a6d2e0104481eacf1024ddce11e05491d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue « World state… » ; <span class="tt">std::nullopt</span> si l'auteur renonce.  <br /></td></tr>
+<tr class="memitem:afbbd37a73dccd14815fb4c02a4ed8e16" id="r_afbbd37a73dccd14815fb4c02a4ed8e16"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="#afbbd37a73dccd14815fb4c02a4ed8e16">heroContestant</a> (const <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &amp;hero, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side)</td></tr>
+<tr class="memdesc:afbbd37a73dccd14815fb4c02a4ed8e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros comme combattant du camp <code class="param">side</code> : son arme, son jet, ses mains nues.  <br /></td></tr>
+<tr class="memitem:ac84d7d812f80df58545ca07a9bd88f0e" id="r_ac84d7d812f80df58545ca07a9bd88f0e"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac84d7d812f80df58545ca07a9bd88f0e">creatureContestant</a> (const <a class="el" href="structcore_1_1Creature.html">core::Creature</a> &amp;creature, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side, const <a class="el" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a> *behaviors)</td></tr>
+<tr class="memdesc:ac84d7d812f80df58545ca07a9bd88f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une créature du bestiaire comme combattant du camp <code class="param">side</code>.  <br /></td></tr>
 <tr class="memitem:a9733b7c554d33e66e0e632ff456fac20" id="r_a9733b7c554d33e66e0e632ff456fac20"><td class="memItemLeft"><a class="el" href="structhmi_1_1GameQuests.html">GameQuests</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9733b7c554d33e66e0e632ff456fac20">loadGameQuests</a> (const std::filesystem::path &amp;root)</td></tr>
 <tr class="memdesc:a9733b7c554d33e66e0e632ff456fac20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit <span class="tt">World/quests</span> sous <code class="param">root</code> et confronte les quêtes aux dialogues de <span class="tt">World/dialogues</span>.  <br /></td></tr>
 <tr class="memitem:a9db9f6ee72f5136140540bc9b58f08d4" id="r_a9db9f6ee72f5136140540bc9b58f08d4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9db9f6ee72f5136140540bc9b58f08d4">gameLaunchArguments</a> (const <a class="el" href="structhmi_1_1GameLaunchOptions.html">GameLaunchOptions</a> &amp;options)</td></tr>
@@ -1438,10 +1471,12 @@ Functions</h2></td></tr>
 <tr class="memitem:abb8a82bb9f00e792f78590f1c2bd788a" id="r_abb8a82bb9f00e792f78590f1c2bd788a"><td class="memItemLeft">std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="#abb8a82bb9f00e792f78590f1c2bd788a">worldDepthSortOrder</a> (float footWorldY, <a class="el" href="#a71e0c7e2c54951699d44b5c6f88f63ca">WorldDepthSlot</a> slot) noexcept</td></tr>
 <tr class="memdesc:abb8a82bb9f00e792f78590f1c2bd788a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordre de tri d'une pièce du lieu.  <br /></td></tr>
 <tr class="memitem:abbf2a2d38ba582981388654fde028bae" id="r_abbf2a2d38ba582981388654fde028bae"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#abbf2a2d38ba582981388654fde028bae">scenePlaceOf</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level)</td></tr>
-<tr class="memitem:a774a0ed2f31b521df4cf536fbfb7543f" id="r_a774a0ed2f31b521df4cf536fbfb7543f"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a774a0ed2f31b521df4cf536fbfb7543f">maquetteMarks</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, bool maquette)</td></tr>
-<tr class="memdesc:a774a0ed2f31b521df4cf536fbfb7543f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques que <code class="param">entities</code> méritent.  <br /></td></tr>
-<tr class="memitem:a7a8f2888417ba2cd0c8440905f9e209a" id="r_a7a8f2888417ba2cd0c8440905f9e209a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7a8f2888417ba2cd0c8440905f9e209a">npcFigures</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, int frame)</td></tr>
-<tr class="memdesc:a7a8f2888417ba2cd0c8440905f9e209a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des PNJ d'une carte, dans l'ordre des entités.  <br /></td></tr>
+<tr class="memitem:a47c8f35619d5e7fa59cd899a158c9361" id="r_a47c8f35619d5e7fa59cd899a158c9361"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a47c8f35619d5e7fa59cd899a158c9361">maquetteMarks</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, bool maquette, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures={})</td></tr>
+<tr class="memdesc:a47c8f35619d5e7fa59cd899a158c9361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques que <code class="param">entities</code> méritent.  <br /></td></tr>
+<tr class="memitem:a511785bc30ed0e18c4894a5d73f54920" id="r_a511785bc30ed0e18c4894a5d73f54920"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a511785bc30ed0e18c4894a5d73f54920">placeholderFigureDirectory</a> (std::string_view silhouette)</td></tr>
+<tr class="memdesc:a511785bc30ed0e18c4894a5d73f54920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier d'un mannequin de remplacement, par silhouette (<span class="tt">LOT-145</span>) : ce que dessine un personnage sans figurine.  <br /></td></tr>
+<tr class="memitem:af4b383c877918f88e8a772b02f424e9c" id="r_af4b383c877918f88e8a772b02f424e9c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af4b383c877918f88e8a772b02f424e9c">npcFigures</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, int frame, bool placeholders=false)</td></tr>
+<tr class="memdesc:af4b383c877918f88e8a772b02f424e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des PNJ d'une carte, dans l'ordre des entités.  <br /></td></tr>
 <tr class="memitem:ab66963a68c69c0957d096fbab448d6a4" id="r_ab66963a68c69c0957d096fbab448d6a4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab66963a68c69c0957d096fbab448d6a4">scenePlaceOf</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
 <tr class="memitem:a8e3a1dcd14a5132e99f15be875c38936" id="r_a8e3a1dcd14a5132e99f15be875c38936"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8e3a1dcd14a5132e99f15be875c38936">snapshotWorldScene</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance, std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memdesc:a8e3a1dcd14a5132e99f15be875c38936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, pour une carte validée.  <br /></td></tr>
@@ -1490,6 +1525,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aabf51fbbdb0a8cdb119dc1c28fa88980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Installe l'écriture d'un minidump sur toute fin anormale du processus.  <br /></td></tr>
 <tr class="memitem:a3482171b78c19d4cd5a16786cc13c330" id="r_a3482171b78c19d4cd5a16786cc13c330"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3482171b78c19d4cd5a16786cc13c330">triggerCrashForTest</a> ()</td></tr>
 <tr class="memdesc:a3482171b78c19d4cd5a16786cc13c330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclenche volontairement une violation d'accès, pour éprouver installCrashDumpWriter.  <br /></td></tr>
+<tr class="memitem:ac4538343a88b7e915fb235efd065ee66" id="r_ac4538343a88b7e915fb235efd065ee66"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#ac4538343a88b7e915fb235efd065ee66">dataDirectory</a> ()</td></tr>
+<tr class="memdesc:ac4538343a88b7e915fb235efd065ee66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier du <b>contenu</b> du jeu : cartes, assets, monde, dialogues, rencontres.  <br /></td></tr>
+<tr class="memitem:a28a6976343b0b83ab23ebc7445739983" id="r_a28a6976343b0b83ab23ebc7445739983"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a28a6976343b0b83ab23ebc7445739983">setDataDirectory</a> (std::filesystem::path directory)</td></tr>
+<tr class="memdesc:a28a6976343b0b83ab23ebc7445739983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose le dossier du contenu ; vide : celui de l'exécutable. À appeler avant tout modèle.  <br /></td></tr>
 <tr class="memitem:a18648161d8a6c752202b6034613a947b" id="r_a18648161d8a6c752202b6034613a947b"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a18648161d8a6c752202b6034613a947b">executableDirectory</a> ()</td></tr>
 <tr class="memdesc:a18648161d8a6c752202b6034613a947b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dossier contenant l'exécutable en cours, pour localiser les ressources copiées à côté (niveaux, catalogues de traduction, logs).  <br /></td></tr>
 <tr class="memitem:ad2b3435349dd004d6768a14a49f5dacc" id="r_ad2b3435349dd004d6768a14a49f5dacc"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad2b3435349dd004d6768a14a49f5dacc">characterSheetValues</a> (const <a class="el" href="structhmi_1_1CharacterSheetContext.html">CharacterSheetContext</a> &amp;context)</td></tr>
@@ -1542,6 +1581,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa7f27ef2ac4ebf9ca9471566aa568af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de démonstration livré en donnée, et calcule ses deux tables.  <br /></td></tr>
 <tr class="memitem:a1f08c6b798997faab9cda3d79eebe751" id="r_a1f08c6b798997faab9cda3d79eebe751"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f08c6b798997faab9cda3d79eebe751">demonstrationValues</a> (const <a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a> &amp;state)</td></tr>
 <tr class="memdesc:a1f08c6b798997faab9cda3d79eebe751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux tables de valeurs d'un état, statistiques dérivées <b>recalculées</b>.  <br /></td></tr>
+<tr class="memitem:a2051b387a6c5bde4f6681209124b4f85" id="r_a2051b387a6c5bde4f6681209124b4f85"><td class="memItemLeft">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2051b387a6c5bde4f6681209124b4f85">contentCatalog</a> (const std::string &amp;language)</td></tr>
+<tr class="memdesc:a2051b387a6c5bde4f6681209124b4f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue de la racine de contenu imposee (<span class="tt">--data=</span>, LOT-118), s'il y en a une : ses cles &ndash; noms de cartes, dialogues d'essai &ndash; passent devant celles du jeu.  <br /></td></tr>
 <tr class="memitem:ab6cae0930fa7f6fecf4d383e6b80ed39" id="r_ab6cae0930fa7f6fecf4d383e6b80ed39"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab6cae0930fa7f6fecf4d383e6b80ed39">ruleLabel</a> (std::string_view key, const std::string &amp;language)</td></tr>
 <tr class="memdesc:ab6cae0930fa7f6fecf4d383e6b80ed39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition.  <br /></td></tr>
 <tr class="memitem:a7d20e45b3534ac88b3b7a1ad870ddfeb" id="r_a7d20e45b3534ac88b3b7a1ad870ddfeb"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7d20e45b3534ac88b3b7a1ad870ddfeb">activeLanguage</a> ()</td></tr>
@@ -1672,6 +1713,10 @@ Variables</h2></td></tr>
 <tr class="memdesc:a344f40841fd17a0ce2a36213b84514c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marge basse d'une figurine, en hauteurs de losange — la même que dans l'arène.  <br /></td></tr>
 <tr class="memitem:a2048c2024daad5842f0d26bbde67482b" id="r_a2048c2024daad5842f0d26bbde67482b"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a2048c2024daad5842f0d26bbde67482b">SCENE_PLACE_PROPERTY</a> = &quot;scene&quot;</td></tr>
 <tr class="memdesc:a2048c2024daad5842f0d26bbde67482b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété de couche qui nomme le <b>lieu</b> dont la carte porte les planches.  <br /></td></tr>
+<tr class="memitem:af4a217ed5ea8e0e9fe3c9be3864c630e" id="r_af4a217ed5ea8e0e9fe3c9be3864c630e"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#af4a217ed5ea8e0e9fe3c9be3864c630e">DEFAULT_SILHOUETTE</a> = &quot;humanoid&quot;</td></tr>
+<tr class="memdesc:af4a217ed5ea8e0e9fe3c9be3864c630e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La silhouette par défaut d'un personnage qui n'en déclare pas.  <br /></td></tr>
+<tr class="memitem:a97a3d73038cd8b88626f97aad58b5a95" id="r_a97a3d73038cd8b88626f97aad58b5a95"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a97a3d73038cd8b88626f97aad58b5a95">SILHOUETTE_PROPERTY</a> = &quot;silhouette&quot;</td></tr>
+<tr class="memdesc:a97a3d73038cd8b88626f97aad58b5a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'entité <span class="tt">npc</span> et de fiche de créature qui nomme la silhouette (<span class="tt">LOT-145</span>).  <br /></td></tr>
 <tr class="memitem:a9ab13e58906fc19eaceaa84921d13f32" id="r_a9ab13e58906fc19eaceaa84921d13f32"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="#a9ab13e58906fc19eaceaa84921d13f32">BUTTON_REPEAT_DELAY</a> {350}</td></tr>
 <tr class="memdesc:a9ab13e58906fc19eaceaa84921d13f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai avant la première répétition d'un bouton tenu.  <br /></td></tr>
 <tr class="memitem:a19c4e889b587eee63318fd97be53024d" id="r_a19c4e889b587eee63318fd97be53024d"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="#a19c4e889b587eee63318fd97be53024d">BUTTON_REPEAT_INTERVAL</a> {110}</td></tr>
@@ -2039,6 +2084,42 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a78257412917b7881b3766489df80d4c4a3a631438d6f2eba0ef81c8cc070fe15f" name="a78257412917b7881b3766489df80d4c4a3a631438d6f2eba0ef81c8cc070fe15f"></a>Iso&#160;</td><td class="fielddoc"><p>Le lieu tel que le jeu le montre (défaut). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a78257412917b7881b3766489df80d4c4a745e3db6a7ffd50e1a72b39482f0882d" name="a78257412917b7881b3766489df80d4c4a745e3db6a7ffd50e1a72b39482f0882d"></a>Flat&#160;</td><td class="fielddoc"><p>Une case par unité, les types en couleurs : pour lire types et collision. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="af50d48ed1cc573c620ff2a1c420f7406" name="af50d48ed1cc573c620ff2a1c420f7406"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af50d48ed1cc573c620ff2a1c420f7406">&#9670;&#160;</a></span>CombatCueKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#af50d48ed1cc573c620ff2a1c420f7406">hmi::CombatCueKind</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'un combattant fait de visible. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62" name="af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62"></a>Walk&#160;</td><td class="fielddoc"><p>Il marche le long de <span class="tt">path</span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a" name="af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a"></a>Attack&#160;</td><td class="fielddoc"><p>Il frappe <span class="tt">target</span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c" name="af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c"></a>Cast&#160;</td><td class="fielddoc"><p>Il lance un sort vers <span class="tt">target</span> (personne ne le demande encore : la bande est prête). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d" name="af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d"></a>Hit&#160;</td><td class="fielddoc"><p>Il encaisse un coup. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f" name="af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f"></a>Death&#160;</td><td class="fielddoc"><p>Il tombe, et reste à terre. </p>
 </td></tr>
 </table>
 
@@ -5677,6 +5758,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2051b387a6c5bde4f6681209124b4f85" name="a2051b387a6c5bde4f6681209124b4f85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2051b387a6c5bde4f6681209124b4f85">&#9670;&#160;</a></span>contentCatalog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classhmi_1_1Localization.html">Localization</a> * hmi::contentCatalog </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>language</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le catalogue de la racine de contenu imposee (<span class="tt">--data=</span>, LOT-118), s'il y en a une : ses cles &ndash; noms de cartes, dialogues d'essai &ndash; passent devant celles du jeu. </p>
+<p>Rien si le contenu est celui de l'executable. </p>
+
+</div>
+</div>
 <a id="a0c06cbf1bf3c8f1d58a5c581e17e3666" name="a0c06cbf1bf3c8f1d58a5c581e17e3666"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c06cbf1bf3c8f1d58a5c581e17e3666">&#9670;&#160;</a></span>crashDumpFileName()</h2>
 
@@ -5782,6 +5891,50 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac84d7d812f80df58545ca07a9bd88f0e" name="ac84d7d812f80df58545ca07a9bd88f0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac84d7d812f80df58545ca07a9bd88f0e">&#9670;&#160;</a></span>creatureContestant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a> hmi::creatureContestant </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Creature.html">core::Creature</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>creature</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a></td>          <td class="paramname"><span class="paramname"><em>side</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a> *</td>          <td class="paramname"><span class="paramname"><em>behaviors</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une créature du bestiaire comme combattant du camp <code class="param">side</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">creature</td><td>La créature. </td></tr>
+    <tr><td class="paramname">side</td><td>Son camp. </td></tr>
+    <tr><td class="paramname">behaviors</td><td>Les profils de l'IA (<span class="tt">LOT-23</span>) : la créature prend celui que ses règles lui donnent. <span class="tt">nullptr</span>, ou un catalogue vide : elle se commande à la main. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a86891f5de291d0a457c7dee889e9e9ed" name="a86891f5de291d0a457c7dee889e9e9ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86891f5de291d0a457c7dee889e9e9ed">&#9670;&#160;</a></span>cutStamp()</h2>
 
@@ -5816,6 +5969,34 @@ Variables</h2></td></tr>
 
 <p>Découpe le rectangle [<code class="param">first</code>, <code class="param">last</code>] (bornes incluses, dans n'importe quel ordre) de <code class="param">draft</code>, agrandi jusqu'à contenir l'emprise de chaque pièce prise (voir l'en-tête). </p>
 <dl class="section return"><dt>Returns</dt><dd>Le tampon ; vide si le rectangle ne rencontre pas la carte. </dd></dl>
+
+</div>
+</div>
+<a id="ac4538343a88b7e915fb235efd065ee66" name="ac4538343a88b7e915fb235efd065ee66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4538343a88b7e915fb235efd065ee66">&#9670;&#160;</a></span>dataDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::dataDirectory </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier du <b>contenu</b> du jeu : cartes, assets, monde, dialogues, rencontres. </p>
+<p>Celui de l'exécutable, sauf si <span class="tt"><a class="el" href="#a28a6976343b0b83ab23ebc7445739983" title="Impose le dossier du contenu ; vide : celui de l&#39;exécutable. À appeler avant tout modèle.">setDataDirectory</a></span> l'a remplacé — l'option <span class="tt">--data=&lt;racine&gt;</span> d'un build de développement (<span class="tt">LOT-118</span>), qui joue une racine d'essai (<span class="tt">Source/Test/Fixtures/GameData</span>) comme l'éditeur l'ouvre (<span class="tt">LevelEditor --data</span>). Les <b>règles</b> (<span class="tt">Rpg/rules</span>, les fiches, les classes), les traductions du jeu et les journaux restent à côté de l'exécutable : une racine de contenu n'a pas à les porter. </p>
 
 </div>
 </div>
@@ -7544,6 +7725,37 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="afbbd37a73dccd14815fb4c02a4ed8e16" name="afbbd37a73dccd14815fb4c02a4ed8e16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbbd37a73dccd14815fb4c02a4ed8e16">&#9670;&#160;</a></span>heroContestant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a> hmi::heroContestant </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>hero</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a></td>          <td class="paramname"><span class="paramname"><em>side</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le héros comme combattant du camp <code class="param">side</code> : son arme, son jet, ses mains nues. </p>
+
+</div>
+</div>
 <a id="ab12d7276850e59be85957b10047b8728" name="ab12d7276850e59be85957b10047b8728"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab12d7276850e59be85957b10047b8728">&#9670;&#160;</a></span>hidesHero()</h2>
 
@@ -9007,8 +9219,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a774a0ed2f31b521df4cf536fbfb7543f" name="a774a0ed2f31b521df4cf536fbfb7543f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a774a0ed2f31b521df4cf536fbfb7543f">&#9670;&#160;</a></span>maquetteMarks()</h2>
+<a id="a47c8f35619d5e7fa59cd899a158c9361" name="a47c8f35619d5e7fa59cd899a158c9361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47c8f35619d5e7fa59cd899a158c9361">&#9670;&#160;</a></span>maquetteMarks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9024,7 +9236,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>maquette</em></span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>maquette</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -9036,10 +9253,12 @@ Variables</h2></td></tr>
 
 <p>Les marques que <code class="param">entities</code> méritent. </p>
 <p>Les <b>jetons</b> se posent toujours : une entité sans figurine est invisible autrement, sur une carte habillée comme sur une maquette. Les <b>tracés</b> — contours de zone, trajets — et les flèches de portail ne paraissent qu'en maquette : une carte finie ne montre pas ses déclencheurs.</p>
+<p>Un PNJ dont une <b>figurine</b> occupe la case n'a pas de jeton (<span class="tt">LOT-145</span>) : le jeton d'un personnage tenait lieu de figurine, et il y en a une — un mannequin ou la vraie.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entities</td><td>Les entités de la carte. </td></tr>
     <tr><td class="paramname">maquette</td><td>Vrai si la carte ne nomme aucun lieu. </td></tr>
+    <tr><td class="paramname">figures</td><td>Les figurines posées sur la carte, dont les PNJ dessinés. </td></tr>
   </table>
   </dd>
 </dl>
@@ -9826,8 +10045,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7a8f2888417ba2cd0c8440905f9e209a" name="a7a8f2888417ba2cd0c8440905f9e209a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a8f2888417ba2cd0c8440905f9e209a">&#9670;&#160;</a></span>npcFigures()</h2>
+<a id="af4b383c877918f88e8a772b02f424e9c" name="af4b383c877918f88e8a772b02f424e9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b383c877918f88e8a772b02f424e9c">&#9670;&#160;</a></span>npcFigures()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9843,7 +10062,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>frame</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>frame</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>placeholders</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -9854,10 +10078,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les figurines des PNJ d'une carte, dans l'ordre des entités. </p>
-<p>Un PNJ sans propriété <span class="tt">figure</span> ne se dessine pas : il n'est pas encore dessiné. Le jeu y ajoute le héros (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#acbef06d44780edb3de38785805e3a10c">hmi::WorldPlay::figures</a></span>) ; l'éditeur les montre telles quelles. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Un PNJ sans propriété <span class="tt">figure</span> ne se dessine pas, sauf si <code class="param">placeholders</code> est vrai : il prend alors le mannequin de sa silhouette (<span class="tt"><a class="el" href="#a511785bc30ed0e18c4894a5d73f54920" title="Le dossier d&#39;un mannequin de remplacement, par silhouette (LOT-145) : ce que dessine un personnage sa...">placeholderFigureDirectory</a></span>, <span class="tt">LOT-145</span>), et c'est le résolveur de figurines du jeu qui dira ensuite si ce mannequin existe. Le jeu y ajoute le héros (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#acbef06d44780edb3de38785805e3a10c">hmi::WorldPlay::figures</a></span>) ; l'éditeur les montre telles quelles, jetons compris. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entities</td><td>Les entités de la carte. </td></tr>
     <tr><td class="paramname">frame</td><td>L'image des bandes (0 pour une image fixe). </td></tr>
+    <tr><td class="paramname">placeholders</td><td>Vrai pour donner un mannequin aux PNJ sans figurine. </td></tr>
   </table>
   </dd>
 </dl>
@@ -10839,6 +11064,33 @@ Variables</h2></td></tr>
 
 <p>Pose en <code class="param">cell</code> une entité neuve de la famille <code class="param">kind</code>, ses propriétés à leur défaut (<span class="tt"><a class="el" href="namespacecore.html#a88adb5289b8943d6a8f1f33b3d296e73" title="Une entité neuve de la famille kind en position, ses propriétés à leur défaut.">core::makeEntity</a></span>) — aucune pour une famille inconnue, qui se pose tout de même. </p>
 <dl class="section return"><dt>Returns</dt><dd>Son rang, ou rien si le brouillon l'a refusée. </dd></dl>
+
+</div>
+</div>
+<a id="a511785bc30ed0e18c4894a5d73f54920" name="a511785bc30ed0e18c4894a5d73f54920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a511785bc30ed0e18c4894a5d73f54920">&#9670;&#160;</a></span>placeholderFigureDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::placeholderFigureDirectory </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>silhouette</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier d'un mannequin de remplacement, par silhouette (<span class="tt">LOT-145</span>) : ce que dessine un personnage sans figurine. </p>
 
 </div>
 </div>
@@ -12493,7 +12745,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md121"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md131"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -12935,6 +13187,25 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le contenu d'un fichier de reprise pour <code class="param">record</code> (JSON, format <span class="tt"><a class="el" href="#ae89429fc222ed90274545f4bd5dd9511" title="Version du format des fichiers de reprise.">AUTOSAVE_FORMAT</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="a28a6976343b0b83ab23ebc7445739983" name="a28a6976343b0b83ab23ebc7445739983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a6976343b0b83ab23ebc7445739983">&#9670;&#160;</a></span>setDataDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::setDataDirectory </td>
+          <td>(</td>
+          <td class="paramtype">std::filesystem::path</td>          <td class="paramname"><span class="paramname"><em>directory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Impose le dossier du contenu ; vide : celui de l'exécutable. À appeler avant tout modèle. </p>
 
 </div>
 </div>
@@ -14701,6 +14972,30 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="af4a217ed5ea8e0e9fe3c9be3864c630e" name="af4a217ed5ea8e0e9fe3c9be3864c630e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4a217ed5ea8e0e9fe3c9be3864c630e">&#9670;&#160;</a></span>DEFAULT_SILHOUETTE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::DEFAULT_SILHOUETTE = &quot;humanoid&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La silhouette par défaut d'un personnage qui n'en déclare pas. </p>
+
+</div>
+</div>
 <a id="a8434f71a989c8056288d38787955107e" name="a8434f71a989c8056288d38787955107e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8434f71a989c8056288d38787955107e">&#9670;&#160;</a></span>DEFAULT_STOREY_TILES</h2>
 
@@ -15716,6 +16011,30 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a97a3d73038cd8b88626f97aad58b5a95" name="a97a3d73038cd8b88626f97aad58b5a95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97a3d73038cd8b88626f97aad58b5a95">&#9670;&#160;</a></span>SILHOUETTE_PROPERTY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::SILHOUETTE_PROPERTY = &quot;silhouette&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Propriété d'entité <span class="tt">npc</span> et de fiche de créature qui nomme la silhouette (<span class="tt">LOT-145</span>). </p>
+
+</div>
+</div>
 <a id="ab0a2cd2527096877037eac485411c28f" name="ab0a2cd2527096877037eac485411c28f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0a2cd2527096877037eac485411c28f">&#9670;&#160;</a></span>STOREY_SEE_THROUGH_OPACITY</h2>
 
@@ -15762,7 +16081,7 @@ template&lt;class Map&gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">                                            =</div>
 <div class="line"><span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">WorldDepthSlot::Storey</a>) + <a class="code hl_variable" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div>
 <div class="ttc" id="anamespacecore_html_a71ba5ff46298b3aa173af1f1071ae3eb"><div class="ttname"><a href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div><div class="ttdeci">constexpr int MAX_STOREY_FLOOR</div><div class="ttdoc">Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).</div><div class="ttdef"><b>Definition</b> TileLayer.h:22</div></div>
-<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:69</div></div>
+<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:70</div></div>
 </div><!-- fragment -->
 <p>Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage. </p>
 

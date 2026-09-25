@@ -20,6 +20,7 @@ var structcore_1_1Creature =
     [ "name", "structcore_1_1Creature.html#ae5bc2270dad918f11a40bd2e4148ccf1", null ],
     [ "requiredMechanisms", "structcore_1_1Creature.html#ace09660f1aa10b5cbdb5e3fa5ea3f5aa", null ],
     [ "senses", "structcore_1_1Creature.html#a725c53cfefd07ad0e63f34bd4834f7f3", null ],
+    [ "silhouette", "structcore_1_1Creature.html#a42d5a5101530fe93a230106e16f9a583", null ],
     [ "size", "structcore_1_1Creature.html#a6759a1b49b024b5a720b24c9744967d6", null ],
     [ "skills", "structcore_1_1Creature.html#a6f1222825640093ec41817483949cc1c", null ],
     [ "source", "structcore_1_1Creature.html#adb9ed009c75c430434456fff0078b5ae", null ],

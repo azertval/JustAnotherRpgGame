@@ -14,7 +14,7 @@
 
 #include "HMI/Game/WorldPlay.h"
 
-#include &lt;system_error&gt;
+#include &lt;cstddef&gt;
 #include &lt;utility&gt;
 #include &lt;variant&gt;
 
@@ -30,6 +30,8 @@ namespace {
 
 /// DurÃ©e d'une image des bandes de figurine qui ne disent pas la leur, en secondes.
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
+/// Le dÃ©calage de respiration entre deux PNJ, en secondes : ni nul, ni un multiple de la bande.
+constexpr float NPC_BREATH_OFFSET_SECONDS = 0.37F;
 
 /// Les entitÃ©s de la carte courante que les drapeaux laissent paraÃ®tre (`LOT-116`) : une copie,
 /// que la carte, lue d'un fichier qui ignore la partie, ne peut pas Ãªtre.
@@ -48,18 +50,18 @@ constexpr float FIGURE_FRAME_SECONDS = 0.15F;
 }  // namespace
 
 WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path assetsDirectory)
-<span style = "background-color:#dfd">    : _session(std::move(loader)), _assetsDirectory(std::move(assetsDirectory)) {
+<span style = "background-color:#dfd">    : _session(std::move(loader)),
+      _assetsDirectory(std::move(assetsDirectory)),
+      _figures(_assetsDirectory) {
     setHeroFigure(std::string{DEFAULT_HERO_FIGURE});
 }</span>
 
 <span style = "background-color:#dfd">void WorldPlay::setHeroFigure(std::string figure) {
     _heroFigure = std::move(figure);</span>
-    // Une figurine est orientee si sa bande de repos vers le sud-est existe : c'est la premiere que
-    // l'atelier produit, et une figurine a moitie orientee se verrait plus mal qu'une qui ne l'est
-    // pas (`scripts/checks/check_hd_assets.py` exige les quatre).
-<span style = "background-color:#dfd">    std::error_code erreur;
-    _heroOriented = std::filesystem::is_regular_file(</span>
-        _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
+    // La figurine du heros, ou son mannequin si elle n'est pas installee (LOT-145) ; orientee si
+    // sa bande de repos vers le sud-est existe (`scripts/checks/check_hd_assets.py` exige les
+    // quatre des qu'il y en a une).
+<span style = "background-color:#dfd">    _hero = _figures.resolve(_heroFigure, {}, _appearance);</span>
     // Le dossier de la figurine du heros se lit dans la carte en valeurs.
 <span style = "background-color:#dfd">    invalidateScene();
 }</span>
@@ -118,10 +120,13 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 }</span>
 
 <span style = "background-color:#dfd">void WorldPlay::reloadAppearance() {
-    invalidateScene();
+    invalidateScene();</span>
+    // Le lieu change : ce que le resolveur savait des figurines ne vaut plus, le heros compris.
+<span style = "background-color:#dfd">    _figures.clear();
     const core::Level* const map = _session.map();
     if (map == nullptr) {</span>
 <span style = "background-color:#fdd">        _appearance = PlaceAppearance{};
+        _hero = _figures.resolve(_heroFigure, {}, _appearance);
         return;</span>
     }
 <span style = "background-color:#dfd">    const std::string place = scenePlaceOf(*map);
@@ -133,16 +138,15 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">        _appearance = PlaceAppearance::loadForPlace(_assetsDirectory, {}).appearance;
         HMI_LOG_INFO("Monde : la carte " + _session.mapId() +</span>
                      " ne declare aucun lieu ; elle se joue en maquette.");
-<span style = "background-color:#dfd">        return;</span>
-    }
-<span style = "background-color:#dfd">    PlaceAppearanceResult read = PlaceAppearance::loadForPlace(_assetsDirectory, place);
-    if (!read.ok()) {</span>
+<span style = "background-color:#dfd">    } else if (PlaceAppearanceResult read = PlaceAppearance::loadForPlace(_assetsDirectory, place);
+               !read.ok()) {</span>
 <span style = "background-color:#fdd">        HMI_LOG_WARNING("Monde : table d'apparence du lieu " + place + " illisible, " +</span>
                         read.message);
 <span style = "background-color:#fdd">        _appearance = PlaceAppearance{};
-        return;</span>
+    } else {</span>
+<span style = "background-color:#dfd">        _appearance = std::move(read.appearance);
     }
-<span style = "background-color:#dfd">    _appearance = std::move(read.appearance);
+    _hero = _figures.resolve(_heroFigure, {}, _appearance);
 }</span>
 
 <span style = "background-color:#dfd">std::vector&lt;WorldFigureSnapshot&gt; WorldPlay::figures() const {
@@ -153,10 +157,29 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">    const int frame = static_cast&lt;int&gt;(_elapsed / FIGURE_FRAME_SECONDS);</span>
 
     // Les PNJ d'abord, le hÃ©ros ensuite : Ã  Ã©galitÃ© de profondeur, c'est lui qui passe devant.
-<span style = "background-color:#dfd">    std::vector&lt;WorldFigureSnapshot&gt; figures = npcFigures(entitesPresentes(_session, *map), frame);
+    // Un PNJ sans figurine prend son mannequin (LOT-145) ; chacun respire a son rythme -- un
+    // decalage par PNJ, pour qu'une place ne respire pas d'un seul souffle.
+<span style = "background-color:#dfd">    const std::vector&lt;core::MapEntity&gt; presentes = entitesPresentes(_session, *map);
+    std::vector&lt;WorldFigureSnapshot&gt; figures = npcFigures(presentes, frame, /*placeholders=*/true);
+    std::size_t rang = 0;
+    for (const core::MapEntity&amp; entite : presentes) {
+        if (entite.type != core::NPC_ENTITY_TYPE || rang &gt;= figures.size()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        WorldFigureSnapshot&amp; figure = figures[rang++];
+        const auto silhouette = entite.properties.find(std::string{SILHOUETTE_PROPERTY});
+        const std::string* nom = silhouette != entite.properties.end()</span>
+                                     ? std::get_if&lt;std::string&gt;(&amp;silhouette-&gt;second)
+                                     : nullptr;
+<span style = "background-color:#dfd">        const ResolvedFigure&amp; resolue =</span>
+            _figures.resolve(figure.figure, nom != nullptr ? *nom : std::string{}, _appearance);
+<span style = "background-color:#dfd">        figure.figure = resolue.directory;
+        figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
+        figure.seconds = _elapsed + (static_cast&lt;float&gt;(rang) * NPC_BREATH_OFFSET_SECONDS);
+    }
     figures.push_back(</span>
-        WorldFigureSnapshot{.figure = _heroFigure,
-                            .clip = _walking ? "walk" : "idle",
+        WorldFigureSnapshot{.figure = _hero.directory,
+                            .clip = std::string{_walking ? figure_clips::WALK : figure_clips::IDLE},
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
                             .frame = frame,
                             .facing = heroFacing(),

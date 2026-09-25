@@ -171,6 +171,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab913b0303d4a9067ea84fcca7b082c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reçoit un objet que le PNJ lui donne.  <br /></td></tr>
 <tr class="memitem:a6ce049b4a2a48f8ac02c979a3caf0c14" id="r_a6ce049b4a2a48f8ac02c979a3caf0c14"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a6ce049b4a2a48f8ac02c979a3caf0c14">startCombat</a> (std::string_view arenaId)</td></tr>
 <tr class="memdesc:a6ce049b4a2a48f8ac02c979a3caf0c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ l'envoie se battre dans l'arène <code class="param">arenaId</code> (<span class="tt">LOT-09</span>).  <br /></td></tr>
+<tr class="memitem:af3fc38d5eeefa7f78c3abd838f43728f" id="r_af3fc38d5eeefa7f78c3abd838f43728f"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#af3fc38d5eeefa7f78c3abd838f43728f">startEncounter</a> (std::string_view encounterId)</td></tr>
+<tr class="memdesc:af3fc38d5eeefa7f78c3abd838f43728f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ engage la rencontre <code class="param">encounterId</code> sur la carte (<span class="tt">LOT-118</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Celui qui parle <b>au</b> PNJ, tel que le runner a besoin de le connaître. </p>
@@ -441,6 +443,34 @@ Public Member Functions</h2></td></tr>
 
 <p>Le PNJ l'envoie se battre dans l'arène <code class="param">arenaId</code> (<span class="tt">LOT-09</span>). </p>
 <p>Sans effet par défaut : un interlocuteur qui n'a pas d'écran — un test, un rejeu — n'a rien à ouvrir, et l'action reste consignée au journal du runner. </p>
+
+</div>
+</div>
+<a id="af3fc38d5eeefa7f78c3abd838f43728f" name="af3fc38d5eeefa7f78c3abd838f43728f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3fc38d5eeefa7f78c3abd838f43728f">&#9670;&#160;</a></span>startEncounter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::DialogueListener::startEncounter </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>encounterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le PNJ engage la rencontre <code class="param">encounterId</code> sur la carte (<span class="tt">LOT-118</span>). </p>
+<p>Sans effet par défaut, pour la même raison que <span class="tt"><a class="el" href="#a6ce049b4a2a48f8ac02c979a3caf0c14" title="Le PNJ l&#39;envoie se battre dans l&#39;arène arenaId (LOT-09).">startCombat</a></span>. </p>
 
 </div>
 </div>

@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['vérifie_20pas_0',['Ce qu&apos;elle ne vérifie pas',['../namespacecore.html#autotoc_md41',1,'']]],
+  ['vérifie_20pas_0',['Ce qu&apos;elle ne vérifie pas',['../namespacecore.html#autotoc_md44',1,'']]],
   ['vérité_20pour_20«_20peut_20on_20se_20tenir_20ici_20»_1',['Une seule source de vérité pour « peut-on se tenir ici »',['../classcore_1_1BattleGrid.html#autotoc_md17',1,'']]],
   ['v_2',['V',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce',1,'hmi']]],
   ['v_3',['v',['../structhmi_1_1SpriteBatch_1_1Vertex.html#aa06f2c610c42f36c0f0f13658bd274e9',1,'hmi::SpriteBatch::Vertex']]],
   ['v0_4',['v0',['../structhmi_1_1SpriteQuad.html#a57d8a28d381a274c651561943f89c252',1,'hmi::SpriteQuad::v0'],['../structhmi_1_1PolyQuad.html#a88145ee12bcfb16031700767a5d1dde1',1,'hmi::PolyQuad::v0'],['../structhmi_1_1LineQuad.html#accaf53500d04a45aea0c4c8823a01703',1,'hmi::LineQuad::v0']]],
   ['v1_5',['v1',['../structhmi_1_1SpriteQuad.html#a75b0c3489614d54680dcb955242fe1f2',1,'hmi::SpriteQuad::v1'],['../structhmi_1_1PolyQuad.html#a27699e993f900e4ac5ee102abfd14dcf',1,'hmi::PolyQuad::v1'],['../structhmi_1_1LineQuad.html#afded7a4914c8964639fdb73b43c6c339',1,'hmi::LineQuad::v1']]],
-  ['v4_20lot_20editor_2012_6',['Depuis le format v4 (&lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-12&lt;/span&gt;)',['../PlaceAppearance_8h.html#autotoc_md92',1,'']]],
-  ['v4_20lot_20editor_2012_20ex_20lvl_20019_7',['Une case = un type et une pièce (format v4, &lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-12&lt;/span&gt;, &lt;span class=&quot;tt&quot;&gt;EX-LVL-019&lt;/span&gt;)',['../structcore_1_1TileLayer.html#autotoc_md48',1,'']]],
-  ['va_20le_20geste_8',['Où va le geste',['../BrushGesture_8h.html#autotoc_md61',1,'']]],
-  ['va_20où_9',['va où',['../ArenaSceneComposer_8h.html#autotoc_md78',1,'Ce qui va où'],['../WorldSceneComposer_8h.html#autotoc_md94',1,'Ce qui va où']]],
+  ['v4_20lot_20editor_2012_6',['Depuis le format v4 (&lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-12&lt;/span&gt;)',['../PlaceAppearance_8h.html#autotoc_md97',1,'']]],
+  ['v4_20lot_20editor_2012_20ex_20lvl_20019_7',['Une case = un type et une pièce (format v4, &lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-12&lt;/span&gt;, &lt;span class=&quot;tt&quot;&gt;EX-LVL-019&lt;/span&gt;)',['../structcore_1_1TileLayer.html#autotoc_md51',1,'']]],
+  ['va_20le_20geste_8',['Où va le geste',['../BrushGesture_8h.html#autotoc_md64',1,'']]],
+  ['va_20où_9',['va où',['../ArenaSceneComposer_8h.html#autotoc_md83',1,'Ce qui va où'],['../WorldSceneComposer_8h.html#autotoc_md99',1,'Ce qui va où']]],
   ['valid_10',['Valid',['../namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840a3ac705f2acd51a4613f9188c05c91d0d',1,'core']]],
   ['valid_11',['valid',['../structhmi_1_1AssetValidation.html#a8b6f970c169b1013073cb60f807ba201',1,'hmi::AssetValidation::valid'],['../structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b',1,'core::EncounterTerrain::valid()']]],
   ['validactivelayer_12',['validActiveLayer',['../namespacehmi.html#ab632ba3c3120c215116a504837d137b9',1,'hmi']]],
@@ -55,9 +55,9 @@ var searchData=
   ['vit_52',['Ce que dit le Manuel, et où chaque règle vit',['../Attack_8h.html#autotoc_md13',1,'']]],
   ['volume_53',['volume',['../classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280',1,'hmi::OptionsModel::volume'],['../classhmi_1_1AudioEngine.html#a1b97d12d3392c7284e221b9ff30d83dc',1,'hmi::AudioEngine::volume()'],['../classhmi_1_1OptionsModel.html#a7a71606593c8eeaa040cdaa4176c4945',1,'hmi::OptionsModel::volume() const noexcept']]],
   ['volumechanged_54',['volumeChanged',['../classhmi_1_1OptionsModel.html#a866a05dec00aced02a6b439d61431283',1,'hmi::OptionsModel']]],
-  ['vraiment_20et_20qu_20il_20ne_20faut_20pas_20se_20cacher_55',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md114',1,'']]],
+  ['vraiment_20et_20qu_20il_20ne_20faut_20pas_20se_20cacher_55',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md124',1,'']]],
   ['vsync_56',['vsync',['../classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24',1,'hmi::OptionsModel::vsync'],['../classhmi_1_1OptionsModel.html#a3aafc6f4b6558daad08c2b836fff9044',1,'hmi::OptionsModel::vsync() const noexcept']]],
   ['vsyncchanged_57',['vsyncChanged',['../classhmi_1_1OptionsModel.html#af6d31966b77f2f9aa6bdb906d0da0bfb',1,'hmi::OptionsModel']]],
-  ['vues_20un_20repère_20de_20cases_58',['Deux vues, un repère de cases',['../CanvasPicking_8h.html#autotoc_md62',1,'']]],
+  ['vues_20un_20repère_20de_20cases_58',['Deux vues, un repère de cases',['../CanvasPicking_8h.html#autotoc_md65',1,'']]],
   ['vulnerability_59',['Vulnerability',['../namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88aca548e0ecd399b3118e0727e6fe84100',1,'core']]]
 ];

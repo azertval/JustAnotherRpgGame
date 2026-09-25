@@ -1,0 +1,233 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/MapEncounter.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('MapEncounter_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MapEncounter.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="MapEncounter_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &quot;<a class="code" href="CombatTransition_8h.html">Core/Combat/CombatTransition.h</a>&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="Encounter_8h.html">Core/Combat/Encounter.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &quot;<a class="code" href="Level_8h.html">Core/Levels/Level.h</a>&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &quot;<a class="code" href="CombatZone_8h.html">Core/World/CombatZone.h</a>&quot;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterSetup.html">   44</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1MapEncounterSetup.html">MapEncounterSetup</a> {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterSetup.html#a349f92b4df64ecdfd4451b6c87e63f26">   46</a></span>    <a class="code hl_struct" href="structcore_1_1CombatZone.html">CombatZone</a> <a class="code hl_variable" href="structcore_1_1MapEncounterSetup.html#a349f92b4df64ecdfd4451b6c87e63f26">zone</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterSetup.html#a614f3c87efc042b717b4802c0f16ad3f">   48</a></span>    <a class="code hl_class" href="classcore_1_1Level.html">Level</a> <a class="code hl_variable" href="structcore_1_1MapEncounterSetup.html#a614f3c87efc042b717b4802c0f16ad3f">battlefield</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterSetup.html#ab4ca32b273e4664960e7ff689cb166a3">   50</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_variable" href="structcore_1_1MapEncounterSetup.html#ab4ca32b273e4664960e7ff689cb166a3">heroCell</a>{};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterSetup.html#a2a260ee37775c11ad49c185e03aa727a">   52</a></span>    <a class="code hl_struct" href="structcore_1_1EncounterRun.html">EncounterRun</a> <a class="code hl_variable" href="structcore_1_1MapEncounterSetup.html#a2a260ee37775c11ad49c185e03aa727a">run</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003">   54</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003">notes</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="};">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterResult.html">   58</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1MapEncounterResult.html">MapEncounterResult</a> {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterResult.html#af1457b444d7db525d9220a9f9bda9e08">   59</a></span>    std::optional&lt;MapEncounterSetup&gt; <a class="code hl_variable" href="structcore_1_1MapEncounterResult.html#af1457b444d7db525d9220a9f9bda9e08">setup</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterResult.html#aefe65775d53544f7a0777e36512d006e">   61</a></span>    std::string <a class="code hl_variable" href="structcore_1_1MapEncounterResult.html#aefe65775d53544f7a0777e36512d006e">issue</a>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structcore_1_1MapEncounterResult.html#a565072d180d6ecb2dd128fb6f7d93f3e">   63</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1MapEncounterResult.html#a565072d180d6ecb2dd128fb6f7d93f3e">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MapEncounterResult.html#af1457b444d7db525d9220a9f9bda9e08">setup</a>.has_value();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>[[nodiscard]] MapEncounterResult <a class="code hl_function" href="namespacecore.html#acedbd9be2b83f7c6219a695e97819da5">prepareMapEncounter</a>(<span class="keyword">const</span> Level&amp; map, std::string_view mapId,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                                     <span class="keyword">const</span> <a class="code hl_enumvalue" href="namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ad1e9f9f891de8f9a655739a01fbf68f0">Encounter</a>&amp; encounter,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                                     GridPosition trigger, GridPosition heroCell,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                                                     <span class="keyword">const</span> ExplorationSnapshot&amp; exploration,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                                                     std::string defeatFlagKey);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>[[nodiscard]] GridPosition <a class="code hl_function" href="namespacecore.html#ac14ba4055ac79b8a654e3cae12fb5cd8">zoneToMap</a>(<span class="keyword">const</span> CombatZone&amp; zone, GridPosition cell) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>[[nodiscard]] GridPosition <a class="code hl_function" href="namespacecore.html#a844958a3d0bb764490fb2085e010f1b5">mapToZone</a>(<span class="keyword">const</span> CombatZone&amp; zone, GridPosition cell) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aCombatTransition_8h_html"><div class="ttname"><a href="CombatTransition_8h.html">CombatTransition.h</a></div><div class="ttdoc">L&#39;aller-retour exploration ↔ combat : ce qu&#39;on met de côté, et ce qu&#39;on retrouve (LOT-18,...</div></div>
+<div class="ttc" id="aCombatZone_8h_html"><div class="ttname"><a href="CombatZone_8h.html">CombatZone.h</a></div><div class="ttdoc">La zone de combat d&#39;une carte : le rectangle nommé où l&#39;on se bat, et lui seul (EX-LVL-018,...</div></div>
+<div class="ttc" id="aEncounter_8h_html"><div class="ttname"><a href="Encounter_8h.html">Encounter.h</a></div><div class="ttdoc">Une rencontre : qui se dresse, et où, quand le combat s&#39;engage (LOT-18, EX-CBT-001).</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aLevel_8h_html"><div class="ttname"><a href="Level_8h.html">Level.h</a></div><div class="ttdoc">Carte chargée : grille de collision, couches, entités, point d&#39;entrée, variante.</div></div>
+<div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Carte complète en mémoire.</div><div class="ttdef"><b>Definition</b> Level.h:97</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a844958a3d0bb764490fb2085e010f1b5"><div class="ttname"><a href="namespacecore.html#a844958a3d0bb764490fb2085e010f1b5">core::mapToZone</a></div><div class="ttdeci">GridPosition mapToZone(const CombatZone &amp;zone, GridPosition cell) noexcept</div><div class="ttdef"><b>Definition</b> MapEncounter.cpp:17</div></div>
+<div class="ttc" id="anamespacecore_html_a9b42f3467a678d16bee619bc34ddf4e2ad1e9f9f891de8f9a655739a01fbf68f0"><div class="ttname"><a href="namespacecore.html#a9b42f3467a678d16bee619bc34ddf4e2ad1e9f9f891de8f9a655739a01fbf68f0">core::CounterScope::Encounter</a></div><div class="ttdeci">@ Encounter</div><div class="ttdef"><b>Definition</b> CombatCounters.h:36</div></div>
+<div class="ttc" id="anamespacecore_html_ac14ba4055ac79b8a654e3cae12fb5cd8"><div class="ttname"><a href="namespacecore.html#ac14ba4055ac79b8a654e3cae12fb5cd8">core::zoneToMap</a></div><div class="ttdeci">GridPosition zoneToMap(const CombatZone &amp;zone, GridPosition cell) noexcept</div><div class="ttdef"><b>Definition</b> MapEncounter.cpp:12</div></div>
+<div class="ttc" id="anamespacecore_html_acedbd9be2b83f7c6219a695e97819da5"><div class="ttname"><a href="namespacecore.html#acedbd9be2b83f7c6219a695e97819da5">core::prepareMapEncounter</a></div><div class="ttdeci">MapEncounterResult prepareMapEncounter(const Level &amp;map, std::string_view mapId, const Encounter &amp;encounter, GridPosition trigger, GridPosition heroCell, const ExplorationSnapshot &amp;exploration, std::string defeatFlagKey)</div><div class="ttdoc">Prépare encounter sur map, déclenchée en trigger, le héros en heroCell.</div><div class="ttdef"><b>Definition</b> MapEncounter.cpp:55</div></div>
+<div class="ttc" id="astructcore_1_1CombatZone_html"><div class="ttname"><a href="structcore_1_1CombatZone.html">core::CombatZone</a></div><div class="ttdoc">Une zone de combat : son nom, son coin haut-gauche, sa taille.</div><div class="ttdef"><b>Definition</b> CombatZone.h:47</div></div>
+<div class="ttc" id="astructcore_1_1EncounterRun_html"><div class="ttname"><a href="structcore_1_1EncounterRun.html">core::EncounterRun</a></div><div class="ttdoc">Une rencontre engagée : ce qu&#39;on restituera, et ce qu&#39;une victoire acquerra.</div><div class="ttdef"><b>Definition</b> CombatTransition.h:73</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterResult_html"><div class="ttname"><a href="structcore_1_1MapEncounterResult.html">core::MapEncounterResult</a></div><div class="ttdoc">Ce que la préparation a donné : un montage, ou la raison du refus.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:58</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterResult_html_a565072d180d6ecb2dd128fb6f7d93f3e"><div class="ttname"><a href="structcore_1_1MapEncounterResult.html#a565072d180d6ecb2dd128fb6f7d93f3e">core::MapEncounterResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> MapEncounter.h:63</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterResult_html_aefe65775d53544f7a0777e36512d006e"><div class="ttname"><a href="structcore_1_1MapEncounterResult.html#aefe65775d53544f7a0777e36512d006e">core::MapEncounterResult::issue</a></div><div class="ttdeci">std::string issue</div><div class="ttdoc">Vide si setup est là ; sinon, ce qui manque à la carte pour accueillir ce combat.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:61</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterResult_html_af1457b444d7db525d9220a9f9bda9e08"><div class="ttname"><a href="structcore_1_1MapEncounterResult.html#af1457b444d7db525d9220a9f9bda9e08">core::MapEncounterResult::setup</a></div><div class="ttdeci">std::optional&lt; MapEncounterSetup &gt; setup</div><div class="ttdef"><b>Definition</b> MapEncounter.h:59</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterSetup_html"><div class="ttname"><a href="structcore_1_1MapEncounterSetup.html">core::MapEncounterSetup</a></div><div class="ttdoc">Une rencontre prête à monter sur la carte : la zone choisie, la grille, les places.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:44</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterSetup_html_a2a260ee37775c11ad49c185e03aa727a"><div class="ttname"><a href="structcore_1_1MapEncounterSetup.html#a2a260ee37775c11ad49c185e03aa727a">core::MapEncounterSetup::run</a></div><div class="ttdeci">EncounterRun run</div><div class="ttdoc">La rencontre engagée ; ses placements sont en cases de la grille.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:52</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterSetup_html_a349f92b4df64ecdfd4451b6c87e63f26"><div class="ttname"><a href="structcore_1_1MapEncounterSetup.html#a349f92b4df64ecdfd4451b6c87e63f26">core::MapEncounterSetup::zone</a></div><div class="ttdeci">CombatZone zone</div><div class="ttdoc">La zone de combat de la carte, en cases de la carte.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:46</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterSetup_html_a614f3c87efc042b717b4802c0f16ad3f"><div class="ttname"><a href="structcore_1_1MapEncounterSetup.html#a614f3c87efc042b717b4802c0f16ad3f">core::MapEncounterSetup::battlefield</a></div><div class="ttdeci">Level battlefield</div><div class="ttdoc">La carte réduite à la zone : la grille tactique.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:48</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterSetup_html_aac811ae5d0f375e0d54af3864e2c7003"><div class="ttname"><a href="structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003">core::MapEncounterSetup::notes</a></div><div class="ttdeci">std::vector&lt; std::string &gt; notes</div><div class="ttdoc">Ce qui a dû être déplacé pour tenir dans la zone, en clair : lu par le journal.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:54</div></div>
+<div class="ttc" id="astructcore_1_1MapEncounterSetup_html_ab4ca32b273e4664960e7ff689cb166a3"><div class="ttname"><a href="structcore_1_1MapEncounterSetup.html#ab4ca32b273e4664960e7ff689cb166a3">core::MapEncounterSetup::heroCell</a></div><div class="ttdeci">GridPosition heroCell</div><div class="ttdoc">Où le héros se dresse, en cases de la grille.</div><div class="ttdef"><b>Definition</b> MapEncounter.h:50</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_bc520fdc8f4eadff60f94f8b29441948.html">Combat</a></li><li class="navelem"><a href="MapEncounter_8h.html">MapEncounter.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

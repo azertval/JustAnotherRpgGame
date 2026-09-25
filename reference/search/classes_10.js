@@ -9,12 +9,14 @@ var searchData=
   ['regionpopulation_6',['RegionPopulation',['../structcore_1_1RegionPopulation.html',1,'core']]],
   ['regionspeciesshare_7',['RegionSpeciesShare',['../structcore_1_1RegionSpeciesShare.html',1,'core']]],
   ['regionstatistic_8',['RegionStatistic',['../structcore_1_1RegionStatistic.html',1,'core']]],
-  ['rhicontext_9',['RhiContext',['../structhmi_1_1RhiContext.html',1,'hmi']]],
-  ['rolleddamage_10',['RolledDamage',['../structcore_1_1RolledDamage.html',1,'core']]],
-  ['rpgactor_11',['RpgActor',['../structcore_1_1RpgActor.html',1,'core']]],
-  ['rpgcontentblock_12',['RpgContentBlock',['../structhmi_1_1RpgContentBlock.html',1,'hmi']]],
-  ['rpgfield_13',['RpgField',['../structhmi_1_1RpgField.html',1,'hmi']]],
-  ['rpgscreendescriptor_14',['RpgScreenDescriptor',['../structhmi_1_1RpgScreenDescriptor.html',1,'hmi']]],
-  ['rpgscreenlayout_15',['RpgScreenLayout',['../structhmi_1_1RpgScreenLayout.html',1,'hmi']]],
-  ['runingamechoice_16',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]]
+  ['resolvedfigure_9',['ResolvedFigure',['../structhmi_1_1ResolvedFigure.html',1,'hmi']]],
+  ['rhicontext_10',['RhiContext',['../structhmi_1_1RhiContext.html',1,'hmi']]],
+  ['rolleddamage_11',['RolledDamage',['../structcore_1_1RolledDamage.html',1,'core']]],
+  ['rpgactor_12',['RpgActor',['../structcore_1_1RpgActor.html',1,'core']]],
+  ['rpgcontentblock_13',['RpgContentBlock',['../structhmi_1_1RpgContentBlock.html',1,'hmi']]],
+  ['rpgfield_14',['RpgField',['../structhmi_1_1RpgField.html',1,'hmi']]],
+  ['rpgscreendescriptor_15',['RpgScreenDescriptor',['../structhmi_1_1RpgScreenDescriptor.html',1,'hmi']]],
+  ['rpgscreenlayout_16',['RpgScreenLayout',['../structhmi_1_1RpgScreenLayout.html',1,'hmi']]],
+  ['runingamechoice_17',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]],
+  ['running_18',['Running',['../structhmi_1_1CombatCueTrack_1_1Running.html',1,'hmi::CombatCueTrack']]]
 ];

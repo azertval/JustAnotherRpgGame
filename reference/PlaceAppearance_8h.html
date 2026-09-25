@@ -189,13 +189,13 @@ Enumerations</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce qu'un <b>lieu</b> met sur une case : la table qui traduit un type de tuile en pièce de la planche de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt">LOT-09</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md91"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md96"></a>
 La règle, décidée le 17 septembre 2026 (<em>décision de l'auteur</em>)</h2>
 <ul>
 <li><b>Le sol</b> vient du <b>type de tuile</b> de la couche « sol », traduit par cette table : un sable donne <span class="tt">sand</span>, <span class="tt">sand-2</span> ou <span class="tt">sand-3</span>, la variante choisie par la case elle-même, toujours la même pour la même case. Le sol est dense — sept mille cases pour le Colisée —, et le nommer à la case rendrait la carte illisible et son tracé interminable.</li>
 <li><b>Le relief</b> (murs, torches, bancs, arches, gradins) nomme sa pièce <b>à la case</b>. Le relief est rare et voulu : c'est là que l'auteur décide. À défaut, le type de la case de décor donne la pièce par cette même table.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md97"></a>
 Depuis le format v4 (<span class="tt">LOT-EDITOR-12</span>)</h2>
 <p>Toute case de couche peut nommer sa pièce (<span class="tt"><a class="el" href="structcore_1_1TileLayer.html#a0cdb34b3f33328678990793c5cea22a0" title="Pièce nommée par case, ligne par ligne ; vide si aucune case n&#39;en nomme.">core::TileLayer::pieces</a></span>), le sol comme le relief : une carte faite à la main les nomme toutes, et la table ne sert plus que de <b>défaut</b> — celui des cartes générées, et d'une case sans pièce. Lue par <span class="tt">loadFromFile</span>, la table prend aussi le <b>manifeste</b> rangé à côté d'elle (<span class="tt">manifest.json</span>) : les anciens noms des pièces (<span class="tt">aliases</span>), pour qu'une carte qui cite une pièce renommée la montre encore, et leurs <b>emprises</b>, pour que la composition trie une pièce large au pied de son emprise (<span class="tt"><a class="el" href="namespacecore.html#ad7128ed31a6cefa3183c61467c636053">core::footprintFootCorner</a></span>). </p>
 </div></div><!-- contents -->

@@ -99,6 +99,10 @@ enum class DialogueActionKind {
     /// dialogue ne sait pas ce qu'est un combat â il le demande, et c'est l'interface qui ouvre le
     /// ColisÃ©e (`core::DialogueListener::startCombat`).
     StartCombat,
+    /// **Engage une rencontre sur la carte** (`LOT-118`) : le maÃ®tre d'arÃ¨ne lance le combat nommÃ©
+    /// par `target`, ici mÃªme, sur la zone de combat de la carte
+    /// (`core::DialogueListener::startEncounter`).
+    StartEncounter,
 };
 
 /// @brief Un effet d'un nÅud d'action.
@@ -318,6 +322,11 @@ public:
 <span style = "background-color:#dfd">    virtual void startCombat(std::string_view arenaId) {</span>
         static_cast&lt;void&gt;(arenaId);
 <span style = "background-color:#dfd">    }</span>
+    /// Le PNJ engage la rencontre @p encounterId sur la carte (`LOT-118`). Sans effet par dÃ©faut,
+    /// pour la mÃªme raison que `startCombat`.
+<span style = "background-color:#fdd">    virtual void startEncounter(std::string_view encounterId) {</span>
+        static_cast&lt;void&gt;(encounterId);
+<span style = "background-color:#fdd">    }</span>
 };
 
 /**

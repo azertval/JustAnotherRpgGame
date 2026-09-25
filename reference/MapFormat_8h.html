@@ -203,7 +203,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>La garde du format de carte v4 : la <b>migration</b> d'une carte et le <b>contrôle</b> de toutes (<span class="tt">LOT-EDITOR-12</span>, constat A12, <span class="tt">EX-EDIT-062</span>). </p>
 <p>Logique pure, sans fenêtre.</p>
 <p>Ce que <span class="tt">LevelEditor --migrate</span> et <span class="tt">LevelEditor --check</span> appellent (<span class="tt">runMapCommand</span>), et ce que les tests appellent directement. Les messages sont en anglais, comme toute l'IHM de l'éditeur.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md69"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md72"></a>
 La migration</h2>
 <p>Une carte se convertit par un acte explicite, jamais par l'effet de bord d'un enregistrement (règle 1 de la feuille de route). Migrer une carte, c'est :</p>
 <ol type="1">
@@ -213,7 +213,7 @@ La migration</h2>
 <li><b>déduire la collision</b> (<span class="tt"><a class="el" href="namespacecore.html#a3322a01062af04e9242df68f744c142f" title="Déduit la grille de collision d&#39;une carte.">core::deriveCollision</a></span>) : partout où la grille écrite s'accorde avec la déduction, elle en prend la valeur ; ailleurs, elle garde la sienne et la case devient <b>forcée</b> (D10). Le jeu ne voit donc aucune différence ;</li>
 <li>l'écrire en v4 canonique.</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md70"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md73"></a>
 Le contrôle</h2>
 <p>Pour chaque carte de <span class="tt">Levels/</span> : version courante, écriture canonique (charger puis écrire rend le même fichier), références (portails, points d'arrivée, zones de combat), pièces présentes au manifeste, collision égale à la déduction hors des cases forcées, identifiants d'entité. Les avertissements ne font pas échouer : réserve de hauteur non nulle, pièce citée par un ancien nom, gêne et abri pas encore joués, case forcée inutile, pièces larges qui se recouvrent.</p>
 <p>Puis le <b>contenu</b> (<span class="tt">LOT-EDITOR-07</span>, <span class="tt"><a class="el" href="ContentCheck_8h.html" title="Le contrôle du contenu : ce qu&#39;une carte promet au joueur et ne tient pas (LOT-EDITOR-07).">ContentCheck.h</a></span>) : références des entités, terrain des rencontres, atteignabilité, portails sans retour, points d'arrivée orphelins, clés de traduction. </p>

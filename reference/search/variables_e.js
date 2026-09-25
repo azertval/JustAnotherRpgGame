@@ -18,7 +18,7 @@ var searchData=
   ['nodes_15',['nodes',['../structcore_1_1DialogueGraph.html#ab69f79e0bcd11a1eba05ee928ffe1af4',1,'core::DialogueGraph::nodes'],['../structhmi_1_1WorldGraphLayout.html#ad1dd839cd1c8dc313ab4fb23fae55624',1,'hmi::WorldGraphLayout::nodes']]],
   ['normal_16',['normal',['../structcore_1_1AttackRange.html#aaf80314fc3103e2b11aaedea23769239',1,'core::AttackRange']]],
   ['note_17',['note',['../structhmi_1_1MapSite.html#a510c22962173039523718b3c269cd69c',1,'hmi::MapSite']]],
-  ['notes_18',['notes',['../structhmi_1_1EditorSidecar.html#aac086eb4b9d3d8a7e675f090b04abc1d',1,'hmi::EditorSidecar']]],
+  ['notes_18',['notes',['../structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003',1,'core::MapEncounterSetup::notes'],['../structhmi_1_1EditorSidecar.html#aac086eb4b9d3d8a7e675f090b04abc1d',1,'hmi::EditorSidecar::notes']]],
   ['noteschanged_19',['notesChanged',['../structhmi_1_1GestureScriptResult.html#ad836e90a322e87efa46d67765b881eb1',1,'hmi::GestureScriptResult']]],
   ['npc_5fdialogue_5fproperty_20',['NPC_DIALOGUE_PROPERTY',['../namespacecore.html#ae2e3fb1ff10ddbebb4cdf1b1636afb25',1,'core']]],
   ['npc_5fentity_5ftype_21',['NPC_ENTITY_TYPE',['../namespacecore.html#a9d88411f2638378a427c3aeb435d7590',1,'core']]],

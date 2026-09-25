@@ -1,0 +1,226 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: Member List</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1CombatModel.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::CombatModel Member List</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>This is the complete list of members for <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">_cursor</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a5bb550fd48b8b41da51896c3f846cde5">_followed</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a2f5adcd17ddce5510db63ebd1ebab1ba">_inCombat</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a60afba8e11be5d58221b45362f248b28">_selectedAction</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">_session</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a2975c8788ba21ade4fb9cf95f1ce94e7">_status</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a431471d166df8e9c8bff480661431a32">acceptsInput</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">activeName</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a4bd9855ac0f60fd65439cc587255f538">activeName</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">activeResources</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aa7450e23f16409d219a9a6df2f496270">activeResources</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aed34c3f2684232f6bcfed8d8f7d310a8">attackAt</a>(core::CombatantId target, std::optional&lt; std::size_t &gt; index)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6">behaviors</a>() const =0</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a60e5f4979407e04f7002d15d09a55a28">centerCursor</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a375a449b2263ba22ebbd6cb6365698b1">CombatModel</a>(QObject *parent=nullptr)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">combatSceneChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a1fe76f11f719e82a0dbec52ed632964f">confirm</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">signal</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166">cursorColumn</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aa30c130f09b7ccfd87e9f8213e08f9a5">cursorColumn</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657">cursorRow</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a8df30784e3da44ca77d94fe704570a26">cursorRow</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a8001d3ead9a9892c0b8503de8435a46e">cycleAction</a>(int step)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a7cbe1e750d67f3dca6127266477e532f">cycleTarget</a>(int step)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a057edc09f89a9359ee7be7a2eb6a908d">dash</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#adb350a2b14066146e7e9ccbb67e939c5">disengage</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a5a8148ce0aa7461b391a0dc9d860269f">dodge</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a0659205d31e32dd04ec35d5e15bca4bc">emitSceneChanged</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">ended</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a2e1469578f5c8d5c940c868d4bab6b9a">ended</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#abbc848a493b901b8247047479adde65c">endTurn</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">fighters</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a31677c4709ecb6169a11c0865d582514">fighters</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a0489feee39e33f36c4957f5f3ab4815f">followActive</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">gridColumns</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a06c71e2e83b0b0af4f9da87c1d72f9e6">gridColumns</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">gridRows</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a0b18309c2caeec817bd0d5bdbddb39ee">gridRows</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a1e302adff6695db2af43dd1ee34e0e55">inCombat</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0">inCombat</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">journal</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a10f0e984bb25dbff698e7ebfe924992b">journal</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a7ac0389079eca6646ead97c235560b92">loadHeroSource</a>(std::vector&lt; std::string &gt; &amp;problems)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a234d461f5bc449647b3d504ace6f7748">moveCursor</a>(int columns, int rows)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a96e8a89ff900657a0eb2ac543979cd2f">moveTo</a>(core::GridPosition cell)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">pathCells</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a523b7a10a810f676a0b1aa8e761bd401">pathCells</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a48b48d90132a0266125966b8081ee0a6">playAiTurns</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#ae51c20277b8bb768da16512a7fde305b">playerTurn</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a307c768d3d7638c957d5dbac0c614dc2">playOneAiTurn</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#ab13311c4dd097f0f857ddd713daf54a1">pointCursor</a>(int column, int row)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">preview</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a04a61dcdbca5dad8ad180d50a4617057">preview</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">reachableCells</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a712a958e9634e0e59dc95974072f3aac">reachableCells</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#ac16debc0e77c3a6845d60f10f3c3e69d">refreshMessage</a>(const core::ArenaMount &amp;mount)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#abab2695bc63463da0d99e1993359f9d0">selectAction</a>(int index)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a7d806f9c080a3752b94021d5fb5d74e1">session</a>() const noexcept</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">status</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a5a21cf9616ec5929ae35e8c55d54fbab">status</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a8bfa8c55ac43a21eb05a1dcd1ae62afb">tapCell</a>(int column, int row)</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">turnActions</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a08903ad418bc14692d1139406f540cc2">turnActions</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">turnOrder</a></td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#a4cdf87c995d1fb5be7fbfd2a1e8e8691">turnOrder</a>() const</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#ad9d7bb4ae728f4a78767e7c79d563a17">withdraw</a>()</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html#afe95b8b2529f24a21a840733061c7f29">~CombatModel</a>() override</td><td class="entry"><a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

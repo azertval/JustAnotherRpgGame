@@ -272,6 +272,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point de la grille, en <b>demi-cases</b> : la case (c, r) va de (2c, 2r) à (2c+2, 2r+2).  <a href="structcore_1_1GridPoint.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Footprint" id="r_Footprint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Footprint.html">Footprint</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une emprise carrée : coin haut-gauche et côté, en cases.  <a href="structcore_1_1Footprint.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapEncounterSetup" id="r_MapEncounterSetup"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MapEncounterSetup.html">MapEncounterSetup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une rencontre prête à monter sur la carte : la zone choisie, la grille, les places.  <a href="structcore_1_1MapEncounterSetup.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapEncounterResult" id="r_MapEncounterResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MapEncounterResult.html">MapEncounterResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la préparation a donné : un montage, ou la raison du refus.  <a href="structcore_1_1MapEncounterResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Mover" id="r_Mover"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Mover.html">Mover</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui se déplace, comment, et à travers qui.  <a href="structcore_1_1Mover.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Path" id="r_Path"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Path.html">Path</a></td></tr>
@@ -595,6 +599,8 @@ Classes</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a838239698e3440af150c5de8127b830e" id="r_a838239698e3440af150c5de8127b830e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a838239698e3440af150c5de8127b830e">OpportunityPolicy</a></td></tr>
 <tr class="memdesc:a838239698e3440af150c5de8127b830e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre.  <br /></td></tr>
+<tr class="memitem:a9ae3355e126e768022cd22fffaeabd25" id="r_a9ae3355e126e768022cd22fffaeabd25"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a9ae3355e126e768022cd22fffaeabd25">MoveObserver</a> = std::function&lt;void(<a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const <a class="el" href="structcore_1_1Path.html">Path</a>&amp; path)&gt;</td></tr>
+<tr class="memdesc:a9ae3355e126e768022cd22fffaeabd25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran veut savoir d'un pas : qui a marché, par où (<span class="tt">LOT-118</span>).  <br /></td></tr>
 <tr class="memitem:a70920b2a35cc8c7a80281c47514c3d97" id="r_a70920b2a35cc8c7a80281c47514c3d97"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a70920b2a35cc8c7a80281c47514c3d97">AttackRollListener</a> = std::function&lt;void(<a class="el" href="structcore_1_1AttackRoll.html">AttackRoll</a>&amp;, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a>&amp;)&gt;</td></tr>
 <tr class="memdesc:a70920b2a35cc8c7a80281c47514c3d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point d'insertion d'un jet d'attaque.  <br /></td></tr>
 <tr class="memitem:aec8883b9ba0315c5d8d5b710a34d03d4" id="r_aec8883b9ba0315c5d8d5b710a34d03d4"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a> = std::function&lt;void(<a class="el" href="classcore_1_1CombatState.html">CombatState</a>&amp;, const <a class="el" href="structcore_1_1CombatEvent.html">CombatEvent</a>&amp;)&gt;</td></tr>
@@ -942,6 +948,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2">StartQuest</a>
 , <br />
 &#160;&#160;<a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159">StartCombat</a>
+, <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aae1dbf957fd7a423de4c11a60fc2d680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un nœud d'action fait au monde.  <a href="#aae1dbf957fd7a423de4c11a60fc2d680">More...</a><br /></td></tr>
@@ -1339,6 +1346,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aad39b76c276fcbb0b8c5244b4ce4b3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le centre de la case.  <br /></td></tr>
 <tr class="memitem:aac10188449066631157dad14349a01eb" id="r_aac10188449066631157dad14349a01eb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aac10188449066631157dad14349a01eb">coverBonus</a> (<a class="el" href="#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a> cover) noexcept</td></tr>
 <tr class="memdesc:aac10188449066631157dad14349a01eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bonus d'un abri à la CA et aux sauvegardes de Dextérité : 0, +2, +5 ; 0 pour l'abri total, qui n'est pas un bonus mais une interdiction.  <br /></td></tr>
+<tr class="memitem:ac14ba4055ac79b8a654e3cae12fb5cd8" id="r_ac14ba4055ac79b8a654e3cae12fb5cd8"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac14ba4055ac79b8a654e3cae12fb5cd8">zoneToMap</a> (const <a class="el" href="structcore_1_1CombatZone.html">CombatZone</a> &amp;zone, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) noexcept</td></tr>
+<tr class="memitem:a844958a3d0bb764490fb2085e010f1b5" id="r_a844958a3d0bb764490fb2085e010f1b5"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a844958a3d0bb764490fb2085e010f1b5">mapToZone</a> (const <a class="el" href="structcore_1_1CombatZone.html">CombatZone</a> &amp;zone, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) noexcept</td></tr>
+<tr class="memitem:acedbd9be2b83f7c6219a695e97819da5" id="r_acedbd9be2b83f7c6219a695e97819da5"><td class="memItemLeft"><a class="el" href="structcore_1_1MapEncounterResult.html">MapEncounterResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#acedbd9be2b83f7c6219a695e97819da5">prepareMapEncounter</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;map, std::string_view mapId, const <a class="el" href="structcore_1_1Encounter.html">Encounter</a> &amp;encounter, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> trigger, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> heroCell, const <a class="el" href="structcore_1_1ExplorationSnapshot.html">ExplorationSnapshot</a> &amp;exploration, std::string defeatFlagKey)</td></tr>
+<tr class="memdesc:acedbd9be2b83f7c6219a695e97819da5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prépare <code class="param">encounter</code> sur <code class="param">map</code>, déclenchée en <code class="param">trigger</code>, le héros en <code class="param">heroCell</code>.  <br /></td></tr>
 <tr class="memitem:a29156af7de7653ab4fa06d96b0c881a1" id="r_a29156af7de7653ab4fa06d96b0c881a1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a29156af7de7653ab4fa06d96b0c881a1">movementBudget</a> (float speedMeters) noexcept</td></tr>
 <tr class="memdesc:a29156af7de7653ab4fa06d96b0c881a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le budget de déplacement d'une vitesse de <code class="param">speedMeters</code>, en cases entières.  <br /></td></tr>
 <tr class="memitem:aab76f284d12a5c2f1ac73c818061a142" id="r_aab76f284d12a5c2f1ac73c818061a142"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aab76f284d12a5c2f1ac73c818061a142">movementBudget</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet) noexcept</td></tr>
@@ -1964,6 +1975,23 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9ae3355e126e768022cd22fffaeabd25" name="a9ae3355e126e768022cd22fffaeabd25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ae3355e126e768022cd22fffaeabd25">&#9670;&#160;</a></span>MoveObserver</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a9ae3355e126e768022cd22fffaeabd25">core::MoveObserver</a> = std::function&lt;void(<a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const <a class="el" href="structcore_1_1Path.html">Path</a>&amp; path)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que l'écran veut savoir d'un pas : qui a marché, par où (<span class="tt">LOT-118</span>). </p>
+<p>Le journal note déjà chaque pas en clair ; l'écran, lui, veut le <b>chemin</b> pour faire marcher la figurine case par case — un tour de l'IA se joue d'un bloc, et sans ce crochet il ne resterait que des positions d'arrivée, ce qui se lit comme une téléportation. </p>
+
+</div>
+</div>
 <a id="a838239698e3440af150c5de8127b830e" name="a838239698e3440af150c5de8127b830e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a838239698e3440af150c5de8127b830e">&#9670;&#160;</a></span>OpportunityPolicy</h2>
 
@@ -1977,7 +2005,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> </div>
 <div class="line">std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">ArenaSession</a>&amp;, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover)&gt;</div>
-<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:228</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:240</div></div>
 <div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
 </div><!-- fragment -->
 <p>Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre. </p>
@@ -2882,6 +2910,8 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159" name="aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159"></a>StartCombat&#160;</td><td class="fielddoc"><p><b>Envoie sur le sable</b> (<span class="tt">LOT-09</span>) : le héraut ouvre l'arène nommée par <span class="tt">target</span>. </p>
 <p>Le dialogue ne sait pas ce qu'est un combat — il le demande, et c'est l'interface qui ouvre le Colisée (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a6ce049b4a2a48f8ac02c979a3caf0c14" title="Le PNJ l&#39;envoie se battre dans l&#39;arène arenaId (LOT-09).">core::DialogueListener::startCombat</a></span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5" name="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5"></a>StartEncounter&#160;</td><td class="fielddoc"><p><b>Engage une rencontre sur la carte</b> (<span class="tt">LOT-118</span>) : le maître d'arène lance le combat nommé par <span class="tt">target</span>, ici même, sur la zone de combat de la carte (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#af3fc38d5eeefa7f78c3abd838f43728f" title="Le PNJ engage la rencontre encounterId sur la carte (LOT-118).">core::DialogueListener::startEncounter</a></span>). </p>
 </td></tr>
 </table>
 
@@ -4432,7 +4462,7 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div><div class="memdoc">
 
 <p>Vrai si <code class="param">first</code> joue avant <code class="param">second</code>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 La règle de départage</h2>
 <p>Manuel des Joueurs, « Initiative » (PDF p. 191) : les combattants se classent du plus haut résultat au plus bas, et « en cas d'égalité », c'est le MD qui tranche entre ses créatures, les joueurs entre leurs personnages, et le MD encore entre un monstre et un personnage. Le jeu n'a pas de MD : la règle doit être <b>écrite</b>, et elle ne peut pas dépendre de l'ordre dans lequel les combattants ont été rangés en mémoire (<span class="tt">EX-CBT-010</span>). Dans l'ordre :</p>
 <ol type="1">
@@ -4789,10 +4819,10 @@ La règle de départage</h2>
 
 <p>Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide. </p>
 <p>Le combat se joue <b>sur la carte d'exploration</b> : une rencontre posée dans un couloir d'une case, ou dont la formation entre dans un mur, ne se découvrirait sinon qu'en jeu. Cette fonction le dit à l'auteur au moment où il pose.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
 Une seule règle pour « se tenir ici »</h2>
 <p>Les combattants sont posés sur une <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html" title="La grille tactique d&#39;une rencontre.">core::BattleGrid</a></span> construite depuis <code class="param">collision</code>, par <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html#ae717e61951843569c4bed5e1b9adba67" title="Place combatant, d&#39;emprise side × side, avec anchor pour coin haut-gauche.">core::BattleGrid::place</a></span>, dans l'ordre de la formation — ce que fait le montage (<span class="tt"><a class="el" href="#a5921fce291ef1e0650a91c91bc158a3e" title="Monte la rencontre run sur combat : le groupe, puis les créatures, dans cet ordre.">core::mountEncounter</a></span>). Un avertissement de l'éditeur et un refus au montage ne peuvent donc pas diverger. La zone est une <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span> : diagonales, coins de mur et terrain difficile y suivent la règle du <span class="tt">LOT-19</span>, sans seconde implémentation.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 Ce qu'elle ne vérifie pas</h2>
 <p>Une rencontre absente de <code class="param">encounters</code> est <b>ignorée</b> : un autre validateur la signale, et la signaler deux fois n'apprendrait rien. Une créature absente du bestiaire — ou un bestiaire absent — compte pour une emprise de taille M. Le groupe du joueur n'est pas posé : ses cases ne sont pas connues avant le jeu, et c'est la taille de la zone qui en répond.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5159,10 +5189,10 @@ Ce qu'elle ne vérifie pas</h2>
 </div><div class="memdoc">
 
 <p>Peint le marqueur d'une clé d'asset. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
 Pourquoi un marqueur plutôt qu'une image manquante</h2>
 <p><span class="tt">EX-CNT-041</span> : le jeu doit tourner <b>complet</b> avant qu'aucune illustration ne soit produite. Sans marqueur, trois cents entrées s'afficheraient comme des trous, la production graphique deviendrait un préalable bloquant, et rien ne pourrait être joué ni relu avant elle. Avec, elle devient un <b>remplacement progressif</b> : on remplace un marqueur par une image, une à la fois, et le jeu ne cesse jamais d'être jouable.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
 Déterministe, et c'est le point</h2>
 <p>La même clé donne <b>toujours</b> le même marqueur — même teinte, même figure. Un marqueur tiré au hasard changerait à chaque lancement : le loup ne serait plus reconnaissable d'une partie à l'autre, deux captures d'écran du même combat différeraient, et un test ne pourrait rien en dire. La teinte est donc dérivée de la clé elle-même, par un hachage stable écrit ici plutôt qu'emprunté à <span class="tt">std::hash</span>, dont la valeur n'est <b>pas</b> garantie d'une plateforme ou d'une version de bibliothèque à l'autre.</p>
 <p>Le marqueur reste <b>manifestement</b> un marqueur : deux diagonales barrent la vignette, de sorte qu'on ne le prenne jamais pour une illustration définitive livrée un peu vite.</p>
@@ -9529,6 +9559,36 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a844958a3d0bb764490fb2085e010f1b5" name="a844958a3d0bb764490fb2085e010f1b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a844958a3d0bb764490fb2085e010f1b5">&#9670;&#160;</a></span>mapToZone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::mapToZone </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CombatZone.html">CombatZone</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>zone</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><code class="param">cell</code>, exprimée en cases de la grille de <code class="param">zone</code> depuis les cases de la carte. </dd></dl>
+
+</div>
+</div>
 <a id="ae73047aa52884ecfd7eebb21af3990bb" name="ae73047aa52884ecfd7eebb21af3990bb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae73047aa52884ecfd7eebb21af3990bb">&#9670;&#160;</a></span>maximumHitPointsFor()</h2>
 
@@ -10751,6 +10811,80 @@ Déterministe, et c'est le point</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La position, ou <span class="tt">{0, 0}</span> si le chemin ne mène à rien. </dd></dl>
+
+</div>
+</div>
+<a id="acedbd9be2b83f7c6219a695e97819da5" name="acedbd9be2b83f7c6219a695e97819da5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acedbd9be2b83f7c6219a695e97819da5">&#9670;&#160;</a></span>prepareMapEncounter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MapEncounterResult.html">MapEncounterResult</a> core::prepareMapEncounter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>map</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Encounter.html">Encounter</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>encounter</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>trigger</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>heroCell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ExplorationSnapshot.html">ExplorationSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>exploration</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>defeatFlagKey</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prépare <code class="param">encounter</code> sur <code class="param">map</code>, déclenchée en <code class="param">trigger</code>, le héros en <code class="param">heroCell</code>. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
+La zone</h2>
+<p>La zone de combat qui <b>contient le déclencheur</b> ; à défaut, celle qui contient le héros ; à défaut, refus — un combat sur la carte se joue sur une zone que l'éditeur a posée et contrôlée (<span class="tt"><a class="el" href="#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a></span>), jamais sur une fenêtre inventée autour du héros, qui mettrait la moitié d'une maison dans la grille.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+Les places</h2>
+<p>Le héros garde sa case si elle est dans la zone et libre ; sinon la case libre de la zone la plus proche de lui. Chaque combattant de la rencontre garde la case que sa formation lui donne autour du déclencheur (<span class="tt"><a class="el" href="#a63e47d6c989b07bf0c2c7e0a568d1e02" title="Place les combattants d&#39;une rencontre autour de trigger.">core::placeCombatants</a></span>) si elle est dans la zone, libre et inoccupée ; sinon la case libre la plus proche de celle qu'il voulait. Une place déplacée se note : le journal du combat le dira, plutôt que de laisser croire que la formation a été respectée.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>La carte courante, entière. </td></tr>
+    <tr><td class="paramname">mapId</td><td>Son identifiant : les clés de drapeau et les refus le citent. </td></tr>
+    <tr><td class="paramname">encounter</td><td>La rencontre, telle que la donnée la décrit. </td></tr>
+    <tr><td class="paramname">trigger</td><td>La case du déclencheur (le PNJ qui lance le combat, l'entité <span class="tt">encounter</span>). </td></tr>
+    <tr><td class="paramname">heroCell</td><td>La case du héros au moment du déclenchement. </td></tr>
+    <tr><td class="paramname">exploration</td><td>L'état d'exploration à retrouver ensuite. </td></tr>
+    <tr><td class="paramname">defeatFlagKey</td><td>Le drapeau qu'une victoire acquerra, ou une chaîne vide. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -12900,6 +13034,36 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Les cases que couvre la zone <code class="param">entity</code> : ses cases peintes si elle en a, sinon son rectangle (<span class="tt">width</span> × <span class="tt">height</span>, 1 × 1 par défaut) depuis sa case. </p>
+
+</div>
+</div>
+<a id="ac14ba4055ac79b8a654e3cae12fb5cd8" name="ac14ba4055ac79b8a654e3cae12fb5cd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac14ba4055ac79b8a654e3cae12fb5cd8">&#9670;&#160;</a></span>zoneToMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> core::zoneToMap </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CombatZone.html">CombatZone</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>zone</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd><code class="param">cell</code>, exprimée en cases de la carte depuis les cases de la grille de <code class="param">zone</code>. </dd></dl>
 
 </div>
 </div>

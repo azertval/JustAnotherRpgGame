@@ -153,10 +153,16 @@ $(function(){initNavTree('ExecutableDirectory_8h_source.html','',''); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>[[nodiscard]] std::filesystem::path <a class="code hl_function" href="namespacehmi.html#a18648161d8a6c752202b6034613a947b">executableDirectory</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>[[nodiscard]] std::filesystem::path <a class="code hl_function" href="namespacehmi.html#ac4538343a88b7e915fb235efd065ee66">dataDirectory</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacehmi.html#a28a6976343b0b83ab23ebc7445739983">setDataDirectory</a>(std::filesystem::path directory);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}  <span class="comment">// namespace hmi</span></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
-<div class="ttc" id="anamespacehmi_html_a18648161d8a6c752202b6034613a947b"><div class="ttname"><a href="namespacehmi.html#a18648161d8a6c752202b6034613a947b">hmi::executableDirectory</a></div><div class="ttdeci">std::filesystem::path executableDirectory()</div><div class="ttdoc">Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...</div><div class="ttdef"><b>Definition</b> ExecutableDirectory.cpp:12</div></div>
+<div class="ttc" id="anamespacehmi_html_a18648161d8a6c752202b6034613a947b"><div class="ttname"><a href="namespacehmi.html#a18648161d8a6c752202b6034613a947b">hmi::executableDirectory</a></div><div class="ttdeci">std::filesystem::path executableDirectory()</div><div class="ttdoc">Dossier contenant l&#39;exécutable en cours, pour localiser les ressources copiées à côté (niveaux,...</div><div class="ttdef"><b>Definition</b> ExecutableDirectory.cpp:28</div></div>
+<div class="ttc" id="anamespacehmi_html_a28a6976343b0b83ab23ebc7445739983"><div class="ttname"><a href="namespacehmi.html#a28a6976343b0b83ab23ebc7445739983">hmi::setDataDirectory</a></div><div class="ttdeci">void setDataDirectory(std::filesystem::path directory)</div><div class="ttdoc">Impose le dossier du contenu ; vide : celui de l&#39;exécutable. À appeler avant tout modèle.</div><div class="ttdef"><b>Definition</b> ExecutableDirectory.cpp:24</div></div>
+<div class="ttc" id="anamespacehmi_html_ac4538343a88b7e915fb235efd065ee66"><div class="ttname"><a href="namespacehmi.html#ac4538343a88b7e915fb235efd065ee66">hmi::dataDirectory</a></div><div class="ttdeci">std::filesystem::path dataDirectory()</div><div class="ttdoc">Le dossier du contenu du jeu : cartes, assets, monde, dialogues, rencontres.</div><div class="ttdef"><b>Definition</b> ExecutableDirectory.cpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

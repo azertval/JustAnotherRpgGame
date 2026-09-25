@@ -20,5 +20,5 @@ var searchData=
   ['noteat_17',['noteAt',['../namespacehmi.html#a55dd038af95137b5be885aade862d10e',1,'hmi']]],
   ['notedistrictvisit_18',['noteDistrictVisit',['../classhmi_1_1WorldModel.html#adc66b2547875ba03914fe3186cd9e7c4',1,'hmi::WorldModel']]],
   ['noterequested_19',['noteRequested',['../classhmi_1_1EditorViewport.html#a19f4cbb148843da2d058891d846ac467',1,'hmi::EditorViewport']]],
-  ['npcfigures_20',['npcFigures',['../namespacehmi.html#a7a8f2888417ba2cd0c8440905f9e209a',1,'hmi']]]
+  ['npcfigures_20',['npcFigures',['../namespacehmi.html#af4b383c877918f88e8a772b02f424e9c',1,'hmi']]]
 ];

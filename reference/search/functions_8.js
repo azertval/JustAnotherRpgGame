@@ -5,7 +5,7 @@ var searchData=
   ['image_2',['image',['../classhmi_1_1SceneImages.html#a6b59a31edca44c697fc4102963edcc42',1,'hmi::SceneImages::image()'],['../classhmi_1_1PendingData.html#a75b5e02b0b0dac7714007edce975014a',1,'hmi::PendingData::image()']]],
   ['imagerect_3',['imageRect',['../classhmi_1_1MiniMap.html#a140d99d5ebfb2123ddaf6237a1666ea7',1,'hmi::MiniMap']]],
   ['inbounds_4',['inBounds',['../classcore_1_1BattleGrid.html#af14ee1f54d1bb850979ff7c207345546',1,'core::BattleGrid::inBounds()'],['../classcore_1_1TileMap.html#ac10e33912267325df3143dca05c71e9e',1,'core::TileMap::inBounds()']]],
-  ['incombat_5',['inCombat',['../classhmi_1_1ArenaModel.html#a374ea4c53d4cc4792aff53d129938953',1,'hmi::ArenaModel']]],
+  ['incombat_5',['inCombat',['../classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0',1,'hmi::CombatModel']]],
   ['increase_6',['increase',['../structcore_1_1Species.html#a6968591f59f98ee8d5586f8c6c8d9b06',1,'core::Species']]],
   ['increment_7',['increment',['../classcore_1_1ScopedCounters.html#ab96f9cad1a43e65d3145b93d2cc9d296',1,'core::ScopedCounters']]],
   ['index_8',['index',['../classhmi_1_1StaticWorldScene.html#aff02e3a6f4b0f934bb509fae748354a3',1,'hmi::StaticWorldScene']]],

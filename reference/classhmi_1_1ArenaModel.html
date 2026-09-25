@@ -151,23 +151,18 @@ $(function(){initNavTree('classhmi_1_1ArenaModel.html','','classhmi_1_1ArenaMode
 Inheritance diagram for hmi::ArenaModel:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classhmi_1_1ArenaModel.png" alt=""/>
- </div></div>
+  <img src="classhmi_1_1ArenaModel.png" usemap="#hmi_3A_3AArenaModel_map" alt=""/>
+  <map id="hmi_3A_3AArenaModel_map" name="hmi_3A_3AArenaModel_map">
+<area href="classhmi_1_1CombatModel.html" title="La vue-modèle d&#39;un combat monté : le curseur, les actions du tour, ce que la grille montre,..." alt="hmi::CombatModel" shape="rect" coords="0,56,114,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:Fighter" id="r_Fighter"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaModel_1_1Fighter.html">Fighter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant composé : ce que l'écran a choisi, prêt à devenir un <span class="tt"><a class="el" href="structcore_1_1ArenaContestant.html" title="Un combattant tel que l&#39;écran de mise en place le compose.">core::ArenaContestant</a></span>.  <a href="structhmi_1_1ArenaModel_1_1Fighter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Catalogs" id="r_Catalogs"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaModel_1_1Catalogs.html">Catalogs</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues chargés une fois, à la construction : le bestiaire, le personnage de démonstration et son bonus de maîtrise, les arènes, les Marques, et la carte de l'arène jouable.  <a href="structhmi_1_1ArenaModel_1_1Catalogs.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
-Signals</h2></td></tr>
-<tr class="memitem:a279bb9f9ff32e8573df589640baa7775" id="r_a279bb9f9ff32e8573df589640baa7775"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a> ()</td></tr>
-<tr class="memitem:a2e1aa2205397c83968b8571a02cdf1ca" id="r_a2e1aa2205397c83968b8571a02cdf1ca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2e1aa2205397c83968b8571a02cdf1ca">cursorChanged</a> ()</td></tr>
-<tr class="memdesc:a2e1aa2205397c83968b8571a02cdf1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le curseur, l'action choisie, la prévisualisation ou le chemin ont changé.  <br /></td></tr>
-<tr class="memitem:a6f08373bcc9dc0e0c113b8750a469c9c" id="r_a6f08373bcc9dc0e0c113b8750a469c9c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6f08373bcc9dc0e0c113b8750a469c9c">combatSceneChanged</a> ()</td></tr>
-<tr class="memdesc:a6f08373bcc9dc0e0c113b8750a469c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a></span> restreint à ce qui peut avoir mué la grille de combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>) s'y abonne seule, pour ne reprendre un instantané qu'à ces gestes-là plutôt qu'à chaque changement de composition.  <br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues chargés une fois, à la construction : le bestiaire, le héros de la démo, les arènes, les Marques, et la carte de l'arène jouable.  <a href="structhmi_1_1ArenaModel_1_1Catalogs.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -175,9 +170,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abd6c5f16972d1ceb542e31c887ae3339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit la vue-modèle et lit ses catalogues.  <br /></td></tr>
 <tr class="memitem:ab515f2b0d4366005ec69f536e7deb200" id="r_ab515f2b0d4366005ec69f536e7deb200"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab515f2b0d4366005ec69f536e7deb200">~ArenaModel</a> () override</td></tr>
 <tr class="memitem:a7f20d65584128c4760ca2c9ed6f482f2" id="r_a7f20d65584128c4760ca2c9ed6f482f2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7f20d65584128c4760ca2c9ed6f482f2">arenaName</a> () const</td></tr>
-<tr class="memitem:a70634985b47dd8d07fb06b5506aa7412" id="r_a70634985b47dd8d07fb06b5506aa7412"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a70634985b47dd8d07fb06b5506aa7412">status</a> () const</td></tr>
-<tr class="memitem:a374ea4c53d4cc4792aff53d129938953" id="r_a374ea4c53d4cc4792aff53d129938953"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a374ea4c53d4cc4792aff53d129938953">inCombat</a> () const noexcept</td></tr>
-<tr class="memitem:a9aa370be690b19fadfc5d329594ba7aa" id="r_a9aa370be690b19fadfc5d329594ba7aa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9aa370be690b19fadfc5d329594ba7aa">ended</a> () const</td></tr>
 <tr class="memitem:a0a3e0cf1eb7b6cc04f84774ddc8e2592" id="r_a0a3e0cf1eb7b6cc04f84774ddc8e2592"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a0a3e0cf1eb7b6cc04f84774ddc8e2592">roster</a> () const</td></tr>
 <tr class="memitem:ab0f540a5d480f6a8db94d077d467a8c7" id="r_ab0f540a5d480f6a8db94d077d467a8c7"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ab0f540a5d480f6a8db94d077d467a8c7">allies</a> () const</td></tr>
 <tr class="memitem:a08d9ac46ff3302893235a354fa1b070e" id="r_a08d9ac46ff3302893235a354fa1b070e"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a08d9ac46ff3302893235a354fa1b070e">enemies</a> () const</td></tr>
@@ -186,151 +178,162 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3565676b80507bd2896d9cdbe0fb35e1" id="r_a3565676b80507bd2896d9cdbe0fb35e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3565676b80507bd2896d9cdbe0fb35e1">setSeed</a> (int <a class="el" href="#a499fac0ee9101a006ed3631ac6054a95">seed</a>)</td></tr>
 <tr class="memitem:ae760a39be5aad06b75c5117a190fd29a" id="r_ae760a39be5aad06b75c5117a190fd29a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae760a39be5aad06b75c5117a190fd29a">enemyAi</a> () const noexcept</td></tr>
 <tr class="memitem:a94f84268e496a261f13c2ec6ecbcfa4c" id="r_a94f84268e496a261f13c2ec6ecbcfa4c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a94f84268e496a261f13c2ec6ecbcfa4c">setEnemyAi</a> (bool enabled)</td></tr>
-<tr class="memitem:aa0e867678253a828df3d9e0285fe8388" id="r_aa0e867678253a828df3d9e0285fe8388"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa0e867678253a828df3d9e0285fe8388">gridColumns</a> () const</td></tr>
-<tr class="memitem:a954d10c7baddb00eec90076dab3823ab" id="r_a954d10c7baddb00eec90076dab3823ab"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a954d10c7baddb00eec90076dab3823ab">gridRows</a> () const</td></tr>
-<tr class="memitem:a5c2a45ad51d9f91b33ce5e068d3dc0f2" id="r_a5c2a45ad51d9f91b33ce5e068d3dc0f2"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a5c2a45ad51d9f91b33ce5e068d3dc0f2">fighters</a> () const</td></tr>
-<tr class="memitem:a2e37f60f99e1181c36ed2aacc9bc453d" id="r_a2e37f60f99e1181c36ed2aacc9bc453d"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a2e37f60f99e1181c36ed2aacc9bc453d">reachableCells</a> () const</td></tr>
-<tr class="memitem:afce8085c245fd77be8f9ecb8342a4fa8" id="r_afce8085c245fd77be8f9ecb8342a4fa8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afce8085c245fd77be8f9ecb8342a4fa8">cursorColumn</a> () const noexcept</td></tr>
-<tr class="memitem:a17f6dabe6b31ffcf96dcf2f1e7dee5cb" id="r_a17f6dabe6b31ffcf96dcf2f1e7dee5cb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a17f6dabe6b31ffcf96dcf2f1e7dee5cb">cursorRow</a> () const noexcept</td></tr>
-<tr class="memitem:a5a700f8a7931c29c33e033712d734fac" id="r_a5a700f8a7931c29c33e033712d734fac"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a5a700f8a7931c29c33e033712d734fac">pathCells</a> () const</td></tr>
-<tr class="memitem:ad0721e1bdd4bbbb55ba7beaf560c2d23" id="r_ad0721e1bdd4bbbb55ba7beaf560c2d23"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ad0721e1bdd4bbbb55ba7beaf560c2d23">turnActions</a> () const</td></tr>
-<tr class="memitem:a1d84d702c7748c1b7a959266e53574c1" id="r_a1d84d702c7748c1b7a959266e53574c1"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a1d84d702c7748c1b7a959266e53574c1">preview</a> () const</td></tr>
-<tr class="memitem:a016f72453060a93bde1434bbeb84e261" id="r_a016f72453060a93bde1434bbeb84e261"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a016f72453060a93bde1434bbeb84e261">turnOrder</a> () const</td></tr>
-<tr class="memitem:aa6040d2c3469f086bfef2c8e14fa4966" id="r_aa6040d2c3469f086bfef2c8e14fa4966"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa6040d2c3469f086bfef2c8e14fa4966">activeName</a> () const</td></tr>
-<tr class="memitem:ae5bb010df517754e586fba82af97e3aa" id="r_ae5bb010df517754e586fba82af97e3aa"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae5bb010df517754e586fba82af97e3aa">activeResources</a> () const</td></tr>
-<tr class="memitem:a20d730990238a92cecdbe35c7c07bc19" id="r_a20d730990238a92cecdbe35c7c07bc19"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a20d730990238a92cecdbe35c7c07bc19">journal</a> () const</td></tr>
-<tr class="memitem:a7ba107cda5c93b00ace8ca975b602477" id="r_a7ba107cda5c93b00ace8ca975b602477"><td class="memItemLeft">const <a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7ba107cda5c93b00ace8ca975b602477">session</a> () const noexcept</td></tr>
-<tr class="memdesc:a7ba107cda5c93b00ace8ca975b602477"><td class="mdescLeft">&#160;</td><td class="mdescRight">La session, en lecture seule, pour la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>).  <br /></td></tr>
 <tr class="memitem:a7c7acd3a66990b76d075c13ebe254f35" id="r_a7c7acd3a66990b76d075c13ebe254f35"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a7c7acd3a66990b76d075c13ebe254f35">addAlly</a> (const QString &amp;id)</td></tr>
-<tr class="memdesc:a7c7acd3a66990b76d075c13ebe254f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enrôle une entrée du <span class="tt"><a class="el" href="#a9818ee89f3dfcc0b5b0a12c688d7ab27" title="Tout ce qu&#39;on peut enrôler : {id, name, kind, hitPoints, armorClass}.">roster</a></span> dans un camp. Sans effet pendant un combat.  <br /></td></tr>
 <tr class="memitem:a784a46ca0fcdc4976c4e88d59e788012" id="r_a784a46ca0fcdc4976c4e88d59e788012"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a784a46ca0fcdc4976c4e88d59e788012">addEnemy</a> (const QString &amp;id)</td></tr>
 <tr class="memitem:a2934eb0513c4e098b4cbd389a219a692" id="r_a2934eb0513c4e098b4cbd389a219a692"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a2934eb0513c4e098b4cbd389a219a692">removeAlly</a> (int index)</td></tr>
 <tr class="memitem:a1b442bdf4b8947cfbe770af644c3a3e2" id="r_a1b442bdf4b8947cfbe770af644c3a3e2"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a1b442bdf4b8947cfbe770af644c3a3e2">removeEnemy</a> (int index)</td></tr>
 <tr class="memitem:ad6ee9b86ecf42f069c96d246fbeb9d53" id="r_ad6ee9b86ecf42f069c96d246fbeb9d53"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ad6ee9b86ecf42f069c96d246fbeb9d53">assignMark</a> (bool ally, int index, const QString &amp;markId)</td></tr>
-<tr class="memdesc:ad6ee9b86ecf42f069c96d246fbeb9d53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribue une Marque Héroïque à un allié ou un ennemi déjà composé.  <br /></td></tr>
 <tr class="memitem:a1c364203649d375b354ac1c3ccd3a280" id="r_a1c364203649d375b354ac1c3ccd3a280"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a1c364203649d375b354ac1c3ccd3a280">launch</a> ()</td></tr>
-<tr class="memdesc:a1c364203649d375b354ac1c3ccd3a280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Monte l'affrontement et jette l'initiative. Refuse une composition sans les deux camps.  <br /></td></tr>
-<tr class="memitem:ad620eb044ec5d68bb119996fff64d82c" id="r_ad620eb044ec5d68bb119996fff64d82c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ad620eb044ec5d68bb119996fff64d82c">tapCell</a> (int column, int row)</td></tr>
-<tr class="memdesc:ad620eb044ec5d68bb119996fff64d82c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le geste sur une case : déplacer le combattant actif si elle est atteignable, attaquer si elle porte un ennemi à portée.  <br /></td></tr>
-<tr class="memitem:a693b41c41da1af8774b8a92147ec7bda" id="r_a693b41c41da1af8774b8a92147ec7bda"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a693b41c41da1af8774b8a92147ec7bda">moveCursor</a> (int columns, int rows)</td></tr>
-<tr class="memdesc:a693b41c41da1af8774b8a92147ec7bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le curseur d'une case, sans sortir de la grille.  <br /></td></tr>
-<tr class="memitem:a6477a81934b6c1195e52557e8005498f" id="r_a6477a81934b6c1195e52557e8005498f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a6477a81934b6c1195e52557e8005498f">pointCursor</a> (int column, int row)</td></tr>
-<tr class="memdesc:a6477a81934b6c1195e52557e8005498f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le curseur sur une case (le survol de la souris). Hors de la grille, ou déjà là : rien.  <br /></td></tr>
-<tr class="memitem:a08b48e02d6aa12c86a8106fceff86310" id="r_a08b48e02d6aa12c86a8106fceff86310"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a08b48e02d6aa12c86a8106fceff86310">centerCursor</a> ()</td></tr>
-<tr class="memdesc:a08b48e02d6aa12c86a8106fceff86310"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramène le curseur sur le combattant actif.  <br /></td></tr>
-<tr class="memitem:aeb607a0c234a127c02e1f8c0024cfb1f" id="r_aeb607a0c234a127c02e1f8c0024cfb1f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aeb607a0c234a127c02e1f8c0024cfb1f">cycleTarget</a> (int step)</td></tr>
-<tr class="memdesc:aeb607a0c234a127c02e1f8c0024cfb1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le curseur sur l'ennemi debout suivant (<code class="param">step</code> = 1) ou précédent (-1), du plus proche au plus lointain.  <br /></td></tr>
-<tr class="memitem:ae52c4eeb82df619bc6d70580dac936de" id="r_ae52c4eeb82df619bc6d70580dac936de"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ae52c4eeb82df619bc6d70580dac936de">selectAction</a> (int index)</td></tr>
-<tr class="memdesc:ae52c4eeb82df619bc6d70580dac936de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit l'action du tour d'indice <code class="param">index</code> (<span class="tt"><a class="el" href="#a603e13e5eb8abde7119fcc5eae7f76f6" title="Ce que le combattant actif peut faire de son tour : {label, kind, enabled, selected}...">turnActions</a></span>).  <br /></td></tr>
-<tr class="memitem:abe72b50e2c49d1b1e0850384c545a8d8" id="r_abe72b50e2c49d1b1e0850384c545a8d8"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#abe72b50e2c49d1b1e0850384c545a8d8">cycleAction</a> (int step)</td></tr>
-<tr class="memitem:abe06deade0fd0f7e807e47805d15cd2e" id="r_abe06deade0fd0f7e807e47805d15cd2e"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#abe06deade0fd0f7e807e47805d15cd2e">confirm</a> ()</td></tr>
-<tr class="memdesc:abe06deade0fd0f7e807e47805d15cd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue l'action choisie : une attaque ou un déplacement sur la case visée ; esquiver, se désengager, se précipiter ; ou basculer la réaction.  <br /></td></tr>
-<tr class="memitem:ad0dbabc4af65a9d1f12cf28af335d9c5" id="r_ad0dbabc4af65a9d1f12cf28af335d9c5"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ad0dbabc4af65a9d1f12cf28af335d9c5">dodge</a> ()</td></tr>
-<tr class="memdesc:ad0dbabc4af65a9d1f12cf28af335d9c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>esquiver</em> du combattant actif.  <br /></td></tr>
-<tr class="memitem:a83b480b74613eb910cf4eaf3dcb80ba6" id="r_a83b480b74613eb910cf4eaf3dcb80ba6"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a83b480b74613eb910cf4eaf3dcb80ba6">disengage</a> ()</td></tr>
-<tr class="memdesc:a83b480b74613eb910cf4eaf3dcb80ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>se désengager</em> du combattant actif.  <br /></td></tr>
-<tr class="memitem:abdf5aee5b5df692539728256c13b4508" id="r_abdf5aee5b5df692539728256c13b4508"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#abdf5aee5b5df692539728256c13b4508">dash</a> ()</td></tr>
-<tr class="memdesc:abdf5aee5b5df692539728256c13b4508"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>se précipiter</em> du combattant actif.  <br /></td></tr>
-<tr class="memitem:aa6e303ae8fd20711a040ec1f05c75255" id="r_aa6e303ae8fd20711a040ec1f05c75255"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aa6e303ae8fd20711a040ec1f05c75255">endTurn</a> ()</td></tr>
-<tr class="memitem:a53e4578bc24ffdff34ffebbb7b9a2bf8" id="r_a53e4578bc24ffdff34ffebbb7b9a2bf8"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a53e4578bc24ffdff34ffebbb7b9a2bf8">withdraw</a> ()</td></tr>
+<tr class="memdesc:a1c364203649d375b354ac1c3ccd3a280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Monte les deux camps et ouvre le combat.  <br /></td></tr>
 <tr class="memitem:a13525acff4eb4eed4a1bc8d0daff05dd" id="r_a13525acff4eb4eed4a1bc8d0daff05dd"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a13525acff4eb4eed4a1bc8d0daff05dd">replay</a> ()</td></tr>
-<tr class="memdesc:a13525acff4eb4eed4a1bc8d0daff05dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remonte le même affrontement à la même graine.  <br /></td></tr>
+<tr class="memdesc:a13525acff4eb4eed4a1bc8d0daff05dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejoue le même affrontement à la même graine (<span class="tt">EX-CBT-050</span>).  <br /></td></tr>
 <tr class="memitem:a8e5cef0bf17e7d6355fb2ddf4e8e3eb5" id="r_a8e5cef0bf17e7d6355fb2ddf4e8e3eb5"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a8e5cef0bf17e7d6355fb2ddf4e8e3eb5">backToSetup</a> ()</td></tr>
-<tr class="memdesc:a8e5cef0bf17e7d6355fb2ddf4e8e3eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revient à la composition, sans la perdre.  <br /></td></tr>
+<tr class="memdesc:a8e5cef0bf17e7d6355fb2ddf4e8e3eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Revient à la mise en place, session neuve.  <br /></td></tr>
+<tr class="inherit_header pub_methods_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
+<tr class="memitem:a375a449b2263ba22ebbd6cb6365698b1 inherit pub_methods_classhmi_1_1CombatModel" id="r_a375a449b2263ba22ebbd6cb6365698b1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a375a449b2263ba22ebbd6cb6365698b1">CombatModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:afe95b8b2529f24a21a840733061c7f29 inherit pub_methods_classhmi_1_1CombatModel" id="r_afe95b8b2529f24a21a840733061c7f29"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#afe95b8b2529f24a21a840733061c7f29">~CombatModel</a> () override</td></tr>
+<tr class="memitem:a5a21cf9616ec5929ae35e8c55d54fbab inherit pub_methods_classhmi_1_1CombatModel" id="r_a5a21cf9616ec5929ae35e8c55d54fbab"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a5a21cf9616ec5929ae35e8c55d54fbab">status</a> () const</td></tr>
+<tr class="memitem:a91c4d08704abaea6fdb77746e684a7a0 inherit pub_methods_classhmi_1_1CombatModel" id="r_a91c4d08704abaea6fdb77746e684a7a0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0">inCombat</a> () const noexcept</td></tr>
+<tr class="memitem:a2e1469578f5c8d5c940c868d4bab6b9a inherit pub_methods_classhmi_1_1CombatModel" id="r_a2e1469578f5c8d5c940c868d4bab6b9a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a2e1469578f5c8d5c940c868d4bab6b9a">ended</a> () const</td></tr>
+<tr class="memitem:a06c71e2e83b0b0af4f9da87c1d72f9e6 inherit pub_methods_classhmi_1_1CombatModel" id="r_a06c71e2e83b0b0af4f9da87c1d72f9e6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a06c71e2e83b0b0af4f9da87c1d72f9e6">gridColumns</a> () const</td></tr>
+<tr class="memitem:a0b18309c2caeec817bd0d5bdbddb39ee inherit pub_methods_classhmi_1_1CombatModel" id="r_a0b18309c2caeec817bd0d5bdbddb39ee"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a0b18309c2caeec817bd0d5bdbddb39ee">gridRows</a> () const</td></tr>
+<tr class="memitem:a31677c4709ecb6169a11c0865d582514 inherit pub_methods_classhmi_1_1CombatModel" id="r_a31677c4709ecb6169a11c0865d582514"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a31677c4709ecb6169a11c0865d582514">fighters</a> () const</td></tr>
+<tr class="memitem:a712a958e9634e0e59dc95974072f3aac inherit pub_methods_classhmi_1_1CombatModel" id="r_a712a958e9634e0e59dc95974072f3aac"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a712a958e9634e0e59dc95974072f3aac">reachableCells</a> () const</td></tr>
+<tr class="memitem:aa30c130f09b7ccfd87e9f8213e08f9a5 inherit pub_methods_classhmi_1_1CombatModel" id="r_aa30c130f09b7ccfd87e9f8213e08f9a5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aa30c130f09b7ccfd87e9f8213e08f9a5">cursorColumn</a> () const noexcept</td></tr>
+<tr class="memitem:a8df30784e3da44ca77d94fe704570a26 inherit pub_methods_classhmi_1_1CombatModel" id="r_a8df30784e3da44ca77d94fe704570a26"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a8df30784e3da44ca77d94fe704570a26">cursorRow</a> () const noexcept</td></tr>
+<tr class="memitem:a523b7a10a810f676a0b1aa8e761bd401 inherit pub_methods_classhmi_1_1CombatModel" id="r_a523b7a10a810f676a0b1aa8e761bd401"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a523b7a10a810f676a0b1aa8e761bd401">pathCells</a> () const</td></tr>
+<tr class="memitem:a08903ad418bc14692d1139406f540cc2 inherit pub_methods_classhmi_1_1CombatModel" id="r_a08903ad418bc14692d1139406f540cc2"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a08903ad418bc14692d1139406f540cc2">turnActions</a> () const</td></tr>
+<tr class="memitem:a04a61dcdbca5dad8ad180d50a4617057 inherit pub_methods_classhmi_1_1CombatModel" id="r_a04a61dcdbca5dad8ad180d50a4617057"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a04a61dcdbca5dad8ad180d50a4617057">preview</a> () const</td></tr>
+<tr class="memitem:a4cdf87c995d1fb5be7fbfd2a1e8e8691 inherit pub_methods_classhmi_1_1CombatModel" id="r_a4cdf87c995d1fb5be7fbfd2a1e8e8691"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a4cdf87c995d1fb5be7fbfd2a1e8e8691">turnOrder</a> () const</td></tr>
+<tr class="memitem:a4bd9855ac0f60fd65439cc587255f538 inherit pub_methods_classhmi_1_1CombatModel" id="r_a4bd9855ac0f60fd65439cc587255f538"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a4bd9855ac0f60fd65439cc587255f538">activeName</a> () const</td></tr>
+<tr class="memitem:aa7450e23f16409d219a9a6df2f496270 inherit pub_methods_classhmi_1_1CombatModel" id="r_aa7450e23f16409d219a9a6df2f496270"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aa7450e23f16409d219a9a6df2f496270">activeResources</a> () const</td></tr>
+<tr class="memitem:a10f0e984bb25dbff698e7ebfe924992b inherit pub_methods_classhmi_1_1CombatModel" id="r_a10f0e984bb25dbff698e7ebfe924992b"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a10f0e984bb25dbff698e7ebfe924992b">journal</a> () const</td></tr>
+<tr class="memitem:a7d806f9c080a3752b94021d5fb5d74e1 inherit pub_methods_classhmi_1_1CombatModel" id="r_a7d806f9c080a3752b94021d5fb5d74e1"><td class="memItemLeft">const <a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a> *&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a7d806f9c080a3752b94021d5fb5d74e1">session</a> () const noexcept</td></tr>
+<tr class="memdesc:a7d806f9c080a3752b94021d5fb5d74e1 inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">La session, en lecture seule, pour la surface de rendu.  <br /></td></tr>
+<tr class="memitem:a8bfa8c55ac43a21eb05a1dcd1ae62afb inherit pub_methods_classhmi_1_1CombatModel" id="r_a8bfa8c55ac43a21eb05a1dcd1ae62afb"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a8bfa8c55ac43a21eb05a1dcd1ae62afb">tapCell</a> (int column, int row)</td></tr>
+<tr class="memdesc:a8bfa8c55ac43a21eb05a1dcd1ae62afb inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clic ou la confirmation sur une case : attaquer l'ennemi qui l'occupe, sinon s'y déplacer (<span class="tt">LOT-24</span>).  <br /></td></tr>
+<tr class="memitem:a234d461f5bc449647b3d504ace6f7748 inherit pub_methods_classhmi_1_1CombatModel" id="r_a234d461f5bc449647b3d504ace6f7748"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a234d461f5bc449647b3d504ace6f7748">moveCursor</a> (int columns, int rows)</td></tr>
+<tr class="memdesc:a234d461f5bc449647b3d504ace6f7748 inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déplace le curseur de ciblage de <code class="param">columns</code> et <code class="param">rows</code> cases (clavier, manette).  <br /></td></tr>
+<tr class="memitem:ab13311c4dd097f0f857ddd713daf54a1 inherit pub_methods_classhmi_1_1CombatModel" id="r_ab13311c4dd097f0f857ddd713daf54a1"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ab13311c4dd097f0f857ddd713daf54a1">pointCursor</a> (int column, int row)</td></tr>
+<tr class="memdesc:ab13311c4dd097f0f857ddd713daf54a1 inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le curseur sur une case (survol de la souris) ; hors grille, rien.  <br /></td></tr>
+<tr class="memitem:a60e5f4979407e04f7002d15d09a55a28 inherit pub_methods_classhmi_1_1CombatModel" id="r_a60e5f4979407e04f7002d15d09a55a28"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a60e5f4979407e04f7002d15d09a55a28">centerCursor</a> ()</td></tr>
+<tr class="memdesc:a60e5f4979407e04f7002d15d09a55a28 inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramène le curseur sur le combattant actif.  <br /></td></tr>
+<tr class="memitem:a7cbe1e750d67f3dca6127266477e532f inherit pub_methods_classhmi_1_1CombatModel" id="r_a7cbe1e750d67f3dca6127266477e532f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a7cbe1e750d67f3dca6127266477e532f">cycleTarget</a> (int step)</td></tr>
+<tr class="memdesc:a7cbe1e750d67f3dca6127266477e532f inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Passe à l'ennemi debout suivant (<code class="param">step</code> &gt; 0) ou précédent, du plus proche au plus loin.  <br /></td></tr>
+<tr class="memitem:abab2695bc63463da0d99e1993359f9d0 inherit pub_methods_classhmi_1_1CombatModel" id="r_abab2695bc63463da0d99e1993359f9d0"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#abab2695bc63463da0d99e1993359f9d0">selectAction</a> (int index)</td></tr>
+<tr class="memdesc:abab2695bc63463da0d99e1993359f9d0 inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choisit l'action de rang <code class="param">index</code> dans la barre.  <br /></td></tr>
+<tr class="memitem:a8001d3ead9a9892c0b8503de8435a46e inherit pub_methods_classhmi_1_1CombatModel" id="r_a8001d3ead9a9892c0b8503de8435a46e"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a8001d3ead9a9892c0b8503de8435a46e">cycleAction</a> (int step)</td></tr>
+<tr class="memdesc:a8001d3ead9a9892c0b8503de8435a46e inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Passe à l'action suivante ou précédente de la barre, en boucle.  <br /></td></tr>
+<tr class="memitem:a1fe76f11f719e82a0dbec52ed632964f inherit pub_methods_classhmi_1_1CombatModel" id="r_a1fe76f11f719e82a0dbec52ed632964f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a1fe76f11f719e82a0dbec52ed632964f">confirm</a> ()</td></tr>
+<tr class="memdesc:a1fe76f11f719e82a0dbec52ed632964f inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confirme l'action choisie sur la case du curseur.  <br /></td></tr>
+<tr class="memitem:a5a8148ce0aa7461b391a0dc9d860269f inherit pub_methods_classhmi_1_1CombatModel" id="r_a5a8148ce0aa7461b391a0dc9d860269f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a5a8148ce0aa7461b391a0dc9d860269f">dodge</a> ()</td></tr>
+<tr class="memitem:adb350a2b14066146e7e9ccbb67e939c5 inherit pub_methods_classhmi_1_1CombatModel" id="r_adb350a2b14066146e7e9ccbb67e939c5"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#adb350a2b14066146e7e9ccbb67e939c5">disengage</a> ()</td></tr>
+<tr class="memitem:a057edc09f89a9359ee7be7a2eb6a908d inherit pub_methods_classhmi_1_1CombatModel" id="r_a057edc09f89a9359ee7be7a2eb6a908d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a057edc09f89a9359ee7be7a2eb6a908d">dash</a> ()</td></tr>
+<tr class="memitem:abbc848a493b901b8247047479adde65c inherit pub_methods_classhmi_1_1CombatModel" id="r_abbc848a493b901b8247047479adde65c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#abbc848a493b901b8247047479adde65c">endTurn</a> ()</td></tr>
+<tr class="memdesc:abbc848a493b901b8247047479adde65c inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine le tour du joueur ; l'IA joue ensuite les siens.  <br /></td></tr>
+<tr class="memitem:ad9d7bb4ae728f4a78767e7c79d563a17 inherit pub_methods_classhmi_1_1CombatModel" id="r_ad9d7bb4ae728f4a78767e7c79d563a17"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ad9d7bb4ae728f4a78767e7c79d563a17">withdraw</a> ()</td></tr>
+<tr class="memdesc:ad9d7bb4ae728f4a78767e7c79d563a17 inherit pub_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le joueur se retire, si la rencontre le permet.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2a17667cc70e9d03411c118bdf9878d3" id="r_a2a17667cc70e9d03411c118bdf9878d3"><td class="memItemLeft">const <a class="el" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2a17667cc70e9d03411c118bdf9878d3">behaviors</a> () const override</td></tr>
+<tr class="inherit_header pro_methods_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Member Functions inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
+<tr class="memitem:a48b48d90132a0266125966b8081ee0a6 inherit pro_methods_classhmi_1_1CombatModel" id="r_a48b48d90132a0266125966b8081ee0a6"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a48b48d90132a0266125966b8081ee0a6">playAiTurns</a> ()</td></tr>
+<tr class="memdesc:a48b48d90132a0266125966b8081ee0a6 inherit pro_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue les tours de l'IA jusqu'au prochain tour du joueur, ou la fin.  <br /></td></tr>
+<tr class="memitem:a431471d166df8e9c8bff480661431a32 inherit pro_methods_classhmi_1_1CombatModel" id="r_a431471d166df8e9c8bff480661431a32"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a431471d166df8e9c8bff480661431a32">acceptsInput</a> () const</td></tr>
+<tr class="memitem:a307c768d3d7638c957d5dbac0c614dc2 inherit pro_methods_classhmi_1_1CombatModel" id="r_a307c768d3d7638c957d5dbac0c614dc2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a307c768d3d7638c957d5dbac0c614dc2">playOneAiTurn</a> ()</td></tr>
+<tr class="memdesc:a307c768d3d7638c957d5dbac0c614dc2 inherit pro_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue <b>un</b> tour de l'IA.  <br /></td></tr>
+<tr class="memitem:a0659205d31e32dd04ec35d5e15bca4bc inherit pro_methods_classhmi_1_1CombatModel" id="r_a0659205d31e32dd04ec35d5e15bca4bc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a0659205d31e32dd04ec35d5e15bca4bc">emitSceneChanged</a> ()</td></tr>
+<tr class="memdesc:a0659205d31e32dd04ec35d5e15bca4bc inherit pro_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émet <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a></span> et <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">combatSceneChanged</a></span>.  <br /></td></tr>
+<tr class="memitem:ac16debc0e77c3a6845d60f10f3c3e69d inherit pro_methods_classhmi_1_1CombatModel" id="r_ac16debc0e77c3a6845d60f10f3c3e69d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ac16debc0e77c3a6845d60f10f3c3e69d">refreshMessage</a> (const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount)</td></tr>
+<tr class="memdesc:ac16debc0e77c3a6845d60f10f3c3e69d inherit pro_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit dans <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5" title="Ce que l&#39;écran dit du dernier geste : un jet, un refus, l&#39;issue.">status</a></span> les refus d'un montage.  <br /></td></tr>
+<tr class="memitem:a0489feee39e33f36c4957f5f3ab4815f inherit pro_methods_classhmi_1_1CombatModel" id="r_a0489feee39e33f36c4957f5f3ab4815f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a0489feee39e33f36c4957f5f3ab4815f">followActive</a> ()</td></tr>
+<tr class="memdesc:a0489feee39e33f36c4957f5f3ab4815f inherit pro_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le curseur suit le combattant actif quand il change.  <br /></td></tr>
+<tr class="memitem:ae51c20277b8bb768da16512a7fde305b inherit pro_methods_classhmi_1_1CombatModel" id="r_ae51c20277b8bb768da16512a7fde305b"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ae51c20277b8bb768da16512a7fde305b">playerTurn</a> () const</td></tr>
+<tr class="memitem:aed34c3f2684232f6bcfed8d8f7d310a8 inherit pro_methods_classhmi_1_1CombatModel" id="r_aed34c3f2684232f6bcfed8d8f7d310a8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aed34c3f2684232f6bcfed8d8f7d310a8">attackAt</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> target, std::optional&lt; std::size_t &gt; index)</td></tr>
+<tr class="memitem:a96e8a89ff900657a0eb2ac543979cd2f inherit pro_methods_classhmi_1_1CombatModel" id="r_a96e8a89ff900657a0eb2ac543979cd2f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a96e8a89ff900657a0eb2ac543979cd2f">moveTo</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a3f4b527afceb64310bee5a8f634f6e26" id="r_a3f4b527afceb64310bee5a8f634f6e26"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#a3f4b527afceb64310bee5a8f634f6e26">arenaName</a></td></tr>
-<tr class="memdesc:a3f4b527afceb64310bee5a8f634f6e26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de l'arène jouable, ou ce qui manque pour en avoir une.  <br /></td></tr>
-<tr class="memitem:a195ccb33e5a9636011376256b395e93c" id="r_a195ccb33e5a9636011376256b395e93c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a195ccb33e5a9636011376256b395e93c">status</a></td></tr>
-<tr class="memdesc:a195ccb33e5a9636011376256b395e93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran doit dire : erreurs de chargement, refus de montage, issue.  <br /></td></tr>
-<tr class="memitem:a0f77d14b4902ce809daa8e3ec0a9932b" id="r_a0f77d14b4902ce809daa8e3ec0a9932b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0f77d14b4902ce809daa8e3ec0a9932b">inCombat</a></td></tr>
-<tr class="memdesc:a0f77d14b4902ce809daa8e3ec0a9932b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai entre <span class="tt"><a class="el" href="#a1c364203649d375b354ac1c3ccd3a280" title="Monte l&#39;affrontement et jette l&#39;initiative. Refuse une composition sans les deux camps.">launch</a></span> et <span class="tt"><a class="el" href="#a8e5cef0bf17e7d6355fb2ddf4e8e3eb5" title="Revient à la composition, sans la perdre.">backToSetup</a></span> : la grille se joue, la composition est figée.  <br /></td></tr>
-<tr class="memitem:a14aa26855dbb7840d5b588488439f272" id="r_a14aa26855dbb7840d5b588488439f272"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a14aa26855dbb7840d5b588488439f272">ended</a></td></tr>
-<tr class="memdesc:a14aa26855dbb7840d5b588488439f272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand le combat en cours a une issue.  <br /></td></tr>
 <tr class="memitem:a9818ee89f3dfcc0b5b0a12c688d7ab27" id="r_a9818ee89f3dfcc0b5b0a12c688d7ab27"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a9818ee89f3dfcc0b5b0a12c688d7ab27">roster</a></td></tr>
-<tr class="memdesc:a9818ee89f3dfcc0b5b0a12c688d7ab27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tout ce qu'on peut enrôler : <span class="tt">{id, name, kind, hitPoints, armorClass}</span>.  <br /></td></tr>
+<tr class="memdesc:a9818ee89f3dfcc0b5b0a12c688d7ab27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tout ce qui peut s'enrôler : le personnage, puis le bestiaire.  <br /></td></tr>
 <tr class="memitem:a7d21e77d0ce4548c070298f47d8e3b73" id="r_a7d21e77d0ce4548c070298f47d8e3b73"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a7d21e77d0ce4548c070298f47d8e3b73">allies</a></td></tr>
-<tr class="memdesc:a7d21e77d0ce4548c070298f47d8e3b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les alliés composés : <span class="tt">{id, name, mark}</span>.  <br /></td></tr>
 <tr class="memitem:ac340c1bdc7ddfc6280c794211fbc448f" id="r_ac340c1bdc7ddfc6280c794211fbc448f"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ac340c1bdc7ddfc6280c794211fbc448f">enemies</a></td></tr>
-<tr class="memdesc:ac340c1bdc7ddfc6280c794211fbc448f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les ennemis composés : <span class="tt">{id, name, mark}</span>.  <br /></td></tr>
 <tr class="memitem:ae25cf88b5992d053ea1f037928401366" id="r_ae25cf88b5992d053ea1f037928401366"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#ae25cf88b5992d053ea1f037928401366">marks</a></td></tr>
-<tr class="memdesc:ae25cf88b5992d053ea1f037928401366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les huit Marques Héroïques, par identifiant.  <br /></td></tr>
 <tr class="memitem:a499fac0ee9101a006ed3631ac6054a95" id="r_a499fac0ee9101a006ed3631ac6054a95"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a499fac0ee9101a006ed3631ac6054a95">seed</a></td></tr>
-<tr class="memdesc:a499fac0ee9101a006ed3631ac6054a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">La graine du prochain lancement. Deux lancements à graine égale donnent le même déroulé.  <br /></td></tr>
 <tr class="memitem:ae4f2a8e509afa8e39ae971ecea38bf65" id="r_ae4f2a8e509afa8e39ae971ecea38bf65"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae4f2a8e509afa8e39ae971ecea38bf65">enemyAi</a></td></tr>
-<tr class="memdesc:ae4f2a8e509afa8e39ae971ecea38bf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si les ennemis sont joués par l'IA (<span class="tt">LOT-23</span>) : leurs tours se jouent seuls, par les profils de <span class="tt">behaviors.json</span>.  <br /></td></tr>
-<tr class="memitem:a2a42097d40f5f0a4af172becc2bbd325" id="r_a2a42097d40f5f0a4af172becc2bbd325"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2a42097d40f5f0a4af172becc2bbd325">gridColumns</a></td></tr>
-<tr class="memitem:aee86a256c6660b2fa8650b3e4aee9b27" id="r_aee86a256c6660b2fa8650b3e4aee9b27"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aee86a256c6660b2fa8650b3e4aee9b27">gridRows</a></td></tr>
-<tr class="memitem:afb30979d732249090ce1b0c8c7dca44c" id="r_afb30979d732249090ce1b0c8c7dca44c"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#afb30979d732249090ce1b0c8c7dca44c">fighters</a></td></tr>
-<tr class="memdesc:afb30979d732249090ce1b0c8c7dca44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les combattants sur la grille : <span class="tt">{column, row, footprint, side, active, down, hitPoints,
-hitPointsRatio}</span>.  <br /></td></tr>
-<tr class="memitem:ab41ed77693753c49d695ebd77e286661" id="r_ab41ed77693753c49d695ebd77e286661"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ab41ed77693753c49d695ebd77e286661">reachableCells</a></td></tr>
-<tr class="memdesc:ab41ed77693753c49d695ebd77e286661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cases où le combattant actif peut finir son déplacement : <span class="tt">{column, row}</span>.  <br /></td></tr>
-<tr class="memitem:a67ebea315e7a25c384ce1ead30cb2298" id="r_a67ebea315e7a25c384ce1ead30cb2298"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a67ebea315e7a25c384ce1ead30cb2298">cursorColumn</a></td></tr>
-<tr class="memdesc:a67ebea315e7a25c384ce1ead30cb2298"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case visée par le curseur de ciblage, au clavier et à la manette.  <br /></td></tr>
-<tr class="memitem:a87d807cfc6a3bcb337f4b01daae1b565" id="r_a87d807cfc6a3bcb337f4b01daae1b565"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a87d807cfc6a3bcb337f4b01daae1b565">cursorRow</a></td></tr>
-<tr class="memitem:aef297d1b46556defc245fae939792891" id="r_aef297d1b46556defc245fae939792891"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#aef297d1b46556defc245fae939792891">pathCells</a></td></tr>
-<tr class="memdesc:aef297d1b46556defc245fae939792891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin que le déplacement suivrait jusqu'au curseur : <span class="tt">{column, row}</span>, départ exclu.  <br /></td></tr>
-<tr class="memitem:a603e13e5eb8abde7119fcc5eae7f76f6" id="r_a603e13e5eb8abde7119fcc5eae7f76f6"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a603e13e5eb8abde7119fcc5eae7f76f6">turnActions</a></td></tr>
-<tr class="memdesc:a603e13e5eb8abde7119fcc5eae7f76f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combattant actif peut faire de son tour : <span class="tt">{label, kind, enabled, selected}</span>, où <span class="tt">kind</span> vaut <span class="tt">attack</span>, <span class="tt"><a class="el" href="#ad0dbabc4af65a9d1f12cf28af335d9c5" title="L&#39;action esquiver du combattant actif.">dodge</a></span>, <span class="tt"><a class="el" href="#a83b480b74613eb910cf4eaf3dcb80ba6" title="L&#39;action se désengager du combattant actif.">disengage</a></span>, <span class="tt"><a class="el" href="#abdf5aee5b5df692539728256c13b4508" title="L&#39;action se précipiter du combattant actif.">dash</a></span> ou <span class="tt">reaction</span>.  <br /></td></tr>
-<tr class="memitem:aaca6a68e02078dc6792c503e3bd9180b" id="r_aaca6a68e02078dc6792c503e3bd9180b"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#aaca6a68e02078dc6792c503e3bd9180b">preview</a></td></tr>
-<tr class="memdesc:aaca6a68e02078dc6792c503e3bd9180b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le geste de confirmation ferait sur la case visée, ligne par ligne : chemin et attaques d'opportunité, ou attaque, jet requis, chance, CA, abri, sources.  <br /></td></tr>
-<tr class="memitem:a5f8831c8f0dfd8f687ee16ffe30cec0d" id="r_a5f8831c8f0dfd8f687ee16ffe30cec0d"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a5f8831c8f0dfd8f687ee16ffe30cec0d">turnOrder</a></td></tr>
-<tr class="memdesc:a5f8831c8f0dfd8f687ee16ffe30cec0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ordre d'initiative : <span class="tt">{name, total, side, active, down}</span>.  <br /></td></tr>
-<tr class="memitem:a283539f3e5853abd3f6835638b4eb218" id="r_a283539f3e5853abd3f6835638b4eb218"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a283539f3e5853abd3f6835638b4eb218">activeName</a></td></tr>
-<tr class="memitem:acec275728c52d22710aa959fcaf1d361" id="r_acec275728c52d22710aa959fcaf1d361"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#acec275728c52d22710aa959fcaf1d361">activeResources</a></td></tr>
-<tr class="memdesc:acec275728c52d22710aa959fcaf1d361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les ressources restantes du combattant actif, lisibles.  <br /></td></tr>
-<tr class="memitem:ad62a622df9e51245de3c1253bd8b5ffc" id="r_ad62a622df9e51245de3c1253bd8b5ffc"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#ad62a622df9e51245de3c1253bd8b5ffc">journal</a></td></tr>
+<tr class="memdesc:ae4f2a8e509afa8e39ae971ecea38bf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les ennemis sont-ils joués par l'IA tactique (<span class="tt">LOT-23</span>) ? Sinon à la main.  <br /></td></tr>
+<tr class="inherit_header properties_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Properties inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
+<tr class="memitem:a04eb920f85db24d68bf992f2b29a17d5 inherit properties_classhmi_1_1CombatModel" id="r_a04eb920f85db24d68bf992f2b29a17d5"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">status</a></td></tr>
+<tr class="memdesc:a04eb920f85db24d68bf992f2b29a17d5 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran dit du dernier geste : un jet, un refus, l'issue.  <br /></td></tr>
+<tr class="memitem:a1e302adff6695db2af43dd1ee34e0e55 inherit properties_classhmi_1_1CombatModel" id="r_a1e302adff6695db2af43dd1ee34e0e55"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a1e302adff6695db2af43dd1ee34e0e55">inCombat</a></td></tr>
+<tr class="memdesc:a1e302adff6695db2af43dd1ee34e0e55 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai entre le montage et le retour à la mise en place ou à l'exploration.  <br /></td></tr>
+<tr class="memitem:a5e85081aa817b7d841d92f51a6d56829 inherit properties_classhmi_1_1CombatModel" id="r_a5e85081aa817b7d841d92f51a6d56829"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">ended</a></td></tr>
+<tr class="memdesc:a5e85081aa817b7d841d92f51a6d56829 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand le combat a une issue.  <br /></td></tr>
+<tr class="memitem:af76abf3528373ea13b4d1352b46a860e inherit properties_classhmi_1_1CombatModel" id="r_af76abf3528373ea13b4d1352b46a860e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">gridColumns</a></td></tr>
+<tr class="memitem:a4207e25fe500ba8778be63967022c46e inherit properties_classhmi_1_1CombatModel" id="r_a4207e25fe500ba8778be63967022c46e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">gridRows</a></td></tr>
+<tr class="memitem:af9deb3b08aa17ae8c8cb157a9ec9b55b inherit properties_classhmi_1_1CombatModel" id="r_af9deb3b08aa17ae8c8cb157a9ec9b55b"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">fighters</a></td></tr>
+<tr class="memdesc:af9deb3b08aa17ae8c8cb157a9ec9b55b inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les combattants sur la grille : case, emprise, camp, tour, à terre, points de vie.  <br /></td></tr>
+<tr class="memitem:a1a83a2cb2d7266bf70c6fca16423f287 inherit properties_classhmi_1_1CombatModel" id="r_a1a83a2cb2d7266bf70c6fca16423f287"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">reachableCells</a></td></tr>
+<tr class="memdesc:a1a83a2cb2d7266bf70c6fca16423f287 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cases où le combattant actif peut finir son déplacement.  <br /></td></tr>
+<tr class="memitem:aa86af5af2fc310b86a15b61af7fc3166 inherit properties_classhmi_1_1CombatModel" id="r_aa86af5af2fc310b86a15b61af7fc3166"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166">cursorColumn</a></td></tr>
+<tr class="memitem:aede325d57cb27c7f3d6cb2b37aab6657 inherit properties_classhmi_1_1CombatModel" id="r_aede325d57cb27c7f3d6cb2b37aab6657"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657">cursorRow</a></td></tr>
+<tr class="memitem:a021df2e373a1f12e6e4022a0bbc796d5 inherit properties_classhmi_1_1CombatModel" id="r_a021df2e373a1f12e6e4022a0bbc796d5"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">pathCells</a></td></tr>
+<tr class="memdesc:a021df2e373a1f12e6e4022a0bbc796d5 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin que le déplacement vers le curseur emprunterait.  <br /></td></tr>
+<tr class="memitem:a7c5723221a10269e6054138dd7582a62 inherit properties_classhmi_1_1CombatModel" id="r_a7c5723221a10269e6054138dd7582a62"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">turnActions</a></td></tr>
+<tr class="memdesc:a7c5723221a10269e6054138dd7582a62 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les actions du tour du joueur : attaques, puis celles du Manuel, puis la réaction.  <br /></td></tr>
+<tr class="memitem:aff20bdf39c34ab9623e371b3fb5234e6 inherit properties_classhmi_1_1CombatModel" id="r_aff20bdf39c34ab9623e371b3fb5234e6"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">preview</a></td></tr>
+<tr class="memdesc:aff20bdf39c34ab9623e371b3fb5234e6 inherit properties_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'action choisie ferait sur la case du curseur (<span class="tt">LOT-24</span>).  <br /></td></tr>
+<tr class="memitem:a1e1740ea193d9f6ff2a5ff6f8e03be79 inherit properties_classhmi_1_1CombatModel" id="r_a1e1740ea193d9f6ff2a5ff6f8e03be79"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">turnOrder</a></td></tr>
+<tr class="memitem:aefff1301b200bf19efed9d56fa8d6375 inherit properties_classhmi_1_1CombatModel" id="r_aefff1301b200bf19efed9d56fa8d6375"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">activeName</a></td></tr>
+<tr class="memitem:a88718c021f2e8c16693dd9b2b2bc4cba inherit properties_classhmi_1_1CombatModel" id="r_a88718c021f2e8c16693dd9b2b2bc4cba"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">activeResources</a></td></tr>
+<tr class="memitem:ad2acaaa6c0fc602f03990a350b474c98 inherit properties_classhmi_1_1CombatModel" id="r_ad2acaaa6c0fc602f03990a350b474c98"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">journal</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:abcd9a4436ac920c5f44085ec006aa56a" id="r_abcd9a4436ac920c5f44085ec006aa56a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abcd9a4436ac920c5f44085ec006aa56a">loadCatalogs</a> ()</td></tr>
-<tr class="memitem:af646ceb7673cdee7aae3581c51bf9bf1" id="r_af646ceb7673cdee7aae3581c51bf9bf1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af646ceb7673cdee7aae3581c51bf9bf1">loadCharacterCatalog</a> ()</td></tr>
-<tr class="memdesc:af646ceb7673cdee7aae3581c51bf9bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de démonstration, par le même chemin que la fiche (LOT-87).  <br /></td></tr>
 <tr class="memitem:a59668333337ab23933ef24fe8ed20d33" id="r_a59668333337ab23933ef24fe8ed20d33"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a59668333337ab23933ef24fe8ed20d33">loadPlayableLevel</a> ()</td></tr>
-<tr class="memdesc:a59668333337ab23933ef24fe8ed20d33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la carte jouable de l'arène, réduite à sa zone de combat le cas échéant (LOT-09).  <br /></td></tr>
-<tr class="memitem:a4592c2d0424a7395defe3a8232ad1e35" id="r_a4592c2d0424a7395defe3a8232ad1e35"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4592c2d0424a7395defe3a8232ad1e35">emitSceneChanged</a> ()</td></tr>
-<tr class="memdesc:a4592c2d0424a7395defe3a8232ad1e35"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">emit <a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed()</a></span> puis <span class="tt">emit <a class="el" href="#a6f08373bcc9dc0e0c113b8750a469c9c" title="changed restreint à ce qui peut avoir mué la grille de combat : la surface de rendu (hmi::ArenaViewpo...">combatSceneChanged()</a></span> : aux gestes qui mutent la grille de combat (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#aea7190e8fbf012b1210fa26d1a85f31d" title="Monte l&#39;affrontement : enrôle chaque combattant à sa case ou au prochain point d&#39;entrée libre de son ...">core::ArenaSession::mount</a></span>, un déplacement, une attaque, un retrait, la fin du tour, un rejeu, un retour à une composition neuve).  <br /></td></tr>
 <tr class="memitem:a31512f4b76371c73927844d36346c3b6" id="r_a31512f4b76371c73927844d36346c3b6"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1ArenaModel_1_1Fighter.html">Fighter</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a31512f4b76371c73927844d36346c3b6">fighterFor</a> (const QString &amp;id, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side) const</td></tr>
 <tr class="memitem:ac35690bb8373d4c3bb6f142749ca1ecd" id="r_ac35690bb8373d4c3bb6f142749ca1ecd"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaBout.html">core::ArenaBout</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac35690bb8373d4c3bb6f142749ca1ecd">composeBout</a> () const</td></tr>
-<tr class="memitem:a29d9bc66e52bd1305097e045c5e468e3" id="r_a29d9bc66e52bd1305097e045c5e468e3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29d9bc66e52bd1305097e045c5e468e3">refreshMessage</a> (const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount)</td></tr>
 <tr class="memitem:a91bf89ffba6ff7f12a1c61e65cfc974f" id="r_a91bf89ffba6ff7f12a1c61e65cfc974f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a91bf89ffba6ff7f12a1c61e65cfc974f">resetSession</a> ()</td></tr>
-<tr class="memdesc:a91bf89ffba6ff7f12a1c61e65cfc974f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une session neuve sur la carte de l'arène, l'IA décidant des opportunités de ses créatures.  <br /></td></tr>
-<tr class="memitem:ae9ad672eaaac8997cc570c318ae443d3" id="r_ae9ad672eaaac8997cc570c318ae443d3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae9ad672eaaac8997cc570c318ae443d3">playAiTurns</a> ()</td></tr>
-<tr class="memdesc:ae9ad672eaaac8997cc570c318ae443d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue les tours de l'IA tant que le combattant actif en a un profil : le joueur reprend la main à son tour, ou à l'issue.  <br /></td></tr>
-<tr class="memitem:a7052ac0cb2a7bde097e5bf9b9d1afdef" id="r_a7052ac0cb2a7bde097e5bf9b9d1afdef"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7052ac0cb2a7bde097e5bf9b9d1afdef">attackAt</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> target, std::optional&lt; std::size_t &gt; index)</td></tr>
-<tr class="memdesc:a7052ac0cb2a7bde097e5bf9b9d1afdef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaque <code class="param">target</code> avec l'attaque <code class="param">index</code>, ou la première qui peut la viser ; écrit l'issue.  <br /></td></tr>
-<tr class="memitem:a131f43e650fa2ef3cc13dffbc9c809b2" id="r_a131f43e650fa2ef3cc13dffbc9c809b2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a131f43e650fa2ef3cc13dffbc9c809b2">moveTo</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
-<tr class="memitem:a288ca86228c69dcf668d6621a08d3fb6" id="r_a288ca86228c69dcf668d6621a08d3fb6"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a288ca86228c69dcf668d6621a08d3fb6">playerTurn</a> () const</td></tr>
-<tr class="memdesc:a288ca86228c69dcf668d6621a08d3fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant actif s'il est commandé par le joueur.  <br /></td></tr>
-<tr class="memitem:a547e6a108ef045d8e76926ffdfc9a95f" id="r_a547e6a108ef045d8e76926ffdfc9a95f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a547e6a108ef045d8e76926ffdfc9a95f">followActive</a> ()</td></tr>
-<tr class="memdesc:a547e6a108ef045d8e76926ffdfc9a95f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recale le curseur et l'action choisie sur le combattant actif, à chaque changement de tour.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a60ce217824cfce4c2a9ba0dee922a20d" id="r_a60ce217824cfce4c2a9ba0dee922a20d"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a60ce217824cfce4c2a9ba0dee922a20d">_contentRoot</a></td></tr>
 <tr class="memitem:a4c81aa1c9cfdf23055369cbb562e89c1" id="r_a4c81aa1c9cfdf23055369cbb562e89c1"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1ArenaModel_1_1Catalogs.html">Catalogs</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c81aa1c9cfdf23055369cbb562e89c1">_catalogs</a></td></tr>
-<tr class="memitem:adaecf8742e9802b1d34fd4ffeaccf077" id="r_adaecf8742e9802b1d34fd4ffeaccf077"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#adaecf8742e9802b1d34fd4ffeaccf077">_cursor</a> {}</td></tr>
-<tr class="memitem:ac54985f21f38b73af60c02fd2c0a6694" id="r_ac54985f21f38b73af60c02fd2c0a6694"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac54985f21f38b73af60c02fd2c0a6694">_selectedAction</a> = 0</td></tr>
-<tr class="memitem:a2c40f6aa663bc3d8a9133acb0cf5c120" id="r_a2c40f6aa663bc3d8a9133acb0cf5c120"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2c40f6aa663bc3d8a9133acb0cf5c120">_followed</a></td></tr>
-<tr class="memitem:a6574b7f4bea492e1a0e9c18ee0128413" id="r_a6574b7f4bea492e1a0e9c18ee0128413"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6574b7f4bea492e1a0e9c18ee0128413">_session</a></td></tr>
 <tr class="memitem:a833151f8c21cb1d6db9fc4565d06ebeb" id="r_a833151f8c21cb1d6db9fc4565d06ebeb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ArenaModel_1_1Fighter.html">Fighter</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a833151f8c21cb1d6db9fc4565d06ebeb">_allies</a></td></tr>
 <tr class="memitem:add8d1bd31e1308c96a9ffb6d07ae1f35" id="r_add8d1bd31e1308c96a9ffb6d07ae1f35"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ArenaModel_1_1Fighter.html">Fighter</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#add8d1bd31e1308c96a9ffb6d07ae1f35">_enemies</a></td></tr>
 <tr class="memitem:a82d7e4263ba99bace91bd6741bd80aca" id="r_a82d7e4263ba99bace91bd6741bd80aca"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a82d7e4263ba99bace91bd6741bd80aca">_seed</a> = 2026</td></tr>
 <tr class="memitem:a1478aa690ab7221967d7e15ac72a6c3a" id="r_a1478aa690ab7221967d7e15ac72a6c3a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1478aa690ab7221967d7e15ac72a6c3a">_enemyAi</a> = true</td></tr>
-<tr class="memitem:acfa307928762801304623cc90697155f" id="r_acfa307928762801304623cc90697155f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acfa307928762801304623cc90697155f">_inCombat</a> = false</td></tr>
-<tr class="memitem:a9e9f07a7c6d1795a263f4a93b29fdc38" id="r_a9e9f07a7c6d1795a263f4a93b29fdc38"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a9e9f07a7c6d1795a263f4a93b29fdc38">_status</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header signals_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('signals_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Signals inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
+<tr class="memitem:a392928ff09819c4346cdb77f1734efc4 inherit signals_classhmi_1_1CombatModel" id="r_a392928ff09819c4346cdb77f1734efc4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a> ()</td></tr>
+<tr class="memitem:acb83d08ef0f0b63a028288ab2a837cca inherit signals_classhmi_1_1CombatModel" id="r_acb83d08ef0f0b63a028288ab2a837cca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a> ()</td></tr>
+<tr class="memitem:a5865e6deb8559d3439547fa834fec386 inherit signals_classhmi_1_1CombatModel" id="r_a5865e6deb8559d3439547fa834fec386"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">combatSceneChanged</a> ()</td></tr>
+<tr class="inherit_header pro_static_methods_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Protected Member Functions inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
+<tr class="memitem:a7ac0389079eca6646ead97c235560b92 inherit pro_static_methods_classhmi_1_1CombatModel" id="r_a7ac0389079eca6646ead97c235560b92"><td class="memItemLeft">static std::optional&lt; <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a7ac0389079eca6646ead97c235560b92">loadHeroSource</a> (std::vector&lt; std::string &gt; &amp;problems)</td></tr>
+<tr class="memdesc:a7ac0389079eca6646ead97c235560b92 inherit pro_static_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros de la démo comme source de combattant ; <span class="tt">std::nullopt</span> sans fiche, et <code class="param">problems</code> dit pourquoi.  <br /></td></tr>
+<tr class="inherit_header pro_attribs_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Attributes inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
+<tr class="memitem:ad981fb154684c7b561b80750ffdb926b inherit pro_attribs_classhmi_1_1CombatModel" id="r_ad981fb154684c7b561b80750ffdb926b"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">_session</a></td></tr>
+<tr class="memitem:a057cbbd202aa28d65f92b8dd47dad090 inherit pro_attribs_classhmi_1_1CombatModel" id="r_a057cbbd202aa28d65f92b8dd47dad090"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">_cursor</a> {}</td></tr>
+<tr class="memitem:a60afba8e11be5d58221b45362f248b28 inherit pro_attribs_classhmi_1_1CombatModel" id="r_a60afba8e11be5d58221b45362f248b28"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a60afba8e11be5d58221b45362f248b28">_selectedAction</a> = 0</td></tr>
+<tr class="memitem:a5bb550fd48b8b41da51896c3f846cde5 inherit pro_attribs_classhmi_1_1CombatModel" id="r_a5bb550fd48b8b41da51896c3f846cde5"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a5bb550fd48b8b41da51896c3f846cde5">_followed</a></td></tr>
+<tr class="memdesc:a5bb550fd48b8b41da51896c3f846cde5 inherit pro_attribs_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant que le curseur suit : quand l'actif change, le curseur va sur lui.  <br /></td></tr>
+<tr class="memitem:a2f5adcd17ddce5510db63ebd1ebab1ba inherit pro_attribs_classhmi_1_1CombatModel" id="r_a2f5adcd17ddce5510db63ebd1ebab1ba"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a2f5adcd17ddce5510db63ebd1ebab1ba">_inCombat</a> = false</td></tr>
+<tr class="memitem:a2975c8788ba21ade4fb9cf95f1ce94e7 inherit pro_attribs_classhmi_1_1CombatModel" id="r_a2975c8788ba21ade4fb9cf95f1ce94e7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a2975c8788ba21ade4fb9cf95f1ce94e7">_status</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'arène : composer deux camps, lancer, jouer, rejouer. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md100"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md105"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
-<p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> — la première session de jeu à tenir un <span class="tt"><a class="el" href="classcore_1_1CombatState.html" title="Un combat, du montage de la rencontre à sa fin.">core::CombatState</a></span> — et les catalogues dont l'écran compose son affrontement : le bestiaire (<span class="tt">LOT-33</span>), le personnage de démonstration (<span class="tt">LOT-38</span>), les arènes et les Marques Héroïques. Elle ne décide <b>rien</b> du combat : chaque geste de l'écran devient un appel à la session, et ce que l'écran affiche est relu de la machine à états après chaque geste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md101"></a>
+<p>Elle tient les catalogues dont l'écran compose son affrontement : le bestiaire (<span class="tt">LOT-33</span>), le héros de la démo (<span class="tt">LOT-112</span>), les arènes et les Marques Héroïques. Le combat lui-même — le curseur, les actions, les gestes, les tours de l'IA — est celui de <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html" title="La vue-modèle d&#39;un combat monté : le curseur, les actions du tour, ce que la grille montre,...">hmi::CombatModel</a></span>, commun au combat sur la carte (<span class="tt">LOT-118</span>) : ici ne vit que ce qui est propre au banc d'essai du Colisée.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md106"></a>
 Signal et notification de changement</h2>
-<p><span class="tt"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a></span> couvre tout ce que l'interface affiche : la composition, la grille, l'ordre, le journal et l'issue changent ensemble, et les distinguer n'épargnerait aucun rafraîchissement à ces propriétés, toutes relues d'un coup.</p>
-<p>La surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>, <span class="tt">LOT-86</span> Phase 5+) n'a besoin de reprendre un instantané que lorsque la grille de combat elle-même a pu changer — pas à chaque geste de composition (enrôler, retirer, marquer, régler la graine ou l'IA), qui ne touche encore à aucune session montée. <span class="tt"><a class="el" href="#a6f08373bcc9dc0e0c113b8750a469c9c" title="changed restreint à ce qui peut avoir mué la grille de combat : la surface de rendu (hmi::ArenaViewpo...">combatSceneChanged</a></span>, émis en plus de <span class="tt"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a></span> aux seuls gestes qui mutent la grille (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#aea7190e8fbf012b1210fa26d1a85f31d" title="Monte l&#39;affrontement : enrôle chaque combattant à sa case ou au prochain point d&#39;entrée libre de son ...">core::ArenaSession::mount</a></span>, un déplacement, une attaque, un retrait, la fin du tour, un rejeu), lui épargne ces recompositions inutiles. </p>
+<p><span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a></span> couvre tout ce que l'interface affiche : la composition, la grille, l'ordre, le journal et l'issue changent ensemble, et les distinguer n'épargnerait aucun rafraîchissement à ces propriétés, toutes relues d'un coup.</p>
+<p>La surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>, <span class="tt">LOT-86</span> Phase 5+) n'a besoin de reprendre un instantané que lorsque la grille de combat elle-même a pu changer — pas à chaque geste de composition (enrôler, retirer, marquer, régler la graine ou l'IA), qui ne touche encore à aucune session montée. <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">combatSceneChanged</a></span>, émis en plus de <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a></span> aux seuls gestes qui mutent la grille (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#aea7190e8fbf012b1210fa26d1a85f31d" title="Monte l&#39;affrontement : enrôle chaque combattant à sa case ou au prochain point d&#39;entrée libre de son ...">core::ArenaSession::mount</a></span>, un déplacement, une attaque, un retrait, la fin du tour, un rejeu), lui épargne ces recompositions inutiles. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abd6c5f16972d1ceb542e31c887ae3339" name="abd6c5f16972d1ceb542e31c887ae3339"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd6c5f16972d1ceb542e31c887ae3339">&#9670;&#160;</a></span>ArenaModel()</h2>
@@ -396,56 +399,6 @@ Signal et notification de changement</h2>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="aa6040d2c3469f086bfef2c8e14fa4966" name="aa6040d2c3469f086bfef2c8e14fa4966"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6040d2c3469f086bfef2c8e14fa4966">&#9670;&#160;</a></span>activeName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::activeName </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae5bb010df517754e586fba82af97e3aa" name="ae5bb010df517754e586fba82af97e3aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5bb010df517754e586fba82af97e3aa">&#9670;&#160;</a></span>activeResources()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::activeResources </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a7c7acd3a66990b76d075c13ebe254f35" name="a7c7acd3a66990b76d075c13ebe254f35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c7acd3a66990b76d075c13ebe254f35">&#9670;&#160;</a></span>addAlly()</h2>
 
@@ -460,8 +413,6 @@ Signal et notification de changement</h2>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Enrôle une entrée du <span class="tt"><a class="el" href="#a9818ee89f3dfcc0b5b0a12c688d7ab27" title="Tout ce qu&#39;on peut enrôler : {id, name, kind, hitPoints, armorClass}.">roster</a></span> dans un camp. Sans effet pendant un combat. </p>
 
 </div>
 </div>
@@ -556,39 +507,6 @@ Signal et notification de changement</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Attribue une Marque Héroïque à un allié ou un ennemi déjà composé. </p>
-
-</div>
-</div>
-<a id="a7052ac0cb2a7bde097e5bf9b9d1afdef" name="a7052ac0cb2a7bde097e5bf9b9d1afdef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7052ac0cb2a7bde097e5bf9b9d1afdef">&#9670;&#160;</a></span>attackAt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::attackAt </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::optional&lt; std::size_t &gt;</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Attaque <code class="param">target</code> avec l'attaque <code class="param">index</code>, ou la première qui peut la viser ; écrit l'issue. </p>
-
 </div>
 </div>
 <a id="a8e5cef0bf17e7d6355fb2ddf4e8e3eb5" name="a8e5cef0bf17e7d6355fb2ddf4e8e3eb5"></a>
@@ -606,31 +524,12 @@ Signal et notification de changement</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Revient à la composition, sans la perdre. </p>
+<p>Revient à la mise en place, session neuve. </p>
 
 </div>
 </div>
-<a id="a08b48e02d6aa12c86a8106fceff86310" name="a08b48e02d6aa12c86a8106fceff86310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08b48e02d6aa12c86a8106fceff86310">&#9670;&#160;</a></span>centerCursor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::centerCursor </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Ramène le curseur sur le combattant actif. </p>
-
-</div>
-</div>
-<a id="a279bb9f9ff32e8573df589640baa7775" name="a279bb9f9ff32e8573df589640baa7775"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a279bb9f9ff32e8573df589640baa7775">&#9670;&#160;</a></span>changed</h2>
+<a id="a2a17667cc70e9d03411c118bdf9878d3" name="a2a17667cc70e9d03411c118bdf9878d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a17667cc70e9d03411c118bdf9878d3">&#9670;&#160;</a></span>behaviors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -639,45 +538,21 @@ Signal et notification de changement</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void hmi::ArenaModel::changed </td>
+          <td class="memname">const <a class="el" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a> * hmi::ArenaModel::behaviors </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel protected">protected</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les profils de l'IA que <span class="tt"><a class="el" href="namespacecore.html#a927dac700bedb90e5d0bb43bfeb537df" title="Joue le tour du combattant actif selon son profil, et le termine.">core::playTurn</a></span> lit ; <span class="tt">nullptr</span> : l'IA ne joue pas. </dd></dl>
 
-</div>
-</div>
-<a id="a6f08373bcc9dc0e0c113b8750a469c9c" name="a6f08373bcc9dc0e0c113b8750a469c9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f08373bcc9dc0e0c113b8750a469c9c">&#9670;&#160;</a></span>combatSceneChanged</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::combatSceneChanged </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><span class="tt"><a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed</a></span> restreint à ce qui peut avoir mué la grille de combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>) s'y abonne seule, pour ne reprendre un instantané qu'à ces gestes-là plutôt qu'à chaque changement de composition. </p>
+<p>Implements <a class="el" href="classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6">hmi::CombatModel</a>.</p>
 
 </div>
 </div>
@@ -702,264 +577,6 @@ Signal et notification de changement</h2>
 <span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abe06deade0fd0f7e807e47805d15cd2e" name="abe06deade0fd0f7e807e47805d15cd2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe06deade0fd0f7e807e47805d15cd2e">&#9670;&#160;</a></span>confirm()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::confirm </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Joue l'action choisie : une attaque ou un déplacement sur la case visée ; esquiver, se désengager, se précipiter ; ou basculer la réaction. </p>
-
-</div>
-</div>
-<a id="a2e1aa2205397c83968b8571a02cdf1ca" name="a2e1aa2205397c83968b8571a02cdf1ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e1aa2205397c83968b8571a02cdf1ca">&#9670;&#160;</a></span>cursorChanged</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::cursorChanged </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Le curseur, l'action choisie, la prévisualisation ou le chemin ont changé. </p>
-
-</div>
-</div>
-<a id="afce8085c245fd77be8f9ecb8342a4fa8" name="afce8085c245fd77be8f9ecb8342a4fa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afce8085c245fd77be8f9ecb8342a4fa8">&#9670;&#160;</a></span>cursorColumn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::cursorColumn </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a17f6dabe6b31ffcf96dcf2f1e7dee5cb" name="a17f6dabe6b31ffcf96dcf2f1e7dee5cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17f6dabe6b31ffcf96dcf2f1e7dee5cb">&#9670;&#160;</a></span>cursorRow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::cursorRow </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abe72b50e2c49d1b1e0850384c545a8d8" name="abe72b50e2c49d1b1e0850384c545a8d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe72b50e2c49d1b1e0850384c545a8d8">&#9670;&#160;</a></span>cycleAction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::cycleAction </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aeb607a0c234a127c02e1f8c0024cfb1f" name="aeb607a0c234a127c02e1f8c0024cfb1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb607a0c234a127c02e1f8c0024cfb1f">&#9670;&#160;</a></span>cycleTarget()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::cycleTarget </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pose le curseur sur l'ennemi debout suivant (<code class="param">step</code> = 1) ou précédent (-1), du plus proche au plus lointain. </p>
-
-</div>
-</div>
-<a id="abdf5aee5b5df692539728256c13b4508" name="abdf5aee5b5df692539728256c13b4508"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdf5aee5b5df692539728256c13b4508">&#9670;&#160;</a></span>dash()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::dash </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>L'action <em>se précipiter</em> du combattant actif. </p>
-
-</div>
-</div>
-<a id="a83b480b74613eb910cf4eaf3dcb80ba6" name="a83b480b74613eb910cf4eaf3dcb80ba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83b480b74613eb910cf4eaf3dcb80ba6">&#9670;&#160;</a></span>disengage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::disengage </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>L'action <em>se désengager</em> du combattant actif. </p>
-
-</div>
-</div>
-<a id="ad0dbabc4af65a9d1f12cf28af335d9c5" name="ad0dbabc4af65a9d1f12cf28af335d9c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0dbabc4af65a9d1f12cf28af335d9c5">&#9670;&#160;</a></span>dodge()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::dodge </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>L'action <em>esquiver</em> du combattant actif. </p>
-
-</div>
-</div>
-<a id="a4592c2d0424a7395defe3a8232ad1e35" name="a4592c2d0424a7395defe3a8232ad1e35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4592c2d0424a7395defe3a8232ad1e35">&#9670;&#160;</a></span>emitSceneChanged()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::emitSceneChanged </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><span class="tt">emit <a class="el" href="#a279bb9f9ff32e8573df589640baa7775">changed()</a></span> puis <span class="tt">emit <a class="el" href="#a6f08373bcc9dc0e0c113b8750a469c9c" title="changed restreint à ce qui peut avoir mué la grille de combat : la surface de rendu (hmi::ArenaViewpo...">combatSceneChanged()</a></span> : aux gestes qui mutent la grille de combat (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#aea7190e8fbf012b1210fa26d1a85f31d" title="Monte l&#39;affrontement : enrôle chaque combattant à sa case ou au prochain point d&#39;entrée libre de son ...">core::ArenaSession::mount</a></span>, un déplacement, une attaque, un retrait, la fin du tour, un rejeu, un retour à une composition neuve). </p>
-
-</div>
-</div>
-<a id="a9aa370be690b19fadfc5d329594ba7aa" name="a9aa370be690b19fadfc5d329594ba7aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aa370be690b19fadfc5d329594ba7aa">&#9670;&#160;</a></span>ended()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::ArenaModel::ended </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa6e303ae8fd20711a040ec1f05c75255" name="aa6e303ae8fd20711a040ec1f05c75255"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6e303ae8fd20711a040ec1f05c75255">&#9670;&#160;</a></span>endTurn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::endTurn </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>
@@ -1043,158 +660,6 @@ Signal et notification de changement</h2>
 
 </div>
 </div>
-<a id="a5c2a45ad51d9f91b33ce5e068d3dc0f2" name="a5c2a45ad51d9f91b33ce5e068d3dc0f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c2a45ad51d9f91b33ce5e068d3dc0f2">&#9670;&#160;</a></span>fighters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::fighters </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a547e6a108ef045d8e76926ffdfc9a95f" name="a547e6a108ef045d8e76926ffdfc9a95f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a547e6a108ef045d8e76926ffdfc9a95f">&#9670;&#160;</a></span>followActive()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::followActive </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Recale le curseur et l'action choisie sur le combattant actif, à chaque changement de tour. </p>
-
-</div>
-</div>
-<a id="aa0e867678253a828df3d9e0285fe8388" name="aa0e867678253a828df3d9e0285fe8388"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0e867678253a828df3d9e0285fe8388">&#9670;&#160;</a></span>gridColumns()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::gridColumns </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a954d10c7baddb00eec90076dab3823ab" name="a954d10c7baddb00eec90076dab3823ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a954d10c7baddb00eec90076dab3823ab">&#9670;&#160;</a></span>gridRows()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::gridRows </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a374ea4c53d4cc4792aff53d129938953" name="a374ea4c53d4cc4792aff53d129938953"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a374ea4c53d4cc4792aff53d129938953">&#9670;&#160;</a></span>inCombat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::ArenaModel::inCombat </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a20d730990238a92cecdbe35c7c07bc19" name="a20d730990238a92cecdbe35c7c07bc19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20d730990238a92cecdbe35c7c07bc19">&#9670;&#160;</a></span>journal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QStringList hmi::ArenaModel::journal </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a1c364203649d375b354ac1c3ccd3a280" name="a1c364203649d375b354ac1c3ccd3a280"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c364203649d375b354ac1c3ccd3a280">&#9670;&#160;</a></span>launch()</h2>
 
@@ -1210,7 +675,7 @@ Signal et notification de changement</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Monte l'affrontement et jette l'initiative. Refuse une composition sans les deux camps. </p>
+<p>Monte les deux camps et ouvre le combat. </p>
 
 </div>
 </div>
@@ -1239,33 +704,6 @@ Signal et notification de changement</h2>
 
 </div>
 </div>
-<a id="af646ceb7673cdee7aae3581c51bf9bf1" name="af646ceb7673cdee7aae3581c51bf9bf1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af646ceb7673cdee7aae3581c51bf9bf1">&#9670;&#160;</a></span>loadCharacterCatalog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::loadCharacterCatalog </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Charge le personnage de démonstration, par le même chemin que la fiche (LOT-87). </p>
-
-</div>
-</div>
 <a id="a59668333337ab23933ef24fe8ed20d33" name="a59668333337ab23933ef24fe8ed20d33"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59668333337ab23933ef24fe8ed20d33">&#9670;&#160;</a></span>loadPlayableLevel()</h2>
 
@@ -1289,9 +727,6 @@ Signal et notification de changement</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Charge la carte jouable de l'arène, réduite à sa zone de combat le cas échéant (LOT-09). </p>
-<dl class="section return"><dt>Returns</dt><dd>true si <span class="tt">_catalogs-&gt;level</span> porte une carte jouable. </dd></dl>
-
 </div>
 </div>
 <a id="a6b3646e217d8a185b14c836a0e955fda" name="a6b3646e217d8a185b14c836a0e955fda"></a>
@@ -1313,231 +748,6 @@ Signal et notification de changement</h2>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a693b41c41da1af8774b8a92147ec7bda" name="a693b41c41da1af8774b8a92147ec7bda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a693b41c41da1af8774b8a92147ec7bda">&#9670;&#160;</a></span>moveCursor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::moveCursor </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columns</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rows</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Déplace le curseur d'une case, sans sortir de la grille. </p>
-
-</div>
-</div>
-<a id="a131f43e650fa2ef3cc13dffbc9c809b2" name="a131f43e650fa2ef3cc13dffbc9c809b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a131f43e650fa2ef3cc13dffbc9c809b2">&#9670;&#160;</a></span>moveTo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::moveTo </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5a700f8a7931c29c33e033712d734fac" name="a5a700f8a7931c29c33e033712d734fac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a700f8a7931c29c33e033712d734fac">&#9670;&#160;</a></span>pathCells()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::pathCells </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae9ad672eaaac8997cc570c318ae443d3" name="ae9ad672eaaac8997cc570c318ae443d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9ad672eaaac8997cc570c318ae443d3">&#9670;&#160;</a></span>playAiTurns()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::playAiTurns </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Joue les tours de l'IA tant que le combattant actif en a un profil : le joueur reprend la main à son tour, ou à l'issue. </p>
-
-</div>
-</div>
-<a id="a288ca86228c69dcf668d6621a08d3fb6" name="a288ca86228c69dcf668d6621a08d3fb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288ca86228c69dcf668d6621a08d3fb6">&#9670;&#160;</a></span>playerTurn()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt; hmi::ArenaModel::playerTurn </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Le combattant actif s'il est commandé par le joueur. </p>
-
-</div>
-</div>
-<a id="a6477a81934b6c1195e52557e8005498f" name="a6477a81934b6c1195e52557e8005498f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6477a81934b6c1195e52557e8005498f">&#9670;&#160;</a></span>pointCursor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::pointCursor </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>column</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>row</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pose le curseur sur une case (le survol de la souris). Hors de la grille, ou déjà là : rien. </p>
-
-</div>
-</div>
-<a id="a1d84d702c7748c1b7a959266e53574c1" name="a1d84d702c7748c1b7a959266e53574c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d84d702c7748c1b7a959266e53574c1">&#9670;&#160;</a></span>preview()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QStringList hmi::ArenaModel::preview </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2e37f60f99e1181c36ed2aacc9bc453d" name="a2e37f60f99e1181c36ed2aacc9bc453d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e37f60f99e1181c36ed2aacc9bc453d">&#9670;&#160;</a></span>reachableCells()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::reachableCells </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a29d9bc66e52bd1305097e045c5e468e3" name="a29d9bc66e52bd1305097e045c5e468e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29d9bc66e52bd1305097e045c5e468e3">&#9670;&#160;</a></span>refreshMessage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::refreshMessage </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mount</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1593,7 +803,7 @@ Signal et notification de changement</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Remonte le même affrontement à la même graine. </p>
+<p>Rejoue le même affrontement à la même graine (<span class="tt">EX-CBT-050</span>). </p>
 
 </div>
 </div>
@@ -1619,8 +829,6 @@ Signal et notification de changement</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Une session neuve sur la carte de l'arène, l'IA décidant des opportunités de ses créatures. </p>
 
 </div>
 </div>
@@ -1674,53 +882,6 @@ Signal et notification de changement</h2>
 
 </div>
 </div>
-<a id="ae52c4eeb82df619bc6d70580dac936de" name="ae52c4eeb82df619bc6d70580dac936de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae52c4eeb82df619bc6d70580dac936de">&#9670;&#160;</a></span>selectAction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::selectAction </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Choisit l'action du tour d'indice <code class="param">index</code> (<span class="tt"><a class="el" href="#a603e13e5eb8abde7119fcc5eae7f76f6" title="Ce que le combattant actif peut faire de son tour : {label, kind, enabled, selected}...">turnActions</a></span>). </p>
-
-</div>
-</div>
-<a id="a7ba107cda5c93b00ace8ca975b602477" name="a7ba107cda5c93b00ace8ca975b602477"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ba107cda5c93b00ace8ca975b602477">&#9670;&#160;</a></span>session()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a> * hmi::ArenaModel::session </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>La session, en lecture seule, pour la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1ArenaViewportItem.html" title="Surface QRhi de la scène de combat du Colisée : la grille, l&#39;enceinte et les figurines,...">hmi::ArenaViewportItem</a></span>). </p>
-<p>Pas une propriété QML : le QML n'a rien à lire d'une session. Elle vit sur le fil graphique ; le rendu ne la lit que dans <span class="tt">synchronize()</span>, fil graphique bloqué, et n'en garde qu'un instantané en valeurs (<span class="tt"><a class="el" href="namespacehmi.html#aa0d7669255f79f79f2cd34ed1d8f939d" title="Tire de session l&#39;instantané que la composition dessine (lecture seule).">hmi::snapshotArenaScene</a></span>) — jamais ce pointeur. </p><dl class="section return"><dt>Returns</dt><dd>La session, <span class="tt">nullptr</span> si les catalogues n'ont donné aucune arène jouable. </dd></dl>
-
-</div>
-</div>
 <a id="a94f84268e496a261f13c2ec6ecbcfa4c" name="a94f84268e496a261f13c2ec6ecbcfa4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94f84268e496a261f13c2ec6ecbcfa4c">&#9670;&#160;</a></span>setEnemyAi()</h2>
 
@@ -1748,122 +909,6 @@ Signal et notification de changement</h2>
           <td class="memname">void hmi::ArenaModel::setSeed </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>seed</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a70634985b47dd8d07fb06b5506aa7412" name="a70634985b47dd8d07fb06b5506aa7412"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70634985b47dd8d07fb06b5506aa7412">&#9670;&#160;</a></span>status()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::status </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad620eb044ec5d68bb119996fff64d82c" name="ad620eb044ec5d68bb119996fff64d82c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad620eb044ec5d68bb119996fff64d82c">&#9670;&#160;</a></span>tapCell()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::tapCell </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>column</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>row</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le geste sur une case : déplacer le combattant actif si elle est atteignable, attaquer si elle porte un ennemi à portée. </p>
-<p>Le curseur s'y pose. </p>
-
-</div>
-</div>
-<a id="ad0721e1bdd4bbbb55ba7beaf560c2d23" name="ad0721e1bdd4bbbb55ba7beaf560c2d23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0721e1bdd4bbbb55ba7beaf560c2d23">&#9670;&#160;</a></span>turnActions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::turnActions </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a016f72453060a93bde1434bbeb84e261" name="a016f72453060a93bde1434bbeb84e261"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a016f72453060a93bde1434bbeb84e261">&#9670;&#160;</a></span>turnOrder()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::turnOrder </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a53e4578bc24ffdff34ffebbb7b9a2bf8" name="a53e4578bc24ffdff34ffebbb7b9a2bf8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53e4578bc24ffdff34ffebbb7b9a2bf8">&#9670;&#160;</a></span>withdraw()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ArenaModel::withdraw </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1938,28 +983,6 @@ Signal et notification de changement</h2>
 
 </div>
 </div>
-<a id="adaecf8742e9802b1d34fd4ffeaccf077" name="adaecf8742e9802b1d34fd4ffeaccf077"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaecf8742e9802b1d34fd4ffeaccf077">&#9670;&#160;</a></span>_cursor</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> hmi::ArenaModel::_cursor {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="add8d1bd31e1308c96a9ffb6d07ae1f35" name="add8d1bd31e1308c96a9ffb6d07ae1f35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add8d1bd31e1308c96a9ffb6d07ae1f35">&#9670;&#160;</a></span>_enemies</h2>
 
@@ -2004,50 +1027,6 @@ Signal et notification de changement</h2>
 
 </div>
 </div>
-<a id="a2c40f6aa663bc3d8a9133acb0cf5c120" name="a2c40f6aa663bc3d8a9133acb0cf5c120"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c40f6aa663bc3d8a9133acb0cf5c120">&#9670;&#160;</a></span>_followed</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>&gt; hmi::ArenaModel::_followed</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acfa307928762801304623cc90697155f" name="acfa307928762801304623cc90697155f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfa307928762801304623cc90697155f">&#9670;&#160;</a></span>_inCombat</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::ArenaModel::_inCombat = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a82d7e4263ba99bace91bd6741bd80aca" name="a82d7e4263ba99bace91bd6741bd80aca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82d7e4263ba99bace91bd6741bd80aca">&#9670;&#160;</a></span>_seed</h2>
 
@@ -2070,119 +1049,7 @@ Signal et notification de changement</h2>
 
 </div>
 </div>
-<a id="ac54985f21f38b73af60c02fd2c0a6694" name="ac54985f21f38b73af60c02fd2c0a6694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac54985f21f38b73af60c02fd2c0a6694">&#9670;&#160;</a></span>_selectedAction</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::_selectedAction = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6574b7f4bea492e1a0e9c18ee0128413" name="a6574b7f4bea492e1a0e9c18ee0128413"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6574b7f4bea492e1a0e9c18ee0128413">&#9670;&#160;</a></span>_session</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a>&gt; hmi::ArenaModel::_session</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9e9f07a7c6d1795a263f4a93b29fdc38" name="a9e9f07a7c6d1795a263f4a93b29fdc38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e9f07a7c6d1795a263f4a93b29fdc38">&#9670;&#160;</a></span>_status</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::_status</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
-<a id="a283539f3e5853abd3f6835638b4eb218" name="a283539f3e5853abd3f6835638b4eb218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a283539f3e5853abd3f6835638b4eb218">&#9670;&#160;</a></span>activeName</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::activeName</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acec275728c52d22710aa959fcaf1d361" name="acec275728c52d22710aa959fcaf1d361"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acec275728c52d22710aa959fcaf1d361">&#9670;&#160;</a></span>activeResources</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::activeResources</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Les ressources restantes du combattant actif, lisibles. </p>
-
-</div>
-</div>
 <a id="a7d21e77d0ce4548c070298f47d8e3b73" name="a7d21e77d0ce4548c070298f47d8e3b73"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d21e77d0ce4548c070298f47d8e3b73">&#9670;&#160;</a></span>allies</h2>
 
@@ -2202,8 +1069,6 @@ Signal et notification de changement</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Les alliés composés : <span class="tt">{id, name, mark}</span>. </p>
 
 </div>
 </div>
@@ -2227,78 +1092,6 @@ Signal et notification de changement</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Nom de l'arène jouable, ou ce qui manque pour en avoir une. </p>
-
-</div>
-</div>
-<a id="a67ebea315e7a25c384ce1ead30cb2298" name="a67ebea315e7a25c384ce1ead30cb2298"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67ebea315e7a25c384ce1ead30cb2298">&#9670;&#160;</a></span>cursorColumn</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::cursorColumn</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>La case visée par le curseur de ciblage, au clavier et à la manette. </p>
-
-</div>
-</div>
-<a id="a87d807cfc6a3bcb337f4b01daae1b565" name="a87d807cfc6a3bcb337f4b01daae1b565"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87d807cfc6a3bcb337f4b01daae1b565">&#9670;&#160;</a></span>cursorRow</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::cursorRow</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a14aa26855dbb7840d5b588488439f272" name="a14aa26855dbb7840d5b588488439f272"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14aa26855dbb7840d5b588488439f272">&#9670;&#160;</a></span>ended</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::ArenaModel::ended</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Vrai quand le combat en cours a une issue. </p>
-
 </div>
 </div>
 <a id="ac340c1bdc7ddfc6280c794211fbc448f" name="ac340c1bdc7ddfc6280c794211fbc448f"></a>
@@ -2320,8 +1113,6 @@ Signal et notification de changement</h2>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Les ennemis composés : <span class="tt">{id, name, mark}</span>. </p>
 
 </div>
 </div>
@@ -2345,124 +1136,7 @@ Signal et notification de changement</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Vrai si les ennemis sont joués par l'IA (<span class="tt">LOT-23</span>) : leurs tours se jouent seuls, par les profils de <span class="tt">behaviors.json</span>. </p>
-<p>Faux : on commande les deux camps, comme au <span class="tt">LOT-50</span>. </p>
-
-</div>
-</div>
-<a id="afb30979d732249090ce1b0c8c7dca44c" name="afb30979d732249090ce1b0c8c7dca44c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb30979d732249090ce1b0c8c7dca44c">&#9670;&#160;</a></span>fighters</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::fighters</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Les combattants sur la grille : <span class="tt">{column, row, footprint, side, active, down, hitPoints,
-hitPointsRatio}</span>. </p>
-<p>Les points de vie d'un ennemi restent secrets : <span class="tt">ensanglante</span>, <span class="tt">a terre</span> ou rien (Guide du Maître, chapitre 8). </p>
-
-</div>
-</div>
-<a id="a2a42097d40f5f0a4af172becc2bbd325" name="a2a42097d40f5f0a4af172becc2bbd325"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a42097d40f5f0a4af172becc2bbd325">&#9670;&#160;</a></span>gridColumns</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::gridColumns</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aee86a256c6660b2fa8650b3e4aee9b27" name="aee86a256c6660b2fa8650b3e4aee9b27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee86a256c6660b2fa8650b3e4aee9b27">&#9670;&#160;</a></span>gridRows</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::gridRows</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0f77d14b4902ce809daa8e3ec0a9932b" name="a0f77d14b4902ce809daa8e3ec0a9932b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f77d14b4902ce809daa8e3ec0a9932b">&#9670;&#160;</a></span>inCombat</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::ArenaModel::inCombat</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Vrai entre <span class="tt"><a class="el" href="#a1c364203649d375b354ac1c3ccd3a280" title="Monte l&#39;affrontement et jette l&#39;initiative. Refuse une composition sans les deux camps.">launch</a></span> et <span class="tt"><a class="el" href="#a8e5cef0bf17e7d6355fb2ddf4e8e3eb5" title="Revient à la composition, sans la perdre.">backToSetup</a></span> : la grille se joue, la composition est figée. </p>
-
-</div>
-</div>
-<a id="ad62a622df9e51245de3c1253bd8b5ffc" name="ad62a622df9e51245de3c1253bd8b5ffc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad62a622df9e51245de3c1253bd8b5ffc">&#9670;&#160;</a></span>journal</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QStringList hmi::ArenaModel::journal</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Les ennemis sont-ils joués par l'IA tactique (<span class="tt">LOT-23</span>) ? Sinon à la main. </p>
 
 </div>
 </div>
@@ -2486,80 +1160,6 @@ hitPointsRatio}</span>. </p>
 </table>
 </div><div class="memdoc">
 
-<p>Les huit Marques Héroïques, par identifiant. </p>
-
-</div>
-</div>
-<a id="aef297d1b46556defc245fae939792891" name="aef297d1b46556defc245fae939792891"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef297d1b46556defc245fae939792891">&#9670;&#160;</a></span>pathCells</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::pathCells</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Le chemin que le déplacement suivrait jusqu'au curseur : <span class="tt">{column, row}</span>, départ exclu. </p>
-
-</div>
-</div>
-<a id="aaca6a68e02078dc6792c503e3bd9180b" name="aaca6a68e02078dc6792c503e3bd9180b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaca6a68e02078dc6792c503e3bd9180b">&#9670;&#160;</a></span>preview</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QStringList hmi::ArenaModel::preview</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Ce que le geste de confirmation ferait sur la case visée, ligne par ligne : chemin et attaques d'opportunité, ou attaque, jet requis, chance, CA, abri, sources. </p>
-
-</div>
-</div>
-<a id="ab41ed77693753c49d695ebd77e286661" name="ab41ed77693753c49d695ebd77e286661"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab41ed77693753c49d695ebd77e286661">&#9670;&#160;</a></span>reachableCells</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::reachableCells</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Les cases où le combattant actif peut finir son déplacement : <span class="tt">{column, row}</span>. </p>
-
 </div>
 </div>
 <a id="a9818ee89f3dfcc0b5b0a12c688d7ab27" name="a9818ee89f3dfcc0b5b0a12c688d7ab27"></a>
@@ -2582,7 +1182,7 @@ hitPointsRatio}</span>. </p>
 </table>
 </div><div class="memdoc">
 
-<p>Tout ce qu'on peut enrôler : <span class="tt">{id, name, kind, hitPoints, armorClass}</span>. </p>
+<p>Tout ce qui peut s'enrôler : le personnage, puis le bestiaire. </p>
 
 </div>
 </div>
@@ -2605,81 +1205,6 @@ hitPointsRatio}</span>. </p>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>La graine du prochain lancement. Deux lancements à graine égale donnent le même déroulé. </p>
-
-</div>
-</div>
-<a id="a195ccb33e5a9636011376256b395e93c" name="a195ccb33e5a9636011376256b395e93c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a195ccb33e5a9636011376256b395e93c">&#9670;&#160;</a></span>status</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString hmi::ArenaModel::status</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Ce que l'écran doit dire : erreurs de chargement, refus de montage, issue. </p>
-
-</div>
-</div>
-<a id="a603e13e5eb8abde7119fcc5eae7f76f6" name="a603e13e5eb8abde7119fcc5eae7f76f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a603e13e5eb8abde7119fcc5eae7f76f6">&#9670;&#160;</a></span>turnActions</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::turnActions</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Ce que le combattant actif peut faire de son tour : <span class="tt">{label, kind, enabled, selected}</span>, où <span class="tt">kind</span> vaut <span class="tt">attack</span>, <span class="tt"><a class="el" href="#ad0dbabc4af65a9d1f12cf28af335d9c5" title="L&#39;action esquiver du combattant actif.">dodge</a></span>, <span class="tt"><a class="el" href="#a83b480b74613eb910cf4eaf3dcb80ba6" title="L&#39;action se désengager du combattant actif.">disengage</a></span>, <span class="tt"><a class="el" href="#abdf5aee5b5df692539728256c13b4508" title="L&#39;action se précipiter du combattant actif.">dash</a></span> ou <span class="tt">reaction</span>. </p>
-<p>Les attaques d'abord, dans l'ordre du profil. </p>
-
-</div>
-</div>
-<a id="a5f8831c8f0dfd8f687ee16ffe30cec0d" name="a5f8831c8f0dfd8f687ee16ffe30cec0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f8831c8f0dfd8f687ee16ffe30cec0d">&#9670;&#160;</a></span>turnOrder</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QVariantList hmi::ArenaModel::turnOrder</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>L'ordre d'initiative : <span class="tt">{name, total, side, active, down}</span>. </p>
 
 </div>
 </div>

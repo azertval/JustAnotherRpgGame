@@ -20,7 +20,7 @@ var searchData=
   ['arrivalpoints_17',['ArrivalPoints',['../namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a76e792516a9afec30df53f882a407d5b',1,'core']]],
   ['askreloadorkeep_18',['AskReloadOrKeep',['../namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc',1,'hmi']]],
   ['atstartup_19',['AtStartup',['../namespaceapp.html#a08a9b726272557de4abbb1580ae92a68a00e02845f59592c5a5fd8534854b8d17',1,'app']]],
-  ['attack_20',['Attack',['../namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a',1,'core::Attack'],['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack']]],
+  ['attack_20',['Attack',['../namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a',1,'core::Attack'],['../namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack'],['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack']]],
   ['attackdeclared_21',['AttackDeclared',['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af',1,'core']]],
   ['awaitingchoice_22',['AwaitingChoice',['../namespacecore.html#adbe3368bf4f687b1ab2120308d322c0aaf0ab72293be96072c5f5ad74dfd7f6b5',1,'core']]]
 ];

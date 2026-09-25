@@ -13,6 +13,6 @@ var searchData=
   ['connected_10',['connected',['../classhmi_1_1GamepadNavigator.html#ab04ee136a3e4440ecee3d83329008045',1,'hmi::GamepadNavigator']]],
   ['currentrpgscreen_11',['currentRpgScreen',['../classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730',1,'hmi::ScreenRouter']]],
   ['currentscreen_12',['currentScreen',['../classhmi_1_1ScreenRouter.html#ae6f4f69704239e7f7561382ecb88426c',1,'hmi::ScreenRouter']]],
-  ['cursorcolumn_13',['cursorColumn',['../classhmi_1_1ArenaModel.html#a67ebea315e7a25c384ce1ead30cb2298',1,'hmi::ArenaModel']]],
-  ['cursorrow_14',['cursorRow',['../classhmi_1_1ArenaModel.html#a87d807cfc6a3bcb337f4b01daae1b565',1,'hmi::ArenaModel']]]
+  ['cursorcolumn_13',['cursorColumn',['../classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166',1,'hmi::CombatModel']]],
+  ['cursorrow_14',['cursorRow',['../classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657',1,'hmi::CombatModel']]]
 ];

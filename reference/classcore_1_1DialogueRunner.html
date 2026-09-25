@@ -186,13 +186,13 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La machine à états qui <b>joue</b> un dialogue. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
 Pure, et c'est tout son intérêt</h2>
 <p>Elle ne connaît ni Qt, ni le rendu, ni le monde : elle consomme un graphe, des drapeaux, un interlocuteur et une suite aléatoire, et produit une réplique courante et des réponses. Un dialogue se joue donc <b>en test</b>, nœud par nœud, sans fenêtre : c'est ce qui permet de vérifier un arbre de vingt nœuds sans le cliquer. L'écran n'affiche que ce qu'elle décide.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
 Le joueur ne s'arrête que sur une réplique</h2>
 <p>Conditions, actions et jets s'enchaînent <b>dans le même appel</b> jusqu'à la prochaine réplique ou à la fin : l'écran ne voit jamais un nœud automatique, et une conversation n'a que deux états observables — une réplique qui attend, ou une fin.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md55"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
 Rejouable</h2>
 <p>La suite aléatoire est <b>fournie</b> et le runner n'en crée aucune : à graine égale, les mêmes réponses donnent les mêmes jets. Le journal (<span class="tt"><a class="el" href="#a3a501c132fc610899431af8effa8e90e">journal</a></span>) retrace chaque nœud traversé, chaque effet et chaque jet détaillé — c'est lui qu'un test compare.</p>
 <p>Les références (graphe, drapeaux, interlocuteur, échelle, suite) doivent survivre au runner. </p>

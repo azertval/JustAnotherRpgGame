@@ -1,0 +1,352 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/CombatModel.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('CombatModel_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">CombatModel.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="CombatModel_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;QStringList&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;QVariantList&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="Arena_8h.html">Core/Combat/Arena.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="EnemyAi_8h.html">Core/Combat/EnemyAi.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="CombatContestants_8h.html">HMI/Game/CombatContestants.h</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html">   50</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1CombatModel.html#a375a449b2263ba22ebbd6cb6365698b1">CombatModel</a> : <span class="keyword">public</span> QObject {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    Q_OBJECT</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">   53</a></span>    Q_PROPERTY(QString <a class="code hl_property" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">status</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">status</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a1e302adff6695db2af43dd1ee34e0e55">   55</a></span>    Q_PROPERTY(<span class="keywordtype">bool</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1e302adff6695db2af43dd1ee34e0e55">inCombat</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1e302adff6695db2af43dd1ee34e0e55">inCombat</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">   57</a></span>    Q_PROPERTY(<span class="keywordtype">bool</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">ended</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">ended</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">   58</a></span>    Q_PROPERTY(<span class="keywordtype">int</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">gridColumns</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">gridColumns</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">   59</a></span>    Q_PROPERTY(<span class="keywordtype">int</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">gridRows</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">gridRows</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">   61</a></span>    Q_PROPERTY(QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">fighters</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">fighters</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">   63</a></span>    Q_PROPERTY(QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">reachableCells</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">reachableCells</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166">   64</a></span>    Q_PROPERTY(<span class="keywordtype">int</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166">cursorColumn</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166">cursorColumn</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657">   65</a></span>    Q_PROPERTY(<span class="keywordtype">int</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657">cursorRow</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657">cursorRow</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">   67</a></span>    Q_PROPERTY(QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">pathCells</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">pathCells</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">   69</a></span>    Q_PROPERTY(QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">turnActions</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">turnActions</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">   71</a></span>    Q_PROPERTY(QStringList <a class="code hl_property" href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">preview</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">preview</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">   72</a></span>    Q_PROPERTY(QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">turnOrder</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">turnOrder</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">   73</a></span>    Q_PROPERTY(QString <a class="code hl_property" href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">activeName</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">activeName</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">   74</a></span>    Q_PROPERTY(QString <a class="code hl_property" href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">activeResources</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">activeResources</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">   75</a></span>    Q_PROPERTY(QStringList <a class="code hl_property" href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">journal</a> READ <a class="code hl_property" href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">journal</a> NOTIFY <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>public:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    explicit <a class="code hl_function" href="classhmi_1_1CombatModel.html#a375a449b2263ba22ebbd6cb6365698b1">CombatModel</a>(QObject* parent = <span class="keywordtype">nullptr</span>);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#afe95b8b2529f24a21a840733061c7f29">   79</a></span>    ~<a class="code hl_function" href="classhmi_1_1CombatModel.html#a375a449b2263ba22ebbd6cb6365698b1">CombatModel</a>() override;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a5a21cf9616ec5929ae35e8c55d54fbab">   81</a></span>    [[nodiscard]] QString <a class="code hl_property" href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">status</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a2975c8788ba21ade4fb9cf95f1ce94e7">_status</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0">   84</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0">inCombat</a>() const noexcept {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a2f5adcd17ddce5510db63ebd1ebab1ba">_inCombat</a>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">ended</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">gridColumns</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_property" href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">gridRows</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    [[nodiscard]] QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">fighters</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    [[nodiscard]] QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">reachableCells</a>() <span class="keyword">const</span>;</div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#aa30c130f09b7ccfd87e9f8213e08f9a5">   92</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#aa30c130f09b7ccfd87e9f8213e08f9a5">cursorColumn</a>() const noexcept {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">_cursor</a>.column;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+</div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a8df30784e3da44ca77d94fe704570a26">   95</a></span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a8df30784e3da44ca77d94fe704570a26">cursorRow</a>() const noexcept {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">_cursor</a>.row;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    [[nodiscard]] QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">pathCells</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    [[nodiscard]] QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">turnActions</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    [[nodiscard]] QStringList <a class="code hl_property" href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">preview</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    [[nodiscard]] QVariantList <a class="code hl_property" href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">turnOrder</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    [[nodiscard]] QString <a class="code hl_property" href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">activeName</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    [[nodiscard]] QString <a class="code hl_property" href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">activeResources</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    [[nodiscard]] QStringList <a class="code hl_property" href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">journal</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a7d806f9c080a3752b94021d5fb5d74e1">  113</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">core::ArenaSession</a>* <a class="code hl_function" href="classhmi_1_1CombatModel.html#a7d806f9c080a3752b94021d5fb5d74e1">session</a>() const noexcept {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">_session</a>.get();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a8bfa8c55ac43a21eb05a1dcd1ae62afb">tapCell</a>(<span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a234d461f5bc449647b3d504ace6f7748">moveCursor</a>(<span class="keywordtype">int</span> columns, <span class="keywordtype">int</span> rows);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#ab13311c4dd097f0f857ddd713daf54a1">pointCursor</a>(<span class="keywordtype">int</span> column, <span class="keywordtype">int</span> row);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a60e5f4979407e04f7002d15d09a55a28">centerCursor</a>();</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a7cbe1e750d67f3dca6127266477e532f">cycleTarget</a>(<span class="keywordtype">int</span> step);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#abab2695bc63463da0d99e1993359f9d0">selectAction</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a8001d3ead9a9892c0b8503de8435a46e">cycleAction</a>(<span class="keywordtype">int</span> step);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a1fe76f11f719e82a0dbec52ed632964f">confirm</a>();</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a5a8148ce0aa7461b391a0dc9d860269f">dodge</a>();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#adb350a2b14066146e7e9ccbb67e939c5">disengage</a>();</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a057edc09f89a9359ee7be7a2eb6a908d">dash</a>();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#abbc848a493b901b8247047479adde65c">endTurn</a>();</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    Q_INVOKABLE <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#ad9d7bb4ae728f4a78767e7c79d563a17">withdraw</a>();</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>signals:</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">  144</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">changed</a>();</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">  145</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a>();</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">  146</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">combatSceneChanged</a>();</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6">  150</a></span>    [[nodiscard]] <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a>* <a class="code hl_function" href="classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6">behaviors</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a48b48d90132a0266125966b8081ee0a6">playAiTurns</a>();</div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a431471d166df8e9c8bff480661431a32">  159</a></span>    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a431471d166df8e9c8bff480661431a32">acceptsInput</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
+</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a307c768d3d7638c957d5dbac0c614dc2">playOneAiTurn</a>();</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a0659205d31e32dd04ec35d5e15bca4bc">emitSceneChanged</a>();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#ac16debc0e77c3a6845d60f10f3c3e69d">refreshMessage</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1ArenaMount.html">core::ArenaMount</a>&amp; mount);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a0489feee39e33f36c4957f5f3ab4815f">followActive</a>();</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    [[nodiscard]] std::optional&lt;core::CombatantId&gt; <a class="code hl_function" href="classhmi_1_1CombatModel.html#ae51c20277b8bb768da16512a7fde305b">playerTurn</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#aed34c3f2684232f6bcfed8d8f7d310a8">attackAt</a>(<a class="code hl_enumeration" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> target, std::optional&lt;std::size_t&gt; index);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1CombatModel.html#a96e8a89ff900657a0eb2ac543979cd2f">moveTo</a>(<a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    [[nodiscard]] <span class="keyword">static</span> std::optional&lt;HeroContestantSource&gt; <a class="code hl_function" href="classhmi_1_1CombatModel.html#a7ac0389079eca6646ead97c235560b92">loadHeroSource</a>(</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        std::vector&lt;std::string&gt;&amp; problems);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">  179</a></span>    std::unique_ptr&lt;core::ArenaSession&gt; <a class="code hl_variable" href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">_session</a>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">  180</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">_cursor</a>{};</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a60afba8e11be5d58221b45362f248b28">  181</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a60afba8e11be5d58221b45362f248b28">_selectedAction</a> = 0;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a5bb550fd48b8b41da51896c3f846cde5">  183</a></span>    std::optional&lt;core::CombatantId&gt; <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a5bb550fd48b8b41da51896c3f846cde5">_followed</a>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a2f5adcd17ddce5510db63ebd1ebab1ba">  184</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a2f5adcd17ddce5510db63ebd1ebab1ba">_inCombat</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classhmi_1_1CombatModel.html#a2975c8788ba21ade4fb9cf95f1ce94e7">  185</a></span>    QString <a class="code hl_variable" href="classhmi_1_1CombatModel.html#a2975c8788ba21ade4fb9cf95f1ce94e7">_status</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>};</div>
+</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aArena_8h_html"><div class="ttname"><a href="Arena_8h.html">Arena.h</a></div><div class="ttdoc">Le Colisée : un affrontement qui se monte, se joue et se rejoue à graine fixée (LOT-50).</div></div>
+<div class="ttc" id="aCombatContestants_8h_html"><div class="ttname"><a href="CombatContestants_8h.html">CombatContestants.h</a></div><div class="ttdoc">De la fiche et du bestiaire au combattant d&#39;une session (core::ArenaContestant) — ce que le Colisée e...</div></div>
+<div class="ttc" id="aEnemyAi_8h_html"><div class="ttname"><a href="EnemyAi_8h.html">EnemyAi.h</a></div><div class="ttdoc">L&#39;IA tactique : des heuristiques pondérées, déterministes, qui jouent dans les mêmes actions que le j...</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:240</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a021df2e373a1f12e6e4022a0bbc796d5"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a021df2e373a1f12e6e4022a0bbc796d5">hmi::CombatModel::pathCells</a></div><div class="ttdeci">QVariantList pathCells</div><div class="ttdoc">Le chemin que le déplacement vers le curseur emprunterait.</div><div class="ttdef"><b>Definition</b> CombatModel.h:67</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a0489feee39e33f36c4957f5f3ab4815f"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a0489feee39e33f36c4957f5f3ab4815f">hmi::CombatModel::followActive</a></div><div class="ttdeci">void followActive()</div><div class="ttdoc">Le curseur suit le combattant actif quand il change.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:189</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a04eb920f85db24d68bf992f2b29a17d5"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a04eb920f85db24d68bf992f2b29a17d5">hmi::CombatModel::status</a></div><div class="ttdeci">QString status</div><div class="ttdoc">Ce que l&#39;écran dit du dernier geste : un jet, un refus, l&#39;issue.</div><div class="ttdef"><b>Definition</b> CombatModel.h:53</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a057cbbd202aa28d65f92b8dd47dad090"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">hmi::CombatModel::_cursor</a></div><div class="ttdeci">core::GridPosition _cursor</div><div class="ttdef"><b>Definition</b> CombatModel.h:180</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a057edc09f89a9359ee7be7a2eb6a908d"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a057edc09f89a9359ee7be7a2eb6a908d">hmi::CombatModel::dash</a></div><div class="ttdeci">Q_INVOKABLE void dash()</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:752</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a0659205d31e32dd04ec35d5e15bca4bc"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a0659205d31e32dd04ec35d5e15bca4bc">hmi::CombatModel::emitSceneChanged</a></div><div class="ttdeci">void emitSceneChanged()</div><div class="ttdoc">Émet changed et combatSceneChanged.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:157</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a1a83a2cb2d7266bf70c6fca16423f287"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a1a83a2cb2d7266bf70c6fca16423f287">hmi::CombatModel::reachableCells</a></div><div class="ttdeci">QVariantList reachableCells</div><div class="ttdoc">Les cases où le combattant actif peut finir son déplacement.</div><div class="ttdef"><b>Definition</b> CombatModel.h:63</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a1e1740ea193d9f6ff2a5ff6f8e03be79"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a1e1740ea193d9f6ff2a5ff6f8e03be79">hmi::CombatModel::turnOrder</a></div><div class="ttdeci">QVariantList turnOrder</div><div class="ttdef"><b>Definition</b> CombatModel.h:72</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a1e302adff6695db2af43dd1ee34e0e55"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a1e302adff6695db2af43dd1ee34e0e55">hmi::CombatModel::inCombat</a></div><div class="ttdeci">bool inCombat</div><div class="ttdoc">Vrai entre le montage et le retour à la mise en place ou à l&#39;exploration.</div><div class="ttdef"><b>Definition</b> CombatModel.h:55</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a1fe76f11f719e82a0dbec52ed632964f"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a1fe76f11f719e82a0dbec52ed632964f">hmi::CombatModel::confirm</a></div><div class="ttdeci">Q_INVOKABLE void confirm()</div><div class="ttdoc">Confirme l&#39;action choisie sur la case du curseur.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:692</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a234d461f5bc449647b3d504ace6f7748"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a234d461f5bc449647b3d504ace6f7748">hmi::CombatModel::moveCursor</a></div><div class="ttdeci">Q_INVOKABLE void moveCursor(int columns, int rows)</div><div class="ttdoc">Déplace le curseur de ciblage de columns et rows cases (clavier, manette).</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:601</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a2975c8788ba21ade4fb9cf95f1ce94e7"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a2975c8788ba21ade4fb9cf95f1ce94e7">hmi::CombatModel::_status</a></div><div class="ttdeci">QString _status</div><div class="ttdef"><b>Definition</b> CombatModel.h:185</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a2f5adcd17ddce5510db63ebd1ebab1ba"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a2f5adcd17ddce5510db63ebd1ebab1ba">hmi::CombatModel::_inCombat</a></div><div class="ttdeci">bool _inCombat</div><div class="ttdef"><b>Definition</b> CombatModel.h:184</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a307c768d3d7638c957d5dbac0c614dc2"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a307c768d3d7638c957d5dbac0c614dc2">hmi::CombatModel::playOneAiTurn</a></div><div class="ttdeci">bool playOneAiTurn()</div><div class="ttdoc">Joue un tour de l&#39;IA.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:162</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a375a449b2263ba22ebbd6cb6365698b1"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a375a449b2263ba22ebbd6cb6365698b1">hmi::CombatModel::CombatModel</a></div><div class="ttdeci">CombatModel(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:125</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a392928ff09819c4346cdb77f1734efc4"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4">hmi::CombatModel::changed</a></div><div class="ttdeci">void changed()</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a4207e25fe500ba8778be63967022c46e"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a4207e25fe500ba8778be63967022c46e">hmi::CombatModel::gridRows</a></div><div class="ttdeci">int gridRows</div><div class="ttdef"><b>Definition</b> CombatModel.h:59</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a431471d166df8e9c8bff480661431a32"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a431471d166df8e9c8bff480661431a32">hmi::CombatModel::acceptsInput</a></div><div class="ttdeci">virtual bool acceptsInput() const</div><div class="ttdef"><b>Definition</b> CombatModel.h:159</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a48b48d90132a0266125966b8081ee0a6"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a48b48d90132a0266125966b8081ee0a6">hmi::CombatModel::playAiTurns</a></div><div class="ttdeci">virtual void playAiTurns()</div><div class="ttdoc">Joue les tours de l&#39;IA jusqu&#39;au prochain tour du joueur, ou la fin.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:173</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a5865e6deb8559d3439547fa834fec386"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386">hmi::CombatModel::combatSceneChanged</a></div><div class="ttdeci">void combatSceneChanged()</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a5a8148ce0aa7461b391a0dc9d860269f"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a5a8148ce0aa7461b391a0dc9d860269f">hmi::CombatModel::dodge</a></div><div class="ttdeci">Q_INVOKABLE void dodge()</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:734</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a5bb550fd48b8b41da51896c3f846cde5"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a5bb550fd48b8b41da51896c3f846cde5">hmi::CombatModel::_followed</a></div><div class="ttdeci">std::optional&lt; core::CombatantId &gt; _followed</div><div class="ttdoc">Le combattant que le curseur suit : quand l&#39;actif change, le curseur va sur lui.</div><div class="ttdef"><b>Definition</b> CombatModel.h:183</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a5e85081aa817b7d841d92f51a6d56829"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a5e85081aa817b7d841d92f51a6d56829">hmi::CombatModel::ended</a></div><div class="ttdeci">bool ended</div><div class="ttdoc">Vrai quand le combat a une issue.</div><div class="ttdef"><b>Definition</b> CombatModel.h:57</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a60afba8e11be5d58221b45362f248b28"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a60afba8e11be5d58221b45362f248b28">hmi::CombatModel::_selectedAction</a></div><div class="ttdeci">int _selectedAction</div><div class="ttdef"><b>Definition</b> CombatModel.h:181</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a60e5f4979407e04f7002d15d09a55a28"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a60e5f4979407e04f7002d15d09a55a28">hmi::CombatModel::centerCursor</a></div><div class="ttdeci">Q_INVOKABLE void centerCursor()</div><div class="ttdoc">Ramène le curseur sur le combattant actif.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:624</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a7ac0389079eca6646ead97c235560b92"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a7ac0389079eca6646ead97c235560b92">hmi::CombatModel::loadHeroSource</a></div><div class="ttdeci">static std::optional&lt; HeroContestantSource &gt; loadHeroSource(std::vector&lt; std::string &gt; &amp;problems)</div><div class="ttdoc">Le héros de la démo comme source de combattant ; std::nullopt sans fiche, et problems dit pourquoi.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:132</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a7c5723221a10269e6054138dd7582a62"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62">hmi::CombatModel::turnActions</a></div><div class="ttdeci">QVariantList turnActions</div><div class="ttdoc">Les actions du tour du joueur : attaques, puis celles du Manuel, puis la réaction.</div><div class="ttdef"><b>Definition</b> CombatModel.h:69</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a7cbe1e750d67f3dca6127266477e532f"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a7cbe1e750d67f3dca6127266477e532f">hmi::CombatModel::cycleTarget</a></div><div class="ttdeci">Q_INVOKABLE void cycleTarget(int step)</div><div class="ttdoc">Passe à l&#39;ennemi debout suivant (step &gt; 0) ou précédent, du plus proche au plus loin.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:637</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a7d806f9c080a3752b94021d5fb5d74e1"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a7d806f9c080a3752b94021d5fb5d74e1">hmi::CombatModel::session</a></div><div class="ttdeci">const core::ArenaSession * session() const noexcept</div><div class="ttdoc">La session, en lecture seule, pour la surface de rendu.</div><div class="ttdef"><b>Definition</b> CombatModel.h:113</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a8001d3ead9a9892c0b8503de8435a46e"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a8001d3ead9a9892c0b8503de8435a46e">hmi::CombatModel::cycleAction</a></div><div class="ttdeci">Q_INVOKABLE void cycleAction(int step)</div><div class="ttdoc">Passe à l&#39;action suivante ou précédente de la barre, en boucle.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:682</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a88718c021f2e8c16693dd9b2b2bc4cba"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba">hmi::CombatModel::activeResources</a></div><div class="ttdeci">QString activeResources</div><div class="ttdef"><b>Definition</b> CombatModel.h:74</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a8ac66c05b6860989ed920ac585ccedf6"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6">hmi::CombatModel::behaviors</a></div><div class="ttdeci">virtual const core::BehaviorCatalog * behaviors() const =0</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a8bfa8c55ac43a21eb05a1dcd1ae62afb"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a8bfa8c55ac43a21eb05a1dcd1ae62afb">hmi::CombatModel::tapCell</a></div><div class="ttdeci">Q_INVOKABLE void tapCell(int column, int row)</div><div class="ttdoc">Le clic ou la confirmation sur une case : attaquer l&#39;ennemi qui l&#39;occupe, sinon s&#39;y déplacer (LOT-24)...</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:564</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a8df30784e3da44ca77d94fe704570a26"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a8df30784e3da44ca77d94fe704570a26">hmi::CombatModel::cursorRow</a></div><div class="ttdeci">int cursorRow() const noexcept</div><div class="ttdef"><b>Definition</b> CombatModel.h:95</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a91c4d08704abaea6fdb77746e684a7a0"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0">hmi::CombatModel::inCombat</a></div><div class="ttdeci">bool inCombat() const noexcept</div><div class="ttdef"><b>Definition</b> CombatModel.h:84</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_a96e8a89ff900657a0eb2ac543979cd2f"><div class="ttname"><a href="classhmi_1_1CombatModel.html#a96e8a89ff900657a0eb2ac543979cd2f">hmi::CombatModel::moveTo</a></div><div class="ttdeci">void moveTo(core::GridPosition cell)</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:544</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_aa30c130f09b7ccfd87e9f8213e08f9a5"><div class="ttname"><a href="classhmi_1_1CombatModel.html#aa30c130f09b7ccfd87e9f8213e08f9a5">hmi::CombatModel::cursorColumn</a></div><div class="ttdeci">int cursorColumn() const noexcept</div><div class="ttdef"><b>Definition</b> CombatModel.h:92</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_aa86af5af2fc310b86a15b61af7fc3166"><div class="ttname"><a href="classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166">hmi::CombatModel::cursorColumn</a></div><div class="ttdeci">int cursorColumn</div><div class="ttdef"><b>Definition</b> CombatModel.h:64</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_ab13311c4dd097f0f857ddd713daf54a1"><div class="ttname"><a href="classhmi_1_1CombatModel.html#ab13311c4dd097f0f857ddd713daf54a1">hmi::CombatModel::pointCursor</a></div><div class="ttdeci">Q_INVOKABLE void pointCursor(int column, int row)</div><div class="ttdoc">Pose le curseur sur une case (survol de la souris) ; hors grille, rien.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:611</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_abab2695bc63463da0d99e1993359f9d0"><div class="ttname"><a href="classhmi_1_1CombatModel.html#abab2695bc63463da0d99e1993359f9d0">hmi::CombatModel::selectAction</a></div><div class="ttdeci">Q_INVOKABLE void selectAction(int index)</div><div class="ttdoc">Choisit l&#39;action de rang index dans la barre.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:669</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_abbc848a493b901b8247047479adde65c"><div class="ttname"><a href="classhmi_1_1CombatModel.html#abbc848a493b901b8247047479adde65c">hmi::CombatModel::endTurn</a></div><div class="ttdeci">Q_INVOKABLE void endTurn()</div><div class="ttdoc">Termine le tour du joueur ; l&#39;IA joue ensuite les siens.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:761</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_ac16debc0e77c3a6845d60f10f3c3e69d"><div class="ttname"><a href="classhmi_1_1CombatModel.html#ac16debc0e77c3a6845d60f10f3c3e69d">hmi::CombatModel::refreshMessage</a></div><div class="ttdeci">void refreshMessage(const core::ArenaMount &amp;mount)</div><div class="ttdoc">Écrit dans status les refus d&#39;un montage.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:220</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_acb83d08ef0f0b63a028288ab2a837cca"><div class="ttname"><a href="classhmi_1_1CombatModel.html#acb83d08ef0f0b63a028288ab2a837cca">hmi::CombatModel::cursorChanged</a></div><div class="ttdeci">void cursorChanged()</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_ad2acaaa6c0fc602f03990a350b474c98"><div class="ttname"><a href="classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98">hmi::CombatModel::journal</a></div><div class="ttdeci">QStringList journal</div><div class="ttdef"><b>Definition</b> CombatModel.h:75</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_ad981fb154684c7b561b80750ffdb926b"><div class="ttname"><a href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">hmi::CombatModel::_session</a></div><div class="ttdeci">std::unique_ptr&lt; core::ArenaSession &gt; _session</div><div class="ttdef"><b>Definition</b> CombatModel.h:179</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_ad9d7bb4ae728f4a78767e7c79d563a17"><div class="ttname"><a href="classhmi_1_1CombatModel.html#ad9d7bb4ae728f4a78767e7c79d563a17">hmi::CombatModel::withdraw</a></div><div class="ttdeci">Q_INVOKABLE void withdraw()</div><div class="ttdoc">Le joueur se retire, si la rencontre le permet.</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:775</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_adb350a2b14066146e7e9ccbb67e939c5"><div class="ttname"><a href="classhmi_1_1CombatModel.html#adb350a2b14066146e7e9ccbb67e939c5">hmi::CombatModel::disengage</a></div><div class="ttdeci">Q_INVOKABLE void disengage()</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:743</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_ae51c20277b8bb768da16512a7fde305b"><div class="ttname"><a href="classhmi_1_1CombatModel.html#ae51c20277b8bb768da16512a7fde305b">hmi::CombatModel::playerTurn</a></div><div class="ttdeci">std::optional&lt; core::CombatantId &gt; playerTurn() const</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:208</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_aed34c3f2684232f6bcfed8d8f7d310a8"><div class="ttname"><a href="classhmi_1_1CombatModel.html#aed34c3f2684232f6bcfed8d8f7d310a8">hmi::CombatModel::attackAt</a></div><div class="ttdeci">void attackAt(core::CombatantId target, std::optional&lt; std::size_t &gt; index)</div><div class="ttdef"><b>Definition</b> CombatModel.cpp:514</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_aede325d57cb27c7f3d6cb2b37aab6657"><div class="ttname"><a href="classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657">hmi::CombatModel::cursorRow</a></div><div class="ttdeci">int cursorRow</div><div class="ttdef"><b>Definition</b> CombatModel.h:65</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_aefff1301b200bf19efed9d56fa8d6375"><div class="ttname"><a href="classhmi_1_1CombatModel.html#aefff1301b200bf19efed9d56fa8d6375">hmi::CombatModel::activeName</a></div><div class="ttdeci">QString activeName</div><div class="ttdef"><b>Definition</b> CombatModel.h:73</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_af76abf3528373ea13b4d1352b46a860e"><div class="ttname"><a href="classhmi_1_1CombatModel.html#af76abf3528373ea13b4d1352b46a860e">hmi::CombatModel::gridColumns</a></div><div class="ttdeci">int gridColumns</div><div class="ttdef"><b>Definition</b> CombatModel.h:58</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_af9deb3b08aa17ae8c8cb157a9ec9b55b"><div class="ttname"><a href="classhmi_1_1CombatModel.html#af9deb3b08aa17ae8c8cb157a9ec9b55b">hmi::CombatModel::fighters</a></div><div class="ttdeci">QVariantList fighters</div><div class="ttdoc">Les combattants sur la grille : case, emprise, camp, tour, à terre, points de vie.</div><div class="ttdef"><b>Definition</b> CombatModel.h:61</div></div>
+<div class="ttc" id="aclasshmi_1_1CombatModel_html_aff20bdf39c34ab9623e371b3fb5234e6"><div class="ttname"><a href="classhmi_1_1CombatModel.html#aff20bdf39c34ab9623e371b3fb5234e6">hmi::CombatModel::preview</a></div><div class="ttdeci">QStringList preview</div><div class="ttdoc">Ce que l&#39;action choisie ferait sur la case du curseur (LOT-24).</div><div class="ttdef"><b>Definition</b> CombatModel.h:71</div></div>
+<div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="astructcore_1_1ArenaMount_html"><div class="ttname"><a href="structcore_1_1ArenaMount.html">core::ArenaMount</a></div><div class="ttdoc">Ce que le montage d&#39;un affrontement a produit : les enrôlés par camp, et les refus.</div><div class="ttdef"><b>Definition</b> Arena.h:199</div></div>
+<div class="ttc" id="astructcore_1_1BehaviorCatalog_html"><div class="ttname"><a href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a></div><div class="ttdoc">Les profils, les règles d&#39;attribution dans l&#39;ordre, et ce qui n&#39;a pas pu être lu.</div><div class="ttdef"><b>Definition</b> EnemyAi.h:169</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_7eb0d0bc801e3eeb9c9e3cb238223789.html">Runtime</a></li><li class="navelem"><a href="CombatModel_8h.html">CombatModel.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

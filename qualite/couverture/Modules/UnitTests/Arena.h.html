@@ -181,6 +181,9 @@ struct ArenaBout {
     bool heroicMark = true;
     /// La prise en tenaille du *Guide du MaÃ®tre* (`core::Arena::flanking`).
 <span style = "background-color:#dfd">    bool flanking = false;</span>
+    /// Vrai si l'on peut se retirer : toujours au ColisÃ©e ; sur la carte, ce que la rencontre dit
+    /// (`core::Encounter::escapable`, `LOT-118`).
+<span style = "background-color:#dfd">    bool escapable = true;</span>
 };
 
 class ArenaSession;
@@ -193,6 +196,15 @@ class ArenaSession;
  */
 using OpportunityPolicy =
     std::function&lt;bool(const ArenaSession&amp;, CombatantId reactor, CombatantId mover)&gt;;
+
+/**
+ * @brief Ce que l'Ã©cran veut savoir d'un pas : qui a marchÃ©, par oÃ¹ (`LOT-118`).
+ *
+ * Le journal note dÃ©jÃ  chaque pas en clair ; l'Ã©cran, lui, veut le **chemin** pour faire marcher
+ * la figurine case par case â un tour de l'IA se joue d'un bloc, et sans ce crochet il ne resterait
+ * que des positions d'arrivÃ©e, ce qui se lit comme une tÃ©lÃ©portation.
+ */
+using MoveObserver = std::function&lt;void(CombatantId mover, const Path&amp; path)&gt;;
 
 /// @brief Ce que le montage d'un affrontement a produit : les enrÃ´lÃ©s par camp, et les refus.
 struct ArenaMount {
@@ -359,6 +371,11 @@ public:
         _opportunityPolicy = std::move(policy);
     }</span>
 
+    /// @brief PrÃ©vient @p observer Ã  chaque pas effectuÃ©, avec son chemin (`LOT-118`).
+    void setMoveObserver(MoveObserver observer) {
+        _moveObserver = std::move(observer);
+    }
+
     /// @brief Ajoute une ligne au journal : la dÃ©cision d'un comportement, pour qu'elle se relise.
 <span style = "background-color:#dfd">    void note(std::string line) {
         record(std::move(line));
@@ -431,6 +448,7 @@ private:
     std::map&lt;CombatantId, std::vector&lt;AttackProfile&gt;&gt; _attacks;
     std::map&lt;CombatantId, std::string&gt; _behaviors;
     OpportunityPolicy _opportunityPolicy;
+    MoveObserver _moveObserver;
     std::set&lt;CombatantId&gt; _declinesOpportunities;
     AttackHooks _attackHooks;
     DamagePipeline _damagePipeline;

@@ -16,6 +16,7 @@
 
 #include &lt;algorithm&gt;
 #include &lt;set&gt;
+#include &lt;string&gt;
 #include &lt;utility&gt;
 
 #include "Core/Combat/BattleGrid.h"
@@ -1003,8 +1004,14 @@ bool shouldTakeOpportunity(const ArenaSession&amp; session, CombatantId reactor,
 <span style = "background-color:#dfd">    if (plan.action == TurnAction::Disengage) {
         static_cast&lt;void&gt;(session.disengage());</span>
     }
-<span style = "background-color:#dfd">    if (plan.moveTo.has_value() &amp;&amp; toujoursLui()) {
-        static_cast&lt;void&gt;(session.move(*plan.moveTo));</span>
+<span style = "background-color:#dfd">    if (plan.moveTo.has_value() &amp;&amp; toujoursLui()) {</span>
+        // Un deplacement refuse se dit : sans cette ligne, une IA qui Â« ne bouge pas Â» ne laisse
+        // aucune trace de ce qu'elle a voulu, et l'audit ne peut pas distinguer un plan qui tient
+        // sa place d'un pas que la grille a refuse (LOT-118).
+<span style = "background-color:#dfd">        if (const MoveOutcome pas = session.move(*plan.moveTo); pas.result != MoveResult::Moved) {
+            session.note("deplacement refuse vers " + std::to_string(plan.moveTo-&gt;column) + "," +</span>
+                         std::to_string(plan.moveTo-&gt;row));
+<span style = "background-color:#dfd">        }</span>
     }
 <span style = "background-color:#dfd">    switch (plan.action) {</span>
         case TurnAction::Attack:

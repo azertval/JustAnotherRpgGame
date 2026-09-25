@@ -176,7 +176,9 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
         traits.frameWidth = read.description-&gt;frameWidth;
         traits.frameHeight = read.description-&gt;frameHeight;
         if (read.description-&gt;clips.clipCount() &gt; 0) {
-            traits.frameDuration = read.description-&gt;clips.clipAt(0).frameDuration;</span>
+            const core::AnimationClip&amp; clip = read.description-&gt;clips.clipAt(0);
+            traits.frameDuration = clip.frameDuration;
+            traits.loop = clip.endMode == core::ClipEndMode::Loop;</span>
         }
 <span style = "background-color:#dfd">    }</span>
 
@@ -235,6 +237,7 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
     texture.depthOffset = traits.depthOffset;
     texture.groundLine = traits.groundLine;
     texture.frameDuration = traits.frameDuration;
+    texture.loop = traits.loop;
     texture.storeyHeight = traits.storeyHeight;
 }</span>
 

@@ -11,8 +11,8 @@
       "id": "0.0.1",
       "titre": "Démo basique",
       "nature": "detaillee",
-      "lots": 30,
-      "livres": 17
+      "lots": 31,
+      "livres": 18
     },
     {
       "id": "0.0.2",
@@ -783,7 +783,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 97,
+      "debloque": 98,
       "prerequis": [
         "LOT-100",
         "LOT-123"
@@ -795,7 +795,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 95,
+      "debloque": 94,
       "prerequis": [
         "LOT-101"
       ]
@@ -806,7 +806,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 97,
+      "debloque": 98,
       "prerequis": [
         "LOT-101",
         "LOT-102"
@@ -828,7 +828,7 @@
       "titre": "Assets HD — Arena of Fate (donjon d'Arenarea)",
       "version": "0.0.1",
       "etat": "prochain",
-      "rang": 1,
+      "rang": 2,
       "debloque": 91,
       "prerequis": [
         "LOT-105",
@@ -841,7 +841,7 @@
       "titre": "Carte — Arena of Fate (donjon d'Arenarea)",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 3,
+      "rang": 4,
       "debloque": 90,
       "prerequis": [
         "LOT-106",
@@ -883,7 +883,7 @@
       "titre": "Assets HD — Martpart",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 2,
+      "rang": 3,
       "debloque": 91,
       "prerequis": [
         "LOT-105",
@@ -895,7 +895,7 @@
       "titre": "Carte — Martpart",
       "version": "0.0.1",
       "etat": "en-attente",
-      "rang": 4,
+      "rang": 5,
       "debloque": 90,
       "prerequis": [
         "LOT-110",
@@ -911,7 +911,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 92,
+      "debloque": 93,
       "prerequis": [
         "LOT-104"
       ]
@@ -920,37 +920,40 @@
       "id": "LOT-113",
       "titre": "PNJ — Arena of Fate (donjon d'Arenarea)",
       "version": "0.0.1",
-      "etat": "pret",
-      "rang": 5,
+      "etat": "en-attente",
+      "rang": 6,
       "debloque": 89,
       "prerequis": [
         "LOT-104",
-        "LOT-112"
+        "LOT-112",
+        "LOT-145"
       ]
     },
     {
       "id": "LOT-114",
       "titre": "PNJ — Arenarea",
       "version": "0.0.1",
-      "etat": "pret",
-      "rang": 6,
+      "etat": "en-attente",
+      "rang": 7,
       "debloque": 89,
       "prerequis": [
         "LOT-104",
         "LOT-112",
-        "LOT-126"
+        "LOT-126",
+        "LOT-145"
       ]
     },
     {
       "id": "LOT-115",
       "titre": "PNJ — Martpart",
       "version": "0.0.1",
-      "etat": "pret",
-      "rang": 7,
+      "etat": "en-attente",
+      "rang": 8,
       "debloque": 89,
       "prerequis": [
         "LOT-104",
-        "LOT-112"
+        "LOT-112",
+        "LOT-145"
       ]
     },
     {
@@ -969,7 +972,7 @@
       "titre": "Un jet de compétence dans un dialogue",
       "version": "0.0.1",
       "etat": "pret",
-      "rang": 8,
+      "rang": 9,
       "debloque": 89,
       "prerequis": [
         "LOT-100"
@@ -979,8 +982,8 @@
       "id": "LOT-118",
       "titre": "Le combat sur la carte",
       "version": "0.0.1",
-      "etat": "pret",
-      "rang": 9,
+      "etat": "livre",
+      "rang": 0,
       "debloque": 89,
       "prerequis": [
         "LOT-103",
@@ -1050,7 +1053,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 97,
+      "debloque": 98,
       "prerequis": [
         "LOT-100"
       ]
@@ -1109,7 +1112,7 @@
       "version": "0.0.1",
       "etat": "livre",
       "rang": 0,
-      "debloque": 93,
+      "debloque": 92,
       "prerequis": [
         "LOT-100"
       ]
@@ -1302,6 +1305,17 @@
       "prerequis": [
         "LOT-120",
         "LOT-126"
+      ]
+    },
+    {
+      "id": "LOT-145",
+      "titre": "Les mannequins de remplacement",
+      "version": "0.0.1",
+      "etat": "en-cours",
+      "rang": 1,
+      "debloque": 92,
+      "prerequis": [
+        "LOT-112"
       ]
     },
     {

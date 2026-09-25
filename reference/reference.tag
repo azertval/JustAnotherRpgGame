@@ -680,6 +680,26 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>MapEncounter.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
+    <filename>MapEncounter_8cpp.html</filename>
+    <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>MapEncounter.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
+    <filename>MapEncounter_8h.html</filename>
+    <includes id="CombatTransition_8h" name="CombatTransition.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatTransition.h</includes>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <class kind="struct">core::MapEncounterSetup</class>
+    <class kind="struct">core::MapEncounterResult</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>Pathfinding.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
     <filename>Pathfinding_8cpp.html</filename>
@@ -4049,6 +4069,65 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>CombatContestants.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>CombatContestants_8cpp.html</filename>
+    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CombatContestants.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>CombatContestants_8h.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="CombatState_8h" name="CombatState.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatState.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
+    <class kind="struct">hmi::HeroContestantSource</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CombatCues.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>CombatCues_8cpp.html</filename>
+    <includes id="CombatCues_8h" name="CombatCues.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatCues.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CombatCues.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>CombatCues_8h.html</filename>
+    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <class kind="struct">hmi::CombatCue</class>
+    <class kind="struct">hmi::FigureMotion</class>
+    <class kind="class">hmi::CombatCueTrack</class>
+    <class kind="struct">hmi::CombatCueTrack::Running</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>FigureResolver.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>FigureResolver_8cpp.html</filename>
+    <includes id="FigureResolver_8h" name="FigureResolver.h" local="yes" import="no" module="no" objc="no">HMI/Game/FigureResolver.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>FigureResolver.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>FigureResolver_8h.html</filename>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <class kind="struct">hmi::ResolvedFigure</class>
+    <class kind="class">hmi::FigureResolver</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>GameQuests.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
     <filename>GameQuests_8cpp.html</filename>
@@ -4097,6 +4176,7 @@
     <filename>WorldPlay_8h.html</filename>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
+    <includes id="FigureResolver_8h" name="FigureResolver.h" local="yes" import="no" module="no" objc="no">HMI/Game/FigureResolver.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="struct">hmi::WorldPlayStep</class>
@@ -4760,6 +4840,7 @@
     <class kind="struct">hmi::WorldHeroPlacement</class>
     <namespace>core</namespace>
     <namespace>hmi</namespace>
+    <namespace>hmi::figure_clips</namespace>
   </compound>
   <compound kind="file">
     <name>WorldSceneRenderer.cpp</name>
@@ -5106,14 +5187,12 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>ArenaModel_8cpp.html</filename>
     <includes id="ArenaModel_8h" name="ArenaModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ArenaModel.h</includes>
-    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
-    <includes id="CombatPreview_8h" name="CombatPreview.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatPreview.h</includes>
     <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
-    <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <class kind="struct">hmi::ArenaModel::Fighter</class>
     <class kind="struct">hmi::ArenaModel::Catalogs</class>
     <namespace>hmi</namespace>
@@ -5124,7 +5203,7 @@
     <filename>ArenaModel_8h.html</filename>
     <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
     <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
-    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="CombatModel_8h" name="CombatModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CombatModel.h</includes>
     <class kind="class">hmi::ArenaModel</class>
     <namespace>hmi</namespace>
   </compound>
@@ -5230,6 +5309,27 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>CombatModel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>CombatModel_8cpp.html</filename>
+    <includes id="CombatModel_8h" name="CombatModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CombatModel.h</includes>
+    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="CombatPreview_8h" name="CombatPreview.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatPreview.h</includes>
+    <includes id="Pathfinding_8h" name="Pathfinding.h" local="yes" import="no" module="no" objc="no">Core/Combat/Pathfinding.h</includes>
+    <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CombatModel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>CombatModel_8h.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
+    <class kind="class">hmi::CombatModel</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>CreditsModel.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>CreditsModel_8cpp.html</filename>
@@ -5298,6 +5398,38 @@
     <filename>DialogueModel_8h.html</filename>
     <includes id="SheetRowModel_8h" name="SheetRowModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/SheetRowModel.h</includes>
     <class kind="class">hmi::DialogueModel</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EncounterModel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>EncounterModel_8cpp.html</filename>
+    <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <includes id="CombatTransition_8h" name="CombatTransition.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatTransition.h</includes>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
+    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
+    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <class kind="struct">hmi::EncounterModel::Catalogs</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EncounterModel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>EncounterModel_8h.html</filename>
+    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
+    <includes id="CombatCues_8h" name="CombatCues.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatCues.h</includes>
+    <includes id="FigureResolver_8h" name="FigureResolver.h" local="yes" import="no" module="no" objc="no">HMI/Game/FigureResolver.h</includes>
+    <includes id="CombatModel_8h" name="CombatModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CombatModel.h</includes>
+    <class kind="class">hmi::EncounterModel</class>
+    <class kind="struct">hmi::EncounterModel::Binding</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -6364,6 +6496,36 @@
       <anchorfile>test__line__of__sight_8cpp.html</anchorfile>
       <anchor>a7d36ec6fe2b7eb60672ee4bbb61d945f</anchor>
       <arglist>(LineOfSightTest, LesAbrisEtCeQuiLesDonne)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_map_encounter.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__map__encounter_8cpp.html</filename>
+    <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__map__encounter_8cpp.html</anchorfile>
+      <anchor>ae64f574148160082a7681eaddff3ec26</anchor>
+      <arglist>(MapEncounterTest, LaZoneDuDeclencheurEstChoisieEtLesCasesTranslatees)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__map__encounter_8cpp.html</anchorfile>
+      <anchor>af58087ee4c633d13661b99d178a233fe</anchor>
+      <arglist>(MapEncounterTest, UnePlaceImpossibleSeRapprocheEtSeNote)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__map__encounter_8cpp.html</anchorfile>
+      <anchor>a1fb05d2fe040763d30524e9832748827</anchor>
+      <arglist>(MapEncounterTest, SansZoneLaRencontreEstRefusee)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -8891,6 +9053,13 @@
       <anchorfile>test__dialogue_8cpp.html</anchorfile>
       <anchor>a9dff9dc31fc67fbb0ab5b287d8d904af</anchor>
       <arglist>(DialogueTest, UnPnjDeCarteOuvreSonDialogue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__dialogue_8cpp.html</anchorfile>
+      <anchor>afadf39a2f58d45c80d30c022b80b87db</anchor>
+      <arglist>(DialogueTest, UnDialoguePeutEngagerUneRencontreSurLaCarte)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11586,6 +11755,55 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_combat_cues.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
+    <filename>test__combat__cues_8cpp.html</filename>
+    <includes id="CombatCues_8h" name="CombatCues.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatCues.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__cues_8cpp.html</anchorfile>
+      <anchor>a3e11f27a0b1f414d78e5bc95208e0dc2</anchor>
+      <arglist>(CombatCuesTest, UneMarcheSeRejoueCaseParCase)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__cues_8cpp.html</anchorfile>
+      <anchor>a19dad789ea7ef1cb251cc2a9cf7d85b4</anchor>
+      <arglist>(CombatCuesTest, LeCoupPorteAMiGesteEtUnMortResteATerre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__cues_8cpp.html</anchorfile>
+      <anchor>af5e4d02f2f5bb882b43808e0587f6712</anchor>
+      <arglist>(CombatCuesTest, LInconnuEstIgnoreEtToutPeutFinirDUnCoup)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_figure_resolver.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
+    <filename>test__figure__resolver_8cpp.html</filename>
+    <includes id="FigureResolver_8h" name="FigureResolver.h" local="yes" import="no" module="no" objc="no">HMI/Game/FigureResolver.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__resolver_8cpp.html</anchorfile>
+      <anchor>ae560725caa2d04349981802a13c1f07f</anchor>
+      <arglist>(FigureResolverTest, LaRegleDeRepliEnTroisTemps)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__resolver_8cpp.html</anchorfile>
+      <anchor>af681890bdbf50e42ec19f600bae912a8</anchor>
+      <arglist>(FigureResolverTest, LaReponseSeRetientJusquAClear)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_launch_options.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
     <filename>test__launch__options_8cpp.html</filename>
@@ -12942,6 +13160,27 @@
       <anchor>a92a1444dd46ad643454829760cc23347</anchor>
       <arglist>(WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>ae236ccd3eda5f6918f72167404043d35</anchor>
+      <arglist>(WorldSceneComposerTest, UneBandeAUnCoupSeFigeSurSaDerniereImage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>abf05c7b7eac9bc08ba397c67106e09aa</anchor>
+      <arglist>(WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>af65839afc77b69f030256c093d9d22e5</anchor>
+      <arglist>(MaquetteRenderTest, LeMannequinRemplaceLeJetonDUnPnjSansFigurine)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_world_scene_renderer.cpp</name>
@@ -13795,6 +14034,42 @@
       <anchor>aaf7f7bcb60310b2506faa76fc23e701c</anchor>
       <arglist>(ArenaModelTest, LeCalqueDeLaGrilleDecritCombattantsEtCasesAtteignables)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__arena__model_8cpp.html</anchorfile>
+      <anchor>a2c39e3e009ae6505ffcafe4716cdecd8</anchor>
+      <arglist>(ArenaModelTest, LEnnemiDeLIaMarcheVersLeJoueur)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_encounter_model.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
+    <filename>test__encounter__model_8cpp.html</filename>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>ad8de3b269713065ab5b65be5a738b15a</anchor>
+      <arglist>(EncounterModelTest, DuDeclenchementAuRetourALExploration)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>a13091cdd041fbd14624e766f78024ab7</anchor>
+      <arglist>(EncounterModelTest, UnRefusLaisseLExplorationIntacte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>a57f03272f57b5bf248b353b852f68331</anchor>
+      <arglist>(EncounterModelTest, LesGestesAttendentLaFinDUnMouvement)</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::ActionEconomy</name>
@@ -14534,6 +14809,13 @@
       <anchor>a39a9050fe070f2ce98af070e7eb9fed4</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>escapable</name>
+      <anchorfile>structcore_1_1ArenaBout.html</anchorfile>
+      <anchor>a4fc74d270fb452f5fd0c579a9d781e35</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::ArenaCatalog</name>
@@ -14822,29 +15104,9 @@
   <compound kind="class">
     <name>hmi::ArenaModel</name>
     <filename>classhmi_1_1ArenaModel.html</filename>
+    <base>hmi::CombatModel</base>
     <class kind="struct">hmi::ArenaModel::Fighter</class>
     <class kind="struct">hmi::ArenaModel::Catalogs</class>
-    <member kind="signal">
-      <type>void</type>
-      <name>changed</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a279bb9f9ff32e8573df589640baa7775</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>cursorChanged</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a2e1aa2205397c83968b8571a02cdf1ca</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>combatSceneChanged</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a6f08373bcc9dc0e0c113b8750a469c9c</anchor>
-      <arglist>()</arglist>
-    </member>
     <member kind="function">
       <type></type>
       <name>ArenaModel</name>
@@ -14864,27 +15126,6 @@
       <name>arenaName</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a7f20d65584128c4760ca2c9ed6f482f2</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QString</type>
-      <name>status</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a70634985b47dd8d07fb06b5506aa7412</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>inCombat</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a374ea4c53d4cc4792aff53d129938953</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>ended</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a9aa370be690b19fadfc5d329594ba7aa</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -14944,104 +15185,6 @@
       <arglist>(bool enabled)</arglist>
     </member>
     <member kind="function">
-      <type>int</type>
-      <name>gridColumns</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aa0e867678253a828df3d9e0285fe8388</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>gridRows</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a954d10c7baddb00eec90076dab3823ab</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>fighters</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a5c2a45ad51d9f91b33ce5e068d3dc0f2</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>reachableCells</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a2e37f60f99e1181c36ed2aacc9bc453d</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>cursorColumn</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>afce8085c245fd77be8f9ecb8342a4fa8</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>cursorRow</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a17f6dabe6b31ffcf96dcf2f1e7dee5cb</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>pathCells</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a5a700f8a7931c29c33e033712d734fac</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>turnActions</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ad0721e1bdd4bbbb55ba7beaf560c2d23</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QStringList</type>
-      <name>preview</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a1d84d702c7748c1b7a959266e53574c1</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>turnOrder</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a016f72453060a93bde1434bbeb84e261</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QString</type>
-      <name>activeName</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aa6040d2c3469f086bfef2c8e14fa4966</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QString</type>
-      <name>activeResources</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ae5bb010df517754e586fba82af97e3aa</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QStringList</type>
-      <name>journal</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a20d730990238a92cecdbe35c7c07bc19</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>const core::ArenaSession *</type>
-      <name>session</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a7ba107cda5c93b00ace8ca975b602477</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
       <type>Q_INVOKABLE void</type>
       <name>addAlly</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
@@ -15085,97 +15228,6 @@
     </member>
     <member kind="function">
       <type>Q_INVOKABLE void</type>
-      <name>tapCell</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ad620eb044ec5d68bb119996fff64d82c</anchor>
-      <arglist>(int column, int row)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>moveCursor</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a693b41c41da1af8774b8a92147ec7bda</anchor>
-      <arglist>(int columns, int rows)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>pointCursor</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a6477a81934b6c1195e52557e8005498f</anchor>
-      <arglist>(int column, int row)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>centerCursor</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a08b48e02d6aa12c86a8106fceff86310</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>cycleTarget</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aeb607a0c234a127c02e1f8c0024cfb1f</anchor>
-      <arglist>(int step)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>selectAction</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ae52c4eeb82df619bc6d70580dac936de</anchor>
-      <arglist>(int index)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>cycleAction</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>abe72b50e2c49d1b1e0850384c545a8d8</anchor>
-      <arglist>(int step)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>confirm</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>abe06deade0fd0f7e807e47805d15cd2e</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>dodge</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ad0dbabc4af65a9d1f12cf28af335d9c5</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>disengage</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a83b480b74613eb910cf4eaf3dcb80ba6</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>dash</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>abdf5aee5b5df692539728256c13b4508</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>endTurn</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aa6e303ae8fd20711a040ec1f05c75255</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>withdraw</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a53e4578bc24ffdff34ffebbb7b9a2bf8</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
       <name>replay</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a13525acff4eb4eed4a1bc8d0daff05dd</anchor>
@@ -15188,32 +15240,18 @@
       <anchor>a8e5cef0bf17e7d6355fb2ddf4e8e3eb5</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function" protection="protected">
+      <type>const core::BehaviorCatalog *</type>
+      <name>behaviors</name>
+      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
+      <anchor>a2a17667cc70e9d03411c118bdf9878d3</anchor>
+      <arglist>() const override</arglist>
+    </member>
     <member kind="property">
       <type>QML_ELEMENTQString</type>
       <name>arenaName</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a3f4b527afceb64310bee5a8f634f6e26</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QString</type>
-      <name>status</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a195ccb33e5a9636011376256b395e93c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>bool</type>
-      <name>inCombat</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a0f77d14b4902ce809daa8e3ec0a9932b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>bool</type>
-      <name>ended</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a14aa26855dbb7840d5b588488439f272</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -15258,97 +15296,6 @@
       <anchor>ae4f2a8e509afa8e39ae971ecea38bf65</anchor>
       <arglist></arglist>
     </member>
-    <member kind="property">
-      <type>int</type>
-      <name>gridColumns</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a2a42097d40f5f0a4af172becc2bbd325</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>int</type>
-      <name>gridRows</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aee86a256c6660b2fa8650b3e4aee9b27</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>fighters</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>afb30979d732249090ce1b0c8c7dca44c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>reachableCells</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ab41ed77693753c49d695ebd77e286661</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>int</type>
-      <name>cursorColumn</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a67ebea315e7a25c384ce1ead30cb2298</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>int</type>
-      <name>cursorRow</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a87d807cfc6a3bcb337f4b01daae1b565</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>pathCells</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aef297d1b46556defc245fae939792891</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>turnActions</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a603e13e5eb8abde7119fcc5eae7f76f6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QStringList</type>
-      <name>preview</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>aaca6a68e02078dc6792c503e3bd9180b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>turnOrder</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a5f8831c8f0dfd8f687ee16ffe30cec0d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QString</type>
-      <name>activeName</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a283539f3e5853abd3f6835638b4eb218</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QString</type>
-      <name>activeResources</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>acec275728c52d22710aa959fcaf1d361</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QStringList</type>
-      <name>journal</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ad62a622df9e51245de3c1253bd8b5ffc</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>loadCatalogs</name>
@@ -15357,24 +15304,10 @@
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
-      <type>void</type>
-      <name>loadCharacterCatalog</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>af646ceb7673cdee7aae3581c51bf9bf1</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
       <type>bool</type>
       <name>loadPlayableLevel</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a59668333337ab23933ef24fe8ed20d33</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>emitSceneChanged</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a4592c2d0424a7395defe3a8232ad1e35</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
@@ -15393,51 +15326,9 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>refreshMessage</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a29d9bc66e52bd1305097e045c5e468e3</anchor>
-      <arglist>(const core::ArenaMount &amp;mount)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
       <name>resetSession</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a91bf89ffba6ff7f12a1c61e65cfc974f</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>playAiTurns</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ae9ad672eaaac8997cc570c318ae443d3</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>attackAt</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a7052ac0cb2a7bde097e5bf9b9d1afdef</anchor>
-      <arglist>(core::CombatantId target, std::optional&lt; std::size_t &gt; index)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>moveTo</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a131f43e650fa2ef3cc13dffbc9c809b2</anchor>
-      <arglist>(core::GridPosition cell)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>std::optional&lt; core::CombatantId &gt;</type>
-      <name>playerTurn</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a288ca86228c69dcf668d6621a08d3fb6</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>followActive</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a547e6a108ef045d8e76926ffdfc9a95f</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="variable" protection="private">
@@ -15452,34 +15343,6 @@
       <name>_catalogs</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a4c81aa1c9cfdf23055369cbb562e89c1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>core::GridPosition</type>
-      <name>_cursor</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>adaecf8742e9802b1d34fd4ffeaccf077</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_selectedAction</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ac54985f21f38b73af60c02fd2c0a6694</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::optional&lt; core::CombatantId &gt;</type>
-      <name>_followed</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a2c40f6aa663bc3d8a9133acb0cf5c120</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::unique_ptr&lt; core::ArenaSession &gt;</type>
-      <name>_session</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a6574b7f4bea492e1a0e9c18ee0128413</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -15508,20 +15371,6 @@
       <name>_enemyAi</name>
       <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
       <anchor>a1478aa690ab7221967d7e15ac72a6c3a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_inCombat</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>acfa307928762801304623cc90697155f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QString</type>
-      <name>_status</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a9e9f07a7c6d1795a263f4a93b29fdc38</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -16036,6 +15885,13 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>setMoveObserver</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>aeaed382f27369145400b710e905d5d94</anchor>
+      <arglist>(MoveObserver observer)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>note</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>ad9d4850a9d42e1eb18cf9cb17c688f03</anchor>
@@ -16186,6 +16042,13 @@
       <name>_opportunityPolicy</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a63ea433e5165843c03cbce0d9f42d7fc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>MoveObserver</type>
+      <name>_moveObserver</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a9557d66f98acedb6746c35a605093a0a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -19355,6 +19218,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::EncounterModel::Binding</name>
+    <filename>structhmi_1_1EncounterModel_1_1Binding.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>directory</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
+      <anchor>a990a60fdb73caff5d9de611724fb2146</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>oriented</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
+      <anchor>a23f9a23bdd430f9abe543bf936a6744e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>hero</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
+      <anchor>a273aecc49435eb704b12b89658e4744d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::BrushResult</name>
     <filename>structhmi_1_1BrushResult.html</filename>
     <member kind="function">
@@ -19688,31 +19576,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::optional&lt; core::CharacterSheet &gt;</type>
-      <name>character</name>
+      <type>std::optional&lt; HeroContestantSource &gt;</type>
+      <name>hero</name>
       <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a1cfa5c52a6ac83c70f00eaab9955e234</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>characterProficiency</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>ad5640ec2bc080837baa775b4564024ab</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>characterArmorClass</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a0452f33a0126ec8ddca8020ecdbbdd99</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::optional&lt; core::Weapon &gt;</type>
-      <name>characterWeapon</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>acf65db83b9e85c0d18971c2691078c42</anchor>
+      <anchor>a0290ff69d168a704725b9ab6bff0a1c4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -19755,6 +19622,38 @@
       <name>problems</name>
       <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
       <anchor>aedd60cf4577a86c041902237e7e68457</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::EncounterModel::Catalogs</name>
+    <filename>structhmi_1_1EncounterModel_1_1Catalogs.html</filename>
+    <member kind="variable">
+      <type>core::Bestiary</type>
+      <name>bestiary</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
+      <anchor>a59a13bd27397de77a25232a97e2c1372</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::EncounterCatalog</type>
+      <name>encounters</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
+      <anchor>add18d446e70c1a8de4f94001bad80792</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::BehaviorCatalog</type>
+      <name>behaviors</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
+      <anchor>aca95b6274c1fcc21b4fdac359d6258b0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; HeroContestantSource &gt;</type>
+      <name>hero</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
+      <anchor>ac5b8a66d47e60c171c6f1ffc62dbf89d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -21472,6 +21371,162 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::CombatCue</name>
+    <filename>structhmi_1_1CombatCue.html</filename>
+    <member kind="variable">
+      <type>CombatCueKind</type>
+      <name>kind</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>a5117b30c8230dc67cd8d1e4fee4a5e7f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CombatantId</type>
+      <name>actor</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>abd651f1f0853b2bd336e0046ea32a3de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; core::GridPosition &gt;</type>
+      <name>path</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>a0f1117a00c38875257108ba245d511e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; core::GridPosition &gt;</type>
+      <name>target</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>ae3ddf7b9429272c30e370c053c0efc1e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::CombatCueTrack</name>
+    <filename>classhmi_1_1CombatCueTrack.html</filename>
+    <class kind="struct">hmi::CombatCueTrack::Running</class>
+    <member kind="function">
+      <type>void</type>
+      <name>place</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a5845b0a48c9a4c1b50f97a5b9f58abec</anchor>
+      <arglist>(core::CombatantId actor, core::GridPosition cell, FigureFacing facing=FigureFacing::SouthEast)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>remove</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a924fb983c66452c64e943ae4f423275a</anchor>
+      <arglist>(core::CombatantId actor)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>push</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>ad8833d40491f43b045a9d71f68053d92</anchor>
+      <arglist>(CombatCue cue)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>advance</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a65069cf9282dddde01db8cd17ea9de94</anchor>
+      <arglist>(float seconds)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>finishAll</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>ae50a51156e9374e17265695fdbd660ef</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>adb88d297e2690e8a941c9ef447f6e31a</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>busy</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a40e87f2f4dc51a0410eb2c5cf9e9c67a</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const FigureMotion *</type>
+      <name>motionOf</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a49e582ba9ecdf7f00af7b43bc22c02e0</anchor>
+      <arglist>(core::CombatantId actor) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>pending</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>ab3e55c85793523ec65bc841f0e768fff</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>WALK_CELLS_PER_SECOND</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a5fd46f6bc9c924e710b7c54412301ee0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>ACTION_SECONDS</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>ac838aa510aa11e1d6256337e85026600</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>IMPACT_FRACTION</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>afd0414c9c8565543290b89aa58a7d098</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>startNext</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a218a18059ffaee9d819526442883a8c8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a6d209291b75fd618b9098690fdc6bf0a</anchor>
+      <arglist>(Running &amp;running)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; core::CombatantId, FigureMotion &gt;</type>
+      <name>_figures</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>aea130bad9d873753b9e912e01c7e30c8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::deque&lt; CombatCue &gt;</type>
+      <name>_queue</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a0934d9870bb052824ebf88742b5efb04</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; Running &gt;</type>
+      <name>_running</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a49bf29271602ddc3a7297e31400e0393</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::CombatEvent</name>
     <filename>structcore_1_1CombatEvent.html</filename>
     <member kind="variable">
@@ -21549,6 +21604,486 @@
       <name>critical</name>
       <anchorfile>structcore_1_1CombatEvent.html</anchorfile>
       <anchor>ab5ca5e21d721e18698b2f3971d6c9034</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::CombatModel</name>
+    <filename>classhmi_1_1CombatModel.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>changed</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a392928ff09819c4346cdb77f1734efc4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>cursorChanged</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>acb83d08ef0f0b63a028288ab2a837cca</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>combatSceneChanged</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a5865e6deb8559d3439547fa834fec386</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>CombatModel</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a375a449b2263ba22ebbd6cb6365698b1</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~CombatModel</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>afe95b8b2529f24a21a840733061c7f29</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>status</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a5a21cf9616ec5929ae35e8c55d54fbab</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>inCombat</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a91c4d08704abaea6fdb77746e684a7a0</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>ended</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a2e1469578f5c8d5c940c868d4bab6b9a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>gridColumns</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a06c71e2e83b0b0af4f9da87c1d72f9e6</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>gridRows</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a0b18309c2caeec817bd0d5bdbddb39ee</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>fighters</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a31677c4709ecb6169a11c0865d582514</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>reachableCells</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a712a958e9634e0e59dc95974072f3aac</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>cursorColumn</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aa30c130f09b7ccfd87e9f8213e08f9a5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>cursorRow</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a8df30784e3da44ca77d94fe704570a26</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>pathCells</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a523b7a10a810f676a0b1aa8e761bd401</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>turnActions</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a08903ad418bc14692d1139406f540cc2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>preview</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a04a61dcdbca5dad8ad180d50a4617057</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>turnOrder</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a4cdf87c995d1fb5be7fbfd2a1e8e8691</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>activeName</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a4bd9855ac0f60fd65439cc587255f538</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>activeResources</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aa7450e23f16409d219a9a6df2f496270</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>journal</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a10f0e984bb25dbff698e7ebfe924992b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::ArenaSession *</type>
+      <name>session</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a7d806f9c080a3752b94021d5fb5d74e1</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>tapCell</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a8bfa8c55ac43a21eb05a1dcd1ae62afb</anchor>
+      <arglist>(int column, int row)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>moveCursor</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a234d461f5bc449647b3d504ace6f7748</anchor>
+      <arglist>(int columns, int rows)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>pointCursor</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ab13311c4dd097f0f857ddd713daf54a1</anchor>
+      <arglist>(int column, int row)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>centerCursor</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a60e5f4979407e04f7002d15d09a55a28</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>cycleTarget</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a7cbe1e750d67f3dca6127266477e532f</anchor>
+      <arglist>(int step)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>selectAction</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>abab2695bc63463da0d99e1993359f9d0</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>cycleAction</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a8001d3ead9a9892c0b8503de8435a46e</anchor>
+      <arglist>(int step)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>confirm</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a1fe76f11f719e82a0dbec52ed632964f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>dodge</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a5a8148ce0aa7461b391a0dc9d860269f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>disengage</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>adb350a2b14066146e7e9ccbb67e939c5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>dash</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a057edc09f89a9359ee7be7a2eb6a908d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>endTurn</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>abbc848a493b901b8247047479adde65c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>withdraw</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ad9d7bb4ae728f4a78767e7c79d563a17</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="pure">
+      <type>virtual const core::BehaviorCatalog *</type>
+      <name>behaviors</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a8ac66c05b6860989ed920ac585ccedf6</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual void</type>
+      <name>playAiTurns</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a48b48d90132a0266125966b8081ee0a6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual bool</type>
+      <name>acceptsInput</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a431471d166df8e9c8bff480661431a32</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>playOneAiTurn</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a307c768d3d7638c957d5dbac0c614dc2</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>emitSceneChanged</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a0659205d31e32dd04ec35d5e15bca4bc</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>refreshMessage</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ac16debc0e77c3a6845d60f10f3c3e69d</anchor>
+      <arglist>(const core::ArenaMount &amp;mount)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>followActive</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a0489feee39e33f36c4957f5f3ab4815f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>std::optional&lt; core::CombatantId &gt;</type>
+      <name>playerTurn</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ae51c20277b8bb768da16512a7fde305b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>attackAt</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aed34c3f2684232f6bcfed8d8f7d310a8</anchor>
+      <arglist>(core::CombatantId target, std::optional&lt; std::size_t &gt; index)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>moveTo</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a96e8a89ff900657a0eb2ac543979cd2f</anchor>
+      <arglist>(core::GridPosition cell)</arglist>
+    </member>
+    <member kind="function" protection="protected" static="yes">
+      <type>static std::optional&lt; HeroContestantSource &gt;</type>
+      <name>loadHeroSource</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a7ac0389079eca6646ead97c235560b92</anchor>
+      <arglist>(std::vector&lt; std::string &gt; &amp;problems)</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::unique_ptr&lt; core::ArenaSession &gt;</type>
+      <name>_session</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ad981fb154684c7b561b80750ffdb926b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>core::GridPosition</type>
+      <name>_cursor</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a057cbbd202aa28d65f92b8dd47dad090</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>int</type>
+      <name>_selectedAction</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a60afba8e11be5d58221b45362f248b28</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>std::optional&lt; core::CombatantId &gt;</type>
+      <name>_followed</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a5bb550fd48b8b41da51896c3f846cde5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>bool</type>
+      <name>_inCombat</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a2f5adcd17ddce5510db63ebd1ebab1ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QString</type>
+      <name>_status</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a2975c8788ba21ade4fb9cf95f1ce94e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>status</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a04eb920f85db24d68bf992f2b29a17d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>inCombat</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a1e302adff6695db2af43dd1ee34e0e55</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>ended</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a5e85081aa817b7d841d92f51a6d56829</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>gridColumns</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>af76abf3528373ea13b4d1352b46a860e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>gridRows</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a4207e25fe500ba8778be63967022c46e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>fighters</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>af9deb3b08aa17ae8c8cb157a9ec9b55b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>reachableCells</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a1a83a2cb2d7266bf70c6fca16423f287</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>cursorColumn</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aa86af5af2fc310b86a15b61af7fc3166</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>cursorRow</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aede325d57cb27c7f3d6cb2b37aab6657</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>pathCells</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a021df2e373a1f12e6e4022a0bbc796d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>turnActions</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a7c5723221a10269e6054138dd7582a62</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QStringList</type>
+      <name>preview</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aff20bdf39c34ab9623e371b3fb5234e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>turnOrder</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a1e1740ea193d9f6ff2a5ff6f8e03be79</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>activeName</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aefff1301b200bf19efed9d56fa8d6375</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>activeResources</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a88718c021f2e8c16693dd9b2b2bc4cba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QStringList</type>
+      <name>journal</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ad2acaaa6c0fc602f03990a350b474c98</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -22718,6 +23253,13 @@
       <anchor>ace09660f1aa10b5cbdb5e3fa5ea3f5aa</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>silhouette</name>
+      <anchorfile>structcore_1_1Creature.html</anchorfile>
+      <anchor>a42d5a5101530fe93a230106e16f9a583</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::CreatureAction</name>
@@ -23800,6 +24342,13 @@
       <anchor>a6ce049b4a2a48f8ac02c979a3caf0c14</anchor>
       <arglist>(std::string_view arenaId)</arglist>
     </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>startEncounter</name>
+      <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
+      <anchor>af3fc38d5eeefa7f78c3abd838f43728f</anchor>
+      <arglist>(std::string_view encounterId)</arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::DialogueLoad</name>
@@ -23836,6 +24385,13 @@
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a80189a0fb6f159dc7c10a2253da86494</anchor>
       <arglist>(const QString &amp;arenaId)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>encounterRequested</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a5dc935c8de9307b0be25fd9aeb262a16</anchor>
+      <arglist>(const QString &amp;encounterId)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -26872,6 +27428,391 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>hmi::EncounterModel</name>
+    <filename>classhmi_1_1EncounterModel.html</filename>
+    <base>hmi::CombatModel</base>
+    <class kind="struct">hmi::EncounterModel::Binding</class>
+    <class kind="struct">hmi::EncounterModel::Catalogs</class>
+    <member kind="signal">
+      <type>void</type>
+      <name>finished</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a380fffb6cbb4ce0175133cd9c1db58c1</anchor>
+      <arglist>(const QString &amp;outcome)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>EncounterModel</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a040f0d7c5701c6fbc12033d295afb40e</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~EncounterModel</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>afff665492513fdf6b5e3b443344c7649</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>begin</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>aaa1f1bc74675003fec4258f8a3dd0706</anchor>
+      <arglist>(const QString &amp;encounterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>leave</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a1fe373e7ea8c8bc470d21e12816b1b3c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>skipAnimations</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a83dff988bbc758c567701f79dc099563</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>tick</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a4d18f563ba2b14d29dd7d1c799c98d04</anchor>
+      <arglist>(float seconds)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setContentRoot</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>afd2c3245185ff52b487d1d7a36f986e9</anchor>
+      <arglist>(std::filesystem::path root)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>active</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>aaf0d799a693777f3fff598dc8039eb9a</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>busy</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a2b96bcaea5f01905cb698b443535c333</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>outcome</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ac00bb6102a4c249499b9d0dae6d9bb1c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>encounterName</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>abf323da60f4dc4d1bb6810d58eed1abb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>zoneColumn</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>aead33fd1b6ef9761f219525ea0bf158b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>zoneRow</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a1f250b183be40284184d9b7337dd0e62</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>heroName</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>afd6006435967a4a769da36de35fa4ec0</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>heroHitPoints</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a6c89848a6440283ac5d1d123cc3dea17</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>qreal</type>
+      <name>heroHitPointsRatio</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a5827fdecffabae8e0f069664f815b6b1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantMap</type>
+      <name>target</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>afba04cab6db960be3b3c1d7dd6efbec8</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>seed</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a569f4f76b0d178214578652428302c25</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSeed</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a0b244df24e923a94f15c5c29fc502d19</anchor>
+      <arglist>(int seed)</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::MapEncounterSetup *</type>
+      <name>setup</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a2345a698f069c7165888a1c5caf8d028</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const CombatCueTrack &amp;</type>
+      <name>cues</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a2d16828e6f5d845f1d1026110810eb6d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static EncounterModel *</type>
+      <name>current</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>af3fb406c3d23d857b25429da32129289</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>STEP_MILLISECONDS</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>abfb3c45907dc5f4876ec58d1432ec050</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>const core::BehaviorCatalog *</type>
+      <name>behaviors</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a1ee5a82fcbe6d56014645cc70a74c803</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>playAiTurns</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a4ea5dae494673d634863759f9f60c2fe</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>acceptsInput</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a16d9bebcdc22ae08367aab53f5d54499</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="property">
+      <type>QML_SINGLETONbool</type>
+      <name>active</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a5024f17840335af0b7df253c0357233d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>busy</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>adf4b903dd58407d9540dfa3cb91a6ac8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>outcome</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a45300e7fbb84f2da858e82a977f5b1ef</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>encounterName</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a44785d257fe0d1ec60fd270872be34c1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>zoneColumn</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a224e9b7877fdbf54ac90484328babfad</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>zoneRow</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a66cca80a4326c3154b66d1e8d4994de7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>heroName</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>afc5af027fd999d54a698abc8fa84a134</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>heroHitPoints</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ada4ccaf9260dd8c4d55efe5a5a733269</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>qreal</type>
+      <name>heroHitPointsRatio</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ae63afe5fd29a9ff5d0ca5a1b3bbcaf4e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantMap</type>
+      <name>target</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a039813caec05398c354ffd7d20f3fb9e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>seed</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>af97d96adfe5a43565bd6ebbfe7869b26</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>ensureCatalogs</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>aa0530a99f5d66508ad00dee4615700eb</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>subscribeCues</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a342172e5ec90ee7200202d03f37b9ec3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>publishFigures</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a66c403badc0d1b18c8cf2c764c13317d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>settleOutcome</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>af35df2306a62ab79b8df9f7a94df9c63</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>step</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a85d85e18273e97360679a25e66f51e1e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>teardown</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a59ee31d094c489a0c05531c53abd1a08</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::filesystem::path</type>
+      <name>_contentRoot</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>aade4477c5ae804a8eac4ebdabf1ea84d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; Catalogs &gt;</type>
+      <name>_catalogs</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a8e02f0a1062be152b45648131af86294</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; core::MapEncounterSetup &gt;</type>
+      <name>_setup</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a8ecfa3a5da54b1a628b8b88bd9cfd616</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_encounterName</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a2cff69ff523a32462fc24ac7cf274257</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; core::CombatantId, Binding &gt;</type>
+      <name>_bindings</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a2a1a188bcb5683b033f5e94314929757</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; core::CombatantId &gt;</type>
+      <name>_hero</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ad262aa485f8a159edfe2837b67259675</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>CombatCueTrack</type>
+      <name>_cues</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a1a0334bf6b30b70f5a5b93ca32ae1041</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTimer</type>
+      <name>_clock</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a7de691c1bfeb8cd701e7904cfa20ce47</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_outcome</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a09d6e88bcc6e2525a346a473e8c5f0fc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_seed</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a07b481b5214b5271ca543557bd0e06bf</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>core::EncounterMount</name>
     <filename>structcore_1_1EncounterMount.html</filename>
@@ -28514,6 +29455,91 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::FigureMotion</name>
+    <filename>structhmi_1_1FigureMotion.html</filename>
+    <member kind="variable">
+      <type>core::Vector2</type>
+      <name>point</name>
+      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
+      <anchor>a46023823e82a90da915cab00c624a98b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>clip</name>
+      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
+      <anchor>a2d7942748d62e7bc151c6a55272a14e1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>FigureFacing</type>
+      <name>facing</name>
+      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
+      <anchor>a7872742a2597576377ec20ca9c9ced1c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>clipSeconds</name>
+      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
+      <anchor>a5076ae8c9940a892fc7a149ea9eb92dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>dead</name>
+      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
+      <anchor>a033ebdd18b1561b8bbc5b45ad0a8c021</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::FigureResolver</name>
+    <filename>classhmi_1_1FigureResolver.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>FigureResolver</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a16eeed8246ed61b548a0d5db1fc829c2</anchor>
+      <arglist>(std::filesystem::path assetsDirectory)</arglist>
+    </member>
+    <member kind="function">
+      <type>const ResolvedFigure &amp;</type>
+      <name>resolve</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a94ea07133fb579954c0cbb585e98711d</anchor>
+      <arglist>(std::string_view figure, std::string_view silhouette, const PlaceAppearance &amp;appearance)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>aa0e6ce9125166fe690d31f5541beb7be</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasIdleStrip</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a0a9d37b5c6e6bc87e29153d21e4a5d83</anchor>
+      <arglist>(std::string_view directory, bool &amp;oriented) const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::filesystem::path</type>
+      <name>_assetsDirectory</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a1e559bab8a6f594f974a503cc84babd2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, ResolvedFigure, std::less&lt;&gt; &gt;</type>
+      <name>_found</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a0053fe58f22a378c2b135d5e268e8a5f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::FileFingerprint</name>
     <filename>structhmi_1_1FileFingerprint.html</filename>
     <member kind="function">
@@ -29355,6 +30381,38 @@
       <name>row</name>
       <anchorfile>structcore_1_1GridPosition.html</anchorfile>
       <anchor>ac6f7abc29fe595daf6d2efc341701589</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::HeroContestantSource</name>
+    <filename>structhmi_1_1HeroContestantSource.html</filename>
+    <member kind="variable">
+      <type>core::CharacterSheet</type>
+      <name>sheet</name>
+      <anchorfile>structhmi_1_1HeroContestantSource.html</anchorfile>
+      <anchor>aee3e14667e5f50ea9bdbe6f5e025616b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>proficiency</name>
+      <anchorfile>structhmi_1_1HeroContestantSource.html</anchorfile>
+      <anchor>a11b0c2da126880f141b8ca052ec73d06</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>armorClass</name>
+      <anchorfile>structhmi_1_1HeroContestantSource.html</anchorfile>
+      <anchor>aba809107f48511e0db4f71d696da36d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; core::Weapon &gt;</type>
+      <name>weapon</name>
+      <anchorfile>structhmi_1_1HeroContestantSource.html</anchorfile>
+      <anchor>aac4a1b02ebd75bbe7921ea6af7084070</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -34366,6 +35424,70 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::MapEncounterResult</name>
+    <filename>structcore_1_1MapEncounterResult.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structcore_1_1MapEncounterResult.html</anchorfile>
+      <anchor>a565072d180d6ecb2dd128fb6f7d93f3e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; MapEncounterSetup &gt;</type>
+      <name>setup</name>
+      <anchorfile>structcore_1_1MapEncounterResult.html</anchorfile>
+      <anchor>af1457b444d7db525d9220a9f9bda9e08</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>issue</name>
+      <anchorfile>structcore_1_1MapEncounterResult.html</anchorfile>
+      <anchor>aefe65775d53544f7a0777e36512d006e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MapEncounterSetup</name>
+    <filename>structcore_1_1MapEncounterSetup.html</filename>
+    <member kind="variable">
+      <type>CombatZone</type>
+      <name>zone</name>
+      <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
+      <anchor>a349f92b4df64ecdfd4451b6c87e63f26</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Level</type>
+      <name>battlefield</name>
+      <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
+      <anchor>a614f3c87efc042b717b4802c0f16ad3f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>GridPosition</type>
+      <name>heroCell</name>
+      <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
+      <anchor>ab4ca32b273e4664960e7ff689cb166a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>EncounterRun</type>
+      <name>run</name>
+      <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
+      <anchor>a2a260ee37775c11ad49c185e03aa727a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>notes</name>
+      <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
+      <anchor>aac811ae5d0f375e0d54af3864e2c7003</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::MapEntity</name>
     <filename>structcore_1_1MapEntity.html</filename>
     <member kind="function">
@@ -38045,6 +39167,38 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::ResolvedFigure</name>
+    <filename>structhmi_1_1ResolvedFigure.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>a23bbef4d40693ddfa8ae05b55011b3ba</anchor>
+      <arglist>(const ResolvedFigure &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>directory</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>a72b555c3fa42ca36bc2135521a993740</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>oriented</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>aa8c70d040a3e77d11f587b4c3476c876</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>placeholder</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>a60916348b00f029cbd0fa2f18a0b3f89</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::RhiContext</name>
     <filename>structhmi_1_1RhiContext.html</filename>
     <member kind="function">
@@ -38269,6 +39423,31 @@
       <name>flags</name>
       <anchorfile>structhmi_1_1RunInGameChoice.html</anchorfile>
       <anchor>a4f87878c67d7512a610a99f479963fd7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CombatCueTrack::Running</name>
+    <filename>structhmi_1_1CombatCueTrack_1_1Running.html</filename>
+    <member kind="variable">
+      <type>CombatCue</type>
+      <name>cue</name>
+      <anchorfile>structhmi_1_1CombatCueTrack_1_1Running.html</anchorfile>
+      <anchor>a2ac79d58964403a0721a4cbd610c4e77</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>elapsed</name>
+      <anchorfile>structhmi_1_1CombatCueTrack_1_1Running.html</anchorfile>
+      <anchor>a0d2412e36d5f7eec0e56badb21bf5080</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Vector2</type>
+      <name>from</name>
+      <anchorfile>structhmi_1_1CombatCueTrack_1_1Running.html</anchorfile>
+      <anchor>a60afd51c2d0a567c9747ca289ab8dcce</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -39244,6 +40423,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>bool</type>
+      <name>loop</name>
+      <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
+      <anchor>a7394e953fdbd1fa85ec81e54cc23f9d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::optional&lt; float &gt;</type>
       <name>storeyHeight</name>
       <anchorfile>structhmi_1_1SceneTexture.html</anchorfile>
@@ -39301,6 +40487,13 @@
       <name>frameDuration</name>
       <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
       <anchor>abaadf841632dad1daf20a68ab307ac01</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>loop</name>
+      <anchorfile>structhmi_1_1SceneTextureTraits.html</anchorfile>
+      <anchor>a168740f37da18a7f77fcced8603215d2</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -42309,6 +43502,13 @@
       <anchor>ae19137a03918daf51d2159985052ab10</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>combatant</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>aae0dc8267662b27b1cfb9ed388dd3a09</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::WorldFlags</name>
@@ -43421,6 +44621,48 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setCombatFigures</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a0b0a8899de46ea91bfea78d9795669ea</anchor>
+      <arglist>(std::vector&lt; WorldFigureSnapshot &gt; figures, core::Vector2 heroPoint)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clearCombatFigures</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a6ba6e50c11165a0fa919dbb96c9364b4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>showsCombat</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a1a6b7f38925d05ecafe2c1ad9771871d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>placeHero</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ad66b926ac03cecb12fda3d957cd2f313</anchor>
+      <arglist>(core::CellPoint point)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; core::GridPosition &gt;</type>
+      <name>lastInteractionCell</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a2fa6704ae8ccd49539e002644395cdfc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const WorldPlay &amp;</type>
+      <name>play</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a4863dc542f1781e3d5d7a35de1b28a4d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>WorldSceneSnapshot</type>
       <name>snapshot</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -43686,6 +44928,27 @@
       <anchor>ac5ad8baf6328cb5226195a5c82f7e730</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; std::vector&lt; WorldFigureSnapshot &gt; &gt;</type>
+      <name>_combatFigures</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a0ea3b1253005e356c0438590b4788cb0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::Vector2</type>
+      <name>_combatHero</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>af4574787271f9e979c3d5f04fee4c0e0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; core::GridPosition &gt;</type>
+      <name>_lastInteractionCell</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a61f5d9eff14da9a4e2e7d554392fe6fe</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::WorldPlay</name>
@@ -43744,6 +45007,27 @@
       <name>heroFacing</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>ab359b28cfd1ae307fc8a93ef215e6f04</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const ResolvedFigure &amp;</type>
+      <name>heroResolved</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>aea2588f32f9c53e2cdf736151a8013cd</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const ResolvedFigure &amp;</type>
+      <name>resolveFigure</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ab88bc3ee8bafb003646a596673e32d36</anchor>
+      <arglist>(std::string_view figure, std::string_view silhouette) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const PlaceAppearance &amp;</type>
+      <name>appearance</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a0d3b33804b62178584ab3fbd8956e5cc</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
@@ -43817,6 +45101,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>FigureResolver</type>
+      <name>_figures</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>aca6010597a572a1beb3cce623f541cec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>std::string</type>
       <name>_heroFigure</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
@@ -43824,10 +45115,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_heroOriented</name>
+      <type>ResolvedFigure</type>
+      <name>_hero</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
-      <anchor>ab088dac9f46b3719a0ed59c3e9173dac</anchor>
+      <anchor>ae67e2d06524e8c80b53efabfaa650aeb</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -45012,6 +46303,8 @@
     <class kind="class">core::IsoProjection</class>
     <class kind="struct">core::GridPoint</class>
     <class kind="struct">core::Footprint</class>
+    <class kind="struct">core::MapEncounterSetup</class>
+    <class kind="struct">core::MapEncounterResult</class>
     <class kind="struct">core::Mover</class>
     <class kind="struct">core::Path</class>
     <class kind="class">core::ReachableArea</class>
@@ -45176,6 +46469,13 @@
       <name>OpportunityPolicy</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a838239698e3440af150c5de8127b830e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; void(CombatantId mover, const Path &amp;path)&gt;</type>
+      <name>MoveObserver</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a9ae3355e126e768022cd22fffaeabd25</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -45708,6 +47008,7 @@
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee">GiveItem</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2">StartQuest</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159">StartCombat</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -46470,6 +47771,27 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>aac10188449066631157dad14349a01eb</anchor>
       <arglist>(Cover cover) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>GridPosition</type>
+      <name>zoneToMap</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac14ba4055ac79b8a654e3cae12fb5cd8</anchor>
+      <arglist>(const CombatZone &amp;zone, GridPosition cell) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>GridPosition</type>
+      <name>mapToZone</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a844958a3d0bb764490fb2085e010f1b5</anchor>
+      <arglist>(const CombatZone &amp;zone, GridPosition cell) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>MapEncounterResult</type>
+      <name>prepareMapEncounter</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>acedbd9be2b83f7c6219a695e97819da5</anchor>
+      <arglist>(const Level &amp;map, std::string_view mapId, const Encounter &amp;encounter, GridPosition trigger, GridPosition heroCell, const ExplorationSnapshot &amp;exploration, std::string defeatFlagKey)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -48512,6 +49834,7 @@
   <compound kind="namespace">
     <name>hmi</name>
     <filename>namespacehmi.html</filename>
+    <namespace>hmi::figure_clips</namespace>
     <class kind="struct">hmi::AutosaveRecord</class>
     <class kind="class">hmi::AutosaveStore</class>
     <class kind="struct">hmi::CanvasBrush</class>
@@ -48610,6 +49933,12 @@
     <class kind="class">hmi::WorldStateEditor</class>
     <class kind="struct">hmi::WorldStateChoice</class>
     <class kind="class">hmi::AudioEngine</class>
+    <class kind="struct">hmi::HeroContestantSource</class>
+    <class kind="struct">hmi::CombatCue</class>
+    <class kind="struct">hmi::FigureMotion</class>
+    <class kind="class">hmi::CombatCueTrack</class>
+    <class kind="struct">hmi::ResolvedFigure</class>
+    <class kind="class">hmi::FigureResolver</class>
     <class kind="struct">hmi::GameQuests</class>
     <class kind="struct">hmi::GameLaunchOptions</class>
     <class kind="struct">hmi::WorldPlayStep</class>
@@ -48720,10 +50049,12 @@
     <class kind="class">hmi::CharacterSheetModel</class>
     <class kind="class">hmi::CityBlockImageProvider</class>
     <class kind="class">hmi::CityDistrictModel</class>
+    <class kind="class">hmi::CombatModel</class>
     <class kind="class">hmi::CreditsModel</class>
     <class kind="struct">hmi::DemonstrationCharacter</class>
     <class kind="struct">hmi::DemonstrationState</class>
     <class kind="class">hmi::DialogueModel</class>
+    <class kind="class">hmi::EncounterModel</class>
     <class kind="class">hmi::GamepadNavigator</class>
     <class kind="class">hmi::GameViewportItem</class>
     <class kind="class">hmi::InventoryModel</class>
@@ -48972,6 +50303,18 @@
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a28274ec234daec25053e4d9346c695b5">SaveAsPrefab</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a904a8304056d77e4547744781b7ceb50">Rename</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a576cb29b1af75dc6bda8abb048330f18a2583b92d245a881127917f19531ccf3b">ShortcutsOverview</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>CombatCueKind</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>af50d48ed1cc573c620ff2a1c420f7406</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a7a16a854f32231a8df9326136b09ee62">Walk</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a">Attack</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">Cast</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">Hit</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">Death</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -50572,6 +51915,20 @@
       <arglist>(QWidget *parent, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; core::QuestFlag &gt; &amp;declared, const WorldStateChoice &amp;current)</arglist>
     </member>
     <member kind="function">
+      <type>core::ArenaContestant</type>
+      <name>heroContestant</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>afbbd37a73dccd14815fb4c02a4ed8e16</anchor>
+      <arglist>(const HeroContestantSource &amp;hero, core::CombatSide side)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::ArenaContestant</type>
+      <name>creatureContestant</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac84d7d812f80df58545ca07a9bd88f0e</anchor>
+      <arglist>(const core::Creature &amp;creature, core::CombatSide side, const core::BehaviorCatalog *behaviors)</arglist>
+    </member>
+    <member kind="function">
       <type>GameQuests</type>
       <name>loadGameQuests</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -51093,15 +52450,22 @@
       <type>MaquetteMarks</type>
       <name>maquetteMarks</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a774a0ed2f31b521df4cf536fbfb7543f</anchor>
-      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, bool maquette)</arglist>
+      <anchor>a47c8f35619d5e7fa59cd899a158c9361</anchor>
+      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, bool maquette, std::span&lt; const WorldFigureSnapshot &gt; figures={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>placeholderFigureDirectory</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a511785bc30ed0e18c4894a5d73f54920</anchor>
+      <arglist>(std::string_view silhouette)</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
       <name>npcFigures</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a7a8f2888417ba2cd0c8440905f9e209a</anchor>
-      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, int frame)</arglist>
+      <anchor>af4b383c877918f88e8a772b02f424e9c</anchor>
+      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, int frame, bool placeholders=false)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -51284,6 +52648,20 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a3482171b78c19d4cd5a16786cc13c330</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::filesystem::path</type>
+      <name>dataDirectory</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac4538343a88b7e915fb235efd065ee66</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDataDirectory</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a28a6976343b0b83ab23ebc7445739983</anchor>
+      <arglist>(std::filesystem::path directory)</arglist>
     </member>
     <member kind="function">
       <type>std::filesystem::path</type>
@@ -51501,6 +52879,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a1f08c6b798997faab9cda3d79eebe751</anchor>
       <arglist>(const DemonstrationState &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type>const Localization *</type>
+      <name>contentCatalog</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2051b387a6c5bde4f6681209124b4f85</anchor>
+      <arglist>(const std::string &amp;language)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -51958,6 +53343,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>DEFAULT_SILHOUETTE</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>af4a217ed5ea8e0e9fe3c9be3864c630e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>SILHOUETTE_PROPERTY</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a97a3d73038cd8b88626f97aad58b5a95</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr std::chrono::milliseconds</type>
       <name>BUTTON_REPEAT_DELAY</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -52113,6 +53512,59 @@
     </member>
   </compound>
   <compound kind="namespace">
+    <name>hmi::figure_clips</name>
+    <filename>namespacehmi_1_1figure__clips.html</filename>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>IDLE</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>ae32b43afe6206e30237ba1bcfae6f724</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>WALK</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>a41fa10121357be1d449dbde15e73e918</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>ATTACK</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>a89105a8d4361791fa8c9174588706da9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>CAST</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>ac3fac5359aef0f16361178db4a73821c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>HIT</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>a6945b3e99d97b537060eb38de45a7774</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>DEATH</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>a10983e8d484be06fd85c312cf79dd9be</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::array&lt; std::string_view, 6 &gt;</type>
+      <name>ALL</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>a1ffc4db808c30be4b0d0d57c7837a3d0</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
     <name>test_support</name>
     <filename>namespacetest__support.html</filename>
     <member kind="function">
@@ -52213,6 +53665,8 @@
     <file>IsoProjection.h</file>
     <file>LineOfSight.cpp</file>
     <file>LineOfSight.h</file>
+    <file>MapEncounter.cpp</file>
+    <file>MapEncounter.h</file>
     <file>Pathfinding.cpp</file>
     <file>Pathfinding.h</file>
     <file>TacticalTerrain.cpp</file>
@@ -52236,6 +53690,7 @@
     <file>test_enemy_ai.cpp</file>
     <file>test_iso_projection.cpp</file>
     <file>test_line_of_sight.cpp</file>
+    <file>test_map_encounter.cpp</file>
     <file>test_pathfinding.cpp</file>
     <file>test_tactical_terrain.cpp</file>
     <file>test_turn_order.cpp</file>
@@ -52446,6 +53901,12 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
     <filename>dir_e63fac7525d4addf9f5e759ec10d14ef.html</filename>
+    <file>CombatContestants.cpp</file>
+    <file>CombatContestants.h</file>
+    <file>CombatCues.cpp</file>
+    <file>CombatCues.h</file>
+    <file>FigureResolver.cpp</file>
+    <file>FigureResolver.h</file>
     <file>GameQuests.cpp</file>
     <file>GameQuests.h</file>
     <file>LaunchOptions.cpp</file>
@@ -52457,6 +53918,8 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
     <filename>dir_e603d07e027ebb67c21222d66f955c38.html</filename>
+    <file>test_combat_cues.cpp</file>
+    <file>test_figure_resolver.cpp</file>
     <file>test_launch_options.cpp</file>
   </compound>
   <compound kind="dir">
@@ -52941,12 +54404,16 @@
     <file>CityBlockImageProvider.h</file>
     <file>CityDistrictModel.cpp</file>
     <file>CityDistrictModel.h</file>
+    <file>CombatModel.cpp</file>
+    <file>CombatModel.h</file>
     <file>CreditsModel.cpp</file>
     <file>CreditsModel.h</file>
     <file>DemonstrationCharacter.cpp</file>
     <file>DemonstrationCharacter.h</file>
     <file>DialogueModel.cpp</file>
     <file>DialogueModel.h</file>
+    <file>EncounterModel.cpp</file>
+    <file>EncounterModel.h</file>
     <file>GamepadNavigator.cpp</file>
     <file>GamepadNavigator.h</file>
     <file>GameViewportItem.cpp</file>
@@ -52977,6 +54444,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
     <filename>dir_c911b180da51e85765e60707d4387a94.html</filename>
     <file>test_arena_model.cpp</file>
+    <file>test_encounter_model.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source</name>

@@ -144,26 +144,22 @@ $(function(){initNavTree('ArenaModel_8cpp.html','',''); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ArenaModel_8h_source.html">HMI/Runtime/ArenaModel.h</a>&quot;</code><br />
 <code>#include &lt;QVariantMap&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
-<code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="CombatPreview_8h_source.html">Core/Combat/CombatPreview.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EnemyAi_8h_source.html">Core/Combat/EnemyAi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CombatZone_8h_source.html">Core/World/CombatZone.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatContestants_8h_source.html">HMI/Game/CombatContestants.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="HmiLog_8h_source.html">HMI/HmiLog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DemonstrationCharacter_8h_source.html">HMI/Runtime/DemonstrationCharacter.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AArenaModel_3A_3AFighter" id="r_hmi_3A_3AArenaModel_3A_3AFighter"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaModel_1_1Fighter.html">hmi::ArenaModel::Fighter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant composé : ce que l'écran a choisi, prêt à devenir un <span class="tt"><a class="el" href="structcore_1_1ArenaContestant.html" title="Un combattant tel que l&#39;écran de mise en place le compose.">core::ArenaContestant</a></span>.  <a href="structhmi_1_1ArenaModel_1_1Fighter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AArenaModel_3A_3ACatalogs" id="r_hmi_3A_3AArenaModel_3A_3ACatalogs"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ArenaModel_1_1Catalogs.html">hmi::ArenaModel::Catalogs</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues chargés une fois, à la construction : le bestiaire, le personnage de démonstration et son bonus de maîtrise, les arènes, les Marques, et la carte de l'arène jouable.  <a href="structhmi_1_1ArenaModel_1_1Catalogs.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues chargés une fois, à la construction : le bestiaire, le héros de la démo, les arènes, les Marques, et la carte de l'arène jouable.  <a href="structhmi_1_1ArenaModel_1_1Catalogs.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>

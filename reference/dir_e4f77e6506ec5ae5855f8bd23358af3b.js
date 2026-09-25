@@ -12,6 +12,7 @@ var dir_e4f77e6506ec5ae5855f8bd23358af3b =
     [ "test_enemy_ai.cpp", "test__enemy__ai_8cpp.html", "test__enemy__ai_8cpp" ],
     [ "test_iso_projection.cpp", "test__iso__projection_8cpp.html", "test__iso__projection_8cpp" ],
     [ "test_line_of_sight.cpp", "test__line__of__sight_8cpp.html", "test__line__of__sight_8cpp" ],
+    [ "test_map_encounter.cpp", "test__map__encounter_8cpp.html", "test__map__encounter_8cpp" ],
     [ "test_pathfinding.cpp", "test__pathfinding_8cpp.html", "test__pathfinding_8cpp" ],
     [ "test_tactical_terrain.cpp", "test__tactical__terrain_8cpp.html", "test__tactical__terrain_8cpp" ],
     [ "test_turn_order.cpp", "test__turn__order_8cpp.html", "test__turn__order_8cpp" ]

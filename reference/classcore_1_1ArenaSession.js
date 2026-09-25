@@ -30,6 +30,7 @@ var classcore_1_1ArenaSession =
     [ "replay", "classcore_1_1ArenaSession.html#a5cbf0850da02037f7c3fc71e202f6425", null ],
     [ "resolveAndRecord", "classcore_1_1ArenaSession.html#a66b291aaeb73accc1ffa139ae5dcfce2", null ],
     [ "restoreAll", "classcore_1_1ArenaSession.html#a0267ab08d63cdd1e97c7aa776b16739e", null ],
+    [ "setMoveObserver", "classcore_1_1ArenaSession.html#aeaed382f27369145400b710e905d5d94", null ],
     [ "setOpportunityPolicy", "classcore_1_1ArenaSession.html#a7e87ed448b5a3fe93115802b2a417c1a", null ],
     [ "setTakesOpportunities", "classcore_1_1ArenaSession.html#a1018a38031516ac18d3a02af2f6f6df4", null ],
     [ "start", "classcore_1_1ArenaSession.html#a41369bfd25b9893cb93efe2c41c37a10", null ],
@@ -48,6 +49,7 @@ var classcore_1_1ArenaSession =
     [ "_dodging", "classcore_1_1ArenaSession.html#af3041cfba8f35666776f7d72b8bb8c5b", null ],
     [ "_journal", "classcore_1_1ArenaSession.html#a95fa6187920a6c5fbebd02b9c44603da", null ],
     [ "_level", "classcore_1_1ArenaSession.html#af8aec46bbcbee2130bd3177e9fdf4f97", null ],
+    [ "_moveObserver", "classcore_1_1ArenaSession.html#a9557d66f98acedb6746c35a605093a0a", null ],
     [ "_opportunityPolicy", "classcore_1_1ArenaSession.html#a63ea433e5165843c03cbce0d9f42d7fc", null ],
     [ "_random", "classcore_1_1ArenaSession.html#adf67da40ab63c3b22f35f3c691d811c2", null ]
 ];

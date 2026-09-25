@@ -217,12 +217,18 @@ Functions</h2></td></tr>
 <tr class="memdesc:a55a565b81064b51d72de5120fc4b030a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La cadence d'une figurine est celle que dit sa bande, pas une constante du code (<span class="tt">LOT-112</span>, <span class="tt">EX-REN-005</span>).  <br /></td></tr>
 <tr class="memitem:a92a1444dd46ad643454829760cc23347" id="r_a92a1444dd46ad643454829760cc23347"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a92a1444dd46ad643454829760cc23347">TEST</a> (WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier)</td></tr>
 <tr class="memdesc:a92a1444dd46ad643454829760cc23347"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'echelle et la ligne de sol d'un heros se lisent dans le manifeste de son atelier, deux dossiers plus haut (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memitem:ae236ccd3eda5f6918f72167404043d35" id="r_ae236ccd3eda5f6918f72167404043d35"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae236ccd3eda5f6918f72167404043d35">TEST</a> (WorldSceneComposerTest, UneBandeAUnCoupSeFigeSurSaDerniereImage)</td></tr>
+<tr class="memdesc:ae236ccd3eda5f6918f72167404043d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une bande jouée une fois (attaque, mort) se fige sur sa dernière image quand son temps est passé ; une bande qui boucle repart (<span class="tt">LOT-118</span>).  <br /></td></tr>
+<tr class="memitem:abf05c7b7eac9bc08ba397c67106e09aa" id="r_abf05c7b7eac9bc08ba397c67106e09aa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abf05c7b7eac9bc08ba397c67106e09aa">TEST</a> (WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes)</td></tr>
+<tr class="memdesc:abf05c7b7eac9bc08ba397c67106e09aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant précharge ses six bandes ; une figurine d'exploration, ses deux (<span class="tt">LOT-118</span>).  <br /></td></tr>
+<tr class="memitem:af65839afc77b69f030256c093d9d22e5" id="r_af65839afc77b69f030256c093d9d22e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af65839afc77b69f030256c093d9d22e5">TEST</a> (MaquetteRenderTest, LeMannequinRemplaceLeJetonDUnPnjSansFigurine)</td></tr>
+<tr class="memdesc:af65839afc77b69f030256c093d9d22e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un PNJ sans figurine prend le mannequin de sa silhouette quand on le demande, et le jeton d'un PNJ qu'une figurine occupe disparaît (<span class="tt">LOT-145</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la composition d'un lieu parcouru (LOT-09) : le sol vient du type de tuile, le relief de la piece nommee a la case, et la figurine se pose au pied de sa case. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a5a0af25b3dc5caaaf8af528a6eea3506" name="a5a0af25b3dc5caaaf8af528a6eea3506"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a0af25b3dc5caaaf8af528a6eea3506">&#9670;&#160;</a></span>TEST() <span class="overload">[1/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a0af25b3dc5caaaf8af528a6eea3506">&#9670;&#160;</a></span>TEST() <span class="overload">[1/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +258,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afcbc974d7d7f9fcec82934247d2bd185" name="afcbc974d7d7f9fcec82934247d2bd185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[2/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afcbc974d7d7f9fcec82934247d2bd185">&#9670;&#160;</a></span>TEST() <span class="overload">[2/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -282,7 +288,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a12c3a8d5de9df25cf5a65ac5b27640fe" name="a12c3a8d5de9df25cf5a65ac5b27640fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[3/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c3a8d5de9df25cf5a65ac5b27640fe">&#9670;&#160;</a></span>TEST() <span class="overload">[3/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -310,8 +316,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af65839afc77b69f030256c093d9d22e5" name="af65839afc77b69f030256c093d9d22e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af65839afc77b69f030256c093d9d22e5">&#9670;&#160;</a></span>TEST() <span class="overload">[4/26]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MaquetteRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeMannequinRemplaceLeJetonDUnPnjSansFigurine</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un PNJ sans figurine prend le mannequin de sa silhouette quand on le demande, et le jeton d'un PNJ qu'une figurine occupe disparaît (<span class="tt">LOT-145</span>). </p>
+<p><b>Cas de test :</b> <b>Le mannequin remplace le jeton d'un PNJ sans figurine.</b><br  />
+ <b>Categorie :</b> Unitaire · Mannequins<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer les figurines de trois PNJ &ndash; sans figurine, silhouette quadrupede, figurine nommee &ndash; sans puis avec mannequins.<br  />
+2. Tirer les marques avec ces figurines.<br  />
+ <b>Resultat attendu :</b> Sans : une figurine (la nommee). Avec : trois, dont le mannequin humanoide et le quadrupede. Les marques ne portent plus aucun jeton de PNJ ; un coffre garde le sien. </p>
+
+</div>
+</div>
 <a id="af52962bde3a465f576bb566d156ff90c" name="af52962bde3a465f576bb566d156ff90c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[4/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af52962bde3a465f576bb566d156ff90c">&#9670;&#160;</a></span>TEST() <span class="overload">[5/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,7 +377,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a63371f8a0021934134423ad30e3411b0" name="a63371f8a0021934134423ad30e3411b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63371f8a0021934134423ad30e3411b0">&#9670;&#160;</a></span>TEST() <span class="overload">[6/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -370,7 +406,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a684b74bee119ab5f78057e124ed31e99" name="a684b74bee119ab5f78057e124ed31e99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[6/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a684b74bee119ab5f78057e124ed31e99">&#9670;&#160;</a></span>TEST() <span class="overload">[7/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -399,7 +435,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae8cd32e1e6942aa912e6f9033548c020" name="ae8cd32e1e6942aa912e6f9033548c020"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[7/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8cd32e1e6942aa912e6f9033548c020">&#9670;&#160;</a></span>TEST() <span class="overload">[8/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,7 +464,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="affa200f8d415b074c029ffd8c93422d2" name="affa200f8d415b074c029ffd8c93422d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affa200f8d415b074c029ffd8c93422d2">&#9670;&#160;</a></span>TEST() <span class="overload">[8/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#affa200f8d415b074c029ffd8c93422d2">&#9670;&#160;</a></span>TEST() <span class="overload">[9/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -457,7 +493,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a4cd27ffc67925c9d6bef6551ebc9d1e1" name="a4cd27ffc67925c9d6bef6551ebc9d1e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[9/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd27ffc67925c9d6bef6551ebc9d1e1">&#9670;&#160;</a></span>TEST() <span class="overload">[10/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -486,7 +522,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aeb89fab5296bd03b69dd87113352de18" name="aeb89fab5296bd03b69dd87113352de18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[10/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb89fab5296bd03b69dd87113352de18">&#9670;&#160;</a></span>TEST() <span class="overload">[11/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -516,7 +552,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aafd2a49e40673331a3c61dbd242f9dd7" name="aafd2a49e40673331a3c61dbd242f9dd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[11/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd2a49e40673331a3c61dbd242f9dd7">&#9670;&#160;</a></span>TEST() <span class="overload">[12/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -545,7 +581,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a55a565b81064b51d72de5120fc4b030a" name="a55a565b81064b51d72de5120fc4b030a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55a565b81064b51d72de5120fc4b030a">&#9670;&#160;</a></span>TEST() <span class="overload">[12/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a55a565b81064b51d72de5120fc4b030a">&#9670;&#160;</a></span>TEST() <span class="overload">[13/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -577,7 +613,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5ee72efc0163defc5a481d004b6b43c3" name="a5ee72efc0163defc5a481d004b6b43c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[13/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee72efc0163defc5a481d004b6b43c3">&#9670;&#160;</a></span>TEST() <span class="overload">[14/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -606,7 +642,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7556eaa6accbc6c4a13f5424eb93cc77" name="a7556eaa6accbc6c4a13f5424eb93cc77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[14/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7556eaa6accbc6c4a13f5424eb93cc77">&#9670;&#160;</a></span>TEST() <span class="overload">[15/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -636,7 +672,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aadbe4639439ea45a431150c3697e021b" name="aadbe4639439ea45a431150c3697e021b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[15/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbe4639439ea45a431150c3697e021b">&#9670;&#160;</a></span>TEST() <span class="overload">[16/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -668,7 +704,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aba9b2babea2a0e1ccd484abce668e1ed" name="aba9b2babea2a0e1ccd484abce668e1ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba9b2babea2a0e1ccd484abce668e1ed">&#9670;&#160;</a></span>TEST() <span class="overload">[16/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aba9b2babea2a0e1ccd484abce668e1ed">&#9670;&#160;</a></span>TEST() <span class="overload">[17/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -697,7 +733,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad2ad8454eec9aafefe119b74cc7788e5" name="ad2ad8454eec9aafefe119b74cc7788e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[17/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ad8454eec9aafefe119b74cc7788e5">&#9670;&#160;</a></span>TEST() <span class="overload">[18/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -728,8 +764,67 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="abf05c7b7eac9bc08ba397c67106e09aa" name="abf05c7b7eac9bc08ba397c67106e09aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf05c7b7eac9bc08ba397c67106e09aa">&#9670;&#160;</a></span>TEST() <span class="overload">[19/26]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnCombattantPrechargeSesSixBandes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un combattant précharge ses six bandes ; une figurine d'exploration, ses deux (<span class="tt">LOT-118</span>). </p>
+<p><b>Cas de test :</b> <b>Les chemins d'un combattant couvrent les six bandes.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu HD<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lister les chemins d'un heros au repos, puis du meme marque combattant.<br  />
+ <b>Resultat attendu :</b> Deux chemins, puis six : repos, marche, attaque, sort, touche, mort, orientes. </p>
+
+</div>
+</div>
+<a id="ae236ccd3eda5f6918f72167404043d35" name="ae236ccd3eda5f6918f72167404043d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae236ccd3eda5f6918f72167404043d35">&#9670;&#160;</a></span>TEST() <span class="overload">[20/26]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldSceneComposerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneBandeAUnCoupSeFigeSurSaDerniereImage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une bande jouée une fois (attaque, mort) se fige sur sa dernière image quand son temps est passé ; une bande qui boucle repart (<span class="tt">LOT-118</span>). </p>
+<p><b>Cas de test :</b> <b>Une bande a un coup se fige sur sa derniere image.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu HD<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer le heros sur une bande de mort de huit images a 0,1 s, <span class="tt">loop</span> faux, a 0,25 s, 0,75 s et 3 s.<br  />
+2. La meme bande <span class="tt">loop</span> vrai, a 3 s.<br  />
+ <b>Resultat attendu :</b> Images 2, 7 puis 7 (figee) ; en boucle, 3 s donne l'image 6. </p>
+
+</div>
+</div>
 <a id="a6319428e187457c01d6ba155e821bebe" name="a6319428e187457c01d6ba155e821bebe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6319428e187457c01d6ba155e821bebe">&#9670;&#160;</a></span>TEST() <span class="overload">[18/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6319428e187457c01d6ba155e821bebe">&#9670;&#160;</a></span>TEST() <span class="overload">[21/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -759,7 +854,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab30cbd95fc4caaa26ca67d77523819db" name="ab30cbd95fc4caaa26ca67d77523819db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[19/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30cbd95fc4caaa26ca67d77523819db">&#9670;&#160;</a></span>TEST() <span class="overload">[22/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -788,7 +883,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1700c5de254e103b6545603cbbfcaeb5" name="a1700c5de254e103b6545603cbbfcaeb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[20/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1700c5de254e103b6545603cbbfcaeb5">&#9670;&#160;</a></span>TEST() <span class="overload">[23/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -817,7 +912,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab52ac43bc6139598c360f8978a13dac3" name="ab52ac43bc6139598c360f8978a13dac3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab52ac43bc6139598c360f8978a13dac3">&#9670;&#160;</a></span>TEST() <span class="overload">[21/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab52ac43bc6139598c360f8978a13dac3">&#9670;&#160;</a></span>TEST() <span class="overload">[24/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -850,7 +945,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a635e2755bc4cfa9ee321162ebe959f1f" name="a635e2755bc4cfa9ee321162ebe959f1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[22/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a635e2755bc4cfa9ee321162ebe959f1f">&#9670;&#160;</a></span>TEST() <span class="overload">[25/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -882,7 +977,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a92a1444dd46ad643454829760cc23347" name="a92a1444dd46ad643454829760cc23347"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92a1444dd46ad643454829760cc23347">&#9670;&#160;</a></span>TEST() <span class="overload">[23/23]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a92a1444dd46ad643454829760cc23347">&#9670;&#160;</a></span>TEST() <span class="overload">[26/26]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

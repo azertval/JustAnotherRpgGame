@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapEncounter.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/MapEncounter.h
+ * @brief Une rencontre **posÃ©e sur la carte** (`LOT-118`) : la zone de combat qui l'accueille, la
+ *        carte rÃ©duite Ã  cette zone, et oÃ¹ chacun se dresse dedans.
+ *
+ * ## Ce que ce fichier dÃ©cide
+ *
+ * `core::beginEncounter` (`CombatTransition.h`) dit **qui** se bat et met l'exploration de cÃ´tÃ© ;
+ * `core::cropLevelToZone` (`World/CombatZone.h`) dÃ©coupe la carte. Entre les deux manque la
+ * question du **lieu** : sur quelle zone de combat de la carte ce combat se joue, et comment les
+ * cases voulues par la rencontre â Ã©crites en cases de la carte â deviennent des cases de la grille
+ * tactique, sans tomber dans un mur ni hors de la zone.
+ *
+ * La rÃ©ponse est pure : une carte, une rencontre, deux cases (le dÃ©clencheur, le hÃ©ros), et l'on
+ * obtient une grille et des places. Aucune session n'est montÃ©e ici â c'est `hmi::EncounterModel`
+ * qui le fait â, si bien que la rÃ¨gle se vÃ©rifie sans fenÃªtre (`EX-NFR-010`).
+ */
+
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/CombatTransition.h"
+#include "Core/Combat/Encounter.h"
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"
+#include "Core/World/CombatZone.h"
+
+namespace core {
+
+/**
+ * @brief Une rencontre prÃªte Ã  monter sur la carte : la zone choisie, la grille, les places.
+ *
+ * Toutes les cases de cette structure sont en coordonnÃ©es de la **grille tactique** (l'origine de
+ * la zone est la case (0, 0)) : c'est ce que la session de combat lit. Ce qui les dessine sur la
+ * carte les ramÃ¨ne par `zone.origin`.
+ */
+struct MapEncounterSetup {
+    /// La zone de combat de la carte, en cases de la carte.
+    CombatZone zone;
+    /// La carte rÃ©duite Ã  la zone : la grille tactique.
+    Level battlefield;
+    /// OÃ¹ le hÃ©ros se dresse, en cases de la grille.
+    GridPosition heroCell{};
+    /// La rencontre engagÃ©e ; ses `placements` sont en cases de la grille.
+    EncounterRun run;
+    /// Ce qui a dÃ» Ãªtre dÃ©placÃ© pour tenir dans la zone, en clair : lu par le journal.
+    std::vector&lt;std::string&gt; notes;
+};
+
+/// @brief Ce que la prÃ©paration a donnÃ© : un montage, ou la raison du refus.
+struct MapEncounterResult {
+    std::optional&lt;MapEncounterSetup&gt; setup;
+    /// Vide si `setup` est lÃ  ; sinon, ce qui manque Ã  la carte pour accueillir ce combat.
+    std::string issue;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return setup.has_value();
+    }</span>
+};
+
+/**
+ * @brief PrÃ©pare @p encounter sur @p map, dÃ©clenchÃ©e en @p trigger, le hÃ©ros en @p heroCell.
+ *
+ * ## La zone
+ *
+ * La zone de combat qui **contient le dÃ©clencheur** ; Ã  dÃ©faut, celle qui contient le hÃ©ros ; Ã 
+ * dÃ©faut, refus â un combat sur la carte se joue sur une zone que l'Ã©diteur a posÃ©e et
+ * contrÃ´lÃ©e (`core::validateCombatZones`), jamais sur une fenÃªtre inventÃ©e autour du hÃ©ros, qui
+ * mettrait la moitiÃ© d'une maison dans la grille.
+ *
+ * ## Les places
+ *
+ * Le hÃ©ros garde sa case si elle est dans la zone et libre ; sinon la case libre de la zone la
+ * plus proche de lui. Chaque combattant de la rencontre garde la case que sa formation lui donne
+ * autour du dÃ©clencheur (`core::placeCombatants`) si elle est dans la zone, libre et inoccupÃ©e ;
+ * sinon la case libre la plus proche de celle qu'il voulait. Une place dÃ©placÃ©e se note : le
+ * journal du combat le dira, plutÃ´t que de laisser croire que la formation a Ã©tÃ© respectÃ©e.
+ *
+ * @param map           La carte courante, entiÃ¨re.
+ * @param mapId         Son identifiant : les clÃ©s de drapeau et les refus le citent.
+ * @param encounter     La rencontre, telle que la donnÃ©e la dÃ©crit.
+ * @param trigger       La case du dÃ©clencheur (le PNJ qui lance le combat, l'entitÃ© `encounter`).
+ * @param heroCell      La case du hÃ©ros au moment du dÃ©clenchement.
+ * @param exploration   L'Ã©tat d'exploration Ã  retrouver ensuite.
+ * @param defeatFlagKey Le drapeau qu'une victoire acquerra, ou une chaÃ®ne vide.
+ */
+[[nodiscard]] MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view mapId,
+                                                     const Encounter&amp; encounter,
+                                                     GridPosition trigger, GridPosition heroCell,
+                                                     const ExplorationSnapshot&amp; exploration,
+                                                     std::string defeatFlagKey);
+
+/// @return @p cell, exprimÃ©e en cases de la carte depuis les cases de la grille de @p zone.
+[[nodiscard]] GridPosition zoneToMap(const CombatZone&amp; zone, GridPosition cell) noexcept;
+
+/// @return @p cell, exprimÃ©e en cases de la grille de @p zone depuis les cases de la carte.
+[[nodiscard]] GridPosition mapToZone(const CombatZone&amp; zone, GridPosition cell) noexcept;
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

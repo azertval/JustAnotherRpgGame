@@ -259,7 +259,8 @@ void lireActions(const nlohmann::json&amp; objet, Creature&amp; creature, const 
     creature.hitDice = lireDesFacultatifs(racine, "hitDice");
     creature.senses = lireTextes(racine, "senses");
     creature.languages = lireTextes(racine, "languages");
-    creature.requiredMechanisms = lireTextes(racine, "mecanismesRequis");</span>
+    creature.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
+    creature.silhouette = lireTexteFacultatif(racine, "silhouette");</span>
 
 <span style = "background-color:#dfd">    if (const auto competences = racine.find("skills");
         competences != racine.end() &amp;&amp; competences-&gt;is_object()) {

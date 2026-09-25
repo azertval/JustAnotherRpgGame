@@ -143,18 +143,13 @@ $(function(){initNavTree('structhmi_1_1ArenaModel_1_1Catalogs.html','','structhm
 </div><!--header-->
 <div class="contents">
 
-<p>Les catalogues chargés une fois, à la construction : le bestiaire, le personnage de démonstration et son bonus de maîtrise, les arènes, les Marques, et la carte de l'arène jouable.  
+<p>Les catalogues chargés une fois, à la construction : le bestiaire, le héros de la démo, les arènes, les Marques, et la carte de l'arène jouable.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a956024d97966afc5962d5709bb54404e" id="r_a956024d97966afc5962d5709bb54404e"><td class="memItemLeft"><a class="el" href="structcore_1_1Bestiary.html">core::Bestiary</a>&#160;</td><td class="memItemRight"><a class="el" href="#a956024d97966afc5962d5709bb54404e">bestiary</a></td></tr>
-<tr class="memitem:a1cfa5c52a6ac83c70f00eaab9955e234" id="r_a1cfa5c52a6ac83c70f00eaab9955e234"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1cfa5c52a6ac83c70f00eaab9955e234">character</a></td></tr>
-<tr class="memitem:ad5640ec2bc080837baa775b4564024ab" id="r_ad5640ec2bc080837baa775b4564024ab"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad5640ec2bc080837baa775b4564024ab">characterProficiency</a> = 2</td></tr>
-<tr class="memitem:a0452f33a0126ec8ddca8020ecdbbdd99" id="r_a0452f33a0126ec8ddca8020ecdbbdd99"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0452f33a0126ec8ddca8020ecdbbdd99">characterArmorClass</a> = 10</td></tr>
-<tr class="memdesc:a0452f33a0126ec8ddca8020ecdbbdd99"><td class="mdescLeft">&#160;</td><td class="mdescRight">La classe d'armure <b>recalculée</b> depuis ce que le personnage porte (<span class="tt">EX-CBT-030</span>).  <br /></td></tr>
-<tr class="memitem:acf65db83b9e85c0d18971c2691078c42" id="r_acf65db83b9e85c0d18971c2691078c42"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Weapon.html">core::Weapon</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acf65db83b9e85c0d18971c2691078c42">characterWeapon</a></td></tr>
-<tr class="memdesc:acf65db83b9e85c0d18971c2691078c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'arme en main directrice, ou vide : il frappe alors à mains nues.  <br /></td></tr>
+<tr class="memitem:a0290ff69d168a704725b9ab6bff0a1c4" id="r_a0290ff69d168a704725b9ab6bff0a1c4"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0290ff69d168a704725b9ab6bff0a1c4">hero</a></td></tr>
 <tr class="memitem:a5e0d619f88afff95159c1365175f8881" id="r_a5e0d619f88afff95159c1365175f8881"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaCatalog.html">core::ArenaCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5e0d619f88afff95159c1365175f8881">arenas</a></td></tr>
 <tr class="memitem:a65ed100faf9716f38a2089888ec0f00a" id="r_a65ed100faf9716f38a2089888ec0f00a"><td class="memItemLeft"><a class="el" href="structcore_1_1HeroicMarkCatalog.html">core::HeroicMarkCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#a65ed100faf9716f38a2089888ec0f00a">marks</a></td></tr>
 <tr class="memitem:a4ba85985877c14350142f32c7d658795" id="r_a4ba85985877c14350142f32c7d658795"><td class="memItemLeft"><a class="el" href="structcore_1_1BehaviorCatalog.html">core::BehaviorCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4ba85985877c14350142f32c7d658795">behaviors</a></td></tr>
@@ -164,7 +159,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aedd60cf4577a86c041902237e7e68457" id="r_aedd60cf4577a86c041902237e7e68457"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#aedd60cf4577a86c041902237e7e68457">problems</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Les catalogues chargés une fois, à la construction : le bestiaire, le personnage de démonstration et son bonus de maîtrise, les arènes, les Marques, et la carte de l'arène jouable. </p>
+<div class="textblock"><p>Les catalogues chargés une fois, à la construction : le bestiaire, le héros de la démo, les arènes, les Marques, et la carte de l'arène jouable. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a5e0d619f88afff95159c1365175f8881" name="a5e0d619f88afff95159c1365175f8881"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e0d619f88afff95159c1365175f8881">&#9670;&#160;</a></span>arenas</h2>
@@ -210,63 +205,17 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1cfa5c52a6ac83c70f00eaab9955e234" name="a1cfa5c52a6ac83c70f00eaab9955e234"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cfa5c52a6ac83c70f00eaab9955e234">&#9670;&#160;</a></span>character</h2>
+<a id="a0290ff69d168a704725b9ab6bff0a1c4" name="a0290ff69d168a704725b9ab6bff0a1c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0290ff69d168a704725b9ab6bff0a1c4">&#9670;&#160;</a></span>hero</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a>&gt; hmi::ArenaModel::Catalogs::character</td>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a>&gt; hmi::ArenaModel::Catalogs::hero</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0452f33a0126ec8ddca8020ecdbbdd99" name="a0452f33a0126ec8ddca8020ecdbbdd99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0452f33a0126ec8ddca8020ecdbbdd99">&#9670;&#160;</a></span>characterArmorClass</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::Catalogs::characterArmorClass = 10</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La classe d'armure <b>recalculée</b> depuis ce que le personnage porte (<span class="tt">EX-CBT-030</span>). </p>
-
-</div>
-</div>
-<a id="ad5640ec2bc080837baa775b4564024ab" name="ad5640ec2bc080837baa775b4564024ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5640ec2bc080837baa775b4564024ab">&#9670;&#160;</a></span>characterProficiency</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::ArenaModel::Catalogs::characterProficiency = 2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acf65db83b9e85c0d18971c2691078c42" name="acf65db83b9e85c0d18971c2691078c42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf65db83b9e85c0d18971c2691078c42">&#9670;&#160;</a></span>characterWeapon</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1Weapon.html">core::Weapon</a>&gt; hmi::ArenaModel::Catalogs::characterWeapon</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>L'arme en main directrice, ou vide : il frappe alors à mains nues. </p>
 
 </div>
 </div>

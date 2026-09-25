@@ -106,8 +106,8 @@ private:
 [[nodiscard]] std::string exiger(const Json&amp; objet, const char* champ, std::string_view noeud,
 <span style = "background-color:#dfd">                                 Rapport&amp; rapport) {
     auto valeur = texte(objet, champ);
-    if (!valeur) {</span>
-<span style = "background-color:#fdd">        rapport.noeud(noeud, std::string("champ '") + champ + "' absent ou vide.");
+    if (!valeur) {
+        rapport.noeud(noeud, std::string("champ '") + champ + "' absent ou vide.");
         return {};</span>
     }
 <span style = "background-color:#dfd">    return std::move(*valeur);
@@ -235,10 +235,13 @@ private:
     } else if (type == "startCombat") {
         action.kind = DialogueActionKind::StartCombat;
         champ = "arena";
+    } else if (type == "startEncounter") {
+        action.kind = DialogueActionKind::StartEncounter;
+        champ = "encounter";
     } else {</span>
 <span style = "background-color:#fdd">        rapport.noeud(noeudId,</span>
                       "action de type inconnu (setFlag, clearFlag, giveItem, "
-                      "startQuest, startCombat).");
+                      "startQuest, startCombat, startEncounter).");
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    action.target = exiger(effet, champ, noeudId, rapport);
@@ -959,7 +962,11 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
             break;</span>
         case DialogueActionKind::StartCombat:
 <span style = "background-color:#dfd">            _listener.startCombat(action.target);
-            _journal.push_back("combat demande : " + action.target);</span>
+            _journal.push_back("combat demande : " + action.target);
+            break;</span>
+        case DialogueActionKind::StartEncounter:
+<span style = "background-color:#dfd">            _listener.startEncounter(action.target);
+            _journal.push_back("rencontre demandee : " + action.target);</span>
             break;
     }
 <span style = "background-color:#dfd">}</span>
