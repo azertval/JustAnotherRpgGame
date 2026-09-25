@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <filesystem>
+#include <memory>
 #include <string>
 
 #include <gtest/gtest.h>
@@ -95,6 +96,41 @@ TEST(ExplorationCarteIntegration, LeHerosMarcheSurUneCarte) {
     }
     ASSERT_TRUE(moved);
     EXPECT_EQ(play.figures().back().clip, "walk");
+}
+
+/**
+ * @brief Un pas du héros ne refait pas la carte : seul un drapeau qui change ce qui s'y dessine la
+ *        refait (audit de l'affichage d'un lieu, A3).
+ * \castest{<b>Marcher ne recompose pas la carte.</b><br/>
+ * \tcat Integration · Exploration · Rendu<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Entrer sur `bourg/place` et prendre la carte en valeurs.<br/>2. Marcher une
+ * seconde, par pas de 1/60 s.<br/>3. Poser un drapeau, puis faire un pas.<br/>
+ * \tattendu Pendant la marche, aucun pas n'annonce une carte changee et la carte est la meme
+ * valeur partagee ; les figurines, elles, changent. Apres le drapeau, le pas annonce la carte
+ * changee et une nouvelle valeur est faite.
+ * }
+ */
+TEST(ExplorationCarteIntegration, UnPasNeRefaitPasLaCarte) {
+    hmi::WorldPlay play = playFromDisk();
+    ASSERT_TRUE(play.enter("bourg/place", {}));
+    const std::shared_ptr<const hmi::WorldSceneSnapshot> before = play.scene();
+    ASSERT_NE(before, nullptr);
+
+    bool figuresChanged = false;
+    for (int step = 0; step < 60; ++step) {
+        const hmi::WorldPlayStep result =
+            play.step({.move = core::Vector2{1.0F, 0.0F}, .interact = false}, 1.0F / 60.0F);
+        EXPECT_FALSE(result.sceneChanged) << "pas " << step;
+        figuresChanged = figuresChanged || result.figuresChanged || result.heroMoved;
+    }
+    EXPECT_TRUE(figuresChanged);
+    EXPECT_EQ(play.scene().get(), before.get());
+
+    play.session().flags().set("essai-affichage");
+    const hmi::WorldPlayStep result = play.step({.move = {}, .interact = false}, 1.0F / 60.0F);
+    EXPECT_TRUE(result.sceneChanged);
+    EXPECT_NE(play.scene().get(), before.get());
 }
 
 /**

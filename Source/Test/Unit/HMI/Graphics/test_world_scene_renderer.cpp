@@ -196,8 +196,9 @@ TEST(WorldSceneRendererTest, CreationLiberationRecreation) {
  * \tcrit Bloquant<br/>
  * \tetapes 1. Charger la carte du donjon d'essai et la table d'apparence du lieu.<br/>
  *          2. Dessiner une image hors ecran, cadree sur le heros a la porte.<br/>
- * \tattendu Plus de mille quads composes, tous sur une piece CHARGEE (aucun damier) ; une part
- *           notable de l'image est peinte.
+ * \tattendu La carte entiere est composee une fois (plus de sept cents quads), tous sur une
+ *           piece CHARGEE (aucun damier) ; l'image n'en garde que ce que la camera montre, et
+ *           une part notable en est peinte.
  * }
  */
 TEST(WorldSceneRendererTest, UnLieuDevientDesPixels) {
@@ -214,8 +215,19 @@ TEST(WorldSceneRendererTest, UnLieuDevientDesPixels) {
     const QImage image = renderFrame(*rhi, renderer, target);
     ASSERT_EQ(image.size(), QSize(TARGET_SIZE, TARGET_SIZE));
 
-    // 634 cases franchissables, autant de sols, plus le relief et la figurine du heros.
-    EXPECT_GT(renderer.composed().size(), 700U);
+    // 634 cases franchissables, autant de sols, plus le relief : la carte entiere, composee une
+    // fois, chaque piece sur sa texture.
+    EXPECT_GT(renderer.statics().size(), 700U);
+    for (const hmi::ComposedQuad& quad : renderer.statics().scene().quads()) {
+        EXPECT_NE(quad.texture, nullptr);
+        EXPECT_NE(quad.texture, renderer.textures().missing.texture)
+            << "piece tombee sur le damier";
+    }
+    // L'image n'en garde que ce que la camera montre, la figurine du heros comprise (audit de
+    // l'affichage d'un lieu).
+    EXPECT_GT(renderer.composed().size(), 0U);
+    EXPECT_LE(renderer.composed().size(), renderer.statics().size() + 1U);
+    EXPECT_GT(renderer.composed().statistics().culled, 0);
     for (const hmi::ComposedQuad& quad : renderer.composed().quads()) {
         EXPECT_NE(quad.texture, nullptr);
         EXPECT_NE(quad.texture, renderer.textures().missing.texture)

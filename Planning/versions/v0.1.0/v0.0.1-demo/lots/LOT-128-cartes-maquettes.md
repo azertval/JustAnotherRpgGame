@@ -223,7 +223,8 @@ Livré le 22 septembre 2026, **PR #108**.
 Tout est écrit et vérifié par les tests, **sauf le premier critère**, qui ne peut l'être que par
 l'auteur : redessiner le plan de Martpart en maquette, en moins d'une séance, le jouer par `F5`,
 puis lui donner son lieu par `Change sheet…`. C'est la recette du lot, et elle vaut aussi pour la
-vérification à la souris due depuis les lots de l'éditeur. Le reste — rendu, jetons, `--check`,
+vérification à la souris due depuis les lots de l'éditeur — faite depuis, au
+[LOT-127](LOT-127-recette-de-l-editeur-a-la-main.md). Le reste — rendu, jetons, `--check`,
 `--plan`, parité jeu/éditeur, `EX-EXP-005` — tient par les tests.
 
 ## Périmètre

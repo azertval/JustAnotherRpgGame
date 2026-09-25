@@ -138,7 +138,7 @@ Les deux derniers constats bloquaient le jalon : ils sont traités dans ce lot, 
   `LevelFileOps.UneCarteCreeeAvecUnLieuASesDeuxCouches` garde le premier pas, et
   `ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue` le contrôle (`LOT-EDITOR-07`).
 
-**Vérification à la souris, due** : lancer `LevelEditor` sans argument — le titre montre
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : lancer `LevelEditor` sans argument — le titre montre
 `…\Source\Elements` ; « New » sur une carte `essai`, lieu `martpart` ; poser un rectangle de pavés,
 un mur, l'entrée, un coffre ; `Ctrl+S`, et `git status` montre `Source/Elements/Levels/essai.json`.
 Puis `P` pour l'essai, et supprimer la carte.
@@ -149,6 +149,6 @@ Puis `P` pour l'essai, et supprimer la carte.
 `lot-editor-06-fin-des-scripts`. **Premier jalon du module** : les cartes du jeu se font
 désormais dans l'éditeur. Vérification automatisée : construction `/W4 /WX` sans avertissement,
 tests unitaires verts, `LevelEditor --check` sans erreur ni avertissement sur les trois cartes,
-rendus relus à l'œil. **Vérification à la souris due** (voir « Vérification »).
+rendus relus à l'œil. **Vérifié à la souris** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) (voir « Vérification »).
 
 Exigences : `EX-EDIT-077`, `EX-EDIT-078` (nouvelles).

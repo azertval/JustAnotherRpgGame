@@ -24,10 +24,12 @@ namespace hmi {
  * Même frontière entre les fils, pour la même raison : le modèle et sa session vivent sur le fil
  * graphique, le dessin sur le fil de rendu, et `synchronize()` — fil graphique bloqué — est le seul
  * instant où les deux se parlent. Ne traversent que des **valeurs** : la couleur d'effacement, le
- * point suivi par la caméra, et, si la scène a changé, l'instantané `hmi::WorldSceneSnapshot`.
+ * point suivi par la caméra, la carte si elle a changé — un `hmi::WorldSceneSnapshot` partagé,
+ * immuable, jamais recopié —, et les figurines si elles ont changé.
  *
- * « A changé » se compte : chaque pas qui modifie ce qui se dessine avance `WorldModel::
- * sceneRevision`, et le peintre ne reprend un instantané que si le numéro diffère du sien.
+ * « A changé » se compte : `WorldModel::sceneRevision` avance quand la carte est à recomposer,
+ * `WorldModel::figuresRevision` à chaque pas qui change les figurines. Un pas du héros ne fait donc
+ * passer que quelques figurines, et le rendu ne recompose pas la carte.
  *
  * Le cadrage est publié comme celui de l'arène (`tileWidth`, `originX`…) : le calque d'interface
  * QML posé par-dessus et le pointeur lisent **ce** cadrage, jamais un recalcul — deux cadrages
@@ -95,6 +97,7 @@ private:
     QPointer<WorldModel> _model;
     QMetaObject::Connection _modelChangedConnection;
     QMetaObject::Connection _modelMovedConnection;
+    QMetaObject::Connection _modelFiguresConnection;
     QMetaObject::Connection _modelDestroyedConnection;
     QColor _clearColor{0x10, 0x0d, 0x0a};  ///< Nuit de pierre, jusqu'à ce que le QML en décide.
 };

@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <memory>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -33,8 +34,12 @@ struct WorldPlayStep {
     std::vector<core::ExplorationEvent> events;
     /// Le héros a bougé, ou marche contre un mur : la caméra suit, la scène se redessine.
     bool heroMoved = false;
-    /// La scène doit être recomposée : carte changée, ou bande du héros basculée.
+    /// La **carte** a changé : on est entré ailleurs, ou un drapeau fait paraître ou disparaître
+    /// un PNJ, une porte (`LOT-116`, `LOT-126`). Elle est à recomposer.
     bool sceneChanged = false;
+    /// Les **figurines** ont changé sans que le héros bouge : sa bande a basculé (il part, il
+    /// s'arrête), ou il s'est tourné. La carte, elle, reste composée.
+    bool figuresChanged = false;
 };
 
 class WorldPlay {
@@ -80,7 +85,18 @@ public:
     /// @return Les figurines de la carte courante : les PNJ, puis le héros, qui passe devant.
     [[nodiscard]] std::vector<WorldFigureSnapshot> figures() const;
 
-    /// @return L'instantané que `hmi::WorldSceneRenderer` dessine ; vide hors carte.
+    /**
+     * @brief La **carte** que `hmi::WorldSceneRenderer` dessine, partagée ; vide hors carte.
+     *
+     * Refaite seulement quand elle change — entrée sur une carte, drapeau qui fait paraître ou
+     * disparaître quelque chose, figurine du héros —, jamais à un pas du héros : c'est ce qui
+     * rendait chaque pas aussi cher que la carte est grande (audit de l'affichage, A3). Ses
+     * figurines sont celles de l'instant où elle a été faite ; celles de l'image sont `figures()`.
+     */
+    [[nodiscard]] std::shared_ptr<const WorldSceneSnapshot> scene() const;
+
+    /// @return La carte **et** les figurines de l'instant, en une valeur : pour qui compose tout
+    ///         d'un coup (un test, une capture).
     [[nodiscard]] WorldSceneSnapshot snapshot() const;
     [[nodiscard]] float diamondRatio() const noexcept {
         return _appearance.diamondRatio();
@@ -89,6 +105,10 @@ public:
 private:
     /// @brief Relit la table d'apparence du lieu de la carte courante.
     void reloadAppearance();
+    /// @brief La carte est à refaire à la prochaine demande.
+    void invalidateScene() noexcept {
+        _scene.reset();
+    }
 
     core::ExplorationSession _session;
     std::filesystem::path _assetsDirectory;
@@ -105,6 +125,8 @@ private:
     bool _walking = false;
     /// Révision des drapeaux de la dernière scène annoncée : les PNJ conditionnés en dépendent.
     std::uint64_t _drawnFlags = 0;
+    /// La carte en valeurs, faite à la première demande après un changement ; nulle d'ici là.
+    mutable std::shared_ptr<const WorldSceneSnapshot> _scene;
 };
 
 }  // namespace hmi

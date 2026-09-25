@@ -1,19 +1,19 @@
 # Tests d'intégration
 
-Tests d'intégration — **4 cas** (3 critiques, 1 majeur). [Retour à la synthèse](README.md).
+Tests d'intégration — **5 cas** (3 critiques, 2 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_exploration_carte.cpp`](#test-exploration-cartecpp) | 3 | - | 2 | 1 | - |
+| [`test_exploration_carte.cpp`](#test-exploration-cartecpp) | 4 | - | 2 | 2 | - |
 | [`test_quete_trois_etapes.cpp`](#test-quete-trois-etapescpp) | 1 | - | 1 | - | - |
 
 ## test_exploration_carte.cpp
 
 ### ExplorationCarteIntegration.UneCarteSeChargeEtSeCompose
 
-*Critique · Integration · Exploration* — `Source/Test/Integration/test_exploration_carte.cpp:47`
+*Critique · Integration · Exploration* — `Source/Test/Integration/test_exploration_carte.cpp:48`
 
 Une carte du disque se charge et se compose.
 
@@ -34,7 +34,7 @@ Une carte du disque se charge et se compose.
 
 ### ExplorationCarteIntegration.LeHerosMarcheSurUneCarte
 
-*Majeur · Integration · Exploration* — `Source/Test/Integration/test_exploration_carte.cpp:71`
+*Majeur · Integration · Exploration* — `Source/Test/Integration/test_exploration_carte.cpp:72`
 
 Marcher sur une carte deplace le heros et change sa bande.
 
@@ -49,9 +49,31 @@ Marcher sur une carte deplace le heros et change sa bande.
 - Vérifie que `moved` est vrai.
 - Vérifie que `play.figures().back().clip` vaut `"walk"`.
 
+### ExplorationCarteIntegration.UnPasNeRefaitPasLaCarte
+
+*Majeur · Integration · Exploration · Rendu* — `Source/Test/Integration/test_exploration_carte.cpp:104`
+
+Marcher ne recompose pas la carte.
+
+**Étapes**
+
+1. Entrer sur `bourg/place` et prendre la carte en valeurs.
+2. Marcher une seconde, par pas de 1/60 s.
+3. Poser un drapeau, puis faire un pas.
+
+**Résultat attendu**
+
+- Vérifie que `play.enter("bourg/place", {})` est vrai.
+- Vérifie que `before` diffère de `nullptr`.
+- Vérifie que `result.sceneChanged` est faux.
+- Vérifie que `figuresChanged` est vrai.
+- Vérifie que `play.scene().get()` vaut `before.get()`.
+- Vérifie que `result.sceneChanged` est vrai.
+- Vérifie que `play.scene().get()` diffère de `before.get()`.
+
 ### ExplorationCarteIntegration.UneCarteQuiPuiseDansQuatreNiveauxSeJoue
 
-*Critique · Integration · Exploration · Arborescence* — `Source/Test/Integration/test_exploration_carte.cpp:103`
+*Critique · Integration · Exploration · Arborescence* — `Source/Test/Integration/test_exploration_carte.cpp:139`
 
 Une carte qui puise dans quatre niveaux se joue.
 

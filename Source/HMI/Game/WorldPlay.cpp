@@ -49,6 +49,8 @@ void WorldPlay::setHeroFigure(std::string figure) {
     std::error_code erreur;
     _heroOriented = std::filesystem::is_regular_file(
         _assetsDirectory / figureStripPath(_heroFigure, "idle", FigureFacing::SouthEast), erreur);
+    // Le dossier de la figurine du heros se lit dans la carte en valeurs.
+    invalidateScene();
 }
 
 bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
@@ -74,13 +76,13 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
     const bool walking = !_session.frozen() && (intent.move.x != 0.0F || intent.move.y != 0.0F);
     if (walking != _walking) {
         _walking = walking;
-        result.sceneChanged = true;
+        result.figuresChanged = true;
     }
     if (walking) {
         const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
         if (facing != _heroFacing) {
             _heroFacing = facing;
-            result.sceneChanged = true;
+            result.figuresChanged = true;
         }
     }
     // Un héros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
@@ -90,6 +92,7 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
     // scene se recompose sans que la carte soit relue (`LOT-116`).
     if (_session.flags().revision() != _drawnFlags) {
         _drawnFlags = _session.flags().revision();
+        invalidateScene();
         result.sceneChanged = true;
     }
     for (const core::ExplorationEvent& event : result.events) {
@@ -104,6 +107,7 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
 }
 
 void WorldPlay::reloadAppearance() {
+    invalidateScene();
     const core::Level* const map = _session.map();
     if (map == nullptr) {
         _appearance = PlaceAppearance{};
@@ -150,15 +154,28 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
     return figures;
 }
 
-WorldSceneSnapshot WorldPlay::snapshot() const {
+std::shared_ptr<const WorldSceneSnapshot> WorldPlay::scene() const {
+    if (_scene != nullptr) {
+        return _scene;
+    }
     const core::Level* const map = _session.map();
     if (map == nullptr) {
-        return WorldSceneSnapshot{};
+        _scene = std::make_shared<const WorldSceneSnapshot>();
+        return _scene;
     }
     const std::vector<core::MapEntity> presentes = entitesPresentes(_session, *map);
     const WorldSceneSource source{
         .root = map->tileMap(), .layers = map->layers(), .entities = presentes};
-    return snapshotWorldScene(source, _appearance, figures());
+    // Les figurines de l'instant y sont : c'est d'elles que la carte tire le dossier de chacune.
+    _scene = std::make_shared<const WorldSceneSnapshot>(
+        snapshotWorldScene(source, _appearance, figures()));
+    return _scene;
+}
+
+WorldSceneSnapshot WorldPlay::snapshot() const {
+    WorldSceneSnapshot snapshot = *scene();
+    snapshot.figures = figures();
+    return snapshot;
 }
 
 }  // namespace hmi

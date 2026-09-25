@@ -131,9 +131,9 @@ assistée : « le contrôle du 07 reste vert »), et les cartes du [LOT-27](../.
   erreur. Restent deux avertissements, exacts : les points d'arrivée `porte` et `sable` du Colisée,
   qu'aucun portail ne nomme encore — le Colisée ne sera relié au monde qu'au [LOT-27](../../../../vision/archives/feuille-de-route-jeu.md#lot-27).
 - **Double-clic = aller à la case.** Branché ; les clics ne se simulent pas sur ce poste (constat
-  du `LOT-EDITOR-02`) : vérification à la souris due.
+  du `LOT-EDITOR-02`) : vérifié à la souris au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md).
 
-**Vérification à la souris, due** : lancer `LevelEditor` ; le dock « Problems » montre « 3 maps
+**Vérification à la souris, faite** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md), le 24 septembre 2026 : lancer `LevelEditor` ; le dock « Problems » montre « 3 maps
 checked as saved: 0 errors, 2 warnings ». Ouvrir Martpart, puis double-cliquer l'avertissement
 `spawnPoint e16 (sable)` : le Colisée s'ouvre, le point d'arrivée est sélectionné, sa case cernée
 de magenta. Puis poser un PNJ dans un mur, enregistrer : une erreur apparaît ; `Ctrl+Z`,
@@ -144,7 +144,7 @@ enregistrer, elle disparaît.
 **Livré le 19 septembre 2026** (ouvert le même jour), sur la branche
 `lot-editor-07-controle-contenu`. Vérification automatisée : construction `/W4 /WX` sans
 avertissement, 860 tests unitaires verts, `LevelEditor --check` sans erreur sur les trois cartes
-(deux avertissements, exacts), panneau capturé à l'écran. **Vérification à la souris due** (voir
+(deux avertissements, exacts), panneau capturé à l'écran. **Vérifié à la souris** au [LOT-127](../../../v0.1.0/v0.0.1-demo/lots/LOT-127-recette-de-l-editeur-a-la-main.md) (voir
 « Vérification »).
 
 Exigences : `EX-EDIT-079`, `EX-EDIT-080`, `EX-EDIT-081` (nouvelles).

@@ -49,7 +49,8 @@ Camera2D worldCamera(const core::IsoProjection& projection, core::Vector2 focus,
 }
 
 WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
-    : _directory(std::move(assetsDirectory)) {}
+    : _directory(std::move(assetsDirectory)),
+      _scene(std::make_shared<const WorldSceneSnapshot>()) {}
 
 WorldSceneRenderer::~WorldSceneRenderer() {
     release();
@@ -104,8 +105,10 @@ std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string&
 }
 
 void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
+    // Ce qui reste a charger : ni deja tente (une piece absente ne se redemande pas a chaque
+    // image), ni un jeton, qui se peint.
+    std::vector<std::string> files;
     for (const std::string& path : paths) {
-        // Deja tente : une piece absente ne doit pas etre redemandee a chaque image.
         if (!_requested.insert(path).second) {
             continue;
         }
@@ -122,8 +125,27 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
             }
             continue;
         }
+        files.push_back(path);
+    }
+    if (files.empty()) {
+        return;
+    }
+    // Les images se decodent sur tous les coeurs ; les textures se creent ici, sur le fil de rendu,
+    // dans le lot de l'image (audit de l'affichage, A5).
+    std::vector<std::filesystem::path> absolute;
+    absolute.reserve(files.size());
+    for (const std::string& path : files) {
+        absolute.push_back(_directory / path);
+    }
+    std::vector<std::optional<DecodedImage>> decoded = decodeImageFiles(absolute);
+    for (std::size_t index = 0; index < files.size(); ++index) {
+        const std::string& path = files[index];
         std::optional<LoadedTexture> texture =
-            loadTextureFromFile(_resources.context(), _directory / path);
+            decoded[index]
+                ? createTexture(_resources.context(), decoded[index]->width, decoded[index]->height,
+                                decoded[index]->pixels, TextureFiltering::Smooth)
+                : std::nullopt;
+        decoded[index].reset();  // les pixels sont copies dans le lot : on les rend tout de suite
         if (!texture.has_value()) {
             // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
             // sentinelle se voit avant que l'atelier ne l'ait dessinee. Une case de large.
@@ -139,10 +161,11 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
             GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;
         }
-        // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103).
+        // Decoupe, echelle et ancre : ce que ses fichiers voisins disent de l'image (LOT-103), lus
+        // dans des manifestes qui ne se relisent pas.
         SceneTexture& loaded = _textures.byPath[path] = SceneTexture{
             .texture = texture->handle(), .width = texture->width, .height = texture->height};
-        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path));
+        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path, &_manifests));
         _loaded.push_back(std::move(*texture));
     }
 }
@@ -151,6 +174,10 @@ void WorldSceneRenderer::release() noexcept {
     // L'ordre : ce qui designe une texture, puis les textures, puis la grappe qui porte le
     // pipeline. Le lot de creation jamais soumis est rendu a QRhi.
     _composed.clear();
+    _statics.clear();
+    // Les poignees de la carte composee appartiennent aux textures liberees : elle se recompose.
+    _sceneDirty = true;
+    _figuresDirty = true;
     _textures.byPath.clear();
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
@@ -167,7 +194,19 @@ void WorldSceneRenderer::release() noexcept {
 }
 
 void WorldSceneRenderer::setSnapshot(WorldSceneSnapshot snapshot) {
-    _snapshot = std::move(snapshot);
+    std::vector<WorldFigureSnapshot> figures = snapshot.figures;
+    setScene(std::make_shared<const WorldSceneSnapshot>(std::move(snapshot)));
+    setFigures(std::move(figures));
+}
+
+void WorldSceneRenderer::setScene(std::shared_ptr<const WorldSceneSnapshot> scene) {
+    _scene = scene != nullptr ? std::move(scene) : std::make_shared<const WorldSceneSnapshot>();
+    _sceneDirty = true;
+}
+
+void WorldSceneRenderer::setFigures(std::vector<WorldFigureSnapshot> figures) {
+    _figures = std::move(figures);
+    _figuresDirty = true;
 }
 
 void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
@@ -181,19 +220,29 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
                                                  : _rhi->nextResourceUpdateBatch();
     _resources.setFrameUpdates(updates);
 
-    // Les textures du lieu ne sont pas connues d'avance : la carte change au passage d'un portail,
-    // et ce sont ses pieces qui disent quoi charger.
-    ensureTextures(worldTexturePaths(_snapshot));
-
-    const core::IsoProjection projection(_snapshot.columns, _snapshot.rows,
-                                         core::ARENA_TILE_WIDTH_UNITS, _snapshot.diamondRatio);
-    _composed.clear();
-    composeWorldScene(_composed, _snapshot, projection, _textures);
-    _composed.sort();
+    const core::IsoProjection projection(_scene->columns, _scene->rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, _scene->diamondRatio);
+    // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
+    // quoi charger, et la carte change au passage d'un portail.
+    if (_sceneDirty) {
+        ensureTextures(worldTexturePaths(*_scene));
+        _statics.build(*_scene, projection, _textures);
+        _sceneDirty = false;
+    }
+    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
+    if (_figuresDirty) {
+        ensureTextures(worldFigureTexturePaths(*_scene, _figures));
+        _figuresDirty = false;
+    }
 
     const QSize pixels = target->pixelSize();
     const Camera2D camera = worldCamera(projection, projection.gridToWorld(_focus), pixels.width(),
                                         pixels.height(), _tilePixels);
+
+    // L'image : ce que la camera montre de la carte, et les figurines.
+    _composed.clear();
+    _composed.setVisibleBounds(camera.visibleBounds());
+    _statics.compose(_composed, _figures, _textures);
 
     SpriteBatch& sprites = _resources.sprites();
     sprites.beginFrame();

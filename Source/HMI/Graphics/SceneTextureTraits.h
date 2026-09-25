@@ -5,8 +5,11 @@
 
 #include <filesystem>
 #include <map>
+#include <memory>
 #include <optional>
+#include <string>
 #include <string_view>
+#include <unordered_map>
 
 #include "Core/Data/JsonDocument.h"
 #include "Core/Math/Vector2.h"
@@ -58,11 +61,39 @@ struct SceneTextureTraits {
 };
 
 /**
- * @brief Les manifestes déjà lus, par dossier ; `std::nullopt` pour un dossier sans manifeste
- *        lisible. Qui lit les traits de nombreuses images d'un même lieu le passe à
- *        `readSceneTextureTraits`, qui ne relit plus un manifeste par image (`LOT-125`).
+ * @brief Un manifeste lu, et ses entrées **indexées par fichier** : la recherche d'une image ne
+ *        parcourt plus les milliers d'entrées d'un lieu (audit de l'affichage, A6).
  */
-using ManifestCache = std::map<std::filesystem::path, std::optional<nlohmann::json>>;
+struct IndexedManifest {
+    nlohmann::json root;
+    /// L'entrée de chaque fichier cité (`file`), qui pointe dans @ref root.
+    std::unordered_map<std::string, const nlohmann::json*> entries;
+
+    /// @return L'entrée qui cite @p filename, `nullptr` si aucune.
+    [[nodiscard]] const nlohmann::json* entry(std::string_view filename) const;
+};
+
+/**
+ * @brief Les manifestes déjà lus, par dossier, chacun lu **une fois** et jamais recopié.
+ *
+ * Qui lit les traits de nombreuses images d'un même lieu le passe à `readSceneTextureTraits`
+ * (`LOT-125`) : le rendu du lieu, celui de l'arène, les images de l'éditeur. Un dossier sans
+ * manifeste lisible est retenu comme tel, et ne se relit pas non plus.
+ */
+class ManifestCache {
+public:
+    /// @return Le manifeste de @p directory, lu à la première demande ; `nullptr` s'il ne se lit
+    /// pas.
+    [[nodiscard]] const IndexedManifest* find(const std::filesystem::path& directory);
+
+    /// @return Le nombre de dossiers déjà demandés.
+    [[nodiscard]] std::size_t size() const noexcept {
+        return _read.size();
+    }
+
+private:
+    std::map<std::filesystem::path, std::unique_ptr<const IndexedManifest>> _read;
+};
 
 /**
  * @brief Lit les traits de l'image @p path.

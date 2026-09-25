@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1018 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1022 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -32,16 +32,16 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Editor](editor.md) | Tests unitaires | 210 | 25 | 46 | 111 | 28 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 6 | — | 1 | 3 | 2 |
-| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 186 | 36 | 59 | 83 | 8 |
+| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 189 | 38 | 59 | 84 | 8 |
 | [HMI · Input](hmi-input.md) | Tests unitaires | 25 | 1 | 3 | 19 | 2 |
 | [HMI · Interface](hmi-interface.md) | Tests unitaires | 29 | 2 | 10 | 16 | 1 |
 | [HMI · Localization](hmi-localization.md) | Tests unitaires | 9 | — | — | 9 | — |
 | [HMI · Platform](hmi-platform.md) | Tests unitaires | 5 | — | 2 | 3 | — |
 | [HMI · Presentation](hmi-presentation.md) | Tests unitaires | 18 | — | 5 | 10 | 3 |
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 3 | — | 1 | 2 | — |
-| [Tests d'intégration](integration.md) | Tests d'intégration | 4 | — | 3 | 1 | — |
+| [Tests d'intégration](integration.md) | Tests d'intégration | 5 | — | 3 | 2 | — |
 | [Tests système](systeme.md) | Tests système | 1 | — | 1 | — | — |
-| **Total** | | **1018** | **111** | **308** | **522** | **77** |
+| **Total** | | **1022** | **113** | **308** | **524** | **77** |
 
 ## Trois étages de vérification
 

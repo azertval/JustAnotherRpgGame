@@ -102,6 +102,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_world_scene_composer.cpp
     # Les etages de la scene (LOT-129) : elevation, tri, effacement devant le heros.
     Unit/HMI/Graphics/test_world_storeys.cpp
+    Unit/HMI/Graphics/test_static_world_scene.cpp
     # Un kit range en sous-dossiers (LOT-129) : le rendu suit le fichier du manifeste.
     Unit/HMI/Graphics/test_scene_folders.cpp
     Unit/HMI/Graphics/test_arena_animation_driver.cpp

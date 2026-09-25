@@ -6,6 +6,44 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-127 — La recette de l'éditeur, à la main.** L'auteur a passé l'éditeur à la souris et au
+  clavier en construisant les cartes 2D HD, puis a essayé le résultat dans le jeu. Le cahier de
+  recette (`Planning/versions/v0.1.0/v0.0.1-demo/annexes/LOT-127-…/cahier-de-recette.md`) compte
+  48 gestes, des lots `LOT-EDITOR-03` à `10`, `13` et `14`, **tous OK**. Les fiches de l'éditeur
+  ne portent plus de « vérification à la souris due ».
+
+- **Affichage d'un lieu — un quartier entier à 60 images/s.** L'audit de l'affichage d'un lieu
+  (`Planning/standards/audit-affichage-lieu.md`) a établi que le rendu recomposait et triait
+  **toute** la carte à chaque image, refaisait son instantané à chaque pas du héros et relisait le
+  manifeste de 862 Kio de la planche pour chaque texture. Les changements :
+  - la carte se compose une fois dans une scène indexée (`hmi::StaticWorldScene`), découpée à la
+    vue à chaque image, où les figurines se fusionnent ; jeu, essai de l'éditeur, canevas et tests
+    partagent ce chemin ;
+  - l'instantané de la carte est partagé et ne se refait qu'au changement de carte ou de drapeaux ;
+  - les manifestes sont lus une fois et indexés ;
+  - les PNG se décodent sur tous les cœurs ;
+  - une seule matrice de projection est téléversée par image ;
+  - une passe de plus de 16 384 quads se découpe au lieu d'être tronquée.
+
+  Sur Arenarea, une image passe de 11 ms à 0,07 ms de CPU et l'ouverture en Debug de 82 s à 5 s.
+  Nouveau banc : `bench_world_frame.cpp`.
+
+- **LOT-109 — Arenarea, le quartier entier.** Première carte 2D HD du jeu :
+  `Levels/central-empire/capital/arenarea.json`, 128 × 88 cases, d'après le Sourcebook et le plan
+  de la Capitale. On y trouve :
+  - l'enceinte sur la baie et la rivière, la Water Gate, l'Arena Gate et l'Arching Bridge ;
+  - le Natural Pool ;
+  - l'Arena of Fate (façade à quatre ordres), son parvis et la Dusk of Justice ;
+  - Herofate Avenue ;
+  - Inlet's Bazaar, le Golden Chalice Casino, la Cloaked Brewer, Mapleleaf Plaza, l'Hippodrome et
+    ses écuries ;
+  - des îlots de manoirs et de maisons.
+
+  La carte est dessinée par `LevelEditor --apply`, avec les assemblages validés du LOT-108 et les
+  pièces livrées, sans en produire aucune. Les portails vers Martpart, l'Arena of Fate, Oldtown et
+  les Docks sont condamnés, en attendant leurs cartes. `--check` ne relève aucune erreur. L'image
+  de l'onglet « Carte » part au LOT-121, avec celles de Martpart et de l'Arena of Fate.
+
 - **Documentation — la refonte se poursuit : ce que les lots ont livré sans l'écrire.** Les
   **spécifications** gagnent dix-neuf exigences pour des fonctions livrées sans engagement écrit :
   la famille `prop`, le portail condamné, la zone déclencheuse, l'arborescence des lieux et la

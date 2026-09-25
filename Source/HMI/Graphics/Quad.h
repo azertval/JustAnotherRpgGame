@@ -42,6 +42,8 @@ struct SpriteQuad {
     float g = 1.0f;
     float b = 1.0f;
     float a = 1.0f;
+
+    [[nodiscard]] bool operator==(const SpriteQuad&) const = default;
 };
 
 /**
@@ -72,6 +74,8 @@ struct PolyQuad {
     float g = 1.0f;
     float b = 1.0f;
     float a = 1.0f;
+
+    [[nodiscard]] bool operator==(const PolyQuad&) const = default;
 };
 
 /**
@@ -96,6 +100,8 @@ struct LineQuad {
     float g = 1.0f;
     float b = 1.0f;
     float a = 1.0f;
+
+    [[nodiscard]] bool operator==(const LineQuad&) const = default;
 };
 
 }  // namespace hmi
