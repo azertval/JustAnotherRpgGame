@@ -1,0 +1,726 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::MapLauncherModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1MapLauncherModel.html','','classhmi_1_1MapLauncherModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::MapLauncherModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La vue-modèle du lanceur de cartes (<span class="tt">Tools/MapLauncher.qml</span>, <span class="tt">--screen=MapLauncher</span>).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="MapLauncherModel_8h_source.html">MapLauncherModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::MapLauncherModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1MapLauncherModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a4bd053c055e4922b8e6a228d28e44ee5" id="r_a4bd053c055e4922b8e6a228d28e44ee5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4bd053c055e4922b8e6a228d28e44ee5">changed</a> ()</td></tr>
+<tr class="memitem:ade1f4eb5481c84c3eae42b5f0d4f14af" id="r_ade1f4eb5481c84c3eae42b5f0d4f14af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade1f4eb5481c84c3eae42b5f0d4f14af">launched</a> (const QString &amp;mapId)</td></tr>
+<tr class="memdesc:ade1f4eb5481c84c3eae42b5f0d4f14af"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte <code class="param">mapId</code> s'est ouverte dans la partie.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac9c2f5f9535adaf35ef10c8936c9a72d" id="r_ac9c2f5f9535adaf35ef10c8936c9a72d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac9c2f5f9535adaf35ef10c8936c9a72d">MapLauncherModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:ac8be11d47f33a47732ba409e80067445" id="r_ac8be11d47f33a47732ba409e80067445"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ac8be11d47f33a47732ba409e80067445">maps</a> () const</td></tr>
+<tr class="memitem:aedce00c9fd78da1cad4181cb2ced4760" id="r_aedce00c9fd78da1cad4181cb2ced4760"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#aedce00c9fd78da1cad4181cb2ced4760">directories</a> () const</td></tr>
+<tr class="memitem:aeb885b617a0b2e904d920b2fdde2674f" id="r_aeb885b617a0b2e904d920b2fdde2674f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aeb885b617a0b2e904d920b2fdde2674f">levelsRoot</a> () const</td></tr>
+<tr class="memitem:ad32303eafc3118baa279994ad5f1b07b" id="r_ad32303eafc3118baa279994ad5f1b07b"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad32303eafc3118baa279994ad5f1b07b">status</a> () const</td></tr>
+<tr class="memitem:a4a976ba4ae0dab80bd990a23a9543e81" id="r_a4a976ba4ae0dab80bd990a23a9543e81"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a4a976ba4ae0dab80bd990a23a9543e81">refresh</a> ()</td></tr>
+<tr class="memdesc:a4a976ba4ae0dab80bd990a23a9543e81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit les dossiers et recharge la liste.  <br /></td></tr>
+<tr class="memitem:ab7e8496cb755fdbfac55062eb701fd4f" id="r_ab7e8496cb755fdbfac55062eb701fd4f"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#ab7e8496cb755fdbfac55062eb701fd4f">addDirectory</a> (const QString &amp;path)</td></tr>
+<tr class="memdesc:ab7e8496cb755fdbfac55062eb701fd4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un dossier de cartes devant les autres.  <br /></td></tr>
+<tr class="memitem:a6fc83d151c65fbf3f6fc4479f5905304" id="r_a6fc83d151c65fbf3f6fc4479f5905304"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a6fc83d151c65fbf3f6fc4479f5905304">removeDirectory</a> (int index)</td></tr>
+<tr class="memdesc:a6fc83d151c65fbf3f6fc4479f5905304"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire le dossier de rang <code class="param">index</code>.  <br /></td></tr>
+<tr class="memitem:a2a1a5d448d469662a2787fc80222deea" id="r_a2a1a5d448d469662a2787fc80222deea"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a2a1a5d448d469662a2787fc80222deea">launch</a> (const QString &amp;mapId, const QString &amp;arrival, const QString &amp;at, const QString &amp;flags, const QString &amp;heroFigure)</td></tr>
+<tr class="memdesc:a2a1a5d448d469662a2787fc80222deea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre <code class="param">mapId</code> dans la partie, comme <span class="tt">--map=&lt;mapId&gt;@&lt;arrival&gt; --at=&lt;at&gt;
+       --flags=&lt;flags&gt; --hero-figure=&lt;heroFigure&gt;</span> l'aurait fait au lancement.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a756e41ca6fce0dc966a730fafc952b70" id="r_a756e41ca6fce0dc966a730fafc952b70"><td class="memItemLeft">QML_ELEMENTQVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a756e41ca6fce0dc966a730fafc952b70">maps</a></td></tr>
+<tr class="memdesc:a756e41ca6fce0dc966a730fafc952b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cartes trouvées, dans l'ordre des identifiants : <span class="tt">{id, name, columns, rows, directory,
+file, error}</span>.  <br /></td></tr>
+<tr class="memitem:a8bbbebafc7d8eb788127faad6c7696e1" id="r_a8bbbebafc7d8eb788127faad6c7696e1"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a8bbbebafc7d8eb788127faad6c7696e1">directories</a></td></tr>
+<tr class="memdesc:a8bbbebafc7d8eb788127faad6c7696e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dossiers ajoutés par l'utilisateur, lus <b>avant</b> celui du contenu.  <br /></td></tr>
+<tr class="memitem:a26ba0c1dc5595e2e0f46e5e559c0a0c9" id="r_a26ba0c1dc5595e2e0f46e5e559c0a0c9"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a26ba0c1dc5595e2e0f46e5e559c0a0c9">levelsRoot</a></td></tr>
+<tr class="memdesc:a26ba0c1dc5595e2e0f46e5e559c0a0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <span class="tt">Levels/</span> du contenu, toujours lu en dernier.  <br /></td></tr>
+<tr class="memitem:a024e0a3971936a892adaa6790ebc7971" id="r_a024e0a3971936a892adaa6790ebc7971"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a024e0a3971936a892adaa6790ebc7971">status</a></td></tr>
+<tr class="memdesc:a024e0a3971936a892adaa6790ebc7971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le dernier geste a donné : carte ouverte, dossier absent, case refusée…  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a46a999c96a78c6213456afb0b4562799" id="r_a46a999c96a78c6213456afb0b4562799"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a46a999c96a78c6213456afb0b4562799">allDirectories</a> () const</td></tr>
+<tr class="memdesc:a46a999c96a78c6213456afb0b4562799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dossiers lus, dans l'ordre : ceux de l'utilisateur, puis le <span class="tt">Levels/</span> du contenu.  <br /></td></tr>
+<tr class="memitem:ad2d6afb7f5b91eb3484d2e03a8fa5108" id="r_ad2d6afb7f5b91eb3484d2e03a8fa5108"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad2d6afb7f5b91eb3484d2e03a8fa5108">setStatus</a> (QString <a class="el" href="#a024e0a3971936a892adaa6790ebc7971">status</a>)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ada7326466d5d2d6b5f06192bb0d71467" id="r_ada7326466d5d2d6b5f06192bb0d71467"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ada7326466d5d2d6b5f06192bb0d71467">_directories</a></td></tr>
+<tr class="memitem:a2a00173297b821148b60d4f77af95a17" id="r_a2a00173297b821148b60d4f77af95a17"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a2a00173297b821148b60d4f77af95a17">_maps</a></td></tr>
+<tr class="memitem:a68f4c66ee3794e8aa3c66d90abef1082" id="r_a68f4c66ee3794e8aa3c66d90abef1082"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a68f4c66ee3794e8aa3c66d90abef1082">_status</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La vue-modèle du lanceur de cartes (<span class="tt">Tools/MapLauncher.qml</span>, <span class="tt">--screen=MapLauncher</span>). </p>
+<p>Il remplace l'écran du Colisée (<span class="tt">LOT-50</span>), retiré le 25 septembre 2026 : depuis que le combat se joue sur la carte (<span class="tt">LOT-118</span>), ce qu'il faut pour éprouver une fonctionnalité n'est plus un banc d'essai à part, mais <b>ouvrir la carte qu'on vient de dessiner</b>, au bon endroit, dans le bon état. C'est ce que <span class="tt">--map=</span>, <span class="tt">--at=</span>, <span class="tt">--flags=</span>, <span class="tt">--hero-figure=</span> et <span class="tt">--levels=</span> font au lancement ; ce modèle le fait depuis le jeu, sans relancer.</p>
+<p>Les cartes viennent du <span class="tt">Levels/</span> du contenu (<span class="tt"><a class="el" href="namespacehmi.html#ac4538343a88b7e915fb235efd065ee66" title="Le dossier du contenu du jeu : cartes, assets, monde, dialogues, rencontres.">hmi::dataDirectory</a></span>), précédé des dossiers que l'utilisateur ajoute — les brouillons de l'éditeur, comme <span class="tt">--levels=</span>. Lancer passe par <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span> exactement comme <span class="tt">Main.cpp</span> : mêmes réglages, mêmes fonctions, donc ce qui marche ici marche sur la ligne de commande, et inversement.</p>
+<p>Pas un écran du jeu : aucun formulaire dans <span class="tt">Jadg.Ui</span>, aucune transition dans <span class="tt">hmi::ScreenFlow</span>. Il s'ouvre par <span class="tt">--screen=</span>, par le sélecteur de développement ou par la console de debug (<span class="tt">F9</span>). </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac9c2f5f9535adaf35ef10c8936c9a72d" name="ac9c2f5f9535adaf35ef10c8936c9a72d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9c2f5f9535adaf35ef10c8936c9a72d">&#9670;&#160;</a></span>MapLauncherModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::MapLauncherModel::MapLauncherModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ab7e8496cb755fdbfac55062eb701fd4f" name="ab7e8496cb755fdbfac55062eb701fd4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7e8496cb755fdbfac55062eb701fd4f">&#9670;&#160;</a></span>addDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MapLauncherModel::addDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute un dossier de cartes devant les autres. </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux s'il n'existe pas. </dd></dl>
+
+</div>
+</div>
+<a id="a46a999c96a78c6213456afb0b4562799" name="a46a999c96a78c6213456afb0b4562799"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46a999c96a78c6213456afb0b4562799">&#9670;&#160;</a></span>allDirectories()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::filesystem::path &gt; hmi::MapLauncherModel::allDirectories </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dossiers lus, dans l'ordre : ceux de l'utilisateur, puis le <span class="tt">Levels/</span> du contenu. </p>
+
+</div>
+</div>
+<a id="a4bd053c055e4922b8e6a228d28e44ee5" name="a4bd053c055e4922b8e6a228d28e44ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bd053c055e4922b8e6a228d28e44ee5">&#9670;&#160;</a></span>changed</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MapLauncherModel::changed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aedce00c9fd78da1cad4181cb2ced4760" name="aedce00c9fd78da1cad4181cb2ced4760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedce00c9fd78da1cad4181cb2ced4760">&#9670;&#160;</a></span>directories()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::MapLauncherModel::directories </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a1a5d448d469662a2787fc80222deea" name="a2a1a5d448d469662a2787fc80222deea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1a5d448d469662a2787fc80222deea">&#9670;&#160;</a></span>launch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MapLauncherModel::launch </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>arrival</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>at</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>flags</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>heroFigure</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ouvre <code class="param">mapId</code> dans la partie, comme <span class="tt">--map=&lt;mapId&gt;@&lt;arrival&gt; --at=&lt;at&gt;
+       --flags=&lt;flags&gt; --hero-figure=&lt;heroFigure&gt;</span> l'aurait fait au lancement. </p>
+<p>Les champs vides ne posent rien. Une case illisible ou hors carte ne fait pas échouer le lancement : le héros part de l'entrée et <span class="tt"><a class="el" href="#a024e0a3971936a892adaa6790ebc7971" title="Ce que le dernier geste a donné : carte ouverte, dossier absent, case refusée…">status</a></span> le dit (<span class="tt">EX-NFR-040</span>). </p><dl class="section return"><dt>Returns</dt><dd>Vrai si la carte s'est ouverte ; l'appelant bascule alors sur la vue de jeu. </dd></dl>
+
+</div>
+</div>
+<a id="ade1f4eb5481c84c3eae42b5f0d4f14af" name="ade1f4eb5481c84c3eae42b5f0d4f14af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1f4eb5481c84c3eae42b5f0d4f14af">&#9670;&#160;</a></span>launched</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MapLauncherModel::launched </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte <code class="param">mapId</code> s'est ouverte dans la partie. </p>
+
+</div>
+</div>
+<a id="aeb885b617a0b2e904d920b2fdde2674f" name="aeb885b617a0b2e904d920b2fdde2674f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb885b617a0b2e904d920b2fdde2674f">&#9670;&#160;</a></span>levelsRoot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MapLauncherModel::levelsRoot </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac8be11d47f33a47732ba409e80067445" name="ac8be11d47f33a47732ba409e80067445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8be11d47f33a47732ba409e80067445">&#9670;&#160;</a></span>maps()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::MapLauncherModel::maps </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4a976ba4ae0dab80bd990a23a9543e81" name="a4a976ba4ae0dab80bd990a23a9543e81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a976ba4ae0dab80bd990a23a9543e81">&#9670;&#160;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MapLauncherModel::refresh </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Relit les dossiers et recharge la liste. </p>
+
+</div>
+</div>
+<a id="a6fc83d151c65fbf3f6fc4479f5905304" name="a6fc83d151c65fbf3f6fc4479f5905304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc83d151c65fbf3f6fc4479f5905304">&#9670;&#160;</a></span>removeDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MapLauncherModel::removeDirectory </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retire le dossier de rang <code class="param">index</code>. </p>
+
+</div>
+</div>
+<a id="ad2d6afb7f5b91eb3484d2e03a8fa5108" name="ad2d6afb7f5b91eb3484d2e03a8fa5108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d6afb7f5b91eb3484d2e03a8fa5108">&#9670;&#160;</a></span>setStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MapLauncherModel::setStatus </td>
+          <td>(</td>
+          <td class="paramtype">QString</td>          <td class="paramname"><span class="paramname"><em>status</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad32303eafc3118baa279994ad5f1b07b" name="ad32303eafc3118baa279994ad5f1b07b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad32303eafc3118baa279994ad5f1b07b">&#9670;&#160;</a></span>status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MapLauncherModel::status </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ada7326466d5d2d6b5f06192bb0d71467" name="ada7326466d5d2d6b5f06192bb0d71467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada7326466d5d2d6b5f06192bb0d71467">&#9670;&#160;</a></span>_directories</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::filesystem::path&gt; hmi::MapLauncherModel::_directories</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a00173297b821148b60d4f77af95a17" name="a2a00173297b821148b60d4f77af95a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a00173297b821148b60d4f77af95a17">&#9670;&#160;</a></span>_maps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::MapLauncherModel::_maps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68f4c66ee3794e8aa3c66d90abef1082" name="a68f4c66ee3794e8aa3c66d90abef1082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f4c66ee3794e8aa3c66d90abef1082">&#9670;&#160;</a></span>_status</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MapLauncherModel::_status</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a8bbbebafc7d8eb788127faad6c7696e1" name="a8bbbebafc7d8eb788127faad6c7696e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bbbebafc7d8eb788127faad6c7696e1">&#9670;&#160;</a></span>directories</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::MapLauncherModel::directories</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dossiers ajoutés par l'utilisateur, lus <b>avant</b> celui du contenu. </p>
+
+</div>
+</div>
+<a id="a26ba0c1dc5595e2e0f46e5e559c0a0c9" name="a26ba0c1dc5595e2e0f46e5e559c0a0c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26ba0c1dc5595e2e0f46e5e559c0a0c9">&#9670;&#160;</a></span>levelsRoot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MapLauncherModel::levelsRoot</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le <span class="tt">Levels/</span> du contenu, toujours lu en dernier. </p>
+
+</div>
+</div>
+<a id="a756e41ca6fce0dc966a730fafc952b70" name="a756e41ca6fce0dc966a730fafc952b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a756e41ca6fce0dc966a730fafc952b70">&#9670;&#160;</a></span>maps</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_ELEMENTQVariantList hmi::MapLauncherModel::maps</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les cartes trouvées, dans l'ordre des identifiants : <span class="tt">{id, name, columns, rows, directory,
+file, error}</span>. </p>
+<p><span class="tt">error</span> non vide : la carte ne se charge pas, et dit pourquoi. </p>
+
+</div>
+</div>
+<a id="a024e0a3971936a892adaa6790ebc7971" name="a024e0a3971936a892adaa6790ebc7971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a024e0a3971936a892adaa6790ebc7971">&#9670;&#160;</a></span>status</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::MapLauncherModel::status</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que le dernier geste a donné : carte ouverte, dossier absent, case refusée… </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="MapLauncherModel_8h_source.html">MapLauncherModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="MapLauncherModel_8cpp.html">MapLauncherModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1MapLauncherModel.html">MapLauncherModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

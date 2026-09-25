@@ -1,5 +1,15 @@
 var NAVTREEINDEX6 =
 {
+"classcore_1_1ImmunityLedger.html":[3,0,0,24],
+"classcore_1_1ImmunityLedger.html#a0e20501097fc196f97f6349c35bf4b0e":[2,0,1,24,1],
+"classcore_1_1ImmunityLedger.html#a0e20501097fc196f97f6349c35bf4b0e":[3,0,0,24,1],
+"classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c":[2,0,1,24,0],
+"classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c":[3,0,0,24,0],
+"classcore_1_1ImmunityLedger.html#a782d1a83fbd0ebc11e69791a62320bde":[2,0,1,24,2],
+"classcore_1_1ImmunityLedger.html#a782d1a83fbd0ebc11e69791a62320bde":[3,0,0,24,2],
+"classcore_1_1ImmunityLedger.html#aff5ac091f2962ab416cb9fef539d0a1e":[2,0,1,24,3],
+"classcore_1_1ImmunityLedger.html#aff5ac091f2962ab416cb9fef539d0a1e":[3,0,0,24,3],
+"classcore_1_1IsoProjection.html":[2,0,1,59],
 "classcore_1_1IsoProjection.html":[3,0,0,59],
 "classcore_1_1IsoProjection.html#a0850096545ec67956a1341b5e9d81cab":[2,0,1,59,4],
 "classcore_1_1IsoProjection.html#a0850096545ec67956a1341b5e9d81cab":[3,0,0,59,4],
@@ -239,15 +249,5 @@ var NAVTREEINDEX6 =
 "classcore_1_1LevelDraft.html#acda8ea200910fc5679cd968d36de87e4":[3,0,0,118,1],
 "classcore_1_1LevelDraft.html#ad06d3935521ff07ddb8c35b7ab7ee863":[2,0,1,118,73],
 "classcore_1_1LevelDraft.html#ad06d3935521ff07ddb8c35b7ab7ee863":[3,0,0,118,73],
-"classcore_1_1LevelDraft.html#ad27c800742bff5e3bd6f4c04e9780d25":[2,0,1,118,54],
-"classcore_1_1LevelDraft.html#ad27c800742bff5e3bd6f4c04e9780d25":[3,0,0,118,54],
-"classcore_1_1LevelDraft.html#ad4f3da1eead22d7b458eb2b7a0310a77":[2,0,1,118,9],
-"classcore_1_1LevelDraft.html#ad4f3da1eead22d7b458eb2b7a0310a77":[3,0,0,118,9],
-"classcore_1_1LevelDraft.html#ad976dfa262749c5e866da324a96add1f":[2,0,1,118,8],
-"classcore_1_1LevelDraft.html#ad976dfa262749c5e866da324a96add1f":[3,0,0,118,8],
-"classcore_1_1LevelDraft.html#adcaec64d68695ac6214641b19e2ec1af":[2,0,1,118,50],
-"classcore_1_1LevelDraft.html#adcaec64d68695ac6214641b19e2ec1af":[3,0,0,118,50],
-"classcore_1_1LevelDraft.html#ade4c8fce925ab627dc202c9dcb5fc030":[2,0,1,118,5],
-"classcore_1_1LevelDraft.html#ade4c8fce925ab627dc202c9dcb5fc030":[3,0,0,118,5],
-"classcore_1_1LevelDraft.html#adec82624786f4ad3a83502eccc8712af":[2,0,1,118,66]
+"classcore_1_1LevelDraft.html#ad27c800742bff5e3bd6f4c04e9780d25":[2,0,1,118,54]
 };

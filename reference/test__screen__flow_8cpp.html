@@ -156,10 +156,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5e96e99192c8a210e3dae14966e99548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options revient vers l'écran d'où il a été ouvert : Menu si ouvert depuis Menu, Pause si ouvert depuis Pause &ndash; porté par l'état, pas par une variable à part.  <br /></td></tr>
 <tr class="memitem:a82e6c5b8936c42e92fc5e5922497fcde" id="r_a82e6c5b8936c42e92fc5e5922497fcde"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a82e6c5b8936c42e92fc5e5922497fcde">TEST</a> (ScreenFlowTest, TransitionInterditeEstRefusee)</td></tr>
 <tr class="memdesc:a82e6c5b8936c42e92fc5e5922497fcde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une transition interdite est refusée (std::nullopt), notamment Menu -&gt; Pause et Game -&gt; Crédits.  <br /></td></tr>
-<tr class="memitem:a69338d297d4959611f8b9065cb20bd65" id="r_a69338d297d4959611f8b9065cb20bd65"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a69338d297d4959611f8b9065cb20bd65">TEST</a> (ScreenFlowTest, LeColiseeRevientSurLaCarteQuandLeHerautYEnvoie)</td></tr>
-<tr class="memdesc:a69338d297d4959611f8b9065cb20bd65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le Colisée revient là d'où il a été ouvert : le menu, ou la carte (<span class="tt">LOT-09</span>).  <br /></td></tr>
 <tr class="memitem:afd13917847198910e165696de035e043" id="r_afd13917847198910e165696de035e043"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afd13917847198910e165696de035e043">TEST</a> (ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine)</td></tr>
 <tr class="memdesc:afd13917847198910e165696de035e043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un écran du RPG revient vers l'écran d'où il a été ouvert &ndash; menu, jeu ou pause &ndash; porté par l'état, comme la provenance d'Options (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>).  <br /></td></tr>
+<tr class="memitem:ab3f9f4b636a3d1bafe57472ae68a922c" id="r_ab3f9f4b636a3d1bafe57472ae68a922c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab3f9f4b636a3d1bafe57472ae68a922c">TEST</a> (ScreenFlowTest, LesEcransDeFinFermentLaPartie)</td></tr>
+<tr class="memdesc:ab3f9f4b636a3d1bafe57472ae68a922c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les écrans de fin (<span class="tt">LOT-119</span>) : la mort s'ouvre depuis le combat ou la carte, et n'en sort que pour recommencer ou rendre le menu ; la fin de la démo mène aux crédits ou au menu.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la machine à états des écrans (EX-GP-041). </p>
@@ -195,8 +195,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a69338d297d4959611f8b9065cb20bd65" name="a69338d297d4959611f8b9065cb20bd65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69338d297d4959611f8b9065cb20bd65">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<a id="ab3f9f4b636a3d1bafe57472ae68a922c" name="ab3f9f4b636a3d1bafe57472ae68a922c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f9f4b636a3d1bafe57472ae68a922c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,19 +209,24 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LeColiseeRevientSurLaCarteQuandLeHerautYEnvoie</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LesEcransDeFinFermentLaPartie</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le Colisée revient là d'où il a été ouvert : le menu, ou la carte (<span class="tt">LOT-09</span>). </p>
-<p><b>Cas de test :</b> <b>Le Colisee revient sur la carte quand le heraut y envoie.</b><br  />
+<p>Les écrans de fin (<span class="tt">LOT-119</span>) : la mort s'ouvre depuis le combat ou la carte, et n'en sort que pour recommencer ou rendre le menu ; la fin de la démo mène aux crédits ou au menu. </p>
+<p>Aucun des deux ne revient à la partie. <b>Cas de test :</b> <b>Les ecrans de mort et de fin de la demo ferment la partie.</b><br  />
  <b>Categorie :</b> Unitaire · Machine à états des écrans<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Ouvrir le Colisee depuis le menu, le refermer.<br  />
-2. L'ouvrir depuis la carte, le refermer.<br  />
- <b>Resultat attendu :</b> Le menu dans le premier cas, la CARTE dans le second : on revient du sable sur le lieu qu'on a quitte, et non au menu principal. </p>
+ 1. Ouvrir la mort depuis un ecran du RPG (le HUD de combat) et depuis le jeu.<br  />
+</p><ol type="1">
+<li>En sortir par OpenGame, OpenMenu, puis tenter la pause, les options, la fermeture d'un ecran du RPG.<br  />
+3. Ouvrir la fin de la demo depuis un ecran du RPG (le dialogue) et depuis le jeu.<br  />
+4. En sortir par les credits et le menu, puis tenter OpenGame.<br  />
+5. Tenter les deux depuis le menu.<br  />
+ <b>Resultat attendu :</b> Mort : Game puis Menu ; pause, options et retour refuses. Fin : Credits puis Menu ; OpenGame refuse. Depuis le menu : refuses. </li>
+</ol>
 
 </div>
 </div>

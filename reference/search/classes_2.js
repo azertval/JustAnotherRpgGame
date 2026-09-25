@@ -6,7 +6,7 @@ var searchData=
   ['camera2d_3',['Camera2D',['../classhmi_1_1Camera2D.html',1,'hmi']]],
   ['canvasbrush_4',['CanvasBrush',['../structhmi_1_1CanvasBrush.html',1,'hmi']]],
   ['canvasitem_5',['CanvasItem',['../classhmi_1_1EditorViewport_1_1CanvasItem.html',1,'hmi::EditorViewport']]],
-  ['catalogs_6',['Catalogs',['../structhmi_1_1ArenaModel_1_1Catalogs.html',1,'hmi::ArenaModel::Catalogs'],['../structhmi_1_1EncounterModel_1_1Catalogs.html',1,'hmi::EncounterModel::Catalogs']]],
+  ['catalogs_6',['Catalogs',['../structhmi_1_1EncounterModel_1_1Catalogs.html',1,'hmi::EncounterModel']]],
   ['cellpoint_7',['CellPoint',['../structcore_1_1CellPoint.html',1,'core']]],
   ['cellrange_8',['CellRange',['../structhmi_1_1CellRange.html',1,'hmi']]],
   ['cellrect_9',['CellRect',['../structhmi_1_1CellRect.html',1,'hmi']]],

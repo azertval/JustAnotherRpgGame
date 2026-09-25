@@ -154,10 +154,29 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a61590b24b5df817f7e4b341ea13ac888" id="r_a61590b24b5df817f7e4b341ea13ac888"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a61590b24b5df817f7e4b341ea13ac888">skill</a></td></tr>
 <tr class="memitem:acf60b60b14b97e8cc1d473534399c600" id="r_acf60b60b14b97e8cc1d473534399c600"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acf60b60b14b97e8cc1d473534399c600">difficulty</a></td></tr>
 <tr class="memitem:ae2537605277fe4200cd90f7370a87367" id="r_ae2537605277fe4200cd90f7370a87367"><td class="memItemLeft"><a class="el" href="structcore_1_1CheckResult.html">CheckResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae2537605277fe4200cd90f7370a87367">result</a></td></tr>
+<tr class="memitem:a225c14a66ea4941d22a0e125e88215d9" id="r_a225c14a66ea4941d22a0e125e88215d9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a225c14a66ea4941d22a0e125e88215d9">alreadyFailed</a> = false</td></tr>
+<tr class="memdesc:a225c14a66ea4941d22a0e125e88215d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le jet n'a <b>pas</b> été lancé : déjà raté une fois, il échoue sans dé (<span class="tt"><a class="el" href="namespacecore.html#acdf93401cff640016af7027ed99792fd" title="dialogue/&lt;dialogue&gt;/&lt;jet&gt;/failed — le drapeau qu&#39;un jet raté pose (LOT-117).">core::dialogueCheckFailedFlag</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un jet de compétence joué en conversation, de quoi le restituer (<span class="tt">EX-REG-003</span>). </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a225c14a66ea4941d22a0e125e88215d9" name="a225c14a66ea4941d22a0e125e88215d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a225c14a66ea4941d22a0e125e88215d9">&#9670;&#160;</a></span>alreadyFailed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::DialogueCheck::alreadyFailed = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai si le jet n'a <b>pas</b> été lancé : déjà raté une fois, il échoue sans dé (<span class="tt"><a class="el" href="namespacecore.html#acdf93401cff640016af7027ed99792fd" title="dialogue/&lt;dialogue&gt;/&lt;jet&gt;/failed — le drapeau qu&#39;un jet raté pose (LOT-117).">core::dialogueCheckFailedFlag</a></span>). </p>
+<p><span class="tt"><a class="el" href="#ae2537605277fe4200cd90f7370a87367">result</a></span> ne porte alors que le seuil. </p>
+
+</div>
+</div>
 <a id="acf60b60b14b97e8cc1d473534399c600" name="acf60b60b14b97e8cc1d473534399c600"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf60b60b14b97e8cc1d473534399c600">&#9670;&#160;</a></span>difficulty</h2>
 

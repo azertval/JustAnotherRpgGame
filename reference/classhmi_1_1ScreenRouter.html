@@ -164,7 +164,8 @@ Public Types</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51">Credits</a>
 , <a class="el" href="#a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139">RpgScreen</a>
-, <a class="el" href="#a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4">Arena</a>
+, <a class="el" href="#a82f878c3ef3a0d8b924af7bbca4b37f7a6097f89e3092d4ccd249c9d479785c1f">Death</a>
+, <a class="el" href="#a82f878c3ef3a0d8b924af7bbca4b37f7a2e8f4ffcd312289356892722c8fa8663">DemoEnd</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a82f878c3ef3a0d8b924af7bbca4b37f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écran affiché. Reprend <span class="tt"><a class="el" href="namespacehmi.html#a168b24f798c2e6d06beb9472a071528d" title="Écran actuellement affiché par la fenêtre principale.">hmi::ScreenId</a></span>.  <a href="#a82f878c3ef3a0d8b924af7bbca4b37f7">More...</a><br /></td></tr>
@@ -203,12 +204,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab3e0450a627326cf2d67b565214589a" id="r_aab3e0450a627326cf2d67b565214589a"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aab3e0450a627326cf2d67b565214589a">quitToMenu</a> ()</td></tr>
 <tr class="memitem:a72a1fbefbc533cfa55a1baebd0a68615" id="r_a72a1fbefbc533cfa55a1baebd0a68615"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a72a1fbefbc533cfa55a1baebd0a68615">openCredits</a> ()</td></tr>
 <tr class="memitem:afc4b6c4f6e692e0f439b694fbc4ed7a4" id="r_afc4b6c4f6e692e0f439b694fbc4ed7a4"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#afc4b6c4f6e692e0f439b694fbc4ed7a4">closeCredits</a> ()</td></tr>
-<tr class="memitem:a2494cbca36808d307ae0cf26336e5c78" id="r_a2494cbca36808d307ae0cf26336e5c78"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a2494cbca36808d307ae0cf26336e5c78">openArena</a> ()</td></tr>
-<tr class="memdesc:a2494cbca36808d307ae0cf26336e5c78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre le Colisée depuis le menu, et en revient. Un mode du jeu, pas un écran du RPG.  <br /></td></tr>
-<tr class="memitem:a848642d2b4ed6fcf1b3c78de534de4e9" id="r_a848642d2b4ed6fcf1b3c78de534de4e9"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a848642d2b4ed6fcf1b3c78de534de4e9">closeArena</a> ()</td></tr>
+<tr class="memitem:ab876832aba412ba4d1413c106cd6e86f" id="r_ab876832aba412ba4d1413c106cd6e86f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ab876832aba412ba4d1413c106cd6e86f">jumpToGame</a> ()</td></tr>
+<tr class="memdesc:ab876832aba412ba4d1413c106cd6e86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil de debug : ouvre la vue de jeu <b>hors de la table</b>, d'où que l'on soit.  <br /></td></tr>
 <tr class="memitem:a6f0915e029b9531574965cd7f24f9b5c" id="r_a6f0915e029b9531574965cd7f24f9b5c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a6f0915e029b9531574965cd7f24f9b5c">openDialogue</a> (const QString &amp;<a class="el" href="#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a>)</td></tr>
 <tr class="memdesc:a6f0915e029b9531574965cd7f24f9b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre l'écran de dialogue <b>sur</b> <code class="param">dialogueId</code> : le dialogue du PNJ à qui l'on parle, jamais un identifiant écrit dans l'écran (<span class="tt">LOT-09</span>).  <br /></td></tr>
 <tr class="memitem:a400495598bce472d73a8673d7e9601df" id="r_a400495598bce472d73a8673d7e9601df"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a400495598bce472d73a8673d7e9601df">dialogueId</a> () const</td></tr>
+<tr class="memitem:a22a80d6968c5250fce4a132fcf9a8589" id="r_a22a80d6968c5250fce4a132fcf9a8589"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a22a80d6968c5250fce4a132fcf9a8589">openDeath</a> ()</td></tr>
+<tr class="memdesc:a22a80d6968c5250fce4a132fcf9a8589"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros est tombé : l'écran de mort (<span class="tt">LOT-119</span>).  <br /></td></tr>
+<tr class="memitem:a7a7d4a93306757c363179da8b0ddc447" id="r_a7a7d4a93306757c363179da8b0ddc447"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a7a7d4a93306757c363179da8b0ddc447">openDemoEnd</a> (const QString &amp;<a class="el" href="#a79f8523f29d42f7c2a6ab23245485044">ending</a>)</td></tr>
+<tr class="memdesc:a7a7d4a93306757c363179da8b0ddc447"><td class="mdescLeft">&#160;</td><td class="mdescRight">La démo est bouclée par la voie <code class="param">ending</code> : l'écran de fin (<span class="tt">LOT-119</span>).  <br /></td></tr>
+<tr class="memitem:a8786f906b622defb6fbdbafcc44ab089" id="r_a8786f906b622defb6fbdbafcc44ab089"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a8786f906b622defb6fbdbafcc44ab089">ending</a> () const</td></tr>
+<tr class="memitem:a2e5969e50cd56788d75aae8be0cc2f3a" id="r_a2e5969e50cd56788d75aae8be0cc2f3a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a2e5969e50cd56788d75aae8be0cc2f3a">endingText</a> () const</td></tr>
 <tr class="memitem:a52cafab93eba8eeaa94127082bd2059b" id="r_a52cafab93eba8eeaa94127082bd2059b"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a52cafab93eba8eeaa94127082bd2059b">openRpgScreen</a> (<a class="el" href="#a0277d29471d1699b63793797bbab3bde">RpgScreen</a> screen)</td></tr>
 <tr class="memdesc:a52cafab93eba8eeaa94127082bd2059b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre un écran du RPG.  <br /></td></tr>
 <tr class="memitem:a5efecee08cf5d4212b5c68431b1d2ed9" id="r_a5efecee08cf5d4212b5c68431b1d2ed9"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5efecee08cf5d4212b5c68431b1d2ed9">closeRpgScreen</a> ()</td></tr>
@@ -224,6 +230,10 @@ Static Public Member Functions</h2></td></tr>
 Properties</h2></td></tr>
 <tr class="memitem:ae6f4f69704239e7f7561382ecb88426c" id="r_ae6f4f69704239e7f7561382ecb88426c"><td class="memItemLeft">QML_SINGLETONScreen&#160;</td><td class="memItemRight"><a class="el" href="#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a></td></tr>
 <tr class="memitem:a68efd81277570018b5f1043310abb730" id="r_a68efd81277570018b5f1043310abb730"><td class="memItemLeft"><a class="el" href="#a0277d29471d1699b63793797bbab3bde">RpgScreen</a>&#160;</td><td class="memItemRight"><a class="el" href="#a68efd81277570018b5f1043310abb730">currentRpgScreen</a></td></tr>
+<tr class="memitem:a79f8523f29d42f7c2a6ab23245485044" id="r_a79f8523f29d42f7c2a6ab23245485044"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a79f8523f29d42f7c2a6ab23245485044">ending</a></td></tr>
+<tr class="memdesc:a79f8523f29d42f7c2a6ab23245485044"><td class="mdescLeft">&#160;</td><td class="mdescRight">La voie par laquelle la démo s'est terminée (<span class="tt">LOT-119</span>), que l'écran de fin dit.  <br /></td></tr>
+<tr class="memitem:a5d0110696a2cfda27e31867ee2a021ea" id="r_a5d0110696a2cfda27e31867ee2a021ea"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5d0110696a2cfda27e31867ee2a021ea">endingText</a></td></tr>
+<tr class="memdesc:a5d0110696a2cfda27e31867ee2a021ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">La même voie, dite dans la langue active (clé <span class="tt">ending.arene</span> pour <span class="tt">arene</span>), vide sans voie.  <br /></td></tr>
 <tr class="memitem:aa9ba1f7e1f16121dc41686cc69ee0dea" id="r_aa9ba1f7e1f16121dc41686cc69ee0dea"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a></td></tr>
 <tr class="memdesc:aa9ba1f7e1f16121dc41686cc69ee0dea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue que l'écran de dialogue doit jouer (<span class="tt">LOT-09</span>).  <br /></td></tr>
 <tr class="memitem:ae1d233ca79a137451b3d598b29aae659" id="r_ae1d233ca79a137451b3d598b29aae659"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae1d233ca79a137451b3d598b29aae659">developerBuild</a></td></tr>
@@ -239,14 +249,15 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a21433fbad1393d4d8d0d39190c672290" id="r_a21433fbad1393d4d8d0d39190c672290"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScreenState.html">ScreenState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a21433fbad1393d4d8d0d39190c672290">_state</a> {}</td></tr>
 <tr class="memitem:a324e160a25a802626ac8a46e17f88357" id="r_a324e160a25a802626ac8a46e17f88357"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a>&#160;</td><td class="memItemRight"><a class="el" href="#a324e160a25a802626ac8a46e17f88357">_rpgScreen</a> = <a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72aeb7e99d2187282628ef8b4c20cf7a714">RpgScreenId::CharacterSheet</a></td></tr>
 <tr class="memitem:a5b9b9bdca132c589d8f8060f4e95f9d4" id="r_a5b9b9bdca132c589d8f8060f4e95f9d4"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5b9b9bdca132c589d8f8060f4e95f9d4">_dialogueId</a></td></tr>
+<tr class="memitem:a71aa3afd55c4f50e673d591eac3a20c6" id="r_a71aa3afd55c4f50e673d591eac3a20c6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a71aa3afd55c4f50e673d591eac3a20c6">_ending</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pilote la machine à états des écrans, et publie l'écran courant. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md132"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md127"></a>
 Ce qu'il n'est pas</h2>
 <p>Il ne décide <b>rien</b>. Toute la règle vit dans <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">hmi::resolveTransition</a></span> — table pure, sans Qt, couverte par ses tests — et ce routeur ne fait que l'appeler et diffuser le résultat. C'est ce qui permet de vérifier la navigation sans ouvrir une fenêtre, et qui l'a déjà été.</p>
 <p><b>Une transition non déclarée est refusée</b>, jamais silencieusement acceptée : <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">resolveTransition</a></span> rend alors <span class="tt">std::nullopt</span> et l'état ne bouge pas. Sans cette discipline, un <span class="tt"><a class="el" href="#a726babaae9dd3059829d58646ade1efc">openOptions()</a></span> appelé depuis un écran d'où les options ne s'ouvrent pas produirait un état que la table ne décrit pas, et dont personne ne saurait comment revenir.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md133"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md128"></a>
 Pourquoi une énumération et non un nom de fichier</h2>
 <p>Le routeur publie un <b>état</b>, pas un chemin. Faire transiter « <span class="tt">Screens/MainMenu.qml</span> » ferait connaître à la présentation le nom des fichiers de la conception — que l'artiste doit pouvoir renommer sans toucher au C++. La correspondance entre état et fichier vit donc en QML, dans <span class="tt">Logic/ScreenStack.qml</span>, du côté développeur mais du bon côté de la frontière. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
@@ -313,7 +324,9 @@ Pourquoi une énumération et non un nom de fichier</h2>
 <tr><td class="fieldname"><a id="a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f" name="a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f"></a>Pause&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51" name="a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51"></a>Credits&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139" name="a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139"></a>RpgScreen&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4" name="a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4"></a>Arena&#160;</td><td class="fielddoc"><p>Le Colisée (<span class="tt">LOT-50</span>). </p>
+<tr><td class="fieldname"><a id="a82f878c3ef3a0d8b924af7bbca4b37f7a6097f89e3092d4ccd249c9d479785c1f" name="a82f878c3ef3a0d8b924af7bbca4b37f7a6097f89e3092d4ccd249c9d479785c1f"></a>Death&#160;</td><td class="fielddoc"><p>L'écran de mort (<span class="tt">LOT-119</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a82f878c3ef3a0d8b924af7bbca4b37f7a2e8f4ffcd312289356892722c8fa8663" name="a82f878c3ef3a0d8b924af7bbca4b37f7a2e8f4ffcd312289356892722c8fa8663"></a>DemoEnd&#160;</td><td class="fielddoc"><p>L'écran « Fin de la démo » (<span class="tt">LOT-119</span>). </p>
 </td></tr>
 </table>
 
@@ -399,23 +412,6 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 <p>Émis quand l'écran courant change. </p>
 <p>Rien n'est émis si la transition a été <b>refusée</b> : l'interface ne doit pas se rafraîchir pour un geste que la table n'autorise pas. </p>
-
-</div>
-</div>
-<a id="a848642d2b4ed6fcf1b3c78de534de4e9" name="a848642d2b4ed6fcf1b3c78de534de4e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a848642d2b4ed6fcf1b3c78de534de4e9">&#9670;&#160;</a></span>closeArena()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ScreenRouter::closeArena </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -570,6 +566,76 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 </div>
 </div>
+<a id="a8786f906b622defb6fbdbafcc44ab089" name="a8786f906b622defb6fbdbafcc44ab089"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8786f906b622defb6fbdbafcc44ab089">&#9670;&#160;</a></span>ending()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::ScreenRouter::ending </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e5969e50cd56788d75aae8be0cc2f3a" name="a2e5969e50cd56788d75aae8be0cc2f3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e5969e50cd56788d75aae8be0cc2f3a">&#9670;&#160;</a></span>endingText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::ScreenRouter::endingText </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab876832aba412ba4d1413c106cd6e86f" name="ab876832aba412ba4d1413c106cd6e86f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab876832aba412ba4d1413c106cd6e86f">&#9670;&#160;</a></span>jumpToGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ScreenRouter::jumpToGame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Outil de debug : ouvre la vue de jeu <b>hors de la table</b>, d'où que l'on soit. </p>
+<p>Le menu F9 et le lanceur de cartes ouvrent une carte depuis n'importe quel écran ; la table ne connaît le jeu que depuis le menu et la pause. C'est la seule navigation qui la contourne, et elle n'existe que dans un binaire de développement : ailleurs, sans effet. </p>
+
+</div>
+</div>
 <a id="aba7714a748fe5539eb4c69e6b87dc169" name="aba7714a748fe5539eb4c69e6b87dc169"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aba7714a748fe5539eb4c69e6b87dc169">&#9670;&#160;</a></span>nextRpgScreen()</h2>
 
@@ -590,25 +656,6 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 </div>
 </div>
-<a id="a2494cbca36808d307ae0cf26336e5c78" name="a2494cbca36808d307ae0cf26336e5c78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2494cbca36808d307ae0cf26336e5c78">&#9670;&#160;</a></span>openArena()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ScreenRouter::openArena </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Ouvre le Colisée depuis le menu, et en revient. Un mode du jeu, pas un écran du RPG. </p>
-
-</div>
-</div>
 <a id="a72a1fbefbc533cfa55a1baebd0a68615" name="a72a1fbefbc533cfa55a1baebd0a68615"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72a1fbefbc533cfa55a1baebd0a68615">&#9670;&#160;</a></span>openCredits()</h2>
 
@@ -623,6 +670,44 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a22a80d6968c5250fce4a132fcf9a8589" name="a22a80d6968c5250fce4a132fcf9a8589"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22a80d6968c5250fce4a132fcf9a8589">&#9670;&#160;</a></span>openDeath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ScreenRouter::openDeath </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le héros est tombé : l'écran de mort (<span class="tt">LOT-119</span>). </p>
+
+</div>
+</div>
+<a id="a7a7d4a93306757c363179da8b0ddc447" name="a7a7d4a93306757c363179da8b0ddc447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a7d4a93306757c363179da8b0ddc447">&#9670;&#160;</a></span>openDemoEnd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::ScreenRouter::openDemoEnd </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>ending</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La démo est bouclée par la voie <code class="param">ending</code> : l'écran de fin (<span class="tt">LOT-119</span>). </p>
 
 </div>
 </div>
@@ -807,6 +892,28 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 </div>
 </div>
+<a id="a71aa3afd55c4f50e673d591eac3a20c6" name="a71aa3afd55c4f50e673d591eac3a20c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71aa3afd55c4f50e673d591eac3a20c6">&#9670;&#160;</a></span>_ending</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::ScreenRouter::_ending</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a324e160a25a802626ac8a46e17f88357" name="a324e160a25a802626ac8a46e17f88357"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a324e160a25a802626ac8a46e17f88357">&#9670;&#160;</a></span>_rpgScreen</h2>
 
@@ -943,6 +1050,56 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 <p>Le dialogue que l'écran de dialogue doit jouer (<span class="tt">LOT-09</span>). </p>
 <p>Le routeur le <b>transporte</b> : c'est la carte qui le nomme, en ouvrant la conversation du PNJ visé, et l'écran n'a plus de dialogue écrit en dur. Vide avant la première conversation. </p>
+
+</div>
+</div>
+<a id="a79f8523f29d42f7c2a6ab23245485044" name="a79f8523f29d42f7c2a6ab23245485044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f8523f29d42f7c2a6ab23245485044">&#9670;&#160;</a></span>ending</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::ScreenRouter::ending</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La voie par laquelle la démo s'est terminée (<span class="tt">LOT-119</span>), que l'écran de fin dit. </p>
+<p>Le routeur la <b>transporte</b>, comme <span class="tt"><a class="el" href="#aa9ba1f7e1f16121dc41686cc69ee0dea" title="Le dialogue que l&#39;écran de dialogue doit jouer (LOT-09).">dialogueId</a></span> : c'est le dialogue qui la nomme. Vide sinon. </p>
+
+</div>
+</div>
+<a id="a5d0110696a2cfda27e31867ee2a021ea" name="a5d0110696a2cfda27e31867ee2a021ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d0110696a2cfda27e31867ee2a021ea">&#9670;&#160;</a></span>endingText</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::ScreenRouter::endingText</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La même voie, dite dans la langue active (clé <span class="tt">ending.arene</span> pour <span class="tt">arene</span>), vide sans voie. </p>
+<p>Une lecture du catalogue, pas une décision : l'écran de fin n'a pas d'autre modèle à qui la demander. </p>
 
 </div>
 </div>

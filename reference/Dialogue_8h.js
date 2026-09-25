@@ -24,7 +24,8 @@ var Dialogue_8h =
       [ "core::DialogueActionKind::GiveItem", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee", null ],
       [ "core::DialogueActionKind::StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
       [ "core::DialogueActionKind::StartCombat", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159", null ],
-      [ "core::DialogueActionKind::StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ]
+      [ "core::DialogueActionKind::StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ],
+      [ "core::DialogueActionKind::EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ]
     ] ],
     [ "core::DialogueAttitude", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7", [
       [ "core::DialogueAttitude::Friendly", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df", null ],
@@ -44,8 +45,10 @@ var Dialogue_8h =
       [ "core::DialogueState::Ended", "namespacecore.html#adbe3368bf4f687b1ab2120308d322c0aa0157fbb99be9622bdaa6e544270c0622", null ],
       [ "core::DialogueState::Refused", "namespacecore.html#adbe3368bf4f687b1ab2120308d322c0aaf48b206184b7442983452ea4c3e88a3a", null ]
     ] ],
+    [ "core::demoEndingKey", "namespacecore.html#acd687b89399df2a9dcc1bde15b5e46f7", null ],
     [ "core::dialogueAttitudeKey", "namespacecore.html#a58479e55baaecd8fde393467a4db7236", null ],
     [ "core::dialogueAttitudeName", "namespacecore.html#a07385d9b9ea590d3a3b7b11bd820b891", null ],
+    [ "core::dialogueCheckFailedFlag", "namespacecore.html#acdf93401cff640016af7027ed99792fd", null ],
     [ "core::dialogueChoiceKey", "namespacecore.html#ae06673ab0442d9711873e9bfffedaf89", null ],
     [ "core::dialogueLineKey", "namespacecore.html#ae9f2a47a81336a2d0f7a526b0f585608", null ],
     [ "core::dialogueSpeakerKey", "namespacecore.html#a347e7bf6ba1e8cb5d99a494c8c90411f", null ],

@@ -7,7 +7,7 @@ var searchData=
   ['scene_5flayer_5fproperty_4',['SCENE_LAYER_PROPERTY',['../namespacecore.html#a455104c902c36c4055632cff3653a4b7',1,'core']]],
   ['scene_5fplace_5fproperty_5',['SCENE_PLACE_PROPERTY',['../namespacehmi.html#a2048c2024daad5842f0d26bbde67482b',1,'hmi']]],
   ['scenechanged_6',['sceneChanged',['../structhmi_1_1WorldPlayStep.html#aa510f0f4dcaf30e22367894d5ffd7a27',1,'hmi::WorldPlayStep']]],
-  ['scope_7',['scope',['../structcore_1_1RegionAppraisal.html#a9b59db26754420a23c72569158a73861',1,'core::RegionAppraisal']]],
+  ['scope_7',['scope',['../structcore_1_1RegionAppraisal.html#a9b59db26754420a23c72569158a73861',1,'core::RegionAppraisal::scope'],['../structhmi_1_1DebugOption.html#a4a2676b875b7274fb0ea15e8f9123aaa',1,'hmi::DebugOption::scope']]],
   ['score_8',['score',['../structcore_1_1TurnPlan.html#ae0ba2936962f9ddf370e35074bbe682c',1,'core::TurnPlan']]],
   ['screen_9',['screen',['../structhmi_1_1ScreenState.html#afed814132576c82dfaa45e5f9d81c20c',1,'hmi::ScreenState']]],
   ['script_10',['script',['../structhmi_1_1GestureFileResult.html#ae20de4f1356fb2d748e9fd1911c826a3',1,'hmi::GestureFileResult']]],
@@ -87,5 +87,6 @@ var searchData=
   ['succeeded_84',['succeeded',['../structhmi_1_1FileOperationResult.html#ad059749c338126e1310a43e6c07f08c8',1,'hmi::FileOperationResult']]],
   ['summary_85',['summary',['../structcore_1_1TurnPlan.html#ae2fd49824fc6d12e3bff78c31e5db009',1,'core::TurnPlan']]],
   ['superposition_86',['superposition',['../structhmi_1_1RpgScreenDescriptor.html#a918ddd7d80088a12cda7cf51dd9fccfb',1,'hmi::RpgScreenDescriptor']]],
-  ['swim_87',['swim',['../structcore_1_1CreatureSpeed.html#a0b5a385391038497d11fb91718630b26',1,'core::CreatureSpeed']]]
+  ['swim_87',['swim',['../structcore_1_1CreatureSpeed.html#a0b5a385391038497d11fb91718630b26',1,'core::CreatureSpeed']]],
+  ['syntax_88',['syntax',['../structhmi_1_1DebugOption.html#aa023b94fe93acfba84b02d21d9d78fa5',1,'hmi::DebugOption']]]
 ];

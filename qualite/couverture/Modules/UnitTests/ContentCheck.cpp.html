@@ -358,8 +358,16 @@ std::vector&lt;MapCheckFinding&gt; checkMapContent(std::string_view mapId, const
     // donnees lit aussi au demarrage du jeu, et ils nomment fichier et ligne.
 <span style = "background-color:#dfd">    for (const std::string&amp; rejected : quests.errors) {
         error("quest rejected: " + rejected);
+    }</span>
+    // Un dialogue refuse au chargement -- un jet sans branche d'echec (LOT-117), une cible
+    // inconnue, une impasse -- ne se jouerait pas : le PNJ resterait muet en jeu.
+    // Un projet sans dossier de dialogues n'en a simplement pas : ce n'est pas un refus.
+<span style = "background-color:#dfd">    if (std::filesystem::is_directory(dataRoot / "World" / "dialogues")) {
+        for (const std::string&amp; rejected : dialogues.errors) {
+            error("dialogue rejected: " + rejected);
+        }</span>
     }
-    for (const std::string&amp; misuse : core::validateFlagUses(quests, dialogues)) {</span>
+<span style = "background-color:#dfd">    for (const std::string&amp; misuse : core::validateFlagUses(quests, dialogues)) {</span>
 <span style = "background-color:#fdd">        error("flag misuse: " + misuse);</span>
 <span style = "background-color:#dfd">    }
     std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);</span>

@@ -153,11 +153,30 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac76de19054914c51c8a1139443ed2b5a" id="r_ac76de19054914c51c8a1139443ed2b5a"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ac76de19054914c51c8a1139443ed2b5a">id</a></td></tr>
 <tr class="memitem:a7a5211b79433424456d9c6501210def2" id="r_a7a5211b79433424456d9c6501210def2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7a5211b79433424456d9c6501210def2">textKey</a></td></tr>
 <tr class="memitem:a220536118564f64507a606518bc620e3" id="r_a220536118564f64507a606518bc620e3"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a220536118564f64507a606518bc620e3">checkSkill</a></td></tr>
-<tr class="memdesc:a220536118564f64507a606518bc620e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Si la réponse mène à un jet : la compétence jetée — l'écran l'annonce avant qu'on la choisisse, comme une table l'annonce (« [Persuasion] »).  <br /></td></tr>
+<tr class="memdesc:a220536118564f64507a606518bc620e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Si la réponse mène à un jet : la compétence jetée — l'écran l'annonce avant qu'on la choisisse, comme une table l'annonce (« Persuasion · DD 15 »).  <br /></td></tr>
+<tr class="memitem:a61c65920419edc442b412623133131d6" id="r_a61c65920419edc442b412623133131d6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a61c65920419edc442b412623133131d6">checkDc</a> = 0</td></tr>
+<tr class="memdesc:a61c65920419edc442b412623133131d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Si la réponse mène à un jet : son degré de difficulté, en nombre (<span class="tt">LOT-117</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une réponse que le joueur peut donner <b>maintenant</b>, conditions évaluées. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a61c65920419edc442b412623133131d6" name="a61c65920419edc442b412623133131d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61c65920419edc442b412623133131d6">&#9670;&#160;</a></span>checkDc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::AvailableChoice::checkDc = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Si la réponse mène à un jet : son degré de difficulté, en nombre (<span class="tt">LOT-117</span>). </p>
+<p>Le contenu le <b>nomme</b> ; le joueur, lui, voit le seuil qu'il doit atteindre. 0 sinon, ou si le degré est inconnu. </p>
+
+</div>
+</div>
 <a id="a220536118564f64507a606518bc620e3" name="a220536118564f64507a606518bc620e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a220536118564f64507a606518bc620e3">&#9670;&#160;</a></span>checkSkill</h2>
 
@@ -170,7 +189,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Si la réponse mène à un jet : la compétence jetée — l'écran l'annonce avant qu'on la choisisse, comme une table l'annonce (« [Persuasion] »). </p>
+<p>Si la réponse mène à un jet : la compétence jetée — l'écran l'annonce avant qu'on la choisisse, comme une table l'annonce (« Persuasion · DD 15 »). </p>
 <p>Vide sinon. </p>
 
 </div>

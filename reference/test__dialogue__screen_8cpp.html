@@ -164,12 +164,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac1162bb1c351380c632d288f1f02f5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet joué par une réponse se restitue sur la réplique qui en découle, et seulement sur celle-là.  <br /></td></tr>
 <tr class="memitem:a43cf2f2da824636b2491c2c7e8e8ea49" id="r_a43cf2f2da824636b2491c2c7e8e8ea49"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a43cf2f2da824636b2491c2c7e8e8ea49">TEST</a> (DialogueScreenTest, UnRefusMontreLeRefusEtQuitter)</td></tr>
 <tr class="memdesc:a43cf2f2da824636b2491c2c7e8e8ea49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un refus faute de langue commune montre le refus, et seulement « Quitter ».  <br /></td></tr>
+<tr class="memitem:adee8d17bd46eb01f47503f4f732a2bda" id="r_adee8d17bd46eb01f47503f4f732a2bda"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adee8d17bd46eb01f47503f4f732a2bda">TEST</a> (DialogueScreenTest, UnEchecSeMontreEtNeSeRetentePas)</td></tr>
+<tr class="memdesc:adee8d17bd46eb01f47503f4f732a2bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un jet raté montre son dé et son calcul négatif ; la réponse qui y menait disparaît, et un jet raté atteint de nouveau se dit « déjà tenté », sans dé (<span class="tt">LOT-117</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de ce que l'écran de dialogue affiche (<span class="tt">LOT-15</span>) : réplique, réponses, jet annoncé puis restitué, refus, fin. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ac1162bb1c351380c632d288f1f02f5cf" name="ac1162bb1c351380c632d288f1f02f5cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1162bb1c351380c632d288f1f02f5cf">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1162bb1c351380c632d288f1f02f5cf">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,12 +197,44 @@ Functions</h2></td></tr>
  1. Negocier (bonus +30 contre 10).<br  />
 2. Lire les valeurs.<br  />
 3. Continuer jusqu'a la fin.<br  />
- <b>Resultat attendu :</b> Apres le jet : attitude amicale, restitution « competence : total contre 10 &ndash; reussite », une reponse « continuer ». A la fin : termine, restitution effacee, une seule reponse « quitter ». </p>
+ <b>Resultat attendu :</b> Apres le jet : attitude amicale ; restitution « competence DD 10 &ndash; d20 de, total t &ndash; reussite », et par morceaux : titre « competence DD 10 », le de tire, le calcul « de + 30 = t », l'issue ; une reponse « continuer ». A la fin : termine, restitution effacee, une seule reponse « quitter ». </p>
+
+</div>
+</div>
+<a id="adee8d17bd46eb01f47503f4f732a2bda" name="adee8d17bd46eb01f47503f4f732a2bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adee8d17bd46eb01f47503f4f732a2bda">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DialogueScreenTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEchecSeMontreEtNeSeRetentePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un jet raté montre son dé et son calcul négatif ; la réponse qui y menait disparaît, et un jet raté atteint de nouveau se dit « déjà tenté », sans dé (<span class="tt">LOT-117</span>). </p>
+<p><b>Cas de test :</b> <b>L'ecran montre un echec, puis un jet deja tente sans de.</b><br  />
+ <b>Categorie :</b> Unitaire · Interface<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Negocier avec -30 contre 10.<br  />
+2. Lire les valeurs.<br  />
+3. Continuer jusqu'a la halte.<br  />
+4. Rouvrir le dialogue sur les memes drapeaux, sur un graphe ou la halte mene au jet sans choix.<br  />
+ <b>Resultat attendu :</b> Apres le jet : echec, calcul « de - 30 = t », de montre. A la halte : seule « partir » reste. Sur le second graphe : titre du jet, de vide, detail « deja tente », restitution « deja », echec. </p>
 
 </div>
 </div>
 <a id="a28329c99cfaffa032e8d7c4b440ea7fa" name="a28329c99cfaffa032e8d7c4b440ea7fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28329c99cfaffa032e8d7c4b440ea7fa">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a28329c99cfaffa032e8d7c4b440ea7fa">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,12 +259,12 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Ouvrir un dialogue de garde hostile.<br  />
 2. Lire les valeurs de l'ecran.<br  />
- <b>Resultat attendu :</b> Nom, attitude hostile et replique par leur cle ; deux reponses dans l'ordre ; la premiere porte « [competence] » avec la cle de lexique a tiret bas ; aucune restitution de jet ; l'ecran n'est pas termine. </p>
+ <b>Resultat attendu :</b> Nom, attitude hostile et replique par leur cle ; deux reponses dans l'ordre ; la premiere porte « [competence DD 10] » avec la cle de lexique a tiret bas et le seuil du degre (LOT-117) ; aucune restitution de jet ; l'ecran n'est pas termine. </p>
 
 </div>
 </div>
 <a id="a43cf2f2da824636b2491c2c7e8e8ea49" name="a43cf2f2da824636b2491c2c7e8e8ea49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43cf2f2da824636b2491c2c7e8e8ea49">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a43cf2f2da824636b2491c2c7e8e8ea49">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

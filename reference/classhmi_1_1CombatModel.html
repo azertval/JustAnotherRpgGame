@@ -153,8 +153,7 @@ Inheritance diagram for hmi::CombatModel:</div>
  <div class="center">
   <img src="classhmi_1_1CombatModel.png" usemap="#hmi_3A_3ACombatModel_map" alt=""/>
   <map id="hmi_3A_3ACombatModel_map" name="hmi_3A_3ACombatModel_map">
-<area href="classhmi_1_1ArenaModel.html" title="La vue-modèle de l&#39;arène : composer deux camps, lancer, jouer, rejouer." alt="hmi::ArenaModel" shape="rect" coords="0,112,130,136"/>
-<area href="classhmi_1_1EncounterModel.html" title="La vue-modèle du combat sur la carte." alt="hmi::EncounterModel" shape="rect" coords="140,112,270,136"/>
+<area href="classhmi_1_1EncounterModel.html" title="La vue-modèle du combat sur la carte." alt="hmi::EncounterModel" shape="rect" coords="0,112,130,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -272,11 +271,11 @@ Properties</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle d'un combat monté : le curseur, les actions du tour, ce que la grille montre, les gestes du joueur, les tours de l'IA. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md114"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md109"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span> — la machine à états du combat — et le curseur de ciblage ; chaque geste de l'écran devient un appel à la session, et ce que l'écran affiche est relu de la session après chaque geste. Elle ne décide <b>rien</b> du combat.</p>
 <p>Elle ne sait pas d'où vient le combat : le Colisée compose deux camps et une carte d'arène, la carte d'exploration monte une rencontre sur sa zone de combat. Les deux dérivent d'elle et n'ajoutent que cela — sans quoi l'interface de combat aurait été écrite deux fois, et les deux copies auraient divergé au premier réglage (le critère du <span class="tt">LOT-118</span> : aucune régression du Colisée).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md115"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md110"></a>
 Signaux</h2>
 <p><span class="tt"><a class="el" href="#a392928ff09819c4346cdb77f1734efc4">changed</a></span> couvre tout ce que l'interface affiche ; <span class="tt"><a class="el" href="#acb83d08ef0f0b63a028288ab2a837cca">cursorChanged</a></span> ce que le curseur montre (il suit aussi <span class="tt"><a class="el" href="#a392928ff09819c4346cdb77f1734efc4">changed</a></span>) ; <span class="tt"><a class="el" href="#a5865e6deb8559d3439547fa834fec386">combatSceneChanged</a></span> n'est émis qu'aux gestes qui mutent la grille, pour que la surface de rendu ne reprenne un instantané que lorsqu'il le faut. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -462,7 +461,7 @@ Signaux</h2>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les profils de l'IA que <span class="tt"><a class="el" href="namespacecore.html#a927dac700bedb90e5d0bb43bfeb537df" title="Joue le tour du combattant actif selon son profil, et le termine.">core::playTurn</a></span> lit ; <span class="tt">nullptr</span> : l'IA ne joue pas. </dd></dl>
 
-<p>Implemented in <a class="el" href="classhmi_1_1ArenaModel.html#a2a17667cc70e9d03411c118bdf9878d3">hmi::ArenaModel</a>, and <a class="el" href="classhmi_1_1EncounterModel.html#a1ee5a82fcbe6d56014645cc70a74c803">hmi::EncounterModel</a>.</p>
+<p>Implemented in <a class="el" href="classhmi_1_1EncounterModel.html#a1ee5a82fcbe6d56014645cc70a74c803">hmi::EncounterModel</a>.</p>
 
 </div>
 </div>

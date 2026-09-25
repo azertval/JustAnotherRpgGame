@@ -38,33 +38,8 @@ std::optional&lt;ScreenState&gt; resolveTransition(const ScreenState&amp; curren
 <span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::RpgScreen,</span>
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Menu};
-                // Le ColisÃ©e (LOT-50) s'ouvre depuis le menu â Â« Nouvelle partie Â», tant que
-                // c'est la seule carte jouable â et seulement de lÃ  : c'est un mode du jeu, pas
-                // un Ã©cran qu'on consulte pendant une partie. Le jour oÃ¹ l'arÃ¨ne
-                // s'ouvrira depuis le monde comme une carte ordinaire (LOT-42), ce sera par
-                // `Game`, pas par cet Ã©vÃ©nement.
-                case ScreenEvent::OpenArena:
-<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Arena,</span>
-                                       .optionsReturnTo = ScreenId::Menu,
-                                       .rpgReturnTo = ScreenId::Menu,
-                                       .arenaReturnTo = ScreenId::Menu};
                 default:
 <span style = "background-color:#dfd">                    return std::nullopt;</span>
-            }
-        case ScreenId::Arena:
-<span style = "background-color:#dfd">            switch (event) {</span>
-                // On revient d'oÃ¹ l'on vient : au menu si le ColisÃ©e s'est ouvert de lÃ , sur la
-                // CARTE si le hÃ©raut a envoyÃ© sur le sable (LOT-09) -- et la carte est restÃ©e ce
-                // qu'elle Ã©tait, personnage au mÃªme endroit.
-                case ScreenEvent::CloseArena:
-<span style = "background-color:#dfd">                    return ScreenState{.screen = current.arenaReturnTo,</span>
-                                       .optionsReturnTo = ScreenId::Menu,
-                                       .rpgReturnTo = current.arenaReturnTo,
-                                       .arenaReturnTo = ScreenId::Menu};
-                case ScreenEvent::OpenMenu:
-<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};</span>
-                default:
-<span style = "background-color:#fdd">                    return std::nullopt;</span>
             }
         case ScreenId::Credits:
 <span style = "background-color:#dfd">            switch (event) {</span>
@@ -73,17 +48,31 @@ std::optional&lt;ScreenState&gt; resolveTransition(const ScreenState&amp; curren
                 default:
 <span style = "background-color:#fdd">                    return std::nullopt;</span>
             }
+        // Les deux ecrans de fin (LOT-119) ferment la partie : ni pause, ni retour sur la carte.
+        // La mort recommence ou rend le menu ; la fin de la demo mene aux credits ou au menu.
+        case ScreenId::Death:
+<span style = "background-color:#dfd">            switch (event) {</span>
+                case ScreenEvent::OpenGame:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};</span>
+                case ScreenEvent::OpenMenu:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};</span>
+                default:
+<span style = "background-color:#dfd">                    return std::nullopt;</span>
+            }
+        case ScreenId::DemoEnd:
+<span style = "background-color:#dfd">            switch (event) {</span>
+                case ScreenEvent::OpenCredits:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Credits,</span>
+                                       .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenMenu:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};</span>
+                default:
+<span style = "background-color:#dfd">                    return std::nullopt;</span>
+            }
         case ScreenId::Game:
 <span style = "background-color:#dfd">            switch (event) {</span>
                 case ScreenEvent::OpenMenu:
 <span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Menu, .optionsReturnTo = ScreenId::Menu};</span>
-                // Le hÃ©raut envoie sur le sable (LOT-09) : la zone de combat de la carte se joue
-                // dans le ColisÃ©e, et l'on revient ici -- `arenaReturnTo` le retient.
-                case ScreenEvent::OpenArena:
-<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Arena,</span>
-                                       .optionsReturnTo = ScreenId::Menu,
-                                       .rpgReturnTo = ScreenId::Menu,
-                                       .arenaReturnTo = ScreenId::Game};
                 case ScreenEvent::OpenPause:
 <span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Pause,</span>
                                        .optionsReturnTo = ScreenId::Menu};
@@ -94,6 +83,12 @@ std::optional&lt;ScreenState&gt; resolveTransition(const ScreenState&amp; curren
 <span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::RpgScreen,</span>
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Game};
+                case ScreenEvent::OpenDeath:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Death,</span>
+                                       .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenDemoEnd:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::DemoEnd,</span>
+                                       .optionsReturnTo = ScreenId::Menu};
                 default:
 <span style = "background-color:#dfd">                    return std::nullopt;</span>
             }
@@ -119,7 +114,7 @@ std::optional&lt;ScreenState&gt; resolveTransition(const ScreenState&amp; curren
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Pause};
                 default:
-<span style = "background-color:#dfd">                    return std::nullopt;</span>
+<span style = "background-color:#fdd">                    return std::nullopt;</span>
             }
         case ScreenId::RpgScreen:
 <span style = "background-color:#dfd">            switch (event) {</span>
@@ -131,6 +126,14 @@ std::optional&lt;ScreenState&gt; resolveTransition(const ScreenState&amp; curren
 <span style = "background-color:#dfd">                    return ScreenState{.screen = current.rpgReturnTo,</span>
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Menu};
+                // Le heros tombe sur le HUD de combat, la demo se clot dans un dialogue : l'ecran
+                // de fin prend la place, sans repasser par la carte (LOT-119).
+                case ScreenEvent::OpenDeath:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::Death,</span>
+                                       .optionsReturnTo = ScreenId::Menu};
+                case ScreenEvent::OpenDemoEnd:
+<span style = "background-color:#dfd">                    return ScreenState{.screen = ScreenId::DemoEnd,</span>
+                                       .optionsReturnTo = ScreenId::Menu};
                 default:
 <span style = "background-color:#fdd">                    return std::nullopt;</span>
             }

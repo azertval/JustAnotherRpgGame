@@ -1,9 +1,5 @@
 var dir_7eb0d0bc801e3eeb9c9e3cb238223789 =
 [
-    [ "ArenaModel.cpp", "ArenaModel_8cpp.html", "ArenaModel_8cpp" ],
-    [ "ArenaModel.h", "ArenaModel_8h.html", "ArenaModel_8h" ],
-    [ "ArenaViewportItem.cpp", "ArenaViewportItem_8cpp.html", "ArenaViewportItem_8cpp" ],
-    [ "ArenaViewportItem.h", "ArenaViewportItem_8h.html", "ArenaViewportItem_8h" ],
     [ "AssetGalleryItem.cpp", "AssetGalleryItem_8cpp.html", null ],
     [ "AssetGalleryItem.h", "AssetGalleryItem_8h.html", "AssetGalleryItem_8h" ],
     [ "CharacterSheetModel.cpp", "CharacterSheetModel_8cpp.html", null ],
@@ -16,6 +12,8 @@ var dir_7eb0d0bc801e3eeb9c9e3cb238223789 =
     [ "CombatModel.h", "CombatModel_8h.html", "CombatModel_8h" ],
     [ "CreditsModel.cpp", "CreditsModel_8cpp.html", null ],
     [ "CreditsModel.h", "CreditsModel_8h.html", "CreditsModel_8h" ],
+    [ "DebugConsoleModel.cpp", "DebugConsoleModel_8cpp.html", null ],
+    [ "DebugConsoleModel.h", "DebugConsoleModel_8h.html", "DebugConsoleModel_8h" ],
     [ "DemonstrationCharacter.cpp", "DemonstrationCharacter_8cpp.html", "DemonstrationCharacter_8cpp" ],
     [ "DemonstrationCharacter.h", "DemonstrationCharacter_8h.html", "DemonstrationCharacter_8h" ],
     [ "DialogueModel.cpp", "DialogueModel_8cpp.html", "DialogueModel_8cpp" ],
@@ -28,6 +26,8 @@ var dir_7eb0d0bc801e3eeb9c9e3cb238223789 =
     [ "GameViewportItem.h", "GameViewportItem_8h.html", "GameViewportItem_8h" ],
     [ "InventoryModel.cpp", "InventoryModel_8cpp.html", null ],
     [ "InventoryModel.h", "InventoryModel_8h.html", "InventoryModel_8h" ],
+    [ "MapLauncherModel.cpp", "MapLauncherModel_8cpp.html", null ],
+    [ "MapLauncherModel.h", "MapLauncherModel_8h.html", "MapLauncherModel_8h" ],
     [ "OptionsModel.cpp", "OptionsModel_8cpp.html", null ],
     [ "OptionsModel.h", "OptionsModel_8h.html", "OptionsModel_8h" ],
     [ "PendingData.cpp", "PendingData_8cpp.html", null ],

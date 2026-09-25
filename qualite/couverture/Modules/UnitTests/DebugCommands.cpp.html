@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>DebugCommands.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Game/DebugCommands.h"
+
+#include &lt;array&gt;
+#include &lt;charconv&gt;
+
+namespace hmi {
+
+namespace {
+
+// L'ordre est celui de l'aide : d'abord ce qui ouvre une carte, puis ce qui regle la fenetre, puis
+// ce qui ne se lit qu'au lancement.
+constexpr std::array CATALOGUE = {
+    DebugOption{.name = "--map=",
+                .syntax = "--map=&lt;carte&gt;[@&lt;arrivee&gt;]",
+                .description = "Ouvre la carte (identifiant sous Levels/, sans .json), au point "
+                               "d'arrivee nomme ou a son entree."},
+    DebugOption{.name = "--at=",
+                .syntax = "--at=&lt;colonne&gt;,&lt;ligne&gt;",
+                .description = "Pose le heros sur cette case de la carte ouverte par --map=."},
+    DebugOption{.name = "--flags=",
+                .syntax = "--flags=&lt;drapeau&gt;[=&lt;valeur&gt;],&lt;drapeau&gt;",
+                .description = "Pose ces drapeaux de monde : la carte telle qu'elle est apres une "
+                               "quete."},
+    DebugOption{.name = "--hero-figure=",
+                .syntax = "--hero-figure=&lt;dossier sous Assets/&gt;",
+                .description = "Remplace la figurine du heros."},
+    DebugOption{.name = "--levels=",
+                .syntax = "--levels=&lt;dossier&gt;;&lt;dossier&gt;",
+                .description = "Cherche les cartes d'abord dans ces dossiers (les brouillons de "
+                               "l'editeur), puis dans celles du binaire."},
+    DebugOption{.name = "--screen=",
+                .syntax = "--screen=&lt;Nom&gt;",
+                .description = "Ouvre un ecran par son nom (MainMenu, GameView, Options, "
+                               "Inventory, MapLauncher, AssetGallery...), sans passer par le "
+                               "routeur."},
+    DebugOption{.name = "--window-size=",
+                .syntax = "--window-size=&lt;largeur&gt;x&lt;hauteur&gt;",
+                .description = "Impose la taille de la fenetre, en pixels."},
+    DebugOption{.name = "--screenshot=",
+                .syntax = "--screenshot=&lt;chemin.png&gt;",
+                .description = "Capture la fenetre dans ce fichier (au lancement : puis quitte)."},
+    DebugOption{.name = "--log-level=",
+                .syntax = "--log-level=&lt;trace|info|warning|error&gt;",
+                .description = "Niveau minimum du journal de session."},
+    DebugOption{.name = "--data=",
+                .syntax = "--data=&lt;racine&gt;",
+                .description = "Lit tout le contenu (cartes, assets, monde, dialogues) sous cette "
+                               "racine, comme l'editeur l'ouvre.",
+                .scope = DebugOptionScope::LaunchOnly},
+    DebugOption{.name = "--map-region=",
+                .syntax = "--map-region=&lt;region&gt;",
+                .description = "L'ecran Carte s'ouvre sur cette region (avec --screen=WorldMap).",
+                .scope = DebugOptionScope::LaunchOnly},
+    DebugOption{.name = "--map-city=",
+                .syntax = "--map-city=&lt;lieu&gt;",
+                .description = "... puis sur cette ville.",
+                .scope = DebugOptionScope::LaunchOnly},
+    DebugOption{.name = "--map-district=",
+                .syntax = "--map-district=&lt;quartier&gt;",
+                .description = "... puis sur ce quartier.",
+                .scope = DebugOptionScope::LaunchOnly},
+    DebugOption{.name = "--map-block=",
+                .syntax = "--map-block=&lt;ilot&gt;",
+                .description = "... puis sur cet ilot.",
+                .scope = DebugOptionScope::LaunchOnly},
+    DebugOption{.name = "--crash-test",
+                .syntax = "--crash-test",
+                .description = "Plantage volontaire au demarrage, pour eprouver le minidump.",
+                .scope = DebugOptionScope::LaunchOnly},
+};
+
+/// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;int&gt; entier(std::string_view text) {
+    int valeur = 0;</span>
+    // NOLINTNEXTLINE(bugprone-suspicious-stringview-data-usage): la paire data()/size() borne la
+    // lecture, from_chars ne depasse jamais la vue.
+    const std::from_chars_result lu =
+<span style = "background-color:#dfd">        std::from_chars(text.data(), text.data() + text.size(), valeur);
+    if (lu.ec != std::errc{} || lu.ptr != text.data() + text.size()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return valeur;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::span&lt;const DebugOption&gt; debugOptionCatalog() noexcept {
+    return CATALOGUE;
+}</span>
+
+<span style = "background-color:#dfd">DebugArgument splitDebugArgument(std::string_view token) {
+    if (!token.starts_with("--")) {
+        return DebugArgument{.name = std::string{token}, .value = {}};</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t egal = token.find('=');
+    if (egal == std::string_view::npos) {
+        return DebugArgument{.name = std::string{token}, .value = {}};</span>
+    }
+<span style = "background-color:#dfd">    return DebugArgument{.name = std::string{token.substr(0, egal + 1)},</span>
+                         .value = std::string{token.substr(egal + 1)}};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">const DebugOption* findDebugOption(std::string_view name) noexcept {
+    for (const DebugOption&amp; option : CATALOGUE) {
+        if (option.name == name) {
+            return &amp;option;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return nullptr;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; splitCommandLine(std::string_view line) {
+    std::vector&lt;std::string&gt; mots;
+    std::string courant;
+    bool dansMot = false;
+    bool entreGuillemets = false;
+    for (const char caractere : line) {
+        if (caractere == '"') {</span>
+            // Un mot peut commencer par des guillemets vides : `""` est un mot vide, voulu.
+<span style = "background-color:#dfd">            entreGuillemets = !entreGuillemets;
+            dansMot = true;
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!entreGuillemets &amp;&amp; (caractere == ' ' || caractere == '\t' || caractere == '\n' ||</span>
+                                 caractere == '\r')) {
+<span style = "background-color:#dfd">            if (dansMot) {
+                mots.push_back(std::move(courant));
+                courant.clear();
+                dansMot = false;</span>
+            }
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        courant.push_back(caractere);
+        dansMot = true;
+    }
+    if (dansMot) {</span>
+<span style = "background-color:#fdd">        mots.push_back(std::move(courant));</span>
+    }
+<span style = "background-color:#dfd">    return mots;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;std::pair&lt;int, int&gt;&gt; parseWindowSize(std::string_view value) {
+    const std::size_t croix = value.find('x');
+    if (croix == std::string_view::npos) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;int&gt; largeur = entier(value.substr(0, croix));
+    const std::optional&lt;int&gt; hauteur = entier(value.substr(croix + 1));
+    if (!largeur || !hauteur || *largeur &lt;= 0 || *hauteur &lt;= 0) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return std::pair{*largeur, *hauteur};
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

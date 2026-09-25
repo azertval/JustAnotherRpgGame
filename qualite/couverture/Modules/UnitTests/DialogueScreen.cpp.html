@@ -15,16 +15,17 @@
 #include "HMI/Presentation/DialogueScreen.h"
 
 #include &lt;algorithm&gt;
-#include &lt;array&gt;
 #include &lt;cstddef&gt;
+#include &lt;cstdlib&gt;
+#include &lt;numeric&gt;
 
 namespace hmi {
 
 namespace {
 
-// Remplace %1..%4 dans un gabarit traduit. L'ordre des mots change d'une langue a l'autre ; un
+// Remplace %1..%9 dans un gabarit traduit. L'ordre des mots change d'une langue a l'autre ; un
 // gabarit par langue le permet, une concatenation en C++ l'interdirait.
-<span style = "background-color:#dfd">[[nodiscard]] std::string remplir(std::string gabarit, const std::array&lt;std::string, 4&gt;&amp; valeurs) {
+<span style = "background-color:#dfd">[[nodiscard]] std::string remplir(std::string gabarit, const std::vector&lt;std::string&gt;&amp; valeurs) {
     for (std::size_t i = 0; i &lt; valeurs.size(); ++i) {
         const std::string marque = "%" + std::to_string(i + 1);
         for (std::size_t position = gabarit.find(marque); position != std::string::npos;
@@ -34,6 +35,23 @@ namespace {
     }
     return gabarit;
 }</span>
+
+/// Â« Persuasion Â· DD 15 Â», ou Â« Persuasion Â» seul si le degre n'a pas de seuil connu.
+<span style = "background-color:#dfd">[[nodiscard]] std::string annonceDuJet(const TextLookup&amp; text, const std::string&amp; skill, int dc) {
+    const std::string competence = text(skillLabelKey(skill));
+    return dc &gt; 0 ? remplir(text("dialogue.check.announce"), {competence, std::to_string(dc)})</span>
+                  : competence;
+<span style = "background-color:#dfd">}</span>
+
+/// Â« 12 + 4 = 16 Â» : le de retenu, la somme des modificateurs, le total. Des chiffres et des
+/// signes, que toutes les langues du jeu lisent pareil.
+<span style = "background-color:#dfd">[[nodiscard]] std::string calculDuJet(const core::CheckResult&amp; jet) {
+    const int bonus = std::accumulate(</span>
+        jet.modifiers.begin(), jet.modifiers.end(), 0,
+<span style = "background-color:#dfd">        [](int somme, const core::Modifier&amp; modificateur) { return somme + modificateur.value; });
+    return std::to_string(jet.keptDie) + (bonus &lt; 0 ? " - " : " + ") +</span>
+           std::to_string(std::abs(bonus)) + " = " + std::to_string(jet.total);
+<span style = "background-color:#dfd">}</span>
 
 }  // namespace
 
@@ -74,18 +92,33 @@ DialogueScreenValues dialogueScreenValues(const core::DialogueRunner&amp; runner
         DialogueReply reponse{.id = choix.id, .label = text(choix.textKey), .value = {}};
         if (!choix.checkSkill.empty()) {</span>
             // Annonce le jet AVANT qu'on le choisisse, comme une table l'annonce : un joueur qui
-            // decouvre apres coup qu'il jouait sa Persuasion n'a pas choisi, il a subi.
-<span style = "background-color:#dfd">            reponse.value = "[" + text(skillLabelKey(choix.checkSkill)) + "]";</span>
+            // decouvre apres coup qu'il jouait sa Persuasion n'a pas choisi, il a subi. Et le
+            // seuil avec (LOT-117) : DD 10 ou DD 25, ce n'est pas le meme pari.
+<span style = "background-color:#dfd">            reponse.value = "[" + annonceDuJet(text, choix.checkSkill, choix.checkDc) + "]";</span>
         }
 <span style = "background-color:#dfd">        valeurs.replies.push_back(std::move(reponse));
     }</span>
 
 <span style = "background-color:#dfd">    if (const auto&amp; jet = runner.lastCheck()) {
-        valeurs.checkOutcome = remplir(</span>
-            text("dialogue.check.summary"),
-            {text(skillLabelKey(jet-&gt;skill)), std::to_string(jet-&gt;result.total),
-             std::to_string(jet-&gt;result.target),
-             text(jet-&gt;result.succeeded() ? "dialogue.check.success" : "dialogue.check.failure")});
+        const bool reussi = !jet-&gt;alreadyFailed &amp;&amp; jet-&gt;result.succeeded();
+        valeurs.checkSucceeded = reussi;
+        valeurs.checkTitle = annonceDuJet(text, jet-&gt;skill, jet-&gt;result.target);
+        valeurs.checkVerdict = text(reussi ? "dialogue.check.success" : "dialogue.check.failure");
+        if (jet-&gt;alreadyFailed) {</span>
+            // Aucun de n'a roule : l'ecran le dit, plutot que d'inventer un tirage.
+<span style = "background-color:#dfd">            valeurs.checkDetail = text("dialogue.check.already-failed");
+            valeurs.checkOutcome =</span>
+                remplir(text("dialogue.check.repeat"),
+                        {text(skillLabelKey(jet-&gt;skill)), std::to_string(jet-&gt;result.target),
+                         valeurs.checkVerdict});
+<span style = "background-color:#dfd">        } else {
+            valeurs.checkDie = std::to_string(jet-&gt;result.keptDie);
+            valeurs.checkDetail = calculDuJet(jet-&gt;result);
+            valeurs.checkOutcome = remplir(</span>
+                text("dialogue.check.summary"),
+                {text(skillLabelKey(jet-&gt;skill)), std::to_string(jet-&gt;result.target),
+                 valeurs.checkDie, std::to_string(jet-&gt;result.total), valeurs.checkVerdict});
+        }
     }
 <span style = "background-color:#dfd">    return valeurs;
 }</span>

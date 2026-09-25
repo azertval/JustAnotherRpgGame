@@ -169,15 +169,15 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le point unique vers lequel pointe <b>tout ce qui n'a pas encore de source</b>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md128"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
 Le problème que cette classe résout</h2>
 <p>Plusieurs écrans du RPG — journal, dialogue, marchand, ATH de combat, et l'essentiel de l'équipe de mercenaires — n'ont aujourd'hui <b>aucune donnée</b> : les lots qui les produiront n'existent pas encore. Leur <b>mise en page</b>, elle, est décidée, et la jeter en attendant reviendrait à la redessiner plus tard, différemment, sans que personne ne se souvienne de ce qui avait été tranché.</p>
 <p>Ils sont donc dessinés maintenant, et chacun de leurs champs porte une <b>clé d'attribution</b> nommée qui aboutit ici. Le jour où le lot fonctionnel arrive, il remplace <span class="tt"><a class="el" href="classhmi_1_1PendingData.html" title="Le point unique vers lequel pointe tout ce qui n&#39;a pas encore de source.">PendingData</a></span> par sa vraie vue-modèle dans le fichier de câblage : <b>le formulaire ne bouge pas</b>. C'est précisément ce que la séparation achète.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md129"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md124"></a>
 Pourquoi un tiret cadratin et non de fausses données</h2>
 <p>Un écran rempli de valeurs plausibles se prend pour un écran fini. Il passe les relectures, on l'oublie, et un jour quelqu'un s'étonne que le marchand vende toujours les mêmes trois objets. Le tiret cadratin est le même signe que le châssis pose sur un champ sans source : à l'écran, « inconnu » et « pas encore alimenté » se ressemblent, et rien ne gagne à les distinguer.</p>
 <p>Les <b>valeurs d'exemple</b>, elles, vivent dans les formulaires <span class="tt">.ui.qml</span> : Qt Design Studio les affiche, la conception juge sa mise en page dessus, et le jeu ne les voit jamais.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md130"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md125"></a>
 Comment on retrouve ce qu'il reste à brancher</h2>
 <p><span class="tt">python scripts/i18n/list_pending_bindings.py</span> relève toutes les clés depuis le QML lui-même. Aucune liste à tenir à jour en parallèle : l'inventaire est <b>dérivé du code</b>, donc toujours exact — et c'est le motif que ce lot applique partout ailleurs. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

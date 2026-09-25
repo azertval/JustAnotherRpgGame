@@ -40,10 +40,13 @@ enum class ScreenId {
     /// seule page. Les y dÃ©clarer un par un aurait multipliÃ© par huit les transitions Ã  Ã©crire
     /// pour n'exprimer, huit fois, que la mÃªme rÃ¨gle.
     RpgScreen,
-    /// Le ColisÃ©e (`LOT-50`) : la mise en place d'un affrontement et sa grille. Un Ã©cran de
-    /// premier niveau, comme `Game`, parce que l'arÃ¨ne est un **mode du jeu** et non l'un des
-    /// Ã©crans du RPG qui se consultent depuis une partie.
-    Arena,
+    /// L'Ã©cran de mort (`LOT-119`) : le combat sur la carte est lÃ©tal, la partie s'y termine. On
+    /// n'en sort que par Â« Recommencer Â» (`OpenGame`) ou Â« Menu Â» (`OpenMenu`) â pas de retour Ã 
+    /// la partie oÃ¹ l'on vient de mourir.
+    Death,
+    /// L'Ã©cran Â« Fin de la dÃ©mo Â» (`LOT-119`) : la quÃªte est bouclÃ©e. On en sort par les crÃ©dits
+    /// ou le menu.
+    DemoEnd,
 };
 
 /// ÃvÃ©nement pouvant dÃ©clencher une transition d'Ã©cran. Un seul Ã©vÃ©nement `OpenOptions`/
@@ -64,9 +67,10 @@ enum class ScreenEvent {
     /// `optionsReturnTo` le fait pour Options.
     OpenRpgScreen,
     CloseRpgScreen,
-    /// Ouvre le ColisÃ©e depuis le menu ; `CloseArena` y revient.
-    OpenArena,
-    CloseArena,
+    /// Le hÃ©ros est tombÃ© (`LOT-119`) : depuis le combat (`RpgScreen`) ou la carte (`Game`).
+    OpenDeath,
+    /// Un dialogue a clos la dÃ©mo (`LOT-119`) : depuis la conversation ou la carte.
+    OpenDemoEnd,
 };
 
 /// Ãtat complet de la machine. `optionsReturnTo` n'est pertinent que lorsque `screen ==
@@ -79,10 +83,6 @@ struct ScreenState {
     /// MÃªme patron, et mÃªme raison, qu'`optionsReturnTo` : la provenance est un attribut de
     /// l'Ã©tat, jamais une variable Â« Ã©cran prÃ©cÃ©dent Â» posÃ©e Ã  cÃ´tÃ© de la machine.
 <span style = "background-color:#dfd">    ScreenId rpgReturnTo = ScreenId::Menu;</span>
-    /// Ãcran vers lequel `CloseArena` revient (`Menu` ou `Game`, `LOT-09`) : le ColisÃ©e s'ouvre
-    /// depuis le menu, et dÃ©sormais aussi **depuis la carte**, quand le hÃ©raut envoie sur le
-    /// sable. On revient alors sur la carte, au mÃªme endroit, et non au menu.
-<span style = "background-color:#dfd">    ScreenId arenaReturnTo = ScreenId::Menu;</span>
 
     friend bool operator==(const ScreenState&amp;, const ScreenState&amp;) = default;
 };

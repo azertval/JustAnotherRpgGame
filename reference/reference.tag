@@ -4111,6 +4111,21 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>DebugCommands.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>DebugCommands_8cpp.html</filename>
+    <includes id="DebugCommands_8h" name="DebugCommands.h" local="yes" import="no" module="no" objc="no">HMI/Game/DebugCommands.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>DebugCommands.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>DebugCommands_8h.html</filename>
+    <class kind="struct">hmi::DebugOption</class>
+    <class kind="struct">hmi::DebugArgument</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>FigureResolver.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
     <filename>FigureResolver_8cpp.html</filename>
@@ -4156,6 +4171,20 @@
     <filename>LaunchOptions_8h.html</filename>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <class kind="struct">hmi::GameLaunchOptions</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LevelScan.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>LevelScan_8cpp.html</filename>
+    <includes id="LevelScan_8h" name="LevelScan.h" local="yes" import="no" module="no" objc="no">HMI/Game/LevelScan.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LevelScan.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
+    <filename>LevelScan_8h.html</filename>
+    <class kind="struct">hmi::LevelEntry</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5183,53 +5212,6 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
-    <name>ArenaModel.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
-    <filename>ArenaModel_8cpp.html</filename>
-    <includes id="ArenaModel_8h" name="ArenaModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ArenaModel.h</includes>
-    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
-    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
-    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
-    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
-    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
-    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
-    <class kind="struct">hmi::ArenaModel::Fighter</class>
-    <class kind="struct">hmi::ArenaModel::Catalogs</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaModel.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
-    <filename>ArenaModel_8h.html</filename>
-    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
-    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
-    <includes id="CombatModel_8h" name="CombatModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CombatModel.h</includes>
-    <class kind="class">hmi::ArenaModel</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaViewportItem.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
-    <filename>ArenaViewportItem_8cpp.html</filename>
-    <includes id="ArenaViewportItem_8h" name="ArenaViewportItem.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ArenaViewportItem.h</includes>
-    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
-    <includes id="ArenaSceneComposer_8h" name="ArenaSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneComposer.h</includes>
-    <includes id="ArenaSceneRenderer_8h" name="ArenaSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneRenderer.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
-    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
-    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
-    <class kind="struct">hmi::ArenaViewportItem::Framing</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaViewportItem.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
-    <filename>ArenaViewportItem_8h.html</filename>
-    <includes id="ArenaModel_8h" name="ArenaModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ArenaModel.h</includes>
-    <class kind="class">hmi::ArenaViewportItem</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
     <name>AssetGalleryItem.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>AssetGalleryItem_8cpp.html</filename>
@@ -5343,6 +5325,28 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>CreditsModel_8h.html</filename>
     <class kind="class">hmi::CreditsModel</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>DebugConsoleModel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>DebugConsoleModel_8cpp.html</filename>
+    <includes id="DebugConsoleModel_8h" name="DebugConsoleModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DebugConsoleModel.h</includes>
+    <includes id="BuildConfig_8h" name="BuildConfig.h" local="yes" import="no" module="no" objc="no">Core/BuildConfig.h</includes>
+    <includes id="LogLevelParse_8h" name="LogLevelParse.h" local="yes" import="no" module="no" objc="no">Core/Diagnostics/LogLevelParse.h</includes>
+    <includes id="Logger_8h" name="Logger.h" local="yes" import="no" module="no" objc="no">Core/Diagnostics/Logger.h</includes>
+    <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="DebugCommands_8h" name="DebugCommands.h" local="yes" import="no" module="no" objc="no">HMI/Game/DebugCommands.h</includes>
+    <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
+    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>DebugConsoleModel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>DebugConsoleModel_8h.html</filename>
+    <class kind="class">hmi::DebugConsoleModel</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5486,6 +5490,28 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>MapLauncherModel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>MapLauncherModel_8cpp.html</filename>
+    <includes id="MapLauncherModel_8h" name="MapLauncherModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/MapLauncherModel.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
+    <includes id="LevelScan_8h" name="LevelScan.h" local="yes" import="no" module="no" objc="no">HMI/Game/LevelScan.h</includes>
+    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
+    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
+    <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>MapLauncherModel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>MapLauncherModel_8h.html</filename>
+    <class kind="class">hmi::MapLauncherModel</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>OptionsModel.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>OptionsModel_8cpp.html</filename>
@@ -5560,6 +5586,8 @@
     <filename>ScreenRouter_8cpp.html</filename>
     <includes id="ScreenRouter_8h" name="ScreenRouter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ScreenRouter.h</includes>
     <includes id="BuildConfig_8h" name="BuildConfig.h" local="yes" import="no" module="no" objc="no">Core/BuildConfig.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -9009,6 +9037,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__dialogue_8cpp.html</anchorfile>
+      <anchor>a4d652b3ba1cfa4e260acc0b703c19cfe</anchor>
+      <arglist>(DialogueTest, UneReponseAJetRateeNeSeProposePlus)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__dialogue_8cpp.html</anchorfile>
       <anchor>a9cf81f8dbded29ea5f09a2010b5d8db3</anchor>
       <arglist>(DialogueTest, UneBouclePasseeParUnChoixEstUnHubVoulu)</arglist>
     </member>
@@ -9060,6 +9095,13 @@
       <anchorfile>test__dialogue_8cpp.html</anchorfile>
       <anchor>afadf39a2f58d45c80d30c022b80b87db</anchor>
       <arglist>(DialogueTest, UnDialoguePeutEngagerUneRencontreSurLaCarte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__dialogue_8cpp.html</anchorfile>
+      <anchor>adacff3ed11d3a0dbf4c3b59ffab7dcd8</anchor>
+      <arglist>(DialogueTest, UnDialoguePeutTerminerLaDemo)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -10206,6 +10248,13 @@
       <anchorfile>test__content__check_8cpp.html</anchorfile>
       <anchor>a8fdad2bbe63a806bdf70d4bc96bfdb3f</anchor>
       <arglist>(ContentCheckTest, LeControleDuRecitRefuseUnDrapeauLuQueRienNePose)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__content__check_8cpp.html</anchorfile>
+      <anchor>a123522323b147e85951223f4a6635819</anchor>
+      <arglist>(ContentCheckTest, LeControleDuRecitRefuseUnJetSansBrancheDEchec)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11782,6 +11831,12 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_debug_commands.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
+    <filename>test__debug__commands_8cpp.html</filename>
+    <includes id="DebugCommands_8h" name="DebugCommands.h" local="yes" import="no" module="no" objc="no">HMI/Game/DebugCommands.h</includes>
+  </compound>
+  <compound kind="file">
     <name>test_figure_resolver.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
     <filename>test__figure__resolver_8cpp.html</filename>
@@ -11808,6 +11863,12 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
     <filename>test__launch__options_8cpp.html</filename>
     <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
+  </compound>
+  <compound kind="file">
+    <name>test_level_scan.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
+    <filename>test__level__scan_8cpp.html</filename>
+    <includes id="LevelScan_8h" name="LevelScan.h" local="yes" import="no" module="no" objc="no">HMI/Game/LevelScan.h</includes>
   </compound>
   <compound kind="file">
     <name>test_animation_catalog.cpp</name>
@@ -13583,6 +13644,13 @@
       <anchor>a43cf2f2da824636b2491c2c7e8e8ea49</anchor>
       <arglist>(DialogueScreenTest, UnRefusMontreLeRefusEtQuitter)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__dialogue__screen_8cpp.html</anchorfile>
+      <anchor>adee8d17bd46eb01f47503f4f732a2bda</anchor>
+      <arglist>(DialogueScreenTest, UnEchecSeMontreEtNeSeRetentePas)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_identity_scale.cpp</name>
@@ -13732,15 +13800,15 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__screen__flow_8cpp.html</anchorfile>
-      <anchor>a69338d297d4959611f8b9065cb20bd65</anchor>
-      <arglist>(ScreenFlowTest, LeColiseeRevientSurLaCarteQuandLeHerautYEnvoie)</arglist>
+      <anchor>afd13917847198910e165696de035e043</anchor>
+      <arglist>(ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>TEST</name>
       <anchorfile>test__screen__flow_8cpp.html</anchorfile>
-      <anchor>afd13917847198910e165696de035e043</anchor>
-      <arglist>(ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine)</arglist>
+      <anchor>ab3f9f4b636a3d1bafe57472ae68a922c</anchor>
+      <arglist>(ScreenFlowTest, LesEcransDeFinFermentLaPartie)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14006,40 +14074,6 @@
       <anchorfile>test__world__maps_8cpp.html</anchorfile>
       <anchor>ad5349e35dd51ef7e9ee30357c93fe94a</anchor>
       <arglist>(WorldMapsTest, AtlasLivreEntierementCartographie)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_arena_model.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
-    <filename>test__arena__model_8cpp.html</filename>
-    <includes id="ArenaModel_8h" name="ArenaModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ArenaModel.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__model_8cpp.html</anchorfile>
-      <anchor>a736ec17d377d79b57adbcf277050bc97</anchor>
-      <arglist>(ArenaModelTest, LaReactionSeBasculeDepuisLaBarre)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__model_8cpp.html</anchorfile>
-      <anchor>a07700c6f1c69684a64c389ec3eb166c6</anchor>
-      <arglist>(ArenaModelTest, LeSurvolPoseLeCurseur)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__model_8cpp.html</anchorfile>
-      <anchor>aaf7f7bcb60310b2506faa76fc23e701c</anchor>
-      <arglist>(ArenaModelTest, LeCalqueDeLaGrilleDecritCombattantsEtCasesAtteignables)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__model_8cpp.html</anchorfile>
-      <anchor>a2c39e3e009ae6505ffcafe4716cdecd8</anchor>
-      <arglist>(ArenaModelTest, LEnnemiDeLIaMarcheVersLeJoueur)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -15101,279 +15135,6 @@
       <arglist>(const ArenaFigureSnapshot &amp;, const ArenaFigureSnapshot &amp;)=default</arglist>
     </member>
   </compound>
-  <compound kind="class">
-    <name>hmi::ArenaModel</name>
-    <filename>classhmi_1_1ArenaModel.html</filename>
-    <base>hmi::CombatModel</base>
-    <class kind="struct">hmi::ArenaModel::Fighter</class>
-    <class kind="struct">hmi::ArenaModel::Catalogs</class>
-    <member kind="function">
-      <type></type>
-      <name>ArenaModel</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>abd6c5f16972d1ceb542e31c887ae3339</anchor>
-      <arglist>(QObject *parent=nullptr, std::filesystem::path contentRoot={})</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>~ArenaModel</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ab515f2b0d4366005ec69f536e7deb200</anchor>
-      <arglist>() override</arglist>
-    </member>
-    <member kind="function">
-      <type>QString</type>
-      <name>arenaName</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a7f20d65584128c4760ca2c9ed6f482f2</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>roster</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a0a3e0cf1eb7b6cc04f84774ddc8e2592</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>allies</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ab0f540a5d480f6a8db94d077d467a8c7</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QVariantList</type>
-      <name>enemies</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a08d9ac46ff3302893235a354fa1b070e</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QStringList</type>
-      <name>marks</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a6b3646e217d8a185b14c836a0e955fda</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>seed</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ab18051ad4c0e6a6afdf1f6e8cfcc5c9d</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setSeed</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a3565676b80507bd2896d9cdbe0fb35e1</anchor>
-      <arglist>(int seed)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>enemyAi</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ae760a39be5aad06b75c5117a190fd29a</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setEnemyAi</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a94f84268e496a261f13c2ec6ecbcfa4c</anchor>
-      <arglist>(bool enabled)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>addAlly</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a7c7acd3a66990b76d075c13ebe254f35</anchor>
-      <arglist>(const QString &amp;id)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>addEnemy</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a784a46ca0fcdc4976c4e88d59e788012</anchor>
-      <arglist>(const QString &amp;id)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>removeAlly</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a2934eb0513c4e098b4cbd389a219a692</anchor>
-      <arglist>(int index)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>removeEnemy</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a1b442bdf4b8947cfbe770af644c3a3e2</anchor>
-      <arglist>(int index)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>assignMark</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ad6ee9b86ecf42f069c96d246fbeb9d53</anchor>
-      <arglist>(bool ally, int index, const QString &amp;markId)</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>launch</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a1c364203649d375b354ac1c3ccd3a280</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>replay</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a13525acff4eb4eed4a1bc8d0daff05dd</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>backToSetup</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a8e5cef0bf17e7d6355fb2ddf4e8e3eb5</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="protected">
-      <type>const core::BehaviorCatalog *</type>
-      <name>behaviors</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a2a17667cc70e9d03411c118bdf9878d3</anchor>
-      <arglist>() const override</arglist>
-    </member>
-    <member kind="property">
-      <type>QML_ELEMENTQString</type>
-      <name>arenaName</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a3f4b527afceb64310bee5a8f634f6e26</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>roster</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a9818ee89f3dfcc0b5b0a12c688d7ab27</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>allies</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a7d21e77d0ce4548c070298f47d8e3b73</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QVariantList</type>
-      <name>enemies</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ac340c1bdc7ddfc6280c794211fbc448f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QStringList</type>
-      <name>marks</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ae25cf88b5992d053ea1f037928401366</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>int</type>
-      <name>seed</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a499fac0ee9101a006ed3631ac6054a95</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>bool</type>
-      <name>enemyAi</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ae4f2a8e509afa8e39ae971ecea38bf65</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>loadCatalogs</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>abcd9a4436ac920c5f44085ec006aa56a</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>bool</type>
-      <name>loadPlayableLevel</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a59668333337ab23933ef24fe8ed20d33</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>std::optional&lt; Fighter &gt;</type>
-      <name>fighterFor</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a31512f4b76371c73927844d36346c3b6</anchor>
-      <arglist>(const QString &amp;id, core::CombatSide side) const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>core::ArenaBout</type>
-      <name>composeBout</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>ac35690bb8373d4c3bb6f142749ca1ecd</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>resetSession</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a91bf89ffba6ff7f12a1c61e65cfc974f</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::filesystem::path</type>
-      <name>_contentRoot</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a60ce217824cfce4c2a9ba0dee922a20d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::unique_ptr&lt; Catalogs &gt;</type>
-      <name>_catalogs</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a4c81aa1c9cfdf23055369cbb562e89c1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; Fighter &gt;</type>
-      <name>_allies</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a833151f8c21cb1d6db9fc4565d06ebeb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; Fighter &gt;</type>
-      <name>_enemies</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>add8d1bd31e1308c96a9ffb6d07ae1f35</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_seed</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a82d7e4263ba99bace91bd6741bd80aca</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_enemyAi</name>
-      <anchorfile>classhmi_1_1ArenaModel.html</anchorfile>
-      <anchor>a1478aa690ab7221967d7e15ac72a6c3a</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
   <compound kind="struct">
     <name>core::ArenaMount</name>
     <filename>structcore_1_1ArenaMount.html</filename>
@@ -16130,214 +15891,6 @@
       <name>slabVariant</name>
       <anchorfile>structhmi_1_1ArenaTileAppearance.html</anchorfile>
       <anchor>a9e20acd2f093ee0d764d2ac299c7ef88</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::ArenaViewportItem</name>
-    <filename>classhmi_1_1ArenaViewportItem.html</filename>
-    <class kind="struct">hmi::ArenaViewportItem::Framing</class>
-    <member kind="signal">
-      <type>void</type>
-      <name>modelChanged</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>ac02fd1dc0a2c3bd7d8bfa0f9734959a3</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>clearColorChanged</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a18542946ea9890512152fa49cbaab314</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>framingChanged</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a36342ad70080ab10aa991dc86b02055b</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>ArenaViewportItem</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a1f10e721ab01e8f585e7a81cd6c16b47</anchor>
-      <arglist>(QQuickItem *parent=nullptr)</arglist>
-    </member>
-    <member kind="function">
-      <type>ArenaModel *</type>
-      <name>model</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a3ed1e57a34951686f62bdfd8c450ac7e</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setModel</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>aebb3a9296410ab47be78b213c0689902</anchor>
-      <arglist>(ArenaModel *model)</arglist>
-    </member>
-    <member kind="function">
-      <type>QColor</type>
-      <name>clearColor</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>aa1e41cfbeaba13aaab219eec2a697dc4</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setClearColor</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a68c140d87121018556258675037fd347</anchor>
-      <arglist>(const QColor &amp;color)</arglist>
-    </member>
-    <member kind="function">
-      <type>quint64</type>
-      <name>sceneRevision</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a6ede193cb6d6616caba4e9f72bf4a6e0</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>qreal</type>
-      <name>tileWidth</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>abd5d12c4c056b5f22e1dc52502e6e8cb</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>qreal</type>
-      <name>tileHeight</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a19aceadd07fb9a600bba1536bd1ec322</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>qreal</type>
-      <name>originX</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a946f99b6448e1ca763f09e96c7835892</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>qreal</type>
-      <name>originY</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a9c7c10eaa7e5bd422acaf8a02096dbf4</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE QPoint</type>
-      <name>cellAt</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a2f79ba35372bc2c6a65dcc4bd7212737</anchor>
-      <arglist>(qreal x, qreal y) const</arglist>
-    </member>
-    <member kind="function">
-      <type>QQuickRhiItemRenderer *</type>
-      <name>createRenderer</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a378136832f5e0b761dfa66b83d872276</anchor>
-      <arglist>() override</arglist>
-    </member>
-    <member kind="property">
-      <type>hmi::ArenaModel *</type>
-      <name>model</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a246c059bc20664783a3afb9cfc6084d6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QColor</type>
-      <name>clearColor</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a9e73577704fa4df236fa1bd82c62160f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>qreal</type>
-      <name>tileWidth</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a128f74db2f357a3721fc24c336b9cbad</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>qreal</type>
-      <name>tileHeight</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>aa9401be5d73639f9ba25451d8009009e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>qreal</type>
-      <name>originX</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a7e4a39ec327866a4b41ed449deb984a0</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>qreal</type>
-      <name>originY</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>aa36fd5cb57075a06eb3e1e2062c1805a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>invalidateScene</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a0e5ed4b0c3e835bf2153e795e001928f</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>Framing</type>
-      <name>framing</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a40230031f0519be7c033e11eef74126c</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QPointer&lt; ArenaModel &gt;</type>
-      <name>_model</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>ac6672a95789a1353a5565d72acda3fd4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QMetaObject::Connection</type>
-      <name>_modelChangedConnection</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a56ebd7f771276ea617287b172b12fd49</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QMetaObject::Connection</type>
-      <name>_modelGridConnection</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a14c1cb63b3d12abdb009cbdbdd387f8a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QMetaObject::Connection</type>
-      <name>_modelDestroyedConnection</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>ad7eeabea4070a5855df0e8fd1808db0a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>quint64</type>
-      <name>_sceneRevision</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a4d758f84a6f6ac24f0b1ee3cbef7007a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QColor</type>
-      <name>_clearColor</name>
-      <anchorfile>classhmi_1_1ArenaViewportItem.html</anchorfile>
-      <anchor>a6b1a2d5ce500c437b059105af1c54e51</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -18644,6 +18197,13 @@
       <anchor>a220536118564f64507a606518bc620e3</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>checkDc</name>
+      <anchorfile>structcore_1_1AvailableChoice.html</anchorfile>
+      <anchor>a61c65920419edc442b412623133131d6</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::Background</name>
@@ -19562,66 +19122,6 @@
       <name>_bounds</name>
       <anchorfile>classhmi_1_1EditorViewport_1_1CanvasItem.html</anchorfile>
       <anchor>a4477e1285670713dcbd0cc43dfa7a897</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaModel::Catalogs</name>
-    <filename>structhmi_1_1ArenaModel_1_1Catalogs.html</filename>
-    <member kind="variable">
-      <type>core::Bestiary</type>
-      <name>bestiary</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a956024d97966afc5962d5709bb54404e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::optional&lt; HeroContestantSource &gt;</type>
-      <name>hero</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a0290ff69d168a704725b9ab6bff0a1c4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>core::ArenaCatalog</type>
-      <name>arenas</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a5e0d619f88afff95159c1365175f8881</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>core::HeroicMarkCatalog</type>
-      <name>marks</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a65ed100faf9716f38a2089888ec0f00a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>core::BehaviorCatalog</type>
-      <name>behaviors</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>a4ba85985877c14350142f32c7d658795</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>const core::Arena *</type>
-      <name>playable</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>ae99f0938e99c850496153397d1a243ca</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::optional&lt; core::Level &gt;</type>
-      <name>level</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>ab77aa62d0d9a980a32f653dbb619830a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QStringList</type>
-      <name>problems</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Catalogs.html</anchorfile>
-      <anchor>aedd60cf4577a86c041902237e7e68457</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -23862,6 +23362,214 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::DebugArgument</name>
+    <filename>structhmi_1_1DebugArgument.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1DebugArgument.html</anchorfile>
+      <anchor>a744bbf379dac7b112997dc73bd9283d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>value</name>
+      <anchorfile>structhmi_1_1DebugArgument.html</anchorfile>
+      <anchor>a390ee1986b3dca6abe39368b606ad89f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="friend">
+      <type>friend bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1DebugArgument.html</anchorfile>
+      <anchor>aa35aedf60e157528b0ec3a21157c2925</anchor>
+      <arglist>(const DebugArgument &amp;, const DebugArgument &amp;)=default</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::DebugConsoleModel</name>
+    <filename>classhmi_1_1DebugConsoleModel.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>transcriptChanged</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a9cd74b722069b1923e67a327d436bfb9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>screenRequested</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a08515a8b30b977cbef9e462b2d0f7518</anchor>
+      <arglist>(const QString &amp;name)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>windowSizeRequested</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a7978bb36aef2cc24af7dd4f410548ed4</anchor>
+      <arglist>(int width, int height)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>screenshotRequested</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a08b79f7d0d8bdea2328b0223423db4d1</anchor>
+      <arglist>(const QString &amp;path)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>gameRequested</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a442753b2916cdcd435fbef29bdc5fdfb</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>DebugConsoleModel</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a7a69fe5da35ab5ded3dcba68aa331cb8</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>transcript</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a79f273f4947697c939f3e5c780079b19</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>history</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a65c53f5880c1ef2d1e1072a76f4c1aef</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>run</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a84c0fa0e1123b1c840f8946a1d396530</anchor>
+      <arglist>(const QString &amp;line)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>relaunch</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a1d477a2ba6dc8f9ff351a7868733e418</anchor>
+      <arglist>(const QString &amp;line)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>say</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>ae6fa6168044c90e6a72838263a00327c</anchor>
+      <arglist>(const QString &amp;line)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>clear</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a4f0340b1868d9186e84a6541c7c23525</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static QVariantList</type>
+      <name>options</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a50a3cfd5c8aea6d70c1bcc8648b4bc2e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="property">
+      <type>QML_SINGLETONQStringList</type>
+      <name>transcript</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>aa9d124b5e799a2564f1e1d6b6dfa7ee2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QStringList</type>
+      <name>history</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a47af84ab7ba12fd923b32019dc44849a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>options</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a359bde1736731bd83ef06ea6c7256745</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>apply</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>aecdb620d6d3cbe27101b9a532ee4a5e8</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;words)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>printHelp</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a4eee48a120dabdcb709041c24c2e9d86</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QStringList</type>
+      <name>_transcript</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>a887a7e627657dbb0e00190875a46054a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QStringList</type>
+      <name>_history</name>
+      <anchorfile>classhmi_1_1DebugConsoleModel.html</anchorfile>
+      <anchor>af63574dc4eac43e343a0966eaa0efc00</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::DebugOption</name>
+    <filename>structhmi_1_1DebugOption.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>takesValue</name>
+      <anchorfile>structhmi_1_1DebugOption.html</anchorfile>
+      <anchor>afbcf06fbaa23cf94d03fc5db29783b7b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1DebugOption.html</anchorfile>
+      <anchor>ad094f8c8d0384709bd0c36d893282ef8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>syntax</name>
+      <anchorfile>structhmi_1_1DebugOption.html</anchorfile>
+      <anchor>aa023b94fe93acfba84b02d21d9d78fa5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string_view</type>
+      <name>description</name>
+      <anchorfile>structhmi_1_1DebugOption.html</anchorfile>
+      <anchor>aea425499a111ccc95ad91bf3f28c4f39</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>DebugOptionScope</type>
+      <name>scope</name>
+      <anchorfile>structhmi_1_1DebugOption.html</anchorfile>
+      <anchor>a4a2676b875b7274fb0ea15e8f9123aaa</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::WorldFlags::Declaration</name>
     <filename>structcore_1_1WorldFlags_1_1Declaration.html</filename>
     <member kind="variable">
@@ -24197,6 +23905,13 @@
       <anchor>ae2537605277fe4200cd90f7370a87367</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>alreadyFailed</name>
+      <anchorfile>structcore_1_1DialogueCheck.html</anchorfile>
+      <anchor>a225c14a66ea4941d22a0e125e88215d9</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::DialogueChoice</name>
@@ -24349,6 +24064,13 @@
       <anchor>af3fc38d5eeefa7f78c3abd838f43728f</anchor>
       <arglist>(std::string_view encounterId)</arglist>
     </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>endDemo</name>
+      <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
+      <anchor>a3de75ad9eaf865ce5d687b19ab8d08e0</anchor>
+      <arglist>(std::string_view ending)</arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::DialogueLoad</name>
@@ -24392,6 +24114,13 @@
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a5dc935c8de9307b0be25fd9aeb262a16</anchor>
       <arglist>(const QString &amp;encounterId)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>demoEnded</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>ac6df3725adb704a03c90ee14acefda51</anchor>
+      <arglist>(const QString &amp;ending)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -24450,6 +24179,41 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>QString</type>
+      <name>checkTitle</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a14cd7f9d48d9d2dc978e754c3fe23a1f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>checkDie</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>aaf44980d29cfb2938e47898714980bb5</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>checkDetail</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a732562948b11c08fee734712fe013825</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>checkVerdict</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>ab73b23d86cee543e37bcce949a29c4f7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>checkSucceeded</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>ab2ba8a161932c9e40f28df9db58bd33e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>QAbstractItemModel *</type>
       <name>replies</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
@@ -24468,6 +24232,13 @@
       <name>status</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a1a6c0babadcd43e9bf20541b8c549412</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>dialogueIds</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>ab127e997c3d4496386d96dcbc414d393</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -24527,6 +24298,41 @@
       <arglist></arglist>
     </member>
     <member kind="property">
+      <type>QString</type>
+      <name>checkTitle</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a5de7f4df330f22149800441ed2602095</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>checkDie</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a38f167517adcfe8f42162bfc9fd517c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>checkDetail</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>ab6bb6f524017fe9e6f2aa737bcde7d35</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>checkVerdict</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a918aff905258787aeeaf1b924b0e7ee7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>checkSucceeded</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>af173689acd8716916486a4854dda74fc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
       <type>QAbstractItemModel *</type>
       <name>replies</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
@@ -24545,6 +24351,13 @@
       <name>status</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a20a3f6d2a4ed028340251c4bf9c65d34</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QStringList</type>
+      <name>dialogueIds</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>abe43ddd1c94f7610cf4d4cf202e74bc2</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" protection="private">
@@ -24809,6 +24622,13 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>bool</type>
+      <name>estProposee</name>
+      <anchorfile>classcore_1_1DialogueRunner.html</anchorfile>
+      <anchor>a1019aa046308ea758072047e2478692e</anchor>
+      <arglist>(const DialogueChoice &amp;choice) const</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>void</type>
       <name>advanceTo</name>
       <anchorfile>classcore_1_1DialogueRunner.html</anchorfile>
@@ -24929,6 +24749,41 @@
       <name>checkOutcome</name>
       <anchorfile>structhmi_1_1DialogueScreenValues.html</anchorfile>
       <anchor>a611a234a545d4a010c0f71eaed6ec6f4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>checkTitle</name>
+      <anchorfile>structhmi_1_1DialogueScreenValues.html</anchorfile>
+      <anchor>ab73dca351d57289f832a4b5aaed7b2fd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>checkDie</name>
+      <anchorfile>structhmi_1_1DialogueScreenValues.html</anchorfile>
+      <anchor>a399755fc6bbdccd8964f3b5c149baca2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>checkDetail</name>
+      <anchorfile>structhmi_1_1DialogueScreenValues.html</anchorfile>
+      <anchor>ae5868b0f69b074562cb1a0cbfacd658f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>checkVerdict</name>
+      <anchorfile>structhmi_1_1DialogueScreenValues.html</anchorfile>
+      <anchor>af31ecac77f38895d21d1bdb278072a43</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>checkSucceeded</name>
+      <anchorfile>structhmi_1_1DialogueScreenValues.html</anchorfile>
+      <anchor>ae132d4aba3ed8b198f2df8a0e5edbd7a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -29412,24 +29267,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>hmi::ArenaModel::Fighter</name>
-    <filename>structhmi_1_1ArenaModel_1_1Fighter.html</filename>
-    <member kind="variable">
-      <type>QString</type>
-      <name>id</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Fighter.html</anchorfile>
-      <anchor>abf3c5e18493969d09a0bd97a06c11337</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>core::ArenaContestant</type>
-      <name>contestant</name>
-      <anchorfile>structhmi_1_1ArenaModel_1_1Fighter.html</anchorfile>
-      <anchor>aaf5792505a3f97dc396aed4854749092</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>hmi::FigureAppearance</name>
     <filename>structhmi_1_1FigureAppearance.html</filename>
     <member kind="variable">
@@ -29800,38 +29637,6 @@
       <name>side</name>
       <anchorfile>structcore_1_1Footprint.html</anchorfile>
       <anchor>ab4ac0e9d4c2e6eb32b4c0fd6d53c7ef7</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaViewportItem::Framing</name>
-    <filename>structhmi_1_1ArenaViewportItem_1_1Framing.html</filename>
-    <member kind="variable">
-      <type>core::IsoProjection</type>
-      <name>projection</name>
-      <anchorfile>structhmi_1_1ArenaViewportItem_1_1Framing.html</anchorfile>
-      <anchor>abaf009b1c31a7bed1b3208e5444f8965</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>Camera2D</type>
-      <name>camera</name>
-      <anchorfile>structhmi_1_1ArenaViewportItem_1_1Framing.html</anchorfile>
-      <anchor>a151b78c0bd630154554402e7f348ef87</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>qreal</type>
-      <name>pixelsPerItemX</name>
-      <anchorfile>structhmi_1_1ArenaViewportItem_1_1Framing.html</anchorfile>
-      <anchor>a1a2b25056c556872408b024b85020a6e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>qreal</type>
-      <name>pixelsPerItemY</name>
-      <anchorfile>structhmi_1_1ArenaViewportItem_1_1Framing.html</anchorfile>
-      <anchor>a8c8f8a181cb321bac4cbe76e15c5bf38</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -33733,6 +33538,38 @@
       <arglist>() const noexcept</arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>hmi::LevelEntry</name>
+    <filename>structhmi_1_1LevelEntry.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>mapId</name>
+      <anchorfile>structhmi_1_1LevelEntry.html</anchorfile>
+      <anchor>aee321f693495e2ae9bb48acd7bef6895</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>file</name>
+      <anchorfile>structhmi_1_1LevelEntry.html</anchorfile>
+      <anchor>ac15d791a80d924b16419e44d910d77d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>directory</name>
+      <anchorfile>structhmi_1_1LevelEntry.html</anchorfile>
+      <anchor>a243f3f3bdece83e944d7c0dbc4ea8061</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="friend">
+      <type>friend bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1LevelEntry.html</anchorfile>
+      <anchor>ac12b7288865231615b5d676eac8a347f</anchor>
+      <arglist>(const LevelEntry &amp;, const LevelEntry &amp;)=default</arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>hmi::LevelFileOperations</name>
     <filename>classhmi_1_1LevelFileOperations.html</filename>
@@ -35594,6 +35431,150 @@
       <name>at</name>
       <anchorfile>structhmi_1_1MapLabel.html</anchorfile>
       <anchor>a614c85cc21c5a03bb5eadcd8ad121ec7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::MapLauncherModel</name>
+    <filename>classhmi_1_1MapLauncherModel.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>changed</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a4bd053c055e4922b8e6a228d28e44ee5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>launched</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ade1f4eb5481c84c3eae42b5f0d4f14af</anchor>
+      <arglist>(const QString &amp;mapId)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>MapLauncherModel</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ac9c2f5f9535adaf35ef10c8936c9a72d</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>maps</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ac8be11d47f33a47732ba409e80067445</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>directories</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>aedce00c9fd78da1cad4181cb2ced4760</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>levelsRoot</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>aeb885b617a0b2e904d920b2fdde2674f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>status</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ad32303eafc3118baa279994ad5f1b07b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>refresh</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a4a976ba4ae0dab80bd990a23a9543e81</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>addDirectory</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ab7e8496cb755fdbfac55062eb701fd4f</anchor>
+      <arglist>(const QString &amp;path)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>removeDirectory</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a6fc83d151c65fbf3f6fc4479f5905304</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>launch</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a2a1a5d448d469662a2787fc80222deea</anchor>
+      <arglist>(const QString &amp;mapId, const QString &amp;arrival, const QString &amp;at, const QString &amp;flags, const QString &amp;heroFigure)</arglist>
+    </member>
+    <member kind="property">
+      <type>QML_ELEMENTQVariantList</type>
+      <name>maps</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a756e41ca6fce0dc966a730fafc952b70</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QStringList</type>
+      <name>directories</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a8bbbebafc7d8eb788127faad6c7696e1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>levelsRoot</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a26ba0c1dc5595e2e0f46e5e559c0a0c9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>status</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a024e0a3971936a892adaa6790ebc7971</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::vector&lt; std::filesystem::path &gt;</type>
+      <name>allDirectories</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a46a999c96a78c6213456afb0b4562799</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>setStatus</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ad2d6afb7f5b91eb3484d2e03a8fa5108</anchor>
+      <arglist>(QString status)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::filesystem::path &gt;</type>
+      <name>_directories</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>ada7326466d5d2d6b5f06192bb0d71467</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QVariantList</type>
+      <name>_maps</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a2a00173297b821148b60d4f77af95a17</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_status</name>
+      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
+      <anchor>a68f4c66ee3794e8aa3c66d90abef1082</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -40590,7 +40571,8 @@
       <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a82f878c3ef3a0d8b924af7bbca4b37f7a105b296a83f9c105355403f3332af50f">Pause</enumvalue>
       <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51">Credits</enumvalue>
       <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a82f878c3ef3a0d8b924af7bbca4b37f7a74f7bb96f40b089d24eea4863b269139">RpgScreen</enumvalue>
-      <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4">Arena</enumvalue>
+      <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a82f878c3ef3a0d8b924af7bbca4b37f7a6097f89e3092d4ccd249c9d479785c1f">Death</enumvalue>
+      <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a82f878c3ef3a0d8b924af7bbca4b37f7a2e8f4ffcd312289356892722c8fa8663">DemoEnd</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -40701,16 +40683,9 @@
     </member>
     <member kind="function">
       <type>Q_INVOKABLE void</type>
-      <name>openArena</name>
+      <name>jumpToGame</name>
       <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
-      <anchor>a2494cbca36808d307ae0cf26336e5c78</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>closeArena</name>
-      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
-      <anchor>a848642d2b4ed6fcf1b3c78de534de4e9</anchor>
+      <anchor>ab876832aba412ba4d1413c106cd6e86f</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
@@ -40725,6 +40700,34 @@
       <name>dialogueId</name>
       <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
       <anchor>a400495598bce472d73a8673d7e9601df</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>openDeath</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a22a80d6968c5250fce4a132fcf9a8589</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>openDemoEnd</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a7a7d4a93306757c363179da8b0ddc447</anchor>
+      <arglist>(const QString &amp;ending)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>ending</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a8786f906b622defb6fbdbafcc44ab089</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>endingText</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a2e5969e50cd56788d75aae8be0cc2f3a</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -40778,6 +40781,20 @@
     </member>
     <member kind="property">
       <type>QString</type>
+      <name>ending</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a79f8523f29d42f7c2a6ab23245485044</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>endingText</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a5d0110696a2cfda27e31867ee2a021ea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
       <name>dialogueId</name>
       <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
       <anchor>aa9ba1f7e1f16121dc41686cc69ee0dea</anchor>
@@ -40818,6 +40835,13 @@
       <anchor>a5b9b9bdca132c589d8f8060f4e95f9d4</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_ending</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a71aa3afd55c4f50e673d591eac3a20c6</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::ScreenState</name>
@@ -40841,13 +40865,6 @@
       <name>rpgReturnTo</name>
       <anchorfile>structhmi_1_1ScreenState.html</anchorfile>
       <anchor>a35d36781ddd45df8818932eb54d7a616</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>ScreenId</type>
-      <name>arenaReturnTo</name>
-      <anchorfile>structhmi_1_1ScreenState.html</anchorfile>
-      <anchor>acd2658e4556b00725a8f092e25916f07</anchor>
       <arglist></arglist>
     </member>
     <member kind="friend">
@@ -44446,6 +44463,13 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>endGame</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a3ecec460681d282a80941ae0062fec99</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
       <type>Q_INVOKABLE bool</type>
       <name>enterMap</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -44470,8 +44494,8 @@
       <type>void</type>
       <name>setStartCell</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
-      <anchor>aa8471ce16a773ad1d77e3fa3873e0089</anchor>
-      <arglist>(core::GridPosition cell)</arglist>
+      <anchor>ae546c1db5e612db7df1816cfbffbe7fb</anchor>
+      <arglist>(std::optional&lt; core::GridPosition &gt; cell)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -44839,6 +44863,20 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>rebuildSession</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a8020d76261bedca7939d0f2d4f0aeb18</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyFlags</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a607b89abcc862c2f2c8bbd32167197d3</anchor>
+      <arglist>(const QStringList &amp;flags)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>noteDistrictVisit</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>adc66b2547875ba03914fe3186cd9e7c4</anchor>
@@ -44898,6 +44936,20 @@
       <name>_startCell</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a3b20618e566086e6244452a635e050db</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::filesystem::path &gt;</type>
+      <name>_levelDirectories</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a1e39e071f83fd8ce132426c2b29e434d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QStringList</type>
+      <name>_startFlags</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a4ef356b5ee7c5b34080f460a048b7fa4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -47009,6 +47061,7 @@
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2">StartQuest</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159">StartCombat</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -48642,6 +48695,13 @@
     </member>
     <member kind="function">
       <type>std::string</type>
+      <name>demoEndingKey</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>acd687b89399df2a9dcc1bde15b5e46f7</anchor>
+      <arglist>(std::string_view ending)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
       <name>dialogueAttitudeKey</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a58479e55baaecd8fde393467a4db7236</anchor>
@@ -48660,6 +48720,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>acadb420f48a33466a637a863e9c8e814</anchor>
       <arglist>(std::string_view questId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>dialogueCheckFailedFlag</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>acdf93401cff640016af7027ed99792fd</anchor>
+      <arglist>(std::string_view dialogueId, std::string_view checkNodeId)</arglist>
     </member>
     <member kind="function">
       <type>DialogueLoad</type>
@@ -49937,10 +50004,13 @@
     <class kind="struct">hmi::CombatCue</class>
     <class kind="struct">hmi::FigureMotion</class>
     <class kind="class">hmi::CombatCueTrack</class>
+    <class kind="struct">hmi::DebugOption</class>
+    <class kind="struct">hmi::DebugArgument</class>
     <class kind="struct">hmi::ResolvedFigure</class>
     <class kind="class">hmi::FigureResolver</class>
     <class kind="struct">hmi::GameQuests</class>
     <class kind="struct">hmi::GameLaunchOptions</class>
+    <class kind="struct">hmi::LevelEntry</class>
     <class kind="struct">hmi::WorldPlayStep</class>
     <class kind="class">hmi::WorldPlay</class>
     <class kind="struct">hmi::AnimationDescription</class>
@@ -50043,14 +50113,13 @@
     <class kind="struct">hmi::MapCityPointView</class>
     <class kind="struct">hmi::MapCityView</class>
     <class kind="struct">hmi::WorldMapViews</class>
-    <class kind="class">hmi::ArenaModel</class>
-    <class kind="class">hmi::ArenaViewportItem</class>
     <class kind="class">hmi::AssetGalleryItem</class>
     <class kind="class">hmi::CharacterSheetModel</class>
     <class kind="class">hmi::CityBlockImageProvider</class>
     <class kind="class">hmi::CityDistrictModel</class>
     <class kind="class">hmi::CombatModel</class>
     <class kind="class">hmi::CreditsModel</class>
+    <class kind="class">hmi::DebugConsoleModel</class>
     <class kind="struct">hmi::DemonstrationCharacter</class>
     <class kind="struct">hmi::DemonstrationState</class>
     <class kind="class">hmi::DialogueModel</class>
@@ -50058,6 +50127,7 @@
     <class kind="class">hmi::GamepadNavigator</class>
     <class kind="class">hmi::GameViewportItem</class>
     <class kind="class">hmi::InventoryModel</class>
+    <class kind="class">hmi::MapLauncherModel</class>
     <class kind="class">hmi::OptionsModel</class>
     <class kind="class">hmi::PendingData</class>
     <class kind="class">hmi::QuestJournalModel</class>
@@ -50315,6 +50385,15 @@
       <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">Cast</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">Hit</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">Death</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>DebugOptionScope</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2ffc1a507d314cef8672b08e6a13b2e2</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="a2ffc1a507d314cef8672b08e6a13b2e2a955ad3298db330b5ee880c2c9e6f23a0">Live</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a2ffc1a507d314cef8672b08e6a13b2e2aaeda33b4f358df1734eff08c2e0abff7">LaunchOnly</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -50604,7 +50683,8 @@
       <enumvalue file="namespacehmi.html" anchor="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f">Pause</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51">Credits</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139">RpgScreen</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4">Arena</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a168b24f798c2e6d06beb9472a071528da6097f89e3092d4ccd249c9d479785c1f">Death</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a168b24f798c2e6d06beb9472a071528da2e8f4ffcd312289356892722c8fa8663">DemoEnd</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -50623,8 +50703,8 @@
       <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90a64b9ec7c728085981f7746660948ed17">CloseCredits</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90adb28cc1642bf3c7166e5556e54c9752b">OpenRpgScreen</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90a41a0a091b97ea443ec61e2b5fd660d32">CloseRpgScreen</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90a3be966fb2b7d08b242df53d0bc22e1dd">OpenArena</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90abc9cfeaf81c60f29d78a1ef99aecb576">CloseArena</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90a227a29fbaee95932289fb222e49610a7">OpenDeath</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a964211f19cf43757eaaa80c3c29b0e90a8a7d98752bdb7937e197d6440dc19483">OpenDemoEnd</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -51929,6 +52009,41 @@
       <arglist>(const core::Creature &amp;creature, core::CombatSide side, const core::BehaviorCatalog *behaviors)</arglist>
     </member>
     <member kind="function">
+      <type>std::span&lt; const DebugOption &gt;</type>
+      <name>debugOptionCatalog</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a0b53b479dc26a3d7bb1152bf9707345e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>DebugArgument</type>
+      <name>splitDebugArgument</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aa04baa16b14f95871289bf9014e254b8</anchor>
+      <arglist>(std::string_view token)</arglist>
+    </member>
+    <member kind="function">
+      <type>const DebugOption *</type>
+      <name>findDebugOption</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>af3342c77654ce2350eff74efa171f670</anchor>
+      <arglist>(std::string_view name) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>splitCommandLine</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ae1ad4828c12ee37cc5f535d9ae4583fa</anchor>
+      <arglist>(std::string_view line)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; std::pair&lt; int, int &gt; &gt;</type>
+      <name>parseWindowSize</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a417122de84691fdc7395fe7b56b0987c</anchor>
+      <arglist>(std::string_view value)</arglist>
+    </member>
+    <member kind="function">
       <type>GameQuests</type>
       <name>loadGameQuests</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -51962,6 +52077,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a613a6276c7f598e007ab8fc0863e299f</anchor>
       <arglist>(std::string_view value)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; LevelEntry &gt;</type>
+      <name>scanLevelDirectories</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a5fdb281b011b565f32497f910dd1330e</anchor>
+      <arglist>(const std::vector&lt; std::filesystem::path &gt; &amp;directories)</arglist>
     </member>
     <member kind="function">
       <type>ArenaFigureAnimationLoad</type>
@@ -53905,12 +54027,16 @@
     <file>CombatContestants.h</file>
     <file>CombatCues.cpp</file>
     <file>CombatCues.h</file>
+    <file>DebugCommands.cpp</file>
+    <file>DebugCommands.h</file>
     <file>FigureResolver.cpp</file>
     <file>FigureResolver.h</file>
     <file>GameQuests.cpp</file>
     <file>GameQuests.h</file>
     <file>LaunchOptions.cpp</file>
     <file>LaunchOptions.h</file>
+    <file>LevelScan.cpp</file>
+    <file>LevelScan.h</file>
     <file>WorldPlay.cpp</file>
     <file>WorldPlay.h</file>
   </compound>
@@ -53919,8 +54045,10 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Game/</path>
     <filename>dir_e603d07e027ebb67c21222d66f955c38.html</filename>
     <file>test_combat_cues.cpp</file>
+    <file>test_debug_commands.cpp</file>
     <file>test_figure_resolver.cpp</file>
     <file>test_launch_options.cpp</file>
+    <file>test_level_scan.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Gameplay</name>
@@ -54392,10 +54520,6 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>dir_7eb0d0bc801e3eeb9c9e3cb238223789.html</filename>
-    <file>ArenaModel.cpp</file>
-    <file>ArenaModel.h</file>
-    <file>ArenaViewportItem.cpp</file>
-    <file>ArenaViewportItem.h</file>
     <file>AssetGalleryItem.cpp</file>
     <file>AssetGalleryItem.h</file>
     <file>CharacterSheetModel.cpp</file>
@@ -54408,6 +54532,8 @@
     <file>CombatModel.h</file>
     <file>CreditsModel.cpp</file>
     <file>CreditsModel.h</file>
+    <file>DebugConsoleModel.cpp</file>
+    <file>DebugConsoleModel.h</file>
     <file>DemonstrationCharacter.cpp</file>
     <file>DemonstrationCharacter.h</file>
     <file>DialogueModel.cpp</file>
@@ -54420,6 +54546,8 @@
     <file>GameViewportItem.h</file>
     <file>InventoryModel.cpp</file>
     <file>InventoryModel.h</file>
+    <file>MapLauncherModel.cpp</file>
+    <file>MapLauncherModel.h</file>
     <file>OptionsModel.cpp</file>
     <file>OptionsModel.h</file>
     <file>PendingData.cpp</file>
@@ -54443,7 +54571,6 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
     <filename>dir_c911b180da51e85765e60707d4387a94.html</filename>
-    <file>test_arena_model.cpp</file>
     <file>test_encounter_model.cpp</file>
   </compound>
   <compound kind="dir">

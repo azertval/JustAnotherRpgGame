@@ -16,11 +16,10 @@ var searchData=
   ['appendwaypoint_13',['AppendWaypoint',['../namespacehmi.html#a89e362f40fcd08bc4c65661aff7fff62a5c34b8ae61089cc197adc71689042f22',1,'hmi']]],
   ['area_14',['Area',['../namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9adeec4ff19974f12ed781cb9a59064214',1,'core']]],
   ['areatoonarrow_15',['AreaTooNarrow',['../namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910a8056209b717ddb217ee5d79cfa19823c',1,'core']]],
-  ['arena_16',['Arena',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a6fa3f3daa9f9a6282d58c913b73b8dc4',1,'hmi::ScreenRouter::Arena'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da6fa3f3daa9f9a6282d58c913b73b8dc4',1,'hmi::Arena']]],
-  ['arrivalpoints_17',['ArrivalPoints',['../namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a76e792516a9afec30df53f882a407d5b',1,'core']]],
-  ['askreloadorkeep_18',['AskReloadOrKeep',['../namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc',1,'hmi']]],
-  ['atstartup_19',['AtStartup',['../namespaceapp.html#a08a9b726272557de4abbb1580ae92a68a00e02845f59592c5a5fd8534854b8d17',1,'app']]],
-  ['attack_20',['Attack',['../namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a',1,'core::Attack'],['../namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack'],['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack']]],
-  ['attackdeclared_21',['AttackDeclared',['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af',1,'core']]],
-  ['awaitingchoice_22',['AwaitingChoice',['../namespacecore.html#adbe3368bf4f687b1ab2120308d322c0aaf0ab72293be96072c5f5ad74dfd7f6b5',1,'core']]]
+  ['arrivalpoints_16',['ArrivalPoints',['../namespacecore.html#a26db7cfadc5ea47bb85e806bd8010f37a76e792516a9afec30df53f882a407d5b',1,'core']]],
+  ['askreloadorkeep_17',['AskReloadOrKeep',['../namespacehmi.html#a708d53e28e7a6af851f81372cfebd3d7a89af6f809a2041457864d4fc344b95dc',1,'hmi']]],
+  ['atstartup_18',['AtStartup',['../namespaceapp.html#a08a9b726272557de4abbb1580ae92a68a00e02845f59592c5a5fd8534854b8d17',1,'app']]],
+  ['attack_19',['Attack',['../namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a',1,'core::Attack'],['../namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack'],['../namespacehmi.html#ad5ace887c9d040dd9cd8b5649a5ab9b3adcfafcb4323b102c7e204555d313ba0a',1,'hmi::Attack']]],
+  ['attackdeclared_20',['AttackDeclared',['../namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af',1,'core']]],
+  ['awaitingchoice_21',['AwaitingChoice',['../namespacecore.html#adbe3368bf4f687b1ab2120308d322c0aaf0ab72293be96072c5f5ad74dfd7f6b5',1,'core']]]
 ];

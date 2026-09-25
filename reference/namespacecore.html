@@ -949,6 +949,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159">StartCombat</a>
 , <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</a>
+, <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aae1dbf957fd7a423de4c11a60fc2d680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un nœud d'action fait au monde.  <a href="#aae1dbf957fd7a423de4c11a60fc2d680">More...</a><br /></td></tr>
@@ -1565,12 +1566,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae06673ab0442d9711873e9bfffedaf89"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">dialogue.&lt;dialogue&gt;.&lt;nœud&gt;.&lt;réponse&gt;</span> — le texte d'une réponse.  <br /></td></tr>
 <tr class="memitem:a07385d9b9ea590d3a3b7b11bd820b891" id="r_a07385d9b9ea590d3a3b7b11bd820b891"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a07385d9b9ea590d3a3b7b11bd820b891">dialogueAttitudeName</a> (<a class="el" href="#ade7d6c98b6c0942fee991823b7e237a7">DialogueAttitude</a> attitude) noexcept</td></tr>
 <tr class="memdesc:a07385d9b9ea590d3a3b7b11bd820b891"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">friendly</span>, <span class="tt">indifferent</span>, <span class="tt">hostile</span> — le mot de la donnée.  <br /></td></tr>
+<tr class="memitem:acd687b89399df2a9dcc1bde15b5e46f7" id="r_acd687b89399df2a9dcc1bde15b5e46f7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acd687b89399df2a9dcc1bde15b5e46f7">demoEndingKey</a> (std::string_view ending)</td></tr>
+<tr class="memdesc:acd687b89399df2a9dcc1bde15b5e46f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé de traduction d'une voie de fin de la démo (<span class="tt">LOT-119</span>) : « ending.  <br /></td></tr>
 <tr class="memitem:a58479e55baaecd8fde393467a4db7236" id="r_a58479e55baaecd8fde393467a4db7236"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a58479e55baaecd8fde393467a4db7236">dialogueAttitudeKey</a> (<a class="el" href="#ade7d6c98b6c0942fee991823b7e237a7">DialogueAttitude</a> attitude)</td></tr>
 <tr class="memdesc:a58479e55baaecd8fde393467a4db7236"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">dialogue.attitude.&lt;friendly|indifferent|hostile&gt;</span>.  <br /></td></tr>
 <tr class="memitem:af99529282dcc81f361efd8083c95d377" id="r_af99529282dcc81f361efd8083c95d377"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af99529282dcc81f361efd8083c95d377">dialogueTextKeys</a> (const <a class="el" href="structcore_1_1DialogueGraph.html">DialogueGraph</a> &amp;graph)</td></tr>
 <tr class="memdesc:af99529282dcc81f361efd8083c95d377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les clés de traduction qu'un graphe réclame, sans doublon.  <br /></td></tr>
 <tr class="memitem:acadb420f48a33466a637a863e9c8e814" id="r_acadb420f48a33466a637a863e9c8e814"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acadb420f48a33466a637a863e9c8e814">questStartedFlag</a> (std::string_view questId)</td></tr>
 <tr class="memdesc:acadb420f48a33466a637a863e9c8e814"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest/&lt;quête&gt;/started</span> — le drapeau qu'une action « démarrer une quête » pose.  <br /></td></tr>
+<tr class="memitem:acdf93401cff640016af7027ed99792fd" id="r_acdf93401cff640016af7027ed99792fd"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#acdf93401cff640016af7027ed99792fd">dialogueCheckFailedFlag</a> (std::string_view dialogueId, std::string_view checkNodeId)</td></tr>
+<tr class="memdesc:acdf93401cff640016af7027ed99792fd"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">dialogue/&lt;dialogue&gt;/&lt;jet&gt;/failed</span> — le drapeau qu'un jet <b>raté</b> pose (<span class="tt">LOT-117</span>).  <br /></td></tr>
 <tr class="memitem:a7ca203540a075321cb431c2a237b45a3" id="r_a7ca203540a075321cb431c2a237b45a3"><td class="memItemLeft"><a class="el" href="structcore_1_1DialogueLoad.html">DialogueLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7ca203540a075321cb431c2a237b45a3">readDialogue</a> (std::string_view json, std::string_view origin)</td></tr>
 <tr class="memdesc:a7ca203540a075321cb431c2a237b45a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit et <b>valide</b> un dialogue.  <br /></td></tr>
 <tr class="memitem:a8c3c19eb55ce28a2afd54fd1b89fc51d" id="r_a8c3c19eb55ce28a2afd54fd1b89fc51d"><td class="memItemLeft"><a class="el" href="structcore_1_1DialogueLoad.html">DialogueLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8c3c19eb55ce28a2afd54fd1b89fc51d">loadDialogue</a> (const std::filesystem::path &amp;path)</td></tr>
@@ -2912,6 +2917,9 @@ Variables</h2></td></tr>
 <p>Le dialogue ne sait pas ce qu'est un combat — il le demande, et c'est l'interface qui ouvre le Colisée (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a6ce049b4a2a48f8ac02c979a3caf0c14" title="Le PNJ l&#39;envoie se battre dans l&#39;arène arenaId (LOT-09).">core::DialogueListener::startCombat</a></span>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5" name="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5"></a>StartEncounter&#160;</td><td class="fielddoc"><p><b>Engage une rencontre sur la carte</b> (<span class="tt">LOT-118</span>) : le maître d'arène lance le combat nommé par <span class="tt">target</span>, ici même, sur la zone de combat de la carte (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#af3fc38d5eeefa7f78c3abd838f43728f" title="Le PNJ engage la rencontre encounterId sur la carte (LOT-118).">core::DialogueListener::startEncounter</a></span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3" name="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3"></a>EndDemo&#160;</td><td class="fielddoc"><p><b>Termine la démo</b> (<span class="tt">LOT-119</span>) : l'écran « Fin de la démo » s'ouvre, et dit la voie nommée par <span class="tt">target</span> (<span class="tt"><a class="el" href="#acd687b89399df2a9dcc1bde15b5e46f7" title="La clé de traduction d&#39;une voie de fin de la démo (LOT-119) : « ending.">core::demoEndingKey</a></span>). </p>
+<p>Le dialogue ne connaît pas l'écran ; il le demande (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a3de75ad9eaf865ce5d687b19ab8d08e0" title="Le PNJ clôt la démo par la voie ending (LOT-119).">core::DialogueListener::endDemo</a></span>). </p>
 </td></tr>
 </table>
 
@@ -6539,6 +6547,34 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="acd687b89399df2a9dcc1bde15b5e46f7" name="acd687b89399df2a9dcc1bde15b5e46f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd687b89399df2a9dcc1bde15b5e46f7">&#9670;&#160;</a></span>demoEndingKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::demoEndingKey </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>ending</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La clé de traduction d'une voie de fin de la démo (<span class="tt">LOT-119</span>) : « ending. </p>
+<p>» suivi de la voie. Son texte est ce que dit l'écran de fin, « par la voie de l'arène ». </p>
+
+</div>
+</div>
 <a id="a3322a01062af04e9242df68f744c142f" name="a3322a01062af04e9242df68f744c142f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3322a01062af04e9242df68f744c142f">&#9670;&#160;</a></span>deriveCollision()</h2>
 
@@ -6768,6 +6804,38 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p><span class="tt">friendly</span>, <span class="tt">indifferent</span>, <span class="tt">hostile</span> — le mot de la donnée. </p>
+
+</div>
+</div>
+<a id="acdf93401cff640016af7027ed99792fd" name="acdf93401cff640016af7027ed99792fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf93401cff640016af7027ed99792fd">&#9670;&#160;</a></span>dialogueCheckFailedFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::dialogueCheckFailedFlag </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>dialogueId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>checkNodeId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">dialogue/&lt;dialogue&gt;/&lt;jet&gt;/failed</span> — le drapeau qu'un jet <b>raté</b> pose (<span class="tt">LOT-117</span>). </p>
+<p>Un jet raté ne se retente pas : à une table, le garde qui a dit non ne se laisse pas convaincre par la même tirade cinq minutes plus tard. Le runner pose ce drapeau à l'échec, retire les réponses qui mènent à ce jet, et un jet atteint de nouveau par un autre chemin échoue sans relancer le dé. Un drapeau de monde, et non une mémoire du runner : il survit à la conversation, et une quête peut le lire. Fabriqué, pour qu'aucun auteur n'ait à l'écrire. </p>
 
 </div>
 </div>
@@ -11319,7 +11387,9 @@ Les places</h2>
 <li>un <b>choix vide</b> : une réplique dont la liste de réponses existe mais est vide, une réponse sans identifiant, deux réponses de même identifiant, ou une réplique dont <b>toutes</b> les réponses sont conditionnelles — que les drapeaux les masquent toutes, et le joueur resterait devant une réplique sans issue ;</li>
 <li>un <b>cycle non intentionnel</b> : une boucle qui ne passe par aucune réplique à réponses. Une boucle qui revient à une réplique à réponses est un « hub » voulu (« Autre chose ? ») ; une boucle de conditions et d'actions tournerait sans fin, et une boucle de répliques sans réponse enfermerait le joueur dans un monologue ;</li>
 <li>un <b>nœud orphelin</b>, que rien n'atteint depuis l'entrée — presque toujours une faute de frappe dans une cible ;</li>
-<li>une <b>impasse</b> : un nœud d'où aucune fin n'est atteignable.</li>
+<li>une <b>impasse</b> : un nœud d'où aucune fin n'est atteignable ;</li>
+<li>une <b>réponse à jet sans branche d'échec</b> (<span class="tt">LOT-117</span>) : un jet sans <span class="tt">failure</span>, ou dont l'échec mène où mène la réussite — le jet ne déciderait rien ;</li>
+<li>une réplique dont <b>toutes</b> les réponses peuvent disparaître : une réponse qui mène à un jet n'est plus proposée une fois ce jet raté (<span class="tt"><a class="el" href="#acdf93401cff640016af7027ed99792fd" title="dialogue/&lt;dialogue&gt;/&lt;jet&gt;/failed — le drapeau qu&#39;un jet raté pose (LOT-117).">core::dialogueCheckFailedFlag</a></span>), et compte donc comme conditionnelle.</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

@@ -363,7 +363,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle du combat sur la carte. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md118"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md113"></a>
 Ce qu'elle tient</h2>
 <p>La partie commune du combat (<span class="tt"><a class="el" href="classhmi_1_1CombatModel.html" title="La vue-modèle d&#39;un combat monté : le curseur, les actions du tour, ce que la grille montre,...">hmi::CombatModel</a></span>), plus ce que la carte y ajoute :</p>
 <ul>
@@ -371,10 +371,10 @@ Ce qu'elle tient</h2>
 <li>la <b>file des mouvements</b> (<span class="tt"><a class="el" href="classhmi_1_1CombatCueTrack.html">hmi::CombatCueTrack</a></span>) : ce que la session décide se rejoue à la vitesse du monde — les pas, les coups, les chutes —, et tant qu'elle joue, <span class="tt"><a class="el" href="#adf4b903dd58407d9540dfa3cb91a6ac8" title="Vrai tant qu&#39;un mouvement se joue : les gestes attendent, l&#39;écran le montre.">busy</a></span> est vrai et les gestes attendent. Les tours de l'IA se jouent <b>un par un</b>, chacun après que le précédent s'est vu ;</li>
 <li>les <b>figurines</b> des combattants, publiées à chaque pas dans <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span> (<span class="tt">setCombatFigures</span>) : la surface de rendu de l'exploration les dessine sur la carte gelée, par le même pipeline. Un combattant sans figurine prend son mannequin (<span class="tt">LOT-145</span>).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md119"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md114"></a>
 Un singleton, comme la partie</h2>
 <p>L'écran de combat (<span class="tt">CombatHud.qml</span>) se construit et se détruit avec la pile d'écrans ; la rencontre, elle, est un état de la <b>partie</b> (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span>), et survit à l'ouverture d'un autre écran par-dessus.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md120"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md115"></a>
 Les issues</h2>
 <p><span class="tt"><a class="el" href="#a45300e7fbb84f2da858e82a977f5b1ef" title="victory, defeat, flight ; vide tant que le combat dure ou que la file joue.">outcome</a></span> se publie quand le combat a une issue <b>et</b> que la file a fini de la montrer : <span class="tt">victory</span>, <span class="tt">defeat</span> ou <span class="tt">flight</span>. <span class="tt"><a class="el" href="#a1fe373e7ea8c8bc470d21e12816b1b3c" title="Le combat a une issue : rend l&#39;exploration, pose ce qu&#39;une victoire acquiert.">leave()</a></span> rend alors l'exploration : le drapeau d'une victoire est posé (<span class="tt"><a class="el" href="namespacecore.html#a468dc3da08cf6838100dc8e96eed0312" title="Termine run, et rend l&#39;état d&#39;exploration à restituer.">core::endEncounter</a></span>), le héros reste où le combat l'a laissé, la carte dégèle. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>

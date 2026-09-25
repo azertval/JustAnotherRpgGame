@@ -166,6 +166,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:a1019aa046308ea758072047e2478692e" id="r_a1019aa046308ea758072047e2478692e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1019aa046308ea758072047e2478692e">estProposee</a> (const <a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a> &amp;choice) const</td></tr>
+<tr class="memdesc:a1019aa046308ea758072047e2478692e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">choice</code> est proposée maintenant : sa condition tient, et le jet où elle mène n'a pas déjà été raté.  <br /></td></tr>
 <tr class="memitem:a74172cf4aec9791362da024462865ac1" id="r_a74172cf4aec9791362da024462865ac1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a74172cf4aec9791362da024462865ac1">advanceTo</a> (const std::string &amp;nodeId)</td></tr>
 <tr class="memitem:a0ebb75ae0cdcaf220ef9f1c0c0d01620" id="r_a0ebb75ae0cdcaf220ef9f1c0c0d01620"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0ebb75ae0cdcaf220ef9f1c0c0d01620">apply</a> (const <a class="el" href="structcore_1_1DialogueAction.html">DialogueAction</a> &amp;action)</td></tr>
 <tr class="memitem:a6a4d53f7665cab3dad057a3355847333" id="r_a6a4d53f7665cab3dad057a3355847333"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a4d53f7665cab3dad057a3355847333">runCheck</a> (const <a class="el" href="structcore_1_1DialogueNode.html">DialogueNode</a> &amp;node)</td></tr>
@@ -378,6 +380,33 @@ Rejouable</h2>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La réplique affichée, ou <span class="tt">nullptr</span> si aucune n'attend. </dd></dl>
+
+</div>
+</div>
+<a id="a1019aa046308ea758072047e2478692e" name="a1019aa046308ea758072047e2478692e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1019aa046308ea758072047e2478692e">&#9670;&#160;</a></span>estProposee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::DialogueRunner::estProposee </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>choice</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si <code class="param">choice</code> est proposée maintenant : sa condition tient, et le jet où elle mène n'a pas déjà été raté. </p>
 
 </div>
 </div>

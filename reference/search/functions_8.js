@@ -27,7 +27,7 @@ var searchData=
   ['intersects_24',['intersects',['../structcore_1_1Rect.html#af2fe91e439799d0aa9dccc32296e8e3e',1,'core::Rect']]],
   ['invalidate_25',['invalidate',['../classhmi_1_1CacheRegistry.html#a779563258a0a470d5a59da0bf3d2572a',1,'hmi::CacheRegistry']]],
   ['invalidateall_26',['invalidateAll',['../classhmi_1_1CacheRegistry.html#a1ba308b8461ec8736a95910c1e129271',1,'hmi::CacheRegistry::invalidateAll()'],['../classhmi_1_1TextureCache.html#a12ace6c083ac9c91eff8686bd0039a4b',1,'hmi::TextureCache::invalidateAll()']]],
-  ['invalidatescene_27',['invalidateScene',['../classhmi_1_1EditorViewport.html#aeefd7c699659903d17c8b02ab38ae187',1,'hmi::EditorViewport::invalidateScene()'],['../classhmi_1_1WorldPlay.html#aa0238c49b3c92777bc3ce5c71fa2ea02',1,'hmi::WorldPlay::invalidateScene()'],['../classhmi_1_1ArenaViewportItem.html#a0e5ed4b0c3e835bf2153e795e001928f',1,'hmi::ArenaViewportItem::invalidateScene()']]],
+  ['invalidatescene_27',['invalidateScene',['../classhmi_1_1EditorViewport.html#aeefd7c699659903d17c8b02ab38ae187',1,'hmi::EditorViewport::invalidateScene()'],['../classhmi_1_1WorldPlay.html#aa0238c49b3c92777bc3ce5c71fa2ea02',1,'hmi::WorldPlay::invalidateScene()']]],
   ['inventorymodel_28',['InventoryModel',['../classhmi_1_1InventoryModel.html#a29efb724cecab177e1c304c9e9aa9e6c',1,'hmi::InventoryModel']]],
   ['inventoryvalues_29',['inventoryValues',['../namespacehmi.html#a4810fe71383c48ab7f7c445521b954d4',1,'hmi']]],
   ['isalive_30',['isAlive',['../classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a',1,'core::EntityManager::isAlive()'],['../classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f',1,'core::World::isAlive()']]],

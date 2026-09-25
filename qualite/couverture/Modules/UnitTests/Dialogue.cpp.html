@@ -238,10 +238,13 @@ private:
     } else if (type == "startEncounter") {
         action.kind = DialogueActionKind::StartEncounter;
         champ = "encounter";
+    } else if (type == "endDemo") {
+        action.kind = DialogueActionKind::EndDemo;
+        champ = "ending";
     } else {</span>
 <span style = "background-color:#fdd">        rapport.noeud(noeudId,</span>
                       "action de type inconnu (setFlag, clearFlag, giveItem, "
-                      "startQuest, startCombat, startEncounter).");
+                      "startQuest, startCombat, startEncounter, endDemo).");
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    action.target = exiger(effet, champ, noeudId, rapport);
@@ -294,8 +297,19 @@ private:
         noeud.difficulty = exiger(brut, "difficulty", noeud.id, rapport);
     }
     noeud.onSuccess = exiger(brut, "success", noeud.id, rapport);
-    noeud.onFailure = exiger(brut, "failure", noeud.id, rapport);
-}</span>
+    if (!texte(brut, "failure")) {</span>
+        // Le critere du LOT-117, nomme comme tel : l'auteur qui a oublie l'echec lit ce qu'il a
+        // oublie, pas seulement le nom d'un champ.
+<span style = "background-color:#dfd">        rapport.noeud(noeud.id, "jet sans branche d'echec : champ 'failure' absent ou vide.");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    noeud.onFailure = exiger(brut, "failure", noeud.id, rapport);
+    if (noeud.onFailure == noeud.onSuccess) {
+        rapport.noeud(noeud.id,</span>
+                      "jet sans branche d'echec : 'failure' mene ou mene 'success', le jet ne "
+                      "decide rien.");
+    }
+<span style = "background-color:#dfd">}</span>
 
 /// Les cibles d'un noeud, dans l'ordre de la donnee.
 <span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;const std::string*&gt; ciblesDe(const DialogueNode&amp; noeud) {
@@ -449,6 +463,32 @@ void signalerLesImpasses(const DialogueGraph&amp; graphe, const IndicesDeNoeuds&
 }</span>
 
 /**
+ * Repliques qu'un jet rate peut laisser sans reponse (`LOT-117`). Une reponse qui mene a un jet
+ * disparait une fois ce jet rate : elle compte comme conditionnelle, et une replique doit garder
+ * une reponse toujours proposee -- sans condition, et qui ne jette pas.
+ */
+<span style = "background-color:#dfd">void signalerLesRepliquesQuiPeuventSeVider(const DialogueGraph&amp; graphe, Rapport&amp; rapport) {
+    const auto meneAUnJet = [&amp;graphe](const DialogueChoice&amp; choix) {
+        const DialogueNode* suite = graphe.find(choix.next);
+        return suite != nullptr &amp;&amp; suite-&gt;kind == DialogueNodeKind::Check;
+    };
+    for (const DialogueNode&amp; noeud : graphe.nodes) {
+        if (!estUnArret(noeud) || !std::ranges::any_of(noeud.choices, meneAUnJet)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const bool uneToujoursProposee =
+            std::ranges::any_of(noeud.choices, [&amp;meneAUnJet](const DialogueChoice&amp; choix) {
+                return !choix.condition &amp;&amp; !meneAUnJet(choix);
+            });
+        if (!uneToujoursProposee) {
+            rapport.noeud(noeud.id,</span>
+                          "un jet rate ne se propose plus : il faut une reponse toujours "
+                          "proposee, sans condition et sans jet.");
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+/**
  * Les controles de graphe, sur un graphe dont chaque noeud est lu et chaque cible existe. Les
  * faire sur un graphe incomplet produirait des orphelins et des impasses qui ne sont que l'ombre
  * d'une cible mal orthographiee.
@@ -461,6 +501,7 @@ void signalerLesImpasses(const DialogueGraph&amp; graphe, const IndicesDeNoeuds&
     const std::vector&lt;bool&gt; atteint = signalerLesOrphelins(graphe, indices, rapport);
     signalerLesCycles(graphe, indices, rapport);
     signalerLesImpasses(graphe, indices, atteint, rapport);
+    signalerLesRepliquesQuiPeuventSeVider(graphe, rapport);
 }</span>
 
 [[nodiscard]] std::vector&lt;std::filesystem::path&gt; fichiersJson(const std::filesystem::path&amp; dossier,
@@ -509,6 +550,10 @@ std::string dialogueChoiceKey(std::string_view dialogueId, std::string_view node
 <span style = "background-color:#fdd">    return "indifferent";</span>
 <span style = "background-color:#dfd">}</span>
 
+<span style = "background-color:#dfd">std::string demoEndingKey(std::string_view ending) {
+    return "ending." + std::string(ending);
+}</span>
+
 <span style = "background-color:#dfd">std::string dialogueAttitudeKey(DialogueAttitude attitude) {
     return "dialogue.attitude." + std::string(dialogueAttitudeName(attitude));
 }</span>
@@ -536,12 +581,25 @@ std::string dialogueChoiceKey(std::string_view dialogueId, std::string_view node
 <span style = "background-color:#dfd">        for (const DialogueChoice&amp; choix : noeud.choices) {
             ajouter(dialogueChoiceKey(graph.id, noeud.id, choix.id));
         }
+    }</span>
+    // La voie d'une fin de demo se dit sur l'ecran de fin : sa cle est reclamee par le dialogue
+    // qui la nomme, et le meme test la confronte aux deux catalogues.
+<span style = "background-color:#dfd">    for (const DialogueNode&amp; noeud : graph.nodes) {
+        for (const DialogueAction&amp; action : noeud.actions) {
+            if (action.kind == DialogueActionKind::EndDemo) {
+                ajouter(demoEndingKey(action.target));</span>
+            }
+<span style = "background-color:#dfd">        }
     }
     return cles;
 }</span>
 
 <span style = "background-color:#dfd">std::string questStartedFlag(std::string_view questId) {
     return "quest/" + std::string(questId) + "/started";
+}</span>
+
+<span style = "background-color:#dfd">std::string dialogueCheckFailedFlag(std::string_view dialogueId, std::string_view checkNodeId) {
+    return "dialogue/" + std::string(dialogueId) + '/' + std::string(checkNodeId) + "/failed";
 }</span>
 
 // ---------------------------------------------------------------------------------------------
@@ -775,8 +833,8 @@ std::vector&lt;std::string&gt; validateDialogueReferences(const DialogueGraph&am
 <span style = "background-color:#dfd">    for (const std::filesystem::path&amp; chemin : fichiersJson(directory, code)) {
         DialogueLoad lu = loadDialogue(chemin);
         catalogue.errors.insert(catalogue.errors.end(), lu.errors.begin(), lu.errors.end());
-        if (!lu.graph) {</span>
-<span style = "background-color:#fdd">            continue;</span>
+        if (!lu.graph) {
+            continue;</span>
         }
 <span style = "background-color:#dfd">        if (lu.graph-&gt;id != chemin.stem().string()) {</span>
             // Une carte nomme un dialogue par son identifiant ; un fichier qui en porte un autre
@@ -866,9 +924,8 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
         const auto choix = std::ranges::find(_current-&gt;choices, choiceId, &amp;DialogueChoice::id);</span>
         // La condition est REEVALUEE : entre l'affichage et le geste, un drapeau a pu changer, et
         // l'ecran ne doit pas pouvoir faire passer une reponse que la donnee n'offre plus.
-<span style = "background-color:#dfd">        if (choix == _current-&gt;choices.end() ||</span>
-            (choix-&gt;condition &amp;&amp; !choix-&gt;condition-&gt;holds(_flags))) {
-<span style = "background-color:#dfd">            return ChoiceResult::Unavailable;</span>
+<span style = "background-color:#dfd">        if (choix == _current-&gt;choices.end() || !estProposee(*choix)) {
+            return ChoiceResult::Unavailable;</span>
         }
 <span style = "background-color:#dfd">        suite = choix-&gt;next;
     }
@@ -924,7 +981,7 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
                 break;</span>
             case DialogueNodeKind::Check:
 <span style = "background-color:#dfd">                runCheck(*noeud);
-                id = (_lastCheck &amp;&amp; _lastCheck-&gt;nodeId == noeud-&gt;id &amp;&amp;</span>
+                id = (_lastCheck &amp;&amp; _lastCheck-&gt;nodeId == noeud-&gt;id &amp;&amp; !_lastCheck-&gt;alreadyFailed &amp;&amp;</span>
                       _lastCheck-&gt;result.succeeded())
                          ? noeud-&gt;onSuccess
                          : noeud-&gt;onFailure;
@@ -966,7 +1023,11 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
             break;</span>
         case DialogueActionKind::StartEncounter:
 <span style = "background-color:#dfd">            _listener.startEncounter(action.target);
-            _journal.push_back("rencontre demandee : " + action.target);</span>
+            _journal.push_back("rencontre demandee : " + action.target);
+            break;</span>
+        case DialogueActionKind::EndDemo:
+<span style = "background-color:#dfd">            _listener.endDemo(action.target);
+            _journal.push_back("fin de la demo : " + action.target);</span>
             break;
     }
 <span style = "background-color:#dfd">}</span>
@@ -981,15 +1042,40 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
                            "', echec");
 <span style = "background-color:#fdd">        return;</span>
     }
-<span style = "background-color:#dfd">    const std::vector&lt;Modifier&gt; modificateurs = _listener.skillModifiers(node.skill);
-    DialogueCheck jet;
+<span style = "background-color:#dfd">    DialogueCheck jet;
     jet.nodeId = node.id;
     jet.skill = node.skill;
     jet.difficulty = node.difficulty;
+    const std::string rate = dialogueCheckFailedFlag(_graph.id, node.id);
+    if (_flags.isSet(rate)) {</span>
+        // Deja rate (LOT-117) : le de ne se relance pas -- sans quoi revenir par un autre chemin
+        // suffirait a retenter sa chance, et le drapeau ne garderait rien. Aucun tirage : la suite
+        // aleatoire reste celle qu'elle aurait ete.
+<span style = "background-color:#dfd">        jet.alreadyFailed = true;
+        jet.result.target = degre-&gt;dc;
+        _journal.push_back("jet : " + node.id + " (" + node.skill + ") deja rate, echec");
+        _lastCheck = std::move(jet);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const std::vector&lt;Modifier&gt; modificateurs = _listener.skillModifiers(node.skill);
     jet.result = rollCheck(degre-&gt;dc, modificateurs, RollStance::Normal, _random);
     _journal.push_back("jet : " + node.id + " (" + node.skill + ") " + jet.result.describe());
-    _lastCheck = std::move(jet);
+    if (!jet.result.succeeded()) {
+        _flags.set(rate);
+        _journal.push_back("drapeau pose : " + rate);</span>
+    }
+<span style = "background-color:#dfd">    _lastCheck = std::move(jet);
 }</span>
+
+<span style = "background-color:#dfd">bool DialogueRunner::estProposee(const DialogueChoice&amp; choice) const {
+    if (choice.condition &amp;&amp; !choice.condition-&gt;holds(_flags)) {
+        return false;</span>
+    }
+    // Une reponse qui mene a un jet deja rate ne se propose plus (LOT-117).
+<span style = "background-color:#dfd">    const DialogueNode* suite = _graph.find(choice.next);
+    return suite == nullptr || suite-&gt;kind != DialogueNodeKind::Check ||</span>
+           !_flags.isSet(dialogueCheckFailedFlag(_graph.id, suite-&gt;id));
+<span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">const DialogueNode* DialogueRunner::currentLine() const {
     return _state == DialogueState::AwaitingChoice ? _current : nullptr;
@@ -1011,25 +1097,38 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
     if (ligne == nullptr) {
         return proposees;</span>
     }
-<span style = "background-color:#dfd">    const auto competenceJetee = [this](const std::string&amp; cible) {
+    // Le jet qu'une reponse annonce : sa competence et son seuil, pour que le joueur choisisse en
+    // sachant ce qu'il risque (LOT-117).
+<span style = "background-color:#dfd">    const auto annoncer = [this](AvailableChoice&amp; reponse, const std::string&amp; cible) {
         const DialogueNode* suite = _graph.find(cible);
-        return (suite != nullptr &amp;&amp; suite-&gt;kind == DialogueNodeKind::Check) ? suite-&gt;skill</span>
-                                                                            : std::string{};
+        if (suite == nullptr || suite-&gt;kind != DialogueNodeKind::Check) {
+            return;</span>
+        }
+<span style = "background-color:#dfd">        reponse.checkSkill = suite-&gt;skill;
+        if (const DifficultyTier* degre = _difficulty.find(suite-&gt;difficulty)) {
+            reponse.checkDc = degre-&gt;dc;</span>
+        }
 <span style = "background-color:#dfd">    };
     if (ligne-&gt;choices.empty()) {
-        proposees.push_back({.id = std::string(DIALOGUE_CONTINUE_CHOICE),</span>
-                             .textKey = std::string(DIALOGUE_CONTINUE_KEY),
-                             .checkSkill = competenceJetee(ligne-&gt;next)});
-<span style = "background-color:#dfd">        return proposees;</span>
+        AvailableChoice suite{.id = std::string(DIALOGUE_CONTINUE_CHOICE),
+                              .textKey = std::string(DIALOGUE_CONTINUE_KEY),
+                              .checkSkill = {},
+                              .checkDc = 0};
+        annoncer(suite, ligne-&gt;next);
+        proposees.push_back(std::move(suite));
+        return proposees;</span>
     }
 <span style = "background-color:#dfd">    for (const DialogueChoice&amp; choix : ligne-&gt;choices) {
-        if (choix.condition &amp;&amp; !choix.condition-&gt;holds(_flags)) {
+        if (!estProposee(choix)) {
             continue;</span>
         }
-<span style = "background-color:#dfd">        proposees.push_back({.id = choix.id,</span>
-                             .textKey = dialogueChoiceKey(_graph.id, ligne-&gt;id, choix.id),
-                             .checkSkill = competenceJetee(choix.next)});
-<span style = "background-color:#dfd">    }
+<span style = "background-color:#dfd">        AvailableChoice reponse{.id = choix.id,
+                                .textKey = dialogueChoiceKey(_graph.id, ligne-&gt;id, choix.id),
+                                .checkSkill = {},
+                                .checkDc = 0};
+        annoncer(reponse, choix.next);
+        proposees.push_back(std::move(reponse));
+    }
     return proposees;
 }</span>
 

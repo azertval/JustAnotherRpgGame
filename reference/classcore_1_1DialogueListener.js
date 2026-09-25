@@ -4,6 +4,7 @@ var classcore_1_1DialogueListener =
     [ "~DialogueListener", "classcore_1_1DialogueListener.html#a7ed0b93bb805ebe2855ee6fc4bec4552", null ],
     [ "DialogueListener", "classcore_1_1DialogueListener.html#a8055d50cf14ef6cdc73310bc3daff6a9", null ],
     [ "DialogueListener", "classcore_1_1DialogueListener.html#a512b9279278d56bff0d99966ecd2bc20", null ],
+    [ "endDemo", "classcore_1_1DialogueListener.html#a3de75ad9eaf865ce5d687b19ab8d08e0", null ],
     [ "operator=", "classcore_1_1DialogueListener.html#a2830c7147907a5e1a2067437cacbe616", null ],
     [ "operator=", "classcore_1_1DialogueListener.html#a28fedcdbcc81942da0c7b60aad80ec54", null ],
     [ "receiveItem", "classcore_1_1DialogueListener.html#ab913b0303d4a9067ea84fcca7b082c9f", null ],

@@ -403,7 +403,8 @@ var namespacecore =
       [ "GiveItem", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee", null ],
       [ "StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
       [ "StartCombat", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159", null ],
-      [ "StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ]
+      [ "StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ],
+      [ "EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ]
     ] ],
     [ "DialogueAttitude", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7", [
       [ "Friendly", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df", null ],
@@ -786,12 +787,14 @@ var namespacecore =
     [ "declareQuestFlags", "namespacecore.html#a116ff967f1d1006befab83aefbb3eb09", null ],
     [ "defaultAssetKeyFor", "namespacecore.html#a511cc1f309ea0831c8af98b2df46b08a", null ],
     [ "defaultLogger", "namespacecore.html#a925cad771c457040a01272ff8be8e1a1", null ],
+    [ "demoEndingKey", "namespacecore.html#acd687b89399df2a9dcc1bde15b5e46f7", null ],
     [ "deriveCollision", "namespacecore.html#a3322a01062af04e9242df68f744c142f", null ],
     [ "derivedStatsFor", "namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1", null ],
     [ "deriveSeed", "namespacecore.html#a743d1073227b83fb7f8a727a4e0829ae", null ],
     [ "describeFlagCondition", "namespacecore.html#a1fe7c8d4dbc2fe8759a922819280749a", null ],
     [ "dialogueAttitudeKey", "namespacecore.html#a58479e55baaecd8fde393467a4db7236", null ],
     [ "dialogueAttitudeName", "namespacecore.html#a07385d9b9ea590d3a3b7b11bd820b891", null ],
+    [ "dialogueCheckFailedFlag", "namespacecore.html#acdf93401cff640016af7027ed99792fd", null ],
     [ "dialogueChoiceKey", "namespacecore.html#ae06673ab0442d9711873e9bfffedaf89", null ],
     [ "dialogueLineKey", "namespacecore.html#ae9f2a47a81336a2d0f7a526b0f585608", null ],
     [ "dialogueSpeakerKey", "namespacecore.html#a347e7bf6ba1e8cb5d99a494c8c90411f", null ],

@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"MemoryLogSink_8h_source.html":[4,0,0,2,2,14],
+"MiniMap_8cpp.html":[4,0,0,3,1,20],
+"MiniMap_8h.html":[4,0,0,3,1,21],
+"MiniMap_8h_source.html":[4,0,0,3,1,21],
+"MissingTexture_8cpp.html":[4,0,0,6,2,29],
+"MissingTexture_8h.html":[4,0,0,6,2,30],
 "MissingTexture_8h_source.html":[4,0,0,6,2,30],
 "Multiclassing_8cpp.html":[4,0,0,2,8,18],
 "Multiclassing_8h.html":[4,0,0,2,8,19],
@@ -197,9 +203,9 @@ var NAVTREEINDEX2 =
 "WorldModel_8cpp.html":[4,0,0,6,7,42],
 "WorldModel_8h.html":[4,0,0,6,7,43],
 "WorldModel_8h_source.html":[4,0,0,6,7,43],
-"WorldPlay_8cpp.html":[4,0,0,6,1,10],
-"WorldPlay_8h.html":[4,0,0,6,1,11],
-"WorldPlay_8h_source.html":[4,0,0,6,1,11],
+"WorldPlay_8cpp.html":[4,0,0,6,1,14],
+"WorldPlay_8h.html":[4,0,0,6,1,15],
+"WorldPlay_8h_source.html":[4,0,0,6,1,15],
 "WorldSceneComposer_8cpp.html":[4,0,0,6,2,60],
 "WorldSceneComposer_8h.html":[4,0,0,6,2,61],
 "WorldSceneComposer_8h_source.html":[4,0,0,6,2,61],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "bench__combat_8cpp.html#aeb72136d9d2f394937e075742735dcb7":[4,0,0,1,2,5],
 "bench__levels_8cpp.html":[4,0,0,1,3],
 "bench__levels_8cpp.html#a283727fedcdc64b085d1ea0bee05a666":[4,0,0,1,3,0],
-"bench__levels_8cpp.html#a34a6f6e75788dfbdee95e6702b29df96":[4,0,0,1,3,1],
-"bench__world__frame_8cpp.html":[4,0,0,1,4],
-"bench__world__frame_8cpp.html#a42ffe3cf1902a38a2d5f83bc2c7cdc9c":[4,0,0,1,4,1],
-"bench__world__frame_8cpp.html#a59e407876da2685686866021f2117b10":[4,0,0,1,4,4],
-"bench__world__frame_8cpp.html#a666dc397bf8f2b53d8d36228444c3102":[4,0,0,1,4,2],
-"bench__world__frame_8cpp.html#a674608bcb407f6f4efaa6b6fb274176d":[4,0,0,1,4,3],
-"bench__world__frame_8cpp.html#a688805ccd1c013d933ccc1061a0d3c42":[4,0,0,1,4,6]
+"bench__levels_8cpp.html#a34a6f6e75788dfbdee95e6702b29df96":[4,0,0,1,3,1]
 };

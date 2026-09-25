@@ -176,12 +176,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:abe1deb01482dfff7caa8034d339f9d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte créée, renommée ou dupliquée porte son nom en clé, que les catalogues ont : elle passe le contrôle telle quelle (<span class="tt">EX-EDIT-077</span>, <span class="tt">LOT-EDITOR-07</span>).  <br /></td></tr>
 <tr class="memitem:a8fdad2bbe63a806bdf70d4bc96bfdb3f" id="r_a8fdad2bbe63a806bdf70d4bc96bfdb3f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8fdad2bbe63a806bdf70d4bc96bfdb3f">TEST</a> (ContentCheckTest, LeControleDuRecitRefuseUnDrapeauLuQueRienNePose)</td></tr>
 <tr class="memdesc:a8fdad2bbe63a806bdf70d4bc96bfdb3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le récit se contrôle hors de toute carte : drapeau lu jamais posé, quête mal formée.  <br /></td></tr>
+<tr class="memitem:a123522323b147e85951223f4a6635819" id="r_a123522323b147e85951223f4a6635819"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a123522323b147e85951223f4a6635819">TEST</a> (ContentCheckTest, LeControleDuRecitRefuseUnJetSansBrancheDEchec)</td></tr>
+<tr class="memdesc:a123522323b147e85951223f4a6635819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le contrôle du récit refuse un dialogue que le jeu refuserait — ici une réponse à jet sans branche d'échec (<span class="tt">LOT-117</span>) — et connaît le drapeau qu'un jet raté pose de lui-même.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du contrôle du contenu (<span class="tt">LOT-EDITOR-07</span>) : ce qu'une carte promet au joueur et ne tient pas, sur toutes les cartes, et les clés de traduction qu'elles citent. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a1ea359e1559d67015313f8ff81d42320" name="a1ea359e1559d67015313f8ff81d42320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ea359e1559d67015313f8ff81d42320">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ea359e1559d67015313f8ff81d42320">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +213,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8fdad2bbe63a806bdf70d4bc96bfdb3f" name="a8fdad2bbe63a806bdf70d4bc96bfdb3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fdad2bbe63a806bdf70d4bc96bfdb3f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fdad2bbe63a806bdf70d4bc96bfdb3f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,8 +245,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a123522323b147e85951223f4a6635819" name="a123522323b147e85951223f4a6635819"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a123522323b147e85951223f4a6635819">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ContentCheckTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeControleDuRecitRefuseUnJetSansBrancheDEchec</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le contrôle du récit refuse un dialogue que le jeu refuserait — ici une réponse à jet sans branche d'échec (<span class="tt">LOT-117</span>) — et connaît le drapeau qu'un jet raté pose de lui-même. </p>
+<p><b>Cas de test :</b> <b>Le controle du recit refuse un jet sans branche d'echec.</b><br  />
+ <b>Categorie :</b> Unitaire · Controle du contenu<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire un dialogue dont le jet n'a pas de <span class="tt">failure</span>.<br  />
+2. Ecrire un dialogue valide avec un jet <span class="tt">j</span>, et une quete qui lit <span class="tt">dialogue/garde/j/failed</span>.<br  />
+3. Controler le recit.<br  />
+ <b>Resultat attendu :</b> Une seule erreur sur <span class="tt">World</span> : le premier dialogue est refuse, « jet sans branche d'echec » ; le drapeau d'echec du second, que le jet pose de lui-meme, n'est pas signale. </p>
+
+</div>
+</div>
 <a id="a1c36e2c90746750b7409f0945939eba7" name="a1c36e2c90746750b7409f0945939eba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c36e2c90746750b7409f0945939eba7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c36e2c90746750b7409f0945939eba7">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +307,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="abe1deb01482dfff7caa8034d339f9d43" name="abe1deb01482dfff7caa8034d339f9d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe1deb01482dfff7caa8034d339f9d43">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe1deb01482dfff7caa8034d339f9d43">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +339,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0bf94ceaa539c5aa0d73c3488af02218" name="a0bf94ceaa539c5aa0d73c3488af02218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bf94ceaa539c5aa0d73c3488af02218">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bf94ceaa539c5aa0d73c3488af02218">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +369,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a99961c4cb6bd46dd9f8c92da6a590a35" name="a99961c4cb6bd46dd9f8c92da6a590a35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99961c4cb6bd46dd9f8c92da6a590a35">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a99961c4cb6bd46dd9f8c92da6a590a35">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

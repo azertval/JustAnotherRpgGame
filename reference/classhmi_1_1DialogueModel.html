@@ -165,6 +165,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a80189a0fb6f159dc7c10a2253da86494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (<span class="tt">startCombat</span>, <span class="tt">LOT-09</span>).  <br /></td></tr>
 <tr class="memitem:a5dc935c8de9307b0be25fd9aeb262a16" id="r_a5dc935c8de9307b0be25fd9aeb262a16"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5dc935c8de9307b0be25fd9aeb262a16">encounterRequested</a> (const QString &amp;encounterId)</td></tr>
 <tr class="memdesc:a5dc935c8de9307b0be25fd9aeb262a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ engage une rencontre <b>sur la carte</b> (<span class="tt">LOT-118</span>) : c'est l'écran qui la monte (<span class="tt"><a class="el" href="classhmi_1_1EncounterModel.html#aaa1f1bc74675003fec4258f8a3dd0706" title="Engage la rencontre encounterId sur la carte courante de la partie (hmi::WorldModel::current),...">EncounterModel.begin</a></span>) et ouvre l'affichage de combat.  <br /></td></tr>
+<tr class="memitem:ac6df3725adb704a03c90ee14acefda51" id="r_ac6df3725adb704a03c90ee14acefda51"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac6df3725adb704a03c90ee14acefda51">demoEnded</a> (const QString &amp;ending)</td></tr>
+<tr class="memdesc:ac6df3725adb704a03c90ee14acefda51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ clôt la démo par la voie <code class="param">ending</code> (<span class="tt">endDemo</span>, <span class="tt">LOT-119</span>) : c'est l'écran qui ouvre l'écran de fin.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -176,9 +178,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3cb792a72e33b34e9d8f3271d83f8f62" id="r_a3cb792a72e33b34e9d8f3271d83f8f62"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3cb792a72e33b34e9d8f3271d83f8f62">attitude</a> () const</td></tr>
 <tr class="memitem:adb7ff43722d893b9912cfe78bd25fe56" id="r_adb7ff43722d893b9912cfe78bd25fe56"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#adb7ff43722d893b9912cfe78bd25fe56">line</a> () const</td></tr>
 <tr class="memitem:a7fd2026f6d06834369a764f6d97d4a74" id="r_a7fd2026f6d06834369a764f6d97d4a74"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7fd2026f6d06834369a764f6d97d4a74">checkOutcome</a> () const</td></tr>
+<tr class="memitem:a14cd7f9d48d9d2dc978e754c3fe23a1f" id="r_a14cd7f9d48d9d2dc978e754c3fe23a1f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a14cd7f9d48d9d2dc978e754c3fe23a1f">checkTitle</a> () const</td></tr>
+<tr class="memitem:aaf44980d29cfb2938e47898714980bb5" id="r_aaf44980d29cfb2938e47898714980bb5"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aaf44980d29cfb2938e47898714980bb5">checkDie</a> () const</td></tr>
+<tr class="memitem:a732562948b11c08fee734712fe013825" id="r_a732562948b11c08fee734712fe013825"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a732562948b11c08fee734712fe013825">checkDetail</a> () const</td></tr>
+<tr class="memitem:ab73b23d86cee543e37bcce949a29c4f7" id="r_ab73b23d86cee543e37bcce949a29c4f7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab73b23d86cee543e37bcce949a29c4f7">checkVerdict</a> () const</td></tr>
+<tr class="memitem:ab2ba8a161932c9e40f28df9db58bd33e" id="r_ab2ba8a161932c9e40f28df9db58bd33e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab2ba8a161932c9e40f28df9db58bd33e">checkSucceeded</a> () const noexcept</td></tr>
 <tr class="memitem:ac554785154cbeed0223249dd36f1cda6" id="r_ac554785154cbeed0223249dd36f1cda6"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#ac554785154cbeed0223249dd36f1cda6">replies</a> ()</td></tr>
 <tr class="memitem:aa45f645683377e57eb468b4308ced157" id="r_aa45f645683377e57eb468b4308ced157"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa45f645683377e57eb468b4308ced157">finished</a> () const noexcept</td></tr>
 <tr class="memitem:a1a6c0babadcd43e9bf20541b8c549412" id="r_a1a6c0babadcd43e9bf20541b8c549412"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a1a6c0babadcd43e9bf20541b8c549412">status</a> () const</td></tr>
+<tr class="memitem:ab127e997c3d4496386d96dcbc414d393" id="r_ab127e997c3d4496386d96dcbc414d393"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#ab127e997c3d4496386d96dcbc414d393">dialogueIds</a> () const</td></tr>
 <tr class="memitem:ac725f335856ecabd4341e3a9d94b501d" id="r_ac725f335856ecabd4341e3a9d94b501d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ac725f335856ecabd4341e3a9d94b501d">choose</a> (const QString &amp;rowId)</td></tr>
 <tr class="memdesc:ac725f335856ecabd4341e3a9d94b501d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la réponse <code class="param">rowId</code> — ou quitte, si c'est la ligne « Quitter ».  <br /></td></tr>
 <tr class="memitem:aaaa6233b29c562241df0945b608ea9b1" id="r_aaaa6233b29c562241df0945b608ea9b1"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aaaa6233b29c562241df0945b608ea9b1">chooseAt</a> (int index)</td></tr>
@@ -196,12 +204,20 @@ Properties</h2></td></tr>
 <tr class="memdesc:a592028e7408a21f11bdeb1efe008c1e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La réplique affichée, traduite ; le refus s'il n'y a pas de langue commune.  <br /></td></tr>
 <tr class="memitem:a9423b1ce3f89fbed29c75be83a28c4a1" id="r_a9423b1ce3f89fbed29c75be83a28c4a1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a9423b1ce3f89fbed29c75be83a28c4a1">checkOutcome</a></td></tr>
 <tr class="memdesc:a9423b1ce3f89fbed29c75be83a28c4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet que la dernière réponse a joué, restitué ; vide sinon.  <br /></td></tr>
+<tr class="memitem:a5de7f4df330f22149800441ed2602095" id="r_a5de7f4df330f22149800441ed2602095"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5de7f4df330f22149800441ed2602095">checkTitle</a></td></tr>
+<tr class="memdesc:a5de7f4df330f22149800441ed2602095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même jet, par morceaux (<span class="tt">LOT-117</span>) : « Persuasion · DD 15 », le d20 tiré (vide s'il ne l'a pas été), le calcul « 12 + 4 = 16 », l'issue, et si elle est une réussite.  <br /></td></tr>
+<tr class="memitem:a38f167517adcfe8f42162bfc9fd517c0" id="r_a38f167517adcfe8f42162bfc9fd517c0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a38f167517adcfe8f42162bfc9fd517c0">checkDie</a></td></tr>
+<tr class="memitem:ab6bb6f524017fe9e6f2aa737bcde7d35" id="r_ab6bb6f524017fe9e6f2aa737bcde7d35"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab6bb6f524017fe9e6f2aa737bcde7d35">checkDetail</a></td></tr>
+<tr class="memitem:a918aff905258787aeeaf1b924b0e7ee7" id="r_a918aff905258787aeeaf1b924b0e7ee7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a918aff905258787aeeaf1b924b0e7ee7">checkVerdict</a></td></tr>
+<tr class="memitem:af173689acd8716916486a4854dda74fc" id="r_af173689acd8716916486a4854dda74fc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af173689acd8716916486a4854dda74fc">checkSucceeded</a></td></tr>
 <tr class="memitem:a8f295c17802fd0e4e7e4e7363e3e5481" id="r_a8f295c17802fd0e4e7e4e7363e3e5481"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a8f295c17802fd0e4e7e4e7363e3e5481">replies</a></td></tr>
 <tr class="memdesc:a8f295c17802fd0e4e7e4e7363e3e5481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réponses proposées : rôles <span class="tt">rowId</span>, <span class="tt">label</span> (le texte), <span class="tt">value</span> (le jet annoncé).  <br /></td></tr>
 <tr class="memitem:a1aebfff876b25e77f3e45035f21ba4d6" id="r_a1aebfff876b25e77f3e45035f21ba4d6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1aebfff876b25e77f3e45035f21ba4d6">finished</a></td></tr>
 <tr class="memdesc:a1aebfff876b25e77f3e45035f21ba4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand la conversation est terminée, ou quittée : l'écran se referme.  <br /></td></tr>
 <tr class="memitem:a20a3f6d2a4ed028340251c4bf9c65d34" id="r_a20a3f6d2a4ed028340251c4bf9c65d34"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a20a3f6d2a4ed028340251c4bf9c65d34">status</a></td></tr>
 <tr class="memdesc:a20a3f6d2a4ed028340251c4bf9c65d34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien.  <br /></td></tr>
+<tr class="memitem:abe43ddd1c94f7610cf4d4cf202e74bc2" id="r_abe43ddd1c94f7610cf4d4cf202e74bc2"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#abe43ddd1c94f7610cf4d4cf202e74bc2">dialogueIds</a></td></tr>
+<tr class="memdesc:abe43ddd1c94f7610cf4d4cf202e74bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dialogues jouables du contenu, par identifiant, dans l'ordre alphabétique : ce que le menu de développement (F9) propose d'ouvrir.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -215,10 +231,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md116"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md111"></a>
 Ce qu'elle tient</h2>
 <p>Le catalogue des dialogues (<span class="tt">Source/Elements/World/dialogues</span>), l'échelle des degrés de difficulté, le personnage de démonstration comme interlocuteur (<span class="tt"><a class="el" href="classcore_1_1CharacterListener.html" title="Un personnage, sa fiche et son sac, comme interlocuteur d&#39;un PNJ.">core::CharacterListener</a></span>) et une conversation en cours. Chaque réponse cliquée devient <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html#aaafa292cb3538efff82c7aed7424de71" title="Donne la réponse choiceId, puis avance jusqu&#39;à la réplique suivante ou la fin.">core::DialogueRunner::choose</a></span>, et ce que l'écran affiche est relu par <span class="tt"><a class="el" href="namespacehmi.html#af12483a48d0fd35f0f44e94c201c3893" title="Traduit l&#39;état d&#39;un runner en valeurs affichables.">hmi::dialogueScreenValues</a></span> après chaque geste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md117"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md112"></a>
 Ce qui est un échafaudage, et le dit</h2>
 <p>Il n'existe ni partie ni sauvegarde (<span class="tt">LOT-17</span>) : les <b>drapeaux de monde</b> de la conversation vivent donc le temps du processus, partagés par toutes les instances de ce modèle — rouvrir l'écran retrouve le héraut qui vous a déjà vu. L'interlocuteur est le personnage de démonstration, rechargé à chaque écran : un objet qu'un PNJ lui donne ne survit pas à la fermeture. Le jour où une partie fournira ses drapeaux et son groupe, c'est ce fichier qui change, pas le runner ni le formulaire. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -323,6 +339,56 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="a732562948b11c08fee734712fe013825" name="a732562948b11c08fee734712fe013825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732562948b11c08fee734712fe013825">&#9670;&#160;</a></span>checkDetail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkDetail </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf44980d29cfb2938e47898714980bb5" name="aaf44980d29cfb2938e47898714980bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf44980d29cfb2938e47898714980bb5">&#9670;&#160;</a></span>checkDie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkDie </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7fd2026f6d06834369a764f6d97d4a74" name="a7fd2026f6d06834369a764f6d97d4a74"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7fd2026f6d06834369a764f6d97d4a74">&#9670;&#160;</a></span>checkOutcome()</h2>
 
@@ -334,6 +400,81 @@ Ce qui est un échafaudage, et le dit</h2>
       <table class="memname">
         <tr>
           <td class="memname">QString hmi::DialogueModel::checkOutcome </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2ba8a161932c9e40f28df9db58bd33e" name="ab2ba8a161932c9e40f28df9db58bd33e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ba8a161932c9e40f28df9db58bd33e">&#9670;&#160;</a></span>checkSucceeded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DialogueModel::checkSucceeded </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14cd7f9d48d9d2dc978e754c3fe23a1f" name="a14cd7f9d48d9d2dc978e754c3fe23a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14cd7f9d48d9d2dc978e754c3fe23a1f">&#9670;&#160;</a></span>checkTitle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkTitle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab73b23d86cee543e37bcce949a29c4f7" name="ab73b23d86cee543e37bcce949a29c4f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73b23d86cee543e37bcce949a29c4f7">&#9670;&#160;</a></span>checkVerdict()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkVerdict </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -410,7 +551,34 @@ Ce qui est un échafaudage, et le dit</h2>
 </div><div class="memdoc">
 
 <p>Le PNJ envoie se battre : son dialogue a demandé l'arène nommée (<span class="tt">startCombat</span>, <span class="tt">LOT-09</span>). </p>
-<p>Le modèle n'ouvre rien — c'est l'écran qui décide, et c'est le routeur qui navigue. </p>
+<p>Aucun écran ne l'ouvre plus : l'écran du Colisée est retiré, le combat se joue sur la carte (<span class="tt"><a class="el" href="#a5dc935c8de9307b0be25fd9aeb262a16" title="Le PNJ engage une rencontre sur la carte (LOT-118) : c&#39;est l&#39;écran qui la monte (EncounterModel....">encounterRequested</a></span>). </p>
+
+</div>
+</div>
+<a id="ac6df3725adb704a03c90ee14acefda51" name="ac6df3725adb704a03c90ee14acefda51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6df3725adb704a03c90ee14acefda51">&#9670;&#160;</a></span>demoEnded</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::demoEnded </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>ending</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le PNJ clôt la démo par la voie <code class="param">ending</code> (<span class="tt">endDemo</span>, <span class="tt">LOT-119</span>) : c'est l'écran qui ouvre l'écran de fin. </p>
 
 </div>
 </div>
@@ -425,6 +593,31 @@ Ce qui est un échafaudage, et le dit</h2>
       <table class="memname">
         <tr>
           <td class="memname">QString hmi::DialogueModel::dialogueId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab127e997c3d4496386d96dcbc414d393" name="ab127e997c3d4496386d96dcbc414d393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab127e997c3d4496386d96dcbc414d393">&#9670;&#160;</a></span>dialogueIds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DialogueModel::dialogueIds </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -745,6 +938,50 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="ab6bb6f524017fe9e6f2aa737bcde7d35" name="ab6bb6f524017fe9e6f2aa737bcde7d35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6bb6f524017fe9e6f2aa737bcde7d35">&#9670;&#160;</a></span>checkDetail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkDetail</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38f167517adcfe8f42162bfc9fd517c0" name="a38f167517adcfe8f42162bfc9fd517c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38f167517adcfe8f42162bfc9fd517c0">&#9670;&#160;</a></span>checkDie</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkDie</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9423b1ce3f89fbed29c75be83a28c4a1" name="a9423b1ce3f89fbed29c75be83a28c4a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9423b1ce3f89fbed29c75be83a28c4a1">&#9670;&#160;</a></span>checkOutcome</h2>
 
@@ -769,6 +1006,74 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="af173689acd8716916486a4854dda74fc" name="af173689acd8716916486a4854dda74fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af173689acd8716916486a4854dda74fc">&#9670;&#160;</a></span>checkSucceeded</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DialogueModel::checkSucceeded</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5de7f4df330f22149800441ed2602095" name="a5de7f4df330f22149800441ed2602095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5de7f4df330f22149800441ed2602095">&#9670;&#160;</a></span>checkTitle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkTitle</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le même jet, par morceaux (<span class="tt">LOT-117</span>) : « Persuasion · DD 15 », le d20 tiré (vide s'il ne l'a pas été), le calcul « 12 + 4 = 16 », l'issue, et si elle est une réussite. </p>
+
+</div>
+</div>
+<a id="a918aff905258787aeeaf1b924b0e7ee7" name="a918aff905258787aeeaf1b924b0e7ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a918aff905258787aeeaf1b924b0e7ee7">&#9670;&#160;</a></span>checkVerdict</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::checkVerdict</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1c376e04d9cb74bb0030ae72dfe30480" name="a1c376e04d9cb74bb0030ae72dfe30480"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c376e04d9cb74bb0030ae72dfe30480">&#9670;&#160;</a></span>dialogueId</h2>
 
@@ -790,6 +1095,30 @@ Ce qui est un échafaudage, et le dit</h2>
 </div><div class="memdoc">
 
 <p>Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation. </p>
+
+</div>
+</div>
+<a id="abe43ddd1c94f7610cf4d4cf202e74bc2" name="abe43ddd1c94f7610cf4d4cf202e74bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe43ddd1c94f7610cf4d4cf202e74bc2">&#9670;&#160;</a></span>dialogueIds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DialogueModel::dialogueIds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dialogues jouables du contenu, par identifiant, dans l'ordre alphabétique : ce que le menu de développement (F9) propose d'ouvrir. </p>
 
 </div>
 </div>

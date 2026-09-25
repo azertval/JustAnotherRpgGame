@@ -1,0 +1,721 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::DebugConsoleModel Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1DebugConsoleModel.html','','classhmi_1_1DebugConsoleModel-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::DebugConsoleModel Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La vue-modèle de la console de debug (<span class="tt">Logic/DebugConsole.qml</span>).  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="DebugConsoleModel_8h_source.html">DebugConsoleModel.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for hmi::DebugConsoleModel:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classhmi_1_1DebugConsoleModel.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a9cd74b722069b1923e67a327d436bfb9" id="r_a9cd74b722069b1923e67a327d436bfb9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9cd74b722069b1923e67a327d436bfb9">transcriptChanged</a> ()</td></tr>
+<tr class="memitem:a08515a8b30b977cbef9e462b2d0f7518" id="r_a08515a8b30b977cbef9e462b2d0f7518"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a08515a8b30b977cbef9e462b2d0f7518">screenRequested</a> (const QString &amp;name)</td></tr>
+<tr class="memdesc:a08515a8b30b977cbef9e462b2d0f7518"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--screen=&lt;name&gt;</span> : la pile d'écrans épingle cet écran.  <br /></td></tr>
+<tr class="memitem:a7978bb36aef2cc24af7dd4f410548ed4" id="r_a7978bb36aef2cc24af7dd4f410548ed4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7978bb36aef2cc24af7dd4f410548ed4">windowSizeRequested</a> (int width, int height)</td></tr>
+<tr class="memdesc:a7978bb36aef2cc24af7dd4f410548ed4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--window-size=</span> : la fenêtre prend cette taille.  <br /></td></tr>
+<tr class="memitem:a08b79f7d0d8bdea2328b0223423db4d1" id="r_a08b79f7d0d8bdea2328b0223423db4d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a08b79f7d0d8bdea2328b0223423db4d1">screenshotRequested</a> (const QString &amp;path)</td></tr>
+<tr class="memdesc:a08b79f7d0d8bdea2328b0223423db4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--screenshot=</span> : la fenêtre se capture dans ce fichier.  <br /></td></tr>
+<tr class="memitem:a442753b2916cdcd435fbef29bdc5fdfb" id="r_a442753b2916cdcd435fbef29bdc5fdfb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a442753b2916cdcd435fbef29bdc5fdfb">gameRequested</a> ()</td></tr>
+<tr class="memdesc:a442753b2916cdcd435fbef29bdc5fdfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte s'est ouverte : la vue de jeu doit paraître (<span class="tt"><a class="el" href="classhmi_1_1ScreenRouter.html#ab876832aba412ba4d1413c106cd6e86f" title="Outil de debug : ouvre la vue de jeu hors de la table, d&#39;où que l&#39;on soit.">ScreenRouter.jumpToGame</a></span>).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7a69fe5da35ab5ded3dcba68aa331cb8" id="r_a7a69fe5da35ab5ded3dcba68aa331cb8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7a69fe5da35ab5ded3dcba68aa331cb8">DebugConsoleModel</a> (QObject *parent=nullptr)</td></tr>
+<tr class="memitem:a79f273f4947697c939f3e5c780079b19" id="r_a79f273f4947697c939f3e5c780079b19"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a79f273f4947697c939f3e5c780079b19">transcript</a> () const</td></tr>
+<tr class="memitem:a65c53f5880c1ef2d1e1072a76f4c1aef" id="r_a65c53f5880c1ef2d1e1072a76f4c1aef"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a65c53f5880c1ef2d1e1072a76f4c1aef">history</a> () const</td></tr>
+<tr class="memitem:a84c0fa0e1123b1c840f8946a1d396530" id="r_a84c0fa0e1123b1c840f8946a1d396530"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a84c0fa0e1123b1c840f8946a1d396530">run</a> (const QString &amp;line)</td></tr>
+<tr class="memdesc:a84c0fa0e1123b1c840f8946a1d396530"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <code class="param">line</code> : une suite d'options, comme sur la ligne de commande, ou <span class="tt">aide</span>.  <br /></td></tr>
+<tr class="memitem:a1d477a2ba6dc8f9ff351a7868733e418" id="r_a1d477a2ba6dc8f9ff351a7868733e418"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a1d477a2ba6dc8f9ff351a7868733e418">relaunch</a> (const QString &amp;line)</td></tr>
+<tr class="memdesc:a1d477a2ba6dc8f9ff351a7868733e418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redémarre le jeu avec <code class="param">line</code> pour ligne de commande, et quitte celui-ci.  <br /></td></tr>
+<tr class="memitem:ae6fa6168044c90e6a72838263a00327c" id="r_ae6fa6168044c90e6a72838263a00327c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ae6fa6168044c90e6a72838263a00327c">say</a> (const QString &amp;line)</td></tr>
+<tr class="memdesc:ae6fa6168044c90e6a72838263a00327c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une ligne au compte rendu — ce que le QML a fait d'une demande (une capture écrite, une taille refusée).  <br /></td></tr>
+<tr class="memitem:a4f0340b1868d9186e84a6541c7c23525" id="r_a4f0340b1868d9186e84a6541c7c23525"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a4f0340b1868d9186e84a6541c7c23525">clear</a> ()</td></tr>
+<tr class="memdesc:a4f0340b1868d9186e84a6541c7c23525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Efface le compte rendu ; l'historique reste.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a50a3cfd5c8aea6d70c1bcc8648b4bc2e" id="r_a50a3cfd5c8aea6d70c1bcc8648b4bc2e"><td class="memItemLeft">static QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a50a3cfd5c8aea6d70c1bcc8648b4bc2e">options</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:aa9d124b5e799a2564f1e1d6b6dfa7ee2" id="r_aa9d124b5e799a2564f1e1d6b6dfa7ee2"><td class="memItemLeft">QML_SINGLETONQStringList&#160;</td><td class="memItemRight"><a class="el" href="#aa9d124b5e799a2564f1e1d6b6dfa7ee2">transcript</a></td></tr>
+<tr class="memdesc:aa9d124b5e799a2564f1e1d6b6dfa7ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la console a dit, dans l'ordre : les lignes tapées (précédées de <span class="tt">&gt; </span>) et leurs réponses.  <br /></td></tr>
+<tr class="memitem:a47af84ab7ba12fd923b32019dc44849a" id="r_a47af84ab7ba12fd923b32019dc44849a"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a47af84ab7ba12fd923b32019dc44849a">history</a></td></tr>
+<tr class="memdesc:a47af84ab7ba12fd923b32019dc44849a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lignes tapées, la plus récente en dernier : pour les flèches haut et bas.  <br /></td></tr>
+<tr class="memitem:a359bde1736731bd83ef06ea6c7256745" id="r_a359bde1736731bd83ef06ea6c7256745"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a359bde1736731bd83ef06ea6c7256745">options</a></td></tr>
+<tr class="memdesc:a359bde1736731bd83ef06ea6c7256745"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue des options : <span class="tt">{name, syntax, description, live}</span>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:aecdb620d6d3cbe27101b9a532ee4a5e8" id="r_aecdb620d6d3cbe27101b9a532ee4a5e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aecdb620d6d3cbe27101b9a532ee4a5e8">apply</a> (const std::vector&lt; std::string &gt; &amp;words)</td></tr>
+<tr class="memdesc:aecdb620d6d3cbe27101b9a532ee4a5e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique les options de <code class="param">words</code>, dans l'ordre que le lancement suivrait.  <br /></td></tr>
+<tr class="memitem:a4eee48a120dabdcb709041c24c2e9d86" id="r_a4eee48a120dabdcb709041c24c2e9d86"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4eee48a120dabdcb709041c24c2e9d86">printHelp</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a887a7e627657dbb0e00190875a46054a" id="r_a887a7e627657dbb0e00190875a46054a"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a887a7e627657dbb0e00190875a46054a">_transcript</a></td></tr>
+<tr class="memitem:af63574dc4eac43e343a0966eaa0efc00" id="r_af63574dc4eac43e343a0966eaa0efc00"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#af63574dc4eac43e343a0966eaa0efc00">_history</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La vue-modèle de la console de debug (<span class="tt">Logic/DebugConsole.qml</span>). </p>
+<p>Tout ce que le jeu accepte sur sa ligne de commande — <span class="tt">--map=</span>, <span class="tt">--at=</span>, <span class="tt">--flags=</span>, <span class="tt">--screen=</span>, <span class="tt">--window-size=</span>, <span class="tt">--screenshot=</span>… — se tape ici, dans la partie, et s'applique <b>à chaud</b> : éprouver une fonctionnalité ne demande plus de quitter, retaper la ligne et relancer. Ce qui ne se lit qu'au lancement (<span class="tt">--data=</span>, <span class="tt">--crash-test</span>) est dit tel, et <span class="tt"><a class="el" href="#a1d477a2ba6dc8f9ff351a7868733e418" title="Redémarre le jeu avec line pour ligne de commande, et quitte celui-ci.">relaunch()</a></span> redémarre le jeu avec la ligne tapée.</p>
+<p>Le catalogue et l'analyse des mots sont <span class="tt"><a class="el" href="namespacehmi.html#a0b53b479dc26a3d7bb1152bf9707345e">hmi::debugOptionCatalog</a></span> et <span class="tt"><a class="el" href="namespacehmi.html#ae1ad4828c12ee37cc5f535d9ae4583fa" title="Découpe une ligne tapée en mots, sur les blancs, en respectant les guillemets doubles : --screenshot=...">hmi::splitCommandLine</a></span> (<span class="tt"><a class="el" href="DebugCommands_8h.html" title="Les options de la ligne de commande du jeu, telles que la console de debug (F9) les rejoue — le catal...">HMI/Game/DebugCommands.h</a></span>, sans Qt) ; ce modèle applique. Ce qu'il applique passe par les <b>mêmes fonctions</b> que <span class="tt"><a class="el" href="Game_2Main_8cpp.html" title="Point d&#39;entrée du jeu (JustAnotherRpgGame) — Qt Quick, sans un seul widget.">App/Game/Main.cpp</a></span> (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a003fba20061dd2037731373390a8962d" title="Remplace la carte où « Nouvelle partie » ouvre le jeu — outil de développement (--map=&lt;carte&gt;[@&lt;arriv...">hmi::WorldModel::setStartOverride</a></span>, <span class="tt">setStartCell</span>, <span class="tt">setStartFlags</span>, <span class="tt">setLevelDirectories</span>, <span class="tt">setHeroFigure</span>) : la console ne connaît aucun chemin que la ligne de commande n'aurait pas.</p>
+<p>Ce qui touche à la fenêtre — un écran forcé, une taille, une capture — est <b>demandé</b> par signal : le modèle ne connaît pas la fenêtre, et c'est le QML (<span class="tt">Main.qml</span>) qui la tient.</p>
+<p>Sans effet dans un binaire livré (<span class="tt"><a class="el" href="namespacecore.html#affbaf55db3c297c638c8399aa855dbfe" title="Vrai dans les builds de développement (Debug), faux en Release.">core::DEVELOPER_BUILD</a></span>), comme le sélecteur d'écrans. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7a69fe5da35ab5ded3dcba68aa331cb8" name="a7a69fe5da35ab5ded3dcba68aa331cb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a69fe5da35ab5ded3dcba68aa331cb8">&#9670;&#160;</a></span>DebugConsoleModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::DebugConsoleModel::DebugConsoleModel </td>
+          <td>(</td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aecdb620d6d3cbe27101b9a532ee4a5e8" name="aecdb620d6d3cbe27101b9a532ee4a5e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecdb620d6d3cbe27101b9a532ee4a5e8">&#9670;&#160;</a></span>apply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::apply </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>words</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applique les options de <code class="param">words</code>, dans l'ordre que le lancement suivrait. </p>
+
+</div>
+</div>
+<a id="a4f0340b1868d9186e84a6541c7c23525" name="a4f0340b1868d9186e84a6541c7c23525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f0340b1868d9186e84a6541c7c23525">&#9670;&#160;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::clear </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Efface le compte rendu ; l'historique reste. </p>
+
+</div>
+</div>
+<a id="a442753b2916cdcd435fbef29bdc5fdfb" name="a442753b2916cdcd435fbef29bdc5fdfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a442753b2916cdcd435fbef29bdc5fdfb">&#9670;&#160;</a></span>gameRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::gameRequested </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Une carte s'est ouverte : la vue de jeu doit paraître (<span class="tt"><a class="el" href="classhmi_1_1ScreenRouter.html#ab876832aba412ba4d1413c106cd6e86f" title="Outil de debug : ouvre la vue de jeu hors de la table, d&#39;où que l&#39;on soit.">ScreenRouter.jumpToGame</a></span>). </p>
+
+</div>
+</div>
+<a id="a65c53f5880c1ef2d1e1072a76f4c1aef" name="a65c53f5880c1ef2d1e1072a76f4c1aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65c53f5880c1ef2d1e1072a76f4c1aef">&#9670;&#160;</a></span>history()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DebugConsoleModel::history </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50a3cfd5c8aea6d70c1bcc8648b4bc2e" name="a50a3cfd5c8aea6d70c1bcc8648b4bc2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50a3cfd5c8aea6d70c1bcc8648b4bc2e">&#9670;&#160;</a></span>options()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::DebugConsoleModel::options </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4eee48a120dabdcb709041c24c2e9d86" name="a4eee48a120dabdcb709041c24c2e9d86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eee48a120dabdcb709041c24c2e9d86">&#9670;&#160;</a></span>printHelp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::printHelp </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d477a2ba6dc8f9ff351a7868733e418" name="a1d477a2ba6dc8f9ff351a7868733e418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d477a2ba6dc8f9ff351a7868733e418">&#9670;&#160;</a></span>relaunch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DebugConsoleModel::relaunch </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>line</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Redémarre le jeu avec <code class="param">line</code> pour ligne de commande, et quitte celui-ci. </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si le nouveau processus n'a pas pu partir ; le jeu reste alors ouvert. </dd></dl>
+
+</div>
+</div>
+<a id="a84c0fa0e1123b1c840f8946a1d396530" name="a84c0fa0e1123b1c840f8946a1d396530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84c0fa0e1123b1c840f8946a1d396530">&#9670;&#160;</a></span>run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::run </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>line</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exécute <code class="param">line</code> : une suite d'options, comme sur la ligne de commande, ou <span class="tt">aide</span>. </p>
+
+</div>
+</div>
+<a id="ae6fa6168044c90e6a72838263a00327c" name="ae6fa6168044c90e6a72838263a00327c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6fa6168044c90e6a72838263a00327c">&#9670;&#160;</a></span>say()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::say </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>line</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ajoute une ligne au compte rendu — ce que le QML a fait d'une demande (une capture écrite, une taille refusée). </p>
+
+</div>
+</div>
+<a id="a08515a8b30b977cbef9e462b2d0f7518" name="a08515a8b30b977cbef9e462b2d0f7518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08515a8b30b977cbef9e462b2d0f7518">&#9670;&#160;</a></span>screenRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::screenRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">--screen=&lt;name&gt;</span> : la pile d'écrans épingle cet écran. </p>
+
+</div>
+</div>
+<a id="a08b79f7d0d8bdea2328b0223423db4d1" name="a08b79f7d0d8bdea2328b0223423db4d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08b79f7d0d8bdea2328b0223423db4d1">&#9670;&#160;</a></span>screenshotRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::screenshotRequested </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">--screenshot=</span> : la fenêtre se capture dans ce fichier. </p>
+
+</div>
+</div>
+<a id="a79f273f4947697c939f3e5c780079b19" name="a79f273f4947697c939f3e5c780079b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f273f4947697c939f3e5c780079b19">&#9670;&#160;</a></span>transcript()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DebugConsoleModel::transcript </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cd74b722069b1923e67a327d436bfb9" name="a9cd74b722069b1923e67a327d436bfb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cd74b722069b1923e67a327d436bfb9">&#9670;&#160;</a></span>transcriptChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::transcriptChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7978bb36aef2cc24af7dd4f410548ed4" name="a7978bb36aef2cc24af7dd4f410548ed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7978bb36aef2cc24af7dd4f410548ed4">&#9670;&#160;</a></span>windowSizeRequested</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DebugConsoleModel::windowSizeRequested </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><span class="tt">--window-size=</span> : la fenêtre prend cette taille. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="af63574dc4eac43e343a0966eaa0efc00" name="af63574dc4eac43e343a0966eaa0efc00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af63574dc4eac43e343a0966eaa0efc00">&#9670;&#160;</a></span>_history</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DebugConsoleModel::_history</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a887a7e627657dbb0e00190875a46054a" name="a887a7e627657dbb0e00190875a46054a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a887a7e627657dbb0e00190875a46054a">&#9670;&#160;</a></span>_transcript</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DebugConsoleModel::_transcript</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a47af84ab7ba12fd923b32019dc44849a" name="a47af84ab7ba12fd923b32019dc44849a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47af84ab7ba12fd923b32019dc44849a">&#9670;&#160;</a></span>history</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList hmi::DebugConsoleModel::history</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les lignes tapées, la plus récente en dernier : pour les flèches haut et bas. </p>
+
+</div>
+</div>
+<a id="a359bde1736731bd83ef06ea6c7256745" name="a359bde1736731bd83ef06ea6c7256745"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a359bde1736731bd83ef06ea6c7256745">&#9670;&#160;</a></span>options</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::DebugConsoleModel::options</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le catalogue des options : <span class="tt">{name, syntax, description, live}</span>. </p>
+
+</div>
+</div>
+<a id="aa9d124b5e799a2564f1e1d6b6dfa7ee2" name="aa9d124b5e799a2564f1e1d6b6dfa7ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9d124b5e799a2564f1e1d6b6dfa7ee2">&#9670;&#160;</a></span>transcript</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QML_SINGLETONQStringList hmi::DebugConsoleModel::transcript</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que la console a dit, dans l'ordre : les lignes tapées (précédées de <span class="tt">&gt; </span>) et leurs réponses. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="DebugConsoleModel_8h_source.html">DebugConsoleModel.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/<a class="el" href="DebugConsoleModel_8cpp.html">DebugConsoleModel.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1DebugConsoleModel.html">DebugConsoleModel</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

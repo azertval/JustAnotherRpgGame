@@ -154,7 +154,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:afbdd2fdf4e1f0079965d3d2b7837c150" id="r_afbdd2fdf4e1f0079965d3d2b7837c150"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afbdd2fdf4e1f0079965d3d2b7837c150">attitude</a></td></tr>
 <tr class="memitem:ab0c3f3969e141cd53c07fba93fa03782" id="r_ab0c3f3969e141cd53c07fba93fa03782"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab0c3f3969e141cd53c07fba93fa03782">line</a></td></tr>
 <tr class="memitem:a611a234a545d4a010c0f71eaed6ec6f4" id="r_a611a234a545d4a010c0f71eaed6ec6f4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a611a234a545d4a010c0f71eaed6ec6f4">checkOutcome</a></td></tr>
-<tr class="memdesc:a611a234a545d4a010c0f71eaed6ec6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet que la dernière réponse a joué, restitué (« Persuasion : 17 contre 15 — réussite »).  <br /></td></tr>
+<tr class="memdesc:a611a234a545d4a010c0f71eaed6ec6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet que la dernière réponse a joué, restitué d'une ligne (« Persuasion · DD 15 — d20 : 12, total 16 — réussite »).  <br /></td></tr>
+<tr class="memitem:ab73dca351d57289f832a4b5aaed7b2fd" id="r_ab73dca351d57289f832a4b5aaed7b2fd"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab73dca351d57289f832a4b5aaed7b2fd">checkTitle</a></td></tr>
+<tr class="memdesc:ab73dca351d57289f832a4b5aaed7b2fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même jet, par morceaux, pour que l'écran le <b>montre</b> (<span class="tt">LOT-117</span>) : ce qui était jeté (« Persuasion · DD 15 »), le dé tiré (« 12 », vide s'il ne l'a pas été), le calcul (« 12 + 4 = 16 ») et l'issue (« réussite »).  <br /></td></tr>
+<tr class="memitem:a399755fc6bbdccd8964f3b5c149baca2" id="r_a399755fc6bbdccd8964f3b5c149baca2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a399755fc6bbdccd8964f3b5c149baca2">checkDie</a></td></tr>
+<tr class="memitem:ae5868b0f69b074562cb1a0cbfacd658f" id="r_ae5868b0f69b074562cb1a0cbfacd658f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae5868b0f69b074562cb1a0cbfacd658f">checkDetail</a></td></tr>
+<tr class="memitem:af31ecac77f38895d21d1bdb278072a43" id="r_af31ecac77f38895d21d1bdb278072a43"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af31ecac77f38895d21d1bdb278072a43">checkVerdict</a></td></tr>
+<tr class="memitem:ae132d4aba3ed8b198f2df8a0e5edbd7a" id="r_ae132d4aba3ed8b198f2df8a0e5edbd7a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae132d4aba3ed8b198f2df8a0e5edbd7a">checkSucceeded</a> = false</td></tr>
 <tr class="memitem:a4b59187e06129e3bf78ba18bd4e97d2f" id="r_a4b59187e06129e3bf78ba18bd4e97d2f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1DialogueReply.html">DialogueReply</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4b59187e06129e3bf78ba18bd4e97d2f">replies</a></td></tr>
 <tr class="memitem:ac59c256dddfecd251e3e7837b2075a27" id="r_ac59c256dddfecd251e3e7837b2075a27"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac59c256dddfecd251e3e7837b2075a27">finished</a> = false</td></tr>
 <tr class="memdesc:ac59c256dddfecd251e3e7837b2075a27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand la conversation a atteint une fin : l'écran se referme.  <br /></td></tr>
@@ -176,6 +182,34 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae5868b0f69b074562cb1a0cbfacd658f" name="ae5868b0f69b074562cb1a0cbfacd658f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5868b0f69b074562cb1a0cbfacd658f">&#9670;&#160;</a></span>checkDetail</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::DialogueScreenValues::checkDetail</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a399755fc6bbdccd8964f3b5c149baca2" name="a399755fc6bbdccd8964f3b5c149baca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a399755fc6bbdccd8964f3b5c149baca2">&#9670;&#160;</a></span>checkDie</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::DialogueScreenValues::checkDie</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a611a234a545d4a010c0f71eaed6ec6f4" name="a611a234a545d4a010c0f71eaed6ec6f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a611a234a545d4a010c0f71eaed6ec6f4">&#9670;&#160;</a></span>checkOutcome</h2>
 
@@ -188,7 +222,52 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le jet que la dernière réponse a joué, restitué (« Persuasion : 17 contre 15 — réussite »). </p>
+<p>Le jet que la dernière réponse a joué, restitué d'une ligne (« Persuasion · DD 15 — d20 : 12, total 16 — réussite »). </p>
+<p>Vide si le dernier geste n'a rien jeté. </p>
+
+</div>
+</div>
+<a id="ae132d4aba3ed8b198f2df8a0e5edbd7a" name="ae132d4aba3ed8b198f2df8a0e5edbd7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae132d4aba3ed8b198f2df8a0e5edbd7a">&#9670;&#160;</a></span>checkSucceeded</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DialogueScreenValues::checkSucceeded = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab73dca351d57289f832a4b5aaed7b2fd" name="ab73dca351d57289f832a4b5aaed7b2fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73dca351d57289f832a4b5aaed7b2fd">&#9670;&#160;</a></span>checkTitle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::DialogueScreenValues::checkTitle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le même jet, par morceaux, pour que l'écran le <b>montre</b> (<span class="tt">LOT-117</span>) : ce qui était jeté (« Persuasion · DD 15 »), le dé tiré (« 12 », vide s'il ne l'a pas été), le calcul (« 12 + 4 = 16 ») et l'issue (« réussite »). </p>
+
+</div>
+</div>
+<a id="af31ecac77f38895d21d1bdb278072a43" name="af31ecac77f38895d21d1bdb278072a43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af31ecac77f38895d21d1bdb278072a43">&#9670;&#160;</a></span>checkVerdict</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::DialogueScreenValues::checkVerdict</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

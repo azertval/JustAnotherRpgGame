@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-25 12:58 UTC",
-  "commit": "5507f0f97",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36134776936",
+  "generated": "2026-09-25 14:01 UTC",
+  "commit": "540031184",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36140957758",
   "coverage": {
-    "percent": 91.24,
-    "covered": 32077,
-    "valid": 35156,
-    "files": 269,
+    "percent": 91.31,
+    "covered": 32412,
+    "valid": 35495,
+    "files": 272,
     "areas": [
       {
         "name": "Core",
@@ -40,9 +40,9 @@
       },
       {
         "name": "Core/Gameplay",
-        "covered": 596,
-        "valid": 666,
-        "percent": 89.49
+        "covered": 598,
+        "valid": 668,
+        "percent": 89.52
       },
       {
         "name": "Core/Levels",
@@ -64,9 +64,9 @@
       },
       {
         "name": "Core/Rpg",
-        "covered": 1976,
-        "valid": 2194,
-        "percent": 90.06
+        "covered": 2047,
+        "valid": 2266,
+        "percent": 90.34
       },
       {
         "name": "Core/Time",
@@ -82,9 +82,9 @@
       },
       {
         "name": "Editor/Logic",
-        "covered": 4484,
-        "valid": 5116,
-        "percent": 87.65
+        "covered": 4488,
+        "valid": 5120,
+        "percent": 87.66
       },
       {
         "name": "Editor/Ui",
@@ -100,9 +100,9 @@
       },
       {
         "name": "HMI/Game",
-        "covered": 365,
-        "valid": 393,
-        "percent": 92.88
+        "covered": 455,
+        "valid": 484,
+        "percent": 94.01
       },
       {
         "name": "HMI/Graphics",
@@ -130,9 +130,9 @@
       },
       {
         "name": "HMI/Presentation",
-        "covered": 642,
-        "valid": 697,
-        "percent": 92.11
+        "covered": 666,
+        "valid": 721,
+        "percent": 92.37
       }
     ]
   },
