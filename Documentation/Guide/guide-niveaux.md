@@ -212,8 +212,10 @@ pris.
 `bool`, entier, réel ou chaîne. C'est aussi là que le chargeur range **toute clé qu'il ne reconnaît
 pas** dans une couche ou une entité, et que l'écrivain la réémet : un fichier produit par une
 version ultérieure de l'éditeur traverse une version antérieure sans rien perdre. La propriété de
-couche `scene`, par exemple, nomme le **lieu** dont la carte porte les planches
-(`Assets/Scene/<lieu>/`).
+couche `scene`, par exemple, nomme le **lieu** dont la carte porte les pièces : un chemin de
+l'arbre des lieux (`central-empire/capital/martpart`), dont les planches viennent de
+`Assets/Regions/…/Scene/` et des niveaux communs du lieu (`LOT-124`) ; `Assets/Scene/<lieu>/`
+ne survit que pour les racines d'essai.
 
 ## Chargement JSON
 
@@ -252,7 +254,7 @@ chemin) et `loadFromString` (depuis du texte déjà en mémoire, pratique pour l
 ```
 
 (exemple illustratif, repris de [`niveaux.md`](../Specification/niveaux.md) — les cartes réelles sont dans
-`Source/Elements/Levels/`, par exemple `coliseum.json`). À lire ainsi :
+`Source/Elements/Levels/`, par exemple `central-empire/capital/martpart.json`). À lire ainsi :
 
 - `version` est le numéro de format (`core::LEVEL_FORMAT_VERSION`, aujourd'hui `4`, `EX-LVL-005`) ;
   un fichier sans ce champ se lit comme la version initiale, un fichier d'une version **supérieure**

@@ -40,7 +40,10 @@ que l'asset **installé** : détouré, réduit à l'échelle du standard, ancré
 ## Contenu
 
 - `Common/`, `Regions/` — l'arborescence ci-dessus : le kit de la Capitale (`LOT-105`, `LOT-129`,
-  `LOT-108`), Arenarea (`LOT-108`), le héros de la démo (`LOT-112`).
+  `LOT-108`), Arenarea (`LOT-108`), le héros de la démo (`LOT-112`), les mannequins qui tiennent
+  lieu d'une figurine absente (`Common/Characters/Placeholders/humanoid/`, `LOT-145`, dont la suite
+  est à la `0.0.2`), et le rendu de chaque carte de principe pour l'écran « Carte » du jeu
+  (`Regions/…/Map/*.jpg`, `LOT-121`).
 - `Entities/` — familles des illustrations d'entité et leur contrat de dimensions
   (`families.json`, `core::loadAssetFamilies`) ; une donnée désigne son image par une **clé**, et
   un marqueur en tient lieu tant qu'aucune n'existe (voir `Entities/README.md`).

@@ -5,8 +5,8 @@ et l'espace se compte en cases. Tout ce qui le décide vit dans `Source/Core/Com
 en-têtes de `Core` pur, sans Qt ni GPU (`EX-NFR-010`), que cette page parcourt dans l'ordre d'un
 combat : le montage d'une rencontre, la grille, l'initiative, le tour et son économie, le
 déplacement, l'attaque et les dégâts, la géométrie (portée, ligne de vue, abri, zones, tenaille),
-la prévisualisation, l'IA, puis l'arène du Colisée qui est aujourd'hui le seul lieu où ce combat
-se joue. Ce que l'écran en montre est renvoyé à [Rendu 2D](guide-rendu.md) et
+la prévisualisation, l'IA, puis la session d'arène qui tient un combat — lequel se joue sur la
+carte d'exploration elle-même depuis le `LOT-118`. Ce que l'écran en montre est renvoyé à [Rendu 2D](guide-rendu.md) et
 [Écrans](guide-ecrans.md) ; les règles du d20 lui-même, à [Règles d20](guide-regles.md).
 
 ## Définitions
@@ -40,7 +40,7 @@ combat](../Specification/combat.md) en détaille chaque terme.
 | `LineOfSight.h`, `AreaOfEffect.h` | ligne de vue, abri, zones d'effet | `LOT-22` |
 | `EnemyAi.h`, `Flanking.h` | l'IA tactique et la prise en tenaille | `LOT-23` |
 | `CombatPreview.h` | ce que l'écran montre avant que le joueur ne s'engage | `LOT-24` |
-| `Arena.h`, `IsoProjection.h` | le Colisée : session rejouable, et la projection isométrique de sa grille | `LOT-50` |
+| `Arena.h`, `IsoProjection.h` | la session d'arène, rejouable, et la projection isométrique de sa grille | `LOT-50` |
 
 Chaque en-tête cite la page du Manuel des Joueurs ou du Guide du Maître qui fonde ses règles, et
 nomme ce qu'il **décide** au-delà du livre : cette page reprend ces décisions, sans recopier les
@@ -98,8 +98,9 @@ de ce qui décide n'est dans un widget, ce qui rend l'aller-retour vérifiable s
 Côté exploration, `core::ExplorationSession` produit un `ExplorationEventKind::Encounter` quand le
 héros interagit avec un tel déclencheur ([Monde et exploration](guide-monde.md)) ; c'est
 l'appelant qui monte alors le combat. Le mode `hmi::CombatMode` du `LOT-18`, qui gelait les passes
-de l'ancienne exploration, n'existe plus (`LOT-88`, `LOT-102`) : dans le jeu Qt Quick, le seul
-combat ouvert est celui du Colisée, et brancher une rencontre de carte reste dû au `LOT-27`.
+de l'ancienne exploration, n'existe plus (`LOT-88`, `LOT-102`) : dans le jeu Qt Quick, c'est
+`hmi::EncounterModel` qui monte la rencontre sur la carte courante quand la session émet
+l'événement, et le combat se joue là, sur la carte (`LOT-118`, livré pour la démo).
 
 ### Le terrain est-il jouable ? (`TacticalTerrain.h`)
 
@@ -697,19 +698,21 @@ attaque de contact a un jet requis au plus égal à `opportunityMaximumRoll` ;
 profil décide, les autres prennent tout. Un test génère trente salles et joue chaque combat par
 l'IA des deux côtés : tous atteignent leur issue.
 
-## L'arène : le Colisée (`Arena.h`)
+## La session d'arène (`Arena.h`)
 
 Les Arènes de Tanares sont une institution du monde : deux camps y règlent un litige par leurs
 champions, **sans mort**, sous la protection d'un rituel de Marque Héroïque. C'est ce qui en fait le
 banc d'essai naturel du combat — un affrontement s'y rejoue indéfiniment, et c'est la fiction qui
 l'explique. `core::ArenaSession` est le premier objet du jeu qui **tient** un `core::CombatState`
-(`LOT-50`) ; « Nouvelle partie » ouvre l'arène tant qu'aucune autre carte n'est jouable.
+(`LOT-50`) ; c'est encore elle que `hmi::EncounterModel` monte quand une rencontre s'engage sur
+la carte (`LOT-118`) — « Nouvelle partie », elle, ouvre Martpart au point d'arrivée
+`market-gate`, et l'on marche jusqu'au sable.
 
 ### La donnée
 
 - `core::Arena` : une arène telle que la donnée la décrit — région et lieu de l'atlas (`LOT-37`),
   `map` (vide si elle n'a pas encore de carte), `zone` (le nom de sa **zone de combat**,
-  `core::CombatZone`, `LOT-09` : le Colisée est un lieu, et l'on ne se bat que sur son sable ;
+  `core::CombatZone`, `LOT-09` : une arène est un lieu, et l'on ne se bat que sur son sable ;
   `core::cropLevelToZone` donne à la session une carte qui n'est que la zone), `lethal` (faux par
   défaut : la règle des Arènes), `heroicMark`, `flanking`. Les variantes du Sourcebook — l'Arène du
   Futur non létale, Feargus la létale, le duel de baguettes — sont des données, pas des modes.
@@ -760,8 +763,8 @@ monde.x = originX + L/2 + (gc − gr) · L/2
 monde.y = originY       + (gc + gr) · H/2
 ```
 
-où L est la largeur du losange (`ARENA_TILE_WIDTH_UNITS` par défaut : une tuile de la planche du
-Colisée, 86 px, à sa taille native au zoom 1) et H = 0,62 L sa hauteur (`ARENA_DIAMOND_RATIO`,
+où L est la largeur du losange (`ARENA_TILE_WIDTH_UNITS` par défaut : une tuile de l'ancienne
+planche du Colisée, 86 px, à sa taille native au zoom 1) et H = 0,62 L sa hauteur (`ARENA_DIAMOND_RATIO`,
 l'angle des tuiles de la planche, pas le 2:1 classique). Le coin de grille (c, r) tombe sur le
 sommet haut du losange de la case ; une bande de `ARENA_WALL_RISE · L` est réservée en haut pour
 les murs du fond. Le cadrage — centrer, faire tenir dans la surface — n'est pas l'affaire de la
@@ -868,8 +871,8 @@ sous son voile ; c'est l'écran de mort qui quitte la rencontre et finit la part
 - [Monde et exploration](guide-monde.md) — la session d'exploration qui rencontre un déclencheur,
   et la zone de combat d'une carte.
 - [Niveaux](guide-niveaux.md) — la grille de collision dont la grille de combat est la copie.
-- [Rendu 2D](guide-rendu.md), [Écrans](guide-ecrans.md) — ce que l'écran du Colisée fait de la
-  session.
+- [Rendu 2D](guide-rendu.md), [Écrans](guide-ecrans.md) — ce que `CombatHud.qml` et
+  `hmi::EncounterModel` font de la session.
 - [Éditeur de niveaux](guide-editeur.md) — le contrôle du contenu qui appelle
   `core::analyzeEncounterTerrain`.
 - [`combat.md`](../Specification/combat.md), [`regles-d20.md`](../Specification/regles-d20.md) — les

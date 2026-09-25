@@ -593,8 +593,8 @@ nom de carte (`map.<id>.name`, `EX-EDIT-081`).
 
 `Source/HMI/HmiLog.h` définit `HMI_LOG_TRACE`, `HMI_LOG_INFO`, `HMI_LOG_WARNING`,
 `HMI_LOG_ERROR` : la catégorie « HMI » sur les macros de `Core/Diagnostics/Log.h`. Chaque module a
-son en-tête de ce type (`AudioLog.h`, `GraphicsLog.h`…). `Source/HMI/Diagnostics/` est un dossier
-**vide** : ce que l'application expose du journal à l'utilisateur vit dans `HMI/Runtime/`
+son en-tête de ce type (`AudioLog.h`, `GraphicsLog.h`…). La couche n'a pas de module de
+diagnostic à elle : ce que l'application expose du journal à l'utilisateur vit dans `HMI/Runtime/`
 (`hmi::OptionsModel::saveLogs`). Le détail est en [Journalisation et
 assertions](guide-journalisation.md).
 

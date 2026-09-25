@@ -48,7 +48,7 @@ Côté interface, `hmi::WorldModel` (un singleton QML) tient la partie : il poss
 l'écran a tenue (`setMove`, `interact`) et traduit les événements rendus en signaux
 (`dialogueRequested`, `encounterRequested`, `portalLocked`, `portalBroken`, `portalSealed`,
 `mapEntered`, `questAdvanced`). C'est
-l'**écran** qui ouvre le dialogue ou le Colisée, et qui **gèle** la carte pendant ce temps ; le
+l'**écran** qui ouvre le dialogue ou le combat sur la carte, et qui **gèle** la carte pendant ce temps ; le
 modèle ne décide rien du monde. Le singleton n'est pas un détail : la pile d'écrans détruit la vue
 de jeu quand un autre écran la recouvre, et une session possédée par l'écran mourrait avec elle —
 on reviendrait du sable sur une carte neuve, héros à la porte, exactement ce que le `LOT-09`
@@ -970,8 +970,8 @@ l'ouverture et à chaque `questAdvanced` de `hmi::WorldModel`. Au clavier et à 
 
 ## La bascule vers le combat : `core::CombatZone`
 
-Fichier : [`CombatZone.h`](../../Source/Core/World/CombatZone.h) (`LOT-09`, `EX-LVL-018`). Le
-Colisée est un lieu : on marche dans le hall, les couloirs, les vestiaires et les tribunes, et
+Fichier : [`CombatZone.h`](../../Source/Core/World/CombatZone.h) (`LOT-09`, `EX-LVL-018`).
+L'Arena of Fate est un lieu : on marche dans le hall, les couloirs, les vestiaires et les tribunes, et
 l'on ne s'y bat pas — le livre ne fait combattre que sur le sable. Prendre la carte entière pour
 grille tactique donnerait un affrontement de mille cases dont la plupart seraient des gradins. La
 zone est donc **déclarée sur la carte** : une entité `combatZone`, sa case au coin haut-gauche,

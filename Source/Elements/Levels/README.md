@@ -2,7 +2,7 @@
 
 Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 
-> **Vidé au `LOT-102`.** Le jeu quitte le pixel art : `coliseum.json` (`LOT-09`) et les quartiers
+> **Vidé au `LOT-102`, repeuplé au `LOT-146`.** Le jeu quitte le pixel art : `coliseum.json` (`LOT-09`) et les quartiers
 > de `capital/` (`LOT-96`) sont partis avec l'art qu'ils posaient. Les cartes 2D HD se dessinent à
 > l'éditeur, sous le **même découpage que les assets** — `<région>/<ville>/<zone>.json`, la
 > sous-zone sous son dossier de zone :

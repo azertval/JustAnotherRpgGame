@@ -141,6 +141,34 @@ courtes, le lint est vert, le site suit.
    mouvements de quatre personnages joués et de plusieurs adversaires ; la file, ses attentes et
    `Entrée` qui saute l'animation sont à relire à quatre, pas à étendre à l'aveugle.
 
+## Ce que l'audit du code a trouvé
+
+La recette a relu `Source/Core`, `Source/HMI` + `App` + `Ui`, l'outillage Python et la
+documentation, à la recherche du code mort, du code sans documentation et des résidus du Colisée et
+du pixel art. `Core` est sain : aucun `TODO`, aucun `#if 0`, aucun code commenté, `clang++ -Wall
+-Wextra -Wunused-*` muet ; sept symboles sans appelant, six includes inutiles et six exemples de
+chemins périmés ont été corrigés, et la convention « Doxygen dans le `.h`, `//` dans le `.cpp` »
+est rétablie dans 27 `.cpp`. Côté `HMI`, le retrait de l'écran du Colisée (25 septembre) avait laissé
+sa chaîne de rendu — `ArenaSceneRenderer`, `ArenaSceneComposer`, `ArenaAppearanceCatalog`,
+`ArenaAnimationDriver`, 2 000 lignes compilées dans les deux exécutables, exercées par leurs
+seuls tests —, 22 traductions orphelines, une branche de la galerie qui lisait un dossier disparu,
+un alias vers une carte supprimée, des signaux et des propriétés que plus aucun écran ne lisait ; le
+tout est retiré ou réécrit dans la PR de recette.
+
+Ce que l'audit **laisse à l'auteur**, parce que la réponse est un choix de produit et non un
+constat :
+
+| Constat | Ce que ça touche | Options |
+|---|---|---|
+| `hmi::CombatModel::preview` et ses 37 chaînes traduites sont calculés pour personne : le HUD de combat ne montre plus la prévisualisation d'un geste (coût, jet à atteindre) que le Colisée affichait | l'interface de combat de la `0.0.2` (`LOT-140`) | la réafficher dans le HUD, ou retirer la propriété et ses chaînes |
+| `WorldModel` émet `portalLocked`, `portalBroken`, `portalSealed` et rien ne les écoute : un portail fermé ne dit rien au joueur | l'exploration ; la démo a deux portails condamnés | un message dans le HUD, ou retirer les signaux |
+| `ScreenRouter::nextRpgScreen` / `previousRpgScreen` (`EX-IHM-090`, le cycle des écrans aux gâchettes) ne sont plus appelés : LB/RB font autre chose dans la carte et le combat | l'exigence `EX-IHM-090` | recâbler, ou réécrire l'exigence et retirer les invocables |
+| La table `hmi::RpgScreens` (515 lignes, `pausesGame`, `EX-IHM-091`) n'est plus lue que par ses tests ; le gel réel se fait dans `GameView.qml` | l'architecture des écrans, héritée de l'ère Widgets | réduire à l'énumération, ou brancher `pausesGame` sur le gel |
+| L'API clavier/souris d'`hmi::InputState` n'est plus alimentée par aucune fenêtre depuis Qt Quick ; seule la manette passe encore par elle | les entrées | l'amincir au pad |
+| `core::Arena`, `ArenaCatalog`, `loadArenas` chargent `World/arena/`, un dossier que la table rase a supprimé : seules les racines d'essai en ont | le combat d'arène de la `0.0.2` (six rencontres, `LOT-142`) | la donnée revient avec les rencontres d'arène, ou le catalogue part |
+| Quatre modules de `Core` ne sont exercés que par les tests : `AreaOfEffect` (sorts), `Multiclassing`, `ScopedLogLevel`, le composant `RpgActor` ; et une centaine de fonctions publiques (drapeaux de dégâts, ECS, atlas des régions, montée de niveau) n'ont pas d'appelant hors tests | des briques de règles livrées en avance par la fondation | les garder pour la `0.0.2` (sorts, groupe) et la `0.3.0`, comme prévu ; rien ne presse |
+| Six dialogues du Colisée (`heraut-colisee`, `portier-colisee`, `parieuse-tribunes`, `medecin-vestiaire`, `vieux-gladiateur`, `sentinelle-ironhand`) n'ont plus de carte qui les porte ; deux servent de données de test | le contenu ; l'Arena of Fate définitive de la `0.0.3` en réemploiera peut-être | les garder comme réserve d'écriture, ou les retirer avec leurs textes |
+
 ## Ce que la version laisse aux suivantes
 
 | À | Quoi | Où c'est écrit |

@@ -1,6 +1,6 @@
 # Rendu 2D : de la scène à l'écran
 
-Cette page explique comment un lieu qu'on parcourt, l'arène du Colisée ou le brouillon de l'éditeur
+Cette page explique comment un lieu qu'on parcourt, une scène de combat ou le brouillon de l'éditeur
 finissent par apparaître comme une image à l'écran, en partant des notions de base du rendu temps
 réel pour qui n'en a jamais écrit. Tout le rendu vit dans `Source/HMI/Graphics`, sur une surface
 fournie par Qt (l'éditeur dans `Source/Editor/Ui`, le jeu dans `Source/HMI/Runtime`) ; c'est la
@@ -178,8 +178,8 @@ protéger (`EX-ARCH-022`, `LOT-103`). Fonction pure, partagée par le canevas de
 Les deux scènes du jeu ont chacune **une** fonction de cadrage, qui est la seule géométrie de la
 scène à l'écran :
 
-- `hmi::arenaCamera(projection, pixelWidth, pixelHeight)` (`ArenaSceneRenderer.h`) cadre le
-  Colisée **entier**, centré, par `fitZoom` ;
+- `hmi::arenaCamera(projection, pixelWidth, pixelHeight)` (`ArenaSceneRenderer.h`) cadre l'arène
+  **entière**, centrée, par `fitZoom` ;
 - `hmi::worldCamera(projection, focus, pixelWidth, pixelHeight, tilePixels)`
   (`WorldSceneRenderer.h`) **suit** le héros dans le lieu qu'on parcourt (`EX-REN-013`) : une case
   occupe à l'écran la hauteur de la surface divisée par `hmi::WORLD_VIEW_HEIGHT_IN_TILES` = 10,8
@@ -431,9 +431,9 @@ Trois fonctions **pures** traduisent une description en région de texture :
 Le catalogue ne charge ni ne met en cache aucun PNG : ses appelants (`hmi::ArenaAnimationDriver`,
 `hmi::WorldSceneRenderer`, la galerie) le composent avec `hmi::TextureLoader`.
 
-### Au Colisée : `hmi::ArenaAnimationDriver`
+### Dans l'arène : `hmi::ArenaAnimationDriver`
 
-Contrairement au personnage exploré (plusieurs clips dans **une** bande), une figurine du Colisée a
+Contrairement au personnage exploré (plusieurs clips dans **une** bande), une figurine d'arène a
 **un fichier par action** — `idle.png`, `walk.png`, `attack.png`, `hit.png`, `death.png` —, chacun
 décrit par son propre `.anim.json` à un seul clip (`hmi::ArenaFigureAction` : `Idle`, `Walk`,
 `Attack`, `Hit`, `Death`).
@@ -529,7 +529,7 @@ séparation est le point le plus important de la page :
 1. la **composition** produit une `hmi::ComposedScene` : une liste ordonnée de quads en unités
    monde, chacun avec son calque et sa texture. C'est de la logique **pure** : aucun appel GPU. Trois
    compositeurs existent — `hmi::composeWorldScene` (lieu qu'on parcourt), `hmi::composeArenaScene`
-   (Colisée) et `hmi::DraftRenderer` (brouillon de l'éditeur) ;
+   (scène de combat seule) et `hmi::DraftRenderer` (brouillon de l'éditeur) ;
 2. la **soumission** (`hmi::submitComposedScene(batch, projection, scene)`, `SpriteRenderer.h`)
    parcourt cette liste **déjà triée** et l'envoie au `SpriteBatch`, une passe `begin`/`end` par
    groupe **contigu** de même texture, dans l'ordre de la scène. C'est le seul endroit du rendu qui
@@ -912,7 +912,7 @@ tomber sur un damier sur sept mille cases.
   inconnue), `pieces()` (tous les noms, triés, sans doublon — ce que le rendu charge), `place()`,
   `diamondRatio()`, `empty()`.
 
-## Le Colisée : `hmi::ArenaSceneComposer` et `hmi::ArenaAppearanceCatalog`
+## La scène de combat seule : `hmi::ArenaSceneComposer` et `hmi::ArenaAppearanceCatalog`
 
 La scène de combat (`ArenaSceneComposer.h`, `LOT-86` phase 3) suit les mêmes règles avec une autre
 source : une grille de combat. Le sol va sur `Tile`, l'enceinte (pan, angle, pilier, bannière,
@@ -1101,7 +1101,10 @@ manifeste des PNJ voisin peut mettre un PNJ à la place d'un héros (`applyNpcMa
 - `catalog()`, `textures()`, `composed()`, `created()`, `rhi()`, `release()`.
 
 > **Note** — Depuis le `LOT-102`, ni la planche du Colisée ni les bandes de figurines n'existent
-> dans le dépôt : le catalogue est vide et le renderer ne dessine que le fond. L'Arena of Fate HD arrive avec les `LOT-106` et `LOT-107`.
+> dans le dépôt : le catalogue est vide et ce renderer, qui ne dessine que le fond, ne vit plus que
+> pour ses tests. Le combat de la démo se rend par `hmi::WorldViewportItem`, sur la carte
+> (`LOT-118`) ; l'Arena of Fate définitive en HD (`LOT-106`, `LOT-107`) est à la `0.0.3`
+> (décision D-25).
 
 ### `hmi::renderCityBlock` : l'îlot d'un quartier, hors écran
 
@@ -1198,7 +1201,7 @@ sous un point, (−1, −1) hors carte : le geste de la souris) et `pointAt(colu
 d'une case, pour poser une invite). Le calque QML posé par-dessus lit **ce** cadrage, jamais un
 recalcul.
 
-![L'écran d'exploration du jeu à 1280 × 720 : le châssis du HUD (médaillons, boussole, emplacements de portraits, panneau Quêtes, barre Exploration · Tactique) autour d'un viewport vide portant le message « La ville de départ ne s'ouvre pas », faute de carte dans le dépôt depuis la table rase](captures/jeu-gameview.jpg)
+![L'écran d'exploration du jeu à 1280 × 720 : le châssis du HUD (médaillons, boussole, emplacements de portraits, panneau Quêtes, barre Exploration · Tactique) autour d'un viewport vide portant le message « La ville de départ ne s'ouvre pas » — une capture d'avant les cartes de la démo, quand le dépôt n'avait plus de carte depuis la table rase ; « Nouvelle partie » ouvre aujourd'hui Martpart](captures/jeu-gameview.jpg)
 
 ### Le Colisée, retiré
 
@@ -1257,7 +1260,7 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
 - `hmi::SceneTexture`, `hmi::artTileWidth`, `hmi::artTileHeight`, `hmi::frameCountOf`,
   `hmi::frameWidthOf`, `hmi::frameHeightOf`, `hmi::figureQuad` — les traits d'une texture de scène.
 - `hmi::composeArenaScene`, `hmi::ArenaSceneSnapshot`, `hmi::ArenaSceneRenderer`,
-  `hmi::arenaCamera`, `hmi::ArenaAppearanceCatalog` — le Colisée.
+  `hmi::arenaCamera`, `hmi::ArenaAppearanceCatalog` — la scène de combat seule.
 - `hmi::maquetteColor`, `hmi::maquetteExtrudes`, `hmi::maquetteShape`, `hmi::MaquetteShape`,
   `hmi::maquetteTokenImage`, `hmi::maquetteMarks` — le rendu de maquette (`LOT-128`,
   `EX-EXP-005`).

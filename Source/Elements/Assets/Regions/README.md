@@ -1,5 +1,3 @@
-<!-- Dossier encore vide : il attend le lot qui le remplira. -->
-
 # Les régions
 
 Un dossier par région de l'atlas (`Source/Elements/World/regions/`), du nom de sa fiche
