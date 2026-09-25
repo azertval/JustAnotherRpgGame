@@ -10,6 +10,7 @@ import QtQuick
 */
 QtObject {
     property string dialogueId: "heraut-colisee"
+    property int seed: 0
     readonly property string speakerName: "Le héraut du Colisée"
     readonly property string attitude: "Indifférent"
     readonly property string line: "Halte, voyageur. Vous voici aux portes de l'Arène du Futur. Ici, deux camps règlent ce qu'une guerre réglerait autrement — et personne n'en sort les pieds devant. Que cherchez-vous ?"
