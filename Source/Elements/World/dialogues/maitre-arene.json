@@ -1,0 +1,30 @@
+{
+  "id": "maitre-arene",
+  "name": "Le maître d'arène, sur le sable de l'Arena of Fate (il lance le combat)",
+  "source": "original",
+  "speaker": {
+    "languages": ["common"],
+    "attitude": "indifferent"
+  },
+  "start": "defi",
+  "nodes": [
+    {
+      "id": "defi",
+      "type": "line",
+      "choices": [
+        { "id": "combattre", "next": "engage" },
+        { "id": "attendre", "next": "fin" }
+      ]
+    },
+    {
+      "id": "engage",
+      "type": "action",
+      "actions": [{ "type": "startEncounter", "encounter": "arene-combattant" }],
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

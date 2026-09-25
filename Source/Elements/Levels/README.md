@@ -6,8 +6,10 @@ Cartes du jeu, un fichier **JSON** par carte (`EX-LVL-001`, `EX-LVL-003`).
 > de `capital/` (`LOT-96`) sont partis avec l'art qu'ils posaient. Les cartes 2D HD se dessinent à
 > l'éditeur, sous le **même découpage que les assets** — `<région>/<ville>/<zone>.json`, la
 > sous-zone sous son dossier de zone :
-> `central-empire/capital/arenarea.json` (`LOT-109`), `martpart.json` (`LOT-111`),
-> `arenarea/arena-of-fate.json` (`LOT-107`). Une carte a pour identifiant son **chemin relatif** :
+> `central-empire/capital/arenarea.json`, `martpart.json`, `arenarea/arena-of-fate.json` et
+> `arenarea/arena-of-fate/undercroft.json` — les cartes de principe de la démo (`LOT-146`), que
+> les cartes définitives remplaceront (`LOT-107`, `LOT-111`, `LOT-147`). Une carte a pour
+> identifiant son **chemin relatif** :
 > un portail vise `central-empire/capital/martpart`, et le graphe du monde comme le navigateur de
 > l'éditeur lisent les sous-dossiers.
 

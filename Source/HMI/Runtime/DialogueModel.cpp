@@ -198,7 +198,10 @@ void DialogueModel::open() {
         [this](const std::string& arena) { emit combatRequested(toQt(arena)); },
         [this](const std::string& rencontre) { emit encounterRequested(toQt(rencontre)); },
         [this](const std::string& voie) { emit demoEnded(toQt(voie)); });
-    s.random.emplace(graineSuivante());
+    // La graine du compteur, sauf si l'appelant en a fixe une : un test force ainsi l'issue d'un
+    // jet sans toucher au dialogue (LOT-120), comme EncounterModel::setSeed pour un combat.
+    s.random.emplace(_seed != 0 ? static_cast<std::uint64_t>(static_cast<unsigned>(_seed))
+                                : graineSuivante());
     s.runner.emplace(*s.graph, drapeauxDeLaPartie(), *s.listener, s.difficulty, *s.random);
     static_cast<void>(s.runner->start());
     for (const std::string& ligne : s.runner->journal()) {
@@ -332,6 +335,14 @@ void DialogueModel::chooseAt(int index) {
 
 void DialogueModel::restart() {
     open();
+}
+
+void DialogueModel::setSeed(int seed) {
+    if (_seed == seed) {
+        return;
+    }
+    _seed = seed;
+    emit changed();
 }
 
 }  // namespace hmi

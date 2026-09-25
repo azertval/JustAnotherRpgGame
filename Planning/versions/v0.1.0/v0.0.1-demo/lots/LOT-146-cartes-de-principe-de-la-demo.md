@@ -3,7 +3,7 @@ id = "LOT-146"
 titre = "Les trois cartes de principe de la démo"
 version = "0.0.1"
 filiere = "cartes"
-statut = "a-faire"
+statut = "livre"
 taille = "M"
 resume = "La démo se traverse de bout en bout — Martpart, Arenarea, l'Arena of Fate — sur trois cartes de principe enchaînées, jouées en maquette, sans qu'une seule pièce soit produite."
 prerequis = ["LOT-103", "LOT-118", "LOT-124", "LOT-125", "LOT-126", "LOT-127", "LOT-128"]
@@ -106,3 +106,41 @@ la zone de combat. Ce lot les **pose** ; le `LOT-120` les fait jouer.
   déclencheurs, conditions) : la chaîne se vérifie **dans le jeu**, pas seulement par `--check`.
 - L'ovale de sable en 34 × 24 avec ses anneaux en décor est la seule carte « grande » ; si elle
   coûte, le sable seul suffit à la démo.
+
+## Décisions de réalisation
+
+Livré le 25 septembre 2026, avec le [LOT-120](LOT-120-quete-des-pommes-pour-l-arene.md) dans la
+même branche, sur décision de l'auteur.
+
+1. **Quatre cartes, dessinées par `--apply`, aucune pièce.** La carte de Martpart du `LOT-127`
+   n'existait plus (table rase) : les quatre cartes sont dessinées depuis les plans, en types de
+   tuile seulement (`pavement`, `alley`, `grass`, `water`, `stall`, `wall` ; `sand`, `tiers`,
+   `solid`, `column`, `stairs`, `door` ; `flagstone`), par des fichiers de gestes que l'éditeur
+   rejoue — l'annexe `annexes/LOT-146-cartes-de-principe/gestes/`. Un squelette de carte neuve
+   (celui de « New map » sans lieu) reçoit les gestes ; le fichier livré est celui que l'éditeur
+   écrit. L'ovale entier est dessiné (34 × 24), ses anneaux en décor.
+2. **Le maître d'arène se tient sur le sable, pas au vestiaire.** Un dialogue engage la rencontre
+   sur la zone de combat où se tient le PNJ (`LOT-118`, D6), et une entité `encounter` posée sur
+   la carte ne se déclenche pas en marchant : le vestiaire A n'a pas de zone de combat. Le
+   vestiaire garde l'arrivée du condamné et la porte close ; le maître attend sur le sable, le
+   combattant (marqueur `encounter`) deux cases à sa droite, là où la rencontre le fait paraître.
+3. **Pas de transfert de zone vers le vestiaire.** La zone du parvis déclenche le dialogue du
+   garde à l'entrée ; un transfert de zone se joue aussi à l'entrée, avant que le dialogue ait
+   décidé, et emmènerait au vestiaire celui qui vient de convaincre le garde. Le condamné marche
+   jusqu'à l'escalier de l'arène — « suivez-moi » —, arrive au vestiaire derrière la porte close
+   (`prop` sous `condamne`), et ne peut plus revenir. Le critère « le vestiaire A est atteint par
+   le transfert du parvis » est tenu par le portail de l'escalier, que `--check` suit de même.
+4. **Le plan de principe couche aussi les blocs de la couche de décor.** `--render --plan`
+   n'aplatissait que les blocs du sol ; une carte neuve met ses murs sur `relief`, et le plan les
+   taisait. Corrigé dans le composeur (`composeRelief`), avec son test.
+5. **Market Gate est un point d'arrivée nommé** (`market-gate`) : le plan de ville l'ouvre pour
+   « Nouvelle partie » (`LOT-120`).
+6. **Le test des cartes livrées admet une carte sans pièce** : la retouche qu'il rejoue gomme le
+   premier bloc typé du décor quand aucune pièce n'est nommée.
+
+## Livraison
+
+Les quatre cartes, leurs gestes, les clés de nom dans les deux catalogues, le README de la
+Capitale. Critères : la chaîne se traverse dans le vrai jeu (`SystemGameTests`, `LOT-120`) et
+sans fenêtre (`IntegrationTests`, `QueteDesPommes`) ; `--check` vert, 0 avertissement ; les rendus
+`--render --plan` joints à la PR ; aucune pièce produite.

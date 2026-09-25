@@ -104,4 +104,11 @@ std::string keyForEntity(std::string_view mapName, std::string_view entityType, 
     return cle;
 }
 
+std::string encounterWonFlag(std::string_view encounterId) {
+    std::string cle;
+    cle.reserve(encounterId.size() + 15);
+    cle.append("encounter/").append(encounterId).append("/won");
+    return cle;
+}
+
 }  // namespace core

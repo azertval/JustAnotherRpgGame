@@ -353,6 +353,31 @@ if(TARGET JadgRuntime)
     if(TARGET JustAnotherRpgGame)
         add_dependencies(RuntimeTests JustAnotherRpgGame)
     endif()
+
+    # Tests SYSTEME du jeu (LOT-120) : la demo jouee de bout en bout par les modeles du jeu, sans
+    # fenetre, de « Nouvelle partie » a chacune de ses fins. La marche du heros est une horloge :
+    # l'executable a son propre point d'entree, avec une application Qt sans interface.
+    add_executable(SystemGameTests
+        Systeme/SystemGameMain.cpp
+        Systeme/test_demo_de_bout_en_bout.cpp
+    )
+    target_link_libraries(SystemGameTests PRIVATE
+        JadgRuntime
+        GTest::gtest
+        project_warnings
+        project_options
+    )
+    # Le contenu LIVRE : cartes de principe, plan de ville, quete, dialogues, rencontre. Les
+    # regles et le heros restent lus a cote de l'executable, comme le jeu les lit.
+    target_compile_definitions(SystemGameTests PRIVATE
+        JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
+    if(TARGET JustAnotherRpgGame)
+        add_dependencies(SystemGameTests JustAnotherRpgGame)
+    endif()
+    # La decouverte lance l'executable : une application Qt et ses DLL mettent plus que les cinq
+    # secondes par defaut a demarrer sur un runner.
+    gtest_discover_tests(SystemGameTests DISCOVERY_MODE PRE_TEST DISCOVERY_TIMEOUT 60
+                         PROPERTIES LABELS systeme TIMEOUT 900)
 endif()
 
 # Tests Qt Quick de Jadg.Ui (refonte de la chaîne d'outillage, phase 4) : chaque formulaire et chaque
@@ -401,6 +426,7 @@ add_executable(IntegrationTests
     Support/CrtReports.cpp
     Integration/test_exploration_carte.cpp
     Integration/test_quete_trois_etapes.cpp
+    Integration/test_quete_des_pommes.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE
@@ -416,7 +442,10 @@ target_compile_definitions(IntegrationTests PRIVATE
     JADG_TEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/GameData"
     # L'arborescence par niveaux (LOT-124) : une carte d'Arenarea qui cite une piece de chacun des
     # quatre niveaux, jouee comme le jeu la joue. Voir Fixtures/LevelTree/README.md.
-    JADG_LEVEL_TREE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/LevelTree")
+    JADG_LEVEL_TREE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/LevelTree"
+    # Le contenu LIVRÉ, pour la quête de la démo (LOT-120) : ses cartes de principe, sa quête, ses
+    # dialogues et sa rencontre se jouent sans fenêtre, tels que le jeu les joue.
+    JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
 
 # Tests système : un parcours de jeu complet sur le contenu livré, sans la couche GPU.
 add_executable(SystemTests

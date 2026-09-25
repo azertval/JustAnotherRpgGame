@@ -1,0 +1,34 @@
+{
+  "id": "enfant",
+  "name": "L'enfant : sur le parvis avec le garde, puis auprès de sa mère",
+  "source": "original",
+  "speaker": {
+    "languages": ["common"],
+    "attitude": "friendly"
+  },
+  "start": "aiguillage",
+  "nodes": [
+    {
+      "id": "aiguillage",
+      "type": "condition",
+      "flag": "quete.pommes",
+      "equals": "enfant-libere",
+      "then": "libre",
+      "else": "escorte"
+    },
+    {
+      "id": "escorte",
+      "type": "line",
+      "next": "fin"
+    },
+    {
+      "id": "libre",
+      "type": "line",
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

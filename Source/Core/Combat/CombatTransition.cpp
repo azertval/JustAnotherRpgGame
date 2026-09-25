@@ -24,8 +24,15 @@ ExplorationSnapshot endEncounter(const EncounterRun& run, CombatOutcome outcome,
     // SEULE une victoire acquiert le drapeau. Poser le drapeau a la sortie, quelle qu'elle soit,
     // ferait de la fuite un moyen de nettoyer une carte -- et le defaut ne se verrait pas : la
     // carte se viderait, ce qui ressemble a une progression.
-    if (outcome == CombatOutcome::Victory && !run.defeatFlagKey.empty()) {
-        static_cast<void>(flags.set(run.defeatFlagKey));
+    if (outcome == CombatOutcome::Victory) {
+        if (!run.defeatFlagKey.empty()) {
+            static_cast<void>(flags.set(run.defeatFlagKey));
+        }
+        // Le fait de la victoire, que la quete lit : une rencontre engagee par un dialogue n'a
+        // pas de cle d'entite, et sans lui la victoire ne laisserait aucune trace (LOT-120).
+        if (!run.encounterId.empty()) {
+            static_cast<void>(flags.set(encounterWonFlag(run.encounterId)));
+        }
     }
     return run.exploration;
 }

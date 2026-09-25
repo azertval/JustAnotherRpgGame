@@ -1,0 +1,85 @@
+{
+  "id": "garde",
+  "name": "Le garde Ironhand, sur le parvis d'Arenarea (le choix et le jet de Persuasion)",
+  "source": "original",
+  "speaker": {
+    "languages": ["common"],
+    "attitude": "indifferent"
+  },
+  "start": "aiguillage",
+  "nodes": [
+    {
+      "id": "aiguillage",
+      "type": "condition",
+      "flag": "quete.pommes",
+      "equals": "persuasion-echouee",
+      "then": "refus-encore",
+      "else": "halte"
+    },
+    {
+      "id": "halte",
+      "type": "line",
+      "choices": [
+        { "id": "convaincre", "next": "jet-persuasion" },
+        { "id": "endosser", "next": "condamne" },
+        { "id": "partir", "next": "fin" }
+      ]
+    },
+    {
+      "id": "jet-persuasion",
+      "type": "check",
+      "skill": "persuasion",
+      "difficulty": "moyenne",
+      "success": "libere",
+      "failure": "refuse"
+    },
+    {
+      "id": "libere",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.pommes", "value": "enfant-libere" }],
+      "next": "adieu"
+    },
+    {
+      "id": "adieu",
+      "type": "line",
+      "next": "fin"
+    },
+    {
+      "id": "refuse",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.pommes", "value": "persuasion-echouee" }],
+      "next": "refus"
+    },
+    {
+      "id": "refus",
+      "type": "line",
+      "choices": [
+        { "id": "endosser", "next": "condamne" },
+        { "id": "partir", "next": "fin" }
+      ]
+    },
+    {
+      "id": "refus-encore",
+      "type": "line",
+      "choices": [
+        { "id": "endosser", "next": "condamne" },
+        { "id": "partir", "next": "fin" }
+      ]
+    },
+    {
+      "id": "condamne",
+      "type": "action",
+      "actions": [{ "type": "setFlag", "flag": "quete.pommes", "value": "condamne" }],
+      "next": "escorte"
+    },
+    {
+      "id": "escorte",
+      "type": "line",
+      "next": "fin"
+    },
+    {
+      "id": "fin",
+      "type": "end"
+    }
+  ]
+}

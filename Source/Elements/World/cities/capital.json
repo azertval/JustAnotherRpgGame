@@ -1,0 +1,25 @@
+{
+  "id": "capital",
+  "name": "La Capitale",
+  "source": "original",
+  "status": {
+    "provisoire": true,
+    "raison": "plan de la Capitale reduit a la demo (LOT-120, D-25) : deux quartiers ouverts, Martpart en quartier de depart a Market Gate ; les dix autres quartiers et leurs sentinelles viennent avec le plan complet de la Capitale (LOT-121, 0.0.3)",
+    "retraitSi": "le LOT-121 livre le plan complet de la Capitale : ses douze quartiers, leurs portes gardees et leurs cartes definitives"
+  },
+  "location": "central-empire-the-capital-city",
+  "start": {
+    "district": "central-empire-the-capital-city-martpart",
+    "arrival": "market-gate"
+  },
+  "districts": [
+    {
+      "id": "central-empire-the-capital-city-martpart",
+      "map": "central-empire/capital/martpart"
+    },
+    {
+      "id": "central-empire-the-capital-city-arenarea",
+      "map": "central-empire/capital/arenarea"
+    }
+  ]
+}

@@ -106,16 +106,22 @@ TEST(BestiaryTest, LesQuatreVingtQuatorzeProfilsChargent) {
     for (const std::string& erreur : catalogue.errors) {
         ADD_FAILURE() << erreur;
     }
-    EXPECT_EQ(catalogue.creatures.size(), BETES_DU_SRD)
-        << "le sommaire d'Animaux.pdf en compte " << BETES_DU_SRD;
-
+    // Les 94 betes du SRD, plus ce que le projet ecrit lui-meme (`original`) : le combattant de
+    // l'arene de la demo (LOT-120). Rien d'autre : une provenance inattendue est une extraction
+    // egaree dans le mauvais dossier.
+    std::size_t srd = 0;
     std::set<std::string> identifiants;
     for (const core::Creature& creature : catalogue.creatures) {
         EXPECT_TRUE(identifiants.insert(creature.id).second)
             << "identifiant en double : " << creature.id;
         EXPECT_FALSE(creature.name.empty()) << creature.id << " : nom vide";
-        EXPECT_EQ(creature.source, "srd") << creature.id << " : provenance inattendue";
+        if (creature.source == "srd") {
+            ++srd;
+        } else {
+            EXPECT_EQ(creature.source, "original") << creature.id << " : provenance inattendue";
+        }
     }
+    EXPECT_EQ(srd, BETES_DU_SRD) << "le sommaire d'Animaux.pdf en compte " << BETES_DU_SRD;
 }
 
 /**

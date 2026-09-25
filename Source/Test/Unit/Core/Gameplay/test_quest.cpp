@@ -355,3 +355,37 @@ TEST(QuestAdvanceTest, LesUsagesDeDrapeauxSontConfrontesAuxDeclarations) {
         lus, [](const core::FlagRead& lu) { return lu.flag == "quete.essai"; }));
     EXPECT_EQ(lus.size(), 4U);
 }
+
+/**
+ * @brief Un dialogue qui engage une rencontre pose, par la victoire, le fait de la rencontre
+ *        gagnée : une quête peut le lire sans que le contrôle le dise « lu sans être posé ».
+ * \castest{<b>Une rencontre engagee par un dialogue compte parmi les drapeaux poses.</b><br/>
+ * \tcat Unitaire · Quetes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Un dialogue dont un noeud d'action engage la rencontre `arene`.<br/>
+ * \tattendu `encounter/arene/won` est parmi les drapeaux que le recit pose.
+ * }
+ */
+TEST(QuestTest, UneRencontreEngageeParUnDialoguePoseLeFaitDeSaVictoire) {
+    static constexpr const char* DIALOGUE = R"({
+  "id": "maitre",
+  "name": "Le maitre d'arene",
+  "source": "original",
+  "speaker": { "languages": ["common"] },
+  "start": "defi",
+  "nodes": [
+    { "id": "defi", "type": "line", "choices": [{ "id": "combattre", "next": "engage" }] },
+    { "id": "engage", "type": "action", "next": "fin",
+      "actions": [{ "type": "startEncounter", "encounter": "arene" }] },
+    { "id": "fin", "type": "end" }
+  ]
+})";
+    core::DialogueLoad lu = core::readDialogue(DIALOGUE, "maitre.json");
+    ASSERT_TRUE(lu.graph.has_value()) << (lu.errors.empty() ? "" : lu.errors.front());
+    core::DialogueCatalog dialogues;
+    dialogues.dialogues.push_back(*lu.graph);
+
+    const auto poses = core::flagsWrittenBy(core::QuestCatalog{}, dialogues);
+    EXPECT_TRUE(poses.contains(core::encounterWonFlag("arene")));
+    EXPECT_EQ(core::encounterWonFlag("arene"), "encounter/arene/won");
+}

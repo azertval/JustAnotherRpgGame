@@ -68,6 +68,10 @@ class DialogueModel : public QObject {
     /// Les dialogues jouables du contenu, par identifiant, dans l'ordre alphabétique : ce que le
     /// menu de développement (F9) propose d'ouvrir.
     Q_PROPERTY(QStringList dialogueIds READ dialogueIds CONSTANT)
+    /// La graine de la **prochaine** conversation ouverte : 0, la valeur du jeu, la tire d'un
+    /// compteur ; une autre la fixe — un test ou un rejeu force ainsi l'issue d'un jet (`LOT-120`),
+    /// comme `EncounterModel.seed` fixe celle d'un combat.
+    Q_PROPERTY(int seed READ seed WRITE setSeed NOTIFY changed)
 
 public:
     explicit DialogueModel(QObject* parent = nullptr);
@@ -90,6 +94,10 @@ public:
     [[nodiscard]] bool finished() const noexcept;
     [[nodiscard]] QString status() const;
     [[nodiscard]] QStringList dialogueIds() const;
+    [[nodiscard]] int seed() const noexcept {
+        return _seed;
+    }
+    void setSeed(int seed);
 
     /// Donne la réponse @p rowId — ou quitte, si c'est la ligne « Quitter ».
     Q_INVOKABLE void choose(const QString& rowId);
@@ -118,6 +126,7 @@ private:
     void refresh();
 
     std::unique_ptr<Session> _session;
+    int _seed = 0;
     SheetRowModel _replies;
 };
 

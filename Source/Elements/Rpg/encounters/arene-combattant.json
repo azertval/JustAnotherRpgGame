@@ -1,0 +1,13 @@
+{
+  "id": "arene-combattant",
+  "name": "Le combattant de l'arène",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "combattant-de-l-arene",
+      "columnOffset": 2,
+      "rowOffset": 0
+    }
+  ]
+}
