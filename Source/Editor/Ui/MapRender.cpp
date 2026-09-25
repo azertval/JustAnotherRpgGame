@@ -6,13 +6,16 @@
 #include <QPainter>
 #include <QPoint>
 #include <QPolygonF>
+#include <QSize>
 #include <QString>
+#include <QStringList>
 #include <algorithm>
 #include <array>
 #include <cmath>
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <set>
 #include <utility>
 #include <vector>
@@ -83,6 +86,45 @@ void paintDiamonds(QPainter& painter, const core::IsoProjection& projection,
     std::string name = mapId;
     std::ranges::replace(name, '/', '-');
     return name + ".png";
+}
+
+/// La qualité des JPEG de l'onglet « Carte » : celle des cartes peintes, sans bloc visible.
+constexpr int JPEG_QUALITY = 92;
+
+/// Le plus grand côté d'un cadre imposé (`--canvas`), en pixels.
+constexpr int MAX_CANVAS_SIDE = 8192;
+
+// `1920x1080` : un cadre, chaque côté dans [1, MAX_CANVAS_SIDE] ; rien sinon.
+[[nodiscard]] std::optional<QSize> parseCanvasSize(const std::string& text) {
+    const QStringList sides = QString::fromStdString(text).split(QLatin1Char('x'));
+    if (sides.size() != 2) {
+        return std::nullopt;
+    }
+    bool widthOk = false;
+    bool heightOk = false;
+    const int width = sides[0].toInt(&widthOk);
+    const int height = sides[1].toInt(&heightOk);
+    if (!widthOk || !heightOk || width < 1 || height < 1 || width > MAX_CANVAS_SIDE ||
+        height > MAX_CANVAS_SIDE) {
+        return std::nullopt;
+    }
+    return QSize(width, height);
+}
+
+[[nodiscard]] bool isImageFile(const std::filesystem::path& path) {
+    const std::filesystem::path extension = path.extension();
+    return extension == ".png" || extension == ".jpg" || extension == ".jpeg";
+}
+
+// La grille telle que `world-maps.json` l'écrit : trois couples de fractions, à 1e-5 près.
+[[nodiscard]] std::string gridJson(const MapImageGrid& grid) {
+    const auto pair = [](double x, double y) {
+        return QStringLiteral("[%1, %2]")
+            .arg(QString::number(x, 'f', 5), QString::number(y, 'f', 5))
+            .toStdString();
+    };
+    return R"({"origin": )" + pair(grid.originX, grid.originY) + R"(, "column": )" +
+           pair(grid.columnX, grid.columnY) + R"(, "row": )" + pair(grid.rowX, grid.rowY) + "}";
 }
 
 }  // namespace
@@ -257,7 +299,7 @@ void paintPlanLegend(QPainter& painter, const WorldSceneSnapshot& snapshot, doub
 }  // namespace
 
 QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
-                 const MapRenderOptions& options) {
+                 const MapRenderOptions& options, MapImageGrid* grid) {
     const core::LevelDraft draft = core::LevelDraft::fromLevel(level);
     const std::string place = scenePlaceOf(level.layers());
     const PlaceAppearance appearance = [&] {
@@ -283,20 +325,47 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
     const double top = static_cast<double>(painted.position.y) - padding;
     const double worldWidth = static_cast<double>(painted.size.x) + (2 * padding);
     const double worldHeight = static_cast<double>(painted.size.y) + (2 * padding);
-    const double scale = std::min(
+    double scale = std::min(
         renderPixelsPerUnit(options.scale),
         static_cast<double>(std::max(1, options.maxSide)) / std::max(worldWidth, worldHeight));
-    const int width = std::clamp(static_cast<int>(std::ceil(worldWidth * scale)), 1,
-                                 std::max(1, options.maxSide));
-    const int height = std::clamp(static_cast<int>(std::ceil(worldHeight * scale)), 1,
-                                  std::max(1, options.maxSide));
+    int width = std::clamp(static_cast<int>(std::ceil(worldWidth * scale)), 1,
+                           std::max(1, options.maxSide));
+    int height = std::clamp(static_cast<int>(std::ceil(worldHeight * scale)), 1,
+                            std::max(1, options.maxSide));
+    // Le cadre imposé : la carte y tient entière, centrée, le reste est du fond (LOT-121).
+    double offsetX = 0.0;
+    double offsetY = 0.0;
+    if (options.canvas && !options.canvas->isEmpty()) {
+        width = options.canvas->width();
+        height = options.canvas->height();
+        scale = std::min(width / worldWidth, height / worldHeight);
+        offsetX = (width - (worldWidth * scale)) / 2.0;
+        offsetY = (height - (worldHeight * scale)) / 2.0;
+    }
+    if (grid != nullptr) {
+        const auto fraction = [&](core::Vector2 gridPoint) {
+            const core::Vector2 world = projection.gridToWorld(gridPoint);
+            return QPointF((offsetX + ((static_cast<double>(world.x) - left) * scale)) / width,
+                           (offsetY + ((static_cast<double>(world.y) - top) * scale)) / height);
+        };
+        const QPointF origin = fraction({0.0F, 0.0F});
+        const QPointF column = fraction({1.0F, 0.0F}) - origin;
+        const QPointF row = fraction({0.0F, 1.0F}) - origin;
+        *grid = MapImageGrid{.originX = origin.x(),
+                             .originY = origin.y(),
+                             .columnX = column.x(),
+                             .columnY = column.y(),
+                             .rowX = row.x(),
+                             .rowY = row.y()};
+    }
 
     QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
     image.fill(options.background);
     QPainter painter(&image);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
     painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setTransform(QTransform(scale, 0.0, 0.0, scale, -left * scale, -top * scale));
+    painter.setTransform(
+        QTransform(scale, 0.0, 0.0, scale, offsetX - (left * scale), offsetY - (top * scale)));
 
     // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
     // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
@@ -358,6 +427,11 @@ struct RenderCommandLine {
             }
         } else if (argument == "--plan") {
             line.options.plan = true;
+        } else if (argument == "--canvas" && hasValue) {
+            line.options.canvas = parseCanvasSize(arguments[++index]);
+            if (!line.options.canvas) {
+                line.error = "--canvas takes <width>x<height>, each in [1, 8192]";
+            }
         } else if (argument == "--scale" && hasValue) {
             bool ok = false;
             line.options.scale = QString::fromStdString(arguments[++index]).toDouble(&ok);
@@ -411,9 +485,9 @@ std::optional<int> runRenderCommand(const std::vector<std::string>& arguments,
         return 2;
     }
     const std::vector<std::pair<std::filesystem::path, std::string>> files = renderTargets(line);
-    const bool singleFile = line.destination && line.destination->extension() == ".png";
+    const bool singleFile = line.destination && isImageFile(*line.destination);
     if (singleFile && files.size() != 1) {
-        output += "--output names a .png: render exactly one map, or give a directory\n";
+        output += "--output names an image: render exactly one map, or give a directory\n";
         return 2;
     }
     const std::filesystem::path directory =
@@ -430,13 +504,20 @@ std::optional<int> runRenderCommand(const std::vector<std::string>& arguments,
         }
         const std::filesystem::path png =
             singleFile ? *line.destination : directory / imageNameOf(mapId);
-        const QImage image = renderMap(*loaded.level, line.dataRoot, line.options);
-        if (!image.save(QString::fromStdWString(png.wstring()), "PNG")) {
+        MapImageGrid grid;
+        const QImage image = renderMap(*loaded.level, line.dataRoot, line.options, &grid);
+        // Le format suit l'extension : un JPEG pour l'onglet « Carte » (LOT-121), un PNG sinon.
+        const bool jpeg = png.extension() == ".jpg" || png.extension() == ".jpeg";
+        if (!image.save(QString::fromStdWString(png.wstring()), jpeg ? "JPG" : "PNG",
+                        jpeg ? JPEG_QUALITY : -1)) {
             output += "error: cannot write " + png.string() + "\n";
             return 1;
         }
         output += "rendered " + mapId + " (" + std::to_string(image.width()) + " × " +
                   std::to_string(image.height()) + ") to " + png.string() + "\n";
+        if (line.options.canvas) {
+            output += "grid " + gridJson(grid) + "\n";
+        }
     }
     return 0;
 }

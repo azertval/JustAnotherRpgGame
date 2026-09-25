@@ -33,7 +33,13 @@ const CityDistrict* CityPlan::districtOfMap(std::string_view mapId) const {
     if (mapId.empty()) {
         return nullptr;
     }
-    const auto trouve = std::ranges::find(districts, mapId, &CityDistrict::map);
+    // La carte du quartier, ou une carte rangee sous la sienne : une sous-zone (D-16).
+    const auto trouve = std::ranges::find_if(districts, [mapId](const CityDistrict& quartier) {
+        return !quartier.map.empty() &&
+               (mapId == quartier.map ||
+                (mapId.size() > quartier.map.size() && mapId.starts_with(quartier.map) &&
+                 mapId[quartier.map.size()] == '/'));
+    });
     return trouve != districts.end() ? &*trouve : nullptr;
 }
 

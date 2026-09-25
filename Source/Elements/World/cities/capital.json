@@ -4,8 +4,8 @@
   "source": "original",
   "status": {
     "provisoire": true,
-    "raison": "plan de la Capitale reduit a la demo (LOT-120, D-25) : deux quartiers ouverts, Martpart en quartier de depart a Market Gate ; les dix autres quartiers et leurs sentinelles viennent avec le plan complet de la Capitale (LOT-121, 0.0.3)",
-    "retraitSi": "le LOT-121 livre le plan complet de la Capitale : ses douze quartiers, leurs portes gardees et leurs cartes definitives"
+    "raison": "plan de la Capitale reduit a la demo (LOT-120, D-25) : deux quartiers ouverts, Martpart en quartier de depart a Market Gate ; les dix autres s'annoncent grises sur le plan de l'onglet Carte (LOT-121), leurs sentinelles et leurs cartes viennent avec la Capitale intra-muros (0.0.3)",
+    "retraitSi": "la Capitale intra-muros (0.0.3) donne a chacun des douze quartiers sa carte ou sa porte gardee"
   },
   "location": "central-empire-the-capital-city",
   "start": {

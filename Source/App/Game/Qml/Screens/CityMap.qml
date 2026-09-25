@@ -28,11 +28,13 @@ CityMapForm {
     regionImage: root.region ? root.region.image : ""
     cityX: root.place ? root.place.x : 0.5
     cityY: root.place ? root.place.y : 0.5
-    // Tout point d'un plan est pose : la liste ne porte aucun lieu en estompe. Un quartier qui a sa
-    // carte s'ouvre sur sa vue (LOT-96) ; ceux qu'on a parcourus portent leur point d'or.
+    // Tout point d'un plan est pose. Un quartier qui a sa carte s'ouvre sur sa vue (LOT-96) ; ceux
+    // qu'on a parcourus portent leur point d'or ; ceux que la ville ne parcourt pas encore
+    // s'annoncent grises, avec leur nom (LOT-121).
     points: root.shownPoints.map((point) => Object.assign({ placed: true }, point, {
         gateway: point.hasDistrictView === true && WorldModel.mapOfDistrict(point.pointId) !== "",
-        visited: WorldModel.visitedDistricts.indexOf(point.pointId) >= 0
+        visited: WorldModel.visitedDistricts.indexOf(point.pointId) >= 0,
+        locked: WorldModel.mapOfDistrict(point.pointId) === ""
     }))
     // Le heros : son quartier, entoure d'or.
     readonly property var heroPoint: root.shownPoints.find((point) => point.pointId === WorldModel.districtId)

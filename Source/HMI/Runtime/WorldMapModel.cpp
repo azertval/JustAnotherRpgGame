@@ -3,10 +3,13 @@
 
 #include "HMI/Runtime/WorldMapModel.h"
 
+#include <QPointF>
 #include <QRectF>
+#include <QVariantList>
 
 #include <filesystem>
 #include <fstream>
+#include <map>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -77,6 +80,29 @@ namespace {
         {QStringLiteral("labels"), labelRows(region.labels)}};
 }
 
+// La grille d'une carte rendue, telle que QML la lit : trois points (LOT-121).
+[[nodiscard]] QVariantMap gridRow(const MapGrid& grid) {
+    return QVariantMap{{QStringLiteral("origin"), QPointF(grid.origin.x, grid.origin.y)},
+                       {QStringLiteral("column"), QPointF(grid.column.x, grid.column.y)},
+                       {QStringLiteral("row"), QPointF(grid.row.x, grid.row.y)}};
+}
+
+// Les sous-zones d'un quartier (LOT-121) : leur dossier, leur nom, leur entree en cases, leur carte.
+[[nodiscard]] QVariantList zoneRows(const std::map<std::string, MapZone>& zones) {
+    QVariantList rows;
+    for (const auto& [id, zone] : zones) {
+        QVariantMap row{{QStringLiteral("zoneId"), QString::fromStdString(id)},
+                        {QStringLiteral("name"), QString::fromStdString(zone.name)},
+                        {QStringLiteral("entrance"), QPointF(zone.entrance.x, zone.entrance.y)},
+                        {QStringLiteral("image"), QString::fromStdString(zone.image)}};
+        if (zone.grid) {
+            row.insert(QStringLiteral("grid"), gridRow(*zone.grid));
+        }
+        rows.append(row);
+    }
+    return rows;
+}
+
 [[nodiscard]] QVariantMap cityRow(const MapCityView& city) {
     QVariantList points;
     for (const MapCityPointView& point : city.points) {
@@ -97,6 +123,10 @@ namespace {
                               point.district->frame.width, point.district->frame.height));
             row.insert(QStringLiteral("districtImage"),
                        QString::fromStdString(point.district->image));
+            if (point.district->grid) {
+                row.insert(QStringLiteral("grid"), gridRow(*point.district->grid));
+            }
+            row.insert(QStringLiteral("zones"), zoneRows(point.district->zones));
         }
         points.append(row);
     }

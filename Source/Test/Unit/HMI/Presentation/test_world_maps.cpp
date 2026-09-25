@@ -103,6 +103,52 @@ TEST(WorldMapsTest, FichierLuEtBorne) {
 }
 
 /**
+ * @brief Un quartier rendu porte sa grille et ses sous-zones ; une carte rendue sans grille, ou une
+ *        sous-zone sans entrée, est refusée (`LOT-121`).
+ * \castest{<b>La carte rendue d'un quartier se lit avec sa grille et ses sous-zones.</b><br/>
+ * \tcat Unitaire · Carte<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire un plan dont le quartier nomme une carte rendue, sa grille et une sous-zone.<br/>
+ * 2. Lire le même quartier sans grille, puis une sous-zone sans entrée.<br/>
+ * \tattendu La grille place le point (2, 1) en origine + 2 colonnes + 1 ligne ; la sous-zone a
+ * son nom, son entrée et sa carte ; puis deux échecs qui disent ce qui manque.
+ * }
+ */
+TEST(WorldMapsTest, UnQuartierRenduPorteSaGrilleEtSesSousZones) {
+    const std::string head = R"({"version":1,"world":{"image":"w.jpg"},"regions":{},"cities":{
+        "t":{"image":"t.jpg","places":{"t-a":[0.5,0.5]},"districts":{"t-a":{
+            "frame":[0.4,0.4,0.2,0.2],"image":"Regions/r/t/a/Map/a.jpg")";
+    const std::string grid =
+        R"(,"grid":{"origin":[0.5,0.1],"column":[0.02,0.025],"row":[-0.02,0.025]})";
+    const std::string zones = R"(,"zones":{"crypte":{"name":"La crypte","entrance":[23,6],
+            "image":"Regions/r/t/a/crypte/Map/crypte.jpg",
+            "grid":{"origin":[0.4,0.05],"column":[0.01,0.01],"row":[-0.01,0.01]}}})";
+    const hmi::WorldMaps maps = hmi::readWorldMaps(head + grid + zones + "}}}}}");
+    ASSERT_TRUE(maps.ok()) << maps.error;
+    const hmi::MapDistrict& district = maps.cities.at("t").districts.at("t-a");
+    EXPECT_EQ(district.image, "Regions/r/t/a/Map/a.jpg");
+    ASSERT_TRUE(district.grid.has_value());
+    const hmi::MapPoint point = district.grid->at(2.0, 1.0);
+    EXPECT_DOUBLE_EQ(point.x, 0.5 + (2 * 0.02) - 0.02);
+    EXPECT_DOUBLE_EQ(point.y, 0.1 + (2 * 0.025) + 0.025);
+    ASSERT_EQ(district.zones.size(), 1U);
+    const hmi::MapZone& zone = district.zones.at("crypte");
+    EXPECT_EQ(zone.name, "La crypte");
+    EXPECT_DOUBLE_EQ(zone.entrance.x, 23.0);
+    EXPECT_DOUBLE_EQ(zone.entrance.y, 6.0);
+    EXPECT_TRUE(zone.grid.has_value());
+
+    const hmi::WorldMaps gridless = hmi::readWorldMaps(head + "}}}}}");
+    EXPECT_FALSE(gridless.ok());
+    EXPECT_NE(gridless.error.find("grid"), std::string::npos) << gridless.error;
+
+    const hmi::WorldMaps doorless = hmi::readWorldMaps(
+        head + grid + R"(,"zones":{"crypte":{"name":"La crypte"}}}}}}})");
+    EXPECT_FALSE(doorless.ok());
+    EXPECT_NE(doorless.error.find("entrance"), std::string::npos) << doorless.error;
+}
+
+/**
  * @brief La jointure range les lieux : posés d'abord, écartés absents, quartiers dans leur ville.
  * \castest{<b>Une région montre ses lieux posés puis les autres, sans les entrées écartées ni les
  * quartiers d'une ville.</b><br/>
@@ -211,5 +257,24 @@ TEST(WorldMapsTest, AtlasLivreEntierementCartographie) {
         ASSERT_NE(place, region->places.end()) << city.id;
         EXPECT_TRUE(place->placed) << city.id;
         EXPECT_TRUE(place->hasCityMap) << city.id;
+        // La carte d'un quartier et de ses sous-zones : peinte dans Maps/, ou rendue et rangee
+        // avec sa zone, relative a Assets/ (LOT-121).
+        const auto imageOf = [&images](const std::string& image) {
+            return image.find('/') != std::string::npos
+                       ? std::filesystem::path(JADG_ASSETS_DIR) / image
+                       : images / image;
+        };
+        for (const hmi::MapCityPointView& point : city.points) {
+            if (!point.district || point.district->image.empty()) {
+                continue;
+            }
+            EXPECT_TRUE(std::filesystem::is_regular_file(imageOf(point.district->image)))
+                << point.district->image;
+            for (const auto& [id, zone] : point.district->zones) {
+                EXPECT_TRUE(zone.image.empty() ||
+                            std::filesystem::is_regular_file(imageOf(zone.image)))
+                    << id << " : " << zone.image;
+            }
+        }
     }
 }

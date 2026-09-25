@@ -62,7 +62,10 @@ int main(int argc, char** argv) {
         arguments, executable.parent_path(), std::filesystem::path{JADG_EDITOR_SOURCE_DATA});
 
     // Les commandes sans fenêtre, avant toute construction Qt. Un renommage suivi de `--check`
-    // contrôle ensuite toutes les cartes (LOT-EDITOR-14).
+    // contrôle ensuite toutes les cartes (LOT-EDITOR-14). Sans application, Qt ne sait pas où
+    // chercher ses greffons : le dossier de l'exécutable lui donne `imageformats/`, dont le JPEG
+    // des cartes de l'onglet « Carte » (`--render --output x.jpg`, LOT-121).
+    QCoreApplication::addLibraryPath(QString::fromStdWString(executable.parent_path().wstring()));
     if (const std::optional<int> code = hmi::runRefactorCommand(arguments, dataRoot, report)) {
         const bool check = std::ranges::find(arguments, "--check") != arguments.end();
         if (*code != 0 || !check) {

@@ -61,15 +61,47 @@ struct RegionMap {
 
 /// Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés.
 /**
- * @brief La vue d'un **quartier** sur le plan de sa ville (`LOT-96`).
- *
- * *Provisoire, décision de l'auteur du 18 septembre 2026* : un quartier n'a pas encore de carte
- * peinte ; l'écran agrandit le plan de la ville sur `frame`. Aucun recadrage n'est commité. Le jour
- * où l'auteur peint le quartier, `image` le nomme et le cadre ne sert plus qu'à l'origine du zoom.
+ * @brief La grille d'une carte **rendue** sur son image (`LOT-121`) : le point de grille (c, r)
+ *        — la case c couvre [c, c + 1] — est en `origin + c × column + r × row`, en fractions de
+ *        l'image. `LevelEditor --render --canvas` l'écrit avec l'image.
+ */
+struct MapGrid {
+    MapPoint origin;
+    MapPoint column;
+    MapPoint row;
+
+    /// @return Le point de grille (@p gridColumn, @p gridRow) sur l'image.
+    [[nodiscard]] MapPoint at(double gridColumn, double gridRow) const noexcept {
+        return MapPoint{.x = origin.x + (gridColumn * column.x) + (gridRow * row.x),
+                        .y = origin.y + (gridColumn * column.y) + (gridRow * row.y)};
+    }
+};
+
+/**
+ * @brief Une **sous-zone** d'un quartier (`LOT-121`, décision D-16) : l'Arena of Fate dans
+ *        Arenarea. Sa carte est celle du quartier suivie de son identifiant
+ *        (`central-empire/capital/arenarea/arena-of-fate`) : l'arborescence la dit déjà.
+ */
+struct MapZone {
+    std::string name;
+    /// Son entrée sur la carte du quartier, en cases (colonne, ligne) : là que son repère se pose.
+    MapPoint entrance;
+    std::string image;            ///< Relatif à `Assets/` (voir `MapDistrict::image`).
+    std::optional<MapGrid> grid;  ///< Présente dès qu'il y a une image.
+};
+
+/**
+ * @brief La vue d'un **quartier** sur le plan de sa ville (`LOT-96`) : le plan agrandi sur `frame`
+ *        tant qu'il n'a pas de carte ; sa carte sinon — peinte, ou rendue avec sa grille (`LOT-121`).
  */
 struct MapDistrict {
     MapFrame frame;
-    std::string image;  ///< Vide tant que le quartier n'a pas sa carte peinte.
+    /// Vide tant que le quartier n'a pas sa carte. Un nom seul est une carte peinte de
+    /// `Assets/Maps/` ; un chemin (`Regions/…/Map/martpart.jpg`) est relatif à `Assets/` : la
+    /// carte rendue d'une zone, rangée avec elle (`LOT-121`).
+    std::string image;
+    std::optional<MapGrid> grid;  ///< La grille de l'image rendue ; absente d'une carte peinte.
+    std::map<std::string, MapZone> zones;  ///< Identifiant (dossier) → sous-zone.
 };
 
 struct CityMap {

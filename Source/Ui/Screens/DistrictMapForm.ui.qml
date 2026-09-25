@@ -23,6 +23,8 @@ Item {
     property string districtImage: ""
     property rect frame: Qt.rect(0.612, 0.415, 0.18, 0.18)
     property string districtName: "Martpart"
+    /// La sous-zone montree (LOT-121), vide pour le quartier lui-meme : son nom suit le quartier.
+    property string zoneName: ""
     property string cityName: "The Capital City"
     property string regionName: "Central Empire"
 
@@ -67,7 +69,7 @@ Item {
         y: 172 * Tokens.uiScale
         width: 460 * Tokens.uiScale
         height: root.height - 272 * Tokens.uiScale
-        title: root.districtName
+        title: root.zoneName !== "" ? root.zoneName : root.districtName
         lore: ""
         facts: [root.cityName]
         grades: []
@@ -81,9 +83,10 @@ Item {
         id: mapHud
 
         anchors.fill: parent
-        title: root.districtName
+        title: root.zoneName !== "" ? root.zoneName : root.districtName
         trail: qsTr("Tanares  ›  %1  ›  %2  ›  %3").arg(root.regionName).arg(root.cityName)
                                                      .arg(root.districtName)
+               + (root.zoneName !== "" ? "  ›  " + root.zoneName : "")
         parentImage: root.cityImage
         parentFrame: root.frame
         canGoBack: true

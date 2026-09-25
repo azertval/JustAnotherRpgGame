@@ -275,6 +275,8 @@ TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
     EXPECT_TRUE(hmi::assetGalleryExcludes("UI/background/menu-scene.png"));
     EXPECT_TRUE(hmi::assetGalleryExcludes("Maps/world.jpg"));
     EXPECT_TRUE(hmi::assetGalleryExcludes("Fonts/Cinzel.ttf"));
+    EXPECT_TRUE(
+        hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Map/martpart.jpg"));
     EXPECT_FALSE(
         hmi::assetGalleryExcludes("Regions/central-empire/capital/martpart/Scene/street.png"));
     EXPECT_FALSE(hmi::assetGalleryExcludes("Npc/figurant/portrait.png"));
