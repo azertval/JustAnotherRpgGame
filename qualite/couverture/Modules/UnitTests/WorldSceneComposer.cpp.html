@@ -106,7 +106,7 @@ constexpr std::array&lt;std::string_view, 2&gt; FIGURE_DIRECTORIES = {"Npc/", "M
     return std::string{figure};
 }</span>
 
-/// @return La premiere couche de role @p kind au rez, ou `nullptr` si la carte n'en declare pas.
+// Rend : La premiere couche de role `kind` au rez, ou `nullptr` si la carte n'en declare pas.
 <span style = "background-color:#dfd">[[nodiscard]] const core::TileLayer* layerOf(const WorldSceneSource&amp; source, core::LayerKind kind) {
     for (const core::TileLayer&amp; couche : source.layers) {
         if (couche.kind == kind &amp;&amp; couche.floor == 0) {
@@ -177,7 +177,7 @@ void composeMaquetteDiamond(ComposedScene&amp; scene, const core::IsoProjection&
                   quad);
 <span style = "background-color:#dfd">}</span>
 
-// Le losange d'une case, reduit autour de son centre a la fraction @p footprint.
+// Le losange d'une case, reduit autour de son centre a la fraction `footprint`.
 <span style = "background-color:#dfd">[[nodiscard]] DiamondVertices shrunk(const DiamondVertices&amp; diamond, float footprint) {
     const float centreX = diamond.x[0];
     const float centreY = diamond.y[1];
@@ -196,15 +196,15 @@ void composeMaquetteDiamond(ComposedScene&amp; scene, const core::IsoProjection&
 // Sur le calque du DECOR, et trie au pied de la case comme une piece de relief : c'est ce qui le
 // fait masquer ce qui est derriere lui, figurines comprises. Un bloc pose sur le calque des tuiles
 // passerait sous le heros quel que soit leur ordre, et le mur cesserait d'etre un mur.
-/// L'Ã©lÃ©vation d'un Ã©tage de maquette : la hauteur d'un bloc de mur, pour que les blocs s'empilent.
+// L'Ã©lÃ©vation d'un Ã©tage de maquette : la hauteur d'un bloc de mur, pour que les blocs s'empilent.
 <span style = "background-color:#dfd">[[nodiscard]] float maquetteStoreyHeight(const core::IsoProjection&amp; projection) {
     return projection.tileHeight() * maquetteShape(core::TileType::Wall).height;
 }</span>
 
-// Un bloc de maquette ; sur un etage (@p storey &gt; 0), eleve de @p storey hauteurs de bloc, trie au
-// rang de l'etage, jamais avant @p minimumFootY. Sur un etage, il porte ce qu'il masque : c'est au
+// Un bloc de maquette ; sur un etage (`storey` &gt; 0), eleve de `storey` hauteurs de bloc, trie au
+// rang de l'etage, jamais avant `minimumFootY`. Sur un etage, il porte ce qu'il masque : c'est au
 // moment de dessiner l'image qu'on l'efface devant le heros (LOT-129, `StaticWorldScene`).
-// @return Le pied retenu pour le tri.
+// Rend : le pied retenu pour le tri.
 float composeMaquetteBlock(ComposedScene&amp; scene, const core::IsoProjection&amp; projection,
                            const ScenePieceTextures&amp; textures, core::GridPosition cell,
                            core::TileType type, int storey = 0,
@@ -398,11 +398,11 @@ void composeFloor(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapsh
                     floorQuad(projection.tileBounds(cell)));
 <span style = "background-color:#dfd">}</span>
 
-// Pose une piece de relief a sa case ; sur une couche d'etage (@p storey &gt; 0), elevee de @p storey
+// Pose une piece de relief a sa case ; sur une couche d'etage (`storey` &gt; 0), elevee de `storey`
 // hauteurs d'etage, triee au-dessus du rez de sa case, et portant ce qu'elle masque (son image)
-// pour s'effacer devant le heros. Son pied ne passe jamais avant @p minimumFootY : le pied le plus
+// pour s'effacer devant le heros. Son pied ne passe jamais avant `minimumFootY` : le pied le plus
 // avance de ce qui la porte.
-// @return Le pied retenu pour le tri, rien si la piece n'a pas de texture.
+// Rend : le pied retenu pour le tri, rien si la piece n'a pas de texture.
 std::optional&lt;float&gt; composeStandingPiece(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snapshot,
                                           const core::IsoProjection&amp; projection,
                                           const ScenePieceTextures&amp; textures,
@@ -487,7 +487,7 @@ std::optional&lt;float&gt; composeRelief(ComposedScene&amp; scene, const WorldSc
                                 -std::numeric_limits&lt;float&gt;::infinity());
 <span style = "background-color:#dfd">}</span>
 
-/// Une figurine posee : sa texture, son image, son rang de dessin.
+// Une figurine posee : sa texture, son image, son rang de dessin.
 struct FigurePlacement {
     TextureHandle texture = nullptr;
     SpriteQuad quad{};
@@ -729,8 +729,8 @@ MaquetteMarks maquetteMarks(const std::vector&lt;core::MapEntity&gt;&amp; entiti
            std::string{silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette};
 <span style = "background-color:#dfd">}</span>
 
-std::vector&lt;WorldFigureSnapshot&gt; npcFigures(const std::vector&lt;core::MapEntity&gt;&amp; entities,
-<span style = "background-color:#dfd">                                            int frame, bool placeholders) {
+std::vector&lt;WorldFigureSnapshot&gt; npcFigures(const std::vector&lt;core::MapEntity&gt;&amp; entities, int frame,
+<span style = "background-color:#dfd">                                            bool placeholders) {
     std::vector&lt;WorldFigureSnapshot&gt; figures;
     for (const core::MapEntity&amp; entity : entities) {
         if (entity.type != core::NPC_ENTITY_TYPE) {
@@ -1101,7 +1101,7 @@ struct StoreyContext {
 };
 
 // Une case d'etage : sa piece nommee, ou a defaut son type extrude en maquette. Elle se trie au
-// plus tot au pied de ce qui la porte (@p cover) et releve le sien pour l'etage suivant (@p next).
+// plus tot au pied de ce qui la porte (`cover`) et releve le sien pour l'etage suivant (`next`).
 void composeStoreyCell(const StoreyContext&amp; context, const WorldStoreySnapshot&amp; storey,
                        core::GridPosition cell, const std::vector&lt;float&gt;&amp; cover,
 <span style = "background-color:#dfd">                       std::vector&lt;float&gt;&amp; next) {

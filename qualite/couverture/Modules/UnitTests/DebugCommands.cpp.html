@@ -87,7 +87,7 @@ constexpr std::array CATALOGUE = {
                 .scope = DebugOptionScope::LaunchOnly},
 };
 
-/// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
+// Rend : L'entier de `text`, s'il est ecrit en entier et sans rien d'autre.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;int&gt; entier(std::string_view text) {
     int valeur = 0;</span>
     // NOLINTNEXTLINE(bugprone-suspicious-stringview-data-usage): la paire data()/size() borne la
@@ -139,8 +139,8 @@ constexpr std::array CATALOGUE = {
             dansMot = true;
             continue;</span>
         }
-<span style = "background-color:#dfd">        if (!entreGuillemets &amp;&amp; (caractere == ' ' || caractere == '\t' || caractere == '\n' ||</span>
-                                 caractere == '\r')) {
+<span style = "background-color:#dfd">        if (!entreGuillemets &amp;&amp;</span>
+            (caractere == ' ' || caractere == '\t' || caractere == '\n' || caractere == '\r')) {
 <span style = "background-color:#dfd">            if (dansMot) {
                 mots.push_back(std::move(courant));
                 courant.clear();

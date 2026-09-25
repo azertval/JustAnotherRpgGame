@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -160,8 +160,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad010d712eef036db50679497eb373974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valide la cohérence entre la description et les dimensions <b>décodées</b> du PNG.  <br /></td></tr>
 <tr class="memitem:ab4d62573855d3bc8e915704f51d54cbf" id="r_ab4d62573855d3bc8e915704f51d54cbf"><td class="memItemLeft">static <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4d62573855d3bc8e915704f51d54cbf">frameRegion</a> (const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &amp;description, int frameSheetIndex)</td></tr>
 <tr class="memdesc:ab4d62573855d3bc8e915704f51d54cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région (en pixels) d'une image de la spritesheet, par son indice.  <br /></td></tr>
-<tr class="memitem:acaa3b6c738038d1eac95c8267c0e8979" id="r_acaa3b6c738038d1eac95c8267c0e8979"><td class="memItemLeft">static <a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a>&#160;</td><td class="memItemRight"><a class="el" href="#acaa3b6c738038d1eac95c8267c0e8979">currentFrameRegion</a> (const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &amp;description, const <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &amp;animation)</td></tr>
-<tr class="memdesc:acaa3b6c738038d1eac95c8267c0e8979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Région de l'image <b>courante</b> d'une animation en cours, d'après son état (<span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>) et la description de son asset.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -177,47 +175,8 @@ Static Private Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Lecture, validation et traduction en région de texture du format <span class="tt">nom-asset.anim.json</span>. </p>
-<p>Logique <b>pure</b> (aucune dépendance GPU/Qt/fichier au-delà de la lecture elle-même) : ne réalise ni chargement PNG ni mise en cache — ce sont ses appelants (<span class="tt"><a class="el" href="classhmi_1_1ArenaAnimationDriver.html" title="Pilote l&#39;animation des figurines du Colisée, par combattant, au temps réel du rendu.">hmi::ArenaAnimationDriver</a></span>, <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, la galerie des assets) qui le composent avec <span class="tt">hmi::TextureLoader</span>. </p>
+<p>Logique <b>pure</b> (aucune dépendance GPU/Qt/fichier au-delà de la lecture elle-même) : ne réalise ni chargement PNG ni mise en cache — ce sont ses appelants (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, la galerie des assets) qui le composent avec <span class="tt">hmi::TextureLoader</span>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="acaa3b6c738038d1eac95c8267c0e8979" name="acaa3b6c738038d1eac95c8267c0e8979"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaa3b6c738038d1eac95c8267c0e8979">&#9670;&#160;</a></span>currentFrameRegion()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structcore_1_1AtlasRegion.html">core::AtlasRegion</a> hmi::AnimationCatalog::currentFrameRegion </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1AnimationDescription.html">AnimationDescription</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>description</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structcore_1_1Animation.html">core::Animation</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>animation</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Région de l'image <b>courante</b> d'une animation en cours, d'après son état (<span class="tt"><a class="el" href="structcore_1_1Animation.html" title="État d&#39;animation courant d&#39;une entité : quel jeu de clips, quel clip, quelle image,...">core::Animation</a></span>) et la description de son asset. </p>
-<p>Traduit <span class="tt">animation.clipIndex</span>/<span class="tt">frameIndex</span> (indices résolus par <span class="tt">core::AnimationSystem</span>/ <span class="tt">core::advanceAnimation</span>) en indice de spritesheet via <span class="tt">AnimationClip::frames</span>, puis en région via <span class="tt"><a class="el" href="#ab4d62573855d3bc8e915704f51d54cbf" title="Région (en pixels) d&#39;une image de la spritesheet, par son indice.">frameRegion</a></span>. Fonction <b>pure</b>, sans accès au jeu de clips au-delà de ce que porte déjà <span class="tt">animation.clips</span> : repli sur la première image si l'animation n'a pas (ou plus) de jeu de clips valide (<span class="tt">EX-NFR-040</span>). </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">description</td><td>Description de l'asset animé (fournit <span class="tt">frameWidth</span>/<span class="tt">frameHeight</span>). </td></tr>
-    <tr><td class="paramname">animation</td><td>État d'animation courant (typiquement l'horloge partagée d'un asset de tuile). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>La région à échantillonner pour l'image courante. </dd></dl>
-
-</div>
-</div>
 <a id="a3c11b9e7acf4752079f89e2d21c4949a" name="a3c11b9e7acf4752079f89e2d21c4949a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c11b9e7acf4752079f89e2d21c4949a">&#9670;&#160;</a></span>descriptorFileName()</h2>
 

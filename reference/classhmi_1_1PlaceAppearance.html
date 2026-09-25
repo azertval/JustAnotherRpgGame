@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -175,6 +175,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a64f242c50874e2bfffee39c50d567b2e" id="r_a64f242c50874e2bfffee39c50d567b2e"><td class="memItemLeft">static <a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a64f242c50874e2bfffee39c50d567b2e">loadFromString</a> (std::string_view json)</td></tr>
+<tr class="memdesc:a64f242c50874e2bfffee39c50d567b2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une table depuis son texte JSON <code class="param">json</code>, sans manifeste voisin.  <br /></td></tr>
 <tr class="memitem:a0ea6b2906d74f13add881e1857ae8047" id="r_a0ea6b2906d74f13add881e1857ae8047"><td class="memItemLeft">static <a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ea6b2906d74f13add881e1857ae8047">loadFromFile</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a0ea6b2906d74f13add881e1857ae8047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit la table, puis le manifeste rangé à côté d'elle s'il existe (voir l'en-tête).  <br /></td></tr>
 <tr class="memitem:ad46b07568c722387857cf3801a76e4cb" id="r_ad46b07568c722387857cf3801a76e4cb"><td class="memItemLeft">static <a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad46b07568c722387857cf3801a76e4cb">loadForPlace</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view <a class="el" href="#a0d4246e6bc7472127ffce2ffc6b73e05">place</a>)</td></tr>
@@ -183,6 +184,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:acb55682395eeeb9e1872161fffb95445" id="r_acb55682395eeeb9e1872161fffb95445"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#acb55682395eeeb9e1872161fffb95445">FORMAT_VERSION</a> = 1</td></tr>
+<tr class="memdesc:acb55682395eeeb9e1872161fffb95445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version la plus haute du format de table que cette lecture accepte.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-types" class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -534,6 +536,9 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Lit une table depuis son texte JSON <code class="param">json</code>, sans manifeste voisin. </p>
+<dl class="section return"><dt>Returns</dt><dd>La table et, si la lecture échoue, l'erreur nommée. </dd></dl>
 
 </div>
 </div>
@@ -1010,6 +1015,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Version la plus haute du format de table que cette lecture accepte. </p>
 
 </div>
 </div>

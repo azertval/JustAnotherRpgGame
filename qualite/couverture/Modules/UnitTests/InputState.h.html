@@ -17,13 +17,13 @@
 #include &lt;array&gt;
 #include &lt;cstddef&gt;
 #include &lt;cstdint&gt;
-#include &lt;vector&gt;
 
 #include "HMI/Input/GamepadButton.h"
 
 /**
  * @file HMI/Input/InputState.h
- * @brief Ãtat des entrÃ©es clavier/souris/manette Ã©chantillonnÃ© une fois par frame.
+ * @brief Ãtat de la manette Ã©chantillonnÃ© une fois par relevÃ©, et la touche `hmi::Key` de
+ *        l'Ã©diteur.
  */
 
 namespace hmi {
@@ -31,17 +31,18 @@ namespace hmi {
 /**
  * @brief Touche du clavier, identifiÃ©e par son **code virtuel Win32**.
  *
- * Les valeurs coÃ¯ncident volontairement avec les codes `VK_*` de Win32, ce qui permet Ã  la
- * couche de capture (`Window`) de convertir directement un `WPARAM` en `Key` par un simple
- * `static_cast`, sans table de correspondance. Seules les touches utiles au menu et Ã  la
- * navigation sont nommÃ©es ici ; l'`InputState` stocke nÃ©anmoins n'importe quel code, si bien
- * qu'ajouter une touche revient Ã  ajouter un Ã©numÃ©rateur (aucune autre modification).
+ * Les valeurs coÃ¯ncident volontairement avec les codes `VK_*` de Win32 : c'est le code brut que
+ * le fichier des raccourcis de l'Ã©diteur enregistre (`hmi::EditorKeyBindings`), et que
+ * `hmi::qtKeyToHmiKey` / `hmi::hmiKeyToQtKey` traduisent depuis et vers `Qt::Key`. Seules les
+ * touches utiles sont nommÃ©es ; ajouter une touche revient Ã  ajouter un Ã©numÃ©rateur. Le jeu Qt
+ * Quick, lui, lit ses touches par les Ã©vÃ©nements de ses Ã©lÃ©ments (`Keys.onPressed`) et ne passe
+ * pas par cette Ã©numÃ©ration.
  */
 enum class Key : std::uint16_t {
     Backspace = 0x08,
     Tab = 0x09,
     Enter = 0x0D,
-    Shift = 0x10,  // Maj : modificateur (Maj+clic de l'Ã©diteur)
+    Shift = 0x10,    // Maj : modificateur (Maj+clic de l'Ã©diteur)
     Control = 0x11,  // Ctrl : raccourcis d'Ã©dition (annuler/refaire, Ã©diteur)
     Escape = 0x1B,
     Space = 0x20,
@@ -69,198 +70,75 @@ enum class Key : std::uint16_t {
 };
 
 /**
- * @brief Bouton de la souris suivi par l'`InputState`.
+ * @brief Ãtat des boutons de la manette Ã  un relevÃ©, avec dÃ©tection des fronts (pressÃ© / relÃ¢chÃ©).
  *
- * `Count` n'est pas un bouton : c'est la sentinelle donnant le nombre de boutons suivis
- * (dimension des tableaux d'Ã©tat).
- */
-enum class MouseButton : std::uint8_t {
-    Left = 0,
-    Right = 1,
-    Middle = 2,
-    Count = 3,
-};
-
-/**
- * @brief Ãtat des entrÃ©es d'une frame, avec dÃ©tection des fronts (pressÃ©e / relÃ¢chÃ©e).
- *
- * L'objet distingue, pour chaque touche et chaque bouton, l'Ã©tat **courant** (enfoncÃ© ou non)
- * et l'Ã©tat de la **frame prÃ©cÃ©dente**, ce qui permet de dÃ©duire les fronts :
- * *pressÃ©e* (Â« vient d'Ãªtre enfoncÃ©e Â», `EX-CTRL-011`) et *relÃ¢chÃ©e*. Le cycle d'une frame est :
+ * L'objet distingue, pour chaque bouton, l'Ã©tat **courant** (enfoncÃ© ou non) et l'Ã©tat du
+ * **relevÃ© prÃ©cÃ©dent**, ce qui permet de dÃ©duire les fronts : *pressÃ©* (Â« vient d'Ãªtre enfoncÃ© Â»,
+ * `EX-CTRL-011`) et *relÃ¢chÃ©*. Le cycle d'un relevÃ© est :
  * 1. `beginFrame()` recopie l'Ã©tat courant vers l'Ã©tat prÃ©cÃ©dent ;
- * 2. la couche de capture (`Window`) applique les Ã©vÃ©nements via `onKeyDown`/`onKeyUp`/â¦ ;
- * 3. la logique lit `keyPressed`/`keyReleased`/`keyDown` et les Ã©quivalents souris.
+ * 2. `hmi::GamepadPoller::poll` applique le sondage XInput via `onGamepadButtonDown`/`Up` ;
+ * 3. la logique (`hmi::GamepadNavigator`) lit `gamepadButtonDown`/`gamepadButtonPressed`/
+ *    `gamepadButtonReleased`.
  *
- * **Manette (`EX-CTRL-002`)** : une seconde source, indÃ©pendante du clavier, alimentÃ©e par
- * `onGamepadKeyDown`/`onGamepadKeyUp` â le mÃªme `Key` peut Ãªtre enfoncÃ© par le clavier, la
- * manette, ou les deux Ã  la fois. `keyDown`/`keyPressed`/`keyReleased` **combinent** les deux
- * sources (OU logique) ; la manette ne s'Ã©crit **jamais** dans les tableaux clavier, pour ne
- * jamais effacer une touche clavier rÃ©ellement maintenue quand la manette relÃ¢che le bouton
- * correspondant (voir `hmi::GamepadPoller`). Cette fusion en lecture, plutÃ´t qu'une
- * table d'actions logiques sÃ©parÃ©e, satisfait dÃ©jÃ  `EX-CTRL-010` (action dissociÃ©e de la touche
- * physique) : le `Key` **est** l'action logique, quelle que soit sa source.
+ * Le clavier et la souris du jeu Qt Quick arrivent par les Ã©vÃ©nements de ses Ã©lÃ©ments et ne
+ * passent plus par ici : l'Ã©tat est celui de la **manette** (`EX-CTRL-002`), seule source qu'il
+ * faille sonder.
  *
  * L'`InputState` est **indÃ©pendant de toute fenÃªtre** (aucune dÃ©pendance `&lt;Windows.h&gt;`, ni
- * `&lt;Xinput.h&gt;`) : les Ã©vÃ©nements peuvent Ãªtre injectÃ©s directement, ce qui le rend testable en
- * isolation (`EX-NFR-010`) â y compris la fusion manette, sans manette rÃ©elle. Il est Ã©chantillonnÃ©
- * une fois par frame, en amont de la logique.
+ * `&lt;Xinput.h&gt;`) : les boutons peuvent Ãªtre injectÃ©s directement, ce qui le rend testable en
+ * isolation (`EX-NFR-010`), sans manette rÃ©elle.
  */
 class InputState {
 public:
-    /// Construit un Ã©tat vide (aucune touche ni bouton enfoncÃ©, souris Ã  l'origine).
+    /// Construit un Ã©tat vide (aucun bouton enfoncÃ©, manette dÃ©connectÃ©e).
 <span style = "background-color:#dfd">    InputState() = default;</span>
 
     /**
-     * @brief Ouvre une nouvelle frame : recopie l'Ã©tat courant vers l'Ã©tat prÃ©cÃ©dent.
+     * @brief Ouvre un nouveau relevÃ© : recopie l'Ã©tat courant vers l'Ã©tat prÃ©cÃ©dent.
      *
-     * Ã appeler une fois par frame, avant d'appliquer les Ã©vÃ©nements de la frame. Les fronts
-     * (`keyPressed`, `keyReleased`, â¦) se calculent ensuite par comparaison courant/prÃ©cÃ©dent.
+     * Ã appeler une fois par relevÃ©, avant d'appliquer le sondage. Les fronts
+     * (`gamepadButtonPressed`, `gamepadButtonReleased`) se calculent ensuite par comparaison
+     * courant/prÃ©cÃ©dent.
      */
     void beginFrame() noexcept;
 
     /**
-     * @brief RelÃ¢che **toutes** les entrÃ©es maintenues (clavier, manette, souris), sans front.
+     * @brief RelÃ¢che **tous** les boutons maintenus, sans front.
      *
-     * Remet Ã  zÃ©ro l'Ã©tat courant **et** l'Ã©tat prÃ©cÃ©dent des touches/boutons, si bien qu'aucun
-     * front (pressÃ©e/relÃ¢chÃ©e) n'est produit. Ã appeler quand la fenÃªtre perd le focus
-     * (`WM_KILLFOCUS`) : sans cela, une touche maintenue au moment d'un `Alt+Tab` ne reÃ§oit jamais
-     * son `WM_KEYUP` et resterait Â« collÃ©e Â» (le personnage continuerait d'avancer au retour).
+     * Remet Ã  zÃ©ro l'Ã©tat courant **et** l'Ã©tat prÃ©cÃ©dent, si bien qu'aucun front (pressÃ©/relÃ¢chÃ©)
+     * n'est produit. Ã appeler quand un lecteur cesse d'Ã©couter (`hmi::GamepadNavigator`
+     * dÃ©sactivÃ©) : sans cela, un bouton tenu Ã  cet instant resterait Â« collÃ© Â».
      */
     void releaseAll() noexcept;
 
-    /// Marque @p key comme enfoncÃ©e dans l'Ã©tat courant (source **clavier**).
-    void onKeyDown(Key key) noexcept;
-
-    /// Marque @p key comme relÃ¢chÃ©e dans l'Ã©tat courant (source **clavier**).
-    void onKeyUp(Key key) noexcept;
-
-    /**
-     * @brief Marque @p key comme enfoncÃ©e dans l'Ã©tat courant, source **manette**.
-     *
-     * Ãcrit dans un tableau **distinct** du clavier (voir en-tÃªte) : n'affecte jamais
-     * `onKeyDown`/`onKeyUp`. `keyDown`/`keyPressed`/`keyReleased` combinent les deux sources.
-     */
-    void onGamepadKeyDown(Key key) noexcept;
-
-    /// Marque @p key comme relÃ¢chÃ©e dans l'Ã©tat courant, source **manette** (voir
-    /// `onGamepadKeyDown`).
-    void onGamepadKeyUp(Key key) noexcept;
-
-    /**
-     * @brief Marque @p button comme enfoncÃ© dans l'Ã©tat courant (piste manette **brute**).
-     *
-     * IndÃ©pendante de `onGamepadKeyDown`/`Up` : celle-ci fusionne la manette dans l'espace des
-     * touches clavier (`Key`, utilisÃ©e par la navigation de menu, jamais remappable) ; celle-ci
-     * expose l'Ã©tat de chaque bouton physique (`GamepadButton`) tel quel, pour les actions de jeu
-     * remappables via `GamepadBindings` (`EX-CTRL-002`).
-     */
+    /// Marque @p button comme enfoncÃ© dans l'Ã©tat courant.
     void onGamepadButtonDown(GamepadButton button) noexcept;
 
-    /// Marque @p button comme relÃ¢chÃ© dans l'Ã©tat courant (voir `onGamepadButtonDown`).
+    /// Marque @p button comme relÃ¢chÃ© dans l'Ã©tat courant.
     void onGamepadButtonUp(GamepadButton button) noexcept;
 
     /**
-     * @brief Met Ã  jour la position de la souris.
-     * @param x Abscisse en pixels de la zone client.
-     * @param y OrdonnÃ©e en pixels de la zone client.
-     */
-    void onMouseMove(int x, int y) noexcept;
-
-    /// Marque @p button comme enfoncÃ© dans l'Ã©tat courant.
-    void onMouseButtonDown(MouseButton button) noexcept;
-
-    /// Marque @p button comme relÃ¢chÃ© dans l'Ã©tat courant.
-    void onMouseButtonUp(MouseButton button) noexcept;
-
-    /**
-     * @brief Accumule un incrÃ©ment de molette pour la frame courante.
-     * @param delta IncrÃ©ment signÃ© (positif = molette vers l'avant), en unitÃ©s natives Win32
-     *              (`WHEEL_DELTA` = 120 par cran) ; l'appelant convertit selon son besoin.
-     */
-    void onMouseWheel(int delta) noexcept;
-
-    /**
-     * @brief Enregistre un caractÃ¨re tapÃ© pour la frame courante (`WM_CHAR`).
-     * @param character CaractÃ¨re dÃ©jÃ  traduit selon la disposition clavier active.
-     */
-    void onCharTyped(wchar_t character);
-
-    /**
-     * @brief DÃ©clare l'Ã©tat de connexion de la manette pour cette frame (`EX-CTRL-002`).
+     * @brief DÃ©clare l'Ã©tat de connexion de la manette pour ce relevÃ© (`EX-CTRL-002`).
      * @param connected Vrai si `XInputGetState` a rÃ©ussi ce pas-ci (voir `hmi::GamepadPoller`).
      */
     void setGamepadConnected(bool connected) noexcept;
 
-    /// @return true si une manette Ã©tait connectÃ©e Ã  la derniÃ¨re frame sondÃ©e.
+    /// @return true si une manette Ã©tait connectÃ©e au dernier relevÃ© sondÃ©.
     [[nodiscard]] bool gamepadConnected() const noexcept;
 
-    /// @return true si @p key est enfoncÃ©e Ã  cette frame (maintenue ou vient d'Ãªtre pressÃ©e).
-    [[nodiscard]] bool keyDown(Key key) const noexcept;
-
-    /// @return true si @p key **vient d'Ãªtre pressÃ©e** cette frame (front montant).
-    [[nodiscard]] bool keyPressed(Key key) const noexcept;
-
-    /// @return true si @p key **vient d'Ãªtre relÃ¢chÃ©e** cette frame (front descendant).
-    [[nodiscard]] bool keyReleased(Key key) const noexcept;
-
-    /// @return true si @p button (piste manette brute) est enfoncÃ© Ã  cette frame.
+    /// @return true si @p button est enfoncÃ© Ã  ce relevÃ© (maintenu ou vient d'Ãªtre pressÃ©).
     [[nodiscard]] bool gamepadButtonDown(GamepadButton button) const noexcept;
 
-    /// @return true si @p button (piste manette brute) **vient d'Ãªtre enfoncÃ©** cette frame.
+    /// @return true si @p button **vient d'Ãªtre enfoncÃ©** Ã  ce relevÃ© (front montant).
     [[nodiscard]] bool gamepadButtonPressed(GamepadButton button) const noexcept;
 
-    /// @return true si @p button (piste manette brute) **vient d'Ãªtre relÃ¢chÃ©** cette frame.
+    /// @return true si @p button **vient d'Ãªtre relÃ¢chÃ©** Ã  ce relevÃ© (front descendant).
     [[nodiscard]] bool gamepadButtonReleased(GamepadButton button) const noexcept;
 
-    /// @return Abscisse de la souris, en pixels de la zone client.
-    [[nodiscard]] int mouseX() const noexcept;
-
-    /// @return OrdonnÃ©e de la souris, en pixels de la zone client.
-    [[nodiscard]] int mouseY() const noexcept;
-
-    /// @return true si @p button est enfoncÃ© Ã  cette frame.
-    [[nodiscard]] bool mouseButtonDown(MouseButton button) const noexcept;
-
-    /// @return true si @p button **vient d'Ãªtre cliquÃ©** cette frame (front montant).
-    [[nodiscard]] bool mouseButtonPressed(MouseButton button) const noexcept;
-
-    /// @return true si @p button **vient d'Ãªtre relÃ¢chÃ©** cette frame (front descendant).
-    [[nodiscard]] bool mouseButtonReleased(MouseButton button) const noexcept;
-
-    /**
-     * @brief Somme des incrÃ©ments de molette accumulÃ©s depuis le dernier `beginFrame()`.
-     * @return Positif si la molette a tournÃ© vers l'avant depuis la frame prÃ©cÃ©dente, nÃ©gatif
-     *         vers l'arriÃ¨re, zÃ©ro si elle n'a pas bougÃ©.
-     */
-    [[nodiscard]] int wheelDelta() const noexcept;
-
-    /**
-     * @brief CaractÃ¨res tapÃ©s depuis le dernier `beginFrame()`, dans leur ordre de saisie.
-     * @return Une file vide si rien n'a Ã©tÃ© tapÃ© depuis la frame prÃ©cÃ©dente.
-     */
-    [[nodiscard]] const std::vector&lt;wchar_t&gt;&amp; typedCharacters() const noexcept;
-
 private:
-    /// Nombre de codes de touches suivis (couvre l'ensemble des codes virtuels Win32).
-    static constexpr std::size_t KEY_COUNT = 256;
-
-    /// Nombre de boutons de souris suivis.
-    static constexpr std::size_t BUTTON_COUNT = static_cast&lt;std::size_t&gt;(MouseButton::Count);
-
-<span style = "background-color:#dfd">    std::array&lt;bool, KEY_COUNT&gt; _keysCurrent{};
-    std::array&lt;bool, KEY_COUNT&gt; _keysPrevious{};
-    std::array&lt;bool, KEY_COUNT&gt; _gamepadCurrent{};  ///&lt; Source manette, distincte du clavier.
-    std::array&lt;bool, KEY_COUNT&gt; _gamepadPrevious{};</span>
-    /// Piste manette brute (`GamepadButton`), indÃ©pendante de la fusion `Key` ci-dessus.
 <span style = "background-color:#dfd">    std::array&lt;bool, GAMEPAD_BUTTON_COUNT&gt; _gamepadButtonsCurrent{};
     std::array&lt;bool, GAMEPAD_BUTTON_COUNT&gt; _gamepadButtonsPrevious{};
-    std::array&lt;bool, BUTTON_COUNT&gt; _buttonsCurrent{};
-    std::array&lt;bool, BUTTON_COUNT&gt; _buttonsPrevious{};
-    int _mouseX = 0;
-    int _mouseY = 0;
-    int _wheelDelta = 0;                    ///&lt; Remis Ã  zÃ©ro Ã  chaque `beginFrame()`.</span>
-    std::vector&lt;wchar_t&gt; _typedCharacters;  ///&lt; VidÃ©e Ã  chaque `beginFrame()`.
-<span style = "background-color:#dfd">    bool _gamepadConnected = false;</span>
+    bool _gamepadConnected = false;</span>
 };
 
 }  // namespace hmi</pre>

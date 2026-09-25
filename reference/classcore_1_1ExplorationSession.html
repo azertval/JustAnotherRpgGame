@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -151,6 +151,7 @@ $(function(){initNavTree('classcore_1_1ExplorationSession.html','','classcore_1_
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9bed0fda73221f828073712709a93691" id="r_a9bed0fda73221f828073712709a93691"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9bed0fda73221f828073712709a93691">ExplorationSession</a> (<a class="el" href="classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e">WorldTravel::MapLoader</a> loader)</td></tr>
+<tr class="memdesc:a9bed0fda73221f828073712709a93691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une session sans carte courante, dont les cartes se liront par <code class="param">loader</code> (<span class="tt"><a class="el" href="#affe6baf83932a4eabcaa720517fbfddc" title="Entre sur mapId, au point d&#39;arrivée arrival (vide : l&#39;entrée de la carte).">start</a></span>).  <br /></td></tr>
 <tr class="memitem:affe6baf83932a4eabcaa720517fbfddc" id="r_affe6baf83932a4eabcaa720517fbfddc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#affe6baf83932a4eabcaa720517fbfddc">start</a> (std::string_view <a class="el" href="#a139e3bcdabc9bc7ce0d94faa820ad137">mapId</a>, std::string_view arrival)</td></tr>
 <tr class="memdesc:affe6baf83932a4eabcaa720517fbfddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entre sur <code class="param">mapId</code>, au point d'arrivée <code class="param">arrival</code> (vide : l'entrée de la carte).  <br /></td></tr>
 <tr class="memitem:af22834cdd0f0305a39eea299e837fcc3" id="r_af22834cdd0f0305a39eea299e837fcc3"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3">update</a> (const <a class="el" href="structcore_1_1ExplorationIntent.html">ExplorationIntent</a> &amp;intent, float seconds)</td></tr>
@@ -164,18 +165,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0830d60319ca57c8da2a78cee858d0d8" id="r_a0830d60319ca57c8da2a78cee858d0d8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0830d60319ca57c8da2a78cee858d0d8">facing</a> () const noexcept</td></tr>
 <tr class="memitem:af2e543bbcc2b7987acb40f4f0cd2d367" id="r_af2e543bbcc2b7987acb40f4f0cd2d367"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#af2e543bbcc2b7987acb40f4f0cd2d367">aimedCell</a> () const</td></tr>
 <tr class="memitem:af53b61732272ba7cb69bf2ed5f1a4e79" id="r_af53b61732272ba7cb69bf2ed5f1a4e79"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af53b61732272ba7cb69bf2ed5f1a4e79">flags</a> () noexcept</td></tr>
+<tr class="memdesc:af53b61732272ba7cb69bf2ed5f1a4e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux du monde, pour ce qui les écrit (dialogues, quêtes, interactions).  <br /></td></tr>
 <tr class="memitem:ac6da465cb6cdc7a08d0631394df45eb9" id="r_ac6da465cb6cdc7a08d0631394df45eb9"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac6da465cb6cdc7a08d0631394df45eb9">flags</a> () const noexcept</td></tr>
+<tr class="memdesc:ac6da465cb6cdc7a08d0631394df45eb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux du monde, en lecture seule.  <br /></td></tr>
 <tr class="memitem:ae5f69b7aa246623ce16406da08d831b6" id="r_ae5f69b7aa246623ce16406da08d831b6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae5f69b7aa246623ce16406da08d831b6">setQuests</a> (<a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> <a class="el" href="#a46e681a1725375612d92d31bebc05fd5">quests</a>)</td></tr>
 <tr class="memdesc:ae5f69b7aa246623ce16406da08d831b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne à la session les quêtes de la partie : leurs drapeaux sont déclarés, et celles dont les conditions tiennent déjà avancent (<span class="tt">LOT-116</span>).  <br /></td></tr>
 <tr class="memitem:a46e681a1725375612d92d31bebc05fd5" id="r_a46e681a1725375612d92d31bebc05fd5"><td class="memItemLeft">const <a class="el" href="structcore_1_1QuestCatalog.html">QuestCatalog</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a46e681a1725375612d92d31bebc05fd5">quests</a> () const noexcept</td></tr>
+<tr class="memdesc:a46e681a1725375612d92d31bebc05fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue de quêtes posé par <span class="tt"><a class="el" href="#ae5f69b7aa246623ce16406da08d831b6" title="Donne à la session les quêtes de la partie : leurs drapeaux sont déclarés, et celles dont les conditi...">setQuests</a></span> (vide sinon).  <br /></td></tr>
 <tr class="memitem:a3b97fb5728ef0139dea6d619247a7ccd" id="r_a3b97fb5728ef0139dea6d619247a7ccd"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3b97fb5728ef0139dea6d619247a7ccd">refreshFromFlags</a> ()</td></tr>
 <tr class="memdesc:a3b97fb5728ef0139dea6d619247a7ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tire les conséquences des drapeaux changés depuis le dernier appel : les quêtes avancent, et les entités de la carte paraissent ou disparaissent <b>sans la recharger</b>.  <br /></td></tr>
 <tr class="memitem:a07cd4be941a029a036b79b0b98c200f7" id="r_a07cd4be941a029a036b79b0b98c200f7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a07cd4be941a029a036b79b0b98c200f7">isPresent</a> (const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;entity) const</td></tr>
 <tr class="memdesc:a07cd4be941a029a036b79b0b98c200f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'entité <code class="param">entity</code> de la carte courante est présente sous les drapeaux.  <br /></td></tr>
 <tr class="memitem:ab1517d211c44200e50a9195dfb0ca2b0" id="r_ab1517d211c44200e50a9195dfb0ca2b0"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0">travel</a> () const noexcept</td></tr>
+<tr class="memdesc:ab1517d211c44200e50a9195dfb0ca2b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La traversée du monde sous-jacente : carte courante, position, dernier refus.  <br /></td></tr>
 <tr class="memitem:a335330a71db09257b636e34996be93d0" id="r_a335330a71db09257b636e34996be93d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a335330a71db09257b636e34996be93d0">freeze</a> (bool <a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>) noexcept</td></tr>
 <tr class="memdesc:a335330a71db09257b636e34996be93d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gèle ou dégèle la carte (dialogue, combat).  <br /></td></tr>
 <tr class="memitem:aef08d7c2386bfb79b7b5fa8f69c8f6b7" id="r_aef08d7c2386bfb79b7b5fa8f69c8f6b7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a> () const noexcept</td></tr>
+<tr class="memdesc:aef08d7c2386bfb79b7b5fa8f69c8f6b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la carte est gelée : <span class="tt"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3" title="Avance d&#39;un pas de seconds.">update</a></span> ne fait plus avancer le héros ni le temps.  <br /></td></tr>
 <tr class="memitem:a91c0efcf0eab8c834155e00174a0b094" id="r_a91c0efcf0eab8c834155e00174a0b094"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1Interactable.html">Interactable</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a91c0efcf0eab8c834155e00174a0b094">interactables</a> () const noexcept</td></tr>
 <tr class="memitem:abed6b3bacd660694b021eae60af04870" id="r_abed6b3bacd660694b021eae60af04870"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#abed6b3bacd660694b021eae60af04870">blockedByProps</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
@@ -248,6 +254,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Une session sans carte courante, dont les cartes se liront par <code class="param">loader</code> (<span class="tt"><a class="el" href="#affe6baf83932a4eabcaa720517fbfddc" title="Entre sur mapId, au point d&#39;arrivée arrival (vide : l&#39;entrée de la carte).">start</a></span>). </p>
 
 </div>
 </div>
@@ -460,6 +468,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Les drapeaux du monde, en lecture seule. </p>
+
 </div>
 </div>
 <a id="af53b61732272ba7cb69bf2ed5f1a4e79" name="af53b61732272ba7cb69bf2ed5f1a4e79"></a>
@@ -484,6 +494,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Les drapeaux du monde, pour ce qui les écrit (dialogues, quêtes, interactions). </p>
 
 </div>
 </div>
@@ -536,6 +548,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Vrai si la carte est gelée : <span class="tt"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3" title="Avance d&#39;un pas de seconds.">update</a></span> ne fait plus avancer le héros ni le temps. </p>
 
 </div>
 </div>
@@ -746,6 +760,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Le catalogue de quêtes posé par <span class="tt"><a class="el" href="#ae5f69b7aa246623ce16406da08d831b6" title="Donne à la session les quêtes de la partie : leurs drapeaux sont déclarés, et celles dont les conditi...">setQuests</a></span> (vide sinon). </p>
+
 </div>
 </div>
 <a id="a39d384fd1e8c3dccb780aa04017592d0" name="a39d384fd1e8c3dccb780aa04017592d0"></a>
@@ -889,7 +905,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Entre sur <code class="param">mapId</code>, au point d'arrivée <code class="param">arrival</code> (vide : l'entrée de la carte). </p>
-<dl class="section return"><dt>Returns</dt><dd>Vrai si la carte est là et le point d'arrivée connu ; <span class="tt"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0">travel()</a>.lastIssue()</span> dit sinon pourquoi. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Vrai si la carte est là et le point d'arrivée connu ; <span class="tt"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0" title="La traversée du monde sous-jacente : carte courante, position, dernier refus.">travel()</a>.lastIssue()</span> dit sinon pourquoi. </dd></dl>
 
 </div>
 </div>
@@ -915,6 +931,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>La traversée du monde sous-jacente : carte courante, position, dernier refus. </p>
 
 </div>
 </div>

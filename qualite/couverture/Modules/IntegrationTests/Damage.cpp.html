@@ -167,7 +167,7 @@ namespace {
     return travail;
 }</span>
 
-/// Consomme les reserves, la plus recente d'abord, et rend ce qui reste a perdre en PV.
+// Consomme les reserves, la plus recente d'abord, et rend ce qui reste a perdre en PV.
 <span style = "background-color:#dfd">int absorber(DamageWork&amp; travail, std::vector&lt;HitPointReserve&gt;&amp; reserves, int montant) {
     for (auto it = reserves.rbegin(); it != reserves.rend() &amp;&amp; montant &gt; 0; ++it) {
         const int pris = std::min(it-&gt;amount, montant);

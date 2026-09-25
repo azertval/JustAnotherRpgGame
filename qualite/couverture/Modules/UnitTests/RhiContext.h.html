@@ -33,14 +33,15 @@ namespace hmi {
  * - **Un tÃ©lÃ©versement ne se dÃ©clare pas n'importe quand.** CrÃ©er une texture ne suffit pas : ses
  *   pixels transitent par un `QRhiResourceUpdateBatch`, qui ne peut Ãªtre soumis qu'**en dehors**
  *   d'une passe de rendu. Or les textures se chargent paresseusement, en pleine composition
- *   (`hmi::TextureCache::get`). Le lot courant est donc exposÃ© ici, rempli au fil de la
- *   composition, et soumis d'un bloc avant l'ouverture de la passe.
+ *   (les bibliothÃ¨ques de textures des rendus de scÃ¨ne, `hmi::WorldSceneRenderer::textures()`).
+ *   Le lot courant est donc exposÃ© ici, rempli au fil de la composition, et soumis d'un bloc
+ *   avant l'ouverture de la passe.
  * - **Le `QRhi` peut changer.** `QRhiWidget` recrÃ©e ses ressources quand le widget change de
  *   fenÃªtre de haut niveau. Les propriÃ©taires de textures comparent donc le `QRhi` qu'ils ont
  *   servi Ã  celui du contexte, plutÃ´t que de supposer qu'il ne bouge jamais.
  *
  * L'instance est **possÃ©dÃ©e par le viewport** et rÃ©fÃ©rencÃ©e (jamais copiÃ©e) par les objets qui
- * crÃ©ent des textures : `hmi::TextureAtlas`, `hmi::TextureCache`, `hmi::BitmapFont`.
+ * crÃ©ent des textures : `hmi::TextureAtlas` et les rendus de scÃ¨ne (`hmi::WorldSceneRenderer`).
  */
 struct RhiContext {
     /// Interface de rendu courante, ou `nullptr` avant la premiÃ¨re initialisation.

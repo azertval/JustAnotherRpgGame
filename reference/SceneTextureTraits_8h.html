@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -186,7 +186,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que les fichiers <b>voisins</b> d'une image de scène disent d'elle : sa découpe, son échelle, son ancre (<span class="tt">LOT-103</span>). </p>
 <p>Une image ne sait rien d'elle-même : sa taille est tout ce que le décodeur rend. Le reste est écrit à côté — la découpe d'une bande dans son <span class="tt">.anim.json</span>, l'échelle et l'ancre d'une pièce dans le <span class="tt">manifest.json</span> de son dossier. Le jeu, l'arène et l'éditeur lisaient ces trois choses chacun de leur côté, et chacun en oubliait une : la lecture est ici, une fois.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md98"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md88"></a>
 L'échelle, une donnée du lieu</h2>
 <p>Le manifeste d'un dossier de pièces déclare <span class="tt">"tile": [largeur, hauteur]</span>, le losange de sol en pixels d'art (<span class="tt">EX-VIS-008</span>) : c'est de lui que le rendu tire la taille à l'écran de chaque pièce, et non d'une constante. Une figurine vit plus bas (<span class="tt">Characters/&lt;pnj&gt;/idle.png</span>, <span class="tt">Characters/Heroes/brawler/walk-se.png</span>) : son échelle et sa ligne de sol se lisent dans le premier manifeste <b>ancêtre</b> qui déclare un losange, celui de l'atelier qui la range.</p>
 <p>Logique pure, sans GPU ni Qt ; aucune lecture ne lève (<span class="tt">EX-NFR-040</span>) : un fichier absent laisse le trait inconnu, et le rendu en déduit un défaut (<span class="tt"><a class="el" href="namespacehmi.html#acf7d466bf233ec8793a6ce809dff494f" title="La largeur, en pixels d&#39;art, d&#39;une case de la projection : ce que le manifeste déclare.">hmi::artTileWidth</a></span>). </p>

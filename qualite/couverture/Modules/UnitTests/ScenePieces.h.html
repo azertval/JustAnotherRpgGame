@@ -66,8 +66,9 @@ struct SceneTexture {
 <span style = "background-color:#dfd">    std::optional&lt;float&gt; groundLine{};</span>
     /// DurÃ©e d'une image de la bande, en secondes (`.anim.json`) ; 0 si la bande n'en dit rien.
 <span style = "background-color:#dfd">    float frameDuration = 0.0F;</span>
-    /// Vrai si la bande boucle (repos, marche) ; faux si elle se joue **une fois** et se fige sur sa
-    /// derniÃ¨re image (attaque, sort, touchÃ©, mort â `LOT-118`). Une bande sans `.anim.json` boucle.
+    /// Vrai si la bande boucle (repos, marche) ; faux si elle se joue **une fois** et se fige sur
+    /// sa derniÃ¨re image (attaque, sort, touchÃ©, mort â `LOT-118`). Une bande sans `.anim.json`
+    /// boucle.
 <span style = "background-color:#dfd">    bool loop = true;</span>
     /// Hauteur d'un Ã©tage du lieu, en pixels d'art (`storey` du manifeste, `LOT-129`) : ce dont une
     /// piÃ¨ce posÃ©e sur la couche d'Ã©tage `floor = n` s'Ã©lÃ¨ve, n fois.
@@ -88,8 +89,8 @@ struct SceneTexture {
     if (texture.artTile.x &gt; 0.0F) {
         return texture.artTile.x;</span>
     }
-<span style = "background-color:#dfd">    if (texture.frameHeight &gt; 0) {
-        return static_cast&lt;float&gt;(texture.frameHeight);</span>
+<span style = "background-color:#dfd">    if (texture.frameHeight &gt; 0) {</span>
+<span style = "background-color:#fdd">        return static_cast&lt;float&gt;(texture.frameHeight);</span>
     }
 <span style = "background-color:#dfd">    return static_cast&lt;float&gt;(</span>
         std::max(1, texture.frameWidth &gt; 0 ? texture.frameWidth : texture.width));

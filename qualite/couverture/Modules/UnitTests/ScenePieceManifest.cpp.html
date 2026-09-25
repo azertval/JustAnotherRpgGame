@@ -41,7 +41,7 @@ namespace {
 <span style = "background-color:#fdd">    return ScenePieceManifestError::MalformedStructure;</span>
 <span style = "background-color:#dfd">}</span>
 
-/// Une paire d'entiers `[a, b]` du manifeste, @p fallback si le champ manque ou est mal formÃ©.
+// Une paire d'entiers `[a, b]` du manifeste, @p fallback si le champ manque ou est mal formÃ©.
 [[nodiscard]] std::pair&lt;int, int&gt; intPair(const nlohmann::json&amp; object, std::string_view field,
 <span style = "background-color:#dfd">                                          std::pair&lt;int, int&gt; fallback) {
     const auto found = object.find(field);</span>

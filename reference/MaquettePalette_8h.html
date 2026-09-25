@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -173,10 +173,10 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La palette du <b>rendu de maquette</b> : la teinte de chaque type de tuile quand aucune pièce ne l'habille (<span class="tt">LOT-128</span>, décision D5). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md82"></a>
 Pourquoi dans le code, et pas dans un fichier</h2>
 <p>La maquette doit se dessiner quand <b>aucun</b> fichier d'asset n'est présent (<span class="tt">EX-EXP-005</span>) : c'est toute sa raison d'être. Une palette chargée depuis le disque réintroduirait exactement la dépendance que le lot supprime. C'est un <b>standard</b> — comme l'échelle ou le rapport du losange —, pas du contenu : elle vit donc ici, en-tête seul, sans allocation ni chargement.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md93"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md83"></a>
 Pourquoi pas les couleurs de l'atlas procédural</h2>
 <p><span class="tt"><a class="el" href="namespacehmi.html#a597b9471d79c0d524b3dedbf52c2fac6" title="Région d&#39;atlas (couleur procédurale) associée à un type de tuile.">hmi::regionForTile</a></span> donne des teintes vives, faites pour qu'un développeur distingue douze types sur un canevas de travail. Une maquette n'est pas un canevas de travail : c'est une <b>image de la carte</b>, qu'on regarde en jouant. Les teintes sont donc celles des plans de principe du planning (<span class="tt">Planning/versions/.../maquettes/plan-*.svg</span>), sourdes et accordées entre elles.</p>
 <p>Le vocabulaire a été étoffé pour que la maquette dise ce que les plans montrent : pavé et ruelle, étals, gradins, marbre des colonnes y ont chacun leur type et la teinte de leur légende. Elle <em>se lit comme</em> le plan du planning, elle ne s'y superpose pas (décision D4). </p>

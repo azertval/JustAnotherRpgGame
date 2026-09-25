@@ -24,8 +24,8 @@
 
 namespace core {
 
-/// Tient la profondeur d'appel. En sortant de l'appel **extÃ©rieur** â celui qui ne vient d'aucun
-/// abonnÃ© â, la machine rÃ¨gle ce que l'appel a changÃ©.
+// Tient la profondeur d'appel. En sortant de l'appel **extÃ©rieur** â celui qui ne vient d'aucun
+// abonnÃ© â, la machine rÃ¨gle ce que l'appel a changÃ©.
 class CombatState::Operation {
 public:
 <span style = "background-color:#dfd">    explicit Operation(CombatState&amp; state) : _state(state) {
@@ -127,7 +127,7 @@ private:
 
 namespace {
 
-/// L'identifiant vaut sa position plus un : la mÃªme recherche, constante ou non.
+// L'identifiant vaut sa position plus un : la mÃªme recherche, constante ou non.
 template &lt;typename Combatants&gt;
 <span style = "background-color:#dfd">auto* findIn(Combatants&amp; combatants, CombatantId combatant) {
     const auto index = static_cast&lt;std::size_t&gt;(combatant);

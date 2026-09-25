@@ -23,7 +23,7 @@ namespace {
 
 using core::Ability;
 
-/// Les six caractÃ©ristiques et le suffixe d'identifiant sous lequel l'ossature les attend.
+// Les six caractÃ©ristiques et le suffixe d'identifiant sous lequel l'ossature les attend.
 constexpr std::array&lt;std::pair&lt;Ability, const char*&gt;, 6&gt; ABILITIES = {{
     {Ability::Strength, "strength"},
     {Ability::Dexterity, "dexterity"},
@@ -33,14 +33,14 @@ constexpr std::array&lt;std::pair&lt;Ability, const char*&gt;, 6&gt; ABILITIES =
     {Ability::Charisma, "charisma"},
 }};
 
-/// @return Un modificateur avec son signe â `+3`, `-1`, `+0`. Le signe n'est pas une coquetterie :
-///         un `3` nu se lit comme une valeur de caractÃ©ristique, et les deux se cÃ´toient sur la
-///         mÃªme ligne de la feuille.
+// Rend : Un modificateur avec son signe â `+3`, `-1`, `+0`. Le signe n'est pas une coquetterie :
+//         un `3` nu se lit comme une valeur de caractÃ©ristique, et les deux se cÃ´toient sur la
+//         mÃªme ligne de la feuille.
 <span style = "background-color:#dfd">[[nodiscard]] std::string signe(int valeur) {
     return (valeur &gt;= 0 ? "+" : "") + std::to_string(valeur);
 }</span>
 
-/// @return La vitesse en mÃ¨tres, sans dÃ©cimale inutile : Â« 9 m Â», jamais Â« 9.000000 m Â».
+// Rend : La vitesse en mÃ¨tres, sans dÃ©cimale inutile : Â« 9 m Â», jamais Â« 9.000000 m Â».
 <span style = "background-color:#dfd">[[nodiscard]] std::string metres(float valeur) {
     const int entier = static_cast&lt;int&gt;(valeur);
     std::string texte = std::to_string(entier);
@@ -51,7 +51,7 @@ constexpr std::array&lt;std::pair&lt;Ability, const char*&gt;, 6&gt; ABILITIES =
 <span style = "background-color:#dfd">    return texte + " m";
 }</span>
 
-/// Les trois choix qui ont construit la fiche, et le dÃ© de vie que la classe donne.
+// Les trois choix qui ont construit la fiche, et le dÃ© de vie que la classe donne.
 void addChoices(std::map&lt;std::string, std::string&gt;&amp; valeurs, const CharacterSheetContext&amp; context,
 <span style = "background-color:#dfd">                const core::CharacterSheet&amp; fiche) {</span>
     // Les trois choix qui ont construit la fiche portent des IDENTIFIANTS ; leur nom lisible vit
@@ -60,7 +60,7 @@ void addChoices(std::map&lt;std::string, std::string&gt;&amp; valeurs, const Cha
 <span style = "background-color:#dfd">    if (context.options == nullptr) {
         return;</span>
     }
-<span style = "background-color:#dfd">    const core::Species* const espece = context.options-&gt;findSpecies(fiche.speciesId);
+<span style = "background-color:#fdd">    const core::Species* const espece = context.options-&gt;findSpecies(fiche.speciesId);
     const core::PlayableClass* const classe = context.options-&gt;findClass(fiche.classId);
     const core::Background* const historique = context.options-&gt;findBackground(fiche.backgroundId);
     valeurs["sheet.species"] = espece != nullptr ? espece-&gt;name : context.emptyMark;
@@ -72,8 +72,8 @@ void addChoices(std::map&lt;std::string, std::string&gt;&amp; valeurs, const Cha
     }
 <span style = "background-color:#dfd">}</span>
 
-/// Le bonus de maÃ®trise, les jets de sauvegarde et les compÃ©tences : ce qui demande la table
-/// d'expÃ©rience (et, pour les compÃ©tences, leur catalogue).
+// Le bonus de maÃ®trise, les jets de sauvegarde et les compÃ©tences : ce qui demande la table
+// d'expÃ©rience (et, pour les compÃ©tences, leur catalogue).
 void addExperienceValues(std::map&lt;std::string, std::string&gt;&amp; valeurs,
 <span style = "background-color:#dfd">                         const CharacterSheetContext&amp; context, const core::CharacterSheet&amp; fiche) {
     if (context.experience != nullptr) {
@@ -128,9 +128,9 @@ void addExperienceValues(std::map&lt;std::string, std::string&gt;&amp; valeurs,
 
 <span style = "background-color:#dfd">    valeurs["sheet.level"] = std::to_string(fiche.level);</span>
     // Â« Classe et niveau Â» est UN champ sur la planche, et deux dans le modÃ¨le.
-<span style = "background-color:#dfd">    if (const auto classe = valeurs.find("sheet.class"); classe != valeurs.end()) {
-        valeurs["sheet.class_and_level"] = classe-&gt;second + " " + std::to_string(fiche.level);
-    }
+<span style = "background-color:#dfd">    if (const auto classe = valeurs.find("sheet.class"); classe != valeurs.end()) {</span>
+<span style = "background-color:#fdd">        valeurs["sheet.class_and_level"] = classe-&gt;second + " " + std::to_string(fiche.level);</span>
+<span style = "background-color:#dfd">    }
     valeurs["sheet.experience"] = std::to_string(fiche.experiencePoints);
     valeurs["sheet.armor_class"] = std::to_string(fiche.armorClass);
     valeurs["sheet.hit_points_max"] = std::to_string(fiche.maximumHitPoints);</span>

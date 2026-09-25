@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,24 +143,11 @@ $(function(){initNavTree('RpgScreens_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Catalogue des écrans du RPG et <b>ossature</b> de leur contenu (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>, <span class="tt">EX-IHM-091</span>).  
+<p>Les écrans du RPG, nommés (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
-<code>#include &lt;span&gt;</code><br />
-</div>
+
 <p><a href="RpgScreens_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3ARpgField" id="r_hmi_3A_3ARpgField"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RpgField.html">hmi::RpgField</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une ligne « libellé → valeur » d'un bloc <span class="tt">Fields</span>.  <a href="structhmi_1_1RpgField.html#details">More...</a><br /></td></tr>
-<tr class="memitem:hmi_3A_3ARpgContentBlock" id="r_hmi_3A_3ARpgContentBlock"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RpgContentBlock.html">hmi::RpgContentBlock</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bloc de l'ossature d'un écran.  <a href="structhmi_1_1RpgContentBlock.html#details">More...</a><br /></td></tr>
-<tr class="memitem:hmi_3A_3ARpgScreenLayout" id="r_hmi_3A_3ARpgScreenLayout"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RpgScreenLayout.html">hmi::RpgScreenLayout</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ossature d'un écran : deux colonnes de blocs.  <a href="structhmi_1_1RpgScreenLayout.html#details">More...</a><br /></td></tr>
-<tr class="memitem:hmi_3A_3ARpgScreenDescriptor" id="r_hmi_3A_3ARpgScreenDescriptor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RpgScreenDescriptor.html">hmi::RpgScreenDescriptor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment un écran est <b>rendu</b> (<span class="tt">LOT-38</span>).  <a href="structhmi_1_1RpgScreenDescriptor.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
@@ -182,43 +169,10 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a86e4ce6097c7a029c683096302528e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les neuf écrans du RPG.  <a href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">More...</a><br /></td></tr>
-<tr class="memitem:a3222e3cf5f453d3a55c104456a615430" id="r_a3222e3cf5f453d3a55c104456a615430"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3222e3cf5f453d3a55c104456a615430">hmi::RpgSuperposition</a> { <a class="el" href="namespacehmi.html#a3222e3cf5f453d3a55c104456a615430aeeed228a1530b74c9d193195034781e9">hmi::PausesGame</a>
-, <a class="el" href="namespacehmi.html#a3222e3cf5f453d3a55c104456a615430a56876e48dbe57b9eb2e66e54c6576eaf">hmi::WhileWalking</a>
- }</td></tr>
-<tr class="memdesc:a3222e3cf5f453d3a55c104456a615430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Règle de <b>superposition</b> d'un écran (<span class="tt">EX-IHM-091</span>) : ce qui met le jeu en pause et ce qui se consulte en marchant.  <a href="namespacehmi.html#a3222e3cf5f453d3a55c104456a615430">More...</a><br /></td></tr>
-<tr class="memitem:a0076ce0092efe8d8df165966481a5830" id="r_a0076ce0092efe8d8df165966481a5830"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830">hmi::RpgBlockKind</a> { <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830aa4ca5edd20d0b5d502ebece575681f58">hmi::Fields</a>
-, <a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830a5174d1309f275ba6f275db3af9eb3e18">hmi::Grid</a>
-, <a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830a4ee29ca12c7d126654bd0e5275de6135">hmi::List</a>
-, <a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830a3e2ad77ed860b43505ddc4ee592c3122">hmi::Prose</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830a1c7444be9626d149ab598fb79b639f96">hmi::Portrait</a>
-, <a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830a92ea731d3af6677905303c88689f5d55">hmi::Track</a>
-, <a class="el" href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830af5b62b875edf01a271e9dd5b199bad64">hmi::ActionBar</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a0076ce0092efe8d8df165966481a5830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genres de blocs que le châssis sait peindre.  <a href="namespacehmi.html#a0076ce0092efe8d8df165966481a5830">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a74752c1a9d7b1d3e8da19eec82c397be" id="r_a74752c1a9d7b1d3e8da19eec82c397be"><td class="memItemLeft">std::span&lt; const <a class="el" href="structhmi_1_1RpgScreenDescriptor.html">RpgScreenDescriptor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a74752c1a9d7b1d3e8da19eec82c397be">hmi::rpgScreens</a> () noexcept</td></tr>
-<tr class="memitem:aadabcaf08acb48c29dc437f3bd2f47ce" id="r_aadabcaf08acb48c29dc437f3bd2f47ce"><td class="memItemLeft">const <a class="el" href="structhmi_1_1RpgScreenDescriptor.html">RpgScreenDescriptor</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aadabcaf08acb48c29dc437f3bd2f47ce">hmi::rpgScreenDescriptor</a> (<a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a> screen) noexcept</td></tr>
-<tr class="memitem:a9eed4f2ad079e39eb5f17daf66defe91" id="r_a9eed4f2ad079e39eb5f17daf66defe91"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9eed4f2ad079e39eb5f17daf66defe91">hmi::nextRpgScreen</a> (<a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a> screen) noexcept</td></tr>
-<tr class="memitem:ad41bb1dd00388cd216ed0adc326d0e5e" id="r_ad41bb1dd00388cd216ed0adc326d0e5e"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad41bb1dd00388cd216ed0adc326d0e5e">hmi::previousRpgScreen</a> (<a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a> screen) noexcept</td></tr>
-<tr class="memitem:af90277096862529748e78023af0d654e" id="r_af90277096862529748e78023af0d654e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af90277096862529748e78023af0d654e">hmi::pausesGame</a> (<a class="el" href="namespacehmi.html#a86e4ce6097c7a029c683096302528e72">RpgScreenId</a> screen) noexcept</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a93db3bafe6aeaebee6e483836f313055" id="r_a93db3bafe6aeaebee6e483836f313055"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a93db3bafe6aeaebee6e483836f313055">hmi::RPG_SCREEN_COUNT</a> = 9</td></tr>
-<tr class="memdesc:a93db3bafe6aeaebee6e483836f313055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'écrans du catalogue.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Catalogue des écrans du RPG et <b>ossature</b> de leur contenu (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>, <span class="tt">EX-IHM-091</span>). </p>
-<p>Logique <b>pure</b> (aucune dépendance Qt), testable hors instance d'application (<span class="tt">EX-NFR-010</span>) &ndash; même patron que <span class="tt"><a class="el" href="ScreenFlow_8h.html" title="Machine à états des écrans de la fenêtre principale (EX-GP-041).">HMI/Presentation/ScreenFlow.h</a></span>.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md104"></a>
-Une table, et non huit écrans écrits à la main</h2>
-<p>Les huit écrans que le RPG doit à terme porter &ndash; fiche, inventaire, journal, carte, dialogue, marchand, tableau de la Guilde, ATH de combat &ndash; n'ont, à ce lot, aucun contenu à afficher : les données viendront des lots qui les remplissent (<span class="tt">LOT-38</span>, <span class="tt">LOT-42</span>, <span class="tt">LOT-45</span>, <span class="tt">LOT-24</span>). Ce qui est livré ici est ce qu'ils ont <b>en commun</b> : leur cadre, leur navigation, leur parcours de focus, et leur <b>ossature</b>.</p>
-<p>Cette ossature est décrite en <b>données</b> plutôt qu'en code d'interface, pour la raison qu'écrit <span class="tt">EX-IHM-090</span> : un neuvième écran doit coûter une <b>ligne de table</b>, jamais une retouche des huit autres. Le rendu Qt (<span class="tt">hmi::RpgScreenFrame</span>) sait peindre les sept genres de blocs ci-dessous et rien de plus ; il n'a aucune connaissance d'un écran en particulier. </p>
+<div class="textblock"><p>Les écrans du RPG, nommés (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>). </p>
+<p>Logique <b>pure</b> (aucune dépendance Qt). Le <span class="tt">LOT-68</span> décrivait ici l'ossature de chaque écran en données ; depuis le <span class="tt">LOT-86</span>, un écran est un formulaire QML (<span class="tt">Source/Ui/Screens/*Form.ui.qml</span>) que la pile d'écrans pose quand <span class="tt"><a class="el" href="classhmi_1_1ScreenRouter.html" title="Pilote la machine à états des écrans, et publie l&#39;écran courant.">hmi::ScreenRouter</a></span> le désigne, et il ne reste de la table que cette énumération. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

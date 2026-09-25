@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -149,11 +149,17 @@ $(function(){initNavTree('namespacehmi_1_1figure__clips.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ae32b43afe6206e30237ba1bcfae6f724" id="r_ae32b43afe6206e30237ba1bcfae6f724"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ae32b43afe6206e30237ba1bcfae6f724">IDLE</a> = &quot;idle&quot;</td></tr>
+<tr class="memdesc:ae32b43afe6206e30237ba1bcfae6f724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le repos, en boucle.  <br /></td></tr>
 <tr class="memitem:a41fa10121357be1d449dbde15e73e918" id="r_a41fa10121357be1d449dbde15e73e918"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a41fa10121357be1d449dbde15e73e918">WALK</a> = &quot;walk&quot;</td></tr>
+<tr class="memdesc:a41fa10121357be1d449dbde15e73e918"><td class="mdescLeft">&#160;</td><td class="mdescRight">La marche, en boucle.  <br /></td></tr>
 <tr class="memitem:a89105a8d4361791fa8c9174588706da9" id="r_a89105a8d4361791fa8c9174588706da9"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a89105a8d4361791fa8c9174588706da9">ATTACK</a> = &quot;attack&quot;</td></tr>
+<tr class="memdesc:a89105a8d4361791fa8c9174588706da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'attaque au contact, jouée une fois.  <br /></td></tr>
 <tr class="memitem:ac3fac5359aef0f16361178db4a73821c" id="r_ac3fac5359aef0f16361178db4a73821c"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ac3fac5359aef0f16361178db4a73821c">CAST</a> = &quot;cast&quot;</td></tr>
+<tr class="memdesc:ac3fac5359aef0f16361178db4a73821c"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'incantation, jouée une fois.  <br /></td></tr>
 <tr class="memitem:a6945b3e99d97b537060eb38de45a7774" id="r_a6945b3e99d97b537060eb38de45a7774"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a6945b3e99d97b537060eb38de45a7774">HIT</a> = &quot;hit&quot;</td></tr>
+<tr class="memdesc:a6945b3e99d97b537060eb38de45a7774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coup encaissé, joué une fois.  <br /></td></tr>
 <tr class="memitem:a10983e8d484be06fd85c312cf79dd9be" id="r_a10983e8d484be06fd85c312cf79dd9be"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a10983e8d484be06fd85c312cf79dd9be">DEATH</a> = &quot;death&quot;</td></tr>
+<tr class="memdesc:a10983e8d484be06fd85c312cf79dd9be"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chute, jouée une fois ; la dernière image reste.  <br /></td></tr>
 <tr class="memitem:a1ffc4db808c30be4b0d0d57c7837a3d0" id="r_a1ffc4db808c30be4b0d0d57c7837a3d0"><td class="memItemLeft">constexpr std::array&lt; std::string_view, 6 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1ffc4db808c30be4b0d0d57c7837a3d0">ALL</a> = {<a class="el" href="#ae32b43afe6206e30237ba1bcfae6f724">IDLE</a>, <a class="el" href="#a41fa10121357be1d449dbde15e73e918">WALK</a>, <a class="el" href="#a89105a8d4361791fa8c9174588706da9">ATTACK</a>, <a class="el" href="#ac3fac5359aef0f16361178db4a73821c">CAST</a>, <a class="el" href="#a6945b3e99d97b537060eb38de45a7774">HIT</a>, <a class="el" href="#a10983e8d484be06fd85c312cf79dd9be">DEATH</a>}</td></tr>
 <tr class="memdesc:a1ffc4db808c30be4b0d0d57c7837a3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes, dans l'ordre du standard.  <br /></td></tr>
 </table>
@@ -205,6 +211,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>L'attaque au contact, jouée une fois. </p>
+
 </div>
 </div>
 <a id="ac3fac5359aef0f16361178db4a73821c" name="ac3fac5359aef0f16361178db4a73821c"></a>
@@ -226,6 +234,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>L'incantation, jouée une fois. </p>
 
 </div>
 </div>
@@ -249,6 +259,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>La chute, jouée une fois ; la dernière image reste. </p>
+
 </div>
 </div>
 <a id="a6945b3e99d97b537060eb38de45a7774" name="a6945b3e99d97b537060eb38de45a7774"></a>
@@ -270,6 +282,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le coup encaissé, joué une fois. </p>
 
 </div>
 </div>
@@ -293,6 +307,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Le repos, en boucle. </p>
+
 </div>
 </div>
 <a id="a41fa10121357be1d449dbde15e73e918" name="a41fa10121357be1d449dbde15e73e918"></a>
@@ -314,6 +330,8 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>La marche, en boucle. </p>
 
 </div>
 </div>

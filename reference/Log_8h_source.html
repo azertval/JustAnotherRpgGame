@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -153,21 +153,20 @@ $(function(){initNavTree('Log_8h_source.html','',''); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
 <div class="foldopen" id="foldopen00020" data-start="" data-end="">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="Log_8h.html#a7ca44fe930987d9a7559431768748eb7">   20</a></span><span class="preprocessor">#define JADG_LOG(category, level, message)                                                \</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    do {                                                                                  \</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">        ::core::Logger&amp; jadgLogger = ::core::defaultLogger();                             \</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        if (jadgLogger.isEnabled(level)) {                                                \</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">            jadgLogger.log(                                                               \</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">                level, ::core::formatLogLine(::core::currentTimestamp(), level, category, \</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">                                             __FILE__, __LINE__, message));               \</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">        }                                                                                 \</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">    } while (false)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="Log_8h.html#a7ca44fe930987d9a7559431768748eb7">   20</a></span><span class="preprocessor">#define JADG_LOG(category, level, message)                                                       \</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    do {                                                                                         \</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">        ::core::Logger&amp; jadgLogger = ::core::defaultLogger();                                    \</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        if (jadgLogger.isEnabled(level)) {                                                       \</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">            jadgLogger.log(level, ::core::formatLogLine(::core::currentTimestamp(), level,       \</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">                                                        category, __FILE__, __LINE__, message)); \</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">        }                                                                                        \</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">    } while (false)</span></div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="Log_8h.html#a88d0f89c8b2035582fa63288e69f3b34">   30</a></span><span class="preprocessor">#define JADG_LOG_TRACE(category, message) JADG_LOG(category, ::core::LogLevel::Trace, message)</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="Log_8h.html#a4a1b022e983993dd4b8bd9b24ff24b59">   31</a></span><span class="preprocessor">#define JADG_LOG_INFO(category, message) JADG_LOG(category, ::core::LogLevel::Info, message)</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="Log_8h.html#a7ce2ecdeeaba4e201ba9b9dff2569cc2">   32</a></span><span class="preprocessor">#define JADG_LOG_WARNING(category, message) JADG_LOG(category, ::core::LogLevel::Warning, message)</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="Log_8h.html#a9c615cc4b7c2893eb16706c53d4ffcea">   33</a></span><span class="preprocessor">#define JADG_LOG_ERROR(category, message) JADG_LOG(category, ::core::LogLevel::Error, message)</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="Log_8h.html#a88d0f89c8b2035582fa63288e69f3b34">   29</a></span><span class="preprocessor">#define JADG_LOG_TRACE(category, message) JADG_LOG(category, ::core::LogLevel::Trace, message)</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="Log_8h.html#a4a1b022e983993dd4b8bd9b24ff24b59">   30</a></span><span class="preprocessor">#define JADG_LOG_INFO(category, message) JADG_LOG(category, ::core::LogLevel::Info, message)</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="Log_8h.html#a7ce2ecdeeaba4e201ba9b9dff2569cc2">   31</a></span><span class="preprocessor">#define JADG_LOG_WARNING(category, message) JADG_LOG(category, ::core::LogLevel::Warning, message)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="Log_8h.html#a9c615cc4b7c2893eb16706c53d4ffcea">   32</a></span><span class="preprocessor">#define JADG_LOG_ERROR(category, message) JADG_LOG(category, ::core::LogLevel::Error, message)</span></div>
 <div class="ttc" id="aLogFormat_8h_html"><div class="ttname"><a href="LogFormat_8h.html">LogFormat.h</a></div><div class="ttdoc">Formatage des lignes de journalisation.</div></div>
 <div class="ttc" id="aLogLevel_8h_html"><div class="ttname"><a href="LogLevel_8h.html">LogLevel.h</a></div><div class="ttdoc">Niveaux de journalisation, par gravité croissante.</div></div>
 <div class="ttc" id="aLogger_8h_html"><div class="ttname"><a href="Logger_8h.html">Logger.h</a></div><div class="ttdoc">Journaliseur : filtrage par niveau et diffusion vers des sinks.</div></div>

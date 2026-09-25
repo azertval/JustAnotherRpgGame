@@ -195,7 +195,7 @@ std::optional&lt;LoadedTexture&gt; createTexture(const RhiContext&amp; context, 
 
     // INVARIANT DE DUREE DE VIE : l'image deposee dans le lot doit POSSEDER ses pixels. Le
     // televersement n'a pas lieu ici mais au moment ou l'appelant soumet le lot -- typiquement
-    // plusieurs appels plus loin, alors que @p pixels appartient a l'appelant et a pu disparaitre
+    // plusieurs appels plus loin, alors que `pixels` appartient a l'appelant et a pu disparaitre
     // entre-temps. Une QImage construite sur le pointeur brut ne copierait rien : le lot lirait
     // une memoire qui ne lui appartient pas. D'ou la copie, payee une fois par texture chargee.
 <span style = "background-color:#dfd">    QImage owned(width, height, QImage::Format_RGBA8888);

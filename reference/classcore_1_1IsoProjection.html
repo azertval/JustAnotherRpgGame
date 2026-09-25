@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('classcore_1_1IsoProjection.html','','classcore_1_1IsoP
 </div><!--header-->
 <div class="contents">
 
-<p>La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></span> × <span class="tt"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span> cases.  
+<p>La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64" title="Le nombre de colonnes de la grille projetée (jamais négatif).">columns</a></span> × <span class="tt"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87" title="Le nombre de lignes de la grille projetée (jamais négatif).">rows</a></span> cases.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="IsoProjection_8h_source.html">IsoProjection.h</a>&gt;</code></p>
@@ -152,12 +152,14 @@ $(function(){initNavTree('classcore_1_1IsoProjection.html','','classcore_1_1IsoP
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3ee905819401766b03df1ab93ef97148" id="r_a3ee905819401766b03df1ab93ef97148"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3ee905819401766b03df1ab93ef97148">IsoProjection</a> (int <a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a>, int <a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a>, float <a class="el" href="#a10fc35eb9e12ca6ee32a5bf093937213">tileWidth</a>=<a class="el" href="namespacecore.html#a9bbed90b2580e314ee6fb37cca5eee7d">ARENA_TILE_WIDTH_UNITS</a>, float diamondRatio=<a class="el" href="namespacecore.html#af799f9a001af9c8b79f0bcba667414f9">ARENA_DIAMOND_RATIO</a>, float wallRise=<a class="el" href="namespacecore.html#a0809421c57413530edb434f979be6c91">ARENA_WALL_RISE</a>) noexcept</td></tr>
 <tr class="memitem:a7071db9aa9e11df307d86bb82e1d0d64" id="r_a7071db9aa9e11df307d86bb82e1d0d64"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a> () const noexcept</td></tr>
+<tr class="memdesc:a7071db9aa9e11df307d86bb82e1d0d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de colonnes de la grille projetée (jamais négatif).  <br /></td></tr>
 <tr class="memitem:aa92e712a6807b3add7963853af2a4c87" id="r_aa92e712a6807b3add7963853af2a4c87"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a> () const noexcept</td></tr>
+<tr class="memdesc:aa92e712a6807b3add7963853af2a4c87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de lignes de la grille projetée (jamais négatif).  <br /></td></tr>
 <tr class="memitem:a10fc35eb9e12ca6ee32a5bf093937213" id="r_a10fc35eb9e12ca6ee32a5bf093937213"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a10fc35eb9e12ca6ee32a5bf093937213">tileWidth</a> () const noexcept</td></tr>
 <tr class="memitem:aef0281066ac6c744ec1e810f7b9ece31" id="r_aef0281066ac6c744ec1e810f7b9ece31"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aef0281066ac6c744ec1e810f7b9ece31">tileHeight</a> () const noexcept</td></tr>
 <tr class="memitem:a24aceed7248fdcef5e40ec9dca774ebd" id="r_a24aceed7248fdcef5e40ec9dca774ebd"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a24aceed7248fdcef5e40ec9dca774ebd">wallHeight</a> () const noexcept</td></tr>
 <tr class="memitem:a0850096545ec67956a1341b5e9d81cab" id="r_a0850096545ec67956a1341b5e9d81cab"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0850096545ec67956a1341b5e9d81cab">diagonals</a> () const noexcept</td></tr>
-<tr class="memdesc:a0850096545ec67956a1341b5e9d81cab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de demi-losanges qui font la largeur de la scène : <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a> + <a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span>, au moins 1 (une grille vide garde une scène non dégénérée, comme la scène QML).  <br /></td></tr>
+<tr class="memdesc:a0850096545ec67956a1341b5e9d81cab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de demi-losanges qui font la largeur de la scène : <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64" title="Le nombre de colonnes de la grille projetée (jamais négatif).">columns</a> + <a class="el" href="#aa92e712a6807b3add7963853af2a4c87" title="Le nombre de lignes de la grille projetée (jamais négatif).">rows</a></span>, au moins 1 (une grille vide garde une scène non dégénérée, comme la scène QML).  <br /></td></tr>
 <tr class="memitem:a3611a4a3ec0d9d74176e9d7946d7c8d8" id="r_a3611a4a3ec0d9d74176e9d7946d7c8d8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3611a4a3ec0d9d74176e9d7946d7c8d8">sceneSize</a> () const noexcept</td></tr>
 <tr class="memitem:af69bfcd21c757e91902a2c63964b31d2" id="r_af69bfcd21c757e91902a2c63964b31d2"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#af69bfcd21c757e91902a2c63964b31d2">origin</a> () const noexcept</td></tr>
 <tr class="memitem:aee928bb53e2b5d1bbee3820ece456c47" id="r_aee928bb53e2b5d1bbee3820ece456c47"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee928bb53e2b5d1bbee3820ece456c47">gridToWorld</a> (const <a class="el" href="structcore_1_1Vector2.html">Vector2</a> &amp;gridPoint) const noexcept</td></tr>
@@ -186,7 +188,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a579fd8e19777a118a1e0579143b6ba38" id="r_a579fd8e19777a118a1e0579143b6ba38"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a579fd8e19777a118a1e0579143b6ba38">_wallRise</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></span> × <span class="tt"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span> cases. </p>
+<div class="textblock"><p>La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64" title="Le nombre de colonnes de la grille projetée (jamais négatif).">columns</a></span> × <span class="tt"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87" title="Le nombre de lignes de la grille projetée (jamais négatif).">rows</a></span> cases. </p>
 <p>Valeur immuable et bon marché à copier : elle ne tient que la taille de la grille et trois nombres. Une taille négative est ramenée à zéro ; une largeur de losange non positive, à la largeur par défaut. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3ee905819401766b03df1ab93ef97148" name="a3ee905819401766b03df1ab93ef97148"></a>
@@ -232,8 +234,8 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></td><td>Nombre de colonnes de la grille. </td></tr>
-    <tr><td class="paramname"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></td><td>Nombre de lignes de la grille. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64" title="Le nombre de colonnes de la grille projetée (jamais négatif).">columns</a></td><td>Nombre de colonnes de la grille. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#aa92e712a6807b3add7963853af2a4c87" title="Le nombre de lignes de la grille projetée (jamais négatif).">rows</a></td><td>Nombre de lignes de la grille. </td></tr>
     <tr><td class="paramname"><a class="el" href="#a10fc35eb9e12ca6ee32a5bf093937213">tileWidth</a></td><td>Largeur du losange, en unités monde (&gt; 0). </td></tr>
     <tr><td class="paramname">diamondRatio</td><td>Rapport hauteur / largeur du losange (&gt; 0). </td></tr>
     <tr><td class="paramname">wallRise</td><td>Hauteur réservée aux murs du fond, en largeurs de losange (&gt;= 0). </td></tr>
@@ -266,6 +268,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le nombre de colonnes de la grille projetée (jamais négatif). </p>
 
 </div>
 </div>
@@ -346,7 +350,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Nombre de demi-losanges qui font la largeur de la scène : <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64">columns</a> + <a class="el" href="#aa92e712a6807b3add7963853af2a4c87">rows</a></span>, au moins 1 (une grille vide garde une scène non dégénérée, comme la scène QML). </p>
+<p>Nombre de demi-losanges qui font la largeur de la scène : <span class="tt"><a class="el" href="#a7071db9aa9e11df307d86bb82e1d0d64" title="Le nombre de colonnes de la grille projetée (jamais négatif).">columns</a> + <a class="el" href="#aa92e712a6807b3add7963853af2a4c87" title="Le nombre de lignes de la grille projetée (jamais négatif).">rows</a></span>, au moins 1 (une grille vide garde une scène non dégénérée, comme la scène QML). </p>
 
 </div>
 </div>
@@ -432,6 +436,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le nombre de lignes de la grille projetée (jamais négatif). </p>
 
 </div>
 </div>

@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -154,6 +154,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a511a92383a5cae3c6b5295c5adda2557" id="r_a511a92383a5cae3c6b5295c5adda2557"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a511a92383a5cae3c6b5295c5adda2557">origin</a> () const noexcept</td></tr>
 <tr class="memdesc:a511a92383a5cae3c6b5295c5adda2557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coin haut-gauche de l'emprise au départ.  <br /></td></tr>
 <tr class="memitem:aee4ac21460c6c5e968e3cd1b31f2c544" id="r_aee4ac21460c6c5e968e3cd1b31f2c544"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aee4ac21460c6c5e968e3cd1b31f2c544">budget</a> () const noexcept</td></tr>
+<tr class="memdesc:aee4ac21460c6c5e968e3cd1b31f2c544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cases de déplacement dont l'aire a été calculée.  <br /></td></tr>
 <tr class="memitem:a62db9686bd33abd931f8b72c23acb6d4" id="r_a62db9686bd33abd931f8b72c23acb6d4"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a62db9686bd33abd931f8b72c23acb6d4">costTo</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor) const</td></tr>
 <tr class="memdesc:a62db9686bd33abd931f8b72c23acb6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coût du meilleur chemin jusqu'à <code class="param">anchor</code>, s'il tient dans le budget.  <br /></td></tr>
 <tr class="memitem:a6405530abd9e755fd5cda6fe73481c37" id="r_a6405530abd9e755fd5cda6fe73481c37"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6405530abd9e755fd5cda6fe73481c37">canEndAt</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> anchor) const</td></tr>
@@ -214,7 +215,7 @@ Le départage est une règle, pas un hasard</h2>
   <table class="params">
     <tr><td class="paramname">grid</td><td>La grille, lue à la construction et plus jamais ensuite. </td></tr>
     <tr><td class="paramname">mover</td><td>Qui se déplace. Non placé, l'aire est vide. </td></tr>
-    <tr><td class="paramname"><a class="el" href="#aee4ac21460c6c5e968e3cd1b31f2c544">budget</a></td><td>Les cases de déplacement disponibles (<span class="tt"><a class="el" href="namespacecore.html#a29156af7de7653ab4fa06d96b0c881a1" title="Le budget de déplacement d&#39;une vitesse de speedMeters, en cases entières.">core::movementBudget</a></span>). </td></tr>
+    <tr><td class="paramname"><a class="el" href="#aee4ac21460c6c5e968e3cd1b31f2c544" title="Les cases de déplacement dont l&#39;aire a été calculée.">budget</a></td><td>Les cases de déplacement disponibles (<span class="tt"><a class="el" href="namespacecore.html#a29156af7de7653ab4fa06d96b0c881a1" title="Le budget de déplacement d&#39;une vitesse de speedMeters, en cases entières.">core::movementBudget</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -244,6 +245,8 @@ Le départage est une règle, pas un hasard</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Les cases de déplacement dont l'aire a été calculée. </p>
 
 </div>
 </div>

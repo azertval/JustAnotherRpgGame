@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,6 +143,9 @@ $(function(){initNavTree('structhmi_1_1WorldSceneSnapshot.html','','structhmi_1_
 </div><!--header-->
 <div class="contents">
 
+<p>Une carte <b>en valeurs</b>, telle que la composition la lit : sa grille, ses pièces par case, ses étages, ses figurines et où trouver leurs fichiers.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="WorldSceneComposer_8h_source.html">WorldSceneComposer.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -179,7 +182,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a575f623efd821f68adab02944b81eebf" id="r_a575f623efd821f68adab02944b81eebf"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a575f623efd821f68adab02944b81eebf">marks</a></td></tr>
 <tr class="memdesc:a575f623efd821f68adab02944b81eebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons et les tracés de maquette (<span class="tt">LOT-128</span>), déjà choisis par <span class="tt"><a class="el" href="namespacehmi.html#a47c8f35619d5e7fa59cd899a158c9361" title="Les marques que entities méritent.">maquetteMarks</a></span>.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Une carte <b>en valeurs</b>, telle que la composition la lit : sa grille, ses pièces par case, ses étages, ses figurines et où trouver leurs fichiers. </p>
+<p>C'est ce que <span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#ab4512757a117f9523f0345cb1e89d68b">hmi::WorldPlay::snapshot</a></span> produit et que <span class="tt"><a class="el" href="namespacehmi.html#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé, figurines comprises (snapshot.figures).">composeWorldScene</a></span> et <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html#a79d6f2ddd2638b3704abf487ab58e6d8" title="Compose la partie fixe de snapshot (tout sauf ses figurines) et l&#39;indexe.">StaticWorldScene::build</a></span> consomment : aucune référence à la session ni au disque, donc une valeur partageable entre le fil graphique et le fil de rendu, et comparable dans un test. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a2b717139245b148aa15cf831e841731d" name="a2b717139245b148aa15cf831e841731d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b717139245b148aa15cf831e841731d">&#9670;&#160;</a></span>floorAt()</h2>
 

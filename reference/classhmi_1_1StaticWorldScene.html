@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,6 +143,9 @@ $(function(){initNavTree('classhmi_1_1StaticWorldScene.html','','classhmi_1_1Sta
 </div><!--header-->
 <div class="contents">
 
+<p>La partie <b>fixe</b> d'une carte : composée une fois, triée, indexée par seaux, puis découpée au cadrage à chaque image, les figurines de l'instant insérées (<span class="tt">LOT-129</span>).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="StaticWorldScene_8h_source.html">StaticWorldScene.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -192,7 +195,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ad29d4fe714d3f29a802d957b3d6fe0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tampons réutilisés d'une image à l'autre.  <br /></td></tr>
 <tr class="memitem:a6ccc5b1e6214293155bb32f13f303b2d" id="r_a6ccc5b1e6214293155bb32f13f303b2d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6ccc5b1e6214293155bb32f13f303b2d">_merged</a></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La partie <b>fixe</b> d'une carte : composée une fois, triée, indexée par seaux, puis découpée au cadrage à chaque image, les figurines de l'instant insérées (<span class="tt">LOT-129</span>). </p>
+<p><span class="tt"><a class="el" href="#a79d6f2ddd2638b3704abf487ab58e6d8" title="Compose la partie fixe de snapshot (tout sauf ses figurines) et l&#39;indexe.">build</a></span> compose et indexe tout sauf les figurines ; <span class="tt"><a class="el" href="#a114b41c5a4d8bb36194f2de6b12ece0f" title="Compose une image dans out : la partie fixe sous le cadrage de out, et figures, dans l&#39;ordre de dessi...">compose</a></span> extrait ce qui touche le cadrage de la scène de sortie et y ajoute les figurines, dans l'ordre de dessin. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a79d6f2ddd2638b3704abf487ab58e6d8" name="a79d6f2ddd2638b3704abf487ab58e6d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79d6f2ddd2638b3704abf487ab58e6d8">&#9670;&#160;</a></span>build()</h2>
 

@@ -71,6 +71,7 @@ struct MapEncounterResult {
     /// Vide si `setup` est lÃ  ; sinon, ce qui manque Ã  la carte pour accueillir ce combat.
     std::string issue;
 
+    /// @brief Vrai si la mise en place du combat a pu Ãªtre construite (`setup` est lÃ ).
 <span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
         return setup.has_value();
     }</span>

@@ -36,12 +36,10 @@ var searchData=
   ['control_33',['Control',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1',1,'hmi']]],
   ['conversion_34',['Conversion',['../namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6a3bb1503332637805beddb73a2dd1fe1b',1,'core']]],
   ['copy_35',['Copy',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a5fb63579fc981698f97d55bfecb213ea',1,'hmi::Copy'],['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a5fb63579fc981698f97d55bfecb213ea',1,'hmi::Copy']]],
-  ['corner_36',['Corner',['../namespacehmi.html#a9da4795fe7ae9a1a208f6f8a3348ae8da45671f70ac97ff86643523f29eb4d3b9',1,'hmi']]],
-  ['count_37',['Count',['../namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9',1,'hmi']]],
-  ['cover_38',['Cover',['../namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac795dfff10a7c952f4c5438951e9ece9',1,'core']]],
-  ['crate_39',['Crate',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a007f02e6c93f2be268b88351c16843c5',1,'core']]],
-  ['credits_40',['Credits',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51',1,'hmi::ScreenRouter::Credits'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51',1,'hmi::Credits']]],
-  ['crimeandviolence_41',['CrimeAndViolence',['../namespacecore.html#a1471b5a70feb139829909360f5b07940a1ac8b82da41e7a78301dfa6e47b6bb23',1,'core']]],
-  ['cube_42',['Cube',['../namespacecore.html#ad490fa58f4db55cab180bf278e3db721aa296104f0c61a9cf39f4824d05315e12',1,'core']]],
-  ['cylinder_43',['Cylinder',['../namespacecore.html#ad490fa58f4db55cab180bf278e3db721a2ec2c2961c7ce5a114d969c1f562a563',1,'core']]]
+  ['cover_36',['Cover',['../namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac795dfff10a7c952f4c5438951e9ece9',1,'core']]],
+  ['crate_37',['Crate',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875a007f02e6c93f2be268b88351c16843c5',1,'core']]],
+  ['credits_38',['Credits',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7a948a2e3548aaf7f9941a3192fa607d51',1,'hmi::ScreenRouter::Credits'],['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51',1,'hmi::Credits']]],
+  ['crimeandviolence_39',['CrimeAndViolence',['../namespacecore.html#a1471b5a70feb139829909360f5b07940a1ac8b82da41e7a78301dfa6e47b6bb23',1,'core']]],
+  ['cube_40',['Cube',['../namespacecore.html#ad490fa58f4db55cab180bf278e3db721aa296104f0c61a9cf39f4824d05315e12',1,'core']]],
+  ['cylinder_41',['Cylinder',['../namespacecore.html#ad490fa58f4db55cab180bf278e3db721a2ec2c2961c7ce5a114d969c1f562a563',1,'core']]]
 ];

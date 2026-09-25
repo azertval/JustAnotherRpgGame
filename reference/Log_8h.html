@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -187,13 +187,12 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                  \</div>
-<div class="line">    <a class="code hl_class" href="classcore_1_1Logger.html">::core::Logger</a>&amp; jadgLogger = <a class="code hl_function" href="namespacecore.html#a925cad771c457040a01272ff8be8e1a1">::core::defaultLogger</a>();                             \</div>
-<div class="line">    if (jadgLogger.<a class="code hl_function" href="classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26">isEnabled</a>(level)) {                                                \</div>
-<div class="line">        jadgLogger.<a class="code hl_function" href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">log</a>(                                                               \</div>
-<div class="line">            level, <a class="code hl_function" href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">::core::formatLogLine</a>(<a class="code hl_function" href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">::core::currentTimestamp</a>(), level, category, \</div>
-<div class="line">                                         __FILE__, __LINE__, message));               \</div>
-<div class="line">    }                                                                                 \</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                         \</div>
+<div class="line">    <a class="code hl_class" href="classcore_1_1Logger.html">::core::Logger</a>&amp; jadgLogger = <a class="code hl_function" href="namespacecore.html#a925cad771c457040a01272ff8be8e1a1">::core::defaultLogger</a>();                                    \</div>
+<div class="line">    if (jadgLogger.<a class="code hl_function" href="classcore_1_1Logger.html#a42b5979c9d78e520e0e6d684e329ba26">isEnabled</a>(level)) {                                                       \</div>
+<div class="line">        jadgLogger.<a class="code hl_function" href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">log</a>(level, <a class="code hl_function" href="namespacecore.html#aafa85d91ee91c84b123fff01f147615e">::core::formatLogLine</a>(<a class="code hl_function" href="namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4">::core::currentTimestamp</a>(), level,       \</div>
+<div class="line">                                                    category, __FILE__, __LINE__, message)); \</div>
+<div class="line">    }                                                                                        \</div>
 <div class="line">} <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
 <div class="ttc" id="aclasscore_1_1Logger_html"><div class="ttname"><a href="classcore_1_1Logger.html">core::Logger</a></div><div class="ttdoc">Filtre les messages par niveau minimal et les diffuse aux sinks enregistrés.</div><div class="ttdef"><b>Definition</b> Logger.h:28</div></div>
 <div class="ttc" id="aclasscore_1_1Logger_html_a1aeae4c7813133be7e1dc64490839bf2"><div class="ttname"><a href="classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2">core::Logger::log</a></div><div class="ttdeci">void log(LogLevel level, std::string_view message)</div><div class="ttdoc">Diffuse un message aux sinks s&#39;il passe le filtre de niveau.</div><div class="ttdef"><b>Definition</b> Logger.cpp:52</div></div>

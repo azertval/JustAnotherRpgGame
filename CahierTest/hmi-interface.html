@@ -14,58 +14,51 @@
   <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
 </header>
 <div class="shell with-sidebar">
-<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1 active" href="hmi-interface.html">HMI · Interface</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</a><a class="toc depth-2" href="#test-character-sheet-valuescpp">test_character_sheet_values.cpp</a><a class="toc depth-2" href="#test-dialogue-screencpp">test_dialogue_screen.cpp</a><a class="toc depth-2" href="#test-identity-scalecpp">test_identity_scale.cpp</a><a class="toc depth-2" href="#test-rpg-screenscpp">test_rpg_screens.cpp</a><a class="toc depth-2" href="#test-screen-flowcpp">test_screen_flow.cpp</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1 active" href="hmi-interface.html">HMI · Interface</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</a><a class="toc depth-2" href="#test-character-sheet-valuescpp">test_character_sheet_values.cpp</a><a class="toc depth-2" href="#test-dialogue-screencpp">test_dialogue_screen.cpp</a><a class="toc depth-2" href="#test-identity-scalecpp">test_identity_scale.cpp</a><a class="toc depth-2" href="#test-screen-flowcpp">test_screen_flow.cpp</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
 <main>
-<article class="prose"><h1 id="hmi-interface">HMI · Interface</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">30 cas</span></div>
-<p>Tests unitaires — <strong>30 cas</strong> (2 bloquants, 10 critiques, 17 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
+<article class="prose"><h1 id="hmi-interface">HMI · Interface</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">22 cas</span></div>
+<p>Tests unitaires — <strong>22 cas</strong> (2 bloquants, 8 critiques, 11 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
 <h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
-<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-character-sheet-valuescpp"><code>test_character_sheet_values.cpp</code></a></td><td>6</td><td>-</td><td>2</td><td>3</td><td>1</td></tr><tr><td><a href="#test-dialogue-screencpp"><code>test_dialogue_screen.cpp</code></a></td><td>4</td><td>-</td><td>-</td><td>4</td><td>-</td></tr><tr><td><a href="#test-identity-scalecpp"><code>test_identity_scale.cpp</code></a></td><td>8</td><td>2</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-rpg-screenscpp"><code>test_rpg_screens.cpp</code></a></td><td>7</td><td>-</td><td>1</td><td>6</td><td>-</td></tr><tr><td><a href="#test-screen-flowcpp"><code>test_screen_flow.cpp</code></a></td><td>5</td><td>-</td><td>5</td><td>-</td><td>-</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-character-sheet-valuescpp"><code>test_character_sheet_values.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>3</td><td>1</td></tr><tr><td><a href="#test-dialogue-screencpp"><code>test_dialogue_screen.cpp</code></a></td><td>4</td><td>-</td><td>-</td><td>4</td><td>-</td></tr><tr><td><a href="#test-identity-scalecpp"><code>test_identity_scale.cpp</code></a></td><td>8</td><td>2</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-screen-flowcpp"><code>test_screen_flow.cpp</code></a></td><td>5</td><td>-</td><td>5</td><td>-</td><td>-</td></tr></tbody></table></div>
 <h2 id="exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</h2>
 <p>Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la <a href="couverture-exigences.html">matrice de traçabilité</a> les rassemble toutes.</p>
-<div class="table-wrap"><table><thead><tr><th>Exigence</th><th>Cas</th></tr></thead><tbody><tr><td><a class="ref" href="../Specification/interface-ihm.html#EX-IHM-090"><code>EX-IHM-090</code></a></td><td><a href="#screenflowtestecrandurpgrevientverssonecrandorigine"><code>ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine</code></a></td></tr><tr><td><a class="ref" href="../Specification/interface-ihm.html#EX-IHM-091"><code>EX-IHM-091</code></a></td><td><a href="#rpgscreenstestlaregledesuperpositionestcelleattendue"><code>RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue</code></a></td></tr><tr><td><a class="ref" href="../Specification/rendu-technique.html#EX-REN-033"><code>EX-REN-033</code></a></td><td><a href="#rpgscreenstestchaquecledelossatureexistedanslesdeuxlangues"><code>RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues</code></a></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Exigence</th><th>Cas</th></tr></thead><tbody><tr><td><a class="ref" href="../Specification/interface-ihm.html#EX-IHM-090"><code>EX-IHM-090</code></a></td><td><a href="#screenflowtestecrandurpgrevientverssonecrandorigine"><code>ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine</code></a></td></tr><tr><td><a class="ref" href="../Specification/interface-ihm.html#EX-IHM-091"><code>EX-IHM-091</code></a></td><td><a href="#screenflowtestlesecransdefinfermentlapartie"><code>ScreenFlowTest.LesEcransDeFinFermentLaPartie</code></a></td></tr></tbody></table></div>
 <h2 id="test-character-sheet-valuescpp">test_character_sheet_values.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestlesmodificateurssaffichentavecleursigne">CharacterSheetValuesTest.LesModificateursSAffichentAvecLeurSigne</h3>
-<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:104</code></p>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:103</code></p>
 <p>Les modificateurs s'affichent signes, les caracteristiques avec leur modificateur.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'une fiche de Force 16 et de Charisme 8.</li><li>Lire les deux lignes de caracteristique.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>valeurs.at(&quot;sheet.ability.strength&quot;)</code> vaut <code>&quot;16 (+3)&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.ability.charisma&quot;)</code> vaut <code>&quot;8 (-1)&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.initiative&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="charactersheetvaluestestlejetdesauvegardemaitrisecompttelamaitrise">CharacterSheetValuesTest.LeJetDeSauvegardeMaitriseComptteLaMaitrise</h3>
-<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:127</code></p>
+<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:126</code></p>
 <p>Un jet de sauvegarde maitrise porte le bonus de maitrise.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'une fiche maitrisant la sauvegarde de Force.</li><li>Comparer les lignes de Force et de Dexterite.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>valeurs.at(&quot;sheet.proficiency_bonus&quot;)</code> vaut <code>&quot;+2&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.save.strength&quot;)</code> vaut <code>&quot;+5&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.save.dexterity&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestlacompetencemaitriseesesignaleetlaperceptionpassiveenderive">CharacterSheetValuesTest.LaCompetenceMaitriseeSeSignaleEtLaPerceptionPassiveEnDerive</h3>
-<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:149</code></p>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:148</code></p>
 <p>Une competence maitrisee se signale, et la Perception passive en derive.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'une fiche maitrisant l'Athletisme.</li><li>Lire Athletisme, Discretion et la Perception passive.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.athletics&quot;)</code> vaut <code>&quot;+5 •&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.stealth&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.passive_perception&quot;)</code> vaut <code>&quot;11&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="charactersheetvaluestestlespointsdevieselisentcontreleurmaximum">CharacterSheetValuesTest.LesPointsDeVieSeLisentContreLeurMaximum</h3>
-<p><em>Mineur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:172</code></p>
+<p><em>Mineur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:171</code></p>
 <p>Les points de vie se lisent contre leur maximum.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'une fiche a 25 points de vie sur 30.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>valeurs.at(&quot;sheet.hit_points&quot;)</code> vaut <code>&quot;25 / 30&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.hit_points_max&quot;)</code> vaut <code>&quot;30&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.speed&quot;)</code> vaut <code>&quot;9 m&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestsansficheaucunevaleurnestproduite">CharacterSheetValuesTest.SansFicheAucuneValeurNEstProduite</h3>
-<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:194</code></p>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:193</code></p>
 <p>Sans fiche, aucune valeur n'est produite.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'un contexte sans fiche.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::characterSheetValues({}).empty()</code> est vrai.</li></ul>
-</section><section class="case" data-crit="Critique"><h3 id="charactersheetvaluestestchaquechampdelaficheestalimente">CharacterSheetValuesTest.ChaqueChampDeLaFicheEstAlimente</h3>
-<p><em>Critique · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:213</code></p>
-<p>Chaque champ de la fiche declarant une source est rempli.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Lire les identifiants de valeur declares par l'ossature de la fiche.</li><li>Produire les valeurs d'une fiche complete.</li><li>Verifier que chaque identifiant declare est produit.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>valeurs.count(champ.valueId) &gt; 0</code> est vrai.</li><li>Vérifie que <code>declares</code> est strictement supérieur à <code>10</code>.</li></ul>
 </section><h2 id="test-dialogue-screencpp">test_dialogue_screen.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="dialoguescreentestunerepliqueannoncelejetdesareponse">DialogueScreenTest.UneRepliqueAnnonceLeJetDeSaReponse</h3>
 <p><em>Majeur · Unitaire · Interface</em> — <code>Source/Test/Unit/HMI/Interface/test_dialogue_screen.cpp:81</code></p>
@@ -152,58 +145,6 @@
 <ol><li>Zone disponible de 1440 pixels.</li><li>Demander le facteur pour des fenetres de 360 et 720 pixels.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::identityScaleForDisplay(360, 1440)</code> vaut <code>1</code>.</li><li>Vérifie que <code>hmi::identityScaleForDisplay(720, 1440)</code> vaut <code>2</code>.</li><li>Vérifie que <code>hmi::identityScaleForDisplay(1080, 1440)</code> vaut <code>3</code>.</li></ul>
-</section><h2 id="test-rpg-screenscpp">test_rpg_screens.cpp</h2>
-<section class="case" data-crit="Critique"><h3 id="rpgscreenstestlecycletraverseleshuitecrans">RpgScreensTest.LeCycleTraverseLesHuitEcrans</h3>
-<p><em>Critique · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:43</code></p>
-<p>Le cycle de navigation traverse les huit ecrans et revient au premier.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Partir du premier ecran.</li><li>Appeler nextRpgScreen huit fois en notant chaque ecran atteint.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>rpgScreens().size()</code> vaut <a class="ref" href="../reference/namespacehmi.html#a93db3bafe6aeaebee6e483836f313055"><code>hmi::RPG_SCREEN_COUNT</code></a>.</li><li>Vérifie que <code>visited.size()</code> vaut <a class="ref" href="../reference/namespacehmi.html#a93db3bafe6aeaebee6e483836f313055"><code>hmi::RPG_SCREEN_COUNT</code></a>.</li><li>Vérifie que <code>screen</code> vaut <code>first</code>.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestlepasarriereestlinversedupasavant">RpgScreensTest.LePasArriereEstLInverseDuPasAvant</h3>
-<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:68</code></p>
-<p>Le pas arriere est l'inverse du pas avant.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Pour chaque ecran, avancer puis reculer.</li><li>Reculer depuis le premier ecran.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>previousRpgScreen(nextRpgScreen(descriptor.id))</code> vaut <code>descriptor.id</code>.</li><li>Vérifie que <code>nextRpgScreen(previousRpgScreen(descriptor.id))</code> vaut <code>descriptor.id</code>.</li><li>Vérifie que <code>previousRpgScreen(rpgScreens().front().id)</code> vaut <code>rpgScreens().back().id</code>.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestlaregledesuperpositionestcelleattendue">RpgScreensTest.LaRegleDeSuperpositionEstCelleAttendue</h3>
-<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:87</code></p>
-<p>Exigences : <a class="ref" href="../Specification/interface-ihm.html#EX-IHM-091"><code>EX-IHM-091</code></a></p>
-<p>La regle de superposition est celle attendue pour chacun des huit ecrans.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Interroger pausesGame pour chacun des huit ecrans.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>pausesGame(RpgScreenId::CharacterSheet)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Skills)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Inventory)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::QuestJournal)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Dialogue)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Merchant)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::Company)</code> est vrai.</li><li>Vérifie que <code>pausesGame(RpgScreenId::WorldMap)</code> est faux.</li><li>Vérifie que <code>pausesGame(RpgScreenId::CombatHud)</code> est faux.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestchaqueecranestidentifiableetnonvide">RpgScreensTest.ChaqueEcranEstIdentifiableEtNonVide</h3>
-<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:115</code></p>
-<p>Chaque ecran a un nom d'objet unique, un titre unique et une ossature non vide.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Collecter noms d'objets et cles de titre.</li><li>Verifier leur unicite et la presence d'au moins un bloc par ecran.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>objectNames.insert(descriptor.objectName).second</code> est vrai.</li><li>Vérifie que <code>titleKeys.insert(descriptor.titleKey).second</code> est vrai.</li><li>Vérifie que <code>descriptor.layout.leftColumn.empty()</code> est faux.</li><li>Vérifie que <code>hmi::rpgScreenDescriptor(descriptor.id).id</code> vaut <code>descriptor.id</code>.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestchaqueblocestcoherentavecsongenre">RpgScreensTest.ChaqueBlocEstCoherentAvecSonGenre</h3>
-<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:145</code></p>
-<p>Chaque bloc de l'ossature est coherent avec son genre.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Parcourir les blocs des deux colonnes de chaque ecran.</li><li>Verifier les dimensions et libelles exiges par chaque genre.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>block.fields.empty()</code> est faux.</li><li>Vérifie que <code>field.labelKey[0]</code> diffère de <code>&#x27;\0&#x27;</code>.</li><li>Vérifie que <code>block.columns</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>block.rows</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>block.rows &gt; 0 || !block.valueIds.empty()</code> est vrai.</li><li>Vérifie que <code>block.columns</code> est strictement supérieur à <code>0</code>.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestchaquecledelossatureexistedanslesdeuxlangues">RpgScreensTest.ChaqueCleDeLOssatureExisteDansLesDeuxLangues</h3>
-<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:199</code></p>
-<p>Exigences : <a class="ref" href="../Specification/rendu-technique.html#EX-REN-033"><code>EX-REN-033</code></a></p>
-<p>Chaque cle de l'ossature des ecrans du RPG existe en francais et en anglais.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Lire fr.lang et en.lang.</li><li>Verifier chaque cle de titre, de bloc et de champ, plus les cles du pied d'actions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>fr.empty()</code> est faux.</li><li>Vérifie que <code>en.empty()</code> est faux.</li><li>Vérifie que <code>fr.count(key) &gt; 0</code> est vrai.</li><li>Vérifie que <code>en.count(key) &gt; 0</code> est vrai.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="rpgscreenstestlesidentifiantsdevaleursontuniquesparecran">RpgScreensTest.LesIdentifiantsDeValeurSontUniquesParEcran</h3>
-<p><em>Majeur · Unitaire · Ecrans du RPG</em> — <code>Source/Test/Unit/HMI/Interface/test_rpg_screens.cpp:254</code></p>
-<p>Les identifiants de valeur sont uniques a l'interieur d'un ecran.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Collecter les identifiants de valeur de chaque ecran.</li><li>Verifier qu'aucun ne se repete dans un meme ecran.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>vus.insert(field.valueId).second</code> est vrai.</li><li>Vérifie que <code>vus.insert(id).second</code> est vrai.</li></ul>
 </section><h2 id="test-screen-flowcpp">test_screen_flow.cpp</h2>
 <section class="case" data-crit="Critique"><h3 id="screenflowtesttransitionsautoriseesmenentalecranattendu">ScreenFlowTest.TransitionsAutoriseesMenentALEcranAttendu</h3>
 <p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:25</code></p>
@@ -235,7 +176,8 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>opened.has_value()</code> est vrai.</li><li>Vérifie que <code>opened-&gt;rpgReturnTo</code> vaut <code>expected</code>.</li><li>Vérifie que <code>resolveTransition(*opened, ScreenEvent::CloseRpgScreen)-&gt;screen</code> vaut <code>expected</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="screenflowtestlesecransdefinfermentlapartie">ScreenFlowTest.LesEcransDeFinFermentLaPartie</h3>
-<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:147</code></p>
+<p><em>Critique · Unitaire · Machine à états des écrans</em> — <code>Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:148</code></p>
+<p>Exigences : <a class="ref" href="../Specification/interface-ihm.html#EX-IHM-091"><code>EX-IHM-091</code></a></p>
 <p>Les ecrans de mort et de fin de la demo ferment la partie.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ouvrir la mort depuis un ecran du RPG (le HUD de combat) et depuis le jeu.</li><li>En sortir par OpenGame, OpenMenu, puis tenter la pause, les options, la fermeture d'un ecran du RPG.</li><li>Ouvrir la fin de la demo depuis un ecran du RPG (le dialogue) et depuis le jeu.</li><li>En sortir par les credits et le menu, puis tenter OpenGame.</li><li>Tenter les deux depuis le menu.</li></ol>
@@ -243,7 +185,7 @@
 <ul><li>Vérifie que <code>mort.has_value()</code> est vrai.</li><li>Vérifie que <code>mort-&gt;screen</code> vaut <code>ScreenId::Death</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenDeath)-&gt;screen</code> vaut <code>ScreenId::Death</code>.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenGame)-&gt;screen</code> vaut <code>ScreenId::Game</code>.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenPause).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenOptions).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::CloseRpgScreen).has_value()</code> est faux.</li><li>Vérifie que <code>fin.has_value()</code> est vrai.</li><li>Vérifie que <code>fin-&gt;screen</code> vaut <code>ScreenId::DemoEnd</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenDemoEnd)-&gt;screen</code> vaut <code>ScreenId::DemoEnd</code>.</li><li>Vérifie que <code>credits.has_value()</code> est vrai.</li><li>Vérifie que <code>credits-&gt;screen</code> vaut <code>ScreenId::Credits</code>.</li><li>Vérifie que <code>resolveTransition(*credits, ScreenEvent::CloseCredits)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*fin, ScreenEvent::OpenMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*fin, ScreenEvent::OpenGame).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenDeath).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenDemoEnd).has_value()</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-input.html"><span>Précédent</span>HMI · Input</a><a class="next" href="hmi-localization.html"><span>Suivant</span>HMI · Localization</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-interface.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f5868d2b6</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f20d7a39f</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

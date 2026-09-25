@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -151,8 +151,11 @@ $(function(){initNavTree('structcore_1_1CharacterOptions.html','','structcore_1_
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2ecc541b0d20428b94bafce37bf5576" id="r_aa2ecc541b0d20428b94bafce37bf5576"><td class="memItemLeft">const <a class="el" href="structcore_1_1Species.html">Species</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa2ecc541b0d20428b94bafce37bf5576">findSpecies</a> (std::string_view id) const</td></tr>
+<tr class="memdesc:aa2ecc541b0d20428b94bafce37bf5576"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'espèce d'identifiant <code class="param">id</code>, ou <span class="tt">nullptr</span> si elle est inconnue.  <br /></td></tr>
 <tr class="memitem:a510a60e2c4f95f2df36a70ec93003f25" id="r_a510a60e2c4f95f2df36a70ec93003f25"><td class="memItemLeft">const <a class="el" href="structcore_1_1Background.html">Background</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a510a60e2c4f95f2df36a70ec93003f25">findBackground</a> (std::string_view id) const</td></tr>
+<tr class="memdesc:a510a60e2c4f95f2df36a70ec93003f25"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'historique d'identifiant <code class="param">id</code>, ou <span class="tt">nullptr</span> s'il est inconnu.  <br /></td></tr>
 <tr class="memitem:a6212c2f969f990ebb074ab2a1154699e" id="r_a6212c2f969f990ebb074ab2a1154699e"><td class="memItemLeft">const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6212c2f969f990ebb074ab2a1154699e">findClass</a> (std::string_view id) const</td></tr>
+<tr class="memdesc:a6212c2f969f990ebb074ab2a1154699e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La classe d'identifiant <code class="param">id</code>, ou <span class="tt">nullptr</span> si elle est inconnue.  <br /></td></tr>
 <tr class="memitem:a16bbc94de1a6157fd6ff0f4c6bdb02d4" id="r_a16bbc94de1a6157fd6ff0f4c6bdb02d4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a16bbc94de1a6157fd6ff0f4c6bdb02d4">requiredMechanisms</a> () const</td></tr>
 <tr class="memdesc:a16bbc94de1a6157fd6ff0f4c6bdb02d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mécanismes que ces données exigent et que personne n'a encore honorés (<span class="tt">EX-CNT-031</span>).  <br /></td></tr>
 <tr class="memitem:a73428d368e617da75c42c0959af697b4" id="r_a73428d368e617da75c42c0959af697b4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a73428d368e617da75c42c0959af697b4">provisionalClassIds</a> () const</td></tr>
@@ -192,6 +195,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>L'historique d'identifiant <code class="param">id</code>, ou <span class="tt">nullptr</span> s'il est inconnu. </p>
+
 </div>
 </div>
 <a id="a6212c2f969f990ebb074ab2a1154699e" name="a6212c2f969f990ebb074ab2a1154699e"></a>
@@ -217,6 +222,8 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>La classe d'identifiant <code class="param">id</code>, ou <span class="tt">nullptr</span> si elle est inconnue. </p>
+
 </div>
 </div>
 <a id="aa2ecc541b0d20428b94bafce37bf5576" name="aa2ecc541b0d20428b94bafce37bf5576"></a>
@@ -241,6 +248,8 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>L'espèce d'identifiant <code class="param">id</code>, ou <span class="tt">nullptr</span> si elle est inconnue. </p>
 
 </div>
 </div>

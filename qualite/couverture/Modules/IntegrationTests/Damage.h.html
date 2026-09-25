@@ -59,28 +59,28 @@ enum class CombatantId : std::uint32_t;
 /**
  * @brief Ce qu'une source de dÃ©gÃ¢ts **est**, au-delÃ  de son type.
  *
- * Un loup-garou rÃ©siste aux dÃ©gÃ¢ts tranchants **non argentÃ©s** ; un dÃ©mon, aux armes **non
- * magiques**. Le type seul ne suffit pas Ã  le dire, et le texte de l'arme ne se lit pas. Les deux
+ * Un dÃ©mon rÃ©siste aux armes **non magiques** ; un sort n'est pas une arme. Le type seul ne
+ * suffit pas Ã  le dire, et le texte de l'arme ne se lit pas. Les deux
  * derniers drapeaux ne dÃ©crivent pas la source mais ce qu'elle **passe outre** â Â« ignore les
  * rÃ©sistances Â», Â« ignore les points de vie temporaires Â» : des capacitÃ©s les Ã©crivent telles
  * quelles.
  */
 enum class DamageFlag : std::uint8_t {
     Magical = 1U &lt;&lt; 0U,
-    Silvered = 1U &lt;&lt; 1U,
-    Adamantine = 1U &lt;&lt; 2U,
-    Spell = 1U &lt;&lt; 3U,
-    IgnoresResistance = 1U &lt;&lt; 4U,
-    IgnoresReserves = 1U &lt;&lt; 5U,
+    Spell = 1U &lt;&lt; 1U,
+    IgnoresResistance = 1U &lt;&lt; 2U,
+    IgnoresReserves = 1U &lt;&lt; 3U,
 };
 
 /// @brief Un ensemble de `core::DamageFlag`.
 using DamageFlags = std::uint8_t;
 
+/// @brief L'ensemble ne contenant que le drapeau @p flag.
 <span style = "background-color:#dfd">[[nodiscard]] constexpr DamageFlags flagsOf(DamageFlag flag) noexcept {
     return static_cast&lt;DamageFlags&gt;(flag);
 }</span>
 
+/// @brief Vrai si l'ensemble @p flags contient le drapeau @p flag.
 <span style = "background-color:#dfd">[[nodiscard]] constexpr bool hasFlag(DamageFlags flags, DamageFlag flag) noexcept {
     return (flags &amp; flagsOf(flag)) != 0U;
 }</span>
@@ -278,6 +278,7 @@ struct DamageReport {
  */
 class DamagePipeline {
 public:
+    /// @brief Ajoute un greffon Ã  l'Ã©tape @p stage, aprÃ¨s ceux dÃ©jÃ  insÃ©rÃ©s Ã  cette Ã©tape.
     void insert(DamageStage stage, DamageListener listener);
 
     /**

@@ -54,6 +54,13 @@
 
 namespace hmi {
 
+/**
+ * @brief La partie **fixe** d'une carte : composÃ©e une fois, triÃ©e, indexÃ©e par seaux, puis
+ *        dÃ©coupÃ©e au cadrage Ã  chaque image, les figurines de l'instant insÃ©rÃ©es (`LOT-129`).
+ *
+ * `build` compose et indexe tout sauf les figurines ; `compose` extrait ce qui touche le cadrage
+ * de la scÃ¨ne de sortie et y ajoute les figurines, dans l'ordre de dessin.
+ */
 class StaticWorldScene {
 public:
     /// CÃ´tÃ© d'un seau de la grille, en largeurs de case : quelques seaux par Ã©cran, peu de

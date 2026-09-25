@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -159,11 +159,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5cbf0850da02037f7c3fc71e202f6425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remonte la même composition à la même graine, journal vidé.  <br /></td></tr>
 <tr class="memitem:a0b2e4d467ccf4fa2b267af8cc0a94ef8" id="r_a0b2e4d467ccf4fa2b267af8cc0a94ef8"><td class="memItemLeft"><a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0b2e4d467ccf4fa2b267af8cc0a94ef8">combat</a> () noexcept</td></tr>
 <tr class="memitem:a1499cabc1b8c1ba3c21a31446278c40f" id="r_a1499cabc1b8c1ba3c21a31446278c40f"><td class="memItemLeft">const <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1499cabc1b8c1ba3c21a31446278c40f">combat</a> () const noexcept</td></tr>
+<tr class="memdesc:a1499cabc1b8c1ba3c21a31446278c40f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La machine à états du combat, en lecture seule.  <br /></td></tr>
 <tr class="memitem:a66d861ed4aeef7be12d617ea129ab16c" id="r_a66d861ed4aeef7be12d617ea129ab16c"><td class="memItemLeft">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a66d861ed4aeef7be12d617ea129ab16c">level</a> () const noexcept</td></tr>
 <tr class="memitem:a7b9cbd6f1bfc3c5276543737f2ac6db2" id="r_a7b9cbd6f1bfc3c5276543737f2ac6db2"><td class="memItemLeft">const <a class="el" href="structcore_1_1ArenaBout.html">ArenaBout</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7b9cbd6f1bfc3c5276543737f2ac6db2">bout</a> () const noexcept</td></tr>
 <tr class="memitem:a3dc6b71791568af78f3f66d6987df23c" id="r_a3dc6b71791568af78f3f66d6987df23c"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#a3dc6b71791568af78f3f66d6987df23c">attacks</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
-<tr class="memitem:a1fbc7cdb3c96e2214737ca2ef6c5e429" id="r_a1fbc7cdb3c96e2214737ca2ef6c5e429"><td class="memItemLeft"><a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a1fbc7cdb3c96e2214737ca2ef6c5e429">attackHooks</a> () noexcept</td></tr>
-<tr class="memitem:a36554b265c0ee59bd356956ab7d2469a" id="r_a36554b265c0ee59bd356956ab7d2469a"><td class="memItemLeft"><a class="el" href="classcore_1_1DamagePipeline.html">DamagePipeline</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a36554b265c0ee59bd356956ab7d2469a">damagePipeline</a> () noexcept</td></tr>
 <tr class="memitem:af6df2744b75f2368435b6a7ba12b01e3" id="r_af6df2744b75f2368435b6a7ba12b01e3"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#af6df2744b75f2368435b6a7ba12b01e3">attack</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, std::size_t attackIndex=0)</td></tr>
 <tr class="memdesc:af6df2744b75f2368435b6a7ba12b01e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>attaquer</em> du combattant actif, avec son attaque <code class="param">attackIndex</code>.  <br /></td></tr>
 <tr class="memitem:a8fe411d2eeeb7eec646bafd6baa5269a" id="r_a8fe411d2eeeb7eec646bafd6baa5269a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8fe411d2eeeb7eec646bafd6baa5269a">dodge</a> ()</td></tr>
@@ -179,6 +178,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1018a38031516ac18d3a02af2f6f6df4" id="r_a1018a38031516ac18d3a02af2f6f6df4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1018a38031516ac18d3a02af2f6f6df4">setTakesOpportunities</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, bool takes)</td></tr>
 <tr class="memdesc:a1018a38031516ac18d3a02af2f6f6df4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le joueur laisse passer, ou non, les attaques d'opportunité de ce combattant (<span class="tt">LOT-24</span>).  <br /></td></tr>
 <tr class="memitem:acdf59a196b4b9414ffda4bf9f478b8fe" id="r_acdf59a196b4b9414ffda4bf9f478b8fe"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acdf59a196b4b9414ffda4bf9f478b8fe">takesOpportunities</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:acdf59a196b4b9414ffda4bf9f478b8fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">combatant</code> prend ses attaques d'opportunité (le défaut) ; faux s'il y a renoncé.  <br /></td></tr>
 <tr class="memitem:af52a621aa126da2e3be9efd1e17041a0" id="r_af52a621aa126da2e3be9efd1e17041a0"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af52a621aa126da2e3be9efd1e17041a0">previewOpportunities</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> destination) const</td></tr>
 <tr class="memdesc:af52a621aa126da2e3be9efd1e17041a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les créatures qui frapperaient le combattant actif s'il allait en <code class="param">destination</code>, chacune une fois, dans l'ordre où elles frapperaient — la prévisualisation du déplacement.  <br /></td></tr>
 <tr class="memitem:ab45b1ff1458249fc3668bc45a2a9a57a" id="r_ab45b1ff1458249fc3668bc45a2a9a57a"><td class="memItemLeft"><a class="el" href="structcore_1_1AttackCircumstances.html">AttackCircumstances</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab45b1ff1458249fc3668bc45a2a9a57a">circumstancesAgainst</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> attacker, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &amp;profile) const</td></tr>
@@ -292,32 +292,6 @@ Private Attributes</h2></td></tr>
 
 <p>L'action <em>attaquer</em> du combattant actif, avec son attaque <code class="param">attackIndex</code>. </p>
 <p>Vérifie la cible, la portée et la vue (<span class="tt"><a class="el" href="namespacecore.html#a7365293652d3b9980a5d196d0ada9400" title="Peut-on viser target avec cette attaque ?">core::checkTarget</a></span>), dépense l'action, puis résout (<span class="tt"><a class="el" href="namespacecore.html#ab1a4d741effe8706e8261be043b9224a" title="Résout une attaque dans le combat : déclaration, jet, dégâts, points de vie.">core::resolveAttack</a></span>) : déclaration, abri, jet, dégâts. Une cible qui esquive et voit son attaquant impose le désavantage. Tout passe par la suite aléatoire de la session : un rejeu redonne les mêmes coups. </p>
-
-</div>
-</div>
-<a id="a1fbc7cdb3c96e2214737ca2ef6c5e429" name="a1fbc7cdb3c96e2214737ca2ef6c5e429"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fbc7cdb3c96e2214737ca2ef6c5e429">&#9670;&#160;</a></span>attackHooks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a> &amp; core::ArenaSession::attackHooks </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les greffons des jets d'attaque de la session, pour qu'une capacité s'y insère. </dd></dl>
 
 </div>
 </div>
@@ -460,6 +434,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>La machine à états du combat, en lecture seule. </p>
+
 </div>
 </div>
 <a id="a0b2e4d467ccf4fa2b267af8cc0a94ef8" name="a0b2e4d467ccf4fa2b267af8cc0a94ef8"></a>
@@ -521,32 +497,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les circonstances qu'ajoute la session : l'esquive de la cible, si elle voit l'attaquant ; la prise en tenaille au corps à corps, si l'arène la joue. </p>
-
-</div>
-</div>
-<a id="a36554b265c0ee59bd356956ab7d2469a" name="a36554b265c0ee59bd356956ab7d2469a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36554b265c0ee59bd356956ab7d2469a">&#9670;&#160;</a></span>damagePipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classcore_1_1DamagePipeline.html">DamagePipeline</a> &amp; core::ArenaSession::damagePipeline </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le pipeline de dégâts de la session. </dd></dl>
 
 </div>
 </div>
@@ -1221,6 +1171,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Vrai si <code class="param">combatant</code> prend ses attaques d'opportunité (le défaut) ; faux s'il y a renoncé. </p>
 
 </div>
 </div>

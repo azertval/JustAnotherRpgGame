@@ -65,37 +65,37 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Resoudre la Capitale et chacun des douze quartiers, noms recopies du PDF.</li><li>Verifier leur region et une phrase de Martpart et d'Arenarea lue sur la page.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>ville</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ville-&gt;region</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>ville-&gt;description.find(&quot;Approximately 680,000&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>lieu</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>lieu-&gt;region</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>lieu-&gt;description.empty()</code> est faux.</li><li>Vérifie que <code>atlas().findLocation(capitale + &quot;-martpart&quot;)-&gt;description.find( &quot;Lantern-lit stalls and culturally blended architecture adorn cobblestone&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>atlas().findLocation(capitale + &quot;-arenarea&quot;)-&gt;description.find( &quot;Famed for the Arena of Fate&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+<ul><li>Vérifie que <code>ville</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ville-&gt;region</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>ville-&gt;description.find(&quot;Approximately 680,000&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>lieu</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>lieu-&gt;region</code> vaut <code>&quot;central-empire&quot;</code>.</li><li>Vérifie que <code>lieu-&gt;description.empty()</code> est faux.</li><li>Vérifie que <code>atlas() .findLocation(capitale + &quot;-martpart&quot;) -&gt;description.find( &quot;Lantern-lit stalls and culturally blended architecture adorn cobblestone&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>atlas() .findLocation(capitale + &quot;-arenarea&quot;) -&gt;description.find(&quot;Famed for the Arena of Fate&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="atlastestaucunlieusansregion">AtlasTest.AucunLieuSansRegion</h3>
-<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:233</code></p>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:236</code></p>
 <p>Aucun lieu n'est orphelin de region.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque lieu, resoudre la region qu'il declare.</li><li>Verifier que cette region le cite en retour.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>region</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>std::ranges::find(region-&gt;locations, lieu.id)</code> diffère de <code>region-&gt;locations.end()</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="atlastesttoutlieuciteparuneregionexiste">AtlasTest.ToutLieuCiteParUneRegionExiste</h3>
-<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:252</code></p>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:255</code></p>
 <p>Toute region ne cite que des lieux existants.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque region, resoudre chacun des lieux qu'elle cite.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>atlas().findLocation(identifiant)</code> diffère de <code>nullptr</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="atlastestlevoisinageestsymetriqueetlegrapheconnexe">AtlasTest.LeVoisinageEstSymetriqueEtLeGrapheConnexe</h3>
-<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:270</code></p>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:273</code></p>
 <p>Le voisinage des regions est symetrique et le graphe connexe.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque arete, verifier que la region voisine declare la reciproque.</li><li>Parcourir le graphe depuis la premiere region.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>autre</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>std::ranges::find(autre-&gt;neighbors, region.id)</code> diffère de <code>autre-&gt;neighbors.end()</code>.</li><li>Vérifie que <code>atlas().regions.empty()</code> est faux.</li><li>Vérifie que <code>atlas().unreachableFrom(atlas().regions.front().id).empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="atlastestuneregioncoupeedugrapheestsignalee">AtlasTest.UneRegionCoupeeDuGrapheEstSignalee</h3>
-<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:295</code></p>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:298</code></p>
 <p>Le controle de connexite sait echouer.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Retirer les aretes de Yama, dans une copie de l'atlas.</li><li>Relancer le parcours depuis une autre region.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>ampute.regions.size()</code> est supérieur ou égal à <code>2U</code>.</li><li>Vérifie que <code>cible</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>depart</code> diffère de <code>isolee</code>.</li><li>Vérifie que <code>std::ranges::find(perdues, isolee)</code> diffère de <code>perdues.end()</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="atlastestlesnotesdumoteurcoincidentaveccellesduschema">AtlasTest.LesNotesDuMoteurCoincidentAvecCellesDuSchema</h3>
-<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:334</code></p>
+<p><em>Critique · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:337</code></p>
 <p>Exigences : <a class="ref" href="../Specification/contenu.html#EX-CNT-011"><code>EX-CNT-011</code></a></p>
 <p>Les notes et les axes du moteur coincident avec region.schema.json.</p>
 <p><strong>Étapes</strong></p>
@@ -103,14 +103,14 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>flux.is_open()</code> est vrai.</li><li>Vérifie que <code>schema.find(&#x27;&quot;&#x27; + std::string{nom} + &#x27;&quot;&#x27;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>core::regionGradeFromName(nom)</code> vaut <code>std::optional&lt;core::RegionGrade&gt;{static_cast&lt;core::RegionGrade&gt;(rang)}</code>.</li><li>Vérifie que <code>core::regionGradeFromName(&quot;average&quot;).has_value()</code> est faux.</li><li>Vérifie que <code>schema.find(&#x27;&quot;&#x27; + std::string{nom} + &#x27;&quot;&#x27;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="atlastestundossierabsentestuneerreurpasunmondevide">AtlasTest.UnDossierAbsentEstUneErreurPasUnMondeVide</h3>
-<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:372</code></p>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:375</code></p>
 <p>Un dossier d'atlas absent produit une erreur, pas un monde vide.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger un dossier qui n'existe pas.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>absent.regions.empty()</code> est vrai.</li><li>Vérifie que <code>absent.errors.empty()</code> est faux.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="atlastestlespartsdepopulationrestentplausibles">AtlasTest.LesPartsDePopulationRestentPlausibles</h3>
-<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:388</code></p>
+<p><em>Majeur · Unitaire · Atlas</em> — <code>Source/Test/Unit/Core/World/test_atlas.cpp:391</code></p>
 <p>Les parts de population de chaque region somment a 100 % a l'arrondi pres.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pour chaque region, sommer les parts d'espece et la part &lt;&lt; others &gt;&gt;.</li></ol>
@@ -286,28 +286,28 @@
 <ul><li>Vérifie que <code>core::ExplorationReach(carte, {{.column = 1, .row = 0}}).count()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>core::ExplorationReach(carte, {{.column = -1, .row = 0}}).count()</code> vaut <code>0U</code>.</li><li>Vérifie que <code>core::ExplorationReach(carte, {{.column = 0, .row = 0}, {.column = 2, .row = 0}}).count()</code> vaut <code>2U</code>.</li></ul>
 </section><h2 id="test-exploration-sessioncpp">test_exploration_session.cpp</h2>
 <section class="case" data-crit="Critique"><h3 id="explorationsessiontestleherosmarcheetlemurlarrete">ExplorationSessionTest.LeHerosMarcheEtLeMurLArrete</h3>
-<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:108</code></p>
+<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:107</code></p>
 <p>Le heros marche sur la carte et bute sur le mur, en glissant le long.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Entrer sur une carte muree, marcher vers la droite jusqu'au mur.</li><li>Marcher en diagonale contre ce mur.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>session.heroPoint()</code> vaut <code>(core::CellPoint{1.5F, 1.5F})</code>.</li><li>Vérifie que <code>session.heroPoint().column</code> vaut <code>8.7F</code>, à <code>0.05F</code> près.</li><li>Vérifie que <code>session.heroPoint().row</code> vaut <code>1.5F</code>, à <code>0.001F</code> près.</li><li>Vérifie que <code>session.heroPoint().row</code> est strictement supérieur à <code>avant</code>.</li><li>Vérifie que <code>session.heroPoint().column</code> vaut <code>8.7F</code>, à <code>0.05F</code> près.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="explorationsessiontestunportaildeposeaupointdarriveenomme">ExplorationSessionTest.UnPortailDeposeAuPointDArriveeNomme</h3>
-<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:138</code></p>
+<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:137</code></p>
 <p>Marcher sur un portail depose le heros au point d'arrivee nomme de la cible.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Marcher jusqu'a la case du portail.</li><li>Rester dessus quelques pas.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().kind</code> vaut <code>ExplorationEventKind::MapEntered</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;cave&quot;</code>.</li><li>Vérifie que <code>session.mapId()</code> vaut <code>&quot;cave&quot;</code>.</li><li>Vérifie que <code>session.heroPoint()</code> vaut <code>(core::CellPoint{6.5F, 7.5F})</code>.</li><li>Vérifie que <code>session.update(core::ExplorationIntent{.move = {}, .interact = false}, 1.0F / 60.0F) .empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="explorationsessiontestonparleaupnjquelonregarde">ExplorationSessionTest.OnParleAuPnjQueLOnRegarde</h3>
-<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:180</code></p>
+<p><em>Critique · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:179</code></p>
 <p>L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser deux PNJ de part et d'autre du heros.</li><li>Regarder l'un, interagir ; puis regarder l'autre, interagir.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().kind</code> vaut <code>ExplorationEventKind::Dialogue</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;heraut-colisee&quot;</code>.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;myr-marche&quot;</code>.</li></ul>
+<ul><li>Vérifie que <code>session.start(&quot;place&quot;, &quot;&quot;)</code> est vrai.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().kind</code> vaut <code>ExplorationEventKind::Dialogue</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;garde&quot;</code>.</li><li>Vérifie que <code>vus.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>vus.front().value</code> vaut <code>&quot;myr-marche&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="explorationsessiontestunecartegeleenebougeplus">ExplorationSessionTest.UneCarteGeleeNeBougePlus</h3>
-<p><em>Majeur · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:213</code></p>
+<p><em>Majeur · Unitaire · Exploration</em> — <code>Source/Test/Unit/Core/World/test_exploration_session.cpp:211</code></p>
 <p>Gelee, la session ne deplace plus le heros et n'ouvre plus rien.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Geler la session, marcher et interagir.</li><li>Degeler, refaire les memes gestes.</li></ol>
@@ -428,7 +428,7 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>graphe.maps.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>graphe.maps[0].mapId</code> vaut <code>&quot;capital/arenarea&quot;</code>.</li><li>Vérifie que <code>graphe.maps[1].mapId</code> vaut <code>&quot;capital/martpart&quot;</code>.</li><li>Vérifie que <code>graphe.maps[2].mapId</code> vaut <code>&quot;coliseum&quot;</code>.</li><li>Vérifie que <code>graphe.portals.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>graphe.portals[0].status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>graphe.portals[1].status</code> vaut <code>PortalLinkStatus::Resolved</code>.</li><li>Vérifie que <code>core::mapIdOf(dir, dir / &quot;capital&quot; / &quot;martpart.json&quot;)</code> vaut <code>&quot;capital/martpart&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="worldgraphfiletestundossierabsentdonneungraphevide">WorldGraphFileTest.UnDossierAbsentDonneUnGrapheVide</h3>
-<p><em>Majeur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:354</code></p>
+<p><em>Majeur · Unitaire · Graphe du monde</em> — <code>Source/Test/Unit/Core/World/test_world_graph.cpp:355</code></p>
 <p>Un dossier absent donne un graphe vide.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger le graphe d'un dossier qui n'existe pas.</li></ol>
@@ -486,7 +486,7 @@
 <ul><li>Vérifie que <code>std::filesystem::create_directories(racine / &quot;brouillons&quot;)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::create_directories(racine / &quot;livrees&quot;)</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(brouillon, racine / &quot;brouillons&quot; / &quot;martpart.json&quot;)</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(livree, racine / &quot;livrees&quot; / &quot;martpart.json&quot;)</code> est vrai.</li><li>Vérifie que <code>core::LevelWriter::saveToFile(voisine, racine / &quot;livrees&quot; / &quot;arenarea.json&quot;)</code> est vrai.</li><li>Vérifie que <code>retouchee.ok()</code> est vrai.</li><li>Vérifie que <code>retouchee.level-&gt;name()</code> vaut <code>&quot;Martpart retouche&quot;</code>.</li><li>Vérifie que <code>autour.ok()</code> est vrai.</li><li>Vérifie que <code>autour.level-&gt;name()</code> vaut <code>&quot;Arenarea&quot;</code>.</li><li>Vérifie que <code>absente.ok()</code> est faux.</li><li>Vérifie que <code>absente.errorCode</code> vaut <code>core::LevelValidationError::FileNotFound</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-time.html"><span>Précédent</span>Core · Time</a><a class="next" href="editor.html"><span>Suivant</span>Editor</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-world.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f5868d2b6</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f20d7a39f</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

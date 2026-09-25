@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -157,6 +157,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a03f71b3b10a2ef1abc4f131a6c19e289" id="r_a03f71b3b10a2ef1abc4f131a6c19e289"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a03f71b3b10a2ef1abc4f131a6c19e289">addMarker</a> (<a class="el" href="structcore_1_1InitiativeMarker.html">InitiativeMarker</a> marker)</td></tr>
 <tr class="memdesc:a03f71b3b10a2ef1abc4f131a6c19e289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range un repère d'initiative fixe.  <br /></td></tr>
 <tr class="memitem:a0a85871f37bd935ceff8549f12f511c1" id="r_a0a85871f37bd935ceff8549f12f511c1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0a85871f37bd935ceff8549f12f511c1">contains</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:a0a85871f37bd935ceff8549f12f511c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">combatant</code> a une place dans l'ordre d'initiative.  <br /></td></tr>
 <tr class="memitem:a6e69a784d0790660721b589afd54455a" id="r_a6e69a784d0790660721b589afd54455a"><td class="memItemLeft">const <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a6e69a784d0790660721b589afd54455a">find</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
 <tr class="memdesc:a6e69a784d0790660721b589afd54455a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La place d'un combattant, ou <span class="tt">nullptr</span>.  <br /></td></tr>
 <tr class="memitem:afa270b0e1cb457fb5b40ac8b370ea45a" id="r_afa270b0e1cb457fb5b40ac8b370ea45a"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1InitiativeEntry.html">InitiativeEntry</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#afa270b0e1cb457fb5b40ac8b370ea45a">entries</a> () const noexcept</td></tr>
@@ -241,6 +242,8 @@ Une place, pas un indice</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Vrai si <code class="param">combatant</code> a une place dans l'ordre d'initiative. </p>
 
 </div>
 </div>

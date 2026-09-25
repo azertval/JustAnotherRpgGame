@@ -52,11 +52,6 @@ public:
      */
     explicit TextureAtlas(const RhiContext&amp; context);
 
-    /// @return L'identitÃ© opaque de la texture d'atlas (non possÃ©dÃ©e par l'appelant).
-    [[nodiscard]] TextureHandle textureHandle() const {
-        return _texture.get();
-    }
-
     /// @return Largeur de l'atlas, en pixels.
     [[nodiscard]] int width() const {
         return _width;

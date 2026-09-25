@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -153,25 +153,25 @@ $(function(){initNavTree('RhiContext_8h_source.html','',''); });
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html">   34</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1RhiContext.html">RhiContext</a> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">   36</a></span>    QRhi* <a class="code hl_variable" href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">rhi</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">   38</a></span>    QRhiResourceUpdateBatch* <a class="code hl_variable" href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">updates</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html#abf8a83f92dfd52999537032a9599e17e">   41</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1RhiContext.html#abf8a83f92dfd52999537032a9599e17e">ready</a>() const noexcept {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">rhi</a> != <span class="keyword">nullptr</span> &amp;&amp; <a class="code hl_variable" href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">updates</a> != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html">   35</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1RhiContext.html">RhiContext</a> {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">   37</a></span>    QRhi* <a class="code hl_variable" href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">rhi</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">   39</a></span>    QRhiResourceUpdateBatch* <a class="code hl_variable" href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">updates</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structhmi_1_1RhiContext.html#abf8a83f92dfd52999537032a9599e17e">   42</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1RhiContext.html#abf8a83f92dfd52999537032a9599e17e">ready</a>() const noexcept {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">rhi</a> != <span class="keyword">nullptr</span> &amp;&amp; <a class="code hl_variable" href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">updates</a> != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}  <span class="comment">// namespace hmi</span></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
-<div class="ttc" id="astructhmi_1_1RhiContext_html"><div class="ttname"><a href="structhmi_1_1RhiContext.html">hmi::RhiContext</a></div><div class="ttdoc">Le QRhi courant et le lot de téléversements de l&#39;image en cours.</div><div class="ttdef"><b>Definition</b> RhiContext.h:34</div></div>
-<div class="ttc" id="astructhmi_1_1RhiContext_html_a07d6fe0b31c50e6573bb261c369120ab"><div class="ttname"><a href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">hmi::RhiContext::rhi</a></div><div class="ttdeci">QRhi * rhi</div><div class="ttdoc">Interface de rendu courante, ou nullptr avant la première initialisation.</div><div class="ttdef"><b>Definition</b> RhiContext.h:36</div></div>
-<div class="ttc" id="astructhmi_1_1RhiContext_html_abf8a83f92dfd52999537032a9599e17e"><div class="ttname"><a href="structhmi_1_1RhiContext.html#abf8a83f92dfd52999537032a9599e17e">hmi::RhiContext::ready</a></div><div class="ttdeci">bool ready() const noexcept</div><div class="ttdef"><b>Definition</b> RhiContext.h:41</div></div>
-<div class="ttc" id="astructhmi_1_1RhiContext_html_aedd4bf86b0e7902f1bc20e9da43bb93d"><div class="ttname"><a href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">hmi::RhiContext::updates</a></div><div class="ttdeci">QRhiResourceUpdateBatch * updates</div><div class="ttdoc">Lot de mises à jour de l&#39;image en cours, ou nullptr hors d&#39;une image.</div><div class="ttdef"><b>Definition</b> RhiContext.h:38</div></div>
+<div class="ttc" id="astructhmi_1_1RhiContext_html"><div class="ttname"><a href="structhmi_1_1RhiContext.html">hmi::RhiContext</a></div><div class="ttdoc">Le QRhi courant et le lot de téléversements de l&#39;image en cours.</div><div class="ttdef"><b>Definition</b> RhiContext.h:35</div></div>
+<div class="ttc" id="astructhmi_1_1RhiContext_html_a07d6fe0b31c50e6573bb261c369120ab"><div class="ttname"><a href="structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab">hmi::RhiContext::rhi</a></div><div class="ttdeci">QRhi * rhi</div><div class="ttdoc">Interface de rendu courante, ou nullptr avant la première initialisation.</div><div class="ttdef"><b>Definition</b> RhiContext.h:37</div></div>
+<div class="ttc" id="astructhmi_1_1RhiContext_html_abf8a83f92dfd52999537032a9599e17e"><div class="ttname"><a href="structhmi_1_1RhiContext.html#abf8a83f92dfd52999537032a9599e17e">hmi::RhiContext::ready</a></div><div class="ttdeci">bool ready() const noexcept</div><div class="ttdef"><b>Definition</b> RhiContext.h:42</div></div>
+<div class="ttc" id="astructhmi_1_1RhiContext_html_aedd4bf86b0e7902f1bc20e9da43bb93d"><div class="ttname"><a href="structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d">hmi::RhiContext::updates</a></div><div class="ttdeci">QRhiResourceUpdateBatch * updates</div><div class="ttdoc">Lot de mises à jour de l&#39;image en cours, ou nullptr hors d&#39;une image.</div><div class="ttdef"><b>Definition</b> RhiContext.h:39</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

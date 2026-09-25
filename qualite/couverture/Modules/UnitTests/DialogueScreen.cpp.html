@@ -36,15 +36,15 @@ namespace {
     return gabarit;
 }</span>
 
-/// Â« Persuasion Â· DD 15 Â», ou Â« Persuasion Â» seul si le degre n'a pas de seuil connu.
+// Â« Persuasion Â· DD 15 Â», ou Â« Persuasion Â» seul si le degre n'a pas de seuil connu.
 <span style = "background-color:#dfd">[[nodiscard]] std::string annonceDuJet(const TextLookup&amp; text, const std::string&amp; skill, int dc) {
     const std::string competence = text(skillLabelKey(skill));
     return dc &gt; 0 ? remplir(text("dialogue.check.announce"), {competence, std::to_string(dc)})</span>
                   : competence;
 <span style = "background-color:#dfd">}</span>
 
-/// Â« 12 + 4 = 16 Â» : le de retenu, la somme des modificateurs, le total. Des chiffres et des
-/// signes, que toutes les langues du jeu lisent pareil.
+// Â« 12 + 4 = 16 Â» : le de retenu, la somme des modificateurs, le total. Des chiffres et des
+// signes, que toutes les langues du jeu lisent pareil.
 <span style = "background-color:#dfd">[[nodiscard]] std::string calculDuJet(const core::CheckResult&amp; jet) {
     const int bonus = std::accumulate(</span>
         jet.modifiers.begin(), jet.modifiers.end(), 0,

@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('classhmi_1_1WorldViewportItem.html','','classhmi_1_1Wo
 </div><!--header-->
 <div class="contents">
 
-<p>Surface QRhi de la carte courante : le jumeau d'<span class="tt">hmi::ArenaViewportItem</span> pour le monde.  
+<p>Surface QRhi de la carte courante, posée dans la vue de jeu.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="WorldViewportItem_8h_source.html">WorldViewportItem.h</a>&gt;</code></p>
@@ -177,8 +177,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3de4590a038355e883730e8e76d94094" id="r_a3de4590a038355e883730e8e76d94094"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a3de4590a038355e883730e8e76d94094">originY</a> () const</td></tr>
 <tr class="memitem:af61bff044e1170024568d5c933438d31" id="r_af61bff044e1170024568d5c933438d31"><td class="memItemLeft">Q_INVOKABLE QPoint&#160;</td><td class="memItemRight"><a class="el" href="#af61bff044e1170024568d5c933438d31">cellAt</a> (qreal x, qreal y) const</td></tr>
 <tr class="memdesc:af61bff044e1170024568d5c933438d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case sous un point de l'élément — le geste de la souris.  <br /></td></tr>
-<tr class="memitem:a624e24a63862866917506aa4eb55d42b" id="r_a624e24a63862866917506aa4eb55d42b"><td class="memItemLeft">Q_INVOKABLE QPointF&#160;</td><td class="memItemRight"><a class="el" href="#a624e24a63862866917506aa4eb55d42b">pointAt</a> (qreal column, qreal row) const</td></tr>
-<tr class="memdesc:a624e24a63862866917506aa4eb55d42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le point de l'élément où tombe une case (son centre) — pour poser une invite.  <br /></td></tr>
 <tr class="memitem:ab8b67e28851df55bf00241ba69a00a7c" id="r_ab8b67e28851df55bf00241ba69a00a7c"><td class="memItemLeft">QQuickRhiItemRenderer *&#160;</td><td class="memItemRight"><a class="el" href="#ab8b67e28851df55bf00241ba69a00a7c">createRenderer</a> () override</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
@@ -212,8 +210,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:adfdc6f3c1cde80deb30ac77286470758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nuit de pierre, jusqu'à ce que le QML en décide.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Surface QRhi de la carte courante : le jumeau d'<span class="tt">hmi::ArenaViewportItem</span> pour le monde. </p>
-<p>Même frontière entre les fils, pour la même raison : le modèle et sa session vivent sur le fil graphique, le dessin sur le fil de rendu, et <span class="tt">synchronize()</span> — fil graphique bloqué — est le seul instant où les deux se parlent. Ne traversent que des <b>valeurs</b> : la couleur d'effacement, le point suivi par la caméra, la carte si elle a changé — un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span> partagé, immuable, jamais recopié —, et les figurines si elles ont changé.</p>
+<div class="textblock"><p>Surface QRhi de la carte courante, posée dans la vue de jeu. </p>
+<p>La frontière entre les fils est celle de tout <span class="tt">QQuickRhiItem</span> : le modèle et sa session vivent sur le fil graphique, le dessin sur le fil de rendu, et <span class="tt">synchronize()</span> — fil graphique bloqué — est le seul instant où les deux se parlent. Ne traversent que des <b>valeurs</b> : la couleur d'effacement, le point suivi par la caméra, la carte si elle a changé — un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span> partagé, immuable, jamais recopié —, et les figurines si elles ont changé.</p>
 <p>« A changé » se compte : <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a0a7036499a425b2fef0b03d14335ad8d">WorldModel::sceneRevision</a></span> avance quand la carte est à recomposer, <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#abad15ef15ccd907a75b62026549f720f">WorldModel::figuresRevision</a></span> à chaque pas qui change les figurines. Un pas du héros ne fait donc passer que quelques figurines, et le rendu ne recompose pas la carte.</p>
 <p>Le cadrage est publié comme celui de l'arène (<span class="tt"><a class="el" href="#a4f22e44bb5f3e72c61a85d0c1c74647b" title="Largeur du losange d&#39;une case.">tileWidth</a></span>, <span class="tt"><a class="el" href="#aeedf43417922577358d8680023747ca3" title="Coin haut-gauche de la boîte du losange de la case (0, 0).">originX</a></span>…) : le calque d'interface QML posé par-dessus et le pointeur lisent <b>ce</b> cadrage, jamais un recalcul — deux cadrages calculés chacun de leur côté ne tombent pas au même pixel. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -516,29 +514,6 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a624e24a63862866917506aa4eb55d42b" name="a624e24a63862866917506aa4eb55d42b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a624e24a63862866917506aa4eb55d42b">&#9670;&#160;</a></span>pointAt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">QPointF hmi::WorldViewportItem::pointAt </td>
-          <td>(</td>
-          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>column</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">qreal</td>          <td class="paramname"><span class="paramname"><em>row</em></span>&#160;) const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le point de l'élément où tombe une case (son centre) — pour poser une invite. </p>
 
 </div>
 </div>

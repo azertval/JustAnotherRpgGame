@@ -24,10 +24,10 @@ namespace hmi {
 
 namespace {
 
-/// Version la plus Ã©levÃ©e des manifestes lus.
+// Version la plus Ã©levÃ©e des manifestes lus.
 constexpr int MANIFEST_VERSION = 1;
 
-/// L'entrÃ©e de manifeste qui cite @p filename, `nullptr` si aucune.
+// L'entrÃ©e de manifeste qui cite `filename`, `nullptr` si aucune.
 [[nodiscard]] const nlohmann::json* entryOf(const nlohmann::json&amp; manifest,
 <span style = "background-color:#dfd">                                            std::string_view filename) {
     const auto textures = manifest.find("textures");
@@ -44,7 +44,7 @@ constexpr int MANIFEST_VERSION = 1;
     return nullptr;
 }</span>
 
-/// Le manifeste de @p directory, lu et indexÃ©, s'il se lit.
+// Le manifeste de `directory`, lu et indexÃ©, s'il se lit.
 [[nodiscard]] std::unique_ptr&lt;const IndexedManifest&gt; readManifest(
 <span style = "background-color:#dfd">    const std::filesystem::path&amp; directory) {
     std::error_code error;
@@ -71,7 +71,7 @@ constexpr int MANIFEST_VERSION = 1;
 <span style = "background-color:#dfd">    return manifest;
 }</span>
 
-/// L'ancre d'une entrÃ©e de manifeste, rien si elle n'est pas numÃ©rique.
+// L'ancre d'une entrÃ©e de manifeste, rien si elle n'est pas numÃ©rique.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;core::Vector2&gt; anchorOf(const nlohmann::json&amp; entry) {
     const auto anchor = entry.find("anchor");</span>
     if (anchor == entry.end() || !anchor-&gt;is_array() || anchor-&gt;size() != 2 ||
@@ -86,7 +86,7 @@ constexpr int MANIFEST_VERSION = 1;
 <span style = "background-color:#dfd">    return core::Vector2{x, y};
 }</span>
 
-/// Le `depthOffset` d'une entrÃ©e, rien sans ancre valide ou sans valeur finie.
+// Le `depthOffset` d'une entrÃ©e, rien sans ancre valide ou sans valeur finie.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;float&gt; depthOffsetOf(const nlohmann::json&amp; entry) {
     if (!anchorOf(entry)) {
         return std::nullopt;</span>
@@ -99,7 +99,7 @@ constexpr int MANIFEST_VERSION = 1;
     return std::isfinite(value) ? std::optional&lt;float&gt;{value} : std::nullopt;
 }</span>
 
-/// Le nombre fini positif que @p manifest dÃ©clare sous @p key, rien sinon.
+// Le nombre fini positif que `manifest` dÃ©clare sous `key`, rien sinon.
 [[nodiscard]] std::optional&lt;float&gt; manifestLength(const nlohmann::json&amp; manifest,
 <span style = "background-color:#dfd">                                                  std::string_view key) {
     const auto found = manifest.is_object() ? manifest.find(key) : manifest.end();
@@ -110,8 +110,8 @@ constexpr int MANIFEST_VERSION = 1;
     return std::isfinite(value) &amp;&amp; value &gt; 0.0F ? std::optional&lt;float&gt;{value} : std::nullopt;
 }</span>
 
-/// La ligne de sol que dÃ©clare @p manifest (`ground`), rien si elle n'est pas un nombre fini
-/// positif.
+// La ligne de sol que dÃ©clare `manifest` (`ground`), rien si elle n'est pas un nombre fini
+// positif.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;float&gt; manifestGroundLine(const nlohmann::json&amp; manifest) {
     return manifestLength(manifest, "ground");
 }</span>

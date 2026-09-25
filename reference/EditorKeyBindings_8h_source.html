@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -195,7 +195,7 @@ $(function(){initNavTree('EditorKeyBindings_8h_source.html','',''); });
 </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}  <span class="comment">// namespace hmi</span></div>
-<div class="ttc" id="aInputState_8h_html"><div class="ttname"><a href="InputState_8h.html">InputState.h</a></div><div class="ttdoc">État des entrées clavier/souris/manette échantillonné une fois par frame.</div></div>
+<div class="ttc" id="aInputState_8h_html"><div class="ttname"><a href="InputState_8h.html">InputState.h</a></div><div class="ttdoc">État de la manette échantillonné une fois par relevé, et la touche hmi::Key de l&#39;éditeur.</div></div>
 <div class="ttc" id="aclasshmi_1_1EditorKeyBindings_html_a12570faca506479fd16c5817d2092ad6"><div class="ttname"><a href="classhmi_1_1EditorKeyBindings.html#a12570faca506479fd16c5817d2092ad6">hmi::EditorKeyBindings::defaultKey</a></div><div class="ttdeci">static Key defaultKey(EditorAction action) noexcept</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.cpp:45</div></div>
 <div class="ttc" id="aclasshmi_1_1EditorKeyBindings_html_a2cc7f550f71dc0a6cdd7ae5282e5aa66"><div class="ttname"><a href="classhmi_1_1EditorKeyBindings.html#a2cc7f550f71dc0a6cdd7ae5282e5aa66">hmi::EditorKeyBindings::key</a></div><div class="ttdeci">Key key(EditorAction action) const noexcept</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.cpp:73</div></div>
 <div class="ttc" id="aclasshmi_1_1EditorKeyBindings_html_a37f5bff3517e236961bb1313e26c9fee"><div class="ttname"><a href="classhmi_1_1EditorKeyBindings.html#a37f5bff3517e236961bb1313e26c9fee">hmi::EditorKeyBindings::_keys</a></div><div class="ttdeci">std::array&lt; Key, EDITOR_ACTION_COUNT &gt; _keys</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:88</div></div>
@@ -205,7 +205,7 @@ $(function(){initNavTree('EditorKeyBindings_8h_source.html','',''); });
 <div class="ttc" id="aclasshmi_1_1EditorKeyBindings_html_a83df6e97791f2b4300d52e9c4cc72448"><div class="ttname"><a href="classhmi_1_1EditorKeyBindings.html#a83df6e97791f2b4300d52e9c4cc72448">hmi::EditorKeyBindings::setKey</a></div><div class="ttdeci">void setKey(EditorAction action, Key newKey) noexcept</div><div class="ttdoc">Lie action à newKey.</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.cpp:79</div></div>
 <div class="ttc" id="aclasshmi_1_1EditorKeyBindings_html_ae15fd7146af0937829dbcf69de533637"><div class="ttname"><a href="classhmi_1_1EditorKeyBindings.html#ae15fd7146af0937829dbcf69de533637">hmi::EditorKeyBindings::load</a></div><div class="ttdeci">static EditorKeyBindings load(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge la section &quot;editeur&quot; de path.</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.cpp:130</div></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
-<div class="ttc" id="anamespacehmi_html_a83c98e56e30eafa606048853f7962e48"><div class="ttname"><a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">hmi::Key</a></div><div class="ttdeci">Key</div><div class="ttdoc">Touche du clavier, identifiée par son code virtuel Win32.</div><div class="ttdef"><b>Definition</b> InputState.h:29</div></div>
+<div class="ttc" id="anamespacehmi_html_a83c98e56e30eafa606048853f7962e48"><div class="ttname"><a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">hmi::Key</a></div><div class="ttdeci">Key</div><div class="ttdoc">Touche du clavier, identifiée par son code virtuel Win32.</div><div class="ttdef"><b>Definition</b> InputState.h:30</div></div>
 <div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585">hmi::EditorAction</a></div><div class="ttdeci">EditorAction</div><div class="ttdoc">Action d&#39;éditeur logique, remappable indépendamment de la touche physique.</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:29</div></div>
 <div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119">hmi::EditorAction::Undo</a></div><div class="ttdeci">@ Undo</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:31</div></div>
 <div class="ttc" id="anamespacehmi_html_aa4f5968d7b564d555f29fdc5d2fc9585a36bb6559696dc9124986ae120515984f"><div class="ttname"><a href="namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a36bb6559696dc9124986ae120515984f">hmi::EditorAction::Paste</a></div><div class="ttdeci">@ Paste</div><div class="ttdef"><b>Definition</b> EditorKeyBindings.h:34</div></div>

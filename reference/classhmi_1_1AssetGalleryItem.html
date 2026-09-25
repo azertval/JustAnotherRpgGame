@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -234,6 +234,7 @@ Properties</h2></td></tr>
 <tr class="memitem:afdaf2c3d4043aca33b47d6fed1c84cea" id="r_afdaf2c3d4043aca33b47d6fed1c84cea"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#afdaf2c3d4043aca33b47d6fed1c84cea">speed</a></td></tr>
 <tr class="memitem:ada82be0aab4a7466f67cacd3970b894d" id="r_ada82be0aab4a7466f67cacd3970b894d"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#ada82be0aab4a7466f67cacd3970b894d">clearColor</a></td></tr>
 <tr class="memitem:a672cdc7161a90c06a9ab9d7aad8aee1a" id="r_a672cdc7161a90c06a9ab9d7aad8aee1a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a672cdc7161a90c06a9ab9d7aad8aee1a">selectedIndex</a></td></tr>
+<tr class="memdesc:a672cdc7161a90c06a9ab9d7aad8aee1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang du bloc sélectionné dans la disposition, ou -1 sans sélection ; écrit hors bornes, il désélectionne.  <br /></td></tr>
 <tr class="memitem:a69474b4e70523d1fe4d4eb7269903ef8" id="r_a69474b4e70523d1fe4d4eb7269903ef8"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a69474b4e70523d1fe4d4eb7269903ef8">selected</a></td></tr>
 <tr class="memdesc:a69474b4e70523d1fe4d4eb7269903ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fiche de la forme sélectionnée ; vide sans sélection.  <br /></td></tr>
 <tr class="memitem:a01045f0589c42813ee8cfef5d33c831e" id="r_a01045f0589c42813ee8cfef5d33c831e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a01045f0589c42813ee8cfef5d33c831e">selectedFrame</a></td></tr>
@@ -241,6 +242,7 @@ Properties</h2></td></tr>
 <tr class="memitem:ab0f9694107e4b5f149707c19243bca7d" id="r_ab0f9694107e4b5f149707c19243bca7d"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ab0f9694107e4b5f149707c19243bca7d">siblings</a></td></tr>
 <tr class="memdesc:ab0f9694107e4b5f149707c19243bca7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les autres formes du même modèle : <span class="tt">{index, form}</span>.  <br /></td></tr>
 <tr class="memitem:a68bd516aa7b6381f8ed8bfcc3753a40b" id="r_a68bd516aa7b6381f8ed8bfcc3753a40b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a68bd516aa7b6381f8ed8bfcc3753a40b">blocCount</a></td></tr>
+<tr class="memdesc:a68bd516aa7b6381f8ed8bfcc3753a40b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de blocs de la disposition : une forme par bloc.  <br /></td></tr>
 <tr class="memitem:a2d342376ac387f84bc0652e4b203b114" id="r_a2d342376ac387f84bc0652e4b203b114"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2d342376ac387f84bc0652e4b203b114">drawnCount</a></td></tr>
 <tr class="memitem:ad6121a361c717729d451ba8ef74d1a13" id="r_ad6121a361c717729d451ba8ef74d1a13"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad6121a361c717729d451ba8ef74d1a13">preloadedCount</a></td></tr>
 <tr class="memitem:adde224a9503dbcc12e78b31c3b8b3d3d" id="r_adde224a9503dbcc12e78b31c3b8b3d3d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adde224a9503dbcc12e78b31c3b8b3d3d">unloadedCount</a></td></tr>
@@ -291,7 +293,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Surface QRhi qui dispose tous les assets livrés en blocs (emprise + une case de marge), joue toutes leurs animations, et ne garde en mémoire que ce qui est à l'écran. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md105"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md94"></a>
 Qui décide quoi</h2>
 <p>L'item, sur le fil graphique, tient la caméra (<span class="tt"><a class="el" href="#a6c4e4bbfa297175d7d999f8defc69a87" title="Unités d&#39;élément par pixel d&#39;art.">zoom</a></span>, <span class="tt"><a class="el" href="#a3f9286c75e5c886ecf730eca4026854a" title="Position, en unités d&#39;élément, du coin haut-gauche de la galerie.">offsetX</a></span>, <span class="tt"><a class="el" href="#a18039e59167d4c1e316d806bca421526">offsetY</a></span>), la disposition et l'horloge d'animation ; il classe chaque bloc (dessiné, préchargé, déchargé) et publie au QML ce que le calque d'étiquettes, la minicarte et l'inspecteur lisent. Le peintre, sur le fil de rendu, reçoit dans <span class="tt">synchronize()</span> une <span class="tt"><a class="el" href="structhmi_1_1AssetGalleryFrame.html" title="Ce que le fil graphique remet au rendu pour une image : des valeurs.">hmi::AssetGalleryFrame</a></span> <b>en valeurs</b> et relaie <span class="tt"><a class="el" href="classhmi_1_1AssetGalleryRenderer.html" title="Dessine la galerie, et ne garde en mémoire que les textures voulues.">hmi::AssetGalleryRenderer</a></span>.</p>
 <p>Les positions publiées sont en unités d'élément : le calque QML tombe sur les blocs dessinés sans rien recalculer. </p>
@@ -2048,6 +2050,8 @@ Qui décide quoi</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Nombre de blocs de la disposition : une forme par bloc. </p>
+
 </div>
 </div>
 <a id="a464a11b8fa6b070c0987eb82eb6f853f" name="a464a11b8fa6b070c0987eb82eb6f853f"></a>
@@ -2413,6 +2417,8 @@ Qui décide quoi</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Rang du bloc sélectionné dans la disposition, ou -1 sans sélection ; écrit hors bornes, il désélectionne. </p>
 
 </div>
 </div>

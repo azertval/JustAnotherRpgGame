@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -206,7 +206,7 @@ Namespaces</h2></td></tr>
 <p>Les entités se dessinent et se manipulent <b>par leur forme</b> (<span class="tt"><a class="el" href="structcore_1_1EntityKind.html#a8e9333a30294b263a23a6235670093a8" title="Sa forme sur la carte.">core::EntityKind::shape</a></span>), jamais par leur type (<span class="tt">LOT-EDITOR-05</span>) : aucune famille n'a de code propre ici.</p>
 <p>Les outils du peintre (<span class="tt">LOT-EDITOR-04</span>) sont les fonctions pures de <span class="tt"><a class="el" href="PaintTools_8h.html" title="Les outils du peintre : trait, rectangle, ligne, seau, pipette, miroir et mesure (LOT-EDITOR-04,...">Editor/Logic/PaintTools.h</a></span> : le canevas ne fait que les appeler et en montrer l'aperçu. Un geste — du clic au relâchement — est un pas d'annulation (<span class="tt"><a class="el" href="classcore_1_1GestureScope.html" title="Un geste ouvert le temps d&#39;une portée (LevelDraft::beginGesture).">core::GestureScope</a></span>), et <span class="tt">Alt</span> + clic prend le pinceau sous la case depuis n'importe quel outil.</p>
 <p>Deux vues, en bascule (décision D1) : <b>iso</b> par défaut, le lieu tel qu'on le jouera ; <b>à plat</b>, une case par unité et les types en couleurs (<span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Compose un core::LevelDraft en cours d&#39;édition, à plat : la vue qui lit les types et la collision (dé...">hmi::DraftRenderer</a></span>), pour lire types et collision. Tout geste passe par le pointage (<span class="tt"><a class="el" href="CanvasPicking_8h.html" title="Le pointage du canevas : d&#39;un point du monde à la case qu&#39;il désigne, dans la vue isométrique comme d...">Editor/Logic/CanvasPicking.h</a></span>) et parle en cases : les outils ne savent pas quelle vue est affichée.</p>
-<p>Deux états, jamais mêlés. En <b>édition</b>, le brouillon est la seule source. En <b>essai</b>, la carte est jouée par <span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html">hmi::WorldPlay</a></span> et composée comme dans le jeu (<span class="tt">EX-EDIT-055</span>) ; le même peintre la dessine, cadrée sur le héros. </p>
+<p>Deux états, jamais mêlés. En <b>édition</b>, le brouillon est la seule source. En <b>essai</b>, la carte est jouée par <span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html" title="Une carte qu&#39;on parcourt et sa mise en scène : la session d&#39;exploration, la table d&#39;apparence du lieu...">hmi::WorldPlay</a></span> et composée comme dans le jeu (<span class="tt">EX-EDIT-055</span>) ; le même peintre la dessine, cadrée sur le héros. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

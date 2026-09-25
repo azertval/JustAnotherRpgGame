@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -200,15 +200,10 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aa275f4ee3dcd04b2c433620118cf54c4" id="r_aa275f4ee3dcd04b2c433620118cf54c4"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">core::DamageFlag</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a">core::Magical</a> = 1U &lt;&lt; 0U
-, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b">core::Silvered</a> = 1U &lt;&lt; 1U
-, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85">core::Adamantine</a> = 1U &lt;&lt; 2U
-, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd">core::Spell</a> = 1U &lt;&lt; 3U
-, <br />
-&#160;&#160;<a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5">core::IgnoresResistance</a> = 1U &lt;&lt; 4U
-, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37">core::IgnoresReserves</a> = 1U &lt;&lt; 5U
-<br />
+<tr class="memitem:aa275f4ee3dcd04b2c433620118cf54c4" id="r_aa275f4ee3dcd04b2c433620118cf54c4"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">core::DamageFlag</a> : std::uint8_t { <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a">core::Magical</a> = 1U &lt;&lt; 0U
+, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd">core::Spell</a> = 1U &lt;&lt; 1U
+, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5">core::IgnoresResistance</a> = 1U &lt;&lt; 2U
+, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37">core::IgnoresReserves</a> = 1U &lt;&lt; 3U
  }</td></tr>
 <tr class="memdesc:aa275f4ee3dcd04b2c433620118cf54c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une source de dégâts <b>est</b>, au-delà de son type.  <a href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">More...</a><br /></td></tr>
 <tr class="memitem:a8fe0c8f2f53edc1707d89c25b01a6a88" id="r_a8fe0c8f2f53edc1707d89c25b01a6a88"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">core::DamageAffinityKind</a> : std::uint8_t { <a class="el" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88a9db444f7a3b8ba8f817647de53b7a6fe">core::Resistance</a>
@@ -230,7 +225,9 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af66d5aadf3d1710e4239a912dd6e4481" id="r_af66d5aadf3d1710e4239a912dd6e4481"><td class="memItemLeft">constexpr <a class="el" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#af66d5aadf3d1710e4239a912dd6e4481">core::flagsOf</a> (<a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">DamageFlag</a> flag) noexcept</td></tr>
+<tr class="memdesc:af66d5aadf3d1710e4239a912dd6e4481"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ensemble ne contenant que le drapeau <code class="param">flag</code>.  <br /></td></tr>
 <tr class="memitem:a68ce34289da15bf414434daa7bda435c" id="r_a68ce34289da15bf414434daa7bda435c"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a68ce34289da15bf414434daa7bda435c">core::hasFlag</a> (<a class="el" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> flags, <a class="el" href="namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4">DamageFlag</a> flag) noexcept</td></tr>
+<tr class="memdesc:a68ce34289da15bf414434daa7bda435c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'ensemble <code class="param">flags</code> contient le drapeau <code class="param">flag</code>.  <br /></td></tr>
 <tr class="memitem:abfebc43646d1d520094ddedc511ffab2" id="r_abfebc43646d1d520094ddedc511ffab2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1RolledDamage.html">RolledDamage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#abfebc43646d1d520094ddedc511ffab2">core::rollDamage</a> (std::span&lt; const <a class="el" href="structcore_1_1DamageClause.html">DamageClause</a> &gt; clauses, bool critical, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
 <tr class="memdesc:abfebc43646d1d520094ddedc511ffab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance chaque clause, en doublant les dés si le coup est critique.  <br /></td></tr>
 <tr class="memitem:a11b50a242751c4c8fd48e94bc3e9fb1d" id="r_a11b50a242751c4c8fd48e94bc3e9fb1d"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a11b50a242751c4c8fd48e94bc3e9fb1d">core::damageTypeLabel</a> (<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> type) noexcept</td></tr>
@@ -250,7 +247,7 @@ Variables</h2></td></tr>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 Pourquoi un pipeline, et pas une soustraction</h2>
 <p>Retirer des points de vie est la dernière chose que font des dégâts. Avant, ils ont une <b>source</b> (magique, argentée, un sort), un <b>type</b> qu'une capacité peut convertir, une cible qui y <b>résiste</b>, y est <b>vulnérable</b> ou <b>immunisée</b>, et des <b>réserves</b> — points de vie temporaires, armure ablative — qui les absorbent. Les livres de Tanares greffent une capacité à chacun de ces instants (§4bis de la feuille de route) : un entier qui descend ne laisserait aucune place où la greffer, et chaque capacité réécrirait la soustraction à sa façon.</p>
-<p>Les étapes sont donc <b>nommées</b> (<span class="tt"><a class="el" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6" title="Les étapes du pipeline, dans l&#39;ordre où elles s&#39;exécutent.">core::DamageStage</a></span>), dans un ordre fixe, et chacune est un point d'insertion (<span class="tt"><a class="el" href="classcore_1_1DamagePipeline.html#a01ca4dadd1149ce79923deadb2fc22de">core::DamagePipeline::insert</a></span>). Le pipeline se termine dans <span class="tt"><a class="el" href="classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280" title="Retire amount points de vie, sans descendre sous 0 ; à 0, le combattant est à terre.">core::CombatState::applyDamage</a></span>, qui borne à 0, met à terre et évalue l'issue — une salve entière en un appel. </p>
+<p>Les étapes sont donc <b>nommées</b> (<span class="tt"><a class="el" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6" title="Les étapes du pipeline, dans l&#39;ordre où elles s&#39;exécutent.">core::DamageStage</a></span>), dans un ordre fixe, et chacune est un point d'insertion (<span class="tt"><a class="el" href="classcore_1_1DamagePipeline.html#a01ca4dadd1149ce79923deadb2fc22de" title="Ajoute un greffon à l&#39;étape stage, après ceux déjà insérés à cette étape.">core::DamagePipeline::insert</a></span>). Le pipeline se termine dans <span class="tt"><a class="el" href="classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280" title="Retire amount points de vie, sans descendre sous 0 ; à 0, le combattant est à terre.">core::CombatState::applyDamage</a></span>, qui borne à 0, met à terre et évalue l'issue — une salve entière en un appel. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

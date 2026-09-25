@@ -94,5 +94,5 @@
 
   <text x="20" y="470" font-size="12" fill="#6a6152">Déplacer Assets/Entities/ ne casse aucune créature : seule la résolution (étape 4) connaît le disque.</text>
   <text x="20" y="490" font-size="12" fill="#6a6152">Le champ « asset » d'une donnée sert à déroger (deux entrées, une image), pas à répéter la clé déduite.</text>
-  <text x="20" y="530" font-size="12" fill="#6a6152">Source : Source/Core/Resources/AssetKey.h, AssetMarker.h ; Source/HMI/Graphics/TextureCache.cpp (LOT-39).</text>
+  <text x="20" y="530" font-size="12" fill="#6a6152">Source : Source/Core/Resources/AssetKey.h, AssetMarker.h ; Source/HMI/Graphics/EntityMarkers.h, WorldSceneRenderer.cpp (LOT-39).</text>
 </svg>

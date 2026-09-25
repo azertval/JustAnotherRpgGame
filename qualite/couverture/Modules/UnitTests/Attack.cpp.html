@@ -51,7 +51,7 @@ namespace {
     return (valeur &gt;= 0 ? " + " : " - ") + std::to_string(valeur &gt;= 0 ? valeur : -valeur);
 }</span>
 
-/// Distance entre deux emprises carrees : l'ecart sur chaque axe, puis le plus grand des deux.
+// Distance entre deux emprises carrees : l'ecart sur chaque axe, puis le plus grand des deux.
 [[nodiscard]] int ecartEntreEmprises(GridPosition a, int coteA, GridPosition b,
 <span style = "background-color:#dfd">                                     int coteB) noexcept {
     const int dx =</span>
@@ -60,14 +60,14 @@ namespace {
     return std::max(dx, dy);
 }</span>
 
-/// Une portee du corpus en cases, arrondie vers le bas : 24 m font 16 cases, 7,50 m en font 5. La
-/// marge evite de perdre une case sur l'arrondi d'une division par 1,5.
+// Une portee du corpus en cases, arrondie vers le bas : 24 m font 16 cases, 7,50 m en font 5. La
+// marge evite de perdre une case sur l'arrondi d'une division par 1,5.
 <span style = "background-color:#dfd">[[nodiscard]] int casesDePortee(float metres) noexcept {
     return static_cast&lt;int&gt;(std::floor(tilesFromMeters(metres) + 1e-4F));
 }</span>
 
-/// Les portees d'une arme ou d'une action, si la donnee en porte une. Une portee unique fait deux
-/// nombres egaux.
+// Les portees d'une arme ou d'une action, si la donnee en porte une. Une portee unique fait deux
+// nombres egaux.
 [[nodiscard]] std::optional&lt;AttackRange&gt; porteeDe(std::optional&lt;float&gt; normale,
 <span style = "background-color:#dfd">                                                  std::optional&lt;float&gt; longue) {
     if (!normale.has_value() || casesDePortee(*normale) &lt;= 0) {
@@ -278,17 +278,6 @@ AttackCircumstances attackCircumstances(const CombatState&amp; combat, Combatant
     for (const Modifier&amp; modificateur : check.modifiers) {
         check.total += modificateur.value;
     }
-}</span>
-
-<span style = "background-color:#fdd">void AttackRoll::reroll(std::size_t die, DeterministicRandom&amp; random, const std::string&amp; source) {
-    if (die &gt;= check.dice.size()) {
-        return;</span>
-    }
-<span style = "background-color:#fdd">    const int avant = check.dice[die];
-    check.dice[die] = random.nextInt(1, D20_FACES);
-    amendments.push_back("relance (" + source + ") : " + std::to_string(avant) + " -&gt; " +</span>
-                         std::to_string(check.dice[die]));
-<span style = "background-color:#fdd">    recompute();
 }</span>
 
 <span style = "background-color:#dfd">void AttackRoll::substitute(std::size_t die, int value, const std::string&amp; source) {

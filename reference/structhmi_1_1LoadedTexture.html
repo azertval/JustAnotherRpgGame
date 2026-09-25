@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -160,7 +160,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Texture GPU chargée (RAII). </p>
-<p>Le pointeur est <b>partagé</b> et non exclusif : le cache de textures (<span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Crée et conserve les textures des marqueurs d&#39;entité, une par clé d&#39;asset.">hmi::TextureCache</a></span>) range ses entrées dans un registre qui les copie, et une même texture peut être servie à plusieurs consommateurs le temps d'une image. </p>
+<p>Le pointeur est <b>partagé</b> et non exclusif : les propriétaires de textures (<span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas procédurale et table de régions de tuiles (EX-REN-041/EX-REN-042).">hmi::TextureAtlas</a></span>, les bibliothèques de textures des rendus de scène) copient la structure dans leurs tables, et une même texture peut être servie à plusieurs consommateurs le temps d'une image. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="abc3c97ef24fe096e5429fcdb7b5e3d5e" name="abc3c97ef24fe096e5429fcdb7b5e3d5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc3c97ef24fe096e5429fcdb7b5e3d5e">&#9670;&#160;</a></span>handle()</h2>

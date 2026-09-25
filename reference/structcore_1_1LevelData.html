@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -165,7 +165,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af291e15302ce8b84dffc3b8b625b2ec5" id="r_af291e15302ce8b84dffc3b8b625b2ec5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af291e15302ce8b84dffc3b8b625b2ec5">nextEntityId</a> = 1</td></tr>
 <tr class="memdesc:af291e15302ce8b84dffc3b8b625b2ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prochain identifiant d'entité à donner (décision D8) : un compteur écrit dans la carte, pour qu'un identifiant retiré ne soit <b>jamais</b> redonné à une autre entité.  <br /></td></tr>
 <tr class="memitem:a5871ca36b16a3d283d1b8b121e9f51f7" id="r_a5871ca36b16a3d283d1b8b121e9f51f7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5871ca36b16a3d283d1b8b121e9f51f7">base</a> {}</td></tr>
-<tr class="memdesc:a5871ca36b16a3d283d1b8b121e9f51f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">coliseum</span>, <span class="tt">capital/martpart</span>) ; vide pour une carte ordinaire.  <br /></td></tr>
+<tr class="memdesc:a5871ca36b16a3d283d1b8b121e9f51f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">central-empire/capital/martpart</span>) ; vide pour une carte ordinaire.  <br /></td></tr>
 <tr class="memitem:aea7675282327908b0da89291a4634567" id="r_aea7675282327908b0da89291a4634567"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aea7675282327908b0da89291a4634567">scene</a> {}</td></tr>
 <tr class="memdesc:aea7675282327908b0da89291a4634567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Planche que la variante substitue à celle de sa base ; vide pour la garder.  <br /></td></tr>
 <tr class="memitem:a62d8fc26f11eb3238b326422abca7cb4" id="r_a62d8fc26f11eb3238b326422abca7cb4"><td class="memItemLeft"><a class="el" href="namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a>&#160;</td><td class="memItemRight"><a class="el" href="#a62d8fc26f11eb3238b326422abca7cb4">properties</a> {}</td></tr>
@@ -192,7 +192,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">coliseum</span>, <span class="tt">capital/martpart</span>) ; vide pour une carte ordinaire. </p>
+<p>Carte dont celle-ci est une <b>variante</b> (décision D12), par son identifiant (<span class="tt">central-empire/capital/martpart</span>) ; vide pour une carte ordinaire. </p>
 <p>Une variante ne porte ni case ni couche : elle reprend celles de sa base, change de planche (<span class="tt"><a class="el" href="#aea7675282327908b0da89291a4634567" title="Planche que la variante substitue à celle de sa base ; vide pour la garder.">scene</a></span>) et porte ses propres entités (<span class="tt"><a class="el" href="namespacecore.html#a6c2bfc6a4265b0a8fc867461e1c61137" title="La carte que joue une variante : les cases, couches, collision et entrée de base, les entités et le n...">core::applyVariant</a></span>). </p>
 
 </div>

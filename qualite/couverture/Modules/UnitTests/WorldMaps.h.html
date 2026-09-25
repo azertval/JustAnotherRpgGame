@@ -70,7 +70,6 @@ struct RegionMap {
     std::vector&lt;MapLabel&gt; labels;
 };
 
-/// Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numÃ©rotÃ©s.
 /**
  * @brief La grille d'une carte **rendue** sur son image (`LOT-121`) : le point de grille (c, r)
  *        â la case c couvre [c, c + 1] â est en `origin + c Ã column + r Ã row`, en fractions de
@@ -103,7 +102,8 @@ struct MapZone {
 
 /**
  * @brief La vue d'un **quartier** sur le plan de sa ville (`LOT-96`) : le plan agrandi sur `frame`
- *        tant qu'il n'a pas de carte ; sa carte sinon â peinte, ou rendue avec sa grille (`LOT-121`).
+ *        tant qu'il n'a pas de carte ; sa carte sinon â peinte, ou rendue avec sa grille
+ * (`LOT-121`).
  */
 struct MapDistrict {
     MapFrame frame;
@@ -115,6 +115,11 @@ struct MapDistrict {
     std::map&lt;std::string, MapZone&gt; zones;  ///&lt; Identifiant (dossier) â sous-zone.
 };
 
+/**
+ * @brief Le plan d'une ville, tel que `world-maps.json` le dÃ©crit : ses quartiers (lieux de
+ *        l'atlas, `places` et `districts`), ses lieux numÃ©rotÃ©s hors atlas (`sites`) et ses noms de
+ *        gÃ©ographie (`labels`).
+ */
 struct CityMap {
     std::string image;
     std::map&lt;std::string, MapPoint&gt; places;

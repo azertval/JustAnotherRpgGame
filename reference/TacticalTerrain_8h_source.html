@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -195,20 +195,20 @@ $(function(){initNavTree('TacticalTerrain_8h_source.html','',''); });
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49">   87</a></span>    std::vector&lt;GridPosition&gt; <a class="code hl_variable" href="structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49">area</a>;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c">   89</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c">requiredCells</a> = 0;</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86">   91</a></span>    std::vector&lt;TacticalIssue&gt; <a class="code hl_variable" href="structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86">issues</a>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b">   93</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b">valid</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86">issues</a>.empty();</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b">   94</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b">valid</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1EncounterTerrain.html#ad8e5f1e7ab0bf6b1e84fe8bec6649d86">issues</a>.empty();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
 </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>};</div>
 </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>[[nodiscard]] std::vector&lt;EncounterTerrain&gt; <a class="code hl_function" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d">analyzeEncounterTerrain</a>(</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keyword">const</span> TileMap&amp; collision, <span class="keyword">const</span> std::vector&lt;MapEntity&gt;&amp; entities,</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">const</span> EncounterCatalog&amp; encounters, <span class="keyword">const</span> Bestiary* bestiary = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}  <span class="comment">// namespace core</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>[[nodiscard]] std::vector&lt;EncounterTerrain&gt; <a class="code hl_function" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d">analyzeEncounterTerrain</a>(</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">const</span> TileMap&amp; collision, <span class="keyword">const</span> std::vector&lt;MapEntity&gt;&amp; entities,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">const</span> EncounterCatalog&amp; encounters, <span class="keyword">const</span> Bestiary* bestiary = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}  <span class="comment">// namespace core</span></div>
 <div class="ttc" id="aEncounter_8h_html"><div class="ttname"><a href="Encounter_8h.html">Encounter.h</a></div><div class="ttdoc">Une rencontre : qui se dresse, et où, quand le combat s&#39;engage (LOT-18, EX-CBT-001).</div></div>
 <div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
 <div class="ttc" id="aMapEntity_8h_html"><div class="ttname"><a href="MapEntity_8h.html">MapEntity.h</a></div><div class="ttdoc">Entité placée sur une carte : PNJ, coffre, panneau, portail, déclencheur (LOT-04).</div></div>
@@ -227,7 +227,7 @@ $(function(){initNavTree('TacticalTerrain_8h_source.html','',''); });
 <div class="ttc" id="astructcore_1_1EncounterTerrain_html"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a></div><div class="ttdoc">Le verdict d&#39;une rencontre posée sur la carte.</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:78</div></div>
 <div class="ttc" id="astructcore_1_1EncounterTerrain_html_a07fb595a26960eb83d7bacf09c5e9157"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#a07fb595a26960eb83d7bacf09c5e9157">core::EncounterTerrain::entityIndex</a></div><div class="ttdeci">std::size_t entityIndex</div><div class="ttdoc">Rang de l&#39;entité dans la liste d&#39;entités de la carte.</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:80</div></div>
 <div class="ttc" id="astructcore_1_1EncounterTerrain_html_a23d341ad3dfba1935194702c54bff5b8"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#a23d341ad3dfba1935194702c54bff5b8">core::EncounterTerrain::encounterId</a></div><div class="ttdeci">std::string encounterId</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:81</div></div>
-<div class="ttc" id="astructcore_1_1EncounterTerrain_html_a4ace2a9deabbd8f2bc8e6841ddb5f70b"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b">core::EncounterTerrain::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:93</div></div>
+<div class="ttc" id="astructcore_1_1EncounterTerrain_html_a4ace2a9deabbd8f2bc8e6841ddb5f70b"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#a4ace2a9deabbd8f2bc8e6841ddb5f70b">core::EncounterTerrain::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Vrai si aucun défaut n&#39;a été relevé : le terrain accueille le combat tel quel.</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:94</div></div>
 <div class="ttc" id="astructcore_1_1EncounterTerrain_html_a64f0614a716067a9ee0ca62779e350b1"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#a64f0614a716067a9ee0ca62779e350b1">core::EncounterTerrain::trigger</a></div><div class="ttdeci">GridPosition trigger</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:82</div></div>
 <div class="ttc" id="astructcore_1_1EncounterTerrain_html_a7614e9aa096c732e22f64825a8d10a0c"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#a7614e9aa096c732e22f64825a8d10a0c">core::EncounterTerrain::requiredCells</a></div><div class="ttdeci">int requiredCells</div><div class="ttdoc">(combattants + TACTICAL_PARTY_SIZE) × TACTICAL_CELLS_PER_COMBATANT.</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:89</div></div>
 <div class="ttc" id="astructcore_1_1EncounterTerrain_html_ab2634718fb5dc07721e57d657e016f49"><div class="ttname"><a href="structcore_1_1EncounterTerrain.html#ab2634718fb5dc07721e57d657e016f49">core::EncounterTerrain::area</a></div><div class="ttdeci">std::vector&lt; GridPosition &gt; area</div><div class="ttdoc">Cases libres atteignables depuis le déclencheur, déclencheur compris, triées (ligne,...</div><div class="ttdef"><b>Definition</b> TacticalTerrain.h:87</div></div>

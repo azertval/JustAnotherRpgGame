@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('classhmi_1_1GamepadPoller.html','','classhmi_1_1Gamepa
 </div><!--header-->
 <div class="contents">
 
-<p>Sonde la manette (XInput, joueur 0) et fusionne son état dans un <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span>.  
+<p>Sonde la manette (XInput, joueur 0) et verse son état dans un <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des boutons de la manette à un relevé, avec détection des fronts (pressé / relâché).">InputState</a></span>.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="GamepadPoller_8h_source.html">GamepadPoller.h</a>&gt;</code></p>
@@ -151,7 +151,7 @@ $(function(){initNavTree('classhmi_1_1GamepadPoller.html','','classhmi_1_1Gamepa
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1ba7adb75dea62a30fca7a207dc79868" id="r_a1ba7adb75dea62a30fca7a207dc79868"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1ba7adb75dea62a30fca7a207dc79868">poll</a> (<a class="el" href="classhmi_1_1InputState.html">InputState</a> &amp;input)</td></tr>
-<tr class="memdesc:a1ba7adb75dea62a30fca7a207dc79868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonde la manette et met à jour <code class="param">input</code> (piste <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> + piste <span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span> brute).  <br /></td></tr>
+<tr class="memdesc:a1ba7adb75dea62a30fca7a207dc79868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonde la manette et met à jour <code class="param">input</code> (état par <span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span> et connexion).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -161,8 +161,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae33c922e03ea961b2b1a3bc5630f47f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instant du dernier sondage XInput effectif ; l'époque tant qu'aucun n'a eu lieu, pour que le tout premier appel sonde immédiatement.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Sonde la manette (XInput, joueur 0) et fusionne son état dans un <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span>. </p>
-<p>Alimente deux pistes indépendantes du même relevé : la fusion clavier/manette sur <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> (<span class="tt">onGamepadKeyDown</span>/<span class="tt">onGamepadKeyUp</span>, fixe, navigation de menu — aucune touche clavier n'est écrasée) et l'état brut par <span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span> (remappable via <span class="tt">GamepadBindings</span>, <span class="tt">EX-CTRL-002</span>).</p>
+<div class="textblock"><p>Sonde la manette (XInput, joueur 0) et verse son état dans un <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des boutons de la manette à un relevé, avec détection des fronts (pressé / relâché).">InputState</a></span>. </p>
+<p>Alimente l'état par <span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span> (<span class="tt">onGamepadButtonDown</span>/<span class="tt">onGamepadButtonUp</span>, <span class="tt">EX-CTRL-002</span>) : le D-pad et le stick gauche fusionnés en quatre directions, les quatre boutons et les deux gâchettes hautes. C'est cet état que <span class="tt"><a class="el" href="classhmi_1_1GamepadNavigator.html" title="La manette pour un écran Qt Quick : chaque appui devient un signal nommé (LOT-24).">hmi::GamepadNavigator</a></span> traduit en noms de boutons pour les écrans.</p>
 <p>Objet <b>à état</b> (dernier état de connexion + horodatage du dernier sondage), à appeler <b>une fois par frame</b> avant que la logique ne consomme les entrées. Le sondage est espacé tant que la manette reste déconnectée (<span class="tt"><a class="el" href="namespacehmi.html#aa68d5419b15fd65eb0cbe477f135f642" title="Faut-il re-sonder XInput maintenant ?">hmi::gamepadProbeDue</a></span>).</p>
 <p>Extrait de l'ancienne fenêtre Win32 pour être utilisé par le viewport Qt, sans dépendre d'aucune fenêtre. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
@@ -181,7 +181,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sonde la manette et met à jour <code class="param">input</code> (piste <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">Key</a></span> + piste <span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span> brute). </p>
+<p>Sonde la manette et met à jour <code class="param">input</code> (état par <span class="tt"><a class="el" href="namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span> et connexion). </p>
 
 </div>
 </div>

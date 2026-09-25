@@ -137,21 +137,21 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>maps.ok()</code> est vrai.</li><li>Vérifie que <code>district.image</code> vaut <code>&quot;Regions/r/t/a/Map/a.jpg&quot;</code>.</li><li>Vérifie que <code>district.grid.has_value()</code> est vrai.</li><li>Vérifie que <code>point.x</code> vaut <code>0.5 + (2 * 0.02) - 0.02</code> (comparaison flottante).</li><li>Vérifie que <code>point.y</code> vaut <code>0.1 + (2 * 0.025) + 0.025</code> (comparaison flottante).</li><li>Vérifie que <code>district.zones.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>zone.name</code> vaut <code>&quot;La crypte&quot;</code>.</li><li>Vérifie que <code>zone.entrance.x</code> vaut <code>23.0</code> (comparaison flottante).</li><li>Vérifie que <code>zone.entrance.y</code> vaut <code>6.0</code> (comparaison flottante).</li><li>Vérifie que <code>zone.grid.has_value()</code> est vrai.</li><li>Vérifie que <code>gridless.ok()</code> est faux.</li><li>Vérifie que <code>gridless.error.find(&quot;grid&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>doorless.ok()</code> est faux.</li><li>Vérifie que <code>doorless.error.find(&quot;entrance&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="worldmapstestjointurerangeleslieux">WorldMapsTest.JointureRangeLesLieux</h3>
-<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:153</code></p>
+<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:154</code></p>
 <p>Une région montre ses lieux posés puis les autres, sans les entrées écartées ni les quartiers d'une ville.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Joindre un atlas de quatre lieux (une règle, un lieu sans position, une ville à plan, son quartier) au fichier minimal.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>maps.ok()</code> est vrai.</li><li>Vérifie que <code>mismatches.empty()</code> est vrai.</li><li>Vérifie que <code>views.regions.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>places.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>places[0].id</code> vaut <code>&quot;a-town&quot;</code>.</li><li>Vérifie que <code>places[0].placed</code> est vrai.</li><li>Vérifie que <code>places[0].hasCityMap</code> est vrai.</li><li>Vérifie que <code>places[1].id</code> vaut <code>&quot;a-hidden&quot;</code>.</li><li>Vérifie que <code>places[1].placed</code> est faux.</li><li>Vérifie que <code>views.cities.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>points.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>points[0].id</code> vaut <code>&quot;a-town-market&quot;</code>.</li><li>Vérifie que <code>points[0].number</code> vaut <code>1</code>.</li><li>Vérifie que <code>points[1].name</code> vaut <code>&quot;Harbour&quot;</code>.</li><li>Vérifie que <code>points[1].number</code> vaut <code>3</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="worldmapstestecartsnommes">WorldMapsTest.EcartsNommes</h3>
-<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:190</code></p>
+<p><em>Majeur · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:191</code></p>
 <p>Une carte sans région, une région sans carte et une position étrangère sont signalées.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Joindre au fichier minimal, qui ne connaît que la région <code>a</code>, un atlas dont la seule région est <code>b</code>.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>views.regions.empty()</code> est vrai.</li><li>Vérifie que <code>views.cities.empty()</code> est vrai.</li><li>Vérifie que <code>mismatches.size()</code> est supérieur ou égal à <code>3U</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="worldmapstestatlaslivreentierementcartographie">WorldMapsTest.AtlasLivreEntierementCartographie</h3>
-<p><em>Critique · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:216</code></p>
+<p><em>Critique · Unitaire · Carte</em> — <code>Source/Test/Unit/HMI/Presentation/test_world_maps.cpp:217</code></p>
 <p>Les treize régions de l'atlas ont leur carte, et chaque position désigne un lieu de sa région.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger l'atlas livré et <code>Source/Elements/Maps/world-maps.json</code>.</li><li>Joindre les deux.</li><li>Chercher l'image de chaque carte sous <code>Source/Elements/Assets/Maps/</code>.</li></ol>
@@ -159,7 +159,7 @@
 <ul><li>Vérifie que <code>atlas.errors.empty()</code> est vrai.</li><li>Vérifie que <code>maps.ok()</code> est vrai.</li><li>Vérifie que <code>views.regions.size()</code> vaut <code>atlas.regions.size()</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(images / views.worldImage)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::is_regular_file(images / region.image)</code> est vrai.</li><li>Vérifie que <code>views.cities.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(images / city.image)</code> est vrai.</li><li>Vérifie que <code>city.points.size()</code> vaut <code>12U</code>.</li><li>Vérifie que <code>region</code> diffère de <code>views.regions.end()</code>.</li><li>Vérifie que <code>place</code> diffère de <code>region-&gt;places.end()</code>.</li><li>Vérifie que <code>place-&gt;placed</code> est vrai.</li><li>Vérifie que <code>place-&gt;hasCityMap</code> est vrai.</li><li>Vérifie que <code>std::filesystem::is_regular_file(imageOf(point.district-&gt;image))</code> est vrai.</li><li>Vérifie que <code>zone.image.empty() || std::filesystem::is_regular_file(imageOf(zone.image))</code> est vrai.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-platform.html"><span>Précédent</span>HMI · Platform</a><a class="next" href="hmi-runtime.html"><span>Suivant</span>HMI · Runtime</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-presentation.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f5868d2b6</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f20d7a39f</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

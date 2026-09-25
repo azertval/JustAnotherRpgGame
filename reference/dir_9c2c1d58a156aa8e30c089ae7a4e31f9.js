@@ -1,13 +1,8 @@
 var dir_9c2c1d58a156aa8e30c089ae7a4e31f9 =
 [
     [ "test_animation_catalog.cpp", "test__animation__catalog_8cpp.html", "test__animation__catalog_8cpp" ],
-    [ "test_arena_animation_driver.cpp", "test__arena__animation__driver_8cpp.html", null ],
-    [ "test_arena_appearance_catalog.cpp", "test__arena__appearance__catalog_8cpp.html", "test__arena__appearance__catalog_8cpp" ],
-    [ "test_arena_scene_composer.cpp", "test__arena__scene__composer_8cpp.html", "test__arena__scene__composer_8cpp" ],
-    [ "test_arena_scene_renderer.cpp", "test__arena__scene__renderer_8cpp.html", "test__arena__scene__renderer_8cpp" ],
     [ "test_asset_gallery.cpp", "test__asset__gallery_8cpp.html", "test__asset__gallery_8cpp" ],
     [ "test_asset_gallery_renderer.cpp", "test__asset__gallery__renderer_8cpp.html", "test__asset__gallery__renderer_8cpp" ],
-    [ "test_cache_registry.cpp", "test__cache__registry_8cpp.html", "test__cache__registry_8cpp" ],
     [ "test_camera2d.cpp", "test__camera2d_8cpp.html", "test__camera2d_8cpp" ],
     [ "test_capital_kit_render.cpp", "test__capital__kit__render_8cpp.html", "test__capital__kit__render_8cpp" ],
     [ "test_city_block_render.cpp", "test__city__block__render_8cpp.html", "test__city__block__render_8cpp" ],

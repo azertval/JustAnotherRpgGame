@@ -204,12 +204,15 @@ public:
     /// @brief La grille de @p level, sur sa seule soliditÃ© statique.
     explicit BattleGrid(const Level&amp; level);
 
+    /// @brief Le nombre de colonnes de la grille.
 <span style = "background-color:#dfd">    [[nodiscard]] int width() const noexcept {
         return _width;
-    }
-    [[nodiscard]] int height() const noexcept {
+    }</span>
+    /// @brief Le nombre de lignes de la grille.
+<span style = "background-color:#dfd">    [[nodiscard]] int height() const noexcept {
         return _height;
     }</span>
+    /// @brief Vrai si @p cell est dans la grille : colonne et ligne positives, sous ses dimensions.
     [[nodiscard]] bool inBounds(GridPosition cell) const noexcept;
 
     /**

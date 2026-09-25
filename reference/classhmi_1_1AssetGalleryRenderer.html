@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -156,14 +156,19 @@ Classes</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4247fbacdadc0cbd7ec49d611ed65cc4" id="r_a4247fbacdadc0cbd7ec49d611ed65cc4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4247fbacdadc0cbd7ec49d611ed65cc4">AssetGalleryRenderer</a> (std::filesystem::path assetsRoot)</td></tr>
 <tr class="memitem:a43d8b339f5d8ec692920c22e97a6fb3e" id="r_a43d8b339f5d8ec692920c22e97a6fb3e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a43d8b339f5d8ec692920c22e97a6fb3e">~AssetGalleryRenderer</a> ()</td></tr>
+<tr class="memdesc:a43d8b339f5d8ec692920c22e97a6fb3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère ce qui reste de ressources GPU.  <br /></td></tr>
 <tr class="memitem:a8e411aa6108dd6b4af5211cb8fe36680" id="r_a8e411aa6108dd6b4af5211cb8fe36680"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8e411aa6108dd6b4af5211cb8fe36680">AssetGalleryRenderer</a> (const AssetGalleryRenderer &amp;)=delete</td></tr>
 <tr class="memitem:af7c13fa7f7572455de2b2c16cb92a5c2" id="r_af7c13fa7f7572455de2b2c16cb92a5c2"><td class="memItemLeft"><a class="el" href="#a4247fbacdadc0cbd7ec49d611ed65cc4">AssetGalleryRenderer</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af7c13fa7f7572455de2b2c16cb92a5c2">operator=</a> (const <a class="el" href="#a4247fbacdadc0cbd7ec49d611ed65cc4">AssetGalleryRenderer</a> &amp;)=delete</td></tr>
 <tr class="memitem:abaa47bce790e37485885888b08ef40f2" id="r_abaa47bce790e37485885888b08ef40f2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abaa47bce790e37485885888b08ef40f2">ensureResources</a> (QRhi *<a class="el" href="#a67a82faa46c76903a9c1239eee92851a">rhi</a>)</td></tr>
+<tr class="memdesc:abaa47bce790e37485885888b08ef40f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée les ressources sur <code class="param">rhi</code>, ou les recrée s'il a changé.  <br /></td></tr>
 <tr class="memitem:acc9f68287cca7a48d9fcd2e20182b106" id="r_acc9f68287cca7a48d9fcd2e20182b106"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acc9f68287cca7a48d9fcd2e20182b106">release</a> () noexcept</td></tr>
+<tr class="memdesc:acc9f68287cca7a48d9fcd2e20182b106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère toutes les ressources GPU, textures du cache comprises.  <br /></td></tr>
 <tr class="memitem:a34f193f3d31467bbfa0961aa01823b60" id="r_a34f193f3d31467bbfa0961aa01823b60"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a34f193f3d31467bbfa0961aa01823b60">created</a> () const noexcept</td></tr>
 <tr class="memitem:a67a82faa46c76903a9c1239eee92851a" id="r_a67a82faa46c76903a9c1239eee92851a"><td class="memItemLeft">QRhi *&#160;</td><td class="memItemRight"><a class="el" href="#a67a82faa46c76903a9c1239eee92851a">rhi</a> () const noexcept</td></tr>
 <tr class="memitem:acf5cf200df12641ed1d6eed10ec80456" id="r_acf5cf200df12641ed1d6eed10ec80456"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acf5cf200df12641ed1d6eed10ec80456">setFrame</a> (<a class="el" href="structhmi_1_1AssetGalleryFrame.html">AssetGalleryFrame</a> frame)</td></tr>
+<tr class="memdesc:acf5cf200df12641ed1d6eed10ec80456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reçoit l'image à dessiner : des valeurs, remises depuis <span class="tt">synchronize()</span>.  <br /></td></tr>
 <tr class="memitem:a28a2aa93b231f8ec4b09cb2a7a03f205" id="r_a28a2aa93b231f8ec4b09cb2a7a03f205"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205">render</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, float realDeltaSeconds, const float *clear)</td></tr>
+<tr class="memdesc:a28a2aa93b231f8ec4b09cb2a7a03f205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine l'image reçue sur <code class="param">target</code>, après avoir mis le cache à jour : au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd" title="Chargements de texture au plus par image.">UPLOADS_PER_FRAME</a></span> textures chargées, celles plus voulues depuis <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca" title="Délai avant de libérer une texture qui n&#39;est plus voulue.">EVICTION_SECONDS</a></span> libérées (<code class="param">realDeltaSeconds</code> les compte).  <br /></td></tr>
 <tr class="memitem:a807c85ffdf84b983c5b7151f6eaef7a8" id="r_a807c85ffdf84b983c5b7151f6eaef7a8"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a807c85ffdf84b983c5b7151f6eaef7a8">cachedTextureCount</a> () const noexcept</td></tr>
 <tr class="memitem:a0c52adee03770db5098d5136bcaf4ee5" id="r_a0c52adee03770db5098d5136bcaf4ee5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c52adee03770db5098d5136bcaf4ee5">loading</a> () const noexcept</td></tr>
 <tr class="memitem:a9569997284b46fc3f9a7fef223d05d3c" id="r_a9569997284b46fc3f9a7fef223d05d3c"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9569997284b46fc3f9a7fef223d05d3c">composed</a> () const noexcept</td></tr>
@@ -171,7 +176,9 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a278c3a154a2a3f62a34aeb9e57ad7cdd" id="r_a278c3a154a2a3f62a34aeb9e57ad7cdd"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd">UPLOADS_PER_FRAME</a> = 24</td></tr>
+<tr class="memdesc:a278c3a154a2a3f62a34aeb9e57ad7cdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chargements de texture au plus par image.  <br /></td></tr>
 <tr class="memitem:a53a4757f9e9ea0b09986c7271690a4ca" id="r_a53a4757f9e9ea0b09986c7271690a4ca"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca">EVICTION_SECONDS</a> = 2.0f</td></tr>
+<tr class="memdesc:a53a4757f9e9ea0b09986c7271690a4ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai avant de libérer une texture qui n'est plus voulue.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -193,10 +200,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dessine la galerie, et ne garde en mémoire que les textures voulues. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md91"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md81"></a>
 Le cache</h2>
-<p>Une texture voulue et absente est chargée, au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd">UPLOADS_PER_FRAME</a></span> par image : un grand saut de caméra étale ses chargements au lieu de figer une image. Une texture qui n'est plus voulue est libérée après <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca">EVICTION_SECONDS</a></span>, pour qu'un aller-retour de la vue ne la recharge pas. Un fichier illisible est retenu comme tel et dessiné en damier, sans nouvel essai à chaque image.</p>
-<p>Même cycle de vie que <span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span> : <span class="tt"><a class="el" href="#abaa47bce790e37485885888b08ef40f2">ensureResources</a></span> depuis <span class="tt">initialize()</span>, <span class="tt"><a class="el" href="#acf5cf200df12641ed1d6eed10ec80456">setFrame</a></span> depuis <span class="tt">synchronize()</span>, <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205">render</a></span> depuis <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205">render()</a></span>. </p>
+<p>Une texture voulue et absente est chargée, au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd" title="Chargements de texture au plus par image.">UPLOADS_PER_FRAME</a></span> par image : un grand saut de caméra étale ses chargements au lieu de figer une image. Une texture qui n'est plus voulue est libérée après <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca" title="Délai avant de libérer une texture qui n&#39;est plus voulue.">EVICTION_SECONDS</a></span>, pour qu'un aller-retour de la vue ne la recharge pas. Un fichier illisible est retenu comme tel et dessiné en damier, sans nouvel essai à chaque image.</p>
+<p>Même cycle de vie que <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> : <span class="tt"><a class="el" href="#abaa47bce790e37485885888b08ef40f2" title="Crée les ressources sur rhi, ou les recrée s&#39;il a changé.">ensureResources</a></span> depuis <span class="tt">initialize()</span>, <span class="tt"><a class="el" href="#acf5cf200df12641ed1d6eed10ec80456" title="Reçoit l&#39;image à dessiner : des valeurs, remises depuis synchronize().">setFrame</a></span> depuis <span class="tt">synchronize()</span>, <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205" title="Dessine l&#39;image reçue sur target, après avoir mis le cache à jour : au plus UPLOADS_PER_FRAME texture...">render</a></span> depuis <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205" title="Dessine l&#39;image reçue sur target, après avoir mis le cache à jour : au plus UPLOADS_PER_FRAME texture...">render()</a></span>. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4247fbacdadc0cbd7ec49d611ed65cc4" name="a4247fbacdadc0cbd7ec49d611ed65cc4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4247fbacdadc0cbd7ec49d611ed65cc4">&#9670;&#160;</a></span>AssetGalleryRenderer() <span class="overload">[1/2]</span></h2>
@@ -220,6 +227,12 @@ Le cache</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">assetsRoot</td><td>Racine des assets : les chemins des textures s'y rapportent. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -237,6 +250,8 @@ Le cache</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Libère ce qui reste de ressources GPU. </p>
 
 </div>
 </div>
@@ -339,6 +354,7 @@ Le cache</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La scène composée à la dernière image. </dd></dl>
 
 </div>
 </div>
@@ -364,6 +380,7 @@ Le cache</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si <span class="tt"><a class="el" href="#abaa47bce790e37485885888b08ef40f2" title="Crée les ressources sur rhi, ou les recrée s&#39;il a changé.">ensureResources</a></span> a réussi et que rien n'a été libéré depuis. </dd></dl>
 
 </div>
 </div>
@@ -381,6 +398,9 @@ Le cache</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Crée les ressources sur <code class="param">rhi</code>, ou les recrée s'il a changé. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vrai si le rendu peut dessiner. </dd></dl>
 
 </div>
 </div>
@@ -458,6 +478,8 @@ Le cache</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Libère toutes les ressources GPU, textures du cache comprises. </p>
+
 </div>
 </div>
 <a id="a28a2aa93b231f8ec4b09cb2a7a03f205" name="a28a2aa93b231f8ec4b09cb2a7a03f205"></a>
@@ -489,6 +511,9 @@ Le cache</h2>
       </table>
 </div><div class="memdoc">
 
+<p>Dessine l'image reçue sur <code class="param">target</code>, après avoir mis le cache à jour : au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd" title="Chargements de texture au plus par image.">UPLOADS_PER_FRAME</a></span> textures chargées, celles plus voulues depuis <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca" title="Délai avant de libérer une texture qui n&#39;est plus voulue.">EVICTION_SECONDS</a></span> libérées (<code class="param">realDeltaSeconds</code> les compte). </p>
+<p><code class="param">clear</code> est la couleur d'effacement (RGBA). </p>
+
 </div>
 </div>
 <a id="a67a82faa46c76903a9c1239eee92851a" name="a67a82faa46c76903a9c1239eee92851a"></a>
@@ -513,6 +538,7 @@ Le cache</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le <span class="tt">QRhi</span> sur lequel les ressources ont été créées, ou <span class="tt">nullptr</span>. </dd></dl>
 
 </div>
 </div>
@@ -530,6 +556,8 @@ Le cache</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reçoit l'image à dessiner : des valeurs, remises depuis <span class="tt">synchronize()</span>. </p>
 
 </div>
 </div>
@@ -799,6 +827,8 @@ Le cache</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Délai avant de libérer une texture qui n'est plus voulue. </p>
+
 </div>
 </div>
 <a id="a278c3a154a2a3f62a34aeb9e57ad7cdd" name="a278c3a154a2a3f62a34aeb9e57ad7cdd"></a>
@@ -820,6 +850,8 @@ Le cache</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Chargements de texture au plus par image. </p>
 
 </div>
 </div>

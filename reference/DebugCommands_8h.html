@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -182,7 +182,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les options de la ligne de commande du jeu, telles que la console de debug (<span class="tt">F9</span>) les rejoue — le catalogue, et l'analyse d'une ligne tapée. </p>
-<p>Le jeu lit ses options une par une dans <span class="tt"><a class="el" href="Game_2Main_8cpp.html" title="Point d&#39;entrée du jeu (JustAnotherRpgGame) — Qt Quick, sans un seul widget.">App/Game/Main.cpp</a></span> (<span class="tt"><a class="el" href="namespaceapp.html#a99e2262fe01e3479aadd450aab2579dc">app::commandLineOption</a></span>) ; rien ne les <b>listait</b>. La console de debug a besoin de la liste — pour l'aide, pour dire ce qui s'applique à chaud et ce qui exige un relancement — et d'un découpage de ce que l'on tape qui respecte les guillemets (un chemin avec espaces). Les deux vivent ici, sans Qt, pour que le catalogue se vérifie par un test et que la console n'ait qu'à le suivre.</p>
+<p>Le jeu lit ses options une par une dans <span class="tt"><a class="el" href="Game_2Main_8cpp.html">App/Game/Main.cpp</a></span> (<span class="tt"><a class="el" href="namespaceapp.html#a99e2262fe01e3479aadd450aab2579dc">app::commandLineOption</a></span>) ; rien ne les <b>listait</b>. La console de debug a besoin de la liste — pour l'aide, pour dire ce qui s'applique à chaud et ce qui exige un relancement — et d'un découpage de ce que l'on tape qui respecte les guillemets (un chemin avec espaces). Les deux vivent ici, sans Qt, pour que le catalogue se vérifie par un test et que la console n'ait qu'à le suivre.</p>
 <p>Un nom d'option écrit ici et pas dans <span class="tt">Main.cpp</span> — ou l'inverse — est une divergence, et le test du catalogue la relève sur les noms que <span class="tt">Main.cpp</span> lit. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

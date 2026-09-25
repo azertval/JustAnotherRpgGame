@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -170,6 +170,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:ac32e49e3c58599f9004eb3bb6a69ba3e" id="r_ac32e49e3c58599f9004eb3bb6a69ba3e"><td class="memItemLeft">QML_ELEMENTint&#160;</td><td class="memItemRight"><a class="el" href="#ac32e49e3c58599f9004eb3bb6a69ba3e">column</a></td></tr>
+<tr class="memdesc:ac32e49e3c58599f9004eb3bb6a69ba3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La colonne de l'écran que cette instance sert (<span class="tt">0</span> ou <span class="tt">1</span>) : <span class="tt"><a class="el" href="#a068637f059cf148bf43a58754d36fb48">sections</a></span> se relit quand elle change.  <br /></td></tr>
 <tr class="memitem:a18eff1f54dc1d81747e5863bad20fb6e" id="r_a18eff1f54dc1d81747e5863bad20fb6e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a18eff1f54dc1d81747e5863bad20fb6e">language</a></td></tr>
 <tr class="memitem:a068637f059cf148bf43a58754d36fb48" id="r_a068637f059cf148bf43a58754d36fb48"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a068637f059cf148bf43a58754d36fb48">sections</a></td></tr>
 </table><table class="memberdecls">
@@ -185,7 +186,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une colonne de l'écran des crédits : ses sections, dans la langue courante. </p>
-<p>Le jumeau en pose deux (<span class="tt"><a class="el" href="#ac32e49e3c58599f9004eb3bb6a69ba3e">column</a>: 0</span> et <span class="tt"><a class="el" href="#ac32e49e3c58599f9004eb3bb6a69ba3e">column</a>: 1</span>) et lie <span class="tt"><a class="el" href="#a18eff1f54dc1d81747e5863bad20fb6e">language</a></span> à <span class="tt"><a class="el" href="classhmi_1_1OptionsModel.html" title="Vue-modèle des options : lit et persiste les réglages, et publie leur changement.">OptionsModel</a></span> : un changement de langue relit les titres et les rôles. Le fichier est embarqué dans la ressource (<span class="tt">:/jadg/credits/credits.json</span>) : des attributions obligatoires ne dépendent pas d'un fichier posé à côté de l'exécutable, qu'un déploiement pourrait oublier.</p>
+<p>Le jumeau en pose deux (<span class="tt"><a class="el" href="#ac32e49e3c58599f9004eb3bb6a69ba3e" title="La colonne de l&#39;écran que cette instance sert (0 ou 1) : sections se relit quand elle change.">column</a>: 0</span> et <span class="tt"><a class="el" href="#ac32e49e3c58599f9004eb3bb6a69ba3e" title="La colonne de l&#39;écran que cette instance sert (0 ou 1) : sections se relit quand elle change.">column</a>: 1</span>) et lie <span class="tt"><a class="el" href="#a18eff1f54dc1d81747e5863bad20fb6e">language</a></span> à <span class="tt"><a class="el" href="classhmi_1_1OptionsModel.html" title="Vue-modèle des options : lit et persiste les réglages, et publie leur changement.">OptionsModel</a></span> : un changement de langue relit les titres et les rôles. Le fichier est embarqué dans la ressource (<span class="tt">:/jadg/credits/credits.json</span>) : des attributions obligatoires ne dépendent pas d'un fichier posé à côté de l'exécutable, qu'un déploiement pourrait oublier.</p>
 <p><span class="tt"><a class="el" href="#a068637f059cf148bf43a58754d36fb48">sections</a></span> est une <b>liste de tables</b>, et non un <span class="tt">QAbstractListModel</span> : un <span class="tt">Repeater</span> la lit par <span class="tt">modelData</span>, et un modèle de liste déclaré type QML obligerait le registrar à enregistrer sa classe de base (voir <span class="tt"><a class="el" href="classhmi_1_1SheetRowModel.html" title="Liste de lignes libellé/valeur, pour un Repeater ou une ListView.">SheetRowModel</a></span>). Chaque section porte <span class="tt">sectionId</span>, <span class="tt">title</span>, <span class="tt">iconKey</span> (<span class="tt">ui/icon/credits-section/&lt;id&gt;</span>) et <span class="tt">lines</span>, chaque ligne <span class="tt">role</span> et <span class="tt">names</span> (un nom par ligne). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2597bbca7a8fbfea055661fb058fc9cd" name="a2597bbca7a8fbfea055661fb058fc9cd"></a>
@@ -460,6 +461,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>La colonne de l'écran que cette instance sert (<span class="tt">0</span> ou <span class="tt">1</span>) : <span class="tt"><a class="el" href="#a068637f059cf148bf43a58754d36fb48">sections</a></span> se relit quand elle change. </p>
 
 </div>
 </div>

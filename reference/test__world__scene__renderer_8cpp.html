@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>), hors écran : cycle de vie des ressources, cadrage qui suit le héros, et une vraie image de la carte <b>livrée</b>. </p>
-<p>Jumeau de <span class="tt"><a class="el" href="test__arena__scene__renderer_8cpp.html" title="Le rendu QRhi de la scène du Colisée (LOT-86 Phase 5), hors écran : cycle de vie des ressources et un...">test_arena_scene_renderer.cpp</a></span>, et pour la même raison : <span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span> n'est qu'un hôte Qt Quick, et tout ce qui peut fuir ou planter vit dans <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>. Ce test le fait tourner sur un <span class="tt">QRhi</span> Direct3D 11 sans fenêtre, sur le donjon d'essai tel qu'il est commité — c'est la <b>capture de référence</b> du lot : elle est écrite à côté des captures de l'arène, pour être relue à l'œil. </p>
+<p>Jumeau de <span class="tt">test_arena_scene_renderer.cpp</span>, et pour la même raison : <span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span> n'est qu'un hôte Qt Quick, et tout ce qui peut fuir ou planter vit dans <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>. Ce test le fait tourner sur un <span class="tt">QRhi</span> Direct3D 11 sans fenêtre, sur le donjon d'essai tel qu'il est commité — c'est la <b>capture de référence</b> du lot : elle est écrite à côté des captures de l'arène, pour être relue à l'œil. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a131c4f464cb97cca92a1881bb3302081" name="a131c4f464cb97cca92a1881bb3302081"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a131c4f464cb97cca92a1881bb3302081">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>

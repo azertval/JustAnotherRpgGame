@@ -15,7 +15,6 @@
 #pragma once
 
 #include &lt;cstdint&gt;
-#include &lt;filesystem&gt;
 #include &lt;functional&gt;
 #include &lt;map&gt;
 #include &lt;memory&gt;
@@ -49,8 +48,15 @@
  * Tout ce qui est ici est du `Core` pur : une carte (`core::Level`), une composition
  * (`core::ArenaBout`), et une session (`core::ArenaSession`) qui tient la machine Ã  Ã©tats du
  * combat (`core::CombatState`, `LOT-20`) sur la grille de la carte (`core::BattleGrid`, `LOT-19`).
- * Rien ne dÃ©pend d'une fenÃªtre : l'Ã©cran de mise en place (`hmi::ArenaModel`) ne fait que
- * prÃ©senter et commander.
+ * Rien ne dÃ©pend d'une fenÃªtre : le modÃ¨le de prÃ©sentation du combat (`hmi::CombatModel`) ne fait
+ * que prÃ©senter et commander.
+ *
+ * Le **catalogue d'arÃ¨nes** (une donnÃ©e par variante rÃ©gionale, dans un dossier du monde) et
+ * l'Ã©cran de mise en place du ColisÃ©e ont Ã©tÃ© retirÃ©s Ã  la recette de la 0.0.1, le 25 septembre
+ * 2026 : aucune arÃ¨ne ne vit dans `Source/Elements`. La composition vient dÃ©sormais de la
+ * **rencontre de carte** (`core::prepareMapEncounter`, `hmi::EncounterModel`), qui monte cette
+ * session sur la zone de combat d'une carte, aux points d'entrÃ©e que la carte dÃ©clare
+ * (`core::arenaEntryPoints`).
  *
  * ## Les attaques du Manuel
  *
@@ -94,70 +100,6 @@ struct ArenaEntryPoint {
  */
 [[nodiscard]] std::vector&lt;ArenaEntryPoint&gt; arenaEntryPoints(const Level&amp; level);
 
-/// @brief Un rÃ´le de Marque HÃ©roÃ¯que : huit, tabulÃ©s par le Sourcebook.
-struct HeroicMark {
-    std::string id;
-    std::string name;
-    std::string text;
-};
-
-/// @brief Les huit Marques, et ce qui n'a pas pu Ãªtre lu.
-struct HeroicMarkCatalog {
-    std::vector&lt;HeroicMark&gt; marks;
-    std::vector&lt;std::string&gt; errors;
-
-    [[nodiscard]] const HeroicMark* find(std::string_view id) const;
-};
-
-/// @brief Charge les Marques HÃ©roÃ¯ques (`Source/Elements/Rpg/rules/heroic-marks.json`).
-[[nodiscard]] HeroicMarkCatalog loadHeroicMarks(const std::filesystem::path&amp; file);
-
-/**
- * @brief Une arÃ¨ne, telle que la donnÃ©e la dÃ©crit (`Source/Elements/World/arena/`).
- *
- * Les variantes rÃ©gionales du Sourcebook â l'ArÃ¨ne du Futur non lÃ©tale, Feargus la lÃ©tale, les
- * Braves des dÃ©butants, le duel de baguettes de la Magocratie â sont des **donnÃ©es**, pas des
- * modes : ce qui les distingue tient dans trois champs.
- */
-struct Arena {
-    std::string id;
-    std::string name;
-    std::string source;
-    /// RÃ©gion de l'atlas (`LOT-37`) oÃ¹ l'arÃ¨ne se tient.
-    std::string region;
-    /// Lieu de l'atlas (`LOT-37`) oÃ¹ l'arÃ¨ne se tient, plus prÃ©cis que la rÃ©gion : le quartier
-    /// d'Arenarea, dans la Capitale impÃ©riale. Vide si la relecture ne l'a pas encore Ã©tabli.
-    std::string location;
-    /// Nom du fichier de carte dans `Source/Elements/Levels/`, vide si l'arÃ¨ne n'a pas encore de
-    /// carte : elle existe dans le monde, pas encore comme lieu jouable.
-    std::string map;
-    /// Nom de la **zone de combat** de cette carte (`core::CombatZone`, `LOT-09`) : l'arÃ¨ne joue
-    /// sur elle, et non sur la carte entiÃ¨re â le ColisÃ©e est un lieu, et l'on ne se bat que sur
-    /// son sable. Vide : la carte entiÃ¨re est la grille, comme au `LOT-50`.
-    std::string zone;
-    /// Vrai si l'on y meurt. Faux par dÃ©faut : c'est la rÃ¨gle des ArÃ¨nes, et une arÃ¨ne lÃ©tale est
-    /// l'exception Ã©crite dans la donnÃ©e.
-    bool lethal = false;
-    /// Vrai si le rituel de Marque HÃ©roÃ¯que s'y pratique : les combattants sont relevÃ©s Ã  la fin,
-    /// et disposent de la troisiÃ¨me Ã©conomie d'action.
-    bool heroicMark = true;
-    /// Vrai si la **prise en tenaille**, rÃ¨gle optionnelle du *Guide du MaÃ®tre*, s'y joue
-    /// (`core::isFlanked`). Faux par dÃ©faut : une rÃ¨gle optionnelle s'active, elle ne se prÃ©sume
-    /// pas.
-    bool flanking = false;
-};
-
-/// @brief Le catalogue des arÃ¨nes, et ce qui n'a pas pu Ãªtre lu.
-struct ArenaCatalog {
-    std::vector&lt;Arena&gt; arenas;
-    std::vector&lt;std::string&gt; errors;
-
-    [[nodiscard]] const Arena* find(std::string_view id) const;
-};
-
-/// @brief Charge les arÃ¨nes d'un dossier â un fichier JSON par arÃ¨ne, balayÃ© et triÃ©.
-[[nodiscard]] ArenaCatalog loadArenas(const std::filesystem::path&amp; directory);
-
 /// @brief Un combattant tel que l'Ã©cran de mise en place le compose.
 struct ArenaContestant {
     /// Le profil, classe d'armure et affinitÃ©s comprises.
@@ -166,7 +108,8 @@ struct ArenaContestant {
     std::vector&lt;AttackProfile&gt; attacks;
     /// Case demandÃ©e, ou absente : le prochain point d'entrÃ©e libre de son camp.
     std::optional&lt;GridPosition&gt; position;
-    /// RÃ´le de Marque HÃ©roÃ¯que revendiquÃ© (`core::HeroicMark::id`), ou vide.
+    /// RÃ´le de Marque HÃ©roÃ¯que revendiquÃ© (un identifiant de `Rpg/rules/heroic-marks.json`), ou
+    /// vide.
     std::string markId;
     /// Le profil de comportement qui le joue (`core::BehaviorProfile::id`, `LOT-23`), ou vide
     /// pour un combattant que le joueur commande.
@@ -179,7 +122,8 @@ struct ArenaBout {
     std::uint64_t seed = 0;
     bool lethal = false;
     bool heroicMark = true;
-    /// La prise en tenaille du *Guide du MaÃ®tre* (`core::Arena::flanking`).
+    /// La prise en tenaille, rÃ¨gle optionnelle du *Guide du MaÃ®tre* (`core::isFlanked`). Fausse par
+    /// dÃ©faut : une rÃ¨gle optionnelle s'active, elle ne se prÃ©sume pas.
 <span style = "background-color:#dfd">    bool flanking = false;</span>
     /// Vrai si l'on peut se retirer : toujours au ColisÃ©e ; sur la carte, ce que la rencontre dit
     /// (`core::Encounter::escapable`, `LOT-118`).
@@ -272,8 +216,9 @@ public:
     /// @return La machine Ã  Ã©tats du combat, montÃ©e ou non.
 <span style = "background-color:#dfd">    [[nodiscard]] CombatState&amp; combat() noexcept {
         return *_combat;
-    }
-    [[nodiscard]] const CombatState&amp; combat() const noexcept {
+    }</span>
+    /// @brief La machine Ã  Ã©tats du combat, en lecture seule.
+<span style = "background-color:#dfd">    [[nodiscard]] const CombatState&amp; combat() const noexcept {
         return *_combat;
     }</span>
 
@@ -289,15 +234,6 @@ public:
 
     /// @return Les attaques d'un combattant enrÃ´lÃ©, ou `nullptr`.
     [[nodiscard]] const std::vector&lt;AttackProfile&gt;* attacks(CombatantId combatant) const;
-
-    /// @return Les greffons des jets d'attaque de la session, pour qu'une capacitÃ© s'y insÃ¨re.
-    [[nodiscard]] AttackHooks&amp; attackHooks() noexcept {
-        return _attackHooks;
-    }
-    /// @return Le pipeline de dÃ©gÃ¢ts de la session.
-    [[nodiscard]] DamagePipeline&amp; damagePipeline() noexcept {
-        return _damagePipeline;
-    }
 
     /**
      * @brief L'action *attaquer* du combattant actif, avec son attaque @p attackIndex.
@@ -348,6 +284,8 @@ public:
      * Il survit au rejeu, dont les identifiants sont les mÃªmes. Vrai par dÃ©faut.
      */
     void setTakesOpportunities(CombatantId combatant, bool takes);
+    /// @brief Vrai si @p combatant prend ses attaques d'opportunitÃ© (le dÃ©faut) ; faux s'il y a
+    /// renoncÃ©.
 <span style = "background-color:#dfd">    [[nodiscard]] bool takesOpportunities(CombatantId combatant) const {
         return !_declinesOpportunities.contains(combatant);
     }</span>

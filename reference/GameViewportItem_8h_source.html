@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -158,8 +158,8 @@ $(function(){initNavTree('GameViewportItem_8h_source.html','',''); });
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classhmi_1_1GameViewportItem.html">   47</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1GameViewportItem.html#ac717188f8114f329f3c959ec2debdd35">GameViewportItem</a> : <span class="keyword">public</span> QQuickRhiItem {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    Q_OBJECT</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// Nommé pour le QML, où le suffixe `Item` n&#39;apprendrait rien : tout y est un élément. La classe</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// C++ le garde, comme `ArenaViewportItem` et `WorldViewportItem` : c&#39;est la classe</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// `QQuickRhiItem`, pas l&#39;élément QML.</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// C++ le garde, comme `WorldViewportItem` : c&#39;est la classe `QQuickRhiItem`, pas l&#39;élément</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// QML.</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    QML_NAMED_ELEMENT(GameViewport)</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    </div>
@@ -188,10 +188,10 @@ $(function(){initNavTree('GameViewportItem_8h_source.html','',''); });
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}  <span class="comment">// namespace hmi</span></div>
 <div class="ttc" id="aclasshmi_1_1GameViewportItem_html_a127c42d7f8e5427edd5524401727fda9"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#a127c42d7f8e5427edd5524401727fda9">hmi::GameViewportItem::clearColor</a></div><div class="ttdeci">QColor clearColor</div><div class="ttdoc">Couleur d&#39;effacement.</div><div class="ttdef"><b>Definition</b> GameViewportItem.h:56</div></div>
 <div class="ttc" id="aclasshmi_1_1GameViewportItem_html_a181b8b170d7d395efa77d4987d776be6"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#a181b8b170d7d395efa77d4987d776be6">hmi::GameViewportItem::_clearColor</a></div><div class="ttdeci">QColor _clearColor</div><div class="ttdoc">Parchemin vieilli, jusqu&#39;à ce que le QML en décide.</div><div class="ttdef"><b>Definition</b> GameViewportItem.h:72</div></div>
-<div class="ttc" id="aclasshmi_1_1GameViewportItem_html_a8e25b08e0f547d9dbb0e2f0f6c29d013"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#a8e25b08e0f547d9dbb0e2f0f6c29d013">hmi::GameViewportItem::createRenderer</a></div><div class="ttdeci">QQuickRhiItemRenderer * createRenderer() override</div><div class="ttdef"><b>Definition</b> GameViewportItem.cpp:78</div></div>
+<div class="ttc" id="aclasshmi_1_1GameViewportItem_html_a8e25b08e0f547d9dbb0e2f0f6c29d013"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#a8e25b08e0f547d9dbb0e2f0f6c29d013">hmi::GameViewportItem::createRenderer</a></div><div class="ttdeci">QQuickRhiItemRenderer * createRenderer() override</div><div class="ttdef"><b>Definition</b> GameViewportItem.cpp:76</div></div>
 <div class="ttc" id="aclasshmi_1_1GameViewportItem_html_aa53e3abe1f4bb811d50ded4ad059a2de"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#aa53e3abe1f4bb811d50ded4ad059a2de">hmi::GameViewportItem::clearColorChanged</a></div><div class="ttdeci">void clearColorChanged()</div></div>
-<div class="ttc" id="aclasshmi_1_1GameViewportItem_html_ab7f1cfc236bc30ca6b9a01c434958109"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#ab7f1cfc236bc30ca6b9a01c434958109">hmi::GameViewportItem::setClearColor</a></div><div class="ttdeci">void setClearColor(const QColor &amp;color)</div><div class="ttdef"><b>Definition</b> GameViewportItem.cpp:69</div></div>
-<div class="ttc" id="aclasshmi_1_1GameViewportItem_html_ac717188f8114f329f3c959ec2debdd35"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#ac717188f8114f329f3c959ec2debdd35">hmi::GameViewportItem::GameViewportItem</a></div><div class="ttdeci">GameViewportItem(QQuickItem *parent=nullptr)</div><div class="ttdef"><b>Definition</b> GameViewportItem.cpp:67</div></div>
+<div class="ttc" id="aclasshmi_1_1GameViewportItem_html_ab7f1cfc236bc30ca6b9a01c434958109"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#ab7f1cfc236bc30ca6b9a01c434958109">hmi::GameViewportItem::setClearColor</a></div><div class="ttdeci">void setClearColor(const QColor &amp;color)</div><div class="ttdef"><b>Definition</b> GameViewportItem.cpp:67</div></div>
+<div class="ttc" id="aclasshmi_1_1GameViewportItem_html_ac717188f8114f329f3c959ec2debdd35"><div class="ttname"><a href="classhmi_1_1GameViewportItem.html#ac717188f8114f329f3c959ec2debdd35">hmi::GameViewportItem::GameViewportItem</a></div><div class="ttdeci">GameViewportItem(QQuickItem *parent=nullptr)</div><div class="ttdef"><b>Definition</b> GameViewportItem.cpp:65</div></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

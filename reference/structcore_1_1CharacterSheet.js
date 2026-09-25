@@ -1,7 +1,6 @@
 var structcore_1_1CharacterSheet =
 [
     [ "ability", "structcore_1_1CharacterSheet.html#a108c1b3e24bb31cb5a940dcb3ef17ea1", null ],
-    [ "isDown", "structcore_1_1CharacterSheet.html#a2e02cda70505003379223fc63a4fe9d3", null ],
     [ "modifier", "structcore_1_1CharacterSheet.html#a7630295f7d3f3aae393329eb9843e811", null ],
     [ "speedInTiles", "structcore_1_1CharacterSheet.html#a40356a4a6954a5f575f2956fcddda652", null ],
     [ "abilities", "structcore_1_1CharacterSheet.html#ae057f2c7a4e57eb368fd0c0b006dcaf1", null ],

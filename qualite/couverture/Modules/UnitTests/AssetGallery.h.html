@@ -71,7 +71,7 @@ struct AssetGalleryEntry {
     int anchorY = -1;</span>
     /// Largeur d'une case, en pixels d'art : le losange que dÃ©clare le manifeste (`tile`) ; 0 s'il
     /// n'en dÃ©clare pas, et la forme se suppose d'une case de large (`tileWidthPixels`).
-<span style = "background-color:#fdd">    int tilePixels = 0;</span>
+    int tilePixels = 0;
 
     /// @return La largeur d'une case en pixels d'art, jamais nulle.
 <span style = "background-color:#dfd">    [[nodiscard]] int tileWidthPixels() const noexcept {
@@ -120,6 +120,8 @@ struct AssetGalleryCatalog {
     std::vector&lt;AssetGalleryFamily&gt; families;
     std::vector&lt;std::string&gt; errors;
 
+    /// @brief Lit les manifestes sous @p assetsRoot (PNJ, monstres, scÃ¨nes, arbre des assets) ; un
+    ///        manifeste illisible s'ajoute Ã  `errors`.
     [[nodiscard]] static AssetGalleryCatalog load(const std::filesystem::path&amp; assetsRoot);
 
     /// @return Le nombre total de formes.
@@ -210,6 +212,8 @@ struct AssetGalleryView {
 /// Ãpaisseur de l'anneau de prÃ©chargement, en cases : un bloc ordinaire.
 inline constexpr double ASSET_GALLERY_RING_CELLS = 3.0;
 
+/// @return Ce que devient @p bloc pour la vue @p view : dessinÃ© s'il la touche, prÃ©chargÃ© s'il est
+///         dans l'anneau de @p ringCells cases autour d'elle, libÃ©rÃ© au-delÃ .
 [[nodiscard]] AssetGalleryVisibility assetGalleryVisibility(
     const AssetGalleryBloc&amp; bloc, const AssetGalleryView&amp; view,
     double ringCells = ASSET_GALLERY_RING_CELLS) noexcept;

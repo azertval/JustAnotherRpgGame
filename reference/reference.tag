@@ -373,7 +373,6 @@
     <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
     <includes id="Flanking_8h" name="Flanking.h" local="yes" import="no" module="no" objc="no">Core/Combat/Flanking.h</includes>
-    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
     <namespace>core</namespace>
   </compound>
@@ -390,10 +389,6 @@
     <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
     <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
     <class kind="struct">core::ArenaEntryPoint</class>
-    <class kind="struct">core::HeroicMark</class>
-    <class kind="struct">core::HeroicMarkCatalog</class>
-    <class kind="struct">core::Arena</class>
-    <class kind="struct">core::ArenaCatalog</class>
     <class kind="struct">core::ArenaContestant</class>
     <class kind="struct">core::ArenaBout</class>
     <class kind="struct">core::ArenaMount</class>
@@ -3513,8 +3508,8 @@
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
-    <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
+    <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4226,130 +4221,12 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>AnimationCatalog_8h.html</filename>
     <includes id="AnimationClip_8h" name="AnimationClip.h" local="yes" import="no" module="no" objc="no">Core/Ecs/AnimationClip.h</includes>
-    <includes id="Animation_8h" name="Animation.h" local="yes" import="no" module="no" objc="no">Core/Ecs/Components/Animation.h</includes>
     <includes id="Sprite_8h" name="Sprite.h" local="yes" import="no" module="no" objc="no">Core/Ecs/Components/Sprite.h</includes>
     <includes id="AssetContract_8h" name="AssetContract.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AssetContract.h</includes>
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <class kind="struct">hmi::AnimationDescription</class>
     <class kind="struct">hmi::AnimationDescriptionResult</class>
     <class kind="class">hmi::AnimationCatalog</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaAnimationDriver.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaAnimationDriver_8cpp.html</filename>
-    <includes id="ArenaAnimationDriver_8h" name="ArenaAnimationDriver.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAnimationDriver.h</includes>
-    <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaAnimationDriver.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaAnimationDriver_8h.html</filename>
-    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
-    <includes id="AnimationClip_8h" name="AnimationClip.h" local="yes" import="no" module="no" objc="no">Core/Ecs/AnimationClip.h</includes>
-    <includes id="ArenaAnimationState_8h" name="ArenaAnimationState.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAnimationState.h</includes>
-    <class kind="struct">hmi::ArenaFigureAnimationSet</class>
-    <class kind="struct">hmi::ArenaFigureAnimationLoad</class>
-    <class kind="struct">hmi::ArenaCombatantAnimation</class>
-    <class kind="class">hmi::ArenaAnimationDriver</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaAnimationState.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaAnimationState_8h.html</filename>
-    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
-    <class kind="struct">hmi::ArenaFigureAnimation</class>
-    <class kind="struct">hmi::ArenaAnimationState</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaAppearanceCatalog.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaAppearanceCatalog_8cpp.html</filename>
-    <includes id="ArenaAppearanceCatalog_8h" name="ArenaAppearanceCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAppearanceCatalog.h</includes>
-    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
-    <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaAppearanceCatalog.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaAppearanceCatalog_8h.html</filename>
-    <includes id="TurnOrder_8h" name="TurnOrder.h" local="yes" import="no" module="no" objc="no">Core/Combat/TurnOrder.h</includes>
-    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
-    <class kind="struct">hmi::ArenaTileAppearance</class>
-    <class kind="struct">hmi::FigureAppearance</class>
-    <class kind="class">hmi::ArenaAppearanceCatalog</class>
-    <class kind="struct">hmi::ArenaAppearanceCatalogResult</class>
-    <namespace>core</namespace>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaSceneComposer.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaSceneComposer_8cpp.html</filename>
-    <includes id="ArenaSceneComposer_8h" name="ArenaSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneComposer.h</includes>
-    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
-    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
-    <includes id="ArenaAnimationState_8h" name="ArenaAnimationState.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAnimationState.h</includes>
-    <includes id="ArenaAppearanceCatalog_8h" name="ArenaAppearanceCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAppearanceCatalog.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaSceneComposer.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaSceneComposer_8h.html</filename>
-    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
-    <includes id="TurnOrder_8h" name="TurnOrder.h" local="yes" import="no" module="no" objc="no">Core/Combat/TurnOrder.h</includes>
-    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
-    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
-    <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
-    <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
-    <class kind="struct">hmi::ArenaSceneTextures</class>
-    <class kind="struct">hmi::ArenaFigureSnapshot</class>
-    <class kind="struct">hmi::ArenaSceneSnapshot</class>
-    <namespace>core</namespace>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaSceneRenderer.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaSceneRenderer_8cpp.html</filename>
-    <includes id="ArenaSceneRenderer_8h" name="ArenaSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneRenderer.h</includes>
-    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
-    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
-    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
-    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
-    <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
-    <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
-    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
-    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
-    <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
-    <includes id="SpriteRenderer_8h" name="SpriteRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteRenderer.h</includes>
-    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>ArenaSceneRenderer.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>ArenaSceneRenderer_8h.html</filename>
-    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
-    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
-    <includes id="ArenaAnimationDriver_8h" name="ArenaAnimationDriver.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAnimationDriver.h</includes>
-    <includes id="ArenaAppearanceCatalog_8h" name="ArenaAppearanceCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAppearanceCatalog.h</includes>
-    <includes id="ArenaSceneComposer_8h" name="ArenaSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneComposer.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
-    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
-    <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
-    <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
-    <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
-    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
-    <class kind="class">hmi::ArenaSceneRenderer</class>
-    <namespace>core</namespace>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4406,13 +4283,6 @@
     <class kind="struct">hmi::AssetGalleryFrame</class>
     <class kind="class">hmi::AssetGalleryRenderer</class>
     <class kind="struct">hmi::AssetGalleryRenderer::CachedTexture</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>CacheRegistry.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>CacheRegistry_8h.html</filename>
-    <class kind="class">hmi::CacheRegistry</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4658,7 +4528,6 @@
     <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
     <includes id="TextureAtlas_8h" name="TextureAtlas.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureAtlas.h</includes>
-    <includes id="TextureCache_8h" name="TextureCache.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureCache.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4766,26 +4635,6 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>TextureAtlasRegions_8cpp.html</filename>
     <includes id="TextureAtlas_8h" name="TextureAtlas.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureAtlas.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>TextureCache.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>TextureCache_8cpp.html</filename>
-    <includes id="TextureCache_8h" name="TextureCache.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureCache.h</includes>
-    <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
-    <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
-    <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>TextureCache.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>TextureCache_8h.html</filename>
-    <includes id="CacheRegistry_8h" name="CacheRegistry.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/CacheRegistry.h</includes>
-    <includes id="RhiContext_8h" name="RhiContext.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiContext.h</includes>
-    <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
-    <class kind="class">hmi::TextureCache</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5154,20 +5003,9 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
-    <name>RpgScreens.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Presentation/</path>
-    <filename>RpgScreens_8cpp.html</filename>
-    <includes id="RpgScreens_8h" name="RpgScreens.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/RpgScreens.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
     <name>RpgScreens.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Presentation/</path>
     <filename>RpgScreens_8h.html</filename>
-    <class kind="struct">hmi::RpgField</class>
-    <class kind="struct">hmi::RpgContentBlock</class>
-    <class kind="struct">hmi::RpgScreenLayout</class>
-    <class kind="struct">hmi::RpgScreenDescriptor</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5481,14 +5319,12 @@
     <includes id="InventoryScreen_8h" name="InventoryScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/InventoryScreen.h</includes>
     <includes id="InventoryValues_8h" name="InventoryValues.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/InventoryValues.h</includes>
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
-    <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
     <name>InventoryModel.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>InventoryModel_8h.html</filename>
-    <includes id="SheetRowModel_8h" name="SheetRowModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/SheetRowModel.h</includes>
     <class kind="class">hmi::InventoryModel</class>
     <namespace>hmi</namespace>
   </compound>
@@ -5996,8 +5832,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__arena_8cpp.html</anchorfile>
-      <anchor>a3e2fd143bc856dd83da6de8462eed21f</anchor>
-      <arglist>(ArenaTest, LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps)</arglist>
+      <anchor>a4526cb664a9176c133a8cb9bfeb0e9ee</anchor>
+      <arglist>(ArenaTest, LaCarteDEssaiAccueilleLesDeuxCamps)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9161,15 +8997,15 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__dialogue_8cpp.html</anchorfile>
-      <anchor>ae280330d00f736bf1d1d3b1a1a1fb0e8</anchor>
-      <arglist>(DialogueTest, LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent)</arglist>
+      <anchor>a6900b55e1012da89ade747d127041736</anchor>
+      <arglist>(DialogueTest, LesDialoguesDeLaDemoSeChargentEtLeursReferencesExistent)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>TEST</name>
       <anchorfile>test__dialogue_8cpp.html</anchorfile>
-      <anchor>a20a289d2fdef0602a96513ebabdd436f</anchor>
-      <arglist>(DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless)</arglist>
+      <anchor>a6008caa59015d6722f5f76231dae3760</anchor>
+      <arglist>(DialogueTest, LeDialogueDuHerautDEssaiSeParcourtEnHeadless)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -12128,256 +11964,6 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>test_arena_animation_driver.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
-    <filename>test__arena__animation__driver_8cpp.html</filename>
-    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
-    <includes id="AnimationClip_8h" name="AnimationClip.h" local="yes" import="no" module="no" objc="no">Core/Ecs/AnimationClip.h</includes>
-    <includes id="ArenaAnimationDriver_8h" name="ArenaAnimationDriver.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAnimationDriver.h</includes>
-  </compound>
-  <compound kind="file">
-    <name>test_arena_appearance_catalog.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
-    <filename>test__arena__appearance__catalog_8cpp.html</filename>
-    <includes id="TurnOrder_8h" name="TurnOrder.h" local="yes" import="no" module="no" objc="no">Core/Combat/TurnOrder.h</includes>
-    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
-    <includes id="ArenaAppearanceCatalog_8h" name="ArenaAppearanceCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAppearanceCatalog.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a7ff241077c6b322270f72c0ce0c89a57</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LectureDeReference)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a4357337ca2f4c5153b7aa5892a68ac3b</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, ChampsInvalidesRefuses)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a7ba89c5a688a50ea8e4e3775bf62defa</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LesAnglesPortentUneColonne)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>aa9d2e57a6cf0cbe3a2213f4ed2b0fdec</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LaBanniereTousLesCinqPas)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a7c9c63bcf99e9644c63db2f2558dc83a</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LaTorcheTousLesQuatrePas)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>aec91f3c5fcc847d82c46a882eed84897</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LaPorteEstSurLeBordSeulement)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a02c0a8594af3c1047182e8796cd30b24</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LaDalleSuitLaFormuleQml)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a80df3307fa4535a48644b19cf27e7ccd</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LaFigurineEstDeterministeEtDependDuCote)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>ada6d394b57a7d9e05fc76721fb96a4a1</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LaFigurineSuitLaFormuleQml)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>af0dfb2e8584f0c80fcabdabbde082f6f</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, NomVideRendLaPremiereFigurine)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a6e45acf7d5d35017a1e08d510fc77782</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, ManifesteDUnKitValide)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a944b77b4b4765556b9d996780a087cdd</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, UnHerosRemplaceLitSesBandesAilleurs)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__appearance__catalog_8cpp.html</anchorfile>
-      <anchor>a7f2150ce29bcfa746f83e21ae72640d6</anchor>
-      <arglist>(ArenaAppearanceCatalogTest, LeManifesteDesPnjRemplaceLesHerosNommes)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_arena_scene_composer.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
-    <filename>test__arena__scene__composer_8cpp.html</filename>
-    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
-    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
-    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
-    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
-    <includes id="ArenaAnimationState_8h" name="ArenaAnimationState.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAnimationState.h</includes>
-    <includes id="ArenaAppearanceCatalog_8h" name="ArenaAppearanceCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaAppearanceCatalog.h</includes>
-    <includes id="ArenaSceneComposer_8h" name="ArenaSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneComposer.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>afe1a8bccedf6bcaa27c1a4c3823b5c30</anchor>
-      <arglist>(ArenaSceneComposerTest, NombreDeQuadsParCalque)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>ad6e90140f99bbe44f9f95a5757b09017</anchor>
-      <arglist>(ArenaSceneComposerTest, OrdreDesCalques)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>a147af953e557db9e85d976aee831d7ee</anchor>
-      <arglist>(ArenaSceneComposerTest, ProfondeurAuPiedDeLaCase)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>ae533211d0c9497564b873cfb19a91bda</anchor>
-      <arglist>(ArenaSceneComposerTest, LeDecorSePoseParSonAncreDansLeBonSens)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>abea85dc04ecc94a5e796fa2f00a0f869</anchor>
-      <arglist>(ArenaSceneComposerTest, ATerreEtSorti)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>a9e6f594cc4bd9340b991dbaf7c28e79c</anchor>
-      <arglist>(ArenaSceneComposerTest, ImageCouranteBornee)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>a8f6825967b3a03979238c24ec994a013</anchor>
-      <arglist>(ArenaSceneComposerTest, RepliSurLeDamier)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>a7641693fce548b7ce0a7acbfb2880d7d</anchor>
-      <arglist>(ArenaSceneComposerTest, LectureSeule)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>ab11f3c6a0f1e6e1f31abfa853ae1d91f</anchor>
-      <arglist>(ArenaSceneComposerTest, InstantaneSurvitALaSession)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>a1fa1637e956446f1baaeb908bc5bf80e</anchor>
-      <arglist>(ArenaSceneComposerTest, ListeDesTexturesCouvreLaComposition)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST_F</name>
-      <anchorfile>test__arena__scene__composer_8cpp.html</anchorfile>
-      <anchor>a8a772977936705339436c0d1d8ea5cb5</anchor>
-      <arglist>(ArenaSceneComposerTest, UneFigurineDeRemplacementSuitSaPropreDecoupe)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_arena_scene_renderer.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
-    <filename>test__arena__scene__renderer_8cpp.html</filename>
-    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
-    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
-    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
-    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
-    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
-    <includes id="ArenaSceneComposer_8h" name="ArenaSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneComposer.h</includes>
-    <includes id="ArenaSceneRenderer_8h" name="ArenaSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ArenaSceneRenderer.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__scene__renderer_8cpp.html</anchorfile>
-      <anchor>acb25b0dcd66a83d9c6690557afa911be</anchor>
-      <arglist>(ArenaSceneRendererTest, CreationLiberationRecreation)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__scene__renderer_8cpp.html</anchorfile>
-      <anchor>aa8fbbe669c3e7626536d64c7cc091e76</anchor>
-      <arglist>(ArenaSceneRendererTest, SceneNonVideSurUneGrilleDeTest)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__scene__renderer_8cpp.html</anchorfile>
-      <anchor>a3f9ddbcb8461476fcc77bc6def80939b</anchor>
-      <arglist>(ArenaSceneRendererTest, RecreationSurUneAutreInterface)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__scene__renderer_8cpp.html</anchorfile>
-      <anchor>a1d1e199350bae91f3015d2cea3326666</anchor>
-      <arglist>(ArenaSceneRendererTest, LeCadrageRameneChaqueCaseAElleMeme)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__scene__renderer_8cpp.html</anchorfile>
-      <anchor>a81e781957ca6a1b515b8db60521c1da3</anchor>
-      <arglist>(ArenaSceneRendererTest, CaptureDeLArenePourRelecture)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__arena__scene__renderer_8cpp.html</anchorfile>
-      <anchor>a8d706f32106bba41436ca30d6b347d5a</anchor>
-      <arglist>(ArenaSceneRendererTest, LeCombatUtiliseLeDecorEtLesDepartsDeLaZone)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
     <name>test_asset_gallery.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__asset__gallery_8cpp.html</filename>
@@ -12471,47 +12057,6 @@
       <anchorfile>test__asset__gallery__renderer_8cpp.html</anchorfile>
       <anchor>a854872e5b4f97f22500960900e2788a0</anchor>
       <arglist>(AssetGalleryRendererTest, ChargementsEtalesEtFichierAbsent)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_cache_registry.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
-    <filename>test__cache__registry_8cpp.html</filename>
-    <includes id="CacheRegistry_8h" name="CacheRegistry.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/CacheRegistry.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__cache__registry_8cpp.html</anchorfile>
-      <anchor>aba94f9483d34acdd908dcb3b9677c918</anchor>
-      <arglist>(CacheRegistryTest, ChargeUneSeuleFoisPourUneCleRepetee)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__cache__registry_8cpp.html</anchorfile>
-      <anchor>a1863fab6e2fd799860e610095a76796a</anchor>
-      <arglist>(CacheRegistryTest, InvalidateForceLeRechargementDeLaCleSeule)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__cache__registry_8cpp.html</anchorfile>
-      <anchor>a26ae8ec96a1c683a9547df1221e72087</anchor>
-      <arglist>(CacheRegistryTest, InvalidateAllViseTout)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__cache__registry_8cpp.html</anchorfile>
-      <anchor>aa981daf9fdafbaff6859fe19f8a612a2</anchor>
-      <arglist>(CacheRegistryTest, UnEchecEstMemoriseSansRetenterLeChargement)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__cache__registry_8cpp.html</anchorfile>
-      <anchor>a59ae9b80b6adb85ac15972c576ae0027</anchor>
-      <arglist>(CacheRegistryTest, InvalidateSurUnEchecPermetUnNouvelEssai)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13588,83 +13133,6 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a45cf3dc465b7f8ead7c72522f7ac8198</anchor>
-      <arglist>(InputStateTest, FrontMontantClavier)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a81215d1d3cac78f80bac142dacc0b34c</anchor>
-      <arglist>(InputStateTest, MaintienClavier)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a59ca224b39b7856470d0747f7900b16b</anchor>
-      <arglist>(InputStateTest, FrontDescendantClavier)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>af9db81acd915bcdeb71f1ac1fafc3185</anchor>
-      <arglist>(InputStateTest, TouchesIndependantes)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a9673354fc013b4ab816c4cdb8422855f</anchor>
-      <arglist>(InputStateTest, BoutonSouris)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>aed2efe7e5c68c8a62502bad7f424c558</anchor>
-      <arglist>(InputStateTest, PositionSouris)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a7efa418563f5fae1a48faf4078d6892f</anchor>
-      <arglist>(InputStateTest, MoletteAccumuleEtSeReinitialise)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>aa8e6d3ad41aa204883ebcd46b5406b41</anchor>
-      <arglist>(InputStateTest, CaracteresTapesAccumulesEtVides)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>ae57915787a98a32bfb0d9684be82e96a</anchor>
-      <arglist>(InputStateTest, ManetteSeuleActiveLaTouche)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a79c5319fd973997de0845a0a282b0284</anchor>
-      <arglist>(InputStateTest, ClavierEtManetteMemeToucheUnSeulFront)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>ae21cb188be633f1aa74cf4ce20725d0d</anchor>
-      <arglist>(InputStateTest, ManetteRelacheeNeMasquePasLeClavier)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
       <anchor>a3512d9ab97fdf0700f1ea9234f2f4ef3</anchor>
       <arglist>(InputStateTest, GamepadConnecteReecrasable)</arglist>
     </member>
@@ -13681,13 +13149,6 @@
       <anchorfile>test__input__state_8cpp.html</anchorfile>
       <anchor>a86f7359d38d8eed9cd0ce1118aebf948</anchor>
       <arglist>(InputStateTest, FrontDescendantBoutonManetteBrut)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a4244badb84b38bb1cc59f41f3b62e1e5</anchor>
-      <arglist>(InputStateTest, PisteBrutIndependanteDeLaFusionKey)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -13744,7 +13205,6 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Interface/</path>
     <filename>test__character__sheet__values_8cpp.html</filename>
     <includes id="CharacterSheetValues_8h" name="CharacterSheetValues.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/CharacterSheetValues.h</includes>
-    <includes id="RpgScreens_8h" name="RpgScreens.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/RpgScreens.h</includes>
     <member kind="function">
       <type></type>
       <name>TEST</name>
@@ -13779,13 +13239,6 @@
       <anchorfile>test__character__sheet__values_8cpp.html</anchorfile>
       <anchor>a965212c0b6c6298041161e81004290b0</anchor>
       <arglist>(CharacterSheetValuesTest, SansFicheAucuneValeurNEstProduite)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__character__sheet__values_8cpp.html</anchorfile>
-      <anchor>a8689118f74746b25646460d29980af45</anchor>
-      <arglist>(CharacterSheetValuesTest, ChaqueChampDeLaFicheEstAlimente)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13886,62 +13339,6 @@
       <anchorfile>test__identity__scale_8cpp.html</anchorfile>
       <anchor>a47ef3244eea364475985372d62cde169</anchor>
       <arglist>(IdentityScaleTest, UnePetiteFenetreGardeSonFacteur)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_rpg_screens.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Interface/</path>
-    <filename>test__rpg__screens_8cpp.html</filename>
-    <includes id="Localization_8h" name="Localization.h" local="yes" import="no" module="no" objc="no">HMI/Localization/Localization.h</includes>
-    <includes id="RpgScreens_8h" name="RpgScreens.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/RpgScreens.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>a10b420ce279b6fec3e03fb8168ac6098</anchor>
-      <arglist>(RpgScreensTest, LeCycleTraverseLesHuitEcrans)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>affccbc2c436e1fc05acce211ae22c131</anchor>
-      <arglist>(RpgScreensTest, LePasArriereEstLInverseDuPasAvant)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>ad59f398655a6d85d2f3b41e4b2f4252d</anchor>
-      <arglist>(RpgScreensTest, LaRegleDeSuperpositionEstCelleAttendue)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>a7daf0790fceed0f1f736e90f20755237</anchor>
-      <arglist>(RpgScreensTest, ChaqueEcranEstIdentifiableEtNonVide)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>abb5100f830f1401bbad0b10dcbf0719e</anchor>
-      <arglist>(RpgScreensTest, ChaqueBlocEstCoherentAvecSonGenre)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>a3685e660f3515b0529aaf86959588ed0</anchor>
-      <arglist>(RpgScreensTest, ChaqueCleDeLOssatureExisteDansLesDeuxLangues)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__rpg__screens_8cpp.html</anchorfile>
-      <anchor>ac7e6e9b1674b37179bb56560bb905bd8</anchor>
-      <arglist>(RpgScreensTest, LesIdentifiantsDeValeurSontUniquesParEcran)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14462,13 +13859,6 @@
       <anchor>ab4d62573855d3bc8e915704f51d54cbf</anchor>
       <arglist>(const AnimationDescription &amp;description, int frameSheetIndex)</arglist>
     </member>
-    <member kind="function" static="yes">
-      <type>static core::AtlasRegion</type>
-      <name>currentFrameRegion</name>
-      <anchorfile>classhmi_1_1AnimationCatalog.html</anchorfile>
-      <anchor>acaa3b6c738038d1eac95c8267c0e8979</anchor>
-      <arglist>(const AnimationDescription &amp;description, const core::Animation &amp;animation)</arglist>
-    </member>
     <member kind="variable" static="yes">
       <type>static constexpr int</type>
       <name>FORMAT_VERSION</name>
@@ -14627,348 +14017,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>core::Arena</name>
-    <filename>structcore_1_1Arena.html</filename>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>id</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>aa01a7c4e5ff4f09e615a81e9c5524a28</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>name</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>a3d3e9584fc1539f67a1e4bcebe8f2f58</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>source</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>ad4d692eb5c63a83d3f7fc4a36fb53967</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>region</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>a2010fc18af618e4eeb116842082bb2ba</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>location</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>a8b3831f24746eeef78dc451696f5261b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>map</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>a1731b51aadd03a1b441dbb669a04d6d8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>zone</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>a0b2ef682b0d58558aebdcb150a85bda5</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>lethal</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>a8478b7a828a592fc2e494a63a47521d9</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>heroicMark</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>ac94004109e28fd4008da32a510627f51</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>flanking</name>
-      <anchorfile>structcore_1_1Arena.html</anchorfile>
-      <anchor>adf0e533e88a5eec78428fb8aa968121a</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::ArenaAnimationDriver</name>
-    <filename>classhmi_1_1ArenaAnimationDriver.html</filename>
-    <member kind="function">
-      <type>void</type>
-      <name>setFigureAnimations</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>a6e02a2ac7e1db6ae563918305d15ebd6</anchor>
-      <arglist>(std::string sheet, ArenaFigureAnimationSet clips)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>play</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>ab18069f0e1c78a3e0e5644e817e2aa98</anchor>
-      <arglist>(core::CombatantId combatant, std::string_view sheet, ArenaFigureAction action)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>remove</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>a61780a83e7f365f3d0330f69b36f3eea</anchor>
-      <arglist>(core::CombatantId combatant)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>advance</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>a403fe6d04640d4ef69ca8e85cc5e0b2c</anchor>
-      <arglist>(float realDeltaSeconds)</arglist>
-    </member>
-    <member kind="function">
-      <type>ArenaAnimationState</type>
-      <name>snapshot</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>a05504cbeb0b0db4fd1e69bc6728ac407</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>ArenaFigureAction</type>
-      <name>actionOf</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>ad3b1d0fd3955e8f885f5151d6498ae08</anchor>
-      <arglist>(core::CombatantId combatant) const</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::map&lt; std::string, ArenaFigureAnimationSet, std::less&lt;&gt; &gt;</type>
-      <name>_figures</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>ac541bcbe9aaf56173fec76ba0dfd5fac</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::map&lt; core::CombatantId, ArenaCombatantAnimation &gt;</type>
-      <name>_states</name>
-      <anchorfile>classhmi_1_1ArenaAnimationDriver.html</anchorfile>
-      <anchor>ab9e3e9e315257626e558cc538b1f8102</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaAnimationState</name>
-    <filename>structhmi_1_1ArenaAnimationState.html</filename>
-    <member kind="function">
-      <type>int</type>
-      <name>frameOf</name>
-      <anchorfile>structhmi_1_1ArenaAnimationState.html</anchorfile>
-      <anchor>a50a852884cc1c12c0a8390e80d31dea2</anchor>
-      <arglist>(core::CombatantId combatant) const</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::map&lt; core::CombatantId, ArenaFigureAnimation &gt;</type>
-      <name>figures</name>
-      <anchorfile>structhmi_1_1ArenaAnimationState.html</anchorfile>
-      <anchor>a7f2620a409039cc1875b923ca34a2e26</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::ArenaAppearanceCatalog</name>
-    <filename>classhmi_1_1ArenaAppearanceCatalog.html</filename>
-    <member kind="function">
-      <type>ArenaTileAppearance</type>
-      <name>tileAppearance</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aa3ed42b73cf2574449ef73623919787a</anchor>
-      <arglist>(core::GridPosition cell, int columns, int rows, bool wall) const</arglist>
-    </member>
-    <member kind="function">
-      <type>FigureAppearance</type>
-      <name>figureFor</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a812c8e53901ec0f3616e180ebb923a60</anchor>
-      <arglist>(std::string_view name, core::CombatSide side) const</arglist>
-    </member>
-    <member kind="function">
-      <type>std::string</type>
-      <name>sheetDirectory</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a242d9d41756fd2d69f4bd783c223d609</anchor>
-      <arglist>(std::string_view sheet, core::CombatSide side) const</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>replaceHero</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>ab6b02ebc7d15780ebbd2463e23a8d785</anchor>
-      <arglist>(std::string_view hero, std::string directory)</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>applyNpcManifest</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a9dc3132538268945af654cd544ab813f</anchor>
-      <arglist>(const std::filesystem::path &amp;path)</arglist>
-    </member>
-    <member kind="function">
-      <type>const std::string &amp;</type>
-      <name>scene</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>adec363074f1314c0c5c150954c06ed63</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const std::vector&lt; std::string &gt; &amp;</type>
-      <name>heroes</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aac0e01f4a75f827056fcde0486e94970</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const std::vector&lt; std::string &gt; &amp;</type>
-      <name>gladiators</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a5a65215a2c570bee2905e867fe6e565f</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const std::vector&lt; std::string &gt; &amp;</type>
-      <name>paleSlabs</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aa37d1c44745446f26980ee570d84f526</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>heroFrames</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>acb7e8c905b598bab04a1c65e0b1c0e21</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>enemyFrames</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a4b484538e997620e36be580223a9d94f</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static ArenaAppearanceCatalogResult</type>
-      <name>loadFromString</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aa7e034719a6931f68257f340876874af</anchor>
-      <arglist>(std::string_view json)</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static ArenaAppearanceCatalogResult</type>
-      <name>loadFromFile</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aaafbef0722f6a29943192e6fd242a7a4</anchor>
-      <arglist>(const std::filesystem::path &amp;path)</arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr int</type>
-      <name>FORMAT_VERSION</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>ad092f238d7462994ad5a769f6e224ab6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function" protection="private" static="yes">
-      <type>static ArenaAppearanceCatalogResult</type>
-      <name>fromDocument</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a50f574b853e2e13b3d2c23c8846c23f3</anchor>
-      <arglist>(const core::JsonDocument &amp;document)</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::string</type>
-      <name>_scene</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a4c32bcc47dfa515b8acf71f40d1003c8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>_heroes</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>a631755e2317768443b91fc6f6eec2f75</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>_gladiators</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>ae59d275609c4d6e3359aba7648e9f53f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>_paleSlabs</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aaab61ea7744324821ebe4132523e94e2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
-      <name>_heroDirectories</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aec02ad6fe3c845d290e84c4f0ea66ed7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_heroFrames</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>ad3fbdb415594a1693d9d1e6eb9e5185b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_enemyFrames</name>
-      <anchorfile>classhmi_1_1ArenaAppearanceCatalog.html</anchorfile>
-      <anchor>aee452ce6cdf045b5dc4a1fcaee0eac08</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaAppearanceCatalogResult</name>
-    <filename>structhmi_1_1ArenaAppearanceCatalogResult.html</filename>
-    <member kind="function">
-      <type>bool</type>
-      <name>ok</name>
-      <anchorfile>structhmi_1_1ArenaAppearanceCatalogResult.html</anchorfile>
-      <anchor>a7c8cd02d0e8a12282e256ba2b924aaf6</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::optional&lt; ArenaAppearanceCatalog &gt;</type>
-      <name>catalog</name>
-      <anchorfile>structhmi_1_1ArenaAppearanceCatalogResult.html</anchorfile>
-      <anchor>a5a07ca2955c869942c75179b6b004557</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>error</name>
-      <anchorfile>structhmi_1_1ArenaAppearanceCatalogResult.html</anchorfile>
-      <anchor>a8eda5b7c92d9578ee0acd009a0ce9254</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>ArenaAppearanceError</type>
-      <name>errorCode</name>
-      <anchorfile>structhmi_1_1ArenaAppearanceCatalogResult.html</anchorfile>
-      <anchor>ac159783cd18af395b0532ae9f706fa51</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>core::ArenaAttack</name>
     <filename>structcore_1_1ArenaAttack.html</filename>
     <member kind="variable">
@@ -15029,77 +14077,6 @@
       <name>escapable</name>
       <anchorfile>structcore_1_1ArenaBout.html</anchorfile>
       <anchor>a4fc74d270fb452f5fd0c579a9d781e35</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>core::ArenaCatalog</name>
-    <filename>structcore_1_1ArenaCatalog.html</filename>
-    <member kind="function">
-      <type>const Arena *</type>
-      <name>find</name>
-      <anchorfile>structcore_1_1ArenaCatalog.html</anchorfile>
-      <anchor>a2cb416a682e8f9829539342b0dc5b4cc</anchor>
-      <arglist>(std::string_view id) const</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; Arena &gt;</type>
-      <name>arenas</name>
-      <anchorfile>structcore_1_1ArenaCatalog.html</anchorfile>
-      <anchor>a3479c7add533bdeb1ecf5975b72a9dbd</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>errors</name>
-      <anchorfile>structcore_1_1ArenaCatalog.html</anchorfile>
-      <anchor>aa5a4289e2488f0c96540e80388c6d44a</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaCombatantAnimation</name>
-    <filename>structhmi_1_1ArenaCombatantAnimation.html</filename>
-    <member kind="function">
-      <type>int</type>
-      <name>frame</name>
-      <anchorfile>structhmi_1_1ArenaCombatantAnimation.html</anchorfile>
-      <anchor>a80e80596868da1d7024bae3bb061a1b4</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>sheet</name>
-      <anchorfile>structhmi_1_1ArenaCombatantAnimation.html</anchorfile>
-      <anchor>a1b36c7a8ab8e2cf2eaf73a84a2ed1eb7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>ArenaFigureAction</type>
-      <name>action</name>
-      <anchorfile>structhmi_1_1ArenaCombatantAnimation.html</anchorfile>
-      <anchor>aab8af6d155b52bb2ffdbcec82287a133</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::shared_ptr&lt; const core::ClipSet &gt;</type>
-      <name>clips</name>
-      <anchorfile>structhmi_1_1ArenaCombatantAnimation.html</anchorfile>
-      <anchor>a71e2e86bfb7435625a3a08281094298d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>frameIndex</name>
-      <anchorfile>structhmi_1_1ArenaCombatantAnimation.html</anchorfile>
-      <anchor>a917880fd9be9c3d64af15643cadffb91</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>float</type>
-      <name>elapsed</name>
-      <anchorfile>structhmi_1_1ArenaCombatantAnimation.html</anchorfile>
-      <anchor>a68b15323af2ee3a4384ff6bb13d36cfd</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -15175,148 +14152,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>hmi::ArenaFigureAnimation</name>
-    <filename>structhmi_1_1ArenaFigureAnimation.html</filename>
-    <member kind="variable">
-      <type>int</type>
-      <name>frame</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimation.html</anchorfile>
-      <anchor>a04912d2fa48a38d6dc6cf316dd8ab708</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaFigureAnimationLoad</name>
-    <filename>structhmi_1_1ArenaFigureAnimationLoad.html</filename>
-    <member kind="variable">
-      <type>ArenaFigureAnimationSet</type>
-      <name>clips</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationLoad.html</anchorfile>
-      <anchor>a41e4b349da8c334bf9efa6711a245e6d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>idleFrameWidth</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationLoad.html</anchorfile>
-      <anchor>a90e1816343adf26967127fcce9ddcc40</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>deathFrameWidth</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationLoad.html</anchorfile>
-      <anchor>adcd5e644575d1b147fa2ce0203f34766</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>errors</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationLoad.html</anchorfile>
-      <anchor>a4c3ef98aa6d43912462424fa27ebd3fd</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaFigureAnimationSet</name>
-    <filename>structhmi_1_1ArenaFigureAnimationSet.html</filename>
-    <member kind="function">
-      <type>const std::shared_ptr&lt; const core::ClipSet &gt; &amp;</type>
-      <name>forAction</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationSet.html</anchorfile>
-      <anchor>aa4e57cf9e144d93dcd661414373140b9</anchor>
-      <arglist>(ArenaFigureAction action) const</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::shared_ptr&lt; const core::ClipSet &gt;</type>
-      <name>idle</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationSet.html</anchorfile>
-      <anchor>a8656c432e0a606a083e84384842fb62e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::shared_ptr&lt; const core::ClipSet &gt;</type>
-      <name>walk</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationSet.html</anchorfile>
-      <anchor>a2a7d3fd79061a4eb489aa9f5d991df4e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::shared_ptr&lt; const core::ClipSet &gt;</type>
-      <name>attack</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationSet.html</anchorfile>
-      <anchor>a2447cd677e10d21fc715447acc5236b8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::shared_ptr&lt; const core::ClipSet &gt;</type>
-      <name>hit</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationSet.html</anchorfile>
-      <anchor>a22375e98b3a7a417c1442fdc3613103d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::shared_ptr&lt; const core::ClipSet &gt;</type>
-      <name>death</name>
-      <anchorfile>structhmi_1_1ArenaFigureAnimationSet.html</anchorfile>
-      <anchor>ad4b9888af77c19fd9754db2f8a7e8258</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaFigureSnapshot</name>
-    <filename>structhmi_1_1ArenaFigureSnapshot.html</filename>
-    <member kind="variable">
-      <type>core::CombatantId</type>
-      <name>id</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>abf4ace44bb4ff3f37122901e91bdbacc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>name</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>abb5115110169cb5f663f29113ef789a8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>core::CombatSide</type>
-      <name>side</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>a60c1050b3911d072d02f20f0124168fa</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>down</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>ad179a96ca0cb2105f0239df101b41966</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>core::GridPosition</type>
-      <name>anchor</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>a3a2b6f7d1679b8b78368ef812b1a3e48</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>footprint</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>aa5937745d9b8741649d85b81e8a7cd9d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="friend">
-      <type>friend bool</type>
-      <name>operator==</name>
-      <anchorfile>structhmi_1_1ArenaFigureSnapshot.html</anchorfile>
-      <anchor>a87f3198fcfe65d549ffaedd6ab2d343c</anchor>
-      <arglist>(const ArenaFigureSnapshot &amp;, const ArenaFigureSnapshot &amp;)=default</arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>core::ArenaMount</name>
     <filename>structcore_1_1ArenaMount.html</filename>
     <member kind="variable">
@@ -15338,333 +14173,6 @@
       <name>refusals</name>
       <anchorfile>structcore_1_1ArenaMount.html</anchorfile>
       <anchor>a37880f1b5e5d0689f5b60511b490ed93</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::ArenaSceneRenderer</name>
-    <filename>classhmi_1_1ArenaSceneRenderer.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>ArenaSceneRenderer</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a56dea0d48315beb28f1a6d777d21cc96</anchor>
-      <arglist>(std::filesystem::path coliseumDirectory, bool productionMap=false)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>~ArenaSceneRenderer</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a5ff7db5698888e27afea03d5bb2d58e4</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>ArenaSceneRenderer</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>aec6d88d49c765f99720f4595c9f50ffb</anchor>
-      <arglist>(const ArenaSceneRenderer &amp;)=delete</arglist>
-    </member>
-    <member kind="function">
-      <type>ArenaSceneRenderer &amp;</type>
-      <name>operator=</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a67931499a02511e00d24b33edc32aec8</anchor>
-      <arglist>(const ArenaSceneRenderer &amp;)=delete</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>ensureResources</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ae85fe8c7d406e9e9e5690838bf26a2c4</anchor>
-      <arglist>(QRhi *rhi)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>release</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ae6d35aab7141037ba8112d047f5e85f6</anchor>
-      <arglist>() noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>created</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a1b9f25cf12ab90353a6715b871374d11</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>QRhi *</type>
-      <name>rhi</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a0aa7fd703d2d54de7b460083dca8df41</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setSnapshot</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>af609d92a5a1af3018846643e3cf8d3f6</anchor>
-      <arglist>(ArenaSceneSnapshot snapshot)</arglist>
-    </member>
-    <member kind="function">
-      <type>const ArenaSceneSnapshot &amp;</type>
-      <name>snapshot</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>abc5b0b2897753622f6694b2de12e42d7</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>render</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a59c3cd6297d47d1e78f8196cdafbf63a</anchor>
-      <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, float realDeltaSeconds, const float *clear)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>animating</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a95037537400af6a16d4b5f404856bc5e</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const ComposedScene &amp;</type>
-      <name>composed</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a7ca1a14a630b60586c92a232f1de702d</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const ArenaSceneTextures &amp;</type>
-      <name>textures</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>abfaeb27c9547c5be2e62a9d3ba1748bf</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const ArenaAppearanceCatalog &amp;</type>
-      <name>catalog</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a89e65868aff7aee3dca0c4cde13bff1b</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>loadTextures</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a3bfbdd2a46aa772f05af8202cad69c2a</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>loadBattlefieldTextures</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ac78fc626b74f6d52cda20125d83c835a</anchor>
-      <arglist>(const RhiContext &amp;context)</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>loadBattlefield</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ade033f3bf3a3a4ae86ce509c2183b8bc</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>loadBattlefieldFrom</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a31519b73a64f0cebe6603a87846278e3</anchor>
-      <arglist>(const core::Arena &amp;definition)</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::optional&lt; WorldSceneSnapshot &gt;</type>
-      <name>_battlefield</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ad348c5d761e754762db1206bb29de223</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>core::GridPosition</type>
-      <name>_battlefieldOrigin</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a7d6bdc1e0facfa06e0263608ce5de88b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ScenePieceTextures</type>
-      <name>_battlefieldTextures</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a80b3484ed7157afb91007cdc00eb37e4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ManifestCache</type>
-      <name>_manifests</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a8b2ebed741f70aac11cf8315b035163e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ComposedScene</type>
-      <name>_battlefieldScene</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a634d660e77b8cd0745b0b6c88b45c7fc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::filesystem::path</type>
-      <name>_directory</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>aacf9fd0d70e452b3a64c103d384e06b1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ArenaAppearanceCatalog</type>
-      <name>_catalog</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>acfac35e49caa17bba11a806637edb2ee</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ArenaAnimationDriver</type>
-      <name>_animation</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a7bff94596cf7d792501a8a1a40217dfd</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ArenaSceneSnapshot</type>
-      <name>_snapshot</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a7cc5f02212ec26bbf5deefbb2101cd6c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::set&lt; core::CombatantId &gt;</type>
-      <name>_animated</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ab52ccbc75e892f4b0f515302b54c8b2b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ComposedScene</type>
-      <name>_composed</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a02dc2b80093547585c6b43efd8ced406</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QRhi *</type>
-      <name>_rhi</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>ac042916570c07e60d766789e6e3483de</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QRhiResourceUpdateBatch *</type>
-      <name>_pendingUploads</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a1c945d7cf491124dcd5626a6653f3a0e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>SceneResources</type>
-      <name>_resources</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a2181ba95ba6e072456572eabbb56f47d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; LoadedTexture &gt;</type>
-      <name>_loaded</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>af8355dd72e7a89c831316a04ec71176e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>LoadedTexture</type>
-      <name>_missing</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a15c68917f5b6d543d06b70af1e620b50</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>ArenaSceneTextures</type>
-      <name>_textures</name>
-      <anchorfile>classhmi_1_1ArenaSceneRenderer.html</anchorfile>
-      <anchor>a82440a27e1768930a78de192ad254c6d</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaSceneSnapshot</name>
-    <filename>structhmi_1_1ArenaSceneSnapshot.html</filename>
-    <member kind="function">
-      <type>bool</type>
-      <name>isObstructed</name>
-      <anchorfile>structhmi_1_1ArenaSceneSnapshot.html</anchorfile>
-      <anchor>a863b99fa6816d24a44a25eaef4fc5763</anchor>
-      <arglist>(core::GridPosition cell) const noexcept</arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>columns</name>
-      <anchorfile>structhmi_1_1ArenaSceneSnapshot.html</anchorfile>
-      <anchor>a182cd45097d1bb0298d28b4d17e80bac</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>rows</name>
-      <anchorfile>structhmi_1_1ArenaSceneSnapshot.html</anchorfile>
-      <anchor>a8dcc627c3bd9b2ec21b1d5ae0a8d2bd1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; bool &gt;</type>
-      <name>obstructed</name>
-      <anchorfile>structhmi_1_1ArenaSceneSnapshot.html</anchorfile>
-      <anchor>ac3881c6bae8c35c3df7f881bd2f79fe4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; ArenaFigureSnapshot &gt;</type>
-      <name>figures</name>
-      <anchorfile>structhmi_1_1ArenaSceneSnapshot.html</anchorfile>
-      <anchor>ac16f4128c6827c9d94514fd070ebea26</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="friend">
-      <type>friend bool</type>
-      <name>operator==</name>
-      <anchorfile>structhmi_1_1ArenaSceneSnapshot.html</anchorfile>
-      <anchor>a6c424b10131b03007760f1e7dc104330</anchor>
-      <arglist>(const ArenaSceneSnapshot &amp;, const ArenaSceneSnapshot &amp;)=default</arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaSceneTextures</name>
-    <filename>structhmi_1_1ArenaSceneTextures.html</filename>
-    <member kind="function">
-      <type>const ArenaTexture &amp;</type>
-      <name>resolve</name>
-      <anchorfile>structhmi_1_1ArenaSceneTextures.html</anchorfile>
-      <anchor>a7b036f5880862662aeddf7435018d308</anchor>
-      <arglist>(std::string_view path) const</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::map&lt; std::string, ArenaTexture, std::less&lt;&gt; &gt;</type>
-      <name>byPath</name>
-      <anchorfile>structhmi_1_1ArenaSceneTextures.html</anchorfile>
-      <anchor>ab07d86253bc7879c97f16804139f1fa4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>ArenaTexture</type>
-      <name>missing</name>
-      <anchorfile>structhmi_1_1ArenaSceneTextures.html</anchorfile>
-      <anchor>a05b5142b6928efcf6e4e11cfe06e868b</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -15733,20 +14241,6 @@
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a3dc6b71791568af78f3f66d6987df23c</anchor>
       <arglist>(CombatantId combatant) const</arglist>
-    </member>
-    <member kind="function">
-      <type>AttackHooks &amp;</type>
-      <name>attackHooks</name>
-      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
-      <anchor>a1fbc7cdb3c96e2214737ca2ef6c5e429</anchor>
-      <arglist>() noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>DamagePipeline &amp;</type>
-      <name>damagePipeline</name>
-      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
-      <anchor>a36554b265c0ee59bd356956ab7d2469a</anchor>
-      <arglist>() noexcept</arglist>
     </member>
     <member kind="function">
       <type>ArenaAttack</type>
@@ -16033,45 +14527,6 @@
       <name>_journal</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a95fa6187920a6c5fbebd02b9c44603da</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::ArenaTileAppearance</name>
-    <filename>structhmi_1_1ArenaTileAppearance.html</filename>
-    <member kind="variable">
-      <type>bool</type>
-      <name>wall</name>
-      <anchorfile>structhmi_1_1ArenaTileAppearance.html</anchorfile>
-      <anchor>ad896f61618f62de0bd218f761e687ce9</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>WallFeature</type>
-      <name>wallFeature</name>
-      <anchorfile>structhmi_1_1ArenaTileAppearance.html</anchorfile>
-      <anchor>a075570a1dc1ff501100e80b16b48d394</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>gateSpot</name>
-      <anchorfile>structhmi_1_1ArenaTileAppearance.html</anchorfile>
-      <anchor>a7be2702593f7499af665c431c2da8c4d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
-      <name>slab</name>
-      <anchorfile>structhmi_1_1ArenaTileAppearance.html</anchorfile>
-      <anchor>a45b37983a1de87932d4cb10c3985af42</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>slabVariant</name>
-      <anchorfile>structhmi_1_1ArenaTileAppearance.html</anchorfile>
-      <anchor>a9e20acd2f093ee0d764d2ac299c7ef88</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -17994,13 +16449,6 @@
     <filename>structcore_1_1AttackRoll.html</filename>
     <member kind="function">
       <type>void</type>
-      <name>reroll</name>
-      <anchorfile>structcore_1_1AttackRoll.html</anchorfile>
-      <anchor>a5b1eb1f3dbdf90f0949495a9dfc538c9</anchor>
-      <arglist>(std::size_t die, DeterministicRandom &amp;random, const std::string &amp;source)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
       <name>substitute</name>
       <anchorfile>structcore_1_1AttackRoll.html</anchorfile>
       <anchor>aa1e136f6d9b2feb99c3b9e70e4dd933a</anchor>
@@ -19059,46 +17507,6 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>hmi::CacheRegistry</name>
-    <filename>classhmi_1_1CacheRegistry.html</filename>
-    <templarg>typename Resource</templarg>
-    <member kind="function">
-      <type>const Resource *</type>
-      <name>getOrLoad</name>
-      <anchorfile>classhmi_1_1CacheRegistry.html</anchorfile>
-      <anchor>a908d1f3eb7c3853ed4c843c5fb27f466</anchor>
-      <arglist>(const std::string &amp;key, Loader &amp;&amp;loader)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>invalidate</name>
-      <anchorfile>classhmi_1_1CacheRegistry.html</anchorfile>
-      <anchor>a779563258a0a470d5a59da0bf3d2572a</anchor>
-      <arglist>(const std::string &amp;key)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>invalidateAll</name>
-      <anchorfile>classhmi_1_1CacheRegistry.html</anchorfile>
-      <anchor>a1ba308b8461ec8736a95910c1e129271</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>std::size_t</type>
-      <name>size</name>
-      <anchorfile>classhmi_1_1CacheRegistry.html</anchorfile>
-      <anchor>a20d76673b8bea677678b3b68e985f504</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::unordered_map&lt; std::string, std::optional&lt; Resource &gt; &gt;</type>
-      <name>_entries</name>
-      <anchorfile>classhmi_1_1CacheRegistry.html</anchorfile>
-      <anchor>a5d3a39b50bcb94e362266c3d67ffb921</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
     <name>hmi::Camera2D</name>
     <filename>classhmi_1_1Camera2D.html</filename>
     <member kind="function">
@@ -19106,13 +17514,6 @@
       <name>Camera2D</name>
       <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
       <anchor>a8e28425fba642a6e08de0fcdf53b0ce7</anchor>
-      <arglist>(int viewportWidth, int viewportHeight)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setViewportSize</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>aa82aa311014992d26f26c47db0f3d89c</anchor>
       <arglist>(int viewportWidth, int viewportHeight)</arglist>
     </member>
     <member kind="function">
@@ -19640,13 +18041,6 @@
       <arglist>(Ability which) const</arglist>
     </member>
     <member kind="function">
-      <type>bool</type>
-      <name>isDown</name>
-      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
-      <anchor>a2e02cda70505003379223fc63a4fe9d3</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
       <type>float</type>
       <name>speedInTiles</name>
       <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
@@ -19852,13 +18246,6 @@
     </member>
     <member kind="function">
       <type>QString</type>
-      <name>classAndLevel</name>
-      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
-      <anchor>a4d0d058086e4b817fdc51672026d80c0</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>QString</type>
       <name>level</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>a3d13d49dfa8aec710caf9b22af195bee</anchor>
@@ -19936,13 +18323,6 @@
     </member>
     <member kind="function">
       <type>QAbstractItemModel *</type>
-      <name>savingThrows</name>
-      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
-      <anchor>ad6bda87999fb7a0dc7aecc3f76085b65</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>QAbstractItemModel *</type>
       <name>skills</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>a61efe7edf21bf20380b475940a521a2e</anchor>
@@ -19967,13 +18347,6 @@
       <name>background</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>a48d10311bf7c86e94f8193502561177c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QString</type>
-      <name>classAndLevel</name>
-      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
-      <anchor>ab1cebb312ed46e9efb3d7f2dee2df4bd</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -20055,13 +18428,6 @@
     </member>
     <member kind="property">
       <type>QAbstractItemModel *</type>
-      <name>savingThrows</name>
-      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
-      <anchor>a38a22274234b22eabee7060c27cc22d4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QAbstractItemModel *</type>
       <name>skills</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>a86fa2e2be3af38f8095194bd257c95d2</anchor>
@@ -20093,13 +18459,6 @@
       <name>_abilities</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>abc773dd51b7c03eede33b83070da048e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>SheetRowModel</type>
-      <name>_savingThrows</name>
-      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
-      <anchor>ab7104b95c06dffe6ba59996fd46ef4cf</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -21404,13 +19763,6 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
-      <type>QStringList</type>
-      <name>preview</name>
-      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
-      <anchor>a04a61dcdbca5dad8ad180d50a4617057</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
       <type>QVariantList</type>
       <name>turnOrder</name>
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
@@ -21730,13 +20082,6 @@
       <name>turnActions</name>
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
       <anchor>a7c5723221a10269e6054138dd7582a62</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QStringList</type>
-      <name>preview</name>
-      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
-      <anchor>aff20bdf39c34ab9623e371b3fb5234e6</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -24233,13 +22578,6 @@
     </member>
     <member kind="function" virtualness="virtual">
       <type>virtual void</type>
-      <name>startCombat</name>
-      <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
-      <anchor>a6ce049b4a2a48f8ac02c979a3caf0c14</anchor>
-      <arglist>(std::string_view arenaId)</arglist>
-    </member>
-    <member kind="function" virtualness="virtual">
-      <type>virtual void</type>
       <name>startEncounter</name>
       <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
       <anchor>af3fc38d5eeefa7f78c3abd838f43728f</anchor>
@@ -24281,13 +22619,6 @@
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a6efec9c702291f4d4f6ac50bc36739a1</anchor>
       <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>combatRequested</name>
-      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
-      <anchor>a80189a0fb6f159dc7c10a2253da86494</anchor>
-      <arglist>(const QString &amp;arenaId)</arglist>
     </member>
     <member kind="signal">
       <type>void</type>
@@ -24832,9 +23163,9 @@
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
-      <name>estProposee</name>
+      <name>isOffered</name>
       <anchorfile>classcore_1_1DialogueRunner.html</anchorfile>
-      <anchor>a1019aa046308ea758072047e2478692e</anchor>
+      <anchor>a59d684744a9a318e9bc5098cdab73237</anchor>
       <arglist>(const DialogueChoice &amp;choice) const</arglist>
     </member>
     <member kind="function" protection="private">
@@ -29476,31 +27807,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>hmi::FigureAppearance</name>
-    <filename>structhmi_1_1FigureAppearance.html</filename>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>sheet</name>
-      <anchorfile>structhmi_1_1FigureAppearance.html</anchorfile>
-      <anchor>a077dd53b1ea05f11941c61013503f2d1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>directory</name>
-      <anchorfile>structhmi_1_1FigureAppearance.html</anchorfile>
-      <anchor>a50b6ac160b5c7cdb2c8ae8d11cb5ba3b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>frameCount</name>
-      <anchorfile>structhmi_1_1FigureAppearance.html</anchorfile>
-      <anchor>ae91ccadb25ba0edc56fb67369eabf7ba</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>hmi::FigureMotion</name>
     <filename>structhmi_1_1FigureMotion.html</filename>
     <member kind="variable">
@@ -30431,56 +28737,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>core::HeroicMark</name>
-    <filename>structcore_1_1HeroicMark.html</filename>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>id</name>
-      <anchorfile>structcore_1_1HeroicMark.html</anchorfile>
-      <anchor>ae275d4649d5ffd378b47bb69b293764f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>name</name>
-      <anchorfile>structcore_1_1HeroicMark.html</anchorfile>
-      <anchor>a798cc6f745f5c472c3fda6e773219cdc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::string</type>
-      <name>text</name>
-      <anchorfile>structcore_1_1HeroicMark.html</anchorfile>
-      <anchor>aa6238d2eed9ee292110fa19864746081</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>core::HeroicMarkCatalog</name>
-    <filename>structcore_1_1HeroicMarkCatalog.html</filename>
-    <member kind="function">
-      <type>const HeroicMark *</type>
-      <name>find</name>
-      <anchorfile>structcore_1_1HeroicMarkCatalog.html</anchorfile>
-      <anchor>a6fb9bc6ab1a9b28b5f202c8f33532a25</anchor>
-      <arglist>(std::string_view id) const</arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; HeroicMark &gt;</type>
-      <name>marks</name>
-      <anchorfile>structcore_1_1HeroicMarkCatalog.html</anchorfile>
-      <anchor>aa419d5de878b9648160fffd2b9727bad</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>errors</name>
-      <anchorfile>structcore_1_1HeroicMarkCatalog.html</anchorfile>
-      <anchor>a092361daa879eed62b234531a2f414ea</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>core::HitPointChange</name>
     <filename>structcore_1_1HitPointChange.html</filename>
     <member kind="variable">
@@ -30713,34 +28969,6 @@
     </member>
     <member kind="function">
       <type>void</type>
-      <name>onKeyDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a0ac64c54bed934b3dddbafe545adcd8d</anchor>
-      <arglist>(Key key) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onKeyUp</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ad760f16af7751f4627ffcfebb4723087</anchor>
-      <arglist>(Key key) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onGamepadKeyDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a7cb5d25a39a4327cd74eae88a20d49ce</anchor>
-      <arglist>(Key key) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onGamepadKeyUp</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a93853c1b3089fe4fcc2f15b491008784</anchor>
-      <arglist>(Key key) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
       <name>onGamepadButtonDown</name>
       <anchorfile>classhmi_1_1InputState.html</anchorfile>
       <anchor>ab6bbe08c414da65a29ceae2ca23d2224</anchor>
@@ -30755,41 +28983,6 @@
     </member>
     <member kind="function">
       <type>void</type>
-      <name>onMouseMove</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>abbd4df0d240a3683210015a31e183bc5</anchor>
-      <arglist>(int x, int y) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onMouseButtonDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a3312dd5f77db5b9dcd128a8affddd0eb</anchor>
-      <arglist>(MouseButton button) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onMouseButtonUp</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a376004df68b5f7754a110a2bcd2f90f8</anchor>
-      <arglist>(MouseButton button) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onMouseWheel</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a76e9822764fcba7189cf9d0ffa8d9c92</anchor>
-      <arglist>(int delta) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onCharTyped</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a50a35b2416ee847e1f772dbb9fea9b9c</anchor>
-      <arglist>(wchar_t character)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
       <name>setGamepadConnected</name>
       <anchorfile>classhmi_1_1InputState.html</anchorfile>
       <anchor>ab6e92b0e87cef4fcbacfa6c729bfb8f8</anchor>
@@ -30801,27 +28994,6 @@
       <anchorfile>classhmi_1_1InputState.html</anchorfile>
       <anchor>a833fa9bf0471616d04f6ab95568e90f4</anchor>
       <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>keyDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a1f60f694446239cdcc190b792c89d130</anchor>
-      <arglist>(Key key) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>keyPressed</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a31d4d382e571e231ef0d13937e2b1f4f</anchor>
-      <arglist>(Key key) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>keyReleased</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ae58b5ee926c82c8f62bf57ee7e446ac4</anchor>
-      <arglist>(Key key) const noexcept</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -30844,83 +29016,6 @@
       <anchor>a241024415a5f5e786f341fb655fcfa06</anchor>
       <arglist>(GamepadButton button) const noexcept</arglist>
     </member>
-    <member kind="function">
-      <type>int</type>
-      <name>mouseX</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a88904c498ce8939978b988bc685dc904</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>mouseY</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a7d36fdb64d478ef67dacee6c869432b9</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>mouseButtonDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>aeecec17aba35c137bed234ff033bc46c</anchor>
-      <arglist>(MouseButton button) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>mouseButtonPressed</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ab129c79e0d8cf79448425c3a8d984e0e</anchor>
-      <arglist>(MouseButton button) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>mouseButtonReleased</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a825c3827af5730d0c05b65f6c8a86798</anchor>
-      <arglist>(MouseButton button) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>int</type>
-      <name>wheelDelta</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a8168408e70f27916878b8057227ef7ff</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const std::vector&lt; wchar_t &gt; &amp;</type>
-      <name>typedCharacters</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a65d50f70a43e38a66f9ea7e04429cb9d</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, KEY_COUNT &gt;</type>
-      <name>_keysCurrent</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>acc44c933a7b0873528148ea88efb3802</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, KEY_COUNT &gt;</type>
-      <name>_keysPrevious</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>acb67773da145934bbee587d60990f64f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, KEY_COUNT &gt;</type>
-      <name>_gamepadCurrent</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ad2bafb2610591e06b0e5664c633d236f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, KEY_COUNT &gt;</type>
-      <name>_gamepadPrevious</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a9cefecbe49b1820ccce7fac106126dbe</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="variable" protection="private">
       <type>std::array&lt; bool, GAMEPAD_BUTTON_COUNT &gt;</type>
       <name>_gamepadButtonsCurrent</name>
@@ -30936,66 +29031,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>std::array&lt; bool, BUTTON_COUNT &gt;</type>
-      <name>_buttonsCurrent</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a7f0a7108d61b34be561c8566a3b3181e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, BUTTON_COUNT &gt;</type>
-      <name>_buttonsPrevious</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>add9f97042d722455e93b3a697bbeafa2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_mouseX</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>aec72ed3a0c3b1767f3f3b7e38c94b9f0</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_mouseY</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a8fa4e1ad152450c883658be004f0522a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_wheelDelta</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a88513d390fb0d8d31a142cbf501ecc1b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::vector&lt; wchar_t &gt;</type>
-      <name>_typedCharacters</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a3b01814d775d50a0bfe24579be4c1dfb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
       <type>bool</type>
       <name>_gamepadConnected</name>
       <anchorfile>classhmi_1_1InputState.html</anchorfile>
       <anchor>a7153659001b4a27a1288bd4cf435caad</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr std::size_t</type>
-      <name>KEY_COUNT</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ae87822f9a9d0e59969b18d5fcb9a785a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private" static="yes">
-      <type>static constexpr std::size_t</type>
-      <name>BUTTON_COUNT</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a692a4d893cae9b15948b3d1081bbafeb</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -31340,13 +29379,6 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>QAbstractItemModel *</type>
-      <name>equipmentSlots</name>
-      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
-      <anchor>aa4db285c322d670153da8bd31658de0e</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type>QString</type>
       <name>purse</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
@@ -31466,17 +29498,10 @@
       <arglist>() const</arglist>
     </member>
     <member kind="property">
-      <type>QML_ELEMENTQAbstractItemModel *</type>
-      <name>equipmentSlots</name>
-      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
-      <anchor>a209ff5cd9e4a3fe7326870999e3a64b9</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>QString</type>
+      <type>QML_ELEMENTQString</type>
       <name>purse</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
-      <anchor>ad815eabdbc72f2d89fde2f2241f43cc3</anchor>
+      <anchor>a996e8e82699dcefdd215b1570ba17440</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -31624,13 +29649,6 @@
       <name>_sheetValues</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
       <anchor>a10f3bf9e46642b81b79ed66094737ccc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>SheetRowModel</type>
-      <name>_slots</name>
-      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
-      <anchor>acf31a4cccc58031b7efa9351dcf0df30</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -35745,13 +33763,6 @@
       <anchor>a4bd053c055e4922b8e6a228d28e44ee5</anchor>
       <arglist>()</arglist>
     </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>launched</name>
-      <anchorfile>classhmi_1_1MapLauncherModel.html</anchorfile>
-      <anchor>ade1f4eb5481c84c3eae42b5f0d4f14af</anchor>
-      <arglist>(const QString &amp;mapId)</arglist>
-    </member>
     <member kind="function">
       <type></type>
       <name>MapLauncherModel</name>
@@ -39602,127 +37613,6 @@
     </member>
   </compound>
   <compound kind="struct">
-    <name>hmi::RpgContentBlock</name>
-    <filename>structhmi_1_1RpgContentBlock.html</filename>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>titleKey</name>
-      <anchorfile>structhmi_1_1RpgContentBlock.html</anchorfile>
-      <anchor>abee3bb4e1e6436a9c72918c9fab7884e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>RpgBlockKind</type>
-      <name>kind</name>
-      <anchorfile>structhmi_1_1RpgContentBlock.html</anchorfile>
-      <anchor>a3ebbd21e78818f4742a1c08975664798</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>columns</name>
-      <anchorfile>structhmi_1_1RpgContentBlock.html</anchorfile>
-      <anchor>acf0a652111f9810d64ccd47132d5c620</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>int</type>
-      <name>rows</name>
-      <anchorfile>structhmi_1_1RpgContentBlock.html</anchorfile>
-      <anchor>a0b2ec16652fe9f2435fafdb5ff9a23f2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::span&lt; const RpgField &gt;</type>
-      <name>fields</name>
-      <anchorfile>structhmi_1_1RpgContentBlock.html</anchorfile>
-      <anchor>ab28543c9c5eabad936ecf84a38088b21</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::span&lt; const char *const  &gt;</type>
-      <name>valueIds</name>
-      <anchorfile>structhmi_1_1RpgContentBlock.html</anchorfile>
-      <anchor>a0c78fa83a0e8267273061a53ee0919a1</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::RpgField</name>
-    <filename>structhmi_1_1RpgField.html</filename>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>labelKey</name>
-      <anchorfile>structhmi_1_1RpgField.html</anchorfile>
-      <anchor>ad4b3cdb6f536bdcc294828478004ab9c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>valueId</name>
-      <anchorfile>structhmi_1_1RpgField.html</anchorfile>
-      <anchor>adaf2f6e27991d43d9b19180ed7a8fe69</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::RpgScreenDescriptor</name>
-    <filename>structhmi_1_1RpgScreenDescriptor.html</filename>
-    <member kind="variable">
-      <type>RpgScreenId</type>
-      <name>id</name>
-      <anchorfile>structhmi_1_1RpgScreenDescriptor.html</anchorfile>
-      <anchor>a899568b7bb78ad6a24adc41f117a2ce7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>objectName</name>
-      <anchorfile>structhmi_1_1RpgScreenDescriptor.html</anchorfile>
-      <anchor>abc0a96e1e00245707b86583705ad3c84</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>const char *</type>
-      <name>titleKey</name>
-      <anchorfile>structhmi_1_1RpgScreenDescriptor.html</anchorfile>
-      <anchor>a9e60e639e6f6ff799c954c267dd3dc3c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>RpgSuperposition</type>
-      <name>superposition</name>
-      <anchorfile>structhmi_1_1RpgScreenDescriptor.html</anchorfile>
-      <anchor>a918ddd7d80088a12cda7cf51dd9fccfb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>RpgScreenLayout</type>
-      <name>layout</name>
-      <anchorfile>structhmi_1_1RpgScreenDescriptor.html</anchorfile>
-      <anchor>a0bc72a48e3335c5ec1c6f1e3e3577650</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
-    <name>hmi::RpgScreenLayout</name>
-    <filename>structhmi_1_1RpgScreenLayout.html</filename>
-    <member kind="variable">
-      <type>std::span&lt; const RpgContentBlock &gt;</type>
-      <name>leftColumn</name>
-      <anchorfile>structhmi_1_1RpgScreenLayout.html</anchorfile>
-      <anchor>a7005dd10d1aa87051cc19b7b43e2d4a8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::span&lt; const RpgContentBlock &gt;</type>
-      <name>rightColumn</name>
-      <anchorfile>structhmi_1_1RpgScreenLayout.html</anchorfile>
-      <anchor>ac042f301b5b5fd544b7c7543eedfc29d</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="struct">
     <name>hmi::RunInGameChoice</name>
     <filename>structhmi_1_1RunInGameChoice.html</filename>
     <member kind="function">
@@ -40602,13 +38492,6 @@
       <anchor>a8443bd08bcb5f8726cc4b8d0723cdae8</anchor>
       <arglist>() noexcept</arglist>
     </member>
-    <member kind="function">
-      <type>TextureCache &amp;</type>
-      <name>textures</name>
-      <anchorfile>classhmi_1_1SceneResources.html</anchorfile>
-      <anchor>a941ad487794fe7d110a0ab45e58ebe6a</anchor>
-      <arglist>() noexcept</arglist>
-    </member>
     <member kind="variable" protection="private">
       <type>RhiContext</type>
       <name>_context</name>
@@ -40628,13 +38511,6 @@
       <name>_atlas</name>
       <anchorfile>classhmi_1_1SceneResources.html</anchorfile>
       <anchor>ab817a9cf9f567e52587ff37c122ceeda</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::unique_ptr&lt; TextureCache &gt;</type>
-      <name>_textureCache</name>
-      <anchorfile>classhmi_1_1SceneResources.html</anchorfile>
-      <anchor>ac18d7f2e82e1b546589874d1fe1bf08e</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41082,20 +38958,6 @@
       <name>closeRpgScreen</name>
       <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
       <anchor>a5efecee08cf5d4212b5c68431b1d2ed9</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>nextRpgScreen</name>
-      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
-      <anchor>aba7714a748fe5539eb4c69e6b87dc169</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>Q_INVOKABLE void</type>
-      <name>previousRpgScreen</name>
-      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
-      <anchor>a11c974d1ecc02dc6164d96347e09e1ae</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function" static="yes">
@@ -42532,13 +40394,6 @@
       <arglist>(const RhiContext &amp;context)</arglist>
     </member>
     <member kind="function">
-      <type>TextureHandle</type>
-      <name>textureHandle</name>
-      <anchorfile>classhmi_1_1TextureAtlas.html</anchorfile>
-      <anchor>aa2d7c9cb18e7a706c46016ef5ad56930</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
       <type>int</type>
       <name>width</name>
       <anchorfile>classhmi_1_1TextureAtlas.html</anchorfile>
@@ -42592,59 +40447,6 @@
       <name>_texture</name>
       <anchorfile>classhmi_1_1TextureAtlas.html</anchorfile>
       <anchor>ade592ead07567a17fe9105ed268afd53</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::TextureCache</name>
-    <filename>classhmi_1_1TextureCache.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>TextureCache</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>ae7ecaa9efa524b0e8d23fe8c7516f3bc</anchor>
-      <arglist>(const RhiContext &amp;context)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TextureCache</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>a508d91906a89b66a515a7f85ac071ff2</anchor>
-      <arglist>(const TextureCache &amp;)=delete</arglist>
-    </member>
-    <member kind="function">
-      <type>TextureCache &amp;</type>
-      <name>operator=</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>adf079bf9ca4b4e74bca79c59e4857dfd</anchor>
-      <arglist>(const TextureCache &amp;)=delete</arglist>
-    </member>
-    <member kind="function">
-      <type>const LoadedTexture *</type>
-      <name>markerTexture</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>ab61e5fc8b5834954dc2fcdefcf575c76</anchor>
-      <arglist>(const std::string &amp;key)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>invalidateAll</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>a12ace6c083ac9c91eff8686bd0039a4b</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>const RhiContext &amp;</type>
-      <name>_context</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>a81a910d3ef89f8727baa5fcafe381ce6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>CacheRegistry&lt; LoadedTexture &gt;</type>
-      <name>_markerEntries</name>
-      <anchorfile>classhmi_1_1TextureCache.html</anchorfile>
-      <anchor>af177c52b8c1f6ec22c38c335fbf5dce8</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44541,13 +42343,6 @@
       <anchor>ac847c24f6d9b024b8f1a5c3f1634ced2</anchor>
       <arglist>() const</arglist>
     </member>
-    <member kind="function">
-      <type>int</type>
-      <name>placedCount</name>
-      <anchorfile>classhmi_1_1WorldMapModel.html</anchorfile>
-      <anchor>a99db073749a448f57319774857baaa53</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
     <member kind="property">
       <type>QML_ELEMENTQString</type>
       <name>worldImage</name>
@@ -44560,13 +42355,6 @@
       <name>regions</name>
       <anchorfile>classhmi_1_1WorldMapModel.html</anchorfile>
       <anchor>aadf60fd8a6aae8fe2d6b3fe590b11292</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>int</type>
-      <name>placedCount</name>
-      <anchorfile>classhmi_1_1WorldMapModel.html</anchorfile>
-      <anchor>a13b63b6ed89d4b3a2b9d59f7b71eaf5c</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -44588,13 +42376,6 @@
       <name>_cities</name>
       <anchorfile>classhmi_1_1WorldMapModel.html</anchorfile>
       <anchor>abb18f1016e952c2f9f78b28c72e24bd7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_placedCount</name>
-      <anchorfile>classhmi_1_1WorldMapModel.html</anchorfile>
-      <anchor>ae7c9181b59e57fb843a90b1fae3d4e12</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -46300,13 +44081,6 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
-      <type>void</type>
-      <name>setPosition</name>
-      <anchorfile>classcore_1_1WorldTravel.html</anchorfile>
-      <anchor>a63be3fa12598f9db06b63751b4e833e1</anchor>
-      <arglist>(GridPosition position) noexcept</arglist>
-    </member>
-    <member kind="function">
       <type>const std::optional&lt; WorldIssue &gt; &amp;</type>
       <name>lastIssue</name>
       <anchorfile>classcore_1_1WorldTravel.html</anchorfile>
@@ -46473,13 +44247,6 @@
       <arglist>(qreal x, qreal y) const</arglist>
     </member>
     <member kind="function">
-      <type>Q_INVOKABLE QPointF</type>
-      <name>pointAt</name>
-      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
-      <anchor>a624e24a63862866917506aa4eb55d42b</anchor>
-      <arglist>(qreal column, qreal row) const</arglist>
-    </member>
-    <member kind="function">
       <type>QQuickRhiItemRenderer *</type>
       <name>createRenderer</name>
       <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
@@ -46644,10 +44411,6 @@
     <class kind="class">core::ActionEconomy</class>
     <class kind="struct">core::AreaOfEffect</class>
     <class kind="struct">core::ArenaEntryPoint</class>
-    <class kind="struct">core::HeroicMark</class>
-    <class kind="struct">core::HeroicMarkCatalog</class>
-    <class kind="struct">core::Arena</class>
-    <class kind="struct">core::ArenaCatalog</class>
     <class kind="struct">core::ArenaContestant</class>
     <class kind="struct">core::ArenaBout</class>
     <class kind="struct">core::ArenaMount</class>
@@ -47125,8 +44888,6 @@
       <anchor>aa275f4ee3dcd04b2c433620118cf54c4</anchor>
       <arglist></arglist>
       <enumvalue file="namespacecore.html" anchor="aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a">Magical</enumvalue>
-      <enumvalue file="namespacecore.html" anchor="aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b">Silvered</enumvalue>
-      <enumvalue file="namespacecore.html" anchor="aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85">Adamantine</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd">Spell</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5">IgnoresResistance</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37">IgnoresReserves</enumvalue>
@@ -47406,7 +45167,6 @@
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ac23574157c4f45657c36e9ce5d40eab7">ClearFlag</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee">GiveItem</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2">StartQuest</enumvalue>
-      <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159">StartCombat</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</enumvalue>
     </member>
@@ -47765,20 +45525,6 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a91e905d2d65ad1c9a0916752b0fd9b95</anchor>
       <arglist>(const Level &amp;level)</arglist>
-    </member>
-    <member kind="function">
-      <type>HeroicMarkCatalog</type>
-      <name>loadHeroicMarks</name>
-      <anchorfile>namespacecore.html</anchorfile>
-      <anchor>a2c4f8564739de90f7f02936084207e1d</anchor>
-      <arglist>(const std::filesystem::path &amp;file)</arglist>
-    </member>
-    <member kind="function">
-      <type>ArenaCatalog</type>
-      <name>loadArenas</name>
-      <anchorfile>namespacecore.html</anchorfile>
-      <anchor>a6cbf953c060d64cd627c436ab3d4520c</anchor>
-      <arglist>(const std::filesystem::path &amp;directory)</arglist>
     </member>
     <member kind="function">
       <type>CreatureAttacks</type>
@@ -50378,20 +48124,6 @@
     <class kind="struct">hmi::AnimationDescription</class>
     <class kind="struct">hmi::AnimationDescriptionResult</class>
     <class kind="class">hmi::AnimationCatalog</class>
-    <class kind="struct">hmi::ArenaFigureAnimationSet</class>
-    <class kind="struct">hmi::ArenaFigureAnimationLoad</class>
-    <class kind="struct">hmi::ArenaCombatantAnimation</class>
-    <class kind="class">hmi::ArenaAnimationDriver</class>
-    <class kind="struct">hmi::ArenaFigureAnimation</class>
-    <class kind="struct">hmi::ArenaAnimationState</class>
-    <class kind="struct">hmi::ArenaTileAppearance</class>
-    <class kind="struct">hmi::FigureAppearance</class>
-    <class kind="class">hmi::ArenaAppearanceCatalog</class>
-    <class kind="struct">hmi::ArenaAppearanceCatalogResult</class>
-    <class kind="struct">hmi::ArenaSceneTextures</class>
-    <class kind="struct">hmi::ArenaFigureSnapshot</class>
-    <class kind="struct">hmi::ArenaSceneSnapshot</class>
-    <class kind="class">hmi::ArenaSceneRenderer</class>
     <class kind="struct">hmi::AssetValidation</class>
     <class kind="struct">hmi::AssetGalleryEntry</class>
     <class kind="struct">hmi::AssetGalleryFamily</class>
@@ -50403,7 +48135,6 @@
     <class kind="struct">hmi::AssetGalleryDrawnBloc</class>
     <class kind="struct">hmi::AssetGalleryFrame</class>
     <class kind="class">hmi::AssetGalleryRenderer</class>
-    <class kind="class">hmi::CacheRegistry</class>
     <class kind="class">hmi::Camera2D</class>
     <class kind="struct">hmi::CityBlockFraming</class>
     <class kind="struct">hmi::ComposedQuad</class>
@@ -50429,7 +48160,6 @@
     <class kind="class">hmi::SpriteBatch</class>
     <class kind="class">hmi::StaticWorldScene</class>
     <class kind="class">hmi::TextureAtlas</class>
-    <class kind="class">hmi::TextureCache</class>
     <class kind="struct">hmi::DecodedImage</class>
     <class kind="struct">hmi::LoadedTexture</class>
     <class kind="struct">hmi::WorldFigureSnapshot</class>
@@ -50457,10 +48187,6 @@
     <class kind="struct">hmi::InventoryContext</class>
     <class kind="struct">hmi::QuestJournalRow</class>
     <class kind="struct">hmi::QuestJournalValues</class>
-    <class kind="struct">hmi::RpgField</class>
-    <class kind="struct">hmi::RpgContentBlock</class>
-    <class kind="struct">hmi::RpgScreenLayout</class>
-    <class kind="struct">hmi::RpgScreenDescriptor</class>
     <class kind="struct">hmi::ScreenState</class>
     <class kind="struct">hmi::MapPoint</class>
     <class kind="struct">hmi::MapFrame</class>
@@ -50520,13 +48246,6 @@
       <name>QuadOpacity</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ad39e4163a49fc5ba81aab9827d83118e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>SceneTexture</type>
-      <name>ArenaTexture</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a0ac25499fc66ce0fd6f586b705271ef4</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -50774,53 +48493,6 @@
     </member>
     <member kind="enumeration">
       <type></type>
-      <name>ArenaFigureAction</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad5ace887c9d040dd9cd8b5649a5ab9b3</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="ad5ace887c9d040dd9cd8b5649a5ab9b3ae599161956d626eda4cb0a5ffb85271c">Idle</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ad5ace887c9d040dd9cd8b5649a5ab9b3a7a16a854f32231a8df9326136b09ee62">Walk</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ad5ace887c9d040dd9cd8b5649a5ab9b3adcfafcb4323b102c7e204555d313ba0a">Attack</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ad5ace887c9d040dd9cd8b5649a5ab9b3aebfe5e1791db03c4cd6ab95801e0977d">Hit</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ad5ace887c9d040dd9cd8b5649a5ab9b3a6097f89e3092d4ccd249c9d479785c1f">Death</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>WallFeature</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a9da4795fe7ae9a1a208f6f8a3348ae8d</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a9da4795fe7ae9a1a208f6f8a3348ae8da6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a9da4795fe7ae9a1a208f6f8a3348ae8da4cd8413207629a963225f4314b53adcd">Plain</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a9da4795fe7ae9a1a208f6f8a3348ae8da45671f70ac97ff86643523f29eb4d3b9">Corner</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a9da4795fe7ae9a1a208f6f8a3348ae8da4f827dd784b5493dcfb54d285bd2652c">BannerSpot</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a9da4795fe7ae9a1a208f6f8a3348ae8daef37bb80980786c95c64dfcfbd2943e9">TorchSpot</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>ArenaAppearanceError</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a931e4dfdcb2eb27e505c66bc92291f72</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a931e4dfdcb2eb27e505c66bc92291f72a6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a931e4dfdcb2eb27e505c66bc92291f72a2767828026039e8ba7b38973cbb701f2">FileNotFound</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a931e4dfdcb2eb27e505c66bc92291f72ae41199faa7290c167f70f314c5e6c165">ParseError</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a931e4dfdcb2eb27e505c66bc92291f72a0f89bc98e9b12bdeda0604e57bdc0518">UnsupportedVersion</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a931e4dfdcb2eb27e505c66bc92291f72aa809debdbe0cae246d363461916d924d">MalformedStructure</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>ArenaDepthSlot</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a3aefab663a13beaed4fec7f172fb4a67</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a3aefab663a13beaed4fec7f172fb4a67a94e8a499539d1a472f3b5dbbb85508c0">Wall</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a3aefab663a13beaed4fec7f172fb4a67aa275e84942f845eea0c75e0bbcb6ee3d">WallDecoration</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a3aefab663a13beaed4fec7f172fb4a67ad25b4bd4c72aa2c07ee87adb10b59f16">Gate</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a3aefab663a13beaed4fec7f172fb4a67a666df2f48cd16f38212c093999248769">Figure</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
       <name>AssetGalleryVisibility</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a9bcda977efbe65c2ab28905feb685040</anchor>
@@ -50975,17 +48647,6 @@
     </member>
     <member kind="enumeration">
       <type></type>
-      <name>MouseButton</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a4180e6c308353c9965d695855746d982</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff">Left</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c">Right</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a4180e6c308353c9965d695855746d982ab1ca34f82e83c52b010f86955f264e05">Middle</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9">Count</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
       <name>ItemFamily</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a874cdf4b3785a41ee4cfc4ae882c2df5</anchor>
@@ -51011,29 +48672,6 @@
       <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a896890bfb700eac98300d639ca970f2b">Merchant</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a1c76cbfe21c6f44c1d1e59d54f3e4420">Company</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff">CombatHud</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>RpgSuperposition</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a3222e3cf5f453d3a55c104456a615430</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a3222e3cf5f453d3a55c104456a615430aeeed228a1530b74c9d193195034781e9">PausesGame</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a3222e3cf5f453d3a55c104456a615430a56876e48dbe57b9eb2e66e54c6576eaf">WhileWalking</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>RpgBlockKind</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a0076ce0092efe8d8df165966481a5830</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830aa4ca5edd20d0b5d502ebece575681f58">Fields</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830a5174d1309f275ba6f275db3af9eb3e18">Grid</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830a4ee29ca12c7d126654bd0e5275de6135">List</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830a3e2ad77ed860b43505ddc4ee592c3122">Prose</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830a1c7444be9626d149ab598fb79b639f96">Portrait</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830a92ea731d3af6677905303c88689f5d55">Track</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a0076ce0092efe8d8df165966481a5830af5b62b875edf01a271e9dd5b199bad64">ActionBar</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -52450,69 +50088,6 @@
       <arglist>(const std::vector&lt; std::filesystem::path &gt; &amp;directories)</arglist>
     </member>
     <member kind="function">
-      <type>ArenaFigureAnimationLoad</type>
-      <name>loadArenaFigureAnimations</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ac88b5c42864d2a0910bf9831321e47a0</anchor>
-      <arglist>(const std::filesystem::path &amp;sheetDirectory)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>advanceArenaAnimation</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>adc16b2d32ccdf3518ee030c1dc65efc3</anchor>
-      <arglist>(ArenaCombatantAnimation &amp;state, float realDeltaSeconds)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::int32_t</type>
-      <name>arenaDepthSortOrder</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ae3ab2165b6e3cf5d2c84394f3a95bf9e</anchor>
-      <arglist>(float footWorldY, ArenaDepthSlot slot) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>std::vector&lt; std::string &gt;</type>
-      <name>arenaTexturePaths</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a57f0685fbcb7a858faa871e9620c5fb9</anchor>
-      <arglist>(const ArenaAppearanceCatalog &amp;catalog)</arglist>
-    </member>
-    <member kind="function">
-      <type>ArenaSceneSnapshot</type>
-      <name>snapshotArenaScene</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aa0d7669255f79f79f2cd34ed1d8f939d</anchor>
-      <arglist>(const core::ArenaSession &amp;session)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>composeArenaScene</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aa5e3c79f66ed2e7f47977044cb6d51ba</anchor>
-      <arglist>(ComposedScene &amp;scene, const ArenaSceneSnapshot &amp;snapshot, const ArenaAppearanceCatalog &amp;catalog, const ArenaAnimationState &amp;animation, const core::IsoProjection &amp;projection, const ArenaSceneTextures &amp;textures, bool scenery=true)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>composeArenaScene</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a0a8f03ca4b08c01b38b6a3ac93a72a1c</anchor>
-      <arglist>(ComposedScene &amp;scene, const core::ArenaSession &amp;session, const ArenaAppearanceCatalog &amp;catalog, const ArenaAnimationState &amp;animation, const core::IsoProjection &amp;projection, const ArenaSceneTextures &amp;textures)</arglist>
-    </member>
-    <member kind="function">
-      <type>ComposedScene</type>
-      <name>composeArenaScene</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a4bd9a39cfe7925c05ca584dad92ccfa3</anchor>
-      <arglist>(const core::ArenaSession &amp;session, const ArenaAppearanceCatalog &amp;catalog, const ArenaAnimationState &amp;animation, const core::IsoProjection &amp;projection, const ArenaSceneTextures &amp;textures)</arglist>
-    </member>
-    <member kind="function">
-      <type>Camera2D</type>
-      <name>arenaCamera</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a2d572b49065ad901c6e2704b8d515c78</anchor>
-      <arglist>(const core::IsoProjection &amp;projection, int pixelWidth, int pixelHeight)</arglist>
-    </member>
-    <member kind="function">
       <type>bool</type>
       <name>assetGalleryExcludes</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -52574,13 +50149,6 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a551d45820ca5a6e720a6a89e1c70c120</anchor>
       <arglist>(float footWorldY) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>std::string</type>
-      <name>formatSceneStatistics</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aabc578b802bb386e63d830e168140fe7</anchor>
-      <arglist>(const SceneStatistics &amp;statistics)</arglist>
     </member>
     <member kind="function">
       <type>core::Rect</type>
@@ -53290,41 +50858,6 @@
       <arglist>(const QuestJournalValues &amp;values, int step)</arglist>
     </member>
     <member kind="function">
-      <type>std::span&lt; const RpgScreenDescriptor &gt;</type>
-      <name>rpgScreens</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a74752c1a9d7b1d3e8da19eec82c397be</anchor>
-      <arglist>() noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>const RpgScreenDescriptor &amp;</type>
-      <name>rpgScreenDescriptor</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aadabcaf08acb48c29dc437f3bd2f47ce</anchor>
-      <arglist>(RpgScreenId screen) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>RpgScreenId</type>
-      <name>nextRpgScreen</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a9eed4f2ad079e39eb5f17daf66defe91</anchor>
-      <arglist>(RpgScreenId screen) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>RpgScreenId</type>
-      <name>previousRpgScreen</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ad41bb1dd00388cd216ed0adc326d0e5e</anchor>
-      <arglist>(RpgScreenId screen) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>pausesGame</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>af90277096862529748e78023af0d654e</anchor>
-      <arglist>(RpgScreenId screen) noexcept</arglist>
-    </member>
-    <member kind="function">
       <type>std::optional&lt; ScreenState &gt;</type>
       <name>resolveTransition</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -53668,20 +51201,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr float</type>
-      <name>ARENA_DOWN_ENEMY_ALPHA</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a285a9d5f6120f739e72d9195791c8d22</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr std::int32_t</type>
-      <name>ARENA_DEPTH_SLOTS</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a6eee874c358054b54267845295a6068c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>constexpr int</type>
       <name>ASSET_GALLERY_CELL_PIXELS</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -53903,13 +51422,6 @@
       <name>IDENTITY_MAX_SCALE</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ae685f3bbb2403ff14aed68781f718fab</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr std::size_t</type>
-      <name>RPG_SCREEN_COUNT</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a93db3bafe6aeaebee6e483836f313055</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -54442,21 +51954,11 @@
     <filename>dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html</filename>
     <file>AnimationCatalog.cpp</file>
     <file>AnimationCatalog.h</file>
-    <file>ArenaAnimationDriver.cpp</file>
-    <file>ArenaAnimationDriver.h</file>
-    <file>ArenaAnimationState.h</file>
-    <file>ArenaAppearanceCatalog.cpp</file>
-    <file>ArenaAppearanceCatalog.h</file>
-    <file>ArenaSceneComposer.cpp</file>
-    <file>ArenaSceneComposer.h</file>
-    <file>ArenaSceneRenderer.cpp</file>
-    <file>ArenaSceneRenderer.h</file>
     <file>AssetContract.h</file>
     <file>AssetGallery.cpp</file>
     <file>AssetGallery.h</file>
     <file>AssetGalleryRenderer.cpp</file>
     <file>AssetGalleryRenderer.h</file>
-    <file>CacheRegistry.h</file>
     <file>Camera2D.cpp</file>
     <file>Camera2D.h</file>
     <file>CityBlockRender.cpp</file>
@@ -54494,8 +51996,6 @@
     <file>TextureAtlas.cpp</file>
     <file>TextureAtlas.h</file>
     <file>TextureAtlasRegions.cpp</file>
-    <file>TextureCache.cpp</file>
-    <file>TextureCache.h</file>
     <file>TextureLoader.cpp</file>
     <file>TextureLoader.h</file>
     <file>TileVisuals.cpp</file>
@@ -54510,13 +52010,8 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html</filename>
     <file>test_animation_catalog.cpp</file>
-    <file>test_arena_animation_driver.cpp</file>
-    <file>test_arena_appearance_catalog.cpp</file>
-    <file>test_arena_scene_composer.cpp</file>
-    <file>test_arena_scene_renderer.cpp</file>
     <file>test_asset_gallery.cpp</file>
     <file>test_asset_gallery_renderer.cpp</file>
-    <file>test_cache_registry.cpp</file>
     <file>test_camera2d.cpp</file>
     <file>test_capital_kit_render.cpp</file>
     <file>test_city_block_render.cpp</file>
@@ -54604,7 +52099,6 @@
     <file>test_character_sheet_values.cpp</file>
     <file>test_dialogue_screen.cpp</file>
     <file>test_identity_scale.cpp</file>
-    <file>test_rpg_screens.cpp</file>
     <file>test_screen_flow.cpp</file>
   </compound>
   <compound kind="dir">
@@ -54792,7 +52286,6 @@
     <file>InventoryValues.h</file>
     <file>QuestJournalScreen.cpp</file>
     <file>QuestJournalScreen.h</file>
-    <file>RpgScreens.cpp</file>
     <file>RpgScreens.h</file>
     <file>ScreenFlow.cpp</file>
     <file>ScreenFlow.h</file>

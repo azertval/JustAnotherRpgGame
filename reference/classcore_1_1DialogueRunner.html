@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -151,11 +151,13 @@ $(function(){initNavTree('classcore_1_1DialogueRunner.html','','classcore_1_1Dia
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a50b74dba4bb469ee0a237761e438da52" id="r_a50b74dba4bb469ee0a237761e438da52"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a50b74dba4bb469ee0a237761e438da52">DialogueRunner</a> (const <a class="el" href="structcore_1_1DialogueGraph.html">DialogueGraph</a> &amp;<a class="el" href="#a66b9d691ec94030a442f53c34c3f3275">graph</a>, <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags, <a class="el" href="classcore_1_1DialogueListener.html">DialogueListener</a> &amp;listener, const <a class="el" href="structcore_1_1DifficultyScale.html">DifficultyScale</a> &amp;difficulty, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
+<tr class="memdesc:a50b74dba4bb469ee0a237761e438da52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prépare un runner sur <code class="param">graph</code> sans le démarrer (<span class="tt"><a class="el" href="#a122534d25d5a40e2e79267de5367aad2" title="Ouvre la conversation.">start</a></span>).  <br /></td></tr>
 <tr class="memitem:a122534d25d5a40e2e79267de5367aad2" id="r_a122534d25d5a40e2e79267de5367aad2"><td class="memItemLeft"><a class="el" href="namespacecore.html#adbe3368bf4f687b1ab2120308d322c0a">DialogueState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a122534d25d5a40e2e79267de5367aad2">start</a> ()</td></tr>
 <tr class="memdesc:a122534d25d5a40e2e79267de5367aad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la conversation.  <br /></td></tr>
 <tr class="memitem:aaafa292cb3538efff82c7aed7424de71" id="r_aaafa292cb3538efff82c7aed7424de71"><td class="memItemLeft"><a class="el" href="namespacecore.html#adefc12cd0a71ea980213f083ce537aa1">ChoiceResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaafa292cb3538efff82c7aed7424de71">choose</a> (std::string_view choiceId)</td></tr>
 <tr class="memdesc:aaafa292cb3538efff82c7aed7424de71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la réponse <code class="param">choiceId</code>, puis avance jusqu'à la réplique suivante ou la fin.  <br /></td></tr>
 <tr class="memitem:a90eeef1c14d8ac68e4001977d49bc8ff" id="r_a90eeef1c14d8ac68e4001977d49bc8ff"><td class="memItemLeft"><a class="el" href="namespacecore.html#adbe3368bf4f687b1ab2120308d322c0a">DialogueState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a90eeef1c14d8ac68e4001977d49bc8ff">state</a> () const noexcept</td></tr>
+<tr class="memdesc:a90eeef1c14d8ac68e4001977d49bc8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état observable de la conversation (<span class="tt"><a class="el" href="namespacecore.html#adbe3368bf4f687b1ab2120308d322c0a" title="Où en est une conversation.">core::DialogueState</a></span>).  <br /></td></tr>
 <tr class="memitem:a39a92e21f2c1ae9374078ee00888e297" id="r_a39a92e21f2c1ae9374078ee00888e297"><td class="memItemLeft">const <a class="el" href="structcore_1_1DialogueNode.html">DialogueNode</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a39a92e21f2c1ae9374078ee00888e297">currentLine</a> () const</td></tr>
 <tr class="memitem:ae28422ced2a95c2d7e90a5ae3ced2d34" id="r_ae28422ced2a95c2d7e90a5ae3ced2d34"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae28422ced2a95c2d7e90a5ae3ced2d34">lineKey</a> () const</td></tr>
 <tr class="memitem:a1f20afac112a8840b41b1d5bda1b1e44" id="r_a1f20afac112a8840b41b1d5bda1b1e44"><td class="memItemLeft"><a class="el" href="namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7">DialogueAttitude</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f20afac112a8840b41b1d5bda1b1e44">attitude</a> () const</td></tr>
@@ -163,11 +165,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a78304fe651f1267c9075c988fa17b6fb" id="r_a78304fe651f1267c9075c988fa17b6fb"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structcore_1_1DialogueCheck.html">DialogueCheck</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a78304fe651f1267c9075c988fa17b6fb">lastCheck</a> () const noexcept</td></tr>
 <tr class="memitem:a3a501c132fc610899431af8effa8e90e" id="r_a3a501c132fc610899431af8effa8e90e"><td class="memItemLeft">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a3a501c132fc610899431af8effa8e90e">journal</a> () const noexcept</td></tr>
 <tr class="memitem:a66b9d691ec94030a442f53c34c3f3275" id="r_a66b9d691ec94030a442f53c34c3f3275"><td class="memItemLeft">const <a class="el" href="structcore_1_1DialogueGraph.html">DialogueGraph</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a66b9d691ec94030a442f53c34c3f3275">graph</a> () const noexcept</td></tr>
+<tr class="memdesc:a66b9d691ec94030a442f53c34c3f3275"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le graphe que ce runner joue.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a1019aa046308ea758072047e2478692e" id="r_a1019aa046308ea758072047e2478692e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1019aa046308ea758072047e2478692e">estProposee</a> (const <a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a> &amp;choice) const</td></tr>
-<tr class="memdesc:a1019aa046308ea758072047e2478692e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">choice</code> est proposée maintenant : sa condition tient, et le jet où elle mène n'a pas déjà été raté.  <br /></td></tr>
+<tr class="memitem:a59d684744a9a318e9bc5098cdab73237" id="r_a59d684744a9a318e9bc5098cdab73237"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a59d684744a9a318e9bc5098cdab73237">isOffered</a> (const <a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a> &amp;choice) const</td></tr>
+<tr class="memdesc:a59d684744a9a318e9bc5098cdab73237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">choice</code> est proposée maintenant : sa condition tient, et le jet où elle mène n'a pas déjà été raté.  <br /></td></tr>
 <tr class="memitem:a74172cf4aec9791362da024462865ac1" id="r_a74172cf4aec9791362da024462865ac1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a74172cf4aec9791362da024462865ac1">advanceTo</a> (const std::string &amp;nodeId)</td></tr>
 <tr class="memitem:a0ebb75ae0cdcaf220ef9f1c0c0d01620" id="r_a0ebb75ae0cdcaf220ef9f1c0c0d01620"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0ebb75ae0cdcaf220ef9f1c0c0d01620">apply</a> (const <a class="el" href="structcore_1_1DialogueAction.html">DialogueAction</a> &amp;action)</td></tr>
 <tr class="memitem:a6a4d53f7665cab3dad057a3355847333" id="r_a6a4d53f7665cab3dad057a3355847333"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a4d53f7665cab3dad057a3355847333">runCheck</a> (const <a class="el" href="structcore_1_1DialogueNode.html">DialogueNode</a> &amp;node)</td></tr>
@@ -232,6 +235,18 @@ Rejouable</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Prépare un runner sur <code class="param">graph</code> sans le démarrer (<span class="tt"><a class="el" href="#a122534d25d5a40e2e79267de5367aad2" title="Ouvre la conversation.">start</a></span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a66b9d691ec94030a442f53c34c3f3275" title="Le graphe que ce runner joue.">graph</a></td><td>Le graphe à jouer. </td></tr>
+    <tr><td class="paramname">flags</td><td>Les drapeaux du monde, lus par les conditions et écrits par les actions. </td></tr>
+    <tr><td class="paramname">listener</td><td>L'interlocuteur qui répond aux jets et aux effets. </td></tr>
+    <tr><td class="paramname">difficulty</td><td>L'échelle qui traduit une difficulté nommée en cible de jet. </td></tr>
+    <tr><td class="paramname">random</td><td>La suite aléatoire des jets, fournie pour le rejeu. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -383,33 +398,6 @@ Rejouable</h2>
 
 </div>
 </div>
-<a id="a1019aa046308ea758072047e2478692e" name="a1019aa046308ea758072047e2478692e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1019aa046308ea758072047e2478692e">&#9670;&#160;</a></span>estProposee()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::DialogueRunner::estProposee </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>choice</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Vrai si <code class="param">choice</code> est proposée maintenant : sa condition tient, et le jet où elle mène n'a pas déjà été raté. </p>
-
-</div>
-</div>
 <a id="a66b9d691ec94030a442f53c34c3f3275" name="a66b9d691ec94030a442f53c34c3f3275"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66b9d691ec94030a442f53c34c3f3275">&#9670;&#160;</a></span>graph()</h2>
 
@@ -432,6 +420,35 @@ Rejouable</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le graphe que ce runner joue. </p>
+
+</div>
+</div>
+<a id="a59d684744a9a318e9bc5098cdab73237" name="a59d684744a9a318e9bc5098cdab73237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d684744a9a318e9bc5098cdab73237">&#9670;&#160;</a></span>isOffered()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::DialogueRunner::isOffered </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>choice</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si <code class="param">choice</code> est proposée maintenant : sa condition tient, et le jet où elle mène n'a pas déjà été raté. </p>
 
 </div>
 </div>
@@ -580,6 +597,8 @@ Rejouable</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>L'état observable de la conversation (<span class="tt"><a class="el" href="namespacecore.html#adbe3368bf4f687b1ab2120308d322c0a" title="Où en est une conversation.">core::DialogueState</a></span>). </p>
 
 </div>
 </div>

@@ -6,7 +6,6 @@ var classhmi_1_1MapLauncherModel =
     [ "changed", "classhmi_1_1MapLauncherModel.html#a4bd053c055e4922b8e6a228d28e44ee5", null ],
     [ "directories", "classhmi_1_1MapLauncherModel.html#aedce00c9fd78da1cad4181cb2ced4760", null ],
     [ "launch", "classhmi_1_1MapLauncherModel.html#a2a1a5d448d469662a2787fc80222deea", null ],
-    [ "launched", "classhmi_1_1MapLauncherModel.html#ade1f4eb5481c84c3eae42b5f0d4f14af", null ],
     [ "levelsRoot", "classhmi_1_1MapLauncherModel.html#aeb885b617a0b2e904d920b2fdde2674f", null ],
     [ "maps", "classhmi_1_1MapLauncherModel.html#ac8be11d47f33a47732ba409e80067445", null ],
     [ "refresh", "classhmi_1_1MapLauncherModel.html#a4a976ba4ae0dab80bd990a23a9543e81", null ],

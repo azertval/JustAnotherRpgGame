@@ -68,42 +68,42 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>rue &amp;&amp; facade</code> est vrai.</li><li>Vérifie que <code>carte.draft.toJson()</code> vaut <code>carte.fichier</code>.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, GOMME, sol, vue, *rue, *rue).changed</code> est vrai.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, GOMME, decor, vue, *facade, *facade).changed</code> est vrai.</li><li>Vérifie que <code>carte.draft.tileMap().tile(rue-&gt;column, rue-&gt;row)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>carte.draft.toJson()</code> diffère de <code>carte.fichier</code>.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, pinceau(carte, &quot;street-2&quot;, true), decor, vue, *rue, *rue) .changed</code> est vrai.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, pinceau(carte, &quot;window-left&quot;, false), decor, vue, *facade, *facade) .changed</code> est vrai.</li><li>Vérifie que <code>carte.draft.toJson()</code> vaut <code>carte.fichier</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="brushgesturetestposerpuisgommerunetalsurlacartedessai">BrushGestureTest.PoserPuisGommerUnEtalSurLaCarteDEssai</h3>
-<p><em>Critique · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:136</code></p>
+<p><em>Critique · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:137</code></p>
 <p>Un étal 2 × 1 posé puis gommé sur la carte d'essai.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ouvrir la carte d essai.</li><li>Poser <code>feature-1</code> (2 × 1) sur deux cases libres de la place.</li><li>Le gommer par sa deuxième case.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>place</code> est vrai.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, pinceau(carte, &quot;feature-1&quot;, false), std::nullopt, vue, *place, *place) .changed</code> est vrai.</li><li>Vérifie que <code>carte.draft.layers()[decor].pieceAt(place-&gt;column, place-&gt;row)</code> vaut <code>&quot;feature-1&quot;</code>.</li><li>Vérifie que <code>carte.draft.tileMap().tile(place-&gt;column, place-&gt;row)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>carte.draft.tileMap().tile(seconde.column, seconde.row)</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, GOMME, decor, vue, seconde, seconde).changed</code> est vrai.</li><li>Vérifie que <code>carte.draft.tileMap().tile(place-&gt;column, place-&gt;row)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>carte.draft.tileMap().tile(seconde.column, seconde.row)</code> vaut <code>TileType::Empty</code>.</li><li>Vérifie que <code>carte.draft.toJson()</code> vaut <code>carte.fichier</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="brushgesturetestglisserunetalneledecalepas">BrushGestureTest.GlisserUnEtalNeLeDecalePas</h3>
-<p><em>Majeur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:184</code></p>
+<p><em>Majeur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:185</code></p>
 <p>Glisser un étal ne le décale pas.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Poser <code>feature-1</code> au clic.</li><li>Prolonger le glisser sur sa deuxième case.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::applyBrush(carte.draft, pinceau(carte, &quot;feature-1&quot;, false), decor, vue, ancre, ancre) .changed</code> est vrai.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, pinceau(carte, &quot;feature-1&quot;, false), decor, vue, seconde, seconde, true) .changed</code> est faux.</li><li>Vérifie que <code>carte.draft.layers()[decor].pieceAt(ancre.column, ancre.row)</code> vaut <code>&quot;feature-1&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="brushgesturetestcoucheverrouilleeouabsentelegesteestrefuse">BrushGestureTest.CoucheVerrouilleeOuAbsenteLeGesteEstRefuse</h3>
-<p><em>Majeur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:210</code></p>
+<p><em>Majeur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:211</code></p>
 <p>Couche verrouillée ou absente : le geste est refusé.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Verrouiller le décor, poser une pièce debout.</li><li>Poser une pièce debout sur une carte sans décor.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>verrou.changed</code> est faux.</li><li>Vérifie que <code>verrou.refusal</code> vaut <code>&quot;The decor layer is locked.&quot;</code>.</li><li>Vérifie que <code>absente.changed</code> est faux.</li><li>Vérifie que <code>absente.refusal.find(&quot;no decor layer&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>carte.draft.canUndo()</code> est faux.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="brushgesturetestsurlacollisionlepinceauforceetlagommelibere">BrushGestureTest.SurLaCollisionLePinceauForceEtLaGommeLibere</h3>
-<p><em>Critique · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:242</code></p>
+<p><em>Critique · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:243</code></p>
 <p>Sur la collision, le pinceau force et la gomme libère.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Peindre un mur sur la collision d'une case de rue.</li><li>La gommer, la collision active.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::applyBrush(carte.draft, mur, std::nullopt, vue, rue, rue).changed</code> est vrai.</li><li>Vérifie que <code>carte.draft.isCollisionForced(rue)</code> est vrai.</li><li>Vérifie que <code>hmi::applyBrush(carte.draft, GOMME, std::nullopt, vue, rue, rue).changed</code> est vrai.</li><li>Vérifie que <code>carte.draft.isCollisionForced(rue)</code> est faux.</li><li>Vérifie que <code>carte.draft.toJson()</code> vaut <code>carte.fichier</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="brushgesturetestuntypevasurlacoucheactivejamaislentree">BrushGestureTest.UnTypeVaSurLaCoucheActiveJamaisLEntree</h3>
-<p><em>Majeur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:268</code></p>
+<p><em>Majeur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:269</code></p>
 <p>Un type va sur la couche active, jamais l'entrée.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Peindre <code>entry</code> sur le sol de la carte d'essai.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>result.changed</code> est faux.</li><li>Vérifie que <code>result.refusal.find(&quot;entry lives in the collision grid&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="brushgesturetestlepinceausenomme">BrushGestureTest.LePinceauSeNomme</h3>
-<p><em>Mineur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:291</code></p>
+<p><em>Mineur · Unitaire · Pinceau</em> — <code>Source/Test/Unit/Editor/test_brush_gesture.cpp:292</code></p>
 <p>Le pinceau se nomme.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Nommer un pinceau de type, de pièce, la gomme.</li></ol>
@@ -118,28 +118,28 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>projection.columns()</code> vaut <code>48</code>.</li><li>Vérifie que <code>projection.rows()</code> vaut <code>40</code>.</li><li>Vérifie que <code>hmi::pickIsoCell(projection, center)</code> vaut <code>corner.cell</code>.</li><li>Vérifie que <code>hmi::pickIsoCell(projection, toward(vertex, center, 0.05F))</code> vaut <code>corner.cell</code>.</li><li>Vérifie que <code>hmi::pickIsoCell(projection, outside).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::clampedIsoCell(projection, outside)</code> vaut <code>corner.cell</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="canvaspickingtestsousunmurhautonpointelacasederriere">CanvasPickingTest.SousUnMurHautOnPointeLaCaseDerriere</h3>
-<p><em>Bloquant · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:111</code></p>
+<p><em>Bloquant · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:112</code></p>
 <p>Sous un mur haut, le pointage designe la case par son pied.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Composer la carte d'essai avec la taille des pieces de son manifeste.</li><li>Prendre une piece de relief plus haute que deux losanges, et la case juste derriere elle (colonne - 1, ligne - 1).</li><li>Pointer le centre du losange de cette case.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>appearance.ok()</code> est vrai.</li><li>Vérifie que <code>manifest.ok()</code> est vrai.</li><li>Vérifie que <code>contains(bounds, point)</code> est vrai.</li><li>Vérifie que <code>hmi::pickIsoCell(projection, point)</code> vaut <code>behind</code>.</li><li>Vérifie que <code>checked</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="canvaspickingtestlahauteurseprendenparametre">CanvasPickingTest.LaHauteurSePrendEnParametre</h3>
-<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:178</code></p>
+<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:179</code></p>
 <p>Le pointage prend la hauteur en parametre.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Elever d'un niveau le losange d'une case.</li><li>Pointer son centre avec la hauteur 1, puis avec la hauteur 0.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::pickIsoCell(projection, center, 1)</code> vaut <code>cell</code>.</li><li>Vérifie que <code>hmi::pickIsoCell(projection, center, 0)</code> vaut <code>(core::GridPosition{.column = 4, .row = 4})</code>.</li><li>Vérifie que <code>hmi::isoCellDiamond(projection, cell, 0)[0]</code> vaut <code>projection.gridToWorld({5.0F, 5.0F})</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="canvaspickingtestonneparcourtquelescasesvisibles">CanvasPickingTest.OnNeParcourtQueLesCasesVisibles</h3>
-<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:199</code></p>
+<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:200</code></p>
 <p>Le canevas ne parcourt que les cases visibles.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Demander les cases couvertes par la scene entiere de la carte d'essai.</li><li>Demander celles d'un petit rectangle autour du centre d'une case.</li><li>Faire de meme en vue a plat.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>all</code> vaut <code>(hmi::CellRange{.firstColumn = 0, .firstRow = 0, .lastColumn = 47, .lastRow = 39})</code>.</li><li>Vérifie que <code>detail.contains(cell)</code> est vrai.</li><li>Vérifie que <code>detail.lastColumn - detail.firstColumn</code> est inférieur ou égal à <code>2</code>.</li><li>Vérifie que <code>detail.lastRow - detail.firstRow</code> est inférieur ou égal à <code>2</code>.</li><li>Vérifie que <code>hmi::flatCellsCovering(core::Rect{{2.5F, 3.2F}, {2.0F, 1.0F}}, 48, 40)</code> vaut <code>(hmi::CellRange{.firstColumn = 2, .firstRow = 3, .lastColumn = 4, .lastRow = 4})</code>.</li><li>Vérifie que <code>hmi::flatCellsCovering(core::Rect{{60.0F, 3.0F}, {2.0F, 1.0F}}, 48, 40).empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="canvaspickingtestenvueaplatunecaseparunite">CanvasPickingTest.EnVueAPlatUneCaseParUnite</h3>
-<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:232</code></p>
+<p><em>Majeur · Unitaire · Editeur · Canevas</em> — <code>Source/Test/Unit/Editor/test_canvas_picking.cpp:233</code></p>
 <p>Le pointage a plat designe la case sous le point.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Pointer dans la grille, puis juste a gauche de la colonne 0.</li></ol>
@@ -557,7 +557,7 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Ecrire deux brouillons, puis un seul.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = &quot;bourg/place&quot;, .json = &quot;{}&quot;}, hmi::DraftMap{.mapId = &quot;donjon&quot;, .json = &quot;{}&quot;}}) .empty()</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;donjon.json&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = &quot;bourg/place&quot;, .json = &quot;{}&quot;}}) .empty()</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;bourg&quot; / &quot;place.json&quot;)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;donjon.json&quot;)</code> est faux.</li></ul>
+<ul><li>Vérifie que <code>hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = &quot;bourg/place&quot;, .json = &quot;{}&quot;}, hmi::DraftMap{.mapId = &quot;donjon&quot;, .json = &quot;{}&quot;}}) .empty()</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;donjon.json&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::writeDraftMaps(dir, {hmi::DraftMap{.mapId = &quot;bourg/place&quot;, .json = &quot;{}&quot;}}).empty()</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;bourg&quot; / &quot;place.json&quot;)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dir / &quot;donjon.json&quot;)</code> est faux.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="gamelaunchsansbrouillonledossierestvide">GameLaunch.SansBrouillonLeDossierEstVide</h3>
 <p><em>Mineur · Unitaire · Essai complet</em> — <code>Source/Test/Unit/Editor/test_game_launch.cpp:83</code></p>
 <p>Sans brouillon, le dossier d'essai est vide et l'ecriture reussit.</p>
@@ -1014,42 +1014,42 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>result.changed</code> est vrai.</li><li>Vérifie que <code>carte.pieceEn(carte.decor, cell.column, cell.row)</code> vaut <code>&quot;light&quot;</code>.</li><li>Vérifie que <code>carte.draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>carte.draft.undo()</code> est vrai.</li><li>Vérifie que <code>carte.draft.toJson()</code> vaut <code>carte.fichier</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="painttoolstestleseauremplituneregionenunpas">PaintToolsTest.LeSeauRemplitUneRegionEnUnPas</h3>
-<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:160</code></p>
+<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:161</code></p>
 <p>Le seau remplit une région, en un pas.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Sur La carte d'essai, verser <code>square</code> sur une case de la place, le sol actif… puis <code>street-3</code> sur la place.</li><li>Annuler.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>carte.pieceEn(carte.sol, graine.column, graine.row)</code> vaut <code>&quot;square&quot;</code>.</li><li>Vérifie que <code>static_cast&lt;int&gt;(place.size())</code> vaut <code>carres</code>.</li><li>Vérifie que <code>result.changed</code> est vrai.</li><li>Vérifie que <code>carte.pieceEn(carte.sol, cell.column, cell.row)</code> vaut <code>&quot;street-3&quot;</code>.</li><li>Vérifie que <code>carte.pieceEn(carte.sol, 0, 3)</code> vaut <code>&quot;street&quot;</code>.</li><li>Vérifie que <code>collisionSuitLesPieces(carte.draft)</code> est vrai.</li><li>Vérifie que <code>carte.draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>carte.draft.undo()</code> est vrai.</li><li>Vérifie que <code>carte.draft.toJson()</code> vaut <code>carte.fichier</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="painttoolstestleseauetlespieceslarges">PaintToolsTest.LeSeauEtLesPiecesLarges</h3>
-<p><em>Majeur · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:199</code></p>
+<p><em>Majeur · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:200</code></p>
 <p>Le seau et les pièces larges.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Verser <code>feature-1</code> (2 × 1).</li><li>Poser un étal, chercher la région de sa case.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>refus.changed</code> est faux.</li><li>Vérifie que <code>refus.refusal.find(&quot;single-cell pieces&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>carte.draft.canUndo()</code> est faux.</li><li>Vérifie que <code>carte.draft.placePiece(carte.decor, {.column = 20, .row = 16}, &quot;feature-1&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>hmi::floodRegion(carte.draft, carte.decor, {.column = 21, .row = 16})</code> vaut <code>(std::vector&lt;GridPosition&gt;{{20, 16}, {21, 16}})</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="painttoolstestlapipetteprendcequonvoit">PaintToolsTest.LaPipettePrendCeQuOnVoit</h3>
-<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:224</code></p>
+<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:225</code></p>
 <p>La pipette prend ce qu'on voit.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Sur La carte d'essai, piquer un mur, la collision active puis le sol actif, et une case vide.</li><li>Poser un étal, piquer sa deuxième case.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>collision</code> est vrai.</li><li>Vérifie que <code>collision-&gt;brush.kind</code> vaut <code>BrushKind::Type</code>.</li><li>Vérifie que <code>collision-&gt;brush.type</code> vaut <code>TileType::Wall</code>.</li><li>Vérifie que <code>collision-&gt;layer</code> est faux.</li><li>Vérifie que <code>surLeSol</code> est vrai.</li><li>Vérifie que <code>surLeSol-&gt;brush</code> vaut <code>carte.piece(&quot;street&quot;, true)</code>.</li><li>Vérifie que <code>surLeSol-&gt;layer</code> vaut <code>carte.sol</code>.</li><li>Vérifie que <code>devant</code> est vrai.</li><li>Vérifie que <code>devant-&gt;brush</code> vaut <code>carte.piece(&quot;wall-right&quot;, false)</code>.</li><li>Vérifie que <code>devant-&gt;layer</code> vaut <code>carte.decor</code>.</li><li>Vérifie que <code>hmi::pickBrush(carte.draft, carte.decor, {.column = 30, .row = 0}, table)</code> est faux.</li><li>Vérifie que <code>hmi::pickBrush(carte.draft, carte.decor, {.column = -1, .row = 0}, table)</code> est faux.</li><li>Vérifie que <code>carte.draft.placePiece(carte.decor, {.column = 20, .row = 16}, &quot;feature-1&quot;, TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>etal</code> est vrai.</li><li>Vérifie que <code>etal-&gt;brush.piece</code> vaut <code>&quot;feature-1&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="painttoolstestlemiroirposelajumelle">PaintToolsTest.LeMiroirPoseLaJumelle</h3>
-<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:267</code></p>
+<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:268</code></p>
 <p>Le miroir pose la jumelle, de l'autre côté de l'axe.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Refléter des cases, nommer les jumelles.</li><li>Tracer une ligne de <code>wall-right</code>, le miroir actif.</li><li>Poser un <code>wall-left</code> sur l'axe, une façade qui le traverse.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>axe.offset</code> vaut <code>25</code>.</li><li>Vérifie que <code>hmi::mirrorCell(axe, {.column = 26, .row = 5})</code> vaut <code>(GridPosition{30, 1})</code>.</li><li>Vérifie que <code>hmi::mirrorCell(axe, {.column = 30, .row = 5})</code> vaut <code>(GridPosition{30, 5})</code>.</li><li>Vérifie que <code>hmi::mirrorPieceName(manifeste, &quot;wall-left&quot;)</code> vaut <code>&quot;wall-right&quot;</code>.</li><li>Vérifie que <code>hmi::mirrorPieceName(manifeste, &quot;wall-right&quot;)</code> vaut <code>&quot;wall-left&quot;</code>.</li><li>Vérifie que <code>hmi::mirrorPieceName(manifeste, &quot;front-left&quot;)</code> vaut <code>&quot;front-right&quot;</code>.</li><li>Vérifie que <code>hmi::mirrorPieceName(manifeste, &quot;light&quot;)</code> vaut <code>&quot;light&quot;</code>.</li><li>Vérifie que <code>hmi::mirrorPieceName(nullptr, &quot;wall-left&quot;)</code> vaut <code>&quot;wall-left&quot;</code>.</li><li>Vérifie que <code>hmi::applyStroke(carte.draft, carte.piece(&quot;wall-right&quot;, false), std::nullopt, vue, hmi::lineCells({.column = 26, .row = 5}, {.column = 28, .row = 5}), false, carte.contexte(axe)) .changed</code> est vrai.</li><li>Vérifie que <code>carte.pieceEn(carte.decor, column, 5)</code> vaut <code>&quot;wall-right&quot;</code>.</li><li>Vérifie que <code>carte.pieceEn(carte.decor, 30, column - 25)</code> vaut <code>&quot;wall-left&quot;</code>.</li><li>Vérifie que <code>carte.draft.undoDepth()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>hmi::applyStroke(carte.draft, carte.piece(&quot;wall-corner&quot;, false), std::nullopt, vue, {{.column = 30, .row = 5}}, false, carte.contexte(axe)) .changed</code> est vrai.</li><li>Vérifie que <code>carte.pieceEn(carte.decor, 30, 5)</code> vaut <code>&quot;wall-corner&quot;</code>.</li><li>Vérifie que <code>hmi::applyStroke(carte.draft, carte.piece(&quot;front-left&quot;, false), std::nullopt, vue, {{.column = 24, .row = 0}}, false, carte.contexte(coupe)) .changed</code> est vrai.</li><li>Vérifie que <code>carte.pieceEn(carte.decor, 24, 0)</code> vaut <code>&quot;front-left&quot;</code>.</li><li>Vérifie que <code>carte.pieceEn(carte.decor, 23, 1)</code> vaut <code>&quot;&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="painttoolstestlamesureencasesetenpieds">PaintToolsTest.LaMesureEnCasesEtEnPieds</h3>
-<p><em>Mineur · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:318</code></p>
+<p><em>Mineur · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:319</code></p>
 <p>La mesure en cases et en pieds.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Mesurer de (2, 1) à (8, 4), puis une case sur elle-même.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>mesure</code> vaut <code>(hmi::Measure{.columns = 6, .rows = 3, .cells = 6, .feet = 30})</code>.</li><li>Vérifie que <code>hmi::measureLabel(mesure)</code> vaut <code>&quot;7 × 4 · 6 cells = 30 ft&quot;</code>.</li><li>Vérifie que <code>hmi::measureLabel(hmi::measureBetween({.column = 3, .row = 3}, {.column = 3, .row = 3}))</code> vaut <code>&quot;1 × 1 · 0 cells = 0 ft&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="painttoolstestunemaisonenmoinsdedixgestes">PaintToolsTest.UneMaisonEnMoinsDeDixGestes</h3>
-<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:338</code></p>
+<p><em>Critique · Unitaire · Outils du peintre</em> — <code>Source/Test/Unit/Editor/test_paint_tools.cpp:339</code></p>
 <p>Une maison de la carte d'essai en six gestes.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Sur un terrain vide de la carte d'essai, le décor actif, le miroir par l'angle (30, 5) :</li><li>rectangle de <code>street</code> (25, 0)–(29, 4) ;</li><li>ligne de <code>wall-right</code> (25, 5)–(29, 5) ;</li><li>pinceau <code>wall-corner</code> sur l'angle ;</li><li>pinceau <code>door-right</code> en (27, 5) ;</li><li>pinceau <code>doorstep</code> en (27, 4) ;</li><li>annuler puis refaire le dernier geste.</li></ol>
@@ -1309,14 +1309,14 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>etal.width</code> vaut <code>2</code>.</li><li>Vérifie que <code>etal.entities.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>hmi::writePrefab(racine, &quot;bourg&quot;, &quot;etal-du-marche&quot;, etal)</code> vaut <code>&quot;&quot;</code>.</li><li>Vérifie que <code>prefabrique.has_value()</code> est vrai.</li><li>Vérifie que <code>pose.refusal.empty()</code> est vrai.</li><li>Vérifie que <code>pose.changed</code> est vrai.</li><li>Vérifie que <code>cible.undoDepth()</code> vaut <code>pas + 1</code>.</li><li>Vérifie que <code>cible.layers()[decor(cible)].pieceAt(place.column, place.row)</code> vaut <code>&quot;feature-1&quot;</code>.</li><li>Vérifie que <code>pose.entities.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>marchand.type</code> vaut <code>&quot;npc&quot;</code>.</li><li>Vérifie que <code>marchand.position</code> vaut <code>place</code>.</li><li>Vérifie que <code>marchand.id</code> vaut <code>idLibre</code>.</li><li>Vérifie que <code>marchand.id</code> diffère de <code>etal.entities.front().id</code>.</li><li>Vérifie que <code>cible.entities().size()</code> vaut <code>entitesAvant + 1</code>.</li><li>Vérifie que <code>cible.undo()</code> est vrai.</li><li>Vérifie que <code>cible.undoDepth()</code> vaut <code>pas</code>.</li><li>Vérifie que <code>sansCompteur(cible.toJson())</code> vaut <code>sansCompteur(avant)</code>.</li><li>Vérifie que <code>cible.entities().size()</code> vaut <code>entitesAvant</code>.</li><li>Vérifie que <code>cible.nextEntityId()</code> est strictement supérieur à <code>entityIdNumberOf(idLibre)</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="donneesprefabriqueslesmodeleslivresselisent">DonneesPrefabriques.LesModelesLivresSeLisent</h3>
-<p><em>Majeur · Unitaire · Modèles de carte</em> — <code>Source/Test/Unit/Editor/test_stamps.cpp:345</code></p>
+<p><em>Majeur · Unitaire · Modèles de carte</em> — <code>Source/Test/Unit/Editor/test_stamps.cpp:344</code></p>
 <p>La bibliothèque livrée se lit.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Lire les modèles de <code>Editor/Templates</code>. 2. Contrôler toute la bibliothèque.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>modele.layers.empty()</code> est faux.</li><li>Vérifie que <code>modele.width</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>modele.height</code> est strictement supérieur à <code>0</code>.</li><li>Vérifie que <code>std::ranges::any_of( modele.layers, [](const hmi::MapTemplateLayer&amp; couche) { return couche.scene; })</code> est vrai.</li><li>Vérifie que <code>identifiants</code> vaut <code>(std::vector&lt;std::string&gt;{&quot;arena&quot;, &quot;blockout&quot;, &quot;interior&quot;, &quot;street&quot;})</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="stampstestunmodelenenommeaucunepiece">StampsTest.UnModeleNeNommeAucunePiece</h3>
-<p><em>Mineur · Unitaire · Modèles de carte</em> — <code>Source/Test/Unit/Editor/test_stamps.cpp:376</code></p>
+<p><em>Mineur · Unitaire · Modèles de carte</em> — <code>Source/Test/Unit/Editor/test_stamps.cpp:374</code></p>
 <p>Un modèle qui nomme une pièce est refusé.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Lire un modèle dont le tampon pose une pièce.</li></ol>
@@ -1533,7 +1533,7 @@
 <ul><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {})</code> vaut <code>&quot;from-place&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {&quot;from-place&quot;})</code> vaut <code>&quot;from-place-2&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;donjon&quot;, {&quot;from-donjon&quot;, &quot;from-donjon-2&quot;})</code> vaut <code>&quot;from-donjon-3&quot;</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-world.html"><span>Précédent</span>Core · World</a><a class="next" href="hmi-audio.html"><span>Suivant</span>HMI · Audio</a></nav><p class="source">Source : <code>Documentation/CahierTest/editor.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f5868d2b6</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-25 · <code>f20d7a39f</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

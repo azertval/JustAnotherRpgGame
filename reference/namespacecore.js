@@ -4,10 +4,6 @@ var namespacecore =
     [ "ActionEconomy", "classcore_1_1ActionEconomy.html", "classcore_1_1ActionEconomy" ],
     [ "AreaOfEffect", "structcore_1_1AreaOfEffect.html", "structcore_1_1AreaOfEffect" ],
     [ "ArenaEntryPoint", "structcore_1_1ArenaEntryPoint.html", "structcore_1_1ArenaEntryPoint" ],
-    [ "HeroicMark", "structcore_1_1HeroicMark.html", "structcore_1_1HeroicMark" ],
-    [ "HeroicMarkCatalog", "structcore_1_1HeroicMarkCatalog.html", "structcore_1_1HeroicMarkCatalog" ],
-    [ "Arena", "structcore_1_1Arena.html", "structcore_1_1Arena" ],
-    [ "ArenaCatalog", "structcore_1_1ArenaCatalog.html", "structcore_1_1ArenaCatalog" ],
     [ "ArenaContestant", "structcore_1_1ArenaContestant.html", "structcore_1_1ArenaContestant" ],
     [ "ArenaBout", "structcore_1_1ArenaBout.html", "structcore_1_1ArenaBout" ],
     [ "ArenaMount", "structcore_1_1ArenaMount.html", "structcore_1_1ArenaMount" ],
@@ -369,8 +365,6 @@ var namespacecore =
     ] ],
     [ "DamageFlag", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4", [
       [ "Magical", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a", null ],
-      [ "Silvered", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b", null ],
-      [ "Adamantine", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85", null ],
       [ "Spell", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd", null ],
       [ "IgnoresResistance", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5", null ],
       [ "IgnoresReserves", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37", null ]
@@ -402,7 +396,6 @@ var namespacecore =
       [ "ClearFlag", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac23574157c4f45657c36e9ce5d40eab7", null ],
       [ "GiveItem", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee", null ],
       [ "StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
-      [ "StartCombat", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a850d807d3f4b1d4aef7903b1745e3159", null ],
       [ "StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ],
       [ "EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ]
     ] ],
@@ -857,7 +850,6 @@ var namespacecore =
     [ "knownEntityKinds", "namespacecore.html#a3c877363f8258fc1ba137c48aa283397", null ],
     [ "knownInteractableKinds", "namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea", null ],
     [ "layerKindName", "namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd", null ],
-    [ "loadArenas", "namespacecore.html#a6cbf953c060d64cd627c436ab3d4520c", null ],
     [ "loadAssetFamilies", "namespacecore.html#a572e98b67a306b182732d2396b1478fb", null ],
     [ "loadAtlas", "namespacecore.html#a4a28b9f58a274691d57f2f961c7909e7", null ],
     [ "loadBehaviors", "namespacecore.html#a71acb15a48b4ccfba9c5fb43dcd8fee2", null ],
@@ -873,7 +865,6 @@ var namespacecore =
     [ "loadEncumbranceRules", "namespacecore.html#a6784f5e1367401de1a0d7d087d7c16a4", null ],
     [ "loadEquipment", "namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c", null ],
     [ "loadExperienceTable", "namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54", null ],
-    [ "loadHeroicMarks", "namespacecore.html#a2c4f8564739de90f7f02936084207e1d", null ],
     [ "loadItems", "namespacecore.html#a00edce76b901663b3187437ecea2da10", null ],
     [ "loadQuest", "namespacecore.html#afa41f919bb154ba5431520e47b8674da", null ],
     [ "loadQuests", "namespacecore.html#a75c14c8a302648b21c37c8424273dbeb", null ],

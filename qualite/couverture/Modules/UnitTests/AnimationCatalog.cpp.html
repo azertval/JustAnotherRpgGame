@@ -251,21 +251,6 @@ core::AtlasRegion AnimationCatalog::frameRegion(const AnimationDescription&amp; 
                              .height = description.frameHeight};
 <span style = "background-color:#dfd">}</span>
 
-core::AtlasRegion AnimationCatalog::currentFrameRegion(const AnimationDescription&amp; description,
-<span style = "background-color:#fdd">                                                       const core::Animation&amp; animation) {
-    if (!animation.clips || animation.clips-&gt;clipCount() == 0) {
-        return frameRegion(description, 0);</span>
-    }
-<span style = "background-color:#fdd">    const core::AnimationClip&amp; clip = animation.clips-&gt;clipAt(animation.clipIndex);
-    if (clip.frames.empty()) {
-        return frameRegion(description, 0);</span>
-    }
-<span style = "background-color:#fdd">    const bool inBounds = animation.frameIndex &gt;= 0 &amp;&amp;</span>
-                          static_cast&lt;std::size_t&gt;(animation.frameIndex) &lt; clip.frames.size();
-<span style = "background-color:#fdd">    const int frameIndexInClip = inBounds ? animation.frameIndex : 0;
-    return frameRegion(description, clip.frames[static_cast&lt;std::size_t&gt;(frameIndexInClip)]);
-}</span>
-
 }  // namespace hmi</pre>
         <hr />
         <table width="100%">

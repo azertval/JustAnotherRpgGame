@@ -21,8 +21,8 @@
  *
  * ## D'oÃ¹ viennent les formules
  *
- * Elles sont portÃ©es de la scÃ¨ne QML du ColisÃ©e (`Source/Ui/Controls/ArenaScene.ui.qml`,
- * `LOT-50`), qui les appliquait en pixels d'Ã©lÃ©ment. Ici, elles s'expriment en **unitÃ©s monde**
+ * Elles sont portÃ©es de l'ancienne scÃ¨ne QML du ColisÃ©e (celle du `LOT-50`, retirÃ©e depuis), qui
+ * les appliquait en pixels d'Ã©lÃ©ment. Ici, elles s'expriment en **unitÃ©s monde**
  * (`EX-ARCH-021`) : le cadrage â centrer la scÃ¨ne, la faire tenir dans la surface â n'est plus
  * l'affaire de la projection mais celle de la camÃ©ra (`hmi::Camera2D`), qui ne fait que dÃ©placer
  * et agrandir, en aval, des points dÃ©jÃ  projetÃ©s.
@@ -92,10 +92,12 @@ public:
                   float diamondRatio = ARENA_DIAMOND_RATIO,
                   float wallRise = ARENA_WALL_RISE) noexcept;
 
+    /// @brief Le nombre de colonnes de la grille projetÃ©e (jamais nÃ©gatif).
 <span style = "background-color:#dfd">    [[nodiscard]] int columns() const noexcept {
         return _columns;
-    }
-    [[nodiscard]] int rows() const noexcept {
+    }</span>
+    /// @brief Le nombre de lignes de la grille projetÃ©e (jamais nÃ©gatif).
+<span style = "background-color:#dfd">    [[nodiscard]] int rows() const noexcept {
         return _rows;
     }</span>
 

@@ -45,10 +45,13 @@ struct MarkerImage {
     /// `width * height` pixels.
     std::vector&lt;MarkerColor&gt; pixels;
 
+    /// @brief Vrai si l'image n'a pas de pixel : dimension nulle ou tampon vide.
 <span style = "background-color:#dfd">    [[nodiscard]] bool isEmpty() const noexcept {
         return width &lt;= 0 || height &lt;= 0 || pixels.empty();
-    }
-    [[nodiscard]] MarkerColor at(int x, int y) const {
+    }</span>
+    /// @brief Le pixel de la colonne @p x et de la ligne @p y, comptÃ©es depuis le haut-gauche. Sans
+    /// contrÃ´le des bornes.
+<span style = "background-color:#dfd">    [[nodiscard]] MarkerColor at(int x, int y) const {
         return pixels[static_cast&lt;std::size_t&gt;((y * width) + x)];
     }</span>
 };

@@ -176,10 +176,10 @@ struct CombatantProfile {
     int maximumHitPoints = 0;
     int currentHitPoints = 0;
     /// Valeur de DextÃ©ritÃ©, second critÃ¨re de dÃ©partage de l'initiative.
-<span style = "background-color:#dfd">    int dexterity = 10;</span>
+    int dexterity = 10;
     /// Modificateur du test d'initiative â la DextÃ©ritÃ©, et ce qui s'y ajoute.
-<span style = "background-color:#dfd">    int initiativeModifier = 0;
-    RollStance initiativeStance = RollStance::Normal;</span>
+    int initiativeModifier = 0;
+<span style = "background-color:#dfd">    RollStance initiativeStance = RollStance::Normal;</span>
     /// Budget de dÃ©placement, en cases (`core::movementBudget`).
     int movement = 0;
 <span style = "background-color:#dfd">    Locomotion locomotion = Locomotion::Walk;
@@ -372,21 +372,25 @@ public:
     /// @brief Le combattant dont c'est le tour.
 <span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;CombatantId&gt; activeCombatant() const noexcept {
         return _active;
-    }
-    [[nodiscard]] const TurnOrder&amp; turnOrder() const noexcept {
+    }</span>
+    /// @brief L'ordre d'initiative courant, en lecture seule.
+<span style = "background-color:#dfd">    [[nodiscard]] const TurnOrder&amp; turnOrder() const noexcept {
         return _order;
     }</span>
     /// @brief L'issue, une fois le combat terminÃ©.
 <span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;CombatOutcome&gt; outcome() const noexcept {
         return _outcome;
-    }
-    [[nodiscard]] bool escapable() const noexcept {
+    }</span>
+    /// @brief Vrai si les alliÃ©s peuvent fuir ce combat (recopiÃ© de la rencontre, `setEscapable`).
+<span style = "background-color:#dfd">    [[nodiscard]] bool escapable() const noexcept {
         return _escapable;
     }</span>
+    /// @brief Le combattant enrÃ´lÃ© d'identifiant @p combatant, sorti compris, ou `nullptr`.
     [[nodiscard]] const Combatant* find(CombatantId combatant) const;
     /// @brief Tous les combattants enrÃ´lÃ©s, sortis compris, par identifiant croissant.
     [[nodiscard]] std::vector&lt;CombatantId&gt; combatants() const;
 
+    /// @brief La grille tactique du combat, en lecture seule.
 <span style = "background-color:#dfd">    [[nodiscard]] const BattleGrid&amp; grid() const noexcept {
         return _grid;
     }</span>

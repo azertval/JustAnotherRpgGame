@@ -17,45 +17,16 @@
 #include &lt;algorithm&gt;
 #include &lt;array&gt;
 #include &lt;cstdlib&gt;
-#include &lt;system_error&gt;
 #include &lt;tuple&gt;
 #include &lt;utility&gt;
 #include &lt;variant&gt;
 
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/Flanking.h"
-#include "Core/Data/JsonDocument.h"
 #include "Core/Rpg/Ability.h"
 
 namespace core {
 namespace {
-
-// Les entrees de catalogue ne portent pas de champ `version` : meme convention que
-// `loadEncounters` (LOT-18) et `loadEquipment` (LOT-34).
-constexpr int SANS_GARDE_DE_VERSION = 0;
-
-<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
-    const auto trouve = objet.find(champ);
-    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
-                                                          : std::string{};
-<span style = "background-color:#dfd">}</span>
-
-<span style = "background-color:#dfd">[[nodiscard]] bool lireBooleen(const nlohmann::json&amp; objet, const char* champ, bool defaut) {
-    const auto trouve = objet.find(champ);
-    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_boolean()) ? trouve-&gt;get&lt;bool&gt;() : defaut;
-}</span>
-
-[[nodiscard]] std::vector&lt;std::filesystem::path&gt; fichiersJson(const std::filesystem::path&amp; dossier,
-<span style = "background-color:#dfd">                                                              std::error_code&amp; code) {
-    std::vector&lt;std::filesystem::path&gt; fichiers;
-    for (const auto&amp; entree : std::filesystem::directory_iterator(dossier, code)) {
-        if (entree.is_regular_file(code) &amp;&amp; entree.path().extension() == ".json") {
-            fichiers.push_back(entree.path());
-        }
-    }
-    std::ranges::sort(fichiers);
-    return fichiers;
-}</span>
 
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;CombatSide&gt; campDepuis(const PropertyMap&amp; proprietes) {
     const auto trouve = proprietes.find(std::string(ARENA_SIDE_PROPERTY));
@@ -110,7 +81,7 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
         case CombatHook::CombatantJoined:
 <span style = "background-color:#fdd">            return "entree";</span>
         case CombatHook::CombatantLeft:
-<span style = "background-color:#dfd">            return "sortie";</span>
+<span style = "background-color:#fdd">            return "sortie";</span>
         case CombatHook::CombatEnded:
 <span style = "background-color:#dfd">            return "issue";</span>
     }
@@ -129,8 +100,8 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
 <span style = "background-color:#fdd">    return "?";</span>
 <span style = "background-color:#dfd">}</span>
 
-/// La derniere case ou l'on peut se tenir, au plus tard @p sortie : on ne s'arrete pas sur la case
-/// d'un allie qu'on traverse. Zero si aucune avant.
+// La derniere case ou l'on peut se tenir, au plus tard @p sortie : on ne s'arrete pas sur la case
+// d'un allie qu'on traverse. Zero si aucune avant.
 [[nodiscard]] std::size_t derniereCaseTenable(const ReachableArea&amp; zone,
                                               const std::vector&lt;GridPosition&gt;&amp; cases,
 <span style = "background-color:#dfd">                                              std::size_t sortie) {
@@ -163,79 +134,6 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
                std::tuple(b.side, b.rank, b.position.row, b.position.column);
 <span style = "background-color:#dfd">    });
     return entrees;
-}</span>
-
-// --- Catalogues -------------------------------------------------------------------------------
-
-<span style = "background-color:#dfd">const HeroicMark* HeroicMarkCatalog::find(std::string_view id) const {
-    const auto trouve = std::ranges::find(marks, id, &amp;HeroicMark::id);
-    return trouve == marks.end() ? nullptr : &amp;*trouve;
-}</span>
-
-<span style = "background-color:#dfd">HeroicMarkCatalog loadHeroicMarks(const std::filesystem::path&amp; file) {
-    HeroicMarkCatalog catalogue;
-    const JsonDocument document = readJsonObjectFromFile(file, SANS_GARDE_DE_VERSION);
-    if (!document.ok()) {</span>
-<span style = "background-color:#fdd">        catalogue.errors.push_back(document.message);
-        return catalogue;</span>
-    }
-<span style = "background-color:#dfd">    const auto marques = document.root.find("marks");
-    if (marques == document.root.end() || !marques-&gt;is_array()) {</span>
-<span style = "background-color:#fdd">        catalogue.errors.push_back(file.filename().string() + " : aucune liste Â« marks Â».");
-        return catalogue;</span>
-    }
-<span style = "background-color:#dfd">    for (const nlohmann::json&amp; entree : *marques) {
-        if (!entree.is_object()) {</span>
-<span style = "background-color:#fdd">            continue;</span>
-        }
-<span style = "background-color:#dfd">        HeroicMark marque{.id = lireTexte(entree, "id"),
-                          .name = lireTexte(entree, "name"),
-                          .text = lireTexte(entree, "text")};
-        if (marque.id.empty()) {</span>
-<span style = "background-color:#fdd">            catalogue.errors.push_back(file.filename().string() + " : marque sans identifiant.");
-            continue;</span>
-        }
-<span style = "background-color:#dfd">        catalogue.marks.push_back(std::move(marque));
-    }
-    return catalogue;
-}</span>
-
-<span style = "background-color:#dfd">const Arena* ArenaCatalog::find(std::string_view id) const {
-    const auto trouve = std::ranges::find(arenas, id, &amp;Arena::id);
-    return trouve == arenas.end() ? nullptr : &amp;*trouve;
-}</span>
-
-<span style = "background-color:#dfd">ArenaCatalog loadArenas(const std::filesystem::path&amp; directory) {
-    ArenaCatalog catalogue;
-    std::error_code code;
-    if (!std::filesystem::is_directory(directory, code)) {</span>
-<span style = "background-color:#fdd">        catalogue.errors.push_back(directory.string() + " : dossier absent ou illisible.");
-        return catalogue;</span>
-    }
-<span style = "background-color:#dfd">    for (const std::filesystem::path&amp; chemin : fichiersJson(directory, code)) {
-        const JsonDocument document = readJsonObjectFromFile(chemin, SANS_GARDE_DE_VERSION);
-        if (!document.ok()) {</span>
-<span style = "background-color:#fdd">            catalogue.errors.push_back(document.message);
-            continue;</span>
-        }
-<span style = "background-color:#dfd">        const nlohmann::json&amp; racine = document.root;
-        Arena arene{.id = lireTexte(racine, "id"),
-                    .name = lireTexte(racine, "name"),
-                    .source = lireTexte(racine, "source"),
-                    .region = lireTexte(racine, "region"),
-                    .location = lireTexte(racine, "location"),
-                    .map = lireTexte(racine, "map"),
-                    .zone = lireTexte(racine, "zone"),
-                    .lethal = lireBooleen(racine, "lethal", false),
-                    .heroicMark = lireBooleen(racine, "heroicMark", true),
-                    .flanking = lireBooleen(racine, "flanking", false)};
-        if (arene.id.empty()) {</span>
-<span style = "background-color:#fdd">            catalogue.errors.push_back(chemin.filename().string() + " : arene sans identifiant.");
-            continue;</span>
-        }
-<span style = "background-color:#dfd">        catalogue.arenas.push_back(std::move(arene));
-    }
-    return catalogue;
 }</span>
 
 // --- Session ----------------------------------------------------------------------------------

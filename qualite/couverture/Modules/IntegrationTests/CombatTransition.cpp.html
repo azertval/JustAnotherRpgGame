@@ -54,7 +54,7 @@ ExplorationSnapshot endEncounter(const EncounterRun&amp; run, CombatOutcome outc
 
 namespace {
 
-/// @return La propriete @p nom si elle porte une chaine, sinon une chaine vide.
+// Retourne : La propriete @p nom si elle porte une chaine, sinon une chaine vide.
 <span style = "background-color:#dfd">[[nodiscard]] std::string proprieteTexte(const PropertyMap&amp; proprietes, const char* nom) {
     const auto trouve = proprietes.find(nom);
     if (trouve == proprietes.end()) {
@@ -64,7 +64,7 @@ namespace {
     return texte != nullptr ? *texte : std::string{};
 }</span>
 
-/// @return La propriete @p nom si elle porte un booleen, sinon `false`.
+// Retourne : La propriete @p nom si elle porte un booleen, sinon `false`.
 <span style = "background-color:#dfd">[[nodiscard]] bool proprieteBooleen(const PropertyMap&amp; proprietes, const char* nom) {
     const auto trouve = proprietes.find(nom);
     if (trouve == proprietes.end()) {

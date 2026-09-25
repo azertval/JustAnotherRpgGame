@@ -150,10 +150,6 @@ struct CharacterSheet {
 <span style = "background-color:#dfd">    [[nodiscard]] int modifier(Ability which) const {
         return abilityModifier(ability(which));
     }</span>
-    /// @brief Vrai si la fiche est tombÃ©e Ã  0 point de vie.
-    [[nodiscard]] bool isDown() const {
-        return currentHitPoints &lt;= 0;
-    }
     /// @brief La vitesse en **cases** de la grille tactique (`LOT-19`, `LOT-22`).
     [[nodiscard]] float speedInTiles() const;
 };
@@ -192,6 +188,7 @@ struct LoadedCharacterSheet {
     Inventory inventory;
     std::vector&lt;std::string&gt; errors;
 
+    /// @brief Vrai si la fiche s'est construite sans erreur.
     [[nodiscard]] bool ok() const {
         return errors.empty();
     }
@@ -241,6 +238,10 @@ struct SkillCheckModifier {
     bool found = false;
     bool proficient = false;
 };
+/**
+ * @brief Le modificateur de la compÃ©tence @p skillId pour @p sheet : caractÃ©ristique du catalogue,
+ *        plus le bonus de maÃ®trise de @p table si la fiche maÃ®trise la compÃ©tence.
+ */
 [[nodiscard]] SkillCheckModifier skillModifier(const CharacterSheet&amp; sheet,
                                                const ExperienceTable&amp; table,
                                                const SkillCatalog&amp; catalog,

@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -171,8 +171,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2830c7147907a5e1a2067437cacbe616 inherit pub_methods_classcore_1_1DialogueListener" id="r_a2830c7147907a5e1a2067437cacbe616"><td class="memItemLeft"><a class="el" href="classcore_1_1DialogueListener.html#a9900ccf0d5b46afa38596bd1e8b8a4bc">DialogueListener</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DialogueListener.html#a2830c7147907a5e1a2067437cacbe616">operator=</a> (const <a class="el" href="classcore_1_1DialogueListener.html#a9900ccf0d5b46afa38596bd1e8b8a4bc">DialogueListener</a> &amp;)=delete</td></tr>
 <tr class="memitem:a512b9279278d56bff0d99966ecd2bc20 inherit pub_methods_classcore_1_1DialogueListener" id="r_a512b9279278d56bff0d99966ecd2bc20"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DialogueListener.html#a512b9279278d56bff0d99966ecd2bc20">DialogueListener</a> (DialogueListener &amp;&amp;)=delete</td></tr>
 <tr class="memitem:a28fedcdbcc81942da0c7b60aad80ec54 inherit pub_methods_classcore_1_1DialogueListener" id="r_a28fedcdbcc81942da0c7b60aad80ec54"><td class="memItemLeft"><a class="el" href="classcore_1_1DialogueListener.html#a9900ccf0d5b46afa38596bd1e8b8a4bc">DialogueListener</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DialogueListener.html#a28fedcdbcc81942da0c7b60aad80ec54">operator=</a> (<a class="el" href="classcore_1_1DialogueListener.html#a9900ccf0d5b46afa38596bd1e8b8a4bc">DialogueListener</a> &amp;&amp;)=delete</td></tr>
-<tr class="memitem:a6ce049b4a2a48f8ac02c979a3caf0c14 inherit pub_methods_classcore_1_1DialogueListener" id="r_a6ce049b4a2a48f8ac02c979a3caf0c14"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DialogueListener.html#a6ce049b4a2a48f8ac02c979a3caf0c14">startCombat</a> (std::string_view arenaId)</td></tr>
-<tr class="memdesc:a6ce049b4a2a48f8ac02c979a3caf0c14 inherit pub_methods_classcore_1_1DialogueListener"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ l'envoie se battre dans l'arène <code class="param">arenaId</code> (<span class="tt">LOT-09</span>).  <br /></td></tr>
 <tr class="memitem:af3fc38d5eeefa7f78c3abd838f43728f inherit pub_methods_classcore_1_1DialogueListener" id="r_af3fc38d5eeefa7f78c3abd838f43728f"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DialogueListener.html#af3fc38d5eeefa7f78c3abd838f43728f">startEncounter</a> (std::string_view encounterId)</td></tr>
 <tr class="memdesc:af3fc38d5eeefa7f78c3abd838f43728f inherit pub_methods_classcore_1_1DialogueListener"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ engage la rencontre <code class="param">encounterId</code> sur la carte (<span class="tt">LOT-118</span>).  <br /></td></tr>
 <tr class="memitem:a3de75ad9eaf865ce5d687b19ab8d08e0 inherit pub_methods_classcore_1_1DialogueListener" id="r_a3de75ad9eaf865ce5d687b19ab8d08e0"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1DialogueListener.html#a3de75ad9eaf865ce5d687b19ab8d08e0">endDemo</a> (std::string_view ending)</td></tr>
@@ -187,7 +185,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un personnage, sa fiche et son sac, comme interlocuteur d'un PNJ. </p>
-<p>Le modificateur de compétence est celui de la fiche (<span class="tt"><a class="el" href="namespacecore.html#a29026a1c7235970e3f432ac5d08229ad">core::skillModifier</a></span>) : caractéristique, plus la maîtrise si la compétence est maîtrisée — une seule règle pour la fiche affichée et pour le jet joué. </p>
+<p>Le modificateur de compétence est celui de la fiche (<span class="tt"><a class="el" href="namespacecore.html#a29026a1c7235970e3f432ac5d08229ad" title="Le modificateur de la compétence skillId pour sheet : caractéristique du catalogue,...">core::skillModifier</a></span>) : caractéristique, plus la maîtrise si la compétence est maîtrisée — une seule règle pour la fiche affichée et pour le jet joué. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a75e16aa76ee1dc8b2f0fbeb7fb73e273" name="a75e16aa76ee1dc8b2f0fbeb7fb73e273"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75e16aa76ee1dc8b2f0fbeb7fb73e273">&#9670;&#160;</a></span>CharacterListener()</h2>

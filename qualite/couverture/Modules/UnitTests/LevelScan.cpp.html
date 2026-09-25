@@ -23,7 +23,7 @@ namespace hmi {
 namespace {
 
 constexpr std::string_view EXTENSION = ".json";
-/// Les notes de l'Ã©diteur, posÃ©es Ã  cÃ´tÃ© de la carte (`LOT-EDITOR-04`) : pas une carte.
+// Les notes de l'Ã©diteur, posÃ©es Ã  cÃ´tÃ© de la carte (`LOT-EDITOR-04`) : pas une carte.
 constexpr std::string_view EDITOR_SIDECAR = ".editor.json";
 
 <span style = "background-color:#dfd">[[nodiscard]] bool finitPar(std::string_view texte, std::string_view suffixe) {
@@ -31,8 +31,8 @@ constexpr std::string_view EDITOR_SIDECAR = ".editor.json";
            texte.compare(texte.size() - suffixe.size(), suffixe.size(), suffixe) == 0;
 <span style = "background-color:#dfd">}</span>
 
-/// @return L'identifiant de @p file sous @p directory : le chemin relatif, `/` partout, sans
-///         `.json`.
+// Rend : L'identifiant de `file` sous `directory` : le chemin relatif, `/` partout, sans
+//         `.json`.
 [[nodiscard]] std::string identifiant(const std::filesystem::path&amp; file,
 <span style = "background-color:#dfd">                                      const std::filesystem::path&amp; directory) {
     std::string relatif = file.lexically_relative(directory).generic_string();
@@ -48,7 +48,8 @@ std::vector&lt;LevelEntry&gt; scanLevelDirectories(
     for (const std::filesystem::path&amp; dossier : directories) {
         std::error_code erreur;
         for (auto it = std::filesystem::recursive_directory_iterator(dossier, erreur);
-             !erreur &amp;&amp; it != std::filesystem::recursive_directory_iterator(); it.increment(erreur)) {
+             !erreur &amp;&amp; it != std::filesystem::recursive_directory_iterator();
+             it.increment(erreur)) {
             if (!it-&gt;is_regular_file(erreur)) {
                 continue;</span>
             }

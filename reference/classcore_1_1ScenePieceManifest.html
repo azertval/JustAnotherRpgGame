@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -161,13 +161,16 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a7517f6483f0ee8b55fe5c44cafb8efb0" id="r_a7517f6483f0ee8b55fe5c44cafb8efb0"><td class="memItemLeft">static <a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7517f6483f0ee8b55fe5c44cafb8efb0">loadFromString</a> (std::string_view json)</td></tr>
+<tr class="memdesc:a7517f6483f0ee8b55fe5c44cafb8efb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un manifeste depuis une chaîne JSON ; l'erreur du résultat dit ce qui a échoué.  <br /></td></tr>
 <tr class="memitem:a6979cb457d32c2be9d8a6587068d7f22" id="r_a6979cb457d32c2be9d8a6587068d7f22"><td class="memItemLeft">static <a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6979cb457d32c2be9d8a6587068d7f22">loadFromFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a6979cb457d32c2be9d8a6587068d7f22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un manifeste depuis le fichier <code class="param">path</code> ; un fichier absent ou illisible est une erreur du résultat, pas une exception.  <br /></td></tr>
 <tr class="memitem:a6dadfe65c55956dd86871a99fc0212e6" id="r_a6dadfe65c55956dd86871a99fc0212e6"><td class="memItemLeft">static <a class="el" href="structcore_1_1ScenePieceManifestResult.html">ScenePieceManifestResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6dadfe65c55956dd86871a99fc0212e6">resolve</a> (const std::filesystem::path &amp;assetsDirectory, std::string_view <a class="el" href="#a6ea382802f3c340421cc2acebf28da0c">place</a>)</td></tr>
 <tr class="memdesc:a6dadfe65c55956dd86871a99fc0212e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>catalogue résolu</b> du lieu <code class="param">place</code> : les manifestes de ses niveaux (<span class="tt"><a class="el" href="namespacecore.html#aebc2b24792f0fb0c75d6eb0059a600ec" title="Les niveaux candidats de place, du plus propre au plus commun, monde compris.">core::sceneLevelCandidates</a></span>), empilés du plus propre au plus commun.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a1749193ae1b438c94d4fc80c2b5e6aba" id="r_a1749193ae1b438c94d4fc80c2b5e6aba"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1749193ae1b438c94d4fc80c2b5e6aba">FORMAT_VERSION</a> = 1</td></tr>
+<tr class="memdesc:a1749193ae1b438c94d4fc80c2b5e6aba"><td class="mdescLeft">&#160;</td><td class="mdescRight">La version du format de manifeste (<span class="tt">manifest.json</span>) que cette classe sait lire.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -286,6 +289,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Lit un manifeste depuis le fichier <code class="param">path</code> ; un fichier absent ou illisible est une erreur du résultat, pas une exception. </p>
+
 </div>
 </div>
 <a id="a7517f6483f0ee8b55fe5c44cafb8efb0" name="a7517f6483f0ee8b55fe5c44cafb8efb0"></a>
@@ -310,6 +315,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Lit un manifeste depuis une chaîne JSON ; l'erreur du résultat dit ce qui a échoué. </p>
 
 </div>
 </div>
@@ -634,6 +641,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>La version du format de manifeste (<span class="tt">manifest.json</span>) que cette classe sait lire. </p>
 
 </div>
 </div>

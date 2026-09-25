@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -170,10 +170,10 @@ $(function(){initNavTree('test__dialogue_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae280330d00f736bf1d1d3b1a1a1fb0e8" id="r_ae280330d00f736bf1d1d3b1a1a1fb0e8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae280330d00f736bf1d1d3b1a1a1fb0e8">TEST</a> (DialogueTest, LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent)</td></tr>
-<tr class="memdesc:ae280330d00f736bf1d1d3b1a1a1fb0e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue de démonstration se charge, dix nœuds au moins, deux conditions et un jet de Persuasion, et tout ce qu'il nomme existe dans les catalogues.  <br /></td></tr>
-<tr class="memitem:a20a289d2fdef0602a96513ebabdd436f" id="r_a20a289d2fdef0602a96513ebabdd436f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a20a289d2fdef0602a96513ebabdd436f">TEST</a> (DialogueTest, LeDialogueDuHerautSeParcourtEnHeadless)</td></tr>
-<tr class="memdesc:a20a289d2fdef0602a96513ebabdd436f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critère d'acceptation : le dialogue de dix nœuds, deux conditions et un jet de Persuasion se parcourt <b>en headless</b>, réussite puis retour, les drapeaux orientant la seconde conversation.  <br /></td></tr>
+<tr class="memitem:a6900b55e1012da89ade747d127041736" id="r_a6900b55e1012da89ade747d127041736"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6900b55e1012da89ade747d127041736">TEST</a> (DialogueTest, LesDialoguesDeLaDemoSeChargentEtLeursReferencesExistent)</td></tr>
+<tr class="memdesc:a6900b55e1012da89ade747d127041736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dialogues livrés se chargent, celui du garde a dix nœuds au moins, une condition et un jet de Persuasion, et tout ce qu'ils nomment existe dans les catalogues.  <br /></td></tr>
+<tr class="memitem:a6008caa59015d6722f5f76231dae3760" id="r_a6008caa59015d6722f5f76231dae3760"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6008caa59015d6722f5f76231dae3760">TEST</a> (DialogueTest, LeDialogueDuHerautDEssaiSeParcourtEnHeadless)</td></tr>
+<tr class="memdesc:a6008caa59015d6722f5f76231dae3760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critère d'acceptation : un dialogue de dix nœuds au moins, deux conditions et un jet de Persuasion (le héraut d'essai) se parcourt <b>en headless</b>, réussite puis retour, les drapeaux orientant la seconde conversation.  <br /></td></tr>
 <tr class="memitem:a73f3eca3f12835c29243624cdba8d205" id="r_a73f3eca3f12835c29243624cdba8d205"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a73f3eca3f12835c29243624cdba8d205">TEST</a> (DialogueTest, UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle)</td></tr>
 <tr class="memdesc:a73f3eca3f12835c29243624cdba8d205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un jet raté mène à l'autre suite, pose son drapeau, et la réponse conditionnelle qui permettait de retenter disparaît — et se refuse même demandée directement.  <br /></td></tr>
 <tr class="memitem:a0ccc2833bba975fc9d4d7cb1f1a8e468" id="r_a0ccc2833bba975fc9d4d7cb1f1a8e468"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0ccc2833bba975fc9d4d7cb1f1a8e468">TEST</a> (DialogueTest, UnDialogueEstRefuseFauteDeLangueCommune)</td></tr>
@@ -238,8 +238,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae280330d00f736bf1d1d3b1a1a1fb0e8" name="ae280330d00f736bf1d1d3b1a1a1fb0e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae280330d00f736bf1d1d3b1a1a1fb0e8">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
+<a id="a6008caa59015d6722f5f76231dae3760" name="a6008caa59015d6722f5f76231dae3760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6008caa59015d6722f5f76231dae3760">&#9670;&#160;</a></span>TEST() <span class="overload">[2/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,59 +252,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LeDialogueDuHerautDEssaiSeParcourtEnHeadless</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le dialogue de démonstration se charge, dix nœuds au moins, deux conditions et un jet de Persuasion, et tout ce qu'il nomme existe dans les catalogues. </p>
-<p><b>Cas de test :</b> <b>Le dialogue du heraut se charge et ses references existent.</b><br  />
+<p>Critère d'acceptation : un dialogue de dix nœuds au moins, deux conditions et un jet de Persuasion (le héraut d'essai) se parcourt <b>en headless</b>, réussite puis retour, les drapeaux orientant la seconde conversation. </p>
+<p><b>Cas de test :</b> <b>Le dialogue du heraut d'essai se parcourt sans fenetre.</b><br  />
  <b>Categorie :</b> Unitaire · Dialogue<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Charger Source/Elements/World/dialogues.<br  />
-2. Charger competences, degres de difficulte, objets et langues.<br  />
-3. Valider les references du heraut.<br  />
- <b>Resultat attendu :</b> Aucune erreur ; au moins dix noeuds, deux conditions et un jet de persuasion ; aucune reference inconnue. </p>
-
-</div>
-</div>
-<a id="a20a289d2fdef0602a96513ebabdd436f" name="a20a289d2fdef0602a96513ebabdd436f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20a289d2fdef0602a96513ebabdd436f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">DialogueTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LeDialogueDuHerautSeParcourtEnHeadless</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Critère d'acceptation : le dialogue de dix nœuds, deux conditions et un jet de Persuasion se parcourt <b>en headless</b>, réussite puis retour, les drapeaux orientant la seconde conversation. </p>
-<p><b>Cas de test :</b> <b>Le dialogue du heraut se parcourt sans fenetre.</b><br  />
- <b>Categorie :</b> Unitaire · Dialogue<br  />
- <b>Criticite :</b> Bloquant<br  />
- <b>Etapes :</b><br  />
- 1. Ouvrir la conversation avec un interlocuteur parlant le commun, +20 aux jets.<br  />
-</p><ol type="1">
-<li>Demander la Marque, continuer, demander l'inscription, convaincre.<br  />
+ 1. Ouvrir le heraut d'essai (racine d'essai) avec un interlocuteur parlant le commun, +20 aux jets.<br  />
+2. Demander la Marque, continuer, demander l'inscription, convaincre.<br  />
 3. Continuer jusqu'a la fin.<br  />
 4. Rouvrir une seconde conversation sur les memes drapeaux, demander l'inscription.<br  />
- <b>Resultat attendu :</b> Premiere conversation : presentation, marque, retour, demande, jet reussi contre 15, quete demarree, fin. Seconde : retour (condition de rencontre), deja inscrit (condition de quete), fin. Au moins dix noeuds distincts traverses. </li>
-</ol>
+ <b>Resultat attendu :</b> Premiere conversation : presentation, marque, retour, demande, jet reussi contre 15, quete demarree, fin. Seconde : retour (condition de rencontre), deja inscrit (condition de quete), fin. Au moins dix noeuds distincts traverses. </p>
 
 </div>
 </div>
 <a id="adceb8f174cae481d63acf2af693311e9" name="adceb8f174cae481d63acf2af693311e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adceb8f174cae481d63acf2af693311e9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adceb8f174cae481d63acf2af693311e9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +300,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a91d22733151fd0fe8036c5ca554dec41" name="a91d22733151fd0fe8036c5ca554dec41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91d22733151fd0fe8036c5ca554dec41">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d22733151fd0fe8036c5ca554dec41">&#9670;&#160;</a></span>TEST() <span class="overload">[4/15]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,6 +326,37 @@ Functions</h2></td></tr>
  1. Charger rules/difficulty.json.<br  />
 2. Charger un chemin inexistant.<br  />
  <b>Resultat attendu :</b> Six degres, « moyenne » a 15 et « quasi-impossible » a 30 ; le chemin absent rend une erreur nommee et aucun degre. </p>
+
+</div>
+</div>
+<a id="a6900b55e1012da89ade747d127041736" name="a6900b55e1012da89ade747d127041736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6900b55e1012da89ade747d127041736">&#9670;&#160;</a></span>TEST() <span class="overload">[5/15]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DialogueTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesDialoguesDeLaDemoSeChargentEtLeursReferencesExistent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les dialogues livrés se chargent, celui du garde a dix nœuds au moins, une condition et un jet de Persuasion, et tout ce qu'ils nomment existe dans les catalogues. </p>
+<p><b>Cas de test :</b> <b>Les dialogues de la demo se chargent et leurs references existent.</b><br  />
+ <b>Categorie :</b> Unitaire · Dialogue<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Source/Elements/World/dialogues.<br  />
+2. Charger competences, degres de difficulte, objets et langues.<br  />
+3. Valider les references de chaque dialogue.<br  />
+ <b>Resultat attendu :</b> Aucune erreur ; le garde a au moins dix noeuds, une condition et un jet de persuasion ; aucune reference inconnue. </p>
 
 </div>
 </div>
@@ -419,7 +417,7 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Dialogue<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Ouvrir le heraut (commun) avec un interlocuteur qui ne parle que le nain.<br  />
+ 1. Ouvrir le heraut d'essai (commun) avec un interlocuteur qui ne parle que le nain.<br  />
 </p><ol type="1">
 <li>Tenter une reponse.<br  />
  <b>Resultat attendu :</b> Etat Refused ; aucun drapeau pose ; aucune replique ni reponse ; une reponse rend NotAwaiting ; le journal nomme la langue manquante. </li>
@@ -517,9 +515,11 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Dialogue<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Jouer le heraut jusqu'au jet, sans bonus, a la graine 42, deux fois.<br  />
-2. Le jouer sur une plage de graines.<br  />
- <b>Resultat attendu :</b> Les deux journaux sont identiques ; sur la plage, le jet reussit au moins une fois et echoue au moins une fois &ndash; le de compte. </p>
+ 1. Jouer le heraut d'essai jusqu'au jet, sans bonus, a la graine 42, deux fois.<br  />
+</p><ol type="1">
+<li>Le jouer sur une plage de graines.<br  />
+ <b>Resultat attendu :</b> Les deux journaux sont identiques ; sur la plage, le jet reussit au moins une fois et echoue au moins une fois &ndash; le de compte. </li>
+</ol>
 
 </div>
 </div>

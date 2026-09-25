@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -155,7 +155,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2b5b96d0104c88b3fb25b9c6b8ac29eb" id="r_a2b5b96d0104c88b3fb25b9c6b8ac29eb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2b5b96d0104c88b3fb25b9c6b8ac29eb">WorldSceneRenderer</a> (const WorldSceneRenderer &amp;)=delete</td></tr>
 <tr class="memitem:a489efac05f908ef5ca8232a463808f45" id="r_a489efac05f908ef5ca8232a463808f45"><td class="memItemLeft"><a class="el" href="#af205fa50b073c51799e3b2afcaf331e3">WorldSceneRenderer</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a489efac05f908ef5ca8232a463808f45">operator=</a> (const <a class="el" href="#af205fa50b073c51799e3b2afcaf331e3">WorldSceneRenderer</a> &amp;)=delete</td></tr>
 <tr class="memitem:a79799fc66af87ee0b4407f54c5c87bdd" id="r_a79799fc66af87ee0b4407f54c5c87bdd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a79799fc66af87ee0b4407f54c5c87bdd">ensureResources</a> (QRhi *<a class="el" href="#ad87c56a7fbbc2e1f735eeeadb5377e1a">rhi</a>)</td></tr>
-<tr class="memdesc:a79799fc66af87ee0b4407f54c5c87bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garantit que les ressources existent sur <code class="param">rhi</code> (voir <span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">ArenaSceneRenderer</a></span>).  <br /></td></tr>
+<tr class="memdesc:a79799fc66af87ee0b4407f54c5c87bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garantit que les ressources existent sur <code class="param">rhi</code>, et les recrée s'il a changé.  <br /></td></tr>
 <tr class="memitem:a03228469d91f8968d286566a330c97ac" id="r_a03228469d91f8968d286566a330c97ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a03228469d91f8968d286566a330c97ac">release</a> () noexcept</td></tr>
 <tr class="memdesc:a03228469d91f8968d286566a330c97ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère toutes les ressources GPU, dans l'ordre. Sans effet si rien n'est créé.  <br /></td></tr>
 <tr class="memitem:a4dfef69bdd871d6ca41447ab840f238a" id="r_a4dfef69bdd871d6ca41447ab840f238a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4dfef69bdd871d6ca41447ab840f238a">created</a> () const noexcept</td></tr>
@@ -359,7 +359,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Garantit que les ressources existent sur <code class="param">rhi</code> (voir <span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">ArenaSceneRenderer</a></span>). </p>
+<p>Garantit que les ressources existent sur <code class="param">rhi</code>, et les recrée s'il a changé. </p>
 
 </div>
 </div>

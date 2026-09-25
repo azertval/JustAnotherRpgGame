@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,6 +143,9 @@ $(function(){initNavTree('classhmi_1_1WorldPlay.html','','classhmi_1_1WorldPlay-
 </div><!--header-->
 <div class="contents">
 
+<p>Une carte qu'on parcourt et sa mise en scène : la session d'exploration, la table d'apparence du lieu, la figurine du héros et celles des PNJ.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="WorldPlay_8h_source.html">WorldPlay.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -159,7 +162,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab359b28cfd1ae307fc8a93ef215e6f04" id="r_ab359b28cfd1ae307fc8a93ef215e6f04"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab359b28cfd1ae307fc8a93ef215e6f04">heroFacing</a> () const noexcept</td></tr>
 <tr class="memitem:aea2588f32f9c53e2cdf736151a8013cd" id="r_aea2588f32f9c53e2cdf736151a8013cd"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aea2588f32f9c53e2cdf736151a8013cd">heroResolved</a> () const noexcept</td></tr>
 <tr class="memitem:ab88bc3ee8bafb003646a596673e32d36" id="r_ab88bc3ee8bafb003646a596673e32d36"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab88bc3ee8bafb003646a596673e32d36">resolveFigure</a> (std::string_view figure, std::string_view silhouette) const</td></tr>
-<tr class="memdesc:ab88bc3ee8bafb003646a596673e32d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quelle bande dessiner pour <code class="param">figure</code> (slug ou dossier) de silhouette <code class="param">silhouette</code> : la sienne si elle existe, sinon son mannequin (<span class="tt"><a class="el" href="classhmi_1_1FigureResolver.html">hmi::FigureResolver</a></span>, <span class="tt">LOT-145</span>).  <br /></td></tr>
+<tr class="memdesc:ab88bc3ee8bafb003646a596673e32d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quelle bande dessiner pour <code class="param">figure</code> (slug ou dossier) de silhouette <code class="param">silhouette</code> : la sienne si elle existe, sinon son mannequin (<span class="tt"><a class="el" href="classhmi_1_1FigureResolver.html" title="Résout la figurine à dessiner pour un personnage, et retient la réponse le temps d&#39;une carte (LOT-145...">hmi::FigureResolver</a></span>, <span class="tt">LOT-145</span>).  <br /></td></tr>
 <tr class="memitem:a0d3b33804b62178584ab3fbd8956e5cc" id="r_a0d3b33804b62178584ab3fbd8956e5cc"><td class="memItemLeft">const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0d3b33804b62178584ab3fbd8956e5cc">appearance</a> () const noexcept</td></tr>
 <tr class="memitem:acbef06d44780edb3de38785805e3a10c" id="r_acbef06d44780edb3de38785805e3a10c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acbef06d44780edb3de38785805e3a10c">figures</a> () const</td></tr>
 <tr class="memitem:ac6f08ec64b8fd2fa0c0cb50982166a98" id="r_ac6f08ec64b8fd2fa0c0cb50982166a98"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac6f08ec64b8fd2fa0c0cb50982166a98">scene</a> () const</td></tr>
@@ -200,7 +203,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad50072f254f350ab206b27f3ff367cdc" id="r_ad50072f254f350ab206b27f3ff367cdc"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad50072f254f350ab206b27f3ff367cdc">_scene</a></td></tr>
 <tr class="memdesc:ad50072f254f350ab206b27f3ff367cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte en valeurs, faite à la première demande après un changement ; nulle d'ici là.  <br /></td></tr>
 </table>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Une carte qu'on parcourt et sa mise en scène : la session d'exploration, la table d'apparence du lieu, la figurine du héros et celles des PNJ. </p>
+<p>Partagée par le jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span>) et l'essai de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>), sans Qt ni horloge : l'appelant donne le temps (<span class="tt"><a class="el" href="#afa2ea16ef64baed70a86b50000d7e9a0" title="Avance d&#39;un pas de seconds avec l&#39;intention intent.">step</a></span>) et lit ce qu'un pas a changé (<span class="tt"><a class="el" href="structhmi_1_1WorldPlayStep.html" title="Ce qu&#39;un pas a changé à l&#39;image, en plus des événements de la session.">WorldPlayStep</a></span>). La carte composée (<span class="tt"><a class="el" href="#ac6f08ec64b8fd2fa0c0cb50982166a98" title="La carte que hmi::WorldSceneRenderer dessine, partagée ; vide hors carte.">scene()</a></span>) n'est refaite que quand elle change ; les figurines de l'image (<span class="tt"><a class="el" href="#acbef06d44780edb3de38785805e3a10c">figures()</a></span>) se relisent à chaque pas. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af2211f66356d410034a5eec68fd1701c" name="af2211f66356d410034a5eec68fd1701c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2211f66356d410034a5eec68fd1701c">&#9670;&#160;</a></span>WorldPlay()</h2>
 
@@ -489,7 +495,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Quelle bande dessiner pour <code class="param">figure</code> (slug ou dossier) de silhouette <code class="param">silhouette</code> : la sienne si elle existe, sinon son mannequin (<span class="tt"><a class="el" href="classhmi_1_1FigureResolver.html">hmi::FigureResolver</a></span>, <span class="tt">LOT-145</span>). </p>
+<p>Quelle bande dessiner pour <code class="param">figure</code> (slug ou dossier) de silhouette <code class="param">silhouette</code> : la sienne si elle existe, sinon son mannequin (<span class="tt"><a class="el" href="classhmi_1_1FigureResolver.html" title="Résout la figurine à dessiner pour un personnage, et retient la réponse le temps d&#39;une carte (LOT-145...">hmi::FigureResolver</a></span>, <span class="tt">LOT-145</span>). </p>
 
 </div>
 </div>

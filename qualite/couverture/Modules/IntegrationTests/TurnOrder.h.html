@@ -112,6 +112,7 @@ struct TurnSlot {
     /// Le repÃ¨re, quand `entry` est vide.
     InitiativeMarker marker;
 
+    /// @brief Le combattant de cette place, ou `std::nullopt` si la place est un repÃ¨re.
 <span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;CombatantId&gt; combatant() const {
         return entry.has_value() ? std::optional&lt;CombatantId&gt;(entry-&gt;combatant) : std::nullopt;
     }</span>
@@ -145,6 +146,7 @@ public:
     /// et de mÃªme nom existe dÃ©jÃ  : deux places identiques ne se distingueraient plus.
     bool addMarker(InitiativeMarker marker);
 
+    /// @brief Vrai si @p combatant a une place dans l'ordre d'initiative.
     [[nodiscard]] bool contains(CombatantId combatant) const;
     /// @brief La place d'un combattant, ou `nullptr`.
     [[nodiscard]] const InitiativeEntry* find(CombatantId combatant) const;

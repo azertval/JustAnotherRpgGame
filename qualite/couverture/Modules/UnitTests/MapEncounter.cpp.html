@@ -32,13 +32,15 @@ namespace core {
 
 namespace {
 
-/// L'ordre des cases libres : de la plus proche de @p voulue a la plus lointaine (distance de
-/// Tchebychev, celle de la grille), a egalite dans l'ordre de lecture -- deterministe, donc rejouable.
+// L'ordre des cases libres : de la plus proche de @p voulue a la plus lointaine (distance de
+// Tchebychev, celle de la grille), a egalite dans l'ordre de lecture -- deterministe, donc
+// rejouable.
 <span style = "background-color:#dfd">[[nodiscard]] int distance(GridPosition a, GridPosition b) noexcept {
     return std::max(std::abs(a.column - b.column), std::abs(a.row - b.row));
 }</span>
 
-/// La case libre de @p libres la plus proche de @p voulue, hors de @p prises ; rien si tout est pris.
+// La case libre de @p libres la plus proche de @p voulue, hors de @p prises ; rien si tout est
+// pris.
 [[nodiscard]] std::optional&lt;GridPosition&gt; plusProcheLibre(const std::vector&lt;GridPosition&gt;&amp; libres,
                                                           const std::vector&lt;GridPosition&gt;&amp; prises,
 <span style = "background-color:#dfd">                                                          GridPosition voulue) {
@@ -98,12 +100,12 @@ MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view ma
     }
 <span style = "background-color:#dfd">    const CombatZone&amp; zone = choisie-&gt;zone;</span>
 
-<span style = "background-color:#dfd">    MapEncounterSetup setup{.zone = zone,
-                            .battlefield = cropLevelToZone(map, zone),</span>
-                            .heroCell = {},
-<span style = "background-color:#dfd">                            .run = beginEncounter(encounter, exploration, trigger,</span>
-                                                  std::move(defeatFlagKey)),
-<span style = "background-color:#dfd">                            .notes = {}};</span>
+    MapEncounterSetup setup{
+<span style = "background-color:#dfd">        .zone = zone,
+        .battlefield = cropLevelToZone(map, zone),</span>
+        .heroCell = {},
+<span style = "background-color:#dfd">        .run = beginEncounter(encounter, exploration, trigger, std::move(defeatFlagKey)),
+        .notes = {}};</span>
 
     // Les cases libres, en cases de la carte ; ce qui est pris s'y retire au fil des places.
 <span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; prises;

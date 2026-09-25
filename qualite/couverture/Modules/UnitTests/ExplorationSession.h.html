@@ -121,6 +121,7 @@ public:
     /// qu'un couloir d'une case se franchit sans frotter les deux murs.
     static constexpr float HERO_HALF_SIZE_CELLS = 0.3F;
 
+    /// @brief Une session sans carte courante, dont les cartes se liront par @p loader (`start`).
     explicit ExplorationSession(WorldTravel::MapLoader loader);
 
     /**
@@ -170,9 +171,11 @@ public:
     /// @return La case que le hÃ©ros regarde (`core::aimedCell`).
     [[nodiscard]] GridPosition aimedCell() const;
 
+    /// @brief Les drapeaux du monde, pour ce qui les Ã©crit (dialogues, quÃªtes, interactions).
 <span style = "background-color:#dfd">    [[nodiscard]] WorldFlags&amp; flags() noexcept {
         return _flags;
     }</span>
+    /// @brief Les drapeaux du monde, en lecture seule.
     [[nodiscard]] const WorldFlags&amp; flags() const noexcept {
         return _flags;
     }
@@ -183,6 +186,7 @@ public:
      */
     void setQuests(QuestCatalog quests);
 
+    /// @brief Le catalogue de quÃªtes posÃ© par `setQuests` (vide sinon).
 <span style = "background-color:#dfd">    [[nodiscard]] const QuestCatalog&amp; quests() const noexcept {
         return _quests;
     }</span>
@@ -202,6 +206,7 @@ public:
     /// @brief Vrai si l'entitÃ© @p entity de la carte courante est prÃ©sente sous les drapeaux.
     [[nodiscard]] bool isPresent(const MapEntity&amp; entity) const;
 
+    /// @brief La traversÃ©e du monde sous-jacente : carte courante, position, dernier refus.
     [[nodiscard]] const WorldTravel&amp; travel() const noexcept {
         return _travel;
     }
@@ -209,8 +214,9 @@ public:
     /// @brief GÃ¨le ou dÃ©gÃ¨le la carte (dialogue, combat).
 <span style = "background-color:#dfd">    void freeze(bool frozen) noexcept {
         _frozen = frozen;
-    }
-    [[nodiscard]] bool frozen() const noexcept {
+    }</span>
+    /// @brief Vrai si la carte est gelÃ©e : `update` ne fait plus avancer le hÃ©ros ni le temps.
+<span style = "background-color:#dfd">    [[nodiscard]] bool frozen() const noexcept {
         return _frozen;
     }</span>
 

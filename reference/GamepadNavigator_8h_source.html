@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -203,8 +203,8 @@ $(function(){initNavTree('GamepadNavigator_8h_source.html','',''); });
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}  <span class="comment">// namespace hmi</span></div>
 <div class="ttc" id="aButtonRepeat_8h_html"><div class="ttname"><a href="ButtonRepeat_8h.html">ButtonRepeat.h</a></div><div class="ttdoc">La répétition d&#39;un bouton tenu : un pas à l&#39;appui, puis un pas régulier après un délai (LOT-24).</div></div>
 <div class="ttc" id="aGamepadButton_8h_html"><div class="ttname"><a href="GamepadButton_8h.html">GamepadButton.h</a></div><div class="ttdoc">Bouton manette logique, indépendant de toute action de jeu ou touche clavier.</div></div>
-<div class="ttc" id="aGamepadPoller_8h_html"><div class="ttname"><a href="GamepadPoller_8h.html">GamepadPoller.h</a></div><div class="ttdoc">Sondage XInput de la manette, fusionné dans un InputState (réutilisable).</div></div>
-<div class="ttc" id="aInputState_8h_html"><div class="ttname"><a href="InputState_8h.html">InputState.h</a></div><div class="ttdoc">État des entrées clavier/souris/manette échantillonné une fois par frame.</div></div>
+<div class="ttc" id="aGamepadPoller_8h_html"><div class="ttname"><a href="GamepadPoller_8h.html">GamepadPoller.h</a></div><div class="ttdoc">Sondage XInput de la manette, versé dans un InputState (réutilisable).</div></div>
+<div class="ttc" id="aInputState_8h_html"><div class="ttname"><a href="InputState_8h.html">InputState.h</a></div><div class="ttdoc">État de la manette échantillonné une fois par relevé, et la touche hmi::Key de l&#39;éditeur.</div></div>
 <div class="ttc" id="aclasshmi_1_1GamepadNavigator_html_a0d2ddc24e3c24f1a78ffda7ee75c5db3"><div class="ttname"><a href="classhmi_1_1GamepadNavigator.html#a0d2ddc24e3c24f1a78ffda7ee75c5db3">hmi::GamepadNavigator::activeChanged</a></div><div class="ttdeci">void activeChanged()</div></div>
 <div class="ttc" id="aclasshmi_1_1GamepadNavigator_html_a2ea20fcea993b8ca80452d3139123c11"><div class="ttname"><a href="classhmi_1_1GamepadNavigator.html#a2ea20fcea993b8ca80452d3139123c11">hmi::GamepadNavigator::_input</a></div><div class="ttdeci">InputState _input</div><div class="ttdef"><b>Definition</b> GamepadNavigator.h:69</div></div>
 <div class="ttc" id="aclasshmi_1_1GamepadNavigator_html_a3ae011550116a2df7d9a596f350e4ca8"><div class="ttname"><a href="classhmi_1_1GamepadNavigator.html#a3ae011550116a2df7d9a596f350e4ca8">hmi::GamepadNavigator::_directions</a></div><div class="ttdeci">std::array&lt; ButtonRepeat, 4 &gt; _directions</div><div class="ttdef"><b>Definition</b> GamepadNavigator.h:70</div></div>
@@ -219,8 +219,8 @@ $(function(){initNavTree('GamepadNavigator_8h_source.html','',''); });
 <div class="ttc" id="aclasshmi_1_1GamepadNavigator_html_aea704228df8121b9e58ff9282d770db3"><div class="ttname"><a href="classhmi_1_1GamepadNavigator.html#aea704228df8121b9e58ff9282d770db3">hmi::GamepadNavigator::_poller</a></div><div class="ttdeci">GamepadPoller _poller</div><div class="ttdef"><b>Definition</b> GamepadNavigator.h:68</div></div>
 <div class="ttc" id="aclasshmi_1_1GamepadNavigator_html_aed17b939f160ef226a2cc6df177cef23"><div class="ttname"><a href="classhmi_1_1GamepadNavigator.html#aed17b939f160ef226a2cc6df177cef23">hmi::GamepadNavigator::GamepadNavigator</a></div><div class="ttdeci">GamepadNavigator(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> GamepadNavigator.cpp:18</div></div>
 <div class="ttc" id="aclasshmi_1_1GamepadNavigator_html_afc162bb8847b8c6e9612fc4014c8503c"><div class="ttname"><a href="classhmi_1_1GamepadNavigator.html#afc162bb8847b8c6e9612fc4014c8503c">hmi::GamepadNavigator::_connected</a></div><div class="ttdeci">bool _connected</div><div class="ttdef"><b>Definition</b> GamepadNavigator.h:71</div></div>
-<div class="ttc" id="aclasshmi_1_1GamepadPoller_html"><div class="ttname"><a href="classhmi_1_1GamepadPoller.html">hmi::GamepadPoller</a></div><div class="ttdoc">Sonde la manette (XInput, joueur 0) et fusionne son état dans un InputState.</div><div class="ttdef"><b>Definition</b> GamepadPoller.h:57</div></div>
-<div class="ttc" id="aclasshmi_1_1InputState_html"><div class="ttname"><a href="classhmi_1_1InputState.html">hmi::InputState</a></div><div class="ttdoc">État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).</div><div class="ttdef"><b>Definition</b> InputState.h:97</div></div>
+<div class="ttc" id="aclasshmi_1_1GamepadPoller_html"><div class="ttname"><a href="classhmi_1_1GamepadPoller.html">hmi::GamepadPoller</a></div><div class="ttdoc">Sonde la manette (XInput, joueur 0) et verse son état dans un InputState.</div><div class="ttdef"><b>Definition</b> GamepadPoller.h:58</div></div>
+<div class="ttc" id="aclasshmi_1_1InputState_html"><div class="ttname"><a href="classhmi_1_1InputState.html">hmi::InputState</a></div><div class="ttdoc">État des boutons de la manette à un relevé, avec détection des fronts (pressé / relâché).</div><div class="ttdef"><b>Definition</b> InputState.h:80</div></div>
 <div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

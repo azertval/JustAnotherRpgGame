@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -157,8 +157,6 @@ Inheritance diagram for hmi::MapLauncherModel:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a4bd053c055e4922b8e6a228d28e44ee5" id="r_a4bd053c055e4922b8e6a228d28e44ee5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4bd053c055e4922b8e6a228d28e44ee5">changed</a> ()</td></tr>
-<tr class="memitem:ade1f4eb5481c84c3eae42b5f0d4f14af" id="r_ade1f4eb5481c84c3eae42b5f0d4f14af"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade1f4eb5481c84c3eae42b5f0d4f14af">launched</a> (const QString &amp;mapId)</td></tr>
-<tr class="memdesc:ade1f4eb5481c84c3eae42b5f0d4f14af"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte <code class="param">mapId</code> s'est ouverte dans la partie.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -367,33 +365,6 @@ Private Attributes</h2></td></tr>
 <p>Ouvre <code class="param">mapId</code> dans la partie, comme <span class="tt">--map=&lt;mapId&gt;@&lt;arrival&gt; --at=&lt;at&gt;
        --flags=&lt;flags&gt; --hero-figure=&lt;heroFigure&gt;</span> l'aurait fait au lancement. </p>
 <p>Les champs vides ne posent rien. Une case illisible ou hors carte ne fait pas échouer le lancement : le héros part de l'entrée et <span class="tt"><a class="el" href="#a024e0a3971936a892adaa6790ebc7971" title="Ce que le dernier geste a donné : carte ouverte, dossier absent, case refusée…">status</a></span> le dit (<span class="tt">EX-NFR-040</span>). </p><dl class="section return"><dt>Returns</dt><dd>Vrai si la carte s'est ouverte ; l'appelant bascule alors sur la vue de jeu. </dd></dl>
-
-</div>
-</div>
-<a id="ade1f4eb5481c84c3eae42b5f0d4f14af" name="ade1f4eb5481c84c3eae42b5f0d4f14af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade1f4eb5481c84c3eae42b5f0d4f14af">&#9670;&#160;</a></span>launched</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::MapLauncherModel::launched </td>
-          <td>(</td>
-          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>mapId</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>La carte <code class="param">mapId</code> s'est ouverte dans la partie. </p>
 
 </div>
 </div>

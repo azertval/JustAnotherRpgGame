@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,6 +143,9 @@ $(function(){initNavTree('classhmi_1_1CombatCueTrack.html','','classhmi_1_1Comba
 </div><!--header-->
 <div class="contents">
 
+<p>La file des faits du combat, rejoués dans le temps par les figurines.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="CombatCues_8h_source.html">CombatCues.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -189,7 +192,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0934d9870bb052824ebf88742b5efb04" id="r_a0934d9870bb052824ebf88742b5efb04"><td class="memItemLeft">std::deque&lt; <a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0934d9870bb052824ebf88742b5efb04">_queue</a></td></tr>
 <tr class="memitem:a49bf29271602ddc3a7297e31400e0393" id="r_a49bf29271602ddc3a7297e31400e0393"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49bf29271602ddc3a7297e31400e0393">_running</a></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La file des faits du combat, rejoués dans le temps par les figurines. </p>
+<p>Reçoit ce que la session a décidé (<span class="tt"><a class="el" href="#ad8833d40491f43b045a9d71f68053d92" title="Ajoute un fait à montrer, après ceux déjà en attente.">push</a></span>), le joue à la vitesse du monde (<span class="tt"><a class="el" href="#a65069cf9282dddde01db8cd17ea9de94" title="Avance de seconds : les faits en cours progressent, le suivant démarre.">advance</a></span>) et publie, combattant par combattant, ce que chaque figurine montre à l'instant (<span class="tt"><a class="el" href="#a49e582ba9ecdf7f00af7b43bc22c02e0">motionOf</a></span>). Tant que <span class="tt"><a class="el" href="#a40e87f2f4dc51a0410eb2c5cf9e9c67a">busy()</a></span> est vrai, l'image est en retard sur la grille ; <span class="tt"><a class="el" href="#ae50a51156e9374e17265695fdbd660ef" title="Joue instantanément tout ce qui reste : l&#39;image rejoint la grille.">finishAll</a></span> les fait se rejoindre. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a65069cf9282dddde01db8cd17ea9de94" name="a65069cf9282dddde01db8cd17ea9de94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65069cf9282dddde01db8cd17ea9de94">&#9670;&#160;</a></span>advance()</h2>
 

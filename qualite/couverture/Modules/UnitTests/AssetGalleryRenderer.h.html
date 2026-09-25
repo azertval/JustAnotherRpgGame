@@ -89,32 +89,46 @@ struct AssetGalleryFrame {
  * est libÃ©rÃ©e aprÃ¨s `EVICTION_SECONDS`, pour qu'un aller-retour de la vue ne la recharge pas. Un
  * fichier illisible est retenu comme tel et dessinÃ© en damier, sans nouvel essai Ã  chaque image.
  *
- * MÃªme cycle de vie que `hmi::ArenaSceneRenderer` : `ensureResources` depuis `initialize()`,
+ * MÃªme cycle de vie que `hmi::WorldSceneRenderer` : `ensureResources` depuis `initialize()`,
  * `setFrame` depuis `synchronize()`, `render` depuis `render()`.
  */
 class AssetGalleryRenderer {
 public:
+    /// Chargements de texture au plus par image.
     static constexpr int UPLOADS_PER_FRAME = 24;
+    /// DÃ©lai avant de libÃ©rer une texture qui n'est plus voulue.
     static constexpr float EVICTION_SECONDS = 2.0f;
 
+    /// @param assetsRoot Racine des assets : les chemins des textures s'y rapportent.
     explicit AssetGalleryRenderer(std::filesystem::path assetsRoot);
+    /// LibÃ¨re ce qui reste de ressources GPU.
     ~AssetGalleryRenderer();
 
     AssetGalleryRenderer(const AssetGalleryRenderer&amp;) = delete;
     AssetGalleryRenderer&amp; operator=(const AssetGalleryRenderer&amp;) = delete;
 
+    /// @brief CrÃ©e les ressources sur @p rhi, ou les recrÃ©e s'il a changÃ©.
+    /// @return Vrai si le rendu peut dessiner.
     bool ensureResources(QRhi* rhi);
+    /// LibÃ¨re toutes les ressources GPU, textures du cache comprises.
     void release() noexcept;
 
+    /// @return Vrai si `ensureResources` a rÃ©ussi et que rien n'a Ã©tÃ© libÃ©rÃ© depuis.
 <span style = "background-color:#dfd">    [[nodiscard]] bool created() const noexcept {
         return _resources.created();
     }</span>
+    /// @return Le `QRhi` sur lequel les ressources ont Ã©tÃ© crÃ©Ã©es, ou `nullptr`.
     [[nodiscard]] QRhi* rhi() const noexcept {
         return _rhi;
     }
 
+    /// ReÃ§oit l'image Ã  dessiner : des valeurs, remises depuis `synchronize()`.
     void setFrame(AssetGalleryFrame frame);
 
+    /// @brief Dessine l'image reÃ§ue sur @p target, aprÃ¨s avoir mis le cache Ã  jour : au plus
+    ///        `UPLOADS_PER_FRAME` textures chargÃ©es, celles plus voulues depuis `EVICTION_SECONDS`
+    ///        libÃ©rÃ©es (@p realDeltaSeconds les compte). @p clear est la couleur d'effacement
+    ///        (RGBA).
     void render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target, float realDeltaSeconds,
                 const float* clear);
 
@@ -128,6 +142,7 @@ public:
         return _loading;
     }</span>
 
+    /// @return La scÃ¨ne composÃ©e Ã  la derniÃ¨re image.
     [[nodiscard]] const ComposedScene&amp; composed() const noexcept {
         return _composed;
     }

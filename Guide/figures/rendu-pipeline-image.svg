@@ -22,7 +22,7 @@
     <text x="52" y="122">Simulation au pas fixe</text>
     <text x="52" y="142" font-family="Consolas, monospace" font-size="13" fill="#6a6152">hmi::WorldModel, core::ExplorationSession</text>
     <text x="52" y="198">Instantané en valeurs</text>
-    <text x="52" y="218" font-family="Consolas, monospace" font-size="13" fill="#6a6152">hmi::snapshotWorldScene / snapshotArenaScene</text>
+    <text x="52" y="218" font-family="Consolas, monospace" font-size="13" fill="#6a6152">hmi::snapshotWorldScene</text>
     <text x="52" y="238" font-size="13" fill="#6a6152">aucun pointeur vers la carte ni la session</text>
     <text x="52" y="290">Numéro de scène</text>
     <text x="52" y="310" font-family="Consolas, monospace" font-size="13" fill="#6a6152">sceneRevision : ne reprendre que si changé</text>
@@ -58,7 +58,7 @@
     <text x="502" y="198">2. synchronize() → setSnapshot(valeurs)</text>
     <text x="502" y="218" font-family="Consolas, monospace" font-size="13" fill="#6a6152">ne touche pas au GPU</text>
     <text x="502" y="274">3. render() → composition, pure</text>
-    <text x="502" y="294" font-family="Consolas, monospace" font-size="13" fill="#6a6152">worldCamera / arenaCamera → visibleBounds</text>
+    <text x="502" y="294" font-family="Consolas, monospace" font-size="13" fill="#6a6152">worldCamera → visibleBounds</text>
     <text x="502" y="312" font-family="Consolas, monospace" font-size="13" fill="#6a6152">composeWorldScene → ComposedScene (culling)</text>
     <text x="502" y="330" font-family="Consolas, monospace" font-size="13" fill="#6a6152">ComposedScene::sort</text>
     <text x="502" y="386">3'. soumission, GPU</text>

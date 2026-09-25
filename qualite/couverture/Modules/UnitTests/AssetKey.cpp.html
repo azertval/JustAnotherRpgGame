@@ -23,11 +23,11 @@
 namespace core {
 namespace {
 
-/// La table des familles porte un `version`, contrairement aux entrees de catalogue : c'est un
-/// document de FORMAT -- il decrit le vocabulaire, pas une entree du monde.
+// La table des familles porte un `version`, contrairement aux entrees de catalogue : c'est un
+// document de FORMAT -- il decrit le vocabulaire, pas une entree du monde.
 constexpr int VERSION_ATTENDUE = 1;
 
-/// Un segment de cle : minuscules, chiffres, tirets SIMPLES, ni au debut ni a la fin.
+// Un segment de cle : minuscules, chiffres, tirets SIMPLES, ni au debut ni a la fin.
 <span style = "background-color:#dfd">[[nodiscard]] bool segmentValide(std::string_view segment) {
     if (segment.empty() || segment.front() == '-' || segment.back() == '-') {
         return false;</span>
@@ -89,7 +89,7 @@ constexpr int VERSION_ATTENDUE = 1;
 
 namespace {
 
-/// Une entree de la table des familles, lue champ par champ ; un champ absent garde son defaut.
+// Une entree de la table des familles, lue champ par champ ; un champ absent garde son defaut.
 <span style = "background-color:#dfd">[[nodiscard]] AssetFamilyDefinition readFamilyDefinition(const nlohmann::json&amp; entree) {
     AssetFamilyDefinition famille;
     if (const auto nom = entree.find("name"); nom != entree.end() &amp;&amp; nom-&gt;is_string()) {
@@ -114,7 +114,7 @@ namespace {
     return famille;
 }</span>
 
-/// Le champ texte @p champ de @p racine, ou une chaine vide s'il est absent ou d'un autre type.
+// Le champ texte @p champ de @p racine, ou une chaine vide s'il est absent ou d'un autre type.
 <span style = "background-color:#dfd">[[nodiscard]] std::string champTexte(const nlohmann::json&amp; racine, const char* champ) {
     if (const auto trouve = racine.find(champ); trouve != racine.end() &amp;&amp; trouve-&gt;is_string()) {
         return trouve-&gt;get&lt;std::string&gt;();
@@ -122,7 +122,7 @@ namespace {
     return {};
 }</span>
 
-/// Les fichiers `.json` d'un dossier de catalogue, tries.
+// Les fichiers `.json` d'un dossier de catalogue, tries.
 [[nodiscard]] std::vector&lt;std::filesystem::path&gt; fichiersDeCatalogue(
 <span style = "background-color:#dfd">    const std::filesystem::path&amp; chemin, std::error_code&amp; code) {
     std::vector&lt;std::filesystem::path&gt; fichiers;
@@ -135,8 +135,8 @@ namespace {
     return fichiers;
 }</span>
 
-/// La cle qu'attend le fichier de catalogue @p fichier de la famille @p famille, ou rien (erreur
-/// consignee dans @p errors).
+// La cle qu'attend le fichier de catalogue @p fichier de la famille @p famille, ou rien (erreur
+// consignee dans @p errors).
 [[nodiscard]] std::optional&lt;ExpectedAssetKey&gt; cleAttenduePour(const std::filesystem::path&amp; fichier,
                                                               const AssetFamilyDefinition&amp; famille,
                                                               const AssetFamilyTable&amp; families,

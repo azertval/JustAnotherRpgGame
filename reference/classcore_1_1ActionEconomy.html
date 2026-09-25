@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -153,6 +153,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2516894c23f6ab87d351e9b63e6c11f6" id="r_a2516894c23f6ab87d351e9b63e6c11f6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2516894c23f6ab87d351e9b63e6c11f6">declare</a> (std::string_view id, int perTurn)</td></tr>
 <tr class="memdesc:a2516894c23f6ab87d351e9b63e6c11f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclare une ressource, ou change ce qu'un tour en restaure, et la remplit.  <br /></td></tr>
 <tr class="memitem:a53a61c737944a10c9fb343129e4113f0" id="r_a53a61c737944a10c9fb343129e4113f0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a53a61c737944a10c9fb343129e4113f0">has</a> (std::string_view id) const</td></tr>
+<tr class="memdesc:a53a61c737944a10c9fb343129e4113f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la ressource <code class="param">id</code> a été déclarée, quel que soit son reste.  <br /></td></tr>
 <tr class="memitem:aa6c696dc6bd62d6ceaef16917a9361d3" id="r_aa6c696dc6bd62d6ceaef16917a9361d3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa6c696dc6bd62d6ceaef16917a9361d3">remaining</a> (std::string_view id) const</td></tr>
 <tr class="memdesc:aa6c696dc6bd62d6ceaef16917a9361d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'il reste de la ressource, ou 0 si elle n'est pas déclarée.  <br /></td></tr>
 <tr class="memitem:afee146284186c1dd943667c68d3cb10c" id="r_afee146284186c1dd943667c68d3cb10c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afee146284186c1dd943667c68d3cb10c">spend</a> (std::string_view id, int amount=1)</td></tr>
@@ -162,6 +163,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a74b90540854d8e0dca98a5f5f0f6da" id="r_a2a74b90540854d8e0dca98a5f5f0f6da"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2a74b90540854d8e0dca98a5f5f0f6da">refresh</a> ()</td></tr>
 <tr class="memdesc:a2a74b90540854d8e0dca98a5f5f0f6da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le début du tour du porteur : chaque ressource revient à son <span class="tt">perTurn</span>.  <br /></td></tr>
 <tr class="memitem:a3e299ad9af196937a80e466748c56573" id="r_a3e299ad9af196937a80e466748c56573"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1ActionResource.html">ActionResource</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a3e299ad9af196937a80e466748c56573">resources</a> () const noexcept</td></tr>
+<tr class="memdesc:a3e299ad9af196937a80e466748c56573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les ressources déclarées, dans l'ordre de déclaration.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -310,6 +312,8 @@ Le déplacement se fractionne</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Vrai si la ressource <code class="param">id</code> a été déclarée, quel que soit son reste. </p>
+
 </div>
 </div>
 <a id="a2a74b90540854d8e0dca98a5f5f0f6da" name="a2a74b90540854d8e0dca98a5f5f0f6da"></a>
@@ -380,6 +384,8 @@ Le déplacement se fractionne</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Toutes les ressources déclarées, dans l'ordre de déclaration. </p>
 
 </div>
 </div>

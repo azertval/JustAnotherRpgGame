@@ -20,8 +20,6 @@ var Damage_8h =
     ] ],
     [ "core::DamageFlag", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4", [
       [ "core::DamageFlag::Magical", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4af855e17eab2bd1a0b8f6c70a1635226a", null ],
-      [ "core::DamageFlag::Silvered", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4adea2f43b46e4448607c1eaec58dd855b", null ],
-      [ "core::DamageFlag::Adamantine", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a3d2e9d298e14a747db8a3e2c64691f85", null ],
       [ "core::DamageFlag::Spell", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a968ae4f03d7e0c30fe4eb26b83c855dd", null ],
       [ "core::DamageFlag::IgnoresResistance", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4a16a1449394d124d5f792d1b5b5c097b5", null ],
       [ "core::DamageFlag::IgnoresReserves", "namespacecore.html#aa275f4ee3dcd04b2c433620118cf54c4ad37f77dacfbf160a4967b83e099d1a37", null ]

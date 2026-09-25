@@ -24,7 +24,7 @@
   <g font-family="Consolas, monospace" font-size="10" fill="#25201a">
     <text x="220" y="96">hmi::Key : E, Enter, Escape</text>
     <text x="220" y="110">hmi::GamepadButton : A, B, Up</text>
-    <text x="220" y="124">hmi::MouseButton : Left, Right</text>
+    <text x="220" y="124">hmi::GamepadButton : A, B, X, Y, croix, gâchettes</text>
   </g>
   <text x="220" y="146" font-size="10" fill="#6a6152">codes physiques, remappables</text>
   <path d="M410,108 L438,108" stroke="#9a7420" stroke-width="2" fill="none" marker-end="url(#a)"/>
@@ -80,9 +80,9 @@
     <text x="30" y="390">repos</text>
   </g>
   <g font-family="Consolas, monospace" font-size="10" fill="#6a6152">
-    <text x="150" y="312">keyPressed()</text>
-    <text x="150" y="338">keyDown()</text>
-    <text x="150" y="364">keyReleased()</text>
+    <text x="150" y="312">gamepadButtonPressed()</text>
+    <text x="150" y="338">gamepadButtonDown()</text>
+    <text x="150" y="364">gamepadButtonReleased()</text>
   </g>
   <g stroke="#25201a" stroke-width="1">
     <rect x="322" y="274" width="16" height="16" fill="#25201a"/>

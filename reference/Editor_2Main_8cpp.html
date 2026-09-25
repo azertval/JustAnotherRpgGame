@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -142,9 +142,6 @@ $(function(){initNavTree('Editor_2Main_8cpp.html','',''); });
   <div class="headertitle"><div class="title">Main.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Point d'entrée de l'<b>éditeur de cartes</b> (<span class="tt">LevelEditor</span>) — Qt Widgets.  
-<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QApplication&gt;</code><br />
 <code>#include &lt;QCoreApplication&gt;</code><br />
 <code>#include &lt;QPixmap&gt;</code><br />
@@ -169,15 +166,8 @@ $(function(){initNavTree('Editor_2Main_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627" id="r_a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
-<tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée du programme.  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Point d'entrée de l'<b>éditeur de cartes</b> (<span class="tt">LevelEditor</span>) — Qt Widgets. </p>
-<p>Binaire distinct du jeu depuis le <span class="tt">LOT-86</span>. L'éditeur est un outil interne, fait pour l'auteur seul (<span class="tt">LOT-EDITOR-01</span>) : style Fusion de Qt, sans charte ni thème, textes anglais écrits dans le code, sans catalogue de traduction.</p>
-<p><span class="tt">--crash-test</span> ne plante pas au démarrage, comme le jeu, mais juste après la première sauvegarde automatique : c'est ce qui éprouve la reprise d'un brouillon après un plantage.</p>
-<p><span class="tt">--check</span> et <span class="tt">--migrate</span> (<span class="tt">LOT-EDITOR-12</span>, décision D9), <span class="tt">--apply</span> et <span class="tt">--render</span> (<span class="tt">LOT-EDITOR-13</span>), les renommages et remplacements (<span class="tt">LOT-EDITOR-14</span>), la bibliothèque de préfabriqués (<span class="tt">LOT-EDITOR-08</span>) s'exécutent <b>sans fenêtre</b> et rendent la main aussitôt : ni <span class="tt">QApplication</span> ni affichage, ce qui les fait tourner en CI (<span class="tt"><a class="el" href="namespacehmi.html#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a></span>, <span class="tt"><a class="el" href="namespacehmi.html#ad551059312355ed10cda2f2300d1a6b9" title="L&#39;entrée --render de l&#39;éditeur, avant toute construction de fenêtre.">hmi::runRenderCommand</a></span>).</p>
-<p><span class="tt">--link-maps &lt;carte&gt; &lt;carte&gt;</span> relie deux cartes des deux côtés (<span class="tt">LOT-EDITOR-09</span>), par le plan même que le geste du graphe du monde. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>
 
@@ -196,9 +186,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Point d'entrée du programme. </p>
-<dl class="section return"><dt>Returns</dt><dd>Code de sortie du processus (0 en cas de succès). </dd></dl>
 
 </div>
 </div>

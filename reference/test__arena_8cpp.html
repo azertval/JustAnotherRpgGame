@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('test__arena_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires du Colisée (<span class="tt">LOT-50</span>) : points d'entrée, catalogues, montage, attaques et attaque d'opportunité (<span class="tt">LOT-21</span>), rejeu et non-létalité.  
+<p>Tests unitaires de la session d'arène (<span class="tt">LOT-50</span>) : points d'entrée, montage, attaques et attaque d'opportunité (<span class="tt">LOT-21</span>), rejeu et non-létalité.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
@@ -163,8 +163,8 @@ $(function(){initNavTree('test__arena_8cpp.html','',''); });
 Functions</h2></td></tr>
 <tr class="memitem:a583e1dc101e4249b06701d1e66cd54b0" id="r_a583e1dc101e4249b06701d1e66cd54b0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a583e1dc101e4249b06701d1e66cd54b0">TEST</a> (ArenaTest, LesPointsDEntreeSeLisentDeLaCarte)</td></tr>
 <tr class="memdesc:a583e1dc101e4249b06701d1e66cd54b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points d'entree d'une carte se lisent de ses entites, ranges par camp et par rang.  <br /></td></tr>
-<tr class="memitem:a3e2fd143bc856dd83da6de8462eed21f" id="r_a3e2fd143bc856dd83da6de8462eed21f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3e2fd143bc856dd83da6de8462eed21f">TEST</a> (ArenaTest, LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps)</td></tr>
-<tr class="memdesc:a3e2fd143bc856dd83da6de8462eed21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'une arene se charge, et les catalogues de l'arene avec elle.  <br /></td></tr>
+<tr class="memitem:a4526cb664a9176c133a8cb9bfeb0e9ee" id="r_a4526cb664a9176c133a8cb9bfeb0e9ee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4526cb664a9176c133a8cb9bfeb0e9ee">TEST</a> (ArenaTest, LaCarteDEssaiAccueilleLesDeuxCamps)</td></tr>
+<tr class="memdesc:a4526cb664a9176c133a8cb9bfeb0e9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'essai accueille les deux camps : ses points d'entree sont sur des cases libres.  <br /></td></tr>
 <tr class="memitem:aaeec5a6d0d9dd452e7b3bc4a4923006c" id="r_aaeec5a6d0d9dd452e7b3bc4a4923006c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaeec5a6d0d9dd452e7b3bc4a4923006c">TEST</a> (ArenaTest, LeMontagePlaceAuxEntreesEtRefuseEnLeDisant)</td></tr>
 <tr class="memdesc:aaeec5a6d0d9dd452e7b3bc4a4923006c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le montage pose chacun a son entree, et refuse en le disant.  <br /></td></tr>
 <tr class="memitem:afb485a7a0d7dbc53764da343b05520d3" id="r_afb485a7a0d7dbc53764da343b05520d3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afb485a7a0d7dbc53764da343b05520d3">TEST</a> (ArenaTest, LAttaqueSeRefuseEtSeResout)</td></tr>
@@ -177,10 +177,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aee31946462ee240dbebb660d6e370ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un affrontement se joue, se rejoue a l'identique, et personne n'y meurt.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires du Colisée (<span class="tt">LOT-50</span>) : points d'entrée, catalogues, montage, attaques et attaque d'opportunité (<span class="tt">LOT-21</span>), rejeu et non-létalité. </p>
+<div class="textblock"><p>Tests unitaires de la session d'arène (<span class="tt">LOT-50</span>) : points d'entrée, montage, attaques et attaque d'opportunité (<span class="tt">LOT-21</span>), rejeu et non-létalité. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a3e2fd143bc856dd83da6de8462eed21f" name="a3e2fd143bc856dd83da6de8462eed21f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e2fd143bc856dd83da6de8462eed21f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+<a id="a4526cb664a9176c133a8cb9bfeb0e9ee" name="a4526cb664a9176c133a8cb9bfeb0e9ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4526cb664a9176c133a8cb9bfeb0e9ee">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,20 +193,19 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">LaPremiereCarteSeChargeEtAccueilleLesDeuxCamps</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">LaCarteDEssaiAccueilleLesDeuxCamps</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>La carte d'une arene se charge, et les catalogues de l'arene avec elle. </p>
-<p><b>Cas de test :</b> <b>La carte que nomme la premiere arene jouable se charge et accueille les deux camps ; les arenes et les huit Marques Heroiques se chargent.</b><br  />
+<p>La carte d'essai accueille les deux camps : ses points d'entree sont sur des cases libres. </p>
+<p><b>Cas de test :</b> <b>La carte d'essai du donjon se charge et ses points d'entree accueillent les deux camps.</b><br  />
  <b>Categorie :</b> Unitaire · Combat<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Charger le catalogue des arenes d'essai et les Marques Heroiques.<br  />
-2. Charger la carte que la premiere arene nomme.<br  />
-3. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.<br  />
- <b>Resultat attendu :</b> Aucune erreur de chargement ; une arene jouable non letale a Marque Heroique ; huit marques ; au moins quatre entrees libres par camp. </p>
+ 1. Charger la carte d'essai <span class="tt">Levels/donjon.json</span>.<br  />
+2. Lire ses points d'entree et verifier qu'aucun n'est dans un mur.<br  />
+ <b>Resultat attendu :</b> La carte se charge ; au moins quatre entrees libres par camp. </p>
 
 </div>
 </div>

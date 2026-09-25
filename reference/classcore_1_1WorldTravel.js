@@ -12,7 +12,6 @@ var classcore_1_1WorldTravel =
     [ "loadedMapCount", "classcore_1_1WorldTravel.html#af0cdfc0b067e03a924f8537efe7ca65e", null ],
     [ "mapFor", "classcore_1_1WorldTravel.html#a6d8c4898d06f5a55e281d2c12c770819", null ],
     [ "position", "classcore_1_1WorldTravel.html#aa9a20370b1f4dacfb176f9ae4093123c", null ],
-    [ "setPosition", "classcore_1_1WorldTravel.html#a63be3fa12598f9db06b63751b4e833e1", null ],
     [ "_currentMapId", "classcore_1_1WorldTravel.html#a3dd09766a2a3891aab8a3db1dd7f9e7d", null ],
     [ "_lastIssue", "classcore_1_1WorldTravel.html#a148fb42cb18a951577a149c9cdc1caf6", null ],
     [ "_loader", "classcore_1_1WorldTravel.html#ad2372a4c3f676592a8cb8da323cabb20", null ],

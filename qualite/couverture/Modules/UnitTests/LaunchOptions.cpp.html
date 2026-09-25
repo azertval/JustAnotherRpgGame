@@ -22,7 +22,7 @@ namespace hmi {
 
 namespace {
 
-/// Decoupe @p value sur @p separator ; les morceaux vides sont ecartes.
+// Decoupe `value` sur `separator` ; les morceaux vides sont ecartes.
 <span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string_view&gt; decouper(std::string_view value, char separator) {
     std::vector&lt;std::string_view&gt; morceaux;
     std::size_t debut = 0;
@@ -41,7 +41,7 @@ namespace {
     return morceaux;
 }</span>
 
-/// @return L'entier de @p text, s'il est ecrit en entier et sans rien d'autre.
+// Rend : L'entier de `text`, s'il est ecrit en entier et sans rien d'autre.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;int&gt; entier(std::string_view text) {
     int valeur = 0;</span>
     // NOLINTNEXTLINE(bugprone-suspicious-stringview-data-usage): la paire data()/size() borne la

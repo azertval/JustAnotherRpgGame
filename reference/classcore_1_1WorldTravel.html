@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -156,6 +156,7 @@ Public Types</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac4b0d453de30a1bfe9e02c7a08616c7f" id="r_ac4b0d453de30a1bfe9e02c7a08616c7f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac4b0d453de30a1bfe9e02c7a08616c7f">WorldTravel</a> (<a class="el" href="#a3cb015fe13e6071f96b03ba0e819362e">MapLoader</a> loader)</td></tr>
+<tr class="memdesc:ac4b0d453de30a1bfe9e02c7a08616c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une traversée sans carte courante, dont les cartes se liront par <code class="param">loader</code> (<span class="tt"><a class="el" href="#a0088132438f7a0b93d5cb2490bb839d5" title="Entre sur mapId au point d&#39;arrivée arrival.">enter</a></span>).  <br /></td></tr>
 <tr class="memitem:a0088132438f7a0b93d5cb2490bb839d5" id="r_a0088132438f7a0b93d5cb2490bb839d5"><td class="memItemLeft"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487">TravelResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0088132438f7a0b93d5cb2490bb839d5">enter</a> (std::string_view mapId, std::string_view arrival)</td></tr>
 <tr class="memdesc:a0088132438f7a0b93d5cb2490bb839d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entre sur <code class="param">mapId</code> au point d'arrivée <code class="param">arrival</code>.  <br /></td></tr>
 <tr class="memitem:a87c821cd8fb610fcaa258cb00ed034b7" id="r_a87c821cd8fb610fcaa258cb00ed034b7"><td class="memItemLeft"><a class="el" href="namespacecore.html#a2375e547c47a4b8a313cc967bdcac487">TravelResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a87c821cd8fb610fcaa258cb00ed034b7">cross</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> from, const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;flags)</td></tr>
@@ -163,8 +164,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af8cd2cbe092939797af493608fd7354a" id="r_af8cd2cbe092939797af493608fd7354a"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af8cd2cbe092939797af493608fd7354a">currentMapId</a> () const noexcept</td></tr>
 <tr class="memitem:ac8ed4d65d15159284e9084c776afcd82" id="r_ac8ed4d65d15159284e9084c776afcd82"><td class="memItemLeft">const <a class="el" href="classcore_1_1Level.html">Level</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac8ed4d65d15159284e9084c776afcd82">currentMap</a> () const</td></tr>
 <tr class="memitem:aa9a20370b1f4dacfb176f9ae4093123c" id="r_aa9a20370b1f4dacfb176f9ae4093123c"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa9a20370b1f4dacfb176f9ae4093123c">position</a> () const noexcept</td></tr>
-<tr class="memitem:a63be3fa12598f9db06b63751b4e833e1" id="r_a63be3fa12598f9db06b63751b4e833e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a63be3fa12598f9db06b63751b4e833e1">setPosition</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="el" href="#aa9a20370b1f4dacfb176f9ae4093123c">position</a>) noexcept</td></tr>
-<tr class="memdesc:a63be3fa12598f9db06b63751b4e833e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suit le personnage sur sa carte : c'est le déplacement qui décide, pas ce fichier.  <br /></td></tr>
 <tr class="memitem:ad2153acaf26afed67cce83ab66cd8459" id="r_ad2153acaf26afed67cce83ab66cd8459"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structcore_1_1WorldIssue.html">WorldIssue</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad2153acaf26afed67cce83ab66cd8459">lastIssue</a> () const noexcept</td></tr>
 <tr class="memitem:af0cdfc0b067e03a924f8537efe7ca65e" id="r_af0cdfc0b067e03a924f8537efe7ca65e"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#af0cdfc0b067e03a924f8537efe7ca65e">loadedMapCount</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
@@ -230,6 +229,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Une traversée sans carte courante, dont les cartes se liront par <code class="param">loader</code> (<span class="tt"><a class="el" href="#a0088132438f7a0b93d5cb2490bb839d5" title="Entre sur mapId au point d&#39;arrivée arrival.">enter</a></span>). </p>
 
 </div>
 </div>
@@ -491,33 +492,6 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La case du personnage sur la carte courante. </dd></dl>
-
-</div>
-</div>
-<a id="a63be3fa12598f9db06b63751b4e833e1" name="a63be3fa12598f9db06b63751b4e833e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63be3fa12598f9db06b63751b4e833e1">&#9670;&#160;</a></span>setPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::WorldTravel::setPosition </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Suit le personnage sur sa carte : c'est le déplacement qui décide, pas ce fichier. </p>
 
 </div>
 </div>

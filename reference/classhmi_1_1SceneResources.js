@@ -11,9 +11,7 @@ var classhmi_1_1SceneResources =
     [ "release", "classhmi_1_1SceneResources.html#a8ed18b0c583028be315e4c289d0c9256", null ],
     [ "setFrameUpdates", "classhmi_1_1SceneResources.html#ad4bdea0e7d3a4e35bc1c48d6431ce563", null ],
     [ "sprites", "classhmi_1_1SceneResources.html#ad63d985936dd4841ffa46c644d662c64", null ],
-    [ "textures", "classhmi_1_1SceneResources.html#a941ad487794fe7d110a0ab45e58ebe6a", null ],
     [ "_atlas", "classhmi_1_1SceneResources.html#ab817a9cf9f567e52587ff37c122ceeda", null ],
     [ "_context", "classhmi_1_1SceneResources.html#a96ea2a1d8334695ea611d98ff38e201a", null ],
-    [ "_spriteBatch", "classhmi_1_1SceneResources.html#ac6a1a8c2b77731c92c4239faeee250b8", null ],
-    [ "_textureCache", "classhmi_1_1SceneResources.html#ac18d7f2e82e1b546589874d1fe1bf08e", null ]
+    [ "_spriteBatch", "classhmi_1_1SceneResources.html#ac6a1a8c2b77731c92c4239faeee250b8", null ]
 ];

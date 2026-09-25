@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,6 +143,9 @@ $(function(){initNavTree('classhmi_1_1FigureResolver.html','','classhmi_1_1Figur
 </div><!--header-->
 <div class="contents">
 
+<p>Résout la figurine à dessiner pour un personnage, et retient la réponse le temps d'une carte (<span class="tt">LOT-145</span>).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="FigureResolver_8h_source.html">FigureResolver.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -160,7 +163,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0053fe58f22a378c2b135d5e268e8a5f" id="r_a0053fe58f22a378c2b135d5e268e8a5f"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0053fe58f22a378c2b135d5e268e8a5f">_found</a></td></tr>
 <tr class="memdesc:a0053fe58f22a378c2b135d5e268e8a5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé : <span class="tt">&lt;figure&gt;|&lt;silhouette&gt;</span>.  <br /></td></tr>
 </table>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Résout la figurine à dessiner pour un personnage, et retient la réponse le temps d'une carte (<span class="tt">LOT-145</span>). </p>
+<p>Applique la règle en trois temps de l'en-tête : la figurine nommée si sa bande de repos existe, sinon le mannequin de sa silhouette, sinon le mannequin humanoïde. Le disque n'est lu qu'à la première demande par figurine ; <span class="tt"><a class="el" href="#aa0e6ce9125166fe690d31f5541beb7be" title="Oublie ce qui a été trouvé : la carte, ou le lieu, a changé.">clear</a></span> oublie tout quand la carte change. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a16eeed8246ed61b548a0d5db1fc829c2" name="a16eeed8246ed61b548a0d5db1fc829c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16eeed8246ed61b548a0d5db1fc829c2">&#9670;&#160;</a></span>FigureResolver()</h2>
 

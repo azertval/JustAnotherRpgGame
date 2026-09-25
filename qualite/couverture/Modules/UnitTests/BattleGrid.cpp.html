@@ -26,16 +26,16 @@ namespace core {
 
 namespace {
 
-/// Emprise maximale : Gigantesque, 4 Ã 4 (`footprintSide`). Au-delÃ , le cÃ´tÃ© est une erreur
-/// d'appel, pas une crÃ©ature.
+// Emprise maximale : Gigantesque, 4 Ã 4 (`footprintSide`). Au-delÃ , le cÃ´tÃ© est une erreur
+// d'appel, pas une crÃ©ature.
 constexpr int LARGEST_SIDE = 4;
 
 <span style = "background-color:#dfd">[[nodiscard]] std::size_t cellCount(int width, int height) {
     return static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height);
 }</span>
 
-/// Vrai seulement pour un boolÃ©en `true` : un `"difficultTerrain": 1` ou `"oui"` est une faute de
-/// saisie, et la lire comme vraie ferait d'une coquille une rÃ¨gle.
+// Vrai seulement pour un boolÃ©en `true` : un `"difficultTerrain": 1` ou `"oui"` est une faute de
+// saisie, et la lire comme vraie ferait d'une coquille une rÃ¨gle.
 <span style = "background-color:#dfd">[[nodiscard]] bool marksDifficult(const PropertyMap&amp; properties) {
     const auto found = properties.find(std::string(DIFFICULT_TERRAIN_PROPERTY));
     if (found == properties.end()) {

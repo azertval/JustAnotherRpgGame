@@ -22,9 +22,9 @@
     <text x="20" y="130">touche tenue (physique)</text>
     <text x="20" y="176" font-family="Consolas, monospace" font-size="13">_keysPrevious</text>
     <text x="20" y="206" font-family="Consolas, monospace" font-size="13">_keysCurrent</text>
-    <text x="20" y="256" font-family="Consolas, monospace" font-size="13">keyDown</text>
-    <text x="20" y="286" font-family="Consolas, monospace" font-size="13">keyPressed  (front montant)</text>
-    <text x="20" y="316" font-family="Consolas, monospace" font-size="13">keyReleased (front descendant)</text>
+    <text x="20" y="256" font-family="Consolas, monospace" font-size="13">gamepadButtonDown</text>
+    <text x="20" y="286" font-family="Consolas, monospace" font-size="13">gamepadButtonPressed  (front montant)</text>
+    <text x="20" y="316" font-family="Consolas, monospace" font-size="13">gamepadButtonReleased (front descendant)</text>
   </g>
 
   <!-- Signal physique : bas, haut, haut, bas -->
@@ -44,6 +44,6 @@
   </g>
 
   <rect x="20" y="346" width="840" height="40" rx="6" fill="#ece4d1" stroke="#d6c9a8"/>
-  <text x="32" y="362" font-size="13" fill="#25201a">keyPressed = courant ET NON précédent ; keyReleased = précédent ET NON courant ; keyDown = courant.</text>
+  <text x="32" y="362" font-size="13" fill="#25201a">pressed = courant ET NON précédent ; released = précédent ET NON courant ; down = courant.</text>
   <text x="32" y="379" font-size="13" fill="#6a6152">releaseAll() met les deux instantanés à faux : aucun front parasite au retour d'un Alt+Tab.</text>
 </svg>

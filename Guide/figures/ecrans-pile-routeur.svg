@@ -58,7 +58,7 @@
   <!-- Trois sources -->
   <rect x="20" y="230" width="250" height="120" rx="8" fill="#fbf8f0" stroke="#d6c9a8"/>
   <text x="32" y="254" font-weight="600" fill="#25201a">Trois sources, dans l'ordre</text>
-  <text x="32" y="278" fill="#25201a">1. ScreenProbe (sélecteur, dev)</text>
+  <text x="32" y="278" fill="#25201a">1. le sélecteur de développement (F9)</text>
   <text x="32" y="298" fill="#25201a">2. --screen=&lt;Nom&gt; (vérification)</text>
   <text x="32" y="318" fill="#25201a">3. le routeur (le seul chemin de jeu)</text>
   <text x="32" y="340" font-size="12" fill="#6a6152">1 et 2 s'effacent dès que 3 navigue</text>

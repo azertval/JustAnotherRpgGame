@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -155,7 +155,7 @@ $(function(){initNavTree('IsoProjection_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:core_3A_3AIsoProjection" id="r_core_3A_3AIsoProjection"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html#a7071db9aa9e11df307d86bb82e1d0d64">columns</a></span> × <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html#aa92e712a6807b3add7963853af2a4c87">rows</a></span> cases.  <a href="classcore_1_1IsoProjection.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La projection isométrique d'une grille de combat de <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html#a7071db9aa9e11df307d86bb82e1d0d64" title="Le nombre de colonnes de la grille projetée (jamais négatif).">columns</a></span> × <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html#aa92e712a6807b3add7963853af2a4c87" title="Le nombre de lignes de la grille projetée (jamais négatif).">rows</a></span> cases.  <a href="classcore_1_1IsoProjection.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -175,7 +175,7 @@ Variables</h2></td></tr>
 <div class="textblock"><p>La projection isométrique du Colisée : d'une case de la grille de combat à sa place dans le monde, et retour. </p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 D'où viennent les formules</h2>
-<p>Elles sont portées de la scène QML du Colisée (<span class="tt">Source/Ui/Controls/ArenaScene.ui.qml</span>, <span class="tt">LOT-50</span>), qui les appliquait en pixels d'élément. Ici, elles s'expriment en <b>unités monde</b> (<span class="tt">EX-ARCH-021</span>) : le cadrage — centrer la scène, la faire tenir dans la surface — n'est plus l'affaire de la projection mais celle de la caméra (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span>), qui ne fait que déplacer et agrandir, en aval, des points déjà projetés.</p>
+<p>Elles sont portées de l'ancienne scène QML du Colisée (celle du <span class="tt">LOT-50</span>, retirée depuis), qui les appliquait en pixels d'élément. Ici, elles s'expriment en <b>unités monde</b> (<span class="tt">EX-ARCH-021</span>) : le cadrage — centrer la scène, la faire tenir dans la surface — n'est plus l'affaire de la projection mais celle de la caméra (<span class="tt"><a class="el" href="classhmi_1_1Camera2D.html" title="Caméra 2D orthographique : projette le monde vers l&#39;écran pour le rendu.">hmi::Camera2D</a></span>), qui ne fait que déplacer et agrandir, en aval, des points déjà projetés.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md34"></a>
 Le repère</h2>
 <p>Une case (c, r) occupe, en coordonnées de grille <b>continues</b>, le carré [c, c + 1[ × [r, r + 1[ (<span class="tt">EX-ARCH-020</span> : colonne vers la droite, ligne vers le bas). La projection est affine : </p><pre class="fragment">monde.x = originX + L/2 + (gc − gr) · L/2

@@ -173,6 +173,7 @@ public:
      */
     [[nodiscard]] static MapLoader directoriesLoader(std::vector&lt;std::filesystem::path&gt; levelsDirs);
 
+    /// @brief Une traversÃ©e sans carte courante, dont les cartes se liront par @p loader (`enter`).
     explicit WorldTravel(MapLoader loader);
 
     /**
@@ -204,11 +205,6 @@ public:
 <span style = "background-color:#dfd">    [[nodiscard]] GridPosition position() const noexcept {
         return _position;
     }</span>
-
-    /// @brief Suit le personnage sur sa carte : c'est le dÃ©placement qui dÃ©cide, pas ce fichier.
-    void setPosition(GridPosition position) noexcept {
-        _position = position;
-    }
 
     /// @return Le dÃ©faut de la derniÃ¨re traversÃ©e refusÃ©e, s'il y en a un.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::optional&lt;WorldIssue&gt;&amp; lastIssue() const noexcept {

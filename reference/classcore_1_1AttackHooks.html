@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -151,7 +151,9 @@ $(function(){initNavTree('classcore_1_1AttackHooks.html','','classcore_1_1Attack
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5f76199a12240167f2fe2a2c9d55b779" id="r_a5f76199a12240167f2fe2a2c9d55b779"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5f76199a12240167f2fe2a2c9d55b779">insert</a> (<a class="el" href="namespacecore.html#ac7bf6427f29bbba33973526a5896c20d">AttackRollStage</a> stage, <a class="el" href="namespacecore.html#a70920b2a35cc8c7a80281c47514c3d97">AttackRollListener</a> listener)</td></tr>
+<tr class="memdesc:a5f76199a12240167f2fe2a2c9d55b779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un greffon à l'étape <code class="param">stage</code>, après ceux déjà insérés à cette étape.  <br /></td></tr>
 <tr class="memitem:a0f724d760322b0bdeb30a5e1274f0ea5" id="r_a0f724d760322b0bdeb30a5e1274f0ea5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0f724d760322b0bdeb30a5e1274f0ea5">run</a> (<a class="el" href="namespacecore.html#ac7bf6427f29bbba33973526a5896c20d">AttackRollStage</a> stage, <a class="el" href="structcore_1_1AttackRoll.html">AttackRoll</a> &amp;roll, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random) const</td></tr>
+<tr class="memdesc:a0f724d760322b0bdeb30a5e1274f0ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique à <code class="param">roll</code>, dans l'ordre d'insertion, tous les greffons de l'étape <code class="param">stage</code>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -179,6 +181,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Ajoute un greffon à l'étape <code class="param">stage</code>, après ceux déjà insérés à cette étape. </p>
+
 </div>
 </div>
 <a id="a0f724d760322b0bdeb30a5e1274f0ea5" name="a0f724d760322b0bdeb30a5e1274f0ea5"></a>
@@ -204,6 +208,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Applique à <code class="param">roll</code>, dans l'ordre d'insertion, tous les greffons de l'étape <code class="param">stage</code>. </p>
 
 </div>
 </div>

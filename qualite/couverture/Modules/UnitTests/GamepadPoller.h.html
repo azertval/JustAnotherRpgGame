@@ -20,7 +20,7 @@
 
 /**
  * @file HMI/Input/GamepadPoller.h
- * @brief Sondage XInput de la manette, fusionnÃ© dans un `InputState` (rÃ©utilisable).
+ * @brief Sondage XInput de la manette, versÃ© dans un `InputState` (rÃ©utilisable).
  */
 
 namespace hmi {
@@ -52,11 +52,12 @@ inline constexpr std::chrono::milliseconds GAMEPAD_DISCONNECTED_PROBE_PERIOD{200
 }</span>
 
 /**
- * @brief Sonde la manette (XInput, joueur 0) et fusionne son Ã©tat dans un `InputState`.
+ * @brief Sonde la manette (XInput, joueur 0) et verse son Ã©tat dans un `InputState`.
  *
- * Alimente deux pistes indÃ©pendantes du mÃªme relevÃ© : la fusion clavier/manette sur `Key`
- * (`onGamepadKeyDown`/`onGamepadKeyUp`, fixe, navigation de menu â aucune touche clavier n'est
- * Ã©crasÃ©e) et l'Ã©tat brut par `GamepadButton` (remappable via `GamepadBindings`, `EX-CTRL-002`).
+ * Alimente l'Ã©tat par `GamepadButton` (`onGamepadButtonDown`/`onGamepadButtonUp`, `EX-CTRL-002`) :
+ * le D-pad et le stick gauche fusionnÃ©s en quatre directions, les quatre boutons et les deux
+ * gÃ¢chettes hautes. C'est cet Ã©tat que `hmi::GamepadNavigator` traduit en noms de boutons pour
+ * les Ã©crans.
  *
  * Objet **Ã  Ã©tat** (dernier Ã©tat de connexion + horodatage du dernier sondage), Ã  appeler **une
  * fois par frame** avant que la logique ne consomme les entrÃ©es. Le sondage est espacÃ© tant que la
@@ -67,7 +68,7 @@ inline constexpr std::chrono::milliseconds GAMEPAD_DISCONNECTED_PROBE_PERIOD{200
  */
 class GamepadPoller {
 public:
-    /// Sonde la manette et met Ã  jour @p input (piste `Key` + piste `GamepadButton` brute).
+    /// Sonde la manette et met Ã  jour @p input (Ã©tat par `GamepadButton` et connexion).
     void poll(InputState&amp; input);
 
 private:

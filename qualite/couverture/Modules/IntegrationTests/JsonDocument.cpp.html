@@ -24,7 +24,7 @@ namespace core {
 
 namespace {
 
-/// @brief Construit un Ã©chec, en un point unique pour que tous se ressemblent.
+// Construit un Ã©chec, en un point unique pour que tous se ressemblent.
 [[nodiscard]] JsonDocument failure(JsonReadError code, std::string message,
 <span style = "background-color:#dfd">                                   TextPosition position = {}) {
     return JsonDocument{.root = nlohmann::json::object(),</span>
@@ -34,7 +34,7 @@ namespace {
                         .version = 0};
 <span style = "background-color:#dfd">}</span>
 
-/// @brief PrÃ©fixe Â« fichier:ligne:colonne : Â» d'un message, rÃ©duit Ã  ce qui est connu.
+// PrÃ©fixe Â« fichier:ligne:colonne : Â» d'un message, rÃ©duit Ã  ce qui est connu.
 <span style = "background-color:#dfd">[[nodiscard]] std::string prefix(std::string_view origin, TextPosition position) {
     std::string out;
     if (!origin.empty()) {
@@ -75,7 +75,7 @@ namespace {
 
 namespace {
 
-/// Relit un texte JSON bien formÃ© en suivant un chemin, et note oÃ¹ commence la valeur visÃ©e.
+// Relit un texte JSON bien formÃ© en suivant un chemin, et note oÃ¹ commence la valeur visÃ©e.
 class Pisteur {
 public:
 <span style = "background-color:#dfd">    Pisteur(std::string_view texte, std::vector&lt;std::string&gt; chemin)
@@ -104,7 +104,7 @@ private:
 <span style = "background-color:#dfd">        ++_i;
     }</span>
 
-    /// Une chaÃ®ne, guillemets compris ; rend son contenu, Ã©chappements laissÃ©s bruts sauf `\"`.
+    // Une chaÃ®ne, guillemets compris ; rend son contenu, Ã©chappements laissÃ©s bruts sauf `\"`.
 <span style = "background-color:#dfd">    std::string chaine() {
         std::string contenu;
         avancer();  // le guillemet ouvrant
@@ -121,7 +121,7 @@ private:
 <span style = "background-color:#dfd">        return contenu;
     }</span>
 
-    /// Une valeur Ã  la profondeur @p profondeur du chemin courant.
+    // Une valeur Ã  la profondeur @p profondeur du chemin courant.
 <span style = "background-color:#dfd">    void valeur(std::size_t profondeur) {
         espaces();
         if (_i &gt;= _texte.size() || _trouve.line &gt; 0) {</span>
@@ -197,7 +197,7 @@ private:
     TextPosition _trouve;
 };
 
-/// Les pas d'un pointeur JSON, `~1` et `~0` rendus Ã  `/` et `~`.
+// Les pas d'un pointeur JSON, `~1` et `~0` rendus Ã  `/` et `~`.
 <span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; pasDuPointeur(const nlohmann::json::json_pointer&amp; pointeur) {
     const std::string texte = pointeur.to_string();
     std::vector&lt;std::string&gt; pas;

@@ -13,7 +13,6 @@ var classhmi_1_1DialogueModel =
     [ "checkVerdict", "classhmi_1_1DialogueModel.html#ab73b23d86cee543e37bcce949a29c4f7", null ],
     [ "choose", "classhmi_1_1DialogueModel.html#ac725f335856ecabd4341e3a9d94b501d", null ],
     [ "chooseAt", "classhmi_1_1DialogueModel.html#aaaa6233b29c562241df0945b608ea9b1", null ],
-    [ "combatRequested", "classhmi_1_1DialogueModel.html#a80189a0fb6f159dc7c10a2253da86494", null ],
     [ "demoEnded", "classhmi_1_1DialogueModel.html#ac6df3725adb704a03c90ee14acefda51", null ],
     [ "dialogueId", "classhmi_1_1DialogueModel.html#a5b3abb0445ed29d6fc01d9eee257de51", null ],
     [ "dialogueIds", "classhmi_1_1DialogueModel.html#ab127e997c3d4496386d96dcbc414d393", null ],

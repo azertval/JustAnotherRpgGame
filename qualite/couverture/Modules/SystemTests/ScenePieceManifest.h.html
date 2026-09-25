@@ -176,9 +176,13 @@ struct MaskedScenePiece {
  */
 class ScenePieceManifest {
 public:
+    /// @brief La version du format de manifeste (`manifest.json`) que cette classe sait lire.
     static constexpr int FORMAT_VERSION = 1;
 
+    /// @brief Lit un manifeste depuis une chaÃ®ne JSON ; l'erreur du rÃ©sultat dit ce qui a Ã©chouÃ©.
     [[nodiscard]] static ScenePieceManifestResult loadFromString(std::string_view json);
+    /// @brief Lit un manifeste depuis le fichier @p path ; un fichier absent ou illisible est une
+    /// erreur du rÃ©sultat, pas une exception.
     [[nodiscard]] static ScenePieceManifestResult loadFromFile(const std::filesystem::path&amp; path);
 
     /**
@@ -252,6 +256,7 @@ struct ScenePieceManifestResult {
     /// Message technique, vide en cas de succÃ¨s.
     std::string message;
 
+    /// @brief Vrai si la lecture a rÃ©ussi : `manifest` est alors exploitable.
 <span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
         return error == ScenePieceManifestError::None;
     }</span>

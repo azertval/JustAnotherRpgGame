@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,141 +143,27 @@ $(function(){initNavTree('test__input__state_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests unitaires de l'état des entrées : fronts clavier/souris et position.  
+<p>Tests unitaires de l'état de la manette : fronts des boutons, connexion, relâchement.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a45cf3dc465b7f8ead7c72522f7ac8198" id="r_a45cf3dc465b7f8ead7c72522f7ac8198"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a45cf3dc465b7f8ead7c72522f7ac8198">TEST</a> (InputStateTest, FrontMontantClavier)</td></tr>
-<tr class="memdesc:a45cf3dc465b7f8ead7c72522f7ac8198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.  <br /></td></tr>
-<tr class="memitem:a81215d1d3cac78f80bac142dacc0b34c" id="r_a81215d1d3cac78f80bac142dacc0b34c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a81215d1d3cac78f80bac142dacc0b34c">TEST</a> (InputStateTest, MaintienClavier)</td></tr>
-<tr class="memdesc:a81215d1d3cac78f80bac142dacc0b34c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une touche restée enfoncée n'est « pressée » qu'à la première frame.  <br /></td></tr>
-<tr class="memitem:a59ca224b39b7856470d0747f7900b16b" id="r_a59ca224b39b7856470d0747f7900b16b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a59ca224b39b7856470d0747f7900b16b">TEST</a> (InputStateTest, FrontDescendantClavier)</td></tr>
-<tr class="memdesc:a59ca224b39b7856470d0747f7900b16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.  <br /></td></tr>
-<tr class="memitem:af9db81acd915bcdeb71f1ac1fafc3185" id="r_af9db81acd915bcdeb71f1ac1fafc3185"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af9db81acd915bcdeb71f1ac1fafc3185">TEST</a> (InputStateTest, TouchesIndependantes)</td></tr>
-<tr class="memdesc:af9db81acd915bcdeb71f1ac1fafc3185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.  <br /></td></tr>
-<tr class="memitem:a9673354fc013b4ab816c4cdb8422855f" id="r_a9673354fc013b4ab816c4cdb8422855f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9673354fc013b4ab816c4cdb8422855f">TEST</a> (InputStateTest, BoutonSouris)</td></tr>
-<tr class="memdesc:a9673354fc013b4ab816c4cdb8422855f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.  <br /></td></tr>
-<tr class="memitem:aed2efe7e5c68c8a62502bad7f424c558" id="r_aed2efe7e5c68c8a62502bad7f424c558"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aed2efe7e5c68c8a62502bad7f424c558">TEST</a> (InputStateTest, PositionSouris)</td></tr>
-<tr class="memdesc:aed2efe7e5c68c8a62502bad7f424c558"><td class="mdescLeft">&#160;</td><td class="mdescRight">La position de la souris reflète le dernier déplacement injecté.  <br /></td></tr>
-<tr class="memitem:a7efa418563f5fae1a48faf4078d6892f" id="r_a7efa418563f5fae1a48faf4078d6892f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7efa418563f5fae1a48faf4078d6892f">TEST</a> (InputStateTest, MoletteAccumuleEtSeReinitialise)</td></tr>
-<tr class="memdesc:a7efa418563f5fae1a48faf4078d6892f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.  <br /></td></tr>
-<tr class="memitem:aa8e6d3ad41aa204883ebcd46b5406b41" id="r_aa8e6d3ad41aa204883ebcd46b5406b41"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa8e6d3ad41aa204883ebcd46b5406b41">TEST</a> (InputStateTest, CaracteresTapesAccumulesEtVides)</td></tr>
-<tr class="memdesc:aa8e6d3ad41aa204883ebcd46b5406b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.  <br /></td></tr>
-<tr class="memitem:ae57915787a98a32bfb0d9684be82e96a" id="r_ae57915787a98a32bfb0d9684be82e96a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae57915787a98a32bfb0d9684be82e96a">TEST</a> (InputStateTest, ManetteSeuleActiveLaTouche)</td></tr>
-<tr class="memdesc:ae57915787a98a32bfb0d9684be82e96a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette seul rend <span class="tt">keyDown</span>/<span class="tt">keyPressed</span> vrais, comme au clavier (<span class="tt">EX-CTRL-002</span>).  <br /></td></tr>
-<tr class="memitem:a79c5319fd973997de0845a0a282b0284" id="r_a79c5319fd973997de0845a0a282b0284"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a79c5319fd973997de0845a0a282b0284">TEST</a> (InputStateTest, ClavierEtManetteMemeToucheUnSeulFront)</td></tr>
-<tr class="memdesc:a79c5319fd973997de0845a0a282b0284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clavier et manette combinés sur la même touche ne produisent pas de double front.  <br /></td></tr>
-<tr class="memitem:ae21cb188be633f1aa74cf4ce20725d0d" id="r_ae21cb188be633f1aa74cf4ce20725d0d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae21cb188be633f1aa74cf4ce20725d0d">TEST</a> (InputStateTest, ManetteRelacheeNeMasquePasLeClavier)</td></tr>
-<tr class="memdesc:ae21cb188be633f1aa74cf4ce20725d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La manette relâchée ne masque jamais une touche clavier réellement maintenue (non-stomping, décision de cadrage).  <br /></td></tr>
 <tr class="memitem:a3512d9ab97fdf0700f1ea9234f2f4ef3" id="r_a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">TEST</a> (InputStateTest, GamepadConnecteReecrasable)</td></tr>
 <tr class="memdesc:a3512d9ab97fdf0700f1ea9234f2f4ef3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">gamepadConnected</span> reflète le dernier <span class="tt">setGamepadConnected</span> appelé.  <br /></td></tr>
 <tr class="memitem:a1d14a5636e572dc508004a875b1ab60a" id="r_a1d14a5636e572dc508004a875b1ab60a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1d14a5636e572dc508004a875b1ab60a">TEST</a> (InputStateTest, FrontMontantBoutonManetteBrut)</td></tr>
-<tr class="memdesc:a1d14a5636e572dc508004a875b1ab60a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette (piste brute) passé d'« absent » à « présent » est « pressé » exactement une frame, comme une touche clavier.  <br /></td></tr>
+<tr class="memdesc:a1d14a5636e572dc508004a875b1ab60a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette passé d'« absent » à « présent » est « pressé » exactement un relevé.  <br /></td></tr>
 <tr class="memitem:a86f7359d38d8eed9cd0ce1118aebf948" id="r_a86f7359d38d8eed9cd0ce1118aebf948"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a86f7359d38d8eed9cd0ce1118aebf948">TEST</a> (InputStateTest, FrontDescendantBoutonManetteBrut)</td></tr>
-<tr class="memdesc:a86f7359d38d8eed9cd0ce1118aebf948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette (piste brute) relâché après avoir été enfoncé est « relâché » exactement une frame (action Interagir).  <br /></td></tr>
-<tr class="memitem:a4244badb84b38bb1cc59f41f3b62e1e5" id="r_a4244badb84b38bb1cc59f41f3b62e1e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4244badb84b38bb1cc59f41f3b62e1e5">TEST</a> (InputStateTest, PisteBrutIndependanteDeLaFusionKey)</td></tr>
-<tr class="memdesc:a4244badb84b38bb1cc59f41f3b62e1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">La piste manette brute (<span class="tt">GamepadButton</span>) est indépendante de la fusion clavier/manette existante sur <span class="tt">Key</span> : l'une n'affecte jamais l'autre.  <br /></td></tr>
+<tr class="memdesc:a86f7359d38d8eed9cd0ce1118aebf948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton manette relâché après avoir été enfoncé est « relâché » exactement un relevé (action Interagir).  <br /></td></tr>
 <tr class="memitem:a8d8b26cac3ac268359ec15eb1ab327cf" id="r_a8d8b26cac3ac268359ec15eb1ab327cf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d8b26cac3ac268359ec15eb1ab327cf">TEST</a> (InputStateTest, RelacheToutSansFront)</td></tr>
-<tr class="memdesc:a8d8b26cac3ac268359ec15eb1ab327cf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">releaseAll()</span> relâche toutes les entrées maintenues sans produire de front « relâchée », évitant les touches « collées » à la perte de focus (Alt+Tab).  <br /></td></tr>
+<tr class="memdesc:a8d8b26cac3ac268359ec15eb1ab327cf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">releaseAll()</span> relâche tous les boutons maintenus sans produire de front « relâché » : un écran qui cesse d'écouter la manette ne déclenche pas d'action fantôme.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests unitaires de l'état des entrées : fronts clavier/souris et position. </p>
+<div class="textblock"><p>Tests unitaires de l'état de la manette : fronts des boutons, connexion, relâchement. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a9673354fc013b4ab816c4cdb8422855f" name="a9673354fc013b4ab816c4cdb8422855f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9673354fc013b4ab816c4cdb8422855f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">BoutonSouris</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches. </p>
-<p><b>Cas de test :</b> <b>Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Un bouton de souris suit la même logique pressé/cliqué/relâché que les touches. </p>
-
-</div>
-</div>
-<a id="aa8e6d3ad41aa204883ebcd46b5406b41" name="aa8e6d3ad41aa204883ebcd46b5406b41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e6d3ad41aa204883ebcd46b5406b41">&#9670;&#160;</a></span>TEST() <span class="overload">[2/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">CaracteresTapesAccumulesEtVides</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante. </p>
-<p><b>Cas de test :</b> <b>Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Les caractères tapés s'accumulent dans l'ordre puis sont vidés à la frame suivante. </p>
-
-</div>
-</div>
-<a id="a79c5319fd973997de0845a0a282b0284" name="a79c5319fd973997de0845a0a282b0284"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79c5319fd973997de0845a0a282b0284">&#9670;&#160;</a></span>TEST() <span class="overload">[3/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ClavierEtManetteMemeToucheUnSeulFront</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clavier et manette combinés sur la même touche ne produisent pas de double front. </p>
-<p><b>Cas de test :</b> <b>Clavier et manette combinés sur la même touche ne produisent pas de double front.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Clavier et manette combinés sur la même touche ne produisent pas de double front. </p>
-
-</div>
-</div>
 <a id="a86f7359d38d8eed9cd0ce1118aebf948" name="a86f7359d38d8eed9cd0ce1118aebf948"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86f7359d38d8eed9cd0ce1118aebf948">&#9670;&#160;</a></span>TEST() <span class="overload">[4/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a86f7359d38d8eed9cd0ce1118aebf948">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,8 +181,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un bouton manette (piste brute) relâché après avoir été enfoncé est « relâché » exactement une frame (action Interagir). </p>
-<p><b>Cas de test :</b> <b>Un bouton manette (piste brute) est « relâché » exactement une frame.</b><br  />
+<p>Un bouton manette relâché après avoir été enfoncé est « relâché » exactement un relevé (action Interagir). </p>
+<p><b>Cas de test :</b> <b>Un bouton manette est « relâché » exactement un relevé.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
@@ -306,38 +192,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a59ca224b39b7856470d0747f7900b16b" name="a59ca224b39b7856470d0747f7900b16b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ca224b39b7856470d0747f7900b16b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FrontDescendantClavier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame. </p>
-<p><b>Cas de test :</b> <b>Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Le relâchement d'une touche est détecté « relâchée » pendant exactement une frame. </p>
-
-</div>
-</div>
 <a id="a1d14a5636e572dc508004a875b1ab60a" name="a1d14a5636e572dc508004a875b1ab60a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d14a5636e572dc508004a875b1ab60a">&#9670;&#160;</a></span>TEST() <span class="overload">[6/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d14a5636e572dc508004a875b1ab60a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,49 +211,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un bouton manette (piste brute) passé d'« absent » à « présent » est « pressé » exactement une frame, comme une touche clavier. </p>
-<p><b>Cas de test :</b> <b>Un bouton manette (piste brute) est « pressé » exactement une frame.</b><br  />
+<p>Un bouton manette passé d'« absent » à « présent » est « pressé » exactement un relevé. </p>
+<p><b>Cas de test :</b> <b>Un bouton manette est « pressé » exactement un relevé.</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Un bouton manette (piste brute) est « pressé » exactement une frame. </p>
-
-</div>
-</div>
-<a id="a45cf3dc465b7f8ead7c72522f7ac8198" name="a45cf3dc465b7f8ead7c72522f7ac8198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45cf3dc465b7f8ead7c72522f7ac8198">&#9670;&#160;</a></span>TEST() <span class="overload">[7/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FrontMontantClavier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Une touche passée d'« absente » à « présente » est « pressée » exactement une frame. </p>
-<p><b>Cas de test :</b> <b>Une touche passée d'« absente » à « présente » est « pressée » exactement une frame.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Une touche passée d'« absente » à « présente » est « pressée » exactement une frame. </p>
+ <b>Resultat attendu :</b> Un bouton manette est « pressé » exactement un relevé. </p>
 
 </div>
 </div>
 <a id="a3512d9ab97fdf0700f1ea9234f2f4ef3" name="a3512d9ab97fdf0700f1ea9234f2f4ef3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[8/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3512d9ab97fdf0700f1ea9234f2f4ef3">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,188 +252,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a81215d1d3cac78f80bac142dacc0b34c" name="a81215d1d3cac78f80bac142dacc0b34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81215d1d3cac78f80bac142dacc0b34c">&#9670;&#160;</a></span>TEST() <span class="overload">[9/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">MaintienClavier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Une touche restée enfoncée n'est « pressée » qu'à la première frame. </p>
-<p><b>Cas de test :</b> <b>Une touche restée enfoncée n'est « pressée » qu'à la première frame.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Une touche restée enfoncée n'est « pressée » qu'à la première frame. </p>
-
-</div>
-</div>
-<a id="ae21cb188be633f1aa74cf4ce20725d0d" name="ae21cb188be633f1aa74cf4ce20725d0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae21cb188be633f1aa74cf4ce20725d0d">&#9670;&#160;</a></span>TEST() <span class="overload">[10/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ManetteRelacheeNeMasquePasLeClavier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La manette relâchée ne masque jamais une touche clavier réellement maintenue (non-stomping, décision de cadrage). </p>
-<p><b>Cas de test :</b> <b>La manette relâchée ne masque jamais une touche clavier réellement maintenue.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> La manette relâchée ne masque jamais une touche clavier réellement maintenue. </p>
-
-</div>
-</div>
-<a id="ae57915787a98a32bfb0d9684be82e96a" name="ae57915787a98a32bfb0d9684be82e96a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae57915787a98a32bfb0d9684be82e96a">&#9670;&#160;</a></span>TEST() <span class="overload">[11/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ManetteSeuleActiveLaTouche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Un bouton manette seul rend <span class="tt">keyDown</span>/<span class="tt">keyPressed</span> vrais, comme au clavier (<span class="tt">EX-CTRL-002</span>). </p>
-<p><b>Cas de test :</b> <b>Un bouton manette seul rend <span class="tt">keyDown</span>/<span class="tt">keyPressed</span> vrais, comme au clavier.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Un bouton manette seul rend <span class="tt">keyDown</span>/<span class="tt">keyPressed</span> vrais, comme au clavier. </p>
-
-</div>
-</div>
-<a id="a7efa418563f5fae1a48faf4078d6892f" name="a7efa418563f5fae1a48faf4078d6892f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efa418563f5fae1a48faf4078d6892f">&#9670;&#160;</a></span>TEST() <span class="overload">[12/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">MoletteAccumuleEtSeReinitialise</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite. </p>
-<p><b>Cas de test :</b> <b>Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Les incréments de molette d'une frame s'additionnent et repartent de zéro ensuite. </p>
-
-</div>
-</div>
-<a id="a4244badb84b38bb1cc59f41f3b62e1e5" name="a4244badb84b38bb1cc59f41f3b62e1e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4244badb84b38bb1cc59f41f3b62e1e5">&#9670;&#160;</a></span>TEST() <span class="overload">[13/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PisteBrutIndependanteDeLaFusionKey</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La piste manette brute (<span class="tt">GamepadButton</span>) est indépendante de la fusion clavier/manette existante sur <span class="tt">Key</span> : l'une n'affecte jamais l'autre. </p>
-<p><b>Cas de test :</b> <b>La piste manette brute est indépendante de la fusion clavier/manette sur Key.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> La piste manette brute est indépendante de la fusion clavier/manette sur Key. </p>
-
-</div>
-</div>
-<a id="aed2efe7e5c68c8a62502bad7f424c558" name="aed2efe7e5c68c8a62502bad7f424c558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed2efe7e5c68c8a62502bad7f424c558">&#9670;&#160;</a></span>TEST() <span class="overload">[14/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">PositionSouris</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La position de la souris reflète le dernier déplacement injecté. </p>
-<p><b>Cas de test :</b> <b>La position de la souris reflète le dernier déplacement injecté.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> La position de la souris reflète le dernier déplacement injecté. </p>
-
-</div>
-</div>
 <a id="a8d8b26cac3ac268359ec15eb1ab327cf" name="a8d8b26cac3ac268359ec15eb1ab327cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d8b26cac3ac268359ec15eb1ab327cf">&#9670;&#160;</a></span>TEST() <span class="overload">[15/16]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8b26cac3ac268359ec15eb1ab327cf">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -625,44 +271,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><span class="tt">releaseAll()</span> relâche toutes les entrées maintenues sans produire de front « relâchée », évitant les touches « collées » à la perte de focus (Alt+Tab). </p>
-<p><b>Cas de test :</b> <b>releaseAll relâche tout sans produire de front « relâchée ».</b><br  />
+<p><span class="tt">releaseAll()</span> relâche tous les boutons maintenus sans produire de front « relâché » : un écran qui cesse d'écouter la manette ne déclenche pas d'action fantôme. </p>
+<p><b>Cas de test :</b> <b>releaseAll relâche tout sans produire de front « relâché ».</b><br  />
  <b>Categorie :</b> Unitaire · Input State<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Maintenir des entrées clavier/manette/souris.<br  />
-2. Appeler releaseAll et verifier qu'aucune n'est plus enfoncee ni signalee « relâchée ».<br  />
- <b>Resultat attendu :</b> Toutes les entrees sont relachees, sans aucun front. </p>
-
-</div>
-</div>
-<a id="af9db81acd915bcdeb71f1ac1fafc3185" name="af9db81acd915bcdeb71f1ac1fafc3185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9db81acd915bcdeb71f1ac1fafc3185">&#9670;&#160;</a></span>TEST() <span class="overload">[16/16]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">InputStateTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TouchesIndependantes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Les touches sont indépendantes : un front sur l'une n'affecte pas les autres. </p>
-<p><b>Cas de test :</b> <b>Les touches sont indépendantes : un front sur l'une n'affecte pas les autres.</b><br  />
- <b>Categorie :</b> Unitaire · Input State<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Mettre en place le contexte du test (arrangement).<br  />
-2. Executer le scenario et verifier les assertions.<br  />
- <b>Resultat attendu :</b> Les touches sont indépendantes : un front sur l'une n'affecte pas les autres. </p>
+ 1. Maintenir deux boutons.<br  />
+2. Appeler releaseAll et verifier qu'aucun n'est plus enfonce ni signale « relâché », a ce releve comme au suivant.<br  />
+ <b>Resultat attendu :</b> Tous les boutons sont relaches, sans aucun front. </p>
 
 </div>
 </div>

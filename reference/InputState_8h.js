@@ -30,11 +30,5 @@ var InputState_8h =
       [ "hmi::Key::F1", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89", null ],
       [ "hmi::Key::F2", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74", null ],
       [ "hmi::Key::F10", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a", null ]
-    ] ],
-    [ "hmi::MouseButton", "namespacehmi.html#a4180e6c308353c9965d695855746d982", [
-      [ "hmi::MouseButton::Left", "namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff", null ],
-      [ "hmi::MouseButton::Right", "namespacehmi.html#a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c", null ],
-      [ "hmi::MouseButton::Middle", "namespacehmi.html#a4180e6c308353c9965d695855746d982ab1ca34f82e83c52b010f86955f264e05", null ],
-      [ "hmi::MouseButton::Count", "namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9", null ]
     ] ]
 ];

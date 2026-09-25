@@ -3,7 +3,6 @@ var structcore_1_1AttackRoll =
     [ "addModifier", "structcore_1_1AttackRoll.html#a1b132925fea0b58cf4e58c21dca88587", null ],
     [ "applyCover", "structcore_1_1AttackRoll.html#a67dd2cd1fbfd74998b4f5ab7a6c9f520", null ],
     [ "recompute", "structcore_1_1AttackRoll.html#a825befcaffc5bdc899718397e8871e69", null ],
-    [ "reroll", "structcore_1_1AttackRoll.html#a5b1eb1f3dbdf90f0949495a9dfc538c9", null ],
     [ "substitute", "structcore_1_1AttackRoll.html#aa1e136f6d9b2feb99c3b9e70e4dd933a", null ],
     [ "advantages", "structcore_1_1AttackRoll.html#a356086b6ceadd9536ad22f4740baa00d", null ],
     [ "amendments", "structcore_1_1AttackRoll.html#a92362aee27d0322322e39779397bc506", null ],

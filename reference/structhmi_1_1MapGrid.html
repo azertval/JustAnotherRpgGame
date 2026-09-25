@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1MapGrid.html','','structhmi_1_1MapGrid-me
 </div><!--header-->
 <div class="contents">
 
-<p>Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés.  
+<p>La grille d'une carte <b>rendue</b> sur son image (<span class="tt">LOT-121</span>) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en <span class="tt"><a class="el" href="#a1f8de0d311fd24c9c777efc7902cddc7">origin</a> + c × <a class="el" href="#aef4efc14b9d69cefbdf34a1160b8ef9e">column</a> + r × <a class="el" href="#a2f8b88a83301bfa3de9ce16fa7782609">row</a></span>, en fractions de l'image.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="WorldMaps_8h_source.html">WorldMaps.h</a>&gt;</code></p>
@@ -159,8 +159,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a2f8b88a83301bfa3de9ce16fa7782609" id="r_a2f8b88a83301bfa3de9ce16fa7782609"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapPoint.html">MapPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2f8b88a83301bfa3de9ce16fa7782609">row</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Le plan d'une ville : ses quartiers (lieux de l'atlas) ou ses lieux numérotés. </p>
-<p>La grille d'une carte <b>rendue</b> sur son image (<span class="tt">LOT-121</span>) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en <span class="tt"><a class="el" href="#a1f8de0d311fd24c9c777efc7902cddc7">origin</a> + c × <a class="el" href="#aef4efc14b9d69cefbdf34a1160b8ef9e">column</a> + r × <a class="el" href="#a2f8b88a83301bfa3de9ce16fa7782609">row</a></span>, en fractions de l'image. <span class="tt">LevelEditor --render --canvas</span> l'écrit avec l'image. </p>
+<div class="textblock"><p>La grille d'une carte <b>rendue</b> sur son image (<span class="tt">LOT-121</span>) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en <span class="tt"><a class="el" href="#a1f8de0d311fd24c9c777efc7902cddc7">origin</a> + c × <a class="el" href="#aef4efc14b9d69cefbdf34a1160b8ef9e">column</a> + r × <a class="el" href="#a2f8b88a83301bfa3de9ce16fa7782609">row</a></span>, en fractions de l'image. </p>
+<p><span class="tt">LevelEditor --render --canvas</span> l'écrit avec l'image. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="aa532379dfb4d32fe09349159557b9136" name="aa532379dfb4d32fe09349159557b9136"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa532379dfb4d32fe09349159557b9136">&#9670;&#160;</a></span>at()</h2>

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790304036945,
+  "lastUpdate": 1790367029316,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1032,6 +1032,100 @@ window.BENCHMARK_DATA = {
             "extra": "iterations: 22974\ncpu: 59.850265517541565 us\nthreads: 1"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "f20d7a39f7f722f896325ec286689c9b7f725132",
+          "message": "Merge pull request #141 from azertval/claude/recettage-v0-0-1-lot-122-ixgfl2\n\nLOT-122 — Recette et version 0.0.1 : la démo basique",
+          "timestamp": "2026-09-25T20:05:24Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/f20d7a39f7f722f896325ec286689c9b7f725132"
+        },
+        "date": 1790367021285,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 134072.74005624218,
+            "unit": "ns/iter",
+            "extra": "iterations: 9956\ncpu: 133399.4576134994 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 189586.79523234905,
+            "unit": "ns/iter",
+            "extra": "iterations: 7467\ncpu: 188328.64604258738 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 18308.499171322135,
+            "unit": "ns/iter",
+            "extra": "iterations: 81455\ncpu: 18415.075808728747 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 68324.39410664169,
+            "unit": "ns/iter",
+            "extra": "iterations: 20837\ncpu: 68237.99011373999 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 933396.3791968813,
+            "unit": "ns/iter",
+            "extra": "iterations: 1519\ncpu: 936059.9078341014 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2080457.8571431062,
+            "unit": "ns/iter",
+            "extra": "iterations: 560\ncpu: 2064732.142857143 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 530.9528652751103,
+            "unit": "us/iter",
+            "extra": "iterations: 2635\ncpu: 527.7514231499051 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.07609597506288199,
+            "unit": "ms/iter",
+            "extra": "iterations: 18286\ncpu: 0.07604861642786831 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.10710469999999077,
+            "unit": "ms/iter",
+            "extra": "iterations: 10000\ncpu: 0.1078125 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.054787894531243,
+            "unit": "ms/iter",
+            "extra": "iterations: 25600\ncpu: 0.054931640625 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.10701273000001947,
+            "unit": "ms/iter",
+            "extra": "iterations: 10000\ncpu: 0.1078125 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 2.5127569642856025,
+            "unit": "us/iter",
+            "extra": "iterations: 560000\ncpu: 2.5390625 us\nthreads: 1"
+          }
+        ]
       }
     ],
     "Peinture du canevas de l'editeur (Release, windows-2022)": [
@@ -1100,6 +1194,40 @@ window.BENCHMARK_DATA = {
             "value": 5.146497794117643,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.112591911764706 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "f20d7a39f7f722f896325ec286689c9b7f725132",
+          "message": "Merge pull request #141 from azertval/claude/recettage-v0-0-1-lot-122-ixgfl2\n\nLOT-122 — Recette et version 0.0.1 : la démo basique",
+          "timestamp": "2026-09-25T20:05:24Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/f20d7a39f7f722f896325ec286689c9b7f725132"
+        },
+        "date": 1790367027464,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 10.168085156250228,
+            "unit": "ms/iter",
+            "extra": "iterations: 128\ncpu: 9.8876953125 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.15824821428542,
+            "unit": "ms/iter",
+            "extra": "iterations: 280\ncpu: 5.133928571428571 ms\nthreads: 1"
           }
         ]
       }

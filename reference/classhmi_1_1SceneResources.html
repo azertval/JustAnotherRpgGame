@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('classhmi_1_1SceneResources.html','','classhmi_1_1Scene
 </div><!--header-->
 <div class="contents">
 
-<p>Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre.  
+<p>Lot de sprites et atlas — créés ensemble, libérés ensemble, dans le bon ordre.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="SceneResources_8h_source.html">SceneResources.h</a>&gt;</code></p>
@@ -164,18 +164,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ced3e2e2dfd27a1bb8ce0a236f263c7" id="r_a6ced3e2e2dfd27a1bb8ce0a236f263c7"><td class="memItemLeft"><a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6ced3e2e2dfd27a1bb8ce0a236f263c7">context</a> () noexcept</td></tr>
 <tr class="memitem:ad63d985936dd4841ffa46c644d662c64" id="r_ad63d985936dd4841ffa46c644d662c64"><td class="memItemLeft"><a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad63d985936dd4841ffa46c644d662c64">sprites</a> () noexcept</td></tr>
 <tr class="memitem:a8443bd08bcb5f8726cc4b8d0723cdae8" id="r_a8443bd08bcb5f8726cc4b8d0723cdae8"><td class="memItemLeft"><a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8443bd08bcb5f8726cc4b8d0723cdae8">atlas</a> () noexcept</td></tr>
-<tr class="memitem:a941ad487794fe7d110a0ab45e58ebe6a" id="r_a941ad487794fe7d110a0ab45e58ebe6a"><td class="memItemLeft"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a941ad487794fe7d110a0ab45e58ebe6a">textures</a> () noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a96ea2a1d8334695ea611d98ff38e201a" id="r_a96ea2a1d8334695ea611d98ff38e201a"><td class="memItemLeft"><a class="el" href="structhmi_1_1RhiContext.html">RhiContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#a96ea2a1d8334695ea611d98ff38e201a">_context</a></td></tr>
 <tr class="memitem:ac6a1a8c2b77731c92c4239faeee250b8" id="r_ac6a1a8c2b77731c92c4239faeee250b8"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac6a1a8c2b77731c92c4239faeee250b8">_spriteBatch</a></td></tr>
 <tr class="memitem:ab817a9cf9f567e52587ff37c122ceeda" id="r_ab817a9cf9f567e52587ff37c122ceeda"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureAtlas.html">TextureAtlas</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab817a9cf9f567e52587ff37c122ceeda">_atlas</a></td></tr>
-<tr class="memitem:ac18d7f2e82e1b546589874d1fe1bf08e" id="r_ac18d7f2e82e1b546589874d1fe1bf08e"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac18d7f2e82e1b546589874d1fe1bf08e">_textureCache</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Lot de sprites, atlas et registre de textures — créés ensemble, libérés ensemble, dans le bon ordre. </p>
-<p><b>Pourquoi cette classe.</b> Depuis le <span class="tt">LOT-86</span>, deux surfaces dessinent la même scène : le canevas de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>, un <span class="tt">QRhiWidget</span>) et les éléments Qt Quick du jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>, <span class="tt">hmi::ArenaViewportItem</span>, des <span class="tt">QQuickRhiItem</span>). Elles n'ont ni le même hôte, ni la même boucle, ni les mêmes entrées — mais elles créent <b>exactement</b> les mêmes ressources graphiques. Les écrire deux fois aurait suffi à les faire diverger : c'est ce qui arrive toujours, et ça ne se voit qu'à l'exécution, sur une seule des deux.</p>
+<div class="textblock"><p>Lot de sprites et atlas — créés ensemble, libérés ensemble, dans le bon ordre. </p>
+<p><b>Pourquoi cette classe.</b> Depuis le <span class="tt">LOT-86</span>, deux surfaces dessinent la même scène : le canevas de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>, un <span class="tt">QRhiWidget</span>) et les éléments Qt Quick du jeu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>, <span class="tt"><a class="el" href="classhmi_1_1GameViewportItem.html" title="Surface QRhi du jeu, composée avec le reste de l&#39;interface QML.">hmi::GameViewportItem</a></span>, des <span class="tt">QQuickRhiItem</span>). Elles n'ont ni le même hôte, ni la même boucle, ni les mêmes entrées — mais elles créent <b>exactement</b> les mêmes ressources graphiques. Les écrire deux fois aurait suffi à les faire diverger : c'est ce qui arrive toujours, et ça ne se voit qu'à l'exécution, sur une seule des deux.</p>
 <p><b>L'ordre de libération est la raison d'être du regroupement.</b> Ce qui tient une texture doit mourir avant la texture, et la texture avant le pipeline qui l'échantillonne. Libérer dans le désordre ne produit pas une erreur nette mais un plantage à la fermeture, intermittent selon le pilote. <span class="tt"><a class="el" href="#a8ed18b0c583028be315e4c289d0c9256" title="Libère tout, dans l&#39;ordre imposé par les dépendances entre ressources.">release()</a></span> fixe cet ordre une fois pour toutes ; aucun appelant n'a plus à s'en souvenir.</p>
 <p><b>Ce qui n'est pas ici</b> : le brouillon d'édition, le <span class="tt"><a class="el" href="classhmi_1_1DraftRenderer.html" title="Compose un core::LevelDraft en cours d&#39;édition, à plat : la vue qui lit les types et la collision (dé...">DraftRenderer</a></span>, la caméra, la carte jouée. Ils appartiennent à un seul des deux hôtes — les remonter ici rendrait la classe dépendante de l'éditeur, et le jeu paierait pour ce dont il ne se sert pas. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -269,6 +267,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'atlas procédural des tuiles ; valide seulement si <span class="tt"><a class="el" href="#a7a5668decb1e87cfd3ba0d39a31fb133">created()</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -294,6 +293,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le contexte de rendu : le <span class="tt">QRhi</span> et le lot de téléversements de l'image en cours. </dd></dl>
 
 </div>
 </div>
@@ -449,31 +449,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a941ad487794fe7d110a0ab45e58ebe6a" name="a941ad487794fe7d110a0ab45e58ebe6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a941ad487794fe7d110a0ab45e58ebe6a">&#9670;&#160;</a></span>textures()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a> &amp; hmi::SceneResources::textures </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le pipeline 2D ; valide seulement si <span class="tt"><a class="el" href="#a7a5668decb1e87cfd3ba0d39a31fb133">created()</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -533,28 +509,6 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1SpriteBatch.html">SpriteBatch</a>&gt; hmi::SceneResources::_spriteBatch</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac18d7f2e82e1b546589874d1fe1bf08e" name="ac18d7f2e82e1b546589874d1fe1bf08e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac18d7f2e82e1b546589874d1fe1bf08e">&#9670;&#160;</a></span>_textureCache</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1TextureCache.html">TextureCache</a>&gt; hmi::SceneResources::_textureCache</td>
         </tr>
       </table>
   </td>

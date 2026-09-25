@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -152,7 +152,6 @@ $(function(){initNavTree('test__character__sheet__values_8cpp.html','',''); });
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="CharacterSheetValues_8h_source.html">HMI/Presentation/CharacterSheetValues.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="RpgScreens_8h_source.html">HMI/Presentation/RpgScreens.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -166,46 +165,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac4c99c81015fcf200916cb248a26f938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie se lisent <b>contre leur maximum</b>, et la vitesse porte son unité.  <br /></td></tr>
 <tr class="memitem:a965212c0b6c6298041161e81004290b0" id="r_a965212c0b6c6298041161e81004290b0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a965212c0b6c6298041161e81004290b0">TEST</a> (CharacterSheetValuesTest, SansFicheAucuneValeurNEstProduite)</td></tr>
 <tr class="memdesc:a965212c0b6c6298041161e81004290b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans fiche, la table est <b>vide</b> — et l'écran garde donc ses tirets.  <br /></td></tr>
-<tr class="memitem:a8689118f74746b25646460d29980af45" id="r_a8689118f74746b25646460d29980af45"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8689118f74746b25646460d29980af45">TEST</a> (CharacterSheetValuesTest, ChaqueChampDeLaFicheEstAlimente)</td></tr>
-<tr class="memdesc:a8689118f74746b25646460d29980af45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tout champ de l'écran qui déclare une source est <b>effectivement rempli</b> par le présentateur.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires des valeurs affichées par l'écran de fiche (<span class="tt">LOT-38</span>). </p>
 <p>Logique pure, sans Qt ni fichier. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a8689118f74746b25646460d29980af45" name="a8689118f74746b25646460d29980af45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8689118f74746b25646460d29980af45">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">CharacterSheetValuesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ChaqueChampDeLaFicheEstAlimente</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tout champ de l'écran qui déclare une source est <b>effectivement rempli</b> par le présentateur. </p>
-<p>C'est le seul lien entre les deux côtés : l'ossature (<span class="tt"><a class="el" href="namespacehmi.html#a74752c1a9d7b1d3e8da19eec82c397be">hmi::rpgScreens</a></span>) déclare ses <span class="tt">valueId</span>, le présentateur produit des valeurs sous ces mêmes identifiants, et rien d'autre ne les rapproche. Une faute de frappe d'un côté ne se verrait qu'à l'écran, sous la forme d'un champ resté au tiret cadratin au milieu de champs remplis — c'est-à-dire pas du tout. <b>Cas de test :</b> <b>Chaque champ de la fiche declarant une source est rempli.</b><br  />
- <b>Categorie :</b> Unitaire · Fiche de personnage<br  />
- <b>Criticite :</b> Critique<br  />
- <b>Etapes :</b><br  />
- 1. Lire les identifiants de valeur declares par l'ossature de la fiche.<br  />
-2. Produire les valeurs d'une fiche complete.<br  />
-3. Verifier que chaque identifiant declare est produit.<br  />
- <b>Resultat attendu :</b> Aucun champ de la fiche ne reste sans source. </p>
-
-</div>
-</div>
 <a id="a2ce2bfe75589c8bbb669f8187b46bb0a" name="a2ce2bfe75589c8bbb669f8187b46bb0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ce2bfe75589c8bbb669f8187b46bb0a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ce2bfe75589c8bbb669f8187b46bb0a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,7 +201,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="afa937d9c9ba00ca0dc81ba5d079e2628" name="afa937d9c9ba00ca0dc81ba5d079e2628"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa937d9c9ba00ca0dc81ba5d079e2628">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afa937d9c9ba00ca0dc81ba5d079e2628">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,7 +231,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8e6cf81f4a4a56734391c9d5734da586" name="a8e6cf81f4a4a56734391c9d5734da586"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6cf81f4a4a56734391c9d5734da586">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6cf81f4a4a56734391c9d5734da586">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +261,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ac4c99c81015fcf200916cb248a26f938" name="ac4c99c81015fcf200916cb248a26f938"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4c99c81015fcf200916cb248a26f938">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c99c81015fcf200916cb248a26f938">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,7 +290,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a965212c0b6c6298041161e81004290b0" name="a965212c0b6c6298041161e81004290b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a965212c0b6c6298041161e81004290b0">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a965212c0b6c6298041161e81004290b0">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

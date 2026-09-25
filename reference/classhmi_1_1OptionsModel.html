@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -187,6 +187,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:ab48d2a0c8793aa51af171d2ace788250" id="r_ab48d2a0c8793aa51af171d2ace788250"><td class="memItemLeft">QML_SINGLETONbool&#160;</td><td class="memItemRight"><a class="el" href="#ab48d2a0c8793aa51af171d2ace788250">fullscreen</a></td></tr>
+<tr class="memdesc:ab48d2a0c8793aa51af171d2ace788250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jeu occupe tout l'écran. Écrit, le réglage est enregistré et la fenêtre suit aussitôt.  <br /></td></tr>
 <tr class="memitem:a8a907b9efd8a1079fb0dc6d88ca45e24" id="r_a8a907b9efd8a1079fb0dc6d88ca45e24"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8a907b9efd8a1079fb0dc6d88ca45e24">vsync</a></td></tr>
 <tr class="memitem:ad4faa29a69a81e4c9987c7fab507397f" id="r_ad4faa29a69a81e4c9987c7fab507397f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad4faa29a69a81e4c9987c7fab507397f">diagnostics</a></td></tr>
 <tr class="memitem:a0577a4c5c12f6bbc8f756bd92a0a4280" id="r_a0577a4c5c12f6bbc8f756bd92a0a4280"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0577a4c5c12f6bbc8f756bd92a0a4280">volume</a></td></tr>
@@ -211,11 +212,11 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vue-modèle des options : lit et persiste les réglages, et <b>publie</b> leur changement. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md121"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md110"></a>
 La règle qui gouverne cette classe</h2>
 <p><span class="tt">EX-IHM-083</span> : <b>tout réglage exposé doit atteindre le moteur</b>. Une case à cocher qui ne fait rien est pire qu'une case absente — elle fait croire à un réglage, et l'utilisateur cherche ensuite pourquoi il n'a pas d'effet.</p>
 <p>Cette classe ne fait donc que deux choses : persister, et prévenir. C'est l'application qui <b>branche</b> chaque signal sur ce qu'il doit atteindre — le moteur audio, la fenêtre, les traducteurs. Le faire ici obligerait la présentation à connaître le moteur, et c'est précisément la frontière que le lot établit.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md111"></a>
 Ce qui s'applique quand</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -951,6 +952,8 @@ Ce qui s'applique quand</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le jeu occupe tout l'écran. Écrit, le réglage est enregistré et la fenêtre suit aussitôt. </p>
 
 </div>
 </div>

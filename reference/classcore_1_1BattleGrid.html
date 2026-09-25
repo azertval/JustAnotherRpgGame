@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -162,8 +162,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a60fcd046ff5926aab2911a8369bdc0bf" id="r_a60fcd046ff5926aab2911a8369bdc0bf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a60fcd046ff5926aab2911a8369bdc0bf">BattleGrid</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:a60fcd046ff5926aab2911a8369bdc0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille de <code class="param">level</code>, sur sa seule solidité statique.  <br /></td></tr>
 <tr class="memitem:ab7d7cbb5a4348e90c82deae5bfd2e3c1" id="r_ab7d7cbb5a4348e90c82deae5bfd2e3c1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab7d7cbb5a4348e90c82deae5bfd2e3c1">width</a> () const noexcept</td></tr>
+<tr class="memdesc:ab7d7cbb5a4348e90c82deae5bfd2e3c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de colonnes de la grille.  <br /></td></tr>
 <tr class="memitem:aa86684cfb35851fcb057779307a9a35d" id="r_aa86684cfb35851fcb057779307a9a35d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa86684cfb35851fcb057779307a9a35d">height</a> () const noexcept</td></tr>
+<tr class="memdesc:aa86684cfb35851fcb057779307a9a35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de lignes de la grille.  <br /></td></tr>
 <tr class="memitem:af14ee1f54d1bb850979ff7c207345546" id="r_af14ee1f54d1bb850979ff7c207345546"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af14ee1f54d1bb850979ff7c207345546">inBounds</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const noexcept</td></tr>
+<tr class="memdesc:af14ee1f54d1bb850979ff7c207345546"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">cell</code> est dans la grille : colonne et ligne positives, sous ses dimensions.  <br /></td></tr>
 <tr class="memitem:a7fca87989c8f66ac8c24d937a53d2b31" id="r_a7fca87989c8f66ac8c24d937a53d2b31"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7fca87989c8f66ac8c24d937a53d2b31">isObstructed</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion=<a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffa7a16a854f32231a8df9326136b09ee62">Locomotion::Walk</a>) const</td></tr>
 <tr class="memdesc:a7fca87989c8f66ac8c24d937a53d2b31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la case arrête un combattant qui se déplace par <code class="param">locomotion</code> : matière pleine, objet bloquant, et — au sol seulement — eau profonde et falaise.  <br /></td></tr>
 <tr class="memitem:a240ddd200a9497878959f5db6bc73caa" id="r_a240ddd200a9497878959f5db6bc73caa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a240ddd200a9497878959f5db6bc73caa">isDifficult</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell) const</td></tr>
@@ -663,6 +666,8 @@ Ce qu'elle ne fait pas</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Le nombre de lignes de la grille. </p>
+
 </div>
 </div>
 <a id="af14ee1f54d1bb850979ff7c207345546" name="af14ee1f54d1bb850979ff7c207345546"></a>
@@ -687,6 +692,8 @@ Ce qu'elle ne fait pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Vrai si <code class="param">cell</code> est dans la grille : colonne et ligne positives, sous ses dimensions. </p>
 
 </div>
 </div>
@@ -1121,6 +1128,8 @@ Ce qu'elle ne fait pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Le nombre de colonnes de la grille. </p>
 
 </div>
 </div>

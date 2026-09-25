@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -170,25 +170,26 @@ $(function(){initNavTree('AssetMarker_8h_source.html','',''); });
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">   32</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">width</a> = 0;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#a710ca5f46173550c877c65f6452a06fa">   33</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a710ca5f46173550c877c65f6452a06fa">height</a> = 0;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">   35</a></span>    std::vector&lt;MarkerColor&gt; <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">pixels</a>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81">   37</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81">isEmpty</a>() const noexcept {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">width</a> &lt;= 0 || <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a710ca5f46173550c877c65f6452a06fa">height</a> &lt;= 0 || <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">pixels</a>.empty();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81">   38</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81">isEmpty</a>() const noexcept {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">width</a> &lt;= 0 || <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a710ca5f46173550c877c65f6452a06fa">height</a> &lt;= 0 || <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">pixels</a>.empty();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
 </div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#af033d60286404c2fa11cb9ba618fb1ed">   40</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1MarkerColor.html">MarkerColor</a> <a class="code hl_function" href="structcore_1_1MarkerImage.html#af033d60286404c2fa11cb9ba618fb1ed">at</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">pixels</a>[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>((y * <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">width</a>) + x)];</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structcore_1_1MarkerImage.html#af033d60286404c2fa11cb9ba618fb1ed">   43</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1MarkerColor.html">MarkerColor</a> <a class="code hl_function" href="structcore_1_1MarkerImage.html#af033d60286404c2fa11cb9ba618fb1ed">at</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">pixels</a>[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>((y * <a class="code hl_variable" href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">width</a>) + x)];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>[[nodiscard]] MarkerImage <a class="code hl_function" href="namespacecore.html#ac6ae670b019f78f94c6c8354d01794bc">assetMarker</a>(std::string_view key, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>[[nodiscard]] std::uint32_t <a class="code hl_function" href="namespacecore.html#a22e0e2c24dd3236fe3a81f89f795fee2">stableAssetHash</a>(std::string_view key);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}  <span class="comment">// namespace core</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>[[nodiscard]] MarkerImage <a class="code hl_function" href="namespacecore.html#ac6ae670b019f78f94c6c8354d01794bc">assetMarker</a>(std::string_view key, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>[[nodiscard]] std::uint32_t <a class="code hl_function" href="namespacecore.html#a22e0e2c24dd3236fe3a81f89f795fee2">stableAssetHash</a>(std::string_view key);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}  <span class="comment">// namespace core</span></div>
 <div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
 <div class="ttc" id="anamespacecore_html_a22e0e2c24dd3236fe3a81f89f795fee2"><div class="ttname"><a href="namespacecore.html#a22e0e2c24dd3236fe3a81f89f795fee2">core::stableAssetHash</a></div><div class="ttdeci">std::uint32_t stableAssetHash(std::string_view key)</div><div class="ttdoc">Le hachage stable dont assetMarker tire sa teinte.</div><div class="ttdef"><b>Definition</b> AssetMarker.cpp:67</div></div>
 <div class="ttc" id="anamespacecore_html_ac6ae670b019f78f94c6c8354d01794bc"><div class="ttname"><a href="namespacecore.html#ac6ae670b019f78f94c6c8354d01794bc">core::assetMarker</a></div><div class="ttdeci">MarkerImage assetMarker(std::string_view key, int width, int height)</div><div class="ttdoc">Peint le marqueur d&#39;une clé d&#39;asset.</div><div class="ttdef"><b>Definition</b> AssetMarker.cpp:76</div></div>
@@ -202,8 +203,8 @@ $(function(){initNavTree('AssetMarker_8h_source.html','',''); });
 <div class="ttc" id="astructcore_1_1MarkerImage_html_a34c4aca7d11c92279ac054526fff4f80"><div class="ttname"><a href="structcore_1_1MarkerImage.html#a34c4aca7d11c92279ac054526fff4f80">core::MarkerImage::pixels</a></div><div class="ttdeci">std::vector&lt; MarkerColor &gt; pixels</div><div class="ttdoc">width * height pixels.</div><div class="ttdef"><b>Definition</b> AssetMarker.h:35</div></div>
 <div class="ttc" id="astructcore_1_1MarkerImage_html_a710ca5f46173550c877c65f6452a06fa"><div class="ttname"><a href="structcore_1_1MarkerImage.html#a710ca5f46173550c877c65f6452a06fa">core::MarkerImage::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition</b> AssetMarker.h:33</div></div>
 <div class="ttc" id="astructcore_1_1MarkerImage_html_a8d35a9f90d4868939569032c1eb20046"><div class="ttname"><a href="structcore_1_1MarkerImage.html#a8d35a9f90d4868939569032c1eb20046">core::MarkerImage::width</a></div><div class="ttdeci">int width</div><div class="ttdef"><b>Definition</b> AssetMarker.h:32</div></div>
-<div class="ttc" id="astructcore_1_1MarkerImage_html_ac7ef693a631388aa497877803e58ac81"><div class="ttname"><a href="structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81">core::MarkerImage::isEmpty</a></div><div class="ttdeci">bool isEmpty() const noexcept</div><div class="ttdef"><b>Definition</b> AssetMarker.h:37</div></div>
-<div class="ttc" id="astructcore_1_1MarkerImage_html_af033d60286404c2fa11cb9ba618fb1ed"><div class="ttname"><a href="structcore_1_1MarkerImage.html#af033d60286404c2fa11cb9ba618fb1ed">core::MarkerImage::at</a></div><div class="ttdeci">MarkerColor at(int x, int y) const</div><div class="ttdef"><b>Definition</b> AssetMarker.h:40</div></div>
+<div class="ttc" id="astructcore_1_1MarkerImage_html_ac7ef693a631388aa497877803e58ac81"><div class="ttname"><a href="structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81">core::MarkerImage::isEmpty</a></div><div class="ttdeci">bool isEmpty() const noexcept</div><div class="ttdoc">Vrai si l&#39;image n&#39;a pas de pixel : dimension nulle ou tampon vide.</div><div class="ttdef"><b>Definition</b> AssetMarker.h:38</div></div>
+<div class="ttc" id="astructcore_1_1MarkerImage_html_af033d60286404c2fa11cb9ba618fb1ed"><div class="ttname"><a href="structcore_1_1MarkerImage.html#af033d60286404c2fa11cb9ba618fb1ed">core::MarkerImage::at</a></div><div class="ttdeci">MarkerColor at(int x, int y) const</div><div class="ttdoc">Le pixel de la colonne x et de la ligne y, comptées depuis le haut-gauche.</div><div class="ttdef"><b>Definition</b> AssetMarker.h:43</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

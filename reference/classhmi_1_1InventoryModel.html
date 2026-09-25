@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -177,7 +177,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:afe4073a9bd332076c099f1556852107a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jette un exemplaire de l'objet sélectionné du sac.  <br /></td></tr>
 <tr class="memitem:a08d8f9a3f29349b23ad6e3f93a9e0eda" id="r_a08d8f9a3f29349b23ad6e3f93a9e0eda"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a08d8f9a3f29349b23ad6e3f93a9e0eda">sortBackpack</a> ()</td></tr>
 <tr class="memdesc:a08d8f9a3f29349b23ad6e3f93a9e0eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trie le sac par nom.  <br /></td></tr>
-<tr class="memitem:aa4db285c322d670153da8bd31658de0e" id="r_aa4db285c322d670153da8bd31658de0e"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#aa4db285c322d670153da8bd31658de0e">equipmentSlots</a> ()</td></tr>
 <tr class="memitem:ad145dfad038799a59937922c2aa24a5a" id="r_ad145dfad038799a59937922c2aa24a5a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad145dfad038799a59937922c2aa24a5a">purse</a> () const</td></tr>
 <tr class="memitem:a0ec3d50976e96c64452c6cfb1f387157" id="r_a0ec3d50976e96c64452c6cfb1f387157"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a0ec3d50976e96c64452c6cfb1f387157">carried</a> () const</td></tr>
 <tr class="memitem:aa58d8495cd5841ca0970400072c03ddd" id="r_aa58d8495cd5841ca0970400072c03ddd"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa58d8495cd5841ca0970400072c03ddd">capacity</a> () const</td></tr>
@@ -198,9 +197,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a209ff5cd9e4a3fe7326870999e3a64b9" id="r_a209ff5cd9e4a3fe7326870999e3a64b9"><td class="memItemLeft">QML_ELEMENTQAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a209ff5cd9e4a3fe7326870999e3a64b9">equipmentSlots</a></td></tr>
-<tr class="memdesc:a209ff5cd9e4a3fe7326870999e3a64b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les seize emplacements d'équipement : identifiant, libellé du corps, objet porté (ou tiret).  <br /></td></tr>
-<tr class="memitem:ad815eabdbc72f2d89fde2f2241f43cc3" id="r_ad815eabdbc72f2d89fde2f2241f43cc3"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad815eabdbc72f2d89fde2f2241f43cc3">purse</a></td></tr>
+<tr class="memitem:a996e8e82699dcefdd215b1570ba17440" id="r_a996e8e82699dcefdd215b1570ba17440"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#a996e8e82699dcefdd215b1570ba17440">purse</a></td></tr>
+<tr class="memdesc:a996e8e82699dcefdd215b1570ba17440"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bourse, déjà mise en forme (« 37 po ») ; un tiret cadratin tant que rien ne l'alimente.  <br /></td></tr>
 <tr class="memitem:a9d933a5ef0f134a8983d825058af29af" id="r_a9d933a5ef0f134a8983d825058af29af"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a9d933a5ef0f134a8983d825058af29af">carried</a></td></tr>
 <tr class="memitem:a5e2083c74c41b2a926d9f5b6c81b071f" id="r_a5e2083c74c41b2a926d9f5b6c81b071f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5e2083c74c41b2a926d9f5b6c81b071f">capacity</a></td></tr>
 <tr class="memitem:ace13938dcca6ac0654535a7b9ee9b0d8" id="r_ace13938dcca6ac0654535a7b9ee9b0d8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ace13938dcca6ac0654535a7b9ee9b0d8">backpack</a></td></tr>
@@ -218,7 +216,7 @@ Properties</h2></td></tr>
 <tr class="memitem:aba17baad4338fb9e5ce748ecfdb6f446" id="r_aba17baad4338fb9e5ce748ecfdb6f446"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#aba17baad4338fb9e5ce748ecfdb6f446">loadRatio</a></td></tr>
 <tr class="memdesc:aba17baad4338fb9e5ce748ecfdb6f446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge : <span class="tt"><a class="el" href="#a9d933a5ef0f134a8983d825058af29af">carried</a> / <a class="el" href="#a5e2083c74c41b2a926d9f5b6c81b071f">capacity</a></span>, et son remplissage de 0 à 1 (0 si la capacité est inconnue).  <br /></td></tr>
 <tr class="memitem:a0ecfd55853c19a77e84b95a907fe1a23" id="r_a0ecfd55853c19a77e84b95a907fe1a23"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a0ecfd55853c19a77e84b95a907fe1a23">gold</a></td></tr>
-<tr class="memdesc:a0ecfd55853c19a77e84b95a907fe1a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pièces d'or de la bourse (le reste en argent et cuivre est dans <span class="tt"><a class="el" href="#ad815eabdbc72f2d89fde2f2241f43cc3">purse</a></span>).  <br /></td></tr>
+<tr class="memdesc:a0ecfd55853c19a77e84b95a907fe1a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pièces d'or de la bourse (le reste en argent et cuivre est dans <span class="tt"><a class="el" href="#a996e8e82699dcefdd215b1570ba17440" title="La bourse, déjà mise en forme (« 37 po ») ; un tiret cadratin tant que rien ne l&#39;alimente.">purse</a></span>).  <br /></td></tr>
 <tr class="memitem:a4cacfd023745688b23985288a0183e95" id="r_a4cacfd023745688b23985288a0183e95"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a4cacfd023745688b23985288a0183e95">armorClass</a></td></tr>
 <tr class="memdesc:a4cacfd023745688b23985288a0183e95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre statistiques dérivées de la maquette, recalculées depuis ce qui est porté.  <br /></td></tr>
 <tr class="memitem:ac92b8f6399230b40753d4f6a0230987f" id="r_ac92b8f6399230b40753d4f6a0230987f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac92b8f6399230b40753d4f6a0230987f">initiative</a></td></tr>
@@ -237,7 +235,6 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a3d9038a36002715e600185e74a8a3a3a" id="r_a3d9038a36002715e600185e74a8a3a3a"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3d9038a36002715e600185e74a8a3a3a">_state</a></td></tr>
 <tr class="memitem:adc21c016b772e4f29a8520ac89faaa3e" id="r_adc21c016b772e4f29a8520ac89faaa3e"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc21c016b772e4f29a8520ac89faaa3e">_values</a></td></tr>
 <tr class="memitem:a10f3bf9e46642b81b79ed66094737ccc" id="r_a10f3bf9e46642b81b79ed66094737ccc"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a10f3bf9e46642b81b79ed66094737ccc">_sheetValues</a></td></tr>
-<tr class="memitem:acf31a4cccc58031b7efa9351dcf0df30" id="r_acf31a4cccc58031b7efa9351dcf0df30"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#acf31a4cccc58031b7efa9351dcf0df30">_slots</a></td></tr>
 <tr class="memitem:a2a719d08140475e86364fd5c855767ae" id="r_a2a719d08140475e86364fd5c855767ae"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2a719d08140475e86364fd5c855767ae">_filter</a> = 0</td></tr>
 <tr class="memitem:aaccdd0582bfcff00254f71b5b7712b77" id="r_aaccdd0582bfcff00254f71b5b7712b77"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aaccdd0582bfcff00254f71b5b7712b77">_selectedItem</a></td></tr>
 <tr class="memitem:ae9c194bd97d2971dca2764376c0349f0" id="r_ae9c194bd97d2971dca2764376c0349f0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9c194bd97d2971dca2764376c0349f0">_selectedSlot</a></td></tr>
@@ -468,31 +465,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Jette un exemplaire de l'objet sélectionné du sac. </p>
-
-</div>
-</div>
-<a id="aa4db285c322d670153da8bd31658de0e" name="aa4db285c322d670153da8bd31658de0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4db285c322d670153da8bd31658de0e">&#9670;&#160;</a></span>equipmentSlots()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QAbstractItemModel * hmi::InventoryModel::equipmentSlots </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1092,28 +1064,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acf31a4cccc58031b7efa9351dcf0df30" name="acf31a4cccc58031b7efa9351dcf0df30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf31a4cccc58031b7efa9351dcf0df30">&#9670;&#160;</a></span>_slots</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::InventoryModel::_slots</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a3d9038a36002715e600185e74a8a3a3a" name="a3d9038a36002715e600185e74a8a3a3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d9038a36002715e600185e74a8a3a3a">&#9670;&#160;</a></span>_state</h2>
 
@@ -1273,30 +1223,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a209ff5cd9e4a3fe7326870999e3a64b9" name="a209ff5cd9e4a3fe7326870999e3a64b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a209ff5cd9e4a3fe7326870999e3a64b9">&#9670;&#160;</a></span>equipmentSlots</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QML_ELEMENTQAbstractItemModel* hmi::InventoryModel::equipmentSlots</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Les seize emplacements d'équipement : identifiant, libellé du corps, objet porté (ou tiret). </p>
-
-</div>
-</div>
 <a id="a74c65696e342d7b763f4883e4d17c7a6" name="a74c65696e342d7b763f4883e4d17c7a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74c65696e342d7b763f4883e4d17c7a6">&#9670;&#160;</a></span>equipped</h2>
 
@@ -1365,7 +1291,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Pièces d'or de la bourse (le reste en argent et cuivre est dans <span class="tt"><a class="el" href="#ad815eabdbc72f2d89fde2f2241f43cc3">purse</a></span>). </p>
+<p>Pièces d'or de la bourse (le reste en argent et cuivre est dans <span class="tt"><a class="el" href="#a996e8e82699dcefdd215b1570ba17440" title="La bourse, déjà mise en forme (« 37 po ») ; un tiret cadratin tant que rien ne l&#39;alimente.">purse</a></span>). </p>
 
 </div>
 </div>
@@ -1437,8 +1363,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad815eabdbc72f2d89fde2f2241f43cc3" name="ad815eabdbc72f2d89fde2f2241f43cc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad815eabdbc72f2d89fde2f2241f43cc3">&#9670;&#160;</a></span>purse</h2>
+<a id="a996e8e82699dcefdd215b1570ba17440" name="a996e8e82699dcefdd215b1570ba17440"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a996e8e82699dcefdd215b1570ba17440">&#9670;&#160;</a></span>purse</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1447,7 +1373,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">QString hmi::InventoryModel::purse</td>
+          <td class="memname">QML_ELEMENTQString hmi::InventoryModel::purse</td>
         </tr>
       </table>
   </td>
@@ -1456,6 +1382,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>La bourse, déjà mise en forme (« 37 po ») ; un tiret cadratin tant que rien ne l'alimente. </p>
 
 </div>
 </div>

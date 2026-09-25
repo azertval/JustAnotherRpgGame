@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -142,9 +142,6 @@ $(function(){initNavTree('Game_2Main_8cpp.html','',''); });
   <div class="headertitle"><div class="title">Main.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Point d'entrée du <b>jeu</b> (<span class="tt">JustAnotherRpgGame</span>) — Qt Quick, sans un seul widget.  
-<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QFontDatabase&gt;</code><br />
 <code>#include &lt;QGuiApplication&gt;</code><br />
 <code>#include &lt;QQmlApplicationEngine&gt;</code><br />
@@ -179,13 +176,8 @@ $(function(){initNavTree('Game_2Main_8cpp.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627" id="r_a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
-<tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point d'entrée du programme.  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Point d'entrée du <b>jeu</b> (<span class="tt">JustAnotherRpgGame</span>) — Qt Quick, sans un seul widget. </p>
-<p><span class="tt">QGuiApplication</span> et non <span class="tt">QApplication</span> : la cible ne lie pas <span class="tt">Qt6::Widgets</span>, et ce n'est pas un détail de dépendance mais la garantie qui porte tout le <span class="tt">LOT-86</span>. Un widget ne peut pas réapparaître dans le jeu par inadvertance — l'édition de liens échouerait.</p>
-<p>L'éditeur de niveaux est un binaire séparé (<span class="tt"><a class="el" href="Editor_2Main_8cpp.html" title="Point d&#39;entrée de l&#39;éditeur de cartes (LevelEditor) — Qt Widgets.">App/Editor/Main.cpp</a></span>), lui en Qt Widgets : c'est un outil d'auteur, où docks et arbres sont le bon outil. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&#160;</a></span>main()</h2>
 
@@ -204,9 +196,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Point d'entrée du programme. </p>
-<dl class="section return"><dt>Returns</dt><dd>Code de sortie du processus (0 en cas de succès). </dd></dl>
 
 </div>
 </div>

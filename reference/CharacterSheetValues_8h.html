@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('CharacterSheetValues_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Ce que l'écran de fiche affiche, calculé hors de tout widget (<span class="tt">LOT-38</span>, <span class="tt">EX-IHM-090</span>).  
+<p>Ce que l'écran de fiche affiche, calculé hors de tout élément d'interface (<span class="tt">LOT-38</span>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;map&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -157,7 +157,7 @@ $(function(){initNavTree('CharacterSheetValues_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ACharacterSheetContext" id="r_hmi_3A_3ACharacterSheetContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterSheetContext.html">hmi::CharacterSheetContext</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par l'identifiant que l'ossature de l'écran déclare (<span class="tt"><a class="el" href="structhmi_1_1RpgField.html#adaf2f6e27991d43d9b19180ed7a8fe69">hmi::RpgField::valueId</a></span>).  <a href="structhmi_1_1CharacterSheetContext.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par un identifiant stable (<span class="tt">sheet.hit_points</span>) que <span class="tt"><a class="el" href="classhmi_1_1CharacterSheetModel.html" title="Vue-modèle de la fiche : ce que le jeu sait dire d&#39;un personnage.">hmi::CharacterSheetModel</a></span> publie au QML.  <a href="structhmi_1_1CharacterSheetContext.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -168,7 +168,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ad2b3435349dd004d6768a14a49f5dacc" id="r_ad2b3435349dd004d6768a14a49f5dacc"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad2b3435349dd004d6768a14a49f5dacc">hmi::characterSheetValues</a> (const <a class="el" href="structhmi_1_1CharacterSheetContext.html">CharacterSheetContext</a> &amp;context)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Ce que l'écran de fiche affiche, calculé hors de tout widget (<span class="tt">LOT-38</span>, <span class="tt">EX-IHM-090</span>). </p>
+<div class="textblock"><p>Ce que l'écran de fiche affiche, calculé hors de tout élément d'interface (<span class="tt">LOT-38</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

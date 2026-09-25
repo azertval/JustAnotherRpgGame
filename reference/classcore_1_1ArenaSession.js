@@ -2,7 +2,6 @@ var classcore_1_1ArenaSession =
 [
     [ "ArenaSession", "classcore_1_1ArenaSession.html#ad4a7fb94266844e128d7a3f0b65b85d8", null ],
     [ "attack", "classcore_1_1ArenaSession.html#af6df2744b75f2368435b6a7ba12b01e3", null ],
-    [ "attackHooks", "classcore_1_1ArenaSession.html#a1fbc7cdb3c96e2214737ca2ef6c5e429", null ],
     [ "attacks", "classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c", null ],
     [ "behaviorOf", "classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9", null ],
     [ "bout", "classcore_1_1ArenaSession.html#a7b9cbd6f1bfc3c5276543737f2ac6db2", null ],
@@ -10,7 +9,6 @@ var classcore_1_1ArenaSession =
     [ "combat", "classcore_1_1ArenaSession.html#a1499cabc1b8c1ba3c21a31446278c40f", null ],
     [ "combat", "classcore_1_1ArenaSession.html#a0b2e4d467ccf4fa2b267af8cc0a94ef8", null ],
     [ "contextAgainst", "classcore_1_1ArenaSession.html#a4097fc9d82d9d56ad1a4de748467df80", null ],
-    [ "damagePipeline", "classcore_1_1ArenaSession.html#a36554b265c0ee59bd356956ab7d2469a", null ],
     [ "dash", "classcore_1_1ArenaSession.html#a666423bbab36c0b020ffd475b4646760", null ],
     [ "disengage", "classcore_1_1ArenaSession.html#a97a21749dc62d995ebaa827a398ed4be", null ],
     [ "dodge", "classcore_1_1ArenaSession.html#a8fe411d2eeeb7eec646bafd6baa5269a", null ],

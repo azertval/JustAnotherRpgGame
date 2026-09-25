@@ -13,7 +13,6 @@ var classhmi_1_1WorldViewportItem =
     [ "onSceneChanged", "classhmi_1_1WorldViewportItem.html#ae82f1ab368ce7d0086df08bef3b41335", null ],
     [ "originX", "classhmi_1_1WorldViewportItem.html#a3972f0887b3e8130c9274e7609353fc5", null ],
     [ "originY", "classhmi_1_1WorldViewportItem.html#a3de4590a038355e883730e8e76d94094", null ],
-    [ "pointAt", "classhmi_1_1WorldViewportItem.html#a624e24a63862866917506aa4eb55d42b", null ],
     [ "setClearColor", "classhmi_1_1WorldViewportItem.html#a258310ac7a37b9b61fcbe108b62ee4c9", null ],
     [ "setModel", "classhmi_1_1WorldViewportItem.html#a67ec725a38e28c40557d3c212f9aecd0", null ],
     [ "tileHeight", "classhmi_1_1WorldViewportItem.html#a0e95d23ae12b53f710919939341392d8", null ],

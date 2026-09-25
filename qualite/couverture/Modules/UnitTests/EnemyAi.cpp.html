@@ -30,7 +30,7 @@ namespace core {
 namespace {
 
 constexpr int SANS_GARDE_DE_VERSION = 0;
-/// Une case vaut, au taux `approachPerTile`, un point de degat : 800 unites d'esperance.
+// Une case vaut, au taux `approachPerTile`, un point de degat : 800 unites d'esperance.
 constexpr long long UNITES_PAR_POINT = 800;
 
 // --- Donnee -----------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ constexpr long long UNITES_PAR_POINT = 800;
 
 // --- Des --------------------------------------------------------------------------------------
 
-/// Les faces d'un d20 qui touchent : un 1 rate toujours, un 20 et le seuil critique touchent.
+// Les faces d'un d20 qui touchent : un 1 rate toujours, un 20 et le seuil critique touchent.
 <span style = "background-color:#dfd">[[nodiscard]] int facesQuiTouchent(int requis, int seuilCritique) noexcept {
     int faces = 0;
     for (int face = 2; face &lt;= 20; ++face) {
@@ -64,7 +64,7 @@ constexpr long long UNITES_PAR_POINT = 800;
     return faces;
 }</span>
 
-/// Une chance d'un de sur vingt, en quatre-centiemes, selon la posture.
+// Une chance d'un de sur vingt, en quatre-centiemes, selon la posture.
 <span style = "background-color:#dfd">[[nodiscard]] int chanceSelonPosture(int faces, RollStance posture) noexcept {
     switch (posture) {</span>
         case RollStance::Advantage:
@@ -77,7 +77,7 @@ constexpr long long UNITES_PAR_POINT = 800;
 <span style = "background-color:#dfd">    return faces * 20;
 }</span>
 
-/// Les degats moyens en demi-points (un de a f faces vaut (f + 1) / 2), et la part des des seuls.
+// Les degats moyens en demi-points (un de a f faces vaut (f + 1) / 2), et la part des des seuls.
 <span style = "background-color:#dfd">[[nodiscard]] std::pair&lt;long long, long long&gt; degatsMoyens(const AttackProfile&amp; profil) noexcept {
     long long total = 0;
     long long des = 0;
@@ -103,7 +103,7 @@ constexpr long long UNITES_PAR_POINT = 800;
     return std::to_string(cell.column) + "," + std::to_string(cell.row);
 }</span>
 
-/// Un combattant place, tel que l'IA le lit.
+// Un combattant place, tel que l'IA le lit.
 struct Present {
     CombatantId id{};
     const Combatant* combattant = nullptr;
@@ -111,7 +111,7 @@ struct Present {
     const std::vector&lt;AttackProfile&gt;* attaques = nullptr;
 };
 
-/// Le bonus d'une portee : l'allonge au contact, la longue portee a distance, 1 sans portee connue.
+// Le bonus d'une portee : l'allonge au contact, la longue portee a distance, 1 sans portee connue.
 <span style = "background-color:#dfd">[[nodiscard]] bool porte(const AttackProfile&amp; attaque, int distance) noexcept {
     if (attaque.kind == AttackKind::Melee) {
         return distance &lt;= attaque.reach;</span>
@@ -119,11 +119,9 @@ struct Present {
 <span style = "background-color:#dfd">    return attaque.range.has_value() ? distance &lt;= attaque.range-&gt;maximum : distance &lt;= 1;
 }</span>
 
-/**
- * Ce que l'IA sait evaluer pour un combattant a un instant : les menaces sur une case, les attaques
- * d'opportunite d'un chemin, les attaques possibles depuis une case. Tout est lu de la session,
- * rien n'est ecrit.
- */
+// Ce que l'IA sait evaluer pour un combattant a un instant : les menaces sur une case, les attaques
+// d'opportunite d'un chemin, les attaques possibles depuis une case. Tout est lu de la session,
+// rien n'est ecrit.
 class Evaluateur {
 public:
 <span style = "background-color:#dfd">    Evaluateur(const ArenaSession&amp; session, CombatantId acteur, const BehaviorProfile&amp; profil)
@@ -174,8 +172,8 @@ public:
         return {.anchor = ancre, .side = _moi.emprise.side};
     }</span>
 
-    /// Les corps qui abritent entre deux combattants : tous les places, sauf les deux, l'acteur
-    /// compte a sa case supposee.
+    // Les corps qui abritent entre deux combattants : tous les places, sauf les deux, l'acteur
+    // compte a sa case supposee.
     [[nodiscard]] std::vector&lt;Footprint&gt; corps(CombatantId a, CombatantId b,
 <span style = "background-color:#dfd">                                               GridPosition ancreActeur) const {
         std::vector&lt;Footprint&gt; liste;
@@ -188,9 +186,9 @@ public:
         return liste;
     }</span>
 
-    /// Le nombre d'ennemis debout qui peuvent frapper l'ancre **au contact** sans bouger. Un tireur
-    /// ne compte pas : sa portee couvre l'arene, et la cle anti-suicide n'interdirait plus rien
-    /// d'autre que d'approcher ; il pese dans `menace`.
+    // Le nombre d'ennemis debout qui peuvent frapper l'ancre **au contact** sans bouger. Un tireur
+    // ne compte pas : sa portee couvre l'arene, et la cle anti-suicide n'interdirait plus rien
+    // d'autre que d'approcher ; il pese dans `menace`.
 <span style = "background-color:#dfd">    [[nodiscard]] int menacesImmediates(GridPosition ancre) const {
         int total = 0;
         const Footprint ici = empriseEn(ancre);
@@ -209,11 +207,9 @@ public:
         return total;
     }</span>
 
-    /**
-     * Les degats attendus au prochain round sur l'ancre, en huit-centiemes : chaque ennemi qui peut
-     * y frapper, en marchant puis au contact, ou a distance depuis sa portee plus sa vitesse, avec
-     * sa meilleure attaque, contre la CA de l'acteur.
-     */
+    // Les degats attendus au prochain round sur l'ancre, en huit-centiemes : chaque ennemi qui peut
+    // y frapper, en marchant puis au contact, ou a distance depuis sa portee plus sa vitesse, avec
+    // sa meilleure attaque, contre la CA de l'acteur.
 <span style = "background-color:#dfd">    [[nodiscard]] long long menace(GridPosition ancre, bool esquive) const {
         long long total = 0;
         const Footprint ici = empriseEn(ancre);
@@ -251,7 +247,7 @@ public:
         return total;
     }</span>
 
-    /// Les attaques d'opportunite que provoque le chemin jusqu'a l'ancre, en huit-centiemes.
+    // Les attaques d'opportunite que provoque le chemin jusqu'a l'ancre, en huit-centiemes.
 <span style = "background-color:#dfd">    [[nodiscard]] long long opportunites(const ReachableArea&amp; zone, GridPosition ancre) const {
         if (ancre == zone.origin()) {
             return 0;</span>
@@ -290,18 +286,18 @@ public:
         return total;
     }</span>
 
-    /// Une attaque evaluee depuis une ancre.
+    // Une attaque evaluee depuis une ancre.
     struct Frappe {
         CombatantId cible{};
         std::size_t indice = 0;
 <span style = "background-color:#dfd">        int requis = 0;
         RollStance posture = RollStance::Normal;</span>
         std::vector&lt;std::string&gt; circonstances;
-        /// L'esperance, deja ponderee par le profil, en huit-centiemes de point fois cent.
+        // L'esperance, deja ponderee par le profil, en huit-centiemes de point fois cent.
 <span style = "background-color:#dfd">        long long valeur = 0;</span>
     };
 
-    /// Toutes les attaques valides depuis l'ancre, par cible puis par indice d'attaque.
+    // Toutes les attaques valides depuis l'ancre, par cible puis par indice d'attaque.
 <span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;Frappe&gt; frappes(GridPosition ancre) const {
         std::vector&lt;Frappe&gt; liste;
         if (_moi.attaques == nullptr) {</span>
@@ -342,15 +338,15 @@ public:
         return liste;
     }</span>
 
-    /// Le poids de la menace pour l'acteur : plus lourd s'il est ensanglante.
+    // Le poids de la menace pour l'acteur : plus lourd s'il est ensanglante.
 <span style = "background-color:#dfd">    [[nodiscard]] long long poidsMenace() const noexcept {
         return isBloodied(_moi.combattant-&gt;profile) ? _profil.threatWhenBloodied</span>
                                                     : _profil.threatTaken;
 <span style = "background-color:#dfd">    }</span>
 
 private:
-    /// Le pourcentage du profil contre @p cible : les degats, plus une cible ensanglantee, les
-    /// allies a son contact, et un allie ensanglante a proteger.
+    // Le pourcentage du profil contre @p cible : les degats, plus une cible ensanglantee, les
+    // allies a son contact, et un allie ensanglante a proteger.
 <span style = "background-color:#dfd">    [[nodiscard]] long long pourcentContre(const Present&amp; cible) const {
         int allieAuContact = 0;
         bool allieEnsanglante = false;
@@ -372,8 +368,8 @@ private:
 <span style = "background-color:#dfd">        return pourcent;
     }</span>
 
-    /// Les sources d'avantage et de desavantage d'une attaque depuis l'ancre, notees dans
-    /// @p frappe, et la posture qu'elles donnent. @p auContact est calcule au premier tir.
+    // Les sources d'avantage et de desavantage d'une attaque depuis l'ancre, notees dans
+    // @p frappe, et la posture qu'elles donnent. @p auContact est calcule au premier tir.
     [[nodiscard]] RollStance postureDe(const AttackProfile&amp; attaque, const Present&amp; cible,
                                        GridPosition ancre, int distance,
 <span style = "background-color:#dfd">                                       std::optional&lt;bool&gt;&amp; auContact, Frappe&amp; frappe) const {
@@ -405,7 +401,7 @@ private:
 <span style = "background-color:#dfd">        return rollStance(avantages, desavantages);
     }</span>
 
-    /// Vrai si un ennemi qui voit l'acteur se tient a une case de l'ancre.
+    // Vrai si un ennemi qui voit l'acteur se tient a une case de l'ancre.
 <span style = "background-color:#dfd">    [[nodiscard]] bool ennemiAuContact(GridPosition ancre) const {
         const Footprint ici = empriseEn(ancre);
         return std::ranges::any_of(_ennemis, [&amp;](const Present&amp; e) {
@@ -414,8 +410,8 @@ private:
 <span style = "background-color:#dfd">        });
     }</span>
 
-    /// Les ancres d'ou un ennemi peut frapper au prochain round : la sienne et celles qu'il
-    /// atteint.
+    // Les ancres d'ou un ennemi peut frapper au prochain round : la sienne et celles qu'il
+    // atteint.
 <span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;GridPosition&gt; destinationsDe(const Present&amp; ennemi) const {
         std::vector&lt;GridPosition&gt; liste{ennemi.emprise.anchor};
         const ReachableArea zone(_grille, _combat.moverFor(ennemi.id),</span>
@@ -437,12 +433,12 @@ private:
     std::vector&lt;std::vector&lt;GridPosition&gt;&gt; _mobilite;
 };
 
-/// L'ordre d'un candidat : moins d'exces de menace, puis attaquer, puis avancer vers l'ennemi,
-/// puis le score, puis le moins de deplacement. Un candidat ne remplace le meilleur que s'il le
-/// bat strictement : a egalite, le premier examine reste. Â« Avancer Â» est une cle et non un
-/// poids : la menace d'un round entier pese plus que quelques cases d'approche, et une IA qui ne
-/// peut pas attaquer resterait hors de portee â ou reculerait â a jamais. Le deplacement departage
-/// les cases equivalentes : sans lui, la premiere examinee â le coin haut-gauche â l'emportait.
+// L'ordre d'un candidat : moins d'exces de menace, puis attaquer, puis avancer vers l'ennemi,
+// puis le score, puis le moins de deplacement. Un candidat ne remplace le meilleur que s'il le
+// bat strictement : a egalite, le premier examine reste. Â« Avancer Â» est une cle et non un
+// poids : la menace d'un round entier pese plus que quelques cases d'approche, et une IA qui ne
+// peut pas attaquer resterait hors de portee â ou reculerait â a jamais. Le deplacement departage
+// les cases equivalentes : sans lui, la premiere examinee â le coin haut-gauche â l'emportait.
 struct Cle {
     int exces = 0;
     bool attaque = false;
@@ -473,7 +469,7 @@ struct Cle {
            std::to_string(static_cast&lt;std::uint32_t&gt;(id));
 <span style = "background-color:#dfd">}</span>
 
-/// Le chemin le plus court jusqu'au contact d'un ennemi : la cible d'une approche.
+// Le chemin le plus court jusqu'au contact d'un ennemi : la cible d'une approche.
 struct Approche {
     CombatantId cible{};
     Path chemin;
@@ -512,8 +508,8 @@ struct Approche {
     return meilleure;
 }</span>
 
-/// Le reste du chemin d'approche depuis une ancre, en cases : exact sur le chemin, estime ailleurs
-/// par la distance a la cible plus le detour que le chemin impose.
+// Le reste du chemin d'approche depuis une ancre, en cases : exact sur le chemin, estime ailleurs
+// par la distance a la cible plus le detour que le chemin impose.
 [[nodiscard]] long long resteDApproche(const CombatState&amp; combat, const Evaluateur&amp; eval,
                                        const Approche&amp; approche, const ReachableArea&amp; zone,
 <span style = "background-color:#dfd">                                       GridPosition ancre) {
@@ -530,7 +526,7 @@ struct Approche {
     return std::max(0, ecart(ancre, moi.emprise.side, *ancreCible, cote) - 1) + detour;
 }</span>
 
-/// La derniere case du chemin ou l'on peut finir dans @p zone : jusqu'ou une approche va.
+// La derniere case du chemin ou l'on peut finir dans @p zone : jusqu'ou une approche va.
 [[nodiscard]] std::optional&lt;GridPosition&gt; plusLoinSurLeChemin(const Path&amp; chemin,
 <span style = "background-color:#dfd">                                                              const ReachableArea&amp; zone) {
     for (auto it = chemin.steps.rbegin(); it != chemin.steps.rend(); ++it) {
@@ -700,12 +696,12 @@ struct Approche {
 
 namespace {
 
-/// Les menaces au-dela de ce que le profil tolere.
+// Les menaces au-dela de ce que le profil tolere.
 <span style = "background-color:#dfd">[[nodiscard]] int excesDe(const BehaviorProfile&amp; profile, int menaces) noexcept {
     return std::max(0, menaces - profile.toleratedThreats);
 }</span>
 
-/// Attaquer @p frappe depuis @p ancre, avec la ligne de journal qui le dit.
+// Attaquer @p frappe depuis @p ancre, avec la ligne de journal qui le dit.
 [[nodiscard]] TurnPlan planAttaque(const CombatState&amp; combat, const BehaviorProfile&amp; profile,
                                    const Present&amp; moi, GridPosition origine, GridPosition ancre,
 <span style = "background-color:#dfd">                                   const Evaluateur::Frappe&amp; frappe, int menaces, long long cout) {
@@ -732,7 +728,7 @@ namespace {
 <span style = "background-color:#dfd">    return candidat;
 }</span>
 
-/// Finir le deplacement en @p ancre sans attaquer, ou tenir sa place si c'est l'origine.
+// Finir le deplacement en @p ancre sans attaquer, ou tenir sa place si c'est l'origine.
 [[nodiscard]] TurnPlan planTenir(const CombatState&amp; combat, const BehaviorProfile&amp; profile,
                                  CombatantId actor, const std::optional&lt;Approche&gt;&amp; approche,
                                  GridPosition origine, GridPosition ancre, int menaces,
@@ -755,7 +751,7 @@ namespace {
 <span style = "background-color:#dfd">    return tenir;
 }</span>
 
-/// Se precipiter : la vitesse une seconde fois, jusqu'au plus loin du chemin d'approche.
+// Se precipiter : la vitesse une seconde fois, jusqu'au plus loin du chemin d'approche.
 template &lt;typename Proposer&gt;
 void proposerCourse(const CombatState&amp; combat, const BehaviorProfile&amp; profile,
                     const Evaluateur&amp; eval, const ReachableArea&amp; zone, const Approche&amp; approche,
@@ -795,8 +791,8 @@ void proposerCourse(const CombatState&amp; combat, const BehaviorProfile&amp; pr
              std::move(course));
 <span style = "background-color:#dfd">}</span>
 
-/// Reculer apres avoir frappe : vers une case moins menacee, si elle bat strictement la sienne.
-/// A menace egale, la moins loin : on ne file pas jusqu'au premier coin de la salle.
+// Reculer apres avoir frappe : vers une case moins menacee, si elle bat strictement la sienne.
+// A menace egale, la moins loin : on ne file pas jusqu'au premier coin de la salle.
 <span style = "background-color:#dfd">void reculerApresAttaque(ArenaSession&amp; session, CombatantId actif, const BehaviorProfile&amp; profil) {
     const CombatState&amp; combat = session.combat();
     const Evaluateur eval(session, actif, profil);

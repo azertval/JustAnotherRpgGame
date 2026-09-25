@@ -64,8 +64,8 @@ const ResolvedFigure&amp; FigureResolver::resolve(std::string_view figure, std::
 <span style = "background-color:#dfd">    for (const std::string_view candidate : {silhouette, DEFAULT_SILHOUETTE}) {
         const std::string placeholder = placeholderFigureDirectory(candidate);
         if (hasIdleStrip(placeholder, oriented)) {
-            resolved = ResolvedFigure{</span>
-                .directory = placeholder, .oriented = oriented, .placeholder = true};
+            resolved =</span>
+                ResolvedFigure{.directory = placeholder, .oriented = oriented, .placeholder = true};
 <span style = "background-color:#dfd">            return _found.emplace(key, std::move(resolved)).first-&gt;second;</span>
         }
 <span style = "background-color:#dfd">    }</span>

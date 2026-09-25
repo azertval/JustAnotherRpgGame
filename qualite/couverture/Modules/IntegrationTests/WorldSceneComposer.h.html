@@ -13,10 +13,10 @@
 // SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 
 #pragma once
+#include &lt;array&gt;
 #include &lt;cstdint&gt;
 #include &lt;map&gt;
 #include &lt;optional&gt;
-#include &lt;array&gt;
 #include &lt;span&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
@@ -35,13 +35,13 @@
 
 /**
  * @file HMI/Graphics/WorldSceneComposer.h
- * @brief Un **lieu qu'on parcourt** composÃ© en primitives, sans GPU : le jumeau
- *        d'`hmi::ArenaSceneComposer` pour la carte du jeu (`LOT-09`).
+ * @brief Un **lieu qu'on parcourt** composÃ© en primitives, sans GPU (`LOT-09`) ; depuis le
+ *        `LOT-118`, la scÃ¨ne du combat aussi.
  *
- * Le lieu et l'arÃ¨ne se dessinent par le **mÃªme** code : mÃªme projection isomÃ©trique
+ * Le lieu et le combat se dessinent par le **mÃªme** code : mÃªme projection isomÃ©trique
  * (`core::IsoProjection`), mÃªmes planches de l'atelier des textures (`LOT-92`, `ScenePieces.h`),
- * mÃªme tri par profondeur. Ce qui change est la **source** : l'arÃ¨ne lit une grille de combat, le
- * lieu lit une carte (`core::Level`) â ses couches, les piÃ¨ces qu'elles nomment, ses entitÃ©s.
+ * mÃªme tri par profondeur. La **source** est une carte (`core::Level`) â ses couches, les piÃ¨ces
+ * qu'elles nomment, ses entitÃ©s â et, en combat, les combattants posÃ©s dessus (`snapshot.figures`).
  *
  * ## Ce qui va oÃ¹
  *
@@ -157,11 +157,17 @@ enum class FigureFacing : std::uint8_t {
  * derniÃ¨re image (`SceneTexture::loop`, lu dans le `.anim.json` de la bande).
  */
 namespace figure_clips {
+/// Le repos, en boucle.
 inline constexpr std::string_view IDLE = "idle";
+/// La marche, en boucle.
 inline constexpr std::string_view WALK = "walk";
+/// L'attaque au contact, jouÃ©e une fois.
 inline constexpr std::string_view ATTACK = "attack";
+/// L'incantation, jouÃ©e une fois.
 inline constexpr std::string_view CAST = "cast";
+/// Le coup encaissÃ©, jouÃ© une fois.
 inline constexpr std::string_view HIT = "hit";
+/// La chute, jouÃ©e une fois ; la derniÃ¨re image reste.
 inline constexpr std::string_view DEATH = "death";
 /// Toutes, dans l'ordre du standard.
 inline constexpr std::array&lt;std::string_view, 6&gt; ALL = {IDLE, WALK, ATTACK, CAST, HIT, DEATH};
@@ -287,6 +293,14 @@ struct WorldStoreySnapshot {
     [[nodiscard]] bool operator==(const WorldStoreySnapshot&amp;) const = default;
 };
 
+/**
+ * @brief Une carte **en valeurs**, telle que la composition la lit : sa grille, ses piÃ¨ces par
+ *        case, ses Ã©tages, ses figurines et oÃ¹ trouver leurs fichiers.
+ *
+ * C'est ce que `hmi::WorldPlay::snapshot` produit et que `composeWorldScene` et
+ * `StaticWorldScene::build` consomment : aucune rÃ©fÃ©rence Ã  la session ni au disque, donc une
+ * valeur partageable entre le fil graphique et le fil de rendu, et comparable dans un test.
+ */
 struct WorldSceneSnapshot {
     float diamondRatio = core::ARENA_DIAMOND_RATIO;
     int columns = 0;
@@ -458,7 +472,7 @@ struct WorldComposeOptions {
  *
  * Les briques de l'image du jeu (`hmi::StaticWorldScene`) : la carte (`composeWorldStatics`), les
  * figurines (`composeWorldFigures`), puis l'effacement des Ã©tages devant le hÃ©ros. Le tampon n'est
- * **ni vidÃ© ni triÃ©** : mÃªme contrat qu'`hmi::composeArenaScene`, l'appelant enchaÃ®ne `clear()`,
+ * **ni vidÃ© ni triÃ©** : l'appelant enchaÃ®ne `clear()`,
  * les compositions, puis `sort()`. Un cadrage de @p scene (`ComposedScene::setVisibleBounds`)
  * Ã©carte ce qu'il ne montre pas.
  */

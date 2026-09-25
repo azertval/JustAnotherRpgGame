@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,12 +143,11 @@ $(function(){initNavTree('InputState_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>État des entrées clavier/souris/manette échantillonné une fois par frame.  
+<p>État de la manette échantillonné une fois par relevé, et la touche <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> de l'éditeur.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="GamepadButton_8h_source.html">HMI/Input/GamepadButton.h</a>&quot;</code><br />
 </div>
 <p><a href="InputState_8h_source.html">Go to the source code of this file.</a></p>
@@ -156,7 +155,7 @@ $(function(){initNavTree('InputState_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AInputState" id="r_hmi_3A_3AInputState"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1InputState.html">hmi::InputState</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État des entrées d'une frame, avec détection des fronts (pressée / relâchée).  <a href="classhmi_1_1InputState.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État des boutons de la manette à un relevé, avec détection des fronts (pressé / relâché).  <a href="classhmi_1_1InputState.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -202,15 +201,9 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Touche du clavier, identifiée par son <b>code virtuel Win32</b>.  <a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
-<tr class="memitem:a4180e6c308353c9965d695855746d982" id="r_a4180e6c308353c9965d695855746d982"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982">hmi::MouseButton</a> : std::uint8_t { <a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982a945d5e233cf7d6240f6b783b36a374ff">hmi::Left</a> = 0
-, <a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982a92b09c7c48c520c3c55e497875da437c">hmi::Right</a> = 1
-, <a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982ab1ca34f82e83c52b010f86955f264e05">hmi::Middle</a> = 2
-, <a class="el" href="namespacehmi.html#a4180e6c308353c9965d695855746d982ae93f994f01c537c4e2f7d8528c3eb5e9">hmi::Count</a> = 3
- }</td></tr>
-<tr class="memdesc:a4180e6c308353c9965d695855746d982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton de la souris suivi par l'<span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des entrées d&#39;une frame, avec détection des fronts (pressée / relâchée).">InputState</a></span>.  <a href="namespacehmi.html#a4180e6c308353c9965d695855746d982">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>État des entrées clavier/souris/manette échantillonné une fois par frame. </p>
+<div class="textblock"><p>État de la manette échantillonné une fois par relevé, et la touche <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> de l'éditeur. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

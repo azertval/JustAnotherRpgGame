@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1CharacterSheetContext.html','','structhmi
 </div><!--header-->
 <div class="contents">
 
-<p>Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par l'identifiant que l'ossature de l'écran déclare (<span class="tt"><a class="el" href="structhmi_1_1RpgField.html#adaf2f6e27991d43d9b19180ed7a8fe69">hmi::RpgField::valueId</a></span>).  
+<p>Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par un identifiant stable (<span class="tt">sheet.hit_points</span>) que <span class="tt"><a class="el" href="classhmi_1_1CharacterSheetModel.html" title="Vue-modèle de la fiche : ce que le jeu sait dire d&#39;un personnage.">hmi::CharacterSheetModel</a></span> publie au QML.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="CharacterSheetValues_8h_source.html">CharacterSheetValues.h</a>&gt;</code></p>
@@ -160,12 +160,12 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a651111de13b6ec1b7d53862181c84ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texte affiché lorsqu'une valeur existe mais est vide (nom d'espèce inconnu du catalogue, par exemple).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par l'identifiant que l'ossature de l'écran déclare (<span class="tt"><a class="el" href="structhmi_1_1RpgField.html#adaf2f6e27991d43d9b19180ed7a8fe69">hmi::RpgField::valueId</a></span>). </p>
+<div class="textblock"><p>Traduit une fiche de personnage en <b>valeurs affichables</b>, indexées par un identifiant stable (<span class="tt">sheet.hit_points</span>) que <span class="tt"><a class="el" href="classhmi_1_1CharacterSheetModel.html" title="Vue-modèle de la fiche : ce que le jeu sait dire d&#39;un personnage.">hmi::CharacterSheetModel</a></span> publie au QML. </p>
 <p>Logique <b>pure</b> : aucune dépendance Qt, aucun accès disque (<span class="tt">EX-NFR-010</span>). C'est ce qui permet de vérifier par test qu'un modificateur s'affiche <span class="tt">+3</span> et non <span class="tt">3</span>, qu'une compétence maîtrisée compte son bonus de maîtrise, et que la Perception passive vaut bien 10 + le modificateur — sans ouvrir de fenêtre.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md102"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
 Pourquoi une table de chaînes, et non une structure de champs</h2>
-<p>L'écran est décrit par une <b>table</b> (<span class="tt"><a class="el" href="namespacehmi.html#a74752c1a9d7b1d3e8da19eec82c397be">hmi::rpgScreens</a></span>), et un neuvième champ doit y coûter une ligne. Une structure à quarante membres obligerait à toucher trois fichiers pour chaque champ ajouté — la table, la structure, et le code qui les relie — c'est-à-dire exactement ce qu'<span class="tt">EX-IHM-090</span> écarte. Ici, l'identifiant est le seul contrat, et un test vérifie qu'aucun des deux côtés n'en invente un que l'autre ignore.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md103"></a>
+<p>L'écran est un formulaire QML (<span class="tt">CharacterSheetForm.ui.qml</span>) alimenté par <span class="tt"><a class="el" href="classhmi_1_1CharacterSheetModel.html" title="Vue-modèle de la fiche : ce que le jeu sait dire d&#39;un personnage.">hmi::CharacterSheetModel</a></span>, qui nomme ces identifiants une fois, en propriétés. Une structure à quarante membres obligerait à toucher trois fichiers pour chaque champ ajouté — la structure, le modèle, et le code qui les relie. Ici, l'identifiant est le seul contrat entre cette fonction et le modèle qui la publie ; les tests de la fonction vérifient chaque valeur produite.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md93"></a>
 Le formatage est ici, la traduction reste dehors</h2>
 <p>Les nombres sont mis en forme ici (signe d'un modificateur, <span class="tt">12 / 18</span> de points de vie) parce que c'est une règle d'affichage, pas une question de langue. Les <b>noms</b> — espèce, classe, historique — viennent des catalogues, qui les portent déjà dans la langue du corpus ; les traduire est le sujet du lexique du <span class="tt">LOT-30</span>, pas de ce fichier. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>

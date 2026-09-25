@@ -17,86 +17,31 @@
 namespace hmi {
 
 namespace {
-// Indice de tableau associÃ© Ã  une touche (son code virtuel Win32).
-<span style = "background-color:#dfd">[[nodiscard]] std::size_t keyIndex(Key key) noexcept {
-    return static_cast&lt;std::size_t&gt;(key);
-}</span>
-
-// Indice de tableau associÃ© Ã  un bouton de souris.
-<span style = "background-color:#dfd">[[nodiscard]] std::size_t buttonIndex(MouseButton button) noexcept {
-    return static_cast&lt;std::size_t&gt;(button);
-}</span>
-
-// Indice de tableau associÃ© Ã  un bouton manette (piste brute, GamepadButton).
+// Indice de tableau associÃ© Ã  un bouton manette.
 <span style = "background-color:#dfd">[[nodiscard]] std::size_t gamepadButtonIndex(GamepadButton button) noexcept {
     return static_cast&lt;std::size_t&gt;(button);
 }</span>
 }  // namespace
 
-// Ouvre une nouvelle frame : recopie l'Ã©tat courant vers l'Ã©tat prÃ©cÃ©dent.
+// Ouvre un nouveau relevÃ© : recopie l'Ã©tat courant vers l'Ã©tat prÃ©cÃ©dent.
 //
-// Seul l'Ã©tat *prÃ©cÃ©dent* est rÃ©Ã©crit : l'Ã©tat courant (touches encore enfoncÃ©es, position
-// souris) persiste d'une frame Ã  l'autre jusqu'au prochain Ã©vÃ©nement de relÃ¢chement.
+// Seul l'Ã©tat *prÃ©cÃ©dent* est rÃ©Ã©crit : l'Ã©tat courant (boutons encore enfoncÃ©s) persiste d'un
+// relevÃ© Ã  l'autre jusqu'au prochain relÃ¢chement que le sondage Ã©crit.
 <span style = "background-color:#dfd">void InputState::beginFrame() noexcept {
-    _keysPrevious = _keysCurrent;
-    _gamepadPrevious = _gamepadCurrent;
-    _buttonsPrevious = _buttonsCurrent;
     _gamepadButtonsPrevious = _gamepadButtonsCurrent;
-    _wheelDelta = 0;
-    _typedCharacters.clear();
 }</span>
 
-// RelÃ¢che toutes les entrÃ©es maintenues (courant ET prÃ©cÃ©dent), sans produire de front.
+// RelÃ¢che tous les boutons maintenus (courant ET prÃ©cÃ©dent), sans produire de front.
 //
-// Remettre Ã  zÃ©ro les deux Ã©tats (et pas seulement le courant) Ã©vite qu'un front Â« relÃ¢chÃ©e Â»
-// n'apparaisse pour chaque touche maintenue au moment de la perte de focus : aprÃ¨s cet appel,
+// Remettre Ã  zÃ©ro les deux Ã©tats (et pas seulement le courant) Ã©vite qu'un front Â« relÃ¢chÃ© Â»
+// n'apparaisse pour chaque bouton tenu au moment oÃ¹ le lecteur cesse d'Ã©couter : aprÃ¨s cet appel,
 // courant == prÃ©cÃ©dent == relÃ¢chÃ© pour tout, donc aucun front.
 <span style = "background-color:#dfd">void InputState::releaseAll() noexcept {
-    _keysCurrent.fill(false);
-    _keysPrevious.fill(false);
-    _gamepadCurrent.fill(false);
-    _gamepadPrevious.fill(false);
     _gamepadButtonsCurrent.fill(false);
     _gamepadButtonsPrevious.fill(false);
-    _buttonsCurrent.fill(false);
-    _buttonsPrevious.fill(false);
 }</span>
 
-// Marque key comme enfoncÃ©e dans l'Ã©tat courant.
-//
-// Le code hors de la plage suivie est ignorÃ© (garde-fou : les Ã©vÃ©nements proviennent du
-// systÃ¨me et pourraient porter un code inattendu).
-<span style = "background-color:#dfd">void InputState::onKeyDown(Key key) noexcept {
-    const std::size_t index = keyIndex(key);
-    if (index &lt; KEY_COUNT) {
-        _keysCurrent[index] = true;</span>
-    }
-<span style = "background-color:#dfd">}</span>
-
-<span style = "background-color:#dfd">void InputState::onKeyUp(Key key) noexcept {
-    const std::size_t index = keyIndex(key);
-    if (index &lt; KEY_COUNT) {
-        _keysCurrent[index] = false;</span>
-    }
-<span style = "background-color:#dfd">}</span>
-
-// Marque key comme enfoncÃ©e dans l'Ã©tat courant, source manette (voir en-tÃªte : tableau
-// distinct du clavier, jamais fusionnÃ© en Ã©criture).
-<span style = "background-color:#dfd">void InputState::onGamepadKeyDown(Key key) noexcept {
-    const std::size_t index = keyIndex(key);
-    if (index &lt; KEY_COUNT) {
-        _gamepadCurrent[index] = true;</span>
-    }
-<span style = "background-color:#dfd">}</span>
-
-<span style = "background-color:#dfd">void InputState::onGamepadKeyUp(Key key) noexcept {
-    const std::size_t index = keyIndex(key);
-    if (index &lt; KEY_COUNT) {
-        _gamepadCurrent[index] = false;</span>
-    }
-<span style = "background-color:#dfd">}</span>
-
-// Marque button comme enfoncÃ© dans l'Ã©tat courant (piste manette brute, voir en-tÃªte).
+// Marque button comme enfoncÃ© dans l'Ã©tat courant.
 <span style = "background-color:#dfd">void InputState::onGamepadButtonDown(GamepadButton button) noexcept {
     _gamepadButtonsCurrent[gamepadButtonIndex(button)] = true;
 }</span>
@@ -105,134 +50,31 @@ namespace {
     _gamepadButtonsCurrent[gamepadButtonIndex(button)] = false;
 }</span>
 
-// Met Ã  jour la position de la souris.
-<span style = "background-color:#dfd">void InputState::onMouseMove(int x, int y) noexcept {
-    _mouseX = x;
-    _mouseY = y;
-}</span>
-
-// Marque button comme enfoncÃ© dans l'Ã©tat courant.
-<span style = "background-color:#dfd">void InputState::onMouseButtonDown(MouseButton button) noexcept {
-    const std::size_t index = buttonIndex(button);
-    if (index &lt; BUTTON_COUNT) {
-        _buttonsCurrent[index] = true;</span>
-    }
-<span style = "background-color:#dfd">}</span>
-
-// Marque button comme relÃ¢chÃ© dans l'Ã©tat courant.
-<span style = "background-color:#dfd">void InputState::onMouseButtonUp(MouseButton button) noexcept {
-    const std::size_t index = buttonIndex(button);
-    if (index &lt; BUTTON_COUNT) {
-        _buttonsCurrent[index] = false;</span>
-    }
-<span style = "background-color:#dfd">}</span>
-
-// Accumule un incrÃ©ment de molette pour la frame courante (plusieurs crans dans la mÃªme frame
-// s'additionnent, cas normal d'une molette tournÃ©e vite).
-<span style = "background-color:#dfd">void InputState::onMouseWheel(int delta) noexcept {
-    _wheelDelta += delta;
-}</span>
-
-// Enregistre un caractÃ¨re tapÃ© pour la frame courante, dans l'ordre de saisie.
-<span style = "background-color:#dfd">void InputState::onCharTyped(wchar_t character) {
-    _typedCharacters.push_back(character);
-}</span>
-
-// Declare l'etat de connexion de la manette pour cette frame.
+// Declare l'etat de connexion de la manette pour ce releve.
 <span style = "background-color:#dfd">void InputState::setGamepadConnected(bool connected) noexcept {
     _gamepadConnected = connected;
 }</span>
 
-// true si une manette etait connectee a la derniere frame sondee.
+// true si une manette etait connectee au dernier releve sonde.
 <span style = "background-color:#dfd">bool InputState::gamepadConnected() const noexcept {
     return _gamepadConnected;
 }</span>
 
-// true si key est enfoncÃ©e Ã  cette frame (maintenue ou vient d'Ãªtre pressÃ©e), clavier OU
-// manette (voir en-tÃªte : deux sources indÃ©pendantes, combinÃ©es ici en lecture).
-<span style = "background-color:#dfd">bool InputState::keyDown(Key key) const noexcept {
-    const std::size_t index = keyIndex(key);
-    return index &lt; KEY_COUNT &amp;&amp; (_keysCurrent[index] || _gamepadCurrent[index]);
-}</span>
-
-// Indique si key vient d'Ãªtre pressÃ©e cette frame (front montant), sur l'une ou l'autre source.
-<span style = "background-color:#dfd">bool InputState::keyPressed(Key key) const noexcept {
-    const std::size_t index = keyIndex(key);
-    if (index &gt;= KEY_COUNT) {</span>
-<span style = "background-color:#fdd">        return false;</span>
-    }
-<span style = "background-color:#dfd">    const bool keyboardEdge = _keysCurrent[index] &amp;&amp; !_keysPrevious[index];
-    const bool gamepadEdge = _gamepadCurrent[index] &amp;&amp; !_gamepadPrevious[index];
-    return keyboardEdge || gamepadEdge;
-}</span>
-
-// Indique si key vient d'Ãªtre relÃ¢chÃ©e cette frame (front descendant) : plus enfoncÃ©e sur
-// AUCUNE source maintenant, mais l'Ã©tait sur l'une d'elles a la frame precedente.
-<span style = "background-color:#dfd">bool InputState::keyReleased(Key key) const noexcept {
-    const std::size_t index = keyIndex(key);
-    if (index &gt;= KEY_COUNT) {</span>
-<span style = "background-color:#fdd">        return false;</span>
-    }
-<span style = "background-color:#dfd">    const bool downNow = _keysCurrent[index] || _gamepadCurrent[index];
-    const bool downBefore = _keysPrevious[index] || _gamepadPrevious[index];
-    return !downNow &amp;&amp; downBefore;
-}</span>
-
-// true si button (piste manette brute) est enfoncÃ© Ã  cette frame.
+// true si button est enfoncÃ© Ã  ce relevÃ©.
 <span style = "background-color:#dfd">bool InputState::gamepadButtonDown(GamepadButton button) const noexcept {
     return _gamepadButtonsCurrent[gamepadButtonIndex(button)];
 }</span>
 
-// Indique si button (piste manette brute) vient d'Ãªtre enfoncÃ© cette frame (front montant).
+// Indique si button vient d'Ãªtre enfoncÃ© Ã  ce relevÃ© (front montant).
 <span style = "background-color:#dfd">bool InputState::gamepadButtonPressed(GamepadButton button) const noexcept {
     const std::size_t index = gamepadButtonIndex(button);
     return _gamepadButtonsCurrent[index] &amp;&amp; !_gamepadButtonsPrevious[index];
 }</span>
 
-// Indique si button (piste manette brute) vient d'Ãªtre relÃ¢chÃ© cette frame (front descendant).
+// Indique si button vient d'Ãªtre relÃ¢chÃ© Ã  ce relevÃ© (front descendant).
 <span style = "background-color:#dfd">bool InputState::gamepadButtonReleased(GamepadButton button) const noexcept {
     const std::size_t index = gamepadButtonIndex(button);
     return !_gamepadButtonsCurrent[index] &amp;&amp; _gamepadButtonsPrevious[index];
-}</span>
-
-// Abscisse de la souris, en pixels de la zone client.
-<span style = "background-color:#dfd">int InputState::mouseX() const noexcept {
-    return _mouseX;
-}</span>
-
-// OrdonnÃ©e de la souris, en pixels de la zone client.
-<span style = "background-color:#dfd">int InputState::mouseY() const noexcept {
-    return _mouseY;
-}</span>
-
-// true si button est enfoncÃ© Ã  cette frame.
-<span style = "background-color:#dfd">bool InputState::mouseButtonDown(MouseButton button) const noexcept {
-    const std::size_t index = buttonIndex(button);
-    return index &lt; BUTTON_COUNT &amp;&amp; _buttonsCurrent[index];
-}</span>
-
-// Indique si button vient d'Ãªtre cliquÃ© cette frame (front montant).
-// true si le bouton est enfoncÃ© maintenant mais ne l'Ã©tait pas Ã  la frame prÃ©cÃ©dente.
-<span style = "background-color:#dfd">bool InputState::mouseButtonPressed(MouseButton button) const noexcept {
-    const std::size_t index = buttonIndex(button);
-    return index &lt; BUTTON_COUNT &amp;&amp; _buttonsCurrent[index] &amp;&amp; !_buttonsPrevious[index];
-}</span>
-
-// Indique si button vient d'Ãªtre relÃ¢chÃ© cette frame (front descendant).
-// true si le bouton n'est plus enfoncÃ© mais l'Ã©tait Ã  la frame prÃ©cÃ©dente.
-<span style = "background-color:#dfd">bool InputState::mouseButtonReleased(MouseButton button) const noexcept {
-    const std::size_t index = buttonIndex(button);
-    return index &lt; BUTTON_COUNT &amp;&amp; !_buttonsCurrent[index] &amp;&amp; _buttonsPrevious[index];
-}</span>
-
-// Somme des incrÃ©ments de molette accumulÃ©s depuis le dernier beginFrame().
-<span style = "background-color:#dfd">int InputState::wheelDelta() const noexcept {
-    return _wheelDelta;
-}</span>
-
-// CaractÃ¨res tapÃ©s depuis le dernier beginFrame(), dans leur ordre de saisie.
-<span style = "background-color:#dfd">const std::vector&lt;wchar_t&gt;&amp; InputState::typedCharacters() const noexcept {
-    return _typedCharacters;
 }</span>
 
 }  // namespace hmi</pre>

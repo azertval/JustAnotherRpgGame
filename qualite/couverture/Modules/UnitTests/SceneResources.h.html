@@ -30,16 +30,15 @@ namespace hmi {
 
 class SpriteBatch;
 class TextureAtlas;
-class TextureCache;
 
 /**
- * @brief Lot de sprites, atlas et registre de textures â crÃ©Ã©s ensemble, libÃ©rÃ©s ensemble, dans le
- *        bon ordre.
+ * @brief Lot de sprites et atlas â crÃ©Ã©s ensemble, libÃ©rÃ©s ensemble, dans le bon ordre.
  *
  * **Pourquoi cette classe.** Depuis le `LOT-86`, deux surfaces dessinent la mÃªme scÃ¨ne : le
  * canevas de l'Ã©diteur (`hmi::EditorViewport`, un `QRhiWidget`) et les Ã©lÃ©ments Qt Quick du jeu
- * (`hmi::WorldViewportItem`, `hmi::ArenaViewportItem`, des `QQuickRhiItem`). Elles n'ont ni le mÃªme hÃ´te, ni la mÃªme
- * boucle, ni les mÃªmes entrÃ©es â mais elles crÃ©ent **exactement** les mÃªmes ressources graphiques.
+ * (`hmi::WorldViewportItem`, `hmi::GameViewportItem`, des `QQuickRhiItem`). Elles n'ont ni le
+ * mÃªme hÃ´te, ni la mÃªme boucle, ni les mÃªmes entrÃ©es â mais elles crÃ©ent **exactement** les mÃªmes
+ * ressources graphiques.
  * Les Ã©crire deux fois aurait suffi Ã  les faire diverger : c'est ce qui arrive toujours, et Ã§a ne
  * se voit qu'Ã  l'exÃ©cution, sur une seule des deux.
  *
@@ -49,8 +48,9 @@ class TextureCache;
  * pilote. `release()` fixe cet ordre une fois pour toutes ; aucun appelant n'a plus Ã  s'en
  * souvenir.
  *
- * **Ce qui n'est pas ici** : le brouillon d'Ã©dition, le `DraftRenderer`, la camÃ©ra, la carte jouÃ©e. Ils appartiennent Ã  un seul des deux hÃ´tes â les remonter ici rendrait la classe
- * dÃ©pendante de l'Ã©diteur, et le jeu paierait pour ce dont il ne se sert pas.
+ * **Ce qui n'est pas ici** : le brouillon d'Ã©dition, le `DraftRenderer`, la camÃ©ra, la carte jouÃ©e.
+ * Ils appartiennent Ã  un seul des deux hÃ´tes â les remonter ici rendrait la classe dÃ©pendante de
+ * l'Ã©diteur, et le jeu paierait pour ce dont il ne se sert pas.
  */
 class SceneResources {
 public:
@@ -83,24 +83,23 @@ public:
         _context.updates = updates;
     }</span>
 
+    /// @return Le contexte de rendu : le `QRhi` et le lot de tÃ©lÃ©versements de l'image en cours.
 <span style = "background-color:#dfd">    [[nodiscard]] RhiContext&amp; context() noexcept {
         return _context;
-    }
-    [[nodiscard]] SpriteBatch&amp; sprites() noexcept {
+    }</span>
+    /// @return Le pipeline 2D ; valide seulement si `created()`.
+<span style = "background-color:#dfd">    [[nodiscard]] SpriteBatch&amp; sprites() noexcept {
         return *_spriteBatch;
     }</span>
+    /// @return L'atlas procÃ©dural des tuiles ; valide seulement si `created()`.
     [[nodiscard]] TextureAtlas&amp; atlas() noexcept {
         return *_atlas;
-    }
-    [[nodiscard]] TextureCache&amp; textures() noexcept {
-        return *_textureCache;
     }
 
 private:
     RhiContext _context;
     std::unique_ptr&lt;SpriteBatch&gt; _spriteBatch;
     std::unique_ptr&lt;TextureAtlas&gt; _atlas;
-    std::unique_ptr&lt;TextureCache&gt; _textureCache;
 };
 
 }  // namespace hmi</pre>

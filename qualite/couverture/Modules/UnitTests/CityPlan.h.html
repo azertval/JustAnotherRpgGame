@@ -81,6 +81,7 @@ struct CityPlanResult {
     /// Message technique, vide en cas de succÃ¨s. Pour les journaux et les tests.
     std::string error;
 
+    /// @brief Vrai si la lecture a rÃ©ussi (aucun message d'erreur).
 <span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
         return error.empty();
     }</span>

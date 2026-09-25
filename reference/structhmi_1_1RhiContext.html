@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -162,10 +162,10 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le <span class="tt">QRhi</span> courant et le lot de téléversements de l'image en cours. </p>
 <p>Deux contraintes de QRhi rendent cette indirection nécessaire, là où Direct3D 11 se contentait d'un <span class="tt">ID3D11Device*</span> passé une fois :</p><ul>
-<li><b>Un téléversement ne se déclare pas n'importe quand.</b> Créer une texture ne suffit pas : ses pixels transitent par un <span class="tt">QRhiResourceUpdateBatch</span>, qui ne peut être soumis qu'<b>en dehors</b> d'une passe de rendu. Or les textures se chargent paresseusement, en pleine composition (<span class="tt">hmi::TextureCache::get</span>). Le lot courant est donc exposé ici, rempli au fil de la composition, et soumis d'un bloc avant l'ouverture de la passe.</li>
+<li><b>Un téléversement ne se déclare pas n'importe quand.</b> Créer une texture ne suffit pas : ses pixels transitent par un <span class="tt">QRhiResourceUpdateBatch</span>, qui ne peut être soumis qu'<b>en dehors</b> d'une passe de rendu. Or les textures se chargent paresseusement, en pleine composition (les bibliothèques de textures des rendus de scène, <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html#ad6ccf005d98a3a82dc22e75fd27ec0f6">hmi::WorldSceneRenderer::textures()</a></span>). Le lot courant est donc exposé ici, rempli au fil de la composition, et soumis d'un bloc avant l'ouverture de la passe.</li>
 <li><b>Le <span class="tt">QRhi</span> peut changer.</b> <span class="tt">QRhiWidget</span> recrée ses ressources quand le widget change de fenêtre de haut niveau. Les propriétaires de textures comparent donc le <span class="tt">QRhi</span> qu'ils ont servi à celui du contexte, plutôt que de supposer qu'il ne bouge jamais.</li>
 </ul>
-<p>L'instance est <b>possédée par le viewport</b> et référencée (jamais copiée) par les objets qui créent des textures : <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas procédurale et table de régions de tuiles (EX-REN-041/EX-REN-042).">hmi::TextureAtlas</a></span>, <span class="tt"><a class="el" href="classhmi_1_1TextureCache.html" title="Crée et conserve les textures des marqueurs d&#39;entité, une par clé d&#39;asset.">hmi::TextureCache</a></span>, <span class="tt">hmi::BitmapFont</span>. </p>
+<p>L'instance est <b>possédée par le viewport</b> et référencée (jamais copiée) par les objets qui créent des textures : <span class="tt"><a class="el" href="classhmi_1_1TextureAtlas.html" title="Texture d&#39;atlas procédurale et table de régions de tuiles (EX-REN-041/EX-REN-042).">hmi::TextureAtlas</a></span> et les rendus de scène (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="abf8a83f92dfd52999537032a9599e17e" name="abf8a83f92dfd52999537032a9599e17e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abf8a83f92dfd52999537032a9599e17e">&#9670;&#160;</a></span>ready()</h2>

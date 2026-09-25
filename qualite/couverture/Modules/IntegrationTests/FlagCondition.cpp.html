@@ -24,7 +24,7 @@ namespace {
 
 using Json = nlohmann::json;
 
-/// `"v"` ou `["v", "w"]`, sans valeur vide ni doublon ; `std::nullopt` si la forme est autre.
+// `"v"` ou `["v", "w"]`, sans valeur vide ni doublon ; `std::nullopt` si la forme est autre.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::vector&lt;std::string&gt;&gt; valeursDepuis(const Json&amp; brut) {
     std::vector&lt;std::string&gt; valeurs;
     const auto ajouter = [&amp;valeurs](const Json&amp; valeur) {

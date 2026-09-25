@@ -33,15 +33,15 @@
 namespace hmi {
 namespace {
 
-/// RÃ©glages retenus par installCrashDumpWriter. Lus depuis le filtre : aucune allocation n'y a lieu
-/// avant l'Ã©criture du dump, le tas pouvant Ãªtre la cause du plantage.
+// RÃ©glages retenus par installCrashDumpWriter. Lus depuis le filtre : aucune allocation n'y a lieu
+// avant l'Ã©criture du dump, le tas pouvant Ãªtre la cause du plantage.
 struct CrashDumpSettings {
     std::filesystem::path directory;
     std::string application;
     std::string version;
 };
 
-/// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
+// Pause entre deux essais de la tentative de dernier recours (writeDumpJob), en millisecondes.
 constexpr DWORD MINI_DUMP_RETRY_PAUSE_MS = 50;
 
 <span style = "background-color:#fdd">CrashDumpSettings&amp; settings() {
@@ -49,8 +49,8 @@ constexpr DWORD MINI_DUMP_RETRY_PAUSE_MS = 50;
     return instance;
 }</span>
 
-/// Erreurs des tentatives de la derniÃ¨re Ã©criture (writeMiniDump), pour le diagnostic : sans elles,
-/// seule l'erreur de la derniÃ¨re tentative est connue, et une panne de CI reste illisible.
+// Erreurs des tentatives de la derniÃ¨re Ã©criture (writeMiniDump), pour le diagnostic : sans elles,
+// seule l'erreur de la derniÃ¨re tentative est connue, et une panne de CI reste illisible.
 <span style = "background-color:#dfd">std::array&lt;unsigned long, kMiniDumpAttemptCount&gt;&amp; attemptErrors() {</span>
     static std::array&lt;unsigned long, kMiniDumpAttemptCount&gt; instance{};
 <span style = "background-color:#dfd">    return instance;
@@ -109,7 +109,7 @@ void onInvalidParameter(const wchar_t* /*expression*/, const wchar_t* /*function
 <span style = "background-color:#fdd">    return EXCEPTION_EXECUTE_HANDLER;
 }</span>
 
-/// Ãcriture d'un dump confiÃ©e Ã  un thread dÃ©diÃ© (writeMiniDump).
+// Ãcriture d'un dump confiÃ©e Ã  un thread dÃ©diÃ© (writeMiniDump).
 struct DumpJob {
     HANDLE file = INVALID_HANDLE_VALUE;
     EXCEPTION_POINTERS* original = nullptr;
@@ -126,17 +126,17 @@ struct DumpJob {
     std::array&lt;unsigned long, kMiniDumpAttemptCount&gt; errors{};
 };
 
-/// Rappel de MiniDumpWriteDump : une zone mÃ©moire illisible est sautÃ©e au lieu d'annuler le dump,
-/// et, sur la derniÃ¨re tentative, seul le thread du plantage est consignÃ©.
-///
-/// ReadMemoryFailureCallback ne couvre pas tout : Â« si l'Ã©chec a lieu dans une pile, il est
-/// considÃ©rÃ© comme irrÃ©cupÃ©rable et le minidump Ã©choue Â» (documentation de
-/// MINIDUMP_CALLBACK_TYPE). Une pile qu'un thread en cours de fin libÃ¨re pendant la lecture fait
-/// donc Ã©chouer l'Ã©criture sur ERROR_PARTIAL_COPY quoi qu'on rÃ©ponde -- vu sur les runners de CI,
-/// jamais sur le poste. Le seul remÃ¨de est de ne pas lire cette pile : IncludeThreadCallback rend
-/// FALSE pour tout thread autre que celui du plantage (`onlyThread`), ce que la derniÃ¨re tentative
-/// seule demande. Les autres rappels gardent le comportement par dÃ©faut : threads et modules
-/// inclus, aucune mÃ©moire ajoutÃ©e.
+// Rappel de MiniDumpWriteDump : une zone mÃ©moire illisible est sautÃ©e au lieu d'annuler le dump,
+// et, sur la derniÃ¨re tentative, seul le thread du plantage est consignÃ©.
+//
+// ReadMemoryFailureCallback ne couvre pas tout : Â« si l'Ã©chec a lieu dans une pile, il est
+// considÃ©rÃ© comme irrÃ©cupÃ©rable et le minidump Ã©choue Â» (documentation de
+// MINIDUMP_CALLBACK_TYPE). Une pile qu'un thread en cours de fin libÃ¨re pendant la lecture fait
+// donc Ã©chouer l'Ã©criture sur ERROR_PARTIAL_COPY quoi qu'on rÃ©ponde -- vu sur les runners de CI,
+// jamais sur le poste. Le seul remÃ¨de est de ne pas lire cette pile : IncludeThreadCallback rend
+// FALSE pour tout thread autre que celui du plantage (`onlyThread`), ce que la derniÃ¨re tentative
+// seule demande. Les autres rappels gardent le comportement par dÃ©faut : threads et modules
+// inclus, aucune mÃ©moire ajoutÃ©e.
 BOOL CALLBACK skipUnreadableMemory(PVOID param, const PMINIDUMP_CALLBACK_INPUT input,
 <span style = "background-color:#dfd">                                   PMINIDUMP_CALLBACK_OUTPUT output) {
     if (input == nullptr || output == nullptr) {</span>

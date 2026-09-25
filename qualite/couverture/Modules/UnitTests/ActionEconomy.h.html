@@ -83,6 +83,7 @@ public:
      */
     void declare(std::string_view id, int perTurn);
 
+    /// @brief Vrai si la ressource @p id a Ã©tÃ© dÃ©clarÃ©e, quel que soit son reste.
     [[nodiscard]] bool has(std::string_view id) const;
     /// @brief Ce qu'il reste de la ressource, ou 0 si elle n'est pas dÃ©clarÃ©e.
     [[nodiscard]] int remaining(std::string_view id) const;
@@ -108,6 +109,7 @@ public:
     /// @brief Le dÃ©but du tour du porteur : chaque ressource revient Ã  son `perTurn`.
     void refresh();
 
+    /// @brief Toutes les ressources dÃ©clarÃ©es, dans l'ordre de dÃ©claration.
 <span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;ActionResource&gt;&amp; resources() const noexcept {
         return _resources;
     }</span>

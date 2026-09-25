@@ -44,9 +44,9 @@ struct DecodedImage {
 /**
  * @brief Texture GPU chargÃ©e (RAII).
  *
- * Le pointeur est **partagÃ©** et non exclusif : le cache de textures (`hmi::TextureCache`) range
- * ses entrÃ©es dans un registre qui les copie, et une mÃªme texture peut Ãªtre servie Ã  plusieurs
- * consommateurs le temps d'une image.
+ * Le pointeur est **partagÃ©** et non exclusif : les propriÃ©taires de textures (`hmi::TextureAtlas`,
+ * les bibliothÃ¨ques de textures des rendus de scÃ¨ne) copient la structure dans leurs tables, et une
+ * mÃªme texture peut Ãªtre servie Ã  plusieurs consommateurs le temps d'une image.
  */
 struct LoadedTexture {
     std::shared_ptr&lt;QRhiTexture&gt; texture;

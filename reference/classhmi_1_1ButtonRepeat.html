@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,6 +143,9 @@ $(function(){initNavTree('classhmi_1_1ButtonRepeat.html','','classhmi_1_1ButtonR
 </div><!--header-->
 <div class="contents">
 
+<p>Compteur de répétition d'un bouton tenu : un pas à l'appui, puis un pas tous les <span class="tt"><a class="el" href="namespacehmi.html#a19c4e889b587eee63318fd97be53024d" title="Intervalle entre deux répétitions.">BUTTON_REPEAT_INTERVAL</a></span> une fois <span class="tt"><a class="el" href="namespacehmi.html#a9ab13e58906fc19eaceaa84921d13f32" title="Délai avant la première répétition d&#39;un bouton tenu.">BUTTON_REPEAT_DELAY</a></span> écoulé.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ButtonRepeat_8h_source.html">ButtonRepeat.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -155,7 +158,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a09ad0739cb975e3552da5bc8f6e0fe64" id="r_a09ad0739cb975e3552da5bc8f6e0fe64"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a09ad0739cb975e3552da5bc8f6e0fe64">_held</a> = false</td></tr>
 <tr class="memitem:a21ae1fc2a266dd5a7896fe092538d3e4" id="r_a21ae1fc2a266dd5a7896fe092538d3e4"><td class="memItemLeft">std::chrono::steady_clock::time_point&#160;</td><td class="memItemRight"><a class="el" href="#a21ae1fc2a266dd5a7896fe092538d3e4">_next</a> {}</td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compteur de répétition d'un bouton tenu : un pas à l'appui, puis un pas tous les <span class="tt"><a class="el" href="namespacehmi.html#a19c4e889b587eee63318fd97be53024d" title="Intervalle entre deux répétitions.">BUTTON_REPEAT_INTERVAL</a></span> une fois <span class="tt"><a class="el" href="namespacehmi.html#a9ab13e58906fc19eaceaa84921d13f32" title="Délai avant la première répétition d&#39;un bouton tenu.">BUTTON_REPEAT_DELAY</a></span> écoulé. </p>
+<p>Sans horloge à lui : l'instant est donné à <span class="tt"><a class="el" href="#a10b368f76e0ed47a7898ca02045b1494" title="L&#39;état du bouton à l&#39;instant now.">update</a></span>, ce qui le rend testable sans attendre. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a10b368f76e0ed47a7898ca02045b1494" name="a10b368f76e0ed47a7898ca02045b1494"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a10b368f76e0ed47a7898ca02045b1494">&#9670;&#160;</a></span>update()</h2>
 

@@ -86,8 +86,8 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
 <span style = "background-color:#fdd">            resultat.error = file.string() + " : un quartier n'est pas un objet.";
             return resultat;</span>
         }
-<span style = "background-color:#dfd">        CityDistrict quartier{.id = lireTexte(entree, "id"), .map = lireTexte(entree, "map"),
-                              .guardMap = {}};
+        CityDistrict quartier{
+<span style = "background-color:#dfd">            .id = lireTexte(entree, "id"), .map = lireTexte(entree, "map"), .guardMap = {}};
         if (const auto garde = entree.find("guard"); garde != entree.end() &amp;&amp; garde-&gt;is_object()) {
             quartier.guardMap = lireTexte(*garde, "map");
         }</span>

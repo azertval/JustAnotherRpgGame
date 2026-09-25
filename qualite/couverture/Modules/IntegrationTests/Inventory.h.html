@@ -62,6 +62,7 @@ struct ItemCatalog {
     std::vector&lt;Item&gt; items;
     std::vector&lt;std::string&gt; errors;
 
+    /// @brief L'objet d'identifiant @p id, ou `nullptr` s'il est inconnu.
     [[nodiscard]] const Item* find(std::string_view id) const;
 };
 

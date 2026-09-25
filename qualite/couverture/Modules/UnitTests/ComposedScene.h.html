@@ -17,7 +17,6 @@
 #include &lt;cstddef&gt;
 #include &lt;cstdint&gt;
 #include &lt;optional&gt;
-#include &lt;string&gt;
 #include &lt;unordered_map&gt;
 #include &lt;vector&gt;
 
@@ -281,13 +280,6 @@ private:
     int _considered = 0;
     int _culled = 0;
 };
-
-/**
- * @brief RÃ©sumÃ© des compteurs d'une image, pour la journalisation de diagnostic (`EX-NFR-005`).
- * @param statistics Compteurs Ã  formater.
- * @return Une ligne lisible : composÃ©es, Ã©cartÃ©es, soumises, passes.
- */
-[[nodiscard]] std::string formatSceneStatistics(const SceneStatistics&amp; statistics);
 
 /**
  * @brief BoÃ®te englobante d'un rectangle texturÃ©, en unitÃ©s monde.

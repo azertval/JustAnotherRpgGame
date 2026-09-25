@@ -51,7 +51,9 @@ struct AssetFamilyTable {
     std::vector&lt;AssetFamilyDefinition&gt; families;
     std::vector&lt;std::string&gt; errors;
 
+    /// @brief La famille de nom @p name, ou `nullptr` si elle est inconnue.
     [[nodiscard]] const AssetFamilyDefinition* find(std::string_view name) const;
+    /// @brief Vrai si la table s'est lue sans erreur et dÃ©clare au moins une famille.
 <span style = "background-color:#dfd">    [[nodiscard]] bool ok() const {
         return errors.empty() &amp;&amp; !families.empty();
     }</span>

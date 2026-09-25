@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,12 +143,12 @@ $(function(){initNavTree('WorldSceneComposer_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU : le jumeau d'<span class="tt">hmi::ArenaSceneComposer</span> pour la carte du jeu (<span class="tt">LOT-09</span>).  
+<p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, la scène du combat aussi.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
-<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;span&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
@@ -179,6 +179,7 @@ Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AWorldStoreySnapshot" id="r_hmi_3A_3AWorldStoreySnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStoreySnapshot.html">hmi::WorldStoreySnapshot</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu <b>en valeurs</b> : ce que la composition lit, et rien d'autre.  <a href="structhmi_1_1WorldStoreySnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneSnapshot" id="r_hmi_3A_3AWorldSceneSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte <b>en valeurs</b>, telle que la composition la lit : sa grille, ses pièces par case, ses étages, ses figurines et où trouver leurs fichiers.  <a href="structhmi_1_1WorldSceneSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneSource" id="r_hmi_3A_3AWorldSceneSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldSceneSource.html">hmi::WorldSceneSource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la composition lit d'une carte : sa grille racine, ses couches et ses entités.  <a href="structhmi_1_1WorldSceneSource.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldComposeOptions" id="r_hmi_3A_3AWorldComposeOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldComposeOptions.html">hmi::WorldComposeOptions</a></td></tr>
@@ -277,11 +278,17 @@ Variables</h2></td></tr>
 <tr class="memitem:a2048c2024daad5842f0d26bbde67482b" id="r_a2048c2024daad5842f0d26bbde67482b"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2048c2024daad5842f0d26bbde67482b">hmi::SCENE_PLACE_PROPERTY</a> = &quot;scene&quot;</td></tr>
 <tr class="memdesc:a2048c2024daad5842f0d26bbde67482b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété de couche qui nomme le <b>lieu</b> dont la carte porte les planches.  <br /></td></tr>
 <tr class="memitem:ae32b43afe6206e30237ba1bcfae6f724" id="r_ae32b43afe6206e30237ba1bcfae6f724"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#ae32b43afe6206e30237ba1bcfae6f724">hmi::figure_clips::IDLE</a> = &quot;idle&quot;</td></tr>
+<tr class="memdesc:ae32b43afe6206e30237ba1bcfae6f724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le repos, en boucle.  <br /></td></tr>
 <tr class="memitem:a41fa10121357be1d449dbde15e73e918" id="r_a41fa10121357be1d449dbde15e73e918"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#a41fa10121357be1d449dbde15e73e918">hmi::figure_clips::WALK</a> = &quot;walk&quot;</td></tr>
+<tr class="memdesc:a41fa10121357be1d449dbde15e73e918"><td class="mdescLeft">&#160;</td><td class="mdescRight">La marche, en boucle.  <br /></td></tr>
 <tr class="memitem:a89105a8d4361791fa8c9174588706da9" id="r_a89105a8d4361791fa8c9174588706da9"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#a89105a8d4361791fa8c9174588706da9">hmi::figure_clips::ATTACK</a> = &quot;attack&quot;</td></tr>
+<tr class="memdesc:a89105a8d4361791fa8c9174588706da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'attaque au contact, jouée une fois.  <br /></td></tr>
 <tr class="memitem:ac3fac5359aef0f16361178db4a73821c" id="r_ac3fac5359aef0f16361178db4a73821c"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#ac3fac5359aef0f16361178db4a73821c">hmi::figure_clips::CAST</a> = &quot;cast&quot;</td></tr>
+<tr class="memdesc:ac3fac5359aef0f16361178db4a73821c"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'incantation, jouée une fois.  <br /></td></tr>
 <tr class="memitem:a6945b3e99d97b537060eb38de45a7774" id="r_a6945b3e99d97b537060eb38de45a7774"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#a6945b3e99d97b537060eb38de45a7774">hmi::figure_clips::HIT</a> = &quot;hit&quot;</td></tr>
+<tr class="memdesc:a6945b3e99d97b537060eb38de45a7774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coup encaissé, joué une fois.  <br /></td></tr>
 <tr class="memitem:a10983e8d484be06fd85c312cf79dd9be" id="r_a10983e8d484be06fd85c312cf79dd9be"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#a10983e8d484be06fd85c312cf79dd9be">hmi::figure_clips::DEATH</a> = &quot;death&quot;</td></tr>
+<tr class="memdesc:a10983e8d484be06fd85c312cf79dd9be"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chute, jouée une fois ; la dernière image reste.  <br /></td></tr>
 <tr class="memitem:a1ffc4db808c30be4b0d0d57c7837a3d0" id="r_a1ffc4db808c30be4b0d0d57c7837a3d0"><td class="memItemLeft">constexpr std::array&lt; std::string_view, 6 &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html#a1ffc4db808c30be4b0d0d57c7837a3d0">hmi::figure_clips::ALL</a> = {<a class="el" href="namespacehmi_1_1figure__clips.html#ae32b43afe6206e30237ba1bcfae6f724">IDLE</a>, <a class="el" href="namespacehmi_1_1figure__clips.html#a41fa10121357be1d449dbde15e73e918">WALK</a>, <a class="el" href="namespacehmi_1_1figure__clips.html#a89105a8d4361791fa8c9174588706da9">ATTACK</a>, <a class="el" href="namespacehmi_1_1figure__clips.html#ac3fac5359aef0f16361178db4a73821c">CAST</a>, <a class="el" href="namespacehmi_1_1figure__clips.html#a6945b3e99d97b537060eb38de45a7774">HIT</a>, <a class="el" href="namespacehmi_1_1figure__clips.html#a10983e8d484be06fd85c312cf79dd9be">DEATH</a>}</td></tr>
 <tr class="memdesc:a1ffc4db808c30be4b0d0d57c7837a3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes, dans l'ordre du standard.  <br /></td></tr>
 <tr class="memitem:af4a217ed5ea8e0e9fe3c9be3864c630e" id="r_af4a217ed5ea8e0e9fe3c9be3864c630e"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af4a217ed5ea8e0e9fe3c9be3864c630e">hmi::DEFAULT_SILHOUETTE</a> = &quot;humanoid&quot;</td></tr>
@@ -290,9 +297,9 @@ Variables</h2></td></tr>
 <tr class="memdesc:a97a3d73038cd8b88626f97aad58b5a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'entité <span class="tt">npc</span> et de fiche de créature qui nomme la silhouette (<span class="tt">LOT-145</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU : le jumeau d'<span class="tt">hmi::ArenaSceneComposer</span> pour la carte du jeu (<span class="tt">LOT-09</span>). </p>
-<p>Le lieu et l'arène se dessinent par le <b>même</b> code : même projection isométrique (<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), mêmes planches de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de scène, commune à l&#39;arène et aux lieux qu&#39;on parcourt.">ScenePieces.h</a></span>), même tri par profondeur. Ce qui change est la <b>source</b> : l'arène lit une grille de combat, le lieu lit une carte (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span>) — ses couches, les pièces qu'elles nomment, ses entités.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md99"></a>
+<div class="textblock"><p>Un <b>lieu qu'on parcourt</b> composé en primitives, sans GPU (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, la scène du combat aussi. </p>
+<p>Le lieu et le combat se dessinent par le <b>même</b> code : même projection isométrique (<span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span>), mêmes planches de l'atelier des textures (<span class="tt">LOT-92</span>, <span class="tt"><a class="el" href="ScenePieces_8h.html" title="La géométrie des pièces de scène, commune à l&#39;arène et aux lieux qu&#39;on parcourt.">ScenePieces.h</a></span>), même tri par profondeur. La <b>source</b> est une carte (<span class="tt"><a class="el" href="classcore_1_1Level.html" title="Carte complète en mémoire.">core::Level</a></span>) — ses couches, les pièces qu'elles nomment, ses entités — et, en combat, les combattants posés dessus (<span class="tt">snapshot.figures</span>).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md89"></a>
 Ce qui va où</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -301,9 +308,9 @@ Ce qui va où</h2>
 <td class="markdownTableBodyNone">sol (type de tuile de la couche « sol » → table du lieu)  </td><td class="markdownTableBodyNone"><span class="tt">RenderLayer::Tile</span>  </td><td class="markdownTableBodyNone">profondeur de  </td></tr>
 </table>
 <p>case | | relief (pièce nommée à la case, ou type de la couche « décor ») | <span class="tt">RenderLayer::Object</span> | pied de la case | | figurine (héros, PNJ) | <span class="tt">RenderLayer::Player</span> | pied de sa case |</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md100"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md90"></a>
 Par instantané, comme l'arène</h2>
-<p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
+<p>La composition ne lit qu'un <span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span> — des <b>valeurs</b>, aucun pointeur vers la carte ni vers la session. C'est ce qui lui permet de tourner sur le fil de rendu de Qt Quick, l'instantané étant pris dans <span class="tt">synchronize()</span> pendant que le fil graphique est bloqué. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

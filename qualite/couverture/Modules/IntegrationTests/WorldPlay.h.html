@@ -54,6 +54,15 @@ struct WorldPlayStep {
     bool figuresChanged = false;
 };
 
+/**
+ * @brief Une carte qu'on parcourt et sa mise en scÃ¨ne : la session d'exploration, la table
+ *        d'apparence du lieu, la figurine du hÃ©ros et celles des PNJ.
+ *
+ * PartagÃ©e par le jeu (`hmi::WorldModel`) et l'essai de l'Ã©diteur (`hmi::EditorViewport`), sans
+ * Qt ni horloge : l'appelant donne le temps (`step`) et lit ce qu'un pas a changÃ©
+ * (`WorldPlayStep`). La carte composÃ©e (`scene()`) n'est refaite que quand elle change ; les
+ * figurines de l'image (`figures()`) se relisent Ã  chaque pas.
+ */
 class WorldPlay {
 public:
     /// Figurine du hÃ©ros tant que l'appelant n'en nomme pas d'autre : le Brawler prÃ©-tirÃ©, hÃ©ros

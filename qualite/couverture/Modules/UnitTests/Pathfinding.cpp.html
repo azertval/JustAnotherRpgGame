@@ -34,15 +34,15 @@ namespace {
 
 constexpr int UNREACHED = std::numeric_limits&lt;int&gt;::max();
 
-/// TolÃ©rance de l'arrondi Ã  la case infÃ©rieure : 9 / 1,5 tombe juste en binaire, mais une vitesse
-/// issue d'une soustraction de flottants (malus d'encombrement) peut valoir 5,9999 cases, et en
-/// perdre une sur une erreur d'arrondi serait un dÃ©faut invisible.
+// TolÃ©rance de l'arrondi Ã  la case infÃ©rieure : 9 / 1,5 tombe juste en binaire, mais une vitesse
+// issue d'une soustraction de flottants (malus d'encombrement) peut valoir 5,9999 cases, et en
+// perdre une sur une erreur d'arrondi serait un dÃ©faut invisible.
 constexpr float SPEED_EPSILON = 1.0e-3F;
 
-/// Les huit voisins, dans un ordre **fixe**. Le dÃ©partage ne dÃ©pend pas de cet ordre (il porte sur
-/// la gÃ©omÃ©trie, puis sur l'indice de case), mais un ordre fixe garde la file identique d'une
-/// exÃ©cution Ã  l'autre, et c'est le rang d'un voisin ici qui numÃ©rote son bit dans le masque des
-/// prÃ©dÃ©cesseurs.
+// Les huit voisins, dans un ordre **fixe**. Le dÃ©partage ne dÃ©pend pas de cet ordre (il porte sur
+// la gÃ©omÃ©trie, puis sur l'indice de case), mais un ordre fixe garde la file identique d'une
+// exÃ©cution Ã  l'autre, et c'est le rang d'un voisin ici qui numÃ©rote son bit dans le masque des
+// prÃ©dÃ©cesseurs.
 constexpr std::array&lt;std::pair&lt;int, int&gt;, 8&gt; NEIGHBOURS{{
     {0, -1},
     {-1, 0},
@@ -54,18 +54,18 @@ constexpr std::array&lt;std::pair&lt;int, int&gt;, 8&gt; NEIGHBOURS{{
     {1, 1},
 }};
 
-/// CoÃ»t d'entrÃ©e normal et en terrain difficile (Manuel des Joueurs, Â« Jouer sur un quadrillage Â»).
+// CoÃ»t d'entrÃ©e normal et en terrain difficile (Manuel des Joueurs, Â« Jouer sur un quadrillage Â»).
 constexpr int NORMAL_COST = 1;
 constexpr int DIFFICULT_COST = 2;
 
-/// Ce qu'il faut savoir d'un combattant pour dire si un pas est permis, et ce qu'il coÃ»te.
+// Ce qu'il faut savoir d'un combattant pour dire si un pas est permis, et ce qu'il coÃ»te.
 struct StepRules {
     const BattleGrid&amp; grid;
     const Mover&amp; mover;
     int side = 1;
 
-    /// @return Le coÃ»t d'entrÃ©e de @p to depuis @p from, voisin, ou `std::nullopt` si le pas est
-    /// interdit.
+    // Retourne : Le coÃ»t d'entrÃ©e de @p to depuis @p from, voisin, ou `std::nullopt` si le pas est
+    // interdit.
 <span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;int&gt; cost(GridPosition from, GridPosition to) const {
         if (!grid.isClear(to, side, mover.locomotion)) {
             return std::nullopt;</span>
@@ -105,24 +105,22 @@ struct StepRules {
     }</span>
 };
 
-/// ÃlÃ©ment de file : clÃ© de prioritÃ©, puis indice de case â l'ordre total qui rend la file
-/// dÃ©terministe.
+// ÃlÃ©ment de file : clÃ© de prioritÃ©, puis indice de case â l'ordre total qui rend la file
+// dÃ©terministe.
 using QueueEntry = std::pair&lt;int, std::size_t&gt;;
 using MinQueue = std::priority_queue&lt;QueueEntry, std::vector&lt;QueueEntry&gt;, std::greater&lt;&gt;&gt;;
 
-/// Le masque des prÃ©dÃ©cesseurs optimaux d'une case : le bit k est levÃ© si le voisin k de
-/// `NEIGHBOURS`, **relativement Ã  la case**, l'atteint Ã  son meilleur coÃ»t. Tout ce qu'un
-/// prÃ©dÃ©cesseur a de plus qu'un autre se juge Ã  la remontÃ©e (`rebuild`), quand la destination est
-/// connue.
+// Le masque des prÃ©dÃ©cesseurs optimaux d'une case : le bit k est levÃ© si le voisin k de
+// `NEIGHBOURS`, **relativement Ã  la case**, l'atteint Ã  son meilleur coÃ»t. Tout ce qu'un
+// prÃ©dÃ©cesseur a de plus qu'un autre se juge Ã  la remontÃ©e (`rebuild`), quand la destination est
+// connue.
 using Predecessors = std::vector&lt;std::uint8_t&gt;;
 
-/**
- * RelÃ¢che l'arc qui mÃ¨ne Ã  @p next par le pas de rang @p neighbour, au coÃ»t cumulÃ© @p candidate.
- *
- * @return Vrai si le coÃ»t de @p next a **baissÃ©** â il faut alors le remettre en file, et ses
- * anciens prÃ©dÃ©cesseurs ne valent plus rien. Ã coÃ»t Ã©gal, le pas s'ajoute aux prÃ©dÃ©cesseurs : le
- * choix entre eux n'appartient pas Ã  l'exploration.
- */
+// RelÃ¢che l'arc qui mÃ¨ne Ã  @p next par le pas de rang @p neighbour, au coÃ»t cumulÃ© @p candidate.
+//
+// Retourne : Vrai si le coÃ»t de @p next a **baissÃ©** â il faut alors le remettre en file, et ses
+// anciens prÃ©dÃ©cesseurs ne valent plus rien. Ã coÃ»t Ã©gal, le pas s'ajoute aux prÃ©dÃ©cesseurs : le
+// choix entre eux n'appartient pas Ã  l'exploration.
 bool relax(std::vector&lt;int&gt;&amp; costs, Predecessors&amp; predecessors, std::size_t next,
 <span style = "background-color:#dfd">           std::size_t neighbour, int candidate) {
     const auto bit = static_cast&lt;std::uint8_t&gt;(1U &lt;&lt; neighbour);
@@ -137,14 +135,12 @@ bool relax(std::vector&lt;int&gt;&amp; costs, Predecessors&amp; predecessors, st
 <span style = "background-color:#dfd">    return false;
 }</span>
 
-/**
- * Remonte le chemin de @p origin Ã  @p target, prÃ©dÃ©cesseur par prÃ©dÃ©cesseur.
- *
- * Parmi les prÃ©dÃ©cesseurs qui atteignent une case Ã  son meilleur coÃ»t, on retient **le plus proche
- * de la droite** qui joint le dÃ©part Ã  l'arrivÃ©e â le produit vectoriel entier tient lieu de
- * distance â, et Ã  Ã©galitÃ© celui d'indice de case le plus petit. Le chemin ne fait donc jamais de
- * coude qu'un autre chemin de mÃªme coÃ»t aurait Ã©vitÃ© : c'est celui que la prÃ©visualisation trace.
- */
+// Remonte le chemin de @p origin Ã  @p target, prÃ©dÃ©cesseur par prÃ©dÃ©cesseur.
+//
+// Parmi les prÃ©dÃ©cesseurs qui atteignent une case Ã  son meilleur coÃ»t, on retient **le plus proche
+// de la droite** qui joint le dÃ©part Ã  l'arrivÃ©e â le produit vectoriel entier tient lieu de
+// distance â, et Ã  Ã©galitÃ© celui d'indice de case le plus petit. Le chemin ne fait donc jamais de
+// coude qu'un autre chemin de mÃªme coÃ»t aurait Ã©vitÃ© : c'est celui que la prÃ©visualisation trace.
 [[nodiscard]] Path rebuild(const std::vector&lt;int&gt;&amp; costs, const Predecessors&amp; predecessors,
 <span style = "background-color:#dfd">                           GridPosition origin, GridPosition target, int width) {
     const auto indexOf = [width](GridPosition cell) {

@@ -29,8 +29,8 @@ namespace {
 constexpr std::uint32_t FNV_BASE = 2166136261U;
 constexpr std::uint32_t FNV_PREMIER = 16777619U;
 
-/// Teinte -&gt; RVB, saturation et valeur fixes : les marqueurs se distinguent entre eux sans qu'aucun
-/// ne passe pour une illustration.
+// Teinte -&gt; RVB, saturation et valeur fixes : les marqueurs se distinguent entre eux sans qu'aucun
+// ne passe pour une illustration.
 <span style = "background-color:#dfd">[[nodiscard]] MarkerColor depuisTeinte(double teinte, double valeur) {
     constexpr double SATURATION = 0.45;
     const double secteur = std::fmod(teinte, 360.0) / 60.0;

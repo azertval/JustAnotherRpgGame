@@ -28,7 +28,7 @@ namespace core {
 
 namespace {
 
-/// Le combattant fictif qui arpente la zone : seul sur sa grille, son identifiant importe peu.
+// Le combattant fictif qui arpente la zone : seul sur sa grille, son identifiant importe peu.
 constexpr CombatantId ARPENTEUR{1};
 
 <span style = "background-color:#dfd">[[nodiscard]] CreatureSize tailleDe(const std::string&amp; creatureId, const Bestiary* bestiary) {
@@ -39,8 +39,8 @@ constexpr CombatantId ARPENTEUR{1};
     return creature == nullptr ? CreatureSize::Medium : creature-&gt;size;
 }</span>
 
-/// Le refus de la grille, traduit en problÃ¨me d'auteur. `InvalidCombatant` n'en est pas un : il
-/// ne survient pas pour un identifiant neuf et une taille du bestiaire.
+// Le refus de la grille, traduit en problÃ¨me d'auteur. `InvalidCombatant` n'en est pas un : il
+// ne survient pas pour un identifiant neuf et une taille du bestiaire.
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;TacticalIssueCode&gt; problemeDe(PlacementResult result) {
     switch (result) {</span>
         case PlacementResult::OutOfBounds:
@@ -56,8 +56,8 @@ constexpr CombatantId ARPENTEUR{1};
 <span style = "background-color:#fdd">    return std::nullopt;</span>
 <span style = "background-color:#dfd">}</span>
 
-/// Les cases oÃ¹ un marcheur de taille M, parti du dÃ©clencheur, peut finir un tour de 30 pieds â
-/// le dÃ©clencheur compris. Vide si le dÃ©clencheur lui-mÃªme ne se tient pas.
+// Les cases oÃ¹ un marcheur de taille M, parti du dÃ©clencheur, peut finir un tour de 30 pieds â
+// le dÃ©clencheur compris. Vide si le dÃ©clencheur lui-mÃªme ne se tient pas.
 [[nodiscard]] std::vector&lt;GridPosition&gt; zoneAtteignable(const TileMap&amp; collision,
 <span style = "background-color:#dfd">                                                        GridPosition trigger) {
     BattleGrid grille(collision);

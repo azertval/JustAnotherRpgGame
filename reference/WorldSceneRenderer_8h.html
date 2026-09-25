@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -143,7 +143,7 @@ $(function(){initNavTree('WorldSceneRenderer_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> : le jumeau d'<span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span> (<span class="tt">LOT-09</span>).  
+<p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, celui du combat aussi.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
@@ -180,12 +180,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a44337da72a19b007b1c90bade791dfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage d'un lieu : la caméra <b>suit</b> le héros, et ne sort pas de la carte.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> : le jumeau d'<span class="tt"><a class="el" href="classhmi_1_1ArenaSceneRenderer.html" title="Ce qui dessine le Colisée : ressources GPU, textures de la planche, animation des figurines,...">hmi::ArenaSceneRenderer</a></span> (<span class="tt">LOT-09</span>). </p>
-<p>Même découpage, pour la même raison : tout ce qui peut casser — l'ordre de création, l'ordre de libération, la recréation sur une autre interface QRhi — vit ici, où un test hors écran le fait tourner sur un vrai <span class="tt">QRhi</span> sans fenêtre. L'élément Qt Quick (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante : le jumeau d&#39;hmi::ArenaViewportItem pour le monde.">hmi::WorldViewportItem</a></span>) ne relaie que trois appels.</p>
-<p>Une différence avec l'arène : <b>les textures ne sont pas connues d'avance</b>. Une arène a son catalogue ; un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil de rendu, dans le lot de l'image.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md101"></a>
+<div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, celui du combat aussi. </p>
+<p>Le découpage vaut pour une raison : tout ce qui peut casser — l'ordre de création, l'ordre de libération, la recréation sur une autre interface QRhi — vit ici, où un test hors écran le fait tourner sur un vrai <span class="tt">QRhi</span> sans fenêtre. L'élément Qt Quick (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) ne relaie que trois appels.</p>
+<p><b>Les textures ne sont pas connues d'avance</b> : un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil de rendu, dans le lot de l'image.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md91"></a>
 Ce qu'une image refait, et ce qu'elle ne refait pas</h2>
-<p>La carte (<span class="tt">setScene</span>) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître quelque chose : elle se compose <b>une fois</b>, dans une <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html">hmi::StaticWorldScene</a></span>. Une image ne prend que ce que la caméra montre, et y fusionne les figurines (<span class="tt">setFigures</span>) — le héros qui marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille de la carte (audit de l'affichage d'un lieu, <span class="tt">Planning/standards/audit-affichage-lieu.md</span>). </p>
+<p>La carte (<span class="tt">setScene</span>) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître quelque chose : elle se compose <b>une fois</b>, dans une <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html" title="La partie fixe d&#39;une carte : composée une fois, triée, indexée par seaux, puis découpée au cadrage à ...">hmi::StaticWorldScene</a></span>. Une image ne prend que ce que la caméra montre, et y fusionne les figurines (<span class="tt">setFigures</span>) — le héros qui marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille de la carte (audit de l'affichage d'un lieu, <span class="tt">Planning/standards/audit-affichage-lieu.md</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

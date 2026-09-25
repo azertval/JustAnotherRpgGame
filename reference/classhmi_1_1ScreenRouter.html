@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -183,7 +183,7 @@ Public Types</h2></td></tr>
 &#160;&#160;<a class="el" href="#a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff">CombatHud</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a0277d29471d1699b63793797bbab3bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lequel des huit écrans du RPG est ouvert, quand <span class="tt"><a class="el" href="#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a></span> vaut <span class="tt"><a class="el" href="#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">RpgScreen</a></span>.  <a href="#a0277d29471d1699b63793797bbab3bde">More...</a><br /></td></tr>
+<tr class="memdesc:a0277d29471d1699b63793797bbab3bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lequel des huit écrans du RPG est ouvert, quand <span class="tt"><a class="el" href="#ae6f4f69704239e7f7561382ecb88426c" title="L&#39;écran affiché ; quand il vaut RpgScreen, currentRpgScreen dit lequel des écrans du RPG.">currentScreen</a></span> vaut <span class="tt"><a class="el" href="#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">RpgScreen</a></span>.  <a href="#a0277d29471d1699b63793797bbab3bde">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
@@ -196,14 +196,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6723c5bdb4ac5876eae37b87f3918fd2" id="r_a6723c5bdb4ac5876eae37b87f3918fd2"><td class="memItemLeft"><a class="el" href="#a82f878c3ef3a0d8b924af7bbca4b37f7">Screen</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6723c5bdb4ac5876eae37b87f3918fd2">currentScreen</a> () const noexcept</td></tr>
 <tr class="memitem:a91e63c6aa637ff5aee2b3981609441f8" id="r_a91e63c6aa637ff5aee2b3981609441f8"><td class="memItemLeft"><a class="el" href="#a0277d29471d1699b63793797bbab3bde">RpgScreen</a>&#160;</td><td class="memItemRight"><a class="el" href="#a91e63c6aa637ff5aee2b3981609441f8">currentRpgScreen</a> () const noexcept</td></tr>
 <tr class="memitem:aadd3bd3f7a84530fbd3c139dfc4011d0" id="r_aadd3bd3f7a84530fbd3c139dfc4011d0"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aadd3bd3f7a84530fbd3c139dfc4011d0">openMenu</a> ()</td></tr>
+<tr class="memdesc:aadd3bd3f7a84530fbd3c139dfc4011d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre le menu principal.  <br /></td></tr>
 <tr class="memitem:a10a7ce61538fe188b0f4151a44f61595" id="r_a10a7ce61538fe188b0f4151a44f61595"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a10a7ce61538fe188b0f4151a44f61595">openGame</a> ()</td></tr>
+<tr class="memdesc:a10a7ce61538fe188b0f4151a44f61595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la vue de jeu depuis le menu.  <br /></td></tr>
 <tr class="memitem:a726babaae9dd3059829d58646ade1efc" id="r_a726babaae9dd3059829d58646ade1efc"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a726babaae9dd3059829d58646ade1efc">openOptions</a> ()</td></tr>
+<tr class="memdesc:a726babaae9dd3059829d58646ade1efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre les options, en retenant d'où l'on vient pour y revenir.  <br /></td></tr>
 <tr class="memitem:a715c3898e04c067e4fb45b1cedb6d8f8" id="r_a715c3898e04c067e4fb45b1cedb6d8f8"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a715c3898e04c067e4fb45b1cedb6d8f8">closeOptions</a> ()</td></tr>
+<tr class="memdesc:a715c3898e04c067e4fb45b1cedb6d8f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Referme les options sur l'écran d'où elles ont été ouvertes.  <br /></td></tr>
 <tr class="memitem:a69bed6c6f979c2d2ea1880c320aab1f8" id="r_a69bed6c6f979c2d2ea1880c320aab1f8"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a69bed6c6f979c2d2ea1880c320aab1f8">openPause</a> ()</td></tr>
+<tr class="memdesc:a69bed6c6f979c2d2ea1880c320aab1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met la partie en pause.  <br /></td></tr>
 <tr class="memitem:aa8fed1e22f7cfd03742406907e388676" id="r_aa8fed1e22f7cfd03742406907e388676"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aa8fed1e22f7cfd03742406907e388676">resume</a> ()</td></tr>
+<tr class="memdesc:aa8fed1e22f7cfd03742406907e388676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reprend la partie depuis la pause.  <br /></td></tr>
 <tr class="memitem:aab3e0450a627326cf2d67b565214589a" id="r_aab3e0450a627326cf2d67b565214589a"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aab3e0450a627326cf2d67b565214589a">quitToMenu</a> ()</td></tr>
+<tr class="memdesc:aab3e0450a627326cf2d67b565214589a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quitte la partie depuis la pause, pour le menu principal.  <br /></td></tr>
 <tr class="memitem:a72a1fbefbc533cfa55a1baebd0a68615" id="r_a72a1fbefbc533cfa55a1baebd0a68615"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a72a1fbefbc533cfa55a1baebd0a68615">openCredits</a> ()</td></tr>
+<tr class="memdesc:a72a1fbefbc533cfa55a1baebd0a68615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre les crédits.  <br /></td></tr>
 <tr class="memitem:afc4b6c4f6e692e0f439b694fbc4ed7a4" id="r_afc4b6c4f6e692e0f439b694fbc4ed7a4"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#afc4b6c4f6e692e0f439b694fbc4ed7a4">closeCredits</a> ()</td></tr>
+<tr class="memdesc:afc4b6c4f6e692e0f439b694fbc4ed7a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Referme les crédits sur le menu.  <br /></td></tr>
 <tr class="memitem:ab876832aba412ba4d1413c106cd6e86f" id="r_ab876832aba412ba4d1413c106cd6e86f"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ab876832aba412ba4d1413c106cd6e86f">jumpToGame</a> ()</td></tr>
 <tr class="memdesc:ab876832aba412ba4d1413c106cd6e86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outil de debug : ouvre la vue de jeu <b>hors de la table</b>, d'où que l'on soit.  <br /></td></tr>
 <tr class="memitem:a6f0915e029b9531574965cd7f24f9b5c" id="r_a6f0915e029b9531574965cd7f24f9b5c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a6f0915e029b9531574965cd7f24f9b5c">openDialogue</a> (const QString &amp;<a class="el" href="#aa9ba1f7e1f16121dc41686cc69ee0dea">dialogueId</a>)</td></tr>
@@ -218,9 +227,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a52cafab93eba8eeaa94127082bd2059b" id="r_a52cafab93eba8eeaa94127082bd2059b"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a52cafab93eba8eeaa94127082bd2059b">openRpgScreen</a> (<a class="el" href="#a0277d29471d1699b63793797bbab3bde">RpgScreen</a> screen)</td></tr>
 <tr class="memdesc:a52cafab93eba8eeaa94127082bd2059b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre un écran du RPG.  <br /></td></tr>
 <tr class="memitem:a5efecee08cf5d4212b5c68431b1d2ed9" id="r_a5efecee08cf5d4212b5c68431b1d2ed9"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5efecee08cf5d4212b5c68431b1d2ed9">closeRpgScreen</a> ()</td></tr>
-<tr class="memitem:aba7714a748fe5539eb4c69e6b87dc169" id="r_aba7714a748fe5539eb4c69e6b87dc169"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#aba7714a748fe5539eb4c69e6b87dc169">nextRpgScreen</a> ()</td></tr>
-<tr class="memdesc:aba7714a748fe5539eb4c69e6b87dc169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Passe à l'écran suivant/précédent du RPG <b>sans repasser par le menu</b> (<span class="tt">EX-IHM-090</span>).  <br /></td></tr>
-<tr class="memitem:a11c974d1ecc02dc6164d96347e09e1ae" id="r_a11c974d1ecc02dc6164d96347e09e1ae"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a11c974d1ecc02dc6164d96347e09e1ae">previousRpgScreen</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -229,6 +235,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:ae6f4f69704239e7f7561382ecb88426c" id="r_ae6f4f69704239e7f7561382ecb88426c"><td class="memItemLeft">QML_SINGLETONScreen&#160;</td><td class="memItemRight"><a class="el" href="#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a></td></tr>
+<tr class="memdesc:ae6f4f69704239e7f7561382ecb88426c"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'écran affiché ; quand il vaut <span class="tt"><a class="el" href="#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">RpgScreen</a></span>, <span class="tt"><a class="el" href="#a68efd81277570018b5f1043310abb730">currentRpgScreen</a></span> dit lequel des écrans du RPG.  <br /></td></tr>
 <tr class="memitem:a68efd81277570018b5f1043310abb730" id="r_a68efd81277570018b5f1043310abb730"><td class="memItemLeft"><a class="el" href="#a0277d29471d1699b63793797bbab3bde">RpgScreen</a>&#160;</td><td class="memItemRight"><a class="el" href="#a68efd81277570018b5f1043310abb730">currentRpgScreen</a></td></tr>
 <tr class="memitem:a79f8523f29d42f7c2a6ab23245485044" id="r_a79f8523f29d42f7c2a6ab23245485044"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a79f8523f29d42f7c2a6ab23245485044">ending</a></td></tr>
 <tr class="memdesc:a79f8523f29d42f7c2a6ab23245485044"><td class="mdescLeft">&#160;</td><td class="mdescRight">La voie par laquelle la démo s'est terminée (<span class="tt">LOT-119</span>), que l'écran de fin dit.  <br /></td></tr>
@@ -253,11 +260,11 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Pilote la machine à états des écrans, et publie l'écran courant. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md127"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md116"></a>
 Ce qu'il n'est pas</h2>
 <p>Il ne décide <b>rien</b>. Toute la règle vit dans <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">hmi::resolveTransition</a></span> — table pure, sans Qt, couverte par ses tests — et ce routeur ne fait que l'appeler et diffuser le résultat. C'est ce qui permet de vérifier la navigation sans ouvrir une fenêtre, et qui l'a déjà été.</p>
-<p><b>Une transition non déclarée est refusée</b>, jamais silencieusement acceptée : <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">resolveTransition</a></span> rend alors <span class="tt">std::nullopt</span> et l'état ne bouge pas. Sans cette discipline, un <span class="tt"><a class="el" href="#a726babaae9dd3059829d58646ade1efc">openOptions()</a></span> appelé depuis un écran d'où les options ne s'ouvrent pas produirait un état que la table ne décrit pas, et dont personne ne saurait comment revenir.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md128"></a>
+<p><b>Une transition non déclarée est refusée</b>, jamais silencieusement acceptée : <span class="tt"><a class="el" href="namespacehmi.html#adbeed25b15bad59211fcea357825feec" title="Résout une transition d&#39;écran à partir de l&#39;état courant et d&#39;un événement.">resolveTransition</a></span> rend alors <span class="tt">std::nullopt</span> et l'état ne bouge pas. Sans cette discipline, un <span class="tt"><a class="el" href="#a726babaae9dd3059829d58646ade1efc" title="Ouvre les options, en retenant d&#39;où l&#39;on vient pour y revenir.">openOptions()</a></span> appelé depuis un écran d'où les options ne s'ouvrent pas produirait un état que la table ne décrit pas, et dont personne ne saurait comment revenir.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md117"></a>
 Pourquoi une énumération et non un nom de fichier</h2>
 <p>Le routeur publie un <b>état</b>, pas un chemin. Faire transiter « <span class="tt">Screens/MainMenu.qml</span> » ferait connaître à la présentation le nom des fichiers de la conception — que l'artiste doit pouvoir renommer sans toucher au C++. La correspondance entre état et fichier vit donc en QML, dans <span class="tt">Logic/ScreenStack.qml</span>, du côté développeur mais du bon côté de la frontière. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
@@ -281,7 +288,7 @@ Pourquoi une énumération et non un nom de fichier</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Lequel des huit écrans du RPG est ouvert, quand <span class="tt"><a class="el" href="#ae6f4f69704239e7f7561382ecb88426c">currentScreen</a></span> vaut <span class="tt"><a class="el" href="#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">RpgScreen</a></span>. </p>
+<p>Lequel des huit écrans du RPG est ouvert, quand <span class="tt"><a class="el" href="#ae6f4f69704239e7f7561382ecb88426c" title="L&#39;écran affiché ; quand il vaut RpgScreen, currentRpgScreen dit lequel des écrans du RPG.">currentScreen</a></span> vaut <span class="tt"><a class="el" href="#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">RpgScreen</a></span>. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0277d29471d1699b63793797bbab3bdeaeb7e99d2187282628ef8b4c20cf7a714" name="a0277d29471d1699b63793797bbab3bdeaeb7e99d2187282628ef8b4c20cf7a714"></a>CharacterSheet&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0277d29471d1699b63793797bbab3bdeaaa79c5d1cbe3d96218a92481bcfaa39c" name="a0277d29471d1699b63793797bbab3bdeaaa79c5d1cbe3d96218a92481bcfaa39c"></a>Skills&#160;</td><td class="fielddoc"></td></tr>
@@ -430,6 +437,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
       </table>
 </div><div class="memdoc">
 
+<p>Referme les crédits sur le menu. </p>
+
 </div>
 </div>
 <a id="a715c3898e04c067e4fb45b1cedb6d8f8" name="a715c3898e04c067e4fb45b1cedb6d8f8"></a>
@@ -446,6 +455,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Referme les options sur l'écran d'où elles ont été ouvertes. </p>
 
 </div>
 </div>
@@ -538,6 +549,7 @@ Pourquoi une énumération et non un nom de fichier</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai dans un binaire de développement (<span class="tt"><a class="el" href="namespacecore.html#affbaf55db3c297c638c8399aa855dbfe" title="Vrai dans les builds de développement (Debug), faux en Release.">core::DEVELOPER_BUILD</a></span>). </dd></dl>
 
 </div>
 </div>
@@ -636,26 +648,6 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 </div>
 </div>
-<a id="aba7714a748fe5539eb4c69e6b87dc169" name="aba7714a748fe5539eb4c69e6b87dc169"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba7714a748fe5539eb4c69e6b87dc169">&#9670;&#160;</a></span>nextRpgScreen()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ScreenRouter::nextRpgScreen </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Passe à l'écran suivant/précédent du RPG <b>sans repasser par le menu</b> (<span class="tt">EX-IHM-090</span>). </p>
-<p>C'est le geste des gâchettes de la manette. </p>
-
-</div>
-</div>
 <a id="a72a1fbefbc533cfa55a1baebd0a68615" name="a72a1fbefbc533cfa55a1baebd0a68615"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72a1fbefbc533cfa55a1baebd0a68615">&#9670;&#160;</a></span>openCredits()</h2>
 
@@ -670,6 +662,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Ouvre les crédits. </p>
 
 </div>
 </div>
@@ -745,6 +739,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
       </table>
 </div><div class="memdoc">
 
+<p>Ouvre la vue de jeu depuis le menu. </p>
+
 </div>
 </div>
 <a id="aadd3bd3f7a84530fbd3c139dfc4011d0" name="aadd3bd3f7a84530fbd3c139dfc4011d0"></a>
@@ -761,6 +757,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Ouvre le menu principal. </p>
 
 </div>
 </div>
@@ -779,6 +777,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
       </table>
 </div><div class="memdoc">
 
+<p>Ouvre les options, en retenant d'où l'on vient pour y revenir. </p>
+
 </div>
 </div>
 <a id="a69bed6c6f979c2d2ea1880c320aab1f8" name="a69bed6c6f979c2d2ea1880c320aab1f8"></a>
@@ -795,6 +795,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Met la partie en pause. </p>
 
 </div>
 </div>
@@ -818,23 +820,6 @@ Pourquoi une énumération et non un nom de fichier</h2>
 
 </div>
 </div>
-<a id="a11c974d1ecc02dc6164d96347e09e1ae" name="a11c974d1ecc02dc6164d96347e09e1ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11c974d1ecc02dc6164d96347e09e1ae">&#9670;&#160;</a></span>previousRpgScreen()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::ScreenRouter::previousRpgScreen </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aab3e0450a627326cf2d67b565214589a" name="aab3e0450a627326cf2d67b565214589a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab3e0450a627326cf2d67b565214589a">&#9670;&#160;</a></span>quitToMenu()</h2>
 
@@ -849,6 +834,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Quitte la partie depuis la pause, pour le menu principal. </p>
 
 </div>
 </div>
@@ -866,6 +853,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Reprend la partie depuis la pause. </p>
 
 </div>
 </div>
@@ -1001,6 +990,8 @@ Pourquoi une énumération et non un nom de fichier</h2>
 </table>
 </div><div class="memdoc">
 
+<p>L'écran affiché ; quand il vaut <span class="tt"><a class="el" href="#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">RpgScreen</a></span>, <span class="tt"><a class="el" href="#a68efd81277570018b5f1043310abb730">currentRpgScreen</a></span> dit lequel des écrans du RPG. </p>
+
 </div>
 </div>
 <a id="ae1d233ca79a137451b3d598b29aae659" name="ae1d233ca79a137451b3d598b29aae659"></a>
@@ -1024,7 +1015,7 @@ Pourquoi une énumération et non un nom de fichier</h2>
 </div><div class="memdoc">
 
 <p>Vrai dans un binaire de developpement, faux dans un binaire livre. </p>
-<p>Ce qui s'y adosse est un outil de verification &ndash; le selecteur d'ecrans de <span class="tt">Logic/ScreenProbe.qml</span> &ndash;, et un outil de verification ne doit pas pouvoir partir avec le jeu. Une liaison QML sur cette propriete le garantit a la construction, la ou une consigne de relecture ne garantit rien. </p>
+<p>Ce qui s'y adosse est un outil de verification &ndash; le menu de developpement de <span class="tt">Tools/DevMenu.qml</span> &ndash;, et un outil de verification ne doit pas pouvoir partir avec le jeu. Une liaison QML sur cette propriete le garantit a la construction, la ou une consigne de relecture ne garantit rien. </p>
 
 </div>
 </div>

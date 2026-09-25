@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.1.0</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -151,6 +151,7 @@ $(function(){initNavTree('classcore_1_1DamagePipeline.html','','classcore_1_1Dam
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a01ca4dadd1149ce79923deadb2fc22de" id="r_a01ca4dadd1149ce79923deadb2fc22de"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a01ca4dadd1149ce79923deadb2fc22de">insert</a> (<a class="el" href="namespacecore.html#aabf3d04e881096180d288d8c6ad9fcf6">DamageStage</a> stage, <a class="el" href="namespacecore.html#a3590dffd7f4abb831e517aafa42647d6">DamageListener</a> listener)</td></tr>
+<tr class="memdesc:a01ca4dadd1149ce79923deadb2fc22de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un greffon à l'étape <code class="param">stage</code>, après ceux déjà insérés à cette étape.  <br /></td></tr>
 <tr class="memitem:a03fcd203ed5822ecc5970512e181e0bf" id="r_a03fcd203ed5822ecc5970512e181e0bf"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1DamageReport.html">DamageReport</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a03fcd203ed5822ecc5970512e181e0bf">apply</a> (<a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, std::span&lt; const <a class="el" href="structcore_1_1DamageRequest.html">DamageRequest</a> &gt; volley) const</td></tr>
 <tr class="memdesc:a03fcd203ed5822ecc5970512e181e0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait traverser une salve à des combattants, et la termine en <b>un</b> appel à <span class="tt"><a class="el" href="classcore_1_1CombatState.html#a49abb9a15d8de91f995425ea70356280" title="Retire amount points de vie, sans descendre sous 0 ; à 0, le combattant est à terre.">core::CombatState::applyDamage</a></span>.  <br /></td></tr>
 <tr class="memitem:ab12d245fc394a994f925b869404b0334" id="r_ab12d245fc394a994f925b869404b0334"><td class="memItemLeft"><a class="el" href="structcore_1_1DamageReport.html">DamageReport</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab12d245fc394a994f925b869404b0334">applyToStructure</a> (<a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp;grid, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> cell, std::span&lt; const <a class="el" href="structcore_1_1RolledDamage.html">RolledDamage</a> &gt; damage) const</td></tr>
@@ -272,6 +273,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Ajoute un greffon à l'étape <code class="param">stage</code>, après ceux déjà insérés à cette étape. </p>
 
 </div>
 </div>

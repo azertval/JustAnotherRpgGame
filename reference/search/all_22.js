@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['à_20brancher_0',['Comment on retrouve ce qu&apos;il reste à brancher',['../classhmi_1_1PendingData.html#autotoc_md125',1,'']]],
-  ['à_20la_20main_1',['Une table, et non huit écrans écrits à la main',['../RpgScreens_8h.html#autotoc_md104',1,'']]],
-  ['à_20part_2',['Pourquoi une session à part',['../ExplorationSession_8h.html#autotoc_md62',1,'']]],
-  ['à_20trancher_3',['Ce que dit le Manuel, et ce qu&apos;il laisse à trancher',['../LineOfSight_8h.html#autotoc_md35',1,'']]]
+  ['à_20brancher_0',['Comment on retrouve ce qu&apos;il reste à brancher',['../classhmi_1_1PendingData.html#autotoc_md114',1,'']]],
+  ['à_20part_1',['Pourquoi une session à part',['../ExplorationSession_8h.html#autotoc_md62',1,'']]],
+  ['à_20trancher_2',['Ce que dit le Manuel, et ce qu&apos;il laisse à trancher',['../LineOfSight_8h.html#autotoc_md35',1,'']]]
 ];
