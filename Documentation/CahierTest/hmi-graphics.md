@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **189 cas** (38 bloquants, 59 critiques, 84 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **192 cas** (38 bloquants, 61 critiques, 85 majeurs, 8 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -31,7 +31,7 @@ Tests unitaires — **189 cas** (38 bloquants, 59 critiques, 84 majeurs, 8 mineu
 | [`test_scene_folders.cpp`](#test-scene-folderscpp) | 2 | 2 | - | - | - |
 | [`test_static_world_scene.cpp`](#test-static-world-scenecpp) | 3 | 2 | - | 1 | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
-| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 32 | 4 | 14 | 14 | - |
+| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 35 | 4 | 16 | 15 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
 | [`test_world_storeys.cpp`](#test-world-storeyscpp) | 7 | 6 | - | 1 | - |
 
@@ -3418,6 +3418,63 @@ Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.
 - Vérifie que `traits.frameDuration` vaut `0.1F` (comparaison flottante).
 - Vérifie que `ailleurs.artTile.x` vaut `0.0F` (comparaison flottante).
 - Vérifie que `ailleurs.groundLine.has_value()` est faux.
+
+### WorldSceneComposerTest.UneBandeAUnCoupSeFigeSurSaDerniereImage
+
+*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1165`
+
+Une bande a un coup se fige sur sa derniere image.
+
+**Étapes**
+
+1. Composer le heros sur une bande de mort de huit images a 0,1 s, `loop` faux, a 0,25 s, 0,75 s et 3 s.
+2. La meme bande `loop` vrai, a 3 s.
+
+**Résultat attendu**
+
+- Vérifie que `imageA(0.25F, false)` vaut `2`.
+- Vérifie que `imageA(0.75F, false)` vaut `7`.
+- Vérifie que `imageA(3.0F, false)` vaut `7`.
+- Vérifie que `imageA(3.0F, true)` vaut `6`.
+
+### WorldSceneComposerTest.UnCombattantPrechargeSesSixBandes
+
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1203`
+
+Les chemins d'un combattant couvrent les six bandes.
+
+**Étapes**
+
+1. Lister les chemins d'un heros au repos, puis du meme marque combattant.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::worldFigureTexturePaths(instantane, instantane.figures).size()` vaut `2U`.
+- Vérifie que `chemins.size()` vaut `6U`.
+- Vérifie que `std::ranges::find(chemins, heros + "/death-ne.png")` diffère de `chemins.end()`.
+- Vérifie que `std::ranges::find(chemins, heros + "/cast-ne.png")` diffère de `chemins.end()`.
+
+### MaquetteRenderTest.LeMannequinRemplaceLeJetonDUnPnjSansFigurine
+
+*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1228`
+
+Le mannequin remplace le jeton d'un PNJ sans figurine.
+
+**Étapes**
+
+1. Tirer les figurines de trois PNJ -- sans figurine, silhouette quadrupede, figurine nommee -- sans puis avec mannequins.
+2. Tirer les marques avec ces figurines.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::npcFigures(entites, 0).size()` vaut `1U`.
+- Vérifie que `figurines.size()` vaut `3U`.
+- Vérifie que `figurines[0].figure` vaut `hmi::placeholderFigureDirectory("humanoid")`.
+- Vérifie que `figurines[1].figure` vaut `hmi::placeholderFigureDirectory("quadruped")`.
+- Vérifie que `figurines[2].figure` vaut `"anariel"`.
+- Vérifie que `sansFigurine.tokens.size()` vaut `3U`.
+- Vérifie que `avec.tokens.size()` vaut `1U`.
+- Vérifie que `avec.tokens.front().kind` vaut `hmi::MaquetteTokenKind::Object`.
 
 ## test_world_scene_renderer.cpp
 

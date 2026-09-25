@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **82 cas** (3 bloquants, 45 critiques, 33 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **83 cas** (3 bloquants, 46 critiques, 33 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -10,7 +10,7 @@ Tests unitaires — **82 cas** (3 bloquants, 45 critiques, 33 majeurs, 1 mineur)
 | [`test_character_options.cpp`](#test-character-optionscpp) | 9 | - | 5 | 4 | - |
 | [`test_character_sheet.cpp`](#test-character-sheetcpp) | 10 | - | 6 | 4 | - |
 | [`test_check.cpp`](#test-checkcpp) | 5 | - | 4 | 1 | - |
-| [`test_dialogue.cpp`](#test-dialoguecpp) | 12 | 3 | 4 | 5 | - |
+| [`test_dialogue.cpp`](#test-dialoguecpp) | 13 | 3 | 5 | 5 | - |
 | [`test_dice.cpp`](#test-dicecpp) | 9 | - | 5 | 4 | - |
 | [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
 | [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
@@ -625,7 +625,7 @@ L'echelle de difficulte est une donnee complete et croissante.
 
 ### DialogueTest.LeDialogueDeDemonstrationSeChargeEtSesReferencesExistent
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:125`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:129`
 
 Le dialogue du heraut se charge et ses references existent.
 
@@ -647,7 +647,7 @@ Le dialogue du heraut se charge et ses references existent.
 
 ### DialogueTest.LeDialogueDuHerautSeParcourtEnHeadless
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:168`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:172`
 
 Le dialogue du heraut se parcourt sans fenetre.
 
@@ -700,7 +700,7 @@ Le dialogue du heraut se parcourt sans fenetre.
 
 ### DialogueTest.UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:239`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:243`
 
 Un echec de Persuasion ferme la reponse de retentative.
 
@@ -732,7 +732,7 @@ Un echec de Persuasion ferme la reponse de retentative.
 
 ### DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:276`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:280`
 
 Exigences : `EX-RPG-042`
 
@@ -756,7 +756,7 @@ Un dialogue est refuse faute de langue commune.
 
 ### DialogueTest.UnGrapheMalFormeEstRejeteAuChargement
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:305`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:309`
 
 Les graphes mal formes sont refuses au chargement.
 
@@ -772,7 +772,7 @@ Les graphes mal formes sont refuses au chargement.
 
 ### DialogueTest.UneBouclePasseeParUnChoixEstUnHubVoulu
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:377`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:381`
 
 Une boucle par une replique a reponses est acceptee.
 
@@ -794,7 +794,7 @@ Une boucle par une replique a reponses est acceptee.
 
 ### DialogueTest.LesActionsTouchentLeMonde
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:414`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:418`
 
 Les quatre actions d'un dialogue s'appliquent.
 
@@ -816,7 +816,7 @@ Les quatre actions d'un dialogue s'appliquent.
 
 ### DialogueTest.UnDialogueSeRejoueAGraineFixee
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:452`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:456`
 
 Un dialogue se rejoue a l'identique a graine fixee.
 
@@ -834,7 +834,7 @@ Un dialogue se rejoue a l'identique a graine fixee.
 
 ### DialogueTest.LesDialoguesSontTraduitsEnFrancaisEtEnAnglais
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:489`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:493`
 
 Les dialogues sont traduits en francais et en anglais.
 
@@ -851,7 +851,7 @@ Les dialogues sont traduits en francais et en anglais.
 
 ### DialogueTest.LesDegresDeDifficulteSeChargent
 
-*Majeur · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:526`
+*Majeur · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:530`
 
 Les degres de difficulte se chargent.
 
@@ -874,7 +874,7 @@ Les degres de difficulte se chargent.
 
 ### DialogueTest.LaFicheEcouteUnPnjAvecSesLanguesEtSesModificateurs
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:551`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:555`
 
 La fiche ecoute un PNJ : langues et modificateurs.
 
@@ -903,7 +903,7 @@ La fiche ecoute un PNJ : langues et modificateurs.
 
 ### DialogueTest.UnPnjDeCarteOuvreSonDialogue
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:600`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:604`
 
 Un PNJ de carte ouvre son dialogue.
 
@@ -921,6 +921,27 @@ Un PNJ de carte ouvre son dialogue.
 - Vérifie que `declencheur->position` vaut `(core::GridPosition{4, 2})`.
 - Vérifie que `core::dialogueTriggerFor(muet).has_value()` est faux.
 - Vérifie que `core::dialogueTriggerFor(coffre).has_value()` est faux.
+
+### DialogueTest.UnDialoguePeutEngagerUneRencontreSurLaCarte
+
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:641`
+
+Un dialogue peut engager une rencontre sur la carte.
+
+**Étapes**
+
+1. Lire un graphe dont le noeud d'action porte `startEncounter` vers « rats-du-donjon ».
+2. Le jouer avec un auditeur d'essai.
+3. Lire un graphe dont l'action `startEncounter` n'a pas de champ `encounter`.
+
+**Résultat attendu**
+
+- Vérifie que `lu.graph.has_value()` est vrai.
+- Vérifie que `runner.start()` vaut `core::DialogueState::Ended`.
+- Vérifie que `receveur.rencontres.size()` vaut `1U`.
+- Vérifie que `receveur.rencontres.front()` vaut `"rats-du-donjon"`.
+- Vérifie que `std::ranges::find(runner.journal(), "rencontre demandee : rats-du-donjon")` diffère de `runner.journal().end()`.
+- Vérifie que `refuse.graph.has_value()` est faux.
 
 ## test_dice.cpp
 
