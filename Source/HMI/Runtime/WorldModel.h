@@ -289,6 +289,9 @@ private:
     std::vector<std::filesystem::path> _levelDirectories;
     /// Les drapeaux de `--flags=` : reposés à chaque partie neuve (`endGame`).
     QStringList _startFlags;
+    /// Oublie la direction et l'interaction demandées : le héros s'arrête.
+    void releaseInput() noexcept;
+
     core::Vector2 _move{};
     bool _interact = false;
     quint64 _sceneRevision = 1;

@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **115 cas** (33 bloquants, 50 critiques, 31 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **116 cas** (33 bloquants, 51 critiques, 31 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -14,7 +14,7 @@ Tests unitaires — **115 cas** (33 bloquants, 50 critiques, 31 majeurs, 1 mineu
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
-| [`test_encounter.cpp`](#test-encountercpp) | 11 | - | 6 | 5 | - |
+| [`test_encounter.cpp`](#test-encountercpp) | 12 | - | 7 | 5 | - |
 | [`test_enemy_ai.cpp`](#test-enemy-aicpp) | 12 | 5 | 7 | - | - |
 | [`test_iso_projection.cpp`](#test-iso-projectioncpp) | 9 | 5 | - | 3 | 1 |
 | [`test_line_of_sight.cpp`](#test-line-of-sightcpp) | 3 | 1 | 1 | 1 | - |
@@ -1472,9 +1472,26 @@ Une rencontre sans cle de drapeau se redeclenche.
 
 - Vérifie que `core::encounterAlreadyCleared(drapeaux, "")` est faux.
 
+### EncounterTest.UneVictoirePoseLeFaitDeLaRencontreGagnee
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:150`
+
+Une victoire pose le fait encounter/&lt;id&gt;/won, une fuite non.
+
+**Étapes**
+
+1. Gagner une rencontre sans cle d'entite.
+2. En fuir une autre.
+
+**Résultat attendu**
+
+- Vérifie que `fait` vaut `"encounter/" + modele.id + "/won"`.
+- Vérifie que `drapeaux.isSet(fait)` est faux.
+- Vérifie que `drapeaux.isSet(fait)` est vrai.
+
 ### EncounterTest.LesCombattantsSePlacentRelativementAuDeclencheur
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:149`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:176`
 
 Les combattants se placent relativement au declencheur.
 
@@ -1496,7 +1513,7 @@ Les combattants se placent relativement au declencheur.
 
 ### EncounterTest.UneRencontreNonFuyableLeDeclare
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:179`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:206`
 
 Une rencontre non fuyable le declare.
 
@@ -1511,7 +1528,7 @@ Une rencontre non fuyable le declare.
 
 ### EncounterTest.LeCatalogueLivreSeCharge
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:195`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:222`
 
 Le catalogue de rencontres livre se charge.
 
@@ -1532,7 +1549,7 @@ Le catalogue de rencontres livre se charge.
 
 ### EncounterTest.UnInstantaneNonReleveSeDistingueDeLOrigine
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:223`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:250`
 
 Un instantane non releve se distingue de l'origine.
 
@@ -1546,7 +1563,7 @@ Un instantane non releve se distingue de l'origine.
 
 ### EncounterTest.UnEnnemiPosePorteUneCleUneZoneNonN
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:239`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:266`
 
 Un ennemi pose porte une cle, une zone n'en porte pas.
 
@@ -1566,7 +1583,7 @@ Un ennemi pose porte une cle, une zone n'en porte pas.
 
 ### EncounterTest.DeuxDeclencheursNePartagentJamaisLeurCle
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:270`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:297`
 
 Deux declencheurs ne partagent jamais leur cle.
 
@@ -1583,7 +1600,7 @@ Deux declencheurs ne partagent jamais leur cle.
 
 ### EncounterTest.CeQuiNEstPasUnDeclencheurNEnDevientPasUn
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:296`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_encounter.cpp:323`
 
 Ce qui n'est pas un declencheur n'en devient pas un.
 

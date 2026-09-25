@@ -3379,7 +3379,7 @@ L'editeur peint la maquette HD comme le jeu.
 
 ### ShippedMapsTest.ChaqueCarteSOuvreEtSEnregistreALIdentique
 
-*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:107`
+*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:113`
 
 Les cartes livrées se rechargent sans perte.
 
@@ -3394,7 +3394,7 @@ Les cartes livrées se rechargent sans perte.
 
 ### ShippedMapsTest.UneRetoucheSEnregistreSeRechargeEtSeDefait
 
-*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:127`
+*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:133`
 
 Une retouche s'enregistre, se recharge et se défait.
 
@@ -3417,7 +3417,7 @@ Une retouche s'enregistre, se recharge et se défait.
 
 ### DataRootTest.LEditeurOuvreLesDonneesDeLArbreDesSources
 
-*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:176`
+*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:183`
 
 L'éditeur ouvre les données de l'arbre des sources.
 
@@ -3436,7 +3436,7 @@ L'éditeur ouvre les données de l'arbre des sources.
 
 ### DataRootTest.UnDossierDeNiveauxVideResteLArbreDesSources
 
-*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:203`
+*Bloquant · Unitaire · Editeur · Cartes livrées* — `Source/Test/Unit/Editor/test_shipped_maps.cpp:210`
 
 Un dossier de niveaux vide reste l'arbre des sources.
 

@@ -1,13 +1,13 @@
 # Core · Gameplay
 
-Tests unitaires — **17 cas** (10 critiques, 6 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **21 cas** (12 critiques, 8 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_interaction.cpp`](#test-interactioncpp) | 9 | - | 5 | 3 | 1 |
-| [`test_quest.cpp`](#test-questcpp) | 8 | - | 5 | 3 | - |
+| [`test_interaction.cpp`](#test-interactioncpp) | 12 | - | 7 | 4 | 1 |
+| [`test_quest.cpp`](#test-questcpp) | 9 | - | 5 | 4 | - |
 
 ## Exigences vérifiées par cette page
 
@@ -21,7 +21,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 ### InteractionTest.LaCaseViseeSuitLaDirectionDominante
 
-*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:69`
+*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:74`
 
 La case visee suit la direction dominante de l'orientation.
 
@@ -42,7 +42,7 @@ La case visee suit la direction dominante de l'orientation.
 
 ### InteractionTest.UnCoffreNeDonneSonButinQuUneFois
 
-*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:97`
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:102`
 
 Un coffre ne donne son butin qu'a la premiere ouverture.
 
@@ -61,7 +61,7 @@ Un coffre ne donne son butin qu'a la premiere ouverture.
 
 ### InteractionTest.LEtatDUnCoffreSurvitAUnAllerRetourDeCarte
 
-*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:128`
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:133`
 
 Un coffre ouvert le reste apres avoir quitte la carte et y etre revenu.
 
@@ -81,7 +81,7 @@ Un coffre ouvert le reste apres avoir quitte la carte et y etre revenu.
 
 ### InteractionTest.LInteractionNeTraversePasUnMur
 
-*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:184`
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:189`
 
 Un objet place sur une case pleine n'est pas atteignable.
 
@@ -91,13 +91,13 @@ Un objet place sur une case pleine n'est pas atteignable.
 
 **Résultat attendu**
 
-- Vérifie que `core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()` est vrai.
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()` est vrai.
 - Vérifie que `derriereLeMur.found()` est faux.
 - Vérifie que `derriereLeMur.aimedCell` vaut `(core::GridPosition{3, 2})`.
 
 ### InteractionTest.LaCibleEstDeterministeAEgalite
 
-*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:211`
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:216`
 
 Deux objets sur la meme case designent toujours le meme.
 
@@ -113,7 +113,7 @@ Deux objets sur la meme case designent toujours le meme.
 
 ### InteractionTest.UnPanneauSeRelitIndefiniment
 
-*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:236`
+*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:241`
 
 Une entite non consommable reste une cible apres interaction.
 
@@ -131,7 +131,7 @@ Une entite non consommable reste une cible apres interaction.
 
 ### InteractionTest.DeuxCartesNeSeMarchentPasDessus
 
-*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:262`
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:267`
 
 Deux coffres de cartes differentes a la meme case ont des drapeaux distincts.
 
@@ -145,11 +145,11 @@ Deux coffres de cartes differentes a la meme case ont des drapeaux distincts.
 - Vérifie que `cleVillage` diffère de `cleDonjon`.
 - Vérifie que `cible.found()` est vrai.
 - Vérifie que `core::interact(cible, drapeaux).consumed` est vrai.
-- Vérifie que `core::findInteractionTarget({2, 2}, {1.0F, 0.0F}, carte, candidats(auDonjon), drapeaux) .found()` est vrai.
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(auDonjon), drapeaux) .found()` est vrai.
 
 ### InteractionTest.UnTypeInconnuProduitUneEntiteNonInteractive
 
-*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:294`
+*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:299`
 
 Exigences : `EX-NFR-040`
 
@@ -167,7 +167,7 @@ Un objet de type inconnu apparait sur la carte sans etre interactif.
 
 ### InteractionTest.LesDrapeauxSeRelisentTries
 
-*Mineur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:322`
+*Mineur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:327`
 
 Les drapeaux acquis se relisent dans un ordre stable.
 
@@ -187,6 +187,57 @@ Les drapeaux acquis se relisent dans un ordre stable.
 - Vérifie que `std::is_sorted(tous.begin(), tous.end())` est vrai.
 - Vérifie que `drapeaux.isSet("donjon/chest@1,1")` est faux.
 - Vérifie que `drapeaux.size()` vaut `2U`.
+
+### InteractionTest.LaPorteeEstDUneCaseEtDemie
+
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:354`
+
+Toute cible a moins de 1,5 case du heros est atteignable.
+
+**Étapes**
+
+1. Poser un panneau en diagonale du heros, puis derriere lui, puis a deux cases.
+
+**Résultat attendu**
+
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(enDiagonale), drapeaux) .found()` est vrai.
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(dansLeDos), drapeaux) .found()` est vrai.
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(aDeuxCases), drapeaux) .found()` est faux.
+- Vérifie que `core::findInteractionTarget({3.2F, 2.5F}, {1.0F, 0.0F}, carte, candidats(aDeuxCases), drapeaux) .found()` est vrai.
+
+### InteractionTest.DeuxMursEnCoinFermentLaDiagonale
+
+*Critique · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:391`
+
+L'interaction ne passe pas entre deux murs en diagonale.
+
+**Étapes**
+
+1. Poser un panneau en diagonale, puis murer une case de cote, puis l'autre.
+
+**Résultat attendu**
+
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()` est vrai.
+- Vérifie que `core::findInteractionTarget(auCentre(2, 2), {1.0F, 0.0F}, carte, candidats(objets), drapeaux) .found()` est faux.
+
+### InteractionTest.LaCibleViseeLEmporte
+
+*Majeur · Unitaire · Interaction* — `Source/Test/Unit/Core/Gameplay/test_interaction.cpp:416`
+
+A deux cibles a portee, la cible visee l'emporte.
+
+**Étapes**
+
+1. Poser un panneau devant le heros et un coffre dans son dos, plus proche.
+
+**Résultat attendu**
+
+- Vérifie que `versLaDroite.found()` est vrai.
+- Vérifie que `versLaDroite.interactable->type` vaut `"sign"`.
+- Vérifie que `versLaGauche.found()` est vrai.
+- Vérifie que `versLaGauche.interactable->type` vaut `"chest"`.
+- Vérifie que `versLeBas.found()` est vrai.
+- Vérifie que `versLeBas.interactable->type` vaut `"chest"`.
 
 ## test_quest.cpp
 
@@ -382,3 +433,17 @@ Les usages de drapeaux sont confrontes aux declarations.
 - Vérifie que `poses.contains("essai/recompense")` est vrai.
 - Vérifie que `std::ranges::all_of( lus, [](const core::FlagRead& lu) { return lu.flag == "quete.essai"; })` est vrai.
 - Vérifie que `lus.size()` vaut `4U`.
+
+### QuestTest.UneRencontreEngageeParUnDialoguePoseLeFaitDeSaVictoire
+
+*Majeur · Unitaire · Quetes* — `Source/Test/Unit/Core/Gameplay/test_quest.cpp:362`
+
+Une rencontre engagee par un dialogue compte parmi les drapeaux poses.
+
+**Étapes**
+
+1. Un dialogue dont un noeud d'action engage la rencontre `arene`.
+
+**Résultat attendu**
+
+- `encounter/arene/won` est parmi les drapeaux que le recit pose.

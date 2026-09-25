@@ -45,6 +45,10 @@ struct InteractionTarget {
     }
 };
 
+/// @brief Portée de l'interaction, en cases, mesurée de la position du personnage au centre de la
+///        case de la cible (strictement moins).
+inline constexpr float INTERACTION_REACH_CELLS = 1.5F;
+
 /**
  * @brief La case que vise un personnage, d'après son orientation.
  *
@@ -62,30 +66,35 @@ struct InteractionTarget {
 /**
  * @brief Désigne la cible d'interaction d'un personnage.
  *
- * Trois règles, et chacune répond à un critère d'acceptation du lot :
+ * Quatre règles :
  *
- * 1. **La cible est sur la case visée**, celle devant l'orientation.
- * 2. **L'interaction ne traverse pas un mur** : si la case visée est de la matière pleine
- *    (`core::isSolid`), il n'y a pas de cible. Un coffre derrière un mur se voit et ne s'ouvre pas
- *    — sans cette règle, un joueur ouvrirait à travers une cloison, ce qui se joue et ne se
- *    diagnostique pas.
- * 3. **À plusieurs candidats, le choix est déterministe** : la plus proche du **centre** de la case
- *    visée, et à distance égale le plus petit indice. Sans départage, deux coffres empilés
- *    donneraient tantôt l'un tantôt l'autre selon l'ordre de parcours de l'ECS, qui n'est pas
- *    stable.
+ * 1. **La cible est à portée** : le centre de sa case est à moins de
+ *    `INTERACTION_REACH_CELLS` (1,5 case) de la position **continue** du personnage. Le héros ne
+ *    marche pas de case en case ; exiger qu'il regarde exactement la case voisine rendait
+ *    l'abord d'un PNJ tatillon (retour de l'auteur, démo 0.0.1). À 1,5 case, les huit voisines
+ *    sont à portée, diagonales comprises, et rien au-delà.
+ * 2. **L'interaction ne traverse pas un mur** : la case de la cible doit être traversable, et en
+ *    diagonale deux murs qui se touchent par le coin ferment le passage, comme pour la marche.
+ *    Un coffre derrière un mur se voit et ne s'ouvre pas.
+ * 3. **Ce que le personnage regarde passe d'abord** : une cible sur la case visée
+ *    (`core::aimedCell`) l'emporte sur une cible plus proche ailleurs. À deux PNJ à portée, on
+ *    parle à celui vers lequel on s'est tourné.
+ * 4. **Le reste est déterministe** : puis la plus proche du personnage, et à distance égale le
+ *    plus petit indice. Sans départage, deux coffres empilés donneraient tantôt l'un tantôt
+ *    l'autre selon l'ordre de parcours de l'ECS, qui n'est pas stable.
  *
  * Une cible dont le drapeau de consommation est déjà levé n'est **pas** retenue : un coffre vidé
  * n'est plus une cible, et continuer à l'afficher comme telle promettrait au joueur quelque chose
  * qui n'arrivera pas.
  *
- * @param from Case du personnage.
+ * @param from Position continue du personnage, en cases (le centre d'une case est à +0,5).
  * @param facing Orientation du personnage.
  * @param map La carte, pour la règle du mur.
  * @param candidates Les entités interactives de la carte.
  * @param flags Les drapeaux de monde, pour écarter ce qui est déjà consommé.
  */
 [[nodiscard]] InteractionTarget findInteractionTarget(
-    GridPosition from, Vector2 facing, const TileMap& map,
+    Vector2 from, Vector2 facing, const TileMap& map,
     const std::vector<InteractionCandidate>& candidates, const WorldFlags& flags);
 
 /// @brief Ce qu'une interaction a produit.

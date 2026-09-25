@@ -29,6 +29,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   trois issues (`IntegrationTests`), la démo **par les modèles du jeu** de « Nouvelle partie » à
   chaque fin (`SystemGameTests`, étiquette `systeme`), et l'équilibrage à cent graines (le héros
   l'emporte entre 60 et 70 fois) et à mille graines tirées d'une graine maîtresse.
+- **Démo — deux retours de jeu corrigés.** Le héros ne repart plus seul en sortie de dialogue :
+  la vue de jeu, remplacée par le dialogue, ne voyait jamais le relâchement de la touche, et
+  `WorldModel` gardait la dernière direction ; figer la carte, ou recevoir un dialogue ou une
+  rencontre, l'oublie désormais. Et l'on aborde un PNJ (ou tout objet interactif) **à moins de
+  1,5 case** de la position du héros, diagonales et dos compris, et non plus seulement sur la
+  case qu'il regarde ; celle-ci garde la priorité, puis la plus proche. Deux murs en coin ferment
+  toujours la diagonale (`core::INTERACTION_REACH_CELLS`).
 
 - **Menu de développement (F9) — un seul outil.** Le menu gagne une section **Dialogue** (ouvrir
   n'importe quel dialogue du contenu, comme un PNJ l'ouvrirait), une section **Fins** (écran de

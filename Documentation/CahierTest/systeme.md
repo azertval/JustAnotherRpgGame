@@ -1,12 +1,116 @@
 # Tests système
 
-Tests système — **1 cas** (1 critique). [Retour à la synthèse](README.md).
+Tests système — **4 cas** (4 critiques). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
+| [`test_demo_de_bout_en_bout.cpp`](#test-demo-de-bout-en-boutcpp) | 3 | - | 3 | - | - |
 | [`test_parcours_edition_rpg.cpp`](#test-parcours-edition-rpgcpp) | 1 | - | 1 | - | - |
+
+## test_demo_de_bout_en_bout.cpp
+
+### DemoDeBoutEnBout.LaFinParLaParole
+
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:363`
+
+Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
+
+**Étapes**
+
+1. Nouvelle partie : Market Gate.
+2. La mere, accepter.
+3. Stravian Avenue, le parvis ; le garde, convaincre, a une graine dont le d20 reussit le DD.
+4. Retour a l'etal par les portails ; la mere.
+
+**Résultat attendu**
+
+- `ASSERT_NO_FATAL_FAILURE(jusquAuParvis(jeu))`
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"partir"}))`
+- Vérifie que `jeu.graineDuDialogue` diffère de `0`.
+- Vérifie que `jeu.parler(DEVANT_LE_GARDE)` vaut `"garde"`.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"convaincre", "continue"}))`
+- Vérifie que `jeu.valeur()` vaut `"enfant-libere"`.
+- Vérifie que `pomper([&jeu] { return jeu.etapes.size() >= 2; }, 1000)` est vrai.
+- Vérifie que `jeu.etapes.back()` vaut `"pommes/enfant-libere"`.
+- Vérifie que `jeu.parler(DEVANT_LE_GARDE)` vaut `std::nullopt`.
+- `ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "parole"))`
+
+### DemoDeBoutEnBout.LaFinParLArene
+
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:394`
+
+Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
+
+**Étapes**
+
+1. Jusqu'au parvis ; le garde a une graine dont le d20 echoue : convaincre, puis endosser.
+2. L'escalier de l'arene : le vestiaire, la porte close ; la porte du triomphe : le sable.
+3. Le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la gagne.
+4. Redescendre, passer la porte ouverte, revenir a l'etal.
+
+**Résultat attendu**
+
+- `ASSERT_NO_FATAL_FAILURE(jusquAuParvis(jeu))`
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"partir"}))`
+- Vérifie que `jeu.graineDuDialogue` diffère de `0`.
+- Vérifie que `jeu.parler(DEVANT_LE_GARDE)` vaut `"garde"`.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"convaincre", "endosser", "continue"}))`
+- Vérifie que `jeu.valeur()` vaut `"condamne"`.
+- Vérifie que `pomper([&jeu] { return jeu.etapes.size() >= 3; }, 1000)` est vrai.
+- Vérifie que `jeu.etapes` vaut `(std::vector<std::string>{"pommes/acceptee", "pommes/persuasion-echouee", "pommes/condamne"})`.
+- Vérifie que `jeu.passerLePortail(DEVANT_L_ESCALIER, {1.0F, 0.0F}, VESTIAIRES)` est vrai.
+- Vérifie que `jeu.heros()` vaut `ARRIVEE_AUX_VESTIAIRES`.
+- Vérifie que `jeu.passerLePortail(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, ARENAREA)` est faux.
+- Vérifie que `jeu.carte()` vaut `VESTIAIRES`.
+- Vérifie que `jeu.passerLePortail(PIED_DE_L_ESCALIER, {0.0F, -1.0F}, SABLE)` est vrai.
+- Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"combattre"}))`
+- Vérifie que `jeu.dialogueEngage.has_value()` est vrai.
+- Vérifie que `issue.empty()` est faux.
+- Vérifie que `jeu.router.currentScreen()` diffère de `Screen::Death`.
+- Vérifie que `gagnante.has_value()` est vrai.
+- Vérifie que `jeu.monde.flags().isSet(core::encounterWonFlag(RENCONTRE))` est vrai.
+- Vérifie que `pomper([&jeu] { return jeu.etapes.size() >= 5; }, 1000)` est vrai.
+- Vérifie que `jeu.etapes.back()` vaut `"pommes/enfant-libere"`.
+- Vérifie que `jeu.valeur()` vaut `"enfant-libere"`.
+- Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `std::nullopt`.
+- Vérifie que `jeu.passerLePortail(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, VESTIAIRES)` est vrai.
+- Vérifie que `jeu.passerLePortail(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, ARENAREA)` est vrai.
+- `ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "arene"))`
+
+### DemoDeBoutEnBout.LaMortSurLeSable
+
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:459`
+
+Nouvelle partie, puis la demo jusqu'a la mort sur le sable.
+
+**Étapes**
+
+1. Jusqu'au sable, condamne.
+2. Le combat a la premiere graine qui le perd.
+3. Recommencer.
+
+**Résultat attendu**
+
+- `ASSERT_NO_FATAL_FAILURE(jusquAuParvis(jeu))`
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"endosser", "continue"}))`
+- Vérifie que `jeu.valeur()` vaut `"condamne"`.
+- Vérifie que `jeu.passerLePortail(DEVANT_L_ESCALIER, {1.0F, 0.0F}, VESTIAIRES)` est vrai.
+- Vérifie que `jeu.passerLePortail(PIED_DE_L_ESCALIER, {0.0F, -1.0F}, SABLE)` est vrai.
+- Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"combattre"}))`
+- Vérifie que `issue.empty()` est faux.
+- Vérifie que `perdante.has_value()` est vrai.
+- Vérifie que `jeu.router.currentScreen()` vaut `Screen::Death`.
+- Vérifie que `jeu.rencontre.active()` est vrai.
+- Vérifie que `jeu.monde.flags().isSet(core::encounterWonFlag(RENCONTRE))` est faux.
+- Vérifie que `jeu.monde.loaded()` est faux.
+- Vérifie que `jeu.monde.startNewGame()` est vrai.
+- Vérifie que `jeu.carte()` vaut `MARTPART`.
+- Vérifie que `jeu.heros()` vaut `MARKET_GATE`.
+- Vérifie que `jeu.valeur()` vaut `"inconnue"`.
 
 ## test_parcours_edition_rpg.cpp
 

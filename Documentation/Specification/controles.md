@@ -31,7 +31,8 @@ ou « retour », jamais à une touche en particulier.
   **reconfigurables** par fichier (`Settings/keybindings.json`) ; un fichier absent ou partiel
   retombe sur les valeurs par défaut.
 - **EX-CTRL-022** — **Interagir** doit être une commande dédiée (E ou Espace)
-  qui déclenche l'entité placée devant le héros — dialogue, coffre, portail (`EX-EXP-004`).
+  qui déclenche l'entité à portée du héros — à moins de 1,5 case, celle qu'il regarde d'abord —
+  dialogue, coffre, portail (`EX-EXP-004`).
 
 ![Maquette de la chaîne des entrées : du périphérique à la touche ou au bouton, puis à la commande nommée et à l'intention que reçoit la simulation ; la chronologie d'un bouton sur cinq relevés, pressé, maintenu, relâché, et la répétition à cadence choisie ; la latence d'un pas au plus entre l'appui et son effet](maquettes/controles-chaine-entrees.svg)
 
