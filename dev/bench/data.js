@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790390360722,
+  "lastUpdate": 1790390366844,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1322,6 +1322,40 @@ window.BENCHMARK_DATA = {
             "value": 5.15824821428542,
             "unit": "ms/iter",
             "extra": "iterations: 280\ncpu: 5.133928571428571 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "917b73a208e9bacf09a65e68e9e8098160a0272c",
+          "message": "Merge pull request #142 from azertval/fix/code-scanning-alertes\n\nCode scanning — Les alertes clang-tidy de main corrigées",
+          "timestamp": "2026-09-25T21:54:53Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/917b73a208e9bacf09a65e68e9e8098160a0272c"
+        },
+        "date": 1790390364861,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.257540178571503,
+            "unit": "ms/iter",
+            "extra": "iterations: 112\ncpu: 12.834821428571429 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.173259926470768,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.170036764705882 ms\nthreads: 1"
           }
         ]
       }
