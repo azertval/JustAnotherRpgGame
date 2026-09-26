@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-26 05:28 UTC",
-  "commit": "917b73a20",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36220860979",
+  "generated": "2026-09-26 09:24 UTC",
+  "commit": "629144b7e",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36231202481",
   "coverage": {
-    "percent": 91.77,
-    "covered": 34870,
+    "percent": 91.73,
+    "covered": 34858,
     "valid": 37999,
     "files": 262,
     "areas": [
@@ -124,9 +124,9 @@
       },
       {
         "name": "HMI/Platform",
-        "covered": 108,
+        "covered": 102,
         "valid": 176,
-        "percent": 61.36
+        "percent": 57.95
       },
       {
         "name": "HMI/Presentation",

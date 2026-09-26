@@ -298,7 +298,7 @@ std::string crashDumpFileName(std::string_view application, std::string_view ver
     job.original = exception;
     if (exception != nullptr &amp;&amp; exception-&gt;ExceptionRecord != nullptr &amp;&amp;</span>
         exception-&gt;ContextRecord != nullptr) {
-<span style = "background-color:#dfd">        job.recordCopy = *exception-&gt;ExceptionRecord;
+<span style = "background-color:#fdd">        job.recordCopy = *exception-&gt;ExceptionRecord;
         job.recordCopy.ExceptionRecord = nullptr;  // pas d'exception imbriquÃ©e dans la copie
         job.contextCopy = *exception-&gt;ContextRecord;
         job.contextCopy.ContextFlags &amp;= ~(CONTEXT_XSTATE &amp; ~CONTEXT_AMD64);

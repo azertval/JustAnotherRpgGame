@@ -50,7 +50,7 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>dumpFromStructuredException(&amp;path)</code> est vrai.</li><li>Vérifie que <code>signature(path)</code> vaut <code>&quot;MDMP&quot;</code>.</li><li>Vérifie que <code>std::filesystem::file_size(path)</code> est strictement supérieur à <code>1024U</code>.</li><li>Vérifie que <code>hasExceptionStream(path)</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="crashdumptestechouesansleversuruncheminimpossible">CrashDumpTest.EchoueSansLeverSurUnCheminImpossible</h3>
-<p><em>Majeur · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:189</code></p>
+<p><em>Majeur · Unitaire · Crash Dump</em> — <code>Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:196</code></p>
 <p>Un chemin de minidump impossible échoue sans exception ni plantage.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Écrire un dump sous un nom interdit par Windows (« a?b.dmp »).</li></ol>
@@ -58,7 +58,7 @@
 <ul><li>Vérifie que <code>hmi::writeMiniDump(directory_ / &quot;a?b.dmp&quot;, nullptr)</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-localization.html"><span>Précédent</span>HMI · Localization</a><a class="next" href="hmi-presentation.html"><span>Suivant</span>HMI · Presentation</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-platform.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-26 · <code>917b73a20</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-26 · <code>629144b7e</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>
