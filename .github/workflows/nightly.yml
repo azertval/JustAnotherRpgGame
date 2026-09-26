@@ -112,6 +112,10 @@ jobs:
               --extra-arg=-Wno-unused-command-line-argument $_ 2>$null | Out-File -Encoding utf8 $log
           }
           Get-ChildItem tidy-logs -Filter *.log | Get-Content | Out-File -Encoding utf8 clang-tidy.log
+          # Les diagnostics aussi dans le journal : le résumé du job ne se lit pas par l'API, et
+          # sans eux une alerte de Code scanning ne se retrouve pas depuis le log du run.
+          Select-String -Path clang-tidy.log -Pattern ': (warning|error): ' |
+            ForEach-Object { $_.Line }
           exit 0
 
       - name: Diagnostics clang-tidy en SARIF

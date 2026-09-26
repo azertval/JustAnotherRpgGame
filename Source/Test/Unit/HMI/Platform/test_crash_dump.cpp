@@ -176,6 +176,13 @@ TEST_F(CrashDumpTest, EcritUnMinidumpSansExceptionEtCreeLeDossier) {
  * }
  */
 TEST_F(CrashDumpTest, EcritUnMinidumpAvecLeContexteDUneException) {
+    // Sous un débogueur, Windows n'appelle jamais le filtre d'exception non attrapée : le cas que
+    // ce test reproduit n'existe pas. OpenCppCoverage (job build-test-coverage) est un débogueur,
+    // et dbghelp y refuse par intermittence le contexte de l'exception (ERROR_INVALID_USER_BUFFER
+    // sur toutes les tentatives) -- des faux KO, jamais vus sous les quatre autres builds de la CI.
+    if (IsDebuggerPresent() != FALSE) {
+        GTEST_SKIP() << "Sous debogueur, le filtre de plantage n'est jamais appele.";
+    }
     const std::filesystem::path path = directory_ / "exception.dmp";
     ASSERT_TRUE(dumpFromStructuredException(&path))
         << "GetLastError = " << GetLastError() << " ; tentatives : " << attemptErrors();
