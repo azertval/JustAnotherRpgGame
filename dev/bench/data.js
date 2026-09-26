@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790367029316,
+  "lastUpdate": 1790390360722,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1124,6 +1124,100 @@ window.BENCHMARK_DATA = {
             "value": 2.5127569642856025,
             "unit": "us/iter",
             "extra": "iterations: 560000\ncpu: 2.5390625 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "917b73a208e9bacf09a65e68e9e8098160a0272c",
+          "message": "Merge pull request #142 from azertval/fix/code-scanning-alertes\n\nCode scanning — Les alertes clang-tidy de main corrigées",
+          "timestamp": "2026-09-25T21:54:53Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/917b73a208e9bacf09a65e68e9e8098160a0272c"
+        },
+        "date": 1790390358207,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 165438.03560466514,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 164978.51442602824 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 215761.14062500373,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 214843.75 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57517.34803435748,
+            "unit": "ns/iter",
+            "extra": "iterations: 24216\ncpu: 57425.87545424513 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 166802.2099447531,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 166896.86924493554 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1115249.7656250037,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1110839.84375 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2633034.3220338915,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2648305.084745763 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 686.2684675835103,
+            "unit": "us/iter",
+            "extra": "iterations: 2036\ncpu: 683.0181728880157 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.093693490926137,
+            "unit": "ms/iter",
+            "extra": "iterations: 14933\ncpu: 0.09312428848858234 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.13641028525512136,
+            "unit": "ms/iter",
+            "extra": "iterations: 9956\ncpu: 0.13653826838087585 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.06940739049302772,
+            "unit": "ms/iter",
+            "extra": "iterations: 20364\ncpu: 0.06982297191121586 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.13671827038971363,
+            "unit": "ms/iter",
+            "extra": "iterations: 9956\ncpu: 0.13653826838087585 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 3.5761087366678335,
+            "unit": "us/iter",
+            "extra": "iterations: 389565\ncpu: 3.569686701834097 us\nthreads: 1"
           }
         ]
       }
