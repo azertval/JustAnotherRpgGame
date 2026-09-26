@@ -76,7 +76,7 @@ Un minidump s'écrit avec le contexte d'une exception structurée.
 
 ### CrashDumpTest.EchoueSansLeverSurUnCheminImpossible
 
-*Majeur · Unitaire · Crash Dump* — `Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:189`
+*Majeur · Unitaire · Crash Dump* — `Source/Test/Unit/HMI/Platform/test_crash_dump.cpp:196`
 
 Un chemin de minidump impossible échoue sans exception ni plantage.
 
