@@ -32,7 +32,7 @@ La progression complète est dans [le référentiel des classes de base](../../.
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026. La table du Scoundrel est reprise niveau par niveau des pages 204-205 :
+Livré le 27 septembre 2026 (**PR #151**). La table du Scoundrel est reprise niveau par niveau des pages 204-205 :
 les identifiants fusionnés du `LOT-36` (`sneak-attack-simplified-scoundrel-s-agility`…) deviennent
 les capacités qu'ils nommaient, et la colonne de l'attaque sournoise devient une capacité par
 palier (`sneak-attack-simplified-2d8`… `-10d8`), chacune **remplaçant** la précédente
