@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-137 — États, agonie et mort.** Un personnage à 0 PV tombe **inconscient et à terre** et
+  jette contre la mort à sa place dans l'ordre (*Manuel des Joueurs*, p. 199) : trois succès le
+  stabilisent, trois échecs le tuent, un 1 compte double, un 20 le relève et le fait jouer ; blessé
+  à terre, il note un échec (deux sur un critique) ; des dégâts restants au moins égaux à son
+  maximum le tuent sur le coup ; un monstre meurt à 0 PV (`core::AtZeroHitPoints`). Nouveau statut
+  `Dead`, crochets `DeathSaveDue` et `CombatantDied`, `CombatState::recordDeathSave`,
+  `stabilize`, `revive`, `setLethal` (la Marque Héroïque ne tue personne). Un soin relève et remet
+  le compteur à zéro ; le relevé se remet debout au début de son tour pour la moitié de son
+  déplacement. Une cible inconsciente s'attaque avec avantage, et un coup au contact est critique ;
+  la concentration se rompt sous les dégâts (Constitution, DD 10 ou la moitié). *Épargner les
+  mourants* (`stabilizes`) et *revigorer* (`revives`, moins de dix rounds) se jouent.
+  `ArenaSession::conditionsOf` nomme les états (inconscient, à terre, stabilisé, mort, béni,
+  invisible, en vol, concentré), que l'inspecteur affiche. L'IA achève ou épargne selon le poids
+  `finishDowned` de son profil (agressif 75, meute 100, les autres 0). Tests :
+  `test_death_and_dying.cpp`.
 - **LOT-135 — Classe Scoundrel.** Le Scoundrel du *Player's Guide to Tanares* (p. 204-207) se
   joue du niveau 1 au niveau 5. Sa table est reprise niveau par niveau, et la colonne de l'attaque
   sournoise devient une capacité par palier qui remplace la précédente. *Sneak Attack Simplified*

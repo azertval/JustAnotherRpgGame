@@ -20,8 +20,5 @@
     "kind": "fly",
     "meters": 18
   },
-  "mecanismesRequis": [
-    "jet-de-concentration"
-  ],
-  "text": "Manuel des Joueurs, PDF p. 291 (fly). La creature consentante touchee vole a 18 metres par tour pendant la duree du sort : elle survole l'eau profonde et le vide de la grille. La concentration rompue par les degats est au LOT-137."
+  "text": "Manuel des Joueurs, PDF p. 291 (fly). La creature consentante touchee vole a 18 metres par tour pendant la duree du sort : elle survole l'eau profonde et le vide de la grille. Des degats subis par le lanceur demandent un jet de sauvegarde de Constitution, DD 10 ou la moitie des degats ; un echec rompt la concentration (LOT-137)."
 }

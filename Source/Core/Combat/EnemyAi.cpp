@@ -136,6 +136,12 @@ public:
                 .emprise = {.anchor = *position, .side = footprintSide(c->profile.size)},
                 .attaques = session.attacks(id)};
             _places.push_back(present);
+            // Un ennemi a terre n'est ni une menace ni un obstacle au choix : une cible, si le
+            // profil l'acheve et que l'on meurt dans ce combat (LOT-137).
+            if (id != acteur && c->status == CombatantStatus::Down && _combat.lethal() &&
+                c->profile.side != _moi.combattant->profile.side && profil.finishDowned > 0) {
+                _aTerre.push_back(present);
+            }
             if (id == acteur || c->status != CombatantStatus::Standing) {
                 continue;
             }
@@ -295,7 +301,15 @@ public:
         const Footprint ici = empriseEn(ancre);
         // Un ennemi qui voit l'acteur a une case gene le tir : une fois par ancre, pas par cible.
         std::optional<bool> auContact;
+        std::vector<const Present*> visees;
         for (const Present& cible : _ennemis) {
+            visees.push_back(&cible);
+        }
+        for (const Present& cible : _aTerre) {
+            visees.push_back(&cible);
+        }
+        for (const Present* visee : visees) {
+            const Present& cible = *visee;
             const int distance = ecart(ancre, ici.side, cible.emprise.anchor, cible.emprise.side);
             const bool uneAPortee = std::ranges::any_of(
                 *_moi.attaques, [&](const AttackProfile& a) { return porte(a, distance); });
@@ -305,7 +319,9 @@ public:
             const std::vector<Footprint> abris = corps(_moi.id, cible.id, ancre);
             const Cover abri = coverFrom(_grille, ici, cible.emprise, abris);
             const int ca = cible.combattant->profile.armorClass + coverBonus(abri);
-            const long long pourcent = pourcentContre(cible);
+            const long long pourcent = cible.combattant->status == CombatantStatus::Down
+                                           ? _profil.finishDowned
+                                           : pourcentContre(cible);
 
             for (std::size_t i = 0; i < _moi.attaques->size(); ++i) {
                 const AttackProfile& attaque = (*_moi.attaques)[i];
@@ -365,6 +381,20 @@ private:
         const Footprint ici = empriseEn(ancre);
         int avantages = 0;
         int desavantages = 0;
+        // Manuel, annexe A : ce que la session ajoutera au jet (LOT-137).
+        if (cible.combattant->status == CombatantStatus::Down) {
+            ++avantages;
+            frappe.circonstances.emplace_back("cible inconsciente");
+        }
+        if (cible.combattant->prone || cible.combattant->status == CombatantStatus::Down) {
+            if (distance == 1) {
+                ++avantages;
+                frappe.circonstances.emplace_back("cible a terre au contact");
+            } else {
+                ++desavantages;
+                frappe.circonstances.emplace_back("cible a terre a distance");
+            }
+        }
         if (attaque.kind == AttackKind::Melee && _session.bout().flanking &&
             isFlankedFrom(_combat, _moi.id, ancre, cible.id)) {
             ++avantages;
@@ -419,6 +449,8 @@ private:
     std::vector<Present> _places;
     std::vector<Present> _allies;
     std::vector<Present> _ennemis;
+    /// Les ennemis a terre que le profil acheve (LOT-137) : des cibles, jamais des menaces.
+    std::vector<Present> _aTerre;
     std::vector<std::vector<GridPosition>> _mobilite;
 };
 
@@ -613,7 +645,8 @@ BehaviorCatalog loadBehaviors(const std::filesystem::path& file) {
             .dodgeWhenThreatened =
                 lireBooleen(entree, "dodgeWhenThreatened", defaut.dodgeWhenThreatened),
             .retreatAfterAttack =
-                lireBooleen(entree, "retreatAfterAttack", defaut.retreatAfterAttack)};
+                lireBooleen(entree, "retreatAfterAttack", defaut.retreatAfterAttack),
+            .finishDowned = lireEntier(entree, "finishDowned", defaut.finishDowned)};
         if (profil.id.empty()) {
             catalogue.errors.push_back(fichier + " : profil sans identifiant.");
             continue;

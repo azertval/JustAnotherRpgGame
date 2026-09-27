@@ -22,8 +22,5 @@
     "dice": "1d4",
     "durationRounds": 10
   },
-  "mecanismesRequis": [
-    "jet-de-concentration"
-  ],
-  "text": "Manuel des Joueurs, PDF p. 220 (bless). Jusqu'a trois creatures a portee ajoutent 1d4 a leurs jets d'attaque et de sauvegarde pendant une minute. Le moteur benit la cible choisie et les allies les plus proches du lanceur, a portee. La concentration rompue par les degats est au LOT-137."
+  "text": "Manuel des Joueurs, PDF p. 220 (bless). Jusqu'a trois creatures a portee ajoutent 1d4 a leurs jets d'attaque et de sauvegarde pendant une minute. Le moteur benit la cible choisie et les allies les plus proches du lanceur, a portee. Des degats subis par le lanceur demandent un jet de sauvegarde de Constitution, DD 10 ou la moitie des degats ; un echec rompt la concentration (LOT-137)."
 }

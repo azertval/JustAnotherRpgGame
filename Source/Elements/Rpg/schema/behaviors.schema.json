@@ -41,7 +41,8 @@
           "toleratedThreats": { "type": "integer", "minimum": 0, "maximum": 2, "description": "Le nombre d'ennemis qui peuvent frapper la case de fin au contact, sans bouger, au plus, quand une case plus sure existe ; les tireurs, dont la portee couvre l'arene, ne comptent pas. Au plus 2 : finir a portee de trois ennemis quand une case sure existait est le suicide que le lot interdit." },
           "opportunityMaximumRoll": { "type": "integer", "minimum": 2, "maximum": 21, "description": "Le jet requis (CA - bonus) au-dela duquel on laisse passer une attaque d'opportunite. 21 : toujours." },
           "dodgeWhenThreatened": { "type": "boolean", "description": "Faute de pouvoir attaquer, et menace, esquiver." },
-          "retreatAfterAttack": { "type": "boolean", "description": "Apres avoir frappe, s'eloigner vers une case moins menacee." }
+          "retreatAfterAttack": { "type": "boolean", "description": "Apres avoir frappe, s'eloigner vers une case moins menacee." },
+          "finishDowned": { "type": "integer", "minimum": 0, "description": "Le poids d'un ennemi a terre dans un combat ou l'on meurt : l'achever (LOT-137), en pour cent de l'esperance de degats. 0 : on l'epargne." }
         },
         "required": [
           "id", "name", "damageDealt", "bloodiedTarget", "focusFire", "protectBloodiedAlly",

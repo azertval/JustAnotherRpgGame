@@ -78,6 +78,14 @@ struct SpellEffect {
     int durationRounds = 0;
 };
 
+/// @brief Le retour à la vie qu'un sort accorde (*revigorer*, `LOT-137`).
+struct SpellRevival {
+    /// Les points de vie du revenant.
+    int hitPoints = 1;
+    /// Mort depuis au plus ce nombre de rounds (« moins d'une minute » : dix).
+    int withinRounds = 10;
+};
+
 /// @brief Un sort, tel que `spell.schema.json` l'écrit.
 struct Spell {
     std::string id;
@@ -109,6 +117,10 @@ struct Spell {
     bool addsAbilityModifier = false;
     /// Les dés de soin (*soin des blessures*, `LOT-134`).
     std::optional<Dice> healing;
+    /// Stabilise une créature à terre (*épargner les mourants*, `LOT-137`).
+    bool stabilizes = false;
+    /// Ramène un mort (*revigorer*, `LOT-137`).
+    std::optional<SpellRevival> revives;
     /// Le sort se lance par une action bonus.
     bool bonusAction = false;
     /// Les créatures qu'un sort qui aide peut viser (*bénédiction* : 3).
@@ -167,6 +179,10 @@ enum class SpellMechanism : std::uint8_t {
     Effect,
     /// Des points de vie rendus à une créature de son camp (*soin des blessures*, `LOT-134`).
     Healing,
+    /// Une créature à terre stabilisée (*épargner les mourants*, `LOT-137`).
+    Stabilize,
+    /// Un mort ramené à la vie (*revigorer*, `LOT-137`).
+    Revive,
 };
 
 /**

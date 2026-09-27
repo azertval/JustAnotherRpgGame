@@ -16,6 +16,10 @@ sur la fiche (`CharacterSheet::knownSpells`) ; un repos long le rend (`core::lon
 
 Les sorts du Mage (`LOT-133`) et du Priest (`LOT-134`) y sont, nommés comme dans le *Manuel des
 Joueurs*. Le Priest ajoute le **soin** (`healing`), les effets à plusieurs cibles (`maxTargets`),
-l'**action bonus** (`bonusAction`) et l'attaque de sort au corps à corps (`attackKind`). L'icône d'un sort est le membre de même identifiant de la pièce
+l'**action bonus** (`bonusAction`) et l'attaque de sort au corps à corps (`attackKind`).
+L'agonie (`LOT-137`) en ajoute deux : **stabiliser** une créature à terre (`stabilizes`,
+*épargner les mourants*) et **ramener** un mort récent (`revives` : points de vie et rounds
+écoulés au plus, *revigorer*). La concentration se rompt désormais sous les dégâts (sauvegarde de
+Constitution, DD 10 ou la moitié des dégâts). L'icône d'un sort est le membre de même identifiant de la pièce
 `ui/icon/spell` du cahier des assets de la charte v2. Les sorts d'essai du socle vivent dans la
 racine d'essai, `Source/Test/Fixtures/GameData/Rpg/spells/`.

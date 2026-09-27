@@ -547,7 +547,8 @@ QVariantMap EncounterModel::target() const {
     }
     const core::CombatantProfile& profile = target->profile;
     const bool ally = profile.side == core::CombatSide::Allies;
-    const bool down = target->status == core::CombatantStatus::Down;
+    const bool dead = target->status == core::CombatantStatus::Dead;
+    const bool down = dead || target->status == core::CombatantStatus::Down;
     map.insert("name", toQt(profile.name));
     map.insert("side", ally ? QStringLiteral("allies") : QStringLiteral("enemies"));
     // Guide du Maitre, chapitre 8 : les points de vie d'un monstre se suivent en secret.
@@ -560,7 +561,10 @@ QVariantMap EncounterModel::target() const {
     } else {
         QString label;
         double ratio = 1.0;
-        if (down) {
+        if (dead) {
+            label = tr("mort");
+            ratio = 0.0;
+        } else if (down) {
             label = tr("a terre");
             ratio = 0.0;
         } else if (core::isBloodied(profile)) {
@@ -574,9 +578,14 @@ QVariantMap EncounterModel::target() const {
     map.insert("speed", QString::number(
                             static_cast<double>(profile.movement) * core::METERS_PER_TILE, 'g', 3) +
                             tr(" m"));
+    // Les etats de la session (LOT-137) : inconscient, a terre, stabilise, mort, beni...
     QStringList conditions;
-    if (down) {
-        conditions << tr("A terre");
+    for (const core::CombatCondition condition : _session->conditionsOf(*occupant)) {
+        QString label = toQt(std::string(core::combatConditionLabel(condition)));
+        if (!label.isEmpty()) {
+            label[0] = label[0].toUpper();
+        }
+        conditions << label;
     }
     if (core::isBloodied(profile) && !down) {
         conditions << tr("Ensanglante");

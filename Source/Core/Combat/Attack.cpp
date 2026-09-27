@@ -481,8 +481,12 @@ std::string AttackOutcome::describe() const {
         texte += jet.isNaturalOne() ? " : rate (1 naturel)" : " : rate";
         return texte;
     }
-    texte +=
-        roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)" : " : touche";
+    if (roll.critical && !roll.criticalSource.empty()) {
+        texte += " : critique (" + roll.criticalSource + ")";
+    } else {
+        texte += roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)"
+                               : " : touche";
+    }
     return texte + describeDamage(damage, report);
 }
 

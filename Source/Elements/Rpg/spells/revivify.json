@@ -15,8 +15,9 @@
     "materialText": "un diamant d'une valeur de 300 po, que le sort consume"
   },
   "duration": "instantanee",
-  "mecanismesRequis": [
-    "mort"
-  ],
-  "text": "Manuel des Joueurs, PDF p. 278 (revivify). Une creature morte depuis moins d'une minute revient a la vie avec 1 point de vie. La mort n'existe pas encore en combat : le sort attend le LOT-137."
+  "revives": {
+    "hitPoints": 1,
+    "withinRounds": 10
+  },
+  "text": "Manuel des Joueurs, PDF p. 278 (revivify). Une creature morte depuis moins d'une minute (dix rounds) revient a la vie avec 1 point de vie. Le combat ne tient pas l'inventaire : le diamant de 300 po n'est pas decompte."
 }

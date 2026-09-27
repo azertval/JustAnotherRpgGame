@@ -23,7 +23,8 @@
       "toleratedThreats": 2,
       "opportunityMaximumRoll": 21,
       "dodgeWhenThreatened": false,
-      "retreatAfterAttack": false
+      "retreatAfterAttack": false,
+      "finishDowned": 75
     },
     {
       "id": "cautious",
@@ -39,7 +40,8 @@
       "toleratedThreats": 1,
       "opportunityMaximumRoll": 15,
       "dodgeWhenThreatened": true,
-      "retreatAfterAttack": true
+      "retreatAfterAttack": true,
+      "finishDowned": 0
     },
     {
       "id": "support",
@@ -55,7 +57,8 @@
       "toleratedThreats": 1,
       "opportunityMaximumRoll": 18,
       "dodgeWhenThreatened": true,
-      "retreatAfterAttack": false
+      "retreatAfterAttack": false,
+      "finishDowned": 0
     },
     {
       "id": "archer",
@@ -71,7 +74,8 @@
       "toleratedThreats": 1,
       "opportunityMaximumRoll": 18,
       "dodgeWhenThreatened": false,
-      "retreatAfterAttack": true
+      "retreatAfterAttack": true,
+      "finishDowned": 0
     },
     {
       "id": "pack",
@@ -87,7 +91,8 @@
       "toleratedThreats": 2,
       "opportunityMaximumRoll": 21,
       "dodgeWhenThreatened": false,
-      "retreatAfterAttack": false
+      "retreatAfterAttack": false,
+      "finishDowned": 100
     }
   ],
   "assignments": [

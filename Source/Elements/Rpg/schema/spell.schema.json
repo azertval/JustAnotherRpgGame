@@ -71,6 +71,31 @@
       "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/des",
       "description": "Les des de soin (cure wounds : 1d8) ; une creature a terre se releve (LOT-134)."
     },
+    "stabilizes": {
+      "type": "boolean",
+      "description": "Le sort stabilise une creature a terre : elle ne fait plus de jets contre la mort (spare the dying, LOT-137)."
+    },
+    "revives": {
+      "type": "object",
+      "description": "Le sort ramene un mort de son camp (revivify, LOT-137).",
+      "properties": {
+        "hitPoints": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Les points de vie du revenant."
+        },
+        "withinRounds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Mort depuis au plus ce nombre de rounds (moins d'une minute : 10)."
+        }
+      },
+      "required": [
+        "hitPoints",
+        "withinRounds"
+      ],
+      "additionalProperties": false
+    },
     "bonusAction": {
       "type": "boolean",
       "description": "Le sort se lance par une ACTION BONUS, pas par l'action (spiritual weapon)."

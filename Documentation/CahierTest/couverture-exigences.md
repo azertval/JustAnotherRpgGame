@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**34 exigences en vigueur sur 300** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**36 exigences en vigueur sur 300** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -8,7 +8,7 @@
 |---|---|---|---|---|
 | `EX-ARCH` | [Architecture (décisions dimensionnantes)](../Specification/architecture.md) | 13 | 0 | 13 |
 | `EX-BUILD` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 1 | 0 | 1 |
-| `EX-CBT` | [Combat tactique](../Specification/combat.md) | 14 | 3 | 11 |
+| `EX-CBT` | [Combat tactique](../Specification/combat.md) | 14 | 5 | 9 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
 | `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 0 | 7 |
 | `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 76 | 8 | 68 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **300** | **34** | **266** |
+| **Total** | | **300** | **36** | **264** |
 
 ## Exigence par exigence
 
@@ -66,10 +66,10 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-CBT-030` | [Combat tactique](../Specification/combat.md) | [`ClassCapacitiesTest.LaFicheTireSesValeursDeSesCapacites`](core-rpg.md#classcapacitiestestlafichetiresesvaleursdesescapacites) |
 | `EX-CBT-031` | [Combat tactique](../Specification/combat.md) | [`DamageTest.LeCritiqueDoubleLesDesPasLeModificateur`](core-combat.md#damagetestlecritiquedoublelesdespaslemodificateur) |
 | `EX-CBT-032` | [Combat tactique](../Specification/combat.md) | — |
-| `EX-CBT-040` | [Combat tactique](../Specification/combat.md) | — |
-| `EX-CBT-041` | [Combat tactique](../Specification/combat.md) | — |
+| `EX-CBT-040` | [Combat tactique](../Specification/combat.md) | [`DeathAndDyingTest.TroisEchecsTuent`](core-combat.md#deathanddyingtesttroisechecstuent), [`DeathAndDyingTest.UnVingtReleveUnUnCompteDouble`](core-combat.md#deathanddyingtestunvingtreleveununcomptedouble), [`DeathAndDyingTest.LesDegatsATerreEtLaMortInstantanee`](core-combat.md#deathanddyingtestlesdegatsaterreetlamortinstantanee), [`DeathAndDyingTest.LeJetSeFaitASaPlaceEtUnVingtRejoue`](core-combat.md#deathanddyingtestlejetsefaitasaplaceetunvingtrejoue), [`DeathAndDyingTest.LeJetContreLaMortSeJetteDansLArene`](core-combat.md#deathanddyingtestlejetcontrelamortsejettedanslarene), [`DeathAndDyingTest.FrapperUnInconscientAuContactEstCritique`](core-combat.md#deathanddyingtestfrapperuninconscientaucontactestcritique) |
+| `EX-CBT-041` | [Combat tactique](../Specification/combat.md) | [`DeathAndDyingTest.UnVingtReleveUnUnCompteDouble`](core-combat.md#deathanddyingtestunvingtreleveununcomptedouble), [`DeathAndDyingTest.UnAllieATerreSeReleveParSoinEtRejoue`](core-combat.md#deathanddyingtestunallieaterresereleveparsoinetrejoue) |
 | `EX-CBT-042` | [Combat tactique](../Specification/combat.md) | — |
-| `EX-CBT-050` | [Combat tactique](../Specification/combat.md) | [`EnemyAiTest.LIaNeLitQueLEtatEnsanglante`](core-combat.md#enemyaitestlianelitqueletatensanglante) |
+| `EX-CBT-050` | [Combat tactique](../Specification/combat.md) | [`DeathAndDyingTest.LIaAcheveOuEpargneSelonSonProfil`](core-combat.md#deathanddyingtestliaacheveouepargneselonsonprofil), [`EnemyAiTest.LIaNeLitQueLEtatEnsanglante`](core-combat.md#enemyaitestlianelitqueletatensanglante) |
 
 ### `EX-CNT`
 
