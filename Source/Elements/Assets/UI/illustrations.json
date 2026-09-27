@@ -3647,18 +3647,77 @@
         "bottom": 0
       },
       "generator": "ImageGen (built-in image_gen), retouche ImageMagick"
+    },
+    {
+      "id": "ui-icon-capacity-ability-score-improvement",
+      "file": "icon/capacity/ability-score-improvement.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/ability-score-improvement",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: an upward arrow over a small star. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 23213,
+      "sha256": "6e47c386e6483ec1f2cf97f20a05009fc9cf7d5ad77352f63c0a81e4ddf285df"
+    },
+    {
+      "id": "ui-icon-capacity-experience",
+      "file": "icon/capacity/experience.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/experience",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: an open book with a small laurel sprig. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 28182,
+      "sha256": "ea41909970e7c041ef09f66ad8d6cd31a5e88f2c749ad1331067d123e2709aa2"
+    },
+    {
+      "id": "ui-icon-capacity-extra-attack",
+      "file": "icon/capacity/extra-attack.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/extra-attack",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: two crossed axes with twin motion arcs. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 29092,
+      "sha256": "10bd4dec3dc59534f1c44573739784188d4dc645e19f61b2002b40b6043abdb4"
+    },
+    {
+      "id": "ui-icon-capacity-hit-the-mark",
+      "file": "icon/capacity/hit-the-mark.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/hit-the-mark",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: an axe blade striking the centre of a target. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 27889,
+      "sha256": "fc0a553e8092219f9455afd3a32cda33faa4a1f2ae794ed7e917d05dd3d45897"
+    },
+    {
+      "id": "ui-icon-capacity-tough-as-nails",
+      "file": "icon/capacity/tough-as-nails.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/tough-as-nails",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a clenched stone fist in front of a round shield. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 30316,
+      "sha256": "976547eeab84b2b5378320c79f8c61f6a4ecb6ea5785305d50f29a3a4790b981"
     }
   ],
-  "pending": [
-    {
-      "keys": [
-        "ui/icon/capacity/tough-as-nails",
-        "ui/icon/capacity/experience",
-        "ui/icon/capacity/hit-the-mark",
-        "ui/icon/capacity/ability-score-improvement",
-        "ui/icon/capacity/extra-attack"
-      ],
-      "reason": "icônes du LOT-132 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
-    }
-  ]
+  "pending": []
 }

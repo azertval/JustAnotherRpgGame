@@ -57,10 +57,10 @@ ce lot écrit ses capacités des niveaux 1 à 5 dans le catalogue du `LOT-131`
 5. Les capacités d'une classe simplifiée sont **provisoires comme elle** (`status`,
    `EX-CNT-032`) : elles partent avec la dernière classe qui les nomme.
 6. **Icônes** : la pièce `ui/icon/capacity` entre au cahier des assets de la charte v2, avec un
-   membre par capacité ; les cinq clés sont marquées « non livrées » dans le manifeste
-   (`illustrations.json`, `pending`) et les envois au générateur sont préparés sur le poste
-   (`Tools/Envois/LOT-132/`, jamais livré). L'auteur lance la génération ; `receive_ui_assets.py`
-   les installera.
+   membre par capacité. Les cinq icônes, générées par l'auteur sur les envois du poste
+   (`Tools/Envois/LOT-132/`, jamais livré), sont recadrées à 128 px avec 4 px de marge, installées
+   par `receive_ui_assets.py` (`illustrations.json`, `Artwork.qml`) et publiées dans le kit
+   `UI@2`.
 
 Tests : `test_class_brawler.cpp` (un test par capacité, la montée de 1 à 5, le refus d'une
 attaque en plus nulle), sur la fiche pré-tirée et les catalogues du jeu
@@ -73,7 +73,6 @@ attaque en plus nulle), sur la fiche pré-tirée et les catalogues du jeu
   +4) ; la seconde devra prendre son propre identifiant quand ces niveaux se joueront.
 - Le choix de la compétence d'*Experience* et de l'augmentation : l'écran de passage de niveau
   n'existe pas.
-- Les images des icônes : en attente de génération par l'auteur.
 
 ## Exigences
 

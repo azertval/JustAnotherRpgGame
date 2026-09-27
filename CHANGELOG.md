@@ -16,7 +16,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   barre d'actions ne propose plus alors que les attaques. *Experience* et *Ability Score
   Improvement*, communes aux quatre classes, sont narratives et déclarent leur mécanisme requis :
   monter de 1 à 5 ne laisse plus d'avertissement. La pièce `ui/icon/capacity` entre au cahier de la
-  charte v2 ; ses cinq icônes sont marquées non livrées, en attente de génération.
+  charte v2 ; ses cinq icônes sont livrées dans le kit `UI@2`.
   Tests : `test_class_brawler.cpp`, sur le support partagé `Test/Support/ClassArena.h`.
 - **LOT-131 — Le socle de classe simplifiée.** Une classe est une donnée qui agit en combat sans
   une ligne de C++ qui la nomme. Les **capacités** sont un catalogue d'**effets nommés**
