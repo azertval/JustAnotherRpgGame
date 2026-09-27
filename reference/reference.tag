@@ -642,6 +642,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
     <filename>Flanking_8cpp.html</filename>
     <includes id="Flanking_8h" name="Flanking.h" local="yes" import="no" module="no" objc="no">Core/Combat/Flanking.h</includes>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -6275,6 +6276,116 @@
       <anchorfile>test__class__mage_8cpp.html</anchorfile>
       <anchor>a94af77468a1d86a89a1ca9fba0a6eeee</anchor>
       <arglist>(ClassMageTest, UnEffetInconnuEstRefuseEtUnConeNeSeJouePas)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_class_priest.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__class__priest_8cpp.html</filename>
+    <includes id="ActionEconomy_8h" name="ActionEconomy.h" local="yes" import="no" module="no" objc="no">Core/Combat/ActionEconomy.h</includes>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
+    <includes id="ClassArena_8h" name="ClassArena.h" local="yes" import="no" module="no" objc="no">Test/Support/ClassArena.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__priest_8cpp.html</anchorfile>
+      <anchor>a4c523b8b45907e499992b3050af6ee5e</anchor>
+      <arglist>(ClassPriestTest, LaFichePreTireeSeJoueAvecSesSortsDeNiveau1)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__priest_8cpp.html</anchorfile>
+      <anchor>aa4e0270ac25ca6a872e59df5c6dc37f4</anchor>
+      <arglist>(ClassPriestTest, FlammeSacreeAnnuleSurUneSauvegardeReussie)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__priest_8cpp.html</anchorfile>
+      <anchor>abf2bcbbe9ba4033cc6f80597b6ee583d</anchor>
+      <arglist>(ClassPriestTest, SoinDesBlessuresReleveUnAllie)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__priest_8cpp.html</anchorfile>
+      <anchor>a2313a967e604798c430f1c14abd0f4b2</anchor>
+      <arglist>(ClassPriestTest, BenedictionAjouteUnD4AuxJetsDeTroisAllies)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__priest_8cpp.html</anchorfile>
+      <anchor>a96799ceb33fdf18c4ca859830a4dad67</anchor>
+      <arglist>(ClassPriestTest, ArmeSpirituelleFrappeParActionBonus)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__priest_8cpp.html</anchorfile>
+      <anchor>a6e0c4321823e5f6bf644b4102717088e</anchor>
+      <arglist>(ClassPriestTest, DuNiveau1AuNiveau5LaTableSeLit)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_class_scoundrel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__class__scoundrel_8cpp.html</filename>
+    <includes id="ActionEconomy_8h" name="ActionEconomy.h" local="yes" import="no" module="no" objc="no">Core/Combat/ActionEconomy.h</includes>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
+    <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
+    <includes id="ClassArena_8h" name="ClassArena.h" local="yes" import="no" module="no" objc="no">Test/Support/ClassArena.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>a98aa208e6ed76b55a455a69603a77da3</anchor>
+      <arglist>(ClassScoundrelTest, LaFichePreTireePorteSesCapacitesDeNiveau1)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>af7f0eac64684df9e5243925cdfac7cdd</anchor>
+      <arglist>(ClassScoundrelTest, LAttaqueSournoiseDemandeUnAllieAuContact)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>a3258b9855a09546d601fa5696f6719e7</anchor>
+      <arglist>(ClassScoundrelTest, LesDesSournoisMontentAvecLaTable)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>a5395ae864586b590090691cd1d52cfc2</anchor>
+      <arglist>(ClassScoundrelTest, ScoundrelsAgilityEviteLesAttaquesDOpportunite)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>a8e24155418907f83e774d086b19f6ea1</anchor>
+      <arglist>(ClassScoundrelTest, AdventurersAptitudeAjouteAuxTestsMaitrises)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>ade722c1ccb36a74795b3c7a7d49ea57c</anchor>
+      <arglist>(ClassScoundrelTest, PreciseStrikerAjouteUnAuJet)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__scoundrel_8cpp.html</anchorfile>
+      <anchor>a3b093b6f93768fecf2e518b31ba6ca87</anchor>
+      <arglist>(ClassScoundrelTest, DuNiveau1AuNiveau5LaTableSeLit)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14575,6 +14686,13 @@
       <anchor>ac5b1c446772d48056fefd201f48faace</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; Dice &gt;</type>
+      <name>dice</name>
+      <anchorfile>structcore_1_1ArenaEffect.html</anchorfile>
+      <anchor>a68b75ce2f269abce02d6b26cd128adc2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::ArenaEntryPoint</name>
@@ -14953,6 +15071,20 @@
     </member>
     <member kind="function" protection="private">
       <type>ArenaAttack</type>
+      <name>castHealing</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a3b257eeb42aa0ca2bf905e9c17fa3e54</anchor>
+      <arglist>(CombatantId caster, CombatantId target, const ArenaSpell &amp;spell, const std::string &amp;prefix)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::optional&lt; Modifier &gt;</type>
+      <name>blessingFor</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a7e9e66ad9c6eb4ccccd449012e6144fd</anchor>
+      <arglist>(CombatantId combatant)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>ArenaAttack</type>
       <name>castEffect</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>ad642d79d5d1b89a1913e1145f94da3de</anchor>
@@ -15198,6 +15330,27 @@
       <name>concentration</name>
       <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
       <anchor>aaf833484c162b129c55ae06cf203a101</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>bonusAction</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a8ba32caf06393a367ed50de530d6e2b3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>maxTargets</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a4fcd2b52679dad7cd0a1c69dcf8c2dde</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Dice &gt;</type>
+      <name>healing</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a9cdc58664012609ffa082efab4997621</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -18566,6 +18719,13 @@
       <name>oncePerTurn</name>
       <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
       <anchor>a80a31ac675a287c75216f1b713082c3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>allyAdjacentToTarget</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a77d8103ea7afd6cb6db2057ba4377d2c</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -36104,6 +36264,13 @@
       <anchor>a047c9859c6828ac76dfea341f70f4c45</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>allyAdjacentToTarget</name>
+      <anchorfile>structcore_1_1NamedExtraDamage.html</anchorfile>
+      <anchor>a6616ed70cf0d68d03937173ad89aee15</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::NamedResistance</name>
@@ -40958,6 +41125,41 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>bool</type>
+      <name>meleeAttack</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a342d4968b35e77227112b4364263ba74</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>addsAbilityModifier</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a87bcc03ab56f6e3adc14ba788e3eee50</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Dice &gt;</type>
+      <name>healing</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a34117030ae56809aee2a61a0963bf4d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>bonusAction</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a9047893bb6649fb1ff013cae04f19e81</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>maxTargets</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a562e548f68be02effde174ad42502db1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>SaveEffect</type>
       <name>saveEffect</name>
       <anchorfile>structcore_1_1Spell.html</anchorfile>
@@ -41100,6 +41302,13 @@
       <name>meters</name>
       <anchorfile>structcore_1_1SpellEffect.html</anchorfile>
       <anchor>a05b0655399ef42df471c963180c04694</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Dice &gt;</type>
+      <name>dice</name>
+      <anchorfile>structcore_1_1SpellEffect.html</anchorfile>
+      <anchor>a6c9c6b93d0c29f1528cb65e6243bb9e8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -46800,6 +47009,7 @@
       <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494">NoOpportunityAttacks</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222">ExtraDamage</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999">ExtraAttack</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a1516b4dfba07b5c660dea7596476410e">ProficientCheckBonus</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -47011,6 +47221,8 @@
       <arglist></arglist>
       <enumvalue file="namespacecore.html" anchor="a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51">Fly</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f">Invisible</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a949e652a2fd4c81697cb49b39cd45a99a428703a9485ad2e8d372fb746c77969e">Bless</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a949e652a2fd4c81697cb49b39cd45a99a8da4b1fe1879e52cfb2d00a79bc8fb13">SpiritualWeapon</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -47022,6 +47234,7 @@
       <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77">AutoHit</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d">SavingThrow</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa">Effect</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543">Healing</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -47579,6 +47792,13 @@
       <name>isFlanked</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>aa5addda291b02ded7b8439d8b16be3f8</anchor>
+      <arglist>(const CombatState &amp;combat, CombatantId attacker, CombatantId target)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isAdjacentToAllyOf</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3491623c50f45e1b4d284baee43f94e7</anchor>
       <arglist>(const CombatState &amp;combat, CombatantId attacker, CombatantId target)</arglist>
     </member>
     <member kind="function">
@@ -48622,6 +48842,13 @@
       <name>extraDamageFrom</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a7e2bf23d4453ec8ed43d4830a4416827</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>proficientCheckBonusFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a6767523293afedb44f63ed1795abf8db</anchor>
       <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
     </member>
     <member kind="function">
@@ -53677,6 +53904,8 @@
     <file>test_class_brawler.cpp</file>
     <file>test_class_in_arena.cpp</file>
     <file>test_class_mage.cpp</file>
+    <file>test_class_priest.cpp</file>
+    <file>test_class_scoundrel.cpp</file>
     <file>test_combat_preview.cpp</file>
     <file>test_combat_state.cpp</file>
     <file>test_damage.cpp</file>

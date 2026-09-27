@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987fa9359d5f3ea6721150c54b95c46f49cba":[3,0,0,21,2,1],
+"classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987fac3bf447eabe632720a3aa1a7ce401274":[2,0,1,21,2,0],
+"classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987fac3bf447eabe632720a3aa1a7ce401274":[3,0,0,21,2,0],
+"classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987fae41480b6bbfbf7407974a88d3d34f4fa":[2,0,1,21,2,2],
 "classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987fae41480b6bbfbf7407974a88d3d34f4fa":[3,0,0,21,2,2],
 "classcore_1_1CharacterListener.html":[2,0,1,181],
 "classcore_1_1CharacterListener.html":[3,0,0,181],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "classcore_1_1DeterministicRandom.html":[3,0,0,126],
 "classcore_1_1DeterministicRandom.html#a1d65be30928e57da0961a462bb1086a3":[2,0,1,126,3],
 "classcore_1_1DeterministicRandom.html#a1d65be30928e57da0961a462bb1086a3":[3,0,0,126,3],
-"classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2":[2,0,1,126,5],
-"classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2":[3,0,0,126,5],
-"classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0":[2,0,1,126,4],
-"classcore_1_1DeterministicRandom.html#ad1df942da4dba2bfcc231873164d7bd0":[3,0,0,126,4],
-"classcore_1_1DeterministicRandom.html#ae8b6c9a8b84c113d3e881e825ce1ca38":[2,0,1,126,1]
+"classcore_1_1DeterministicRandom.html#a91a43b32e578b7bc3006197210ce0cf2":[2,0,1,126,5]
 };

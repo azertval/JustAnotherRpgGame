@@ -296,7 +296,8 @@ var namespacecore =
       [ "SpeedBonus", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4ad8d3f13bfff77989e373ba72671b49a0", null ],
       [ "NoOpportunityAttacks", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494", null ],
       [ "ExtraDamage", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222", null ],
-      [ "ExtraAttack", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999", null ]
+      [ "ExtraAttack", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999", null ],
+      [ "ProficientCheckBonus", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a1516b4dfba07b5c660dea7596476410e", null ]
     ] ],
     [ "CasterProgression", "namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066d", [
       [ "None", "namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066da6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -665,13 +666,16 @@ var namespacecore =
     ] ],
     [ "SpellEffectKind", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99", [
       [ "Fly", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51", null ],
-      [ "Invisible", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f", null ]
+      [ "Invisible", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f", null ],
+      [ "Bless", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a428703a9485ad2e8d372fb746c77969e", null ],
+      [ "SpiritualWeapon", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a8da4b1fe1879e52cfb2d00a79bc8fb13", null ]
     ] ],
     [ "SpellMechanism", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b", [
       [ "AttackRoll", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5", null ],
       [ "AutoHit", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77", null ],
       [ "SavingThrow", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d", null ],
-      [ "Effect", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa", null ]
+      [ "Effect", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa", null ],
+      [ "Healing", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543", null ]
     ] ],
     [ "SpellTarget", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec", [
       [ "Enemy", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e", null ],
@@ -891,6 +895,7 @@ var namespacecore =
     [ "inReach", "namespacecore.html#a58f349d22c971141da56b91273d5d29d", null ],
     [ "inspectedProperties", "namespacecore.html#a188546c2a734bbc4d40876346e4e5841", null ],
     [ "interact", "namespacecore.html#ade4da2a70cde1d986371a29343746637", null ],
+    [ "isAdjacentToAllyOf", "namespacecore.html#a3491623c50f45e1b4d284baee43f94e7", null ],
     [ "isAttackSpell", "namespacecore.html#acda21c95fdff4cecac87781e5ea4cbce", null ],
     [ "isBloodied", "namespacecore.html#a4614784f31f78b56e87ec55af65262a8", null ],
     [ "isEntityPresent", "namespacecore.html#aba21a4dfa3200162f5b83c366719c6c9", null ],
@@ -986,6 +991,7 @@ var namespacecore =
     [ "previewAttack", "namespacecore.html#a331ece5830ae73d553faf88ddecc116c", null ],
     [ "previewMove", "namespacecore.html#ac10191346bb1e11cc0c720ea9f4a5c79", null ],
     [ "proficiencyBonus", "namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1", null ],
+    [ "proficientCheckBonusFrom", "namespacecore.html#a6767523293afedb44f63ed1795abf8db", null ],
     [ "profileFor", "namespacecore.html#aaf88a4a4366d6a6ec1735e663041105f", null ],
     [ "profileFor", "namespacecore.html#a42dc4a900c3340d179d7270def49fde9", null ],
     [ "questProgress", "namespacecore.html#a65fd043ff3badf928d4bd699b4bf72bd", null ],

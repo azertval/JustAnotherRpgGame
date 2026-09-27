@@ -36,7 +36,7 @@ struct NomDeGenre {
 };
 
 // Les noms sont ceux de `capacity.schema.json` : le schema et le moteur doivent dire la meme liste.
-constexpr std::array&lt;NomDeGenre, 8&gt; GENRES{{
+constexpr std::array&lt;NomDeGenre, 9&gt; GENRES{{
     {CapacityEffectKind::AttackBonus, "attack-bonus"},
     {CapacityEffectKind::ArmorClassBonus, "armor-class-bonus"},
     {CapacityEffectKind::UnarmoredArmorClass, "unarmored-armor-class"},
@@ -45,6 +45,7 @@ constexpr std::array&lt;NomDeGenre, 8&gt; GENRES{{
     {CapacityEffectKind::NoOpportunityAttacks, "no-opportunity-attacks"},
     {CapacityEffectKind::ExtraDamage, "extra-damage"},
     {CapacityEffectKind::ExtraAttack, "extra-attack"},
+    {CapacityEffectKind::ProficientCheckBonus, "proficient-check-bonus"},
 }};
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
@@ -98,7 +99,8 @@ constexpr std::array&lt;NomDeGenre, 8&gt; GENRES{{
     switch (effet.kind) {</span>
         case CapacityEffectKind::AttackBonus:
         case CapacityEffectKind::ArmorClassBonus:
-        case CapacityEffectKind::ExtraAttack: {
+        case CapacityEffectKind::ExtraAttack:
+        case CapacityEffectKind::ProficientCheckBonus: {
 <span style = "background-color:#dfd">            const std::optional&lt;int&gt; valeur = lireEntier(objet, "value");
             if (!valeur.has_value()) {</span>
 <span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
@@ -169,7 +171,8 @@ constexpr std::array&lt;NomDeGenre, 8&gt; GENRES{{
                 return std::nullopt;</span>
             }
 <span style = "background-color:#dfd">            effet.dice = *des;
-            effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);</span>
+            effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);
+            effet.allyAdjacentToTarget = lireBooleen(objet, "allyAdjacentToTarget", false);</span>
             break;
         }
     }
@@ -281,8 +284,8 @@ constexpr std::array&lt;NomDeGenre, 8&gt; GENRES{{
     int total = 0;
     for (const Capacity&amp; capacite : capacities) {
         for (const CapacityEffect&amp; effet : capacite.effects) {
-            if (effet.kind == CapacityEffectKind::ArmorClassBonus) {</span>
-<span style = "background-color:#fdd">                total += effet.value;</span>
+            if (effet.kind == CapacityEffectKind::ArmorClassBonus) {
+                total += effet.value;</span>
             }
 <span style = "background-color:#dfd">        }
     }
@@ -362,11 +365,24 @@ std::optional&lt;UnarmoredArmorClass&gt; unarmoredArmorClassFrom(std::span&lt;co
                 des.push_back({.dice = effet.dice,</span>
                                .oncePerTurn = effet.oncePerTurn,
                                .capacityId = capacite.id,
-                               .source = capacite.name});
+                               .source = capacite.name,
+                               .allyAdjacentToTarget = effet.allyAdjacentToTarget});
             }
 <span style = "background-color:#dfd">        }
     }
     return des;
+}</span>
+
+<span style = "background-color:#dfd">int proficientCheckBonusFrom(std::span&lt;const Capacity&gt; capacities) {
+    int total = 0;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::ProficientCheckBonus) {
+                total += effet.value;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return total;
 }</span>
 
 <span style = "background-color:#dfd">std::optional&lt;NamedExtraAttacks&gt; extraAttacksFrom(std::span&lt;const Capacity&gt; capacities) {

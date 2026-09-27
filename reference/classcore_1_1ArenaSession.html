@@ -231,6 +231,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a3d59ba7a9f9f0206296544b9352a4fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés de chaque projectile, sans jet, en une salve.  <br /></td></tr>
 <tr class="memitem:a0cd440226d698edee552b6952c97a09f" id="r_a0cd440226d698edee552b6952c97a09f"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0cd440226d698edee552b6952c97a09f">castSavingThrow</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
 <tr class="memdesc:a0cd440226d698edee552b6952c97a09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés lancés une fois, puis une sauvegarde par créature atteinte.  <br /></td></tr>
+<tr class="memitem:a3b257eeb42aa0ca2bf905e9c17fa3e54" id="r_a3b257eeb42aa0ca2bf905e9c17fa3e54"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3b257eeb42aa0ca2bf905e9c17fa3e54">castHealing</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
+<tr class="memdesc:a3b257eeb42aa0ca2bf905e9c17fa3e54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie rendus à la cible.  <br /></td></tr>
+<tr class="memitem:a7e9e66ad9c6eb4ccccd449012e6144fd" id="r_a7e9e66ad9c6eb4ccccd449012e6144fd"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Modifier.html">Modifier</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e9e66ad9c6eb4ccccd449012e6144fd">blessingFor</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:a7e9e66ad9c6eb4ccccd449012e6144fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dé de <em>bénédiction</em> de <code class="param">combatant</code>, lancé et nommé, s'il en porte une.  <br /></td></tr>
 <tr class="memitem:ad642d79d5d1b89a1913e1145f94da3de" id="r_ad642d79d5d1b89a1913e1145f94da3de"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad642d79d5d1b89a1913e1145f94da3de">castEffect</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
 <tr class="memdesc:ad642d79d5d1b89a1913e1145f94da3de"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'effet qui dure, posé sur la cible.  <br /></td></tr>
 <tr class="memitem:a8df9256906d1b64da91bf03af49ecf46" id="r_a8df9256906d1b64da91bf03af49ecf46"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8df9256906d1b64da91bf03af49ecf46">endEffects</a> (const std::function&lt; bool(const <a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a> &amp;)&gt; &amp;ends, const std::string &amp;reason)</td></tr>
@@ -370,6 +374,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le profil de comportement qui joue ce combattant, vide si c'est le joueur (<span class="tt">LOT-23</span>). </p>
+
+</div>
+</div>
+<a id="a7e9e66ad9c6eb4ccccd449012e6144fd" name="a7e9e66ad9c6eb4ccccd449012e6144fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e9e66ad9c6eb4ccccd449012e6144fd">&#9670;&#160;</a></span>blessingFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1Modifier.html">Modifier</a> &gt; core::ArenaSession::blessingFor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dé de <em>bénédiction</em> de <code class="param">combatant</code>, lancé et nommé, s'il en porte une. </p>
 
 </div>
 </div>
@@ -548,6 +579,47 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3b257eeb42aa0ca2bf905e9c17fa3e54" name="a3b257eeb42aa0ca2bf905e9c17fa3e54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b257eeb42aa0ca2bf905e9c17fa3e54">&#9670;&#160;</a></span>castHealing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::castHealing </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>caster</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>prefix</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les points de vie rendus à la cible. </p>
+
+</div>
+</div>
 <a id="a0cd440226d698edee552b6952c97a09f" name="a0cd440226d698edee552b6952c97a09f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0cd440226d698edee552b6952c97a09f">&#9670;&#160;</a></span>castSavingThrow()</h2>
 
@@ -614,8 +686,10 @@ Private Attributes</h2></td></tr>
 <li><b>jet d'attaque</b> : un jet par projectile, comme une attaque ; les rayons qui restent quand la cible tombe sont perdus, et le journal le dit ;</li>
 <li><b>sans jet</b> : les dés de chaque projectile, en une salve ;</li>
 <li><b>sauvegarde</b> : les dés lancés <b>une fois</b>, puis chaque créature de la sphère — alliés et lanceur compris — ou la cible seule jette sa sauvegarde contre le DD du lanceur ; une réussite annule ou divise par deux, selon le sort ;</li>
-<li><b>effet</b> : posé sur la cible, jusqu'à sa fin (<span class="tt"><a class="el" href="structcore_1_1ArenaEffect.html" title="Un effet de sort qui dure, sur un combattant (LOT-133) : le vol, l&#39;invisibilité.">ArenaEffect</a></span>).</li>
+<li><b>effet</b> : posé sur la cible — et sur les alliés les plus proches du lanceur, pour un sort à plusieurs cibles —, jusqu'à sa fin (<span class="tt"><a class="el" href="structcore_1_1ArenaEffect.html" title="Un effet de sort qui dure, sur un combattant (LOT-133) : le vol, l&#39;invisibilité.">ArenaEffect</a></span>) ;</li>
+<li><b>soin</b> : des points de vie rendus à une créature de son camp, qui se relève si elle était à terre (<span class="tt">LOT-134</span>).</li>
 </ul>
+<p>Un sort d'action bonus dépense l'action bonus. Tant que l'arme spirituelle d'un lanceur dure, relancer le sort la fait frapper <b>sans</b> dépenser de lancer.</p>
 <p>Lancer un sort met fin à l'invisibilité du lanceur ; un sort de concentration met fin à celui qu'il tenait. Le journal préfixe la ligne de « sort ». </p>
 
 </div>

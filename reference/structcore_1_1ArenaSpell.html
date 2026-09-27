@@ -180,6 +180,12 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:ad327a9d793bfdff05ee5d36031cfceb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'effet qui dure qu'il pose.  <br /></td></tr>
 <tr class="memitem:aaf833484c162b129c55ae06cf203a101" id="r_aaf833484c162b129c55ae06cf203a101"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aaf833484c162b129c55ae06cf203a101">concentration</a> = false</td></tr>
 <tr class="memdesc:aaf833484c162b129c55ae06cf203a101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous concentration : un second sort de concentration met fin au premier.  <br /></td></tr>
+<tr class="memitem:a8ba32caf06393a367ed50de530d6e2b3" id="r_a8ba32caf06393a367ed50de530d6e2b3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8ba32caf06393a367ed50de530d6e2b3">bonusAction</a> = false</td></tr>
+<tr class="memdesc:a8ba32caf06393a367ed50de530d6e2b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Il se lance par une action bonus (<span class="tt">LOT-134</span>).  <br /></td></tr>
+<tr class="memitem:a4fcd2b52679dad7cd0a1c69dcf8c2dde" id="r_a4fcd2b52679dad7cd0a1c69dcf8c2dde"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4fcd2b52679dad7cd0a1c69dcf8c2dde">maxTargets</a> = 1</td></tr>
+<tr class="memdesc:a4fcd2b52679dad7cd0a1c69dcf8c2dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les créatures qu'il peut viser à la fois (<em>bénédiction</em> : 3).  <br /></td></tr>
+<tr class="memitem:a9cdc58664012609ffa082efab4997621" id="r_a9cdc58664012609ffa082efab4997621"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9cdc58664012609ffa082efab4997621">healing</a></td></tr>
+<tr class="memdesc:a9cdc58664012609ffa082efab4997621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés de soin, modificateur d'incantation compris s'il s'y ajoute.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un sort tel qu'un combattant le lance dans l'arène (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>) : son mécanisme, ce qu'il lui faut pour le jouer, et ses lancers restants dans la journée. </p>
@@ -245,6 +251,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8ba32caf06393a367ed50de530d6e2b3" name="a8ba32caf06393a367ed50de530d6e2b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ba32caf06393a367ed50de530d6e2b3">&#9670;&#160;</a></span>bonusAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ArenaSpell::bonusAction = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Il se lance par une action bonus (<span class="tt">LOT-134</span>). </p>
+
+</div>
+</div>
 <a id="aaf833484c162b129c55ae06cf203a101" name="aaf833484c162b129c55ae06cf203a101"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf833484c162b129c55ae06cf203a101">&#9670;&#160;</a></span>concentration</h2>
 
@@ -277,6 +299,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9cdc58664012609ffa082efab4997621" name="a9cdc58664012609ffa082efab4997621"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdc58664012609ffa082efab4997621">&#9670;&#160;</a></span>healing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1Dice.html">Dice</a>&gt; core::ArenaSpell::healing</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les dés de soin, modificateur d'incantation compris s'il s'y ajoute. </p>
+
+</div>
+</div>
 <a id="ab1f6d6f098ddc42ad0531bcc1082a5a3" name="ab1f6d6f098ddc42ad0531bcc1082a5a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1f6d6f098ddc42ad0531bcc1082a5a3">&#9670;&#160;</a></span>id</h2>
 
@@ -304,6 +342,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>0 : sort mineur, à volonté. </p>
+
+</div>
+</div>
+<a id="a4fcd2b52679dad7cd0a1c69dcf8c2dde" name="a4fcd2b52679dad7cd0a1c69dcf8c2dde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fcd2b52679dad7cd0a1c69dcf8c2dde">&#9670;&#160;</a></span>maxTargets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::ArenaSpell::maxTargets = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les créatures qu'il peut viser à la fois (<em>bénédiction</em> : 3). </p>
 
 </div>
 </div>

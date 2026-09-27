@@ -664,23 +664,23 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Charger Rpg/characters/heros-scoundrel.json.</li><li>Recalculer caracteristiques, points de vie, CA (cuir), initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, rapier, shortbow et dagger.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>fiche.speciesId</code> vaut <code>&quot;humain&quot;</code>.</li><li>Vérifie que <code>fiche.backgroundId</code> vaut <code>&quot;undercover&quot;</code>.</li><li>Vérifie que <code>fiche.abilities</code> vaut <code>(std::array&lt;int, 6&gt;{9, 16, 15, 10, 14, 14})</code>.</li><li>Vérifie que <code>fiche.maximumHitPoints</code> vaut <code>10</code>.</li><li>Vérifie que <code>classeDArmure(charge)</code> vaut <code>14</code>.</li><li>Vérifie que <code>fiche.modifier(core::Ability::Dexterity)</code> vaut <code>3</code>.</li><li>Vérifie que <code>fiche.speedMeters</code> vaut <code>9.0F</code> (comparaison flottante).</li><li>Vérifie que <code>perceptionPassive(fiche)</code> vaut <code>14</code>.</li><li>Vérifie que <code>fiche.languages</code> vaut <code>(std::set&lt;std::string&gt;{&quot;common&quot;, &quot;elvish&quot;})</code>.</li><li>Vérifie que <code>arc.range.has_value()</code> est vrai.</li><li>Vérifie que <code>arc.range-&gt;normal</code> vaut <code>16</code>.</li><li>Vérifie que <code>arc.range-&gt;maximum</code> vaut <code>64</code>.</li></ul>
+<ul><li>Vérifie que <code>fiche.speciesId</code> vaut <code>&quot;humain&quot;</code>.</li><li>Vérifie que <code>fiche.backgroundId</code> vaut <code>&quot;undercover&quot;</code>.</li><li>Vérifie que <code>fiche.abilities</code> vaut <code>(std::array&lt;int, 6&gt;{9, 16, 15, 10, 14, 14})</code>.</li><li>Vérifie que <code>fiche.maximumHitPoints</code> vaut <code>10</code>.</li><li>Vérifie que <code>classeDArmure(charge)</code> vaut <code>14</code>.</li><li>Vérifie que <code>fiche.modifier(core::Ability::Dexterity)</code> vaut <code>3</code>.</li><li>Vérifie que <code>fiche.speedMeters</code> vaut <code>9.0F</code> (comparaison flottante).</li><li>Vérifie que <code>fiche.effectiveSpeedMeters()</code> vaut <code>12.0F</code> (comparaison flottante).</li><li>Vérifie que <code>perceptionPassive(fiche)</code> vaut <code>14</code>.</li><li>Vérifie que <code>fiche.languages</code> vaut <code>(std::set&lt;std::string&gt;{&quot;common&quot;, &quot;elvish&quot;})</code>.</li><li>Vérifie que <code>arc.range.has_value()</code> est vrai.</li><li>Vérifie que <code>arc.range-&gt;normal</code> vaut <code>16</code>.</li><li>Vérifie que <code>arc.range-&gt;maximum</code> vaut <code>64</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="premadecharacterstestlatenacitenainecompteachaqueniveau">PremadeCharactersTest.LaTenaciteNaineCompteAChaqueNiveau</h3>
-<p><em>Majeur · Unitaire · Fiches pre-tirees</em> — <code>Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:427</code></p>
+<p><em>Majeur · Unitaire · Fiches pre-tirees</em> — <code>Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:428</code></p>
 <p>Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque montee.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Calculer les points de vie d'un d8 de niveau 1 puis 5, avec et sans le bonus.</li><li>Faire monter le Priest au niveau 5 par l'experience.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>core::maximumHitPointsFor(8, 1, 3, 1)</code> vaut <code>core::maximumHitPointsFor(8, 1, 3) + 1</code>.</li><li>Vérifie que <code>core::maximumHitPointsFor(8, 5, 3, 1)</code> vaut <code>core::maximumHitPointsFor(8, 5, 3) + 5</code>.</li><li>Vérifie que <code>core::maximumHitPointsFor(8, 3, -5, 1)</code> vaut <code>core::maximumHitPointsFor(8, 3, -5) + 3</code>.</li><li>Vérifie que <code>priest</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>montee.newLevel</code> vaut <code>5</code>.</li><li>Vérifie que <code>charge.sheet.maximumHitPoints</code> vaut <code>12 + 4 * 9</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="premadecharacterstestlechoixdespecesajoutesousleplafond">PremadeCharactersTest.LeChoixDEspeceSAjouteSousLePlafond</h3>
-<p><em>Majeur · Unitaire · Fiches pre-tirees</em> — <code>Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:457</code></p>
+<p><em>Majeur · Unitaire · Fiches pre-tirees</em> — <code>Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:458</code></p>
 <p>Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece, sans depasser le plafond.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Construire un elfe d'automne avec Con 14 et un choix de +1 en Constitution.</li><li>Construire le meme avec Con 20 et le meme choix.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>elfe</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>ordinaire.ability(core::Ability::Constitution)</code> vaut <code>15</code>.</li><li>Vérifie que <code>ordinaire.ability(core::Ability::Intelligence)</code> vaut <code>16</code>.</li><li>Vérifie que <code>auPlafond.ability(core::Ability::Constitution)</code> vaut <code>lus.rules.maximumAbilityScore</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="premadecharacterstestunesousespeceheritedesonparent">PremadeCharactersTest.UneSousEspeceHeriteDeSonParent</h3>
-<p><em>Critique · Unitaire · Fiches pre-tirees</em> — <code>Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:486</code></p>
+<p><em>Critique · Unitaire · Fiches pre-tirees</em> — <code>Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:487</code></p>
 <p>Le nain des collines est un nain : +2 de Constitution, le commun et le nain, la vision dans le noir, puis ce qui est le sien.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Charger les especes.</li><li>Lire le nain des collines et l'elfe d'automne.</li></ol>
@@ -726,7 +726,7 @@
 <ul><li>Vérifie que <code>core::allDamageTypes().size()</code> vaut <code>13U</code>.</li><li>Vérifie que <code>core::allConditions().size()</code> vaut <code>15U</code>.</li><li>Vérifie que <code>core::allMagicSchools().size()</code> vaut <code>8U</code>.</li><li>Vérifie que <code>core::allCreatureSizes().size()</code> vaut <code>6U</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-resources.html"><span>Précédent</span>Core · Resources</a><a class="next" href="core-time.html"><span>Suivant</span>Core · Time</a></nav><p class="source">Source : <code>Documentation/CahierTest/core-rpg.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-27 · <code>f581cd785</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-27 · <code>f2a2ff308</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

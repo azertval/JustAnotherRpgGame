@@ -958,6 +958,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494">NoOpportunityAttacks</a>
 , <a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222">ExtraDamage</a>
 , <a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999">ExtraAttack</a>
+, <br />
+&#160;&#160;<a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4a1516b4dfba07b5c660dea7596476410e">ProficientCheckBonus</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aca154ea380a8647bf0cff5b10e5043d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les genres d'effet que le moteur sait jouer. Un genre inconnu de la donnée est refusé.  <a href="#aca154ea380a8647bf0cff5b10e5043d4">More...</a><br /></td></tr>
@@ -1120,12 +1122,18 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a66591e3012ab5919cc621550ff6720e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une sauvegarde réussie fait des dégâts d'un sort.  <a href="#a66591e3012ab5919cc621550ff6720e1">More...</a><br /></td></tr>
 <tr class="memitem:a949e652a2fd4c81697cb49b39cd45a99" id="r_a949e652a2fd4c81697cb49b39cd45a99"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a> : std::uint8_t { <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51">Fly</a>
 , <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f">Invisible</a>
+, <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99a428703a9485ad2e8d372fb746c77969e">Bless</a>
+, <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99a8da4b1fe1879e52cfb2d00a79bc8fb13">SpiritualWeapon</a>
  }</td></tr>
 <tr class="memdesc:a949e652a2fd4c81697cb49b39cd45a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les effets qui durent qu'un sort pose sur une créature, et que le moteur sait jouer.  <a href="#a949e652a2fd4c81697cb49b39cd45a99">More...</a><br /></td></tr>
-<tr class="memitem:a6eee9bc9a9ca2edde9d16a7a6281144b" id="r_a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> : std::uint8_t { <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5">AttackRoll</a>
+<tr class="memitem:a6eee9bc9a9ca2edde9d16a7a6281144b" id="r_a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5">AttackRoll</a>
 , <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77">AutoHit</a>
 , <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d">SavingThrow</a>
 , <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa">Effect</a>
+, <br />
+&#160;&#160;<a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543">Healing</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mécanismes de sort que le moteur sait jouer en combat.  <a href="#a6eee9bc9a9ca2edde9d16a7a6281144b">More...</a><br /></td></tr>
 <tr class="memitem:aee1e9954e6e76342687aaa9dcf3cbc5a" id="r_aee1e9954e6e76342687aaa9dcf3cbc5a"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> : std::uint8_t { <br />
@@ -1387,6 +1395,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a26d6a0a3082a3c9ce76ab6958711ac13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">attacker</code>, ancré en <code class="param">attackerAnchor</code>, prend <code class="param">target</code> en tenaille avec au moins un allié debout.  <br /></td></tr>
 <tr class="memitem:aa5addda291b02ded7b8439d8b16be3f8" id="r_aa5addda291b02ded7b8439d8b16be3f8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa5addda291b02ded7b8439d8b16be3f8">isFlanked</a> (const <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> attacker, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> target)</td></tr>
 <tr class="memdesc:aa5addda291b02ded7b8439d8b16be3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La même règle, l'attaquant à sa place sur la grille. Faux s'il n'y est pas.  <br /></td></tr>
+<tr class="memitem:a3491623c50f45e1b4d284baee43f94e7" id="r_a3491623c50f45e1b4d284baee43f94e7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3491623c50f45e1b4d284baee43f94e7">isAdjacentToAllyOf</a> (const <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> attacker, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> target)</td></tr>
+<tr class="memdesc:a3491623c50f45e1b4d284baee43f94e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">target</code> est adjacente (distance 1, emprises comprises) à un allié <b>debout</b> de <code class="param">attacker</code>, autre que lui (<span class="tt">LOT-135</span>).  <br /></td></tr>
 <tr class="memitem:a5d1d182841a7266b06a3220835bd1144" id="r_a5d1d182841a7266b06a3220835bd1144"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a5d1d182841a7266b06a3220835bd1144">coverLabel</a> (<a class="el" href="#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a> cover) noexcept</td></tr>
 <tr class="memdesc:a5d1d182841a7266b06a3220835bd1144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom d'un abri tel que le journal l'écrit : « abri partiel », « abri important ».  <br /></td></tr>
 <tr class="memitem:aef818c5b82795fc59c0d259e968762cd" id="r_aef818c5b82795fc59c0d259e968762cd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aef818c5b82795fc59c0d259e968762cd">isSightClear</a> (const <a class="el" href="classcore_1_1BattleGrid.html">BattleGrid</a> &amp;grid, <a class="el" href="structcore_1_1GridPoint.html">GridPoint</a> a, <a class="el" href="structcore_1_1GridPoint.html">GridPoint</a> b)</td></tr>
@@ -1656,6 +1666,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac63dea10e931ba6a0767ad265963e421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les résistances que les capacités donnent, chacune à son nom.  <br /></td></tr>
 <tr class="memitem:a7e2bf23d4453ec8ed43d4830a4416827" id="r_a7e2bf23d4453ec8ed43d4830a4416827"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1NamedExtraDamage.html">NamedExtraDamage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e2bf23d4453ec8ed43d4830a4416827">extraDamageFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
 <tr class="memdesc:a7e2bf23d4453ec8ed43d4830a4416827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés que les capacités ajoutent à une attaque qui touche.  <br /></td></tr>
+<tr class="memitem:a6767523293afedb44f63ed1795abf8db" id="r_a6767523293afedb44f63ed1795abf8db"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6767523293afedb44f63ed1795abf8db">proficientCheckBonusFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
+<tr class="memdesc:a6767523293afedb44f63ed1795abf8db"><td class="mdescLeft">&#160;</td><td class="mdescRight">La somme des bonus aux tests de caractéristique maîtrisés (<span class="tt">LOT-135</span>).  <br /></td></tr>
 <tr class="memitem:a1a557b01a82486a5916806e2a276bb57" id="r_a1a557b01a82486a5916806e2a276bb57"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1NamedExtraAttacks.html">NamedExtraAttacks</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1a557b01a82486a5916806e2a276bb57">extraAttacksFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
 <tr class="memdesc:a1a557b01a82486a5916806e2a276bb57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques que les capacités ajoutent à l'action <em>Attaquer</em> (<span class="tt">LOT-132</span>).  <br /></td></tr>
 <tr class="memitem:a347e7bf6ba1e8cb5d99a494c8c90411f" id="r_a347e7bf6ba1e8cb5d99a494c8c90411f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a347e7bf6ba1e8cb5d99a494c8c90411f">dialogueSpeakerKey</a> (std::string_view dialogueId)</td></tr>
@@ -2124,7 +2136,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> </div>
 <div class="line">std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">ArenaSession</a>&amp;, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover)&gt;</div>
-<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:274</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:282</div></div>
 <div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
 </div><!-- fragment -->
 <p>Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre. </p>
@@ -2426,6 +2438,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222" name="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222"></a>ExtraDamage&#160;</td><td class="fielddoc"><p>Des dés ajoutés aux dégâts d'une attaque qui touche, du type de l'arme (<em>Sneak Attack</em>, <em>Deadly</em>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999" name="aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999"></a>ExtraAttack&#160;</td><td class="fielddoc"><p>Des attaques en plus quand le personnage prend l'action <em>Attaquer</em> (<em>Extra Attack</em>, <span class="tt">LOT-132</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aca154ea380a8647bf0cff5b10e5043d4a1516b4dfba07b5c660dea7596476410e" name="aca154ea380a8647bf0cff5b10e5043d4a1516b4dfba07b5c660dea7596476410e"></a>ProficientCheckBonus&#160;</td><td class="fielddoc"><p>Un bonus fixe aux tests de caractéristique maîtrisés (<em>Adventurer's Aptitude</em>, <span class="tt">LOT-135</span>). </p>
 </td></tr>
 </table>
 
@@ -4212,6 +4226,10 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </td></tr>
 <tr><td class="fieldname"><a id="a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f" name="a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f"></a>Invisible&#160;</td><td class="fielddoc"><p>La créature est invisible : attaquée avec désavantage, elle attaque avec avantage ; l'effet cesse quand elle attaque ou lance un sort (<em>invisibilité</em>). </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a949e652a2fd4c81697cb49b39cd45a99a428703a9485ad2e8d372fb746c77969e" name="a949e652a2fd4c81697cb49b39cd45a99a428703a9485ad2e8d372fb746c77969e"></a>Bless&#160;</td><td class="fielddoc"><p>La créature ajoute des dés à ses jets d'attaque et de sauvegarde (<em>bénédiction</em>, <span class="tt">LOT-134</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a949e652a2fd4c81697cb49b39cd45a99a8da4b1fe1879e52cfb2d00a79bc8fb13" name="a949e652a2fd4c81697cb49b39cd45a99a8da4b1fe1879e52cfb2d00a79bc8fb13"></a>SpiritualWeapon&#160;</td><td class="fielddoc"><p>Une arme invoquée par le lanceur : tant qu'elle dure, relancer le sort la fait frapper sans dépenser de lancer (<em>arme spirituelle</em>, <span class="tt">LOT-134</span>). </p>
+</td></tr>
 </table>
 
 </div>
@@ -4244,7 +4262,9 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </td></tr>
 <tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d" name="a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d"></a>SavingThrow&#160;</td><td class="fielddoc"><p>Un jet de sauvegarde de chaque cible, sur une créature ou dans une sphère (<em>boule de feu</em>). </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa" name="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa"></a>Effect&#160;</td><td class="fielddoc"><p>Un effet qui dure, posé sur une créature (<em>vol</em>, <em>invisibilité</em>). </p>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa" name="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa"></a>Effect&#160;</td><td class="fielddoc"><p>Un effet qui dure, posé sur une créature (<em>vol</em>, <em>invisibilité</em>, <em>bénédiction</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543" name="a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543"></a>Healing&#160;</td><td class="fielddoc"><p>Des points de vie rendus à une créature de son camp (<em>soin des blessures</em>, <span class="tt">LOT-134</span>). </p>
 </td></tr>
 </table>
 
@@ -8993,6 +9013,43 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a3491623c50f45e1b4d284baee43f94e7" name="a3491623c50f45e1b4d284baee43f94e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3491623c50f45e1b4d284baee43f94e7">&#9670;&#160;</a></span>isAdjacentToAllyOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isAdjacentToAllyOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>combat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>attacker</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si <code class="param">target</code> est adjacente (distance 1, emprises comprises) à un allié <b>debout</b> de <code class="param">attacker</code>, autre que lui (<span class="tt">LOT-135</span>). </p>
+<p>La moitié de la tenaille — l'allié au contact —, sans la géométrie des côtés opposés ni la vue : ce que <em>Sneak Attack Simplified</em> demande (<em>Player's Guide</em>, p. 204). </p>
+
+</div>
+</div>
 <a id="acda21c95fdff4cecac87781e5ea4cbce" name="acda21c95fdff4cecac87781e5ea4cbce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acda21c95fdff4cecac87781e5ea4cbce">&#9670;&#160;</a></span>isAttackSpell()</h2>
 
@@ -11950,6 +12007,33 @@ Les places</h2>
 </div><div class="memdoc">
 
 <p>Le bonus de maîtrise de la fiche, <b>lu dans la table</b> au niveau courant. </p>
+
+</div>
+</div>
+<a id="a6767523293afedb44f63ed1795abf8db" name="a6767523293afedb44f63ed1795abf8db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6767523293afedb44f63ed1795abf8db">&#9670;&#160;</a></span>proficientCheckBonusFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::proficientCheckBonusFrom </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>capacities</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La somme des bonus aux tests de caractéristique maîtrisés (<span class="tt">LOT-135</span>). </p>
 
 </div>
 </div>

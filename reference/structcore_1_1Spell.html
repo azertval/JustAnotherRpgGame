@@ -172,6 +172,16 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a3da3a4de808e16a6384b5994834b2457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de projectiles ou de rayons, chacun ses dés — et son jet s'il en demande un.  <br /></td></tr>
 <tr class="memitem:a71e940e1fb387e671ec0b0f55d675fe4" id="r_a71e940e1fb387e671ec0b0f55d675fe4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a71e940e1fb387e671ec0b0f55d675fe4">cantripScaling</a> = false</td></tr>
 <tr class="memdesc:a71e940e1fb387e671ec0b0f55d675fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un sort mineur dont les dés montent aux niveaux 5, 11 et 17 du lanceur (Manuel, « Tours de magie »).  <br /></td></tr>
+<tr class="memitem:a342d4968b35e77227112b4364263ba74" id="r_a342d4968b35e77227112b4364263ba74"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a342d4968b35e77227112b4364263ba74">meleeAttack</a> = false</td></tr>
+<tr class="memdesc:a342d4968b35e77227112b4364263ba74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une attaque de sort <b>au corps à corps</b> (<em>arme spirituelle</em>) : la portée sert d'allonge.  <br /></td></tr>
+<tr class="memitem:a87bcc03ab56f6e3adc14ba788e3eee50" id="r_a87bcc03ab56f6e3adc14ba788e3eee50"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a87bcc03ab56f6e3adc14ba788e3eee50">addsAbilityModifier</a> = false</td></tr>
+<tr class="memdesc:a87bcc03ab56f6e3adc14ba788e3eee50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur d'incantation s'ajoute aux dégâts ou au soin.  <br /></td></tr>
+<tr class="memitem:a34117030ae56809aee2a61a0963bf4d6" id="r_a34117030ae56809aee2a61a0963bf4d6"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a34117030ae56809aee2a61a0963bf4d6">healing</a></td></tr>
+<tr class="memdesc:a34117030ae56809aee2a61a0963bf4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés de soin (<em>soin des blessures</em>, <span class="tt">LOT-134</span>).  <br /></td></tr>
+<tr class="memitem:a9047893bb6649fb1ff013cae04f19e81" id="r_a9047893bb6649fb1ff013cae04f19e81"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9047893bb6649fb1ff013cae04f19e81">bonusAction</a> = false</td></tr>
+<tr class="memdesc:a9047893bb6649fb1ff013cae04f19e81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sort se lance par une action bonus.  <br /></td></tr>
+<tr class="memitem:a562e548f68be02effde174ad42502db1" id="r_a562e548f68be02effde174ad42502db1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a562e548f68be02effde174ad42502db1">maxTargets</a> = 1</td></tr>
+<tr class="memdesc:a562e548f68be02effde174ad42502db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les créatures qu'un sort qui aide peut viser (<em>bénédiction</em> : 3).  <br /></td></tr>
 <tr class="memitem:a547c0ff2dcbaf49273c984aadad33c7b" id="r_a547c0ff2dcbaf49273c984aadad33c7b"><td class="memItemLeft"><a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1">SaveEffect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a547c0ff2dcbaf49273c984aadad33c7b">saveEffect</a> = <a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e">SaveEffect::Negates</a></td></tr>
 <tr class="memdesc:a547c0ff2dcbaf49273c984aadad33c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une sauvegarde réussie fait des dégâts.  <br /></td></tr>
 <tr class="memitem:a80bc592286d71922cb034ce2fe9f4fc7" id="r_a80bc592286d71922cb034ce2fe9f4fc7"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a80bc592286d71922cb034ce2fe9f4fc7">areaRadiusMeters</a> = 0.0F</td></tr>
@@ -193,6 +203,22 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un sort, tel que <span class="tt">spell.schema.json</span> l'écrit. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a87bcc03ab56f6e3adc14ba788e3eee50" name="a87bcc03ab56f6e3adc14ba788e3eee50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87bcc03ab56f6e3adc14ba788e3eee50">&#9670;&#160;</a></span>addsAbilityModifier</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::addsAbilityModifier = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le modificateur d'incantation s'ajoute aux dégâts ou au soin. </p>
+
+</div>
+</div>
 <a id="ad55875726fd50b55f539ed252c50845e" name="ad55875726fd50b55f539ed252c50845e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad55875726fd50b55f539ed252c50845e">&#9670;&#160;</a></span>appliesCondition</h2>
 
@@ -252,6 +278,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai pour un sort qui touche <b>sans jet</b> (<em>projectile magique</em>). </p>
+
+</div>
+</div>
+<a id="a9047893bb6649fb1ff013cae04f19e81" name="a9047893bb6649fb1ff013cae04f19e81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9047893bb6649fb1ff013cae04f19e81">&#9670;&#160;</a></span>bonusAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::bonusAction = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le sort se lance par une action bonus. </p>
 
 </div>
 </div>
@@ -357,6 +399,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a34117030ae56809aee2a61a0963bf4d6" name="a34117030ae56809aee2a61a0963bf4d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34117030ae56809aee2a61a0963bf4d6">&#9670;&#160;</a></span>healing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1Dice.html">Dice</a>&gt; core::Spell::healing</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les dés de soin (<em>soin des blessures</em>, <span class="tt">LOT-134</span>). </p>
+
+</div>
+</div>
 <a id="a301a7c0b55d9cc325db6f654d8a884f4" name="a301a7c0b55d9cc325db6f654d8a884f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a301a7c0b55d9cc325db6f654d8a884f4">&#9670;&#160;</a></span>id</h2>
 
@@ -384,6 +442,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>0 : sort mineur (<em>cantrip</em>), à volonté. </p>
+
+</div>
+</div>
+<a id="a562e548f68be02effde174ad42502db1" name="a562e548f68be02effde174ad42502db1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a562e548f68be02effde174ad42502db1">&#9670;&#160;</a></span>maxTargets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Spell::maxTargets = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les créatures qu'un sort qui aide peut viser (<em>bénédiction</em> : 3). </p>
+
+</div>
+</div>
+<a id="a342d4968b35e77227112b4364263ba74" name="a342d4968b35e77227112b4364263ba74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a342d4968b35e77227112b4364263ba74">&#9670;&#160;</a></span>meleeAttack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::meleeAttack = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une attaque de sort <b>au corps à corps</b> (<em>arme spirituelle</em>) : la portée sert d'allonge. </p>
 
 </div>
 </div>

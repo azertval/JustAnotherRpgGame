@@ -45,9 +45,11 @@ struct NomDEffet {
 };
 
 // Les noms sont ceux de `spell.schema.json` : le schema et le moteur disent la meme liste.
-constexpr std::array&lt;NomDEffet, 2&gt; EFFETS{{
+constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
     {SpellEffectKind::Fly, "fly"},
     {SpellEffectKind::Invisible, "invisible"},
+    {SpellEffectKind::Bless, "bless"},
+    {SpellEffectKind::SpiritualWeapon, "spiritual-weapon"},
 }};
 
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;SpellEffectKind&gt; lireGenreDEffet(std::string_view nom) {
@@ -66,6 +68,29 @@ constexpr std::array&lt;NomDEffet, 2&gt; EFFETS{{
 <span style = "background-color:#dfd">                                  Spell&amp; sort, std::vector&lt;std::string&gt;&amp; erreurs) {
     sort.autoHit = lireBooleen(racine, "autoHit");
     sort.cantripScaling = lireBooleen(racine, "cantripScaling");
+    sort.addsAbilityModifier = lireBooleen(racine, "addsAbilityModifier");
+    sort.bonusAction = lireBooleen(racine, "bonusAction");
+    const std::string genreDAttaque = lireTexte(racine, "attackKind");
+    if (genreDAttaque == "melee") {
+        sort.meleeAttack = true;
+    } else if (!genreDAttaque.empty() &amp;&amp; genreDAttaque != "ranged") {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'attackKind' '" + genreDAttaque + "' inconnu du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto soin = racine.find("healing"); soin != racine.end()) {
+        sort.healing = soin-&gt;is_string() ? parseDice(soin-&gt;get&lt;std::string&gt;()) : std::nullopt;
+        if (!sort.healing.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : des de soin illisibles.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (const auto cibles = racine.find("maxTargets"); cibles != racine.end()) {
+        if (!cibles-&gt;is_number_integer() || cibles-&gt;get&lt;int&gt;() &lt; 1) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : 'maxTargets' doit etre un entier positif.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        sort.maxTargets = cibles-&gt;get&lt;int&gt;();
+    }
     if (const auto projectiles = racine.find("projectiles"); projectiles != racine.end()) {
         if (!projectiles-&gt;is_number_integer() || projectiles-&gt;get&lt;int&gt;() &lt; 1) {</span>
 <span style = "background-color:#fdd">            erreurs.push_back(fichier + " : 'projectiles' doit etre un entier positif.");
@@ -111,7 +136,7 @@ constexpr std::array&lt;NomDEffet, 2&gt; EFFETS{{
             erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
             return false;</span>
         }
-<span style = "background-color:#dfd">        SpellEffect pose{.kind = *lu, .meters = 0.0F, .durationRounds = 0};
+<span style = "background-color:#dfd">        SpellEffect pose{.kind = *lu, .meters = 0.0F, .dice = std::nullopt, .durationRounds = 0};
         if (const auto metres = effet-&gt;find("meters");
             metres != effet-&gt;end() &amp;&amp; metres-&gt;is_number()) {
             pose.meters = metres-&gt;get&lt;float&gt;();
@@ -120,10 +145,17 @@ constexpr std::array&lt;NomDEffet, 2&gt; EFFETS{{
 <span style = "background-color:#fdd">            erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
             return false;</span>
         }
+<span style = "background-color:#dfd">        if (const auto des = effet-&gt;find("dice"); des != effet-&gt;end() &amp;&amp; des-&gt;is_string()) {
+            pose.dice = parseDice(des-&gt;get&lt;std::string&gt;());
+        }
+        if (pose.kind == SpellEffectKind::Bless &amp;&amp; !pose.dice.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : effet 'bless' sans des lisibles ('dice').");
+            return false;</span>
+        }
 <span style = "background-color:#dfd">        if (const auto duree = effet-&gt;find("durationRounds");
-            duree != effet-&gt;end() &amp;&amp; duree-&gt;is_number_integer()) {</span>
-<span style = "background-color:#fdd">            pose.durationRounds = std::max(0, duree-&gt;get&lt;int&gt;());</span>
-<span style = "background-color:#dfd">        }
+            duree != effet-&gt;end() &amp;&amp; duree-&gt;is_number_integer()) {
+            pose.durationRounds = std::max(0, duree-&gt;get&lt;int&gt;());
+        }
         sort.effect = pose;
     }
     return true;
@@ -263,11 +295,14 @@ constexpr std::array&lt;NomDEffet, 2&gt; EFFETS{{
 <span style = "background-color:#dfd">    if (blesse &amp;&amp; spell.savingThrow.has_value()) {
         return SpellMechanism::SavingThrow;</span>
     }
+<span style = "background-color:#dfd">    if (spell.healing.has_value()) {
+        return SpellMechanism::Healing;</span>
+    }
 <span style = "background-color:#dfd">    if (spell.effect.has_value()) {
         return SpellMechanism::Effect;</span>
     }
-<span style = "background-color:#fdd">    return std::nullopt;</span>
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
 
 <span style = "background-color:#dfd">std::optional&lt;Dice&gt; spellDamageAt(const Spell&amp; spell, int casterLevel) noexcept {
     if (!spell.damage.has_value()) {

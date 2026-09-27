@@ -2,6 +2,7 @@ var structcore_1_1CapacityEffect =
 [
     [ "abilities", "structcore_1_1CapacityEffect.html#a09c67973efbd8c0c6e1a29f468fb9124", null ],
     [ "allDamageTypes", "structcore_1_1CapacityEffect.html#a0f4c05c1bbac3da0ad77d5503ffc7d16", null ],
+    [ "allyAdjacentToTarget", "structcore_1_1CapacityEffect.html#a77d8103ea7afd6cb6db2057ba4377d2c", null ],
     [ "base", "structcore_1_1CapacityEffect.html#af105e7ec61bd10396b172624aefbf012", null ],
     [ "damageTypes", "structcore_1_1CapacityEffect.html#af2309b538297ddd709da20b0f9b2ec6d", null ],
     [ "dice", "structcore_1_1CapacityEffect.html#a1d73c5b874eb1da0270b056bf12728c7", null ],

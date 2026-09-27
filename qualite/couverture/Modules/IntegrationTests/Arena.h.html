@@ -146,6 +146,12 @@ struct ArenaSpell {
     std::optional&lt;SpellEffect&gt; effect;
     /// Sous concentration : un second sort de concentration met fin au premier.
     bool concentration = false;
+    /// Il se lance par une action bonus (`LOT-134`).
+    bool bonusAction = false;
+    /// Les crÃ©atures qu'il peut viser Ã  la fois (*bÃ©nÃ©diction* : 3).
+    int maxTargets = 1;
+    /// Les dÃ©s de soin, modificateur d'incantation compris s'il s'y ajoute.
+    std::optional&lt;Dice&gt; healing;
 
     /// @brief Vrai si le sort se lance encore.
 <span style = "background-color:#dfd">    [[nodiscard]] bool available() const noexcept {
@@ -172,6 +178,8 @@ struct ArenaEffect {
     /// `Fly` : ce que le porteur avait avant de voler, rendu Ã  la fin de l'effet.
     Locomotion previousLocomotion = Locomotion::Walk;
     int previousMovement = 0;
+    /// `Bless` : les dÃ©s ajoutÃ©s Ã  ses jets d'attaque et de sauvegarde.
+    std::optional&lt;Dice&gt; dice;
 };
 
 /// @brief Un combattant tel que l'Ã©cran de mise en place le compose.
@@ -353,7 +361,13 @@ public:
      * - **sauvegarde** : les dÃ©s lancÃ©s **une fois**, puis chaque crÃ©ature de la sphÃ¨re â alliÃ©s
      *   et lanceur compris â ou la cible seule jette sa sauvegarde contre le DD du lanceur ; une
      *   rÃ©ussite annule ou divise par deux, selon le sort ;
-     * - **effet** : posÃ© sur la cible, jusqu'Ã  sa fin (`ArenaEffect`).
+     * - **effet** : posÃ© sur la cible â et sur les alliÃ©s les plus proches du lanceur, pour un
+     *   sort Ã  plusieurs cibles â, jusqu'Ã  sa fin (`ArenaEffect`) ;
+     * - **soin** : des points de vie rendus Ã  une crÃ©ature de son camp, qui se relÃ¨ve si elle
+     *   Ã©tait Ã  terre (`LOT-134`).
+     *
+     * Un sort d'action bonus dÃ©pense l'action bonus. Tant que l'arme spirituelle d'un lanceur
+     * dure, relancer le sort la fait frapper **sans** dÃ©penser de lancer.
      *
      * Lancer un sort met fin Ã  l'invisibilitÃ© du lanceur ; un sort de concentration met fin Ã 
      * celui qu'il tenait. Le journal prÃ©fixe la ligne de Â« sort Â».
@@ -521,6 +535,11 @@ private:
     /// Les dÃ©s lancÃ©s une fois, puis une sauvegarde par crÃ©ature atteinte.
     ArenaAttack castSavingThrow(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
                                 const std::string&amp; prefix);
+    /// Les points de vie rendus Ã  la cible.
+    ArenaAttack castHealing(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                            const std::string&amp; prefix);
+    /// Le dÃ© de *bÃ©nÃ©diction* de @p combatant, lancÃ© et nommÃ©, s'il en porte une.
+    std::optional&lt;Modifier&gt; blessingFor(CombatantId combatant);
     /// L'effet qui dure, posÃ© sur la cible.
     ArenaAttack castEffect(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
                            const std::string&amp; prefix);

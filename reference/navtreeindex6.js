@@ -1,5 +1,9 @@
 var NAVTREEINDEX6 =
 {
+"classcore_1_1GestureScope.html#af8c62642fe66df300316fbe3a3b07fbf":[3,0,0,118,0],
+"classcore_1_1IComponentPool.html":[2,0,1,83],
+"classcore_1_1IComponentPool.html":[3,0,0,83],
+"classcore_1_1IComponentPool.html#a0f0a0515092cd03e5e533b271f2a44df":[2,0,1,83,0],
 "classcore_1_1IComponentPool.html#a0f0a0515092cd03e5e533b271f2a44df":[3,0,0,83,0],
 "classcore_1_1IComponentPool.html#ab0b1a9b6d1ab67638c268e1dd678a90b":[2,0,1,83,1],
 "classcore_1_1IComponentPool.html#ab0b1a9b6d1ab67638c268e1dd678a90b":[3,0,0,83,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX6 =
 "classcore_1_1LevelDraft.html#aacc7771e216fb566455fff8e416eef9c":[3,0,0,117,6],
 "classcore_1_1LevelDraft.html#aafa403c6e7bfc2795abcf8c52709775b":[2,0,1,117,72],
 "classcore_1_1LevelDraft.html#aafa403c6e7bfc2795abcf8c52709775b":[3,0,0,117,72],
-"classcore_1_1LevelDraft.html#ab10397c5b66b6997de6adff24cca19d2":[2,0,1,117,30],
-"classcore_1_1LevelDraft.html#ab10397c5b66b6997de6adff24cca19d2":[3,0,0,117,30],
-"classcore_1_1LevelDraft.html#ab195c607dd84ab23004feaab3ee8d25f":[2,0,1,117,7],
-"classcore_1_1LevelDraft.html#ab195c607dd84ab23004feaab3ee8d25f":[3,0,0,117,7],
-"classcore_1_1LevelDraft.html#ab2bd2f3afe24ce71a6ab0773913309fe":[2,0,1,117,64]
+"classcore_1_1LevelDraft.html#ab10397c5b66b6997de6adff24cca19d2":[2,0,1,117,30]
 };

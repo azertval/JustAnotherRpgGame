@@ -8,6 +8,8 @@ var dir_e4f77e6506ec5ae5855f8bd23358af3b =
     [ "test_class_brawler.cpp", "test__class__brawler_8cpp.html", "test__class__brawler_8cpp" ],
     [ "test_class_in_arena.cpp", "test__class__in__arena_8cpp.html", "test__class__in__arena_8cpp" ],
     [ "test_class_mage.cpp", "test__class__mage_8cpp.html", "test__class__mage_8cpp" ],
+    [ "test_class_priest.cpp", "test__class__priest_8cpp.html", "test__class__priest_8cpp" ],
+    [ "test_class_scoundrel.cpp", "test__class__scoundrel_8cpp.html", "test__class__scoundrel_8cpp" ],
     [ "test_combat_preview.cpp", "test__combat__preview_8cpp.html", "test__combat__preview_8cpp" ],
     [ "test_combat_state.cpp", "test__combat__state_8cpp.html", "test__combat__state_8cpp" ],
     [ "test_damage.cpp", "test__damage_8cpp.html", "test__damage_8cpp" ],

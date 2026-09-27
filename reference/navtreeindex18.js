@@ -1,5 +1,9 @@
 var NAVTREEINDEX18 =
 {
+"classhmi_1_1OptionsModel.html#a580407e9597675adca39c37cfcff008a":[2,0,2,210,33],
+"classhmi_1_1OptionsModel.html#a580407e9597675adca39c37cfcff008a":[3,0,1,209,33],
+"classhmi_1_1OptionsModel.html#a5b5e4ce99022db0ad4444625e1d528e8":[2,0,2,210,32],
+"classhmi_1_1OptionsModel.html#a5b5e4ce99022db0ad4444625e1d528e8":[3,0,1,209,32],
 "classhmi_1_1OptionsModel.html#a66079ad92a010525ebd1322090cd70d7":[2,0,2,210,4],
 "classhmi_1_1OptionsModel.html#a66079ad92a010525ebd1322090cd70d7":[3,0,1,209,4],
 "classhmi_1_1OptionsModel.html#a715fd6e8ac838444b8dded0082cc4390":[2,0,2,210,27],
@@ -245,9 +249,5 @@ var NAVTREEINDEX18 =
 "classhmi_1_1QuestJournalModel.html#a145a9e6408b9282bc4b59b96cf4493c6":[2,0,2,212,5],
 "classhmi_1_1QuestJournalModel.html#a145a9e6408b9282bc4b59b96cf4493c6":[3,0,1,211,5],
 "classhmi_1_1QuestJournalModel.html#a23871fe0a8968c113979c00f698cce73":[2,0,2,212,6],
-"classhmi_1_1QuestJournalModel.html#a23871fe0a8968c113979c00f698cce73":[3,0,1,211,6],
-"classhmi_1_1QuestJournalModel.html#a2b35f6b1ba715f8fba90c11fc52793c2":[2,0,2,212,3],
-"classhmi_1_1QuestJournalModel.html#a2b35f6b1ba715f8fba90c11fc52793c2":[3,0,1,211,3],
-"classhmi_1_1QuestJournalModel.html#a6066eda23aa877efbbd36c20dee17afe":[2,0,2,212,10],
-"classhmi_1_1QuestJournalModel.html#a6066eda23aa877efbbd36c20dee17afe":[3,0,1,211,10]
+"classhmi_1_1QuestJournalModel.html#a23871fe0a8968c113979c00f698cce73":[3,0,1,211,6]
 };

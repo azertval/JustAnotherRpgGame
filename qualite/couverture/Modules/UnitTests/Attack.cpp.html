@@ -40,7 +40,7 @@ namespace core {
         case Ability::Intelligence:
 <span style = "background-color:#dfd">            return "Intelligence";</span>
         case Ability::Wisdom:
-<span style = "background-color:#fdd">            return "Sagesse";</span>
+<span style = "background-color:#dfd">            return "Sagesse";</span>
         case Ability::Charisma:
 <span style = "background-color:#fdd">            return "Charisme";</span>
     }
@@ -183,13 +183,23 @@ AttackProfile spellProfileFor(const CharacterSheet&amp; sheet, const Spell&amp; 
 <span style = "background-color:#dfd">    profil.range =</span>
         porteeDe(spell.rangeMeters &gt; 0.0F ? std::optional&lt;float&gt;(spell.rangeMeters) : std::nullopt,
                  std::nullopt);
+<span style = "background-color:#dfd">    if (spell.meleeAttack) {</span>
+        // Une attaque de sort au corps a corps (l'arme spirituelle, LOT-134) : la portee du sort
+        // sert d'allonge, et le contact n'impose pas le desavantage du tir.
+<span style = "background-color:#dfd">        profil.kind = AttackKind::Melee;
+        profil.reach = profil.range.has_value() ? profil.range-&gt;normal : 1;
+        profil.range.reset();</span>
+    }
 <span style = "background-color:#dfd">    if (spell.attackRoll) {
         profil.modifiers.push_back(</span>
             {.source = std::string(abilityLabel(ability)), .value = sheet.modifier(ability)});
 <span style = "background-color:#dfd">        profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});</span>
     }
-<span style = "background-color:#dfd">    const std::optional&lt;Dice&gt; des = spellDamageAt(spell, sheet.level);
-    if (des.has_value() &amp;&amp; spell.damageType.has_value()) {
+<span style = "background-color:#dfd">    std::optional&lt;Dice&gt; des = spellDamageAt(spell, sheet.level);
+    if (des.has_value() &amp;&amp; spell.addsAbilityModifier) {
+        des-&gt;modifier += sheet.modifier(ability);</span>
+    }
+<span style = "background-color:#dfd">    if (des.has_value() &amp;&amp; spell.damageType.has_value()) {
         profil.damage.push_back({.dice = *des,</span>
                                  .type = *spell.damageType,
                                  .flags = static_cast&lt;DamageFlags&gt;(flagsOf(DamageFlag::Spell) |

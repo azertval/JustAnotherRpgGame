@@ -1,9 +1,11 @@
 var structcore_1_1Spell =
 [
+    [ "addsAbilityModifier", "structcore_1_1Spell.html#a87bcc03ab56f6e3adc14ba788e3eee50", null ],
     [ "appliesCondition", "structcore_1_1Spell.html#ad55875726fd50b55f539ed252c50845e", null ],
     [ "areaRadiusMeters", "structcore_1_1Spell.html#a80bc592286d71922cb034ce2fe9f4fc7", null ],
     [ "attackRoll", "structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133", null ],
     [ "autoHit", "structcore_1_1Spell.html#a64e565cba9ae7e96144566338768a1e1", null ],
+    [ "bonusAction", "structcore_1_1Spell.html#a9047893bb6649fb1ff013cae04f19e81", null ],
     [ "cantripScaling", "structcore_1_1Spell.html#a71e940e1fb387e671ec0b0f55d675fe4", null ],
     [ "castingTime", "structcore_1_1Spell.html#accb5a9e4d026c5dfe029fdeb0c6e953c", null ],
     [ "concentration", "structcore_1_1Spell.html#aecd3c5fc345925c9ecd86ad5b65a6b31", null ],
@@ -11,8 +13,11 @@ var structcore_1_1Spell =
     [ "damageType", "structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f", null ],
     [ "duration", "structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8", null ],
     [ "effect", "structcore_1_1Spell.html#a5832a54bd6b2c3aebb89a14afd450ec0", null ],
+    [ "healing", "structcore_1_1Spell.html#a34117030ae56809aee2a61a0963bf4d6", null ],
     [ "id", "structcore_1_1Spell.html#a301a7c0b55d9cc325db6f654d8a884f4", null ],
     [ "level", "structcore_1_1Spell.html#ac591cec33e25d61ded0eeebd3de0bb5b", null ],
+    [ "maxTargets", "structcore_1_1Spell.html#a562e548f68be02effde174ad42502db1", null ],
+    [ "meleeAttack", "structcore_1_1Spell.html#a342d4968b35e77227112b4364263ba74", null ],
     [ "name", "structcore_1_1Spell.html#abc3884df103905e989a4ca8cfd8ab79e", null ],
     [ "narrative", "structcore_1_1Spell.html#aee9bf5871734fa238f5f15bc584400c2", null ],
     [ "projectiles", "structcore_1_1Spell.html#a3da3a4de808e16a6384b5994834b2457", null ],
