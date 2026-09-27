@@ -3,7 +3,7 @@ id = "LOT-130"
 titre = "Les quatre fiches préfabriquées, en données"
 version = "0.0.2"
 filiere = "regles"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Brawler, Mage, Priest et Scoundrel de niveau 1 existent comme fiches du jeu, valeur pour valeur, avec les espèces et les historiques qu'elles demandent."
 prerequis = ["LOT-122"]
@@ -40,7 +40,7 @@ Proposé : **la règle prime sur la fiche imprimée**, et chaque écart est écr
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026. **La règle prime sur la fiche imprimée**, et chaque écart est écrit
+Livré le 27 septembre 2026 (**PR #146**). **La règle prime sur la fiche imprimée**, et chaque écart est écrit
 ci-dessous ; là où le moteur ne sait pas encore jouer la règle, le test dit la valeur du moteur
 d'aujourd'hui et nomme le lot qui la changera.
 
