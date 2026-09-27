@@ -788,7 +788,7 @@ Un objet de grille bloque tant qu'il tient, puis se detruit.
 
 ### ClassInArenaTest.LeBonusEtLesDesDUneCapaciteSeJouentEtSeNomment
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:147`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:150`
 
 Contre une CA nulle, l'epee de la lutteuse touche : le journal ecrit « + 2 (Coup precis) » et un 1d6 « (Coup precis) » ; une seconde attaque du meme tour n'ajoute plus de des ; au tour suivant, si.
 
@@ -829,7 +829,7 @@ Contre une CA nulle, l'epee de la lutteuse touche : le journal ecrit « + 2 (Cou
 
 ### ClassInArenaTest.LaResistanceGlobaleSeNommeAuJournal
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:223`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:227`
 
 Le gobelin touche la lutteuse (Peau de fer) : la trace ecrit « resistance (tranchant ; Peau de fer) », et les PV perdus sont la moitie arrondie a l'inferieur des degats lances.
 
@@ -856,7 +856,7 @@ Le gobelin touche la lutteuse (Peau de fer) : la trace ecrit « resistance (tran
 
 ### ClassInArenaTest.LeDeplacementNeProvoquePasDAttaqueDOpportunite
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:270`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:275`
 
 La lutteuse (N2, Pas de danseur) quitte l'allonge du gobelin sans etre frappee, la previsualisation ne montre personne, et le journal nomme la capacite ; sans elle, le gobelin frappe.
 
@@ -885,7 +885,7 @@ La lutteuse (N2, Pas de danseur) quitte l'allonge du gobelin sans etre frappee, 
 
 ### ClassInArenaTest.UnSortEpuiseNeSeProposePlusEtUnReposLongLeRend
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:319`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:325`
 
 La lutteuse lance son trait deux fois, la troisieme est refusee « Exhausted » sans rien depenser ; le sort mineur se lance encore ; le repos long de la fiche rend les deux lancers au montage suivant.
 
@@ -922,7 +922,7 @@ La lutteuse lance son trait deux fois, la troisieme est refusee « Exhausted » 
 - Vérifie que `trait.range->maximum` vaut `24`.
 - Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::Done`.
 - Vérifie que `(*sorts)[1].uses` vaut `1`.
-- Vérifie que `contient(session.journal(), "sort Trait de feu d'essai (1 restant) : attaque Lutteuse -> Gobelin (Trait de feu d'essai)")` est vrai.
+- Vérifie que `contient(session.journal(), "sort Trait de feu d'essai (1 restant) : attaque Lutteuse -> Gobelin " "(Trait de feu d'essai)")` est vrai.
 - Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::NoAction`.
 - Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::Done`.
 - Vérifie que `(*sorts)[1].uses` vaut `0`.

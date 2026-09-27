@@ -761,7 +761,7 @@ Au niveau 3, la fiche d'essai a la CA de sa formule sans armure (bouclier permis
 
 ### ClassCapacitiesTest.LIncantationSimplifieeCompteLesLancersEtLeReposLesRend
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:320`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:321`
 
 Un sort mineur se lance a volonte ; un sort de la table se lance deux fois puis plus ; le repos long rend les deux lancers et les points de vie ; monter de niveau apprend un sort sans rendre les lancers depenses.
 
@@ -798,7 +798,7 @@ Un sort mineur se lance a volonte ; un sort de la table se lance deux fois puis 
 
 ### ClassCapacitiesTest.LesQuatreClassesDeclarentLeursMaitrises
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:376`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:377`
 
 Brawler, Mage, Priest et Scoundrel portent les maitrises d'armes et d'armures, les competences au choix et, pour les deux lanceurs, l'incantation simplifiee a deux lancers par jour ; le nain fait maitriser ses quatre armes.
 
