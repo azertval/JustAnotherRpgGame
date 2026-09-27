@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**36 exigences en vigueur sur 300** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**38 exigences en vigueur sur 302** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -12,7 +12,7 @@
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
 | `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 0 | 7 |
 | `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 76 | 8 | 68 |
-| `EX-EXP` | [Exploration](../Specification/exploration.md) | 12 | 1 | 11 |
+| `EX-EXP` | [Exploration](../Specification/exploration.md) | 14 | 3 | 11 |
 | `EX-GP` | [Gameplay](../Specification/gameplay.md) | 7 | 1 | 6 |
 | `EX-IHM` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | 32 | 2 | 30 |
 | `EX-INV` | [Inventaire et économie](../Specification/inventaire.md) | 8 | 0 | 8 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **300** | **36** | **264** |
+| **Total** | | **302** | **38** | **264** |
 
 ## Exigence par exigence
 
@@ -207,6 +207,8 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-EXP-010` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-011` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-012` | [Exploration](../Specification/exploration.md) | — |
+| `EX-EXP-013` | [Exploration](../Specification/exploration.md) | [`PartyTest.QuatreAuPlusJamaisVide`](core-rpg.md#partytestquatreauplusjamaisvide), [`PartyTest.LesQuatreFichesPreTireesFormentLeGroupeDeDepart`](core-rpg.md#partytestlesquatrefichespretireesformentlegroupededepart), [`ExplorationSessionTest.UnGroupeDeQuatrePasseLesAnglesSansResterCoince`](core-world.md#explorationsessiontestungroupedequatrepasselesanglessansrestercoince), [`ExplorationSessionTest.LesSuiveursSeRangentDansLeDosDuMeneur`](core-world.md#explorationsessiontestlessuiveursserangentdansledosdumeneur), [`PartyModelTest.LEcranDeGroupeCompose`](hmi-runtime.md#partymodeltestlecrandegroupecompose) |
+| `EX-EXP-014` | [Exploration](../Specification/exploration.md) | [`PartyTest.LeMeneurEstLePremierDeLOrdreDeMarche`](core-rpg.md#partytestlemeneurestlepremierdelordredemarche), [`PartyModelTest.ChangerDeMeneurChangeLaFigurineEtLePortrait`](hmi-runtime.md#partymodeltestchangerdemeneurchangelafigurineetleportrait), [`PartyModelTest.LeMeneurEstCeluiQuiCombat`](hmi-runtime.md#partymodeltestlemeneurestceluiquicombat) |
 
 ### `EX-GP`
 

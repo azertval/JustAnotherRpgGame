@@ -186,6 +186,53 @@ n'atteint rien, pas même sa case. Un `static_assert` lie la règle au gabarit :
 mentirait. Ce n'est **pas** l'aire atteignable du combat (`core::ReachableArea`, `LOT-19`), qui
 coupe les diagonales libres et compte double le terrain difficile : deux questions, deux règles.
 
+## Le groupe : `core::Party` et `core::FollowTrail`
+
+Fichiers : [`Party.h`](../../Source/Core/Rpg/Party.h),
+[`FollowTrail.h`](../../Source/Core/World/FollowTrail.h). Concrétisé en `LOT-138`
+(`EX-EXP-013`, `EX-EXP-014`).
+
+### Qui en est : `core::Party`
+
+Le groupe est une **liste ordonnée** d'identifiants de fiche (`heros-brawler`…), de un à quatre
+(`core::Party::MAX_MEMBERS`) : le premier est le **meneur**, les suivants marchent derrière lui
+dans cet ordre. Il n'y a pas de champ « meneur » à côté de la liste — c'est le rang qui fait foi.
+Chaque retouche rend un `core::PartyChange` : `add` refuse un cinquième (`Full`) et un doublon
+(`AlreadyMember`), `remove` refuse le dernier (`LastMember`), `setLeader` met un membre en tête
+sans déranger l'ordre des autres, `rotateLeader` passe la tête au suivant (le meneur va en queue :
+répété, le geste fait le tour du groupe), `swap` échange deux rangs.
+
+`core::loadPartyCandidates` lit les fiches de `Rpg/characters/` **sans les construire** — un
+identifiant, un nom, une classe, un fichier — et `core::defaultParty` en forme le groupe de
+départ : les quatre fiches pré-tirées, le Brawler en tête.
+
+### Qui suit : la trace du meneur
+
+Un suiveur qui marcherait vers le meneur en ligne droite buterait sur le premier angle de mur ; un
+suiveur qui chercherait son chemin coûterait une recherche par membre et par image. Il **met ses
+pas dans ceux du meneur** : `core::FollowTrail` retient les positions successives du meneur (un
+point par déplacement d'au moins un centième de case), et le suiveur de rang `r` se tient sur ce
+chemin, à `(r + 1) × SPACING_CELLS` (une case) derrière lui — `pointBehind` interpole le long des
+segments, `directionAt` donne le sens de la marche à cet endroit. Tout point du chemin a été tenu
+par le gabarit du meneur : un suiveur n'est jamais dans un mur. La trace oublie ce qu'aucun
+suiveur n'atteint (`keep`).
+
+La session d'exploration tient la trace : `setFollowers(n)`, `followerPoint(rang)`,
+`followerFacing(rang)`. Elle ajoute un point **après** la marche et **avant** le portail, et la
+refait à chaque entrée sur une carte et à chaque `placeHero` (`lineUpFollowers`) : les suiveurs se
+rangent dans le dos du meneur, par pas d'un dixième de case, tant que son gabarit y tiendrait.
+Les suiveurs ne franchissent rien, n'entrent dans aucune zone et n'interagissent pas.
+
+### Le meneur partout
+
+`hmi::WorldModel` tient le groupe de la partie (`party`, `setLeader`, `rotateLeader`,
+`toggleMember`, `moveMember`) et le donne à `hmi::WorldPlay` : la figurine du meneur est celle de
+sa classe (`Common/Characters/Heroes/<classe>`, `heroFigureOf`), celles des suiveurs aussi, et une
+classe sans figurine prend le mannequin humanoïde (`LOT-145`). `hmi::playedCharacterFile` désigne
+la fiche du meneur, que lisent la fiche, l'inventaire, le dialogue (sa voix et ses jets, Q-06) et
+le combat sur la carte (`hmi::EncounterModel` relit son héros quand le meneur change).
+`hmi::PartyModel` lit les fiches des quatre pour l'écran **Groupe** et l'affichage tête haute.
+
 ## Les faits de la partie : `core::WorldFlags`
 
 Fichier : [`WorldFlags.h`](../../Source/Core/Gameplay/WorldFlags.h) (`LOT-10`).

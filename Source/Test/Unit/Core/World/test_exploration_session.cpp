@@ -7,6 +7,7 @@
  *        un portail, parler a ce qu'on regarde.
  */
 
+#include <cstddef>
 #include <map>
 #include <optional>
 #include <string>
@@ -25,6 +26,7 @@
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/EntityKinds.h"
 #include "Core/World/ExplorationSession.h"
+#include "Core/World/FollowTrail.h"
 
 namespace {
 
@@ -232,4 +234,154 @@ TEST(ExplorationSessionTest, UneCarteGeleeNeBougePlus) {
     session.freeze(false);
     marcher(session, {1.0F, 0.0F}, 1);
     EXPECT_GT(session.heroPoint().column, 4.5F);
+}
+
+// --- Le groupe (LOT-138) ------------------------------------------------------------------------
+
+namespace {
+
+// Une carte muree coupee par un mur interieur en colonne 5, des lignes 1 a 7 : pour passer de la
+// moitie gauche a la droite, il faut descendre jusqu'a la ligne 8 et remonter -- un U, avec deux
+// angles qu'un suiveur marchant droit vers le meneur ne franchirait pas.
+core::LevelData carteEnU() {
+    core::LevelData donnees = carteMuree("u", {});
+    for (int ligne = 1; ligne <= 7; ++ligne) {
+        donnees.tileMap.setTile(5, ligne, core::TileType::Wall);
+    }
+    return donnees;
+}
+
+// Vrai si le gabarit d'un membre du groupe tient en @p point : ses quatre coins hors du plein.
+bool tient(const core::ExplorationSession& session, core::CellPoint point) {
+    const core::TileMap& grille = session.map()->tileMap();
+    constexpr float DEMI = core::ExplorationSession::HERO_HALF_SIZE_CELLS;
+    for (const float dx : {-DEMI, DEMI}) {
+        for (const float dy : {-DEMI, DEMI}) {
+            const core::GridPosition coin =
+                core::cellOf({.column = point.column + dx, .row = point.row + dy});
+            if (!grille.inBounds(coin.column, coin.row) || grille.isSolid(coin.column, coin.row)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+}  // namespace
+
+/**
+ * @brief Trois suiveurs passent les deux angles d'un U sans jamais entrer dans le mur
+ *        (EX-EXP-013).
+ * \castest{<b>Un groupe de quatre traverse une carte en U : aucun suiveur ne reste coince, aucun
+ * n'entre dans un mur.</b><br/>
+ * \tcat Unitaire · Groupe<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Un meneur et trois suiveurs a l'entree d'une carte coupee par un mur interieur.<br/>
+ * 2. Descendre, passer sous le mur, remonter de l'autre cote.<br/>
+ * 3. A chaque pas, verifier le gabarit de chaque suiveur.<br/>
+ * \tattendu Aucun suiveur dans le plein a aucun pas ; a l'arrivee, les trois ont passe le mur, en
+ * file a une case l'un de l'autre derriere le meneur.
+ * }
+ */
+TEST(ExplorationSessionTest, UnGroupeDeQuatrePasseLesAnglesSansResterCoince) {
+    DossierEnMemoire dossier;
+    dossier.poser("u", carteEnU());
+    core::ExplorationSession session{dossier.chargeur()};
+    ASSERT_TRUE(session.start("u", ""));
+    session.setFollowers(3);
+    ASSERT_EQ(session.followers(), 3U);
+
+    const auto marcherEnVerifiant = [&session](core::Vector2 direction, int pas) {
+        for (int rang = 0; rang < pas; ++rang) {
+            session.update(core::ExplorationIntent{.move = direction, .interact = false},
+                           1.0F / 60.0F);
+            for (std::size_t suiveur = 0; suiveur < session.followers(); ++suiveur) {
+                ASSERT_TRUE(tient(session, session.followerPoint(suiveur)))
+                    << "suiveur " << suiveur << " dans le plein en ("
+                    << session.followerPoint(suiveur).column << ", "
+                    << session.followerPoint(suiveur).row << ")";
+            }
+        }
+    };
+    marcherEnVerifiant({0.0F, 1.0F}, 300);   // jusqu'a la ligne 8
+    marcherEnVerifiant({1.0F, 0.0F}, 300);   // sous le mur, jusqu'a la colonne 8
+    marcherEnVerifiant({0.0F, -1.0F}, 180);  // on remonte de l'autre cote
+
+    EXPECT_GT(session.heroPoint().column, 6.0F);
+    EXPECT_LT(session.heroPoint().row, 4.0F);
+    for (std::size_t suiveur = 0; suiveur < 3; ++suiveur) {
+        const core::CellPoint point = session.followerPoint(suiveur);
+        EXPECT_GT(point.column, 6.0F) << "le suiveur " << suiveur << " est reste de l'autre cote";
+        // En file sur la colonne du meneur, a une case l'un de l'autre.
+        EXPECT_NEAR(point.column, session.heroPoint().column, 0.01F);
+        EXPECT_NEAR(point.row - session.heroPoint().row, static_cast<float>(suiveur + 1), 0.05F);
+    }
+}
+
+/**
+ * @brief A l'entree d'une carte, les suiveurs se rangent derriere le meneur, dans la place libre
+ *        (EX-EXP-013).
+ * \castest{<b>Reposer le meneur range les suiveurs dans son dos, et un mur arrete la file.</b><br/>
+ * \tcat Unitaire · Groupe<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser le meneur au milieu de la carte, tourne vers le sud ; trois suiveurs.<br/>
+ * 2. Le poser en (1, 2), tourne vers le sud : le mur du nord est a une case et demie.<br/>
+ * \tattendu Au milieu, les trois en file au nord, a une case l'un de l'autre ; contre le mur, tous
+ * tiennent, et ceux qui n'ont plus de place attendent sur le dernier point libre.
+ * }
+ */
+TEST(ExplorationSessionTest, LesSuiveursSeRangentDansLeDosDuMeneur) {
+    DossierEnMemoire dossier;
+    dossier.poser("place", carteMuree("place", {}));
+    core::ExplorationSession session{dossier.chargeur()};
+    ASSERT_TRUE(session.start("place", ""));
+    session.setFollowers(3);
+
+    session.placeHero(core::cellCenter({4, 6}));
+    for (std::size_t suiveur = 0; suiveur < 3; ++suiveur) {
+        EXPECT_NEAR(session.followerPoint(suiveur).column, 4.5F, 0.001F);
+        EXPECT_NEAR(session.followerPoint(suiveur).row, 6.5F - static_cast<float>(suiveur + 1),
+                    0.05F);
+    }
+
+    session.placeHero(core::cellCenter({1, 2}));
+    for (std::size_t suiveur = 0; suiveur < 3; ++suiveur) {
+        EXPECT_TRUE(tient(session, session.followerPoint(suiveur))) << suiveur;
+    }
+    EXPECT_NEAR(session.followerPoint(0).row, 1.5F, 0.05F);
+    EXPECT_EQ(session.followerPoint(1), session.followerPoint(2))
+        << "sans place, les derniers attendent sur le meme point";
+}
+
+/**
+ * @brief La trace se mesure le long du chemin, et ne garde que ce qu'il faut.
+ * \castest{<b>Un point a une distance donnee derriere le meneur se lit le long du chemin, angles
+ * compris ; la trace oublie ce qu'aucun suiveur n'atteint.</b><br/>
+ * \tcat Unitaire · Groupe<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Une trace en L : (0, 0), (2, 0), (2, 2), le meneur au bout.<br/>
+ * 2. Lire les points a 1, 3 et 10 cases ; puis garder 1,5 case et prolonger la trace.<br/>
+ * \tattendu (2, 1), (1, 0), puis le plus ancien point ; la direction a 3 cases va vers l'est ; la
+ * trace gardee couvre au moins 1,5 case et pas beaucoup plus.
+ * }
+ */
+TEST(FollowTrailTest, LaTraceSeMesureLeLongDuChemin) {
+    core::FollowTrail trace;
+    trace.reset({{2.0F, 2.0F}, {2.0F, 0.0F}, {0.0F, 0.0F}});
+    EXPECT_EQ(trace.pointBehind(1.0F), (core::TrailPoint{2.0F, 1.0F}));
+    EXPECT_EQ(trace.pointBehind(3.0F), (core::TrailPoint{1.0F, 0.0F}));
+    EXPECT_EQ(trace.pointBehind(10.0F), (core::TrailPoint{0.0F, 0.0F}));
+    EXPECT_GT(trace.directionAt(3.0F).x, 0.0F);
+    EXPECT_FLOAT_EQ(trace.length(), 4.0F);
+
+    trace.keep(1.5F);
+    for (int pas = 1; pas <= 20; ++pas) {
+        trace.record({2.0F, 2.0F + (0.1F * static_cast<float>(pas))});
+    }
+    EXPECT_GE(trace.length(), 1.5F);
+    EXPECT_LT(trace.length(), 1.7F);
+    // Un pietinement ne pose pas de point.
+    const std::size_t avant = trace.points().size();
+    trace.record(trace.points().front());
+    EXPECT_EQ(trace.points().size(), avant);
 }

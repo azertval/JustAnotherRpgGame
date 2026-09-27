@@ -27,8 +27,9 @@ namespace hmi {
  * ## Ce qu'elle tient
  *
  * Le catalogue des dialogues (`Source/Elements/World/dialogues`), l'échelle des degrés de
- * difficulté, le personnage de démonstration comme interlocuteur (`core::CharacterListener`) et
- * une conversation en cours. Chaque réponse cliquée devient `core::DialogueRunner::choose`, et ce
+ * difficulté, le **meneur du groupe** comme interlocuteur (`core::CharacterListener`, `LOT-138`)
+ * et une conversation en cours. C'est lui qui parle, et lui qui jette : le choix du meneur a donc
+ * un sens (Q-06). Chaque réponse cliquée devient `core::DialogueRunner::choose`, et ce
  * que l'écran affiche est relu par `hmi::dialogueScreenValues` après chaque geste.
  *
  * ## Ce qui est un échafaudage, et le dit
@@ -47,6 +48,9 @@ class DialogueModel : public QObject {
     /// Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation.
     Q_PROPERTY(QString dialogueId READ dialogueId WRITE setDialogueId NOTIFY changed)
     Q_PROPERTY(QString speakerName READ speakerName NOTIFY changed)
+    /// Qui parle pour le groupe et jette les dés : le **meneur** (`LOT-138`, Q-06), tel qu'il
+    /// était à l'ouverture de l'écran.
+    Q_PROPERTY(QString partyVoice READ partyVoice NOTIFY changed)
     Q_PROPERTY(QString attitude READ attitude NOTIFY changed)
     /// La réplique affichée, traduite ; le refus s'il n'y a pas de langue commune.
     Q_PROPERTY(QString line READ line NOTIFY changed)
@@ -80,6 +84,7 @@ public:
     [[nodiscard]] QString dialogueId() const;
     void setDialogueId(const QString& id);
     [[nodiscard]] QString speakerName() const;
+    [[nodiscard]] QString partyVoice() const;
     [[nodiscard]] QString attitude() const;
     [[nodiscard]] QString line() const;
     [[nodiscard]] QString checkOutcome() const;

@@ -79,6 +79,7 @@ set(JADG_UI_QML_FILES
     Screens/MerchantForm.ui.qml
     Screens/CombatHudForm.ui.qml
     Screens/CompanyForm.ui.qml
+    Screens/PartyForm.ui.qml
     Screens/SkillsForm.ui.qml
     Screens/MainMenuForm.ui.qml
     Screens/OptionsForm.ui.qml

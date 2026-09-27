@@ -2,8 +2,9 @@
 
 > Statut : **livré** pour la démo. Le déplacement, la collision et l'orientation sont livrés
 > (`LOT-06`), le vocabulaire de terrain aussi (`LOT-08`), les portails relient les cartes
-> (`LOT-09`), le monde se souvient de ce que le joueur a fait (`LOT-116`), et une rencontre se
-> **déclenche sur la carte**, où le combat se joue (`LOT-118`). Dépend de
+> (`LOT-09`), le monde se souvient de ce que le joueur a fait (`LOT-116`), une rencontre se
+> **déclenche sur la carte**, où le combat se joue (`LOT-118`), et le joueur mène un **groupe** de
+> quatre au plus (`LOT-138`). Dépend de
 > [`architecture.md`](architecture.md) (conventions de monde) et de
 > [`niveaux.md`](niveaux.md) (couche de collision).
 
@@ -83,7 +84,32 @@ allait à 4 cases par seconde avant le `LOT-112` ; c'est la figurine peinte qui 
   diagonale isométrique — et, quand deux directions sont tenues, la diagonale courante est gardée
   plutôt que de battre entre deux.
 
-## 3. La mémoire du monde : drapeaux et quêtes
+## 3. Le groupe
+
+Le joueur ne mène pas un héros mais un **groupe** : jusqu'à quatre personnages, pris parmi les
+fiches pré-tirées (`Rpg/characters/`), dans un **ordre de marche**. Le premier est le **meneur** :
+c'est lui qu'on déplace, lui qui interagit, franchit les portails, parle et jette les dés du
+dialogue, lui qui combat sur la carte tant que le combat de groupe (`LOT-139`) n'y met pas les
+quatre. Les autres le **suivent**. Concrétisé en `LOT-138`.
+
+- **EX-EXP-013** — Les suiveurs **mettent leurs pas dans ceux du meneur** : chacun se tient sur
+  le chemin que le meneur a parcouru, à **une case** du précédent (`core::FollowTrail`). Ils ne
+  touchent à rien — ni portail, ni zone, ni interaction — et ne se heurtent ni au meneur ni entre
+  eux. Tout point de ce chemin a été tenu par le gabarit du meneur : un suiveur ne peut donc
+  **jamais** se trouver dans un mur, ni rester coincé derrière un angle que le meneur a
+  contourné. À l'entrée sur une carte, ou quand le groupe est reposé (retour d'un combat), les
+  suiveurs se rangent **dans le dos** du meneur, aussi loin que la place le permet ; ceux qui n'en
+  ont plus attendent sur le dernier point libre et se déplient dès qu'il marche. Le groupe compte
+  de **un à quatre** membres : le dernier ne se laisse pas, un cinquième ne se prend pas.
+- **EX-EXP-014** — Le **meneur** est le premier de l'ordre de marche, et rien d'autre : pas de
+  champ à part qui pourrait contredire le rang. **Changer de meneur** change, au même pas, la
+  figurine menée (celle de sa classe, `Characters/Heroes/<classe>`), le portrait de l'affichage
+  tête haute et du dialogue, la fiche qui s'ouvre, celui qui jette les dés du dialogue (Q-06) et
+  celui qui combat. `Tab` passe la main au suivant — le meneur va en queue, et quatre appuis font
+  le tour ; l'écran **Groupe** (`G`) prend, laisse, fait mener et change l'ordre de marche, au
+  clavier comme à la manette.
+
+## 4. La mémoire du monde : drapeaux et quêtes
 
 Le jeu se souvient de ce que le joueur a fait par des **drapeaux de monde** — et de rien d'autre :
 une quête, un PNJ qui paraît, une porte qui s'ouvre se lisent dans les drapeaux, jamais dans un état

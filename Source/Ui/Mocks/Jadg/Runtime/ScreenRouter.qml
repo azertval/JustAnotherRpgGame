@@ -28,7 +28,8 @@ QtObject {
         Dialogue,
         Merchant,
         Company,
-        CombatHud
+        CombatHud,
+        Party
     }
 
     /// Le dialogue que l'ecran de dialogue joue (LOT-09) : dans l'atelier, celui du garde de la

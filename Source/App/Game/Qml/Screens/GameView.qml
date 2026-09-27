@@ -14,9 +14,13 @@ import Jadg.Runtime
     en une direction, et la session avance de son pas fixe a elle. Traduire chaque `onPressed` en
     un pas ferait dependre la vitesse du taux de repetition du clavier.
 
-    Les valeurs du HUD qui ne viennent pas encore d'un lot (groupe, quetes, horloge, minicarte)
+    Les valeurs du HUD qui ne viennent pas encore d'un lot (quetes, horloge, minicarte, experience)
     restent des donnees en attente (`PendingData`, cles `hud.*`), comme dans le cadre du LOT-87 ;
-    le LIEU, lui, est celui de la carte chargee.
+    le LIEU, lui, est celui de la carte chargee, et le GROUPE celui de la partie (LOT-138) : le
+    meneur au portrait principal, les quatre membres dessous, le meneur marque.
+
+    `Tab` passe la tete au suivant du groupe -- la figurine menee change sous la main --, `G` ouvre
+    l'ecran du groupe.
 */
 GameViewForm {
     id: root
@@ -26,15 +30,18 @@ GameViewForm {
     // Rien a dire quand la carte est la : le statut ne parle que d'un echec.
     status: WorldModel.status
 
-    characterName: PendingData.value("hud.character.name")
-    level: PendingData.value("hud.character.level")
-    hitPointsText: PendingData.value("hud.character.hit_points")
-    hitPointsRatio: 0
+    // Le groupe de la partie (LOT-138) : les fiches se lisent une fois par ecran.
+    readonly property PartyModel partyModel: PartyModel {}
+
+    characterName: partyModel.leaderName
+    level: partyModel.leaderLevel
+    hitPointsText: partyModel.leaderHitPoints
+    hitPointsRatio: partyModel.members.length > 0 ? partyModel.members[0].ratio : 0
     experienceText: PendingData.value("hud.character.experience")
     experienceRatio: 0
-    portrait: PendingData.image("hud.character.portrait")
-    party: PendingData.rows("hud.party", 4)
-    activeMember: -1
+    portrait: WorldModel.leaderPortrait
+    party: partyModel.members
+    activeMember: partyModel.members.length > 0 ? 0 : -1
     quests: PendingData.rows("hud.quests", 2)
     clock: PendingData.value("hud.clock")
     location: WorldModel.loaded ? WorldModel.mapName : PendingData.value("hud.location")
@@ -152,6 +159,9 @@ GameViewForm {
         case Qt.Key_Right: case Qt.Key_D: held.right = true; break
         case Qt.Key_E: case Qt.Key_Space: WorldModel.interact(); event.accepted = true; return
         case Qt.Key_Escape: ScreenRouter.openPause(); event.accepted = true; return
+        // Le groupe (LOT-138) : passer la main au suivant, ou ouvrir l'ecran du groupe.
+        case Qt.Key_Tab: WorldModel.rotateLeader(); event.accepted = true; return
+        case Qt.Key_G: ScreenRouter.openRpgScreen(ScreenRouter.Party); event.accepted = true; return
         default: return
         }
         root.pushMove();

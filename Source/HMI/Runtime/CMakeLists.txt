@@ -46,6 +46,8 @@ qt_add_qml_module(JadgRuntime
         # le rendu QRhi du lieu -- le pipeline 2D de la scene (LOT-86), sur une carte ; depuis le
         # LOT-118 le combat s'y rend aussi.
         WorldModel.h WorldModel.cpp
+        # Le groupe (LOT-138) : l'ecran « Groupe » et le HUD le lisent, la partie le tient.
+        PartyModel.h PartyModel.cpp
         WorldViewportItem.h WorldViewportItem.cpp
         ../Graphics/WorldSceneRenderer.cpp
         # Les deux niveaux du plan sous la ville (LOT-96) : le quartier et ses ilots, et l'image

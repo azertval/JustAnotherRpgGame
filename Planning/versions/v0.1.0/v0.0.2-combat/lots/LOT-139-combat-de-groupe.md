@@ -26,3 +26,11 @@ criteres = [
 Le moteur de combat sait déjà jouer plusieurs combattants par camp : le tour par tour du `LOT-20`
 et l'IA du `LOT-23` n'ont jamais supposé un duel. Ce qui manque, c'est **le joueur à quatre** :
 l'entrée en combat, la sélection, les effets entre alliés.
+
+## Ce que le `LOT-138` lui laisse
+
+- Le groupe existe en exploration, mais **seul le meneur** combat sur la carte : l'entrée en
+  combat des quatre, sur la zone, est ici.
+- Ce que le combat laisse **aux fiches** : les points de vie perdus, les lancers de sorts
+  dépensés (`LOT-131`), un membre mort (`Dead`, `LOT-137`) qui ne suit plus le groupe. Aujourd'hui
+  chaque rencontre relit les fiches pré-tirées, pleines.

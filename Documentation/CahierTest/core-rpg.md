@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **97 cas** (3 bloquants, 57 critiques, 36 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **101 cas** (3 bloquants, 59 critiques, 37 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -16,6 +16,7 @@ Tests unitaires — **97 cas** (3 bloquants, 57 critiques, 36 majeurs, 1 mineur)
 | [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
 | [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
 | [`test_multiclassing.cpp`](#test-multiclassingcpp) | 6 | - | 4 | 2 | - |
+| [`test_party.cpp`](#test-partycpp) | 4 | - | 2 | 1 | 1 |
 | [`test_premade_characters.cpp`](#test-premade-characterscpp) | 7 | - | 5 | 2 | - |
 | [`test_rpg_enums.cpp`](#test-rpg-enumscpp) | 5 | - | 3 | 2 | - |
 
@@ -29,6 +30,8 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | `EX-CNT-011` | [`DiceTest.AllerRetourDesCaracteristiques`](#dicetestallerretourdescaracteristiques), [`RpgEnumsTest.UnNomInconnuEstRefuse`](#rpgenumstestunnominconnuestrefuse), [`RpgEnumsTest.LesEnumerationsCoincidentAvecLesSchemas`](#rpgenumstestlesenumerationscoincidentaveclesschemas) |
 | `EX-CNT-031` | [`BestiaryTest.LesMecanismesExigesSontAnnonces`](#bestiarytestlesmecanismesexigessontannonces), [`CharacterOptionsTest.LesMecanismesExigesSontAnnonces`](#characteroptionstestlesmecanismesexigessontannonces) |
 | `EX-CNT-032` | [`CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien`](#characteroptionstestlesclassesprovisoiresnesontreferenceesparrien) |
+| `EX-EXP-013` | [`PartyTest.QuatreAuPlusJamaisVide`](#partytestquatreauplusjamaisvide), [`PartyTest.LesQuatreFichesPreTireesFormentLeGroupeDeDepart`](#partytestlesquatrefichespretireesformentlegroupededepart) |
+| `EX-EXP-014` | [`PartyTest.LeMeneurEstLePremierDeLOrdreDeMarche`](#partytestlemeneurestlepremierdelordredemarche) |
 | `EX-NFR-002` | [`DiceTest.RejouabiliteStricte`](#dicetestrejouabilitestricte) |
 | `EX-REG-003` | [`CheckTest.ModificateursEtRestitution`](#checktestmodificateursetrestitution) |
 | `EX-RPG-042` | [`DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune`](#dialoguetestundialogueestrefusefautedelanguecommune) |
@@ -1870,6 +1873,100 @@ Les progressions de lanceur de la donnee sont toutes connues du moteur.
 - Vérifie que `document.ok()` est vrai.
 - Vérifie que `progressions.size()` vaut `12U`.
 - Vérifie que `core::parseCasterProgression(nom).has_value()` est vrai.
+
+## test_party.cpp
+
+### PartyTest.QuatreAuPlusJamaisVide
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party.cpp:34`
+
+Exigences : `EX-EXP-013`
+
+Le groupe prend quatre personnages au plus, chacun une fois, et garde toujours son dernier membre.
+
+**Étapes**
+
+1. Ajouter les quatre fiches, puis une cinquieme, puis une deja presente.
+2. Retirer trois membres, puis le dernier.
+
+**Résultat attendu**
+
+- Vérifie que `groupe.add(id)` vaut `PartyChange::Done`.
+- Vérifie que `groupe.size()` vaut `Party::MAX_MEMBERS`.
+- Vérifie que `groupe.add("heros-cinquieme")` vaut `PartyChange::Full`.
+- Vérifie que `groupe.add("heros-mage")` vaut `PartyChange::AlreadyMember`.
+- Vérifie que `groupe.remove("heros-mage")` vaut `PartyChange::Done`.
+- Vérifie que `groupe.remove("heros-mage")` vaut `PartyChange::NotMember`.
+- Vérifie que `groupe.remove("heros-priest")` vaut `PartyChange::Done`.
+- Vérifie que `groupe.remove("heros-brawler")` vaut `PartyChange::Done`.
+- Vérifie que `groupe.leader()` vaut `"heros-scoundrel"`.
+- Vérifie que `groupe.remove("heros-scoundrel")` vaut `PartyChange::LastMember`.
+- Vérifie que `groupe.size()` vaut `1U`.
+
+### PartyTest.LeMeneurEstLePremierDeLOrdreDeMarche
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party.cpp:64`
+
+Exigences : `EX-EXP-014`
+
+Choisir un meneur le met en tete sans deranger les autres ; passer la main fait le tour du groupe.
+
+**Étapes**
+
+1. Un groupe de quatre, Brawler en tete ; faire du Priest le meneur.
+2. Passer la main quatre fois.
+3. Echanger les rangs 1 et 3.
+
+**Résultat attendu**
+
+- Vérifie que `groupe.leader()` vaut `"heros-brawler"`.
+- Vérifie que `groupe.setLeader("heros-priest")` vaut `PartyChange::Done`.
+- Vérifie que `groupe.members()` vaut `(std::vector<std::string>{"heros-priest", "heros-brawler", "heros-mage", "heros-scoundrel"})`.
+- Vérifie que `groupe.setLeader("heros-inconnu")` vaut `PartyChange::NotMember`.
+- Vérifie que `groupe.rotateLeader()` vaut `PartyChange::Done`.
+- Vérifie que `meneurs` vaut `(std::vector<std::string>{"heros-brawler", "heros-mage", "heros-scoundrel", "heros-priest"})`.
+- Vérifie que `groupe.swap(1, 3)` vaut `PartyChange::Done`.
+- Vérifie que `groupe.members()` vaut `(std::vector<std::string>{"heros-priest", "heros-scoundrel", "heros-mage", "heros-brawler"})`.
+- Vérifie que `groupe.swap(1, 4)` vaut `PartyChange::NotMember`.
+
+### PartyTest.LesQuatreFichesPreTireesFormentLeGroupeDeDepart
+
+*Majeur · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party.cpp:100`
+
+Exigences : `EX-EXP-013`
+
+Le dossier des personnages propose les quatre fiches pre-tirees ; une partie neuve les prend toutes, le Brawler en tete.
+
+**Étapes**
+
+1. Lire `Rpg/characters/` sans construire les fiches.
+2. Former le groupe de depart.
+
+**Résultat attendu**
+
+- Vérifie que `lus.errors.empty()` est vrai.
+- Vérifie que `lus.candidates.size()` vaut `4U`.
+- Vérifie que `candidat.name.empty()` est faux.
+- Vérifie que `candidat.file.stem().string()` vaut `candidat.id`.
+- Vérifie que `classes` vaut `(std::vector<std::string>{"brawler", "mage", "priest", "scoundrel"})`.
+- Vérifie que `depart.members()` vaut `QUATRE`.
+- Vérifie que `lus.candidates.front().name` vaut `"Grom Tranche-Écaille"`.
+
+### PartyTest.UnDossierAbsentSeSignale
+
+*Mineur · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party.cpp:130`
+
+Un dossier de personnages absent se signale.
+
+**Étapes**
+
+1. Lire un dossier qui n'existe pas.
+
+**Résultat attendu**
+
+- Vérifie que `lus.candidates.empty()` est vrai.
+- Vérifie que `lus.errors.size()` vaut `1U`.
+- Vérifie que `lus.errors.front().find("dossier-qui-n-existe-pas")` diffère de `std::string::npos`.
 
 ## test_premade_characters.cpp
 

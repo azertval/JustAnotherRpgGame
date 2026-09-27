@@ -66,6 +66,7 @@ qt_add_qml_module(JustAnotherRpgGame
         Game/Qml/Screens/Merchant.qml
         Game/Qml/Screens/CombatHud.qml
         Game/Qml/Screens/Company.qml
+        Game/Qml/Screens/Party.qml
         Game/Qml/Screens/Skills.qml
         Game/Qml/Screens/MainMenu.qml
         Game/Qml/Screens/Options.qml

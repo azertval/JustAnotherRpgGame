@@ -47,7 +47,7 @@ Item {
     readonly property var screenNames: [
         "MainMenu", "GameView", "Pause", "Options", "Credits",
         "CharacterSheet", "Skills", "Inventory", "Journal", "WorldMap", "Dialogue",
-        "Merchant", "Company", "CombatHud", "Death", "DemoEnd", "Gallery", "AssetGallery",
+        "Merchant", "Company", "Party", "CombatHud", "Death", "DemoEnd", "Gallery", "AssetGallery",
         "MapLauncher"
     ]
 
@@ -72,6 +72,8 @@ Item {
     Component { id: merchantScreen; Merchant {} }
     Component { id: companyScreen; Company {} }
     Component { id: combatHudScreen; CombatHud {} }
+    // Le groupe (LOT-138).
+    Component { id: partyScreen; Party {} }
     // Les ecrans de fin (LOT-119).
     Component { id: deathScreen; Death {} }
     Component { id: demoEndScreen; DemoEnd {} }
@@ -171,6 +173,7 @@ Item {
         case ScreenRouter.Merchant:       return merchantScreen
         case ScreenRouter.Company:        return companyScreen
         case ScreenRouter.CombatHud:      return combatHudScreen
+        case ScreenRouter.Party:          return partyScreen
         }
         return characterSheetScreen
     }
@@ -193,6 +196,7 @@ Item {
         case "Merchant":       return merchantScreen
         case "Company":        return companyScreen
         case "CombatHud":      return combatHudScreen
+        case "Party":          return partyScreen
         case "Death":          return deathScreen
         case "DemoEnd":        return demoEndScreen
         case "Gallery":        return galleryScreen

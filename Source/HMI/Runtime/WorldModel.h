@@ -7,13 +7,19 @@
 #include <QString>
 #include <QStringList>
 #include <QTimer>
+#include <QUrl>
+#include <QVariantList>
+#include <QVariantMap>
 #include <QtQmlIntegration>
 #include <filesystem>
 #include <memory>
 #include <optional>
+#include <string>
+#include <string_view>
 #include <vector>
 
 #include "Core/Math/Vector2.h"
+#include "Core/Rpg/Party.h"
 #include "Core/World/CityPlan.h"
 #include "Core/World/ExplorationSession.h"
 #include "HMI/Game/WorldPlay.h"
@@ -63,9 +69,9 @@ class WorldModel : public QObject {
     /// La case du héros, en coordonnées **continues** : c'est ce que la caméra suit.
     Q_PROPERTY(qreal heroColumn READ heroColumn NOTIFY heroMoved)
     Q_PROPERTY(qreal heroRow READ heroRow NOTIFY heroMoved)
-    /// La figurine du héros (`Assets/Npc/<slug>`). *Provisoire* : le héros créé à « Nouvelle
-    /// partie » donnera la sienne (`LOT-43`), et cette valeur par défaut partira avec le reste du
-    /// contenu provisoire.
+    /// La figurine du héros — le **meneur** du groupe : celle de sa classe (`LOT-138`). L'écrire
+    /// l'impose à tout meneur (`--hero-figure=`, la console de débogage) ; l'écrire vide rend la
+    /// sienne à chacun.
     Q_PROPERTY(QString heroFigure READ heroFigure WRITE setHeroFigure NOTIFY changed)
     /// Vrai quand la carte est gelée : un dialogue ou un combat est à l'écran.
     Q_PROPERTY(bool frozen READ frozen WRITE setFrozen NOTIFY changed)
@@ -77,6 +83,20 @@ class WorldModel : public QObject {
     /// Les quartiers déjà parcourus depuis « Nouvelle partie », dans l'ordre de la première visite.
     /// Persistés au `LOT-17`.
     Q_PROPERTY(QStringList visitedDistricts READ visitedDistricts NOTIFY changed)
+    /// Le groupe (`LOT-138`), dans l'ordre de marche, meneur en tête. Une ligne par membre :
+    /// `id`, `name`, `classId`, `figure`, `portrait` (adresse, vide sans portrait), `leader`.
+    Q_PROPERTY(QVariantList partyMembers READ partyMembers NOTIFY partyChanged)
+    /// Les personnages qu'on peut prendre dans le groupe (`Rpg/characters/`), dans l'ordre de
+    /// leurs identifiants : les mêmes clés, plus `rank` (rang dans l'ordre de marche, -1 hors du
+    /// groupe).
+    Q_PROPERTY(QVariantList partyCandidates READ partyCandidates NOTIFY partyChanged)
+    /// Le meneur : celui qu'on déplace, qui parle et jette les dés du dialogue (Q-06).
+    Q_PROPERTY(QString leaderId READ leaderId NOTIFY partyChanged)
+    Q_PROPERTY(QString leaderName READ leaderName NOTIFY partyChanged)
+    /// Le portrait du meneur, vide si sa figurine n'en a pas encore (`LOT-136`).
+    Q_PROPERTY(QUrl leaderPortrait READ leaderPortrait NOTIFY partyChanged)
+    /// Quatre (`core::Party::MAX_MEMBERS`).
+    Q_PROPERTY(int maxPartySize READ maxPartySize CONSTANT)
 
 public:
     /// La ville où « Nouvelle partie » ouvre le jeu, sous `World/cities/` : la Capitale (`LOT-96`).
@@ -146,6 +166,19 @@ public:
     /// @brief Le joueur presse la touche d'interaction : le prochain pas la résoudra.
     Q_INVOKABLE void interact();
 
+    /// @brief Fait de @p characterId le meneur (`core::Party::setLeader`). @return Vrai s'il l'est.
+    Q_INVOKABLE bool setLeader(const QString& characterId);
+    /// @brief Passe la tête au suivant (`core::Party::rotateLeader`) : la touche du meneur.
+    Q_INVOKABLE bool rotateLeader();
+    /// @brief Prend @p characterId dans le groupe, ou l'en retire. Refusé au-delà de quatre, et
+    ///        pour le dernier membre. @return Vrai si le groupe a changé.
+    Q_INVOKABLE bool toggleMember(const QString& characterId);
+    /**
+     * @brief Avance (@p offset négatif) ou recule @p characterId dans l'ordre de marche, en
+     *        l'échangeant avec son voisin. Passer devant le meneur le fait meneur.
+     */
+    Q_INVOKABLE bool moveMember(const QString& characterId, int offset);
+
     [[nodiscard]] QString mapId() const;
     [[nodiscard]] QString mapName() const;
     [[nodiscard]] QString status() const {
@@ -172,6 +205,36 @@ public:
     [[nodiscard]] QStringList visitedDistricts() const {
         return _visitedDistricts;
     }
+
+    [[nodiscard]] QVariantList partyMembers() const;
+    [[nodiscard]] QVariantList partyCandidates() const;
+    [[nodiscard]] QString leaderId() const;
+    [[nodiscard]] QString leaderName() const;
+    [[nodiscard]] QUrl leaderPortrait() const;
+    [[nodiscard]] static int maxPartySize() noexcept {
+        return static_cast<int>(core::Party::MAX_MEMBERS);
+    }
+
+    /// @return Le groupe de la partie en cours.
+    [[nodiscard]] const core::Party& party() const noexcept {
+        return _party;
+    }
+    /// @return Les personnages qu'on peut prendre dans le groupe, lus au démarrage.
+    [[nodiscard]] const std::vector<core::PartyCandidate>& candidates() const noexcept {
+        return _candidates;
+    }
+    /// @return La fiche du meneur (`Rpg/characters/<id>.json`) ; vide si le groupe n'a personne
+    ///         qu'on sache lire.
+    [[nodiscard]] std::filesystem::path leaderSheetFile() const;
+    /**
+     * @brief Remplace le groupe — un test, ou la sauvegarde un jour. Les identifiants inconnus du
+     *        dossier des personnages sont écartés ; un groupe vide garde l'ancien.
+     */
+    void setParty(const core::Party& party);
+
+    /// @return La figurine d'un héros de la classe @p classId : les héros se rangent par classe
+    ///         (`Common/Characters/Heroes/<classe>`, `LOT-124`).
+    [[nodiscard]] static std::string heroFigureOf(std::string_view classId);
 
     /// @return La carte que la surface de rendu dessine, partagée (`hmi::WorldPlay::scene`).
     [[nodiscard]] std::shared_ptr<const WorldSceneSnapshot> scene() const;
@@ -258,6 +321,8 @@ signals:
     void portalSealed(const QString& mapId);
     /// Une quête a atteint une étape (`quest`) : le journal se relit.
     void questAdvanced(const QString& quest, const QString& step);
+    /// Le groupe a changé : membres, ordre de marche ou meneur (`LOT-138`).
+    void partyChanged();
 
 private:
     /// Un pas fixe : avance la session, joue ses événements, publie ce qui a changé.
@@ -272,6 +337,12 @@ private:
     void applyFlags(const QStringList& flags);
     /// Retient le quartier de la carte courante parmi les quartiers visités.
     void noteDistrictVisit();
+    /// Donne au monde les figurines du groupe — le meneur, puis ses suiveurs — et l'annonce.
+    void applyParty();
+    /// @return Le candidat @p characterId, ou `nullptr`.
+    [[nodiscard]] const core::PartyCandidate* candidate(std::string_view characterId) const;
+    /// @return La ligne QML d'un candidat (`partyMembers`, `partyCandidates`).
+    [[nodiscard]] QVariantMap candidateRow(const core::PartyCandidate& candidate) const;
 
     /// La carte qu'on parcourt, et sa mise en scène — partagée avec l'essai de l'éditeur.
     std::unique_ptr<WorldPlay> _play;
@@ -289,6 +360,13 @@ private:
     std::vector<std::filesystem::path> _levelDirectories;
     /// Les drapeaux de `--flags=` : reposés à chaque partie neuve (`endGame`).
     QStringList _startFlags;
+    /// Les personnages qu'on peut prendre, lus une fois (`Rpg/characters/`, `LOT-138`).
+    std::vector<core::PartyCandidate> _candidates;
+    /// Le groupe de la partie : les quatre fiches pré-tirées au départ.
+    core::Party _party;
+    /// La figurine imposée au meneur (`--hero-figure=`, la console de débogage) ; vide : celle
+    /// de sa classe.
+    std::string _heroFigureOverride;
     /// Oublie la direction et l'interaction demandées : le héros s'arrête.
     void releaseInput() noexcept;
 

@@ -3,7 +3,7 @@ id = "LOT-137"
 titre = "États, agonie et mort"
 version = "0.0.2"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Un personnage à zéro point de vie tombe, fait ses jets de sauvegarde contre la mort, se relève si on le soigne."
 prerequis = ["LOT-131"]
@@ -28,7 +28,7 @@ reste vient avec les classes complètes de la `0.3.0`.
 
 ## Décisions de réalisation
 
-Réalisé le 27 septembre 2026. Les règles sont celles du *Manuel des Joueurs*, « Tomber à 0 point
+Livré le 27 septembre 2026 (**PR #152**). Les règles sont celles du *Manuel des Joueurs*, « Tomber à 0 point
 de vie » (PDF p. 199), « Soins » (p. 199) et l'annexe A, « Inconscient » et « À terre »
 (p. 293-294).
 

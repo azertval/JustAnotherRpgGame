@@ -49,6 +49,9 @@ DialogueForm {
     }
 
     speakerName: conversation.speakerName
+    // Le meneur parle pour le groupe, et jette (LOT-138, Q-06).
+    voiceName: conversation.partyVoice
+    voicePortraitSource: WorldModel.leaderPortrait
     attitude: conversation.attitude
     line: conversation.line
     checkOutcome: conversation.checkOutcome

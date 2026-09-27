@@ -200,6 +200,8 @@ Item {
                     anchors.top: parent.top
                     shape: "square"
                     size: 96 * Tokens.uiScale
+                    // Role FACULTATIF, comme `ratio` : les lignes en attente n'en ont pas.
+                    source: member.model.portrait !== undefined ? member.model.portrait : ""
                     active: member.index === root.activeMember
                 }
 

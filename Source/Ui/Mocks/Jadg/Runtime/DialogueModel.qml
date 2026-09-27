@@ -12,6 +12,7 @@ QtObject {
     property string dialogueId: "garde"
     property int seed: 0
     readonly property string speakerName: "Le garde Ironhand"
+    readonly property string partyVoice: "Grom Tranche-Écaille"
     readonly property string attitude: "Indifférent"
     readonly property string line: "Circulez. Ce gamin a volé sur un étal du marché, et l'Arena of Fate juge les voleurs comme les autres. Le sable décidera."
     readonly property string checkOutcome: ""

@@ -234,6 +234,10 @@ QString DialogueModel::speakerName() const {
     return toQt(_session->values.speakerName);
 }
 
+QString DialogueModel::partyVoice() const {
+    return toQt(_session->character.sheet.name);
+}
+
 QString DialogueModel::attitude() const {
     return toQt(_session->values.attitude);
 }

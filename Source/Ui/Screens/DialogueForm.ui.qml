@@ -18,11 +18,17 @@ import Jadg.Ui
     etait jete (`checkTitle`), le calcul (`checkDetail`) et l'issue (`checkVerdict`). Rien ne
     s'affiche quand le dernier geste n'a rien jete (`checkTitle` vide). Un jet deja rate ne relance
     pas le de : le losange porte alors un tiret.
+
+    LE GROUPE PARLE PAR SON MENEUR (LOT-138). Sous l'interlocuteur, le portrait et le nom de celui
+    qui repond pour le groupe -- et qui jette les des : changer de meneur change ce visage-la.
 */
 ScreenPage {
     id: root
 
     property url portraitSource: ""
+    /// Le meneur du groupe, qui parle et jette les des : son portrait et son nom.
+    property url voicePortraitSource: ""
+    property string voiceName: "Grom Tranche-Écaille"
     property var replies: exampleReplies
     property string line: "Vous arrivez tard, et par la mauvaise route. Ceux qui viennent par là ont d'ordinaire quelque chose à cacher — ou quelqu'un à fuir. Lequel des deux, pour vous ?"
     property string speakerName: "—"
@@ -72,6 +78,39 @@ ScreenPage {
                 Layout.fillWidth: true
                 label: qsTr("Attitude")
                 value: root.attitude
+            }
+
+            Row {
+                Layout.fillWidth: true
+                Layout.topMargin: Tokens.gapMedium
+                spacing: Tokens.gapMedium
+
+                PortraitFrame {
+                    shape: "square"
+                    size: 120 * Tokens.uiScale
+                    source: root.voicePortraitSource
+                    active: true
+                }
+
+                Column {
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: Tokens.gapSmall / 2
+
+                    Text {
+                        text: qsTr("Pour le groupe")
+                        color: Tokens.textMuted
+                        font.family: Tokens.bodyFamily
+                        font.pixelSize: Tokens.fontCaption
+                    }
+
+                    Text {
+                        text: root.voiceName
+                        color: Tokens.text
+                        font.family: Tokens.titleFamily
+                        font.pixelSize: Tokens.fontBody
+                        font.bold: true
+                    }
+                }
             }
         }
 

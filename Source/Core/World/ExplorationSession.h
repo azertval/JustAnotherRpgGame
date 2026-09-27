@@ -13,6 +13,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Math/Vector2.h"
+#include "Core/World/FollowTrail.h"
 #include "Core/World/WorldTravel.h"
 
 /**
@@ -160,6 +161,27 @@ public:
     /// @return La case que le héros regarde (`core::aimedCell`).
     [[nodiscard]] GridPosition aimedCell() const;
 
+    /**
+     * @brief Le héros mène @p count suiveurs (`LOT-138`) : les autres membres du groupe.
+     *
+     * Ils marchent **dans ses pas** (`core::FollowTrail`), à une case l'un de l'autre, et ne
+     * touchent à rien : ni portail, ni zone, ni interaction — c'est le meneur qui agit. À
+     * l'entrée sur une carte ou quand on repose le héros, ils se rangent derrière lui, dans le dos
+     * de son orientation, aussi loin que la place le permet.
+     */
+    void setFollowers(std::size_t count);
+
+    /// @return Le nombre de suiveurs.
+    [[nodiscard]] std::size_t followers() const noexcept {
+        return _followers;
+    }
+
+    /// @return La position du suiveur de rang @p rank (0 : le premier derrière le héros).
+    [[nodiscard]] CellPoint followerPoint(std::size_t rank) const;
+
+    /// @return La direction où marche le suiveur de rang @p rank ; nulle s'il n'a jamais bougé.
+    [[nodiscard]] Vector2 followerFacing(std::size_t rank) const;
+
     /// @brief Les drapeaux du monde, pour ce qui les écrit (dialogues, quêtes, interactions).
     [[nodiscard]] WorldFlags& flags() noexcept {
         return _flags;
@@ -236,6 +258,9 @@ private:
     [[nodiscard]] bool fits(CellPoint point) const;
     /// Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas.
     void walk(Vector2 move, float seconds);
+    /// Range les suiveurs derrière le héros, dans le dos de son orientation, tant que la place
+    /// est libre ; ceux qui n'ont plus de place attendent sur le dernier point libre.
+    void lineUpFollowers();
     /// Franchit le portail de la case du héros, s'il y en a un.
     void crossPortal(std::vector<ExplorationEvent>& events);
     /// Résout l'interaction demandée.
@@ -253,6 +278,9 @@ private:
     std::vector<std::size_t> _insideZones;
     CellPoint _hero{};
     Vector2 _facing{0.0F, 1.0F};
+    /// Les pas du héros, que les suiveurs parcourent (`LOT-138`).
+    FollowTrail _trail;
+    std::size_t _followers = 0;
     /// Case du héros au pas précédent : un portail se franchit **en y arrivant**, pas à chaque pas
     /// où l'on reste dessus — sans quoi un portail qui ramène sur place bouclerait.
     GridPosition _lastCell{};
