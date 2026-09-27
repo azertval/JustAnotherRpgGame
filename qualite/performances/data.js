@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790390366844,
+  "lastUpdate": 1790477151113,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1220,6 +1220,100 @@ window.BENCHMARK_DATA = {
             "extra": "iterations: 389565\ncpu: 3.569686701834097 us\nthreads: 1"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "629144b7efa7e9b3c8c86f32da617898338dadda",
+          "message": "Merge pull request #143 from azertval/claude/baseline-v0-0-1-ci-fix-vf8tli\n\nBaseline 0.0.1 — CI fiabilisée avant de reposer le tag",
+          "timestamp": "2026-09-26T08:54:50Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/629144b7efa7e9b3c8c86f32da617898338dadda"
+        },
+        "date": 1790477142104,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 155210.7550644572,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 155386.74033149172 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 210772.031249995,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 209960.9375 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57613.61909481491,
+            "unit": "ns/iter",
+            "extra": "iterations: 24216\ncpu: 57425.87545424513 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 165945.10742786928,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 166896.86924493554 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1095483.6718750193,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1098632.8125 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2672354.4176706537,
+            "unit": "ns/iter",
+            "extra": "iterations: 498\ncpu: 2666917.670682731 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 643.6427917620173,
+            "unit": "us/iter",
+            "extra": "iterations: 2185\ncpu: 643.5926773455377 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.0932980312060528,
+            "unit": "ms/iter",
+            "extra": "iterations: 14933\ncpu: 0.09312428848858234 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.13798175974287022,
+            "unit": "ms/iter",
+            "extra": "iterations: 9956\ncpu: 0.1381076737645641 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.07155049799774271,
+            "unit": "ms/iter",
+            "extra": "iterations: 19478\ncpu: 0.0713946503747818 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.13662224789072067,
+            "unit": "ms/iter",
+            "extra": "iterations: 9956\ncpu: 0.13496886299718763 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 3.603961074965347,
+            "unit": "us/iter",
+            "extra": "iterations: 373333\ncpu: 3.5993335708335454 us\nthreads: 1"
+          }
+        ]
       }
     ],
     "Peinture du canevas de l'editeur (Release, windows-2022)": [
@@ -1356,6 +1450,40 @@ window.BENCHMARK_DATA = {
             "value": 5.173259926470768,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.170036764705882 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "629144b7efa7e9b3c8c86f32da617898338dadda",
+          "message": "Merge pull request #143 from azertval/claude/baseline-v0-0-1-ci-fix-vf8tli\n\nBaseline 0.0.1 — CI fiabilisée avant de reposer le tag",
+          "timestamp": "2026-09-26T08:54:50Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/629144b7efa7e9b3c8c86f32da617898338dadda"
+        },
+        "date": 1790477148572,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.711672999999678,
+            "unit": "ms/iter",
+            "extra": "iterations: 100\ncpu: 13.28125 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.222262499999927,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.227481617647059 ms\nthreads: 1"
           }
         ]
       }
