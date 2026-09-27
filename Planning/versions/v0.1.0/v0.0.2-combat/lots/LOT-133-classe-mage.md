@@ -33,7 +33,7 @@ La progression complète est dans [le référentiel des classes de base](../../.
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026. La table du Mage est reprise **niveau par niveau** de la page 197 :
+Livré le 27 septembre 2026 (**PR #149**). La table du Mage est reprise **niveau par niveau** de la page 197 :
 les identifiants fusionnés du `LOT-36` (`experience-arcane-protection`…) deviennent les
 capacités qu'ils nommaient, et chaque ligne porte ses sorts mineurs et ses sorts (`cantrips`,
 `spells`) jusqu'au niveau 20. Les capacités et les sorts des niveaux 1 à 5 sont au catalogue.
