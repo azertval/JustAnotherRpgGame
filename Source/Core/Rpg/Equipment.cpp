@@ -202,11 +202,21 @@ int armorClassFor(const CharacterSheet& sheet, const CharacterCreationRules& rul
     const int dexterite = sheet.modifier(Ability::Dexterity);
 
     int total = 0;
+    bool bouclierPermis = true;
     if (armor == nullptr || armor->category == ArmorCategory::Shield) {
         // Sans armure : la base vient de la DONNEE, jamais d'un 10 ecrit ici (EX-VIS-007). Un
         // bouclier passe en `armor` n'est pas une armure : il ajoute, il ne remplace pas, et le
         // traiter comme tel donnerait une CA de 2 a un personnage en bouclier seul.
         total = rules.unarmoredArmorClass + dexterite;
+        // Une capacite de classe peut calculer la CA sans armure AUTREMENT (EX-CBT-030, LOT-131) :
+        // Tough as Nails, 10 + Dex + Con ; Arcane Protection, 13 + Dex. La meilleure formule
+        // compte, jamais la somme : une formule remplace la regle generale, elle ne s'y ajoute pas.
+        if (const std::optional<UnarmoredArmorClass> formule =
+                unarmoredArmorClassFrom(sheet.capacities, sheet.abilities);
+            formule.has_value() && formule->armorClass > total) {
+            total = formule->armorClass;
+            bouclierPermis = formule->shieldAllowed;
+        }
     } else {
         total = armor->baseArmorClass;
         if (armor->dexterityBonus) {
@@ -219,10 +229,11 @@ int armorClassFor(const CharacterSheet& sheet, const CharacterCreationRules& rul
         }
     }
 
-    if (shield != nullptr && shield->category == ArmorCategory::Shield) {
+    if (shield != nullptr && shield->category == ArmorCategory::Shield && bouclierPermis) {
         total += shield->baseArmorClass;
     }
-    return total;
+    // Un bonus fixe (Holy Shield, Scoundrel's Agility au niveau 5) s'ajoute a toute forme.
+    return total + armorClassBonusFrom(sheet.capacities);
 }
 
 int totalWeightGrams(const std::vector<InventoryEntry>& entries) {

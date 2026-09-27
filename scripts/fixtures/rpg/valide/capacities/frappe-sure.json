@@ -1,0 +1,17 @@
+{
+  "id": "frappe-sure",
+  "name": "Frappe sûre",
+  "source": "original",
+  "effects": [
+    {
+      "kind": "attack-bonus",
+      "value": 2
+    },
+    {
+      "kind": "extra-damage",
+      "dice": "1d8",
+      "oncePerTurn": true
+    }
+  ],
+  "text": "Fixture : +2 aux jets d'attaque, et 1d8 de plus une fois par tour."
+}

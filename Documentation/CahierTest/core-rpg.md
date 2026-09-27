@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **92 cas** (3 bloquants, 53 critiques, 35 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **97 cas** (3 bloquants, 57 critiques, 36 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -10,6 +10,7 @@ Tests unitaires — **92 cas** (3 bloquants, 53 critiques, 35 majeurs, 1 mineur)
 | [`test_character_options.cpp`](#test-character-optionscpp) | 9 | - | 5 | 4 | - |
 | [`test_character_sheet.cpp`](#test-character-sheetcpp) | 10 | - | 6 | 4 | - |
 | [`test_check.cpp`](#test-checkcpp) | 5 | - | 4 | 1 | - |
+| [`test_class_capacities.cpp`](#test-class-capacitiescpp) | 5 | - | 4 | 1 | - |
 | [`test_dialogue.cpp`](#test-dialoguecpp) | 15 | 3 | 7 | 5 | - |
 | [`test_dice.cpp`](#test-dicecpp) | 9 | - | 5 | 4 | - |
 | [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
@@ -24,6 +25,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 | Exigence | Cas |
 |---|---|
+| `EX-CBT-030` | [`ClassCapacitiesTest.LaFicheTireSesValeursDeSesCapacites`](#classcapacitiestestlafichetiresesvaleursdesescapacites) |
 | `EX-CNT-011` | [`DiceTest.AllerRetourDesCaracteristiques`](#dicetestallerretourdescaracteristiques), [`RpgEnumsTest.UnNomInconnuEstRefuse`](#rpgenumstestunnominconnuestrefuse), [`RpgEnumsTest.LesEnumerationsCoincidentAvecLesSchemas`](#rpgenumstestlesenumerationscoincidentaveclesschemas) |
 | `EX-CNT-031` | [`BestiaryTest.LesMecanismesExigesSontAnnonces`](#bestiarytestlesmecanismesexigessontannonces), [`CharacterOptionsTest.LesMecanismesExigesSontAnnonces`](#characteroptionstestlesmecanismesexigessontannonces) |
 | `EX-CNT-032` | [`CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien`](#characteroptionstestlesclassesprovisoiresnesontreferenceesparrien) |
@@ -621,6 +623,220 @@ L'echelle de difficulte est une donnee complete et croissante.
 - Vérifie que `dc` est strictement supérieur à `precedent`.
 - Vérifie que `seuil("tres-facile")` vaut `5`.
 - Vérifie que `seuil("quasi-impossible")` vaut `30`.
+
+## test_class_capacities.cpp
+
+### ClassCapacitiesTest.LeCatalogueSeChargeEtRefuseLInconnu
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:101`
+
+Quatre capacites d'essai se chargent avec leurs effets ; un genre d'effet inconnu ou des des illisibles refusent la capacite entiere, nommement.
+
+**Étapes**
+
+1. Charger Fixtures/GameData/Rpg/capacities.
+2. Charger un dossier a deux capacites fautives et une saine.
+3. Charger un dossier absent.
+
+**Résultat attendu**
+
+- Vérifie que `catalogue.errors.empty()` est vrai.
+- Vérifie que `catalogue.capacities.size()` vaut `4U`.
+- Vérifie que `coup` diffère de `nullptr`.
+- Vérifie que `coup->name` vaut `"Coup precis"`.
+- Vérifie que `coup->effects.size()` vaut `2U`.
+- Vérifie que `coup->effects[0].kind` vaut `core::CapacityEffectKind::AttackBonus`.
+- Vérifie que `coup->effects[0].value` vaut `2`.
+- Vérifie que `coup->effects[1].kind` vaut `core::CapacityEffectKind::ExtraDamage`.
+- Vérifie que `coup->effects[1].dice` vaut `(core::Dice{.count = 1, .faces = 6, .modifier = 0})`.
+- Vérifie que `coup->effects[1].oncePerTurn` est vrai.
+- Vérifie que `peau` diffère de `nullptr`.
+- Vérifie que `peau->effects.size()` vaut `2U`.
+- Vérifie que `peau->effects[0].kind` vaut `core::CapacityEffectKind::UnarmoredArmorClass`.
+- Vérifie que `peau->effects[0].base` vaut `10`.
+- Vérifie que `peau->effects[0].abilities` vaut `(std::vector<core::Ability>{core::Ability::Dexterity, core::Ability::Constitution})`.
+- Vérifie que `peau->effects[0].shieldAllowed` est vrai.
+- Vérifie que `peau->effects[1].kind` vaut `core::CapacityEffectKind::DamageResistance`.
+- Vérifie que `peau->effects[1].allDamageTypes` est vrai.
+- Vérifie que `ameliore` diffère de `nullptr`.
+- Vérifie que `ameliore->replaces` vaut `"coup-precis"`.
+- Vérifie que `genre.has_value()` est vrai.
+- Vérifie que `core::capacityEffectKindName(*genre)` vaut `nom`.
+- Vérifie que `core::parseCapacityEffectKind("devenir-invincible").has_value()` est faux.
+- Vérifie que `refus.errors.size()` vaut `2U`.
+- Vérifie que `refus.errors[0].find("a-genre-inconnu.json")` diffère de `std::string::npos`.
+- Vérifie que `refus.errors[0].find("devenir-invincible")` diffère de `std::string::npos`.
+- Vérifie que `refus.errors[1].find("b-des-illisibles.json")` diffère de `std::string::npos`.
+- Vérifie que `refus.capacities.size()` vaut `1U`.
+- Vérifie que `refus.capacities[0].id` vaut `"c-saine"`.
+- Vérifie que `refus.capacities[0].effects[0].meters` vaut `1.5F` (comparaison flottante).
+- Vérifie que `absent.errors.size()` vaut `1U`.
+- Vérifie que `absent.capacities.empty()` est vrai.
+
+### ClassCapacitiesTest.LaTableDonneLesCapacitesEtLesSortsAuNiveau
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:177`
+
+Une classe se charge avec ses maitrises, son incantation et sa table ; les capacites actives suivent le niveau, une capacite qui en remplace une autre la retire, une capacite absente du catalogue est nommee.
+
+**Étapes**
+
+1. Charger la racine d'essai (especes et historiques absents : deux erreurs nommees, la classe se charge quand meme).
+2. Resoudre les capacites aux niveaux 1, 2 et 3.
+3. Resoudre une classe qui nomme une capacite inconnue.
+
+**Résultat attendu**
+
+- Vérifie que `options.errors.size()` vaut `2U`.
+- Vérifie que `options.classes.size()` vaut `1U`.
+- Vérifie que `options.capacities.capacities.size()` vaut `4U`.
+- Vérifie que `options.spells.spells.size()` vaut `3U`.
+- Vérifie que `classe.id` vaut `"lutteur-d-essai"`.
+- Vérifie que `classe.hitDie` vaut `10`.
+- Vérifie que `classe.armorProficiencies` vaut `(std::vector<std::string>{"light", "shields"})`.
+- Vérifie que `classe.weaponProficiencies` vaut `(std::vector<std::string>{"simple", "rapiere"})`.
+- Vérifie que `classe.isProficientWithWeapon("gourdin", "simple")` est vrai.
+- Vérifie que `classe.isProficientWithWeapon("rapiere", "martial")` est vrai.
+- Vérifie que `classe.isProficientWithWeapon("epee-longue", "martial")` est faux.
+- Vérifie que `classe.isProficientWithArmor("shields")` est vrai.
+- Vérifie que `classe.isProficientWithArmor("heavy")` est faux.
+- Vérifie que `classe.skillChoices.count` vaut `2`.
+- Vérifie que `classe.skillChoices.from.size()` vaut `3U`.
+- Vérifie que `classe.spellcasting.has_value()` est vrai.
+- Vérifie que `classe.spellcasting->ability` vaut `core::Ability::Intelligence`.
+- Vérifie que `classe.spellcasting->castsPerDay` vaut `2`.
+- Vérifie que `identifiants(core::resolveCapacities(classe, 1, options.capacities, manquants))` vaut `(std::vector<std::string>{"coup-precis", "peau-de-fer"})`.
+- Vérifie que `identifiants(core::resolveCapacities(classe, 2, options.capacities, manquants))` vaut `(std::vector<std::string>{"coup-precis", "peau-de-fer", "pas-de-danseur"})`.
+- Vérifie que `identifiants(core::resolveCapacities(classe, 3, options.capacities, manquants))` vaut `(std::vector<std::string>{"peau-de-fer", "pas-de-danseur", "coup-precis-ameliore"})`.
+- Vérifie que `manquants.empty()` est vrai.
+- Vérifie que `classe.cantripsAt(1)` vaut `(std::vector<std::string>{"etincelle-d-essai"})`.
+- Vérifie que `classe.spellsAt(1)` vaut `(std::vector<std::string>{"trait-de-feu-d-essai"})`.
+- Vérifie que `classe.spellsAt(2)` vaut `(std::vector<std::string>{"trait-de-feu-d-essai"})`.
+- Vérifie que `classe.spellsAt(3)` vaut `(std::vector<std::string>{"trait-de-feu-d-essai", "second-trait-d-essai"})`.
+- Vérifie que `actives.size()` vaut `2U`.
+- Vérifie que `manquants` vaut `(std::vector<std::string>{"capacite-a-venir"})`.
+
+### ClassCapacitiesTest.LaFicheTireSesValeursDeSesCapacites
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:241`
+
+Exigences : `EX-CBT-030`
+
+Au niveau 3, la fiche d'essai a la CA de sa formule sans armure (bouclier permis), la vitesse de sa capacite, une resistance a tout, un bonus d'attaque et des des en plus au nom de la capacite qui remplace l'ancienne ; elle maitrise les armes de sa classe et pas les autres.
+
+**Étapes**
+
+1. Construire la fiche au niveau 3 et lui appliquer sa classe.
+2. Lire la CA sans armure, avec bouclier, avec une armure legere.
+3. Lire vitesse, resistances, modificateurs d'attaque, des en plus, immunite aux opportunites, maitrises d'armes.
+
+**Résultat attendu**
+
+- Vérifie que `charge.ok()` est vrai.
+- Vérifie que `charge.warnings.empty()` est vrai.
+- Vérifie que `fiche.level` vaut `3`.
+- Vérifie que `fiche.capacities.size()` vaut `3U`.
+- Vérifie que `fiche.armorClass` vaut `15`.
+- Vérifie que `core::armorClassFor(fiche, regles().creation, nullptr, nullptr)` vaut `15`.
+- Vérifie que `core::armorClassFor(fiche, regles().creation, nullptr, &bouclier)` vaut `17`.
+- Vérifie que `core::armorClassFor(fiche, regles().creation, &cuir, nullptr)` vaut `13`.
+- Vérifie que `fiche.effectiveSpeedMeters()` vaut `12.0F` (comparaison flottante).
+- Vérifie que `fiche.speedInTiles()` vaut `8.0F` (comparaison flottante).
+- Vérifie que `resistances.size()` vaut `1U`.
+- Vérifie que `resistances[0].type.has_value()` est faux.
+- Vérifie que `resistances[0].source` vaut `"Peau de fer"`.
+- Vérifie que `bonus.size()` vaut `1U`.
+- Vérifie que `bonus[0].source` vaut `"Coup precis ameliore"`.
+- Vérifie que `bonus[0].value` vaut `3`.
+- Vérifie que `des.size()` vaut `1U`.
+- Vérifie que `des[0].dice` vaut `(core::Dice{.count = 2, .faces = 6, .modifier = 0})`.
+- Vérifie que `des[0].oncePerTurn` est vrai.
+- Vérifie que `des[0].capacityId` vaut `"coup-precis-ameliore"`.
+- Vérifie que `core::opportunityImmunityFrom(fiche.capacities)` vaut `std::optional<std::string>("Pas de danseur")`.
+- Vérifie que `core::armorClassBonusFrom(fiche.capacities)` vaut `0`.
+- Vérifie que `core::isProficientWith(fiche, gourdin)` est vrai.
+- Vérifie que `core::isProficientWith(fiche, rapiere)` est vrai.
+- Vérifie que `core::isProficientWith(fiche, epeeLongue)` est faux.
+- Vérifie que `fiche.armorProficiencies.contains("shields")` est vrai.
+
+### ClassCapacitiesTest.LIncantationSimplifieeCompteLesLancersEtLeReposLesRend
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:321`
+
+Un sort mineur se lance a volonte ; un sort de la table se lance deux fois puis plus ; le repos long rend les deux lancers et les points de vie ; monter de niveau apprend un sort sans rendre les lancers depenses.
+
+**Étapes**
+
+1. Fiche au niveau 1 : lire les sorts connus.
+2. Depenser trois fois le sort, une fois le sort mineur.
+3. Blesser, reposer.
+4. Depenser un lancer, monter au niveau 3.
+
+**Résultat attendu**
+
+- Vérifie que `charge.ok()` est vrai.
+- Vérifie que `fiche.knownSpells.size()` vaut `2U`.
+- Vérifie que `fiche.knownSpells[0]` vaut `(core::KnownSpell{ .spellId = "etincelle-d-essai", .level = 0, .perDay = 0, .remaining = 0})`.
+- Vérifie que `fiche.knownSpells[1]` vaut `(core::KnownSpell{ .spellId = "trait-de-feu-d-essai", .level = 1, .perDay = 2, .remaining = 2})`.
+- Vérifie que `fiche.knownSpells[0].available()` est vrai.
+- Vérifie que `core::spendSpellUse(fiche, "trait-de-feu-d-essai")` est vrai.
+- Vérifie que `core::spendSpellUse(fiche, "trait-de-feu-d-essai")` est vrai.
+- Vérifie que `core::spendSpellUse(fiche, "trait-de-feu-d-essai")` est faux.
+- Vérifie que `fiche.knownSpell("trait-de-feu-d-essai")->available()` est faux.
+- Vérifie que `core::spendSpellUse(fiche, "etincelle-d-essai")` est vrai.
+- Vérifie que `fiche.knownSpell("etincelle-d-essai")->available()` est vrai.
+- Vérifie que `core::spendSpellUse(fiche, "boule-de-feu")` est faux.
+- Vérifie que `fiche.currentHitPoints` vaut `fiche.maximumHitPoints`.
+- Vérifie que `fiche.knownSpell("trait-de-feu-d-essai")->remaining` vaut `2`.
+- Vérifie que `core::spendSpellUse(fiche, "trait-de-feu-d-essai")` est vrai.
+- Vérifie que `classe` diffère de `nullptr`.
+- Vérifie que `manquants.empty()` est vrai.
+- Vérifie que `fiche.knownSpells.size()` vaut `3U`.
+- Vérifie que `fiche.knownSpell("trait-de-feu-d-essai")->remaining` vaut `1`.
+- Vérifie que `fiche.knownSpell("second-trait-d-essai")->remaining` vaut `2`.
+- Vérifie que `fiche.knownSpell("second-trait-d-essai")->level` vaut `2`.
+
+### ClassCapacitiesTest.LesQuatreClassesDeclarentLeursMaitrises
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:377`
+
+Brawler, Mage, Priest et Scoundrel portent les maitrises d'armes et d'armures, les competences au choix et, pour les deux lanceurs, l'incantation simplifiee a deux lancers par jour ; le nain fait maitriser ses quatre armes.
+
+**Étapes**
+
+1. Charger Source/Elements/Rpg.
+2. Lire chaque classe et le nain.
+
+**Résultat attendu**
+
+- Vérifie que `options.errors.empty()` est vrai.
+- Vérifie que `brawler` diffère de `nullptr`.
+- Vérifie que `brawler->isProficientWithWeapon("hache-a-deux-mains", "martial")` est vrai.
+- Vérifie que `brawler->isProficientWithArmor("medium")` est vrai.
+- Vérifie que `brawler->isProficientWithArmor("heavy")` est faux.
+- Vérifie que `brawler->skillChoices.count` vaut `2`.
+- Vérifie que `brawler->skillChoices.from.size()` vaut `6U`.
+- Vérifie que `brawler->spellcasting.has_value()` est faux.
+- Vérifie que `mage` diffère de `nullptr`.
+- Vérifie que `mage->isProficientWithWeapon("baton", "simple")` est vrai.
+- Vérifie que `mage->isProficientWithWeapon("gourdin", "simple")` est faux.
+- Vérifie que `mage->armorProficiencies.empty()` est vrai.
+- Vérifie que `mage->spellcasting.has_value()` est vrai.
+- Vérifie que `mage->spellcasting->ability` vaut `core::Ability::Intelligence`.
+- Vérifie que `mage->spellcasting->castsPerDay` vaut `2`.
+- Vérifie que `priest` diffère de `nullptr`.
+- Vérifie que `priest->isProficientWithWeapon("masse-d-armes", "simple")` est vrai.
+- Vérifie que `priest->isProficientWithWeapon("marteau-de-guerre", "martial")` est faux.
+- Vérifie que `priest->spellcasting.has_value()` est vrai.
+- Vérifie que `priest->spellcasting->ability` vaut `core::Ability::Wisdom`.
+- Vérifie que `scoundrel` diffère de `nullptr`.
+- Vérifie que `scoundrel->armorProficiencies` vaut `(std::vector<std::string>{"light"})`.
+- Vérifie que `scoundrel->isProficientWithWeapon("rapiere", "martial")` est vrai.
+- Vérifie que `scoundrel->isProficientWithWeapon("hache-d-armes", "martial")` est faux.
+- Vérifie que `scoundrel->skillChoices.count` vaut `4`.
+- Vérifie que `scoundrel->skillChoices.from.size()` vaut `11U`.
+- Vérifie que `nainDesCollines` diffère de `nullptr`.
+- Vérifie que `nainDesCollines->weaponProficiencies` vaut `(std::vector<std::string>{"hache-d-armes", "hachette", "marteau-leger", "marteau-de-guerre"})`.
 
 ## test_dialogue.cpp
 
@@ -1659,7 +1875,7 @@ Les progressions de lanceur de la donnee sont toutes connues du moteur.
 
 ### PremadeCharactersTest.LeBrawlerEstLaPage195
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:179`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:181`
 
 Le Brawler pre-tire redonne chaque valeur de la page 195.
 
@@ -1682,7 +1898,7 @@ Le Brawler pre-tire redonne chaque valeur de la page 195.
 
 ### PremadeCharactersTest.LeMageEstLaPage199
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:242`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:244`
 
 Le Mage pre-tire redonne chaque valeur de la page 199.
 
@@ -1705,7 +1921,7 @@ Le Mage pre-tire redonne chaque valeur de la page 199.
 
 ### PremadeCharactersTest.LePriestEstLaPage203
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:301`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:303`
 
 Le Priest pre-tire redonne chaque valeur de la page 203.
 
@@ -1729,7 +1945,7 @@ Le Priest pre-tire redonne chaque valeur de la page 203.
 
 ### PremadeCharactersTest.LeScoundrelEstLaPage207
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:362`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:364`
 
 Le Scoundrel pre-tire redonne chaque valeur de la page 207.
 
@@ -1755,7 +1971,7 @@ Le Scoundrel pre-tire redonne chaque valeur de la page 207.
 
 ### PremadeCharactersTest.LaTenaciteNaineCompteAChaqueNiveau
 
-*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:426`
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:428`
 
 Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque montee.
 
@@ -1775,7 +1991,7 @@ Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque mon
 
 ### PremadeCharactersTest.LeChoixDEspeceSAjouteSousLePlafond
 
-*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:456`
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:458`
 
 Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece, sans depasser le plafond.
 
@@ -1793,7 +2009,7 @@ Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece
 
 ### PremadeCharactersTest.UneSousEspeceHeriteDeSonParent
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:485`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:487`
 
 Le nain des collines est un nain : +2 de Constitution, le commun et le nain, la vision dans le noir, puis ce qui est le sien.
 

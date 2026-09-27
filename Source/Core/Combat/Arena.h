@@ -57,7 +57,10 @@
  * d'opportunité** au déplacement, et les actions **esquiver** et **se désengager** qui la règlent.
  */
 
+#include <span>
+
 #include "Core/Combat/Attack.h"
+#include "Core/Rpg/CharacterOptions.h"
 
 namespace core {
 
@@ -89,6 +92,30 @@ struct ArenaEntryPoint {
  */
 [[nodiscard]] std::vector<ArenaEntryPoint> arenaEntryPoints(const Level& level);
 
+/**
+ * @brief Un sort tel qu'un combattant le lance dans l'arène (`LOT-131`) : son attaque, et ses
+ *        lancers restants dans la journée.
+ *
+ * Ce lot ne joue que les sorts à **jet d'attaque** (`core::isAttackSpell`) ; les autres attendent
+ * leurs mécanismes avec leur classe. Les lancers sont ceux de la fiche au moment du montage
+ * (`core::KnownSpell`) : la session les décompte, et qui la tient les reporte sur la fiche.
+ */
+struct ArenaSpell {
+    std::string id;
+    std::string name;
+    /// 0 : sort mineur, à volonté.
+    int level = 0;
+    /// Lancers restants ; `-1` : à volonté.
+    int uses = -1;
+    /// L'attaque de sort : modificateur de la caractéristique d'incantation, maîtrise, dés, portée.
+    AttackProfile attack;
+
+    /// @brief Vrai si le sort se lance encore.
+    [[nodiscard]] bool available() const noexcept {
+        return uses != 0;
+    }
+};
+
 /// @brief Un combattant tel que l'écran de mise en place le compose.
 struct ArenaContestant {
     /// Le profil, classe d'armure et affinités comprises.
@@ -103,6 +130,15 @@ struct ArenaContestant {
     /// Le profil de comportement qui le joue (`core::BehaviorProfile::id`, `LOT-23`), ou vide
     /// pour un combattant que le joueur commande.
     std::string behavior;
+    /**
+     * @brief Ses capacités de classe actives (`LOT-131`, `EX-RPG-024`) : la session branche
+     *        leurs effets sur ses jets (bonus d'attaque, dés en plus) et ses déplacements (pas
+     *        d'attaque d'opportunité). Les effets **statiques** — classe d'armure, résistances,
+     *        vitesse — sont déjà dans `profile`, qui se construit depuis la fiche.
+     */
+    std::vector<Capacity> capacities;
+    /// Les sorts qu'il sait lancer en combat, avec leurs lancers du jour (`EX-RPG-025`).
+    std::vector<ArenaSpell> spells;
 };
 
 /// @brief Une composition d'affrontement : qui, contre qui, à quelle graine, sous quelle règle.
@@ -162,6 +198,10 @@ enum class ArenaActionResult : std::uint8_t {
     InvalidTarget,
     /// Le combattant n'a pas d'attaque de cet indice.
     NoAttack,
+    /// Le combattant n'a pas de sort de cet indice (`castSpell`).
+    NoSpell,
+    /// Le sort n'a plus de lancer aujourd'hui (`LOT-131`) : un repos long le rend.
+    Exhausted,
 };
 
 /// @brief Une attaque jouée dans l'arène : le refus, ou l'attaque résolue.
@@ -223,6 +263,22 @@ public:
 
     /// @return Les attaques d'un combattant enrôlé, ou `nullptr`.
     [[nodiscard]] const std::vector<AttackProfile>* attacks(CombatantId combatant) const;
+
+    /// @return Les sorts d'un combattant enrôlé, lancers restants compris, ou `nullptr`.
+    [[nodiscard]] const std::vector<ArenaSpell>* spells(CombatantId combatant) const;
+
+    /// @return Les capacités de classe d'un combattant enrôlé ; vide s'il n'en a pas.
+    [[nodiscard]] std::span<const Capacity> capacitiesOf(CombatantId combatant) const;
+
+    /**
+     * @brief L'action *lancer un sort* du combattant actif, avec son sort @p spellIndex
+     *        (`LOT-131`, `EX-RPG-025`).
+     *
+     * Un sort épuisé est refusé (`Exhausted`) **avant** toute dépense ; sinon même chemin qu'une
+     * attaque — cible, portée, vue, action —, puis un lancer de moins. Le journal préfixe la ligne
+     * de « sort : ».
+     */
+    ArenaAttack castSpell(CombatantId target, std::size_t spellIndex);
 
     /**
      * @brief L'action *attaquer* du combattant actif, avec son attaque @p attackIndex.
@@ -360,10 +416,18 @@ private:
     /// La première attaque au corps à corps d'un combattant, ou `nullptr`.
     [[nodiscard]] const AttackProfile* meleeAttack(CombatantId combatant) const;
     /// Le premier pas de @p cases qui sort de l'allonge d'un ennemi, et ceux qu'il provoque,
-    /// ajoutés à @p reactors ; vide pour un combattant désengagé.
+    /// ajoutés à @p reactors ; vide pour un combattant désengagé ou qu'une capacité soustrait
+    /// aux attaques d'opportunité (`LOT-131`).
     [[nodiscard]] std::optional<std::size_t> firstProvokingStep(
         CombatantId mover, const std::vector<GridPosition>& cases,
         std::vector<CombatantId>& reactors) const;
+    /// Le même calcul, **sans** tenir compte du désengagement ni des capacités : ce que le pas
+    /// aurait provoqué.
+    [[nodiscard]] std::optional<std::size_t> firstExitFromReach(
+        CombatantId mover, const std::vector<GridPosition>& cases,
+        std::vector<CombatantId>& reactors) const;
+    /// Branche sur @p hooks les effets des capacités de @p attacker : bonus au jet, dés en plus.
+    void hookCapacities(AttackHooks& hooks, CombatantId attacker);
     /// Les attaques d'opportunité de @p reactors contre @p mover, tant qu'il est debout, que le
     /// combat dure et que l'opportuniste l'est aussi.
     void takeOpportunities(CombatantId mover, const std::vector<CombatantId>& reactors);
@@ -373,6 +437,8 @@ private:
     DeterministicRandom _random{0};
     std::unique_ptr<CombatState> _combat;
     std::map<CombatantId, std::vector<AttackProfile>> _attacks;
+    std::map<CombatantId, std::vector<Capacity>> _capacities;
+    std::map<CombatantId, std::vector<ArenaSpell>> _spells;
     std::map<CombatantId, std::string> _behaviors;
     OpportunityPolicy _opportunityPolicy;
     MoveObserver _moveObserver;
@@ -383,5 +449,23 @@ private:
     std::set<CombatantId> _disengaged;
     std::vector<std::string> _journal;
 };
+
+/**
+ * @brief Les sorts qu'une fiche sait lancer dans l'arène (`LOT-131`) : ceux qu'elle connaît
+ *        (`CharacterSheet::knownSpells`) et que le moteur sait jouer (`core::isAttackSpell`),
+ *        avec leurs lancers restants et l'attaque de sort de sa classe.
+ *
+ * @param sheet La fiche du lanceur : ses sorts connus et leurs lancers restants.
+ * @param playableClass Sa classe, pour la caractéristique d'incantation.
+ * @param spells Le catalogue des sorts.
+ * @param proficiencyBonus Le bonus de maîtrise au niveau de la fiche.
+ * @param skipped Reçoit le nom de chaque sort connu que le moteur ne joue pas encore
+ *        (`EX-RPG-051`), pour qu'il soit dit plutôt que tu.
+ */
+[[nodiscard]] std::vector<ArenaSpell> arenaSpellsFor(const CharacterSheet& sheet,
+                                                     const PlayableClass& playableClass,
+                                                     const SpellCatalog& spells,
+                                                     int proficiencyBonus,
+                                                     std::vector<std::string>& skipped);
 
 }  // namespace core

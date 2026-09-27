@@ -24,7 +24,7 @@ héros paraît devant le maître d'arène d'essai, dont le dialogue engage les r
 | `Assets/Arena/` | un kit d'arène : `manifest.json` (dont `scene`, le lieu d'où il tire ses pièces), deux héros, deux gladiateurs |
 | `Assets/Npc/`, `Assets/Monsters/` | une figurine chacun (`figurant`, `sentinelle`), aux cadences de l'atelier |
 | `World/` | une ville (`bourg`), une région, des lieux, des dialogues — dont le maître d'arène d'essai (`maitre-d-essai`), qui engage la rencontre sur la carte (`LOT-118`), et le héraut d'essai (`heraut-d-essai`), le graphe de quatorze nœuds — deux conditions, un jet de Persuasion, une quête démarrée — que les tests de dialogue parcourent réplique par réplique |
-| `Rpg/`, `Localization/`, `Maps/`, `Editor/` | une rencontre, des objets, les textes des cartes, trois modèles de carte |
+| `Rpg/`, `Localization/`, `Maps/`, `Editor/` | une rencontre, des objets, les textes des cartes, trois modèles de carte ; la **classe d'essai** du socle de classe (`LOT-131`) — `classes/lutteur-d-essai.json`, ses quatre capacités dans `capacities/`, ses trois sorts dans `spells/` —, la seule classe qui agit en combat dans ce lot, nommée par ses tests et par rien d'autre |
 
 ## Comment son art est fait
 

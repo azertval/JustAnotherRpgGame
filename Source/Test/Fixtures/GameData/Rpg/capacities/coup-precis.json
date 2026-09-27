@@ -1,0 +1,17 @@
+{
+  "id": "coup-precis",
+  "name": "Coup precis",
+  "source": "original",
+  "effects": [
+    {
+      "kind": "attack-bonus",
+      "value": 2
+    },
+    {
+      "kind": "extra-damage",
+      "dice": "1d6",
+      "oncePerTurn": true
+    }
+  ],
+  "text": "Fixture : +2 aux jets d'attaque ; la premiere attaque qui touche dans le tour inflige 1d6 de plus, du type de l'arme."
+}

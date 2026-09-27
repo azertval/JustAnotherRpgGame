@@ -10,6 +10,32 @@
     "dexterity",
     "intelligence"
   ],
+  "armorProficiencies": [
+    "light"
+  ],
+  "weaponProficiencies": [
+    "simple",
+    "arbalete-de-poing",
+    "epee-longue",
+    "rapiere",
+    "epee-courte"
+  ],
+  "skillChoices": {
+    "count": 4,
+    "from": [
+      "acrobatics",
+      "athletics",
+      "deception",
+      "insight",
+      "intimidation",
+      "investigation",
+      "perception",
+      "performance",
+      "persuasion",
+      "sleight-of-hand",
+      "stealth"
+    ]
+  },
   "progression": [
     {
       "level": 1,

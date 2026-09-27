@@ -14,6 +14,7 @@
 #include "Core/Rpg/Equipment.h"
 #include "Core/Rpg/Inventory.h"
 #include "Core/Rpg/Scale.h"
+#include "Core/Rpg/Spell.h"
 
 namespace core {
 namespace {
@@ -150,6 +151,28 @@ AttackProfile weaponAttackFor(const CharacterSheet& sheet, const Weapon* weapon,
         des.modifier += modificateur;
         profil.damage.push_back({.dice = des, .type = *weapon->damageType, .flags = 0});
     }
+    return profil;
+}
+
+std::optional<AttackProfile> spellAttackFor(const CharacterSheet& sheet, const Spell& spell,
+                                            Ability ability, int proficiencyBonus) {
+    if (!isAttackSpell(spell)) {
+        return std::nullopt;
+    }
+    AttackProfile profil;
+    profil.label = spell.name;
+    profil.kind = AttackKind::Ranged;
+    // Une portee unique : deux nombres egaux. Sans portee, le sort vise au contact.
+    profil.range =
+        porteeDe(spell.rangeMeters > 0.0F ? std::optional<float>(spell.rangeMeters) : std::nullopt,
+                 std::nullopt);
+    profil.modifiers.push_back(
+        {.source = std::string(nomDeCaracteristique(ability)), .value = sheet.modifier(ability)});
+    profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
+    profil.damage.push_back({.dice = *spell.damage,
+                             .type = *spell.damageType,
+                             .flags = static_cast<DamageFlags>(flagsOf(DamageFlag::Spell) |
+                                                               flagsOf(DamageFlag::Magical))});
     return profil;
 }
 
@@ -379,12 +402,25 @@ std::optional<AttackOutcome> resolveAttack(CombatState& combat, CombatantId atta
     // applyCover, et le meilleur seul compte.
     demande.applyCover(coverBetween(combat, attacker, target));
 
-    issue.roll = rollAttack(std::move(demande),
-                            context.hooks != nullptr ? *context.hooks : crochetsVides(), random);
+    if (!profile.damage.empty()) {
+        demande.damageType = profile.damage.front().type;
+    }
+    const AttackHooks& crochets = context.hooks != nullptr ? *context.hooks : crochetsVides();
+    issue.roll = rollAttack(std::move(demande), crochets, random);
     if (!issue.roll.hit) {
         return issue;
     }
+    // L'attaque touche : les capacites qui ajoutent des des (LOT-131) parlent ici, avant le lancer.
+    crochets.run(AttackRollStage::Hit, issue.roll, random);
     issue.damage = rollDamage(profile.damage, issue.roll.critical, random);
+    for (const BonusDamage& bonus : issue.roll.bonusDamage) {
+        std::vector<RolledDamage> lances = rollDamage(
+            std::span<const DamageClause>(&bonus.clause, 1), issue.roll.critical, random);
+        for (RolledDamage& lance : lances) {
+            lance.source = bonus.source;
+            issue.damage.push_back(std::move(lance));
+        }
+    }
     const std::vector<DamageRequest> salve{{.target = target, .damage = issue.damage}};
     const DamagePipeline& pipeline =
         context.pipeline != nullptr ? *context.pipeline : pipelineVide();
@@ -433,6 +469,10 @@ std::string AttackOutcome::describe() const {
         }
         texte += ' ';
         texte += damageTypeLabel(lance.clause.type);
+        if (!lance.source.empty()) {
+            // Les des qu'une capacite ajoute portent son nom (LOT-131, EX-REG-003).
+            texte += " (" + lance.source + ")";
+        }
     }
     if (report.has_value()) {
         for (const DamageStep& etape : report->work.trace) {

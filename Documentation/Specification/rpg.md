@@ -64,6 +64,19 @@ C++**. Une valeur qui violerait l'un ou l'autre se voit sur ce schéma avant de 
   découpage « une classe par lot » réalisable : si ajouter la quinzième classe demande de toucher au
   code des quatorze premières, le programme s'arrête à la cinquième.
 
+- **EX-RPG-024** — Une **capacité de classe** est une liste d'**effets nommés**
+  que la donnée déclare et que le moteur branche sur les crochets du combat — modifier un jet
+  d'attaque, une classe d'armure, des dégâts, un déplacement —, jamais une fonction qui la nomme.
+  Le journal de combat **nomme chaque capacité qui a joué** (`EX-REG-003`) : un bonus qu'aucune
+  ligne n'explique est indiscernable d'une erreur de calcul. Une capacité dont l'effet n'entre dans
+  aucun mécanisme se déclare narrative, ou déclare ce qu'elle exige (`EX-CNT-031`).
+
+- **EX-RPG-025** — L'**incantation simplifiée** des classes du *Player's Guide*
+  (p. 196, 200) n'a pas d'emplacements : les sorts sont fixés par la table de progression, et chaque
+  sort porte **son propre compte de lancers par jour**, que le repos long remet au complet
+  (`EX-REG-031`). Un sort épuisé **ne se propose plus** ; il n'est ni retiré, ni joué à vide. C'est
+  un système d'emplacements de plus au sens d'`EX-RPG-052`, pas un cas particulier du premier.
+
 ## 4. Progression
 
 - **EX-RPG-030** — Les **sources d'expérience** sont définies et exhaustives :

@@ -174,6 +174,9 @@ protected:
     /// @return Le combattant actif s'il est **au joueur** : debout, sans profil d'IA, en tour.
     [[nodiscard]] std::optional<core::CombatantId> playerTurn() const;
     void attackAt(core::CombatantId target, std::optional<std::size_t> index);
+    /// @brief Lance le sort de rang @p index du joueur sur @p target (`LOT-131`) ; `status` dit le
+    ///        jet, ou le refus — un sort épuisé, notamment.
+    void castAt(core::CombatantId target, std::size_t index);
     void moveTo(core::GridPosition cell);
     /// @brief Le héros de la démo comme source de combattant ; `std::nullopt` sans fiche, et
     ///        @p problems dit pourquoi.

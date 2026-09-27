@@ -1,0 +1,15 @@
+{
+  "id": "etincelle-d-essai",
+  "name": "Etincelle d'essai",
+  "source": "original",
+  "level": 0,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "18 m",
+  "rangeMeters": 18,
+  "duration": "instantanee",
+  "attackRoll": true,
+  "damage": "1d6",
+  "damageType": "fire",
+  "text": "Fixture : un sort mineur a jet d'attaque, 1d6 de feu, a volonte."
+}

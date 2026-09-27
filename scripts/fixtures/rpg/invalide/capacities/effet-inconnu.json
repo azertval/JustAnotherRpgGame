@@ -1,0 +1,11 @@
+{
+  "id": "effet-inconnu",
+  "name": "Effet inconnu",
+  "source": "original",
+  "effects": [
+    {
+      "kind": "devenir-invincible"
+    }
+  ],
+  "text": "Fixture invalide : un genre d'effet que le moteur ne connait pas doit etre refuse, jamais ignore en silence."
+}

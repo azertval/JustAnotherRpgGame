@@ -1,0 +1,21 @@
+{
+  "id": "peau-de-fer",
+  "name": "Peau de fer",
+  "source": "original",
+  "effects": [
+    {
+      "kind": "unarmored-armor-class",
+      "base": 10,
+      "abilities": [
+        "dexterity",
+        "constitution"
+      ],
+      "shieldAllowed": true
+    },
+    {
+      "kind": "damage-resistance",
+      "allTypes": true
+    }
+  ],
+  "text": "Fixture : sans armure, CA = 10 + Dexterite + Constitution, bouclier permis ; resistance a tous les types de degats."
+}

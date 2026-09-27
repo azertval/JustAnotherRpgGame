@@ -49,6 +49,7 @@
 #include "Core/Combat/Damage.h"
 #include "Core/Combat/LineOfSight.h"
 #include "Core/Math/DeterministicRandom.h"
+#include "Core/Rpg/Ability.h"
 #include "Core/Rpg/Check.h"
 
 namespace core {
@@ -146,6 +147,26 @@ struct CreatureAttacks {
 [[nodiscard]] AttackProfile weaponAttackFor(const CharacterSheet& sheet, const Weapon* weapon,
                                             int proficiencyBonus, bool proficient = true);
 
+struct Spell;
+
+/**
+ * @brief L'attaque d'un **sort à jet d'attaque** (`LOT-131`, `EX-RPG-025`) : *fire bolt*.
+ *
+ * *Player's Guide*, p. 196 et 200 : « attaque de sort = bonus de maîtrise + modificateur » de la
+ * caractéristique d'incantation. À distance, à la portée du sort (`Spell::rangeMeters`) ; les dés
+ * et le type sont ceux du sort, marqués `Spell` et `Magical`. Le modificateur de caractéristique ne
+ * s'ajoute **pas** aux dégâts : un sort n'est pas une arme.
+ *
+ * @param sheet La fiche du lanceur, pour le modificateur de sa caractéristique d'incantation.
+ * @param spell Le sort, tel que le catalogue le décrit.
+ * @param ability La caractéristique d'incantation de la classe (`Spellcasting::ability`).
+ * @param proficiencyBonus Le bonus de maîtrise au niveau de la fiche.
+ * @return Vide si le sort n'est pas un sort d'attaque (`core::isAttackSpell`).
+ */
+[[nodiscard]] std::optional<AttackProfile> spellAttackFor(const CharacterSheet& sheet,
+                                                          const Spell& spell, Ability ability,
+                                                          int proficiencyBonus);
+
 /**
  * @brief L'attaque d'une arme **lancée** — dague, hachette, javeline —, si elle a la propriété
  *        `thrown`.
@@ -235,6 +256,17 @@ enum class AttackRollStage : std::uint8_t {
     /// Le total est connu : ajouter un modificateur après l'avoir vu. Dernier instant avant
     /// l'issue.
     BeforeOutcome,
+    /// L'attaque **touche**, les dés de dégâts ne sont pas encore lancés : ajouter des dés
+    /// (`AttackRoll::bonusDamage`) — l'attaque sournoise, *Deadly* (`LOT-131`). Jamais appelé
+    /// sur un raté.
+    Hit,
+};
+
+/// @brief Des dés ajoutés aux dégâts d'une attaque qui touche, et ce qui les ajoute.
+struct BonusDamage {
+    DamageClause clause;
+    /// La capacité qui les donne, telle que le journal l'écrit.
+    std::string source;
 };
 
 /**
@@ -259,6 +291,12 @@ struct AttackRoll {
     /// L'issue, figée après `BeforeOutcome`.
     bool hit = false;
     bool critical = false;
+    /// Le type de la première clause de dégâts du profil : celui que prennent les dés ajoutés à
+    /// l'étape `Hit` (l'attaque sournoise est « du type de l'arme »). Absent si le profil ne blesse
+    /// pas.
+    std::optional<DamageType> damageType;
+    /// Les dés que l'étape `Hit` a ajoutés, lancés avec ceux du profil, critique compris.
+    std::vector<BonusDamage> bonusDamage;
 
     /// @brief Remplace le d20 d'indice @p die par @p value (un résultat stocké, *Portent*).
     void substitute(std::size_t die, int value, const std::string& source);

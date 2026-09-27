@@ -10,6 +10,28 @@
     "wisdom",
     "charisma"
   ],
+  "armorProficiencies": [
+    "light",
+    "medium",
+    "shields"
+  ],
+  "weaponProficiencies": [
+    "simple"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "history",
+      "insight",
+      "medicine",
+      "persuasion",
+      "religion"
+    ]
+  },
+  "spellcasting": {
+    "ability": "wisdom",
+    "castsPerDay": 2
+  },
   "progression": [
     {
       "level": 1,

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://justanotherrpggame.local/rpg/capacity.schema.json",
+  "title": "Capacite de classe",
+  "description": "Une capacite de classe est une liste d'EFFETS NOMMES, jamais une fonction (LOT-131, EX-RPG-024). Chaque effet est un mecanisme que le moteur sait brancher sur un crochet du combat : un bonus au jet d'attaque, une formule de CA sans armure, une resistance, une vitesse, des des de degats en plus. Une capacite dont l'effet n'entre dans aucun mecanisme porte `narratif: true` ou declare ce qu'elle exige dans `mecanismesRequis` : le journal de combat nomme chaque capacite qui a joue, et une capacite muette doit se declarer telle.",
+  "allOf": [
+    {
+      "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/entree"
+    }
+  ],
+  "type": "object",
+  "properties": {
+    "id": true,
+    "name": true,
+    "source": true,
+    "status": true,
+    "asset": true,
+    "mecanismesRequis": true,
+    "narratif": true,
+    "replaces": {
+      "allOf": [
+        {
+          "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+        }
+      ],
+      "description": "La capacite que celle-ci REMPLACE quand la table la donne a un niveau superieur : « Hit the Mark Improvement » remplace « Hit the Mark ». L'ancienne cesse de jouer ; ses effets ne s'additionnent pas a la nouvelle."
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "attack-bonus",
+              "armor-class-bonus",
+              "unarmored-armor-class",
+              "damage-resistance",
+              "speed-bonus",
+              "no-opportunity-attacks",
+              "extra-damage"
+            ]
+          },
+          "value": {
+            "type": "integer",
+            "description": "attack-bonus, armor-class-bonus : le bonus."
+          },
+          "base": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "unarmored-armor-class : la base de la formule (10 pour Tough as Nails, 13 pour Arcane Protection)."
+          },
+          "abilities": {
+            "type": "array",
+            "items": {
+              "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/ability"
+            },
+            "uniqueItems": true,
+            "description": "unarmored-armor-class : les modificateurs qui s'ajoutent a la base."
+          },
+          "shieldAllowed": {
+            "type": "boolean",
+            "description": "unarmored-armor-class : le bouclier s'ajoute encore (Tough as Nails : oui)."
+          },
+          "allTypes": {
+            "type": "boolean",
+            "description": "damage-resistance : resistance a TOUS les types de degats."
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/damageType"
+            },
+            "uniqueItems": true,
+            "description": "damage-resistance : les types resistes, si ce n'est pas tous."
+          },
+          "meters": {
+            "type": "number",
+            "description": "speed-bonus : la vitesse ajoutee, en metres (10 ft = 3 m), l'unite des especes."
+          },
+          "dice": {
+            "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/des",
+            "description": "extra-damage : les des ajoutes aux degats d'une attaque qui touche, du type de l'arme."
+          },
+          "oncePerTurn": {
+            "type": "boolean",
+            "description": "extra-damage : une seule fois par tour (Sneak Attack, Deadly)."
+          }
+        },
+        "required": [
+          "kind"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "source",
+    "text"
+  ],
+  "additionalProperties": false
+}

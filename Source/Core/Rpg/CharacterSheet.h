@@ -99,6 +99,25 @@ struct CharacterCreationRules {
  * pour une fiche jouable. `buildCharacterSheet()` est la porte d'entrée, et elle prend les
  * constantes dans la donnée.
  */
+struct Weapon;
+
+/// @brief Un sort connu de la fiche, et ses lancers du jour (`LOT-131`, `EX-RPG-025`).
+struct KnownSpell {
+    std::string spellId;
+    /// 0 : sort mineur.
+    int level = 0;
+    /// Lancers par jour ; 0 : à volonté.
+    int perDay = 0;
+    /// Lancers restants aujourd'hui. Sans objet si `perDay` vaut 0.
+    int remaining = 0;
+
+    /// @brief Vrai si le sort se lance encore : à volonté, ou un lancer restant.
+    [[nodiscard]] bool available() const noexcept {
+        return perDay == 0 || remaining > 0;
+    }
+    [[nodiscard]] bool operator==(const KnownSpell&) const = default;
+};
+
 struct CharacterSheet {
     std::string name;
     /// Identifiants des trois choix qui ont construit la fiche. Vides pour une créature du
@@ -133,6 +152,31 @@ struct CharacterSheet {
      * se refuse faute de langue commune (`core::DialogueRunner`).
      */
     std::set<std::string> languages;
+    /**
+     * @brief Armes maîtrisées (`LOT-131`) : les catégories (`simple`, `martial`) et les
+     *        identifiants d'armes que la classe et l'espèce accordent, réunis à la construction.
+     *        `core::isProficientWith` les lit ; une arme non maîtrisée se frappe sans le bonus de
+     *        maîtrise.
+     */
+    std::set<std::string> weaponProficiencies;
+    /// Catégories d'armure maîtrisées (`light`, `medium`, `heavy`, `shields`).
+    std::set<std::string> armorProficiencies;
+    /**
+     * @brief Les capacités de classe **actives** au niveau courant (`LOT-131`, `EX-RPG-024`).
+     *
+     * Des copies, résolues depuis la table de progression et le catalogue par
+     * `core::applyClassFeatures` : la fiche les porte pour que tout ce qui la lit — classe
+     * d'armure, vitesse, profil de combat, jets — les applique sans connaître la classe. Vide pour
+     * une créature, ou une fiche construite sans catalogue.
+     */
+    std::vector<Capacity> capacities;
+    /**
+     * @brief Les sorts connus et leurs lancers restants **dans la journée** (`EX-RPG-025`).
+     *
+     * L'incantation simplifiée n'a pas d'emplacements : chaque sort porte son propre compte,
+     * que `core::longRest` remet à `perDay`. Un sort mineur a `perDay` à 0 : à volonté.
+     */
+    std::vector<KnownSpell> knownSpells;
 
     /// @brief La valeur d'une caractéristique.
     [[nodiscard]] int ability(Ability which) const {
@@ -142,9 +186,60 @@ struct CharacterSheet {
     [[nodiscard]] int modifier(Ability which) const {
         return abilityModifier(ability(which));
     }
-    /// @brief La vitesse en **cases** de la grille tactique (`LOT-19`, `LOT-22`).
+    /// @brief La vitesse en **cases** de la grille tactique (`LOT-19`, `LOT-22`), capacités
+    ///        comprises.
     [[nodiscard]] float speedInTiles() const;
+    /// @brief La vitesse de base plus ce que les capacités ajoutent, en mètres.
+    [[nodiscard]] float effectiveSpeedMeters() const;
+    /// @brief Le sort connu d'identifiant @p spellId, ou `nullptr`.
+    [[nodiscard]] const KnownSpell* knownSpell(std::string_view spellId) const;
 };
+
+/**
+ * @brief Vrai si la fiche maîtrise cette arme : par sa catégorie ou par son identifiant.
+ *
+ * Manuel, chapitre 5 : « votre bonus de maîtrise s'ajoute au jet d'attaque de toute arme que vous
+ * maîtrisez ». Une fiche **sans classe** (une créature, une fiche d'essai) maîtrise tout : rien
+ * ne dit ce qu'elle ne maîtrise pas, et lui retirer la maîtrise fausserait chaque test qui ne
+ * s'intéresse pas à cette règle.
+ */
+[[nodiscard]] bool isProficientWith(const CharacterSheet& sheet, const Weapon& weapon);
+
+/**
+ * @brief Pose sur la fiche ce que sa classe lui donne à son niveau : capacités actives et sorts
+ *        connus, lancers au complet (`LOT-131`).
+ *
+ * À appeler après une montée de niveau comme au chargement. Les lancers déjà dépensés d'un sort
+ * que la fiche connaissait sont **conservés** : monter de niveau n'est pas un repos.
+ *
+ * La classe d'armure **sans armure** de la fiche est recalculée depuis ses sources (`EX-CBT-030`) :
+ * une capacité peut la calculer autrement (`core::armorClassFor`).
+ *
+ * @param sheet La fiche, modifiée sur place.
+ * @param playableClass Sa classe, pour la table de progression.
+ * @param options Les catalogues : capacités et sorts.
+ * @param rules Les constantes de création, pour la base sans armure.
+ * @param missing Reçoit les capacités et les sorts que la table nomme et que les catalogues
+ *        ignorent (`EX-CNT-031`).
+ */
+void applyClassFeatures(CharacterSheet& sheet, const PlayableClass& playableClass,
+                        const CharacterOptions& options, const CharacterCreationRules& rules,
+                        std::vector<std::string>& missing);
+
+/**
+ * @brief Le repos long : les points de vie au maximum, chaque sort à ses lancers du jour
+ *        (`EX-REG-031`).
+ *
+ * Le repos ne connaît aucune classe : il ne lit que ce que la fiche déclare. Un repos interrompu
+ * ne passe pas par ici (`EX-REG-032`).
+ */
+void longRest(CharacterSheet& sheet);
+
+/**
+ * @brief Dépense un lancer de @p spellId. Faux si le sort est inconnu ou épuisé ; un sort mineur
+ *        ne s'épuise jamais.
+ */
+bool spendSpellUse(CharacterSheet& sheet, std::string_view spellId);
 
 /**
  * @brief Ce qu'une montée de niveau a produit — de quoi le dire au joueur (`EX-REG-003`).
@@ -179,6 +274,15 @@ struct LoadedCharacterSheet {
     /// erreur.
     Inventory inventory;
     std::vector<std::string> errors;
+    /**
+     * @brief Ce que la fiche nomme et que le moteur ne joue pas encore (`EX-CNT-031`) : une
+     *        capacité ou un sort que la table de la classe donne et qu'aucun catalogue ne porte.
+     *
+     * Pas une erreur — la fiche est jouable, la table annonce un lot à venir —, mais pas un
+     * silence non plus : une capacité qu'on croit jouée et qui ne fait rien coûte plus cher à
+     * diagnostiquer qu'une capacité déclarée absente.
+     */
+    std::vector<std::string> warnings;
 
     /// @brief Vrai si la fiche s'est construite sans erreur.
     [[nodiscard]] bool ok() const {

@@ -127,6 +127,78 @@ const ClassLevel* PlayableClass::atLevel(int level) const {
     return trouve == progression.end() ? nullptr : &*trouve;
 }
 
+bool PlayableClass::isProficientWithWeapon(std::string_view weaponId,
+                                           std::string_view category) const {
+    return std::ranges::any_of(weaponProficiencies, [&](const std::string& maitrise) {
+        return maitrise == weaponId || maitrise == category;
+    });
+}
+
+bool PlayableClass::isProficientWithArmor(std::string_view category) const {
+    return std::ranges::find(armorProficiencies, category) != armorProficiencies.end();
+}
+
+namespace {
+
+// L'union, dans l'ordre de la table, des listes d'un champ de chaque ligne jusqu'au niveau.
+template <typename Champ>
+[[nodiscard]] std::vector<std::string> cumulerJusquAu(const std::vector<ClassLevel>& progression,
+                                                      int level, Champ champ) {
+    std::vector<std::string> cumul;
+    for (const ClassLevel& ligne : progression) {
+        if (ligne.level > level) {
+            continue;
+        }
+        for (const std::string& identifiant : champ(ligne)) {
+            if (std::ranges::find(cumul, identifiant) == cumul.end()) {
+                cumul.push_back(identifiant);
+            }
+        }
+    }
+    return cumul;
+}
+
+}  // namespace
+
+std::vector<std::string> PlayableClass::cantripsAt(int level) const {
+    return cumulerJusquAu(
+        progression, level,
+        [](const ClassLevel& ligne) -> const std::vector<std::string>& { return ligne.cantrips; });
+}
+
+std::vector<std::string> PlayableClass::spellsAt(int level) const {
+    return cumulerJusquAu(
+        progression, level,
+        [](const ClassLevel& ligne) -> const std::vector<std::string>& { return ligne.spells; });
+}
+
+std::vector<Capacity> resolveCapacities(const PlayableClass& playableClass, int level,
+                                        const CapacityCatalog& catalog,
+                                        std::vector<std::string>& missing) {
+    std::vector<Capacity> actives;
+    for (const std::string& identifiant :
+         cumulerJusquAu(playableClass.progression, level,
+                        [](const ClassLevel& ligne) -> const std::vector<std::string>& {
+                            return ligne.features;
+                        })) {
+        const Capacity* capacite = catalog.find(identifiant);
+        if (capacite == nullptr) {
+            // La table nomme ce que le catalogue n'a pas : la capacite ne joue pas, et le dire
+            // vaut mieux que de la laisser passer pour jouee (EX-CNT-031).
+            missing.push_back(identifiant);
+            continue;
+        }
+        // Une capacite qui en REMPLACE une autre la retire : Hit the Mark Improvement ne
+        // s'additionne pas a Hit the Mark.
+        if (!capacite->replaces.empty()) {
+            std::erase_if(actives,
+                          [&](const Capacity& active) { return active.id == capacite->replaces; });
+        }
+        actives.push_back(*capacite);
+    }
+    return actives;
+}
+
 const Species* CharacterOptions::findSpecies(std::string_view id) const {
     const auto trouve = std::ranges::find(species, id, &Species::id);
     return trouve == species.end() ? nullptr : &*trouve;
@@ -213,6 +285,7 @@ void lireAugmentations(const nlohmann::json& racine, const std::string& fichier,
         espece.hitPointsPerLevel = parNiveau->get<int>();
     }
     espece.languages = lireTextes(racine, "languages");
+    espece.weaponProficiencies = lireTextes(racine, "weaponProficiencies");
     espece.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
     lireTraits(racine, "traits", espece.traits);
     return espece;
@@ -259,6 +332,8 @@ void lireProgression(const nlohmann::json& racine, const std::string& fichier,
             niveau.level = valeur->get<int>();
             niveau.proficiencyBonus = bonus->get<int>();
             niveau.features = lireTextes(element, "features");
+            niveau.cantrips = lireTextes(element, "cantrips");
+            niveau.spells = lireTextes(element, "spells");
             classe.progression.push_back(std::move(niveau));
         }
     }
@@ -283,6 +358,33 @@ void lireProgression(const nlohmann::json& racine, const std::string& fichier,
     classe.primaryAbility = lireCaracteristiques(racine, "primaryAbility", fichier, erreurs);
     classe.savingThrowProficiencies =
         lireCaracteristiques(racine, "savingThrowProficiencies", fichier, erreurs);
+    classe.armorProficiencies = lireTextes(racine, "armorProficiencies");
+    classe.weaponProficiencies = lireTextes(racine, "weaponProficiencies");
+    if (const auto choix = racine.find("skillChoices");
+        choix != racine.end() && choix->is_object()) {
+        if (const auto nombre = choix->find("count");
+            nombre != choix->end() && nombre->is_number_integer()) {
+            classe.skillChoices.count = nombre->get<int>();
+        }
+        classe.skillChoices.from = lireTextes(*choix, "from");
+    }
+    if (const auto incantation = racine.find("spellcasting");
+        incantation != racine.end() && incantation->is_object()) {
+        // La caracteristique d'incantation est EXIGEE : sans elle, ni DD ni jet d'attaque de sort
+        // ne se calculent, et une classe qui lancerait des sorts a +0 passerait pour faible.
+        const std::optional<Ability> caracteristique =
+            parseAbility(lireTexte(*incantation, "ability"));
+        const auto lancers = incantation->find("castsPerDay");
+        if (!caracteristique.has_value() || lancers == incantation->end() ||
+            !lancers->is_number_integer()) {
+            erreurs.push_back(fichier +
+                              " : 'spellcasting' sans caracteristique connue ou sans "
+                              "'castsPerDay'. L'incantation simplifiee exige les deux.");
+            return std::nullopt;
+        }
+        classe.spellcasting =
+            Spellcasting{.ability = *caracteristique, .castsPerDay = lancers->get<int>()};
+    }
     lireStatut(racine, classe.status);
     lireProgression(racine, fichier, classe, erreurs);
     return classe;
@@ -333,6 +435,14 @@ void heriterDesEspecesParentes(CharacterOptions& options) {
                 espece.requiredMechanisms.push_back(mecanisme);
             }
         }
+        // Les armes du parent aussi (LOT-131) : le nain des collines a l'Entrainement aux armes
+        // naines, et la page 203 donne au pretre nain son marteau de guerre a +3.
+        for (const std::string& arme : parent->weaponProficiencies) {
+            if (std::ranges::find(espece.weaponProficiencies, arme) ==
+                espece.weaponProficiencies.end()) {
+                espece.weaponProficiencies.push_back(arme);
+            }
+        }
         // Les traits du parent d'abord, dans l'ordre du livre : l'espece, puis la sous-espece.
         espece.traits.insert(espece.traits.begin(), parent->traits.begin(), parent->traits.end());
     }
@@ -370,6 +480,27 @@ CharacterOptions loadCharacterOptions(const std::filesystem::path& speciesDir,
     std::ranges::sort(options.classes, {}, &PlayableClass::id);
     heriterDesEspecesParentes(options);
     return options;
+}
+
+CharacterOptions loadCharacterOptions(const std::filesystem::path& speciesDir,
+                                      const std::filesystem::path& backgroundsDir,
+                                      const std::filesystem::path& classesDir,
+                                      const std::filesystem::path& capacitiesDir,
+                                      const std::filesystem::path& spellsDir) {
+    CharacterOptions options = loadCharacterOptions(speciesDir, backgroundsDir, classesDir);
+    options.capacities = loadCapacities(capacitiesDir);
+    options.spells = loadSpells(spellsDir);
+    // Les erreurs voyagent AVEC les donnees : une seule liste a lire pour qui charge (EX-CNT-010).
+    options.errors.insert(options.errors.end(), options.capacities.errors.begin(),
+                          options.capacities.errors.end());
+    options.errors.insert(options.errors.end(), options.spells.errors.begin(),
+                          options.spells.errors.end());
+    return options;
+}
+
+CharacterOptions loadCharacterOptions(const std::filesystem::path& rpgRoot) {
+    return loadCharacterOptions(rpgRoot / "species", rpgRoot / "backgrounds", rpgRoot / "classes",
+                                rpgRoot / "capacities", rpgRoot / "spells");
 }
 
 }  // namespace core

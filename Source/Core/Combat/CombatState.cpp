@@ -10,6 +10,7 @@
 #include "Core/Rpg/Ability.h"
 #include "Core/Rpg/Bestiary.h"
 #include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/RpgEnumNames.h"
 
 namespace core {
 
@@ -35,6 +36,25 @@ private:
 };
 
 CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side) {
+    // Les resistances que les capacites de classe donnent (LOT-131), chacune au nom de sa
+    // capacite pour que le journal l'ecrive : << resistance a tous les types >> s'ecrit treize
+    // affinites, une par type, comme le pipeline les lit.
+    DamageTraits traits;
+    for (const NamedResistance& resistance : resistancesFrom(sheet.capacities)) {
+        if (resistance.type.has_value()) {
+            traits.affinities.push_back({.type = *resistance.type,
+                                         .kind = DamageAffinityKind::Resistance,
+                                         .bypassedBy = 0,
+                                         .source = resistance.source});
+            continue;
+        }
+        for (const DamageType type : allDamageTypes()) {
+            traits.affinities.push_back({.type = type,
+                                         .kind = DamageAffinityKind::Resistance,
+                                         .bypassedBy = 0,
+                                         .source = resistance.source});
+        }
+    }
     return {
         .name = sheet.name,
         .side = side,
@@ -43,12 +63,13 @@ CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side) {
         .dexterity = sheet.ability(Ability::Dexterity),
         .initiativeModifier = sheet.modifier(Ability::Dexterity),
         .initiativeStance = RollStance::Normal,
+        // Capacites comprises : la vitesse que la classe ajoute se lit dans la fiche.
         .movement = movementBudget(sheet),
         .locomotion = Locomotion::Walk,
         .size = CreatureSize::Medium,
         .floating = false,
         .armorClass = sheet.armorClass,
-        .damageTraits = {},
+        .damageTraits = std::move(traits),
     };
 }
 

@@ -62,6 +62,10 @@ add_executable(UnitTests
     Unit/Core/Rpg/test_character_options.cpp
     Unit/Core/Rpg/test_character_sheet.cpp
     Unit/Core/Rpg/test_premade_characters.cpp
+    # Le socle de classe (LOT-131) : capacites a effets nommes, incantation simplifiee, et la
+    # classe d'essai qui agit en combat sans une ligne de C++ qui la nomme.
+    Unit/Core/Rpg/test_class_capacities.cpp
+    Unit/Core/Combat/test_class_in_arena.cpp
     Unit/Core/Levels/test_rpg_terrain.cpp
     Unit/Core/Levels/test_layer_pieces.cpp
     Unit/Core/Levels/test_level_draft_pieces.cpp

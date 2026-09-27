@@ -1,0 +1,75 @@
+{
+  "id": "lutteur-d-essai",
+  "name": "Lutteur d'essai",
+  "source": "original",
+  "hitDie": 10,
+  "primaryAbility": [
+    "strength"
+  ],
+  "savingThrowProficiencies": [
+    "strength",
+    "constitution"
+  ],
+  "armorProficiencies": [
+    "light",
+    "shields"
+  ],
+  "weaponProficiencies": [
+    "simple",
+    "rapiere"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "athletics",
+      "intimidation",
+      "perception"
+    ]
+  },
+  "spellcasting": {
+    "ability": "intelligence",
+    "castsPerDay": 2
+  },
+  "progression": [
+    {
+      "level": 1,
+      "proficiencyBonus": 2,
+      "features": [
+        "coup-precis",
+        "peau-de-fer"
+      ],
+      "cantrips": [
+        "etincelle-d-essai"
+      ],
+      "spells": [
+        "trait-de-feu-d-essai"
+      ]
+    },
+    {
+      "level": 2,
+      "proficiencyBonus": 2,
+      "features": [
+        "pas-de-danseur"
+      ]
+    },
+    {
+      "level": 3,
+      "proficiencyBonus": 2,
+      "features": [
+        "coup-precis-ameliore"
+      ],
+      "spells": [
+        "second-trait-d-essai"
+      ]
+    },
+    {
+      "level": 4,
+      "proficiencyBonus": 2
+    },
+    {
+      "level": 5,
+      "proficiencyBonus": 3
+    }
+  ],
+  "text": "Classe d'ESSAI (LOT-131) : trois capacites a effets nommes, un sort mineur et un sort a deux lancers par jour. Elle ne prouve pas une classe du livre mais le socle : une classe se charge et agit en combat sans une ligne de C++ qui la nomme."
+}

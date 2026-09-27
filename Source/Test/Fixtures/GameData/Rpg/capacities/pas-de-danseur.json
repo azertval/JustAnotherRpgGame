@@ -1,0 +1,15 @@
+{
+  "id": "pas-de-danseur",
+  "name": "Pas de danseur",
+  "source": "original",
+  "effects": [
+    {
+      "kind": "speed-bonus",
+      "meters": 3
+    },
+    {
+      "kind": "no-opportunity-attacks"
+    }
+  ],
+  "text": "Fixture : vitesse +3 m (10 ft), et les deplacements ne provoquent pas d'attaque d'opportunite."
+}

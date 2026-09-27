@@ -1,0 +1,18 @@
+{
+  "id": "coup-precis-ameliore",
+  "name": "Coup precis ameliore",
+  "source": "original",
+  "replaces": "coup-precis",
+  "effects": [
+    {
+      "kind": "attack-bonus",
+      "value": 3
+    },
+    {
+      "kind": "extra-damage",
+      "dice": "2d6",
+      "oncePerTurn": true
+    }
+  ],
+  "text": "Fixture : remplace Coup precis au niveau 3 ; +3 aux jets d'attaque et 2d6 une fois par tour. Les deux ne s'additionnent pas."
+}

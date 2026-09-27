@@ -11,6 +11,7 @@
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/CombatPreview.h"
 #include "Core/Combat/Pathfinding.h"
+#include "HMI/HmiLog.h"
 #include "HMI/Runtime/DemonstrationCharacter.h"
 
 namespace hmi {
@@ -26,16 +27,19 @@ namespace {
 }
 
 // Une action du tour telle que l'écran la propose.
-enum class TurnActionKind : std::uint8_t { ATTACK, DODGE, DISENGAGE, DASH, REACTION };
+enum class TurnActionKind : std::uint8_t { ATTACK, SPELL, DODGE, DISENGAGE, DASH, REACTION };
 
 struct TurnActionEntry {
     TurnActionKind kind = TurnActionKind::ATTACK;
+    /// L'indice de l'attaque, ou du sort, dans la liste de la session.
     std::size_t attack = 0;
     QString label;
+    /// Faux pour un sort épuisé (`LOT-131`) : proposé grisé, jamais joué.
+    bool available = true;
 };
 
-// Les actions du combattant `active` : ses attaques, puis les actions du Manuel, puis sa
-// réaction.
+// Les actions du combattant `active` : ses attaques, ses sorts, puis les actions du Manuel, puis
+// sa réaction.
 [[nodiscard]] std::vector<TurnActionEntry> turnActionsOf(const core::ArenaSession& session,
                                                          core::CombatantId active) {
     std::vector<TurnActionEntry> entries;
@@ -43,6 +47,20 @@ struct TurnActionEntry {
         for (std::size_t i = 0; i < attacks->size(); ++i) {
             entries.push_back(
                 {.kind = TurnActionKind::ATTACK, .attack = i, .label = toQt((*attacks)[i].label)});
+        }
+    }
+    if (const std::vector<core::ArenaSpell>* spells = session.spells(active)) {
+        for (std::size_t i = 0; i < spells->size(); ++i) {
+            const core::ArenaSpell& spell = (*spells)[i];
+            // Un sort epuise reste dans la barre, grise : le joueur voit ce qu'un repos rendra.
+            entries.push_back(
+                {.kind = TurnActionKind::SPELL,
+                 .attack = i,
+                 .label =
+                     spell.uses < 0
+                         ? CombatModel::tr("Sort : %1").arg(toQt(spell.name))
+                         : CombatModel::tr("Sort : %1 (%2)").arg(toQt(spell.name)).arg(spell.uses),
+                 .available = spell.available()});
         }
     }
     entries.push_back(
@@ -64,6 +82,8 @@ struct TurnActionEntry {
     switch (kind) {
         case TurnActionKind::ATTACK:
             return QStringLiteral("attack");
+        case TurnActionKind::SPELL:
+            return QStringLiteral("spell");
         case TurnActionKind::DODGE:
             return QStringLiteral("dodge");
         case TurnActionKind::DISENGAGE:
@@ -129,10 +149,23 @@ std::optional<HeroContestantSource> CombatModel::loadHeroSource(
                                             demonstration.lookup(), demonstration.rules,
                                             demonstration.encumbrance)
                           .armorClass,
-        .weapon = std::nullopt};
+        .weapon = std::nullopt,
+        .spells = {}};
     if (const core::Weapon* weapon = demonstration.equipment.findWeapon(
             demonstration.inventory.at(core::EquipmentSlot::MainHand))) {
         hero.weapon = *weapon;
+    }
+    // Les sorts que la fiche connait et que le moteur sait jouer (LOT-131) ; ceux qu'il ne joue
+    // pas encore sont dits, pas tus (EX-RPG-051).
+    if (const core::PlayableClass* playableClass =
+            demonstration.options.findClass(demonstration.sheet.classId)) {
+        std::vector<std::string> skipped;
+        hero.spells = core::arenaSpellsFor(demonstration.sheet, *playableClass,
+                                           demonstration.options.spells, hero.proficiency, skipped);
+        for (const std::string& spell : skipped) {
+            // Pas un probleme de montage : le combat se joue, ce sort n'y parait pas.
+            HMI_LOG_WARNING("Sort connu du heros mais sans mecanisme joue (EX-RPG-051) : " + spell);
+        }
     }
     return hero;
 }
@@ -388,7 +421,7 @@ QVariantList CombatModel::turnActions() const {
         const bool needsAction = entries[i].kind != TurnActionKind::REACTION;
         list << QVariantMap{{"label", entries[i].label},
                             {"kind", kindName(entries[i].kind)},
-                            {"enabled", !needsAction || action},
+                            {"enabled", (!needsAction || action) && entries[i].available},
                             {"selected", std::cmp_equal(i, _selectedAction)}};
     }
     return list;
@@ -419,6 +452,37 @@ void CombatModel::attackAt(core::CombatantId target, std::optional<std::size_t> 
         case core::ArenaActionResult::NoAttack:
             _status = tr("Ce combattant n'a aucune attaque.");
             break;
+        case core::ArenaActionResult::NoActiveTurn:
+        case core::ArenaActionResult::InvalidTarget:
+        case core::ArenaActionResult::NoSpell:
+        case core::ArenaActionResult::Exhausted:
+            _status = tr("Attaque refusee.");
+            break;
+    }
+}
+
+void CombatModel::castAt(core::CombatantId target, std::size_t index) {
+    const core::ArenaAttack cast = _session->castSpell(target, index);
+    switch (cast.result) {
+        case core::ArenaActionResult::Done:
+            _status = cast.outcome.has_value() ? toQt(cast.outcome->describe()) : QString();
+            break;
+        case core::ArenaActionResult::Exhausted:
+            _status = tr("Sort epuise : un repos long le rendra.");
+            break;
+        case core::ArenaActionResult::NoSpell:
+            _status = tr("Ce combattant n'a pas ce sort.");
+            break;
+        case core::ArenaActionResult::OutOfReach:
+            _status = tr("Hors d'allonge ou de portee.");
+            break;
+        case core::ArenaActionResult::TotalCover:
+            _status = tr("Cible hors de vue : abri total.");
+            break;
+        case core::ArenaActionResult::NoAction:
+            _status = tr("L'action de ce tour est deja depensee.");
+            break;
+        case core::ArenaActionResult::NoAttack:
         case core::ArenaActionResult::NoActiveTurn:
         case core::ArenaActionResult::InvalidTarget:
             _status = tr("Attaque refusee.");
@@ -467,6 +531,13 @@ void CombatModel::tapCell(int column, int row) {
             const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
             if (_selectedAction >= 0 && std::cmp_less(_selectedAction, entries.size())) {
                 const TurnActionEntry& chosen = entries[static_cast<std::size_t>(_selectedAction)];
+                // Un sort choisi dans la barre se lance au clic sur l'ennemi (LOT-131) ; le refus,
+                // s'il y en a un, le dit -- on ne retombe pas sur l'arme en silence.
+                if (chosen.kind == TurnActionKind::SPELL) {
+                    castAt(*target, chosen.attack);
+                    emitSceneChanged();
+                    return;
+                }
                 if (chosen.kind == TurnActionKind::ATTACK &&
                     core::checkTarget(combat, *active, *target,
                                       (*_session->attacks(*active))[chosen.attack]) ==
@@ -583,13 +654,18 @@ void CombatModel::confirm() {
     const TurnActionEntry chosen = entries[static_cast<std::size_t>(
         std::clamp(_selectedAction, 0, static_cast<int>(entries.size()) - 1))];
     switch (chosen.kind) {
-        case TurnActionKind::ATTACK: {
+        case TurnActionKind::ATTACK:
+        case TurnActionKind::SPELL: {
             const core::CombatState& combat = _session->combat();
             const std::optional<core::CombatantId> occupant = combat.grid().occupantAt(_cursor);
             if (!occupant.has_value()) {
                 moveTo(_cursor);
             } else if (combat.find(*occupant)->profile.side != combat.find(*active)->profile.side) {
-                attackAt(*occupant, chosen.attack);
+                if (chosen.kind == TurnActionKind::SPELL) {
+                    castAt(*occupant, chosen.attack);
+                } else {
+                    attackAt(*occupant, chosen.attack);
+                }
             } else {
                 _status = tr("Rien a faire sur cette case.");
             }

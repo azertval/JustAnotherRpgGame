@@ -1214,6 +1214,26 @@
         <source>Personne a retirer.</source>
         <translation>Nobody to withdraw.</translation>
     </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="0"/>
+        <source>Sort : %1</source>
+        <translation>Spell: %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="0"/>
+        <source>Sort : %1 (%2)</source>
+        <translation>Spell: %1 (%2)</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="0"/>
+        <source>Sort epuise : un repos long le rendra.</source>
+        <translation>Spell exhausted: a long rest will restore it.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="0"/>
+        <source>Ce combattant n&apos;a pas ce sort.</source>
+        <translation>This combatant does not have that spell.</translation>
+    </message>
 </context>
 <context>
     <name>hmi::EncounterModel</name>

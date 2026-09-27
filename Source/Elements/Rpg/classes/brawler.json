@@ -10,6 +10,26 @@
     "strength",
     "constitution"
   ],
+  "armorProficiencies": [
+    "light",
+    "medium",
+    "shields"
+  ],
+  "weaponProficiencies": [
+    "simple",
+    "martial"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "animal-handling",
+      "athletics",
+      "intimidation",
+      "nature",
+      "perception",
+      "survival"
+    ]
+  },
   "progression": [
     {
       "level": 1,

@@ -10,6 +10,29 @@
     "intelligence",
     "wisdom"
   ],
+  "armorProficiencies": [],
+  "weaponProficiencies": [
+    "dague",
+    "flechette",
+    "fronde",
+    "baton",
+    "arbalete-legere"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "arcana",
+      "history",
+      "insight",
+      "investigation",
+      "medicine",
+      "religion"
+    ]
+  },
+  "spellcasting": {
+    "ability": "intelligence",
+    "castsPerDay": 2
+  },
   "progression": [
     {
       "level": 1,
