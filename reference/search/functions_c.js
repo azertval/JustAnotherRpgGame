@@ -43,7 +43,7 @@ var searchData=
   ['masked_40',['masked',['../classcore_1_1ScenePieceManifest.html#a504f765ccecdc061556e443654cf7522',1,'core::ScenePieceManifest']]],
   ['matches_41',['matches',['../classcore_1_1View.html#a27b0a25fa3918e0a8cb93b5aa076c40c',1,'core::View']]],
   ['maximum_42',['maximum',['../structcore_1_1Dice.html#a7a33f7297c0ed550a1a6018527f63ace',1,'core::Dice']]],
-  ['maximumhitpointsfor_43',['maximumHitPointsFor',['../namespacecore.html#ae73047aa52884ecfd7eebb21af3990bb',1,'core']]],
+  ['maximumhitpointsfor_43',['maximumHitPointsFor',['../namespacecore.html#a3e6874c7479b2ef8413b71f72b216e09',1,'core']]],
   ['maximumlevel_44',['maximumLevel',['../structcore_1_1ExperienceTable.html#a8931fcd0c93f1ed417f037b4674a1722',1,'core::ExperienceTable']]],
   ['maximumrise_45',['maximumRise',['../classhmi_1_1PlaceAppearance.html#acc91a094a349d947bd427f942a2b797c',1,'hmi::PlaceAppearance']]],
   ['measurebetween_46',['measureBetween',['../namespacehmi.html#a9e8aa722715e4ca8b1c75806a71e7b56',1,'hmi']]],

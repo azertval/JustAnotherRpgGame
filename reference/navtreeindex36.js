@@ -1,5 +1,7 @@
 var NAVTREEINDEX36 =
 {
+"structcore_1_1PieceFootprint.html#aab21fd5d766c5ef6e89e6d0ebc3c7497":[3,0,0,120,1],
+"structcore_1_1PlayableClass.html":[2,0,1,147],
 "structcore_1_1PlayableClass.html":[3,0,0,147],
 "structcore_1_1PlayableClass.html#a028057f581a62cc7bbaccba44edb81d2":[2,0,1,147,5],
 "structcore_1_1PlayableClass.html#a028057f581a62cc7bbaccba44edb81d2":[3,0,0,147,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX36 =
 "structcore_1_1ScenePiece.html#a9529ec69148f8f8a393c21b188dcd7da":[3,0,0,132,11],
 "structcore_1_1ScenePiece.html#a95e3be7b50645669d22d20838fc4e84c":[2,0,1,132,2],
 "structcore_1_1ScenePiece.html#a95e3be7b50645669d22d20838fc4e84c":[3,0,0,132,2],
-"structcore_1_1ScenePiece.html#a9a5d01fa7da564a436751b3a588d2660":[2,0,1,132,17],
-"structcore_1_1ScenePiece.html#a9a5d01fa7da564a436751b3a588d2660":[3,0,0,132,17],
-"structcore_1_1ScenePiece.html#aa07afc5d2306797a84be1b32a4981a80":[2,0,1,132,8]
+"structcore_1_1ScenePiece.html#a9a5d01fa7da564a436751b3a588d2660":[2,0,1,132,17]
 };

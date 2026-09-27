@@ -1,0 +1,416 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/test_premade_characters.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__premade__characters_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_premade_characters.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les quatre fiches pre-tirees du Player's Guide to Tanares, valeur pour valeur (LOT-130).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;numeric&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Attack_8h_source.html">Core/Combat/Attack.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterOptions_8h_source.html">Core/Rpg/CharacterOptions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Equipment_8h_source.html">Core/Rpg/Equipment.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Inventory_8h_source.html">Core/Rpg/Inventory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RpgEnums_8h_source.html">Core/Rpg/RpgEnums.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Skill_8h_source.html">Core/Rpg/Skill.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae5ccabac1fac9d590abc782e4361ef77" id="r_ae5ccabac1fac9d590abc782e4361ef77"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae5ccabac1fac9d590abc782e4361ef77">TEST</a> (PremadeCharactersTest, LeBrawlerEstLaPage195)</td></tr>
+<tr class="memdesc:ae5ccabac1fac9d590abc782e4361ef77"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche du Brawler (p.  <br /></td></tr>
+<tr class="memitem:a643795b82808a4ff812f3f2d08fe365d" id="r_a643795b82808a4ff812f3f2d08fe365d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a643795b82808a4ff812f3f2d08fe365d">TEST</a> (PremadeCharactersTest, LeMageEstLaPage199)</td></tr>
+<tr class="memdesc:a643795b82808a4ff812f3f2d08fe365d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche du Mage (p.  <br /></td></tr>
+<tr class="memitem:a929c8b1d5358f792d4ef37aee83512e1" id="r_a929c8b1d5358f792d4ef37aee83512e1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a929c8b1d5358f792d4ef37aee83512e1">TEST</a> (PremadeCharactersTest, LePriestEstLaPage203)</td></tr>
+<tr class="memdesc:a929c8b1d5358f792d4ef37aee83512e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche du Priest (p.  <br /></td></tr>
+<tr class="memitem:a06611b5b98601c542251397cd45d8029" id="r_a06611b5b98601c542251397cd45d8029"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a06611b5b98601c542251397cd45d8029">TEST</a> (PremadeCharactersTest, LeScoundrelEstLaPage207)</td></tr>
+<tr class="memdesc:a06611b5b98601c542251397cd45d8029"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche du Scoundrel (p.  <br /></td></tr>
+<tr class="memitem:a79f7ec9c5753023236b7b36de00fbb8a" id="r_a79f7ec9c5753023236b7b36de00fbb8a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a79f7ec9c5753023236b7b36de00fbb8a">TEST</a> (PremadeCharactersTest, LaTenaciteNaineCompteAChaqueNiveau)</td></tr>
+<tr class="memdesc:a79f7ec9c5753023236b7b36de00fbb8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La Tenacite naine compte a chaque niveau, hors du plancher de 1 par niveau.  <br /></td></tr>
+<tr class="memitem:ac2ba51dadafba8244f647c9ae2dff6f1" id="r_ac2ba51dadafba8244f647c9ae2dff6f1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac2ba51dadafba8244f647c9ae2dff6f1">TEST</a> (PremadeCharactersTest, LeChoixDEspeceSAjouteSousLePlafond)</td></tr>
+<tr class="memdesc:ac2ba51dadafba8244f647c9ae2dff6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le +1 au choix d'une espece s'applique depuis la fiche, sous le plafond.  <br /></td></tr>
+<tr class="memitem:a1a8330f2e3e187729e6f0668c885f3e5" id="r_a1a8330f2e3e187729e6f0668c885f3e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1a8330f2e3e187729e6f0668c885f3e5">TEST</a> (PremadeCharactersTest, UneSousEspeceHeriteDeSonParent)</td></tr>
+<tr class="memdesc:a1a8330f2e3e187729e6f0668c885f3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une sous-espece herite de son espece parente au chargement.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les quatre fiches pre-tirees du Player's Guide to Tanares, valeur pour valeur (LOT-130). </p>
+<p>Un test par fiche (p. 195, 199, 203, 207). Chacun charge le fichier de <span class="tt">Rpg/characters/</span>, qui ne porte que des CHOIX, et redemande au moteur chaque valeur DERIVEE que la page imprime : caracteristiques finales, points de vie, classe d'armure, initiative, vitesse, Perception passive, les six sauvegardes, les dix-huit competences, les attaques. Ce que le moteur ne sait pas encore calculer &ndash; une capacite de classe, un sort &ndash; est un ecart ECRIT dans la fiche du lot, et le test dit la valeur du moteur d'aujourd'hui, jamais une valeur devinee. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a79f7ec9c5753023236b7b36de00fbb8a" name="a79f7ec9c5753023236b7b36de00fbb8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f7ec9c5753023236b7b36de00fbb8a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTenaciteNaineCompteAChaqueNiveau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La Tenacite naine compte a chaque niveau, hors du plancher de 1 par niveau. </p>
+<p><b>Cas de test :</b> <b>Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque montee.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Calculer les points de vie d'un d8 de niveau 1 puis 5, avec et sans le bonus.<br  />
+</p><ol type="1">
+<li>Faire monter le Priest au niveau 5 par l'experience.<br  />
+ <b>Resultat attendu :</b> Un point de plus par niveau dans les deux cas ; le bonus survit a une Constitution desastreuse, que le plancher ne l'absorbe pas. </li>
+</ol>
+
+</div>
+</div>
+<a id="ae5ccabac1fac9d590abc782e4361ef77" name="ae5ccabac1fac9d590abc782e4361ef77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ccabac1fac9d590abc782e4361ef77">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeBrawlerEstLaPage195</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fiche du Brawler (p. </p>
+<p>195) se recalcule valeur pour valeur. <b>Cas de test :</b> <b>Le Brawler pre-tire redonne chaque valeur de la page 195.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Rpg/characters/heros-brawler.json.<br  />
+2. Recalculer caracteristiques, points de vie, initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, greataxe, handaxe et javelin.<br  />
+ <b>Resultat attendu :</b> For 16 Dex 13 Con 16 Int 10 Sag 12 Cha 8 ; 15 PV ; initiative +1 ; 30 ft ; Perception passive 11 ; sauvegardes +5 +1 +5 0 +1 -1 ; les cinq pastilles ; +5 au toucher partout, 1d12+3, 1d6+3 lancer 20/60, 1d6+3 lancer 30/120. La CA du moteur est 11 : le 14 de la page vient de Tough as Nails, capacite de classe du LOT-132 &ndash; ecart ecrit. </p>
+
+</div>
+</div>
+<a id="ac2ba51dadafba8244f647c9ae2dff6f1" name="ac2ba51dadafba8244f647c9ae2dff6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2ba51dadafba8244f647c9ae2dff6f1">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeChoixDEspeceSAjouteSousLePlafond</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le +1 au choix d'une espece s'applique depuis la fiche, sous le plafond. </p>
+<p><b>Cas de test :</b> <b>Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece, sans depasser le plafond.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Construire un elfe d'automne avec Con 14 et un choix de +1 en Constitution.<br  />
+</p><ol type="1">
+<li>Construire le meme avec Con 20 et le meme choix.<br  />
+ <b>Resultat attendu :</b> Con 15 dans le premier cas ; Con 20 dans le second, le plafond de la donnee tient. </li>
+</ol>
+
+</div>
+</div>
+<a id="a643795b82808a4ff812f3f2d08fe365d" name="a643795b82808a4ff812f3f2d08fe365d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643795b82808a4ff812f3f2d08fe365d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeMageEstLaPage199</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fiche du Mage (p. </p>
+<p>199) se recalcule valeur pour valeur. <b>Cas de test :</b> <b>Le Mage pre-tire redonne chaque valeur de la page 199.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Rpg/characters/heros-mage.json.<br  />
+2. Recalculer caracteristiques (dont le +1 au choix de l'elfe d'automne, pose en Constitution), points de vie, CA, initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, quarterstaff.<br  />
+ <b>Resultat attendu :</b> For 8 Dex 15 Con 15 Int 16 Sag 12 Cha 10 ; 8 PV ; CA 12 ; initiative +2 ; 30 ft ; Perception passive 13 ; sauvegardes -1 +2 +2 +5 +3 0 ; les cinq pastilles ; quarterstaff +1, 1d6-1 contondant. Fire bolt n'est pas une attaque d'arme : il attend les sorts du LOT-133. </p>
+
+</div>
+</div>
+<a id="a929c8b1d5358f792d4ef37aee83512e1" name="a929c8b1d5358f792d4ef37aee83512e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a929c8b1d5358f792d4ef37aee83512e1">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LePriestEstLaPage203</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fiche du Priest (p. </p>
+<p>203) se recalcule valeur pour valeur. <b>Cas de test :</b> <b>Le Priest pre-tire redonne chaque valeur de la page 203.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Rpg/characters/heros-priest.json.<br  />
+2. Recalculer caracteristiques, points de vie (avec la Tenacite naine), CA (ecailles + bouclier), initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, warhammer et handaxe.<br  />
+ <b>Resultat attendu :</b> For 13 Dex 12 Con 16 Int 10 Sag 16 Cha 8 ; 12 PV ; CA 17 ; initiative +1 ; 25 ft ; Perception passive 13 ; sauvegardes +1 +1 +3 0 +5 +1 ; les quatre pastilles ; warhammer +3 1d8+1 contondant ; handaxe +3 1d6+1 TRANCHANT (la page ecrit « Piercing » : coquille). Sacred Flame attend les sorts du LOT-134. </p>
+
+</div>
+</div>
+<a id="a06611b5b98601c542251397cd45d8029" name="a06611b5b98601c542251397cd45d8029"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06611b5b98601c542251397cd45d8029">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeScoundrelEstLaPage207</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fiche du Scoundrel (p. </p>
+<p>207) se recalcule valeur pour valeur. <b>Cas de test :</b> <b>Le Scoundrel pre-tire redonne chaque valeur de la page 207.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger Rpg/characters/heros-scoundrel.json.<br  />
+2. Recalculer caracteristiques, points de vie, CA (cuir), initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, rapier, shortbow et dagger.<br  />
+ <b>Resultat attendu :</b> For 9 Dex 16 Con 15 Int 10 Sag 14 Cha 14 ; 10 PV ; CA 14 ; initiative +3 ; sauvegardes -1 +5 +2 +2 +2 +2 ; les six pastilles ; rapier +5 1d8+3, shortbow +5 1d6+3 portee 80/320, dagger +5 1d4+3 lancer 20/60. Deux coquilles ecrites : la Perception passive vaut 14 (la page imprime 13) ; la vitesse vaut 30 ft au moteur, 40 ft par Scoundrel's Agility (LOT-135). </p>
+
+</div>
+</div>
+<a id="a1a8330f2e3e187729e6f0668c885f3e5" name="a1a8330f2e3e187729e6f0668c885f3e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a8330f2e3e187729e6f0668c885f3e5">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PremadeCharactersTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneSousEspeceHeriteDeSonParent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une sous-espece herite de son espece parente au chargement. </p>
+<p><b>Cas de test :</b> <b>Le nain des collines est un nain : +2 de Constitution, le commun et le nain, la vision dans le noir, puis ce qui est le sien.</b><br  />
+ <b>Categorie :</b> Unitaire · Fiches pre-tirees<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger les especes.<br  />
+2. Lire le nain des collines et l'elfe d'automne.<br  />
+ <b>Resultat attendu :</b> Con +2 et Sag +1, 1 PV par niveau, deux langues et les traits du nain avant les siens ; Dex +2 et Int +1 pour l'elfe, avec son mecanisme requis conserve. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_876500558ad9fa4b961386baa54d1bd8.html">Rpg</a></li><li class="navelem"><a href="test__premade__characters_8cpp.html">test_premade_characters.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

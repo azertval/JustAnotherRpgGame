@@ -162,8 +162,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a31a3b3acff71e71ac832918d5fd09d59" id="r_a31a3b3acff71e71ac832918d5fd09d59"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a31a3b3acff71e71ac832918d5fd09d59">speed</a> = 0.0F</td></tr>
 <tr class="memdesc:a31a3b3acff71e71ac832918d5fd09d59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de base, en <b>mètres</b>.  <br /></td></tr>
 <tr class="memitem:a7fc107cf248285353a43481ddf3f42d2" id="r_a7fc107cf248285353a43481ddf3f42d2"><td class="memItemLeft">std::array&lt; int, 6 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7fc107cf248285353a43481ddf3f42d2">abilityScoreIncrease</a> {}</td></tr>
+<tr class="memitem:ab406375bd91bfcd047aa43ad2c94ac03" id="r_ab406375bd91bfcd047aa43ad2c94ac03"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab406375bd91bfcd047aa43ad2c94ac03">hitPointsPerLevel</a> = 0</td></tr>
+<tr class="memdesc:ab406375bd91bfcd047aa43ad2c94ac03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points de vie que l'espèce ajoute <b>à chaque niveau</b> (<span class="tt">LOT-130</span>).  <br /></td></tr>
 <tr class="memitem:afd48c8cd4a1ee3cdbb385d5f24e425df" id="r_afd48c8cd4a1ee3cdbb385d5f24e425df"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afd48c8cd4a1ee3cdbb385d5f24e425df">parentSpecies</a></td></tr>
-<tr class="memdesc:afd48c8cd4a1ee3cdbb385d5f24e425df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-espèce : l'identifiant de l'espèce dont celle-ci dérive. Vide sinon.  <br /></td></tr>
+<tr class="memdesc:afd48c8cd4a1ee3cdbb385d5f24e425df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sous-espèce : l'identifiant de l'espèce dont celle-ci dérive.  <br /></td></tr>
 <tr class="memitem:a54f54385419b690997002e266ae465b4" id="r_a54f54385419b690997002e266ae465b4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a54f54385419b690997002e266ae465b4">languages</a></td></tr>
 <tr class="memitem:af38aa174cb7a2b6db46329e00d0175bd" id="r_af38aa174cb7a2b6db46329e00d0175bd"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1NamedTrait.html">NamedTrait</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af38aa174cb7a2b6db46329e00d0175bd">traits</a></td></tr>
 <tr class="memitem:a4ab4a90ee00916567663a6c456bb1d7d" id="r_a4ab4a90ee00916567663a6c456bb1d7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4ab4a90ee00916567663a6c456bb1d7d">requiredMechanisms</a></td></tr>
@@ -211,6 +213,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab406375bd91bfcd047aa43ad2c94ac03" name="ab406375bd91bfcd047aa43ad2c94ac03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab406375bd91bfcd047aa43ad2c94ac03">&#9670;&#160;</a></span>hitPointsPerLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Species::hitPointsPerLevel = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Points de vie que l'espèce ajoute <b>à chaque niveau</b> (<span class="tt">LOT-130</span>). </p>
+<p>La <em>Ténacité naine</em> du nain des collines — <em>« Votre maximum de points de vie augmente de 1 à chaque niveau »</em> — est la seule du corpus, et elle est ici sous la forme d'un <b>nombre</b>, comme les augmentations de caractéristique sont une table : le moteur ne lit pas la prose des traits, et une fiche de prêtre nain qui n'en tiendrait pas compte afficherait 11 points de vie pour les 12 du livre, sans que rien ne le signale. Zéro pour toute autre espèce. </p>
 
 </div>
 </div>
@@ -268,7 +287,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sous-espèce : l'identifiant de l'espèce dont celle-ci dérive. Vide sinon. </p>
+<p>Sous-espèce : l'identifiant de l'espèce dont celle-ci dérive. </p>
+<p>Vide sinon. Au chargement, la sous-espèce <b>hérite</b> de son parent (<span class="tt">LOT-130</span>) : augmentations additionnées, points de vie par niveau additionnés, langues, traits et mécanismes requis réunis — le fichier ne porte que ce que la sous-espèce ajoute, comme le livre l'écrit. </p>
 
 </div>
 </div>

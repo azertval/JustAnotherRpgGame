@@ -9376,6 +9376,67 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_premade_characters.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
+    <filename>test__premade__characters_8cpp.html</filename>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
+    <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
+    <includes id="RpgEnums_8h" name="RpgEnums.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnums.h</includes>
+    <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>ae5ccabac1fac9d590abc782e4361ef77</anchor>
+      <arglist>(PremadeCharactersTest, LeBrawlerEstLaPage195)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>a643795b82808a4ff812f3f2d08fe365d</anchor>
+      <arglist>(PremadeCharactersTest, LeMageEstLaPage199)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>a929c8b1d5358f792d4ef37aee83512e1</anchor>
+      <arglist>(PremadeCharactersTest, LePriestEstLaPage203)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>a06611b5b98601c542251397cd45d8029</anchor>
+      <arglist>(PremadeCharactersTest, LeScoundrelEstLaPage207)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>a79f7ec9c5753023236b7b36de00fbb8a</anchor>
+      <arglist>(PremadeCharactersTest, LaTenaciteNaineCompteAChaqueNiveau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>ac2ba51dadafba8244f647c9ae2dff6f1</anchor>
+      <arglist>(PremadeCharactersTest, LeChoixDEspeceSAjouteSousLePlafond)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__premade__characters_8cpp.html</anchorfile>
+      <anchor>a1a8330f2e3e187729e6f0668c885f3e5</anchor>
+      <arglist>(PremadeCharactersTest, UneSousEspeceHeriteDeSonParent)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_rpg_enums.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
     <filename>test__rpg__enums_8cpp.html</filename>
@@ -18095,6 +18156,13 @@
       <name>experiencePoints</name>
       <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
       <anchor>aa1c2dffd68f832ebdfdfb79428399c70</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>hitPointsPerLevelBonus</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>af69de058a7dac5a21cf5ec9ad438cc66</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -39572,6 +39640,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>int</type>
+      <name>hitPointsPerLevel</name>
+      <anchorfile>structcore_1_1Species.html</anchorfile>
+      <anchor>ab406375bd91bfcd047aa43ad2c94ac03</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::string</type>
       <name>parentSpecies</name>
       <anchorfile>structcore_1_1Species.html</anchorfile>
@@ -46817,8 +46892,8 @@
       <type>int</type>
       <name>maximumHitPointsFor</name>
       <anchorfile>namespacecore.html</anchorfile>
-      <anchor>ae73047aa52884ecfd7eebb21af3990bb</anchor>
-      <arglist>(int hitDie, int level, int constitutionModifier)</arglist>
+      <anchor>a3e6874c7479b2ef8413b71f72b216e09</anchor>
+      <arglist>(int hitDie, int level, int constitutionModifier, int bonusPerLevel=0)</arglist>
     </member>
     <member kind="function">
       <type>LevelUpResult</type>
@@ -46831,8 +46906,8 @@
       <type>CharacterSheet</type>
       <name>buildCharacterSheet</name>
       <anchorfile>namespacecore.html</anchorfile>
-      <anchor>ae5471fabe4f247c99a3c50293f59f91e</anchor>
-      <arglist>(std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const Species *species, const PlayableClass *playableClass, const Background *background, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table)</arglist>
+      <anchor>aeac7b2445b4d3a800b98a777f72461ae</anchor>
+      <arglist>(std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const Species *species, const PlayableClass *playableClass, const Background *background, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table, const std::array&lt; int, 6 &gt; &amp;chosenIncreases={})</arglist>
     </member>
     <member kind="function">
       <type>CheckResult</type>
@@ -52469,6 +52544,7 @@
     <file>test_equipment.cpp</file>
     <file>test_inventory.cpp</file>
     <file>test_multiclassing.cpp</file>
+    <file>test_premade_characters.cpp</file>
     <file>test_rpg_enums.cpp</file>
   </compound>
   <compound kind="dir">

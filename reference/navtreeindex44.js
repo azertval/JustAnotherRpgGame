@@ -1,5 +1,9 @@
 var NAVTREEINDEX44 =
 {
+"structhmi_1_1PieceCatalogGroup.html#a8126458b547ceff44337f2aef0b02d4d":[3,0,1,53,0],
+"structhmi_1_1PieceCatalogGroup.html#af07ca23e9f6326e2c54dd2d7f04c3ae5":[2,0,2,54,1],
+"structhmi_1_1PieceCatalogGroup.html#af07ca23e9f6326e2c54dd2d7f04c3ae5":[3,0,1,53,1],
+"structhmi_1_1PieceReplacementChoice.html":[2,0,2,91],
 "structhmi_1_1PieceReplacementChoice.html":[3,0,1,90],
 "structhmi_1_1PieceReplacementChoice.html#a151949576cc226ed63206f0dede5d722":[2,0,2,91,1],
 "structhmi_1_1PieceReplacementChoice.html#a151949576cc226ed63206f0dede5d722":[3,0,1,90,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX44 =
 "structhmi_1_1SheetRow.html":[3,0,1,213],
 "structhmi_1_1SheetRow.html#a09ee87288a38de6eefb50410fb7a12ac":[2,0,2,214,1],
 "structhmi_1_1SheetRow.html#a09ee87288a38de6eefb50410fb7a12ac":[3,0,1,213,1],
-"structhmi_1_1SheetRow.html#a58da53efd38a580938bb529830946ef5":[2,0,2,214,2],
-"structhmi_1_1SheetRow.html#a58da53efd38a580938bb529830946ef5":[3,0,1,213,2],
-"structhmi_1_1SheetRow.html#ae2e00d69585fe923b1d5fb09432ac061":[2,0,2,214,0],
-"structhmi_1_1SheetRow.html#ae2e00d69585fe923b1d5fb09432ac061":[3,0,1,213,0],
-"structhmi_1_1SidecarReadResult.html":[2,0,2,16]
+"structhmi_1_1SheetRow.html#a58da53efd38a580938bb529830946ef5":[2,0,2,214,2]
 };

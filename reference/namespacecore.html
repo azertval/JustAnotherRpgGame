@@ -1531,12 +1531,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5f742da51af4901d06af8def76937d57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur d'un jet de sauvegarde : caractéristique, plus la maîtrise si elle s'applique.  <br /></td></tr>
 <tr class="memitem:a29026a1c7235970e3f432ac5d08229ad" id="r_a29026a1c7235970e3f432ac5d08229ad"><td class="memItemLeft"><a class="el" href="structcore_1_1SkillCheckModifier.html">SkillCheckModifier</a>&#160;</td><td class="memItemRight"><a class="el" href="#a29026a1c7235970e3f432ac5d08229ad">skillModifier</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, const <a class="el" href="structcore_1_1SkillCatalog.html">SkillCatalog</a> &amp;catalog, std::string_view skillId)</td></tr>
 <tr class="memdesc:a29026a1c7235970e3f432ac5d08229ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur de la compétence <code class="param">skillId</code> pour <code class="param">sheet</code> : caractéristique du catalogue, plus le bonus de maîtrise de <code class="param">table</code> si la fiche maîtrise la compétence.  <br /></td></tr>
-<tr class="memitem:ae73047aa52884ecfd7eebb21af3990bb" id="r_ae73047aa52884ecfd7eebb21af3990bb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae73047aa52884ecfd7eebb21af3990bb">maximumHitPointsFor</a> (int hitDie, int level, int constitutionModifier)</td></tr>
-<tr class="memdesc:ae73047aa52884ecfd7eebb21af3990bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie d'un niveau, selon la règle du livre.  <br /></td></tr>
+<tr class="memitem:a3e6874c7479b2ef8413b71f72b216e09" id="r_a3e6874c7479b2ef8413b71f72b216e09"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3e6874c7479b2ef8413b71f72b216e09">maximumHitPointsFor</a> (int hitDie, int level, int constitutionModifier, int bonusPerLevel=0)</td></tr>
+<tr class="memdesc:a3e6874c7479b2ef8413b71f72b216e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie d'un niveau, selon la règle du livre.  <br /></td></tr>
 <tr class="memitem:a7cfff9a8cfc89ebc9d4074d1db13eacd" id="r_a7cfff9a8cfc89ebc9d4074d1db13eacd"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelUpResult.html">LevelUpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7cfff9a8cfc89ebc9d4074d1db13eacd">gainExperience</a> (<a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, int hitDie, int amount)</td></tr>
 <tr class="memdesc:a7cfff9a8cfc89ebc9d4074d1db13eacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute des points d'expérience et applique la montée de niveau qui en découle.  <br /></td></tr>
-<tr class="memitem:ae5471fabe4f247c99a3c50293f59f91e" id="r_ae5471fabe4f247c99a3c50293f59f91e"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae5471fabe4f247c99a3c50293f59f91e">buildCharacterSheet</a> (std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const <a class="el" href="structcore_1_1Species.html">Species</a> *species, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> *playableClass, const <a class="el" href="structcore_1_1Background.html">Background</a> *background, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table)</td></tr>
-<tr class="memdesc:ae5471fabe4f247c99a3c50293f59f91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une fiche depuis une espèce, une classe et un historique.  <br /></td></tr>
+<tr class="memitem:aeac7b2445b4d3a800b98a777f72461ae" id="r_aeac7b2445b4d3a800b98a777f72461ae"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeac7b2445b4d3a800b98a777f72461ae">buildCharacterSheet</a> (std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const <a class="el" href="structcore_1_1Species.html">Species</a> *species, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> *playableClass, const <a class="el" href="structcore_1_1Background.html">Background</a> *background, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, const std::array&lt; int, 6 &gt; &amp;chosenIncreases={})</td></tr>
+<tr class="memdesc:aeac7b2445b4d3a800b98a777f72461ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une fiche depuis une espèce, une classe et un historique.  <br /></td></tr>
 <tr class="memitem:a0cca681f3d6c00074710ceecdddab6f7" id="r_a0cca681f3d6c00074710ceecdddab6f7"><td class="memItemLeft"><a class="el" href="structcore_1_1CheckResult.html">CheckResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0cca681f3d6c00074710ceecdddab6f7">rollCheck</a> (int target, std::span&lt; const <a class="el" href="structcore_1_1Modifier.html">Modifier</a> &gt; modifiers, <a class="el" href="#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
 <tr class="memdesc:a0cca681f3d6c00074710ceecdddab6f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance un d20 contre un seuil.  <br /></td></tr>
 <tr class="memitem:aa60bb21d8cc45167ae840ea21c3b844c" id="r_aa60bb21d8cc45167ae840ea21c3b844c"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#aa60bb21d8cc45167ae840ea21c3b844c">rollStanceName</a> (<a class="el" href="#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance) noexcept</td></tr>
@@ -5382,8 +5382,8 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
-<a id="ae5471fabe4f247c99a3c50293f59f91e" name="ae5471fabe4f247c99a3c50293f59f91e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5471fabe4f247c99a3c50293f59f91e">&#9670;&#160;</a></span>buildCharacterSheet()</h2>
+<a id="aeac7b2445b4d3a800b98a777f72461ae" name="aeac7b2445b4d3a800b98a777f72461ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac7b2445b4d3a800b98a777f72461ae">&#9670;&#160;</a></span>buildCharacterSheet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5424,7 +5424,12 @@ Déterministe, et c'est le point</h2>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::array&lt; int, 6 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>chosenIncreases</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -5445,6 +5450,7 @@ Déterministe, et c'est le point</h2>
     <tr><td class="paramname">background</td><td>Peut être <span class="tt">nullptr</span>. </td></tr>
     <tr><td class="paramname">rules</td><td>Les constantes de création, lues dans la donnée. </td></tr>
     <tr><td class="paramname">table</td><td>La table d'expérience, pour le seuil du niveau de départ. </td></tr>
+    <tr><td class="paramname">chosenIncreases</td><td>Les augmentations que l'espèce laisse <b>au choix du joueur</b> (<span class="tt">speciesAbilityChoice</span> de la fiche, <span class="tt">LOT-130</span>) : <em>« vous pouvez aussi augmenter une autre caractéristique de votre choix de 1 »</em>, elfe d'automne, <em>Player's Guide</em> p. 18. Elles s'ajoutent après la table de l'espèce, sous le même plafond. Le moteur ne sait pas encore <b>offrir</b> ce choix (<span class="tt">mecanismesRequis</span>, <span class="tt">EX-CNT-031</span>) : ici il l'applique tel que la fiche l'a fait. Toutes à zéro par défaut. </td></tr>
   </table>
   </dd>
 </dl>
@@ -9123,7 +9129,7 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Charge un personnage depuis son fichier JSON (<span class="tt">Source/Elements/Rpg/characters/</span>, schéma <span class="tt">character.schema.json</span>) et <b>construit</b> sa fiche. </p>
-<p>Le fichier ne porte que des <b>choix</b> — espèce, classe, historique, valeurs de caractéristique avant augmentation, niveau visé. Tout le reste est dérivé ici par <span class="tt"><a class="el" href="#ae5471fabe4f247c99a3c50293f59f91e" title="Construit une fiche depuis une espèce, une classe et un historique.">buildCharacterSheet</a></span> et par la montée en expérience : points de vie, classe d'armure, valeurs finales, bonus de maîtrise. Écrire ces valeurs dans le fichier en ferait une <b>seconde source</b>, qui différerait de la première au premier ajustement de règle — et personne ne saurait laquelle croit.</p>
+<p>Le fichier ne porte que des <b>choix</b> — espèce, classe, historique, valeurs de caractéristique avant augmentation, niveau visé. Tout le reste est dérivé ici par <span class="tt"><a class="el" href="#aeac7b2445b4d3a800b98a777f72461ae" title="Construit une fiche depuis une espèce, une classe et un historique.">buildCharacterSheet</a></span> et par la montée en expérience : points de vie, classe d'armure, valeurs finales, bonus de maîtrise. Écrire ces valeurs dans le fichier en ferait une <b>seconde source</b>, qui différerait de la première au premier ajustement de règle — et personne ne saurait laquelle croit.</p>
 <p>Le niveau s'atteint par <b>gain d'expérience</b>, le même chemin qu'une partie empruntera : donc les mêmes points de vie qu'un personnage monté en jouant, et non une variante propre au chargement.</p>
 <p>Ne lève jamais (<span class="tt">EX-NFR-040</span>) : un fichier absent, mal formé ou référençant un identifiant inconnu rend une fiche partielle <b>et</b> une erreur nommée (<span class="tt">EX-CNT-010</span>). </p>
 
@@ -9620,8 +9626,8 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
-<a id="ae73047aa52884ecfd7eebb21af3990bb" name="ae73047aa52884ecfd7eebb21af3990bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae73047aa52884ecfd7eebb21af3990bb">&#9670;&#160;</a></span>maximumHitPointsFor()</h2>
+<a id="a3e6874c7479b2ef8413b71f72b216e09" name="a3e6874c7479b2ef8413b71f72b216e09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e6874c7479b2ef8413b71f72b216e09">&#9670;&#160;</a></span>maximumHitPointsFor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9642,7 +9648,12 @@ Déterministe, et c'est le point</h2>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>constitutionModifier</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>constitutionModifier</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>bonusPerLevel</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -9660,6 +9671,7 @@ Déterministe, et c'est le point</h2>
     <tr><td class="paramname">hitDie</td><td>Le dé de vie de la classe, <b>lu dans sa donnée</b> (<span class="tt">hitDie</span> du catalogue). </td></tr>
     <tr><td class="paramname">level</td><td>Le niveau atteint, à partir de 1. </td></tr>
     <tr><td class="paramname">constitutionModifier</td><td>Le modificateur de Constitution. </td></tr>
+    <tr><td class="paramname">bonusPerLevel</td><td>Ce que l'espèce ajoute à chaque niveau (<span class="tt"><a class="el" href="structcore_1_1Species.html#ab406375bd91bfcd047aa43ad2c94ac03" title="Points de vie que l&#39;espèce ajoute à chaque niveau (LOT-130).">Species::hitPointsPerLevel</a></span>) : la <em>Ténacité naine</em>, et rien d'autre dans le corpus. Il s'ajoute au niveau 1 comme aux suivants, hors du plancher de 1 par niveau. </td></tr>
   </table>
   </dd>
 </dl>

@@ -219,6 +219,10 @@ void lireAugmentations(const nlohmann::json&amp; racine, const std::string&amp; 
     }
 <span style = "background-color:#dfd">    espece.speed = vitesse-&gt;get&lt;float&gt;();
     lireAugmentations(racine, fichier, espece, erreurs);
+    if (const auto parNiveau = racine.find("hitPointsPerLevel");
+        parNiveau != racine.end() &amp;&amp; parNiveau-&gt;is_number_integer()) {
+        espece.hitPointsPerLevel = parNiveau-&gt;get&lt;int&gt;();
+    }
     espece.languages = lireTextes(racine, "languages");
     espece.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
     lireTraits(racine, "traits", espece.traits);
@@ -297,6 +301,56 @@ void lireProgression(const nlohmann::json&amp; racine, const std::string&amp; fi
 
 }  // namespace
 
+namespace {
+
+// Une sous-espece HERITE de son espece parente (LOT-130) : &lt;&lt; les nains des collines &gt;&gt; sont des
+// nains, et la page 203 donne au pretre nain les +2 de Constitution, le nain commun et la vision
+// dans le noir de tous les nains, plus le +1 de Sagesse et la Tenacite qui sont les siens. Le
+// fichier de la sous-espece ne porte que ce qu'elle AJOUTE, comme le livre l'ecrit ; la fusion se
+// fait ici, une fois, et sur un seul niveau -- le corpus n'a pas de petite-fille d'espece. La
+// taille et la vitesse restent celles que la sous-espece declare (le schema les exige).
+<span style = "background-color:#dfd">void heriterDesEspecesParentes(CharacterOptions&amp; options) {</span>
+    // Les parents sont copies d'abord : fusionner en place pendant qu'on lit la liste ferait
+    // heriter d'un parent lui-meme deja modifie.
+<span style = "background-color:#dfd">    std::vector&lt;Species&gt; parents;
+    for (const Species&amp; espece : options.species) {
+        if (espece.parentSpecies.empty()) {
+            parents.push_back(espece);</span>
+        }
+<span style = "background-color:#dfd">    }
+    for (Species&amp; espece : options.species) {
+        if (espece.parentSpecies.empty()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto parent = std::ranges::find(parents, espece.parentSpecies, &amp;Species::id);
+        if (parent == parents.end()) {</span>
+<span style = "background-color:#fdd">            options.errors.push_back("species/" + espece.id + ".json : espece parente '" +</span>
+                                     espece.parentSpecies + "' inconnue du catalogue.");
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const Ability caracteristique : allAbilities()) {
+            const auto indice = static_cast&lt;std::size_t&gt;(caracteristique);
+            espece.abilityScoreIncrease[indice] += parent-&gt;abilityScoreIncrease[indice];
+        }
+        espece.hitPointsPerLevel += parent-&gt;hitPointsPerLevel;
+        for (const std::string&amp; langue : parent-&gt;languages) {
+            if (std::ranges::find(espece.languages, langue) == espece.languages.end()) {
+                espece.languages.push_back(langue);</span>
+            }
+<span style = "background-color:#dfd">        }
+        for (const std::string&amp; mecanisme : parent-&gt;requiredMechanisms) {</span>
+<span style = "background-color:#fdd">            if (std::ranges::find(espece.requiredMechanisms, mecanisme) ==</span>
+                espece.requiredMechanisms.end()) {
+<span style = "background-color:#fdd">                espece.requiredMechanisms.push_back(mecanisme);</span>
+            }
+<span style = "background-color:#fdd">        }</span>
+        // Les traits du parent d'abord, dans l'ordre du livre : l'espece, puis la sous-espece.
+<span style = "background-color:#dfd">        espece.traits.insert(espece.traits.begin(), parent-&gt;traits.begin(), parent-&gt;traits.end());
+    }
+}</span>
+
+}  // namespace
+
 CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; speciesDir,
                                       const std::filesystem::path&amp; backgroundsDir,
 <span style = "background-color:#dfd">                                      const std::filesystem::path&amp; classesDir) {
@@ -325,6 +379,7 @@ CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; speciesDi
 <span style = "background-color:#dfd">    std::ranges::sort(options.species, {}, &amp;Species::id);
     std::ranges::sort(options.backgrounds, {}, &amp;Background::id);
     std::ranges::sort(options.classes, {}, &amp;PlayableClass::id);
+    heriterDesEspecesParentes(options);
     return options;
 }</span>
 

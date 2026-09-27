@@ -69,7 +69,20 @@ struct Species {
     /// faite Ã  l'extraction, pour qu'un seul systÃ¨me d'unitÃ©s arrive jusqu'ici.
     float speed = 0.0F;
     std::array&lt;int, 6&gt; abilityScoreIncrease{};
-    /// Sous-espÃ¨ce : l'identifiant de l'espÃ¨ce dont celle-ci dÃ©rive. Vide sinon.
+    /**
+     * @brief Points de vie que l'espÃ¨ce ajoute **Ã  chaque niveau** (`LOT-130`).
+     *
+     * La *TÃ©nacitÃ© naine* du nain des collines â *Â« Votre maximum de points de vie augmente de 1
+     * Ã  chaque niveau Â»* â est la seule du corpus, et elle est ici sous la forme d'un **nombre**,
+     * comme les augmentations de caractÃ©ristique sont une table : le moteur ne lit pas la prose
+     * des traits, et une fiche de prÃªtre nain qui n'en tiendrait pas compte afficherait 11 points
+     * de vie pour les 12 du livre, sans que rien ne le signale. ZÃ©ro pour toute autre espÃ¨ce.
+     */
+    int hitPointsPerLevel = 0;
+    /// Sous-espÃ¨ce : l'identifiant de l'espÃ¨ce dont celle-ci dÃ©rive. Vide sinon. Au chargement,
+    /// la sous-espÃ¨ce **hÃ©rite** de son parent (`LOT-130`) : augmentations additionnÃ©es, points de
+    /// vie par niveau additionnÃ©s, langues, traits et mÃ©canismes requis rÃ©unis â le fichier ne
+    /// porte que ce que la sous-espÃ¨ce ajoute, comme le livre l'Ã©crit.
     std::string parentSpecies;
     std::vector&lt;std::string&gt; languages;
     std::vector&lt;NamedTrait&gt; traits;

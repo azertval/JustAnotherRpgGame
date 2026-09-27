@@ -1,5 +1,7 @@
 var NAVTREEINDEX35 =
 {
+"structcore_1_1ItemCatalog.html":[3,0,0,180],
+"structcore_1_1ItemCatalog.html#a6cc859a4c9126eea85bfafbc5965994a":[2,0,1,180,1],
 "structcore_1_1ItemCatalog.html#a6cc859a4c9126eea85bfafbc5965994a":[3,0,0,180,1],
 "structcore_1_1ItemCatalog.html#a6ee92cd9077ea5b1cdbbe6616fd8bfd5":[2,0,1,180,2],
 "structcore_1_1ItemCatalog.html#a6ee92cd9077ea5b1cdbbe6616fd8bfd5":[3,0,0,180,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX35 =
 "structcore_1_1PieceFootprint.html#a3fbf5f69344aebb17f2109faf2c1e766":[3,0,0,120,0],
 "structcore_1_1PieceFootprint.html#aa1302afb8a518379e2e0320a5f9df122":[2,0,1,120,2],
 "structcore_1_1PieceFootprint.html#aa1302afb8a518379e2e0320a5f9df122":[3,0,0,120,2],
-"structcore_1_1PieceFootprint.html#aab21fd5d766c5ef6e89e6d0ebc3c7497":[2,0,1,120,1],
-"structcore_1_1PieceFootprint.html#aab21fd5d766c5ef6e89e6d0ebc3c7497":[3,0,0,120,1],
-"structcore_1_1PlayableClass.html":[2,0,1,147]
+"structcore_1_1PieceFootprint.html#aab21fd5d766c5ef6e89e6d0ebc3c7497":[2,0,1,120,1]
 };

@@ -222,6 +222,7 @@ var NAVTREEINDEX23 =
 "namespacecore.html#a3cb4f147c529e897b3d66b33d07db7fd":[2,0,1,513],
 "namespacecore.html#a3d0539dc27a6ab16c279522c6a60e76e":[2,0,1,637],
 "namespacecore.html#a3d8ff82795b933f62d14bea20a246159":[2,0,1,587],
+"namespacecore.html#a3e6874c7479b2ef8413b71f72b216e09":[2,0,1,453],
 "namespacecore.html#a3ebf2c787cfe94cf56cba364093f05c5":[2,0,1,505],
 "namespacecore.html#a3ee2005b92e35b59d0c0b876af5e7660":[2,0,1,570],
 "namespacecore.html#a3fca58c67ec139153d0204122e9c32e0":[2,0,1,265],
@@ -248,6 +249,5 @@ var NAVTREEINDEX23 =
 "namespacecore.html#a485afe76bcf660ec5db7d91f924f87a4":[2,0,1,351],
 "namespacecore.html#a49c6e01fbd8905740993109a36f65c11":[2,0,1,583],
 "namespacecore.html#a4a28b9f58a274691d57f2f961c7909e7":[2,0,1,430],
-"namespacecore.html#a4a3860a249c1a2e07497950f57f4d461":[2,0,1,281],
-"namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9":[2,0,1,281,1]
+"namespacecore.html#a4a3860a249c1a2e07497950f57f4d461":[2,0,1,281]
 };

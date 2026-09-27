@@ -145,7 +145,7 @@ var searchData=
   ['maximum_5fquads_142',['MAXIMUM_QUADS',['../classhmi_1_1SpriteBatch.html#a57fd718a658a079c6ef72e34f95ce06c',1,'hmi::SpriteBatch']]],
   ['maximumabilityscore_143',['maximumAbilityScore',['../structcore_1_1CharacterCreationRules.html#a60d8aa35ec9abbd2c966a756ffe5d93c',1,'core::CharacterCreationRules']]],
   ['maximumhitpoints_144',['maximumHitPoints',['../structcore_1_1CombatEvent.html#a05ac43793422ddea715c39466b6ec574',1,'core::CombatEvent::maximumHitPoints'],['../structcore_1_1CombatantProfile.html#a5e599dd45695ea84581951275664d614',1,'core::CombatantProfile::maximumHitPoints'],['../structcore_1_1CharacterSheet.html#adc72310f4953b5d7ccee96cdbea2972e',1,'core::CharacterSheet::maximumHitPoints']]],
-  ['maximumhitpointsfor_145',['maximumHitPointsFor',['../namespacecore.html#ae73047aa52884ecfd7eebb21af3990bb',1,'core']]],
+  ['maximumhitpointsfor_145',['maximumHitPointsFor',['../namespacecore.html#a3e6874c7479b2ef8413b71f72b216e09',1,'core']]],
   ['maximumlevel_146',['maximumLevel',['../structcore_1_1ExperienceTable.html#a8931fcd0c93f1ed417f037b4674a1722',1,'core::ExperienceTable']]],
   ['maximumrise_147',['maximumRise',['../structhmi_1_1WorldSceneSnapshot.html#aa915bb857eb15549fc09510c5a587306',1,'hmi::WorldSceneSnapshot::maximumRise'],['../classhmi_1_1PlaceAppearance.html#acc91a094a349d947bd427f942a2b797c',1,'hmi::PlaceAppearance::maximumRise()']]],
   ['maxside_148',['maxSide',['../structhmi_1_1MapRenderOptions.html#ac13657b840e148757059941435251fd8',1,'hmi::MapRenderOptions']]],

@@ -9,6 +9,7 @@ var structcore_1_1CharacterSheet =
     [ "classId", "structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789", null ],
     [ "currentHitPoints", "structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c", null ],
     [ "experiencePoints", "structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70", null ],
+    [ "hitPointsPerLevelBonus", "structcore_1_1CharacterSheet.html#af69de058a7dac5a21cf5ec9ad438cc66", null ],
     [ "languages", "structcore_1_1CharacterSheet.html#af4449f47520b2b4db9d35eb0e2abb9b5", null ],
     [ "level", "structcore_1_1CharacterSheet.html#ae2c8d1ca720a72f4c137cc9efee5c4cc", null ],
     [ "maximumHitPoints", "structcore_1_1CharacterSheet.html#adc72310f4953b5d7ccee96cdbea2972e", null ],

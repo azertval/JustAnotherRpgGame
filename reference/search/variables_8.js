@@ -25,10 +25,12 @@ var searchData=
   ['hitpointsafter_22',['hitPointsAfter',['../structcore_1_1CombatEvent.html#a17dced5c645c0998427206cd6eede6b5',1,'core::CombatEvent::hitPointsAfter'],['../structcore_1_1DamageReport.html#a5f0942dd61fdb70850c76bddf1937453',1,'core::DamageReport::hitPointsAfter']]],
   ['hitpointsbefore_23',['hitPointsBefore',['../structcore_1_1CombatEvent.html#a40a43039f3a72994607c3f050ce03059',1,'core::CombatEvent::hitPointsBefore'],['../structcore_1_1DamageReport.html#ae626ec8a63ea2c421db0b677f32b8103',1,'core::DamageReport::hitPointsBefore']]],
   ['hitpointsgained_24',['hitPointsGained',['../structcore_1_1LevelUpResult.html#a06e76aff6d73239de44e902c26bc2f84',1,'core::LevelUpResult']]],
-  ['hook_25',['hook',['../structcore_1_1CombatEvent.html#af766a48a133d30c5734e73c1d9414fe1',1,'core::CombatEvent']]],
-  ['hooks_26',['hooks',['../structcore_1_1AttackContext.html#af7e121d9e35bf129fe638219d390b3cd',1,'core::AttackContext']]],
-  ['hoveredcell_27',['hoveredCell',['../structhmi_1_1LevelStatusInfo.html#ae31b27e74cbacf3e320a2e9f5467c414',1,'hmi::LevelStatusInfo']]],
-  ['hoveredforced_28',['hoveredForced',['../structhmi_1_1LevelStatusInfo.html#a0d258b359594eefc33b451516f2e3c2d',1,'hmi::LevelStatusInfo']]],
-  ['hoverednote_29',['hoveredNote',['../structhmi_1_1LevelStatusInfo.html#a6252b8385d7687c85e99ea368b003f64',1,'hmi::LevelStatusInfo']]],
-  ['hoveredpieces_30',['hoveredPieces',['../structhmi_1_1LevelStatusInfo.html#a2effd6644d86469c43423355353cded6',1,'hmi::LevelStatusInfo']]]
+  ['hitpointsperlevel_25',['hitPointsPerLevel',['../structcore_1_1Species.html#ab406375bd91bfcd047aa43ad2c94ac03',1,'core::Species']]],
+  ['hitpointsperlevelbonus_26',['hitPointsPerLevelBonus',['../structcore_1_1CharacterSheet.html#af69de058a7dac5a21cf5ec9ad438cc66',1,'core::CharacterSheet']]],
+  ['hook_27',['hook',['../structcore_1_1CombatEvent.html#af766a48a133d30c5734e73c1d9414fe1',1,'core::CombatEvent']]],
+  ['hooks_28',['hooks',['../structcore_1_1AttackContext.html#af7e121d9e35bf129fe638219d390b3cd',1,'core::AttackContext']]],
+  ['hoveredcell_29',['hoveredCell',['../structhmi_1_1LevelStatusInfo.html#ae31b27e74cbacf3e320a2e9f5467c414',1,'hmi::LevelStatusInfo']]],
+  ['hoveredforced_30',['hoveredForced',['../structhmi_1_1LevelStatusInfo.html#a0d258b359594eefc33b451516f2e3c2d',1,'hmi::LevelStatusInfo']]],
+  ['hoverednote_31',['hoveredNote',['../structhmi_1_1LevelStatusInfo.html#a6252b8385d7687c85e99ea368b003f64',1,'hmi::LevelStatusInfo']]],
+  ['hoveredpieces_32',['hoveredPieces',['../structhmi_1_1LevelStatusInfo.html#a2effd6644d86469c43423355353cded6',1,'hmi::LevelStatusInfo']]]
 ];

@@ -1,5 +1,7 @@
 var NAVTREEINDEX33 =
 {
+"structcore_1_1DialogueNode.html#aa4facb79ca846633e7b448c1630576b3":[3,0,0,162,9],
+"structcore_1_1DialogueNode.html#ab737ab57d7dae91c2623abab564b71f4":[2,0,1,162,0],
 "structcore_1_1DialogueNode.html#ab737ab57d7dae91c2623abab564b71f4":[3,0,0,162,0],
 "structcore_1_1DialogueNode.html#ad7807080b57be8a46660a235bc8fecf7":[2,0,1,162,7],
 "structcore_1_1DialogueNode.html#ad7807080b57be8a46660a235bc8fecf7":[3,0,0,162,7],
@@ -247,7 +249,5 @@ var NAVTREEINDEX33 =
 "structcore_1_1EquipmentCatalog.html":[3,0,0,177],
 "structcore_1_1EquipmentCatalog.html#a33a019dde366ba0f3533a767fd7a7197":[2,0,1,177,4],
 "structcore_1_1EquipmentCatalog.html#a33a019dde366ba0f3533a767fd7a7197":[3,0,0,177,4],
-"structcore_1_1EquipmentCatalog.html#a71aaecb419bed65f8160328f4472eb0b":[2,0,1,177,3],
-"structcore_1_1EquipmentCatalog.html#a71aaecb419bed65f8160328f4472eb0b":[3,0,0,177,3],
-"structcore_1_1EquipmentCatalog.html#ac9213d35eacfa405d5d98bd0e3999cce":[2,0,1,177,0]
+"structcore_1_1EquipmentCatalog.html#a71aaecb419bed65f8160328f4472eb0b":[2,0,1,177,3]
 };

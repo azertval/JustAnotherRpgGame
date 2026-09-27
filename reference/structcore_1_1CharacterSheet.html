@@ -168,6 +168,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:ae057f2c7a4e57eb368fd0c0b006dcaf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les six valeurs <b>finales</b>, augmentations d'espèce comprises, indexées par <span class="tt"><a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1" title="Une des six caractéristiques d&#39;un personnage ou d&#39;une créature (EX-REG-010).">core::Ability</a></span>.  <br /></td></tr>
 <tr class="memitem:ae2c8d1ca720a72f4c137cc9efee5c4cc" id="r_ae2c8d1ca720a72f4c137cc9efee5c4cc"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae2c8d1ca720a72f4c137cc9efee5c4cc">level</a> = 1</td></tr>
 <tr class="memitem:aa1c2dffd68f832ebdfdfb79428399c70" id="r_aa1c2dffd68f832ebdfdfb79428399c70"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa1c2dffd68f832ebdfdfb79428399c70">experiencePoints</a> = 0</td></tr>
+<tr class="memitem:af69de058a7dac5a21cf5ec9ad438cc66" id="r_af69de058a7dac5a21cf5ec9ad438cc66"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af69de058a7dac5a21cf5ec9ad438cc66">hitPointsPerLevelBonus</a> = 0</td></tr>
+<tr class="memdesc:af69de058a7dac5a21cf5ec9ad438cc66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points de vie que l'espèce ajoute à chaque niveau (<span class="tt"><a class="el" href="structcore_1_1Species.html#ab406375bd91bfcd047aa43ad2c94ac03" title="Points de vie que l&#39;espèce ajoute à chaque niveau (LOT-130).">Species::hitPointsPerLevel</a></span>), recopiés à la construction pour que la montée de niveau les compte sans revenir au catalogue.  <br /></td></tr>
 <tr class="memitem:adc72310f4953b5d7ccee96cdbea2972e" id="r_adc72310f4953b5d7ccee96cdbea2972e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adc72310f4953b5d7ccee96cdbea2972e">maximumHitPoints</a> = 0</td></tr>
 <tr class="memitem:a866fe7b5be97e74f1de1068d17c6392c" id="r_a866fe7b5be97e74f1de1068d17c6392c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a866fe7b5be97e74f1de1068d17c6392c">currentHitPoints</a> = 0</td></tr>
 <tr class="memitem:ab92e71f78ebaed0cd98af3b48cf3a495" id="r_ab92e71f78ebaed0cd98af3b48cf3a495"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab92e71f78ebaed0cd98af3b48cf3a495">armorClass</a> = 0</td></tr>
@@ -184,7 +186,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>La fiche d'une créature jouable ou non : héros, PNJ, ennemi. </p>
 <p><b>Un objet autonome, jamais un singleton joueur.</b> La décision de cadrage est « un héros au départ, quatre à terme » : le passage au groupe (<span class="tt">LOT-29</span>) ne doit rien changer à ce type. Aucune fonction de ce fichier ne prend « le personnage » implicitement — toutes reçoivent la fiche sur laquelle elles travaillent, et quatre fiches vivent côte à côte sans se connaître.</p>
 <p>La fiche porte des <b>valeurs</b>, pas des règles : le bonus de maîtrise ne s'y trouve pas, il se lit dans la table d'expérience au niveau courant. Le stocker le figerait au moment de la construction, et une montée de niveau laisserait un personnage avec le bonus de l'ancien.</p>
-<p><b>Une fiche se construit, elle ne se déclare pas.</b> Tous les champs chiffrés partent de zéro, et aucun ne porte de valeur « raisonnable » par défaut : un <span class="tt"><a class="el" href="#ab92e71f78ebaed0cd98af3b48cf3a495">armorClass</a> = 10</span> dans cette structure serait la règle du livre écrite en C++ (<span class="tt">EX-VIS-007</span>), et une fiche à demi construite passerait pour une fiche jouable. <span class="tt"><a class="el" href="namespacecore.html#ae5471fabe4f247c99a3c50293f59f91e" title="Construit une fiche depuis une espèce, une classe et un historique.">buildCharacterSheet()</a></span> est la porte d'entrée, et elle prend les constantes dans la donnée. </p>
+<p><b>Une fiche se construit, elle ne se déclare pas.</b> Tous les champs chiffrés partent de zéro, et aucun ne porte de valeur « raisonnable » par défaut : un <span class="tt"><a class="el" href="#ab92e71f78ebaed0cd98af3b48cf3a495">armorClass</a> = 10</span> dans cette structure serait la règle du livre écrite en C++ (<span class="tt">EX-VIS-007</span>), et une fiche à demi construite passerait pour une fiche jouable. <span class="tt"><a class="el" href="namespacecore.html#aeac7b2445b4d3a800b98a777f72461ae" title="Construit une fiche depuis une espèce, une classe et un historique.">buildCharacterSheet()</a></span> est la porte d'entrée, et elle prend les constantes dans la donnée. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a108c1b3e24bb31cb5a940dcb3ef17ea1" name="a108c1b3e24bb31cb5a940dcb3ef17ea1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a108c1b3e24bb31cb5a940dcb3ef17ea1">&#9670;&#160;</a></span>ability()</h2>
@@ -351,6 +353,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="af69de058a7dac5a21cf5ec9ad438cc66" name="af69de058a7dac5a21cf5ec9ad438cc66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69de058a7dac5a21cf5ec9ad438cc66">&#9670;&#160;</a></span>hitPointsPerLevelBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::CharacterSheet::hitPointsPerLevelBonus = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Points de vie que l'espèce ajoute à chaque niveau (<span class="tt"><a class="el" href="structcore_1_1Species.html#ab406375bd91bfcd047aa43ad2c94ac03" title="Points de vie que l&#39;espèce ajoute à chaque niveau (LOT-130).">Species::hitPointsPerLevel</a></span>), recopiés à la construction pour que la montée de niveau les compte sans revenir au catalogue. </p>
 
 </div>
 </div>

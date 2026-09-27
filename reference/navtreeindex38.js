@@ -1,5 +1,9 @@
 var NAVTREEINDEX38 =
 {
+"structcore_1_1WorldIssue.html#a8a4c3f0ae4417587286d9a8c545cc062":[3,0,0,217,4],
+"structcore_1_1WorldIssue.html#ae9acce7882be36f2f71d87a866ced826":[2,0,1,217,2],
+"structcore_1_1WorldIssue.html#ae9acce7882be36f2f71d87a866ced826":[3,0,0,217,2],
+"structcore_1_1WorldMapInput.html":[2,0,1,212],
 "structcore_1_1WorldMapInput.html":[3,0,0,212],
 "structcore_1_1WorldMapInput.html#a74cd7c1543c1d598f61973cbaeb2dfe3":[2,0,1,212,1],
 "structcore_1_1WorldMapInput.html#a74cd7c1543c1d598f61973cbaeb2dfe3":[3,0,0,212,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX38 =
 "structhmi_1_1BrushResult.html#a76a5880387046c04388d9d4163af1950":[3,0,1,3,1],
 "structhmi_1_1CanvasBrush.html":[2,0,2,3],
 "structhmi_1_1CanvasBrush.html":[3,0,1,2],
-"structhmi_1_1CanvasBrush.html#a145d16c08f8e89e98706592b93e7cd90":[2,0,2,3,1],
-"structhmi_1_1CanvasBrush.html#a145d16c08f8e89e98706592b93e7cd90":[3,0,1,2,1],
-"structhmi_1_1CanvasBrush.html#a353afd0608a4a95397bedd030bde11a3":[2,0,2,3,4],
-"structhmi_1_1CanvasBrush.html#a353afd0608a4a95397bedd030bde11a3":[3,0,1,2,4],
-"structhmi_1_1CanvasBrush.html#a8b7e10540da0198a409b6276a5286647":[2,0,2,3,0]
+"structhmi_1_1CanvasBrush.html#a145d16c08f8e89e98706592b93e7cd90":[2,0,2,3,1]
 };
