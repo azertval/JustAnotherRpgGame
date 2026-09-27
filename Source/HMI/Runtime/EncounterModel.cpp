@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
+#include <filesystem>
 #include <utility>
 
 #include "Core/Combat/Attack.h"
@@ -18,6 +19,7 @@
 #include "HMI/Game/CombatContestants.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
+#include "HMI/Runtime/DemonstrationCharacter.h"
 #include "HMI/Runtime/WorldModel.h"
 
 namespace hmi {
@@ -29,6 +31,8 @@ struct EncounterModel::Catalogs {
     core::EncounterCatalog encounters;
     core::BehaviorCatalog behaviors;
     std::optional<HeroContestantSource> hero;
+    /// La fiche d'où le héros a été lu : le meneur du groupe à ce moment-là (`LOT-138`).
+    std::filesystem::path heroFile;
 };
 
 namespace {
@@ -121,6 +125,15 @@ const core::BehaviorCatalog* EncounterModel::behaviors() const {
 
 bool EncounterModel::ensureCatalogs() {
     if (_catalogs != nullptr) {
+        // Le meneur a change depuis la derniere rencontre (LOT-138) : c'est lui qui combat, et
+        // seul le heros se relit -- le bestiaire n'a pas bouge.
+        if (const std::filesystem::path meneur = playedCharacterFile();
+            meneur != _catalogs->heroFile) {
+            std::vector<std::string> problemes;
+            _catalogs->hero = loadHeroSource(problemes);
+            _catalogs->heroFile = meneur;
+            logCatalogErrors("", problemes);
+        }
         return _catalogs->hero.has_value();
     }
     auto catalogs = std::make_unique<Catalogs>();
@@ -132,6 +145,7 @@ bool EncounterModel::ensureCatalogs() {
     logCatalogErrors("catalogue, ", catalogs->encounters.errors);
     logCatalogErrors("profils de comportement, ", catalogs->behaviors.errors);
     std::vector<std::string> problemes;
+    catalogs->heroFile = playedCharacterFile();
     catalogs->hero = loadHeroSource(problemes);
     logCatalogErrors("", problemes);
     if (catalogs->behaviors.profiles.empty()) {

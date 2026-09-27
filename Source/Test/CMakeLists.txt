@@ -62,6 +62,7 @@ add_executable(UnitTests
     Unit/Core/Rpg/test_character_options.cpp
     Unit/Core/Rpg/test_character_sheet.cpp
     Unit/Core/Rpg/test_premade_characters.cpp
+    Unit/Core/Rpg/test_party.cpp
     # Le socle de classe (LOT-131) : capacites a effets nommes, incantation simplifiee, et la
     # classe d'essai qui agit en combat sans une ligne de C++ qui la nomme.
     Unit/Core/Rpg/test_class_capacities.cpp
@@ -335,6 +336,8 @@ if(TARGET JadgRuntime)
     add_executable(RuntimeTests
         # Le combat sur la carte (LOT-118) : la rencontre montee sur la zone, jouee, quittee.
         Unit/HMI/Runtime/test_encounter_model.cpp
+        # Le groupe (LOT-138) : le meneur, ses suiveurs, l'ecran de groupe.
+        Unit/HMI/Runtime/test_party_model.cpp
     )
 
     target_link_libraries(RuntimeTests PRIVATE

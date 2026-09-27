@@ -87,6 +87,25 @@ public:
     }
     void setHeroFigure(std::string figure);
 
+    /**
+     * @brief Les figurines des **suiveurs** (`LOT-138`) : les membres du groupe derrière le
+     *        meneur, dans l'ordre de marche. Leur nombre est celui des suiveurs de la session.
+     */
+    void setFollowerFigures(std::vector<std::string> figures);
+
+    /// @return Les figurines des suiveurs, telles que nommées.
+    [[nodiscard]] const std::vector<std::string>& followerFigures() const noexcept {
+        return _followerFigures;
+    }
+
+    /**
+     * @return La figurine que dessine @p figure : la sienne, ou son mannequin humanoïde (le
+     *         dossier de ses portrait et jeton, quand elle en a).
+     */
+    [[nodiscard]] const ResolvedFigure& resolveHero(std::string_view figure) const {
+        return _figures.resolve(figure, {}, _appearance);
+    }
+
     /// @return L'orientation du héros ; `None` si sa figurine n'a pas de bandes orientées.
     [[nodiscard]] FigureFacing heroFacing() const noexcept {
         return _hero.oriented ? _heroFacing : FigureFacing::None;
@@ -111,7 +130,8 @@ public:
         return _appearance;
     }
 
-    /// @return Les figurines de la carte courante : les PNJ, puis le héros, qui passe devant.
+    /// @return Les figurines de la carte courante : les PNJ, les suiveurs du groupe, puis le
+    ///         héros, qui passe devant.
     [[nodiscard]] std::vector<WorldFigureSnapshot> figures() const;
 
     /**
@@ -150,6 +170,20 @@ private:
     ResolvedFigure _hero;
     /// Dernière orientation du héros : il la garde à l'arrêt.
     FigureFacing _heroFacing = FigureFacing::SouthEast;
+    /// Un suiveur du groupe (`LOT-138`) : sa figurine, et ce qui choisit sa bande.
+    struct Follower {
+        ResolvedFigure figure;
+        FigureFacing facing = FigureFacing::SouthEast;
+        bool walking = false;
+        core::CellPoint point{};
+    };
+    /// Relit la figurine résolue de chaque suiveur (la figurine ou le lieu ont changé).
+    void resolveFollowers();
+    /// Les suiveurs ont-ils bougé, se sont-ils tournés ? Vrai si leur dessin change.
+    bool followFollowers();
+
+    std::vector<std::string> _followerFigures;
+    std::vector<Follower> _followers;
     /// Temps écoulé sur la carte : l'image des bandes de figurine en dépend.
     float _elapsed = 0.0F;
     /// Le héros marche : sa bande est `walk`, sinon `idle`.

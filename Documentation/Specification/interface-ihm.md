@@ -37,9 +37,10 @@ d'écran. Ce qu'elles fixent est le **contenu**, jamais la position au pixel pr�
 
 ![Maquette de l'affichage tête haute en exploration : portrait, niveau et points de vie, mini-carte du lieu, quête suivie et son étape, journal contextuel, entrées des écrans du RPG, et l'emplacement du groupe réservé mais vide](maquettes/interface-ihm-hud-exploration.svg)
 
-En exploration, la **barre d'action est absente** : elle n'apparaît qu'avec le combat. Et la case du
-groupe, que la version `0.0.2` remplira, est **réservée** plutôt que grisée — un réglage inopérant
-coûte plus de confiance qu'il n'apporte d'information (`EX-IHM-072`).
+En exploration, la **barre d'action est absente** : elle n'apparaît qu'avec le combat. La case du
+groupe, **réservée** plutôt que grisée jusqu'à la `0.0.2` — un réglage inopérant coûte plus de
+confiance qu'il n'apporte d'information (`EX-IHM-072`) —, montre depuis le `LOT-138` les membres
+du groupe, meneur en tête et marqué ; le portrait principal est celui du meneur (`EX-EXP-014`).
 
 ![Maquette de l'interface de combat pendant le tour du joueur : la piste d'initiative, la barre des quatre ressources du tour, la fiche de la cible sans ses points de vie exacts, le journal qui restitue chaque jet avec ses modificateurs, et sur la grille les cases atteignables, le chemin, la ligne de vue et l'abri](maquettes/interface-ihm-combat.svg)
 

@@ -7,6 +7,8 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QUrl>
+#include <QVariantList>
 #include <QtQmlIntegration>
 #include <memory>
 
@@ -27,9 +29,11 @@ namespace hmi {
  * ## Ce qu'elle tient
  *
  * Le catalogue des dialogues (`Source/Elements/World/dialogues`), l'échelle des degrés de
- * difficulté, le personnage de démonstration comme interlocuteur (`core::CharacterListener`) et
- * une conversation en cours. Chaque réponse cliquée devient `core::DialogueRunner::choose`, et ce
- * que l'écran affiche est relu par `hmi::dialogueScreenValues` après chaque geste.
+ * difficulté, le membre du groupe **qui parle** comme interlocuteur (`core::CharacterListener`,
+ * `LOT-138`) et une conversation en cours. Le joueur choisit qui parle, dans le menu du bas
+ * (D-28) : c'est lui qui jette, avec ses modificateurs. Le meneur parle à l'ouverture. Chaque
+ * réponse cliquée devient `core::DialogueRunner::choose`, et ce que l'écran affiche est relu par
+ * `hmi::dialogueScreenValues` après chaque geste.
  *
  * ## Ce qui est un échafaudage, et le dit
  *
@@ -47,6 +51,13 @@ class DialogueModel : public QObject {
     /// Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation.
     Q_PROPERTY(QString dialogueId READ dialogueId WRITE setDialogueId NOTIFY changed)
     Q_PROPERTY(QString speakerName READ speakerName NOTIFY changed)
+    /// Qui parle pour le groupe et jette les dés : celui que le joueur **choisit** dans le menu
+    /// du bas (`LOT-138`, D-28) ; le meneur à l'ouverture.
+    Q_PROPERTY(QString partyVoice READ partyVoice NOTIFY changed)
+    Q_PROPERTY(QString voiceId READ voiceId NOTIFY changed)
+    Q_PROPERTY(QUrl voicePortrait READ voicePortrait NOTIFY changed)
+    /// Ceux qui peuvent parler, dans l'ordre de marche : `id`, `name`, `portrait`, `current`.
+    Q_PROPERTY(QVariantList voices READ voices NOTIFY changed)
     Q_PROPERTY(QString attitude READ attitude NOTIFY changed)
     /// La réplique affichée, traduite ; le refus s'il n'y a pas de langue commune.
     Q_PROPERTY(QString line READ line NOTIFY changed)
@@ -80,6 +91,16 @@ public:
     [[nodiscard]] QString dialogueId() const;
     void setDialogueId(const QString& id);
     [[nodiscard]] QString speakerName() const;
+    [[nodiscard]] QString partyVoice() const;
+    [[nodiscard]] QString voiceId() const;
+    [[nodiscard]] QUrl voicePortrait() const;
+    [[nodiscard]] QVariantList voices() const;
+
+    /// @brief Fait parler @p characterId pour le groupe : ses langues, ses jets. @return Faux s'il
+    ///        n'est pas du groupe.
+    Q_INVOKABLE bool selectVoice(const QString& characterId);
+    /// @brief Donne la parole au suivant (@p step = 1) ou au précédent (-1) : `Tab`, la manette.
+    Q_INVOKABLE void cycleVoice(int step);
     [[nodiscard]] QString attitude() const;
     [[nodiscard]] QString line() const;
     [[nodiscard]] QString checkOutcome() const;
@@ -120,6 +141,8 @@ private:
 
     void open();
     void refresh();
+    /// Lit le groupe de la partie : qui peut parler, le meneur d'abord.
+    void loadVoices();
 
     std::unique_ptr<Session> _session;
     int _seed = 0;

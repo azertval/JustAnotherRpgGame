@@ -94,6 +94,8 @@ public:
         Merchant,
         Company,
         CombatHud,
+        /// Le groupe (`LOT-138`).
+        Party,
     };
     Q_ENUM(RpgScreen)
 

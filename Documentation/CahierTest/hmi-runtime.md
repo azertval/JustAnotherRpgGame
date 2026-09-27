@@ -1,12 +1,13 @@
 # HMI · Runtime
 
-Tests unitaires — **3 cas** (1 bloquant, 2 majeurs). [Retour à la synthèse](README.md).
+Tests unitaires — **7 cas** (2 bloquants, 3 critiques, 2 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 3 | 1 | - | 2 | - |
+| [`test_party_model.cpp`](#test-party-modelcpp) | 4 | 1 | 3 | - | - |
 
 ## Exigences vérifiées par cette page
 
@@ -14,6 +15,8 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 | Exigence | Cas |
 |---|---|
+| `EX-EXP-013` | [`PartyModelTest.LEcranDeGroupeCompose`](#partymodeltestlecrandegroupecompose) |
+| `EX-EXP-014` | [`PartyModelTest.ChangerDeMeneurChangeLaFigurineEtLePortrait`](#partymodeltestchangerdemeneurchangelafigurineetleportrait), [`PartyModelTest.LeMeneurEstCeluiQuiCombat`](#partymodeltestlemeneurestceluiquicombat) |
 | `EX-IHM-091` | [`EncounterModelTest.DuDeclenchementAuRetourALExploration`](#encountermodeltestdudeclenchementauretouralexploration) |
 
 ## test_encounter_model.cpp
@@ -106,3 +109,123 @@ Les gestes attendent la fin d'un mouvement.
 - Vérifie que `rencontre.active()` est vrai.
 - Vérifie que `rencontre.ended()` est vrai.
 - Vérifie que `rencontre.active()` est faux.
+
+## test_party_model.cpp
+
+### PartyModelTest.ChangerDeMeneurChangeLaFigurineEtLePortrait
+
+*Bloquant · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:80`
+
+Exigences : `EX-EXP-014`
+
+Le groupe de depart compte les quatre fiches pre-tirees ; passer la main change la figurine menee, le portrait du meneur et la voix du dialogue.
+
+**Étapes**
+
+1. Nouvelle partie dans le donjon d'essai.
+2. Passer la main au suivant (la touche `Tab`).
+3. Ouvrir un dialogue.
+
+**Résultat attendu**
+
+- Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"})`.
+- Vérifie que `monde.leaderId()` vaut `QStringLiteral("heros-brawler")`.
+- Vérifie que `monde.heroFigure()` vaut `QStringLiteral("Common/Characters/Heroes/brawler")`.
+- Vérifie que `monde.play().followerFigures()` vaut `(std::vector<std::string>{"Common/Characters/Heroes/priest", "Common/Characters/Heroes/scoundrel", "Common/Characters/Heroes/mage"})`.
+- Vérifie que `avant` vaut `QUrl::fromLocalFile(QString::fromStdString(portraitDuBrawler.string()))`.
+- Vérifie que `monde.rotateLeader()` est vrai.
+- Vérifie que `annonces` vaut `1`.
+- Vérifie que `monde.leaderId()` vaut `QStringLiteral("heros-priest")`.
+- Vérifie que `monde.leaderName()` vaut `QStringLiteral("Helga Pierre-Sûre")`.
+- Vérifie que `monde.heroFigure()` vaut `QStringLiteral("Common/Characters/Heroes/priest")`.
+- Vérifie que `monde.play().followerFigures().back()` vaut `"Common/Characters/Heroes/brawler"`.
+- Vérifie que `monde.leaderPortrait()` diffère de `avant`.
+- Vérifie que `figures.size()` est supérieur ou égal à `4U`.
+- Vérifie que `figures.back().hero` est vrai.
+- Vérifie que `suiveurs` vaut `3U`.
+- Vérifie que `dialogue.partyVoice()` vaut `QStringLiteral("Helga Pierre-Sûre")`.
+
+### PartyModelTest.LeJoueurChoisitQuiParle
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:137`
+
+Dans le dialogue, le menu du bas donne la parole a un membre du groupe : le jet de Persuasion se fait avec ses modificateurs.
+
+**Étapes**
+
+1. Ouvrir le dialogue du garde a la graine 7 : le meneur (Grom, Charisme 8) parle ; tenter de le convaincre.
+2. Rouvrir a la meme graine, donner la parole a Nessa (Charisme 13), tenter de nouveau.
+
+**Résultat attendu**
+
+- Vérifie que `dialogue.selectVoice(voix)` est vrai.
+- Vérifie que `dialogue.selectVoice(QStringLiteral("heros-inconnu"))` est faux.
+- Vérifie que `voix.size()` vaut `4`.
+- Vérifie que `voix.front().toMap().value(QStringLiteral("current")).toBool()` est vrai.
+- Vérifie que `dialogue.voiceId()` vaut `QStringLiteral("heros-brawler")`.
+- Vérifie que `dialogue.voiceId()` vaut `QStringLiteral("heros-mage")`.
+- Vérifie que `deDeGrom.isEmpty()` est faux.
+- Vérifie que `deDeGrom` vaut `deDeNessa`.
+- Vérifie que `totalDeNessa` est strictement supérieur à `totalDeGrom`.
+
+### PartyModelTest.LeMeneurEstCeluiQuiCombat
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:190`
+
+Exigences : `EX-EXP-014`
+
+Une rencontre engagee apres un changement de meneur met le nouveau meneur en jeu.
+
+**Étapes**
+
+1. Engager « rats-du-donjon », puis fuir.
+2. Faire mener la Scoundrel, engager de nouveau.
+
+**Résultat attendu**
+
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `rencontre.heroName()` vaut `QStringLiteral("Grom Tranche-Écaille")`.
+- Vérifie que `rencontre.active()` est faux.
+- Vérifie que `monde.setLeader(QStringLiteral("heros-scoundrel"))` est vrai.
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `rencontre.heroName()` vaut `QStringLiteral("Nessa Double-Vie")`.
+
+### PartyModelTest.LEcranDeGroupeCompose
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:223`
+
+Exigences : `EX-EXP-013`
+
+L'ecran de groupe lit la fiche des quatre et compose le groupe de la partie.
+
+**Étapes**
+
+1. Ouvrir le modele de l'ecran de groupe.
+2. Laisser la Scoundrel, puis tenter de laisser tous les autres.
+3. Reprendre la Scoundrel, la faire mener, reculer le Mage.
+
+**Résultat attendu**
+
+- Vérifie que `groupe.candidates().size()` vaut `4`.
+- Vérifie que `brawler.value(QStringLiteral("value")).toString()` vaut `QStringLiteral("15 / 15")`.
+- Vérifie que `brawler.value(QStringLiteral("armorClass")).toString()` vaut `QStringLiteral("14")`.
+- Vérifie que `brawler.value(QStringLiteral("rank")).toInt()` vaut `0`.
+- Vérifie que `brawler.value(QStringLiteral("leader")).toBool()` est vrai.
+- Vérifie que `groupe.members().front().toMap().value(QStringLiteral("ratio")).toDouble()` vaut `1.0` (comparaison flottante).
+- Vérifie que `groupe.leaderHitPoints()` vaut `QStringLiteral("15 / 15")`.
+- Vérifie que `groupe.toggleMember(QStringLiteral("heros-scoundrel"))` est vrai.
+- Vérifie que `groupe.size()` vaut `3`.
+- Vérifie que `monde.play().session().followers()` vaut `2U`.
+- Vérifie que `groupe.toggleMember(QStringLiteral("heros-mage"))` est vrai.
+- Vérifie que `groupe.toggleMember(QStringLiteral("heros-priest"))` est vrai.
+- Vérifie que `groupe.toggleMember(QStringLiteral("heros-brawler"))` est faux.
+- Vérifie que `monde.play().session().followers()` vaut `0U`.
+- Vérifie que `groupe.toggleMember(QStringLiteral("heros-mage"))` est vrai.
+- Vérifie que `groupe.toggleMember(QStringLiteral("heros-scoundrel"))` est vrai.
+- Vérifie que `groupe.setLeader(QStringLiteral("heros-scoundrel"))` est vrai.
+- Vérifie que `identifiants(groupe.members())` vaut `(QStringList{"heros-scoundrel", "heros-brawler", "heros-mage"})`.
+- Vérifie que `groupe.moveMember(QStringLiteral("heros-brawler"), 1)` est vrai.
+- Vérifie que `identifiants(groupe.members())` vaut `(QStringList{"heros-scoundrel", "heros-mage", "heros-brawler"})`.
+- Vérifie que `groupe.moveMember(QStringLiteral("heros-brawler"), 1)` est faux.
+- Vérifie que `groupe.leaderName()` vaut `QStringLiteral("Nessa Double-Vie")`.
+- Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"})`.

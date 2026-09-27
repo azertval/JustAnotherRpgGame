@@ -15,7 +15,7 @@
 
 namespace hmi {
 
-/// Les neuf écrans du RPG. `hmi::ScreenRouter::RpgScreen` les reprend valeur pour valeur pour le
+/// Les dix écrans du RPG. `hmi::ScreenRouter::RpgScreen` les reprend valeur pour valeur pour le
 /// QML ; des `static_assert` de `ScreenRouter.cpp` tiennent les deux énumérations alignées.
 enum class RpgScreenId {
     CharacterSheet,  ///< Fiche de personnage (remplie par le `LOT-38`).
@@ -31,6 +31,9 @@ enum class RpgScreenId {
     /// et le tableau de la Guilde réunis en quatre onglets. Remplie par `LOT-45` et `LOT-83`.
     Company,
     CombatHud,  ///< Affichage tête haute de combat (`LOT-24`).
+    /// Le **groupe** (`LOT-138`) : qui en est, qui mène, l'ordre de marche. Composé depuis les
+    /// fiches pré-tirées ; la fiche de chacun et la montée de niveau viennent au `LOT-141`.
+    Party,
 };
 
 }  // namespace hmi

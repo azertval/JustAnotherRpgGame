@@ -3,8 +3,11 @@
 
 #include "HMI/Runtime/DemonstrationCharacter.h"
 
+#include <cstddef>
 #include <filesystem>
+#include <string>
 #include <utility>
+#include <vector>
 
 #include "Core/Rpg/CharacterOptions.h"
 #include "Core/Rpg/CharacterSheet.h"
@@ -15,13 +18,13 @@
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "HMI/Presentation/CharacterSheetValues.h"
 #include "HMI/Presentation/InventoryValues.h"
+#include "HMI/Runtime/WorldModel.h"
 
 namespace hmi {
 namespace {
 
-// Fichier du personnage joué, dans `Rpg/characters/` : le héros de la démo, la fiche pré-tirée du
-// Brawler (`LOT-112`). La démo n'a pas de création de personnage ; le groupe et la sauvegarde
-// fourniront le leur.
+// Fichier du personnage joué quand aucune partie n'en désigne un, dans `Rpg/characters/` : le
+// Brawler pré-tiré (`LOT-112`), meneur du groupe de départ.
 constexpr const char* DEMONSTRATION_CHARACTER_FILE = "heros-brawler.json";
 
 // Le même signe que les autres écrans posent sur un champ sans source.
@@ -29,7 +32,23 @@ constexpr const char* EMPTY_MARK = "—";
 
 }  // namespace
 
+std::filesystem::path playedCharacterFile() {
+    // Le meneur du groupe de la partie en cours (LOT-138) : c'est lui qui combat, qui parle a
+    // l'ouverture d'un dialogue (le joueur peut donner la parole a un autre, D-28), et dont la
+    // fiche s'ouvre.
+    if (const WorldModel* const partie = WorldModel::current()) {
+        if (std::filesystem::path meneur = partie->leaderSheetFile(); !meneur.empty()) {
+            return meneur;
+        }
+    }
+    return executableDirectory() / "Rpg" / "characters" / DEMONSTRATION_CHARACTER_FILE;
+}
+
 DemonstrationState loadDemonstrationState() {
+    return loadDemonstrationState(playedCharacterFile());
+}
+
+DemonstrationState loadDemonstrationState(const std::filesystem::path& characterFile) {
     const std::filesystem::path rpg = executableDirectory() / "Rpg";
 
     DemonstrationState state;
@@ -44,8 +63,7 @@ DemonstrationState loadDemonstrationState() {
     state.rules = core::loadCharacterCreationRules(rpg / "rules" / "character-creation.json");
 
     core::LoadedCharacterSheet loaded =
-        core::loadCharacterSheet(rpg / "characters" / DEMONSTRATION_CHARACTER_FILE, state.options,
-                                 state.rules, state.experience);
+        core::loadCharacterSheet(characterFile, state.options, state.rules, state.experience);
     for (const std::string& error : loaded.errors) {
         // Journalise et poursuit : une fiche partielle vaut mieux qu'un écran vide, et l'erreur
         // nomme son fichier (EX-CNT-010).
@@ -71,6 +89,28 @@ DemonstrationState loadDemonstrationState() {
         HMI_LOG_WARNING("Inventaire de demonstration : objet inconnu '" + unknown + "'.");
     }
     return state;
+}
+
+std::vector<DemonstrationCharacter> loadCharacterValues(
+    const std::vector<std::filesystem::path>& characterFiles) {
+    std::vector<DemonstrationCharacter> result;
+    if (characterFiles.empty()) {
+        return result;
+    }
+    // Les catalogues avec la premiere fiche ; les suivantes se lisent dans les memes catalogues.
+    DemonstrationState state = loadDemonstrationState(characterFiles.front());
+    result.push_back(demonstrationValues(state));
+    for (std::size_t rank = 1; rank < characterFiles.size(); ++rank) {
+        core::LoadedCharacterSheet loaded = core::loadCharacterSheet(
+            characterFiles[rank], state.options, state.rules, state.experience);
+        for (const std::string& error : loaded.errors) {
+            HMI_LOG_WARNING("Groupe : " + error);
+        }
+        state.sheet = std::move(loaded.sheet);
+        state.inventory = std::move(loaded.inventory);
+        result.push_back(demonstrationValues(state));
+    }
+    return result;
 }
 
 DemonstrationCharacter loadDemonstrationValues() {

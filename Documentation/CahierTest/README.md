@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1060 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1071 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -26,9 +26,9 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Core · Levels](core-levels.md) | Tests unitaires | 122 | 1 | 24 | 80 | 17 |
 | [Core · Math](core-math.md) | Tests unitaires | 26 | 4 | — | 18 | 4 |
 | [Core · Resources](core-resources.md) | Tests unitaires | 20 | 5 | 6 | 9 | — |
-| [Core · Rpg](core-rpg.md) | Tests unitaires | 97 | 3 | 57 | 36 | 1 |
+| [Core · Rpg](core-rpg.md) | Tests unitaires | 101 | 3 | 59 | 37 | 2 |
 | [Core · Time](core-time.md) | Tests unitaires | 7 | — | 1 | 6 | — |
-| [Core · World](core-world.md) | Tests unitaires | 64 | 1 | 32 | 28 | 3 |
+| [Core · World](core-world.md) | Tests unitaires | 67 | 1 | 33 | 30 | 3 |
 | [Editor](editor.md) | Tests unitaires | 211 | 25 | 47 | 111 | 28 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 19 | — | 7 | 9 | 3 |
@@ -38,10 +38,10 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Localization](hmi-localization.md) | Tests unitaires | 9 | — | — | 9 | — |
 | [HMI · Platform](hmi-platform.md) | Tests unitaires | 5 | — | 2 | 3 | — |
 | [HMI · Presentation](hmi-presentation.md) | Tests unitaires | 19 | — | 5 | 11 | 3 |
-| [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 3 | 1 | — | 2 | — |
+| [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 7 | 2 | 3 | 2 | — |
 | [Tests d'intégration](integration.md) | Tests d'intégration | 11 | — | 6 | 5 | — |
 | [Tests système](systeme.md) | Tests système | 4 | — | 4 | — | — |
-| **Total** | | **1060** | **103** | **362** | **520** | **75** |
+| **Total** | | **1071** | **104** | **368** | **523** | **76** |
 
 ## Trois étages de vérification
 

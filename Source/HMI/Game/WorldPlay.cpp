@@ -3,6 +3,7 @@
 
 #include "HMI/Game/WorldPlay.h"
 
+#include <cmath>
 #include <cstddef>
 #include <utility>
 #include <variant>
@@ -21,6 +22,9 @@ namespace {
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
 // Le décalage de respiration entre deux PNJ, en secondes : ni nul, ni un multiple de la bande.
 constexpr float NPC_BREATH_OFFSET_SECONDS = 0.37F;
+// Au-dela, un suiveur qui change de place en un pas a ete repose, il n'a pas marche : a 2 cases
+// par seconde, un pas de 16 ms en fait 0,03.
+constexpr float MAX_FOLLOWER_STEP_CELLS = 0.5F;
 
 // Les entités de la carte courante que les drapeaux laissent paraître (`LOT-116`) : une copie,
 // que la carte, lue d'un fichier qui ignore la partie, ne peut pas être.
@@ -55,6 +59,51 @@ void WorldPlay::setHeroFigure(std::string figure) {
     invalidateScene();
 }
 
+void WorldPlay::setFollowerFigures(std::vector<std::string> figures) {
+    _followerFigures = std::move(figures);
+    _session.setFollowers(_followerFigures.size());
+    _followers.assign(_followerFigures.size(), Follower{});
+    resolveFollowers();
+    for (std::size_t rang = 0; rang < _followers.size(); ++rang) {
+        _followers[rang].point = _session.followerPoint(rang);
+    }
+    invalidateScene();
+}
+
+void WorldPlay::resolveFollowers() {
+    for (std::size_t rang = 0; rang < _followers.size() && rang < _followerFigures.size(); ++rang) {
+        _followers[rang].figure = _figures.resolve(_followerFigures[rang], {}, _appearance);
+    }
+}
+
+bool WorldPlay::followFollowers() {
+    bool changed = false;
+    for (std::size_t rang = 0; rang < _followers.size(); ++rang) {
+        Follower& suiveur = _followers[rang];
+        const core::CellPoint point = _session.followerPoint(rang);
+        // Un suiveur marche s'il a bouge ce pas-ci : c'est le meneur qui l'entraine, et il
+        // s'arrete avec lui -- ou avant, s'il attend au bout d'une trace trop courte. Un saut
+        // (le groupe repose ailleurs, au retour d'un combat) n'est pas un pas.
+        const float ecart =
+            std::hypot(point.column - suiveur.point.column, point.row - suiveur.point.row);
+        const bool walking = ecart > 0.0F && ecart < MAX_FOLLOWER_STEP_CELLS;
+        if (walking != suiveur.walking) {
+            suiveur.walking = walking;
+            changed = true;
+        }
+        if (walking) {
+            const core::Vector2 direction = _session.followerFacing(rang);
+            const FigureFacing facing = figureFacingFor(direction, suiveur.facing);
+            if (facing != suiveur.facing) {
+                suiveur.facing = facing;
+                changed = true;
+            }
+        }
+        suiveur.point = point;
+    }
+    return changed;
+}
+
 bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     if (!_session.start(mapId, arrival)) {
         return false;
@@ -63,6 +112,7 @@ bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     _walking = false;
     _drawnFlags = _session.flags().revision();
     reloadAppearance();
+    followFollowers();
     return true;
 }
 
@@ -86,6 +136,9 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
             _heroFacing = facing;
             result.figuresChanged = true;
         }
+    }
+    if (followFollowers()) {
+        result.figuresChanged = true;
     }
     // Un héros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
     // la scène doit se redessiner autant que s'il avait bougé.
@@ -116,6 +169,7 @@ void WorldPlay::reloadAppearance() {
     if (map == nullptr) {
         _appearance = PlaceAppearance{};
         _hero = _figures.resolve(_heroFigure, {}, _appearance);
+        resolveFollowers();
         return;
     }
     const std::string place = scenePlaceOf(*map);
@@ -136,6 +190,7 @@ void WorldPlay::reloadAppearance() {
         _appearance = std::move(read.appearance);
     }
     _hero = _figures.resolve(_heroFigure, {}, _appearance);
+    resolveFollowers();
 }
 
 std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
@@ -165,6 +220,18 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
         figure.figure = resolue.directory;
         figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
         figure.seconds = _elapsed + (static_cast<float>(rang) * NPC_BREATH_OFFSET_SECONDS);
+    }
+    // Les suiveurs du groupe (LOT-138), derriere le meneur : a egalite de profondeur, il passe
+    // devant eux.
+    for (const Follower& suiveur : _followers) {
+        figures.push_back(WorldFigureSnapshot{
+            .figure = suiveur.figure.directory,
+            .clip = std::string{suiveur.walking ? figure_clips::WALK : figure_clips::IDLE},
+            .point = {suiveur.point.column, suiveur.point.row},
+            .frame = frame,
+            .facing = suiveur.figure.oriented ? suiveur.facing : FigureFacing::None,
+            .seconds = _elapsed,
+            .hero = false});
     }
     figures.push_back(
         WorldFigureSnapshot{.figure = _hero.directory,

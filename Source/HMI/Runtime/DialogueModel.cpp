@@ -4,7 +4,11 @@
 #include "HMI/Runtime/DialogueModel.h"
 
 #include <QStringList>
+#include <QUrl>
+#include <QVariantMap>
 #include <QVector>
+#include <algorithm>
+#include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <functional>
@@ -69,6 +73,10 @@ namespace {
 
 // L'interlocuteur du PNJ, tel que l'ECRAN l'entend : le personnage, et un rappel de plus.
 //
+// Le personnage CHANGE en cours de conversation : le joueur choisit qui parle pour le groupe
+// (LOT-138, D-28). Le runner tient une reference sur cet ecouteur, pas sur le personnage : on
+// remplace donc le personnage delegue (`parlerPar`), jamais l'ecouteur.
+//
 // `core::CharacterListener` est `final` -- et c'est bien : ce qu'il sait faire d'une fiche et d'un
 // sac n'a pas a se redefinir. On le DELEGUE donc, et l'on n'ajoute que ce qui regarde l'ecran :
 // quand un PNJ engage une rencontre (`startEncounter`, LOT-118) ou clot la demo (`endDemo`,
@@ -80,19 +88,27 @@ public:
     EcouteurDEcran(const core::CharacterSheet& fiche, core::Inventory& sac,
                    const core::ExperienceTable& experience, const core::SkillCatalog& competences,
                    SurCombat surRencontre, SurCombat surFin)
-        : _personnage(fiche, sac, experience, competences),
+        : _experience(experience),
+          _competences(competences),
           _surRencontre(std::move(surRencontre)),
-          _surFin(std::move(surFin)) {}
+          _surFin(std::move(surFin)) {
+        parlerPar(fiche, sac);
+    }
+
+    /// Le personnage qui parle desormais pour le groupe : ses langues, ses jets, son sac.
+    void parlerPar(const core::CharacterSheet& fiche, core::Inventory& sac) {
+        _personnage.emplace(fiche, sac, _experience, _competences);
+    }
 
     [[nodiscard]] bool speaks(std::string_view languageId) const override {
-        return _personnage.speaks(languageId);
+        return _personnage->speaks(languageId);
     }
     [[nodiscard]] std::vector<core::Modifier> skillModifiers(
         std::string_view skillId) const override {
-        return _personnage.skillModifiers(skillId);
+        return _personnage->skillModifiers(skillId);
     }
     void receiveItem(std::string_view itemId, int quantity) override {
-        _personnage.receiveItem(itemId, quantity);
+        _personnage->receiveItem(itemId, quantity);
     }
     void startEncounter(std::string_view encounterId) override {
         if (_surRencontre) {
@@ -106,15 +122,29 @@ public:
     }
 
 private:
-    core::CharacterListener _personnage;
+    const core::ExperienceTable& _experience;
+    const core::SkillCatalog& _competences;
+    std::optional<core::CharacterListener> _personnage;
     SurCombat _surRencontre;
     SurCombat _surFin;
 };
 
 }  // namespace
 
+// Un membre du groupe qui peut parler : sa fiche et son sac, lus dans les catalogues du meneur.
+struct Voix {
+    std::string id;
+    QUrl portrait;
+    core::CharacterSheet sheet;
+    core::Inventory inventory;
+};
+
 struct DialogueModel::Session {
     DemonstrationState character;
+    /// Le groupe, dans l'ordre de marche : qui peut parler (LOT-138, D-28). Le meneur d'abord.
+    std::vector<Voix> voices;
+    /// Celui qui parle, rang dans `voices`.
+    std::size_t voice = 0;
     core::DialogueCatalog dialogues;
     core::DifficultyScale difficulty;
     std::vector<std::string> problems;
@@ -137,6 +167,7 @@ DialogueModel::DialogueModel(QObject* parent)
     if (s.character.sheet.name.empty()) {
         s.problems.emplace_back("personnage de demonstration absent");
     }
+    loadVoices();
     s.difficulty = core::loadDifficultyScale(root / "Rpg" / "rules" / "difficulty.json");
     for (const std::string& error : s.difficulty.errors) {
         HMI_LOG_WARNING("Dialogue : degres de difficulte, " + error);
@@ -180,8 +211,9 @@ void DialogueModel::open() {
         refresh();
         return;
     }
+    Voix& voix = s.voices[s.voice];
     s.listener.emplace(
-        s.character.sheet, s.character.inventory, s.character.experience, s.character.skills,
+        voix.sheet, voix.inventory, s.character.experience, s.character.skills,
         [this](const std::string& rencontre) { emit encounterRequested(toQt(rencontre)); },
         [this](const std::string& voie) { emit demoEnded(toQt(voie)); });
     // La graine du compteur, sauf si l'appelant en a fixe une : un test force ainsi l'issue d'un
@@ -232,6 +264,100 @@ void DialogueModel::setDialogueId(const QString& id) {
 
 QString DialogueModel::speakerName() const {
     return toQt(_session->values.speakerName);
+}
+
+void DialogueModel::loadVoices() {
+    Session& s = *_session;
+    s.voices.clear();
+    s.voice = 0;
+    // Le meneur d'abord, deja lu avec les catalogues ; puis les autres membres, dans l'ordre de
+    // marche, lus dans les memes catalogues.
+    s.voices.push_back(Voix{
+        .id = {}, .portrait = {}, .sheet = s.character.sheet, .inventory = s.character.inventory});
+    const WorldModel* const partie = WorldModel::current();
+    if (partie == nullptr) {
+        return;
+    }
+    const QVariantList membres = partie->partyMembers();
+    for (qsizetype rang = 0; rang < membres.size(); ++rang) {
+        const QVariantMap membre = membres[rang].toMap();
+        const std::string id = membre.value(QStringLiteral("id")).toString().toStdString();
+        const QUrl portrait = membre.value(QStringLiteral("portrait")).toUrl();
+        if (rang == 0) {
+            s.voices.front().id = id;
+            s.voices.front().portrait = portrait;
+            continue;
+        }
+        const auto candidat =
+            std::ranges::find(partie->candidates(), id, &core::PartyCandidate::id);
+        if (candidat == partie->candidates().end()) {
+            continue;
+        }
+        core::LoadedCharacterSheet lue = core::loadCharacterSheet(
+            candidat->file, s.character.options, s.character.rules, s.character.experience);
+        for (const std::string& erreur : lue.errors) {
+            HMI_LOG_WARNING("Dialogue : " + erreur);
+        }
+        s.voices.push_back(Voix{.id = id,
+                                .portrait = portrait,
+                                .sheet = std::move(lue.sheet),
+                                .inventory = std::move(lue.inventory)});
+    }
+}
+
+QString DialogueModel::partyVoice() const {
+    return toQt(_session->voices[_session->voice].sheet.name);
+}
+
+QString DialogueModel::voiceId() const {
+    return toQt(_session->voices[_session->voice].id);
+}
+
+QUrl DialogueModel::voicePortrait() const {
+    return _session->voices[_session->voice].portrait;
+}
+
+QVariantList DialogueModel::voices() const {
+    QVariantList lignes;
+    for (std::size_t rang = 0; rang < _session->voices.size(); ++rang) {
+        const Voix& voix = _session->voices[rang];
+        QVariantMap ligne;
+        ligne.insert(QStringLiteral("id"), toQt(voix.id));
+        ligne.insert(QStringLiteral("name"), toQt(voix.sheet.name));
+        ligne.insert(QStringLiteral("portrait"), voix.portrait);
+        ligne.insert(QStringLiteral("current"), rang == _session->voice);
+        lignes.append(ligne);
+    }
+    return lignes;
+}
+
+bool DialogueModel::selectVoice(const QString& characterId) {
+    Session& s = *_session;
+    const auto trouvee = std::ranges::find(s.voices, characterId.toStdString(), &Voix::id);
+    if (trouvee == s.voices.end()) {
+        return false;
+    }
+    const auto rang = static_cast<std::size_t>(std::distance(s.voices.begin(), trouvee));
+    if (rang != s.voice) {
+        s.voice = rang;
+        // Le prochain jet sera le sien : l'ecouteur parle desormais par lui.
+        if (s.listener) {
+            s.listener->parlerPar(trouvee->sheet, trouvee->inventory);
+        }
+        HMI_LOG_INFO("Dialogue : " + trouvee->sheet.name + " parle pour le groupe.");
+        emit changed();
+    }
+    return true;
+}
+
+void DialogueModel::cycleVoice(int step) {
+    Session& s = *_session;
+    if (s.voices.size() < 2 || step == 0) {
+        return;
+    }
+    const auto taille = static_cast<int>(s.voices.size());
+    const int suivant = ((static_cast<int>(s.voice) + step) % taille + taille) % taille;
+    static_cast<void>(selectVoice(toQt(s.voices[static_cast<std::size_t>(suivant)].id)));
 }
 
 QString DialogueModel::attitude() const {

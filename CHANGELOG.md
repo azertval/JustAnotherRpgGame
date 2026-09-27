@@ -6,6 +6,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-138 — Le groupe de quatre.** Le joueur mène un **groupe** de un à quatre personnages,
+  pris parmi les fiches pré-tirées (`core::Party`, `Rpg/characters/`) : le premier de l'ordre de
+  marche est le **meneur**, qu'on déplace, qui interagit et combat sur la carte ; la fiche et
+  l'inventaire s'ouvrent sur lui. « Nouvelle partie » impose le groupe préformé : Brawler, Priest,
+  Scoundrel, Mage. Dans un dialogue, **le joueur choisit qui parle** (D-28) dans un menu en bas de
+  l'écran (`Tab`) : celui-là jette les dés, avec ses modificateurs. Les suiveurs **mettent
+  leurs pas dans ceux du meneur** (`core::FollowTrail`), à une case l'un de l'autre : ils ne
+  peuvent ni entrer dans un mur ni rester coincés derrière un angle ; à l'arrivée sur une carte,
+  ils se rangent dans son dos. `Tab` passe la main au suivant ; l'écran **Groupe** (`G`) prend,
+  laisse, fait mener et change l'ordre de marche, au clavier et à la manette. La figurine d'un
+  membre est celle de sa classe (le mannequin tant que le `LOT-136` ne l'a pas livrée) ; le
+  portrait du meneur paraît au HUD, dont la case du groupe se remplit. Exigences `EX-EXP-013`, `EX-EXP-014`. Tests : `test_party.cpp`,
+  `test_party_model.cpp`, `test_exploration_session.cpp`.
+- **LOT-137 — Fiche du lot : livré** (PR #152).
 - **LOT-137 — États, agonie et mort.** Un personnage à 0 PV tombe **inconscient et à terre** et
   jette contre la mort à sa place dans l'ordre (*Manuel des Joueurs*, p. 199) : trois succès le
   stabilisent, trois échecs le tuent, un 1 compte double, un 20 le relève et le fait jouer ; blessé

@@ -57,6 +57,8 @@ static_assert(static_cast<int>(ScreenRouter::RpgScreen::CombatHud) ==
               static_cast<int>(RpgScreenId::CombatHud));
 static_assert(static_cast<int>(ScreenRouter::RpgScreen::Company) ==
               static_cast<int>(RpgScreenId::Company));
+static_assert(static_cast<int>(ScreenRouter::RpgScreen::Party) ==
+              static_cast<int>(RpgScreenId::Party));
 
 [[nodiscard]] RpgScreenId toRpgScreenId(ScreenRouter::RpgScreen screen) noexcept {
     return static_cast<RpgScreenId>(screen);

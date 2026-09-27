@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <filesystem>
 #include <map>
 #include <string>
 #include <utility>
@@ -56,8 +57,28 @@ struct DemonstrationState {
     }
 };
 
-/// @brief Charge le personnage de démonstration et ses catalogues, en journalisant chaque manque.
+/**
+ * @return La fiche du personnage joué : celle du **meneur** du groupe de la partie en cours
+ *         (`LOT-138`), ou, sans partie, celle du Brawler pré-tiré.
+ */
+[[nodiscard]] std::filesystem::path playedCharacterFile();
+
+/// @brief Charge le personnage joué (`playedCharacterFile`) et ses catalogues, en journalisant
+///        chaque manque.
 [[nodiscard]] DemonstrationState loadDemonstrationState();
+
+/// @brief Charge la fiche @p characterFile et ses catalogues : un membre du groupe qui ne mène
+///        pas, que l'écran de groupe montre.
+[[nodiscard]] DemonstrationState loadDemonstrationState(const std::filesystem::path& characterFile);
+
+/**
+ * @brief Les tables de valeurs de chaque fiche de @p characterFiles, dans cet ordre : les
+ *        catalogues lus **une fois**, puis chaque fiche (`LOT-138`, l'écran de groupe).
+ *
+ * Une fiche illisible donne des tables partielles, et son erreur est journalisée.
+ */
+[[nodiscard]] std::vector<DemonstrationCharacter> loadCharacterValues(
+    const std::vector<std::filesystem::path>& characterFiles);
 
 /// @brief Les deux tables de valeurs d'un état, statistiques dérivées **recalculées**.
 [[nodiscard]] DemonstrationCharacter demonstrationValues(const DemonstrationState& state);
@@ -65,10 +86,10 @@ struct DemonstrationState {
 /**
  * @brief Charge le personnage de démonstration livré en donnée, et calcule ses deux tables.
  *
- * **ÉCHAFAUDAGE, et il est écrit comme tel.** Il n'existe encore ni groupe ni sauvegarde d'où
- * tirer un personnage réel, et des écrans qui n'affichent aucun personnage ne se relisent pas. Le
- * jour où une partie en fournira un, c'est **cette fonction** qui change — pas les écrans, qui ne
- * consomment que des valeurs nommées, d'où qu'elles viennent.
+ * **Le personnage joué est le meneur du groupe** (`LOT-138`) : `playedCharacterFile` le désigne,
+ * et c'est **cette fonction** qui a changé — pas les écrans, qui ne consomment que des valeurs
+ * nommées, d'où qu'elles viennent. Il n'existe toujours pas de sauvegarde : la fiche se relit de
+ * son fichier, telle qu'elle a été pré-tirée.
  *
  * **Pourquoi une fonction partagée.** La fiche et l'inventaire décrivent le **même** personnage :
  * charger deux fois les huit catalogues aurait doublé le travail et, surtout, permis aux deux

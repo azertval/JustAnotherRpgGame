@@ -22,6 +22,15 @@ QtObject {
     readonly property string cityLocation: "central-empire-the-capital-city"
     readonly property string districtId: "central-empire-the-capital-city-martpart"
     readonly property var visitedDistricts: ["central-empire-the-capital-city-martpart"]
+    // Le groupe (LOT-138) : le Brawler en tete, comme au depart d'une partie.
+    readonly property var partyMembers: []
+    readonly property var partyCandidates: []
+    readonly property string leaderId: "heros-brawler"
+    readonly property string leaderName: "Grom Tranche-Écaille"
+    readonly property url leaderPortrait: ""
+    readonly property int maxPartySize: 4
+
+    signal partyChanged()
 
     function startNewGame() { return true }
     function endGame() {}
@@ -32,4 +41,8 @@ QtObject {
     }
     function setMove(x, y) {}
     function interact() {}
+    function setLeader(characterId) { return true }
+    function rotateLeader() { return true }
+    function toggleMember(characterId) { return true }
+    function moveMember(characterId, offset) { return true }
 }

@@ -1,6 +1,6 @@
 # Core · World
 
-Tests unitaires — **64 cas** (1 bloquant, 32 critiques, 28 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **67 cas** (1 bloquant, 33 critiques, 30 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -13,7 +13,7 @@ Tests unitaires — **64 cas** (1 bloquant, 32 critiques, 28 majeurs, 3 mineurs)
 | [`test_entity_kinds.cpp`](#test-entity-kindscpp) | 9 | 1 | - | 7 | 1 |
 | [`test_entity_presence.cpp`](#test-entity-presencecpp) | 3 | - | 2 | 1 | - |
 | [`test_exploration_reach.cpp`](#test-exploration-reachcpp) | 3 | - | 2 | 1 | - |
-| [`test_exploration_session.cpp`](#test-exploration-sessioncpp) | 4 | - | 3 | 1 | - |
+| [`test_exploration_session.cpp`](#test-exploration-sessioncpp) | 7 | - | 4 | 3 | - |
 | [`test_quest_map_features.cpp`](#test-quest-map-featurescpp) | 7 | - | 4 | 3 | - |
 | [`test_world_graph.cpp`](#test-world-graphcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_world_travel.cpp`](#test-world-travelcpp) | 7 | - | 4 | 3 | - |
@@ -26,6 +26,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 |---|---|
 | `EX-CNT-011` | [`AtlasTest.LesNotesDuMoteurCoincidentAvecCellesDuSchema`](#atlastestlesnotesdumoteurcoincidentaveccellesduschema) |
 | `EX-EDIT-073` | [`FamillesDEntitesTest.ToutFamilleLueParLeJeuEstDansLaTable`](#famillesdentitestesttoutfamillelueparlejeuestdanslatable) |
+| `EX-EXP-013` | [`ExplorationSessionTest.UnGroupeDeQuatrePasseLesAnglesSansResterCoince`](#explorationsessiontestungroupedequatrepasselesanglessansrestercoince), [`ExplorationSessionTest.LesSuiveursSeRangentDansLeDosDuMeneur`](#explorationsessiontestlessuiveursserangentdansledosdumeneur) |
 
 ## test_atlas.cpp
 
@@ -744,7 +745,7 @@ Un départ muré n'atteint rien.
 
 ### ExplorationSessionTest.LeHerosMarcheEtLeMurLArrete
 
-*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:107`
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:109`
 
 Le heros marche sur la carte et bute sur le mur, en glissant le long.
 
@@ -764,7 +765,7 @@ Le heros marche sur la carte et bute sur le mur, en glissant le long.
 
 ### ExplorationSessionTest.UnPortailDeposeAuPointDArriveeNomme
 
-*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:137`
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:139`
 
 Marcher sur un portail depose le heros au point d'arrivee nomme de la cible.
 
@@ -785,7 +786,7 @@ Marcher sur un portail depose le heros au point d'arrivee nomme de la cible.
 
 ### ExplorationSessionTest.OnParleAuPnjQueLOnRegarde
 
-*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:179`
+*Critique · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:181`
 
 L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.
 
@@ -805,7 +806,7 @@ L'interaction ouvre le dialogue du PNJ vise, pas celui d'un autre.
 
 ### ExplorationSessionTest.UneCarteGeleeNeBougePlus
 
-*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:211`
+*Majeur · Unitaire · Exploration* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:213`
 
 Gelee, la session ne deplace plus le heros et n'ouvre plus rien.
 
@@ -820,6 +821,75 @@ Gelee, la session ne deplace plus le heros et n'ouvre plus rien.
 - Vérifie que `session.heroPoint()` vaut `core::cellCenter({4, 4})`.
 - Vérifie que `session.update(core::ExplorationIntent{.move = {}, .interact = true}, 1.0F / 60.0F) .empty()` est vrai.
 - Vérifie que `session.heroPoint().column` est strictement supérieur à `4.5F`.
+
+### ExplorationSessionTest.UnGroupeDeQuatrePasseLesAnglesSansResterCoince
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:275`
+
+Exigences : `EX-EXP-013`
+
+Un groupe de quatre traverse une carte en U : aucun suiveur ne reste coince, aucun n'entre dans un mur.
+
+**Étapes**
+
+1. Un meneur et trois suiveurs a l'entree d'une carte coupee par un mur interieur.
+2. Descendre, passer sous le mur, remonter de l'autre cote.
+3. A chaque pas, verifier le gabarit de chaque suiveur.
+
+**Résultat attendu**
+
+- Vérifie que `session.start("u", "")` est vrai.
+- Vérifie que `session.followers()` vaut `3U`.
+- Vérifie que `tient(session, session.followerPoint(suiveur))` est vrai.
+- Vérifie que `session.heroPoint().column` est strictement supérieur à `6.0F`.
+- Vérifie que `session.heroPoint().row` est strictement inférieur à `4.0F`.
+- Vérifie que `point.column` est strictement supérieur à `6.0F`.
+- Vérifie que `point.column` vaut `session.heroPoint().column`, à `0.01F` près.
+- Vérifie que `point.row - session.heroPoint().row` vaut `static_cast<float>(suiveur + 1)`, à `0.05F` près.
+
+### ExplorationSessionTest.LesSuiveursSeRangentDansLeDosDuMeneur
+
+*Majeur · Unitaire · Groupe* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:324`
+
+Exigences : `EX-EXP-013`
+
+Reposer le meneur range les suiveurs dans son dos, et un mur arrete la file.
+
+**Étapes**
+
+1. Poser le meneur au milieu de la carte, tourne vers le sud ; trois suiveurs.
+2. Le poser en (1, 2), tourne vers le sud : le mur du nord est a une case et demie.
+
+**Résultat attendu**
+
+- Vérifie que `session.start("place", "")` est vrai.
+- Vérifie que `session.followerPoint(suiveur).column` vaut `4.5F`, à `0.001F` près.
+- Vérifie que `session.followerPoint(suiveur).row` vaut `6.5F - static_cast<float>(suiveur + 1)`, à `0.05F` près.
+- Vérifie que `tient(session, session.followerPoint(suiveur))` est vrai.
+- Vérifie que `session.followerPoint(0).row` vaut `1.5F`, à `0.05F` près.
+- Vérifie que `session.followerPoint(1)` vaut `session.followerPoint(2)`.
+
+### FollowTrailTest.LaTraceSeMesureLeLongDuChemin
+
+*Majeur · Unitaire · Groupe* — `Source/Test/Unit/Core/World/test_exploration_session.cpp:358`
+
+Un point a une distance donnee derriere le meneur se lit le long du chemin, angles compris ; la trace oublie ce qu'aucun suiveur n'atteint.
+
+**Étapes**
+
+1. Une trace en L : (0, 0), (2, 0), (2, 2), le meneur au bout.
+2. Lire les points a 1, 3 et 10 cases ; puis garder 1,5 case et prolonger la trace.
+
+**Résultat attendu**
+
+- Vérifie que `trace.pointBehind(1.0F)` vaut `(core::TrailPoint{2.0F, 1.0F})`.
+- Vérifie que `trace.pointBehind(3.0F)` vaut `(core::TrailPoint{1.0F, 0.0F})`.
+- Vérifie que `trace.pointBehind(10.0F)` vaut `(core::TrailPoint{0.0F, 0.0F})`.
+- Vérifie que `trace.directionAt(3.0F).x` est strictement supérieur à `0.0F`.
+- Vérifie que `trace.length()` vaut `4.0F` (comparaison flottante).
+- Vérifie que `trace.length()` est supérieur ou égal à `1.5F`.
+- Vérifie que `trace.length()` est strictement inférieur à `1.7F`.
+- Vérifie que `trace.points().size()` vaut `avant`.
 
 ## test_quest_map_features.cpp
 

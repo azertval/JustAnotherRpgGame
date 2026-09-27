@@ -3,8 +3,13 @@
 
 #include "HMI/Runtime/WorldModel.h"
 
+#include <QVariantMap>
+#include <algorithm>
+#include <cstddef>
 #include <filesystem>
+#include <iterator>
 #include <string>
+#include <system_error>
 #include <utility>
 
 #include "Core/Levels/Level.h"
@@ -49,6 +54,17 @@ WorldModel::WorldModel(QObject* parent) : QObject(parent) {
         HMI_LOG_WARNING("Monde : la ville de depart est illisible, " + lue.error);
     }
     installQuests();
+
+    // Le groupe (LOT-138) : les fiches du dossier des personnages, les regles a cote du binaire
+    // comme le reste du RPG.
+    core::PartyCandidates candidats =
+        core::loadPartyCandidates(executableDirectory() / "Rpg" / "characters");
+    for (const std::string& erreur : candidats.errors) {
+        HMI_LOG_WARNING("Groupe : " + erreur);
+    }
+    _candidates = std::move(candidats.candidates);
+    _party = core::defaultParty(_candidates, STARTING_PARTY);
+    applyParty();
 }
 
 WorldModel::~WorldModel() {
@@ -120,11 +136,10 @@ void WorldModel::rebuildSession() {
     // qu'il a ouvertes, et le monde autour doit rester jouable.
     std::vector<std::filesystem::path> dossiers = _levelDirectories;
     dossiers.push_back(dataDirectory() / "Levels");
-    std::string figure = _play->heroFigure();
     _play = std::make_unique<WorldPlay>(core::WorldTravel::directoriesLoader(std::move(dossiers)),
                                         dataDirectory() / "Assets");
-    _play->setHeroFigure(std::move(figure));
     installQuests();
+    applyParty();
 }
 
 void WorldModel::endGame() {
@@ -138,6 +153,8 @@ void WorldModel::endGame() {
     _status.clear();
     _move = {};
     _interact = false;
+    // Le groupe aussi repart de zero : le groupe preforme, le Brawler en tete.
+    _party = core::defaultParty(_candidates, STARTING_PARTY);
     rebuildSession();
     applyFlags(_startFlags);
     ++_sceneRevision;
@@ -366,13 +383,172 @@ void WorldModel::placeHero(core::CellPoint point) {
 }
 
 void WorldModel::setHeroFigure(const QString& figure) {
-    if (heroFigure() == figure) {
+    if (_heroFigureOverride == figure.toStdString()) {
         return;
     }
-    _play->setHeroFigure(figure.toStdString());
+    _heroFigureOverride = figure.toStdString();
+    applyParty();
+}
+
+// --- Le groupe (LOT-138) ----------------------------------------------------------------------
+
+std::string WorldModel::heroFigureOf(std::string_view classId) {
+    return "Common/Characters/Heroes/" + std::string{classId};
+}
+
+const core::PartyCandidate* WorldModel::candidate(std::string_view characterId) const {
+    const auto trouve = std::ranges::find(_candidates, characterId, &core::PartyCandidate::id);
+    return trouve != _candidates.end() ? &*trouve : nullptr;
+}
+
+void WorldModel::applyParty() {
+    const core::PartyCandidate* const meneur = candidate(_party.leader());
+    std::string figure = _heroFigureOverride;
+    if (figure.empty()) {
+        figure = meneur != nullptr ? heroFigureOf(meneur->classId)
+                                   : std::string{WorldPlay::DEFAULT_HERO_FIGURE};
+    }
+    if (_play->heroFigure() != figure) {
+        _play->setHeroFigure(std::move(figure));
+    }
+    std::vector<std::string> suiveurs;
+    for (std::size_t rang = 1; rang < _party.members().size(); ++rang) {
+        const core::PartyCandidate* const membre = candidate(_party.members()[rang]);
+        suiveurs.push_back(membre != nullptr ? heroFigureOf(membre->classId) : std::string{});
+    }
+    if (_play->followerFigures() != suiveurs) {
+        _play->setFollowerFigures(std::move(suiveurs));
+    }
     ++_sceneRevision;
     ++_figuresRevision;
     emit changed();
+    emit figuresChanged();
+    emit partyChanged();
+}
+
+void WorldModel::setParty(const core::Party& party) {
+    core::Party connus;
+    for (const std::string& membre : party.members()) {
+        if (candidate(membre) != nullptr) {
+            static_cast<void>(connus.add(membre));
+        }
+    }
+    if (connus.empty()) {
+        HMI_LOG_WARNING("Groupe : aucun personnage connu, le groupe ne change pas.");
+        return;
+    }
+    _party = std::move(connus);
+    applyParty();
+}
+
+bool WorldModel::setLeader(const QString& characterId) {
+    if (_party.leader() == characterId.toStdString()) {
+        return true;
+    }
+    if (_party.setLeader(characterId.toStdString()) != core::PartyChange::Done) {
+        return false;
+    }
+    applyParty();
+    return true;
+}
+
+bool WorldModel::rotateLeader() {
+    if (_party.size() < 2 || _party.rotateLeader() != core::PartyChange::Done) {
+        return false;
+    }
+    applyParty();
+    return true;
+}
+
+bool WorldModel::toggleMember(const QString& characterId) {
+    const std::string id = characterId.toStdString();
+    if (candidate(id) == nullptr) {
+        return false;
+    }
+    const core::PartyChange change = _party.contains(id) ? _party.remove(id) : _party.add(id);
+    if (change != core::PartyChange::Done) {
+        return false;
+    }
+    applyParty();
+    return true;
+}
+
+bool WorldModel::moveMember(const QString& characterId, int offset) {
+    const std::vector<std::string>& membres = _party.members();
+    const auto trouve = std::ranges::find(membres, characterId.toStdString());
+    if (trouve == membres.end() || offset == 0) {
+        return false;
+    }
+    const auto rang = static_cast<std::ptrdiff_t>(std::distance(membres.begin(), trouve));
+    const std::ptrdiff_t cible = rang + (offset < 0 ? -1 : 1);
+    if (cible < 0 || cible >= static_cast<std::ptrdiff_t>(membres.size())) {
+        return false;
+    }
+    static_cast<void>(_party.swap(static_cast<std::size_t>(rang), static_cast<std::size_t>(cible)));
+    applyParty();
+    return true;
+}
+
+QVariantMap WorldModel::candidateRow(const core::PartyCandidate& candidate) const {
+    const std::string figure = heroFigureOf(candidate.classId);
+    const std::filesystem::path portrait = dataDirectory() / "Assets" / figure / "portrait.png";
+    std::error_code erreur;
+    QVariantMap ligne;
+    ligne.insert(QStringLiteral("id"), QString::fromStdString(candidate.id));
+    ligne.insert(QStringLiteral("name"), QString::fromStdString(candidate.name));
+    ligne.insert(QStringLiteral("classId"), QString::fromStdString(candidate.classId));
+    ligne.insert(QStringLiteral("figure"), QString::fromStdString(figure));
+    // Sans portrait (la figurine de la classe n'est pas encore livree, LOT-136), le cadre prend
+    // son etat vide : un mannequin n'a pas de visage a montrer.
+    ligne.insert(QStringLiteral("portrait"),
+                 std::filesystem::is_regular_file(portrait, erreur)
+                     ? QUrl::fromLocalFile(QString::fromStdString(portrait.string()))
+                     : QUrl{});
+    ligne.insert(QStringLiteral("leader"), _party.leader() == candidate.id);
+    const std::vector<std::string>& membres = _party.members();
+    const auto rang = std::ranges::find(membres, candidate.id);
+    ligne.insert(
+        QStringLiteral("rank"),
+        rang != membres.end() ? static_cast<int>(std::distance(membres.begin(), rang)) : -1);
+    return ligne;
+}
+
+QVariantList WorldModel::partyMembers() const {
+    QVariantList lignes;
+    for (const std::string& membre : _party.members()) {
+        if (const core::PartyCandidate* const trouve = candidate(membre)) {
+            lignes.append(candidateRow(*trouve));
+        }
+    }
+    return lignes;
+}
+
+QVariantList WorldModel::partyCandidates() const {
+    QVariantList lignes;
+    for (const core::PartyCandidate& candidat : _candidates) {
+        lignes.append(candidateRow(candidat));
+    }
+    return lignes;
+}
+
+QString WorldModel::leaderId() const {
+    return QString::fromStdString(std::string{_party.leader()});
+}
+
+QString WorldModel::leaderName() const {
+    const core::PartyCandidate* const meneur = candidate(_party.leader());
+    return meneur != nullptr ? QString::fromStdString(meneur->name) : QString{};
+}
+
+QUrl WorldModel::leaderPortrait() const {
+    const core::PartyCandidate* const meneur = candidate(_party.leader());
+    return meneur != nullptr ? candidateRow(*meneur).value(QStringLiteral("portrait")).toUrl()
+                             : QUrl{};
+}
+
+std::filesystem::path WorldModel::leaderSheetFile() const {
+    const core::PartyCandidate* const meneur = candidate(_party.leader());
+    return meneur != nullptr ? meneur->file : std::filesystem::path{};
 }
 
 bool WorldModel::frozen() const {

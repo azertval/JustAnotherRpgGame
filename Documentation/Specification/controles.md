@@ -17,6 +17,10 @@ ou « retour », jamais à une touche en particulier.
 | Se déplacer (exploration) | ← ↑ → ↓, ZQSD ou WASD | — |
 | Interagir (`EX-CTRL-022`) | E ou Espace | — |
 | Pause (exploration) | Échap | — |
+| Passer la main au suivant du groupe (exploration, `EX-EXP-014`) | Tab | — |
+| Écran du groupe (exploration) | G | — |
+| Qui parle pour le groupe (dialogue, D-28) | Tab, Maj+Tab | — |
+| Groupe : prendre ou laisser, mener, avancer, reculer | Entrée, M, Page préc., Page suiv. | A, X, LB, RB |
 | Naviguer (écrans, combat) | ← ↑ → ↓ | Croix directionnelle |
 | Valider | Entrée | A |
 | Retour | Échap | B |

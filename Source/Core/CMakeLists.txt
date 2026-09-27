@@ -17,6 +17,7 @@ add_library(Core STATIC
     World/WorldGraph.cpp
     World/WorldTravel.cpp
     World/ExplorationSession.cpp
+    World/FollowTrail.cpp
     World/ExplorationReach.cpp
     World/CombatZone.cpp
     World/EntityPresence.cpp
@@ -65,6 +66,7 @@ add_library(Core STATIC
     Combat/TacticalTerrain.cpp
     Rpg/RpgEnumNames.cpp
     Rpg/Multiclassing.cpp
+    Rpg/Party.cpp
     Levels/TileMap.cpp
     Levels/TileLayer.cpp
     Levels/MapEntity.cpp

@@ -41,6 +41,7 @@ bool ExplorationSession::start(std::string_view mapId, std::string_view arrival)
     _hero = cellCenter(_travel.position());
     _lastCell = _travel.position();
     resetZones();
+    lineUpFollowers();
     return true;
 }
 
@@ -48,6 +49,48 @@ void ExplorationSession::placeHero(CellPoint point) noexcept {
     _hero = point;
     _lastCell = cellOf(point);
     resetZones();
+    lineUpFollowers();
+}
+
+void ExplorationSession::setFollowers(std::size_t count) {
+    _followers = count;
+    // La trace garde de quoi poser le dernier suiveur, et un peu plus : un point de trop coute
+    // moins qu'un suiveur qui attend au bout d'une trace trop courte.
+    _trail.keep((static_cast<float>(count) + 1.0F) * FollowTrail::SPACING_CELLS);
+    lineUpFollowers();
+}
+
+void ExplorationSession::lineUpFollowers() {
+    std::vector<TrailPoint> points{TrailPoint{_hero.column, _hero.row}};
+    if (_followers > 0 && map() != nullptr) {
+        // Dans le dos du heros, par petits pas, tant que son gabarit y tiendrait : ce qui est
+        // ainsi pose est un chemin qu'il aurait pu faire, et les suiveurs n'y sont jamais dans le
+        // plein. Un mur derriere lui arrete la file ; les derniers attendent sur le meme point,
+        // et se deplieront des qu'il marchera.
+        constexpr float PAS = 0.1F;
+        const float longueur = static_cast<float>(_followers) * FollowTrail::SPACING_CELLS;
+        const Vector2 dos =
+            (_facing.x == 0.0F && _facing.y == 0.0F) ? Vector2{0.0F, -1.0F} : -_facing.normalized();
+        for (float parcouru = PAS; parcouru <= longueur + (PAS / 2.0F); parcouru += PAS) {
+            const CellPoint essai{.column = _hero.column + (dos.x * parcouru),
+                                  .row = _hero.row + (dos.y * parcouru)};
+            if (!fits(essai)) {
+                break;
+            }
+            points.emplace_back(essai.column, essai.row);
+        }
+    }
+    _trail.reset(points);
+}
+
+CellPoint ExplorationSession::followerPoint(std::size_t rank) const {
+    const TrailPoint point =
+        _trail.pointBehind(static_cast<float>(rank + 1) * FollowTrail::SPACING_CELLS);
+    return {.column = point.x, .row = point.y};
+}
+
+Vector2 ExplorationSession::followerFacing(std::size_t rank) const {
+    return _trail.directionAt(static_cast<float>(rank + 1) * FollowTrail::SPACING_CELLS);
 }
 
 GridPosition ExplorationSession::aimedCell() const {
@@ -180,6 +223,7 @@ void ExplorationSession::arrived(std::vector<ExplorationEvent>& events) {
     _hero = cellCenter(_travel.position());
     _lastCell = _travel.position();
     resetZones();
+    lineUpFollowers();
     events.push_back(ExplorationEvent{
         .kind = ExplorationEventKind::MapEntered, .value = mapId(), .cell = _travel.position()});
 }
@@ -370,6 +414,9 @@ std::vector<ExplorationEvent> ExplorationSession::update(const ExplorationIntent
         return events;
     }
     walk(intent.move, seconds);
+    // Les suiveurs mettent leurs pas dans ceux du heros : la trace s'allonge de ce qu'il vient de
+    // faire, avant qu'un portail ne la remette a zero sur la carte d'arrivee.
+    _trail.record(TrailPoint{_hero.column, _hero.row});
     crossPortal(events);
     enterZones(events);
     if (intent.interact) {
