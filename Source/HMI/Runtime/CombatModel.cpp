@@ -416,12 +416,18 @@ QVariantList CombatModel::turnActions() const {
     const core::Combatant* combatant = _session->combat().find(*active);
     const bool action =
         combatant != nullptr && combatant->economy.remaining(core::ACTION_RESOURCE) > 0;
+    // Une attaque que l'action deja prise a laissee (Extra Attack, LOT-132) : les attaques
+    // restent proposees, et elles seules.
+    const bool extraAttack =
+        combatant != nullptr && combatant->economy.remaining(core::EXTRA_ATTACK_RESOURCE) > 0;
     const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
     for (std::size_t i = 0; i < entries.size(); ++i) {
         const bool needsAction = entries[i].kind != TurnActionKind::REACTION;
+        const bool affordable =
+            action || (extraAttack && entries[i].kind == TurnActionKind::ATTACK);
         list << QVariantMap{{"label", entries[i].label},
                             {"kind", kindName(entries[i].kind)},
-                            {"enabled", (!needsAction || action) && entries[i].available},
+                            {"enabled", (!needsAction || affordable) && entries[i].available},
                             {"selected", std::cmp_equal(i, _selectedAction)}};
     }
     return list;

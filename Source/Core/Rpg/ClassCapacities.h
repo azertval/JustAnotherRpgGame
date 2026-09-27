@@ -52,6 +52,9 @@ enum class CapacityEffectKind : std::uint8_t {
     /// Des dés ajoutés aux dégâts d'une attaque qui touche, du type de l'arme (*Sneak Attack*,
     /// *Deadly*).
     ExtraDamage,
+    /// Des attaques en plus quand le personnage prend l'action *Attaquer* (*Extra Attack*,
+    /// `LOT-132`).
+    ExtraAttack,
 };
 
 /// @brief Nom de donnée d'un genre d'effet (`attack-bonus`…), celui du schéma.
@@ -70,7 +73,7 @@ enum class CapacityEffectKind : std::uint8_t {
  */
 struct CapacityEffect {
     CapacityEffectKind kind = CapacityEffectKind::AttackBonus;
-    /// `AttackBonus`, `ArmorClassBonus` : le bonus.
+    /// `AttackBonus`, `ArmorClassBonus` : le bonus. `ExtraAttack` : les attaques ajoutées.
     int value = 0;
     /// `UnarmoredArmorClass` : la base de la formule.
     int base = 0;
@@ -181,5 +184,21 @@ struct NamedExtraDamage {
 
 /// @brief Les dés que les capacités ajoutent à une attaque qui touche.
 [[nodiscard]] std::vector<NamedExtraDamage> extraDamageFrom(std::span<const Capacity> capacities);
+
+/// @brief Des attaques en plus à l'action *Attaquer*, et la capacité qui les donne.
+struct NamedExtraAttacks {
+    /// Les attaques **ajoutées** à la première : 1 pour deux attaques par action.
+    int count = 0;
+    std::string source;
+};
+
+/**
+ * @brief Les attaques que les capacités ajoutent à l'action *Attaquer* (`LOT-132`).
+ *
+ * Deux capacités qui en donnent ne s'additionnent pas : la plus généreuse seule compte, comme le
+ * Manuel le dit des attaques supplémentaires de deux classes. `std::nullopt` si aucune n'en donne.
+ */
+[[nodiscard]] std::optional<NamedExtraAttacks> extraAttacksFrom(
+    std::span<const Capacity> capacities);
 
 }  // namespace core

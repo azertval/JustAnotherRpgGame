@@ -25,7 +25,7 @@ struct NomDeGenre {
 };
 
 // Les noms sont ceux de `capacity.schema.json` : le schema et le moteur doivent dire la meme liste.
-constexpr std::array<NomDeGenre, 7> GENRES{{
+constexpr std::array<NomDeGenre, 8> GENRES{{
     {CapacityEffectKind::AttackBonus, "attack-bonus"},
     {CapacityEffectKind::ArmorClassBonus, "armor-class-bonus"},
     {CapacityEffectKind::UnarmoredArmorClass, "unarmored-armor-class"},
@@ -33,6 +33,7 @@ constexpr std::array<NomDeGenre, 7> GENRES{{
     {CapacityEffectKind::SpeedBonus, "speed-bonus"},
     {CapacityEffectKind::NoOpportunityAttacks, "no-opportunity-attacks"},
     {CapacityEffectKind::ExtraDamage, "extra-damage"},
+    {CapacityEffectKind::ExtraAttack, "extra-attack"},
 }};
 
 [[nodiscard]] std::string lireTexte(const nlohmann::json& objet, const char* champ) {
@@ -85,10 +86,18 @@ constexpr std::array<NomDeGenre, 7> GENRES{{
     effet.kind = *lu;
     switch (effet.kind) {
         case CapacityEffectKind::AttackBonus:
-        case CapacityEffectKind::ArmorClassBonus: {
+        case CapacityEffectKind::ArmorClassBonus:
+        case CapacityEffectKind::ExtraAttack: {
             const std::optional<int> valeur = lireEntier(objet, "value");
             if (!valeur.has_value()) {
                 erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
+                return std::nullopt;
+            }
+            if (effet.kind == CapacityEffectKind::ExtraAttack && *valeur <= 0) {
+                // Zero attaque en plus serait une capacite nommee au journal qui ne fait rien.
+                erreurs.push_back(fichier + " : effet '" + genre +
+                                  "' dont 'value' n'est pas "
+                                  "positive.");
                 return std::nullopt;
             }
             effet.value = *valeur;
@@ -347,6 +356,20 @@ std::vector<NamedExtraDamage> extraDamageFrom(std::span<const Capacity> capaciti
         }
     }
     return des;
+}
+
+std::optional<NamedExtraAttacks> extraAttacksFrom(std::span<const Capacity> capacities) {
+    std::optional<NamedExtraAttacks> meilleure;
+    for (const Capacity& capacite : capacities) {
+        for (const CapacityEffect& effet : capacite.effects) {
+            // Deux sources d'attaques en plus ne s'additionnent pas : la plus genereuse compte.
+            if (effet.kind == CapacityEffectKind::ExtraAttack &&
+                (!meilleure.has_value() || effet.value > meilleure->count)) {
+                meilleure = NamedExtraAttacks{.count = effet.value, .source = capacite.name};
+            }
+        }
+    }
+    return meilleure;
 }
 
 }  // namespace core

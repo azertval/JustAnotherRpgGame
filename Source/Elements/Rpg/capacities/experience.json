@@ -1,0 +1,15 @@
+{
+  "id": "experience",
+  "name": "Experience",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (les quatre classes), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "narratif": true,
+  "mecanismesRequis": [
+    "choix-au-passage-de-niveau"
+  ],
+  "text": "Player's Guide to Tanares, p. 193, 198, 202 et 205. Aux niveaux 2, 10 et 18, le personnage gagne la maitrise d'une competence de son choix. Un choix du joueur au passage de niveau : rien ne joue en combat, et le moteur n'a pas encore d'ecran de passage de niveau."
+}

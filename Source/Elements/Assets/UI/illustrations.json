@@ -3649,5 +3649,16 @@
       "generator": "ImageGen (built-in image_gen), retouche ImageMagick"
     }
   ],
-  "pending": []
+  "pending": [
+    {
+      "keys": [
+        "ui/icon/capacity/tough-as-nails",
+        "ui/icon/capacity/experience",
+        "ui/icon/capacity/hit-the-mark",
+        "ui/icon/capacity/ability-score-improvement",
+        "ui/icon/capacity/extra-attack"
+      ],
+      "reason": "icônes du LOT-132 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
+    }
+  ]
 }

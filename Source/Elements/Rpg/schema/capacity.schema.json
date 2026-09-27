@@ -39,12 +39,13 @@
               "damage-resistance",
               "speed-bonus",
               "no-opportunity-attacks",
-              "extra-damage"
+              "extra-damage",
+              "extra-attack"
             ]
           },
           "value": {
             "type": "integer",
-            "description": "attack-bonus, armor-class-bonus : le bonus."
+            "description": "attack-bonus, armor-class-bonus : le bonus. extra-attack : les attaques ajoutees a l'action Attaquer (1 pour Extra Attack : deux attaques au lieu d'une)."
           },
           "base": {
             "type": "integer",

@@ -3473,6 +3473,48 @@
       "fallback": ["goldLight"]
     },
     {
+      "key": "ui/icon/capacity",
+      "name": "Capacités de classe",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "tough-as-nails",
+          "label": "Tough as Nails",
+          "prompt": "a clenched stone fist in front of a round shield"
+        },
+        {
+          "id": "experience",
+          "label": "Experience",
+          "prompt": "an open book with a small laurel sprig"
+        },
+        {
+          "id": "hit-the-mark",
+          "label": "Hit the Mark",
+          "prompt": "an axe blade striking the centre of a target"
+        },
+        {
+          "id": "ability-score-improvement",
+          "label": "Ability Score Improvement",
+          "prompt": "an upward arrow over a small star"
+        },
+        {
+          "id": "extra-attack",
+          "label": "Extra Attack",
+          "prompt": "two crossed axes with twin motion arcs"
+        }
+      ],
+      "description": "Les capacités des quatre classes simplifiées (LOT-132 à LOT-135) : une icône par capacité du catalogue `Rpg/capacities/`, l'identifiant du membre étant celui de la capacité. Elles se posent devant le nom de la capacité, sur la fiche et dans le combat. Aucune maquette ne les montre : elles prolongent les propriétés d'un sort.",
+      "prompt": "Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [],
+      "derivedFrom": "ui/icon/spell-property",
+      "screens": ["T3.4", "T4.1"],
+      "fallback": ["goldLight"]
+    },
+    {
       "key": "ui/icon/resource",
       "name": "Ressources",
       "material": "parchment",

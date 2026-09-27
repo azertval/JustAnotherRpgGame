@@ -1894,11 +1894,11 @@ Le Brawler pre-tire redonne chaque valeur de la page 195.
 - Vérifie que `fiche.speedMeters` vaut `9.0F` (comparaison flottante).
 - Vérifie que `perceptionPassive(fiche)` vaut `11`.
 - Vérifie que `fiche.languages` vaut `(std::set<std::string>{"common", "draconic", "orc"})`.
-- Vérifie que `classeDArmure(charge)` vaut `11`.
+- Vérifie que `classeDArmure(charge)` vaut `14`.
 
 ### PremadeCharactersTest.LeMageEstLaPage199
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:244`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:243`
 
 Le Mage pre-tire redonne chaque valeur de la page 199.
 
@@ -1921,7 +1921,7 @@ Le Mage pre-tire redonne chaque valeur de la page 199.
 
 ### PremadeCharactersTest.LePriestEstLaPage203
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:303`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:302`
 
 Le Priest pre-tire redonne chaque valeur de la page 203.
 
@@ -1945,7 +1945,7 @@ Le Priest pre-tire redonne chaque valeur de la page 203.
 
 ### PremadeCharactersTest.LeScoundrelEstLaPage207
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:364`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:363`
 
 Le Scoundrel pre-tire redonne chaque valeur de la page 207.
 
@@ -1971,7 +1971,7 @@ Le Scoundrel pre-tire redonne chaque valeur de la page 207.
 
 ### PremadeCharactersTest.LaTenaciteNaineCompteAChaqueNiveau
 
-*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:428`
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:427`
 
 Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque montee.
 
@@ -1991,7 +1991,7 @@ Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque mon
 
 ### PremadeCharactersTest.LeChoixDEspeceSAjouteSousLePlafond
 
-*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:458`
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:457`
 
 Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece, sans depasser le plafond.
 
@@ -2009,7 +2009,7 @@ Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece
 
 ### PremadeCharactersTest.UneSousEspeceHeriteDeSonParent
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:487`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:486`
 
 Le nain des collines est un nain : +2 de Constitution, le commun et le nain, la vision dans le noir, puis ce qui est le sien.
 

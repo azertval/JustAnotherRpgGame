@@ -47,8 +47,8 @@ struct Catalogues {
 [[nodiscard]] const Catalogues& catalogues() {
     static const Catalogues charges = [] {
         Catalogues lus;
-        lus.options =
-            core::loadCharacterOptions(RPG / "species", RPG / "backgrounds", RPG / "classes");
+        // Capacites et sorts compris (LOT-132) : la CA de la page 195 vient de Tough as Nails.
+        lus.options = core::loadCharacterOptions(RPG);
         lus.skills = core::loadSkills(RPG / "skills");
         lus.experience = core::loadExperienceTable(RPG / "rules" / "experience.json");
         lus.rules = core::loadCharacterCreationRules(RPG / "rules" / "character-creation.json");
@@ -186,8 +186,7 @@ void verifierLancer(const core::CharacterSheet& fiche, const char* arme, int nor
  * greataxe, handaxe et javelin.<br/>
  * \tattendu For 16 Dex 13 Con 16 Int 10 Sag 12 Cha 8 ; 15 PV ; initiative +1 ; 30 ft ; Perception
  * passive 11 ; sauvegardes +5 +1 +5 0 +1 -1 ; les cinq pastilles ; +5 au toucher partout, 1d12+3,
- * 1d6+3 lancer 20/60, 1d6+3 lancer 30/120. La CA du moteur est 11 : le 14 de la page vient de
- * Tough as Nails, capacite de classe du LOT-132 -- ecart ecrit.
+ * 1d6+3 lancer 20/60, 1d6+3 lancer 30/120 ; CA 14 par Tough as Nails (LOT-132).
  * }
  */
 TEST(PremadeCharactersTest, LeBrawlerEstLaPage195) {
@@ -203,9 +202,9 @@ TEST(PremadeCharactersTest, LeBrawlerEstLaPage195) {
     EXPECT_EQ(perceptionPassive(fiche), 11);
     EXPECT_EQ(fiche.languages, (std::set<std::string>{"common", "draconic", "orc"}));
 
-    // ECART ECRIT (registre du LOT-130) : la page imprime CA 14 = 10 + Dex 1 + Con 3, Tough as
-    // Nails ; le moteur ne joue pas encore les capacites de classe et donne la CA sans armure.
-    EXPECT_EQ(classeDArmure(charge), 11) << "sans Tough as Nails, la CA sans armure : 10 + Dex";
+    // Tough as Nails (LOT-132) : la page imprime CA 14 = 10 + Dex 1 + Con 3. L'ecart ecrit au
+    // registre du LOT-130 est referme.
+    EXPECT_EQ(classeDArmure(charge), 14) << "Tough as Nails : 10 + Dex 1 + Con 3";
 
     verifierSauvegardes(fiche, {5, 1, 5, 0, 1, -1});
     verifierCompetences(fiche, {

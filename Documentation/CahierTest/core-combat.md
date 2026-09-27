@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **120 cas** (33 bloquants, 55 critiques, 31 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **128 cas** (33 bloquants, 60 critiques, 34 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,6 +11,7 @@ Tests unitaires — **120 cas** (33 bloquants, 55 critiques, 31 majeurs, 1 mineu
 | [`test_arena.cpp`](#test-arenacpp) | 7 | 2 | 5 | - | - |
 | [`test_attack.cpp`](#test-attackcpp) | 9 | 3 | 4 | 2 | - |
 | [`test_battle_grid.cpp`](#test-battle-gridcpp) | 7 | 1 | 2 | 4 | - |
+| [`test_class_brawler.cpp`](#test-class-brawlercpp) | 8 | - | 5 | 3 | - |
 | [`test_class_in_arena.cpp`](#test-class-in-arenacpp) | 4 | - | 4 | - | - |
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
@@ -783,6 +784,182 @@ Un objet de grille bloque tant qu'il tient, puis se detruit.
 - Vérifie que `grille.isObstructed({2, 2})` est faux.
 - Vérifie que `grille.place(HEROS, {3, 3})` vaut `core::PlacementResult::Placed`.
 - Vérifie que `grille.placeObject({3, 3}, {.kind = "barricade"})` vaut `core::PlacementResult::Occupied`.
+
+## test_class_brawler.cpp
+
+### ClassBrawlerTest.LaFichePreTireePorteToughAsNails
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:60`
+
+La fiche de la page 195 se charge avec Tough as Nails et sa CA de 14.
+
+**Étapes**
+
+1. Charger heros-brawler.json.
+2. Lire ses capacites, ses avertissements, sa CA avec ce qu'il porte, et son profil de combat.
+
+**Résultat attendu**
+
+- Vérifie que `charge.warnings.empty()` est vrai.
+- Vérifie que `test_support::capacityIds(charge.sheet)` vaut `std::vector<std::string>{"tough-as-nails"}`.
+- Vérifie que `test_support::armorClassOf(charge.sheet, charge.inventory)` vaut `14`.
+- Vérifie que `profil.damageTraits.affinities.size()` vaut `13U`.
+- Vérifie que `profil.damageTraits.affinities.empty()` est faux.
+- Vérifie que `profil.damageTraits.affinities.front().source` vaut `"Tough as Nails"`.
+
+### ClassBrawlerTest.ToughAsNailsDonneSaCaSansArmure
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:83`
+
+La formule de Tough as Nails se recalcule avec ce que le Brawler porte.
+
+**Étapes**
+
+1. Calculer la CA du Brawler N1 sans rien, avec un bouclier, en cuir, en cuir avec bouclier.
+
+**Résultat attendu**
+
+- Vérifie que `bouclier` diffère de `nullptr`.
+- Vérifie que `cuir` diffère de `nullptr`.
+- Vérifie que `core::armorClassFor(fiche, catalogues.rules, nullptr, nullptr)` vaut `14`.
+- Vérifie que `core::armorClassFor(fiche, catalogues.rules, nullptr, bouclier)` vaut `16`.
+- Vérifie que `core::armorClassFor(fiche, catalogues.rules, cuir, nullptr)` vaut `12`.
+- Vérifie que `core::armorClassFor(fiche, catalogues.rules, cuir, bouclier)` vaut `14`.
+
+### ClassBrawlerTest.ToughAsNailsDiviseLesDegatsEtSeNomme
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:109`
+
+Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le journal ecrit « resistance (tranchant ; Tough as Nails) ».
+
+**Étapes**
+
+1. Monter le Brawler N1 contre un mannequin a +20 au toucher.
+2. Passer au tour du mannequin et attaquer ; graine choisie pour toucher.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `coup.has_value()` est vrai.
+- Vérifie que `journalHas(session.journal(), "capacites Grom Tranche-Écaille : Tough as Nails")` est vrai.
+- Vérifie que `ligne.find("resistance (tranchant ; Tough as Nails)")` diffère de `std::string::npos`.
+- Vérifie que `coup->report.has_value()` est vrai.
+- Vérifie que `coup->report->hitPointsBefore - coup->report->hitPointsAfter` vaut `lances / 2`.
+
+### ClassBrawlerTest.HitTheMarkAjouteDeuxAuJet
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:146`
+
+Au niveau 3, le jet de la hache porte « + 2 (Hit the Mark) » ; au niveau 2, non.
+
+**Étapes**
+
+1. Monter le Brawler N3, puis N2, contre un mannequin.
+2. Attaquer.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, 10, 0)).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `bonus` diffère de `modificateurs.end()`.
+- Vérifie que `bonus->value` vaut `2`.
+- Vérifie que `journalHas(session.journal(), "+ 2 (Hit the Mark)")` est vrai.
+- Vérifie que `bonus` vaut `modificateurs.end()`.
+
+### ClassBrawlerTest.ExtraAttackDonneDeuxAttaquesParAction
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:177`
+
+Au niveau 5, le Brawler attaque deux fois dans le tour ; la seconde est nommee au journal ; une troisieme est refusee, et l'action n'est plus la pour esquiver.
+
+**Étapes**
+
+1. Monter le Brawler N5 contre un mannequin.
+2. Attaquer trois fois, puis esquiver.
+3. Finir le tour, revenir, attaquer deux fois.
+4. Refaire au niveau 4.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, 10, 0)).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `session.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "attaque supplementaire Grom Tranche-Écaille (Extra Attack)")` est vrai.
+- Vérifie que `session.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::NoAction`.
+- Vérifie que `session.dodge()` est faux.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `session.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `session.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `test_support::journalCount(session.journal(), "attaque supplementaire")` vaut `2U`.
+- Vérifie que `avant.mount(combatDe(niveau4, 10, 0)).refusals.empty()` est vrai.
+- Vérifie que `avant.start()` est vrai.
+- Vérifie que `avant.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `avant.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::NoAction`.
+
+### ClassBrawlerTest.ExtraAttackNeSuitQueLActionAttaquer
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:217`
+
+Apres une esquive, le Brawler N5 n'attaque pas.
+
+**Étapes**
+
+1. Monter le Brawler N5.
+2. Esquiver, puis attaquer.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, 10, 0)).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.dodge()` est vrai.
+- Vérifie que `session.attack(CombatantId{2}).result` vaut `core::ArenaActionResult::NoAction`.
+- Vérifie que `session.combat().find(CombatantId{1})->economy.remaining(core::EXTRA_ATTACK_RESOURCE)` vaut `0`.
+
+### ClassBrawlerTest.DuNiveau1AuNiveau5LaTableSeLit
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:237`
+
+Monter le Brawler de la page 195 niveau par niveau donne les capacites de la table, sans capacite manquante.
+
+**Étapes**
+
+1. Charger la fiche N1.
+2. Monter d'un niveau a la fois jusqu'au 5, lire les capacites, le bonus de maitrise et les PV.
+
+**Résultat attendu**
+
+- Vérifie que `manquants.empty()` est vrai.
+- Vérifie que `fiche.level` vaut `niveau`.
+- Vérifie que `test_support::capacityIds(fiche)` vaut `attendues[static_cast<std::size_t>(niveau - 1)]`.
+- Vérifie que `fiche.maximumHitPoints - pvPrecedents` vaut `10`.
+- Vérifie que `test_support::armorClassOf(fiche, charge.inventory)` vaut `14`.
+- Vérifie que `core::proficiencyBonus(fiche, test_support::rpgCatalogs().experience)` vaut `3`.
+- Vérifie que `core::extraAttacksFrom(fiche.capacities).has_value()` est vrai.
+- Vérifie que `core::extraAttacksFrom(fiche.capacities)->count` vaut `1`.
+
+### ClassBrawlerTest.UneAttaqueEnPlusNulleEstRefusee
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:277`
+
+Une capacite qui declare « extra-attack » a 0 est refusee et nommee.
+
+**Étapes**
+
+1. Ecrire une capacite extra-attack a value 0 dans un dossier temporaire.
+2. Charger le dossier.
+
+**Résultat attendu**
+
+- Vérifie que `catalogue.capacities.empty()` est vrai.
+- Vérifie que `catalogue.errors.size()` vaut `1U`.
+- Vérifie que `catalogue.errors.front().find("vide.json")` diffère de `std::string::npos`.
 
 ## test_class_in_arena.cpp
 

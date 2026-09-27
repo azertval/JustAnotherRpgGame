@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-132 — Classe Brawler.** Le Brawler du *Player's Guide to Tanares* (p. 192-195) se joue
+  du niveau 1 au niveau 5 : ses capacités entrent au catalogue `Rpg/capacities/` et le moteur n'y
+  gagne qu'un genre d'effet. *Tough as Nails* (CA sans armure 10 + Dex + Con, bouclier permis ;
+  résistance à tous les types) rend à la fiche de la page 195 sa **CA 14** et referme l'écart n° 1
+  du registre du `LOT-130`. *Hit the Mark* (+2) se nomme au jet. *Extra Attack* est le nouvel effet
+  `extra-attack` : l'action *Attaquer* octroie des attaques que seul le même tour peut dépenser
+  (`EXTRA_ATTACK_RESOURCE`), nommées au journal (« attaque supplementaire … (Extra Attack) ») ; la
+  barre d'actions ne propose plus alors que les attaques. *Experience* et *Ability Score
+  Improvement*, communes aux quatre classes, sont narratives et déclarent leur mécanisme requis :
+  monter de 1 à 5 ne laisse plus d'avertissement. La pièce `ui/icon/capacity` entre au cahier de la
+  charte v2 ; ses cinq icônes sont marquées non livrées, en attente de génération.
+  Tests : `test_class_brawler.cpp`, sur le support partagé `Test/Support/ClassArena.h`.
 - **LOT-131 — Le socle de classe simplifiée.** Une classe est une donnée qui agit en combat sans
   une ligne de C++ qui la nomme. Les **capacités** sont un catalogue d'**effets nommés**
   (`Rpg/capacities/`, `capacity.schema.json`, sept genres : bonus au jet, bonus de CA, formule de CA
