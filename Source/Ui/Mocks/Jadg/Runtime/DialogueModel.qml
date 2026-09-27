@@ -13,6 +13,14 @@ QtObject {
     property int seed: 0
     readonly property string speakerName: "Le garde Ironhand"
     readonly property string partyVoice: "Grom Tranche-Écaille"
+    readonly property string voiceId: "heros-brawler"
+    readonly property url voicePortrait: ""
+    readonly property var voices: [
+        { id: "heros-brawler", name: "Grom Tranche-Écaille", portrait: "", current: true },
+        { id: "heros-priest", name: "Helga Pierre-Sûre", portrait: "", current: false }
+    ]
+    function selectVoice(characterId) { return true }
+    function cycleVoice(step) {}
     readonly property string attitude: "Indifférent"
     readonly property string line: "Circulez. Ce gamin a volé sur un étal du marché, et l'Arena of Fate juge les voleurs comme les autres. Le sable décidera."
     readonly property string checkOutcome: ""

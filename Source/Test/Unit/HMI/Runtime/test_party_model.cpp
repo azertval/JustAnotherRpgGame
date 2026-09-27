@@ -84,9 +84,9 @@ void fuir(hmi::EncounterModel& rencontre) {
  * \tetapes 1. Nouvelle partie dans le donjon d'essai.<br/>
  * 2. Passer la main au suivant (la touche `Tab`).<br/>
  * 3. Ouvrir un dialogue.<br/>
- * \tattendu Au depart, le Brawler mene, avec sa figurine et son portrait, suivi du Mage, du Priest
- * et du Scoundrel ; apres, le Mage mene : sa figurine (celle de sa classe), un autre portrait, le
- * Brawler passe en queue ; le dialogue parle par Faelar Trace-Carte.
+ * \tattendu Au depart, le groupe preforme : le Brawler mene, avec sa figurine et son portrait,
+ * suivi du Priest, du Scoundrel et du Mage ; apres, le Priest mene : sa figurine (celle de sa
+ * classe), un autre portrait, le Brawler passe en queue ; le dialogue parle par Helga Pierre-Sure.
  * }
  */
 TEST(PartyModelTest, ChangerDeMeneurChangeLaFigurineEtLePortrait) {
@@ -94,13 +94,13 @@ TEST(PartyModelTest, ChangerDeMeneurChangeLaFigurineEtLePortrait) {
     ouvrirLeDonjon(monde);
 
     EXPECT_EQ(identifiants(monde.partyMembers()),
-              (QStringList{"heros-brawler", "heros-mage", "heros-priest", "heros-scoundrel"}));
+              (QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"}));
     EXPECT_EQ(monde.leaderId(), QStringLiteral("heros-brawler"));
     EXPECT_EQ(monde.heroFigure(), QStringLiteral("Common/Characters/Heroes/brawler"));
     EXPECT_EQ(monde.play().followerFigures(),
-              (std::vector<std::string>{"Common/Characters/Heroes/mage",
-                                        "Common/Characters/Heroes/priest",
-                                        "Common/Characters/Heroes/scoundrel"}));
+              (std::vector<std::string>{"Common/Characters/Heroes/priest",
+                                        "Common/Characters/Heroes/scoundrel",
+                                        "Common/Characters/Heroes/mage"}));
     const std::filesystem::path portraitDuBrawler =
         hmi::dataDirectory() / "Assets" / "Common/Characters/Heroes/brawler/portrait.png";
     const QUrl avant = monde.leaderPortrait();
@@ -112,9 +112,9 @@ TEST(PartyModelTest, ChangerDeMeneurChangeLaFigurineEtLePortrait) {
     QObject::connect(&monde, &hmi::WorldModel::partyChanged, [&annonces]() { ++annonces; });
     ASSERT_TRUE(monde.rotateLeader());
     EXPECT_EQ(annonces, 1);
-    EXPECT_EQ(monde.leaderId(), QStringLiteral("heros-mage"));
-    EXPECT_EQ(monde.leaderName(), QStringLiteral("Faelar Trace-Carte"));
-    EXPECT_EQ(monde.heroFigure(), QStringLiteral("Common/Characters/Heroes/mage"));
+    EXPECT_EQ(monde.leaderId(), QStringLiteral("heros-priest"));
+    EXPECT_EQ(monde.leaderName(), QStringLiteral("Helga Pierre-Sûre"));
+    EXPECT_EQ(monde.heroFigure(), QStringLiteral("Common/Characters/Heroes/priest"));
     EXPECT_EQ(monde.play().followerFigures().back(), "Common/Characters/Heroes/brawler");
     EXPECT_NE(monde.leaderPortrait(), avant);
 
@@ -129,7 +129,60 @@ TEST(PartyModelTest, ChangerDeMeneurChangeLaFigurineEtLePortrait) {
     EXPECT_EQ(suiveurs, 3U);
 
     hmi::DialogueModel dialogue;
-    EXPECT_EQ(dialogue.partyVoice(), QStringLiteral("Faelar Trace-Carte"));
+    EXPECT_EQ(dialogue.partyVoice(), QStringLiteral("Helga Pierre-Sûre"));
+}
+
+/**
+ * @brief Le joueur choisit qui parle pour le groupe, et c'est lui qui jette (D-28).
+ * \castest{<b>Dans le dialogue, le menu du bas donne la parole a un membre du groupe : le jet de
+ * Persuasion se fait avec ses modificateurs.</b><br/>
+ * \tcat Unitaire · Groupe<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ouvrir le dialogue du garde a la graine 7 : le meneur (Grom, Charisme 8) parle ;
+ * tenter de le convaincre.<br/>
+ * 2. Rouvrir a la meme graine, donner la parole a Nessa (Charisme 13), tenter de nouveau.<br/>
+ * \tattendu Quatre voix, le meneur d'abord et choisi ; le meme d20 les deux fois, mais un total
+ * plus haut pour Nessa ; un personnage hors du groupe ne prend pas la parole.
+ * }
+ */
+TEST(PartyModelTest, LeJoueurChoisitQuiParle) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+
+    const auto jet = [](const QString& voix, QString& de) {
+        hmi::DialogueModel dialogue;
+        dialogue.setSeed(7);
+        dialogue.setDialogueId(QStringLiteral("garde"));
+        if (!voix.isEmpty()) {
+            EXPECT_TRUE(dialogue.selectVoice(voix));
+        }
+        EXPECT_FALSE(dialogue.selectVoice(QStringLiteral("heros-inconnu")));
+        dialogue.chooseAt(0);  // convaincre : le jet de Persuasion
+        de = dialogue.checkDie();
+        const QString detail = dialogue.checkDetail();
+        return detail.section(QLatin1Char('='), -1).trimmed().toInt();
+    };
+
+    {
+        hmi::DialogueModel dialogue;
+        const QVariantList voix = dialogue.voices();
+        ASSERT_EQ(voix.size(), 4);
+        EXPECT_TRUE(voix.front().toMap().value(QStringLiteral("current")).toBool());
+        EXPECT_EQ(dialogue.voiceId(), QStringLiteral("heros-brawler"));
+        dialogue.cycleVoice(-1);
+        EXPECT_EQ(dialogue.voiceId(), QStringLiteral("heros-mage")) << "le precedent du premier";
+    }
+
+    QString deDeGrom;
+    QString deDeNessa;
+    const int totalDeGrom = jet({}, deDeGrom);
+    // Le drapeau d'echec eventuel du premier essai ne doit pas aiguiller le second.
+    monde.endGame();
+    ouvrirLeDonjon(monde);
+    const int totalDeNessa = jet(QStringLiteral("heros-scoundrel"), deDeNessa);
+    ASSERT_FALSE(deDeGrom.isEmpty());
+    EXPECT_EQ(deDeGrom, deDeNessa);
+    EXPECT_GT(totalDeNessa, totalDeGrom);
 }
 
 /**
@@ -213,8 +266,8 @@ TEST(PartyModelTest, LEcranDeGroupeCompose) {
     EXPECT_FALSE(groupe.moveMember(QStringLiteral("heros-brawler"), 1)) << "deja en queue";
     EXPECT_EQ(groupe.leaderName(), QStringLiteral("Nessa Double-Vie"));
 
-    // Une partie neuve rend le groupe de depart.
+    // Une partie neuve rend le groupe preforme.
     monde.endGame();
     EXPECT_EQ(identifiants(monde.partyMembers()),
-              (QStringList{"heros-brawler", "heros-mage", "heros-priest", "heros-scoundrel"}));
+              (QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"}));
 }

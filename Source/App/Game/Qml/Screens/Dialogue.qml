@@ -49,9 +49,10 @@ DialogueForm {
     }
 
     speakerName: conversation.speakerName
-    // Le meneur parle pour le groupe, et jette (LOT-138, Q-06).
+    // Le joueur choisit qui parle pour le groupe, et jette (LOT-138, D-28) : le menu du bas, `Tab`.
     voiceName: conversation.partyVoice
-    voicePortraitSource: WorldModel.leaderPortrait
+    voices: conversation.voices
+    onVoiceChosen: (voiceId) => conversation.selectVoice(voiceId)
     attitude: conversation.attitude
     line: conversation.line
     checkOutcome: conversation.checkOutcome
@@ -76,6 +77,12 @@ DialogueForm {
 
     Keys.onEscapePressed: ScreenRouter.closeRpgScreen()
     Keys.onPressed: (event) => {
+        // Qui parle pour le groupe (LOT-138, D-28) : le suivant, ou le precedent.
+        if (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab) {
+            root.conversation.cycleVoice(event.key === Qt.Key_Tab ? 1 : -1);
+            event.accepted = true;
+            return;
+        }
         if (event.key >= Qt.Key_1 && event.key <= Qt.Key_9) {
             root.conversation.chooseAt(event.key - Qt.Key_1);
             event.accepted = true;

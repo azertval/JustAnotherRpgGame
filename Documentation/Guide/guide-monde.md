@@ -204,7 +204,7 @@ répété, le geste fait le tour du groupe), `swap` échange deux rangs.
 
 `core::loadPartyCandidates` lit les fiches de `Rpg/characters/` **sans les construire** — un
 identifiant, un nom, une classe, un fichier — et `core::defaultParty` en forme le groupe de
-départ : les quatre fiches pré-tirées, le Brawler en tête.
+départ dans l'ordre qu'on lui donne : Brawler, Priest, Scoundrel, Mage.
 
 ### Qui suit : la trace du meneur
 
@@ -229,9 +229,15 @@ Les suiveurs ne franchissent rien, n'entrent dans aucune zone et n'interagissent
 `toggleMember`, `moveMember`) et le donne à `hmi::WorldPlay` : la figurine du meneur est celle de
 sa classe (`Common/Characters/Heroes/<classe>`, `heroFigureOf`), celles des suiveurs aussi, et une
 classe sans figurine prend le mannequin humanoïde (`LOT-145`). `hmi::playedCharacterFile` désigne
-la fiche du meneur, que lisent la fiche, l'inventaire, le dialogue (sa voix et ses jets, Q-06) et
-le combat sur la carte (`hmi::EncounterModel` relit son héros quand le meneur change).
+la fiche du meneur, que lisent la fiche, l'inventaire et le combat sur la carte (`hmi::EncounterModel` relit son héros quand le meneur change).
 `hmi::PartyModel` lit les fiches des quatre pour l'écran **Groupe** et l'affichage tête haute.
+
+Le **dialogue** lit le groupe entier (`hmi::DialogueModel::voices`) : le meneur parle à
+l'ouverture, et le joueur donne la parole à un autre membre dans le menu du bas (`selectVoice`,
+`cycleVoice`, D-28). L'écouteur du runner ne change pas — le runner en tient une référence — : il
+délègue au personnage qui parle, qu'on remplace. Le prochain jet se fait avec ses modificateurs.
+Le groupe d'une partie neuve est imposé : `hmi::WorldModel::STARTING_PARTY`, passé à
+`core::defaultParty`.
 
 ## Les faits de la partie : `core::WorldFlags`
 

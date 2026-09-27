@@ -19,16 +19,27 @@ import Jadg.Ui
     s'affiche quand le dernier geste n'a rien jete (`checkTitle` vide). Un jet deja rate ne relance
     pas le de : le losange porte alors un tiret.
 
-    LE GROUPE PARLE PAR SON MENEUR (LOT-138). Sous l'interlocuteur, le portrait et le nom de celui
-    qui repond pour le groupe -- et qui jette les des : changer de meneur change ce visage-la.
+    LE JOUEUR CHOISIT QUI PARLE (LOT-138, D-28). Le menu du bas aligne les membres du groupe, dans
+    l'ordre de marche : celui qui parle porte la marque (EX-IHM-071) et jette les des, avec ses
+    modificateurs. Le meneur parle a l'ouverture. Cliquer un membre emet `voiceChosen(id)`.
 */
 ScreenPage {
     id: root
 
     property url portraitSource: ""
-    /// Le meneur du groupe, qui parle et jette les des : son portrait et son nom.
-    property url voicePortraitSource: ""
+    /// Les membres du groupe qui peuvent parler : `id`, `name`, `portrait`, `current`.
+    property var voices: exampleVoices
+    /// Celui qui parle pour le groupe, et jette les des.
     property string voiceName: "Grom Tranche-Écaille"
+
+    signal voiceChosen(string voiceId)
+
+    readonly property var exampleVoices: [
+        { id: "heros-brawler", name: "Grom Tranche-Écaille", portrait: "", current: true },
+        { id: "heros-priest", name: "Helga Pierre-Sûre", portrait: "", current: false },
+        { id: "heros-scoundrel", name: "Nessa Double-Vie", portrait: "", current: false },
+        { id: "heros-mage", name: "Faelar Trace-Carte", portrait: "", current: false }
+    ]
     property var replies: exampleReplies
     property string line: "Vous arrivez tard, et par la mauvaise route. Ceux qui viennent par là ont d'ordinaire quelque chose à cacher — ou quelqu'un à fuir. Lequel des deux, pour vous ?"
     property string speakerName: "—"
@@ -51,176 +62,219 @@ ScreenPage {
     title: qsTr("Dialogue")
     material: "parchment"
 
-    RowLayout {
+    ColumnLayout {
         anchors.fill: parent
-        spacing: Tokens.gapLarge
+        spacing: Tokens.gapMedium
 
-        ColumnLayout {
-            Layout.alignment: Qt.AlignTop
+        RowLayout {
             Layout.fillWidth: true
-            Layout.preferredWidth: 1
-            spacing: Tokens.gapMedium
+            Layout.fillHeight: true
+            spacing: Tokens.gapLarge
 
-            PortraitFrame {
-                Layout.alignment: Qt.AlignHCenter
-                shape: "square"
-                size: 360 * Tokens.uiScale
-                source: root.portraitSource
-            }
-
-            FieldRow {
+            ColumnLayout {
+                Layout.alignment: Qt.AlignTop
                 Layout.fillWidth: true
-                label: qsTr("Nom")
-                value: root.speakerName
-            }
-
-            FieldRow {
-                Layout.fillWidth: true
-                label: qsTr("Attitude")
-                value: root.attitude
-            }
-
-            Row {
-                Layout.fillWidth: true
-                Layout.topMargin: Tokens.gapMedium
+                Layout.preferredWidth: 1
                 spacing: Tokens.gapMedium
 
                 PortraitFrame {
+                    Layout.alignment: Qt.AlignHCenter
                     shape: "square"
-                    size: 120 * Tokens.uiScale
-                    source: root.voicePortraitSource
-                    active: true
+                    size: 360 * Tokens.uiScale
+                    source: root.portraitSource
                 }
 
-                Column {
-                    anchors.verticalCenter: parent.verticalCenter
-                    spacing: Tokens.gapSmall / 2
+                FieldRow {
+                    Layout.fillWidth: true
+                    label: qsTr("Nom")
+                    value: root.speakerName
+                }
 
-                    Text {
-                        text: qsTr("Pour le groupe")
-                        color: Tokens.textMuted
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
+                FieldRow {
+                    Layout.fillWidth: true
+                    label: qsTr("Attitude")
+                    value: root.attitude
+                }
+            }
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredWidth: 2
+                spacing: Tokens.gapLarge
+
+                PanelFrame {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 340 * Tokens.uiScale
+                    material: "parchment"
+                    subpanel: true
+
+                    SectionBanner {
+                        id: lineBanner
+
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        text: qsTr("Réplique")
+                    }
+
+                    Row {
+                        id: checkRow
+
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: lineBanner.bottom
+                        anchors.topMargin: Tokens.gapSmall
+                        visible: root.checkTitle.length > 0
+                        height: visible ? dieBadge.height : 0
+                        spacing: Tokens.gapMedium
+
+                        // Le d20 : un losange, le de tire au centre.
+                        Item {
+                            id: dieBadge
+
+                            width: 64 * Tokens.uiScale
+                            height: 64 * Tokens.uiScale
+
+                            Rectangle {
+                                anchors.centerIn: parent
+                                width: parent.width * 0.7
+                                height: parent.height * 0.7
+                                rotation: 45
+                                color: Tokens.panelRaised
+                                border.color: root.checkSucceeded ? Tokens.goldLight : Tokens.gemLight
+                                border.width: Tokens.strokeWidth * 2
+                            }
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: root.checkDie.length > 0 ? root.checkDie : "–"
+                                color: Tokens.textOnPanel
+                                font.family: Tokens.titleFamily
+                                font.pixelSize: Tokens.fontSectionTitle
+                                font.bold: true
+                            }
+                        }
+
+                        Column {
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: parent.width - dieBadge.width - parent.spacing
+                            spacing: Tokens.gapSmall / 2
+
+                            Text {
+                                width: parent.width
+                                text: root.checkTitle
+                                color: Tokens.text
+                                font.family: Tokens.titleFamily
+                                font.pixelSize: Tokens.fontBody
+                                font.bold: true
+                                elide: Text.ElideRight
+                            }
+
+                            Text {
+                                width: parent.width
+                                text: root.checkDetail + "  —  " + root.checkVerdict
+                                color: root.checkSucceeded ? Tokens.success : Tokens.error
+                                font.family: Tokens.bodyFamily
+                                font.pixelSize: Tokens.fontBody
+                                elide: Text.ElideRight
+                            }
+                        }
                     }
 
                     Text {
-                        text: root.voiceName
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: checkRow.bottom
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: Tokens.gapMedium
+                        text: root.line
                         color: Tokens.text
-                        font.family: Tokens.titleFamily
-                        font.pixelSize: Tokens.fontBody
-                        font.bold: true
+                        font.family: Tokens.loreFamily
+                        font.italic: true
+                        font.pixelSize: Tokens.fontSectionTitle
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
                     }
+                }
+
+                LedgerList {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    title: qsTr("Réponses")
+                    rows: root.replies
+                    interactive: true
+                    onRowActivated: (rowId) => root.replyChosen(rowId)
                 }
             }
         }
 
-        ColumnLayout {
+        // --- Qui parle pour le groupe (LOT-138, D-28) ---------------------------------------------
+        Row {
             Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredWidth: 2
-            spacing: Tokens.gapLarge
+            spacing: Tokens.gapMedium
 
-            PanelFrame {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 340 * Tokens.uiScale
-                material: "parchment"
-                subpanel: true
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("Parle pour le groupe :")
+                color: Tokens.textMuted
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontCaption
+            }
 
-                SectionBanner {
-                    id: lineBanner
+            Repeater {
+                model: root.voices
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    text: qsTr("Réplique")
-                }
+                Item {
+                    id: voice
 
-                Row {
-                    id: checkRow
+                    required property var modelData
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: lineBanner.bottom
-                    anchors.topMargin: Tokens.gapSmall
-                    visible: root.checkTitle.length > 0
-                    height: visible ? dieBadge.height : 0
-                    spacing: Tokens.gapMedium
+                    width: voiceRow.implicitWidth + Tokens.gapMedium
+                    height: 88 * Tokens.uiScale
 
-                    // Le d20 : un losange, le de tire au centre.
-                    Item {
-                        id: dieBadge
+                    Row {
+                        id: voiceRow
 
-                        width: 64 * Tokens.uiScale
-                        height: 64 * Tokens.uiScale
-
-                        Rectangle {
-                            anchors.centerIn: parent
-                            width: parent.width * 0.7
-                            height: parent.height * 0.7
-                            rotation: 45
-                            color: Tokens.panelRaised
-                            border.color: root.checkSucceeded ? Tokens.goldLight : Tokens.gemLight
-                            border.width: Tokens.strokeWidth * 2
-                        }
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: root.checkDie.length > 0 ? root.checkDie : "–"
-                            color: Tokens.textOnPanel
-                            font.family: Tokens.titleFamily
-                            font.pixelSize: Tokens.fontSectionTitle
-                            font.bold: true
-                        }
-                    }
-
-                    Column {
                         anchors.verticalCenter: parent.verticalCenter
-                        width: parent.width - dieBadge.width - parent.spacing
-                        spacing: Tokens.gapSmall / 2
+                        spacing: Tokens.gapSmall
 
-                        Text {
-                            width: parent.width
-                            text: root.checkTitle
-                            color: Tokens.text
-                            font.family: Tokens.titleFamily
-                            font.pixelSize: Tokens.fontBody
-                            font.bold: true
-                            elide: Text.ElideRight
+                        // Celui qui parle se signale par une marque, pas par sa seule teinte.
+                        FocusMark {
+                            anchors.verticalCenter: parent.verticalCenter
+                            opacity: voice.modelData.current ? 1 : 0
+                        }
+
+                        PortraitFrame {
+                            anchors.verticalCenter: parent.verticalCenter
+                            shape: "square"
+                            size: 80 * Tokens.uiScale
+                            source: voice.modelData.portrait
+                            active: voice.modelData.current
                         }
 
                         Text {
-                            width: parent.width
-                            text: root.checkDetail + "  —  " + root.checkVerdict
-                            color: root.checkSucceeded ? Tokens.success : Tokens.error
-                            font.family: Tokens.bodyFamily
-                            font.pixelSize: Tokens.fontBody
-                            elide: Text.ElideRight
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: voice.modelData.name
+                            color: voice.modelData.current ? Tokens.text : Tokens.textMuted
+                            font.family: Tokens.titleFamily
+                            font.pixelSize: Tokens.fontCaption
+                            font.bold: voice.modelData.current
                         }
                     }
-                }
 
-                Text {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: checkRow.bottom
-                    anchors.bottom: parent.bottom
-                    anchors.topMargin: Tokens.gapMedium
-                    text: root.line
-                    color: Tokens.text
-                    font.family: Tokens.loreFamily
-                    font.italic: true
-                    font.pixelSize: Tokens.fontSectionTitle
-                    wrapMode: Text.WordWrap
-                    elide: Text.ElideRight
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: root.voiceChosen(voice.modelData.id)
+                    }
                 }
             }
 
-            LedgerList {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                title: qsTr("Réponses")
-                rows: root.replies
-                interactive: true
-                onRowActivated: (rowId) => root.replyChosen(rowId)
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("Tab : changer")
+                color: Tokens.textMuted
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontCaption
             }
         }
     }

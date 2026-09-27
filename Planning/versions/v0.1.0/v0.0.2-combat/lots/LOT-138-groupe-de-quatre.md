@@ -25,8 +25,9 @@ sources = [
 ## Questions ouvertes
 
 - Qui fait le jet de Persuasion : le meneur, ou le plus doué ? Le *Manuel* laisse le choix au
-  joueur ; proposé : **le meneur**, ce qui donne un sens à son choix. **Réalisé selon la
-  proposition** (Q-06, à confirmer par l'auteur) : le meneur parle et jette.
+  joueur ; proposé : **le meneur**, ce qui donne un sens à son choix. **Tranché par l'auteur**
+  (D-28) : **le joueur choisit** qui parle, dans un menu en bas du dialogue ; le meneur parle à
+  l'ouverture.
 
 ## Décisions de réalisation
 
@@ -48,26 +49,30 @@ Réalisé le 27 septembre 2026 (exigences `EX-EXP-013`, `EX-EXP-014`), **PR #153
    son gabarit y tiendrait ; un mur l'arrête, et les derniers attendent sur le dernier point libre
    jusqu'à ce que le meneur marche. Même chose au retour d'un combat (`placeHero`).
 4. **Le meneur partout.** `hmi::playedCharacterFile` désigne sa fiche : la fiche et l'inventaire
-   s'ouvrent sur lui, le dialogue parle par lui et **jette avec ses modificateurs** (Q-06), le
-   combat sur la carte le met en jeu (`hmi::EncounterModel` relit son héros quand le meneur
-   change). Le portrait du dialogue — une nouvelle place sous l'interlocuteur, « Pour le groupe » —
-   et celui de l'affichage tête haute sont les siens.
-5. **La figurine d'un membre est celle de sa classe** (`Common/Characters/Heroes/<classe>`), la
+   s'ouvrent sur lui, le combat sur la carte le met en jeu (`hmi::EncounterModel` relit son héros
+   quand le meneur change), le portrait de l'affichage tête haute est le sien.
+5. **Le joueur choisit qui parle** (D-28, décision de l'auteur). Le dialogue lit le groupe entier :
+   un menu en bas de l'écran aligne les membres, portrait et nom, dans l'ordre de marche ; le
+   meneur parle à l'ouverture, `Tab` (ou le clic) donne la parole au suivant, et celui qui parle
+   **jette avec ses modificateurs** — ses langues aussi comptent. L'écouteur du runner reste le
+   même et délègue au personnage qui parle.
+6. **La figurine d'un membre est celle de sa classe** (`Common/Characters/Heroes/<classe>`), la
    convention de l'arborescence (`LOT-124`), sans champ nouveau dans la fiche. Seul le Brawler a
    la sienne ; les trois autres prennent le **mannequin humanoïde** (`LOT-145`) et n'ont pas de
    portrait — le cadre prend son état vide — jusqu'au `LOT-136`. `--hero-figure=` impose encore
    une figurine au meneur, quel qu'il soit.
-6. **Passer la main : `Tab`**, qui met le suivant en tête et le meneur en queue — quatre appuis
+7. **Passer la main : `Tab`**, qui met le suivant en tête et le meneur en queue — quatre appuis
    font le tour, là où échanger les deux premiers ferait un va-et-vient. La figurine menée change
    sous la main, la caméra reste où elle est.
-7. **L'écran Groupe** (`G` depuis la carte, dixième écran du RPG, `RpgScreenId::Party`) montre
+8. **L'écran Groupe** (`G` depuis la carte, dixième écran du RPG, `RpgScreenId::Party`) montre
    l'ordre de marche et les quatre fiches (espèce, classe, niveau, PV, CA, vitesse) ; il prend et
    laisse (`Entrée`, `A`), fait mener (`M`, `X`), avance et recule dans l'ordre de marche (`Page
-   préc.`/`Page suiv.`, `LB`/`RB`). « Nouvelle partie » ne l'impose pas : le groupe de départ
-   compte les quatre fiches, le Brawler en tête, et la démo se joue comme avant.
-8. **L'affichage tête haute** remplit la case du groupe, réservée depuis le `LOT-67` : les membres,
+   préc.`/`Page suiv.`, `LB`/`RB`). « Nouvelle partie » **impose le groupe préformé** (décision
+   de l'auteur, D-28) : Brawler, Priest, Scoundrel, Mage, dans cet ordre de marche
+   (`hmi::WorldModel::STARTING_PARTY`) ; la démo se joue avec Grom en tête.
+9. **L'affichage tête haute** remplit la case du groupe, réservée depuis le `LOT-67` : les membres,
    meneur en tête et marqué, et le portrait principal au meneur.
-9. **Le groupe appartient à la partie** (`hmi::WorldModel`) : `endGame` rend le groupe de départ.
+10. **Le groupe appartient à la partie** (`hmi::WorldModel`) : `endGame` rend le groupe de départ.
    `hmi::PartyModel` lit les fiches des quatre — les catalogues une fois
    (`hmi::loadCharacterValues`) — et passe chaque geste à la partie.
 
@@ -75,11 +80,12 @@ Tests : `test_party.cpp` (composition, meneur, ordre de marche, les quatre fiche
 `test_exploration_session.cpp` (trois suiveurs passent les deux angles d'un U sans entrer dans le
 mur ; la file se range dans le dos du meneur ; la trace se mesure le long du chemin),
 `test_party_model.cpp` (changer de meneur change la figurine menée, le portrait et la voix du
-dialogue ; le meneur combat ; l'écran de groupe compose).
+dialogue ; le joueur choisit qui parle, et le jet prend ses modificateurs ; le meneur combat ;
+l'écran de groupe compose).
 
 **Reste à la main de l'auteur** : parcourir une carte à quatre et voir les suiveurs marcher et se
 tourner — la figurine du Brawler, les mannequins des trois autres ; passer la main par `Tab` ;
-ouvrir l'écran Groupe au clavier et à la manette.
+ouvrir l'écran Groupe au clavier et à la manette ; changer de voix dans un dialogue.
 
 ## Ce qui n'est pas ici
 

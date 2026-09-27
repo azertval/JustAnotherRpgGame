@@ -141,9 +141,15 @@ struct PartyCandidates {
 [[nodiscard]] PartyCandidates loadPartyCandidates(const std::filesystem::path& directory);
 
 /**
- * @brief Le groupe d'une partie neuve : les @ref Party::MAX_MEMBERS premiers de @p candidates,
- *        dans leur ordre — les quatre fiches pré-tirées, le Brawler en tête (`LOT-112`).
+ * @brief Le groupe d'une partie neuve : d'abord ceux de @p order présents parmi @p candidates,
+ *        dans cet ordre, puis les autres candidats dans le leur, jusqu'à
+ *        @ref Party::MAX_MEMBERS.
+ *
+ * Le jeu impose le groupe préformé (`hmi::WorldModel::STARTING_PARTY`) : Brawler, Priest,
+ * Scoundrel, Mage — décision de l'auteur, `LOT-138`. Un identifiant de @p order absent du dossier
+ * est sauté.
  */
-[[nodiscard]] Party defaultParty(const std::vector<PartyCandidate>& candidates);
+[[nodiscard]] Party defaultParty(const std::vector<PartyCandidate>& candidates,
+                                 const std::vector<std::string>& order = {});
 
 }  // namespace core

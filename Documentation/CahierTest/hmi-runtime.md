@@ -1,13 +1,13 @@
 # HMI · Runtime
 
-Tests unitaires — **6 cas** (2 bloquants, 2 critiques, 2 majeurs). [Retour à la synthèse](README.md).
+Tests unitaires — **7 cas** (2 bloquants, 3 critiques, 2 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 3 | 1 | - | 2 | - |
-| [`test_party_model.cpp`](#test-party-modelcpp) | 3 | 1 | 2 | - | - |
+| [`test_party_model.cpp`](#test-party-modelcpp) | 4 | 1 | 3 | - | - |
 
 ## Exigences vérifiées par cette page
 
@@ -128,26 +128,49 @@ Le groupe de depart compte les quatre fiches pre-tirees ; passer la main change 
 
 **Résultat attendu**
 
-- Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-mage", "heros-priest", "heros-scoundrel"})`.
+- Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"})`.
 - Vérifie que `monde.leaderId()` vaut `QStringLiteral("heros-brawler")`.
 - Vérifie que `monde.heroFigure()` vaut `QStringLiteral("Common/Characters/Heroes/brawler")`.
-- Vérifie que `monde.play().followerFigures()` vaut `(std::vector<std::string>{"Common/Characters/Heroes/mage", "Common/Characters/Heroes/priest", "Common/Characters/Heroes/scoundrel"})`.
+- Vérifie que `monde.play().followerFigures()` vaut `(std::vector<std::string>{"Common/Characters/Heroes/priest", "Common/Characters/Heroes/scoundrel", "Common/Characters/Heroes/mage"})`.
 - Vérifie que `avant` vaut `QUrl::fromLocalFile(QString::fromStdString(portraitDuBrawler.string()))`.
 - Vérifie que `monde.rotateLeader()` est vrai.
 - Vérifie que `annonces` vaut `1`.
-- Vérifie que `monde.leaderId()` vaut `QStringLiteral("heros-mage")`.
-- Vérifie que `monde.leaderName()` vaut `QStringLiteral("Faelar Trace-Carte")`.
-- Vérifie que `monde.heroFigure()` vaut `QStringLiteral("Common/Characters/Heroes/mage")`.
+- Vérifie que `monde.leaderId()` vaut `QStringLiteral("heros-priest")`.
+- Vérifie que `monde.leaderName()` vaut `QStringLiteral("Helga Pierre-Sûre")`.
+- Vérifie que `monde.heroFigure()` vaut `QStringLiteral("Common/Characters/Heroes/priest")`.
 - Vérifie que `monde.play().followerFigures().back()` vaut `"Common/Characters/Heroes/brawler"`.
 - Vérifie que `monde.leaderPortrait()` diffère de `avant`.
 - Vérifie que `figures.size()` est supérieur ou égal à `4U`.
 - Vérifie que `figures.back().hero` est vrai.
 - Vérifie que `suiveurs` vaut `3U`.
-- Vérifie que `dialogue.partyVoice()` vaut `QStringLiteral("Faelar Trace-Carte")`.
+- Vérifie que `dialogue.partyVoice()` vaut `QStringLiteral("Helga Pierre-Sûre")`.
+
+### PartyModelTest.LeJoueurChoisitQuiParle
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:137`
+
+Dans le dialogue, le menu du bas donne la parole a un membre du groupe : le jet de Persuasion se fait avec ses modificateurs.
+
+**Étapes**
+
+1. Ouvrir le dialogue du garde a la graine 7 : le meneur (Grom, Charisme 8) parle ; tenter de le convaincre.
+2. Rouvrir a la meme graine, donner la parole a Nessa (Charisme 13), tenter de nouveau.
+
+**Résultat attendu**
+
+- Vérifie que `dialogue.selectVoice(voix)` est vrai.
+- Vérifie que `dialogue.selectVoice(QStringLiteral("heros-inconnu"))` est faux.
+- Vérifie que `voix.size()` vaut `4`.
+- Vérifie que `voix.front().toMap().value(QStringLiteral("current")).toBool()` est vrai.
+- Vérifie que `dialogue.voiceId()` vaut `QStringLiteral("heros-brawler")`.
+- Vérifie que `dialogue.voiceId()` vaut `QStringLiteral("heros-mage")`.
+- Vérifie que `deDeGrom.isEmpty()` est faux.
+- Vérifie que `deDeGrom` vaut `deDeNessa`.
+- Vérifie que `totalDeNessa` est strictement supérieur à `totalDeGrom`.
 
 ### PartyModelTest.LeMeneurEstCeluiQuiCombat
 
-*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:137`
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:190`
 
 Exigences : `EX-EXP-014`
 
@@ -169,7 +192,7 @@ Une rencontre engagee apres un changement de meneur met le nouveau meneur en jeu
 
 ### PartyModelTest.LEcranDeGroupeCompose
 
-*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:170`
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:223`
 
 Exigences : `EX-EXP-013`
 
@@ -205,4 +228,4 @@ L'ecran de groupe lit la fiche des quatre et compose le groupe de la partie.
 - Vérifie que `identifiants(groupe.members())` vaut `(QStringList{"heros-scoundrel", "heros-mage", "heros-brawler"})`.
 - Vérifie que `groupe.moveMember(QStringLiteral("heros-brawler"), 1)` est faux.
 - Vérifie que `groupe.leaderName()` vaut `QStringLiteral("Nessa Double-Vie")`.
-- Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-mage", "heros-priest", "heros-scoundrel"})`.
+- Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"})`.

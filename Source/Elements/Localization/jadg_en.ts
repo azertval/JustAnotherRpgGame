@@ -424,32 +424,37 @@
 <context>
     <name>DialogueForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="51"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="62"/>
         <source>Dialogue</source>
         <translation>Dialogue</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="73"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="89"/>
         <source>Nom</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="79"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="95"/>
         <source>Attitude</source>
         <translation>Attitude</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="100"/>
-        <source>Pour le groupe</source>
-        <translation>For the party</translation>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="218"/>
+        <source>Parle pour le groupe :</source>
+        <translation>Speaking for the party:</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="134"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="274"/>
+        <source>Tab : changer</source>
+        <translation>Tab: switch</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="117"/>
         <source>Réplique</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="220"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="203"/>
         <source>Réponses</source>
         <translation>Replies</translation>
     </message>

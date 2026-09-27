@@ -103,8 +103,9 @@ TEST(PartyTest, LeMeneurEstLePremierDeLOrdreDeMarche) {
  * \tcrit Majeur<br/>
  * \tetapes 1. Lire `Rpg/characters/` sans construire les fiches.<br/>
  * 2. Former le groupe de depart.<br/>
- * \tattendu Quatre candidats sans erreur, chacun avec son nom, sa classe et son fichier ; le
- * groupe de depart les prend dans l'ordre, Grom Tranche-Ecaille (Brawler) en tete.
+ * \tattendu Quatre candidats sans erreur, chacun avec son nom, sa classe et son fichier ; sans
+ * ordre impose, le groupe les prend dans l'ordre des identifiants ; avec l'ordre du groupe
+ * preforme (Brawler, Priest, Scoundrel, Mage), dans celui-la, un identifiant inconnu saute.
  * }
  */
 TEST(PartyTest, LesQuatreFichesPreTireesFormentLeGroupeDeDepart) {
@@ -122,6 +123,11 @@ TEST(PartyTest, LesQuatreFichesPreTireesFormentLeGroupeDeDepart) {
 
     const Party depart = core::defaultParty(lus.candidates);
     EXPECT_EQ(depart.members(), QUATRE);
+    const std::vector<std::string> preforme = {"heros-brawler", "heros-inconnu", "heros-priest",
+                                               "heros-scoundrel", "heros-mage"};
+    EXPECT_EQ(core::defaultParty(lus.candidates, preforme).members(),
+              (std::vector<std::string>{"heros-brawler", "heros-priest", "heros-scoundrel",
+                                        "heros-mage"}));
     EXPECT_EQ(lus.candidates.front().name, "Grom Tranche-Écaille");
 }
 

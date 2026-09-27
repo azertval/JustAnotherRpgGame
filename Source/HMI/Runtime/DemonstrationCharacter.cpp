@@ -33,8 +33,9 @@ constexpr const char* EMPTY_MARK = "—";
 }  // namespace
 
 std::filesystem::path playedCharacterFile() {
-    // Le meneur du groupe de la partie en cours (LOT-138) : c'est lui qui parle, jette les des
-    // du dialogue et combat, et dont la fiche s'ouvre.
+    // Le meneur du groupe de la partie en cours (LOT-138) : c'est lui qui combat, qui parle a
+    // l'ouverture d'un dialogue (le joueur peut donner la parole a un autre, D-28), et dont la
+    // fiche s'ouvre.
     if (const WorldModel* const partie = WorldModel::current()) {
         if (std::filesystem::path meneur = partie->leaderSheetFile(); !meneur.empty()) {
             return meneur;

@@ -63,7 +63,7 @@ WorldModel::WorldModel(QObject* parent) : QObject(parent) {
         HMI_LOG_WARNING("Groupe : " + erreur);
     }
     _candidates = std::move(candidats.candidates);
-    _party = core::defaultParty(_candidates);
+    _party = core::defaultParty(_candidates, STARTING_PARTY);
     applyParty();
 }
 
@@ -153,8 +153,8 @@ void WorldModel::endGame() {
     _status.clear();
     _move = {};
     _interact = false;
-    // Le groupe aussi repart de zero : les quatre fiches pre-tirees, le Brawler en tete.
-    _party = core::defaultParty(_candidates);
+    // Le groupe aussi repart de zero : le groupe preforme, le Brawler en tete.
+    _party = core::defaultParty(_candidates, STARTING_PARTY);
     rebuildSession();
     applyFlags(_startFlags);
     ++_sceneRevision;

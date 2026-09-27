@@ -88,9 +88,10 @@ allait à 4 cases par seconde avant le `LOT-112` ; c'est la figurine peinte qui 
 
 Le joueur ne mène pas un héros mais un **groupe** : jusqu'à quatre personnages, pris parmi les
 fiches pré-tirées (`Rpg/characters/`), dans un **ordre de marche**. Le premier est le **meneur** :
-c'est lui qu'on déplace, lui qui interagit, franchit les portails, parle et jette les dés du
-dialogue, lui qui combat sur la carte tant que le combat de groupe (`LOT-139`) n'y met pas les
-quatre. Les autres le **suivent**. Concrétisé en `LOT-138`.
+c'est lui qu'on déplace, lui qui interagit, franchit les portails, parle le premier, lui qui combat sur la carte tant que le combat de groupe (`LOT-139`) n'y met pas les quatre. Les
+autres le **suivent**. Dans un dialogue, c'est le **joueur** qui choisit qui parle (D-28). Une
+partie neuve impose le groupe préformé : Brawler, Priest, Scoundrel, Mage. Concrétisé en
+`LOT-138`.
 
 - **EX-EXP-013** — Les suiveurs **mettent leurs pas dans ceux du meneur** : chacun se tient sur
   le chemin que le meneur a parcouru, à **une case** du précédent (`core::FollowTrail`). Ils ne
@@ -104,8 +105,10 @@ quatre. Les autres le **suivent**. Concrétisé en `LOT-138`.
 - **EX-EXP-014** — Le **meneur** est le premier de l'ordre de marche, et rien d'autre : pas de
   champ à part qui pourrait contredire le rang. **Changer de meneur** change, au même pas, la
   figurine menée (celle de sa classe, `Characters/Heroes/<classe>`), le portrait de l'affichage
-  tête haute et du dialogue, la fiche qui s'ouvre, celui qui jette les dés du dialogue (Q-06) et
-  celui qui combat. `Tab` passe la main au suivant — le meneur va en queue, et quatre appuis font
+  tête haute, la fiche qui s'ouvre, celui qui parle à l'ouverture d'un dialogue et celui qui
+  combat. Dans le dialogue, un **menu en bas** aligne les membres dans l'ordre de marche : le
+  joueur y choisit qui parle (`Tab`, ou le clic), et c'est celui-là qui jette, avec ses
+  modificateurs (D-28). `Tab` passe la main au suivant — le meneur va en queue, et quatre appuis font
   le tour ; l'écran **Groupe** (`G`) prend, laisse, fait mener et change l'ordre de marche, au
   clavier comme à la manette.
 

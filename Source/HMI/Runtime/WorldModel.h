@@ -90,7 +90,7 @@ class WorldModel : public QObject {
     /// leurs identifiants : les mêmes clés, plus `rank` (rang dans l'ordre de marche, -1 hors du
     /// groupe).
     Q_PROPERTY(QVariantList partyCandidates READ partyCandidates NOTIFY partyChanged)
-    /// Le meneur : celui qu'on déplace, qui parle et jette les dés du dialogue (Q-06).
+    /// Le meneur : celui qu'on déplace, qui parle le premier dans un dialogue et qui combat.
     Q_PROPERTY(QString leaderId READ leaderId NOTIFY partyChanged)
     Q_PROPERTY(QString leaderName READ leaderName NOTIFY partyChanged)
     /// Le portrait du meneur, vide si sa figurine n'en a pas encore (`LOT-136`).
@@ -101,6 +101,10 @@ class WorldModel : public QObject {
 public:
     /// La ville où « Nouvelle partie » ouvre le jeu, sous `World/cities/` : la Capitale (`LOT-96`).
     static constexpr const char* START_CITY = "capital";
+    /// Le groupe qu'impose « Nouvelle partie », dans l'ordre de marche (`LOT-138`, décision de
+    /// l'auteur) : les quatre fiches pré-tirées, le Brawler en tête.
+    static inline const std::vector<std::string> STARTING_PARTY{"heros-brawler", "heros-priest",
+                                                                "heros-scoundrel", "heros-mage"};
     /// Pas fixe de la simulation, en millisecondes.
     static constexpr int STEP_MILLISECONDS = 16;
 

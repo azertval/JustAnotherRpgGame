@@ -1950,11 +1950,12 @@ Le dossier des personnages propose les quatre fiches pre-tirees ; une partie neu
 - Vérifie que `candidat.file.stem().string()` vaut `candidat.id`.
 - Vérifie que `classes` vaut `(std::vector<std::string>{"brawler", "mage", "priest", "scoundrel"})`.
 - Vérifie que `depart.members()` vaut `QUATRE`.
+- Vérifie que `core::defaultParty(lus.candidates, preforme).members()` vaut `(std::vector<std::string>{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"})`.
 - Vérifie que `lus.candidates.front().name` vaut `"Grom Tranche-Écaille"`.
 
 ### PartyTest.UnDossierAbsentSeSignale
 
-*Mineur · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party.cpp:130`
+*Mineur · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party.cpp:136`
 
 Un dossier de personnages absent se signale.
 

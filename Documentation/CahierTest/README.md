@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1070 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1071 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -38,10 +38,10 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Localization](hmi-localization.md) | Tests unitaires | 9 | — | — | 9 | — |
 | [HMI · Platform](hmi-platform.md) | Tests unitaires | 5 | — | 2 | 3 | — |
 | [HMI · Presentation](hmi-presentation.md) | Tests unitaires | 19 | — | 5 | 11 | 3 |
-| [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 6 | 2 | 2 | 2 | — |
+| [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 7 | 2 | 3 | 2 | — |
 | [Tests d'intégration](integration.md) | Tests d'intégration | 11 | — | 6 | 5 | — |
 | [Tests système](systeme.md) | Tests système | 4 | — | 4 | — | — |
-| **Total** | | **1070** | **104** | **367** | **523** | **76** |
+| **Total** | | **1071** | **104** | **368** | **523** | **76** |
 
 ## Trois étages de vérification
 

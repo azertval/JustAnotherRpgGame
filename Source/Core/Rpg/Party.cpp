@@ -115,9 +115,18 @@ PartyCandidates loadPartyCandidates(const std::filesystem::path& directory) {
     return result;
 }
 
-Party defaultParty(const std::vector<PartyCandidate>& candidates) {
+Party defaultParty(const std::vector<PartyCandidate>& candidates,
+                   const std::vector<std::string>& order) {
     Party party;
+    for (const std::string& id : order) {
+        if (std::ranges::find(candidates, id, &PartyCandidate::id) != candidates.end()) {
+            static_cast<void>(party.add(id));
+        }
+    }
     for (const PartyCandidate& candidate : candidates) {
+        if (party.size() >= Party::MAX_MEMBERS) {
+            break;
+        }
         if (party.add(candidate.id) == PartyChange::Full) {
             break;
         }
