@@ -476,7 +476,7 @@ void MainWindow::buildUi() {
     };
 
     // La mini-carte : toute la carte, et le cadre de la vue (LOT-EDITOR-02, phase 3).
-    _miniMap = new MiniMap([this](core::TileType type) { return _viewport->tileColor(type); });
+    _miniMap = new MiniMap([](core::TileType type) { return EditorViewport::tileColor(type); });
     _miniMapDock = addPanel(QStringLiteral("MiniMapPanel"), QStringLiteral("Overview"), _miniMap,
                             Qt::LeftDockWidgetArea);
 

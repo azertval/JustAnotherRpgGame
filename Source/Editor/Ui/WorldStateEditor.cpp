@@ -41,7 +41,9 @@ WorldStateEditor::WorldStateEditor(const std::vector<std::string>& knownFlags,
     // Un choix par drapeau declare : sa valeur initiale d'abord, celle d'une partie neuve.
     if (!declared.empty()) {
         auto* const valuesBox = new QGroupBox(QStringLiteral("Quest flags"), this);
-        auto* const form = new QFormLayout(valuesBox);
+        // Confie par setLayout : l'analyseur y voit le transfert de propriete.
+        auto* const form = new QFormLayout;
+        valuesBox->setLayout(form);
         for (const core::QuestFlag& flag : declared) {
             auto* const combo = new QComboBox(valuesBox);
             for (const std::string& value : flag.values) {
