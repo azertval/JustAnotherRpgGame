@@ -73,6 +73,9 @@ FAMILLES = {
     'spells': 'spell',
     'species': 'species',
     'classes': 'class',
+    # Capacites de classe (LOT-131) : des effets nommes, que la table de progression d'une classe
+    # designe par identifiant.
+    'capacities': 'capacity',
     'backgrounds': 'background',
     'conditions': 'condition',
     'damage-types': 'damage-type',

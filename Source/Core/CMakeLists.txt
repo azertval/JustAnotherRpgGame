@@ -28,6 +28,9 @@ add_library(Core STATIC
     Rpg/Ability.cpp
     Rpg/Bestiary.cpp
     Rpg/CharacterOptions.cpp
+    # Le socle de classe (LOT-131) : capacites a effets nommes, catalogue des sorts.
+    Rpg/ClassCapacities.cpp
+    Rpg/Spell.cpp
     Rpg/CharacterSheet.cpp
     Rpg/Skill.cpp
     Rpg/Check.cpp

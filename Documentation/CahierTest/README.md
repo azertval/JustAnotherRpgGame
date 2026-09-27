@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1007 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1016 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -18,7 +18,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | Domaine | Type | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|---|
 | [Core](core.md) | Tests unitaires | 1 | — | — | 1 | — |
-| [Core · Combat](core-combat.md) | Tests unitaires | 116 | 33 | 51 | 31 | 1 |
+| [Core · Combat](core-combat.md) | Tests unitaires | 120 | 33 | 55 | 31 | 1 |
 | [Core · Data](core-data.md) | Tests unitaires | 12 | — | 5 | 5 | 2 |
 | [Core · Diagnostics](core-diagnostics.md) | Tests unitaires | 22 | — | — | 19 | 3 |
 | [Core · Ecs](core-ecs.md) | Tests unitaires | 35 | — | 5 | 30 | — |
@@ -26,7 +26,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Core · Levels](core-levels.md) | Tests unitaires | 122 | 1 | 24 | 80 | 17 |
 | [Core · Math](core-math.md) | Tests unitaires | 26 | 4 | — | 18 | 4 |
 | [Core · Resources](core-resources.md) | Tests unitaires | 20 | 5 | 6 | 9 | — |
-| [Core · Rpg](core-rpg.md) | Tests unitaires | 92 | 3 | 53 | 35 | 1 |
+| [Core · Rpg](core-rpg.md) | Tests unitaires | 97 | 3 | 57 | 36 | 1 |
 | [Core · Time](core-time.md) | Tests unitaires | 7 | — | 1 | 6 | — |
 | [Core · World](core-world.md) | Tests unitaires | 64 | 1 | 32 | 28 | 3 |
 | [Editor](editor.md) | Tests unitaires | 211 | 25 | 47 | 111 | 28 |
@@ -41,7 +41,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 3 | 1 | — | 2 | — |
 | [Tests d'intégration](integration.md) | Tests d'intégration | 11 | — | 6 | 5 | — |
 | [Tests système](systeme.md) | Tests système | 4 | — | 4 | — | — |
-| **Total** | | **1007** | **103** | **320** | **509** | **75** |
+| **Total** | | **1016** | **103** | **328** | **510** | **75** |
 
 ## Trois étages de vérification
 

@@ -38,6 +38,9 @@ struct HeroContestantSource {
     int armorClass = 10;
     /// L'arme en main directrice, ou rien : il frappe alors à mains nues.
     std::optional<core::Weapon> weapon;
+    /// Les sorts qu'il sait lancer en combat, lancers du jour compris (`core::arenaSpellsFor`,
+    /// `LOT-131`). Ses capacités de classe, elles, sont sur la fiche.
+    std::vector<core::ArenaSpell> spells;
 };
 
 /// @brief Le héros comme combattant du camp @p side : son arme, son jet, ses mains nues.

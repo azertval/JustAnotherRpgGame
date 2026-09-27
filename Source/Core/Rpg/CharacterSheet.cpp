@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/Equipment.h"
 #include "Core/Rpg/Scale.h"
 
 namespace core {
@@ -298,13 +299,99 @@ LoadedCharacterSheet loadCharacterSheet(const std::filesystem::path& path,
 
     lireInventaire(document.root, path, resultat);
 
+    // Ce que la classe donne AU NIVEAU ATTEINT (LOT-131) : capacites actives, sorts connus. Apres
+    // la montee, pour que la table soit lue au bon niveau.
+    if (classe != nullptr) {
+        std::vector<std::string> manquants;
+        applyClassFeatures(resultat.sheet, *classe, options, rules, manquants);
+        for (const std::string& manquant : manquants) {
+            resultat.warnings.push_back(path.string() + " : la classe '" + classe->id +
+                                        "' nomme '" + manquant +
+                                        "', que le moteur ne joue pas encore (EX-CNT-031).");
+        }
+    }
+
     return resultat;
 }
 
 // -- Fiche ---------------------------------------------------------------------------------------
 
 float CharacterSheet::speedInTiles() const {
-    return tilesFromMeters(speedMeters);
+    return tilesFromMeters(effectiveSpeedMeters());
+}
+
+float CharacterSheet::effectiveSpeedMeters() const {
+    return speedMeters + speedBonusFrom(capacities);
+}
+
+const KnownSpell* CharacterSheet::knownSpell(std::string_view spellId) const {
+    const auto trouve = std::ranges::find(knownSpells, spellId, &KnownSpell::spellId);
+    return trouve == knownSpells.end() ? nullptr : &*trouve;
+}
+
+bool isProficientWith(const CharacterSheet& sheet, const Weapon& weapon) {
+    if (sheet.classId.empty()) {
+        // Sans classe, rien ne dit ce que la fiche ne maitrise pas.
+        return true;
+    }
+    return sheet.weaponProficiencies.contains(weapon.id) ||
+           sheet.weaponProficiencies.contains(weapon.category);
+}
+
+void applyClassFeatures(CharacterSheet& sheet, const PlayableClass& playableClass,
+                        const CharacterOptions& options, const CharacterCreationRules& rules,
+                        std::vector<std::string>& missing) {
+    sheet.capacities = resolveCapacities(playableClass, sheet.level, options.capacities, missing);
+    // La CA sans armure, RECALCULEE depuis ses sources (EX-CBT-030) : une capacite peut la
+    // calculer autrement. L'armure portee la remplace dans `derivedStatsFor`, par le meme chemin.
+    sheet.armorClass = armorClassFor(sheet, rules, nullptr, nullptr);
+
+    // Les sorts connus : la table les donne, le catalogue les decrit. Un lancer deja depense d'un
+    // sort deja connu est CONSERVE : monter de niveau n'est pas un repos.
+    std::vector<KnownSpell> anciens = std::move(sheet.knownSpells);
+    sheet.knownSpells.clear();
+    const auto connaitre = [&](const std::string& identifiant, bool mineur) {
+        const Spell* sort = options.spells.find(identifiant);
+        if (sort == nullptr) {
+            missing.push_back(identifiant);
+            return;
+        }
+        const int parJour = mineur ? 0
+                                   : (playableClass.spellcasting.has_value()
+                                          ? playableClass.spellcasting->castsPerDay
+                                          : 0);
+        KnownSpell connu{
+            .spellId = identifiant, .level = sort->level, .perDay = parJour, .remaining = parJour};
+        if (const auto ancien = std::ranges::find(anciens, identifiant, &KnownSpell::spellId);
+            ancien != anciens.end() && ancien->perDay == parJour) {
+            connu.remaining = ancien->remaining;
+        }
+        sheet.knownSpells.push_back(std::move(connu));
+    };
+    for (const std::string& identifiant : playableClass.cantripsAt(sheet.level)) {
+        connaitre(identifiant, true);
+    }
+    for (const std::string& identifiant : playableClass.spellsAt(sheet.level)) {
+        connaitre(identifiant, false);
+    }
+}
+
+void longRest(CharacterSheet& sheet) {
+    sheet.currentHitPoints = sheet.maximumHitPoints;
+    for (KnownSpell& sort : sheet.knownSpells) {
+        sort.remaining = sort.perDay;
+    }
+}
+
+bool spendSpellUse(CharacterSheet& sheet, std::string_view spellId) {
+    const auto trouve = std::ranges::find(sheet.knownSpells, spellId, &KnownSpell::spellId);
+    if (trouve == sheet.knownSpells.end() || !trouve->available()) {
+        return false;
+    }
+    if (trouve->perDay > 0) {
+        --trouve->remaining;
+    }
+    return true;
 }
 
 int proficiencyBonus(const CharacterSheet& sheet, const ExperienceTable& table) {
@@ -400,6 +487,8 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array<int, 6>& b
         fiche.speedMeters = species->speed;
         fiche.hitPointsPerLevelBonus = species->hitPointsPerLevel;
         fiche.languages.insert(species->languages.begin(), species->languages.end());
+        fiche.weaponProficiencies.insert(species->weaponProficiencies.begin(),
+                                         species->weaponProficiencies.end());
         for (const Ability caracteristique : allAbilities()) {
             const auto indice = static_cast<std::size_t>(caracteristique);
             // La table de l'espece d'abord, puis ce qu'elle laisse au choix (LOT-130), sous le
@@ -417,6 +506,11 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array<int, 6>& b
         for (const Ability caracteristique : playableClass->savingThrowProficiencies) {
             fiche.savingThrowProficiencies.insert(caracteristique);
         }
+        // Les maitrises d'armes et d'armures de la classe (LOT-131), reunies a celles de l'espece.
+        fiche.weaponProficiencies.insert(playableClass->weaponProficiencies.begin(),
+                                         playableClass->weaponProficiencies.end());
+        fiche.armorProficiencies.insert(playableClass->armorProficiencies.begin(),
+                                        playableClass->armorProficiencies.end());
         fiche.maximumHitPoints = maximumHitPointsFor(playableClass->hitDie, fiche.level,
                                                      fiche.modifier(Ability::Constitution),
                                                      fiche.hitPointsPerLevelBonus);

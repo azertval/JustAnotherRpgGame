@@ -34,6 +34,15 @@
       "type": "string",
       "minLength": 1
     },
+    "rangeMeters": {
+      "type": "number",
+      "minimum": 0,
+      "description": "La portee en METRES, l'unite du corpus, quand le sort vise une cible a distance (LOT-131) : `range` garde le texte du livre, le moteur lit ce nombre. 0 ou absent : le sort ne vise pas a distance."
+    },
+    "attackRoll": {
+      "type": "boolean",
+      "description": "Vrai pour un sort qui demande un JET D'ATTAQUE de sort contre la CA (fire bolt) : le moteur le joue comme une attaque a distance, au modificateur de la caracteristique d'incantation plus la maitrise (LOT-131). Un sort a jet de sauvegarde ou sans jet declare ses mecanismes autrement."
+    },
     "components": {
       "type": "object",
       "properties": {

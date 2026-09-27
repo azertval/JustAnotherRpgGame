@@ -1,0 +1,15 @@
+{
+  "id": "trait-de-feu-d-essai",
+  "name": "Trait de feu d'essai",
+  "source": "original",
+  "level": 1,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "36 m",
+  "rangeMeters": 36,
+  "duration": "instantanee",
+  "attackRoll": true,
+  "damage": "2d6",
+  "damageType": "fire",
+  "text": "Fixture : un sort de niveau 1 a jet d'attaque, 2d6 de feu, deux lancers par jour."
+}

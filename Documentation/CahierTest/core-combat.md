@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **116 cas** (33 bloquants, 51 critiques, 31 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **120 cas** (33 bloquants, 55 critiques, 31 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,6 +11,7 @@ Tests unitaires — **116 cas** (33 bloquants, 51 critiques, 31 majeurs, 1 mineu
 | [`test_arena.cpp`](#test-arenacpp) | 7 | 2 | 5 | - | - |
 | [`test_attack.cpp`](#test-attackcpp) | 9 | 3 | 4 | 2 | - |
 | [`test_battle_grid.cpp`](#test-battle-gridcpp) | 7 | 1 | 2 | 4 | - |
+| [`test_class_in_arena.cpp`](#test-class-in-arenacpp) | 4 | - | 4 | - | - |
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
@@ -782,6 +783,161 @@ Un objet de grille bloque tant qu'il tient, puis se detruit.
 - Vérifie que `grille.isObstructed({2, 2})` est faux.
 - Vérifie que `grille.place(HEROS, {3, 3})` vaut `core::PlacementResult::Placed`.
 - Vérifie que `grille.placeObject({3, 3}, {.kind = "barricade"})` vaut `core::PlacementResult::Occupied`.
+
+## test_class_in_arena.cpp
+
+### ClassInArenaTest.LeBonusEtLesDesDUneCapaciteSeJouentEtSeNomment
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:147`
+
+Contre une CA nulle, l'epee de la lutteuse touche : le journal ecrit « + 2 (Coup precis) » et un 1d6 « (Coup precis) » ; une seconde attaque du meme tour n'ajoute plus de des ; au tour suivant, si.
+
+**Étapes**
+
+1. Monter la lutteuse (N1) contre un gobelin a la CA 0, graine choisie pour que le premier coup ne soit pas un 1 naturel.
+2. Attaquer.
+3. Octroyer une action et rattaquer.
+4. Revenir a son tour et rattaquer.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `coup.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `premier.has_value()` est vrai.
+- Vérifie que `contient(session.journal(), "capacites Lutteuse : Coup precis, Peau de fer")` est vrai.
+- Vérifie que `bonus` diffère de `modificateurs.end()`.
+- Vérifie que `bonus->value` vaut `2`.
+- Vérifie que `premier->damage.size()` vaut `2U`.
+- Vérifie que `premier->damage[0].source.empty()` est vrai.
+- Vérifie que `premier->damage[1].source` vaut `"Coup precis"`.
+- Vérifie que `premier->damage[1].clause.dice` vaut `(core::Dice{.count = 1, .faces = 6, .modifier = 0})`.
+- Vérifie que `premier->damage[1].clause.type` vaut `core::DamageType::Slashing`.
+- Vérifie que `ligne.find("+ 2 (Coup precis)")` diffère de `std::string::npos`.
+- Vérifie que `ligne.find("tranchant (Coup precis)")` diffère de `std::string::npos`.
+- Vérifie que `session.combat().counters().value(core::CounterScope::Turn, "1", "coup-precis")` vaut `1`.
+- Vérifie que `second.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `second.outcome->damage.size()` vaut `1U`.
+- Vérifie que `session.combat().counters().value(core::CounterScope::Turn, "1", "coup-precis")` vaut `1`.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `session.combat().counters().value(core::CounterScope::Turn, "1", "coup-precis")` vaut `0`.
+- Vérifie que `troisieme.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `troisieme.outcome->damage.size()` vaut `2U`.
+
+### ClassInArenaTest.LaResistanceGlobaleSeNommeAuJournal
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:223`
+
+Le gobelin touche la lutteuse (Peau de fer) : la trace ecrit « resistance (tranchant ; Peau de fer) », et les PV perdus sont la moitie arrondie a l'inferieur des degats lances.
+
+**Étapes**
+
+1. Monter la lutteuse (N1) et un gobelin a +20 au toucher.
+2. Passer au tour du gobelin, attaquer la lutteuse ; graine choisie pour toucher.
+
+**Résultat attendu**
+
+- Vérifie que `profil.damageTraits.affinities.size()` vaut `13U`.
+- Vérifie que `profil.damageTraits.applies(core::DamageAffinityKind::Resistance, core::DamageType::Fire, 0)` est vrai.
+- Vérifie que `profil.damageTraits.affinities.front().source` vaut `"Peau de fer"`.
+- Vérifie que `profil.armorClass` vaut `15`.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{2}`.
+- Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `coup.has_value()` est vrai.
+- Vérifie que `coup->report.has_value()` est vrai.
+- Vérifie que `coup->report->hitPointsBefore - coup->report->hitPointsAfter` vaut `lances / 2`.
+- Vérifie que `ligne.find("resistance (tranchant ; Peau de fer)")` diffère de `std::string::npos`.
+
+### ClassInArenaTest.LeDeplacementNeProvoquePasDAttaqueDOpportunite
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:270`
+
+La lutteuse (N2, Pas de danseur) quitte l'allonge du gobelin sans etre frappee, la previsualisation ne montre personne, et le journal nomme la capacite ; sans elle, le gobelin frappe.
+
+**Étapes**
+
+1. Lutteuse N2 au contact du gobelin ; previsualiser puis marcher a quatre cases.
+2. Meme parcours avec la lutteuse N1, qui n'a pas la capacite.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `session.combat().find(CombatantId{1})->profile.movement` vaut `8`.
+- Vérifie que `session.previewOpportunities({3, 7}).empty()` est vrai.
+- Vérifie que `parcours.result` vaut `core::MoveResult::Moved`.
+- Vérifie que `session.combat().grid().positionOf(CombatantId{1})` vaut `(core::GridPosition{3, 7})`.
+- Vérifie que `contient(session.journal(), "opportunite : ")` est faux.
+- Vérifie que `contient(session.journal(), "sans attaque d'opportunite Lutteuse (Pas de danseur)")` est vrai.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().find(CombatantId{1})->profile.movement` vaut `6`.
+- Vérifie que `session.previewOpportunities({3, 7})` vaut `(std::vector<CombatantId>{CombatantId{2}})`.
+- Vérifie que `contient(session.journal(), "opportunite : attaque Gobelin -> Lutteuse")` est vrai.
+- Vérifie que `contient(session.journal(), "sans attaque d'opportunite")` est faux.
+
+### ClassInArenaTest.UnSortEpuiseNeSeProposePlusEtUnReposLongLeRend
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_class_in_arena.cpp:319`
+
+La lutteuse lance son trait deux fois, la troisieme est refusee « Exhausted » sans rien depenser ; le sort mineur se lance encore ; le repos long de la fiche rend les deux lancers au montage suivant.
+
+**Étapes**
+
+1. Lire les sorts de la lutteuse dans la session.
+2. Lancer le trait, octroyer une action, relancer, octroyer, relancer.
+3. Lancer le sort mineur.
+4. Depenser les deux lancers sur la fiche, la reposer, remonter.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `sorts` diffère de `nullptr`.
+- Vérifie que `sorts->size()` vaut `2U`.
+- Vérifie que `(*sorts)[0].id` vaut `"etincelle-d-essai"`.
+- Vérifie que `(*sorts)[0].uses` vaut `-1`.
+- Vérifie que `(*sorts)[1].id` vaut `"trait-de-feu-d-essai"`.
+- Vérifie que `(*sorts)[1].uses` vaut `2`.
+- Vérifie que `trait.kind` vaut `core::AttackKind::Ranged`.
+- Vérifie que `trait.modifiers.size()` vaut `2U`.
+- Vérifie que `trait.modifiers[0].source` vaut `"Intelligence"`.
+- Vérifie que `trait.modifiers[0].value` vaut `2`.
+- Vérifie que `trait.modifiers[1].source` vaut `"maitrise"`.
+- Vérifie que `trait.modifiers[1].value` vaut `2`.
+- Vérifie que `trait.damage.size()` vaut `1U`.
+- Vérifie que `trait.damage[0].dice` vaut `(core::Dice{.count = 2, .faces = 6, .modifier = 0})`.
+- Vérifie que `trait.damage[0].type` vaut `core::DamageType::Fire`.
+- Vérifie que `core::hasFlag(trait.damage[0].flags, core::DamageFlag::Spell)` est vrai.
+- Vérifie que `trait.range.has_value()` est vrai.
+- Vérifie que `trait.range->normal` vaut `24`.
+- Vérifie que `trait.range->maximum` vaut `24`.
+- Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `(*sorts)[1].uses` vaut `1`.
+- Vérifie que `contient(session.journal(), "sort Trait de feu d'essai (1 restant) : attaque Lutteuse -> Gobelin (Trait de feu d'essai)")` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::NoAction`.
+- Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `(*sorts)[1].uses` vaut `0`.
+- Vérifie que `(*sorts)[1].available()` est faux.
+- Vérifie que `session.castSpell(CombatantId{2}, 1).result` vaut `core::ArenaActionResult::Exhausted`.
+- Vérifie que `session.combat().find(CombatantId{1})->economy.remaining(core::ACTION_RESOURCE)` vaut `1`.
+- Vérifie que `session.castSpell(CombatantId{2}, 0).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `(*sorts)[0].uses` vaut `-1`.
+- Vérifie que `contient(session.journal(), "sort Etincelle d'essai : attaque Lutteuse -> Gobelin")` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, 5).result` vaut `core::ArenaActionResult::NoSpell`.
+- Vérifie que `core::spendSpellUse(fiche, "trait-de-feu-d-essai")` est vrai.
+- Vérifie que `core::spendSpellUse(fiche, "trait-de-feu-d-essai")` est vrai.
+- Vérifie que `core::arenaSpellsFor(fiche, *classe, optionsDEssai().spells, 2, ignores)[1].uses` vaut `0`.
+- Vérifie que `core::arenaSpellsFor(fiche, *classe, optionsDEssai().spells, 2, ignores)[1].uses` vaut `2`.
+- Vérifie que `ignores.empty()` est vrai.
 
 ## test_combat_preview.cpp
 

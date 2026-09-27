@@ -33,8 +33,12 @@ DemonstrationState loadDemonstrationState() {
     const std::filesystem::path rpg = executableDirectory() / "Rpg";
 
     DemonstrationState state;
-    state.options =
-        core::loadCharacterOptions(rpg / "species", rpg / "backgrounds", rpg / "classes");
+    // Especes, historiques, classes, et ce que les tables de classe designent : capacites et
+    // sorts (LOT-131).
+    state.options = core::loadCharacterOptions(rpg);
+    for (const std::string& error : state.options.errors) {
+        HMI_LOG_WARNING("Options de personnage : " + error);
+    }
     state.skills = core::loadSkills(rpg / "skills");
     state.experience = core::loadExperienceTable(rpg / "rules" / "experience.json");
     state.rules = core::loadCharacterCreationRules(rpg / "rules" / "character-creation.json");
@@ -46,6 +50,11 @@ DemonstrationState loadDemonstrationState() {
         // Journalise et poursuit : une fiche partielle vaut mieux qu'un écran vide, et l'erreur
         // nomme son fichier (EX-CNT-010).
         HMI_LOG_WARNING("Personnage de demonstration : " + error);
+    }
+    for (const std::string& warning : loaded.warnings) {
+        // Une capacite ou un sort que la classe nomme et que le moteur ne joue pas encore
+        // (EX-CNT-031) : dit au journal, jamais joue en silence.
+        HMI_LOG_WARNING("Personnage de demonstration : " + warning);
     }
     state.sheet = std::move(loaded.sheet);
     state.inventory = std::move(loaded.inventory);

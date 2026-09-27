@@ -5,14 +5,19 @@
 
 #include <algorithm>
 #include <array>
+#include <cstdint>
 #include <cstdlib>
+#include <string>
 #include <tuple>
 #include <utility>
 #include <variant>
 
 #include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatCounters.h"
 #include "Core/Combat/Flanking.h"
 #include "Core/Rpg/Ability.h"
+#include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/Spell.h"
 
 namespace core {
 namespace {
@@ -218,6 +223,8 @@ ArenaMount ArenaSession::mount(const ArenaBout& bout) {
     _random = DeterministicRandom(bout.seed);
     _combat = std::make_unique<CombatState>(BattleGrid(_level));
     _attacks.clear();
+    _capacities.clear();
+    _spells.clear();
     _behaviors.clear();
     // Les choix de reaction du joueur survivent au rejeu : les memes identifiants, le meme choix.
     _dodging.clear();
@@ -258,6 +265,20 @@ ArenaMount ArenaSession::mount(const ArenaBout& bout) {
         }
         const CombatantId id = *enrolement.combatant;
         _attacks[id] = concurrent.attacks;
+        if (!concurrent.capacities.empty()) {
+            _capacities[id] = concurrent.capacities;
+            // Le journal nomme ce que le combattant apporte (LOT-131) : ses effets statiques --
+            // CA, resistances, vitesse -- sont deja dans son profil et ne feraient sinon aucune
+            // ligne.
+            std::string ligne = "capacites " + concurrent.profile.name + " :";
+            for (std::size_t i = 0; i < concurrent.capacities.size(); ++i) {
+                ligne += (i == 0 ? " " : ", ") + concurrent.capacities[i].name;
+            }
+            record(std::move(ligne));
+        }
+        if (!concurrent.spells.empty()) {
+            _spells[id] = concurrent.spells;
+        }
         if (!concurrent.behavior.empty()) {
             _behaviors[id] = concurrent.behavior;
         }
@@ -297,6 +318,57 @@ const std::vector<AttackProfile>* ArenaSession::attacks(CombatantId combatant) c
     return trouve == _attacks.end() ? nullptr : &trouve->second;
 }
 
+const std::vector<ArenaSpell>* ArenaSession::spells(CombatantId combatant) const {
+    const auto trouve = _spells.find(combatant);
+    return trouve == _spells.end() ? nullptr : &trouve->second;
+}
+
+std::span<const Capacity> ArenaSession::capacitiesOf(CombatantId combatant) const {
+    const auto trouve = _capacities.find(combatant);
+    return trouve == _capacities.end() ? std::span<const Capacity>{}
+                                       : std::span<const Capacity>(trouve->second);
+}
+
+void ArenaSession::hookCapacities(AttackHooks& hooks, CombatantId attacker) {
+    const std::span<const Capacity> capacites = capacitiesOf(attacker);
+    if (capacites.empty()) {
+        return;
+    }
+    // Le bonus au jet, au nom de la capacite : << + 2 (Hit the Mark) >> au journal (EX-REG-003).
+    const std::vector<Modifier> bonus = attackModifiersFrom(capacites);
+    if (!bonus.empty()) {
+        hooks.insert(AttackRollStage::BeforeRoll, [bonus](AttackRoll& jet, DeterministicRandom&) {
+            for (const Modifier& modificateur : bonus) {
+                jet.addModifier(modificateur);
+            }
+        });
+    }
+    // Les des en plus, si l'attaque touche. << Une fois par tour >> se compte dans la memoire du
+    // tour (core::ScopedCounters), que la fin du tour vide : une attaque d'opportunite pendant le
+    // tour d'un autre compte aussi, comme le Manuel le veut pour l'attaque sournoise.
+    const std::vector<NamedExtraDamage> des = extraDamageFrom(capacites);
+    if (!des.empty()) {
+        const std::string proprietaire = std::to_string(static_cast<std::uint32_t>(attacker));
+        hooks.insert(
+            AttackRollStage::Hit, [this, des, proprietaire](AttackRoll& jet, DeterministicRandom&) {
+                if (!jet.damageType.has_value()) {
+                    return;
+                }
+                for (const NamedExtraDamage& supplement : des) {
+                    ScopedCounters& compteurs = _combat->counters();
+                    if (supplement.oncePerTurn && compteurs.value(CounterScope::Turn, proprietaire,
+                                                                  supplement.capacityId) > 0) {
+                        continue;
+                    }
+                    compteurs.increment(CounterScope::Turn, proprietaire, supplement.capacityId);
+                    jet.bonusDamage.push_back(
+                        {.clause = {.dice = supplement.dice, .type = *jet.damageType, .flags = 0},
+                         .source = supplement.source});
+                }
+            });
+    }
+}
+
 const std::string& ArenaSession::behaviorOf(CombatantId combatant) const {
     static const std::string joueur;
     const auto trouve = _behaviors.find(combatant);
@@ -324,6 +396,9 @@ std::optional<AttackOutcome> ArenaSession::resolveAndRecord(CombatantId attacker
         place = _journal.size();
         _journal.emplace_back();
     });
+    // Les capacites de l'attaquant (LOT-131) : leurs effets se branchent sur ce jet, et sur lui
+    // seul -- l'arene ne connait aucune classe, elle branche des effets nommes.
+    hookCapacities(crochets, attacker);
     AttackContext contexte = contextAgainst(attacker, target, profile);
     contexte.hooks = &crochets;
     std::optional<AttackOutcome> issue =
@@ -388,6 +463,52 @@ ArenaAttack ArenaSession::attack(CombatantId target, std::size_t attackIndex) {
     return attaque;
 }
 
+ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) {
+    const std::optional<CombatantId> actif = _combat->activeCombatant();
+    if (!actif.has_value() || _combat->phase() != CombatPhase::TurnActive) {
+        return {.result = ArenaActionResult::NoActiveTurn, .outcome = std::nullopt};
+    }
+    const auto grimoire = _spells.find(*actif);
+    if (grimoire == _spells.end() || spellIndex >= grimoire->second.size()) {
+        return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
+    }
+    ArenaSpell& sort = grimoire->second[spellIndex];
+    // Un sort epuise se refuse AVANT toute depense : il ne se propose plus (LOT-131).
+    if (!sort.available()) {
+        return {.result = ArenaActionResult::Exhausted, .outcome = std::nullopt};
+    }
+    const Combatant* lanceur = _combat->find(*actif);
+    const Combatant* cible = _combat->find(target);
+    if (cible == nullptr || target == *actif || cible->profile.side == lanceur->profile.side ||
+        cible->status != CombatantStatus::Standing) {
+        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
+    }
+    const AttackProfile profil = sort.attack;
+    switch (checkTarget(*_combat, *actif, target, profil)) {
+        case TargetCheck::Valid:
+            break;
+        case TargetCheck::NotOnGrid:
+            return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
+        case TargetCheck::OutOfReach:
+            return {.result = ArenaActionResult::OutOfReach, .outcome = std::nullopt};
+        case TargetCheck::TotalCover:
+            return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};
+    }
+    if (lanceur->economy.remaining(ACTION_RESOURCE) <= 0) {
+        return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};
+    }
+    _combat->spend(ACTION_RESOURCE);
+    if (sort.uses > 0) {
+        --sort.uses;
+    }
+    const std::string prefixe =
+        "sort " + sort.name +
+        (sort.uses < 0 ? std::string(" : ") : " (" + std::to_string(sort.uses) + " restant) : ");
+    ArenaAttack lancer{.result = ArenaActionResult::Done, .outcome = std::nullopt};
+    lancer.outcome = resolveAndRecord(*actif, target, profil, prefixe);
+    return lancer;
+}
+
 bool ArenaSession::dodge() {
     const std::optional<CombatantId> actif = _combat->activeCombatant();
     if (!actif.has_value() || !_combat->spend(ACTION_RESOURCE)) {
@@ -437,7 +558,8 @@ std::vector<CombatantId> ArenaSession::previewOpportunities(GridPosition destina
     std::vector<CombatantId> opportunistes;
     const std::optional<CombatantId> actif = _combat->activeCombatant();
     const std::optional<ReachableArea> zone = _combat->reachableArea();
-    if (!actif.has_value() || !zone.has_value() || _disengaged.contains(*actif)) {
+    if (!actif.has_value() || !zone.has_value() || _disengaged.contains(*actif) ||
+        opportunityImmunityFrom(capacitiesOf(*actif)).has_value()) {
         return opportunistes;
     }
     const std::optional<Path> chemin = zone->pathTo(destination);
@@ -529,6 +651,16 @@ MoveOutcome ArenaSession::move(GridPosition destination) {
         std::vector<CombatantId> opportunistes;
         const std::optional<std::size_t> sortie = firstProvokingStep(*actif, cases, opportunistes);
         if (!sortie.has_value()) {
+            // Une capacite qui soustrait aux attaques d'opportunite (LOT-131) a joue si le pas en
+            // aurait provoque une : le journal la nomme, comme tout ce qui a joue (EX-REG-003).
+            if (const std::optional<std::string> capacite =
+                    opportunityImmunityFrom(capacitiesOf(*actif))) {
+                std::vector<CombatantId> evites;
+                if (firstExitFromReach(*actif, cases, evites).has_value()) {
+                    record("sans attaque d'opportunite " + _combat->find(*actif)->profile.name +
+                           " (" + *capacite + ")");
+                }
+            }
             const MoveOutcome pas = avancer(destination);
             return parcours.result == MoveResult::Moved ? parcours : pas;
         }
@@ -547,10 +679,18 @@ MoveOutcome ArenaSession::move(GridPosition destination) {
 std::optional<std::size_t> ArenaSession::firstProvokingStep(
     CombatantId mover, const std::vector<GridPosition>& cases,
     std::vector<CombatantId>& reactors) const {
-    std::optional<std::size_t> sortie;
-    if (_disengaged.contains(mover)) {
-        return sortie;
+    // Desengage, ou soustrait aux attaques d'opportunite par une capacite (LOT-131) : rien ne
+    // provoque. La session ne sait pas laquelle ; elle lit un effet nomme.
+    if (_disengaged.contains(mover) || opportunityImmunityFrom(capacitiesOf(mover)).has_value()) {
+        return std::nullopt;
     }
+    return firstExitFromReach(mover, cases, reactors);
+}
+
+std::optional<std::size_t> ArenaSession::firstExitFromReach(
+    CombatantId mover, const std::vector<GridPosition>& cases,
+    std::vector<CombatantId>& reactors) const {
+    std::optional<std::size_t> sortie;
     for (std::size_t i = 0; i + 1 < cases.size() && !sortie.has_value(); ++i) {
         for (const CombatantId autre : _combat->combatants()) {
             if (provokes(mover, autre, cases[i], cases[i + 1])) {
@@ -593,6 +733,36 @@ WithdrawResult ArenaSession::withdraw() {
 
 std::optional<CombatOutcome> ArenaSession::outcome() const {
     return _combat->outcome();
+}
+
+std::vector<ArenaSpell> arenaSpellsFor(const CharacterSheet& sheet,
+                                       const PlayableClass& playableClass,
+                                       const SpellCatalog& spells, int proficiencyBonus,
+                                       std::vector<std::string>& skipped) {
+    std::vector<ArenaSpell> grimoire;
+    if (!playableClass.spellcasting.has_value()) {
+        return grimoire;
+    }
+    for (const KnownSpell& connu : sheet.knownSpells) {
+        const Spell* sort = spells.find(connu.spellId);
+        if (sort == nullptr) {
+            skipped.push_back(connu.spellId);
+            continue;
+        }
+        std::optional<AttackProfile> attaque =
+            spellAttackFor(sheet, *sort, playableClass.spellcasting->ability, proficiencyBonus);
+        if (!attaque.has_value()) {
+            // Connu, mais sans mecanisme joue ici (EX-RPG-051) : dit, pas tu.
+            skipped.push_back(sort->name);
+            continue;
+        }
+        grimoire.push_back({.id = sort->id,
+                            .name = sort->name,
+                            .level = sort->level,
+                            .uses = connu.perDay == 0 ? -1 : connu.remaining,
+                            .attack = std::move(*attaque)});
+    }
+    return grimoire;
 }
 
 }  // namespace core

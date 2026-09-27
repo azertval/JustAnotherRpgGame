@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**33 exigences en vigueur sur 298** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**34 exigences en vigueur sur 300** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -8,7 +8,7 @@
 |---|---|---|---|---|
 | `EX-ARCH` | [Architecture (décisions dimensionnantes)](../Specification/architecture.md) | 13 | 0 | 13 |
 | `EX-BUILD` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 1 | 0 | 1 |
-| `EX-CBT` | [Combat tactique](../Specification/combat.md) | 14 | 2 | 12 |
+| `EX-CBT` | [Combat tactique](../Specification/combat.md) | 14 | 3 | 11 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
 | `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 0 | 7 |
 | `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 76 | 8 | 68 |
@@ -20,9 +20,9 @@
 | `EX-NFR` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 19 | 2 | 17 |
 | `EX-REG` | [Règles d20](../Specification/regles-d20.md) | 15 | 1 | 14 |
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
-| `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 17 | 1 | 16 |
+| `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **298** | **33** | **265** |
+| **Total** | | **300** | **34** | **266** |
 
 ## Exigence par exigence
 
@@ -63,7 +63,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-CBT-020` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-021` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-022` | [Combat tactique](../Specification/combat.md) | — |
-| `EX-CBT-030` | [Combat tactique](../Specification/combat.md) | — |
+| `EX-CBT-030` | [Combat tactique](../Specification/combat.md) | [`ClassCapacitiesTest.LaFicheTireSesValeursDeSesCapacites`](core-rpg.md#classcapacitiestestlafichetiresesvaleursdesescapacites) |
 | `EX-CBT-031` | [Combat tactique](../Specification/combat.md) | [`DamageTest.LeCritiqueDoubleLesDesPasLeModificateur`](core-combat.md#damagetestlecritiquedoublelesdespaslemodificateur) |
 | `EX-CBT-032` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-040` | [Combat tactique](../Specification/combat.md) | — |
@@ -382,6 +382,8 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-RPG-021` | [Personnage et progression](../Specification/rpg.md) | — |
 | `EX-RPG-022` | [Personnage et progression](../Specification/rpg.md) | — |
 | `EX-RPG-023` | [Personnage et progression](../Specification/rpg.md) | — |
+| `EX-RPG-024` | [Personnage et progression](../Specification/rpg.md) | — |
+| `EX-RPG-025` | [Personnage et progression](../Specification/rpg.md) | — |
 | `EX-RPG-030` | [Personnage et progression](../Specification/rpg.md) | — |
 | `EX-RPG-031` | [Personnage et progression](../Specification/rpg.md) | — |
 | `EX-RPG-032` | [Personnage et progression](../Specification/rpg.md) | — |

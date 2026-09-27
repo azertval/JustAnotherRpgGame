@@ -138,14 +138,15 @@ struct AttaqueImprimee {
     core::DamageType type;
 };
 
-// L'attaque d'une arme du catalogue, au corps a corps ou au tir selon l'arme. Les classes
-// simplifiees ne declarent pas encore leurs maitrises d'armes (LOT-131) : l'arme est tenue pour
-// maitrisee, comme la page le suppose.
+// L'attaque d'une arme du catalogue, au corps a corps ou au tir selon l'arme. La maitrise se LIT
+// dans la fiche (LOT-131) : la classe et l'espece la donnent, et la page la suppose -- si la donnee
+// ne la donnait pas, le bonus au toucher tomberait de 2 et le test le dirait.
 [[nodiscard]] core::AttackProfile attaque(const core::CharacterSheet& fiche, const char* arme) {
     const Catalogues& lus = catalogues();
     const core::Weapon* const catalogue = lus.equipment.findWeapon(arme);
     EXPECT_NE(catalogue, nullptr) << arme;
-    return core::weaponAttackFor(fiche, catalogue, core::proficiencyBonus(fiche, lus.experience));
+    return core::weaponAttackFor(fiche, catalogue, core::proficiencyBonus(fiche, lus.experience),
+                                 core::isProficientWith(fiche, *catalogue));
 }
 
 void verifierAttaque(const core::AttackProfile& profil, const AttaqueImprimee& imprimee) {
@@ -165,7 +166,8 @@ void verifierLancer(const core::CharacterSheet& fiche, const char* arme, int nor
     const core::Weapon* const catalogue = lus.equipment.findWeapon(arme);
     ASSERT_NE(catalogue, nullptr) << arme;
     const std::optional<core::AttackProfile> lancer =
-        core::thrownAttackFor(fiche, *catalogue, core::proficiencyBonus(fiche, lus.experience));
+        core::thrownAttackFor(fiche, *catalogue, core::proficiencyBonus(fiche, lus.experience),
+                              core::isProficientWith(fiche, *catalogue));
     ASSERT_TRUE(lancer.has_value()) << arme << " se lance";
     ASSERT_TRUE(lancer->range.has_value()) << arme;
     EXPECT_EQ(lancer->range->normal, normaleCases) << arme;

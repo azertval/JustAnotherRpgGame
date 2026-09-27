@@ -12,11 +12,17 @@
 
 namespace core {
 
-bool DamageTraits::applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const {
-    return std::ranges::any_of(affinities, [&](const DamageAffinity& affinite) {
+const DamageAffinity* DamageTraits::matching(DamageAffinityKind kind, DamageType type,
+                                             DamageFlags flags) const {
+    const auto trouve = std::ranges::find_if(affinities, [&](const DamageAffinity& affinite) {
         return affinite.kind == kind && affinite.type == type &&
                (affinite.bypassedBy & flags) == 0U;
     });
+    return trouve == affinities.end() ? nullptr : &*trouve;
+}
+
+bool DamageTraits::applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const {
+    return matching(kind, type, flags) != nullptr;
 }
 
 std::vector<RolledDamage> rollDamage(std::span<const DamageClause> clauses, bool critical,
@@ -127,20 +133,33 @@ void DamagePipeline::applyAffinities(DamageWork& work, const DamageTraits& trait
             continue;
         }
         const std::string type(damageTypeLabel(portion.type));
-        if (traits.applies(DamageAffinityKind::Immunity, portion.type, portion.flags)) {
-            work.adjust(indice, 0, DamageStage::Resistances, "immunite (" + type + ")");
+        // « resistance (tranchant) », ou « resistance (tranchant ; Tough as Nails) » si une
+        // capacite la donne (LOT-131) : le journal nomme ce qui a joue (EX-REG-003).
+        const auto etiquette = [&](const char* genre, const DamageAffinity& affinite) {
+            std::string texte = genre;
+            texte += " (" + type;
+            if (!affinite.source.empty()) {
+                texte += " ; " + affinite.source;
+            }
+            return texte + ")";
+        };
+        if (const DamageAffinity* immunite =
+                traits.matching(DamageAffinityKind::Immunity, portion.type, portion.flags)) {
+            work.adjust(indice, 0, DamageStage::Resistances, etiquette("immunite", *immunite));
             continue;
         }
         // Manuel, chapitre 9 : « la resistance PUIS la vulnerabilite sont appliquees apres tous les
         // autres modificateurs », et plusieurs resistances au meme type ne comptent qu'une fois.
         // Moitie arrondie a l'inferieur : 25 resiste et vulnerable donne 12 puis 24, pas 25.
-        if (traits.applies(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
+        if (const DamageAffinity* resistance =
+                traits.matching(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
             work.adjust(indice, work.portions[indice].amount / 2, DamageStage::Resistances,
-                        "resistance (" + type + ")");
+                        etiquette("resistance", *resistance));
         }
-        if (traits.applies(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
+        if (const DamageAffinity* vulnerabilite =
+                traits.matching(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
             work.adjust(indice, work.portions[indice].amount * 2, DamageStage::Resistances,
-                        "vulnerabilite (" + type + ")");
+                        etiquette("vulnerabilite", *vulnerabilite));
         }
     }
 }

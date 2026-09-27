@@ -6,6 +6,26 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-131 — Le socle de classe simplifiée.** Une classe est une donnée qui agit en combat sans
+  une ligne de C++ qui la nomme. Les **capacités** sont un catalogue d'**effets nommés**
+  (`Rpg/capacities/`, `capacity.schema.json`, sept genres : bonus au jet, bonus de CA, formule de CA
+  sans armure, résistance, vitesse, pas d'attaque d'opportunité, dés en plus une fois par tour) que
+  la table de progression désigne par identifiant et que la fiche porte au niveau atteint
+  (`CharacterSheet::capacities`, `applyClassFeatures`). Le moteur les branche sur ses crochets :
+  bonus au jet nommé au journal (« + 2 (Coup precis) »), nouvelle étape `Hit` du jet d'attaque pour
+  les dés ajoutés (« 1d6 : 4 tranchant (Coup precis) »), résistance qui nomme sa source
+  (« resistance (tranchant ; Peau de fer) »), déplacement sans attaque d'opportunité écrit au
+  journal, CA sans armure recalculée par la meilleure formule (`EX-CBT-030`). L'**incantation
+  simplifiée** du *Player's Guide* (p. 196, 200) tient un compte de lancers **par sort et par jour**
+  sur la fiche (`knownSpells`), que `longRest` rend ; dans l'arène, `castSpell` refuse un sort épuisé
+  avant toute dépense et la barre le grise. Seul le sort à **jet d'attaque** est joué ici
+  (`spell.schema.json` : `attackRoll`, `rangeMeters`). Les **maîtrises d'armes** viennent de la
+  classe (catégorie ou arme) et de l'espèce (`weaponProficiencies` du nain), et le test des fiches du
+  `LOT-130` les lit au lieu de les supposer. Les quatre classes reçoivent maîtrises, compétences au
+  choix et incantation (Int et Sag, 2/jour) ; leurs capacités et sorts restent aux `LOT-132` à
+  `LOT-135`. Une classe d'essai à quatre capacités et trois sorts vit dans la racine de données
+  d'essai et joue chaque critère en test (`test_class_capacities.cpp`, `test_class_in_arena.cpp`).
+  Exigences `EX-RPG-024` et `EX-RPG-025`.
 - **LOT-130 — Les quatre fiches préfabriquées, en données.** Le Mage, le Priest et le Scoundrel du
   *Player's Guide to Tanares* (p. 199, 203, 207) rejoignent le Brawler dans `Rpg/characters/`,
   valeur pour valeur : `heros-mage.json`, `heros-priest.json`, `heros-scoundrel.json`, provisoires

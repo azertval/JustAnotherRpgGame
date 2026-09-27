@@ -47,6 +47,69 @@
       "minimum": 1,
       "maximum": 20
     },
+    "armorProficiencies": {
+      "type": "array",
+      "description": "Categories d'armure maitrisees (LOT-131) : celles de `armor.schema.json`, `shields` compris.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "light",
+          "medium",
+          "heavy",
+          "shields"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "weaponProficiencies": {
+      "type": "array",
+      "description": "Armes maitrisees (LOT-131) : une categorie (`simple`, `martial`) ou l'identifiant d'une arme du catalogue (`baton`, `rapiere`). Une arme non maitrisee se frappe sans le bonus de maitrise.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "uniqueItems": true
+    },
+    "skillChoices": {
+      "type": "object",
+      "description": "Les competences de classe : un NOMBRE au choix parmi une liste, comme le livre l'ecrit. La fiche dit lesquelles.",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "from": {
+          "type": "array",
+          "items": {
+            "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "count",
+        "from"
+      ],
+      "additionalProperties": false
+    },
+    "spellcasting": {
+      "type": "object",
+      "description": "L'INCANTATION SIMPLIFIEE (Player's Guide p. 196, 200 ; LOT-131, EX-RPG-025) : les sorts sont fixes par la table de progression (`spells`, `cantrips`), et chacun se lance `castsPerDay` fois par jour -- pas d'emplacements. DD = 8 + maitrise + modificateur ; attaque = maitrise + modificateur.",
+      "properties": {
+        "ability": {
+          "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/ability"
+        },
+        "castsPerDay": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "ability",
+        "castsPerDay"
+      ],
+      "additionalProperties": false
+    },
     "progression": {
       "type": "array",
       "description": "Une entree par niveau atteint ; les niveaux qui n'apportent rien peuvent etre omis.",
@@ -65,6 +128,23 @@
           },
           "features": {
             "type": "array",
+            "description": "Les capacites que ce niveau apporte : des identifiants de `capacities/` (LOT-131). Une capacite acquise reste, jusqu'a ce qu'une autre la remplace (`replaces`).",
+            "items": {
+              "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+            },
+            "uniqueItems": true
+          },
+          "cantrips": {
+            "type": "array",
+            "description": "Les sorts mineurs appris a ce niveau (identifiants de `spells/`), a volonte.",
+            "items": {
+              "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+            },
+            "uniqueItems": true
+          },
+          "spells": {
+            "type": "array",
+            "description": "Les sorts appris a ce niveau (identifiants de `spells/`), chacun lancable `spellcasting.castsPerDay` fois par jour.",
             "items": {
               "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
             },

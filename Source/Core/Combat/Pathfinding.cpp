@@ -182,7 +182,8 @@ int movementBudget(float speedMeters) noexcept {
 }
 
 int movementBudget(const CharacterSheet& sheet) noexcept {
-    return movementBudget(sheet.speedMeters);
+    // Capacites comprises (LOT-131) : Scoundrel's Agility ajoute 10 ft, soit deux cases.
+    return movementBudget(sheet.effectiveSpeedMeters());
 }
 
 int movementBudget(const Creature& creature, Locomotion locomotion) noexcept {

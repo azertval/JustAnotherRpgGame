@@ -69,6 +69,15 @@
         "additionalProperties": false
       }
     },
+    "weaponProficiencies": {
+      "type": "array",
+      "description": "Armes que l'espece fait maitriser (LOT-131) : l'Entrainement aux armes naines, en identifiants d'armes du catalogue -- le moteur ne lit pas la prose des traits. La fiche reunit celles de la classe et de l'espece.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "uniqueItems": true
+    },
     "parentSpecies": {
       "allOf": [
         {

@@ -11,6 +11,12 @@
     "common",
     "dwarvish"
   ],
+  "weaponProficiencies": [
+    "hache-d-armes",
+    "hachette",
+    "marteau-leger",
+    "marteau-de-guerre"
+  ],
   "traits": [
     {
       "name": "Vision dans le noir",
