@@ -136,6 +136,28 @@ namespace {
     return base;
 }
 
+// Les augmentations que l'espece laisse AU CHOIX du joueur (LOT-130), telles que la fiche les a
+// tranchees : un objet caracteristique -> entier. Absent, rien n'est ajoute ; une caracteristique
+// inconnue est signalee et ignoree, jamais devinee.
+[[nodiscard]] std::array<int, 6> lireChoixDEspece(const nlohmann::json& racine,
+                                                  const std::filesystem::path& path,
+                                                  std::vector<std::string>& erreurs) {
+    std::array<int, 6> choix{};
+    const auto objet = racine.find("speciesAbilityChoice");
+    if (objet == racine.end() || !objet->is_object()) {
+        return choix;
+    }
+    for (const auto& [nom, valeur] : objet->items()) {
+        const std::optional<Ability> lue = parseAbility(nom);
+        if (!lue.has_value() || !valeur.is_number_integer()) {
+            erreurs.push_back(path.string() + " : choix d'espece '" + nom + "' inconnu du moteur.");
+            continue;
+        }
+        choix[static_cast<std::size_t>(*lue)] = valeur.get<int>();
+    }
+    return choix;
+}
+
 // Les chaines du tableau @p champ de @p racine, ajoutees a @p sortie ; le reste est ignore.
 void lireEnsembleDeTextes(const nlohmann::json& racine, const char* champ,
                           std::set<std::string>& sortie) {
@@ -253,7 +275,8 @@ LoadedCharacterSheet loadCharacterSheet(const std::filesystem::path& path,
     // et seuil d'experience sont derives par la regle (LOT-13). Les ecrire dans le fichier en
     // ferait une seconde source, qui differerait de la premiere au premier ajustement de regle.
     resultat.sheet =
-        buildCharacterSheet(texte("name"), base, espece, classe, historique, rules, table);
+        buildCharacterSheet(texte("name"), base, espece, classe, historique, rules, table,
+                            lireChoixDEspece(document.root, path, resultat.errors));
 
     const auto niveau = document.root.find("level");
     if (niveau != document.root.end() && niveau->is_number_integer() && classe != nullptr) {
@@ -310,18 +333,20 @@ SkillCheckModifier skillModifier(const CharacterSheet& sheet, const ExperienceTa
     return resultat;
 }
 
-int maximumHitPointsFor(int hitDie, int level, int constitutionModifier) {
+int maximumHitPointsFor(int hitDie, int level, int constitutionModifier, int bonusPerLevel) {
     if (hitDie <= 0 || level <= 0) {
         return 0;
     }
     // Niveau 1 : le MAXIMUM du de. La regle du livre, et la raison pour laquelle un magicien de
     // niveau 1 n'a pas 3 points de vie.
-    int total = hitDie + constitutionModifier;
+    int total = hitDie + constitutionModifier + bonusPerLevel;
     // Niveaux suivants : la valeur fixe de la classe, << la valeur moyenne (arrondie au superieur)
-    // du de >> (Basic Rules p. 11) -- soit (de / 2) + 1 pour tout de pair, et tous le sont.
+    // du de >> (Basic Rules p. 11) -- soit (de / 2) + 1 pour tout de pair, et tous le sont. Ce que
+    // l'espece ajoute par niveau (Tenacite naine) s'ajoute HORS du plancher : le plancher protege
+    // d'une Constitution desastreuse, il ne doit pas absorber un bonus.
     const int moyenne = (hitDie / 2) + 1;
     for (int niveau = 2; niveau <= level; ++niveau) {
-        total += std::max(moyenne + constitutionModifier, GAIN_MINIMAL_PAR_NIVEAU);
+        total += std::max(moyenne + constitutionModifier, GAIN_MINIMAL_PAR_NIVEAU) + bonusPerLevel;
     }
     return std::max(total, GAIN_MINIMAL_PAR_NIVEAU);
 }
@@ -347,8 +372,8 @@ LevelUpResult gainExperience(CharacterSheet& sheet, const ExperienceTable& table
 
     const int avant = sheet.maximumHitPoints;
     sheet.level = atteint;
-    sheet.maximumHitPoints =
-        maximumHitPointsFor(hitDie, sheet.level, sheet.modifier(Ability::Constitution));
+    sheet.maximumHitPoints = maximumHitPointsFor(
+        hitDie, sheet.level, sheet.modifier(Ability::Constitution), sheet.hitPointsPerLevelBonus);
     // Les points de vie COURANTS montent du meme gain, pas jusqu'au maximum : monter de niveau
     // n'est pas un soin, et rendre toute sa vie a un personnage blesse ferait de la montee de
     // niveau une potion gratuite.
@@ -364,7 +389,8 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array<int, 6>& b
                                    const Species* species, const PlayableClass* playableClass,
                                    const Background* background,
                                    const CharacterCreationRules& rules,
-                                   const ExperienceTable& table) {
+                                   const ExperienceTable& table,
+                                   const std::array<int, 6>& chosenIncreases) {
     CharacterSheet fiche;
     fiche.name = std::move(name);
     fiche.abilities = baseAbilities;
@@ -372,11 +398,17 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array<int, 6>& b
     if (species != nullptr) {
         fiche.speciesId = species->id;
         fiche.speedMeters = species->speed;
+        fiche.hitPointsPerLevelBonus = species->hitPointsPerLevel;
         fiche.languages.insert(species->languages.begin(), species->languages.end());
         for (const Ability caracteristique : allAbilities()) {
-            fiche.abilities[static_cast<std::size_t>(caracteristique)] = abilityScoreWith(
-                *species, caracteristique, baseAbilities[static_cast<std::size_t>(caracteristique)],
-                rules.maximumAbilityScore);
+            const auto indice = static_cast<std::size_t>(caracteristique);
+            // La table de l'espece d'abord, puis ce qu'elle laisse au choix (LOT-130), sous le
+            // meme plafond : un choix ne fait pas depasser ce que la table n'aurait pas depasse.
+            fiche.abilities[indice] =
+                std::min(abilityScoreWith(*species, caracteristique, baseAbilities[indice],
+                                          rules.maximumAbilityScore) +
+                             chosenIncreases[indice],
+                         rules.maximumAbilityScore);
         }
     }
 
@@ -386,7 +418,8 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array<int, 6>& b
             fiche.savingThrowProficiencies.insert(caracteristique);
         }
         fiche.maximumHitPoints = maximumHitPointsFor(playableClass->hitDie, fiche.level,
-                                                     fiche.modifier(Ability::Constitution));
+                                                     fiche.modifier(Ability::Constitution),
+                                                     fiche.hitPointsPerLevelBonus);
     }
     fiche.currentHitPoints = fiche.maximumHitPoints;
 

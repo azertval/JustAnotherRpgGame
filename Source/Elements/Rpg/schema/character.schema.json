@@ -50,6 +50,18 @@
       "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/abilityScores",
       "description": "Les six valeurs AVANT augmentation d'espece. L'espece les augmente au chargement, dans la limite lue dans rules/character-creation.json."
     },
+    "speciesAbilityChoice": {
+      "type": "object",
+      "description": "Les augmentations que l'espece laisse AU CHOIX du joueur (LOT-130), telles que cette fiche les tranche : << vous pouvez aussi augmenter une autre caracteristique de votre choix de 1 >> (elfe d'automne, Player's Guide p. 18). Un choix est une donnee de la fiche, pas de l'espece ; il s'ajoute apres la table de l'espece, sous le meme plafond. Le moteur ne sait pas encore OFFRIR ce choix (mecanismesRequis de l'espece, EX-CNT-031) : il applique celui qu'une fiche pre-tiree a fait.",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 2
+      },
+      "propertyNames": {
+        "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/ability"
+      }
+    },
     "inventory": {
       "type": "object",
       "description": "Ce que le personnage PORTE (LOT-14) : ses seize emplacements d'equipement, son sac et sa bourse. Aucune statistique derivee ici -- ni classe d'armure, ni poids total, ni encombrement : elles se RECALCULENT depuis ce contenu (core::derivedStatsFor), et les ecrire serait une seconde source qui divergerait au premier objet retire.",

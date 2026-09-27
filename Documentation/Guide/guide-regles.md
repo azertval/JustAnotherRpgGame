@@ -251,8 +251,11 @@ scoundrel — qui servent de socle au combat en attendant les seize classes comp
   conversion est faite à l'extraction pour qu'un seul système d'unités arrive ici),
   `abilityScoreIncrease` (une **table** indexée par `core::Ability`, jamais une phrase : c'est la
   seule forme que le moteur puisse appliquer ; une case à zéro signifie « pas d'augmentation »),
-  `parentSpecies` pour une sous-espèce, `languages`, `traits` (du texte nommé, `core::NamedTrait`,
-  non joué) et `requiredMechanisms`. `Species::increase(which)` lit la table.
+  `parentSpecies` pour une sous-espèce (elle **hérite** de son parent au chargement, `LOT-130` :
+  augmentations et `hitPointsPerLevel` additionnés, langues, traits et mécanismes requis réunis ;
+  le fichier ne porte que ce que la sous-espèce ajoute), `hitPointsPerLevel` (la *Ténacité
+  naine*, un nombre), `languages`, `traits` (du texte nommé, `core::NamedTrait`, non joué) et
+  `requiredMechanisms`. `Species::increase(which)` lit la table.
 - `core::Background` — `skillProficiencies` (des identifiants du catalogue du `LOT-43`),
   `languageCount` (un historique accorde un **nombre** de langues au choix, pas une liste), une
   `feature` facultative.
@@ -413,6 +416,17 @@ Brenna Vaugris, la fiche provisoire de la capture, que son critère de retrait (
 disparaître au premier personnage réel. Un écart reste connu : la fiche du livre affiche une CA de
 14, qui vient de *Tough as Nails* (10 + Dextérité + Constitution, sans armure) ; les capacités de
 classe arrivent en `0.0.2`, et d'ici là le jeu affiche la CA sans armure du moteur, 11.
+
+Depuis le `LOT-130`, les **quatre** fiches pré-tirées du livre sont dans `Rpg/characters/` —
+`heros-mage.json` (p. 199), `heros-priest.json` (p. 203), `heros-scoundrel.json` (p. 207) à côté du
+Brawler —, et un test par fiche (`test_premade_characters.cpp`) recalcule chaque valeur de la page.
+Deux champs de données sont nés de ces pages : `hitPointsPerLevel` d'une espèce (la *Ténacité
+naine* : un point de vie de plus au niveau 1 et à chaque montée, hors du plancher de 1 par niveau,
+recopié dans `CharacterSheet::hitPointsPerLevelBonus`) et `speciesAbilityChoice` d'une fiche (le
++1 au choix de l'elfe d'automne, appliqué par `buildCharacterSheet` après la table de l'espèce,
+sous le même plafond — l'espèce garde son mécanisme requis, le moteur applique un choix fait sans
+savoir encore l'offrir). Le registre des coquilles du livre et des écarts retenus est dans la fiche
+du lot, `Planning/versions/v0.1.0/v0.0.2-combat/lots/LOT-130-fiches-prefabriquees-en-donnees.md`.
 
 ## Le multiclassage : `core::multiclassCasterLevel` {#multiclassage}
 

@@ -1,0 +1,46 @@
+{
+  "id": "heros-scoundrel",
+  "name": "Nessa Double-Vie",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "fiche pre-tiree du Player's Guide to Tanares, p. 207, reprise valeur pour valeur (LOT-130). Sa classe est l'une des quatre classes simplifiees, provisoires tant que le socle de classe (LOT-131) et la classe elle-meme ne sont pas livres.",
+    "retraitSi": "la classe scoundrel est retiree (son propre critere) ; ou une partie fournit le personnage joue (creation, groupe, sauvegarde) et le jeu n'a plus besoin de fiches pre-tirees"
+  },
+  "speciesId": "humain",
+  "classId": "scoundrel",
+  "backgroundId": "undercover",
+  "baseAbilities": {
+    "strength": 8,
+    "dexterity": 15,
+    "constitution": 14,
+    "intelligence": 9,
+    "wisdom": 13,
+    "charisma": 13
+  },
+  "level": 1,
+  "skillProficiencies": [
+    "acrobatics",
+    "insight",
+    "perception",
+    "sleight-of-hand"
+  ],
+  "languages": [
+    "elvish"
+  ],
+  "inventory": {
+    "equipped": {
+      "main-hand": "rapiere",
+      "torso": "cuir",
+      "ranged": "arc-court",
+      "ammunition": "fleches-20"
+    },
+    "backpack": [
+      {
+        "itemId": "dague",
+        "quantity": 2
+      }
+    ],
+    "purseCopper": 0
+  }
+}

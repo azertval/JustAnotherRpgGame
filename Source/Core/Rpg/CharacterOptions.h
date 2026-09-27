@@ -58,7 +58,20 @@ struct Species {
     /// faite à l'extraction, pour qu'un seul système d'unités arrive jusqu'ici.
     float speed = 0.0F;
     std::array<int, 6> abilityScoreIncrease{};
-    /// Sous-espèce : l'identifiant de l'espèce dont celle-ci dérive. Vide sinon.
+    /**
+     * @brief Points de vie que l'espèce ajoute **à chaque niveau** (`LOT-130`).
+     *
+     * La *Ténacité naine* du nain des collines — *« Votre maximum de points de vie augmente de 1
+     * à chaque niveau »* — est la seule du corpus, et elle est ici sous la forme d'un **nombre**,
+     * comme les augmentations de caractéristique sont une table : le moteur ne lit pas la prose
+     * des traits, et une fiche de prêtre nain qui n'en tiendrait pas compte afficherait 11 points
+     * de vie pour les 12 du livre, sans que rien ne le signale. Zéro pour toute autre espèce.
+     */
+    int hitPointsPerLevel = 0;
+    /// Sous-espèce : l'identifiant de l'espèce dont celle-ci dérive. Vide sinon. Au chargement,
+    /// la sous-espèce **hérite** de son parent (`LOT-130`) : augmentations additionnées, points de
+    /// vie par niveau additionnés, langues, traits et mécanismes requis réunis — le fichier ne
+    /// porte que ce que la sous-espèce ajoute, comme le livre l'écrit.
     std::string parentSpecies;
     std::vector<std::string> languages;
     std::vector<NamedTrait> traits;

@@ -1,0 +1,42 @@
+{
+  "id": "heros-mage",
+  "name": "Faelar Trace-Carte",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "fiche pre-tiree du Player's Guide to Tanares, p. 199, reprise valeur pour valeur (LOT-130). Sa classe est l'une des quatre classes simplifiees, provisoires tant que le socle de classe (LOT-131) et la classe elle-meme ne sont pas livres.",
+    "retraitSi": "la classe mage est retiree (son propre critere) ; ou une partie fournit le personnage joue (creation, groupe, sauvegarde) et le jeu n'a plus besoin de fiches pre-tirees"
+  },
+  "speciesId": "elfe-d-automne",
+  "classId": "mage",
+  "backgroundId": "cartographer",
+  "baseAbilities": {
+    "strength": 8,
+    "dexterity": 13,
+    "constitution": 14,
+    "intelligence": 15,
+    "wisdom": 12,
+    "charisma": 10
+  },
+  "speciesAbilityChoice": {
+    "constitution": 1
+  },
+  "level": 1,
+  "skillProficiencies": [
+    "arcana",
+    "investigation",
+    "perception"
+  ],
+  "inventory": {
+    "equipped": {
+      "main-hand": "baton"
+    },
+    "backpack": [
+      {
+        "itemId": "sacoche-a-composantes",
+        "quantity": 1
+      }
+    ],
+    "purseCopper": 0
+  }
+}

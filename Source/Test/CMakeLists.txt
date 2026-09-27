@@ -61,6 +61,7 @@ add_executable(UnitTests
     Unit/Core/World/test_entity_kinds.cpp
     Unit/Core/Rpg/test_character_options.cpp
     Unit/Core/Rpg/test_character_sheet.cpp
+    Unit/Core/Rpg/test_premade_characters.cpp
     Unit/Core/Levels/test_rpg_terrain.cpp
     Unit/Core/Levels/test_layer_pieces.cpp
     Unit/Core/Levels/test_level_draft_pieces.cpp

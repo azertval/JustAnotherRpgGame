@@ -6,6 +6,22 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-130 — Les quatre fiches préfabriquées, en données.** Le Mage, le Priest et le Scoundrel du
+  *Player's Guide to Tanares* (p. 199, 203, 207) rejoignent le Brawler dans `Rpg/characters/`,
+  valeur pour valeur : `heros-mage.json`, `heros-priest.json`, `heros-scoundrel.json`, provisoires
+  avec leur classe. Un test par fiche (`test_premade_characters.cpp`) recalcule tout ce que la page
+  imprime — caractéristiques, PV, CA armure et bouclier compris, initiative, vitesse, Perception
+  passive, six sauvegardes, dix-huit compétences, chaque attaque avec ses dés et ses portées — et
+  la fiche du lot tient le **registre des coquilles** du livre et des écarts, avec la valeur retenue
+  (la règle prime : handaxe tranchante, Perception passive 14, 40 ft au Scoundrel dès que
+  *Scoundrel's Agility* sera jouée). Trois mécanismes que les pages exigent entrent dans le moteur : l'**héritage d'une sous-espèce** (le nain des collines reçoit les augmentations, langues et traits du nain ; `parentSpecies` n'était qu'une étiquette),
+  la *Ténacité naine* comme nombre de points de vie par niveau de l'espèce (`hitPointsPerLevel`,
+  compté au niveau 1 et à chaque montée, hors du plancher), et le **+1 au choix** de l'elfe
+  d'automne comme choix de la fiche (`speciesAbilityChoice`, appliqué après la table de l'espèce
+  sous le même plafond ; l'espèce garde son mécanisme requis, le moteur n'offre pas encore le
+  choix). Le trait *Sauvagerie* du demi-orc perd la demi-page d'OCR sur les gnomes qu'il
+  embarquait.
+
 ## [0.0.1] - 2026-09-27
 
 - **Les deux dernières alertes clang-tidy de Code scanning.** La mini-carte de l'éditeur appelle

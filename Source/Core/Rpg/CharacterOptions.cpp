@@ -208,6 +208,10 @@ void lireAugmentations(const nlohmann::json& racine, const std::string& fichier,
     }
     espece.speed = vitesse->get<float>();
     lireAugmentations(racine, fichier, espece, erreurs);
+    if (const auto parNiveau = racine.find("hitPointsPerLevel");
+        parNiveau != racine.end() && parNiveau->is_number_integer()) {
+        espece.hitPointsPerLevel = parNiveau->get<int>();
+    }
     espece.languages = lireTextes(racine, "languages");
     espece.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
     lireTraits(racine, "traits", espece.traits);
@@ -286,6 +290,56 @@ void lireProgression(const nlohmann::json& racine, const std::string& fichier,
 
 }  // namespace
 
+namespace {
+
+// Une sous-espece HERITE de son espece parente (LOT-130) : << les nains des collines >> sont des
+// nains, et la page 203 donne au pretre nain les +2 de Constitution, le nain commun et la vision
+// dans le noir de tous les nains, plus le +1 de Sagesse et la Tenacite qui sont les siens. Le
+// fichier de la sous-espece ne porte que ce qu'elle AJOUTE, comme le livre l'ecrit ; la fusion se
+// fait ici, une fois, et sur un seul niveau -- le corpus n'a pas de petite-fille d'espece. La
+// taille et la vitesse restent celles que la sous-espece declare (le schema les exige).
+void heriterDesEspecesParentes(CharacterOptions& options) {
+    // Les parents sont copies d'abord : fusionner en place pendant qu'on lit la liste ferait
+    // heriter d'un parent lui-meme deja modifie.
+    std::vector<Species> parents;
+    for (const Species& espece : options.species) {
+        if (espece.parentSpecies.empty()) {
+            parents.push_back(espece);
+        }
+    }
+    for (Species& espece : options.species) {
+        if (espece.parentSpecies.empty()) {
+            continue;
+        }
+        const auto parent = std::ranges::find(parents, espece.parentSpecies, &Species::id);
+        if (parent == parents.end()) {
+            options.errors.push_back("species/" + espece.id + ".json : espece parente '" +
+                                     espece.parentSpecies + "' inconnue du catalogue.");
+            continue;
+        }
+        for (const Ability caracteristique : allAbilities()) {
+            const auto indice = static_cast<std::size_t>(caracteristique);
+            espece.abilityScoreIncrease[indice] += parent->abilityScoreIncrease[indice];
+        }
+        espece.hitPointsPerLevel += parent->hitPointsPerLevel;
+        for (const std::string& langue : parent->languages) {
+            if (std::ranges::find(espece.languages, langue) == espece.languages.end()) {
+                espece.languages.push_back(langue);
+            }
+        }
+        for (const std::string& mecanisme : parent->requiredMechanisms) {
+            if (std::ranges::find(espece.requiredMechanisms, mecanisme) ==
+                espece.requiredMechanisms.end()) {
+                espece.requiredMechanisms.push_back(mecanisme);
+            }
+        }
+        // Les traits du parent d'abord, dans l'ordre du livre : l'espece, puis la sous-espece.
+        espece.traits.insert(espece.traits.begin(), parent->traits.begin(), parent->traits.end());
+    }
+}
+
+}  // namespace
+
 CharacterOptions loadCharacterOptions(const std::filesystem::path& speciesDir,
                                       const std::filesystem::path& backgroundsDir,
                                       const std::filesystem::path& classesDir) {
@@ -314,6 +368,7 @@ CharacterOptions loadCharacterOptions(const std::filesystem::path& speciesDir,
     std::ranges::sort(options.species, {}, &Species::id);
     std::ranges::sort(options.backgrounds, {}, &Background::id);
     std::ranges::sort(options.classes, {}, &PlayableClass::id);
+    heriterDesEspecesParentes(options);
     return options;
 }
 
