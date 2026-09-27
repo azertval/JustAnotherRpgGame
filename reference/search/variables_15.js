@@ -12,5 +12,6 @@ var searchData=
   ['unreadable_9',['unreadable',['../structhmi_1_1WorldGraphLayoutNode.html#adc814eb733e225ff26f5a2f2b60c0306',1,'hmi::WorldGraphLayoutNode']]],
   ['unwantedseconds_10',['unwantedSeconds',['../structhmi_1_1AssetGalleryRenderer_1_1CachedTexture.html#ac9de4b5d5cb774e82273e00277e5b83a',1,'hmi::AssetGalleryRenderer::CachedTexture']]],
   ['updates_11',['updates',['../structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d',1,'hmi::RhiContext']]],
-  ['uploads_5fper_5fframe_12',['UPLOADS_PER_FRAME',['../classhmi_1_1AssetGalleryRenderer.html#a278c3a154a2a3f62a34aeb9e57ad7cdd',1,'hmi::AssetGalleryRenderer']]]
+  ['uploads_5fper_5fframe_12',['UPLOADS_PER_FRAME',['../classhmi_1_1AssetGalleryRenderer.html#a278c3a154a2a3f62a34aeb9e57ad7cdd',1,'hmi::AssetGalleryRenderer']]],
+  ['uses_13',['uses',['../structcore_1_1ArenaSpell.html#a3effaed2ef2321524ee482bbc74aa4bc',1,'core::ArenaSpell']]]
 ];

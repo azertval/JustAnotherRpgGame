@@ -163,6 +163,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a66d861ed4aeef7be12d617ea129ab16c" id="r_a66d861ed4aeef7be12d617ea129ab16c"><td class="memItemLeft">const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a66d861ed4aeef7be12d617ea129ab16c">level</a> () const noexcept</td></tr>
 <tr class="memitem:a7b9cbd6f1bfc3c5276543737f2ac6db2" id="r_a7b9cbd6f1bfc3c5276543737f2ac6db2"><td class="memItemLeft">const <a class="el" href="structcore_1_1ArenaBout.html">ArenaBout</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7b9cbd6f1bfc3c5276543737f2ac6db2">bout</a> () const noexcept</td></tr>
 <tr class="memitem:a3dc6b71791568af78f3f66d6987df23c" id="r_a3dc6b71791568af78f3f66d6987df23c"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#a3dc6b71791568af78f3f66d6987df23c">attacks</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memitem:a37fe5fc7f309b7fcbb4b396ab876a273" id="r_a37fe5fc7f309b7fcbb4b396ab876a273"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#a37fe5fc7f309b7fcbb4b396ab876a273">spells</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memitem:a2c14edfa7153f6b451650d0bd3f0e7df" id="r_a2c14edfa7153f6b451650d0bd3f0e7df"><td class="memItemLeft">std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2c14edfa7153f6b451650d0bd3f0e7df">capacitiesOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memitem:a4c66e3a8f4aa73bd21da742945b5b5dd" id="r_a4c66e3a8f4aa73bd21da742945b5b5dd"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4c66e3a8f4aa73bd21da742945b5b5dd">castSpell</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, std::size_t spellIndex)</td></tr>
+<tr class="memdesc:a4c66e3a8f4aa73bd21da742945b5b5dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>lancer un sort</em> du combattant actif, avec son sort <code class="param">spellIndex</code> (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-025</span>).  <br /></td></tr>
 <tr class="memitem:af6df2744b75f2368435b6a7ba12b01e3" id="r_af6df2744b75f2368435b6a7ba12b01e3"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#af6df2744b75f2368435b6a7ba12b01e3">attack</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, std::size_t attackIndex=0)</td></tr>
 <tr class="memdesc:af6df2744b75f2368435b6a7ba12b01e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>attaquer</em> du combattant actif, avec son attaque <code class="param">attackIndex</code>.  <br /></td></tr>
 <tr class="memitem:a8fe411d2eeeb7eec646bafd6baa5269a" id="r_a8fe411d2eeeb7eec646bafd6baa5269a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8fe411d2eeeb7eec646bafd6baa5269a">dodge</a> ()</td></tr>
@@ -213,7 +217,11 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a811a05394f43e2e01cf02d55fc5c0d3b" id="r_a811a05394f43e2e01cf02d55fc5c0d3b"><td class="memItemLeft">const <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a811a05394f43e2e01cf02d55fc5c0d3b">meleeAttack</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
 <tr class="memdesc:a811a05394f43e2e01cf02d55fc5c0d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La première attaque au corps à corps d'un combattant, ou <span class="tt">nullptr</span>.  <br /></td></tr>
 <tr class="memitem:a96121b0c949d240b5ca16b1dbfdbb42b" id="r_a96121b0c949d240b5ca16b1dbfdbb42b"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a96121b0c949d240b5ca16b1dbfdbb42b">firstProvokingStep</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;cases, std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; &amp;reactors) const</td></tr>
-<tr class="memdesc:a96121b0c949d240b5ca16b1dbfdbb42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le premier pas de <code class="param">cases</code> qui sort de l'allonge d'un ennemi, et ceux qu'il provoque, ajoutés à <code class="param">reactors</code> ; vide pour un combattant désengagé.  <br /></td></tr>
+<tr class="memdesc:a96121b0c949d240b5ca16b1dbfdbb42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le premier pas de <code class="param">cases</code> qui sort de l'allonge d'un ennemi, et ceux qu'il provoque, ajoutés à <code class="param">reactors</code> ; vide pour un combattant désengagé ou qu'une capacité soustrait aux attaques d'opportunité (<span class="tt">LOT-131</span>).  <br /></td></tr>
+<tr class="memitem:aa5db74127aa200ec419457e753b60536" id="r_aa5db74127aa200ec419457e753b60536"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa5db74127aa200ec419457e753b60536">firstExitFromReach</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;cases, std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; &amp;reactors) const</td></tr>
+<tr class="memdesc:aa5db74127aa200ec419457e753b60536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même calcul, <b>sans</b> tenir compte du désengagement ni des capacités : ce que le pas aurait provoqué.  <br /></td></tr>
+<tr class="memitem:ae327de7aee4320e246557290c95eccb0" id="r_ae327de7aee4320e246557290c95eccb0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae327de7aee4320e246557290c95eccb0">hookCapacities</a> (<a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a> &amp;hooks, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> attacker)</td></tr>
+<tr class="memdesc:ae327de7aee4320e246557290c95eccb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche sur <code class="param">hooks</code> les effets des capacités de <code class="param">attacker</code> : bonus au jet, dés en plus.  <br /></td></tr>
 <tr class="memitem:ae2175f68b5c450d3c2e09b7a9fc8ebbe" id="r_ae2175f68b5c450d3c2e09b7a9fc8ebbe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2175f68b5c450d3c2e09b7a9fc8ebbe">takeOpportunities</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; &amp;reactors)</td></tr>
 <tr class="memdesc:ae2175f68b5c450d3c2e09b7a9fc8ebbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques d'opportunité de <code class="param">reactors</code> contre <code class="param">mover</code>, tant qu'il est debout, que le combat dure et que l'opportuniste l'est aussi.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -224,6 +232,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:adf67da40ab63c3b22f35f3c691d811c2" id="r_adf67da40ab63c3b22f35f3c691d811c2"><td class="memItemLeft"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a>&#160;</td><td class="memItemRight"><a class="el" href="#adf67da40ab63c3b22f35f3c691d811c2">_random</a> {0}</td></tr>
 <tr class="memitem:ae5ec4ffe9daaed4bfdc3c20505ee4647" id="r_ae5ec4ffe9daaed4bfdc3c20505ee4647"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae5ec4ffe9daaed4bfdc3c20505ee4647">_combat</a></td></tr>
 <tr class="memitem:a35cbb920f818826a6c52dc2d946d5700" id="r_a35cbb920f818826a6c52dc2d946d5700"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a35cbb920f818826a6c52dc2d946d5700">_attacks</a></td></tr>
+<tr class="memitem:a5a415ef69542921b94be4792fbf47775" id="r_a5a415ef69542921b94be4792fbf47775"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::vector&lt; <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5a415ef69542921b94be4792fbf47775">_capacities</a></td></tr>
+<tr class="memitem:ae44c95a769818642d87aad7da4384358" id="r_ae44c95a769818642d87aad7da4384358"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae44c95a769818642d87aad7da4384358">_spells</a></td></tr>
 <tr class="memitem:a38808d9b9189c755c35f14cbe7159e07" id="r_a38808d9b9189c755c35f14cbe7159e07"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a38808d9b9189c755c35f14cbe7159e07">_behaviors</a></td></tr>
 <tr class="memitem:a63ea433e5165843c03cbce0d9f42d7fc" id="r_a63ea433e5165843c03cbce0d9f42d7fc"><td class="memItemLeft"><a class="el" href="namespacecore.html#a838239698e3440af150c5de8127b830e">OpportunityPolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="#a63ea433e5165843c03cbce0d9f42d7fc">_opportunityPolicy</a></td></tr>
 <tr class="memitem:a9557d66f98acedb6746c35a605093a0a" id="r_a9557d66f98acedb6746c35a605093a0a"><td class="memItemLeft"><a class="el" href="namespacecore.html#a9ae3355e126e768022cd22fffaeabd25">MoveObserver</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9557d66f98acedb6746c35a605093a0a">_moveObserver</a></td></tr>
@@ -371,6 +381,56 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La composition montée. </dd></dl>
+
+</div>
+</div>
+<a id="a2c14edfa7153f6b451650d0bd3f0e7df" name="a2c14edfa7153f6b451650d0bd3f0e7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c14edfa7153f6b451650d0bd3f0e7df">&#9670;&#160;</a></span>capacitiesOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; core::ArenaSession::capacitiesOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les capacités de classe d'un combattant enrôlé ; vide s'il n'en a pas. </dd></dl>
+
+</div>
+</div>
+<a id="a4c66e3a8f4aa73bd21da742945b5b5dd" name="a4c66e3a8f4aa73bd21da742945b5b5dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c66e3a8f4aa73bd21da742945b5b5dd">&#9670;&#160;</a></span>castSpell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::castSpell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>spellIndex</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'action <em>lancer un sort</em> du combattant actif, avec son sort <code class="param">spellIndex</code> (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-025</span>). </p>
+<p>Un sort épuisé est refusé (<span class="tt">Exhausted</span>) <b>avant</b> toute dépense ; sinon même chemin qu'une attaque — cible, portée, vue, action —, puis un lancer de moins. Le journal préfixe la ligne de « sort : ». </p>
 
 </div>
 </div>
@@ -579,6 +639,42 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa5db74127aa200ec419457e753b60536" name="aa5db74127aa200ec419457e753b60536"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5db74127aa200ec419457e753b60536">&#9670;&#160;</a></span>firstExitFromReach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::size_t &gt; core::ArenaSession::firstExitFromReach </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>mover</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cases</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>reactors</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le même calcul, <b>sans</b> tenir compte du désengagement ni des capacités : ce que le pas aurait provoqué. </p>
+
+</div>
+</div>
 <a id="a96121b0c949d240b5ca16b1dbfdbb42b" name="a96121b0c949d240b5ca16b1dbfdbb42b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96121b0c949d240b5ca16b1dbfdbb42b">&#9670;&#160;</a></span>firstProvokingStep()</h2>
 
@@ -611,7 +707,38 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Le premier pas de <code class="param">cases</code> qui sort de l'allonge d'un ennemi, et ceux qu'il provoque, ajoutés à <code class="param">reactors</code> ; vide pour un combattant désengagé. </p>
+<p>Le premier pas de <code class="param">cases</code> qui sort de l'allonge d'un ennemi, et ceux qu'il provoque, ajoutés à <code class="param">reactors</code> ; vide pour un combattant désengagé ou qu'une capacité soustrait aux attaques d'opportunité (<span class="tt">LOT-131</span>). </p>
+
+</div>
+</div>
+<a id="ae327de7aee4320e246557290c95eccb0" name="ae327de7aee4320e246557290c95eccb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae327de7aee4320e246557290c95eccb0">&#9670;&#160;</a></span>hookCapacities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ArenaSession::hookCapacities </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>hooks</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>attacker</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Branche sur <code class="param">hooks</code> les effets des capacités de <code class="param">attacker</code> : bonus au jet, dés en plus. </p>
 
 </div>
 </div>
@@ -1074,6 +1201,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a37fe5fc7f309b7fcbb4b396ab876a273" name="a37fe5fc7f309b7fcbb4b396ab876a273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37fe5fc7f309b7fcbb4b396ab876a273">&#9670;&#160;</a></span>spells()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt; * core::ArenaSession::spells </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les sorts d'un combattant enrôlé, lancers restants compris, ou <span class="tt">nullptr</span>. </dd></dl>
+
+</div>
+</div>
 <a id="a41369bfd25b9893cb93efe2c41c37a10" name="a41369bfd25b9893cb93efe2c41c37a10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41369bfd25b9893cb93efe2c41c37a10">&#9670;&#160;</a></span>start()</h2>
 
@@ -1273,6 +1426,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structcore_1_1ArenaBout.html">ArenaBout</a> core::ArenaSession::_bout</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a415ef69542921b94be4792fbf47775" name="a5a415ef69542921b94be4792fbf47775"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a415ef69542921b94be4792fbf47775">&#9670;&#160;</a></span>_capacities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::vector&lt;<a class="el" href="structcore_1_1Capacity.html">Capacity</a>&gt; &gt; core::ArenaSession::_capacities</td>
         </tr>
       </table>
   </td>
@@ -1493,6 +1668,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> core::ArenaSession::_random {0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae44c95a769818642d87aad7da4384358" name="ae44c95a769818642d87aad7da4384358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44c95a769818642d87aad7da4384358">&#9670;&#160;</a></span>_spells</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::vector&lt;<a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a>&gt; &gt; core::ArenaSession::_spells</td>
         </tr>
       </table>
   </td>

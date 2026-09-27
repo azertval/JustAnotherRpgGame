@@ -5,6 +5,8 @@ var classcore_1_1ArenaSession =
     [ "attacks", "classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c", null ],
     [ "behaviorOf", "classcore_1_1ArenaSession.html#a3ce3b41cfdf4361ae9a289d74c9818b9", null ],
     [ "bout", "classcore_1_1ArenaSession.html#a7b9cbd6f1bfc3c5276543737f2ac6db2", null ],
+    [ "capacitiesOf", "classcore_1_1ArenaSession.html#a2c14edfa7153f6b451650d0bd3f0e7df", null ],
+    [ "castSpell", "classcore_1_1ArenaSession.html#a4c66e3a8f4aa73bd21da742945b5b5dd", null ],
     [ "circumstancesAgainst", "classcore_1_1ArenaSession.html#ab45b1ff1458249fc3668bc45a2a9a57a", null ],
     [ "combat", "classcore_1_1ArenaSession.html#a1499cabc1b8c1ba3c21a31446278c40f", null ],
     [ "combat", "classcore_1_1ArenaSession.html#a0b2e4d467ccf4fa2b267af8cc0a94ef8", null ],
@@ -13,7 +15,9 @@ var classcore_1_1ArenaSession =
     [ "disengage", "classcore_1_1ArenaSession.html#a97a21749dc62d995ebaa827a398ed4be", null ],
     [ "dodge", "classcore_1_1ArenaSession.html#a8fe411d2eeeb7eec646bafd6baa5269a", null ],
     [ "endTurn", "classcore_1_1ArenaSession.html#a6d429af2387a6dc634c54af286fd64fd", null ],
+    [ "firstExitFromReach", "classcore_1_1ArenaSession.html#aa5db74127aa200ec419457e753b60536", null ],
     [ "firstProvokingStep", "classcore_1_1ArenaSession.html#a96121b0c949d240b5ca16b1dbfdbb42b", null ],
+    [ "hookCapacities", "classcore_1_1ArenaSession.html#ae327de7aee4320e246557290c95eccb0", null ],
     [ "isDodging", "classcore_1_1ArenaSession.html#a346bba8c696fc4a49de4f6fbc4d17813", null ],
     [ "journal", "classcore_1_1ArenaSession.html#a9a0cb403b0b0667a4139bae3b3153c21", null ],
     [ "level", "classcore_1_1ArenaSession.html#a66d861ed4aeef7be12d617ea129ab16c", null ],
@@ -31,6 +35,7 @@ var classcore_1_1ArenaSession =
     [ "setMoveObserver", "classcore_1_1ArenaSession.html#aeaed382f27369145400b710e905d5d94", null ],
     [ "setOpportunityPolicy", "classcore_1_1ArenaSession.html#a7e87ed448b5a3fe93115802b2a417c1a", null ],
     [ "setTakesOpportunities", "classcore_1_1ArenaSession.html#a1018a38031516ac18d3a02af2f6f6df4", null ],
+    [ "spells", "classcore_1_1ArenaSession.html#a37fe5fc7f309b7fcbb4b396ab876a273", null ],
     [ "start", "classcore_1_1ArenaSession.html#a41369bfd25b9893cb93efe2c41c37a10", null ],
     [ "subscribe", "classcore_1_1ArenaSession.html#a45f1c1142a60869b468722fdab337e42", null ],
     [ "takeOpportunities", "classcore_1_1ArenaSession.html#ae2175f68b5c450d3c2e09b7a9fc8ebbe", null ],
@@ -40,6 +45,7 @@ var classcore_1_1ArenaSession =
     [ "_attacks", "classcore_1_1ArenaSession.html#a35cbb920f818826a6c52dc2d946d5700", null ],
     [ "_behaviors", "classcore_1_1ArenaSession.html#a38808d9b9189c755c35f14cbe7159e07", null ],
     [ "_bout", "classcore_1_1ArenaSession.html#a849c3ed071bb8d813120952501cfdb0b", null ],
+    [ "_capacities", "classcore_1_1ArenaSession.html#a5a415ef69542921b94be4792fbf47775", null ],
     [ "_combat", "classcore_1_1ArenaSession.html#ae5ec4ffe9daaed4bfdc3c20505ee4647", null ],
     [ "_damagePipeline", "classcore_1_1ArenaSession.html#a4034c02d8e32b175dbba41999b5646fe", null ],
     [ "_declinesOpportunities", "classcore_1_1ArenaSession.html#a3582c5bbd58f6c52c7ed986c28b5f1d7", null ],
@@ -49,5 +55,6 @@ var classcore_1_1ArenaSession =
     [ "_level", "classcore_1_1ArenaSession.html#af8aec46bbcbee2130bd3177e9fdf4f97", null ],
     [ "_moveObserver", "classcore_1_1ArenaSession.html#a9557d66f98acedb6746c35a605093a0a", null ],
     [ "_opportunityPolicy", "classcore_1_1ArenaSession.html#a63ea433e5165843c03cbce0d9f42d7fc", null ],
-    [ "_random", "classcore_1_1ArenaSession.html#adf67da40ab63c3b22f35f3c691d811c2", null ]
+    [ "_random", "classcore_1_1ArenaSession.html#adf67da40ab63c3b22f35f3c691d811c2", null ],
+    [ "_spells", "classcore_1_1ArenaSession.html#ae44c95a769818642d87aad7da4384358", null ]
 ];

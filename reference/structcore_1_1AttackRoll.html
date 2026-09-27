@@ -177,6 +177,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a939d9433a590fcc2a28b0be6168fd317" id="r_a939d9433a590fcc2a28b0be6168fd317"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a939d9433a590fcc2a28b0be6168fd317">hit</a> = false</td></tr>
 <tr class="memdesc:a939d9433a590fcc2a28b0be6168fd317"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'issue, figée après <span class="tt">BeforeOutcome</span>.  <br /></td></tr>
 <tr class="memitem:a9d3fda07cfa265bb01b1a82c7a237227" id="r_a9d3fda07cfa265bb01b1a82c7a237227"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9d3fda07cfa265bb01b1a82c7a237227">critical</a> = false</td></tr>
+<tr class="memitem:a1317273848873f06810eb5effde86372" id="r_a1317273848873f06810eb5effde86372"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1317273848873f06810eb5effde86372">damageType</a></td></tr>
+<tr class="memdesc:a1317273848873f06810eb5effde86372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le type de la première clause de dégâts du profil : celui que prennent les dés ajoutés à l'étape <span class="tt">Hit</span> (l'attaque sournoise est « du type de l'arme »).  <br /></td></tr>
+<tr class="memitem:ab0f49c854c77edf77fd20e86459ead19" id="r_ab0f49c854c77edf77fd20e86459ead19"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1BonusDamage.html">BonusDamage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab0f49c854c77edf77fd20e86459ead19">bonusDamage</a></td></tr>
+<tr class="memdesc:ab0f49c854c77edf77fd20e86459ead19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés que l'étape <span class="tt">Hit</span> a ajoutés, lancés avec ceux du profil, critique compris.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un jet d'attaque : la demande, les dés, les amendements, et l'issue une fois figée. </p>
@@ -329,6 +333,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab0f49c854c77edf77fd20e86459ead19" name="ab0f49c854c77edf77fd20e86459ead19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0f49c854c77edf77fd20e86459ead19">&#9670;&#160;</a></span>bonusDamage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1BonusDamage.html">BonusDamage</a>&gt; core::AttackRoll::bonusDamage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les dés que l'étape <span class="tt">Hit</span> a ajoutés, lancés avec ceux du profil, critique compris. </p>
+
+</div>
+</div>
 <a id="a37ab090c371ec71aa4105fd6eda95f2e" name="a37ab090c371ec71aa4105fd6eda95f2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a37ab090c371ec71aa4105fd6eda95f2e">&#9670;&#160;</a></span>check</h2>
 
@@ -384,6 +404,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1317273848873f06810eb5effde86372" name="a1317273848873f06810eb5effde86372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1317273848873f06810eb5effde86372">&#9670;&#160;</a></span>damageType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a>&gt; core::AttackRoll::damageType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le type de la première clause de dégâts du profil : celui que prennent les dés ajoutés à l'étape <span class="tt">Hit</span> (l'attaque sournoise est « du type de l'arme »). </p>
+<p>Absent si le profil ne blesse pas. </p>
 
 </div>
 </div>

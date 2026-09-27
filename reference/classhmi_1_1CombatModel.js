@@ -7,6 +7,7 @@ var classhmi_1_1CombatModel =
     [ "activeResources", "classhmi_1_1CombatModel.html#aa7450e23f16409d219a9a6df2f496270", null ],
     [ "attackAt", "classhmi_1_1CombatModel.html#aed34c3f2684232f6bcfed8d8f7d310a8", null ],
     [ "behaviors", "classhmi_1_1CombatModel.html#a8ac66c05b6860989ed920ac585ccedf6", null ],
+    [ "castAt", "classhmi_1_1CombatModel.html#ade082c273cdc2659f7aa48db9c071868", null ],
     [ "centerCursor", "classhmi_1_1CombatModel.html#a60e5f4979407e04f7002d15d09a55a28", null ],
     [ "changed", "classhmi_1_1CombatModel.html#a392928ff09819c4346cdb77f1734efc4", null ],
     [ "combatSceneChanged", "classhmi_1_1CombatModel.html#a5865e6deb8559d3439547fa834fec386", null ],

@@ -44,9 +44,10 @@ var searchData=
   ['hitpointsmax_41',['hitPointsMax',['../classhmi_1_1CharacterSheetModel.html#ae6effb695d2338de6d6cf1fb0837cff7',1,'hmi::CharacterSheetModel']]],
   ['hmikeytoqtkey_42',['hmiKeyToQtKey',['../namespacehmi.html#a807ca4b0d189a41995531913a247a3c9',1,'hmi']]],
   ['holds_43',['holds',['../structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8',1,'core::FlagCondition']]],
-  ['hoveredcell_44',['hoveredCell',['../classhmi_1_1EditorViewport.html#a946f35b8cda276a2ae9aeec447d2edfb',1,'hmi::EditorViewport']]],
-  ['hoveredcellchanged_45',['hoveredCellChanged',['../classhmi_1_1EditorViewport.html#afec959b9a2fdf31d666775b83af252bd',1,'hmi::EditorViewport']]],
-  ['hoveredcellforced_46',['hoveredCellForced',['../classhmi_1_1EditorViewport.html#a9483dfdcea629d7f7f6879cc75b75cb1',1,'hmi::EditorViewport']]],
-  ['hoverednote_47',['hoveredNote',['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport']]],
-  ['hoveredpieces_48',['hoveredPieces',['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport']]]
+  ['hookcapacities_44',['hookCapacities',['../classcore_1_1ArenaSession.html#ae327de7aee4320e246557290c95eccb0',1,'core::ArenaSession']]],
+  ['hoveredcell_45',['hoveredCell',['../classhmi_1_1EditorViewport.html#a946f35b8cda276a2ae9aeec447d2edfb',1,'hmi::EditorViewport']]],
+  ['hoveredcellchanged_46',['hoveredCellChanged',['../classhmi_1_1EditorViewport.html#afec959b9a2fdf31d666775b83af252bd',1,'hmi::EditorViewport']]],
+  ['hoveredcellforced_47',['hoveredCellForced',['../classhmi_1_1EditorViewport.html#a9483dfdcea629d7f7f6879cc75b75cb1',1,'hmi::EditorViewport']]],
+  ['hoverednote_48',['hoveredNote',['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport']]],
+  ['hoveredpieces_49',['hoveredPieces',['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport']]]
 ];

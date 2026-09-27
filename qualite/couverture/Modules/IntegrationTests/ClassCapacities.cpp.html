@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>ClassCapacities.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Rpg/ClassCapacities.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;system_error&gt;
+#include &lt;utility&gt;
+
+#include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/RpgEnumNames.h"
+
+namespace core {
+
+namespace {
+
+// Les entrees de catalogue ne portent pas de champ `version` : ce sont des donnees, pas des
+// documents de format.
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+struct NomDeGenre {
+    CapacityEffectKind genre;
+    std::string_view nom;
+};
+
+// Les noms sont ceux de `capacity.schema.json` : le schema et le moteur doivent dire la meme liste.
+constexpr std::array&lt;NomDeGenre, 7&gt; GENRES{{
+    {CapacityEffectKind::AttackBonus, "attack-bonus"},
+    {CapacityEffectKind::ArmorClassBonus, "armor-class-bonus"},
+    {CapacityEffectKind::UnarmoredArmorClass, "unarmored-armor-class"},
+    {CapacityEffectKind::DamageResistance, "damage-resistance"},
+    {CapacityEffectKind::SpeedBonus, "speed-bonus"},
+    {CapacityEffectKind::NoOpportunityAttacks, "no-opportunity-attacks"},
+    {CapacityEffectKind::ExtraDamage, "extra-damage"},
+}};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
+                                                          : std::string{};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool lireBooleen(const nlohmann::json&amp; objet, const char* champ, bool defaut) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_boolean()) ? trouve-&gt;get&lt;bool&gt;() : defaut;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;int&gt; lireEntier(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return trouve-&gt;get&lt;int&gt;();
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; lireTextes(const nlohmann::json&amp; objet, const char* champ) {
+    std::vector&lt;std::string&gt; valeurs;
+    const auto trouve = objet.find(champ);
+    if (trouve == objet.end() || !trouve-&gt;is_array()) {
+        return valeurs;</span>
+    }
+<span style = "background-color:#dfd">    for (const auto&amp; element : *trouve) {
+        if (element.is_string()) {
+            valeurs.push_back(element.get&lt;std::string&gt;());
+        }
+    }
+    return valeurs;
+}</span>
+
+// Un effet : son genre, puis les champs que ce genre EXIGE. Un champ manquant est une erreur,
+// jamais une valeur devinee -- un `extra-damage` sans des jouerait zero de en silence.
+[[nodiscard]] std::optional&lt;CapacityEffect&gt; lireEffet(const nlohmann::json&amp; objet,
+                                                      const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                                      std::vector&lt;std::string&gt;&amp; erreurs) {
+    CapacityEffect effet;
+    const std::string genre = lireTexte(objet, "kind");
+    const std::optional&lt;CapacityEffectKind&gt; lu = parseCapacityEffectKind(genre);
+    if (!lu.has_value()) {
+        erreurs.push_back(fichier + " : genre d'effet '" + genre +</span>
+                          "' inconnu du moteur. Un effet ignore serait une capacite qui ne fait "
+                          "rien sans le dire.");
+<span style = "background-color:#dfd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    effet.kind = *lu;
+    switch (effet.kind) {</span>
+        case CapacityEffectKind::AttackBonus:
+        case CapacityEffectKind::ArmorClassBonus: {
+<span style = "background-color:#dfd">            const std::optional&lt;int&gt; valeur = lireEntier(objet, "value");
+            if (!valeur.has_value()) {</span>
+<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
+                return std::nullopt;</span>
+            }
+<span style = "background-color:#dfd">            effet.value = *valeur;
+            break;</span>
+        }
+        case CapacityEffectKind::UnarmoredArmorClass: {
+<span style = "background-color:#dfd">            const std::optional&lt;int&gt; base = lireEntier(objet, "base");
+            if (!base.has_value()) {</span>
+<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'base'.");
+                return std::nullopt;</span>
+            }
+<span style = "background-color:#dfd">            effet.base = *base;
+            effet.shieldAllowed = lireBooleen(objet, "shieldAllowed", true);
+            for (const std::string&amp; nom : lireTextes(objet, "abilities")) {
+                const std::optional&lt;Ability&gt; caracteristique = parseAbility(nom);
+                if (!caracteristique.has_value()) {</span>
+<span style = "background-color:#fdd">                    erreurs.push_back(fichier + " : caracteristique '" + nom +</span>
+                                      "' inconnue du moteur dans un effet '" + genre + "'.");
+<span style = "background-color:#fdd">                    return std::nullopt;</span>
+                }
+<span style = "background-color:#dfd">                effet.abilities.push_back(*caracteristique);
+            }
+            break;</span>
+        }
+        case CapacityEffectKind::DamageResistance: {
+<span style = "background-color:#dfd">            effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
+            for (const std::string&amp; nom : lireTextes(objet, "types")) {</span>
+<span style = "background-color:#fdd">                const std::optional&lt;DamageType&gt; type = parseDamageType(nom);
+                if (!type.has_value()) {
+                    erreurs.push_back(fichier + " : type de degats '" + nom +</span>
+                                      "' inconnu du moteur (EX-CBT-032).");
+<span style = "background-color:#fdd">                    return std::nullopt;</span>
+                }
+<span style = "background-color:#fdd">                effet.damageTypes.push_back(*type);</span>
+<span style = "background-color:#dfd">            }
+            if (!effet.allDamageTypes &amp;&amp; effet.damageTypes.empty()) {</span>
+<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre +</span>
+                                  "' sans type : ni 'allTypes' ni 'types'.");
+<span style = "background-color:#fdd">                return std::nullopt;</span>
+            }
+<span style = "background-color:#dfd">            break;</span>
+        }
+        case CapacityEffectKind::SpeedBonus: {
+<span style = "background-color:#dfd">            const auto metres = objet.find("meters");
+            if (metres == objet.end() || !metres-&gt;is_number()) {</span>
+<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'meters'.");
+                return std::nullopt;</span>
+            }
+<span style = "background-color:#dfd">            effet.meters = metres-&gt;get&lt;float&gt;();
+            break;</span>
+<span style = "background-color:#fdd">        }</span>
+        case CapacityEffectKind::NoOpportunityAttacks:
+<span style = "background-color:#fdd">            break;</span>
+        case CapacityEffectKind::ExtraDamage: {
+<span style = "background-color:#dfd">            const std::optional&lt;Dice&gt; des = parseDice(lireTexte(objet, "dice"));
+            if (!des.has_value()) {
+                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'dice' lisibles.");
+                return std::nullopt;</span>
+            }
+<span style = "background-color:#dfd">            effet.dice = *des;
+            effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);</span>
+            break;
+        }
+    }
+<span style = "background-color:#dfd">    return effet;
+}</span>
+
+[[nodiscard]] std::optional&lt;Capacity&gt; lireCapacite(const nlohmann::json&amp; racine,
+                                                   const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                                   std::vector&lt;std::string&gt;&amp; erreurs) {
+    Capacity capacite;
+    capacite.id = lireTexte(racine, "id");
+    capacite.name = lireTexte(racine, "name");
+    capacite.source = lireTexte(racine, "source");
+    capacite.text = lireTexte(racine, "text");
+    capacite.replaces = lireTexte(racine, "replaces");
+    capacite.narrative = lireBooleen(racine, "narratif", false);
+    capacite.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
+    if (capacite.id.empty() || capacite.name.empty()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : capacite sans 'id' ou sans 'name'.");
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto effets = racine.find("effects"); effets != racine.end() &amp;&amp; effets-&gt;is_array()) {
+        for (const auto&amp; element : *effets) {
+            if (!element.is_object()) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            std::optional&lt;CapacityEffect&gt; effet = lireEffet(element, fichier, erreurs);
+            if (!effet.has_value()) {</span>
+                // La capacite entiere est refusee : jouee a moitie, elle tromperait plus
+                // qu'absente et nommee dans les erreurs.
+<span style = "background-color:#dfd">                return std::nullopt;</span>
+            }
+<span style = "background-color:#dfd">            capacite.effects.push_back(std::move(*effet));
+        }
+    }
+    return capacite;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string_view capacityEffectKindName(CapacityEffectKind kind) noexcept {
+    for (const NomDeGenre&amp; entree : GENRES) {
+        if (entree.genre == kind) {
+            return entree.nom;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;CapacityEffectKind&gt; parseCapacityEffectKind(std::string_view name) noexcept {
+    for (const NomDeGenre&amp; entree : GENRES) {
+        if (entree.nom == name) {
+            return entree.genre;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return std::nullopt;
+}</span>
+
+<span style = "background-color:#dfd">const Capacity* CapacityCatalog::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(capacities, id, &amp;Capacity::id);
+    return trouve == capacities.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">CapacityCatalog loadCapacities(const std::filesystem::path&amp; capacitiesDir) {
+    CapacityCatalog catalogue;
+    std::error_code code;
+    if (!std::filesystem::is_directory(capacitiesDir, code)) {</span>
+        // Un dossier absent n'est PAS un catalogue vide (EX-CNT-010).
+<span style = "background-color:#dfd">        catalogue.errors.push_back(capacitiesDir.string() + " : dossier absent ou illisible.");
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; fichiers;
+    for (const auto&amp; entree : std::filesystem::directory_iterator(capacitiesDir, code)) {
+        if (entree.is_regular_file(code) &amp;&amp; entree.path().extension() == ".json") {
+            fichiers.push_back(entree.path());
+        }
+    }
+    std::ranges::sort(fichiers);
+    for (const std::filesystem::path&amp; chemin : fichiers) {
+        const JsonDocument document = readJsonObjectFromFile(chemin, SANS_GARDE_DE_VERSION);
+        if (!document.ok()) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(document.message);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (std::optional&lt;Capacity&gt; capacite =</span>
+                lireCapacite(document.root, chemin.filename().string(), catalogue.errors)) {
+<span style = "background-color:#dfd">            catalogue.capacities.push_back(std::move(*capacite));
+        }
+    }
+    std::ranges::sort(catalogue.capacities, {}, &amp;Capacity::id);
+    return catalogue;
+}</span>
+
+// --- Lecture des effets ------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">std::vector&lt;Modifier&gt; attackModifiersFrom(std::span&lt;const Capacity&gt; capacities) {
+    std::vector&lt;Modifier&gt; modificateurs;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::AttackBonus &amp;&amp; effet.value != 0) {
+                modificateurs.push_back({.source = capacite.name, .value = effet.value});</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return modificateurs;
+}</span>
+
+<span style = "background-color:#dfd">int armorClassBonusFrom(std::span&lt;const Capacity&gt; capacities) {
+    int total = 0;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::ArmorClassBonus) {</span>
+<span style = "background-color:#fdd">                total += effet.value;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return total;
+}</span>
+
+std::optional&lt;UnarmoredArmorClass&gt; unarmoredArmorClassFrom(std::span&lt;const Capacity&gt; capacities,
+<span style = "background-color:#dfd">                                                           std::span&lt;const int, 6&gt; abilityScores) {
+    std::optional&lt;UnarmoredArmorClass&gt; meilleure;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind != CapacityEffectKind::UnarmoredArmorClass) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            int total = effet.base;
+            for (const Ability caracteristique : effet.abilities) {
+                total += abilityModifier(abilityScores[static_cast&lt;std::size_t&gt;(caracteristique)]);
+            }</span>
+            // Deux formules ne s'additionnent pas : la meilleure seule compte, comme deux abris.
+<span style = "background-color:#dfd">            if (!meilleure.has_value() || total &gt; meilleure-&gt;armorClass) {
+                meilleure = UnarmoredArmorClass{.armorClass = total,</span>
+                                                .shieldAllowed = effet.shieldAllowed,
+                                                .source = capacite.name};
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return meilleure;
+}</span>
+
+<span style = "background-color:#dfd">float speedBonusFrom(std::span&lt;const Capacity&gt; capacities) {
+    float total = 0.0F;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::SpeedBonus) {
+                total += effet.meters;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return total;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;std::string&gt; opportunityImmunityFrom(std::span&lt;const Capacity&gt; capacities) {
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::NoOpportunityAttacks) {
+                return capacite.name;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return std::nullopt;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;NamedResistance&gt; resistancesFrom(std::span&lt;const Capacity&gt; capacities) {
+    std::vector&lt;NamedResistance&gt; resistances;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind != CapacityEffectKind::DamageResistance) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            if (effet.allDamageTypes) {
+                resistances.push_back({.type = std::nullopt, .source = capacite.name});
+                continue;</span>
+            }
+<span style = "background-color:#fdd">            for (const DamageType type : effet.damageTypes) {
+                resistances.push_back({.type = type, .source = capacite.name});
+            }
+        }</span>
+<span style = "background-color:#dfd">    }
+    return resistances;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;NamedExtraDamage&gt; extraDamageFrom(std::span&lt;const Capacity&gt; capacities) {
+    std::vector&lt;NamedExtraDamage&gt; des;
+    for (const Capacity&amp; capacite : capacities) {
+        for (const CapacityEffect&amp; effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::ExtraDamage) {
+                des.push_back({.dice = effet.dice,</span>
+                               .oncePerTurn = effet.oncePerTurn,
+                               .capacityId = capacite.id,
+                               .source = capacite.name});
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return des;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

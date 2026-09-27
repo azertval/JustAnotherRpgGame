@@ -6,7 +6,9 @@ var structcore_1_1CharacterOptions =
     [ "provisionalClassIds", "structcore_1_1CharacterOptions.html#a73428d368e617da75c42c0959af697b4", null ],
     [ "requiredMechanisms", "structcore_1_1CharacterOptions.html#a16bbc94de1a6157fd6ff0f4c6bdb02d4", null ],
     [ "backgrounds", "structcore_1_1CharacterOptions.html#a425f13ad6d081f05c28858802340bb33", null ],
+    [ "capacities", "structcore_1_1CharacterOptions.html#a6791ed70cc651b2624420b7130e21dd3", null ],
     [ "classes", "structcore_1_1CharacterOptions.html#a91cea855e4068686aee09e5231aab66e", null ],
     [ "errors", "structcore_1_1CharacterOptions.html#a0c2d28dc92e70b5e66c18903435fd189", null ],
-    [ "species", "structcore_1_1CharacterOptions.html#aa7f6627597f9237197965d9a0e491f0e", null ]
+    [ "species", "structcore_1_1CharacterOptions.html#aa7f6627597f9237197965d9a0e491f0e", null ],
+    [ "spells", "structcore_1_1CharacterOptions.html#a577dc52f3df4364a62a3e73a2b1c6f03", null ]
 ];

@@ -21,6 +21,7 @@
 #include "Core/Rpg/Ability.h"
 #include "Core/Rpg/Bestiary.h"
 #include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/RpgEnumNames.h"
 
 namespace core {
 
@@ -45,7 +46,26 @@ private:
     CombatState&amp; _state;
 };
 
-<span style = "background-color:#dfd">CombatantProfile profileFor(const CharacterSheet&amp; sheet, CombatSide side) {
+<span style = "background-color:#dfd">CombatantProfile profileFor(const CharacterSheet&amp; sheet, CombatSide side) {</span>
+    // Les resistances que les capacites de classe donnent (LOT-131), chacune au nom de sa
+    // capacite pour que le journal l'ecrive : &lt;&lt; resistance a tous les types &gt;&gt; s'ecrit treize
+    // affinites, une par type, comme le pipeline les lit.
+<span style = "background-color:#dfd">    DamageTraits traits;
+    for (const NamedResistance&amp; resistance : resistancesFrom(sheet.capacities)) {
+        if (resistance.type.has_value()) {</span>
+<span style = "background-color:#fdd">            traits.affinities.push_back({.type = *resistance.type,</span>
+                                         .kind = DamageAffinityKind::Resistance,
+                                         .bypassedBy = 0,
+                                         .source = resistance.source});
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const DamageType type : allDamageTypes()) {
+            traits.affinities.push_back({.type = type,</span>
+                                         .kind = DamageAffinityKind::Resistance,
+                                         .bypassedBy = 0,
+                                         .source = resistance.source});
+<span style = "background-color:#dfd">        }
+    }
     return {</span>
         .name = sheet.name,
         .side = side,
@@ -54,14 +74,15 @@ private:
         .dexterity = sheet.ability(Ability::Dexterity),
         .initiativeModifier = sheet.modifier(Ability::Dexterity),
         .initiativeStance = RollStance::Normal,
+        // Capacites comprises : la vitesse que la classe ajoute se lit dans la fiche.
         .movement = movementBudget(sheet),
         .locomotion = Locomotion::Walk,
         .size = CreatureSize::Medium,
         .floating = false,
         .armorClass = sheet.armorClass,
-        .damageTraits = {},
+        .damageTraits = std::move(traits),
     };
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#fdd">}</span>
 
 <span style = "background-color:#dfd">CombatantProfile profileFor(const Creature&amp; creature, CombatSide side) {
     const bool flies = creature.speed.fly.has_value() &amp;&amp; *creature.speed.fly &gt; creature.speed.walk;

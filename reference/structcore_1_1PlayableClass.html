@@ -152,6 +152,14 @@ $(function(){initNavTree('structcore_1_1PlayableClass.html','','structcore_1_1Pl
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a23270e0ac3ca8992ea7d917861fe08ee" id="r_a23270e0ac3ca8992ea7d917861fe08ee"><td class="memItemLeft">const <a class="el" href="structcore_1_1ClassLevel.html">ClassLevel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a23270e0ac3ca8992ea7d917861fe08ee">atLevel</a> (int level) const</td></tr>
 <tr class="memdesc:a23270e0ac3ca8992ea7d917861fe08ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ligne de progression d'un niveau, ou <span class="tt">nullptr</span> si la table ne le porte pas.  <br /></td></tr>
+<tr class="memitem:a369a9194042cb0c4431ab569dc56b65a" id="r_a369a9194042cb0c4431ab569dc56b65a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a369a9194042cb0c4431ab569dc56b65a">isProficientWithWeapon</a> (std::string_view weaponId, std::string_view category) const</td></tr>
+<tr class="memdesc:a369a9194042cb0c4431ab569dc56b65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la classe maîtrise cette arme : par sa catégorie (<span class="tt">simple</span>, <span class="tt">martial</span>) ou par son identifiant.  <br /></td></tr>
+<tr class="memitem:a4e113c9135c5ef694ae72444e15f638b" id="r_a4e113c9135c5ef694ae72444e15f638b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4e113c9135c5ef694ae72444e15f638b">isProficientWithArmor</a> (std::string_view category) const</td></tr>
+<tr class="memdesc:a4e113c9135c5ef694ae72444e15f638b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la classe maîtrise cette catégorie d'armure (<span class="tt">light</span>… ou <span class="tt">shields</span>).  <br /></td></tr>
+<tr class="memitem:ac53a711edde2026bcbca288313c41ac6" id="r_ac53a711edde2026bcbca288313c41ac6"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac53a711edde2026bcbca288313c41ac6">cantripsAt</a> (int level) const</td></tr>
+<tr class="memdesc:ac53a711edde2026bcbca288313c41ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts mineurs connus au niveau <code class="param">level</code> : l'union des lignes jusqu'à ce niveau.  <br /></td></tr>
+<tr class="memitem:a421ec3e10e26a934159d9dd6423b38dc" id="r_a421ec3e10e26a934159d9dd6423b38dc"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a421ec3e10e26a934159d9dd6423b38dc">spellsAt</a> (int level) const</td></tr>
+<tr class="memdesc:a421ec3e10e26a934159d9dd6423b38dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts connus au niveau <code class="param">level</code> : l'union des lignes jusqu'à ce niveau.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -161,6 +169,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a9f2304ce7895d59e0793f29cb3644a24" id="r_a9f2304ce7895d59e0793f29cb3644a24"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9f2304ce7895d59e0793f29cb3644a24">hitDie</a> = 0</td></tr>
 <tr class="memitem:a6e95af878f45c713788f4f6631837751" id="r_a6e95af878f45c713788f4f6631837751"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6e95af878f45c713788f4f6631837751">primaryAbility</a></td></tr>
 <tr class="memitem:a9aa247a6c21364de033b3690386320ab" id="r_a9aa247a6c21364de033b3690386320ab"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9aa247a6c21364de033b3690386320ab">savingThrowProficiencies</a></td></tr>
+<tr class="memitem:a0b25b621fd3f880ae3c116cf08050d66" id="r_a0b25b621fd3f880ae3c116cf08050d66"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0b25b621fd3f880ae3c116cf08050d66">armorProficiencies</a></td></tr>
+<tr class="memdesc:a0b25b621fd3f880ae3c116cf08050d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégories d'armure maîtrisées (<span class="tt">light</span>, <span class="tt">medium</span>, <span class="tt">heavy</span>, <span class="tt">shields</span>), <span class="tt">LOT-131</span>.  <br /></td></tr>
+<tr class="memitem:afe36f8f4eea596d988f07a3b028734c2" id="r_afe36f8f4eea596d988f07a3b028734c2"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afe36f8f4eea596d988f07a3b028734c2">weaponProficiencies</a></td></tr>
+<tr class="memdesc:afe36f8f4eea596d988f07a3b028734c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Armes maîtrisées : une catégorie (<span class="tt">simple</span>, <span class="tt">martial</span>) ou l'identifiant d'une arme.  <br /></td></tr>
+<tr class="memitem:afd26331865f0ea3465afeb695e17df47" id="r_afd26331865f0ea3465afeb695e17df47"><td class="memItemLeft"><a class="el" href="structcore_1_1SkillChoices.html">SkillChoices</a>&#160;</td><td class="memItemRight"><a class="el" href="#afd26331865f0ea3465afeb695e17df47">skillChoices</a></td></tr>
+<tr class="memitem:ade9b32b308daaeeb131a3b9d0d7cfe95" id="r_ade9b32b308daaeeb131a3b9d0d7cfe95"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Spellcasting.html">Spellcasting</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade9b32b308daaeeb131a3b9d0d7cfe95">spellcasting</a></td></tr>
+<tr class="memdesc:ade9b32b308daaeeb131a3b9d0d7cfe95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Absente pour une classe qui ne lance pas de sorts.  <br /></td></tr>
 <tr class="memitem:a028057f581a62cc7bbaccba44edb81d2" id="r_a028057f581a62cc7bbaccba44edb81d2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ClassLevel.html">ClassLevel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a028057f581a62cc7bbaccba44edb81d2">progression</a></td></tr>
 <tr class="memitem:a5ec31462412f02fbeb85a9384f4ce6a5" id="r_a5ec31462412f02fbeb85a9384f4ce6a5"><td class="memItemLeft"><a class="el" href="structcore_1_1ProvisionalStatus.html">ProvisionalStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5ec31462412f02fbeb85a9384f4ce6a5">status</a></td></tr>
 </table>
@@ -195,7 +210,135 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac53a711edde2026bcbca288313c41ac6" name="ac53a711edde2026bcbca288313c41ac6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac53a711edde2026bcbca288313c41ac6">&#9670;&#160;</a></span>cantripsAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::PlayableClass::cantripsAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les sorts mineurs connus au niveau <code class="param">level</code> : l'union des lignes jusqu'à ce niveau. </p>
+
+</div>
+</div>
+<a id="a4e113c9135c5ef694ae72444e15f638b" name="a4e113c9135c5ef694ae72444e15f638b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e113c9135c5ef694ae72444e15f638b">&#9670;&#160;</a></span>isProficientWithArmor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayableClass::isProficientWithArmor </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>category</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si la classe maîtrise cette catégorie d'armure (<span class="tt">light</span>… ou <span class="tt">shields</span>). </p>
+
+</div>
+</div>
+<a id="a369a9194042cb0c4431ab569dc56b65a" name="a369a9194042cb0c4431ab569dc56b65a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a369a9194042cb0c4431ab569dc56b65a">&#9670;&#160;</a></span>isProficientWithWeapon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::PlayableClass::isProficientWithWeapon </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>weaponId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>category</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si la classe maîtrise cette arme : par sa catégorie (<span class="tt">simple</span>, <span class="tt">martial</span>) ou par son identifiant. </p>
+
+</div>
+</div>
+<a id="a421ec3e10e26a934159d9dd6423b38dc" name="a421ec3e10e26a934159d9dd6423b38dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a421ec3e10e26a934159d9dd6423b38dc">&#9670;&#160;</a></span>spellsAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; core::PlayableClass::spellsAt </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les sorts connus au niveau <code class="param">level</code> : l'union des lignes jusqu'à ce niveau. </p>
+
+</div>
+</div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a0b25b621fd3f880ae3c116cf08050d66" name="a0b25b621fd3f880ae3c116cf08050d66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b25b621fd3f880ae3c116cf08050d66">&#9670;&#160;</a></span>armorProficiencies</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::PlayableClass::armorProficiencies</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Catégories d'armure maîtrisées (<span class="tt">light</span>, <span class="tt">medium</span>, <span class="tt">heavy</span>, <span class="tt">shields</span>), <span class="tt">LOT-131</span>. </p>
+
+</div>
+</div>
 <a id="a9f2304ce7895d59e0793f29cb3644a24" name="a9f2304ce7895d59e0793f29cb3644a24"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f2304ce7895d59e0793f29cb3644a24">&#9670;&#160;</a></span>hitDie</h2>
 
@@ -280,6 +423,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afd26331865f0ea3465afeb695e17df47" name="afd26331865f0ea3465afeb695e17df47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd26331865f0ea3465afeb695e17df47">&#9670;&#160;</a></span>skillChoices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1SkillChoices.html">SkillChoices</a> core::PlayableClass::skillChoices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aebe55d724de9dfe6600b2240e95fc0f5" name="aebe55d724de9dfe6600b2240e95fc0f5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aebe55d724de9dfe6600b2240e95fc0f5">&#9670;&#160;</a></span>source</h2>
 
@@ -294,6 +451,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ade9b32b308daaeeb131a3b9d0d7cfe95" name="ade9b32b308daaeeb131a3b9d0d7cfe95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade9b32b308daaeeb131a3b9d0d7cfe95">&#9670;&#160;</a></span>spellcasting</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1Spellcasting.html">Spellcasting</a>&gt; core::PlayableClass::spellcasting</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Absente pour une classe qui ne lance pas de sorts. </p>
+
+</div>
+</div>
 <a id="a5ec31462412f02fbeb85a9384f4ce6a5" name="a5ec31462412f02fbeb85a9384f4ce6a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5ec31462412f02fbeb85a9384f4ce6a5">&#9670;&#160;</a></span>status</h2>
 
@@ -305,6 +478,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe36f8f4eea596d988f07a3b028734c2" name="afe36f8f4eea596d988f07a3b028734c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe36f8f4eea596d988f07a3b028734c2">&#9670;&#160;</a></span>weaponProficiencies</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::PlayableClass::weaponProficiencies</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Armes maîtrisées : une catégorie (<span class="tt">simple</span>, <span class="tt">martial</span>) ou l'identifiant d'une arme. </p>
 
 </div>
 </div>

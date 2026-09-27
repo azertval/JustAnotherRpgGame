@@ -8,6 +8,7 @@ var searchData=
   ['behaviorprofile_5',['BehaviorProfile',['../structcore_1_1BehaviorProfile.html',1,'core']]],
   ['bestiary_6',['Bestiary',['../structcore_1_1Bestiary.html',1,'core']]],
   ['binding_7',['Binding',['../structhmi_1_1EncounterModel_1_1Binding.html',1,'hmi::EncounterModel']]],
-  ['brushresult_8',['BrushResult',['../structhmi_1_1BrushResult.html',1,'hmi']]],
-  ['buttonrepeat_9',['ButtonRepeat',['../classhmi_1_1ButtonRepeat.html',1,'hmi']]]
+  ['bonusdamage_8',['BonusDamage',['../structcore_1_1BonusDamage.html',1,'core']]],
+  ['brushresult_9',['BrushResult',['../structhmi_1_1BrushResult.html',1,'hmi']]],
+  ['buttonrepeat_10',['ButtonRepeat',['../classhmi_1_1ButtonRepeat.html',1,'hmi']]]
 ];

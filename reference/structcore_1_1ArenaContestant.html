@@ -160,6 +160,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:abc7382a0078f0c8b9fe97d472e456fe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rôle de Marque Héroïque revendiqué (un identifiant de <span class="tt">Rpg/rules/heroic-marks.json</span>), ou vide.  <br /></td></tr>
 <tr class="memitem:a190e47f103f3dadbf460e7a18a3ad843" id="r_a190e47f103f3dadbf460e7a18a3ad843"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a190e47f103f3dadbf460e7a18a3ad843">behavior</a></td></tr>
 <tr class="memdesc:a190e47f103f3dadbf460e7a18a3ad843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil de comportement qui le joue (<span class="tt"><a class="el" href="structcore_1_1BehaviorProfile.html#a9adef4720dc9332eb5c3028f46eddf68">core::BehaviorProfile::id</a></span>, <span class="tt">LOT-23</span>), ou vide pour un combattant que le joueur commande.  <br /></td></tr>
+<tr class="memitem:a9bfaa5bb80fce83aff1d34ab0aae2d90" id="r_a9bfaa5bb80fce83aff1d34ab0aae2d90"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9bfaa5bb80fce83aff1d34ab0aae2d90">capacities</a></td></tr>
+<tr class="memdesc:a9bfaa5bb80fce83aff1d34ab0aae2d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ses capacités de classe actives (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-024</span>) : la session branche leurs effets sur ses jets (bonus d'attaque, dés en plus) et ses déplacements (pas d'attaque d'opportunité).  <br /></td></tr>
+<tr class="memitem:acd8cf1c1a234dad604b140773cb16878" id="r_acd8cf1c1a234dad604b140773cb16878"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acd8cf1c1a234dad604b140773cb16878">spells</a></td></tr>
+<tr class="memdesc:acd8cf1c1a234dad604b140773cb16878"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts qu'il sait lancer en combat, avec leurs lancers du jour (<span class="tt">EX-RPG-025</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un combattant tel que l'écran de mise en place le compose. </p>
@@ -193,6 +197,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le profil de comportement qui le joue (<span class="tt"><a class="el" href="structcore_1_1BehaviorProfile.html#a9adef4720dc9332eb5c3028f46eddf68">core::BehaviorProfile::id</a></span>, <span class="tt">LOT-23</span>), ou vide pour un combattant que le joueur commande. </p>
+
+</div>
+</div>
+<a id="a9bfaa5bb80fce83aff1d34ab0aae2d90" name="a9bfaa5bb80fce83aff1d34ab0aae2d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bfaa5bb80fce83aff1d34ab0aae2d90">&#9670;&#160;</a></span>capacities</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Capacity.html">Capacity</a>&gt; core::ArenaContestant::capacities</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ses capacités de classe actives (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-024</span>) : la session branche leurs effets sur ses jets (bonus d'attaque, dés en plus) et ses déplacements (pas d'attaque d'opportunité). </p>
+<p>Les effets <b>statiques</b> — classe d'armure, résistances, vitesse — sont déjà dans <span class="tt"><a class="el" href="#a1ae64e52f560402dc6c25bc8cf2b0895" title="Le profil, classe d&#39;armure et affinités comprises.">profile</a></span>, qui se construit depuis la fiche. </p>
 
 </div>
 </div>
@@ -241,6 +262,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le profil, classe d'armure et affinités comprises. </p>
+
+</div>
+</div>
+<a id="acd8cf1c1a234dad604b140773cb16878" name="acd8cf1c1a234dad604b140773cb16878"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd8cf1c1a234dad604b140773cb16878">&#9670;&#160;</a></span>spells</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a>&gt; core::ArenaContestant::spells</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les sorts qu'il sait lancer en combat, avec leurs lancers du jour (<span class="tt">EX-RPG-025</span>). </p>
 
 </div>
 </div>

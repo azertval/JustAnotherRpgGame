@@ -159,6 +159,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a5ba188fafec172937a0f7176a4a5957a" id="r_a5ba188fafec172937a0f7176a4a5957a"><td class="memItemLeft"><a class="el" href="structcore_1_1Inventory.html">Inventory</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5ba188fafec172937a0f7176a4a5957a">inventory</a></td></tr>
 <tr class="memdesc:a5ba188fafec172937a0f7176a4a5957a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le personnage PORTE (<span class="tt">LOT-14</span>), lu dans le même fichier.  <br /></td></tr>
 <tr class="memitem:a5290cd19c104f815fda79411362e093c" id="r_a5290cd19c104f815fda79411362e093c"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5290cd19c104f815fda79411362e093c">errors</a></td></tr>
+<tr class="memitem:a94c3433e8bda3deaeb7c22c294370ed6" id="r_a94c3433e8bda3deaeb7c22c294370ed6"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a94c3433e8bda3deaeb7c22c294370ed6">warnings</a></td></tr>
+<tr class="memdesc:a94c3433e8bda3deaeb7c22c294370ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la fiche nomme et que le moteur ne joue pas encore (<span class="tt">EX-CNT-031</span>) : une capacité ou un sort que la table de la classe donne et qu'aucun catalogue ne porte.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une fiche chargée depuis un fichier, et ce qui n'a pas pu l'être. </p>
@@ -234,6 +236,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94c3433e8bda3deaeb7c22c294370ed6" name="a94c3433e8bda3deaeb7c22c294370ed6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94c3433e8bda3deaeb7c22c294370ed6">&#9670;&#160;</a></span>warnings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::LoadedCharacterSheet::warnings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que la fiche nomme et que le moteur ne joue pas encore (<span class="tt">EX-CNT-031</span>) : une capacité ou un sort que la table de la classe donne et qu'aucun catalogue ne porte. </p>
+<p>Pas une erreur — la fiche est jouable, la table annonce un lot à venir —, mais pas un silence non plus : une capacité qu'on croit jouée et qui ne fait rien coûte plus cher à diagnostiquer qu'une capacité déclarée absente. </p>
 
 </div>
 </div>

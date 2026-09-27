@@ -8,6 +8,7 @@ var Attack_8cpp =
     [ "core::inReach", "namespacecore.html#a58f349d22c971141da56b91273d5d29d", null ],
     [ "core::resolveAttack", "namespacecore.html#ab1a4d741effe8706e8261be043b9224a", null ],
     [ "core::rollAttack", "namespacecore.html#a4f1692682e25dadb017d37ca0a42e9aa", null ],
+    [ "core::spellAttackFor", "namespacecore.html#a871311984840c7991c36bb370786fe1e", null ],
     [ "core::thrownAttackFor", "namespacecore.html#acc72525dbecb690d39a4f7ebe97423b5", null ],
     [ "core::weaponAttackFor", "namespacecore.html#a1881c42c8483587a6baa65c336a230c2", null ]
 ];

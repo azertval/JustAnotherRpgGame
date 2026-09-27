@@ -25,5 +25,7 @@ var searchData=
   ['error_22',['Error',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3a902b0d55fddef6f8d651fe1035b7d4bd',1,'core::Error'],['../namespacehmi.html#a89e7b964e1125a35414c9694fad4fd64a902b0d55fddef6f8d651fe1035b7d4bd',1,'hmi::Error']]],
   ['escape_23',['Escape',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224',1,'hmi']]],
   ['evocation_24',['Evocation',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2a0f691fa093f9d70c7c69cc8b70ae8825',1,'core']]],
-  ['exhaustion_25',['Exhaustion',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a62d14822c1d9ee30cedbce5343ab2681',1,'core']]]
+  ['exhausted_25',['Exhausted',['../namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaa1a698ed9bd0897ab0578ac2114397ff',1,'core']]],
+  ['exhaustion_26',['Exhaustion',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a62d14822c1d9ee30cedbce5343ab2681',1,'core']]],
+  ['extradamage_27',['ExtraDamage',['../namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222',1,'core']]]
 ];

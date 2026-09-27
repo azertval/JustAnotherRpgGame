@@ -1,0 +1,242 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/Spell.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('Spell_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Spell.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="Spell_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="Ability_8h.html">Core/Rpg/Ability.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="Dice_8h.html">Core/Rpg/Dice.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="RpgEnums_8h.html">Core/Rpg/RpgEnums.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html">   33</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Spell.html">Spell</a> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a301a7c0b55d9cc325db6f654d8a884f4">   34</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#a301a7c0b55d9cc325db6f654d8a884f4">id</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#abc3884df103905e989a4ca8cfd8ab79e">   35</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#abc3884df103905e989a4ca8cfd8ab79e">name</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a1458886ef3e77c68405df00dce8f73ca">   36</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#a1458886ef3e77c68405df00dce8f73ca">source</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#ac591cec33e25d61ded0eeebd3de0bb5b">   38</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1Spell.html#ac591cec33e25d61ded0eeebd3de0bb5b">level</a> = 0;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#aa72c1a6dd6299f5cdcfceeaca02a7d1f">   39</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#aa72c1a6dd6299f5cdcfceeaca02a7d1f">school</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#accb5a9e4d026c5dfe029fdeb0c6e953c">   40</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#accb5a9e4d026c5dfe029fdeb0c6e953c">castingTime</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46">   42</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46">range</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a13a40e4ebf6de96e790c55cebfd00088">   44</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1Spell.html#a13a40e4ebf6de96e790c55cebfd00088">rangeMeters</a> = 0.0F;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8">   45</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8">duration</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#aecd3c5fc345925c9ecd86ad5b65a6b31">   46</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Spell.html#aecd3c5fc345925c9ecd86ad5b65a6b31">concentration</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a72fc45028d262c6abacce401e30ff917">   47</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Spell.html#a72fc45028d262c6abacce401e30ff917">ritual</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133">   49</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133">attackRoll</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#aef19780c81f39eaceba166b293aa34db">   50</a></span>    std::optional&lt;Dice&gt; <a class="code hl_variable" href="structcore_1_1Spell.html#aef19780c81f39eaceba166b293aa34db">damage</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f">   51</a></span>    std::optional&lt;DamageType&gt; <a class="code hl_variable" href="structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f">damageType</a>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a2ea5964597cc155ee0e7394182bee591">   52</a></span>    std::optional&lt;Ability&gt; <a class="code hl_variable" href="structcore_1_1Spell.html#a2ea5964597cc155ee0e7394182bee591">savingThrow</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#ad55875726fd50b55f539ed252c50845e">   53</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#ad55875726fd50b55f539ed252c50845e">appliesCondition</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#a56ecbd7a015e9e599a1e5b3169369595">   54</a></span>    std::string <a class="code hl_variable" href="structcore_1_1Spell.html#a56ecbd7a015e9e599a1e5b3169369595">text</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#aee9bf5871734fa238f5f15bc584400c2">   56</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1Spell.html#aee9bf5871734fa238f5f15bc584400c2">narrative</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structcore_1_1Spell.html#af487b886ad6d013d9375994e51a01024">   57</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1Spell.html#af487b886ad6d013d9375994e51a01024">requiredMechanisms</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="};">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structcore_1_1SpellCatalog.html">   61</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SpellCatalog.html">SpellCatalog</a> {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcore_1_1SpellCatalog.html#a18d402a04ee75aa252db176800ca03a8">   62</a></span>    std::vector&lt;Spell&gt; <a class="code hl_variable" href="structcore_1_1SpellCatalog.html#a18d402a04ee75aa252db176800ca03a8">spells</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structcore_1_1SpellCatalog.html#af9312bf521dba39fc04ffaf14a9f6db2">   63</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcore_1_1SpellCatalog.html#af9312bf521dba39fc04ffaf14a9f6db2">errors</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Spell.html">Spell</a>* <a class="code hl_function" href="structcore_1_1SpellCatalog.html#a79941b4e0800fc7c1f7059a8f92a521e">find</a>(std::string_view <span class="keywordtype">id</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>[[nodiscard]] <a class="code hl_struct" href="structcore_1_1SpellCatalog.html">SpellCatalog</a> <a class="code hl_function" href="namespacecore.html#af48cbccac960ef036b33c5e543a990cd">loadSpells</a>(<span class="keyword">const</span> std::filesystem::path&amp; spellsDir);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#acda21c95fdff4cecac87781e5ea4cbce">isAttackSpell</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Spell.html">Spell</a>&amp; spell) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aAbility_8h_html"><div class="ttname"><a href="Ability_8h.html">Ability.h</a></div><div class="ttdoc">Les six caractéristiques et leur modificateur (EX-REG-010).</div></div>
+<div class="ttc" id="aDice_8h_html"><div class="ttname"><a href="Dice_8h.html">Dice.h</a></div><div class="ttdoc">Notation de dés NdF+M : analyse, évaluation, bornes (EX-NFR-002).</div></div>
+<div class="ttc" id="aRpgEnums_8h_html"><div class="ttname"><a href="RpgEnums_8h.html">RpgEnums.h</a></div><div class="ttdoc">Les quatre énumérations fermées du RPG : dégâts, conditions, écoles, tailles.</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_acda21c95fdff4cecac87781e5ea4cbce"><div class="ttname"><a href="namespacecore.html#acda21c95fdff4cecac87781e5ea4cbce">core::isAttackSpell</a></div><div class="ttdeci">bool isAttackSpell(const Spell &amp;spell) noexcept</div><div class="ttdoc">Vrai si le moteur sait jouer ce sort comme une attaque : jet d&#39;attaque, dés et type de dégâts.</div><div class="ttdef"><b>Definition</b> Spell.cpp:134</div></div>
+<div class="ttc" id="anamespacecore_html_af48cbccac960ef036b33c5e543a990cd"><div class="ttname"><a href="namespacecore.html#af48cbccac960ef036b33c5e543a990cd">core::loadSpells</a></div><div class="ttdeci">SpellCatalog loadSpells(const std::filesystem::path &amp;spellsDir)</div><div class="ttdoc">Charge les sorts depuis leur dossier (Source/Elements/Rpg/spells).</div><div class="ttdef"><b>Definition</b> Spell.cpp:105</div></div>
+<div class="ttc" id="astructcore_1_1SpellCatalog_html"><div class="ttname"><a href="structcore_1_1SpellCatalog.html">core::SpellCatalog</a></div><div class="ttdoc">Le catalogue des sorts, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Spell.h:61</div></div>
+<div class="ttc" id="astructcore_1_1SpellCatalog_html_a18d402a04ee75aa252db176800ca03a8"><div class="ttname"><a href="structcore_1_1SpellCatalog.html#a18d402a04ee75aa252db176800ca03a8">core::SpellCatalog::spells</a></div><div class="ttdeci">std::vector&lt; Spell &gt; spells</div><div class="ttdef"><b>Definition</b> Spell.h:62</div></div>
+<div class="ttc" id="astructcore_1_1SpellCatalog_html_a79941b4e0800fc7c1f7059a8f92a521e"><div class="ttname"><a href="structcore_1_1SpellCatalog.html#a79941b4e0800fc7c1f7059a8f92a521e">core::SpellCatalog::find</a></div><div class="ttdeci">const Spell * find(std::string_view id) const</div><div class="ttdoc">Le sort d&#39;identifiant id, ou nullptr s&#39;il est inconnu.</div><div class="ttdef"><b>Definition</b> Spell.cpp:100</div></div>
+<div class="ttc" id="astructcore_1_1SpellCatalog_html_af9312bf521dba39fc04ffaf14a9f6db2"><div class="ttname"><a href="structcore_1_1SpellCatalog.html#af9312bf521dba39fc04ffaf14a9f6db2">core::SpellCatalog::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> Spell.h:63</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html"><div class="ttname"><a href="structcore_1_1Spell.html">core::Spell</a></div><div class="ttdoc">Un sort, tel que spell.schema.json l&#39;écrit.</div><div class="ttdef"><b>Definition</b> Spell.h:33</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a0020691c9ee8a8f71deaf9fe6b63900f"><div class="ttname"><a href="structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f">core::Spell::damageType</a></div><div class="ttdeci">std::optional&lt; DamageType &gt; damageType</div><div class="ttdef"><b>Definition</b> Spell.h:51</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a0ce39b883f1a89efd5d5fbfae2f78133"><div class="ttname"><a href="structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133">core::Spell::attackRoll</a></div><div class="ttdeci">bool attackRoll</div><div class="ttdoc">Vrai pour un sort qui demande un jet d&#39;attaque de sort contre la CA.</div><div class="ttdef"><b>Definition</b> Spell.h:49</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a10fb3d3a50f43b92d15b6b48b99e8d46"><div class="ttname"><a href="structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46">core::Spell::range</a></div><div class="ttdeci">std::string range</div><div class="ttdoc">Le texte du livre (« 36 mètres »).</div><div class="ttdef"><b>Definition</b> Spell.h:42</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a13a40e4ebf6de96e790c55cebfd00088"><div class="ttname"><a href="structcore_1_1Spell.html#a13a40e4ebf6de96e790c55cebfd00088">core::Spell::rangeMeters</a></div><div class="ttdeci">float rangeMeters</div><div class="ttdoc">La portée en mètres, si le sort vise à distance ; 0 sinon.</div><div class="ttdef"><b>Definition</b> Spell.h:44</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a1458886ef3e77c68405df00dce8f73ca"><div class="ttname"><a href="structcore_1_1Spell.html#a1458886ef3e77c68405df00dce8f73ca">core::Spell::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition</b> Spell.h:36</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a1c143734f093e83c92c175690139f0e8"><div class="ttname"><a href="structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8">core::Spell::duration</a></div><div class="ttdeci">std::string duration</div><div class="ttdef"><b>Definition</b> Spell.h:45</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a2ea5964597cc155ee0e7394182bee591"><div class="ttname"><a href="structcore_1_1Spell.html#a2ea5964597cc155ee0e7394182bee591">core::Spell::savingThrow</a></div><div class="ttdeci">std::optional&lt; Ability &gt; savingThrow</div><div class="ttdef"><b>Definition</b> Spell.h:52</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a301a7c0b55d9cc325db6f654d8a884f4"><div class="ttname"><a href="structcore_1_1Spell.html#a301a7c0b55d9cc325db6f654d8a884f4">core::Spell::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> Spell.h:34</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a56ecbd7a015e9e599a1e5b3169369595"><div class="ttname"><a href="structcore_1_1Spell.html#a56ecbd7a015e9e599a1e5b3169369595">core::Spell::text</a></div><div class="ttdeci">std::string text</div><div class="ttdef"><b>Definition</b> Spell.h:54</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_a72fc45028d262c6abacce401e30ff917"><div class="ttname"><a href="structcore_1_1Spell.html#a72fc45028d262c6abacce401e30ff917">core::Spell::ritual</a></div><div class="ttdeci">bool ritual</div><div class="ttdef"><b>Definition</b> Spell.h:47</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_aa72c1a6dd6299f5cdcfceeaca02a7d1f"><div class="ttname"><a href="structcore_1_1Spell.html#aa72c1a6dd6299f5cdcfceeaca02a7d1f">core::Spell::school</a></div><div class="ttdeci">std::string school</div><div class="ttdef"><b>Definition</b> Spell.h:39</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_abc3884df103905e989a4ca8cfd8ab79e"><div class="ttname"><a href="structcore_1_1Spell.html#abc3884df103905e989a4ca8cfd8ab79e">core::Spell::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> Spell.h:35</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_ac591cec33e25d61ded0eeebd3de0bb5b"><div class="ttname"><a href="structcore_1_1Spell.html#ac591cec33e25d61ded0eeebd3de0bb5b">core::Spell::level</a></div><div class="ttdeci">int level</div><div class="ttdoc">0 : sort mineur (cantrip), à volonté.</div><div class="ttdef"><b>Definition</b> Spell.h:38</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_accb5a9e4d026c5dfe029fdeb0c6e953c"><div class="ttname"><a href="structcore_1_1Spell.html#accb5a9e4d026c5dfe029fdeb0c6e953c">core::Spell::castingTime</a></div><div class="ttdeci">std::string castingTime</div><div class="ttdef"><b>Definition</b> Spell.h:40</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_ad55875726fd50b55f539ed252c50845e"><div class="ttname"><a href="structcore_1_1Spell.html#ad55875726fd50b55f539ed252c50845e">core::Spell::appliesCondition</a></div><div class="ttdeci">std::string appliesCondition</div><div class="ttdef"><b>Definition</b> Spell.h:53</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_aecd3c5fc345925c9ecd86ad5b65a6b31"><div class="ttname"><a href="structcore_1_1Spell.html#aecd3c5fc345925c9ecd86ad5b65a6b31">core::Spell::concentration</a></div><div class="ttdeci">bool concentration</div><div class="ttdef"><b>Definition</b> Spell.h:46</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_aee9bf5871734fa238f5f15bc584400c2"><div class="ttname"><a href="structcore_1_1Spell.html#aee9bf5871734fa238f5f15bc584400c2">core::Spell::narrative</a></div><div class="ttdeci">bool narrative</div><div class="ttdoc">Déclaré sans mécanisme joué (EX-RPG-051).</div><div class="ttdef"><b>Definition</b> Spell.h:56</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_aef19780c81f39eaceba166b293aa34db"><div class="ttname"><a href="structcore_1_1Spell.html#aef19780c81f39eaceba166b293aa34db">core::Spell::damage</a></div><div class="ttdeci">std::optional&lt; Dice &gt; damage</div><div class="ttdef"><b>Definition</b> Spell.h:50</div></div>
+<div class="ttc" id="astructcore_1_1Spell_html_af487b886ad6d013d9375994e51a01024"><div class="ttname"><a href="structcore_1_1Spell.html#af487b886ad6d013d9375994e51a01024">core::Spell::requiredMechanisms</a></div><div class="ttdeci">std::vector&lt; std::string &gt; requiredMechanisms</div><div class="ttdef"><b>Definition</b> Spell.h:57</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_de25d93b7b4ef75f45504127491f58b5.html">Rpg</a></li><li class="navelem"><a href="Spell_8h.html">Spell.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

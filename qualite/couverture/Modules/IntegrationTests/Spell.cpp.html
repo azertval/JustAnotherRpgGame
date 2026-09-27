@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Spell.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Rpg/Spell.h"
+
+#include &lt;algorithm&gt;
+#include &lt;system_error&gt;
+#include &lt;utility&gt;
+
+#include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/RpgEnumNames.h"
+
+namespace core {
+
+namespace {
+
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
+                                                          : std::string{};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool lireBooleen(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return trouve != objet.end() &amp;&amp; trouve-&gt;is_boolean() &amp;&amp; trouve-&gt;get&lt;bool&gt;();
+}</span>
+
+[[nodiscard]] std::optional&lt;Spell&gt; lireSort(const nlohmann::json&amp; racine,
+                                            const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                            std::vector&lt;std::string&gt;&amp; erreurs) {
+    Spell sort;
+    sort.id = lireTexte(racine, "id");
+    sort.name = lireTexte(racine, "name");
+    sort.source = lireTexte(racine, "source");
+    sort.school = lireTexte(racine, "school");
+    sort.castingTime = lireTexte(racine, "castingTime");
+    sort.range = lireTexte(racine, "range");
+    sort.duration = lireTexte(racine, "duration");
+    sort.text = lireTexte(racine, "text");
+    sort.appliesCondition = lireTexte(racine, "appliesCondition");
+    sort.concentration = lireBooleen(racine, "concentration");
+    sort.ritual = lireBooleen(racine, "ritual");
+    sort.attackRoll = lireBooleen(racine, "attackRoll");
+    sort.narrative = lireBooleen(racine, "narratif");
+    if (sort.id.empty() || sort.name.empty()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : sort sans 'id' ou sans 'name'.");
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto niveau = racine.find("level");
+    if (niveau == racine.end() || !niveau-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : champ 'level' absent ou non entier.");
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    sort.level = niveau-&gt;get&lt;int&gt;();
+    if (const auto portee = racine.find("rangeMeters");
+        portee != racine.end() &amp;&amp; portee-&gt;is_number()) {
+        sort.rangeMeters = portee-&gt;get&lt;float&gt;();
+    }
+    if (const auto des = racine.find("damage"); des != racine.end() &amp;&amp; des-&gt;is_string()) {
+        sort.damage = parseDice(des-&gt;get&lt;std::string&gt;());
+        if (!sort.damage.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : des de degats '" + des-&gt;get&lt;std::string&gt;() +</span>
+                              "' illisibles.");
+<span style = "background-color:#fdd">            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (const auto type = racine.find("damageType"); type != racine.end() &amp;&amp; type-&gt;is_string()) {
+        sort.damageType = parseDamageType(type-&gt;get&lt;std::string&gt;());
+        if (!sort.damageType.has_value()) {</span>
+            // Un type inconnu ne recoit pas un type par defaut (EX-CBT-032).
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : type de degats '" + type-&gt;get&lt;std::string&gt;() +</span>
+                              "' inconnu du moteur.");
+<span style = "background-color:#fdd">            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (const auto sauvegarde = racine.find("savingThrow");
+        sauvegarde != racine.end() &amp;&amp; sauvegarde-&gt;is_string()) {</span>
+<span style = "background-color:#fdd">        sort.savingThrow = parseAbility(sauvegarde-&gt;get&lt;std::string&gt;());
+        if (!sort.savingThrow.has_value()) {
+            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde-&gt;get&lt;std::string&gt;() +</span>
+                              "' inconnu du moteur.");
+<span style = "background-color:#fdd">            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (const auto mecanismes = racine.find("mecanismesRequis");
+        mecanismes != racine.end() &amp;&amp; mecanismes-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        for (const auto&amp; element : *mecanismes) {
+            if (element.is_string()) {
+                sort.requiredMechanisms.push_back(element.get&lt;std::string&gt;());
+            }
+        }</span>
+<span style = "background-color:#dfd">    }
+    return sort;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const Spell* SpellCatalog::find(std::string_view id) const {
+    const auto trouve = std::ranges::find(spells, id, &amp;Spell::id);
+    return trouve == spells.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">SpellCatalog loadSpells(const std::filesystem::path&amp; spellsDir) {
+    SpellCatalog catalogue;
+    std::error_code code;
+    if (!std::filesystem::is_directory(spellsDir, code)) {</span>
+<span style = "background-color:#fdd">        catalogue.errors.push_back(spellsDir.string() + " : dossier absent ou illisible.");
+        return catalogue;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; fichiers;
+    for (const auto&amp; entree : std::filesystem::directory_iterator(spellsDir, code)) {
+        if (entree.is_regular_file(code) &amp;&amp; entree.path().extension() == ".json") {
+            fichiers.push_back(entree.path());
+        }
+    }
+    std::ranges::sort(fichiers);
+    for (const std::filesystem::path&amp; chemin : fichiers) {
+        const JsonDocument document = readJsonObjectFromFile(chemin, SANS_GARDE_DE_VERSION);
+        if (!document.ok()) {</span>
+<span style = "background-color:#fdd">            catalogue.errors.push_back(document.message);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (std::optional&lt;Spell&gt; sort =</span>
+                lireSort(document.root, chemin.filename().string(), catalogue.errors)) {
+<span style = "background-color:#dfd">            catalogue.spells.push_back(std::move(*sort));
+        }
+    }
+    std::ranges::sort(catalogue.spells, {}, &amp;Spell::id);
+    return catalogue;
+}</span>
+
+<span style = "background-color:#dfd">bool isAttackSpell(const Spell&amp; spell) noexcept {
+    return spell.attackRoll &amp;&amp; spell.damage.has_value() &amp;&amp; spell.damageType.has_value();
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

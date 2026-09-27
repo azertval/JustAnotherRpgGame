@@ -103,6 +103,9 @@ struct DamageAffinity {
     DamageType type = DamageType::Bludgeoning;
     DamageAffinityKind kind = DamageAffinityKind::Resistance;
     DamageFlags bypassedBy = 0;
+    /// Ce qui la donne, si quelque chose la nomme (`LOT-131`) : la capacitÃ© de classe, pour que
+    /// le journal l'Ã©crive. Vide pour une affinitÃ© de bloc de bestiaire.
+    std::string source;
 
     [[nodiscard]] bool operator==(const DamageAffinity&amp;) const = default;
 };
@@ -114,6 +117,9 @@ struct DamageTraits {
     /// @brief Vrai si une affinitÃ© de ce genre s'applique Ã  des dÃ©gÃ¢ts de ce type et de cette
     /// source.
     [[nodiscard]] bool applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const;
+    /// @brief La premiÃ¨re affinitÃ© de ce genre qui s'applique, ou `nullptr`.
+    [[nodiscard]] const DamageAffinity* matching(DamageAffinityKind kind, DamageType type,
+                                                 DamageFlags flags) const;
 };
 
 /**
@@ -141,6 +147,9 @@ struct RolledDamage {
     bool critical = false;
     /// Le total, jamais nÃ©gatif : un 1d4-3 qui fait -2 ne soigne pas.
 <span style = "background-color:#dfd">    int amount = 0;</span>
+    /// Ce qui a ajoutÃ© cette clause Ã  l'attaque, si ce n'est pas l'arme elle-mÃªme : la capacitÃ©
+    /// de classe (`LOT-131`), pour que le journal la nomme. Vide pour les dÃ©s de l'arme.
+    std::string source;
 };
 
 /// @brief Lance chaque clause, en doublant les dÃ©s si le coup est critique.

@@ -4,6 +4,7 @@ var dir_876500558ad9fa4b961386baa54d1bd8 =
     [ "test_character_options.cpp", "test__character__options_8cpp.html", "test__character__options_8cpp" ],
     [ "test_character_sheet.cpp", "test__character__sheet_8cpp.html", "test__character__sheet_8cpp" ],
     [ "test_check.cpp", "test__check_8cpp.html", "test__check_8cpp" ],
+    [ "test_class_capacities.cpp", "test__class__capacities_8cpp.html", "test__class__capacities_8cpp" ],
     [ "test_dialogue.cpp", "test__dialogue_8cpp.html", "test__dialogue_8cpp" ],
     [ "test_dice.cpp", "test__dice_8cpp.html", "test__dice_8cpp" ],
     [ "test_equipment.cpp", "test__equipment_8cpp.html", "test__equipment_8cpp" ],

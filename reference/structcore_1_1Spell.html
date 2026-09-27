@@ -1,0 +1,478 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::Spell Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1Spell.html','','structcore_1_1Spell-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::Spell Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un sort, tel que <span class="tt">spell.schema.json</span> l'écrit.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Spell_8h_source.html">Spell.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a301a7c0b55d9cc325db6f654d8a884f4" id="r_a301a7c0b55d9cc325db6f654d8a884f4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a301a7c0b55d9cc325db6f654d8a884f4">id</a></td></tr>
+<tr class="memitem:abc3884df103905e989a4ca8cfd8ab79e" id="r_abc3884df103905e989a4ca8cfd8ab79e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#abc3884df103905e989a4ca8cfd8ab79e">name</a></td></tr>
+<tr class="memitem:a1458886ef3e77c68405df00dce8f73ca" id="r_a1458886ef3e77c68405df00dce8f73ca"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1458886ef3e77c68405df00dce8f73ca">source</a></td></tr>
+<tr class="memitem:ac591cec33e25d61ded0eeebd3de0bb5b" id="r_ac591cec33e25d61ded0eeebd3de0bb5b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac591cec33e25d61ded0eeebd3de0bb5b">level</a> = 0</td></tr>
+<tr class="memdesc:ac591cec33e25d61ded0eeebd3de0bb5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 : sort mineur (<em>cantrip</em>), à volonté.  <br /></td></tr>
+<tr class="memitem:aa72c1a6dd6299f5cdcfceeaca02a7d1f" id="r_aa72c1a6dd6299f5cdcfceeaca02a7d1f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa72c1a6dd6299f5cdcfceeaca02a7d1f">school</a></td></tr>
+<tr class="memitem:accb5a9e4d026c5dfe029fdeb0c6e953c" id="r_accb5a9e4d026c5dfe029fdeb0c6e953c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#accb5a9e4d026c5dfe029fdeb0c6e953c">castingTime</a></td></tr>
+<tr class="memitem:a10fb3d3a50f43b92d15b6b48b99e8d46" id="r_a10fb3d3a50f43b92d15b6b48b99e8d46"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a10fb3d3a50f43b92d15b6b48b99e8d46">range</a></td></tr>
+<tr class="memdesc:a10fb3d3a50f43b92d15b6b48b99e8d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le texte du livre (« 36 mètres »).  <br /></td></tr>
+<tr class="memitem:a13a40e4ebf6de96e790c55cebfd00088" id="r_a13a40e4ebf6de96e790c55cebfd00088"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a13a40e4ebf6de96e790c55cebfd00088">rangeMeters</a> = 0.0F</td></tr>
+<tr class="memdesc:a13a40e4ebf6de96e790c55cebfd00088"><td class="mdescLeft">&#160;</td><td class="mdescRight">La portée en <b>mètres</b>, si le sort vise à distance ; 0 sinon.  <br /></td></tr>
+<tr class="memitem:a1c143734f093e83c92c175690139f0e8" id="r_a1c143734f093e83c92c175690139f0e8"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1c143734f093e83c92c175690139f0e8">duration</a></td></tr>
+<tr class="memitem:aecd3c5fc345925c9ecd86ad5b65a6b31" id="r_aecd3c5fc345925c9ecd86ad5b65a6b31"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aecd3c5fc345925c9ecd86ad5b65a6b31">concentration</a> = false</td></tr>
+<tr class="memitem:a72fc45028d262c6abacce401e30ff917" id="r_a72fc45028d262c6abacce401e30ff917"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a72fc45028d262c6abacce401e30ff917">ritual</a> = false</td></tr>
+<tr class="memitem:a0ce39b883f1a89efd5d5fbfae2f78133" id="r_a0ce39b883f1a89efd5d5fbfae2f78133"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0ce39b883f1a89efd5d5fbfae2f78133">attackRoll</a> = false</td></tr>
+<tr class="memdesc:a0ce39b883f1a89efd5d5fbfae2f78133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un sort qui demande un jet d'attaque de sort contre la CA.  <br /></td></tr>
+<tr class="memitem:aef19780c81f39eaceba166b293aa34db" id="r_aef19780c81f39eaceba166b293aa34db"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aef19780c81f39eaceba166b293aa34db">damage</a></td></tr>
+<tr class="memitem:a0020691c9ee8a8f71deaf9fe6b63900f" id="r_a0020691c9ee8a8f71deaf9fe6b63900f"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0020691c9ee8a8f71deaf9fe6b63900f">damageType</a></td></tr>
+<tr class="memitem:a2ea5964597cc155ee0e7394182bee591" id="r_a2ea5964597cc155ee0e7394182bee591"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2ea5964597cc155ee0e7394182bee591">savingThrow</a></td></tr>
+<tr class="memitem:ad55875726fd50b55f539ed252c50845e" id="r_ad55875726fd50b55f539ed252c50845e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad55875726fd50b55f539ed252c50845e">appliesCondition</a></td></tr>
+<tr class="memitem:a56ecbd7a015e9e599a1e5b3169369595" id="r_a56ecbd7a015e9e599a1e5b3169369595"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a56ecbd7a015e9e599a1e5b3169369595">text</a></td></tr>
+<tr class="memitem:aee9bf5871734fa238f5f15bc584400c2" id="r_aee9bf5871734fa238f5f15bc584400c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aee9bf5871734fa238f5f15bc584400c2">narrative</a> = false</td></tr>
+<tr class="memdesc:aee9bf5871734fa238f5f15bc584400c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déclaré sans mécanisme joué (<span class="tt">EX-RPG-051</span>).  <br /></td></tr>
+<tr class="memitem:af487b886ad6d013d9375994e51a01024" id="r_af487b886ad6d013d9375994e51a01024"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af487b886ad6d013d9375994e51a01024">requiredMechanisms</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un sort, tel que <span class="tt">spell.schema.json</span> l'écrit. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ad55875726fd50b55f539ed252c50845e" name="ad55875726fd50b55f539ed252c50845e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad55875726fd50b55f539ed252c50845e">&#9670;&#160;</a></span>appliesCondition</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::appliesCondition</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ce39b883f1a89efd5d5fbfae2f78133" name="a0ce39b883f1a89efd5d5fbfae2f78133"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ce39b883f1a89efd5d5fbfae2f78133">&#9670;&#160;</a></span>attackRoll</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::attackRoll = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pour un sort qui demande un jet d'attaque de sort contre la CA. </p>
+
+</div>
+</div>
+<a id="accb5a9e4d026c5dfe029fdeb0c6e953c" name="accb5a9e4d026c5dfe029fdeb0c6e953c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb5a9e4d026c5dfe029fdeb0c6e953c">&#9670;&#160;</a></span>castingTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::castingTime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aecd3c5fc345925c9ecd86ad5b65a6b31" name="aecd3c5fc345925c9ecd86ad5b65a6b31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd3c5fc345925c9ecd86ad5b65a6b31">&#9670;&#160;</a></span>concentration</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::concentration = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef19780c81f39eaceba166b293aa34db" name="aef19780c81f39eaceba166b293aa34db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef19780c81f39eaceba166b293aa34db">&#9670;&#160;</a></span>damage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1Dice.html">Dice</a>&gt; core::Spell::damage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0020691c9ee8a8f71deaf9fe6b63900f" name="a0020691c9ee8a8f71deaf9fe6b63900f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0020691c9ee8a8f71deaf9fe6b63900f">&#9670;&#160;</a></span>damageType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a>&gt; core::Spell::damageType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1c143734f093e83c92c175690139f0e8" name="a1c143734f093e83c92c175690139f0e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c143734f093e83c92c175690139f0e8">&#9670;&#160;</a></span>duration</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::duration</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a301a7c0b55d9cc325db6f654d8a884f4" name="a301a7c0b55d9cc325db6f654d8a884f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a301a7c0b55d9cc325db6f654d8a884f4">&#9670;&#160;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac591cec33e25d61ded0eeebd3de0bb5b" name="ac591cec33e25d61ded0eeebd3de0bb5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac591cec33e25d61ded0eeebd3de0bb5b">&#9670;&#160;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Spell::level = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>0 : sort mineur (<em>cantrip</em>), à volonté. </p>
+
+</div>
+</div>
+<a id="abc3884df103905e989a4ca8cfd8ab79e" name="abc3884df103905e989a4ca8cfd8ab79e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3884df103905e989a4ca8cfd8ab79e">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee9bf5871734fa238f5f15bc584400c2" name="aee9bf5871734fa238f5f15bc584400c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee9bf5871734fa238f5f15bc584400c2">&#9670;&#160;</a></span>narrative</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::narrative = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Déclaré sans mécanisme joué (<span class="tt">EX-RPG-051</span>). </p>
+
+</div>
+</div>
+<a id="a10fb3d3a50f43b92d15b6b48b99e8d46" name="a10fb3d3a50f43b92d15b6b48b99e8d46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10fb3d3a50f43b92d15b6b48b99e8d46">&#9670;&#160;</a></span>range</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::range</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le texte du livre (« 36 mètres »). </p>
+
+</div>
+</div>
+<a id="a13a40e4ebf6de96e790c55cebfd00088" name="a13a40e4ebf6de96e790c55cebfd00088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13a40e4ebf6de96e790c55cebfd00088">&#9670;&#160;</a></span>rangeMeters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Spell::rangeMeters = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La portée en <b>mètres</b>, si le sort vise à distance ; 0 sinon. </p>
+
+</div>
+</div>
+<a id="af487b886ad6d013d9375994e51a01024" name="af487b886ad6d013d9375994e51a01024"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af487b886ad6d013d9375994e51a01024">&#9670;&#160;</a></span>requiredMechanisms</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::Spell::requiredMechanisms</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72fc45028d262c6abacce401e30ff917" name="a72fc45028d262c6abacce401e30ff917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72fc45028d262c6abacce401e30ff917">&#9670;&#160;</a></span>ritual</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::ritual = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ea5964597cc155ee0e7394182bee591" name="a2ea5964597cc155ee0e7394182bee591"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea5964597cc155ee0e7394182bee591">&#9670;&#160;</a></span>savingThrow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a>&gt; core::Spell::savingThrow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa72c1a6dd6299f5cdcfceeaca02a7d1f" name="aa72c1a6dd6299f5cdcfceeaca02a7d1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72c1a6dd6299f5cdcfceeaca02a7d1f">&#9670;&#160;</a></span>school</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::school</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1458886ef3e77c68405df00dce8f73ca" name="a1458886ef3e77c68405df00dce8f73ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1458886ef3e77c68405df00dce8f73ca">&#9670;&#160;</a></span>source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a56ecbd7a015e9e599a1e5b3169369595" name="a56ecbd7a015e9e599a1e5b3169369595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56ecbd7a015e9e599a1e5b3169369595">&#9670;&#160;</a></span>text</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::text</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/<a class="el" href="Spell_8h_source.html">Spell.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1Spell.html">Spell</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

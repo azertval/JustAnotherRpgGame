@@ -110,6 +110,25 @@ struct CharacterCreationRules {
  * pour une fiche jouable. `buildCharacterSheet()` est la porte d'entrÃ©e, et elle prend les
  * constantes dans la donnÃ©e.
  */
+struct Weapon;
+
+/// @brief Un sort connu de la fiche, et ses lancers du jour (`LOT-131`, `EX-RPG-025`).
+struct KnownSpell {
+    std::string spellId;
+    /// 0 : sort mineur.
+    int level = 0;
+    /// Lancers par jour ; 0 : Ã  volontÃ©.
+    int perDay = 0;
+    /// Lancers restants aujourd'hui. Sans objet si `perDay` vaut 0.
+    int remaining = 0;
+
+    /// @brief Vrai si le sort se lance encore : Ã  volontÃ©, ou un lancer restant.
+<span style = "background-color:#dfd">    [[nodiscard]] bool available() const noexcept {
+        return perDay == 0 || remaining &gt; 0;
+    }</span>
+    [[nodiscard]] bool operator==(const KnownSpell&amp;) const = default;
+};
+
 struct CharacterSheet {
     std::string name;
     /// Identifiants des trois choix qui ont construit la fiche. Vides pour une crÃ©ature du
@@ -144,6 +163,31 @@ struct CharacterSheet {
      * se refuse faute de langue commune (`core::DialogueRunner`).
      */
     std::set&lt;std::string&gt; languages;
+    /**
+     * @brief Armes maÃ®trisÃ©es (`LOT-131`) : les catÃ©gories (`simple`, `martial`) et les
+     *        identifiants d'armes que la classe et l'espÃ¨ce accordent, rÃ©unis Ã  la construction.
+     *        `core::isProficientWith` les lit ; une arme non maÃ®trisÃ©e se frappe sans le bonus de
+     *        maÃ®trise.
+     */
+    std::set&lt;std::string&gt; weaponProficiencies;
+    /// CatÃ©gories d'armure maÃ®trisÃ©es (`light`, `medium`, `heavy`, `shields`).
+    std::set&lt;std::string&gt; armorProficiencies;
+    /**
+     * @brief Les capacitÃ©s de classe **actives** au niveau courant (`LOT-131`, `EX-RPG-024`).
+     *
+     * Des copies, rÃ©solues depuis la table de progression et le catalogue par
+     * `core::applyClassFeatures` : la fiche les porte pour que tout ce qui la lit â classe
+     * d'armure, vitesse, profil de combat, jets â les applique sans connaÃ®tre la classe. Vide pour
+     * une crÃ©ature, ou une fiche construite sans catalogue.
+     */
+    std::vector&lt;Capacity&gt; capacities;
+    /**
+     * @brief Les sorts connus et leurs lancers restants **dans la journÃ©e** (`EX-RPG-025`).
+     *
+     * L'incantation simplifiÃ©e n'a pas d'emplacements : chaque sort porte son propre compte,
+     * que `core::longRest` remet Ã  `perDay`. Un sort mineur a `perDay` Ã  0 : Ã  volontÃ©.
+     */
+    std::vector&lt;KnownSpell&gt; knownSpells;
 
     /// @brief La valeur d'une caractÃ©ristique.
 <span style = "background-color:#dfd">    [[nodiscard]] int ability(Ability which) const {
@@ -153,9 +197,60 @@ struct CharacterSheet {
 <span style = "background-color:#dfd">    [[nodiscard]] int modifier(Ability which) const {
         return abilityModifier(ability(which));
     }</span>
-    /// @brief La vitesse en **cases** de la grille tactique (`LOT-19`, `LOT-22`).
+    /// @brief La vitesse en **cases** de la grille tactique (`LOT-19`, `LOT-22`), capacitÃ©s
+    ///        comprises.
     [[nodiscard]] float speedInTiles() const;
+    /// @brief La vitesse de base plus ce que les capacitÃ©s ajoutent, en mÃ¨tres.
+    [[nodiscard]] float effectiveSpeedMeters() const;
+    /// @brief Le sort connu d'identifiant @p spellId, ou `nullptr`.
+    [[nodiscard]] const KnownSpell* knownSpell(std::string_view spellId) const;
 };
+
+/**
+ * @brief Vrai si la fiche maÃ®trise cette arme : par sa catÃ©gorie ou par son identifiant.
+ *
+ * Manuel, chapitre 5 : Â« votre bonus de maÃ®trise s'ajoute au jet d'attaque de toute arme que vous
+ * maÃ®trisez Â». Une fiche **sans classe** (une crÃ©ature, une fiche d'essai) maÃ®trise tout : rien
+ * ne dit ce qu'elle ne maÃ®trise pas, et lui retirer la maÃ®trise fausserait chaque test qui ne
+ * s'intÃ©resse pas Ã  cette rÃ¨gle.
+ */
+[[nodiscard]] bool isProficientWith(const CharacterSheet&amp; sheet, const Weapon&amp; weapon);
+
+/**
+ * @brief Pose sur la fiche ce que sa classe lui donne Ã  son niveau : capacitÃ©s actives et sorts
+ *        connus, lancers au complet (`LOT-131`).
+ *
+ * Ã appeler aprÃ¨s une montÃ©e de niveau comme au chargement. Les lancers dÃ©jÃ  dÃ©pensÃ©s d'un sort
+ * que la fiche connaissait sont **conservÃ©s** : monter de niveau n'est pas un repos.
+ *
+ * La classe d'armure **sans armure** de la fiche est recalculÃ©e depuis ses sources (`EX-CBT-030`) :
+ * une capacitÃ© peut la calculer autrement (`core::armorClassFor`).
+ *
+ * @param sheet La fiche, modifiÃ©e sur place.
+ * @param playableClass Sa classe, pour la table de progression.
+ * @param options Les catalogues : capacitÃ©s et sorts.
+ * @param rules Les constantes de crÃ©ation, pour la base sans armure.
+ * @param missing ReÃ§oit les capacitÃ©s et les sorts que la table nomme et que les catalogues
+ *        ignorent (`EX-CNT-031`).
+ */
+void applyClassFeatures(CharacterSheet&amp; sheet, const PlayableClass&amp; playableClass,
+                        const CharacterOptions&amp; options, const CharacterCreationRules&amp; rules,
+                        std::vector&lt;std::string&gt;&amp; missing);
+
+/**
+ * @brief Le repos long : les points de vie au maximum, chaque sort Ã  ses lancers du jour
+ *        (`EX-REG-031`).
+ *
+ * Le repos ne connaÃ®t aucune classe : il ne lit que ce que la fiche dÃ©clare. Un repos interrompu
+ * ne passe pas par ici (`EX-REG-032`).
+ */
+void longRest(CharacterSheet&amp; sheet);
+
+/**
+ * @brief DÃ©pense un lancer de @p spellId. Faux si le sort est inconnu ou Ã©puisÃ© ; un sort mineur
+ *        ne s'Ã©puise jamais.
+ */
+bool spendSpellUse(CharacterSheet&amp; sheet, std::string_view spellId);
 
 /**
  * @brief Ce qu'une montÃ©e de niveau a produit â de quoi le dire au joueur (`EX-REG-003`).
@@ -190,11 +285,20 @@ struct LoadedCharacterSheet {
     /// erreur.
     Inventory inventory;
     std::vector&lt;std::string&gt; errors;
+    /**
+     * @brief Ce que la fiche nomme et que le moteur ne joue pas encore (`EX-CNT-031`) : une
+     *        capacitÃ© ou un sort que la table de la classe donne et qu'aucun catalogue ne porte.
+     *
+     * Pas une erreur â la fiche est jouable, la table annonce un lot Ã  venir â, mais pas un
+     * silence non plus : une capacitÃ© qu'on croit jouÃ©e et qui ne fait rien coÃ»te plus cher Ã 
+     * diagnostiquer qu'une capacitÃ© dÃ©clarÃ©e absente.
+     */
+    std::vector&lt;std::string&gt; warnings;
 
     /// @brief Vrai si la fiche s'est construite sans erreur.
-    [[nodiscard]] bool ok() const {
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const {
         return errors.empty();
-    }
+    }</span>
 };
 
 /**

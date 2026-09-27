@@ -91,8 +91,8 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
 
 <span style = "background-color:#dfd">void lireStatut(const nlohmann::json&amp; objet, ProvisionalStatus&amp; sortie) {
     const auto trouve = objet.find("status");
-    if (trouve == objet.end() || !trouve-&gt;is_object()) {</span>
-<span style = "background-color:#fdd">        return;</span>
+    if (trouve == objet.end() || !trouve-&gt;is_object()) {
+        return;</span>
     }
 <span style = "background-color:#dfd">    const auto provisoire = trouve-&gt;find("provisoire");
     sortie.provisional =</span>
@@ -136,6 +136,78 @@ void balayer(const std::filesystem::path&amp; dossier, std::vector&lt;std::strin
 <span style = "background-color:#dfd">const ClassLevel* PlayableClass::atLevel(int level) const {
     const auto trouve = std::ranges::find(progression, level, &amp;ClassLevel::level);
     return trouve == progression.end() ? nullptr : &amp;*trouve;
+}</span>
+
+bool PlayableClass::isProficientWithWeapon(std::string_view weaponId,
+<span style = "background-color:#dfd">                                           std::string_view category) const {
+    return std::ranges::any_of(weaponProficiencies, [&amp;](const std::string&amp; maitrise) {
+        return maitrise == weaponId || maitrise == category;
+    });
+}</span>
+
+<span style = "background-color:#dfd">bool PlayableClass::isProficientWithArmor(std::string_view category) const {
+    return std::ranges::find(armorProficiencies, category) != armorProficiencies.end();
+}</span>
+
+namespace {
+
+// L'union, dans l'ordre de la table, des listes d'un champ de chaque ligne jusqu'au niveau.
+template &lt;typename Champ&gt;
+[[nodiscard]] std::vector&lt;std::string&gt; cumulerJusquAu(const std::vector&lt;ClassLevel&gt;&amp; progression,
+<span style = "background-color:#dfd">                                                      int level, Champ champ) {
+    std::vector&lt;std::string&gt; cumul;
+    for (const ClassLevel&amp; ligne : progression) {
+        if (ligne.level &gt; level) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const std::string&amp; identifiant : champ(ligne)) {
+            if (std::ranges::find(cumul, identifiant) == cumul.end()) {
+                cumul.push_back(identifiant);</span>
+            }
+        }
+    }
+<span style = "background-color:#dfd">    return cumul;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; PlayableClass::cantripsAt(int level) const {
+    return cumulerJusquAu(</span>
+        progression, level,
+<span style = "background-color:#dfd">        [](const ClassLevel&amp; ligne) -&gt; const std::vector&lt;std::string&gt;&amp; { return ligne.cantrips; });
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; PlayableClass::spellsAt(int level) const {
+    return cumulerJusquAu(</span>
+        progression, level,
+<span style = "background-color:#dfd">        [](const ClassLevel&amp; ligne) -&gt; const std::vector&lt;std::string&gt;&amp; { return ligne.spells; });
+}</span>
+
+std::vector&lt;Capacity&gt; resolveCapacities(const PlayableClass&amp; playableClass, int level,
+                                        const CapacityCatalog&amp; catalog,
+<span style = "background-color:#dfd">                                        std::vector&lt;std::string&gt;&amp; missing) {
+    std::vector&lt;Capacity&gt; actives;
+    for (const std::string&amp; identifiant :
+         cumulerJusquAu(playableClass.progression, level,
+                        [](const ClassLevel&amp; ligne) -&gt; const std::vector&lt;std::string&gt;&amp; {
+                            return ligne.features;
+                        })) {
+        const Capacity* capacite = catalog.find(identifiant);
+        if (capacite == nullptr) {</span>
+            // La table nomme ce que le catalogue n'a pas : la capacite ne joue pas, et le dire
+            // vaut mieux que de la laisser passer pour jouee (EX-CNT-031).
+<span style = "background-color:#dfd">            missing.push_back(identifiant);
+            continue;</span>
+        }
+        // Une capacite qui en REMPLACE une autre la retire : Hit the Mark Improvement ne
+        // s'additionne pas a Hit the Mark.
+<span style = "background-color:#dfd">        if (!capacite-&gt;replaces.empty()) {
+            std::erase_if(actives,
+                          [&amp;](const Capacity&amp; active) { return active.id == capacite-&gt;replaces; });</span>
+        }
+<span style = "background-color:#dfd">        actives.push_back(*capacite);
+    }
+    return actives;
 }</span>
 
 <span style = "background-color:#dfd">const Species* CharacterOptions::findSpecies(std::string_view id) const {
@@ -224,6 +296,7 @@ void lireAugmentations(const nlohmann::json&amp; racine, const std::string&amp; 
         espece.hitPointsPerLevel = parNiveau-&gt;get&lt;int&gt;();
     }
     espece.languages = lireTextes(racine, "languages");
+    espece.weaponProficiencies = lireTextes(racine, "weaponProficiencies");
     espece.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
     lireTraits(racine, "traits", espece.traits);
     return espece;
@@ -270,6 +343,8 @@ void lireProgression(const nlohmann::json&amp; racine, const std::string&amp; fi
 <span style = "background-color:#dfd">            niveau.level = valeur-&gt;get&lt;int&gt;();
             niveau.proficiencyBonus = bonus-&gt;get&lt;int&gt;();
             niveau.features = lireTextes(element, "features");
+            niveau.cantrips = lireTextes(element, "cantrips");
+            niveau.spells = lireTextes(element, "spells");
             classe.progression.push_back(std::move(niveau));
         }
     }
@@ -294,7 +369,34 @@ void lireProgression(const nlohmann::json&amp; racine, const std::string&amp; fi
     classe.primaryAbility = lireCaracteristiques(racine, "primaryAbility", fichier, erreurs);
     classe.savingThrowProficiencies =</span>
         lireCaracteristiques(racine, "savingThrowProficiencies", fichier, erreurs);
-<span style = "background-color:#dfd">    lireStatut(racine, classe.status);
+<span style = "background-color:#dfd">    classe.armorProficiencies = lireTextes(racine, "armorProficiencies");
+    classe.weaponProficiencies = lireTextes(racine, "weaponProficiencies");
+    if (const auto choix = racine.find("skillChoices");
+        choix != racine.end() &amp;&amp; choix-&gt;is_object()) {
+        if (const auto nombre = choix-&gt;find("count");
+            nombre != choix-&gt;end() &amp;&amp; nombre-&gt;is_number_integer()) {
+            classe.skillChoices.count = nombre-&gt;get&lt;int&gt;();
+        }
+        classe.skillChoices.from = lireTextes(*choix, "from");
+    }
+    if (const auto incantation = racine.find("spellcasting");
+        incantation != racine.end() &amp;&amp; incantation-&gt;is_object()) {</span>
+        // La caracteristique d'incantation est EXIGEE : sans elle, ni DD ni jet d'attaque de sort
+        // ne se calculent, et une classe qui lancerait des sorts a +0 passerait pour faible.
+        const std::optional&lt;Ability&gt; caracteristique =
+<span style = "background-color:#dfd">            parseAbility(lireTexte(*incantation, "ability"));
+        const auto lancers = incantation-&gt;find("castsPerDay");
+        if (!caracteristique.has_value() || lancers == incantation-&gt;end() ||</span>
+            !lancers-&gt;is_number_integer()) {
+<span style = "background-color:#fdd">            erreurs.push_back(fichier +</span>
+                              " : 'spellcasting' sans caracteristique connue ou sans "
+                              "'castsPerDay'. L'incantation simplifiee exige les deux.");
+<span style = "background-color:#fdd">            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        classe.spellcasting =</span>
+            Spellcasting{.ability = *caracteristique, .castsPerDay = lancers-&gt;get&lt;int&gt;()};
+<span style = "background-color:#dfd">    }
+    lireStatut(racine, classe.status);
     lireProgression(racine, fichier, classe, erreurs);
     return classe;
 }</span>
@@ -344,6 +446,14 @@ namespace {
 <span style = "background-color:#fdd">                espece.requiredMechanisms.push_back(mecanisme);</span>
             }
 <span style = "background-color:#fdd">        }</span>
+        // Les armes du parent aussi (LOT-131) : le nain des collines a l'Entrainement aux armes
+        // naines, et la page 203 donne au pretre nain son marteau de guerre a +3.
+<span style = "background-color:#dfd">        for (const std::string&amp; arme : parent-&gt;weaponProficiencies) {
+            if (std::ranges::find(espece.weaponProficiencies, arme) ==</span>
+                espece.weaponProficiencies.end()) {
+<span style = "background-color:#dfd">                espece.weaponProficiencies.push_back(arme);</span>
+            }
+<span style = "background-color:#dfd">        }</span>
         // Les traits du parent d'abord, dans l'ordre du livre : l'espece, puis la sous-espece.
 <span style = "background-color:#dfd">        espece.traits.insert(espece.traits.begin(), parent-&gt;traits.begin(), parent-&gt;traits.end());
     }
@@ -382,6 +492,27 @@ CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; speciesDi
     heriterDesEspecesParentes(options);
     return options;
 }</span>
+
+CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; speciesDir,
+                                      const std::filesystem::path&amp; backgroundsDir,
+                                      const std::filesystem::path&amp; classesDir,
+                                      const std::filesystem::path&amp; capacitiesDir,
+<span style = "background-color:#dfd">                                      const std::filesystem::path&amp; spellsDir) {
+    CharacterOptions options = loadCharacterOptions(speciesDir, backgroundsDir, classesDir);
+    options.capacities = loadCapacities(capacitiesDir);
+    options.spells = loadSpells(spellsDir);</span>
+    // Les erreurs voyagent AVEC les donnees : une seule liste a lire pour qui charge (EX-CNT-010).
+<span style = "background-color:#dfd">    options.errors.insert(options.errors.end(), options.capacities.errors.begin(),</span>
+                          options.capacities.errors.end());
+<span style = "background-color:#dfd">    options.errors.insert(options.errors.end(), options.spells.errors.begin(),</span>
+                          options.spells.errors.end());
+<span style = "background-color:#dfd">    return options;
+}</span>
+
+<span style = "background-color:#dfd">CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; rpgRoot) {
+    return loadCharacterOptions(rpgRoot / "species", rpgRoot / "backgrounds", rpgRoot / "classes",</span>
+                                rpgRoot / "capacities", rpgRoot / "spells");
+<span style = "background-color:#dfd">}</span>
 
 }  // namespace core</pre>
         <hr />

@@ -28,7 +28,9 @@
 #include &lt;vector&gt;
 
 #include "Core/Rpg/Ability.h"
+#include "Core/Rpg/ClassCapacities.h"
 #include "Core/Rpg/RpgEnums.h"
+#include "Core/Rpg/Spell.h"
 
 namespace core {
 
@@ -85,6 +87,9 @@ struct Species {
     /// porte que ce que la sous-espÃ¨ce ajoute, comme le livre l'Ã©crit.
     std::string parentSpecies;
     std::vector&lt;std::string&gt; languages;
+    /// Armes que l'espÃ¨ce fait maÃ®triser (`LOT-131`), en identifiants d'armes du catalogue :
+    /// l'*EntraÃ®nement aux armes naines*. Le moteur ne lit pas la prose des traits.
+    std::vector&lt;std::string&gt; weaponProficiencies;
     std::vector&lt;NamedTrait&gt; traits;
     std::vector&lt;std::string&gt; requiredMechanisms;
 
@@ -111,7 +116,30 @@ struct Background {
 struct ClassLevel {
     int level = 0;
     int proficiencyBonus = 0;
+    /// Les capacitÃ©s que ce niveau apporte : des identifiants du catalogue des capacitÃ©s
+    /// (`core::CapacityCatalog`, `LOT-131`).
     std::vector&lt;std::string&gt; features;
+    /// Les sorts mineurs appris Ã  ce niveau (identifiants de `spells/`), Ã  volontÃ©.
+    std::vector&lt;std::string&gt; cantrips;
+    /// Les sorts appris Ã  ce niveau, chacun lanÃ§able `Spellcasting::castsPerDay` fois par jour.
+    std::vector&lt;std::string&gt; spells;
+};
+
+/// @brief Les compÃ©tences de classe : un nombre au choix parmi une liste, comme le livre l'Ã©crit.
+struct SkillChoices {
+    int count = 0;
+    std::vector&lt;std::string&gt; from;
+};
+
+/**
+ * @brief L'**incantation simplifiÃ©e** (*Player's Guide*, p. 196 et 200 ; `EX-RPG-025`).
+ *
+ * Les sorts sont fixÃ©s par la table de progression, et chacun se lance `castsPerDay` fois par
+ * jour â pas d'emplacements. DD = 8 + maÃ®trise + modificateur ; attaque = maÃ®trise + modificateur.
+ */
+struct Spellcasting {
+    Ability ability = Ability::Intelligence;
+    int castsPerDay = 0;
 };
 
 /**
@@ -129,12 +157,50 @@ struct PlayableClass {
     int hitDie = 0;
     std::vector&lt;Ability&gt; primaryAbility;
     std::vector&lt;Ability&gt; savingThrowProficiencies;
+    /// CatÃ©gories d'armure maÃ®trisÃ©es (`light`, `medium`, `heavy`, `shields`), `LOT-131`.
+    std::vector&lt;std::string&gt; armorProficiencies;
+    /// Armes maÃ®trisÃ©es : une catÃ©gorie (`simple`, `martial`) ou l'identifiant d'une arme.
+    std::vector&lt;std::string&gt; weaponProficiencies;
+    SkillChoices skillChoices;
+    /// Absente pour une classe qui ne lance pas de sorts.
+    std::optional&lt;Spellcasting&gt; spellcasting;
     std::vector&lt;ClassLevel&gt; progression;
     ProvisionalStatus status;
 
     /// @brief La ligne de progression d'un niveau, ou `nullptr` si la table ne le porte pas.
     [[nodiscard]] const ClassLevel* atLevel(int level) const;
+
+    /**
+     * @brief Vrai si la classe maÃ®trise cette arme : par sa catÃ©gorie (`simple`, `martial`) ou par
+     *        son identifiant.
+     */
+    [[nodiscard]] bool isProficientWithWeapon(std::string_view weaponId,
+                                              std::string_view category) const;
+
+    /// @brief Vrai si la classe maÃ®trise cette catÃ©gorie d'armure (`light`â¦ ou `shields`).
+    [[nodiscard]] bool isProficientWithArmor(std::string_view category) const;
+
+    /// @brief Les sorts mineurs connus au niveau @p level : l'union des lignes jusqu'Ã  ce niveau.
+    [[nodiscard]] std::vector&lt;std::string&gt; cantripsAt(int level) const;
+    /// @brief Les sorts connus au niveau @p level : l'union des lignes jusqu'Ã  ce niveau.
+    [[nodiscard]] std::vector&lt;std::string&gt; spellsAt(int level) const;
 };
+
+/**
+ * @brief Les capacitÃ©s **actives** d'une classe Ã  un niveau : celles des lignes jusqu'Ã  ce niveau,
+ *        moins celles qu'une capacitÃ© acquise depuis remplace (`Capacity::replaces`).
+ *
+ * @param playableClass La classe, pour sa table de progression.
+ * @param level Le niveau atteint : les lignes au-delÃ  ne comptent pas.
+ * @param catalog Le catalogue des capacitÃ©s.
+ * @param missing ReÃ§oit l'identifiant de chaque capacitÃ© que la table nomme et que le catalogue
+ *        ignore : une capacitÃ© absente ne joue pas, et le dire vaut mieux que de la laisser
+ *        passer pour jouÃ©e (`EX-CNT-031`).
+ * @return Des **copies** : la fiche les garde sans dÃ©pendre de la vie du catalogue.
+ */
+[[nodiscard]] std::vector&lt;Capacity&gt; resolveCapacities(const PlayableClass&amp; playableClass, int level,
+                                                      const CapacityCatalog&amp; catalog,
+                                                      std::vector&lt;std::string&gt;&amp; missing);
 
 /**
  * @brief Les trois catalogues chargÃ©s, et ce qui n'a pas pu l'Ãªtre.
@@ -147,6 +213,12 @@ struct CharacterOptions {
     std::vector&lt;Species&gt; species;
     std::vector&lt;Background&gt; backgrounds;
     std::vector&lt;PlayableClass&gt; classes;
+    /// Les capacitÃ©s que les tables de progression dÃ©signent (`LOT-131`). Vide si le chargement
+    /// ne les a pas demandÃ©es.
+    CapacityCatalog capacities;
+    /// Les sorts que les tables de progression dÃ©signent. Vide si le chargement ne les a pas
+    /// demandÃ©s.
+    SpellCatalog spells;
     std::vector&lt;std::string&gt; errors;
 
     /// @brief L'espÃ¨ce d'identifiant @p id, ou `nullptr` si elle est inconnue.
@@ -201,6 +273,27 @@ struct CharacterOptions {
 [[nodiscard]] CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; speciesDir,
                                                     const std::filesystem::path&amp; backgroundsDir,
                                                     const std::filesystem::path&amp; classesDir);
+
+/**
+ * @brief Les trois catalogues, **plus** les capacitÃ©s et les sorts que les tables de progression
+ *        dÃ©signent (`LOT-131`).
+ *
+ * Les deux dossiers de plus suivent la mÃªme rÃ¨gle : absents, ils produisent une erreur et non un
+ * catalogue vide. Les capacitÃ©s que les classes nomment et que le catalogue ignore ne sont pas
+ * une erreur de chargement â la table peut annoncer un lot Ã  venir â mais `resolveCapacities` les
+ * rapporte Ã  qui construit une fiche.
+ */
+[[nodiscard]] CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; speciesDir,
+                                                    const std::filesystem::path&amp; backgroundsDir,
+                                                    const std::filesystem::path&amp; classesDir,
+                                                    const std::filesystem::path&amp; capacitiesDir,
+                                                    const std::filesystem::path&amp; spellsDir);
+
+/**
+ * @brief Tous les catalogues d'options depuis la racine `Rpg/` d'une donnÃ©e de jeu : `species/`,
+ *        `backgrounds/`, `classes/`, `capacities/` et `spells/`.
+ */
+[[nodiscard]] CharacterOptions loadCharacterOptions(const std::filesystem::path&amp; rpgRoot);
 
 }  // namespace core</pre>
         <hr />

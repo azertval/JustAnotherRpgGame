@@ -143,9 +143,6 @@ $(function(){initNavTree('structcore_1_1CharacterSheet.html','','structcore_1_1C
 </div><!--header-->
 <div class="contents">
 
-<p>La fiche d'une créature jouable ou non : héros, PNJ, ennemi.  
- <a href="#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="CharacterSheet_8h_source.html">CharacterSheet.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -155,7 +152,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7630295f7d3f3aae393329eb9843e811" id="r_a7630295f7d3f3aae393329eb9843e811"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7630295f7d3f3aae393329eb9843e811">modifier</a> (<a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> which) const</td></tr>
 <tr class="memdesc:a7630295f7d3f3aae393329eb9843e811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur d'une caractéristique.  <br /></td></tr>
 <tr class="memitem:a40356a4a6954a5f575f2956fcddda652" id="r_a40356a4a6954a5f575f2956fcddda652"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a40356a4a6954a5f575f2956fcddda652">speedInTiles</a> () const</td></tr>
-<tr class="memdesc:a40356a4a6954a5f575f2956fcddda652"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vitesse en <b>cases</b> de la grille tactique (<span class="tt">LOT-19</span>, <span class="tt">LOT-22</span>).  <br /></td></tr>
+<tr class="memdesc:a40356a4a6954a5f575f2956fcddda652"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vitesse en <b>cases</b> de la grille tactique (<span class="tt">LOT-19</span>, <span class="tt">LOT-22</span>), capacités comprises.  <br /></td></tr>
+<tr class="memitem:a7af4bb81101430aa9afc3a94d5760506" id="r_a7af4bb81101430aa9afc3a94d5760506"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a7af4bb81101430aa9afc3a94d5760506">effectiveSpeedMeters</a> () const</td></tr>
+<tr class="memdesc:a7af4bb81101430aa9afc3a94d5760506"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vitesse de base plus ce que les capacités ajoutent, en mètres.  <br /></td></tr>
+<tr class="memitem:a07e1da48497cc95a542a29c546329ab5" id="r_a07e1da48497cc95a542a29c546329ab5"><td class="memItemLeft">const <a class="el" href="structcore_1_1KnownSpell.html">KnownSpell</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a07e1da48497cc95a542a29c546329ab5">knownSpell</a> (std::string_view spellId) const</td></tr>
+<tr class="memdesc:a07e1da48497cc95a542a29c546329ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sort connu d'identifiant <code class="param">spellId</code>, ou <span class="tt">nullptr</span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -174,20 +175,23 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a866fe7b5be97e74f1de1068d17c6392c" id="r_a866fe7b5be97e74f1de1068d17c6392c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a866fe7b5be97e74f1de1068d17c6392c">currentHitPoints</a> = 0</td></tr>
 <tr class="memitem:ab92e71f78ebaed0cd98af3b48cf3a495" id="r_ab92e71f78ebaed0cd98af3b48cf3a495"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab92e71f78ebaed0cd98af3b48cf3a495">armorClass</a> = 0</td></tr>
 <tr class="memitem:acb6e1037ecf2517ccd754447a9d5d04f" id="r_acb6e1037ecf2517ccd754447a9d5d04f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#acb6e1037ecf2517ccd754447a9d5d04f">speedMeters</a> = 0.0F</td></tr>
-<tr class="memdesc:acb6e1037ecf2517ccd754447a9d5d04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de base, en <b>mètres</b> — l'unité du corpus. <span class="tt"><a class="el" href="#a40356a4a6954a5f575f2956fcddda652" title="La vitesse en cases de la grille tactique (LOT-19, LOT-22).">speedInTiles()</a></span> la convertit.  <br /></td></tr>
+<tr class="memdesc:acb6e1037ecf2517ccd754447a9d5d04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vitesse de base, en <b>mètres</b> — l'unité du corpus. <span class="tt"><a class="el" href="#a40356a4a6954a5f575f2956fcddda652" title="La vitesse en cases de la grille tactique (LOT-19, LOT-22), capacités comprises.">speedInTiles()</a></span> la convertit.  <br /></td></tr>
 <tr class="memitem:ad9f5e6c341a1df8f0646a09b05067643" id="r_ad9f5e6c341a1df8f0646a09b05067643"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9f5e6c341a1df8f0646a09b05067643">skillProficiencies</a></td></tr>
 <tr class="memdesc:ad9f5e6c341a1df8f0646a09b05067643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compétences maîtrisées, par identifiant du catalogue.  <br /></td></tr>
 <tr class="memitem:a74fd59e8a9d1e2de82abdba2792be1ec" id="r_a74fd59e8a9d1e2de82abdba2792be1ec"><td class="memItemLeft">std::set&lt; <a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a74fd59e8a9d1e2de82abdba2792be1ec">savingThrowProficiencies</a></td></tr>
 <tr class="memdesc:a74fd59e8a9d1e2de82abdba2792be1ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jets de sauvegarde maîtrisés.  <br /></td></tr>
 <tr class="memitem:af4449f47520b2b4db9d35eb0e2abb9b5" id="r_af4449f47520b2b4db9d35eb0e2abb9b5"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af4449f47520b2b4db9d35eb0e2abb9b5">languages</a></td></tr>
 <tr class="memdesc:af4449f47520b2b4db9d35eb0e2abb9b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Langues parlées, par identifiant du catalogue (<span class="tt">EX-RPG-042</span>, <span class="tt">LOT-15</span>).  <br /></td></tr>
+<tr class="memitem:a79d80abd69faafa027e1a2dba72b415e" id="r_a79d80abd69faafa027e1a2dba72b415e"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a79d80abd69faafa027e1a2dba72b415e">weaponProficiencies</a></td></tr>
+<tr class="memdesc:a79d80abd69faafa027e1a2dba72b415e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Armes maîtrisées (<span class="tt">LOT-131</span>) : les catégories (<span class="tt">simple</span>, <span class="tt">martial</span>) et les identifiants d'armes que la classe et l'espèce accordent, réunis à la construction.  <br /></td></tr>
+<tr class="memitem:a2b12653eb31d1188777981663df7ce30" id="r_a2b12653eb31d1188777981663df7ce30"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2b12653eb31d1188777981663df7ce30">armorProficiencies</a></td></tr>
+<tr class="memdesc:a2b12653eb31d1188777981663df7ce30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégories d'armure maîtrisées (<span class="tt">light</span>, <span class="tt">medium</span>, <span class="tt">heavy</span>, <span class="tt">shields</span>).  <br /></td></tr>
+<tr class="memitem:aa5a1776b3a2ce412608eddc65195ab75" id="r_aa5a1776b3a2ce412608eddc65195ab75"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa5a1776b3a2ce412608eddc65195ab75">capacities</a></td></tr>
+<tr class="memdesc:aa5a1776b3a2ce412608eddc65195ab75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les capacités de classe <b>actives</b> au niveau courant (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-024</span>).  <br /></td></tr>
+<tr class="memitem:aa50a06bbc0a1771f5931244a0b9e583c" id="r_aa50a06bbc0a1771f5931244a0b9e583c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1KnownSpell.html">KnownSpell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa50a06bbc0a1771f5931244a0b9e583c">knownSpells</a></td></tr>
+<tr class="memdesc:aa50a06bbc0a1771f5931244a0b9e583c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts connus et leurs lancers restants <b>dans la journée</b> (<span class="tt">EX-RPG-025</span>).  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>La fiche d'une créature jouable ou non : héros, PNJ, ennemi. </p>
-<p><b>Un objet autonome, jamais un singleton joueur.</b> La décision de cadrage est « un héros au départ, quatre à terme » : le passage au groupe (<span class="tt">LOT-29</span>) ne doit rien changer à ce type. Aucune fonction de ce fichier ne prend « le personnage » implicitement — toutes reçoivent la fiche sur laquelle elles travaillent, et quatre fiches vivent côte à côte sans se connaître.</p>
-<p>La fiche porte des <b>valeurs</b>, pas des règles : le bonus de maîtrise ne s'y trouve pas, il se lit dans la table d'expérience au niveau courant. Le stocker le figerait au moment de la construction, et une montée de niveau laisserait un personnage avec le bonus de l'ancien.</p>
-<p><b>Une fiche se construit, elle ne se déclare pas.</b> Tous les champs chiffrés partent de zéro, et aucun ne porte de valeur « raisonnable » par défaut : un <span class="tt"><a class="el" href="#ab92e71f78ebaed0cd98af3b48cf3a495">armorClass</a> = 10</span> dans cette structure serait la règle du livre écrite en C++ (<span class="tt">EX-VIS-007</span>), et une fiche à demi construite passerait pour une fiche jouable. <span class="tt"><a class="el" href="namespacecore.html#aeac7b2445b4d3a800b98a777f72461ae" title="Construit une fiche depuis une espèce, une classe et un historique.">buildCharacterSheet()</a></span> est la porte d'entrée, et elle prend les constantes dans la donnée. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a108c1b3e24bb31cb5a940dcb3ef17ea1" name="a108c1b3e24bb31cb5a940dcb3ef17ea1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a108c1b3e24bb31cb5a940dcb3ef17ea1">&#9670;&#160;</a></span>ability()</h2>
 
@@ -212,6 +216,60 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La valeur d'une caractéristique. </p>
+
+</div>
+</div>
+<a id="a7af4bb81101430aa9afc3a94d5760506" name="a7af4bb81101430aa9afc3a94d5760506"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7af4bb81101430aa9afc3a94d5760506">&#9670;&#160;</a></span>effectiveSpeedMeters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::CharacterSheet::effectiveSpeedMeters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La vitesse de base plus ce que les capacités ajoutent, en mètres. </p>
+
+</div>
+</div>
+<a id="a07e1da48497cc95a542a29c546329ab5" name="a07e1da48497cc95a542a29c546329ab5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e1da48497cc95a542a29c546329ab5">&#9670;&#160;</a></span>knownSpell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1KnownSpell.html">KnownSpell</a> * core::CharacterSheet::knownSpell </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>spellId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le sort connu d'identifiant <code class="param">spellId</code>, ou <span class="tt">nullptr</span>. </p>
 
 </div>
 </div>
@@ -265,7 +323,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>La vitesse en <b>cases</b> de la grille tactique (<span class="tt">LOT-19</span>, <span class="tt">LOT-22</span>). </p>
+<p>La vitesse en <b>cases</b> de la grille tactique (<span class="tt">LOT-19</span>, <span class="tt">LOT-22</span>), capacités comprises. </p>
 
 </div>
 </div>
@@ -300,6 +358,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2b12653eb31d1188777981663df7ce30" name="a2b12653eb31d1188777981663df7ce30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b12653eb31d1188777981663df7ce30">&#9670;&#160;</a></span>armorProficiencies</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; core::CharacterSheet::armorProficiencies</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Catégories d'armure maîtrisées (<span class="tt">light</span>, <span class="tt">medium</span>, <span class="tt">heavy</span>, <span class="tt">shields</span>). </p>
+
+</div>
+</div>
 <a id="adb7761c709fc5f7c6aa09bee4f66d03b" name="adb7761c709fc5f7c6aa09bee4f66d03b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb7761c709fc5f7c6aa09bee4f66d03b">&#9670;&#160;</a></span>backgroundId</h2>
 
@@ -311,6 +385,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa5a1776b3a2ce412608eddc65195ab75" name="aa5a1776b3a2ce412608eddc65195ab75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5a1776b3a2ce412608eddc65195ab75">&#9670;&#160;</a></span>capacities</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Capacity.html">Capacity</a>&gt; core::CharacterSheet::capacities</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les capacités de classe <b>actives</b> au niveau courant (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-024</span>). </p>
+<p>Des copies, résolues depuis la table de progression et le catalogue par <span class="tt"><a class="el" href="namespacecore.html#a4c49590a655f74dbc20468dbee0fa733" title="Pose sur la fiche ce que sa classe lui donne à son niveau : capacités actives et sorts connus,...">core::applyClassFeatures</a></span> : la fiche les porte pour que tout ce qui la lit — classe d'armure, vitesse, profil de combat, jets — les applique sans connaître la classe. Vide pour une créature, ou une fiche construite sans catalogue. </p>
 
 </div>
 </div>
@@ -369,6 +460,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Points de vie que l'espèce ajoute à chaque niveau (<span class="tt"><a class="el" href="structcore_1_1Species.html#ab406375bd91bfcd047aa43ad2c94ac03" title="Points de vie que l&#39;espèce ajoute à chaque niveau (LOT-130).">Species::hitPointsPerLevel</a></span>), recopiés à la construction pour que la montée de niveau les compte sans revenir au catalogue. </p>
+
+</div>
+</div>
+<a id="aa50a06bbc0a1771f5931244a0b9e583c" name="aa50a06bbc0a1771f5931244a0b9e583c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa50a06bbc0a1771f5931244a0b9e583c">&#9670;&#160;</a></span>knownSpells</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1KnownSpell.html">KnownSpell</a>&gt; core::CharacterSheet::knownSpells</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les sorts connus et leurs lancers restants <b>dans la journée</b> (<span class="tt">EX-RPG-025</span>). </p>
+<p>L'incantation simplifiée n'a pas d'emplacements : chaque sort porte son propre compte, que <span class="tt"><a class="el" href="namespacecore.html#acc56dba7c8697d70382843a7c746d64c" title="Le repos long : les points de vie au maximum, chaque sort à ses lancers du jour (EX-REG-031).">core::longRest</a></span> remet à <span class="tt">perDay</span>. Un sort mineur a <span class="tt">perDay</span> à 0 : à volonté. </p>
 
 </div>
 </div>
@@ -492,7 +600,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Vitesse de base, en <b>mètres</b> — l'unité du corpus. <span class="tt"><a class="el" href="#a40356a4a6954a5f575f2956fcddda652" title="La vitesse en cases de la grille tactique (LOT-19, LOT-22).">speedInTiles()</a></span> la convertit. </p>
+<p>Vitesse de base, en <b>mètres</b> — l'unité du corpus. <span class="tt"><a class="el" href="#a40356a4a6954a5f575f2956fcddda652" title="La vitesse en cases de la grille tactique (LOT-19, LOT-22), capacités comprises.">speedInTiles()</a></span> la convertit. </p>
+
+</div>
+</div>
+<a id="a79d80abd69faafa027e1a2dba72b415e" name="a79d80abd69faafa027e1a2dba72b415e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79d80abd69faafa027e1a2dba72b415e">&#9670;&#160;</a></span>weaponProficiencies</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt;std::string&gt; core::CharacterSheet::weaponProficiencies</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Armes maîtrisées (<span class="tt">LOT-131</span>) : les catégories (<span class="tt">simple</span>, <span class="tt">martial</span>) et les identifiants d'armes que la classe et l'espèce accordent, réunis à la construction. </p>
+<p><span class="tt"><a class="el" href="namespacecore.html#a0ae5e9d1a2103328d580bdb08b2f2910" title="Vrai si la fiche maîtrise cette arme : par sa catégorie ou par son identifiant.">core::isProficientWith</a></span> les lit ; une arme non maîtrisée se frappe sans le bonus de maîtrise. </p>
 
 </div>
 </div>

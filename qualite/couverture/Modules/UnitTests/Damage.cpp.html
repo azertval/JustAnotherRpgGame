@@ -23,11 +23,17 @@
 
 namespace core {
 
-<span style = "background-color:#dfd">bool DamageTraits::applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const {
-    return std::ranges::any_of(affinities, [&amp;](const DamageAffinity&amp; affinite) {
+const DamageAffinity* DamageTraits::matching(DamageAffinityKind kind, DamageType type,
+<span style = "background-color:#dfd">                                             DamageFlags flags) const {
+    const auto trouve = std::ranges::find_if(affinities, [&amp;](const DamageAffinity&amp; affinite) {
         return affinite.kind == kind &amp;&amp; affinite.type == type &amp;&amp;</span>
                (affinite.bypassedBy &amp; flags) == 0U;
 <span style = "background-color:#dfd">    });
+    return trouve == affinities.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">bool DamageTraits::applies(DamageAffinityKind kind, DamageType type, DamageFlags flags) const {
+    return matching(kind, type, flags) != nullptr;
 }</span>
 
 std::vector&lt;RolledDamage&gt; rollDamage(std::span&lt;const DamageClause&gt; clauses, bool critical,
@@ -137,21 +143,34 @@ std::vector&lt;RolledDamage&gt; rollDamage(std::span&lt;const DamageClause&gt; c
         if (portion.amount &lt;= 0 || hasFlag(portion.flags, DamageFlag::IgnoresResistance)) {
             continue;</span>
         }
-<span style = "background-color:#dfd">        const std::string type(damageTypeLabel(portion.type));
-        if (traits.applies(DamageAffinityKind::Immunity, portion.type, portion.flags)) {
-            work.adjust(indice, 0, DamageStage::Resistances, "immunite (" + type + ")");
+<span style = "background-color:#dfd">        const std::string type(damageTypeLabel(portion.type));</span>
+        // Â« resistance (tranchant) Â», ou Â« resistance (tranchant ; Tough as Nails) Â» si une
+        // capacite la donne (LOT-131) : le journal nomme ce qui a joue (EX-REG-003).
+<span style = "background-color:#dfd">        const auto etiquette = [&amp;](const char* genre, const DamageAffinity&amp; affinite) {
+            std::string texte = genre;
+            texte += " (" + type;
+            if (!affinite.source.empty()) {
+                texte += " ; " + affinite.source;</span>
+            }
+<span style = "background-color:#dfd">            return texte + ")";
+        };
+        if (const DamageAffinity* immunite =</span>
+                traits.matching(DamageAffinityKind::Immunity, portion.type, portion.flags)) {
+<span style = "background-color:#dfd">            work.adjust(indice, 0, DamageStage::Resistances, etiquette("immunite", *immunite));
             continue;</span>
         }
         // Manuel, chapitre 9 : Â« la resistance PUIS la vulnerabilite sont appliquees apres tous les
         // autres modificateurs Â», et plusieurs resistances au meme type ne comptent qu'une fois.
         // Moitie arrondie a l'inferieur : 25 resiste et vulnerable donne 12 puis 24, pas 25.
-<span style = "background-color:#dfd">        if (traits.applies(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
-            work.adjust(indice, work.portions[indice].amount / 2, DamageStage::Resistances,</span>
-                        "resistance (" + type + ")");
+<span style = "background-color:#dfd">        if (const DamageAffinity* resistance =</span>
+                traits.matching(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
+<span style = "background-color:#dfd">            work.adjust(indice, work.portions[indice].amount / 2, DamageStage::Resistances,</span>
+                        etiquette("resistance", *resistance));
         }
-<span style = "background-color:#dfd">        if (traits.applies(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
-            work.adjust(indice, work.portions[indice].amount * 2, DamageStage::Resistances,</span>
-                        "vulnerabilite (" + type + ")");
+<span style = "background-color:#dfd">        if (const DamageAffinity* vulnerabilite =</span>
+                traits.matching(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
+<span style = "background-color:#dfd">            work.adjust(indice, work.portions[indice].amount * 2, DamageStage::Resistances,</span>
+                        etiquette("vulnerabilite", *vulnerabilite));
         }
 <span style = "background-color:#dfd">    }
 }</span>

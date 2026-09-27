@@ -16,14 +16,19 @@
 
 #include &lt;algorithm&gt;
 #include &lt;array&gt;
+#include &lt;cstdint&gt;
 #include &lt;cstdlib&gt;
+#include &lt;string&gt;
 #include &lt;tuple&gt;
 #include &lt;utility&gt;
 #include &lt;variant&gt;
 
 #include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatCounters.h"
 #include "Core/Combat/Flanking.h"
 #include "Core/Rpg/Ability.h"
+#include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/Spell.h"
 
 namespace core {
 namespace {
@@ -229,6 +234,8 @@ ArenaSession::ArenaSession(Level level)
     _random = DeterministicRandom(bout.seed);
     _combat = std::make_unique&lt;CombatState&gt;(BattleGrid(_level));
     _attacks.clear();
+    _capacities.clear();
+    _spells.clear();
     _behaviors.clear();</span>
     // Les choix de reaction du joueur survivent au rejeu : les memes identifiants, le meme choix.
 <span style = "background-color:#dfd">    _dodging.clear();
@@ -269,7 +276,21 @@ ArenaSession::ArenaSession(Level level)
         }
 <span style = "background-color:#dfd">        const CombatantId id = *enrolement.combatant;
         _attacks[id] = concurrent.attacks;
-        if (!concurrent.behavior.empty()) {
+        if (!concurrent.capacities.empty()) {
+            _capacities[id] = concurrent.capacities;</span>
+            // Le journal nomme ce que le combattant apporte (LOT-131) : ses effets statiques --
+            // CA, resistances, vitesse -- sont deja dans son profil et ne feraient sinon aucune
+            // ligne.
+<span style = "background-color:#dfd">            std::string ligne = "capacites " + concurrent.profile.name + " :";
+            for (std::size_t i = 0; i &lt; concurrent.capacities.size(); ++i) {
+                ligne += (i == 0 ? " " : ", ") + concurrent.capacities[i].name;
+            }
+            record(std::move(ligne));
+        }
+        if (!concurrent.spells.empty()) {
+            _spells[id] = concurrent.spells;</span>
+        }
+<span style = "background-color:#dfd">        if (!concurrent.behavior.empty()) {
             _behaviors[id] = concurrent.behavior;</span>
         }
 <span style = "background-color:#dfd">        if (bout.heroicMark) {
@@ -308,6 +329,57 @@ ArenaSession::ArenaSession(Level level)
     return trouve == _attacks.end() ? nullptr : &amp;trouve-&gt;second;
 }</span>
 
+<span style = "background-color:#dfd">const std::vector&lt;ArenaSpell&gt;* ArenaSession::spells(CombatantId combatant) const {
+    const auto trouve = _spells.find(combatant);
+    return trouve == _spells.end() ? nullptr : &amp;trouve-&gt;second;
+}</span>
+
+<span style = "background-color:#dfd">std::span&lt;const Capacity&gt; ArenaSession::capacitiesOf(CombatantId combatant) const {
+    const auto trouve = _capacities.find(combatant);
+    return trouve == _capacities.end() ? std::span&lt;const Capacity&gt;{}</span>
+                                       : std::span&lt;const Capacity&gt;(trouve-&gt;second);
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::hookCapacities(AttackHooks&amp; hooks, CombatantId attacker) {
+    const std::span&lt;const Capacity&gt; capacites = capacitiesOf(attacker);
+    if (capacites.empty()) {
+        return;</span>
+    }
+    // Le bonus au jet, au nom de la capacite : &lt;&lt; + 2 (Hit the Mark) &gt;&gt; au journal (EX-REG-003).
+<span style = "background-color:#dfd">    const std::vector&lt;Modifier&gt; bonus = attackModifiersFrom(capacites);
+    if (!bonus.empty()) {
+        hooks.insert(AttackRollStage::BeforeRoll, [bonus](AttackRoll&amp; jet, DeterministicRandom&amp;) {
+            for (const Modifier&amp; modificateur : bonus) {
+                jet.addModifier(modificateur);</span>
+            }
+<span style = "background-color:#dfd">        });</span>
+    }
+    // Les des en plus, si l'attaque touche. &lt;&lt; Une fois par tour &gt;&gt; se compte dans la memoire du
+    // tour (core::ScopedCounters), que la fin du tour vide : une attaque d'opportunite pendant le
+    // tour d'un autre compte aussi, comme le Manuel le veut pour l'attaque sournoise.
+<span style = "background-color:#dfd">    const std::vector&lt;NamedExtraDamage&gt; des = extraDamageFrom(capacites);
+    if (!des.empty()) {
+        const std::string proprietaire = std::to_string(static_cast&lt;std::uint32_t&gt;(attacker));
+        hooks.insert(
+            AttackRollStage::Hit, [this, des, proprietaire](AttackRoll&amp; jet, DeterministicRandom&amp;) {
+                if (!jet.damageType.has_value()) {</span>
+<span style = "background-color:#fdd">                    return;</span>
+                }
+<span style = "background-color:#dfd">                for (const NamedExtraDamage&amp; supplement : des) {
+                    ScopedCounters&amp; compteurs = _combat-&gt;counters();
+                    if (supplement.oncePerTurn &amp;&amp; compteurs.value(CounterScope::Turn, proprietaire,</span>
+                                                                  supplement.capacityId) &gt; 0) {
+<span style = "background-color:#dfd">                        continue;</span>
+                    }
+<span style = "background-color:#dfd">                    compteurs.increment(CounterScope::Turn, proprietaire, supplement.capacityId);
+                    jet.bonusDamage.push_back(</span>
+                        {.clause = {.dice = supplement.dice, .type = *jet.damageType, .flags = 0},
+                         .source = supplement.source});
+                }
+<span style = "background-color:#dfd">            });
+    }
+}</span>
+
 <span style = "background-color:#dfd">const std::string&amp; ArenaSession::behaviorOf(CombatantId combatant) const {
     static const std::string joueur;
     const auto trouve = _behaviors.find(combatant);
@@ -334,7 +406,10 @@ std::optional&lt;AttackOutcome&gt; ArenaSession::resolveAndRecord(CombatantId at
     crochets.insert(AttackRollStage::BeforeRoll, [this, &amp;place](AttackRoll&amp;, DeterministicRandom&amp;) {
         place = _journal.size();
         _journal.emplace_back();
-    });
+    });</span>
+    // Les capacites de l'attaquant (LOT-131) : leurs effets se branchent sur ce jet, et sur lui
+    // seul -- l'arene ne connait aucune classe, elle branche des effets nommes.
+<span style = "background-color:#dfd">    hookCapacities(crochets, attacker);
     AttackContext contexte = contextAgainst(attacker, target, profile);
     contexte.hooks = &amp;crochets;
     std::optional&lt;AttackOutcome&gt; issue =</span>
@@ -399,6 +474,52 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
     return attaque;
 }</span>
 
+<span style = "background-color:#dfd">ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) {
+    const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
+    if (!actif.has_value() || _combat-&gt;phase() != CombatPhase::TurnActive) {</span>
+<span style = "background-color:#fdd">        return {.result = ArenaActionResult::NoActiveTurn, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    const auto grimoire = _spells.find(*actif);
+    if (grimoire == _spells.end() || spellIndex &gt;= grimoire-&gt;second.size()) {
+        return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    ArenaSpell&amp; sort = grimoire-&gt;second[spellIndex];</span>
+    // Un sort epuise se refuse AVANT toute depense : il ne se propose plus (LOT-131).
+<span style = "background-color:#dfd">    if (!sort.available()) {
+        return {.result = ArenaActionResult::Exhausted, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    const Combatant* lanceur = _combat-&gt;find(*actif);
+    const Combatant* cible = _combat-&gt;find(target);
+    if (cible == nullptr || target == *actif || cible-&gt;profile.side == lanceur-&gt;profile.side ||</span>
+        cible-&gt;status != CombatantStatus::Standing) {
+<span style = "background-color:#fdd">        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    const AttackProfile profil = sort.attack;
+    switch (checkTarget(*_combat, *actif, target, profil)) {</span>
+        case TargetCheck::Valid:
+<span style = "background-color:#fdd">            break;</span>
+        case TargetCheck::NotOnGrid:
+<span style = "background-color:#fdd">            return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
+        case TargetCheck::OutOfReach:
+<span style = "background-color:#fdd">            return {.result = ArenaActionResult::OutOfReach, .outcome = std::nullopt};</span>
+        case TargetCheck::TotalCover:
+<span style = "background-color:#fdd">            return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    if (lanceur-&gt;economy.remaining(ACTION_RESOURCE) &lt;= 0) {
+        return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};</span>
+    }
+<span style = "background-color:#dfd">    _combat-&gt;spend(ACTION_RESOURCE);
+    if (sort.uses &gt; 0) {
+        --sort.uses;</span>
+    }
+<span style = "background-color:#dfd">    const std::string prefixe =</span>
+        "sort " + sort.name +
+        (sort.uses &lt; 0 ? std::string(" : ") : " (" + std::to_string(sort.uses) + " restant) : ");
+<span style = "background-color:#dfd">    ArenaAttack lancer{.result = ArenaActionResult::Done, .outcome = std::nullopt};
+    lancer.outcome = resolveAndRecord(*actif, target, profil, prefixe);
+    return lancer;
+}</span>
+
 <span style = "background-color:#dfd">bool ArenaSession::dodge() {
     const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
     if (!actif.has_value() || !_combat-&gt;spend(ACTION_RESOURCE)) {
@@ -448,8 +569,9 @@ bool ArenaSession::provokes(CombatantId mover, CombatantId reactor, GridPosition
     std::vector&lt;CombatantId&gt; opportunistes;
     const std::optional&lt;CombatantId&gt; actif = _combat-&gt;activeCombatant();
     const std::optional&lt;ReachableArea&gt; zone = _combat-&gt;reachableArea();
-    if (!actif.has_value() || !zone.has_value() || _disengaged.contains(*actif)) {</span>
-<span style = "background-color:#fdd">        return opportunistes;</span>
+    if (!actif.has_value() || !zone.has_value() || _disengaged.contains(*actif) ||</span>
+        opportunityImmunityFrom(capacitiesOf(*actif)).has_value()) {
+<span style = "background-color:#dfd">        return opportunistes;</span>
     }
 <span style = "background-color:#dfd">    const std::optional&lt;Path&gt; chemin = zone-&gt;pathTo(destination);
     if (!chemin.has_value()) {</span>
@@ -539,7 +661,17 @@ AttackCircumstances ArenaSession::circumstancesAgainst(CombatantId attacker, Com
         cases.insert(cases.end(), chemin-&gt;steps.begin(), chemin-&gt;steps.end());
         std::vector&lt;CombatantId&gt; opportunistes;
         const std::optional&lt;std::size_t&gt; sortie = firstProvokingStep(*actif, cases, opportunistes);
-        if (!sortie.has_value()) {
+        if (!sortie.has_value()) {</span>
+            // Une capacite qui soustrait aux attaques d'opportunite (LOT-131) a joue si le pas en
+            // aurait provoque une : le journal la nomme, comme tout ce qui a joue (EX-REG-003).
+<span style = "background-color:#dfd">            if (const std::optional&lt;std::string&gt; capacite =</span>
+                    opportunityImmunityFrom(capacitiesOf(*actif))) {
+<span style = "background-color:#dfd">                std::vector&lt;CombatantId&gt; evites;
+                if (firstExitFromReach(*actif, cases, evites).has_value()) {
+                    record("sans attaque d'opportunite " + _combat-&gt;find(*actif)-&gt;profile.name +</span>
+                           " (" + *capacite + ")");
+                }
+<span style = "background-color:#dfd">            }
             const MoveOutcome pas = avancer(destination);
             return parcours.result == MoveResult::Moved ? parcours : pas;</span>
         }
@@ -557,12 +689,20 @@ AttackCircumstances ArenaSession::circumstancesAgainst(CombatantId attacker, Com
 
 std::optional&lt;std::size_t&gt; ArenaSession::firstProvokingStep(
     CombatantId mover, const std::vector&lt;GridPosition&gt;&amp; cases,
+<span style = "background-color:#dfd">    std::vector&lt;CombatantId&gt;&amp; reactors) const {</span>
+    // Desengage, ou soustrait aux attaques d'opportunite par une capacite (LOT-131) : rien ne
+    // provoque. La session ne sait pas laquelle ; elle lit un effet nomme.
+<span style = "background-color:#dfd">    if (_disengaged.contains(mover) || opportunityImmunityFrom(capacitiesOf(mover)).has_value()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return firstExitFromReach(mover, cases, reactors);
+}</span>
+
+std::optional&lt;std::size_t&gt; ArenaSession::firstExitFromReach(
+    CombatantId mover, const std::vector&lt;GridPosition&gt;&amp; cases,
 <span style = "background-color:#dfd">    std::vector&lt;CombatantId&gt;&amp; reactors) const {
     std::optional&lt;std::size_t&gt; sortie;
-    if (_disengaged.contains(mover)) {
-        return sortie;</span>
-    }
-<span style = "background-color:#dfd">    for (std::size_t i = 0; i + 1 &lt; cases.size() &amp;&amp; !sortie.has_value(); ++i) {
+    for (std::size_t i = 0; i + 1 &lt; cases.size() &amp;&amp; !sortie.has_value(); ++i) {
         for (const CombatantId autre : _combat-&gt;combatants()) {
             if (provokes(mover, autre, cases[i], cases[i + 1])) {
                 reactors.push_back(autre);
@@ -604,6 +744,36 @@ std::optional&lt;std::size_t&gt; ArenaSession::firstProvokingStep(
 
 <span style = "background-color:#dfd">std::optional&lt;CombatOutcome&gt; ArenaSession::outcome() const {
     return _combat-&gt;outcome();
+}</span>
+
+std::vector&lt;ArenaSpell&gt; arenaSpellsFor(const CharacterSheet&amp; sheet,
+                                       const PlayableClass&amp; playableClass,
+                                       const SpellCatalog&amp; spells, int proficiencyBonus,
+<span style = "background-color:#dfd">                                       std::vector&lt;std::string&gt;&amp; skipped) {
+    std::vector&lt;ArenaSpell&gt; grimoire;
+    if (!playableClass.spellcasting.has_value()) {</span>
+<span style = "background-color:#fdd">        return grimoire;</span>
+    }
+<span style = "background-color:#dfd">    for (const KnownSpell&amp; connu : sheet.knownSpells) {
+        const Spell* sort = spells.find(connu.spellId);
+        if (sort == nullptr) {</span>
+<span style = "background-color:#fdd">            skipped.push_back(connu.spellId);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        std::optional&lt;AttackProfile&gt; attaque =</span>
+            spellAttackFor(sheet, *sort, playableClass.spellcasting-&gt;ability, proficiencyBonus);
+<span style = "background-color:#dfd">        if (!attaque.has_value()) {</span>
+            // Connu, mais sans mecanisme joue ici (EX-RPG-051) : dit, pas tu.
+<span style = "background-color:#fdd">            skipped.push_back(sort-&gt;name);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        grimoire.push_back({.id = sort-&gt;id,</span>
+                            .name = sort-&gt;name,
+                            .level = sort-&gt;level,
+                            .uses = connu.perDay == 0 ? -1 : connu.remaining,
+                            .attack = std::move(*attaque)});
+<span style = "background-color:#dfd">    }
+    return grimoire;
 }</span>
 
 }  // namespace core</pre>

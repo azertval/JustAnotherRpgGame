@@ -18,6 +18,7 @@
 #include &lt;utility&gt;
 
 #include "Core/Data/JsonDocument.h"
+#include "Core/Rpg/Equipment.h"
 #include "Core/Rpg/Scale.h"
 
 namespace core {
@@ -309,13 +310,99 @@ LoadedCharacterSheet loadCharacterSheet(const std::filesystem::path&amp; path,
 
 <span style = "background-color:#dfd">    lireInventaire(document.root, path, resultat);</span>
 
+    // Ce que la classe donne AU NIVEAU ATTEINT (LOT-131) : capacites actives, sorts connus. Apres
+    // la montee, pour que la table soit lue au bon niveau.
+<span style = "background-color:#dfd">    if (classe != nullptr) {
+        std::vector&lt;std::string&gt; manquants;
+        applyClassFeatures(resultat.sheet, *classe, options, rules, manquants);
+        for (const std::string&amp; manquant : manquants) {
+            resultat.warnings.push_back(path.string() + " : la classe '" + classe-&gt;id +</span>
+                                        "' nomme '" + manquant +
+                                        "', que le moteur ne joue pas encore (EX-CNT-031).");
+<span style = "background-color:#dfd">        }
+    }</span>
+
 <span style = "background-color:#dfd">    return resultat;
 }</span>
 
 // -- Fiche ---------------------------------------------------------------------------------------
 
 <span style = "background-color:#dfd">float CharacterSheet::speedInTiles() const {
-    return tilesFromMeters(speedMeters);
+    return tilesFromMeters(effectiveSpeedMeters());
+}</span>
+
+<span style = "background-color:#dfd">float CharacterSheet::effectiveSpeedMeters() const {
+    return speedMeters + speedBonusFrom(capacities);
+}</span>
+
+<span style = "background-color:#dfd">const KnownSpell* CharacterSheet::knownSpell(std::string_view spellId) const {
+    const auto trouve = std::ranges::find(knownSpells, spellId, &amp;KnownSpell::spellId);
+    return trouve == knownSpells.end() ? nullptr : &amp;*trouve;
+}</span>
+
+<span style = "background-color:#dfd">bool isProficientWith(const CharacterSheet&amp; sheet, const Weapon&amp; weapon) {
+    if (sheet.classId.empty()) {</span>
+        // Sans classe, rien ne dit ce que la fiche ne maitrise pas.
+<span style = "background-color:#fdd">        return true;</span>
+    }
+<span style = "background-color:#dfd">    return sheet.weaponProficiencies.contains(weapon.id) ||</span>
+           sheet.weaponProficiencies.contains(weapon.category);
+<span style = "background-color:#dfd">}</span>
+
+void applyClassFeatures(CharacterSheet&amp; sheet, const PlayableClass&amp; playableClass,
+                        const CharacterOptions&amp; options, const CharacterCreationRules&amp; rules,
+<span style = "background-color:#dfd">                        std::vector&lt;std::string&gt;&amp; missing) {
+    sheet.capacities = resolveCapacities(playableClass, sheet.level, options.capacities, missing);</span>
+    // La CA sans armure, RECALCULEE depuis ses sources (EX-CBT-030) : une capacite peut la
+    // calculer autrement. L'armure portee la remplace dans `derivedStatsFor`, par le meme chemin.
+<span style = "background-color:#dfd">    sheet.armorClass = armorClassFor(sheet, rules, nullptr, nullptr);</span>
+
+    // Les sorts connus : la table les donne, le catalogue les decrit. Un lancer deja depense d'un
+    // sort deja connu est CONSERVE : monter de niveau n'est pas un repos.
+<span style = "background-color:#dfd">    std::vector&lt;KnownSpell&gt; anciens = std::move(sheet.knownSpells);
+    sheet.knownSpells.clear();
+    const auto connaitre = [&amp;](const std::string&amp; identifiant, bool mineur) {
+        const Spell* sort = options.spells.find(identifiant);
+        if (sort == nullptr) {</span>
+<span style = "background-color:#fdd">            missing.push_back(identifiant);
+            return;</span>
+        }
+<span style = "background-color:#dfd">        const int parJour = mineur ? 0</span>
+                                   : (playableClass.spellcasting.has_value()
+                                          ? playableClass.spellcasting-&gt;castsPerDay
+                                          : 0);
+        KnownSpell connu{
+<span style = "background-color:#dfd">            .spellId = identifiant, .level = sort-&gt;level, .perDay = parJour, .remaining = parJour};
+        if (const auto ancien = std::ranges::find(anciens, identifiant, &amp;KnownSpell::spellId);
+            ancien != anciens.end() &amp;&amp; ancien-&gt;perDay == parJour) {
+            connu.remaining = ancien-&gt;remaining;
+        }
+        sheet.knownSpells.push_back(std::move(connu));
+    };
+    for (const std::string&amp; identifiant : playableClass.cantripsAt(sheet.level)) {
+        connaitre(identifiant, true);
+    }
+    for (const std::string&amp; identifiant : playableClass.spellsAt(sheet.level)) {
+        connaitre(identifiant, false);
+    }
+}</span>
+
+<span style = "background-color:#dfd">void longRest(CharacterSheet&amp; sheet) {
+    sheet.currentHitPoints = sheet.maximumHitPoints;
+    for (KnownSpell&amp; sort : sheet.knownSpells) {
+        sort.remaining = sort.perDay;
+    }
+}</span>
+
+<span style = "background-color:#dfd">bool spendSpellUse(CharacterSheet&amp; sheet, std::string_view spellId) {
+    const auto trouve = std::ranges::find(sheet.knownSpells, spellId, &amp;KnownSpell::spellId);
+    if (trouve == sheet.knownSpells.end() || !trouve-&gt;available()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (trouve-&gt;perDay &gt; 0) {
+        --trouve-&gt;remaining;</span>
+    }
+<span style = "background-color:#dfd">    return true;
 }</span>
 
 <span style = "background-color:#dfd">int proficiencyBonus(const CharacterSheet&amp; sheet, const ExperienceTable&amp; table) {
@@ -411,7 +498,9 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array&lt;int, 6&
         fiche.speedMeters = species-&gt;speed;
         fiche.hitPointsPerLevelBonus = species-&gt;hitPointsPerLevel;
         fiche.languages.insert(species-&gt;languages.begin(), species-&gt;languages.end());
-        for (const Ability caracteristique : allAbilities()) {
+        fiche.weaponProficiencies.insert(species-&gt;weaponProficiencies.begin(),</span>
+                                         species-&gt;weaponProficiencies.end());
+<span style = "background-color:#dfd">        for (const Ability caracteristique : allAbilities()) {
             const auto indice = static_cast&lt;std::size_t&gt;(caracteristique);</span>
             // La table de l'espece d'abord, puis ce qu'elle laisse au choix (LOT-130), sous le
             // meme plafond : un choix ne fait pas depasser ce que la table n'aurait pas depasse.
@@ -427,8 +516,13 @@ CharacterSheet buildCharacterSheet(std::string name, const std::array&lt;int, 6&
         fiche.classId = playableClass-&gt;id;
         for (const Ability caracteristique : playableClass-&gt;savingThrowProficiencies) {
             fiche.savingThrowProficiencies.insert(caracteristique);
-        }
-        fiche.maximumHitPoints = maximumHitPointsFor(playableClass-&gt;hitDie, fiche.level,</span>
+        }</span>
+        // Les maitrises d'armes et d'armures de la classe (LOT-131), reunies a celles de l'espece.
+<span style = "background-color:#dfd">        fiche.weaponProficiencies.insert(playableClass-&gt;weaponProficiencies.begin(),</span>
+                                         playableClass-&gt;weaponProficiencies.end());
+<span style = "background-color:#dfd">        fiche.armorProficiencies.insert(playableClass-&gt;armorProficiencies.begin(),</span>
+                                        playableClass-&gt;armorProficiencies.end());
+<span style = "background-color:#dfd">        fiche.maximumHitPoints = maximumHitPointsFor(playableClass-&gt;hitDie, fiche.level,</span>
                                                      fiche.modifier(Ability::Constitution),
                                                      fiche.hitPointsPerLevelBonus);
     }

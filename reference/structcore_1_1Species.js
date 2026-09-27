@@ -11,5 +11,6 @@ var structcore_1_1Species =
     [ "size", "structcore_1_1Species.html#aea29c6ecc5439b520b57f3ae13e62694", null ],
     [ "source", "structcore_1_1Species.html#a931bb7870f2655b91cc099cdc74e95d9", null ],
     [ "speed", "structcore_1_1Species.html#a31a3b3acff71e71ac832918d5fd09d59", null ],
-    [ "traits", "structcore_1_1Species.html#af38aa174cb7a2b6db46329e00d0175bd", null ]
+    [ "traits", "structcore_1_1Species.html#af38aa174cb7a2b6db46329e00d0175bd", null ],
+    [ "weaponProficiencies", "structcore_1_1Species.html#a924b2e1101b9f2b76e94a8deb98a7ca1", null ]
 ];

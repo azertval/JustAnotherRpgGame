@@ -317,8 +317,9 @@ DerivedStats derivedStatsFor(const CharacterSheet&amp; sheet, const Inventory&am
     }
 
     // --- La charge ---
-<span style = "background-color:#dfd">    derivees.carriedWeightGrams = carriedWeightGrams(inventory, lookup);
-    derivees.speedMeters = sheet.speedMeters;
+<span style = "background-color:#dfd">    derivees.carriedWeightGrams = carriedWeightGrams(inventory, lookup);</span>
+    // La vitesse de base plus ce que les capacites ajoutent (LOT-131), avant la charge.
+<span style = "background-color:#dfd">    derivees.speedMeters = sheet.effectiveSpeedMeters();
     if (carrying.isLoaded()) {
         const int force = sheet.ability(Ability::Strength);
         derivees.carryingCapacityGrams = carrying.carryingCapacityGramsPerStrength * force;

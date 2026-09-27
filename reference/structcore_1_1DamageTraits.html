@@ -152,6 +152,8 @@ $(function(){initNavTree('structcore_1_1DamageTraits.html','','structcore_1_1Dam
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac12264cba0a31747277669e59052a9da" id="r_ac12264cba0a31747277669e59052a9da"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac12264cba0a31747277669e59052a9da">applies</a> (<a class="el" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">DamageAffinityKind</a> kind, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> type, <a class="el" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> flags) const</td></tr>
 <tr class="memdesc:ac12264cba0a31747277669e59052a9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si une affinité de ce genre s'applique à des dégâts de ce type et de cette source.  <br /></td></tr>
+<tr class="memitem:a88048f6a508849810f65de9e4897d6af" id="r_a88048f6a508849810f65de9e4897d6af"><td class="memItemLeft">const <a class="el" href="structcore_1_1DamageAffinity.html">DamageAffinity</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a88048f6a508849810f65de9e4897d6af">matching</a> (<a class="el" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">DamageAffinityKind</a> kind, <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> type, <a class="el" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a> flags) const</td></tr>
+<tr class="memdesc:a88048f6a508849810f65de9e4897d6af"><td class="mdescLeft">&#160;</td><td class="mdescRight">La première affinité de ce genre qui s'applique, ou <span class="tt">nullptr</span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -193,6 +195,42 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai si une affinité de ce genre s'applique à des dégâts de ce type et de cette source. </p>
+
+</div>
+</div>
+<a id="a88048f6a508849810f65de9e4897d6af" name="a88048f6a508849810f65de9e4897d6af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88048f6a508849810f65de9e4897d6af">&#9670;&#160;</a></span>matching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1DamageAffinity.html">DamageAffinity</a> * core::DamageTraits::matching </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a8fe0c8f2f53edc1707d89c25b01a6a88">DamageAffinityKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a></td>          <td class="paramname"><span class="paramname"><em>flags</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La première affinité de ce genre qui s'applique, ou <span class="tt">nullptr</span>. </p>
 
 </div>
 </div>

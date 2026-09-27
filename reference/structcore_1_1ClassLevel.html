@@ -153,12 +153,33 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a6a9d17c484c7c83840fde08953db8168" id="r_a6a9d17c484c7c83840fde08953db8168"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6a9d17c484c7c83840fde08953db8168">level</a> = 0</td></tr>
 <tr class="memitem:a0c2b7eb60cca0c8f6c5877622923ff2d" id="r_a0c2b7eb60cca0c8f6c5877622923ff2d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0c2b7eb60cca0c8f6c5877622923ff2d">proficiencyBonus</a> = 0</td></tr>
 <tr class="memitem:a1686d415553a8941dc6b9f18e50c835e" id="r_a1686d415553a8941dc6b9f18e50c835e"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1686d415553a8941dc6b9f18e50c835e">features</a></td></tr>
+<tr class="memdesc:a1686d415553a8941dc6b9f18e50c835e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les capacités que ce niveau apporte : des identifiants du catalogue des capacités (<span class="tt"><a class="el" href="structcore_1_1CapacityCatalog.html" title="Le catalogue des capacités, et ce qui n&#39;a pas pu l&#39;être.">core::CapacityCatalog</a></span>, <span class="tt">LOT-131</span>).  <br /></td></tr>
+<tr class="memitem:ae73cf98f02ccd248ee6bce1d2af8c5a4" id="r_ae73cf98f02ccd248ee6bce1d2af8c5a4"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae73cf98f02ccd248ee6bce1d2af8c5a4">cantrips</a></td></tr>
+<tr class="memdesc:ae73cf98f02ccd248ee6bce1d2af8c5a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts mineurs appris à ce niveau (identifiants de <span class="tt">spells/</span>), à volonté.  <br /></td></tr>
+<tr class="memitem:a773d87e9625ea5f9077832127b9819ea" id="r_a773d87e9625ea5f9077832127b9819ea"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a773d87e9625ea5f9077832127b9819ea">spells</a></td></tr>
+<tr class="memdesc:a773d87e9625ea5f9077832127b9819ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts appris à ce niveau, chacun lançable <span class="tt"><a class="el" href="structcore_1_1Spellcasting.html#a63c420a6bcd5159d960683b40b8f1dab">Spellcasting::castsPerDay</a></span> fois par jour.  <br /></td></tr>
 <tr class="memitem:a729a086773af573c5c025e12589e5f9e" id="r_a729a086773af573c5c025e12589e5f9e"><td class="memItemLeft"><a class="el" href="namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066d">CasterProgression</a>&#160;</td><td class="memItemRight"><a class="el" href="#a729a086773af573c5c025e12589e5f9e">progression</a> = <a class="el" href="namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066da6adf97f83acf6453d4a6a4b1070f3754">CasterProgression::None</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une ligne de table de progression : ce qu'un niveau apporte. </p>
 <p>Un niveau pris dans une classe, et ce que cette classe apporte au niveau de lanceur. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ae73cf98f02ccd248ee6bce1d2af8c5a4" name="ae73cf98f02ccd248ee6bce1d2af8c5a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae73cf98f02ccd248ee6bce1d2af8c5a4">&#9670;&#160;</a></span>cantrips</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::ClassLevel::cantrips</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les sorts mineurs appris à ce niveau (identifiants de <span class="tt">spells/</span>), à volonté. </p>
+
+</div>
+</div>
 <a id="a1686d415553a8941dc6b9f18e50c835e" name="a1686d415553a8941dc6b9f18e50c835e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1686d415553a8941dc6b9f18e50c835e">&#9670;&#160;</a></span>features</h2>
 
@@ -170,6 +191,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Les capacités que ce niveau apporte : des identifiants du catalogue des capacités (<span class="tt"><a class="el" href="structcore_1_1CapacityCatalog.html" title="Le catalogue des capacités, et ce qui n&#39;a pas pu l&#39;être.">core::CapacityCatalog</a></span>, <span class="tt">LOT-131</span>). </p>
 
 </div>
 </div>
@@ -212,6 +235,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a773d87e9625ea5f9077832127b9819ea" name="a773d87e9625ea5f9077832127b9819ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a773d87e9625ea5f9077832127b9819ea">&#9670;&#160;</a></span>spells</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; core::ClassLevel::spells</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les sorts appris à ce niveau, chacun lançable <span class="tt"><a class="el" href="structcore_1_1Spellcasting.html#a63c420a6bcd5159d960683b40b8f1dab">Spellcasting::castsPerDay</a></span> fois par jour. </p>
 
 </div>
 </div>

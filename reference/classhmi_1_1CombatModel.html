@@ -230,6 +230,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a0489feee39e33f36c4957f5f3ab4815f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le curseur suit le combattant actif quand il change.  <br /></td></tr>
 <tr class="memitem:ae51c20277b8bb768da16512a7fde305b" id="r_ae51c20277b8bb768da16512a7fde305b"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae51c20277b8bb768da16512a7fde305b">playerTurn</a> () const</td></tr>
 <tr class="memitem:aed34c3f2684232f6bcfed8d8f7d310a8" id="r_aed34c3f2684232f6bcfed8d8f7d310a8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aed34c3f2684232f6bcfed8d8f7d310a8">attackAt</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> target, std::optional&lt; std::size_t &gt; index)</td></tr>
+<tr class="memitem:ade082c273cdc2659f7aa48db9c071868" id="r_ade082c273cdc2659f7aa48db9c071868"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade082c273cdc2659f7aa48db9c071868">castAt</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> target, std::size_t index)</td></tr>
+<tr class="memdesc:ade082c273cdc2659f7aa48db9c071868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le sort de rang <code class="param">index</code> du joueur sur <code class="param">target</code> (<span class="tt">LOT-131</span>) ; <span class="tt"><a class="el" href="#a04eb920f85db24d68bf992f2b29a17d5" title="Ce que l&#39;écran dit du dernier geste : un jet, un refus, l&#39;issue.">status</a></span> dit le jet, ou le refus — un sort épuisé, notamment.  <br /></td></tr>
 <tr class="memitem:a96e8a89ff900657a0eb2ac543979cd2f" id="r_a96e8a89ff900657a0eb2ac543979cd2f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a96e8a89ff900657a0eb2ac543979cd2f">moveTo</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-static-methods" class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
@@ -465,6 +467,37 @@ Signaux</h2>
 <dl class="section return"><dt>Returns</dt><dd>Les profils de l'IA que <span class="tt"><a class="el" href="namespacecore.html#a927dac700bedb90e5d0bb43bfeb537df" title="Joue le tour du combattant actif selon son profil, et le termine.">core::playTurn</a></span> lit ; <span class="tt">nullptr</span> : l'IA ne joue pas. </dd></dl>
 
 <p>Implemented in <a class="el" href="classhmi_1_1EncounterModel.html#a1ee5a82fcbe6d56014645cc70a74c803">hmi::EncounterModel</a>.</p>
+
+</div>
+</div>
+<a id="ade082c273cdc2659f7aa48db9c071868" name="ade082c273cdc2659f7aa48db9c071868"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade082c273cdc2659f7aa48db9c071868">&#9670;&#160;</a></span>castAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatModel::castAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lance le sort de rang <code class="param">index</code> du joueur sur <code class="param">target</code> (<span class="tt">LOT-131</span>) ; <span class="tt"><a class="el" href="#a04eb920f85db24d68bf992f2b29a17d5" title="Ce que l&#39;écran dit du dernier geste : un jet, un refus, l&#39;issue.">status</a></span> dit le jet, ou le refus — un sort épuisé, notamment. </p>
 
 </div>
 </div>

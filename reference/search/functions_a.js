@@ -10,5 +10,6 @@ var searchData=
   ['kindtoplacechanged_7',['kindToPlaceChanged',['../classhmi_1_1EntityPanel.html#a7e69f5cb14a7e3e569ea913dfdebb6b1',1,'hmi::EntityPanel']]],
   ['knownentitykinds_8',['knownEntityKinds',['../namespacecore.html#a3c877363f8258fc1ba137c48aa283397',1,'core']]],
   ['knowninteractablekinds_9',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
-  ['knownmapstates_10',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]]
+  ['knownmapstates_10',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]],
+  ['knownspell_11',['knownSpell',['../structcore_1_1CharacterSheet.html#a07e1da48497cc95a542a29c546329ab5',1,'core::CharacterSheet']]]
 ];

@@ -4,6 +4,7 @@ var Attack_8h =
     [ "core::AttackProfile", "structcore_1_1AttackProfile.html", "structcore_1_1AttackProfile" ],
     [ "core::CreatureAttacks", "structcore_1_1CreatureAttacks.html", "structcore_1_1CreatureAttacks" ],
     [ "core::AttackCircumstances", "structcore_1_1AttackCircumstances.html", "structcore_1_1AttackCircumstances" ],
+    [ "core::BonusDamage", "structcore_1_1BonusDamage.html", "structcore_1_1BonusDamage" ],
     [ "core::AttackRoll", "structcore_1_1AttackRoll.html", "structcore_1_1AttackRoll" ],
     [ "core::AttackHooks", "classcore_1_1AttackHooks.html", "classcore_1_1AttackHooks" ],
     [ "core::AttackOutcome", "structcore_1_1AttackOutcome.html", "structcore_1_1AttackOutcome" ],
@@ -16,7 +17,8 @@ var Attack_8h =
     [ "core::AttackRollStage", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20d", [
       [ "core::AttackRollStage::BeforeRoll", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20da07adb1b4dc71b2f13f0ab3ec94c64e6d", null ],
       [ "core::AttackRollStage::DiceRolled", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20da66c4c4d61a9bb3202d84d9750ce1d929", null ],
-      [ "core::AttackRollStage::BeforeOutcome", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20da9bda4b2b935d4e3fa053e22ca4078390", null ]
+      [ "core::AttackRollStage::BeforeOutcome", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20da9bda4b2b935d4e3fa053e22ca4078390", null ],
+      [ "core::AttackRollStage::Hit", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20daebfe5e1791db03c4cd6ab95801e0977d", null ]
     ] ],
     [ "core::TargetCheck", "namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840", [
       [ "core::TargetCheck::Valid", "namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840a3ac705f2acd51a4613f9188c05c91d0d", null ],
@@ -32,6 +34,7 @@ var Attack_8h =
     [ "core::inReach", "namespacecore.html#a58f349d22c971141da56b91273d5d29d", null ],
     [ "core::resolveAttack", "namespacecore.html#ab1a4d741effe8706e8261be043b9224a", null ],
     [ "core::rollAttack", "namespacecore.html#a4f1692682e25dadb017d37ca0a42e9aa", null ],
+    [ "core::spellAttackFor", "namespacecore.html#a871311984840c7991c36bb370786fe1e", null ],
     [ "core::thrownAttackFor", "namespacecore.html#acc72525dbecb690d39a4f7ebe97423b5", null ],
     [ "core::weaponAttackFor", "namespacecore.html#a1881c42c8483587a6baa65c336a230c2", null ]
 ];

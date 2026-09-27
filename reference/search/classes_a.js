@@ -1,25 +1,4 @@
 var searchData=
 [
-  ['layerdisplay_0',['LayerDisplay',['../structhmi_1_1LayerDisplay.html',1,'hmi']]],
-  ['layerrow_1',['LayerRow',['../structhmi_1_1LayerRow.html',1,'hmi']]],
-  ['layerspanel_2',['LayersPanel',['../classhmi_1_1LayersPanel.html',1,'hmi']]],
-  ['layerviewstate_3',['LayerViewState',['../classhmi_1_1LayerViewState.html',1,'hmi']]],
-  ['level_4',['Level',['../classcore_1_1Level.html',1,'core']]],
-  ['levelbrowserpanel_5',['LevelBrowserPanel',['../classhmi_1_1LevelBrowserPanel.html',1,'hmi']]],
-  ['leveldata_6',['LevelData',['../structcore_1_1LevelData.html',1,'core']]],
-  ['leveldraft_7',['LevelDraft',['../classcore_1_1LevelDraft.html',1,'core']]],
-  ['levelentry_8',['LevelEntry',['../structhmi_1_1LevelEntry.html',1,'hmi']]],
-  ['levelfileoperations_9',['LevelFileOperations',['../classhmi_1_1LevelFileOperations.html',1,'hmi']]],
-  ['levelloader_10',['LevelLoader',['../classcore_1_1LevelLoader.html',1,'core']]],
-  ['levelloadresult_11',['LevelLoadResult',['../structcore_1_1LevelLoadResult.html',1,'core']]],
-  ['levelstatusinfo_12',['LevelStatusInfo',['../structhmi_1_1LevelStatusInfo.html',1,'hmi']]],
-  ['levelupresult_13',['LevelUpResult',['../structcore_1_1LevelUpResult.html',1,'core']]],
-  ['levelwriter_14',['LevelWriter',['../classcore_1_1LevelWriter.html',1,'core']]],
-  ['libraryfinding_15',['LibraryFinding',['../structhmi_1_1LibraryFinding.html',1,'hmi']]],
-  ['linequad_16',['LineQuad',['../structhmi_1_1LineQuad.html',1,'hmi']]],
-  ['loadedcharactersheet_17',['LoadedCharacterSheet',['../structcore_1_1LoadedCharacterSheet.html',1,'core']]],
-  ['loadedtexture_18',['LoadedTexture',['../structhmi_1_1LoadedTexture.html',1,'hmi']]],
-  ['localization_19',['Localization',['../classhmi_1_1Localization.html',1,'hmi']]],
-  ['location_20',['Location',['../structcore_1_1Location.html',1,'core']]],
-  ['logger_21',['Logger',['../classcore_1_1Logger.html',1,'core']]]
+  ['knownspell_0',['KnownSpell',['../structcore_1_1KnownSpell.html',1,'core']]]
 ];

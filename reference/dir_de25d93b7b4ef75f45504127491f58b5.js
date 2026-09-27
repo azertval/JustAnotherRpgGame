@@ -10,6 +10,8 @@ var dir_de25d93b7b4ef75f45504127491f58b5 =
     [ "CharacterSheet.h", "CharacterSheet_8h.html", "CharacterSheet_8h" ],
     [ "Check.cpp", "Check_8cpp.html", "Check_8cpp" ],
     [ "Check.h", "Check_8h.html", "Check_8h" ],
+    [ "ClassCapacities.cpp", "ClassCapacities_8cpp.html", "ClassCapacities_8cpp" ],
+    [ "ClassCapacities.h", "ClassCapacities_8h.html", "ClassCapacities_8h" ],
     [ "Dialogue.cpp", "Dialogue_8cpp.html", "Dialogue_8cpp" ],
     [ "Dialogue.h", "Dialogue_8h.html", "Dialogue_8h" ],
     [ "Dice.cpp", "Dice_8cpp.html", "Dice_8cpp" ],
@@ -25,5 +27,7 @@ var dir_de25d93b7b4ef75f45504127491f58b5 =
     [ "RpgEnums.h", "RpgEnums_8h.html", "RpgEnums_8h" ],
     [ "Scale.h", "Scale_8h.html", "Scale_8h" ],
     [ "Skill.cpp", "Skill_8cpp.html", "Skill_8cpp" ],
-    [ "Skill.h", "Skill_8h.html", "Skill_8h" ]
+    [ "Skill.h", "Skill_8h.html", "Skill_8h" ],
+    [ "Spell.cpp", "Spell_8cpp.html", "Spell_8cpp" ],
+    [ "Spell.h", "Spell_8h.html", "Spell_8h" ]
 ];

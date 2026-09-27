@@ -1,6 +1,7 @@
 var Arena_8h =
 [
     [ "core::ArenaEntryPoint", "structcore_1_1ArenaEntryPoint.html", "structcore_1_1ArenaEntryPoint" ],
+    [ "core::ArenaSpell", "structcore_1_1ArenaSpell.html", "structcore_1_1ArenaSpell" ],
     [ "core::ArenaContestant", "structcore_1_1ArenaContestant.html", "structcore_1_1ArenaContestant" ],
     [ "core::ArenaBout", "structcore_1_1ArenaBout.html", "structcore_1_1ArenaBout" ],
     [ "core::ArenaMount", "structcore_1_1ArenaMount.html", "structcore_1_1ArenaMount" ],
@@ -15,9 +16,12 @@ var Arena_8h =
       [ "core::ArenaActionResult::OutOfReach", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedab3e0302fd4814646ffa6de166cddc38a", null ],
       [ "core::ArenaActionResult::TotalCover", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda62da737bbf89f486e90024dc099e2bc4", null ],
       [ "core::ArenaActionResult::InvalidTarget", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71", null ],
-      [ "core::ArenaActionResult::NoAttack", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedafd717fc56e019faf5bdeb3429d6eb17d", null ]
+      [ "core::ArenaActionResult::NoAttack", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedafd717fc56e019faf5bdeb3429d6eb17d", null ],
+      [ "core::ArenaActionResult::NoSpell", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda608f236a0fe9b2d3e8e409556b7b7571", null ],
+      [ "core::ArenaActionResult::Exhausted", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaa1a698ed9bd0897ab0578ac2114397ff", null ]
     ] ],
     [ "core::arenaEntryPoints", "namespacecore.html#a91e905d2d65ad1c9a0916752b0fd9b95", null ],
+    [ "core::arenaSpellsFor", "namespacecore.html#a7195d9f7d6b4f5e48eb604871553d6f9", null ],
     [ "core::ARENA_ENTRY_ENTITY_TYPE", "namespacecore.html#a93cf3e3bbcfd17745d5f4084773b1a4a", null ],
     [ "core::ARENA_RANK_PROPERTY", "namespacecore.html#a6bb32367b37b63b19cbbcb5d0aeabd31", null ],
     [ "core::ARENA_SIDE_PROPERTY", "namespacecore.html#ad0cadfeea4d0cb712df6feb11ff12b9d", null ],

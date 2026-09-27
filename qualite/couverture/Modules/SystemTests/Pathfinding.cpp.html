@@ -192,8 +192,9 @@ bool relax(std::vector&lt;int&gt;&amp; costs, Predecessors&amp; predecessors, st
 <span style = "background-color:#dfd">    return static_cast&lt;int&gt;(std::floor(tilesFromMeters(speedMeters) + SPEED_EPSILON));
 }</span>
 
-<span style = "background-color:#dfd">int movementBudget(const CharacterSheet&amp; sheet) noexcept {
-    return movementBudget(sheet.speedMeters);
+<span style = "background-color:#dfd">int movementBudget(const CharacterSheet&amp; sheet) noexcept {</span>
+    // Capacites comprises (LOT-131) : Scoundrel's Agility ajoute 10 ft, soit deux cases.
+<span style = "background-color:#dfd">    return movementBudget(sheet.effectiveSpeedMeters());
 }</span>
 
 <span style = "background-color:#dfd">int movementBudget(const Creature&amp; creature, Locomotion locomotion) noexcept {

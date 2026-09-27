@@ -25,6 +25,7 @@
 #include "Core/Rpg/Equipment.h"
 #include "Core/Rpg/Inventory.h"
 #include "Core/Rpg/Scale.h"
+#include "Core/Rpg/Spell.h"
 
 namespace core {
 namespace {
@@ -38,7 +39,7 @@ namespace {
         case Ability::Constitution:
 <span style = "background-color:#fdd">            return "Constitution";</span>
         case Ability::Intelligence:
-<span style = "background-color:#fdd">            return "Intelligence";</span>
+<span style = "background-color:#dfd">            return "Intelligence";</span>
         case Ability::Wisdom:
 <span style = "background-color:#fdd">            return "Sagesse";</span>
         case Ability::Charisma:
@@ -161,6 +162,28 @@ AttackProfile weaponAttackFor(const CharacterSheet&amp; sheet, const Weapon* wea
         des.modifier += modificateur;
         profil.damage.push_back({.dice = des, .type = *weapon-&gt;damageType, .flags = 0});</span>
     }
+<span style = "background-color:#dfd">    return profil;
+}</span>
+
+std::optional&lt;AttackProfile&gt; spellAttackFor(const CharacterSheet&amp; sheet, const Spell&amp; spell,
+<span style = "background-color:#dfd">                                            Ability ability, int proficiencyBonus) {
+    if (!isAttackSpell(spell)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    AttackProfile profil;
+    profil.label = spell.name;
+    profil.kind = AttackKind::Ranged;</span>
+    // Une portee unique : deux nombres egaux. Sans portee, le sort vise au contact.
+<span style = "background-color:#dfd">    profil.range =</span>
+        porteeDe(spell.rangeMeters &gt; 0.0F ? std::optional&lt;float&gt;(spell.rangeMeters) : std::nullopt,
+                 std::nullopt);
+<span style = "background-color:#dfd">    profil.modifiers.push_back(</span>
+        {.source = std::string(nomDeCaracteristique(ability)), .value = sheet.modifier(ability)});
+<span style = "background-color:#dfd">    profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
+    profil.damage.push_back({.dice = *spell.damage,</span>
+                             .type = *spell.damageType,
+                             .flags = static_cast&lt;DamageFlags&gt;(flagsOf(DamageFlag::Spell) |
+                                                               flagsOf(DamageFlag::Magical))});
 <span style = "background-color:#dfd">    return profil;
 }</span>
 
@@ -390,12 +413,25 @@ std::optional&lt;AttackOutcome&gt; resolveAttack(CombatState&amp; combat, Combat
     // applyCover, et le meilleur seul compte.
 <span style = "background-color:#dfd">    demande.applyCover(coverBetween(combat, attacker, target));</span>
 
-<span style = "background-color:#dfd">    issue.roll = rollAttack(std::move(demande),</span>
-                            context.hooks != nullptr ? *context.hooks : crochetsVides(), random);
-<span style = "background-color:#dfd">    if (!issue.roll.hit) {
+<span style = "background-color:#dfd">    if (!profile.damage.empty()) {
+        demande.damageType = profile.damage.front().type;</span>
+    }
+<span style = "background-color:#dfd">    const AttackHooks&amp; crochets = context.hooks != nullptr ? *context.hooks : crochetsVides();
+    issue.roll = rollAttack(std::move(demande), crochets, random);
+    if (!issue.roll.hit) {
         return issue;</span>
     }
-<span style = "background-color:#dfd">    issue.damage = rollDamage(profile.damage, issue.roll.critical, random);
+    // L'attaque touche : les capacites qui ajoutent des des (LOT-131) parlent ici, avant le lancer.
+<span style = "background-color:#dfd">    crochets.run(AttackRollStage::Hit, issue.roll, random);
+    issue.damage = rollDamage(profile.damage, issue.roll.critical, random);
+    for (const BonusDamage&amp; bonus : issue.roll.bonusDamage) {
+        std::vector&lt;RolledDamage&gt; lances = rollDamage(</span>
+            std::span&lt;const DamageClause&gt;(&amp;bonus.clause, 1), issue.roll.critical, random);
+<span style = "background-color:#dfd">        for (RolledDamage&amp; lance : lances) {
+            lance.source = bonus.source;
+            issue.damage.push_back(std::move(lance));
+        }
+    }
     const std::vector&lt;DamageRequest&gt; salve{{.target = target, .damage = issue.damage}};
     const DamagePipeline&amp; pipeline =</span>
         context.pipeline != nullptr ? *context.pipeline : pipelineVide();
@@ -444,13 +480,17 @@ std::optional&lt;AttackOutcome&gt; resolveAttack(CombatState&amp; combat, Combat
         }
 <span style = "background-color:#dfd">        texte += ' ';
         texte += damageTypeLabel(lance.clause.type);
-    }
+        if (!lance.source.empty()) {</span>
+            // Les des qu'une capacite ajoute portent son nom (LOT-131, EX-REG-003).
+<span style = "background-color:#dfd">            texte += " (" + lance.source + ")";</span>
+        }
+<span style = "background-color:#dfd">    }
     if (report.has_value()) {
-        for (const DamageStep&amp; etape : report-&gt;work.trace) {</span>
-<span style = "background-color:#fdd">            texte += " ; " + etape.source + ' ' + std::to_string(etape.before) + " -&gt; " +</span>
+        for (const DamageStep&amp; etape : report-&gt;work.trace) {
+            texte += " ; " + etape.source + ' ' + std::to_string(etape.before) + " -&gt; " +</span>
                      std::to_string(etape.after);
-<span style = "background-color:#fdd">        }</span>
-<span style = "background-color:#dfd">        texte += " ; PV " + std::to_string(report-&gt;hitPointsBefore) + " -&gt; " +</span>
+<span style = "background-color:#dfd">        }
+        texte += " ; PV " + std::to_string(report-&gt;hitPointsBefore) + " -&gt; " +</span>
                  std::to_string(report-&gt;hitPointsAfter);
     }
 <span style = "background-color:#dfd">    return texte;

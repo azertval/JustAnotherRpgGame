@@ -213,11 +213,21 @@ int armorClassFor(const CharacterSheet&amp; sheet, const CharacterCreationRules&
     const int dexterite = sheet.modifier(Ability::Dexterity);</span>
 
 <span style = "background-color:#dfd">    int total = 0;
+    bool bouclierPermis = true;
     if (armor == nullptr || armor-&gt;category == ArmorCategory::Shield) {</span>
         // Sans armure : la base vient de la DONNEE, jamais d'un 10 ecrit ici (EX-VIS-007). Un
         // bouclier passe en `armor` n'est pas une armure : il ajoute, il ne remplace pas, et le
         // traiter comme tel donnerait une CA de 2 a un personnage en bouclier seul.
-<span style = "background-color:#dfd">        total = rules.unarmoredArmorClass + dexterite;
+<span style = "background-color:#dfd">        total = rules.unarmoredArmorClass + dexterite;</span>
+        // Une capacite de classe peut calculer la CA sans armure AUTREMENT (EX-CBT-030, LOT-131) :
+        // Tough as Nails, 10 + Dex + Con ; Arcane Protection, 13 + Dex. La meilleure formule
+        // compte, jamais la somme : une formule remplace la regle generale, elle ne s'y ajoute pas.
+<span style = "background-color:#dfd">        if (const std::optional&lt;UnarmoredArmorClass&gt; formule =</span>
+                unarmoredArmorClassFrom(sheet.capacities, sheet.abilities);
+<span style = "background-color:#dfd">            formule.has_value() &amp;&amp; formule-&gt;armorClass &gt; total) {
+            total = formule-&gt;armorClass;
+            bouclierPermis = formule-&gt;shieldAllowed;
+        }
     } else {
         total = armor-&gt;baseArmorClass;
         if (armor-&gt;dexterityBonus) {</span>
@@ -230,10 +240,11 @@ int armorClassFor(const CharacterSheet&amp; sheet, const CharacterCreationRules&
         }
     }
 
-<span style = "background-color:#dfd">    if (shield != nullptr &amp;&amp; shield-&gt;category == ArmorCategory::Shield) {
+<span style = "background-color:#dfd">    if (shield != nullptr &amp;&amp; shield-&gt;category == ArmorCategory::Shield &amp;&amp; bouclierPermis) {
         total += shield-&gt;baseArmorClass;</span>
     }
-<span style = "background-color:#dfd">    return total;
+    // Un bonus fixe (Holy Shield, Scoundrel's Agility au niveau 5) s'ajoute a toute forme.
+<span style = "background-color:#dfd">    return total + armorClassBonusFrom(sheet.capacities);
 }</span>
 
 <span style = "background-color:#dfd">int totalWeightGrams(const std::vector&lt;InventoryEntry&gt;&amp; entries) {

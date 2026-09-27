@@ -372,8 +372,11 @@
     <filename>Arena_8cpp.html</filename>
     <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="CombatCounters_8h" name="CombatCounters.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatCounters.h</includes>
     <includes id="Flanking_8h" name="Flanking.h" local="yes" import="no" module="no" objc="no">Core/Combat/Flanking.h</includes>
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -388,7 +391,9 @@
     <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
     <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
     <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
     <class kind="struct">core::ArenaEntryPoint</class>
+    <class kind="struct">core::ArenaSpell</class>
     <class kind="struct">core::ArenaContestant</class>
     <class kind="struct">core::ArenaBout</class>
     <class kind="struct">core::ArenaMount</class>
@@ -408,6 +413,7 @@
     <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
     <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
     <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -418,11 +424,13 @@
     <includes id="Damage_8h" name="Damage.h" local="yes" import="no" module="no" objc="no">Core/Combat/Damage.h</includes>
     <includes id="LineOfSight_8h" name="LineOfSight.h" local="yes" import="no" module="no" objc="no">Core/Combat/LineOfSight.h</includes>
     <includes id="DeterministicRandom_8h" name="DeterministicRandom.h" local="yes" import="no" module="no" objc="no">Core/Math/DeterministicRandom.h</includes>
+    <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
     <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
     <class kind="struct">core::AttackRange</class>
     <class kind="struct">core::AttackProfile</class>
     <class kind="struct">core::CreatureAttacks</class>
     <class kind="struct">core::AttackCircumstances</class>
+    <class kind="struct">core::BonusDamage</class>
     <class kind="struct">core::AttackRoll</class>
     <class kind="class">core::AttackHooks</class>
     <class kind="struct">core::AttackOutcome</class>
@@ -497,6 +505,7 @@
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
     <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="RpgEnumNames_8h" name="RpgEnumNames.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnumNames.h</includes>
     <class kind="class">core::CombatState::Operation</class>
     <namespace>core</namespace>
   </compound>
@@ -1654,12 +1663,16 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
     <filename>CharacterOptions_8h.html</filename>
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
     <includes id="RpgEnums_8h" name="RpgEnums.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnums.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
     <class kind="struct">core::NamedTrait</class>
     <class kind="struct">core::ProvisionalStatus</class>
     <class kind="struct">core::Species</class>
     <class kind="struct">core::Background</class>
     <class kind="struct">core::ClassLevel</class>
+    <class kind="struct">core::SkillChoices</class>
+    <class kind="struct">core::Spellcasting</class>
     <class kind="struct">core::PlayableClass</class>
     <class kind="struct">core::CharacterOptions</class>
     <namespace>core</namespace>
@@ -1670,6 +1683,7 @@
     <filename>CharacterSheet_8cpp.html</filename>
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
     <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
     <namespace>core</namespace>
   </compound>
@@ -1684,6 +1698,7 @@
     <class kind="struct">core::ExperienceLevel</class>
     <class kind="struct">core::ExperienceTable</class>
     <class kind="struct">core::CharacterCreationRules</class>
+    <class kind="struct">core::KnownSpell</class>
     <class kind="struct">core::CharacterSheet</class>
     <class kind="struct">core::LevelUpResult</class>
     <class kind="struct">core::LoadedCharacterSheet</class>
@@ -1707,6 +1722,31 @@
     <class kind="struct">core::CheckResult</class>
     <class kind="struct">core::DifficultyTier</class>
     <class kind="struct">core::DifficultyScale</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>ClassCapacities.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>ClassCapacities_8cpp.html</filename>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="RpgEnumNames_8h" name="RpgEnumNames.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnumNames.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>ClassCapacities.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>ClassCapacities_8h.html</filename>
+    <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
+    <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
+    <includes id="RpgEnums_8h" name="RpgEnums.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnums.h</includes>
+    <class kind="struct">core::CapacityEffect</class>
+    <class kind="struct">core::Capacity</class>
+    <class kind="struct">core::CapacityCatalog</class>
+    <class kind="struct">core::UnarmoredArmorClass</class>
+    <class kind="struct">core::NamedResistance</class>
+    <class kind="struct">core::NamedExtraDamage</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -2201,6 +2241,26 @@
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
     <class kind="struct">core::SkillDefinition</class>
     <class kind="struct">core::SkillCatalog</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Spell.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>Spell_8cpp.html</filename>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="RpgEnumNames_8h" name="RpgEnumNames.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnumNames.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Spell.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>Spell_8h.html</filename>
+    <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
+    <includes id="RpgEnums_8h" name="RpgEnums.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnums.h</includes>
+    <class kind="struct">core::Spell</class>
+    <class kind="struct">core::SpellCatalog</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -5139,6 +5199,7 @@
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
     <includes id="CombatPreview_8h" name="CombatPreview.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatPreview.h</includes>
     <includes id="Pathfinding_8h" name="Pathfinding.h" local="yes" import="no" module="no" objc="no">Core/Combat/Pathfinding.h</includes>
+    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <namespace>hmi</namespace>
   </compound>
@@ -6006,6 +6067,48 @@
       <anchorfile>test__battle__grid_8cpp.html</anchorfile>
       <anchor>a4f0fea8f594a170d9f1a3168e1193772</anchor>
       <arglist>(BattleGridTest, UnObjetDeGrilleBloqueEtSeDetruit)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_class_in_arena.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__class__in__arena_8cpp.html</filename>
+    <includes id="ActionEconomy_8h" name="ActionEconomy.h" local="yes" import="no" module="no" objc="no">Core/Combat/ActionEconomy.h</includes>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <includes id="CombatCounters_8h" name="CombatCounters.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatCounters.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__in__arena_8cpp.html</anchorfile>
+      <anchor>a78ce187daf6029ad0922dd4f5b2b4fba</anchor>
+      <arglist>(ClassInArenaTest, LeBonusEtLesDesDUneCapaciteSeJouentEtSeNomment)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__in__arena_8cpp.html</anchorfile>
+      <anchor>a180cffc8b3f09a98b22a7d6842b2fc19</anchor>
+      <arglist>(ClassInArenaTest, LaResistanceGlobaleSeNommeAuJournal)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__in__arena_8cpp.html</anchorfile>
+      <anchor>a3b73f896f01bcc69e7f6f8e6cd683f30</anchor>
+      <arglist>(ClassInArenaTest, LeDeplacementNeProvoquePasDAttaqueDOpportunite)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__in__arena_8cpp.html</anchorfile>
+      <anchor>a53d967dbb7e2b52ed8d76c16a05af619</anchor>
+      <arglist>(ClassInArenaTest, UnSortEpuiseNeSeProposePlusEtUnReposLongLeRend)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -8977,6 +9080,51 @@
       <anchorfile>test__check_8cpp.html</anchorfile>
       <anchor>ac3052ece56bdf9e0b6a6c1251165dc11</anchor>
       <arglist>(CheckTest, EchelleDeDifficulteEnDonnee)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_class_capacities.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
+    <filename>test__class__capacities_8cpp.html</filename>
+    <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
+    <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__capacities_8cpp.html</anchorfile>
+      <anchor>aa093261aa7f36c11fddf9d0ebb10a1e1</anchor>
+      <arglist>(ClassCapacitiesTest, LeCatalogueSeChargeEtRefuseLInconnu)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__capacities_8cpp.html</anchorfile>
+      <anchor>a2cbba5144d94b36fde702fc58edf545b</anchor>
+      <arglist>(ClassCapacitiesTest, LaTableDonneLesCapacitesEtLesSortsAuNiveau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__capacities_8cpp.html</anchorfile>
+      <anchor>a19605dbf1520bbc8a9dd20d4b76dc6a7</anchor>
+      <arglist>(ClassCapacitiesTest, LaFicheTireSesValeursDeSesCapacites)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__capacities_8cpp.html</anchorfile>
+      <anchor>a2a0f9820f35253e9e57ab54d328ecbec</anchor>
+      <arglist>(ClassCapacitiesTest, LIncantationSimplifieeCompteLesLancersEtLeReposLesRend)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__capacities_8cpp.html</anchorfile>
+      <anchor>a8dd614c896c1c560732d303d1add28a4</anchor>
+      <arglist>(ClassCapacitiesTest, LesQuatreClassesDeclarentLeursMaitrises)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14180,6 +14328,20 @@
       <anchor>a190e47f103f3dadbf460e7a18a3ad843</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::vector&lt; Capacity &gt;</type>
+      <name>capacities</name>
+      <anchorfile>structcore_1_1ArenaContestant.html</anchorfile>
+      <anchor>a9bfaa5bb80fce83aff1d34ab0aae2d90</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; ArenaSpell &gt;</type>
+      <name>spells</name>
+      <anchorfile>structcore_1_1ArenaContestant.html</anchorfile>
+      <anchor>acd8cf1c1a234dad604b140773cb16878</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::ArenaEntryPoint</name>
@@ -14303,6 +14465,27 @@
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a3dc6b71791568af78f3f66d6987df23c</anchor>
       <arglist>(CombatantId combatant) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; ArenaSpell &gt; *</type>
+      <name>spells</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a37fe5fc7f309b7fcbb4b396ab876a273</anchor>
+      <arglist>(CombatantId combatant) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::span&lt; const Capacity &gt;</type>
+      <name>capacitiesOf</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a2c14edfa7153f6b451650d0bd3f0e7df</anchor>
+      <arglist>(CombatantId combatant) const</arglist>
+    </member>
+    <member kind="function">
+      <type>ArenaAttack</type>
+      <name>castSpell</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a4c66e3a8f4aa73bd21da742945b5b5dd</anchor>
+      <arglist>(CombatantId target, std::size_t spellIndex)</arglist>
     </member>
     <member kind="function">
       <type>ArenaAttack</type>
@@ -14487,6 +14670,20 @@
       <arglist>(CombatantId mover, const std::vector&lt; GridPosition &gt; &amp;cases, std::vector&lt; CombatantId &gt; &amp;reactors) const</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>std::optional&lt; std::size_t &gt;</type>
+      <name>firstExitFromReach</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>aa5db74127aa200ec419457e753b60536</anchor>
+      <arglist>(CombatantId mover, const std::vector&lt; GridPosition &gt; &amp;cases, std::vector&lt; CombatantId &gt; &amp;reactors) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>hookCapacities</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>ae327de7aee4320e246557290c95eccb0</anchor>
+      <arglist>(AttackHooks &amp;hooks, CombatantId attacker)</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>void</type>
       <name>takeOpportunities</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
@@ -14526,6 +14723,20 @@
       <name>_attacks</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a35cbb920f818826a6c52dc2d946d5700</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; CombatantId, std::vector&lt; Capacity &gt; &gt;</type>
+      <name>_capacities</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a5a415ef69542921b94be4792fbf47775</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; CombatantId, std::vector&lt; ArenaSpell &gt; &gt;</type>
+      <name>_spells</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>ae44c95a769818642d87aad7da4384358</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -14589,6 +14800,52 @@
       <name>_journal</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a95fa6187920a6c5fbebd02b9c44603da</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::ArenaSpell</name>
+    <filename>structcore_1_1ArenaSpell.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>available</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>acd36cf4c68663fb6ab72d2b76036911c</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>ab1f6d6f098ddc42ad0531bcc1082a5a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>ae8834bd90f613aa6e66953c31e4393fb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>level</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a2b03f167ed06daaca92de2b4fa75cca8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>uses</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a3effaed2ef2321524ee482bbc74aa4bc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>AttackProfile</type>
+      <name>attack</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a33d7b075df9702aa843ba7b0ef176e33</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -16621,6 +16878,20 @@
       <anchor>a9d3fda07cfa265bb01b1a82c7a237227</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; DamageType &gt;</type>
+      <name>damageType</name>
+      <anchorfile>structcore_1_1AttackRoll.html</anchorfile>
+      <anchor>a1317273848873f06810eb5effde86372</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; BonusDamage &gt;</type>
+      <name>bonusDamage</name>
+      <anchorfile>structcore_1_1AttackRoll.html</anchorfile>
+      <anchor>ab0f49c854c77edf77fd20e86459ead19</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::AudioEngine</name>
@@ -17494,6 +17765,24 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::BonusDamage</name>
+    <filename>structcore_1_1BonusDamage.html</filename>
+    <member kind="variable">
+      <type>DamageClause</type>
+      <name>clause</name>
+      <anchorfile>structcore_1_1BonusDamage.html</anchorfile>
+      <anchor>a5e0e896150ad983b1c51c9398611f60b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1BonusDamage.html</anchorfile>
+      <anchor>a54d81173115bedb95fe88ab672c19d9b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::BrushResult</name>
     <filename>structhmi_1_1BrushResult.html</filename>
     <member kind="function">
@@ -17766,6 +18055,165 @@
       <name>_bounds</name>
       <anchorfile>classhmi_1_1EditorViewport_1_1CanvasItem.html</anchorfile>
       <anchor>a4477e1285670713dcbd0cc43dfa7a897</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::Capacity</name>
+    <filename>structcore_1_1Capacity.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>ab45d3d6a3d6d143ecd7581debfaae008</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>a4bbbaad1058d58c27415723a7d8afd6d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>acd12d78ad336151b897ef0432ce54526</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>text</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>ae49a307aaff5f7b40506b227bfcdaf58</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>replaces</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>a9f8a6052c074c5977d593aea757a9500</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; CapacityEffect &gt;</type>
+      <name>effects</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>a1db91d448b2ca4c07d73c5fbc6a7ab78</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>narrative</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>a4c2a24cece7c2ae3aa3941608762ba83</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>requiredMechanisms</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>a8ca792841d32eecb87ebd6a9ac3267f4</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::CapacityCatalog</name>
+    <filename>structcore_1_1CapacityCatalog.html</filename>
+    <member kind="function">
+      <type>const Capacity *</type>
+      <name>find</name>
+      <anchorfile>structcore_1_1CapacityCatalog.html</anchorfile>
+      <anchor>a9df68c3dc9b4f914a0bfb3f9423f8177</anchor>
+      <arglist>(std::string_view id) const</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Capacity &gt;</type>
+      <name>capacities</name>
+      <anchorfile>structcore_1_1CapacityCatalog.html</anchorfile>
+      <anchor>a78e8c18d9eef1eb5092aafbc285e1195</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structcore_1_1CapacityCatalog.html</anchorfile>
+      <anchor>a0ff1d1c3755c59f8b038aa58762d9d67</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::CapacityEffect</name>
+    <filename>structcore_1_1CapacityEffect.html</filename>
+    <member kind="variable">
+      <type>CapacityEffectKind</type>
+      <name>kind</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>aed0581569992d3173d084b81af941c63</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>value</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>af78551fd5a840d3577c57fc4fd4d614c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>base</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>af105e7ec61bd10396b172624aefbf012</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Ability &gt;</type>
+      <name>abilities</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a09c67973efbd8c0c6e1a29f468fb9124</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>shieldAllowed</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a2082ce1174f4357467b63cb4bfc88fa0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>allDamageTypes</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a0f4c05c1bbac3da0ad77d5503ffc7d16</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; DamageType &gt;</type>
+      <name>damageTypes</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>af2309b538297ddd709da20b0f9b2ec6d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>meters</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a6e770fcfc6bce46f4c92a41f1664ccd5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Dice</type>
+      <name>dice</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a1d73c5b874eb1da0270b056bf12728c7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>oncePerTurn</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a80a31ac675a287c75216f1b713082c3c</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -18078,6 +18526,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>CapacityCatalog</type>
+      <name>capacities</name>
+      <anchorfile>structcore_1_1CharacterOptions.html</anchorfile>
+      <anchor>a6791ed70cc651b2624420b7130e21dd3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>SpellCatalog</type>
+      <name>spells</name>
+      <anchorfile>structcore_1_1CharacterOptions.html</anchorfile>
+      <anchor>a577dc52f3df4364a62a3e73a2b1c6f03</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; std::string &gt;</type>
       <name>errors</name>
       <anchorfile>structcore_1_1CharacterOptions.html</anchorfile>
@@ -18108,6 +18570,20 @@
       <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
       <anchor>a40356a4a6954a5f575f2956fcddda652</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>effectiveSpeedMeters</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>a7af4bb81101430aa9afc3a94d5760506</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const KnownSpell *</type>
+      <name>knownSpell</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>a07e1da48497cc95a542a29c546329ab5</anchor>
+      <arglist>(std::string_view spellId) const</arglist>
     </member>
     <member kind="variable">
       <type>std::string</type>
@@ -18212,6 +18688,34 @@
       <name>languages</name>
       <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
       <anchor>af4449f47520b2b4db9d35eb0e2abb9b5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::set&lt; std::string &gt;</type>
+      <name>weaponProficiencies</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>a79d80abd69faafa027e1a2dba72b415e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::set&lt; std::string &gt;</type>
+      <name>armorProficiencies</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>a2b12653eb31d1188777981663df7ce30</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Capacity &gt;</type>
+      <name>capacities</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>aa5a1776b3a2ce412608eddc65195ab75</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; KnownSpell &gt;</type>
+      <name>knownSpells</name>
+      <anchorfile>structcore_1_1CharacterSheet.html</anchorfile>
+      <anchor>aa50a06bbc0a1771f5931244a0b9e583c</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -19203,6 +19707,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>cantrips</name>
+      <anchorfile>structcore_1_1ClassLevel.html</anchorfile>
+      <anchor>ae73cf98f02ccd248ee6bce1d2af8c5a4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>spells</name>
+      <anchorfile>structcore_1_1ClassLevel.html</anchorfile>
+      <anchor>a773d87e9625ea5f9077832127b9819ea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>CasterProgression</type>
       <name>progression</name>
       <anchorfile>structcore_1_1ClassLevel.html</anchorfile>
@@ -20019,6 +20537,13 @@
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
       <anchor>aed34c3f2684232f6bcfed8d8f7d310a8</anchor>
       <arglist>(core::CombatantId target, std::optional&lt; std::size_t &gt; index)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>castAt</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>ade082c273cdc2659f7aa48db9c071868</anchor>
+      <arglist>(core::CombatantId target, std::size_t index)</arglist>
     </member>
     <member kind="function" protection="protected">
       <type>void</type>
@@ -21699,6 +22224,13 @@
       <anchor>aee4369403d75f62d22159671ceb8a216</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1DamageAffinity.html</anchorfile>
+      <anchor>a72aa14dac2b28fc04267bf40f7d2b527</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::DamageClause</name>
@@ -21886,6 +22418,13 @@
       <name>applies</name>
       <anchorfile>structcore_1_1DamageTraits.html</anchorfile>
       <anchor>ac12264cba0a31747277669e59052a9da</anchor>
+      <arglist>(DamageAffinityKind kind, DamageType type, DamageFlags flags) const</arglist>
+    </member>
+    <member kind="function">
+      <type>const DamageAffinity *</type>
+      <name>matching</name>
+      <anchorfile>structcore_1_1DamageTraits.html</anchorfile>
+      <anchor>a88048f6a508849810f65de9e4897d6af</anchor>
       <arglist>(DamageAffinityKind kind, DamageType type, DamageFlags flags) const</arglist>
     </member>
     <member kind="variable">
@@ -28854,6 +29393,13 @@
       <anchor>aac4a1b02ebd75bbe7921ea6af7084070</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::vector&lt; core::ArenaSpell &gt;</type>
+      <name>spells</name>
+      <anchorfile>structhmi_1_1HeroContestantSource.html</anchorfile>
+      <anchor>a9b0512218038950e89c8533493ede969</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::HitPointChange</name>
@@ -30312,6 +30858,52 @@
       <name>version</name>
       <anchorfile>structcore_1_1JsonDocument.html</anchorfile>
       <anchor>a82433ff86ddc54ef83fa27e989da6399</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::KnownSpell</name>
+    <filename>structcore_1_1KnownSpell.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>available</name>
+      <anchorfile>structcore_1_1KnownSpell.html</anchorfile>
+      <anchor>a2c7b10af1bd53bc505387190d03dca12</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1KnownSpell.html</anchorfile>
+      <anchor>a65c6f2ee46152ac3917269e4fe77d449</anchor>
+      <arglist>(const KnownSpell &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>spellId</name>
+      <anchorfile>structcore_1_1KnownSpell.html</anchorfile>
+      <anchor>a5c8ac2d56b65904da60ad72ad0b7dc5f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>level</name>
+      <anchorfile>structcore_1_1KnownSpell.html</anchorfile>
+      <anchor>a666f058caefdadf8fce9297201ecbd9c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>perDay</name>
+      <anchorfile>structcore_1_1KnownSpell.html</anchorfile>
+      <anchor>a26ab5c357a3377ef049513f98d237c3d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>remaining</name>
+      <anchorfile>structcore_1_1KnownSpell.html</anchorfile>
+      <anchor>ad075a0806ff014d4ce4ff1ec5f1ec1b4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -32376,6 +32968,13 @@
       <name>errors</name>
       <anchorfile>structcore_1_1LoadedCharacterSheet.html</anchorfile>
       <anchor>a5290cd19c104f815fda79411362e093c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>warnings</name>
+      <anchorfile>structcore_1_1LoadedCharacterSheet.html</anchorfile>
+      <anchor>a94c3433e8bda3deaeb7c22c294370ed6</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -35091,6 +35690,56 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::NamedExtraDamage</name>
+    <filename>structcore_1_1NamedExtraDamage.html</filename>
+    <member kind="variable">
+      <type>Dice</type>
+      <name>dice</name>
+      <anchorfile>structcore_1_1NamedExtraDamage.html</anchorfile>
+      <anchor>a43319f17ac6095bc3b0dfacd9614b035</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>oncePerTurn</name>
+      <anchorfile>structcore_1_1NamedExtraDamage.html</anchorfile>
+      <anchor>a54ffadc4bba42b29efd7a85d295f92be</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>capacityId</name>
+      <anchorfile>structcore_1_1NamedExtraDamage.html</anchorfile>
+      <anchor>af63e77661a931e413d2178679c50248c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1NamedExtraDamage.html</anchorfile>
+      <anchor>a047c9859c6828ac76dfea341f70f4c45</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::NamedResistance</name>
+    <filename>structcore_1_1NamedResistance.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; DamageType &gt;</type>
+      <name>type</name>
+      <anchorfile>structcore_1_1NamedResistance.html</anchorfile>
+      <anchor>afcbce3bb74d3a92be4f43c41cf989911</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1NamedResistance.html</anchorfile>
+      <anchor>acbc4ddf2ab50daed750c4aca7ff30d59</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::NamedTrait</name>
     <filename>structcore_1_1NamedTrait.html</filename>
     <member kind="variable">
@@ -36329,6 +36978,34 @@
       <anchor>a23270e0ac3ca8992ea7d917861fe08ee</anchor>
       <arglist>(int level) const</arglist>
     </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isProficientWithWeapon</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>a369a9194042cb0c4431ab569dc56b65a</anchor>
+      <arglist>(std::string_view weaponId, std::string_view category) const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isProficientWithArmor</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>a4e113c9135c5ef694ae72444e15f638b</anchor>
+      <arglist>(std::string_view category) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>cantripsAt</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>ac53a711edde2026bcbca288313c41ac6</anchor>
+      <arglist>(int level) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>spellsAt</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>a421ec3e10e26a934159d9dd6423b38dc</anchor>
+      <arglist>(int level) const</arglist>
+    </member>
     <member kind="variable">
       <type>std::string</type>
       <name>id</name>
@@ -36369,6 +37046,34 @@
       <name>savingThrowProficiencies</name>
       <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
       <anchor>a9aa247a6c21364de033b3690386320ab</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>armorProficiencies</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>a0b25b621fd3f880ae3c116cf08050d66</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>weaponProficiencies</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>afe36f8f4eea596d988f07a3b028734c2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>SkillChoices</type>
+      <name>skillChoices</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>afd26331865f0ea3465afeb695e17df47</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Spellcasting &gt;</type>
+      <name>spellcasting</name>
+      <anchorfile>structcore_1_1PlayableClass.html</anchorfile>
+      <anchor>ade9b32b308daaeeb131a3b9d0d7cfe95</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -37749,6 +38454,13 @@
       <name>amount</name>
       <anchorfile>structcore_1_1RolledDamage.html</anchorfile>
       <anchor>a8265903511e3c2b66382578c78c9a0e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1RolledDamage.html</anchorfile>
+      <anchor>ade7a0a636c67cc207d7d0421e839d98b</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -39531,6 +40243,24 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::SkillChoices</name>
+    <filename>structcore_1_1SkillChoices.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>count</name>
+      <anchorfile>structcore_1_1SkillChoices.html</anchorfile>
+      <anchor>a0ddfee61e592919eeb20ed5f00bde4fd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>from</name>
+      <anchorfile>structcore_1_1SkillChoices.html</anchorfile>
+      <anchor>adb0e915ec8d699ccf777ab751fe1afea</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::SkillDefinition</name>
     <filename>structcore_1_1SkillDefinition.html</filename>
     <member kind="variable">
@@ -39661,6 +40391,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>weaponProficiencies</name>
+      <anchorfile>structcore_1_1Species.html</anchorfile>
+      <anchor>a924b2e1101b9f2b76e94a8deb98a7ca1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; NamedTrait &gt;</type>
       <name>traits</name>
       <anchorfile>structcore_1_1Species.html</anchorfile>
@@ -39672,6 +40409,186 @@
       <name>requiredMechanisms</name>
       <anchorfile>structcore_1_1Species.html</anchorfile>
       <anchor>a4ab4a90ee00916567663a6c456bb1d7d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::Spell</name>
+    <filename>structcore_1_1Spell.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a301a7c0b55d9cc325db6f654d8a884f4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>abc3884df103905e989a4ca8cfd8ab79e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a1458886ef3e77c68405df00dce8f73ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>level</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>ac591cec33e25d61ded0eeebd3de0bb5b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>school</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>aa72c1a6dd6299f5cdcfceeaca02a7d1f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>castingTime</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>accb5a9e4d026c5dfe029fdeb0c6e953c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>range</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a10fb3d3a50f43b92d15b6b48b99e8d46</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>rangeMeters</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a13a40e4ebf6de96e790c55cebfd00088</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>duration</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a1c143734f093e83c92c175690139f0e8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>concentration</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>aecd3c5fc345925c9ecd86ad5b65a6b31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>ritual</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a72fc45028d262c6abacce401e30ff917</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>attackRoll</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a0ce39b883f1a89efd5d5fbfae2f78133</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Dice &gt;</type>
+      <name>damage</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>aef19780c81f39eaceba166b293aa34db</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; DamageType &gt;</type>
+      <name>damageType</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a0020691c9ee8a8f71deaf9fe6b63900f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; Ability &gt;</type>
+      <name>savingThrow</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a2ea5964597cc155ee0e7394182bee591</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>appliesCondition</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>ad55875726fd50b55f539ed252c50845e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>text</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a56ecbd7a015e9e599a1e5b3169369595</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>narrative</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>aee9bf5871734fa238f5f15bc584400c2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>requiredMechanisms</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>af487b886ad6d013d9375994e51a01024</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::Spellcasting</name>
+    <filename>structcore_1_1Spellcasting.html</filename>
+    <member kind="variable">
+      <type>Ability</type>
+      <name>ability</name>
+      <anchorfile>structcore_1_1Spellcasting.html</anchorfile>
+      <anchor>a168e0f295ad83b4704911f2f4678aed5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>castsPerDay</name>
+      <anchorfile>structcore_1_1Spellcasting.html</anchorfile>
+      <anchor>a63c420a6bcd5159d960683b40b8f1dab</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::SpellCatalog</name>
+    <filename>structcore_1_1SpellCatalog.html</filename>
+    <member kind="function">
+      <type>const Spell *</type>
+      <name>find</name>
+      <anchorfile>structcore_1_1SpellCatalog.html</anchorfile>
+      <anchor>a79941b4e0800fc7c1f7059a8f92a521e</anchor>
+      <arglist>(std::string_view id) const</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Spell &gt;</type>
+      <name>spells</name>
+      <anchorfile>structcore_1_1SpellCatalog.html</anchorfile>
+      <anchor>a18d402a04ee75aa252db176800ca03a8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structcore_1_1SpellCatalog.html</anchorfile>
+      <anchor>af9312bf521dba39fc04ffaf14a9f6db2</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41068,6 +41985,31 @@
       <name>marker</name>
       <anchorfile>structcore_1_1TurnSlot.html</anchorfile>
       <anchor>aa6480ef1c8406b9a165817753ece9d18</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::UnarmoredArmorClass</name>
+    <filename>structcore_1_1UnarmoredArmorClass.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>armorClass</name>
+      <anchorfile>structcore_1_1UnarmoredArmorClass.html</anchorfile>
+      <anchor>ab86960e91a60a2ce63059cd5cf8946ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>shieldAllowed</name>
+      <anchorfile>structcore_1_1UnarmoredArmorClass.html</anchorfile>
+      <anchor>ada16958017ea9ef2d29b433b504c4769</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1UnarmoredArmorClass.html</anchorfile>
+      <anchor>aad8ac75794b7fbbf49edbd35037fe753</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44583,6 +45525,7 @@
     <class kind="class">core::ActionEconomy</class>
     <class kind="struct">core::AreaOfEffect</class>
     <class kind="struct">core::ArenaEntryPoint</class>
+    <class kind="struct">core::ArenaSpell</class>
     <class kind="struct">core::ArenaContestant</class>
     <class kind="struct">core::ArenaBout</class>
     <class kind="struct">core::ArenaMount</class>
@@ -44592,6 +45535,7 @@
     <class kind="struct">core::AttackProfile</class>
     <class kind="struct">core::CreatureAttacks</class>
     <class kind="struct">core::AttackCircumstances</class>
+    <class kind="struct">core::BonusDamage</class>
     <class kind="struct">core::AttackRoll</class>
     <class kind="class">core::AttackHooks</class>
     <class kind="struct">core::AttackOutcome</class>
@@ -44726,11 +45670,14 @@
     <class kind="struct">core::Species</class>
     <class kind="struct">core::Background</class>
     <class kind="struct">core::ClassLevel</class>
+    <class kind="struct">core::SkillChoices</class>
+    <class kind="struct">core::Spellcasting</class>
     <class kind="struct">core::PlayableClass</class>
     <class kind="struct">core::CharacterOptions</class>
     <class kind="struct">core::ExperienceLevel</class>
     <class kind="struct">core::ExperienceTable</class>
     <class kind="struct">core::CharacterCreationRules</class>
+    <class kind="struct">core::KnownSpell</class>
     <class kind="struct">core::CharacterSheet</class>
     <class kind="struct">core::LevelUpResult</class>
     <class kind="struct">core::LoadedCharacterSheet</class>
@@ -44739,6 +45686,12 @@
     <class kind="struct">core::CheckResult</class>
     <class kind="struct">core::DifficultyTier</class>
     <class kind="struct">core::DifficultyScale</class>
+    <class kind="struct">core::CapacityEffect</class>
+    <class kind="struct">core::Capacity</class>
+    <class kind="struct">core::CapacityCatalog</class>
+    <class kind="struct">core::UnarmoredArmorClass</class>
+    <class kind="struct">core::NamedResistance</class>
+    <class kind="struct">core::NamedExtraDamage</class>
     <class kind="struct">core::DialogueChoice</class>
     <class kind="struct">core::DialogueAction</class>
     <class kind="struct">core::DialogueNode</class>
@@ -44767,6 +45720,8 @@
     <class kind="struct">core::DerivedStats</class>
     <class kind="struct">core::SkillDefinition</class>
     <class kind="struct">core::SkillCatalog</class>
+    <class kind="struct">core::Spell</class>
+    <class kind="struct">core::SpellCatalog</class>
     <class kind="class">core::FixedTimestep</class>
     <class kind="struct">core::RegionAppraisal</class>
     <class kind="struct">core::RegionStatistic</class>
@@ -44900,6 +45855,8 @@
       <enumvalue file="namespacecore.html" anchor="ac011cdb67f4c31ececbaaceeace4cbeda62da737bbf89f486e90024dc099e2bc4">TotalCover</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71">InvalidTarget</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac011cdb67f4c31ececbaaceeace4cbedafd717fc56e019faf5bdeb3429d6eb17d">NoAttack</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ac011cdb67f4c31ececbaaceeace4cbeda608f236a0fe9b2d3e8e409556b7b7571">NoSpell</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ac011cdb67f4c31ececbaaceeace4cbedaa1a698ed9bd0897ab0578ac2114397ff">Exhausted</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -44930,6 +45887,7 @@
       <enumvalue file="namespacecore.html" anchor="ac7bf6427f29bbba33973526a5896c20da07adb1b4dc71b2f13f0ab3ec94c64e6d">BeforeRoll</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac7bf6427f29bbba33973526a5896c20da66c4c4d61a9bb3202d84d9750ce1d929">DiceRolled</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ac7bf6427f29bbba33973526a5896c20da9bda4b2b935d4e3fa053e22ca4078390">BeforeOutcome</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ac7bf6427f29bbba33973526a5896c20daebfe5e1791db03c4cd6ab95801e0977d">Hit</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -45306,6 +46264,20 @@
       <enumvalue file="namespacecore.html" anchor="aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">Normal</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1">Advantage</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004">Disadvantage</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>CapacityEffectKind</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aca154ea380a8647bf0cff5b10e5043d4</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a024d7a2554a540559d2a2db537090311">AttackBonus</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4aa5a5d7ffde0bfd0823f6f0a56f288de3">ArmorClassBonus</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a03d2b5864ac8fdb5b162248164c67e1e">UnarmoredArmorClass</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4afa94e687e1b0e405c7a59e14e89e0f92">DamageResistance</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4ad8d3f13bfff77989e373ba72671b49a0">SpeedBonus</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494">NoOpportunityAttacks</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222">ExtraDamage</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -45699,6 +46671,13 @@
       <arglist>(const Level &amp;level)</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; ArenaSpell &gt;</type>
+      <name>arenaSpellsFor</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a7195d9f7d6b4f5e48eb604871553d6f9</anchor>
+      <arglist>(const CharacterSheet &amp;sheet, const PlayableClass &amp;playableClass, const SpellCatalog &amp;spells, int proficiencyBonus, std::vector&lt; std::string &gt; &amp;skipped)</arglist>
+    </member>
+    <member kind="function">
       <type>CreatureAttacks</type>
       <name>attacksFor</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -45711,6 +46690,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a1881c42c8483587a6baa65c336a230c2</anchor>
       <arglist>(const CharacterSheet &amp;sheet, const Weapon *weapon, int proficiencyBonus, bool proficient=true)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; AttackProfile &gt;</type>
+      <name>spellAttackFor</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a871311984840c7991c36bb370786fe1e</anchor>
+      <arglist>(const CharacterSheet &amp;sheet, const Spell &amp;spell, Ability ability, int proficiencyBonus)</arglist>
     </member>
     <member kind="function">
       <type>std::optional&lt; AttackProfile &gt;</type>
@@ -46833,6 +47819,13 @@
       <arglist>(const std::filesystem::path &amp;directory)</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; Capacity &gt;</type>
+      <name>resolveCapacities</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac411b086610f587d24878e0e19bda9ba</anchor>
+      <arglist>(const PlayableClass &amp;playableClass, int level, const CapacityCatalog &amp;catalog, std::vector&lt; std::string &gt; &amp;missing)</arglist>
+    </member>
+    <member kind="function">
       <type>int</type>
       <name>abilityScoreWith</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -46845,6 +47838,20 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a36cbf1bb7067b2cd672cfc8de2727737</anchor>
       <arglist>(const std::filesystem::path &amp;speciesDir, const std::filesystem::path &amp;backgroundsDir, const std::filesystem::path &amp;classesDir)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterOptions</type>
+      <name>loadCharacterOptions</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aed7bc909c8bb9ce81e8e3912a4d1bbb0</anchor>
+      <arglist>(const std::filesystem::path &amp;speciesDir, const std::filesystem::path &amp;backgroundsDir, const std::filesystem::path &amp;classesDir, const std::filesystem::path &amp;capacitiesDir, const std::filesystem::path &amp;spellsDir)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterOptions</type>
+      <name>loadCharacterOptions</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a7e360d1fc3d6cfa59799ca34acd6c947</anchor>
+      <arglist>(const std::filesystem::path &amp;rpgRoot)</arglist>
     </member>
     <member kind="function">
       <type>CharacterCreationRules</type>
@@ -46866,6 +47873,34 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a79d320ec991d82d7cb18080669d551a5</anchor>
       <arglist>(const std::filesystem::path &amp;path, const CharacterOptions &amp;options, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isProficientWith</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0ae5e9d1a2103328d580bdb08b2f2910</anchor>
+      <arglist>(const CharacterSheet &amp;sheet, const Weapon &amp;weapon)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyClassFeatures</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a4c49590a655f74dbc20468dbee0fa733</anchor>
+      <arglist>(CharacterSheet &amp;sheet, const PlayableClass &amp;playableClass, const CharacterOptions &amp;options, const CharacterCreationRules &amp;rules, std::vector&lt; std::string &gt; &amp;missing)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>longRest</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>acc56dba7c8697d70382843a7c746d64c</anchor>
+      <arglist>(CharacterSheet &amp;sheet)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>spendSpellUse</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a81a033471d0e316c917988c797973280</anchor>
+      <arglist>(CharacterSheet &amp;sheet, std::string_view spellId)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -46936,6 +47971,76 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>ac2a445eb023b8dc4823076b19427e5c9</anchor>
       <arglist>(int advantageSources, int disadvantageSources) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string_view</type>
+      <name>capacityEffectKindName</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3235cc106d9492f43e24d7593b67d05c</anchor>
+      <arglist>(CapacityEffectKind kind) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; CapacityEffectKind &gt;</type>
+      <name>parseCapacityEffectKind</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ae0755f388125c49ac870c7c200408d73</anchor>
+      <arglist>(std::string_view name) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>CapacityCatalog</type>
+      <name>loadCapacities</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aca1d5d78b10262dd8f03fe147538fadc</anchor>
+      <arglist>(const std::filesystem::path &amp;capacitiesDir)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; Modifier &gt;</type>
+      <name>attackModifiersFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac259fe700c12fc636273eb6187929bb8</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>armorClassBonusFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a21cca096401f6439cd02d46ad8a3c029</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; UnarmoredArmorClass &gt;</type>
+      <name>unarmoredArmorClassFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1ff741e02d883d50fdbc8c06842fcf50</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities, std::span&lt; const int, 6 &gt; abilityScores)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>speedBonusFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aa68f689a14531b2d2a3f6a657a326a04</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; std::string &gt;</type>
+      <name>opportunityImmunityFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a32806685aea7bbe69d5d2ca3247ef35e</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; NamedResistance &gt;</type>
+      <name>resistancesFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac63dea10e931ba6a0767ad265963e421</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; NamedExtraDamage &gt;</type>
+      <name>extraDamageFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a7e2bf23d4453ec8ed43d4830a4416827</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -47223,6 +48328,20 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a42f5d87d7c735cf39527f76c7dda44da</anchor>
       <arglist>(const std::filesystem::path &amp;directory)</arglist>
+    </member>
+    <member kind="function">
+      <type>SpellCatalog</type>
+      <name>loadSpells</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>af48cbccac960ef036b33c5e543a990cd</anchor>
+      <arglist>(const std::filesystem::path &amp;spellsDir)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isAttackSpell</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>acda21c95fdff4cecac87781e5ea4cbce</anchor>
+      <arglist>(const Spell &amp;spell) noexcept</arglist>
     </member>
     <member kind="function">
       <type>std::string_view</type>
@@ -51853,6 +52972,7 @@
     <file>test_arena.cpp</file>
     <file>test_attack.cpp</file>
     <file>test_battle_grid.cpp</file>
+    <file>test_class_in_arena.cpp</file>
     <file>test_combat_preview.cpp</file>
     <file>test_combat_state.cpp</file>
     <file>test_damage.cpp</file>
@@ -52514,6 +53634,8 @@
     <file>CharacterSheet.h</file>
     <file>Check.cpp</file>
     <file>Check.h</file>
+    <file>ClassCapacities.cpp</file>
+    <file>ClassCapacities.h</file>
     <file>Dialogue.cpp</file>
     <file>Dialogue.h</file>
     <file>Dice.cpp</file>
@@ -52530,6 +53652,8 @@
     <file>Scale.h</file>
     <file>Skill.cpp</file>
     <file>Skill.h</file>
+    <file>Spell.cpp</file>
+    <file>Spell.h</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg</name>
@@ -52539,6 +53663,7 @@
     <file>test_character_options.cpp</file>
     <file>test_character_sheet.cpp</file>
     <file>test_check.cpp</file>
+    <file>test_class_capacities.cpp</file>
     <file>test_dialogue.cpp</file>
     <file>test_dice.cpp</file>
     <file>test_equipment.cpp</file>

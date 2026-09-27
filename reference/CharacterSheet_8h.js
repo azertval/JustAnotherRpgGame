@@ -3,17 +3,22 @@ var CharacterSheet_8h =
     [ "core::ExperienceLevel", "structcore_1_1ExperienceLevel.html", "structcore_1_1ExperienceLevel" ],
     [ "core::ExperienceTable", "structcore_1_1ExperienceTable.html", "structcore_1_1ExperienceTable" ],
     [ "core::CharacterCreationRules", "structcore_1_1CharacterCreationRules.html", "structcore_1_1CharacterCreationRules" ],
+    [ "core::KnownSpell", "structcore_1_1KnownSpell.html", "structcore_1_1KnownSpell" ],
     [ "core::CharacterSheet", "structcore_1_1CharacterSheet.html", "structcore_1_1CharacterSheet" ],
     [ "core::LevelUpResult", "structcore_1_1LevelUpResult.html", "structcore_1_1LevelUpResult" ],
     [ "core::LoadedCharacterSheet", "structcore_1_1LoadedCharacterSheet.html", "structcore_1_1LoadedCharacterSheet" ],
     [ "core::SkillCheckModifier", "structcore_1_1SkillCheckModifier.html", "structcore_1_1SkillCheckModifier" ],
+    [ "core::applyClassFeatures", "namespacecore.html#a4c49590a655f74dbc20468dbee0fa733", null ],
     [ "core::buildCharacterSheet", "namespacecore.html#aeac7b2445b4d3a800b98a777f72461ae", null ],
     [ "core::gainExperience", "namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd", null ],
+    [ "core::isProficientWith", "namespacecore.html#a0ae5e9d1a2103328d580bdb08b2f2910", null ],
     [ "core::loadCharacterCreationRules", "namespacecore.html#aed30bfa90cc61678be84164457f76dab", null ],
     [ "core::loadCharacterSheet", "namespacecore.html#a79d320ec991d82d7cb18080669d551a5", null ],
     [ "core::loadExperienceTable", "namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54", null ],
+    [ "core::longRest", "namespacecore.html#acc56dba7c8697d70382843a7c746d64c", null ],
     [ "core::maximumHitPointsFor", "namespacecore.html#a3e6874c7479b2ef8413b71f72b216e09", null ],
     [ "core::proficiencyBonus", "namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1", null ],
     [ "core::savingThrowModifier", "namespacecore.html#a5f742da51af4901d06af8def76937d57", null ],
-    [ "core::skillModifier", "namespacecore.html#a29026a1c7235970e3f432ac5d08229ad", null ]
+    [ "core::skillModifier", "namespacecore.html#a29026a1c7235970e3f432ac5d08229ad", null ],
+    [ "core::spendSpellUse", "namespacecore.html#a81a033471d0e316c917988c797973280", null ]
 ];
