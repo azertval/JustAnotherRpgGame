@@ -124,6 +124,10 @@ un pied qui descend sous la ligne de sol, et l'outil n'accepte que 192 × 256 ; 
 (1 et 7) à moins de 8 px du bord de sa cellule ; et sa revue manuelle (appuis, alternance, essai en
 jeu) reste à remplir par l'auteur. Rien n'a été régénéré.
 
+**Validé en jeu par l'auteur le 27 septembre 2026** : « en jeu le rendu est bon, on laisse en
+l'état ». Le refus de `check_figure_walk.py` est accepté tel quel pour l'humanoïde : ni reprise des
+images, ni retouche de l'installateur ou de l'outil pour ce lot.
+
 **Les portraits d'attente.** Le groupe du `LOT-138` montre ses quatre membres au HUD, dans l'écran
 Groupe et dans le dialogue ; seul le Brawler avait un visage. Les portraits du Mage, du Priest
 (la version Dorsi, choix de l'auteur) et du Scoundrel, produits par l'atelier du `LOT-136`, sont
@@ -132,7 +136,7 @@ dans la liste `portraits` du manifeste `Characters/` et non dans `npcs`. Le mote
 le mannequin ; leurs bandes, quand elles viendront, les feront passer dans `npcs`. L'installateur,
 le contrôle des assets et la galerie connaissent cette liste.
 
-Restent : la revue de marche de l'auteur (`Planning/quality/`), les mannequins quadrupède et volant.
+Restent : les mannequins quadrupède et volant.
 
 ## Risques et questions ouvertes
 
