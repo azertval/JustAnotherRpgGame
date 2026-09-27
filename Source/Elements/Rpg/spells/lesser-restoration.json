@@ -1,0 +1,21 @@
+{
+  "id": "lesser-restoration",
+  "name": "Restauration inferieure",
+  "source": "phb-fr",
+  "level": 2,
+  "school": "abjuration",
+  "castingTime": "1 action",
+  "range": "contact",
+  "rangeMeters": 1.5,
+  "target": "ally",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "instantanee",
+  "mecanismesRequis": [
+    "etats-en-combat"
+  ],
+  "text": "Manuel des Joueurs, PDF p. 277 (lesser restoration). Met fin a une maladie ou a un etat : aveugle, assourdi, paralyse ou empoisonne. Le combat ne pose pas encore ces etats : le sort attend le LOT-137."
+}

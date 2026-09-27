@@ -135,7 +135,7 @@ jour — et sort en erreur à la première faute.
 
 <!-- DEBUT DES TABLES ENGENDREES : scripts/checks/check_assets_brief.py --write -->
 
-Le cahier compte **82 pièces**, qui engendrent **231 images** (une par état ou par membre).
+Le cahier compte **82 pièces**, qui engendrent **239 images** (une par état ou par membre).
 
 ### Fonds {#lot-87-cahier-background}
 
@@ -512,7 +512,7 @@ Le cahier compte **82 pièces**, qui engendrent **231 images** (une par état ou
 
 ### Icônes {#lot-87-cahier-icon}
 
-15 pièces, 104 images.
+15 pièces, 112 images.
 
 | Clé | Pièce | Production | Tenue | Variantes | Maquettes, zone (x0, y0, x1, y1) | Écrans |
 |---|---|---|---|---|---|---|
@@ -528,7 +528,7 @@ Le cahier compte **82 pièces**, qui engendrent **231 images** (une par état ou
 | `ui/icon/credits-section` | Sections des crédits | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `development`, `art-direction`, `story`, `audio`, `other` | 07 (400, 230, 1260, 640) | T3.3 |
 | `ui/icon/spell-property` | Propriétés d'un sort | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `damage-type`, `range`, `damage`, `casting-time`, `components`, `special-effects` | 10 (1180, 320, 1620, 630) | T3.8 |
 | `ui/icon/capacity` | Capacités de classe | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `tough-as-nails`, `experience`, `hit-the-mark`, `ability-score-improvement`, `extra-attack`, `arcane-protection`, `simplified-spellcasting`, `specific-cantrips` | prolonge `ui/icon/spell-property` | T3.4, T4.1 |
-| `ui/icon/spell` | Sorts | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `fire-bolt`, `light`, `mage-hand`, `detect-magic`, `magic-missile`, `invisibility`, `scorching-ray`, `fireball`, `fly` | prolonge `ui/icon/school` | T3.8, T4.1 |
+| `ui/icon/spell` | Sorts | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `fire-bolt`, `light`, `mage-hand`, `detect-magic`, `magic-missile`, `invisibility`, `scorching-ray`, `fireball`, `fly`, `sacred-flame`, `bless`, `cure-wounds`, `spare-the-dying`, `lesser-restoration`, `spiritual-weapon`, `daylight`, `revivify` | prolonge `ui/icon/school` | T3.8, T4.1 |
 | `ui/icon/resource` | Ressources | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `health`, `experience`, `weight`, `gold` | 03 (575, 540, 1035, 770)<br>04 (565, 770, 1060, 940) | T3.4, T3.5, T3.7 |
 | `ui/icon/company-stat` | Compteurs de l'équipe | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `career-points`, `team-level`, `prestige`, `fame` | 09 (55, 275, 470, 395) | T3.7 |
 
@@ -582,7 +582,7 @@ Le cahier compte **82 pièces**, qui engendrent **231 images** (une par état ou
   *Repli :* `goldLight`.
 - **`ui/icon/spell`** — Les sorts des classes simplifiées (LOT-133, LOT-134) : une icône par sort du catalogue `Rpg/spells/`, l'identifiant du membre étant celui du sort. Elles se posent dans la barre d'actions du combat et dans la liste des sorts. Aucune maquette ne les montre : elles prolongent les médaillons d'école.
   *Prompt propre :* « Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. »
-  *Membres :* `fire-bolt` Trait de feu (« a streaking bolt of fire ») ; `light` Lumière (« a glowing orb of light ») ; `mage-hand` Main du mage (« a spectral floating hand ») ; `detect-magic` Détection de la magie (« an eye inside a ring of small runic sparks ») ; `magic-missile` Projectile magique (« three glowing darts in flight ») ; `invisibility` Invisibilité (« a fading translucent silhouette ») ; `scorching-ray` Rayon ardent (« three parallel rays of fire ») ; `fireball` Boule de feu (« an exploding sphere of fire ») ; `fly` Vol (« a pair of feathered wings »).
+  *Membres :* `fire-bolt` Trait de feu (« a streaking bolt of fire ») ; `light` Lumière (« a glowing orb of light ») ; `mage-hand` Main du mage (« a spectral floating hand ») ; `detect-magic` Détection de la magie (« an eye inside a ring of small runic sparks ») ; `magic-missile` Projectile magique (« three glowing darts in flight ») ; `invisibility` Invisibilité (« a fading translucent silhouette ») ; `scorching-ray` Rayon ardent (« three parallel rays of fire ») ; `fireball` Boule de feu (« an exploding sphere of fire ») ; `fly` Vol (« a pair of feathered wings ») ; `sacred-flame` Flamme sacrée (« a column of radiant golden flame falling from above ») ; `bless` Bénédiction (« a hand raised in blessing under a small radiant halo ») ; `cure-wounds` Soin des blessures (« a glowing heart cradled between two hands ») ; `spare-the-dying` Épargner les mourants (« a small flickering candle flame held in cupped hands ») ; `lesser-restoration` Restauration inférieure (« a radiant drop falling into an open palm ») ; `spiritual-weapon` Arme spirituelle (« a spectral glowing warhammer floating in the air ») ; `daylight` Lumière du jour (« a radiant sun rising above the horizon ») ; `revivify` Revigorer (« a diamond shining above a heart »).
   *Repli :* `gem`, `goldLight`.
 - **`ui/icon/resource`** — Ce que mesurent les jauges et les compteurs.
   *Prompt propre :* « Painted emblem icon with gold and garnet accents, bold silhouette at 32 px, transparent background. »

@@ -37,7 +37,16 @@
       "level": 1,
       "proficiencyBonus": 2,
       "features": [
-        "simplified-spellcasting-specific-cantrips-2"
+        "simplified-spellcasting",
+        "specific-cantrips"
+      ],
+      "cantrips": [
+        "light",
+        "sacred-flame"
+      ],
+      "spells": [
+        "bless",
+        "cure-wounds"
       ]
     },
     {
@@ -51,7 +60,15 @@
       "level": 3,
       "proficiencyBonus": 2,
       "features": [
-        "simplified-spellcasting-new-spells-specific-cantrips-3"
+        "simplified-spellcasting",
+        "specific-cantrips"
+      ],
+      "cantrips": [
+        "spare-the-dying"
+      ],
+      "spells": [
+        "lesser-restoration",
+        "spiritual-weapon"
       ]
     },
     {
@@ -65,7 +82,11 @@
       "level": 5,
       "proficiencyBonus": 3,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "daylight",
+        "revivify"
       ]
     },
     {
@@ -79,7 +100,11 @@
       "level": 7,
       "proficiencyBonus": 3,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "banishment",
+        "freedom-of-movement"
       ]
     },
     {
@@ -93,21 +118,30 @@
       "level": 9,
       "proficiencyBonus": 4,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "greater-restoration",
+        "mass-cure-wounds"
       ]
     },
     {
       "level": 10,
       "proficiencyBonus": 4,
       "features": [
-        "experience-holy-shield"
+        "experience",
+        "holy-shield"
       ]
     },
     {
       "level": 11,
       "proficiencyBonus": 4,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "harm",
+        "heal"
       ]
     },
     {
@@ -121,7 +155,10 @@
       "level": 13,
       "proficiencyBonus": 5,
       "features": [
-        "simplified-spellcasting-new-spell"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "fire-storm"
       ]
     },
     {
@@ -135,7 +172,10 @@
       "level": 15,
       "proficiencyBonus": 5,
       "features": [
-        "simplified-spellcasting-new-spell"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "sunburst"
       ]
     },
     {
@@ -149,7 +189,10 @@
       "level": 17,
       "proficiencyBonus": 6,
       "features": [
-        "simplified-spellcasting-new-spell"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "true-resurrection"
       ]
     },
     {

@@ -172,12 +172,22 @@ AttackProfile spellProfileFor(const CharacterSheet& sheet, const Spell& spell, A
     profil.range =
         porteeDe(spell.rangeMeters > 0.0F ? std::optional<float>(spell.rangeMeters) : std::nullopt,
                  std::nullopt);
+    if (spell.meleeAttack) {
+        // Une attaque de sort au corps a corps (l'arme spirituelle, LOT-134) : la portee du sort
+        // sert d'allonge, et le contact n'impose pas le desavantage du tir.
+        profil.kind = AttackKind::Melee;
+        profil.reach = profil.range.has_value() ? profil.range->normal : 1;
+        profil.range.reset();
+    }
     if (spell.attackRoll) {
         profil.modifiers.push_back(
             {.source = std::string(abilityLabel(ability)), .value = sheet.modifier(ability)});
         profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
     }
-    const std::optional<Dice> des = spellDamageAt(spell, sheet.level);
+    std::optional<Dice> des = spellDamageAt(spell, sheet.level);
+    if (des.has_value() && spell.addsAbilityModifier) {
+        des->modifier += sheet.modifier(ability);
+    }
     if (des.has_value() && spell.damageType.has_value()) {
         profil.damage.push_back({.dice = *des,
                                  .type = *spell.damageType,

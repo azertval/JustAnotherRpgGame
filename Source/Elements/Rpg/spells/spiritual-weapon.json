@@ -1,0 +1,27 @@
+{
+  "id": "spiritual-weapon",
+  "name": "Arme spirituelle",
+  "source": "phb-fr",
+  "level": 2,
+  "school": "evocation",
+  "castingTime": "1 action bonus",
+  "range": "18 metres",
+  "rangeMeters": 18,
+  "bonusAction": true,
+  "attackRoll": true,
+  "attackKind": "melee",
+  "addsAbilityModifier": true,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "1 minute",
+  "damage": "1d8",
+  "damageType": "force",
+  "effect": {
+    "kind": "spiritual-weapon",
+    "durationRounds": 10
+  },
+  "text": "Manuel des Joueurs, PDF p. 217 (spiritual weapon). Par une action bonus, une arme spectrale apparait a portee et fait une attaque de sort au corps a corps : 1d8 + le modificateur d'incantation de degats de force. Pendant une minute, une action bonus a chaque tour la fait frapper de nouveau, sans nouveau lancer. Le moteur la fait frapper une creature a portee du lanceur, sans la deplacer case par case."
+}

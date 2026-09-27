@@ -65,13 +65,13 @@
       "files": 1
     },
     {
-      "id": "UI@3",
+      "id": "UI@4",
       "path": "UI",
       "release": "assets-ui",
-      "asset": "ui-3.zip",
-      "sha256": "120584f09baed07ad75a164c291a021f403013428a7c4274a29697297efa507e",
-      "bytes": 11440114,
-      "files": 231
+      "asset": "ui-4.zip",
+      "sha256": "8f3f11edaebe34fcf91509f89bee780f7bec843e2c5e5ebef9149a6e4bbcc125",
+      "bytes": 11653625,
+      "files": 239
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "id": "daylight",
+  "name": "Lumiere du jour",
+  "source": "phb-fr",
+  "level": 3,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "18 metres",
+  "rangeMeters": 18,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "1 heure",
+  "narratif": true,
+  "text": "Manuel des Joueurs, PDF p. 257 (daylight). Une sphere de 18 metres de lumiere vive, qui dissipe les tenebres d'un sort de niveau 3 ou moins. Sans effet en combat tant que la lumiere et les sens ne sont pas joues."
+}

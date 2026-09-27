@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-134 — Classe Priest.** Le Priest du *Player's Guide to Tanares* (p. 200-203) se joue du
+  niveau 1 au niveau 5. Sa table est reprise niveau par niveau jusqu'au 20, et neuf sorts entrent
+  au catalogue d'après le *Manuel des Joueurs*. *Flamme sacrée* réemploie la sauvegarde du Mage
+  (une réussite annule, 2d8 au niveau 5). Le moteur gagne le **soin** (*soin des blessures* :
+  1d8 + Sag à un allié au contact, qui se relève s'il était à terre), l'effet posé sur **trois
+  alliés** (*bénédiction* : un d4 nommé à chaque jet d'attaque et de sauvegarde, dix rounds), le
+  sort d'**action bonus** et l'attaque de sort **au corps à corps** (*arme spirituelle*, qui
+  frappe de nouveau à chaque tour sans dépenser de lancer). *Épargner les mourants*,
+  *restauration inférieure* et *revigorer* attendent le `LOT-137` et le déclarent. Les icônes des
+  huit sorts nouveaux sont générées et publiées dans le kit `UI@4`. Tests : `test_class_priest.cpp`.
 - **LOT-133 — Classe Mage.** Le Mage du *Player's Guide to Tanares* (p. 196-199) se joue du
   niveau 1 au niveau 5. Sa table est reprise niveau par niveau jusqu'au 20, sorts mineurs et sorts
   compris ; *Arcane Protection* (CA 13 + Dex) donne 15 à la fiche de la page 199 au niveau 2.

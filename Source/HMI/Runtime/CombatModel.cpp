@@ -36,6 +36,8 @@ struct TurnActionEntry {
     QString label;
     /// Faux pour un sort épuisé (`LOT-131`) : proposé grisé, jamais joué.
     bool available = true;
+    /// Un sort d'action bonus (`LOT-134`) : il demande l'action bonus, pas l'action.
+    bool bonusAction = false;
 };
 
 // Les actions du combattant `active` : ses attaques, ses sorts, puis les actions du Manuel, puis
@@ -60,7 +62,13 @@ struct TurnActionEntry {
                      spell.uses < 0
                          ? CombatModel::tr("Sort : %1").arg(toQt(spell.name))
                          : CombatModel::tr("Sort : %1 (%2)").arg(toQt(spell.name)).arg(spell.uses),
-                 .available = spell.available()});
+                 // L'arme spirituelle invoquee frappe sans lancer (LOT-134) : elle reste
+                 // proposee, lancers epuises ou non.
+                 .available = spell.available() ||
+                              (spell.effect.has_value() &&
+                               spell.effect->kind == core::SpellEffectKind::SpiritualWeapon &&
+                               session.hasEffect(active, core::SpellEffectKind::SpiritualWeapon)),
+                 .bonusAction = spell.bonusAction});
         }
     }
     entries.push_back(
@@ -420,11 +428,15 @@ QVariantList CombatModel::turnActions() const {
     // restent proposees, et elles seules.
     const bool extraAttack =
         combatant != nullptr && combatant->economy.remaining(core::EXTRA_ATTACK_RESOURCE) > 0;
+    const bool bonusAction =
+        combatant != nullptr && combatant->economy.remaining(core::BONUS_ACTION_RESOURCE) > 0;
     const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
     for (std::size_t i = 0; i < entries.size(); ++i) {
         const bool needsAction = entries[i].kind != TurnActionKind::REACTION;
         const bool affordable =
-            action || (extraAttack && entries[i].kind == TurnActionKind::ATTACK);
+            entries[i].bonusAction
+                ? bonusAction
+                : action || (extraAttack && entries[i].kind == TurnActionKind::ATTACK);
         list << QVariantMap{{"label", entries[i].label},
                             {"kind", kindName(entries[i].kind)},
                             {"enabled", (!needsAction || affordable) && entries[i].available},

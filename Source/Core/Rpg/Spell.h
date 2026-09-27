@@ -55,6 +55,12 @@ enum class SpellEffectKind : std::uint8_t {
     /// La créature est invisible : attaquée avec désavantage, elle attaque avec avantage ; l'effet
     /// cesse quand elle attaque ou lance un sort (*invisibilité*).
     Invisible,
+    /// La créature ajoute des dés à ses jets d'attaque et de sauvegarde (*bénédiction*,
+    /// `LOT-134`).
+    Bless,
+    /// Une arme invoquée par le lanceur : tant qu'elle dure, relancer le sort la fait frapper
+    /// sans dépenser de lancer (*arme spirituelle*, `LOT-134`).
+    SpiritualWeapon,
 };
 
 /// @brief Nom de donnée d'un genre d'effet de sort (`fly`…), celui du schéma.
@@ -65,6 +71,8 @@ struct SpellEffect {
     SpellEffectKind kind = SpellEffectKind::Fly;
     /// `Fly` : la vitesse de vol, en mètres.
     float meters = 0.0F;
+    /// `Bless` : les dés ajoutés aux jets.
+    std::optional<Dice> dice;
     /// La durée en rounds ; 0 : tout le combat (une minute en fait dix, une heure dépasse
     /// toujours un combat).
     int durationRounds = 0;
@@ -95,6 +103,16 @@ struct Spell {
     /// Vrai pour un sort mineur dont les dés montent aux niveaux 5, 11 et 17 du lanceur (Manuel,
     /// « Tours de magie »).
     bool cantripScaling = false;
+    /// Une attaque de sort **au corps à corps** (*arme spirituelle*) : la portée sert d'allonge.
+    bool meleeAttack = false;
+    /// Le modificateur d'incantation s'ajoute aux dégâts ou au soin.
+    bool addsAbilityModifier = false;
+    /// Les dés de soin (*soin des blessures*, `LOT-134`).
+    std::optional<Dice> healing;
+    /// Le sort se lance par une action bonus.
+    bool bonusAction = false;
+    /// Les créatures qu'un sort qui aide peut viser (*bénédiction* : 3).
+    int maxTargets = 1;
     /// Ce qu'une sauvegarde réussie fait des dégâts.
     SaveEffect saveEffect = SaveEffect::Negates;
     /// Le rayon de la **sphère** que le sort remplit, en mètres ; 0 : une seule cible.
@@ -145,8 +163,10 @@ enum class SpellMechanism : std::uint8_t {
     AutoHit,
     /// Un jet de sauvegarde de chaque cible, sur une créature ou dans une sphère (*boule de feu*).
     SavingThrow,
-    /// Un effet qui dure, posé sur une créature (*vol*, *invisibilité*).
+    /// Un effet qui dure, posé sur une créature (*vol*, *invisibilité*, *bénédiction*).
     Effect,
+    /// Des points de vie rendus à une créature de son camp (*soin des blessures*, `LOT-134`).
+    Healing,
 };
 
 /**
