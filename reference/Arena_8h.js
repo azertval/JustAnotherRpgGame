@@ -25,5 +25,6 @@ var Arena_8h =
     [ "core::ARENA_ENTRY_ENTITY_TYPE", "namespacecore.html#a93cf3e3bbcfd17745d5f4084773b1a4a", null ],
     [ "core::ARENA_RANK_PROPERTY", "namespacecore.html#a6bb32367b37b63b19cbbcb5d0aeabd31", null ],
     [ "core::ARENA_SIDE_PROPERTY", "namespacecore.html#ad0cadfeea4d0cb712df6feb11ff12b9d", null ],
+    [ "core::EXTRA_ATTACK_RESOURCE", "namespacecore.html#ad91bd699bf17897bb00fa9a3aff948bd", null ],
     [ "core::HEROIC_ACTION_RESOURCE", "namespacecore.html#a57610a36d1b314407ef0f951ddd53bb1", null ]
 ];

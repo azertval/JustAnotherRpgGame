@@ -489,6 +489,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une résistance nommée : le type, et la capacité qui la donne.  <a href="structcore_1_1NamedResistance.html#details">More...</a><br /></td></tr>
 <tr class="memitem:NamedExtraDamage" id="r_NamedExtraDamage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1NamedExtraDamage.html">NamedExtraDamage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des dés de dégâts en plus, nommés, et leur cadence.  <a href="structcore_1_1NamedExtraDamage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:NamedExtraAttacks" id="r_NamedExtraAttacks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1NamedExtraAttacks.html">NamedExtraAttacks</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des attaques en plus à l'action <em>Attaquer</em>, et la capacité qui les donne.  <a href="structcore_1_1NamedExtraAttacks.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DialogueChoice" id="r_DialogueChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DialogueChoice.html">DialogueChoice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une réponse proposée au joueur.  <a href="structcore_1_1DialogueChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DialogueAction" id="r_DialogueAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DialogueAction.html">DialogueAction</a></td></tr>
@@ -951,6 +953,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4ad8d3f13bfff77989e373ba72671b49a0">SpeedBonus</a>
 , <a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494">NoOpportunityAttacks</a>
 , <a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222">ExtraDamage</a>
+, <a class="el" href="#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999">ExtraAttack</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aca154ea380a8647bf0cff5b10e5043d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les genres d'effet que le moteur sait jouer. Un genre inconnu de la donnée est refusé.  <a href="#aca154ea380a8647bf0cff5b10e5043d4">More...</a><br /></td></tr>
@@ -1624,6 +1627,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac63dea10e931ba6a0767ad265963e421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les résistances que les capacités donnent, chacune à son nom.  <br /></td></tr>
 <tr class="memitem:a7e2bf23d4453ec8ed43d4830a4416827" id="r_a7e2bf23d4453ec8ed43d4830a4416827"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1NamedExtraDamage.html">NamedExtraDamage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7e2bf23d4453ec8ed43d4830a4416827">extraDamageFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
 <tr class="memdesc:a7e2bf23d4453ec8ed43d4830a4416827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés que les capacités ajoutent à une attaque qui touche.  <br /></td></tr>
+<tr class="memitem:a1a557b01a82486a5916806e2a276bb57" id="r_a1a557b01a82486a5916806e2a276bb57"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1NamedExtraAttacks.html">NamedExtraAttacks</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1a557b01a82486a5916806e2a276bb57">extraAttacksFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
+<tr class="memdesc:a1a557b01a82486a5916806e2a276bb57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques que les capacités ajoutent à l'action <em>Attaquer</em> (<span class="tt">LOT-132</span>).  <br /></td></tr>
 <tr class="memitem:a347e7bf6ba1e8cb5d99a494c8c90411f" id="r_a347e7bf6ba1e8cb5d99a494c8c90411f"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a347e7bf6ba1e8cb5d99a494c8c90411f">dialogueSpeakerKey</a> (std::string_view dialogueId)</td></tr>
 <tr class="memdesc:a347e7bf6ba1e8cb5d99a494c8c90411f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">dialogue.&lt;dialogue&gt;.speaker</span> — le nom de l'interlocuteur.  <br /></td></tr>
 <tr class="memitem:ae9f2a47a81336a2d0f7a526b0f585608" id="r_ae9f2a47a81336a2d0f7a526b0f585608"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae9f2a47a81336a2d0f7a526b0f585608">dialogueLineKey</a> (std::string_view dialogueId, std::string_view nodeId)</td></tr>
@@ -1811,6 +1816,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a6bb32367b37b63b19cbbcb5d0aeabd31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'un point d'entrée : son rang dans l'ordre d'appel.  <br /></td></tr>
 <tr class="memitem:a57610a36d1b314407ef0f951ddd53bb1" id="r_a57610a36d1b314407ef0f951ddd53bb1"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a57610a36d1b314407ef0f951ddd53bb1">HEROIC_ACTION_RESOURCE</a> = &quot;heroicAction&quot;</td></tr>
 <tr class="memdesc:a57610a36d1b314407ef0f951ddd53bb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>troisième économie d'action</b> des Marques Héroïques (§4bis) : une ressource déclarée à <span class="tt"><a class="el" href="classcore_1_1ActionEconomy.html" title="L&#39;économie d&#39;action d&#39;un combattant : une liste de ressources, pas trois booléens.">core::ActionEconomy</a></span>, que le rituel de l'arène accorde à chaque combattant marqué.  <br /></td></tr>
+<tr class="memitem:ad91bd699bf17897bb00fa9a3aff948bd" id="r_ad91bd699bf17897bb00fa9a3aff948bd"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ad91bd699bf17897bb00fa9a3aff948bd">EXTRA_ATTACK_RESOURCE</a> = &quot;extraAttack&quot;</td></tr>
+<tr class="memdesc:ad91bd699bf17897bb00fa9a3aff948bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques qui restent de l'action <em>Attaquer</em> déjà prise (<em>Extra Attack</em>, <span class="tt">LOT-132</span>) : un octroi de <span class="tt"><a class="el" href="classcore_1_1ActionEconomy.html" title="L&#39;économie d&#39;action d&#39;un combattant : une liste de ressources, pas trois booléens.">core::ActionEconomy</a></span>, que le début du prochain tour efface.  <br /></td></tr>
 <tr class="memitem:ad5a54565b7750c164a8b959b31ec3018" id="r_ad5a54565b7750c164a8b959b31ec3018"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ad5a54565b7750c164a8b959b31ec3018">DIFFICULT_TERRAIN_PROPERTY</a> = &quot;difficultTerrain&quot;</td></tr>
 <tr class="memdesc:ad5a54565b7750c164a8b959b31ec3018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de la propriété de zone qui rend une case difficile (<span class="tt">EX-LVL-018</span>).  <br /></td></tr>
 <tr class="memitem:a19abfcf45c52011124208e7201c3663a" id="r_a19abfcf45c52011124208e7201c3663a"><td class="memItemLeft">constexpr std::int64_t&#160;</td><td class="memItemRight"><a class="el" href="#a19abfcf45c52011124208e7201c3663a">IMMUNITY_DAY_SECONDS</a> = 24 * 60 * 60</td></tr>
@@ -2082,7 +2089,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> </div>
 <div class="line">std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">ArenaSession</a>&amp;, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover)&gt;</div>
-<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:224</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:228</div></div>
 <div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
 </div><!-- fragment -->
 <p>Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre. </p>
@@ -2382,6 +2389,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494" name="aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494"></a>NoOpportunityAttacks&#160;</td><td class="fielddoc"><p>Les déplacements ne provoquent pas d'attaque d'opportunité. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222" name="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222"></a>ExtraDamage&#160;</td><td class="fielddoc"><p>Des dés ajoutés aux dégâts d'une attaque qui touche, du type de l'arme (<em>Sneak Attack</em>, <em>Deadly</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999" name="aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999"></a>ExtraAttack&#160;</td><td class="fielddoc"><p>Des attaques en plus quand le personnage prend l'action <em>Attaquer</em> (<em>Extra Attack</em>, <span class="tt">LOT-132</span>). </p>
 </td></tr>
 </table>
 
@@ -7636,6 +7645,34 @@ Déterministe, et c'est le point</h2>
 
 <p>L'espérance de dégâts d'une attaque, en <b>huit-centièmes</b> de point de dégât. </p>
 <p><span class="tt">chance × dégâts moyens + chance de critique × moyenne des dés</span>, les dégâts moyens en demi-points pour rester entier. Les résistances de la cible n'y entrent pas : la table ne les connaît pas avant de les avoir vues jouer (<span class="tt">EX-CBT-050</span>). </p>
+
+</div>
+</div>
+<a id="a1a557b01a82486a5916806e2a276bb57" name="a1a557b01a82486a5916806e2a276bb57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a557b01a82486a5916806e2a276bb57">&#9670;&#160;</a></span>extraAttacksFrom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1NamedExtraAttacks.html">NamedExtraAttacks</a> &gt; core::extraAttacksFrom </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>capacities</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les attaques que les capacités ajoutent à l'action <em>Attaquer</em> (<span class="tt">LOT-132</span>). </p>
+<p>Deux capacités qui en donnent ne s'additionnent pas : la plus généreuse seule compte, comme le Manuel le dit des attaques supplémentaires de deux classes. <span class="tt">std::nullopt</span> si aucune n'en donne. </p>
 
 </div>
 </div>
@@ -14544,6 +14581,31 @@ Les places</h2>
 </div><div class="memdoc">
 
 <p>Nombre d'emplacements, pour dimensionner les tableaux qui les indexent. </p>
+
+</div>
+</div>
+<a id="ad91bd699bf17897bb00fa9a3aff948bd" name="ad91bd699bf17897bb00fa9a3aff948bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad91bd699bf17897bb00fa9a3aff948bd">&#9670;&#160;</a></span>EXTRA_ATTACK_RESOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::EXTRA_ATTACK_RESOURCE = &quot;extraAttack&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les attaques qui restent de l'action <em>Attaquer</em> déjà prise (<em>Extra Attack</em>, <span class="tt">LOT-132</span>) : un octroi de <span class="tt"><a class="el" href="classcore_1_1ActionEconomy.html" title="L&#39;économie d&#39;action d&#39;un combattant : une liste de ressources, pas trois booléens.">core::ActionEconomy</a></span>, que le début du prochain tour efface. </p>
+<p>Elles ne servent qu'à attaquer — ni sort, ni esquive, ni précipitation. </p>
 
 </div>
 </div>

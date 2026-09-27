@@ -1747,6 +1747,7 @@
     <class kind="struct">core::UnarmoredArmorClass</class>
     <class kind="struct">core::NamedResistance</class>
     <class kind="struct">core::NamedExtraDamage</class>
+    <class kind="struct">core::NamedExtraAttacks</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -5722,6 +5723,22 @@
     <filename>QmlTestSetup_8cpp.html</filename>
   </compound>
   <compound kind="file">
+    <name>ClassArena.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/</path>
+    <filename>ClassArena_8h.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <includes id="CombatState_8h" name="CombatState.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatState.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
+    <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
+    <class kind="struct">test_support::RpgCatalogs</class>
+    <namespace>test_support</namespace>
+  </compound>
+  <compound kind="file">
     <name>CrtReports.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/</path>
     <filename>CrtReports_8cpp.html</filename>
@@ -6067,6 +6084,71 @@
       <anchorfile>test__battle__grid_8cpp.html</anchorfile>
       <anchor>a4f0fea8f594a170d9f1a3168e1193772</anchor>
       <arglist>(BattleGridTest, UnObjetDeGrilleBloqueEtSeDetruit)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_class_brawler.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__class__brawler_8cpp.html</filename>
+    <includes id="ActionEconomy_8h" name="ActionEconomy.h" local="yes" import="no" module="no" objc="no">Core/Combat/ActionEconomy.h</includes>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
+    <includes id="ClassArena_8h" name="ClassArena.h" local="yes" import="no" module="no" objc="no">Test/Support/ClassArena.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a01085e51e6d6fbd1e22d7f11d1d5e929</anchor>
+      <arglist>(ClassBrawlerTest, LaFichePreTireePorteToughAsNails)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a68e29cdd9dce407d009fa7e141b6929f</anchor>
+      <arglist>(ClassBrawlerTest, ToughAsNailsDonneSaCaSansArmure)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>adafd75ab8b0dbbbbc736bc8563d1b645</anchor>
+      <arglist>(ClassBrawlerTest, ToughAsNailsDiviseLesDegatsEtSeNomme)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a5155dd535b0d02257b052972b2be89b9</anchor>
+      <arglist>(ClassBrawlerTest, HitTheMarkAjouteDeuxAuJet)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a99d8029e496cb0490f3eb58b1db6dd14</anchor>
+      <arglist>(ClassBrawlerTest, ExtraAttackDonneDeuxAttaquesParAction)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a2daf3ef9ec20cb742fb978aab7db939d</anchor>
+      <arglist>(ClassBrawlerTest, ExtraAttackNeSuitQueLActionAttaquer)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a9c1d0d83c1a34c9f13d085a64bd361a9</anchor>
+      <arglist>(ClassBrawlerTest, DuNiveau1AuNiveau5LaTableSeLit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__brawler_8cpp.html</anchorfile>
+      <anchor>a9652a3a798488770a1a2429f59d10309</anchor>
+      <arglist>(ClassBrawlerTest, UneAttaqueEnPlusNulleEstRefusee)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -35690,6 +35772,24 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::NamedExtraAttacks</name>
+    <filename>structcore_1_1NamedExtraAttacks.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>count</name>
+      <anchorfile>structcore_1_1NamedExtraAttacks.html</anchorfile>
+      <anchor>a642e2cfc8d2cc0ecf485a1192b7b5d15</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1NamedExtraAttacks.html</anchorfile>
+      <anchor>a9c2ad2f077b15c6e9d7f51aee9f735e2</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::NamedExtraDamage</name>
     <filename>structcore_1_1NamedExtraDamage.html</filename>
     <member kind="variable">
@@ -38486,6 +38586,59 @@
       <name>INDICE_ABSENT</name>
       <anchorfile>structcore_1_1RpgActor.html</anchorfile>
       <anchor>a3a81c94ba800d4e6c931b4032dbd05f9</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>test_support::RpgCatalogs</name>
+    <filename>structtest__support_1_1RpgCatalogs.html</filename>
+    <member kind="function">
+      <type>core::ItemLookup</type>
+      <name>lookup</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>a8641a29e95f68cbb18f461d2e11a7ae9</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CharacterOptions</type>
+      <name>options</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>ac3c694caaffbd3ecd4b3b5c5f09c356f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::ExperienceTable</type>
+      <name>experience</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>a10059798148d523428adea890fb7718e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CharacterCreationRules</type>
+      <name>rules</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>a0ef9908ed6676e6bb4ac2c0c465ddf72</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::EquipmentCatalog</type>
+      <name>equipment</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>a6da83473562db6375ab45302ce662a51</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::ItemCatalog</type>
+      <name>items</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>ae05da1d4c6bb1e1b21dcd3c56a7e5082</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::EncumbranceRules</type>
+      <name>encumbrance</name>
+      <anchorfile>structtest__support_1_1RpgCatalogs.html</anchorfile>
+      <anchor>aa01201acf91fd26aae5e3c5a3c754edc</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -45692,6 +45845,7 @@
     <class kind="struct">core::UnarmoredArmorClass</class>
     <class kind="struct">core::NamedResistance</class>
     <class kind="struct">core::NamedExtraDamage</class>
+    <class kind="struct">core::NamedExtraAttacks</class>
     <class kind="struct">core::DialogueChoice</class>
     <class kind="struct">core::DialogueAction</class>
     <class kind="struct">core::DialogueNode</class>
@@ -46278,6 +46432,7 @@
       <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4ad8d3f13bfff77989e373ba72671b49a0">SpeedBonus</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494">NoOpportunityAttacks</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222">ExtraDamage</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999">ExtraAttack</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -48043,6 +48198,13 @@
       <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
     </member>
     <member kind="function">
+      <type>std::optional&lt; NamedExtraAttacks &gt;</type>
+      <name>extraAttacksFrom</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1a557b01a82486a5916806e2a276bb57</anchor>
+      <arglist>(std::span&lt; const Capacity &gt; capacities)</arglist>
+    </member>
+    <member kind="function">
       <type>std::string</type>
       <name>dialogueSpeakerKey</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -48726,6 +48888,13 @@
       <name>HEROIC_ACTION_RESOURCE</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a57610a36d1b314407ef0f951ddd53bb1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>EXTRA_ATTACK_RESOURCE</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ad91bd699bf17897bb00fa9a3aff948bd</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -52856,6 +53025,91 @@
   <compound kind="namespace">
     <name>test_support</name>
     <filename>namespacetest__support.html</filename>
+    <class kind="struct">test_support::RpgCatalogs</class>
+    <member kind="function">
+      <type>const RpgCatalogs &amp;</type>
+      <name>rpgCatalogs</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a4b8fddb258ef46b1d2072abc96a4546f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>core::LoadedCharacterSheet</type>
+      <name>loadPremade</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>af8f92215cc650440558303e170fc166c</anchor>
+      <arglist>(const char *file)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>levelUpTo</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>ad151ee551dbd223f479dea930b0d74d8</anchor>
+      <arglist>(core::CharacterSheet &amp;sheet, int level)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>capacityIds</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a7db1b77e8c9387a205240e0452092ca9</anchor>
+      <arglist>(const core::CharacterSheet &amp;sheet)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>armorClassOf</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a2e49c80f502f2d3da085b84a343b0628</anchor>
+      <arglist>(const core::CharacterSheet &amp;sheet, const core::Inventory &amp;inventory)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::Level</type>
+      <name>room</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a0ae161a0aacb9ce0e34833e3a2979f8e</anchor>
+      <arglist>(int columns=12, int rows=8)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::AttackProfile</type>
+      <name>weaponAttack</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>abd238978ce6bf3d3cf55fc6ec6014cf7</anchor>
+      <arglist>(const core::CharacterSheet &amp;sheet, const char *weaponId)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::ArenaContestant</type>
+      <name>hero</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a0ec49d76b8158fbea427cbb8a0947e12</anchor>
+      <arglist>(const core::CharacterSheet &amp;sheet, const core::Inventory &amp;inventory, std::vector&lt; core::AttackProfile &gt; attacks, core::GridPosition place, core::CombatSide side=core::CombatSide::Allies, int initiative=100)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::ArenaContestant</type>
+      <name>dummy</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a0fc2435a4198544b8a8c83314f35b912</anchor>
+      <arglist>(const char *name, core::GridPosition place, int armorClass, int bonus, int hitPoints=60, core::CombatSide side=core::CombatSide::Enemies)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>journalHas</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>aa48229aba7330ce33396668934fd08ed</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>journalLine</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a596e2b3706d58e46a4db1d02bb00d248</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>journalCount</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a72cb6f5136d3475ef6c7dca2fcd22ebe</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</arglist>
+    </member>
     <member kind="function">
       <type>nlohmann::json</type>
       <name>readHdMockupJson</name>
@@ -52972,6 +53226,7 @@
     <file>test_arena.cpp</file>
     <file>test_attack.cpp</file>
     <file>test_battle_grid.cpp</file>
+    <file>test_class_brawler.cpp</file>
     <file>test_class_in_arena.cpp</file>
     <file>test_combat_preview.cpp</file>
     <file>test_combat_state.cpp</file>
@@ -53747,6 +54002,7 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/</path>
     <filename>dir_78aafe4118443ed4a6fae9c8d163dfdb.html</filename>
+    <file>ClassArena.h</file>
     <file>CrtReports.cpp</file>
     <file>HdMockupScene.h</file>
   </compound>

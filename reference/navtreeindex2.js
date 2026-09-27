@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"OptionsModel_8h.html":[4,0,0,6,7,29],
+"OptionsModel_8h_source.html":[4,0,0,6,7,29],
 "PaintTools_8cpp.html":[4,0,0,3,0,51],
 "PaintTools_8h.html":[4,0,0,3,0,52],
 "PaintTools_8h_source.html":[4,0,0,3,0,52],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "bench__world__frame_8cpp.html#ad0d3b5774fb8c382e0e4d94d6c75e59f":[4,0,0,1,4,5],
 "bench__world__frame_8cpp.html#ada8b50b45f0698318eb18cb0bd61d101":[4,0,0,1,4,8],
 "bench__world__frame_8cpp.html#aea4326faf156bdd0b728a2ddd3589810":[4,0,0,1,4,9],
-"bench__world__frame_8cpp.html#aec1781d523904ebfdf259570ce0e028d":[4,0,0,1,4,7],
-"bench__world__frame_8cpp.html#afe1140a0a4ed0f780fd594b3bee73304":[4,0,0,1,4,0],
-"classcore_1_1ActionEconomy.html":[2,0,1,1]
+"bench__world__frame_8cpp.html#aec1781d523904ebfdf259570ce0e028d":[4,0,0,1,4,7]
 };

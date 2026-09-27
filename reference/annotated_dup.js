@@ -172,6 +172,7 @@ var annotated_dup =
       [ "UnarmoredArmorClass", "structcore_1_1UnarmoredArmorClass.html", "structcore_1_1UnarmoredArmorClass" ],
       [ "NamedResistance", "structcore_1_1NamedResistance.html", "structcore_1_1NamedResistance" ],
       [ "NamedExtraDamage", "structcore_1_1NamedExtraDamage.html", "structcore_1_1NamedExtraDamage" ],
+      [ "NamedExtraAttacks", "structcore_1_1NamedExtraAttacks.html", "structcore_1_1NamedExtraAttacks" ],
       [ "DialogueChoice", "structcore_1_1DialogueChoice.html", "structcore_1_1DialogueChoice" ],
       [ "DialogueAction", "structcore_1_1DialogueAction.html", "structcore_1_1DialogueAction" ],
       [ "DialogueNode", "structcore_1_1DialogueNode.html", "structcore_1_1DialogueNode" ],
@@ -453,5 +454,8 @@ var annotated_dup =
       [ "WorldMapModel", "classhmi_1_1WorldMapModel.html", "classhmi_1_1WorldMapModel" ],
       [ "WorldModel", "classhmi_1_1WorldModel.html", "classhmi_1_1WorldModel" ],
       [ "WorldViewportItem", "classhmi_1_1WorldViewportItem.html", "classhmi_1_1WorldViewportItem" ]
+    ] ],
+    [ "test_support", "namespacetest__support.html", [
+      [ "RpgCatalogs", "structtest__support_1_1RpgCatalogs.html", "structtest__support_1_1RpgCatalogs" ]
     ] ]
 ];

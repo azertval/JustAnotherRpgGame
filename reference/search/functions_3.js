@@ -92,5 +92,6 @@ var searchData=
   ['drawsbefore_89',['drawsBefore',['../classhmi_1_1ComposedScene.html#a2229b70b3e44321b67cf7fc736732990',1,'hmi::ComposedScene']]],
   ['dropfrombackpack_90',['dropFromBackpack',['../namespacehmi.html#a750d910df13135536b34892bf61ff32e',1,'hmi']]],
   ['dropselected_91',['dropSelected',['../classhmi_1_1InventoryModel.html#afe4073a9bd332076c099f1556852107a',1,'hmi::InventoryModel']]],
-  ['duplicate_92',['duplicate',['../classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968',1,'hmi::LevelFileOperations']]]
+  ['dummy_92',['dummy',['../namespacetest__support.html#a0fc2435a4198544b8a8c83314f35b912',1,'test_support']]],
+  ['duplicate_93',['duplicate',['../classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968',1,'hmi::LevelFileOperations']]]
 ];

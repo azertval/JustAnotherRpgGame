@@ -1,0 +1,439 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/ClassArena.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ClassArena_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ClassArena.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="ClassArena_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="Arena_8h.html">Core/Combat/Arena.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="Attack_8h.html">Core/Combat/Attack.h</a>&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &quot;<a class="code" href="CombatState_8h.html">Core/Combat/CombatState.h</a>&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="Level_8h.html">Core/Levels/Level.h</a>&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="TileMap_8h.html">Core/Levels/TileMap.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &quot;<a class="code" href="CharacterOptions_8h.html">Core/Rpg/CharacterOptions.h</a>&quot;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="CharacterSheet_8h.html">Core/Rpg/CharacterSheet.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="Equipment_8h.html">Core/Rpg/Equipment.h</a>&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &quot;<a class="code" href="Inventory_8h.html">Core/Rpg/Inventory.h</a>&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacetest__support.html">   34</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacetest__support.html">test_support</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html">   37</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">   38</a></span>    <a class="code hl_struct" href="structcore_1_1CharacterOptions.html">core::CharacterOptions</a> <a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">   39</a></span>    <a class="code hl_struct" href="structcore_1_1ExperienceTable.html">core::ExperienceTable</a> <a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">   40</a></span>    <a class="code hl_struct" href="structcore_1_1CharacterCreationRules.html">core::CharacterCreationRules</a> <a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">rules</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51">   41</a></span>    <a class="code hl_struct" href="structcore_1_1EquipmentCatalog.html">core::EquipmentCatalog</a> <a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51">equipment</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#ae05da1d4c6bb1e1b21dcd3c56a7e5082">   42</a></span>    <a class="code hl_struct" href="structcore_1_1ItemCatalog.html">core::ItemCatalog</a> <a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ae05da1d4c6bb1e1b21dcd3c56a7e5082">items</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#aa01201acf91fd26aae5e3c5a3c754edc">   43</a></span>    <a class="code hl_struct" href="structcore_1_1EncumbranceRules.html">core::EncumbranceRules</a> <a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#aa01201acf91fd26aae5e3c5a3c754edc">encumbrance</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structtest__support_1_1RpgCatalogs.html#a8641a29e95f68cbb18f461d2e11a7ae9">   46</a></span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1ItemLookup.html">core::ItemLookup</a> <a class="code hl_function" href="structtest__support_1_1RpgCatalogs.html#a8641a29e95f68cbb18f461d2e11a7ae9">lookup</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> {.items = &amp;<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ae05da1d4c6bb1e1b21dcd3c56a7e5082">items</a>, .equipment = &amp;<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51">equipment</a>};</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">   52</a></span><span class="keyword">inline</span> <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a>&amp; <a class="code hl_function" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a>() {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> catalogs = [] {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">const</span> std::filesystem::path rpg{JADG_RPG_DIR};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> read;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        read.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a> = <a class="code hl_function" href="namespacecore.html#a36cbf1bb7067b2cd672cfc8de2727737">core::loadCharacterOptions</a>(rpg);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        read.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a> = <a class="code hl_function" href="namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54">core::loadExperienceTable</a>(rpg / <span class="stringliteral">&quot;rules&quot;</span> / <span class="stringliteral">&quot;experience.json&quot;</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        read.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">rules</a> = <a class="code hl_function" href="namespacecore.html#aed30bfa90cc61678be84164457f76dab">core::loadCharacterCreationRules</a>(rpg / <span class="stringliteral">&quot;rules&quot;</span> / <span class="stringliteral">&quot;character-creation.json&quot;</span>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        read.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51">equipment</a> = <a class="code hl_function" href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c">core::loadEquipment</a>(rpg / <span class="stringliteral">&quot;weapons&quot;</span>, rpg / <span class="stringliteral">&quot;armors&quot;</span>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        read.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ae05da1d4c6bb1e1b21dcd3c56a7e5082">items</a> = <a class="code hl_function" href="namespacecore.html#a00edce76b901663b3187437ecea2da10">core::loadItems</a>(rpg / <span class="stringliteral">&quot;items&quot;</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        read.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#aa01201acf91fd26aae5e3c5a3c754edc">encumbrance</a> = <a class="code hl_function" href="namespacecore.html#a6784f5e1367401de1a0d7d087d7c16a4">core::loadEncumbranceRules</a>(rpg / <span class="stringliteral">&quot;rules&quot;</span> / <span class="stringliteral">&quot;encumbrance.json&quot;</span>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> read;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">return</span> catalogs;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="namespacetest__support.html#af8f92215cc650440558303e170fc166c">   68</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a> <a class="code hl_function" href="namespacetest__support.html#af8f92215cc650440558303e170fc166c">loadPremade</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* file) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a>&amp; catalogs = <a class="code hl_function" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacecore.html#a79d320ec991d82d7cb18080669d551a5">core::loadCharacterSheet</a>(std::filesystem::path{JADG_RPG_DIR} / <span class="stringliteral">&quot;characters&quot;</span> / file,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                                    catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a>, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">rules</a>, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="namespacetest__support.html#ad151ee551dbd223f479dea930b0d74d8">   79</a></span><span class="keyword">inline</span> std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacetest__support.html#ad151ee551dbd223f479dea930b0d74d8">levelUpTo</a>(<a class="code hl_struct" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a>&amp; sheet, <span class="keywordtype">int</span> level) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a>&amp; catalogs = <a class="code hl_function" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a>();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    std::vector&lt;std::string&gt; missing;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1PlayableClass.html">core::PlayableClass</a>* playableClass = catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a>.<a class="code hl_function" href="structcore_1_1CharacterOptions.html#a6212c2f969f990ebb074ab2a1154699e">findClass</a>(sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">classId</a>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (playableClass == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        missing.push_back(sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">classId</a>);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> missing;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> threshold = catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>.<a class="code hl_function" href="structcore_1_1ExperienceTable.html#a42de4fb45c3c88b1e45174f3bce840ac">thresholdAt</a>(level);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (threshold &gt; sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70">experiencePoints</a>) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_function" href="namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd">core::gainExperience</a>(sheet, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>, playableClass-&gt;<a class="code hl_variable" href="structcore_1_1PlayableClass.html#a9f2304ce7895d59e0793f29cb3644a24">hitDie</a>,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                             threshold - sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70">experiencePoints</a>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="namespacecore.html#a4c49590a655f74dbc20468dbee0fa733">core::applyClassFeatures</a>(sheet, *playableClass, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a>, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">rules</a>, missing);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">return</span> missing;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a7db1b77e8c9387a205240e0452092ca9">   97</a></span><span class="keyword">inline</span> std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacetest__support.html#a7db1b77e8c9387a205240e0452092ca9">capacityIds</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a>&amp; sheet) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    std::vector&lt;std::string&gt; ids;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Capacity.html">core::Capacity</a>&amp; capacity : sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#aa5a1776b3a2ce412608eddc65195ab75">capacities</a>) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        ids.push_back(capacity.<a class="code hl_variable" href="structcore_1_1Capacity.html#ab45d3d6a3d6d143ecd7581debfaae008">id</a>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> ids;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a2e49c80f502f2d3da085b84a343b0628">  106</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="namespacetest__support.html#a2e49c80f502f2d3da085b84a343b0628">armorClassOf</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a>&amp; sheet, <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Inventory.html">core::Inventory</a>&amp; inventory) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a>&amp; catalogs = <a class="code hl_function" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a>();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1">core::derivedStatsFor</a>(sheet, inventory, catalogs.<a class="code hl_function" href="structtest__support_1_1RpgCatalogs.html#a8641a29e95f68cbb18f461d2e11a7ae9">lookup</a>(), catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">rules</a>,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                                 catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#aa01201acf91fd26aae5e3c5a3c754edc">encumbrance</a>)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        .<a class="code hl_variable" href="structcore_1_1DerivedStats.html#abdbaa82fa4aa60cbc2ab3fa591c4999d">armorClass</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span></div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a0ae161a0aacb9ce0e34833e3a2979f8e">  114</a></span><span class="keyword">inline</span> <a class="code hl_class" href="classcore_1_1Level.html">core::Level</a> <a class="code hl_function" href="namespacetest__support.html#a0ae161a0aacb9ce0e34833e3a2979f8e">room</a>(<span class="keywordtype">int</span> columns = 12, <span class="keywordtype">int</span> rows = 8) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="classcore_1_1Level.html">core::Level</a>(<a class="code hl_struct" href="structcore_1_1LevelData.html">core::LevelData</a>{</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        .name = <span class="stringliteral">&quot;salle&quot;</span>, .tileMap = <a class="code hl_class" href="classcore_1_1TileMap.html">core::TileMap</a>(columns, rows), .entities = {}, .entry = {1, 1}});</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
+<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="namespacetest__support.html#abd238978ce6bf3d3cf55fc6ec6014cf7">  120</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structcore_1_1AttackProfile.html">core::AttackProfile</a> <a class="code hl_function" href="namespacetest__support.html#abd238978ce6bf3d3cf55fc6ec6014cf7">weaponAttack</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a>&amp; sheet, <span class="keyword">const</span> <span class="keywordtype">char</span>* weaponId) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a>&amp; catalogs = <a class="code hl_function" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Weapon.html">core::Weapon</a>* weapon = catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51">equipment</a>.<a class="code hl_function" href="structcore_1_1EquipmentCatalog.html#ae874026fe924676ed53031720e26ddf9">findWeapon</a>(weaponId);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">if</span> (weapon == <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacecore.html#a1881c42c8483587a6baa65c336a230c2">core::weaponAttackFor</a>(sheet, <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                                     <a class="code hl_function" href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">core::proficiencyBonus</a>(sheet, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>));</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespacecore.html#a1881c42c8483587a6baa65c336a230c2">core::weaponAttackFor</a>(sheet, weapon, <a class="code hl_function" href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">core::proficiencyBonus</a>(sheet, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>),</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                                 <a class="code hl_function" href="namespacecore.html#a0ae5e9d1a2103328d580bdb08b2f2910">core::isProficientWith</a>(sheet, *weapon));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span></div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a0ec49d76b8158fbea427cbb8a0947e12">  137</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a> <a class="code hl_function" href="namespacetest__support.html#a0ec49d76b8158fbea427cbb8a0947e12">hero</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a>&amp; sheet,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                  <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Inventory.html">core::Inventory</a>&amp; inventory,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                  std::vector&lt;core::AttackProfile&gt; attacks,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                                  <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> place,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                                  <a class="code hl_enumeration" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side = <a class="code hl_enumvalue" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                                  <span class="keywordtype">int</span> initiative = 100) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a>&amp; catalogs = <a class="code hl_function" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a>();</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <a class="code hl_struct" href="structcore_1_1CombatantProfile.html">core::CombatantProfile</a> profile = <a class="code hl_function" href="namespacecore.html#a781adb33ce539ef59c9ed60f57e51901">core::profileFor</a>(sheet, side);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    profile.<a class="code hl_variable" href="structcore_1_1CombatantProfile.html#ada5d2d10aab3c03e3eeb1c997d5d14a8">armorClass</a> = <a class="code hl_function" href="namespacetest__support.html#a2e49c80f502f2d3da085b84a343b0628">armorClassOf</a>(sheet, inventory);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    profile.<a class="code hl_variable" href="structcore_1_1CombatantProfile.html#a8d35e824ec15edee5f629c40fbcd086b">initiativeModifier</a> = initiative;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    std::vector&lt;core::ArenaSpell&gt; spells;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">if</span> (<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1PlayableClass.html">core::PlayableClass</a>* playableClass = catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a>.<a class="code hl_function" href="structcore_1_1CharacterOptions.html#a6212c2f969f990ebb074ab2a1154699e">findClass</a>(sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">classId</a>)) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        std::vector&lt;std::string&gt; skipped;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        spells = <a class="code hl_function" href="namespacecore.html#a7195d9f7d6b4f5e48eb604871553d6f9">core::arenaSpellsFor</a>(sheet, *playableClass, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">options</a>.<a class="code hl_variable" href="structcore_1_1CharacterOptions.html#a577dc52f3df4364a62a3e73a2b1c6f03">spells</a>,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                                      <a class="code hl_function" href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">core::proficiencyBonus</a>(sheet, catalogs.<a class="code hl_variable" href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">experience</a>), skipped);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">return</span> {.profile = std::move(profile),</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            .attacks = std::move(attacks),</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            .position = place,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            .markId = {},</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            .behavior = {},</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            .capacities = sheet.<a class="code hl_variable" href="structcore_1_1CharacterSheet.html#aa5a1776b3a2ce412608eddc65195ab75">capacities</a>,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            .spells = std::move(spells)};</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
+</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span></div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a0fc2435a4198544b8a8c83314f35b912">  166</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a> <a class="code hl_function" href="namespacetest__support.html#a0fc2435a4198544b8a8c83314f35b912">dummy</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> place, <span class="keywordtype">int</span> armorClass,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                                   <span class="keywordtype">int</span> bonus, <span class="keywordtype">int</span> hitPoints = 60,</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                                   <a class="code hl_enumeration" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side = <a class="code hl_enumvalue" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a>) {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <a class="code hl_struct" href="structcore_1_1CombatantProfile.html">core::CombatantProfile</a> profile{.name = name,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                                   .side = side,</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                                   .maximumHitPoints = hitPoints,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                                   .currentHitPoints = hitPoints,</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                                   .dexterity = 10,</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                                   .initiativeModifier = -100,</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                                   .movement = 6};</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    profile.<a class="code hl_variable" href="structcore_1_1CombatantProfile.html#ada5d2d10aab3c03e3eeb1c997d5d14a8">armorClass</a> = armorClass;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_struct" href="structcore_1_1AttackProfile.html">core::AttackProfile</a> blow;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    blow.<a class="code hl_variable" href="structcore_1_1AttackProfile.html#a1ed3183401fc9084336c86726f11babf">label</a> = <span class="stringliteral">&quot;Cimeterre&quot;</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    blow.<a class="code hl_variable" href="structcore_1_1AttackProfile.html#adf9b7bddec260ed8a064e0574d8fd71e">modifiers</a> = {{.source = <span class="stringliteral">&quot;bonus d&#39;attaque&quot;</span>, .value = bonus}};</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    blow.<a class="code hl_variable" href="structcore_1_1AttackProfile.html#ab3db8d1b3f2e69e95aeb55f50fb46050">damage</a> = {</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        {.dice = *<a class="code hl_function" href="namespacecore.html#a76e3cf52c7e664a785fc4cabad9e571a">core::parseDice</a>(<span class="stringliteral">&quot;1d6+2&quot;</span>), .type = <a class="code hl_enumvalue" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a">core::DamageType::Slashing</a>, .flags = 0}};</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">return</span> {.profile = profile, .attacks = {blow}, .position = place, .markId = {}, .behavior = {}};</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
+</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span></div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="namespacetest__support.html#aa48229aba7330ce33396668934fd08ed">  186</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacetest__support.html#aa48229aba7330ce33396668934fd08ed">journalHas</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; journal, <span class="keyword">const</span> std::string&amp; text) {</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">return</span> std::ranges::any_of(</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        journal, [&amp;](<span class="keyword">const</span> std::string&amp; line) { <span class="keywordflow">return</span> line.find(text) != std::string::npos; });</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
+</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span></div>
+<div class="foldopen" id="foldopen00192" data-start="{" data-end="}">
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a596e2b3706d58e46a4db1d02bb00d248">  192</a></span><span class="keyword">inline</span> std::string <a class="code hl_function" href="namespacetest__support.html#a596e2b3706d58e46a4db1d02bb00d248">journalLine</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; journal, <span class="keyword">const</span> std::string&amp; text) {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keyword">const</span> <span class="keyword">auto</span> found = std::ranges::find_if(</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        journal, [&amp;](<span class="keyword">const</span> std::string&amp; line) { <span class="keywordflow">return</span> line.find(text) != std::string::npos; });</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">return</span> found == journal.end() ? std::string{} : *found;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>}</div>
+</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span></div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="namespacetest__support.html#a72cb6f5136d3475ef6c7dca2fcd22ebe">  199</a></span><span class="keyword">inline</span> std::size_t <a class="code hl_function" href="namespacetest__support.html#a72cb6f5136d3475ef6c7dca2fcd22ebe">journalCount</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; journal, <span class="keyword">const</span> std::string&amp; text) {</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(std::ranges::count_if(</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        journal, [&amp;](<span class="keyword">const</span> std::string&amp; line) { <span class="keywordflow">return</span> line.find(text) != std::string::npos; }));</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
+</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>}  <span class="comment">// namespace test_support</span></div>
+</div>
+<div class="ttc" id="aArena_8h_html"><div class="ttname"><a href="Arena_8h.html">Arena.h</a></div><div class="ttdoc">Le Colisée : un affrontement qui se monte, se joue et se rejoue à graine fixée (LOT-50).</div></div>
+<div class="ttc" id="aAttack_8h_html"><div class="ttname"><a href="Attack_8h.html">Attack.h</a></div><div class="ttdoc">L&#39;attaque : un jet de d20 contre la classe d&#39;armure, amendable avant d&#39;être figé, puis les dégâts (LO...</div></div>
+<div class="ttc" id="aCharacterOptions_8h_html"><div class="ttname"><a href="CharacterOptions_8h.html">CharacterOptions.h</a></div><div class="ttdoc">Espèces, historiques et classes : de quoi construire un personnage (LOT-36).</div></div>
+<div class="ttc" id="aCharacterSheet_8h_html"><div class="ttname"><a href="CharacterSheet_8h.html">CharacterSheet.h</a></div><div class="ttdoc">La fiche d&#39;une créature : caractéristiques, PV, CA, niveau, maîtrises (LOT-13).</div></div>
+<div class="ttc" id="aCombatState_8h_html"><div class="ttname"><a href="CombatState_8h.html">CombatState.h</a></div><div class="ttdoc">La machine à états du combat : rounds, tours, crochets et fins (LOT-20, EX-CBT-010,...</div></div>
+<div class="ttc" id="aEquipment_8h_html"><div class="ttname"><a href="Equipment_8h.html">Equipment.h</a></div><div class="ttdoc">Armes, armures et le calcul de la classe d&#39;armure (LOT-34).</div></div>
+<div class="ttc" id="aInventory_8h_html"><div class="ttname"><a href="Inventory_8h.html">Inventory.h</a></div><div class="ttdoc">Objets portés, emplacements d&#39;équipement et statistiques dérivées (LOT-14, EX-INV-020).</div></div>
+<div class="ttc" id="aLevel_8h_html"><div class="ttname"><a href="Level_8h.html">Level.h</a></div><div class="ttdoc">Carte chargée : grille de collision, couches, entités, point d&#39;entrée, variante.</div></div>
+<div class="ttc" id="aTileMap_8h_html"><div class="ttname"><a href="TileMap_8h.html">TileMap.h</a></div><div class="ttdoc">Grille de tuiles typées d&#39;un niveau.</div></div>
+<div class="ttc" id="aclasscore_1_1Level_html"><div class="ttname"><a href="classcore_1_1Level.html">core::Level</a></div><div class="ttdoc">Carte complète en mémoire.</div><div class="ttdef"><b>Definition</b> Level.h:97</div></div>
+<div class="ttc" id="aclasscore_1_1TileMap_html"><div class="ttname"><a href="classcore_1_1TileMap.html">core::TileMap</a></div><div class="ttdoc">Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.</div><div class="ttdef"><b>Definition</b> TileMap.h:25</div></div>
+<div class="ttc" id="anamespacecore_html_a00be15bd9376cf46d81dedf0bc0f7d54"><div class="ttname"><a href="namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54">core::loadExperienceTable</a></div><div class="ttdeci">ExperienceTable loadExperienceTable(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge la table d&#39;expérience depuis Source/Elements/Rpg/rules/experience.json.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:81</div></div>
+<div class="ttc" id="anamespacecore_html_a00edce76b901663b3187437ecea2da10"><div class="ttname"><a href="namespacecore.html#a00edce76b901663b3187437ecea2da10">core::loadItems</a></div><div class="ttdeci">ItemCatalog loadItems(const std::filesystem::path &amp;itemsDir)</div><div class="ttdoc">Charge les objets depuis leur dossier (Rpg/items/).</div><div class="ttdef"><b>Definition</b> Inventory.cpp:88</div></div>
+<div class="ttc" id="anamespacecore_html_a06839f5ee0eea764bdcd5f6b865f194c"><div class="ttname"><a href="namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c">core::loadEquipment</a></div><div class="ttdeci">EquipmentCatalog loadEquipment(const std::filesystem::path &amp;weaponsDir, const std::filesystem::path &amp;armorsDir)</div><div class="ttdoc">Charge les armes et les armures depuis leurs dossiers.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:179</div></div>
+<div class="ttc" id="anamespacecore_html_a0ae5e9d1a2103328d580bdb08b2f2910"><div class="ttname"><a href="namespacecore.html#a0ae5e9d1a2103328d580bdb08b2f2910">core::isProficientWith</a></div><div class="ttdeci">bool isProficientWith(const CharacterSheet &amp;sheet, const Weapon &amp;weapon)</div><div class="ttdoc">Vrai si la fiche maîtrise cette arme : par sa catégorie ou par son identifiant.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:332</div></div>
+<div class="ttc" id="anamespacecore_html_a1881c42c8483587a6baa65c336a230c2"><div class="ttname"><a href="namespacecore.html#a1881c42c8483587a6baa65c336a230c2">core::weaponAttackFor</a></div><div class="ttdeci">AttackProfile weaponAttackFor(const CharacterSheet &amp;sheet, const Weapon *weapon, int proficiencyBonus, bool proficient)</div><div class="ttdoc">L&#39;attaque d&#39;un personnage avec une arme, ou à mains nues si weapon est nul.</div><div class="ttdef"><b>Definition</b> Attack.cpp:120</div></div>
+<div class="ttc" id="anamespacecore_html_a36cbf1bb7067b2cd672cfc8de2727737"><div class="ttname"><a href="namespacecore.html#a36cbf1bb7067b2cd672cfc8de2727737">core::loadCharacterOptions</a></div><div class="ttdeci">CharacterOptions loadCharacterOptions(const std::filesystem::path &amp;speciesDir, const std::filesystem::path &amp;backgroundsDir, const std::filesystem::path &amp;classesDir)</div><div class="ttdoc">Charge les trois catalogues depuis leurs dossiers.</div><div class="ttdef"><b>Definition</b> CharacterOptions.cpp:453</div></div>
+<div class="ttc" id="anamespacecore_html_a4c49590a655f74dbc20468dbee0fa733"><div class="ttname"><a href="namespacecore.html#a4c49590a655f74dbc20468dbee0fa733">core::applyClassFeatures</a></div><div class="ttdeci">void applyClassFeatures(CharacterSheet &amp;sheet, const PlayableClass &amp;playableClass, const CharacterOptions &amp;options, const CharacterCreationRules &amp;rules, std::vector&lt; std::string &gt; &amp;missing)</div><div class="ttdoc">Pose sur la fiche ce que sa classe lui donne à son niveau : capacités actives et sorts connus,...</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:341</div></div>
+<div class="ttc" id="anamespacecore_html_a5de8069e593ab57dab3a12c60b40b717"><div class="ttname"><a href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a></div><div class="ttdeci">CombatSide</div><div class="ttdoc">Le camp d&#39;un combattant.</div><div class="ttdef"><b>Definition</b> TurnOrder.h:29</div></div>
+<div class="ttc" id="anamespacecore_html_a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6"><div class="ttname"><a href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a></div><div class="ttdeci">@ Allies</div><div class="ttdef"><b>Definition</b> TurnOrder.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69"><div class="ttname"><a href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a></div><div class="ttdeci">@ Enemies</div><div class="ttdef"><b>Definition</b> TurnOrder.h:31</div></div>
+<div class="ttc" id="anamespacecore_html_a6784f5e1367401de1a0d7d087d7c16a4"><div class="ttname"><a href="namespacecore.html#a6784f5e1367401de1a0d7d087d7c16a4">core::loadEncumbranceRules</a></div><div class="ttdeci">EncumbranceRules loadEncumbranceRules(const std::filesystem::path &amp;rulesFile)</div><div class="ttdoc">Charge les bornes de charge depuis rules/encumbrance.json.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:129</div></div>
+<div class="ttc" id="anamespacecore_html_a7195d9f7d6b4f5e48eb604871553d6f9"><div class="ttname"><a href="namespacecore.html#a7195d9f7d6b4f5e48eb604871553d6f9">core::arenaSpellsFor</a></div><div class="ttdeci">std::vector&lt; ArenaSpell &gt; arenaSpellsFor(const CharacterSheet &amp;sheet, const PlayableClass &amp;playableClass, const SpellCatalog &amp;spells, int proficiencyBonus, std::vector&lt; std::string &gt; &amp;skipped)</div><div class="ttdoc">Les sorts qu&#39;une fiche sait lancer dans l&#39;arène (LOT-131) : ceux qu&#39;elle connaît (CharacterSheet::kno...</div><div class="ttdef"><b>Definition</b> Arena.cpp:750</div></div>
+<div class="ttc" id="anamespacecore_html_a76e3cf52c7e664a785fc4cabad9e571a"><div class="ttname"><a href="namespacecore.html#a76e3cf52c7e664a785fc4cabad9e571a">core::parseDice</a></div><div class="ttdeci">std::optional&lt; Dice &gt; parseDice(std::string_view notation)</div><div class="ttdoc">Analyse une notation NdF, NdF+M, NdF-M ou une valeur fixe.</div><div class="ttdef"><b>Definition</b> Dice.cpp:56</div></div>
+<div class="ttc" id="anamespacecore_html_a781adb33ce539ef59c9ed60f57e51901"><div class="ttname"><a href="namespacecore.html#a781adb33ce539ef59c9ed60f57e51901">core::profileFor</a></div><div class="ttdeci">CombatantProfile profileFor(const CharacterSheet &amp;sheet, CombatSide side)</div><div class="ttdoc">Le profil d&#39;un personnage : ses points de vie courants, sa Dextérité, sa vitesse.</div><div class="ttdef"><b>Definition</b> CombatState.cpp:38</div></div>
+<div class="ttc" id="anamespacecore_html_a79d320ec991d82d7cb18080669d551a5"><div class="ttname"><a href="namespacecore.html#a79d320ec991d82d7cb18080669d551a5">core::loadCharacterSheet</a></div><div class="ttdeci">LoadedCharacterSheet loadCharacterSheet(const std::filesystem::path &amp;path, const CharacterOptions &amp;options, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table)</div><div class="ttdoc">Charge un personnage depuis son fichier JSON (Source/Elements/Rpg/characters/, schéma character....</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:236</div></div>
+<div class="ttc" id="anamespacecore_html_a7cfff9a8cfc89ebc9d4074d1db13eacd"><div class="ttname"><a href="namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd">core::gainExperience</a></div><div class="ttdeci">LevelUpResult gainExperience(CharacterSheet &amp;sheet, const ExperienceTable &amp;table, int hitDie, int amount)</div><div class="ttdoc">Ajoute des points d&#39;expérience et applique la montée de niveau qui en découle.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:441</div></div>
+<div class="ttc" id="anamespacecore_html_a9a5cbcc72fe725bdada14f1b5a38e3d1"><div class="ttname"><a href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1">core::derivedStatsFor</a></div><div class="ttdeci">DerivedStats derivedStatsFor(const CharacterSheet &amp;sheet, const Inventory &amp;inventory, const ItemLookup &amp;lookup, const CharacterCreationRules &amp;creation, const EncumbranceRules &amp;carrying)</div><div class="ttdoc">Calcule tout ce que l&#39;équipement porté produit, depuis la fiche et les catalogues.</div><div class="ttdef"><b>Definition</b> Inventory.cpp:270</div></div>
+<div class="ttc" id="anamespacecore_html_aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a"><div class="ttname"><a href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a">core::DamageType::Slashing</a></div><div class="ttdeci">@ Slashing</div><div class="ttdef"><b>Definition</b> RpgEnums.h:40</div></div>
+<div class="ttc" id="anamespacecore_html_ab3286191c0a02de9afbc9e711ec799d1"><div class="ttname"><a href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">core::proficiencyBonus</a></div><div class="ttdeci">int proficiencyBonus(const CharacterSheet &amp;sheet, const ExperienceTable &amp;table)</div><div class="ttdoc">Le bonus de maîtrise de la fiche, lu dans la table au niveau courant.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:397</div></div>
+<div class="ttc" id="anamespacecore_html_aed30bfa90cc61678be84164457f76dab"><div class="ttname"><a href="namespacecore.html#aed30bfa90cc61678be84164457f76dab">core::loadCharacterCreationRules</a></div><div class="ttdeci">CharacterCreationRules loadCharacterCreationRules(const std::filesystem::path &amp;path)</div><div class="ttdoc">Charge les constantes depuis Source/Elements/Rpg/rules/character-creation.json.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:27</div></div>
+<div class="ttc" id="anamespacetest__support_html"><div class="ttname"><a href="namespacetest__support.html">test_support</a></div><div class="ttdef"><b>Definition</b> ClassArena.h:34</div></div>
+<div class="ttc" id="anamespacetest__support_html_a0ae161a0aacb9ce0e34833e3a2979f8e"><div class="ttname"><a href="namespacetest__support.html#a0ae161a0aacb9ce0e34833e3a2979f8e">test_support::room</a></div><div class="ttdeci">core::Level room(int columns=12, int rows=8)</div><div class="ttdef"><b>Definition</b> ClassArena.h:114</div></div>
+<div class="ttc" id="anamespacetest__support_html_a0ec49d76b8158fbea427cbb8a0947e12"><div class="ttname"><a href="namespacetest__support.html#a0ec49d76b8158fbea427cbb8a0947e12">test_support::hero</a></div><div class="ttdeci">core::ArenaContestant hero(const core::CharacterSheet &amp;sheet, const core::Inventory &amp;inventory, std::vector&lt; core::AttackProfile &gt; attacks, core::GridPosition place, core::CombatSide side=core::CombatSide::Allies, int initiative=100)</div><div class="ttdoc">Un héros tel que le jeu le monte : profil de la fiche, CA de ce qu&#39;il porte, attacks,...</div><div class="ttdef"><b>Definition</b> ClassArena.h:137</div></div>
+<div class="ttc" id="anamespacetest__support_html_a0fc2435a4198544b8a8c83314f35b912"><div class="ttname"><a href="namespacetest__support.html#a0fc2435a4198544b8a8c83314f35b912">test_support::dummy</a></div><div class="ttdeci">core::ArenaContestant dummy(const char *name, core::GridPosition place, int armorClass, int bonus, int hitPoints=60, core::CombatSide side=core::CombatSide::Enemies)</div><div class="ttdoc">Un mannequin : armorClass de CA, bonus au toucher, 1d6+2 tranchants, hitPoints PV ; il joue après le ...</div><div class="ttdef"><b>Definition</b> ClassArena.h:166</div></div>
+<div class="ttc" id="anamespacetest__support_html_a2e49c80f502f2d3da085b84a343b0628"><div class="ttname"><a href="namespacetest__support.html#a2e49c80f502f2d3da085b84a343b0628">test_support::armorClassOf</a></div><div class="ttdeci">int armorClassOf(const core::CharacterSheet &amp;sheet, const core::Inventory &amp;inventory)</div><div class="ttdef"><b>Definition</b> ClassArena.h:106</div></div>
+<div class="ttc" id="anamespacetest__support_html_a4b8fddb258ef46b1d2072abc96a4546f"><div class="ttname"><a href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">test_support::rpgCatalogs</a></div><div class="ttdeci">const RpgCatalogs &amp; rpgCatalogs()</div><div class="ttdef"><b>Definition</b> ClassArena.h:52</div></div>
+<div class="ttc" id="anamespacetest__support_html_a596e2b3706d58e46a4db1d02bb00d248"><div class="ttname"><a href="namespacetest__support.html#a596e2b3706d58e46a4db1d02bb00d248">test_support::journalLine</a></div><div class="ttdeci">std::string journalLine(const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</div><div class="ttdef"><b>Definition</b> ClassArena.h:192</div></div>
+<div class="ttc" id="anamespacetest__support_html_a72cb6f5136d3475ef6c7dca2fcd22ebe"><div class="ttname"><a href="namespacetest__support.html#a72cb6f5136d3475ef6c7dca2fcd22ebe">test_support::journalCount</a></div><div class="ttdeci">std::size_t journalCount(const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</div><div class="ttdef"><b>Definition</b> ClassArena.h:199</div></div>
+<div class="ttc" id="anamespacetest__support_html_a7db1b77e8c9387a205240e0452092ca9"><div class="ttname"><a href="namespacetest__support.html#a7db1b77e8c9387a205240e0452092ca9">test_support::capacityIds</a></div><div class="ttdeci">std::vector&lt; std::string &gt; capacityIds(const core::CharacterSheet &amp;sheet)</div><div class="ttdef"><b>Definition</b> ClassArena.h:97</div></div>
+<div class="ttc" id="anamespacetest__support_html_aa48229aba7330ce33396668934fd08ed"><div class="ttname"><a href="namespacetest__support.html#aa48229aba7330ce33396668934fd08ed">test_support::journalHas</a></div><div class="ttdeci">bool journalHas(const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</div><div class="ttdef"><b>Definition</b> ClassArena.h:186</div></div>
+<div class="ttc" id="anamespacetest__support_html_abd238978ce6bf3d3cf55fc6ec6014cf7"><div class="ttname"><a href="namespacetest__support.html#abd238978ce6bf3d3cf55fc6ec6014cf7">test_support::weaponAttack</a></div><div class="ttdeci">core::AttackProfile weaponAttack(const core::CharacterSheet &amp;sheet, const char *weaponId)</div><div class="ttdef"><b>Definition</b> ClassArena.h:120</div></div>
+<div class="ttc" id="anamespacetest__support_html_ad151ee551dbd223f479dea930b0d74d8"><div class="ttname"><a href="namespacetest__support.html#ad151ee551dbd223f479dea930b0d74d8">test_support::levelUpTo</a></div><div class="ttdeci">std::vector&lt; std::string &gt; levelUpTo(core::CharacterSheet &amp;sheet, int level)</div><div class="ttdoc">Monte sheet jusqu&#39;au niveau level par l&#39;expérience — le chemin d&#39;une partie —, puis pose ce que sa cl...</div><div class="ttdef"><b>Definition</b> ClassArena.h:79</div></div>
+<div class="ttc" id="anamespacetest__support_html_af8f92215cc650440558303e170fc166c"><div class="ttname"><a href="namespacetest__support.html#af8f92215cc650440558303e170fc166c">test_support::loadPremade</a></div><div class="ttdeci">core::LoadedCharacterSheet loadPremade(const char *file)</div><div class="ttdef"><b>Definition</b> ClassArena.h:68</div></div>
+<div class="ttc" id="astructcore_1_1ArenaContestant_html"><div class="ttname"><a href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a></div><div class="ttdoc">Un combattant tel que l&#39;écran de mise en place le compose.</div><div class="ttdef"><b>Definition</b> Arena.h:124</div></div>
+<div class="ttc" id="astructcore_1_1AttackProfile_html"><div class="ttname"><a href="structcore_1_1AttackProfile.html">core::AttackProfile</a></div><div class="ttdoc">Ce qu&#39;un combattant sait frapper : une arme, une morsure, un coup à mains nues.</div><div class="ttdef"><b>Definition</b> Attack.h:86</div></div>
+<div class="ttc" id="astructcore_1_1AttackProfile_html_a1ed3183401fc9084336c86726f11babf"><div class="ttname"><a href="structcore_1_1AttackProfile.html#a1ed3183401fc9084336c86726f11babf">core::AttackProfile::label</a></div><div class="ttdeci">std::string label</div><div class="ttdoc">Le nom tel que le journal l&#39;écrit : « Épée longue », « Morsure », « coup à mains nues ».</div><div class="ttdef"><b>Definition</b> Attack.h:88</div></div>
+<div class="ttc" id="astructcore_1_1AttackProfile_html_ab3db8d1b3f2e69e95aeb55f50fb46050"><div class="ttname"><a href="structcore_1_1AttackProfile.html#ab3db8d1b3f2e69e95aeb55f50fb46050">core::AttackProfile::damage</a></div><div class="ttdeci">std::vector&lt; DamageClause &gt; damage</div><div class="ttdef"><b>Definition</b> Attack.h:91</div></div>
+<div class="ttc" id="astructcore_1_1AttackProfile_html_adf9b7bddec260ed8a064e0574d8fd71e"><div class="ttname"><a href="structcore_1_1AttackProfile.html#adf9b7bddec260ed8a064e0574d8fd71e">core::AttackProfile::modifiers</a></div><div class="ttdeci">std::vector&lt; Modifier &gt; modifiers</div><div class="ttdef"><b>Definition</b> Attack.h:90</div></div>
+<div class="ttc" id="astructcore_1_1Capacity_html"><div class="ttname"><a href="structcore_1_1Capacity.html">core::Capacity</a></div><div class="ttdoc">Une capacité de classe : ce que le livre nomme, et les effets qui le jouent.</div><div class="ttdef"><b>Definition</b> ClassCapacities.h:97</div></div>
+<div class="ttc" id="astructcore_1_1Capacity_html_ab45d3d6a3d6d143ecd7581debfaae008"><div class="ttname"><a href="structcore_1_1Capacity.html#ab45d3d6a3d6d143ecd7581debfaae008">core::Capacity::id</a></div><div class="ttdeci">std::string id</div><div class="ttdef"><b>Definition</b> ClassCapacities.h:98</div></div>
+<div class="ttc" id="astructcore_1_1CharacterCreationRules_html"><div class="ttname"><a href="structcore_1_1CharacterCreationRules.html">core::CharacterCreationRules</a></div><div class="ttdoc">Les deux constantes de règle qu&#39;une fiche emploie, lues dans la donnée.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:67</div></div>
+<div class="ttc" id="astructcore_1_1CharacterOptions_html"><div class="ttname"><a href="structcore_1_1CharacterOptions.html">core::CharacterOptions</a></div><div class="ttdoc">Les trois catalogues chargés, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:201</div></div>
+<div class="ttc" id="astructcore_1_1CharacterOptions_html_a577dc52f3df4364a62a3e73a2b1c6f03"><div class="ttname"><a href="structcore_1_1CharacterOptions.html#a577dc52f3df4364a62a3e73a2b1c6f03">core::CharacterOptions::spells</a></div><div class="ttdeci">SpellCatalog spells</div><div class="ttdoc">Les sorts que les tables de progression désignent.</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:210</div></div>
+<div class="ttc" id="astructcore_1_1CharacterOptions_html_a6212c2f969f990ebb074ab2a1154699e"><div class="ttname"><a href="structcore_1_1CharacterOptions.html#a6212c2f969f990ebb074ab2a1154699e">core::CharacterOptions::findClass</a></div><div class="ttdeci">const PlayableClass * findClass(std::string_view id) const</div><div class="ttdoc">La classe d&#39;identifiant id, ou nullptr si elle est inconnue.</div><div class="ttdef"><b>Definition</b> CharacterOptions.cpp:212</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html"><div class="ttname"><a href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a></div><div class="ttdef"><b>Definition</b> CharacterSheet.h:121</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_a1640d00d2df5367190b36bf6311b3789"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#a1640d00d2df5367190b36bf6311b3789">core::CharacterSheet::classId</a></div><div class="ttdeci">std::string classId</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:126</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_aa1c2dffd68f832ebdfdfb79428399c70"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70">core::CharacterSheet::experiencePoints</a></div><div class="ttdeci">int experiencePoints</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:133</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheet_html_aa5a1776b3a2ce412608eddc65195ab75"><div class="ttname"><a href="structcore_1_1CharacterSheet.html#aa5a1776b3a2ce412608eddc65195ab75">core::CharacterSheet::capacities</a></div><div class="ttdeci">std::vector&lt; Capacity &gt; capacities</div><div class="ttdoc">Les capacités de classe actives au niveau courant (LOT-131, EX-RPG-024).</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:172</div></div>
+<div class="ttc" id="astructcore_1_1CombatantProfile_html"><div class="ttname"><a href="structcore_1_1CombatantProfile.html">core::CombatantProfile</a></div><div class="ttdoc">Ce que le combat doit savoir d&#39;un combattant — ni fiche, ni bloc de statistiques.</div><div class="ttdef"><b>Definition</b> CombatState.h:162</div></div>
+<div class="ttc" id="astructcore_1_1CombatantProfile_html_a8d35e824ec15edee5f629c40fbcd086b"><div class="ttname"><a href="structcore_1_1CombatantProfile.html#a8d35e824ec15edee5f629c40fbcd086b">core::CombatantProfile::initiativeModifier</a></div><div class="ttdeci">int initiativeModifier</div><div class="ttdoc">Modificateur du test d&#39;initiative — la Dextérité, et ce qui s&#39;y ajoute.</div><div class="ttdef"><b>Definition</b> CombatState.h:170</div></div>
+<div class="ttc" id="astructcore_1_1CombatantProfile_html_ada5d2d10aab3c03e3eeb1c997d5d14a8"><div class="ttname"><a href="structcore_1_1CombatantProfile.html#ada5d2d10aab3c03e3eeb1c997d5d14a8">core::CombatantProfile::armorClass</a></div><div class="ttdeci">int armorClass</div><div class="ttdoc">La classe d&#39;armure contre laquelle on l&#39;attaque (EX-CBT-030).</div><div class="ttdef"><b>Definition</b> CombatState.h:190</div></div>
+<div class="ttc" id="astructcore_1_1DerivedStats_html_abdbaa82fa4aa60cbc2ab3fa591c4999d"><div class="ttname"><a href="structcore_1_1DerivedStats.html#abdbaa82fa4aa60cbc2ab3fa591c4999d">core::DerivedStats::armorClass</a></div><div class="ttdeci">int armorClass</div><div class="ttdoc">Classe d&#39;armure, armure et bouclier compris (core::armorClassFor, LOT-34).</div><div class="ttdef"><b>Definition</b> Inventory.h:215</div></div>
+<div class="ttc" id="astructcore_1_1EncumbranceRules_html"><div class="ttname"><a href="structcore_1_1EncumbranceRules.html">core::EncumbranceRules</a></div><div class="ttdoc">Les bornes de charge, lues dans la donnée (rules/encumbrance.json).</div><div class="ttdef"><b>Definition</b> Inventory.h:68</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html">core::EquipmentCatalog</a></div><div class="ttdoc">Les deux catalogues chargés, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Equipment.h:89</div></div>
+<div class="ttc" id="astructcore_1_1EquipmentCatalog_html_ae874026fe924676ed53031720e26ddf9"><div class="ttname"><a href="structcore_1_1EquipmentCatalog.html#ae874026fe924676ed53031720e26ddf9">core::EquipmentCatalog::findWeapon</a></div><div class="ttdeci">const Weapon * findWeapon(std::string_view id) const</div><div class="ttdoc">L&#39;arme d&#39;identifiant id, ou nullptr si elle est inconnue.</div><div class="ttdef"><b>Definition</b> Equipment.cpp:93</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html"><div class="ttname"><a href="structcore_1_1ExperienceTable.html">core::ExperienceTable</a></div><div class="ttdoc">La table d&#39;expérience, du niveau 1 au niveau 20.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:45</div></div>
+<div class="ttc" id="astructcore_1_1ExperienceTable_html_a42de4fb45c3c88b1e45174f3bce840ac"><div class="ttname"><a href="structcore_1_1ExperienceTable.html#a42de4fb45c3c88b1e45174f3bce840ac">core::ExperienceTable::thresholdAt</a></div><div class="ttdeci">int thresholdAt(int level) const</div><div class="ttdoc">Le seuil d&#39;expérience d&#39;un niveau. 0 si la table ne le porte pas.</div><div class="ttdef"><b>Definition</b> CharacterSheet.cpp:68</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1Inventory_html"><div class="ttname"><a href="structcore_1_1Inventory.html">core::Inventory</a></div><div class="ttdoc">Ce qu&#39;un personnage porte : son sac, et ce qu&#39;il a sur lui.</div><div class="ttdef"><b>Definition</b> Inventory.h:148</div></div>
+<div class="ttc" id="astructcore_1_1ItemCatalog_html"><div class="ttname"><a href="structcore_1_1ItemCatalog.html">core::ItemCatalog</a></div><div class="ttdoc">Le catalogue d&#39;objets, et ce qui n&#39;a pas pu être lu.</div><div class="ttdef"><b>Definition</b> Inventory.h:50</div></div>
+<div class="ttc" id="astructcore_1_1ItemLookup_html"><div class="ttname"><a href="structcore_1_1ItemLookup.html">core::ItemLookup</a></div><div class="ttdoc">Les trois catalogues qu&#39;un inventaire consulte pour peser et pour dériver.</div><div class="ttdef"><b>Definition</b> Inventory.h:188</div></div>
+<div class="ttc" id="astructcore_1_1LevelData_html"><div class="ttname"><a href="structcore_1_1LevelData.html">core::LevelData</a></div><div class="ttdoc">Composantes d&#39;une carte, nommées — agrégat de construction de core::Level (LOT-03).</div><div class="ttdef"><b>Definition</b> Level.h:39</div></div>
+<div class="ttc" id="astructcore_1_1LoadedCharacterSheet_html"><div class="ttname"><a href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a></div><div class="ttdoc">Une fiche chargée depuis un fichier, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> CharacterSheet.h:270</div></div>
+<div class="ttc" id="astructcore_1_1PlayableClass_html"><div class="ttname"><a href="structcore_1_1PlayableClass.html">core::PlayableClass</a></div><div class="ttdoc">Une classe jouable et sa table de progression.</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:142</div></div>
+<div class="ttc" id="astructcore_1_1PlayableClass_html_a9f2304ce7895d59e0793f29cb3644a24"><div class="ttname"><a href="structcore_1_1PlayableClass.html#a9f2304ce7895d59e0793f29cb3644a24">core::PlayableClass::hitDie</a></div><div class="ttdeci">int hitDie</div><div class="ttdef"><b>Definition</b> CharacterOptions.h:146</div></div>
+<div class="ttc" id="astructcore_1_1Weapon_html"><div class="ttname"><a href="structcore_1_1Weapon.html">core::Weapon</a></div><div class="ttdoc">Une arme du catalogue.</div><div class="ttdef"><b>Definition</b> Equipment.h:59</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html">test_support::RpgCatalogs</a></div><div class="ttdoc">Les catalogues de Source/Elements/Rpg qu&#39;une fiche jouée lit.</div><div class="ttdef"><b>Definition</b> ClassArena.h:37</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_a0ef9908ed6676e6bb4ac2c0c465ddf72"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#a0ef9908ed6676e6bb4ac2c0c465ddf72">test_support::RpgCatalogs::rules</a></div><div class="ttdeci">core::CharacterCreationRules rules</div><div class="ttdef"><b>Definition</b> ClassArena.h:40</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_a10059798148d523428adea890fb7718e"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e">test_support::RpgCatalogs::experience</a></div><div class="ttdeci">core::ExperienceTable experience</div><div class="ttdef"><b>Definition</b> ClassArena.h:39</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_a6da83473562db6375ab45302ce662a51"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51">test_support::RpgCatalogs::equipment</a></div><div class="ttdeci">core::EquipmentCatalog equipment</div><div class="ttdef"><b>Definition</b> ClassArena.h:41</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_a8641a29e95f68cbb18f461d2e11a7ae9"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#a8641a29e95f68cbb18f461d2e11a7ae9">test_support::RpgCatalogs::lookup</a></div><div class="ttdeci">core::ItemLookup lookup() const</div><div class="ttdoc">De quoi résoudre un objet d&#39;inventaire.</div><div class="ttdef"><b>Definition</b> ClassArena.h:46</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_aa01201acf91fd26aae5e3c5a3c754edc"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#aa01201acf91fd26aae5e3c5a3c754edc">test_support::RpgCatalogs::encumbrance</a></div><div class="ttdeci">core::EncumbranceRules encumbrance</div><div class="ttdef"><b>Definition</b> ClassArena.h:43</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_ac3c694caaffbd3ecd4b3b5c5f09c356f"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#ac3c694caaffbd3ecd4b3b5c5f09c356f">test_support::RpgCatalogs::options</a></div><div class="ttdeci">core::CharacterOptions options</div><div class="ttdef"><b>Definition</b> ClassArena.h:38</div></div>
+<div class="ttc" id="astructtest__support_1_1RpgCatalogs_html_ae05da1d4c6bb1e1b21dcd3c56a7e5082"><div class="ttname"><a href="structtest__support_1_1RpgCatalogs.html#ae05da1d4c6bb1e1b21dcd3c56a7e5082">test_support::RpgCatalogs::items</a></div><div class="ttdeci">core::ItemCatalog items</div><div class="ttdef"><b>Definition</b> ClassArena.h:42</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_78aafe4118443ed4a6fae9c8d163dfdb.html">Support</a></li><li class="navelem"><a href="ClassArena_8h.html">ClassArena.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

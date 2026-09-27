@@ -120,6 +120,8 @@ var NAVTREEINDEX0 =
 "CityView_8cpp.html":[4,0,0,3,0,8],
 "CityView_8h.html":[4,0,0,3,0,9],
 "CityView_8h_source.html":[4,0,0,3,0,9],
+"ClassArena_8h.html":[4,0,0,7,2,0],
+"ClassArena_8h_source.html":[4,0,0,7,2,0],
 "ClassCapacities_8cpp.html":[4,0,0,2,8,10],
 "ClassCapacities_8h.html":[4,0,0,2,8,11],
 "ClassCapacities_8h_source.html":[4,0,0,2,8,11],
@@ -179,7 +181,7 @@ var NAVTREEINDEX0 =
 "CreditsModel_8cpp.html":[4,0,0,6,7,10],
 "CreditsModel_8h.html":[4,0,0,6,7,11],
 "CreditsModel_8h_source.html":[4,0,0,6,7,11],
-"CrtReports_8cpp.html":[4,0,0,7,2,0],
+"CrtReports_8cpp.html":[4,0,0,7,2,1],
 "Damage_8cpp.html":[4,0,0,2,0,18],
 "Damage_8h.html":[4,0,0,2,0,19],
 "Damage_8h_source.html":[4,0,0,2,0,19],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627":[4,0,0,0,1,0,0],
 "EncounterModel_8cpp.html":[4,0,0,6,7,18],
 "EncounterModel_8h.html":[4,0,0,6,7,19],
-"EncounterModel_8h_source.html":[4,0,0,6,7,19],
-"Encounter_8cpp.html":[4,0,0,2,0,20],
-"Encounter_8h.html":[4,0,0,2,0,21]
+"EncounterModel_8h_source.html":[4,0,0,6,7,19]
 };

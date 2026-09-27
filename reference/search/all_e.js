@@ -14,11 +14,14 @@ var searchData=
   ['joinworldmaps_11',['joinWorldMaps',['../namespacehmi.html#ab1a5bb49f127bf2cf10105f1e45da728',1,'hmi']]],
   ['joueur_20ne_20s_20arrête_20que_20sur_20une_20réplique_12',['Le joueur ne s&apos;arrête que sur une réplique',['../classcore_1_1DialogueRunner.html#autotoc_md57',1,'']]],
   ['journal_13',['journal',['../classhmi_1_1CombatModel.html#ad2acaaa6c0fc602f03990a350b474c98',1,'hmi::CombatModel::journal'],['../classcore_1_1ArenaSession.html#a9a0cb403b0b0667a4139bae3b3153c21',1,'core::ArenaSession::journal()'],['../classcore_1_1DialogueRunner.html#a3a501c132fc610899431af8effa8e90e',1,'core::DialogueRunner::journal()'],['../classhmi_1_1CombatModel.html#a10f0e984bb25dbff698e7ebfe924992b',1,'hmi::CombatModel::journal()']]],
-  ['json_14',['json',['../structhmi_1_1DraftMap.html#a4785eb5bb2fc849201f4741a071d86ed',1,'hmi::DraftMap']]],
-  ['jsondocument_15',['JsonDocument',['../structcore_1_1JsonDocument.html',1,'core']]],
-  ['jsondocument_2ecpp_16',['JsonDocument.cpp',['../JsonDocument_8cpp.html',1,'']]],
-  ['jsondocument_2eh_17',['JsonDocument.h',['../JsonDocument_8h.html',1,'']]],
-  ['jsonreaderror_18',['JsonReadError',['../namespacecore.html#a3fca58c67ec139153d0204122e9c32e0',1,'core']]],
-  ['jumeau_20qt_20quick_20de_20qrhiwidget_19',['Le jumeau Qt Quick de &lt;span class=&quot;tt&quot;&gt;QRhiWidget&lt;/span&gt;',['../classhmi_1_1GameViewportItem.html#autotoc_md107',1,'']]],
-  ['jumptogame_20',['jumpToGame',['../classhmi_1_1ScreenRouter.html#ab876832aba412ba4d1413c106cd6e86f',1,'hmi::ScreenRouter']]]
+  ['journalcount_14',['journalCount',['../namespacetest__support.html#a72cb6f5136d3475ef6c7dca2fcd22ebe',1,'test_support']]],
+  ['journalhas_15',['journalHas',['../namespacetest__support.html#aa48229aba7330ce33396668934fd08ed',1,'test_support']]],
+  ['journalline_16',['journalLine',['../namespacetest__support.html#a596e2b3706d58e46a4db1d02bb00d248',1,'test_support']]],
+  ['json_17',['json',['../structhmi_1_1DraftMap.html#a4785eb5bb2fc849201f4741a071d86ed',1,'hmi::DraftMap']]],
+  ['jsondocument_18',['JsonDocument',['../structcore_1_1JsonDocument.html',1,'core']]],
+  ['jsondocument_2ecpp_19',['JsonDocument.cpp',['../JsonDocument_8cpp.html',1,'']]],
+  ['jsondocument_2eh_20',['JsonDocument.h',['../JsonDocument_8h.html',1,'']]],
+  ['jsonreaderror_21',['JsonReadError',['../namespacecore.html#a3fca58c67ec139153d0204122e9c32e0',1,'core']]],
+  ['jumeau_20qt_20quick_20de_20qrhiwidget_22',['Le jumeau Qt Quick de &lt;span class=&quot;tt&quot;&gt;QRhiWidget&lt;/span&gt;',['../classhmi_1_1GameViewportItem.html#autotoc_md107',1,'']]],
+  ['jumptogame_23',['jumpToGame',['../classhmi_1_1ScreenRouter.html#ab876832aba412ba4d1413c106cd6e86f',1,'hmi::ScreenRouter']]]
 ];

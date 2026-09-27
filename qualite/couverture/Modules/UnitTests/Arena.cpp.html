@@ -465,11 +465,23 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
         case TargetCheck::TotalCover:
 <span style = "background-color:#dfd">            return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};</span>
     }
-<span style = "background-color:#dfd">    if (attaquant-&gt;economy.remaining(ACTION_RESOURCE) &lt;= 0) {
-        return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};</span>
+    // Une attaque que l'action deja prise a laissee (Extra Attack, LOT-132) passe avant l'action :
+    // la seconde attaque du tour ne coute rien de plus.
+<span style = "background-color:#dfd">    const std::optional&lt;NamedExtraAttacks&gt; enPlus = extraAttacksFrom(capacitiesOf(*actif));
+    if (attaquant-&gt;economy.remaining(EXTRA_ATTACK_RESOURCE) &gt; 0) {
+        static_cast&lt;void&gt;(_combat-&gt;economy(*actif)-&gt;spend(EXTRA_ATTACK_RESOURCE));
+        record("attaque supplementaire " + attaquant-&gt;profile.name + " (" +</span>
+               (enPlus.has_value() ? enPlus-&gt;source : std::string("?")) + ")");
+<span style = "background-color:#dfd">    } else {
+        if (attaquant-&gt;economy.remaining(ACTION_RESOURCE) &lt;= 0) {
+            return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};</span>
+        }
+<span style = "background-color:#dfd">        _combat-&gt;spend(ACTION_RESOURCE);
+        if (enPlus.has_value()) {
+            _combat-&gt;economy(*actif)-&gt;grant(EXTRA_ATTACK_RESOURCE, enPlus-&gt;count);</span>
+        }
     }
-<span style = "background-color:#dfd">    _combat-&gt;spend(ACTION_RESOURCE);
-    ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
+<span style = "background-color:#dfd">    ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
     attaque.outcome = resolveAndRecord(*actif, target, profil, {});
     return attaque;
 }</span>
@@ -751,8 +763,8 @@ std::vector&lt;ArenaSpell&gt; arenaSpellsFor(const CharacterSheet&amp; sheet,
                                        const SpellCatalog&amp; spells, int proficiencyBonus,
 <span style = "background-color:#dfd">                                       std::vector&lt;std::string&gt;&amp; skipped) {
     std::vector&lt;ArenaSpell&gt; grimoire;
-    if (!playableClass.spellcasting.has_value()) {</span>
-<span style = "background-color:#fdd">        return grimoire;</span>
+    if (!playableClass.spellcasting.has_value()) {
+        return grimoire;</span>
     }
 <span style = "background-color:#dfd">    for (const KnownSpell&amp; connu : sheet.knownSpells) {
         const Spell* sort = spells.find(connu.spellId);

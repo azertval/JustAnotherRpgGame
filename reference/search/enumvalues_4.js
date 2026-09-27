@@ -27,5 +27,6 @@ var searchData=
   ['evocation_24',['Evocation',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2a0f691fa093f9d70c7c69cc8b70ae8825',1,'core']]],
   ['exhausted_25',['Exhausted',['../namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaa1a698ed9bd0897ab0578ac2114397ff',1,'core']]],
   ['exhaustion_26',['Exhaustion',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a62d14822c1d9ee30cedbce5343ab2681',1,'core']]],
-  ['extradamage_27',['ExtraDamage',['../namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222',1,'core']]]
+  ['extraattack_27',['ExtraAttack',['../namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999',1,'core']]],
+  ['extradamage_28',['ExtraDamage',['../namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222',1,'core']]]
 ];

@@ -1,0 +1,443 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_class_brawler.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__class__brawler_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_class_brawler.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le Brawler du <em>Player's Guide to Tanares</em> (p.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="ActionEconomy_8h_source.html">Core/Combat/ActionEconomy.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClassCapacities_8h_source.html">Core/Rpg/ClassCapacities.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClassArena_8h_source.html">Test/Support/ClassArena.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a01085e51e6d6fbd1e22d7f11d1d5e929" id="r_a01085e51e6d6fbd1e22d7f11d1d5e929"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a01085e51e6d6fbd1e22d7f11d1d5e929">TEST</a> (ClassBrawlerTest, LaFichePreTireePorteToughAsNails)</td></tr>
+<tr class="memdesc:a01085e51e6d6fbd1e22d7f11d1d5e929"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche pre-tiree du Brawler porte Tough as Nails, et rien que la table n'ait nomme.  <br /></td></tr>
+<tr class="memitem:a68e29cdd9dce407d009fa7e141b6929f" id="r_a68e29cdd9dce407d009fa7e141b6929f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a68e29cdd9dce407d009fa7e141b6929f">TEST</a> (ClassBrawlerTest, ToughAsNailsDonneSaCaSansArmure)</td></tr>
+<tr class="memdesc:a68e29cdd9dce407d009fa7e141b6929f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tough as Nails : la CA sans armure lit Dex et Con, garde le bouclier, cede a l'armure.  <br /></td></tr>
+<tr class="memitem:adafd75ab8b0dbbbbc736bc8563d1b645" id="r_adafd75ab8b0dbbbbc736bc8563d1b645"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adafd75ab8b0dbbbbc736bc8563d1b645">TEST</a> (ClassBrawlerTest, ToughAsNailsDiviseLesDegatsEtSeNomme)</td></tr>
+<tr class="memdesc:adafd75ab8b0dbbbbc736bc8563d1b645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tough as Nails en combat : les degats sont divises, et la capacite se nomme.  <br /></td></tr>
+<tr class="memitem:a5155dd535b0d02257b052972b2be89b9" id="r_a5155dd535b0d02257b052972b2be89b9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5155dd535b0d02257b052972b2be89b9">TEST</a> (ClassBrawlerTest, HitTheMarkAjouteDeuxAuJet)</td></tr>
+<tr class="memdesc:a5155dd535b0d02257b052972b2be89b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hit the Mark (N3) : +2 aux jets d'attaque, au nom de la capacite.  <br /></td></tr>
+<tr class="memitem:a99d8029e496cb0490f3eb58b1db6dd14" id="r_a99d8029e496cb0490f3eb58b1db6dd14"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a99d8029e496cb0490f3eb58b1db6dd14">TEST</a> (ClassBrawlerTest, ExtraAttackDonneDeuxAttaquesParAction)</td></tr>
+<tr class="memdesc:a99d8029e496cb0490f3eb58b1db6dd14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extra Attack (N5) : deux attaques pour une action, et pas une de plus.  <br /></td></tr>
+<tr class="memitem:a2daf3ef9ec20cb742fb978aab7db939d" id="r_a2daf3ef9ec20cb742fb978aab7db939d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2daf3ef9ec20cb742fb978aab7db939d">TEST</a> (ClassBrawlerTest, ExtraAttackNeSuitQueLActionAttaquer)</td></tr>
+<tr class="memdesc:a2daf3ef9ec20cb742fb978aab7db939d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sort ou une esquive ne donne pas l'attaque en plus : seule l'action Attaquer.  <br /></td></tr>
+<tr class="memitem:a9c1d0d83c1a34c9f13d085a64bd361a9" id="r_a9c1d0d83c1a34c9f13d085a64bd361a9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9c1d0d83c1a34c9f13d085a64bd361a9">TEST</a> (ClassBrawlerTest, DuNiveau1AuNiveau5LaTableSeLit)</td></tr>
+<tr class="memdesc:a9c1d0d83c1a34c9f13d085a64bd361a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Du niveau 1 au niveau 5, la table du livre se lit marche par marche.  <br /></td></tr>
+<tr class="memitem:a9652a3a798488770a1a2429f59d10309" id="r_a9652a3a798488770a1a2429f59d10309"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9652a3a798488770a1a2429f59d10309">TEST</a> (ClassBrawlerTest, UneAttaqueEnPlusNulleEstRefusee)</td></tr>
+<tr class="memdesc:a9652a3a798488770a1a2429f59d10309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet extra-attack sans attaque en plus refuse la capacite.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le Brawler du <em>Player's Guide to Tanares</em> (p. </p>
+<p>192-195) se joue du niveau 1 au niveau 5 (<span class="tt">LOT-132</span>) : Tough as Nails, Hit the Mark, Extra Attack, et la table qui les donne.</p>
+<p>Chaque capacité a son test qui la déclenche et vérifie son effet, sur la fiche pré-tirée de la page 195 montée au niveau voulu. Le moteur ne nomme ni la classe ni ses capacités : ce qui s'écrit au journal est le nom que la donnée porte. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a9c1d0d83c1a34c9f13d085a64bd361a9" name="a9c1d0d83c1a34c9f13d085a64bd361a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c1d0d83c1a34c9f13d085a64bd361a9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DuNiveau1AuNiveau5LaTableSeLit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Du niveau 1 au niveau 5, la table du livre se lit marche par marche. </p>
+<p><b>Cas de test :</b> <b>Monter le Brawler de la page 195 niveau par niveau donne les capacites de la table, sans capacite manquante.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger la fiche N1.<br  />
+2. Monter d'un niveau a la fois jusqu'au 5, lire les capacites, le bonus de maitrise et les PV.<br  />
+ <b>Resultat attendu :</b> N1 Tough as Nails ; N2 + Experience ; N3 + Hit the Mark ; N4 + Ability Score Improvement ; N5 + Extra Attack, maitrise +3 ; aucun manquant ; les PV montent a chaque niveau (1d12 + Con, moyenne 7 + 3 = 10) ; la CA reste 14. </p>
+
+</div>
+</div>
+<a id="a99d8029e496cb0490f3eb58b1db6dd14" name="a99d8029e496cb0490f3eb58b1db6dd14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99d8029e496cb0490f3eb58b1db6dd14">&#9670;&#160;</a></span>TEST() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ExtraAttackDonneDeuxAttaquesParAction</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Extra Attack (N5) : deux attaques pour une action, et pas une de plus. </p>
+<p><b>Cas de test :</b> <b>Au niveau 5, le Brawler attaque deux fois dans le tour ; la seconde est nommee au journal ; une troisieme est refusee, et l'action n'est plus la pour esquiver.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Monter le Brawler N5 contre un mannequin.<br  />
+2. Attaquer trois fois, puis esquiver.<br  />
+3. Finir le tour, revenir, attaquer deux fois.<br  />
+4. Refaire au niveau 4.<br  />
+ <b>Resultat attendu :</b> N5 : Done, Done (« attaque supplementaire Grom Tranche-Écaille (Extra Attack) »), NoAction, esquive refusee ; au tour suivant, deux attaques encore. N4 : la seconde attaque est refusee. </p>
+
+</div>
+</div>
+<a id="a2daf3ef9ec20cb742fb978aab7db939d" name="a2daf3ef9ec20cb742fb978aab7db939d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2daf3ef9ec20cb742fb978aab7db939d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ExtraAttackNeSuitQueLActionAttaquer</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un sort ou une esquive ne donne pas l'attaque en plus : seule l'action Attaquer. </p>
+<p><b>Cas de test :</b> <b>Apres une esquive, le Brawler N5 n'attaque pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Monter le Brawler N5.<br  />
+2. Esquiver, puis attaquer.<br  />
+ <b>Resultat attendu :</b> L'attaque est refusee (NoAction) : Extra Attack ne s'octroie qu'a l'action Attaquer. </p>
+
+</div>
+</div>
+<a id="a5155dd535b0d02257b052972b2be89b9" name="a5155dd535b0d02257b052972b2be89b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5155dd535b0d02257b052972b2be89b9">&#9670;&#160;</a></span>TEST() <span class="overload">[4/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">HitTheMarkAjouteDeuxAuJet</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hit the Mark (N3) : +2 aux jets d'attaque, au nom de la capacite. </p>
+<p><b>Cas de test :</b> <b>Au niveau 3, le jet de la hache porte « + 2 (Hit the Mark) » ; au niveau 2, non.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Monter le Brawler N3, puis N2, contre un mannequin.<br  />
+2. Attaquer.<br  />
+ <b>Resultat attendu :</b> N3 : le modificateur Hit the Mark vaut +2 sur le jet et au journal ; N2 : aucun. </p>
+
+</div>
+</div>
+<a id="a01085e51e6d6fbd1e22d7f11d1d5e929" name="a01085e51e6d6fbd1e22d7f11d1d5e929"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01085e51e6d6fbd1e22d7f11d1d5e929">&#9670;&#160;</a></span>TEST() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaFichePreTireePorteToughAsNails</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fiche pre-tiree du Brawler porte Tough as Nails, et rien que la table n'ait nomme. </p>
+<p><b>Cas de test :</b> <b>La fiche de la page 195 se charge avec Tough as Nails et sa CA de 14.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger heros-brawler.json.<br  />
+2. Lire ses capacites, ses avertissements, sa CA avec ce qu'il porte, et son profil de combat.<br  />
+ <b>Resultat attendu :</b> Une capacite, tough-as-nails ; aucun avertissement ; CA 14 = 10 + Dex 1 + Con 3 (la page) ; treize resistances nommees Tough as Nails. </p>
+
+</div>
+</div>
+<a id="adafd75ab8b0dbbbbc736bc8563d1b645" name="adafd75ab8b0dbbbbc736bc8563d1b645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adafd75ab8b0dbbbbc736bc8563d1b645">&#9670;&#160;</a></span>TEST() <span class="overload">[6/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ToughAsNailsDiviseLesDegatsEtSeNomme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tough as Nails en combat : les degats sont divises, et la capacite se nomme. </p>
+<p><b>Cas de test :</b> <b>Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le journal ecrit « resistance (tranchant ; Tough as Nails) ».</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Monter le Brawler N1 contre un mannequin a +20 au toucher.<br  />
+2. Passer au tour du mannequin et attaquer ; graine choisie pour toucher.<br  />
+ <b>Resultat attendu :</b> Le montage ecrit « capacites Grom Tranche-Écaille : Tough as Nails » ; la ligne de l'attaque nomme la resistance ; PV perdus = degats lances / 2, arrondi a l'inferieur. </p>
+
+</div>
+</div>
+<a id="a68e29cdd9dce407d009fa7e141b6929f" name="a68e29cdd9dce407d009fa7e141b6929f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68e29cdd9dce407d009fa7e141b6929f">&#9670;&#160;</a></span>TEST() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ToughAsNailsDonneSaCaSansArmure</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tough as Nails : la CA sans armure lit Dex et Con, garde le bouclier, cede a l'armure. </p>
+<p><b>Cas de test :</b> <b>La formule de Tough as Nails se recalcule avec ce que le Brawler porte.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Calculer la CA du Brawler N1 sans rien, avec un bouclier, en cuir, en cuir avec bouclier.<br  />
+ <b>Resultat attendu :</b> 14, 16, 12 (cuir 11 + Dex 1 : la formule ne joue pas sous une armure), 14. </p>
+
+</div>
+</div>
+<a id="a9652a3a798488770a1a2429f59d10309" name="a9652a3a798488770a1a2429f59d10309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9652a3a798488770a1a2429f59d10309">&#9670;&#160;</a></span>TEST() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassBrawlerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneAttaqueEnPlusNulleEstRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un effet extra-attack sans attaque en plus refuse la capacite. </p>
+<p><b>Cas de test :</b> <b>Une capacite qui declare « extra-attack » a 0 est refusee et nommee.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire une capacite extra-attack a value 0 dans un dossier temporaire.<br  />
+2. Charger le dossier.<br  />
+ <b>Resultat attendu :</b> Aucune capacite, une erreur qui nomme le fichier. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__class__brawler_8cpp.html">test_class_brawler.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

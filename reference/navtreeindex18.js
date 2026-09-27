@@ -1,5 +1,7 @@
 var NAVTREEINDEX18 =
 {
+"classhmi_1_1OptionsModel.html#aa245a170128ed5d3bfac38c336019e2a":[2,0,2,210,23],
+"classhmi_1_1OptionsModel.html#aa245a170128ed5d3bfac38c336019e2a":[3,0,1,209,23],
 "classhmi_1_1OptionsModel.html#aa322244ae20d5e9bbcbb0ed0d481fd58":[2,0,2,210,11],
 "classhmi_1_1OptionsModel.html#aa322244ae20d5e9bbcbb0ed0d481fd58":[3,0,1,209,11],
 "classhmi_1_1OptionsModel.html#aaa061a05f674dd471129a8f0b54ddcec":[2,0,2,210,17],
@@ -247,7 +249,5 @@ var NAVTREEINDEX18 =
 "classhmi_1_1QuestJournalModel.html#ab0209c131c9dbbf0f353dd36878a24b4":[2,0,2,212,13],
 "classhmi_1_1QuestJournalModel.html#ab0209c131c9dbbf0f353dd36878a24b4":[3,0,1,211,13],
 "classhmi_1_1QuestJournalModel.html#ab8dfc79704271716085d1884942ee9c7":[2,0,2,212,15],
-"classhmi_1_1QuestJournalModel.html#ab8dfc79704271716085d1884942ee9c7":[3,0,1,211,15],
-"classhmi_1_1QuestJournalModel.html#adc4fc2454528602282e011dde8c69d26":[2,0,2,212,0],
-"classhmi_1_1QuestJournalModel.html#adc4fc2454528602282e011dde8c69d26":[3,0,1,211,0]
+"classhmi_1_1QuestJournalModel.html#ab8dfc79704271716085d1884942ee9c7":[3,0,1,211,15]
 };

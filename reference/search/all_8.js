@@ -292,10 +292,11 @@ var searchData=
   ['du_20maître_20en_20dit_289',['Ce que le &lt;em&gt;Guide du Maître&lt;/em&gt; en dit',['../EnemyAi_8h.html#autotoc_md28',1,'']]],
   ['du_20manuel_290',['Les attaques du Manuel',['../Arena_8h.html#autotoc_md12',1,'']]],
   ['du_20manuel_20et_20pourquoi_20elle_20n_20est_20pas_20un_20parcours_20en_20largeur_291',['La règle du Manuel, et pourquoi elle n&apos;est pas un parcours en largeur',['../classcore_1_1ReachableArea.html#autotoc_md41',1,'']]],
-  ['duplicate_292',['duplicate',['../classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968',1,'hmi::LevelFileOperations']]],
-  ['duplicatearrivalpoint_293',['DuplicateArrivalPoint',['../namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacd7c9ae5e908a19e060bbcbd35f08273',1,'core::DuplicateArrivalPoint'],['../namespacecore.html#ab0838a20f00473e64466a4e3eb7cfd6aacd7c9ae5e908a19e060bbcbd35f08273',1,'core::DuplicateArrivalPoint']]],
-  ['duplicatebutton_294',['duplicateButton',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8',1,'hmi::LevelBrowserPanel::Widgets']]],
-  ['duplicateentityid_295',['DuplicateEntityId',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded',1,'core']]],
-  ['duplicateposition_296',['DuplicatePosition',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba',1,'core']]],
-  ['duration_297',['duration',['../structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8',1,'core::Spell']]]
+  ['dummy_292',['dummy',['../namespacetest__support.html#a0fc2435a4198544b8a8c83314f35b912',1,'test_support']]],
+  ['duplicate_293',['duplicate',['../classhmi_1_1LevelFileOperations.html#a551c21f123f010c79dc0092566523968',1,'hmi::LevelFileOperations']]],
+  ['duplicatearrivalpoint_294',['DuplicateArrivalPoint',['../namespacecore.html#ac1032ee70b0c730c8727b80822ab035eacd7c9ae5e908a19e060bbcbd35f08273',1,'core::DuplicateArrivalPoint'],['../namespacecore.html#ab0838a20f00473e64466a4e3eb7cfd6aacd7c9ae5e908a19e060bbcbd35f08273',1,'core::DuplicateArrivalPoint']]],
+  ['duplicatebutton_295',['duplicateButton',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8',1,'hmi::LevelBrowserPanel::Widgets']]],
+  ['duplicateentityid_296',['DuplicateEntityId',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a53820fd4c1e3f6efc92bd098c3ac3ded',1,'core']]],
+  ['duplicateposition_297',['DuplicatePosition',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823ae661408101649d629107887d94faf5ba',1,'core']]],
+  ['duration_298',['duration',['../structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8',1,'core::Spell']]]
 ];

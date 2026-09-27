@@ -171,6 +171,7 @@ var namespacecore =
     [ "UnarmoredArmorClass", "structcore_1_1UnarmoredArmorClass.html", "structcore_1_1UnarmoredArmorClass" ],
     [ "NamedResistance", "structcore_1_1NamedResistance.html", "structcore_1_1NamedResistance" ],
     [ "NamedExtraDamage", "structcore_1_1NamedExtraDamage.html", "structcore_1_1NamedExtraDamage" ],
+    [ "NamedExtraAttacks", "structcore_1_1NamedExtraAttacks.html", "structcore_1_1NamedExtraAttacks" ],
     [ "DialogueChoice", "structcore_1_1DialogueChoice.html", "structcore_1_1DialogueChoice" ],
     [ "DialogueAction", "structcore_1_1DialogueAction.html", "structcore_1_1DialogueAction" ],
     [ "DialogueNode", "structcore_1_1DialogueNode.html", "structcore_1_1DialogueNode" ],
@@ -292,7 +293,8 @@ var namespacecore =
       [ "DamageResistance", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4afa94e687e1b0e405c7a59e14e89e0f92", null ],
       [ "SpeedBonus", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4ad8d3f13bfff77989e373ba72671b49a0", null ],
       [ "NoOpportunityAttacks", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494", null ],
-      [ "ExtraDamage", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222", null ]
+      [ "ExtraDamage", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222", null ],
+      [ "ExtraAttack", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999", null ]
     ] ],
     [ "CasterProgression", "namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066d", [
       [ "None", "namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066da6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -833,6 +835,7 @@ var namespacecore =
     [ "equipmentSlotName", "namespacecore.html#a6f31013a1f37d04e5e8f8748f7799219", null ],
     [ "expectedAssetKeys", "namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1", null ],
     [ "expectedDamage", "namespacecore.html#acbf44083989292fcedfb7dfaad861317", null ],
+    [ "extraAttacksFrom", "namespacecore.html#a1a557b01a82486a5916806e2a276bb57", null ],
     [ "extraDamageFrom", "namespacecore.html#a7e2bf23d4453ec8ed43d4830a4416827", null ],
     [ "fallbackScenePiecePath", "namespacecore.html#a1662b570c7c1114bc9a4e62763485616", null ],
     [ "figureDirectory", "namespacecore.html#aed05eea4a2732d4c5a29181733d80f08", null ],
@@ -1052,6 +1055,7 @@ var namespacecore =
     [ "ENCOUNTER_ENTITY_TYPE", "namespacecore.html#ab682036a643ab5c1e7f219f5f94bf9d1", null ],
     [ "EPSILON", "namespacecore.html#a49c6e01fbd8905740993109a36f65c11", null ],
     [ "EQUIPMENT_SLOT_COUNT", "namespacecore.html#ab6f6a87729df10e41e9fa1e5f74c4d76", null ],
+    [ "EXTRA_ATTACK_RESOURCE", "namespacecore.html#ad91bd699bf17897bb00fa9a3aff948bd", null ],
     [ "HEROIC_ACTION_RESOURCE", "namespacecore.html#a57610a36d1b314407ef0f951ddd53bb1", null ],
     [ "IMMUNITY_DAY_SECONDS", "namespacecore.html#a19abfcf45c52011124208e7201c3663a", null ],
     [ "INTERACTION_REACH_CELLS", "namespacecore.html#a3d8ff82795b933f62d14bea20a246159", null ],

@@ -173,6 +173,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une résistance nommée : le type, et la capacité qui la donne.  <a href="structcore_1_1NamedResistance.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3ANamedExtraDamage" id="r_core_3A_3ANamedExtraDamage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1NamedExtraDamage.html">core::NamedExtraDamage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des dés de dégâts en plus, nommés, et leur cadence.  <a href="structcore_1_1NamedExtraDamage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ANamedExtraAttacks" id="r_core_3A_3ANamedExtraAttacks"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1NamedExtraAttacks.html">core::NamedExtraAttacks</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des attaques en plus à l'action <em>Attaquer</em>, et la capacité qui les donne.  <a href="structcore_1_1NamedExtraAttacks.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -190,6 +192,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4ad8d3f13bfff77989e373ba72671b49a0">core::SpeedBonus</a>
 , <a class="el" href="namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4aa1978286f40c2b5d16133227f879b494">core::NoOpportunityAttacks</a>
 , <a class="el" href="namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a99b88e5926eed9fd66144b589ed46222">core::ExtraDamage</a>
+, <a class="el" href="namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a08ca73caa0b19b491e8cc36dc04c2999">core::ExtraAttack</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aca154ea380a8647bf0cff5b10e5043d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les genres d'effet que le moteur sait jouer. Un genre inconnu de la donnée est refusé.  <a href="namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4">More...</a><br /></td></tr>
@@ -216,6 +219,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ac63dea10e931ba6a0767ad265963e421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les résistances que les capacités donnent, chacune à son nom.  <br /></td></tr>
 <tr class="memitem:a7e2bf23d4453ec8ed43d4830a4416827" id="r_a7e2bf23d4453ec8ed43d4830a4416827"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1NamedExtraDamage.html">NamedExtraDamage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7e2bf23d4453ec8ed43d4830a4416827">core::extraDamageFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
 <tr class="memdesc:a7e2bf23d4453ec8ed43d4830a4416827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés que les capacités ajoutent à une attaque qui touche.  <br /></td></tr>
+<tr class="memitem:a1a557b01a82486a5916806e2a276bb57" id="r_a1a557b01a82486a5916806e2a276bb57"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1NamedExtraAttacks.html">NamedExtraAttacks</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a1a557b01a82486a5916806e2a276bb57">core::extraAttacksFrom</a> (std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt; capacities)</td></tr>
+<tr class="memdesc:a1a557b01a82486a5916806e2a276bb57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques que les capacités ajoutent à l'action <em>Attaquer</em> (<span class="tt">LOT-132</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Les capacités de classe comme <b>effets nommés</b> (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-024</span>). </p>

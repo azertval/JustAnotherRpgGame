@@ -1,0 +1,214 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/ClassArena.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('ClassArena_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ClassArena.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les classes du livre en combat (<span class="tt">LOT-132</span> à <span class="tt">LOT-135</span>) : les catalogues de <span class="tt">Source/Elements/Rpg</span>, une fiche pré-tirée montée au niveau voulu, une salle sans mur, un mannequin à frapper, et la lecture du journal.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Attack_8h_source.html">Core/Combat/Attack.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatState_8h_source.html">Core/Combat/CombatState.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterOptions_8h_source.html">Core/Rpg/CharacterOptions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Equipment_8h_source.html">Core/Rpg/Equipment.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Inventory_8h_source.html">Core/Rpg/Inventory.h</a>&quot;</code><br />
+</div>
+<p><a href="ClassArena_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:test_5Fsupport_3A_3ARpgCatalogs" id="r_test_5Fsupport_3A_3ARpgCatalogs"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structtest__support_1_1RpgCatalogs.html">test_support::RpgCatalogs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues de <span class="tt">Source/Elements/Rpg</span> qu'une fiche jouée lit.  <a href="structtest__support_1_1RpgCatalogs.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:test_5Fsupport" id="r_test_5Fsupport"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html">test_support</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4b8fddb258ef46b1d2072abc96a4546f" id="r_a4b8fddb258ef46b1d2072abc96a4546f"><td class="memItemLeft">const <a class="el" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f">test_support::rpgCatalogs</a> ()</td></tr>
+<tr class="memitem:af8f92215cc650440558303e170fc166c" id="r_af8f92215cc650440558303e170fc166c"><td class="memItemLeft"><a class="el" href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#af8f92215cc650440558303e170fc166c">test_support::loadPremade</a> (const char *file)</td></tr>
+<tr class="memitem:ad151ee551dbd223f479dea930b0d74d8" id="r_ad151ee551dbd223f479dea930b0d74d8"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#ad151ee551dbd223f479dea930b0d74d8">test_support::levelUpTo</a> (<a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, int level)</td></tr>
+<tr class="memdesc:ad151ee551dbd223f479dea930b0d74d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Monte <code class="param">sheet</code> jusqu'au niveau <code class="param">level</code> par l'expérience — le chemin d'une partie —, puis pose ce que sa classe donne à ce niveau.  <br /></td></tr>
+<tr class="memitem:a7db1b77e8c9387a205240e0452092ca9" id="r_a7db1b77e8c9387a205240e0452092ca9"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a7db1b77e8c9387a205240e0452092ca9">test_support::capacityIds</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet)</td></tr>
+<tr class="memitem:a2e49c80f502f2d3da085b84a343b0628" id="r_a2e49c80f502f2d3da085b84a343b0628"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a2e49c80f502f2d3da085b84a343b0628">test_support::armorClassOf</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Inventory.html">core::Inventory</a> &amp;inventory)</td></tr>
+<tr class="memitem:a0ae161a0aacb9ce0e34833e3a2979f8e" id="r_a0ae161a0aacb9ce0e34833e3a2979f8e"><td class="memItemLeft"><a class="el" href="classcore_1_1Level.html">core::Level</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a0ae161a0aacb9ce0e34833e3a2979f8e">test_support::room</a> (int columns=12, int rows=8)</td></tr>
+<tr class="memitem:abd238978ce6bf3d3cf55fc6ec6014cf7" id="r_abd238978ce6bf3d3cf55fc6ec6014cf7"><td class="memItemLeft"><a class="el" href="structcore_1_1AttackProfile.html">core::AttackProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#abd238978ce6bf3d3cf55fc6ec6014cf7">test_support::weaponAttack</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, const char *weaponId)</td></tr>
+<tr class="memitem:a0ec49d76b8158fbea427cbb8a0947e12" id="r_a0ec49d76b8158fbea427cbb8a0947e12"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a0ec49d76b8158fbea427cbb8a0947e12">test_support::hero</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Inventory.html">core::Inventory</a> &amp;inventory, std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">core::AttackProfile</a> &gt; attacks, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> place, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side=<a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>, int initiative=100)</td></tr>
+<tr class="memdesc:a0ec49d76b8158fbea427cbb8a0947e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un héros tel que le jeu le monte : profil de la fiche, CA de ce qu'il porte, <code class="param">attacks</code>, capacités et sorts de sa classe.  <br /></td></tr>
+<tr class="memitem:a0fc2435a4198544b8a8c83314f35b912" id="r_a0fc2435a4198544b8a8c83314f35b912"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a0fc2435a4198544b8a8c83314f35b912">test_support::dummy</a> (const char *name, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> place, int armorClass, int bonus, int hitPoints=60, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side=<a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a>)</td></tr>
+<tr class="memdesc:a0fc2435a4198544b8a8c83314f35b912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un mannequin : <code class="param">armorClass</code> de CA, <code class="param">bonus</code> au toucher, 1d6+2 tranchants, <code class="param">hitPoints</code> PV ; il joue après le héros.  <br /></td></tr>
+<tr class="memitem:aa48229aba7330ce33396668934fd08ed" id="r_aa48229aba7330ce33396668934fd08ed"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#aa48229aba7330ce33396668934fd08ed">test_support::journalHas</a> (const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</td></tr>
+<tr class="memitem:a596e2b3706d58e46a4db1d02bb00d248" id="r_a596e2b3706d58e46a4db1d02bb00d248"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a596e2b3706d58e46a4db1d02bb00d248">test_support::journalLine</a> (const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</td></tr>
+<tr class="memitem:a72cb6f5136d3475ef6c7dca2fcd22ebe" id="r_a72cb6f5136d3475ef6c7dca2fcd22ebe"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespacetest__support.html#a72cb6f5136d3475ef6c7dca2fcd22ebe">test_support::journalCount</a> (const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les classes du livre en combat (<span class="tt">LOT-132</span> à <span class="tt">LOT-135</span>) : les catalogues de <span class="tt">Source/Elements/Rpg</span>, une fiche pré-tirée montée au niveau voulu, une salle sans mur, un mannequin à frapper, et la lecture du journal. </p>
+<p>Les quatre classes se testent de la même façon — la fiche de la page, sa classe lue dans la donnée, une session d'arène —, et chaque fichier de test ne dit que ce qui est propre à sa classe. Sans GoogleTest : un échec se dit par une valeur, que le test compare. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_78aafe4118443ed4a6fae9c8d163dfdb.html">Support</a></li><li class="navelem"><a href="ClassArena_8h.html">ClassArena.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

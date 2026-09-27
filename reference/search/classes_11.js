@@ -13,6 +13,7 @@ var searchData=
   ['rhicontext_10',['RhiContext',['../structhmi_1_1RhiContext.html',1,'hmi']]],
   ['rolleddamage_11',['RolledDamage',['../structcore_1_1RolledDamage.html',1,'core']]],
   ['rpgactor_12',['RpgActor',['../structcore_1_1RpgActor.html',1,'core']]],
-  ['runingamechoice_13',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]],
-  ['running_14',['Running',['../structhmi_1_1CombatCueTrack_1_1Running.html',1,'hmi::CombatCueTrack']]]
+  ['rpgcatalogs_13',['RpgCatalogs',['../structtest__support_1_1RpgCatalogs.html',1,'test_support']]],
+  ['runingamechoice_14',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]],
+  ['running_15',['Running',['../structhmi_1_1CombatCueTrack_1_1Running.html',1,'hmi::CombatCueTrack']]]
 ];

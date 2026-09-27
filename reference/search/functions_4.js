@@ -88,5 +88,6 @@ var searchData=
   ['expire_85',['expire',['../classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c',1,'core::ImmunityLedger']]],
   ['explorationreach_86',['ExplorationReach',['../classcore_1_1ExplorationReach.html#a8f6297abe82afb0fa3a73e7db824197c',1,'core::ExplorationReach']]],
   ['explorationsession_87',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]],
-  ['extradamagefrom_88',['extraDamageFrom',['../namespacecore.html#a7e2bf23d4453ec8ed43d4830a4416827',1,'core']]]
+  ['extraattacksfrom_88',['extraAttacksFrom',['../namespacecore.html#a1a557b01a82486a5916806e2a276bb57',1,'core']]],
+  ['extradamagefrom_89',['extraDamageFrom',['../namespacecore.html#a7e2bf23d4453ec8ed43d4830a4416827',1,'core']]]
 ];

@@ -143,14 +143,141 @@ $(function(){initNavTree('namespacetest__support.html','',''); });
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:RpgCatalogs" id="r_RpgCatalogs"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues de <span class="tt">Source/Elements/Rpg</span> qu'une fiche jouée lit.  <a href="structtest__support_1_1RpgCatalogs.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a4b8fddb258ef46b1d2072abc96a4546f" id="r_a4b8fddb258ef46b1d2072abc96a4546f"><td class="memItemLeft">const <a class="el" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a> ()</td></tr>
+<tr class="memitem:af8f92215cc650440558303e170fc166c" id="r_af8f92215cc650440558303e170fc166c"><td class="memItemLeft"><a class="el" href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="#af8f92215cc650440558303e170fc166c">loadPremade</a> (const char *file)</td></tr>
+<tr class="memitem:ad151ee551dbd223f479dea930b0d74d8" id="r_ad151ee551dbd223f479dea930b0d74d8"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad151ee551dbd223f479dea930b0d74d8">levelUpTo</a> (<a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, int level)</td></tr>
+<tr class="memdesc:ad151ee551dbd223f479dea930b0d74d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Monte <code class="param">sheet</code> jusqu'au niveau <code class="param">level</code> par l'expérience — le chemin d'une partie —, puis pose ce que sa classe donne à ce niveau.  <br /></td></tr>
+<tr class="memitem:a7db1b77e8c9387a205240e0452092ca9" id="r_a7db1b77e8c9387a205240e0452092ca9"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7db1b77e8c9387a205240e0452092ca9">capacityIds</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet)</td></tr>
+<tr class="memitem:a2e49c80f502f2d3da085b84a343b0628" id="r_a2e49c80f502f2d3da085b84a343b0628"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2e49c80f502f2d3da085b84a343b0628">armorClassOf</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Inventory.html">core::Inventory</a> &amp;inventory)</td></tr>
+<tr class="memitem:a0ae161a0aacb9ce0e34833e3a2979f8e" id="r_a0ae161a0aacb9ce0e34833e3a2979f8e"><td class="memItemLeft"><a class="el" href="classcore_1_1Level.html">core::Level</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ae161a0aacb9ce0e34833e3a2979f8e">room</a> (int columns=12, int rows=8)</td></tr>
+<tr class="memitem:abd238978ce6bf3d3cf55fc6ec6014cf7" id="r_abd238978ce6bf3d3cf55fc6ec6014cf7"><td class="memItemLeft"><a class="el" href="structcore_1_1AttackProfile.html">core::AttackProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#abd238978ce6bf3d3cf55fc6ec6014cf7">weaponAttack</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, const char *weaponId)</td></tr>
+<tr class="memitem:a0ec49d76b8158fbea427cbb8a0947e12" id="r_a0ec49d76b8158fbea427cbb8a0947e12"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ec49d76b8158fbea427cbb8a0947e12">hero</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Inventory.html">core::Inventory</a> &amp;inventory, std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">core::AttackProfile</a> &gt; attacks, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> place, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side=<a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a>, int initiative=100)</td></tr>
+<tr class="memdesc:a0ec49d76b8158fbea427cbb8a0947e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un héros tel que le jeu le monte : profil de la fiche, CA de ce qu'il porte, <code class="param">attacks</code>, capacités et sorts de sa classe.  <br /></td></tr>
+<tr class="memitem:a0fc2435a4198544b8a8c83314f35b912" id="r_a0fc2435a4198544b8a8c83314f35b912"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0fc2435a4198544b8a8c83314f35b912">dummy</a> (const char *name, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> place, int armorClass, int bonus, int hitPoints=60, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side=<a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a>)</td></tr>
+<tr class="memdesc:a0fc2435a4198544b8a8c83314f35b912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un mannequin : <code class="param">armorClass</code> de CA, <code class="param">bonus</code> au toucher, 1d6+2 tranchants, <code class="param">hitPoints</code> PV ; il joue après le héros.  <br /></td></tr>
+<tr class="memitem:aa48229aba7330ce33396668934fd08ed" id="r_aa48229aba7330ce33396668934fd08ed"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa48229aba7330ce33396668934fd08ed">journalHas</a> (const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</td></tr>
+<tr class="memitem:a596e2b3706d58e46a4db1d02bb00d248" id="r_a596e2b3706d58e46a4db1d02bb00d248"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a596e2b3706d58e46a4db1d02bb00d248">journalLine</a> (const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</td></tr>
+<tr class="memitem:a72cb6f5136d3475ef6c7dca2fcd22ebe" id="r_a72cb6f5136d3475ef6c7dca2fcd22ebe"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a72cb6f5136d3475ef6c7dca2fcd22ebe">journalCount</a> (const std::vector&lt; std::string &gt; &amp;journal, const std::string &amp;text)</td></tr>
 <tr class="memitem:ad7bf252b739580065525433e1ec5266d" id="r_ad7bf252b739580065525433e1ec5266d"><td class="memItemLeft">nlohmann::json&#160;</td><td class="memItemRight"><a class="el" href="#ad7bf252b739580065525433e1ec5266d">readHdMockupJson</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memitem:ae0504ed11cf8afe35cfc6a85ba8cd353" id="r_ae0504ed11cf8afe35cfc6a85ba8cd353"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae0504ed11cf8afe35cfc6a85ba8cd353">hdMockupSnapshot</a> (const nlohmann::json &amp;scene, const std::filesystem::path &amp;directory)</td></tr>
 <tr class="memdesc:ae0504ed11cf8afe35cfc6a85ba8cd353"><td class="mdescLeft">&#160;</td><td class="mdescRight">La scène de <span class="tt">scene.json</span>, en instantané : les sols par la légende, les pièces à leur case.  <br /></td></tr>
 <tr class="memitem:a48a656f190a8d0b31c9e337b2c0437c1" id="r_a48a656f190a8d0b31c9e337b2c0437c1"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a48a656f190a8d0b31c9e337b2c0437c1">hdMockupFocus</a> (const nlohmann::json &amp;scene)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a2e49c80f502f2d3da085b84a343b0628" name="a2e49c80f502f2d3da085b84a343b0628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e49c80f502f2d3da085b84a343b0628">&#9670;&#160;</a></span>armorClassOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int test_support::armorClassOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Inventory.html">core::Inventory</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inventory</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La classe d'armure de <code class="param">loaded</code> avec ce qu'il porte (<span class="tt">EX-CBT-030</span>). </dd></dl>
+
+</div>
+</div>
+<a id="a7db1b77e8c9387a205240e0452092ca9" name="a7db1b77e8c9387a205240e0452092ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db1b77e8c9387a205240e0452092ca9">&#9670;&#160;</a></span>capacityIds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; test_support::capacityIds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les identifiants des capacités actives de <code class="param">sheet</code>, dans l'ordre de la table. </dd></dl>
+
+</div>
+</div>
+<a id="a0fc2435a4198544b8a8c83314f35b912" name="a0fc2435a4198544b8a8c83314f35b912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fc2435a4198544b8a8c83314f35b912">&#9670;&#160;</a></span>dummy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a> test_support::dummy </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>armorClass</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>bonus</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>hitPoints</em></span><span class="paramdefsep"> = </span><span class="paramdefval">60</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a></td>          <td class="paramname"><span class="paramname"><em>side</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">core::CombatSide::Enemies</a></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un mannequin : <code class="param">armorClass</code> de CA, <code class="param">bonus</code> au toucher, 1d6+2 tranchants, <code class="param">hitPoints</code> PV ; il joue après le héros. </p>
+
+</div>
+</div>
 <a id="a48a656f190a8d0b31c9e337b2c0437c1" name="a48a656f190a8d0b31c9e337b2c0437c1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48a656f190a8d0b31c9e337b2c0437c1">&#9670;&#160;</a></span>hdMockupFocus()</h2>
 
@@ -215,6 +342,206 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0ec49d76b8158fbea427cbb8a0947e12" name="a0ec49d76b8158fbea427cbb8a0947e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ec49d76b8158fbea427cbb8a0947e12">&#9670;&#160;</a></span>hero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a> test_support::hero </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Inventory.html">core::Inventory</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>inventory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">core::AttackProfile</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>attacks</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>place</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a></td>          <td class="paramname"><span class="paramname"><em>side</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">core::CombatSide::Allies</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>initiative</em></span><span class="paramdefsep"> = </span><span class="paramdefval">100</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un héros tel que le jeu le monte : profil de la fiche, CA de ce qu'il porte, <code class="param">attacks</code>, capacités et sorts de sa classe. </p>
+<p>L'initiative est un jet : le héros joue en premier, sans parier sur ses dés. </p>
+
+</div>
+</div>
+<a id="a72cb6f5136d3475ef6c7dca2fcd22ebe" name="a72cb6f5136d3475ef6c7dca2fcd22ebe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72cb6f5136d3475ef6c7dca2fcd22ebe">&#9670;&#160;</a></span>journalCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t test_support::journalCount </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>journal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de lignes du journal qui contiennent <code class="param">text</code>. </dd></dl>
+
+</div>
+</div>
+<a id="aa48229aba7330ce33396668934fd08ed" name="aa48229aba7330ce33396668934fd08ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa48229aba7330ce33396668934fd08ed">&#9670;&#160;</a></span>journalHas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool test_support::journalHas </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>journal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si une ligne du journal contient <code class="param">text</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a596e2b3706d58e46a4db1d02bb00d248" name="a596e2b3706d58e46a4db1d02bb00d248"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596e2b3706d58e46a4db1d02bb00d248">&#9670;&#160;</a></span>journalLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string test_support::journalLine </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>journal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>text</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La première ligne du journal qui contient <code class="param">text</code>, ou vide. </dd></dl>
+
+</div>
+</div>
+<a id="ad151ee551dbd223f479dea930b0d74d8" name="ad151ee551dbd223f479dea930b0d74d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad151ee551dbd223f479dea930b0d74d8">&#9670;&#160;</a></span>levelUpTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; test_support::levelUpTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Monte <code class="param">sheet</code> jusqu'au niveau <code class="param">level</code> par l'expérience — le chemin d'une partie —, puis pose ce que sa classe donne à ce niveau. </p>
+<dl class="section return"><dt>Returns</dt><dd>Les capacités et les sorts que la table nomme et qu'aucun catalogue ne porte. </dd></dl>
+
+</div>
+</div>
+<a id="af8f92215cc650440558303e170fc166c" name="af8f92215cc650440558303e170fc166c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8f92215cc650440558303e170fc166c">&#9670;&#160;</a></span>loadPremade()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a> test_support::loadPremade </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>file</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La fiche pré-tirée <code class="param">file</code> de <span class="tt">Rpg/characters/</span>, erreurs et avertissements compris. </dd></dl>
+
+</div>
+</div>
 <a id="ad7bf252b739580065525433e1ec5266d" name="ad7bf252b739580065525433e1ec5266d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad7bf252b739580065525433e1ec5266d">&#9670;&#160;</a></span>readHdMockupJson()</h2>
 
@@ -238,6 +565,92 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le JSON de <code class="param">path</code>, « discarded » s'il ne se lit pas. </dd></dl>
+
+</div>
+</div>
+<a id="a0ae161a0aacb9ce0e34833e3a2979f8e" name="a0ae161a0aacb9ce0e34833e3a2979f8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ae161a0aacb9ce0e34833e3a2979f8e">&#9670;&#160;</a></span>room()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1Level.html">core::Level</a> test_support::room </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>columns</em></span><span class="paramdefsep"> = </span><span class="paramdefval">12</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>rows</em></span><span class="paramdefsep"> = </span><span class="paramdefval">8</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Une salle <code class="param">columns</code> × <code class="param">rows</code> sans mur : les places sont données à la main. </dd></dl>
+
+</div>
+</div>
+<a id="a4b8fddb258ef46b1d2072abc96a4546f" name="a4b8fddb258ef46b1d2072abc96a4546f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b8fddb258ef46b1d2072abc96a4546f">&#9670;&#160;</a></span>rpgCatalogs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> &amp; test_support::rpgCatalogs </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les catalogues du jeu, lus une fois. </dd></dl>
+
+</div>
+</div>
+<a id="abd238978ce6bf3d3cf55fc6ec6014cf7" name="abd238978ce6bf3d3cf55fc6ec6014cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd238978ce6bf3d3cf55fc6ec6014cf7">&#9670;&#160;</a></span>weaponAttack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1AttackProfile.html">core::AttackProfile</a> test_support::weaponAttack </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>weaponId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'attaque de l'arme <code class="param">weaponId</code> du catalogue, maîtrise lue dans la fiche. </dd></dl>
 
 </div>
 </div>

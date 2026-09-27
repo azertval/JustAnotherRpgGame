@@ -18,7 +18,7 @@ var searchData=
   ['encounters_15',['encounters',['../structcore_1_1EncounterCatalog.html#adbd2f256ac224df8bb48bc7ee6aed70e',1,'core::EncounterCatalog::encounters'],['../structcore_1_1EntityReferenceContext.html#ad17fb12e7a2ab94c7152df5e278b8f1f',1,'core::EntityReferenceContext::encounters'],['../structhmi_1_1EditorReferences.html#a23ed6a66d53b85190ae0666bf471edfb',1,'hmi::EditorReferences::encounters'],['../structhmi_1_1EncounterModel_1_1Catalogs.html#add18d446e70c1a8de4f94001bad80792',1,'hmi::EncounterModel::Catalogs::encounters']]],
   ['encumberedgramsperstrength_16',['encumberedGramsPerStrength',['../structcore_1_1EncumbranceRules.html#ab50acad08027a30928c134fa7769bd3b',1,'core::EncumbranceRules']]],
   ['encumberedspeedpenaltymeters_17',['encumberedSpeedPenaltyMeters',['../structcore_1_1EncumbranceRules.html#a1a166405a9deaeacbb1f49dc13a1cfb9',1,'core::EncumbranceRules']]],
-  ['encumbrance_18',['encumbrance',['../structcore_1_1DerivedStats.html#ac9809a3bddea3e08df19f4fe32796bda',1,'core::DerivedStats::encumbrance'],['../structhmi_1_1DemonstrationState.html#a6207c84396e22c46ce7739928bca6a9b',1,'hmi::DemonstrationState::encumbrance']]],
+  ['encumbrance_18',['encumbrance',['../structcore_1_1DerivedStats.html#ac9809a3bddea3e08df19f4fe32796bda',1,'core::DerivedStats::encumbrance'],['../structhmi_1_1DemonstrationState.html#a6207c84396e22c46ce7739928bca6a9b',1,'hmi::DemonstrationState::encumbrance'],['../structtest__support_1_1RpgCatalogs.html#aa01201acf91fd26aae5e3c5a3c754edc',1,'test_support::RpgCatalogs::encumbrance']]],
   ['end_19',['end',['../structhmi_1_1WorldGraphEdgeGeometry.html#ade6ddf21f291e98a46effe63d02a9805',1,'hmi::WorldGraphEdgeGeometry']]],
   ['endmode_20',['endMode',['../structcore_1_1AnimationClip.html#af55e08189f4ff0bfe3a6bca47e4b9aa0',1,'core::AnimationClip']]],
   ['enemies_21',['enemies',['../structcore_1_1ArenaMount.html#ac351f2fac7a603231f501a9a0cb24045',1,'core::ArenaMount::enemies'],['../structcore_1_1EncounterMount.html#a7a4848419127ffe79efc137a59153194',1,'core::EncounterMount::enemies']]],
@@ -37,7 +37,7 @@ var searchData=
   ['entriesoutside_34',['entriesOutside',['../structcore_1_1CombatZoneTerrain.html#abce92f48dc6ed7ef6accef22f82adffc',1,'core::CombatZoneTerrain']]],
   ['entry_35',['entry',['../structcore_1_1TurnSlot.html#ab41d3d66110ef3fbd71dc2fbe1fe39f8',1,'core::TurnSlot::entry'],['../structcore_1_1LevelData.html#aae5be5bb53eeb5dc8b02e00fd7af431f',1,'core::LevelData::entry'],['../structcore_1_1LevelDraft_1_1State.html#af146bc5caa96d02bffedd3dbac8a4416',1,'core::LevelDraft::State::entry'],['../structhmi_1_1MapTemplate.html#a5e3f594582f3c5a917b2408320e8df6d',1,'hmi::MapTemplate::entry'],['../structhmi_1_1AssetGalleryBloc.html#a2e4a18db21ee3f77d6fe6e32be47b60e',1,'hmi::AssetGalleryBloc::entry']]],
   ['epsilon_36',['EPSILON',['../namespacecore.html#a49c6e01fbd8905740993109a36f65c11',1,'core']]],
-  ['equipment_37',['equipment',['../structcore_1_1ItemLookup.html#a8de14476fd1b32d8e88d41fd18b4b0da',1,'core::ItemLookup::equipment'],['../structhmi_1_1DemonstrationState.html#aff8ddb1576e401a19e48a74a4457f95d',1,'hmi::DemonstrationState::equipment']]],
+  ['equipment_37',['equipment',['../structcore_1_1ItemLookup.html#a8de14476fd1b32d8e88d41fd18b4b0da',1,'core::ItemLookup::equipment'],['../structhmi_1_1DemonstrationState.html#aff8ddb1576e401a19e48a74a4457f95d',1,'hmi::DemonstrationState::equipment'],['../structtest__support_1_1RpgCatalogs.html#a6da83473562db6375ab45302ce662a51',1,'test_support::RpgCatalogs::equipment']]],
   ['equipment_5fslot_5fcount_38',['EQUIPMENT_SLOT_COUNT',['../namespacecore.html#ab6f6a87729df10e41e9fa1e5f74c4d76',1,'core']]],
   ['equippable_39',['equippable',['../structhmi_1_1ItemSheet.html#a2873db1bec42398edb3a0d9a402bd7fd',1,'hmi::ItemSheet']]],
   ['equipped_40',['equipped',['../structcore_1_1Inventory.html#abf787423090884ef88096f21d2828da1',1,'core::Inventory']]],
@@ -49,8 +49,9 @@ var searchData=
   ['eviction_5fseconds_46',['EVICTION_SECONDS',['../classhmi_1_1AssetGalleryRenderer.html#a53a4757f9e9ea0b09986c7271690a4ca',1,'hmi::AssetGalleryRenderer']]],
   ['exists_47',['exists',['../structhmi_1_1FileFingerprint.html#a6cb50d9942dec92f581d44425ff015a9',1,'hmi::FileFingerprint']]],
   ['expecteddamage_48',['expectedDamage',['../structcore_1_1AttackPreview.html#add5a42d183ddc7d4ae467c83f4c0867f',1,'core::AttackPreview']]],
-  ['experience_49',['experience',['../structcore_1_1ExperienceLevel.html#a183cfeb9efc4f74a3300ebc67a05ad36',1,'core::ExperienceLevel::experience'],['../structhmi_1_1CharacterSheetContext.html#a218f73411e99569ae93fde562d70424e',1,'hmi::CharacterSheetContext::experience'],['../structhmi_1_1DemonstrationState.html#adbfb0421909790b9ddba0cee3a59b9b2',1,'hmi::DemonstrationState::experience']]],
+  ['experience_49',['experience',['../structcore_1_1ExperienceLevel.html#a183cfeb9efc4f74a3300ebc67a05ad36',1,'core::ExperienceLevel::experience'],['../structhmi_1_1CharacterSheetContext.html#a218f73411e99569ae93fde562d70424e',1,'hmi::CharacterSheetContext::experience'],['../structhmi_1_1DemonstrationState.html#adbfb0421909790b9ddba0cee3a59b9b2',1,'hmi::DemonstrationState::experience'],['../structtest__support_1_1RpgCatalogs.html#a10059798148d523428adea890fb7718e',1,'test_support::RpgCatalogs::experience']]],
   ['experiencepoints_50',['experiencePoints',['../structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70',1,'core::CharacterSheet']]],
   ['explicitkey_51',['explicitKey',['../structcore_1_1ExpectedAssetKey.html#af4c061be4e72494398eef6e44787977a',1,'core::ExpectedAssetKey']]],
-  ['exploration_52',['exploration',['../structcore_1_1EncounterRun.html#aa18a27458ab47992bc990d3ba9d02142',1,'core::EncounterRun']]]
+  ['exploration_52',['exploration',['../structcore_1_1EncounterRun.html#aa18a27458ab47992bc990d3ba9d02142',1,'core::EncounterRun']]],
+  ['extra_5fattack_5fresource_53',['EXTRA_ATTACK_RESOURCE',['../namespacecore.html#ad91bd699bf17897bb00fa9a3aff948bd',1,'core']]]
 ];
