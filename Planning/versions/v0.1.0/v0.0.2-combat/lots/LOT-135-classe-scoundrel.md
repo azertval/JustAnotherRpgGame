@@ -52,8 +52,9 @@ palier (`sneak-attack-simplified-2d8`… `-10d8`), chacune **remplaçant** la pr
    la `0.3.0`.
 4. **Precise Striker** est un `attack-bonus` de 1, nommé au jet.
 5. **Icônes** : une par capacité de base — une amélioration (`replaces`) garde l'icône de ce
-   qu'elle remplace ; les quatre clés entrent à la pièce `ui/icon/capacity`, « non livrées »,
-   envois préparés sur le poste (`Tools/Envois/LOT-135/`).
+   qu'elle remplace. Les quatre icônes de la pièce `ui/icon/capacity`, générées par l'auteur sur
+   les envois du poste (`Tools/Envois/LOT-135/`, jamais livré), sont recadrées à 128 px avec
+   4 px de marge, installées par `receive_ui_assets.py` et publiées dans le kit `UI@5`.
 
 Tests : `test_class_scoundrel.cpp` — la fiche N1, l'attaque sournoise avec et sans allié au
 contact, ses paliers, l'agilité, l'aptitude, *Precise Striker*, la montée de 1 à 5.

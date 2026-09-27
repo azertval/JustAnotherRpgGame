@@ -14,7 +14,7 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   la fois du tour n'est pas consommée. *Scoundrel's Agility* donne 40 ft à la fiche de la page 207
   (écart n° 9 du registre du `LOT-130` refermé) et +2 CA au niveau 5. *Adventurer's Aptitude* est
   le nouvel effet `proficient-check-bonus`, lu par `skillModifier`. *Precise Striker* : +1 au jet.
-  Les icônes des quatre capacités sont au cahier, en attente de génération. Tests :
+  Les icônes des quatre capacités sont générées et publiées dans le kit `UI@5`. Tests :
   `test_class_scoundrel.cpp`.
 - **LOT-134 — Classe Priest.** Le Priest du *Player's Guide to Tanares* (p. 200-203) se joue du
   niveau 1 au niveau 5. Sa table est reprise niveau par niveau jusqu'au 20, et neuf sorts entrent
