@@ -3885,30 +3885,119 @@
       ],
       "bytes": 24708,
       "sha256": "48373abe2ecff93272feafbad93e09a7627557cc0e84930e2347c32eecbcb033"
-    }
-  ],
-  "pending": [
-    {
-      "keys": [
-        "ui/icon/spell/sacred-flame",
-        "ui/icon/spell/bless",
-        "ui/icon/spell/cure-wounds",
-        "ui/icon/spell/spare-the-dying",
-        "ui/icon/spell/lesser-restoration",
-        "ui/icon/spell/spiritual-weapon",
-        "ui/icon/spell/daylight",
-        "ui/icon/spell/revivify"
-      ],
-      "reason": "icônes du LOT-134 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
     },
     {
-      "keys": [
-        "ui/icon/capacity/sneak-attack-simplified",
-        "ui/icon/capacity/scoundrels-agility",
-        "ui/icon/capacity/adventurers-aptitude",
-        "ui/icon/capacity/precise-striker"
+      "id": "ui-icon-spell-bless",
+      "file": "icon/spell/bless.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/bless",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a hand raised in blessing under a small radiant halo. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
       ],
-      "reason": "icônes du LOT-135 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
+      "bytes": 27207,
+      "sha256": "83d1431b621cfd72de4035bbf1c7d6215e9466fa318473f0843b4134847cd6b6"
+    },
+    {
+      "id": "ui-icon-spell-cure-wounds",
+      "file": "icon/spell/cure-wounds.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/cure-wounds",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a glowing heart cradled between two hands. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 28293,
+      "sha256": "b0ad1b70d1283cda9886f312eb5fc570851433fb7db92816b06cbff17ad479b9"
+    },
+    {
+      "id": "ui-icon-spell-daylight",
+      "file": "icon/spell/daylight.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/daylight",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a radiant sun rising above the horizon. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26845,
+      "sha256": "5b6d2cf9b51353cbddf649300f4dfec0c1c9040c4f722be790dbed4aaf6cc376"
+    },
+    {
+      "id": "ui-icon-spell-lesser-restoration",
+      "file": "icon/spell/lesser-restoration.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/lesser-restoration",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a radiant drop falling into an open palm. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 24959,
+      "sha256": "0b5cb2e44dbf58edac5f9d8bffbab0878eb584f90281dfe858a4de890cfa0254"
+    },
+    {
+      "id": "ui-icon-spell-revivify",
+      "file": "icon/spell/revivify.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/revivify",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a diamond shining above a heart. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26414,
+      "sha256": "9cec9ffed3f2aae4ade724e338fcbb01cc04c9700eb8c73f30f3d0cda833de3e"
+    },
+    {
+      "id": "ui-icon-spell-sacred-flame",
+      "file": "icon/spell/sacred-flame.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/sacred-flame",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a column of radiant golden flame falling from above. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 25910,
+      "sha256": "3bf498288532800ebb44312e65231b929a3ba58eb3f2983ad80c38ee71999c56"
+    },
+    {
+      "id": "ui-icon-spell-spare-the-dying",
+      "file": "icon/spell/spare-the-dying.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/spare-the-dying",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a small flickering candle flame held in cupped hands. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26420,
+      "sha256": "e8ddfd7de0457f72fae4c817efdad748766580dbefdea154a659b97597544d13"
+    },
+    {
+      "id": "ui-icon-spell-spiritual-weapon",
+      "file": "icon/spell/spiritual-weapon.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/spiritual-weapon",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a spectral glowing warhammer floating in the air. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26429,
+      "sha256": "01cbdafba3373352b7f3238c6b4b16a14da88e87a91904118ecf831a0c3a130f"
     }
-  ]
+  ],
+  "pending": []
 }

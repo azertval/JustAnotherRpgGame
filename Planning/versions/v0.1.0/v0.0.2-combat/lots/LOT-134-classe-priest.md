@@ -57,9 +57,10 @@ catalogue. Neuf sorts entrent au catalogue `Rpg/spells/`, nommés d'après le *M
 5. *Lumière du jour* est narratif. *Épargner les mourants*, *restauration inférieure* et
    *revigorer* attendent le `LOT-137` — l'agonie, les états en combat, la mort — et le déclarent
    (`mecanismesRequis`) ; le grimoire de combat les tait.
-6. **Icônes** : les huit sorts nouveaux entrent à la pièce `ui/icon/spell` du cahier, « non
-   livrés » dans le manifeste ; les envois au générateur sont préparés sur le poste
-   (`Tools/Envois/LOT-134/`).
+6. **Icônes** : les huit sorts nouveaux entrent à la pièce `ui/icon/spell` du cahier. Générées
+   par l'auteur sur les envois du poste (`Tools/Envois/LOT-134/`, jamais livré), elles sont
+   recadrées à 128 px avec 4 px de marge, installées par `receive_ui_assets.py` et publiées dans
+   le kit `UI@4`.
 
 Tests : `test_class_priest.cpp` — la fiche N1 et son grimoire, un test par sort joué, la montée de
 1 à 5 et les sorts qui attendent le `LOT-137`.
