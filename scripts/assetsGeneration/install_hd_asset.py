@@ -72,6 +72,12 @@ transparent (la variante « planche d'animation » de la consigne).
    jeton (128 × 128, détouré en rond) si une source de portrait est donnée ; le nom dans `npcs` du
    manifeste, les sources et leur empreinte dans son objet `sources`.
 
+Une figurine **sans bande** mais avec un portrait (`"strips": []`) est un **portrait d'attente**
+(`LOT-145`) : le personnage a son visage avant sa figurine — les héros du groupe dont l'atelier
+produit encore les bandes. Seuls son portrait et son jeton s'installent, et son nom va dans la
+liste `portraits` du manifeste, pas dans `npcs` : le moteur le dessine par son mannequin. Le jour
+où ses bandes s'installent, il passe de `portraits` à `npcs`.
+
     {
       "version": 1,
       "target": "Common/Characters",
@@ -428,8 +434,9 @@ def read_figures(path: Path, raws) -> list[FigureSpec]:
             raise DescriptorError(f"{where} : `{name}` nommée deux fois")
         names.add(name)
         strips_raw = raw.get("strips")
-        if not isinstance(strips_raw, list) or not strips_raw:
-            raise DescriptorError(f"{where} : `strips`, la liste des bandes, manque")
+        if not isinstance(strips_raw, list) or (not strips_raw and "portrait" not in raw):
+            raise DescriptorError(f"{where} : `strips`, la liste des bandes, manque "
+                                  "(une liste vide demande un `portrait`)")
         strips = [read_strip(s, f"{where}, bande {n + 1}") for n, s in enumerate(strips_raw)]
         stems = [s.stem for s in strips]
         doubles = sorted({s for s in stems if stems.count(s) > 1})
@@ -1079,8 +1086,17 @@ def anim_text(anim: dict) -> str:
 def figure_manifest(descriptor: Descriptor, ready: list[InstalledFigure]) -> dict:
     """Le manifeste de la cible, avec les figurines de `ready` inscrites."""
     manifest = read_manifest(descriptor)
+    drawn = {figure.name for figure in ready if figure.strips}
+    waiting = {figure.name for figure in ready if not figure.strips}
     npcs = manifest.get("npcs", [])
-    manifest["npcs"] = sorted(set(npcs) | {figure.name for figure in ready})
+    manifest["npcs"] = sorted((set(npcs) - waiting) | drawn)
+    # Les portraits d'attente : ceux qui ont un visage sans bande. Une figurine qui reçoit ses
+    # bandes quitte la liste ; une liste vide disparaît.
+    portraits = sorted((set(manifest.get("portraits", [])) - drawn) | waiting)
+    if portraits:
+        manifest["portraits"] = portraits
+    else:
+        manifest.pop("portraits", None)
     sources = dict(manifest.get("sources", {}))
     for figure in ready:
         sources.update(figure.sources)
@@ -1107,8 +1123,9 @@ def stale_figures(descriptor: Descriptor, ready: list[InstalledFigure]) -> list[
     manifest = read_manifest(descriptor)
     problems = []
     for figure in ready:
-        if figure.name not in manifest.get("npcs", []):
-            problems.append(f"{figure.name} : absente de `npcs`")
+        liste = "npcs" if figure.strips else "portraits"
+        if figure.name not in manifest.get(liste, []):
+            problems.append(f"{figure.name} : absente de `{liste}`")
         recorded = manifest.get("sources", {})
         for key, entry in figure.sources.items():
             if recorded.get(key) != entry:

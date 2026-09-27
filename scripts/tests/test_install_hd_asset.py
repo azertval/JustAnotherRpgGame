@@ -504,3 +504,30 @@ def test_un_dossier_hors_de_la_cible_est_refuse(tmp_path, folder):
     path.write_text(json.dumps(data), encoding='utf-8')
     with pytest.raises(M.DescriptorError, match='dossier'):
         M.read_descriptor(path)
+
+
+def test_un_portrait_d_attente_s_installe_sans_bande_puis_cede_la_place(characters):
+    """LOT-145 : un héros a son visage avant sa figurine. Sans bande, seuls le portrait et le jeton
+    s'installent, et le nom va dans `portraits`, pas dans `npcs` ; ses bandes installées ensuite le
+    font passer de l'une à l'autre."""
+    target, sources = characters
+    Image.new('RGBA', (700, 900), (140, 60, 50, 255)).save(sources / 'portrait.png')
+    descriptor = figure_descriptor(sources, [{'name': 'Heroes/mage', 'portrait': 'portrait.png',
+                                              'strips': []}])
+    assert M.main([str(descriptor)]) == 0
+    folder = target / 'Heroes' / 'mage'
+    assert sorted(p.name for p in folder.iterdir()) == ['portrait.png', 'token.png']
+    assert Image.open(folder / 'portrait.png').size == (512, 512)
+    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == []
+    assert manifest['portraits'] == ['Heroes/mage']
+    assert M.main([str(descriptor), '--check']) == 0
+
+    figure_strip(6).save(sources / 'idle-se.png')
+    descriptor = figure_descriptor(sources, [{'name': 'Heroes/mage', 'portrait': 'portrait.png',
+                                              'strips': [{'source': 'idle-se.png', 'clip': 'idle',
+                                                          'facing': 'se', 'frames': 6}]}])
+    assert M.main([str(descriptor)]) == 0
+    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == ['Heroes/mage']
+    assert 'portraits' not in manifest

@@ -6,6 +6,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-145 — Le mannequin humanoïde aux quatre orientations, et les portraits des alliés.** Le
+  mannequin humanoïde a désormais ses 24 bandes orientées (SE, SW, NE, NW ; repos, marche,
+  attaque, sort, touché, mort, huit images), installées par `install_hd_asset.py` ; les bandes sans
+  orientation sont retirées. Les portraits du Mage, du Priest et du Scoundrel (atelier du
+  `LOT-136`) s'installent comme **portraits d'attente** : une figurine sans bande dont le nom va dans
+  la liste `portraits` du manifeste `Characters/`, que l'installateur, `check_hd_assets.py` et la
+  galerie des assets connaissent. Le HUD, l'écran Groupe et le dialogue montrent les quatre visages
+  du groupe. Kit `Common@3`.
 - **LOT-138 — Le groupe de quatre.** Le joueur mène un **groupe** de un à quatre personnages,
   pris parmi les fiches pré-tirées (`core::Party`, `Rpg/characters/`) : le premier de l'ordre de
   marche est le **meneur**, qu'on déplace, qui interagit et combat sur la carte ; la fiche et
