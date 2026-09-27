@@ -30,7 +30,7 @@ sources = [
 
 ## Décisions de réalisation
 
-Réalisé le 27 septembre 2026 (exigences `EX-EXP-013`, `EX-EXP-014`).
+Réalisé le 27 septembre 2026 (exigences `EX-EXP-013`, `EX-EXP-014`), **PR #153**.
 
 1. **Le groupe est un ordre.** `core::Party` est une liste ordonnée d'identifiants de fiche, de un
    à quatre : le premier **mène**, les autres suivent dans cet ordre. Pas de champ « meneur » à
