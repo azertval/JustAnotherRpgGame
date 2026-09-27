@@ -32,7 +32,7 @@ La progression complète est dans [le référentiel des classes de base](../../.
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026. La table des niveaux 1 à 20 était déjà saisie depuis le `LOT-36` ;
+Livré le 27 septembre 2026 (**PR #148**). La table des niveaux 1 à 20 était déjà saisie depuis le `LOT-36` ;
 ce lot écrit ses capacités des niveaux 1 à 5 dans le catalogue du `LOT-131`
 (`Source/Elements/Rpg/capacities/`), et le moteur n'y gagne qu'**un genre d'effet**.
 
