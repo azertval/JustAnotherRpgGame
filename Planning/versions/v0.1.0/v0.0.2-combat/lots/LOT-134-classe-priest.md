@@ -32,7 +32,7 @@ La progression complète est dans [le référentiel des classes de base](../../.
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026. La table du Priest est reprise niveau par niveau de la page 201, sorts
+Livré le 27 septembre 2026 (**PR #150**). La table du Priest est reprise niveau par niveau de la page 201, sorts
 mineurs et sorts compris jusqu'au niveau 20 ; ses capacités des niveaux 1 à 5 (*Simplified
 Spellcasting*, *Specific Cantrips*, *Experience*, *Ability Score Improvement*) étaient déjà au
 catalogue. Neuf sorts entrent au catalogue `Rpg/spells/`, nommés d'après le *Manuel des Joueurs*.
