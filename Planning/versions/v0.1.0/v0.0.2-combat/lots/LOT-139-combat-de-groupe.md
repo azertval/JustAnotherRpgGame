@@ -107,7 +107,9 @@ Livré le 27 septembre 2026 (exigences `EX-CBT-051`, `EX-CBT-060` à `EX-CBT-063
    joueur, qui lance les sorts, soigne et cherche la tenaille, fait mieux. Le critère du `LOT-120`
    — le héros seul l'emportait deux fois sur trois — est remplacé par celui-ci. Un combat à dix
    dure deux secondes en Debug : le test à mille graines passe à **deux cents**, sinon la CI y
-   passait une demi-heure ; la tenaille n'y est pour rien (mesuré sans : 232 s pour cent).
+   passait une demi-heure ; la tenaille n'y est pour rien (mesuré sans : 232 s pour cent). La
+   borne de terminaison des tests d'intégration passe de 300 à 900 s : deux cents combats
+   prennent sept minutes sur un poste de la CI.
 
 Tests : `test_map_encounter.cpp` (les cases du groupe, sans partage, le débordement rapproché, le
 groupe vide refusé), `test_encounter_difficulty.cpp` (les règles, l'exemple du livre, les bandits),

@@ -106,7 +106,7 @@ Une carte qui puise dans quatre niveaux se joue.
 
 ### QueteDesPommes.LaVoieDeLaParole
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:391`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:431`
 
 La demo se finit par la parole quand la Persuasion reussit.
 
@@ -128,7 +128,7 @@ La demo se finit par la parole quand la Persuasion reussit.
 
 ### QueteDesPommes.LaVoieDeLArene
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:420`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:460`
 
 La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
@@ -152,8 +152,9 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 - Vérifie que `partie.marcherJusquA(PIED_DE_L_ESCALIER, {0.0F, -1.0F}, core::ExplorationEventKind::MapEntered)` vaut `SABLE`.
 - Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
 - Vérifie que `defi.rencontres` vaut `(std::vector<std::string>{std::string{RENCONTRE}})`.
-- Vérifie que `heros.loaded.errors.empty()` est vrai.
-- Vérifie que `arene.bestiary.find("combattant-de-l-arene") != nullptr` est vrai.
+- Vérifie que `heros.loaded().errors.empty()` est vrai.
+- Vérifie que `arene.bestiary.find("bandit") != nullptr` est vrai.
+- Vérifie que `arene.bestiary.find("bandit-archer") != nullptr` est vrai.
 - Vérifie que `sable` diffère de `nullptr`.
 - Vérifie que `gagnante.has_value()` est vrai.
 - Vérifie que `partie.drapeaux().isSet(core::encounterWonFlag(RENCONTRE))` est vrai.
@@ -167,7 +168,7 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
 ### QueteDesPommes.LaDefaiteSurLeSable
 
-*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:501`
+*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:542`
 
 Une defaite sur le sable ne pose rien : la demo s'y termine.
 
@@ -190,41 +191,41 @@ Une defaite sur le sable ne pose rien : la demo s'y termine.
 
 ### QueteDesPommes.LeCombatSeGagneDeuxFoisSurTrois
 
-*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:539`
+*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:583`
 
-Le heros gagne le combat de l'arene entre 60 et 70 fois sur cent.
+Le groupe gagne le combat de l'arene entre 45 et 60 fois sur cent.
 
 **Étapes**
 
-1. Le sable, la rencontre de l'arene, le heros de la demo joue par l'IA.
+1. Le sable, la rencontre des bandits, les quatre de la demo joues par l'IA.
 2. Cent combats, aux graines 1 a 100.
 
 **Résultat attendu**
 
 - Vérifie que `sable.ok()` est vrai.
-- Vérifie que `heros.loaded.errors.empty()` est vrai.
+- Vérifie que `heros.loaded().errors.empty()` est vrai.
 - Vérifie que `issue.has_value()` est vrai.
-- Vérifie que `victoires` est supérieur ou égal à `60`.
-- Vérifie que `victoires` est inférieur ou égal à `70`.
+- Vérifie que `victoires` est supérieur ou égal à `45`.
+- Vérifie que `victoires` est inférieur ou égal à `60`.
 
 ### QueteDesPommes.LaProbabiliteDeVictoireTientSurMilleGraines
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:573`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:619`
 
-Sur mille combats a graines tirees, le heros gagne deux fois sur trois.
+Sur deux cents combats a graines tirees, le groupe gagne une fois sur deux.
 
 **Étapes**
 
-1. Mille graines tirees de la graine maitresse 120.
+1. Deux cents graines tirees de la graine maitresse 120.
 2. Un combat par graine, les deux camps par l'IA.
 
 **Résultat attendu**
 
-- Chaque combat se termine ; entre 600 et 700 victoires.
+- Chaque combat se termine ; entre 85 et 115 victoires.
 
 ### QueteDesPommes.LaPersuasionReussitUneFoisSurQuatre
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:610`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:656`
 
 Sur deux mille jets a graines tirees, la Persuasion reussit une fois sur quatre.
 

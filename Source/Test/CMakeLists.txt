@@ -500,6 +500,8 @@ gtest_discover_tests(UnitTests DISCOVERY_MODE PRE_TEST PROPERTIES LABELS unitair
 if(TARGET RuntimeTests)
     gtest_discover_tests(RuntimeTests DISCOVERY_MODE PRE_TEST PROPERTIES LABELS unitaire TIMEOUT 300)
 endif()
+# 900 et non 300 : l'equilibrage de la demo simule deux cents combats a dix (LOT-139), a deux
+# secondes le combat en Debug -- sept minutes sur un poste de la CI. Une borne de terminaison.
 gtest_discover_tests(IntegrationTests DISCOVERY_MODE PRE_TEST
-                     PROPERTIES LABELS integration TIMEOUT 300)
+                     PROPERTIES LABELS integration TIMEOUT 900)
 gtest_discover_tests(SystemTests DISCOVERY_MODE PRE_TEST PROPERTIES LABELS systeme TIMEOUT 900)
