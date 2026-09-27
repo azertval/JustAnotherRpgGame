@@ -47,6 +47,11 @@ Règles communes (p. 192) : pas de multiclassage vers/depuis une classe simplifi
 
 ## Les quatre fiches (lues sur le rendu PNG ; une seule page par fiche)
 
+> Les quatre fiches sont **en données** depuis le `LOT-130` (`Source/Elements/Rpg/characters/`),
+> et un test par fiche recalcule chaque valeur de la page. Le registre des coquilles et des écarts,
+> avec la valeur retenue pour chacun, est dans
+> [la fiche du lot](../../versions/v0.1.0/v0.0.2-combat/lots/LOT-130-fiches-prefabriquees-en-donnees.md).
+
 Toutes : **niveau 1**, bonus de maîtrise +2, cadres « Power Symbols » et « Heroic Mark » **vides**, pas de liste d'équipement, pas de liste de capacités, pas de liste de sorts sur la fiche — la fiche ne porte que caractéristiques, compétences, sauvegardes, PV, CA, attaques, maîtrises, personnalité. Capacités, sorts et équipement sont donc à **déduire** des règles de la classe au niveau 1.
 
 | | Brawler (p. 195) | Mage (p. 199) | Priest (p. 203) | Scoundrel (p. 207) |

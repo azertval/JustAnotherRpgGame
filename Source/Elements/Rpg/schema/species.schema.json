@@ -35,6 +35,12 @@
         "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/ability"
       }
     },
+    "hitPointsPerLevel": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4,
+      "description": "Points de vie que l'espece ajoute A CHAQUE NIVEAU (LOT-130) : la Tenacite naine du nain des collines, << votre maximum de points de vie augmente de 1 a chaque niveau >>. Un NOMBRE et non la phrase du trait, pour la meme raison que les augmentations de caracteristique sont une table : le moteur ne lit pas la prose."
+    },
     "languages": {
       "type": "array",
       "items": {

@@ -112,6 +112,9 @@ struct CharacterSheet {
 
     int level = 1;
     int experiencePoints = 0;
+    /// Points de vie que l'espèce ajoute à chaque niveau (`Species::hitPointsPerLevel`), recopiés
+    /// à la construction pour que la montée de niveau les compte sans revenir au catalogue.
+    int hitPointsPerLevelBonus = 0;
     int maximumHitPoints = 0;
     int currentHitPoints = 0;
     int armorClass = 0;
@@ -252,8 +255,12 @@ struct SkillCheckModifier {
  * @param hitDie Le dé de vie de la classe, **lu dans sa donnée** (`hitDie` du catalogue).
  * @param level Le niveau atteint, à partir de 1.
  * @param constitutionModifier Le modificateur de Constitution.
+ * @param bonusPerLevel Ce que l'espèce ajoute à chaque niveau (`Species::hitPointsPerLevel`) :
+ *        la *Ténacité naine*, et rien d'autre dans le corpus. Il s'ajoute au niveau 1 comme aux
+ *        suivants, hors du plancher de 1 par niveau.
  */
-[[nodiscard]] int maximumHitPointsFor(int hitDie, int level, int constitutionModifier);
+[[nodiscard]] int maximumHitPointsFor(int hitDie, int level, int constitutionModifier,
+                                      int bonusPerLevel = 0);
 
 /**
  * @brief Ajoute des points d'expérience et applique la montée de niveau qui en découle.
@@ -288,10 +295,17 @@ LevelUpResult gainExperience(CharacterSheet& sheet, const ExperienceTable& table
  * @param background Peut être `nullptr`.
  * @param rules Les constantes de création, lues dans la donnée.
  * @param table La table d'expérience, pour le seuil du niveau de départ.
+ * @param chosenIncreases Les augmentations que l'espèce laisse **au choix du joueur**
+ *        (`speciesAbilityChoice` de la fiche, `LOT-130`) : *« vous pouvez aussi augmenter une
+ *        autre caractéristique de votre choix de 1 »*, elfe d'automne, *Player's Guide* p. 18.
+ *        Elles s'ajoutent après la table de l'espèce, sous le même plafond. Le moteur ne sait pas
+ *        encore **offrir** ce choix (`mecanismesRequis`, `EX-CNT-031`) : ici il l'applique tel
+ *        que la fiche l'a fait. Toutes à zéro par défaut.
  */
 [[nodiscard]] CharacterSheet buildCharacterSheet(
     std::string name, const std::array<int, 6>& baseAbilities, const Species* species,
     const PlayableClass* playableClass, const Background* background,
-    const CharacterCreationRules& rules, const ExperienceTable& table);
+    const CharacterCreationRules& rules, const ExperienceTable& table,
+    const std::array<int, 6>& chosenIncreases = {});
 
 }  // namespace core

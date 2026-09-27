@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **85 cas** (3 bloquants, 48 critiques, 33 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **92 cas** (3 bloquants, 53 critiques, 35 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -15,6 +15,7 @@ Tests unitaires — **85 cas** (3 bloquants, 48 critiques, 33 majeurs, 1 mineur)
 | [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
 | [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
 | [`test_multiclassing.cpp`](#test-multiclassingcpp) | 6 | - | 4 | 2 | - |
+| [`test_premade_characters.cpp`](#test-premade-characterscpp) | 7 | - | 5 | 2 | - |
 | [`test_rpg_enums.cpp`](#test-rpg-enumscpp) | 5 | - | 3 | 2 | - |
 
 ## Exigences vérifiées par cette page
@@ -1653,6 +1654,170 @@ Les progressions de lanceur de la donnee sont toutes connues du moteur.
 - Vérifie que `document.ok()` est vrai.
 - Vérifie que `progressions.size()` vaut `12U`.
 - Vérifie que `core::parseCasterProgression(nom).has_value()` est vrai.
+
+## test_premade_characters.cpp
+
+### PremadeCharactersTest.LeBrawlerEstLaPage195
+
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:179`
+
+Le Brawler pre-tire redonne chaque valeur de la page 195.
+
+**Étapes**
+
+1. Charger Rpg/characters/heros-brawler.json.
+2. Recalculer caracteristiques, points de vie, initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, greataxe, handaxe et javelin.
+
+**Résultat attendu**
+
+- Vérifie que `fiche.speciesId` vaut `"demi-orc"`.
+- Vérifie que `fiche.backgroundId` vaut `"dragon-hunter"`.
+- Vérifie que `fiche.abilities` vaut `(std::array<int, 6>{16, 13, 16, 10, 12, 8})`.
+- Vérifie que `fiche.maximumHitPoints` vaut `15`.
+- Vérifie que `fiche.modifier(core::Ability::Dexterity)` vaut `1`.
+- Vérifie que `fiche.speedMeters` vaut `9.0F` (comparaison flottante).
+- Vérifie que `perceptionPassive(fiche)` vaut `11`.
+- Vérifie que `fiche.languages` vaut `(std::set<std::string>{"common", "draconic", "orc"})`.
+- Vérifie que `classeDArmure(charge)` vaut `11`.
+
+### PremadeCharactersTest.LeMageEstLaPage199
+
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:242`
+
+Le Mage pre-tire redonne chaque valeur de la page 199.
+
+**Étapes**
+
+1. Charger Rpg/characters/heros-mage.json.
+2. Recalculer caracteristiques (dont le +1 au choix de l'elfe d'automne, pose en Constitution), points de vie, CA, initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, quarterstaff.
+
+**Résultat attendu**
+
+- Vérifie que `fiche.speciesId` vaut `"elfe-d-automne"`.
+- Vérifie que `fiche.backgroundId` vaut `"cartographer"`.
+- Vérifie que `fiche.abilities` vaut `(std::array<int, 6>{8, 15, 15, 16, 12, 10})`.
+- Vérifie que `fiche.maximumHitPoints` vaut `8`.
+- Vérifie que `classeDArmure(charge)` vaut `12`.
+- Vérifie que `fiche.modifier(core::Ability::Dexterity)` vaut `2`.
+- Vérifie que `fiche.speedMeters` vaut `9.0F` (comparaison flottante).
+- Vérifie que `perceptionPassive(fiche)` vaut `13`.
+- Vérifie que `fiche.languages` vaut `(std::set<std::string>{"common", "elvish"})`.
+
+### PremadeCharactersTest.LePriestEstLaPage203
+
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:301`
+
+Le Priest pre-tire redonne chaque valeur de la page 203.
+
+**Étapes**
+
+1. Charger Rpg/characters/heros-priest.json.
+2. Recalculer caracteristiques, points de vie (avec la Tenacite naine), CA (ecailles + bouclier), initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, warhammer et handaxe.
+
+**Résultat attendu**
+
+- Vérifie que `fiche.speciesId` vaut `"nain-des-collines"`.
+- Vérifie que `fiche.backgroundId` vaut `"community-leader"`.
+- Vérifie que `fiche.abilities` vaut `(std::array<int, 6>{13, 12, 16, 10, 16, 8})`.
+- Vérifie que `fiche.hitPointsPerLevelBonus` vaut `1`.
+- Vérifie que `fiche.maximumHitPoints` vaut `12`.
+- Vérifie que `classeDArmure(charge)` vaut `17`.
+- Vérifie que `fiche.modifier(core::Ability::Dexterity)` vaut `1`.
+- Vérifie que `fiche.speedMeters` vaut `7.5F` (comparaison flottante).
+- Vérifie que `perceptionPassive(fiche)` vaut `13`.
+- Vérifie que `fiche.languages` vaut `(std::set<std::string>{"common", "dwarvish"})`.
+
+### PremadeCharactersTest.LeScoundrelEstLaPage207
+
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:362`
+
+Le Scoundrel pre-tire redonne chaque valeur de la page 207.
+
+**Étapes**
+
+1. Charger Rpg/characters/heros-scoundrel.json.
+2. Recalculer caracteristiques, points de vie, CA (cuir), initiative, vitesse, Perception passive, sauvegardes, dix-huit competences, rapier, shortbow et dagger.
+
+**Résultat attendu**
+
+- Vérifie que `fiche.speciesId` vaut `"humain"`.
+- Vérifie que `fiche.backgroundId` vaut `"undercover"`.
+- Vérifie que `fiche.abilities` vaut `(std::array<int, 6>{9, 16, 15, 10, 14, 14})`.
+- Vérifie que `fiche.maximumHitPoints` vaut `10`.
+- Vérifie que `classeDArmure(charge)` vaut `14`.
+- Vérifie que `fiche.modifier(core::Ability::Dexterity)` vaut `3`.
+- Vérifie que `fiche.speedMeters` vaut `9.0F` (comparaison flottante).
+- Vérifie que `perceptionPassive(fiche)` vaut `14`.
+- Vérifie que `fiche.languages` vaut `(std::set<std::string>{"common", "elvish"})`.
+- Vérifie que `arc.range.has_value()` est vrai.
+- Vérifie que `arc.range->normal` vaut `16`.
+- Vérifie que `arc.range->maximum` vaut `64`.
+
+### PremadeCharactersTest.LaTenaciteNaineCompteAChaqueNiveau
+
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:426`
+
+Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque montee.
+
+**Étapes**
+
+1. Calculer les points de vie d'un d8 de niveau 1 puis 5, avec et sans le bonus.
+2. Faire monter le Priest au niveau 5 par l'experience.
+
+**Résultat attendu**
+
+- Vérifie que `core::maximumHitPointsFor(8, 1, 3, 1)` vaut `core::maximumHitPointsFor(8, 1, 3) + 1`.
+- Vérifie que `core::maximumHitPointsFor(8, 5, 3, 1)` vaut `core::maximumHitPointsFor(8, 5, 3) + 5`.
+- Vérifie que `core::maximumHitPointsFor(8, 3, -5, 1)` vaut `core::maximumHitPointsFor(8, 3, -5) + 3`.
+- Vérifie que `priest` diffère de `nullptr`.
+- Vérifie que `montee.newLevel` vaut `5`.
+- Vérifie que `charge.sheet.maximumHitPoints` vaut `12 + 4 * 9`.
+
+### PremadeCharactersTest.LeChoixDEspeceSAjouteSousLePlafond
+
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:456`
+
+Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece, sans depasser le plafond.
+
+**Étapes**
+
+1. Construire un elfe d'automne avec Con 14 et un choix de +1 en Constitution.
+2. Construire le meme avec Con 20 et le meme choix.
+
+**Résultat attendu**
+
+- Vérifie que `elfe` diffère de `nullptr`.
+- Vérifie que `ordinaire.ability(core::Ability::Constitution)` vaut `15`.
+- Vérifie que `ordinaire.ability(core::Ability::Intelligence)` vaut `16`.
+- Vérifie que `auPlafond.ability(core::Ability::Constitution)` vaut `lus.rules.maximumAbilityScore`.
+
+### PremadeCharactersTest.UneSousEspeceHeriteDeSonParent
+
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:485`
+
+Le nain des collines est un nain : +2 de Constitution, le commun et le nain, la vision dans le noir, puis ce qui est le sien.
+
+**Étapes**
+
+1. Charger les especes.
+2. Lire le nain des collines et l'elfe d'automne.
+
+**Résultat attendu**
+
+- Vérifie que `nain` diffère de `nullptr`.
+- Vérifie que `nain->increase(core::Ability::Constitution)` vaut `2`.
+- Vérifie que `nain->increase(core::Ability::Wisdom)` vaut `1`.
+- Vérifie que `nain->hitPointsPerLevel` vaut `1`.
+- Vérifie que `nain->languages` vaut `(std::vector<std::string>{"common", "dwarvish"})`.
+- Vérifie que `nain->traits.size()` est supérieur ou égal à `2U`.
+- Vérifie que `nain->traits.front().name` vaut `"Vision dans le noir"`.
+- Vérifie que `nain->traits.back().name` vaut `"Ténacité naine"`.
+- Vérifie que `elfe` diffère de `nullptr`.
+- Vérifie que `elfe->increase(core::Ability::Dexterity)` vaut `2`.
+- Vérifie que `elfe->increase(core::Ability::Intelligence)` vaut `1`.
+- Vérifie que `elfe->requiredMechanisms` vaut `(std::vector<std::string>{"augmentation-de-caracteristique-au-choix"})`.
+- Vérifie que `parent` diffère de `nullptr`.
+- Vérifie que `parent->increase(core::Ability::Wisdom)` vaut `0`.
 
 ## test_rpg_enums.cpp
 

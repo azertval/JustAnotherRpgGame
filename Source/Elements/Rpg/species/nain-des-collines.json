@@ -8,6 +8,7 @@
   "abilityScoreIncrease": {
     "wisdom": 1
   },
+  "hitPointsPerLevel": 1,
   "traits": [
     {
       "name": "Ténacité naine",

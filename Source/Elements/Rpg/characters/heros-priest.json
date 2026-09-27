@@ -1,0 +1,44 @@
+{
+  "id": "heros-priest",
+  "name": "Helga Pierre-Sûre",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "fiche pre-tiree du Player's Guide to Tanares, p. 203, reprise valeur pour valeur (LOT-130). Sa classe est l'une des quatre classes simplifiees, provisoires tant que le socle de classe (LOT-131) et la classe elle-meme ne sont pas livres.",
+    "retraitSi": "la classe priest est retiree (son propre critere) ; ou une partie fournit le personnage joue (creation, groupe, sauvegarde) et le jeu n'a plus besoin de fiches pre-tirees"
+  },
+  "speciesId": "nain-des-collines",
+  "classId": "priest",
+  "backgroundId": "community-leader",
+  "baseAbilities": {
+    "strength": 13,
+    "dexterity": 12,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 15,
+    "charisma": 8
+  },
+  "level": 1,
+  "skillProficiencies": [
+    "history",
+    "religion"
+  ],
+  "inventory": {
+    "equipped": {
+      "main-hand": "marteau-de-guerre",
+      "off-hand": "bouclier",
+      "torso": "ecailles"
+    },
+    "backpack": [
+      {
+        "itemId": "hachette",
+        "quantity": 1
+      },
+      {
+        "itemId": "embleme",
+        "quantity": 1
+      }
+    ],
+    "purseCopper": 0
+  }
+}
