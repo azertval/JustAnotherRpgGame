@@ -41,7 +41,8 @@
       "level": 1,
       "proficiencyBonus": 2,
       "features": [
-        "sneak-attack-simplified-scoundrel-s-agility"
+        "sneak-attack-simplified",
+        "scoundrels-agility"
       ]
     },
     {
@@ -55,7 +56,8 @@
       "level": 3,
       "proficiencyBonus": 2,
       "features": [
-        "adventurer-s-aptitude"
+        "sneak-attack-simplified-2d8",
+        "adventurers-aptitude"
       ]
     },
     {
@@ -69,20 +71,23 @@
       "level": 5,
       "proficiencyBonus": 3,
       "features": [
-        "scoundrel-s-agility-precise-striker"
+        "sneak-attack-simplified-3d8",
+        "scoundrels-agility-armor",
+        "precise-striker"
       ]
     },
     {
       "level": 6,
       "proficiencyBonus": 3,
       "features": [
-        "adventurer-s-aptitude"
+        "adventurers-aptitude-2"
       ]
     },
     {
       "level": 7,
       "proficiencyBonus": 3,
       "features": [
+        "sneak-attack-simplified-4d8",
         "evasion"
       ]
     },
@@ -97,43 +102,52 @@
       "level": 9,
       "proficiencyBonus": 4,
       "features": [
-        "adventurer-s-aptitude"
+        "sneak-attack-simplified-5d8",
+        "adventurers-aptitude-3"
       ]
     },
     {
       "level": 10,
       "proficiencyBonus": 4,
       "features": [
-        "ability-score-improvement-experience"
+        "ability-score-improvement",
+        "experience"
       ]
     },
     {
       "level": 11,
       "proficiencyBonus": 4,
       "features": [
-        "precise-striker-improvement"
+        "sneak-attack-simplified-6d8",
+        "precise-striker-2"
       ]
     },
     {
       "level": 12,
       "proficiencyBonus": 4,
       "features": [
-        "ability-score-improvement-adventurer-s-aptitude"
+        "ability-score-improvement",
+        "adventurers-aptitude-4"
       ]
     },
     {
       "level": 13,
-      "proficiencyBonus": 5
+      "proficiencyBonus": 5,
+      "features": [
+        "sneak-attack-simplified-7d8"
+      ]
     },
     {
       "level": 14,
-      "proficiencyBonus": 5
+      "proficiencyBonus": 5,
+      "features": []
     },
     {
       "level": 15,
       "proficiencyBonus": 5,
       "features": [
-        "adventurer-s-aptitude"
+        "sneak-attack-simplified-8d8",
+        "adventurers-aptitude-5"
       ]
     },
     {
@@ -147,7 +161,8 @@
       "level": 17,
       "proficiencyBonus": 6,
       "features": [
-        "precise-striker-improvement"
+        "sneak-attack-simplified-9d8",
+        "precise-striker-3"
       ]
     },
     {
@@ -161,6 +176,7 @@
       "level": 19,
       "proficiencyBonus": 6,
       "features": [
+        "sneak-attack-simplified-10d8",
         "ability-score-improvement"
       ]
     },
@@ -168,7 +184,7 @@
       "level": 20,
       "proficiencyBonus": 6,
       "features": [
-        "scoundrel-s-fortune"
+        "scoundrels-fortune"
       ]
     }
   ],

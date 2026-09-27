@@ -3900,6 +3900,15 @@
         "ui/icon/spell/revivify"
       ],
       "reason": "icônes du LOT-134 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
+    },
+    {
+      "keys": [
+        "ui/icon/capacity/sneak-attack-simplified",
+        "ui/icon/capacity/scoundrels-agility",
+        "ui/icon/capacity/adventurers-aptitude",
+        "ui/icon/capacity/precise-striker"
+      ],
+      "reason": "icônes du LOT-135 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
     }
   ]
 }

@@ -415,8 +415,12 @@ SkillCheckModifier skillModifier(const CharacterSheet& sheet, const ExperienceTa
     SkillCheckModifier resultat;
     resultat.found = true;
     resultat.proficient = sheet.skillProficiencies.contains(std::string{skillId});
+    // Un test maitrise prend la maitrise, et ce qu'une capacite y ajoute (Adventurer's Aptitude,
+    // LOT-135).
     resultat.value = sheet.modifier(competence->ability) +
-                     (resultat.proficient ? proficiencyBonus(sheet, table) : 0);
+                     (resultat.proficient ? proficiencyBonus(sheet, table) +
+                                                proficientCheckBonusFrom(sheet.capacities)
+                                          : 0);
     return resultat;
 }
 

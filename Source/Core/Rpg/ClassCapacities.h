@@ -55,6 +55,8 @@ enum class CapacityEffectKind : std::uint8_t {
     /// Des attaques en plus quand le personnage prend l'action *Attaquer* (*Extra Attack*,
     /// `LOT-132`).
     ExtraAttack,
+    /// Un bonus fixe aux tests de caractéristique maîtrisés (*Adventurer's Aptitude*, `LOT-135`).
+    ProficientCheckBonus,
 };
 
 /// @brief Nom de donnée d'un genre d'effet (`attack-bonus`…), celui du schéma.
@@ -91,6 +93,8 @@ struct CapacityEffect {
     Dice dice{};
     /// `ExtraDamage` : une seule fois par tour.
     bool oncePerTurn = false;
+    /// `ExtraDamage` : seulement contre une cible adjacente à un allié de l'attaquant.
+    bool allyAdjacentToTarget = false;
 };
 
 /// @brief Une capacité de classe : ce que le livre nomme, et les effets qui le jouent.
@@ -180,6 +184,8 @@ struct NamedExtraDamage {
     std::string capacityId;
     /// Son nom, pour le journal.
     std::string source;
+    /// Seulement contre une cible adjacente à un allié de l'attaquant (*Sneak Attack*).
+    bool allyAdjacentToTarget = false;
 };
 
 /// @brief Les dés que les capacités ajoutent à une attaque qui touche.
@@ -191,6 +197,9 @@ struct NamedExtraAttacks {
     int count = 0;
     std::string source;
 };
+
+/// @brief La somme des bonus aux tests de caractéristique maîtrisés (`LOT-135`).
+[[nodiscard]] int proficientCheckBonusFrom(std::span<const Capacity> capacities);
 
 /**
  * @brief Les attaques que les capacités ajoutent à l'action *Attaquer* (`LOT-132`).

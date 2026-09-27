@@ -377,6 +377,13 @@ void ArenaSession::hookCapacities(AttackHooks& hooks, CombatantId attacker) {
                     return;
                 }
                 for (const NamedExtraDamage& supplement : des) {
+                    // Sneak Attack Simplified (LOT-135) : seulement contre une cible adjacente a
+                    // un allie de l'attaquant. Sans lui, les des ne s'ajoutent pas et le compteur
+                    // du tour reste intact.
+                    if (supplement.allyAdjacentToTarget &&
+                        !isAdjacentToAllyOf(*_combat, jet.attacker, jet.target)) {
+                        continue;
+                    }
                     ScopedCounters& compteurs = _combat->counters();
                     if (supplement.oncePerTurn && compteurs.value(CounterScope::Turn, proprietaire,
                                                                   supplement.capacityId) > 0) {

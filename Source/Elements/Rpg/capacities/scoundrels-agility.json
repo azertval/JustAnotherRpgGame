@@ -1,0 +1,20 @@
+{
+  "id": "scoundrels-agility",
+  "name": "Scoundrel's Agility",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Scoundrel), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "effects": [
+    {
+      "kind": "no-opportunity-attacks"
+    },
+    {
+      "kind": "speed-bonus",
+      "meters": 3
+    }
+  ],
+  "text": "Player's Guide to Tanares, p. 205. Les deplacements du personnage ne provoquent pas d'attaque d'opportunite, et sa vitesse augmente de 10 ft (3 m). Au niveau 5, +2 a la CA (Scoundrel's Agility du niveau 5)."
+}

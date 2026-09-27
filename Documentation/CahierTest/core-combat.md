@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **144 cas** (33 bloquants, 75 critiques, 35 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **151 cas** (33 bloquants, 80 critiques, 37 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -15,6 +15,7 @@ Tests unitaires — **144 cas** (33 bloquants, 75 critiques, 35 majeurs, 1 mineu
 | [`test_class_in_arena.cpp`](#test-class-in-arenacpp) | 4 | - | 4 | - | - |
 | [`test_class_mage.cpp`](#test-class-magecpp) | 10 | - | 9 | 1 | - |
 | [`test_class_priest.cpp`](#test-class-priestcpp) | 6 | - | 6 | - | - |
+| [`test_class_scoundrel.cpp`](#test-class-scoundrelcpp) | 7 | - | 5 | 2 | - |
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
@@ -1507,6 +1508,152 @@ Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neu
 - Vérifie que `ignores.size()` vaut `5U`.
 - Vérifie que `sort` diffère de `nullptr`.
 - Vérifie que `sort->requiredMechanisms.empty()` est faux.
+
+## test_class_scoundrel.cpp
+
+### ClassScoundrelTest.LaFichePreTireePorteSesCapacitesDeNiveau1
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:90`
+
+La fiche de la page 207 se charge avec Sneak Attack Simplified et Scoundrel's Agility ; sa vitesse est de 12 m, huit cases.
+
+**Étapes**
+
+1. Charger heros-scoundrel.json.
+2. Lire capacites, vitesse, CA, profil.
+
+**Résultat attendu**
+
+- Vérifie que `charge.warnings.empty()` est vrai.
+- Vérifie que `test_support::capacityIds(charge.sheet)` vaut `(std::vector<std::string>{"sneak-attack-simplified", "scoundrels-agility"})`.
+- Vérifie que `charge.sheet.effectiveSpeedMeters()` vaut `12.0F` (comparaison flottante).
+- Vérifie que `core::profileFor(charge.sheet).movement` vaut `8`.
+- Vérifie que `test_support::armorClassOf(charge.sheet, charge.inventory)` vaut `14`.
+
+### ClassScoundrelTest.LAttaqueSournoiseDemandeUnAllieAuContact
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:111`
+
+Avec un allie au contact du mannequin, la rapiere ajoute 1d8 nomme ; une seconde touche du meme tour n'ajoute rien ; sans allie au contact, ou avec un allie a terre, rien.
+
+**Étapes**
+
+1. Scoundrel N1, mannequin CA 0, allie en (5, 3).
+2. Attaquer, octroyer une action, rattaquer.
+3. Refaire avec l'allie en (8, 7), puis avec l'allie au contact mais a terre.
+
+**Résultat attendu**
+
+- Vérifie que `coup.has_value()` est vrai.
+- Vérifie que `desSournois(*coup)` vaut `1U`.
+- Vérifie que `sournois->clause.dice` vaut `(core::Dice{.count = 1, .faces = 8, .modifier = 0})`.
+- Vérifie que `sournois->clause.type` vaut `core::DamageType::Piercing`.
+- Vérifie que `journalLine(session.journal(), "attaque " + SCOUNDREL + " -> Mannequin") .find("perforant (Sneak Attack Simplified)")` diffère de `std::string::npos`.
+- Vérifie que `second.outcome.has_value()` est vrai.
+- Vérifie que `desSournois(*second.outcome)` vaut `0U`.
+- Vérifie que `coup.has_value()` est vrai.
+- Vérifie que `desSournois(*coup)` vaut `0U`.
+- Vérifie que `session.combat().counters().value(core::CounterScope::Turn, "1", "sneak-attack-simplified")` vaut `0`.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `coup.has_value()` est vrai.
+- Vérifie que `desSournois(*coup)` vaut `0U`.
+
+### ClassScoundrelTest.LesDesSournoisMontentAvecLaTable
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:175`
+
+Au niveau 3 la capacite active donne 2d8, au niveau 5 3d8, et une seule a la fois.
+
+**Étapes**
+
+1. Monter le Scoundrel au niveau 3, puis 5.
+2. Lire les des en plus.
+
+**Résultat attendu**
+
+- Vérifie que `supplements.size()` vaut `1U`.
+- Vérifie que `supplements.front().dice` vaut `(core::Dice{.count = des, .faces = 8, .modifier = 0})`.
+- Vérifie que `supplements.front().oncePerTurn` est vrai.
+- Vérifie que `supplements.front().allyAdjacentToTarget` est vrai.
+
+### ClassScoundrelTest.ScoundrelsAgilityEviteLesAttaquesDOpportunite
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:197`
+
+La Scoundrel quitte l'allonge du mannequin sans etre frappee, et le journal nomme la capacite ; au niveau 5 sa CA passe a 16.
+
+**Étapes**
+
+1. Scoundrel N1 au contact d'un mannequin qui frappe.
+2. Marcher a quatre cases.
+3. Lire la CA au niveau 5.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, std::nullopt)).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.previewOpportunities({0, 3}).empty()` est vrai.
+- Vérifie que `session.move({0, 3}).result` vaut `core::MoveResult::Moved`.
+- Vérifie que `journalHas(session.journal(), "opportunite :")` est faux.
+- Vérifie que `journalHas(session.journal(), "sans attaque d'opportunite " + SCOUNDREL + " (Scoundrel's Agility)")` est vrai.
+- Vérifie que `test_support::armorClassOf(niveau5.sheet, niveau5.inventory)` vaut `16`.
+- Vérifie que `niveau5.sheet.effectiveSpeedMeters()` vaut `12.0F` (comparaison flottante).
+- Vérifie que `core::opportunityImmunityFrom(niveau5.sheet.capacities).has_value()` est vrai.
+
+### ClassScoundrelTest.AdventurersAptitudeAjouteAuxTestsMaitrises
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:227`
+
+Au niveau 3, Acrobaties (maitrisee) passe de +5 a +6 ; Athletisme (non maitrisee) reste a -1.
+
+**Étapes**
+
+1. Scoundrel N1 puis N3.
+2. Lire les modificateurs de competence.
+
+**Résultat attendu**
+
+- Vérifie que `core::skillModifier(n1.sheet, table, competences, "acrobatics").value` vaut `5`.
+- Vérifie que `core::skillModifier(n3.sheet, table, competences, "acrobatics").value` vaut `6`.
+- Vérifie que `core::skillModifier(n1.sheet, table, competences, "athletics").value` vaut `-1`.
+- Vérifie que `core::skillModifier(n3.sheet, table, competences, "athletics").value` vaut `-1`.
+
+### ClassScoundrelTest.PreciseStrikerAjouteUnAuJet
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:249`
+
+Au niveau 5, le jet de la rapiere porte « + 1 (Precise Striker) ».
+
+**Étapes**
+
+1. Scoundrel N5 contre le mannequin.
+2. Attaquer.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, std::nullopt)).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `coup.outcome.has_value()` est vrai.
+- Vérifie que `bonus` diffère de `modificateurs.end()`.
+- Vérifie que `bonus->value` vaut `1`.
+- Vérifie que `journalHas(session.journal(), "+ 1 (Precise Striker)")` est vrai.
+
+### ClassScoundrelTest.DuNiveau1AuNiveau5LaTableSeLit
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_scoundrel.cpp:272`
+
+Monter la Scoundrel de la page 207 jusqu'au niveau 5 donne les capacites de la table, chaque amelioration remplacant la precedente.
+
+**Étapes**
+
+1. Monter de 1 a 5, lire les capacites.
+
+**Résultat attendu**
+
+- Vérifie que `test_support::levelUpTo(charge.sheet, niveau).empty()` est vrai.
+- Vérifie que `test_support::capacityIds(charge.sheet)` vaut `(std::vector<std::string>{"experience", "adventurers-aptitude", "ability-score-improvement", "sneak-attack-simplified-3d8", "scoundrels-agility-armor", "precise-striker"})`.
+- Vérifie que `core::proficiencyBonus(charge.sheet, test_support::rpgCatalogs().experience)` vaut `3`.
 
 ## test_combat_preview.cpp
 

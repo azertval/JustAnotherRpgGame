@@ -69,6 +69,7 @@ add_executable(UnitTests
     Unit/Core/Combat/test_class_brawler.cpp
     Unit/Core/Combat/test_class_mage.cpp
     Unit/Core/Combat/test_class_priest.cpp
+    Unit/Core/Combat/test_class_scoundrel.cpp
     Unit/Core/Levels/test_rpg_terrain.cpp
     Unit/Core/Levels/test_layer_pieces.cpp
     Unit/Core/Levels/test_level_draft_pieces.cpp
