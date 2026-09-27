@@ -1,0 +1,19 @@
+{
+  "id": "sneak-attack-simplified",
+  "name": "Sneak Attack Simplified",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Scoundrel), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "effects": [
+    {
+      "kind": "extra-damage",
+      "dice": "1d8",
+      "oncePerTurn": true,
+      "allyAdjacentToTarget": true
+    }
+  ],
+  "text": "Player's Guide to Tanares, p. 204-205. La premiere fois a chaque tour que le personnage touche une creature adjacente a l'un de ses allies, il inflige 1d8 degats de plus, du type de l'arme (colonne de la table : 1d8 au niveau 1). Ni avantage ni arme de finesse requis."
+}

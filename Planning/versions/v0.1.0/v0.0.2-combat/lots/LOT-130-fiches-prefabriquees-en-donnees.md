@@ -97,7 +97,7 @@ d'aujourd'hui et nomme le lot qui la changera.
 | 6 | Priest p. 203 | handaxe « Piercing » | la table des armes : **tranchant** | **tranchant** | catalogue, joué |
 | 7 | Priest p. 203 | Common, Dwarvish | Community Leader accorde **deux langues** au choix | **aucune choisie** — le jeu n'en a pas besoin, le commun suffit aux dialogues | à choisir le jour d'une création |
 | 8 | Priest p. 203 | Sacred Flame (60 ft, 1d8 radiant, sauvegarde de Dex) | cantrip de la classe | **sacred flame** | jouée depuis le `LOT-134` : sauvegarde de Dex DD 13, 1d8 radiant, 18 m |
-| 9 | Scoundrel p. 207 | vitesse **30 ft** | *Scoundrel's Agility* : +10 ft dès le N1 | **40 ft** | capacité de classe : `LOT-135` ; le moteur donne 30 ft d'ici là, le test le dit |
+| 9 | Scoundrel p. 207 | vitesse **30 ft** | *Scoundrel's Agility* : +10 ft dès le N1 | **40 ft** | *Scoundrel's Agility*, jouée depuis le `LOT-135` ; le test lit 40 ft |
 | 10 | Scoundrel p. 207 | Perception passive **13** | 10 + Perception +4 | **14** | joué |
 | 11 | Toutes | alignement, personnalité, idéaux, liens, défauts | — | **non repris** : aucun mécanisme ne les lit (`EX-REG-041`) | — |
 

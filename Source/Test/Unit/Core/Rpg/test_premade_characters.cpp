@@ -369,7 +369,8 @@ TEST(PremadeCharactersTest, LePriestEstLaPage203) {
  * \tattendu For 9 Dex 16 Con 15 Int 10 Sag 14 Cha 14 ; 10 PV ; CA 14 ; initiative +3 ;
  * sauvegardes -1 +5 +2 +2 +2 +2 ; les six pastilles ; rapier +5 1d8+3, shortbow +5 1d6+3 portee
  * 80/320, dagger +5 1d4+3 lancer 20/60. Deux coquilles ecrites : la Perception passive vaut 14
- * (la page imprime 13) ; la vitesse vaut 30 ft au moteur, 40 ft par Scoundrel's Agility (LOT-135).
+ * (la page imprime 13) ; la vitesse vaut 40 ft par Scoundrel's Agility (LOT-135), la page
+ * imprime 30.
  * }
  */
 TEST(PremadeCharactersTest, LeScoundrelEstLaPage207) {
@@ -383,9 +384,9 @@ TEST(PremadeCharactersTest, LeScoundrelEstLaPage207) {
     EXPECT_EQ(classeDArmure(charge), 14) << "cuir 11 + Dex 3";
     EXPECT_EQ(fiche.modifier(core::Ability::Dexterity), 3) << "initiative +3";
     // ECART ECRIT (registre du LOT-130) : la page imprime 30 ft ; Scoundrel's Agility donne +10 ft
-    // des le niveau 1, la regle prime (40 ft) -- et c'est une capacite de classe, LOT-135. D'ici
-    // la, le moteur donne la vitesse de l'espece.
-    EXPECT_FLOAT_EQ(fiche.speedMeters, 9.0F) << "30 ft de l'humain ; 40 ft au LOT-135";
+    // des le niveau 1, la regle prime (40 ft), jouee depuis le LOT-135.
+    EXPECT_FLOAT_EQ(fiche.speedMeters, 9.0F) << "30 ft de l'humain";
+    EXPECT_FLOAT_EQ(fiche.effectiveSpeedMeters(), 12.0F) << "40 ft par Scoundrel's Agility";
     // COQUILLE DU LIVRE : la page imprime 13 ; Perception +4 donne 14, et le calcul prime.
     EXPECT_EQ(perceptionPassive(fiche), 14);
     EXPECT_EQ(fiche.languages, (std::set<std::string>{"common", "elvish"}));

@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-135 — Classe Scoundrel.** Le Scoundrel du *Player's Guide to Tanares* (p. 204-207) se
+  joue du niveau 1 au niveau 5. Sa table est reprise niveau par niveau, et la colonne de l'attaque
+  sournoise devient une capacité par palier qui remplace la précédente. *Sneak Attack Simplified*
+  ajoute ses dés (1d8, 2d8 au 3, 3d8 au 5) une fois par tour, **seulement** contre une cible
+  adjacente à un allié debout (`allyAdjacentToTarget`, `core::isAdjacentToAllyOf`) ; sans allié,
+  la fois du tour n'est pas consommée. *Scoundrel's Agility* donne 40 ft à la fiche de la page 207
+  (écart n° 9 du registre du `LOT-130` refermé) et +2 CA au niveau 5. *Adventurer's Aptitude* est
+  le nouvel effet `proficient-check-bonus`, lu par `skillModifier`. *Precise Striker* : +1 au jet.
+  Les icônes des quatre capacités sont générées et publiées dans le kit `UI@5`. Tests :
+  `test_class_scoundrel.cpp`.
 - **LOT-134 — Classe Priest.** Le Priest du *Player's Guide to Tanares* (p. 200-203) se joue du
   niveau 1 au niveau 5. Sa table est reprise niveau par niveau jusqu'au 20, et neuf sorts entrent
   au catalogue d'après le *Manuel des Joueurs*. *Flamme sacrée* réemploie la sauvegarde du Mage

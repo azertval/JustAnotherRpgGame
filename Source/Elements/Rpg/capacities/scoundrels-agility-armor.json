@@ -1,0 +1,25 @@
+{
+  "id": "scoundrels-agility-armor",
+  "name": "Scoundrel's Agility",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Scoundrel), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "replaces": "scoundrels-agility",
+  "effects": [
+    {
+      "kind": "no-opportunity-attacks"
+    },
+    {
+      "kind": "speed-bonus",
+      "meters": 3
+    },
+    {
+      "kind": "armor-class-bonus",
+      "value": 2
+    }
+  ],
+  "text": "Player's Guide to Tanares, p. 205. Au niveau 5, Scoundrel's Agility ajoute +2 a la CA a ce qu'elle donnait : pas d'attaque d'opportunite, 10 ft (3 m) de vitesse en plus."
+}

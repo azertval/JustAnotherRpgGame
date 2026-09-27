@@ -40,12 +40,13 @@
               "speed-bonus",
               "no-opportunity-attacks",
               "extra-damage",
-              "extra-attack"
+              "extra-attack",
+              "proficient-check-bonus"
             ]
           },
           "value": {
             "type": "integer",
-            "description": "attack-bonus, armor-class-bonus : le bonus. extra-attack : les attaques ajoutees a l'action Attaquer (1 pour Extra Attack : deux attaques au lieu d'une)."
+            "description": "attack-bonus, armor-class-bonus : le bonus. extra-attack : les attaques ajoutees a l'action Attaquer (1 pour Extra Attack : deux attaques au lieu d'une). proficient-check-bonus : le bonus aux tests de caracteristique maitrises (Adventurer's Aptitude, LOT-135)."
           },
           "base": {
             "type": "integer",
@@ -87,6 +88,10 @@
           "oncePerTurn": {
             "type": "boolean",
             "description": "extra-damage : une seule fois par tour (Sneak Attack, Deadly)."
+          },
+          "allyAdjacentToTarget": {
+            "type": "boolean",
+            "description": "extra-damage : les des ne s'ajoutent que si la cible est adjacente a un allie debout de l'attaquant (Sneak Attack Simplified, LOT-135) -- l'adjacence de la prise en tenaille, sans la geometrie des cotes opposes."
           }
         },
         "required": [

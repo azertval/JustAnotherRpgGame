@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <utility>
 
+#include "Core/Combat/Attack.h"
+
 namespace core {
 namespace {
 
@@ -109,6 +111,25 @@ bool isFlankedFrom(const CombatState& combat, CombatantId attacker, GridPosition
 bool isFlanked(const CombatState& combat, CombatantId attacker, CombatantId target) {
     const std::optional<GridPosition> ancre = combat.grid().positionOf(attacker);
     return ancre.has_value() && isFlankedFrom(combat, attacker, *ancre, target);
+}
+
+bool isAdjacentToAllyOf(const CombatState& combat, CombatantId attacker, CombatantId target) {
+    const Combatant* attaquant = combat.find(attacker);
+    if (attaquant == nullptr) {
+        return false;
+    }
+    for (const CombatantId autre : combat.combatants()) {
+        const Combatant* allie = combat.find(autre);
+        if (autre == attacker || autre == target || allie == nullptr ||
+            allie->status != CombatantStatus::Standing ||
+            allie->profile.side != attaquant->profile.side) {
+            continue;
+        }
+        if (gridDistance(combat, autre, target) == 1) {
+            return true;
+        }
+    }
+    return false;
 }
 
 }  // namespace core

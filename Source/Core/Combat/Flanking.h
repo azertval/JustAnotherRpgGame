@@ -61,4 +61,14 @@ namespace core {
 /// @brief La même règle, l'attaquant à sa place sur la grille. Faux s'il n'y est pas.
 [[nodiscard]] bool isFlanked(const CombatState& combat, CombatantId attacker, CombatantId target);
 
+/**
+ * @brief Vrai si @p target est adjacente (distance 1, emprises comprises) à un allié **debout** de
+ *        @p attacker, autre que lui (`LOT-135`).
+ *
+ * La moitié de la tenaille — l'allié au contact —, sans la géométrie des côtés opposés ni la vue :
+ * ce que *Sneak Attack Simplified* demande (*Player's Guide*, p. 204).
+ */
+[[nodiscard]] bool isAdjacentToAllyOf(const CombatState& combat, CombatantId attacker,
+                                      CombatantId target);
+
 }  // namespace core

@@ -1963,6 +1963,7 @@ Le Scoundrel pre-tire redonne chaque valeur de la page 207.
 - Vérifie que `classeDArmure(charge)` vaut `14`.
 - Vérifie que `fiche.modifier(core::Ability::Dexterity)` vaut `3`.
 - Vérifie que `fiche.speedMeters` vaut `9.0F` (comparaison flottante).
+- Vérifie que `fiche.effectiveSpeedMeters()` vaut `12.0F` (comparaison flottante).
 - Vérifie que `perceptionPassive(fiche)` vaut `14`.
 - Vérifie que `fiche.languages` vaut `(std::set<std::string>{"common", "elvish"})`.
 - Vérifie que `arc.range.has_value()` est vrai.
@@ -1971,7 +1972,7 @@ Le Scoundrel pre-tire redonne chaque valeur de la page 207.
 
 ### PremadeCharactersTest.LaTenaciteNaineCompteAChaqueNiveau
 
-*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:427`
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:428`
 
 Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque montee.
 
@@ -1991,7 +1992,7 @@ Les points de vie par niveau d'une espece s'ajoutent au niveau 1 et a chaque mon
 
 ### PremadeCharactersTest.LeChoixDEspeceSAjouteSousLePlafond
 
-*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:457`
+*Majeur · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:458`
 
 Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece, sans depasser le plafond.
 
@@ -2009,7 +2010,7 @@ Le choix d'augmentation d'espece d'une fiche s'ajoute apres la table de l'espece
 
 ### PremadeCharactersTest.UneSousEspeceHeriteDeSonParent
 
-*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:486`
+*Critique · Unitaire · Fiches pre-tirees* — `Source/Test/Unit/Core/Rpg/test_premade_characters.cpp:487`
 
 Le nain des collines est un nain : +2 de Constitution, le commun et le nain, la vision dans le noir, puis ce qui est le sien.
 

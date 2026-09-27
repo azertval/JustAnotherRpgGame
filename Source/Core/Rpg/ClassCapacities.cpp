@@ -25,7 +25,7 @@ struct NomDeGenre {
 };
 
 // Les noms sont ceux de `capacity.schema.json` : le schema et le moteur doivent dire la meme liste.
-constexpr std::array<NomDeGenre, 8> GENRES{{
+constexpr std::array<NomDeGenre, 9> GENRES{{
     {CapacityEffectKind::AttackBonus, "attack-bonus"},
     {CapacityEffectKind::ArmorClassBonus, "armor-class-bonus"},
     {CapacityEffectKind::UnarmoredArmorClass, "unarmored-armor-class"},
@@ -34,6 +34,7 @@ constexpr std::array<NomDeGenre, 8> GENRES{{
     {CapacityEffectKind::NoOpportunityAttacks, "no-opportunity-attacks"},
     {CapacityEffectKind::ExtraDamage, "extra-damage"},
     {CapacityEffectKind::ExtraAttack, "extra-attack"},
+    {CapacityEffectKind::ProficientCheckBonus, "proficient-check-bonus"},
 }};
 
 [[nodiscard]] std::string lireTexte(const nlohmann::json& objet, const char* champ) {
@@ -87,7 +88,8 @@ constexpr std::array<NomDeGenre, 8> GENRES{{
     switch (effet.kind) {
         case CapacityEffectKind::AttackBonus:
         case CapacityEffectKind::ArmorClassBonus:
-        case CapacityEffectKind::ExtraAttack: {
+        case CapacityEffectKind::ExtraAttack:
+        case CapacityEffectKind::ProficientCheckBonus: {
             const std::optional<int> valeur = lireEntier(objet, "value");
             if (!valeur.has_value()) {
                 erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
@@ -159,6 +161,7 @@ constexpr std::array<NomDeGenre, 8> GENRES{{
             }
             effet.dice = *des;
             effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);
+            effet.allyAdjacentToTarget = lireBooleen(objet, "allyAdjacentToTarget", false);
             break;
         }
     }
@@ -351,11 +354,24 @@ std::vector<NamedExtraDamage> extraDamageFrom(std::span<const Capacity> capaciti
                 des.push_back({.dice = effet.dice,
                                .oncePerTurn = effet.oncePerTurn,
                                .capacityId = capacite.id,
-                               .source = capacite.name});
+                               .source = capacite.name,
+                               .allyAdjacentToTarget = effet.allyAdjacentToTarget});
             }
         }
     }
     return des;
+}
+
+int proficientCheckBonusFrom(std::span<const Capacity> capacities) {
+    int total = 0;
+    for (const Capacity& capacite : capacities) {
+        for (const CapacityEffect& effet : capacite.effects) {
+            if (effet.kind == CapacityEffectKind::ProficientCheckBonus) {
+                total += effet.value;
+            }
+        }
+    }
+    return total;
 }
 
 std::optional<NamedExtraAttacks> extraAttacksFrom(std::span<const Capacity> capacities) {

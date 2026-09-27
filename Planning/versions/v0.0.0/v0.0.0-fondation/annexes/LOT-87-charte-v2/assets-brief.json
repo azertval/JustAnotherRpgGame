@@ -3520,6 +3520,26 @@
           "id": "specific-cantrips",
           "label": "Specific Cantrips",
           "prompt": "a small spark above an open palm"
+        },
+        {
+          "id": "sneak-attack-simplified",
+          "label": "Sneak Attack Simplified",
+          "prompt": "a dagger striking from behind a shadowed cloak"
+        },
+        {
+          "id": "scoundrels-agility",
+          "label": "Scoundrel's Agility",
+          "prompt": "a nimble leaping figure with swift motion lines"
+        },
+        {
+          "id": "adventurers-aptitude",
+          "label": "Adventurer's Aptitude",
+          "prompt": "a key crossed with a coiled rope"
+        },
+        {
+          "id": "precise-striker",
+          "label": "Precise Striker",
+          "prompt": "a rapier point touching the centre of a small target"
         }
       ],
       "description": "Les capacités des quatre classes simplifiées (LOT-132 à LOT-135) : une icône par capacité du catalogue `Rpg/capacities/`, l'identifiant du membre étant celui de la capacité. Elles se posent devant le nom de la capacité, sur la fiche et dans le combat. Aucune maquette ne les montre : elles prolongent les propriétés d'un sort.",
