@@ -454,10 +454,22 @@ ArenaAttack ArenaSession::attack(CombatantId target, std::size_t attackIndex) {
         case TargetCheck::TotalCover:
             return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};
     }
-    if (attaquant->economy.remaining(ACTION_RESOURCE) <= 0) {
-        return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};
+    // Une attaque que l'action deja prise a laissee (Extra Attack, LOT-132) passe avant l'action :
+    // la seconde attaque du tour ne coute rien de plus.
+    const std::optional<NamedExtraAttacks> enPlus = extraAttacksFrom(capacitiesOf(*actif));
+    if (attaquant->economy.remaining(EXTRA_ATTACK_RESOURCE) > 0) {
+        static_cast<void>(_combat->economy(*actif)->spend(EXTRA_ATTACK_RESOURCE));
+        record("attaque supplementaire " + attaquant->profile.name + " (" +
+               (enPlus.has_value() ? enPlus->source : std::string("?")) + ")");
+    } else {
+        if (attaquant->economy.remaining(ACTION_RESOURCE) <= 0) {
+            return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};
+        }
+        _combat->spend(ACTION_RESOURCE);
+        if (enPlus.has_value()) {
+            _combat->economy(*actif)->grant(EXTRA_ATTACK_RESOURCE, enPlus->count);
+        }
     }
-    _combat->spend(ACTION_RESOURCE);
     ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
     attaque.outcome = resolveAndRecord(*actif, target, profil, {});
     return attaque;

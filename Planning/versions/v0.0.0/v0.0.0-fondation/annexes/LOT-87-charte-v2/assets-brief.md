@@ -135,7 +135,7 @@ jour — et sort en erreur à la première faute.
 
 <!-- DEBUT DES TABLES ENGENDREES : scripts/checks/check_assets_brief.py --write -->
 
-Le cahier compte **80 pièces**, qui engendrent **214 images** (une par état ou par membre).
+Le cahier compte **81 pièces**, qui engendrent **219 images** (une par état ou par membre).
 
 ### Fonds {#lot-87-cahier-background}
 
@@ -512,7 +512,7 @@ Le cahier compte **80 pièces**, qui engendrent **214 images** (une par état ou
 
 ### Icônes {#lot-87-cahier-icon}
 
-13 pièces, 87 images.
+14 pièces, 92 images.
 
 | Clé | Pièce | Production | Tenue | Variantes | Maquettes, zone (x0, y0, x1, y1) | Écrans |
 |---|---|---|---|---|---|---|
@@ -527,6 +527,7 @@ Le cahier compte **80 pièces**, qui engendrent **214 images** (une par état ou
 | `ui/icon/inventory-category` | Catégories d'inventaire | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `all`, `equipment`, `consumables`, `misc` | 04 (560, 68, 1068, 112) | T3.5 |
 | `ui/icon/credits-section` | Sections des crédits | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `development`, `art-direction`, `story`, `audio`, `other` | 07 (400, 230, 1260, 640) | T3.3 |
 | `ui/icon/spell-property` | Propriétés d'un sort | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `damage-type`, `range`, `damage`, `casting-time`, `components`, `special-effects` | 10 (1180, 320, 1620, 630) | T3.8 |
+| `ui/icon/capacity` | Capacités de classe | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `tough-as-nails`, `experience`, `hit-the-mark`, `ability-score-improvement`, `extra-attack` | prolonge `ui/icon/spell-property` | T3.4, T4.1 |
 | `ui/icon/resource` | Ressources | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `health`, `experience`, `weight`, `gold` | 03 (575, 540, 1035, 770)<br>04 (565, 770, 1060, 940) | T3.4, T3.5, T3.7 |
 | `ui/icon/company-stat` | Compteurs de l'équipe | 128 × 128 | fixe, affichée 32 × 32, 48 × 48, 64 × 64 | `career-points`, `team-level`, `prestige`, `fame` | 09 (55, 275, 470, 395) | T3.7 |
 
@@ -573,6 +574,10 @@ Le cahier compte **80 pièces**, qui engendrent **214 images** (une par état ou
 - **`ui/icon/spell-property`** — Les rubriques du détail d'un sort.
   *Prompt propre :* « Engraved gold emblem icon, bold readable silhouette at 32 px, subtle relief, transparent background. »
   *Membres :* `damage-type` Type de dégâts (« a flame » — 10 (1188, 321, 1236, 369)) ; `range` Portée (« a bow and arrow » — 10 (1188, 371, 1236, 419)) ; `damage` Dégâts (« a starburst impact » — 10 (1188, 423, 1236, 471)) ; `casting-time` Temps d'incantation (« an hourglass » — 10 (1188, 474, 1236, 522)) ; `components` Composants (« an open grimoire » — 10 (1188, 525, 1236, 573)) ; `special-effects` Effets spéciaux (« a spiral » — 10 (1188, 580, 1236, 628)).
+  *Repli :* `goldLight`.
+- **`ui/icon/capacity`** — Les capacités des quatre classes simplifiées (LOT-132 à LOT-135) : une icône par capacité du catalogue `Rpg/capacities/`, l'identifiant du membre étant celui de la capacité. Elles se posent devant le nom de la capacité, sur la fiche et dans le combat. Aucune maquette ne les montre : elles prolongent les propriétés d'un sort.
+  *Prompt propre :* « Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. »
+  *Membres :* `tough-as-nails` Tough as Nails (« a clenched stone fist in front of a round shield ») ; `experience` Experience (« an open book with a small laurel sprig ») ; `hit-the-mark` Hit the Mark (« an axe blade striking the centre of a target ») ; `ability-score-improvement` Ability Score Improvement (« an upward arrow over a small star ») ; `extra-attack` Extra Attack (« two crossed axes with twin motion arcs »).
   *Repli :* `goldLight`.
 - **`ui/icon/resource`** — Ce que mesurent les jauges et les compteurs.
   *Prompt propre :* « Painted emblem icon with gold and garnet accents, bold silhouette at 32 px, transparent background. »

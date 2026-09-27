@@ -1,0 +1,15 @@
+{
+  "id": "ability-score-improvement",
+  "name": "Ability Score Improvement",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (les quatre classes), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "narratif": true,
+  "mecanismesRequis": [
+    "augmentation-de-caracteristique-au-choix"
+  ],
+  "text": "Player's Guide to Tanares, p. 193, 198, 202 et 206. Aux niveaux 4, 8, 12, 16 et 19, +2 a une caracteristique ou +1 a deux, jusqu'a 20 ; le livre recommande de ne pas prendre de don a la place. Un choix du joueur au passage de niveau, que la fiche porte dans ses valeurs."
+}

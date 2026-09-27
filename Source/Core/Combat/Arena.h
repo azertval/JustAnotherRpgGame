@@ -74,6 +74,10 @@ inline constexpr std::string_view ARENA_RANK_PROPERTY = "rank";
 /// La **troisième économie d'action** des Marques Héroïques (§4bis) : une ressource déclarée à
 /// `core::ActionEconomy`, que le rituel de l'arène accorde à chaque combattant marqué.
 inline constexpr std::string_view HEROIC_ACTION_RESOURCE = "heroicAction";
+/// Les attaques qui restent de l'action *Attaquer* déjà prise (*Extra Attack*, `LOT-132`) : un
+/// octroi de `core::ActionEconomy`, que le début du prochain tour efface. Elles ne servent qu'à
+/// attaquer — ni sort, ni esquive, ni précipitation.
+inline constexpr std::string_view EXTRA_ATTACK_RESOURCE = "extraAttack";
 
 /// @brief Un point d'entrée de l'arène : une case, un camp, un rang d'appel.
 struct ArenaEntryPoint {
@@ -287,6 +291,10 @@ public:
      * (`core::resolveAttack`) : déclaration, abri, jet, dégâts. Une cible qui esquive et voit son
      * attaquant impose le désavantage. Tout passe par la suite aléatoire de la session : un rejeu
      * redonne les mêmes coups.
+     *
+     * Une capacité qui ajoute des attaques à l'action (*Extra Attack*, `LOT-132`) les octroie
+     * quand l'action se dépense (`EXTRA_ATTACK_RESOURCE`) : l'attaque suivante du même tour les
+     * consomme **avant** l'action, et le journal nomme la capacité qui l'a permise.
      */
     ArenaAttack attack(CombatantId target, std::size_t attackIndex = 0);
 

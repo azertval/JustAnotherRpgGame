@@ -89,7 +89,7 @@ d'aujourd'hui et nomme le lot qui la changera.
 
 | # | Fiche | La page imprime | La règle donne | Retenu | Où c'est joué |
 |---|---|---|---|---|---|
-| 1 | Brawler p. 195 | CA **14** | 10 + Dex 1 + Con 3, *Tough as Nails* | **14** | capacité de classe : `LOT-132` ; le moteur donne 11 d'ici là, le test le dit |
+| 1 | Brawler p. 195 | CA **14** | 10 + Dex 1 + Con 3, *Tough as Nails* | **14** | *Tough as Nails*, jouée depuis le `LOT-132` ; le test lit 14 |
 | 2 | Brawler p. 195 | le texte cite *Resilient* | la table ne l'a pas | **la table fait foi** | rien à jouer |
 | 3 | Mage p. 199 | Con **14** | +1 au choix hors Dex/Int, non appliqué | **Con 15**, le +1 va en Constitution : aucun modificateur ne change, tout le reste de la page reste juste | `speciesAbilityChoice`, joué |
 | 4 | Mage p. 199 | quarterstaff seul | la classe donne *fire bolt* (+5, 1d10 feu, 120 ft) | **fire bolt** | sorts : `LOT-133` |

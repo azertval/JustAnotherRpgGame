@@ -1,0 +1,17 @@
+{
+  "id": "extra-attack",
+  "name": "Extra Attack",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Brawler), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "effects": [
+    {
+      "kind": "extra-attack",
+      "value": 1
+    }
+  ],
+  "text": "Player's Guide to Tanares, p. 194. Quand le personnage prend l'action Attaquer a son tour, il attaque deux fois au lieu d'une."
+}

@@ -1,0 +1,26 @@
+{
+  "id": "tough-as-nails",
+  "name": "Tough as Nails",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Brawler), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "effects": [
+    {
+      "kind": "unarmored-armor-class",
+      "base": 10,
+      "abilities": [
+        "dexterity",
+        "constitution"
+      ],
+      "shieldAllowed": true
+    },
+    {
+      "kind": "damage-resistance",
+      "allTypes": true
+    }
+  ],
+  "text": "Player's Guide to Tanares, p. 193. Sans armure, la classe d'armure vaut 10 + modificateur de Dexterite + modificateur de Constitution ; un bouclier s'y ajoute. Resistance a tous les types de degats."
+}
