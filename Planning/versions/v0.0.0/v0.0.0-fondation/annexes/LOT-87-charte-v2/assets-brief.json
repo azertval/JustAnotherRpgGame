@@ -3505,6 +3505,21 @@
           "id": "extra-attack",
           "label": "Extra Attack",
           "prompt": "two crossed axes with twin motion arcs"
+        },
+        {
+          "id": "arcane-protection",
+          "label": "Arcane Protection",
+          "prompt": "a shimmering arcane rune circle shielding a hand"
+        },
+        {
+          "id": "simplified-spellcasting",
+          "label": "Simplified Spellcasting",
+          "prompt": "an open spellbook with two small glowing marks"
+        },
+        {
+          "id": "specific-cantrips",
+          "label": "Specific Cantrips",
+          "prompt": "a small spark above an open palm"
         }
       ],
       "description": "Les capacités des quatre classes simplifiées (LOT-132 à LOT-135) : une icône par capacité du catalogue `Rpg/capacities/`, l'identifiant du membre étant celui de la capacité. Elles se posent devant le nom de la capacité, sur la fiche et dans le combat. Aucune maquette ne les montre : elles prolongent les propriétés d'un sort.",
@@ -3513,6 +3528,68 @@
       "derivedFrom": "ui/icon/spell-property",
       "screens": ["T3.4", "T4.1"],
       "fallback": ["goldLight"]
+    },
+    {
+      "key": "ui/icon/spell",
+      "name": "Sorts",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "fire-bolt",
+          "label": "Trait de feu",
+          "prompt": "a streaking bolt of fire"
+        },
+        {
+          "id": "light",
+          "label": "Lumière",
+          "prompt": "a glowing orb of light"
+        },
+        {
+          "id": "mage-hand",
+          "label": "Main du mage",
+          "prompt": "a spectral floating hand"
+        },
+        {
+          "id": "detect-magic",
+          "label": "Détection de la magie",
+          "prompt": "an eye inside a ring of small runic sparks"
+        },
+        {
+          "id": "magic-missile",
+          "label": "Projectile magique",
+          "prompt": "three glowing darts in flight"
+        },
+        {
+          "id": "invisibility",
+          "label": "Invisibilité",
+          "prompt": "a fading translucent silhouette"
+        },
+        {
+          "id": "scorching-ray",
+          "label": "Rayon ardent",
+          "prompt": "three parallel rays of fire"
+        },
+        {
+          "id": "fireball",
+          "label": "Boule de feu",
+          "prompt": "an exploding sphere of fire"
+        },
+        {
+          "id": "fly",
+          "label": "Vol",
+          "prompt": "a pair of feathered wings"
+        }
+      ],
+      "description": "Les sorts des classes simplifiées (LOT-133, LOT-134) : une icône par sort du catalogue `Rpg/spells/`, l'identifiant du membre étant celui du sort. Elles se posent dans la barre d'actions du combat et dans la liste des sorts. Aucune maquette ne les montre : elles prolongent les médaillons d'école.",
+      "prompt": "Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background.",
+      "mockups": [],
+      "derivedFrom": "ui/icon/school",
+      "screens": ["T3.8", "T4.1"],
+      "fallback": ["gem", "goldLight"]
     },
     {
       "key": "ui/icon/resource",

@@ -92,7 +92,7 @@ d'aujourd'hui et nomme le lot qui la changera.
 | 1 | Brawler p. 195 | CA **14** | 10 + Dex 1 + Con 3, *Tough as Nails* | **14** | *Tough as Nails*, jouée depuis le `LOT-132` ; le test lit 14 |
 | 2 | Brawler p. 195 | le texte cite *Resilient* | la table ne l'a pas | **la table fait foi** | rien à jouer |
 | 3 | Mage p. 199 | Con **14** | +1 au choix hors Dex/Int, non appliqué | **Con 15**, le +1 va en Constitution : aucun modificateur ne change, tout le reste de la page reste juste | `speciesAbilityChoice`, joué |
-| 4 | Mage p. 199 | quarterstaff seul | la classe donne *fire bolt* (+5, 1d10 feu, 120 ft) | **fire bolt** | sorts : `LOT-133` |
+| 4 | Mage p. 199 | quarterstaff seul | la classe donne *fire bolt* (+5, 1d10 feu, 120 ft) | **fire bolt** | joué depuis le `LOT-133` : +5, 1d10 feu, 36 m |
 | 5 | Mage p. 199 | 1d6−1 / 1d8−1 | polyvalent à deux mains | **les deux** | le moteur ne joue pas la propriété *polyvalent* ; le test vérifie 1d6−1 |
 | 6 | Priest p. 203 | handaxe « Piercing » | la table des armes : **tranchant** | **tranchant** | catalogue, joué |
 | 7 | Priest p. 203 | Common, Dwarvish | Community Leader accorde **deux langues** au choix | **aucune choisie** — le jeu n'en a pas besoin, le commun suffit aux dialogues | à choisir le jour d'une création |

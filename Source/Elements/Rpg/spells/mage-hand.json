@@ -1,0 +1,18 @@
+{
+  "id": "mage-hand",
+  "name": "Main du mage",
+  "source": "phb-fr",
+  "level": 0,
+  "school": "conjuration",
+  "castingTime": "1 action",
+  "range": "9 metres",
+  "rangeMeters": 9,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "1 minute",
+  "narratif": true,
+  "text": "Manuel des Joueurs, PDF p. 257 (mage hand). Une main spectrale manipule un objet de 5 kg au plus, ouvre une porte, verse une fiole. Elle ne peut ni attaquer ni activer un objet magique : sans effet en combat."
+}

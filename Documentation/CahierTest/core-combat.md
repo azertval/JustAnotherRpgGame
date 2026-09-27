@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **128 cas** (33 bloquants, 60 critiques, 34 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **138 cas** (33 bloquants, 69 critiques, 35 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -13,6 +13,7 @@ Tests unitaires — **128 cas** (33 bloquants, 60 critiques, 34 majeurs, 1 mineu
 | [`test_battle_grid.cpp`](#test-battle-gridcpp) | 7 | 1 | 2 | 4 | - |
 | [`test_class_brawler.cpp`](#test-class-brawlercpp) | 8 | - | 5 | 3 | - |
 | [`test_class_in_arena.cpp`](#test-class-in-arenacpp) | 4 | - | 4 | - | - |
+| [`test_class_mage.cpp`](#test-class-magecpp) | 10 | - | 9 | 1 | - |
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
@@ -1115,6 +1116,236 @@ La lutteuse lance son trait deux fois, la troisieme est refusee « Exhausted » 
 - Vérifie que `core::arenaSpellsFor(fiche, *classe, optionsDEssai().spells, 2, ignores)[1].uses` vaut `0`.
 - Vérifie que `core::arenaSpellsFor(fiche, *classe, optionsDEssai().spells, 2, ignores)[1].uses` vaut `2`.
 - Vérifie que `ignores.empty()` est vrai.
+
+## test_class_mage.cpp
+
+### ClassMageTest.LaFichePreTireeSeJoueAvecSesSortsDeNiveau1
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:89`
+
+La fiche de la page 199 connait trait de feu, lumiere, detection de la magie et projectile magique ; les deux qui se jouent en combat entrent au grimoire.
+
+**Étapes**
+
+1. Charger heros-mage.json.
+2. Lire capacites, sorts connus, CA, et le grimoire de combat.
+
+**Résultat attendu**
+
+- Vérifie que `charge.warnings.empty()` est vrai.
+- Vérifie que `test_support::capacityIds(charge.sheet)` vaut `(std::vector<std::string>{"simplified-spellcasting", "specific-cantrips"})`.
+- Vérifie que `test_support::armorClassOf(charge.sheet, charge.inventory)` vaut `12`.
+- Vérifie que `connus` vaut `(std::vector<std::string>{"fire-bolt", "light", "detect-magic", "magic-missile"})`.
+- Vérifie que `grimoire.size()` vaut `2U`.
+- Vérifie que `grimoire[0].id` vaut `"fire-bolt"`.
+- Vérifie que `grimoire[0].mechanism` vaut `core::SpellMechanism::AttackRoll`.
+- Vérifie que `grimoire[0].uses` vaut `-1`.
+- Vérifie que `toucher` vaut `5`.
+- Vérifie que `grimoire[0].attack.damage.front().dice` vaut `(core::Dice{.count = 1, .faces = 10, .modifier = 0})`.
+- Vérifie que `grimoire[1].id` vaut `"magic-missile"`.
+- Vérifie que `grimoire[1].mechanism` vaut `core::SpellMechanism::AutoHit`.
+- Vérifie que `grimoire[1].uses` vaut `2`.
+- Vérifie que `grimoire[1].saveDc` vaut `13`.
+- Vérifie que `ignores` vaut `(std::vector<std::string>{"Lumiere", "Detection de la magie"})`.
+
+### ClassMageTest.TraitDeFeuEstUneAttaqueDeSort
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:138`
+
+Le Mage lance trait de feu sur un mannequin a six cases ; au niveau 5 le sort lance deux d10.
+
+**Étapes**
+
+1. Mage N1 contre un mannequin en (7, 3).
+2. Lancer trait de feu.
+3. Refaire au niveau 5.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {7, 3}, 10, 0)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `lancer.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "sort Trait de feu : attaque " + std::string(MAGE) + " -> Mannequin")` est vrai.
+- Vérifie que `sort.uses` vaut `-1`.
+- Vérifie que `sort.attack.damage.front().dice.count` vaut `niveau == 5 ? 2 : 1`.
+
+### ClassMageTest.ProjectileMagiqueToucheSansJet
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:170`
+
+Contre une CA de 40, projectile magique touche : trois fois 1d4+1 de force ; au troisieme lancer du jour, le sort est epuise.
+
+**Étapes**
+
+1. Mage N1 contre un mannequin a la CA 40.
+2. Lancer projectile magique ; tour suivant, le relancer ; tour suivant, le relancer.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {7, 3}, 40, 0)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `lancer.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `lancer.outcome.has_value()` est faux.
+- Vérifie que `lancer.summary.find("touche sans jet (3 projectile(s))")` diffère de `std::string::npos`.
+- Vérifie que `journalCount(session.journal(), "force")` vaut `1U`.
+- Vérifie que `perdus` est supérieur ou égal à `6`.
+- Vérifie que `perdus` est inférieur ou égal à `15`.
+- Vérifie que `session.castSpell(CombatantId{2}, indice).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "sort Projectile magique (0 restant)")` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, indice).result` vaut `core::ArenaActionResult::Exhausted`.
+- Vérifie que `session.combat().find(CombatantId{1})->economy.remaining(core::ACTION_RESOURCE)` est strictement supérieur à `0`.
+
+### ClassMageTest.ArcaneProtectionDonneTreizePlusDex
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:211`
+
+Au niveau 2, la CA du Mage passe de 12 a 15.
+
+**Étapes**
+
+1. Monter le Mage de la page 199 au niveau 2.
+2. Lire sa CA avec ce qu'il porte, et son profil de combat.
+
+**Résultat attendu**
+
+- Vérifie que `test_support::armorClassOf(charge.sheet, charge.inventory)` vaut `15`.
+- Vérifie que `std::ranges::find(capacites, "arcane-protection")` diffère de `capacites.end()`.
+
+### ClassMageTest.RayonArdentJetteUnJetParRayon
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:229`
+
+Trois lignes « 1/3 », « 2/3 », « 3/3 » contre un mannequin solide ; contre un mannequin a 1 PV touche au premier rayon, deux rayons perdus.
+
+**Étapes**
+
+1. Mage N3 contre un mannequin a 200 PV, lancer rayon ardent.
+2. Mage N3 contre un mannequin a 1 PV et CA 0 ; graine choisie pour que le premier rayon touche.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {7, 3}, 10, 0, 200)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, sortDe(session, "scorching-ray")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), rang)` est vrai.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, sortDe(session, "scorching-ray")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `perdus` est vrai.
+
+### ClassMageTest.InvisibiliteGeneLAttaquantEtCesseAuSortSuivant
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:270`
+
+Le Mage invisible est attaque avec desavantage ; son trait de feu suivant a l'avantage, puis l'invisibilite prend fin et le journal le dit.
+
+**Étapes**
+
+1. Mage N3 au contact d'un mannequin ; lancer invisibilite sur soi.
+2. Tour du mannequin : il attaque le Mage.
+3. Tour du Mage : trait de feu.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {2, 3}, 10, 5)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, sortDe(session, "invisibility")).result` vaut `core::ArenaActionResult::InvalidTarget`.
+- Vérifie que `session.castSpell(CombatantId{1}, sortDe(session, "invisibility")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `session.hasEffect(CombatantId{1}, core::SpellEffectKind::Invisible)` est vrai.
+- Vérifie que `journalHas(session.journal(), "effet Invisibilite sur " + std::string(MAGE))` est vrai.
+- Vérifie que `coup.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `std::ranges::find(desavantages, "cible invisible")` diffère de `desavantages.end()`.
+- Vérifie que `trait.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `std::ranges::find(avantages, "attaquant invisible")` diffère de `avantages.end()`.
+- Vérifie que `journalHas(session.journal(), "fin de l'effet Invisibilite sur " + std::string(MAGE) + " (il lance un sort)")` est vrai.
+- Vérifie que `session.hasEffect(CombatantId{1}, core::SpellEffectKind::Invisible)` est faux.
+
+### ClassMageTest.BouleDeFeuFaitSauvegarderToutLeMonde
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:314`
+
+La boule de feu centree sur un mannequin prend son voisin et l'allie a trois cases, pas le mannequin eloigne ; chacun a sa ligne de sauvegarde.
+
+**Étapes**
+
+1. Mage N5 en (1, 3) ; mannequins en (8, 3) et (9, 4), un allie en (8, 6), un mannequin lointain en (3, 7), hors des quatre cases du rayon.
+2. Boule de feu sur (8, 3).
+
+**Résultat attendu**
+
+- Vérifie que `session .mount(combatDe(charge, {test_support::dummy("Cible", {8, 3}, 10, 0, 200), test_support::dummy("Voisin", {9, 4}, 10, 0, 200), test_support::dummy("Allie", {8, 6}, 10, 0, 200, core::CombatSide::Allies), test_support::dummy("Lointain", {3, 7}, 10, 0, 200)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `lancer.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `lancer.summary.find("sauvegarde de Dexterite DD 14 ; 3 creature(s)")` diffère de `std::string::npos`.
+- Vérifie que `lancer.summary.find("8d6")` diffère de `std::string::npos`.
+- Vérifie que `journalHas(session.journal(), nom)` est vrai.
+- Vérifie que `journalHas(session.journal(), " Lointain : d20")` est faux.
+- Vérifie que `lointain->profile.currentHitPoints` vaut `200`.
+- Vérifie que `perdus` est supérieur ou égal à `ligne.find("moitie") != std::string::npos ? 4 : 8`.
+
+### ClassMageTest.VolDonneDouzeCasesEtCedeALaConcentration
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:358`
+
+Le Mage se lance vol : il vole, 12 cases ; il lance ensuite invisibilite, et le vol prend fin, sa marche et ses 6 cases rendues.
+
+**Étapes**
+
+1. Mage N5 ; vol sur soi.
+2. Tour suivant : invisibilite sur soi.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {9, 6}, 10, 0)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `marche` vaut `6`.
+- Vérifie que `session.castSpell(CombatantId{1}, sortDe(session, "fly")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `mage1->profile.locomotion` vaut `core::Locomotion::Fly`.
+- Vérifie que `mage1->profile.movement` vaut `12`.
+- Vérifie que `mage1->economy.remaining(core::MOVEMENT_RESOURCE)` vaut `12`.
+- Vérifie que `journalHas(session.journal(), "vole, 12 cases par tour")` est vrai.
+- Vérifie que `session.castSpell(CombatantId{1}, sortDe(session, "invisibility")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "fin de l'effet Vol sur " + std::string(MAGE) + " (concentration sur Invisibilite)")` est vrai.
+- Vérifie que `apres->profile.locomotion` vaut `core::Locomotion::Walk`.
+- Vérifie que `apres->profile.movement` vaut `marche`.
+- Vérifie que `session.hasEffect(CombatantId{1}, core::SpellEffectKind::Fly)` est faux.
+
+### ClassMageTest.DuNiveau1AuNiveau5LaTableSeLit
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:397`
+
+Monter le Mage de la page 199 niveau par niveau donne les capacites et les sorts de la table, sans manquant.
+
+**Étapes**
+
+1. Charger la fiche N1.
+2. Monter jusqu'au 5, lire capacites et sorts connus.
+
+**Résultat attendu**
+
+- Vérifie que `test_support::levelUpTo(fiche, niveau).empty()` est vrai.
+- Vérifie que `fiche.knownSpells.size()` vaut `nombreDeSorts[static_cast<std::size_t>(niveau - 1)]`.
+- Vérifie que `test_support::capacityIds(fiche)` vaut `(std::vector<std::string>{"simplified-spellcasting", "specific-cantrips", "experience", "arcane-protection", "ability-score-improvement"})`.
+- Vérifie que `sort.perDay` vaut `sort.level == 0 ? 0 : 2`.
+- Vérifie que `fiche.knownSpell(id)` diffère de `nullptr`.
+
+### ClassMageTest.UnEffetInconnuEstRefuseEtUnConeNeSeJouePas
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:431`
+
+Un sort a l'effet « petrify » est refuse ; un sort en cone se charge, mais aucun mecanisme ne le joue.
+
+**Étapes**
+
+1. Ecrire les deux sorts dans un dossier temporaire.
+2. Charger.
+
+**Résultat attendu**
+
+- Vérifie que `catalogue.errors.size()` vaut `1U`.
+- Vérifie que `catalogue.errors.front().find("petrifie.json")` diffère de `std::string::npos`.
+- Vérifie que `catalogue.spells.size()` vaut `1U`.
+- Vérifie que `core::spellMechanism(catalogue.spells.front()).has_value()` est faux.
 
 ## test_combat_preview.cpp
 

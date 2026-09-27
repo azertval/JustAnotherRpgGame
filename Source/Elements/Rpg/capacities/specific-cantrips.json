@@ -1,0 +1,12 @@
+{
+  "id": "specific-cantrips",
+  "name": "Specific Cantrips",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Mage, Priest), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "narratif": true,
+  "text": "Player's Guide to Tanares, p. 197 et 201. Les sorts mineurs sont fixes par la table de la classe (`cantrips`) et se lancent a volonte : la capacite ne porte aucun effet a elle seule."
+}

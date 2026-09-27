@@ -8,15 +8,16 @@
  * @brief Le catalogue des sorts (`spell.schema.json`), et ce que le moteur sait en jouer
  *        (`LOT-131`, `EX-RPG-050`, `EX-RPG-051`).
  *
- * Un sort est une **combinaison déclarée de mécanismes**, jamais une fonction. Ce lot n'en joue
- * qu'un : le sort à **jet d'attaque** (*fire bolt*, *sacred flame* n'en est pas un), résolu comme
- * une attaque à distance au modificateur de la caractéristique d'incantation plus la maîtrise
- * (`core::spellAttackFor`). Les sorts à jet de sauvegarde, de soin ou de condition déclarent leurs
- * champs ici et attendent leurs mécanismes (`LOT-133`, `LOT-134`, `LOT-137`) ; `isAttackSpell`
- * dit, sort par sort, ce que le moteur sait faire aujourd'hui — aucun ne tombe dans un cas par
- * défaut.
+ * Un sort est une **combinaison déclarée de mécanismes**, jamais une fonction. Le socle
+ * (`LOT-131`) jouait le sort à **jet d'attaque** ; le Mage (`LOT-133`) ajoute les **projectiles**
+ * (un jet ou des dés par rayon), le sort qui **touche sans jet**, le sort à **jet de sauvegarde**
+ * — sur une cible ou dans une **sphère** —, et l'**effet qui dure** posé sur une créature (le vol,
+ * l'invisibilité), sous concentration. `core::spellMechanism` dit, sort par sort, lequel le moteur
+ * sait jouer : aucun ne tombe dans un cas par défaut, et un sort sans mécanisme est dit, pas tu
+ * (`EX-RPG-051`).
  */
 
+#include <cstdint>
 #include <filesystem>
 #include <optional>
 #include <string>
@@ -28,6 +29,46 @@
 #include "Core/Rpg/RpgEnums.h"
 
 namespace core {
+
+/// @brief Qui un sort peut viser (`LOT-133`).
+enum class SpellTarget : std::uint8_t {
+    /// Une créature hostile : les sorts qui blessent.
+    Enemy,
+    /// Une créature de son camp, soi compris : les sorts qui aident (*vol*, *invisibilité*).
+    Ally,
+    /// Le lanceur seul.
+    Self,
+};
+
+/// @brief Ce qu'une sauvegarde réussie fait des dégâts d'un sort.
+enum class SaveEffect : std::uint8_t {
+    /// Rien : la cible qui réussit ne subit rien (*flamme sacrée*).
+    Negates,
+    /// La moitié, arrondie à l'inférieur (*boule de feu*).
+    Half,
+};
+
+/// @brief Les effets qui durent qu'un sort pose sur une créature, et que le moteur sait jouer.
+enum class SpellEffectKind : std::uint8_t {
+    /// La créature vole, à la vitesse que l'effet donne (*vol*).
+    Fly,
+    /// La créature est invisible : attaquée avec désavantage, elle attaque avec avantage ; l'effet
+    /// cesse quand elle attaque ou lance un sort (*invisibilité*).
+    Invisible,
+};
+
+/// @brief Nom de donnée d'un genre d'effet de sort (`fly`…), celui du schéma.
+[[nodiscard]] std::string_view spellEffectKindName(SpellEffectKind kind) noexcept;
+
+/// @brief Un effet qui dure, posé par un sort.
+struct SpellEffect {
+    SpellEffectKind kind = SpellEffectKind::Fly;
+    /// `Fly` : la vitesse de vol, en mètres.
+    float meters = 0.0F;
+    /// La durée en rounds ; 0 : tout le combat (une minute en fait dix, une heure dépasse
+    /// toujours un combat).
+    int durationRounds = 0;
+};
 
 /// @brief Un sort, tel que `spell.schema.json` l'écrit.
 struct Spell {
@@ -47,6 +88,22 @@ struct Spell {
     bool ritual = false;
     /// Vrai pour un sort qui demande un jet d'attaque de sort contre la CA.
     bool attackRoll = false;
+    /// Vrai pour un sort qui touche **sans jet** (*projectile magique*).
+    bool autoHit = false;
+    /// Le nombre de projectiles ou de rayons, chacun ses dés — et son jet s'il en demande un.
+    int projectiles = 1;
+    /// Vrai pour un sort mineur dont les dés montent aux niveaux 5, 11 et 17 du lanceur (Manuel,
+    /// « Tours de magie »).
+    bool cantripScaling = false;
+    /// Ce qu'une sauvegarde réussie fait des dégâts.
+    SaveEffect saveEffect = SaveEffect::Negates;
+    /// Le rayon de la **sphère** que le sort remplit, en mètres ; 0 : une seule cible.
+    float areaRadiusMeters = 0.0F;
+    /// Une forme de zone que le moteur ne sait pas poser (cône, ligne…) : le sort n'est pas joué.
+    std::string unsupportedArea;
+    SpellTarget target = SpellTarget::Enemy;
+    /// L'effet qui dure, si le sort en pose un que le moteur sait jouer.
+    std::optional<SpellEffect> effect;
     std::optional<Dice> damage;
     std::optional<DamageType> damageType;
     std::optional<Ability> savingThrow;
@@ -76,8 +133,33 @@ struct SpellCatalog {
 
 /**
  * @brief Vrai si le moteur sait jouer ce sort comme une **attaque** : jet d'attaque, dés et type
- *        de dégâts. C'est le seul mécanisme de sort de ce lot.
+ *        de dégâts.
  */
 [[nodiscard]] bool isAttackSpell(const Spell& spell) noexcept;
+
+/// @brief Les mécanismes de sort que le moteur sait jouer en combat.
+enum class SpellMechanism : std::uint8_t {
+    /// Un jet d'attaque de sort par projectile (*trait de feu*, *rayon ardent*).
+    AttackRoll,
+    /// Des dés par projectile, sans jet (*projectile magique*).
+    AutoHit,
+    /// Un jet de sauvegarde de chaque cible, sur une créature ou dans une sphère (*boule de feu*).
+    SavingThrow,
+    /// Un effet qui dure, posé sur une créature (*vol*, *invisibilité*).
+    Effect,
+};
+
+/**
+ * @brief Le mécanisme par lequel le moteur joue ce sort, ou `std::nullopt` s'il n'en a aucun :
+ *        un sort narratif, un sort qui exige un mécanisme absent, une zone qui n'est pas une
+ *        sphère.
+ */
+[[nodiscard]] std::optional<SpellMechanism> spellMechanism(const Spell& spell) noexcept;
+
+/**
+ * @brief Les dés d'un sort au niveau @p casterLevel du lanceur : un dé de plus aux niveaux 5, 11
+ *        et 17 pour un sort mineur qui le déclare (`cantripScaling`), les dés du sort sinon.
+ */
+[[nodiscard]] std::optional<Dice> spellDamageAt(const Spell& spell, int casterLevel) noexcept;
 
 }  // namespace core

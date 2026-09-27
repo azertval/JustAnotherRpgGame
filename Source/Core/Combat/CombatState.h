@@ -9,6 +9,7 @@
  *        `EX-CBT-011`, `EX-CBT-012`).
  */
 
+#include <array>
 #include <cstdint>
 #include <deque>
 #include <functional>
@@ -190,12 +191,27 @@ struct CombatantProfile {
     int armorClass = 10;
     /// Résistances, vulnérabilités et immunités (`EX-CBT-032`).
     DamageTraits damageTraits;
+    /**
+     * @brief Le modificateur de chaque jet de sauvegarde, dans l'ordre de `core::Ability`
+     *        (`LOT-133`) : ce que lit un sort qui en demande un (*boule de feu*).
+     */
+    std::array<int, 6> savingThrows{};
 };
 
-/// @brief Le profil d'un personnage : ses points de vie courants, sa Dextérité, sa vitesse.
-/// La fiche ne porte pas de taille : un personnage est de taille M jusqu'à ce qu'elle en porte une.
+/**
+ * @brief Le profil d'un personnage : ses points de vie courants, sa Dextérité, sa vitesse, ses
+ *        sauvegardes.
+ *
+ * La fiche ne porte pas de taille : un personnage est de taille M jusqu'à ce qu'elle en porte une.
+ *
+ * @param sheet La fiche.
+ * @param side Son camp.
+ * @param proficiencyBonus Le bonus de maîtrise à son niveau, ajouté aux sauvegardes qu'il
+ *        maîtrise ; 0 laisse les modificateurs nus.
+ */
 [[nodiscard]] CombatantProfile profileFor(const CharacterSheet& sheet,
-                                          CombatSide side = CombatSide::Allies);
+                                          CombatSide side = CombatSide::Allies,
+                                          int proficiencyBonus = 0);
 
 /**
  * @brief Le profil d'une créature du bestiaire.
@@ -517,6 +533,17 @@ public:
      * son adresse, et ne vit pas plus longtemps que lui.
      */
     [[nodiscard]] Mover moverFor(CombatantId combatant) const;
+
+    /**
+     * @brief Change la manière dont @p combatant se déplace et son budget par tour — le *vol*
+     *        d'un sort (`LOT-133`), et sa fin.
+     *
+     * Ce qu'il a déjà marché ce tour reste dépensé : il gagne la différence des budgets, ou la
+     * perd. Un octroi en cours (*se précipiter*) est gardé.
+     *
+     * @return Faux si le combattant est inconnu.
+     */
+    bool setLocomotion(CombatantId combatant, Locomotion locomotion, int movement);
 
 private:
     /// Tient la profondeur d'appel : les conséquences ne se règlent qu'en sortant de l'appel

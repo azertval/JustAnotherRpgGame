@@ -43,6 +43,83 @@
       "type": "boolean",
       "description": "Vrai pour un sort qui demande un JET D'ATTAQUE de sort contre la CA (fire bolt) : le moteur le joue comme une attaque a distance, au modificateur de la caracteristique d'incantation plus la maitrise (LOT-131). Un sort a jet de sauvegarde ou sans jet declare ses mecanismes autrement."
     },
+    "autoHit": {
+      "type": "boolean",
+      "description": "Vrai pour un sort qui touche SANS JET (magic missile) : chaque projectile inflige ses des (LOT-133)."
+    },
+    "projectiles": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Le nombre de projectiles ou de rayons, chacun ses des -- et son jet d'attaque si `attackRoll` (scorching ray : 3). Le moteur les dirige tous sur la meme cible (LOT-133). 1 par defaut."
+    },
+    "cantripScaling": {
+      "type": "boolean",
+      "description": "Sort mineur dont les des augmentent d'un de aux niveaux 5, 11 et 17 du lanceur (Manuel, tours de magie)."
+    },
+    "saveEffect": {
+      "enum": [
+        "negates",
+        "half"
+      ],
+      "description": "Ce qu'une sauvegarde reussie fait des degats : `negates` (rien, le defaut), `half` (la moitie, fireball)."
+    },
+    "area": {
+      "type": "object",
+      "description": "La zone que le sort remplit, centree sur la cible (LOT-133). Le moteur pose la sphere ; une autre forme se charge et ne se joue pas.",
+      "properties": {
+        "shape": {
+          "enum": [
+            "sphere",
+            "cone",
+            "cube",
+            "cylinder",
+            "line"
+          ]
+        },
+        "meters": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Rayon de la sphere, du cylindre ; longueur du cone, de la ligne ; arete du cube."
+        }
+      },
+      "required": [
+        "shape",
+        "meters"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "enum": [
+        "enemy",
+        "ally",
+        "self"
+      ],
+      "description": "Qui le sort peut viser : une creature hostile (`enemy`, le defaut), une creature de son camp, soi compris (`ally`), le lanceur seul (`self`)."
+    },
+    "effect": {
+      "type": "object",
+      "description": "L'effet qui dure que le sort pose sur sa cible (LOT-133) : `fly` (vol, a `meters` de vitesse), `invisible`. `durationRounds` : 0 ou absent pour tout le combat.",
+      "properties": {
+        "kind": {
+          "enum": [
+            "fly",
+            "invisible"
+          ]
+        },
+        "meters": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "durationRounds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false
+    },
     "components": {
       "type": "object",
       "properties": {

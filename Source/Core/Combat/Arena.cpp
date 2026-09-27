@@ -12,9 +12,11 @@
 #include <utility>
 #include <variant>
 
+#include "Core/Combat/AreaOfEffect.h"
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/CombatCounters.h"
 #include "Core/Combat/Flanking.h"
+#include "Core/Combat/Pathfinding.h"
 #include "Core/Rpg/Ability.h"
 #include "Core/Rpg/CharacterSheet.h"
 #include "Core/Rpg/Spell.h"
@@ -196,6 +198,25 @@ void ArenaSession::subscribe() {
                     break;
             }
             record(std::move(ligne));
+            if (e.hook == CombatHook::RoundStart) {
+                // Les effets de sort qui durent comptent leurs rounds (LOT-133).
+                for (ArenaEffect& effet : _effects) {
+                    if (effet.roundsLeft > 0) {
+                        --effet.roundsLeft;
+                    }
+                }
+                endEffects([](const ArenaEffect& effet) { return effet.roundsLeft == 0; },
+                           "duree ecoulee");
+            }
+            if (e.hook == CombatHook::CombatantDowned && e.combatant.has_value()) {
+                // Un lanceur qui tombe perd sa concentration.
+                const CombatantId tombe = *e.combatant;
+                endEffects(
+                    [tombe](const ArenaEffect& effet) {
+                        return effet.concentration && effet.caster == tombe;
+                    },
+                    "lanceur a terre");
+            }
             if (e.hook == CombatHook::CombatEnded) {
                 restoreAll();
             }
@@ -229,6 +250,7 @@ ArenaMount ArenaSession::mount(const ArenaBout& bout) {
     // Les choix de reaction du joueur survivent au rejeu : les memes identifiants, le meme choix.
     _dodging.clear();
     _disengaged.clear();
+    _effects.clear();
     _journal.clear();
     subscribe();
     _combat->setEscapable(bout.escapable);
@@ -369,6 +391,33 @@ void ArenaSession::hookCapacities(AttackHooks& hooks, CombatantId attacker) {
     }
 }
 
+bool ArenaSession::hasEffect(CombatantId combatant, SpellEffectKind kind) const {
+    return std::ranges::any_of(_effects, [&](const ArenaEffect& effet) {
+        return effet.bearer == combatant && effet.kind == kind;
+    });
+}
+
+void ArenaSession::endEffects(const std::function<bool(const ArenaEffect&)>& ends,
+                              const std::string& reason) {
+    std::vector<ArenaEffect> finis;
+    std::vector<ArenaEffect> restants;
+    for (ArenaEffect& effet : _effects) {
+        (ends(effet) ? finis : restants).push_back(std::move(effet));
+    }
+    _effects = std::move(restants);
+    for (const ArenaEffect& effet : finis) {
+        if (effet.kind == SpellEffectKind::Fly) {
+            // Le vol rend ce qu'il avait pris : la marche, et son budget.
+            static_cast<void>(_combat->setLocomotion(effet.bearer, effet.previousLocomotion,
+                                                     effet.previousMovement));
+        }
+        const Combatant* porteur = _combat->find(effet.bearer);
+        record("fin de l'effet " + effet.source + " sur " +
+               (porteur == nullptr ? std::string("?") : porteur->profile.name) + " (" + reason +
+               ")");
+    }
+}
+
 const std::string& ArenaSession::behaviorOf(CombatantId combatant) const {
     static const std::string joueur;
     const auto trouve = _behaviors.find(combatant);
@@ -417,6 +466,14 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
     // l'attaquant ». La lumiere et les sens ne sont pas encore la : voir, c'est la ligne de vue.
     if (_dodging.contains(target) && hasLineOfSight(*_combat, target, attacker)) {
         contexte.circumstances.disadvantages.emplace_back("esquive de la cible");
+    }
+    // Manuel, « Invisible » : les jets d'attaque contre la creature sont desavantages, les siens
+    // avantages (LOT-133).
+    if (hasEffect(target, SpellEffectKind::Invisible)) {
+        contexte.circumstances.disadvantages.emplace_back("cible invisible");
+    }
+    if (hasEffect(attacker, SpellEffectKind::Invisible)) {
+        contexte.circumstances.advantages.emplace_back("attaquant invisible");
     }
     // Guide du Maitre, « la prise en tenaille » : avantage aux jets d'attaque au corps a corps.
     if (_bout.flanking && profile.kind == AttackKind::Melee &&
@@ -472,6 +529,16 @@ ArenaAttack ArenaSession::attack(CombatantId target, std::size_t attackIndex) {
     }
     ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
     attaque.outcome = resolveAndRecord(*actif, target, profil, {});
+    if (attaque.outcome.has_value()) {
+        attaque.summary = attaque.outcome->describe();
+    }
+    // L'invisibilite cesse pour qui attaque -- apres l'attaque, qui en a profite.
+    const CombatantId attaquantId = *actif;
+    endEffects(
+        [attaquantId](const ArenaEffect& effet) {
+            return effet.bearer == attaquantId && effet.kind == SpellEffectKind::Invisible;
+        },
+        "il attaque");
     return attaque;
 }
 
@@ -491,20 +558,37 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
     }
     const Combatant* lanceur = _combat->find(*actif);
     const Combatant* cible = _combat->find(target);
-    if (cible == nullptr || target == *actif || cible->profile.side == lanceur->profile.side ||
-        cible->status != CombatantStatus::Standing) {
+    if (cible == nullptr || cible->status != CombatantStatus::Standing) {
         return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
     }
-    const AttackProfile profil = sort.attack;
-    switch (checkTarget(*_combat, *actif, target, profil)) {
-        case TargetCheck::Valid:
-            break;
-        case TargetCheck::NotOnGrid:
-            return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
-        case TargetCheck::OutOfReach:
-            return {.result = ArenaActionResult::OutOfReach, .outcome = std::nullopt};
-        case TargetCheck::TotalCover:
-            return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};
+    // La cible que le sort vise (LOT-133) : un sort qui blesse ne soigne pas un allie par erreur,
+    // un sort qui aide ne se pose pas sur l'ennemi.
+    const bool memeCamp = cible->profile.side == lanceur->profile.side;
+    const bool cibleValide = [&] {
+        switch (sort.target) {
+            case SpellTarget::Enemy:
+                return target != *actif && !memeCamp;
+            case SpellTarget::Ally:
+                return memeCamp;
+            case SpellTarget::Self:
+                return target == *actif;
+        }
+        return false;
+    }();
+    if (!cibleValide) {
+        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
+    }
+    if (target != *actif) {
+        switch (checkTarget(*_combat, *actif, target, sort.attack)) {
+            case TargetCheck::Valid:
+                break;
+            case TargetCheck::NotOnGrid:
+                return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
+            case TargetCheck::OutOfReach:
+                return {.result = ArenaActionResult::OutOfReach, .outcome = std::nullopt};
+            case TargetCheck::TotalCover:
+                return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};
+        }
     }
     if (lanceur->economy.remaining(ACTION_RESOURCE) <= 0) {
         return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};
@@ -516,9 +600,224 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
     const std::string prefixe =
         "sort " + sort.name +
         (sort.uses < 0 ? std::string(" : ") : " (" + std::to_string(sort.uses) + " restant) : ");
-    ArenaAttack lancer{.result = ArenaActionResult::Done, .outcome = std::nullopt};
-    lancer.outcome = resolveAndRecord(*actif, target, profil, prefixe);
-    return lancer;
+    // Copie : un abonne peut enroler un renfort, et la table des sorts ne doit pas bouger sous la
+    // resolution.
+    const ArenaSpell lance = sort;
+    const CombatantId lanceurId = *actif;
+    if (lance.concentration) {
+        // On ne se concentre que sur un sort a la fois (Manuel, « Concentration »).
+        endEffects(
+            [lanceurId](const ArenaEffect& effet) {
+                return effet.concentration && effet.caster == lanceurId;
+            },
+            "concentration sur " + lance.name);
+    }
+    // L'invisibilite cesse pour qui lance un sort : avant l'effet qu'il pose, apres les degats qui
+    // en ont profite.
+    const auto finInvisibilite = [this, lanceurId] {
+        endEffects(
+            [lanceurId](const ArenaEffect& effet) {
+                return effet.bearer == lanceurId && effet.kind == SpellEffectKind::Invisible;
+            },
+            "il lance un sort");
+    };
+    switch (lance.mechanism) {
+        case SpellMechanism::AttackRoll: {
+            ArenaAttack issue = castAttackRolls(lanceurId, target, lance, prefixe);
+            finInvisibilite();
+            return issue;
+        }
+        case SpellMechanism::AutoHit: {
+            ArenaAttack issue = castAutoHit(lanceurId, target, lance, prefixe);
+            finInvisibilite();
+            return issue;
+        }
+        case SpellMechanism::SavingThrow: {
+            ArenaAttack issue = castSavingThrow(lanceurId, target, lance, prefixe);
+            finInvisibilite();
+            return issue;
+        }
+        case SpellMechanism::Effect:
+            finInvisibilite();
+            return castEffect(lanceurId, target, lance, prefixe);
+    }
+    return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
+}
+
+ArenaAttack ArenaSession::castAttackRolls(CombatantId caster, CombatantId target,
+                                          const ArenaSpell& spell, const std::string& prefix) {
+    ArenaAttack issue{.result = ArenaActionResult::Done, .outcome = std::nullopt};
+    for (int rayon = 0; rayon < spell.projectiles; ++rayon) {
+        const Combatant* cible = _combat->find(target);
+        if (cible == nullptr || cible->status != CombatantStatus::Standing ||
+            _combat->phase() == CombatPhase::Ended) {
+            // Le moteur dirige tous les rayons sur la meme cible : ceux qui restent quand elle
+            // tombe sont perdus, et le dire vaut mieux que de les faire disparaitre.
+            record(prefix + std::to_string(spell.projectiles - rayon) +
+                   " projectile(s) perdu(s) : la cible est hors de combat");
+            break;
+        }
+        const std::string rang =
+            spell.projectiles > 1
+                ? std::to_string(rayon + 1) + "/" + std::to_string(spell.projectiles) + " : "
+                : std::string{};
+        std::optional<AttackOutcome> coup =
+            resolveAndRecord(caster, target, spell.attack, prefix + rang);
+        if (coup.has_value() && !issue.outcome.has_value()) {
+            issue.summary = prefix + rang + coup->describe();
+            issue.outcome = std::move(coup);
+        }
+    }
+    return issue;
+}
+
+ArenaAttack ArenaSession::castAutoHit(CombatantId caster, CombatantId target,
+                                      const ArenaSpell& spell, const std::string& prefix) {
+    // Chaque projectile lance ses des ; tous frappent en meme temps, en une salve.
+    std::vector<RolledDamage> des;
+    for (int projectile = 0; projectile < spell.projectiles; ++projectile) {
+        std::vector<RolledDamage> lances = rollDamage(spell.attack.damage, false, _random);
+        des.insert(des.end(), lances.begin(), lances.end());
+    }
+    // La ligne se reserve avant les degats : ce qu'ils declenchent s'ecrit ensuite.
+    const std::size_t place = _journal.size();
+    _journal.emplace_back();
+    const std::vector<DamageRequest> salve{{.target = target, .damage = des}};
+    std::vector<DamageReport> rapports = _damagePipeline.apply(*_combat, salve);
+    const std::optional<DamageReport> rapport =
+        rapports.empty() ? std::nullopt : std::optional<DamageReport>(std::move(rapports.front()));
+    const Combatant* lanceur = _combat->find(caster);
+    const Combatant* cible = _combat->find(target);
+    _journal[place] = prefix + spell.name + " " +
+                      (lanceur == nullptr ? std::string("?") : lanceur->profile.name) + " -> " +
+                      (cible == nullptr ? std::string("?") : cible->profile.name) +
+                      " : touche sans jet (" + std::to_string(spell.projectiles) +
+                      " projectile(s))" + describeDamage(des, rapport);
+    return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = _journal[place]};
+}
+
+ArenaAttack ArenaSession::castSavingThrow(CombatantId caster, CombatantId target,
+                                          const ArenaSpell& spell, const std::string& prefix) {
+    std::vector<CombatantId> cibles{target};
+    if (spell.areaRadius > 0) {
+        // La sphere se centre sur la cible (LOT-133) : le moteur ne vise pas encore un point
+        // vide. Elle prend tout ce qu'elle touche, allies et lanceur compris.
+        const std::optional<GridPosition> ancre = _combat->grid().positionOf(target);
+        if (ancre.has_value()) {
+            const int cote = _combat->grid().sideOf(target);
+            const GridPoint centre{.x = (2 * ancre->column) + cote, .y = (2 * ancre->row) + cote};
+            cibles = combatantsInArea(*_combat, {.shape = AreaShape::Sphere,
+                                                 .origin = centre,
+                                                 .toward = centre,
+                                                 .size = spell.areaRadius,
+                                                 .width = 1});
+        }
+    }
+    const Combatant* lanceur = _combat->find(caster);
+    const Ability caracteristique = spell.save.value_or(Ability::Dexterity);
+    // Les des se lancent une fois pour toutes les cibles (Manuel, « Degats de zone »).
+    const std::vector<RolledDamage> des = rollDamage(spell.attack.damage, false, _random);
+    int lances = 0;
+    for (const RolledDamage& lance : des) {
+        lances += lance.amount;
+    }
+    const std::size_t place = _journal.size();
+    _journal.emplace_back();
+    std::vector<DamageRequest> salve;
+    // Une ligne par creature ; `blesse` : elle a une demande dans la salve, donc un rapport.
+    struct LigneDeCible {
+        std::string texte;
+        bool blesse = false;
+    };
+    std::vector<LigneDeCible> lignes;
+    for (const CombatantId id : cibles) {
+        const Combatant* creature = _combat->find(id);
+        if (creature == nullptr || creature->status != CombatantStatus::Standing) {
+            continue;
+        }
+        const std::vector<Modifier> modificateurs{
+            {.source = "sauvegarde de " + std::string(abilityLabel(caracteristique)),
+             .value = creature->profile.savingThrows[static_cast<std::size_t>(caracteristique)]}};
+        const CheckResult jet = rollCheck(spell.saveDc, modificateurs, RollStance::Normal, _random);
+        std::string ligne = "  " + creature->profile.name + " : " + jet.describe();
+        if (jet.succeeded() && spell.saveEffect == SaveEffect::Negates) {
+            lignes.push_back({.texte = ligne + " ; aucun degat", .blesse = false});
+            continue;
+        }
+        std::vector<RolledDamage> recus = des;
+        if (jet.succeeded()) {
+            for (RolledDamage& lance : recus) {
+                lance.amount /= 2;
+            }
+            ligne += " ; moitie " + std::to_string(lances) + " -> " + std::to_string(lances / 2);
+        }
+        salve.push_back({.target = id, .damage = std::move(recus)});
+        lignes.push_back({.texte = std::move(ligne), .blesse = true});
+    }
+    const std::vector<DamageReport> rapports = _damagePipeline.apply(*_combat, salve);
+    // Chaque cible touchee retrouve son rapport, dans l'ordre de la salve.
+    std::size_t rapport = 0;
+    std::vector<std::string> texte;
+    for (LigneDeCible& ligne : lignes) {
+        if (ligne.blesse && rapport < rapports.size()) {
+            for (const DamageStep& etape : rapports[rapport].work.trace) {
+                ligne.texte += " ; " + etape.source + ' ' + std::to_string(etape.before) + " -> " +
+                               std::to_string(etape.after);
+            }
+            ligne.texte += " ; PV " + std::to_string(rapports[rapport].hitPointsBefore) + " -> " +
+                           std::to_string(rapports[rapport].hitPointsAfter);
+            ++rapport;
+        }
+        texte.push_back(std::move(ligne.texte));
+    }
+    std::string entete = prefix + spell.name + " " +
+                         (lanceur == nullptr ? std::string("?") : lanceur->profile.name) +
+                         " : sauvegarde de " + std::string(abilityLabel(caracteristique)) + " DD " +
+                         std::to_string(spell.saveDc) + " ; " + std::to_string(lignes.size()) +
+                         " creature(s)" + describeDamage(des, std::nullopt);
+    _journal[place] = entete;
+    _journal.insert(_journal.begin() + static_cast<std::ptrdiff_t>(place) + 1, texte.begin(),
+                    texte.end());
+    return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = entete};
+}
+
+ArenaAttack ArenaSession::castEffect(CombatantId caster, CombatantId target,
+                                     const ArenaSpell& spell, const std::string& prefix) {
+    if (!spell.effect.has_value()) {
+        return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
+    }
+    const SpellEffectKind genre = spell.effect->kind;
+    // Un meme effet ne se cumule pas : le nouveau remplace l'ancien.
+    endEffects(
+        [target, genre](const ArenaEffect& effet) {
+            return effet.bearer == target && effet.kind == genre;
+        },
+        "relance");
+    const Combatant* porteur = _combat->find(target);
+    ArenaEffect effet{
+        .bearer = target,
+        .caster = caster,
+        .kind = genre,
+        .source = spell.name,
+        .concentration = spell.concentration,
+        .roundsLeft = spell.effect->durationRounds > 0 ? spell.effect->durationRounds : -1,
+        .previousLocomotion = porteur->profile.locomotion,
+        .previousMovement = porteur->profile.movement};
+    std::string ligne = prefix + "effet " + spell.name + " sur " + porteur->profile.name;
+    switch (genre) {
+        case SpellEffectKind::Fly: {
+            const int budget = movementBudget(spell.effect->meters);
+            static_cast<void>(_combat->setLocomotion(target, Locomotion::Fly, budget));
+            ligne += " : vole, " + std::to_string(budget) + " cases par tour";
+            break;
+        }
+        case SpellEffectKind::Invisible:
+            ligne += " : invisible";
+            break;
+    }
+    _effects.push_back(std::move(effet));
+    record(ligne);
+    return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = ligne};
 }
 
 bool ArenaSession::dodge() {
@@ -549,6 +848,11 @@ bool ArenaSession::provokes(CombatantId mover, CombatantId reactor, GridPosition
     if (mobile == nullptr || c == nullptr || coup == nullptr ||
         c->profile.side == mobile->profile.side || c->status != CombatantStatus::Standing ||
         c->economy.remaining(REACTION_RESOURCE) <= 0 || _declinesOpportunities.contains(reactor)) {
+        return false;
+    }
+    // Manuel, « Attaque d'opportunite » : une creature « que vous pouvez voir ». L'invisible
+    // passe (LOT-133).
+    if (hasEffect(mover, SpellEffectKind::Invisible)) {
         return false;
     }
     const std::optional<int> avant = gridDistanceFrom(*_combat, mover, from, reactor);
@@ -728,6 +1032,11 @@ void ArenaSession::takeOpportunities(CombatantId mover, const std::vector<Combat
         const AttackProfile coup = *meleeAttack(opportuniste);
         static_cast<void>(_combat->economy(opportuniste)->spend(REACTION_RESOURCE));
         static_cast<void>(resolveAndRecord(opportuniste, mover, coup, "opportunite : "));
+        endEffects(
+            [opportuniste](const ArenaEffect& effet) {
+                return effet.bearer == opportuniste && effet.kind == SpellEffectKind::Invisible;
+            },
+            "il attaque");
     }
 }
 
@@ -755,24 +1064,37 @@ std::vector<ArenaSpell> arenaSpellsFor(const CharacterSheet& sheet,
     if (!playableClass.spellcasting.has_value()) {
         return grimoire;
     }
+    const Ability incantation = playableClass.spellcasting->ability;
     for (const KnownSpell& connu : sheet.knownSpells) {
         const Spell* sort = spells.find(connu.spellId);
         if (sort == nullptr) {
             skipped.push_back(connu.spellId);
             continue;
         }
-        std::optional<AttackProfile> attaque =
-            spellAttackFor(sheet, *sort, playableClass.spellcasting->ability, proficiencyBonus);
-        if (!attaque.has_value()) {
-            // Connu, mais sans mecanisme joue ici (EX-RPG-051) : dit, pas tu.
+        const std::optional<SpellMechanism> mecanisme = spellMechanism(*sort);
+        if (!mecanisme.has_value()) {
+            // Connu, mais sans mecanisme joue en combat (EX-RPG-051) : dit, pas tu.
             skipped.push_back(sort->name);
             continue;
         }
-        grimoire.push_back({.id = sort->id,
-                            .name = sort->name,
-                            .level = sort->level,
-                            .uses = connu.perDay == 0 ? -1 : connu.remaining,
-                            .attack = std::move(*attaque)});
+        grimoire.push_back(
+            {.id = sort->id,
+             .name = sort->name,
+             .level = sort->level,
+             .uses = connu.perDay == 0 ? -1 : connu.remaining,
+             .mechanism = *mecanisme,
+             .attack = spellProfileFor(sheet, *sort, incantation, proficiencyBonus),
+             .target = sort->target,
+             .projectiles = sort->projectiles,
+             .save = sort->savingThrow,
+             // Player's Guide, p. 197 et 201 : DD = 8 + maitrise + modificateur d'incantation.
+             .saveDc = 8 + proficiencyBonus + sheet.modifier(incantation),
+             .saveEffect = sort->saveEffect,
+             .areaRadius = sort->areaRadiusMeters > 0.0F
+                               ? areaTilesFromMeters(sort->areaRadiusMeters).value_or(0)
+                               : 0,
+             .effect = sort->effect,
+             .concentration = sort->concentration});
     }
     return grimoire;
 }

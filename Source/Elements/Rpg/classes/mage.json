@@ -38,21 +38,39 @@
       "level": 1,
       "proficiencyBonus": 2,
       "features": [
-        "simplified-spellcasting-specific-cantrips-2"
+        "simplified-spellcasting",
+        "specific-cantrips"
+      ],
+      "cantrips": [
+        "fire-bolt",
+        "light"
+      ],
+      "spells": [
+        "detect-magic",
+        "magic-missile"
       ]
     },
     {
       "level": 2,
       "proficiencyBonus": 2,
       "features": [
-        "experience-arcane-protection"
+        "experience",
+        "arcane-protection"
       ]
     },
     {
       "level": 3,
       "proficiencyBonus": 2,
       "features": [
-        "simplified-spellcasting-new-spells-specific-cantrips-3"
+        "simplified-spellcasting",
+        "specific-cantrips"
+      ],
+      "cantrips": [
+        "mage-hand"
+      ],
+      "spells": [
+        "invisibility",
+        "scorching-ray"
       ]
     },
     {
@@ -66,7 +84,11 @@
       "level": 5,
       "proficiencyBonus": 3,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "fireball",
+        "fly"
       ]
     },
     {
@@ -80,7 +102,11 @@
       "level": 7,
       "proficiencyBonus": 3,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "dimension-door",
+        "stoneskin"
       ]
     },
     {
@@ -94,7 +120,11 @@
       "level": 9,
       "proficiencyBonus": 4,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "cone-of-cold",
+        "wall-of-force"
       ]
     },
     {
@@ -108,7 +138,11 @@
       "level": 11,
       "proficiencyBonus": 4,
       "features": [
-        "simplified-spellcasting-new-spells"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "chain-lightning",
+        "disintegrate"
       ]
     },
     {
@@ -122,7 +156,10 @@
       "level": 13,
       "proficiencyBonus": 5,
       "features": [
-        "simplified-spellcasting-new-spell"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "teleport"
       ]
     },
     {
@@ -136,7 +173,10 @@
       "level": 15,
       "proficiencyBonus": 5,
       "features": [
-        "simplified-spellcasting-new-spell"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "antimagic-field"
       ]
     },
     {
@@ -150,14 +190,18 @@
       "level": 17,
       "proficiencyBonus": 6,
       "features": [
-        "simplified-spellcasting-new-spell"
+        "simplified-spellcasting"
+      ],
+      "spells": [
+        "meteor-swarm"
       ]
     },
     {
       "level": 18,
       "proficiencyBonus": 6,
       "features": [
-        "arcane-protection-improvement-experience"
+        "arcane-protection-improvement",
+        "experience"
       ]
     },
     {

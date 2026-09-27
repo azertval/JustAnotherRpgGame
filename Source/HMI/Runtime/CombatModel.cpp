@@ -471,7 +471,8 @@ void CombatModel::castAt(core::CombatantId target, std::size_t index) {
     const core::ArenaAttack cast = _session->castSpell(target, index);
     switch (cast.result) {
         case core::ArenaActionResult::Done:
-            _status = cast.outcome.has_value() ? toQt(cast.outcome->describe()) : QString();
+            // La ligne du sort : un sort sans jet d'attaque n'a pas d'issue d'attaque (LOT-133).
+            _status = toQt(cast.summary);
             break;
         case core::ArenaActionResult::Exhausted:
             _status = tr("Sort epuise : un repos long le rendra.");
@@ -527,6 +528,16 @@ void CombatModel::tapCell(int column, int row) {
     }
     _cursor = {.column = column, .row = row};
     if (const std::optional<core::CombatantId> target = combat.grid().occupantAt(_cursor)) {
+        // Un sort choisi dans la barre se lance sur la creature cliquee, alliee ou non : c'est
+        // le sort qui sait qui il vise (LOT-133), et son refus le dit -- on ne retombe pas sur
+        // l'arme en silence.
+        const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
+        if (_selectedAction >= 0 && std::cmp_less(_selectedAction, entries.size()) &&
+            entries[static_cast<std::size_t>(_selectedAction)].kind == TurnActionKind::SPELL) {
+            castAt(*target, entries[static_cast<std::size_t>(_selectedAction)].attack);
+            emitSceneChanged();
+            return;
+        }
         const core::Combatant* attacker = combat.find(*active);
         const core::Combatant* defender = combat.find(*target);
         if (attacker != nullptr && defender != nullptr &&
@@ -534,16 +545,8 @@ void CombatModel::tapCell(int column, int row) {
             // L'attaque choisie dans la barre si elle peut viser la cible, sinon la premiere qui
             // le peut : le clic ne refuse pas un tir que l'arc aurait reussi.
             std::optional<std::size_t> index;
-            const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
             if (_selectedAction >= 0 && std::cmp_less(_selectedAction, entries.size())) {
                 const TurnActionEntry& chosen = entries[static_cast<std::size_t>(_selectedAction)];
-                // Un sort choisi dans la barre se lance au clic sur l'ennemi (LOT-131) ; le refus,
-                // s'il y en a un, le dit -- on ne retombe pas sur l'arme en silence.
-                if (chosen.kind == TurnActionKind::SPELL) {
-                    castAt(*target, chosen.attack);
-                    emitSceneChanged();
-                    return;
-                }
                 if (chosen.kind == TurnActionKind::ATTACK &&
                     core::checkTarget(combat, *active, *target,
                                       (*_session->attacks(*active))[chosen.attack]) ==
@@ -666,12 +669,11 @@ void CombatModel::confirm() {
             const std::optional<core::CombatantId> occupant = combat.grid().occupantAt(_cursor);
             if (!occupant.has_value()) {
                 moveTo(_cursor);
+            } else if (chosen.kind == TurnActionKind::SPELL) {
+                // Le sort sait qui il vise, allie ou ennemi (LOT-133).
+                castAt(*occupant, chosen.attack);
             } else if (combat.find(*occupant)->profile.side != combat.find(*active)->profile.side) {
-                if (chosen.kind == TurnActionKind::SPELL) {
-                    castAt(*occupant, chosen.attack);
-                } else {
-                    attackAt(*occupant, chosen.attack);
-                }
+                attackAt(*occupant, chosen.attack);
             } else {
                 _status = tr("Rien a faire sur cette case.");
             }

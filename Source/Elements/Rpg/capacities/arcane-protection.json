@@ -1,0 +1,21 @@
+{
+  "id": "arcane-protection",
+  "name": "Arcane Protection",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Mage), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "effects": [
+    {
+      "kind": "unarmored-armor-class",
+      "base": 13,
+      "abilities": [
+        "dexterity"
+      ],
+      "shieldAllowed": true
+    }
+  ],
+  "text": "Player's Guide to Tanares, p. 198. Sans armure, la classe d'armure vaut 13 + modificateur de Dexterite (15 + Dex au niveau 18)."
+}

@@ -1,0 +1,27 @@
+{
+  "id": "invisibility",
+  "name": "Invisibilite",
+  "source": "phb-fr",
+  "level": 2,
+  "school": "illusion",
+  "castingTime": "1 action",
+  "range": "contact",
+  "rangeMeters": 1.5,
+  "target": "ally",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": true,
+    "materialText": "un cil enrobe de gomme arabique"
+  },
+  "duration": "concentration, jusqu'a 1 heure",
+  "concentration": true,
+  "effect": {
+    "kind": "invisible"
+  },
+  "appliesCondition": "invisible",
+  "mecanismesRequis": [
+    "jet-de-concentration"
+  ],
+  "text": "Manuel des Joueurs, PDF p. 252 (invisibility). La creature touchee devient invisible : on l'attaque avec desavantage, elle attaque avec avantage, et elle ne provoque pas d'attaque d'opportunite. Le sort se termine pour la cible qui attaque ou lance un sort. La concentration rompue par les degats est au LOT-137."
+}

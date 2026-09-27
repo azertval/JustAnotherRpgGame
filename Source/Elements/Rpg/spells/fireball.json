@@ -1,0 +1,26 @@
+{
+  "id": "fireball",
+  "name": "Boule de feu",
+  "source": "phb-fr",
+  "level": 3,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "45 metres",
+  "rangeMeters": 45,
+  "savingThrow": "dexterity",
+  "saveEffect": "half",
+  "area": {
+    "shape": "sphere",
+    "meters": 6
+  },
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": true,
+    "materialText": "une petite boule de guano de chauve-souris et du soufre"
+  },
+  "duration": "instantanee",
+  "damage": "8d6",
+  "damageType": "fire",
+  "text": "Manuel des Joueurs, PDF p. 221 (fireball). Chaque creature d'une sphere de 6 metres de rayon fait un jet de sauvegarde de Dexterite : 8d6 degats de feu, la moitie si elle reussit. Le moteur centre la sphere sur une creature visee, et elle prend allies et lanceur comme les autres."
+}

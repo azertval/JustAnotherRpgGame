@@ -17,9 +17,8 @@
 #include "Core/Rpg/Spell.h"
 
 namespace core {
-namespace {
 
-[[nodiscard]] std::string_view nomDeCaracteristique(Ability caracteristique) noexcept {
+std::string_view abilityLabel(Ability caracteristique) noexcept {
     switch (caracteristique) {
         case Ability::Strength:
             return "Force";
@@ -36,6 +35,8 @@ namespace {
     }
     return "?";
 }
+
+namespace {
 
 [[nodiscard]] std::string signe(int valeur) {
     return (valeur >= 0 ? " + " : " - ") + std::to_string(valeur >= 0 ? valeur : -valeur);
@@ -140,7 +141,7 @@ AttackProfile weaponAttackFor(const CharacterSheet& sheet, const Weapon* weapon,
         profil.range = porteeDe(weapon->rangeNormal, weapon->rangeLong);
     }
     profil.modifiers.push_back(
-        {.source = std::string(nomDeCaracteristique(caracteristique)), .value = modificateur});
+        {.source = std::string(abilityLabel(caracteristique)), .value = modificateur});
     if (proficient) {
         profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
     }
@@ -159,6 +160,11 @@ std::optional<AttackProfile> spellAttackFor(const CharacterSheet& sheet, const S
     if (!isAttackSpell(spell)) {
         return std::nullopt;
     }
+    return spellProfileFor(sheet, spell, ability, proficiencyBonus);
+}
+
+AttackProfile spellProfileFor(const CharacterSheet& sheet, const Spell& spell, Ability ability,
+                              int proficiencyBonus) {
     AttackProfile profil;
     profil.label = spell.name;
     profil.kind = AttackKind::Ranged;
@@ -166,13 +172,18 @@ std::optional<AttackProfile> spellAttackFor(const CharacterSheet& sheet, const S
     profil.range =
         porteeDe(spell.rangeMeters > 0.0F ? std::optional<float>(spell.rangeMeters) : std::nullopt,
                  std::nullopt);
-    profil.modifiers.push_back(
-        {.source = std::string(nomDeCaracteristique(ability)), .value = sheet.modifier(ability)});
-    profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
-    profil.damage.push_back({.dice = *spell.damage,
-                             .type = *spell.damageType,
-                             .flags = static_cast<DamageFlags>(flagsOf(DamageFlag::Spell) |
-                                                               flagsOf(DamageFlag::Magical))});
+    if (spell.attackRoll) {
+        profil.modifiers.push_back(
+            {.source = std::string(abilityLabel(ability)), .value = sheet.modifier(ability)});
+        profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
+    }
+    const std::optional<Dice> des = spellDamageAt(spell, sheet.level);
+    if (des.has_value() && spell.damageType.has_value()) {
+        profil.damage.push_back({.dice = *des,
+                                 .type = *spell.damageType,
+                                 .flags = static_cast<DamageFlags>(flagsOf(DamageFlag::Spell) |
+                                                                   flagsOf(DamageFlag::Magical))});
+    }
     return profil;
 }
 
@@ -462,6 +473,12 @@ std::string AttackOutcome::describe() const {
     }
     texte +=
         roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)" : " : touche";
+    return texte + describeDamage(damage, report);
+}
+
+std::string describeDamage(const std::vector<RolledDamage>& damage,
+                           const std::optional<DamageReport>& report) {
+    std::string texte;
     for (const RolledDamage& lance : damage) {
         texte += " ; degats " + lance.roll.describe();
         if (lance.critical) {

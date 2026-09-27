@@ -141,7 +141,8 @@ inline core::ArenaContestant hero(const core::CharacterSheet& sheet,
                                   core::CombatSide side = core::CombatSide::Allies,
                                   int initiative = 100) {
     const RpgCatalogs& catalogs = rpgCatalogs();
-    core::CombatantProfile profile = core::profileFor(sheet, side);
+    core::CombatantProfile profile =
+        core::profileFor(sheet, side, core::proficiencyBonus(sheet, catalogs.experience));
     profile.armorClass = armorClassOf(sheet, inventory);
     profile.initiativeModifier = initiative;
     std::vector<core::ArenaSpell> spells;
