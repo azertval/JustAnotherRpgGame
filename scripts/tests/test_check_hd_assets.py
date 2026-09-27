@@ -168,6 +168,34 @@ def test_une_figurine_sans_marche_echoue(assets):
     assert any('pas de bande `walk`' in e for e in errors(root))
 
 
+def test_un_portrait_d_attente_cite_son_visage_et_rien_d_autre(assets):
+    """LOT-145 : un héros qui a son portrait avant sa figurine. `portraits` cite le portrait et le
+    jeton ; une bande posée là n'est pas jouée, donc pas citée ; un portrait manquant, ou un nom
+    dans les deux listes, échoue."""
+    root, _, _ = assets
+    folder = heros(root)
+    characters = folder.parent.parent
+    mage = characters / 'Heroes' / 'mage'
+    mage.mkdir()
+    png(mage / 'portrait.png', 512, 512)
+    png(mage / 'token.png', 128, 128)
+    manifest = {'version': 1, 'animations': ['idle', 'walk', 'attack', 'cast'],
+                'npcs': ['Heroes/brawler'], 'portraits': ['Heroes/mage']}
+    write(characters / 'manifest.json', manifest)
+    assert errors(root) == []
+
+    png(mage / 'idle-se.png', 8 * 192, 256)
+    assert any('mage/idle-se.png' in e for e in errors(root))
+    (mage / 'idle-se.png').unlink()
+
+    (mage / 'portrait.png').unlink()
+    assert any('sans `portrait.png`' in e for e in errors(root))
+    png(mage / 'portrait.png', 512, 512)
+
+    write(characters / 'manifest.json', {**manifest, 'portraits': ['Heroes/mage', 'Heroes/brawler']})
+    assert any('à la fois' in e for e in errors(root))
+
+
 def test_un_dossier_scene_sans_manifeste_echoue(assets):
     root, _, _ = assets
     (root / 'Regions' / 'r' / 'ville' / 'autre' / 'Scene').mkdir(parents=True)

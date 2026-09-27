@@ -107,8 +107,36 @@ l'oublie quand la carte change.
 Le mannequin humanoïde SE-v1 est installé sous `Common/Characters/Placeholders/humanoid/`, sans
 orientation (`idle.png`, `walk.png`…) : une figurine sans bande orientée se dessine de la même
 bande dans les quatre sens, et c'est ce que fait le moteur. La règle de repli, la propriété
-`silhouette` et le contrôle des assets sont livrés avec lui. Restent à produire : les trois
-orientations manquantes de l'humanoïde, et les mannequins quadrupède et volant.
+`silhouette` et le contrôle des assets sont livrés avec lui.
+
+### L'humanoïde aux quatre orientations (27 septembre 2026)
+
+L'atelier a décliné la chorégraphie SE en SW, NE et NW (`Tools/AssetHd/NPC/ManequinNpc/<DIR>-v1/`,
+48 poses par direction, une génération par pose) ; l'auteur a déclaré les quatre directions
+**finales** le 27 septembre. Les 24 bandes (`<clip>-<se|sw|ne|nw>.png`) sont installées par
+`install_hd_asset.py`, aux cadences de la production (repos 0,125 s, marche 0,0625 s, attaque et
+sort 0,1 s, touché 0,1 s, mort 0,12 s), les six bandes sans suffixe retirées ; le kit `Common@3`
+est publié. `check_hd_assets.py` passe ; la galerie montre les 24 bandes.
+
+`check_figure_walk.py` **refuse** encore les quatre marches, sans que ce soit un défaut du dessin
+avéré : trois cellules de marche (SE, SW, NE) ont été allongées à 264 px par l'installateur pour
+un pied qui descend sous la ligne de sol, et l'outil n'accepte que 192 × 256 ; la NW a deux images
+(1 et 7) à moins de 8 px du bord de sa cellule ; et sa revue manuelle (appuis, alternance, essai en
+jeu) reste à remplir par l'auteur. Rien n'a été régénéré.
+
+**Validé en jeu par l'auteur le 27 septembre 2026** : « en jeu le rendu est bon, on laisse en
+l'état ». Le refus de `check_figure_walk.py` est accepté tel quel pour l'humanoïde : ni reprise des
+images, ni retouche de l'installateur ou de l'outil pour ce lot.
+
+**Les portraits d'attente.** Le groupe du `LOT-138` montre ses quatre membres au HUD, dans l'écran
+Groupe et dans le dialogue ; seul le Brawler avait un visage. Les portraits du Mage, du Priest
+(la version Dorsi, choix de l'auteur) et du Scoundrel, produits par l'atelier du `LOT-136`, sont
+installés comme **portraits d'attente** : une figurine sans bande, `"strips": []`, dont le nom va
+dans la liste `portraits` du manifeste `Characters/` et non dans `npcs`. Le moteur les dessine par
+le mannequin ; leurs bandes, quand elles viendront, les feront passer dans `npcs`. L'installateur,
+le contrôle des assets et la galerie connaissent cette liste.
+
+Restent : les mannequins quadrupède et volant.
 
 ## Risques et questions ouvertes
 

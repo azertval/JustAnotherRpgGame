@@ -191,6 +191,23 @@ def check_characters(directory: Path, manifest: dict, root: Path, report: Report
         strips = [*animations, *(f"{a}-{f}" for a in animations for f in FACINGS)]
         cited[directory / npc] = {f"{stem}.png" for stem in ["portrait", "token", *strips]}
         check_figure(directory / npc, animations, root, report)
+    # Les portraits d'attente (LOT-145) : un visage sans figurine, que le moteur dessine par son
+    # mannequin. Seuls le portrait et le jeton sont cités ; une bande dans leur dossier n'est pas
+    # jouée et ressort donc comme image non citée.
+    portraits = manifest.get("portraits", [])
+    if not isinstance(portraits, list):
+        report.fail(f"{where} : `portraits` est une liste")
+        return cited
+    for name in portraits:
+        if not isinstance(name, str) or not (directory / name).is_dir():
+            report.fail(f"{where} : portrait d'attente {name!r} sans dossier")
+            continue
+        if name in npcs:
+            report.fail(f"{where} : {name} est à la fois dans `npcs` et dans `portraits`")
+            continue
+        if not (directory / name / "portrait.png").is_file():
+            report.fail(f"{relative(directory / name, root)} : portrait d'attente sans `portrait.png`")
+        cited[directory / name] = {"portrait.png", "token.png"}
     return cited
 
 

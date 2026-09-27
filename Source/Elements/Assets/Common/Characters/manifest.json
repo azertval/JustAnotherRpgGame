@@ -114,29 +114,154 @@
       "file": "Common/Characters/Heroes/brawler/walk-sw-v2.png",
       "sha256": "df249d6d6e6514b3f3515e9aaa2ec62e885cfefdb00522928bfb3cfe4b81b562"
     },
+    "Heroes/mage/portrait.png": {
+      "file": "Common/Characters/Heroes/mage/portrait.png",
+      "sha256": "bf60c4dfd0c88546daa0b09c1fc0e16f98aeb0f09c39546e5f9701ded814d3b4"
+    },
+    "Heroes/mage/token.png": {
+      "file": "Common/Characters/Heroes/mage/portrait.png",
+      "sha256": "bf60c4dfd0c88546daa0b09c1fc0e16f98aeb0f09c39546e5f9701ded814d3b4"
+    },
+    "Heroes/priest/portrait.png": {
+      "file": "Common/Characters/Heroes/priest/portrait-dorsi-v2.png",
+      "sha256": "014d69985a3fbee57f676e28dfd9f36a57c4607b9b6276967084c29abceca5e9"
+    },
+    "Heroes/priest/token.png": {
+      "file": "Common/Characters/Heroes/priest/portrait-dorsi-v2.png",
+      "sha256": "014d69985a3fbee57f676e28dfd9f36a57c4607b9b6276967084c29abceca5e9"
+    },
+    "Heroes/scoundrel/portrait.png": {
+      "file": "Common/Characters/Heroes/scoundrel/portrait.png",
+      "sha256": "768b1ef0b3c7ed1dd99adc66aacccdfe9918629079c05dca53bbf8c59c0ff4c8"
+    },
+    "Heroes/scoundrel/token.png": {
+      "file": "Common/Characters/Heroes/scoundrel/portrait.png",
+      "sha256": "768b1ef0b3c7ed1dd99adc66aacccdfe9918629079c05dca53bbf8c59c0ff4c8"
+    },
+    "Placeholders/humanoid/attack-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/attack-ne.png",
+      "sha256": "603eb9d2cbfa7283ee3da18db70509206d723435c1709554b8a1f08d7b15cb1b"
+    },
+    "Placeholders/humanoid/attack-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/attack-nw.png",
+      "sha256": "b0bc78366c086154a52174f36c7316dff3191d40f95003de5c8adbe6006107fb"
+    },
+    "Placeholders/humanoid/attack-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/attack-se.png",
+      "sha256": "7bef8916b463e18ab1c698274f5808bed48b913ead8ade32daf5f928946b6147"
+    },
+    "Placeholders/humanoid/attack-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/attack-sw.png",
+      "sha256": "f7e29734180de4324f67e92cd996f96bf3c6ed400182d957126de8daebfc1527"
+    },
     "Placeholders/humanoid/attack.png": {
       "file": "Common/Characters/Placeholders/humanoid/attack-se.png",
       "sha256": "7bef8916b463e18ab1c698274f5808bed48b913ead8ade32daf5f928946b6147"
+    },
+    "Placeholders/humanoid/cast-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/cast-ne.png",
+      "sha256": "7580695a5f0a5d14834eaf1852268c6d8e4a72a79b1394a1c49095635d5519a3"
+    },
+    "Placeholders/humanoid/cast-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/cast-nw.png",
+      "sha256": "a3b5d1c9fd9d692d9461f2128592d308ac471a2f72446b53d2e6433ab59e5a50"
+    },
+    "Placeholders/humanoid/cast-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/cast-se.png",
+      "sha256": "7cad81ff45962088b59818fdffe90fed384e3fd6daca9034c15802f98081d67b"
+    },
+    "Placeholders/humanoid/cast-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/cast-sw.png",
+      "sha256": "2bb7579b3eceee2fcf92ba322b2619713aa415d68f17cf5e8136429a2ddc81a6"
     },
     "Placeholders/humanoid/cast.png": {
       "file": "Common/Characters/Placeholders/humanoid/cast-se.png",
       "sha256": "7cad81ff45962088b59818fdffe90fed384e3fd6daca9034c15802f98081d67b"
     },
+    "Placeholders/humanoid/death-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/death-ne.png",
+      "sha256": "d4adea753773847872cc0aa14355712ff145eef65bf7b2d838d5632d64761963"
+    },
+    "Placeholders/humanoid/death-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/death-nw.png",
+      "sha256": "32f2fdf3e4c1fb1b7110f4a986a47f159740e2f930a45d7b0c0adc33af118340"
+    },
+    "Placeholders/humanoid/death-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/death-se.png",
+      "sha256": "4b6460f19c2515e5f81ab8669c78ec82d144d631769c2724f2f2bef62acdd839"
+    },
+    "Placeholders/humanoid/death-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/death-sw.png",
+      "sha256": "6b2d7b89c95b93eb6af5b8a9c88589a900dc3f4a9ea8920a87b6308644572f81"
+    },
     "Placeholders/humanoid/death.png": {
       "file": "Common/Characters/Placeholders/humanoid/death-se.png",
       "sha256": "4b6460f19c2515e5f81ab8669c78ec82d144d631769c2724f2f2bef62acdd839"
+    },
+    "Placeholders/humanoid/hit-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/hit-ne.png",
+      "sha256": "e9951410047a661ba3ffd82d15b8353645fd76568794cd029ba99b8935413ae5"
+    },
+    "Placeholders/humanoid/hit-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/hit-nw.png",
+      "sha256": "c3439d8b1107232bb7c001d1d680647a645fa8fc07475d90f8fffea8d089b394"
+    },
+    "Placeholders/humanoid/hit-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/hit-se.png",
+      "sha256": "1495e9ae7a834a738ea14b5c217c6154cbc8efc5e6b03f504ca9da6f77f96e32"
+    },
+    "Placeholders/humanoid/hit-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/hit-sw.png",
+      "sha256": "92e09d76db6d473d347f1932a4674a3a8fa38135c551fb0be2845847553be5e7"
     },
     "Placeholders/humanoid/hit.png": {
       "file": "Common/Characters/Placeholders/humanoid/hit-se.png",
       "sha256": "1495e9ae7a834a738ea14b5c217c6154cbc8efc5e6b03f504ca9da6f77f96e32"
     },
+    "Placeholders/humanoid/idle-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/idle-ne.png",
+      "sha256": "6595a886be94b20e7cd2af148d022e00823e01e27662a535413d38ba29661976"
+    },
+    "Placeholders/humanoid/idle-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/idle-nw.png",
+      "sha256": "3f1b011108c3a76bc99edc04963615c52ec9a9455bb805f9ee7471acb2448cc5"
+    },
+    "Placeholders/humanoid/idle-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/idle-se.png",
+      "sha256": "af8910129258408be1f198fc8f46adf9abc7861b390bd2f422ba6dffd96abba4"
+    },
+    "Placeholders/humanoid/idle-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/idle-sw.png",
+      "sha256": "d1fa319c76640cedfa7c6ba2e4f6b97eb8baa4e812c4df19a5a40467d83baeea"
+    },
     "Placeholders/humanoid/idle.png": {
       "file": "Common/Characters/Placeholders/humanoid/idle-se.png",
       "sha256": "af8910129258408be1f198fc8f46adf9abc7861b390bd2f422ba6dffd96abba4"
+    },
+    "Placeholders/humanoid/walk-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/walk-ne.png",
+      "sha256": "380b10af740ffc7881785d73146ea5f867c795a44faa42a0c6c20d8dd578ad0f"
+    },
+    "Placeholders/humanoid/walk-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/walk-nw.png",
+      "sha256": "940ed37a75382a8b503737cb8eed3620b53ad906c6e0a5426832be9211009554"
+    },
+    "Placeholders/humanoid/walk-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/walk-se.png",
+      "sha256": "c429326dfadeace661858c33e3d97c93c529b484dfcf8f96ba0734456ab8e83c"
+    },
+    "Placeholders/humanoid/walk-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/walk-sw.png",
+      "sha256": "2e0b10196f43771c63add835791be9bf4a6934b504606e94015088c36374c90c"
     },
     "Placeholders/humanoid/walk.png": {
       "file": "Common/Characters/Placeholders/humanoid/walk-se.png",
       "sha256": "c429326dfadeace661858c33e3d97c93c529b484dfcf8f96ba0734456ab8e83c"
     }
-  }
+  },
+  "portraits": [
+    "Heroes/mage",
+    "Heroes/priest",
+    "Heroes/scoundrel"
+  ]
 }

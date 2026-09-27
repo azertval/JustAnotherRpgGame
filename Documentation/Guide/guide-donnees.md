@@ -534,7 +534,12 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
   sous-dossier `folder` (`roofs/l/d3/`), le manifeste cite alors la pièce par ce chemin, et la
   clé ne change pas. Un descripteur dont la cible est un `Characters/` installe des **figurines**
   (`LOT-112`) : chaque source est une bande d'animation, réduite d'une seule échelle, posée dans
-  ses cellules, avec son `.anim.json` et son entrée `npcs`.
+  ses cellules, avec son `.anim.json` et son entrée `npcs`. Une figurine **sans bande** mais avec
+  un portrait (`"strips": []`) est un **portrait d'attente** (`LOT-145`) : un personnage qui a son
+  visage avant sa figurine — les alliés du groupe dont l'atelier produit les bandes. Seuls son
+  portrait et son jeton s'installent, et son nom va dans la liste `portraits` du manifeste, pas
+  dans `npcs` : le moteur le dessine par son mannequin, et `check_hd_assets.py` ne cite pour lui
+  que ces deux images. Ses bandes installées le font passer de `portraits` à `npcs`.
 - [`prepare_envois_figure.py`](../../scripts/assetsGeneration/prepare_envois_figure.py) (`LOT-112`)
   et [`prepare_envois_scene.py`](../../scripts/assetsGeneration/prepare_envois_scene.py)
   (`LOT-105`) préparent les **envois** au générateur, qui reste un outil manuel : depuis la
