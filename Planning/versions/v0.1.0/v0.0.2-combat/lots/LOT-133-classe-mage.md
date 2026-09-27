@@ -76,9 +76,10 @@ capacités qu'ils nommaient, et chaque ligne porte ses sorts mineurs et ses sort
    non — le sort sait qui il vise, et son refus le dit — et affiche la ligne du sort
    (`ArenaAttack::summary`), un sort sans jet n'ayant pas d'issue d'attaque.
 7. **Icônes** : les trois capacités entrent à la pièce `ui/icon/capacity`, et une pièce
-   `ui/icon/spell` naît au cahier avec un membre par sort ; les douze clés sont « non livrées »
-   dans le manifeste, et les envois au générateur préparés sur le poste
-   (`Tools/Envois/LOT-133/`).
+   `ui/icon/spell` naît au cahier avec un membre par sort. Les douze icônes, générées par
+   l'auteur sur les envois du poste (`Tools/Envois/LOT-133/`, jamais livré), sont recadrées à
+   128 px avec 4 px de marge, installées par `receive_ui_assets.py` (`illustrations.json`,
+   `Artwork.qml`) et publiées dans le kit `UI@3`.
 
 Tests : `test_class_mage.cpp` — la fiche N1 et son grimoire, un test par sort joué et par
 capacité, la montée de 1 à 5, le refus d'un effet inconnu.
@@ -90,7 +91,6 @@ capacité, la montée de 1 à 5, le refus d'un effet inconnu.
 - Le jet de concentration après des dégâts : `LOT-137`.
 - La prévisualisation d'une zone à l'écran : `LOT-140`.
 - Les capacités et sorts des niveaux 6 à 20 : la `0.3.0`.
-- Les images des icônes : en attente de génération par l'auteur.
 
 ## Exigences
 

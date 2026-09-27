@@ -3717,25 +3717,175 @@
       ],
       "bytes": 30316,
       "sha256": "976547eeab84b2b5378320c79f8c61f6a4ecb6ea5785305d50f29a3a4790b981"
+    },
+    {
+      "id": "ui-icon-capacity-arcane-protection",
+      "file": "icon/capacity/arcane-protection.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/arcane-protection",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a shimmering arcane rune circle shielding a hand. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 28190,
+      "sha256": "d4a57d03f0514cf594a1d2d551bfc8b10e349bc69283dd0a0366b138baf37fc1"
+    },
+    {
+      "id": "ui-icon-capacity-simplified-spellcasting",
+      "file": "icon/capacity/simplified-spellcasting.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/simplified-spellcasting",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: an open spellbook with two small glowing marks. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 24791,
+      "sha256": "0ef57c4f2304b4bedb12d704e722c123bbe4bac8b678d80fe4c3299682200182"
+    },
+    {
+      "id": "ui-icon-capacity-specific-cantrips",
+      "file": "icon/capacity/specific-cantrips.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/capacity/specific-cantrips",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a small spark above an open palm. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 18633,
+      "sha256": "094d82178576bee1e032de1906524b7221728f8e3de0d62f95ff44d322e1e469"
+    },
+    {
+      "id": "ui-icon-spell-detect-magic",
+      "file": "icon/spell/detect-magic.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/detect-magic",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: an eye inside a ring of small runic sparks. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 25077,
+      "sha256": "16be8d0e1ab64a95a4b500b1a141a3dd56e4573a441187512cd55384e67cd8bc"
+    },
+    {
+      "id": "ui-icon-spell-fire-bolt",
+      "file": "icon/spell/fire-bolt.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/fire-bolt",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a streaking bolt of fire. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 25780,
+      "sha256": "ae4d03f40d394602d457e19aa70146adaf13f798cb14ef7db058f86f306f976d"
+    },
+    {
+      "id": "ui-icon-spell-fireball",
+      "file": "icon/spell/fireball.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/fireball",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: an exploding sphere of fire. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 28605,
+      "sha256": "0df0c5f90765e7f967a59a2ef28f84f2a83b512daf21ae655efa826c763a2432"
+    },
+    {
+      "id": "ui-icon-spell-fly",
+      "file": "icon/spell/fly.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/fly",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a pair of feathered wings. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 24824,
+      "sha256": "e204a442eadf2ecd7cda430211696d44c56b84795955e1a8a69b8a3ab6a9ba8e"
+    },
+    {
+      "id": "ui-icon-spell-invisibility",
+      "file": "icon/spell/invisibility.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/invisibility",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a fading translucent silhouette. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 23757,
+      "sha256": "2c87c4d401f3ccfe479e2df5d42a085765d58375217c315b8925b55f70346c10"
+    },
+    {
+      "id": "ui-icon-spell-light",
+      "file": "icon/spell/light.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/light",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a glowing orb of light. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26198,
+      "sha256": "5489acc0bf41d7ef665ff6ef2937aabd913cc202c6001456610876c21453fcd9"
+    },
+    {
+      "id": "ui-icon-spell-mage-hand",
+      "file": "icon/spell/mage-hand.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/mage-hand",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: a spectral floating hand. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26214,
+      "sha256": "d98f873b67c494eb96b61ec82eade7b71f24770351ecef7e6212a63bea20687e"
+    },
+    {
+      "id": "ui-icon-spell-magic-missile",
+      "file": "icon/spell/magic-missile.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/magic-missile",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: three glowing darts in flight. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 29646,
+      "sha256": "93f5680dc7a895728637563b65c2b9ba21a0440a4557ce4a35eb6fcb3a70ea39"
+    },
+    {
+      "id": "ui-icon-spell-scorching-ray",
+      "file": "icon/spell/scorching-ray.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/spell/scorching-ray",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Round enamel medallion with a thin gold rim, tinted in the colour of the spell's school of magic, with a glowing emblem, bold readable silhouette at 32 px, transparent background. Subject: three parallel rays of fire. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-27",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 24708,
+      "sha256": "48373abe2ecff93272feafbad93e09a7627557cc0e84930e2347c32eecbcb033"
     }
   ],
-  "pending": [
-    {
-      "keys": [
-        "ui/icon/capacity/arcane-protection",
-        "ui/icon/capacity/simplified-spellcasting",
-        "ui/icon/capacity/specific-cantrips",
-        "ui/icon/spell/fire-bolt",
-        "ui/icon/spell/light",
-        "ui/icon/spell/mage-hand",
-        "ui/icon/spell/detect-magic",
-        "ui/icon/spell/magic-missile",
-        "ui/icon/spell/invisibility",
-        "ui/icon/spell/scorching-ray",
-        "ui/icon/spell/fireball",
-        "ui/icon/spell/fly"
-      ],
-      "reason": "icônes du LOT-133 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
-    }
-  ]
+  "pending": []
 }

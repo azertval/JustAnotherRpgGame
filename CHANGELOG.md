@@ -18,8 +18,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   désavantage contre, avantage pour, pas d'attaque d'opportunité, fin à la première attaque ou
   au premier sort), dés des sorts mineurs qui montent au niveau 5. Le profil de combat porte ses
   sauvegardes ; l'écran lance un sort sur la créature cliquée, alliée ou non. Les icônes des
-  trois capacités et des neuf sorts (nouvelle pièce `ui/icon/spell`) sont au cahier, en attente
-  de génération. Tests : `test_class_mage.cpp`.
+  trois capacités et des neuf sorts (nouvelle pièce `ui/icon/spell`) sont générées, recadrées à
+  128 px et publiées dans le kit `UI@3`. Tests : `test_class_mage.cpp`.
 - **LOT-132 — Classe Brawler.** Le Brawler du *Player's Guide to Tanares* (p. 192-195) se joue
   du niveau 1 au niveau 5 : ses capacités entrent au catalogue `Rpg/capacities/` et le moteur n'y
   gagne qu'un genre d'effet. *Tough as Nails* (CA sans armure 10 + Dex + Con, bouclier permis ;
