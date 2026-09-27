@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790477145168,
+  "lastUpdate": 1790477151113,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1450,6 +1450,40 @@ window.BENCHMARK_DATA = {
             "value": 5.173259926470768,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.170036764705882 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "629144b7efa7e9b3c8c86f32da617898338dadda",
+          "message": "Merge pull request #143 from azertval/claude/baseline-v0-0-1-ci-fix-vf8tli\n\nBaseline 0.0.1 — CI fiabilisée avant de reposer le tag",
+          "timestamp": "2026-09-26T08:54:50Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/629144b7efa7e9b3c8c86f32da617898338dadda"
+        },
+        "date": 1790477148572,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.711672999999678,
+            "unit": "ms/iter",
+            "extra": "iterations: 100\ncpu: 13.28125 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.222262499999927,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.227481617647059 ms\nthreads: 1"
           }
         ]
       }
