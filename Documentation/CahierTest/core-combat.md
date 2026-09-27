@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **151 cas** (33 bloquants, 80 critiques, 37 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **164 cas** (33 bloquants, 89 critiques, 41 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -19,6 +19,7 @@ Tests unitaires — **151 cas** (33 bloquants, 80 critiques, 37 majeurs, 1 mineu
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
+| [`test_death_and_dying.cpp`](#test-death-and-dyingcpp) | 13 | - | 9 | 4 | - |
 | [`test_encounter.cpp`](#test-encountercpp) | 12 | - | 7 | 5 | - |
 | [`test_enemy_ai.cpp`](#test-enemy-aicpp) | 12 | 5 | 7 | - | - |
 | [`test_iso_projection.cpp`](#test-iso-projectioncpp) | 9 | 5 | - | 3 | 1 |
@@ -35,7 +36,9 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | Exigence | Cas |
 |---|---|
 | `EX-CBT-031` | [`DamageTest.LeCritiqueDoubleLesDesPasLeModificateur`](#damagetestlecritiquedoublelesdespaslemodificateur) |
-| `EX-CBT-050` | [`EnemyAiTest.LIaNeLitQueLEtatEnsanglante`](#enemyaitestlianelitqueletatensanglante) |
+| `EX-CBT-040` | [`DeathAndDyingTest.TroisEchecsTuent`](#deathanddyingtesttroisechecstuent), [`DeathAndDyingTest.UnVingtReleveUnUnCompteDouble`](#deathanddyingtestunvingtreleveununcomptedouble), [`DeathAndDyingTest.LesDegatsATerreEtLaMortInstantanee`](#deathanddyingtestlesdegatsaterreetlamortinstantanee), [`DeathAndDyingTest.LeJetSeFaitASaPlaceEtUnVingtRejoue`](#deathanddyingtestlejetsefaitasaplaceetunvingtrejoue), [`DeathAndDyingTest.LeJetContreLaMortSeJetteDansLArene`](#deathanddyingtestlejetcontrelamortsejettedanslarene), [`DeathAndDyingTest.FrapperUnInconscientAuContactEstCritique`](#deathanddyingtestfrapperuninconscientaucontactestcritique) |
+| `EX-CBT-041` | [`DeathAndDyingTest.UnVingtReleveUnUnCompteDouble`](#deathanddyingtestunvingtreleveununcomptedouble), [`DeathAndDyingTest.UnAllieATerreSeReleveParSoinEtRejoue`](#deathanddyingtestunallieaterresereleveparsoinetrejoue) |
+| `EX-CBT-050` | [`DeathAndDyingTest.LIaAcheveOuEpargneSelonSonProfil`](#deathanddyingtestliaacheveouepargneselonsonprofil), [`EnemyAiTest.LIaNeLitQueLEtatEnsanglante`](#enemyaitestlianelitqueletatensanglante) |
 | `EX-REG-003` | [`AttackTest.ChaqueJetProduitUneEntreeDeJournalComplete`](#attacktestchaquejetproduituneentreedejournalcomplete) |
 
 ## test_action_economy.cpp
@@ -1492,7 +1495,7 @@ La Priest invoque l'arme spirituelle sur un mannequin a cinq cases : action bonu
 
 *Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:310`
 
-Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neuf sorts ; epargner les mourants, restauration inferieure, lumiere du jour et revigorer ne se jouent pas en combat et declarent ce qu'ils attendent.
+Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neuf sorts ; epargner les mourants et revigorer entrent au grimoire de combat (LOT-137) ; restauration inferieure ne se joue pas et declare ce qu'elle attend.
 
 **Étapes**
 
@@ -1504,10 +1507,12 @@ Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neu
 - Vérifie que `test_support::levelUpTo(charge.sheet, niveau).empty()` est vrai.
 - Vérifie que `test_support::capacityIds(charge.sheet)` vaut `(std::vector<std::string>{"simplified-spellcasting", "specific-cantrips", "experience", "ability-score-improvement"})`.
 - Vérifie que `charge.sheet.knownSpells.size()` vaut `9U`.
-- Vérifie que `grimoire.size()` vaut `4U`.
-- Vérifie que `ignores.size()` vaut `5U`.
-- Vérifie que `sort` diffère de `nullptr`.
-- Vérifie que `sort->requiredMechanisms.empty()` est faux.
+- Vérifie que `grimoire.size()` vaut `6U`.
+- Vérifie que `ignores.size()` vaut `3U`.
+- Vérifie que `std::ranges::any_of(grimoire, [id](const core::ArenaSpell& sort) { return sort.id == id; })` est vrai.
+- Vérifie que `catalogues.options.spells.find(id)->requiredMechanisms.empty()` est vrai.
+- Vérifie que `restauration` diffère de `nullptr`.
+- Vérifie que `restauration->requiredMechanisms.empty()` est faux.
 
 ## test_class_scoundrel.cpp
 
@@ -2261,6 +2266,348 @@ Une structure de la grille traverse le pipeline avec ses resistances et quitte l
 - Vérifie que `traits.affinities[0].kind` vaut `DamageAffinityKind::Immunity`.
 - Vérifie que `traits.applies(DamageAffinityKind::Vulnerability, DamageType::Fire, 0)` est vrai.
 - Vérifie que `traits.applies(DamageAffinityKind::Resistance, DamageType::Fire, 0)` est faux.
+
+## test_death_and_dying.cpp
+
+### DeathAndDyingTest.TroisEchecsTuent
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:147`
+
+Exigences : `EX-CBT-040`
+
+Un allie tombe a 0 PV : il agonise ; deux echecs et un succes ne le tuent pas, le troisieme echec le tue, une fois, et plus rien ne le soigne.
+
+**Étapes**
+
+1. Aldric tombe a 0 PV.
+2. Jets : 9, 15, 5, puis 3.
+3. Le soigner, lui faire jeter encore.
+
+**Résultat attendu**
+
+- Vérifie que `e.combat.find(e.aldric)->status` vaut `CombatantStatus::Down`.
+- Vérifie que `e.combat.isDying(e.aldric)` est vrai.
+- Vérifie que `e.combat.find(e.aldric)->prone` est vrai.
+- Vérifie que `e.combat.activeCombatant()` vaut `e.brune`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 9, 9)` vaut `DeathSaveOutcome::Failure`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 15, 15)` vaut `DeathSaveOutcome::Success`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 5, 5)` vaut `DeathSaveOutcome::Failure`.
+- Vérifie que `e.combat.find(e.aldric)->deathSaves` vaut `(core::DeathSaves{.successes = 1, .failures = 2, .stable = false})`.
+- Vérifie que `morts` vaut `0`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 3, 3)` vaut `DeathSaveOutcome::Died`.
+- Vérifie que `e.combat.find(e.aldric)->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `morts` vaut `1`.
+- Vérifie que `e.combat.find(e.aldric)->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `e.combat.find(e.aldric)->profile.currentHitPoints` vaut `0`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 20, 20)` vaut `DeathSaveOutcome::Ignored`.
+- Vérifie que `e.combat.declareAttack(e.gobelin, e.aldric)` est faux.
+
+### DeathAndDyingTest.UnVingtReleveUnUnCompteDouble
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:188`
+
+Exigences : `EX-CBT-040`, `EX-CBT-041`
+
+Les d20 extremes du Manuel : 20 rend 1 PV, 1 compte deux echecs, meme quand la benediction porterait le total a 10 ; trois succes stabilisent, des degats refont agoniser, et le soin repart d'un compteur vide.
+
+**Étapes**
+
+1. Aldric a terre jette 1 (total 12).
+2. Trois succes, dont un 8 porte a 11.
+3. Un point de degats.
+4. Un soin de 3.
+5. Brune a terre jette 20.
+
+**Résultat attendu**
+
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 1, 12)` vaut `DeathSaveOutcome::Failure`.
+- Vérifie que `e.combat.find(e.aldric)->deathSaves.failures` vaut `2`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 12, 12)` vaut `DeathSaveOutcome::Success`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 8, 11)` vaut `DeathSaveOutcome::Success`.
+- Vérifie que `e.combat.recordDeathSave(e.aldric, 10, 10)` vaut `DeathSaveOutcome::Stabilized`.
+- Vérifie que `e.combat.find(e.aldric)->deathSaves` vaut `(core::DeathSaves{.successes = 0, .failures = 0, .stable = true})`.
+- Vérifie que `e.combat.isDying(e.aldric)` est faux.
+- Vérifie que `e.combat.isDying(e.aldric)` est vrai.
+- Vérifie que `e.combat.find(e.aldric)->deathSaves.failures` vaut `1`.
+- Vérifie que `aldric->status` vaut `CombatantStatus::Standing`.
+- Vérifie que `aldric->profile.currentHitPoints` vaut `3`.
+- Vérifie que `aldric->deathSaves` vaut `core::DeathSaves{}`.
+- Vérifie que `aldric->prone` est vrai.
+- Vérifie que `e.combat.recordDeathSave(e.brune, 20, 20)` vaut `DeathSaveOutcome::Revived`.
+- Vérifie que `e.combat.find(e.brune)->status` vaut `CombatantStatus::Standing`.
+- Vérifie que `e.combat.find(e.brune)->profile.currentHitPoints` vaut `1`.
+
+### DeathAndDyingTest.LesDegatsATerreEtLaMortInstantanee
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:232`
+
+Exigences : `EX-CBT-040`
+
+Degats a 0 point de vie et mort instantanee, Manuel p. 199 : un coup a terre coute un echec, un critique deux ; des degats restants au moins egaux au maximum tuent sur le coup ; un monstre meurt des 0 PV.
+
+**Étapes**
+
+1. Aldric a terre : 1 degat, puis 1 degat critique.
+2. Brune (10 PV) prend 20 degats.
+3. Le gobelin tombe a 0.
+
+**Résultat attendu**
+
+- Vérifie que `e.combat.find(e.aldric)->deathSaves.failures` vaut `1`.
+- Vérifie que `e.combat.find(e.aldric)->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `e.combat.find(e.brune)->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `annonces` vaut `(std::vector<CombatHook>{CombatHook::CombatantDowned, CombatHook::CombatantDied})`.
+- Vérifie que `e.combat.outcome()` vaut `core::CombatOutcome::Defeat`.
+
+### DeathAndDyingTest.UnMonstreMeurtEtLaMarqueProtege
+
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:270`
+
+Les monstres et la mort (Manuel p. 199) ; et la Marque Heroique des Arenes : sans mort, on tombe sans agoniser, meme sous des degats massifs.
+
+**Étapes**
+
+1. Le gobelin tombe a 0.
+2. Un combat sans mort : Aldric prend 30 degats, les tours passent.
+
+**Résultat attendu**
+
+- Vérifie que `letal.combat.find(letal.gobelin)->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `sansMort.combat.find(sansMort.aldric)->status` vaut `CombatantStatus::Down`.
+- Vérifie que `sansMort.combat.isDying(sansMort.aldric)` est faux.
+- Vérifie que `sansMort.combat.endTurn()` est vrai.
+- Vérifie que `jets` vaut `0`.
+- Vérifie que `sansMort.combat.find(sansMort.gobelin)->status` vaut `CombatantStatus::Down`.
+
+### DeathAndDyingTest.LeJetSeFaitASaPlaceEtUnVingtRejoue
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:303`
+
+Exigences : `EX-CBT-040`
+
+« A chaque fois que vous commencez un tour a 0 point de vie » : la machine annonce DeathSaveDue a la place d'Aldric, pas a celle d'un stabilise ; un 20 le releve et son tour s'ouvre, debout, trois cases de moins.
+
+**Étapes**
+
+1. Aldric tombe ; Brune stabilisee a terre ; Cedric debout.
+2. Les tours passent jusqu'au round 2 ; l'abonne jette 20 pour Aldric.
+
+**Résultat attendu**
+
+- Vérifie que `e.combat.stabilize(e.brune)` est vrai.
+- Vérifie que `e.combat.endTurn()` est vrai.
+- Vérifie que `jets` vaut `(std::vector<CombatantId>{e.aldric})`.
+- Vérifie que `e.combat.round()` vaut `2`.
+- Vérifie que `e.combat.activeCombatant()` vaut `e.aldric`.
+- Vérifie que `aldric->prone` est faux.
+- Vérifie que `aldric->economy.remaining(core::MOVEMENT_RESOURCE)` vaut `3`.
+
+### DeathAndDyingTest.ReviveNeRameneQueLesMorts
+
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:339`
+
+Seul un mort revient : revive refuse un vivant, et le revenant se releve avec ses points de vie, compteur vide.
+
+**Étapes**
+
+1. revive sur Brune debout.
+2. Aldric meurt, revive a 1 PV.
+
+**Résultat attendu**
+
+- Vérifie que `e.combat.revive(e.brune, 1)` est faux.
+- Vérifie que `e.combat.find(e.aldric)->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `e.combat.find(e.aldric)->diedAtRound.has_value()` est vrai.
+- Vérifie que `e.combat.revive(e.aldric, 1)` est vrai.
+- Vérifie que `aldric->status` vaut `CombatantStatus::Standing`.
+- Vérifie que `aldric->profile.currentHitPoints` vaut `1`.
+- Vérifie que `aldric->prone` est vrai.
+- Vérifie que `aldric->deathSaves` vaut `core::DeathSaves{}`.
+- Vérifie que `aldric->diedAtRound.has_value()` est faux.
+
+### DeathAndDyingTest.UnAllieATerreSeReleveParSoinEtRejoue
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:366`
+
+Exigences : `EX-CBT-041`
+
+Critere du LOT-137 : Bran tombe, inconscient et a terre ; la Priest le soigne au contact ; il se releve, et son tour vient a sa place, ou il se remet debout.
+
+**Étapes**
+
+1. Bran tombe a 0 PV pendant le tour de la Priest.
+2. Elle lance soin des blessures sur lui.
+3. Elle termine son tour.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `porte(session, CombatantId{2}, CombatCondition::Unconscious)` est vrai.
+- Vérifie que `porte(session, CombatantId{2}, CombatCondition::Prone)` est vrai.
+- Vérifie que `journalHas(session.journal(), "a terre " + BRAN)` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, sortDe(session, "cure-wounds")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `bran->status` vaut `CombatantStatus::Standing`.
+- Vérifie que `bran->profile.currentHitPoints` est strictement supérieur à `0`.
+- Vérifie que `session.conditionsOf(CombatantId{2})` vaut `(std::vector<CombatCondition>{CombatCondition::Prone})`.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{2}`.
+- Vérifie que `bran->prone` est faux.
+- Vérifie que `bran->economy.remaining(core::MOVEMENT_RESOURCE)` vaut `3`.
+
+### DeathAndDyingTest.LeJetContreLaMortSeJetteDansLArene
+
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:406`
+
+Exigences : `EX-CBT-040`
+
+Dans une session, qui tient les des jette le d20 de Bran a sa place et l'ecrit : reussite, echec, ou 20 qui le releve.
+
+**Étapes**
+
+1. Bran tombe.
+2. La Priest termine son tour.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `journalCount(session.journal(), "jet contre la mort " + BRAN)` vaut `1U`.
+- Vérifie que `bran->profile.currentHitPoints` vaut `1`.
+- Vérifie que `journalHas(session.journal(), "20 naturel, reprend 1 PV")` est vrai.
+- Vérifie que `bran->status` vaut `CombatantStatus::Down`.
+- Vérifie que `bran->deathSaves.successes + bran->deathSaves.failures` est supérieur ou égal à `1`.
+
+### DeathAndDyingTest.EpargnerLesMourantsStabilise
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:433`
+
+La Priest de niveau 5 lance epargner les mourants sur Bran a terre : il est stabilise, et son tour passe sans jet.
+
+**Étapes**
+
+1. Bran tombe.
+2. Epargner les mourants sur lui ; puis sur la Priest debout.
+3. Fin du tour.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{1}, epargner).result` vaut `core::ArenaActionResult::InvalidTarget`.
+- Vérifie que `session.castSpell(CombatantId{2}, epargner).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "stabilisation")` est vrai.
+- Vérifie que `porte(session, CombatantId{2}, CombatCondition::Stable)` est vrai.
+- Vérifie que `porte(session, CombatantId{2}, CombatCondition::Unconscious)` est vrai.
+- Vérifie que `session.combat().isDying(CombatantId{2})` est faux.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `journalHas(session.journal(), "jet contre la mort " + BRAN)` est faux.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{3}`.
+
+### DeathAndDyingTest.RevigorerRameneUnMortDeMoinsDUneMinute
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:463`
+
+Bran meurt sous des degats massifs ; soin des blessures ne le ramene pas, revigorer si : 1 PV. Mort de nouveau, onze rounds plus tard, revigorer refuse.
+
+**Étapes**
+
+1. Bran tombe, puis prend 10 degats a terre.
+2. Soin, puis revigorer.
+3. Il remeurt ; onze rounds passent ; revigorer.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `journalHas(session.journal(), "agonie " + BRAN + " : blesse a terre")` est vrai.
+- Vérifie que `journalHas(session.journal(), "mort " + BRAN)` est vrai.
+- Vérifie que `porte(session, CombatantId{2}, CombatCondition::Dead)` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, sortDe(session, "cure-wounds")).result` vaut `core::ArenaActionResult::InvalidTarget`.
+- Vérifie que `session.castSpell(CombatantId{2}, revigorer).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "retour a la vie")` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `CombatantStatus::Standing`.
+- Vérifie que `session.combat().find(CombatantId{2})->profile.currentHitPoints` vaut `1`.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `CombatantStatus::Dead`.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, revigorer).result` vaut `core::ArenaActionResult::InvalidTarget`.
+
+### DeathAndDyingTest.FrapperUnInconscientAuContactEstCritique
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:507`
+
+Exigences : `EX-CBT-040`
+
+Manuel, annexe A : Bran, stabilise a terre, est attaque par le gobelin a son contact avec avantage ; touche, le coup est critique et compte deux echecs.
+
+**Étapes**
+
+1. Bran tombe et se stabilise.
+2. Tour du gobelin : il attaque Bran.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().stabilize(CombatantId{2})` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{3}`.
+- Vérifie que `coup.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `coup.outcome.has_value()` est vrai.
+- Vérifie que `std::ranges::find(avantages, "cible inconsciente")` diffère de `avantages.end()`.
+- Vérifie que `std::ranges::find(avantages, "cible a terre au contact")` diffère de `avantages.end()`.
+- Vérifie que `coup.outcome->roll.critical` est vrai.
+- Vérifie que `bran->status == CombatantStatus::Dead || bran->deathSaves.failures == 2` est vrai.
+- Vérifie que `journalHas(session.journal(), "critique (cible inconsciente au contact)")` est vrai.
+
+### DeathAndDyingTest.DesDegatsRompentLaConcentration
+
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:540`
+
+La Priest benie et concentree prend 100 degats : DD 50, la sauvegarde de Constitution echoue, la benediction prend fin.
+
+**Étapes**
+
+1. Benediction sur elle-meme.
+2. 100 degats.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{1}, sortDe(session, "bless")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `porte(session, CombatantId{1}, CombatCondition::Blessed)` est vrai.
+- Vérifie que `porte(session, CombatantId{1}, CombatCondition::Concentrating)` est vrai.
+- Vérifie que `core::combatConditionLabel(CombatCondition::Concentrating)` vaut `"concentre"`.
+- Vérifie que `journalHas(session.journal(), "< 50 : echec ; rompue")` est vrai.
+- Vérifie que `journalHas(session.journal(), "(concentration rompue)")` est vrai.
+- Vérifie que `session.hasEffect(CombatantId{1}, core::SpellEffectKind::Bless)` est faux.
+- Vérifie que `porte(session, CombatantId{1}, CombatCondition::Concentrating)` est faux.
+
+### DeathAndDyingTest.LIaAcheveOuEpargneSelonSonProfil
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:570`
+
+Exigences : `EX-CBT-050`
+
+Critere du LOT-137 : un gobelin au contact de Bran, a terre, et d'Aldric, debout. Un profil qui n'acheve pas frappe Aldric ; un profil qui acheve frappe Bran. Les profils livres disent qui acheve.
+
+**Étapes**
+
+1. Planifier le tour du gobelin avec finishDowned 0, puis 1000.
+2. Lire behaviors.json.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `CombatantStatus::Down`.
+- Vérifie que `clement.action` vaut `core::TurnAction::Attack`.
+- Vérifie que `clement.target` vaut `CombatantId{3}`.
+- Vérifie que `cruel.action` vaut `core::TurnAction::Attack`.
+- Vérifie que `cruel.target` vaut `CombatantId{2}`.
+- Vérifie que `profils.errors.empty()` est vrai.
+- Vérifie que `profils.find("aggressive")->finishDowned` vaut `75`.
+- Vérifie que `profils.find("pack")->finishDowned` vaut `100`.
+- Vérifie que `profils.find(id)->finishDowned` vaut `0`.
 
 ## test_encounter.cpp
 

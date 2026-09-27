@@ -141,6 +141,8 @@ struct ArenaSpell {
     int maxTargets = 1;
     /// Les dés de soin, modificateur d'incantation compris s'il s'y ajoute.
     std::optional<Dice> healing;
+    /// Le retour à la vie qu'il accorde (*revigorer*, `LOT-137`).
+    std::optional<SpellRevival> revival;
 
     /// @brief Vrai si le sort se lance encore.
     [[nodiscard]] bool available() const noexcept {
@@ -170,6 +172,34 @@ struct ArenaEffect {
     /// `Bless` : les dés ajoutés à ses jets d'attaque et de sauvegarde.
     std::optional<Dice> dice;
 };
+
+/**
+ * @brief Un état qu'un combattant porte en combat (`LOT-137`) : ceux dont les quatre classes ont
+ *        besoin jusqu'au niveau 5, pas le catalogue du *Manuel* (annexe A).
+ */
+enum class CombatCondition : std::uint8_t {
+    /// À 0 point de vie : attaqué avec avantage, critique au contact, sauvegardes de Force et de
+    /// Dextérité ratées.
+    Unconscious,
+    /// À terre : attaqué avec avantage au contact et désavantage à distance ; ses attaques sont
+    /// désavantagées.
+    Prone,
+    /// Stabilisé : il ne fait plus de jets contre la mort.
+    Stable,
+    /// Mort.
+    Dead,
+    /// Béni : 1d4 à ses jets d'attaque et de sauvegarde (*bénédiction*).
+    Blessed,
+    /// Invisible.
+    Invisible,
+    /// En vol (*vol*).
+    Flying,
+    /// Concentré sur un sort : des dégâts demandent un jet de Constitution.
+    Concentrating,
+};
+
+/// @brief Le nom d'un état, tel que le journal et l'écran l'écrivent (« inconscient »).
+[[nodiscard]] std::string_view combatConditionLabel(CombatCondition condition) noexcept;
 
 /// @brief Un combattant tel que l'écran de mise en place le compose.
 struct ArenaContestant {
@@ -249,7 +279,8 @@ enum class ArenaActionResult : std::uint8_t {
     OutOfReach,
     /// La cible est sous abri total : aucune ligne de vue ne la relie à l'attaquant (`LOT-22`).
     TotalCover,
-    /// Inconnue, soi-même, un allié, ou une cible qui n'est pas debout.
+    /// Inconnue, soi-même, un allié, ou une cible que l'action ne peut pas viser : un mort, un
+    /// debout pour *revigorer*.
     InvalidTarget,
     /// Le combattant n'a pas d'attaque de cet indice.
     NoAttack,
@@ -337,6 +368,13 @@ public:
     [[nodiscard]] bool hasEffect(CombatantId combatant, SpellEffectKind kind) const;
 
     /**
+     * @brief Les états que porte @p combatant (`LOT-137`), dans l'ordre de `CombatCondition` :
+     *        ceux de son statut (inconscient, à terre, stabilisé, mort) et ceux de ses sorts
+     *        (béni, invisible, en vol, concentré).
+     */
+    [[nodiscard]] std::vector<CombatCondition> conditionsOf(CombatantId combatant) const;
+
+    /**
      * @brief L'action *lancer un sort* du combattant actif, avec son sort @p spellIndex
      *        (`LOT-131`, `LOT-133`, `EX-RPG-025`).
      *
@@ -353,7 +391,14 @@ public:
      * - **effet** : posé sur la cible — et sur les alliés les plus proches du lanceur, pour un
      *   sort à plusieurs cibles —, jusqu'à sa fin (`ArenaEffect`) ;
      * - **soin** : des points de vie rendus à une créature de son camp, qui se relève si elle
-     *   était à terre (`LOT-134`).
+     *   était à terre (`LOT-134`) ;
+     * - **stabiliser** : une créature de son camp à terre ne fait plus de jets contre la mort
+     *   (*épargner les mourants*, `LOT-137`) ;
+     * - **ramener** : une créature de son camp morte depuis au plus `SpellRevival::withinRounds`
+     *   rounds revient avec ses points de vie (*revigorer*, `LOT-137`).
+     *
+     * Un sort qui blesse ne vise qu'une créature debout ; le soin et la stabilisation, aussi une
+     * créature à terre ; *revigorer*, un mort seulement.
      *
      * Un sort d'action bonus dépense l'action bonus. Tant que l'arme spirituelle d'un lanceur
      * dure, relancer le sort la fait frapper **sans** dépenser de lancer.
@@ -368,8 +413,9 @@ public:
      *
      * Vérifie la cible, la portée et la vue (`core::checkTarget`), dépense l'action, puis résout
      * (`core::resolveAttack`) : déclaration, abri, jet, dégâts. Une cible qui esquive et voit son
-     * attaquant impose le désavantage. Tout passe par la suite aléatoire de la session : un rejeu
-     * redonne les mêmes coups.
+     * attaquant impose le désavantage. Une cible **à terre** se vise — l'achever (`LOT-137`) :
+     * avantage, et critique si elle est touchée au contact ; un mort, non. Tout passe par la suite
+     * aléatoire de la session : un rejeu redonne les mêmes coups.
      *
      * Une capacité qui ajoute des attaques à l'action (*Extra Attack*, `LOT-132`) les octroie
      * quand l'action se dépense (`EXTRA_ATTACK_RESOURCE`) : l'attaque suivante du même tour les
@@ -527,6 +573,19 @@ private:
     /// Les points de vie rendus à la cible.
     ArenaAttack castHealing(CombatantId caster, CombatantId target, const ArenaSpell& spell,
                             const std::string& prefix);
+    /// La cible à terre, stabilisée.
+    ArenaAttack castStabilize(CombatantId caster, CombatantId target, const ArenaSpell& spell,
+                              const std::string& prefix);
+    /// La cible morte, ramenée.
+    ArenaAttack castRevive(CombatantId caster, CombatantId target, const ArenaSpell& spell,
+                           const std::string& prefix);
+    /// Le jet contre la mort de @p combatant, à sa place dans l'ordre (`LOT-137`).
+    void rollDeathSave(CombatantId combatant);
+    /// Ce que des dégâts subis déclenchent : l'échec d'un combattant blessé à terre, la mort
+    /// instantanée, le jet de concentration du lanceur.
+    void onDamageTaken(const CombatEvent& event);
+    /// « S succes, F echec(s) » : le compteur des jets contre la mort de @p combatant.
+    [[nodiscard]] std::string deathSaveTally(CombatantId combatant) const;
     /// Le dé de *bénédiction* de @p combatant, lancé et nommé, s'il en porte une.
     std::optional<Modifier> blessingFor(CombatantId combatant);
     /// L'effet qui dure, posé sur la cible.

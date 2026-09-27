@@ -73,6 +73,21 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
             return false;
         }
     }
+    sort.stabilizes = lireBooleen(racine, "stabilizes");
+    if (const auto retour = racine.find("revives"); retour != racine.end()) {
+        SpellRevival revenant;
+        const auto pv = retour->is_object() ? retour->find("hitPoints") : retour->end();
+        const auto rounds = retour->is_object() ? retour->find("withinRounds") : retour->end();
+        if (pv == retour->end() || !pv->is_number_integer() || pv->get<int>() < 1 ||
+            rounds == retour->end() || !rounds->is_number_integer() || rounds->get<int>() < 1) {
+            erreurs.push_back(fichier +
+                              " : 'revives' demande 'hitPoints' et 'withinRounds' positifs.");
+            return false;
+        }
+        revenant.hitPoints = pv->get<int>();
+        revenant.withinRounds = rounds->get<int>();
+        sort.revives = revenant;
+    }
     if (const auto cibles = racine.find("maxTargets"); cibles != racine.end()) {
         if (!cibles->is_number_integer() || cibles->get<int>() < 1) {
             erreurs.push_back(fichier + " : 'maxTargets' doit etre un entier positif.");
@@ -286,6 +301,12 @@ std::optional<SpellMechanism> spellMechanism(const Spell& spell) noexcept {
     }
     if (spell.healing.has_value()) {
         return SpellMechanism::Healing;
+    }
+    if (spell.stabilizes) {
+        return SpellMechanism::Stabilize;
+    }
+    if (spell.revives.has_value()) {
+        return SpellMechanism::Revive;
     }
     if (spell.effect.has_value()) {
         return SpellMechanism::Effect;

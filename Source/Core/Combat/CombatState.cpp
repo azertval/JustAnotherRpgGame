@@ -105,6 +105,8 @@ CombatantProfile profileFor(const Creature& creature, CombatSide side) {
                          abilityModifier(creature.ability(Ability::Intelligence)),
                          abilityModifier(creature.ability(Ability::Wisdom)),
                          abilityModifier(creature.ability(Ability::Charisma))},
+        // Manuel, « Les monstres et la mort » : un monstre meurt a 0 point de vie (LOT-137).
+        .atZero = AtZeroHitPoints::Dies,
     };
 }
 
@@ -247,8 +249,10 @@ bool CombatState::interject(CombatantId floatingActor) {
 bool CombatState::declareAttack(CombatantId attacker, CombatantId target) {
     const Combatant* from = find(attacker);
     const Combatant* to = find(target);
+    // Une cible a terre se declare : l'achever est une attaque (LOT-137).
     if (!running() || from == nullptr || to == nullptr ||
-        from->status != CombatantStatus::Standing || to->status != CombatantStatus::Standing) {
+        from->status != CombatantStatus::Standing ||
+        (to->status != CombatantStatus::Standing && to->status != CombatantStatus::Down)) {
         return false;
     }
     Operation operation(*this);
@@ -341,15 +345,74 @@ void CombatState::applyDamage(std::span<const HitPointChange> changes) {
 
 void CombatState::heal(CombatantId combatant, int amount) {
     Combatant* target = findMutable(combatant);
-    if (target == nullptr || target->status == CombatantStatus::Withdrawn || amount <= 0) {
+    // Manuel, « Soins » : « une creature morte ne peut pas recuperer de points de vie tant qu'un
+    // sort comme revigorer ne l'a pas d'abord ramenee a la vie ».
+    if (target == nullptr || target->status == CombatantStatus::Withdrawn ||
+        target->status == CombatantStatus::Dead || amount <= 0) {
         return;
     }
     Operation operation(*this);
     target->profile.currentHitPoints =
         std::min(target->profile.maximumHitPoints, target->profile.currentHitPoints + amount);
-    if (target->profile.currentHitPoints > 0) {
-        target->status = CombatantStatus::Standing;
+    if (target->profile.currentHitPoints > 0 && target->status == CombatantStatus::Down) {
+        standUp(*target);
     }
+}
+
+bool CombatState::isDying(CombatantId combatant) const {
+    const Combatant* found = find(combatant);
+    return _lethal && found != nullptr && found->status == CombatantStatus::Down &&
+           !found->deathSaves.stable && found->profile.atZero == AtZeroHitPoints::DeathSaves;
+}
+
+DeathSaveOutcome CombatState::recordDeathSave(CombatantId combatant, int natural, int total) {
+    if (!isDying(combatant)) {
+        return DeathSaveOutcome::Ignored;
+    }
+    Operation operation(*this);
+    Combatant* mourant = findMutable(combatant);
+    // Manuel, « Faire 1 ou 20 » : le 20 rend un point de vie, le 1 compte deux echecs.
+    if (natural >= 20) {
+        mourant->profile.currentHitPoints = 1;
+        standUp(*mourant);
+        return DeathSaveOutcome::Revived;
+    }
+    DeathSaves& compteur = mourant->deathSaves;
+    if (natural > 1 && total >= 10) {
+        if (++compteur.successes < 3) {
+            return DeathSaveOutcome::Success;
+        }
+        compteur = {.successes = 0, .failures = 0, .stable = true};
+        return DeathSaveOutcome::Stabilized;
+    }
+    compteur.failures += natural <= 1 ? 2 : 1;
+    if (compteur.failures < 3) {
+        return DeathSaveOutcome::Failure;
+    }
+    kill(*mourant);
+    return DeathSaveOutcome::Died;
+}
+
+bool CombatState::stabilize(CombatantId combatant) {
+    Combatant* target = findMutable(combatant);
+    if (target == nullptr || target->status != CombatantStatus::Down) {
+        return false;
+    }
+    // « Ce compteur est remis a 0 [...] si vous etes stabilise. »
+    target->deathSaves = {.successes = 0, .failures = 0, .stable = true};
+    return true;
+}
+
+bool CombatState::revive(CombatantId combatant, int hitPoints) {
+    Combatant* target = findMutable(combatant);
+    if (target == nullptr || target->status != CombatantStatus::Dead || hitPoints <= 0) {
+        return false;
+    }
+    Operation operation(*this);
+    target->profile.currentHitPoints = std::min(hitPoints, target->profile.maximumHitPoints);
+    target->diedAtRound.reset();
+    standUp(*target);
+    return true;
 }
 
 bool CombatState::grantReserve(CombatantId combatant, HitPointReserve reserve) {
@@ -429,7 +492,10 @@ EnlistResult CombatState::admit(CombatantProfile profile, std::optional<GridPosi
                            .economy = ActionEconomy::standard(movement),
                            .initiativeRoll = std::nullopt,
                            .actedThisRound = false,
-                           .reserves = {}});
+                           .reserves = {},
+                           .deathSaves = {},
+                           .prone = status == CombatantStatus::Down,
+                           .diedAtRound = std::nullopt});
     return {.combatant = id, .placement = PlacementResult::Placed};
 }
 
@@ -457,15 +523,32 @@ void CombatState::takeFixedInitiative(Combatant& combatant, int initiative) {
 
 void CombatState::damage(const HitPointChange& change) {
     Combatant* target = findMutable(change.target);
-    if (target == nullptr || target->status == CombatantStatus::Withdrawn || change.amount <= 0) {
+    if (target == nullptr || target->status == CombatantStatus::Withdrawn ||
+        target->status == CombatantStatus::Dead || change.amount <= 0) {
         return;
     }
     const int before = target->profile.currentHitPoints;
+    const bool wasDown = target->status == CombatantStatus::Down;
     target->profile.currentHitPoints = std::max(0, before - change.amount);
-    const bool fell =
-        target->profile.currentHitPoints == 0 && target->status != CombatantStatus::Down;
+    const bool fell = target->profile.currentHitPoints == 0 && !wasDown;
+    const int overflow = std::max(0, change.amount - before);
+    // Manuel, « Tomber a 0 point de vie » (LOT-137) : la mort instantanee quand les degats
+    // restants atteignent le maximum ; le monstre qui meurt a 0 ; blesse a terre, un echec -- deux
+    // sur un critique --, et la mort si ces degats atteignent le maximum.
+    bool dies = false;
     if (target->profile.currentHitPoints == 0) {
         target->status = CombatantStatus::Down;
+        target->prone = true;
+        if (_lethal) {
+            const bool massive = overflow >= target->profile.maximumHitPoints;
+            if (target->profile.atZero == AtZeroHitPoints::Dies || massive) {
+                dies = true;
+            } else if (wasDown) {
+                target->deathSaves.stable = false;
+                target->deathSaves.failures += change.critical ? 2 : 1;
+                dies = target->deathSaves.failures >= 3;
+            }
+        }
     }
     CombatEvent event{.hook = CombatHook::DamageTaken,
                       .round = _round,
@@ -476,14 +559,46 @@ void CombatState::damage(const HitPointChange& change) {
                       .hitPointsBefore = before,
                       .hitPointsAfter = target->profile.currentHitPoints,
                       .maximumHitPoints = target->profile.maximumHitPoints,
-                      .overflow = std::max(0, change.amount - before),
+                      .overflow = overflow,
                       .critical = change.critical};
+    if (dies) {
+        // Mort avant toute annonce : un abonne des degats lit deja le bon etat.
+        target->status = CombatantStatus::Dead;
+        target->diedAtRound = _round;
+        target->deathSaves = {};
+    }
     // L'abonne peut enroler un renfort et reallouer la liste : `target` n'est plus lu apres.
     dispatch(event);
     if (fell) {
         event.hook = CombatHook::CombatantDowned;
         dispatch(event);
     }
+    if (dies) {
+        event.hook = CombatHook::CombatantDied;
+        dispatch(event);
+    }
+}
+
+void CombatState::kill(Combatant& combatant) {
+    combatant.status = CombatantStatus::Dead;
+    combatant.diedAtRound = _round;
+    combatant.deathSaves = {};
+    const CombatantId id = combatant.id;
+    const int maximum = combatant.profile.maximumHitPoints;
+    dispatch({.hook = CombatHook::CombatantDied,
+              .round = _round,
+              .combatant = id,
+              .target = std::nullopt,
+              .marker = {},
+              .amount = 0,
+              .hitPointsBefore = 0,
+              .hitPointsAfter = 0,
+              .maximumHitPoints = maximum});
+}
+
+void CombatState::standUp(Combatant& combatant) {
+    combatant.status = CombatantStatus::Standing;
+    combatant.deathSaves = {};
 }
 
 void CombatState::dispatch(const CombatEvent& event) {
@@ -632,8 +747,18 @@ void CombatState::step() {
                   .marker = next->marker.name});
         return;
     }
-    const Combatant* found = find(next->entry->combatant);
-    if (found != nullptr && found->status == CombatantStatus::Standing) {
+    const CombatantId occupant = next->entry->combatant;
+    if (isDying(occupant)) {
+        // « A chaque fois que vous commencez un tour a 0 point de vie » : le jet contre la mort,
+        // que jette qui tient les des (LOT-137). Un 20 naturel le releve, et il joue ce tour-ci.
+        dispatch({.hook = CombatHook::DeathSaveDue,
+                  .round = _round,
+                  .combatant = occupant,
+                  .target = std::nullopt,
+                  .marker = {}});
+    }
+    const Combatant* found = find(occupant);
+    if (found != nullptr && found->status == CombatantStatus::Standing && running()) {
         _advancePending = false;
         startTurn(found->id);
     }
@@ -646,6 +771,14 @@ void CombatState::startTurn(CombatantId combatant) {
     // La réaction revient ici, au début du tour de son porteur — jamais à la fin du tour d'un
     // autre (`EX-CBT-011`).
     actor->economy.refresh();
+    if (actor->prone) {
+        // Manuel, « Se relever » : il en coûte la moitié de sa vitesse. Le moteur relève d'office
+        // qui commence son tour à terre (`LOT-137`) : rester couché ne sert à rien ici.
+        actor->prone = false;
+        const int moitie = (actor->profile.movement + 1) / 2;
+        static_cast<void>(actor->economy.spend(
+            MOVEMENT_RESOURCE, std::min(actor->economy.remaining(MOVEMENT_RESOURCE), moitie)));
+    }
     _phase = CombatPhase::TurnActive;
     dispatch({.hook = CombatHook::TurnStart,
               .round = _round,

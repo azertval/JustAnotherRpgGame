@@ -76,9 +76,11 @@ enum class CombatPhase : std::uint8_t {
  * | `TurnEnd` | les actions légendaires, dépensées en fin de tour d'autrui |
  * | `AttackDeclared` | les postures du moine, qui répondent à une attaque **déclarée** |
  * | `DamageTaken` | un seuil franchi (*Battle Fury* sous 50 %), des dégâts subis à 0 PV |
- * | `CombatantDowned` | un déclencheur à la chute (explosion, apparition) ; l'agonie (`LOT-72`) |
- * | `CombatantJoined`, `CombatantLeft` | un renfort, une fuite |
- * | `CombatEnded` | l'expérience (`LOT-74`), le retour à l'exploration (`LOT-18`) |
+ * | `CombatantDowned` | un déclencheur à la chute (explosion, apparition) ; la concentration perdue
+ * | | `DeathSaveDue` | le jet contre la mort d'un mourant, à sa place dans l'ordre (`LOT-137`) | |
+ * `CombatantDied` | la mort : le journal, *revigorer* qui compte ses rounds (`LOT-137`) | |
+ * `CombatantJoined`, `CombatantLeft` | un renfort, une fuite | | `CombatEnded` | l'expérience
+ * (`LOT-74`), le retour à l'exploration (`LOT-18`) |
  */
 enum class CombatHook : std::uint8_t {
     BeforeFirstTurn,
@@ -89,6 +91,8 @@ enum class CombatHook : std::uint8_t {
     AttackDeclared,
     DamageTaken,
     CombatantDowned,
+    DeathSaveDue,
+    CombatantDied,
     CombatantJoined,
     CombatantLeft,
     CombatEnded,
@@ -109,7 +113,7 @@ struct CombatEvent {
     int hitPointsBefore = 0;
     int hitPointsAfter = 0;
     int maximumHitPoints = 0;
-    /// Les dégâts restants une fois la cible tombée à 0 — la mort instantanée du `LOT-72`.
+    /// Les dégâts restants une fois la cible tombée à 0 — la mort instantanée (`LOT-137`).
     int overflow = 0;
     /// Vrai si les dégâts viennent d'un coup critique : subis à 0 PV, ils comptent deux échecs.
     bool critical = false;
@@ -146,11 +150,54 @@ using CombatListener = std::function<void(CombatState&, const CombatEvent&)>;
 enum class CombatantStatus : std::uint8_t {
     /// En état de combattre.
     Standing,
-    /// À 0 point de vie : il garde sa place dans l'ordre, et ses tours sont passés tant qu'il n'est
-    /// pas relevé. L'agonie et les jets contre la mort sont au `LOT-72`.
+    /// À 0 point de vie, **inconscient** et à terre : il garde sa place dans l'ordre, et ses tours
+    /// sont passés tant qu'il n'est pas relevé ; à sa place, il fait son jet contre la mort
+    /// (`CombatHook::DeathSaveDue`, `LOT-137`).
     Down,
+    /// Mort (`LOT-137`) : trois échecs, des dégâts massifs, ou un monstre à 0 point de vie. Il
+    /// reste
+    /// sur la grille — son corps —, et seul *revigorer* le ramène (`CombatState::revive`).
+    Dead,
     /// Sorti du combat : il a quitté la grille et l'ordre.
     Withdrawn,
+};
+
+/**
+ * @brief Ce qui arrive à un combattant qui tombe à 0 point de vie (Manuel des Joueurs, « Tomber à
+ *        0 point de vie », PDF p. 199).
+ */
+enum class AtZeroHitPoints : std::uint8_t {
+    /// Il perd conscience et fait ses jets contre la mort : un personnage.
+    DeathSaves,
+    /// Il meurt : « la plupart des MD considèrent que les monstres meurent dès qu'ils atteignent
+    /// 0 point de vie ».
+    Dies,
+};
+
+/// @brief Le compteur des jets contre la mort d'un combattant à terre.
+struct DeathSaves {
+    int successes = 0;
+    int failures = 0;
+    /// Stabilisé : trois succès, *épargner les mourants*. Il ne jette plus, et reste inconscient.
+    bool stable = false;
+
+    [[nodiscard]] bool operator==(const DeathSaves&) const = default;
+};
+
+/// @brief Ce qu'un jet contre la mort a donné (`CombatState::recordDeathSave`).
+enum class DeathSaveOutcome : std::uint8_t {
+    /// 10 ou plus : un succès de plus.
+    Success,
+    /// Moins de 10 : un échec de plus ; un 1 naturel en compte deux.
+    Failure,
+    /// Le troisième succès : il est stabilisé.
+    Stabilized,
+    /// Le troisième échec : il meurt.
+    Died,
+    /// Un 20 naturel : il récupère 1 point de vie et se relève.
+    Revived,
+    /// Personne à faire jeter : inconnu, debout, mort, déjà stable, ou combat sans mort.
+    Ignored,
 };
 
 /**
@@ -196,6 +243,8 @@ struct CombatantProfile {
      *        (`LOT-133`) : ce que lit un sort qui en demande un (*boule de feu*).
      */
     std::array<int, 6> savingThrows{};
+    /// Ce qui lui arrive à 0 point de vie : un personnage agonise, un monstre meurt (`LOT-137`).
+    AtZeroHitPoints atZero = AtZeroHitPoints::DeathSaves;
 };
 
 /**
@@ -236,6 +285,15 @@ struct Combatant {
     bool actedThisRound = false;
     /// Ce qui absorbe les dégâts avant les points de vie, dans l'ordre où on les a reçus.
     std::vector<HitPointReserve> reserves;
+    /// Ses jets contre la mort, tant qu'il est à terre ; remis à zéro dès qu'il est soigné.
+    DeathSaves deathSaves;
+    /**
+     * @brief À terre (Manuel, annexe A) : tombé à 0 point de vie, et encore allongé une fois
+     *        relevé par un soin, jusqu'au début de son tour où il se relève.
+     */
+    bool prone = false;
+    /// Le round de sa mort : *revigorer* ne ramène qu'un mort « depuis moins d'une minute ».
+    std::optional<int> diedAtRound;
 };
 
 /// @brief Ce qu'un enrôlement a donné : l'identifiant, ou la raison du refus.
@@ -299,7 +357,23 @@ struct HitPointChange {
  * - **victoire** — plus aucun ennemi n'est debout : tous à terre, ou partis ;
  * - **défaite** — plus aucun allié n'est debout, et aucun n'est parti : tous à terre ;
  * - **fuite** — plus aucun allié n'est debout, et au moins un est **parti**. Ceux qui restent à
- *   terre derrière lui sont l'affaire de l'agonie (`LOT-72`), pas de l'issue.
+ *   terre derrière lui sont l'affaire de l'agonie (`LOT-137`), pas de l'issue.
+ *
+ * « Debout » compte seul : un allié à terre, stabilisé ou mort n'empêche pas la défaite du groupe
+ * — tous à terre, c'est perdu (`LOT-137`).
+ *
+ * ## L'agonie et la mort (`LOT-137`)
+ *
+ * Manuel des Joueurs, « Tomber à 0 point de vie » (PDF p. 199). Un combattant qui tombe à 0 point
+ * de vie est à terre, inconscient ; s'il ne fait pas de jets contre la mort
+ * (`AtZeroHitPoints::Dies`), ou si les dégâts restants atteignent son maximum, il meurt sur le
+ * coup. Blessé à 0 point de vie, il note un échec — deux sur un critique —, et meurt si ces dégâts
+ * atteignent son maximum. À sa place dans l'ordre, la machine annonce `CombatHook::DeathSaveDue` :
+ * qui tient les dés jette le d20 (`recordDeathSave`). Un soin le relève et remet le compteur à
+ * zéro ; un mort ne se soigne pas, seul `revive` le ramène.
+ *
+ * Un combat **sans mort** (`setLethal(false)` : le rituel de la Marque Héroïque) ne tue personne
+ * et ne fait pas jeter : on y tombe, et l'on se relève à la fin.
  *
  * Si un même changement abat les deux camps à la fois, la défaite l'emporte : on ne gagne pas un
  * combat où plus personne ne se tient debout de son côté.
@@ -352,6 +426,14 @@ public:
         _escapable = escapable;
     }
 
+    /**
+     * @brief Un combat où l'on meurt (le défaut), ou non : la Marque Héroïque des Arènes
+     *        (`LOT-137`). Sans mort, personne ne meurt et personne ne fait de jet contre la mort.
+     */
+    void setLethal(bool lethal) noexcept {
+        _lethal = lethal;
+    }
+
     /// @brief Abonne @p listener à @p hook.
     void subscribe(CombatHook hook, CombatListener listener);
 
@@ -390,6 +472,12 @@ public:
     [[nodiscard]] bool escapable() const noexcept {
         return _escapable;
     }
+    /// @brief Vrai si l'on peut mourir dans ce combat (`setLethal`).
+    [[nodiscard]] bool lethal() const noexcept {
+        return _lethal;
+    }
+    /// @brief Vrai si @p combatant agonise : à terre, pas stabilisé, dans un combat où l'on meurt.
+    [[nodiscard]] bool isDying(CombatantId combatant) const;
     /// @brief Le combattant enrôlé d'identifiant @p combatant, sorti compris, ou `nullptr`.
     [[nodiscard]] const Combatant* find(CombatantId combatant) const;
     /// @brief Tous les combattants enrôlés, sortis compris, par identifiant croissant.
@@ -463,7 +551,10 @@ public:
      * Le jet et les dégâts sont dans `core::resolveAttack` (`LOT-21`) ; ce crochet est la fenêtre
      * où une posture répond à l'intention, avant que le dé ne tombe.
      *
-     * @return Faux si l'un des deux n'est pas debout, ou si le combat n'est pas en cours.
+     * Une cible à terre se déclare : l'achever est une attaque (`LOT-137`) ; un mort, non.
+     *
+     * @return Faux si l'attaquant n'est pas debout, si la cible est morte ou sortie, ou si le
+     *         combat n'est pas en cours.
      */
     bool declareAttack(CombatantId attacker, CombatantId target);
 
@@ -507,9 +598,39 @@ public:
      */
     void applyDamage(std::span<const HitPointChange> changes);
 
-    /// @brief Rend @p amount points de vie, sans dépasser le maximum ; relève un combattant à
-    /// terre. Les réserves ne se soignent pas.
+    /**
+     * @brief Rend @p amount points de vie, sans dépasser le maximum ; relève un combattant à
+     *        terre, dont les jets contre la mort repartent de zéro. Les réserves ne se soignent
+     *        pas ; un mort ne récupère rien (Manuel, « Soins »).
+     *
+     * Relevé, il reste **à terre** jusqu'au début de son tour, où il se relève.
+     */
     void heal(CombatantId combatant, int amount);
+
+    /**
+     * @brief Note le jet contre la mort de @p combatant (Manuel, « Jets de sauvegarde contre la
+     *        mort ») : 10 ou plus, un succès ; un 1 naturel, deux échecs ; un 20 naturel, 1 point
+     *        de vie. Trois succès stabilisent, trois échecs tuent.
+     *
+     * @param combatant Un combattant qui agonise (`isDying`).
+     * @param natural Le d20 tel qu'il est tombé.
+     * @param total Le d20 et ce qui s'y ajoute (*bénédiction*).
+     */
+    DeathSaveOutcome recordDeathSave(CombatantId combatant, int natural, int total);
+
+    /**
+     * @brief Stabilise un combattant à terre (*épargner les mourants*) : il ne jette plus, et
+     *        reste inconscient jusqu'à ce qu'on le soigne ; de nouveaux dégâts le refont agoniser.
+     * @return Faux s'il n'est pas à terre.
+     */
+    bool stabilize(CombatantId combatant);
+
+    /**
+     * @brief Ramène un mort avec @p hitPoints points de vie (*revigorer*) : il se relève, à terre
+     *        jusqu'à son tour.
+     * @return Faux s'il n'est pas mort.
+     */
+    bool revive(CombatantId combatant, int hitPoints);
 
     /**
      * @brief Donne une réserve de points de vie.
@@ -562,6 +683,10 @@ private:
     void rollInitiative(Combatant& combatant, DeterministicRandom& random);
     void takeFixedInitiative(Combatant& combatant, int initiative);
     void damage(const HitPointChange& change);
+    /// Tue @p combatant et annonce `CombatHook::CombatantDied`.
+    void kill(Combatant& combatant);
+    /// Relève @p combatant avec des points de vie : debout, compteur remis à zéro, à terre.
+    static void standUp(Combatant& combatant);
     void dispatch(const CombatEvent& event);
 
     void settle();
@@ -585,6 +710,7 @@ private:
     std::optional<CombatantId> _active;
     std::optional<CombatOutcome> _outcome;
     bool _escapable = true;
+    bool _lethal = true;
 
     /// La dernière place parcourue dans le round.
     std::optional<TurnSlot> _cursor;

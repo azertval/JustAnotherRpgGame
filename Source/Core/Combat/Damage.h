@@ -261,7 +261,7 @@ struct DamageReport {
      *
      * Un clerc à 6 PV sur 12 qui en subit 18 tombe à 0 avec un excédent de 12 — égal à son
      * maximum : il meurt sur le coup. Ce lot borne à 0 et **rapporte** l'excédent ; c'est l'agonie
-     * (`LOT-72`) qui en tire la mort.
+     * (`core::CombatState`, `LOT-137`) qui en tire la mort.
      */
     int overflow = 0;
 };

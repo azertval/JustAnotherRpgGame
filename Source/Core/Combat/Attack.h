@@ -33,9 +33,10 @@
  *
  * La ligne de vue et l'abri se calculent dans `Core/Combat/LineOfSight.h` (`LOT-22`) et se lisent
  * ici : `core::checkTarget` refuse une cible sous abri total, `core::resolveAttack` pose l'abri sur
- * le jet. L'inconscience, les jets contre la mort, la mort instantanée et le coup qui assomme sont
- * au `LOT-72`, qui lit l'excédent et le critique que le `LOT-21` rapporte ; les sorts et les
- * attaques de classe arrivent avec les classes.
+ * le jet. L'inconscience, les jets contre la mort et la mort instantanée sont dans
+ * `core::CombatState` (`LOT-137`), qui lit l'excédent et le critique que le `LOT-21` rapporte ; le
+ * critique au contact d'une cible inconsciente se pose à l'étape `Hit`
+ * (`AttackRoll::criticalSource`). Le coup qui assomme n'est pas joué.
  */
 
 #include <cstddef>
@@ -321,6 +322,9 @@ struct AttackRoll {
     /// L'issue, figée après `BeforeOutcome`.
     bool hit = false;
     bool critical = false;
+    /// Ce qui rend le coup critique sans le dé, posé à l'étape `Hit` : une cible inconsciente
+    /// frappée au contact (`LOT-137`). Vide pour un critique au d20.
+    std::string criticalSource;
     /// Le type de la première clause de dégâts du profil : celui que prennent les dés ajoutés à
     /// l'étape `Hit` (l'attaque sournoise est « du type de l'arme »). Absent si le profil ne blesse
     /// pas.

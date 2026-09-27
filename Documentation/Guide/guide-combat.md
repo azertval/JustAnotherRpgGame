@@ -225,9 +225,10 @@ jetées, premier round pas commencé — la fenêtre d'avant le premier tour), `
 copiable ni déplaçable : les `core::Mover` qu'elle construit et les abonnés la désignent par son
 adresse.
 
-**Les crochets.** `core::CombatHook` nomme onze points d'insertion — `BeforeFirstTurn`,
+**Les crochets.** `core::CombatHook` nomme treize points d'insertion — `BeforeFirstTurn`,
 `RoundStart`, `InitiativeCount`, `TurnStart`, `TurnEnd`, `AttackDeclared`, `DamageTaken`,
-`CombatantDowned`, `CombatantJoined`, `CombatantLeft`, `CombatEnded`. Aucun n'avait de
+`CombatantDowned`, `DeathSaveDue`, `CombatantDied`, `CombatantJoined`, `CombatantLeft`,
+`CombatEnded` (les deux de l'agonie depuis le `LOT-137`). Aucun n'avait de
 consommateur au `LOT-20` et tous en auront un : les livres de Tanares placent une capacité à
 chacun de ces instants, et les poser après coup aurait coûté une refonte. Un abonné
 (`core::CombatListener`) reçoit un `core::CombatEvent` — round, combattant, cible, nom du repère,
@@ -268,18 +269,42 @@ Les fonctions, dans l'ordre d'un combat :
 | `move(destination)` | suit `pathTo`, paie le coût, déplace l'emprise ; `core::MoveOutcome` dit `Moved`, `NoActiveTurn`, `NotPlaced` ou `Unreachable`. Le déplacement se **fractionne** : trois cases, une attaque, trois cases. |
 | `endTurn()` | termine **explicitement** le tour ; annonce `TurnEnd`, vide `Turn`, puis la machine cherche la place suivante. |
 | `interject(id)` | un acteur **flottant** (*Law of Time*, `CombatantProfile::floating`) demande à jouer avant le prochain tour, une fois par round ; s'il ne choisit pas, il joue en fin de round — un acteur indécis ne perd pas son tour. |
-| `declareAttack(attaquant, cible)` | annonce `AttackDeclared` avant tout jet : la fenêtre où une posture répond à l'intention. Refusé si l'un des deux n'est pas debout — une cible à terre n'est pas attaquable. |
+| `declareAttack(attaquant, cible)` | annonce `AttackDeclared` avant tout jet : la fenêtre où une posture répond à l'intention. Refusé si l'attaquant n'est pas debout ou si la cible est morte ou sortie — une cible à terre s'attaque : l'achever (`LOT-137`). |
 | `join(profil, ancre, random)`, `joinAtInitiative(profil, ancre, rang)` | un renfort, en cours de combat, au jet ou à une initiative imposée (« au rang 0 ») ; annonce `CombatantJoined`. |
 | `withdraw(id)` | la sortie : quitte la grille et l'ordre, sans retour ; `NotEscapable` pour un allié d'une rencontre dont on ne fuit pas. Un combattant qui sort pendant son tour voit son tour terminé, `TurnEnd` annoncé quand même — les actions légendaires ne distinguent pas un tour fini d'un tour interrompu. |
 | `applyDamage(id, n)`, `applyDamage(span)` | la **dernière** étape du pipeline (`LOT-21`) : borne à 0, met à terre, annonce `DamageTaken` puis `CombatantDowned`. La version à salve n'évalue l'issue **qu'une fois** : une boule de feu qui abat le dernier allié et le dernier ennemi est une défaite, pas une victoire ou une défaite selon l'ordre des cibles. |
-| `heal(id, n)` | rend des PV sans dépasser le maximum, relève un combattant à terre ; les réserves ne se soignent pas. |
+| `heal(id, n)` | rend des PV sans dépasser le maximum, relève un combattant à terre et remet son compteur de jets contre la mort à zéro (`EX-CBT-041`) ; les réserves ne se soignent pas, un mort ne récupère rien. |
+| `recordDeathSave(id, naturel, total)`, `stabilize(id)`, `revive(id, pv)`, `isDying(id)`, `setLethal(bool)` | l'agonie (`LOT-137`) : voir ci-dessous. |
 | `grantReserve(id, réserve)`, `reserves(id)` | une réserve qui ne se cumule pas remplace celle de même source si elle est plus grande, et est ignorée sinon. |
 | `moverFor(id)` | le `core::Mover` du combattant, droit de passage compris : on traverse un allié, et un ennemi seulement à **deux catégories de taille** d'écart (Manuel, « Se déplacer au milieu d'autres créatures »). |
 
 Un combattant à terre (`core::CombatantStatus::Down`) garde sa place et ses tours sont **passés** ;
-relevé, il rejoue à sa place. `Withdrawn` a quitté la grille et l'ordre. Les jets contre la mort,
-l'inconscience et la mort instantanée (`EX-CBT-040`, `EX-CBT-041`) sont au `LOT-72`, qui lira
-l'excédent et le critique que `CombatEvent` rapporte déjà.
+relevé, il rejoue à sa place. `Dead` est mort : il reste sur la grille — son corps —, et seul
+`revive` le ramène. `Withdrawn` a quitté la grille et l'ordre.
+
+**L'agonie et la mort** (`LOT-137`, `EX-CBT-040`, `EX-CBT-041` ; Manuel des Joueurs, « Tomber à
+0 point de vie », PDF p. 199). Ce qui arrive à 0 PV est un champ du profil,
+`core::AtZeroHitPoints` : un personnage (`DeathSaves`, le défaut) perd conscience, un monstre du
+bestiaire (`Dies`, posé par `profileFor(créature)`) meurt — « la plupart des MD considèrent que les
+monstres meurent dès qu'ils atteignent 0 point de vie ».
+
+- **La mort instantanée** : les dégâts restants (`CombatEvent::overflow`) au moins égaux au maximum
+  tuent sur le coup.
+- **Blessé à terre** : un échec au compteur (`core::DeathSaves`), deux sur un critique
+  (`HitPointChange::critical`) ; des dégâts au moins égaux au maximum tuent ; un stabilisé
+  recommence à agoniser.
+- **Le jet** : à la place d'un mourant dans l'ordre, la machine annonce `DeathSaveDue` ; qui tient
+  les dés jette le d20 et le note par `recordDeathSave` — 10 ou plus un succès, un 1 naturel deux
+  échecs, un 20 naturel 1 PV et il se relève **et joue ce tour-ci** ; trois succès stabilisent,
+  trois échecs tuent (`CombatantDied`). La machine n'a pas de dés : sans abonné, personne ne jette.
+- **À terre** : `Combatant::prone`, posé à la chute, dure après un soin jusqu'au début de son tour,
+  où il se relève pour la moitié de son déplacement (Manuel, « Se relever ») — rester couché ne
+  sert à rien ici, le moteur relève d'office.
+- **Sans mort** : `setLethal(false)` — le rituel de la Marque Héroïque — ne tue personne et ne fait
+  jeter personne. La session le recopie de `ArenaBout::lethal` ; le combat sur la carte est létal.
+
+« Debout » compte seul pour l'issue : un allié à terre, stabilisé ou mort n'empêche pas la défaite
+— tous à terre, le groupe a perdu.
 
 ### L'économie d'action (`ActionEconomy.h`)
 
@@ -648,7 +673,11 @@ tour ; les cases se parcourent par indice croissant, les cibles par identifiant 
 ensanglanté : le soutien), `threatTaken` et `threatWhenBloodied`, `opportunityTaken`,
 `approachPerTile` — et des règles : `toleratedThreats` (au plus 2), `opportunityMaximumRoll` (le
 jet requis au-delà duquel on laisse passer un fuyard : le prudent ne frappe pas ce qu'il ne
-toucherait qu'à 16), `dodgeWhenThreatened`, `retreatAfterAttack`. Cinq profils sont livrés :
+toucherait qu'à 16), `dodgeWhenThreatened`, `retreatAfterAttack` — et `finishDowned` (`LOT-137`),
+le poids d'un ennemi **à terre** dans un combat où l'on meurt, en pour cent de l'espérance de dégâts
+comme `damageDealt` : 0, on l'épargne et il n'est pas une cible ; l'agressif en met 75, la meute
+100, les trois autres 0. Un ennemi à terre n'est jamais une menace ; sa posture compte l'avantage
+de l'inconscience et d'« à terre » au contact. Cinq profils sont livrés :
 agressif, prudent, soutien, archer, meute — la meute parce que dix créatures du bestiaire portent
 *Tactique de groupe*, dont le mécanisme viendra avec les créatures de Tanares (`LOT-46`).
 
@@ -743,16 +772,34 @@ où l'une d'elles devient jouable, sa composition sera une rencontre sur sa cart
 | `mount(bout)` | une session neuve à la graine de la composition ; enrôle chaque concurrent à sa case ou au **prochain point d'entrée libre** de son camp ; un septième allié sur six entrées est refusé `OutOfBounds` — la carte n'a plus de place, et le dire vaut mieux que le poser dans un mur. Le rituel de Marque déclare `heroicAction` à chacun. Rend un `core::ArenaMount`. |
 | `start()` | jette l'initiative et l'écrit au journal. `replay()` remonte la même composition à la même graine, journal vidé : **une seule** suite aléatoire (`core::DeterministicRandom`) sert l'initiative, les attaques et les dégâts, et deux exécutions donnent le même journal — comparer deux versions d'une mécanique, c'est comparer deux journaux (`EX-NFR-002`). |
 | `combat()`, `level()`, `bout()`, `attacks(id)`, `journal()`, `outcome()` | la lecture : la machine, la carte, la composition, les attaques d'un enrôlé, le journal, l'issue. |
-| `attack(cible, indice)` | l'action *attaquer* : vérifie la cible (ni soi, ni un allié, ni à terre), `checkTarget`, l'action restante, dépense l'action, résout par `resolveAttack`. `core::ArenaAttack` porte le `core::ArenaActionResult` (`Done`, `NoActiveTurn`, `NoAction`, `OutOfReach`, `TotalCover`, `InvalidTarget`, `NoAttack`) et l'issue. |
+| `attack(cible, indice)` | l'action *attaquer* : vérifie la cible (ni soi, ni un allié, ni un mort — une cible à terre se vise, `LOT-137`), `checkTarget`, l'action restante, dépense l'action, résout par `resolveAttack`. `core::ArenaAttack` porte le `core::ArenaActionResult` (`Done`, `NoActiveTurn`, `NoAction`, `OutOfReach`, `TotalCover`, `InvalidTarget`, `NoAttack`) et l'issue. |
 | `dodge()`, `disengage()`, `dash()` | les actions du Manuel : esquiver (désavantage aux attaques contre soi jusqu'au début de son prochain tour, si la cible **voit** l'attaquant), se désengager (plus d'attaque d'opportunité jusqu'à la fin du tour), se précipiter (un `grant` de déplacement égal à sa vitesse). Se précipiter manquait au joueur : l'IA en avait besoin pour traverser une grande salle, et `EX-CBT-050` interdit une action réservée aux monstres. |
 | `move(destination)` | le déplacement, avec les **attaques d'opportunité** : quand le chemin sort de l'allonge d'une créature hostile debout, qui a sa réaction et **voit** le fuyard depuis la case qu'il quitte (`provokes`, un seul prédicat partagé avec la prévisualisation), elle frappe de sa première attaque de contact et dépense sa réaction. Le déplacement s'arrête à la dernière case où l'on peut se tenir avant la sortie — jamais sur un allié qu'on traverse —, les attaques se jouent par identifiant croissant, et le déplacement reprend si le combattant tient debout. |
 | `setOpportunityPolicy`, `setTakesOpportunities(id, bool)`, `takesOpportunities` | qui décide d'une opportunité : la politique (l'IA), et le choix du joueur de **laisser passer**, fait **avant** que l'ennemi ne bouge, comme on tient une réaction prête — suspendre le tour d'une IA pour poser la question ferait d'un tour une suite de fenêtres. Le choix survit au rejeu. |
 | `previewOpportunities(destination)`, `circumstancesAgainst(…)`, `isDodging`, `behaviorOf` | ce que la prévisualisation et l'IA lisent ; `note(ligne)` ajoute une décision au journal. |
 | `endTurn()`, `withdraw()` | la fin du tour, et la sortie du combattant actif. |
 
-La session s'abonne à dix crochets pour écrire le journal — « round 2 », « debut du tour Loup #3 »,
-« a terre … », « issue : victoire » — et, à `CombatEnded`, relève tout le monde (`restoreAll`), sauf
-dans une arène létale : personne ne meurt dans une Arène. La ligne d'une attaque se **réserve**
+La session s'abonne à onze crochets pour écrire le journal — « round 2 », « debut du tour Loup #3 »,
+« a terre … », « mort … », « issue : victoire » — et, à `CombatEnded`, relève tout le monde
+(`restoreAll`), sauf dans une arène létale : personne ne meurt dans une Arène.
+
+**L'agonie dans la session** (`LOT-137`). À `DeathSaveDue`, elle jette le d20 — plus le d4 d'une
+*bénédiction*, seul sort qui aide ce jet — et l'écrit : « jet contre la mort Bran : d20 = 14 = 14 :
+reussite ; 1 succes, 0 echec ». À `DamageTaken`, elle écrit l'échec d'un blessé à terre (« agonie
+… ») et la mort instantanée, puis fait jeter la **concentration** : un lanceur debout qui tient un
+sort de concentration sauvegarde en Constitution contre DD 10 ou la moitié des dégâts, et un échec
+met fin à ses effets (« concentration … ; rompue »). Les circonstances de l'annexe A s'ajoutent au
+jet : une cible inconsciente s'attaque avec avantage ; à terre, avec avantage au contact et
+désavantage au-delà ; qui est à terre attaque avec désavantage ; et un coup qui touche une cible
+inconsciente **au contact** est critique (`AttackRoll::criticalSource`, « critique (cible
+inconsciente au contact) »). Une sphère prend aussi qui est à terre, et l'inconscient rate
+d'office ses sauvegardes de Force et de Dextérité.
+
+`conditionsOf(id)` rend ses états (`core::CombatCondition`) : inconscient, à terre, stabilisé,
+mort, béni, invisible, en vol, concentré — ceux des quatre classes jusqu'au niveau 5, que l'écran
+affiche (`combatConditionLabel`). Les sorts de l'agonie sont deux mécanismes de plus :
+*épargner les mourants* **stabilise** (`stabilizes`), *revigorer* **ramène** un mort de moins de
+dix rounds avec 1 PV (`revives`) ; le soin ne vise pas un mort. La ligne d'une attaque se **réserve**
 après la déclaration et avant les dés, et se remplit une fois l'attaque résolue : la chute, l'issue
 et la Marque qu'elle déclenche s'écrivent après elle, dans l'ordre où c'est arrivé.
 

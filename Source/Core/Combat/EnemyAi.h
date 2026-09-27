@@ -152,6 +152,12 @@ struct BehaviorProfile {
     bool dodgeWhenThreatened = false;
     /// Vrai si, après avoir attaqué, on s'éloigne vers une case moins menacée.
     bool retreatAfterAttack = false;
+    /**
+     * @brief Ce que pèse un ennemi **à terre** dans un combat où l'on meurt : l'achever
+     *        (`LOT-137`), en pour cent de l'espérance de dégâts, comme `damageDealt` pour un
+     *        ennemi debout. 0 : on l'épargne — il n'est pas une cible.
+     */
+    int finishDowned = 0;
 };
 
 /// @brief Une règle d'attribution : un trait, une créature, ou le goût du tir.
@@ -221,7 +227,8 @@ struct TurnPlan {
  * @brief Décide le tour de @p actor, qui doit être le combattant actif de la session.
  *
  * Toutes les cases où finir le déplacement (`core::ReachableArea`), et la case de départ, sont
- * examinées avec chaque attaque et chaque ennemi debout ; si aucune attaque n'est possible, les
+ * examinées avec chaque attaque et chaque ennemi debout — et chaque ennemi à terre, si le profil
+ * l'achève (`BehaviorProfile::finishDowned`) ; si aucune attaque n'est possible, les
  * cases le long du chemin vers l'ennemi le plus proche (`core::findPath`). Rien n'est joué.
  */
 [[nodiscard]] TurnPlan planTurn(const ArenaSession& session, CombatantId actor,

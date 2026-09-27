@@ -305,16 +305,17 @@ TEST(ClassPriestTest, ArmeSpirituelleFrappeParActionBonus) {
 }
 
 /**
- * @brief Du niveau 1 au niveau 5, la table du Priest se lit ; les sorts qui attendent le LOT-137
- *        sont connus et dits.
+ * @brief Du niveau 1 au niveau 5, la table du Priest se lit ; epargner les mourants et revigorer
+ *        se jouent depuis le LOT-137, restauration inferieure attend toujours.
  * \castest{<b>Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neuf
- * sorts ; epargner les mourants, restauration inferieure, lumiere du jour et revigorer ne se jouent
- * pas en combat et declarent ce qu'ils attendent.</b><br/>
+ * sorts ; epargner les mourants et revigorer entrent au grimoire de combat (LOT-137) ;
+ * restauration inferieure ne se joue pas et declare ce qu'elle attend.</b><br/>
  * \tcat Unitaire · Classes<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Monter de 1 a 5.<br/>2. Lire capacites, sorts connus, grimoire de combat.<br/>
- * \tattendu Aucun manquant ; quatre capacites ; neuf sorts connus ; grimoire de quatre sorts ;
- * cinq sorts ignores, dont trois qui declarent un mecanisme requis.
+ * \tattendu Aucun manquant ; quatre capacites ; neuf sorts connus ; grimoire de six sorts, dont
+ * epargner les mourants et revigorer ; trois sorts ignores, dont restauration inferieure qui
+ * declare un mecanisme requis.
  * }
  */
 TEST(ClassPriestTest, DuNiveau1AuNiveau5LaTableSeLit) {
@@ -331,11 +332,15 @@ TEST(ClassPriestTest, DuNiveau1AuNiveau5LaTableSeLit) {
     const std::vector<core::ArenaSpell> grimoire =
         core::arenaSpellsFor(charge.sheet, *catalogues.options.findClass("priest"),
                              catalogues.options.spells, 3, ignores);
-    EXPECT_EQ(grimoire.size(), 4U);
-    EXPECT_EQ(ignores.size(), 5U);
-    for (const char* id : {"spare-the-dying", "lesser-restoration", "revivify"}) {
-        const core::Spell* sort = catalogues.options.spells.find(id);
-        ASSERT_NE(sort, nullptr) << id;
-        EXPECT_FALSE(sort->requiredMechanisms.empty()) << id;
+    EXPECT_EQ(grimoire.size(), 6U);
+    EXPECT_EQ(ignores.size(), 3U);
+    for (const char* id : {"spare-the-dying", "revivify"}) {
+        EXPECT_TRUE(std::ranges::any_of(grimoire, [id](const core::ArenaSpell& sort) {
+            return sort.id == id;
+        })) << id;
+        EXPECT_TRUE(catalogues.options.spells.find(id)->requiredMechanisms.empty()) << id;
     }
+    const core::Spell* restauration = catalogues.options.spells.find("lesser-restoration");
+    ASSERT_NE(restauration, nullptr);
+    EXPECT_FALSE(restauration->requiredMechanisms.empty());
 }

@@ -110,7 +110,8 @@ struct HealthDisplay {
     double ratio = 1.0;
 };
 
-[[nodiscard]] HealthDisplay healthDisplayOf(const core::CombatantProfile& profile, bool down) {
+[[nodiscard]] HealthDisplay healthDisplayOf(const core::CombatantProfile& profile, bool down,
+                                            bool dead) {
     HealthDisplay display;
     if (profile.side == core::CombatSide::Allies) {
         display.hitPoints = QString::number(profile.currentHitPoints) + "/" +
@@ -122,7 +123,10 @@ struct HealthDisplay {
     }
     // Guide du Maitre, chapitre 8 : les points de vie d'un monstre se suivent en secret ;
     // sous la moitie, il est ensanglante, et cela se voit.
-    if (down) {
+    if (dead) {
+        display.hitPoints = CombatModel::tr("mort");
+        display.ratio = 0.0;
+    } else if (down) {
         display.hitPoints = CombatModel::tr("a terre");
         display.ratio = 0.0;
     } else if (core::isBloodied(profile)) {
@@ -298,7 +302,8 @@ QVariantList CombatModel::turnOrder() const {
                             {"total", entry.total},
                             {"side", sideName(entry.side)},
                             {"active", active == entry.combatant},
-                            {"down", combatant->status == core::CombatantStatus::Down}};
+                            {"down", combatant->status == core::CombatantStatus::Down ||
+                                         combatant->status == core::CombatantStatus::Dead}};
     }
     return list;
 }
@@ -364,14 +369,17 @@ QVariantList CombatModel::fighters() const {
             continue;
         }
         const core::CombatantProfile& profile = combatant->profile;
-        const bool down = combatant->status == core::CombatantStatus::Down;
-        const HealthDisplay health = healthDisplayOf(profile, down);
+        // Le mort reste sur la grille, couche comme qui est a terre (LOT-137).
+        const bool dead = combatant->status == core::CombatantStatus::Dead;
+        const bool down = dead || combatant->status == core::CombatantStatus::Down;
+        const HealthDisplay health = healthDisplayOf(profile, down, dead);
         list << QVariantMap{{"column", anchor->column},
                             {"row", anchor->row},
                             {"footprint", std::max(1, combat.grid().sideOf(id))},
                             {"side", sideName(profile.side)},
                             {"active", active == id},
                             {"down", down},
+                            {"dead", dead},
                             {"hitPoints", health.hitPoints},
                             {"hitPointsRatio", health.ratio}};
     }

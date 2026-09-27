@@ -14,8 +14,6 @@
     "material": false
   },
   "duration": "instantanee",
-  "mecanismesRequis": [
-    "jets-contre-la-mort"
-  ],
-  "text": "Manuel des Joueurs, PDF p. 239 (spare the dying). La creature vivante a 0 point de vie touchee est stabilisee. Sans agonie ni jets contre la mort, le moteur n'a rien a stabiliser : le sort attend le LOT-137."
+  "stabilizes": true,
+  "text": "Manuel des Joueurs, PDF p. 239 (spare the dying). La creature vivante a 0 point de vie touchee est stabilisee : elle ne fait plus de jets contre la mort et reste inconsciente jusqu'a ce qu'on la soigne ; de nouveaux degats la refont agoniser."
 }

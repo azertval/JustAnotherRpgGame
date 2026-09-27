@@ -20,8 +20,5 @@
     "kind": "invisible"
   },
   "appliesCondition": "invisible",
-  "mecanismesRequis": [
-    "jet-de-concentration"
-  ],
-  "text": "Manuel des Joueurs, PDF p. 252 (invisibility). La creature touchee devient invisible : on l'attaque avec desavantage, elle attaque avec avantage, et elle ne provoque pas d'attaque d'opportunite. Le sort se termine pour la cible qui attaque ou lance un sort. La concentration rompue par les degats est au LOT-137."
+  "text": "Manuel des Joueurs, PDF p. 252 (invisibility). La creature touchee devient invisible : on l'attaque avec desavantage, elle attaque avec avantage, et elle ne provoque pas d'attaque d'opportunite. Le sort se termine pour la cible qui attaque ou lance un sort. Des degats subis par le lanceur demandent un jet de sauvegarde de Constitution, DD 10 ou la moitie des degats ; un echec rompt la concentration (LOT-137)."
 }
