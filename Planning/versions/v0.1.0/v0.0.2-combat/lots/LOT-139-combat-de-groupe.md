@@ -43,7 +43,7 @@ l'entrée en combat, la sélection, les effets entre alliés.
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026 (exigences `EX-CBT-051`, `EX-CBT-060` à `EX-CBT-063`), **PR #PRNUM**.
+Livré le 27 septembre 2026 (exigences `EX-CBT-051`, `EX-CBT-060` à `EX-CBT-063`), **PR #156**.
 
 1. **Le groupe entre là où il marche.** `core::prepareMapEncounter` prend les cases du groupe,
    meneur d'abord (`MapEncounterSetup::partyCells`) : chaque suiveur garde la case où l'exploration
