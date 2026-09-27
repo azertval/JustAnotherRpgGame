@@ -1,0 +1,22 @@
+{
+  "id": "revivify",
+  "name": "Revigorer",
+  "source": "phb-fr",
+  "level": 3,
+  "school": "necromancy",
+  "castingTime": "1 action",
+  "range": "contact",
+  "rangeMeters": 1.5,
+  "target": "ally",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": true,
+    "materialText": "un diamant d'une valeur de 300 po, que le sort consume"
+  },
+  "duration": "instantanee",
+  "mecanismesRequis": [
+    "mort"
+  ],
+  "text": "Manuel des Joueurs, PDF p. 278 (revivify). Une creature morte depuis moins d'une minute revient a la vie avec 1 point de vie. La mort n'existe pas encore en combat : le sort attend le LOT-137."
+}

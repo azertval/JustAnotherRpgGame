@@ -1,0 +1,21 @@
+{
+  "id": "spare-the-dying",
+  "name": "Epargner les mourants",
+  "source": "phb-fr",
+  "level": 0,
+  "school": "necromancy",
+  "castingTime": "1 action",
+  "range": "contact",
+  "rangeMeters": 1.5,
+  "target": "ally",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "instantanee",
+  "mecanismesRequis": [
+    "jets-contre-la-mort"
+  ],
+  "text": "Manuel des Joueurs, PDF p. 239 (spare the dying). La creature vivante a 0 point de vie touchee est stabilisee. Sans agonie ni jets contre la mort, le moteur n'a rien a stabiliser : le sort attend le LOT-137."
+}

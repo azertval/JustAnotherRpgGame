@@ -1,0 +1,20 @@
+{
+  "id": "cure-wounds",
+  "name": "Soin des blessures",
+  "source": "phb-fr",
+  "level": 1,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "contact",
+  "rangeMeters": 1.5,
+  "target": "ally",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "instantanee",
+  "healing": "1d8",
+  "addsAbilityModifier": true,
+  "text": "Manuel des Joueurs, PDF p. 281 (cure wounds). La creature touchee recupere 1d8 + le modificateur de caracteristique d'incantation points de vie ; une creature a terre se releve. Sans effet sur les morts-vivants et les creatures artificielles."
+}

@@ -34,9 +34,11 @@ struct NomDEffet {
 };
 
 // Les noms sont ceux de `spell.schema.json` : le schema et le moteur disent la meme liste.
-constexpr std::array<NomDEffet, 2> EFFETS{{
+constexpr std::array<NomDEffet, 4> EFFETS{{
     {SpellEffectKind::Fly, "fly"},
     {SpellEffectKind::Invisible, "invisible"},
+    {SpellEffectKind::Bless, "bless"},
+    {SpellEffectKind::SpiritualWeapon, "spiritual-weapon"},
 }};
 
 [[nodiscard]] std::optional<SpellEffectKind> lireGenreDEffet(std::string_view nom) {
@@ -55,6 +57,29 @@ constexpr std::array<NomDEffet, 2> EFFETS{{
                                   Spell& sort, std::vector<std::string>& erreurs) {
     sort.autoHit = lireBooleen(racine, "autoHit");
     sort.cantripScaling = lireBooleen(racine, "cantripScaling");
+    sort.addsAbilityModifier = lireBooleen(racine, "addsAbilityModifier");
+    sort.bonusAction = lireBooleen(racine, "bonusAction");
+    const std::string genreDAttaque = lireTexte(racine, "attackKind");
+    if (genreDAttaque == "melee") {
+        sort.meleeAttack = true;
+    } else if (!genreDAttaque.empty() && genreDAttaque != "ranged") {
+        erreurs.push_back(fichier + " : 'attackKind' '" + genreDAttaque + "' inconnu du moteur.");
+        return false;
+    }
+    if (const auto soin = racine.find("healing"); soin != racine.end()) {
+        sort.healing = soin->is_string() ? parseDice(soin->get<std::string>()) : std::nullopt;
+        if (!sort.healing.has_value()) {
+            erreurs.push_back(fichier + " : des de soin illisibles.");
+            return false;
+        }
+    }
+    if (const auto cibles = racine.find("maxTargets"); cibles != racine.end()) {
+        if (!cibles->is_number_integer() || cibles->get<int>() < 1) {
+            erreurs.push_back(fichier + " : 'maxTargets' doit etre un entier positif.");
+            return false;
+        }
+        sort.maxTargets = cibles->get<int>();
+    }
     if (const auto projectiles = racine.find("projectiles"); projectiles != racine.end()) {
         if (!projectiles->is_number_integer() || projectiles->get<int>() < 1) {
             erreurs.push_back(fichier + " : 'projectiles' doit etre un entier positif.");
@@ -100,13 +125,20 @@ constexpr std::array<NomDEffet, 2> EFFETS{{
             erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
             return false;
         }
-        SpellEffect pose{.kind = *lu, .meters = 0.0F, .durationRounds = 0};
+        SpellEffect pose{.kind = *lu, .meters = 0.0F, .dice = std::nullopt, .durationRounds = 0};
         if (const auto metres = effet->find("meters");
             metres != effet->end() && metres->is_number()) {
             pose.meters = metres->get<float>();
         }
         if (pose.kind == SpellEffectKind::Fly && pose.meters <= 0.0F) {
             erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
+            return false;
+        }
+        if (const auto des = effet->find("dice"); des != effet->end() && des->is_string()) {
+            pose.dice = parseDice(des->get<std::string>());
+        }
+        if (pose.kind == SpellEffectKind::Bless && !pose.dice.has_value()) {
+            erreurs.push_back(fichier + " : effet 'bless' sans des lisibles ('dice').");
             return false;
         }
         if (const auto duree = effet->find("durationRounds");
@@ -251,6 +283,9 @@ std::optional<SpellMechanism> spellMechanism(const Spell& spell) noexcept {
     }
     if (blesse && spell.savingThrow.has_value()) {
         return SpellMechanism::SavingThrow;
+    }
+    if (spell.healing.has_value()) {
+        return SpellMechanism::Healing;
     }
     if (spell.effect.has_value()) {
         return SpellMechanism::Effect;

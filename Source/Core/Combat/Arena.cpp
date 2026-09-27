@@ -448,6 +448,15 @@ std::optional<AttackOutcome> ArenaSession::resolveAndRecord(CombatantId attacker
     // Les capacites de l'attaquant (LOT-131) : leurs effets se branchent sur ce jet, et sur lui
     // seul -- l'arene ne connait aucune classe, elle branche des effets nommes.
     hookCapacities(crochets, attacker);
+    // La benediction (LOT-134) : un d4 de plus, lance au moment du jet et nomme.
+    if (hasEffect(attacker, SpellEffectKind::Bless)) {
+        crochets.insert(AttackRollStage::BeforeRoll,
+                        [this, attacker](AttackRoll& jet, DeterministicRandom&) {
+                            if (std::optional<Modifier> de = blessingFor(attacker)) {
+                                jet.addModifier(std::move(*de));
+                            }
+                        });
+    }
     AttackContext contexte = contextAgainst(attacker, target, profile);
     contexte.hooks = &crochets;
     std::optional<AttackOutcome> issue =
@@ -552,13 +561,26 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
         return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
     }
     ArenaSpell& sort = grimoire->second[spellIndex];
+    // L'arme spirituelle deja invoquee frappe de nouveau sans nouveau lancer (LOT-134).
+    const CombatantId lanceurActif = *actif;
+    const bool armeInvoquee =
+        sort.effect.has_value() && sort.effect->kind == SpellEffectKind::SpiritualWeapon &&
+        std::ranges::any_of(_effects, [&](const ArenaEffect& effet) {
+            return effet.bearer == lanceurActif && effet.kind == SpellEffectKind::SpiritualWeapon &&
+                   effet.source == sort.name;
+        });
     // Un sort epuise se refuse AVANT toute depense : il ne se propose plus (LOT-131).
-    if (!sort.available()) {
+    if (!sort.available() && !armeInvoquee) {
         return {.result = ArenaActionResult::Exhausted, .outcome = std::nullopt};
     }
     const Combatant* lanceur = _combat->find(*actif);
     const Combatant* cible = _combat->find(target);
-    if (cible == nullptr || cible->status != CombatantStatus::Standing) {
+    // Une cible debout ; un soin releve aussi qui est a terre (LOT-134).
+    const bool atteignable =
+        cible != nullptr &&
+        (cible->status == CombatantStatus::Standing ||
+         (cible->status == CombatantStatus::Down && sort.mechanism == SpellMechanism::Healing));
+    if (!atteignable) {
         return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};
     }
     // La cible que le sort vise (LOT-133) : un sort qui blesse ne soigne pas un allie par erreur,
@@ -590,21 +612,25 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
                 return {.result = ArenaActionResult::TotalCover, .outcome = std::nullopt};
         }
     }
-    if (lanceur->economy.remaining(ACTION_RESOURCE) <= 0) {
+    // Un sort d'action bonus depense l'action bonus (LOT-134).
+    const std::string_view ressource = sort.bonusAction ? BONUS_ACTION_RESOURCE : ACTION_RESOURCE;
+    if (lanceur->economy.remaining(ressource) <= 0) {
         return {.result = ArenaActionResult::NoAction, .outcome = std::nullopt};
     }
-    _combat->spend(ACTION_RESOURCE);
-    if (sort.uses > 0) {
+    _combat->spend(ressource);
+    if (sort.uses > 0 && !armeInvoquee) {
         --sort.uses;
     }
     const std::string prefixe =
         "sort " + sort.name +
-        (sort.uses < 0 ? std::string(" : ") : " (" + std::to_string(sort.uses) + " restant) : ");
+        (armeInvoquee    ? std::string(" (l'arme frappe de nouveau) : ")
+         : sort.uses < 0 ? std::string(" : ")
+                         : " (" + std::to_string(sort.uses) + " restant) : ");
     // Copie : un abonne peut enroler un renfort, et la table des sorts ne doit pas bouger sous la
     // resolution.
     const ArenaSpell lance = sort;
     const CombatantId lanceurId = *actif;
-    if (lance.concentration) {
+    if (lance.concentration && !armeInvoquee) {
         // On ne se concentre que sur un sort a la fois (Manuel, « Concentration »).
         endEffects(
             [lanceurId](const ArenaEffect& effet) {
@@ -625,6 +651,11 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
         case SpellMechanism::AttackRoll: {
             ArenaAttack issue = castAttackRolls(lanceurId, target, lance, prefixe);
             finInvisibilite();
+            if (lance.effect.has_value() && !armeInvoquee) {
+                // Un sort qui frappe et laisse quelque chose derriere lui : l'arme spirituelle
+                // reste aupres de son lanceur.
+                static_cast<void>(castEffect(lanceurId, lanceurId, lance, prefixe));
+            }
             return issue;
         }
         case SpellMechanism::AutoHit: {
@@ -640,6 +671,9 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
         case SpellMechanism::Effect:
             finInvisibilite();
             return castEffect(lanceurId, target, lance, prefixe);
+        case SpellMechanism::Healing:
+            finInvisibilite();
+            return castHealing(lanceurId, target, lance, prefixe);
     }
     return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
 }
@@ -735,9 +769,12 @@ ArenaAttack ArenaSession::castSavingThrow(CombatantId caster, CombatantId target
         if (creature == nullptr || creature->status != CombatantStatus::Standing) {
             continue;
         }
-        const std::vector<Modifier> modificateurs{
+        std::vector<Modifier> modificateurs{
             {.source = "sauvegarde de " + std::string(abilityLabel(caracteristique)),
              .value = creature->profile.savingThrows[static_cast<std::size_t>(caracteristique)]}};
+        if (std::optional<Modifier> de = blessingFor(id)) {
+            modificateurs.push_back(std::move(*de));
+        }
         const CheckResult jet = rollCheck(spell.saveDc, modificateurs, RollStance::Normal, _random);
         std::string ligne = "  " + creature->profile.name + " : " + jet.describe();
         if (jet.succeeded() && spell.saveEffect == SaveEffect::Negates) {
@@ -781,41 +818,117 @@ ArenaAttack ArenaSession::castSavingThrow(CombatantId caster, CombatantId target
     return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = entete};
 }
 
+ArenaAttack ArenaSession::castHealing(CombatantId caster, CombatantId target,
+                                      const ArenaSpell& spell, const std::string& prefix) {
+    if (!spell.healing.has_value()) {
+        return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
+    }
+    const DiceRoll soin = rollDice(*spell.healing, _random);
+    const Combatant* avant = _combat->find(target);
+    const int pvAvant = avant->profile.currentHitPoints;
+    _combat->heal(target, soin.total);
+    const Combatant* lanceur = _combat->find(caster);
+    const Combatant* apres = _combat->find(target);
+    std::string ligne =
+        prefix + "soin " + (lanceur == nullptr ? std::string("?") : lanceur->profile.name) +
+        " -> " + apres->profile.name + " : " + soin.describe() + " ; PV " +
+        std::to_string(pvAvant) + " -> " + std::to_string(apres->profile.currentHitPoints);
+    record(ligne);
+    return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = ligne};
+}
+
+std::optional<Modifier> ArenaSession::blessingFor(CombatantId combatant) {
+    const auto effet = std::ranges::find_if(_effects, [&](const ArenaEffect& e) {
+        return e.bearer == combatant && e.kind == SpellEffectKind::Bless && e.dice.has_value();
+    });
+    if (effet == _effects.end()) {
+        return std::nullopt;
+    }
+    return Modifier{.source = effet->source, .value = rollDice(*effet->dice, _random).total};
+}
+
 ArenaAttack ArenaSession::castEffect(CombatantId caster, CombatantId target,
                                      const ArenaSpell& spell, const std::string& prefix) {
     if (!spell.effect.has_value()) {
         return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
     }
     const SpellEffectKind genre = spell.effect->kind;
-    // Un meme effet ne se cumule pas : le nouveau remplace l'ancien.
-    endEffects(
-        [target, genre](const ArenaEffect& effet) {
-            return effet.bearer == target && effet.kind == genre;
-        },
-        "relance");
-    const Combatant* porteur = _combat->find(target);
-    ArenaEffect effet{
-        .bearer = target,
-        .caster = caster,
-        .kind = genre,
-        .source = spell.name,
-        .concentration = spell.concentration,
-        .roundsLeft = spell.effect->durationRounds > 0 ? spell.effect->durationRounds : -1,
-        .previousLocomotion = porteur->profile.locomotion,
-        .previousMovement = porteur->profile.movement};
-    std::string ligne = prefix + "effet " + spell.name + " sur " + porteur->profile.name;
-    switch (genre) {
-        case SpellEffectKind::Fly: {
-            const int budget = movementBudget(spell.effect->meters);
-            static_cast<void>(_combat->setLocomotion(target, Locomotion::Fly, budget));
-            ligne += " : vole, " + std::to_string(budget) + " cases par tour";
-            break;
+    // Les cibles : celle qu'on a choisie, puis -- pour un sort a plusieurs cibles -- les allies
+    // debout les plus proches du lanceur, a portee, dans l'ordre des distances puis des
+    // identifiants (LOT-134).
+    std::vector<CombatantId> cibles{target};
+    if (spell.maxTargets > 1) {
+        const Combatant* lanceur = _combat->find(caster);
+        std::vector<std::pair<int, CombatantId>> proches;
+        for (const CombatantId autre : _combat->combatants()) {
+            const Combatant* c = _combat->find(autre);
+            if (autre == target || c == nullptr || c->status != CombatantStatus::Standing ||
+                c->profile.side != lanceur->profile.side) {
+                continue;
+            }
+            const std::optional<int> distance =
+                autre == caster ? std::optional<int>(0) : gridDistance(*_combat, caster, autre);
+            if (distance.has_value() &&
+                (autre == caster ||
+                 checkTarget(*_combat, caster, autre, spell.attack) == TargetCheck::Valid)) {
+                proches.emplace_back(*distance, autre);
+            }
         }
+        std::ranges::sort(proches);
+        for (const auto& [distance, autre] : proches) {
+            if (std::cmp_greater_equal(cibles.size(), spell.maxTargets)) {
+                break;
+            }
+            cibles.push_back(autre);
+        }
+    }
+    std::string ligne = prefix + "effet " + spell.name + " sur ";
+    for (std::size_t i = 0; i < cibles.size(); ++i) {
+        const CombatantId porteurId = cibles[i];
+        // Un meme effet ne se cumule pas : le nouveau remplace l'ancien.
+        endEffects(
+            [porteurId, genre](const ArenaEffect& effet) {
+                return effet.bearer == porteurId && effet.kind == genre;
+            },
+            "relance");
+        const Combatant* porteur = _combat->find(porteurId);
+        ArenaEffect effet{
+            .bearer = porteurId,
+            .caster = caster,
+            .kind = genre,
+            .source = spell.name,
+            .concentration = spell.concentration,
+            .roundsLeft = spell.effect->durationRounds > 0 ? spell.effect->durationRounds : -1,
+            .previousLocomotion = porteur->profile.locomotion,
+            .previousMovement = porteur->profile.movement,
+            .dice = spell.effect->dice};
+        if (genre == SpellEffectKind::Fly) {
+            static_cast<void>(_combat->setLocomotion(porteurId, Locomotion::Fly,
+                                                     movementBudget(spell.effect->meters)));
+        }
+        _effects.push_back(std::move(effet));
+        ligne += (i == 0 ? "" : ", ") + porteur->profile.name;
+    }
+    switch (genre) {
+        case SpellEffectKind::Fly:
+            ligne += " : vole, " + std::to_string(movementBudget(spell.effect->meters)) +
+                     " cases par tour";
+            break;
         case SpellEffectKind::Invisible:
             ligne += " : invisible";
             break;
+        case SpellEffectKind::Bless:
+            ligne +=
+                " : +" +
+                (spell.effect->dice.has_value() ? std::to_string(spell.effect->dice->count) + "d" +
+                                                      std::to_string(spell.effect->dice->faces)
+                                                : std::string("?")) +
+                " aux jets d'attaque et de sauvegarde";
+            break;
+        case SpellEffectKind::SpiritualWeapon:
+            ligne += " : arme invoquee, elle frappe de nouveau par une action bonus";
+            break;
     }
-    _effects.push_back(std::move(effet));
     record(ligne);
     return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = ligne};
 }
@@ -1065,6 +1178,14 @@ std::vector<ArenaSpell> arenaSpellsFor(const CharacterSheet& sheet,
         return grimoire;
     }
     const Ability incantation = playableClass.spellcasting->ability;
+    // Le soin d'un sort, modificateur d'incantation compris s'il s'y ajoute (soin des blessures).
+    const auto soinDe = [&](const Spell& sort) -> std::optional<Dice> {
+        std::optional<Dice> soin = sort.healing;
+        if (soin.has_value() && sort.addsAbilityModifier) {
+            soin->modifier += sheet.modifier(incantation);
+        }
+        return soin;
+    };
     for (const KnownSpell& connu : sheet.knownSpells) {
         const Spell* sort = spells.find(connu.spellId);
         if (sort == nullptr) {
@@ -1094,7 +1215,10 @@ std::vector<ArenaSpell> arenaSpellsFor(const CharacterSheet& sheet,
                                ? areaTilesFromMeters(sort->areaRadiusMeters).value_or(0)
                                : 0,
              .effect = sort->effect,
-             .concentration = sort->concentration});
+             .concentration = sort->concentration,
+             .bonusAction = sort->bonusAction,
+             .maxTargets = sort->maxTargets,
+             .healing = soinDe(*sort)});
     }
     return grimoire;
 }

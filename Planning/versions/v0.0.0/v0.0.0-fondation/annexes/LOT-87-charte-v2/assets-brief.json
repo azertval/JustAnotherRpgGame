@@ -3582,6 +3582,46 @@
           "id": "fly",
           "label": "Vol",
           "prompt": "a pair of feathered wings"
+        },
+        {
+          "id": "sacred-flame",
+          "label": "Flamme sacrée",
+          "prompt": "a column of radiant golden flame falling from above"
+        },
+        {
+          "id": "bless",
+          "label": "Bénédiction",
+          "prompt": "a hand raised in blessing under a small radiant halo"
+        },
+        {
+          "id": "cure-wounds",
+          "label": "Soin des blessures",
+          "prompt": "a glowing heart cradled between two hands"
+        },
+        {
+          "id": "spare-the-dying",
+          "label": "Épargner les mourants",
+          "prompt": "a small flickering candle flame held in cupped hands"
+        },
+        {
+          "id": "lesser-restoration",
+          "label": "Restauration inférieure",
+          "prompt": "a radiant drop falling into an open palm"
+        },
+        {
+          "id": "spiritual-weapon",
+          "label": "Arme spirituelle",
+          "prompt": "a spectral glowing warhammer floating in the air"
+        },
+        {
+          "id": "daylight",
+          "label": "Lumière du jour",
+          "prompt": "a radiant sun rising above the horizon"
+        },
+        {
+          "id": "revivify",
+          "label": "Revigorer",
+          "prompt": "a diamond shining above a heart"
         }
       ],
       "description": "Les sorts des classes simplifiées (LOT-133, LOT-134) : une icône par sort du catalogue `Rpg/spells/`, l'identifiant du membre étant celui du sort. Elles se posent dans la barre d'actions du combat et dans la liste des sorts. Aucune maquette ne les montre : elles prolongent les médaillons d'école.",

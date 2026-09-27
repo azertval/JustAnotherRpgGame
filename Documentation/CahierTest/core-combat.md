@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **138 cas** (33 bloquants, 69 critiques, 35 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **144 cas** (33 bloquants, 75 critiques, 35 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -14,6 +14,7 @@ Tests unitaires — **138 cas** (33 bloquants, 69 critiques, 35 majeurs, 1 mineu
 | [`test_class_brawler.cpp`](#test-class-brawlercpp) | 8 | - | 5 | 3 | - |
 | [`test_class_in_arena.cpp`](#test-class-in-arenacpp) | 4 | - | 4 | - | - |
 | [`test_class_mage.cpp`](#test-class-magecpp) | 10 | - | 9 | 1 | - |
+| [`test_class_priest.cpp`](#test-class-priestcpp) | 6 | - | 6 | - | - |
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
@@ -1346,6 +1347,166 @@ Un sort a l'effet « petrify » est refuse ; un sort en cone se charge, mais auc
 - Vérifie que `catalogue.errors.front().find("petrifie.json")` diffère de `std::string::npos`.
 - Vérifie que `catalogue.spells.size()` vaut `1U`.
 - Vérifie que `core::spellMechanism(catalogue.spells.front()).has_value()` est faux.
+
+## test_class_priest.cpp
+
+### ClassPriestTest.LaFichePreTireeSeJoueAvecSesSortsDeNiveau1
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:85`
+
+La fiche de la page 203 connait lumiere, flamme sacree, benediction et soin des blessures ; les trois qui se jouent en combat entrent au grimoire.
+
+**Étapes**
+
+1. Charger heros-priest.json.
+2. Lire capacites, CA, grimoire de combat.
+
+**Résultat attendu**
+
+- Vérifie que `charge.warnings.empty()` est vrai.
+- Vérifie que `test_support::capacityIds(charge.sheet)` vaut `(std::vector<std::string>{"simplified-spellcasting", "specific-cantrips"})`.
+- Vérifie que `test_support::armorClassOf(charge.sheet, charge.inventory)` vaut `17`.
+- Vérifie que `grimoire.size()` vaut `3U`.
+- Vérifie que `grimoire[0].id` vaut `"sacred-flame"`.
+- Vérifie que `grimoire[0].mechanism` vaut `core::SpellMechanism::SavingThrow`.
+- Vérifie que `grimoire[0].saveDc` vaut `13`.
+- Vérifie que `grimoire[1].id` vaut `"bless"`.
+- Vérifie que `grimoire[1].maxTargets` vaut `3`.
+- Vérifie que `grimoire[2].id` vaut `"cure-wounds"`.
+- Vérifie que `grimoire[2].mechanism` vaut `core::SpellMechanism::Healing`.
+- Vérifie que `grimoire[2].healing.has_value()` est vrai.
+- Vérifie que `*grimoire[2].healing` vaut `(core::Dice{.count = 1, .faces = 8, .modifier = 3})`.
+- Vérifie que `ignores` vaut `(std::vector<std::string>{"Lumiere"})`.
+
+### ClassPriestTest.FlammeSacreeAnnuleSurUneSauvegardeReussie
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:120`
+
+La flamme sacree fait sauvegarder le mannequin ; qui reussit ne perd rien, qui rate perd les des lances ; au niveau 5, deux d8.
+
+**Étapes**
+
+1. Priest N1 contre un mannequin a six cases, plusieurs graines.
+2. Priest N5.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `lancer.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `lancer.summary.find("sauvegarde de Dexterite DD 13 ; 1 creature(s)")` diffère de `std::string::npos`.
+- Vérifie que `mannequin->profile.currentHitPoints` vaut `60`.
+- Vérifie que `mannequin->profile.currentHitPoints` est strictement inférieur à `60`.
+- Vérifie que `reussie && ratee` est vrai.
+- Vérifie que `grimoire[0].attack.damage.front().dice.count` vaut `2`.
+
+### ClassPriestTest.SoinDesBlessuresReleveUnAllie
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:167`
+
+La Priest soigne un allie tombe a 0 PV : il se releve avec 1d8+3 PV ; un ennemi, un allie hors de portee sont refuses.
+
+**Étapes**
+
+1. Priest N1, un allie au contact, un allie a cinq cases, un mannequin ennemi.
+2. Porter l'allie a 0 PV.
+3. Soigner l'ennemi, l'allie lointain, puis l'allie tombe.
+
+**Résultat attendu**
+
+- Vérifie que `session .mount(combatDe(charge, {test_support::dummy("Allie", {2, 3}, 10, 0, 20, CombatSide::Allies), test_support::dummy("Loin", {6, 3}, 10, 0, 20, CombatSide::Allies), test_support::dummy("Mannequin", {9, 6}, 10, 0)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `core::CombatantStatus::Down`.
+- Vérifie que `session.castSpell(CombatantId{4}, soin).result` vaut `core::ArenaActionResult::InvalidTarget`.
+- Vérifie que `session.castSpell(CombatantId{3}, soin).result` vaut `core::ArenaActionResult::OutOfReach`.
+- Vérifie que `lancer.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `lancer.summary.find("soin " + PRIEST + " -> Allie : 1d8+3")` diffère de `std::string::npos`.
+- Vérifie que `allie->status` vaut `core::CombatantStatus::Standing`.
+- Vérifie que `allie->profile.currentHitPoints` est supérieur ou égal à `4`.
+- Vérifie que `allie->profile.currentHitPoints` est inférieur ou égal à `11`.
+- Vérifie que `(*session.spells(CombatantId{1}))[soin].uses` vaut `1`.
+
+### ClassPriestTest.BenedictionAjouteUnD4AuxJetsDeTroisAllies
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:208`
+
+La Priest benit un allie : elle et l'allie le plus proche d'elle le sont aussi, pas le lointain ; l'attaque de l'allie porte « Benediction » ; la sauvegarde de la Priest contre une boule de feu aussi ; l'effet cesse au bout de dix rounds.
+
+**Étapes**
+
+1. Priest N1, allies en (2, 3), (1, 4) et (1, 7) ; un Mage ennemi N5 ; un mannequin.
+2. Benediction sur (2, 3).
+3. Tour de l'allie : il attaque.
+4. Tour du Mage : boule de feu sur la Priest.
+5. Dix rounds.
+
+**Résultat attendu**
+
+- Vérifie que `test_support::levelUpTo(mage.sheet, 5).empty()` est vrai.
+- Vérifie que `session .mount(combatDe(charge, {test_support::dummy("Allie", {2, 3}, 10, 5, 60, CombatSide::Allies), test_support::dummy("Proche", {1, 4}, 10, 5, 60, CombatSide::Allies), test_support::dummy("Lointain", {1, 7}, 10, 5, 60, CombatSide::Allies), adversaire, test_support::dummy("Mannequin", {3, 3}, 10, 0)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, sortDe(session, "bless")).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "effet Benediction sur Allie, " + PRIEST + ", Proche : +1d4 aux jets")` est vrai.
+- Vérifie que `session.hasEffect(CombatantId{4}, core::SpellEffectKind::Bless)` est faux.
+- Vérifie que `session.castSpell(CombatantId{1}, boule).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `sauvegarde.find("(Benediction)")` diffère de `std::string::npos`.
+- Vérifie que `coup.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `de` diffère de `modificateurs.end()`.
+- Vérifie que `de->value` est supérieur ou égal à `1`.
+- Vérifie que `de->value` est inférieur ou égal à `4`.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `journalHas(session.journal(), "fin de l'effet Benediction sur Allie (duree ecoulee)")` est vrai.
+- Vérifie que `session.combat().round()` est inférieur ou égal à `12`.
+
+### ClassPriestTest.ArmeSpirituelleFrappeParActionBonus
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:269`
+
+La Priest invoque l'arme spirituelle sur un mannequin a cinq cases : action bonus depensee, action gardee, 1d8+3 de force ; au tour suivant, l'arme frappe de nouveau et les lancers ne bougent pas.
+
+**Étapes**
+
+1. Priest N3 contre un mannequin en (6, 3).
+2. Arme spirituelle ; la relancer dans le meme tour.
+3. Tour suivant : la relancer.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {6, 3}, 10, 0, 200)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `sort.bonusAction` est vrai.
+- Vérifie que `sort.attack.kind` vaut `core::AttackKind::Melee`.
+- Vérifie que `sort.attack.damage.front().dice` vaut `(core::Dice{.count = 1, .faces = 8, .modifier = 3})`.
+- Vérifie que `session.castSpell(CombatantId{2}, arme).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `helga->economy.remaining(core::BONUS_ACTION_RESOURCE)` vaut `0`.
+- Vérifie que `helga->economy.remaining(core::ACTION_RESOURCE)` vaut `1`.
+- Vérifie que `session.hasEffect(CombatantId{1}, core::SpellEffectKind::SpiritualWeapon)` est vrai.
+- Vérifie que `journalHas(session.journal(), "arme invoquee")` est vrai.
+- Vérifie que `session.castSpell(CombatantId{2}, arme).result` vaut `core::ArenaActionResult::NoAction`.
+- Vérifie que `session.castSpell(CombatantId{2}, arme).result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `journalHas(session.journal(), "sort Arme spirituelle (l'arme frappe de nouveau)")` est vrai.
+- Vérifie que `(*session.spells(CombatantId{1}))[arme].uses` vaut `1`.
+
+### ClassPriestTest.DuNiveau1AuNiveau5LaTableSeLit
+
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_priest.cpp:310`
+
+Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neuf sorts ; epargner les mourants, restauration inferieure, lumiere du jour et revigorer ne se jouent pas en combat et declarent ce qu'ils attendent.
+
+**Étapes**
+
+1. Monter de 1 a 5.
+2. Lire capacites, sorts connus, grimoire de combat.
+
+**Résultat attendu**
+
+- Vérifie que `test_support::levelUpTo(charge.sheet, niveau).empty()` est vrai.
+- Vérifie que `test_support::capacityIds(charge.sheet)` vaut `(std::vector<std::string>{"simplified-spellcasting", "specific-cantrips", "experience", "ability-score-improvement"})`.
+- Vérifie que `charge.sheet.knownSpells.size()` vaut `9U`.
+- Vérifie que `grimoire.size()` vaut `4U`.
+- Vérifie que `ignores.size()` vaut `5U`.
+- Vérifie que `sort` diffère de `nullptr`.
+- Vérifie que `sort->requiredMechanisms.empty()` est faux.
 
 ## test_combat_preview.cpp
 

@@ -1,0 +1,29 @@
+{
+  "id": "bless",
+  "name": "Benediction",
+  "source": "phb-fr",
+  "level": 1,
+  "school": "enchantment",
+  "castingTime": "1 action",
+  "range": "9 metres",
+  "rangeMeters": 9,
+  "target": "ally",
+  "maxTargets": 3,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": true,
+    "materialText": "un peu d'eau benite a asperger"
+  },
+  "duration": "concentration, jusqu'a 1 minute",
+  "concentration": true,
+  "effect": {
+    "kind": "bless",
+    "dice": "1d4",
+    "durationRounds": 10
+  },
+  "mecanismesRequis": [
+    "jet-de-concentration"
+  ],
+  "text": "Manuel des Joueurs, PDF p. 220 (bless). Jusqu'a trois creatures a portee ajoutent 1d4 a leurs jets d'attaque et de sauvegarde pendant une minute. Le moteur benit la cible choisie et les allies les plus proches du lanceur, a portee. La concentration rompue par les degats est au LOT-137."
+}

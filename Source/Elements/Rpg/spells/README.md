@@ -14,7 +14,8 @@ table de progression d'une classe (`classes/*.json`, champs `cantrips` et `spell
 sont connus à quel niveau, et chacun se lance `spellcasting.castsPerDay` fois par jour. Le compte est
 sur la fiche (`CharacterSheet::knownSpells`) ; un repos long le rend (`core::longRest`).
 
-Les sorts du Mage (`LOT-133`) y sont, nommés comme dans le *Manuel des Joueurs* ; ceux du Priest
-arrivent avec le `LOT-134`. L'icône d'un sort est le membre de même identifiant de la pièce
+Les sorts du Mage (`LOT-133`) et du Priest (`LOT-134`) y sont, nommés comme dans le *Manuel des
+Joueurs*. Le Priest ajoute le **soin** (`healing`), les effets à plusieurs cibles (`maxTargets`),
+l'**action bonus** (`bonusAction`) et l'attaque de sort au corps à corps (`attackKind`). L'icône d'un sort est le membre de même identifiant de la pièce
 `ui/icon/spell` du cahier des assets de la charte v2. Les sorts d'essai du socle vivent dans la
 racine d'essai, `Source/Test/Fixtures/GameData/Rpg/spells/`.

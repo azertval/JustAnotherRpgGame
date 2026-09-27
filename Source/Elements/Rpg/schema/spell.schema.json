@@ -56,6 +56,30 @@
       "type": "boolean",
       "description": "Sort mineur dont les des augmentent d'un de aux niveaux 5, 11 et 17 du lanceur (Manuel, tours de magie)."
     },
+    "attackKind": {
+      "enum": [
+        "ranged",
+        "melee"
+      ],
+      "description": "Attaque de sort a distance (le defaut) ou au corps a corps (spiritual weapon, LOT-134) : au corps a corps, pas de desavantage au contact, et la portee du sort sert d'allonge."
+    },
+    "addsAbilityModifier": {
+      "type": "boolean",
+      "description": "Le modificateur de la caracteristique d'incantation s'ajoute aux degats ou au soin (cure wounds, spiritual weapon)."
+    },
+    "healing": {
+      "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/des",
+      "description": "Les des de soin (cure wounds : 1d8) ; une creature a terre se releve (LOT-134)."
+    },
+    "bonusAction": {
+      "type": "boolean",
+      "description": "Le sort se lance par une ACTION BONUS, pas par l'action (spiritual weapon)."
+    },
+    "maxTargets": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Le nombre de creatures qu'un sort qui aide peut viser (bless : 3). Le moteur prend la cible choisie, puis les allies les plus proches du lanceur a portee."
+    },
     "saveEffect": {
       "enum": [
         "negates",
@@ -98,12 +122,14 @@
     },
     "effect": {
       "type": "object",
-      "description": "L'effet qui dure que le sort pose sur sa cible (LOT-133) : `fly` (vol, a `meters` de vitesse), `invisible`. `durationRounds` : 0 ou absent pour tout le combat.",
+      "description": "L'effet qui dure que le sort pose (LOT-133, LOT-134) : `fly` (vol, a `meters` de vitesse), `invisible`, `bless` (`dice` ajoutes aux jets d'attaque et de sauvegarde), `spiritual-weapon` (l'arme invoquee : relancer le sort pendant la duree la fait frapper sans depenser de lancer). `durationRounds` : 0 ou absent pour tout le combat.",
       "properties": {
         "kind": {
           "enum": [
             "fly",
-            "invisible"
+            "invisible",
+            "bless",
+            "spiritual-weapon"
           ]
         },
         "meters": {
@@ -113,6 +139,9 @@
         "durationRounds": {
           "type": "integer",
           "minimum": 0
+        },
+        "dice": {
+          "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/des"
         }
       },
       "required": [

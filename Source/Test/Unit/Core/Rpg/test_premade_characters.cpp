@@ -308,7 +308,7 @@ TEST(PremadeCharactersTest, LeMageEstLaPage199) {
  * \tattendu For 13 Dex 12 Con 16 Int 10 Sag 16 Cha 8 ; 12 PV ; CA 17 ; initiative +1 ; 25 ft ;
  * Perception passive 13 ; sauvegardes +1 +1 +3 0 +5 +1 ; les quatre pastilles ; warhammer +3
  * 1d8+1 contondant ; handaxe +3 1d6+1 TRANCHANT (la page ecrit « Piercing » : coquille).
- * Sacred Flame attend les sorts du LOT-134.
+ * Sacred Flame est jouee depuis le LOT-134 (test_class_priest.cpp).
  * }
  */
 TEST(PremadeCharactersTest, LePriestEstLaPage203) {

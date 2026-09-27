@@ -135,6 +135,12 @@ struct ArenaSpell {
     std::optional<SpellEffect> effect;
     /// Sous concentration : un second sort de concentration met fin au premier.
     bool concentration = false;
+    /// Il se lance par une action bonus (`LOT-134`).
+    bool bonusAction = false;
+    /// Les créatures qu'il peut viser à la fois (*bénédiction* : 3).
+    int maxTargets = 1;
+    /// Les dés de soin, modificateur d'incantation compris s'il s'y ajoute.
+    std::optional<Dice> healing;
 
     /// @brief Vrai si le sort se lance encore.
     [[nodiscard]] bool available() const noexcept {
@@ -161,6 +167,8 @@ struct ArenaEffect {
     /// `Fly` : ce que le porteur avait avant de voler, rendu à la fin de l'effet.
     Locomotion previousLocomotion = Locomotion::Walk;
     int previousMovement = 0;
+    /// `Bless` : les dés ajoutés à ses jets d'attaque et de sauvegarde.
+    std::optional<Dice> dice;
 };
 
 /// @brief Un combattant tel que l'écran de mise en place le compose.
@@ -342,7 +350,13 @@ public:
      * - **sauvegarde** : les dés lancés **une fois**, puis chaque créature de la sphère — alliés
      *   et lanceur compris — ou la cible seule jette sa sauvegarde contre le DD du lanceur ; une
      *   réussite annule ou divise par deux, selon le sort ;
-     * - **effet** : posé sur la cible, jusqu'à sa fin (`ArenaEffect`).
+     * - **effet** : posé sur la cible — et sur les alliés les plus proches du lanceur, pour un
+     *   sort à plusieurs cibles —, jusqu'à sa fin (`ArenaEffect`) ;
+     * - **soin** : des points de vie rendus à une créature de son camp, qui se relève si elle
+     *   était à terre (`LOT-134`).
+     *
+     * Un sort d'action bonus dépense l'action bonus. Tant que l'arme spirituelle d'un lanceur
+     * dure, relancer le sort la fait frapper **sans** dépenser de lancer.
      *
      * Lancer un sort met fin à l'invisibilité du lanceur ; un sort de concentration met fin à
      * celui qu'il tenait. Le journal préfixe la ligne de « sort ».
@@ -510,6 +524,11 @@ private:
     /// Les dés lancés une fois, puis une sauvegarde par créature atteinte.
     ArenaAttack castSavingThrow(CombatantId caster, CombatantId target, const ArenaSpell& spell,
                                 const std::string& prefix);
+    /// Les points de vie rendus à la cible.
+    ArenaAttack castHealing(CombatantId caster, CombatantId target, const ArenaSpell& spell,
+                            const std::string& prefix);
+    /// Le dé de *bénédiction* de @p combatant, lancé et nommé, s'il en porte une.
+    std::optional<Modifier> blessingFor(CombatantId combatant);
     /// L'effet qui dure, posé sur la cible.
     ArenaAttack castEffect(CombatantId caster, CombatantId target, const ArenaSpell& spell,
                            const std::string& prefix);

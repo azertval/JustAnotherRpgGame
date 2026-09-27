@@ -3887,5 +3887,19 @@
       "sha256": "48373abe2ecff93272feafbad93e09a7627557cc0e84930e2347c32eecbcb033"
     }
   ],
-  "pending": []
+  "pending": [
+    {
+      "keys": [
+        "ui/icon/spell/sacred-flame",
+        "ui/icon/spell/bless",
+        "ui/icon/spell/cure-wounds",
+        "ui/icon/spell/spare-the-dying",
+        "ui/icon/spell/lesser-restoration",
+        "ui/icon/spell/spiritual-weapon",
+        "ui/icon/spell/daylight",
+        "ui/icon/spell/revivify"
+      ],
+      "reason": "icônes du LOT-134 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
+    }
+  ]
 }
